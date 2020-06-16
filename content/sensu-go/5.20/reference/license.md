@@ -27,13 +27,13 @@ With the license file downloaded, you can activate your license with sensuctl or
 
 To activate your license with sensuctl:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file sensu_license.json
-{{< /highlight >}}
+{{< /code >}}
 
 Use sensuctl to view your license details at any time.
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Active license
 sensuctl license info
 === You are currently using 10 out of 100 entities
@@ -50,7 +50,7 @@ Valid Until:  2021-02-15 00:00:00 -0800 -0800
 # No license found
 sensuctl license info
 Error: not found
-{{< /highlight >}}
+{{< /code >}}
 
 ## Entity limit
 
@@ -73,7 +73,7 @@ Your current entity count and entity limit are included in the `sensuctl license
 
 In tabular format, the entity count and limit are included in the response title:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl license info --format tabular
 === You are currently using 10 out of 100 entities
 Account Name: Training Team - Sensu
@@ -85,11 +85,11 @@ Issuer:       Sensu, Inc.
 Issued:       2020-02-15 15:01:44 -0500 -0500
 Valid:        true
 Valid Until:  2021-02-15 00:00:00 -0800 -0800
-{{< /highlight >}}
+{{< /code >}}
 
 In other formats (e.g. yaml), the entity count and limit are included as labels:
 
-{{< highlight yml >}}
+{{< code yml >}}
 sensuctl license info --format yaml
 
 type: LicenseFile
@@ -104,22 +104,22 @@ spec:
     issue: Sensu, Inc.
     accountName: Training Team - Sensu
 [...]
-{{< /highlight >}}
+{{< /code >}}
 
 You can also see your current entity count and limit in the response headers for any `/api/core` or `/api/enterprise` [API request][9]. For example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
-{{< /highlight >}}
+{{< /code >}}
 
 The response headers will include your current entity count and limit:
 
-{{< highlight shell >}}
+{{< code shell >}}
 HTTP/1.1 200 OK
 Content-Type: application/json
 Sensu-Entity-Count: 10
 Sensu-Entity-Limit: 100
-{{< /highlight >}}
+{{< /code >}}
 
 ## License expiration
 

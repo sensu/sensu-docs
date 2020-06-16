@@ -26,7 +26,7 @@ data][1].
 The following example demonstrates a `/aggregates` API query which results in a
 JSON Array of JSON Hashes containing named [check aggregates][1].
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:3000/aggregates | jq .
 [
   {
@@ -40,7 +40,7 @@ $ curl -s http://127.0.0.1:3000/aggregates | jq .
     "name": "elasticsearch_health"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#aggregates-get-specification}
 
@@ -50,7 +50,7 @@ description       | Returns the list of named aggregates by `name` and datacente
 example url       | http://hostname:3000/aggregates
 response type     | Array
 response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output            | {{< highlight json >}}[
+output            | {{< code json >}}[
   {
     "_id": "us_east1/check_web_app",
     "dc": "us_east1",
@@ -61,7 +61,7 @@ output            | {{< highlight json >}}[
     "dc": "us_west1",
     "name": "elasticsearch_health"
   }
-]{{< /highlight >}}
+]{{< /code >}}
 
 ## The `/aggregates/:name` API endpoints {#the-aggregatesname-api-endpoints}
 
@@ -75,7 +75,7 @@ to [check aggregate data][1] for a named aggregate.
 The following example demonstrates a `/aggregates/:name` API query for the
 check result data for the aggregate named `example_aggregate`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:3000/aggregates/example_aggregate | jq .
 {
   "clients": 15,
@@ -89,7 +89,7 @@ $ curl -s http://127.0.0.1:3000/aggregates/example_aggregate | jq .
     "stale": 0
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#aggregatesname-get-specification}
 
@@ -100,7 +100,7 @@ example url             | http://hostname:3000/aggregates/elasticsearch
 parameters              | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the aggregate name is present in multiple datacenters, specifying the `dc` parameter returns only the aggregate found in that datacenter.</li><li>**example**: `http://hostname:3000/aggregates/elasticsearch?dc=us_west1`</li></ul></li></ul>
 response type           | Array
 response codes          | <ul><li>**Success**: 200 (OK)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                  | {{< highlight json >}}{
+output                  | {{< code json >}}{
   "clients": 15,
   "checks": 2,
   "results": {
@@ -112,7 +112,7 @@ output                  | {{< highlight json >}}{
     "stale": 0
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/aggregates/:name` (DELETE) {#aggregatesname-delete}
 
@@ -121,7 +121,7 @@ output                  | {{< highlight json >}}{
 The following example demonstrates a `/aggregates/:name` API request to delete
 aggregate data for the aggregate named `example_aggregate`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X DELETE http://127.0.0.1:3000/aggregates/example_aggregate
 HTTP/1.1 202 Accepted
 Access-Control-Allow-Origin: *
@@ -130,7 +130,7 @@ Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
 Connection: close
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#aggregatesname-delete-specification}
 
@@ -141,14 +141,14 @@ example url                | http://hostname:3000/aggregates/elasticsearch
 parameters              | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the aggregate name is present in multiple datacenters, specifying the `dc` parameter accesses only the aggregate found in that datacenter.</li><li>**example**: `http://hostname:3000/aggregates/elasticsearch?dc=us_west1`</li></ul></li></ul>
 response type              | [HTTP-header][3] only (no output)
 response codes             | <ul><li>**Success**: 202 (Accepted)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                     | {{< highlight shell >}}HTTP/1.1 202 Accepted
+output                     | {{< code shell >}}HTTP/1.1 202 Accepted
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
 Connection: close
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 [1]:  /sensu-core/latest/reference/aggregates
 [3]:  https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html

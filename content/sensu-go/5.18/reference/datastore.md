@@ -46,16 +46,16 @@ No restarts or Sensu backend configuration changes are required to enable the Po
 
 When you successfully enable PostgreSQL as the Sensu Go event store, the Sensu backend log will include a message like this:
 
-{{< highlight shell >}}
+{{< code shell >}}
 Mar 10 17:44:45 sensu-centos sensu-backend[1365]: {"component":"store-providers","level":"warning","msg":"switched event store to postgres","time":"2020-03-10T17:44:45Z"}
-{{< /highlight >}}
+{{< /code >}}
 
 After you install and configure PostgreSQL, configure Sensu by creating a `PostgresConfig` resource.
 See [Datastore specification][18] for more information.
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: PostgresConfig
 api_version: store/v1
 metadata:
@@ -63,9 +63,9 @@ metadata:
 spec:
   dsn: "postgresql://user:secret@host:port/dbname"
   pool_size: 20
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "PostgresConfig",
   "api_version": "store/v1",
@@ -77,15 +77,15 @@ spec:
     "pool_size": 20
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
 With the `PostgresConfig` resource definition saved to a file (for example, `postgres.yml`), use sensuctl, [configured as the admin user][1], to activate the PostgreSQL event store.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file postgres.yml
-{{< /highlight >}}
+{{< /code >}}
 
 To update your Sensu PostgreSQL configuration, repeat the `sensuctl create` process.
 You can expect to see PostgreSQL status updates in the [Sensu backend logs][2] at the `warn` log level and PostgreSQL error messages in the [Sensu backend logs][2] at the `error` log level.
@@ -94,15 +94,15 @@ You can expect to see PostgreSQL status updates in the [Sensu backend logs][2] a
 
 To disable the PostgreSQL event store, use `sensuctl delete` with your `PostgresConfig` resource definition:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl delete --file postgres.yml
-{{< /highlight >}}
+{{< /code >}}
 
 The Sensu backend log will include a message to record that you successfully disabled PostgreSQL as the Sensu Go event store:
 
-{{< highlight shell >}}
+{{< code shell >}}
 Mar 10 17:35:04 sensu-centos sensu-backend[1365]: {"component":"store-providers","level":"warning","msg":"switched event store to etcd","time":"2020-03-10T17:35:04Z"}
-{{< /highlight >}}
+{{< /code >}}
 
 When you disable the PostgreSQL event store, event data cuts over from PostgreSQL to etcd, which results in a loss of recent event history.
 No restarts or Sensu backend configuration changes are required to disable the PostgreSQL event store.
@@ -116,35 +116,35 @@ type         |      |
 description  | Top-level attribute that specifies the [`sensuctl create`][16] resource type. PostgreSQL datastore configs should always be type `PostgresConfig`.
 required     | true
 type         | String
-example      | {{< highlight shell >}}type: PostgresConfig{{< /highlight >}}
+example      | {{< code shell >}}type: PostgresConfig{{< /code >}}
 
 api_version  |      |
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For PostgreSQL datastore configs, the `api_version` should be `store/v1`.
 required     | true
 type         | String
-example      | {{< highlight shell >}}api_version: store/v1{{< /highlight >}}
+example      | {{< code shell >}}api_version: store/v1{{< /code >}}
 
 metadata     |      |
 -------------|------
 description  | Top-level scope that contains the PostgreSQL datastore `name`.
 required     | true
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 metadata:
   name: my-postgres
-{{< /highlight >}}
+{{< /code >}}
 
 spec         |      |
 -------------|------
 description  | Top-level map that includes the PostgreSQL datastore config [spec attributes][17].
 required     | true
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 spec:
   dsn: "postgresql://user:secret@host:port/dbname"
   pool_size: 20
-{{< /highlight >}}
+{{< /code >}}
 
 #### Metadata attributes
 
@@ -153,7 +153,7 @@ name         |      |
 description  | PostgreSQL datastore name used internally by Sensu.
 required     | true
 type         | String
-example      | {{< highlight shell >}}name: my-postgres{{< /highlight >}}
+example      | {{< code shell >}}name: my-postgres{{< /code >}}
 
 #### Spec attributes
 
@@ -162,7 +162,7 @@ dsn          |      |
 description  | Data source names. Specified as a URL or PostgreSQL connection string. See the [PostgreSQL docs][15] for more information about connection strings.
 required     | true
 type         | String
-example      | {{< highlight shell >}}dsn: "postgresql://user:secret@host:port/dbname"{{< /highlight >}}
+example      | {{< code shell >}}dsn: "postgresql://user:secret@host:port/dbname"{{< /code >}}
 
 pool_size    |      |
 -------------|------
@@ -170,7 +170,7 @@ description  | Maximum number of connections to hold in the PostgreSQL connectio
 required     | false
 default      | `0` (unlimited)
 type         | Integer
-example      | {{< highlight shell >}}pool_size: 20{{< /highlight >}}
+example      | {{< code shell >}}pool_size: 20{{< /code >}}
 
 [1]: ../../sensuctl/reference/#first-time-setup
 [2]: ../../guides/troubleshooting/

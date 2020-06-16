@@ -31,7 +31,7 @@ stash data][3] via the [Sensu key/value store][4].
 The following example demonstrates a `/stashes` query, which results in a JSON
 Array of JSON Hashes containing [stash data][3].
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://localhost:4567/stashes | jq .
 [
   {
@@ -52,7 +52,7 @@ $ curl -s http://localhost:4567/stashes | jq .
     "expire": -1
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#stashes-get-specification}  
 
@@ -63,7 +63,7 @@ example url    | http://hostname:4567/stashes
 parameters     | <ul><li>`limit`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: The number of stashes to return.</li></ul></li><li>`offset`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**depends**: `limit`</li><li>**description**: The number of stashes to offset before returning items.</li></ul></li></ul>
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight json >}}[
+output         | {{< code json >}}[
   {
     "path": "silence/i-424242/chef_client_process",
     "content": {
@@ -82,7 +82,7 @@ output         | {{< highlight json >}}[
     "expire": -1
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/stashes` (POST)
 
@@ -93,7 +93,7 @@ document payload to the `/stashes` API, resulting in a [201 (Created) HTTP
 response code][5] and a payload containing a JSON Hash confirming the stash
 `path` (i.e. the "key" where the stash can be accessed).
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"path": "example/stash/path", "content": { "foo": "bar" }}' \
@@ -110,7 +110,7 @@ Connection: keep-alive
 Server: thin
 
 {"path":"example/stash/path"}
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#stashes-post-specification}
 
@@ -118,14 +118,14 @@ Server: thin
 ----------------|------
 description     | Create a stash. (JSON document)
 example URL     | http://hostname:4567/stashes
-payload         | {{< highlight json >}}{
+payload         | {{< code json >}}{
   "path": "example/stash",
   "content": {
     "message": "example"
   },
   "expire": -1
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/stashes/:path` API endpoints {#the-stashespath-api-endpoints}
@@ -142,12 +142,12 @@ The following example demonstrates a `/stashes/:path` API query for a stash
 located at the `my/example/path` `:path`, resulting in a JSON Hash of [stash
 `content` data][8].
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://localhost:4567/stashes/my/example/stash | jq .
 {
   "message": "hello world"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: the `/stashes/:path` API endpoint provides [direct access to stash
 `content` data][7], so only [stash `content` attributes][8] are provided for
@@ -161,10 +161,10 @@ description          | Get a stash. (JSON document)
 example URL          | http://hostname:4567/stashes/example/stash
 response type        | Hash
 response codes       | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}{
+output               | {{< code json >}}{
   "message": "hello world"
 }
-{{< /highlight >}}_NOTE: the `/stashes/:path` API endpoint provides [direct access to stash `content` data][7], so only [stash `content` attributes][8] are provided for `/stashes/:path` API queries (not [complete stash definitions][9])._
+{{< /code >}}_NOTE: the `/stashes/:path` API endpoint provides [direct access to stash `content` data][7], so only [stash `content` attributes][8] are provided for `/stashes/:path` API queries (not [complete stash definitions][9])._
 
 ### `/stashes/:path` (POST) {#stashespath-post}
 
@@ -176,7 +176,7 @@ The following example demonstrates submitting an HTTP POST to the
 payload containing a JSON Hash confirming the stash `path` (i.e. the "key" where
 the stash can be accessed).
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"message": "hello world"}' \
@@ -193,7 +193,7 @@ Connection: keep-alive
 Server: thin
 
 {"path":"my/example/path"}
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#stashespath-post-specification}
 
@@ -201,13 +201,13 @@ Server: thin
 ----------------------|------
 description           | Create a stash. (JSON document)
 example URL           | http://hostname:4567/stashes/example/stash
-payload               | {{< highlight json >}}{
+payload               | {{< code json >}}{
   "message": "example"
 }
-{{< /highlight >}}_NOTE: the `/stashes/:path` API endpoint provides [direct access to stash `content` data][7]; as a result, it expects [stash `content` attributes][8] only (i.e. not a complete [stash definition][9])._
+{{< /code >}}_NOTE: the `/stashes/:path` API endpoint provides [direct access to stash `content` data][7]; as a result, it expects [stash `content` attributes][8] only (i.e. not a complete [stash definition][9])._
 response type         | Hash
 response codes        | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                | {{< highlight shell >}}HTTP/1.1 201 Created
+output                | {{< code shell >}}HTTP/1.1 201 Created
 Content-Type: application/json
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
@@ -218,7 +218,7 @@ Connection: keep-alive
 Server: thin
 
 {"path":"my/example/path"}
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/stashes/:path` (DELETE) {#stashespath-delete}
 
@@ -228,7 +228,7 @@ The following example demonstrates submitting an HTTP DELETE to the
 `/stashes/:path` API with a `:path` called `my/example/path`, resulting in a
 [204 (No Response) HTTP response code][5] (i.e. `HTTP/1.1 204 No Response`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X DELETE http://localhost:4567/stashes/my/example/path                                                                                                                                                                                        
 HTTP/1.1 204 No Content
 Access-Control-Allow-Origin: *
@@ -237,7 +237,7 @@ Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
 Connection: close
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#stashespath-delete-specification}
 
@@ -247,14 +247,14 @@ description             | Delete a stash. (JSON document)
 example URL             | http://hostname:4567/stashes/example/stash
 response type           | [HTTP-header][10] only (no output)
 response codes          | <ul><li>**Success**: 204 (No Response)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                  | {{< highlight shell >}}HTTP/1.1 204 No Content
+output                  | {{< code shell >}}HTTP/1.1 204 No Content
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
 Connection: close
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 [1]:  https://en.wikipedia.org/wiki/Key-value_database
 [2]:  ../../reference/events

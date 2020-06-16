@@ -21,7 +21,7 @@ menu:
 
 The following is an example API definition at `/etc/sensu/conf.d/api.json`.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "api": {
     "host": "57.43.53.22",
@@ -29,7 +29,7 @@ The following is an example API definition at `/etc/sensu/conf.d/api.json`.
     "port": 4567
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### API definition specification
 
@@ -43,7 +43,7 @@ description  | The hostname or IP address that is used when querying the API._NO
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | {{< highlight shell >}}"host": "8.8.8.8"{{< /highlight >}}
+example      | {{< code shell >}}"host": "8.8.8.8"{{< /code >}}
 
 bind         | 
 -------------|------
@@ -51,7 +51,7 @@ description  | The address that the API will bind to (listen on).
 required     | false
 type         | String
 default      | `0.0.0.0`
-example      | {{< highlight shell >}}"bind": "127.0.0.1"{{< /highlight >}}
+example      | {{< code shell >}}"bind": "127.0.0.1"{{< /code >}}
 
 port         | 
 -------------|------
@@ -59,7 +59,7 @@ description  | The port that the API will listen on for HTTP requests.
 required     | false
 type         | Integer
 default      | `4567`
-example      | {{< highlight shell >}}"port": 4242{{< /highlight >}}
+example      | {{< code shell >}}"port": 4242{{< /code >}}
 
 user         | 
 -------------|------
@@ -68,7 +68,7 @@ required     | false
 depends      | `password`
 type         | String
 default      | none
-example      | {{< highlight shell >}}"user": "sensu"{{< /highlight >}}
+example      | {{< code shell >}}"user": "sensu"{{< /code >}}
 
 password     | 
 -------------|------
@@ -77,4 +77,4 @@ required     | false
 depends      | `user`
 type         | String
 default      | none
-example      | {{< highlight shell >}}"password": "secret"{{< /highlight >}}
+example      | {{< code shell >}}"password": "secret"{{< /code >}}

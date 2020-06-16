@@ -16,15 +16,15 @@ This guide explains how to add log forwarding from journald to syslog, have rsys
 
 To configure journald to forward logging data to syslog, modify `/etc/systemd/journald.conf` to include the following line:
 
-{{< highlight shell >}}
+{{< code shell >}}
 ForwardToSyslog=yes
-{{< /highlight >}}
+{{< /code >}}
 
 Next, set up rsyslog to write the logging data received from journald to `/var/log/sensu/servicename.log`.
 In this example, the `sensu-backend` and `sensu-agent` logging data is sent to individual files named after the service.
 The `sensu-backend` is not required if you're only setting up log forwarding for the `sensu-agent` service.
 
-{{< highlight shell >}}
+{{< code shell >}}
 # For the sensu-backend service, inside /etc/rsyslog.d/99-sensu-backend.conf
 if $programname == 'sensu-backend' then {
         /var/log/sensu/sensu-backend.log
@@ -36,7 +36,7 @@ if $programname == 'sensu-agent' then {
         /var/log/sensu/sensu-agent.log
         ~
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{% notice note %}}
 **NOTE**: On Ubuntu systems, run `chown -R syslog:adm /var/log/sensu` so syslog can write to that directory.
@@ -44,10 +44,10 @@ if $programname == 'sensu-agent' then {
 
 Restart rsyslog and journald to apply the new configuration:
 
-{{< highlight shell>}}
+{{< code shell>}}
 systemctl restart systemd-journald
 systemctl restart rsyslog
-{{< /highlight>}}
+{{< /code>}}
 
 Set up log rotation for newly created log files to ensure logging does not fill up your disk.
 
@@ -55,7 +55,7 @@ These examples rotate the log files `/var/log/sensu/sensu-agent.log` and `/var/l
 The last seven rotated logs are kept and compressed, with the exception of the most recent log.
 After rotation, `rsyslog` is restarted to ensure logging is written to a new file and not the most recent rotated file.
 
-{{< highlight shell>}}
+{{< code shell>}}
 # Inside /etc/logrotate.d/sensu-agent.conf
 /var/log/sensu/sensu-agent.log {
     daily
@@ -79,14 +79,14 @@ After rotation, `rsyslog` is restarted to ensure logging is written to a new fil
       /bin/systemctl restart rsyslog
     endscript
 }
-{{< /highlight>}}
+{{< /code>}}
 
 You can use the following command to see what logrotate would do if it were executed now based on the above schedule and size threshold.
 The `-d` flag will output details, but it will not take action on the logs or execute the postrotate script:
 
-{{< highlight shell>}}
+{{< code shell>}}
 logrotate -d /etc/logrotate.d/sensu.conf
-{{< /highlight>}}
+{{< /code>}}
 
 Sensu also offers logging of event data to a separate log file as a [commercial feature][2].
 See the [Sensu backend reference][1] for more information about event logging.

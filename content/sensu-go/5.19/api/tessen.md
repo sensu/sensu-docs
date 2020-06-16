@@ -26,7 +26,7 @@ The `/tessen` API endpoint provides HTTP GET access to the active Tessen configu
 The following example demonstrates an HTTP GET request to the `/tessen` API endpoint.
 The request returns an HTTP `200 OK` response and a JSON map that contains the active Tessen configuration, indicating whether Tessen is enabled.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/tessen \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
@@ -35,7 +35,7 @@ HTTP/1.1 200 OK
 {
   "opt_out": false
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#tessen-get-specification}
 
@@ -45,11 +45,11 @@ description    | Returns the active Tessen configuration. An `"opt_out": false` 
 example url    | http://hostname:8080/api/core/v2/tessen
 response type  | Map
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-example output | {{< highlight shell >}}
+example output | {{< code shell >}}
 {
   "opt_out": false
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/tessen` (PUT) {#tessen-put}
 
@@ -61,7 +61,7 @@ Tessen is enabled by default on Sensu backends and required for [licensed][3] Se
 In the following example, an HTTP PUT request is submitted to the `/tessen` API endpoint to opt in to Tessen using the `opt_out` attribute.
 The request returns an HTTP `200 OK` response and the resulting Tessen configuration.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
@@ -74,7 +74,7 @@ HTTP/1.1 200 OK
 {
   "opt_out": false
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#tessen-put-specification}
 
@@ -84,11 +84,11 @@ description     | Updates the active Tessen configuration. [Licensed][3] Sensu i
 example url     | http://hostname:8080/api/core/v2/tessen
 request parameters | Required: `opt_out` (set to `false` to enable Tessen; set to `true` to opt out of Tessen).
 response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-example output | {{< highlight shell >}}
+example output | {{< code shell >}}
 {
   "opt_out": false
 }
-{{< /highlight >}}
+{{< /code >}}
 
 [1]: ../../reference/tessen/
 [2]: ../../reference/rbac#default-users

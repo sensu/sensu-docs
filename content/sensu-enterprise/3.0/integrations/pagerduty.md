@@ -29,14 +29,14 @@ service key.
 The following is an example global configuration for the `pagerduty` enterprise
 event handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "pagerduty": {
     "service_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE",
     "timeout": 10
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -50,15 +50,15 @@ service_key  |
 description  | The PagerDuty service key to use when creating and resolving incidents.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"service_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE"{{< /highlight >}}
+example      | {{< code shell >}}"service_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE"{{< /code >}}
 
 filters        | 
 ---------------|------
 description    | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string. Specified filters are merged with default values.
 required       | false
 type           | Array
-default        | {{< highlight shell >}}["handle_when", "check_dependencies"]{{< /highlight >}}
-example        | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+default        | {{< code shell >}}["handle_when", "check_dependencies"]{{< /code >}}
+example        | {{< code shell >}}"filters": ["recurrence", "production"]{{< /code >}}
 
 severities     | 
 ---------------|------
@@ -66,8 +66,8 @@ description    | An array of check result severities the handler will handle. _N
 required       | false
 type           | Array
 allowed values | `ok`, `warning`, `critical`, `unknown`
-default        | {{< highlight shell >}}["warning", "critical", "unknown"]{{< /highlight >}}
-example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
+default        | {{< code shell >}}["warning", "critical", "unknown"]{{< /code >}}
+example        | {{< code shell >}} "severities": ["critical", "unknown"]{{< /code >}}
 
 timeout      | 
 -------------|------
@@ -75,7 +75,7 @@ description  | The handler execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
 default      | `10`
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 [?]:  #
 [1]:  https://support.pagerduty.com/hc/en-us/articles/202830340-Creating-a-Generic-API-Service

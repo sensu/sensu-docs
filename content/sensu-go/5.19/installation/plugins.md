@@ -54,7 +54,7 @@ To install a [Sensu Community plugin][1] with Sensu Go:
 2. Run the `sensu-install` command to install plugins in the [Sensu Community Plugins GitHub organization][1] by repository name.
 Plugins are installed into `/opt/sensu-plugins-ruby/embedded/bin`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensu-install --help
 Usage: sensu-install [options]
     -h, --help                       Display this message
@@ -66,19 +66,19 @@ Usage: sensu-install [options]
     -s, --source SOURCE              Install Sensu plugins and extensions from a custom SOURCE
     -c, --clean                      Clean up (remove) other installed versions of the plugin(s) and/or extension(s)
     -x, --proxy PROXY                Install Sensu plugins and extensions via a PROXY URL
-{{< /highlight >}}
+{{< /code >}}
 
 For example, to install the [Sensu InfluxDB plugin][6]:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo sensu-install -p influxdb
-{{< /highlight >}}
+{{< /code >}}
 
 To install a specific version of the Sensu InfluxDB plugin with `sensu-install`, run:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo sensu-install -p 'sensu-plugins-influxdb:2.0.0'
-{{< /highlight >}}
+{{< /code >}}
 
 We recommend using a configuration management tool or using [Sensu assets][5] to pin the versions of any plugins installed in production.
 
@@ -97,13 +97,13 @@ Depending on the plugin, you may need to install developer tool packages.
 
 **Ubuntu/Debian**:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo apt-get update
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo apt-get install build-essential
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 
@@ -111,13 +111,13 @@ sudo apt-get install build-essential
 
 **RHEL/CentOS**:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo yum update
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo yum groupinstall "Development Tools"
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 

@@ -24,13 +24,13 @@ Following any changes to the Sensu Enterprise configuration, you must reload Sen
 
 Reload Sensu Enterprise on Linux distributions using `systemd`:
 
-{{< highlight shell >}}
-sudo systemctl reload sensu-enterprise{{< /highlight >}}
+{{< code shell >}}
+sudo systemctl reload sensu-enterprise{{< /code >}}
 
 Reload Sensu Enterprise on Linux distributions using `sysvinit`:
 
-{{< highlight shell >}}
-sudo service sensu-enterprise reload{{< /highlight >}}
+{{< code shell >}}
+sudo service sensu-enterprise reload{{< /code >}}
 
 When making changes to the Sensu client configuration, restart the client using the process described in the [Sensu Core troubleshooting guide][2].
 
@@ -38,15 +38,15 @@ When making changes to the Sensu client configuration, restart the client using 
 
 Sensu's logs provide a wealth of information when troubleshooting issues. They live at `/var/log/sensu`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 /var/log/sensu
 ├── sensu-enterprise.log
-└── sensu-enterprise-dashboard.log{{< /highlight >}}
+└── sensu-enterprise-dashboard.log{{< /code >}}
 
 You can view the Sensu Enterprise logs at the paths above, or provide the last 10,000 lines in an archive:
 
-{{< highlight shell >}}
-tail -n 10000 /var/log/sensu/sensu-enterprise.log > sensu-enterprise-10k.log && gzip -9 sensu-enterprise-10k.log{{< /highlight >}}
+{{< code shell >}}
+tail -n 10000 /var/log/sensu/sensu-enterprise.log > sensu-enterprise-10k.log && gzip -9 sensu-enterprise-10k.log{{< /code >}}
 
 ### Setting Log Levels
 
@@ -54,21 +54,21 @@ Sensu has the ability to set log levels interactively, or by using a configurati
 
 The quickest way to toggle the `debug` log level on/off for Sensu Enterprise is to use `sudo kill -TRAP $SENSUPID`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo ps aux | grep [s]ensu-enterprise
 sensu     5992  1.7  0.3 177232 24352 ...
-sudo kill -TRAP 5992{{< /highlight >}}
+sudo kill -TRAP 5992{{< /code >}}
 
 Additionally, you can set the log level to `info` or `debug` by using the configuration directive in `/etc/default/sensu-enterprise`. Let's take a look at an example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo cat /etc/default/sensu-enterprise
-LOG_LEVEL=debug{{< /highlight >}}
+LOG_LEVEL=debug{{< /code >}}
 
 And after setting that directive, [reload Sensu Enterprise](#reloading-configuration):
 
-{{< highlight shell >}}
-sudo systemctl reload sensu-enterprise{{< /highlight >}}
+{{< code shell >}}
+sudo systemctl reload sensu-enterprise{{< /code >}}
 
 Keep in mind that to set log levels back to normal, you can either run `sudo kill -TRAP $SENSUPID` (if you've used that method), or revert the change in `/etc/default/sensu-enterprise` and reload Sensu Enterprise for the change to take place.
 
@@ -79,7 +79,7 @@ _NOTE: By default, Sensu's logging level is set to `info`. However, there are mo
 Frequently, Sensu staff or community members may ask you to print your configuration.
 To print the configuration for Sensu Enterprise:
 
-{{< highlight shell >}}sudo -u sensu java -jar /usr/lib/sensu-enterprise/sensu-enterprise.jar -c /etc/sensu/config.json -d /etc/sensu/conf.d --print_config | tee /tmp/se-config.json{{< /highlight >}}
+{{< code shell >}}sudo -u sensu java -jar /usr/lib/sensu-enterprise/sensu-enterprise.jar -c /etc/sensu/config.json -d /etc/sensu/conf.d --print_config | tee /tmp/se-config.json{{< /code >}}
 
 This command will create a file (`/tmp/se-config.json`) containing the entire configuration for your Sensu deployment.
 This can be especially useful when comparing the configuration that Sensu is aware of, versus the configuration living on-disk.
@@ -91,16 +91,16 @@ Sensu Enterprise can use PEM-formatted TLS/SSL certificates and private keys to 
 (See the [securing Sensu guide][3] for more information.)
 These keys must be in a plaintext, unencrypted format, otherwise you may see an error containing the following:
 
-{{< highlight text >}}
+{{< code text >}}
 Unexpected exception: undefined method `get_private_key_info' for #
-{{< /highlight >}}
+{{< /code >}}
 
 If you see the word `ENCRYPTED` in the first few lines of the PEM private key, the key is in an unsupported, encrypted format.
 You can resolve this issue by converting the key to a plaintext format using the OpenSSL RSA key processing tool:
 
-{{< highlight shell >}}
+{{< code shell >}}
 openssl rsa -in [encrypted.pem] -out [plaintext.pem]
-{{< /highlight >}}
+{{< /code >}}
 
 [1]: /sensu-core/latest/guides/troubleshooting
 [2]: /sensu-core/latest/guides/troubleshooting#restarting-services

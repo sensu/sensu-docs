@@ -35,7 +35,7 @@ configured._
 The following is an example global configuration for the `flapjack` enterprise
 integration.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "flapjack": {
     "host": "redis.example.com",
@@ -45,7 +45,7 @@ integration.
     "filter_metrics": false
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -60,7 +60,7 @@ description  | The Flapjack Redis instance address.
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | {{< highlight shell >}}"host": "8.8.8.8"{{< /highlight >}}
+example      | {{< code shell >}}"host": "8.8.8.8"{{< /code >}}
 
 port         | 
 -------------|------
@@ -68,7 +68,7 @@ description  | The Flapjack Redis instance port.
 required     | false
 type         | Integer
 default      | `6379`
-example      | {{< highlight shell >}}"port": 6380{{< /highlight >}}
+example      | {{< code shell >}}"port": 6380{{< /code >}}
 
 db           | 
 -------------|------
@@ -76,7 +76,7 @@ description  | The Flapjack Redis instance database (#) to use.
 required     | false
 type         | Integer
 default      | `0`
-example      | {{< highlight shell >}}"db": 1{{< /highlight >}}
+example      | {{< code shell >}}"db": 1{{< /code >}}
 
 channel      | 
 -------------|------
@@ -84,7 +84,7 @@ description  | The Flapjack Redis instance channel (queue) to use for events.
 required     | false
 type         | String
 default      | `events`
-example      | {{< highlight shell >}}"channel": "flapjack"{{< /highlight >}}
+example      | {{< code shell >}}"channel": "flapjack"{{< /code >}}
 
 filter_metrics | 
 ---------------|------
@@ -92,7 +92,7 @@ description    | If check results with a `type` of `metric` are relayed to Flapj
 required       | false
 type           | Boolean
 default        | `false`
-example        | {{< highlight shell >}}"filter_metrics": true{{< /highlight >}}
+example        | {{< code shell >}}"filter_metrics": true{{< /code >}}
 
 [1]:  /sensu-enterprise
 [2]:  http://flapjack.io?ref=sensu-enterprise

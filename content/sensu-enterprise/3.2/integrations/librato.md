@@ -28,14 +28,14 @@ Send metrics to [Librato][2] Metrics using the HTTP API.
 The following is an example global configuration for the `librato` enterprise
 handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "librato": {
     "email": "support@example.com",
     "api_key": "90SHpjPOFqd2YJFIX9rzDq7ik6CiDmqu2AvqcXJAX3buIwcOGqIOgNilwKMjpStO"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -49,21 +49,21 @@ email        |
 description  | The Librato account email.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"email": "support@example.com"{{< /highlight >}}
+example      | {{< code shell >}}"email": "support@example.com"{{< /code >}}
 
 api_key      | 
 -------------|------
 description  | The Librato account API key.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"api_key": "90SHpjPOFqd2YJFIX9rzDq7ik6CiDmqu2AvqcXJAX3buIwcOGqIOgNilwKMjpStO"{{< /highlight >}}
+example      | {{< code shell >}}"api_key": "90SHpjPOFqd2YJFIX9rzDq7ik6CiDmqu2AvqcXJAX3buIwcOGqIOgNilwKMjpStO"{{< /code >}}
 
 http_proxy   | |
 -------------|------
 description  | The URL of a proxy to be used for HTTP requests.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /highlight >}}
+example      | {{< code shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /code >}}
 
 [?]:  #
 [1]:  /sensu-enterprise

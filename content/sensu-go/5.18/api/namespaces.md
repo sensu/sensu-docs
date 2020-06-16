@@ -27,7 +27,7 @@ The `/namespaces` API endpoint provides HTTP GET access to [namespace][1] data.
 
 The following example demonstrates a request to the `/namespaces` API endpoint, resulting in a JSON array that contains [namespace definitions][1].
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
@@ -41,7 +41,7 @@ HTTP/1.1 200 OK
     "name": "development"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#namespaces-get-specification}
 
@@ -53,7 +53,7 @@ pagination     | This endpoint supports pagination using the [`limit` query para
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}
+output         | {{< code shell >}}
 [
   {
     "name": "default"
@@ -62,7 +62,7 @@ output         | {{< highlight shell >}}
     "name": "development"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/namespaces` (POST)
 
@@ -73,7 +73,7 @@ The `/namespaces` API endpoint provides HTTP POST access to create Sensu namespa
 In the following example, an HTTP POST request is submitted to the `/namespaces` API endpoint to create the namespace `development`.
 The request returns a successful HTTP `201 Created` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
@@ -83,7 +83,7 @@ curl -X POST \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/namespaces
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#namespaces-post-specification}
 
@@ -91,11 +91,11 @@ HTTP/1.1 201 Created
 ----------------|------
 description     | Creates a Sensu namespace.
 example URL     | http://hostname:8080/api/core/v2/namespaces
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "name": "development"
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/namespaces/:namespace` API endpoint {#the-namespacesnamespace-api-endpoint}
@@ -109,7 +109,7 @@ The `/namespaces/:namespace` API endpoint provides HTTP PUT access to create or 
 In the following example, an HTTP PUT request is submitted to the `/namespaces/:namespace` API endpoint to create the namespace `development`.
 The request returns a successful HTTP `201 Created` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
@@ -119,7 +119,7 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/namespaces/development
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#namespacesnamespace-put-specification}
 
@@ -127,11 +127,11 @@ HTTP/1.1 201 Created
 ----------------|------
 description     | Creates or updates a Sensu namespace.
 example URL     | http://hostname:8080/api/core/v2/namespaces/development
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "name": "development"
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/namespaces/:namespace` (DELETE) {#namespacesnamespace-delete}
@@ -142,13 +142,13 @@ The `/namespaces/:namespace` API endpoint provides HTTP DELETE access to delete 
 
 The following example shows a request to the `/namespaces/:namespace` API endpoint to delete the namespace `development`, resulting in a successful HTTP `204 No Content` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/development \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 204 No Content
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#namespacesnamespace-delete-specification}
 
@@ -168,7 +168,7 @@ The `/user-namespaces` API endpoint provides HTTP GET access to the namespaces t
 
 The following example demonstrates a request to the `/user-namespaces` API endpoint, resulting in a JSON array that contains the namespaces the user has access to.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/user-namespaces \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
@@ -182,7 +182,7 @@ HTTP/1.1 200 OK
     "name": "development"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#namespaces-get-specification}
 
@@ -192,7 +192,7 @@ description    | Returns the list of namespaces a user has access to.
 example url    | http://hostname:8080/api/enterprise/user-namespaces
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}
+output         | {{< code shell >}}
 [
   {
     "name": "default"
@@ -201,7 +201,7 @@ output         | {{< highlight shell >}}
     "name": "development"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 [1]: ../../reference/rbac/
 [2]: ../overview#limit-query-parameter

@@ -59,27 +59,27 @@ install or upgrade to the latest version of Sensu, please ensure you
 have updated existing repository configurations._
 
 1. Install the GPG public key:
-   {{< highlight shell >}}
-wget -q https://eol-repositories.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
+   {{< code shell >}}
+wget -q https://eol-repositories.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add -{{< /code >}}
 
 2. Determine the codename of the Ubuntu/Debian release on your system:
-   {{< highlight shell >}}
+   {{< code shell >}}
 . /etc/os-release && echo $VERSION
-"14.04.4 LTS, Trusty Tahr" # codename for this system is "trusty"{{< /highlight >}}
+"14.04.4 LTS, Trusty Tahr" # codename for this system is "trusty"{{< /code >}}
 
 3. Create an APT configuration file at
    `/etc/apt/sources.list.d/sensu.list`:
-   {{< highlight shell >}}
+   {{< code shell >}}
 export CODENAME=your_release_codename_here # e.g. "trusty"
-echo "deb     https://eol-repositories.sensuapp.org/apt $CODENAME main" | sudo tee /etc/apt/sources.list.d/sensu.list{{< /highlight >}}
+echo "deb     https://eol-repositories.sensuapp.org/apt $CODENAME main" | sudo tee /etc/apt/sources.list.d/sensu.list{{< /code >}}
 
 4. Update APT:
-   {{< highlight shell >}}
-sudo apt-get update{{< /highlight >}}
+   {{< code shell >}}
+sudo apt-get update{{< /code >}}
 
 5. Install Sensu:
-   {{< highlight shell >}}
-sudo apt-get install sensu{{< /highlight >}}
+   {{< code shell >}}
+sudo apt-get install sensu{{< /code >}}
    _NOTE: as mentioned above, the `sensu` package installs all of the Sensu Core
    processes, including `sensu-client`, `sensu-server`, and `sensu-api`._
 
@@ -111,38 +111,38 @@ monitored by Sensu._
 ### Install the Sensu Enterprise repository {#install-sensu-enterprise-repository}
 
 1. Set access credentials as environment variables:
-   {{< highlight shell >}}
+   {{< code shell >}}
 SE_USER=1234567890
-SE_PASS=PASSWORD{{< /highlight >}}
+SE_PASS=PASSWORD{{< /code >}}
    _NOTE: please replace `1234567890` and `PASSWORD` with the access credentials
    provided with your Sensu Enterprise subscription. These access
    credentials can be found by logging into the [Sensu Account Manager portal][17]._
    Confirm that you have correctly set your access credentials as environment
    variables
-   {{< highlight shell >}}
+   {{< code shell >}}
 $ echo $SE_USER:$SE_PASS
-1234567890:PASSWORD{{< /highlight >}}
+1234567890:PASSWORD{{< /code >}}
 
 2. Install the `apt-transport-https` package:
-{{< highlight shell >}}
+{{< code shell >}}
 sudo apt-get install apt-transport-https
-{{< /highlight >}}
+{{< /code >}}
 
 3. Install the GPG public key:
-   {{< highlight shell >}}
-wget -q https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
+   {{< code shell >}}
+wget -q https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt/pubkey.gpg -O- | sudo apt-key add -{{< /code >}}
 
 4. Create an APT configuration file at `/etc/apt/sources.list.d/sensu-enterprise.list`:
-   {{< highlight shell >}}
-echo "deb     https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt sensu-enterprise main" | sudo tee /etc/apt/sources.list.d/sensu-enterprise.list{{< /highlight >}}
+   {{< code shell >}}
+echo "deb     https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt sensu-enterprise main" | sudo tee /etc/apt/sources.list.d/sensu-enterprise.list{{< /code >}}
 
 5. Update APT:
-   {{< highlight shell >}}
-sudo apt-get update{{< /highlight >}}
+   {{< code shell >}}
+sudo apt-get update{{< /code >}}
 
 6. Install Sensu Enterprise:
-   {{< highlight shell >}}
-sudo apt-get install sensu-enterprise{{< /highlight >}}
+   {{< code shell >}}
+sudo apt-get install sensu-enterprise{{< /code >}}
 
 7. Configure Sensu Enterprise. **No "default" configuration is provided with
    Sensu Enterprise**, so Sensu Enterprise will run without the corresponding
@@ -152,38 +152,38 @@ sudo apt-get install sensu-enterprise{{< /highlight >}}
 ### Install the Sensu Enterprise Dashboard repository {#install-sensu-enterprise-dashboard-repository}
 
 1. Set access credentials as environment variables:
-   {{< highlight shell >}}
+   {{< code shell >}}
 SE_USER=1234567890
-SE_PASS=PASSWORD{{< /highlight >}}
+SE_PASS=PASSWORD{{< /code >}}
    _NOTE: please replace `1234567890` and `PASSWORD` with the access credentials
    provided with your Sensu Enterprise subscription. These access
    credentials can be found by logging into the [Sensu Account Manager portal][17]._
    Confirm that you have correctly set your access credentials as environment
    variables
-   {{< highlight shell >}}
+   {{< code shell >}}
 $ echo $SE_USER:$SE_PASS
-1234567890:PASSWORD{{< /highlight >}}
+1234567890:PASSWORD{{< /code >}}
 
 2. Install the `apt-transport-https` package:
-{{< highlight shell >}}
+{{< code shell >}}
 sudo apt-get install apt-transport-https
-{{< /highlight >}}
+{{< /code >}}
 
 3. Install the GPG public key:
-   {{< highlight shell >}}
-wget -q https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
+   {{< code shell >}}
+wget -q https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt/pubkey.gpg -O- | sudo apt-key add -{{< /code >}}
 
 4. Create an APT configuration file at `/etc/apt/sources.list.d/sensu-enterprise.list`:
-   {{< highlight shell >}}
-echo "deb     https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt sensu-enterprise main" | sudo tee /etc/apt/sources.list.d/sensu-enterprise.list{{< /highlight >}}
+   {{< code shell >}}
+echo "deb     https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt sensu-enterprise main" | sudo tee /etc/apt/sources.list.d/sensu-enterprise.list{{< /code >}}
 
 5. Update APT:
-   {{< highlight shell >}}
-sudo apt-get update{{< /highlight >}}
+   {{< code shell >}}
+sudo apt-get update{{< /code >}}
 
 6. Install Sensu Enterprise Dashboard:
-   {{< highlight shell >}}
-sudo apt-get install sensu-enterprise-dashboard{{< /highlight >}}
+   {{< code shell >}}
+sudo apt-get install sensu-enterprise-dashboard{{< /code >}}
 
 7. Configure Sensu Enterprise Dashboard. **The default configuration
    will not work without modification** Please refer to the
@@ -209,14 +209,14 @@ In some cases, the default Sensu configuration directory (i.e.
 `/etc/sensu/conf.d/`) is not created by the Sensu installer, in which case it is
 necessary to create this directory manually.
 
-{{< highlight shell >}}
-sudo mkdir /etc/sensu/conf.d{{< /highlight >}}
+{{< code shell >}}
+sudo mkdir /etc/sensu/conf.d{{< /code >}}
 
 ### Example client configuration
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/client.json`:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "client": {
     "name": "ubuntu-client",
@@ -231,7 +231,7 @@ sudo mkdir /etc/sensu/conf.d{{< /highlight >}}
       "port": 3030
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Example transport configuration
 
@@ -240,13 +240,13 @@ connect to the configured [Sensu Transport][4].
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/transport.json`:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "transport": {
     "name": "rabbitmq",
     "reconnect_on_error": true
   }
-}{{< /highlight >}}
+}{{< /code >}}
    _NOTE: if you are using Redis as your transport, please use `"name": "redis"`
    for your transport configuration. For more information, please visit the
    [transport definition specification][10]._
@@ -267,14 +267,14 @@ file examples.
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/api.json`:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "api": {
     "host": "localhost",
     "bind": "0.0.0.0",
     "port": 4567
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 #### Distributed configuration {#api-distributed-configuration}
 
@@ -283,14 +283,14 @@ file examples.
 
 2. Create a configuration file  with the following contents at
    `/etc/sensu/conf.d/api.json` on the Sensu server and API system(s):
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "api": {
     "host": "10.0.1.7",
     "bind": "10.0.1.7",
     "port": 4567
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Example Sensu Enterprise Dashboard configurations
 
@@ -298,7 +298,7 @@ file examples.
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/dashboard.json`:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "sensu": [
     {
@@ -311,7 +311,7 @@ file examples.
     "host": "0.0.0.0",
     "port": 3000
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 #### Distributed configuration {#dashboard-distributed-configuration}
 
@@ -320,7 +320,7 @@ file examples.
 
 2. Copy the following contents to a configuration file located at
    `/etc/sensu/dashboard.json`:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "sensu": [
     {
@@ -333,7 +333,7 @@ file examples.
     "host": "0.0.0.0",
     "port": 3000
   }
-}{{< /highlight >}}
+}{{< /code >}}
    _NOTE: Multiple Sensu Enterprise Dashboard instances can be installed. When
    load balancing across multiple Dashboard instances, your load balancer should
    support "sticky sessions"._
@@ -352,21 +352,21 @@ to use `systemctl` instead.
 
 - Enable the Sensu client on system boot
 
-  {{< highlight shell >}}
-sudo update-rc.d sensu-client enable{{< /highlight >}}
+  {{< code shell >}}
+sudo update-rc.d sensu-client enable{{< /code >}}
 
 - Enable the Sensu server and API to start on system boot
 
   - For Sensu Core users (i.e. `sensu-server` and `sensu-api`)
 
-    {{< highlight shell >}}
+    {{< code shell >}}
 sudo update-rc.d sensu-server enable
-sudo update-rc.d sensu-api enable{{< /highlight >}}
+sudo update-rc.d sensu-api enable{{< /code >}}
 
   - For Sensu Enterprise users
 
-    {{< highlight shell >}}
-sudo update-rc.d sensu-enterprise enable{{< /highlight >}}
+    {{< code shell >}}
+sudo update-rc.d sensu-enterprise enable{{< /code >}}
 
     _WARNING: the `sensu-enterprise` process is intended to be a drop-in
     replacement for the Sensu Core `sensu-server` and `sensu-api` processes.
@@ -375,8 +375,8 @@ sudo update-rc.d sensu-enterprise enable{{< /highlight >}}
 
 - Enable Sensu Enterprise Dashboard on system boot
 
-  {{< highlight shell >}}
-sudo update-rc.d sensu-enterprise-dashboard enable{{< /highlight >}}
+  {{< code shell >}}
+sudo update-rc.d sensu-enterprise-dashboard enable{{< /code >}}
 
   _WARNING: the `sensu-enterprise-dashboard` process is intended to be a drop-in
   replacement for the Uchiwa dashboard. Please ensure that the Uchiwa processes
@@ -391,28 +391,28 @@ can also be accomplished using the [`update-rc.d` utility][9].
 
 - Disable the Sensu client on system boot
 
-  {{< highlight shell >}}
-sudo update-rc.d sensu-client disable{{< /highlight >}}
+  {{< code shell >}}
+sudo update-rc.d sensu-client disable{{< /code >}}
 
 - Disable the Sensu Core server on system boot
 
-  {{< highlight shell >}}
-sudo update-rc.d sensu-server disable{{< /highlight >}}
+  {{< code shell >}}
+sudo update-rc.d sensu-server disable{{< /code >}}
 
 - Disable the Sensu Core API on system boot
 
-  {{< highlight shell >}}
-sudo update-rc.d sensu-api disable{{< /highlight >}}
+  {{< code shell >}}
+sudo update-rc.d sensu-api disable{{< /code >}}
 
 - Disable Sensu Enterprise on system boot
 
-  {{< highlight shell >}}
-sudo update-rc.d sensu-enterprise disable{{< /highlight >}}
+  {{< code shell >}}
+sudo update-rc.d sensu-enterprise disable{{< /code >}}
 
 - Disable Sensu Enterprise Dashboard on system boot
 
-  {{< highlight shell >}}
-sudo update-rc.d sensu-enterprise-dashboard disable{{< /highlight >}}
+  {{< code shell >}}
+sudo update-rc.d sensu-enterprise-dashboard disable{{< /code >}}
 
 ## Operating Sensu
 
@@ -422,33 +422,33 @@ To manually start and stop the Sensu services, use the following commands:
 
 - Start or stop the Sensu client
 
-  {{< highlight shell >}}
+  {{< code shell >}}
 sudo service sensu-client start
-sudo service sensu-client stop{{< /highlight >}}
+sudo service sensu-client stop{{< /code >}}
 
 - Start or stop the Sensu Core server
 
-  {{< highlight shell >}}
+  {{< code shell >}}
 sudo service sensu-server start
-sudo service sensu-server stop{{< /highlight >}}
+sudo service sensu-server stop{{< /code >}}
 
 - Start or stop the Sensu Core API
 
-  {{< highlight shell >}}
+  {{< code shell >}}
 sudo service sensu-api start
-sudo service sensu-api stop{{< /highlight >}}
+sudo service sensu-api stop{{< /code >}}
 
 - Start or stop Sensu Enterprise
 
-  {{< highlight shell >}}
+  {{< code shell >}}
 sudo service sensu-enterprise start
-sudo service sensu-enterprise stop{{< /highlight >}}
+sudo service sensu-enterprise stop{{< /code >}}
 
 - Start or stop the Sensu Enterprise Dashboard
 
-  {{< highlight shell >}}
+  {{< code shell >}}
 sudo service sensu-enterprise-dashboard start
-sudo service sensu-enterprise-dashboard stop{{< /highlight >}}
+sudo service sensu-enterprise-dashboard stop{{< /code >}}
 
   Verify the Sensu Enterprise Dashboard is running by visiting view the
   dashboard at http://localhost:3000 (replace `localhost` with the hostname or

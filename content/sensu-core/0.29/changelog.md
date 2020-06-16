@@ -496,7 +496,7 @@ This release includes potentially breaking, backwards-incompatible changes:
   not only confusing, it made it very difficult to apply a simple "don't execute
   this check outside of 9-5, M-F" rule.
 
-  {{< highlight json >}}
+  {{< code json >}}
   {
     "checks": {
       "example_check": {
@@ -516,13 +516,13 @@ This release includes potentially breaking, backwards-incompatible changes:
       }
     }
   }
-  {{< / highlight >}}
+  {{< /code >}}
 
   The new syntax is more verbose, but by doing away with the need for
   `exceptions` and adding support for defining an array of subdue time windows,
   it is much easier to configure.
 
-  {{< highlight json >}}
+  {{< code json >}}
   {
     "checks": {
       "example_check": {
@@ -597,7 +597,7 @@ This release includes potentially breaking, backwards-incompatible changes:
       }
     }
   }
-  {{< / highlight >}}
+  {{< /code >}}
 
   _NOTE: Subdue rules now apply to check publishing, **ONLY** (i.e. `subdue`
   definitions no longer support the `"at": "handler"` definition attribute,
@@ -787,7 +787,7 @@ This release includes potentially breaking, backwards-incompatible changes:
   and sets the deregistration event handler to `deregister_client` (via the new
   client `deregistration` definition attribute):
 
-  {{< highlight json >}}
+  {{< code json >}}
   {
     "client": {
       "name": "i-424242",
@@ -807,7 +807,7 @@ This release includes potentially breaking, backwards-incompatible changes:
       }
     }
   }
-  {{< / highlight >}}
+  {{< /code >}}
   
 Please refer to the [Sensu client reference documentation][23] for additional
 information on configuring the built-in Sensu client de-registration.
@@ -989,7 +989,7 @@ available for immediate download. Please note the following improvements:
 
   Example Redis Sentinel configuration:
 
-  {{< highlight json >}}
+  {{< code json >}}
   {
     "sentinels": [
       {
@@ -998,7 +998,7 @@ available for immediate download. Please note the following improvements:
       }
     ]  
   }
-  {{< / highlight >}}
+  {{< /code >}}
 
   See the [Redis configuration documentation][3] for more information.
 
@@ -1013,7 +1013,7 @@ available for immediate download. Please note the following improvements:
 
   Example filter eval token:
 
-  {{< highlight json >}}
+  {{< code json >}}
   {
     "filters": {
       "example_filter": {
@@ -1023,7 +1023,7 @@ available for immediate download. Please note the following improvements:
       }
     }
   }
-  {{< / highlight >}}
+  {{< /code >}}
 
 - **NEW:** native installer packages are now available for IBM AIX systems
   (sensu-client only).

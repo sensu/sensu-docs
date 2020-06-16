@@ -25,7 +25,7 @@ check result data for a client named `client-01` and a check named
 `sensu_website`, resulting in a [202 (Accepted) HTTP response code][2]
 indicating that the result was successful, but that no content is provided as output.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -s -i -X DELETE http://127.0.0.1:3000/results/client-01/sensu_website
 HTTP/1.1 202 Accepted
 Access-Control-Allow-Origin: *
@@ -34,7 +34,7 @@ Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
 Connection: close
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#resultsclientcheck-delete-specification}
 
@@ -45,14 +45,14 @@ example url                      | http://hostname:3000/results/i-424242/chef_cl
 parameters                       | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the check name is present in multiple datacenters, specifying the `dc` parameter accesses only the check found in that datacenter.</li><li>**example**: `http://hostname:3000/results/i-424242/chef_client_process?dc=us_west1`</li></ul></li></ul>
 response type                    | [HTTP-header][3] only (No Content)
 response codes                   | <ul><li>**Success**: 202 (Accepted)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                           | {{< highlight shell >}}HTTP/1.1 202 Accepted
+output                           | {{< code shell >}}HTTP/1.1 202 Accepted
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
 Connection: close
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 [?]:  #
 [1]:  /sensu-core/latest/reference/checks#check-results

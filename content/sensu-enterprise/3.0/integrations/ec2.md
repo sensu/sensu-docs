@@ -32,7 +32,7 @@ describe instances action in a policy, e.g. `ec2:DescribeInstances`.
 The following is an example global configuration for the `ec2` enterprise
 handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "ec2": {
     "region": "us-west-2",
@@ -42,7 +42,7 @@ handler (integration).
     "timeout": 10
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -61,21 +61,21 @@ description  | The AWS EC2 region to query for EC2 instance state(s).
 required     | false
 type         | String
 default      | `us-east-1`
-example      | {{< highlight shell >}}"region": "us-west-1"{{< /highlight >}}
+example      | {{< code shell >}}"region": "us-west-1"{{< /code >}}
 
 access_key_id | 
 --------------|------
 description   | The AWS IAM user access key ID to use when querying the EC2 API.
 required      | true
 type          | String
-example       | {{< highlight shell >}}"access_key_id": "AlygD0X6Z4Xr2m3gl70J"{{< /highlight >}}
+example       | {{< code shell >}}"access_key_id": "AlygD0X6Z4Xr2m3gl70J"{{< /code >}}
 
 secret_access_key | 
 ------------------|------
 description       | The AWS IAM user secret access key to use when querying the EC2 API.
 required          | true
 type              | String
-example           | {{< highlight shell >}}"secret_access_key": "y9Jt5OqNOqdy5NCFjhcUsHMb6YqSbReLAJsy4d6obSZIWySv"{{< /highlight >}}
+example           | {{< code shell >}}"secret_access_key": "y9Jt5OqNOqdy5NCFjhcUsHMb6YqSbReLAJsy4d6obSZIWySv"{{< /code >}}
 
 allowed_instance_states | 
 ------------------------|------
@@ -84,15 +84,15 @@ required                | false
 type                    | Array
 allowed values          | `running`, `stopping`, `stopped`, `shutting-down`, `terminated`, `rebooting`, `pending`
 default                 | `["running"]`
-example                 | {{< highlight shell >}}"allowed_instance_states": ["running", "rebooting"]{{< /highlight >}}
+example                 | {{< code shell >}}"allowed_instance_states": ["running", "rebooting"]{{< /code >}}
 
 filters        | 
 ---------------|------
 description    | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string. Specified filters are merged with default values.
 required       | false
 type           | Array
-default        | {{< highlight shell >}}["handle_when", "check_dependencies"]{{< /highlight >}}
-example        | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+default        | {{< code shell >}}["handle_when", "check_dependencies"]{{< /code >}}
+example        | {{< code shell >}}"filters": ["recurrence", "production"]{{< /code >}}
 
 severities     | 
 ---------------|------
@@ -100,8 +100,8 @@ description    | An array of check result severities the handler will handle. _N
 required       | false
 type           | Array
 allowed values | `ok`, `warning`, `critical`, `unknown`
-default        | {{< highlight shell >}}["warning", "critical", "unknown"]{{< /highlight >}}
-example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
+default        | {{< code shell >}}["warning", "critical", "unknown"]{{< /code >}}
+example        | {{< code shell >}} "severities": ["critical", "unknown"]{{< /code >}}
 
 timeout      | 
 -------------|------
@@ -109,7 +109,7 @@ description  | The handler execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
 default      | `10`
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 
 [?]:  #

@@ -30,9 +30,9 @@ Each `sensu-agent` listens on the default port 8125 for UDP messages that follow
 StatsD aggregates the metrics, and Sensu translates them to Sensu metrics and events that can be passed to the event pipeline.
 You can [configure the StatsD listener][4] and access it with the [netcat][4] utility command:
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo 'abc.def.g:10|c' | nc -w1 -u localhost 8125
-{{< /highlight >}}
+{{< /code >}}
 
 Metrics received through the StatsD listener are not stored in etcd.
 Instead, you must configure event handlers to send the data to a storage solution (for example, a time-series database like [InfluxDB][3]).
@@ -43,19 +43,19 @@ Use flags to configure the Sensu StatsD Server when you start up a `sensu-agent`
 
 The following flags allow you to configure event handlers, flush interval, address, and port:
 
-{{< highlight shell >}}
+{{< code shell >}}
 --statsd-disable                      disables the statsd listener and metrics server
 --statsd-event-handlers stringSlice   comma-delimited list of event handlers for statsd metrics
 --statsd-flush-interval int           number of seconds between statsd flush (default 10)
 --statsd-metrics-host string          address used for the statsd metrics server (default "127.0.0.1")
 --statsd-metrics-port int             port used for the statsd metrics server (default 8125)
-{{< /highlight >}}
+{{< /code >}}
 
 For example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensu-agent start --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd-metrics-host "123.4.5.6" --statsd-metrics-port 8125
-{{< /highlight >}}
+{{< /code >}}
 
 ## Next steps
 

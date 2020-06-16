@@ -29,7 +29,7 @@ handler uses the `output_format`mutator.
 The following is an example global configuration for the `opentsdb` enterprise
 handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "opentsdb": {
     "host": "opentsdb.example.com",
@@ -37,7 +37,7 @@ handler (integration).
     "tag_host": true
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -54,7 +54,7 @@ description  | The OpenTSDB host address.
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | {{< highlight shell >}}"host": "opentsdb.example.com"{{< /highlight >}}
+example      | {{< code shell >}}"host": "opentsdb.example.com"{{< /code >}}
 
 port         | 
 -------------|------
@@ -62,7 +62,7 @@ description  | The OpenTSDB telnet listener port.
 required     | false
 type         | Integer
 default      | `4242`
-example      | {{< highlight shell >}}"port": 4444{{< /highlight >}}
+example      | {{< code shell >}}"port": 4444{{< /code >}}
 
 tag_host     | 
 -------------|------
@@ -70,7 +70,7 @@ description  | If automatic host tagging should be used for metric data points. 
 required     | false
 type         | Boolean
 default      | `true`
-example      | {{< highlight shell >}}"tag_host": false{{< /highlight >}}
+example      | {{< code shell >}}"tag_host": false{{< /code >}}
 
 prefix_source | 
 --------------|------
@@ -78,14 +78,14 @@ description   | If the Sensu source (client name) should prefix (added to) the m
 required      | false
 type          | Boolean
 default       | `false`
-example       | {{< highlight shell >}}"prefix_source": true{{< /highlight >}}
+example       | {{< code shell >}}"prefix_source": true{{< /code >}}
 
 prefix       | 
 -------------|------
 description  | A custom metric name prefix.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"prefix": "production"{{< /highlight >}}
+example      | {{< code shell >}}"prefix": "production"{{< /code >}}
 
 [1]:  /sensu-enterprise
 [2]:  http://opentsdb.net?ref=sensu-enterprise

@@ -16,7 +16,7 @@ To get started with this feature, you'll simply need to define at least two
 [Sensu objects][1]
  with the **same name**. Here's a basic example:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "sensu": [
     {
@@ -30,7 +30,7 @@ To get started with this feature, you'll simply need to define at least two
       "port": 4567
     }
   ]  
-}{{< /highlight >}}
+}{{< /code >}}
 
 With this configuration, the datacenter *us-east-1* now has two APIs (*10.0.0.1* and *10.0.0.2*) and Uchiwa will balance the requests between these two APIs and failback to the second API in case of connectivity issue.
 
@@ -45,15 +45,15 @@ Uchiwa generates a temporary key during its launch, which is later destroyed onc
 This behaviour is problematic when multiple instances of Uchiwa are used behind a load balancer or if the Uchiwa process needs to be frequently restarted. To use your own keys, follow these few steps:
 
 Generate the private key:
-{{< highlight shell >}}
-openssl genrsa -out uchiwa.rsa 2048{{< /highlight >}}
+{{< code shell >}}
+openssl genrsa -out uchiwa.rsa 2048{{< /code >}}
 
 Extract the public key:
-{{< highlight shell >}}
-openssl rsa -in uchiwa.rsa -pubout > uchiwa.rsa.pub{{< /highlight >}}
+{{< code shell >}}
+openssl rsa -in uchiwa.rsa -pubout > uchiwa.rsa.pub{{< /code >}}
 
 Adjust the *uchiwa* object in your configuration file in order to specify the path of the keys you just generated:
-{{< highlight json >}}
+{{< code json >}}
 {
   "uchiwa": {
     "auth": {
@@ -61,11 +61,11 @@ Adjust the *uchiwa* object in your configuration file in order to specify the pa
       "publickey": "/path/to/uchiwa.rsa.pub"
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 Finally, restart Uchiwa and you should see the following entry in your log:
-{{< highlight shell >}}
+{{< code shell >}}
 "message":"Provided RSA keys successfully loaded"
-{{< /highlight >}}
+{{< /code >}}
 
 [1]:  ../../getting-started/configuration/#datacenters-configuration-sensu

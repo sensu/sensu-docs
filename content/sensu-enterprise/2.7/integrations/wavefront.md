@@ -35,14 +35,14 @@ Enterprise, please refer to the [Wavefront Proxy setup documentation][5].
 The following is an example global configuration for the `wavefront` enterprise
 handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "wavefront": {
     "host": "wavefront.example.com",
     "port": 2878
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -59,7 +59,7 @@ description  | The Wavefront host address.
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | {{< highlight shell >}}"host": "wavefront.example.com"{{< /highlight >}}
+example      | {{< code shell >}}"host": "wavefront.example.com"{{< /code >}}
 
 port         | 
 -------------|------
@@ -67,7 +67,7 @@ description  | The Wavefront Proxy port for the Wavefront Data Format.
 required     | false
 type         | Integer
 default      | `2878`
-example      | {{< highlight shell >}}"port": 2878{{< /highlight >}}
+example      | {{< code shell >}}"port": 2878{{< /code >}}
 
 
 [1]:  /sensu-enterprise
