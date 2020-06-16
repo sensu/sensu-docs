@@ -31,7 +31,7 @@ Visit the [Sensu Enterprise 3.0 upgrade guide][4] and the [OpsGenie API docs][5]
 The following is an example global configuration for the `opsgenie` enterprise
 event handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "opsgenie": {
     "api_key": "eed02a0d-85a4-427b-851a-18dd8fd80d93",
@@ -54,7 +54,7 @@ event handler (integration).
     "timeout": 10
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -71,14 +71,14 @@ description  | The OpsGenie Alert API endpoint to use when connecting to OpsGeni
 required     | false
 default      | `api.opsgenie.com` (US service region)
 type         | String
-example      | {{< highlight shell >}}"api_endpoint": "api.eu.opsgenie.com"{{< /highlight >}}
+example      | {{< code shell >}}"api_endpoint": "api.eu.opsgenie.com"{{< /code >}}
 
 api_key      | 
 -------------|------
 description  | The OpsGenie Alert API key to use when creating/closing alerts.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"api_key": "eed02a0d-85a4-427b-851a-18dd8fd80d93"{{< /highlight >}}
+example      | {{< code shell >}}"api_key": "eed02a0d-85a4-427b-851a-18dd8fd80d93"{{< /code >}}
 
 source       | 
 -------------|------
@@ -86,14 +86,14 @@ description  | The source to use for OpsGenie alerts.
 required     | false
 type         | String
 default      | `Sensu Enterprise`
-example      | {{< highlight shell >}}"source": "Sensu (us-west-1)"{{< /highlight >}}
+example      | {{< code shell >}}"source": "Sensu (us-west-1)"{{< /code >}}
 
 responders   | 
 -------------|------
 description  | The OpsGenie teams, users, schedules, or escalations that receive alert notifications. Each responder requires an `id` or `name` and a `type` (`team`, `user`, `escalation`, or `schedule`). _NOTE: For `"type":"user"`, use `username` instead of `name`._
 required     | false
 type         | Array of objects
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "responders":[
   {
     "name":"afterhours",
@@ -112,14 +112,14 @@ example      | {{< highlight shell >}}
     "type":"escalation"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 visible_to   | 
 -------------|------
 description  | The OpsGenie teams and users that can see alerts but won't receive notifications. Teams require an `id` or `name` and `"type":"team"`. Users require an `id` or `username` and `"type":"user"`.
 required     | false
 type         | Array of objects
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "visible_to":[
   {
     "name":"ops",
@@ -138,14 +138,14 @@ example      | {{< highlight shell >}}
     "type":"user"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 actions      | 
 -------------|------
 description  | Custom actions available for the alert
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"actions": ["ViewLogs", "ShowProcesses"]{{< /highlight >}}
+example      | {{< code shell >}}"actions": ["ViewLogs", "ShowProcesses"]{{< /code >}}
 
 tags         | 
 -------------|------
@@ -153,7 +153,7 @@ description  | An array of OpsGenie alert tags that will be added to created ale
 required     | false
 type         | Array
 default      | `[]`
-example      | {{< highlight shell >}}"tags": ["production"]{{< /highlight >}}
+example      | {{< code shell >}}"tags": ["production"]{{< /code >}}
 
 overwrite_quiet_hours  | 
 -----------------------|------
@@ -161,22 +161,22 @@ description            | When configured, critical severity events will be tagge
 required               | false
 type                   | Boolean
 default                | `false`
-example                | {{< highlight shell >}}"overwrite_quiet_hours": true{{< /highlight >}}
+example                | {{< code shell >}}"overwrite_quiet_hours": true{{< /code >}}
 
 http_proxy   | |
 -------------|------
 description  | The URL of a proxy to be used for HTTP requests.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /highlight >}}
+example      | {{< code shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /code >}}
 
 filters        | 
 ---------------|------
 description    | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string. Specified filters are merged with default values.
 required       | false
 type           | Array
-default        | {{< highlight shell >}}["handle_when", "check_dependencies"]{{< /highlight >}}
-example        | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+default        | {{< code shell >}}["handle_when", "check_dependencies"]{{< /code >}}
+example        | {{< code shell >}}"filters": ["recurrence", "production"]{{< /code >}}
 
 severities     | 
 ---------------|------
@@ -184,7 +184,7 @@ description    | An array of check result severities the handler will handle. _N
 required       | false
 type           | Array
 allowed values | `ok`, `warning`, `critical`, `unknown`
-example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
+example        | {{< code shell >}} "severities": ["critical", "unknown"]{{< /code >}}
 
 timeout      | 
 -------------|------
@@ -192,7 +192,7 @@ description  | The handler execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
 default      | `10`
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 
 [?]:  #

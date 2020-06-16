@@ -25,7 +25,7 @@ information.
 The following example demonstrates a request to the `/datacenters` API, resulting in
 a JSON Array of JSON Hashes containing datacenter information.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:3000/datacenters | jq .
 [
   {
@@ -47,7 +47,7 @@ $ curl -s http://127.0.0.1:3000/datacenters | jq .
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#datacenters-get-specification}
 
@@ -57,7 +57,7 @@ description    | Returns a list of datacenters. See the [`/datacenters/:datacent
 example url    | http://hostname:3000/datacenters
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}[
+output         | {{< code shell >}}[
   {
     "name": "us_west1",
     "info": {
@@ -77,7 +77,7 @@ output         | {{< highlight shell >}}[
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ## The `/datacenters/:datacenter` API endpoint {#the-datacentersdatacenter-api-endpoint}
 
@@ -91,7 +91,7 @@ specific datacenter information, by datacenter name.
 In the following example, querying the `/datacenters/:datacenter` API returns a JSON Hash
 containing information for the datacenter named `us_west1`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:3000/datacenters/us_west1 | jq .
 {
   "name": "us_west1",
@@ -154,13 +154,13 @@ $ curl -s http://127.0.0.1:3000/datacenters/us_west1 | jq .
     "silenced": 0,
     "stashes": 0
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 The following example demonstrates a request for datacenter information for a non-existent
 datacenter named `non_existent_datacenter`, which results in a [404 (Not Found) HTTP
 response code][3].
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i http://127.0.0.1:3000/datacenters/non_existent_datacenter
 HTTP/1.1 404 Not Found
 Content-Type: application/json
@@ -171,7 +171,7 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 0
 Connection: keep-alive
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#datacentersdatacenter-get-specification}
 
@@ -181,7 +181,7 @@ description          | Returns a datacenter.
 example url          | http://hostname:3000/datacenters/us_west1
 response type        | Hash
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}{
+output               | {{< code json >}}{
   "name": "us_west1",
   "info": {
     "redis": {
@@ -243,6 +243,6 @@ output               | {{< highlight json >}}{
     "stashes": 0
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 [3]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes

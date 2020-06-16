@@ -37,7 +37,7 @@ The `/checks` API endpoint provides HTTP GET access to [check][1] data.
 
 The following example demonstrates a request to the `/checks` API endpoint, resulting in a JSON array that contains [check definitions][1].
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks \
 -H "Authorization: Key $SENSU_API_KEY"
@@ -74,7 +74,7 @@ HTTP/1.1 200 OK
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#check-get-specification}
 
@@ -86,7 +86,7 @@ pagination     | This endpoint supports [pagination][4] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][5].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}
+output         | {{< code shell >}}
 [
   {
     "command": "check-email.sh -w 75 -c 90",
@@ -118,7 +118,7 @@ output         | {{< highlight shell >}}
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/checks` (POST)
 
@@ -129,7 +129,7 @@ The `/checks` API endpoint provides HTTP POST access to create checks.
 In the following example, an HTTP POST request is submitted to the `/checks` API endpoint to create a `check-cpu` check.
 The request includes the check definition in the request body and returns a successful HTTP `200 OK` response and the created check definition.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
@@ -151,7 +151,7 @@ curl -X POST \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#checks-post-specification}
 
@@ -159,7 +159,7 @@ HTTP/1.1 201 Created
 ----------------|------
 description     | Creates a Sensu check.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks
-example payload | {{< highlight shell >}}
+example payload | {{< code shell >}}
 {
   "command": "check-cpu.sh -w 75 -c 90",
   "subscriptions": [
@@ -175,7 +175,7 @@ example payload | {{< highlight shell >}}
     "namespace": "default"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 payload parameters | Required check attributes: `interval` (integer) or `cron` (string) and a `metadata` scope that contains `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1]. 
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -189,7 +189,7 @@ The `/checks/:check` API endpoint provides HTTP GET access to [check data][1] fo
 
 In the following example, querying the `/checks/:check` API endpoint returns a JSON map that contains the requested [`:check` definition][1] (in this example, for the `:check` named `check-cpu`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu \
 -H "Authorization: Key $SENSU_API_KEY"
@@ -224,7 +224,7 @@ HTTP/1.1 200 OK
     "created_by": "admin"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#checkscheck-get-specification}
 
@@ -234,7 +234,7 @@ description          | Returns the specified check.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< code json >}}
 {
   "command": "check-cpu.sh -w 75 -c 90",
   "handlers": [
@@ -264,7 +264,7 @@ output               | {{< highlight json >}}
     "created_by": "admin"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/checks/:check` (PUT) {#checkscheck-put}
 
@@ -274,7 +274,7 @@ The `/checks/:check` API endpoint provides HTTP PUT access to create and update 
 
 In the following example, an HTTP PUT request is submitted to the `/checks/:check` API endpoint to update the `check-cpu` check, resulting in an HTTP `200 OK` response and the updated check definition.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
@@ -296,7 +296,7 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#checkscheck-put-specification}
 
@@ -304,7 +304,7 @@ HTTP/1.1 201 Created
 ----------------|------
 description     | Creates or updates the specified Sensu check.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "command": "check-cpu.sh -w 75 -c 90",
   "handlers": [
@@ -320,7 +320,7 @@ payload         | {{< highlight shell >}}
     "namespace": "default"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 payload parameters | Required check attributes: `interval` (integer) or `cron` (string) and a `metadata` scope that contains `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1].
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -332,13 +332,13 @@ The `/checks/:check` API endpoint provides HTTP DELETE access to delete a check 
 
 The following example shows a request to the `/checks/:check` API endpoint to delete the check named `check-cpu`, resulting in a successful HTTP `204 No Content` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu
 
 HTTP/1.1 204 No Content
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#checkscheck-delete-specification}
 
@@ -359,7 +359,7 @@ The `/checks/:check/execute` API endpoint provides HTTP POST access to create an
 In the following example, an HTTP POST request is submitted to the `/checks/:check/execute` API endpoint to execute the `check-cpu` check.
 The request includes the check name in the request body and returns a successful HTTP `202 Accepted` response and an `issued` timestamp.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
@@ -373,7 +373,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu/execute
 
 HTTP/1.1 202 Accepted
 {"issued":1543861798}
-{{< /highlight >}}
+{{< /code >}}
 
 {{% notice protip %}}
 **PRO TIP**: Include the `subscriptions` attribute with the request body to override the subscriptions configured in the check definition.
@@ -386,14 +386,14 @@ This gives you the flexibility to execute a check on any Sensu entity or group o
 ----------------|------
 description     | Creates an ad hoc request to execute the specified check.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu/execute
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "check": "check-cpu",
   "subscriptions": [
     "entity:i-424242"
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 payload parameters | <ul><li>Required: `check` (the name of the check to execute).</li><li>Optional: `subscriptions` (an array of subscriptions to publish the check request to). When provided with the request, the `subscriptions` attribute overrides any subscriptions configured in the check definition.</li>
 response codes  | <ul><li>**Success**: 202 (Accepted)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -407,7 +407,7 @@ The `/checks/:check/hooks/:type` API endpoint provides HTTP PUT access to assign
 
 In the following example, an HTTP PUT request is submitted to the `/checks/:check/hooks/:type` API endpoint, assigning the `process_tree` hook to the `check-cpu` check in the event of a `critical` type check result, resulting in a successful HTTP `204 No Content` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
@@ -419,7 +419,7 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#checkscheckhooks-put-specification}
 
@@ -427,13 +427,13 @@ checks/:check/hooks/:type (PUT) |
 ----------------|------
 description     | Assigns a hook to a check (specified by the check name and [check response type][3]).
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical
-example payload | {{< highlight shell >}}
+example payload | {{< code shell >}}
 {
   "critical": [
     "process_tree"
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 payload parameters | This endpoint requires a JSON map of [check response types][3] (for example, `critical` or `warning`). Each must contain an array of hook names.
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -447,13 +447,13 @@ The `/checks/:check/hooks/:type/hook/:hook` API endpoint provides HTTP DELETE ac
 
 The following example shows a request to the `/checks/:check/hooks/:type/hook/:hook` API endpoint to remove the `process_tree` hook from the `check-cpu` check, resulting in a successful HTTP `204 No Content` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical/hook/process_tree 
 
 HTTP/1.1 204 No Content
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#checkscheckhookshook-delete-specification}
 

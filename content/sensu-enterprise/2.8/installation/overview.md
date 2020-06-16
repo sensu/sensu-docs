@@ -85,26 +85,26 @@ you through a manual upgrade to Sensu Enterprise:
 1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise](/sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-enterprise).
 
 2. Stop `sensu-server` and `sensu-api` services
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service sensu-server stop && sudo service sensu-api stop
-{{< /highlight >}}
+{{< /code >}}
 
 3. Start `sensu-enterprise` service
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service sensu-enterprise start
-{{< /highlight >}}
+{{< /code >}}
 
 4. Disable `sensu-server` and `sensu-api` services to avoid starting
 them at boot
-{{< highlight shell >}}
+{{< code shell >}}
 sudo chkconfig sensu-server off
 sudo chkconfig sensu-api off
-{{< /highlight >}}
+{{< /code >}}
 
 5. Enable `sensu-enterprise` to ensure it is started at boot
-{{< highlight shell >}}
+{{< code shell >}}
 sudo chkconfig --add sensu-enterprise
-{{< /highlight >}}
+{{< /code >}}
 
 ### Upgrading from Uchiwa to Sensu Enterprise Dashboard
 
@@ -116,31 +116,31 @@ The process for upgrading from the open source Uchiwa dashboard to
 Sensu Enterprise Dashboard is similar:
 
 1. Stop `uchiwa` service
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service uchiwa stop
-{{< /highlight >}}
+{{< /code >}}
 
 2. Rename `/etc/sensu/uchiwa.json` to `/etc/sensu/dashboard.json`
-{{< highlight shell >}}
+{{< code shell >}}
 sudo mv /etc/sensu/uchiwa.json /etc/sensu/dashboard.json
-{{< /highlight >}}
+{{< /code >}}
 
 3. Remove the Uchiwa package from your system
-{{< highlight shell >}}
+{{< code shell >}}
 sudo yum remove uchiwa
-{{< /highlight >}}
+{{< /code >}}
 
 4. Install the `sensu-enterprise-dashboard` package as described in [Install Sensu Enterprise Dashboard](/sensu-core/latest/platforms/sensu-on-rhel-centos/#install-sensu-enterprise-dashboard-repository).
 
 5. Start `sensu-enterprise-dashboard` service
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service sensu-enterprise-dashboard start
-{{< /highlight >}}
+{{< /code >}}
 
 6. Enable `sensu-enterprise-dashboard` to ensure it is started at boot
-{{< highlight shell >}}
+{{< code shell >}}
 sudo chkconfig --add sensu-enterprise-dashboard
-{{< /highlight >}}
+{{< /code >}}
 {{< platformBlockClose >}}
 
 {{< platformBlock "Ubuntu/Debian" >}}
@@ -152,26 +152,26 @@ you through a manual upgrade to Sensu Enterprise:
 
 1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise Dashboard](/sensu-core/latest/platforms/sensu-on-ubuntu-debian/#install-sensu-enterprise-dashboard-repository).
 2. Stop `sensu-server` and `sensu-api` services
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service sensu-server stop && sudo service sensu-api stop
-{{< /highlight >}}
+{{< /code >}}
 
 3. Start `sensu-enterprise` service
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service sensu-enterprise start
-{{< /highlight >}}
+{{< /code >}}
 
 4. Disable `sensu-server` and `sensu-api` services to avoid starting
 them at boot
-{{< highlight shell >}}
+{{< code shell >}}
 sudo update-rc.d -f sensu-server remove
 sudo update-rc.d -f sensu-api remove
-{{< /highlight >}}
+{{< /code >}}
 
 5. Enable `sensu-enterprise` to ensure it is started at boot
-{{< highlight shell >}}
+{{< code shell >}}
 sudo update-rc.d sensu-enterprise defaults
-{{< /highlight >}}
+{{< /code >}}
 
 ### Upgrading from Uchiwa to Sensu Enterprise Dashboard
 
@@ -183,31 +183,31 @@ Please follow these steps to manually upgrade from Uchiwa to Sensu
 Enterprise Dashboard:
 
 1. Stop `uchiwa` service
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service uchiwa stop
-{{< /highlight >}}
+{{< /code >}}
 
 2. Rename `/etc/sensu/uchiwa.json` to `/etc/sensu/dashboard.json`
-{{< highlight shell >}}
+{{< code shell >}}
 sudo mv /etc/sensu/uchiwa.json /etc/sensu/dashboard.json
-{{< /highlight >}}
+{{< /code >}}
 
 3. Remove the Uchiwa package from your system
-{{< highlight shell >}}
+{{< code shell >}}
 sudo dpkg --remove uchiwa
-{{< /highlight >}}
+{{< /code >}}
 
 4. Install the `sensu-enterprise-dashboard` package as described in [Install Sensu Enterprise](/sensu-core/latest/platforms/sensu-on-ubuntu-debian/#sensu-enterprise).
 
 5. Start `sensu-enterprise-dashboard` service
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service sensu-enterprise-dashboard start
-{{< /highlight >}}
+{{< /code >}}
 
 6. Enable `sensu-enterprise` to ensure it is started at boot
-{{< highlight shell >}}
+{{< code shell >}}
 sudo update-rc.d sensu-enterprise-dashboard defaults
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 

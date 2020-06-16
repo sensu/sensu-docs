@@ -18,7 +18,7 @@ The `/health` API endpoint provides HTTP GET access to health data for your Sens
 
 The following example demonstrates a request to the `/health` API endpoint, resulting in a JSON map that contains Sensu health data.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/health
 
@@ -47,7 +47,7 @@ HTTP/1.1 200 OK
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#health-get-specification}
 
@@ -58,7 +58,7 @@ example url      | http://hostname:8080/health
 query parameters | `timeout`: Defines the timeout when querying etcd. Default is `3`.
 response type    | Map
 response codes   | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output           | {{< highlight shell >}}
+output           | {{< code shell >}}
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -83,4 +83,4 @@ output           | {{< highlight shell >}}
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}

@@ -28,7 +28,7 @@ menu: "sensu-enterprise-dashboard-2.14"
 The following is the bare minimum that should be included in your Sensu
 Enterprise Dashboard configuration.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "sensu": [
     {
@@ -42,14 +42,14 @@ Enterprise Dashboard configuration.
     "port": 3000
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: the Sensu Enterprise Dashboard requires two configuration scopes: `sensu`
 and `dashboard` (see [Dashboard definition specification][8], below)._
 
 For a more advanced configuration making use of RBAC and SSL, consider the example below:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "sensu": [
     {
@@ -122,7 +122,7 @@ For a more advanced configuration making use of RBAC and SSL, consider the examp
       ]
      }
    }
-}{{< /highlight >}}
+}{{< /code >}}
 
 This example makes use of the following:
 
@@ -140,7 +140,7 @@ You can define multiple users, including read-only users, within your
 users attribute. The **users** attribute has precedence over the **user** attribute.
 
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "sensu": [
     {
@@ -168,7 +168,7 @@ users attribute. The **users** attribute has precedence over the **user** attrib
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 Key     | Required | Type | Description
 --------|----------|------|------
@@ -184,8 +184,8 @@ users passwords in your configuration files.
 
 Please note that you must **absolutely** use the `{crypt}` prefix when using an encrypted
 password. For example:
-{{< highlight shell >}}
-"password": "{crypt}$1$MteWnoFT$yhEi8KMxO794K0TIriZcI0"{{< /highlight >}}
+{{< code shell >}}
+"password": "{crypt}$1$MteWnoFT$yhEi8KMxO794K0TIriZcI0"{{< /code >}}
 
 The following algorithms are supported (along with the commands to create the hashes):
 
@@ -219,14 +219,14 @@ description  | The name of the Sensu API (used elsewhere as the `datacenter` nam
 required     | false
 type         | String
 default      | randomly generated
-example      | {{< highlight shell >}}"name": "us-west-1"{{< /highlight >}}
+example      | {{< code shell >}}"name": "us-west-1"{{< /code >}}
 
 host         | 
 -------------|------
 description  | The hostname or IP address of the Sensu API.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"host": "127.0.0.1"{{< /highlight >}}
+example      | {{< code shell >}}"host": "127.0.0.1"{{< /code >}}
 
 port         | 
 -------------|------
@@ -234,7 +234,7 @@ description  | The port of the Sensu API.
 required     | false
 type         | Integer
 default      | 4567
-example      | {{< highlight shell >}}"port": 4567{{< /highlight >}}
+example      | {{< code shell >}}"port": 4567{{< /code >}}
 
 ssl          | 
 -------------|------
@@ -242,7 +242,7 @@ description  | Determines whether or not to use the HTTPS protocol.
 required     | false
 type         | Boolean
 default      | false
-example      | {{< highlight shell >}}"ssl": true{{< /highlight >}}
+example      | {{< code shell >}}"ssl": true{{< /code >}}
 
 insecure     | 
 -------------|------
@@ -250,14 +250,14 @@ description  | Determines whether or not to accept an insecure SSL certificate.
 required     | false
 type         | Boolean
 default      | false
-example      | {{< highlight shell >}}"insecure": true{{< /highlight >}}
+example      | {{< code shell >}}"insecure": true{{< /code >}}
 
 path         | 
 -------------|------
 description  | The path of the Sensu API. Leave empty unless your Sensu API is not mounted to `/`.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"path": "/my_api"{{< /highlight >}}
+example      | {{< code shell >}}"path": "/my_api"{{< /code >}}
 
 timeout      | 
 -------------|------
@@ -265,21 +265,21 @@ description  | The timeout for the Sensu API, in seconds.
 required     | false
 type         | Integer
 default      | 5
-example      | {{< highlight shell >}}"timeout": 15{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 15{{< /code >}}
 
 user         | 
 -------------|------
 description  | The username of the Sensu API. Leave empty for no authentication.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"user": "my_sensu_api_username"{{< /highlight >}}
+example      | {{< code shell >}}"user": "my_sensu_api_username"{{< /code >}}
 
 pass         | 
 -------------|------
 description  | The password of the Sensu API. Leave empty for no authentication.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"pass": "my_sensu_api_password"{{< /highlight >}}
+example      | {{< code shell >}}"pass": "my_sensu_api_password"{{< /code >}}
 
 ### `dashboard` attributes {#dashboard-attributes}
 
@@ -289,7 +289,7 @@ description  | The hostname or IP address on which Sensu Enterprise Dashboard wi
 required     | false
 type         | String
 default      | "0.0.0.0"
-example      | {{< highlight shell >}}"host": "1.2.3.4"{{< /highlight >}}
+example      | {{< code shell >}}"host": "1.2.3.4"{{< /code >}}
 
 port         | 
 -------------|------
@@ -297,7 +297,7 @@ description  | The port on which Sensu Enterprise Dashboard and Console API will
 required     | false
 type         | Integer
 default      | 3000
-example      | {{< highlight shell >}}"port": 3000{{< /highlight >}}
+example      | {{< code shell >}}"port": 3000{{< /code >}}
 
 refresh      | 
 -------------|------
@@ -305,14 +305,14 @@ description  | Determines the interval to poll the Sensu APIs, in seconds.
 required     | false
 type         | Integer
 default      | 5
-example      | {{< highlight shell >}}"refresh": 5{{< /highlight >}}
+example      | {{< code shell >}}"refresh": 5{{< /code >}}
 
 ssl          | 
 -------------|------
 description  | A hash of SSL configuration for native SSL support.
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"ssl": {
+example      | {{< code shell >}}"ssl": {
   "certfile": "/path/to/dashboard.pem",
   "keyfile": "/path/to/dashboard.key",
   "ciphersuite": [
@@ -327,43 +327,43 @@ example      | {{< highlight shell >}}"ssl": {
       ],
   "tlsminversion": "tls10"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 user         | 
 -------------|------
 description  | A username to enable simple authentication and restrict access to the dashboard. Leave blank along with `pass` to disable simple authentication. You can also configure multiple users with the [`users` attribute](#configuring-multiple-users).
 required     | false
 type         | String
-example      | {{< highlight shell >}}"user": "admin"{{< /highlight >}}
+example      | {{< code shell >}}"user": "admin"{{< /code >}}
 
 pass         | 
 -------------|------
 description  | A password to enable simple authentication and restrict access to the dashboard. Leave blank along with `user` to disable simple authentication. Sensu also supports [encrypted passwords](#encrypting-passwords).
 required     | false
 type         | String
-example      | {{< highlight shell >}}"pass": "secret"{{< /highlight >}}
+example      | {{< code shell >}}"pass": "secret"{{< /code >}}
 
 auth         | 
 -------------|------
 description  | The [`auth` definition scope][11], used to configure JSON Web Token (JWT) authentication signatures.
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"auth": {
+example      | {{< code shell >}}"auth": {
   "privatekey": "/path/to/console.rsa",
   "publickey": "/path/to/console.rsa.pub"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 audit        | 
 -------------|------
 description  | The [`audit` definition scope][12], used to configure [Audit Logging][7] for the Sensu Enterprise Dashboard.
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"audit": {
+example      | {{< code shell >}}"audit": {
   "logfile": "/var/log/sensu/sensu-enterprise-dashboard-audit.log",
   "level": "default"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 requireSilencingReason | 
 -------------|------
@@ -371,14 +371,14 @@ description  | Determines whether or not a reason must be provided when creating
 required     | false
 type         | Boolean
 default      | false
-example      | {{< highlight shell >}}"requireSilencingReason": false{{< /highlight >}}
+example      | {{< code shell >}}"requireSilencingReason": false{{< /code >}}
 
 github       | 
 -------------|------
 description  | The [`github` definition scope][14], used to configure [Role Based Access Controls][3] with the [RBAC for GitHub driver][5]. Overrides simple authentication.
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"github": {
+example      | {{< code shell >}}"github": {
   "clientId": "a8e43af034e7f2608780",
   "clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216",
   "server": "https://github.com",
@@ -407,14 +407,14 @@ example      | {{< highlight shell >}}"github": {
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 gitlab       | 
 -------------|------
 description  | The [`gitlab` definition scope][15], used to configure [Role Based Access Controls][3] with the [RBAC for GitLab driver][6]. Overrides simple authentication.
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"gitlab": {
+example      | {{< code shell >}}"gitlab": {
   "clientId": "a8e43af034e7f2608780",
   "clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216",
   "server": "https://github.com",
@@ -443,14 +443,14 @@ example      | {{< highlight shell >}}"gitlab": {
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ldap         | 
 -------------|------
 description  | The [`ldap` configuration scope][13], used to configure [Role Based Access Controls][3] with the [RBAC for LDAP driver][4]. Overrides simple authentication.
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"ldap": {
+example      | {{< code shell >}}"ldap": {
   "server": "localhost",
   "port": 389,
   "basedn": "cn=users,dc=domain,dc=tld",
@@ -484,14 +484,14 @@ example      | {{< highlight shell >}}"ldap": {
   "security": "none",
   "userattribute": "sAMAccountName"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 oidc         | 
 -------------|------
 description  | The [`oidc` definition scope][18], used to configure [Role Based Access Controls][3] with the [RBAC for OpenID Connect (OIDC) driver][17]. Overrides simple authentication.
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"oidc": {
+example      | {{< code shell >}}"oidc": {
   "clientId": "a8e43af034e7f2608780",
   "clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216",
   "insecure": false,
@@ -521,7 +521,7 @@ example      | {{< highlight shell >}}"oidc": {
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### `auth` attributes
 
@@ -538,20 +538,20 @@ privatekey   |
 description  | Path to a private RSA key used for generating and validating the signatures of the JSON Web Tokens (JWT) for authentication.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"auth": {
+example      | {{< code shell >}}"auth": {
   "privatekey": "/path/to/console.rsa"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 public       | 
 -------------|------
 description  | Path to a public RSA key used for generating and validating the signatures of the JSON Web Tokens (JWT) for authentication.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"auth": {
+example      | {{< code shell >}}"auth": {
   "publickey": "/path/to/console.rsa.pub"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### `audit` attributes
 

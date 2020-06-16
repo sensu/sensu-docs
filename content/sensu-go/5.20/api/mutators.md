@@ -31,7 +31,7 @@ The `/mutators` API endpoint provides HTTP GET access to [mutator][1] data.
 
 The following example demonstrates a request to the `/mutators` API endpoint, resulting in a JSON array that contains [mutator definitions][1].
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators \
 -H "Authorization: Key $SENSU_API_KEY"
@@ -52,7 +52,7 @@ HTTP/1.1 200 OK
     "runtime_assets": []
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#mutators-get-specification}
 
@@ -64,7 +64,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}
+output         | {{< code shell >}}
 [
   {
     "metadata": {
@@ -80,7 +80,7 @@ output         | {{< highlight shell >}}
     "runtime_assets": []
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/mutators` (POST)
 
@@ -91,7 +91,7 @@ The `/mutators` API endpoint provides HTTP POST access to create mutators.
 In the following example, an HTTP POST request is submitted to the `/mutators` API endpoint to create the mutator `example-mutator`.
 The request returns a successful HTTP `201 Created` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
@@ -110,7 +110,7 @@ curl -X POST \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#mutators-post-specification}
 
@@ -118,7 +118,7 @@ HTTP/1.1 201 Created
 ----------------|------
 description     | Creates a Sensu mutator.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/mutators
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "metadata": {
     "name": "example-mutator",
@@ -131,7 +131,7 @@ payload         | {{< highlight shell >}}
   "env_vars": [],
   "runtime_assets": []
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/mutators/:mutator` API endpoint {#the-mutatorsmutator-api-endpoint}
@@ -144,7 +144,7 @@ The `/mutators/:mutator` API endpoint provides HTTP GET access to [mutator data]
 
 In the following example, querying the `/mutators/:mutator` API endpoint returns a JSON map that contains the requested [`:mutator` definition][1] (in this example, for the `:mutator` named `example-mutator`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator \
 -H "Authorization: Key $SENSU_API_KEY"
@@ -163,7 +163,7 @@ HTTP/1.1 200 OK
   "env_vars": [],
   "runtime_assets": []
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#mutatorsmutator-get-specification}
 
@@ -173,7 +173,7 @@ description          | Returns the specified mutator.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/mutators/mutator-name
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< code json >}}
 {
   "metadata": {
     "name": "example-mutator",
@@ -187,7 +187,7 @@ output               | {{< highlight json >}}
   "env_vars": [],
   "runtime_assets": []
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/mutators/:mutator` (PUT) {#mutatorsmutator-put}
 
@@ -198,7 +198,7 @@ The `/mutators/:mutator` API endpoint provides HTTP PUT access to [mutator data]
 In the following example, an HTTP PUT request is submitted to the `/mutators/:mutator` API endpoint to create the mutator `example-mutator`.
 The request returns a successful HTTP `201 Created` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
@@ -217,7 +217,7 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#mutatorsmutator-put-specification}
 
@@ -225,7 +225,7 @@ HTTP/1.1 201 Created
 ----------------|------
 description     | Creates or updates a Sensu mutator.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/mutators/example-mutator
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "metadata": {
     "name": "example-mutator",
@@ -238,7 +238,7 @@ payload         | {{< highlight shell >}}
   "env_vars": [],
   "runtime_assets": []
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/mutators/:mutator` (DELETE) {#mutatorsmutator-delete}
@@ -248,13 +248,13 @@ The `/mutators/:mutator` API endpoint provides HTTP DELETE access to delete a mu
 #### EXAMPLE {#mutatorsmutator-delete-example}
 The following example shows a request to the `/mutators/:mutator` API endpoint to delete the mutator `example-mutator`, resulting in a successful HTTP `204 No Content` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator \
 -H "Authorization: Key $SENSU_API_KEY" \
 
 HTTP/1.1 204 No Content
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#mutatorsmutator-delete-specification}
 

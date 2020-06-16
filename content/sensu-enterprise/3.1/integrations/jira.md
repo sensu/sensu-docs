@@ -27,7 +27,7 @@ Create and resolve [Jira][2] issues for [Sensu events][3].
 The following is an example global configuration for the `jira` enterprise
 event handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "jira": {
     "host": "jira.example.com",
@@ -37,7 +37,7 @@ event handler (integration).
     "timeout": 10
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -51,21 +51,21 @@ host         |
 description  | The JIRA host address.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"host": "jira.example.com"{{< /highlight >}}
+example      | {{< code shell >}}"host": "jira.example.com"{{< /code >}}
 
 user         | 
 -------------|------
 description  | The JIRA user used to authenticate.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"user": "admin"{{< /highlight >}}
+example      | {{< code shell >}}"user": "admin"{{< /code >}}
 
 password     | 
 -------------|------
 description  | The JIRA user password.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"password": "secret"{{< /highlight >}}
+example      | {{< code shell >}}"password": "secret"{{< /code >}}
 
 project      | 
 -------------|------
@@ -73,14 +73,14 @@ description  | The JIRA project to use for issues.
 required     | false
 type         | String
 default      | `Sensu`
-example      | {{< highlight shell >}}"project": "Alerts"{{< /highlight >}}
+example      | {{< code shell >}}"project": "Alerts"{{< /code >}}
 
 project_key  | 
 -------------|------
 description  | The JIRA project key to use for issues. This option allows the integration to work without querying JIRA for a projects key. Using this option is recommended.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"project_key": "SEN"{{< /highlight >}}
+example      | {{< code shell >}}"project_key": "SEN"{{< /code >}}
 
 issue_type   | 
 -------------|------
@@ -88,29 +88,29 @@ description  | Specifies default issue type for projects. _NOTE: The project use
 required     | false
 type         | String
 default      | `Incident`
-example      | {{< highlight shell >}}"issue_type": "Bug"{{< /highlight >}}
+example      | {{< code shell >}}"issue_type": "Bug"{{< /code >}}
 
 root_url     | 
 -------------|------
 description  | The JIRA root URL. When set, this option overrides the `host` option, most commonly used when a service proxy is in use.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"root_url": "https://services.example.com/proxy/jira"{{< /highlight >}}
+example      | {{< code shell >}}"root_url": "https://services.example.com/proxy/jira"{{< /code >}}
 
 http_proxy   | |
 -------------|------
 description  | The URL of a proxy to be used for HTTP requests.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /highlight >}}
+example      | {{< code shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /code >}}
 
 filters        | 
 ---------------|------
 description    | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string. Specified filters are merged with default values.
 required       | false
 type           | Array
-default        | {{< highlight shell >}}["handle_when", "check_dependencies"]{{< /highlight >}}
-example        | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+default        | {{< code shell >}}["handle_when", "check_dependencies"]{{< /code >}}
+example        | {{< code shell >}}"filters": ["recurrence", "production"]{{< /code >}}
 
 severities     | 
 ---------------|------
@@ -118,8 +118,8 @@ description    | An array of check result severities the handler will handle. _N
 required       | false
 type           | Array
 allowed values | `ok`, `warning`, `critical`, `unknown`
-default        | {{< highlight shell >}}["warning", "critical", "unknown"]{{< /highlight >}}
-example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
+default        | {{< code shell >}}["warning", "critical", "unknown"]{{< /code >}}
+example        | {{< code shell >}} "severities": ["critical", "unknown"]{{< /code >}}
 
 timeout      | 
 -------------|------
@@ -127,7 +127,7 @@ description  | The handler execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
 default      | `10`
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 [?]:  #
 [1]:  /sensu-enterprise

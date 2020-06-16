@@ -41,9 +41,9 @@ using a dot notation query beginning with `filter`.
 
 For example, to return only events that match the `production` environment and `ops` contact, use the following request.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -i 'http://127.0.0.1:4567/events?filter.client.environment=production&filter.check.contact=ops'
-{{< /highlight >}}
+{{< /code >}}
 
 Response filtering is only available for string values; integers (for example: `filter.check.status=2`) are not supported.
 

@@ -67,15 +67,15 @@ HTTP `GET` access to the [Clients API][16], but not `DELETE` access; see the
 
 In a header:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -H "Authorization: token TOKEN" https://localhost:3000/events
-{{< /highlight >}}
+{{< /code >}}
 
 As a parameter:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl https://localhost:3000/events?token=TOKEN
-{{< /highlight >}}
+{{< /code >}}
 
 ## RBAC configuration
 
@@ -85,7 +85,7 @@ The following is an example RBAC configuration using the [RBAC for LDAP][7]
 authentication driver, a JSON configuration file located at
 `/etc/sensu/dashboard.json`.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "dashboard": {
     "host": "0.0.0.0",
@@ -124,7 +124,7 @@ authentication driver, a JSON configuration file located at
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### RBAC definition specification
 
@@ -149,7 +149,7 @@ specification is common across all RBAC drivers.
 
 ##### EXAMPLE {#roles-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "dashboard": {
     "...": "...",
@@ -167,7 +167,7 @@ specification is common across all RBAC drivers.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#roles-attributes-specification}
 
@@ -176,7 +176,7 @@ name         |
 description  | The name of the role.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "operators"{{< /highlight >}}
+example      | {{< code shell >}}"name": "operators"{{< /code >}}
 
 members        | 
 ---------------|------
@@ -184,32 +184,32 @@ description    | An array of the LDAP groups, GitHub Teams, or GitLab Groups tha
 required       | true
 type           | Array
 allowed values | Any LDAP group name, GitHub `organization/team` pair, or GitLab Group name. _NOTE: For LDAP group names, Sensu Enterprise supports the following LDAP group object classes: `group`, `groupOfNames`, `groupOfUniqueNames` and `posixGroup`._ _NOTE: A GitHub Team with a URL of [github.com/orgs/sensu/teams/docs][11] would be entered as `sensu/docs`._ _NOTE: A GitLab Group with a URL of [gitlab.com/groups/heavywater][12] would be entered as `heavywater`._
-example        | {{< highlight shell >}}"members": [
+example        | {{< code shell >}}"members": [
   "myorganization/devs",
   "myorganization/ops"
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 datacenters  | 
 -------------|------
 description  | An array of the `datacenters` (i.e. matching a defined Sensu API endpoint `name` value) that members of the role should have access to. Provided values will be used to filter which `datacenters` members of the role will have access to. _NOTE: omitting this configuration attribute or providing an empty array will allow members of the role access to all configured `datacenters`._
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"datacenters": [
+example      | {{< code shell >}}"datacenters": [
   "us-west-1",
   "us-west-2"
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 subscriptions | 
 --------------|------
 description   | An array of the subscriptions that members of the role should have access to. Provided values will be used to filter which subscriptions members of the role will have access to. Omitting this configuration attribute or providing an empty array will allow members of the role access to all subscriptions. _NOTE: Use of the `subscriptions` attribute as a selector for RBAC controls is subject to known limitations. Specifically, users may be able to create silencing entries for clients or subscriptions which their permissions as specified by `subscriptions` selector should have disallowed. Due to these limitations, use of `subscriptions` as an RBAC selector should be considered deprecated._
 required      | false
 type          | Array
-example       | {{< highlight shell >}}"subscriptions": [
+example       | {{< code shell >}}"subscriptions": [
   "webserver"
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 readonly     | 
 -------------|------
@@ -217,15 +217,15 @@ description  | Used to restrict "write" access (i.e. preventing members of the r
 required     | false
 type         | Boolean
 default      | false
-example      | {{< highlight shell >}}"readonly": true{{< /highlight >}}
+example      | {{< code shell >}}"readonly": true{{< /code >}}
 
 accessToken    | 
 ---------------|------
 description    | A unique token for [authenticating][19] against the [Sensu Enterprise Console API][14] as a member of that role.
 required       | false
 type           | String
-allowed values | any length string that only contains URL-friendly characters. _PRO TIP: we recommend using a random string generator for access tokens; e.g.:_ {{< highlight shell >}}openssl rand -base64 40 | tr -- '+=/' '-_~'{{< /highlight >}}
-example        | {{< highlight shell >}}"accessToken": "OrIXC7ezuq0AZKoRHhf~oIl-98dX5B23hf8KudfcqJt5eTeQjDDGDQ__"{{< /highlight >}}
+allowed values | any length string that only contains URL-friendly characters. _PRO TIP: we recommend using a random string generator for access tokens; e.g.:_ {{< code shell >}}openssl rand -base64 40 | tr -- '+=/' '-_~'{{< /code >}}
+example        | {{< code shell >}}"accessToken": "OrIXC7ezuq0AZKoRHhf~oIl-98dX5B23hf8KudfcqJt5eTeQjDDGDQ__"{{< /code >}}
 
 fallback    | 
 ---------------|------
@@ -233,20 +233,20 @@ description    | Used to give an authenticated user the attributes defined in th
 required       | false
 type           | Boolean
 default        | false
-example        | {{< highlight shell >}}{
+example        | {{< code shell >}}{
   "name": "readonly_fallback",
   "datacenters": [],
   "subscriptions": [],
   "fallback": true,
   "readonly": true
-}{{< /highlight >}}
+}{{< /code >}}
 
 methods      | 
 -------------|------
 description  | The [`methods` definition scope][18], used to configure access to the [Sensu Enterprise Console API][14].
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"methods": {
+example      | {{< code shell >}}"methods": {
   "head": [
     "none"
   ],
@@ -259,7 +259,7 @@ example      | {{< highlight shell >}}"methods": {
     "stashes"
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### `methods` attributes
 
@@ -269,7 +269,7 @@ Sensu Enterprise Console API access controls may be fine tuned using the
 
 ##### EXAMPLE {#methods-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "dashboard": {
     "...": "...",
@@ -297,7 +297,7 @@ Sensu Enterprise Console API access controls may be fine tuned using the
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### SPECIFICATION {#methods-attributes-specification}
 
@@ -308,14 +308,14 @@ required       | false
 type           | Array of Strings
 allowed values | `aggregates`, `checks`, `clients`, `datacenters`, `events`, `stashes`, `subscriptions`
 default        | `[]` (an empty array, which is equivalent to "allow all")
-example        | {{< highlight shell >}}"methods": {
+example        | {{< code shell >}}"methods": {
   "get": [
     "clients",
     "checks",
     "events"
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 post           | 
 ---------------|------
@@ -324,12 +324,12 @@ required       | false
 type           | Array of Strings
 allowed values | `results`, `stashes`
 default        | `[]` (an empty array, which is equivalent to "allow all")
-example        | {{< highlight shell >}}"methods": {
+example        | {{< code shell >}}"methods": {
   "post": [
     "results"
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 delete         | 
 ---------------|------
@@ -338,13 +338,13 @@ required       | false
 type           | Array of Strings
 allowed values | `aggregates`, `clients`, `events`, `results`, `stashes`
 default        | `[]` (an empty array, which is equivalent to "allow all")
-example        | {{< highlight shell >}}"methods": {
+example        | {{< code shell >}}"methods": {
   "delete": [
     "clients",
     "events"
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 head           | 
 ---------------|------
@@ -353,14 +353,14 @@ required       | false
 type           | Array of Strings
 allowed values | `aggregates`, `checks`, `clients`, `datacenters`, `events`, `stashes`, `subscriptions`
 default        | `[]` (an empty array, which is equivalent to "allow all")
-example        | {{< highlight shell >}}"methods": {
+example        | {{< code shell >}}"methods": {
   "head": [
     "clients",
     "checks",
     "events"
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 
 [?]:  #

@@ -67,9 +67,9 @@ If no such attribute called `url` is included in the entity definition, the defa
 If a token is unmatched during check preparation, the agent check handler will return an error, and the check will not be executed.
 Unmatched token errors are similar to this example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 error: unmatched token: template: :1:22: executing "" at <.system.hostname>: map has no entry for key "System"
-{{< /highlight >}}
+{{< /code >}}
 
 Check config token errors are logged by the agent and sent to Sensu backend message transport as check failures.
 
@@ -92,7 +92,7 @@ Hook configuration:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: HookConfig
 api_version: core/v2
 metadata:
@@ -103,9 +103,9 @@ spec:
   runtime_assets: null
   stdin: false
   timeout: 60
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "HookConfig",
   "api_version": "core/v2",
@@ -120,7 +120,7 @@ spec:
     "timeout": 60
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -128,7 +128,7 @@ Check configuration:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -157,9 +157,9 @@ spec:
   - staging
   timeout: 0
   ttl: 0
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -196,7 +196,7 @@ spec:
     "ttl": 0
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -204,7 +204,7 @@ The following example [entity][4] provides the necessary attributes to override 
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Entity
 api_version: core/v2
 metadata:
@@ -256,9 +256,9 @@ spec:
     platform_family: rhel
     platform_version: 7.4.1708
   user: agent
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Entity",
   "api_version": "core/v2",
@@ -328,7 +328,7 @@ spec:
       "secret"
     ]
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 {{< /language-toggle >}}
 

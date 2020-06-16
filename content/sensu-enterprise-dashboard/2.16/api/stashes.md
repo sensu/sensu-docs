@@ -26,7 +26,7 @@ stash data][3] via the [Sensu key/value store][4].
 The following example demonstrates a `/stashes` query, which results in a JSON
 Array of JSON Hashes containing [stash data][3].
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:3000/stashes | jq .
 [
   {
@@ -51,7 +51,7 @@ $ curl -s http://127.0.0.1:3000/stashes | jq .
     "expire": -1
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#stashes-get-specification}  
 
@@ -61,7 +61,7 @@ description    | Returns a list of stashes by `path` and datacenter (`dc`).
 example url    | http://hostname:3000/stashes
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight json >}}[
+output         | {{< code json >}}[
   {
     "_id": "us_west1/silence/i-424242/chef_client_process",
     "dc": "us_west1",
@@ -84,7 +84,7 @@ output         | {{< highlight json >}}[
     "expire": -1
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/stashes` (POST)
 
@@ -97,7 +97,7 @@ document payload to the `/stashes` API, resulting in a [200 (OK) HTTP
 response code][5] and a payload containing a JSON Hash confirming the stash
 `path`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{ "dc": "us_west1", "path": "example/stash/path", "content": { "foo": "bar" }}' \
@@ -114,7 +114,7 @@ Connection: keep-alive
 Server: thin
 
 {"path":"example/stash/path"}
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#stashes-post-specification}
 
@@ -122,7 +122,7 @@ Server: thin
 ----------------|------
 description     | Create a [Sensu stash][3].
 example URL     | http://hostname:3000/stashes
-payload         | {{< highlight json >}}{
+payload         | {{< code json >}}{
   "dc": "us_west1",
   "path": "example/stash",
   "content": {
@@ -130,7 +130,7 @@ payload         | {{< highlight json >}}{
   },
   "expire": -1
 }
-{{< /highlight >}}
+{{< /code >}}
 payload parameters | <ul><li>`dc`<ul><li>**required**: true</li><li>**type**: String</li><li>**description**: Specifies the name of the datacenter where the stash applies.</li><li>**example**: `"us_west1"`</li></ul><li>`path`<ul><li>**required**: true</li><li>**type**: String</li><li>**description**: The path (or “key”) the stash is created and accessible at.</li><li>**example**: `"example/stash"`</li></ul><li>`content`<ul><li>**required**: false</li><li>**type**: Hash</li><li>**description**: Arbitrary JSON data.</li><li>**example**: `{"message": "example"}`</li></ul><li>`expire`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: How long the stash exists before it is removed by the API, in seconds</li><li>**example**: `3600`</li></ul>
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -147,7 +147,7 @@ The following example demonstrates submitting an HTTP DELETE request to the
 `/stashes/:path` API to delete a stash with the path `my/example/path`, resulting in a
 [202 (Accepted) HTTP response code][5].
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X DELETE http://127.0.0.1:3000/stashes/my/example/path                                                                                                                                                                                        
 HTTP/1.1 202 Accepted
 Access-Control-Allow-Origin: *
@@ -156,7 +156,7 @@ Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
 Connection: close
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#stashespath-delete-specification}
 
@@ -166,14 +166,14 @@ description             | Delete a [Sensu stash][3].
 example URL             | http://hostname:3000/stashes/example/stash
 response type           | [HTTP-header][10] only (no output)
 response codes          | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                  | {{< highlight shell >}}HTTP/1.1 202 Accepted
+output                  | {{< code shell >}}HTTP/1.1 202 Accepted
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
 Connection: close
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 [1]:  https://en.wikipedia.org/wiki/Key-value_database
 [2]:  /sensu-core/latest/reference/events

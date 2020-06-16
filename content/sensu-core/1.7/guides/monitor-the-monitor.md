@@ -45,7 +45,7 @@ You can find more plugins at the [Sensu Community Homepage][5].
 To monitor the `sensu-server` server process, you will need to do so from an independent Sensu stack.
 This can be done by reaching out to Sensu's [API health endpoint][6] and using the [check-http plugin][7] with the following check definition.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "check_sensu_server_port": {
@@ -57,14 +57,14 @@ This can be done by reaching out to Sensu's [API health endpoint][6] and using t
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Monitoring Sensu API{#monitoring-sensu-api}
 
 To monitor the `sensu-api` service, you will need to do so from an independent Sensu stack.
 This can be done by reaching out to the port that the API is listening on using the [check-port plugin][8] with the following check definition.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "check_sensu_api_port": {
@@ -76,7 +76,7 @@ This can be done by reaching out to the port that the API is listening on using 
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Monitoring Uchiwa{#monitoring-uchiwa-dashboard}
 
@@ -86,7 +86,7 @@ To monitor the Uchiwa Dashboard, you will need to check for two processes named 
 This check will return a check result with status `2` if less than two processes are running with the string `/opt/uchiwa/bin/uchiwa`.
 We look for two processes because the `uchiwa service` has a parent and child process.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "check_uchiwa_process": {
@@ -98,13 +98,13 @@ We look for two processes because the `uchiwa service` has a parent and child pr
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 **Method 2: Monitor Uchiwa with a remote network port check**
 
 You can also monitor the `uchiwa` Dashboard with a remote port check using the [check-port plugin][8] with the following check definition.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "check_uchiwa_port": {
@@ -116,7 +116,7 @@ You can also monitor the `uchiwa` Dashboard with a remote port check using the [
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 _PRO TIP: Use both methods for complete monitoring of Uchiwa.
 This way, you are able to catch when the processes are not running and when a firewall port is not open._
@@ -132,16 +132,16 @@ Below is an example of how to create a monitor user using the [rabbitmqctl][15] 
 _NOTE: You can use the same RabbitMQ user that Sensu uses if you do not want to create another user, as they are role and permission equivalent.
 This guide will continue to use the monitor\_user in examples._
 
-{{< highlight shell >}}
+{{< code shell >}}
 rabbitmqctl add_user monitor_user password
 rabbitmqctl set_user_tags monitor_user monitoring
 rabbitmqctl set_permissions -p /sensu monitor_user "" "" ".*"
-{{< /highlight >}}
+{{< /code >}}
 
 To monitor the RabbitMQ instance, you will need to do so from an independent Sensu stack.
 The [rabbitmq-alive plugin][10] provides that ability using the following configuration with your RabbitMQ credentials.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "check_rabbitmq_alive": {
@@ -153,11 +153,11 @@ The [rabbitmq-alive plugin][10] provides that ability using the following config
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 While Sensu does not provide benchmarks for healthy RabbitMQ keepalives and results queues, you can use the [metrics-rabbitmq-queue plugin][11] to establish a baseline for what looks normal for your environment.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "collect_rabbitmq_keepalives_queue": {
@@ -170,9 +170,9 @@ While Sensu does not provide benchmarks for healthy RabbitMQ keepalives and resu
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "collect_rabbitmq_results_queue": {
@@ -185,12 +185,12 @@ While Sensu does not provide benchmarks for healthy RabbitMQ keepalives and resu
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 Then you can use the [check-rabbitmq-check plugin][12] to create checks for both the keepalives and results queues based on your benchmarks.
 The following check definition uses 250 as the normal depth for both queues.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "check_rabbitmq_queue": {
@@ -202,14 +202,14 @@ The following check definition uses 250 as the normal depth for both queues.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ## Monitoring Redis{#monitoring-redis}
 
 To monitor the Redis instance, you will need to configure Redis to bind to an interface that your independent Sensu stack can reach and open TCP port 6379.
 Then you can use the [check-redis-ping plugin][13] to monitor whether Redis is responsive using the following check definition.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "redis_ping": {
@@ -221,7 +221,7 @@ Then you can use the [check-redis-ping plugin][13] to monitor whether Redis is r
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 [1]: https://github.com/sensu-plugins/sensu-plugins-cpu-checks
 [2]: https://github.com/sensu-plugins/sensu-plugins-memory-checks

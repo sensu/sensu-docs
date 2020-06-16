@@ -23,7 +23,7 @@ data.
 The following example demonstrates a request to the `/subscriptions` API, resulting in
 a JSON Array of JSON Hashes containing subscription definitions.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:3000/subscriptions | jq .
 [
   {
@@ -34,7 +34,7 @@ $ curl -s http://127.0.0.1:3000/subscriptions | jq .
     "dc": "us_west1",
     "name": "database"
   }
-]{{< /highlight >}}
+]{{< /code >}}
 
 #### API Specification {#subscriptions-get-specification}
 
@@ -44,7 +44,7 @@ description    | Returns a list of subscriptions by `name` and datacenter (`dc`)
 example url    | http://hostname:3000/subscriptions
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}[
+output         | {{< code shell >}}[
   {
     "dc": "us_west1",
     "name": "web_server"
@@ -54,4 +54,4 @@ output         | {{< highlight shell >}}[
     "name": "database"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}

@@ -46,7 +46,7 @@ Token substitution allows you to host your assets at different URLs (such as at 
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Asset
 api_version: core/v2
 metadata:
@@ -56,9 +56,9 @@ spec:
   builds:
   - sha512: 07665fda5b7c75e15e4322820aa7ddb791cc9338e38444e976e601bc7d7970592e806a7b88733690a238b7325437d31f85e98ae2fe47b008ca09c86530da9600
     url: "{{ .labels.asset_url }}/sensu-go-hello-world-0.0.1.tar.gz"
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -75,7 +75,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -123,18 +123,18 @@ If no such attribute called `url` is included in the entity definition, the defa
 You can escape quotes to express quoted strings in token substitution templates as shown in the [Go template package examples][2].
 For example, to provide `"substitution"` as a default value for entities that are missing the `website` attribute (including the quotation marks):
 
-{{< highlight shell >}}
+{{< code shell >}}
 {{ .labels.website | default "\"substitution\"" }}
-{{< /highlight >}}
+{{< /code >}}
 
 ## Unmatched tokens
 
 If a token is unmatched during check preparation, the agent check handler will return an error, and the check will not be executed.
 Unmatched token errors are similar to this example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 error: unmatched token: template: :1:22: executing "" at <.system.hostname>: map has no entry for key "System"
-{{< /highlight >}}
+{{< /code >}}
 
 Check config token errors are logged by the agent and sent to Sensu backend message transport as check failures.
 
@@ -157,7 +157,7 @@ Hook configuration:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: HookConfig
 api_version: core/v2
 metadata:
@@ -168,9 +168,9 @@ spec:
   runtime_assets: null
   stdin: false
   timeout: 60
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "HookConfig",
   "api_version": "core/v2",
@@ -185,7 +185,7 @@ spec:
     "timeout": 60
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -193,7 +193,7 @@ Check configuration:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -222,9 +222,9 @@ spec:
   - staging
   timeout: 0
   ttl: 0
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -261,7 +261,7 @@ spec:
     "ttl": 0
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -269,7 +269,7 @@ The following example [entity][4] provides the necessary attributes to override 
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Entity
 api_version: core/v2
 metadata:
@@ -322,9 +322,9 @@ spec:
     platform_version: 7.4.1708
     processes: null
   user: agent
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Entity",
   "api_version": "core/v2",
@@ -395,7 +395,7 @@ spec:
       "secret"
     ]
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 {{< /language-toggle >}}
 

@@ -26,7 +26,7 @@ In the following example, an HTTP POST request is submitted to the `/prune/v1alp
 
 The request returns a successful HTTP `201 Created` response and a list of the resources that were pruned.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
 http://127.0.0.1:8080/api/enterprise/prune/v1alpha\?types\=core/v2.CheckConfig\&allUsers\=true\&namespaces\=dev \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
@@ -59,7 +59,7 @@ HTTP/1.1 201 Created
     "created_by": "admin"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#prune-v1alpha-specification}
 
@@ -67,7 +67,7 @@ HTTP/1.1 201 Created
 ----------------------|------
 description           | Creates a pruning command to delete the specified resources.
 example URL           | http://hostname:8080/api/enterprise/prune/v1alpha
-example payload       | {{< highlight shell >}}
+example payload       | {{< code shell >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -79,9 +79,9 @@ example payload       | {{< highlight shell >}}
   },
   "created_by": "admin"
 }
-{{< /highlight >}}
+{{< /code >}}
 query parameters      | <ul><li>`type`: The [fully-qualified name][2] of the resource you want to prune. Example: `?type=core/v2.CheckConfig`.</li><li>`allUsers`: Prune resources created by all users. Mutually exclusive with the `users` parameter. Defaults to false. Example: `?allUsers=true`.</li><li>`clusterWide`: Prune any cluster-wide (non-namespaced) resources that are not defined in the configuration. Defaults to false. Example: `?clusterWide=true`.</li><li>`dryRun`: Print the resources that will be pruned but does not actually delete them. Defaults to false. Example: `?dryRun=true`.</li><li>`labelSelector`: Prune only resources that match the specified labels (accepts multiple values). Labels are a [commercial feature][1]. Example: `?labelSelector=[...]`.</li><li>`namespaces`: The namespace where you want to apply pruning. Example: `?namespaces=dev`.</li><li>`users`: Prune only resources that were created by the specified users (accepts multiple values). Defaults to the currently configured sensuctl user. Example: `?users=admin`.</li></ul> To use multiple values for the parameters that allow them, you must specify the parameter multiple times (for example, `?users=admin&users=dev`) rather than using a comma-separated list.
-payload               | {{< highlight shell >}}
+payload               | {{< code shell >}}
 [
   {
     "type": "CheckConfig",
@@ -95,7 +95,7 @@ payload               | {{< highlight shell >}}
     "created_by": "admin"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 

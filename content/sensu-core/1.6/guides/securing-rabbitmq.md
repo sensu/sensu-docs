@@ -27,7 +27,7 @@ This guide will discuss the following:
 
 In this discussion, let's start with an example from one of our RabbitMQ [installation guides][2]:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "rabbitmq": {
     "host": "127.0.0.1",
@@ -42,7 +42,7 @@ In this discussion, let's start with an example from one of our RabbitMQ [instal
       "private_key_file": "/etc/sensu/ssl/key.pem"
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 From what we have above, there are several things that make this configuration far from being production-ready/production-safe in terms of permissions:
 
@@ -60,9 +60,9 @@ Depending on your infrastructure and the naming conventions that your organizati
 
 In our [RabbitMQ installation documentation][3], we go over setting the permissions for a client, and it looks like this:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo rabbitmqctl add_user sensu secret
-sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"{{< /highlight >}}
+sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"{{< /code >}}
 
 While fine for an example, we recommend that you have the permissions locked down to the queues that clients will need to write to, which are:
 
@@ -78,13 +78,13 @@ So how do we lock down permissions for our clients?
 
 We'll first start by creating a separate user. In the case of our 3rd point above, and cases where our client hostnames follow a predictable pattern, you can create a user with that node's hostname:
 
-{{< highlight shell >}}
-sudo rabbitmqctl add_user sensu-client-01 <PASSWORD>{{< /highlight >}}
+{{< code shell >}}
+sudo rabbitmqctl add_user sensu-client-01 <PASSWORD>{{< /code >}}
 
 From there we'll need to lock the client down to just the queues that it needs access to:
 
-{{< highlight shell >}}
-$ rabbitmqctl set_permissions -p /sensu sensu-client-01 '((?!keepalives|results).)*' '^(keepalives|results|sensu-client-01.*)$' '((?!keepalives|results).)*'{{< /highlight >}}
+{{< code shell >}}
+$ rabbitmqctl set_permissions -p /sensu sensu-client-01 '((?!keepalives|results).)*' '^(keepalives|results|sensu-client-01.*)$' '((?!keepalives|results).)*'{{< /code >}}
 
 So we know that works for clients with predictable hostnames. What about clients that don't have a hostname we can predict?
 
@@ -92,11 +92,11 @@ So we know that works for clients with predictable hostnames. What about clients
 
 For hosts that have less-than-predictable hostnames, you can tighten down the permissions a bit, though the queue you'll be missing is the `client`-specific queue. So, our permissions would look more like the following:
 
-{{< highlight shell >}}
-sudo rabbitmqctl add_user <CLIENT-USER> <CLIENT-PASS>{{< /highlight >}}
+{{< code shell >}}
+sudo rabbitmqctl add_user <CLIENT-USER> <CLIENT-PASS>{{< /code >}}
 
-{{< highlight shell >}}
-rabbitmqctl set_permissions -p /sensu <CLIENT-USER> '((?!keepalives|results).)*' '.*' '((?!keepalives|results).)*'{{< /highlight >}}
+{{< code shell >}}
+rabbitmqctl set_permissions -p /sensu <CLIENT-USER> '((?!keepalives|results).)*' '.*' '((?!keepalives|results).)*'{{< /code >}}
 
 This means that the client user we create for our randomly-named clients will have full `write` permissions.
 
@@ -104,19 +104,19 @@ This means that the client user we create for our randomly-named clients will ha
 
 Vhost permissions for our servers will function more like what you can find in our RabbitMQ installation documentation. In this case, our permissions will be open for our server user. So we'll start off by creating our server user:
 
-{{< highlight shell >}}
-sudo rabbitmqctl add_user <SERVER-USER> <PASSWORD>{{< /highlight >}}
+{{< code shell >}}
+sudo rabbitmqctl add_user <SERVER-USER> <PASSWORD>{{< /code >}}
 
 And we'll set the permissions so that the user has full control:
 
-{{< highlight shell >}}
-sudo rabbitmqctl set_permissions -p /sensu <SERVER-USER> ".*" ".*" ".*"{{< /highlight >}}
+{{< code shell >}}
+sudo rabbitmqctl set_permissions -p /sensu <SERVER-USER> ".*" ".*" ".*"{{< /code >}}
 
 ## SSL/TLS Configuration{#ssl-tls-configuration}
 
 In our previous guide on securing Sensu, we noted that it's possible to encrypt communication between clients, servers, and the transport. We'll build on what we discussed in the previous article, and add an example SSL/TLS configuration here so that all of the data flowing between our Sensu components is encrypted. For RabbitMQ, your configuration to set up SSL/TLS should look like the following:
 
-{{< highlight shell >}}[
+{{< code shell >}}[
  {rabbit, [
     {ssl_listeners, [5671]},
     {ssl_options, [{cacertfile,"/etc/rabbitmq/ssl/cacert.pem"},
@@ -127,11 +127,11 @@ In our previous guide on securing Sensu, we noted that it's possible to encrypt 
                    {verify,verify_peer},
                    {fail_if_no_peer_cert,true}]}
   ]}
-].{{< /highlight >}}
+].{{< /code >}}
 
 What this now means is that our clients will be pointing at our RabbitMQ instances with a configuration that looks something similar to:
 
-{{< highlight json >}}
+{{< code json >}}
 {
  "host": "127.0.0.1",
  "port": 5671,
@@ -144,7 +144,7 @@ What this now means is that our clients will be pointing at our RabbitMQ instanc
    "cert_chain_file": "/etc/sensu/ssl/cert.pem",
    "private_key_file": "/etc/sensu/ssl/key.pem"
  }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ## Wrapping it Up
 

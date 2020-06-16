@@ -29,7 +29,7 @@ API token][3], configure the handler (integration) with the provided API token.
 The following is an example global configuration for the `hipchat` enterprise
 event handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "hipchat": {
     "api_token": "L7kVQzXF7c5eUMYUon6INaSVRDU8mP",
@@ -39,7 +39,7 @@ event handler (integration).
     "timeout": 10
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -53,14 +53,14 @@ api_token    |
 description  | The HipChat API token - [https://www.hipchat.com/docs/api/auth][3].
 required     | true
 type         | String
-example      | {{< highlight shell >}}"api_token": "L7kVQzXF7c5eUMYUon6INaSVRDU8mP"{{< /highlight >}}
+example      | {{< code shell >}}"api_token": "L7kVQzXF7c5eUMYUon6INaSVRDU8mP"{{< /code >}}
 
 server_url   | 
 -------------|------
 description  | The URL of the HipChat server (used for self-hosted HipChat installations)
 required     | false
 type         | String
-example      | {{< highlight shell >}}"server_url": "https://hipchat.example.com"{{< /highlight >}}
+example      | {{< code shell >}}"server_url": "https://hipchat.example.com"{{< /code >}}
 
 api_version  | 
 -------------|------
@@ -68,7 +68,7 @@ description  | The HipChat API version to use.
 required     | false
 type         | String
 default      | `v2`
-example      | {{< highlight shell >}}"api_version": "v2"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "v2"{{< /code >}}
 
 
 username     | 
@@ -77,7 +77,7 @@ description  | The HipChat username to use to notify the room.
 required     | false
 type         | String
 default      | `sensu`
-example      | {{< highlight shell >}}"username": "monitoring"{{< /highlight >}}
+example      | {{< code shell >}}"username": "monitoring"{{< /code >}}
 
 room         | 
 -------------|------
@@ -85,7 +85,7 @@ description  | The HipChat room to notify.
 required     | false
 type         | String
 default      | `sensu`
-example      | {{< highlight shell >}}"room": "Search"{{< /highlight >}}
+example      | {{< code shell >}}"room": "Search"{{< /code >}}
 
 notify       | 
 -------------|------
@@ -93,15 +93,15 @@ description  | Configures whether notifications sent from Sensu Enterprise to Hi
 required     | false
 type         | Boolean
 default      | false
-example      | {{< highlight shell >}}"notify": true{{< /highlight >}}
+example      | {{< code shell >}}"notify": true{{< /code >}}
 
 filters        | 
 ---------------|------
 description    | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string. Specified filters are merged with default values.
 required       | false
 type           | Array
-default        | {{< highlight shell >}}["handle_when", "check_dependencies"]{{< /highlight >}}
-example        | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+default        | {{< code shell >}}["handle_when", "check_dependencies"]{{< /code >}}
+example        | {{< code shell >}}"filters": ["recurrence", "production"]{{< /code >}}
 
 severities     | 
 ---------------|------
@@ -109,8 +109,8 @@ description    | An array of check result severities the handler will handle. _N
 required       | false
 type           | Array
 allowed values | `ok`, `warning`, `critical`, `unknown`
-default        | {{< highlight shell >}}["warning", "critical", "unknown"]{{< /highlight >}}
-example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
+default        | {{< code shell >}}["warning", "critical", "unknown"]{{< /code >}}
+example        | {{< code shell >}} "severities": ["critical", "unknown"]{{< /code >}}
 
 timeout      | 
 -------------|------
@@ -118,7 +118,7 @@ description  | The handler execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
 default      | `10`
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 
 

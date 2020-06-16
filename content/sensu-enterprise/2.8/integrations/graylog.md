@@ -29,7 +29,7 @@ This integration requires a Graylog [JSON extractor][4].
 The following is an example configuration for the `graylog` enterprise event
 handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "graylog": {
     "host": "127.0.0.1",
@@ -37,7 +37,7 @@ handler (integration).
     "timeout": 10
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration specification
 
@@ -49,7 +49,7 @@ description  | The Graylog [Raw/Plaintext TCP input][3] host address.
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | {{< highlight shell >}}"host": "graylog.company.com"{{< /highlight >}}
+example      | {{< code shell >}}"host": "graylog.company.com"{{< /code >}}
 
 port         | 
 -------------|------
@@ -57,7 +57,7 @@ description  | The Graylog [Raw/Plaintext TCP input][3] port.
 required     | false
 type         | Integer
 default      | `5555`
-example      | {{< highlight shell >}}"port": 5556{{< /highlight >}}
+example      | {{< code shell >}}"port": 5556{{< /code >}}
 
 timeout      | 
 -------------|------
@@ -65,7 +65,7 @@ description  | The handler execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
 default      | `10`
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 [1]:  /sensu-enterprise
 [2]:  https://www.graylog.org/

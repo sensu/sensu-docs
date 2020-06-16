@@ -18,20 +18,20 @@ Explore the <a href="https://caviar.tf.sensu.io:3000/default/entities" onclick="
 You can also use the demo to try out sensuctl, the Sensu command line tool.
 First, [install sensuctl][1] on your workstation. Then, configure sensuctl to connect to the demo:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl configure
 ? Sensu Backend URL: https://caviar.tf.sensu.io:8080
 ? Username: guest
 ? Password: i<3sensu
 ? Namespace: default
 ? Preferred output format: tabular
-{{< /highlight >}}
+{{< /code >}}
 
 With sensuctl configured, to see the latest monitoring events, run:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event list
-{{< /highlight >}}
+{{< /code >}}
 
 See the [sensuctl quickstart][2] to get started using sensuctl.
 

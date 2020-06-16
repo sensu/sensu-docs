@@ -36,7 +36,7 @@ The following is an example of how to configure a check dependency for a check.
 The example check monitors a web application API and has a dependency on another
 check that monitors the local MySQL database.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "web_application_api": {
@@ -51,12 +51,12 @@ check that monitors the local MySQL database.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 The `web_application_api` check could depend on a check executed by another
 Sensu client, in this example a Sensu client named `db-01`.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "web_application_api": {
@@ -71,12 +71,12 @@ Sensu client, in this example a Sensu client named `db-01`.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 The following is an example of how to apply the `check_dependencies` enterprise
 filter to a standard Sensu `pipe` handler.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "custom_mailer": {
@@ -86,7 +86,7 @@ filter to a standard Sensu `pipe` handler.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Filter specification
 
@@ -100,11 +100,11 @@ dependencies |
 description  | An array of check dependencies. Events for the check will not be handled if events exist for one or more of the check dependencies. A check dependency can be a check executed by the same Sensu client (eg. `check_app`), or a client/check pair (eg.`db-01/check_mysql`).
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"dependencies": [
+example      | {{< code shell >}}"dependencies": [
   "check_app",
   "db-01/check_mysql"
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 [?]:  #
 [0]:  /sensu-enterprise

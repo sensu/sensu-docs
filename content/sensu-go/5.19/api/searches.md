@@ -28,7 +28,7 @@ The `/searches` API endpoint provides HTTP GET access to the list of saved searc
 
 The following example demonstrates a request to the `/search` API endpoint, resulting in a JSON array that contains saved search definitions.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/searches/v1/namespaces/default/searches \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
@@ -80,7 +80,7 @@ HTTP/1.1 200 OK
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#searches-get-specification}
 
@@ -91,7 +91,7 @@ example url    | http://hostname:8080/api/enterprise/searches/v1/namespaces/defa
 response filtering | This endpoint supports [API response filtering][1].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}
+output         | {{< code shell >}}
 [
   {
     "type": "Search",
@@ -138,7 +138,7 @@ output         | {{< highlight shell >}}
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ## The `/searches/:search` API endpoint {#the-searchessearch-api-endpoint}
 
@@ -150,7 +150,7 @@ The `/searches/:search` API endpoint provides HTTP GET access to a specific `:se
 
 In the following example, querying the `/searches/:search` API endpoint returns a JSON map that contains the requested [`:search` definition][1] (in this example, for the `:search` named `silenced-events`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/searches/v1/namespaces/default/searches/silenced-events \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
@@ -170,7 +170,7 @@ HTTP/1.1 200 OK
     "resource": "core.v2/Event"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#searchessearch-get-specification}
 
@@ -180,7 +180,7 @@ description          | Returns the specified search.
 example url          | http://hostname:8080/api/enterprise/searches/v1/namespaces/default/searches/silenced-events
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< code json >}}
 {
   "type": "Search",
   "api_version": "searches/v1",
@@ -195,7 +195,7 @@ output               | {{< highlight json >}}
     "resource": "core.v2/Event"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/searches/:search` (PUT) {#searchessearch-put}
 
@@ -206,7 +206,7 @@ The `/searches/:search` API endpoint provides HTTP PUT access to create or updat
 In the following example, an HTTP PUT request is submitted to the `/searches/:search` API endpoint to create or update a saved search for events that are silenced.
 The request includes the saved search definition in the request body and returns a successful HTTP `200 OK` response and the created or updated saved search definition.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
@@ -227,7 +227,7 @@ curl -X PUT \
 http://127.0.0.1:8080/api/enterprise/searches/v1/namespaces/default/searches/silenced-events
 
 HTTP/1.1 200 OK
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#searchessearch-put-specification}
 
@@ -235,7 +235,7 @@ HTTP/1.1 200 OK
 ----------------|------
 description     | Creates or updates the specified saved search.
 example URL     | http://hostname:8080/api/enterprise/searches/v1/namespaces/default/searches/silenced-events
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "type": "Search",
   "api_version": "searches/v1",
@@ -250,7 +250,7 @@ payload         | {{< highlight shell >}}
     "resource": "core.v2/Event"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/searches/:search` (DELETE) {#searchessearch-delete}
@@ -261,13 +261,13 @@ The `/searches/:search` API endpoint provides HTTP DELETE access to delete a sav
 
 The following example shows a request to the `/searches/:search` API endpoint to delete the saved search `silenced-events`, resulting in a successful HTTP `204 No Content` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/enterprise/searches/v1/namespaces/default/searches/silenced-events
 
 HTTP/1.1 204 No Content
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#searchessearch-delete-specification}
 

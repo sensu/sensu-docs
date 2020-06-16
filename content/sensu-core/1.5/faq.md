@@ -157,10 +157,10 @@ You can toggle debug logging on and off by sending the Sensu process a
 
 For example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ ps aux | grep [s]ensu-server
 sensu     5992  1.7  0.3 177232 24352 ...
-$ kill -TRAP 5992{{< /highlight >}}
+$ kill -TRAP 5992{{< /code >}}
 
 > How can I print my Sensu configuration for troubleshooting?
 

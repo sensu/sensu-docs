@@ -32,7 +32,7 @@ local chef-client configuration can be used as a reference.
 The following is an example global configuration for the `chef` enterprise
 handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "chef": {
     "endpoint": "https://api.chef.io/organizations/example",
@@ -48,7 +48,7 @@ handler (integration).
     "timeout": 10
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -66,7 +66,7 @@ endpoint     |
 description  | The Chef Server API endpoint (URL).
 required     | true
 type         | String
-example      | {{< highlight shell >}}"endpoint": "https://api.chef.io/organizations/example"{{< /highlight >}}
+example      | {{< code shell >}}"endpoint": "https://api.chef.io/organizations/example"{{< /code >}}
 
 flavor         | 
 ---------------|------
@@ -74,28 +74,28 @@ description    | The Chef Server flavor (is it enterprise?).
 required       | false
 type           | String
 allowed values | `enterprise` (for Hosted Chef and Enterprise Chef) and `open_source` (for Chef Zero and Open Source Chef Server)
-example        | {{< highlight shell >}}"flavor": "enterprise"{{< /highlight >}}
+example        | {{< code shell >}}"flavor": "enterprise"{{< /code >}}
 
 client       | 
 -------------|------
 description  | The Chef Client name to use when authenticating/querying the Chef Server API.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"client": "sensu-server"{{< /highlight >}}
+example      | {{< code shell >}}"client": "sensu-server"{{< /code >}}
 
 key          | 
 -------------|------
 description  | The Chef Client key to use when authenticating/querying the Chef Server API.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"key": "/etc/chef/i-424242.pem"{{< /highlight >}}
+example      | {{< code shell >}}"key": "/etc/chef/i-424242.pem"{{< /code >}}
 
 ssl_pem_file | 
 -------------|------
 description  | The Chef SSL pem file use when querying the Chef Server API.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"ssl_pem_file": "/etc/chef/ssl.pem"{{< /highlight >}}
+example      | {{< code shell >}}"ssl_pem_file": "/etc/chef/ssl.pem"{{< /code >}}
 
 ssl_verify   | 
 -------------|------
@@ -103,43 +103,43 @@ description  | If the SSL certificate will be verified when querying the Chef Se
 required     | false
 type         | Boolean
 default      | `true`
-example      | {{< highlight shell >}}"ssl_verify": false{{< /highlight >}}
+example      | {{< code shell >}}"ssl_verify": false{{< /code >}}
 
 proxy_address | 
 --------------|------
 description   | The HTTP proxy address.
 required      | false
 type          | String
-example       | {{< highlight shell >}}"proxy_address": "proxy.example.com"{{< /highlight >}}
+example       | {{< code shell >}}"proxy_address": "proxy.example.com"{{< /code >}}
 
 proxy_port   | 
 -------------|------
 description  | The HTTP proxy port (if there is a proxy).
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"proxy_port": 8080{{< /highlight >}}
+example      | {{< code shell >}}"proxy_port": 8080{{< /code >}}
 
 proxy_username | 
 ---------------|------
 description    | The HTTP proxy username (if there is a proxy).
 required       | false
 type           | String
-example        | {{< highlight shell >}}"proxy_username": "chef"{{< /highlight >}}
+example        | {{< code shell >}}"proxy_username": "chef"{{< /code >}}
 
 proxy_password | 
 ---------------|------
 description    | The HTTP proxy user password (if there is a proxy).
 required       | false
 type           | String
-example        | {{< highlight shell >}}"proxy_password": "secret"{{< /highlight >}}
+example        | {{< code shell >}}"proxy_password": "secret"{{< /code >}}
 
 filters        | 
 ---------------|------
 description    | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string. Specified filters are merged with default values.
 required       | false
 type           | Array
-default        | {{< highlight shell >}}["handle_when", "check_dependencies"]{{< /highlight >}}
-example        | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+default        | {{< code shell >}}["handle_when", "check_dependencies"]{{< /code >}}
+example        | {{< code shell >}}"filters": ["recurrence", "production"]{{< /code >}}
 
 severities     | 
 ---------------|------
@@ -147,8 +147,8 @@ description    | An array of check result severities the handler will handle. _N
 required       | false
 type           | Array
 allowed values | `ok`, `warning`, `critical`, `unknown`
-default        | {{< highlight shell >}}["warning", "critical", "unknown"]{{< /highlight >}}
-example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
+default        | {{< code shell >}}["warning", "critical", "unknown"]{{< /code >}}
+example        | {{< code shell >}} "severities": ["critical", "unknown"]{{< /code >}}
 
 timeout      | 
 -------------|------
@@ -156,7 +156,7 @@ description  | The handler execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
 default      | `10`
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 [?]:  #
 [1]:  /sensu-enterprise

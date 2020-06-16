@@ -31,7 +31,7 @@ The `/handlers` API endpoint provides HTTP GET access to [handler][1] data.
 
 The following example demonstrates a request to the `/handlers` API endpoint, resulting in a JSON array that contains [handler definitions][1].
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers \
 -H "Authorization: Key $SENSU_API_KEY"
@@ -76,7 +76,7 @@ HTTP/1.1 200 OK
     "runtime_assets": ["sensu/sensu-influxdb-handler"]
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#handlers-get-specification}
 
@@ -88,7 +88,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}
+output         | {{< code shell >}}
 [
   {
     "metadata": {
@@ -127,7 +127,7 @@ output         | {{< highlight shell >}}
     "runtime_assets": ["sensu/sensu-slack-handler"]
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/handlers` (POST)
 
@@ -138,7 +138,7 @@ The `/handlers` API endpoint provides HTTP POST access to create a handler.
 In the following example, an HTTP POST request is submitted to the `/handlers` API endpoint to create the event handler `influx-db`.
 The request returns a successful HTTP `201 Created` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
@@ -164,7 +164,7 @@ curl -X POST \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#handlers-post-specification}
 
@@ -172,7 +172,7 @@ HTTP/1.1 201 Created
 ----------------|------
 description     | Creates a Sensu handler.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/handlers
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "metadata": {
     "name": "influx-db",
@@ -192,7 +192,7 @@ payload         | {{< highlight shell >}}
   "timeout": 0,
   "type": "pipe"
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/handlers/:handler` API endpoint {#the-handlershandler-api-endpoint}
@@ -205,7 +205,7 @@ The `/handlers/:handler` API endpoint provides HTTP GET access to [handler data]
 
 In the following example, querying the `/handlers/:handler` API endpoint returns a JSON map that contains the requested [`:handler` definition][1] (in this example, for the `:handler` named `slack`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack \
 -H "Authorization: Key $SENSU_API_KEY"
@@ -232,7 +232,7 @@ HTTP/1.1 200 OK
   "timeout": 0,
   "type": "pipe"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#handlershandler-get-specification}
 
@@ -242,7 +242,7 @@ description          | Returns a handler.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/handlers/slack
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< code json >}}
 {
   "metadata": {
     "name": "slack",
@@ -264,7 +264,7 @@ output               | {{< highlight json >}}
   "timeout": 0,
   "type": "pipe"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/handlers/:handler` (PUT) {#handlershandler-put}
 
@@ -275,7 +275,7 @@ The `/handlers/:handler` API endpoint provides HTTP GET access to create or upda
 In the following example, an HTTP PUT request is submitted to the `/handlers/:handler` API endpoint to create the handler `influx-dbdevelopment_filter`.
 The request returns a successful HTTP `201 Created` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
@@ -301,7 +301,7 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/influx-db
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#handlershandler-put-specification}
 
@@ -309,7 +309,7 @@ HTTP/1.1 201 Created
 ----------------|------
 description     | Creates or updates the specified Sensu handler.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/handlers/influx-db
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "metadata": {
     "name": "influx-db",
@@ -329,7 +329,7 @@ payload         | {{< highlight shell >}}
   "timeout": 0,
   "type": "pipe"
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/handlers/:handler` (DELETE) {#handlershandler-delete}
@@ -340,13 +340,13 @@ The `/handlers/:handler` API endpoint provides HTTP DELETE access to delete a ha
 
 The following example shows a request to the `/handlers/:handler` API endpoint to delete the handler `slack`, resulting in a successful HTTP `204 No Content` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 204 No Content
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#handlershandler-delete-specification}
 

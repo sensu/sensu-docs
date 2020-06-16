@@ -40,7 +40,7 @@ alerts using the new API.
 
 Example OpsGenie configuration for Sensu Enterprise prior to 3.0:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "opsgenie": {
     "api_key": "eed02a0d-85a4-427b-851a-18dd8fd80d93",
@@ -48,13 +48,13 @@ Example OpsGenie configuration for Sensu Enterprise prior to 3.0:
     "recipients": ["afterhours"]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 Assuming `afterhours` is an escalation plan, the values supplied for
 `teams` and `recipients` above can be translated to the new
 `responders` attribute like so:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "opsgenie": {
     "api_key": "eed02a0d-85a4-427b-851a-18dd8fd80d93",
@@ -74,7 +74,7 @@ Assuming `afterhours` is an escalation plan, the values supplied for
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 As shown above, the `responders` attribute expects an array of hashes
 specifying the `type` and `name` for each object. Depending on the
@@ -91,14 +91,14 @@ prevent OpsGenie from notifying recipient(s) during their configured quiet hours
 
 Example OpsGenie configuration for Sensu Enterprise 3.0:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "opsgenie": {
     "api_key": "eed02a0d-85a4-427b-851a-18dd8fd80d93",
     "overwrite_quiet_hours": true
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Changes in Java package dependency
 
@@ -128,21 +128,21 @@ cannot reach the Sensu software repositories, you must mirror the
 repositories and keep them up-to-date._
 
 1. Download the latest package.<br><br>CentOS/RHEL:
-{{< highlight shell >}}
-sudo yum install sensu-enterprise{{< /highlight >}}
+{{< code shell >}}
+sudo yum install sensu-enterprise{{< /code >}}
 Ubuntu/Debian:
-{{< highlight shell >}}
+{{< code shell >}}
 sudo apt-get update
-sudo apt-get -y install sensu-enterprise{{< /highlight >}}
+sudo apt-get -y install sensu-enterprise{{< /code >}}
 
 2. Restart Sensu Enterprise:
-{{< highlight shell >}}
-sudo systemctl restart sensu-enterprise{{< /highlight >}}
+{{< code shell >}}
+sudo systemctl restart sensu-enterprise{{< /code >}}
 _NOTE: For Linux distributions using `sysvinit`, use `sudo service sensu-enterprise restart`._
 
 3. Use the [Info API][info] to confirm that Sensu Enterprise has upgraded to the [latest version][change]:
-{{< highlight shell >}}
-curl -s http://127.0.0.1:4567/info | jq .{{< /highlight >}}
+{{< code shell >}}
+curl -s http://127.0.0.1:4567/info | jq .{{< /code >}}
 
 [overview]: ../installation/overview
 [opsgenie-api-migration]: https://docs.opsgenie.com/docs/migration-guide-for-alert-rest-api

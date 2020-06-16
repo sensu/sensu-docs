@@ -34,7 +34,7 @@ The `/authproviders` API endpoint provides HTTP GET access to authentication pro
 
 In the following example, querying the `/authproviders` API endpoint returns the authentication provider configuration in Sensu, with an HTTP `200 OK` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders \
 -H "Authorization: Key $SENSU_API_KEY"
@@ -81,7 +81,7 @@ HTTP/1.1 200 OK
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#authproviders-get-specification}
 
@@ -92,7 +92,7 @@ example url    | http://hostname:8080/api/enterprise/authentication/v2/authprovi
 pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][3] for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight json >}}
+output         | {{< code json >}}
 [
   {
     "type": "ldap",
@@ -134,7 +134,7 @@ output         | {{< highlight json >}}
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ## The `/authproviders/:name` API endpoints {#the-authprovidersname-api-endpoints}
 
@@ -146,7 +146,7 @@ The `/authproviders/:name` API endpoint provides HTTP GET access to the authenti
 
 In the following example, an HTTP GET request is submitted to the `/authproviders/:name` API endpoint to retrieve the `openldap` authenthication provider configuration, resulting in an HTTP `200 OK` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders/openldap \
 -H "Authorization: Key $SENSU_API_KEY" \
@@ -192,7 +192,7 @@ HTTP/1.1 200 OK
   "username_prefix": ""
   }
 }'
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#authprovidersname-get-specification}
 
@@ -202,7 +202,7 @@ description          | Returns the configuration for an authentication provider 
 example url          | http://hostname:8080/api/enterprise/authentication/v2/authproviders/openldap
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< code json >}}
 {
   "type": "ldap",
   "api_version": "authentication/v2",
@@ -242,7 +242,7 @@ output               | {{< highlight json >}}
   "username_prefix": ""
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/authproviders/:name` (PUT) {#authprovidersname-put}
 
@@ -252,7 +252,7 @@ The `/authproviders/:name` API endpoint provides HTTP PUT access to create or up
 
 In the following example, an HTTP PUT request is submitted to the `/authproviders/:name` API endpoint to create the `openldap` authenthication provider, resulting in an HTTP `200 OK` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
@@ -283,7 +283,7 @@ curl -X PUT \
 http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders/openldap
 
 HTTP/1.1 200 OK
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#authprovidersname-put-specification}
 
@@ -291,7 +291,7 @@ HTTP/1.1 200 OK
 ----------------|------
 description     | Creates or updates the authentication provider configuration for the specified name. See the [authentication guide][1] for more information about supported providers.
 example url     | http://hostname:8080/api/enterprise/authentication/v2/authproviders/openldap
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "Type": "ldap",
   "api_version": "authentication/v2",
@@ -316,7 +316,7 @@ payload         | {{< highlight shell >}}
     "name": "openldap"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 payload parameters | All attributes shown in the example payload are required. For more information about configuring authentication providers, see the [authentication guide][1].
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -328,13 +328,13 @@ The `/authproviders/:name` API endpoint provides HTTP DELETE access to delete th
 
 The following example shows a request to the `/authproviders/:name` API endpoint to delete the configuration for the authentication provider `openldap`, resulting in a successful HTTP `204 No Content` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/authproviders/openldap
 
 HTTP/1.1 204 No Content
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#authprovidersname-delete-specification}
 

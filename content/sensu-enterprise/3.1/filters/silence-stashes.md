@@ -36,7 +36,7 @@ data.
 The following is an example of how to apply the `silence_stashes` enterprise
 filter to a standard Sensu `pipe` handler.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "custom_mailer": {
@@ -46,7 +46,7 @@ filter to a standard Sensu `pipe` handler.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Filter specification
 

@@ -15,8 +15,8 @@ users passwords in your configuration files.
 
 Please note that you must **absolutely** use the `{crypt}` prefix when using an encrypted
 password. For example:
-{{< highlight shell >}}
-"password": "{crypt}$1$MteWnoFT$yhEi8KMxO794K0TIriZcI0"{{< /highlight >}}
+{{< code shell >}}
+"password": "{crypt}$1$MteWnoFT$yhEi8KMxO794K0TIriZcI0"{{< /code >}}
 
 The following algorithms are supported (along the commands to create the hashes):
 
@@ -36,16 +36,16 @@ You can serve all content over HTTPS, using Uchiwa, without the need of
 a reverse proxy. To get started, follow these few steps:
 
 *Optional* - Generate a private key:
-{{< highlight shell >}}
-openssl genrsa -out uchiwa.key 2048{{< /highlight >}}
+{{< code shell >}}
+openssl genrsa -out uchiwa.key 2048{{< /code >}}
 
 *Optional* - Generate a self-signed certificate:
-{{< highlight shell >}}
-openssl req -new -x509 -key uchiwa.key -out uchiwa.pem -days 365{{< /highlight >}}
+{{< code shell >}}
+openssl req -new -x509 -key uchiwa.key -out uchiwa.pem -days 365{{< /code >}}
 
 Adjust the *uchiwa* object in your configuration file in order to specify the
 path of the keys you just generated:
-{{< highlight json>}}
+{{< code json>}}
 {
   "uchiwa": {
     "ssl": {
@@ -53,14 +53,14 @@ path of the keys you just generated:
       "keyfile": "/path/to/uchiwa.key"
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 Finally, restart Uchiwa and access your dashboard over HTTPS.
 
 ### TLS Configuration
 
 Additional attributes can be provided to tweak the TLS configuration:
-{{< highlight json>}}
+{{< code json>}}
 {
   "uchiwa": {
     "ssl": {
@@ -80,7 +80,7 @@ Additional attributes can be provided to tweak the TLS configuration:
       "tlsminversion": "tls10"
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 Key     | Required | Type | Description
 --------|----------|------|------

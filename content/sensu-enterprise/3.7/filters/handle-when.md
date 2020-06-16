@@ -38,7 +38,7 @@ occurrences and send reminder/update notifications every 20 minutes. Sensu
 Enterprise integrations and standard event handlers using the `handle_when`
 enterprise filter will have events filtered unless these conditions are met.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "load_balancer_listeners": {
@@ -54,14 +54,14 @@ enterprise filter will have events filtered unless these conditions are met.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 The following is an example of how to apply the `handle_when` enterprise filter
 to a standard Sensu `pipe` handler.
 
 _NOTE: The default values for `occurrences` and `reset` attributes can be overridden by specifying custom values in your check definitions as shown above. Specifying values for `handle_when` attributes in a handler definition will have no effect._
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "custom_mailer": {
@@ -71,7 +71,7 @@ _NOTE: The default values for `occurrences` and `reset` attributes can be overri
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Filter specification
 
@@ -86,7 +86,7 @@ description  | The number of occurrences that must occur before an event is hand
 required     | false
 type         | Integer
 default      | `1`
-example      | {{< highlight shell >}}"occurrences": 3{{< /highlight >}}
+example      | {{< code shell >}}"occurrences": 3{{< /code >}}
 
 reset        | 
 -------------|------
@@ -94,7 +94,7 @@ description  | Time in seconds until the occurrence count is considered "reset",
 required     | false
 type         | Integer
 default      | `1800`
-example      | {{< highlight shell >}}"reset": 3600{{< /highlight >}}
+example      | {{< code shell >}}"reset": 3600{{< /code >}}
 
 [?]:  #
 [0]:  /sensu-enterprise

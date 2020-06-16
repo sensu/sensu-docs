@@ -55,7 +55,7 @@ specification][5], below._
 The following is an example Sensu event. By default, event data is JSON
 formatted, making it language-independent and fairly human readable.
 
-{{< highlight json >}}
+{{< code json >}}
 [
   {
     "id": "ef6b87d2-1f89-439f-8bea-33881436ab90",
@@ -92,7 +92,7 @@ formatted, making it language-independent and fairly human readable.
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ### Event data specification
 
@@ -106,13 +106,13 @@ id              |
 description     | Persistent unique ID for the event.
 type            | String
 possible values | Any [Ruby `SecureRandom.uuid` value][7]
-example         | {{< highlight shell >}}"id": "66926524-da77-41a4-92bd-365498841079"{{< /highlight >}}
+example         | {{< code shell >}}"id": "66926524-da77-41a4-92bd-365498841079"{{< /code >}}
 
 timestamp    | 
 -------------|------
 description  | The time the event occurred in [Epoch time][6] (generated via Ruby `Time.now.to_i`)
 type         | Integer
-example      | {{< highlight shell >}}"timestamp": 1460172826{{< /highlight >}}
+example      | {{< code shell >}}"timestamp": 1460172826{{< /code >}}
 
 action          | 
 ----------------|------
@@ -120,7 +120,7 @@ description     | The Sensu event action, providing event handlers with more inf
 type            | String
 possible values | `create`, `resolve`, `flapping`
 default         | `create`
-example         | {{< highlight shell >}}"action": "create"{{< /highlight >}}
+example         | {{< code shell >}}"action": "create"{{< /code >}}
 
 last_ok       | 
 --------------|-----
@@ -133,20 +133,20 @@ occurrences  |
 description  | The occurrence count for the event; the number of times an event has been created for a client/check pair with the same state (check status).
 type         | Integer
 default      | `1`
-example      | {{< highlight shell >}}"occurrences": 3{{< /highlight >}}
+example      | {{< code shell >}}"occurrences": 3{{< /code >}}
 
 occurrences_watermark | 
 ----------------------|------
 description           | The "high water mark" tracking number of occurrences at the current severity.
 type                  | Integer
 default               | `1`
-example               | {{< highlight shell >}}"occurrences_watermark": 3{{< /highlight >}}
+example               | {{< code shell >}}"occurrences_watermark": 3{{< /code >}}
 
 check        | 
 -------------|------
 description  | The check result [check attributes][8].
 type         | Hash
-example      | {{< highlight shell >}}"check":{
+example      | {{< code shell >}}"check":{
   "name": "chef_client",
   "command": "/etc/sensu/plugins/check-chef-client.rb",
   "subscribers": [
@@ -162,13 +162,13 @@ example      | {{< highlight shell >}}"check":{
     "1"
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 client       | 
 -------------|------
 description  | [Client attributes][9] from the originating client, or the proxy client attributes, in the case of an event from a proxy client.
 type         | Hash
-example      | {{< highlight shell >}}"client": {
+example      | {{< code shell >}}"client": {
   "name": "i-424242",
   "address": "8.8.8.8",
   "subscriptions": [
@@ -178,7 +178,7 @@ example      | {{< highlight shell >}}"client": {
   ],
   "timestamp": 1326390159
 }
-{{< /highlight >}}
+{{< /code >}}
 
 silenced     | 
 -------------|------
@@ -190,7 +190,7 @@ silenced_by  |
 -------------|------
 description  | List of silence entry IDs which match this event
 type         | Array
-example      | {{< highlight json >}}[ "load-balancer:check_ntp" ]{{< /highlight >}}
+example      | {{< code json >}}[ "load-balancer:check_ntp" ]{{< /code >}}
 
 
 #### `check` attributes
@@ -211,97 +211,97 @@ description    | The check type.
 default        | `standard`
 allowed values | `standard`, `metric`
 type           | String
-example        | {{< highlight shell >}}"type": "standard"{{< /highlight >}}
+example        | {{< code shell >}}"type": "standard"{{< /code >}}
 
 name         | 
 -------------|------
 description  | The `name` as defined in the originating [check definition][11].
 type         | String
 required     | `true`
-example      | {{< highlight shell >}}"name": "sensu_website"{{< /highlight >}}
+example      | {{< code shell >}}"name": "sensu_website"{{< /code >}}
 
 command      | 
 -------------|------
 description  | The `command` as defined in the originating [check definition][11].
 type         | String
 required     | `true`
-example      | {{< highlight shell >}}"command": "check-http.rb -u https://sensuapp.org"{{< /highlight >}}
+example      | {{< code shell >}}"command": "check-http.rb -u https://sensuapp.org"{{< /code >}}
 
 subscribers  | 
 -------------|------
 description  | The `subscribers` as defined in the originating [check definition][11].
 type         | Array
 required     | `true`
-example      | {{< highlight shell >}}"subscribers": [
+example      | {{< code shell >}}"subscribers": [
   "webserver"
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 interval     | 
 -------------|------
 description  | The `interval`, in seconds, as defined in the originating [check definition][11].
 type         | Integer
 required     | `true`
-example      | {{< highlight shell >}}"interval": 30{{< /highlight >}}
+example      | {{< code shell >}}"interval": 30{{< /code >}}
 
 handler      | 
 -------------|------
 description  | The `handler` as defined in the originating [check definition][11].
 type         | String
 required     | `false`
-example      | {{< highlight shell >}}"handler": "slack"{{< /highlight >}}
+example      | {{< code shell >}}"handler": "slack"{{< /code >}}
 
 handlers     | 
 -------------|------
 description  | The `handlers` as defined in the originating [check definition][11].
 type         | Array
 required     | `false`
-example      | {{< highlight shell >}}"handlers": [
+example      | {{< code shell >}}"handlers": [
   "slack"
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 issued       | 
 -------------|------
 description  | The `issued` timestamp (in [epoch time][13]), when Sensu issued the check request (for a subscription check or standalone check).
 type         | Integer
 required     | `false`
-example      | {{< highlight shell >}}"issued": 1326390159{{< /highlight >}}
+example      | {{< code shell >}}"issued": 1326390159{{< /code >}}
 
 output       | 
 -------------|------
 description  | The `output` produced by the check, as included in the [check result][10].
 type         | String
 required     | `true`
-example      | {{< highlight shell >}}"output": "CheckHttp OK: 200, 78572 bytes\n"{{< /highlight >}}
+example      | {{< code shell >}}"output": "CheckHttp OK: 200, 78572 bytes\n"{{< /code >}}
 
 status       | 
 -------------|------
 description  | The [exit status code][14] produced by the check, as included in the [check result][10].
 type         | Integer
 required     | `true`
-example      | {{< highlight shell >}}"status": 0{{< /highlight >}}
+example      | {{< code shell >}}"status": 0{{< /code >}}
 
 history      | 
 -------------|------
 description  | The history of the last 21 exit status codes produced by the check, as included in the [check result][10].
 type         | Array
 required     | `true`
-example      | {{< highlight shell >}}"history": [0,0,0,0,0,0,1,2,2,0,0,0,0,0,0,0,0,0,0,0,0]{{< /highlight >}}
+example      | {{< code shell >}}"history": [0,0,0,0,0,0,1,2,2,0,0,0,0,0,0,0,0,0,0,0,0]{{< /code >}}
 
 source       | 
 -------------|------
 description  | The name of the [proxy client][15] to associate the event with, as included in the [check result][10] (`source` attribute)._NOTE: the `source` attribute may be included in [check definitions][11], or provided in check results published to the [Sensu client input socket][16]._
 type         | String
 required     | false
-example      | {{< highlight shell >}}"source": "sensuapp.org"{{< /highlight >}}
+example      | {{< code shell >}}"source": "sensuapp.org"{{< /code >}}
 
 origin       | 
 -------------|------
 description  | The `name` of the Sensu client that executed the check._NOTE: this attribute is only provided for proxy client events (i.e. events containing a `source` attribute._
 type         | String
 required     | false
-example      | {{< highlight shell >}}"origin": "i-424242"{{< /highlight >}}
+example      | {{< code shell >}}"origin": "i-424242"{{< /code >}}
 
 #### `client` attributes
 
@@ -319,31 +319,31 @@ name         |
 description  | The `name` of the Sensu client (or [proxy client][15]) the event is associated with, as fetched from the [Clients API][17].
 type         | String
 required     | true
-example      | {{< highlight shell >}}"name": "i-424242"{{< /highlight >}}
+example      | {{< code shell >}}"name": "i-424242"{{< /code >}}
 
 address      | 
 -------------|------
 description  | The `address` of the Sensu client (or [proxy client][15]) the event is associated with, as fetched from the [Clients API][17].
 type         | String
 required     | true
-example      | {{< highlight shell >}}"address": "10.0.2.100"{{< /highlight >}}
+example      | {{< code shell >}}"address": "10.0.2.100"{{< /code >}}
 
 subscriptions | 
 --------------|------
 description   | The `subscriptions` the associated Sensu client (or [proxy client][15]) is a member of, as fetched from the [Clients API][17].
 type          | Array
 required      | true
-example       | {{< highlight shell >}}"subscriptions": [
+example       | {{< code shell >}}"subscriptions": [
   "webserver"
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 timestamp    | 
 -------------|------
 description  | The last [keepalive][20] `timestamp` (in [epoch time][13]) produced by the Sensu client (or [proxy client][15]), as fetched from the [Clients API][17]._NOTE: for proxy clients, this will usually represent the date/time when the proxy client was created, unless some external process is updating proxy client data via the [Clients API (POST)][21]._
 type         | Integer
 required     | true
-example      | {{< highlight shell >}}"timestamp": 1326390159{{< /highlight >}}
+example      | {{< code shell >}}"timestamp": 1326390159{{< /code >}}
 
 
 
