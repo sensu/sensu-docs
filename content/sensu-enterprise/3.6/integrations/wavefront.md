@@ -35,7 +35,7 @@ Enterprise, please refer to the [Wavefront Proxy setup documentation][5].
 The following is an example global configuration for the `wavefront` enterprise
 handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "wavefront": {
     "host": "wavefront.example.com",
@@ -45,7 +45,7 @@ handler (integration).
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -62,7 +62,7 @@ description  | The Wavefront host address.
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | {{< highlight shell >}}"host": "wavefront.example.com"{{< /highlight >}}
+example      | {{< code shell >}}"host": "wavefront.example.com"{{< /code >}}
 
 port         | 
 -------------|------
@@ -70,19 +70,19 @@ description  | The Wavefront Proxy port for the Wavefront Data Format.
 required     | false
 type         | Integer
 default      | `2878`
-example      | {{< highlight shell >}}"port": 2878{{< /highlight >}}
+example      | {{< code shell >}}"port": 2878{{< /code >}}
 
 tags           | 
 ---------------|------
 description    | Configurable custom tags (key/value pairs) to add to every Wavefront metric data point.
 required       | false
 type           | Hash
-default        | {{< highlight shell >}}{}{{< /highlight >}}
-example        | {{< highlight shell >}}
+default        | {{< code shell >}}{}{{< /code >}}
+example        | {{< code shell >}}
 "tags": {
   "dc": "us-central-1"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 retry_limit    | 
 ---------------|------
@@ -90,7 +90,7 @@ description    | The number of times the integration will attempt to re-send met
 required       | false
 type           | Integer
 default        | `3`
-example        | {{< highlight shell >}} "retry_limit": "3"{{< /highlight >}}
+example        | {{< code shell >}} "retry_limit": "3"{{< /code >}}
 
 retry_delay    | 
 ---------------|------
@@ -98,7 +98,7 @@ description    | How long the integration will wait between retries, in seconds.
 required       | false
 type           | Integer
 default        | `1`
-example        | {{< highlight shell >}} "retry_delay": "1"{{< /highlight >}}
+example        | {{< code shell >}} "retry_delay": "1"{{< /code >}}
 
 [1]:  /sensu-enterprise
 [2]:  https://www.wavefront.com?ref=sensu-enterprise

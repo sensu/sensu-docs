@@ -24,8 +24,8 @@ If you don’t have Sensu spun up yet, we encourage you to go through our [5 min
 
 For installing the `snmptrap` command, you’ll want to run the following to install the command on a CentOS/RHEL device:
 
-{{< highlight shell >}}
-sudo yum install -y net-snmp-utils{{< /highlight >}}
+{{< code shell >}}
+sudo yum install -y net-snmp-utils{{< /code >}}
 
 ## Additional Resources
 - DigitalOcean's [Intro to SNMP][4]
@@ -38,34 +38,34 @@ SNMP trap generated→ SNMP trap received by Sensu client → Sensu client sends
 
 We’ll start by first installing the extension and enabling it on a given client that we expect to function as an SNMP trap receiver:
 
-{{< highlight shell >}}
-sudo sensu-install -e snmp-trap:0.0.33{{< /highlight >}}
+{{< code shell >}}
+sudo sensu-install -e snmp-trap:0.0.33{{< /code >}}
 
 Note that this only installs the extension, it does not enable it. In order for the extension to be functional, we’ll also need to edit the file `/etc/sensu/conf.d/extensions.json` to enable the file:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "extensions": {
     "snmp-trap": {
       "version": "0.0.33"
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 As well as change the configuration of the extension in `/etc/sensu/conf.d/snmp_trap.json`:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "snmp_trap": {
     "community": "sensutest"
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 One other important piece of configuring the extension is to create the `/etc/sensu/mibs` directory:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo mkdir /etc/sensu/mibs
-sudo chown sensu. /etc/sensu/mibs{{< /highlight >}}
+sudo chown sensu. /etc/sensu/mibs{{< /code >}}
 
 This directory is where the SNMP extension will look for any MIB files used to translate the trap OIDs into something that’s readable by humans...unless you know what your OID means off the top of your head. 
 
@@ -73,13 +73,13 @@ You’ll need to ensure that you place the MIB provided by your device manufactu
 
 _WARNING: Before proceeding any further, you’ll need to restart your `sensu-client` process so that the configuration is loaded._
 
-{{< highlight shell >}}
-sudo systemctl restart sensu-client{{< /highlight >}}
+{{< code shell >}}
+sudo systemctl restart sensu-client{{< /code >}}
 
 You can confirm that the client is now listening on the correct port by performing the following command:
 
-{{< highlight shell >}}
-sudo netstat -plunt | grep 1062{{< /highlight >}}
+{{< code shell >}}
+sudo netstat -plunt | grep 1062{{< /code >}}
 
 At this point, it’s worth noting that the configuration provided here is a basic, bare-minimum configuration. There are additional options you can add to your SNMP extension configuration to suit your needs. We cover those [here](#additional-snmp-extension-options). But to get a general sense of how SNMP traps function with Sensu, continue reading below.
 
@@ -94,13 +94,13 @@ Now comes the fun part: testing the extension to make sure that our trap receive
 
 Let’s start by generating a test trap:
 
-{{< highlight shell >}}
-sudo snmptrap -v 2c -c sensutest localhost:1062 '' IF-MIB::linkDown ifIndex i 2{{< /highlight >}}
+{{< code shell >}}
+sudo snmptrap -v 2c -c sensutest localhost:1062 '' IF-MIB::linkDown ifIndex i 2{{< /code >}}
 
 Here’s a quick explanation for those of you who are curious about what we’re doing. From the `snmptrap` man pages, this is the syntax of the command:
 
-{{< highlight shell >}}
- snmptrap -v [2c|3] [COMMON OPTIONS] [-Ci] AGENT uptime trap-oid [OID TYPE VALUE]...{{< /highlight >}}
+{{< code shell >}}
+ snmptrap -v [2c|3] [COMMON OPTIONS] [-Ci] AGENT uptime trap-oid [OID TYPE VALUE]...{{< /code >}}
 
 So our command does the following:
 Sets the version (`-v`) to 2c
@@ -120,8 +120,8 @@ And in detail:
 
 To resolve the alert, we pass a similar trap command:
 
-{{< highlight shell >}}
-sudo snmptrap -v 2c -c sensutest localhost:1062 '' IF-MIB::linkUp ifIndex i 2{{< /highlight >}}
+{{< code shell >}}
+sudo snmptrap -v 2c -c sensutest localhost:1062 '' IF-MIB::linkUp ifIndex i 2{{< /code >}}
 
 Which yields:
 
@@ -138,7 +138,7 @@ description  | The SNMP receiver host address.
 required     | false
 type         | String
 default      | `0.0.0.0`
-example      | {{< highlight shell >}}"host": "8.8.8.8"{{< /highlight >}}
+example      | {{< code shell >}}"host": "8.8.8.8"{{< /code >}}
 
 port         | 
 -------------|------
@@ -146,7 +146,7 @@ description  | The SNMP receiver trap port (UDP).
 required     | false
 type         | Integer
 default      | `1062`
-example      | {{< highlight shell >}}"port": 1062{{< /highlight >}} _NOTE: By default, SNMP uses :162 UDP. When configuring a network device, you'll need to ensure that traps are sent to the Sensu client over :1062 UDP._
+example      | {{< code shell >}}"port": 1062{{< /code >}} _NOTE: By default, SNMP uses :162 UDP. When configuring a network device, you'll need to ensure that traps are sent to the Sensu client over :1062 UDP._
 
 Filters, severities, handlers are also able to be applied on the SNMP trap receiver configuration:
 
@@ -155,8 +155,8 @@ filters        |
 description    | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string. Specified filters are merged with default values.
 required       | false
 type           | Array
-default        | {{< highlight shell >}}["handle_when", "check_dependencies"]{{< /highlight >}}
-example        | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+default        | {{< code shell >}}["handle_when", "check_dependencies"]{{< /code >}}
+example        | {{< code shell >}}"filters": ["recurrence", "production"]{{< /code >}}
 
 severities     | 
 ---------------|------
@@ -164,14 +164,14 @@ description    | An array of check result severities the handler will handle. _N
 required       | false
 type           | Array
 allowed values | `ok`, `warning`, `critical`, `unknown`
-example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
+example        | {{< code shell >}} "severities": ["critical", "unknown"]{{< /code >}}
 
 handlers     | 
 -------------|------
 description  | An array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"handlers": ["pagerduty", "email"]{{< /highlight >}}
+example      | {{< code shell >}}"handlers": ["pagerduty", "email"]{{< /code >}}
 
 There are also some more advanced options available:
 
@@ -181,7 +181,7 @@ description  | The SNMP trap varbind value trim length. The network(s) UDP MTU d
 required     | false
 type         | Integer
 default      | `100`
-example      | {{< highlight shell >}}"varbind_trim": 300{{< /highlight >}}
+example      | {{< code shell >}}"varbind_trim": 300{{< /code >}}
 
 mibs_dir     | 
 -------------|------
@@ -217,7 +217,7 @@ To get better understand how the `result_map` and `result_status_map` attributes
 
 The configurable result map allows you to define SNMP trap varbind to Sensu check result attribute mappings. A mapping is comprised of a varbind name regular expression and a check attribute. For example, if you expect SNMP traps with a varbind name that contains "AlertDescription" and you would like to use its value as the Sensu check result output:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "snmp_trap": {
     "...": "...",
@@ -225,7 +225,7 @@ The configurable result map allows you to define SNMP trap varbind to Sensu chec
       ["/description/i", "output"]
     ]
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 Configuring a result map does not replace the built-in mappings, the configured mappings take precedence over them.
 
@@ -233,7 +233,7 @@ Configuring a result map does not replace the built-in mappings, the configured 
 
 The configurable result status map allows you to define SNMP trap varbind to numeric Sensu check result status value mappings. A mapping is comprised of a varbind name regular expression and an check exit status (e.g. 1-255). For example, if you expect SNMP traps with a varbind name that contains "CriticalError" and you would like to set the Sensu check result status to `2` (critical):
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "snmp_trap": {
     "...": "...",
@@ -242,7 +242,7 @@ The configurable result status map allows you to define SNMP trap varbind to num
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 Configuring a result status map does not replace the built-in mappings, the configured mappings take precedence over them.
 

@@ -36,21 +36,21 @@ Perhaps the quickest way to set your log level is to use the following command:
 
 This will toggle the `debug` log level on/off for Sensu. In practice, it looks something like this:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo ps aux | grep [s]ensu-server
 sensu     5992  1.7  0.3 177232 24352 ...
-sudo kill -TRAP 5992{{< /highlight >}}
+sudo kill -TRAP 5992{{< /code >}}
 
 Additionally, you can set the log level to `info` or `debug` by using the configuration directive in `/etc/default/sensu`. Let's take a look at an example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo cat /etc/default/sensu
-LOG_LEVEL=debug{{< /highlight >}}
+LOG_LEVEL=debug{{< /code >}}
 
 And after setting that directive, restarting the respective Sensu services:
 
-{{< highlight shell >}}
-sudo systemctl restart sensu-{server,api,client}{{< /highlight >}}
+{{< code shell >}}
+sudo systemctl restart sensu-{server,api,client}{{< /code >}}
 
 Keep in mind that to set log levels back to normal, you can either run `sudo kill -TRAP $SENSUPID` (if you've used that method), or revert the change in `/etc/default/sensu` and restart the Sensu processes for the change to take place.
 
@@ -61,10 +61,10 @@ _NOTE: By default, Sensu's logging level is set to `info`. However, there are mo
 Frequently, Sensu staff or community members may ask you to print your configuration. It's fairly easy to print the configuration for your Sensu deployment:
 
 **Sensu Core**:
-{{< highlight shell >}}/opt/sensu/bin/sensu-client --print_config | tee sensu-core-config.json{{< /highlight >}}
+{{< code shell >}}/opt/sensu/bin/sensu-client --print_config | tee sensu-core-config.json{{< /code >}}
 
 **Sensu Enterprise**:
-{{< highlight shell >}}sudo -u sensu java -jar /usr/lib/sensu-enterprise/sensu-enterprise.jar -c /etc/sensu/config.json -d /etc/sensu/conf.d --print_config | tee se-config.json{{< /highlight >}}
+{{< code shell >}}sudo -u sensu java -jar /usr/lib/sensu-enterprise/sensu-enterprise.jar -c /etc/sensu/config.json -d /etc/sensu/conf.d --print_config | tee se-config.json{{< /code >}}
 
 This command will result in output that will list the entire configuration for your Sensu deployment. This can be especially useful when comparing the configuration that Sensu is aware of, versus the configuration living on-disk. If the values of a particular file differ from what you're expecting, then see the next section for how to proceed.
 
@@ -72,14 +72,14 @@ This command will result in output that will list the entire configuration for y
 
 It's crucial that you restart your Sensu services after each change so that the configuration changes are read. For most recent Linux distributions (CentOS/RHEL, Debian/Ubuntu) this is done using `systemd`:
 
-{{< highlight shell >}}
-sudo systemctl restart sensu-{server,api,client}{{< /highlight >}}
+{{< code shell >}}
+sudo systemctl restart sensu-{server,api,client}{{< /code >}}
 
 In the event that you're using a system where `sysvinit` is the service manager of choice, you can use:
 
-{{< highlight shell >}}sudo service sensu-client restart
+{{< code shell >}}sudo service sensu-client restart
 sudo service sensu-server restart
-sudo service sensu-api restart{{< /highlight >}}
+sudo service sensu-api restart{{< /code >}}
 
 It's especially important to restart the `sensu-client` process if you're making use of any [standalone][5] checks, as the client will be responsible for check scheduling and execution.
 
@@ -87,16 +87,16 @@ It's especially important to restart the `sensu-client` process if you're making
 
 Sensu's logs provide a wealth of information when troubleshooting issues. They live at `/var/log/sensu`:
 
-{{< highlight shell >}}# tree /var/log/sensu
+{{< code shell >}}# tree /var/log/sensu
 /var/log/sensu
 ├── sensu-api.log
 ├── sensu-client.log
-└── sensu-server.log{{< /highlight >}}
+└── sensu-server.log{{< /code >}}
 
 Sensu staff, or community members may ask to see your logs. You can view them at the paths above, or provide them in an archive:
 
-{{< highlight shell >}}
-tail -n 10000 /var/log/sensu/sensu-server.log > sensu-server-10k.log && gzip -9 sensu-server-10k.log{{< /highlight >}}
+{{< code shell >}}
+tail -n 10000 /var/log/sensu/sensu-server.log > sensu-server-10k.log && gzip -9 sensu-server-10k.log{{< /code >}}
 
 ## Local Client Socket
 By default the sensu-client process listens for check results on a local socket. There are several reasons for using the client socket to as a troubleshooting tool when deploying Sensu:
@@ -124,32 +124,32 @@ Consider the following scenario: Sensu has been installed, has been verified to 
 
 We'll start by crafting a test command to send to the local socket:
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo ‘{“name”: “testing”, “output”: “THIS IS AN ERROR”, “status”: 2, “refresh”: 10, “handlers”: [“mailer”]}’ | nc localhost 3030
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: Successfully submitting a check result this way will be indicated by `ok` being printed on the next line -- typically this is appears ahead of the command prompt so it can be easily missed. See below for an example._
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ echo '{"name": "testing_error", "status": 2, "output": "An error event should be created", "refresh": 10, "handlers": [ "mailer"]}' | nc 127.0.0.1 3030
-ok{{< /highlight >}}
+ok{{< /code >}}
 
 
 _NOTE: A successfully submitted check result is also logged to the sensu-client.log (viewable while in debug logging mode)._
 
-{{< highlight json >}}
-{"timestamp":"2018-10-12T18:28:43.204565+0000","level":"info","message":"publishing check result","payload":{"client":"sensu-enterprise","check":{"name":"testing_error","output":"its just a test","status":2,"handler":"opsgenie","opsgenie":{"tags":{"this":"is wrong"}},"refresh":2,"executed":1539368923,"issued":1539368923}}}{{< /highlight >}}
+{{< code json >}}
+{"timestamp":"2018-10-12T18:28:43.204565+0000","level":"info","message":"publishing check result","payload":{"client":"sensu-enterprise","check":{"name":"testing_error","output":"its just a test","status":2,"handler":"opsgenie","opsgenie":{"tags":{"this":"is wrong"}},"refresh":2,"executed":1539368923,"issued":1539368923}}}{{< /code >}}
 
 Review the logs on the Sensu server to determine if the issue is making it through to the server.
 Grep for the error message, specifically the check "name" attribute.
 
-{{< highlight json >}}
-{"timestamp":"2018-10-11T11:02:00.576261-0500","level":"info","message":"processing event","event":{"id":"f4a9453f-ac70-4e91-a601-a97ff31c589a","client":{"name":"sensu.test.local","address":"192.168.156.176","environment":"testing","subscriptions":["dev","linux-hosts","roundrobin:web_probe","client:sensu.test.local"],"version":"1.5.0","timestamp":1539273717},"check":{"name":"testing","output":"THIS IS AN ERROR","status":2,"refresh":10,"executed":1539273720,"issued":1539273720,"type":"standard","history":["2"],"total_state_change":0},"occurrences":1,"occurrences_watermark":1,"last_ok":null,"action":"create","timestamp":1539273720,"last_state_change":1539273720,"silenced":false,"silenced_by":[]}}{{< /highlight >}}
+{{< code json >}}
+{"timestamp":"2018-10-11T11:02:00.576261-0500","level":"info","message":"processing event","event":{"id":"f4a9453f-ac70-4e91-a601-a97ff31c589a","client":{"name":"sensu.test.local","address":"192.168.156.176","environment":"testing","subscriptions":["dev","linux-hosts","roundrobin:web_probe","client:sensu.test.local"],"version":"1.5.0","timestamp":1539273717},"check":{"name":"testing","output":"THIS IS AN ERROR","status":2,"refresh":10,"executed":1539273720,"issued":1539273720,"type":"standard","history":["2"],"total_state_change":0},"occurrences":1,"occurrences_watermark":1,"last_ok":null,"action":"create","timestamp":1539273720,"last_state_change":1539273720,"silenced":false,"silenced_by":[]}}{{< /code >}}
 
 It's also recommended that you note the event ID, as this persists and allows you to track an event throughout its lifecycle.
 
-{{< highlight shell >}}
-"event":{"id":"f4a9453f-ac70-4e91-a601-a97ff31c589a"}{{< /highlight >}}
+{{< code shell >}}
+"event":{"id":"f4a9453f-ac70-4e91-a601-a97ff31c589a"}{{< /code >}}
 
 Ensure that the event is being handled by the mailer handler (you can do this by searching for the `event_id` and looking at additional log entries to confirm that the event is handled as expected).
 
@@ -167,20 +167,20 @@ In this section, we'll discuss issues faced when connecting to RabbitMQ and how 
 
 One of the more common issues that you'll encounter when having RabbitMQ connectivity difficulties is the client and/or server failing to authenticate to RabbitMQ. Let's take a look at what an example error message might look like from both Sensu and from RabbitMQ:
 
-{{< highlight json >}}{
+{{< code json >}}{
   "timestamp": "2018-06-25T15:34:54.222674-0500",
   "level": "warn",
   "message": "transport connection error",
   "reason": "possible authentication failure. wrong credentials?",
   "user": "sensu"
-}{{< /highlight >}}
+}{{< /code >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 tail -f /var/log/rabbitmq/rabbit\@sensu.log
 2018-06-26 01:28:00.439 [info] <0.618.0> accepting AMQP connection <0.618.0> (192.168.1.3:44788 -> 192.168.1.2:5671)
 2018-06-26 01:28:00.442 [error] <0.618.0> Error on AMQP connection <0.618.0> (192.168.1.3:44788 -> 192.168.1.2:5671, state: starting):
 PLAIN login refused: user 'sensu' - invalid credentials
-2018-06-26 01:28:03.469 [info] <0.618.0> closing AMQP connection <0.618.0> (192.168.1.3:44788 -> 192.168.1.2:5671){{< /highlight >}}
+2018-06-26 01:28:03.469 [info] <0.618.0> closing AMQP connection <0.618.0> (192.168.1.3:44788 -> 192.168.1.2:5671){{< /code >}}
 
 As you can see, both RabbitMQ and Sensu will give errors if the credentials are incorrect. We'll now walk through the ways in which you can verify that the credentials are correct.
 
@@ -190,67 +190,67 @@ We'll start by going through the process of setting up RabbitMQ manually. If you
 
 Ensure that you've created the correct vhost:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo rabbitmqctl list_vhosts
-{{< /highlight >}}
+{{< /code >}}
 
 This should give you output that looks like:
 
-{{< highlight shell >}}
+{{< code shell >}}
 Listing vhosts ...
 /
-/sensu{{< /highlight >}}
+/sensu{{< /code >}}
 
 _NOTE: The `/` in front the `sensu` vhost is required. If you're missing the slash, but have configured Sensu to use the vhost `/sensu`, you will see an error._
 
 If your vhost output doesn't look like the output above, create the vhost:
 
-{{< highlight shell >}}
-sudo rabbitmqctl add_vhost /sensu{{< /highlight >}}
+{{< code shell >}}
+sudo rabbitmqctl add_vhost /sensu{{< /code >}}
 
 - Ensure that the `sensu` user is present:
 
-{{< highlight shell >}}
-sudo rabbitmqctl list_users{{< /highlight >}}
+{{< code shell >}}
+sudo rabbitmqctl list_users{{< /code >}}
 
 This should give you output that looks like:
 
-{{< highlight shell >}}
+{{< code shell >}}
 Listing users ...
 sensu   []
-guest   [administrator]{{< /highlight >}}
+guest   [administrator]{{< /code >}}
 
 If the user isn't present, add the user and the password for the user:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo rabbitmqctl add_user sensu secret
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: If the user is present, and the password needs to be reset, you can reset it by using `sudo rabbitmqctl change_password sensu secret`_
 
 - Ensure that the `sensu` user has the correct permissions for the vhost:
 
-{{< highlight shell >}}
-sudo rabbitmqctl list_permissions -p /sensu{{< /highlight >}}
+{{< code shell >}}
+sudo rabbitmqctl list_permissions -p /sensu{{< /code >}}
 
 You should see output that looks like the following:
 
-{{< highlight shell >}}
+{{< code shell >}}
 Listing permissions for vhost "/sensu" ...
-sensu   .*      .*      .*{{< /highlight >}}
+sensu   .*      .*      .*{{< /code >}}
 
 If the permissions are not correct, you can set them via:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
-{{< /highlight >}}
+{{< /code >}}
 
 Once we've ensured that our credentials are correct, we can see that RabbitMQ starts showing connections being accepted again:
 
-{{< highlight shell >}}
+{{< code shell >}}
 tail -f /var/log/rabbitmq/rabbit\@sensu.log
 2018-06-26 01:28:35.191 [info] <0.642.0> accepting AMQP connection <0.642.0> (192.168.1.3:44816 -> 192.168.1.2:5671)
-2018-06-26 01:28:35.194 [info] <0.642.0> connection <0.642.0> (192.168.1.3:44816 -> 192.168.1.2:5671): user 'sensu' authenticated and granted access to vhost '/sensu'{{< /highlight >}}
+2018-06-26 01:28:35.194 [info] <0.642.0> connection <0.642.0> (192.168.1.3:44816 -> 192.168.1.2:5671): user 'sensu' authenticated and granted access to vhost '/sensu'{{< /code >}}
 
 _WARNING: The credentials in this guide shouldn't be used in any production environment. If you're curious about how to better secure RabbitMQ, see our [Securing RabbitMQ Guide][7]._
 
@@ -267,18 +267,18 @@ _PRO TIP: For troubleshooting SSL issues, the openssl tool provides a wealth of 
 There are several layers of the proverbial onion when it comes to diagnosing handshake failures. We'll start by looking at the obvious errors that you'll see in logs, and dive deeper from there. The assumption here is that you've already configured Sensu to use SSL. If not, you'll want to refer back to our [SSL Configuration Reference material][9] before you proceed. Now, on to examining the errors you'll likely encounter in a handshake failure scenario:
 
 **Sensu Logs**:
-{{< highlight shell >}}{"timestamp":"2018-06-10T16:39:15.988000+0200","level":"warn","message":"transport connection error","reason":"tcp connection lost"}
-{"timestamp":"2018-06-10T16:39:15.989000+0200","level":"warn","message":"transport connection error","reason":"possible authentication failure. wrong credentials?","user":"sensu"}{{< /highlight >}}
+{{< code shell >}}{"timestamp":"2018-06-10T16:39:15.988000+0200","level":"warn","message":"transport connection error","reason":"tcp connection lost"}
+{"timestamp":"2018-06-10T16:39:15.989000+0200","level":"warn","message":"transport connection error","reason":"possible authentication failure. wrong credentials?","user":"sensu"}{{< /code >}}
 
 Much like the errors seen in the previous section, the failure to connect to RabbitMQ appears to be one related to credentials. However, we can go a bit deeper by looking at the RabbitMQ logs, which present an error similar to the following:
 
-{{< highlight shell >}}2018-06-11 15:31:03.515 [info] <0.1540.0> TLS server: In state certify at ssl_handshake.erl:1289 generated SERVER ALERT: Fatal - Handshake Failure - {bad_cert,invalid_ext_key_usage}{{< /highlight >}}
+{{< code shell >}}2018-06-11 15:31:03.515 [info] <0.1540.0> TLS server: In state certify at ssl_handshake.erl:1289 generated SERVER ALERT: Fatal - Handshake Failure - {bad_cert,invalid_ext_key_usage}{{< /code >}}
 
 _NOTE: We'll presume that if you've gone through our SSL guide, that you're using the [SSL tool][10] to generate the certificates used in your deployment. If not, this is not a problem, as the commands we'll use for troubleshooting this particular scenario will prove useful no matter how your cert and key pairs are generated._
 
 Let's start off by manually verifying our certificate and key pairs. Sensu's SSL tool will place the certs/keys in the following directory:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensu_ssl_tool
 ├── client
 │ ├── cert.pem
@@ -305,34 +305,34 @@ sensu_ssl_tool
 │ ├── keycert.p12
 │ ├── key.pem
 │ └── req.pem
-└── ssl_certs.sh{{< /highlight >}}
+└── ssl_certs.sh{{< /code >}}
 
 From the `sensu_ssl_tool` directory, we'll check for a match between the cert and key used inside of the RabbitMQ configuration:
 
-{{< highlight shell >}}
+{{< code shell >}}
 openssl x509 -noout -modulus -in server/cert.pem | openssl md5
 (stdin)= 32df80471e2d4e7d0453f60cfb66b2b2
 openssl rsa -noout -modulus -in server/key.pem | openssl md5
-(stdin)= 32df80471e2d4e7d0453f60cfb66b2b2{{< /highlight >}}
+(stdin)= 32df80471e2d4e7d0453f60cfb66b2b2{{< /code >}}
 
 And then the same with our client cert and key (cert and key being used inside of the Sensu configuration):
 
-{{< highlight shell >}}
+{{< code shell >}}
 openssl x509 -noout -modulus -in client/cert.pem | openssl md5
 (stdin)= c2a6a5a28a629653741e7674c3b95b19
 openssl rsa -noout -modulus -in client/key.pem | openssl md5
-(stdin)= c2a6a5a28a629653741e7674c3b95b19{{< /highlight >}}
+(stdin)= c2a6a5a28a629653741e7674c3b95b19{{< /code >}}
 
 _WARNING: Should the values here NOT match, you'll need to regenerate your cert/key pairs._
 
 And just to test to ensure that we can indeed connect with our cert/key pairs, we can use openssl to connect to our RabbitMQ instance directly:
 
-{{< highlight shell >}}
-openssl s_client -connect localhost:5671 -key client/key.pem{{< /highlight >}}
+{{< code shell >}}
+openssl s_client -connect localhost:5671 -key client/key.pem{{< /code >}}
 
 Which should give you output that will look similar to the following:
 
-{{< highlight shell >}}
+{{< code shell >}}
 CONNECTED(00000003)
 depth=1 CN = SensuCA
 verify error:num=19:self signed certificate in certificate chain
@@ -342,25 +342,25 @@ Certificate chain
 i:/CN=SensuCA
 1 s:/CN=SensuCA
 i:/CN=SensuCA
-{{< /highlight >}}
+{{< /code >}}
 
 Provided that the MD5 sums match and we're able to connect to RabbitMQ via openssl, we can effectively rule out any issues with the certificates.
 
 Let's move on to looking at the certificate (in this case, the server certificate specifically) and see what we find there. You can use the following command to examine the inner details of a certificate:
 
-{{< highlight shell >}}
-openssl x509 -in server/cert.pem -text -noout{{< /highlight >}}
+{{< code shell >}}
+openssl x509 -in server/cert.pem -text -noout{{< /code >}}
 
 This will give you quite a bit, but the most important thing to note here is a specific extension:
 
-{{< highlight shell >}}
+{{< code shell >}}
         X509v3 extensions:
             X509v3 Basic Constraints:
                 CA:FALSE
             X509v3 Key Usage:
                 Key Encipherment
             X509v3 Extended Key Usage:
-                TLS Web Server Authentication{{< /highlight >}}
+                TLS Web Server Authentication{{< /code >}}
 
 In the output above, we're specifically interested in the `TLS Web Server Authentication` extension. In a non-working certificate, _you will not see this present._ Instead, you'll end up seeing a value that looks similar to a SNMP MIB. See the image below for an example.
 

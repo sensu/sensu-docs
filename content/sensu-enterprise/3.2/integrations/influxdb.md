@@ -43,7 +43,7 @@ Annotation data can be used to overlay the status of Sensu checks on a graph of 
 The following is an example global configuration for the influxdb enterprise
 handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "influxdb": {
     "host": "8.8.8.8",
@@ -56,7 +56,7 @@ handler (integration).
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration specification
 
@@ -71,7 +71,7 @@ description  | The InfluxDB host address.
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | {{< highlight shell >}}"host": "8.8.8.8"{{< /highlight >}}
+example      | {{< code shell >}}"host": "8.8.8.8"{{< /code >}}
 
 port         | 
 -------------|------
@@ -79,7 +79,7 @@ description  | The InfluxDB HTTP API port.
 required     | false
 type         | Integer
 default      | `8086`
-example      | {{< highlight shell >}}"port": 9096{{< /highlight >}}
+example      | {{< code shell >}}"port": 9096{{< /code >}}
 
 username     | 
 -------------|------
@@ -87,7 +87,7 @@ description  | The InfluxDB username.
 required     | false
 type         | String
 default      | `root`
-example      | {{< highlight shell >}}"username": "sensu"{{< /highlight >}}
+example      | {{< code shell >}}"username": "sensu"{{< /code >}}
 
 password     | 
 -------------|------
@@ -95,7 +95,7 @@ description  | The InfluxDB user password.
 required     | false
 type         | String
 default      | `root`
-example      | {{< highlight shell >}}"password": "secret"{{< /highlight >}}
+example      | {{< code shell >}}"password": "secret"{{< /code >}}
 
 database     | 
 -------------|------
@@ -103,7 +103,7 @@ description  | The InfluxDB database (name) to use.
 required     | false
 type         | String
 default      | `db`
-example      | {{< highlight shell >}}"database": "sensu"{{< /highlight >}}
+example      | {{< code shell >}}"database": "sensu"{{< /code >}}
 
 api_version    | 
 ---------------|------
@@ -112,26 +112,26 @@ required       | false
 type           | String
 allowed values | `0.8`, `0.9`
 default        | `0.8`
-example        | {{< highlight shell >}}"api_version": "0.9"{{< /highlight >}}
+example        | {{< code shell >}}"api_version": "0.9"{{< /code >}}
 
 tags           | 
 ---------------|------
 description    | Configurable custom tags (key/value pairs) to add to every InfluxDB measurement. _PRO TIP: Augment the tags applied to each measurement by specifying additional InfluxDB tags in check and client definitions. See the Sensu Core reference docs to configure InfluxDB [check attributes][4] and [client attributes][5]._
 required       | false
 type           | Hash
-default        | {{< highlight shell >}}{}{{< /highlight >}}
-example        | {{< highlight shell >}}
+default        | {{< code shell >}}{}{{< /code >}}
+example        | {{< code shell >}}
 "tags": {
   "dc": "us-central-1"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 http_proxy   | |
 -------------|------
 description  | The URL of a proxy to be used for HTTP requests.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /highlight >}}
+example      | {{< code shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /code >}}
 
 timeout      | 
 -------------|------
@@ -139,7 +139,7 @@ description  | The InfluxDB HTTP API POST timeout (write).
 required     | false
 type         | Integer
 default      | `10`
-example      | {{< highlight shell >}}"timeout": 3{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 3{{< /code >}}
 
 ssl          | 
 -------------|------
@@ -147,7 +147,7 @@ description  | Enables communication over HTTPS.
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< highlight shell >}}"ssl": true{{< /highlight >}}
+example      | {{< code shell >}}"ssl": true{{< /code >}}
 
 
 [1]:  /sensu-enterprise

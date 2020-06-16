@@ -78,59 +78,59 @@ You can manage events using the [Sensu web UI][15], [events API][16], and [sensu
 
 To list all events:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event list
-{{< /highlight >}}
+{{< /code >}}
 
 To show event details in the default [output format][18]:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event info entity-name check-name
-{{< /highlight >}}
+{{< /code >}}
 
 With both the `list` and `info` commands, you can specify an [output format][18] using the `--format` flag:
 
 - `yaml` or `wrapped-json` formats for use with [`sensuctl create`][8]
 - `json` format for use with the [events API][16]
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event info entity-name check-name --format yaml
-{{< /highlight >}}
+{{< /code >}}
 
 ### Delete events
 
 To delete an event:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event delete entity-name check-name
-{{< /highlight >}}
+{{< /code >}}
 
 You can use the `--skip-confirm` flag to skip the confirmation step:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event delete entity-name check-name --skip-confirm
-{{< /highlight >}}
+{{< /code >}}
 
 You should see a confirmation message upon success:
 
-{{< highlight shell >}}
+{{< code shell >}}
 Deleted
-{{< /highlight >}}
+{{< /code >}}
 
 ### Resolve events
 
 You can use sensuctl to change the status of an event to `0` (OK).
 Events resolved by sensuctl include the output message `Resolved manually by sensuctl`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event resolve entity-name check-name
-{{< /highlight >}}
+{{< /code >}}
 
 You should see a confirmation message upon success:
 
-{{< highlight shell >}}
+{{< code shell >}}
 Resolved
-{{< /highlight >}}
+{{< /code >}}
 
 ## Event format
 
@@ -191,30 +191,30 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][8] resource type. Events should always be type `Event`.
 required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
 type         | String
-example      | {{< highlight shell >}}"type": "Event"{{< /highlight >}}
+example      | {{< code shell >}}"type": "Event"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For events in this version of Sensu, `api_version` should always be `core/v2`.
 required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
 type         | String
-example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
 
 metadata     | 
 -------------|------
 description  | Top-level scope that contains the event `namespace`. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes][29] for details.
 required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"metadata": {
+example      | {{< code shell >}}"metadata": {
   "namespace": "default"
-}{{< /highlight >}}
+}{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the event [spec attributes][9].
 required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "spec": {
   "check": {
     "check_hooks": null,
@@ -338,7 +338,7 @@ example      | {{< highlight shell >}}
   "timestamp": 1552506033,
   "event_id": "431a0085-96da-4521-863f-c38b480701e9"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Metadata attributes
 
@@ -348,7 +348,7 @@ description  | [Sensu RBAC namespace][26] that this event belongs to.
 required     | false
 type         | String
 default      | `default`
-example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+example      | {{< code shell >}}"namespace": "production"{{< /code >}}
 
 ### Spec attributes
 
@@ -358,21 +358,21 @@ description  | Time that the event occurred. In seconds since the Unix epoch.
 required     | false
 type         | Integer
 default      | Time that the event occurred
-example      | {{< highlight shell >}}"timestamp": 1522099512{{< /highlight >}}
+example      | {{< code shell >}}"timestamp": 1522099512{{< /code >}}
 
 event_id     |      |
 -------------|------
 description  | Universally unique identifier (UUID) for the event.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"event_id": "431a0085-96da-4521-863f-c38b480701e9"{{< /highlight >}}
+example      | {{< code shell >}}"event_id": "431a0085-96da-4521-863f-c38b480701e9"{{< /code >}}
 
 |entity      |      |
 -------------|------
 description  | [Entity attributes][2] from the originating entity (agent or proxy). If you use the [events API][35] to create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
 type         | Map
 required     | true
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "entity": {
   "deregister": false,
   "deregistration": {},
@@ -425,14 +425,14 @@ example      | {{< highlight shell >}}
   },
   "user": "agent"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 |check       |      |
 -------------|------
 description  | [Check definition][1] used to create the event and information about the status and history of the event. The check scope includes attributes described in the [event specification][21] and the [check specification][20].
 type         | Map
 required     | true
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "check": {
   "check_hooks": null,
   "command": "/opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u \"http://localhost\"",
@@ -481,7 +481,7 @@ example      | {{< highlight shell >}}
   "total_state_change": 0,
   "ttl": 0
 }
-{{< /highlight >}}
+{{< /code >}}
 
 <a name="metrics"></a>
 
@@ -490,7 +490,7 @@ example      | {{< highlight shell >}}
 description  | Metrics collected by the entity in Sensu metric format. See the [metric attributes][30].
 type         | Map
 required     | false
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "metrics": {
   "handlers": [
     "influx-db"
@@ -510,7 +510,7 @@ example      | {{< highlight shell >}}
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Check attributes
 
@@ -521,21 +521,21 @@ duration     |      |
 description  | Command execution time. In seconds.
 required     | false
 type         | Float
-example      | {{< highlight shell >}}"duration": 1.903135228{{< /highlight >}}
+example      | {{< code shell >}}"duration": 1.903135228{{< /code >}}
 
 executed     |      |
 -------------|------
 description  | Time at which the check request was executed. In seconds since the Unix epoch.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"executed": 1522100915{{< /highlight >}}
+example      | {{< code shell >}}"executed": 1522100915{{< /code >}}
 
 history      |      |
 -------------|------
 description  | Check status history for the last 21 check executions. See [history attributes][32].
 required     | false
 type         | Array
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "history": [
   {
     "executed": 1552505983,
@@ -546,65 +546,65 @@ example      | {{< highlight shell >}}
     "status": 0
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 issued       |      |
 -------------|------
 description  | Time that the check request was issued. In seconds since the Unix epoch.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"issued": 1552506033{{< /highlight >}}
+example      | {{< code shell >}}"issued": 1552506033{{< /code >}}
 
 last_ok      |      |
 -------------|------
 description  | Last time that the check returned an OK status (`0`). In seconds since the Unix epoch.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"last_ok": 1552506033{{< /highlight >}}
+example      | {{< code shell >}}"last_ok": 1552506033{{< /code >}}
 
 occurrences  |      |
 -------------|------
 description  | Number of preceding events with the same status as the current event (OK, WARNING, CRITICAL, or UNKNOWN). Starting at `1`, the `occurrences` attribute increments for events with the same status as the preceding event and resets whenever the status changes. See [Use event data][31] for more information.
 required     | false
 type         | Integer greater than 0
-example      | {{< highlight shell >}}"occurrences": 1{{< /highlight >}}
+example      | {{< code shell >}}"occurrences": 1{{< /code >}}
 
 occurrences_watermark | |
 -------------|------
 description  | For incident and resolution events, the number of preceding events with an OK status (for incident events) or non-OK status (for resolution events). The `occurrences_watermark` attribute gives you useful information when looking at events that change status between OK (`0`)and non-OK (`1`-WARNING, `2`-CRITICAL, or UNKNOWN).<br><br>Sensu resets `occurrences_watermark` to `1` whenever an event for a given entity and check transitions between OK and non-OK. Within a sequence of only OK or only non-OK events, Sensu increments `occurrences_watermark` only when the `occurrences` attribute is greater than the preceding `occurrences_watermark`. See [Use event data][31] for more information.
 required     | false
 type         | Integer greater than 0
-example      | {{< highlight shell >}}"occurrences_watermark": 1{{< /highlight >}}\
+example      | {{< code shell >}}"occurrences_watermark": 1{{< /code >}}\
 
 output       |      |
 -------------|------
 description  | Output from the execution of the check command.
 required     | false
 type         | String
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "output": "sensu-go-sandbox.curl_timings.time_total 0.005"
-{{< /highlight >}}
+{{< /code >}}
 
 state         |      |
 -------------|------
 description  | State of the check: `passing` (status `0`), `failing` (status other than `0`), or `flapping`. You can use the `low_flap_threshold` and `high_flap_threshold` [check attributes][33] to configure `flapping` state detection.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"state": "passing"{{< /highlight >}}
+example      | {{< code shell >}}"state": "passing"{{< /code >}}
 
 status       |      |
 -------------|------
 description  | Exit status code produced by the check.<ul><li><code>0</code> indicates “OK”</li><li><code>1</code> indicates “WARNING”</li><li><code>2</code> indicates “CRITICAL”</li></ul>Exit status codes other than <code>0</code>, <code>1</code>, or <code>2</code> indicate an “UNKNOWN” or custom status.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"status": 0{{< /highlight >}}
+example      | {{< code shell >}}"status": 0{{< /code >}}
 
 total_state_change | |
 -------------|------
 description  | Total state change percentage for the check's history.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"total_state_change": 0{{< /highlight >}}
+example      | {{< code shell >}}"total_state_change": 0{{< /code >}}
 
 #### History attributes
 
@@ -613,14 +613,14 @@ executed     |      |
 description  | Time at which the check request was executed. In seconds since the Unix epoch.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"executed": 1522100915{{< /highlight >}}
+example      | {{< code shell >}}"executed": 1522100915{{< /code >}}
 
 status       |      |
 -------------|------
 description  | Exit status code produced by the check.<ul><li><code>0</code> indicates “OK”</li><li><code>1</code> indicates “WARNING”</li><li><code>2</code> indicates “CRITICAL”</li></ul>Exit status codes other than <code>0</code>, <code>1</code>, or <code>2</code> indicate an “UNKNOWN” or custom status.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"status": 0{{< /highlight >}}
+example      | {{< code shell >}}"status": 0{{< /code >}}
 
 ### Metric attributes
 
@@ -629,18 +629,18 @@ handlers     |      |
 description  | Array of Sensu handlers to use for events created by the check. Each array item must be a string.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "handlers": [
   "influx-db"
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 points       |      |
 -------------|------
 description  | Metric data points, including a name, timestamp, value, and tags. See [points attributes][34].
 required     | false
 type         | Array
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "points": [
   {
     "name": "sensu-go-sandbox.curl_timings.time_total",
@@ -665,7 +665,7 @@ example      | {{< highlight shell >}}
     "value": 0.004
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### Points attributes
 
@@ -674,35 +674,35 @@ name         |      |
 description  | Metric name in the format `$entity.$check.$metric` where `$entity` is the entity name, `$check` is the check name, and `$metric` is the metric name.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"name": "sensu-go-sandbox.curl_timings.time_total"{{< /highlight >}}
+example      | {{< code shell >}}"name": "sensu-go-sandbox.curl_timings.time_total"{{< /code >}}
 
 tags         |      |
 -------------|------
 description  | Optional tags to include with the metric. Each element of the array must be a hash that contains two key value pairs: the `name` of the tag and the `value`. Both values of the pairs must be strings.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "tags": [
   {
     "name": "response_time_in_ms",
     "value": "101"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 timestamp    |      |
 -------------|------
 description  | Time at which the metric was collected. In seconds since the Unix epoch.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"timestamp": 1552506033{{< /highlight >}}
+example      | {{< code shell >}}"timestamp": 1552506033{{< /code >}}
 
 value        |      |
 -------------|------
 description  | Metric value.
 required     | false
 type         | Float
-example      | {{< highlight shell >}}"value": 0.005{{< /highlight >}}
+example      | {{< code shell >}}"value": 0.005{{< /code >}}
 
 ## Examples
 
@@ -710,7 +710,7 @@ example      | {{< highlight shell >}}"value": 0.005{{< /highlight >}}
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Event
 api_version: core/v2
 metadata:
@@ -800,9 +800,9 @@ spec:
     user: agent
   timestamp: 1552594758
   event_id: 3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Event",
   "api_version": "core/v2",
@@ -917,7 +917,7 @@ spec:
     "event_id": "3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -925,7 +925,7 @@ spec:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Event
 api_version: core/v2
 metadata:
@@ -1025,9 +1025,9 @@ spec:
       value: 0.004
   timestamp: 1552506033
   event_id: 431a0085-96da-4521-863f-c38b480701e9
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Event",
   "api_version": "core/v2",
@@ -1158,7 +1158,7 @@ spec:
     "event_id": "431a0085-96da-4521-863f-c38b480701e9"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -1166,7 +1166,7 @@ spec:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Event
 api_version: core/v2
 metadata:
@@ -1225,9 +1225,9 @@ spec:
       value: 0.004
   timestamp: 1552506033
   event_id: 47ea07cd-1e50-4897-9e6d-09cd39ec5180
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Event",
   "api_version": "core/v2",
@@ -1310,7 +1310,7 @@ spec:
     "event_id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

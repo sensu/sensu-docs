@@ -58,7 +58,7 @@ times (i.e. at least two Sensu servers processing check results). The [412
 (Precondition Failed) HTTP response code][7] indicates that the requested number
 of consumers are not registered.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -s -i http://127.0.0.1:4567/health?consumers=2
 HTTP/1.1 412 Precondition Failed
 Access-Control-Allow-Origin: *
@@ -66,7 +66,7 @@ Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
 Connection: close
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: the ["412 (Precondition Failed)" HTTP response code][7] does **not** mean
 that the API itself is unavailable, but rather, it is the equivalent of a
@@ -92,13 +92,13 @@ example url    | http://hostname:4567/health
 parameters     | <ul><li>`consumers`:<ul><li>**required**: true</li><li>**type**: Integer</li><li>**description**: The minimum number of transport consumers to be considered healthy</li><li>**notes**: not supported for Sensu installations using Redis as the transport</li></ul></li><li>`messages`:<ul><li>**required**: true</li><li>**type**: Integer</li><li>**description**: The maximum amount of transport queued messages to be considered healthy</li></ul></li></ul>
 response type  | [HTTP-header][11] only (no content)
 response codes | <ul><li>**Success**: 204 (No Content)</li><li>**Error**: 412 (Precondition Failed)</li></ul>
-output         | {{< highlight shell >}}HTTP/1.1 412 Precondition Failed
+output         | {{< code shell >}}HTTP/1.1 412 Precondition Failed
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
 Connection: close
-{{< /highlight >}}
+{{< /code >}}
 
 ## The `/info` API endpoint
 
@@ -113,7 +113,7 @@ _PRO TIP: The Sensu settings `hexdigest` value is used when comparing configurat
 
 #### EXAMPLE {#info-get-example}
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:4567/info | jq .
 {
   "sensu": {
@@ -163,7 +163,7 @@ $ curl -s http://127.0.0.1:4567/info | jq .
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#info-get-specification}
 
@@ -173,7 +173,7 @@ description    | Returns information on the Sensu installation.
 example url    | http://hostname:4567/info
 response type  | Hash
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li><ul>
-output         | {{< highlight json >}}{
+output         | {{< code json >}}{
   "sensu": {
     "version": "1.0.0",
     "settings": {
@@ -221,7 +221,7 @@ output         | {{< highlight json >}}{
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 [1]:  ../../reference/data-store
 [2]:  ../../reference/transport

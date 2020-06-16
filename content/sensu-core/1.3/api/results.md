@@ -35,7 +35,7 @@ result data][1].
 The following example demonstrates a `/results` API query which returns a JSON
 Array of JSON Hashes containing [check results][1].
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://localhost:4567/results | jq .
 [
   {
@@ -72,7 +72,7 @@ $ curl -s http://localhost:4567/results | jq .
     "client": "client-01"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#results-get-specification}
 
@@ -82,7 +82,7 @@ description    | Returns a list of current check results for all clients.
 example url    | http://hostname:4567/results
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight json >}}[
+output         | {{< code json >}}[
   {
     "client": "i-424242",
     "check": {
@@ -101,7 +101,7 @@ output         | {{< highlight json >}}[
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/results` (POST)
 
@@ -115,7 +115,7 @@ with JSON Hash payload containing [check result data][1], resulting in a [202
 (Accepted) HTTP response code][2] (i.e. `HTTP/1.1 202 Accepted`) and a JSON Hash
 containing an `issued` timestamp.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"source": "external_service", "name": "check_external", "output": "hello results API world", "status": 0}' \
@@ -132,7 +132,7 @@ Connection: keep-alive
 Server: thin
 
 {"issued":1460326288}
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#results-post-specification}
 
@@ -142,14 +142,14 @@ description     | Accepts [Sensu check result data][4] via API.
 example url     | http://hostname:4567/results
 response type   | [HTTP-header][3] only (no output)
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-example payload | {{< highlight shell >}}{
+example payload | {{< code shell >}}{
   "source": "docker_01",
   "name": "index_app_01",
   "output": "Indexing app is OK",
   "status": 0
 }
-{{< /highlight >}}_NOTE: See [payload parameters section][6] for description of required and optional payload parameters._
-output          | {{< highlight shell >}}HTTP/1.1 202 Accepted
+{{< /code >}}_NOTE: See [payload parameters section][6] for description of required and optional payload parameters._
+output          | {{< code shell >}}HTTP/1.1 202 Accepted
   Content-Type: application/json
   Access-Control-Allow-Origin: *
   Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
@@ -160,7 +160,7 @@ output          | {{< highlight shell >}}HTTP/1.1 202 Accepted
   Server: thin
 
   {"issued":1460326288}
-{{< /highlight >}}
+{{< /code >}}
 
 #### Payload parameters {#results-post-payload-parameters}
 
@@ -173,21 +173,21 @@ name         |
 description  | The check name [provided by the check definition][5]
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "sensu-website"{{< /highlight >}}
+example      | {{< code shell >}}"name": "sensu-website"{{< /code >}}
 
 status       | 
 -------------|------
 description  | The check execution exit status code. An exit status code of `0` (zero) indicates `OK`, `1` indicates `WARNING`, and `2` indicates `CRITICAL`. Exit status codes other than `0`, `1`, or `2` indicate an `UNKNOWN` or custom status.
 required     | true
 type         | Integer
-example      | {{< highlight shell >}}"status": 0{{< /highlight >}}
+example      | {{< code shell >}}"status": 0{{< /code >}}
 
 output       | 
 -------------|------
 description  | Text to associate with the check result (e.g. human-readable message or formatted metric data)
 required     | true
 type         | String
-example      | {{< highlight shell >}}"output": "CheckHttp OK: 200, 78572 bytes\n"{{< /highlight >}}
+example      | {{< code shell >}}"output": "CheckHttp OK: 200, 78572 bytes\n"{{< /code >}}
 
 source       | 
 -------------|------
@@ -195,7 +195,7 @@ description  | The check source, used to create a [proxy client][32] for an exte
 required     | true, unless `client` is specified
 type         | String
 validated    | `/^[\w\.-]+$/`
-example      | {{< highlight shell >}}"source": "switch-dc-01"{{< /highlight >}}
+example      | {{< code shell >}}"source": "switch-dc-01"{{< /code >}}
 
 
 client       | 
@@ -204,7 +204,7 @@ description  | The name of the [Sensu client][1] that generated the check result
 required     | true, unless `source` is specified
 type         | String
 validated    | `/^[\w\.-]+$/`
-example      | {{< highlight shell >}}"client": "i-424242"{{< /highlight >}}
+example      | {{< code shell >}}"client": "i-424242"{{< /code >}}
 
 ## The `/results/:client` API endpoint {#the-resultsclient-api-endpoint}
 
@@ -219,7 +219,7 @@ The following example demonstrates a `/results/:client` API query which returns
 a JSON Array of JSON Hashes containing [check results][1] for the `:client`
 named `client-01`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://localhost:4567/results/client-01 | jq .
 [
   {
@@ -256,7 +256,7 @@ $ curl -s http://localhost:4567/results/client-01 | jq .
     "client": "client-01"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#resultsclient-get-specification}
 
@@ -266,7 +266,7 @@ description            | Returns a list of current check results for a given cli
 example url            | http://hostname:4567/results/i-424242
 response type          | Array
 response codes         | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                 | {{< highlight json >}}[
+output                 | {{< code json >}}[
   {
     "client": "i-424242",
     "check": {
@@ -285,7 +285,7 @@ output                 | {{< highlight json >}}[
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ## The `/results/:client/:check` API endpoints {#the-resultsclientcheck-api-endpoints}
 
@@ -300,7 +300,7 @@ The following example demonstrates a `/results/:client/:check` API query which
 returns a JSON Hash containing the most recent [check result][1] for the
 `:client` named `client-01` and the `:check` named `:`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://localhost:4567/results/client-01/sensu_website | jq .
 {
   "check": {
@@ -320,7 +320,7 @@ $ curl -s http://localhost:4567/results/client-01/sensu_website | jq .
   },
   "client": "client-01"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#resultsclientcheck-get-specification}
 
@@ -330,7 +330,7 @@ description                   | Returns a check result for a given client & chec
 example url                   | http://hostname:4567/results/i-424242/chef_client_process
 response type                 | Hash
 response codes                | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                        | {{< highlight json >}}{
+output                        | {{< code json >}}{
     "client": "i-424242",
     "check": {
       "name": "chef_client_process",
@@ -347,7 +347,7 @@ output                        | {{< highlight json >}}{
       "history": [0, 0, 0, 0, 1, 2, 2, 0, 0, 1]
     }
   }
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/results/:client/:check` (DELETE) {#resultsclientcheck-delete}
 
@@ -359,7 +359,7 @@ check result data for a `:client` named `client-01` and a `:check` named
 `HTTP/1.1 204 No Content`), indicating that the result was successful, but that
 no content is provided as output.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -s -i -X DELETE http://localhost:4567/results/client-01/sensu_website
 HTTP/1.1 204 No Content
 Access-Control-Allow-Origin: *
@@ -368,7 +368,7 @@ Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
 Connection: close
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#resultsclientcheck-delete-specification}
 
@@ -378,14 +378,14 @@ description                      | Delete a check result for a given client & ch
 example url                      | http://hostname:4567/results/i-424242/chef_client_process
 response type                    | [HTTP-header][3] only (No Content)
 response codes                   | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                           | {{< highlight shell >}}HTTP/1.1 204 No Content
+output                           | {{< code shell >}}HTTP/1.1 204 No Content
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
 Connection: close
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 [?]:  #
 [1]:  ../../reference/checks#check-results

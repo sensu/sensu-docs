@@ -41,9 +41,9 @@ using a dot notation query beginning with `filter`.
 
 For example, to return only events that match the `production` environment and `ops` contact, use the following request.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -i 'http://127.0.0.1:4567/events?filter.client.environment=production&filter.check.contact=ops'
-{{< /highlight >}}
+{{< /code >}}
 
 Response filtering is only available for string values; integers (for example: `filter.check.status=2`) are not supported.
 
@@ -59,7 +59,7 @@ offset      |  The number of items to offset before returning.
 
 ### Examples
 The following example demonstrates a /clients API query with limit=1 and offset=1.
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -i 'http://127.0.0.1:4567/clients?limit=1&offset=1'
 
 HTTP/1.1 200 OK
@@ -79,7 +79,7 @@ X-Pagination: {"limit":1,"offset":1,"total":848}
     "timestamp": 1538843586
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 [1]:  ../../reference/clients#registration-and-registry
 [2]:  ../../reference/checks#check-results

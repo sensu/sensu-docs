@@ -22,12 +22,12 @@ Remember to keep your access tokens secret and use HTTPS wherever possible.
 ## Providing the access token
 **In a header**
 
-{{< highlight shell >}}
-curl -H "Authorization: token TOKEN" https://localhost:3000/events{{< /highlight >}}
+{{< code shell >}}
+curl -H "Authorization: token TOKEN" https://localhost:3000/events{{< /code >}}
 
 **As a parameter**
 
-{{< highlight shell >}}
-curl https://localhost:3000/events?token=TOKEN{{< /highlight >}}
+{{< code shell >}}
+curl https://localhost:3000/events?token=TOKEN{{< /code >}}
 
 [1]: ../../getting-started/configuration/#multiple-users

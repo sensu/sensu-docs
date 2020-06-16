@@ -11,18 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Retrieve your PagerDuty Integration Key](#retrieve-your-pagerduty-integration-key)
-- [Use Env for secrets management](#use-env-for-secrets-management)
-  - [Create your backend environment variable](#create-your-backend-environment-variable)
-  - [Create your Env secret](#create-your-env-secret)
-- [Use HashiCorp Vault for secrets management](#use-hashicorp-vault-for-secrets-management)
-  - [Configure your Vault authentication method (token or TLS)](#configure-your-vault-authentication-method-token-or-tls)
-  - [Create your Vault secret](#create-your-vault-secret)
-- [Add a handler](#add-a-handler)
-  - [Register the PagerDuty handler asset](#register-the-pagerduty-handler-asset)
-  - [Add your secret to the handler spec](#add-your-secret-to-the-handler-spec)
-- [Next steps](#next-steps)
-
 **COMMERCIAL FEATURE**: Access the Env and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][20].
 
@@ -75,15 +63,15 @@ Then, run the following code, replacing `INTEGRATION_KEY` with your PagerDuty In
 
 {{< language-toggle >}}
 
-{{< highlight "Ubuntu/Debian" >}}
+{{< code shell "Ubuntu/Debian" >}}
 $ echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee -a /etc/default/sensu-backend
 $ sudo systemctl restart sensu-backend
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight "RHEL/CentOS" >}}
+{{< code shell "RHEL/CentOS" >}}
 $ echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee -a /etc/sysconfig/sensu-backend
 $ sudo systemctl restart sensu-backend
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -95,7 +83,7 @@ Now you'll use `sensuctl create` to create your secret.
 This code creates a secret named `pagerduty_key` that refers to the environment variable ID `SENSU_PAGERDUTY_KEY`.
 Run:
 
-{{< highlight shell >}}
+{{< code shell >}}
 cat << EOF | sensuctl create
 ---
 type: Secret
@@ -107,7 +95,7 @@ spec:
   id: SENSU_PAGERDUTY_KEY
   provider: env
 EOF
-{{< /highlight >}}
+{{< /code >}}
 
 You can securely pass your PagerDuty Integration Key in Sensu checks, handlers, and mutators by referring to the `pagerduty_key` secret.
 Skip to the [add a handler][19] section, where you'll use your `pagerduty_key` secret in your handler definition.
@@ -168,7 +156,7 @@ Use `sensuctl create` to create your secrets provider, `vault`.
 In the code below, replace `ROOT_TOKEN` with the `Root Token` value for your Vault dev server.
 Then, run:
 
-{{< highlight shell >}}
+{{< code shell >}}
 cat << EOF | sensuctl create
 ---
 type: VaultProvider
@@ -187,7 +175,7 @@ spec:
       limit: 10
       burst: 100
 EOF
-{{< /highlight >}}
+{{< /code >}}
 
 To continue, skip ahead to [create your Vault secret][29].
 
@@ -202,17 +190,17 @@ This section explains how use HashiCorp Vault as your external [secrets provider
 First, in your Vault, [enable and configure certificate authentication][32].
 For example, your Vault might be configured for certificate authentication like this:
 
-{{< highlight shell >}}
+{{< code shell >}}
 vault write auth/cert/certs/sensu-backend \
     display_name=sensu-backend \
     policies=sensu-backend-policy \
     certificate=@sensu-backend-vault.pem \
     ttl=3600
-{{< /highlight >}}
+{{< /code >}}
 
 Second, configure your `VaultProvider` in Sensu: 
 
-{{< highlight yaml >}}
+{{< code yaml >}}
 ---
 type: VaultProvider
 api_version: secrets/v1
@@ -232,7 +220,7 @@ spec:
     rate_limiter:
       limit: 10
       burst: 100
-{{< /highlight >}}
+{{< /code >}}
 
 The certificate you specify for `tls.client_cert` should be the same certificate you configured in your Vault for certificate authentication.
 
@@ -259,7 +247,7 @@ Run `vault kv get secret/pagerduty` to see the secret you just set up.
 
 Use `sensuctl create` to create your `vault` secret:
 
-{{< highlight shell >}}
+{{< code shell >}}
 cat << EOF | sensuctl create
 ---
 type: Secret
@@ -271,7 +259,7 @@ spec:
   id: secret/pagerduty#key
   provider: vault
 EOF
-{{< /highlight >}}
+{{< /code >}}
 
 Now you can securely pass your PagerDuty Integration Key in the handlers, and mutators by referring to the `pagerduty_key` secret.
 In the [add a handler][19] section, you'll use your `pagerduty_key` secret in your handler definition.
@@ -282,14 +270,14 @@ In the [add a handler][19] section, you'll use your `pagerduty_key` secret in yo
 
 To begin, register the [Sensu PagerDuty Handler asset][23] with [`sensuctl asset add`][22]:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
-{{< /highlight >}}
+{{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `pagerduty-handler`.
 
 {{% notice note %}}
-**NOTE**: You can [adjust the asset definition](../install-check-executables-with-assets/#2-adjust-the-asset-definition) according to your Sensu configuration if needed.
+**NOTE**: You can [adjust the asset definition](../install-check-executables-with-assets/#adjust-the-asset-definition) according to your Sensu configuration if needed.
 {{% /notice %}}
 
 Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
@@ -301,7 +289,7 @@ However, you still need to add your secret to the handler spec so that it requir
 
 To create a handler definition that uses your `pagerduty_key` secret, run:
 
-{{< highlight shell >}}
+{{< code shell >}}
 cat << EOF | sensuctl create
 ---
 api_version: core/v2
@@ -321,7 +309,7 @@ spec:
   filters:
   - is_incident
 EOF
-{{< /highlight >}}
+{{< /code >}}
 
 Now that your handler is set up and Sensu can create incidents in PagerDuty, you can automate this workflow by adding your `pagerduty` handler to your Sensu service check definitions.
 See [Monitor server resources][24] to learn more.

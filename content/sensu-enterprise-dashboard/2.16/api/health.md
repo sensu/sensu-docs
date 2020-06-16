@@ -25,7 +25,7 @@ Sensu Enterprise installation.
 The following example demonstrates a request to the `/health` API, resulting in
 a JSON Hash indicating the health of Sensu Enterprise.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:3000/health | jq .
 {
   "sensu": {
@@ -36,7 +36,7 @@ $ curl -s http://127.0.0.1:3000/health | jq .
   },
   "uchiwa": "ok"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#health-get-specification}
 
@@ -46,7 +46,7 @@ description     | Returns Sensu Enterprise health information. The returned `sta
 example url     | http://hostname:3000/health
 response type   | Hash
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output          | {{< highlight json >}}{
+output          | {{< code json >}}{
   "sensu": {
     "sensu-1": {
       "output": "ok",
@@ -55,6 +55,6 @@ output          | {{< highlight json >}}{
   },
   "uchiwa": "ok"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 [1]: /sensu-core/latest/reference/checks/#sensu-check-specification

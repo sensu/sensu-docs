@@ -40,7 +40,7 @@ Sensu Enterprise comes with a built-in integration for handling automatic deregi
 
 Our integration configuration file for EC2 will live at `/etc/sensu/conf.d/ec2.json`. Let's take a look at an example:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "ec2": {
     "region": "us-west-2",
@@ -49,7 +49,7 @@ Our integration configuration file for EC2 will live at `/etc/sensu/conf.d/ec2.j
     "allowed_instance_states": ["running"],
     "timeout": 10
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 When using the EC2 integration in this fashion, the only two required attributes are `access_key_id` and `secret_access_key`. The rest of the attributes are optional, but let's take a look over them
 
@@ -65,7 +65,7 @@ _NOTE: Don't forget to restart the Sensu Enterprise process via `systemctl resta
 
 In order for the EC2 integration to work, some attributes are needed inside of your clients' configuration. Let's take a look at another example configuration:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -83,7 +83,7 @@ In order for the EC2 integration to work, some attributes are needed inside of y
       ]
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 In the example above, there are several key attributes that you'll need to be aware of when configuring your own Sensu clients:
 
@@ -101,10 +101,10 @@ There are a number of other attributes that you may use in your configuration. S
 
 It's possible to use the EC2 integration _without_ specifying the `access_key_id` and `secret_access_key` by setting an IAM role for your Sensu Enterprise servers, if you're running Sensu Enterprise on EC2 instances. Here's an example configuration that you would use to activate the EC2 integration:
 
-{{< highlight shell >}}
+{{< code shell >}}
 {
   "ec2": {}
-}{{< /highlight >}}
+}{{< /code >}}
 
 You're seeing that correctly--in order to use the EC2 integration, all you need to do is create `/etc/sensu/conf.d/ec2.json` with an empty hash under the `ec2` scope. We'll now take a look at what needs to be done on AWS.
 
@@ -116,17 +116,17 @@ You'll need to download the following example policy documents to follow along:
 * [Sensu IAM role][9]
 
 1. Create the IAM policy
-{{< highlight shell >}}
-aws iam create-policy --policy-name sensu-ec2-iam-policy --policy-document file://sensu-ec2-iam-policy.json{{< /highlight >}}
+{{< code shell >}}
+aws iam create-policy --policy-name sensu-ec2-iam-policy --policy-document file://sensu-ec2-iam-policy.json{{< /code >}}
 Note the ARN for this policy, needed for step 3
 
 2. Create the IAM role
-{{< highlight shell >}}
-aws iam create-role --role-name sensu-enterprise-integration --assume-role-policy-document file://sensu-ec2-iam-role.json{{< /highlight >}}
+{{< code shell >}}
+aws iam create-role --role-name sensu-enterprise-integration --assume-role-policy-document file://sensu-ec2-iam-role.json{{< /code >}}
 
 3. Attach policy to role
-{{< highlight shell >}}
-aws iam attach-role-policy --role-name sensu-enterprise-integration --policy-arn "arn:aws:iam::11111111111:policy/sensu-ec2-iam-policy"{{< /highlight >}}
+{{< code shell >}}
+aws iam attach-role-policy --role-name sensu-enterprise-integration --policy-arn "arn:aws:iam::11111111111:policy/sensu-ec2-iam-policy"{{< /code >}}
 
 Now that we've created a policy and a role for the integration, we'll need to attach it to our Sensu Enterprise instance. You can do this during step 3 of creating any instance via the EC2 console:
 
@@ -172,7 +172,7 @@ You can download the following files to follow along:
 
 You'll need to configure the EC2 integration file at `/etc/sensu/conf.d/ec2.json` so that it knows which account should be used when querying the API. See the example below:
 
-{{< highlight json >}}{
+{{< code json >}}{
   "ec2": {
     "accounts": [
       {
@@ -181,7 +181,7 @@ You'll need to configure the EC2 integration file at `/etc/sensu/conf.d/ec2.json
       }
     ]
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 Where the account in the ARN above is the account that will be queried. 
 
@@ -189,7 +189,7 @@ Where the account in the ARN above is the account that will be queried.
 
 Clients will also need to be configured to use a specific account. This is done by the "account" attribute specified in client.ec2 scope of /etc/sensu/conf.d/ec2.json. See the example below:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -208,47 +208,47 @@ Clients will also need to be configured to use a specific account. This is done 
       ]
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 #### Trusting account
 
 Now, let's walk through the steps to create the requisite policies and roles in the AWS test accounts. We'll start with the trusting account.
 
 1. Create 'read-only' IAM policy
-{{< highlight shell >}}
+{{< code shell >}}
 aws iam create-policy --profile trusting --policy-name cross-account-readonly --policy-document file://cross-account-readonly-policy.json
-{{< /highlight >}}
+{{< /code >}}
 Note the ARN for the policy created above, as it's needed for step 3.
 
 2. Create 'cross-account' IAM role
-{{< highlight shell >}}
+{{< code shell >}}
 aws iam create-role --profile trusting --role-name cross-account-readonly --assume-role-policy-document file://cross-account-readonly-role.json
-{{< /highlight >}}
+{{< /code >}}
 
 3. Attach policy to role
-{{< highlight shell >}}
+{{< code shell >}}
 aws iam attach-role-policy --profile trusting --role-name cross-account-readonly --policy-arn "arn:aws:iam::111111111111:policy/cross-account-readonly"
-{{< /highlight >}}
+{{< /code >}}
 
 #### Trusted account
 
 Now, let's take a look at what's needed to create the policy and role in our trusted AWS account:
 
 1. Create 'cross-account-assumerole' IAM policy
-{{< highlight shell >}}
+{{< code shell >}}
 aws iam create-policy --profile trusted --policy-name cross-account-assumerole --policy-document file://cross-account-assumerole-policy.json
-{{< /highlight >}}
+{{< /code >}}
 Note the ARN for the policy created above, as it's needed for step 3.
 
 2. Create 'cross-account-assumerole' IAM instance role
-{{< highlight shell >}}
+{{< code shell >}}
 aws iam create-role --profile trusted --role-name cross-account-assumerole --assume-role-policy-document file://cross-account-assumerole-role.json
-{{< /highlight >}}
+{{< /code >}}
 
 3. Attach policy to role
-{{< highlight shell >}}
+{{< code shell >}}
 aws iam attach-role-policy --role-name cross-account-assumerole --policy-arn "arn:aws:iam::222222222222:policy/cross-account-assumerole"
-{{< /highlight >}}
+{{< /code >}}
 
 ## Wrapping Up
 

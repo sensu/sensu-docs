@@ -35,7 +35,7 @@ The `/silenced` API endpoint provides HTTP GET access to [silencing entry][1] da
 
 The following example demonstrates a request to the `/silenced` API endpoint, resulting in a JSON array that contains [silencing entry definitions][1].
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced
@@ -58,7 +58,7 @@ HTTP/1.1 200 OK
     "begin": 1542671205
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#silenced-get-specification}
 
@@ -70,7 +70,7 @@ pagination     | This endpoint does not support [pagination][2].
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}
+output         | {{< code shell >}}
 [
   {
     "metadata": {
@@ -88,7 +88,7 @@ output         | {{< highlight shell >}}
     "begin": 1542671205
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/silenced` (POST)
 
@@ -99,7 +99,7 @@ The `/silenced` API endpoint provides HTTP POST access to create silencing entri
 In the following example, an HTTP POST request is submitted to the `/silenced` API endpoint to create the silencing entry `linux:check-cpu`.
 The request returns a successful HTTP `201 Created` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
@@ -120,7 +120,7 @@ curl -X POST \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#silenced-post-specification}
 
@@ -128,7 +128,7 @@ HTTP/1.1 201 Created
 ----------------|------
 description     | Creates a Sensu silencing entry.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/silenced
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "metadata": {
     "name": "linux:check-cpu",
@@ -143,7 +143,7 @@ payload         | {{< highlight shell >}}
   "subscription": "linux",
   "begin": 1542671205
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/silenced/:silenced` API endpoint {#the-silencedsilenced-api-endpoint}
@@ -157,7 +157,7 @@ The `/silenced/:silenced` API endpoint provides HTTP GET access to [silencing en
 In the following example, querying the `/silenced/:silenced` API endpoint returns a JSON map that contains the requested [silencing entry definition][1] (in this example, for the silencing entry named `linux:check-cpu`).
 Silencing entry names are generated from the combination of a subscription name and check name.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
@@ -178,7 +178,7 @@ HTTP/1.1 200 OK
   "subscription": "linux",
   "begin": 1542671205
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#silencedsilenced-get-specification}
 
@@ -188,7 +188,7 @@ description          | Returns the specified silencing entry.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< code json >}}
 {
   "metadata": {
     "name": "linux:check-cpu",
@@ -204,7 +204,7 @@ output               | {{< highlight json >}}
   "subscription": "linux",
   "begin": 1542671205
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/silenced/:silenced` (PUT) {#silencedsilenced-put}
 
@@ -215,7 +215,7 @@ The `/silenced/:silenced` API endpoint provides HTTP PUT access to create or upd
 In the following example, an HTTP PUT request is submitted to the `/silenced/:silenced` API endpoint to create the silencing entry `linux:check-server`.
 The request returns a successful HTTP `201 Created` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
@@ -236,7 +236,7 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/linux:check-server
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#silencedsilenced-put-specification}
 
@@ -244,7 +244,7 @@ HTTP/1.1 201 Created
 ----------------|------
 description     | Creates or updates a Sensu silencing entry.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/silenced/linux:check-server
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "metadata": {
     "name": "linux:check-server",
@@ -259,7 +259,7 @@ payload         | {{< highlight shell >}}
   "subscription": "linux",
   "begin": 1542671205
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/silenced/:silenced` (DELETE) {#silencedsilenced-delete}
@@ -270,13 +270,13 @@ The `/silenced/:silenced` API endpoint provides HTTP DELETE access to delete a s
 
 In the following example, querying the `/silenced/:silenced` API endpoint to delete the the silencing entry named `linux:check-cpu` results in a successful HTTP `204 No Content` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
 
 HTTP/1.1 204 No Content
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#silencedsilenced-delete-specification}
 
@@ -296,7 +296,7 @@ The `/silenced/subscriptions/:subscription` API endpoint provides HTTP GET acces
 
 In the following example, querying the `silenced/subscriptions/:subscription` API endpoint returns a JSON array that contains the requested [silences][1] for the given subscription (in this example, for the `linux` subscription).
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/subscriptions/linux
@@ -319,7 +319,7 @@ HTTP/1.1 200 OK
     "begin": 1542671205
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#silencedsubscriptions-get-specification}
 
@@ -330,7 +330,7 @@ example url          | http://hostname:8080/api/core/v2/namespaces/default/silen
 pagination           | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response type        | Array
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< code json >}}
 [
   {
     "metadata": {
@@ -348,7 +348,7 @@ output               | {{< highlight json >}}
     "begin": 1542671205
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ## The `/silenced/checks/:check` API endpoint {#the-silencedchecks-api-endpoint}
 
@@ -360,7 +360,7 @@ The `/silenced/checks/:check` API endpoint provides HTTP GET access to [silencin
 
 In the following example, querying the `silenced/checks/:check` API endpoint returns a JSON array that contains the requested [silences][1] for the given check (in this example, for the `check-cpu` check).
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/checks/check-cpu
@@ -383,7 +383,7 @@ HTTP/1.1 200 OK
     "begin": 1542671205
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#silencedchecks-get-specification}
 
@@ -394,7 +394,7 @@ example url          | http://hostname:8080/api/core/v2/namespaces/default/silen
 pagination           | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response type        | Array
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< code json >}}
 [
   {
     "metadata": {
@@ -412,7 +412,7 @@ output               | {{< highlight json >}}
     "begin": 1542671205
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 [1]: ../../reference/silencing/
 [2]: ../overview#pagination

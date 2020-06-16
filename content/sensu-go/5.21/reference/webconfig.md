@@ -10,10 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Web UI configuration specification](#web-ui-configuration-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Web UI configuration examples](#web-ui-configuration-examples)
-
 **COMMERCIAL FEATURE**: Access web UI configuration in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 
@@ -33,33 +29,33 @@ type         |
 description  | Top-level attribute that specifies the resource type. For web UI configuration, the type should always be `GlobalConfig`.
 required     | Required for web UI configuration in `wrapped-json` or `yaml` format.
 type         | String
-example      | {{< highlight shell >}}"type": "GlobalConfig"{{< /highlight >}}
+example      | {{< code shell >}}"type": "GlobalConfig"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For web UI configuration in this version of Sensu, the api_version should always be `web/v1`.
 required     | Required for web UI configuration in `wrapped-json` or `yaml` format.
 type         | String
-example      | {{< highlight shell >}}"api_version": "web/v1"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "web/v1"{{< /code >}}
 
 metadata     |      |
 -------------|------
 description  | Top-level scope that contains the web UI configuration's `name` and `created_by` information.
 required     | true
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "metadata": {
   "name": "custom-web-ui",
   "created_by": "admin"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes web UI configuration [spec attributes][4].
 required     | Required for web UI configuration in `wrapped-json` or `yaml` format.
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "spec": {
   "always_show_local_cluster": false,
   "default_preferences": {
@@ -77,7 +73,7 @@ example      | {{< highlight shell >}}
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Metadata attributes
 
@@ -86,14 +82,14 @@ name         |      |
 description  | Name for the web UI configuration that is used internally by Sensu.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "custom-web-ui"{{< /highlight >}}
+example      | {{< code shell >}}"name": "custom-web-ui"{{< /code >}}
 
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created or last updated the web UI configuration. Sensu automatically populates the `created_by` field when the web UI configuration is created or updated. The admin user, cluster admins, and any user with access to the [`GlobalConfig`][2] resource can create and update web UI configurations.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
+example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
 
 ### Spec attributes
 
@@ -105,24 +101,24 @@ description  | Use only in federated environments. Set to `true` to display the 
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< highlight shell >}}"always_show_local_cluster": false{{< /highlight >}}
+example      | {{< code shell >}}"always_show_local_cluster": false{{< /code >}}
 
 default_preferences | 
 -------------|------ 
 description  | Global default page size and theme preferences for all users.
 required     | false
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"default_preferences": {
+example      | {{< code shell >}}"default_preferences": {
   "page_size": 50,
   "theme": "classic"
-}{{< /highlight >}}
+}{{< /code >}}
 
 link_policy | 
 -------------|------ 
 description  | For labels or annotations that contain a URL, the policy for which domains are valid and invalid targets for conversion to a link or an image.
 required     | false
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"link_policy": {
+example      | {{< code shell >}}"link_policy": {
   "allow_list": true,
   "urls": [
     "https://example.com",
@@ -131,7 +127,7 @@ example      | {{< highlight shell >}}"link_policy": {
     "//*.google.com",
     "//bob.local"
   ]
-}{{< /highlight >}}
+}{{< /code >}}
 
 #### Default preferences attributes
 
@@ -141,7 +137,7 @@ description  | The number of items users will see on each page.
 required     | false
 type         | Integer
 default      | `25`
-example      | {{< highlight shell >}}"page_size": 25{{< /highlight >}}
+example      | {{< code shell >}}"page_size": 25{{< /code >}}
 
 theme | 
 ---------------|------ 
@@ -153,7 +149,7 @@ required       | false
 type           | String
 default        | `sensu`
 allowed values | `sensu`, `classic`, `uchiwa`, `tritanopia`, and `deuteranopia`
-example        | {{< highlight shell >}}"theme": "classic"{{< /highlight >}}
+example        | {{< code shell >}}"theme": "classic"{{< /code >}}
 
 #### Link policy attributes
 
@@ -163,20 +159,20 @@ description  | If the list of URLs acts as an allow list, `true`. If the list of
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< highlight shell >}}"allow_list": true{{< /highlight >}}
+example      | {{< code shell >}}"allow_list": true{{< /code >}}
 
 urls | 
 -------------|------ 
 description  | The list of URLs to use as an allow or deny list.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"urls": [
+example      | {{< code shell >}}"urls": [
   "https://example.com",
   "steamapp://34234234",
   "//google.com",
   "//*.google.com",
   "//bob.local"
-]{{< /highlight >}}
+]{{< /code >}}
 
 ## Web UI configuration examples
 
@@ -189,7 +185,7 @@ In this web UI configuration example:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: GlobalConfig
 api_version: web/v1
 metadata:
@@ -207,9 +203,9 @@ spec:
     - //google.com
     - //*.google.com
     - //bob.local
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "GlobalConfig",
   "api_version": "web/v1",
@@ -235,7 +231,7 @@ spec:
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

@@ -11,9 +11,6 @@ menu:
     parent: guides
 ---
 
-- [API key authentication](#api-key-authentication)
-- [Sensuctl management commands](#sensuctl-management-commands)
-
 The Sensu API key feature (core/v2.APIKey) is a persistent UUID that maps to a stored Sensu username.
 The advantages of authenticating with API keys rather than [access tokens][1] include:
 
@@ -33,19 +30,19 @@ Similar to the `Bearer [token]` Authorization header, `Key [api-key]` will be ac
 
 For example, a JWT `Bearer [token]` Authorization header might be:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
-{{< /highlight >}}
+{{< /code >}}
 
 If you're using `Key [api-key]` to authenticate instead, the Authorization header might be:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
-{{< /highlight >}}
+{{< /code >}}
 
 ### Example
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -H "Authorization: Key 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
 
 HTTP/1.1 200 OK
@@ -66,7 +63,7 @@ HTTP/1.1 200 OK
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ## Sensuctl management commands
 
@@ -76,14 +73,14 @@ HTTP/1.1 200 OK
 
 To generate a new API key for the admin user:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ sensuctl api-key grant admin
 Created: /api/core/v2/apikeys/7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2
-{{< /highlight >}}
+{{< /code >}}
 
 To get information about an API key:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ sensuctl api-key info 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --format json
 {
   "metadata": {
@@ -92,22 +89,22 @@ $ sensuctl api-key info 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --format json
   "username": "admin",
   "created_at": 1570744117
 }
-{{< /highlight >}}
+{{< /code >}}
 
 To get a list of all API keys:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ sensuctl api-key list
                   Name                   Username            Created At            
  ────────────────────────────────────── ────────── ─────────────────────────────── 
   7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2   admin      2019-10-10 14:48:37 -0700 PDT
-{{< /highlight >}}
+{{< /code >}}
 
 To revoke an API key for the admin user:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ sensuctl api-key revoke 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --skip-confirm
 Deleted
-{{< /highlight >}}
+{{< /code >}}
 
 [1]: ../../api/auth/#the-authtoken-api-endpoint

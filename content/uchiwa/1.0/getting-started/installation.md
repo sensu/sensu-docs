@@ -14,40 +14,40 @@ See the [download page](https://uchiwa.io/#download) to download the packages.
 ## Debian/Ubuntu
 
 Install the GPG public key:
-{{< highlight shell >}}
-wget -q https://sensu.global.ssl.fastly.net/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
+{{< code shell >}}
+wget -q https://sensu.global.ssl.fastly.net/apt/pubkey.gpg -O- | sudo apt-key add -{{< /code >}}
 
 Determine the codename of the Ubuntu/Debian release on your system:
-{{< highlight shell >}}
+{{< code shell >}}
 . /etc/os-release && echo $VERSION
-"14.04.4 LTS, Trusty Tahr" # codename for this system is "trusty"{{< /highlight >}}
+"14.04.4 LTS, Trusty Tahr" # codename for this system is "trusty"{{< /code >}}
 
 Create an APT configuration file at `/etc/apt/sources.list.d/sensu.list`:
-{{< highlight shell >}}
+{{< code shell >}}
 export CODENAME=your_release_codename_here # e.g. "trusty"
-echo "deb     https://sensu.global.ssl.fastly.net/apt $CODENAME main" | sudo tee /etc/apt/sources.list.d/sensu.list{{< /highlight >}}
+echo "deb     https://sensu.global.ssl.fastly.net/apt $CODENAME main" | sudo tee /etc/apt/sources.list.d/sensu.list{{< /code >}}
 
 Update APT:
-{{< highlight shell >}}
-sudo apt-get update{{< /highlight >}}
+{{< code shell >}}
+sudo apt-get update{{< /code >}}
 
 Install Uchiwa:
-{{< highlight shell >}}
-sudo apt-get install uchiwa{{< /highlight >}}
+{{< code shell >}}
+sudo apt-get install uchiwa{{< /code >}}
 
 ## RHEL/CentOS
 
 Create the YUM repository configuration file for the Sensu Core repository at `/etc/yum.repos.d/sensu.repo`:
-{{< highlight shell >}}
+{{< code shell >}}
 echo '[sensu]
 name=sensu
 baseurl=https://sensu.global.ssl.fastly.net/yum/$releasever/$basearch/
 gpgcheck=0
-enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
+enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /code >}}
 
 Install Sensu:
-{{< highlight shell >}}
-sudo yum install sensu{{< /highlight >}}
+{{< code shell >}}
+sudo yum install sensu{{< /code >}}
 
 ## Using Configuration Management
 
@@ -61,24 +61,24 @@ SaltStack: [sensu-formula](https://github.com/saltstack-formulas/sensu-formula)
 Uchiwa comes pre-packaged in a [Docker container](https://hub.docker.com/r/uchiwa/uchiwa/) for easy deployment.
 
 Download the official Uchiwa Docker image:
-{{< highlight shell >}}
-docker pull uchiwa/uchiwa{{< /highlight >}}
+{{< code shell >}}
+docker pull uchiwa/uchiwa{{< /code >}}
 
 Create a folder that will contain the configuration files:
-{{< highlight shell >}}
-mkdir ~/uchiwa-config{{< /highlight >}}
+{{< code shell >}}
+mkdir ~/uchiwa-config{{< /code >}}
 
 Create and adjust the main configuration file:
-{{< highlight shell >}}
-vi ~/uchiwa-config/config.json{{< /highlight >}}
+{{< code shell >}}
+vi ~/uchiwa-config/config.json{{< /code >}}
 
 Start the Docker container:
-{{< highlight shell >}}
-docker run -d -p 3000:3000 -v ~/uchiwa-config:/config uchiwa/uchiwa{{< /highlight >}}
+{{< code shell >}}
+docker run -d -p 3000:3000 -v ~/uchiwa-config:/config uchiwa/uchiwa{{< /code >}}
 
 Browse Uchiwa:
-{{< highlight shell >}}
-http://localhost:3000{{< /highlight >}}
+{{< code shell >}}
+http://localhost:3000{{< /code >}}
 
 ## From Source {#from-source}
 
@@ -95,24 +95,24 @@ in order to get stable releases and an easier installation experience.
 ### Backend
 
 Download the source code:
-{{< highlight shell >}}
-go get -d github.com/sensu/uchiwa && cd $GOPATH/src/github.com/sensu/uchiwa{{< /highlight >}}
+{{< code shell >}}
+go get -d github.com/sensu/uchiwa && cd $GOPATH/src/github.com/sensu/uchiwa{{< /code >}}
 
 Build the Uchiwa binary:
-{{< highlight shell >}}
+{{< code shell >}}
 go build -o build/uchiwa . # Build for your current system
-GOOS=linux GOARCH=amd64 go build -o build/uchiwa . # Cross Compilation, see Go documentation{{< /highlight >}}
+GOOS=linux GOARCH=amd64 go build -o build/uchiwa . # Cross Compilation, see Go documentation{{< /code >}}
 
 ### Front-end Assets
 Install the front-end assets:
-{{< highlight shell >}}
+{{< code shell >}}
 npm install --production # Standard user
-npm install --production --unsafe-perm # Root user{{< /highlight >}}
+npm install --production --unsafe-perm # Root user{{< /code >}}
 
 ### Building package in docker
 
 To get uchiwa packages (both rpm and deb), please follow the below steps:
-{{< highlight shell >}}
+{{< code shell >}}
 # clone and go to the uchiwa project root
 $ cd uchiwa
 # Build docker images for building packages:
@@ -123,7 +123,7 @@ $ docker run --rm -it \
   -v $(pwd):/go/src/github.com/sensu/uchiwa \
   -v /tmp/sensu_packages:/tmp/assets/pkg/s3 \
   -w /go/src/github.com/sensu/uchiwa sensu_builder ./build/travis.sh
-# get packages from /tmp/sensu_packages{{< /highlight >}}
+# get packages from /tmp/sensu_packages{{< /code >}}
 
 {{< note title="Note" >}}
 Please note, within docker we build statically linked executable (CGO_ENABLED=0)
@@ -131,12 +131,12 @@ Please note, within docker we build statically linked executable (CGO_ENABLED=0)
 
 ### Running Uchiwa Locally
 Adjust your configuration:
-{{< highlight shell >}}
-cp config.json.example config.json{{< /highlight >}}
+{{< code shell >}}
+cp config.json.example config.json{{< /code >}}
 
 Start Uchiwa
-{{< highlight shell >}}
-./build/uchiwa{{< /highlight >}}
+{{< code shell >}}
+./build/uchiwa{{< /code >}}
 
 ### Developping
 See the [Contributing documentation][1].

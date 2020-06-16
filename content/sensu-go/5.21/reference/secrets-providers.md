@@ -10,11 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Secrets providers specification](#secrets-providers-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Secrets providers configuration](#secrets-providers-configuration)
-- [Secrets providers examples](#secrets-providers-examples)
-
 **COMMERCIAL FEATURE**: Access the Env and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 
@@ -51,33 +46,33 @@ type         |
 description  | Top-level attribute that specifies the resource type. May be either `Env` (if you are using Sensu's built-in secrets provider) or `VaultProvider` (if you are using HashiCorp Vault as the secrets provider).
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | String
-example      | {{< highlight shell >}}"type": "VaultProvider"{{< /highlight >}}
+example      | {{< code shell >}}"type": "VaultProvider"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For secrets configuration in this version of Sensu, the api_version should always be `secrets/v1`.
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | String
-example      | {{< highlight shell >}}"api_version": "secrets/v1"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "secrets/v1"{{< /code >}}
 
 metadata     |      |
 -------------|------
 description  | Top-level scope that contains the secrets provider `name` and `created_by` field. Namespace is not supported in the metadata because secrets providers are cluster-wide resources.
 required     | true
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "metadata": {
   "name": "vault",
   "created_by": "admin"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes secrets provider configuration [spec attributes][8].
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "spec": {
   "client": {
     "address": "https://vaultserver.example.com:8200",
@@ -94,7 +89,7 @@ example      | {{< highlight shell >}}
     "version": "v1"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Metadata attributes
 
@@ -103,14 +98,14 @@ name         |      |
 description  | Provider name used internally by Sensu.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "vault"{{< /highlight >}}
+example      | {{< code shell >}}"name": "vault"{{< /code >}}
 
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created the secrets provider or last updated the secrets provider. Sensu automatically populates the `created_by` field when the secrets provider is created or updated.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
+example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
 
 ### Spec attributes
 
@@ -119,7 +114,7 @@ client       |
 description  | Map that includes secrets provider configuration [client attributes][12].
 required     | true
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "client": {
   "address": "https://vaultserver.example.com:8200",
   "max_retries": 2,
@@ -135,7 +130,7 @@ example      | {{< highlight shell >}}
   "version": "v1"
 }
   
-{{< /highlight >}}
+{{< /code >}}
 
 #### Client attributes
 
@@ -144,9 +139,9 @@ address      |
 description  | Vault server address.
 required     | true
 type         | String
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "address": "https://vaultserver.example.com:8200"
-{{< /highlight >}}
+{{< /code >}}
 
 max_retries  | 
 -------------|------ 
@@ -154,19 +149,19 @@ description  | Number of times to retry connecting to the vault provider.
 required     | true
 type         | Integer
 default      | 2
-example      | {{< highlight shell >}}"max_retries": 2{{< /highlight >}}
+example      | {{< code shell >}}"max_retries": 2{{< /code >}}
 
 rate_limiter | 
 -------------|------ 
 description  | Maximum [rate and burst limits][17] for the secrets API.
 required     | false
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "rate_limiter": {
   "limit": 10.0,
   "burst": 100
 }
-{{< /highlight >}}
+{{< /code >}}
 
 timeout      | 
 -------------|------ 
@@ -174,7 +169,7 @@ description  | Provider connection timeout (hard stop).
 required     | false
 type         | String
 default      | 60s
-example      | {{< highlight shell >}}"timeout": "20s"{{< /highlight >}}
+example      | {{< code shell >}}"timeout": "20s"{{< /code >}}
 
 <a name="tls-vault"></a>
 
@@ -183,28 +178,28 @@ tls          |
 description  | TLS object. Vault only works with TLS configured. You may need to set up a CA cert if it is not already stored in your operating system's trust store. To do this, set the TLS object and provide the `ca_cert` path. You may also need to set up `client_cert`, `client_key`, or [`cname`][15].
 required     | false
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "tls": {
   "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem",
   "client_cert": "/etc/ssl/certs/vault_cert.pem",
   "client_key": "/etc/ssl/certs/vault_key.pem",
   "cname": "vault_client.example.com"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 token        | 
 -------------|------ 
 description  | Vault token to use for authentication.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"token": "VAULT_TOKEN"{{< /highlight >}}
+example      | {{< code shell >}}"token": "VAULT_TOKEN"{{< /code >}}
 
 version      | 
 -------------|------ 
 description  | HashiCorp Vault [HTTP API version][14].
 required     | true
 type         | String
-example      | {{< highlight shell >}}"version": "v1"{{< /highlight >}}
+example      | {{< code shell >}}"version": "v1"{{< /code >}}
 
 <a name="rate-limiter-attributes"></a>
 
@@ -215,14 +210,14 @@ limit        |
 description  | Maximum number of secrets requests per second that can be transmitted to the backend with the secrets API.
 required     | false
 type         | Float
-example      | {{< highlight shell >}}"limit": 10.0{{< /highlight >}}
+example      | {{< code shell >}}"limit": 10.0{{< /code >}}
 
 burst        | 
 -------------|------ 
 description  | Maximum amount of burst allowed in a rate interval for the secrets API.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"burst": 100{{< /highlight >}}
+example      | {{< code shell >}}"burst": 100{{< /code >}}
 
 ## Secrets providers configuration
 
@@ -230,11 +225,11 @@ You can use the [Secrets API][2] to create, view, and manage your secrets provid
 
 For example, to retrieve the list of secrets providers:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
-{{< /highlight >}}
+{{< /code >}}
 
 ## Secrets providers examples
 
@@ -244,7 +239,7 @@ The `VaultProvider` secrets provider is a vendor-specific implementation for [Ha
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 type: VaultProvider
 api_version: secrets/v1
@@ -262,9 +257,9 @@ spec:
     rate_limiter:
       limit: 10
       burst: 100
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "VaultProvider",
   "api_version": "secrets/v1",
@@ -288,7 +283,7 @@ spec:
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -302,16 +297,16 @@ The [Use secrets management][16] guide demonstrates how to configure the `Env` s
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 type: Env
 api_version: secrets/v1
 metadata:
   name: env
 spec: {}
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Env",
   "api_version": "secrets/v1",
@@ -320,7 +315,7 @@ spec: {}
   },
   "spec": {}
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

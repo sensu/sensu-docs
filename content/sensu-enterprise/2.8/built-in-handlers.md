@@ -37,7 +37,7 @@ built-in `email` integration (i.e. Enterprise handler).
 
 `/etc/sensu/conf.d/checks/load_balancer_listeners.json`
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "load_balancer_listeners": {
@@ -50,7 +50,7 @@ built-in `email` integration (i.e. Enterprise handler).
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 The following is an example of how to configure the Sensu default handler in
 order to specify one or more built-in enterprise handlers. The default handler
@@ -59,7 +59,7 @@ This example specifies the built-in `email` and `slack` enterprise handlers.
 
 `/etc/sensu/conf.d/handlers/default.json`
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "default": {
@@ -71,7 +71,7 @@ This example specifies the built-in `email` and `slack` enterprise handlers.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 
 ## List of built-in handlers

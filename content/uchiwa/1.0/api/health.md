@@ -12,7 +12,7 @@ menu:
 Returns both Uchiwa and Sensu API status
 
 ### Response Example (Status 200)
-{{< highlight json >}}
+{{< code json >}}
 {
   "uchiwa": "ok",
   "sensu": {
@@ -24,7 +24,7 @@ Returns both Uchiwa and Sensu API status
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Response Codes
 HTTP Status Code | Reason
@@ -36,7 +36,7 @@ HTTP Status Code | Reason
 Returns status of **Sensu API** or **Uchiwa** service.
 
 ### Response Example (Status 200)
-{{< highlight json >}}
+{{< code json >}}
 {
   "us-east-1": {
     "output": "ok"
@@ -44,7 +44,7 @@ Returns status of **Sensu API** or **Uchiwa** service.
   "us-west-1": {
     "output": "ok"
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Parameters
 Parameter | Description

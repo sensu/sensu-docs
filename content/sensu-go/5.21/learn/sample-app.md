@@ -7,19 +7,6 @@ platformContent: true
 platforms: ["Linux/macOS", "Windows"]
 ---
 
-- [Prerequisites](#prerequisites)
-- [Set up](#set-up)
-- [Multitenancy](#multitenancy)
-- [Deploy Sensu agents and InfluxDB](#deploy-sensu-agents-and-influxdb)
-- [Monitor the app](#monitor-the-app)
-	- [Create a Sensu pipeline to Slack](#create-a-sensu-pipeline-to-slack)
-	- [Create a Sensu service check](#create-a-sensu-service-check-to-monitor-the-status-of-the-dummy-app)
-- [Collect app metrics](#collect-app-metrics)
-	- [Create a Sensu metric check to collect Prometheus metrics](#create-a-sensu-metric-check-to-collect-prometheus-metrics)
-	- [Visualize metrics with Grafana](#visualize-metrics-with-grafana)
-- [Collect Kubernetes metrics](#collect-kubernetes-metrics)
-- [Next steps](#next-steps)
-
 In this tutorial, you'll deploy a sample app with Kubernetes and monitor it with Sensu.
 In the sample app, `/` returns the local hostname.
 The sample app has three endpoints: `/metrics` returns Prometheus metric data, `/healthz` returns the Boolean health state, and `POST /healthz` toggles the health state.
@@ -36,13 +23,13 @@ After you install and start Minikube, proceed through the rest of this tutorial.
 
 **1. Clone the sample app.**
 
-{{< highlight shell >}}
+{{< code shell >}}
 git clone https://github.com/sensu/sensu-kube-demo && cd sensu-kube-demo
-{{< /highlight >}}
+{{< /code >}}
 
 **2. Create the Kubernetes ingress resources.**
 
-{{< highlight shell >}}
+{{< code shell >}}
 minikube start
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml
@@ -50,15 +37,15 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/mast
 minikube addons enable ingress
 
 kubectl create -f go/ingress-nginx/ingress/sensu-go.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 **3. Deploy kube-state-metrics.**
 
-{{< highlight shell >}}
+{{< code shell >}}
 git clone https://github.com/kubernetes/kube-state-metrics
 
 kubectl apply -f kube-state-metrics/kubernetes
-{{< /highlight >}}
+{{< /code >}}
 
 **4. Open your `/etc/hosts` file and add the hostnames.**
 
@@ -67,10 +54,10 @@ kubectl apply -f kube-state-metrics/kubernetes
 To view the address, use the command `minikube ip`.
 {{% /notice %}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 192.168.99.100       sensu.local webui.sensu.local sensu-enterprise.local dashboard.sensu-enterprise.local
 192.168.99.100       influxdb.local grafana.local dummy.local
-{{< /highlight >}}
+{{< /code >}}
 
 **5. Install sensuctl.**
 
@@ -78,27 +65,27 @@ Follow the [sensuctl installation guide][2] instructions to install sensuctl on 
 
 **6. Deploy two instances of the sample app (dummy) behind a load balancer.**
 
-{{< highlight shell >}}
+{{< code shell >}}
 kubectl apply -f go/deploy/dummy.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 You can test the dummy app using the API.
 
 {{< platformBlock "Linux/macOS" >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Linux/macOS
 curl -i http://dummy.local
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Windows
 Invoke-WebRequest -Uri http://dummy.local -Method GET
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 
@@ -106,9 +93,9 @@ A `200` response indicates that the dummy app is working correctly.
 
 **7. Deploy the Sensu backend**
 
-{{< highlight shell >}}
+{{< code shell >}}
 kubectl create -f go/deploy/sensu-backend.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 ## Multitenancy
 
@@ -118,62 +105,62 @@ Use Sensu role-based access control (RBAC) to create a `demo` namespace and a `d
 
 When you installed the Sensu backend, during the [initialization step][14], you created an admin username and password for a `default` namespace. Use that username and password to configure sensuctl in this step.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl configure
 ? Sensu Backend URL: http://sensu.local
 ? Username: YOUR_USERNAME
 ? Password: YOUR_PASSWORD
 ? Namespace: default
 ? Preferred output format: tabular
-{{< /highlight >}}
+{{< /code >}}
 
 **2. Create a `demo` namespace.**
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl namespace create demo
-{{< /highlight >}}
+{{< /code >}}
 
 Use sensuctl to confirm that the namespace was created successfully and set the `demo` namespace as the default for your sensuctl session:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl namespace list
 
 sensuctl config set-namespace demo
-{{< /highlight >}}
+{{< /code >}}
 
 **3. Create a `dev` user role with full access to the `demo` namespace.**
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl role create dev \
 --verb get,list,create,update,delete \
 --resource \* --namespace demo
-{{< /highlight >}}
+{{< /code >}}
 
 **4. Create a `dev` role binding for the `dev` group.**
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl role-binding create dev --role dev --group dev
-{{< /highlight >}}
+{{< /code >}}
 
 **5. Create a `demo` user that is a member of the `dev` group.**
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl user create demo --interactive
 ? Username: demo
 ? Password: DEMO_PASSWORD
 ? Groups: dev
-{{< /highlight >}}
+{{< /code >}}
 
 **6. Reconfigure sensuctl to use the `demo` user and `demo` namespace.**
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl configure
 ? Sensu Backend URL: http://sensu.local
 ? Username: demo
 ? Password: password
 ? Namespace: demo
 ? Preferred output format: tabular
-{{< /highlight >}}
+{{< /code >}}
 
 ## Deploy Sensu agents and InfluxDB
 
@@ -181,38 +168,38 @@ sensuctl configure
 
 Create a Kubernetes ConfigMap for InfluxDB configuration.
 
-{{< highlight shell >}}
+{{< code shell >}}
 kubectl create configmap influxdb-config --from-file go/configmaps/influxdb.conf
-{{< /highlight >}}
+{{< /code >}}
 
 Deploy InfluxDB with a Sensu agent sidecar.
 
-{{< highlight shell >}}
+{{< code shell >}}
 kubectl create -f go/deploy/influxdb.sensu.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 **2. Create a Sensu pipeline to store metrics with InfluxDB.**
 
 Use the files provided with the sample app to create a Sensu asset for the [Sensu InfluxDB handler][3] and create an `influxdb` event handler.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file go/config/assets/influxdb-handler.yaml
 
 sensuctl create --file go/config/handlers/influxdb.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 **3. Deploy Sensu agent sidecars for the dummy app instances.**
 
-{{< highlight shell >}}
+{{< code shell >}}
 kubectl apply -f go/deploy/dummy.sensu.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 ## Monitor the app
 
 Let's take a look at what you're monitoring.
 You can see the Sensu agents installed on your two dummy app instances with their last-seen timestamps, as well as the Sensu agent monitoring your InfluxDB instance. 
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl entity list
 
             ID               Class    OS                   Subscriptions                           Last Seen            
@@ -220,7 +207,7 @@ sensuctl entity list
 dummy-76d8fb7bdf-967q7      agent   linux   dummy,entity:dummy-76d8fb7bdf-967q7         2019-01-18 10:56:56 -0800 PST  
 dummy-76d8fb7bdf-knh7r      agent   linux   dummy,entity:dummy-76d8fb7bdf-knh7r         2019-01-18 10:56:56 -0800 PST  
 influxdb-64b7d5f884-f9ptg   agent   linux   influxdb,entity:influxdb-64b7d5f884-f9ptg   2019-01-18 10:56:59 -0800 PST  
-{{< /highlight >}}
+{{< /code >}}
 
 ### Create a Sensu pipeline to Slack
 
@@ -229,9 +216,9 @@ You can create a Sensu pipeline to send events to Slack using the [Sensu Slack h
 
 **1. Create an asset to help agents find and install the [Sensu Slack handler][4].**
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file go/config/assets/slack-handler.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 **2. Get your Slack webhook URL and add it to `go/config/handlers/slack.yaml`.**
 
@@ -241,21 +228,21 @@ After saving, you'll see your webhook URL under Integration Settings.
 
 Open `go/config/handlers/slack.yaml`. In the following line, replace `SECRET` with your Slack workspace webhook URL and `#demo` with the Slack channel of your choice:
 
-{{< highlight shell >}}
+{{< code shell >}}
 "command": "slack-handler --channel '#demo' --timeout 20 --username 'sensu' --webhook-url 'SECRET'",
-{{< /highlight >}}
+{{< /code >}}
 
 So it looks something like:
 
-{{< highlight shell >}}
+{{< code shell >}}
 "command": "slack-handler --channel '#my-channel' --timeout 20 --username 'sensu' --webhook-url 'https://hooks.slack.com/services/XXXXXXXXXXXXXXXX'",
-{{< /highlight >}}
+{{< /code >}}
 
 **3. Create a handler to send events to Slack using the `slack-handler` asset.**
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file go/config/handlers/slack.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 ### Create a Sensu service check to monitor the status of the dummy app
 
@@ -263,15 +250,15 @@ To automatically monitor the status of the dummy app, create an asset that lets 
 
 **1. Create the `check-plugins` asset.**
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file go/config/assets/check-plugins.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 **2. Create a check to monitor the status of the dummy app that uses the `check-plugins` asset and the Slack pipeline.**
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file go/config/checks/dummy-app-healthz.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 With the automated alert workflow in place, you can see the resulting events in the Sensu web UI.
 
@@ -284,27 +271,27 @@ Since you're working within the `demo` namespace, select the `demo` namespace in
 
 {{< platformBlock "Linux/macOS" >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Linux/macOS
 curl -iXPOST http://dummy.local/healthz
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Windows
 Invoke-WebRequest -Uri http://dummy.local/healthz -Method POST
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 
 You should now be able to see a critical alert in the [Sensu web UI][8] as well as by using sensuctl:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event list
-{{< /highlight >}}
+{{< /code >}}
 
 You should also see an alert in Slack.
 
@@ -312,19 +299,19 @@ Continue to post to `/healthz` until all Sensu entities return to a healthy stat
 
 {{< platformBlock "Linux/macOS" >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Linux/macOS
 curl -iXPOST http://dummy.local/healthz
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Windows
 Invoke-WebRequest -Uri http://dummy.local/healthz -Method POST
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 
@@ -336,15 +323,15 @@ To automatically collect Prometheus metrics from the dummy app, create an asset 
 
 **1. Create the `prometheus-collector` asset.**
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file go/config/assets/prometheus-collector.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 **2. Create a check to collect Prometheus metrics that uses the `prometheus-collector` asset.**
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file go/config/checks/dummy-app-prometheus.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 ### Visualize metrics with Grafana
 
@@ -352,21 +339,21 @@ sensuctl create --file go/config/checks/dummy-app-prometheus.yaml
 
 Create Kubernetes ConfigMaps for Grafana configuration:
 
-{{< highlight shell >}}
+{{< code shell >}}
 kubectl create configmap grafana-provisioning-datasources --from-file=./go/configmaps/grafana-provisioning-datasources.yaml
 
 kubectl create configmap grafana-provisioning-dashboards --from-file=./go/configmaps/grafana-provisioning-dashboards.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 Deploy Grafana with a Sensu agent sidecar:
 
-{{< highlight shell >}}
+{{< code shell >}}
 kubectl apply -f go/deploy/grafana.sensu.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 After a few minutes, you can see the Sensu agents you installed on the dummy app, InfluxDB, and Grafana pods.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl entity list
             ID               Class    OS                   Subscriptions                           Last Seen            
 ─────────────────────────── ─────── ─────── ─────────────────────────────────────────── ─────────────────────────────── 
@@ -374,7 +361,7 @@ dummy-6c57b8f868-ft5dz      agent   linux   dummy,entity:dummy-6c57b8f868-ft5dz 
 dummy-6c57b8f868-m24hw      agent   linux   dummy,entity:dummy-6c57b8f868-m24hw         2018-11-20 18:43:15 -0800 PST  
 grafana-5b88f8df8d-vgjtm    agent   linux   grafana,entity:grafana-5b88f8df8d-vgjtm     2018-11-20 18:43:14 -0800 PST  
 influxdb-78d64bcfd9-8km56   agent   linux   influxdb,entity:influxdb-78d64bcfd9-8km56   2018-11-20 18:43:12 -0800 PST  
-{{< /highlight >}}
+{{< /code >}}
 
 **2. Log in to Grafana.**
 
@@ -390,15 +377,15 @@ Now that you have a pipeline set up to send metrics, you can create a check that
 
 Deploy a Sensu agent as a DameonSet on your Kubernetes node:
 
-{{< highlight shell >}}
+{{< code shell >}}
 kubectl apply -f go/deploy/sensu-agent-daemonset.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 Create a check to collect Prometheus metrics from Kubernetes using the `prometheus-collector` asset and `influxdb` handler:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file go/config/checks/kube-state-prometheus.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 You should now be able to access Kubernetes metrics data in [Grafana][10] and see metric events in the [Sensu web UI][8].
 

@@ -45,7 +45,7 @@ not only monitors NTP but also collects several metrics. Note the multiple event
 handlers: one for notifications (`pagerduty`), another for metric storage
 (`graphite`).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "ntp": {
@@ -63,7 +63,7 @@ handlers: one for notifications (`pagerduty`), another for metric storage
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### Definition attributes {#sensu-metric-format}
 
@@ -74,7 +74,7 @@ required       | true
 type           | String
 allowed values | `influxdb_line`, `graphite_plaintext`, `nagios_perfdata`, `opentsdb`, `wavefront`, `metrics20_wire`, `wizardvan_json`
 default        | `graphite_plaintext`
-example        | {{< highlight shell >}}"output_format": "graphite_plaintext"{{< /highlight >}}
+example        | {{< code shell >}}"output_format": "graphite_plaintext"{{< /code >}}
 
 [0]:  /sensu-enterprise
 [1]:  /sensu-core/1.0/reference/mutators

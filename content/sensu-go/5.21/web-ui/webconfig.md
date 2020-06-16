@@ -11,10 +11,6 @@ menu:
     parent: web-ui
 ---
 
-- [Create a web UI configuration](#create-a-web-ui-configuration)
-- [Federate a web UI configuration to specific clusters](#federate-a-web-ui-configuration-to-specific-clusters)
-- [Debugging in federated environments](#debugging-in-federated-environments)
-
 **COMMERCIAL FEATURE**: Access web UI configuration in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 
@@ -42,7 +38,7 @@ In a federated environment, you can create an [etcd replicator][6] for your `Glo
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 --- 
 type: EtcdReplicator
 api_version: federation/v1
@@ -57,9 +53,9 @@ spec:
   replication_interval_seconds: 120
   resource: GlobalConfig
   url: "http://127.0.0.1:2379"
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "EtcdReplicator",
   "api_version": "federation/v1",
@@ -77,7 +73,7 @@ spec:
     "url": "http://127.0.0.1:2379"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

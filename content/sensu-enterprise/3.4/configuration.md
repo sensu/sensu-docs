@@ -28,7 +28,7 @@ description  | Java initial heap size (`Xms`) and maximum heap size (`Xmx`). Inc
 type         | String
 required     | false
 default      | `2048m`
-example      | {{< highlight shell >}}HEAP_SIZE=4096m{{< /highlight >}}
+example      | {{< code shell >}}HEAP_SIZE=4096m{{< /code >}}
 
 HEAP_DUMP_PATH | 
 ---------------|------
@@ -36,14 +36,14 @@ description    | This value determines the file system path where Sensu Enterpri
 type           | String
 required       | false
 default        | `/var/cache/sensu-enterprise`
-example        | {{< highlight shell >}}HEAP_DUMP_PATH=/var/space/sensu-enterprise{{< /highlight >}}
+example        | {{< code shell >}}HEAP_DUMP_PATH=/var/space/sensu-enterprise{{< /code >}}
 
 JAVA_OPTS    | 
 -------------|------
 description  | This value is used to configure JVM runtime parameters when running Sensu Enterprise. Flags allowed here are determined by your system's Java Runtime Environment.
 type         | String
 required     | false
-example      | {{< highlight shell >}}JAVA_OPTS="-Djava.net.preferIPv4Stack=true"{{< /highlight >}}
+example      | {{< code shell >}}JAVA_OPTS="-Djava.net.preferIPv4Stack=true"{{< /code >}}
 
 MAX_OPEN_FILES | 
 ---------------|------
@@ -51,7 +51,7 @@ description    | This value is passed to `ulimit` for configuring the upper limi
 type           | Integer
 required       | false
 default        | `16384`
-example        | {{< highlight shell >}}MAX_OPEN_FILES=32768{{< /highlight >}}
+example        | {{< code shell >}}MAX_OPEN_FILES=32768{{< /code >}}
 
 ## Sensu Enterprise command line interfaces and arguments
 
@@ -62,7 +62,7 @@ visit the [Sensu Core configuration reference docs][1].
 -a (-\-api_only) | 
 ----------------|------
 description     | Run only the Sensu Enterprise API. You can use API-only mode to deploy Sensu Enterprise API instances that don't process events from transport queues.
-example         | {{< highlight shell >}}$ /opt/sensu/bin/sensu-enterprise -a
-{{< /highlight >}}
+example         | {{< code shell >}}$ /opt/sensu/bin/sensu-enterprise -a
+{{< /code >}}
 
 [1]: /sensu-core/1.2/reference/configuration

@@ -51,15 +51,15 @@ recommended installation strategies.
 ## Managing the RabbitMQ service/process {#managing-the-rabbitmq-serviceprocess}
 
 1. Install the RabbitMQ init scripts using the [`chkconfig` utility][5]:
-   {{< highlight shell >}}
-sudo chkconfig rabbitmq-server on{{< /highlight >}}
+   {{< code shell >}}
+sudo chkconfig rabbitmq-server on{{< /code >}}
 
 2. Start and stop the RabbitMQ service using the installed init scripts:
    _NOTE: The `service` command will not work on CentOS 5, the
    sysvinit script must be used, e.g. `sudo /etc/init.d/rabbitmq-server start`_
-   {{< highlight shell >}}
+   {{< code shell >}}
 sudo service rabbitmq-server start
-sudo service rabbitmq-server stop{{< /highlight >}}
+sudo service rabbitmq-server stop{{< /code >}}
 
 ## Configure RabbitMQ access controls
 
@@ -69,14 +69,14 @@ password). For Sensu services to connect to RabbitMQ a RabbitMQ virtual host
 
 ### Create a dedicated RabbitMQ `vhost` for Sensu
 
-{{< highlight shell >}}
-sudo rabbitmqctl add_vhost /sensu{{< /highlight >}}
+{{< code shell >}}
+sudo rabbitmqctl add_vhost /sensu{{< /code >}}
 
 ### Create a RabbitMQ user for Sensu
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo rabbitmqctl add_user sensu secret
-sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"{{< /highlight >}}
+sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"{{< /code >}}
 
 ## Configure system limits on Linux
 
@@ -105,7 +105,7 @@ To adjust this limit, please edit the configuration file found at
 adjusting the ulimit value to the recommendation corresponding to the
 environment where RabbitMQ is running.
 
-{{< highlight shell >}}
+{{< code shell >}}
 # This file is sourced by the rabbitmq-server service script. Its primary
 # reason for existing is to allow adjustment of system limits for the
 # rabbitmq-server process.
@@ -114,15 +114,15 @@ environment where RabbitMQ is running.
 # to handle many simultaneous connections. Refer to the system
 # documentation for ulimit (in man bash) for more information.
 #
-ulimit -n 65536{{< /highlight >}}
+ulimit -n 65536{{< /code >}}
 
 ### Verifying the Limit
 
 To verify that the RabbitMQ open file handle limit has been increase, please
 run:
 
-{{< highlight shell >}}
-rabbitmqctl status{{< /highlight >}}
+{{< code shell >}}
+rabbitmqctl status{{< /code >}}
 
 ## Configure Sensu
 
@@ -136,7 +136,7 @@ configuration.
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/rabbitmq.json`:
-  {{< highlight json >}}
+  {{< code json >}}
 {
   "rabbitmq": {
     "host": "127.0.0.1",
@@ -145,7 +145,7 @@ configuration.
     "user": "sensu",
     "password": "secret"
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Example Distributed Configuration
 
@@ -155,7 +155,7 @@ configuration.
 2. Create a configuration file  with the following contents at
    `/etc/sensu/conf.d/rabbitmq.json` on the Sensu server and API system(s), and
    all systems running the Sensu client:
-  {{< highlight json >}}
+  {{< code json >}}
 {
   "rabbitmq": {
     "host": "10.0.1.6",
@@ -164,7 +164,7 @@ configuration.
     "user": "sensu",
     "password": "secret"
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 
 

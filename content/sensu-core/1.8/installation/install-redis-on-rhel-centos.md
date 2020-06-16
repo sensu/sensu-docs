@@ -27,16 +27,16 @@ repositories, you will need to install the corresponding [EPEL][1] repository
 RHEL 7).
 
 1. Install EPEL on RHEL/CentOS 6:
-   {{< highlight shell >}}
-sudo rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm{{< /highlight >}}
+   {{< code shell >}}
+sudo rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm{{< /code >}}
    _NOTE: the preceding command will install the EPEL repository for
    RHEL/CentOS **version 6 ONLY**. For other RHEL/CentOS releases (i.e. version
    5 or 7), please refer to the [intructions for installing the correct EPEL for
    your release][2]._
 
 2. Install Redis (>= 1.3.14) from the EPEL repository:
-   {{< highlight shell >}}
-sudo yum install redis{{< /highlight >}}
+   {{< code shell >}}
+sudo yum install redis{{< /code >}}
 
 ## Managing the Redis service/process
 
@@ -47,13 +47,13 @@ Start and stop Redis using the `redis` init scripts:
 _NOTE: The `service` command will not work on CentOS 5, the sysvinit
 script must be used, e.g. `sudo /etc/init.d/redis start`_
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service redis start
-sudo service redis stop{{< /highlight >}}
+sudo service redis stop{{< /code >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service redis-sentinel start
-sudo service redis-sentinel stop{{< /highlight >}}
+sudo service redis-sentinel stop{{< /code >}}
 
 _NOTE: `redis-sentinel` service scripts are not installed by default and should
 only be used with [highly available Redis configurations][10]._
@@ -62,13 +62,13 @@ only be used with [highly available Redis configurations][10]._
 
 Enable and disable the Redis init scripts using the [`chkconfig` utility][3]:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo /sbin/chkconfig redis on
-sudo /sbin/chkconfig redis off{{< /highlight >}}
+sudo /sbin/chkconfig redis off{{< /code >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo /sbin/chkconfig redis-sentinel on
-sudo /sbin/chkconfig redis-sentinel off{{< /highlight >}}
+sudo /sbin/chkconfig redis-sentinel off{{< /code >}}
 
 _NOTE: `redis-sentinel` service scripts are not installed by default and should
 only be used with [highly available Redis configurations][10]._
@@ -114,7 +114,7 @@ To adjust this limit, please edit the configuration file found at
 `/etc/default/redis` by uncommenting the last line in the file, and
 adjusting the `ulimit` value accordingly.
 
-{{< highlight shell >}}
+{{< code shell >}}
 # redis configure options
 #
 # ULIMIT: Call ulimit -n with this argument prior to invoking Redis itself.
@@ -122,13 +122,13 @@ adjusting the `ulimit` value accordingly.
 # alter its limits as it is not being run as root. (default: do not call
 # ulimit)
 #
-ULIMIT=65536{{< /highlight >}}
+ULIMIT=65536{{< /code >}}
 
 When the configured number of maximum clients can not be honored, the condition
 is logged at startup...
 
-{{< highlight shell >}}
-[41422] 23 Jan 11:28:33.179 # Unable to set the max number of files limit to 100032 (Invalid argument), setting the max clients configuration to 10112.{{< /highlight >}}
+{{< code shell >}}
+[41422] 23 Jan 11:28:33.179 # Unable to set the max number of files limit to 100032 (Invalid argument), setting the max clients configuration to 10112.{{< /code >}}
 
 ## Configure Sensu
 
@@ -141,13 +141,13 @@ configuration][5] for more information on how Sensu loads configuration.
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/redis.json`:
-  {{< highlight shell >}}
+  {{< code shell >}}
 {
   "redis": {
     "host": "127.0.0.1",
     "port": 6379
   }
-}{{< /highlight >}}
+}{{< /code >}}
    _WARNING: using `"localhost"` instead of `127.0.0.1` for the `host`
    configuration on systems that support IPv6 may result in an [IPv6 "localhost"
    resolution (i.e. `::1`)][8] rather than an IPv4 "localhost" resolution (i.e.
@@ -164,14 +164,14 @@ configuration][5] for more information on how Sensu loads configuration.
 2. Create a configuration file  with the following contents at
    `/etc/sensu/conf.d/redis.json` on the Sensu server and API system(s), and all
    systems running the Sensu client:
-  {{< highlight shell >}}
+  {{< code shell >}}
 {
   "redis": {
     "host": "10.0.1.5",
     "port": 6379,
     "auto_reconnect": true
   }
-}{{< /highlight >}}
+}{{< /code >}}
    _NOTE: the `sensu-client` process does not require Redis configuration
    unless Redis is being used as the [Sensu Transport][6]. If you're not
    planning on using Redis as the Sensu Transport, you do not need to create a
@@ -182,13 +182,13 @@ configuration][5] for more information on how Sensu loads configuration.
 1. If you are [planning to use Redis][7] as your [Sensu Transport][6], please
    copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/transport.json`:
-  {{< highlight shell >}}
+  {{< code shell >}}
 {
   "transport": {
     "name": "redis",
     "reconnect_on_error": true
   }
-}{{< /highlight >}}
+}{{< /code >}}
    This will inform the Sensu services to use the defined Redis configuration as
    the Sensu Transport (instead of looking for the default transport, RabbitMQ).
 

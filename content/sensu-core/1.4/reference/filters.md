@@ -101,7 +101,7 @@ The following example filter definition, entitled `production_filter` will match
 [event data][3] with a [custom client definition attribute][5] `"environment":
 "production"`.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "filters": {
     "production_filter": {
@@ -114,7 +114,7 @@ The following example filter definition, entitled `production_filter` will match
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Filter attribute evaluation
 
@@ -132,7 +132,7 @@ Some teams migrating to Sensu have asked about reproducing the behavior of their
 old monitoring system which alerts only on state change. This
 `state_change_only` [inclusive][4] filter provides such.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "filters": {
     "state_change_only": {
@@ -143,7 +143,7 @@ old monitoring system which alerts only on state change. This
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 This eval filter is effective because value of event `occurrences` is reset on each
 state change, except when the event `action` is `:resolve`. The resolve action
@@ -162,7 +162,7 @@ calculation; i.e. calculating the remainder after dividing `occurrences` by 60).
 Note that negate is true, making this an [exclusive filter][4]; if evaluation
 returns false, the event will be handled.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "filters": {
     "filter_interval_60_hourly": {
@@ -176,12 +176,12 @@ returns false, the event will be handled.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 The next example will apply the same logic as the previous example, but for
 checks with a 30 second `interval`.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "filters": {
     "filter_interval_30_hourly": {
@@ -195,7 +195,7 @@ checks with a 30 second `interval`.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: The effect of both of these filters is that they will only allow an
 events with 30-second or 60-second intervals to be [handled][1] on the first
@@ -211,7 +211,7 @@ This filter evaluates the event timestamp to determine if the event occurred
 between 9 AM and 5 PM on a weekday. Remember that `negate` defaults to false, so
 this is an inclusive filter. If evaluation returns false, the event will not be
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "filters": {
     "nine_to_fiver": {
@@ -222,7 +222,7 @@ this is an inclusive filter. If evaluation returns false, the event will not be
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ## Filter attribute eval tokens
 
@@ -244,7 +244,7 @@ expression. The token will be replaced by the [check definition attribute][6]
 named `occurrences` if it is defined, otherwise it will use the fallback value
 of `60`.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "filters": {
     "occurrences": {
@@ -255,7 +255,7 @@ of `60`.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 This example would be useful for filtering events that don't exceed a minimum
 number of `occurrences` as configured in the check definition.
@@ -298,7 +298,7 @@ You can apply the occurrences filter to a handler using the `filters` handler de
 
 Here's an example of a handler definition that uses the occurrences filter:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "email": {
@@ -308,7 +308,7 @@ Here's an example of a handler definition that uses the occurrences filter:
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### Occurrences filter attributes {#occurrences-filter-attributes}
 
@@ -316,7 +316,7 @@ The occurrences filter lets you configure the number of occurrences and the refr
 
 Here's an example of a check definition that passes events to the `email` handler starting with the second occurrence every 60 minutes:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "check-http": {
@@ -329,7 +329,7 @@ Here's an example of a check definition that passes events to the `email` handle
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 occurrences  | 
 -------------|------
@@ -337,7 +337,7 @@ description  | The number of events that must occur before an event is handled f
 required     | True if the specified handler uses the occurrences filter
 type         | Integer
 default      | 1
-example      | {{< highlight shell >}}"occurrences": 2{{< /highlight >}}
+example      | {{< code shell >}}"occurrences": 2{{< /code >}}
 
 refresh      | 
 -------------|------
@@ -345,7 +345,7 @@ description  | Time in seconds until event occurrences are handled for the check
 required     | False
 type         | Integer
 default      | 1800
-example      | {{< highlight shell >}}"refresh": 3600{{< /highlight >}}
+example      | {{< code shell >}}"refresh": 3600{{< /code >}}
 
 ### Check dependencies filter {#check-dependencies-filter}
 
@@ -357,7 +357,7 @@ The check dependencies filter can be applied to a handler using the `filters` ha
 
 Here's an example of a handler definition that uses the checks dependencies filter:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "custom_mailer": {
@@ -367,7 +367,7 @@ Here's an example of a handler definition that uses the checks dependencies filt
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### Check dependencies filter attributes {#check-dependencies-attributes}
 
@@ -377,7 +377,7 @@ client/check pairs.
 
 Here's an example of a check definition that will be filtered if a check named `mysql` from the same client is already alerting:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "web_application_api": {
@@ -388,12 +388,12 @@ Here's an example of a check definition that will be filtered if a check named `
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 You can also define a more detailed dependency by specifying the client and check pair.
 Here's an example of a check definition that will be filtered if a check named `mysql` from client `db-01` is already alerting:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "web_application_api": {
@@ -404,14 +404,14 @@ Here's an example of a check definition that will be filtered if a check named `
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 dependencies | 
 -------------|------
 description  | An array containing names of checks or client/check pairs
 required     | True if specified handler uses the check dependencies filter
 type         | Array
-example      | {{< highlight shell >}}"dependencies": ["db-01/mysql", "apache"]{{< /highlight >}}
+example      | {{< code shell >}}"dependencies": ["db-01/mysql", "apache"]{{< /code >}}
 
 ## Filter configuration
 
@@ -423,7 +423,7 @@ filter definition called `production`. The effect of this filter is that only
 events with the [custom client attribute][5] `"environment": "production"` will
 be handled.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "filters": {
     "production": {
@@ -436,7 +436,7 @@ be handled.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Filter definition specification
 
@@ -458,26 +458,26 @@ description  | If the filter will negate events that match the filter attributes
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< highlight shell >}}"negate": true{{< /highlight >}}
+example      | {{< code shell >}}"negate": true{{< /code >}}
 
 attributes   | 
 -------------|------
 description  | Filter attributes to be compared with Event data.
 required     | true
 type         | Hash
-example      | {{< highlight shell >}}"attributes": {
+example      | {{< code shell >}}"attributes": {
   "check": {
     "team": "ops"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 when         | 
 -------------|------
 description  | The [`when` definition scope][14], used to determine when a filter is applied (time windows).
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"when": {
+example      | {{< code shell >}}"when": {
   "days": {
     "all": [
       {
@@ -487,7 +487,7 @@ example      | {{< highlight shell >}}"when": {
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### `when` attributes
 
@@ -497,7 +497,7 @@ name][15]).
 
 ##### EXAMPLE {#when-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "filters": {
     "offhours": {
@@ -519,7 +519,7 @@ name][15]).
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#when-attributes-specification}
 
@@ -528,7 +528,7 @@ days         |
 description  | A hash of days of the week or 'all', each day specified defines one or more time windows in which the filter is applied.
 required     | false (unless `when` is configured)
 type         | Hash
-example      | {{< highlight shell >}}"days": {
+example      | {{< code shell >}}"days": {
   "all": [
     {
       "begin": "5:00 PM",
@@ -542,7 +542,7 @@ example      | {{< highlight shell >}}"days": {
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 [1]:  ../handlers
 [2]:  #filter-definition-specification

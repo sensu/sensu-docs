@@ -38,9 +38,9 @@ For instances where you will be running Redis on the same host that you will be 
 
 To accomplish this you will need to edit `/etc/redis/redis.conf` with the following line:
 
-{{< highlight shell >}}
+{{< code shell >}}
 bind 127.0.0.1
-{{< /highlight >}}
+{{< /code >}}
 
 After making the above change, you will need to restart the Redis service.
 
@@ -56,9 +56,9 @@ The Redis documentation recommends limiting access to the TCP port Redis uses. B
 
 We recommend binding to the host IP address instead of binding to all IP's on the host. This can be accomplished by configuring `bind` to the IP address in `/etc/redis/redis.conf`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 bind 192.168.50.41
-{{< /highlight >}}
+{{< /code >}}
 
 After making the change you will need to restart the Redis service so the changes take effect.
 
