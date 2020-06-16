@@ -11,12 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Secure etcd peer communication](#secure-etcd-peer-communication)
-- [Secure the API and web UI](#secure-the-api-and-web-ui)
-- [Secure Sensu agent-to-server communication](#secure-sensu-agent-to-server-communication)
-- [Sensu agent mTLS authentication](#sensu-agent-mtls-authentication)
-- [Next step: Run a Sensu cluster](#next-step-run-a-sensu-cluster)
-
 As with any piece of software, it is critical to minimize any attack surface the software exposes.
 Sensu is no different.
 This guide describes the components you need to secure to make Sensu production-ready.

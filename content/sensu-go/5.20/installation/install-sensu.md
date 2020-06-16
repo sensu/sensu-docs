@@ -10,13 +10,6 @@ menu:
     parent: installation
 ---
 
-- [Architecture overview](#architecture-overview)
-- [Install the Sensu backend](#install-the-sensu-backend)
-- [Install sensuctl](#install-sensuctl)
-- [Install Sensu agents](#install-sensu-agents)
-- [Commercial features](#commercial-features)
-- [Next steps](#next-steps)
-
 This installation guide describes how to install the Sensu backend, Sensu agent, and sensuctl command line tool.
 If you’re trying Sensu for the first time, we recommend setting up a local environment using the [Sensu sandbox][14].
 

@@ -11,9 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Use a handler to send alerts to Slack](#use-a-handler-to-send-alerts-to-slack)
-- [Next steps](#next-steps)
-
 Sensu event handlers are actions the Sensu backend executes on [events][1].
 You can use handlers to send an email alert, create or resolve incidents (in PagerDuty, for example), or store metrics in a time-series database like InfluxDB.
 

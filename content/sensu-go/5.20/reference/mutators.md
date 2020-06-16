@@ -10,12 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Commands](#commands)
-- [Built-in mutators](#built-in-mutators)
-- [Mutator specification](#mutator-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [`secrets` attributes](#secrets-attributes)
-- [Examples](#examples)
-
 Handlers can specify a mutator to execute and transform event data before any handlers are applied.
 
 * When the Sensu backend processes an event, it checks the handler for the presence of a mutator and executes that mutator before executing the handler.

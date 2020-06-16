@@ -26,7 +26,7 @@ menu:
   - [`/users/:user/groups/:group` (DELETE)](#usersusergroupsgroup-delete)
 
 {{% notice note %}}
-**NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication). To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth#ldap-authentication) or [Active Directory (AD)](../../installation/auth/#ad-authentication), use Sensu's [authentication providers API](../authproviders/).
+**NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication). To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../installation/auth/#active-directory-ad-authentication), use Sensu's [authentication providers API](../authproviders/).
 {{% /notice %}}
 
 ## The `/users` API endpoint

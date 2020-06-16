@@ -12,11 +12,6 @@ menu:
     parent: installation
 ---
 
-- [Install plugins with assets](#install-plugins-with-assets)
-- [Use Bonsai, the Sensu asset index](#use-bonsai-the-sensu-asset-index)
-- [Install plugins with the sensu-install tool](#install-plugins-with-the-sensu-install-tool)
-- [Troubleshoot the sensu-install tool](#troubleshoot-the-sensu-install-tool)
-
 Extend Sensu's functionality with [plugins][10], which provide executables for performing status or metric checks, mutators for changing data to a desired format, and handlers for performing an action on a Sensu event.
 
 ## Install plugins with assets

@@ -10,12 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Searches specification](#searches-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Examples](#examples)
-	- [Search for events with any status except passing](#search-for-events-with-any-status-except-passing)
-  - [Search for published checks with a specific subscription and region ](#search-for-published-checks-with-a-specific-subscription-and-region)
-
 **COMMERCIAL FEATURE**: Access saved searches in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 

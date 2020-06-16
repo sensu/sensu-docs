@@ -12,21 +12,6 @@ menu:
     parent: reference
 ---
 
-- [Installation][1]
-- [Communication between the agent and backend](#communication-between-the-agent-and-backend)
-- [Create monitoring events using service checks](#create-monitoring-events-using-service-checks)
-- [Create monitoring events using the agent API](#create-monitoring-events-using-the-agent-api)
-- [Create monitoring events using the StatsD listener](#create-monitoring-events-using-the-statsd-listener)
-- [Create monitoring events using the agent TCP and UDP sockets](#create-monitoring-events-using-the-agent-tcp-and-udp-sockets) (deprecated)
-- [Keepalive monitoring](#keepalive-monitoring)
-- [Service management](#operation)
-  - [Start and stop the service](#start-the-service) | [Register and deregister](#registration) | [Cluster](#cluster) | [Synchronize time](#synchronize-time)
-- [Configuration via flags](#configuration-via-flags)
-  - [General configuration flags](#general-configuration-flags) | [API configuration flags](#api-configuration-flags) | [Ephemeral agent configuration flags](#ephemeral-agent-configuration-flags) | [Keepalive configuration flags](#keepalive-configuration-flags) | [Security configuration](#security-configuration-flags) | [Socket configuration flags](#socket-configuration-flags) | [StatsD configuration flags](#statsd-configuration-flags)
-  - [Allow list configuration commands](#allow-list-configuration-commands) and [example allow list configuration file](#example-allow-list-configuration-file)
-- [Configuration via environment variables](#configuration-via-environment-variables)
-- [Example Sensu agent configuration file](../../files/agent.yml) (download)
-
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
 Agents register with the Sensu backend as [monitoring entities][3] with `type: "agent"`.
 Agent entities are responsible for creating [check and metrics events][7] to send to the [backend event pipeline][2].

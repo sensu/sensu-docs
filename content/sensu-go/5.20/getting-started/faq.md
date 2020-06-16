@@ -13,42 +13,27 @@ menu:
 Thank you for visiting the Sensu FAQ!
 For a list of Sensu terms and definitions, see the [glossary][7].
 
-- [What platforms does Sensu support?](#platform-support)
-- [Is Sensu available as a hosted solution?](#hosted-solution)
-- [What are the hardware requirements for running a Sensu backend?](#hardware-requirements)
-- [Is there an enterprise version of Sensu Go?](#enterprise-version)
-- [What's the difference between the OSS, free, and commercial versions?](#version-comparison)
-- [How can I contact the Sensu sales team?](#sales-team)
-- [What can I monitor with Sensu?](#monitor-with-sensu)
-- [Does Sensu include a time series database for long-term storage?](#long-term-storage)
-- [Can I connect Sensu Go to clients and servers from earlier versions of Sensu Core and Sensu Enterprise?](#connect-earlier-versions)
-- [Can I upgrade my Sensu Core 1.x deployment to Sensu Go?](#upgrade-1x-to-go)
-- [Which ports does Sensu use?](#go-ports)
-- [Can one Sensu backend monitor multiple sites?](#monitor-multiple-sites)
-- [Can I use Uchiwa with Sensu Go?](#uchiwa-with-go)
-
-
-## What platforms does Sensu support? {#platform-support}
+## What platforms does Sensu support?
 
 Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only), Solaris, and Docker.
 See the list of [supported platforms][1] and the [installation guide][2] for more information.
 
-## Is Sensu available as a hosted solution? {#hosted-solution}
+## Is Sensu available as a hosted solution?
 
 No, Sensu is installed on your organization’s infrastructure alongside other applications and services.
 See the list of [supported platforms][1] and the [installation guide][2] for more information.
 
-## What are the hardware requirements for running a Sensu backend? {#hardware-requirements}
+## What are the hardware requirements for running a Sensu backend?
 
 See the [hardware requirements guide][5] for minimum and recommended hardware to run a Sensu backend.
 
-## Is there an enterprise version of Sensu Go? {#enterprise-version}
+## Is there an enterprise version of Sensu Go?
 
 [Yes][31]! Sensu Inc. offers support packages for Sensu Go as well as commercial features designed for monitoring at scale.
 [Contact the Sensu sales team][6] for a personalized demo.
 See [Get started with commercial features][28] for more information.
 
-## What's the difference between the OSS, free, and commercial versions? {#version-comparison}
+## What's the difference between the OSS, free, and commercial versions?
 
 See the [Enterprise page][30] for a complete comparison. 
 
@@ -56,12 +41,12 @@ All [commercial features][28] are available for free in the packaged Sensu Go di
 If your Sensu instance includes more than 100 entities, [contact us][36] to learn how to upgrade your installation and increase your limit.
 See the [announcement on our blog][34] for more information about our usage policy.
 
-## How can I contact the Sensu sales team? {#sales-team}
+## How can I contact the Sensu sales team?
 
 We'd love to chat about solving your organization's monitoring challenges with Sensu.
 Get in touch with us using [this form][6].
 
-## What can I monitor with Sensu? {#monitor-with-sensu}
+## What can I monitor with Sensu?
 
 Sensu supports a wide range of plugins for monitoring everything from the server closet to the cloud.
 [Install the Sensu agent][8] on the hosts you want to monitor, integrate with the [Sensu API][9], or take advantage of [proxy entities][10] to monitor anything on your network.
@@ -71,17 +56,17 @@ If you want to add your own asset, read the [guide for sharing an asset on Bonsa
 
 You can also check out the 200+ plugins shared in the [Sensu plugins community][11], including monitoring checks for [AWS][13], [Jenkins][14], [Puppet][15], [InfluxDB][16], and [SNMP][17], or write your own Sensu plugins in any language using the [Sensu plugin specification][12].
 
-## Does Sensu include a time series database for long-term storage? {#long-term-storage}
+## Does Sensu include a time series database for long-term storage?
 
 No, Sensu does not store event data.
 We recommend integrating Sensu with a time series database, like [InfluxDB][19], to store event data.
 See the [guide to storing metrics with InfluxDB][18] to get started.
 
-## Can I connect Sensu Go to clients and servers from earlier versions of Sensu Core and Sensu Enterprise? {#connect-earlier-versions}
+## Can I connect Sensu Go to clients and servers from Sensu Core and Sensu Enterprise?
 
 No, Sensu Go agents and backends are not compatible with Sensu Core or Sensu Enterprise services.
 
-## Can I upgrade my Sensu Core 1.x deployment to Sensu Go? {#upgrade-1x-to-go}
+## Can I upgrade my Sensu Core 1.x deployment to Sensu Go?
 
 Sensu Go is a complete redesign of the original Sensu.
 It uses separate packages, dependencies, and data models to bring you powerful new features.
@@ -110,14 +95,15 @@ The agent TCP and UDP sockets are deprecated in favor of the [agent API][21].
 
 For more information, see the [Secure Sensu guide][20].
 
-## Can one Sensu backend monitor multiple sites? {#monitor-multiple-sites}
+## Can one Sensu backend monitor multiple sites?
 
 Yes, as long as you meet the [port requirements][37], a single Sensu backend can monitor Sensu agents at multiple sites.
 
-## Can I use Uchiwa with Sensu Go? {#uchiwa-with-go}
+## Can I use Uchiwa with Sensu Go?
 
 Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go.
 Sensu Go does have a [built-in web UI][29] that you can use to visually interact with your Sensu Go deployment.
+
 
 [1]: ../../platforms/
 [2]: ../../installation/install-sensu/
@@ -155,4 +141,3 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [34]: https://blog.sensu.io/one-year-of-sensu-go/
 [36]: https://sensu.io/contact/
 [37]: #go-ports
-

@@ -11,7 +11,7 @@ menu:
     parent: sensuctl
 ---
 
-### Configure sensuctl and log in
+## Configure sensuctl and log in
 
 {{< code shell >}}
 sensuctl configure
@@ -20,25 +20,25 @@ sensuctl configure
 ? Password: YOUR_PASSWORD
 {{< /code >}}
 
-### Create resources from a file that contains JSON resource definitions
+## Create resources from a file that contains JSON resource definitions
 
 {{< code shell >}}
 sensuctl create --file filename.json
 {{< /code >}}
 
-### View monitored entities
+## View monitored entities
 
 {{< code shell >}}
 sensuctl entity list
 {{< /code >}}
 
-### View monitoring events
+## View monitoring events
 
 {{< code shell >}}
 sensuctl event list
 {{< /code >}}
 
-### Edit a check
+## Edit a check
 
 In this example, the check name is `check-cpu`:
 
@@ -46,7 +46,7 @@ In this example, the check name is `check-cpu`:
 sensuctl edit check check-cpu
 {{< /code >}}
 
-### View the JSON configuration for a check
+## View the JSON configuration for a check
 
 In this example, the check name is `check-cpu`:
 

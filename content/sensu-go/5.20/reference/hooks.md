@@ -10,15 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Check response types](#check-response-types)
-- [Check hooks](#check-hooks)
-- [Hook specification](#hook-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Examples](#examples)
-  - [Rudimentary auto-rememdiation](#rudimentary-auto-remediation)
-  - [Capture the process tree](#capture-the-process-tree)
-  - [Check hook using token substitution](#check-hook-using-token-substitution)
-
 Hooks are reusable commands the agent executes in response to a check result before creating a monitoring event.
 You can create, manage, and reuse hooks independently of checks.
 Hooks enrich monitoring event context by gathering relevant information based on the exit status code of a check (ex: `1`).

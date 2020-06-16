@@ -11,12 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Prerequisites](#prerequisites)
-- [Configure Postgres](#configure-postgres)
-- [Configure Sensu](#configure-sensu)
-- [Revert to the built-in datastore](#revert-to-the-built-in-datastore)
-- [Configure Postgres streaming replication](#configure-postgres-streaming-replication)
-
 **COMMERCIAL FEATURE**: Access the datastore feature in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][3].
 
