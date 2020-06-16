@@ -11,10 +11,6 @@ menu:
     parent: web-ui
 ---
 
-- [Create a web UI configuration](#create-a-web-ui-configuration)
-- [Federate a web UI configuration to specific clusters](#federate-a-web-ui-configuration-to-specific-clusters)
-- [Debugging in federated environments](#debugging-in-federated-environments)
-
 **COMMERCIAL FEATURE**: Access web UI configuration in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 

@@ -11,9 +11,6 @@ menu:
     parent: guides
 ---
 
-- [API key authentication](#api-key-authentication)
-- [Sensuctl management commands](#sensuctl-management-commands)
-
 The Sensu API key feature (core/v2.APIKey) is a persistent UUID that maps to a stored Sensu username.
 The advantages of authenticating with API keys rather than [access tokens][1] include:
 

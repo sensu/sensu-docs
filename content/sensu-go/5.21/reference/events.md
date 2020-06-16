@@ -10,19 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Check-only events](#check-only-events)
-- [Metric-only events](#metric-only-events)
-- [Check and metric events](#check-and-metric-events)
-- [Create events using the Sensu agent](#create-events-using-the-sensu-agent)
-- [Create events using the events API](#create-events-using-the-events-api)
-- [Manage events](#manage-events): [View events](#view-events) | [Delete events](#delete-events) | [Resolve events](#resolve-events)
-- [Event format](#event-format)
-- [Use event data](#use-event-data)
-  - [Occurrences](#occurrences-and-occurrences-watermark)
-- [Events specification](#events-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [Check attributes](#check-attributes) | [Metric attributes](#metric-attributes)
-- [Examples](#examples)
-
 An event is a generic container used by Sensu to provide context to checks and metrics.
 The context, called event data, contains information about the originating entity and the corresponding check or metric result.
 An event must contain a check or metrics.
