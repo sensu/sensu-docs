@@ -9,14 +9,6 @@ menu:
     parent: reference
 ---
 
-- [Event storage](#event-storage)
-- [Scale event storage](#scale-event-storage) (commercial feature)
-  - [Requirements](#requirements)
-  - [Configuration](#configuration)
-  - [Datastore specification](#datastore-specification)
-
-## Event storage
-
 Sensu stores the most recent event for each entity and check pair using either an embedded etcd (default) or an [external etcd][8] instance.
 You can access event data with the [Sensu web UI][9] Events page, [`sensuctl event` commands][10], and the [events API][11].
 For longer retention of event data, integrate Sensu with a time series database like [InfluxDB][12] or a searchable index like ElasticSearch or Splunk.
@@ -33,12 +25,12 @@ When configured with a PostgreSQL event store, Sensu connects to PostgreSQL to s
 Etcd continues to store Sensu entity and configuration data.
 You can access event data stored in PostgreSQL using the same Sensu web UI, API, and sensuctl processes as etcd-stored events.
 
-### Requirements
+## Requirements
 
 Sensu supports PostgreSQL 9.5 and later, including [Amazon Relational Database Service][3] (Amazon RDS) when configured with the PostgreSQL engine.
 See the [PostgreSQL docs][14] to install and configure PostgreSQL.
 
-### Configuration
+## Configuration
 
 At the time when you enable the PostgreSQL event store, event data cuts over from etcd to PostgreSQL.
 This results in a loss of recent event history.
@@ -90,7 +82,7 @@ sensuctl create --file postgres.yml
 To update your Sensu PostgreSQL configuration, repeat the `sensuctl create` process.
 You can expect to see PostgreSQL status updates in the [Sensu backend logs][2] at the `warn` log level and PostgreSQL error messages in the [Sensu backend logs][2] at the `error` log level.
 
-#### Disable the PostgreSQL event store
+### Disable the PostgreSQL event store
 
 To disable the PostgreSQL event store, use `sensuctl delete` with your `PostgresConfig` resource definition:
 
@@ -107,9 +99,9 @@ Mar 10 17:35:04 sensu-centos sensu-backend[1365]: {"component":"store-providers"
 When you disable the PostgreSQL event store, event data cuts over from PostgreSQL to etcd, which results in a loss of recent event history.
 No restarts or Sensu backend configuration changes are required to disable the PostgreSQL event store.
 
-### Datastore specification
+## Datastore specification
 
-#### Top-level attributes
+### Top-level attributes
 
 type         |      |
 -------------|------
@@ -127,13 +119,12 @@ example      | {{< code shell >}}api_version: store/v1{{< /code >}}
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the PostgreSQL datastore `name` and `created_by` field.
+description  | Top-level scope that contains the PostgreSQL datastore `name`.
 required     | true
 type         | Map of key-value pairs
 example      | {{< code shell >}}
 metadata:
   name: my-postgres
-  created_by: admin
 {{< /code >}}
 
 spec         |      |
@@ -147,7 +138,7 @@ spec:
   pool_size: 20
 {{< /code >}}
 
-#### Metadata attributes
+### Metadata attributes
 
 name         |      |
 -------------|------
@@ -156,14 +147,7 @@ required     | true
 type         | String
 example      | {{< code shell >}}name: my-postgres{{< /code >}}
 
-| created_by |      |
--------------|------
-description  | Username of the Sensu user who created the datastore or last updated the datastore. Sensu automatically populates the `created_by` field when the datastore is created or updated.
-required     | false
-type         | String
-example      | {{< code shell >}}created_by: admin{{< /code >}}
-
-#### Spec attributes
+### Spec attributes
 
 dsn          |      |
 -------------|------
@@ -180,28 +164,9 @@ default      | `0` (unlimited)
 type         | Integer
 example      | {{< code shell >}}pool_size: 20{{< /code >}}
 
-<a name="max_conn_lifetime"></a>
-
-max_conn_lifetime    |      |
--------------|------
-description  | Available in [Sensu Go 5.19.2][4]. Maximum time a connection can persist before being destroyed. Specify values with a numeral and a letter indicator: `s` to indicate seconds, `m` to indicate minutes, and `h` to indicate hours. For example, `1m`, `2h`, and `2h1m3s` are valid. 
-required     | false
-type         | String
-example      | {{< code shell >}}max_conn_lifetime: 5m{{< /code >}}
-
-max_idle_conns    |      |
--------------|------
-description  | Available in [Sensu Go 5.19.2][4]. Maximum number of number of idle connections to retain. 
-required     | false
-default      | `2`
-type         | Integer
-example      | {{< code shell >}}max_idle_conns: 2{{< /code >}}
-
-
 [1]: ../../sensuctl/reference/#first-time-setup
 [2]: ../../guides/troubleshooting/
 [3]: https://aws.amazon.com/rds/
-[4]: ../../release-notes/#5-19-2-release-notes
 [8]: ../../guides/clustering/#use-an-external-etcd-cluster
 [9]: ../../web-ui/sign-in/
 [10]: ../../sensuctl/reference/#sensuctl-event

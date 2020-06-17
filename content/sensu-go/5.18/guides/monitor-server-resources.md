@@ -19,12 +19,10 @@ Sensu checks use the same specification as **Nagios**, so you can use Nagios che
 
 You can use checks to monitor server resources, services, and application health (for example, to check whether Nginx is running) and collect and analyze metrics (for example, to learn how much disk space you have left).
 
-## Use checks to monitor a service
-
 This guide will help you monitor server resources (specifically, CPU usage) by configuring a check named `check-cpu` with a subscription named `system` to target all entities that are subscribed to the `system` subscription.
 To use this guide, you'll need to install a Sensu backend and have at least one Sensu agent running on Linux.
 
-### Register assets
+## Register assets
 
 To power the check, you'll use the [Sensu CPU Checks][1] asset and the [Sensu Ruby Runtime][7] asset.
 
@@ -56,7 +54,7 @@ sensuctl asset list
  sensu-ruby-runtime         //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.0.10_ruby-2.4.4_centos_linux_amd64.tar.gz     338b88b 
 {{< /code >}}
 
-### Create a check
+## Create a check
 
 Now that the assets are registered, create a check named `check-cpu` that runs the command `check-cpu.rb -w 75 -c 90` with the `cpu-checks-plugins` and `sensu-ruby-runtime` assets at an interval of 60 seconds for all entities subscribed to the `system` subscription.
 This check generates a warning event (`-w`) when CPU usage reaches 75% and a critical alert (`-c`) at 90%.
@@ -69,7 +67,7 @@ sensuctl check create check-cpu \
 --runtime-assets cpu-checks-plugins,sensu-ruby-runtime
 {{< /code >}}
 
-### Configure the subscription
+## Configure the subscription
 
 To run the check, you'll need a Sensu agent with the subscription `system`.
 After you [install an agent][4], open `/etc/sensu/agent.yml` and add the `system` subscription so the subscription configuration looks like this:
@@ -85,7 +83,7 @@ Then, restart the agent:
 sudo service sensu-agent restart
 {{< /code >}}
 
-### Validate the check
+## Validate the check
 
 Use sensuctl to confirm that Sensu is monitoring CPU usage using the `check-cpu`, returning an OK status (`0`).
 It might take a few moments after you create the check for the check to be scheduled on the entity and the event to return to Sensu backend.

@@ -7,19 +7,6 @@ platformContent: true
 platforms: ["Linux/macOS", "Windows"]
 ---
 
-- [Prerequisites](#prerequisites)
-- [Set up](#set-up)
-- [Multitenancy](#multitenancy)
-- [Deploy Sensu agents and InfluxDB](#deploy-sensu-agents-and-influxdb)
-- [Monitor the app](#monitor-the-app)
-	- [Create a Sensu pipeline to Slack](#create-a-sensu-pipeline-to-slack)
-	- [Create a Sensu service check](#create-a-sensu-service-check-to-monitor-the-status-of-the-dummy-app)
-- [Collect app metrics](#collect-app-metrics)
-	- [Create a Sensu metric check to collect Prometheus metrics](#create-a-sensu-metric-check-to-collect-prometheus-metrics)
-	- [Visualize metrics with Grafana](#visualize-metrics-with-grafana)
-- [Collect Kubernetes metrics](#collect-kubernetes-metrics)
-- [Next steps](#next-steps)
-
 In this tutorial, you'll deploy a sample app with Kubernetes and monitor it with Sensu.
 In the sample app, `/` returns the local hostname.
 The sample app has three endpoints: `/metrics` returns Prometheus metric data, `/healthz` returns the Boolean health state, and `POST /healthz` toggles the health state.

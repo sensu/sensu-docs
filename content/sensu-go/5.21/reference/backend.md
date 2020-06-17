@@ -18,7 +18,7 @@ Every Sensu backend includes an integrated transport for scheduling checks using
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
 See the [installation guide][1] to install the backend.
 
-### Create event pipelines
+## Create event pipelines
 
 The backend processes event data and executes filters, mutators, and handlers.
 These pipelines are powerful tools to automate your monitoring workflows.
@@ -30,7 +30,7 @@ To learn more about filters, mutators, and handlers, see:
 - [Mutators reference documentation][10]
 - [Handlers reference documentation][11]
 
-### Schedule checks
+## Schedule checks
 
 The backend is responsible for storing check definitions and scheduling check requests.
 Check scheduling is subscription-based: the backend sends check requests to subscriptions. where they're picked up by subscribing agents.

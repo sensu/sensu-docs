@@ -12,10 +12,6 @@ menu:
     parent: guides
 ---
 
-- [Create a read-only user](#create-a-read-only-user)
-- [Create a cluster-wide event-reader user](#create-a-cluster-wide-event-reader-user)
-- [Next steps](#next-steps)
-
 Role-based access control (RBAC) allows you to exercise fine-grained control over how Sensu users interact with Sensu resources.
 Use RBAC rules to achieve **multitenancy** so different projects and teams can share a Sensu instance. 
 

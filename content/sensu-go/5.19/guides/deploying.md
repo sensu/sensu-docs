@@ -11,19 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Create and maintain clusters](#create-and-maintain-clusters)
-- [Hardware sizing](#hardware-sizing)
-- [Communications security](#communications-security)
-  - [Plan TLS for etcd](#plan-tls-for-etcd)
-- [Common Sensu architectures](#common-sensu-architectures)
-  - [Single backend (standalone)](#single-backend-standalone)
-  - [Clustered deployment for single availability zone](#clustered-deployment-for-single-availability-zone)
-  - [Clustered deployment for multiple availability zones](#clustered-deployment-for-multiple-availability-zones)
-  - [Large-scale clustered deployment for multiple availability zones](#large-scale-clustered-deployment-for-multiple-availability-zones)
-- [Architecture considerations](#architecture-considerations)
-  - [Networking](#networking)
-  - [Load balancing](#load-balancing)
-
 This guide describes various deployment considerations and recommendations for a production-ready Sensu deployment, including details related to communication security and common deployment architectures.
 
 etcd is a key-value store that is used by applications of varying complexity, from simple web apps to Kubernetes.

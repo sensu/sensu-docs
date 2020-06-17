@@ -10,11 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Secrets providers specification](#secrets-providers-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Secrets providers configuration](#secrets-providers-configuration)
-- [Secrets providers examples](#secrets-providers-examples)
-
 **COMMERCIAL FEATURE**: Access the Env and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 

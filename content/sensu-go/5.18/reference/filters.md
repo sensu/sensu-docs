@@ -10,19 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Inclusive and exclusive event filters](#inclusive-and-exclusive-event-filters)
-- [Built-in event filters](#built-in-event-filters)
-- [Build event filter expressions](#build-event-filter-expressions)
-- [Event filter specification](#event-filter-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Event filter examples](#event-filter-examples)
-	- [Handle production events](#handle-production-events)
-	- [Handle non-production events](#handle-non-production-events)
-	- [Handle state change only](#handle-state-change-only)
-	- [Handle repeated events](#handle-repeated-events)
-	- [Handle events during office hours only](#handle-events-during-office-hours-only)
-- [Use JavaScript libraries with Sensu filters](#use-javascript-libraries-with-sensu-filters)
-
 Sensu event filters are applied when you configure event handlers to use one or more filters.
 Before executing a handler, the Sensu backend will apply any event filters configured for the handler to the event data.
 If the filters do not remove the event, the handler will be executed.

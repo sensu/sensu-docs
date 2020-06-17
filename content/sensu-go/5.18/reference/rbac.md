@@ -10,23 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Namespaces](#namespaces)
-  - [Manage namespaces](#manage-namespaces) | [Namespace specification](#namespace-specification) | [Namespace example](#namespace-example)
-- [Resources](#resources)
-  - [Namespaced resource types](#namespaced-resource-types) | [Cluster-wide resource types](#cluster-wide-resource-types) | [Special resource types](#special-resource-types)
-- [Users](#users)
-  - [Manage users](#manage-users) | [User specification](#user-specification) | [User example](#user-example)
-- [Groups](#groups)
-  - [Manage groups](#manage-groups)
-- [Roles and cluster roles](#roles-and-cluster-roles)
-  - [Manage roles and cluster roles](#manage-roles-and-cluster-roles) | [Role and cluster role specification](#role-and-cluster-role-specification) | [Role and cluster role examples](#role-and-cluster-role-examples)
-- [Role bindings and cluster role bindings](#role-bindings-and-cluster-role-bindings)
-  - [Manage role bindings and cluster role bindings](#manage-role-bindings-and-cluster-role-bindings) | [Role binding and cluster role binding specification](#role-binding-and-cluster-role-binding-specification) | [Role binding and cluster role binding examples](#role-binding-and-cluster-role-binding-examples)
-- [Example workflows](#example-workflows)
-  - [Assign user permissions within a namespace](#assign-user-permissions-within-a-namespace)
-  - [Assign group permissions within a namespace](#assign-group-permissions-within-a-namespace)
-  - [Assign group permissions across all namespaces](#assign-group-permissions-across-all-namespaces)
-
 Sensu role-based access control (RBAC) helps different teams and projects share a Sensu instance.
 RBAC allows you to manage user access and resources based on namespaces, groups, roles, and bindings.
 
@@ -275,7 +258,7 @@ A `request-unauthorized` response indicates invalid credentials.
 
 {{% notice note %}}
 **NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication).
-It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth/#ldap-authentication) or [Active Directory (AD)](../../installation/auth/#ad-authentication). 
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth/#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../installation/auth/#active-directory-ad-authentication). 
 {{% /notice %}}
 
 To change the password for a user:
@@ -1273,8 +1256,8 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [40]: ../../reference/etcdreplicators/
 [41]: ../agent/#security-configuration-flags
 [42]: ../../installation/install-sensu/#install-the-sensu-backend
-[43]: ../../installation/auth#ldap-authentication
-[44]: ../../installation/auth/#ad-authentication
+[43]: ../../installation/auth#lightweight-directory-access-protocol-ldap-authentication
+[44]: ../../installation/auth/#active-directory-ad-authentication
 [45]: ../../sensuctl/reference/#change-admin-user-s-password
 [46]: ../secrets-providers/
 [47]: ../datastore/

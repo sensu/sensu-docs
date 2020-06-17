@@ -10,14 +10,6 @@ menu:
   sensu-go-5.19:
     parent: guides
 ---
-- [Prerequisites](#prerequisites)
-- [Public key infrastructure](#public-key-infrastructure-pki)
-- [Issue certificates](#issue-certificates)
-    - [Install TLS](#install-tls)
-    - [Create a Certificate Authority (CA)](#create-a-certificate-authority-ca)
-    - [Generate backend cluster certificates](#generate-backend-cluster-certificates)
-    - [Generate agent certificate](#generate-agent-certificate)
-- [Next step: Secure Sensu](#next-step-secure-sensu)
 
 This guide explains how to generate the certificates you need to secure a Sensu cluster and its agents.
 

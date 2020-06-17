@@ -10,14 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Pipe handlers](#pipe-handlers)
-- [TCP/UDP handlers](#tcp-udp-handlers)
-- [Handler sets](#handler-sets)
-- [Keepalive event handlers](#keepalive-event-handlers)
-- [Handler specification](#handler-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [`socket` attributes](#socket-attributes) | [`secrets` attributes](#secrets-attributes)
-- [Examples](#handler-examples)
-
 Handlers are actions the Sensu backend executes on events.
 Several types of handlers are available.
 The most common are `pipe` handlers, which work similarly to [checks][1] and enable Sensu to interact with almost any computer program via [standard streams][2].

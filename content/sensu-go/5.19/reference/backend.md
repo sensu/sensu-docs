@@ -11,25 +11,14 @@ menu:
     parent: reference
 ---
 
-- [Installation][1]
-- [Create event pipelines](#create-event-pipelines)
-- [Schedule checks](#schedule-checks)
-- [Initialization](#initialization)
-- [Operation and service management](#operation)
-  - [Start and stop the service](#start-the-service) | [Cluster](#cluster) | [Synchronize time](#synchronize-time)
-- [Configuration](#configuration)
-  - [General configuration](#general-configuration-flags) | [Agent communication configuration](#agent-communication-configuration-flags) | [Security configuration](#security-configuration-flags) | [Web UI configuration](#web-ui-configuration-flags) | [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags) | [Advanced configuration options](#advanced-configuration-options)
-  - [Configuration via environment variables](#configuration-via-environment-variables)
-- [Event logging](#event-logging)
-  - [Log rotation](#log-rotation)
-- [Example Sensu backend configuration file](../../files/backend.yml) (download)
+[Example Sensu backend configuration file](../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and event data.
 Every Sensu backend includes an integrated transport for scheduling checks using subscriptions, an event processing pipeline that applies filters, mutators, and handlers, an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][6], and the `sensu-backend` command line tool.
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
 See the [installation guide][1] to install the backend.
 
-### Create event pipelines
+## Create event pipelines
 
 The backend processes event data and executes filters, mutators, and handlers.
 These pipelines are powerful tools to automate your monitoring workflows.
@@ -41,7 +30,7 @@ To learn more about filters, mutators, and handlers, see:
 - [Mutators reference documentation][10]
 - [Handlers reference documentation][11]
 
-### Schedule checks
+## Schedule checks
 
 The backend is responsible for storing check definitions and scheduling check requests.
 Check scheduling is subscription-based: the backend sends check requests to subscriptions. where they're picked up by subscribing agents.

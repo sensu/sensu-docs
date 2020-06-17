@@ -11,11 +11,6 @@ menu:
     parent: installation
 ---
 
-- [Sensu backend requirements](#sensu-backend-requirements)
-- [Sensu agent requirements](#sensu-agent-requirements)
-- [Networking recommendations](#networking-recommendations)
-- [Cloud recommendations](#cloud-recommendations)
-
 ## Sensu backend requirements
 
 ### Backend minimum requirements

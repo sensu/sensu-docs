@@ -10,16 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Check commands](#check-commands)
-- [Check result specification](#check-result-specification)
-- [Check scheduling](#check-scheduling): [Subscriptions](#subscriptions) | [Scheduling](#scheduling)
-- [Proxy checks](#proxy-checks)
-- [Check token substitution](#check-token-substitution)
-- [Check hooks](#check-hooks)
-- [Check specification](#check-specification)
-	- [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [Proxy requests attributes](#proxy-requests-attributes) | [Check output truncation attributes](#check-output-truncation-attributes) | [`secrets` attributes](#secrets-attributes)
-- [Examples](#examples)
-
 Checks work with Sensu agents to produce monitoring events automatically.
 You can use checks to monitor server resources, services, and application health as well as collect and analyze metrics.
 Read [Monitor server resources][12] to get started.

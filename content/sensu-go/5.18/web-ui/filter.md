@@ -11,12 +11,6 @@ menu:
     parent: web-ui
 ---
 
-- [Basic filters](#basic-filters)
-- [Advanced filters](#advanced-filters)
-- [Create web UI filters](#create-web-ui-filters)
-- [Operators quick reference](#operators-quick-reference)
-- [Examples](#examples)
-
 The Sensu web UI includes basic filters you can use to build customized views of your Sensu resources.
 Sensu also supports advanced web UI filtering based on a wider range of resource attributes and custom labels as a [commercial feature][1].
 
