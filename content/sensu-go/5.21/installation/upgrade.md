@@ -439,7 +439,7 @@ After you review your translated configuration, make any necessary updates, and 
 sensuctl create --file /path/to/config.json
 {{< /code >}}
 
-_PRO TIP: `sensuctl create` (and `sensuctl delete`) are powerful tools to help you manage your Sensu configs across namespaces. See the [sensuctl reference][5] for more information._
+_PRO TIP: `sensuctl create` (and `sensuctl delete`) are powerful tools to help you manage your Sensu configs across namespaces. See the [sensuctl documentation][5] for more information._
 
 Access your Sensu Go config using the [Sensu API][17].
 
@@ -460,7 +460,7 @@ curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/n
 You can also access your Sensu Go configuration in JSON or YAML using sensuctl.
 For example, `sensuctl check list --format json`.
 Run `sensuctl help` to see available commands.
-For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), see the [sensuctl reference][5].
+For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), see the [sensuctl documentation][5].
 
 #### Step 3: Translate plugins and register assets
 
@@ -498,7 +498,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [2]: https://etcd.io/docs/latest/
 [3]: ../../reference/backend/
 [4]: ../../reference/agent/
-[5]: ../../sensuctl/reference/
+[5]: ../../sensuctl/set-up-manage/
 [6]: ../../reference/entities/
 [7]: ../../guides/monitor-external-resources/
 [8]: ../../reference/hooks/

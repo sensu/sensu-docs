@@ -70,7 +70,7 @@ You should be greeted with this prompt:
 
 {{% notice note %}}
 **NOTE**: The sandbox pre-configures sensuctl with the Sensu Go admin user, so you won't have to configure sensuctl each time you spin up the sandbox to try out a new feature.
-Before installing sensuctl outside of the sandbox, read the [first time setup reference](../../sensuctl/reference/#first-time-setup) to learn how to configure sensuctl.
+Before installing sensuctl outside of the sandbox, read the [first time setup reference](../../sensuctl/set-up-manage/#first-time-setup) to learn how to configure sensuctl.
 {{% /notice %}}  
 
 ---
@@ -191,7 +191,7 @@ sensuctl asset info sensu-slack-handler --format yaml
 {{< /code >}}
 
 {{% notice protip %}}
-**PRO TIP**: You can use resource definitions to create and update resources (like assets) using `sensuctl create --file filename.yaml`. See the [sensuctl docs](../../sensuctl/reference#create-resources) for more information.
+**PRO TIP**: You can use resource definitions to create and update resources (like assets) using `sensuctl create --file filename.yaml`. See the [sensuctl docs](../../sensuctl/create-manage-resources/#create-resources) for more information.
 {{% /notice %}}
 
 **3. Create a Sensu Slack handler**

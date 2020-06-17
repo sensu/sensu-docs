@@ -1604,7 +1604,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [3]: ../entities/
 [4]: #keepalive-configuration-flags
 [5]: ../../files/windows/agent.yml
-[6]: ../../sensuctl/reference/
+[6]: ../../sensuctl/set-up-manage/
 [7]: ../events/
 [8]: ../handlers/
 [9]: ../filters/
@@ -1624,7 +1624,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [23]: https://github.com/statsd/statsd#key-concepts
 [24]: #configuration-via-flags
 [25]: ../../api/overview#response-filtering
-[26]: ../../sensuctl/reference#response-filtering
+[26]: ../../sensuctl/filter-responses/
 [27]: ../tokens/
 [28]: #subscriptions-flag
 [29]: ../assets/

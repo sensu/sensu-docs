@@ -77,7 +77,7 @@ export SENSU_USER=YOUR_USERNAME && SENSU_PASS=YOUR_PASSWORD
 export SENSU_ACCESS_TOKEN=`curl -X GET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
 {{< /code >}}
 
-The [sensuctl reference][7] demonstrates how to use the `sensuctl env` command to export your access token, token expiry time, and refresh token as environment variables.
+The [sensuctl documentation][7] demonstrates how to use the `sensuctl env` command to export your access token, token expiry time, and refresh token as environment variables.
 
 ### Authenticate with the authentication API
 
@@ -689,13 +689,13 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 {{< /code >}}
 
 
-[1]: ../../sensuctl/reference#preferred-output-format
+[1]: ../../sensuctl/set-up-manage#preferred-output-format
 [2]: ../../installation/install-sensu#install-sensuctl
 [3]: ../../reference/rbac/
 [4]: ../../reference/agent/
 [5]: ../health/
 [6]: ../metrics/
-[7]: ../../sensuctl/reference#environment-variables
+[7]: ../../sensuctl/environment-variables/
 [8]: ../../commercial/
 [9]: ../../reference/entities#metadata-attributes
 [10]: ../auth/#the-auth-api-endpoint

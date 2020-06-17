@@ -34,12 +34,12 @@ With sensuctl configured, to see the latest monitoring events, run:
 sensuctl event list
 {{< /code >}}
 
-See the [sensuctl quickstart][2] to get started using sensuctl.
+See the [sensuctl documentation][2] to get started using sensuctl.
 
 ## About the demo
 
 The Caviar project shown in the demo monitors the [Sensu docs site][3] using a licensed Sensu cluster of three backends.
 
 [1]: ../../installation/install-sensu#install-sensuctl
-[2]: ../../sensuctl/quickstart/
+[2]: ../../sensuctl/set-up-manage/
 [3]: https://docs.sensu.io/

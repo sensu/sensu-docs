@@ -218,7 +218,7 @@ Then you can [install a Sensu agent][18] and start monitoring your infrastructur
 
 ## Install sensuctl
 
-[Sensuctl][4] is a command line tool for managing resources within Sensu.
+[Sensuctl][23] is a command line tool for managing resources within Sensu.
 It works by calling Sensu’s HTTP API to create, read, update, and delete resources, events, and entities.
 Sensuctl is available for Linux, Windows, and macOS.
 
@@ -277,7 +277,7 @@ sensuctl configure -n \
 Here, the `-n` flag triggers non-interactive mode.
 Run `sensuctl config view` to see your user profile.
 
-For more information about sensuctl, see the [quickstart][23] and [reference][4] docs.
+For more information about sensuctl, see the [sensuctl documentation][23].
 
 ### Change default admin password
 
@@ -450,7 +450,6 @@ If you plan to set up a cluster, here's our suggested pathway:
 [1]: https://github.com/sensu/sensu-go/releases/
 [2]: ../../guides/generate-certificates/
 [3]: ../../web-ui/sign-in/
-[4]: ../../sensuctl/reference/
 [5]: ../../platforms/
 [6]: ../../reference/backend#configuration
 [7]: ../../reference/agent#configuration
@@ -466,7 +465,7 @@ If you plan to set up a cluster, here's our suggested pathway:
 [20]: ../../commercial/
 [21]: #install-the-sensu-backend
 [22]: ../../guides/clustering/
-[23]: ../../sensuctl/quickstart/
+[23]: ../../sensuctl/set-up-manage/
 [24]: #4-open-the-web-ui
 [25]: ../recommended-hardware/
 [26]: ../../api/overview/

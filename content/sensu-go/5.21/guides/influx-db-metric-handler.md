@@ -98,7 +98,7 @@ Now that you know how to apply a handler to metrics and take action on events, h
 [2]: https://github.com/influxdata/influxdb
 [3]: ../aggregate-metrics-statsd/
 [4]: https://github.com/sensu/sensu-influxdb-handler#installation
-[5]: ../../sensuctl/reference/#install-asset-definitions
+[5]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions
 [8]: ../troubleshooting/
 [9]: ../../reference/handlers/
 [10]: ../extract-metrics-with-checks/

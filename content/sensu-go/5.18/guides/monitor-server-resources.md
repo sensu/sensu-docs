@@ -112,4 +112,4 @@ Now that you know how to run a check to monitor CPU usage, read these resources 
 [6]: ../send-slack-alerts/
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
 [8]: ../../reference/agent/#restart-the-service
-[9]: ../../sensuctl/reference/#install-asset-definitions
+[9]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions

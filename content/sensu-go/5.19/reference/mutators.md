@@ -378,11 +378,11 @@ spec:
 [2]: #metadata-attributes
 [3]: ../rbac#namespaces
 [4]: ../../guides/install-check-executables-with-assets/
-[5]: ../../sensuctl/reference#create-resources
+[5]: ../../sensuctl/create-manage-resources/#create-resources
 [6]: #spec-attributes
 [7]: https://regex101.com/r/zo9mQU/2
 [8]: ../../api/overview#response-filtering
-[9]: ../../sensuctl/reference#response-filtering
+[9]: ../../sensuctl/filter-responses/
 [10]: ../../reference/secrets/
 [11]: ../../reference/secrets-providers/
 [12]: ../filters/
