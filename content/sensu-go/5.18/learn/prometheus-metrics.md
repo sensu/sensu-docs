@@ -6,22 +6,6 @@ product: "Sensu Go"
 platformContent: false
 ---
 
-- [Set up](#set-up)
-  - [Install and configure Prometheus](#install-and-configure-prometheus)
-  - [Install and configure Sensu Go](#install-and-configure-sensu-go)
-  - [Install and configure InfluxDB](#install-and-configure-influxdb)
-  - [Install and configure Grafana](#install-and-configure-grafana)
-- [Create a Sensu InfluxDB pipeline](#create-a-sensu-influxdb-pipeline)
-  - [Create a Sensu InfluxDB handler asset](#create-a-sensu-influxdb-handler-asset)
-  - [Create a Sensu handler](#create-a-sensu-handler)
-- [Collect Prometheus metrics with Sensu](#collect-prometheus-metrics-with-sensu)
-  - [Create a Sensu Prometheus Collector asset](#create-a-sensu-prometheus-collector-asset)
-  - [Add a Sensu check to complete the pipeline](#add-a-sensu-check-to-complete-the-pipeline)
-- [Visualize metrics with Grafana](#visualize-metrics-with-grafana)
-  - [Configure a dashboard in Grafana](#configure-a-dashboard-in-grafana)
-  - [View metrics in Grafana](#view-metrics-in-grafana)
-- [Next steps](#next-steps)
-
 The [Sensu Prometheus Collector][1] is a check plugin that collects metrics from a [Prometheus exporter][2] or the [Prometheus query API][3].
 This allows Sensu to route the collected metrics to one or more time series databases, such as InfluxDB or Graphite.
 

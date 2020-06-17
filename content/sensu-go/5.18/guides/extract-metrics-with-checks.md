@@ -11,9 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Extract metrics from check output](#extract-metrics-from-check-output)
-- [Next steps](#next-steps)
-
 Sensu checks are **commands** (or scripts) that the Sensu agent executes that output data and produce an exit code to indicate a state.
 If you are unfamiliar with checks or want to learn how to configure a check before reading this guide, read the [check reference][1] and [Monitor server resources][2].
 
@@ -63,7 +60,7 @@ output_metric_format | `opentsdb_line`
 documentation        | [OpenTSDB Data Specification][9]
 example              | {{< code plain >}}sys.cpu.user 1356998400 42.5 host=webserver01 cpu=0{{< /code >}}
 
-### Validate the metrics
+## Validate the metrics
 
 If the check output is formatted correctly according to its `output_metric_format`, the metrics will be extracted in Sensu metric format and passed to the event pipeline.
 You should expect to see errors logged by sensu-agent if it is unable to parse the check output.

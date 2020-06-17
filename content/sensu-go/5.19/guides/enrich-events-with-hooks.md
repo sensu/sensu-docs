@@ -12,9 +12,6 @@ menu:
     parent: guides
 ---
 
-- [Use check hooks to gather context](#use-check-hooks-to-gather-context)
-- [Next steps](#next-steps)
-
 Check hooks are **commands** the Sensu agent runs in response to the result of **check** command execution. 
 The Sensu agent executes the appropriate configured hook command based on the exit status code of the check command (e.g. `1`).
 
@@ -22,11 +19,9 @@ Check hooks allow Sensu users to automate data collection that operators would r
 Although you can use check hooks for rudimentary auto-remediation tasks, they are intended to enrich monitoring event data.
 This guide helps you create a check hook that captures the process tree in case a service check returns a critical status.
 
-## Use check hooks to gather context
-
 Follow these steps to create a check hook that captures the process tree in the event that an `nginx_process` check returns a status of `2` (critical, not running).
 
-### 1. Create a hook
+## Create a hook
 
 Create a new hook that runs a specific command to capture the process tree.
 Set an execution **timeout** of 10 seconds for this command:
@@ -37,7 +32,7 @@ sensuctl hook create process_tree  \
 --timeout 10
 {{< /code >}}
 
-### 2. Assign the hook to a check
+## Assign the hook to a check
 
 Now that you've created the `process_tree` hook, you can assign it to a check.
 This example assumes you've already set up the `nginx_process` check.
@@ -49,7 +44,7 @@ sensuctl check set-hooks nginx_process  \
 --hooks process_tree
 {{< /code >}}
 
-### 3. Validate the check hook
+## Validate the check hook
 
 Verify that the check hook is behaving properly against a specific event with `sensuctl`.
 It might take a few moments after you assign the check hook for the check to be scheduled on the entity and the result sent back to the Sensu backend.

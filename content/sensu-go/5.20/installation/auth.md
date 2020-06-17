@@ -1276,7 +1276,7 @@ required     | false
 type         | String
 example      | {{< code shell >}}"username_prefix": "okta"{{< /code >}}
 
-### Register an OIDC application
+## Register an OIDC application
 
 To use OIDC for authentication, register Sensu Go as an OIDC application.
 Use the instructions listed in this section to register an OIDC application for Sensu Go based on your OIDC provider.

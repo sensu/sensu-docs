@@ -10,10 +10,6 @@ menu:
     parent: learn-sensu
 ---
 
-- [Learn Sensu in 15 minutes](#learn-sensu-in-15-minutes)
-- [Up and running with Sensu Go](#up-and-running-with-sensu-go)
-- [Send Sensu Go alerts to PagerDuty](#send-sensu-go-alerts-to-pagerduty)
-
 Sensu is the industry-leading telemetry and service health-checking solution for multi-cloud monitoring at scale.
 
 Our interactive training tutorials help you get started with Sensu Go, using only your browser.

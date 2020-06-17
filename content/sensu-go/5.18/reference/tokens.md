@@ -9,12 +9,6 @@ menu:
     parent: reference
 ---
 
-- [Manage entity labels](#manage-entity-labels)
-- [Token specification](#token-specification)
-- [Unmatched tokens](#unmatched-tokens)
-- [Token data type limitations](#token-data-type-limitations)
-- [Examples](#examples)
-
 Tokens are placeholders in a check definition that the agent replaces with entity information before executing the check.
 You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while reusing the check definition.
 

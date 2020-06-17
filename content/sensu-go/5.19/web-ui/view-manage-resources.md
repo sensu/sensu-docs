@@ -11,12 +11,6 @@ menu:
     parent: web-ui
 ---
 
-- [Use the namespace switcher](#use-the-namespace-switcher)
-- [Manage events](#manage-events)
-- [Manage entities](#manage-entities)
-- [Manage silences](#manage-silences)
-- [Manage checks, handlers, event filters, and mutators](#manage-checks-handlers-event-filters-and-mutators)
-
 You can view and manage Sensu resources in the web UI, including events, entities, silences, checks, handlers, event filters, and mutators.
 
 ## Use the namespace switcher

@@ -10,14 +10,6 @@ platformContent: true
 platforms: ["Linux", "Windows", "macOS", "FreeBSD", "Solaris"]
 ---
 
-- [Supported packages](#supported-packages)
-  - [Sensu backend](#sensu-backend) | [Sensu agent](#sensu-agent) | [Sensuctl command line tool](#sensuctl-command-line-tool)
-- [Docker images](#docker-images)
-- [Integrations](#integrations)
-- [Binary-only distributions](#binary-only-distributions)
-  - [Linux](#linux) | [Windows](#windows) | [macOS](#macos) | [FreeBSD](#freebsd) | [Solaris](#solaris)
-- [Build from source](#build-from-source)
-
 Sensu is available as [packages][1], [Docker images][2], and [binary-only distributions][4].
 We recommend [installing Sensu][5] with one of our supported packages, Docker images, or [configuration management][6] integrations.
 Sensu downloads are provided under the [Sensu commercial license][7].

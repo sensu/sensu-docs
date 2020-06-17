@@ -11,17 +11,12 @@ menu:
     parent: guides
 ---
 
-- [1. Register the Sensu PagerDuty Handler asset](#1-register-the-sensu-pagerduty-handler-asset)
-- [2. Adjust the asset definition](#2-adjust-the-asset-definition)
-- [3. Create a monitoring workflow](#3-create-a-workflow)
-- [Next steps](#next-steps)
-
 Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
 See the [asset reference][1] for more information about assets.
 This guide uses the [Sensu PagerDuty Handler asset][7] as an example.
 
-## 1. Register the Sensu PagerDuty Handler asset
+## Register the Sensu PagerDuty Handler asset
 
 To add the [Sensu PagerDuty Handler asset][7] to Sensu, use [`sensuctl asset add`][6]:
 
@@ -33,7 +28,7 @@ This example uses the `-r` (rename) flag to specify a shorter name for the asset
 
 You can also click the Download button on the asset page in [Bonsai][7] to download the asset definition for your Sensu backend platform and architecture.
 
-## 2. Adjust the asset definition
+## Adjust the asset definition
 
 Asset definitions tell Sensu how to download and verify the asset when required by a check, filter, mutator, or handler.
 
@@ -71,7 +66,7 @@ Use sensuctl to verify that the asset is registered and ready to use:
 sensuctl asset list --format yaml
 {{< /code >}}
 
-## 3. Create a workflow
+## Create a workflow
 
 With the asset downloaded and registered, you can use it in a monitoring workflow.
 Assets may provide executable plugins intended for use with a Sensu check, handler, mutator, or hook, or JavaScript libraries intended to provide functionality for use in event filters.

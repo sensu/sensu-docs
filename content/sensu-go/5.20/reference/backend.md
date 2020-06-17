@@ -11,6 +11,8 @@ menu:
     parent: reference
 ---
 
+[Example Sensu backend configuration file](../../files/backend.yml) (download)
+
 The Sensu backend is a service that manages check requests and event data.
 Every Sensu backend includes an integrated transport for scheduling checks using subscriptions, an event processing pipeline that applies filters, mutators, and handlers, an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][6], and the `sensu-backend` command line tool.
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.

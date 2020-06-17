@@ -22,6 +22,8 @@ To configure journald to forward logging data to syslog, modify `/etc/systemd/jo
 ForwardToSyslog=yes
 {{< /code >}}
 
+## Configure rsyslog
+
 Next, set up rsyslog to write the logging data received from journald to `/var/log/sensu/servicename.log`.
 In this example, the `sensu-backend` and `sensu-agent` logging data is sent to individual files named after the service.
 The `sensu-backend` is not required if you're only setting up log forwarding for the `sensu-agent` service.

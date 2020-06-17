@@ -9,12 +9,6 @@ menu:
     parent: reference
 ---
 
-- [Authorization header format](#authorization-header-format)
-- [API key resource structure](#api-key-resource-structure)
-- [API key specification](#api-key-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Examples](#examples)
-
 API keys are long-lived authentication tokens that make it more convenient for Sensu plugins and other Sensu-adjacent applications to authenticate with the Sensu API.
 Unlike [authentication tokens][2], API keys are persistent and do not need to be refreshed every 15 minutes.
 

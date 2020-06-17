@@ -11,16 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Prerequisites](#prerequisites)
-- [Configure contact routing](#configure-contact-routing)
-  - [1. Register the has-contact filter asset](#1-register-the-has-contact-filter-asset)
-  - [2. Create contact filters](#2-create-contact-filters)
-  - [3. Create a handler for each contact](#3-create-a-handler-for-each-contact)
-  - [4. Create a handler set](#4-create-a-handler-set)
-- [Test contact routing](#test-contact-routing)
-- [Manage contact labels in checks and entities](#manage-contact-labels-in-checks-and-entities)
-- [Next steps](#next-steps)
-
 Every alert has an ideal first responder: a team or person who knows how to triage and address the issue.
 Sensu contact routing lets you alert the right people using their preferred contact methods, reducing mean time to response and recovery.
 

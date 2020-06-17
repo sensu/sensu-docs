@@ -9,10 +9,6 @@ menu:
     parent: reference
 ---
 
-- [Health payload example](#health-payload-example)
-- [Health specification](#health-specification)
-  - [Top-level attributes](#top-level-attributes) | [ClusterHealth attributes](#clusterhealth-attributes) | [Header attributes](#header-attributes)
-
 Use Sensu's [health API][1] to make sure your backend is up and running and check the health of your etcd cluster members.
 
 ## Health payload example

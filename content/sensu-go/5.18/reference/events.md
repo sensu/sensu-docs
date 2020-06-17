@@ -10,19 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Check-only events](#check-only-events)
-- [Metric-only events](#metric-only-events)
-- [Check and metric events](#check-and-metric-events)
-- [Create events using the Sensu agent](#create-events-using-the-sensu-agent)
-- [Create events using the events API](#create-events-using-the-events-api)
-- [Manage events](#manage-events): [View events](#view-events) | [Delete events](#delete-events) | [Resolve events](#resolve-events)
-- [Event format](#event-format)
-- [Use event data](#use-event-data)
-  - [Occurrences](#occurrences-and-occurrences-watermark)
-- [Events specification](#events-specification)
-	- [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [Check attributes](#check-attributes) | [Metric attributes](#metric-attributes)
-- [Examples](#examples)
-
 An event is a generic container used by Sensu to provide context to checks and metrics.
 The context, called event data, contains information about the originating entity and the corresponding check or metric result.
 An event must contain a check or metrics.
@@ -30,7 +17,7 @@ In certain cases, an event can contain both.
 These generic containers allow Sensu to handle different types of events in the pipeline.
 Because events are polymorphic in nature, it is important to never assume their contents (or lack of content).
 
-### Check-only events
+## Check-only events
 
 A Sensu event is created every time a check result is processed by the Sensu server, regardless of the status indicated by the check result.
 The agent creates an event upon receipt of the check execution result.
@@ -38,13 +25,13 @@ The agent will execute any configured [hooks][4] the check might have.
 From there, the result is forwarded to the Sensu backend for processing.
 Potentially noteworthy events may be processed by one or more event handlers, for example to send an email or invoke an automated action.
 
-### Metric-only events
+## Metric-only events
 
 Sensu events can also be created when the agent receives metrics through the [StatsD listener][5].
 The agent will translate the StatsD metrics to Sensu metric format and place them inside an event.
 Because these events do not contain checks, they bypass the store and are sent to the event pipeline and corresponding event handlers.
 
-### Check and metric events
+## Check and metric events
 
 Events that contain _both_ a check and metrics most likely originated from [check output metric extraction][6].
 If a check is configured for metric extraction, the agent will parse the check output and transform it to Sensu metric format.
