@@ -415,7 +415,8 @@ The value you specify for `keepalive-warning-timeout` must be lower than the val
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
 
 {{% notice note %}}
-**NOTE**: Keepalive monitoring is not supported for [proxy entities](../entities/), as they are inherently unable to run a Sensu agent.
+**NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../entities/#proxy-entities) because they cannot run a Sensu agent.
+You can use the [events API](../../api/events/#eventsentitycheck-put) to send manual keepalive events for proxy entities.
 {{% /notice %}}
 
 ### Handle keepalive events
