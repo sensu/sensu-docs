@@ -1130,10 +1130,10 @@ spec:
 [9]: ../../commercial/
 [10]: https://sensu.io/contact
 [11]: https://blog.sensu.io/one-year-of-sensu-go
-[12]: ../../sensuctl/reference#create-resources
+[12]: ../../sensuctl/create-manage-resources/#create-resources
 [13]: #spec-attributes
 [14]: ../../api/overview#response-filtering
-[15]: ../../sensuctl/reference#response-filtering
+[15]: ../../sensuctl/filter-responses/
 [16]: #proxy-entities
 [17]: ../../guides/monitor-external-resources/
 [18]: ../checks/#round-robin-checks

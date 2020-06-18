@@ -246,6 +246,30 @@
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/getting-started/versions/?$": {
             "url": "/sensu-go/latest/versions",
             "status": 301
+        },
+        "~ ^/sensu-go/latest/sensuctl/quickstart/?$": {
+            "url": "/sensu-go/latest/sensuctl/set-up-manage",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/sensuctl/quickstart/?$": {
+            "url": "/sensu-go/latest/sensuctl/set-up-manage",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/sensuctl/quickstart/?$": {
+            "url": "/sensu-go/latest/sensuctl/set-up-manage",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/sensuctl/reference/?$": {
+            "url": "/sensu-go/latest/sensuctl/set-up-manage",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/sensuctl/reference/?$": {
+            "url": "/sensu-go/latest/sensuctl/set-up-manage",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/sensuctl/reference/?$": {
+            "url": "/sensu-go/latest/sensuctl/set-up-manage",
+            "status": 301
         }
     }
 }

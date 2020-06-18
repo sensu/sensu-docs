@@ -329,7 +329,7 @@ Learn how to use Sensu to [Reduce alert fatigue][11].
 [1]: ../../installation/install-sensu#install-the-sensu-backend
 [2]: ../../installation/install-sensu#install-sensu-agents
 [3]: ../../installation/install-sensu#install-sensuctl
-[4]: ../../sensuctl/reference#first-time-setup
+[4]: ../../sensuctl/set-up-manage/#first-time-setup
 [5]: https://curl.haxx.se/
 [6]: https://api.slack.com/incoming-webhooks
 [7]: ../../learn/learn-sensu-sandbox/
@@ -339,4 +339,4 @@ Learn how to use Sensu to [Reduce alert fatigue][11].
 [11]: ../../guides/reduce-alert-fatigue/
 [12]: https://bonsai.sensu.io/assets/sensu/sensu-go-has-contact-filter
 [13]: ../../reference/agent/#create-monitoring-events-using-the-agent-api
-[14]: ../../sensuctl/reference/#install-asset-definitions
+[14]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions

@@ -316,11 +316,11 @@ spec: {}
 
 [1]: ../../commercial/
 [2]: ../../api/secrets/
-[3]: ../../sensuctl/reference/
+[3]: ../../sensuctl/set-up-manage/
 [4]: ../backend/#configuration-via-environment-variables
 [5]: https://www.vaultproject.io/docs/what-is-vault/
 [6]: ../../reference/rbac#default-users
-[7]: ../../sensuctl/reference#create-resources
+[7]: ../../sensuctl/create-manage-resources/#create-resources
 [8]: #spec-attributes
 [9]: ../secrets/
 [10]: https://www.vaultproject.io/docs/auth/token/

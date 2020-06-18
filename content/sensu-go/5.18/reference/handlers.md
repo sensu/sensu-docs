@@ -649,14 +649,14 @@ spec:
 [1]: ../checks/
 [2]: https://en.wikipedia.org/wiki/Standard_streams
 [3]: ../events/
-[4]: ../../sensuctl/reference#create-resources
+[4]: ../../sensuctl/create-manage-resources/#create-resources
 [5]: #spec-attributes
 [6]: #socket-attributes
 [7]: ../assets/
 [8]: #metadata-attributes
 [9]: ../rbac#namespaces
 [10]: ../../api/overview#response-filtering
-[11]: ../../sensuctl/reference#response-filtering
+[11]: ../../sensuctl/filter-responses/
 [12]: ../agent#keepalive-monitoring
 [13]: ../agent/
 [14]: ../backend/

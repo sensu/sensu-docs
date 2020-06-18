@@ -450,7 +450,7 @@ If you plan to set up a cluster, here's our suggested pathway:
 [1]: https://github.com/sensu/sensu-go/releases/
 [2]: ../../guides/generate-certificates/
 [3]: ../../web-ui/sign-in/
-[4]: ../../sensuctl/reference/
+[4]: ../../sensuctl/set-up-manage/
 [5]: ../../platforms
 [6]: ../../reference/backend#configuration
 [7]: ../../reference/agent#configuration
@@ -466,7 +466,7 @@ If you plan to set up a cluster, here's our suggested pathway:
 [20]: ../../commercial/
 [21]: #install-the-sensu-backend
 [22]: ../../guides/clustering/
-[23]: ../../sensuctl/quickstart/
+[23]: ../../sensuctl/set-up-manage/
 [24]: #4-open-the-web-ui
 [25]: ../recommended-hardware/
 [26]: ../../api/overview/

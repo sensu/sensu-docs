@@ -498,7 +498,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [2]: https://etcd.io/docs/latest/
 [3]: ../../reference/backend/
 [4]: ../../reference/agent/
-[5]: ../../sensuctl/reference/
+[5]: ../../sensuctl/set-up-manage/
 [6]: ../../reference/entities/
 [7]: ../../guides/monitor-external-resources/
 [8]: ../../reference/hooks/
