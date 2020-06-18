@@ -8,21 +8,11 @@ menu:
     parent: api
 ---
 
-- [The `/filters` API endpoint](#the-filters-api-endpoint)
-	- [`/filters` (GET)](#filters-get)
-	- [`/filters` (POST)](#filters-post)
-- [The `/filters/:filter` API endpoint](#the-filtersfilter-api-endpoint)
-	- [`/filters/:filter` (GET)](#filtersfilter-get)
-  - [`/filters/:filter` (PUT)](#filtersfilter-put)
-  - [`/filters/:filter` (DELETE)](#filtersfilter-delete)
-
-## The `/filters` API endpoint
-
-### `/filters` (GET)
+## Get all event filters
 
 The `/filters` API endpoint provides HTTP GET access to [event filter][1] data.
 
-#### EXAMPLE {#filters-get-example}
+### Example {#filters-get-example}
 
 The following example demonstrates a request to the `/filters` API endpoint, resulting in a JSON array that contains [event filter definitions][1].
 
@@ -59,7 +49,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#filters-get-specification}
+### API Specification {#filters-get-specification}
 
 /filters (GET)  | 
 ---------------|------
@@ -97,11 +87,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-### `/filters` (POST)
+## Create a new event filter
 
 The `/filters` API endpoint provides HTTP POST access to create an event filter.
 
-#### EXAMPLE {#filters-post-example}
+### Example {#filters-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/filters` API endpoint to create the event filter `development_filter`.
 The request returns a successful HTTP `201 Created` response.
@@ -128,7 +118,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/filters
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#filters-post-specification}
+### API Specification {#filters-post-specification}
 
 /filters (POST) | 
 ----------------|------
@@ -151,13 +141,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/filters/:filter` API endpoint {#the-filtersfilter-api-endpoint}
-
-### `/filters/:filter` (GET) {#filtersfilter-get}
+## Get a specific event filter {#filtersfilter-get}
 
 The `/filters/:filter` API endpoint provides HTTP GET access to [event filter data][1] for specific `:filter` definitions, by filter name.
 
-#### EXAMPLE {#filtersfilter-get-example}
+### Example {#filtersfilter-get-example}
 
 In the following example, querying the `/filters/:filter` API endpoint returns a JSON map that contains the requested [`:filter` definition][1] (in this example, for the `:filter` named `state_change_only`).
 
@@ -181,7 +169,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#filtersfilter-get-specification}
+### API Specification {#filtersfilter-get-specification}
 
 /filters/:filter (GET) | 
 ---------------------|------
@@ -204,11 +192,11 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/filters/:filter` (PUT) {#filtersfilter-put}
+## Create or update an event filter {#filtersfilter-put}
 
 The `/filters/:filter` API endpoint provides HTTP PUT access to create or update an event filter.
 
-#### EXAMPLE {#filters-put-example}
+### Example {#filters-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/filters` API endpoint to create the event filter `development_filter`.
 The request returns a successful HTTP `200 OK` response.
@@ -235,7 +223,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/development_filter
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#filtersfilter-put-specification}
+### API Specification {#filtersfilter-put-specification}
 
 /filters/:filter (PUT) | 
 ----------------|------
@@ -258,11 +246,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/filters/:filter` (DELETE) {#filtersfilter-delete}
+## Delete an event filter {#filtersfilter-delete}
 
 The `/filters/:filter` API endpoint provides HTTP DELETE access to delete an event filter from Sensu (specified by the filter name).
 
-#### EXAMPLE {#filtersfilter-delete-example}
+### Example {#filtersfilter-delete-example}
 
 The following example shows a request to the `/filters/:filter` API endpoint to delete the event filter `development_filter`, resulting in a successful HTTP `204 No Content` response.
 
@@ -274,7 +262,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/development_filter 
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#filtersfilter-delete-specification}
+### API Specification {#filtersfilter-delete-specification}
 
 /filters/:filter (DELETE) | 
 --------------------------|------

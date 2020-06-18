@@ -8,22 +8,11 @@ menu:
     parent: api
 ---
 
-- [The `/assets` API endpoint](#the-assets-api-endpoint)
-	- [`/assets` (GET)](#assets-get)
-	- [`/assets` (POST)](#assets-post)
-- [The `/assets/:asset` API endpoint](#the-assetsasset-api-endpoint)
-	- [`/assets/:asset` (GET)](#assetsasset-get)
-  - [`/assets/:asset` (PUT)](#assetsasset-put)
-  - [`/assets/:asset` (DELETE)](#assetsasset-delete)
-
-
-## The `/assets` API endpoint
-
-### `/assets` (GET)
+## Get all assets
 
 The `/assets` API endpoint provides HTTP GET access to [asset][1] data.
 
-#### EXAMPLE {#assets-get-example}
+### Example {#assets-get-example}
 
 The following example demonstrates a request to the `/assets` API endpoint, resulting in a JSON array that contains [asset definitions][1].
 
@@ -73,7 +62,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#assets-get-specification}
+### API Specification {#assets-get-specification}
 
 /assets (GET)  | 
 ---------------|------
@@ -124,11 +113,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-### `/assets` (POST)
+## Create a new asset
 
 The `/assets` API endpoint provides HTTP POST access to [asset][1] data.
 
-#### EXAMPLE {#assets-post-example}
+### Example {#assets-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/assets` API endpoint to create a role named `sensu-slack-handler`.
 The request returns a successful HTTP `201 Created` response.
@@ -158,7 +147,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/assets
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#assets-post-specification}
+### API Specification {#assets-post-specification}
 
 /assets (POST) | 
 ----------------|------
@@ -184,13 +173,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/assets/:asset` API endpoint {#the-assetsasset-api-endpoint}
-
-### `/assets/:asset` (GET) {#assetsasset-get}
+## Get a specific asset {#assetsasset-get}
 
 The `/assets/:asset` API endpoint provides HTTP GET access to [asset data][1] for specific `:asset` definitions, by asset `name`.
 
-#### EXAMPLE {#assetsasset-get-example}
+### Example {#assetsasset-get-example}
 
 In the following example, querying the `/assets/:asset` API endpoint returns a JSON map that contains the requested [`:asset` definition][1] (in this example, for the `:asset` named `check_script`).
 
@@ -222,7 +209,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#assetsasset-get-specification}
+### API Specification {#assetsasset-get-specification}
 
 /assets/:asset (GET) | 
 ---------------------|------
@@ -253,11 +240,11 @@ output               | {{< code json >}}
 ]
 {{< /code >}}
 
-### `/assets/:asset` (PUT) {#assetsasset-put}
+## Create or update an asset {#assetsasset-put}
 
 The `/assets/:asset` API endpoint provides HTTP PUT access to create or update specific `:asset` definitions, by asset name.
 
-#### EXAMPLE {#assetsasset-put-example}
+### Example {#assetsasset-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/assets/:asset` API endpoint to create the asset `sensu-slack-handler`.
 The request returns a successful HTTP `201 Created` response.
@@ -287,7 +274,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/sensu-slack-ha
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#assetsasset-put-specification}
+### API Specification {#assetsasset-put-specification}
 
 /assets/:asset (PUT) | 
 ----------------|------
@@ -313,7 +300,7 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/assets/:asset` (DELETE) {#assetsasset-delete}
+## Delete an asset {#assetsasset-delete}
 
 The `/assets/:asset` API endpoint provides HTTP DELETE access so you can delete an asset.
 
@@ -321,7 +308,7 @@ The `/assets/:asset` API endpoint provides HTTP DELETE access so you can delete 
 **NOTE**: Deleting an asset does not remove the downloaded files from the asset cache or remove any references to the deleted asset in other resources.
 {{% /notice %}} 
 
-#### EXAMPLE {#assetsasset-delete-example}
+### Example {#assetsasset-delete-example}
 
 {{< code shell >}}
 curl -X DELETE \
@@ -331,7 +318,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler 
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#assetsasset-delete-specification}
+### API Specification {#assetsasset-delete-specification}
 
 /assets/:asset (DELETE) | 
 ----------------|------

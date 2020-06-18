@@ -8,13 +8,6 @@ menu:
     parent: api
 ---
 
-- [The `/searches` API endpoint](#the-searches-api-endpoint)
-	- [`/searches` (GET)](#searches-get)
-- [The `/searches/:search` API endpoint](#the-searchessearch-api-endpoint)
-	- [`/searches/:search` (GET)](#searchessearch-get)
-  - [`/searches/:search` (PUT)](#searchessearch-put)
-	- [`/searches/:search` (DELETE)](#searchessearch-delete)
-
 **COMMERCIAL FEATURE**: Access the searches API in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][2].
 
@@ -23,13 +16,11 @@ For more information, see [Get started with commercial features][2].
 The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
-## The `/searches` API endpoint
-
-### `/searches` (GET)
+## Get all searches
 
 The `/searches` API endpoint provides HTTP GET access to the list of saved searches.
 
-#### EXAMPLE {#searches-get-example}
+### Example {#searches-get-example}
 
 The following example demonstrates a request to the `/search` API endpoint, resulting in a JSON array that contains saved search definitions.
 
@@ -87,7 +78,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#searches-get-specification}
+### API Specification {#searches-get-specification}
 
 /searches (GET)  | 
 ---------------|------
@@ -145,13 +136,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-## The `/searches/:search` API endpoint {#the-searchessearch-api-endpoint}
-
-### `/searches/:search` (GET) {#searchessearch-get}
+## Get a specific search {#searchessearch-get}
 
 The `/searches/:search` API endpoint provides HTTP GET access to a specific `:search` definition, by the saved search `name`.
 
-#### EXAMPLE {#searchessearch-get-example}
+### Example {#searchessearch-get-example}
 
 In the following example, querying the `/searches/:search` API endpoint returns a JSON map that contains the requested [`:search` definition][1] (in this example, for the `:search` named `silenced-events`).
 
@@ -177,7 +166,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#searchessearch-get-specification}
+### API Specification {#searchessearch-get-specification}
 
 /searches/:search (GET) | 
 ---------------------|------
@@ -202,11 +191,11 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/searches/:search` (PUT) {#searchessearch-put}
+## Create or update a search {#searchessearch-put}
 
 The `/searches/:search` API endpoint provides HTTP PUT access to create or update a saved search by the saved search `name`.
 
-#### EXAMPLE {#searchessearch-put-example}
+### Example {#searchessearch-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/searches/:search` API endpoint to create or update a saved search for events that are silenced.
 The request includes the saved search definition in the request body and returns a successful HTTP `200 OK` response and the created or updated saved search definition.
@@ -234,7 +223,7 @@ http://127.0.0.1:8080/api/enterprise/searches/v1/namespaces/default/searches/sil
 HTTP/1.1 200 OK
 {{< /code >}}
 
-#### API Specification {#searchessearch-put-specification}
+### API Specification {#searchessearch-put-specification}
 
 /searches/:search (PUT) | 
 ----------------|------
@@ -258,11 +247,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/searches/:search` (DELETE) {#searchessearch-delete}
+## Delete a search {#searchessearch-delete}
 
 The `/searches/:search` API endpoint provides HTTP DELETE access to delete a saved search from Sensu (specified by the saved search name).
 
-#### EXAMPLE {#searchessearch-delete-example}
+### Example {#searchessearch-delete-example}
 
 The following example shows a request to the `/searches/:search` API endpoint to delete the saved search `silenced-events`, resulting in a successful HTTP `204 No Content` response.
 
@@ -274,7 +263,7 @@ http://127.0.0.1:8080/api/enterprise/searches/v1/namespaces/default/searches/sil
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#searchessearch-delete-specification}
+### API Specification {#searchessearch-delete-specification}
 
 /searches/:search (DELETE) | 
 --------------------------|------

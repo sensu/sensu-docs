@@ -10,23 +10,6 @@ menu:
     parent: api
 ---
 
-- [URL format](#url-format)
-- [Data format](#data-format)
-- [Versioning](#versioning)
-- [Request size limit](#request-size-limit)
-- [Access control](#access-control)
-  - [Authentication quickstart](#authentication-quickstart)
-- [Pagination](#pagination)
-  - [Limit query parameter](#limit-query-parameter)
-  - [Continue query parameter](#continue-query-parameter)
-- [Response filtering](#response-filtering)
-  - [Label selector](#label-selector)
-  - [Field selector](#field-selector)
-  - [API-specific syntax](#api-specific-syntax)
-  - [Operators](#operators)
-  - [Combined selectors](#combined-selectors)
-  - [Examples](#examples)
-
 **API version: v2**
 
 The Sensu backend REST API provides access to Sensu workflow configurations and monitoring event data.
@@ -186,7 +169,7 @@ If you're using `Key [api-key]` to authenticate instead, the Authorization heade
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
 {{< /code >}}
 
-#### Example
+### Example
 
 {{< code shell >}}
 $ curl -H "Authorization: Key 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks

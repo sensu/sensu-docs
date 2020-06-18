@@ -8,19 +8,6 @@ menu:
     parent: api
 ---
 
-- [The `/providers` endpoint](#the-providers-endpoint)
-  - [`/providers` (GET)](#providers-get)
-- [The `/providers/:provider` endpoint](#the-providers-provider-endpoint)
-  - [`/providers/:provider` (GET)](#providers-provider-get)
-  - [`/providers/:provider` (PUT)](#providers-provider-put)
-  - [`/providers/:provider` (DELETE)](#providers-provider-delete)
-- [The `/secrets` endpoint](#the-secrets-endpoint)
-  - [`/secrets` (GET)](#secrets-get)
-- [The `/secrets/:secret` endpoint](#the-secrets-secret-endpoint)
-  - [`/secrets/:secret` (GET)](#secrets-secret-get)
-  - [`/secrets/:secret` (PUT)](#secrets-secret-put)
-  - [`/secrets/:secret` (DELETE)](#secrets-secret-delete)
-
 **COMMERCIAL FEATURE**: Access secrets management in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 
@@ -29,13 +16,11 @@ For more information, see [Get started with commercial features][1].
 The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
-## The `/providers` endpoint
-
-### `/providers` (GET)
+## Get all secrets providers
 
 The `/providers` API endpoint provides HTTP GET access to a list of secrets providers.
 
-#### EXAMPLE {#providers-get-example}
+### Example {#providers-get-example}
 
 The following example demonstrates a request to the `/providers` API endpoint, resulting in a list of secrets providers.
 
@@ -76,7 +61,7 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
 Learn more in the [secrets providers reference](../../reference/secrets-providers/).
 {{% /notice %}}
 
-#### API Specification {#providers-get-specification}
+### API Specification {#providers-get-specification}
 
 /providers (GET)  | 
 ---------------|------
@@ -114,13 +99,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-## The `/providers/:provider` API endpoint {#the-providers-provider-endpoint}
-
-### `/providers/:provider` (GET) {#providers-provider-get}
+## Get a specific secrets provider {#providers-provider-get}
 
 The `/providers/:provider` API endpoint provides HTTP GET access to data for a specific secrets `:provider`, by provider name.
 
-#### EXAMPLE {#providers-provider-get-example}
+### Example {#providers-provider-get-example}
 
 In the following example, querying the `/providers/:provider` API endpoint returns a JSON map that contains the requested `:provider`, `my_vault`.
 
@@ -154,7 +137,7 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/my_vault \
 }
 {{< /code >}}
 
-#### API Specification {#providers-provider-get-specification}
+### API Specification {#providers-provider-get-specification}
 
 /providers/:provider (GET) | 
 ---------------------|------
@@ -189,11 +172,11 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/providers/:provider` (PUT) {#providers-provider-put}
+## Create or update a secrets provider {#providers-provider-put}
 
 The `/providers/:provider` API endpoint provides HTTP PUT access to create or update a specific `:provider`, by provider name.
 
-#### EXAMPLE {#providers-provider-put-example}
+### Example {#providers-provider-put-example}
 
 The following example demonstrates a request to the `/providers/:provider` API endpoint to update the provider `my_vault`.
 
@@ -229,7 +212,7 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/my_vault
 HTTP/1.1 200 OK
 {{< /code >}}
 
-#### API Specification {#providers-provider-put-specification}
+### API Specification {#providers-provider-put-specification}
 
 /providers/:provider (PUT) | 
 ----------------|------
@@ -262,11 +245,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/providers/:provider` (DELETE) {#providers-provider-delete}
+## Delete a secrets provider {#providers-provider-delete}
 
 The `/providers/:provider` API endpoint provides HTTP DELETE access to delete the specified provider from Sensu.
 
-#### EXAMPLE {#providers-provider-delete-example}
+### Example {#providers-provider-delete-example}
 
 The following example shows a request to the `/providers/:provider` API endpoint to delete the provider `my_vault`, resulting in a successful HTTP `204 No Content` response.
 
@@ -278,7 +261,7 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/my_vault
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#providers-provider-delete-specification}
+### API Specification {#providers-provider-delete-specification}
 
 /providers/:provider (DELETE) | 
 --------------------------|------
@@ -286,13 +269,11 @@ description               | Deletes the specified provider from Sensu.
 example url               | http://hostname:8080/api/enterprise/secrets/v1/providers/my_vault
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/secrets` endpoint
-
-### `/secrets` (GET)
+## Get all secrets
 
 The `/secrets` API endpoint provides HTTP GET access to a list of secrets.
 
-#### EXAMPLE {#secrets-get-example}
+### Example {#secrets-get-example}
 
 The following example demonstrates a request to the `/secrets` API endpoint, resulting in a list of secrets for the specified namespace.
 
@@ -319,7 +300,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#secrets-get-specification}
+### API Specification {#secrets-get-specification}
 
 /secrets (GET)  | 
 ---------------|------
@@ -346,13 +327,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-## The `/secrets/:secret` endpoint {#the-secrets-secret-endpoint}
-
-### `/secrets/:secret` (GET) {#secrets-secret-get}
+## Get a specific secret {#secrets-secret-get}
 
 The `/secrets/:secret` API endpoint provides HTTP GET access to data for a specific `secret`, by secret name.
 
-#### EXAMPLE {#secrets-secret-get-example}
+### Example {#secrets-secret-get-example}
 
 In the following example, querying the `/secrets/:secret` API endpoint returns a JSON map that contains the requested `:secret`.
 
@@ -377,7 +356,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#secrets-secret-get-specification}
+### API Specification {#secrets-secret-get-specification}
 
 /secrets/:secret (GET) | 
 ---------------------|------
@@ -401,11 +380,11 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/secrets/:secret` (PUT) {#secrets-secret-put}
+## Create or update a secret {#secrets-secret-put}
 
 The `/secrets/:secret` API endpoint provides HTTP PUT access to create or update a specific `secret`, by secret name.
 
-#### EXAMPLE {#secrets-secret-put-example}
+### Example {#secrets-secret-put-example}
 
 The following example demonstrates a request to the `/secrets/:secret` API endpoint to update the secret `sensu-ansible-token`.
 
@@ -430,7 +409,7 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/namespaces/default/secrets/sensu
 HTTP/1.1 200 OK
 {{< /code >}}
 
-#### API Specification {#secrets-secret-put-specification}
+### API Specification {#secrets-secret-put-specification}
 
 /secrets/:secret (PUT) | 
 ----------------|------
@@ -452,11 +431,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/secrets/:secret` (DELETE) {#secrets-secret-delete}
+## Delete a secret {#secrets-secret-delete}
 
 The `/secrets/:secret` API endpoint provides HTTP DELETE access to delete the specified secret from Sensu.
 
-#### EXAMPLE {#secrets-secret-delete-example}
+### Example {#secrets-secret-delete-example}
 
 The following example shows a request to the `/secrets/:secret` API endpoint to delete the secret `sensu-ansible-token`, resulting in a successful HTTP `204 No Content` response.
 
@@ -468,7 +447,7 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/namespaces/default/secrets/sensu
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#secrets-secret-delete-specification}
+### API Specification {#secrets-secret-delete-specification}
 
 /secrets/:secret (DELETE) | 
 --------------------------|------

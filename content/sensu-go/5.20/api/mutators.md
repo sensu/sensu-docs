@@ -8,26 +8,16 @@ menu:
     parent: api
 ---
 
-- [The `/mutators` API endpoint](#the-mutators-api-endpoint)
-	- [`/mutators` (GET)](#mutators-get)
-	- [`/mutators` (POST)](#mutators-post)
-- [The `/mutators/:mutator` API endpoint](#the-mutatorsmutator-api-endpoint)
-	- [`/mutators/:mutator` (GET)](#mutatorsmutator-get)
-  - [`/mutators/:mutator` (PUT)](#mutatorsmutator-put)
-  - [`/mutators/:mutator` (DELETE)](#mutatorsmutator-delete)
-
 {{% notice note %}}
 **NOTE**: Requests to the mutators API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
 The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
-## The `/mutators` API endpoint
-
-### `/mutators` (GET)
+## Get all mutators
 
 The `/mutators` API endpoint provides HTTP GET access to [mutator][1] data.
 
-#### EXAMPLE {#mutators-get-example}
+### Example {#mutators-get-example}
 
 The following example demonstrates a request to the `/mutators` API endpoint, resulting in a JSON array that contains [mutator definitions][1].
 
@@ -54,7 +44,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#mutators-get-specification}
+### API Specification {#mutators-get-specification}
 
 /mutators (GET)  | 
 ---------------|------
@@ -82,11 +72,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-### `/mutators` (POST)
+## Create a new mutator
 
 The `/mutators` API endpoint provides HTTP POST access to create mutators.
 
-#### EXAMPLE {#mutators-post-example}
+### Example {#mutators-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/mutators` API endpoint to create the mutator `example-mutator`.
 The request returns a successful HTTP `201 Created` response.
@@ -112,7 +102,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#mutators-post-specification}
+### API Specification {#mutators-post-specification}
 
 /mutators (POST) | 
 ----------------|------
@@ -134,13 +124,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/mutators/:mutator` API endpoint {#the-mutatorsmutator-api-endpoint}
-
-### `/mutators/:mutator` (GET) {#mutatorsmutator-get}
+## Get a specific mutator {#mutatorsmutator-get}
 
 The `/mutators/:mutator` API endpoint provides HTTP GET access to [mutator data][1] for specific `:mutator` definitions, by mutator name.
 
-#### EXAMPLE {#mutatorsmutator-get-example}
+### Example {#mutatorsmutator-get-example}
 
 In the following example, querying the `/mutators/:mutator` API endpoint returns a JSON map that contains the requested [`:mutator` definition][1] (in this example, for the `:mutator` named `example-mutator`).
 
@@ -165,7 +153,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#mutatorsmutator-get-specification}
+### API Specification {#mutatorsmutator-get-specification}
 
 /mutators/:mutator (GET) | 
 ---------------------|------
@@ -189,11 +177,11 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/mutators/:mutator` (PUT) {#mutatorsmutator-put}
+## Create or update a mutator {#mutatorsmutator-put}
 
 The `/mutators/:mutator` API endpoint provides HTTP PUT access to [mutator data][1] to create or update specific `:mutator` definitions, by mutator name.
 
-#### EXAMPLE {#mutatorsmutator-put-example}
+### Example {#mutatorsmutator-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/mutators/:mutator` API endpoint to create the mutator `example-mutator`.
 The request returns a successful HTTP `201 Created` response.
@@ -219,7 +207,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#mutatorsmutator-put-specification}
+### API Specification {#mutatorsmutator-put-specification}
 
 /mutators/:mutator (PUT) | 
 ----------------|------
@@ -241,11 +229,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/mutators/:mutator` (DELETE) {#mutatorsmutator-delete}
+## Delete a mutator {#mutatorsmutator-delete}
 
 The `/mutators/:mutator` API endpoint provides HTTP DELETE access to delete a mutator from Sensu (specified by the mutator name).
 
-#### EXAMPLE {#mutatorsmutator-delete-example}
+### Example {#mutatorsmutator-delete-example}
 The following example shows a request to the `/mutators/:mutator` API endpoint to delete the mutator `example-mutator`, resulting in a successful HTTP `204 No Content` response.
 
 {{< code shell >}}
@@ -256,7 +244,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator \
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#mutatorsmutator-delete-specification}
+### API Specification {#mutatorsmutator-delete-specification}
 
 /mutators/:mutator (DELETE) | 
 --------------------------|------
