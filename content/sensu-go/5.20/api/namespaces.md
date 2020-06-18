@@ -8,27 +8,16 @@ menu:
     parent: api
 ---
 
-- [The `/namespaces` API endpoint](#the-namespaces-api-endpoint)
-	- [`/namespaces` (GET)](#namespaces-get)
-	- [`/namespaces` (POST)](#namespaces-post)
-- [The `/namespaces/:namespace` API endpoint](#the-namespacesnamespace-api-endpoint)
-  - [`/namespaces/:namespace` (PUT)](#namespacesnamespace-put)
-  - [`/namespaces/:namespace` (DELETE)](#namespacesnamespace-delete)
-- [The `/user-namespaces` API endpoint](#the-user-namespaces-api-endpoint)
-  - [`/user-namespaces` (GET)](#user-namespaces-get)
-
 {{% notice note %}}
 **NOTE**: Requests to the namespaces API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
 The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
-## The `/namespaces` API endpoint
-
-### `/namespaces` (GET)
+## Get all namespaces
 
 The `/namespaces` API endpoint provides HTTP GET access to [namespace][1] data.
 
-#### EXAMPLE {#namespaces-get-example}
+### Example {#namespaces-get-example}
 
 The following example demonstrates a request to the `/namespaces` API endpoint, resulting in a JSON array that contains [namespace definitions][1].
 
@@ -48,7 +37,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#namespaces-get-specification}
+### API Specification {#namespaces-get-specification}
 
 /namespaces (GET)  | 
 ---------------|------
@@ -69,11 +58,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-### `/namespaces` (POST)
+## Create a new namespace
 
 The `/namespaces` API endpoint provides HTTP POST access to create Sensu namespaces.
 
-#### EXAMPLE {#namespaces-post-example}
+### Example {#namespaces-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/namespaces` API endpoint to create the namespace `development`.
 The request returns a successful HTTP `201 Created` response.
@@ -90,7 +79,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/namespaces
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#namespaces-post-specification}
+### API Specification {#namespaces-post-specification}
 
 /namespaces (POST) | 
 ----------------|------
@@ -103,13 +92,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/namespaces/:namespace` API endpoint {#the-namespacesnamespace-api-endpoint}
-
-### `/namespaces/:namespace` (PUT) {#namespacesnamespace-put}
+## Create or update a namespace {#namespacesnamespace-put}
 
 The `/namespaces/:namespace` API endpoint provides HTTP PUT access to create or update specific Sensu namespaces, by namespace name.
 
-#### EXAMPLE {#namespacesnamespace-put-example}
+### Example {#namespacesnamespace-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/namespaces/:namespace` API endpoint to create the namespace `development`.
 The request returns a successful HTTP `201 Created` response.
@@ -126,7 +113,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/namespaces/development
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#namespacesnamespace-put-specification}
+### API Specification {#namespacesnamespace-put-specification}
 
 /namespaces/:namespace (PUT) | 
 ----------------|------
@@ -139,11 +126,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/namespaces/:namespace` (DELETE) {#namespacesnamespace-delete}
+## Delete a namespace {#namespacesnamespace-delete}
 
 The `/namespaces/:namespace` API endpoint provides HTTP DELETE access to delete a namespace from Sensu (specified by the namespace name).
 
-#### EXAMPLE {#namespacesnamespace-delete-example}
+### Example {#namespacesnamespace-delete-example}
 
 The following example shows a request to the `/namespaces/:namespace` API endpoint to delete the namespace `development`, resulting in a successful HTTP `204 No Content` response.
 
@@ -155,7 +142,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/development \
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#namespacesnamespace-delete-specification}
+### API Specification {#namespacesnamespace-delete-specification}
 
 /namespaces/:namespace (DELETE) | 
 --------------------------|------
@@ -163,13 +150,11 @@ description               | Removes the specified namespace from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/development
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/user-namespaces` API endpoint {#the-user-namespaces-api-endpoint}
-
-### `/user-namespaces` (GET)
+## Get all namespaces for a specific user
 
 The `/user-namespaces` API endpoint provides HTTP GET access to the namespaces the user has access to.
 
-#### EXAMPLE {#user-namespaces-get-example}
+### Example {#user-namespaces-get-example}
 
 The following example demonstrates a request to the `/user-namespaces` API endpoint, resulting in a JSON array that contains the namespaces the user has access to.
 
@@ -189,7 +174,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#namespaces-get-specification}
+### API Specification {#namespaces-get-specification}
 
 /user-namespaces (GET)  | 
 ---------------|------

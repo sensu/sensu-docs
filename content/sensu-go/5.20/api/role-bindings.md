@@ -9,26 +9,16 @@ menu:
     parent: api
 ---
 
-- [The `/rolebindings` API endpoint](#the-rolebindings-api-endpoint)
-	- [`/rolebindings` (GET)](#rolebindings-get)
-	- [`/rolebindings` (POST)](#rolebindings-post)
-- [The `/rolebindings/:rolebinding` API endpoint](#the-rolebindingsrolebinding-api-endpoint)
-	- [`/rolebindings/:rolebinding` (GET)](#rolebindingsrolebinding-get)
-  - [`/rolebindings/:rolebinding` (PUT)](#rolebindingsrolebinding-put)
-  - [`/rolebindings/:rolebinding` (DELETE)](#rolebindingsrolebinding-delete)
-
 {{% notice note %}}
 **NOTE**: Requests to the role bindings API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
 The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
-## The `/rolebindings` API endpoint
-
-### `/rolebindings` (GET)
+## Get all role bindings
 
 The `/rolebindings` API endpoint provides HTTP GET access to [role binding][1] data.
 
-#### EXAMPLE {#rolebindings-get-example}
+### Example {#rolebindings-get-example}
 
 The following example demonstrates a request to the `/rolebindings` API endpoint, resulting in a JSON array that contains [role binding definitions][1].
 
@@ -59,7 +49,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#rolebindings-get-specification}
+### API Specification {#rolebindings-get-specification}
 
 /rolebindings (GET)  | 
 ---------------|------
@@ -91,11 +81,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-### `/rolebindings` (POST)
+## Create a new role binding
 
 The `/rolebindings` API endpoint provides HTTP POST access to create Sensu role bindings.
 
-#### EXAMPLE {#rolebindings-post-example}
+### Example {#rolebindings-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/rolebindings` API endpoint to create a role binding named `readers-group-binding`.
 The request returns a successful HTTP `201 Created` response.
@@ -112,7 +102,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#rolebindings-post-specification}
+### API Specification {#rolebindings-post-specification}
 
 /rolebindings (POST) | 
 ----------------|------
@@ -138,13 +128,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/rolebindings/:rolebinding` API endpoint {#the-rolebindingsrolebinding-api-endpoint}
-
-### `/rolebindings/:rolebinding` (GET) {#rolebindingsrolebinding-get}
+## Get a specific role binding {#rolebindingsrolebinding-get}
 
 The `/rolebindings/:rolebinding` API endpoint provides HTTP GET access to [role binding data][1] for specific `:rolebinding` definitions, by role binding `name`.
 
-#### EXAMPLE {#rolebindingsrolebinding-get-example}
+### Example {#rolebindingsrolebinding-get-example}
 
 In the following example, querying the `/rolebindings/:rolebinding` API endpoint returns a JSON map that contains the requested [`:rolebinding` definition][1] (in this example, for the `:rolebinding` named `readers-group-binding`).
 
@@ -173,7 +161,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#rolebindingsrolebinding-get-specification}
+### API Specification {#rolebindingsrolebinding-get-specification}
 
 /rolebindings/:rolebinding (GET) | 
 ---------------------|------
@@ -201,11 +189,11 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/rolebindings/:rolebinding` (PUT) {#rolebindingsrolebinding-put}
+## Create or update a role binding {#rolebindingsrolebinding-put}
 
 The `/rolebindings/:rolebinding` API endpoint provides HTTP PUT access to create or update [role binding data][1] for specific `:rolebinding` definitions, by role binding `name`.
 
-#### EXAMPLE {#rolebindingsrolebinding-put-example}
+### Example {#rolebindingsrolebinding-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/rolebindings/:rolebinding` API endpoint to create the role binding `dev-binding`.
 The request returns a successful HTTP `201 Created` response.
@@ -235,7 +223,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#rolebindingsrolebinding-put-specification}
+### API Specification {#rolebindingsrolebinding-put-specification}
 
 /rolebindings/:rolebinding (PUT) | 
 ----------------|------
@@ -261,11 +249,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/rolebindings/:rolebinding` (DELETE) {#rolebindingsrolebinding-delete}
+## Delete a role binding {#rolebindingsrolebinding-delete}
 
 The `/rolebindings/:rolebinding` API endpoint provides HTTP DELETE access to delete a role binding from Sensu (specified by the role binding name).
 
-#### EXAMPLE {#rolebindingsrolebinding-delete-example}
+### Example {#rolebindingsrolebinding-delete-example}
 
 The following example shows a request to the `/rolebindings/:rolebinding` API endpoint to delete the role binding `dev-binding`, resulting in a successful HTTP `204 No Content` response.
 
@@ -277,7 +265,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/dev-binding \
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#rolebindingsrolebinding-delete-specification}
+### API Specification {#rolebindingsrolebinding-delete-specification}
 
 /rolebindings/:rolebinding (DELETE) | 
 --------------------------|------

@@ -9,13 +9,6 @@ menu:
     parent: api
 ---
 
-- [The `/config` API endpoint](#the-config-api-endpoint)
-  - [`/config` (GET)](#config-get)
-- [The `/config/:globalconfig` API endpoint](#the-configglobalconfig-api-endpoint)
-  - [`/config/:globalconfig` (GET)](#configglobalconfig-get)
-  - [`/config/:globalconfig` (PUT)](#configglobalconfig-put)
-  - [`/config/:globalconfig` (DELETE)](#configglobalconfig-delete)
-
 **COMMERCIAL FEATURE**: Access web UI configuration in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 
@@ -24,13 +17,11 @@ For more information, see [Get started with commercial features][1].
 The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
-## The `/config` API endpoint
-
-### `/config` (GET)
+## Get the web UI configuration
 
 The `/config` API endpoint provides HTTP GET access to the global web UI configuration.
 
-#### EXAMPLE {#config-get-example}
+### Example {#config-get-example}
 
 The following example demonstrates a request to the `/config` API endpoint, resulting in a JSON array that contains the global web UI configuration.
 
@@ -70,7 +61,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#config-get-specification}
+### API Specification {#config-get-specification}
 
 /web (GET)  | 
 ---------------|------
@@ -108,13 +99,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-## The `/config/:globalconfig` API endpoint {#the-configglobalconfig-api-endpoint}
-
-### `/config/:globalconfig` (GET) {#configglobalconfig-get}
+## Get a specific web UI configuration {#configglobalconfig-get}
 
 The `/config/:globalconfig` API endpoint provides HTTP GET access to global web UI configuration data, specified by configuration name.
 
-#### EXAMPLE {#configglobalconfig-get-example}
+### Example {#configglobalconfig-get-example}
 
 In the following example, querying the `/config/:globalconfig` API endpoint returns a JSON map that contains the requested `:globalconfig` definition (in this example, for the `:globalconfig` named `custom-web-ui`).
 
@@ -151,7 +140,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#configglobalconfig-get-specification}
+### API Specification {#configglobalconfig-get-specification}
 
 /config/:globalconfig (GET) | 
 ---------------------|------
@@ -187,11 +176,11 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/config/:globalconfig` (PUT) {#configglobalconfig-put}
+## Create and update a web UI configuration {#configglobalconfig-put}
 
 The `/config/:globalconfig` API endpoint provides HTTP PUT access to create and update global web UI configurations, specified by configuration name.
 
-#### EXAMPLE {#configglobalconfighooks-put-example}
+### Example {#configglobalconfighooks-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/config/:globalconfig` API endpoint to update the `custom-web-ui` configuration, resulting in an HTTP `200 OK` response and the updated configuration definition.
 
@@ -229,7 +218,7 @@ http://127.0.0.1:8080/api/enterprise/web/v1/config/custom-web-ui
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#configglobalconfig-put-specification}
+### API Specification {#configglobalconfig-put-specification}
 
 /config/:globalconfig (PUT) | 
 ----------------|------
@@ -264,11 +253,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/config/:globalconfig` (DELETE) {#configglobalconfig-delete}
+## Delete a web UI configuration {#configglobalconfig-delete}
 
 The `/config/:globalconfig` API endpoint provides HTTP DELETE access to delete a global web UI configuration from Sensu, specified by the configuration name.
 
-#### EXAMPLE {#configglobalconfig-delete-example}
+### Example {#configglobalconfig-delete-example}
 
 The following example shows a request to the `/config/:globalconfig` API endpoint to delete the global web UI configuration named `custom-web-ui`, resulting in a successful HTTP `204 No Content` response.
 
@@ -280,7 +269,7 @@ http://127.0.0.1:8080/api/enterprise/web/v1/config/custom-web-ui
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#configglobalconfig-delete-specification}
+### API Specification {#configglobalconfig-delete-specification}
 
 /config/:globalconfig (DELETE) | 
 --------------------------|------

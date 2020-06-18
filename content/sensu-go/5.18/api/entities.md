@@ -8,21 +8,11 @@ menu:
     parent: api
 ---
 
-- [The `/entities` API endpoint](#the-entities-api-endpoint)
-	- [`/entities` (GET)](#entities-get)
-	- [`/entities` (POST)](#entities-post)
-- [The `/entities/:entity` API endpoint](#the-entitiesentity-api-endpoint)
-	- [`/entities/:entity` (GET)](#entitiesentity-get)
-  - [`/entities/:entity` (PUT)](#entitiesentity-put)
-  - [`/entities/:entity` (DELETE)](#entitiesentity-delete)
-
-## The `/entities` API endpoint
-
-### `/entities` (GET)
+## Get all entities
 
 The `/entities` API endpoint provides HTTP GET access to [entity][1] data.
 
-#### EXAMPLE {#entities-get-example}
+### Example {#entities-get-example}
 
 The following example demonstrates a request to the `/entities` API endpoint, resulting in a JSON array that contains the [entity definitions][1].
 
@@ -99,7 +89,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#entities-get-specification}
+### API Specification {#entities-get-specification}
 
 /entities (GET)  | 
 ---------------|------
@@ -177,11 +167,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-### `/entities` (POST)
+## Create a new entity
 
 The `/entities` API endpoint provides HTTP POST access to create a Sensu entity.
 
-#### EXAMPLE {#entities-post-example}
+### Example {#entities-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/entities` API endpoint to create a proxy entity named `sensu-centos`.
 The request includes the entity definition in the request body and returns a successful `HTTP 201 Created` response.
@@ -210,7 +200,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/entities
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#entities-post-specification}
+### API Specification {#entities-post-specification}
 
 /entities (POST) | 
 ----------------|------
@@ -235,13 +225,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/entities/:entity` API endpoint {#the-entitiesentity-api-endpoint}
-
-### `/entities/:entity` (GET) {#entitiesentity-get}
+## Get a specific entity
 
 The `/entities/:entity` API endpoint provides HTTP GET access to [entity data][1] for specific `:entity` definitions, by entity `name`.
 
-#### EXAMPLE {#entitiesentity-get-example}
+### Example {#entitiesentity-get-example}
 
 In the following example, querying the `/entities/:entity` API endpoint returns a JSON map that contains the requested [`:entity` definition][1] (in this example, for the `:entity` named `sensu-centos`).
 
@@ -316,7 +304,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#entitiesentity-get-specification}
+### API Specification {#entitiesentity-get-specification}
 
 /entities/:entity (GET) | 
 ---------------------|------
@@ -390,11 +378,11 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/entities/:entity` (PUT) {#entitiesentity-put}
+## Create or update an entity
 
 The `/entities/:entity` API endpoint provides HTTP PUT access to create or update the specified Sensu entity.
 
-#### EXAMPLE {#entitiesentity-put-example}
+### Example {#entitiesentity-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/entities/:entity` API endpoint to update the entity named `sensu-centos`.
 The request includes the updated entity definition in the request body and returns a successful `HTTP 201 Created` response.
@@ -424,7 +412,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#entitiesentity-put-specification}
+### API Specification {#entitiesentity-put-specification}
 
 /entities/:entity (PUT) | 
 ----------------|------
@@ -452,11 +440,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/entities/:entity` (DELETE) {#entitiesentity-delete}
+## Delete an entity
 
 The `/entities/:entity` API endpoint provides HTTP DELETE access to delete an entity from Sensu (specified by the entity name).
 
-#### EXAMPLE {#entitiesentity-delete-example}
+### Example {#entitiesentity-delete-example}
 
 The following example shows a request to the `/entities/:entity` API endpoint to delete the entity `server1`, resulting in a successful HTTP `204 No Content` response.
 
@@ -468,7 +456,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/server1 \
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#entitiesentity-delete-specification}
+### API Specification {#entitiesentity-delete-specification}
 
 /entities/:entity (DELETE) | 
 --------------------------|------

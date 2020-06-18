@@ -8,13 +8,11 @@ menu:
     parent: api
 ---
 
-## The `/health` API endpoint
-
-### `/health` (GET)
+## Get health data
 
 The `/health` API endpoint provides HTTP GET access to health data for your Sensu instance.
 
-#### EXAMPLE {#health-get-example}
+### Example {#health-get-example}
 
 The following example demonstrates a request to the `/health` API endpoint, resulting in a JSON map that contains Sensu health data.
 
@@ -42,7 +40,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#health-get-specification}
+### API Specification {#health-get-specification}
 
 /health (GET)  | 
 ---------------|------

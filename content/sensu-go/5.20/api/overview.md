@@ -10,17 +10,6 @@ menu:
     parent: api
 ---
 
-- [URL format](#url-format)
-- [Data format](#data-format)
-- [Versioning](#versioning)
-- [Request size limit](#request-size-limit)
-- [Access control](#access-control)
-  - [Authentication quickstart](#authentication-quickstart) | [Authenticate with the authentication API](#authenticate-with-the-authentication-api) | [Generate an API token with sensuctl](#generate-an-api-token-with-sensuctl) | [Authenticate with an API key](#authenticate-with-an-api-key)
-- [Pagination](#pagination)
-  - [Limit query parameter](#limit-query-parameter) | [Continue query parameter](#continue-query-parameter)
-- [Response filtering](#response-filtering)
-  - [Label selector](#label-selector) | [Field selector](#field-selector) | [API-specific syntax](#api-specific-syntax) | [Operators](#operators) | [Combined selectors](#combined-selectors) | [Examples](#examples)
-
 **API version: v2**
 
 The Sensu backend REST API provides access to Sensu workflow configurations and monitoring event data.
@@ -206,7 +195,7 @@ If you're using `Key [api-key]` to authenticate instead, the Authorization heade
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
 {{< /code >}}
 
-#### Example
+### Example
 
 This example uses the API key directly (rather than via an environment variable) to authenticate to the checks API:
 

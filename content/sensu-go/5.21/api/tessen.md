@@ -8,25 +8,19 @@ menu:
     parent: api
 ---
 
-- [The `/tessen` API endpoints](#the-tessen-API-endpoints)
-  - [`/tessen` (GET)](#tessen-get)
-  - [`/tessen` (PUT)](#tessen-put)
-
 {{% notice note %}}
 **NOTE**: Requests to the Tessen API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
 The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
-## The `/tessen` API endpoints {#the-tessen-API-endpoints}
-
 The Tessen API provides HTTP access to manage [Tessen][1] configuration.
 Access to the Tessen API is restricted to the default [`admin` user][2].
 
-### `/tessen` (GET) {#tessen-get}
+## Get the active Tessen configuration {#tessen-get}
 
 The `/tessen` API endpoint provides HTTP GET access to the active Tessen configuration.
 
-#### EXAMPLE {#tessen-get-example}
+### Example {#tessen-get-example}
 
 The following example demonstrates an HTTP GET request to the `/tessen` API endpoint.
 The request returns an HTTP `200 OK` response and a JSON map that contains the active Tessen configuration, indicating whether Tessen is enabled.
@@ -42,7 +36,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#tessen-get-specification}
+### API Specification {#tessen-get-specification}
 
 /tessen (GET)  | 
 ---------------|------
@@ -56,12 +50,12 @@ example output | {{< code shell >}}
 }
 {{< /code >}}
 
-### `/tessen` (PUT) {#tessen-put}
+## Opt in to or out of Tessen {#tessen-put}
 
 The `/tessen` API endpoint provides HTTP PUT access to opt in to or opt out of Tessen.
 Tessen is enabled by default on Sensu backends and required for [licensed][3] Sensu instances.
 
-#### EXAMPLE {#tessen-put-example}
+### Example {#tessen-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/tessen` API endpoint to opt in to Tessen using the `opt_out` attribute.
 The request returns an HTTP `200 OK` response and the resulting Tessen configuration.
@@ -81,7 +75,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#tessen-put-specification}
+### API Specification {#tessen-put-specification}
 
 /tessen (PUT) | 
 ----------------|------

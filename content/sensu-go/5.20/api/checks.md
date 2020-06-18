@@ -8,32 +8,16 @@ menu:
     parent: api
 ---
 
-- [The `/checks` API endpoint](#the-checks-api-endpoint)
-	- [`/checks` (GET)](#checks-get)
-	- [`/checks` (POST)](#checks-post)
-- [The `/checks/:check` API endpoint](#the-checkscheck-api-endpoint)
-	- [`/checks/:check` (GET)](#checkscheck-get)
-  - [`/checks/:check` (PUT)](#checkscheck-put)
-  - [`/checks/:check` (DELETE)](#checkscheck-delete)
-- [The `/checks/:check/execute` API endpoint](#the-checkscheckexecute-api-endpoint)
-  - [`/checks/:check/execute` (POST)](#checkscheckexecute-post)
-- [The `/checks/:check/hooks/:type` API endpoint](#the-checkscheckhooks-api-endpoint)
-  - [`/checks/:check/hooks/:type` (PUT)](#checkscheckhooks-put)
-- [The `/checks/:check/hooks/:type/hook/:hook` API endpoint](#the-checkscheckhookshook-api-endpoint)
-  - [`/checks/:check/hooks/:type/hook/:hook` (DELETE)](#checkscheckhookshook-delete)
-
 {{% notice note %}}
 **NOTE**: Requests to the checks API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
 The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
-## The `/checks` API endpoint
-
-### `/checks` (GET)
+## Get all checks
 
 The `/checks` API endpoint provides HTTP GET access to [check][1] data.
 
-#### EXAMPLE {#checks-get-example}
+### Example {#checks-get-example}
 
 The following example demonstrates a request to the `/checks` API endpoint, resulting in a JSON array that contains [check definitions][1].
 
@@ -76,7 +60,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#check-get-specification}
+### API Specification {#check-get-specification}
 
 /checks (GET)  | 
 ---------------|------
@@ -120,11 +104,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-### `/checks` (POST)
+## Create a new check
 
 The `/checks` API endpoint provides HTTP POST access to create checks.
 
-#### EXAMPLE {#checks-post-example}
+### Example {#checks-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/checks` API endpoint to create a `check-cpu` check.
 The request includes the check definition in the request body and returns a successful HTTP `200 OK` response and the created check definition.
@@ -153,7 +137,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#checks-post-specification}
+### API Specification {#checks-post-specification}
 
 /checks (POST) | 
 ----------------|------
@@ -179,13 +163,11 @@ example payload | {{< code shell >}}
 payload parameters | Required check attributes: `interval` (integer) or `cron` (string) and a `metadata` scope that contains `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1]. 
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/checks/:check` API endpoint {#the-checkscheck-api-endpoint}
-
-### `/checks/:check` (GET) {#checkscheck-get}
+## Get a specific check {#checkscheck-get}
 
 The `/checks/:check` API endpoint provides HTTP GET access to [check data][1] for `:check` definitions, specified by check name.
 
-#### EXAMPLE {#checkscheck-get-example}
+### Example {#checkscheck-get-example}
 
 In the following example, querying the `/checks/:check` API endpoint returns a JSON map that contains the requested [`:check` definition][1] (in this example, for the `:check` named `check-cpu`).
 
@@ -226,7 +208,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#checkscheck-get-specification}
+### API Specification {#checkscheck-get-specification}
 
 /checks/:check (GET) | 
 ---------------------|------
@@ -266,11 +248,11 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/checks/:check` (PUT) {#checkscheck-put}
+## Create or update a check {#checkscheck-put}
 
 The `/checks/:check` API endpoint provides HTTP PUT access to create and update `:check` definitions, specified by check name.
 
-#### EXAMPLE {#checkscheckhooks-put-example}
+### Example {#checkscheck-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/checks/:check` API endpoint to update the `check-cpu` check, resulting in an HTTP `200 OK` response and the updated check definition.
 
@@ -298,7 +280,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#checkscheck-put-specification}
+### API Specification {#checkscheck-put-specification}
 
 /checks/:check (PUT) | 
 ----------------|------
@@ -324,11 +306,11 @@ payload         | {{< code shell >}}
 payload parameters | Required check attributes: `interval` (integer) or `cron` (string) and a `metadata` scope that contains `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1].
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/checks/:check` (DELETE) {#checkscheck-delete}
+## Delete a check {#checkscheck-delete}
 
 The `/checks/:check` API endpoint provides HTTP DELETE access to delete a check from Sensu, specified by the check name.
 
-#### EXAMPLE {#checkscheck-delete-example}
+### Example {#checkscheck-delete-example}
 
 The following example shows a request to the `/checks/:check` API endpoint to delete the check named `check-cpu`, resulting in a successful HTTP `204 No Content` response.
 
@@ -340,7 +322,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#checkscheck-delete-specification}
+### API Specification {#checkscheck-delete-specification}
 
 /checks/:check (DELETE) | 
 --------------------------|------
@@ -348,13 +330,11 @@ description               | Removes the specified check from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/checks/:check/execute` API endpoint {#the-checkscheckexecute-api-endpoint}
-
-### `/checks/:check/execute` (POST) {#checkscheckexecute-post}
+## Create an ad hoc check execution request {#checkscheckexecute-post}
 
 The `/checks/:check/execute` API endpoint provides HTTP POST access to create an ad hoc check execution request so you can execute a check on demand.
 
-#### EXAMPLE {#checkscheckexecute-post-example}
+### Example {#checkscheckexecute-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/checks/:check/execute` API endpoint to execute the `check-cpu` check.
 The request includes the check name in the request body and returns a successful HTTP `202 Accepted` response and an `issued` timestamp.
@@ -380,7 +360,7 @@ HTTP/1.1 202 Accepted
 This gives you the flexibility to execute a check on any Sensu entity or group of entities on demand.
 {{% /notice %}}
 
-#### API Specification {#checkscheckexecute-post-specification}
+### API Specification {#checkscheckexecute-post-specification}
 
 /checks/:check/execute (POST) | 
 ----------------|------
@@ -397,13 +377,11 @@ payload         | {{< code shell >}}
 payload parameters | <ul><li>Required: `check` (the name of the check to execute).</li><li>Optional: `subscriptions` (an array of subscriptions to publish the check request to). When provided with the request, the `subscriptions` attribute overrides any subscriptions configured in the check definition.</li>
 response codes  | <ul><li>**Success**: 202 (Accepted)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/checks/:check/hooks/:type` API endpoint {#the-checkscheckhooks-api-endpoint}
-
-### `/checks/:check/hooks/:type` (PUT) {#checkscheckhooks-put}
+## Assign a hook to a check {#checkscheckhooks-put}
 
 The `/checks/:check/hooks/:type` API endpoint provides HTTP PUT access to assign a [hook][2] to a check.
 
-#### EXAMPLE {#checkscheckhooks-put-example}
+### Example {#checkscheckhooks-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/checks/:check/hooks/:type` API endpoint, assigning the `process_tree` hook to the `check-cpu` check in the event of a `critical` type check result, resulting in a successful HTTP `204 No Content` response.
 
@@ -421,7 +399,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/crit
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#checkscheckhooks-put-specification}
+### API Specification {#checkscheckhooks-put-specification}
 
 checks/:check/hooks/:type (PUT) | 
 ----------------|------
@@ -437,13 +415,11 @@ example payload | {{< code shell >}}
 payload parameters | This endpoint requires a JSON map of [check response types][3] (for example, `critical` or `warning`). Each must contain an array of hook names.
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/checks/:check/hooks/:type/hook/:hook` API endpoint {#the-checkscheckhookshook-api-endpoint}
-
-### `/checks/:check/hooks/:type/hook/:hook` (DELETE) {#checkscheckhookshook-delete}
+## Remove a hook from a check {#checkscheckhookshook-delete}
 
 The `/checks/:check/hooks/:type/hook/:hook` API endpoint provides HTTP DELETE access to a remove a [hook][2] from a [check][1].
 
-#### EXAMPLE {#checkscheckhookshook-delete-example}
+### Example {#checkscheckhookshook-delete-example}
 
 The following example shows a request to the `/checks/:check/hooks/:type/hook/:hook` API endpoint to remove the `process_tree` hook from the `check-cpu` check, resulting in a successful HTTP `204 No Content` response.
 
@@ -455,9 +431,9 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/crit
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#checkscheckhookshook-delete-specification}
+### API Specification {#checkscheckhookshook-delete-specification}
 
-/checks/:check/hooks/ :type/hook/:hook (DELETE) | 
+/checks/:check/hooks/:type/hook/:hook (DELETE) | 
 --------------------------|------
 description               | Removes a single hook from a check (specified by the check name, check response type, and hook name). See the [checks reference][3] for available types.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical/hook/process_tree
