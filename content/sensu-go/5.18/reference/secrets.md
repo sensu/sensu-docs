@@ -211,8 +211,8 @@ The `database` secret contains a key called `password`, and its value is the pas
 
 [1]: ../../commercial/
 [2]: ../../api/secrets/
-[3]: ../../sensuctl/reference/
-[4]: ../../sensuctl/reference/#subcommands
+[3]: ../../sensuctl/set-up-manage/
+[4]: ../../sensuctl/create-manage-resources/#subcommands
 [5]: ../backend/#configuration-via-environment-variables
 [6]: ../rbac#default-users
 [7]: ../secrets-providers/

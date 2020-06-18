@@ -852,11 +852,11 @@ spec:
 [30]: ../../guides/reduce-alert-fatigue/
 [31]: https://github.com/robertkrimen/otto
 [32]: https://github.com/robertkrimen/otto/blob/master/README.markdown
-[33]: ../../sensuctl/reference#create-resources
+[33]: ../../sensuctl/create-manage-resources/#create-resources
 [34]: #spec-attributes
 [35]: https://regex101.com/r/zo9mQU/2
 [36]: ../../api/overview#response-filtering
-[37]: ../../sensuctl/reference#response-filtering
+[37]: ../../sensuctl/filter-responses/
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
 [39]: ../assets/
 [40]: ../filters/

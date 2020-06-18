@@ -67,7 +67,7 @@ These resources will help you get started with commercial features in Sensu Go:
 [2]: https://account.sensu.io/
 [3]: https://sensu.io/enterprise
 [4]: ../api/overview#response-filtering
-[5]: ../sensuctl/reference#response-filtering
+[5]: ../sensuctl/filter-responses/
 [6]: ../web-ui/filter/
 [7]: https://blog.sensu.io/one-year-of-sensu-go/
 [8]: ../web-ui/sign-in/
@@ -78,6 +78,6 @@ These resources will help you get started with commercial features in Sensu Go:
 [13]: https://sensu.io/support/
 [14]: https://account.sensu.io/support/
 [15]: ../installation/install-sensu/
-[16]: ../sensuctl/reference/#first-time-setup
+[16]: ../sensuctl/set-up-manage/#first-time-setup
 [17]: ../guides/install-check-executables-with-assets/
 [18]: ../reference/license/

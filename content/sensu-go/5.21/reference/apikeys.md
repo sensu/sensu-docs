@@ -29,7 +29,7 @@ This is different from the authentication token, which uses the `Authorization: 
 When you specify an API key in a request, the system resolves it to an authentication token and continues through the regular authentication process.
 
 {{% notice note %}}
-**NOTE**: The API key resource is not compatible with [`sensuctl create`](../../sensuctl/reference/#create-resources).
+**NOTE**: The API key resource is not compatible with [`sensuctl create`](../../sensuctl/create-manage-resources/#create-resources).
 {{% /notice %}}
 
 ## API key resource structure

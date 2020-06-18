@@ -103,4 +103,4 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 
 [1]: ../../commercial/
-[2]: ../../sensuctl/reference/#sensuctl-prune-resource-types
+[2]: ../../sensuctl/create-manage-resources/#sensuctl-prune-resource-types

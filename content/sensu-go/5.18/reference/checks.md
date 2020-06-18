@@ -703,7 +703,7 @@ example      | {{< code shell >}}"silenced": ["*:routers"]{{< /code >}}
 |env_vars    |      |
 -------------|------
 description  | Array of environment variables to use with command execution. {{% notice note %}}
-**NOTE**: To add `env_vars` to a check, use [`sensuctl create`](../../sensuctl/reference#create-resources).
+**NOTE**: To add `env_vars` to a check, use [`sensuctl create`](../../sensuctl/create-manage-resources/#create-resources).
 {{% /notice %}}
 required     | false
 type         | Array
@@ -1069,7 +1069,7 @@ spec:
 [37]: #proxy-requests-top-level
 [39]: #check-token-substitution
 [40]: ../entities#manage-entity-labels
-[41]: ../../sensuctl/reference#create-resources
+[41]: ../../sensuctl/create-manage-resources/#create-resources
 [42]: #spec-attributes
 [43]: #round-robin-attribute
 [44]: #proxy-entity-name-attribute
@@ -1082,7 +1082,7 @@ spec:
 [52]: #round-robin-checks
 [53]: https://regex101.com/r/zo9mQU/2
 [54]: ../../api/overview#response-filtering
-[55]: ../../sensuctl/reference#response-filtering
+[55]: ../../sensuctl/filter-responses/
 [56]: ../../reference/secrets/
 [57]: ../../reference/secrets-providers/
 [58]: ../../web-ui/filter#filter-with-label-selectors

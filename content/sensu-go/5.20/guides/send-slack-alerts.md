@@ -106,7 +106,7 @@ You can also try our interactive tutorial and learn how to [send Sensu Go alerts
 [7]: ../troubleshooting/
 [8]: ../../reference/handlers/
 [9]: ../reduce-alert-fatigue/
-[10]: ../../sensuctl/reference/#install-asset-definitions
+[10]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions
 [11]: ../../learn/sensu-pagerduty/
 [12]: https://slack.com/get-started#create
 [13]: ../../reference/assets

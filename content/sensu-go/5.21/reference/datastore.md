@@ -193,17 +193,17 @@ default      | `0` (unlimited)
 type         | Integer
 example      | {{< code shell >}}pool_size: 20{{< /code >}}
 
-[1]: ../../sensuctl/reference/#first-time-setup
+[1]: ../../sensuctl/set-up-manage/#first-time-setup
 [2]: ../../guides/troubleshooting/
 [3]: https://aws.amazon.com/rds/
 [8]: ../../guides/clustering/#use-an-external-etcd-cluster
 [9]: ../../web-ui/sign-in/
-[10]: ../../sensuctl/reference/#sensuctl-event
+[10]: ../../sensuctl/create-manage-resources/#sensuctl-event
 [11]: ../../api/events/
 [12]: ../../guides/influx-db-metric-handler/
 [13]: ../../commercial/
 [14]: https://www.postgresql.org
 [15]: https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING
-[16]: ../../sensuctl/reference#create-resources
+[16]: ../../sensuctl/create-manage-resources/#create-resources
 [17]: #spec-attributes
 [18]: #datastore-specification

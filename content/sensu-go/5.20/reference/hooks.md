@@ -324,7 +324,7 @@ spec:
 
 {{< /language-toggle >}}
 
-[1]: ../../sensuctl/reference#create-resources
+[1]: ../../sensuctl/create-manage-resources/#create-resources
 [2]: #metadata-attributes
 [3]: ../rbac#namespaces
 [4]: ../filters/
@@ -334,6 +334,6 @@ spec:
 [8]: https://regex101.com/r/zo9mQU/2
 [9]: #spec-attributes
 [10]: ../../api/overview#response-filtering
-[11]: ../../sensuctl/reference#response-filtering
+[11]: ../../sensuctl/filter-responses/
 [12]: ../../web-ui/filter#filter-with-label-selectors
 [13]: ../../web-ui/filter/

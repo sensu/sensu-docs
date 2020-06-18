@@ -351,10 +351,10 @@ name: '*:mysql_status'
 [1]: ../events/#attributes
 [2]: ../rbac#namespaces
 [3]: #metadata-attributes
-[4]: ../../sensuctl/reference#create-resources
+[4]: ../../sensuctl/create-manage-resources/#create-resources
 [5]: #spec-attributes
 [6]: ../../api/overview#response-filtering
-[7]: ../../sensuctl/reference#response-filtering
+[7]: ../../sensuctl/filter-responses/
 [8]: ../filters/
 [9]: ../../web-ui/filter#filter-with-label-selectors
 [10]: ../../web-ui/filter/

@@ -358,7 +358,7 @@ Now that you know how to run a proxy check to verify the status of a website and
 [3]: ../../reference/checks/#proxy-checks
 [5]: ../../reference/assets/
 [7]: ../send-slack-alerts/
-[8]: ../../sensuctl/reference/
+[8]: ../../sensuctl/set-up-manage/
 [9]: ../../api/entities/
 [10]: ../../web-ui/sign-in/
 [11]: ../../reference/entities#manage-entity-labels
@@ -370,4 +370,4 @@ Now that you know how to run a proxy check to verify the status of a website and
 [18]: ../../reference/checks#round-robin-checks
 [19]: ../../installation/install-sensu/
 [20]: ../../reference/agent#restart-the-service
-[21]: ../../sensuctl/reference/#install-asset-definitions
+[21]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions

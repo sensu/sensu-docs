@@ -832,14 +832,14 @@ You must remove the archive and downloaded files from the asset cache manually.
 [8]: ../mutators/
 [9]: ../handlers/
 [10]: ../entities#system-attributes
-[11]: ../../sensuctl/reference#create-resources
+[11]: ../../sensuctl/create-manage-resources/#create-resources
 [12]: #spec-attributes
 [15]: #example-asset-structure
 [16]: https://bonsai.sensu.io/
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
 [19]: https://regex101.com/r/zo9mQU/2
 [20]: ../../api/overview#response-filtering
-[21]: ../../sensuctl/reference#response-filtering
+[21]: ../../sensuctl/filter-responses/
 [23]: ../../guides/install-check-executables-with-assets/
 [24]: https://github.com
 [25]: https://help.github.com/articles/about-releases/

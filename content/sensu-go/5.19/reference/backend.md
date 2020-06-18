@@ -1370,7 +1370,7 @@ If you are running a clustered backend, rotating logs on all cluster members sim
 [23]: #etcd-listen-client-urls
 [24]: ../../installation/install-sensu#2-configure-and-start
 [25]: ../../installation/install-sensu#3-initialize
-[26]: ../../sensuctl/reference/#change-admin-user-s-password
+[26]: ../../sensuctl/set-up-manage/#change-admin-users-password
 [28]: ../../guides/systemd-logs/
 [29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly
 [30]: ../../release-notes/#5-19-3-release-notes

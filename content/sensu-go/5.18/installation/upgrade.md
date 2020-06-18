@@ -178,7 +178,7 @@ See the metadata attributes section in the reference documentation for more info
 [2]: https://github.com/etcd-io/etcd/tree/master/Documentation/
 [3]: ../../reference/backend/
 [4]: ../../reference/agent/
-[5]: ../../sensuctl/reference/
+[5]: ../../sensuctl/set-up-manage/
 [6]: ../../reference/entities/
 [7]: ../../guides/monitor-external-resources/
 [8]: ../../reference/hooks/

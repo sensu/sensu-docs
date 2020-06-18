@@ -78,4 +78,4 @@ Next, read the [silencing reference][7] for in-depth documentation about silence
 [5]: ../../reference/silencing/#silence-a-specific-check-on-entities-with-a-specific-subscription
 [6]: ../../reference/silencing/#silence-a-specific-check-on-every-entity
 [7]: ../../reference/silencing/
-[8]: ../../sensuctl/reference/#dates-with-time
+[8]: ../sensuctl/create-manage-resources/#time-formats

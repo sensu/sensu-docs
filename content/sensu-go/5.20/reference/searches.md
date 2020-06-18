@@ -282,7 +282,7 @@ spec:
 [3]: ../../web-ui/filter/#save-a-filtered-search
 [4]: ../../api/searches
 [5]: #metadata-attributes
-[6]: ../../sensuctl/reference#create-resources
+[6]: ../../sensuctl/create-manage-resources/#create-resources
 [7]: #spec-attributes
 [8]: ../rbac#namespaces
 [9]: ../../api/overview/#field-selector
