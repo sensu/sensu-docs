@@ -322,9 +322,13 @@ required     | true
 type         | String
 example      | {{< code shell >}}"username": "alice"{{< /code >}}
 
+<a name="password"></a>
+
 password     | 
 -------------|------ 
-description  | User's password. Passwords must have at least eight characters.
+description  | User's password. Passwords must have at least eight characters.{{% notice note %}}
+You only need to set either the `password` or the [`password_hash`](#password-hash) (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
+{{% /notice %}}
 required     | true
 type         | String
 example      | {{< code shell >}}"password": "USER_PASSWORD"{{< /code >}}
@@ -344,6 +348,16 @@ type         | Boolean
 default      | `false`
 example      | {{< code shell >}}"disabled": false{{< /code >}}
 
+<a name="password-hash"></a>
+
+password_hash | 
+--------------|------ 
+description   | [Bcrypt][35] password hash. You can use the `password_hash` in your user definitions instead of storing cleartext passwords.{{% notice note %}}
+You only need to set either the [`password`](#password) or the `password_hash` (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
+required      | false
+type          | String
+example       | {{< code shell >}}"password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"{{< /code >}}
+
 ### User example
 
 The following example is in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
@@ -360,6 +374,7 @@ spec:
   - ops
   - dev
   password: USER_PASSWORD
+  password_hash: $5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm
   username: alice
 {{< /code >}}
 
@@ -371,6 +386,7 @@ spec:
   "spec": {
     "username": "alice",
     "password": "USER_PASSWORD",
+    "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm",
     "disabled": false,
     "groups": ["ops", "dev"]
   }
@@ -1254,6 +1270,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [32]: ../../installation/auth#use-an-authentication-provider
 [33]: ../../commercial/
 [34]: ../../installation/auth#use-built-in-basic-authentication
+[35]: https://en.wikipedia.org/wiki/Bcrypt
 [37]: ../license/
 [38]: ../../installation/auth/#groups-prefix
 [39]: ../../installation/auth/#ad-groups-prefix
