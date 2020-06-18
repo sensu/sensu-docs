@@ -10,14 +10,6 @@ menu:
   sensu-go-5.21:
     parent: guides
 ---
-- [Prerequisites](#prerequisites)
-- [Public key infrastructure](#public-key-infrastructure-pki)
-- [Issue certificates](#issue-certificates)
-    - [Install TLS](#install-tls)
-    - [Create a Certificate Authority (CA)](#create-a-certificate-authority-ca)
-    - [Generate backend cluster certificates](#generate-backend-cluster-certificates)
-    - [Generate agent certificate](#generate-agent-certificate)
-- [Next step: Secure Sensu](#next-step-secure-sensu)
 
 This guide explains how to generate the certificates you need to secure a Sensu cluster and its agents.
 
@@ -64,7 +56,7 @@ In this example you'll walk through installing cfssl on a Linux system, which re
 
 This guide assumes that you'll install these certificates in the `/etc/sensu/tls` directory on each system.
 
-{{< highlight shell >}}
+{{< code shell >}}
 
 # Download cfssl and cfssljson executables and install them in /usr/local/bin:
 sudo curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl_1.4.1_linux_amd64 -o /usr/local/bin/cfssl
@@ -82,13 +74,13 @@ cfssljson -version
 # Version: 1.4.1
 
 # Runtime: go1.12.12
-{{< /highlight >}}
+{{< /code >}}
 
 ### Create a Certificate Authority (CA)
 
 Create a CA with cfssl and cfssljson:
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Create /etc/sensu/tls -- does not exist by default
 mkdir -p /etc/sensu/tls
 cd /etc/sensu/tls
@@ -96,7 +88,7 @@ cd /etc/sensu/tls
 echo '{"CN":"Sensu Test CA","key":{"algo":"rsa","size":2048}}' | cfssl gencert -initca - | cfssljson -bare ca -
 # Define signing parameters and profiles. Note that agent profile provides the "client auth" usage required for mTLS.
 echo '{"signing":{"default":{"expiry":"17520h","usages":["signing","key encipherment","client auth"]},"profiles":{"backend":{"usages":["signing","key encipherment","server auth","client auth"],"expiry":"4320h"},"agent":{"usages":["signing","key encipherment","client auth"],"expiry":"4320h"}}}}' > ca-config.json
-{{< /highlight >}}
+{{< /code >}}
 
 <a name="copy-ca-pem"></a>
 
@@ -135,7 +127,7 @@ Note that the additional names for localhost and 127.0.0.1 are added here for co
 
 Use these name and address details to create two `*.pem` files and one `*.csr` file for each backend:
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Value provided for the NAME variable will be used to populate the certificate's CN record
 # Values provided in the ADDRESS variable will be used to populate the certificate's SAN records
 # For systems with multiple hostnames and IP addresses, add each to the comma-delimited value of the ADDRESS variable
@@ -150,7 +142,7 @@ echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl ge
 export ADDRESS=localhost,127.0.0.1,10.0.0.3,backend-3
 export NAME=backend-3.example.com
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -profile="backend" -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" - | cfssljson -bare $NAME
-{{< /highlight >}}
+{{< /code >}}
 
 <a name="copy-backend-pem"></a>
 
@@ -165,22 +157,22 @@ filename               | description                  | required on backend?|
 
 Again, make sure to copy all backend PEM files and CA root certificate to the corresponding backend system:
 
-{{< highlight shell >}}
+{{< code shell >}}
 
 # Directory listing of /etc/sensu/tls on backend-1:
 /etc/sensu/tls/
 ├── backend-1-key.pem
 ├── backend-1.pem
 └── ca.pem
-{{< /highlight >}}
+{{< /code >}}
 
 These files should be accessible only by the `sensu` user.
 Use chown and chmod to make it so:
 
-{{< highlight shell >}}
+{{< code shell >}}
 chown sensu /etc/sensu/tls/*.pem
 chmod 400 /etc/sensu/tls/*.pem
-{{< /highlight >}}
+{{< /code >}}
 
 ### Generate agent certificate
 
@@ -191,10 +183,10 @@ Sensu's commercial distribution offers support for authenticating agents via TLS
 For this certificate, you only need to specify a CN (here, `agent`) &mdash; you don't need to specify an address.
 You will create the files `agent-key.pem`, `agent.csr`, and `agent.pem`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 export NAME=agent
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="" -profile=agent - | cfssljson -bare $NAME
-{{< /highlight >}}
+{{< /code >}}
 
 <a name="copy-agent-pem"></a>
 
@@ -209,7 +201,7 @@ filename           | description                  | required on agent?  |
 
 Again, make sure to copy all agent PEM files and `ca.pem` to the corresponding backend system:
 
-{{< highlight shell >}}
+{{< code shell >}}
 
 # Directory listing of /etc/sensu/tls on backend-1:
 /etc/sensu/tls/
@@ -218,15 +210,15 @@ Again, make sure to copy all agent PEM files and `ca.pem` to the corresponding b
 ├── agent.pem
 ├── agent-key.pem
 └── ca.pem
-{{< /highlight >}}
+{{< /code >}}
 
 These files should be accessible only by the `sensu` user.
 Use chown and chmod to make it so:
 
-{{< highlight shell >}}
+{{< code shell >}}
 chown sensu /etc/sensu/tls/*.pem
 chmod 400 /etc/sensu/tls/*.pem
-{{< /highlight >}}
+{{< /code >}}
 
 ## Installing CA certificates
 
@@ -241,24 +233,24 @@ We also recommend installing the CA root certificate in the trust store of both 
 Installing the CA certificate in the trust store for these systems makes it easier to connect via web UI or sensuctl without being prompted to accept certificates signed by your self-generated CA.
 
 {{< language-toggle >}}
-{{< highlight "Ubuntu/Debian" >}}
+{{< code shell "Ubuntu/Debian" >}}
 chmod 644 /etc/sensu/tls/ca.pem
 chown root /etc/sensu/tls/ca.pem
 sudo apt-get install ca-certificates -y
 sudo ln -sfv /etc/sensu/tls/ca.pem /usr/local/share/ca-certificates/sensu-ca.crt
 sudo update-ca-certificates
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight "RHEL/CentOS" >}}
+{{< code shell "RHEL/CentOS" >}}
 chmod 644 /etc/sensu/tls/ca.pem
 chown root /etc/sensu/tls/ca.pem
 sudo yum install -y ca-certificates
 sudo update-ca-trust force-enable
 sudo ln -s /etc/sensu/tls/ca.pem /etc/pki/ca-trust/source/anchors/sensu-ca.pem
 sudo update-ca-trust
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight "macos" >}}
+{{< code shell "macOS" >}}
 Import the root CA certificate on the Mac.
 Double-click the root CA certificate to open it in Keychain Access.
 The root CA certificate appears in login.
@@ -267,11 +259,11 @@ You must copy the certificate to System to ensure that it is trusted by all user
 Open the root CA certificate, expand Trust, select Use System Defaults, and save your changes.
 Reopen the root CA certificate, expand Trust, select Always Trust, and save your changes.
 Delete the root CA certificate from login.
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight "Windows" >}}
+{{< code powershell "Windows" >}}
 TODO: Document steps for adding CA root to Windows trust store
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

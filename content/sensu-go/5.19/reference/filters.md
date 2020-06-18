@@ -10,19 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Inclusive and exclusive event filters](#inclusive-and-exclusive-event-filters)
-- [Built-in event filters](#built-in-event-filters)
-- [Build event filter expressions](#build-event-filter-expressions)
-- [Event filter specification](#event-filter-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Event filter examples](#event-filter-examples)
-	- [Handle production events](#handle-production-events)
-	- [Handle non-production events](#handle-non-production-events)
-	- [Handle state change only](#handle-state-change-only)
-	- [Handle repeated events](#handle-repeated-events)
-	- [Handle events during office hours only](#handle-events-during-office-hours-only)
-- [Use JavaScript libraries with Sensu filters](#use-javascript-libraries-with-sensu-filters)
-
 Sensu event filters are applied when you configure event handlers to use one or more filters.
 Before executing a handler, the Sensu backend will apply any event filters configured for the handler to the event data.
 If the filters do not remove the event, the handler will be executed.
@@ -94,7 +81,7 @@ To use the is_incident event filter, include `is_incident` in the handler config
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -110,9 +97,9 @@ spec:
   runtime_assets: []
   timeout: 0
   type: pipe
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -134,7 +121,7 @@ spec:
     "type": "pipe"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -156,7 +143,7 @@ To allow silencing for an event handler, add `not_silenced` to the handler confi
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -173,9 +160,9 @@ spec:
   runtime_assets: []
   timeout: 0
   type: pipe
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -198,7 +185,7 @@ spec:
     "type": "pipe"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -215,7 +202,7 @@ To use the has_metrics event filter, include `has_metrics` in the handler config
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -233,9 +220,9 @@ spec:
   runtime_assets: []
   timeout: 0
   type: pipe
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -259,7 +246,7 @@ spec:
     "type": "pipe"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -388,21 +375,21 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][33] resource type. Event filters should always be type `EventFilter`.
 required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
 type         | String
-example      | {{< highlight shell >}}"type": "EventFilter"{{< /highlight >}}
+example      | {{< code shell >}}"type": "EventFilter"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For event filters in this version of Sensu, this attribute should always be `core/v2`.
 required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
 type         | String
-example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the event filter, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the filter definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][11] for details.
 required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "metadata": {
   "name": "filter-weekdays-only",
   "namespace": "default",
@@ -414,14 +401,14 @@ example      | {{< highlight shell >}}
     "slack-channel" : "#monitoring"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the event filter [spec attributes][34].
 required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "spec": {
   "action": "allow",
   "expressions": [
@@ -429,7 +416,7 @@ example      | {{< highlight shell >}}
   ],
   "runtime_assets": []
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Metadata attributes
 
@@ -438,7 +425,7 @@ example      | {{< highlight shell >}}
 description  | Unique string used to identify the event filter. Filter names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][35]). Each filter must have a unique name within its namespace.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "filter-weekdays-only"{{< /highlight >}}
+example      | {{< code shell >}}"name": "filter-weekdays-only"{{< /code >}}
 
 | namespace  |      |
 -------------|------
@@ -446,14 +433,14 @@ description  | Sensu [RBAC namespace][10] that the event filter belongs to.
 required     | false
 type         | String
 default      | `default`
-example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+example      | {{< code shell >}}"namespace": "production"{{< /code >}}
 
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created the filter or last updated the filter. Sensu automatically populates the `created_by` field when the filter is created or updated.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
+example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
 
 | labels     |      |
 -------------|------
@@ -461,10 +448,10 @@ description  | Custom attributes to include with event data that you can use for
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}}"labels": {
+example      | {{< code shell >}}"labels": {
   "environment": "development",
   "region": "us-west-2"
-}{{< /highlight >}}
+}{{< /code >}}
 
 | annotations | |
 -------------|------
@@ -472,10 +459,10 @@ description  | Non-identifying metadata to include with event data that you can 
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}} "annotations": {
+example      | {{< code shell >}} "annotations": {
   "managed-by": "ops",
   "playbook": "www.example.url"
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Spec attributes
 
@@ -485,17 +472,17 @@ description  | Action to take with the event if the event filter expressions mat
 required     | true
 type         | String
 allowed values | `allow`, `deny`
-example      | {{< highlight shell >}}"action": "allow"{{< /highlight >}}
+example      | {{< code shell >}}"action": "allow"{{< /code >}}
 
 expressions   | 
 -------------|------
 description  | Event filter expressions to be compared with event data. You can reference event metadata without including the `metadata` scope (for example, `event.entity.namespace`).
 required     | true
 type         | Array
-example      | {{< highlight shell >}}"expressions": [
+example      | {{< code shell >}}"expressions": [
   "event.check.team == 'ops'"
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 runtime_assets |      |
 ---------------|------
@@ -503,7 +490,7 @@ description    | Assets to apply to the event filter's execution context. JavaSc
 required       | false
 type           | Array of string
 default        | []
-example        | {{< highlight shell >}}"runtime_assets": ["underscore"]{{< /highlight >}}
+example        | {{< code shell >}}"runtime_assets": ["underscore"]{{< /code >}}
 
 ## Event filter examples
 
@@ -511,7 +498,7 @@ example        | {{< highlight shell >}}"runtime_assets": ["underscore"]{{< /hig
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -521,9 +508,9 @@ spec:
   action: allow
   expressions:
   - event.check.occurrences == 1
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "EventFilter",
   "api_version": "core/v2",
@@ -538,7 +525,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -548,7 +535,7 @@ The following event filter allows handling for only events with a custom entity 
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -558,9 +545,9 @@ spec:
   action: allow
   expressions:
   - event.entity.labels['environment'] == 'production'
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "EventFilter",
   "api_version": "core/v2",
@@ -575,7 +562,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -590,7 +577,7 @@ If evaluation returns false, the event is handled.
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -600,9 +587,9 @@ spec:
   action: deny
   expressions:
   - event.entity.labels['environment'] == 'production'
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "EventFilter",
   "api_version": "core/v2",
@@ -617,7 +604,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -627,7 +614,7 @@ This example demonstrates how to use the `state_change_only` inclusive event fil
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -640,9 +627,9 @@ spec:
   expressions:
   - event.check.occurrences == 1
   runtime_assets: []
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "EventFilter",
   "api_version": "core/v2",
@@ -660,7 +647,7 @@ spec:
     "runtime_assets": []
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -670,7 +657,7 @@ In this example, the `filter_interval_60_hourly` event filter will match event d
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -684,9 +671,9 @@ spec:
   - event.check.interval == 60
   - event.check.occurrences == 1 || event.check.occurrences % 60 == 0
   runtime_assets: []
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "EventFilter",
   "api_version": "core/v2",
@@ -705,7 +692,7 @@ spec:
     "runtime_assets": []
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -713,7 +700,7 @@ This example will apply the same logic as the previous example but for checks wi
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -727,9 +714,9 @@ spec:
   - event.check.interval == 30
   - event.check.occurrences == 1 || event.check.occurrences % 120 == 0
   runtime_assets: []
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "EventFilter",
   "api_version": "core/v2",
@@ -748,7 +735,7 @@ spec:
     "runtime_assets": []
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -760,7 +747,7 @@ If evaluation returns false, the event will not be handled.
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -774,9 +761,9 @@ spec:
   - weekday(event.timestamp) >= 1 && weekday(event.timestamp) <= 5
   - hour(event.timestamp) >= 9 && hour(event.timestamp) <= 17
   runtime_assets: []
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "EventFilter",
   "api_version": "core/v2",
@@ -795,7 +782,7 @@ spec:
     "runtime_assets": []
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -806,7 +793,7 @@ For instance, if you package underscore.js into a Sensu asset, you can use funct
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -821,9 +808,9 @@ spec:
     0); })
   runtime_assets:
   - underscore
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "EventFilter",
   "api_version": "core/v2",
@@ -841,7 +828,7 @@ spec:
     "runtime_assets": ["underscore"]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

@@ -36,7 +36,7 @@ protocol for RBAC authentication.
 
 ### Example RBAC for OIDC definition
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "dashboard": {
     "host": "0.0.0.0",
@@ -76,7 +76,7 @@ protocol for RBAC authentication.
     }    
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### RBAC for OIDC definition specification
 
@@ -87,21 +87,21 @@ additionalScopes |
 description      | Scopes to include in the claims, in addition to the default `email`, `openid` and `profile` scopes. _NOTE: only required for certain OIDC providers, such as Okta._
 required         | false
 type             | Array
-example          | {{< highlight shell >}}"additionalScopes": [ "groups" ]{{< /highlight >}}
+example          | {{< code shell >}}"additionalScopes": [ "groups" ]{{< /code >}}
 
 clientId     | 
 -------------|------
 description  | The OIDC provider application "Client ID" _NOTE: requires [registration of an application in the OIDC provider][4]._
 required     | true
 type         | String
-example      | {{< highlight shell >}}"clientId": "a8e43af034e7f2608780"{{< /highlight >}}
+example      | {{< code shell >}}"clientId": "a8e43af034e7f2608780"{{< /code >}}
 
 clientSecret | 
 -------------|------
 description  | The OIDC provider application "Client Secret" _NOTE: requires [registration of an application in the OIDC provider][4]._
 required     | true
 type         | String
-example      | {{< highlight shell >}}"clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216"{{< /highlight >}}
+example      | {{< code shell >}}"clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216"{{< /code >}}
 
 insecure     | 
 -------------|------
@@ -109,28 +109,28 @@ description  | Determines whether or not to skip SSL certificate verification (e
 required     | false
 type         | Boolean
 default      | false
-example      | {{< highlight shell >}}"insecure": true{{< /highlight >}}
+example      | {{< code shell >}}"insecure": true{{< /code >}}
 
 redirectURL  | 
 -------------|------
 description  | Redirect URL to provide to the OIDC provider. _NOTE: only required for certain OIDC providers, such as Okta._
 required     | false
 type         | String
-example      | {{< highlight shell >}}"redirectURL": "http://localhost:4000/login/callback"{{< /highlight >}}
+example      | {{< code shell >}}"redirectURL": "http://localhost:4000/login/callback"{{< /code >}}
 
 server       | 
 -------------|------
 description  | The location of the OIDC server you wish to authenticate against.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"server": "https://localhost:9031"{{< /highlight >}}
+example      | {{< code shell >}}"server": "https://localhost:9031"{{< /code >}}
 
 roles        | 
 -------------|------
 description  | An array of [`roles` definitions][1].
 required     | true
 type         | Array
-example      | {{< highlight shell >}}"roles": [
+example      | {{< code shell >}}"roles": [
   {
     "name": "guests",
     "members": [
@@ -154,7 +154,7 @@ example      | {{< highlight shell >}}"roles": [
     "readonly": false
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### `roles` attributes
 

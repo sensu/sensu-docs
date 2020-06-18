@@ -151,13 +151,13 @@ If you're doing a side-by-side migration, add `api-port` (default: `3031`) and `
 This prevents the Sensu Go agent API and socket from conflicting with the Sensu Core client API and socket.
 You can also disable these features in the agent configuration using the `disable-socket` and `disable-api` flags.
 
-{{< highlight yml >}}
+{{< code yml >}}
 # agent configuration: /etc/sensu.agent.yml
 ...
 api-port: 4041
 socket-port: 4030
 ...
-{{< /highlight >}}
+{{< /code >}}
 
 Sensu should now be installed and functional. The next step is to translate your Sensu Core configuration to Sensu Go.
 
@@ -169,7 +169,7 @@ The [Sensu translator][18] is a command line tool to help you transfer your Sens
 
 Install and run the translator.
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Install dependencies
 yum install -q -y rubygems ruby-devel
 
@@ -179,23 +179,23 @@ gem install sensu-translator
 # Translate all config in /etc/sensu/conf.d to Sensu Go and output to /sensu_config_translated
 # Option: translate your config in sections according to resource type
 sensu-translator -d /etc/sensu/conf.d -o /sensu_config_translated
-{{< /highlight >}}
+{{< /code >}}
 
 If translation is successful, you should see a few callouts followed by `DONE!`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 Sensu 1.x filter translation is not yet supported
 Unable to translate Sensu 1.x filter: only_production {:attributes=>{:check=>{:environment=>"production"}}}
 DONE!
-{{< /highlight >}}
+{{< /code >}}
 
 Combine your config into a sensuctl-readable format.
 
 _**NOTE**: for use with `sensuctl create`, do _not_ use a comma between resource objects in Sensu Go resource definitions in JSON format._
 
-{{< highlight shell >}}
+{{< code shell >}}
 find sensu_config_translated/ -name '*.json' -exec cat {} \; > sensu_config_translated_singlefile.json
-{{< /highlight >}}
+{{< /code >}}
 
 Most attributes are ready to use as-is, but you'll need to adjust your Sensu Go configuration manually to migrate some of Sensu's features.
 
@@ -255,7 +255,7 @@ As a result, you'll need to rewrite your Sensu Core filters in Sensu Go format.
 
 First, review your Core handlers to identify which filters are being used. Then, follow the [filter reference][57] and [guide to using filters][58] to re-write your filters using Sensu Go expressions and [event data][66]. Check out the [blog post on filters][59] for a deep dive into Sensu Go filter capabilities.
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Sensu Core hourly filter
 {
   "filters": {
@@ -279,7 +279,7 @@ First, review your Core handlers to identify which filters are being used. Then,
     ],
     "runtime_assets": null
   }
-{{< /highlight >}}
+{{< /code >}}
 
 ### 4. Translate handlers
 
@@ -303,15 +303,15 @@ Review your Sensu Core check configuration for the following attributes, and mak
 
 After you review your translated configuration, make any necessary updates, and add resource definitions for any filters and entities you want to migrate, you can upload your Sensu Go config using sensuctl.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file /path/to/config.json
-{{< /highlight >}}
+{{< /code >}}
 
 _PRO TIP: `sensuctl create` (and `sensuctl delete`) are powerful tools to help you manage your Sensu configs across namespaces. See the [sensuctl reference][5] for more information._
 
 Access your Sensu Go config using the [Sensu API][61].
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Set up a local API testing environment by saving your Sensu credentials
 # and token as environment variables. Requires curl and jq.
 export SENSU_USER=admin && SENSU_PASS=P@ssw0rd!
@@ -323,7 +323,7 @@ curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/n
 
 # Return list of all configured handlers
 curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers
-{{< /highlight >}}
+{{< /code >}}
 
 You can also access your Sensu Go configuration in JSON or YAML using sensuctl.
 For example, `sensuctl check list --format json`.

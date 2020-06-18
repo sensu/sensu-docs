@@ -43,7 +43,7 @@ will include events that match the filter criteria. In this example, the filter
 itself is named `production` which matches events with a custom client attribute
 entitled `environment` with the value `production`.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "filters": {
     "production": {
@@ -54,7 +54,7 @@ entitled `environment` with the value `production`.
       }
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Exclusive filtering
 
@@ -63,7 +63,7 @@ attribute to `true`. In this example, the `production` filter will match events
 that **do not** have a custom client attribute entitled `environment` with the
 value `production`.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "filters": {
     "production": {
@@ -75,14 +75,14 @@ value `production`.
       "negate": true
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ## Using a filter
 
 To use the `production` filter for an event handler, set the `filter` attribute
 in the handler definition. For example:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "mail": {
@@ -91,7 +91,7 @@ in the handler definition. For example:
       "filter": "production"
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ## Using multiple filters
 
@@ -100,7 +100,7 @@ To specify multiple Sensu event filters, use the `filters` attribute (plural).
 _NOTE: if both `filter` and `filters` (plural) handler definition attributes are
 used, `filters` will take precedence._
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "mail": {
@@ -112,7 +112,7 @@ used, `filters` will take precedence._
       ]
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ## Create an event filter with Ruby and math!
 
@@ -133,7 +133,7 @@ checks with an execution interval of 1 minute are generating events every
 minute, this filter will help "reduce noise" by only allowing event handling
 once per hour.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "filters": {
     "recurrences": {
@@ -142,6 +142,6 @@ once per hour.
       }
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 [1]:  ../../reference/filters/

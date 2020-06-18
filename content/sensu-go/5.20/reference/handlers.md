@@ -10,14 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Pipe handlers](#pipe-handlers)
-- [TCP/UDP handlers](#tcp-udp-handlers)
-- [Handler sets](#handler-sets)
-- [Keepalive event handlers](#keepalive-event-handlers)
-- [Handler specification](#handler-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [`socket` attributes](#socket-attributes) | [`secrets` attributes](#secrets-attributes)
-- [Examples](#handler-examples)
-
 Handlers are actions the Sensu backend executes on events.
 Several types of handlers are available.
 The most common are `pipe` handlers, which work similarly to [checks][1] and enable Sensu to interact with almost any computer program via [standard streams][2].
@@ -66,7 +58,7 @@ The resulting `keepalive` handler set configuration will look like this example:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -76,9 +68,9 @@ spec:
   handlers:
   - slack
   type: set
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -93,7 +85,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -109,21 +101,21 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][4] resource type. Handlers should always be type `Handler`.
 required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | String
-example      | {{< highlight shell >}}"type": "Handler"{{< /highlight >}}
+example      | {{< code shell >}}"type": "Handler"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For handlers in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | String
-example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the handler that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the handler definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][8] for details.
 required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "metadata": {
   "name": "handler-slack",
   "namespace": "default",
@@ -135,14 +127,14 @@ example      | {{< highlight shell >}}
     "slack-channel": "#monitoring"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the handler [spec attributes][5].
 required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "spec": {
   "type": "tcp",
   "socket": {
@@ -154,7 +146,7 @@ example      | {{< highlight shell >}}
     "namespace": "default"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Metadata attributes
 
@@ -163,7 +155,7 @@ example      | {{< highlight shell >}}
 description  | Unique string used to identify the handler. Handler names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][18]). Each handler must have a unique name within its namespace.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "handler-slack"{{< /highlight >}}
+example      | {{< code shell >}}"name": "handler-slack"{{< /code >}}
 
 | namespace  |      |
 -------------|------
@@ -171,14 +163,14 @@ description  | Sensu [RBAC namespace][9] that the handler belongs to.
 required     | false
 type         | String
 default      | `default`
-example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+example      | {{< code shell >}}"namespace": "production"{{< /code >}}
 
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created the handler or last updated the handler. Sensu automatically populates the `created_by` field when the handler is created or updated.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
+example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
 
 | labels     |      |
 -------------|------
@@ -186,10 +178,10 @@ description  | Custom attributes to include with event data that you can use for
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}}"labels": {
+example      | {{< code shell >}}"labels": {
   "environment": "development",
   "region": "us-west-2"
-}{{< /highlight >}}
+}{{< /code >}}
 
 | annotations |     |
 -------------|------
@@ -197,10 +189,10 @@ description  | Non-identifying metadata to include with event data that you can 
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}} "annotations": {
+example      | {{< code shell >}} "annotations": {
   "managed-by": "ops",
   "playbook": "www.example.url"
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Spec attributes
 
@@ -210,21 +202,21 @@ description  | Handler type.
 required     | true
 type         | String
 allowed values | `pipe`, `tcp`, `udp` & `set`
-example      | {{< highlight shell >}}"type": "pipe"{{< /highlight >}}
+example      | {{< code shell >}}"type": "pipe"{{< /code >}}
 
 filters      | 
 -------------|------
 description  | Array of Sensu event filters (by names) to use when filtering events for the handler. Each array item must be a string.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"filters": ["occurrences", "production"]{{< /highlight >}}
+example      | {{< code shell >}}"filters": ["occurrences", "production"]{{< /code >}}
 
 mutator      | 
 -------------|------
 description  | Name of the Sensu event mutator to use to mutate event data for the handler.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"mutator": "only_check_output"{{< /highlight >}}
+example      | {{< code shell >}}"mutator": "only_check_output"{{< /code >}}
 
 timeout     | 
 ------------|------
@@ -232,7 +224,7 @@ description | Handler execution duration timeout (hard stop). In seconds. Only u
 required    | false
 type        | Integer
 default     | `60` (for `tcp` and `udp` handlers)
-example     | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example     | {{< code shell >}}"timeout": 30{{< /code >}}
 
 command      | 
 -------------|------
@@ -241,7 +233,7 @@ description  | Handler command to be executed. The event data is passed to the p
 {{% /notice %}}
 required     | true (if `type` equals `pipe`)
 type         | String
-example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/pagerduty.go"{{< /highlight >}}
+example      | {{< code shell >}}"command": "/etc/sensu/plugins/pagerduty.go"{{< /code >}}
 
 env_vars      | 
 -------------|------
@@ -250,7 +242,7 @@ description  | Array of environment variables to use with command execution. {{%
 {{% /notice %}}
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"env_vars": ["API_KEY=0428d6b8nb51an4d95nbe28nf90865a66af5"]{{< /highlight >}}
+example      | {{< code shell >}}"env_vars": ["API_KEY=0428d6b8nb51an4d95nbe28nf90865a66af5"]{{< /code >}}
 
 socket       | 
 -------------|------
@@ -259,7 +251,7 @@ description  | Scope for [`socket` definition][6] used to configure the TCP/UDP 
 {{% /notice %}}
 required     | true (if `type` equals `tcp` or `udp`)
 type         | Hash
-example      | {{< highlight shell >}}"socket": {}{{< /highlight >}}
+example      | {{< code shell >}}"socket": {}{{< /code >}}
 
 handlers     | 
 -------------|------
@@ -268,21 +260,21 @@ description  | Array of Sensu event handlers (by their names) to use for events 
 {{% /notice %}}
 required     | true (if `type` equals `set`)
 type         | Array
-example      | {{< highlight shell >}}"handlers": ["pagerduty", "email", "ec2"]{{< /highlight >}}
+example      | {{< code shell >}}"handlers": ["pagerduty", "email", "ec2"]{{< /code >}}
 
 runtime_assets | 
 ---------------|------
 description    | Array of [Sensu assets][7] (by names) required at runtime to execute the `command`
 required       | false
 type           | Array
-example        | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
+example        | {{< code shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /code >}}
 
 secrets        | 
 ---------------|------
 description    | Array of the name/secret pairs to use with command execution.
 required       | false
 type           | Array
-example        | {{< highlight shell >}}"secrets": [
+example        | {{< code shell >}}"secrets": [
   {
     "name": "ANSIBLE_HOST",
     "secret": "sensu-ansible-host"
@@ -291,7 +283,7 @@ example        | {{< highlight shell >}}"secrets": [
     "name": "ANSIBLE_TOKEN",
     "secret": "sensu-ansible-token"
   }
-]{{< /highlight >}}
+]{{< /code >}}
 
 #### `socket` attributes
 
@@ -300,14 +292,14 @@ host         |
 description  | Socket host address (IP or hostname) to connect to.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"host": "8.8.8.8"{{< /highlight >}}
+example      | {{< code shell >}}"host": "8.8.8.8"{{< /code >}}
 
 port         | 
 -------------|------
 description  | Socket port to connect to.
 required     | true
 type         | Integer
-example      | {{< highlight shell >}}"port": 4242{{< /highlight >}}
+example      | {{< code shell >}}"port": 4242{{< /code >}}
 
 #### `secrets` attributes
 
@@ -316,14 +308,14 @@ name         |
 description  | Name of the [secret][20] defined in the executable command. Becomes the environment variable presented to the check. See [Use secrets management in Sensu][26] for more information.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "ANSIBLE_HOST"{{< /highlight >}}
+example      | {{< code shell >}}"name": "ANSIBLE_HOST"{{< /code >}}
 
 secret       | 
 -------------|------
 description  | Name of the Sensu secret resource that defines how to retrieve the [secret][20].
 required     | true
 type         | String
-example      | {{< highlight shell >}}"secret": "sensu-ansible-host"{{< /highlight >}}
+example      | {{< code shell >}}"secret": "sensu-ansible-host"{{< /code >}}
 
 ## Handler examples
 
@@ -331,7 +323,7 @@ example      | {{< highlight shell >}}"secret": "sensu-ansible-host"{{< /highlig
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -340,9 +332,9 @@ metadata:
 spec:
   command: command-example
   type: pipe
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -355,7 +347,7 @@ spec:
     "type": "pipe"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -366,7 +358,7 @@ Change the type from `tcp` to `udp` to create the minimum configuration for a `u
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -377,9 +369,9 @@ spec:
     host: 10.0.1.99
     port: 4444
   type: tcp
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -395,7 +387,7 @@ spec:
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -405,7 +397,7 @@ This handler will send alerts to a channel named `monitoring` with the configure
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -422,9 +414,9 @@ spec:
   runtime_assets: []
   timeout: 0
   type: pipe
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -447,7 +439,7 @@ spec:
     "type": "pipe"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -457,7 +449,7 @@ This handler will send event data to a TCP socket (10.0.1.99:4444) and timeout i
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -468,9 +460,9 @@ spec:
     host: 10.0.1.99
     port: 4444
   type: tcp
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -486,7 +478,7 @@ spec:
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -496,7 +488,7 @@ This handler will forward event data to a UDP socket (10.0.1.99:4444) and timeou
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -507,9 +499,9 @@ spec:
     host: 10.0.1.99
     port: 4444
   type: udp
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -525,7 +517,7 @@ spec:
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -538,7 +530,7 @@ This example demonstrates how to configure a registration event handler to creat
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -548,9 +540,9 @@ spec:
   handlers:
   - servicenow-cmdb
   type: set
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -565,7 +557,7 @@ spec:
     "type": "set"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -577,7 +569,7 @@ The following example handler will execute three handlers: `slack`, `tcp_handler
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -589,9 +581,9 @@ spec:
   - tcp_handler
   - udp_handler
   type: set
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -608,7 +600,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -618,7 +610,7 @@ Learn more about [secrets management][26] for your Sensu configuration in the [s
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 type: Handler 
 api_version: core/v2 
@@ -633,9 +625,9 @@ spec:
     secret: sensu-ansible-host
   - name: ANSIBLE_TOKEN
     secret: sensu-ansible-token
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -658,7 +650,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

@@ -10,16 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Check commands](#check-commands)
-- [Check result specification](#check-result-specification)
-- [Check scheduling](#check-scheduling): [Subscriptions](#subscriptions) | [Scheduling](#scheduling)
-- [Proxy checks](#proxy-checks)
-- [Check token substitution](#check-token-substitution)
-- [Check hooks](#check-hooks)
-- [Check specification](#check-specification)
-	- [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [Proxy requests attributes](#proxy-requests-attributes) | [Check output truncation attributes](#check-output-truncation-attributes) | [`secrets` attributes](#secrets-attributes)
-- [Examples](#examples)
-
 Checks work with Sensu agents to produce monitoring events automatically.
 You can use checks to monitor server resources, services, and application health as well as collect and analyze metrics.
 Read [Monitor server resources][12] to get started.
@@ -124,7 +114,7 @@ This helps balance the load of both the backend and the agent and may result in 
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -138,9 +128,9 @@ spec:
   publish: true
   subscriptions:
   - system
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -156,7 +146,7 @@ spec:
     "publish": true
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -180,7 +170,7 @@ To schedule a check to execute once a minute at the start of the minute, set the
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -194,9 +184,9 @@ spec:
   publish: true
   subscriptions:
   - system
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -212,7 +202,7 @@ spec:
     "publish": true
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -221,7 +211,7 @@ Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the `cron` attri
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -248,9 +238,9 @@ spec:
   - sys
   timeout: 0
   ttl: 0
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
    "type": "CheckConfig",
    "api_version": "core/v2",
@@ -282,7 +272,7 @@ spec:
       "ttl": 0
    }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -295,7 +285,7 @@ To create a check with ad-hoc scheduling, set the `publish` attribute to `false`
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -309,9 +299,9 @@ spec:
   publish: false
   subscriptions:
   - system
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -327,7 +317,7 @@ spec:
     "publish": false
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -349,7 +339,7 @@ The following proxy check runs every 60 seconds, cycling through the agents with
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -365,9 +355,9 @@ spec:
   round_robin: true
   subscriptions:
   - proxy
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -385,7 +375,7 @@ spec:
     "proxy_entity_name": "sensu-site"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -407,7 +397,7 @@ See the [entity reference][40] for information about using custom labels.
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -425,9 +415,9 @@ spec:
   round_robin: true
   subscriptions:
   - proxy
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -449,7 +439,7 @@ spec:
     "round_robin": true
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -486,21 +476,21 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][41] resource type. Checks should always be type `CheckConfig`.
 required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][41].
 type         | String
-example      | {{< highlight shell >}}"type": "CheckConfig"{{< /highlight >}}
+example      | {{< code shell >}}"type": "CheckConfig"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For checks in Sensu backend version 5.4 and later, this attribute should always be `core/v2`.
 required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][41].
 type         | String
-example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the check, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][25] for details.
 required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][41].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"metadata": {
+example      | {{< code shell >}}"metadata": {
   "name": "collect-metrics",
   "namespace": "default",
   "labels": {
@@ -509,21 +499,21 @@ example      | {{< highlight shell >}}"metadata": {
   "annotations": {
     "slack-channel" : "#monitoring"
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the check [spec attributes][42].
 required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][41].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"spec": {
+example      | {{< code shell >}}"spec": {
   "command": "/etc/sensu/plugins/check-chef-client.go",
   "interval": 10,
   "publish": true,
   "subscriptions": [
     "production"
   ]
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Metadata attributes
 
@@ -532,7 +522,7 @@ example      | {{< highlight shell >}}"spec": {
 description  | Unique string used to identify the check. Check names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][53]). Each check must have a unique name within its namespace.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "check-cpu"{{< /highlight >}}
+example      | {{< code shell >}}"name": "check-cpu"{{< /code >}}
 
 | namespace  |      |
 -------------|------
@@ -540,7 +530,7 @@ description  | [Sensu RBAC namespace][26] that the check belongs to.
 required     | false
 type         | String
 default      | `default`
-example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+example      | {{< code shell >}}"namespace": "production"{{< /code >}}
 
 | labels     |      |
 -------------|------
@@ -548,10 +538,10 @@ description  | Custom attributes to include with event data that you can use for
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}}"labels": {
+example      | {{< code shell >}}"labels": {
   "environment": "development",
   "region": "us-west-2"
-}{{< /highlight >}}
+}{{< /code >}}
 
 | annotations |     |
 -------------|------
@@ -559,10 +549,10 @@ description  | Non-identifying metadata to include with event data that you can 
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}}"annotations": {
+example      | {{< code shell >}}"annotations": {
   "managed-by": "ops",
   "playbook": "www.example.url"
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Spec attributes
 
@@ -571,28 +561,28 @@ example      | {{< highlight shell >}}"annotations": {
 description  | Check command to be executed.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/check-chef-client.go"{{< /highlight >}}
+example      | {{< code shell >}}"command": "/etc/sensu/plugins/check-chef-client.go"{{< /code >}}
 
 |subscriptions|     |
 -------------|------
 description  | Array of Sensu entity subscriptions that check requests will be sent to. The array cannot be empty and its items must each be a string.
 required     | true
 type         | Array
-example      | {{< highlight shell >}}"subscriptions": ["production"]{{< /highlight >}}
+example      | {{< code shell >}}"subscriptions": ["production"]{{< /code >}}
 
 |handlers    |      |
 -------------|------
 description  | Array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"handlers": ["pagerduty", "email"]{{< /highlight >}}
+example      | {{< code shell >}}"handlers": ["pagerduty", "email"]{{< /code >}}
 
 |interval    |      |
 -------------|------
 description  | How often the check is executed. In seconds.
 required     | true (unless `cron` is configured)
 type         | Integer
-example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
+example      | {{< code shell >}}"interval": 60{{< /code >}}
 
 |cron        |      |
 -------------|------
@@ -601,7 +591,7 @@ description  | When the check should be executed, using [cron syntax][14] or [th
 {{% /notice %}}
 required     | true (unless `interval` is configured)
 type         | String
-example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
+example      | {{< code shell >}}"cron": "0 0 * * *"{{< /code >}}
 
 |publish     |      |
 -------------|------
@@ -609,14 +599,14 @@ description  | `true` if check requests are published for the check. Otherwise, 
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< highlight shell >}}"publish": false{{< /highlight >}}
+example      | {{< code shell >}}"publish": false{{< /code >}}
 
 |timeout     |      |
 -------------|------
 description  | Check execution duration timeout (hard stop). In seconds.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 <a name="ttl-attribute"></a>
 
@@ -627,7 +617,7 @@ description  | The time-to-live (TTL) until check results are considered stale. 
 {{% /notice %}}
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"ttl": 100{{< /highlight >}}
+example      | {{< code shell >}}"ttl": 100{{< /code >}}
 
 |stdin       |      |
 -------------|------
@@ -635,28 +625,28 @@ description  | `true` if the Sensu agent writes JSON serialized Sensu entity and
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< highlight shell >}}"stdin": true{{< /highlight >}}
+example      | {{< code shell >}}"stdin": true{{< /code >}}
 
 |low_flap_threshold ||
 -------------|------
 description  | Flap detection low threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][16].
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"low_flap_threshold": 20{{< /highlight >}}
+example      | {{< code shell >}}"low_flap_threshold": 20{{< /code >}}
 
 |high_flap_threshold ||
 -------------|------
 description  | Flap detection high threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][16].
 required     | true (if `low_flap_threshold` is configured)
 type         | Integer
-example      | {{< highlight shell >}}"high_flap_threshold": 60{{< /highlight >}}
+example      | {{< code shell >}}"high_flap_threshold": 60{{< /code >}}
 
 |runtime_assets |   |
 -------------|------
 description  | Array of [Sensu assets][9] (names). Required at runtime for the execution of the `command`.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
+example      | {{< code shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /code >}}
 
 <a name="check-hooks-attribute"></a>
 
@@ -665,7 +655,7 @@ example      | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highl
 description  | Array of check response types with respective arrays of [Sensu hook names][6]. Sensu hooks are commands run by the Sensu agent in response to the result of the check command execution. Hooks are executed in order of precedence based on their severity type: `1` to `255`, `ok`, `warning`, `critical`, `unknown`, and finally `non-zero`.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"check_hooks": [
+example      | {{< code shell >}}"check_hooks": [
   {
     "0": [
       "passing-hook","always-run-this-hook"
@@ -676,7 +666,7 @@ example      | {{< highlight shell >}}"check_hooks": [
       "failing-hook","collect-diagnostics","always-run-this-hook"
     ]
   }
-]{{< /highlight >}}
+]{{< /code >}}
 
 <a name="proxy-entity-name-attribute"></a>
 
@@ -686,7 +676,7 @@ description  | Entity name. Used to create a [proxy entity][20] for an external 
 required     | false
 type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
-example      | {{< highlight shell >}}"proxy_entity_name": "switch-dc-01"{{< /highlight >}}
+example      | {{< code shell >}}"proxy_entity_name": "switch-dc-01"{{< /code >}}
 
 <a name="proxy-requests-top-level"></a>
 
@@ -695,20 +685,20 @@ example      | {{< highlight shell >}}"proxy_entity_name": "switch-dc-01"{{< /hi
 description  | Assigns a check to run for multiple entities according to their `entity_attributes`. In the example below, the check executes for all entities with entity class `proxy` and the custom proxy type label `website`. Proxy requests are a great way to reuse check definitions for a group of entities. For more information, see the [proxy requests specification][10] and [Monitor external resources][28].
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"proxy_requests": {
+example      | {{< code shell >}}"proxy_requests": {
   "entity_attributes": [
     "entity.entity_class == 'proxy'",
     "entity.labels.proxy_type == 'website'"
   ],
   "splay": true,
   "splay_coverage": 90
-}{{< /highlight >}}
+}{{< /code >}}
 
 |silenced    |      |
 -------------|------
 description  | Silences that apply to the check.
 type         | Array
-example      | {{< highlight shell >}}"silenced": ["*:routers"]{{< /highlight >}}
+example      | {{< code shell >}}"silenced": ["*:routers"]{{< /code >}}
 
 |env_vars    |      |
 -------------|------
@@ -717,21 +707,21 @@ description  | Array of environment variables to use with command execution. {{%
 {{% /notice %}}
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"env_vars": ["RUBY_VERSION=2.5.0", "CHECK_HOST=my.host.internal"]{{< /highlight >}}
+example      | {{< code shell >}}"env_vars": ["RUBY_VERSION=2.5.0", "CHECK_HOST=my.host.internal"]{{< /code >}}
 
 |output_metric_format    |      |
 -------------|------
 description  | Metric format generated by the check command. Sensu supports the following metric formats: <br>`nagios_perfdata` ([Nagios Performance Data][46]) <br>`graphite_plaintext` ([Graphite Plaintext Protocol][47]) <br>`influxdb_line` ([InfluxDB Line Protocol][48]) <br>`opentsdb_line` ([OpenTSDB Data Specification][49])<br><br>When a check includes an `output_metric_format`, Sensu will extract the metrics from the check output and add them to the event data in [Sensu metric format][50]. Read [Collect metrics with Sensu checks][23]. 
 required     | false
 type         | String
-example      | {{< highlight shell >}}"output_metric_format": "graphite_plaintext"{{< /highlight >}}
+example      | {{< code shell >}}"output_metric_format": "graphite_plaintext"{{< /code >}}
 
 |output_metric_handlers    |      |
 -------------|------
 description  | Array of Sensu handlers to use for events created by the check. Each array item must be a string. Use `output_metric_handlers` in place of the `handlers` attribute if `output_metric_format` is configured. Metric handlers must be able to process [Sensu metric format][50]. For an example, see the [Sensu InfluxDB handler][51].
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{< /highlight >}}
+example      | {{< code shell >}}"output_metric_handlers": ["influx-db"]{{< /code >}}
 
 <a name="round-robin-attribute"></a>
 
@@ -741,19 +731,19 @@ description  | When set to `true`, Sensu executes the check once per interval, c
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< highlight shell >}}"round_robin": true{{< /highlight >}}
+example      | {{< code shell >}}"round_robin": true{{< /code >}}
 
 |subdue      |      |
 -------------|------
 description  | Check subdues are not yet implemented in Sensu Go. Although the `subdue` attribute appears in check definitions by default, it is a placeholder and should not be modified.
-example      | {{< highlight shell >}}"subdue": null{{< /highlight >}}
+example      | {{< code shell >}}"subdue": null{{< /code >}}
 
 secrets        | 
 ---------------|------
 description    | Array of the name/secret pairs to use with command execution.
 required       | false
 type           | Array
-example        | {{< highlight shell >}}"secrets": [
+example        | {{< code shell >}}"secrets": [
   {
     "name": "ANSIBLE_HOST",
     "secret": "sensu-ansible-host"
@@ -762,7 +752,7 @@ example        | {{< highlight shell >}}"secrets": [
     "name": "ANSIBLE_TOKEN",
     "secret": "sensu-ansible-token"
   }
-]{{< /highlight >}}
+]{{< /code >}}
 
 #### Proxy requests attributes
 
@@ -771,10 +761,10 @@ example        | {{< highlight shell >}}"secrets": [
 description  | Sensu entity attributes to match entities in the registry using [Sensu query expressions][11].
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"entity_attributes": [
+example      | {{< code shell >}}"entity_attributes": [
   "entity.entity_class == 'proxy'",
   "entity.labels.proxy_type == 'website'"
-]{{< /highlight >}}
+]{{< /code >}}
 
 |splay       |      |
 -------------|------
@@ -782,14 +772,14 @@ description  | `true` if proxy check requests should be splayed, published evenl
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< highlight shell >}}"splay": true{{< /highlight >}}
+example      | {{< code shell >}}"splay": true{{< /code >}}
 
 |splay_coverage  | |
 -------------|------
 description  | **Percentage** of the check interval over which Sensu can execute the check for all applicable entities, as defined in the entity attributes. Sensu uses the splay coverage attribute to determine the amount of time check requests can be published over (before the next check interval).
 required     | Required if `splay` attribute is set to `true`
 type         | Integer
-example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
+example      | {{< code shell >}}"splay_coverage": 90{{< /code >}}
 
 #### Check output truncation attributes
 
@@ -798,14 +788,14 @@ example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
 description  | Maximum size of stored check outputs. In bytes. When set to a non-zero value, the Sensu backend truncates check outputs larger than this value before storing to etcd. `max_output_size` does not affect data sent to Sensu filters, mutators, and handlers.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"max_output_size": 1024{{< /highlight >}}
+example      | {{< code shell >}}"max_output_size": 1024{{< /code >}}
 
 |discard_output  | |
 -------------|------
 description  | If `true`, discard check output after extracting metrics. No check output will be sent to the Sensu backend. Otherwise, `false`.
 required     | false
 type         | Boolean
-example      | {{< highlight shell >}}"discard_output": true{{< /highlight >}}
+example      | {{< code shell >}}"discard_output": true{{< /code >}}
 
 #### `secrets` attributes
 
@@ -814,14 +804,14 @@ name         |
 description  | Name of the [secret][56] defined in the executable command. Becomes the environment variable presented to the check. See [Use secrets management in Sensu][59] for more information.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "ANSIBLE_HOST"{{< /highlight >}}
+example      | {{< code shell >}}"name": "ANSIBLE_HOST"{{< /code >}}
 
 secret       | 
 -------------|------
 description  | Name of the Sensu secret resource that defines how to retrieve the [secret][56].
 required     | true
 type         | String
-example      | {{< highlight shell >}}"secret": "sensu-ansible-host"{{< /highlight >}}
+example      | {{< code shell >}}"secret": "sensu-ansible-host"{{< /code >}}
 
 ## Examples
 
@@ -833,7 +823,7 @@ example      | {{< highlight shell >}}"secret": "sensu-ansible-host"{{< /highlig
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -847,9 +837,9 @@ spec:
   publish: true
   subscriptions:
   - system
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -869,7 +859,7 @@ spec:
     "publish": true
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -877,7 +867,7 @@ spec:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -908,9 +898,9 @@ spec:
   - system
   timeout: 0
   ttl: 0
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -949,7 +939,7 @@ spec:
     "discard_output": true
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -959,7 +949,7 @@ Learn more about [secrets management][59] for your Sensu configuration in the [s
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 type: CheckConfig
 api_version: core/v2
@@ -972,9 +962,9 @@ spec:
   secrets:
   - name: GITHUB_TOKEN
     secret: github-token-vault
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -993,7 +983,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -1005,7 +995,7 @@ For example:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -1019,9 +1009,9 @@ spec:
   - slack
   interval: 60
   publish: true
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -1037,7 +1027,7 @@ spec:
     "publish": true
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

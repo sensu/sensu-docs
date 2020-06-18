@@ -33,7 +33,7 @@ key, and CA can be used.
 The following is an example global configuration for the `puppet` enterprise
 handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "puppet": {
     "endpoint": "https://10.0.1.12:8081/pdb/query/v4/nodes/",
@@ -46,12 +46,12 @@ handler (integration).
     "timeout": 10
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 The Puppet enterprise handler is most commonly used as part of the `keepalive`
 set handler. For example:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "keepalive": {
@@ -63,7 +63,7 @@ set handler. For example:
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 When querying PuppetDB for a node, by default, Sensu will use the Sensu client's
 name for the Puppet node name. Individual Sensu clients can override the name of
@@ -71,7 +71,7 @@ their corresponding Puppet node, using specific client definition attributes.
 
 The following is an example client definition, specifying its Puppet node name.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -85,7 +85,7 @@ The following is an example client definition, specifying its Puppet node name.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -103,14 +103,14 @@ endpoint     |
 description  | The PuppetDB API endpoint (URL). If an API path is not specified, `/pdb/query/v4/nodes/` will be used.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"endpoint": "https://10.0.1.12:8081/pdb/query/v4/nodes/"{{< /highlight >}}
+example      | {{< code shell >}}"endpoint": "https://10.0.1.12:8081/pdb/query/v4/nodes/"{{< /code >}}
 
 ssl          | 
 -------------|------
 description  | A set of attributes that configure SSL for PuppetDB API queries.
 required     | true
 type         | Hash
-example      | {{< highlight shell >}}"ssl": {}{{< /highlight >}}
+example      | {{< code shell >}}"ssl": {}{{< /code >}}
 
 #### `ssl` attributes
 
@@ -119,7 +119,7 @@ The following attributes are configured within the `{"puppet": { "ssl": {} } }`
 
 ##### EXAMPLE {#ssl-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "puppet": {
     "endpoint": "https://10.0.1.12:8081/pdb/query/v4/nodes/",
@@ -132,7 +132,7 @@ The following attributes are configured within the `{"puppet": { "ssl": {} } }`
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#ssl-attributes-specification}
 
@@ -141,35 +141,35 @@ keystore_file |
 description   | The file path for the SSL certificate keystore.
 required      | true
 type          | String
-example       | {{< highlight shell >}}"keystore_file": "/etc/sensu/ssl/puppet/keystore.jks"{{< /highlight >}}
+example       | {{< code shell >}}"keystore_file": "/etc/sensu/ssl/puppet/keystore.jks"{{< /code >}}
 
 keystore_password | 
 ------------------|------
 description       | The SSL certificate keystore password.
 required          | true
 type              | String
-example           | {{< highlight shell >}}"keystore_password": "secret"{{< /highlight >}}
+example           | {{< code shell >}}"keystore_password": "secret"{{< /code >}}
 
 truststore_file | 
 ----------------|------
 description     | The file path for the SSL certificate truststore.
 required        | true
 type            | String
-example         | {{< highlight shell >}}"truststore_file": "/etc/sensu/ssl/puppet/truststore.jks"{{< /highlight >}}
+example         | {{< code shell >}}"truststore_file": "/etc/sensu/ssl/puppet/truststore.jks"{{< /code >}}
 
 truststore_password | 
 --------------------|------
 description         | The SSL certificate truststore password.
 required            | true
 type                | String
-example             | {{< highlight shell >}}"truststore_password": "secret"{{< /highlight >}}
+example             | {{< code shell >}}"truststore_password": "secret"{{< /code >}}
 
 http_proxy   | |
 -------------|------
 description  | The URL of a proxy to be used for HTTP requests.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /highlight >}}
+example      | {{< code shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /code >}}
 
 timeout      | |
 -------------|------
@@ -177,7 +177,7 @@ description  | The handler execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
 default      | `10`
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 
 [?]:  #

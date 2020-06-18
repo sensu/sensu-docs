@@ -16,7 +16,7 @@ Uchiwa loads configuration from these sources in the following order:
 
 ## Minimal Configuration
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "sensu": [
     {
@@ -29,13 +29,13 @@ Uchiwa loads configuration from these sources in the following order:
     "host": "0.0.0.0",
     "port": 3000
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ## Datacenters Configuration (Sensu) {#datacenters-configuration-sensu}
 The *sensu* array contains a hash for every Sensu API, represented as **datacenters** in Uchiwa.
 
 Each hash can contain the following attributes:
-{{< highlight json >}}
+{{< code json >}}
 {
   "sensu": [
     {
@@ -50,7 +50,7 @@ Each hash can contain the following attributes:
       "pass": "secret"
     }
   ]  
-}{{< /highlight >}}
+}{{< /code >}}
 
 Key     | Required | Type | Description
 --------|----------|------|------
@@ -68,7 +68,7 @@ pass | false | string | Password of the Sensu API.
 
 The *uchiwa* hash can contain the following attributes:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "uchiwa": {
     "host": "0.0.0.0",
@@ -82,7 +82,7 @@ The *uchiwa* hash can contain the following attributes:
     "ssl": {"...":"..."},
     "usersOptions": {"...":"..."}
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 Key     | Required | Type | Description
 --------|----------|------|------
@@ -102,7 +102,7 @@ usersOptions | false | hash | [See the Users Options documentation](#users-optio
 You can define multiple users, including read-only users, within your
 users attribute. The **users** attribute has precedence over the **user** attribute.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "uchiwa": {
     "users": [
@@ -120,7 +120,7 @@ users attribute. The **users** attribute has precedence over the **user** attrib
       }
     ]
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 Key     | Required | Type | Description
 --------|----------|------|------
@@ -133,7 +133,7 @@ readonly | false | boolean | Restrict write access to the dashboard (create stas
 
 This hash can set various global users options.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "uchiwa": {
     "usersOptions": {
@@ -146,7 +146,7 @@ This hash can set various global users options.
       "silenceDurations": [ 0.5, 2 ]
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 Key     | Required | Type | Description
 --------|----------|------|------
@@ -161,8 +161,8 @@ silenceDurations | false | array of decimals | Additional preset durations (**in
 ### Generating an access token {#generating-an-access-token}
 An access token must only contain friendly URL characters. We recommend using
 the following command to create a proper token:
-{{< highlight shell >}}
-openssl rand -base64 40 |  tr -- '+=/' '-_~'{{< /highlight >}}
+{{< code shell >}}
+openssl rand -base64 40 |  tr -- '+=/' '-_~'{{< /code >}}
 
 [1]:  ../../guides/high-availability/#uchiwa-high-availability
 [2]:  ../../guides/security/#https-encryption

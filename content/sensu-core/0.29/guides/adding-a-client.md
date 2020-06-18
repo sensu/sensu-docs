@@ -70,7 +70,7 @@ note the following steps that are required to add a remote Sensu client:
    `/etc/sensu/conf.d/client.json` with the following contents (replacing the
    values for the client `name`, `address`, and `subscriptions` with the
    corresponding values for the client you are adding):
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "client": {
     "name": "i-041256",
@@ -80,20 +80,20 @@ note the following steps that are required to add a remote Sensu client:
       "webserver"
     ]
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 2. **Tell the client which transport to use**. Create a transport definition at
    `/etc/sensu/conf.d/transport.json` with the following contents (replacing the
    value for the transport `name` with the corresponding value for the transport
    you are using; e.g. use `"transport": "redis"` if you are using the Redis
    transport).
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "transport": {
     "name": "rabbitmq",
     "reconnect_on_error": true
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 3. **Tell the client how to connect to the transport**. Create a transport
    definition at `/etc/sensu/conf.d/rabbitmq.json` (or
@@ -107,8 +107,8 @@ note the following steps that are required to add a remote Sensu client:
    log file:
    _NOTE: The `service` command will not work on CentOS 5, the
    sysvinit script must be used, e.g. `sudo /etc/init.d/sensu-client start`_
-   {{< highlight shell >}}
-sudo service sensu-client start{{< /highlight >}}
+   {{< code shell >}}
+sudo service sensu-client start{{< /code >}}
 
 ## Proxy Clients
 

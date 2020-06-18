@@ -11,12 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Add the email handler asset](#add-the-email-handler-asset)
-- [Add an event filter](#add-an-event-filter)
-- [Create the email handler definition](#create-the-email-handler-definition)
-- [Create and trigger an ad hoc event](#create-and-trigger-an-ad-hoc-event)
-- [Next steps](#next-steps)
-
 Sensu event handlers are actions the Sensu backend executes on [events][1].
 This guide explains how to use the [Sensu Go Email Handler][3] asset to send notification emails.
 
@@ -35,9 +29,9 @@ In this guide, you'll use the [Sensu Go Email Handler][3] asset to power an `ema
 
 Use the following sensuctl example to register the [Sensu Go Email Handler][3] asset:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset add sensu/sensu-email-handler -r email-handler
-{{< /highlight >}}
+{{< /code >}}
 
 The -r (rename) flag allows you to specify a shorter name for the asset (in this case, `email-handler`).
 
@@ -45,16 +39,16 @@ You can also download the latest asset definition for your platform from [Bonsai
 
 To confirm that the handler asset was added correctly, run:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset list
-{{< /highlight >}}
+{{< /code >}}
 
 You should see the `email-handler` asset in the list.
 For a detailed list of everything related to the asset that Sensu added automatically, run:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset info email-handler
-{{< /highlight >}}
+{{< /code >}}
 
 The asset includes the `sensu-email-handler` command, which you will use when you [create the email handler definition][18] later in this guide.
 
@@ -72,7 +66,7 @@ Here's an overview of how the `state_change_only` filter will work:
 
 To create the event filter, run:
 
-{{< highlight shell >}}
+{{< code shell >}}
 cat << EOF | sensuctl create
 ---
 type: EventFilter
@@ -88,7 +82,7 @@ spec:
   - event.check.occurrences == 1
   runtime_assets: []
 EOF
-{{< /highlight >}}
+{{< /code >}}
 
 ## Create the email handler definition
 
@@ -97,7 +91,7 @@ In the handler definition's `command` value, you'll need to change a few things.
 
 Copy this text into a text editor:
 
-{{< highlight shell >}}
+{{< code shell >}}
 cat << EOF | sensuctl create
 ---
 api_version: core/v2
@@ -117,7 +111,7 @@ spec:
   runtime_assets:
   - email-handler
 EOF
-{{< /highlight >}}
+{{< /code >}}
 
 Then, replace the following text:
 
@@ -151,21 +145,21 @@ In the final step, you will create an ad hoc event that you can trigger manually
 To create an ad hoc event, first use `sensuctl env` to set up environment variables.
 The environment variables will provide the required credentials for the Sensu API:
 
-{{< highlight shell >}}
+{{< code shell >}}
 eval $(sensuctl env)
-{{< /highlight >}}
+{{< /code >}}
 
 Verify that the `SENSU_ACCESS_TOKEN` environment variable is set by echoing its value:
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo $SENSU_ACCESS_TOKEN
 efPxbRciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzkwMzY5NjQsImp0aSI6ImJiMmY0ODY4ZTJhZWEyMDhhMTExOTllMGZkNzkzMDc0Iiwic3ViIjoiYWRtaW4iLCJncm91cHMiOlsiY2x1c3Rlci1hZG1pbnMiLCJzeXN0ZW06dXNlcnMiXSwicHJvdmlkZXIiOnsicHJvdmlkZXJfaWQiOiJiYXNpYyIsInByb3ZpZGVyX3R5cGUiOiIiLCJ1c2VyX2lkIjoiYWRtaW4ifX0.6XmuvblCN743R2maF4yErS3K3sOVczsCBsjib9TenUU
-{{< /highlight >}}
+{{< /code >}}
 
 With the environment variables set, you can use the Sensu API to create your ad hoc monitoring event.
 This event outputs the message "Everything is OK.” when it occurs:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -sS -H 'Content-Type: application/json' \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -d '{
@@ -186,14 +180,14 @@ curl -sS -H 'Content-Type: application/json' \
   }
 }' \
 http://localhost:8080/api/core/v2/namespaces/default/events
-{{< /highlight >}}
+{{< /code >}}
 
 As configured, the event status is `0` (OK).
 Now it's time to trigger an event and see the results!
 
 To generate a status change event, use the update event endpoint to create a `1` (warning) event. Run:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -sS -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
@@ -216,7 +210,7 @@ curl -sS -X PUT \
   }
 }' \
 http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-health
-{{< /highlight >}}
+{{< /code >}}
 
 {{% notice note %}}
 **NOTE**: If you see an `invalid credentials` error, refresh your token.
@@ -227,7 +221,7 @@ Check your email &mdash; you should see a message from Sensu!
 
 Create another event with status set to `0`. Run:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -sS -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
@@ -250,7 +244,7 @@ curl -sS -X PUT \
   }
 }' \
 http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-health
-{{< /highlight >}}
+{{< /code >}}
 
 You should receive another email because the event status changed to `0` (OK).
 

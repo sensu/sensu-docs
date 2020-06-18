@@ -40,13 +40,13 @@ format specified below._
 1. Download the Sensu [Solaris 10 package][1].
 
 2. Install the `sensu-1.4.1-1.i386.pkg` package using the `pkgadd` utility:
-   {{< highlight shell >}}
+   {{< code shell >}}
 $ su
-$ pkgadd -d sensu-1.4.1-1.i386.pkg{{< /highlight >}}
+$ pkgadd -d sensu-1.4.1-1.i386.pkg{{< /code >}}
 
 3. Install the Sensu service init script(s) using the `svccfg` utility:
-   {{< highlight shell >}}
-svccfg import /lib/svc/manifest/site/sensu-client.xml{{< /highlight >}}
+   {{< code shell >}}
+svccfg import /lib/svc/manifest/site/sensu-client.xml{{< /code >}}
 
 4. Configure the Sensu client. **No "default" configuration is provided with
    Sensu**, so the Sensu client will not run without the corresponding
@@ -57,18 +57,18 @@ svccfg import /lib/svc/manifest/site/sensu-client.xml{{< /highlight >}}
 ### Download and install Sensu on Solaris 11 {#download-and-install-sensu-core-on-solaris-11}
 
 1. Download the Sensu [Solaris 11 package][14] or use the `wget` utility:
-   {{< highlight shell >}}
-wget https://eol-repositories.sensuapp.org/solaris/ips/5.11/sensu-1.4.1-1.i386.p5p{{< /highlight >}}
+   {{< code shell >}}
+wget https://eol-repositories.sensuapp.org/solaris/ips/5.11/sensu-1.4.1-1.i386.p5p{{< /code >}}
 
 2. Install the `sensu-1.4.1-1.i386.p5p` package using the `pkg` utility:
-   {{< highlight shell >}}
-$ sudo pkg install -g sensu-1.4.1-1.i386.p5p developer/versioning/sensu{{< /highlight >}}
+   {{< code shell >}}
+$ sudo pkg install -g sensu-1.4.1-1.i386.p5p developer/versioning/sensu{{< /code >}}
 
 3. Download and run the Sensu [post-install script][12]:
-   {{< highlight shell >}}
+   {{< code shell >}}
 $ wget https://sensuapp.org/docs/1.4/files/postinst.sh
 $ chmod +x postinst.sh
-$ sudo ./postinst.sh{{< /highlight >}}
+$ sudo ./postinst.sh{{< /code >}}
    _NOTE: all native system installer packages for Sensu contain this
    post-install script, which is used for setting up the `sensu` system user and
    group, creating various configuration directories, setting configuration
@@ -77,8 +77,8 @@ $ sudo ./postinst.sh{{< /highlight >}}
    however at this time it is necessary to perform these steps manually._
 
 4. Install the Sensu service init script(s) using the `svcadm` utility:
-   {{< highlight shell >}}
-$ sudo svcadm restart manifest-import{{< /highlight >}}
+   {{< code shell >}}
+$ sudo svcadm restart manifest-import{{< /code >}}
 
 5. Configure the Sensu client. **No "default" configuration is provided with
    Sensu**, so the Sensu client will not run without the corresponding
@@ -105,14 +105,14 @@ In some cases, the default Sensu configuration directory (i.e.
 `/etc/sensu/conf.d/`) is not created by the Sensu installer, in which case it is
 necessary to create this directory manually.
 
-{{< highlight shell >}}
-mkdir /etc/sensu/conf.d{{< /highlight >}}
+{{< code shell >}}
+mkdir /etc/sensu/conf.d{{< /code >}}
 
 ### Example client configuration
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/client.json`:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "client": {
     "name": "solaris-client",
@@ -127,7 +127,7 @@ mkdir /etc/sensu/conf.d{{< /highlight >}}
       "port": 3030
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Example Transport Configuration
 
@@ -136,13 +136,13 @@ connect to the configured [Sensu Transport][6].
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/transport.json`:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "transport": {
     "name": "rabbitmq",
     "reconnect_on_error": true
   }
-}{{< /highlight >}}
+}{{< /code >}}
    _NOTE: if you are using Redis as your transport, please use `"name": "redis"`
    for your transport configuration. For more information, please visit the
    [transport definition specification][10]._
@@ -156,10 +156,10 @@ Please see [Redis][7] or [RabbitMQ][8] reference documentation for examples.
 
 Manually start, stop, and restart the Sensu services using the `svcadm` utility:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ svcadm enable sensu-client
 $ svcadm disable sensu-client
-$ svcadm restart sensu-client{{< /highlight >}}
+$ svcadm restart sensu-client{{< /code >}}
 
 [1]: https://eol-repositories.sensuapp.org/solaris/pkg/
 [2]: https://eol-repositories.sensuapp.org/solaris/pkg/

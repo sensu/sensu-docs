@@ -32,7 +32,7 @@ RBAC authentication.
 
 ### Example RBAC for GitHub definition
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "dashboard": {
     "host": "0.0.0.0",
@@ -69,7 +69,7 @@ RBAC authentication.
     }    
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### RBAC for GitHub definition specification
 
@@ -80,28 +80,28 @@ clientId     |
 description  | The GitHub OAuth Application "Client ID" _NOTE: requires [registration of an OAuth application in GitHub][3]._
 required     | true
 type         | String
-example      | {{< highlight shell >}}"clientId": "a8e43af034e7f2608780"{{< /highlight >}}
+example      | {{< code shell >}}"clientId": "a8e43af034e7f2608780"{{< /code >}}
 
 clientSecret | 
 -------------|------
 description  | The GitHub OAuth Application "Client Secret" _NOTE: requires [registration of an OAuth application in GitHub][3]._
 required     | true
 type         | String
-example      | {{< highlight shell >}}"clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216"{{< /highlight >}}
+example      | {{< code shell >}}"clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216"{{< /code >}}
 
 server       | 
 -------------|------
 description  | The location of the GitHub server you wish to authenticate against.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"server": "https://github.com"{{< /highlight >}}
+example      | {{< code shell >}}"server": "https://github.com"{{< /code >}}
 
 roles        | 
 -------------|------
 description  | An array of [`roles` definitions][4].
 required     | true
 type         | Array
-example      | {{< highlight shell >}}"roles": [
+example      | {{< code shell >}}"roles": [
   {
     "name": "guests",
     "members": [
@@ -125,7 +125,7 @@ example      | {{< highlight shell >}}"roles": [
     "readonly": false
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### `roles` attributes
 

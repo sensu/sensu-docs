@@ -11,12 +11,6 @@ menu:
     parent: installation
 ---
 
-- [Upgrade to the latest version of Sensu Go from 5.0.0 or later](#upgrade-to-the-latest-version-of-sensu-go-from-5-0-0-or-later)
-- [Upgrade to Sensu Go 5.16.0 from any earlier version](#upgrade-to-sensu-go-5-16-0-from-any-earlier-version)
-- [Upgrade Sensu clusters from 5.7.0 or earlier to 5.8.0 or later](#upgrade-sensu-clusters-from-5-7-0-or-earlier-to-5-8-0-or-later)
-- [Upgrade Sensu backend binaries to 5.1.0](#upgrade-sensu-backend-binaries-to-5-1-0)
-- [Migrate to Sensu Go from Sensu Core 1.x](#migrate-to-sensu-go-from-sensu-core-1-x)
-
 ## Upgrade to the latest version of Sensu Go from 5.0.0 or later
 
 To upgrade to the latest version of Sensu Go from version 5.0.0 or later, [install the latest packages][23].
@@ -27,13 +21,13 @@ Then, restart the services.
 **NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services.
 {{% /notice %}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Restart the Sensu agent
 sudo service sensu-agent restart
 
 # Restart the Sensu backend
 sudo service sensu-backend restart
-{{< /highlight >}}
+{{< /code >}}
 
 Use the `version` command to determine the installed version using the `sensu-agent`, `sensu-backend`, and `sensuctl` tools.
 For example, `sensu-backend version`.
@@ -50,9 +44,9 @@ However, if you try to create any new entities via the HTTP API or sensuctl, you
 
 Connections from new agents will fail and result in a log message like this:
 
-{{< highlight shell >}}
+{{< code shell >}}
 {"component":"agent","error":"handshake failed with status 402","level":"error","msg":"reconnection attempt failed","time":"2019-11-20T05:49:24-07:00"}
-{{< /highlight >}}
+{{< /code >}}
 
 In the web UI, you will see the following message when you reach the 100-entity limit:
 
@@ -81,10 +75,10 @@ To upgrade your Sensu backend binary to 5.1.0, first [download the latest versio
 Then, make sure the `/etc/sensu/backend.yml` configuration file specifies a `state-dir`.
 To continue using `/var/lib/sensu` as the `state-dir`, add the following configuration to `/etc/sensu/backend.yml`.
 
-{{< highlight yml >}}
+{{< code yml >}}
 # /etc/sensu/backend.yml configuration to store backend data at /var/lib/sensu
 state-dir: "/var/lib/sensu"
-{{< /highlight >}}
+{{< /code >}}
 
 Then restart the backend.
 

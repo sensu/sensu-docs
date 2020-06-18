@@ -10,11 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Activate your commercial license](#activate-your-commercial-license)
-- [Entity limit](#entity-limit)
-- [License expiration](#license-expiration)
-- [Quick links](#quick-links)
-
 ## Activate your commercial license
 
 If you haven't already, [install the backend, agent, and sensuctl][2] and [configure sensuctl][3].
@@ -27,13 +22,13 @@ With the license file downloaded, you can activate your license with sensuctl or
 
 To activate your license with sensuctl:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file sensu_license.json
-{{< /highlight >}}
+{{< /code >}}
 
 Use sensuctl to view your license details at any time.
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Active license
 sensuctl license info
 === Training Team - Sensu
@@ -51,7 +46,7 @@ Valid Until:  2019-03-15 00:00:00 -0800 -0800
 # No license found
 sensuctl license info
 Error: not found
-{{< /highlight >}}
+{{< /code >}}
 
 ## Entity limit
 
@@ -62,18 +57,18 @@ Both agent and proxy entities count toward the overall entity limit.
 
 To see your current entity count, use any `/api/core` or `/api/enterprise` [API request][9]. For example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
-{{< /highlight >}}
+{{< /code >}}
 
 Your current entity count and limit are listed as response headers:
 
-{{< highlight shell >}}
+{{< code shell >}}
 HTTP/1.1 200 OK
 Content-Type: application/json
 Sensu-Entity-Count: 4
 Sensu-Entity-Limit: 0
-{{< /highlight >}}
+{{< /code >}}
 
 ## License expiration
 

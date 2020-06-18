@@ -24,7 +24,7 @@ The `/events` API endpoint provide HTTP GET access to the Sensu event registry.
 The following example demonstrates a `/events` API query which returns a JSON
 Array of JSON Hashes containing [event data][1].
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:3000/events | jq .
 [
   {
@@ -95,7 +95,7 @@ $ curl -s http://127.0.0.1:3000/events | jq .
     "timestamp": 1460303502
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#events-get-specification}
 
@@ -105,7 +105,7 @@ description    | Returns the list of current events with check, client, and data
 example url    | http://hostname:3000/events
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight json >}}[
+output         | {{< code json >}}[
   {
     "_id": "us_west1/client-01/sensu_website",
     "action": "create",
@@ -151,7 +151,7 @@ output         | {{< highlight json >}}[
     "timestamp": 1460303502
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ## The `/events/:client/:check` API endpoint {#the-eventsclientcheck-api-endpoint}
 
@@ -166,7 +166,7 @@ The following example demonstrates a `/events/:client/:check` API request to
 to delete event data for a client named `client-01` and a check named
 `sensu_website`, resulting in a [202 (Accepted) HTTP response code][2].
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -s -i -X DELETE http://127.0.0.1:3000/events/client-01/sensu_website
 HTTP/1.1 202 Accepted
 Content-Type: application/json
@@ -177,7 +177,7 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 21
 Connection: keep-alive
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#eventsclientcheck-delete-specification}
 

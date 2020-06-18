@@ -9,12 +9,6 @@ menu:
     parent: reference
 ---
 
-- [Configure Tessen](#configure-tessen)
-- [Tessen specification](#tessen-specification)
-  - [Top-level attributes](#top-level-attributes) | [Spec attributes](#spec-attributes)
-- [Tessen configuration example](#tessen-configuration-example)
-- [Tessen metrics log examples](#tessen-metrics-log-examples)
-
 Tessen is the Sensu call-home service.
 It is enabled by default on Sensu backends.
 Tessen sends anonymized data about Sensu instances to Sensu Inc., including the version, cluster size, number of events processed, and number of resources created (like checks and handlers).
@@ -32,15 +26,15 @@ To manage Tessen configuration with sensuctl, configure sensuctl as the default 
 
 To see Tessen status:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl tessen info
-{{< /highlight >}}
+{{< /code >}}
 
 To opt out of Tessen:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl tessen opt-out
-{{< /highlight >}}
+{{< /code >}}
 
 {{% notice note %}}
 **NOTE**: [Licensed](../license/) Sensu instances override Tessen configuration to opt in at runtime.
@@ -48,15 +42,15 @@ sensuctl tessen opt-out
 
 You can use the `--skip-confirm` flag to skip the confirmation step:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl tessen opt-out --skip-confirm
-{{< /highlight >}}
+{{< /code >}}
 
 To opt in to Tessen:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl tessen opt-in
-{{< /highlight >}}
+{{< /code >}}
 
 ## Tessen specification
 
@@ -67,25 +61,25 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][7] resource type. Tessen configuration should always be type `TessenConfig`.
 required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][7].
 type         | String
-example      | {{< highlight shell >}}"type": "TessenConfig"{{< /highlight >}}
+example      | {{< code shell >}}"type": "TessenConfig"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For Tessen configuration in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][7].
 type         | String
-example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes Tessen configuration [spec attributes][8].
 required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][7].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "spec": {
   "opt_out": false
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Spec attributes
 
@@ -95,7 +89,7 @@ description  | `true` to opt out of Tessen. Otherwise, `false`. [Licensed][4] Se
 required     | true
 type         | Boolean
 default      | `false`
-example      | {{< highlight shell >}}opt_out": false{{< /highlight >}}
+example      | {{< code shell >}}opt_out": false{{< /code >}}
 
 ## Tessen configuration example
 
@@ -104,14 +98,14 @@ To manage Tessen with the [Tessen API][2], use non-wrapped `json` format as show
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: TessenConfig
 api_version: core/v2
 spec:
   opt_out: false
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "TessenConfig",
   "api_version": "core/v2",
@@ -119,7 +113,7 @@ spec:
     "opt_out": false
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -128,7 +122,7 @@ spec:
 If you opt in to Tessen, Sensu sends various metrics back to the Tessen service.
 In the example metrics log below, Sensu is sending the number of check hooks back to the Tessen service. 
 
-{{< highlight json >}}
+{{< code json >}}
 {
     "component": "tessend",
     "level": "debug",
@@ -137,11 +131,11 @@ In the example metrics log below, Sensu is sending the number of check hooks bac
     "msg": "collected a metric for tessen",
     "time": "2019-09-16T09:02:11Z"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 Sensu also sends other metrics, such as the number of handlers:
 
-{{< highlight json >}}
+{{< code json >}}
 {
     "component": "tessend",
     "level": "debug",
@@ -150,11 +144,11 @@ Sensu also sends other metrics, such as the number of handlers:
     "msg": "collected a metric for tessen",
     "time": "2019-09-16T09:02:06Z"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 Or the number of filters:
 
-{{< highlight json >}}
+{{< code json >}}
 {
     "component": "tessend",
     "level": "debug",
@@ -163,11 +157,11 @@ Or the number of filters:
     "msg": "collected a metric for tessen",
     "time": "2019-09-16T09:02:01Z"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 Or the number of authentication providers, secrets providers, and secrets:
 
-{{< highlight json >}}
+{{< code json >}}
 {
     "component": "tessend",
     "level": "debug",
@@ -176,9 +170,9 @@ Or the number of authentication providers, secrets providers, and secrets:
     "msg": "collected a metric for tessen",
     "time": "2020-03-30T15:16:42-04:00"
 }
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
     "component": "tessend",
     "level": "debug",
@@ -187,9 +181,9 @@ Or the number of authentication providers, secrets providers, and secrets:
     "msg": "collected a metric for tessen",
     "time": "2020-03-30T15:17:12-04:00"
 }
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
     "component": "tessend",
     "level": "debug",
@@ -198,13 +192,13 @@ Or the number of authentication providers, secrets providers, and secrets:
     "msg": "collected a metric for tessen",
     "time": "2020-03-30T15:16:17-04:00"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 If you opt into Tessen, you can view all of the metrics in the logs:
 
-{{< highlight shell >}}
+{{< code shell >}}
 journalctl _COMM=sensu-backend.service
-{{< /highlight >}}
+{{< /code >}}
 
 To view the events on-disk, see [Log Sensu services with systemd][9].
 

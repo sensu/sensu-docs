@@ -22,17 +22,17 @@ Rubocop compliance can be checked by installing the gem and running `rubocop` wi
 
 If it truly makes sense for code to violate a rule, disable that rule within the code by either using
 
-{{< highlight ruby >}}
+{{< code ruby >}}
 # rubocop:disable <rule>, <rule>
-{{< /highlight >}}
+{{< /code >}}
 
 at the end of the line in violation or
 
-{{< highlight ruby >}}
+{{< code ruby >}}
 rubocop:disable <rule>, <rule>
 <code block>
 rubocop:enable <rule>, <rule>
-{{< /highlight >}}
+{{< /code >}}
 
 If either of these methods are used please mention in the PR as this should be kept to an absolute minimum, at times this can be necessary though, especially concerning method length and complexity.
 
@@ -42,9 +42,9 @@ Currently RSpec3 is the [test framework][9] of choice. Please add coverage for y
 
 You can run all tests locally using
 
-{{< highlight bash >}}
+{{< code bash >}}
 rake default
-{{< /highlight >}}
+{{< /code >}}
 
 to run all specs and rubocop tests.  RSpec tests are currently run against 2.0, and 2.1.  There are currently no plans to support 1.8.x or test against 1.9.2 and 1.9.3.
 
@@ -55,7 +55,7 @@ This is little bit hard, almost impossible for non-ruby checks. Let someone from
 This pipeline is run upon any commits to the master branch including Pull Request merge commits.  Due to limitations with Codeship, tests are not run across forks and the build logs are not publicly available, jut the build status.  If you wish to work on the build pipeline please speak to a team member about necessary access.
 
 **Setup**
-{{< highlight bash >}}
+{{< code bash >}}
 # Deploy the needed keys
 cd /tmp
 git clone --depth 1 git@github.com:sensu-plugins/tom_servo.git
@@ -83,10 +83,10 @@ bundle install
 rvm use 2.2 --install
 gem install bundler
 bundle install
-{{< /highlight >}}
+{{< /code >}}
 
 **Test Commands**
-{{< highlight bash>}}
+{{< code bash>}}
 # Ruby 1.9.3
 rvm use 1.9.3
 bundle exec rake default
@@ -110,7 +110,7 @@ rvm use 2.2
 bundle exec rake default
 gem build *.gemspec
 gem install *.gem
-{{< /highlight >}}
+{{< /code >}}
 
 For each supported Ruby version we ensure the following are met.
 
@@ -127,7 +127,7 @@ Currently this is only automated to run in Ubuntu.  Many repos are run tested ma
 
 This pipeline is run against every commit to a repo, including commits across forks, and deployment commits by Tom Servo.
 
-{{< highlight yaml >}}
+{{< code yaml >}}
 language: ruby
 cache:
   - bundler
@@ -147,7 +147,7 @@ notifications:
 
 script:
   - 'bundle exec rake default'
-{{< /highlight >}}
+{{< /code >}}
 
 For each supported Ruby version we ensure the following are met.
 

@@ -36,9 +36,9 @@ with the upgrade process.
 
 For example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service sensu-server stop
-sudo service sensu-api stop{{< /highlight >}}
+sudo service sensu-api stop{{< /code >}}
 
 Stopping services prior to upgrading from a Sensu version < `0.27`
 helps to avoid service management errors related to the transition
@@ -93,9 +93,9 @@ process.
 
 For example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service sensu-server stop
-sudo service sensu-api stop{{< /highlight >}}
+sudo service sensu-api stop{{< /code >}}
 
 ### Flush Redis
 
@@ -110,9 +110,9 @@ _NOTE: If your Redis server uses a password (`requirepass`) you will
 need to run the Redis command `AUTH your_redis_password` prior to
 running `FLUSHALL`._
 
-{{< highlight shell >}}
+{{< code shell >}}
 redis-cli
-FLUSHALL{{< /highlight >}}
+FLUSHALL{{< /code >}}
 
 ## Upgrading the Sensu package
 
@@ -128,40 +128,40 @@ repositories and keep them up-to-date._
 
 #### Ubuntu/Debian
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo apt-get update
-sudo apt-get -y install sensu{{< /highlight >}}
+sudo apt-get -y install sensu{{< /code >}}
 
 #### CentOS/RHEL
 
-{{< highlight shell >}}
-sudo yum install sensu{{< /highlight >}}
+{{< code shell >}}
+sudo yum install sensu{{< /code >}}
 
 ### Sensu Enterprise
 
 #### Ubuntu/Debian
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo apt-get update
-sudo apt-get -y install sensu-enterprise{{< /highlight >}}
+sudo apt-get -y install sensu-enterprise{{< /code >}}
 
 #### CentOS/RHEL
 
-{{< highlight shell >}}
-sudo yum install sensu-enterprise{{< /highlight >}}
+{{< code shell >}}
+sudo yum install sensu-enterprise{{< /code >}}
 
 ### Sensu Enterprise Dashboard
 
 #### Ubuntu/Debian
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo apt-get update
-sudo apt-get -y install sensu-enterprise-dashboard{{< /highlight >}}
+sudo apt-get -y install sensu-enterprise-dashboard{{< /code >}}
 
 #### CentOS/RHEL
 
-{{< highlight shell >}}
-sudo yum install sensu-enterprise-dashboard{{< /highlight >}}
+{{< code shell >}}
+sudo yum install sensu-enterprise-dashboard{{< /code >}}
 
 [openssl-release-strat]: https://www.openssl.org/policies/releasestrat.html
 [which-erlang]: https://www.rabbitmq.com/which-erlang.html

@@ -45,15 +45,15 @@ Click **Download license**.
 
 With the license file downloaded, you can use sensuctl to activate your commercial license:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file sensu_license.json
-{{< /highlight >}}
+{{< /code >}}
 
 Use sensuctl to view your license details at any time:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl license info
-{{< /highlight >}}
+{{< /code >}}
 
 These resources will help you get started with commercial features in Sensu Go:
 

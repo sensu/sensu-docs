@@ -11,12 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Secure etcd peer communication](#secure-etcd-peer-communication)
-- [Secure the API and web UI](#secure-the-api-and-web-ui)
-- [Secure Sensu agent-to-server communication](#secure-sensu-agent-to-server-communication)
-- [Sensu agent mTLS authentication](#sensu-agent-mtls-authentication)
-- [Next step: Run a Sensu cluster](#next-step-run-a-sensu-cluster)
-
 As with any piece of software, it is critical to minimize any attack surface the software exposes.
 Sensu is no different.
 This guide describes the components you need to secure to make Sensu production-ready.
@@ -28,7 +22,7 @@ Before you can use this guide, you must have [generated the certificates][12] yo
 You can secure etcd peer communication via the configuration at `/etc/sensu/backend.yml`.
 Here are the parameters you'll need to configure:
 
-{{< highlight yml >}}
+{{< code yml >}}
 ##
 # backend store configuration
 ##
@@ -42,7 +36,7 @@ etcd-peer-cert-file: "/path/to/your/peer/cert"
 etcd-peer-key-file: "/path/to/your/peer/key"
 etcd-peer-client-cert-auth: "true"
 etcd-peer-trusted-ca-file: "/path/to/your/peer/ca/file"
-{{< /highlight >}}
+{{< /code >}}
 
 ## Secure the API and web UI
 
@@ -54,7 +48,7 @@ Here are the attributes you'll need to configure.
 For communication to continue, you must complete the steps in this section **and** in the [Secure Sensu agent-to-server communication](#secure-sensu-agent-to-server-communication) section.
 {{% /notice %}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 ##
 # backend ssl configuration
 ##
@@ -62,21 +56,21 @@ cert-file: "/path/to/ssl/cert.pem"
 key-file: "/path/to/ssl/key.pem"
 trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
 insecure-skip-tls-verify: false
-{{< /highlight >}}
+{{< /code >}}
 
 Providing these cert-file and key-file parameters will cause the Agent Websocket API and HTTP API to serve requests over SSL/TLS (https).
 As a result, you will also need to specify `https://` schema for the `api-url` parameter:
 
-{{< highlight yml >}}
+{{< code yml >}}
 ##
 # backend api configuration
 ##
 api-url: "https://localhost:8080"
-{{< /highlight >}}
+{{< /code >}}
 
 You can also specify a certificate and key for the web UI separately from the API using the `dashboard-cert-file` and `dashboard-key-file` parameters:
 
-{{< highlight yml >}}
+{{< code yml >}}
 ##
 # backend ssl configuration
 ##
@@ -86,7 +80,7 @@ trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
 insecure-skip-tls-verify: false
 dashboard-cert-file: "/path/to/ssl/cert.pem"
 dashboard-key-file: "/path/to/ssl/key.pem"
-{{< /highlight >}}
+{{< /code >}}
 
 In this example, we provide the path to the cert, key, and CA file.
 After you restart the `sensu-backend` service, the parameters will load and you will able to access the web UI at https://localhost:3000.
@@ -102,25 +96,25 @@ For communication to continue, you must complete the steps in this section **and
 By default, an agent uses the insecure `ws://` transport.
 Here's an example from `/etc/sensu/agent.yml`:
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 ##
 # agent configuration
 ##
 backend-url:
   - "ws://127.0.0.1:8081"
-{{< /highlight >}}
+{{< /code >}}
 
 To use WebSocket over SSL/TLS (wss), change the `backend-url` value to the `wss://` schema:
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 ##
 # agent configuration
 ##
 backend-url:
   - "wss://127.0.0.1:8081"
-{{< /highlight >}}
+{{< /code >}}
 
 The agent will connect to Sensu backends over wss.
 Remember, if you change the configuration to wss, plaintext communication will not be possible.
@@ -128,9 +122,9 @@ Remember, if you change the configuration to wss, plaintext communication will n
 You can also provide a trusted CA as part of the agent configuration by passing `--trusted-ca-file` if you are starting the agent via `sensu-agent start`.
 You may include it as part of the agent configuration in `/etc/sensu/agent.yml`: 
 
-{{< highlight yaml>}}
+{{< code yaml>}}
 trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
-{{< /highlight >}}
+{{< /code >}}
 
 {{% notice note %}}
 **NOTE**: If you are creating a Sensu cluster, every cluster member needs to be present in the configuration.
@@ -161,7 +155,7 @@ To ensure that agents with incorrect CN fields can't access the backend, remove 
 
 To view a certificate's CN with openssl:
 
-{{< highlight bash >}}
+{{< code bash >}}
 $ openssl x509 -in client.pem -text -noout
 Certificate:
     Data:
@@ -175,7 +169,7 @@ Certificate:
             Not After : Sep 24 18:58:00 2024 GMT
         Subject: CN = client
 ...
-{{< /highlight >}}
+{{< /code >}}
 
 The `Subject:` field indicates the certificate's CN is `client`, so to bind the agent to a particular user in Sensu, create a user called `client`.
 
@@ -184,23 +178,23 @@ Once the TLS certificate and key are in place, [update the agent configuration u
 
 After you create backend and agent certificates, modfiy the backend and agent configuration:
 
-{{< highlight yml >}}
+{{< code yml >}}
 ##
 # backend configuration
 ##
 agent-auth-cert-file: "/path/to/backend-1.pem"
 agent-auth-key-file: "/path/to/backend-1-key.pem"
 agent-auth-trusted-ca-file: "/path/to/ca.pem"
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 ##
 # agent configuration
 ##
 cert-file: "/path/to/agent-1.pem"
 key-file: "/path/to/agent-1-key.pem"
 trusted-ca-file: "/path/to/ca.pem"
-{{< /highlight >}}
+{{< /code >}}
 
 You can use use certificates for authentication that are distinct from other communication channels used by Sensu, like etcd or the API.
 However, deployments can also use the same certificates and keys for etcd peer and client communication, the HTTP API, and agent authentication without issues.

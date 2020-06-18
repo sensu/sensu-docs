@@ -11,9 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Extract metrics from check output](#extract-metrics-from-check-output)
-- [Next steps](#next-steps)
-
 Sensu checks are **commands** (or scripts) that the Sensu agent executes that output data and produce an exit code to indicate a state.
 If you are unfamiliar with checks or want to learn how to configure a check before reading this guide, read the [check reference][1] and [Monitor server resources][2].
 
@@ -29,11 +26,11 @@ You can also configure the check `output_metric_handlers` to a Sensu handler tha
 You can configure the check with these fields at creation or use the commands in this guide (assuming you have a check named `collect-metrics`).
 This example uses `graphite_plaintext` format and sends the metrics to a handler named `influx-db`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl check set-command collect-metrics collect_metrics.sh
 sensuctl check set-output-metric-format collect-metrics graphite_plaintext
 sensuctl check set-output-metric-handlers collect-metrics influx-db
-{{< /highlight >}}
+{{< /code >}}
 
 ### Supported output metric formats
 
@@ -43,27 +40,27 @@ The output metric formats that Sensu currently supports for check output metric 
 ---------------------|------
 output_metric_format | `nagios_perfdata`
 documentation        | [Nagios Performance Data][6]
-example              | {{< highlight string >}}PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0, rta=0.80{{< /highlight >}}
+example              | {{< code plain >}}PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0, rta=0.80{{< /code >}}
 
 |graphite            |      |
 ---------------------|------
 output_metric_format | `graphite_plaintext`
 documentation        | [Graphite Plaintext Protocol][7]
-example              | {{< highlight string >}}local.random.diceroll 4 123456789{{< /highlight >}}
+example              | {{< code plain >}}local.random.diceroll 4 123456789{{< /code >}}
 
 |influxdb            |      |
 ---------------------|------
 output_metric_format | `influxdb_line`
 documentation        | [InfluxDB Line Protocol][8]
-example              | {{< highlight string >}}weather,location=us-midwest temperature=82 1465839830100400200{{< /highlight >}}
+example              | {{< code plain >}}weather,location=us-midwest temperature=82 1465839830100400200{{< /code >}}
 
 |opentsdb            |      |
 ---------------------|------
 output_metric_format | `opentsdb_line`
 documentation        | [OpenTSDB Data Specification][9]
-example              | {{< highlight string >}}sys.cpu.user 1356998400 42.5 host=webserver01 cpu=0{{< /highlight >}}
+example              | {{< code plain >}}sys.cpu.user 1356998400 42.5 host=webserver01 cpu=0{{< /code >}}
 
-### Validate the metrics
+## Validate the metrics
 
 If the check output is formatted correctly according to its `output_metric_format`, the metrics will be extracted in Sensu metric format and passed to the event pipeline.
 You should expect to see errors logged by sensu-agent if it is unable to parse the check output.
@@ -75,7 +72,7 @@ The example check would yield an event similar to this:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Event
 api_version: core/v2
 metadata: {}
@@ -103,9 +100,9 @@ spec:
       tags: []
       timestamp: 1525462242
       value: 104448
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Event",
   "api_version": "core/v2",
@@ -144,7 +141,7 @@ spec:
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

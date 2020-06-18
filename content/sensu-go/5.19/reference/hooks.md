@@ -10,15 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Check response types](#check-response-types)
-- [Check hooks](#check-hooks)
-- [Hook specification](#hook-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Examples](#examples)
-  - [Rudimentary auto-rememdiation](#rudimentary-auto-remediation)
-  - [Capture the process tree](#capture-the-process-tree)
-  - [Check hook using token substitution](#check-hook-using-token-substitution)
-
 Hooks are reusable commands the agent executes in response to a check result before creating a monitoring event.
 You can create, manage, and reuse hooks independently of checks.
 Hooks enrich monitoring event context by gathering relevant information based on the exit status code of a check (ex: `1`).
@@ -44,11 +35,11 @@ Sensu captures the hook command output, status, executed timestamp, and duration
 
 You can use `sensuctl` to view hook command data:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event info entity_name check_name --format yaml
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 type: Event
 api_version: core/v2
 metadata:
@@ -68,7 +59,7 @@ spec:
       status: 0
       stdin: false
       timeout: 60
-{{< /highlight >}}
+{{< /code >}}
 
 ## Hook specification
 
@@ -79,21 +70,21 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][1] resource type. Hooks should always be type `HookConfig`.
 required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][1].
 type         | String
-example      | {{< highlight shell >}}"type": "HookConfig"{{< /highlight >}}
+example      | {{< code shell >}}"type": "HookConfig"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For hooks in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][1].
 type         | String
-example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the hook that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the hook definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][2] for details.
 required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][1].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "metadata": {
   "name": "process_tree",
   "namespace": "default",
@@ -105,20 +96,20 @@ example      | {{< highlight shell >}}
     "slack-channel" : "#monitoring"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the hook [spec attributes][9].
 required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][1].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "spec": {
   "command": "ps aux",
   "timeout": 60,
   "stdin": false
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Metadata attributes
 
@@ -127,7 +118,7 @@ example      | {{< highlight shell >}}
 description  | Unique string used to identify the hook. Hook names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][8]). Each hook must have a unique name within its namespace.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "process_tree"{{< /highlight >}}
+example      | {{< code shell >}}"name": "process_tree"{{< /code >}}
 
 | namespace  |      |
 -------------|------
@@ -135,14 +126,14 @@ description  | The Sensu [RBAC namespace][3] that this hook belongs to.
 required     | false
 type         | String
 default      | `default`
-example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+example      | {{< code shell >}}"namespace": "production"{{< /code >}}
 
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created the hook or last updated the hook. Sensu automatically populates the `created_by` field when the hook is created or updated.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
+example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
 
 | labels     |      |
 -------------|------
@@ -150,10 +141,10 @@ description  | Custom attributes to include with event data that you can use for
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}}"labels": {
+example      | {{< code shell >}}"labels": {
   "environment": "development",
   "region": "us-west-2"
-}{{< /highlight >}}
+}{{< /code >}}
 
 | annotations |     |
 -------------|------
@@ -161,10 +152,10 @@ description  | Non-identifying metadata to include with event data that you can 
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}} "annotations": {
+example      | {{< code shell >}} "annotations": {
   "managed-by": "ops",
   "playbook": "www.example.url"
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Spec attributes
 
@@ -173,7 +164,7 @@ command      |
 description  | Hook command to be executed.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"command": "sudo /etc/init.d/nginx start"{{< /highlight >}}
+example      | {{< code shell >}}"command": "sudo /etc/init.d/nginx start"{{< /code >}}
 
 timeout      | 
 -------------|------
@@ -181,7 +172,7 @@ description  | Hook execution duration timeout (hard stop). In seconds.
 required     | false
 type         | Integer
 default      | 60
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 stdin        | 
 -------------|------
@@ -189,14 +180,14 @@ description  | If `true`, the Sensu agent writes JSON serialized Sensu entity an
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< highlight shell >}}"stdin": true{{< /highlight >}}
+example      | {{< code shell >}}"stdin": true{{< /code >}}
 
 |runtime_assets |   |
 -------------|------
 description  | Array of [Sensu assets][5] (by their names) required at runtime for execution of the `command`.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"runtime_assets": ["log-context"]{{< /highlight >}}
+example      | {{< code shell >}}"runtime_assets": ["log-context"]{{< /code >}}
 
 ## Examples
 
@@ -210,7 +201,7 @@ You can use hooks for rudimentary auto-remediation tasks, such as starting a pro
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: HookConfig
 api_version: core/v2
 metadata:
@@ -222,9 +213,9 @@ spec:
   command: sudo systemctl start nginx
   stdin: false
   timeout: 60
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "HookConfig",
   "api_version": "core/v2",
@@ -240,7 +231,7 @@ spec:
     "stdin": false
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -250,7 +241,7 @@ You can use hooks to automate data gathering for incident triage, For example, y
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: HookConfig
 api_version: core/v2
 metadata:
@@ -263,9 +254,9 @@ spec:
   stdin: false
   timeout: 60
   runtime_assets: null
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "HookConfig",
   "api_version": "core/v2",
@@ -282,7 +273,7 @@ spec:
     "runtime_assets": null
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -296,7 +287,7 @@ You can create check hooks that use [token substitution][7] so you can fine-tune
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: HookConfig
 api_version: core/v2
 metadata:
@@ -309,9 +300,9 @@ spec:
   command: tokensub {{ .labels.foo }}
   stdin: false
   timeout: 60
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
    "type": "HookConfig",
    "api_version": "core/v2",
@@ -329,7 +320,7 @@ spec:
       "timeout": 60
    }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

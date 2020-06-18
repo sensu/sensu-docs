@@ -30,7 +30,7 @@ ServiceNow events for [Sensu events][5].
 The following is an example global configuration for the `servicenow` enterprise
 event handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "servicenow": {
     "host": "dev42.service-now.com",
@@ -44,7 +44,7 @@ event handler (integration).
     "timeout": 10
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 When creating [ServiceNow configuration items][6], by default, Sensu will use
 the client's name for the item name. Individual Sensu clients can override the
@@ -55,7 +55,7 @@ attributes (fields & values) may also be set, e.g. `os_version`.
 The following is an example [client definition][7], specifying its ServiceNow
 configuration item attributes.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -72,7 +72,7 @@ configuration item attributes.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -90,21 +90,21 @@ host         |
 description  | The ServiceNow host address.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"host": "dev42.service-now.com"{{< /highlight >}}
+example      | {{< code shell >}}"host": "dev42.service-now.com"{{< /code >}}
 
 user         | 
 -------------|------
 description  | The ServiceNow user used to authenticate.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"user": "admin"{{< /highlight >}}
+example      | {{< code shell >}}"user": "admin"{{< /code >}}
 
 password     | 
 -------------|------
 description  | The ServiceNow user password.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"password": "secret"{{< /highlight >}}
+example      | {{< code shell >}}"password": "secret"{{< /code >}}
 
 create_cmdb_ci | 
 ---------------|------
@@ -112,7 +112,7 @@ description    | If ServiceNow CMDB configuration items should be automatically 
 required       | false
 type           | Boolean
 default        | `true`
-example        | {{< highlight shell >}}"create_cmdb_ci": false{{< /highlight >}}
+example        | {{< code shell >}}"create_cmdb_ci": false{{< /code >}}
 
 cmdb_ci_enabled | 
 --------------|------
@@ -120,7 +120,7 @@ description   | Allows Sensu to look up ServiceNow CMDB confirmation items and l
 required      | false
 type          | Boolean
 default       | `true`
-example       | {{< highlight shell >}}"cmdb_ci_enabled": false{{< /highlight >}}
+example       | {{< code shell >}}"cmdb_ci_enabled": false{{< /code >}}
 
 cmdb_ci_table | 
 --------------|------
@@ -128,7 +128,7 @@ description   | The ServiceNow CMDB table used for automated configuration item 
 required      | false
 type          | String
 default       | `cmdb_ci_server`
-example       | {{< highlight shell >}}"cmdb_ci_table": "cmdb_ci_sensu_client"{{< /highlight >}}
+example       | {{< code shell >}}"cmdb_ci_table": "cmdb_ci_sensu_client"{{< /code >}}
 
 incident_management | 
 --------------------|------
@@ -136,7 +136,7 @@ description         | If ServiceNow incidents should be created and resolved for
 required            | false
 type                | Boolean
 default             | `true`
-example             | {{< highlight shell >}}"incident_management": false{{< /highlight >}}
+example             | {{< code shell >}}"incident_management": false{{< /code >}}
 
 incident_table | 
 ---------------|------
@@ -144,7 +144,7 @@ description    | The ServiceNow table used for creating/resolving incidents corr
 required       | false
 type           | String
 default        | `incident`
-example        | {{< highlight shell >}}"incident_table": "incident"{{< /highlight >}}
+example        | {{< code shell >}}"incident_table": "incident"{{< /code >}}
 
 event_management | 
 -----------------|------
@@ -152,7 +152,7 @@ description      | If ServiceNow events should be created for Sensu events.
 required         | false
 type             | Boolean
 default          | `false`
-example          | {{< highlight shell >}}"event_management": true{{< /highlight >}}
+example          | {{< code shell >}}"event_management": true{{< /code >}}
 
 event_table  | 
 -------------|------
@@ -160,22 +160,22 @@ description  | The ServiceNow table used for creating ServiceNow events correspo
 required     | false
 type         | String
 default      | `em_event`
-example      | {{< highlight shell >}}"event_table": "em_event"{{< /highlight >}}
+example      | {{< code shell >}}"event_table": "em_event"{{< /code >}}
 
 http_proxy   | |
 -------------|------
 description  | The URL of a proxy to be used for HTTP requests.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /highlight >}}
+example      | {{< code shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /code >}}
 
 filters        | 
 ---------------|------
 description    | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string. Specified filters are merged with default values.
 required       | false
 type           | Array
-default        | {{< highlight shell >}}["handle_when", "check_dependencies"]{{< /highlight >}}
-example        | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+default        | {{< code shell >}}["handle_when", "check_dependencies"]{{< /code >}}
+example        | {{< code shell >}}"filters": ["recurrence", "production"]{{< /code >}}
 
 severities     | 
 ---------------|------
@@ -183,8 +183,8 @@ description    | An array of check result severities the handler will handle. _N
 required       | false
 type           | Array
 allowed values | `ok`, `warning`, `critical`, `unknown`
-default        | {{< highlight shell >}}["warning", "critical", "unknown"]{{< /highlight >}}
-example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
+default        | {{< code shell >}}["warning", "critical", "unknown"]{{< /code >}}
+example        | {{< code shell >}} "severities": ["critical", "unknown"]{{< /code >}}
 
 timeout      | 
 -------------|------
@@ -192,7 +192,7 @@ description  | The handler execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
 default      | `10`
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 
 [?]:  #

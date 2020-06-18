@@ -9,12 +9,6 @@ menu:
     parent: reference
 ---
 
-- [Authorization header format](#authorization-header-format)
-- [API key resource structure](#api-key-resource-structure)
-- [API key specification](#api-key-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Examples](#examples)
-
 API keys are long-lived authentication tokens that make it more convenient for Sensu plugins and other Sensu-adjacent applications to authenticate with the Sensu API.
 Unlike [authentication tokens][2], API keys are persistent and do not need to be refreshed every 15 minutes.
 
@@ -26,9 +20,9 @@ Use the [APIKey API][1] to create, retrieve, and delete API keys.
 
 Use the following header format to authenticate with API keys, replacing `API_KEY` with your API key value:
 
-{{< highlight curl >}}
+{{< code shell "curl" >}}
 Authorization: Key API_KEY
-{{< /highlight >}}
+{{< /code >}}
 
 This is different from the authentication token, which uses the `Authorization: Bearer` header format.
 
@@ -42,7 +36,7 @@ When you specify an API key in a request, the system resolves it to an authentic
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: APIKey
 api_version: core/v2
 metadata:
@@ -50,9 +44,9 @@ metadata:
 spec:
   created_at: 1570732266
   username: admin
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "APIKey",
   "api_version": "core/v2",
@@ -64,7 +58,7 @@ spec:
     "username": "admin"    
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -77,34 +71,34 @@ type         |
 description  | Top-level attribute that specifies the resource type. API keys should always be type `APIKey`.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"type": "APIKey"{{< /highlight >}}
+example      | {{< code shell >}}"type": "APIKey"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. The `api_version` should always be `core/v2`.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the API key, including the `name`. The `metadata` map is always at the top level of the API key definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.
 required     | true
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"metadata": {
+example      | {{< code shell >}}"metadata": {
   "name": "19803eb8-36a6-4203-a225-28ec4e9f4444"
-}{{< /highlight >}}
+}{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the API key's [spec attributes][4].
 required     | true
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"spec": {
+example      | {{< code shell >}}"spec": {
     "created_at": 1570732266,
     "username": "admin"
   }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Metadata attributes
 
@@ -113,7 +107,7 @@ example      | {{< highlight shell >}}"spec": {
 description  | Unique string used to identify the API key. Sensu randomly generates a UUID for the `name` value &mdash; users cannot provide a name for an API key.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "19803eb8-36a6-4203-a225-28ec4e9f4444"{{< /highlight >}}
+example      | {{< code shell >}}"name": "19803eb8-36a6-4203-a225-28ec4e9f4444"{{< /code >}}
 
 ### Spec attributes
 
@@ -122,20 +116,20 @@ example      | {{< highlight shell >}}"name": "19803eb8-36a6-4203-a225-28ec4e9f4
 description  | User associated with the API key.
 required     | true
 type         | Array
-example      | {{< highlight shell >}}"username": "admin"{{< /highlight >}}
+example      | {{< code shell >}}"username": "admin"{{< /code >}}
 
 | created_at |      |
 -------------|------
 description  | Time at which the API key was created. Unix timestamp that is automatically generated when the API key is created.
 required     | true
 type         | Integer
-example      | {{< highlight shell >}}"created_at": 1234567890{{< /highlight >}}
+example      | {{< code shell >}}"created_at": 1234567890{{< /code >}}
 
 ## Examples
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: APIKey
 api_version: core/v2
 metadata:
@@ -143,9 +137,9 @@ metadata:
 spec:
   created_at: 1570732266
   username: admin
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "APIKey",
   "api_version": "core/v2",
@@ -157,7 +151,7 @@ spec:
     "username": "admin"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 {{< /language-toggle >}}
 
 [1]: ../../api/apikeys/

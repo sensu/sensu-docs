@@ -32,7 +32,7 @@ The `/events` API endpoint provide HTTP GET access to the Sensu event registry.
 The following example demonstrates a `/events` API query which returns a JSON
 Array of JSON Hashes containing [event data][1].
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://localhost:4567/events | jq .
 [
   {
@@ -95,7 +95,7 @@ $ curl -s http://localhost:4567/events | jq .
     "id": "0f42ec94-12bf-4918-a0b9-52fd57e8ee96"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#events-get-specification}
 
@@ -105,7 +105,7 @@ description    | Returns the list of current events.
 example url    | http://hostname:4567/events
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight json >}}[
+output         | {{< code json >}}[
   {
     "id": "1ccfdf59-d9ab-447c-ac11-fd84072b905a",
     "client": {
@@ -139,7 +139,7 @@ output         | {{< highlight json >}}[
     "action": "create"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ## The `/events/:client` API endpoint {#the-eventsclient-api-endpoint}
 
@@ -154,7 +154,7 @@ The following example demonstrates a `/events/:client` API query which returns a
 JSON Array of JSON Hashes containing current [event data][1] for the `:client`
 named `client-01`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://localhost:4567/events/client-01 | jq .
 [
   {
@@ -217,7 +217,7 @@ $ curl -s http://localhost:4567/events/client-01 | jq .
     "id": "588a2932-6c12-4222-8118-00ba40625149"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#eventsclient-get-specification}
 
@@ -227,7 +227,7 @@ description           | Returns the list of current events for a given client.
 example url           | http://hostname:4567/events/i-424242
 response type         | Array
 response codes        | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                | {{< highlight json >}}[
+output                | {{< code json >}}[
   {
     "id": "1ccfdf59-d9ab-447c-ac11-fd84072b905a",
     "client": {
@@ -261,7 +261,7 @@ output                | {{< highlight json >}}[
     "action": "create"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ## The `/events/:client/:check` API endpoints {#the-eventsclientcheck-api-endpoints}
 
@@ -276,7 +276,7 @@ The following example demonstrates a `/events/:client/:check` API query which
 returns a JSON Hash containing [event data][1] for a `:client` named `client-01`
 and a `:check` named `sensu_website`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://localhost:4567/events/client-01/sensu_website | jq .
 {
   "timestamp": 1460304102,
@@ -337,7 +337,7 @@ $ curl -s http://localhost:4567/events/client-01/sensu_website | jq .
   },
   "id": "07246570-8335-414e-8720-db6616fe5c40"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#eventsclientcheck-get-specification}
 
@@ -347,7 +347,7 @@ description                  | Returns an event for a given client & check name.
 example url                  | http://hostname:4567/events/i-424242/chef_client_process
 response type                | Hash
 response codes               | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                       | {{< highlight json >}}{
+output                       | {{< code json >}}{
   "id": "1ccfdf59-d9ab-447c-ac11-fd84072b905a",
   "client": {
     "name": "i-424242",
@@ -379,7 +379,7 @@ output                       | {{< highlight json >}}{
   "occurrences": 2,
   "action": "create"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/events/:client/:check` (DELETE) {#eventsclientcheck-delete}
 
@@ -391,7 +391,7 @@ to delete event data for a `:client` named `:client-01` and a `:check` named
 `HTTP/1.1 202 Accepted`) and a payload containing a JSON Hash with the delete
 request `issued` timestamp.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -s -i -X DELETE http://localhost:4567/events/client-01/sensu_website
 HTTP/1.1 202 Accepted
 Content-Type: application/json
@@ -404,7 +404,7 @@ Connection: keep-alive
 Server: thin
 
 {"issued":1460304359}
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#eventsclientcheck-delete-specification}
 
@@ -428,7 +428,7 @@ for a client named `client-01` and a check named `sensu_website`, which results
 in a [202 (Accepted) HTTP response code][2] (i.e. `HTTP/1.1 202 Accepted`) and a
 payload containing a JSON Hash with the resolve requests `issued` timestamp.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"client": "client-01", "check": "sensu_website"}' \
@@ -445,13 +445,13 @@ Connection: keep-alive
 Server: thin
 
 {"issued":1460311425}
-{{< /highlight >}}
+{{< /code >}}
 
 The following example demonstrates a `/resolve` API request to resolve an event
 for a non-existent client named `non-existent-client` and a check named
 `non-existent-check`, resulting in a [404 (Not Found) HTTP response code][2].
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"client": "non-existent-client", "check": "non-existent-check"}' \
@@ -466,7 +466,7 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 0
 Connection: keep-alive
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#resolve-post-specification}
 
@@ -474,11 +474,11 @@ Server: thin
 ----------------|------
 description     | Resolves an event. (delayed action)
 example url     | http://hostname:4567/resolve
-payload         | {{< highlight json >}}{
+payload         | {{< code json >}}{
   "client": "i-424242",
   "check": "chef_client_process"
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]:  ../../reference/events#event-data

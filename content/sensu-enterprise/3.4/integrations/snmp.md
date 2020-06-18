@@ -51,7 +51,7 @@ SNMPv2 MIBs:
 The following is an example global configuration for the `snmp` enterprise event
 handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "snmp": {
     "host": "8.8.8.8",
@@ -61,7 +61,7 @@ handler (integration).
     "varbind_trim": 200
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -76,7 +76,7 @@ description  | The SNMP manager host address.
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | {{< highlight shell >}}"host": "8.8.8.8"{{< /highlight >}}
+example      | {{< code shell >}}"host": "8.8.8.8"{{< /code >}}
 
 port         | 
 -------------|------
@@ -84,7 +84,7 @@ description  | The SNMP manager trap port (UDP).
 required     | false
 type         | Integer
 default      | `162`
-example      | {{< highlight shell >}}"port": 162{{< /highlight >}}
+example      | {{< code shell >}}"port": 162{{< /code >}}
 
 community    | 
 -------------|------
@@ -92,15 +92,15 @@ description  | The SNMP community string to use when sending traps.
 required     | false
 type         | String
 default      | `public`
-example      | {{< highlight shell >}}"community": "private"{{< /highlight >}}
+example      | {{< code shell >}}"community": "private"{{< /code >}}
 
 filters        | 
 ---------------|------
 description    | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string. Specified filters are merged with default values.
 required       | false
 type           | Array
-default        | {{< highlight shell >}}["handle_when", "check_dependencies"]{{< /highlight >}}
-example        | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+default        | {{< code shell >}}["handle_when", "check_dependencies"]{{< /code >}}
+example        | {{< code shell >}}"filters": ["recurrence", "production"]{{< /code >}}
 
 severities     | 
 ---------------|------
@@ -108,8 +108,8 @@ description    | An array of check result severities the handler will handle. _N
 required       | false
 type           | Array
 allowed values | `ok`, `warning`, `critical`, `unknown`
-default        | {{< highlight shell >}}["warning", "critical", "unknown"]{{< /highlight >}}
-example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
+default        | {{< code shell >}}["warning", "critical", "unknown"]{{< /code >}}
+example        | {{< code shell >}} "severities": ["critical", "unknown"]{{< /code >}}
 
 varbind_trim | 
 -------------|------
@@ -117,7 +117,7 @@ description  | The SNMP trap varbind value trim length. The network(s) UDP MTU d
 required     | false
 type         | Integer
 default      | `100`
-example      | {{< highlight shell >}}"varbind_trim": 300{{< /highlight >}}
+example      | {{< code shell >}}"varbind_trim": 300{{< /code >}}
 
 [?]:  #
 [1]:  /sensu-enterprise

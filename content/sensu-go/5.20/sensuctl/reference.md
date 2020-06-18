@@ -11,26 +11,6 @@ menu:
     parent: sensuctl
 ---
 
-- [First-time setup](#first-time-setup)
-- [Get help](#get-help)
-- [Manage sensuctl](#manage-sensuctl)
-- [Test a user password](#test-a-user-password)
-- [Create resources](#create-resources)
-- [Delete resources](#delete-resources)
-- [Update resources](#update-resources)
-- [Export resources](#export-resources)
-- [Manage resources](#manage-resources)
-  - [Subcommands](#subcommands): [sensuctl check](#sensuctl-check) | [sensuctl cluster](#sensuctl-cluster) | [sensuctl event](#sensuctl-event) | [sensuctl namespace](#sensuctl-namespace) | [sensuctl user](#sensuctl-user) | [sensuctl prune](#sensuctl-prune) (alpha feature)
-- [Response filtering](#response-filtering) (commercial feature)
-- [Time formats](#time-formats)
-- [Shell auto-completion](#shell-auto-completion)
-- [Environment variables](#environment-variables)
-- [Config files](#configuration-files)
-- [Interact with Bonsai](#interact-with-bonsai)
-  - [Install asset definitions](#install-asset-definitions)
-  - [Check your Sensu backend for outdated assets](#check-your-sensu-backend-for-outdated-assets)
-  - [Extend sensuctl with commands](#extend-sensuctl-with-commands)
-
 Sensuctl is a command line tool for managing resources within Sensu.
 It works by calling Sensu's underlying API to create, read, update, and delete resources, events, and entities.
 Sensuctl is available for Linux, macOS, and Windows.
@@ -40,19 +20,19 @@ See [Install Sensu][4] to install and configure sensuctl.
 
 To set up sensuctl, run `sensuctl configure` to log in to sensuctl and connect to the Sensu backend:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl configure
-{{< /highlight >}}
+{{< /code >}}
 
 When prompted, type the [Sensu backend URL][9] and your [Sensu access credentials][11].
 
-{{< highlight shell >}}
+{{< code shell >}}
 ? Sensu Backend URL: http://127.0.0.1:8080
 ? Username: YOUR_USERNAME
 ? Password: YOUR_PASSWORD
 ? Namespace: default
 ? Preferred output format: tabular
-{{< /highlight >}}
+{{< /code >}}
 
 ### Sensu backend URL
 
@@ -79,9 +59,9 @@ If you are using Docker and you do not include the environment variables to set 
 After you have [installed and configured sensuctl][46], you can change the admin user's password.
 Run:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl user change-password --interactive
-{{< /highlight >}}
+{{< /code >}}
 
 ### Preferred output format
 
@@ -98,9 +78,9 @@ After you are logged in, you can change the output format with `sensuctl config 
 
 Run `sensuctl configure` non-interactively by adding the `-n` (`--non-interactive`) flag.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl configure -n --url http://127.0.0.1:8080 --username YOUR_USERNAME --password YOUR_PASSWORD --format tabular
-{{< /highlight >}}
+{{< /code >}}
 
 ## Get help
 
@@ -108,21 +88,21 @@ Sensuctl supports a `--help` flag for each command and subcommand.
 
 ### See command and global flags
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl --help
-{{< /highlight >}}
+{{< /code >}}
 
 ### See subcommands and flags
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl check --help
-{{< /highlight >}}
+{{< /code >}}
 
 ### See usage and flags
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl check delete --help
-{{< /highlight >}}
+{{< /code >}}
 
 ## Manage sensuctl
 
@@ -132,19 +112,19 @@ The `sencutl config` command lets you view the current sensuctl configuration an
 
 To view the active configuration for sensuctl:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl config view
-{{< /highlight >}}
+{{< /code >}}
 
 The `sensuctl config view` response includes the [Sensu backend URL][9], default [namespace][11] for the current user, default [output format][10] for the current user, and currently configured username:
 
-{{< highlight shell >}}
+{{< code shell >}}
 === Active Configuration
 API URL:   http://127.0.0.1:8080
 Namespace: default
 Format:    tabular
 Username:  admin
-{{< /highlight >}}
+{{< /code >}}
 
 ### Set output format
 
@@ -152,9 +132,9 @@ Use the `set-format` command to change the default [output format][10] for the c
 
 For example, to change the output format to `tabular`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl config set-format tabular
-{{< /highlight >}}
+{{< /code >}}
 
 ### Set namespace
 
@@ -163,45 +143,45 @@ For more information about configuring Sensu access control, see the [RBAC refer
 
 For example, to change the default namespace to `development`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl config set-namespace development
-{{< /highlight >}}
+{{< /code >}}
 
 ### Log out of sensuctl
 
 To log out of sensuctl:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl logout
-{{< /highlight >}}
+{{< /code >}}
 
 To log back in to sensuctl:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl configure
-{{< /highlight >}}
+{{< /code >}}
 
 ### View the sensuctl version number
 
 To display the current version of sensuctl:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl version
-{{< /highlight >}}
+{{< /code >}}
 
 ### Global flags
 
 Global flags modify settings specific to sensuctl, such as the Sensu backend URL and [namespace][11].
 You can use global flags with most sensuctl commands.
 
-{{< highlight shell >}}
+{{< code shell >}}
 --api-url string             host URL of Sensu installation
 --cache-dir string           path to directory containing cache & temporary files
 --config-dir string          path to directory containing configuration files
 --insecure-skip-tls-verify   skip TLS certificate verification (not recommended!)
 --namespace string           namespace in which we perform actions
 --trusted-ca-file string     TLS CA certificate bundle in PEM format
-{{< /highlight >}}
+{{< /code >}}
 
 You can set these flags permanently by editing `.config/sensu/sensuctl/{cluster, profile}`.
 
@@ -209,23 +189,23 @@ You can set these flags permanently by editing `.config/sensu/sensuctl/{cluster,
 
 To test the password for a user created with Sensu's built-in [basic authentication][44]:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl user test-creds USERNAME --password 'password'
-{{< /highlight >}}
+{{< /code >}}
 
 An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
 {{% notice note %}}
 **NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication).
-It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth/#ldap-authentication) or [Active Directory (AD)](../../installation/auth/#ad-authentication). 
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth/#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../installation/auth/#active-directory-ad-authentication). 
 {{% /notice %}}
 
 For example, if you test LDAP credentials with the `sensuctl user test-creds` command, the backend will log an error, even if you know the LDAP credentials are correct:
 
-{{< highlight shell >}}
+{{< code shell >}}
 {"component":"apid.routers","error":"basic provider is disabled","level":"info","msg":"invalid username and/or password","time":"2020-02-07T20:42:14Z","user":"dev"}
-{{< /highlight >}}
+{{< /code >}}
 
 ## Create resources
 
@@ -239,7 +219,7 @@ See the [reference docs][6] for information about creating resource definitions.
 
 In this example, the file `my-resources.json` specifies two resources: a `marketing-site` check and a `slack` handler, separated _without_ a comma:
 
-{{< highlight shell >}}
+{{< code shell >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -276,25 +256,25 @@ In this example, the file `my-resources.json` specifies two resources: a `market
     "type": "pipe"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 To create all resources from `my-resources.json` using `sensuctl create`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file my-resources.json
-{{< /highlight >}}
+{{< /code >}}
 
 Or:
 
-{{< highlight shell >}}
+{{< code shell >}}
 cat my-resources.json | sensuctl create
-{{< /highlight >}}
+{{< /code >}}
 
 ### `yaml` format
 
 In this example, the file `my-resources.yml` specifies two resources: a `marketing-site` check and a `slack` handler, separated with three dashes (`---`).
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 type: CheckConfig
 api_version: core/v2
@@ -322,19 +302,19 @@ spec:
   - is_incident
   - not_silenced
   type: pipe
-{{< /highlight >}}
+{{< /code >}}
 
 To create all resources from `my-resources.yml` using `sensuctl create`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file my-resources.yml
-{{< /highlight >}}
+{{< /code >}}
 
 Or:
 
-{{< highlight shell >}}
+{{< code shell >}}
 cat my-resources.yml | sensuctl create
-{{< /highlight >}}
+{{< /code >}}
 
 ### sensuctl create resource types
 
@@ -366,7 +346,7 @@ The `sensuctl create` command applies namespaces to resources in the following o
 
 In this example, the file `pagerduty.yml` defines a handler _without_ a `namespace` attribute:
 
-{{< highlight shell >}}
+{{< code shell >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -376,25 +356,25 @@ spec:
   env_vars:
   - PAGERDUTY_TOKEN=SECRET
   type: pipe
-{{< /highlight >}}
+{{< /code >}}
 
 To create the `pagerduty` handler in the `default` namespace:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file pagerduty.yml --namespace default
-{{< /highlight >}}
+{{< /code >}}
 
 To create the `pagerduty` handler in the `production` namespace:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file pagerduty.yml --namespace production
-{{< /highlight >}}
+{{< /code >}}
 
 To create the `pagerduty` handler in the current session namespace:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file pagerduty.yml
-{{< /highlight >}}
+{{< /code >}}
 
 ## Delete resources
 
@@ -404,15 +384,15 @@ To be deleted successfully, resources provided to the `delete` command must matc
 
 To delete all resources from `my-resources.yml` with `sensuctl delete`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl delete --file my-resources.yml
-{{< /highlight >}}
+{{< /code >}}
 
 Or:
 
-{{< highlight shell >}}
+{{< code shell >}}
 cat my-resources.yml | sensuctl delete
-{{< /highlight >}}
+{{< /code >}}
 
 ### Delete resources across namespaces
 
@@ -427,9 +407,9 @@ To use `sensuctl edit`, specify the resource [type][24] and resource name.
 
 For example, to edit a handler named `slack` with `sensuctl edit`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl edit handler slack
-{{< /highlight >}}
+{{< /code >}}
 
 ### sensuctl edit resource types
 
@@ -453,21 +433,21 @@ The `dump` command supports exporting in `wrapped-json` and `yaml`.
 
 To export all resources to a file named `my-resources.yaml` in `yaml` format:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl dump all --format yaml --file my-resources.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 To export only checks to standard out in `yaml` format:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl dump check --format yaml
-{{< /highlight >}}
+{{< /code >}}
 
 To export only handlers and filters to a file named `my-handlers-and-filters.yaml` in `yaml` format:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl dump handler,filter --format yaml --file my-handlers-and-filters.yaml
-{{< /highlight >}}
+{{< /code >}}
 
 ### sensuctl describe-type resource types
 
@@ -478,23 +458,23 @@ sensuctl dump handler,filter --format yaml --file my-handlers-and-filters.yaml
 Use `sensuctl describe-type` to list the types of supported resources.
 For example, to list all types:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl describe-type all
-{{< /highlight >}}
+{{< /code >}}
 
 You can also list specific resource types by fully qualified name or synonym:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl describe-type core/v2.CheckConfig
 sensuctl describe-type checks
-{{< /highlight >}}
+{{< /code >}}
 
 To list more than one type, use a comma-separated list:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl describe-type core/v2.CheckConfig,core/v2.EventFilter,core/v2.Handler
 sensuctl describe-type checks,filters,handlers
-{{< /highlight >}}
+{{< /code >}}
 
 The table below lists supported `sensuctl describe-type` resource types.
 
@@ -535,10 +515,10 @@ None | `web/v1.GlobalConfig`
 Add the `--format` flag to specify how the resources should be formatted in the `sensuctl describe-type` response.
 The default is unformatted, but you can specify either `wrapped-json` or `yaml`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl describe-type core/v2.CheckConfig --format yaml
 sensuctl describe-type core/v2.CheckConfig --format wrapped-json
-{{< /highlight >}}
+{{< /code >}}
  
 ## Manage resources
 
@@ -569,35 +549,35 @@ Sensuctl provides the following commands to manage Sensu resources.
 
 Sensuctl provides a standard set of list, info, and delete operations for most resource types.
 
-{{< highlight shell >}}
+{{< code shell >}}
 list                       list resources
 info NAME                  show detailed resource information given resource name
 delete NAME                delete resource given resource name
-{{< /highlight >}}
+{{< /code >}}
 
 For example, to list all monitoring checks:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl check list
-{{< /highlight >}}
+{{< /code >}}
 
 To list checks from all namespaces:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl check list --all-namespaces
-{{< /highlight >}}
+{{< /code >}}
 
 To write all checks to `my-resources.json` in `wrapped-json` format:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl check list --format wrapped-json > my-resources.json
-{{< /highlight >}}
+{{< /code >}}
 
 To see the definition for a check named `check-cpu` in [`wrapped-json` format][10]:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl check info check-cpu --format wrapped-json
-{{< /highlight >}}
+{{< /code >}}
 
 In addition to the standard operations, commands may support subcommands or flags that allow you to take special action based on the resource type.
 The sections below describe these resource-specific operations.
@@ -610,68 +590,68 @@ When querying sensuctl for large datasets, use the `--chunk-size` flag with any 
 
 For example, the following command returns the same output as `sensuctl event list` but makes multiple API queries (each for the number of objects specified by `--chunk-size`) instead of one API query for the complete dataset:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event list --chunk-size 500
-{{< /highlight >}}
+{{< /code >}}
 
 #### sensuctl check
 
 In addition to the [standard subcommands][23], the `sensuctl check execute` command executes a check on demand, given the check name:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl check execute NAME
-{{< /highlight >}}
+{{< /code >}}
 
 For example, the following command executes the `check-cpu` check with an attached message:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl check execute check-cpu --reason "giving a sensuctl demo"
-{{< /highlight >}}
+{{< /code >}}
 
 You can also use the `--subscriptions` flag to override the subscriptions in the check definition:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl check execute check-cpu --subscriptions demo,webserver
-{{< /highlight >}}
+{{< /code >}}
 
 #### sensuctl cluster
 
 The `sensuctl cluster` command lets you manage a Sensu cluster using the following subcommands:
 
-{{< highlight shell >}}
+{{< code shell >}}
 health           get Sensu health status
 id               get unique Sensu cluster ID
 member-add       add cluster member to an existing cluster, with comma-separated peer addresses
 member-list      list cluster members
 member-remove    remove cluster member by ID
 member-update    update cluster member by ID with comma-separated peer addresses
-{{< /highlight >}}
+{{< /code >}}
 
 To view cluster members:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl cluster member-list
-{{< /highlight >}}
+{{< /code >}}
 
 To see the health of your Sensu cluster:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl cluster health
-{{< /highlight >}}
+{{< /code >}}
 
 #### sensuctl event
 
 In addition to the [standard subcommands][23], you can use `sensuctl event resolve` to manually resolve events:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event resolve ENTITY CHECK
-{{< /highlight >}}
+{{< /code >}}
 
 For example, the following command manually resolves an event created by the entity `webserver1` and the check `check-http`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event resolve webserver1 check-http
-{{< /highlight >}}
+{{< /code >}}
 
 #### sensuctl namespace
 
@@ -701,9 +681,9 @@ For example, to prune resources in the `dev` namespace, the current user who sen
 
 ##### sensuctl prune usage
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl prune [RESOURCE TYPE],[RESOURCE TYPE]... -f [FILE or URL] [-r] ... ] [--NAMESPACE] [flags]
-{{< /highlight >}}
+{{< /code >}}
 
 In this example `sensuctl prune` command:
 
@@ -718,9 +698,9 @@ Use a comma separator to prune more than one resource in a single command.
 
 For example, to prune checks and assets from the file `checks.yaml` for the `dev` namespace and the `admin` and `ops` users:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl prune checks,assets --file checks.yaml --namespace dev --users admin,ops
-{{< /highlight >}}
+{{< /code >}}
 
 ##### sensuctl prune flags
 
@@ -771,19 +751,19 @@ None | `secrets/v1.Secret`
 
 `sensuctl prune` supports pruning resources by their synonyms or fully qualified names:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl prune checks,entities
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl prune core/v2.CheckConfig,core/v2.Entity
-{{< /highlight >}}
+{{< /code >}}
 
 Use the `all` qualifier to prune all supported resources:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl prune all
-{{< /highlight >}}
+{{< /code >}}
 
 ## Response filtering
 
@@ -799,9 +779,9 @@ You can use the same methods, selectors, and examples for sensuctl response filt
 
 The standard sensuctl response filtering syntax is:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl RESOURCE_TYPE list --SELECTOR 'FILTER_STATEMENT'
-{{< /highlight >}}
+{{< /code >}}
 
 To create a sensuctl response filtering command:
 
@@ -811,15 +791,15 @@ To create a sensuctl response filtering command:
 
 For example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event list --field-selector 'linux notin event.entity.subscriptions'
-{{< /highlight >}}
+{{< /code >}}
 
 Sensuctl response filtering commands will also work with a single equals sign between the selector flag and the filter statement:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event list --field-selector='linux notin event.entity.subscriptions'
-{{< /highlight >}}
+{{< /code >}}
 
 The [examples][49] demonstrate how to construct sensuctl filter statements for different selectors and operators.
 
@@ -846,9 +826,9 @@ Use the `--label-selector` flag to filter responses using custom labels.
 
 For example, to return entities with the `proxy_type` label set to `switch`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl entity list --label-selector 'proxy_type == switch'
-{{< /highlight >}}
+{{< /code >}}
 
 #### Filter responses with field selectors
 
@@ -856,29 +836,29 @@ Use the `--field-selector` flag to filter responses using specific [resource att
 
 For example, to return entities with the `switches` subscription:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl entity list --field-selector 'switches in entity.subscriptions'
-{{< /highlight >}}
+{{< /code >}}
 
 To retrieve all events that equal a status of `2` (CRITICAL):
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event list --field-selector 'event.check.status == "2"'
-{{< /highlight >}}
+{{< /code >}}
 
 To retrieve all entities whose name includes the substring `webserver`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl entity list --fieldSelector 'entity.name matches "webserver"'
-{{< /highlight >}}
+{{< /code >}}
 
 #### Use the logical AND operator
 
 To use the logical AND operator (`&&`) to return checks that include a `linux` subscription in the `dev` namespace:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl check list --field-selector 'linux in check.subscriptions && dev in check.namespace'
-{{< /highlight >}}
+{{< /code >}}
 
 #### Combine label and field selectors
 
@@ -886,9 +866,9 @@ You can combine the `--label-selector` and `--field-selector` flags in a single 
 
 For example, this command returns checks with the `region` label set to `us-west-1` that also use the `slack` handler:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl check list --label-selector 'region == "us-west-1"' --field-selector 'slack in check.handlers'
-{{< /highlight >}}
+{{< /code >}}
 
 ## Time formats
 
@@ -922,64 +902,64 @@ If you use a current Linux in a non-minimal installation, bash-completion should
 
 On macOS, install with:
 
-{{< highlight shell >}}
+{{< code shell >}}
 brew install bash-completion
-{{< /highlight >}}
+{{< /code >}}
 
 Then add this to your `~/.bash_profile`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
 . $(brew --prefix)/etc/bash_completion
 fi
-{{< /highlight >}}
+{{< /code >}}
 
 After bash-completion is installed, add this to your `~/.bash_profile`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 source <(sensuctl completion bash)
-{{< /highlight >}}
+{{< /code >}}
 
 Now you can source your `~/.bash_profile` or launch a new terminal to use shell auto-completion.
 
-{{< highlight shell >}}
+{{< code shell >}}
 source ~/.bash_profile
-{{< /highlight >}}
+{{< /code >}}
 
 ### Installation (ZSH)
 
 Add this to your `~/.zshrc`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 source <(sensuctl completion zsh)
-{{< /highlight >}}
+{{< /code >}}
 
 Now you can source your `~/.zshrc` or launch a new terminal to use shell auto-completion.
 
-{{< highlight shell >}}
+{{< code shell >}}
 source ~/.zshrc
-{{< /highlight >}}
+{{< /code >}}
 
 ### Usage
 
 `sensuctl` <kbd>Tab</kbd>
 
-{{< highlight shell >}}
+{{< code shell >}}
 check       configure   event       user
 asset       completion  entity      handler
-{{< /highlight >}}
+{{< /code >}}
 
 `sensuctl check` <kbd>Tab</kbd>
 
-{{< highlight shell >}}
+{{< code shell >}}
 create  delete  import  list
-{{< /highlight >}}
+{{< /code >}}
 
 ## Environment variables
 
 Sensuctl includes the `sensuctl env` command to help export and set environment variables on your systems.
 
-{{< highlight text >}}
+{{< code text >}}
 SENSU_API_URL                    URL of the Sensu backend API in sensuctl
 SENSU_NAMESPACE                  Name of the current namespace in sensuctl
 SENSU_FORMAT                     Set output format in sensuctl (e.g. JSON, YAML, etc.)
@@ -988,14 +968,13 @@ SENSU_ACCESS_TOKEN_EXPIRES_AT    Timestamp specifying when the current API acces
 SENSU_REFRESH_TOKEN              Refresh token used to obtain a new access token
 SENSU_TRUSTED_CA_FILE            Path to a trusted CA file if set in sensuctl
 SENSU_INSECURE_SKIP_TLS_VERIFY   Boolean value that can be set to skip TLS verification
-{{< /highlight >}}
+{{< /code >}}
 
 ### Usage
 
 {{< language-toggle >}}
 
-{{< highlight bash >}}
-sensuctl env
+{{< code bash >}}
 export SENSU_API_URL="http://127.0.0.1:8080"
 export SENSU_NAMESPACE="default"
 export SENSU_FORMAT="tabular"
@@ -1007,10 +986,9 @@ export SENSU_INSECURE_SKIP_TLS_VERIFY="true"
 
 # Run this command to configure your shell:
 # eval $(sensuctl env)
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight cmd >}}
-sensuctl env --shell cmd
+{{< code cmd >}}
 SET SENSU_API_URL=http://127.0.0.1:8080
 SET SENSU_NAMESPACE=default
 SET SENSU_FORMAT=tabular
@@ -1021,10 +999,9 @@ SET SENSU_TRUSTED_CA_FILE=
 SET SENSU_INSECURE_SKIP_TLS_VERIFY=true
 REM Run this command to configure your shell:
 REM   @FOR /f "tokens=*" %i IN ('sensuctl env --shell cmd') DO @%i
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight powershell >}}
-sensuctl env --shell powershell
+{{< code powershell >}}
 $Env:SENSU_API_URL = "http://127.0.0.1:8080"
 $Env:SENSU_NAMESPACE = "default"
 $Env:SENSU_FORMAT = "tabular"
@@ -1036,7 +1013,7 @@ $Env:SENSU_INSECURE_SKIP_TLS_VERIFY = "true"
 
 # Run this command to configure your shell:
 # & sensuctl env --shell powershell | Invoke-Expression
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -1047,16 +1024,16 @@ You can find these files at `$HOME/.config/sensu/sensuctl/profile` and `$HOME/.c
 
 For example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 cat .config/sensu/sensuctl/profile
 {
   "format": "tabular",
   "namespace": "demo",
   "username": "admin"
 }
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 cat .config/sensu/sensuctl/cluster 
 {
   "api-url": "http://localhost:8080",
@@ -1066,7 +1043,7 @@ cat .config/sensu/sensuctl/cluster
   "expires_at": 1550082282,
   "refresh_token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 These configuration files are useful if you want to know which cluster you're connecting to or which namespace or username you're currently configured to use.
 
@@ -1084,32 +1061,32 @@ Replace `[NAMESPACE/NAME]` with the namespace and name of the asset from Bonsai:
 
 ![Bonsai page for InfluxDB handler showing namespace and name][36]
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.1.1
 fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.1
 added asset: sensu/sensu-influxdb-handler:3.1.1
-{{< /highlight >}}
+{{< /code >}}
 
 You can also use the `--rename` flag to rename the asset on install:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset add sensu/sensu-slack-handler --rename slack-handler
 no version specified, using latest: 1.0.3
 fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
 added asset: sensu/sensu-slack-handler:1.0.3
-{{< /highlight >}}
+{{< /code >}}
 
 ### Check your Sensu backend for outdated assets
 
 To check your Sensu backend for assets that have newer versions available on Bonsai, use `sensuctl asset outdated`.
 This will print a list of assets installed in the backend whose version is older than the newest version available on Bonsai:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset outdated
           Asset Name                  Bonsai Asset          Current Version  Latest Version
 ----------------------------  ----------------------------  ---------------  --------------
 sensu/sensu-influxdb-handler  sensu/sensu-influxdb-handler       3.1.1            3.1.2
-{{< /highlight >}}
+{{< /code >}}
 
 ### Extend sensuctl with commands
 
@@ -1119,9 +1096,9 @@ Use `sensuctl command` to install, execute, list, and delete commands from Bonsa
 
 To install a sensuctl command from Bonsai or a URL:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl command install [ALIAS] ([NAMESPACE/NAME]:[VERSION] | --url [ARCHIVE_URL] --checksum [ARCHIVE_CHECKSUM]) [flags]
-{{< /highlight >}}
+{{< /code >}}
 
 To install a command plugin, use the Bonsai asset name or specify a URL and SHA512 checksum.
 
@@ -1139,9 +1116,9 @@ Flags are optional and apply only to the `install` command &mdash; they are not 
 
 To install a command from the [Sensu EC2 Discovery Plugin][37] with no flags:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl command install sensu-ec2-discovery portertech/sensu-ec2-discovery:0.3.0
-{{< /highlight >}}
+{{< /code >}}
 
 **To install a command from a URL**, replace `[ARCHIVE_URL]` with a command URL that points to a tarball (e.g. https://path/to/asset.tar.gz).
 Replace `[ARCHIVE_CHECKSUM]` with the checksum you want to use.
@@ -1153,9 +1130,9 @@ Flags are optional and apply only to the `install` command &mdash; they are not 
 
 For example, to install a command-test asset via URL with no flags:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl command install command-test --url https://github.com/amdprophet/command-test/releases/download/v0.0.4/command-test_0.0.4_darwin_amd64.tar.gz --checksum 8b15a170e091dab42256fe64ca7c4a050ed49a9dbfd6c8129c95506a8a9a91f2762ac1a6d24f4fc545430613fd45abc91d3e5d3605fcfffb270dcf01996caa7f
-{{< /highlight >}}
+{{< /code >}}
 
 {{% notice note %}}
 **NOTE**: Asset definitions with multiple asset builds are only supported via Bonsai.
@@ -1165,9 +1142,9 @@ sensuctl command install command-test --url https://github.com/amdprophet/comman
 
 To execute a sensuctl command plugin via its asset's bin/entrypoint executable:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl command exec [ALIAS] [args] [flags]
-{{< /highlight >}}
+{{< /code >}}
 
 Replace `[ALIAS]` with a unique name for the command.
 For example, for the [Sensu EC2 Discovery Plugin][37], you might use the alias `sensu-ec2-discovery`. 
@@ -1187,25 +1164,25 @@ To pass `[args]` flags to the bin/entrypoint executable, make sure to specify th
 
 For example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl command exec mycommand arg1 arg2 --cache-dir /tmp -- --flag1 --flag2=value
-{{< /highlight >}}
+{{< /code >}}
 
 Sensuctl will parse the --cache-dir flag, but bin/entrypoint will parse all flags after the ` -- `.
 
 In this example, the full command run by sensuctl exec would be:
 
-{{< highlight shell >}}
+{{< code shell >}}
 bin/entrypoint arg1 arg2 --flag1 --flag2=value
-{{< /highlight >}}
+{{< /code >}}
 
 #### List commands
 
 To list installed sensuctl commands: 
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl command list [flags]
-{{< /highlight >}}
+{{< /code >}}
 
 Replace `[flags]` with the flags you want to use.
 Run `sensuctl command list -h` to view flags.
@@ -1215,9 +1192,9 @@ Flags are optional and apply only to the `list` command.
 
 To delete sensuctl commands:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl command delete [ALIAS] [flags]
-{{< /highlight >}}
+{{< /code >}}
 
 Replace `[ALIAS]` with a unique name for the command.
 For example, for the [Sensu EC2 Discovery Plugin][37], you might use the alias `sensu-ec2-discovery`. 
@@ -1252,7 +1229,7 @@ Flags are optional and apply only to the `delete` command.
 [23]: #subcommands
 [24]: #sensuctl-edit-resource-types
 [25]: ../../api/overview/
-[26]: ../../installation/auth/#ldap-authentication
+[26]: ../../installation/auth/#lightweight-directory-access-protocol-ldap-authentication
 [27]: ../../reference/tessen/
 [28]: ../../api/overview#response-filtering
 [29]: ../../api/overview#field-selector
@@ -1267,7 +1244,7 @@ Flags are optional and apply only to the `delete` command.
 [39]: #wrapped-json-format
 [40]: ../../installation/install-sensu/#install-the-sensu-backend
 [41]: ../../reference/secrets/
-[42]: ../../installation/auth/#ad-authentication
+[42]: ../../installation/auth/#active-directory-ad-authentication
 [43]: ../../reference/secrets-providers/
 [44]: ../../installation/auth#use-built-in-basic-authentication
 [45]: ../../installation/install-sensu/#2-configure-and-start

@@ -11,36 +11,31 @@ menu:
     parent: guides
 ---
 
-- [1. Register the Sensu PagerDuty Handler asset](#1-register-the-sensu-pagerduty-handler-asset)
-- [2. Adjust the asset definition](#2-adjust-the-asset-definition)
-- [3. Create a monitoring workflow](#3-create-a-workflow)
-- [Next steps](#next-steps)
-
 Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
 See the [asset reference][1] for more information about assets.
 This guide uses the [Sensu PagerDuty Handler asset][7] as an example.
 
-## 1. Register the Sensu PagerDuty Handler asset
+## Register the Sensu PagerDuty Handler asset
 
 To add the [Sensu PagerDuty Handler asset][7] to Sensu, use [`sensuctl asset add`][6]:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
-{{< /highlight >}}
+{{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `pagerduty-handler`.
 
 You can also click the Download button on the asset page in [Bonsai][7] to download the asset definition for your Sensu backend platform and architecture.
 
-## 2. Adjust the asset definition
+## Adjust the asset definition
 
 Asset definitions tell Sensu how to download and verify the asset when required by a check, filter, mutator, or handler.
 
 After you add or download the asset definition, open the file and adjust the `namespace` and `filters` for your Sensu instance.
 Here's the asset definition for version 1.2.0 of the [Sensu PagerDuty Handler][7] asset for Linux AMD64:
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 type: Asset
 api_version: core/v2
@@ -55,7 +50,7 @@ spec:
   filters:
   - entity.system.os == 'linux'
   - entity.system.arch == 'amd64'
-{{< /highlight >}}
+{{< /code >}}
 
 Filters for _check_ assets should match entity platforms.
 Filters for _handler and filter_ assets should match your Sensu backend platform.
@@ -67,11 +62,11 @@ For more information about commercial features and to activate your license, see
 
 Use sensuctl to verify that the asset is registered and ready to use:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset list --format yaml
-{{< /highlight >}}
+{{< /code >}}
 
-## 3. Create a workflow
+## Create a workflow
 
 With the asset downloaded and registered, you can use it in a monitoring workflow.
 Assets may provide executable plugins intended for use with a Sensu check, handler, mutator, or hook, or JavaScript libraries intended to provide functionality for use in event filters.
@@ -81,7 +76,7 @@ For example, to use the [Sensu PagerDuty Handler][7] asset, you would create a `
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -97,9 +92,9 @@ spec:
   - pagerduty-handler
   timeout: 10
   type: pipe
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
     "api_version": "core/v2",
     "type": "Handler",
@@ -120,15 +115,15 @@ spec:
         ]
     }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
 Save the definition to a file (for example, `pagerduty-handler.json`), and add it to Sensu with sensuctl:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file pagerduty-handler.json
-{{< /highlight >}}
+{{< /code >}}
 
 Now that Sensu can create incidents in PagerDuty, you can automate this workflow by adding the `pagerduty` handler to your Sensu service check definitions.
 See [Monitor server resources][13] to learn more.

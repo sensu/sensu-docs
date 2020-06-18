@@ -31,34 +31,34 @@ these changes in order to return to using stable releases._
 ### Ubuntu/Debian
 
 1. Install the GPG public key:
-   {{< highlight shell >}}
-wget -q https://eol-repositories.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
+   {{< code shell >}}
+wget -q https://eol-repositories.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add -{{< /code >}}
 
 2. Determine the codename of the Ubuntu/Debian release on your system:
-   {{< highlight shell >}}
+   {{< code shell >}}
 . /etc/os-release && echo $VERSION
-"14.04.4 LTS, Trusty Tahr" # codename for this system is "trusty"{{< /highlight >}}
+"14.04.4 LTS, Trusty Tahr" # codename for this system is "trusty"{{< /code >}}
 
 3. Create an APT configuration file at
    `/etc/apt/sources.list.d/sensu.list`:
-   {{< highlight shell >}}
+   {{< code shell >}}
 export CODENAME=your_release_codename_here # e.g. "trusty"
-echo "deb     https://eol-repositories.sensuapp.org/apt $CODENAME unstable" | sudo tee /etc/apt/sources.list.d/sensu.list{{< /highlight >}}
+echo "deb     https://eol-repositories.sensuapp.org/apt $CODENAME unstable" | sudo tee /etc/apt/sources.list.d/sensu.list{{< /code >}}
 
 4. Update APT:
-   {{< highlight shell >}}
-sudo apt-get update{{< /highlight >}}
+   {{< code shell >}}
+sudo apt-get update{{< /code >}}
 
 ### RHEL/CentOS
 
 1. Create the YUM repository configuration file for the Sensu Core repository at
    `/etc/yum.repos.d/sensu.repo`:
-   {{< highlight shell >}}
+   {{< code shell >}}
 echo '[sensu]
 name=sensu
 baseurl=https://eol-repositories.sensuapp.org/yum-unstable/$releasever/$basearch/
 gpgcheck=0
-enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
+enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /code >}}
 
 ## Reporting issues
 

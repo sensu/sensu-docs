@@ -30,7 +30,7 @@ long-term storage.
 The following is an example configuration for the `event_stream` enterprise
 event handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "event_stream": {
     "host": "127.0.0.1",
@@ -38,7 +38,7 @@ event handler (integration).
     "filter_metrics": false
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 
 ### Integration specification
@@ -51,7 +51,7 @@ description  | The remote host address.
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | {{< highlight shell >}}"host": "moogserver-01.company.com"{{< /highlight >}}
+example      | {{< code shell >}}"host": "moogserver-01.company.com"{{< /code >}}
 
 port         | 
 -------------|------
@@ -59,7 +59,7 @@ description  | The remote TCP port.
 required     | false
 type         | Integer
 default      | `3000`
-example      | {{< highlight shell >}}"port": 3333{{< /highlight >}}
+example      | {{< code shell >}}"port": 3333{{< /code >}}
 
 filter_metrics | 
 ---------------|------
@@ -67,7 +67,7 @@ description    | If [events][2] with a `type` of `metric` are relayed to the rem
 required       | false
 type           | Boolean
 default        | `false`
-example        | {{< highlight shell >}}"filter_metrics": true{{< /highlight >}}
+example        | {{< code shell >}}"filter_metrics": true{{< /code >}}
 
 
 

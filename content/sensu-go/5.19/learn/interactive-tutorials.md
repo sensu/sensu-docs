@@ -3,16 +3,13 @@ title: "Learn Sensu with interactive tutorials"
 linkTitle: "Interactive tutorials"
 description: "Learn Sensu using only your browser. These tutorials demonstrate how to use Sensu to automate your workflows, integrate with tools you're already using, and get complete control over your alerts."
 weight: 20
+toc: false
 version: "5.19"
 product: "Sensu Go"
 menu:
   sensu-go-5.19:
     parent: learn-sensu
 ---
-
-- [Learn Sensu in 15 minutes](#learn-sensu-in-15-minutes)
-- [Up and running with Sensu Go](#up-and-running-with-sensu-go)
-- [Send Sensu Go alerts to PagerDuty](#send-sensu-go-alerts-to-pagerduty)
 
 Sensu is the industry-leading telemetry and service health-checking solution for multi-cloud monitoring at scale.
 

@@ -39,7 +39,7 @@ Sensu Enterprise comes with a built-in integration for handling automatic deregi
 
 Our integration configuration file for EC2 will live at `/etc/sensu/conf.d/ec2.json`. Let's take a look at an example:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "ec2": {
     "region": "us-west-2",
@@ -48,7 +48,7 @@ Our integration configuration file for EC2 will live at `/etc/sensu/conf.d/ec2.j
     "allowed_instance_states": ["running"],
     "timeout": 10
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 When using the EC2 integration in this fashion, the only two required attributes are `access_key_id` and `secret_access_key`. The rest of the attributes are optional, but let's take a look over them
 
@@ -64,7 +64,7 @@ _NOTE: Don't forget to restart the Sensu Enterprise process via `systemctl resta
 
 In order for the EC2 integration to work, some attributes are needed inside of your clients' configuration. Let's take a look at another example configuration:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -82,7 +82,7 @@ In order for the EC2 integration to work, some attributes are needed inside of y
       ]
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 In the example above, there are several key attributes that you'll need to be aware of when configuring your own Sensu clients:
 
@@ -100,10 +100,10 @@ There are a number of other attributes that you may use in your configuration. S
 
 It's possible to use the EC2 integration _without_ specifying the `access_key_id` and `secret_access_key` by setting an IAM role for your Sensu Enterprise servers, if you're running Sensu Enterprise on EC2 instances. Here's an example configuration that you would use to activate the EC2 integration:
 
-{{< highlight shell >}}
+{{< code shell >}}
 {
   "ec2": {}
-}{{< /highlight >}}
+}{{< /code >}}
 
 You're seeing that correctly--in order to use the EC2 integration, all you need to do is create `/etc/sensu/conf.d/ec2.json` with an empty hash under the `ec2` scope. We'll now take a look at what needs to be done on AWS.
 
@@ -120,7 +120,7 @@ You're seeing that correctly--in order to use the EC2 integration, all you need 
 ![ec2_policies_json][10]
 5. Paste in the text below:
 
-{{< highlight json >}}
+{{< code json >}}
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -134,7 +134,7 @@ You're seeing that correctly--in order to use the EC2 integration, all you need 
             ]
         }
     ]
-}{{< /highlight >}}
+}{{< /code >}}
 6. Click "Review policy"
 
 ![ec2_policies_review][11]

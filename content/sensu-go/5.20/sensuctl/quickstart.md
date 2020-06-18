@@ -11,45 +11,45 @@ menu:
     parent: sensuctl
 ---
 
-### Configure sensuctl and log in
+## Configure sensuctl and log in
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl configure
 ? Sensu Backend URL: http://127.0.0.1:8080
 ? Username: YOUR_USERNAME
 ? Password: YOUR_PASSWORD
-{{< /highlight >}}
+{{< /code >}}
 
-### Create resources from a file that contains JSON resource definitions
+## Create resources from a file that contains JSON resource definitions
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file filename.json
-{{< /highlight >}}
+{{< /code >}}
 
-### View monitored entities
+## View monitored entities
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl entity list
-{{< /highlight >}}
+{{< /code >}}
 
-### View monitoring events
+## View monitoring events
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event list
-{{< /highlight >}}
+{{< /code >}}
 
-### Edit a check
+## Edit a check
 
 In this example, the check name is `check-cpu`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl edit check check-cpu
-{{< /highlight >}}
+{{< /code >}}
 
-### View the JSON configuration for a check
+## View the JSON configuration for a check
 
 In this example, the check name is `check-cpu`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl check info check-cpu --format wrapped-json
-{{< /highlight >}}
+{{< /code >}}

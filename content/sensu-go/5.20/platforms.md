@@ -10,14 +10,6 @@ platformContent: true
 platforms: ["Linux", "Windows", "macOS", "FreeBSD", "Solaris"]
 ---
 
-- [Supported packages](#supported-packages)
-  - [Sensu backend](#sensu-backend) | [Sensu agent](#sensu-agent) | [Sensuctl command line tool](#sensuctl-command-line-tool)
-- [Docker images](#docker-images)
-- [Integrations](#integrations)
-- [Binary-only distributions](#binary-only-distributions)
-  - [Linux](#linux) | [Windows](#windows) | [macOS](#macos) | [FreeBSD](#freebsd) | [Solaris](#solaris)
-- [Build from source](#build-from-source)
-
 Sensu is available as [packages][1], [Docker images][2], and [binary-only distributions][4].
 We recommend [installing Sensu][5] with one of our supported packages, Docker images, or [configuration management][6] integrations.
 Sensu downloads are provided under the [Sensu commercial license][7].
@@ -117,21 +109,21 @@ In addition, all `MIPS` packages include only the agent and CLI.
 
 For example, to download Sensu for Linux `amd64` in `tar.gz` format:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_linux_amd64.tar.gz
-{{< /highlight >}}
+{{< /code >}}
 
 Generate a SHA-256 checksum for the downloaded artifact:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sha256sum sensu-go_5.20.2_linux_amd64.tar.gz
-{{< /highlight >}}
+{{< /code >}}
 
 The result should match the checksum for your platform:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_checksums.txt && cat sensu-go_5.20.2_checksums.txt
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 
@@ -148,23 +140,23 @@ Sensu binary-only distributions for Windows are available for these architecture
 
 For example, to download Sensu for Windows `amd64` in `zip` format:
 
-{{< highlight text >}}
+{{< code text >}}
 Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_windows_amd64.zip  -OutFile "$env:userprofile\sensu-go_5.20.2_windows_amd64.zip"
-{{< /highlight >}}
+{{< /code >}}
 
 Generate a SHA-256 checksum for the downloaded artifact:
 
-{{< highlight text >}}
+{{< code text >}}
 Get-FileHash "$env:userprofile\sensu-go_5.20.2_windows_amd64.zip" -Algorithm SHA256 | Format-List
-{{< /highlight >}}
+{{< /code >}}
 
 The result should match (with the exception of capitalization) the checksum for your platform:
 
-{{< highlight text >}}
+{{< code text >}}
 Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_checksums.txt -OutFile "$env:userprofile\sensu-go_5.20.2_checksums.txt"
 
 Get-Content "$env:userprofile\sensu-go_5.20.2_checksums.txt" | Select-String -Pattern windows_amd64
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 
@@ -180,33 +172,33 @@ Sensu binary-only distributions for macOS are available for these architectures 
 
 For example, to download Sensu for macOS `amd64` in `tar.gz` format:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_darwin_amd64.tar.gz
-{{< /highlight >}}
+{{< /code >}}
 
 Generate a SHA-256 checksum for the downloaded artifact:
 
-{{< highlight shell >}}
+{{< code shell >}}
 shasum -a 256 sensu-go_5.20.2_darwin_amd64.tar.gz
-{{< /highlight >}}
+{{< /code >}}
 
 The result should match the checksum for your platform:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_checksums.txt && cat sensu-go_5.20.2_checksums.txt
-{{< /highlight >}}
+{{< /code >}}
 
 Extract the archive:
 
-{{< highlight shell >}}
+{{< code shell >}}
 tar -xvf sensu-go_5.20.2_darwin_amd64.tar.gz
-{{< /highlight >}}
+{{< /code >}}
 
 Copy the executable into your PATH:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo cp sensuctl /usr/local/bin/
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 
@@ -223,21 +215,21 @@ Sensu binary-only distributions for FreeBSD are available for these architecture
 
 For example, to download Sensu for FreeBSD `amd64` in `tar.gz` format:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_freebsd_amd64.tar.gz
-{{< /highlight >}}
+{{< /code >}}
 
 Generate a SHA-256 checksum for the downloaded artifact:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sha256sum sensu-go_5.20.2_freebsd_amd64.tar.gz
-{{< /highlight >}}
+{{< /code >}}
 
 The result should match the checksum for your platform:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_checksums.txt && cat sensu-go_5.20.2_checksums.txt
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 
@@ -253,21 +245,21 @@ Sensu binary-only distributions for Solaris are available for these architecture
 
 For example, to download Sensu for Solaris `amd64` in `tar.gz` format:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_solaris_amd64.tar.gz
-{{< /highlight >}}
+{{< /code >}}
 
 Generate a SHA-256 checksum for the downloaded artifact.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sha256sum sensu-go_5.20.2_solaris_amd64.tar.gz
-{{< /highlight >}}
+{{< /code >}}
 
 The result should match the checksum for your platform.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_checksums.txt && cat sensu-go_5.20.2_checksums.txt
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 

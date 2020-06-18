@@ -29,16 +29,16 @@ menu: "plugins-1.0"
 - When developing plugins please use the [Sensu plugin class][1], this ensures all plugins have an identical run structure.
 - When using options please use the following structure.  At the very least the option needs to include a description to assist the user with configuration and deployment.
 
-{{< highlight ruby >}}
+{{< code ruby >}}
 option :port,
        short: '-p PORT',
        long: '--port PORT',
        description: 'Port',
-{{< /highlight >}}
+{{< /code >}}
 
 - Each script should use the following standard header:
 
-{{< highlight ruby >}}
+{{< code ruby >}}
 #! /usr/bin/env ruby
 #
 #   <script name>
@@ -63,7 +63,7 @@ option :port,
 #   Released under the same terms as Sensu (the MIT license); see LICENSE
 #   for details.
 #
-{{< /highlight >}}
+{{< /code >}}
 
 When at all possible preference is given to pure Ruby implementations.  There should only be system or platform dependencies in the specific gems that use them such as *sensu-plugins-windows*.
 
@@ -75,9 +75,9 @@ Any code that is written is owned by the developer and as such the copyright, if
 ## Documentation
 All documentation will be handled by [Yard][2] using the default markup at this time. A brief introduction to Yard markup can be found [here][3]. All scripts should have as much documentation coverage as possible, ideally 100%.  Coverage can be tested by installing Yard locally and running
 
-{{< highlight bash >}}
+{{< code bash >}}
 rake yard
-{{< /highlight >}}
+{{< /code >}}
 
 ### Changelog
 The change log should follow the format listed [here][20].  Please keep this changelog up to date, if you make changes to the repo and submit a PR please update the changelog accordingly.  Please follow the guidelines below when updating the changelog with respect to which number to bump.

@@ -18,7 +18,7 @@ The `/metrics` API endpoint provides HTTP GET access to internal Sensu metrics i
 
 The following example demonstrates a request to the `/metrics` API endpoint, resulting in plaintext output that contains internal Sensu metrics.
 
-{{< highlight text >}}
+{{< code text >}}
 curl -X GET \
 http://127.0.0.1:8080/metrics
 
@@ -37,7 +37,7 @@ etcd_debugging_mvcc_db_compaction_keys_total 274
 etcd_debugging_mvcc_db_compaction_pause_duration_milliseconds_bucket{le="1"} 0
 etcd_debugging_mvcc_db_compaction_pause_duration_milliseconds_bucket{le="2"} 0
 ...
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#metrics-get-specification}
 
@@ -47,7 +47,7 @@ description    | Returns internal Sensu metrics in Prometheus format, including 
 example url    | http://hostname:8080/metrics
 response type  | [Prometheus-formatted][1] plaintext
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight text >}}
+output         | {{< code text >}}
 # HELP etcd_debugging_mvcc_compact_revision The revision of the last compaction in store.
 # TYPE etcd_debugging_mvcc_compact_revision gauge
 etcd_debugging_mvcc_compact_revision 300
@@ -62,6 +62,6 @@ etcd_debugging_mvcc_db_compaction_keys_total 274
 etcd_debugging_mvcc_db_compaction_pause_duration_milliseconds_bucket{le="1"} 0
 etcd_debugging_mvcc_db_compaction_pause_duration_milliseconds_bucket{le="2"} 0
 ...
-{{< /highlight >}}
+{{< /code >}}
 
 [1]: https://prometheus.io/docs/concepts/data_model/

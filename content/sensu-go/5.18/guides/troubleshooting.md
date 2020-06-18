@@ -12,14 +12,6 @@ menu:
     parent: guides
 ---
 
-- [Service logging](#service-logging)
-	- [Log levels](#log-levels)
-	- [Log file locations](#log-file-locations)
-- [Sensu backend startup errors](#sensu-backend-startup-errors)
-- [Permission issues](#permission-issues)
-- [Handlers and event filters](#handlers-and-event-filters)
-- [Assets](#assets)
-
 ## Service logging
 
 Logs produced by Sensu services (sensu-backend and sensu-agent) are often the best place to start when troubleshooting a variety of issues.
@@ -40,9 +32,9 @@ Each log message is associated with a log level that indicates the relative seve
 
 You can configure these log levels by specifying the desired log level as the value of `log-level` in the service configuration file (`agent.yml` or `backend.yml`) or as an argument to the `--log-level` command line flag:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensu-agent start --log-level debug
-{{< /highlight >}}
+{{< /code >}}
 
 You must restart the service if you change log levels via configuration files or command line arguments.
 For help with restarting a service, see the [agent reference][5] or [backend reference][9].
@@ -63,12 +55,12 @@ You may substitute the name of the desired service (e.g. `backend` or `agent`) f
 
 | Platform     | Version           | Target | Command to follow log |
 |--------------|-------------------|--------------|-----------------------------------------------|
-| RHEL/Centos  | >= 7       | journald     | {{< highlight shell >}}journalctl --follow --unit sensu-${service}{{< /highlight >}}   |
-| RHEL/Centos  | <= 6       | log file     | {{< highlight shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /highlight >}} |
-| Ubuntu       | >= 15.04   | journald     | {{< highlight shell >}}journalctl --follow --unit sensu-${service}{{< /highlight >}}   |
-| Ubuntu       | <= 14.10   | log file     | {{< highlight shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /highlight >}} |
-| Debian       | >= 8       | journald     | {{< highlight shell >}}journalctl --follow --unit sensu-${service}{{< /highlight >}}   |
-| Debian       | <= 7       | log file     | {{< highlight shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /highlight >}} |
+| RHEL/Centos  | >= 7       | journald     | {{< code shell >}}journalctl --follow --unit sensu-${service}{{< /code >}}   |
+| RHEL/Centos  | <= 6       | log file     | {{< code shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /code >}} |
+| Ubuntu       | >= 15.04   | journald     | {{< code shell >}}journalctl --follow --unit sensu-${service}{{< /code >}}   |
+| Ubuntu       | <= 14.10   | log file     | {{< code shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /code >}} |
+| Debian       | >= 8       | journald     | {{< code shell >}}journalctl --follow --unit sensu-${service}{{< /code >}}   |
+| Debian       | <= 7       | log file     | {{< code shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /code >}} |
 
 {{% notice note %}}
 **NOTE**: Platform versions are listed for reference only and do not supersede the documented [supported platforms](../../platforms).
@@ -80,21 +72,21 @@ Use the `journald` keyword `since` to refine the basic `journalctl` commands and
 
 Retrieve all the logs for Sensu since yesterday:
 
-{{< highlight shell >}}
+{{< code shell >}}
 journalctl _COMM=sensu-backend.service --since yesterday | tee sensu-backend-$(date +%Y-%m-%d).log
-{{< /highlight >}}
+{{< /code >}}
 
 Retrieve all the logs for Sensu since a specific time:
 
-{{< highlight shell >}}
+{{< code shell >}}
 journalctl _COMM=sensu-backend.service --since 09:00 --until "1 hour ago" | tee sensu-backend-$(date +%Y-%m-%d).log
-{{< /highlight >}}
+{{< /code >}}
 
 Retrieve all the logs for Sensu for a specific date range:
 
-{{< highlight shell >}}
+{{< code shell >}}
 journalctl _COMM=sensu-backend.service --since "2015-01-10" --until "2015-01-11 03:00" | tee sensu-backend-$(date +%Y-%m-%d).log
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 
@@ -108,9 +100,9 @@ You can also view agent events using the Windows Event Viewer, under Windows Log
 
 If you're running a [binary-only distribution of the Sensu agent for Windows][2], you can follow the service log printed to standard output using this command:
 
-{{< highlight text >}}
+{{< code text >}}
 Get-Content -  Path "C:\scripts\test.txt" -Wait
-{{< /highlight >}}
+{{< /code >}}
 
 {{< platformBlockClose >}}
 
@@ -118,11 +110,11 @@ Get-Content -  Path "C:\scripts\test.txt" -Wait
 
 The following errors are expected when starting up a Sensu backend with the default configuration:
 
-{{< highlight shell >}}
+{{< code shell >}}
 {"component":"etcd","level":"warning","msg":"simple token is not cryptographically signed","pkg":"auth","time":"2019-11-04T10:26:31-05:00"}
 {"component":"etcd","level":"warning","msg":"set the initial cluster version to 3.3","pkg":"etcdserver/membership","time":"2019-11-04T10:26:31-05:00"}
 {"component":"etcd","level":"warning","msg":"serving insecure client requests on 127.0.0.1:2379, this is strongly discouraged!","pkg":"embed","time":"2019-11-04T10:26:33-05:00"}
-{{< /highlight >}}
+{{< /code >}}
 
 The `serving insecure client requests` warning is an expected warning from the embedded etcd database.
 [TLS configuration][3] is recommended but not required.
@@ -133,22 +125,22 @@ For more information, see [etcd security documentation][4].
 The Sensu user and group must own files and folders within `/var/cache/sensu/` and `/var/lib/sensu/`.
 You will see a logged error like those listed here if there is a permission issue with either the sensu-backend or the sensu-agent:
 
-{{< highlight shell >}}
+{{< code shell >}}
 {"component":"agent","error":"open /var/cache/sensu/sensu-agent/assets.db: permission denied","level":"fatal","msg":"error executing sensu-agent","time":"2019-02-21T22:01:04Z"}
 {"component":"backend","level":"fatal","msg":"error starting etcd: mkdir /var/lib/sensu: permission denied","time":"2019-03-05T20:24:01Z"}
-{{< /highlight >}}
+{{< /code >}}
 
 Use a recursive `chown` to resolve permission issues with the sensu-backend:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo chown -R sensu:sensu /var/cache/sensu/sensu-backend
-{{< /highlight >}}
+{{< /code >}}
 
 or the sensu-agent:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
-{{< /highlight >}}
+{{< /code >}}
 
 ## Handlers and event filters
 
@@ -157,7 +149,7 @@ In many cases, generating events using the [agent API][6] will save you time and
 
 Here's an example that uses cURL with the API of a local sensu-agent process to generate test-event check results:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
 -H 'Content-Type: application/json' \
 -d '{
@@ -171,14 +163,14 @@ curl -X POST \
   }
 }' \
 http://127.0.0.1:3031/events
-{{< /highlight >}}
+{{< /code >}}
 
 It may also be helpful to see the complete event object being passed to your workflows.
 We recommend using a debug handler like this one to write an event to disk as JSON data:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -187,9 +179,9 @@ spec:
   type: pipe
   command: cat > /var/log/sensu/debug-event.json
   timeout: 2
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -202,13 +194,13 @@ spec:
     "timeout": 2
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
 With this handler definition installed in your Sensu backend, you can add the `debug` to the list of handlers in your test event:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
 -H 'Content-Type: application/json' \
 -d '{
@@ -222,7 +214,7 @@ curl -X POST \
   }
 }' \
 http://127.0.0.1:3031/events
-{{< /highlight >}}
+{{< /code >}}
 
 The event data should be written to `/var/log/sensu/debug-event.json` for inspection.
 The contents of this file will be overwritten by every event sent to the `debug` handler.
@@ -240,7 +232,7 @@ An improperly applied asset filter can prevent the asset from being downloaded b
 
 **Agent log entry**
 
-{{< highlight json >}}
+{{< code json >}}
 {
     "asset": "check-disk-space",
     "component": "asset-manager",
@@ -252,11 +244,11 @@ An improperly applied asset filter can prevent the asset from being downloaded b
     "msg": "entity not filtered, not installing asset",
     "time": "2019-09-12T18:28:05Z"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 **Backend event**
 
-{{< highlight json >}}
+{{< code json >}}
 
  {
   "timestamp": 1568148292,
@@ -308,47 +300,47 @@ An improperly applied asset filter can prevent the asset from being downloaded b
     "namespace": "default"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 If you see a message like this, review your asset definition &mdash; it means that the entity wasn't able to download the required asset due to asset filter restrictions.
 You can review the filters for an asset by using the sensuctl `asset info` command with a `--format` flag:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset info sensu-plugins-disk-checks --format yaml
-{{< /highlight >}}
+{{< /code >}}
 
 or 
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset info sensu-plugins-disk-checks --format json
-{{< /highlight >}}
+{{< /code >}}
 
 A common asset filter issue is conflating operating systems with the family they're a part of.
 For example, although Ubuntu is part of the Debian family of Linux distributions, Ubuntu is not the same as Debian.
 A practical example might be:
 
-{{< highlight shell >}}
+{{< code shell >}}
 ...
     - entity.system.platform == 'debian'
     - entity.system.arch == 'amd64'
-{{< /highlight >}}
+{{< /code >}}
 
 This would not allow an Ubuntu system to run the asset.
 
 Instead, the asset filter should look like this:
 
-{{< highlight shell >}}
+{{< code shell >}}
 ...
     - entity.system.platform_family == 'debian'
     - entity.system.arch == 'amd64'
-{{< /highlight >}}
+{{< /code >}}
 
 or 
 
-{{< highlight shell >}}
+{{< code shell >}}
     - entity.system.platform == 'ubuntu'
     - entity.system.arch == 'amd64'
-{{< /highlight >}}
+{{< /code >}}
 
 This would allow the asset to be downloaded onto the target entity.
 

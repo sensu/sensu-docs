@@ -10,13 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Create a replicator](#create-a-replicator)
-- [Delete a replicator](#delete-a-replicator)
-- [Replicator configuration](#replicator-configuration)
-- [etcd-replicators specification](#etcd-replicators-specification)
-- [Example EtcdReplicator resources](#example-etcdreplicator-resources)
-- [Critical success factors for etcd replication](#critical-success-factors-for-etcd-replication)
-
 **COMMERCIAL FEATURE**: Access the etcd-replicators datatype in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 
@@ -68,32 +61,32 @@ type         |      |
 description  | Top-level attribute that specifies the [`sensuctl create`][4] resource type. Always `EtcdReplicator.`
 required     | true
 type         | String
-example      | {{< highlight shell >}}type: EtcdReplicator{{< /highlight >}}
+example      | {{< code shell >}}type: EtcdReplicator{{< /code >}}
 
 api_version  |      |
 -------------|------
 description  | Top-level attribute that specifies the Sensu API version of the etcd-replicators API. Always `federation/v1`.
 required     | true
 type         | String
-example      | {{< highlight shell >}}api_version: federation/v1{{< /highlight >}}
+example      | {{< code shell >}}api_version: federation/v1{{< /code >}}
 
 metadata     |      |
 -------------|------
 description  | Top-level scope that contains the replicator `name` and `created_by` value. Namespace is not supported in the metadata because etcd replicators are cluster-wide resources.
 required     | true
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 metadata:
   name: my_replicator
   created_by: admin
-{{< /highlight >}}
+{{< /code >}}
 
 spec         |      |
 -------------|------
 description  | Top-level map that includes the replicator [spec attributes][6].
 required     | true
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 spec:
   ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
   cert: /path/to/ssl/cert.pem
@@ -103,7 +96,7 @@ spec:
   api_version: core/v2
   resource: Role
   replication_interval_seconds: 30
-{{< /highlight >}}
+{{< /code >}}
 
 #### Metadata attributes
 
@@ -112,14 +105,14 @@ name         |      |
 description  | Replicator name used internally by Sensu.
 required     | true
 type         | String
-example      | {{< highlight shell >}}name: my_replicator{{< /highlight >}}
+example      | {{< code shell >}}name: my_replicator{{< /code >}}
 
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created the replicator or last updated the replicator. Sensu automatically populates the `created_by` field when the replicator is created or updated.
 required     | false
 type         | String
-example      | {{< highlight shell >}}created_by: admin{{< /highlight >}}
+example      | {{< code shell >}}created_by: admin{{< /code >}}
 
 #### Spec attributes
 
@@ -128,21 +121,21 @@ ca_cert      |      |
 description  | Path to an the PEM-format CA certificate to use for TLS client authentication.
 required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `ca_cert` is not required.
 type         | String
-example      | {{< highlight shell >}}ca_cert: /path/to/trusted-certificate-authorities.pem{{< /highlight >}}
+example      | {{< code shell >}}ca_cert: /path/to/trusted-certificate-authorities.pem{{< /code >}}
 
 cert         |      |
 -------------|------
 description  | Path to the PEM-format certificate to use for TLS client authentication.
 required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `cert` is not required.
 type         | String
-example      | {{< highlight shell >}}cert: /path/to/ssl/cert.pem{{< /highlight >}}
+example      | {{< code shell >}}cert: /path/to/ssl/cert.pem{{< /code >}}
 
 key          |      |
 -------------|------
 description  | Path to the PEM-format key file associated with the `cert` to use for TLS client authentication.
 required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `key` is not required.
 type         | String
-example      | {{< highlight shell >}}key: /path/to/ssl/key.pem{{< /highlight >}}
+example      | {{< code shell >}}key: /path/to/ssl/key.pem{{< /code >}}
 
 insecure     |      |
 -------------|-------
@@ -152,14 +145,14 @@ description  | `true` to disable transport security. Otherwise, `false`. {{% not
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< highlight shell >}}insecure: false{{< /highlight >}}
+example      | {{< code shell >}}insecure: false{{< /code >}}
 
 url          |      |
 -------------|-------
 description  | Destination cluster URL. If specifying more than one, use a comma to separate.
 required     | true
 type         | String
-example      | {{< highlight shell >}}url: http://127.0.0.1:2379 {{< /highlight >}}
+example      | {{< code shell >}}url: http://127.0.0.1:2379 {{< /code >}}
 
 api_version  |      |
 -------------|-------
@@ -167,14 +160,14 @@ description  | Sensu API version of the resource to replicate.
 required     | false
 type         | String
 default      | `core/v2`
-example      | {{< highlight shell >}}api_version: core/v2{{< /highlight >}}
+example      | {{< code shell >}}api_version: core/v2{{< /code >}}
 
 resource     |      |
 -------------|-------
 description  | Name of the resource to replicate.
 required     | true
 type         | String
-example      | {{< highlight shell >}}resource: Role{{< /highlight >}}
+example      | {{< code shell >}}resource: Role{{< /code >}}
 
 <a name="namespace-attribute"></a>
 
@@ -183,7 +176,7 @@ namespace    |      |
 description  | Namespace to constrain replication to. If you do not include `namespace`, all namespaces for a given resource are replicated.
 required     | false
 type         | String
-example      | {{< highlight shell >}}namespace: default{{< /highlight >}}
+example      | {{< code shell >}}namespace: default{{< /code >}}
 
 replication_interval_seconds      |      |
 ----------------------------------|-------
@@ -191,7 +184,7 @@ description  | Interval at which the resource will be replicated. In seconds.
 required     | false
 type         | String
 default      | 30
-example      | {{< highlight shell >}}replication_interval_seconds: 30{{< /highlight >}}
+example      | {{< code shell >}}replication_interval_seconds: 30{{< /code >}}
 
 ## Example EtcdReplicator resources
 
@@ -205,7 +198,7 @@ If you replicate the following four examples for `Role`, `RoleBinding`, `Cluster
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 api_version: federation/v1
 type: EtcdReplicator
 metadata:
@@ -219,9 +212,9 @@ spec:
   api_version: core/v2
   resource: Role
   replication_interval_seconds: 30
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
@@ -239,7 +232,7 @@ spec:
     "replication_interval_seconds": 30
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -247,7 +240,7 @@ spec:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 api_version: federation/v1
 type: EtcdReplicator
 metadata:
@@ -261,9 +254,9 @@ spec:
   api_version: core/v2
   resource: RoleBinding
   replication_interval_seconds: 30
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
@@ -281,7 +274,7 @@ spec:
     "replication_interval_seconds": 30
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -289,7 +282,7 @@ spec:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 api_version: federation/v1
 type: EtcdReplicator
 metadata:
@@ -303,9 +296,9 @@ spec:
   api_version: core/v2
   resource: ClusterRole
   replication_interval_seconds: 30
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
@@ -323,7 +316,7 @@ spec:
     "replication_interval_seconds": 30
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -331,7 +324,7 @@ spec:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 api_version: federation/v1
 type: EtcdReplicator
 metadata:
@@ -345,9 +338,9 @@ spec:
   api_version: core/v2
   resource: Role
   replication_interval_seconds: 30
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
@@ -365,7 +358,7 @@ spec:
     "replication_interval_seconds": 30
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

@@ -168,7 +168,7 @@ client name the result was submitted from, and the `output` of the check.
 
 ### Example check result output
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "check": {
     "status": 0,
@@ -185,7 +185,7 @@ client name the result was submitted from, and the `output` of the check.
   },
   "client": "sensu-docs"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: please refer to the [check result specification][38] (below) for more
 information about check results._
@@ -227,7 +227,7 @@ check definition attribute called `environment`, which will default to a value
 of `production`, unless a different value is provided by the client definition
 (i.e. `:::environment|production:::`).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "check_disk_usage": {
@@ -240,13 +240,13 @@ of `production`, unless a different value is provided by the client definition
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 The following example [Sensu client definition][16] would provide the necessary
 attributes to override the `disk.warning`, `disk.critical`, and `environment`
 tokens declared above.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -263,7 +263,7 @@ tokens declared above.
     "environment": "development"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Check token specification
 
@@ -309,7 +309,7 @@ For example, token substitution **cannot** be used for specifying a check interv
 
 The resulting interval value is a string (`"60"`) instead of an integer (`60`), causing an invalid check request.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "check_disk_usage": {
@@ -318,13 +318,13 @@ The resulting interval value is a string (`"60"`) instead of an integer (`60`), 
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 **Valid use of token substitution:**
 
 The resulting tokens are included within the command string, producing a valid check request.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "check_disk_usage": {
@@ -333,12 +333,12 @@ The resulting tokens are included within the command string, producing a valid c
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 When accessing a list using token substitution, Sensu returns the list in a fixed format.
 For example, for the following check definition executed on a client with the subscriptions `["sensu", "rhel", "all"]`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 {
   "checks": {
     "token_test": {
@@ -348,13 +348,13 @@ For example, for the following check definition executed on a client with the su
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 The resulting command output would be:
 
-{{< highlight shell >}}
+{{< code shell >}}
 [\"sensu\", \"rhel\", \"all\"]
-{{< /highlight >}}
+{{< /code >}}
 
 ## Check hooks
 
@@ -366,7 +366,7 @@ Check hooks are commands run by the Sensu client in response to the result of ch
 
 Check hooks can be used for automated data gathering for incident triage, for example, a check hook could be used to capture the process tree when a process has been determined to be not running etc.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "nginx_process": {
@@ -381,12 +381,12 @@ Check hooks can be used for automated data gathering for incident triage, for ex
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 Check hooks can also be used to add context to a check result, for example,
 outputting the last 100 lines of an error log.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "nginx_process": {
@@ -401,7 +401,7 @@ outputting the last 100 lines of an error log.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ## Managing checks
 
@@ -410,12 +410,12 @@ outputting the last 100 lines of an error log.
 To delete a check from Sensu, remove the configuration file for the check, then restart the Sensu server and API.
 The following example deletes a check named `check-sensu-website`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Delete the configuration file
 sudo rm /etc/sensu/conf.d/check-sensu-website.json
 # Restart the Sensu server and API
 sudo systemctl restart sensu-{server,api}
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `sudo service sensu-{server,api} restart` to restart the Sensu server and API._
 
@@ -423,10 +423,10 @@ While removing the configuration file removes the check from the registry, it do
 To remove a deleted check's results and history from Sensu, use the [Checks API DELETE endpoint][66].
 The following example deletes all check results and check history for a check named `check-sensu-website`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Delete check results and check history
 curl -s -i -X DELETE http://127.0.0.1:4567/checks/check-sensu-website
-{{< /highlight >}}
+{{< /code >}}
 
 ### Rename a check
 
@@ -443,7 +443,7 @@ website is still available. The check is named `sensu-website` and it runs on
 Sensu clients with the `production` [subscription][15], at an `interval` of 60
 seconds.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "sensu-website": {
@@ -456,7 +456,7 @@ seconds.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Check definition specification
 
@@ -481,21 +481,21 @@ required        | false
 type            | String
 allowed values  | `standard`, `metric`
 default         | `standard`
-example         | {{< highlight shell >}}"type": "metric"{{< /highlight >}}
+example         | {{< code shell >}}"type": "metric"{{< /code >}}
 
 command      | 
 -------------|------
 description  | The check command to be executed.
 required     | true (unless `extension` is configured)
 type         | String
-example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/check-chef-client.rb"{{< /highlight >}}
+example      | {{< code shell >}}"command": "/etc/sensu/plugins/check-chef-client.rb"{{< /code >}}
 
 extension    | 
 -------------|------
 description  | The name of a Sensu check extension to run instead of a command. This is an _advanced feature_ and is not commonly used.
 required     | true (unless `command` is configured)
 type         | String
-example      | {{< highlight shell >}}"extension": "system_profile"{{< /highlight >}}
+example      | {{< code shell >}}"extension": "system_profile"{{< /code >}}
 
 standalone   | 
 -------------|------
@@ -503,14 +503,14 @@ description  | If the check is scheduled by the local Sensu client instead of th
 required     | false
 type         | Boolean
 default      | false
-example      | {{< highlight shell >}}"standalone": true{{< /highlight >}}
+example      | {{< code shell >}}"standalone": true{{< /code >}}
 
 subscribers  | 
 -------------|------
 description  | An array of Sensu client subscriptions that check requests will be sent to. The array cannot be empty and its items must each be a string.
 required     | true (unless `standalone` is `true`)
 type         | Array
-example      | {{< highlight shell >}}"subscribers": ["production"]{{< /highlight >}}
+example      | {{< code shell >}}"subscribers": ["production"]{{< /code >}}
 
 publish      | 
 -------------|------
@@ -518,42 +518,42 @@ description  | If check requests are published for the check. If `standalone` is
 required     | false
 type         | Boolean
 default      | true
-example      | {{< highlight shell >}}"publish": false{{< /highlight >}}
+example      | {{< code shell >}}"publish": false{{< /code >}}
 
 interval     | 
 -------------|------
 description  | The frequency in seconds the check is executed.
 required     | true (unless `publish` is `false` or `cron` is configured)
 type         | Integer
-example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
+example      | {{< code shell >}}"interval": 60{{< /code >}}
 
 cron         | 
 -------------|------
 description  | When the check should be executed, using the [Cron syntax][47].
 required     | true (unless `publish` is `false` or `interval` is configured)
 type         | String
-example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
+example      | {{< code shell >}}"cron": "0 0 * * *"{{< /code >}}
 
 timeout      | 
 -------------|------
 description  | The check execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 stdin        | 
 -------------|------
 description  | If the Sensu client writes JSON serialized Sensu client and check data to the command process’ STDIN. The command must expect the JSON data via STDIN, read it, and close STDIN. This attribute cannot be used with existing Sensu check plugins, nor Nagios plugins etc, as the Sensu client will wait indefinitely for the check process to read and close STDIN.
 required     | false
 type         | boolean
-example      | {{< highlight shell >}}"stdin": true{{< /highlight >}}
+example      | {{< code shell >}}"stdin": true{{< /code >}}
 
 ttl          | 
 -------------|------
 description  | The time to live (TTL) in seconds until check results are considered stale. If a client stops publishing results for the check, and the TTL expires, an event will be created for the client. The check `ttl` must be greater than the check `interval`, and should accommodate time for the check execution and result processing to complete. For example, if a check has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), an appropriate `ttl` would be a minimum of `90` (seconds). _**NOTE**: Adding TTLs to checks adds overhead, so use the `ttl` attribute sparingly._
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"ttl": 100{{< /highlight >}}
+example      | {{< code shell >}}"ttl": 100{{< /code >}}
 
 ttl_status   | 
 -------------|------
@@ -561,7 +561,7 @@ description  | The exit code that a check with the `ttl` attribute should return
 required     | false
 type         | Integer
 default      | 1
-example      | {{< highlight shell >}}"ttl_status": 2{{< /highlight >}}
+example      | {{< code shell >}}"ttl_status": 2{{< /code >}}
 
 auto_resolve | 
 -------------|------
@@ -569,7 +569,7 @@ description  | When a check in a `WARNING` or `CRITICAL` state returns to an `OK
 required     | false
 type         | Boolean
 default      | true
-example      | {{< highlight shell >}}"auto_resolve": false{{< /highlight >}}
+example      | {{< code shell >}}"auto_resolve": false{{< /code >}}
 
 force_resolve | 
 --------------|------
@@ -577,7 +577,7 @@ description   | Setting `force_resolve` to `true` on a check result ensures that
 required      | false
 type          | Boolean
 default       | false
-example       | {{< highlight shell >}}"force_resolve": true{{< /highlight >}}
+example       | {{< code shell >}}"force_resolve": true{{< /code >}}
 
 handle       | 
 -------------|------
@@ -585,35 +585,35 @@ description  | If events created by the check should be handled.
 required     | false
 type         | Boolean
 default      | true
-example      | {{< highlight shell >}}"handle": false{{< /highlight >}}
+example      | {{< code shell >}}"handle": false{{< /code >}}
 
 handler      | 
 -------------|------
 description  | The Sensu event handler (name) to use for events created by the check.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"handler": "pagerduty"{{< /highlight >}}
+example      | {{< code shell >}}"handler": "pagerduty"{{< /code >}}
 
 handlers     | 
 -------------|------
 description  | An array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"handlers": ["pagerduty", "email"]{{< /highlight >}}
+example      | {{< code shell >}}"handlers": ["pagerduty", "email"]{{< /code >}}
 
 low_flap_threshold | 
 -------------------|------
 description        | The flap detection low threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][31].
 required           | false
 type               | Integer
-example            | {{< highlight shell >}}"low_flap_threshold": 20{{< /highlight >}}
+example            | {{< code shell >}}"low_flap_threshold": 20{{< /code >}}
 
 high_flap_threshold | 
 --------------------|------
 description         | The flap detection high threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][31].
 required            | true (if `low_flap_threshold` is configured)
 type                | Integer
-example             | {{< highlight shell >}}"high_flap_threshold": 60{{< /highlight >}}
+example             | {{< code shell >}}"high_flap_threshold": 60{{< /code >}}
 
 source       | 
 -------------|------
@@ -621,7 +621,7 @@ description  | The check source, used to create a [JIT Sensu client][32] for an 
 required     | false
 type         | String
 validated    | `/^[\w\.-]+$/`
-example      | {{< highlight shell >}}"source": "switch-dc-01"{{< /highlight >}}
+example      | {{< code shell >}}"source": "switch-dc-01"{{< /code >}}
 
 truncate_output | 
 ----------------|------
@@ -629,7 +629,7 @@ description     | If check output will be truncated for storage. Output truncati
 required        | false
 type            | Boolean
 default         | false
-example         | {{< highlight shell >}}"truncate_output": true{{< /highlight >}}
+example         | {{< code shell >}}"truncate_output": true{{< /code >}}
 
 truncate_output_length | 
 -----------------------|------
@@ -637,56 +637,56 @@ description            |The output truncation length, the maximum number of char
 required               | false
 type                   | Integer
 default                | 255
-example                | {{< highlight shell >}}"truncate_output_length": 1024{{< /highlight >}}
+example                | {{< code shell >}}"truncate_output_length": 1024{{< /code >}}
 
 aggregate    | 
 -------------|------
 description  | Create a named aggregate for the check. Check result data will be aggregated and exposed via the [Sensu Aggregates API][33]. _NOTE: named aggregates are new to [Sensu version 0.24][43], now being defined with a String data type rather than a Boolean (i.e. `true` or `false`). Legacy check definitions with `"aggregate": true` attributes will default to using the check name as the aggregate name._
 required     | false
 type         | String
-example      | {{< highlight shell >}}"aggregate": "proxy_servers"{{< /highlight >}}
+example      | {{< code shell >}}"aggregate": "proxy_servers"{{< /code >}}
 
 aggregates   | 
 -------------|------
 description  | An array of strings defining one or more named aggregates (described above).
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"aggregates": [ "webservers", "production" ]{{< /highlight >}}
+example      | {{< code shell >}}"aggregates": [ "webservers", "production" ]{{< /code >}}
 
 subdue       | 
 -------------|------
 description  | The [`subdue` definition scope][42], used to determine when a check is subdued.
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"subdue": {}{{< /highlight >}}
+example      | {{< code shell >}}"subdue": {}{{< /code >}}
 
 hooks        | 
 -------------|------
 description  | The `hooks` definition scope, commands run by the Sensu client in response to the result of the check command execution
 required     | false
 type         |  Hash
-example      | {{< highlight shell >}}"hooks": {}{{< /highlight >}}
+example      | {{< code shell >}}"hooks": {}{{< /code >}}
 
 contact      | 
 -------------|------
 description  | A contact name to use for the check. <br>**ENTERPRISE: This configuration is provided for using [Contact Routing][44].**
 required     | false
 type         | String
-example      | {{< highlight shell >}}"contact": "ops"{{< /highlight >}}
+example      | {{< code shell >}}"contact": "ops"{{< /code >}}
 
 contacts     | 
 -------------|------
 description  | An array of contact names to use for the check. Each array item (name) must be a string. <br>**ENTERPRISE: This configuration is provided for using [Contact Routing][44].**
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"contacts": ["ops"]{{< /highlight >}}
+example      | {{< code shell >}}"contacts": ["ops"]{{< /code >}}
 
 proxy_requests | 
 ---------------|------
 description    | The [`proxy_requests` definition scope][48], used to create proxy check requests.
 required       | false
 type           | Hash
-example        | {{< highlight shell >}}"proxy_requests": {}{{< /highlight >}}
+example        | {{< code shell >}}"proxy_requests": {}{{< /code >}}
 
 occurrences  | 
 -------------|------
@@ -694,7 +694,7 @@ description  | The number of event occurrences that must occur before an event i
 required     | false
 type         | Integer
 default      | `1`
-example      | {{< highlight shell >}}"occurrences": 3{{< /highlight >}}
+example      | {{< code shell >}}"occurrences": 3{{< /code >}}
 
 refresh      | 
 -------------|------
@@ -702,39 +702,39 @@ description  | Time in seconds until the event occurrence count is considered re
 required     | false
 type         | Integer
 default      | `1800`
-example      | {{< highlight shell >}}"refresh": 3600{{< /highlight >}}
+example      | {{< code shell >}}"refresh": 3600{{< /code >}}
 
 dependencies | 
 -------------|------
 description  | An array of check dependencies. Events for the check will not be handled if events exist for one or more of the check dependencies. A check dependency can be a check executed by the same Sensu client (eg. `check_app`), or a client/check pair (eg.`db-01/check_mysql`). _NOTE: For this attribute to take effect, the `check_dependencies` filter must be explicitly configured in your handler definition._
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"dependencies": [
+example      | {{< code shell >}}"dependencies": [
   "check_app",
   "db-01/check_mysql"
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 notification | 
 -------------|------
 description  | The notification message used for events created by the check, instead of the commonly used check output. This attribute is used by most notification event handlers that use the sensu-plugin library.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"notification": "the shopping cart application is not responding to requests"{{< /highlight >}}
+example      | {{< code shell >}}"notification": "the shopping cart application is not responding to requests"{{< /code >}}
 
 influxdb     | 
 -------------|------
 description  | The [`influxdb` definition scope][61], used to configure the [Sensu Enterprise InfluxDB integration][62] ([Sensu Enterprise][60] users only).
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"influxdb": {}{{< /highlight >}}
+example      | {{< code shell >}}"influxdb": {}{{< /code >}}
 
 opsgenie     | 
 -------------|------
 description  | The [`opsgenie` definition scope][63], used to configure the [Sensu Enterprise OpsGenie integration][64] ([Sensu Enterprise][60] users only).
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"opsgenie": {}{{< /highlight >}}
+example      | {{< code shell >}}"opsgenie": {}{{< /code >}}
 
 #### `subdue` attributes
 
@@ -744,7 +744,7 @@ name][41]).
 
 ##### EXAMPLE {#subdue-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "check-printer": {
@@ -762,7 +762,7 @@ name][41]).
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#subdue-attributes-specification}
 
@@ -771,7 +771,7 @@ days         |
 description  | A hash of days of the week or 'all', each day specified must define one or more time windows in which the check is not scheduled to be executed.
 required     | false (unless `subdue` is configured)
 type         | Hash
-example      | {{< highlight shell >}}"days": {
+example      | {{< code shell >}}"days": {
   "all": [
     {
       "begin": "5:00 PM",
@@ -785,7 +785,7 @@ example      | {{< highlight shell >}}"days": {
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### `influxdb` attributes
 
@@ -797,7 +797,7 @@ Enterprise InfluxDB integration][62].**
 
 ##### EXAMPLE {#influxdb-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "check": {
     "name": "nginx_process",
@@ -809,7 +809,7 @@ Enterprise InfluxDB integration][62].**
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#influxdb-attributes-specification}
 
@@ -818,12 +818,12 @@ tags           |
 description    | Custom tags (key/value pairs) to add to every InfluxDB measurement. Check tags will override any [InfluxDB integration tags][62] with the same key.
 required       | false
 type           | Hash
-default        | {{< highlight shell >}}{}{{< /highlight >}}
-example        | {{< highlight shell >}}
+default        | {{< code shell >}}{}{{< /code >}}
+example        | {{< code shell >}}
 "tags": {
   "dc": "us-central-1"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### `opsgenie` attributes
 
@@ -835,7 +835,7 @@ Enterprise OpsGenie integration][64].**
 
 ##### EXAMPLE {#opsgenie-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "check": {
     "name": "nginx_process",
@@ -845,7 +845,7 @@ Enterprise OpsGenie integration][64].**
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#opsgenie-attributes-specification}
 
@@ -855,7 +855,7 @@ description  | An array of OpsGenie alert tags that will be added to created ale
 required     | false
 type         | Array
 default      | `[]`
-example      | {{< highlight shell >}}"tags": ["production"]{{< /highlight >}}
+example      | {{< code shell >}}"tags": ["production"]{{< /code >}}
 
 #### `hooks` attributes {#hooks-attributes}
 
@@ -868,7 +868,7 @@ command      |
 description  | The hook command to be executed.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"command": "ps aux"{{< /highlight >}}
+example      | {{< code shell >}}"command": "ps aux"{{< /code >}}
 
 timeout      | 
 -------------|------
@@ -876,7 +876,7 @@ description  | The hook command execution duration timeout in seconds (hard stop
 required     | false
 type         | Integer
 default      | 60
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 stdin        | 
 -------------|------
@@ -884,7 +884,7 @@ description  | If the Sensu client writes JSON serialized Sensu client and check
 required     | false
 type         | Boolean
 default      | false
-example      | {{< highlight shell >}}"stdin": true{{< /highlight >}}
+example      | {{< code shell >}}"stdin": true{{< /code >}}
 
 ##### Hook naming {#hook-names}
 
@@ -898,7 +898,7 @@ The following attributes are configured within the {"checks": { "CHECK": { "hook
 
 ##### EXAMPLE {#hooks-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "nginx_process": {
@@ -916,7 +916,7 @@ The following attributes are configured within the {"checks": { "CHECK": { "hook
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### `proxy_requests` attributes {#proxy-requests-attributes}
 
@@ -934,7 +934,7 @@ definition (e.g. `"check-snmp-if.rb -h :::address::: -i eth0"`) are
 substituted prior to publishing the check request. The check request
 check `source` is set to the client `name`.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "check_arista_eth0": {
@@ -953,7 +953,7 @@ check `source` is set to the client `name`.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#proxy-requests-attributes-specification}
 
@@ -962,13 +962,13 @@ client_attributes |
 description       | Sensu client attributes to match clients in the registry.
 required          | true
 type              | Hash
-example           | {{< highlight shell >}}"client_attributes": {
+example           | {{< code shell >}}"client_attributes": {
   "keepalive": false,
   "device_type": "router",
   "device_manufacturer": "arista",
   "subscriptions": "eval: value.include?('dc-01')"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 splay       | 
 ------------|------
@@ -976,7 +976,7 @@ description | If proxy check requests should be splayed, published evenly over a
 required    | false
 type        | Boolean
 default     | false
-example     | {{< highlight shell >}}"splay": true{{< /highlight >}}
+example     | {{< code shell >}}"splay": true{{< /code >}}
 
 splay_coverage | 
 ---------------|------
@@ -984,7 +984,7 @@ description    | If proxy check requests should be splayed, published evenly ove
 required       | false
 type           | Integer
 default        | 90
-example        | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
+example        | {{< code shell >}}"splay_coverage": 65{{< /code >}}
 
 You can, as above, also use `eval` to perform more complicated filtering with Ruby on the available `value`, such as finding clients with particular subscriptions.
 
@@ -1008,7 +1008,7 @@ attribute, `"playbook"`, a URL for documentation to aid in the resolution of
 events for the check. The playbook URL will be available in [event data][34] and
 thus able to be included in event notifications (e.g. email).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "check_mysql_replication": {
@@ -1021,7 +1021,7 @@ thus able to be included in event notifications (e.g. email).
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Check result specification
 
@@ -1039,63 +1039,63 @@ status       |
 description  | The check execution exit status code. An exit status code of `0` (zero) indicates `OK`, `1` indicates `WARNING`, and `2` indicates `CRITICAL`; exit status codes other than `0`, `1`, or `2` indicate an `UNKNOWN` or custom status.
 required     | true
 type         | Integer
-example      | {{< highlight shell >}}"status": 0{{< /highlight >}}
+example      | {{< code shell >}}"status": 0{{< /code >}}
 
 command      | 
 -------------|------
 description  | The command as [provided by the check definition][17].
 required     | false
 type         | String
-example      | {{< highlight shell >}}"command": "check-http.rb -u https://sensuapp.org"{{< /highlight >}}
+example      | {{< code shell >}}"command": "check-http.rb -u https://sensuapp.org"{{< /code >}}
 
 subscribers  | 
 -------------|------
 description  | The check subscribers as [provided by the check definition][17].
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"subscribers": ["database_servers"]{{< /highlight >}}
+example      | {{< code shell >}}"subscribers": ["database_servers"]{{< /code >}}
 
 interval     | 
 -------------|------
 description  | The check interval in seconds, as [provided by the check definition][17]
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
+example      | {{< code shell >}}"interval": 60{{< /code >}}
 
 name         | 
 -------------|------
 description  | The check name, as [provided by the check definition][17]
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "sensu-website"{{< /highlight >}}
+example      | {{< code shell >}}"name": "sensu-website"{{< /code >}}
 
 issued       | 
 -------------|------
 description  | The time the check request was issued (by the [Sensu server][6] or [client][1]), stored as an integer (i.e. `Time.now.to_i`)
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"issued": 1458934742{{< /highlight >}}
+example      | {{< code shell >}}"issued": 1458934742{{< /code >}}
 
 executed     | 
 -------------|------
 description  | The time the check request was executed by the [Sensu client][1], stored as and integer (i.e. `Time.now.to_i`).
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"executed": 1458934742{{< /highlight >}}
+example      | {{< code shell >}}"executed": 1458934742{{< /code >}}
 
 duration     | 
 -------------|------
 description  | The amount of time (in seconds) it took for the [Sensu client][1] to execute the check.
 required     | false
 type         | Float
-example      | {{< highlight shell >}}"duration": 0.637{{< /highlight >}}
+example      | {{< code shell >}}"duration": 0.637{{< /code >}}
 
 output       | 
 -------------|------
 description  | The output produced by the check `command`.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"output": "CheckHttp OK: 200, 78572 bytes\n"{{< /highlight >}}
+example      | {{< code shell >}}"output": "CheckHttp OK: 200, 78572 bytes\n"{{< /code >}}
 
 
 #### `client` attributes {#check-result-client-attributes}
@@ -1104,7 +1104,7 @@ name         |
 -------------|------
 description  | The name of the [Sensu client][1] that generated the check result. The Sensu server will use the client `name` value to fetch the corresponding client attributes from the [Clients API][39] and add them to the resulting [Sensu event][34] for context.
 type         | String
-example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
+example      | {{< code shell >}}"output": "i-424242"{{< /code >}}
 
 
 [?]:  #
