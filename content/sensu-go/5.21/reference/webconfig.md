@@ -240,4 +240,4 @@ spec:
 [2]: ../../api/webconfig/
 [3]: ../../web-ui/sign-in/
 [4]: #spec-attributes
-[5]: ../../web-ui/sign-in/#namespace-switcher
+[5]: ../../web-ui/view-manage-resources/#use-the-namespace-switcher

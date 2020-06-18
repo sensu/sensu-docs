@@ -131,13 +131,13 @@ cat my-resources.yml | sensuctl create
 `CheckConfig` | `check_config` | `ClusterRole`  | `cluster_role`
 `ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | [`Env`][24]
 `entity` | [`EtcdReplicators`][29] | `Event` | `event`
-`EventFilter` | `event_filter` | [`GlobalConfig`][11] | `Handler` 
-`handler` | `Hook` | `hook` | `HookConfig`
-`hook_config` | `Mutator` | `mutator` | `Namespace`
-`namespace` | `Role` | `role` | `RoleBinding`
-`role_binding` | [`Secret`][28] | `Silenced` | `silenced`
-[`User`][8] | `user` | [`VaultProvider`][24] | [`ldap`][26]
-[`ad`][25] | [`TessenConfig`][27] | [`PostgresConfig`][32]
+`EventFilter` | `event_filter` | `Handler` | `handler`
+`Hook` | `hook` | `HookConfig` | `hook_config`
+`Mutator` | `mutator` | `Namespace` | `namespace`
+`Role` | `role` | `RoleBinding` | `role_binding`
+[`Secret`][28] | `Silenced` | `silenced` | [`User`][8]
+`user` | [`VaultProvider`][24] | [`ldap`][26] | [`ad`][25]
+[`TessenConfig`][27] | [`PostgresConfig`][32]
 
 ### Create resources across namespaces
 
@@ -298,7 +298,6 @@ None | `federation/v1.Replicator`
 None | `secrets/v1.Provider`
 None | `secrets/v1.Secret`
 None | `searches/v1.Search`
-None | `web/v1.GlobalConfig`
 `apikeys` | `core/v2.APIKey`
 `assets` | `core/v2.Asset`
 `checks` | `core/v2.CheckConfig`
@@ -606,7 +605,6 @@ Sensuctl supports the following formats:
 [8]: ../../reference/rbac/#user-specification
 [9]: #wrapped-json-format
 [10]: #sensuctl-prune-resource-types
-[11]: ../../reference/webconfig/
 [12]: ../../reference/assets/
 [13]: ../../reference/checks/
 [14]: ../../reference/entities/
