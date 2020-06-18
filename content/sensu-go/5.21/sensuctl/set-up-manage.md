@@ -136,7 +136,7 @@ sensuctl user hash-password PASSWORD
 {{< /code >}}
 
 The `sensuctl user hash-password` command creates a [bcrypt hash][15] of the specified password.
-You can use this hash instead of the password when you use sensuctl to [create][5], [edit][13], or [dump][14] users.
+You can use this hash instead of the password when you use sensuctl to [create][5] and [edit][13] users.
 
 ## Preferred output format
 
