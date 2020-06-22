@@ -248,7 +248,7 @@ This differs from the `/users/:user/password` API endpoint, which allows users t
 
 ### Example {#usersuserresetpassword-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/reset)password` API endpoint to reset the password for the user `alice`, resulting in an HTTP `201 Created` response.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/reset_password` API endpoint to reset the password for the user `alice`, resulting in an HTTP `201 Created` response.
 
 The `password` value is the user's current password in cleartext.
 The `password_hash` value is the user's hashed password via [bcrypt][3].
@@ -271,7 +271,7 @@ HTTP/1.1 201 Created
 
 /users/:user/reset_password (PUT) | 
 ----------------|------
-description     | Updates the password for the specified Sensu user.
+description     | Resets the password for the specified Sensu user.
 example URL     | http://hostname:8080/api/core/v2/users/alice/reset_password
 payload parameters | Required: <ul><li>`username`: string; the username for the Sensu user</li><li>`password`: string; the user's current password in cleartext</li><li>`password_hash`: string; the user's hashed password via [bcrypt][3]</li></ul> 
 payload         | {{< code shell >}}
