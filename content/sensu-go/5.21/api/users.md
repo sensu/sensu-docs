@@ -250,8 +250,8 @@ This differs from the `/users/:user/password` API endpoint, which allows users t
 
 In the following example, an HTTP PUT request is submitted to the `/users/:user/reset_password` API endpoint to reset the password for the user `alice`, resulting in an HTTP `201 Created` response.
 
-The `password` value is the user's current password in cleartext.
-The `password_hash` value is the user's hashed password via [bcrypt][3].
+The `password_hash` is the user's new password, hashed via [bcrypt][3].
+Use `sensuctl user hash-password` to [generate the `password_hash`][4].
 
 {{< code shell >}}
 curl -X PUT \
@@ -259,7 +259,6 @@ curl -X PUT \
 -H 'Content-Type: application/json' \
 -d '{
   "username": "alice",
-  "password": "newpassword",
   "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"
 }' \
 http://127.0.0.1:8080/api/core/v2/users/alice/reset_password
@@ -273,11 +272,10 @@ HTTP/1.1 201 Created
 ----------------|------
 description     | Resets the password for the specified Sensu user.
 example URL     | http://hostname:8080/api/core/v2/users/alice/reset_password
-payload parameters | Required: <ul><li>`username`: string; the username for the Sensu user</li><li>`password`: string; the user's current password in cleartext</li><li>`password_hash`: string; the user's hashed password via [bcrypt][3]</li></ul> 
+payload parameters | Required: <ul><li>`username`: string; the username for the Sensu user</li><li>`password_hash`: string; the new user password, hashed via [bcrypt][3]</li></ul> 
 payload         | {{< code shell >}}
 {
-  "username": "admin",
-  "password": "newpassword",
+  "username": "alice",
   "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"
 }
 {{< /code >}}
@@ -296,8 +294,9 @@ This differs from the `/users/:user/reset_password` API endpoint, which requires
 
 In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API endpoint to update the password for the user `alice`, resulting in an HTTP `201 Created` response.
 
-The `password` is the user's current password in cleartext.
-The `password_hash` is the user's hashed password via [bcrypt][3].
+The `password` is your current password in cleartext.
+The `password_hash` is your new password hashed via [bcrypt][3].
+Use `sensuctl user hash-password` to [generate the `password_hash`][4].
 
 {{< code shell >}}
 curl -X PUT \
@@ -317,13 +316,13 @@ HTTP/1.1 201 Created
 
 /users/:user/password (PUT) | 
 ----------------|------
-description     | Updates the password for the specified Sensu user.
+description     | Changes the password for the specified Sensu user.
 example URL     | http://hostname:8080/api/core/v2/users/alice/password
-payload parameters | Required: `username` (string; the `username` for the Sensu user) and the `password` (string; the user's current password in cleartext).
+payload parameters | Required: <ul><li>`username`: string; the username for the Sensu user</li><li>`password`: string; the user's current password in cleartext</li><li>`password_hash`: string; the user's hashed password via [bcrypt][3]</li></ul>
 payload         | {{< code shell >}}
 {
-  "username": "admin",
-  "password": "newpassword",
+  "username": "alice",
+  "password": "P@ssw0rd!",
   "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"
 }
 {{< /code >}}
@@ -429,4 +428,5 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 [1]: ../../reference/rbac#user-specification
 [2]: ../overview#pagination
 [3]: https://en.wikipedia.org/wiki/Bcrypt
+[4]: ../../sensuctl/set-up-manage/#generate-a-password-hash
 [8]: ../overview#response-filtering
