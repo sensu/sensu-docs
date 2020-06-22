@@ -56,18 +56,37 @@
                     <!-- Loop through the child menu's pages -->
                     {{ range .Children.ByWeight }}
                       {{ if not (eq (lower .Parent) (lower .Name)) }}
-                        <!-- Determine if this children is active -->
-                        {{ $isCurrent := (eq $.Permalink (.URL | absURL | printf "%s")) }}
-                        <li><a class="{{ if $isCurrent }}current{{ end }}" href="{{ .URL | absURL }}">{{ .Name }}</a></li>
-                      {{ end }}
+                        <!-- Determine if this child is active -->
+                        <li>
+                          {{ if .HasChildren }}
+                            <a class="accordion {{ if ($currentNode.HasMenuCurrent $k .) }}active current{{ end }}">
+                              {{ .Name }}
+                              <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            </a>
+                            <ul>
+                              {{ range .Children.ByWeight }}
+                                {{ if not (eq (lower .Parent) (lower .Name)) }}
+                                  <!-- Determine if this child is active -->
+                                  <li>
+                                    <a class="{{ if ($currentNode.IsMenuCurrent $k .) }}current{{ end }}" href="{{ .URL | absURL }}">{{ .Name }}</a>
+                                  </li>
+                                {{ end }}
+                              {{ end }}
+                            </ul>
+                          {{ else }}
+                            {{ $isCurrent := (eq $.Permalink (.URL | absURL )) }}
+                            <a class="{{ if $isCurrent }}current{{ end }}" href="{{ .URL | absURL }}">{{ .Name }}</a>
+                          {{ end }}
+                        </li>
                     {{ end }}
-                  </ul>
+                  {{ end }}
+                </ul>
                 </li>
               {{ end }}
             <!-- No children, this is top level menu items -->
             {{ else }}
               {{ if not (eq $.Params.product $x.Name) }}
-              <li><a class="strong" href="{{ .URL | absURL }}">{{ $x.Name }}</a></li>
+                <li><a class="strong" href="{{ .URL | absURL }}">{{ $x.Name }}</a></li>
               {{ end }}
             {{ end }}
           {{ end }}
@@ -83,7 +102,8 @@
   var acc = document.getElementsByClassName('accordion');
 
   for (var i = 0; i < acc.length; i++) {
-    acc[i].addEventListener('click', function() {
+    acc[i].addEventListener('click', function(e) {
+      e.preventDefault();
       this.classList.toggle('active');
     });
   }
