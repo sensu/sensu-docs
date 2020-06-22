@@ -162,9 +162,13 @@ output               | {{< code json >}}
 
 The `/users/:user` API endpoint provides HTTP PUT access to create or update [user data][1] for a specific user by `username`.
 
+{{% notice note %}}
+**NOTE**: Use the [`PUT /users/:user/reset_password`](#usersuserresetpassword-put) or [`PUT /users/:user/password`](#usersuserpassword-put) API endpoints to reset or change the user password, respectively.
+{{% /notice %}}
+
 ### Example {#users-put-example}
 
-The following example demonstrates a PUT request to the `/users` API endpoint to update the user `alice` (in this case, to reset the user's password), resulting in an HTTP `201 Created` response and the updated user definition.
+The following example demonstrates a PUT request to the `/users` API endpoint to update the user `alice` (for example, to add the user to the `devel` group), resulting in an HTTP `201 Created` response.
 
 {{< code shell >}}
 curl -X PUT \
@@ -173,9 +177,10 @@ curl -X PUT \
 -d '{
   "username": "alice",
   "groups": [
-    "ops"
+    "ops",
+    "devel"
   ],
-  "password": "reset-password",
+  "password": "password",
   "disabled": false
 }' \
 http://127.0.0.1:8080/api/core/v2/users/alice
@@ -193,9 +198,10 @@ payload         | {{< code shell >}}
 {
   "username": "alice",
   "groups": [
-    "ops"
+    "ops",
+    "devel"
   ],
-  "password": "reset-password",
+  "password": "password",
   "disabled": false
 }
 {{< /code >}}
@@ -230,13 +236,22 @@ description               | Disables the specified user.
 example url               | http://hostname:8080/api/core/v2/users/alice
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## Update a user password {#usersuserpassword-put}
+## Reset a user's password {#usersuserresetpassword-put}
 
-The `/users/:user/password` API endpoint provides HTTP PUT access to update a user's password.
+The `/users/:user/reset_password` API endpoint provides HTTP PUT access to reset a user's password.
 
-### Example {#usersuserpassword-put-example}
+{{% notice note %}}
+**NOTE**: The `/users/:user/reset_password` API endpoint requires explicit [`users` permissions](../../reference/rbac/#users).
+With these permissions, you can use `/users/:user/reset_password` to reset a user's password.
+This differs from the `/users/:user/password` API endpoint, which allows users to change their own passwords without explicit permissions.
+{{% /notice %}}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API endpoint to update the password for the user `alice`, resulting in an HTTP `201 Created` response.
+### Example {#usersuserresetpassword-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/users/:user/reset)password` API endpoint to reset the password for the user `alice`, resulting in an HTTP `201 Created` response.
+
+The `password` value is the user's current password in cleartext.
+The `password_hash` value is the user's hashed password via [bcrypt][3].
 
 {{< code shell >}}
 curl -X PUT \
@@ -244,7 +259,54 @@ curl -X PUT \
 -H 'Content-Type: application/json' \
 -d '{
   "username": "alice",
-  "password": "newpassword"
+  "password": "newpassword",
+  "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"
+}' \
+http://127.0.0.1:8080/api/core/v2/users/alice/reset_password
+
+HTTP/1.1 201 Created
+{{< /code >}}
+
+### API Specification {#usersuserresetpassword-put-specification}
+
+/users/:user/reset_password (PUT) | 
+----------------|------
+description     | Updates the password for the specified Sensu user.
+example URL     | http://hostname:8080/api/core/v2/users/alice/reset_password
+payload parameters | Required: <ul><li>`username`: string; the username for the Sensu user</li><li>`password`: string; the user's current password in cleartext</li><li>`password_hash`: string; the user's hashed password via [bcrypt][3]</li></ul> 
+payload         | {{< code shell >}}
+{
+  "username": "admin",
+  "password": "newpassword",
+  "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"
+}
+{{< /code >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+## Change your password {#usersuserpassword-put}
+
+The `/users/:user/password` API endpoint provides HTTP PUT access to change your Sensu user password.
+
+{{% notice note %}}
+**NOTE**: The `/users/:user/password` API endpoint allows a user to update their own password, without any permissions.
+This differs from the `/users/:user/reset_password` API endpoint, which requires explicit [`users` permissions](../../reference/rbac/#users) to change the user password.
+{{% /notice %}}
+
+### Example {#usersuserpassword-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API endpoint to update the password for the user `alice`, resulting in an HTTP `201 Created` response.
+
+The `password` is the user's current password in cleartext.
+The `password_hash` is the user's hashed password via [bcrypt][3].
+
+{{< code shell >}}
+curl -X PUT \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/json' \
+-d '{
+  "username": "alice",
+  "password": "P@ssw0rd!",
+  "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"
 }' \
 http://127.0.0.1:8080/api/core/v2/users/alice/password
 
@@ -257,11 +319,12 @@ HTTP/1.1 201 Created
 ----------------|------
 description     | Updates the password for the specified Sensu user.
 example URL     | http://hostname:8080/api/core/v2/users/alice/password
-payload parameters | Required: `username` (string; the `username` for the Sensu user) and `password` (string; the user's new password).
+payload parameters | Required: `username` (string; the `username` for the Sensu user) and the `password` (string; the user's current password in cleartext).
 payload         | {{< code shell >}}
 {
   "username": "admin",
-  "password": "newpassword"
+  "password": "newpassword",
+  "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -365,4 +428,5 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 [1]: ../../reference/rbac#user-specification
 [2]: ../overview#pagination
+[3]: https://en.wikipedia.org/wiki/Bcrypt
 [8]: ../overview#response-filtering
