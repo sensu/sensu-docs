@@ -232,6 +232,9 @@ example      | {{< code shell >}}
     },
     "occurrences": 1,
     "occurrences_watermark": 1,
+    "silenced": [
+      "webserver:*"
+    ],
     "output": "sensu-go-sandbox.curl_timings.time_total 0.005 1552506033\nsensu-go-sandbox.curl_timings.time_namelookup 0.004",
     "output_metric_format": "graphite_plaintext",
     "output_metric_handlers": [
@@ -457,6 +460,9 @@ example      | {{< code shell >}}
   },
   "occurrences": 1,
   "occurrences_watermark": 1,
+  "silenced": [
+    "webserver:*"
+  ],
   "output": "sensu-go-sandbox.curl_timings.time_total 0.005",
   "output_metric_format": "graphite_plaintext",
   "output_metric_handlers": [
@@ -570,7 +576,16 @@ occurrences_watermark | |
 description  | For incident and resolution events, the number of preceding events with an OK status (for incident events) or non-OK status (for resolution events). The `occurrences_watermark` attribute gives you useful information when looking at events that change status between OK (`0`)and non-OK (`1`-WARNING, `2`-CRITICAL, or UNKNOWN).<br><br>Sensu resets `occurrences_watermark` to `1` whenever an event for a given entity and check transitions between OK and non-OK. Within a sequence of only OK or only non-OK events, Sensu increments `occurrences_watermark` only when the `occurrences` attribute is greater than the preceding `occurrences_watermark`. See [Use event data][31] for more information.
 required     | false
 type         | Integer greater than 0
-example      | {{< code shell >}}"occurrences_watermark": 1{{< /code >}}\
+example      | {{< code shell >}}"occurrences_watermark": 1{{< /code >}}
+
+silenced     | |
+-------------|------
+description  | Array of silencing entries that match the event. If no silencing entries match the event, the `silenced` key will have a null value. API responses omit keys with null values, so `silenced` will only appear for events when one or more silencing entries match the event.
+required     | false
+type         | Array
+example      | {{< code shell >}}"silenced": [
+  "webserver:*"
+]{{< /code >}}
 
 output       |      |
 -------------|------
