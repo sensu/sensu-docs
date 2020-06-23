@@ -463,7 +463,6 @@ Clustering allows you to absorb the loss of a backend node, prevent data loss, a
 However, clustered deployments have different configuration implications than single backend deployments, so we recommend deciding whether you will run a Sensu cluster before you generate certificates and set up TLS.
 
 No matter whether you deploy a single backend or a clustered configuration, begin by securing Sensu with transport layer security (TLS).
-
 The first step in setting up TLS is to [generate the certificates you need][2].
 Then, follow our [Secure Sensu][8] guide to make Sensu production-ready.
 
