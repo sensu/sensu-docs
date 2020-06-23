@@ -253,6 +253,10 @@ In the following example, an HTTP PUT request is submitted to the `/users/:user/
 The `password_hash` is the user's new password, hashed via [bcrypt][3].
 Use `sensuctl user hash-password` to [generate the `password_hash`][4].
 
+{{% notice note %}}
+**NOTE**: [Upgrade to Sensu 5.21.0](../../installation/upgrade/) to use hashed passwords.
+{{% /notice %}}
+
 {{< code shell >}}
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
@@ -297,6 +301,10 @@ In the following example, an HTTP PUT request is submitted to the `/users/:user/
 The `password` is your current password in cleartext.
 The `password_hash` is your new password hashed via [bcrypt][3].
 Use `sensuctl user hash-password` to [generate the `password_hash`][4].
+
+{{% notice note %}}
+**NOTE**: [Upgrade to Sensu 5.21.0](../../installation/upgrade/) to use hashed passwords.
+{{% /notice %}}
 
 {{< code shell >}}
 curl -X PUT \
