@@ -456,16 +456,18 @@ If you're ready to see what Sensu can do, one of these pathways can get you star
 
 ### Deploy Sensu outside your local development environment
 
-If you're going to deploy Sensu for use outside of a local development environment, you should secure it using transport layer security (TLS).
-The next step in setting up TLS is to [generate the certificates you need][2].
+To deploy Sensu for use outside of a local development environment, first decide whether you want to [run a Sensu cluster][22].
+A Sensu cluster is a group of three or more sensu-backend nodes, each connected to a shared etcd cluster, using Sensu’s embedded etcd or an external etcd cluster.
 
-### Run a Sensu cluster
+Clustering allows you to absorb the loss of a backend node, prevent data loss, and distribute the network load of agents.
+However, clustered deployments have different configuration implications than single backend deployments, so we recommend deciding whether you will run a Sensu cluster before you generate certificates and set up TLS.
 
-If you plan to set up a cluster, here's our suggested pathway:
+No matter whether you deploy a single backend or a clustered configuration, begin by securing Sensu with transport layer security (TLS).
 
-1. [Generate certificates][2].
-2. [Secure Sensu][8].
-3. [Run a Sensu cluster][22].
+The first step in setting up TLS is to [generate the certificates you need][2].
+Then, follow our [Secure Sensu][8] guide to make Sensu production-ready.
+
+After you've secured Sensu, read [Run a Sensu cluster][22] if you are setting up a clustered configuration.
 
 ## Commercial features
 
