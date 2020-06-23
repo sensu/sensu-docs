@@ -12,34 +12,18 @@ menu:
 ---
 
 - [Monitor your Sensu backend instances](#monitor-your-sensu-backend-instances)
-  - [Monitor your Embedded etcd](#monitor-your-embedded-etcd)
-  - [Monitor your External etcd](#monitor-your-external-etcd)
-- [Monitor Postgres](#postgres)
-
-{{< language-toggle >}}
-
-{{< code markdown "Sensu Backend">}}
-
-{{< /code >}}
-
-{{< code markdown "Sensu Agent">}}
-
-{{< /code >}}
-
-{{< code markdown "External Etcd">}}
-
-{{< /code >}}
-
-{{< code markdown "Postgres">}}
-
-{{< /code >}}
-
-{{< /language-toggle >}}
+- [Monitor your Embedded etcd](#monitor-your-embedded-etcd)
+- [Monitor your External etcd](#monitor-your-external-etcd)
+- [PostgreSQL PLACEHOLDER](#postgresql-placeholder)
 
 
-This guide describes best practices and strategies for monitoring the Sensu backend with another Sensu backend or cluster.
+
+This guide describes best practices and strategies for monitoring your Sensu instances, whether they be clustered or standalone deployments. In it, we'll discuss how to monitor a Sensu deployment's various components, but before we start you'll need at least two independent Sensu backends, or clusters. 
+
+If you don't have two independent backends, you can use the [Dockerfile located here][sensu-dockerfile]
 
 To completely monitor Sensu (a Sensu backend with internal etcd and an agent), you will need at least one other independent Sensu instance.
+
 The second Sensu instance will ensure that you are notified when the primary is down and vice versa.
 
 This guide requires Sensu plugins using assets.
@@ -56,93 +40,94 @@ Monitor the host running the `sensu-backend` in two ways:
 * Locally by a `sensu-agent` process for operating system checks and metrics.
 * Remotely from an independent Sensu instance for Sensu components that must be running for Sensu to create events.
 
+### Monitor the Sensu backend locally
+
+Monitor the host that runs `sensu-backend` like any other node in your infrastructure.
+This includes checks and metrics for [CPU][1], [memory][2], [disk][3], and [networking][4].
+Find more plugins at [Bonsai, the Sensu asset index][5].
+
 ### Monitor the Sensu backend remotely
 
-Monitor the `sensu-backend` from an independent Sensu instance. This will allow you to know if the Sensu event pipeline or is not working.
+Monitor the `sensu-backend` from an independent Sensu instance. This will allow you to know if the Sensu event pipeline, API or dashboard is not working.
 To do this, use the `check_http` plugin from the [Monitoring plugins asset][7] to query Sensu's [health API endpoint][6] with a check definition like this one:
 
-{{< language-toggle >}}
-{{< code yaml "Backend Alpha">}}
+{{< highlight yaml >}}
 ---
 type: CheckConfig
 api_version: core/v2
 metadata:
   namespace: default
-  name: check_beta_backend_health
+  name: check_backend_health
 spec:
   command: check_http -H sensu-backend-beta -p 8080 -u /health
   subscriptions:
-    - backend_alpha
+    - monitor_remote_sensu_api_of_beta
   interval: 10
   publish: true
   timeout: 10
   runtime_assets:
     - monitoring-plugins
-{{< /code >}}
-{{< code yaml "Backend Beta">}}
+{{< /highlight >}}
+
+## Monitor your embedded etcd
+
+The Sensu API exposes a [`/metrics` endpoint][12] for gathering embedded etcd metrics. These metrics are outputted in Prometheus format and the [Sensu prometheus collector][13] can be used to gather and send them to a TSDB.
+
+In this example, metrics are being sent to an InfluxDB instance:
+
+{{< highlight yaml >}}
 ---
 type: CheckConfig
 api_version: core/v2
 metadata:
-  namespace: default
-  name: check_alpha_backend_health
+  name: sensu-prom-metrics
 spec:
-  command: check_http -H sensu-backend-alpha -p 8080 -u /health
+  command: sensu-prometheus-collector -exporter-url http://localhost:8080/metrics
+  output_metric_format: influxdb_line
+  output_metric_handlers:
+    - influxdb
   subscriptions:
-    - backend_beta
+    - monitor_remote_dashboard_port
+  handlers:
+    - influxdb
   interval: 10
-  publish: true
-  timeout: 10
+  timeout: 5
   runtime_assets:
-    - monitoring-plugins
-{{< /code >}}
-{{< /language-toggle >}}
+    - sensu-prometheus-collector
+{{< /highlight >}}
 
 ## Monitoring external etcd
 
-In the case where your Sensu Go deployment utilizes an external etcd cluster, you'll need to check the health of the respective etcd instances. See the examples below:
+Sensu also has the ability to provide metrics when using an external etcd.
 
-{{< language-toggle >}}
-{{< code yaml "Backend Alpha">}}
+In this example, metrics are being sent to an InfluxDB instance:
+
+{{< highlight yaml >}}
 ---
 type: CheckConfig
 api_version: core/v2
 metadata:
-  namespace: default
-  name: check_beta_etcd_health
+  name: sensu-prom-metrics
 spec:
-  command: check_http -H sensu-beta-etcd -p 2379 -u /health
+  command: sensu-prometheus-collector -exporter-url http://external-etcd:2379/metrics
+  output_metric_format: influxdb_line
+  output_metric_handlers:
+    - influxdb
   subscriptions:
-    - backend_alpha
+    - monitor_remote_dashboard_port
+  handlers:
+    - influxdb
   interval: 10
-  publish: true
-  timeout: 10
+  timeout: 5
   runtime_assets:
-    - monitoring-plugins
-{{< /code >}}
-{{< code yaml "Backend Beta">}}
----
-type: CheckConfig
-api_version: core/v2
-metadata:
-  namespace: default
-  name: check_alpha_etcd_health
-spec:
-  command: check_http -H sensu-alpha-etcd -p 2379 -u /health
-  subscriptions:
-    - backend_beta
-  interval: 10
-  publish: true
-  timeout: 10
-  runtime_assets:
-    - monitoring-plugins
-{{< /code >}}
-{{< /language-toggle >}}
+    - sensu-prometheus-collector
+{{< /highlight >}}
 
-## Postgres
+## PostgreSQL PLACEHOLDER
 
 TODO: Postgres now is part of the health endpoint. Need to see what that looks like and what it looks like when it is not available.
 
+<!-- Links -->
 [1]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-cpu-checks
 [2]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-memory-checks
 [3]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-disk-checks
@@ -156,3 +141,4 @@ TODO: Postgres now is part of the health endpoint. Need to see what that looks l
 [11]: ../../reference/agent/#keepalive-monitoring
 [12]: ../../api/metrics/
 [13]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector
+[sensu-dockerfile]: 
