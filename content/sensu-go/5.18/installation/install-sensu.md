@@ -30,20 +30,29 @@ See [supported platforms][5] for more information.
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/3949dde6-1bad-4f37-aa01-00a71c47a91b/0 -->
 
 The **Sensu backend** gives you flexible, automated workflows to route metrics and alerts.
-It is powered by an an embedded transport and [etcd][16] datastore and 
-Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and three exposed ports:
+It is powered by an an embedded transport and [etcd][16] datastore.
+Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and several exposed ports:
 
-- `3000` - Sensu [web UI][3]
-- `8080` - Sensu [API][26] used by sensuctl, some plugins, and any of your custom tooling
-- `8081` - WebSocket API used by Sensu agents
-
-Sensu backends running in a [clustered configuration][22] require additional ports.
-See [Deploy Sensu][31] and [hardware requirements][25] for deployment recommendations.
+- 2379 (HTTP/HTTPS) Sensu storage client: Required for Sensu backends using an external etcd instance
+- 2380 (HTTP/HTTPS) Sensu storage peer: Required for other Sensu backends in a [cluster][22]
+- 3000 (HTTP/HTTPS) [Sensu web UI][3]: Required for all Sensu backends using a Sensu web UI
+- 8080 (HTTP/HTTPS) [Sensu API][26]: Required for all users accessing the Sensu API
+- 8081 (WS/WSS) Agent API: Required for all Sensu agents connecting to a Sensu backend
 
 **Sensu agents** are lightweight clients that run on the infrastructure components you want to monitor.
 Agents register automatically with Sensu as entities and are responsible for creating check and metric events to send to the backend event pipeline.
-Agents can expose ports `3031` for the [agent API][27] and `8125` for the [StatsD listener][28].
-Agents using Sensu [assets][17] require some disk space for a local cache.
+The Sensu agent uses:
+
+- 3030 (TCP/UDP) Sensu agent socket: Required for Sensu agents using the agent socket
+- 3031 (HTTP) Sensu [agent API][27]: Required for all users accessing the agent API
+- 8125 (UDP) [StatsD listener][28]: Required for all Sensu agents using the StatsD listener
+
+The agent TCP and UDP sockets are deprecated in favor of the [agent API][32].
+
+Agents that use Sensu [assets][17] require some disk space for a local cache.
+
+For more information, see the [Secure Sensu guide][8].
+See [Deploy Sensu][31] and [hardware requirements][25] for deployment recommendations.
 
 ## Install the Sensu backend
 
@@ -453,7 +462,7 @@ If you plan to set up a cluster, here's our suggested pathway:
 [4]: ../../sensuctl/set-up-manage/
 [5]: ../../platforms/
 [6]: ../../reference/backend#configuration
-[7]: ../../reference/agent#configuration
+[7]: ../../reference/agent#configuration-via-flags
 [8]: ../../guides/securing-sensu/
 [9]: ../../guides/generate-certificates
 [11]: https://sensu.io/contact?subject=contact-sales/

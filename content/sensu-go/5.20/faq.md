@@ -2,12 +2,9 @@
 title: "Frequently asked questions about Sensu"
 linkTitle: "FAQs"
 description: "Questions about Sensu Go? Read this FAQ to get answers to questions about what platforms Sensu supports and what you can monitor with Sensu."
-version: "5.21"
+version: "5.20"
 weight: 80
 product: "Sensu Go"
-menu:
-  sensu-go-5.21:
-    parent: getting-started
 ---
 
 Thank you for visiting the Sensu FAQ!
