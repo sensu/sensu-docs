@@ -580,7 +580,7 @@ example      | {{< code shell >}}"occurrences_watermark": 1{{< /code >}}
 
 silenced     | |
 -------------|------
-description  | Array of silencing entries that match the event. If no silencing entries match the event, the `silenced` key will have a null value. API responses omit keys with null values, so `silenced` will only appear for events when one or more silencing entries match the event.
+description  | Array of silencing entries that match the event. The `silenced` attribute is only present for events if one or more silencing entries matched the event at time of processing. If the `silenced` attribute is not present in an event, the event was not silenced at the time of processing.
 required     | false
 type         | Array
 example      | {{< code shell >}}"silenced": [
