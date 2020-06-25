@@ -30,7 +30,7 @@ See [supported platforms][5] for more information.
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/3949dde6-1bad-4f37-aa01-00a71c47a91b/0 -->
 
 The **Sensu backend** gives you flexible, automated workflows to route metrics and alerts.
-It is powered by an an embedded transport and [etcd][16] datastore.
+It is powered by an an embedded transport and [etcd][16] datastore and gives you flexible, automated workflows to route metrics and alerts.
 Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and several exposed ports:
 
 - 2379 (HTTP/HTTPS) Sensu storage client: Required for Sensu backends using an external etcd instance
