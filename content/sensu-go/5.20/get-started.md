@@ -23,7 +23,7 @@ We recommend these resources for learning more about Sensu:
 - Sign up for our step-by-step [Learn Sensu email course][21]
 - Join the [Sensu Community Forum on Discourse][8]
 
-## Install a packaged Sensu Go distribution
+## Install the commercial distribution of Sensu Go
 
 Sensu's [supported platforms][20] include CentOS/RHEL, Debian, Ubuntu, and Windows.
 
