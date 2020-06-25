@@ -3,7 +3,7 @@ title: "Supported versions"
 linkTitle: "Supported Versions"
 description: "Sensu supports the latest versions of official distributions, including packages, binary-only distributions, and Docker images. Read this article to learn about supported versions of Sensu."
 version: "5.18"
-weight: -40
+weight: -30
 toc: false
 offline: false
 product: "Sensu Go"

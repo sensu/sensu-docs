@@ -107,7 +107,7 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [1]: ../../platforms/
 [2]: ../../installation/install-sensu/
 [3]: https://blog.sensu.io/sensu-go-is-here/
-[4]: ../../installation/upgrade/#migrate-to-sensu-go-from-sensu-core-1-x
+[4]: ../../migrate/
 [5]: ../../installation/recommended-hardware/
 [6]: https://sensu.io/sales/
 [7]: ../../learn/glossary/
