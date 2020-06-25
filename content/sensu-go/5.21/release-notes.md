@@ -76,7 +76,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.21.0.
 **NEW FEATURES:**
 
 - ([Commercial feature][158]) Added [entity count and limit][156] for each entity class in the tabular title in the response for `sensuctl license info` (in addition to the total entity count and limit).
-- ([Commercial feature][158]) Added [Linux amd64 OpenSSL-linked binaries][160] for the Sensu agent and backend, with accompanying `--require-fips` and `--require-openssl` flags for the [agent][161] and [backend][162].
+- ([Commercial feature][158]) Added Linux amd64 OpenSSL-linked binaries for the Sensu agent and backend, with accompanying `--require-fips` and `--require-openssl` flags for the [agent][161] and [backend][160].
 - Added `sensuctl user hash-password` command to generate password hashes.
 - Added the ability to reset passwords via the backend API and `sensuctl user reset-password`.
 
@@ -1374,6 +1374,5 @@ To get started with Sensu Go:
 [156]: /sensu-go/5.21/reference/license/#view-entity-count-and-entity-limit
 [157]: /sensu-go/5.21/reference/agent/#log-level
 [158]: /sensu-go/5.21/commercial/
-[160]: /sensu-go/5.21/platforms/#linux
+[160]: /sensu-go/5.21/reference/backend#fips-openssl
 [161]: /sensu-go/5.21/reference/agent#fips-openssl
-[162]: /sensu-go/5.21/reference/backend#fips-openssl
