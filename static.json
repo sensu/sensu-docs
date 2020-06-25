@@ -270,18 +270,6 @@
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/sensuctl/reference/?$": {
             "url": "/sensu-go/latest/sensuctl/set-up-manage",
             "status": 301
-        },
-        "~ ^/sensu-go/latest/sensuctl/installation/upgrade/#migrate-to-sensu-go-from-sensu-core-1x?$": {
-            "url": "/sensu-go/latest/migrate",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/upgrade/#migrate-to-sensu-go-from-sensu-core-1x?$": {
-            "url": "/sensu-go/latest/migrate",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/upgrade/#migrate-to-sensu-go-from-sensu-core-1x?$": {
-            "url": "/sensu-go/latest/migrate",
-            "status": 301
         }
     }
 }
