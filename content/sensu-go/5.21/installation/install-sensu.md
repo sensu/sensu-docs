@@ -460,7 +460,7 @@ To deploy Sensu for use outside of a local development environment, first decide
 A Sensu cluster is a group of three or more sensu-backend nodes, each connected to a shared etcd cluster, using Sensu’s embedded etcd or an external etcd cluster.
 
 Clustering allows you to absorb the loss of a backend node, prevent data loss, and distribute the network load of agents.
-However, clustered deployments have different configuration implications than single backend deployments, so we recommend deciding whether you will run a Sensu cluster before you generate certificates and set up TLS.
+However, scaling a single backend to a cluster, or migrating a cluster from cleartext HTTP to encrypted HTTPS without downtime can require [a number of tedious steps][40].  For this reason, we recommend you decide whether your deployment will require clustering as part of your initial planning effort.
 
 No matter whether you deploy a single backend or a clustered configuration, begin by securing Sensu with transport layer security (TLS).
 The first step in setting up TLS is to [generate the certificates you need][2].
