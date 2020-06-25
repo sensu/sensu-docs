@@ -9,13 +9,6 @@ menu:
     parent: api
 ---
 
-- [The `authproviders` API endpoints](#the-authproviders-api-endpoints) (commercial feature)
-  - [`/authproviders` (GET)](#authproviders-get)
-- [The `authproviders/:name` API endpoints](#the-authprovidersname-api-endpoints) (commercial feature)
-  - [`authproviders/:name` (GET)](#authprovidersname-get)
-  - [`authproviders/:name` (PUT)](#authprovidersname-put)
-  - [`authproviders/:name` (DELETE)](#authprovidersname-delete)
-
 **COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][2].
 
@@ -24,13 +17,11 @@ For more information, see [Get started with commercial features][2].
 The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
-## The `/authproviders` API endpoints {#the-authproviders-api-endpoints}
-
-### `/authproviders` (GET) {#authproviders-get}
+## Get active authentication provider configurations {#authproviders-get}
 
 The `/authproviders` API endpoint provides HTTP GET access to authentication provider configuration in Sensu.
 
-#### EXAMPLE {#authproviders-get-example}
+### Example {#authproviders-get-example}
 
 In the following example, querying the `/authproviders` API endpoint returns the authentication provider configuration in Sensu, with an HTTP `200 OK` response.
 
@@ -83,7 +74,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#authproviders-get-specification}
+### API Specification {#authproviders-get-specification}
 
 /authproviders (GET)  | 
 ---------------|------
@@ -136,13 +127,11 @@ output         | {{< code json >}}
 ]
 {{< /code >}}
 
-## The `/authproviders/:name` API endpoints {#the-authprovidersname-api-endpoints}
-
-### `/authproviders/:name` (GET) {#authprovidersname-get}
+## Get the configuration for a specific authentication provider {#authprovidersname-get}
 
 The `/authproviders/:name` API endpoint provides HTTP GET access to the authentication provider configuration for a specific `:name`.
 
-#### EXAMPLE {#authprovidersname-get-example}
+### Example {#authprovidersname-get-example}
 
 In the following example, an HTTP GET request is submitted to the `/authproviders/:name` API endpoint to retrieve the `openldap` authenthication provider configuration, resulting in an HTTP `200 OK` response.
 
@@ -194,7 +183,7 @@ HTTP/1.1 200 OK
 }'
 {{< /code >}}
 
-#### API Specification {#authprovidersname-get-specification}
+### API Specification {#authprovidersname-get-specification}
 
 /authproviders/:name (GET) | 
 ---------------------|------
@@ -244,11 +233,11 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/authproviders/:name` (PUT) {#authprovidersname-put}
+## Create or update the configuration for a specific authentication provider {#authprovidersname-put}
 
 The `/authproviders/:name` API endpoint provides HTTP PUT access to create or update the [authentication provider][1] configuration for a specific `:name`.
 
-#### EXAMPLE {#authprovidersname-put-example}
+### Example {#authprovidersname-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/authproviders/:name` API endpoint to create the `openldap` authenthication provider, resulting in an HTTP `200 OK` response.
 
@@ -285,7 +274,7 @@ http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders/openldap
 HTTP/1.1 200 OK
 {{< /code >}}
 
-#### API Specification {#authprovidersname-put-specification}
+### API Specification {#authprovidersname-put-specification}
 
 /authproviders/:name (PUT) | 
 ----------------|------
@@ -320,11 +309,11 @@ payload         | {{< code shell >}}
 payload parameters | All attributes shown in the example payload are required. For more information about configuring authentication providers, see the [authentication guide][1].
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/authproviders/:name` (DELETE) {#authprovidersname-delete}
+## Delete the configuration for a specific authentication provider {#authprovidersname-delete}
 
 The `/authproviders/:name` API endpoint provides HTTP DELETE access to delete the authentication provider configuration from Sensu for a specific `:name`.
 
-### EXAMPLE {#authprovidersname-delete-example}
+### Example {#authprovidersname-delete-example}
 
 The following example shows a request to the `/authproviders/:name` API endpoint to delete the configuration for the authentication provider `openldap`, resulting in a successful HTTP `204 No Content` response.
 
@@ -336,7 +325,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/authproviders/openldap
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#authprovidersname-delete-specification}
+### API Specification {#authprovidersname-delete-specification}
 
 /authproviders/:name (DELETE) | 
 --------------------------|------

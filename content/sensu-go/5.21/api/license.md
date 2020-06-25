@@ -9,25 +9,18 @@ menu:
     parent: api
 ---
 
-- [The `/license` API endpoints](#the-license-api-endpoints)
-  - [`/license` (GET)](#license-get)
-  - [`/license` (PUT)](#license-put)
-  - [`/license` (DELETE)](#license-delete)
-
 {{% notice note %}}
 **NOTE**: Requests to the license API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
 The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
-## The `/license` API endpoints
-
 For more information about commercial features designed for enterprises, see [Get started with commercial features][1].
 
-### `/license` (GET)
+## Get the active license configuration
 
 The `/license` API endpoint provides HTTP GET access to the active license configuration.
 
-#### EXAMPLE {#license-get-example}
+### Example {#license-get-example}
 
 The following example demonstrates a request to the `/license` API endpoint, resulting in a JSON array that contains the license definition.
 
@@ -71,7 +64,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#license-get-specification}
+### API Specification {#license-get-specification}
 
 /license (GET)  | 
 ---------------|------
@@ -113,11 +106,11 @@ output         | {{< code shell >}}
 }
 {{< /code >}}
 
-### `/license` (PUT)
+## Activate a commercial license
 
 The `/license` API endpoint provides HTTP PUT access to activate a commercial license.
 
-#### EXAMPLE {#license-put-example}
+### Example {#license-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/license` API endpoint to create the license definition.
 The request returns a successful HTTP `201 Created` response.
@@ -162,7 +155,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/license
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#license-put-specification}
+### API Specification {#license-put-specification}
 
 /license (PUT)  | 
 ---------------|------
@@ -203,11 +196,11 @@ payload        | {{< code shell >}}
 {{< /code >}}
 response codes | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/license` (DELETE)
+## Delete a commercial license
 
 The `/license` API endpoint provides HTTP DELETE access to remove a commercial license.
 
-#### EXAMPLE {#license-delete-example}
+### Example {#license-delete-example}
 
 The following example shows a request to the `/license` API endpoint to delete the commercial license, resulting in a successful HTTP `204 No Content` response.
 
@@ -219,7 +212,7 @@ http://127.0.0.1:8080/api/enterprise/licensing/v2/license \
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#license-delete-specification}
+### API Specification {#license-delete-specification}
 
 /license (DELETE)  | 
 -------------------|------

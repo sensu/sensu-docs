@@ -1308,7 +1308,7 @@ spec:
 [5]: ../../guides/aggregate-metrics-statsd/
 [6]: ../../guides/extract-metrics-with-checks/
 [7]: ../checks/#check-specification
-[8]: ../../sensuctl/reference#create-resources
+[8]: ../../sensuctl/create-manage-resources/#create-resources
 [9]: #spec-attributes
 [10]: ../agent#create-monitoring-events-using-service-checks
 [11]: ../agent#create-monitoring-events-using-the-agent-api
@@ -1317,8 +1317,8 @@ spec:
 [14]: ../../api/events#eventsentitycheck-put
 [15]: ../../web-ui/sign-in/
 [16]: ../../api/events/
-[17]: ../../sensuctl/reference/
-[18]: ../../sensuctl/reference/#preferred-output-format
+[17]: ../../sensuctl/set-up-manage/
+[18]: ../../sensuctl/set-up-manage/#sensuctl-event
 [20]: ../checks#check-specification
 [21]: #check-attributes
 [22]: #metrics

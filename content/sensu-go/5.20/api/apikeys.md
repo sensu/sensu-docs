@@ -8,25 +8,16 @@ menu:
     parent: api
 ---
 
-- [The `/apikeys` API endpoint](#the-apikeys-api-endpoint)
-	- [`/apikeys` (GET)](#apikeys-get)
-	- [`/apikeys` (POST)](#apikeys-post)
-- [The `/apikeys/:apikey` API endpoint](#the-apikeysapikey-api-endpoint)
-	- [`/apikeys/:apikey` (GET)](#apikeysapikey-get)
-	- [`/apikeys/:apikey` (DELETE)](#apikeysapikey-delete)
-
 {{% notice note %}}
 **NOTE**: Requests to the APIKeys API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
 The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
-## The `/apikeys` API endpoint
-
-### `/apikeys` (GET)
+## Get all API keys
 
 The `/apikeys` GET endpoint retrieves all API keys.
 
-#### EXAMPLE {#apikeys-get-example}
+### Example {#apikeys-get-example}
 
 The following example demonstrates a request to the `/apikeys` API endpoint, resulting in a JSON array that contains all API keys.
 
@@ -49,7 +40,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#apikeys-get-specification}
+### API Specification {#apikeys-get-specification}
 
 /apikeys (GET)  | 
 ---------------|------
@@ -71,11 +62,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-### `/apikeys` (POST)
+## Create a new API key
 
 The `/apikeys` API endpoint provides HTTP POST access to create a new API key.
 
-#### EXAMPLE {#apikeys-post-example}
+### Example {#apikeys-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/apikeys` API endpoint to create a new API key.
 The request includes the API key definition in the request body and returns a successful HTTP `201 Created` response.
@@ -92,7 +83,7 @@ http://127.0.0.1:8080/api/core/v2/apikeys
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#apikeys-post-specification}
+### API Specification {#apikeys-post-specification}
 
 /apikeys (POST) | 
 ----------------|------
@@ -105,13 +96,11 @@ request payload  | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/apikeys/:apikey` API endpoint {#the-apikeysapikey-api-endpoint}
-
-### `/apikeys/:apikey` (GET) {#apikeysapikey-get}
+## Get a specific API key
 
 The `/apikeys/:apikey` GET endpoint retrieves the specified API key.
 
-#### EXAMPLE {#apikeysapikey-get-example}
+### Example {#apikeysapikey-get-example}
 
 In the following example, querying the `/apikeys/:apikey` API returns the requested `:apikey` definition or an error if the key is not found.
 
@@ -131,7 +120,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#apikeysapikey-get-specification}
+### API Specification {#apikeysapikey-get-specification}
 
 /apikeys/:apikey (GET) | 
 ---------------------|------
@@ -150,11 +139,11 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/apikeys/:apikey` (DELETE) {#apikeysapikey-delete}
+## Delete an API key {#apikeysapikey-delete}
 
 The `/apikeys/:apikey` API endpoint provides HTTP DELETE access to remove an API key.
 
-#### EXAMPLE {#apikeysapikey-delete-example}
+### Example {#apikeysapikey-delete-example}
 
 The following example shows a request to the `/apikeys/:apikey` API endpoint to delete the API key `83abef1e-e7d7-4beb-91fc-79ad90084d5b`, resulting in a successful HTTP `204 No Content` response.
 
@@ -166,7 +155,7 @@ http://127.0.0.1:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#apikeysapikey-delete-specification}
+### API Specification {#apikeysapikey-delete-specification}
 
 /apikeys/:apikey (DELETE) | 
 ----------------|------

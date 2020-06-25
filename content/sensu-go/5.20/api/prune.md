@@ -19,13 +19,11 @@ menu:
 The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
-## The `/prune/v1alpha` API endpoint
-
-### `/prune/v1alpha` (POST)
+## Create a new pruning command
 
 The `/prune/v1alpha` API endpoint provides HTTP POST access to create a pruning command to delete resources that are not specified in the request body.
 
-#### EXAMPLE {#prune-v1alpha-post-example}
+### Example {#prune-v1alpha-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/prune/v1alpha` API endpoint to create a pruning command for the checks specified in the request body in the `dev` namespace created by any user.
 
@@ -66,7 +64,7 @@ HTTP/1.1 201 Created
 ]
 {{< /code >}}
 
-#### API Specification {#prune-v1alpha-specification}
+### API Specification {#prune-v1alpha-specification}
 
 /prune/v1alpha (POST) | 
 ----------------------|------
@@ -105,4 +103,4 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 
 [1]: ../../commercial/
-[2]: ../../sensuctl/reference/#sensuctl-prune-resource-types
+[2]: ../../sensuctl/create-manage-resources/#sensuctl-prune-resource-types

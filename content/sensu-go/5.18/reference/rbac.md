@@ -125,7 +125,7 @@ spec:
 See the [reference docs][16] for the corresponding [resource type][17] to create resource definitions.
 
 {{% notice protip %}}
-**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference](../../sensuctl/reference#create-resources-across-namespaces) for more information.
+**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference](../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
 {{% /notice %}}
 
 ### Namespace specification
@@ -1219,7 +1219,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 {{< /code >}}
 
 [1]: ../backend/
-[2]: ../../sensuctl/reference/
+[2]: ../../sensuctl/set-up-manage/
 [3]: ../../web-ui/sign-in/
 [4]: #resources
 [5]: ../assets/
@@ -1246,7 +1246,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [28]: #create-cluster-wide-roles
 [29]: #create-role-bindings-and-cluster-role-bindings
 [30]: #role-binding-and-cluster-role-binding-specification
-[31]: ../../sensuctl/reference#create-resources
+[31]: ../../sensuctl/create-manage-resources/#create-resources
 [32]: ../../installation/auth#use-an-authentication-provider
 [33]: ../../commercial/
 [34]: ../../installation/auth#use-built-in-basic-authentication
@@ -1258,7 +1258,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [42]: ../../installation/install-sensu/#install-the-sensu-backend
 [43]: ../../installation/auth#lightweight-directory-access-protocol-ldap-authentication
 [44]: ../../installation/auth/#active-directory-ad-authentication
-[45]: ../../sensuctl/reference/#change-admin-user-s-password
+[45]: ../../sensuctl/set-up-manage/#change-admin-users-password
 [46]: ../secrets-providers/
 [47]: ../datastore/
 [48]: ../secrets/

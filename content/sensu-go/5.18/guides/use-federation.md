@@ -362,9 +362,9 @@ Learn more about configuring RBAC policies in our [RBAC reference documentation]
 [2]: ../../reference/etcdreplicators/
 [3]: ../use-apikey-feature/
 [4]: ../../reference/backend#jwt-attributes
-[5]: ../../sensuctl/reference#create-resources
-[6]: ../../sensuctl/reference#update-resources
-[7]: ../../sensuctl/reference#delete-resources
+[5]: ../../sensuctl/create-manage-resources/#create-resources
+[6]: ../../sensuctl/create-manage-resources/#update-resources
+[7]: ../../sensuctl/create-manage-resources/#delete-resources
 [8]: ../../commercial/
 [9]: ../../reference/etcdreplicators#example-etcdreplicator-resources
 [10]: ../../reference/rbac/

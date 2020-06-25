@@ -8,13 +8,11 @@ menu:
     parent: api
 ---
 
-## The `/version` API endpoint
-
-### `/version` (GET)
+## Get the Sensu backend and etcd versions
 
 The `/version` API endpoint provides HTTP GET access to the Sensu backend and etcd versions for the Sensu instance.
 
-#### EXAMPLE {#version-get-example}
+### Example {#version-get-example}
 
 The following example demonstrates a request to the `/version` API endpoint, resulting in a JSON map that contains Sensu version data.
 
@@ -32,7 +30,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#version-get-specification}
+### API Specification {#version-get-specification}
 
 /version (GET)      |      |
 --------------------|------

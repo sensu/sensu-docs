@@ -8,21 +8,11 @@ menu:
     parent: api
 ---
 
-- [The `/handlers` API endpoint](#the-handlers-api-endpoint)
-	- [`/handlers` (GET)](#handlers-get)
-	- [`/handlers` (POST)](#handlers-post)
-- [The `/handlers/:handler` API endpoint](#the-handlershandler-api-endpoint)
-	- [`/handlers/:handler` (GET)](#handlershandler-get)
-  - [`/handlers/:handler` (PUT)](#handlershandler-put)
-  - [`/handlers/:handler` (DELETE)](#handlershandler-delete)
-
-## The `/handlers` API endpoint
-
-### `/handlers` (GET)
+## Get all handlers
 
 The `/handlers` API endpoint provides HTTP GET access to [handler][1] data.
 
-#### EXAMPLE {#handlers-get-example}
+### Example {#handlers-get-example}
 
 The following example demonstrates a request to the `/handlers` API endpoint, resulting in a JSON array that contains [handler definitions][1].
 
@@ -73,7 +63,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#handlers-get-specification}
+### API Specification {#handlers-get-specification}
 
 /handlers (GET)  | 
 ---------------|------
@@ -124,11 +114,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-### `/handlers` (POST)
+## Create a new handler
 
 The `/handlers` API endpoint provides HTTP POST access to create a handler.
 
-#### EXAMPLE {#handlers-post-example}
+### Example {#handlers-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/handlers` API endpoint to create the event handler `influx-db`.
 The request returns a successful HTTP `201 Created` response.
@@ -161,7 +151,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#handlers-post-specification}
+### API Specification {#handlers-post-specification}
 
 /handlers (POST) | 
 ----------------|------
@@ -190,13 +180,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/handlers/:handler` API endpoint {#the-handlershandler-api-endpoint}
-
-### `/handlers/:handler` (GET) {#handlershandler-get}
+## Get a specific handler {#handlershandler-get}
 
 The `/handlers/:handler` API endpoint provides HTTP GET access to [handler data][1] for specific `:handler` definitions, by handler `name`.
 
-#### EXAMPLE {#handlershandler-get-example}
+### Example {#handlershandler-get-example}
 
 In the following example, querying the `/handlers/:handler` API endpoint returns a JSON map that contains the requested [`:handler` definition][1] (in this example, for the `:handler` named `slack`).
 
@@ -229,7 +217,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#handlershandler-get-specification}
+### API Specification {#handlershandler-get-specification}
 
 /handlers/:handler (GET) | 
 ---------------------|------
@@ -261,11 +249,11 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/handlers/:handler` (PUT) {#handlershandler-put}
+## Create or update a handler {#handlershandler-put}
 
 The `/handlers/:handler` API endpoint provides HTTP GET access to create or update a specific `:handler` definition, by handler `name`.
 
-#### EXAMPLE {#handlershandler-put-example}
+### Example {#handlershandler-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/handlers/:handler` API endpoint to create the handler `influx-dbdevelopment_filter`.
 The request returns a successful HTTP `201 Created` response.
@@ -298,7 +286,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/influx-db
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#handlershandler-put-specification}
+### API Specification {#handlershandler-put-specification}
 
 /handlers/:handler (PUT) | 
 ----------------|------
@@ -327,11 +315,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/handlers/:handler` (DELETE) {#handlershandler-delete}
+## Delete a handler {#handlershandler-delete}
 
 The `/handlers/:handler` API endpoint provides HTTP DELETE access to delete a handler from Sensu (specified by the handler name).
 
-#### EXAMPLE {#handlershandler-delete-example}
+### Example {#handlershandler-delete-example}
 
 The following example shows a request to the `/handlers/:handler` API endpoint to delete the handler `slack`, resulting in a successful HTTP `204 No Content` response.
 
@@ -343,7 +331,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack \
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#handlershandler-delete-specification}
+### API Specification {#handlershandler-delete-specification}
 
 /handlers/:handler (DELETE) | 
 --------------------------|------

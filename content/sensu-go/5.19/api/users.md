@@ -9,34 +9,15 @@ menu:
     parent: api
 ---
 
-- [The `/users` API endpoint](#the-users-api-endpoint)
-  - [`/users` (GET)](#users-get)
-  - [`/users` (POST)](#users-post)
-- [The `/users/:user` API endpoint](#the-usersuser-api-endpoint)
-  - [`/users/:user` (GET)](#usersuser-get)
-  - [`/users/:user` (PUT)](#usersuser-put)
-  - [`/users/:user` (DELETE)](#usersuser-delete)
-- [The `/users/:user/password` API endpoint](#the-usersuserpassword-api-endpoint)
-  - [`/users/:user/password` (PUT)](#usersuserpassword-put)
-- [The `/users/:user/reinstate` API endpoint](#the-usersuserreinstate-api-endpoint)
-  - [`/users/:user/reinstate` (PUT)](#usersuserreinstate-put)
-- [The `/users/:user/groups` API endpoint](#the-usersusergroups-api-endpoint)
-  - [`/users/:user/groups` (DELETE)](#usersusergroups-delete)
-- [The `/users/:user/groups/:group` API endpoints](#the-usersusergroupsgroup-api-endpoints)
-  - [`/users/:user/groups/:group` (PUT)](#usersusergroupsgroup-put)
-  - [`/users/:user/groups/:group` (DELETE)](#usersusergroupsgroup-delete)
-
 {{% notice note %}}
 **NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication). To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../installation/auth/#active-directory-ad-authentication), use Sensu's [authentication providers API](../authproviders/).
 {{% /notice %}}
 
-## The `/users` API endpoint
-
-### `/users` (GET)
+## Get all users
 
 The `/users` API endpoint provides HTTP GET access to [user][1] data.
 
-#### EXAMPLE {#users-get-example}
+### Example {#users-get-example}
 
 The following example demonstrates a request to the `/users` API, resulting in a JSON array that contains [user definitions][1].
 
@@ -64,7 +45,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#users-get-specification}
+### API Specification {#users-get-specification}
 
 /users (GET)  | 
 ---------------|------
@@ -93,11 +74,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-### `/users` (POST)
+## Create a new user
 
 The `/users` API endpoint provides HTTP POST access to create a [user][1] using Sensu's basic authentication provider.
 
-#### EXAMPLE {#users-post-example}
+### Example {#users-post-example}
 
 The following example demonstrates a POST request to the `/users` API endpoint to create the user `alice`, resulting in an HTTP `201 Created` response and the created user definition.
 
@@ -118,7 +99,7 @@ http://127.0.0.1:8080/api/core/v2/users
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#usersuser-post-specification}
+### API Specification {#usersuser-post-specification}
 
 /users (POST) | 
 ----------------|------
@@ -137,13 +118,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/users/:user` API endpoint {#the-usersuser-api-endpoint}
-
-### `/users/:user` (GET) {#usersuser-get}
+## Get a specific user {#usersuser-get}
 
 The `/users/:user` API endpoint provides HTTP GET access to [user data][1] for a specific user by `username`.
 
-#### EXAMPLE {#usersuser-get-example}
+### Example {#usersuser-get-example}
 
 In the following example, querying the `/users/:user` API returns a JSON map that contains the requested [`:user` definition][1] (in this example, for the `alice` user).
 
@@ -162,7 +141,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#usersuser-get-specification}
+### API Specification {#usersuser-get-specification}
 
 /users/:user (GET) | 
 ---------------------|------
@@ -180,11 +159,11 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/users/:user` (PUT) {#usersuser-put}
+## Create or update a user {#usersuser-put}
 
 The `/users/:user` API endpoint provides HTTP PUT access to create or update [user data][1] for a specific user by `username`.
 
-#### EXAMPLE {#users-put-example}
+### Example {#users-put-example}
 
 The following example demonstrates a PUT request to the `/users` API endpoint to update the user `alice` (in this case, to reset the user's password), resulting in an HTTP `201 Created` response and the updated user definition.
 
@@ -205,7 +184,7 @@ http://127.0.0.1:8080/api/core/v2/users/alice
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#usersuser-put-specification}
+### API Specification {#usersuser-put-specification}
 
 /users/:user (PUT) | 
 ----------------|------
@@ -223,11 +202,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/users/:user` (DELETE) {#usersuser-delete}
+## Delete a user {#usersuser-delete}
 
 The `/users/:user` API endpoint provides HTTP DELETE access to disable a specific user by `username`.
 
-#### EXAMPLE {#usersuser-delete-example}
+### Example {#usersuser-delete-example}
 
 In the following example, an HTTP DELETE request is submitted to the `/users/:user` API endpoint to disable the user `alice`, resulting in a successful HTTP `204 No Content` response.
 
@@ -244,7 +223,7 @@ HTTP/1.1 204 No Content
 You can [reinstate](#the-usersuserreinstate-api-endpoint) disabled users.
 {{% /notice %}}
 
-#### API Specification {#usersuser-delete-specification}
+### API Specification {#usersuser-delete-specification}
 
 /users/:user (DELETE) | 
 --------------------------|------
@@ -252,13 +231,11 @@ description               | Disables the specified user.
 example url               | http://hostname:8080/api/core/v2/users/alice
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/users/:user/password` API endpoint {#the-usersuserpassword-api-endpoint}
-
-### `/users/:user/password` (PUT) {#usersuserpassword-put}
+## Update a user password {#usersuserpassword-put}
 
 The `/users/:user/password` API endpoint provides HTTP PUT access to update a user's password.
 
-#### EXAMPLE {#usersuserpassword-put-example}
+### Example {#usersuserpassword-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API endpoint to update the password for the user `alice`, resulting in an HTTP `201 Created` response.
 
@@ -275,7 +252,7 @@ http://127.0.0.1:8080/api/core/v2/users/alice/password
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#usersuserpassword-put-specification}
+### API Specification {#usersuserpassword-put-specification}
 
 /users/:user/password (PUT) | 
 ----------------|------
@@ -290,13 +267,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/users/:user/reinstate` API endpoint {#the-usersuserreinstate-api-endpoint}
-
-### `/users/:user/reinstate` (PUT) {#usersuserreinstate-put}
+## Reinstate a disabled user {#usersuserreinstate-put}
 
 The `/users/:user/reinstate` API endpoint provides HTTP PUT access to reinstate a disabled user.
 
-#### EXAMPLE {#usersuserreinstate-put-example}
+### Example {#usersuserreinstate-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/users/:user/reinstate` API endpoint to reinstate the disabled user `alice`, resulting in an HTTP `201 Created` response.
 
@@ -309,7 +284,7 @@ http://127.0.0.1:8080/api/core/v2/users/alice/reinstate
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#usersuserreinstate-put-specification}
+### API Specification {#usersuserreinstate-put-specification}
 
 /users/:user/reinstate (PUT) | 
 ----------------|------
@@ -317,13 +292,11 @@ description     | Reinstates a disabled user.
 example URL     | http://hostname:8080/api/core/v2/users/alice/reinstate
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/users/:user/groups` API endpoint {#the-usersusergroups-api-endpoint}
-
-### `/users/:user/groups` (DELETE) {#usersusergroups-delete}
+## Remove a user from all groups {#usersusergroups-delete}
 
 The `/users/:user/groups` API endpoint provides HTTP DELETE access to remove the specified user from all groups.
 
-#### EXAMPLE {#usersusergroups-delete-example}
+### Example {#usersusergroups-delete-example}
 
 In the following example, an HTTP DELETE request is submitted to the `/users/:user/groups` API endpoint to remove the user `alice` from all groups within Sensu, resulting in a successful HTTP `204 No Content` response.
 
@@ -335,7 +308,7 @@ http://127.0.0.1:8080/api/core/v2/users/alice/groups
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#usersusergroups-delete-specification}
+### API Specification {#usersusergroups-delete-specification}
 
 /users/:user/groups (DELETE) | 
 --------------------------|------
@@ -343,13 +316,11 @@ description               | Removes the specified user from all groups.
 example url               | http://hostname:8080/api/core/v2/users/alice/groups
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/users/:user/groups/:group` API endpoints {#the-usersusergroupsgroup-api-endpoints}
-
-### `/users/:user/groups/:group` (PUT) {#usersusergroupsgroup-put}
+## Assign a user to a group {#usersusergroupsgroup-put}
 
 The `/users/:user/groups/:group` API endpoint provides HTTP PUT access to assign a user to a group.
 
-#### EXAMPLE {#usersusergroupsgroup-put-example}
+### Example {#usersusergroupsgroup-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/users/:user/groups/:group` API endpoint to add the user `alice` to the group `ops`, resulting in a successful HTTP `201 Created` response.
 
@@ -361,7 +332,7 @@ http://127.0.0.1:8080/api/core/v2/users/alice/groups/ops
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#usersusergroupsgroup-put-specification}
+### API Specification {#usersusergroupsgroup-put-specification}
 
 /users/:user/groups/:group (PUT) | 
 ----------------|------
@@ -369,11 +340,11 @@ description     | Adds the specified user to the specified group.
 example URL     | http://hostname:8080/api/core/v2/users/alice/groups/ops
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/users/:user/groups/:group` (DELETE) {#usersusergroupsgroup-delete}
+## Remove a user from a specific group {#usersusergroupsgroup-delete}
 
 The `/users/:user/groups/:group` API endpoint provides HTTP DELETE access to remove the specified user from a specific group.
 
-#### EXAMPLE {#usersusergroupsgroup-delete-example}
+### Example {#usersusergroupsgroup-delete-example}
 
 In the following example, an HTTP DELETE request is submitted to the `/users/:user/groups/:group` API endpoint to remove the user `alice` from the group `ops`, resulting in a successful HTTP `204 No Content` response.
 
@@ -385,7 +356,7 @@ http://127.0.0.1:8080/api/core/v2/users/alice/groups/ops
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#usersusergroupsgroup-delete-specification}
+### API Specification {#usersusergroupsgroup-delete-specification}
 
 /users/:user/groups/:group (DELETE) | 
 --------------------------|------

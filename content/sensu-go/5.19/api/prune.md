@@ -8,19 +8,17 @@ menu:
     parent: api
 ---
 
-## The `/prune/v1alpha` API endpoint
-
 {{% notice important %}}
 **IMPORTANT**: The prune API is an alpha feature in release 5.19.0 and may include breaking changes.
 {{% /notice %}}
 
 **COMMERCIAL FEATURE**: Access sensuctl pruning in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][1].
 
-### `/prune/v1alpha` (POST)
+## Create a new pruning command
 
 The `/prune/v1alpha` API endpoint provides HTTP POST access to create a pruning command to delete resources that are not specified in the request body.
 
-#### EXAMPLE {#prune-v1alpha-post-example}
+### Example {#prune-v1alpha-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/prune/v1alpha` API endpoint to create a pruning command for the checks specified in the request body in the `dev` namespace created by any user.
 
@@ -61,7 +59,7 @@ HTTP/1.1 201 Created
 ]
 {{< /code >}}
 
-#### API Specification {#prune-v1alpha-specification}
+### API Specification {#prune-v1alpha-specification}
 
 /prune/v1alpha (POST) | 
 ----------------------|------
@@ -100,4 +98,4 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 
 [1]: ../../commercial/
-[2]: ../../sensuctl/reference/#sensuctl-prune-resource-types
+[2]: ../../sensuctl/create-manage-resources/#sensuctl-prune-resource-types

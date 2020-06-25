@@ -204,10 +204,10 @@ To view the events on-disk, see [Log Sensu services with systemd][9].
 
 [1]: https://blog.sensu.io/announcing-tessen-the-sensu-call-home-service
 [2]: ../../api/tessen/
-[3]: ../../sensuctl/reference/
+[3]: ../../sensuctl/set-up-manage/
 [4]: ../license/
 [5]: ../../guides/troubleshooting
 [6]: ../../reference/rbac#default-users
-[7]: ../../sensuctl/reference#create-resources
+[7]: ../../sensuctl/create-manage-resources/#create-resources
 [8]: #spec-attributes
 [9]: ../../guides/systemd-logs/

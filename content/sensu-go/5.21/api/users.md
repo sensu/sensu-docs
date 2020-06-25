@@ -8,34 +8,15 @@ menu:
     parent: api
 ---
 
-- [The `/users` API endpoint](#the-users-api-endpoint)
-  - [`/users` (GET)](#users-get)
-  - [`/users` (POST)](#users-post)
-- [The `/users/:user` API endpoint](#the-usersuser-api-endpoint)
-  - [`/users/:user` (GET)](#usersuser-get)
-  - [`/users/:user` (PUT)](#usersuser-put)
-  - [`/users/:user` (DELETE)](#usersuser-delete)
-- [The `/users/:user/password` API endpoint](#the-usersuserpassword-api-endpoint)
-  - [`/users/:user/password` (PUT)](#usersuserpassword-put)
-- [The `/users/:user/reinstate` API endpoint](#the-usersuserreinstate-api-endpoint)
-  - [`/users/:user/reinstate` (PUT)](#usersuserreinstate-put)
-- [The `/users/:user/groups` API endpoint](#the-usersusergroups-api-endpoint)
-  - [`/users/:user/groups` (DELETE)](#usersusergroups-delete)
-- [The `/users/:user/groups/:group` API endpoints](#the-usersusergroupsgroup-api-endpoints)
-  - [`/users/:user/groups/:group` (PUT)](#usersusergroupsgroup-put)
-  - [`/users/:user/groups/:group` (DELETE)](#usersusergroupsgroup-delete)
-
 {{% notice note %}}
 **NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication). To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../installation/auth/#active-directory-ad-authentication), use Sensu's [authentication providers API](../authproviders/).
 {{% /notice %}}
 
-## The `/users` API endpoint
-
-### `/users` (GET)
+## Get all users
 
 The `/users` API endpoint provides HTTP GET access to [user][1] data.
 
-#### EXAMPLE {#users-get-example}
+### Example {#users-get-example}
 
 The following example demonstrates a request to the `/users` API, resulting in a JSON array that contains [user definitions][1].
 
@@ -63,7 +44,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#users-get-specification}
+### API Specification {#users-get-specification}
 
 /users (GET)  | 
 ---------------|------
@@ -92,11 +73,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-### `/users` (POST)
+## Create a new user
 
 The `/users` API endpoint provides HTTP POST access to create a [user][1] using Sensu's basic authentication provider.
 
-#### EXAMPLE {#users-post-example}
+### Example {#users-post-example}
 
 The following example demonstrates a POST request to the `/users` API endpoint to create the user `alice`, resulting in an HTTP `201 Created` response and the created user definition.
 
@@ -117,7 +98,7 @@ http://127.0.0.1:8080/api/core/v2/users
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#usersuser-post-specification}
+### API Specification {#usersuser-post-specification}
 
 /users (POST) | 
 ----------------|------
@@ -136,13 +117,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/users/:user` API endpoint {#the-usersuser-api-endpoint}
-
-### `/users/:user` (GET) {#usersuser-get}
+## Get a specific user {#usersuser-get}
 
 The `/users/:user` API endpoint provides HTTP GET access to [user data][1] for a specific user by `username`.
 
-#### EXAMPLE {#usersuser-get-example}
+### Example {#usersuser-get-example}
 
 In the following example, querying the `/users/:user` API returns a JSON map that contains the requested [`:user` definition][1] (in this example, for the `alice` user).
 
@@ -161,7 +140,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#usersuser-get-specification}
+### API Specification {#usersuser-get-specification}
 
 /users/:user (GET) | 
 ---------------------|------
@@ -179,13 +158,17 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/users/:user` (PUT) {#usersuser-put}
+## Create or update a user {#usersuser-put}
 
 The `/users/:user` API endpoint provides HTTP PUT access to create or update [user data][1] for a specific user by `username`.
 
-#### EXAMPLE {#users-put-example}
+{{% notice note %}}
+**NOTE**: Use the [`PUT /users/:user/reset_password`](#usersuserresetpassword-put) or [`PUT /users/:user/password`](#usersuserpassword-put) API endpoints to reset or change the user password, respectively.
+{{% /notice %}}
 
-The following example demonstrates a PUT request to the `/users` API endpoint to update the user `alice` (in this case, to reset the user's password), resulting in an HTTP `201 Created` response and the updated user definition.
+### Example {#users-put-example}
+
+The following example demonstrates a PUT request to the `/users` API endpoint to update the user `alice` (for example, to add the user to the `devel` group), resulting in an HTTP `201 Created` response.
 
 {{< code shell >}}
 curl -X PUT \
@@ -194,9 +177,10 @@ curl -X PUT \
 -d '{
   "username": "alice",
   "groups": [
-    "ops"
+    "ops",
+    "devel"
   ],
-  "password": "reset-password",
+  "password": "password",
   "disabled": false
 }' \
 http://127.0.0.1:8080/api/core/v2/users/alice
@@ -204,7 +188,7 @@ http://127.0.0.1:8080/api/core/v2/users/alice
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#usersuser-put-specification}
+### API Specification {#usersuser-put-specification}
 
 /users/:user (PUT) | 
 ----------------|------
@@ -214,19 +198,20 @@ payload         | {{< code shell >}}
 {
   "username": "alice",
   "groups": [
-    "ops"
+    "ops",
+    "devel"
   ],
-  "password": "reset-password",
+  "password": "password",
   "disabled": false
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/users/:user` (DELETE) {#usersuser-delete}
+## Delete a user {#usersuser-delete}
 
 The `/users/:user` API endpoint provides HTTP DELETE access to disable a specific user by `username`.
 
-#### EXAMPLE {#usersuser-delete-example}
+### Example {#usersuser-delete-example}
 
 In the following example, an HTTP DELETE request is submitted to the `/users/:user` API endpoint to disable the user `alice`, resulting in a successful HTTP `204 No Content` response.
 
@@ -243,7 +228,7 @@ HTTP/1.1 204 No Content
 You can [reinstate](#the-usersuserreinstate-api-endpoint) disabled users.
 {{% /notice %}}
 
-#### API Specification {#usersuser-delete-specification}
+### API Specification {#usersuser-delete-specification}
 
 /users/:user (DELETE) | 
 --------------------------|------
@@ -251,15 +236,26 @@ description               | Disables the specified user.
 example url               | http://hostname:8080/api/core/v2/users/alice
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/users/:user/password` API endpoint {#the-usersuserpassword-api-endpoint}
+## Reset a user's password {#usersuserresetpassword-put}
 
-### `/users/:user/password` (PUT) {#usersuserpassword-put}
+The `/users/:user/reset_password` API endpoint provides HTTP PUT access to reset a user's password.
 
-The `/users/:user/password` API endpoint provides HTTP PUT access to update a user's password.
+{{% notice note %}}
+**NOTE**: The `/users/:user/reset_password` API endpoint requires explicit [`users` permissions](../../reference/rbac/#users).
+With these permissions, you can use `/users/:user/reset_password` to reset a user's password.
+This differs from the `/users/:user/password` API endpoint, which allows users to change their own passwords without explicit permissions.
+{{% /notice %}}
 
-#### EXAMPLE {#usersuserpassword-put-example}
+### Example {#usersuserresetpassword-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API endpoint to update the password for the user `alice`, resulting in an HTTP `201 Created` response.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/reset_password` API endpoint to reset the password for the user `alice`, resulting in an HTTP `201 Created` response.
+
+The `password_hash` is the user's new password, hashed via [bcrypt][3].
+Use `sensuctl user hash-password` to [generate the `password_hash`][4].
+
+{{% notice note %}}
+**NOTE**: [Upgrade to Sensu 5.21.0](../../installation/upgrade/) to use hashed passwords.
+{{% /notice %}}
 
 {{< code shell >}}
 curl -X PUT \
@@ -267,35 +263,84 @@ curl -X PUT \
 -H 'Content-Type: application/json' \
 -d '{
   "username": "alice",
-  "password": "newpassword"
+  "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"
+}' \
+http://127.0.0.1:8080/api/core/v2/users/alice/reset_password
+
+HTTP/1.1 201 Created
+{{< /code >}}
+
+### API Specification {#usersuserresetpassword-put-specification}
+
+/users/:user/reset_password (PUT) | 
+----------------|------
+description     | Resets the password for the specified Sensu user.
+example URL     | http://hostname:8080/api/core/v2/users/alice/reset_password
+payload parameters | Required: <ul><li>`username`: string; the username for the Sensu user</li><li>`password_hash`: string; the new user password, hashed via [bcrypt][3]</li></ul> 
+payload         | {{< code shell >}}
+{
+  "username": "alice",
+  "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"
+}
+{{< /code >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+## Change your password {#usersuserpassword-put}
+
+The `/users/:user/password` API endpoint provides HTTP PUT access to change your Sensu user password.
+
+{{% notice note %}}
+**NOTE**: The `/users/:user/password` API endpoint allows a user to update their own password, without any permissions.
+This differs from the `/users/:user/reset_password` API endpoint, which requires explicit [`users` permissions](../../reference/rbac/#users) to change the user password.
+{{% /notice %}}
+
+### Example {#usersuserpassword-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API endpoint to update the password for the user `alice`, resulting in an HTTP `201 Created` response.
+
+The `password` is your current password in cleartext.
+The `password_hash` is your new password hashed via [bcrypt][3].
+Use `sensuctl user hash-password` to [generate the `password_hash`][4].
+
+{{% notice note %}}
+**NOTE**: [Upgrade to Sensu 5.21.0](../../installation/upgrade/) to use hashed passwords.
+{{% /notice %}}
+
+{{< code shell >}}
+curl -X PUT \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/json' \
+-d '{
+  "username": "alice",
+  "password": "P@ssw0rd!",
+  "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"
 }' \
 http://127.0.0.1:8080/api/core/v2/users/alice/password
 
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#usersuserpassword-put-specification}
+### API Specification {#usersuserpassword-put-specification}
 
 /users/:user/password (PUT) | 
 ----------------|------
-description     | Updates the password for the specified Sensu user.
+description     | Changes the password for the specified Sensu user.
 example URL     | http://hostname:8080/api/core/v2/users/alice/password
-payload parameters | Required: `username` (string; the `username` for the Sensu user) and `password` (string; the user's new password).
+payload parameters | Required: <ul><li>`username`: string; the username for the Sensu user</li><li>`password`: string; the user's current password in cleartext</li><li>`password_hash`: string; the user's hashed password via [bcrypt][3]</li></ul>
 payload         | {{< code shell >}}
 {
-  "username": "admin",
-  "password": "newpassword"
+  "username": "alice",
+  "password": "P@ssw0rd!",
+  "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/users/:user/reinstate` API endpoint {#the-usersuserreinstate-api-endpoint}
-
-### `/users/:user/reinstate` (PUT) {#usersuserreinstate-put}
+## Reinstate a disabled user {#usersuserreinstate-put}
 
 The `/users/:user/reinstate` API endpoint provides HTTP PUT access to reinstate a disabled user.
 
-#### EXAMPLE {#usersuserreinstate-put-example}
+### Example {#usersuserreinstate-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/users/:user/reinstate` API endpoint to reinstate the disabled user `alice`, resulting in an HTTP `201 Created` response.
 
@@ -308,7 +353,7 @@ http://127.0.0.1:8080/api/core/v2/users/alice/reinstate
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#usersuserreinstate-put-specification}
+### API Specification {#usersuserreinstate-put-specification}
 
 /users/:user/reinstate (PUT) | 
 ----------------|------
@@ -316,13 +361,11 @@ description     | Reinstates a disabled user.
 example URL     | http://hostname:8080/api/core/v2/users/alice/reinstate
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/users/:user/groups` API endpoint {#the-usersusergroups-api-endpoint}
-
-### `/users/:user/groups` (DELETE) {#usersusergroups-delete}
+## Remove a user from all groups {#usersusergroups-delete}
 
 The `/users/:user/groups` API endpoint provides HTTP DELETE access to remove the specified user from all groups.
 
-#### EXAMPLE {#usersusergroups-delete-example}
+### Example {#usersusergroups-delete-example}
 
 In the following example, an HTTP DELETE request is submitted to the `/users/:user/groups` API endpoint to remove the user `alice` from all groups within Sensu, resulting in a successful HTTP `204 No Content` response.
 
@@ -334,7 +377,7 @@ http://127.0.0.1:8080/api/core/v2/users/alice/groups
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#usersusergroups-delete-specification}
+### API Specification {#usersusergroups-delete-specification}
 
 /users/:user/groups (DELETE) | 
 --------------------------|------
@@ -342,13 +385,11 @@ description               | Removes the specified user from all groups.
 example url               | http://hostname:8080/api/core/v2/users/alice/groups
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/users/:user/groups/:group` API endpoints {#the-usersusergroupsgroup-api-endpoints}
-
-### `/users/:user/groups/:group` (PUT) {#usersusergroupsgroup-put}
+## Assign a user to a group {#usersusergroupsgroup-put}
 
 The `/users/:user/groups/:group` API endpoint provides HTTP PUT access to assign a user to a group.
 
-#### EXAMPLE {#usersusergroupsgroup-put-example}
+### Example {#usersusergroupsgroup-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/users/:user/groups/:group` API endpoint to add the user `alice` to the group `ops`, resulting in a successful HTTP `201 Created` response.
 
@@ -360,7 +401,7 @@ http://127.0.0.1:8080/api/core/v2/users/alice/groups/ops
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#usersusergroupsgroup-put-specification}
+### API Specification {#usersusergroupsgroup-put-specification}
 
 /users/:user/groups/:group (PUT) | 
 ----------------|------
@@ -368,11 +409,11 @@ description     | Adds the specified user to the specified group.
 example URL     | http://hostname:8080/api/core/v2/users/alice/groups/ops
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/users/:user/groups/:group` (DELETE) {#usersusergroupsgroup-delete}
+## Remove a user from a specific group {#usersusergroupsgroup-delete}
 
 The `/users/:user/groups/:group` API endpoint provides HTTP DELETE access to remove the specified user from a specific group.
 
-#### EXAMPLE {#usersusergroupsgroup-delete-example}
+### Example {#usersusergroupsgroup-delete-example}
 
 In the following example, an HTTP DELETE request is submitted to the `/users/:user/groups/:group` API endpoint to remove the user `alice` from the group `ops`, resulting in a successful HTTP `204 No Content` response.
 
@@ -384,7 +425,7 @@ http://127.0.0.1:8080/api/core/v2/users/alice/groups/ops
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#usersusergroupsgroup-delete-specification}
+### API Specification {#usersusergroupsgroup-delete-specification}
 
 /users/:user/groups/:group (DELETE) | 
 --------------------------|------
@@ -394,4 +435,6 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 [1]: ../../reference/rbac#user-specification
 [2]: ../overview#pagination
+[3]: https://en.wikipedia.org/wiki/Bcrypt
+[4]: ../../sensuctl/set-up-manage/#generate-a-password-hash
 [8]: ../overview#response-filtering

@@ -338,7 +338,7 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [19]: #add-a-handler
 [20]: ../../commercial/
 [21]: ../../reference/backend/#configuration-via-environment-variables
-[22]: ../../sensuctl/reference/#install-asset-definitions
+[22]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions
 [23]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 [24]: ../monitor-server-resources/
 [25]: https://www.vaultproject.io/downloads/

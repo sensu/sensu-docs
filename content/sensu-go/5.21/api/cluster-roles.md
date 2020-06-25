@@ -9,26 +9,16 @@ menu:
     parent: api
 ---
 
-- [The `/clusterroles` API endpoint](#the-clusterroles-api-endpoint)
-  - [`/clusterroles` (GET)](#clusterroles-get)
-  - [`/clusterroles` (POST)](#clusterroles-post)
-- [The `/clusterroles/:clusterrole` API endpoint](#the-clusterrolesclusterrole-api-endpoint)
-  - [`/clusterroles/:clusterrole` (GET)](#clusterrolesclusterrole-get)
-  - [`/clusterroles/:clusterrole` (PUT)](#clusterrolesclusterrole-put)
-  - [`/clusterroles/:clusterrole` (DELETE)](#clusterrolesclusterrole-delete)
-
 {{% notice note %}}
 **NOTE**: Requests to the cluster roles API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
 The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
-## The `/clusterroles` API endpoint
-
-### `/clusterroles` (GET)
+## Get all cluster roles
 
 The `/clusterroles` API endpoint provides HTTP GET access to [cluster role][1] data.
 
-#### EXAMPLE {#clusterroles-get-example}
+### Example {#clusterroles-get-example}
 
 The following example demonstrates a request to the `/clusterroles` API endpoint, resulting in a JSON array that contains [cluster role definitions][1].
 
@@ -96,7 +86,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#clusterroles-get-specification}
+### API Specification {#clusterroles-get-specification}
 
 /clusterroles (GET)  | 
 ---------------|------
@@ -128,11 +118,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-### `/clusterroles` (POST)
+## Create a new cluster role
 
 The `/clusterroles` API endpoint provides HTTP POST access to create a [cluster role][1].
 
-#### EXAMPLE {#clusterroles-post-example}
+### Example {#clusterroles-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/clusterroles` API endpoint to create a `global-event-reader` cluster role.
 The request includes the cluster role definition in the request body and returns a successful HTTP `201 Created` response.
@@ -163,7 +153,7 @@ http://127.0.0.1:8080/api/core/v2/clusterroles
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#clusterroles-post-specification}
+### API Specification {#clusterroles-post-specification}
 
 /clusterroles (POST) | 
 ----------------|------
@@ -190,13 +180,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/clusterroles/:clusterrole` API endpoint {#the-clusterrolesclusterrole-api-endpoint}
-
-### `/clusterroles/:clusterrole` (GET) {#clusterrolesclusterrole-get}
+## Get a specific cluster role {#clusterrolesclusterrole-get}
 
 The `/clusterroles/:clusterrole` API endpoint provides HTTP GET access to [cluster role data][1] for specific `:clusterrole` definitions, by cluster role `name`.
 
-#### EXAMPLE {#clusterrolesclusterrole-get-example}
+### Example {#clusterrolesclusterrole-get-example}
 
 In the following example, querying the `/clusterroles/:clusterrole` API endpoint returns a JSON map that contains the requested [`:clusterrole` definition][1] (in this example, for the `:clusterrole` named `global-event-reader`).
 
@@ -226,7 +214,7 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-#### API Specification {#clusterrolesclusterrole-get-specification}
+### API Specification {#clusterrolesclusterrole-get-specification}
 
 /clusterroles/:clusterrole (GET) | 
 ---------------------|------
@@ -255,11 +243,11 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/clusterroles/:clusterrole` (PUT) {#clusterrolesclusterrole-put}
+## Create or update a cluster role {#clusterrolesclusterrole-put}
 
 The `/clusterroles/:clusterrole` API endpoint provides HTTP PUT access to create or update a cluster role, by cluster role name.
 
-#### EXAMPLE {#clusterroles-clusterrole-put-example}
+### Example {#clusterroles-clusterrole-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/clusterroles/:clusterrole` API endpoint to update the `global-event-reader` cluster role by adding `"checks"` to the resources.
 The request includes the cluster role definition in the request body and returns a successful HTTP `201 Created` response.
@@ -291,7 +279,7 @@ http://127.0.0.1:8080/api/core/v2/clusterroles
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#clusterrolesclusterrole-put-specification}
+### API Specification {#clusterrolesclusterrole-put-specification}
 
 /clusterroles/:clusterrole (PUT) | 
 ----------------|------
@@ -318,11 +306,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/clusterroles/:clusterrole` (DELETE) {#clusterrolesclusterrole-delete}
+## Delete a cluster role {#clusterrolesclusterrole-delete}
 
 The `/clusterroles/:clusterrole` API endpoint provides HTTP DELETE access to delete a cluster role from Sensu (specified by the cluster role name).
 
-#### EXAMPLE {#clusterrolesclusterrole-delete-example}
+### Example {#clusterrolesclusterrole-delete-example}
 
 The following example shows a request to the `/clusterroles/:clusterrole` API endpoint to delete the cluster role `global-event-reader`, resulting in a successful HTTP `204 No Content` response.
 
@@ -334,7 +322,7 @@ http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#clusterrolesclusterrole-delete-specification}
+### API Specification {#clusterrolesclusterrole-delete-specification}
 
 /clusterroles/:clusterrole (DELETE) | 
 --------------------------|------

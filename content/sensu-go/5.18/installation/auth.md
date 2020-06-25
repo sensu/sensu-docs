@@ -1326,7 +1326,7 @@ If a browser does not open, launch a browser to complete the login via your OIDC
   - https://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/authorize
 
 [1]: ../../web-ui/sign-in/
-[2]: ../../sensuctl/reference/
+[2]: ../../sensuctl/set-up-manage/
 [3]: ../../reference/rbac#default-users
 [4]: ../../reference/rbac/
 [5]: ../../guides/create-read-only-user/
@@ -1353,9 +1353,9 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [33]: ../../reference/rbac/#example-workflows
 [34]: #groups-prefix
 [35]: #username-prefix
-[36]: ../../sensuctl/reference#first-time-setup
+[36]: ../../sensuctl/set-up-manage/#first-time-setup
 [37]: #active-directory-ad-authentication
-[38]: ../../sensuctl/reference#create-resources
+[38]: ../../sensuctl/create-manage-resources/#create-resources
 [39]: #ldap-spec-attributes
 [40]: #ldap-server-attributes
 [41]: https://en.wikipedia.org/wiki/Fully_qualified_domain_name

@@ -415,7 +415,8 @@ The value you specify for `keepalive-warning-timeout` must be lower than the val
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
 
 {{% notice note %}}
-**NOTE**: Keepalive monitoring is not supported for [proxy entities](../entities/), as they are inherently unable to run a Sensu agent.
+**NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../entities/#proxy-entities) because they cannot run a Sensu agent.
+You can use the [events API](../../api/events/#eventsentitycheck-put) to send manual keepalive events for proxy entities.
 {{% /notice %}}
 
 ### Handle keepalive events
@@ -1545,7 +1546,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [3]: ../entities/
 [4]: #keepalive-configuration-flags
 [5]: ../../files/windows/agent.yml
-[6]: ../../sensuctl/reference/
+[6]: ../../sensuctl/set-up-manage/
 [7]: ../events/
 [8]: ../handlers/
 [9]: ../filters/
@@ -1565,7 +1566,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [23]: https://github.com/statsd/statsd#key-concepts
 [24]: #configuration-via-flags
 [25]: ../../api/overview#response-filtering
-[26]: ../../sensuctl/reference#response-filtering
+[26]: ../../sensuctl/filter-responses/
 [27]: ../tokens/
 [28]: #subscriptions-flag
 [29]: ../assets/

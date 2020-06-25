@@ -8,13 +8,11 @@ menu:
     parent: api
 ---
 
-## The `/metrics` API endpoint
-
-### `/metrics` (GET)
+## Get Sensu metrics
 
 The `/metrics` API endpoint provides HTTP GET access to internal Sensu metrics in [Prometheus][1] format, including embedded etcd, memory usage, garbage collection, and gRPC metrics.
 
-#### EXAMPLE {#metrics-get-example}
+### Example {#metrics-get-example}
 
 The following example demonstrates a request to the `/metrics` API endpoint, resulting in plaintext output that contains internal Sensu metrics.
 
@@ -39,7 +37,7 @@ etcd_debugging_mvcc_db_compaction_pause_duration_milliseconds_bucket{le="2"} 0
 ...
 {{< /code >}}
 
-#### API Specification {#metrics-get-specification}
+### API Specification {#metrics-get-specification}
 
 /metrics (GET)  | 
 ---------------|------

@@ -8,29 +8,16 @@ menu:
     parent: api
 ---
 
-- [The `/events` API endpoint](#the-events-api-endpoint)
-	- [`/events` (GET)](#events-get)
-	- [`/events` (POST)](#events-post)
-- [The `/events/:entity` API endpoint](#the-eventsentity-api-endpoint)
-	- [`/events/:entity` (GET)](#eventsentity-get)
-- [The `/events/:entity/:check` API endpoint](#the-eventsentitycheck-api-endpoint)
-	- [`/events/:entity/:check` (GET)](#eventsentitycheck-get)
-  - [`/events/:entity/:check` (POST)](#eventsentitycheck-post)
-  - [`/events/:entity/:check` (PUT)](#eventsentitycheck-put)
-  - [`/events/:entity/:check` (DELETE)](#eventsentitycheck-delete)
-
 {{% notice note %}}
 **NOTE**: Requests to the events API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
 The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
-## The `/events` API endpoint
-
-### `/events` (GET)
+## Get all events
 
 The `/events` API endpoint provides HTTP GET access to [event][1] data.
 
-#### EXAMPLE {#events-get-example}
+### Example {#events-get-example}
 
 The following example demonstrates a request to the `/events` API endpoint, resulting in a JSON array that contains [event definitions][1].
 
@@ -106,7 +93,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#events-get-specification}
+### API Specification {#events-get-specification}
 
 /events (GET)  | 
 ---------------|------
@@ -183,11 +170,11 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-### `/events` (POST)
+## Create a new event
 
 The `/events` API endpoint provides HTTP POST access to create an event and send it to the Sensu pipeline.
 
-#### EXAMPLE {#events-post-example}
+### Example {#events-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/events` API endpoint to create an event.
 The request includes information about the check and entity represented by the event and returns a successful HTTP `200 OK` response and the event definition.
@@ -221,7 +208,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 HTTP/1.1 201 Created
 {{< /code >}}
 
-#### API Specification {#events-post-specification}
+### API Specification {#events-post-specification}
 
 /events (POST) | 
 ----------------|------
@@ -250,13 +237,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/events/:entity` API endpoint {#the-eventsentity-api-endpoint}
-
-### `/events/:entity` (GET) {#eventsentity-get}
+## Get event data for a specific entity {#eventsentity-get}
 
 The `/events/:entity` API endpoint provides HTTP GET access to [event data][1] specific to an `:entity`, by entity `name`.
 
-#### EXAMPLE {#eventsentity-get-example}
+### Example {#eventsentity-get-example}
 
 In the following example, querying the `/events/:entity` API endpoint returns a list of Sensu events for the `sensu-go-sandbox` entity and a successful HTTP `200 OK` response.
 
@@ -365,7 +350,7 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
-#### API Specification {#eventsentity-get-specification}
+### API Specification {#eventsentity-get-specification}
 
 /events/:entity (GET) | 
 ---------------------|------
@@ -426,13 +411,11 @@ output               | {{< code json >}}
 ]
 {{< /code >}}
 
-## The `/events/:entity/:check` API endpoint {#the-eventsentitycheck-api-endpoint}
-
-### `/events/:entity/:check` (GET) {#eventsentitycheck-get}
+## Get event data for a specific entity and check {#eventsentitycheck-get}
 
 The `/events/:entity/:check` API endpoint provides HTTP GET access to [event][1] data for the specified entity and check.
 
-#### EXAMPLE {#eventsentitycheck-get-example}
+### Example {#eventsentitycheck-get-example}
 
 In the following example, an HTTP GET request is submitted to the `/events/:entity/:check` API endpoint to retrieve the event for the `server1` entity and the `server-health` check.
 
@@ -519,7 +502,7 @@ HTTP/1.1 200 OK
 
 The request returns an HTTP `200 OK` response and the resulting event definition.
 
-#### API Specification {#eventsentitycheck-get-specification}
+### API Specification {#eventsentitycheck-get-specification}
 
 /events/:entity/:check (GET) | 
 ---------------------|------
@@ -602,11 +585,11 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-### `/events/:entity/:check` (POST) {#eventsentitycheck-post}
+## Create a new event for an entity and check {#eventsentitycheck-post}
 
-The `/events/:entity/:check` API endpoint provides HTTP POST access to create or update an event and send it to the Sensu pipeline.
+The `/events/:entity/:check` API endpoint provides HTTP POST access to create an event and send it to the Sensu pipeline.
 
-#### EXAMPLE {#eventsentitycheck-post-example}
+### Example {#eventsentitycheck-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/events/:entity/:check` API endpoint to create an event for the `server1` entity and the `server-health` check and process it using the `slack` event handler.
 The event includes a status code of `1`, indicating a warning, and an output message of `Server error`.
@@ -658,7 +641,7 @@ You should see the event with the status and output specified in the request:
     server1    server-health   Server error                         1       false      2019-03-14 16:56:09 +0000 UTC 
 {{< /code >}}
 
-#### API Specification {#eventsentitycheck-post-specification}
+### API Specification {#eventsentitycheck-post-specification}
 
 /events/:entity/:check (POST) | 
 ----------------|------
@@ -686,11 +669,11 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes   | <ul><li>**Success**: 201 (Created)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/events/:entity/:check` (PUT) {#eventsentitycheck-put}
+## Create or update an event for an entity and check {#eventsentitycheck-put}
 
 The `/events/:entity/:check` API endpoint provides HTTP PUT access to create or update an event and send it to the Sensu pipeline.
 
-#### EXAMPLE {#eventsentitycheck-put-example}
+### Example {#eventsentitycheck-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/events/:entity/:check` API endpoint to create an event for the `server1` entity and the `server-health` check and process it using the `slack` event handler.
 The event includes a status code of `1`, indicating a warning, and an output message of `Server error`.
@@ -742,7 +725,7 @@ You should see the event with the status and output specified in the request:
     server1    server-health   Server error                         1       false      2019-03-14 16:56:09 +0000 UTC 
 {{< /code >}}
 
-#### API Specification {#eventsentitycheck-put-specification}
+### API Specification {#eventsentitycheck-put-specification}
 
 /events/:entity/:check (PUT) | 
 ----------------|------
@@ -886,9 +869,9 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-metrics
 {{< /code >}}
 
-### `/events/:entity/:check` (DELETE) {#eventsentitycheck-delete}
+## Delete an event {#eventsentitycheck-delete}
 
-#### EXAMPLE {#eventsentitycheck-delete-example}
+### Example {#eventsentitycheck-delete-example}
 
 The following example shows a request to the `/events/:entity/:check` API endpoint to delete the event produced by the `sensu-go-sandbox` entity and `check-cpu` check, resulting in a successful HTTP `204 No Content` response.
 
@@ -900,7 +883,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/che
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-#### API Specification {#eventsentitycheck-delete-specification}
+### API Specification {#eventsentitycheck-delete-specification}
 
 /events/:entity/:check (DELETE) | 
 --------------------------|------

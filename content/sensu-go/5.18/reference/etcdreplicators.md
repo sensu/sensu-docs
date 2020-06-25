@@ -389,6 +389,6 @@ Before you implement etcd replicators, review these details &mdash; they are cri
 [1]: ../../commercial/
 [2]: ../../api/etcdreplicators/
 [3]: ../../reference/rbac/
-[4]: ../../sensuctl/reference/#create-resources
+[4]: ../../sensuctl/create-manage-resources/#create-resources
 [5]: ../../guides/securing-sensu/#create-self-signed-certificates-for-securing-etcd-and-backend-agent-communication
 [6]: #spec-attributes

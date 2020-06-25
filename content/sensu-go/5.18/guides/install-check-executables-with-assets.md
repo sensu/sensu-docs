@@ -144,7 +144,7 @@ You can also try our interactive tutorial to [send critical alerts to your Pager
 [3]: https://bonsai.sensu.io
 [4]: ../../reference/entities/#system-attributes
 [5]: ../../reference/assets/#metadata-attributes
-[6]: ../../sensuctl/reference/#install-asset-definitions
+[6]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 [8]: ../../learn/sensu-pagerduty/
 [10]: https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler
