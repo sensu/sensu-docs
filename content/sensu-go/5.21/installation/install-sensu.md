@@ -528,3 +528,4 @@ sensuctl license info
 [37]: ../../guides/influx-db-metric-handler/
 [38]: ../../sensuctl/create-manage-resources/#export-resources
 [39]: ../../sensuctl/create-manage-resources/#create-resources
+[40]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
