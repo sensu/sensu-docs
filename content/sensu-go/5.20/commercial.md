@@ -67,7 +67,7 @@ These resources will help you get started with commercial features in Sensu Go:
 
 [1]: https://sensu.io/contact?subject=contact-sales/
 [2]: https://account.sensu.io/
-[3]: https://sensu.io/features
+[3]: https://sensu.io/features#free-vs-paid
 [4]: ../api/overview#response-filtering
 [5]: ../sensuctl/filter-responses/
 [6]: ../web-ui/filter/
