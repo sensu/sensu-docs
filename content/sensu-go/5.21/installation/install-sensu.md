@@ -429,6 +429,59 @@ For a complete list of configuration options, see the [agent reference][7].
 Sensu keepalives are the heartbeat mechanism used to ensure that all registered agents are operating and can reach the Sensu backend.
 To confirm that the agent is registered with Sensu and is sending keepalive events, open the entity page in the [Sensu web UI][24] or run `sensuctl entity list`.
 
+### 4. Verify an example event
+
+With your backend and agent still running, send this request to the Sensu events API:
+
+{{< code shell >}}
+curl -X POST \
+-H 'Content-Type: application/json' \
+-d '{
+  "check": {
+    "metadata": {
+      "name": "check-mysql-status"
+    },
+    "status": 1,
+    "output": "could not connect to mysql"
+  }
+}' \
+http://127.0.0.1:3031/events
+{{< /code >}}
+
+This request creates a `warning` event that you can [view in your web UI Events page][32].
+
+To create an `OK` event, change the `status` to `0` and resend.
+You can change the `output` value to `connected to mysql` to see a different message for the `OK` event.
+
+## Next steps
+
+Now that you have installed Sensu, you’re ready to build your observability pipelines!
+Here are some ideas for next steps.
+
+### Do something new with Sensu
+
+If you're ready to see what Sensu can do, one of these pathways can get you started:
+
+- Manually trigger an event that [sends alerts to your email inbox][12].
+- [Create a check to monitor CPU usage][9] and [send Slack alerts based on your check][10].
+- [Collect metrics][33] with a Sensu check and use a handler to [populate metrics in InfluxDB][37].
+- Use the [sensuctl dump][38] command to export all of your events and resources as a backup &mdash; then use [sensuctl create][39] to restore if needed.
+
+### Deploy Sensu outside your local development environment
+
+To deploy Sensu for use outside of a local development environment, first decide whether you want to [run a Sensu cluster][22].
+A Sensu cluster is a group of three or more sensu-backend nodes, each connected to a shared etcd cluster, using Sensu’s embedded etcd or an external etcd cluster.
+
+Clustering allows you to absorb the loss of a backend node, prevent data loss, and distribute the network load of agents.
+However, scaling a single backend to a cluster or migrating a cluster from cleartext HTTP to encrypted HTTPS without downtime can require [a number of tedious steps][40].
+For this reason, we recommend that you decide whether your deployment will require clustering as part of your initial planning effort.
+
+No matter whether you deploy a single backend or a clustered configuration, begin by securing Sensu with transport layer security (TLS).
+The first step in setting up TLS is to [generate the certificates you need][2].
+Then, follow our [Secure Sensu][8] guide to make Sensu production-ready.
+
+After you've secured Sensu, read [Run a Sensu cluster][22] if you are setting up a clustered configuration.
+
 ## Commercial features
 
 Sensu Inc. offers support packages for Sensu Go and [commercial features][20] designed for monitoring at scale.
@@ -448,30 +501,22 @@ You can use sensuctl to view your license details at any time.
 sensuctl license info
 {{< /code >}}
 
-## Next steps
-
-If you're going to deploy Sensu for use outside of a local development environment, you should secure it using transport layer security (TLS).
-The next step in setting up TLS is to [generate the certificates you need][9].
-
-If you plan to set up a cluster, here's our suggested pathway:
-
-1. [Generate certificates][2].
-2. [Secure Sensu][8].
-3. [Run a Sensu cluster][22].
-
 
 [1]: https://github.com/sensu/sensu-go/releases/
 [2]: ../../guides/generate-certificates/
 [3]: ../../web-ui/sign-in/
 [4]: ../../sensuctl/set-up-manage/
-[5]: ../../platforms
+[5]: ../../platforms/
 [6]: ../../reference/backend#configuration
 [7]: ../../reference/agent#configuration-via-flags
 [8]: ../../guides/securing-sensu/
-[9]: ../../guides/generate-certificates
+[9]: ../../guides/monitor-server-resources/
+[10]: ../../guides/send-slack-alerts/
 [11]: https://sensu.io/contact?subject=contact-sales/
+[12]: ../../guides/email-handler/
 [13]: https://sensu.io/sensu-license/
 [14]: ../../learn/learn-sensu-sandbox/
+[15]: ../../reference/agent/#events-post-example
 [16]: https://etcd.io/
 [17]: ../../reference/assets/
 [18]: #install-sensu-agents
@@ -488,6 +533,12 @@ If you plan to set up a cluster, here's our suggested pathway:
 [29]: https://blog.sensu.io/one-year-of-sensu-go/
 [30]: ../../reference/backend#initialization
 [31]: ../../guides/deploying/
+[32]: http://localhost:3000/
+[33]: ../../guides/extract-metrics-with-checks/
 [34]: https://account.sensu.io/
 [35]: ../../api/health/
 [36]: #4-open-the-web-ui
+[37]: ../../guides/influx-db-metric-handler/
+[38]: ../../sensuctl/create-manage-resources/#export-resources
+[39]: ../../sensuctl/create-manage-resources/#create-resources
+[40]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
