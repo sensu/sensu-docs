@@ -25,6 +25,8 @@ The [event logging][10] functionality provides better performance and reliabilit
 - **Enterprise-class support**: Rest assured that with [Sensu support][13], help is available if you need it.
 Our expert in-house team offers best-in-class support to get you up and running smoothly.
 
+Review a [complete comparison of OSS and commercial features][3].
+
 ## Contact us for a free trial
 
 For a personalized demo and free trial of commercial features at scale in Sensu Go, [contact the Sensu sales team][1].
@@ -65,7 +67,7 @@ These resources will help you get started with commercial features in Sensu Go:
 
 [1]: https://sensu.io/contact?subject=contact-sales/
 [2]: https://account.sensu.io/
-[3]: https://sensu.io/enterprise
+[3]: https://sensu.io/features#free-vs-paid
 [4]: ../api/overview#response-filtering
 [5]: ../sensuctl/filter-responses/
 [6]: ../web-ui/filter/

@@ -69,7 +69,7 @@ The [Sensu API][13] and the [`sensuctl` command-line tool][16] allow you (and yo
 Sensu Go's core is open source software, freely available under a permissive [MIT License][4] and publicly available on [GitHub][5].
 Learn about [support packages](https://sensu.io/support) and [commercial features designed for monitoring at scale][18].
 
-[1]: getting-started/get-started/
+[1]: get-started/
 [2]: https://www.influxdata.com/
 [3]: https://docs.sensu.io/plugins/latest/reference/
 [4]: https://www.github.com/sensu/sensu-go/blob/master/LICENSE/
@@ -84,7 +84,7 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 [13]: api/overview/
 [14]: guides/aggregate-metrics-statsd/
 [15]: web-ui/sign-in/
-[16]: sensuctl/reference/
+[16]: sensuctl/set-up-manage/
 [17]: reference/handlers/
 [18]: commercial/
 [19]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler/
