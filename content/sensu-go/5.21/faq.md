@@ -2,12 +2,9 @@
 title: "Frequently asked questions about Sensu"
 linkTitle: "FAQs"
 description: "Questions about Sensu Go? Read this FAQ to get answers to questions about what platforms Sensu supports and what you can monitor with Sensu."
-version: "5.20"
+version: "5.21"
 weight: 80
 product: "Sensu Go"
-menu:
-  sensu-go-5.20:
-    parent: getting-started
 ---
 
 Thank you for visiting the Sensu FAQ!
@@ -104,11 +101,10 @@ Yes, as long as you meet the [port requirements][37], a single Sensu backend can
 Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go.
 Sensu Go does have a [built-in web UI][29] that you can use to visually interact with your Sensu Go deployment.
 
-
 [1]: ../../platforms/
 [2]: ../../installation/install-sensu/
 [3]: https://blog.sensu.io/sensu-go-is-here/
-[4]: ../../migrate/
+[4]: ../../installation/upgrade/#migrate-to-sensu-go-from-sensu-core-1-x
 [5]: ../../installation/recommended-hardware/
 [6]: https://sensu.io/sales/
 [7]: ../../learn/glossary/
@@ -141,3 +137,4 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [34]: https://blog.sensu.io/one-year-of-sensu-go/
 [36]: https://sensu.io/contact/
 [37]: #go-ports
+
