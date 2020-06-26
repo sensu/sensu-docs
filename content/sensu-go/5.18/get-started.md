@@ -59,7 +59,7 @@ Sensu Go's core is open source software, freely available under an MIT License.
 [8]: https://discourse.sensu.io/
 [9]: ../reference/license/
 [10]: https://github.com/sensu/sensu-go/
-[11]: https://github.com/sensu/sensu-go/blob/master/CONTRIBUTING.md#building
+[11]: https://github.com/sensu/sensu-go#building-from-source
 [12]: ../learn/learn-in-15/
 [13]: ../installation/upgrade/#migrate-to-sensu-go-from-sensu-core-1x
 [14]: https://sensu.io/features#free-vs-paid
