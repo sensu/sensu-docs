@@ -506,7 +506,7 @@ sensuctl license info
 [2]: ../../guides/generate-certificates/
 [3]: ../../web-ui/sign-in/
 [4]: ../../sensuctl/set-up-manage/
-[5]: ../../platforms
+[5]: ../../platforms/
 [6]: ../../reference/backend#configuration
 [7]: ../../reference/agent#configuration-via-flags
 [8]: ../../guides/securing-sensu/
