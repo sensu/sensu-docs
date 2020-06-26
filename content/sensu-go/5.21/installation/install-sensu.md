@@ -470,7 +470,7 @@ If you're ready to see what Sensu can do, one of these pathways can get you star
 ### Deploy Sensu outside your local development environment
 
 To deploy Sensu for use outside of a local development environment, first decide whether you want to [run a Sensu cluster][22].
-A Sensu cluster is a group of three or more sensu-backend nodes, each connected to a shared etcd cluster, using Sensu’s embedded etcd or an external etcd cluster.
+A Sensu cluster is a group of three or more sensu-backend nodes, each connected to a shared database provided either by Sensu’s embedded etcd or an external etcd cluster.
 
 Clustering allows you to absorb the loss of a backend node, prevent data loss, and distribute the network load of agents.
 However, scaling a single backend to a cluster or migrating a cluster from cleartext HTTP to encrypted HTTPS without downtime can require [a number of tedious steps][40].
