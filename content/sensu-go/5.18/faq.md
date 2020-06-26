@@ -5,9 +5,6 @@ description: "Questions about Sensu Go? Read this FAQ to get answers to question
 version: "5.18"
 weight: 80
 product: "Sensu Go"
-menu:
-  sensu-go-5.18:
-    parent: getting-started
 ---
 
 Thank you for visiting the Sensu FAQ!
@@ -102,7 +99,7 @@ Yes, as long as you meet the [port requirements][37], a single Sensu backend can
 ## Can I use Uchiwa with Sensu Go?
 
 Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go.
-Sensu Go does have a [built-in web UI][24] that you can use to visually interact with your Sensu Go deployment.
+Sensu Go does have a [built-in web UI][29] that you can use to visually interact with your Sensu Go deployment.
 
 [1]: ../../platforms/
 [2]: ../../installation/install-sensu/
@@ -132,6 +129,7 @@ Sensu Go does have a [built-in web UI][24] that you can use to visually interact
 [26]: ../../reference/agent/
 [27]: ../../guides/clustering/
 [28]: ../../commercial/
+[29]: ../../web-ui/sign-in/
 [30]: https://sensu.io/enterprise/
 [31]: https://blog.sensu.io/enterprise-features-in-sensu-go/
 [32]: https://bonsai.sensu.io/
