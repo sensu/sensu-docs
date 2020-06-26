@@ -67,13 +67,6 @@ Docker images that contain the Sensu backend and Sensu agent are available for L
 | [sensu/sensu][10] | Alpine Linux
 | [sensu/sensu-rhel][11] | Red Hat Enterprise Linux
 
-## Integrations
-
-- [Ansible role][17]
-- [Chef cookbook][13]
-- [Puppet module][14]
-- [Sensu Go Data Source plugin for Grafana][12]
-
 ## Binary-only distributions
 
 Sensu binary-only distributions that contain the Sensu backend, agent, and sensuctl tool are available in `.zip` and `.tar.gz` formats.
