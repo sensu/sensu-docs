@@ -195,7 +195,7 @@ example      | {{< code shell >}}"token": "VAULT_TOKEN"{{< /code >}}
 
 version      | 
 -------------|------ 
-description  | HashiCorp Vault [HTTP API version][14].
+description  | HashiCorp Vault [key/value store version][14].
 required     | true
 type         | String
 example      | {{< code shell >}}"version": "v1"{{< /code >}}
