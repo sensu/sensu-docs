@@ -16,26 +16,13 @@ menu:
   - [Monitor your External etcd](#monitor-your-external-etcd)
 - [Monitor Postgres](#postgres)
 
-{{< language-toggle >}}
-
 {{< code markdown "Sensu Backend">}}
-
+| Service | Endpoint | Description |
+|---------|----------|-------------|
+| Sensu Backend        | `/health`         |             |
+| External etcd        |          |             |
+| Postgres`        |          |             |
 {{< /code >}}
-
-{{< code markdown "Sensu Agent">}}
-
-{{< /code >}}
-
-{{< code markdown "External Etcd">}}
-
-{{< /code >}}
-
-{{< code markdown "Postgres">}}
-
-{{< /code >}}
-
-{{< /language-toggle >}}
-
 
 This guide describes best practices and strategies for monitoring the Sensu backend with another Sensu backend or cluster.
 
