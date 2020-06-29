@@ -332,7 +332,7 @@ spec: {}
 [11]: https://www.vaultproject.io/api/auth/cert/index.html
 [12]: #client-attributes
 [13]: ../../guides/securing-sensu/#sensu-agent-mtls-authentication
-[14]: https://www.vaultproject.io/api-docs/
+[14]: https://www.vaultproject.io/docs/secrets/kv
 [15]: https://www.vaultproject.io/api/auth/cert/index.html#parameters-7
 [16]: ../../guides/secrets-management/
 [17]: #rate-limiter-attributes
