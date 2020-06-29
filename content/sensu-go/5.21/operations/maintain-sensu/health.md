@@ -1,5 +1,5 @@
 ---
-title: "Health"
+title: "Check health"
 description: "Access health data for your Sensu instance. Read this page to learn about the health information you can retrieve."
 weight: 20
 version: "5.21"
