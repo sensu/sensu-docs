@@ -31,16 +31,17 @@ Use sensuctl to view your license details at any time.
 {{< code shell >}}
 # Active license
 sensuctl license info
-=== You are currently using 10/100 total entities, 5/50 agent entities, and 5/50 proxy entities
+=== Training Team - Sensu
 Account Name: Training Team - Sensu
 Account ID:   123
 Plan:         managed
 Version:      1
 Features:     all
+EntityLimit:  0
 Issuer:       Sensu, Inc.
-Issued:       2020-02-15 15:01:44 -0500 -0500
+Issued:       2019-02-15 15:01:44 -0500 -0500
 Valid:        true
-Valid Until:  2021-02-15 00:00:00 -0800 -0800
+Valid Until:  2019-03-15 00:00:00 -0800 -0800
 
 # No license found
 sensuctl license info
@@ -49,77 +50,24 @@ Error: not found
 
 ## Entity limit
 
-Your commercial license may include the entity limit and entity class limits tied to your Sensu licensing package.
+Your commercial license includes the entity limit tied to your Sensu licensing package.
+An entity limit of `0` allows unlimited entities.
+Both agent and proxy entities count toward the overall entity limit.
 [Contact Sensu][8] to upgrade your commercial license.
 
-Your Sensu license may include two types of entity limits:
-
-- Entity limit: the maximum number of entities of all classes your license includes. Both agent and proxy entities count toward the overall entity limit.
-- Entity class limits: the maximum number of a specific class of entities (e.g. agent or proxy) that your license includes.
-
-For example, if your license has an entity limit of 10,000 and an agent entity class limit of 3,000, you cannot run more than 10,000 entities (agent and proxy) total.
-At the same time, you cannot run more than 3,000 agents.
-If you use only 1,500 agent entities, you can have 8,500 proxy entities before you reach the overall entity limit of 10,000.
-
-### View entity count and entity limit
-
-Your current entity count and entity limit are included in the `sensuctl license info` response.
-
-In tabular format, the entity count and limit are included in the response title:
-
-{{< code shell >}}
-sensuctl license info --format tabular
-=== You are currently using 10/100 total entities, 5/50 agent entities, and 5/50 proxy entities
-Account Name: Training Team - Sensu
-Account ID:   123
-Plan:         managed
-Version:      1
-Features:     all
-Issuer:       Sensu, Inc.
-Issued:       2020-02-15 15:01:44 -0500 -0500
-Valid:        true
-Valid Until:  2021-02-15 00:00:00 -0800 -0800
-{{< /code >}}
-
-If you have an unlimited entity count, the `sensuctl license info` response title will still include a current count for each type of entity you are using.
-For example:
-
-{{< code shell >}}
-=== You are currently using 10/unlimited total entities, 5/unlimited agent entities, and 5/unlimited proxy entities
-{{< /code >}}
-
-In other formats (e.g. yaml), the entity count and limit are included as labels:
-
-{{< code yml >}}
-sensuctl license info --format yaml
-
-type: LicenseFile
-api_version: licensing/v2
-metadata:
-  labels:
-    sensu.io/entity-count: "10"
-    sensu.io/entity-limit: "100"
-spec:
-  license:
-    version: 1
-    issue: Sensu, Inc.
-    accountName: Training Team - Sensu
-[...]
-{{< /code >}}
-
-You can also see your current entity count and limit in the response headers for any `/api/core` or `/api/enterprise` [API request][9]. For example:
+To see your current entity count, use any `/api/core` or `/api/enterprise` [API request][9]. For example:
 
 {{< code shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 {{< /code >}}
 
-The response headers will include your current entity count and limit:
+Your current entity count and limit are listed as response headers:
 
 {{< code shell >}}
 HTTP/1.1 200 OK
 Content-Type: application/json
-Sensu-Entity-Count: 10
-Sensu-Entity-Limit: 100
+Sensu-Entity-Count: 4
+Sensu-Entity-Limit: 0
 {{< /code >}}
 
 ## License expiration
@@ -139,15 +87,16 @@ If your license expires, you will still have access to [commercial features][5],
 - [Contact Sensu support][8]
 - [Contact Sensu sales][7]
 
+
 [1]: https://account.sensu.io/
-[2]: ../../installation/install-sensu/
-[3]: ../../sensuctl/set-up-manage/#first-time-setup
-[4]: ../../api/license/
-[5]: ../../commercial/
-[6]: ../../guides/troubleshooting/
+[2]: ../../deploy-sensu/install-sensu/
+[3]: ../../../sensuctl/set-up-manage/#first-time-setup
+[4]: ../../../api/license/
+[5]: ../../../commercial/
+[6]: ../troubleshoot/
 [7]: https://sensu.io/contact?subject=contact-sales
 [8]: https://account.sensu.io/support
-[9]: ../../api/
-[10]: ../../installation/auth/
+[9]: ../../../api/
+[10]: ../../control-access/auth/
 [11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4
-[12]: ../../guides/install-check-executables-with-assets/
+[12]: ../../../guides/install-check-executables-with-assets/

@@ -115,9 +115,9 @@ Tokens let you fine-tune check attributes (like thresholds) on a per-entity leve
 [10]: ../../reference/handlers/
 [11]: ../../reference/mutators/
 [12]: ../../reference/entities#proxy-entities
-[13]: ../../reference/rbac/
+[13]: ../../operations/control-access/rbac/
 [14]: ../../sensuctl/set-up-manage/
 [15]: ../../reference/checks/#subdue-attributes
 [16]: ../../reference/tokens/
 [17]: ../../reference/silencing/
-[18]: ../../reference/rbac#resources
+[18]: ../../operations/control-access/rbac#resources

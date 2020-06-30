@@ -358,19 +358,19 @@ If you haven't changed the permissions of the default `admin` user, that user sh
 
 Learn more about configuring RBAC policies in our [RBAC reference documentation][10].
 
-[1]: ../../api/federation/#the-clusters-endpoint
-[2]: ../../reference/etcdreplicators/
-[3]: ../use-apikey-feature/
-[4]: ../../reference/backend#jwt-attributes
-[5]: ../../sensuctl/create-manage-resources/#create-resources
-[6]: ../../sensuctl/create-manage-resources/#update-resources
-[7]: ../../sensuctl/create-manage-resources/#delete-resources
-[8]: ../../commercial/
-[9]: ../../reference/etcdreplicators#example-etcdreplicator-resources
-[10]: ../../reference/rbac/
-[11]: ../../api/federation#clusters-get
+[1]: ../../../api/federation/
+[2]: ../../../reference/etcdreplicators/
+[3]: ../../control-access/use-apikeys/
+[4]: ../../../reference/backend#jwt-attributes
+[5]: ../../../sensuctl/create-manage-resources/#create-resources
+[6]: ../../../sensuctl/create-manage-resources/#update-resources
+[7]: ../../../sensuctl/create-manage-resources/#delete-resources
+[8]: ../../../commercial/
+[9]: ../../../reference/etcdreplicators#example-etcdreplicator-resources
+[10]: ../../control-access/rbac/
+[11]: ../../../api/federation#get-all-clusters
 [12]: https://github.com/etcd-io/etcd/blob/master/etcdctl/README.md#make-mirror-options-destination
-[13]: ../../guides/securing-sensu/#create-self-signed-certificates
+[13]: ../secure-sensu/
 [14]: #register-a-single-cluster
 [15]: https://support.dnsimple.com/articles/what-is-common-name/
 [16]: https://support.dnsimple.com/articles/what-is-ssl-san/

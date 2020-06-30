@@ -70,5 +70,5 @@ All users in the `ops` group now have read-only access to events across all name
 
 Now that you know how to create a user, a role, and a role binding to assign a role to a user, check out the [RBAC reference][1] for in-depth documentation on role-based access control, examples, and information about cluster-wide permissions.
 
-[1]: ../../reference/rbac/
-[2]: ../../reference/rbac#default-users
+[1]: ../rbac/
+[2]: ../rbac#default-users

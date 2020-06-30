@@ -83,9 +83,9 @@ state-dir: "/var/lib/sensu"
 Then restart the backend.
 
 
-[1]: ../../installation/install-sensu/
-[2]: ../../reference/backend#operation
+[1]: ../../deploy-sensu/install-sensu/
+[2]: ../../../reference/backend#operation
 [3]: /images/web-ui-entity-warning.png
 [4]: https://sensu.io/contact?subject=contact-sales/
 [5]: https://blog.sensu.io/one-year-of-sensu-go
-[6]: ../../commercial/
+[6]: ../../../commercial/

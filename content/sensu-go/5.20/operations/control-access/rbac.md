@@ -1,6 +1,6 @@
 ---
 title: "Authorize user access with role-based access control (RBAC)"
-linkTitle: "Authorize Users with Role-based Access Control"
+linkTitle: "Authorize Users with RBAC"
 description: "Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance. RBAC allows you to manage user access and resources based on namespaces, groups, roles, and bindings. Read the reference doc to learn about RBAC."
 weight: 30
 version: "5.20"
@@ -126,7 +126,7 @@ spec:
 See the [reference docs][16] for the corresponding [resource type][17] to create resource definitions.
 
 {{% notice protip %}}
-**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference](../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
+**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference](../../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
 {{% /notice %}}
 
 ### Namespace specification
@@ -259,8 +259,8 @@ An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
 {{% notice note %}}
-**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication).
-It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth/#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../installation/auth/#active-directory-ad-authentication). 
+**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../auth#use-built-in-basic-authentication).
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../auth/#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../auth/#active-directory-ad-authentication). 
 {{% /notice %}}
 
 To change the password for a user:
@@ -269,7 +269,7 @@ To change the password for a user:
 sensuctl user change-password USERNAME --current-password CURRENT_PASSWORD --new-password NEW_PASSWORD
 {{< /code >}}
 
-You can also use sensuctl to [reset a user's password][50] or [generate a password hash][51].
+You can also use sensuctl to [reset a user's password][50].
 
 To disable a user:
 
@@ -327,9 +327,7 @@ example      | {{< code shell >}}"username": "alice"{{< /code >}}
 
 password     | 
 -------------|------ 
-description  | User's password. Passwords must have at least eight characters.{{% notice note %}}
-**NOTE**: You only need to set either the `password` or the [`password_hash`](#password-hash) (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
-{{% /notice %}}
+description  | User's password. Passwords must have at least eight characters.
 required     | true
 type         | String
 example      | {{< code shell >}}"password": "USER_PASSWORD"{{< /code >}}
@@ -349,17 +347,6 @@ type         | Boolean
 default      | `false`
 example      | {{< code shell >}}"disabled": false{{< /code >}}
 
-<a name="password-hash"></a>
-
-password_hash | 
---------------|------ 
-description   | [Bcrypt][35] password hash. You can use the `password_hash` in your user definitions instead of storing cleartext passwords. {{% notice note %}}
-**NOTE**: You only need to set either the [`password`](#password) or the `password_hash` (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
-{{% /notice %}}
-required      | false
-type          | String
-example       | {{< code shell >}}"password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"{{< /code >}}
-
 ### User example
 
 The following example is in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
@@ -376,7 +363,6 @@ spec:
   - ops
   - dev
   password: USER_PASSWORD
-  password_hash: $5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm
   username: alice
 {{< /code >}}
 
@@ -388,7 +374,6 @@ spec:
   "spec": {
     "username": "alice",
     "password": "USER_PASSWORD",
-    "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm",
     "disabled": false,
     "groups": ["ops", "dev"]
   }
@@ -1240,51 +1225,50 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 {{< /code >}}
 
 
-[1]: ../backend/
-[2]: ../../sensuctl/set-up-manage/
-[3]: ../../web-ui/sign-in/
+[1]: ../../../reference/backend/
+[2]: ../../../sensuctl/set-up-manage/
+[3]: ../../../web-ui/sign-in/
 [4]: #resources
-[5]: ../assets/
-[6]: ../checks/
-[7]: ../entities/
-[8]: ../events/
-[9]: ../handlers/
-[10]: ../hooks/
-[11]: ../mutators/
+[5]: ../../../reference/assets/
+[6]: ../../../reference/checks/
+[7]: ../../../reference/entities/
+[8]: ../../../reference/events/
+[9]: ../../../reference/handlers/
+[10]: ../../../reference/hooks/
+[11]: ../../../reference/mutators/
 [13]: #roles-and-cluster-roles
-[14]: ../silencing/
-[16]: ../../reference/
+[14]: ../../../reference/silencing/
+[16]: ../../../reference/
 [17]: #namespaced-resource-types
 [18]: #cluster-wide-resource-types
-[19]: ../../api/overview/
+[19]: ../../../api/overview/
 [20]: #default-users
 [21]: #cluster-roles
-[22]: ../filters/
+[22]: ../../../reference/filters/
 [23]: #role-bindings-and-cluster-role-bindings
 [24]: #role-and-cluster-role-specification
 [25]: #create-roles
-[26]: ../../installation/install-sensu/#install-sensuctl
+[26]: ../../deploy-sensu/install-sensu/#install-sensuctl
 [27]: #create-users
 [28]: #create-cluster-wide-roles
 [29]: #create-role-bindings-and-cluster-role-bindings
 [30]: #role-binding-and-cluster-role-binding-specification
-[31]: ../../sensuctl/create-manage-resources/#create-resources
-[32]: ../../installation/auth#use-an-authentication-provider
-[33]: ../../commercial/
-[34]: ../../installation/auth#use-built-in-basic-authentication
+[31]: ../../../sensuctl/create-manage-resources/#create-resources
+[32]: ../auth#use-an-authentication-provider
+[33]: ../../../commercial/
+[34]: ../auth#use-built-in-basic-authentication
 [35]: https://en.wikipedia.org/wiki/Bcrypt
-[37]: ../license/
-[38]: ../../installation/auth/#groups-prefix
-[39]: ../../installation/auth/#ad-groups-prefix
-[40]: ../../reference/etcdreplicators/
-[41]: ../agent/#security-configuration-flags
-[42]: ../../installation/install-sensu/#install-the-sensu-backend
-[43]: ../../installation/auth#lightweight-directory-access-protocol-ldap-authentication
-[44]: ../../installation/auth/#active-directory-ad-authentication
-[45]: ../../sensuctl/set-up-manage/#change-admin-users-password
-[46]: ../secrets-providers/
-[47]: ../datastore/
-[48]: ../secrets/
-[49]: ../../web-ui/filter/#save-a-filtered-search
-[50]: ../../sensuctl/set-up-manage/#reset-a-user-password
-[51]: ../../sensuctl/set-up-manage/#generate-a-password-hash
+[37]: ../../maintain-sensu/license/
+[38]: ../auth/#groups-prefix
+[39]: ../auth/#ad-groups-prefix
+[40]: ../../../reference/etcdreplicators/
+[41]: ../../../reference/agent/#security-configuration-flags
+[42]: ../../deploy-sensu/install-sensu/#install-the-sensu-backend
+[43]: ../auth#lightweight-directory-access-protocol-ldap-authentication
+[44]: ../auth/#active-directory-ad-authentication
+[45]: ../../../sensuctl/set-up-manage/#change-admin-users-password
+[46]: ../../../reference/secrets-providers/
+[47]: ../../../reference/datastore/
+[48]: ../../../reference/secrets/
+[49]: ../../../web-ui/filter/#save-a-filtered-search
+[50]: ../../../sensuctl/set-up-manage/#reset-a-user-password

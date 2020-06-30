@@ -57,7 +57,7 @@ The nodes are named `backend-1`, `backend-2` and `backend-3` with IP addresses `
 
 {{% notice note %}}
 **NOTE**: This backend configuration assumes you have set up and installed the sensu-backend on all the nodes used in your cluster.
-Follow the [Install Sensu](../../installation/install-sensu/) guide if you have not already done this.
+Follow the [Install Sensu](../install-sensu/) guide if you have not already done this.
 {{% /notice %}}
 
 **backend-1**
@@ -316,9 +316,9 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [10]: https://github.com/cloudflare/cfssl
 [11]: https://etcd.io/docs/v3.4.0/op-guide/clustering/#self-signed-certificates
 [12]: https://etcd.io/docs/v3.4.0/op-guide/
-[13]: ../../guides/generate-certificates/
-[15]: ../../reference/backend/
-[16]: ../securing-sensu/
-[17]: ../../sensuctl/set-up-manage/
+[13]: ../generate-certificates/
+[15]: ../../../reference/backend/
+[16]: ../secure-sensu/
+[17]: ../../../sensuctl/set-up-manage/
 [18]: https://github.com/etcd-io/etcd/blob/a621d807f061e1dd635033a8d6bc261461429e27/Documentation/v2/admin_guide.md#optimal-cluster-size
 [19]: #sensu-backend-configuration

@@ -128,7 +128,7 @@ trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
 
 {{% notice note %}}
 **NOTE**: If you are creating a Sensu cluster, every cluster member needs to be present in the configuration.
-See [Run a Sensu cluster](../clustering/) for more information about how to configure agents for a clustered configuration.
+See [Run a Sensu cluster](../cluster-sensu/) for more information about how to configure agents for a clustered configuration.
 {{% /notice %}}
 
 ## Sensu agent mTLS authentication
@@ -206,13 +206,13 @@ Your Sensu installation should now be secured with TLS.
 The last step before you deploy Sensu is to [set up a Sensu cluster][10].
 
 
-[1]: ../secrets-management/
-[2]: ../../reference/rbac/#default-users
-[3]: ../../reference/rbac/
-[4]: ../create-read-only-user/
-[5]: ../../commercial/
+[1]: ../../manage-secrets/secrets-management/
+[2]: ../../control-access/rbac/#default-users
+[3]: ../../control-access/rbac/
+[4]: ../../control-access/create-read-only-user/
+[5]: ../../../commercial/
 [6]: https://etcd.io/docs/v3.4.0/op-guide/security/
-[7]: ../../reference/agent/#security-configuration-flags
+[7]: ../../../reference/agent/#security-configuration-flags
 [9]: https://github.com/cloudflare/cfssl
-[10]: ../clustering/
+[10]: ../cluster-sensu/
 [12]: ../generate-certificates/

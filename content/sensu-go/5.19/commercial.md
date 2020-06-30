@@ -73,13 +73,13 @@ These resources will help you get started with commercial features in Sensu Go:
 [6]: ../web-ui/filter/
 [7]: https://blog.sensu.io/one-year-of-sensu-go/
 [8]: ../web-ui/sign-in/
-[9]: ../installation/auth/
+[9]: ../operations/control-access/auth/
 [10]: ../reference/backend#event-logging
 [11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4/
 [12]: ../reference/datastore#scale-event-storage
 [13]: https://sensu.io/support/
 [14]: https://account.sensu.io/support/
-[15]: ../installation/install-sensu/
+[15]: ../operations/deploy-sensu/install-sensu/
 [16]: ../sensuctl/set-up-manage/#first-time-setup
 [17]: ../guides/install-check-executables-with-assets/
-[18]: ../reference/license/
+[18]: ../operations/maintain-sensu/license/

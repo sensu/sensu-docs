@@ -74,7 +74,7 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 [3]: https://docs.sensu.io/plugins/latest/reference/
 [4]: https://www.github.com/sensu/sensu-go/blob/master/LICENSE/
 [5]: https://www.github.com/sensu/sensu-go/
-[6]: installation/install-sensu#install-sensu-agents
+[6]: operations/deploy-sensu/install-sensu#install-sensu-agents
 [7]: guides/monitor-external-resources/
 [8]: reference/filters/
 [9]: reference/hooks/

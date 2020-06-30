@@ -16,7 +16,7 @@ If you’re trying Sensu for the first time, we recommend setting up a local env
 {{% notice note %}}
 **NOTE**: The instructions in this guide explain how to install Sensu for proof-of-concept purposes or testing in a development environment.
 If you will deploy Sensu to your infrastructure, we recommend one of our supported packages, Docker images, or [configuration management integrations](../configuration-management/), as well as securing your installation with transport layer security (TLS).
-Read [Generate certificates](../../guides/generate-certificates) next to get the certificates you will need for TLS.
+Read [Generate certificates](../generate-certificates) next to get the certificates you will need for TLS.
 {{% /notice %}}
 
 Sensu downloads are provided under the [Sensu commercial license][13].
@@ -102,7 +102,7 @@ The Sensu backend requires the `state-dir` flag at minimum, but other useful con
 
 {{% notice note %}}
 **NOTE**: If you are using Docker, intitialization is included in this step when you start the backend rather than in [3. Initialize](#3-initialize).
-For details about intialization in Docker, see the [backend reference](../../reference/backend#docker-initialization).
+For details about intialization in Docker, see the [backend reference](../../../reference/backend#docker-initialization).
 {{% /notice %}}
 
 {{< language-toggle >}}
@@ -171,7 +171,7 @@ service sensu-backend status
 For a complete list of configuration options, see the [backend reference][6].
 
 {{% notice important %}}
-**IMPORTANT**: If you plan to [run a Sensu cluster](../../guides/clustering/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you continue the installation process.
+**IMPORTANT**: If you plan to [run a Sensu cluster](../cluster-sensu/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you continue the installation process.
 {{% /notice %}}
 
 ### 3. Initialize
@@ -503,42 +503,42 @@ sensuctl license info
 
 
 [1]: https://github.com/sensu/sensu-go/releases/
-[2]: ../../guides/generate-certificates/
-[3]: ../../web-ui/sign-in/
-[4]: ../../sensuctl/set-up-manage/
-[5]: ../../platforms/
-[6]: ../../reference/backend#configuration
-[7]: ../../reference/agent#configuration-via-flags
-[8]: ../../guides/securing-sensu/
-[9]: ../../guides/monitor-server-resources/
-[10]: ../../guides/send-slack-alerts/
-[12]: ../../guides/email-handler/
+[2]: ../generate-certificates/
+[3]: ../../../web-ui/sign-in/
+[4]: ../../../sensuctl/set-up-manage/
+[5]: ../../../platforms/
+[6]: ../../../reference/backend#configuration
+[7]: ../../../reference/agent#configuration-via-flags
+[8]: ../secure-sensu/
+[9]: ../../../guides/monitor-server-resources/
+[10]: ../../../guides/send-slack-alerts/
 [11]: https://sensu.io/contact?subject=contact-sales/
+[12]: ../../../guides/email-handler/
 [13]: https://sensu.io/sensu-license/
-[14]: ../../learn/learn-sensu-sandbox/
-[15]: ../../reference/agent/#events-post-example
+[14]: ../../../learn/learn-sensu-sandbox/
+[15]: ../../../reference/agent/#events-post-example
 [16]: https://etcd.io/
-[17]: ../../reference/assets/
+[17]: ../../../reference/assets/
 [18]: #install-sensu-agents
 [19]: #install-sensuctl
-[20]: ../../commercial/
+[20]: ../../../commercial/
 [21]: #install-the-sensu-backend
-[22]: ../../guides/clustering/
-[23]: ../../sensuctl/set-up-manage/
+[22]: ../cluster-sensu/
+[23]: ../../../sensuctl/set-up-manage/
 [24]: #4-open-the-web-ui
-[25]: ../recommended-hardware/
-[26]: ../../api/overview/
-[27]: ../../reference/agent#create-monitoring-events-using-the-agent-api
-[28]: ../../reference/agent#create-monitoring-events-using-the-statsd-listener
+[25]: ../hardware-requirements/
+[26]: ../../../api/overview/
+[27]: ../../../reference/agent#create-monitoring-events-using-the-agent-api
+[28]: ../../../reference/agent#create-monitoring-events-using-the-statsd-listener
 [29]: https://blog.sensu.io/one-year-of-sensu-go/
-[30]: ../../reference/backend#initialization
-[31]: ../../guides/deploying/
+[30]: ../../../reference/backend#initialization
+[31]: ../deployment-architecture/
 [32]: http://localhost:3000/
-[33]: ../../guides/extract-metrics-with-checks/
+[33]: ../../../guides/extract-metrics-with-checks/
 [34]: https://account.sensu.io/
-[35]: ../../api/health/
+[35]: ../../../api/health/
 [36]: #4-open-the-web-ui
-[37]: ../../guides/influx-db-metric-handler/
-[38]: ../../sensuctl/create-manage-resources/#export-resources
-[39]: ../../sensuctl/create-manage-resources/#create-resources
+[37]: ../../../guides/influx-db-metric-handler/
+[38]: ../../../sensuctl/create-manage-resources/#export-resources
+[39]: ../../../sensuctl/create-manage-resources/#create-resources
 [40]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/

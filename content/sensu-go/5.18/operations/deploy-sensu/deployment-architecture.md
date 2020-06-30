@@ -1,6 +1,6 @@
 ---
-title: "Deploy Sensu"
-linkTitle: "Deploy Sensu"
+title: "Deployment architecture for Sensu"
+linkTitle: "Deployment Architecture"
 description: "This guide describes considerations, potential architectures, and recommendations for a production-ready Sensu deployment."
 weight: 30
 version: "5.18"
@@ -73,10 +73,6 @@ The single backend (standalone) architecture may be a good fit for small- to med
 
 For example, in environments with unreliable WAN connectivity, having agents connect to a local backend may be more reliable than having agents connect over WAN or VPN tunnel to a backend running in a central location.
 
-{{% notice note %}}
-**NOTE**: Multiple Sensu backends can relay their events to a central backend using the [sensu-relay-handler](https://bonsai.sensu.io/assets/sensu/sensu-relay-handler/).
-{{% /notice %}}
-
 ### Clustered deployment for single availability zone
 
 To increase availability and replicate both configuration and data, join the embedded etcd databases of multiple Sensu backend instances together in a cluster.
@@ -147,12 +143,12 @@ This approach gives operators more control over agent connection distribution an
 Conversely, you cannot configure the sensuctl command line tool with multiple backend URLs.
 Under normal conditions, sensuctl communications and browser access to the web UI should be routed via a load balancer.
 
-[1]: ../../installation/recommended-hardware/
-[3]: ../../reference/agent/#general-configuration-flags
+[1]: ../hardware-requirements/
+[3]: ../../../reference/agent/#general-configuration-flags
 [4]: https://etcd.io/docs/
 [5]: https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/security.md
-[6]: ../../guides/securing-sensu/
-[7]: ../../guides/clustering/
-[8]: ../../reference/datastore/
-[9]: ../../commercial/
+[6]: ../secure-sensu/
+[7]: ../cluster-sensu/
+[8]: ../../../reference/datastore/
+[9]: ../../../commercial/
 [10]: https://github.com/sensu/sensu-perf

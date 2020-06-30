@@ -119,9 +119,9 @@ sudo yum groupinstall "Development Tools"
 [1]: https://github.com/sensu-plugins/
 [2]: https://packagecloud.io/sensu/community/
 [3]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/
-[5]: ../../reference/assets/
+[5]: ../../../reference/assets/
 [6]: https://github.com/sensu-plugins/sensu-plugins-influxdb/
-[7]: ../../guides/install-check-executables-with-assets/
+[7]: ../../../guides/install-check-executables-with-assets/
 [8]: https://bonsai.sensu.io/
-[9]: ../../reference/assets#share-an-asset-on-bonsai
+[9]: ../../../reference/assets#share-an-asset-on-bonsai
 [10]: /plugins/latest/reference/

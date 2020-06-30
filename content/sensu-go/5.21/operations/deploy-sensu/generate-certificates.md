@@ -272,16 +272,16 @@ TODO: Document steps for adding CA root to Windows trust store
 Now that you have generated the required certificates and copied them to the applicable hosts, follow our [Secure Sensu][1] guide to make your Sensu installation production-ready.
 
 
-[1]: ../securing-sensu/
-[2]: ../securing-sensu/#secure-etcd-peer-communication
-[3]: ../securing-sensu/#secure-the-api-and-web-ui
-[4]: ../securing-sensu/#secure-sensu-agent-to-server-communication
-[5]: ../securing-sensu/#sensu-agent-mtls-authentication
+[1]: ../secure-sensu/
+[2]: ../secure-sensu/#secure-etcd-peer-communication
+[3]: ../secure-sensu/#secure-the-api-and-web-ui
+[4]: ../secure-sensu/#secure-sensu-agent-to-server-communication
+[5]: ../secure-sensu/#sensu-agent-mtls-authentication
 [6]: https://github.com/cloudflare/cfssl
 [7]: https://etcd.io/docs/v3.4.0/op-guide/security/
 [8]: https://en.wikipedia.org/wiki/Public_key_infrastructure
-[9]: ../../guides/secrets-management/
-[10]: ../../installation/install-sensu/
+[9]: ../../manage-secrets/secrets-management/
+[10]: ../../deploy-sensu/install-sensu/
 [11]: #copy-ca-pem
 [12]: #copy-backend-pem
 [13]: #copy-agent-pem

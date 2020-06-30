@@ -68,7 +68,7 @@ HTTP/1.1 200 OK
 ## Sensuctl management commands
 
 {{% notice note %}}
-**NOTE**: The API key resource is intentionally not compatible with [`sensuctl create`](../../sensuctl/create-manage-resources/#create-resources).
+**NOTE**: The API key resource is intentionally not compatible with [`sensuctl create`](../../../sensuctl/create-manage-resources/#create-resources).
 {{% /notice %}}
 
 To generate a new API key for the admin user:
@@ -107,4 +107,4 @@ $ sensuctl api-key revoke 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --skip-confirm
 Deleted
 {{< /code >}}
 
-[1]: ../../api/auth/#the-authtoken-api-endpoint
+[1]: ../../../api/auth/

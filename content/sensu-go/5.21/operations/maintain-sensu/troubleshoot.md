@@ -74,7 +74,7 @@ You may substitute the name of the desired service (e.g. `backend` or `agent`) f
 | Debian       | <= 7       | log file     | {{< code shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /code >}} |
 
 {{% notice note %}}
-**NOTE**: Platform versions are listed for reference only and do not supersede the documented [supported platforms](../../platforms).
+**NOTE**: Platform versions are listed for reference only and do not supersede the documented [supported platforms](../../../platforms).
 {{% /notice %}}
 
 ##### Narrow your search to a specific timeframe
@@ -355,13 +355,13 @@ or
 
 This would allow the asset to be downloaded onto the target entity.
 
-[1]: ../../reference/agent#operation
-[2]: ../../platforms/#windows
-[3]: ../securing-sensu/#sensu-agent-tls-authentication
+[1]: ../../../reference/agent#operation
+[2]: ../../../platforms/#windows
+[3]: ../../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
 [4]: https://etcd.io/docs/v3.4.0/op-guide/security/
-[5]: ../../reference/agent/#restart-the-service
-[6]: ../../reference/agent#events-post
+[5]: ../../../reference/agent/#restart-the-service
+[6]: ../../../reference/agent#events-post
 [7]: https://dzone.com/articles/what-is-structured-logging
-[9]: ../../reference/backend/#restart-the-service
-[10]: ../../reference/assets/#asset-definition-multiple-builds
-[11]: ../systemd-logs
+[9]: ../../../reference/backend/#restart-the-service
+[10]: ../../../reference/assets/#asset-definition-multiple-builds
+[11]: ../../monitor-sensu/log-sensu-systemd/
