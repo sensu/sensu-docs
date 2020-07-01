@@ -195,7 +195,7 @@ example      | {{< code shell >}}"token": "VAULT_TOKEN"{{< /code >}}
 
 version      | 
 -------------|------ 
-description  | HashiCorp Vault [HTTP API version][14].
+description  | HashiCorp Vault [key/value store version][14].
 required     | true
 type         | String
 example      | {{< code shell >}}"version": "v1"{{< /code >}}
@@ -332,7 +332,7 @@ spec: {}
 [11]: https://www.vaultproject.io/api/auth/cert/index.html
 [12]: #client-attributes
 [13]: ../../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
-[14]: https://www.vaultproject.io/api-docs/
+[14]: https://www.vaultproject.io/docs/secrets/kv
 [15]: https://www.vaultproject.io/api/auth/cert/index.html#parameters-7
 [16]: ../../operations/manage-secrets/secrets-management/
 [17]: #rate-limiter-attributes
