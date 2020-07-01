@@ -1,6 +1,6 @@
 ---
-title: "Authenticate to access Sensu"
-linktitle: "Authenticate to Sensu"
+title: "Configure authentication to access Sensu"
+linktitle: "Configure authentication"
 description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using Lightweight Directory Access Protocol (LDAP), Active Directory (AD), and OpenID Connect 1.0 protocol (OIDC). Read this guide to configure an authentication provider."
 weight: 10
 version: "5.19"
