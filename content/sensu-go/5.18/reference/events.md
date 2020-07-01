@@ -1333,14 +1333,14 @@ spec:
 [15]: ../../web-ui/sign-in/
 [16]: ../../api/events/
 [17]: ../../sensuctl/set-up-manage/
-[18]: ../../sensuctl/set-up-manage/#sensuctl-event
+[18]: ../../sensuctl/create-manage-resources/#sensuctl-event
 [20]: ../checks#check-specification
 [21]: #check-attributes
 [22]: #metrics
 [23]: ../../guides/reduce-alert-fatigue/
 [24]: ../filters/
 [25]: ../checks/#check-result-specification
-[26]: ../rbac#namespaces
+[26]: ../../operations/control-access/rbac#namespaces
 [27]: ../filters/#handle-state-change-only
 [28]: ../filters/#handle-repeated-events
 [29]: #metadata-attributes
@@ -1349,4 +1349,4 @@ spec:
 [32]: #history-attributes
 [33]: ../checks#spec-attributes
 [34]: #points-attributes
-[35]: ../../api/events#events-post
+[35]: ../../api/events#create-a-new-event

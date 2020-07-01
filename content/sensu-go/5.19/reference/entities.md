@@ -849,7 +849,7 @@ spec:
 [2]: #deregistration-attributes
 [3]: #network-attributes
 [4]: #networkinterface-attributes
-[5]: ../rbac#namespaces
+[5]: ../../operations/control-access/rbac#namespaces
 [6]: ../filters/
 [7]: ../tokens/
 [8]: #metadata-attributes
@@ -866,7 +866,7 @@ spec:
 [19]: #proxy-entities-managed
 [20]: #annotations
 [21]: https://regex101.com/r/zo9mQU/2
-[22]: ../rbac/
+[22]: ../../operations/control-access/rbac/
 [23]: ../../web-ui/filter#filter-with-label-selectors
 [24]: ../checks#proxy-requests-attributes
 [25]: ../agent/#detect-cloud-provider-flag

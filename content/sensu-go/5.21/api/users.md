@@ -9,7 +9,7 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication). To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../installation/auth/#active-directory-ad-authentication), use Sensu's [authentication providers API](../authproviders/).
+**NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../operations/control-access/auth#use-built-in-basic-authentication). To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../operations/control-access/auth#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../operations/control-access/auth/#active-directory-ad-authentication), use Sensu's [authentication providers API](../authproviders/).
 {{% /notice %}}
 
 ## Get all users
@@ -225,7 +225,7 @@ HTTP/1.1 204 No Content
 
 {{% notice note %}}
 **NOTE**: This endpoint **disables** but does not delete the user.
-You can [reinstate](#the-usersuserreinstate-api-endpoint) disabled users.
+You can [reinstate](#usersuserreinstate-put) disabled users.
 {{% /notice %}}
 
 ### API Specification {#usersuser-delete-specification}
@@ -241,7 +241,7 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 The `/users/:user/reset_password` API endpoint provides HTTP PUT access to reset a user's password.
 
 {{% notice note %}}
-**NOTE**: The `/users/:user/reset_password` API endpoint requires explicit [`users` permissions](../../reference/rbac/#users).
+**NOTE**: The `/users/:user/reset_password` API endpoint requires explicit [`users` permissions](../../operations/control-access/rbac/#users).
 With these permissions, you can use `/users/:user/reset_password` to reset a user's password.
 This differs from the `/users/:user/password` API endpoint, which allows users to change their own passwords without explicit permissions.
 {{% /notice %}}
@@ -254,7 +254,7 @@ The `password_hash` is the user's new password, hashed via [bcrypt][3].
 Use `sensuctl user hash-password` to [generate the `password_hash`][4].
 
 {{% notice note %}}
-**NOTE**: [Upgrade to Sensu 5.21.0](../../installation/upgrade/) to use hashed passwords.
+**NOTE**: [Upgrade to Sensu 5.21.0](../../operations/maintain-sensu/upgrade/) to use hashed passwords.
 {{% /notice %}}
 
 {{< code shell >}}
@@ -291,7 +291,7 @@ The `/users/:user/password` API endpoint provides HTTP PUT access to change your
 
 {{% notice note %}}
 **NOTE**: The `/users/:user/password` API endpoint allows a user to update their own password, without any permissions.
-This differs from the `/users/:user/reset_password` API endpoint, which requires explicit [`users` permissions](../../reference/rbac/#users) to change the user password.
+This differs from the `/users/:user/reset_password` API endpoint, which requires explicit [`users` permissions](../../operations/control-access/rbac/#users) to change the user password.
 {{% /notice %}}
 
 ### Example {#usersuserpassword-put-example}
@@ -303,7 +303,7 @@ The `password_hash` is your new password hashed via [bcrypt][3].
 Use `sensuctl user hash-password` to [generate the `password_hash`][4].
 
 {{% notice note %}}
-**NOTE**: [Upgrade to Sensu 5.21.0](../../installation/upgrade/) to use hashed passwords.
+**NOTE**: [Upgrade to Sensu 5.21.0](../../operations/maintain-sensu/upgrade/) to use hashed passwords.
 {{% /notice %}}
 
 {{< code shell >}}
@@ -433,7 +433,7 @@ description               | Removes the specified user from the specified group.
 example url               | http://hostname:8080/api/core/v2/users/alice/groups/ops
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/rbac#user-specification
+[1]: ../../operations/control-access/rbac#user-specification
 [2]: ../overview#pagination
 [3]: https://en.wikipedia.org/wiki/Bcrypt
 [4]: ../../sensuctl/set-up-manage/#generate-a-password-hash

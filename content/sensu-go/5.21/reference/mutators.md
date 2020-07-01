@@ -376,7 +376,7 @@ spec:
 
 [1]: ../assets/
 [2]: #metadata-attributes
-[3]: ../rbac#namespaces
+[3]: ../../operations/control-access/rbac#namespaces
 [4]: ../../guides/install-check-executables-with-assets/
 [5]: ../../sensuctl/create-manage-resources/#create-resources
 [6]: #spec-attributes
@@ -387,5 +387,5 @@ spec:
 [11]: ../../reference/secrets-providers/
 [12]: ../filters/
 [13]: ../../web-ui/filter#filter-with-label-selectors
-[14]: ../../guides/secrets-management/
-[15]: ../../web-ui/filter#filter/
+[14]: ../../operations/manage-secrets/secrets-management/
+[15]: ../../web-ui/filter/

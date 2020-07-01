@@ -356,7 +356,7 @@ name: '*:mysql_status'
 {{< /language-toggle >}}
 
 [1]: ../events/#attributes
-[2]: ../rbac#namespaces
+[2]: ../../operations/control-access/rbac#namespaces
 [3]: #metadata-attributes
 [4]: ../../sensuctl/create-manage-resources/#create-resources
 [5]: #spec-attributes
@@ -364,4 +364,4 @@ name: '*:mysql_status'
 [7]: ../../sensuctl/filter-responses/
 [8]: ../filters/
 [9]: ../../web-ui/filter#filter-with-label-selectors
-[10]: ../../web-ui/filter#filter/
+[10]: ../../web-ui/filter

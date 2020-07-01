@@ -101,11 +101,11 @@ You can also try our interactive tutorial and learn how to [send Sensu Go alerts
 [4]: https://golang.org/doc/install
 [5]: https://en.wikipedia.org/wiki/PATH_(variable)
 [6]: https://api.slack.com/incoming-webhooks
-[7]: ../troubleshooting/
+[7]: ../../operations/maintain-sensu/troubleshoot/
 [8]: ../../reference/handlers/
 [9]: ../reduce-alert-fatigue/
 [10]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions
 [11]: ../../learn/sensu-pagerduty/
-[12]: https://slack.com/get-started#create
+[12]: https://slack.com/get-started#/create
 [13]: ../../reference/assets
 [14]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler

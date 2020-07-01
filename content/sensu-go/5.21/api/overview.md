@@ -71,7 +71,7 @@ The [sensuctl reference][7] demonstrates how to use the `sensuctl env` command t
 ### Authenticate with the authentication API
 
 Use the [authentication API][12] and your Sensu username and password to generate access tokens and refresh tokens.
-The [`/auth` API endpoint][10] lets you generate short-lived API tokens using your Sensu username and password.
+The [`/auth` API endpoint][12] lets you generate short-lived API tokens using your Sensu username and password.
 
 1. Retrieve an access token for your user.
 For example, to generate an access token using example admin credentials:
@@ -679,22 +679,21 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 
 
 [1]: ../../sensuctl/set-up-manage#preferred-output-format
-[2]: ../../installation/install-sensu#install-sensuctl
-[3]: ../../reference/rbac/
+[2]: ../../operations/deploy-sensu/install-sensu#install-sensuctl
+[3]: ../../operations/control-access/rbac/
 [4]: ../../reference/agent/
 [5]: ../health/
 [6]: ../metrics/
 [7]: ../../sensuctl/environment-variables/
 [8]: ../../commercial/
 [9]: ../../reference/entities#metadata-attributes
-[10]: ../auth/#the-auth-api-endpoint
-[11]: ../auth/#the-authtoken-api-endpoint
+[11]: ../auth/#authtoken-post
 [12]: ../auth/
 [13]: #operators
 [14]: #authentication-quickstart
 [15]: #examples
 [16]: #limit-query-parameter
 [17]: #authenticate-with-an-api-key
-[18]: ../../guides/use-apikey-feature/#sensuctl-management-commands
+[18]: ../../operations/control-access/use-apikeys/#sensuctl-management-commands
 [19]: ../../api/apikeys/
 [20]: #authenticate-with-the-authentication-api

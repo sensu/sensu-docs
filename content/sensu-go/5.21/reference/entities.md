@@ -404,7 +404,7 @@ example      | {{< code shell >}}"subscriptions": ["web", "prod", "entity:exampl
 system       | 
 -------------|------ 
 description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.<br>{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes).
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, new events will not include data in the `processes` attributes.
 {{% /notice %}}
 required     | false
@@ -714,7 +714,7 @@ example        | {{< code shell >}}"cloud_provider": "" {{< /code >}}
 processes    | 
 -------------|------ 
 description  | List of processes on the local agent. See [processes attributes][26] for more information.<br>{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes).
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, new events will not include data in the `processes` attributes.
 {{% /notice %}}
 required     | false 
@@ -853,7 +853,7 @@ example      | {{< code shell >}}"handler": "email-handler"{{< /code >}}
 ### Processes attributes
 
 {{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes).
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, new events will not include data in the `processes` attributes.
 {{% /notice %}}
 
@@ -1118,7 +1118,7 @@ spec:
 [2]: #deregistration-attributes
 [3]: #network-attributes
 [4]: #networkinterface-attributes
-[5]: ../rbac#namespaces
+[5]: ../../operations/control-access/rbac#namespaces
 [6]: ../filters/
 [7]: ../tokens/
 [8]: #metadata-attributes
@@ -1135,12 +1135,12 @@ spec:
 [19]: #proxy-entities-managed
 [20]: #annotations
 [21]: https://regex101.com/r/zo9mQU/2
-[22]: ../rbac/
+[22]: ../../operations/control-access/rbac/
 [23]: ../../web-ui/filter#filter-with-label-selectors
 [24]: ../checks#proxy-requests-attributes
 [25]: ../agent/#detect-cloud-provider-flag
 [26]: #processes-attributes
 [27]: ../agent/#discover-processes
 [28]: http://man7.org/linux/man-pages/man1/top.1.html
-[29]: ../license/#view-entity-count-and-entity-limit
+[29]: ../../operations/maintain-sensu/license/#view-entity-count-and-entity-limit
 [30]: ../../web-ui/filter/

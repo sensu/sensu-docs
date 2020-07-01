@@ -1053,7 +1053,7 @@ The asset reference includes an [example check definition that uses the asset pa
 [5]: ../tokens/
 [6]: ../hooks/
 [7]: /sensu-core/latest/reference/checks/#standalone-checks
-[8]: ../rbac/
+[8]: ../../operations/control-access/rbac/
 [9]: ../assets/
 [10]: #proxy-requests-attributes
 [11]: ../sensu-query-expressions/
@@ -1070,7 +1070,7 @@ The asset reference includes an [example check definition that uses the asset pa
 [23]: ../../guides/extract-metrics-with-checks/
 [24]: ../events/
 [25]: #metadata-attributes
-[26]: ../rbac#namespaces
+[26]: ../../operations/control-access/rbac#namespaces
 [27]: ../filters/
 [28]: ../../guides/monitor-external-resources/
 [29]: https://bonsai.sensu.io
@@ -1078,7 +1078,7 @@ The asset reference includes an [example check definition that uses the asset pa
 [31]: #ttl-attribute
 [32]: #proxy-entity-name-attribute
 [33]: #proxy-checks
-[34]: ../../api/checks#the-checkscheckexecute-api-endpoint
+[34]: ../../api/checks#checkscheckexecute-post
 [35]: #use-a-proxy-check-to-monitor-a-proxy-entity
 [36]: #use-a-proxy-check-to-monitor-multiple-proxy-entities
 [37]: #proxy-requests-top-level
@@ -1101,6 +1101,6 @@ The asset reference includes an [example check definition that uses the asset pa
 [56]: ../../reference/secrets/
 [57]: ../../reference/secrets-providers/
 [58]: ../../web-ui/filter#filter-with-label-selectors
-[59]: ../../guides/secrets-management/
+[59]: ../../operations/manage-secrets/secrets-management/
 [60]: ../assets#asset-path
 [61]: ../../web-ui/filter/

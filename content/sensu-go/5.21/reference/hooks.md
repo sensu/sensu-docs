@@ -326,7 +326,7 @@ spec:
 
 [1]: ../../sensuctl/create-manage-resources/#create-resources
 [2]: #metadata-attributes
-[3]: ../rbac#namespaces
+[3]: ../../operations/control-access/rbac#namespaces
 [4]: ../filters/
 [5]: ../assets/
 [6]: ../checks#check-hooks-attribute
@@ -336,4 +336,4 @@ spec:
 [10]: ../../api/overview#response-filtering
 [11]: ../../sensuctl/filter-responses/
 [12]: ../../web-ui/filter#filter-with-label-selectors
-[13]: ../../web-ui/filter#filter/
+[13]: ../../web-ui/filter

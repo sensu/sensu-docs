@@ -718,7 +718,7 @@ See the [Example Sensu agent configuration file][5] for flags and defaults.
 #### Configuration summary
 
 {{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes).
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, the `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
 {{% /notice %}}
 
@@ -913,7 +913,7 @@ disable-assets: true{{< /code >}}
 | discover-processes |      |
 --------------|------
 description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].<br>{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes).
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, the `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
 {{% /notice %}}
 type          | Boolean
@@ -1156,7 +1156,7 @@ keepalive-warning-timeout: 300{{< /code >}}
 ---------------|------
 description    | Agent namespace. {{% notice note %}}
 **NOTE**: Agents are represented in the backend as a class of entity.
-Entities can only belong to a [single namespace](../rbac/#namespaced-resource-types).
+Entities can only belong to a [single namespace](../../operations/control-access/rbac/#namespaced-resource-types).
 {{% /notice %}}
 type           | String
 default        | `default`
@@ -1600,7 +1600,7 @@ This includes your checks and plugins.
 For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
 
 
-[1]: ../../installation/install-sensu#install-sensu-agents
+[1]: ../../operations/deploy-sensu/install-sensu#install-sensu-agents
 [2]: ../backend/
 [3]: ../entities/
 [4]: #keepalive-configuration-flags
@@ -1634,15 +1634,15 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [32]: ../checks/
 [33]: ../../guides/monitor-external-resources/
 [35]: ../backend#datastore-and-cluster-configuration-flags
-[36]: ../../guides/clustering/
+[36]: ../../operations/deploy-sensu/cluster-sensu/
 [37]: ../backend#general-configuration-flags
 [38]: #name
-[39]: ../rbac/
+[39]: ../../operations/control-access/rbac/
 [40]: ../../guides/send-slack-alerts/
 [41]: ../handlers/#send-registration-events
 [44]: ../checks#ttl-attribute
 [45]: https://en.m.wikipedia.org/wiki/WebSocket
-[46]: ../../guides/securing-sensu/
+[46]: ../../operations/deploy-sensu/secure-sensu/
 [47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
 [48]: #example-allow-list-configuration-file
 [49]: #allow-list-configuration-commands

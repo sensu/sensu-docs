@@ -662,7 +662,7 @@ spec:
 [6]: #socket-attributes
 [7]: ../assets/
 [8]: #metadata-attributes
-[9]: ../rbac#namespaces
+[9]: ../../operations/control-access/rbac#namespaces
 [10]: ../../api/overview#response-filtering
 [11]: ../../sensuctl/filter-responses/
 [12]: ../agent#keepalive-monitoring
@@ -678,6 +678,6 @@ spec:
 [23]: ../../guides/install-check-executables-with-assets
 [24]: ../filters/
 [25]: ../../web-ui/filter#filter-with-label-selectors
-[26]: ../../guides/secrets-management/
+[26]: ../../operations/manage-secrets/secrets-management/
 [27]: ../agent/#registration
 [28]: ../../web-ui/filter/

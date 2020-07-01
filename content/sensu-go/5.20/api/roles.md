@@ -333,6 +333,6 @@ description               | Removes the specified role from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/roles/read-only
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/rbac/
+[1]: ../../operations/control-access/rbac/
 [2]: ../overview#pagination
 [3]: ../overview#response-filtering

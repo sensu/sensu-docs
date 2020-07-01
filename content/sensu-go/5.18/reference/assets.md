@@ -20,7 +20,7 @@ Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and 
 
 {{% notice note %}}
 **NOTE**: Assets are not required to use Sensu Go in production.
-You can install Sensu plugins using the [sensu-install](../../installation/plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../installation/configuration-management/) solution.
+You can install Sensu plugins using the [sensu-install](../../operations/deploy-sensu/install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../operations/deploy-sensu/configuration-management/) solution.
 {{% /notice %}}
 
 The Sensu backend executes handler, filter, and mutator assets.
@@ -813,7 +813,7 @@ Deleting an asset does not delete the archive or downloaded files on disk.
 You must remove the archive and downloaded files from the asset cache manually.
 
 [1]: ../sensu-query-expressions/
-[2]: ../rbac#namespaces
+[2]: ../../operations/control-access/rbac#namespaces
 [5]: #metadata-attributes
 [6]: ../checks/
 [7]: ../filters/
@@ -831,7 +831,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [23]: ../../guides/install-check-executables-with-assets/
 [24]: https://github.com
 [25]: https://help.github.com/articles/about-releases/
-[26]: #bonsai-yml-specification
+[26]: #bonsaiyml-example
 [27]: https://goreleaser.com/
 [28]: https://github.com/sensu/sensu-go-plugin/
 [29]: /plugins/latest/reference/

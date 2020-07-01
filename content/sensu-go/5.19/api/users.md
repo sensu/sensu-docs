@@ -10,7 +10,7 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication). To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../installation/auth/#active-directory-ad-authentication), use Sensu's [authentication providers API](../authproviders/).
+**NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../operations/control-access/auth#use-built-in-basic-authentication). To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../operations/control-access/auth#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../operations/control-access/auth/#active-directory-ad-authentication), use Sensu's [authentication providers API](../authproviders/).
 {{% /notice %}}
 
 ## Get all users
@@ -220,7 +220,7 @@ HTTP/1.1 204 No Content
 
 {{% notice note %}}
 **NOTE**: This endpoint **disables** but does not delete the user.
-You can [reinstate](#the-usersuserreinstate-api-endpoint) disabled users.
+You can [reinstate](#usersuserreinstate-put) disabled users.
 {{% /notice %}}
 
 ### API Specification {#usersuser-delete-specification}
@@ -364,6 +364,6 @@ description               | Removes the specified user from the specified group.
 example url               | http://hostname:8080/api/core/v2/users/alice/groups/ops
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/rbac#user-specification
+[1]: ../../operations/control-access/rbac#user-specification
 [2]: ../overview#pagination
 [8]: ../overview#response-filtering

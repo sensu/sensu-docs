@@ -342,7 +342,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl filter`][16]
 - [`sensuctl handler`][17]
 - [`sensuctl hook`][18]
-- [`sensuctl license`](../../reference/license) (commercial feature)
+- [`sensuctl license`][34] (commercial feature)
 - [`sensuctl mutator`][19]
 - [`sensuctl namespace`][1]
 - [`sensuctl role`][1]
@@ -596,14 +596,14 @@ Sensuctl supports the following formats:
   America/Vancouver`
 
 
-[1]: ../../reference/rbac/
+[1]: ../../operations/control-access/rbac/
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [3]: #sensuctl-create-resource-types
 [4]: ../set-up-manage/#preferred-output-format
 [5]: #sensuctl-edit-resource-types
 [6]: ../../reference/
-[7]: ../../guides/clustering/
-[8]: ../../reference/rbac/#user-specification
+[7]: ../../operations/deploy-sensu/cluster-sensu/
+[8]: ../../operations/control-access/rbac/#user-specification
 [9]: #wrapped-json-format
 [10]: #sensuctl-prune-resource-types
 [11]: ../../reference/webconfig/
@@ -616,16 +616,17 @@ Sensuctl supports the following formats:
 [18]: ../../reference/hooks/
 [19]: ../../reference/mutators/
 [20]: ../../reference/silencing/
-[21]: ../../reference/rbac#namespaces
-[22]: ../../reference/rbac#users
+[21]: ../../operations/control-access/rbac#namespaces
+[22]: ../../operations/control-access/rbac#users
 [23]: #subcommands
 [24]: ../../reference/secrets-providers/
-[25]: ../../installation/auth/#active-directory-ad-authentication
-[26]: ../../installation/auth/#lightweight-directory-access-protocol-ldap-authentication
-[27]: ../../reference/tessen/
+[25]: ../../operations/control-access/auth/#active-directory-ad-authentication
+[26]: ../../operations/control-access/auth/#lightweight-directory-access-protocol-ldap-authentication
+[27]: ../../operations/monitor-sensu/tessen/
 [28]: ../../reference/secrets/
 [29]: ../../reference/etcdreplicators/
 [30]: ../../commercial/
 [31]: ../set-up-manage/#manage-sensuctl
 [32]: ../../reference/datastore/
 [33]: #create-resources-across-namespaces
+[34]: ../../operations/maintain-sensu/license/
