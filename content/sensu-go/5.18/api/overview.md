@@ -558,7 +558,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 
 [1]: ../../sensuctl/set-up-manage#preferred-output-format
 [2]: ../../operations/deploy-sensu/install-sensu#install-sensuctl
-[3]: ../../operations/control-access/rbac/
+[3]: ../../reference/rbac/
 [4]: ../../reference/agent/
 [5]: ../health/
 [6]: ../metrics/

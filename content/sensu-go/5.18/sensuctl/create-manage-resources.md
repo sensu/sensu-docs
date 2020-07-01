@@ -595,17 +595,17 @@ Sensuctl supports the following formats:
   America/Vancouver`
 
 
-[1]: ../../operations/control-access/rbac/
+[1]: ../../reference/rbac/
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [3]: #sensuctl-create-resource-types
 [4]: ../set-up-manage/#preferred-output-format
 [5]: #sensuctl-edit-resource-types
 [6]: ../../reference/
 [7]: ../../operations/deploy-sensu/cluster-sensu/
-[8]: ../../operations/control-access/rbac/#user-specification
+[8]: ../../reference/rbac/#user-specification
 [9]: #wrapped-json-format
 [10]: #sensuctl-prune-resource-types
-[11]: ../../operations/maintain-sensu/license/
+[11]: ../../reference/license/
 [12]: ../../reference/assets/
 [13]: ../../reference/checks/
 [14]: ../../reference/entities/
@@ -615,13 +615,13 @@ Sensuctl supports the following formats:
 [18]: ../../reference/hooks/
 [19]: ../../reference/mutators/
 [20]: ../../reference/silencing/
-[21]: ../../operations/control-access/rbac#namespaces
-[22]: ../../operations/control-access/rbac#users
+[21]: ../../reference/rbac#namespaces
+[22]: ../../reference/rbac#users
 [23]: #subcommands
 [24]: ../../reference/secrets-providers/
 [25]: ../../operations/control-access/auth/#active-directory-ad-authentication
 [26]: ../../operations/control-access/auth/#lightweight-directory-access-protocol-ldap-authentication
-[27]: ../../operations/monitor-sensu/tessen/
+[27]: ../../reference/tessen/
 [28]: ../../reference/secrets/
 [29]: ../../reference/etcdreplicators/
 [30]: ../../commercial/

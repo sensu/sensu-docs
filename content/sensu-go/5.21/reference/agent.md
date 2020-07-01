@@ -1156,7 +1156,7 @@ keepalive-warning-timeout: 300{{< /code >}}
 ---------------|------
 description    | Agent namespace. {{% notice note %}}
 **NOTE**: Agents are represented in the backend as a class of entity.
-Entities can only belong to a [single namespace](../../operations/control-access/rbac/#namespaced-resource-types).
+Entities can only belong to a [single namespace](../rbac/#namespaced-resource-types).
 {{% /notice %}}
 type           | String
 default        | `default`
@@ -1637,7 +1637,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [36]: ../../operations/deploy-sensu/cluster-sensu/
 [37]: ../backend#general-configuration-flags
 [38]: #name
-[39]: ../../operations/control-access/rbac/
+[39]: ../rbac/
 [40]: ../../guides/send-slack-alerts/
 [41]: ../handlers/#send-registration-events
 [44]: ../checks#ttl-attribute

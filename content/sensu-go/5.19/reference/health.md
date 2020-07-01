@@ -1,15 +1,15 @@
 ---
-title: "Check health"
+title: "Health"
 description: "Access health data for your Sensu instance. Read this page to learn about the health information you can retrieve."
-weight: 20
-version: "5.18"
+weight: 115
+version: "5.19"
 product: "Sensu Go"
 menu: 
-  sensu-go-5.18:
-    parent: maintain-sensu
+  sensu-go-5.19:
+    parent: reference
 ---
 
-Use Sensu's [health API][1] to make sure your backend is up and running and check the health of your etcd cluster members.
+Use Sensu's [health API][1] to make sure your backend is up and running and check the health of your etcd cluster members and [PostgreSQL datastore resources][2].
 
 ## Health payload example
 
@@ -35,7 +35,19 @@ HTTP/1.1 200 OK
     "cluster_id": 4255616344056076734,
     "member_id": 2882886652148554927,
     "raft_term": 26
-  }
+  },
+  "PostgresHealth": [
+    {
+      "Name": "my-first-postgres",
+      "Active": true,
+      "Healthy": true
+    },
+    {
+      "Name": "my-other-postgres",
+      "Active": false,
+      "Healthy": false
+    }
+  ]
 }
 {{< /code >}}
 
@@ -78,6 +90,25 @@ example      | {{< code shell >}}
     "member_id": 2882886652148554927,
     "raft_term": 26
   }
+{{< /code >}}
+
+PostgresHealth | 
+---------------|------
+description    | Top-level map that includes health information for PostgreSQL resources. If your Sensu instance is not configured to use a [PostgreSQL datastore][2], the health payload will not include `PostgresHealth`.
+type           | Map of key-value pairs
+example        | {{< code shell >}}
+"PostgresHealth": [
+    {
+      "Name": "postgres-test",
+      "Active": false,
+      "Healthy": false
+    },
+    {
+      "Name": "postgres",
+      "Active": true,
+      "Healthy": true
+    }
+  ]
 {{< /code >}}
 
 ### ClusterHealth attributes
@@ -136,11 +167,38 @@ example      | {{< code shell >}}"member_id": 2882886652148554927{{< /code >}}
 
 raft_term    | 
 -------------|------ 
-description  | The etcd cluster member's [raft term][2].
+description  | The etcd cluster member's [raft term][4].
 required     | true
 type         | Integer
 example      | {{< code shell >}}"raft_term": 26{{< /code >}}
 
+### PostgresHealth attributes
+
+Name         | 
+-------------|------ 
+description  | The PostgreSQL configuration resource. Sensu retrieves the `Name` from [datastore metadata][3].
+required     | true
+type         | String
+example      | {{< code shell >}}"Name": "postgres"{{< /code >}}
+
+Active       | 
+-------------|------ 
+description  | `true` if the datastore is configured to use the PostgreSQL configuration. Otherwise, `false`.
+required     | true
+type         | Boolean
+default      | `false`
+example      | {{< code shell >}}"Active": true{{< /code >}}
+
+Healthy      | 
+-------------|------ 
+description  | `true` if the PostgreSQL datastore is connected and can query the events table. Otherwise, `false`.
+required     | true
+type         | Boolean
+default      | `false`
+example      | {{< code shell >}}"Healthy": true{{< /code >}}
+
 
 [1]: ../../../api/health/
-[2]: https://etcd.io/docs/latest/learning/api/#response-header
+[2]: ../../../reference/datastore/#scale-event-storage
+[3]: ../../../reference/datastore/#metadata-attributes
+[4]: https://etcd.io/docs/latest/learning/api/#response-header

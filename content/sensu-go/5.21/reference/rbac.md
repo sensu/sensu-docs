@@ -1,13 +1,13 @@
 ---
-title: "Authorize user access with role-based access control (RBAC)"
-linkTitle: "Authorize Users with RBAC"
+title: "Role-based access control (RBAC)"
+linkTitle: "Role-based Access Control"
 description: "Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance. RBAC allows you to manage user access and resources based on namespaces, groups, roles, and bindings. Read the reference doc to learn about RBAC."
-weight: 30
-version: "5.19"
+weight: 135
+version: "5.21"
 product: "Sensu Go"
 menu:
-  sensu-go-5.19:
-    parent: control-access
+  sensu-go-5.21:
+    parent: reference
 ---
 
 Sensu role-based access control (RBAC) helps different teams and projects share a Sensu instance.
@@ -269,7 +269,7 @@ To change the password for a user:
 sensuctl user change-password USERNAME --current-password CURRENT_PASSWORD --new-password NEW_PASSWORD
 {{< /code >}}
 
-You can also use sensuctl to [reset a user's password][50].
+You can also use sensuctl to [reset a user's password][50] or [generate a password hash][51].
 
 To disable a user:
 
@@ -327,7 +327,9 @@ example      | {{< code shell >}}"username": "alice"{{< /code >}}
 
 password     | 
 -------------|------ 
-description  | User's password. Passwords must have at least eight characters.
+description  | User's password. Passwords must have at least eight characters.{{% notice note %}}
+**NOTE**: You only need to set either the `password` or the [`password_hash`](#password-hash) (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
+{{% /notice %}}
 required     | true
 type         | String
 example      | {{< code shell >}}"password": "USER_PASSWORD"{{< /code >}}
@@ -347,6 +349,17 @@ type         | Boolean
 default      | `false`
 example      | {{< code shell >}}"disabled": false{{< /code >}}
 
+<a name="password-hash"></a>
+
+password_hash | 
+--------------|------ 
+description   | [Bcrypt][35] password hash. You can use the `password_hash` in your user definitions instead of storing cleartext passwords. {{% notice note %}}
+**NOTE**: You only need to set either the [`password`](#password) or the `password_hash` (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
+{{% /notice %}}
+required      | false
+type          | String
+example       | {{< code shell >}}"password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"{{< /code >}}
+
 ### User example
 
 The following example is in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
@@ -363,6 +376,7 @@ spec:
   - ops
   - dev
   password: USER_PASSWORD
+  password_hash: $5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm
   username: alice
 {{< /code >}}
 
@@ -374,6 +388,7 @@ spec:
   "spec": {
     "username": "alice",
     "password": "USER_PASSWORD",
+    "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm",
     "disabled": false,
     "groups": ["ops", "dev"]
   }
@@ -1272,3 +1287,4 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [48]: ../../../reference/secrets/
 [49]: ../../../web-ui/filter/#save-a-filtered-search
 [50]: ../../../sensuctl/set-up-manage/#reset-a-user-password
+[51]: ../../../sensuctl/set-up-manage/#generate-a-password-hash

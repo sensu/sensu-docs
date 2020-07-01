@@ -1118,7 +1118,7 @@ spec:
 [2]: #deregistration-attributes
 [3]: #network-attributes
 [4]: #networkinterface-attributes
-[5]: ../../operations/control-access/rbac#namespaces
+[5]: ../rbac#namespaces
 [6]: ../filters/
 [7]: ../tokens/
 [8]: #metadata-attributes
@@ -1135,12 +1135,12 @@ spec:
 [19]: #proxy-entities-managed
 [20]: #annotations
 [21]: https://regex101.com/r/zo9mQU/2
-[22]: ../../operations/control-access/rbac/
+[22]: ../rbac/
 [23]: ../../web-ui/filter#filter-with-label-selectors
 [24]: ../checks#proxy-requests-attributes
 [25]: ../agent/#detect-cloud-provider-flag
 [26]: #processes-attributes
 [27]: ../agent/#discover-processes
 [28]: http://man7.org/linux/man-pages/man1/top.1.html
-[29]: ../../operations/maintain-sensu/license/#view-entity-count-and-entity-limit
+[29]: ../../reference/license/#view-entity-count-and-entity-limit
 [30]: ../../web-ui/filter/

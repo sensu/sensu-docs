@@ -813,7 +813,7 @@ Deleting an asset does not delete the archive or downloaded files on disk.
 You must remove the archive and downloaded files from the asset cache manually.
 
 [1]: ../sensu-query-expressions/
-[2]: ../../operations/control-access/rbac#namespaces
+[2]: ../rbac#namespaces
 [5]: #metadata-attributes
 [6]: ../checks/
 [7]: ../filters/

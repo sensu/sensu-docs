@@ -82,4 +82,4 @@ These resources will help you get started with commercial features in Sensu Go:
 [15]: ../operations/deploy-sensu/install-sensu/
 [16]: ../sensuctl/set-up-manage/#first-time-setup
 [17]: ../guides/install-check-executables-with-assets/
-[18]: ../operations/maintain-sensu/license/
+[18]: ../reference/license/

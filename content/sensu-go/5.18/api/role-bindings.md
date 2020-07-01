@@ -264,6 +264,6 @@ description               | Removes the specified role binding from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../operations/control-access/rbac/
+[1]: ../../reference/rbac/
 [2]: ../overview#pagination
 [3]: ../overview#response-filtering

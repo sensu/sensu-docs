@@ -241,7 +241,7 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 The `/users/:user/reset_password` API endpoint provides HTTP PUT access to reset a user's password.
 
 {{% notice note %}}
-**NOTE**: The `/users/:user/reset_password` API endpoint requires explicit [`users` permissions](../../operations/control-access/rbac/#users).
+**NOTE**: The `/users/:user/reset_password` API endpoint requires explicit [`users` permissions](../../reference/rbac/#users).
 With these permissions, you can use `/users/:user/reset_password` to reset a user's password.
 This differs from the `/users/:user/password` API endpoint, which allows users to change their own passwords without explicit permissions.
 {{% /notice %}}
@@ -291,7 +291,7 @@ The `/users/:user/password` API endpoint provides HTTP PUT access to change your
 
 {{% notice note %}}
 **NOTE**: The `/users/:user/password` API endpoint allows a user to update their own password, without any permissions.
-This differs from the `/users/:user/reset_password` API endpoint, which requires explicit [`users` permissions](../../operations/control-access/rbac/#users) to change the user password.
+This differs from the `/users/:user/reset_password` API endpoint, which requires explicit [`users` permissions](../../reference/rbac/#users) to change the user password.
 {{% /notice %}}
 
 ### Example {#usersuserpassword-put-example}
@@ -433,7 +433,7 @@ description               | Removes the specified user from the specified group.
 example url               | http://hostname:8080/api/core/v2/users/alice/groups/ops
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../operations/control-access/rbac#user-specification
+[1]: ../../reference/rbac#user-specification
 [2]: ../overview#pagination
 [3]: https://en.wikipedia.org/wiki/Bcrypt
 [4]: ../../sensuctl/set-up-manage/#generate-a-password-hash

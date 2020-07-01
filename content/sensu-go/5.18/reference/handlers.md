@@ -654,7 +654,7 @@ spec:
 [6]: #socket-attributes
 [7]: ../assets/
 [8]: #metadata-attributes
-[9]: ../../operations/control-access/rbac#namespaces
+[9]: ../rbac#namespaces
 [10]: ../../api/overview#response-filtering
 [11]: ../../sensuctl/filter-responses/
 [12]: ../agent#keepalive-monitoring

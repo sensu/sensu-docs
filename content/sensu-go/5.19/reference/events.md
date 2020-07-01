@@ -1348,7 +1348,7 @@ spec:
 [23]: ../../guides/reduce-alert-fatigue/
 [24]: ../filters/
 [25]: ../checks/#check-result-specification
-[26]: ../../operations/control-access/rbac#namespaces
+[26]: ../rbac#namespaces
 [27]: ../filters/#handle-state-change-only
 [28]: ../filters/#handle-repeated-events
 [29]: #metadata-attributes

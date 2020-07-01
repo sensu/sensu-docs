@@ -89,6 +89,6 @@ example output | {{< code shell >}}
 }
 {{< /code >}}
 
-[1]: ../../operations/monitor-sensu/tessen/
-[2]: ../../operations/control-access/rbac#default-users
-[3]: ../../operations/maintain-sensu/license
+[1]: ../../reference/tessen/
+[2]: ../../reference/rbac#default-users
+[3]: ../../reference/license

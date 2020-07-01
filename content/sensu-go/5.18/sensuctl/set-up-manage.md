@@ -312,7 +312,7 @@ create  delete  import  list
 {{< /code >}}
 
 
-[1]: ../../operations/control-access/rbac/
+[1]: ../../reference/rbac/
 [2]: ../../operations/deploy-sensu/install-sensu/#install-sensuctl
 [3]: ../../reference/agent/#general-configuration-flags
 [4]: ../../operations/deploy-sensu/cluster-sensu/

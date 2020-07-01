@@ -1050,7 +1050,7 @@ spec:
 [4]: #check-commands
 [5]: ../tokens/
 [6]: ../hooks/
-[8]: ../../operations/control-access/rbac/
+[8]: ../rbac/
 [9]: ../assets/
 [10]: #proxy-requests-attributes
 [11]: ../sensu-query-expressions/
@@ -1067,7 +1067,7 @@ spec:
 [23]: ../../guides/extract-metrics-with-checks/
 [24]: ../events/
 [25]: #metadata-attributes
-[26]: ../../operations/control-access/rbac#namespaces
+[26]: ../rbac#namespaces
 [27]: ../filters/
 [28]: ../../guides/monitor-external-resources/
 [29]: https://bonsai.sensu.io

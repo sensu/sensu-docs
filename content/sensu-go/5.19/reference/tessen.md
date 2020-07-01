@@ -1,12 +1,12 @@
 ---
 title: "Tessen"
 description: "Tessen sends anonymized data about Sensu instances to Sensu Inc. You can use sensuctl to view and manage Tessen configuration. Read this document to configure Tessen."
-weight: 20
+weight: 170
 version: "5.19"
 product: "Sensu Go"
 menu: 
   sensu-go-5.19:
-    parent: monitor-sensu
+    parent: reference
 ---
 
 Tessen is the Sensu call-home service.

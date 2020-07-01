@@ -1,12 +1,12 @@
 ---
-title: "Check health"
+title: "Health"
 description: "Access health data for your Sensu instance. Read this page to learn about the health information you can retrieve."
-weight: 20
+weight: 115
 version: "5.20"
 product: "Sensu Go"
 menu: 
   sensu-go-5.20:
-    parent: maintain-sensu
+    parent: reference
 ---
 
 Use Sensu's [health API][1] to make sure your backend is up and running and check the health of your etcd cluster members and [PostgreSQL datastore resources][2].

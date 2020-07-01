@@ -193,6 +193,6 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-[1]: ../../operations/control-access/rbac/
+[1]: ../../reference/rbac/
 [2]: ../overview#limit-query-parameter
 [3]: ../overview#response-filtering

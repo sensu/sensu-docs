@@ -1,6 +1,6 @@
 ---
 title: "Configure authentication to access Sensu"
-linktitle: "Configure authentication"
+linktitle: "Configure Authentication"
 description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using Lightweight Directory Access Protocol (LDAP), Active Directory (AD), and OpenID Connect 1.0 protocol (OIDC). Read this guide to configure an authentication provider."
 weight: 10
 version: "5.18"
@@ -1328,17 +1328,17 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 
 [1]: ../../../web-ui/sign-in/
 [2]: ../../../sensuctl/set-up-manage/
-[3]: ../rbac#default-users
-[4]: ../rbac/
+[3]: ../../../reference/rbac#default-users
+[4]: ../../../reference/rbac/
 [5]: ../create-read-only-user/
 [6]: ../../../commercial/
 [7]: https://www.openldap.org/
 [8]: ../../../api/overview/
 [9]: ../../../api/auth/
-[11]: ../rbac#roles-and-cluster-roles
-[13]: ../rbac#role-bindings-and-cluster-role-bindings
-[17]: ../rbac#namespaced-resource-types
-[18]: ../rbac#cluster-wide-resource-types
+[11]: ../../../reference/rbac#roles-and-cluster-roles
+[13]: ../../../reference/rbac#role-bindings-and-cluster-role-bindings
+[17]: ../../../reference/rbac#namespaced-resource-types
+[18]: ../../../reference/rbac#cluster-wide-resource-types
 [19]: ../../maintain-sensu/troubleshoot#log-levels
 [21]: #ldap-group-search-attributes
 [22]: #ldap-user-search-attributes
@@ -1351,7 +1351,7 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [30]: #ldap-specification
 [31]: #ad-configuration-examples
 [32]: #ad-specification
-[33]: ../rbac/#example-workflows
+[33]: ../../../reference/rbac/#example-workflows
 [34]: #groups-prefix
 [35]: #username-prefix
 [36]: ../../../sensuctl/set-up-manage/#first-time-setup

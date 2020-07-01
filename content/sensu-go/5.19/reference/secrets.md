@@ -221,10 +221,10 @@ The `database` secret contains a key called `password`, and its value is the pas
 [3]: ../../sensuctl/set-up-manage/
 [4]: ../../sensuctl/create-manage-resources/#subcommands
 [5]: ../backend/#configuration-via-environment-variables
-[6]: ../../operations/control-access/rbac#default-users
+[6]: ../rbac#default-users
 [7]: ../secrets-providers/
 [8]: #spec-attributes
-[9]: ../../operations/control-access/rbac/#namespaces
+[9]: ../rbac/#namespaces
 [10]: https://learn.hashicorp.com/vault/getting-started/dev-server
 [11]: ../../operations/manage-secrets/secrets-management/
 [12]: #metadata-attributes

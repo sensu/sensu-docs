@@ -318,7 +318,7 @@ spec:
 
 [1]: ../../sensuctl/create-manage-resources/#create-resources
 [2]: #metadata-attributes
-[3]: ../../operations/control-access/rbac#namespaces
+[3]: ../rbac#namespaces
 [4]: ../filters/
 [5]: ../assets/
 [6]: ../checks#check-hooks-attribute

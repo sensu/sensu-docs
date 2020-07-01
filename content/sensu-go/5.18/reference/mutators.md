@@ -368,7 +368,7 @@ spec:
 
 [1]: ../assets/
 [2]: #metadata-attributes
-[3]: ../../operations/control-access/rbac#namespaces
+[3]: ../rbac#namespaces
 [4]: ../../guides/install-check-executables-with-assets/
 [5]: ../../sensuctl/create-manage-resources/#create-resources
 [6]: #spec-attributes

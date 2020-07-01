@@ -223,6 +223,6 @@ To delete a saved search:
 [8]: #save-a-filtered-search
 [9]: #operators-quick-reference
 [10]: #examples
-[11]: ../../operations/control-access/rbac/#namespaced-resource-types
-[12]: ../../operations/control-access/rbac/#roles-and-cluster-roles
-[13]: ../../operations/control-access/rbac/#example-workflows
+[11]: ../../reference/rbac/#namespaced-resource-types
+[12]: ../../reference/rbac/#roles-and-cluster-roles
+[13]: ../../reference/rbac/#example-workflows

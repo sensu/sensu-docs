@@ -829,7 +829,7 @@ spec:
 [7]: #built-in-filter-is_incident
 [8]: ../backend/
 [9]: ../events/
-[10]: ../../operations/control-access/rbac#namespaces
+[10]: ../rbac#namespaces
 [11]: #metadata-attributes
 [12]: ../hooks/
 [13]: ../../guides/extract-metrics-with-checks/
@@ -844,7 +844,7 @@ spec:
 [22]: ../handlers/
 [23]: ../events#metric-attributes
 [24]: ../entities#metadata-attributes
-[25]: ../../operations/control-access/rbac#default-roles
+[25]: ../rbac#default-roles
 [26]: ../agent#keepalive-monitoring
 [27]: ../sensu-query-expressions/
 [28]: ../events#event-format

@@ -1,6 +1,6 @@
 ---
 title: "Use API keys to authenticate to Sensu"
-linkTitle: "Use API keys"
+linkTitle: "Use API Keys"
 description: "In this guide, you'll learn how to use Sensu's API key feature for authentication."
 weight: 20
 version: "5.18"

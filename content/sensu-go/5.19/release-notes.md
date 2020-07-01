@@ -1227,12 +1227,12 @@ To get started with Sensu Go:
 [122]: /sensu-go/5.19/commercial/
 [123]: /sensu-go/5.19/web-ui/filter/#save-a-filtered-search
 [124]: /sensu-go/5.19/web-ui/sign-in/
-[125]: /sensu-go/5.19/operations/maintain-sensu/health/
+[125]: /sensu-go/5.19/reference/health/
 [126]: /sensu-go/5.19/api/overview/#response-filtering
 [127]: /sensu-go/5.19/sensuctl/filter-responses
 [128]: /sensu-go/5.19/web-ui/filter/
 [129]: /sensu-go/5.19/sensuctl/create-manage-resources#sensuctl-prune
-[130]: /sensu-go/5.19/operations/monitor-sensu/tessen/
+[130]: /sensu-go/5.19/reference/tessen/
 [131]: /sensu-go/5.19/reference/handlers/#pipe-handler-command
 [133]: /sensu-go/5.19/platforms/
 [134]: /sensu-go/5.19/operations/deploy-sensu/install-sensu/

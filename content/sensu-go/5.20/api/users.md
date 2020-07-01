@@ -363,6 +363,6 @@ description               | Removes the specified user from the specified group.
 example url               | http://hostname:8080/api/core/v2/users/alice/groups/ops
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../operations/control-access/rbac#user-specification
+[1]: ../../reference/rbac#user-specification
 [2]: ../overview#pagination
 [8]: ../overview#response-filtering

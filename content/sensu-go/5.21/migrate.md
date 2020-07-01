@@ -428,7 +428,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [10]: ../reference/filters/#handle-repeated-events
 [11]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/
 [12]: ../reference/assets/
-[13]: ../operations/control-access/rbac/
+[13]: ../reference/rbac/
 [14]: ../operations/control-access/create-read-only-user/
 [15]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#asset-registration
 [16]: ../reference/tokens
@@ -464,7 +464,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [51]: ../operations/deploy-sensu/install-plugins/
 [52]: ../operations/deploy-sensu/install-sensu#install-the-sensu-backend
 [53]: ../operations/deploy-sensu/install-sensu#install-sensuctl
-[54]: ../operations/control-access/rbac/#resources
+[54]: ../reference/rbac/#resources
 [55]: ../operations/deploy-sensu/install-sensu#install-sensu-agents
 [56]: ../reference/agent#configuration-via-flags
 [57]: ../guides/extract-metrics-with-checks/

@@ -325,7 +325,7 @@ spec: {}
 [3]: ../../sensuctl/set-up-manage/
 [4]: ../backend/#configuration-via-environment-variables
 [5]: https://www.vaultproject.io/docs/what-is-vault/
-[6]: ../../operations/control-access/rbac#default-users
+[6]: ../rbac#default-users
 [7]: ../../sensuctl/create-manage-resources/#create-resources
 [8]: #spec-attributes
 [9]: ../secrets/

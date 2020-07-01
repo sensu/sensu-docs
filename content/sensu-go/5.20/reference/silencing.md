@@ -356,7 +356,7 @@ name: '*:mysql_status'
 {{< /language-toggle >}}
 
 [1]: ../events/#attributes
-[2]: ../../operations/control-access/rbac#namespaces
+[2]: ../rbac#namespaces
 [3]: #metadata-attributes
 [4]: ../../sensuctl/create-manage-resources/#create-resources
 [5]: #spec-attributes

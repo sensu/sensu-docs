@@ -278,12 +278,12 @@ spec:
 
 
 [1]: ../../commercial/
-[2]: ../../operations/control-access/rbac/#namespaced-resource-types
+[2]: ../rbac/#namespaced-resource-types
 [3]: ../../web-ui/filter/#save-a-filtered-search
 [4]: ../../api/searches
 [5]: #metadata-attributes
 [6]: ../../sensuctl/create-manage-resources/#create-resources
 [7]: #spec-attributes
-[8]: ../../operations/control-access/rbac#namespaces
+[8]: ../rbac#namespaces
 [9]: ../../api/overview/#field-selector
 [10]: ../../api/overview/#label-selector
