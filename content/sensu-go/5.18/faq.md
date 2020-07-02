@@ -101,16 +101,17 @@ Yes, as long as you meet the [port requirements][37], a single Sensu backend can
 Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go.
 Sensu Go does have a [built-in web UI][29] that you can use to visually interact with your Sensu Go deployment.
 
-[1]: ../../platforms/
-[2]: ../../installation/install-sensu/
+
+[1]: ../platforms/
+[2]: ../installation/install-sensu/
 [3]: https://blog.sensu.io/sensu-go-is-here/
-[4]: ../../installation/upgrade/#migrate-to-sensu-go-from-sensu-core-1-x
-[5]: ../../installation/recommended-hardware/
+[4]: ../installation/upgrade/
+[5]: ../installation/recommended-hardware/
 [6]: https://sensu.io/sales/
-[7]: ../../learn/glossary/
-[8]: ../../installation/install-sensu#install-sensu-agents
-[9]: ../../api/overview/
-[10]: ../../reference/entities/#proxy-entities
+[7]: ../learn/glossary/
+[8]: ../installation/install-sensu#install-sensu-agents
+[9]: ../api/overview/
+[10]: ../reference/entities/#proxy-entities
 [11]: https://github.com/sensu-plugins/
 [12]: https://docs.sensu.io/plugins/1.0/reference/#the-sensu-plugin-specification
 [13]: https://github.com/sensu-plugins/sensu-plugins-aws/
@@ -118,23 +119,22 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [15]: https://github.com/sensu-plugins/sensu-plugins-puppet/
 [16]: https://github.com/sensu-plugins/sensu-plugins-influxdb/
 [17]: https://github.com/sensu-plugins/sensu-plugins-snmp/
-[18]: ../../guides/influx-db-metric-handler/
+[18]: ../guides/influx-db-metric-handler/
 [19]: https://www.influxdata.com/
-[20]: ../../guides/securing-sensu/
-[21]: ../../reference/agent#create-monitoring-events-using-the-agent-api
-[22]: ../../reference/agent/#using-the-http-socket
-[23]: ../../reference/agent/#create-monitoring-events-using-the-statsd-listener
-[24]: ../../web-ui/sign-in/
-[25]: ../../reference/backend/
-[26]: ../../reference/agent/
-[27]: ../../guides/clustering/
-[28]: ../../commercial/
-[29]: ../../web-ui/sign-in/
+[20]: ../guides/securing-sensu/
+[21]: ../reference/agent#create-monitoring-events-using-the-agent-api
+[22]: ../reference/agent/#using-the-http-socket
+[23]: ../reference/agent/#create-monitoring-events-using-the-statsd-listener
+[24]: ../web-ui/sign-in/
+[25]: ../reference/backend/
+[26]: ../reference/agent/
+[27]: ../guides/clustering/
+[28]: ../commercial/
+[29]: ../web-ui/sign-in/
 [30]: https://sensu.io/enterprise/
 [31]: https://blog.sensu.io/enterprise-features-in-sensu-go/
 [32]: https://bonsai.sensu.io/
-[33]: ../../reference/assets/#share-an-asset-on-bonsai
+[33]: ../reference/assets/#share-an-asset-on-bonsai
 [34]: https://blog.sensu.io/one-year-of-sensu-go/
 [36]: https://sensu.io/contact/
 [37]: #go-ports
-
