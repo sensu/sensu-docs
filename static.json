@@ -412,7 +412,7 @@
             "status": 301
         },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/plugins$": {
-            "url": "/sensu-go/latest/operations/deploy-sensu/hinstall-plugins",
+            "url": "/sensu-go/latest/operations/deploy-sensu/install-plugins",
             "status": 301
         },
         "~ ^/sensu-go/latest/installation/auth$": {
