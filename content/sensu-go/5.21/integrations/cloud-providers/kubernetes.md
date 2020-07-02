@@ -6,10 +6,10 @@ version: "5.21"
 product: "Sensu Go"
 menu:
   sensu-go-5.21:
-    parent: integrations
+    parent: cloud-providers
 ---
 
-Sensu integrates with Kubernetes via ...
+Sensu integrates with Kubernetes, the open source container orchestration platform for automating deployment, scaling, and management of containerized infrastructure.
 
 ## Requirements
 

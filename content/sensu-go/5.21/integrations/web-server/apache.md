@@ -1,15 +1,15 @@
 ---
-title: "Integrate Sensu with Grafana Datasource"
-linkTitle: "Grafana Datasource"
+title: "Integrate Sensu with Apache"
+linkTitle: "Apache"
 description: "Description placeholder."
 version: "5.21"
 product: "Sensu Go"
 menu:
   sensu-go-5.21:
-    parent: integrations
+    parent: web-server
 ---
 
-Sensu integrates with Grafana Datasource via ...
+Sensu integrates with Apache, the free and open source web server.
 
 ## Requirements
 
@@ -19,11 +19,10 @@ Requirements placeholder
 
 Example placeholder
 
-## Grafana Datasource integration specification
+## Apache integration specification
 
 Spec placeholder
 
 ## Interactive tutorial
 
 Tutorial placeholder
-

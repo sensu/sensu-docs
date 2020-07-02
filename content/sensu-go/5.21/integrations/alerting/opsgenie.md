@@ -6,7 +6,7 @@ version: "5.21"
 product: "Sensu Go"
 menu:
   sensu-go-5.21:
-    parent: integrations
+    parent: alerting
 ---
 
 Sensu integrates with OpsGenia via ...

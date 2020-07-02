@@ -6,10 +6,14 @@ version: "5.21"
 product: "Sensu Go"
 menu:
   sensu-go-5.21:
-    parent: integrations
+    parent: visualization
 ---
 
 Configure Sensu to send events to ElasticSearch and visualize these events in Kibana with the [Sensu Plugins ElasticSearch asset][1].
+
+ElasticSearch is an open source search and analytics solution and the “e” in ELK stack.
+ElasticSearch provides a distributed, multi-tenant search engine built for the cloud.
+Built on Apache Lucene, ElasticSearch handles all types of data, including text-based, numerical, and geospatial, as well as structured and unstructured data.
 
 ## Requirements
 
