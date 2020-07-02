@@ -46,7 +46,7 @@ Sensu backends require the following ports:
 
 Port | Protocol | Description |
 ---- | -------- | ----------- |
-2379 | HTTP/HTTPS (transport: gRPC) | Sensu storage client: Required for Sensu backends using an external etcd instance |
+2379 | HTTP/HTTPS (transport gRPC) | Sensu storage client: Required for Sensu backends using an external etcd instance |
 2380 | HTTP/HTTPS | Sensu storage peer: Required for other Sensu backends in a [cluster][22] |
 3000 | HTTP/HTTPS | [Sensu web UI][3]: Required for all Sensu backends using a Sensu web UI |
 8080 | HTTP/HTTPS | [Sensu API][26]: Required for all users accessing the Sensu API |
