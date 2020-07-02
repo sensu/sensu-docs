@@ -31,7 +31,18 @@ See [supported platforms][5] for more information.
 
 The **Sensu backend** gives you flexible, automated workflows to route metrics and alerts.
 It is powered by an an embedded transport and [etcd][16] datastore and gives you flexible, automated workflows to route metrics and alerts.
-Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and several exposed ports:
+Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and several exposed ports.
+
+**Sensu agents** are lightweight clients that run on the infrastructure components you want to monitor.
+Agents register automatically with Sensu as entities and are responsible for creating check and metric events to send to the backend event pipeline.
+Agents that use Sensu [assets][17] require some disk space for a local cache.
+
+For more information, see the [Secure Sensu guide][8].
+See [Deploy Sensu][31] and [hardware requirements][25] for deployment recommendations.
+
+## Ports
+
+Sensu backends require the following ports:
 
 Port | Protocol | Description |
 ---- | -------- | ----------- |
@@ -41,8 +52,6 @@ Port | Protocol | Description |
 8080 | HTTP/HTTPS | [Sensu API][26]: Required for all users accessing the Sensu API |
 8081 | WS/WSS | Agent API: Required for all Sensu agents connecting to a Sensu backend |
 
-**Sensu agents** are lightweight clients that run on the infrastructure components you want to monitor.
-Agents register automatically with Sensu as entities and are responsible for creating check and metric events to send to the backend event pipeline.
 The Sensu agent uses the following ports:
 
 Port | Protocol | Description |
@@ -52,11 +61,6 @@ Port | Protocol | Description |
 8125 | UDP | [StatsD listener][28]: Required for all Sensu agents using the StatsD listener |
 
 The agent TCP and UDP sockets are deprecated in favor of the [agent API][27].
-
-Agents that use Sensu [assets][17] require some disk space for a local cache.
-
-For more information, see the [Secure Sensu guide][8].
-See [Deploy Sensu][31] and [hardware requirements][25] for deployment recommendations.
 
 ## Install the Sensu backend
 
