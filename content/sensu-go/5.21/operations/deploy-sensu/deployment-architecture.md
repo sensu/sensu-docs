@@ -1,6 +1,6 @@
 ---
-title: "Deploy Sensu"
-linkTitle: "Deploy Sensu"
+title: "Deployment architecture for Sensu"
+linkTitle: "Deployment Architecture"
 description: "This guide describes considerations, potential architectures, and recommendations for a production-ready Sensu deployment."
 weight: 30
 version: "5.21"
