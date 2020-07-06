@@ -9,7 +9,10 @@ menu:
     parent: alerting
 ---
 
-Sensu integrates with OpsGenia via ...
+Sensu integrates with OpsGenia via the [Sensu Go OpsGenie Handler asset][1].
+With this handler, you can manage and trigger OpsGenie incidents to alert the right people as needed.
+
+OpsGenie is Atlassian's alerting and on-call management solution.
 
 ## Requirements
 
@@ -27,3 +30,5 @@ Spec placeholder
 
 Tutorial placeholder
 
+
+[1]: https://bonsai.sensu.io/assets/nixwiz/sensu-opsgenie-handler
