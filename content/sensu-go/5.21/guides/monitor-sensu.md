@@ -128,18 +128,132 @@ spec:
 
 ## Postgres
 
-TODO: Postgres now is part of the health endpoint. Need to see what that looks like and what it looks like when it is not available.
+In larger Sensu deployments, [Postgres may be used as an alternative datastore][postgres] to enable larger amounts of events to be processed. When using Postgres, the connection to Postgres is exposed on Sensu's `/health` endpoint, and will look like the example below:
 
-[1]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-cpu-checks
-[2]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-memory-checks
-[3]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-disk-checks
-[4]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-network-checks
-[5]: https://bonsai.sensu.io/
+{{< code yaml >}}
+{
+	"Alarms": null,
+	"ClusterHealth": [{
+		"MemberID": 3470366781180380542,
+		"MemberIDHex": "302938336092857e",
+		"Name": "sensu00",
+		"Err": "",
+		"Healthy": true
+	}, {
+		"MemberID": 15883454222313069303,
+		"MemberIDHex": "dc6d5d7607261af7",
+		"Name": "sensu01",
+		"Err": "",
+		"Healthy": true
+	}, {
+		"MemberID": 11377294497886211005,
+		"MemberIDHex": "9de44510fb838bbd",
+		"Name": "sensu02",
+		"Err": "",
+		"Healthy": true
+	}],
+	"Header": {
+		"cluster_id": 13239446193995634903,
+		"member_id": 3470366781180380542,
+		"raft_term": 1549
+	},
+	"PostgresHealth": [{
+		"Name": "sensu_postgres",
+		"Active": true,
+		"Healthy": true
+	}]
+}
+{{< /code >}}
+
+To monitor Postgres' health from Sensu's perspective, we'll use check example below:
+
+{{< language-toggle >}}
+
+{{< code yaml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  created_by: admin
+  labels:
+    sensu.io/managed_by: sensuctl
+  name: check-postgres-health
+  namespace: default
+spec:
+  check_hooks: null
+  command: check-http-json.rb -u https://sensu.example.com:8080/health --key PostgresHealth[0].Healthy
+    --value true
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
+  interval: 10
+  low_flap_threshold: 0
+  output_metric_format: ""
+  output_metric_handlers: null
+  proxy_entity_name: ""
+  publish: true
+  round_robin: true
+  runtime_assets:
+  - sensu-plugins/sensu-plugins-http
+  - sensu/sensu-ruby-runtime
+  secrets: null
+  stdin: false
+  subdue: null
+  subscriptions:
+  - backends
+  timeout: 0
+  ttl: 0
+{{< /code >}}
+
+{{< code json >}}
+{
+  "command": "check-http-json.rb -u https://sensu.example.com:8080/health --key PostgresHealth[0].Healthy --value true",
+  "handlers": [],
+  "high_flap_threshold": 0,
+  "interval": 10,
+  "low_flap_threshold": 0,
+  "publish": true,
+  "runtime_assets": [
+    "sensu-plugins/sensu-plugins-http",
+    "sensu/sensu-ruby-runtime"
+  ],
+  "subscriptions": [
+    "backends"
+  ],
+  "proxy_entity_name": "",
+  "check_hooks": null,
+  "stdin": false,
+  "subdue": null,
+  "ttl": 0,
+  "timeout": 0,
+  "round_robin": true,
+  "output_metric_format": "",
+  "output_metric_handlers": null,
+  "env_vars": null,
+  "metadata": {
+    "name": "check-postgres-health",
+    "namespace": "default",
+    "labels": {
+      "sensu.io/managed_by": "sensuctl"
+    },
+    "created_by": "admin"
+  },
+  "secrets": null
+}
+
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+A successful check result will look like:
+
+![Screenshot of postgres health check in Sensu Go UI][sensu-postgres-health]
+
+<!--LINKS-->
 [6]: ../../api/health/
 [7]: https://bonsai.sensu.io/assets/sensu/monitoring-plugins
-[8]: https://github.com/sensu-plugins/sensu-plugins-network-checks/blob/master/bin/check-ports.rb
-[9]: https://github.com/sensu-plugins/sensu-plugins-process-checks/blob/master/bin/check-process.rb
 [10]: ../../guides/install-check-executables-with-assets/
 [11]: ../../reference/agent/#keepalive-monitoring
 [12]: ../../api/metrics/
 [13]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector
+[postgres]: https://docs.sensu.io/sensu-go/latest/operations/deploy-sensu/scale-event-storage/
+[sensu-postgres-health]: /images/sensu-postgres-health.png
