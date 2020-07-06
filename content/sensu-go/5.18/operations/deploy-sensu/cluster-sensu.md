@@ -11,11 +11,22 @@ menu:
     parent: deploy-sensu
 ---
 
-A Sensu cluster is a group of [at least three][1] sensu-backend nodes, each connected to a shared etcd cluster, using Sensu's embedded etcd or an external etcd cluster.
+To deploy Sensu for use outside of a local development environment, first decide whether you want to run a Sensu cluster.
+
+A Sensu cluster is a group of [at least three][1] sensu-backend nodes, each connected to a shared database provided either by Sensu’s embedded etcd or an external etcd cluster.
 Creating a Sensu cluster ultimately configures an [etcd cluster][2].
 
 Clustering improves Sensu's availability, reliability, and durability.
-It will help you cope with the loss of a backend node, prevent data loss, and distribute the network load of agents.
+It allows you to absorb the loss of a backend node, prevent data loss, and distribute the network load of agents.
+
+Scaling a single backend to a cluster or migrating a cluster from cleartext HTTP to encrypted HTTPS without downtime can require [a number of tedious steps][14].
+For this reason, we recommend that you **decide whether your deployment will require clustering as part of your initial planning effort**.
+
+No matter whether you deploy a single backend or a clustered configuration, begin by securing Sensu with transport layer security (TLS).
+The first step in setting up TLS is to [generate the certificates you need][13].
+Then, follow our [Secure Sensu][16] guide to make Sensu production-ready.
+
+After you've secured Sensu, continue reading this document to set up a clustered configuration.
 
 {{% notice note %}}
 **NOTE**: We recommend using a load balancer to evenly distribute agent connections across a cluster.
@@ -317,6 +328,7 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [11]: https://etcd.io/docs/v3.4.0/op-guide/clustering/#self-signed-certificates
 [12]: https://etcd.io/docs/v3.4.0/op-guide/
 [13]: ../generate-certificates/
+[14]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
 [15]: ../../../reference/backend/
 [16]: ../secure-sensu/
 [17]: ../../../sensuctl/set-up-manage/
