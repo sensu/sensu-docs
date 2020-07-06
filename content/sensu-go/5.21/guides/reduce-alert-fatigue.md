@@ -171,7 +171,7 @@ spec:
 ### Validate the event filter
 
 Verify the proper behavior of these event filters with `sensu-backend` logs.
-The default location of these logs varies based on the platform used (see [Troubleshooting][2] for details).
+The default location of these logs varies based on the platform used (see [Troubleshoot Sensu][2] for details).
 
 Whenever an event is being handled, a log entry is added with the message `"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by
 a second log entry with the message `"msg":"pipelined executed event pipe
@@ -183,7 +183,7 @@ However, if the event is being discarded by the event filter, a log entry with t
 Now that you know how to apply an event filter to a handler and use a filter asset to help reduce alert fatigue, read the [filters reference][1] for in-depth information about event filters. 
 
 [1]:  ../../reference/filters/
-[2]: ../troubleshooting#log-file-locations
+[2]: ../../operations/maintain-sensu/troubleshoot#log-file-locations
 [3]: ../send-slack-alerts/
 [4]: #approach-1-use-sensuctl-to-create-an-event-filter
 [5]: #approach-2-use-an-event-filter-asset

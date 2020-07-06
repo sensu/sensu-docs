@@ -368,6 +368,6 @@ Now that you know how to run a proxy check to verify the status of a website and
 [16]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http
 [17]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
 [18]: ../../reference/checks#round-robin-checks
-[19]: ../../installation/install-sensu/
+[19]: ../../operations/deploy-sensu/install-sensu/
 [20]: ../../reference/agent#restart-the-service
 [21]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions

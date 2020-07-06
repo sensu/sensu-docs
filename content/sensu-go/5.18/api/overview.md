@@ -68,7 +68,7 @@ export SENSU_ACCESS_TOKEN=`curl -X GET -u "$SENSU_USER:$SENSU_PASS" -s http://lo
 
 ### Basic authentication using the authentication API
 
-The [`/auth` API endpoint][10] lets you generate short-lived API tokens using your Sensu username and password.
+The [`/auth` API endpoint][12]] lets you generate short-lived API tokens using your Sensu username and password.
 
 1. Retrieve an access token for your user.
 For example, to generate an access token using example admin credentials:
@@ -557,15 +557,14 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 
 
 [1]: ../../sensuctl/set-up-manage#preferred-output-format
-[2]: ../../installation/install-sensu#install-sensuctl
+[2]: ../../operations/deploy-sensu/install-sensu#install-sensuctl
 [3]: ../../reference/rbac/
 [4]: ../../reference/agent/
 [5]: ../health/
 [6]: ../metrics/
 [8]: ../../commercial/
 [9]: ../../reference/entities#metadata-attributes
-[10]: ../auth/#the-auth-api-endpoint
-[11]: ../auth/#the-authtoken-api-endpoint
+[11]: ../auth/#authtoken-post
 [12]: ../auth/
 [14]: #authentication-quickstart
 [16]: #limit-query-parameter

@@ -1,6 +1,6 @@
 ---
 title: "Tessen"
-description: "Tessen sends anonymized data about Sensu instances to Sensu Inc. You can use sensuctl to view and manage Tessen configuration. Read the reference to configure Tessen."
+description: "Tessen sends anonymized data about Sensu instances to Sensu Inc. You can use sensuctl to view and manage Tessen configuration. Read this document to configure Tessen."
 weight: 170
 version: "5.21"
 product: "Sensu Go"
@@ -37,7 +37,7 @@ sensuctl tessen opt-out
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: [Licensed](../license/) Sensu instances override Tessen configuration to opt in at runtime.
+**NOTE**: [Licensed](../../maintain-sensu/license/) Sensu instances override Tessen configuration to opt in at runtime.
 {{% /notice %}}
 
 You can use the `--skip-confirm` flag to skip the confirmation step:
@@ -203,11 +203,11 @@ journalctl _COMM=sensu-backend.service
 To view the events on-disk, see [Log Sensu services with systemd][9].
 
 [1]: https://blog.sensu.io/announcing-tessen-the-sensu-call-home-service
-[2]: ../../api/tessen/
-[3]: ../../sensuctl/set-up-manage/
-[4]: ../license/
-[5]: ../../guides/troubleshooting
-[6]: ../../reference/rbac#default-users
-[7]: ../../sensuctl/create-manage-resources/#create-resources
+[2]: ../../../api/tessen/
+[3]: ../../../sensuctl/set-up-manage/
+[4]: ../../maintain-sensu/license/
+[5]: ../../maintain-sensu/troubleshoot
+[6]: ../../control-access/rbac#default-users
+[7]: ../../../sensuctl/create-manage-resources/#create-resources
 [8]: #spec-attributes
-[9]: ../../guides/systemd-logs/
+[9]: ../log-sensu-systemd/

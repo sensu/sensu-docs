@@ -20,7 +20,7 @@ Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and 
 
 {{% notice note %}}
 **NOTE**: Assets are not required to use Sensu Go in production.
-You can install Sensu plugins using the [sensu-install](../../installation/plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../installation/configuration-management/) solution.
+You can install Sensu plugins using the [sensu-install](../../operations/deploy-sensu/install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../operations/deploy-sensu/configuration-management/) solution.
 {{% /notice %}}
 
 The Sensu backend executes handler, filter, and mutator assets.
@@ -843,7 +843,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [23]: ../../guides/install-check-executables-with-assets/
 [24]: https://github.com
 [25]: https://help.github.com/articles/about-releases/
-[26]: #bonsai-yml-specification
+[26]: #bonsaiyml-example
 [27]: https://goreleaser.com/
 [28]: https://github.com/sensu/sensu-go-plugin/
 [29]: /plugins/latest/reference/
@@ -856,6 +856,6 @@ You must remove the archive and downloaded files from the asset cache manually.
 [39]: ../../web-ui/filter#filter-with-label-selectors
 [40]: ../../reference/agent/#configuration-via-flags
 [41]: ../../reference/backend/#configuration
-[42]: ../../release-notes/#5-19-3-release-notes
+[42]: ../../release-notes/#5193-release-notes
 [43]: #filters
 [44]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime

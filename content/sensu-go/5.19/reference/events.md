@@ -1341,7 +1341,7 @@ spec:
 [15]: ../../web-ui/sign-in/
 [16]: ../../api/events/
 [17]: ../../sensuctl/set-up-manage/
-[18]: ../../sensuctl/set-up-manage/#sensuctl-event
+[18]: ../../sensuctl/create-manage-resources/#sensuctl-event
 [20]: ../checks#check-specification
 [21]: #check-attributes
 [22]: #metrics
@@ -1357,4 +1357,4 @@ spec:
 [32]: #history-attributes
 [33]: ../checks#spec-attributes
 [34]: #points-attributes
-[35]: ../../api/events#events-post
+[35]: ../../api/events#create-a-new-event

@@ -117,8 +117,8 @@ An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
 {{% notice note %}}
-**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication).
-It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth/#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../installation/auth/#active-directory-ad-authentication). 
+**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../../operations/control-access/auth#use-built-in-basic-authentication).
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../operations/control-access/auth/#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../operations/control-access/auth/#active-directory-ad-authentication). 
 {{% /notice %}}
 
 For example, if you test LDAP credentials with the `sensuctl user test-creds` command, the backend will log an error, even if you know the LDAP credentials are correct:
@@ -324,16 +324,16 @@ create  delete  import  list
 
 
 [1]: ../../reference/rbac/
-[2]: ../../installation/install-sensu/#install-sensuctl
+[2]: ../../operations/deploy-sensu/install-sensu/#install-sensuctl
 [3]: ../../reference/agent/#general-configuration-flags
-[4]: ../../guides/clustering/
+[4]: ../../operations/deploy-sensu/cluster-sensu/
 [5]: ../create-manage-resources/#create-resources
 [6]: #sensu-backend-url
 [7]: #preferred-output-format
 [8]: #username-password-and-namespace
 [9]: ../../api/overview/
-[10]: ../../installation/install-sensu/#install-the-sensu-backend
-[11]: ../../installation/auth#use-built-in-basic-authentication
+[10]: ../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
+[11]: ../../operations/control-access/auth#use-built-in-basic-authentication
 [12]: #first-time-setup
 [13]: ../create-manage-resources/#update-resources
 [14]: ../create-manage-resources/#export-resources

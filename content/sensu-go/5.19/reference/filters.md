@@ -838,7 +838,7 @@ spec:
 [4]: ../../guides/send-slack-alerts/
 [5]: ../../guides/plan-maintenance/
 [6]: ../silencing/
-[7]: #built-in-filter-is-incident
+[7]: #built-in-filter-is_incident
 [8]: ../backend/
 [9]: ../events/
 [10]: ../rbac#namespaces

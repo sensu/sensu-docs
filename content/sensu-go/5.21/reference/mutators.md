@@ -387,5 +387,5 @@ spec:
 [11]: ../../reference/secrets-providers/
 [12]: ../filters/
 [13]: ../../web-ui/filter#filter-with-label-selectors
-[14]: ../../guides/secrets-management/
-[15]: ../../web-ui/filter#filter/
+[14]: ../../operations/manage-secrets/secrets-management/
+[15]: ../../web-ui/filter/

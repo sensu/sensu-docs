@@ -313,17 +313,16 @@ create  delete  import  list
 
 
 [1]: ../../reference/rbac/
-[2]: ../../installation/install-sensu/#install-sensuctl
+[2]: ../../operations/deploy-sensu/install-sensu/#install-sensuctl
 [3]: ../../reference/agent/#general-configuration-flags
-[4]: ../../guides/clustering/
+[4]: ../../operations/deploy-sensu/cluster-sensu/
 [5]: ../create-manage-resources/#create-resources
 [6]: #sensu-backend-url
 [7]: #preferred-output-format
 [8]: #username-password-and-namespace
 [9]: ../../api/overview/
-[10]: ../../installation/install-sensu/#install-the-sensu-backend
-[11]: ../../installation/auth#use-built-in-basic-authentication
+[10]: ../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
+[11]: ../../operations/control-access/auth#use-built-in-basic-authentication
 [12]: #first-time-setup
 [13]: ../create-manage-resources/#update-resources
 [14]: ../create-manage-resources/#export-resources
-[15]: https://en.wikipedia.org/wiki/Bcrypt

@@ -1078,7 +1078,7 @@ The asset reference includes an [example check definition that uses the asset pa
 [31]: #ttl-attribute
 [32]: #proxy-entity-name-attribute
 [33]: #proxy-checks
-[34]: ../../api/checks#the-checkscheckexecute-api-endpoint
+[34]: ../../api/checks#checkscheckexecute-post
 [35]: #use-a-proxy-check-to-monitor-a-proxy-entity
 [36]: #use-a-proxy-check-to-monitor-multiple-proxy-entities
 [37]: #proxy-requests-top-level
@@ -1101,6 +1101,6 @@ The asset reference includes an [example check definition that uses the asset pa
 [56]: ../../reference/secrets/
 [57]: ../../reference/secrets-providers/
 [58]: ../../web-ui/filter#filter-with-label-selectors
-[59]: ../../guides/secrets-management/
+[59]: ../../operations/manage-secrets/secrets-management/
 [60]: ../assets#asset-path
 [61]: ../../web-ui/filter/

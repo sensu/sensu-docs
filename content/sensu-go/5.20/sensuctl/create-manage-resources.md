@@ -342,7 +342,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl filter`][16]
 - [`sensuctl handler`][17]
 - [`sensuctl hook`][18]
-- [`sensuctl license`](../../reference/license) (commercial feature)
+- [`sensuctl license`][34] (commercial feature)
 - [`sensuctl mutator`][19]
 - [`sensuctl namespace`][1]
 - [`sensuctl role`][1]
@@ -602,7 +602,7 @@ Sensuctl supports the following formats:
 [4]: ../set-up-manage/#preferred-output-format
 [5]: #sensuctl-edit-resource-types
 [6]: ../../reference/
-[7]: ../../guides/clustering/
+[7]: ../../operations/deploy-sensu/cluster-sensu/
 [8]: ../../reference/rbac/#user-specification
 [9]: #wrapped-json-format
 [10]: #sensuctl-prune-resource-types
@@ -620,8 +620,8 @@ Sensuctl supports the following formats:
 [22]: ../../reference/rbac#users
 [23]: #subcommands
 [24]: ../../reference/secrets-providers/
-[25]: ../../installation/auth/#active-directory-ad-authentication
-[26]: ../../installation/auth/#lightweight-directory-access-protocol-ldap-authentication
+[25]: ../../operations/control-access/auth/#active-directory-ad-authentication
+[26]: ../../operations/control-access/auth/#lightweight-directory-access-protocol-ldap-authentication
 [27]: ../../reference/tessen/
 [28]: ../../reference/secrets/
 [29]: ../../reference/etcdreplicators/
@@ -629,3 +629,4 @@ Sensuctl supports the following formats:
 [31]: ../set-up-manage/#manage-sensuctl
 [32]: ../../reference/datastore/
 [33]: #create-resources-across-namespaces
+[34]: ../../reference/license/

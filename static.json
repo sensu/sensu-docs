@@ -24,7 +24,7 @@
             "status": 302
         },
         "~ ^/sensu-go/latest/guides/create-a-ready-only-user$": {
-            "url": "/sensu-go/latest/guides/create-read-only-user",
+            "url": "/sensu-go/latest/operations/control-access/create-read-only-user",
             "status": 301
         },
         "~ ^/sensu-go/latest/getting-started/media/?$": {
@@ -294,6 +294,210 @@
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/getting-started/faq/?$": {
             "url": "/sensu-go/latest/$1",
             "status": 301
-        }
+        },
+        "~ ^/sensu-go/latest/installation/recommended-hardware/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/hardware-requirements",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/recommended-hardware/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/hardware-requirements",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/recommended-hardware/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/hardware-requirements",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/installation/install-sensu/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/install-sensu",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/install-sensu/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/install-sensu",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/install-sensu/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/install-sensu",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/guides/deploying/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/deployment-architecture",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/guides/deploying/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/deployment-architecture",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/deploying/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/deployment-architecture",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/installation/configuration-management/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/configuration-management",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/configuration-management/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/configuration-management",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/configuration-management/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/configuration-management",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/guides/generate-certificates/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/generate-certificates",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/guides/generate-certificates/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/generate-certificates",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/generate-certificates/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/generate-certificates",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/guides/securing-sensu/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/secure-sensu",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/guides/securing-sensu/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/secure-sensu",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/securing-sensu/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/secure-sensu",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/guides/clustering/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/cluster-sensu",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/guides/clustering/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/cluster-sensu",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/clustering/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/cluster-sensu",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/guides/use-federation/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/use-federation",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/guides/use-federation/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/use-federation",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/use-federation/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/use-federation",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/guides/scale-event-storage/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/scale-event-storage",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/guides/scale-event-storage/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/scale-event-storage",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/scale-event-storage/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/scale-event-storage",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/installation/plugins/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/install-plugins",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/plugins/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/install-plugins",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/plugins/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/install-plugins",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/installation/auth/?$": {
+            "url": "/sensu-go/latest/operations/control-access/auth",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/auth/?$": {
+            "url": "/sensu-go/latest/operations/control-access/auth",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/auth/?$": {
+            "url": "/sensu-go/latest/operations/control-access/auth",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/guides/use-apikey-feature/?$": {
+            "url": "/sensu-go/latest/operations/control-access/use-apikeys",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/guides/use-apikey-feature/?$": {
+            "url": "/sensu-go/latest/operations/control-access/use-apikeys",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/use-apikey-feature/?$": {
+            "url": "/sensu-go/latest/operations/control-access/use-apikeys",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/guides/create-a-read-only-user/?$": {
+            "url": "/sensu-go/latest/operations/control-access/create-read-only-user",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/guides/create-a-read-only-user/?$": {
+            "url": "/sensu-go/latest/operations/control-access/create-read-only-user",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/create-a-read-only-user/?$": {
+            "url": "/sensu-go/latest/operations/control-access/create-read-only-user",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/installation/upgrade/?$": {
+            "url": "/sensu-go/latest/operations/maintain-sensu/upgrade",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/upgrade/?$": {
+            "url": "/sensu-go/latest/operations/maintain-sensu/upgrade",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/upgrade/?$": {
+            "url": "/sensu-go/latest/operations/maintain-sensu/upgrade",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/guides/troubleshooting/?$": {
+            "url": "/sensu-go/latest/operations/maintain-sensu/troubleshoot",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/guides/troubleshooting/?$": {
+            "url": "/sensu-go/latest/operations/maintain-sensu/troubleshoot",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/troubleshooting/?$": {
+            "url": "/sensu-go/latest/operations/maintain-sensu/troubleshoot",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/guides/systemd-logs/?$": {
+            "url": "/sensu-go/latest/operations/monitor-sensu/log-sensu-systemd",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/guides/systemd-logs/?$": {
+            "url": "/sensu-go/latest/operations/monitor-sensu/log-sensu-systemd",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/systemd-logs/?$": {
+            "url": "/sensu-go/latest/operations/monitor-sensu/log-sensu-systemd",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/guides/secrets-management/?$": {
+            "url": "/sensu-go/latest/operations/manage-secrets/secrets-management",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/guides/secrets-management/?$": {
+            "url": "/sensu-go/latest/operations/manage-secrets/secrets-management",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/secrets-management/?$": {
+            "url": "/sensu-go/latest/operations/manage-secrets/secrets-management",
+            "status": 301
+        }       
     }
 }

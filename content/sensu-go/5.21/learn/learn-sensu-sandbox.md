@@ -518,9 +518,9 @@ Here are some resources to help continue your journey:
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler/
 [6]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler/
 [7]: ../../learn/sandbox/
-[8]: ../../installation/install-sensu/
+[8]: ../../operations/deploy-sensu/install-sensu/
 [9]: ../../guides/aggregate-metrics-statsd/
-[10]: ../../guides/create-read-only-user/
+[10]: ../../operations/control-access/create-read-only-user/
 [12]: https://www.vagrantup.com/downloads.html
 [13]: https://www.virtualbox.org/wiki/Downloads/
 [14]: https://github.com/sensu/sandbox/archive/master.zip
