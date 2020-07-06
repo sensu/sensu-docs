@@ -104,7 +104,7 @@ Now that you know how to run a check to monitor CPU usage, read these resources 
 [1]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-cpu-checks
 [2]: ../install-check-executables-with-assets/
 [3]: ../../reference/checks/
-[4]: ../../installation/install-sensu/#install-sensu-agents
+[4]: ../../operations/deploy-sensu/install-sensu/#install-sensu-agents
 [5]: ../monitor-external-resources/
 [6]: ../send-slack-alerts/
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime

@@ -1541,7 +1541,7 @@ This includes your checks and plugins.
 For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
 
 
-[1]: ../../installation/install-sensu#install-sensu-agents
+[1]: ../../operations/deploy-sensu/install-sensu#install-sensu-agents
 [2]: ../backend/
 [3]: ../entities/
 [4]: #keepalive-configuration-flags
@@ -1575,7 +1575,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [32]: ../checks/
 [33]: ../../guides/monitor-external-resources/
 [35]: ../backend#datastore-and-cluster-configuration-flags
-[36]: ../../guides/clustering/
+[36]: ../../operations/deploy-sensu/cluster-sensu/
 [37]: ../backend#general-configuration-flags
 [38]: #name
 [39]: ../rbac/
@@ -1583,7 +1583,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [41]: ../handlers/#send-registration-events
 [44]: ../checks#ttl-attribute
 [45]: https://en.m.wikipedia.org/wiki/WebSocket
-[46]: ../../guides/securing-sensu/
+[46]: ../../operations/deploy-sensu/secure-sensu/
 [47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
 [48]: #example-allow-list-configuration-file
 [49]: #allow-list-configuration-commands

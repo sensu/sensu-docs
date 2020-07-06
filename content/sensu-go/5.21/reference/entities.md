@@ -133,11 +133,6 @@ spec:
 
 {{< /language-toggle >}}
 
-{{% notice note %}}
-**NOTE**: The proxy entity definition must include the same subscriptions as the sensu-agent to work with round robin scheduling **and** [proxy requests attributes](../checks#proxy-requests-attributes).
-If more than one sensu-agent will execute a proxy check and you did not configure the proxy entity with the same subscriptions as the sensu-agent, the sensu-backend will log an error and the proxy check will not be scheduled for agents to run.
-{{% /notice %}}
-
 Then run `sensuctl create` to create the entity based on the definition:
 
 {{< code shell >}}
@@ -400,7 +395,7 @@ example      | {{< code shell >}}"entity_class": "agent"{{< /code >}}
 
 subscriptions| 
 -------------|------ 
-description  | List of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{name}` where `name` is the entity's hostname. If you are using round robin scheduling **and** [proxy requests attributes][24], the proxy entity definition must include the same subscriptions as the sensu-agent.
+description  | List of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{name}` where `name` is the entity's hostname.
 required     | false 
 type         | Array 
 default      | The entity-specific subscription.
@@ -409,7 +404,7 @@ example      | {{< code shell >}}"subscriptions": ["web", "prod", "entity:exampl
 system       | 
 -------------|------ 
 description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.<br>{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes).
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, new events will not include data in the `processes` attributes.
 {{% /notice %}}
 required     | false
@@ -719,7 +714,7 @@ example        | {{< code shell >}}"cloud_provider": "" {{< /code >}}
 processes    | 
 -------------|------ 
 description  | List of processes on the local agent. See [processes attributes][26] for more information.<br>{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes).
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, new events will not include data in the `processes` attributes.
 {{% /notice %}}
 required     | false 
@@ -858,7 +853,7 @@ example      | {{< code shell >}}"handler": "email-handler"{{< /code >}}
 ### Processes attributes
 
 {{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes).
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, new events will not include data in the `processes` attributes.
 {{% /notice %}}
 
@@ -1147,5 +1142,5 @@ spec:
 [26]: #processes-attributes
 [27]: ../agent/#discover-processes
 [28]: http://man7.org/linux/man-pages/man1/top.1.html
-[29]: ../license/#view-entity-count-and-entity-limit
+[29]: ../../reference/license/#view-entity-count-and-entity-limit
 [30]: ../../web-ui/filter/

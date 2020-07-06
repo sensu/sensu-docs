@@ -1,6 +1,6 @@
 ---
 title: "Health"
-description: "Access health data for your Sensu instance. Read the reference to learn about the health information you can retrieve."
+description: "Access health data for your Sensu instance. Read this page to learn about the health information you can retrieve."
 weight: 115
 version: "5.18"
 product: "Sensu Go"
@@ -142,5 +142,5 @@ type         | Integer
 example      | {{< code shell >}}"raft_term": 26{{< /code >}}
 
 
-[1]: ../../api/health/
+[1]: ../../../api/health/
 [2]: https://etcd.io/docs/latest/learning/api/#response-header

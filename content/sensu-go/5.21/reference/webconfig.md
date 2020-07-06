@@ -2,7 +2,7 @@
 title: "Web UI configuration"
 linkTitle: "Web UI Configuration"
 description: "Sensu's web UI configuration feature allows you to customize your web UI displays. Read the reference to create and update web UI configurations."
-weight: 165
+weight: 190
 version: "5.21"
 product: "Sensu Go"
 menu: 

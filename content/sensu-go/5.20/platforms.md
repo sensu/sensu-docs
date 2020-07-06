@@ -67,13 +67,6 @@ Docker images that contain the Sensu backend and Sensu agent are available for L
 | [sensu/sensu][10] | Alpine Linux
 | [sensu/sensu-rhel][11] | Red Hat Enterprise Linux
 
-## Integrations
-
-- [Ansible role][17]
-- [Chef cookbook][13]
-- [Puppet module][14]
-- [Sensu Go Data Source plugin for Grafana][12]
-
 ## Binary-only distributions
 
 Sensu binary-only distributions that contain the Sensu backend, agent, and sensuctl tool are available in `.zip` and `.tar.gz` formats.
@@ -275,8 +268,8 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [2]: #docker-images
 [3]: /sensu-go/5.20/commercial/
 [4]: #binary-only-distributions
-[5]: /sensu-go/5.20/installation/install-sensu/
-[6]: /sensu-go/5.20/installation/configuration-management/
+[5]: /sensu-go/5.20/operations/deploy-sensu/install-sensu/
+[6]: /sensu-go/5.20/operations/deploy-sensu/configuration-management/
 [7]: https://sensu.io/sensu-license/
 [8]: https://packagecloud.io/sensu/stable/
 [9]: https://sensu.io/downloads/

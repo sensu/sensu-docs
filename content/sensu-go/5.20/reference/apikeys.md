@@ -163,5 +163,5 @@ spec:
 {{< /language-toggle >}}
 
 [1]: ../../api/apikeys/
-[2]: ../../api/auth/#the-authtoken-api-endpoint
+[2]: ../../api/auth/
 [4]: #spec-attributes

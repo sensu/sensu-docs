@@ -278,7 +278,7 @@ spec:
 
 
 [1]: ../../commercial/
-[2]: ../../reference/rbac/#namespaced-resource-types
+[2]: ../rbac/#namespaced-resource-types
 [3]: ../../web-ui/filter/#save-a-filtered-search
 [4]: ../../api/searches
 [5]: #metadata-attributes

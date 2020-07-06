@@ -66,7 +66,7 @@ If the check output is formatted correctly according to its `output_metric_forma
 You should expect to see errors logged by sensu-agent if it is unable to parse the check output.
 To confirm that metrics have been extracted from your check, inspect the event passed to the handler.
 
-See [Troubleshooting][10] for an example debug handler that writes events to a file for inspection.
+See [Troubleshoot Sensu][10] for an example debug handler that writes events to a file for inspection.
 
 The example check would yield an event similar to this:
 
@@ -164,4 +164,4 @@ Check out these resources for more information about scheduling checks and using
 [7]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [8]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [9]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
-[10]: ../troubleshooting#handlers-and-event-filters
+[10]: ../../operations/maintain-sensu/troubleshoot#handlers-and-event-filters

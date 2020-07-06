@@ -992,7 +992,7 @@ To get started with Sensu Go:
 - [Install Sensu Go][8].
 - [Get started monitoring server resources][9].
 
-[1]: /sensu-go/latest/installation/upgrade/
+[1]: /sensu-go/latest/operations/maintain-sensu/upgrade/
 [2]: https://semver.org/spec/v2.0.0.html
 [3]: /sensu-go/5.1/installation/upgrade#upgrading-sensu-backend-binaries-to-5-1-0
 [4]: /sensu-go/5.1/reference/agent/
@@ -1084,7 +1084,7 @@ To get started with Sensu Go:
 [90]: https://sensu.io/contact/
 [91]: https://blog.sensu.io/one-year-of-sensu-go/
 [92]: /sensu-go/5.15/api/license/
-[93]: /sensu-go/5.15/sensuctl/reference/#extend-sensuctl-with-commands
+[93]: /sensu-go/5.15/sensuctl/sensuctl-bonsai#extend-sensuctl-with-commands
 [94]: /sensu-go/5.15/reference/checks/#cron-scheduling
 [95]: /sensu-go/5.15/getting-started/enterprise/
 [96]: /sensu-go/5.2/installation/auth/
@@ -1105,10 +1105,10 @@ To get started with Sensu Go:
 [111]: /sensu-go/5.17/reference/rbac/#cluster-wide-resource-types
 [112]: /sensu-go/5.17/api/events/#events-post
 [113]: /sensu-go/5.17/sensuctl/reference/#list-commands
-[114]: /sensu-go/5.18/api/events/#events-post
+[114]: /sensu-go/5.18/api/events#create-a-new-event
 [115]: /sensu-go/5.18/commercial/
 [116]: /sensu-go/5.18/api/overview/#label-selector
 [117]: /sensu-go/5.18/api/overview/#field-selector
-[118]: /sensu-go/5.18/api/events#events-post
+[118]: /sensu-go/5.18/api/events/
 [119]: /sensu-go/5.18/api/overview/#response-filtering
-[120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
+[120]: /sensu-go/5.18/api/auth#authtest-get

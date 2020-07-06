@@ -1,8 +1,8 @@
 ---
-title: "Role-based access control"
-linkTitle: "Role-Based Access Control"
+title: "Role-based access control (RBAC)"
+linkTitle: "Role-based Access Control"
 description: "Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance. RBAC allows you to manage user access and resources based on namespaces, groups, roles, and bindings. Read the reference doc to learn about RBAC."
-weight: 140
+weight: 135
 version: "5.18"
 product: "Sensu Go"
 menu:
@@ -118,14 +118,15 @@ spec:
     "timeout": 0,
     "ttl": 0
   }
-}{{< /code >}}
+}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
 See the [reference docs][16] for the corresponding [resource type][17] to create resource definitions.
 
 {{% notice protip %}}
-**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference](../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
+**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference](../../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
 {{% /notice %}}
 
 ### Namespace specification
@@ -238,7 +239,7 @@ This is the admin user that you can use to manage all aspects of Sensu and creat
 | password   | `YOUR_PASSWORD`  |
 | groups   | `cluster-admins`  |
 | cluster role   |  `cluster-admin` |
-| cluster role binding   | `cluster-admin	`  |
+| cluster role binding   | `cluster-admin `  |
 
 After you [configure sensuctl][26], you can [change the admin user's password][45] with the `change-password` command.
 
@@ -257,8 +258,8 @@ An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
 {{% notice note %}}
-**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication).
-It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth/#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../installation/auth/#active-directory-ad-authentication). 
+**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../auth#use-built-in-basic-authentication).
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../auth/#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../auth/#active-directory-ad-authentication). 
 {{% /notice %}}
 
 To change the password for a user:
@@ -266,6 +267,8 @@ To change the password for a user:
 {{< code shell >}}
 sensuctl user change-password USERNAME --current-password CURRENT_PASSWORD --new-password NEW_PASSWORD
 {{< /code >}}
+
+You can also use sensuctl to [reset a user's password][50].
 
 To disable a user:
 
@@ -318,6 +321,8 @@ description  | Name of the user. Cannot contain special characters.
 required     | true
 type         | String
 example      | {{< code shell >}}"username": "alice"{{< /code >}}
+
+<a name="password"></a>
 
 password     | 
 -------------|------ 
@@ -1057,7 +1062,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
         "resource_names": [],
         "resources": [
           "assets", "checks", "entities", "events", "filters", "handlers",
-          "hooks", "mutators", "rolebindings", "roles", "silenced"
+          "hooks", "mutators", "rolebindings", "roles", "searches", "silenced"
         ],
         "verbs": ["get", "list", "create", "update", "delete"]
       }
@@ -1120,7 +1125,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
         "resource_names": [],
         "resources": [
           "assets", "checks", "entities", "events", "filters", "handlers",
-          "hooks", "mutators", "rolebindings", "roles", "silenced"
+          "hooks", "mutators", "rolebindings", "roles", "searches", "silenced"
         ],
         "verbs": ["get", "list", "create", "update", "delete"]
       }
@@ -1218,47 +1223,50 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 }
 {{< /code >}}
 
-[1]: ../backend/
-[2]: ../../sensuctl/set-up-manage/
-[3]: ../../web-ui/sign-in/
+
+[1]: ../../../reference/backend/
+[2]: ../../../sensuctl/set-up-manage/
+[3]: ../../../web-ui/sign-in/
 [4]: #resources
-[5]: ../assets/
-[6]: ../checks/
-[7]: ../entities/
-[8]: ../events/
-[9]: ../handlers/
-[10]: ../hooks/
-[11]: ../mutators/
+[5]: ../../../reference/assets/
+[6]: ../../../reference/checks/
+[7]: ../../../reference/entities/
+[8]: ../../../reference/events/
+[9]: ../../../reference/handlers/
+[10]: ../../../reference/hooks/
+[11]: ../../../reference/mutators/
 [13]: #roles-and-cluster-roles
-[14]: ../silencing/
-[16]: ../../reference/
+[14]: ../../../reference/silencing/
+[16]: ../../../reference/
 [17]: #namespaced-resource-types
 [18]: #cluster-wide-resource-types
-[19]: ../../api/overview/
+[19]: ../../../api/overview/
 [20]: #default-users
-[21]: #roles-and-cluster-roles
-[22]: ../filters/
+[21]: #cluster-roles
+[22]: ../../../reference/filters/
 [23]: #role-bindings-and-cluster-role-bindings
 [24]: #role-and-cluster-role-specification
 [25]: #create-roles
-[26]: ../../installation/install-sensu/#install-sensuctl
+[26]: ../../deploy-sensu/install-sensu/#install-sensuctl
 [27]: #create-users
 [28]: #create-cluster-wide-roles
 [29]: #create-role-bindings-and-cluster-role-bindings
 [30]: #role-binding-and-cluster-role-binding-specification
-[31]: ../../sensuctl/create-manage-resources/#create-resources
-[32]: ../../installation/auth#use-an-authentication-provider
-[33]: ../../commercial/
-[34]: ../../installation/auth#use-built-in-basic-authentication
-[37]: ../license/
-[38]: ../../installation/auth/#groups-prefix
-[39]: ../../installation/auth/#ad-groups-prefix
-[40]: ../../reference/etcdreplicators/
-[41]: ../agent/#security-configuration-flags
-[42]: ../../installation/install-sensu/#install-the-sensu-backend
-[43]: ../../installation/auth#lightweight-directory-access-protocol-ldap-authentication
-[44]: ../../installation/auth/#active-directory-ad-authentication
-[45]: ../../sensuctl/set-up-manage/#change-admin-users-password
-[46]: ../secrets-providers/
-[47]: ../datastore/
-[48]: ../secrets/
+[31]: ../../../sensuctl/create-manage-resources/#create-resources
+[32]: ../auth#use-an-authentication-provider
+[33]: ../../../commercial/
+[34]: ../auth#use-built-in-basic-authentication
+[35]: https://en.wikipedia.org/wiki/Bcrypt
+[37]: ../../maintain-sensu/license/
+[38]: ../auth/#groups-prefix
+[39]: ../auth/#ad-groups-prefix
+[40]: ../../../reference/etcdreplicators/
+[41]: ../../../reference/agent/#security-configuration-flags
+[42]: ../../deploy-sensu/install-sensu/#install-the-sensu-backend
+[43]: ../auth#lightweight-directory-access-protocol-ldap-authentication
+[44]: ../auth/#active-directory-ad-authentication
+[45]: ../../../sensuctl/set-up-manage/#change-admin-users-password
+[46]: ../../../reference/secrets-providers/
+[47]: ../../../reference/datastore/
+[48]: ../../../reference/secrets/
+[50]: ../../../sensuctl/set-up-manage/#reset-a-user-password

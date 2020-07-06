@@ -409,8 +409,8 @@ Prometheus has a [comprehensive list][7] of additional exporters to pull in metr
 [1]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector/
 [2]: https://prometheus.io/docs/instrumenting/exporters/
 [3]: https://prometheus.io/docs/prometheus/latest/querying/api/
-[4]: ../../installation/install-sensu/
+[4]: ../../operations/deploy-sensu/install-sensu/
 [5]: https://github.com/prometheus/node_exporter/
 [6]: https://github.com/google/cadvisor/
 [7]: https://prometheus.io/docs/instrumenting/exporters/
-[8]: ../../installation/install-sensu/#3-initialize
+[8]: ../../operations/deploy-sensu/install-sensu/#3-initialize

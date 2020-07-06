@@ -14,12 +14,10 @@ menu:
 Sensu event handlers are actions the Sensu backend executes on [events][1].
 You can use handlers to send an email alert, create or resolve incidents (in PagerDuty, for example), or store metrics in a time-series database like InfluxDB.
 
-## Use a handler to send alerts to Slack
-
 This guide will help you send alerts to Slack in the channel `monitoring` by configuring a handler named `slack` to a check named `check-cpu`.
 If you don't already have a check in place, [Monitor server resources][2] is a great place to start.
 
-### Register the asset
+## Register the asset
 
 [Assets][13] are shareable, reusable packages that help you deploy Sensu plugins.
 In this guide, you'll use the [Sensu Slack Handler][14] asset to power a `slack` handler.
@@ -40,13 +38,13 @@ You should see a confirmation message from sensuctl:
 Created
 {{< /code >}}
 
-### Get a Slack webhook
+## Get a Slack webhook
 
 If you're already the admin of a Slack, visit `https://YOUR WORKSPACE NAME HERE.slack.com/services/new/incoming-webhook` and follow the steps to add the Incoming WebHooks integration, choose a channel, and save the settings.
 If you're not yet a Slack admin, [create a new workspace][12].
 After saving, you'll see your webhook URL under Integration Settings.
 
-### Create a handler
+## Create a handler
 
 Use sensuctl to create a handler called `slack` that pipes event data to Slack using the `sensu-slack-handler` asset.
 Edit the command below to include your Slack channel and webhook URL.
@@ -66,7 +64,7 @@ You should see a confirmation message from sensuctl:
 Created
 {{< /code >}}
 
-### Assign the handler to a check
+## Assign the handler to a check
 
 With the `slack` handler created, you can assign it to a check.
 In this case, you're using the `check-cpu` check: you want to receive Slack alerts whenever the CPU usage of your systems reach some specific thresholds.
@@ -76,7 +74,7 @@ Assign your handler to the check `check-cpu`:
 sensuctl check set-handlers check-cpu slack
 {{< /code >}}
 
-### Validate the handler
+## Validate the handler
 
 It might take a few moments after you assign the handler to the check for the check to be scheduled on the entities and the result sent back to Sensu backend.
 After an event is handled, you should see the following message in Slack:
@@ -103,11 +101,11 @@ You can also try our interactive tutorial and learn how to [send Sensu Go alerts
 [4]: https://golang.org/doc/install
 [5]: https://en.wikipedia.org/wiki/PATH_(variable)
 [6]: https://api.slack.com/incoming-webhooks
-[7]: ../troubleshooting/
+[7]: ../../operations/maintain-sensu/troubleshoot/
 [8]: ../../reference/handlers/
 [9]: ../reduce-alert-fatigue/
 [10]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions
 [11]: ../../learn/sensu-pagerduty/
-[12]: https://slack.com/get-started#create
+[12]: https://slack.com/get-started#/create
 [13]: ../../reference/assets
 [14]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler

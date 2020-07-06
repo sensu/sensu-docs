@@ -194,9 +194,9 @@ type         | Integer
 example      | {{< code shell >}}pool_size: 20{{< /code >}}
 
 [1]: ../../sensuctl/set-up-manage/#first-time-setup
-[2]: ../../guides/troubleshooting/
+[2]: ../../operations/maintain-sensu/troubleshoot/
 [3]: https://aws.amazon.com/rds/
-[8]: ../../guides/clustering/#use-an-external-etcd-cluster
+[8]: ../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster
 [9]: ../../web-ui/sign-in/
 [10]: ../../sensuctl/create-manage-resources/#sensuctl-event
 [11]: ../../api/events/

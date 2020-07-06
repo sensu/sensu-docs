@@ -214,5 +214,5 @@ example output    | {{< code shell >}}
 "23481e76-5844-4d07-b714-6e2ffbbf9315"
 {{< /code >}}
 
-[1]: ../../guides/clustering/
-[2]: ../../release-notes/#5-19-1-release-notes
+[1]: ../../operations/deploy-sensu/cluster-sensu/
+[2]: ../../release-notes/#5191-release-notes

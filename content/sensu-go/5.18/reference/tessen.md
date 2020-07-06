@@ -1,6 +1,6 @@
 ---
 title: "Tessen"
-description: "Tessen sends anonymized data about Sensu instances to Sensu Inc. You can use sensuctl to view and manage Tessen configuration. Read the reference to configure Tessen."
+description: "Tessen sends anonymized data about Sensu instances to Sensu Inc. You can use sensuctl to view and manage Tessen configuration. Read this document to configure Tessen."
 weight: 170
 version: "5.18"
 product: "Sensu Go"
@@ -37,7 +37,7 @@ sensuctl tessen opt-out
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: [Licensed](../license/) Sensu instances override Tessen configuration to opt in at runtime.
+**NOTE**: [Licensed](../../maintain-sensu/license/) Sensu instances override Tessen configuration to opt in at runtime.
 {{% /notice %}}
 
 You can use the `--skip-confirm` flag to skip the confirmation step:
@@ -117,10 +117,10 @@ spec:
 
 {{< /language-toggle >}}
 
-## Tessen payload example
+## Tessen metrics log examples
 
 If you opt in to Tessen, Sensu sends various metrics back to the Tessen service.
-In the example payload below, Sensu is sending the number of check hooks back to the Tessen service. 
+In the example metrics log below, Sensu is sending the number of check hooks back to the Tessen service. 
 
 {{< code json >}}
 {
@@ -159,7 +159,42 @@ Or the number of filters:
 }
 {{< /code >}}
 
-If you opt into Tessen, you can view all of the metrics and payloads in the logs:
+Or the number of authentication providers, secrets providers, and secrets:
+
+{{< code json >}}
+{
+    "component": "tessend",
+    "level": "debug",
+    "metric_name": "auth_provider_count",
+    "metric_value": 2,
+    "msg": "collected a metric for tessen",
+    "time": "2020-03-30T15:16:42-04:00"
+}
+{{< /code >}}
+
+{{< code json >}}
+{
+    "component": "tessend",
+    "level": "debug",
+    "metric_name": "secret_provider_count",
+    "metric_value": 1,
+    "msg": "collected a metric for tessen",
+    "time": "2020-03-30T15:17:12-04:00"
+}
+{{< /code >}}
+
+{{< code json >}}
+{
+    "component": "tessend",
+    "level": "debug",
+    "metric_name": "secret_count",
+    "metric_value": 1,
+    "msg": "collected a metric for tessen",
+    "time": "2020-03-30T15:16:17-04:00"
+}
+{{< /code >}}
+
+If you opt into Tessen, you can view all of the metrics in the logs:
 
 {{< code shell >}}
 journalctl _COMM=sensu-backend.service
@@ -168,11 +203,11 @@ journalctl _COMM=sensu-backend.service
 To view the events on-disk, see [Log Sensu services with systemd][9].
 
 [1]: https://blog.sensu.io/announcing-tessen-the-sensu-call-home-service
-[2]: ../../api/tessen/
-[3]: ../../sensuctl/set-up-manage/
-[4]: ../license/
-[5]: ../../guides/troubleshooting
-[6]: ../../reference/rbac#default-users
-[7]: ../../sensuctl/create-manage-resources/#create-resources
+[2]: ../../../api/tessen/
+[3]: ../../../sensuctl/set-up-manage/
+[4]: ../../maintain-sensu/license/
+[5]: ../../maintain-sensu/troubleshoot
+[6]: ../../control-access/rbac#default-users
+[7]: ../../../sensuctl/create-manage-resources/#create-resources
 [8]: #spec-attributes
-[9]: ../../guides/systemd-logs/
+[9]: ../log-sensu-systemd/

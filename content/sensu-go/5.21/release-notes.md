@@ -76,7 +76,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.21.0.
 **NEW FEATURES:**
 
 - ([Commercial feature][158]) Added [entity count and limit][156] for each entity class in the tabular title in the response for `sensuctl license info` (in addition to the total entity count and limit).
-- ([Commercial feature][158]) Added [Linux amd64 OpenSSL-linked binaries][160] for the Sensu agent and backend, with accompanying `--require-fips` and `--require-openssl` flags for the [agent][161] and [backend][162].
+- ([Commercial feature][158]) Added Linux amd64 OpenSSL-linked binaries for the Sensu agent and backend, with accompanying `--require-fips` and `--require-openssl` flags for the [agent][161] and [backend][160].
 - Added `sensuctl user hash-password` command to generate password hashes.
 - Added the ability to reset passwords via the backend API and `sensuctl user reset-password`.
 
@@ -216,7 +216,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.19.2.
 
 **FIXES:**
 
-- ([Commercial feature][122]) Adds SQL database connection pool parameters `max_conn_lifetime` and `max_idle_conns` to [store/v1.PostgresConfig][132].
+- ([Commercial feature][122]) Adds SQL database connection pool parameters `max_conn_lifetime` and `max_idle_conns` to store/v1.PostgresConfig132.
 
 **IMPROVEMENTS:**
 
@@ -1214,7 +1214,7 @@ To get started with Sensu Go:
 - [Install Sensu Go][8].
 - [Get started monitoring server resources][9].
 
-[1]: /sensu-go/latest/installation/upgrade/
+[1]: /sensu-go/latest/operations/maintain-sensu/upgrade/
 [2]: https://semver.org/spec/v2.0.0.html
 [3]: /sensu-go/5.1/installation/upgrade#upgrading-sensu-backend-binaries-to-5-1-0
 [4]: /sensu-go/5.1/reference/agent/
@@ -1306,7 +1306,7 @@ To get started with Sensu Go:
 [90]: https://sensu.io/contact/
 [91]: https://blog.sensu.io/one-year-of-sensu-go/
 [92]: /sensu-go/5.15/api/license/
-[93]: /sensu-go/5.15/sensuctl/reference/#extend-sensuctl-with-commands
+[93]: /sensu-go/5.15/sensuctl/sensuctl-bonsai#extend-sensuctl-with-commands
 [94]: /sensu-go/5.15/reference/checks/#cron-scheduling
 [95]: /sensu-go/5.15/getting-started/enterprise/
 [96]: /sensu-go/5.2/installation/auth/
@@ -1327,53 +1327,48 @@ To get started with Sensu Go:
 [111]: /sensu-go/5.17/reference/rbac/#cluster-wide-resource-types
 [112]: /sensu-go/5.17/api/events/#events-post
 [113]: /sensu-go/5.17/sensuctl/reference/#list-commands
-[114]: /sensu-go/5.18/api/events/#events-post
+[114]: /sensu-go/5.18/api/events#create-a-new-event
 [115]: /sensu-go/5.18/commercial/
 [116]: /sensu-go/5.18/api/overview/#label-selector
 [117]: /sensu-go/5.18/api/overview/#field-selector
-[118]: /sensu-go/5.18/api/events#events-post
+[118]: /sensu-go/5.18/api/events/
 [119]: /sensu-go/5.18/api/overview/#response-filtering
-[120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
+[120]: /sensu-go/5.18/api/auth#authtest-get
 [122]: /sensu-go/5.19/commercial/
 [123]: /sensu-go/5.19/web-ui/filter/#save-a-filtered-search
 [124]: /sensu-go/5.19/web-ui/sign-in/
-[125]: /sensu-go/5.19/api/health/
+[125]: /sensu-go/5.19/reference/health/
 [126]: /sensu-go/5.19/api/overview/#response-filtering
-[127]: /sensu-go/5.19/sensuctl/reference/#response-filtering
+[127]: /sensu-go/5.19/sensuctl/filter-responses
 [128]: /sensu-go/5.19/web-ui/filter/
-[126]: /sensu-go/5.19/api/overview/#response-filtering
-[127]: /sensu-go/5.19/sensuctl/reference/#response-filtering
-[128]: /sensu-go/5.19/web-ui/filter/
-[129]: /sensu-go/5.19/sensuctl/reference/#sensuctl-prune
+[129]: /sensu-go/5.19/sensuctl/create-manage-resources#sensuctl-prune
 [130]: /sensu-go/5.19/reference/tessen/
 [131]: /sensu-go/5.19/reference/handlers/#pipe-handler-command
-[132]: /sensu-go/5.19/reference/datastore/#max_conn_lifetime
-[133]: /sensu-go/5.19/installation/platforms/
-[134]: /sensu-go/5.19/installation/install-sensu/
+[133]: /sensu-go/5.19/platforms/
+[134]: /sensu-go/5.19/operations/deploy-sensu/install-sensu/
 [135]: /sensu-go/5.19/web-ui/sign-in/
 [136]: /sensu-go/5.19/reference/agent/#configuration-via-flags
 [137]: /sensu-go/5.19/reference/backend/#configuration
 [138]: /sensu-go/5.20/api/overview/#field-selector
 [139]: /sensu-go/5.20/reference/backend/#log-rotation
-[140]: /sensu-go/5.20/guides/troubleshooting/#increment-log-level-verbosity
+[140]: /sensu-go/5.20/operations/maintain-sensu/troubleshoot/#increment-log-level-verbosity
 [141]: /sensu-go/5.20/commercial/
 [142]: /sensu-go/5.20/reference/agent/#configuration-via-flags
 [143]: /sensu-go/5.20/reference/entities/#processes-attributes
-[144]: /sensu-go/5.20/sensuctl/reference/#sensuctl-describe-type-resource-types
+[144]: /sensu-go/5.20/sensuctl/create-manage-resources/#sensuctl-describe-type-resource-types
 [145]: /sensu-go/5.20/reference/backend/#configuration-summary
 [146]: /sensu-go/5.20/reference/tokens/#manage-assets
 [147]: /sensu-go/5.20/reference/tokens/#token-substitution-with-quoted-strings
 [148]: /sensu-go/5.20/reference/webconfig/
-[149]: /sensu-go/5.20/api/license/#license-get
+[149]: /sensu-go/5.20/api/license#get-the-active-license-configuration
 [150]: /sensu-go/5.20/reference/license/#view-entity-count-and-entity-limit
 [151]: /sensu-go/5.20/reference/license/#entity-limit
 [152]: /sensu-go/5.20/web-ui/sign-in/#federated-webui
 [153]: /sensu-go/5.20/web-ui/sign-in/
-[154]: /sensu-go/5.20/sensuctl/reference/#extend-sensuctl-with-commands
+[154]: /sensu-go/5.20/sensuctl/sensuctl-bonsai/#extend-sensuctl-with-commands
 [155]: /sensu-go/5.20/reference/agent/#discover-processes
 [156]: /sensu-go/5.21/reference/license/#view-entity-count-and-entity-limit
 [157]: /sensu-go/5.21/reference/agent/#log-level
 [158]: /sensu-go/5.21/commercial/
-[160]: /sensu-go/5.21/platforms/#linux
+[160]: /sensu-go/5.21/reference/backend#fips-openssl
 [161]: /sensu-go/5.21/reference/agent#fips-openssl
-[162]: /sensu-go/5.21/reference/backend#fips-openssl

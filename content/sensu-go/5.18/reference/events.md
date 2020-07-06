@@ -231,6 +231,9 @@ example      | {{< code shell >}}
     },
     "occurrences": 1,
     "occurrences_watermark": 1,
+    "silenced": [
+      "webserver:*"
+    ],
     "output": "sensu-go-sandbox.curl_timings.time_total 0.005 1552506033\nsensu-go-sandbox.curl_timings.time_namelookup 0.004",
     "output_metric_format": "graphite_plaintext",
     "output_metric_handlers": [
@@ -448,6 +451,9 @@ example      | {{< code shell >}}
   },
   "occurrences": 1,
   "occurrences_watermark": 1,
+  "silenced": [
+    "webserver:*"
+  ],
   "output": "sensu-go-sandbox.curl_timings.time_total 0.005",
   "output_metric_format": "graphite_plaintext",
   "output_metric_handlers": [
@@ -561,7 +567,16 @@ occurrences_watermark | |
 description  | For incident and resolution events, the number of preceding events with an OK status (for incident events) or non-OK status (for resolution events). The `occurrences_watermark` attribute gives you useful information when looking at events that change status between OK (`0`)and non-OK (`1`-WARNING, `2`-CRITICAL, or UNKNOWN).<br><br>Sensu resets `occurrences_watermark` to `1` whenever an event for a given entity and check transitions between OK and non-OK. Within a sequence of only OK or only non-OK events, Sensu increments `occurrences_watermark` only when the `occurrences` attribute is greater than the preceding `occurrences_watermark`. See [Use event data][31] for more information.
 required     | false
 type         | Integer greater than 0
-example      | {{< code shell >}}"occurrences_watermark": 1{{< /code >}}\
+example      | {{< code shell >}}"occurrences_watermark": 1{{< /code >}}
+
+silenced     | |
+-------------|------
+description  | Array of silencing entries that match the event. The `silenced` attribute is only present for events if one or more silencing entries matched the event at time of processing. If the `silenced` attribute is not present in an event, the event was not silenced at the time of processing.
+required     | false
+type         | Array
+example      | {{< code shell >}}"silenced": [
+  "webserver:*"
+]{{< /code >}}
 
 output       |      |
 -------------|------
@@ -1318,7 +1333,7 @@ spec:
 [15]: ../../web-ui/sign-in/
 [16]: ../../api/events/
 [17]: ../../sensuctl/set-up-manage/
-[18]: ../../sensuctl/set-up-manage/#sensuctl-event
+[18]: ../../sensuctl/create-manage-resources/#sensuctl-event
 [20]: ../checks#check-specification
 [21]: #check-attributes
 [22]: #metrics
@@ -1334,4 +1349,4 @@ spec:
 [32]: #history-attributes
 [33]: ../checks#spec-attributes
 [34]: #points-attributes
-[35]: ../../api/events#events-post
+[35]: ../../api/events#create-a-new-event

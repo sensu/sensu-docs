@@ -106,7 +106,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.19.2.
 
 **FIXES:**
 
-- ([Commercial feature][122]) Adds SQL database connection pool parameters `max_conn_lifetime` and `max_idle_conns` to [store/v1.PostgresConfig][132].
+- ([Commercial feature][122]) Adds SQL database connection pool parameters `max_conn_lifetime` and `max_idle_conns` to store/v1.PostgresConfig.
 
 **IMPROVEMENTS:**
 
@@ -1104,7 +1104,7 @@ To get started with Sensu Go:
 - [Install Sensu Go][8].
 - [Get started monitoring server resources][9].
 
-[1]: /sensu-go/latest/installation/upgrade/
+[1]: /sensu-go/latest/operations/maintain-sensu/upgrade/
 [2]: https://semver.org/spec/v2.0.0.html
 [3]: /sensu-go/5.1/installation/upgrade#upgrading-sensu-backend-binaries-to-5-1-0
 [4]: /sensu-go/5.1/reference/agent/
@@ -1196,7 +1196,7 @@ To get started with Sensu Go:
 [90]: https://sensu.io/contact/
 [91]: https://blog.sensu.io/one-year-of-sensu-go/
 [92]: /sensu-go/5.15/api/license/
-[93]: /sensu-go/5.15/sensuctl/reference/#extend-sensuctl-with-commands
+[93]: /sensu-go/5.15/sensuctl/sensuctl-bonsai#extend-sensuctl-with-commands
 [94]: /sensu-go/5.15/reference/checks/#cron-scheduling
 [95]: /sensu-go/5.15/getting-started/enterprise/
 [96]: /sensu-go/5.2/installation/auth/
@@ -1217,29 +1217,25 @@ To get started with Sensu Go:
 [111]: /sensu-go/5.17/reference/rbac/#cluster-wide-resource-types
 [112]: /sensu-go/5.17/api/events/#events-post
 [113]: /sensu-go/5.17/sensuctl/reference/#list-commands
-[114]: /sensu-go/5.18/api/events/#events-post
+[114]: /sensu-go/5.18/api/events#create-a-new-event
 [115]: /sensu-go/5.18/commercial/
 [116]: /sensu-go/5.18/api/overview/#label-selector
 [117]: /sensu-go/5.18/api/overview/#field-selector
-[118]: /sensu-go/5.18/api/events#events-post
+[118]: /sensu-go/5.18/api/events/
 [119]: /sensu-go/5.18/api/overview/#response-filtering
-[120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
+[120]: /sensu-go/5.18/api/auth#authtest-get
 [122]: /sensu-go/5.19/commercial/
 [123]: /sensu-go/5.19/web-ui/filter/#save-a-filtered-search
 [124]: /sensu-go/5.19/web-ui/sign-in/
-[125]: /sensu-go/5.19/api/health/
+[125]: /sensu-go/5.19/reference/health/
 [126]: /sensu-go/5.19/api/overview/#response-filtering
-[127]: /sensu-go/5.19/sensuctl/reference/#response-filtering
+[127]: /sensu-go/5.19/sensuctl/filter-responses
 [128]: /sensu-go/5.19/web-ui/filter/
-[126]: /sensu-go/5.19/api/overview/#response-filtering
-[127]: /sensu-go/5.19/sensuctl/reference/#response-filtering
-[128]: /sensu-go/5.19/web-ui/filter/
-[129]: /sensu-go/5.19/sensuctl/reference/#sensuctl-prune
+[129]: /sensu-go/5.19/sensuctl/create-manage-resources#sensuctl-prune
 [130]: /sensu-go/5.19/reference/tessen/
 [131]: /sensu-go/5.19/reference/handlers/#pipe-handler-command
-[132]: /sensu-go/5.19/reference/datastore/#max_conn_lifetime
-[133]: /sensu-go/5.19/installation/platforms/
-[134]: /sensu-go/5.19/installation/install-sensu/
+[133]: /sensu-go/5.19/platforms/
+[134]: /sensu-go/5.19/operations/deploy-sensu/install-sensu/
 [135]: /sensu-go/5.19/web-ui/sign-in/
 [136]: /sensu-go/5.19/reference/agent/#configuration-via-flags
 [137]: /sensu-go/5.19/reference/backend/#configuration

@@ -53,7 +53,7 @@ This step bootstraps the first admin user account for your Sensu installation.
 This account will be granted the cluster admin role.
 
 {{% notice important %}}
-**IMPORTANT**: If you plan to [run a Sensu cluster](../../guides/clustering/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you initialize.
+**IMPORTANT**: If you plan to [run a Sensu cluster](../../operations/deploy-sensu/cluster-sensu/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you initialize.
 {{% /notice %}}
 
 ### Docker initialization
@@ -1325,7 +1325,7 @@ If you are running a clustered backend, rotating logs on all cluster members sim
 - In [Sensu Go version 5.19.3][30] and later, the _SIGHUP_ signal causes the `backend` component to reload instead of restarting the process.
 
 {{% notice note %}}
-**NOTE**: Event logs do not include log messages produced by sensu-backend service. To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../guides/systemd-logs/).
+**NOTE**: Event logs do not include log messages produced by sensu-backend service. To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../operations/monitor-sensu/log-sensu-systemd/).
 {{% /notice %}}
 
 #### Log rotation for sysvinit
@@ -1345,7 +1345,7 @@ If you are running a clustered backend, rotating logs on all cluster members sim
 {{< /code >}}
 
 
-[1]: ../../installation/install-sensu#install-the-sensu-backend
+[1]: ../../operations/deploy-sensu/install-sensu#install-the-sensu-backend
 [2]: https://etcd.io/docs
 [3]: ../../guides/monitor-server-resources/
 [4]: ../../guides/extract-metrics-with-checks/
@@ -1357,7 +1357,7 @@ If you are running a clustered backend, rotating logs on all cluster members sim
 [10]: ../../reference/mutators/
 [11]: ../../reference/handlers/
 [12]: #datastore-and-cluster-configuration-flags
-[13]: ../../guides/clustering/
+[13]: ../../operations/deploy-sensu/cluster-sensu/
 [14]: ../../commercial/
 [15]: #general-configuration-flags
 [16]: https://github.com/etcd-io/etcd/blob/master/Documentation/tuning.md#time-parameters
@@ -1368,9 +1368,9 @@ If you are running a clustered backend, rotating logs on all cluster members sim
 [21]: https://etcd.io/docs/latest/op-guide/clustering/#dns-discovery
 [22]: #initialization
 [23]: #etcd-listen-client-urls
-[24]: ../../installation/install-sensu#2-configure-and-start
-[25]: ../../installation/install-sensu#3-initialize
+[24]: ../../operations/deploy-sensu/install-sensu#2-configure-and-start
+[25]: ../../operations/deploy-sensu/install-sensu#3-initialize
 [26]: ../../sensuctl/set-up-manage/#change-admin-users-password
-[28]: ../../guides/systemd-logs/
+[28]: ../../operations/monitor-sensu/log-sensu-systemd/
 [29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly
-[30]: ../../release-notes/#5-19-3-release-notes
+[30]: ../../release-notes/#5193-release-notes

@@ -212,4 +212,4 @@ example output | {{< code shell >}}
 "23481e76-5844-4d07-b714-6e2ffbbf9315"
 {{< /code >}}
 
-[1]: ../../guides/clustering/
+[1]: ../../operations/deploy-sensu/cluster-sensu/

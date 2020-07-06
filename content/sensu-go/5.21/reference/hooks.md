@@ -336,4 +336,4 @@ spec:
 [10]: ../../api/overview#response-filtering
 [11]: ../../sensuctl/filter-responses/
 [12]: ../../web-ui/filter#filter-with-label-selectors
-[13]: ../../web-ui/filter#filter/
+[13]: ../../web-ui/filter

@@ -25,6 +25,8 @@ The [event logging][10] functionality provides better performance and reliabilit
 - **Enterprise-class support**: Rest assured that with [Sensu support][13], help is available if you need it.
 Our expert in-house team offers best-in-class support to get you up and running smoothly.
 
+Review a [complete comparison of OSS and commercial features][3].
+
 ## Contact us for a free trial
 
 For a personalized demo and free trial of commercial features at scale in Sensu Go, [contact the Sensu sales team][1].
@@ -65,19 +67,19 @@ These resources will help you get started with commercial features in Sensu Go:
 
 [1]: https://sensu.io/contact?subject=contact-sales/
 [2]: https://account.sensu.io/
-[3]: https://sensu.io/enterprise
+[3]: https://sensu.io/features#free-vs-paid
 [4]: ../api/overview#response-filtering
 [5]: ../sensuctl/filter-responses/
 [6]: ../web-ui/filter/
 [7]: https://blog.sensu.io/one-year-of-sensu-go/
 [8]: ../web-ui/sign-in/
-[9]: ../installation/auth/
+[9]: ../operations/control-access/auth/
 [10]: ../reference/backend#event-logging
 [11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4/
 [12]: ../reference/datastore#scale-event-storage
 [13]: https://sensu.io/support/
 [14]: https://account.sensu.io/support/
-[15]: ../installation/install-sensu/
+[15]: ../operations/deploy-sensu/install-sensu/
 [16]: ../sensuctl/set-up-manage/#first-time-setup
 [17]: ../guides/install-check-executables-with-assets/
 [18]: ../reference/license/

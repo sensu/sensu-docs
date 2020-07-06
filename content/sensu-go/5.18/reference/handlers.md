@@ -670,6 +670,6 @@ spec:
 [23]: ../../guides/install-check-executables-with-assets
 [24]: ../filters/
 [25]: ../../web-ui/filter#filter-with-label-selectors
-[26]: ../../guides/secrets-management/
+[26]: ../../operations/manage-secrets/secrets-management/
 [27]: ../agent/#registration
 [28]: ../../web-ui/filter/

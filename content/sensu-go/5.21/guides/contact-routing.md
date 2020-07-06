@@ -326,9 +326,9 @@ In this example, the `dev` label in the check configuration overrides the `ops` 
 Now that you've set up contact routing for two example teams, you can create additional filters, handlers, and labels to represent your team's contacts.
 Learn how to use Sensu to [Reduce alert fatigue][11].
 
-[1]: ../../installation/install-sensu#install-the-sensu-backend
-[2]: ../../installation/install-sensu#install-sensu-agents
-[3]: ../../installation/install-sensu#install-sensuctl
+[1]: ../../operations/deploy-sensu/install-sensu#install-the-sensu-backend
+[2]: ../../operations/deploy-sensu/install-sensu#install-sensu-agents
+[3]: ../../operations/deploy-sensu/install-sensu#install-sensuctl
 [4]: ../../sensuctl/set-up-manage/#first-time-setup
 [5]: https://curl.haxx.se/
 [6]: https://api.slack.com/incoming-webhooks

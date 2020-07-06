@@ -217,8 +217,8 @@ The `database` secret contains a key called `password`, and its value is the pas
 [6]: ../rbac#default-users
 [7]: ../secrets-providers/
 [8]: #spec-attributes
-[9]: ../../reference/rbac/#namespaces
+[9]: ../rbac/#namespaces
 [10]: https://learn.hashicorp.com/vault/getting-started/dev-server
-[11]: ../../guides/secrets-management/
+[11]: ../../operations/manage-secrets/secrets-management/
 [12]: #metadata-attributes
-[13]: ../../guides/securing-sensu/#sensu-agent-mtls-authentication
+[13]: ../../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
