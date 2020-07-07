@@ -1,7 +1,7 @@
 ---
 title: "Web UI"
 description: "Sensu web UI documentation"
-weight: 50
+weight: 100
 product: "Sensu Go"
 version: "5.21"
 layout: "base-for-directory-listing"

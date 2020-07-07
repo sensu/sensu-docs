@@ -1,7 +1,7 @@
 ---
 title: "sensuctl CLI"
 description: "Sensu CLI tool documentation"
-weight: 40
+weight: 80
 product: "Sensu Go"
 version: "5.21"
 layout: "base-for-directory-listing"
