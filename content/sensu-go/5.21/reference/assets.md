@@ -79,25 +79,62 @@ Follow the steps outlined in [Contributing Assets for Existing Ruby Sensu Plugin
 For further examples of Sensu users who have added the ability to use a community plugin as an asset, see [this Discourse post](https://discourse.sensu.io/t/how-to-use-the-sensu-plugins-kubernetes-plugin/1286).
 {{% /notice %}}
 
-### Asset path
+### Default cache directory
+
+system  | sensu-backend                         | sensu-agent
+--------|---------------------------------------|-------------
+Linux   | `/var/cache/sensu/sensu-backend`      | `/var/cache/sensu/sensu-agent`
+Windows | N/A                                   | `C:\ProgramData\sensu\cache\sensu-agent`
+
+If the requested asset is not in the local cache, it is downloaded from the asset URL.
+The Sensu backend does not currently provide any storage for assets.
+Sensu expects assets to be retrieved over HTTP or HTTPS.
+
+### Example asset structure
+
+{{< code shell >}}
+sensu-example-handler_1.0.0_linux_amd64
+├── CHANGELOG.md
+├── LICENSE
+├── README.md
+└── bin
+  └── my-check.sh
+└── lib
+└── include
+{{< /code >}}
+
+## Asset path
 
 When you download and install an asset, the asset's local path on disk is exposed to asset consumers via environment variables.
-This allows you to retrieve the asset's path from a check, hook, handler, or mutator either as an environment variable or from a check or hook using a custom function for token substitution, `assetPath`.
+This allows you to retrieve the asset's path as an [environment variable][14] from a check, handler, hook, or mutator or using a [custom function for token substitution][17], `assetPath`, from a check or hook.
 
-For example, if you included a configuration file in the `include` directory of the asset [`sensu-plugins-windows`][4], you can reference the asset from your check in either of these ways:
+### Environment variables for asset paths
 
-- `$SENSU_PLUGINS_WINDOWS/include/config.yaml`
-- `${{assetPath "sensu-plugins-windows"}}/include/config.yaml`
+If you included a configuration file in the `include` directory of the asset [`sensu-plugins-windows`][4], you can use the asset path environment variable to reference the asset from your check, handler, hook, or mutator:
+
+`$SENSU_PLUGINS_WINDOWS_PATH/include/config.yaml`
 
 {{% notice note %}}
-**NOTE**: The `assetPath` function is only available where token substitution is available: checks and hooks.
+**NOTE**: Sensu always appends the suffix `_PATH` for environment variables that are automatically generated for asset paths.
 {{% /notice %}}
+
+### Token substitution for asset paths
 
 The asset path includes the asset's checksum, which changes every time the asset is updated.
 This would normally require you to manually update the commands for any of your checks or hooks that consume the asset.
 However, the `assetPath` token subsitution function allows you to substitute the asset's local path on disk, so you will not need to manually update your check or hook commands every time the asset is updated.
 
-This is useful any time a command requires the full explicit path to a file that is distributed in your asset.
+{{% notice note %}}
+**NOTE**: The `assetPath` function is only available where token substitution is available: checks and hooks.
+If you want to access an asset path in a handler or mutator command, you must use the [environment variable](#environment-variables-for-asset-paths).
+{{% /notice %}}
+
+For example, if you included a configuration file in the `include` directory of the asset [`sensu-plugins-windows`][4], you can reference the asset from your check or hook using either the environment variable or the `assetPath` function:
+
+- `$SENSU_PLUGINS_WINDOWS_PATH/include/config.yaml`
+- `${{assetPath "sensu-plugins-windows"}}/include/config.yaml`
+
+The `assetPath` function is useful any time a command requires the full explicit path to a file that is distributed in your asset.
 For example, when running PowerShell plugins on Windows, the [exit status codes that Sensu captures may not match the expected values][13].
 
 To correctly capture exit status codes from PowerShell plugins distributed as assets, use the asset path to construct the command:
@@ -150,31 +187,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Default cache directory
-
-system  | sensu-backend                         | sensu-agent
---------|---------------------------------------|-------------
-Linux   | `/var/cache/sensu/sensu-backend`      | `/var/cache/sensu/sensu-agent`
-Windows | N/A                                   | `C:\ProgramData\sensu\cache\sensu-agent`
-
-If the requested asset is not in the local cache, it is downloaded from the asset URL.
-The Sensu backend does not currently provide any storage for assets.
-Sensu expects assets to be retrieved over HTTP or HTTPS.
-
-### Example asset structure
-
-{{< code shell >}}
-sensu-example-handler_1.0.0_linux_amd64
-├── CHANGELOG.md
-├── LICENSE
-├── README.md
-└── bin
-  └── my-check.sh
-└── lib
-└── include
-{{< /code >}}
-
-### Asset hello world example
+## Asset hello world example
 
 In this example, you'll run a script that outputs `Hello World`:
 
@@ -223,7 +236,7 @@ mode of 'hello-world.sh' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)
 
 Now that the script is in the directory, move on to the next step: packaging the `sensu-go-hello-world` directory as an asset tarball.
 
-#### Package the asset
+### Package the asset
 
 Assets are archives, so the first step in packaging the asset is to create a tar.gz archive of your project.
 This assumes you're in the directory you want to tar up:
@@ -908,8 +921,10 @@ You must remove the archive and downloaded files from the asset cache manually.
 [11]: ../../sensuctl/create-manage-resources/#create-resources
 [12]: #spec-attributes
 [13]: https://github.com/sensu/sensu/issues/1919
+[14]: #environment-variables-for-asset-paths
 [15]: #example-asset-structure
 [16]: https://bonsai.sensu.io/
+[17]: #token-substitution-for-asset-paths
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
 [19]: https://regex101.com/r/zo9mQU/2
 [20]: ../../api/overview#response-filtering
