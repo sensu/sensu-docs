@@ -7,6 +7,7 @@ version: "5.21"
 product: "Sensu Go"
 platformContent: true
 platforms: ["Linux", "Windows"]
+aliases: [/learn/agent/]
 menu:
   sensu-go-5.21:
     parent: reference
