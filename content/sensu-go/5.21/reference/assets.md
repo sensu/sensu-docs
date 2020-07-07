@@ -57,7 +57,7 @@ Sensu backends follow a similar process when pipeline elements (filters, mutator
 
 When Sensu finds a matching build, it downloads the build artifact from the specified URL.
 If the asset definition includes headers, they are passed along as part of the HTTP request.
-If the downloaded artifact’s SHA512 checksum matches the checksum provided by the build, it is unpacked into the Sensu service’s local cache directory.
+If the downloaded artifact's SHA512 checksum matches the checksum provided by the build, it is unpacked into the Sensu service's local cache directory.
 
 Set the backend or agent's local cache path with the `--cache-dir` flag.
 Disable assets for an agent with the agent `--disable-assets` [configuration flag][30].
