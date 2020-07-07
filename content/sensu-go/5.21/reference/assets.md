@@ -108,7 +108,7 @@ sensu-example-handler_1.0.0_linux_amd64
 When you download and install an asset, the asset's local path on disk is exposed to asset consumers via environment variables.
 This allows you to retrieve the asset's path as an [environment variable][14] from a check, handler, hook, or mutator or using a [custom function for token substitution][17], `assetPath`, from a check or hook.
 
-### Environment variables for asset paths
+### Environment variable for asset path
 
 If you included a configuration file in the `include` directory of the asset [`sensu-plugins-windows`][4], you can use the asset path environment variable to reference the asset from your check, handler, hook, or mutator:
 
@@ -118,7 +118,7 @@ If you included a configuration file in the `include` directory of the asset [`s
 **NOTE**: Sensu always appends the suffix `_PATH` for environment variables that are automatically generated for asset paths.
 {{% /notice %}}
 
-### Token substitution for asset paths
+### Token substitution for asset path
 
 The asset path includes the asset's checksum, which changes every time the asset is updated.
 This would normally require you to manually update the commands for any of your checks or hooks that consume the asset.
