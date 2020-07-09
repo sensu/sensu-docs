@@ -38,6 +38,11 @@ You should see a confirmation message from sensuctl:
 Created
 {{< /code >}}
 
+{{% notice note %}}
+**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+{{% /notice %}}
+
 ## Get a Slack webhook
 
 If you're already the admin of a Slack, visit `https://YOUR WORKSPACE NAME HERE.slack.com/services/new/incoming-webhook` and follow the steps to add the Incoming WebHooks integration, choose a channel, and save the settings.
