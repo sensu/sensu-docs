@@ -717,11 +717,11 @@ See the [Example Sensu agent configuration file][5] for flags and defaults.
 
 ### Certificate bundles or chains
 
-The Sensu backend supports all types of certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
-This is because the Go standard library assumes that the first certificate listed in the PEM file is the server certificate &mdash; the certificate that the program will use to show its own identity.
+The Sensu agent supports all types of certificate bundles (or chains) as long as the agent (or leaf) certificate is the *first* certificate in the bundle.
+This is because the Go standard library assumes that the first certificate listed in the PEM file is the leaf certificate &mdash; the certificate that the program will use to show its own identity.
 
-If you send the server certificate alone instead of sending the whole bundle with the server certificate first, you will see a `certificate not signed by trusted authority` error.
-You must present the whole chain to the remote so it can determine whether it trusts the server certificate through the chain.
+If you send the leaf certificate alone instead of sending the whole bundle with the leaf certificate first, you will see a `certificate not signed by trusted authority` error.
+You must present the whole chain to the remote so it can determine whether it trusts the presented certificate through the chain.
 
 ### Configuration summary
 
@@ -1223,7 +1223,7 @@ redact:
 
 | cert-file  |      |
 -------------|------
-description  | Path to the agent certificate file used in mutual TLS authentication. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
+description  | Path to the agent certificate file used in mutual TLS authentication. Sensu supports certificate bundles (or chains) as long as the agent (or leaf) certificate is the *first* certificate in the bundle.
 type         | String
 default      | `""`
 environment variable | `SENSU_CERT_FILE`
