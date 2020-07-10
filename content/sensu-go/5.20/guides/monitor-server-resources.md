@@ -51,6 +51,11 @@ sensuctl asset list
  sensu-ruby-runtime         //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.0.10_ruby-2.4.4_centos_linux_amd64.tar.gz     338b88b 
 {{< /code >}}
 
+{{% notice note %}}
+**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+{{% /notice %}}
+
 ## Create a check
 
 Now that the assets are registered, create a check named `check-cpu` that runs the command `check-cpu.rb -w 75 -c 90` with the `cpu-checks-plugins` and `sensu-ruby-runtime` assets at an interval of 60 seconds for all entities subscribed to the `system` subscription.

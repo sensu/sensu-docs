@@ -58,6 +58,11 @@ You can also download the latest asset definition from [Bonsai][12].
 
 Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
 
+{{% notice note %}}
+**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+{{% /notice %}}
+
 ### 2. Create contact filters
 
 The [Bonsai][1] documentation for the asset explains that the has-contact asset supports two functions:
