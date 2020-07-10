@@ -138,7 +138,7 @@ This would normally require you to manually update the commands for any of your 
 However, the `assetPath` token subsitution function allows you to substitute the asset's local path on disk, so you will not need to manually update your check or hook commands every time the asset is updated.
 
 {{% notice note %}}
-**NOTE**: The `assetPath` function is only available where token substitution is available: checks and hooks.
+**NOTE**: The `assetPath` function is only available where token substitution is available: the `command` attribute of a check or hook resource.
 If you want to access an asset path in a handler or mutator command, you must use the [environment variable](#environment-variables-for-asset-paths).
 {{% /notice %}}
 
