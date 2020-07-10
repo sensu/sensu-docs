@@ -592,7 +592,7 @@ agent-port: 8081{{< /code >}}
 
 | cert-file  |      |
 -------------|------
-description  | Path to the primary backend certificate file. Specifies a fallback SSL/TLS certificate if the flag `dashboard-cert-file` is not used. This certificate secures communications between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.  Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
+description  | Path to the primary backend certificate file. Specifies a fallback SSL/TLS certificate if the flag `dashboard-cert-file` is not used. This certificate secures communications between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_CERT_FILE`
@@ -622,7 +622,7 @@ insecure-skip-tls-verify: true{{< /code >}}
 
 | jwt-private-key-file |      |
 -------------|------
-description  | Path to the PEM-encoded private key to use to sign JSON Web Tokens (JWTs).<br>{{% notice note %}}
+description  | Path to the PEM-encoded private key to use to sign JSON Web Tokens (JWTs). {{% notice note %}}
 **NOTE**: The internal symmetric secret key is used by default to sign all JWTs unless a private key is specified via this attribute.
 {{% /notice %}}
 type         | String
@@ -637,7 +637,7 @@ jwt-private-key-file: /path/to/key/private.pem{{< /code >}}
 
 | jwt-public-key-file |      |
 -------------|------
-description  | Path to the PEM-encoded public key to use to verify JSON Web Token (JWT) signatures.<br>{{% notice note %}}
+description  | Path to the PEM-encoded public key to use to verify JSON Web Token (JWT) signatures. {{% notice note %}}
 **NOTE**: JWTs signed with the internal symmetric secret key will continue to be verified with that key.
 {{% /notice %}}
 type         | String
@@ -667,7 +667,7 @@ key-file: "/path/to/ssl/key.pem"{{< /code >}}
 
 | require-fips |      |
 ------------------|------
-description       | Require Federal Information Processing Standard (FIPS) support in OpenSSL. Logs an error at Sensu backend startup if `true` but OpenSSL is not running in FIPS mode.<br>{{% notice note %}}
+description       | Require Federal Information Processing Standard (FIPS) support in OpenSSL. Logs an error at Sensu backend startup if `true` but OpenSSL is not running in FIPS mode. {{% notice note %}}
 **NOTE**: The `--require-fips` flag is only available within the Linux amd64 OpenSSL-linked binary.
 [Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
 {{% /notice %}}
@@ -682,7 +682,7 @@ require-fips: true{{< /code >}}
 
 | require-openssl |      |
 ------------------|------
-description       | Use OpenSSL instead of Go's standard cryptography library. Logs an error at Sensu backend startup if `true` but Go's standard cryptography library is loaded.<br>{{% notice note %}}
+description       | Use OpenSSL instead of Go's standard cryptography library. Logs an error at Sensu backend startup if `true` but Go's standard cryptography library is loaded. {{% notice note %}}
 **NOTE**: The `--require-openssl` flag is only available within the Linux amd64 OpenSSL-linked binary.
 [Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
 {{% /notice %}}
@@ -712,7 +712,7 @@ trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /code >}}
 
 | dashboard-cert-file | |
 -------------|------
-description  | Web UI TLS certificate in PEM format. This certificate secures communication with the Sensu web UI. If the `dashboard-cert-file` is not provided in the backend configuration, Sensu uses the certificate specified in the [`cert-file` flag](#security-configuration-flags) for the web UI.  Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
+description  | Web UI TLS certificate in PEM format. This certificate secures communication with the Sensu web UI. If the `dashboard-cert-file` is not provided in the backend configuration, Sensu uses the certificate specified in the [`cert-file` flag](#security-configuration-flags) for the web UI. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_DASHBOARD_CERT_FILE`
@@ -783,7 +783,7 @@ etcd-advertise-client-urls:
 
 | etcd-cert-file |      |
 -----------------|------
-description      | Path to the etcd client API TLS certificate file. Secures communication between the embedded etcd client API and any etcd clients.  Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
+description      | Path to the etcd client API TLS certificate file. Secures communication between the embedded etcd client API and any etcd clients. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 type             | String
 default          | `""`
 environment variable | `SENSU_BACKEND_ETCD_CERT_FILE`
@@ -1001,7 +1001,7 @@ etcd-name: "backend-0"{{< /code >}}
 
 | etcd-peer-cert-file |      |
 ----------------------|------
-description           | Path to the peer server TLS certificate file.  Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
+description           | Path to the peer server TLS certificate file. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 type                  | String
 environment variable  | `SENSU_BACKEND_ETCD_PEER_CERT_FILE`
 example               | {{< code shell >}}# Command line example
