@@ -2,7 +2,7 @@
 title: "Use secrets management in Sensu"
 linkTitle: "Use Secrets Management"
 description: "Sensu's secrets management allows you to avoid exposing secrets like usernames and passwords in your Sensu configuration. In this guide, you'll learn how to use Sensu's built-in secrets provider or HashiCorp Vault and refer to external secrets in your Sensu configuration."
-weight: 1
+weight: 10
 version: "5.21"
 product: "Sensu Go"
 platformContent: False

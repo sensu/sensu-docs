@@ -1,13 +1,14 @@
 ---
-title: "Etcd replicators"
-linkTitle: "Etcd Replicators"
+title: "Etcd replicators reference"
+linkTitle: "Etcd Replicators Reference"
 description: "Etcd replicators allow you to manage RBAC resources in one place and mirror the changes to follower clusters. Read the reference to set up RBAC policy replication between Sensu clusters."
-weight: 80
+weight: 90
+type: "reference"
 version: "5.21"
 product: "Sensu Go"
 menu:
   sensu-go-5.21:
-    parent: reference
+    parent: deploy-sensu
 ---
 
 **COMMERCIAL FEATURE**: Access the etcd-replicators datatype in the packaged Sensu Go distribution.

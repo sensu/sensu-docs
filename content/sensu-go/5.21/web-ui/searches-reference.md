@@ -1,13 +1,15 @@
 ---
-title: "Searches"
+title: "Searches reference"
+linkTitle: "Searches Reference"
 description: "The saved searches feature in the Sensu web UI allows you to create, update, and delete saved searches. Read the reference doc to learn about saved searches in Sensu."
-weight: 143
+weight: 60
+type: "reference"
 version: "5.21"
 product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-5.21:
-    parent: reference
+    parent: web-ui
 ---
 
 **COMMERCIAL FEATURE**: Access saved searches in the packaged Sensu Go distribution.

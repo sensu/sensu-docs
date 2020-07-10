@@ -1,13 +1,14 @@
 ---
-title: "Secrets providers"
-linkTitle: "Secrets Providers"
+title: "Secrets providers reference"
+linkTitle: "Secrets Providers Reference"
 description: "Sensu's secrets management capability allows you to avoid exposing secrets like usernames, passwords, and access keys in your Sensu configuration. Read the reference to obtain secrets from one or more external secrets providers and support references to external secrets in your Sensu configuration."
 weight: 148
+type: "reference"
 version: "5.21"
 product: "Sensu Go"
 menu: 
   sensu-go-5.21:
-    parent: reference
+    parent: manage-secrets
 ---
 
 **COMMERCIAL FEATURE**: Access the Env and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.

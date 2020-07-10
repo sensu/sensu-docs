@@ -1,13 +1,14 @@
 ---
-title: "Web UI configuration"
-linkTitle: "Web UI Configuration"
+title: "Web UI configuration reference"
+linkTitle: "Web UI Configuration Reference"
 description: "Sensu's web UI configuration feature allows you to customize your web UI displays. Read the reference to create and update web UI configurations."
-weight: 190
+weight: 50
+type: "reference"
 version: "5.21"
 product: "Sensu Go"
 menu: 
   sensu-go-5.21:
-    parent: reference
+    parent: web-ui
 ---
 
 **COMMERCIAL FEATURE**: Access web UI configuration in the packaged Sensu Go distribution.

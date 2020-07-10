@@ -1,13 +1,14 @@
 ---
-title: "Secrets"
-linkTitle: "Secrets"
+title: "Secrets reference"
+linkTitle: "Secrets Reference"
 description: "Sensu's secrets management feature allows you to avoid exposing secrets like usernames, passwords, and access keys in your Sensu configuration. Read the reference to obtain secrets from one or more external secrets providers and use sensuctl to manage secrets."
 weight: 145
+type: "reference"
 version: "5.21"
 product: "Sensu Go"
 menu: 
   sensu-go-5.21:
-    parent: reference
+    parent: manage-secrets
 ---
 
 **COMMERCIAL FEATURE**: Access the Secret datatype in the packaged Sensu Go distribution.

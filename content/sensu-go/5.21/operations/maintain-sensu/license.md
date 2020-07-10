@@ -1,12 +1,14 @@
 ---
-title: "License"
+title: "License reference"
+linkTitle: "License Reference"
 description: "Sensu Go includes commercial features designed for monitoring at scale. Activate and manage your commercial license with sensuctl and your Sensu account. Read this document to learn more."
-weight: 125
+weight: 20
+type: "reference"
 version: "5.21"
 product: "Sensu Go"
 menu:
   sensu-go-5.21:
-    parent: reference
+    parent: maintain-sensu
 ---
 
 ## Activate your commercial license
