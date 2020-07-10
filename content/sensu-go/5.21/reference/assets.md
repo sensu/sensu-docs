@@ -129,7 +129,6 @@ If you included a configuration file in the `include` directory of the asset [`s
 `$SENSU_PLUGINS_WINDOWS_PATH/include/config.yaml`
 
 {{% notice note %}}
-**NOTE**: Sensu always appends the suffix `_PATH` for environment variables that are automatically generated for asset paths.
 {{% /notice %}}
 
 ### Token substitution for asset path
