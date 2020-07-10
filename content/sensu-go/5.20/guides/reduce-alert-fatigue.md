@@ -70,6 +70,11 @@ This example uses the `-r` (rename) flag to specify a shorter name for the asset
 
 You can also download the asset directly from [Bonsai, the Sensu asset index][9].
 
+{{% notice note %}}
+**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+{{% /notice %}}
+
 You've registered the asset, but you still need to create the filter.
 To do this, use the following configuration:
 

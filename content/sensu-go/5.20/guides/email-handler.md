@@ -52,6 +52,11 @@ sensuctl asset info email-handler
 
 The asset includes the `sensu-email-handler` command, which you will use when you [create the email handler definition][18] later in this guide.
 
+{{% notice note %}}
+**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+{{% /notice %}}
+
 ## Add an event filter
 
 Event filters allow you to fine-tune how your events are handled and [reduce alert fatigue][7].
