@@ -125,7 +125,7 @@ metadata:
 namespace: default
 name: win-cpu-check
 spec:
-  command: powershell.exe -ExecutionPolicy ByPass -f ${{assetPath "sensu-plugins-windows"}}\bin\check-windows-cpu-load.ps1 90 95
+  command: powershell.exe -ExecutionPolicy ByPass -f %{{assetPath "sensu-plugins-windows"}}%\bin\check-windows-cpu-load.ps1 90 95
   subscriptions:
   - windows
   handlers:
