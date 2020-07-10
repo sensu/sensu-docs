@@ -101,7 +101,7 @@ Linux   | `/var/cache/sensu/sensu-backend`      | `/var/cache/sensu/sensu-agent`
 Windows | N/A                                   | `C:\ProgramData\sensu\cache\sensu-agent`
 
 If the requested asset is not in the local cache, it is downloaded from the asset URL.
-The Sensu backend does not currently provide any storage for assets.
+The Sensu backend acts as an index of asset builds, and does not provide storage or hosting for the build artifacts.
 Sensu expects assets to be retrieved over HTTP or HTTPS.
 
 ### Example asset structure
