@@ -119,37 +119,43 @@ sensu-example-handler_1.0.0_linux_amd64
 
 ## Asset path
 
-When you download and install an asset, the asset's local path on disk is exposed to asset consumers via environment variables.
-This allows you to retrieve the asset's path as an [environment variable][14] from a check, handler, hook, or mutator or using a [custom function for token substitution][17], `assetPath`, from a check or hook.
+When you download and install an asset, the asset files are saved to a local path on disk.
+Most of the time, you won't need to know this path &mdash; except when you want to provide an argument to a command that uses the asset.
+In that case, you *will* need to know the full explicit path to the asset files.
 
-### Environment variable for asset path
+The asset path includes the asset's checksum, which changes every time the asset is updated.
+This would normally require you to manually update the commands for any of your checks, handlers, hooks, or mutators that consume the asset.
+However, the local path on disk is exposed to asset consumers via [environment variables][14] and the [`assetPath` custom function for token substitution][17].
 
-If you included a configuration file in the `include` directory of the asset [`sensu-plugins-windows`][4], you can use the asset path environment variable to reference the asset from your check, handler, hook, or mutator:
+You can retrieve the asset's path as an environment variable in every context (in other words, for a check, handler, hook, or mutator).
+Token substitution with the `assetPath` custom function is only available for check and hook commands.
+
+### Environment variables for asset paths
+
+For each runtime asset, a corresponding environment variable will be available in the `command` context.
+
+Sensu generates the environment variable name by capitalizing the asset name, replacing any special characters with underscores, and appending the `_PATH` suffix.
+The value of the variable will be the path on disk where the asset build has been unpacked.
+
+For example, the environment variable path for the asset [`sensu-plugins-windows`][4] would be:
 
 `$SENSU_PLUGINS_WINDOWS_PATH/include/config.yaml`
 
-{{% notice note %}}
-{{% /notice %}}
+### Token substitution for asset paths
 
-### Token substitution for asset path
-
-The asset path includes the asset's checksum, which changes every time the asset is updated.
-This would normally require you to manually update the commands for any of your checks or hooks that consume the asset.
-However, the `assetPath` token subsitution function allows you to substitute the asset's local path on disk, so you will not need to manually update your check or hook commands every time the asset is updated.
+The `assetPath` token subsitution function allows you to substitute the asset's local path on disk, so you will not need to manually update your check or hook commands every time the asset is updated.
 
 {{% notice note %}}
 **NOTE**: The `assetPath` function is only available where token substitution is available: the `command` attribute of a check or hook resource.
 If you want to access an asset path in a handler or mutator command, you must use the [environment variable](#environment-variables-for-asset-paths).
 {{% /notice %}}
 
-For example, if you included a configuration file in the `include` directory of the asset [`sensu-plugins-windows`][4], you can reference the asset from your check or hook using either the environment variable or the `assetPath` function:
+For example, you can reference the asset [`sensu-plugins-windows`][4] from your check or hook resources using either the environment variable or the `assetPath` function:
 
 - `$SENSU_PLUGINS_WINDOWS_PATH/include/config.yaml`
 - `${{assetPath "sensu-plugins-windows"}}/include/config.yaml`
 
-The `assetPath` function is useful any time a command requires the full explicit path to a file that is distributed in your asset.
-For example, when running PowerShell plugins on Windows, the [exit status codes that Sensu captures may not match the expected values][13].
-
+When running PowerShell plugins on Windows, the [exit status codes that Sensu captures may not match the expected values][13].
 To correctly capture exit status codes from PowerShell plugins distributed as assets, use the asset path to construct the command:
 
 {{< language-toggle >}}
