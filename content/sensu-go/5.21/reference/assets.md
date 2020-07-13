@@ -125,9 +125,9 @@ In that case, you *will* need to know the full explicit path to the asset files.
 
 The asset path includes the asset's checksum, which changes every time the asset is updated.
 This would normally require you to manually update the commands for any of your checks, handlers, hooks, or mutators that consume the asset.
-However, the local path on disk is exposed to asset consumers via [environment variables][14] and the [`assetPath` custom function for token substitution][17].
+However, the local path on disk is exposed to asset consumers via [environment variables][14] and the [`assetPath` custom function for token substitution][17], which allows you to avoid manual updates.
 
-You can retrieve the asset's path as an environment variable in every context (in other words, for a check, handler, hook, or mutator).
+You can retrieve the asset's path as an environment variable in the `command` context for checks, handlers, hooks, and mutators.
 Token substitution with the `assetPath` custom function is only available for check and hook commands.
 
 ### Environment variables for asset paths
