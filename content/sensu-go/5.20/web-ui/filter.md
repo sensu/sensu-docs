@@ -214,12 +214,12 @@ To delete a saved search:
 
 
 [1]: ../../commercial/
-[2]: ../../api/overview/#field-selector
-[3]: ../../api/overview/#response-filtering
+[2]: ../../api/#field-selector
+[3]: ../../api/#response-filtering
 [4]: #web-ui-specific-syntax
 [5]: #basic-filters
-[6]: ../../api/overview/#label-selector
-[7]: ../../api/overview/#operators
+[6]: ../../api/#label-selector
+[7]: ../../api/#operators
 [8]: #save-a-filtered-search
 [9]: #operators-quick-reference
 [10]: #examples

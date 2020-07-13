@@ -853,7 +853,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [16]: https://bonsai.sensu.io/
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
 [19]: https://regex101.com/r/zo9mQU/2
-[20]: ../../api/overview#response-filtering
+[20]: ../../api#response-filtering
 [21]: ../../sensuctl/filter-responses/
 [23]: ../../guides/install-check-executables-with-assets/
 [24]: https://github.com

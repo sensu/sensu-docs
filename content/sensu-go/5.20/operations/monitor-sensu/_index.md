@@ -1,6 +1,6 @@
 ---
 title: "Monitor Sensu"
-description: "Deploy Sensu, the flexible observability pipeline built to reduce operator burden and meet the challenges of monitoring multi-cloud and ephemeral infrastructures. Install and deploy Sensu with our guided walkthroughs."
+description: "Log Sensu services and maintain visibility into your monitoring workflows. Learn to monitor Sensu."
 product: "Sensu Go"
 version: "5.20"
 weight: 40
@@ -11,4 +11,7 @@ menu:
     identifier: monitor-sensu
 ---
 
-{{< directoryListing >}}
+Add [log forwarding][1] from journald to syslog and set up log rotation to successfully monitor your Sensu installation.
+
+
+[1]: log-sensu-systemd/

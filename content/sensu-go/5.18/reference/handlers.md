@@ -655,7 +655,7 @@ spec:
 [7]: ../assets/
 [8]: #metadata-attributes
 [9]: ../rbac#namespaces
-[10]: ../../api/overview#response-filtering
+[10]: ../../api#response-filtering
 [11]: ../../sensuctl/filter-responses/
 [12]: ../agent#keepalive-monitoring
 [13]: ../agent/

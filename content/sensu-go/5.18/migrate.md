@@ -420,7 +420,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [2]: https://etcd.io/docs/latest/
 [3]: ../reference/backend/
 [4]: ../reference/agent/
-[5]: ../sensuctl/set-up-manage/
+[5]: ../sensuctl/
 [6]: ../reference/entities/
 [7]: ../guides/monitor-external-resources/
 [8]: ../reference/hooks/
@@ -432,7 +432,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [14]: ../operations/control-access/create-read-only-user/
 [15]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#asset-registration
 [16]: ../reference/tokens
-[17]: ../api/overview/
+[17]: ../api/
 [18]: https://github.com/sensu/sensu-translator/
 [19]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#filter-definition
 [20]: https://packagecloud.io/sensu/community/
@@ -449,8 +449,8 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [36]: https://etcd.io/
 [37]: ../operations/deploy-sensu/cluster-sensu/
 [38]: ../operations/deploy-sensu/deployment-architecture/
-[39]: ../web-ui/sign-in/
-[40]: ../api/overview/
+[39]: ../web-ui/
+[40]: ../api/
 [41]: ../reference/agent#create-monitoring-events-using-the-agent-api
 [42]: ../reference/agent/#create-monitoring-events-using-the-statsd-listener
 [43]: ../platforms/
