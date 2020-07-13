@@ -1,52 +1,69 @@
 #!/usr/bin/env sh
 
-REQUIRED_ARGS=8
+REQUIRED_ARGS=2
 PROVIDED_ARGS=$#
 OLD_SENSU_VERSION=$1
-OLD_SENSU_PRODUCT=$2
-OLD_SENSU_MENU=$3
-OLD_DOCS_VERSION=$4
-NEW_SENSU_VERSION=$5
-NEW_SENSU_PRODUCT=$6
-NEW_SENSU_MENU=$7
-NEW_DOCS_VERSION=$8
-
+NEW_SENSU_VERSION=$2
+DOCS_ROOT=$3
 
 check_args() {
-  if [ "$REQUIRED_ARGS" != "$PROVIDED_ARGS" ];
+  if [ "$REQUIRED_ARGS" -gt "$PROVIDED_ARGS" ];
   then
-    echo "\nERROR: too few arguments. Please provide exactly seven arguments:\n"
-    echo "  - The old docs version information (the version information you wish to replace)"
-    echo "  - The old Sensu product information (the product information you wish to replace)"
-    echo "  - The old Sensu menu information (the menu information you wish to replace)"
-    echo "  - The old docs version number (the version of the docs to copy for the new docs version"
-    echo "  - The new docs version information"
-    echo "  - The new Sensu product information"
-    echo "  - The new Sensu menu information"
-    echo "  - The new docs version number\n"
+    echo "\nERROR: too few arguments. Please provide at least two arguments:\n"
+    echo "  - The source Sensu version number"
+    echo "  - The destination Sensu version number"
+    echo "  - The directory path for sensu-docs repository, defaults to current working directory (${PWD})"
     exit 1
+  fi
+
+  if [ -z "$DOCS_ROOT" ];
+  then
+    echo "Docs root directory not provided, defaulting to ${PWD}"
+    DOCS_ROOT=$PWD
   fi
   return 0
 }
 
-find_and_replace() {
+check_yq() {
+  if grep python "$(which yq)";
+  then
+    echo "Found yq"
+    return 0
+  else
+    echo "Did not find yq"
+    return 1
+  fi
+}
 
+find_and_replace() {
   case $(uname) in
   "Linux")
-    find "content/sensu-go/${NEW_DOCS_VERSION}" -type f -iname '*.md' -print0 | xargs -0 sed -i "s/${OLD_SENSU_VERSION}/${NEW_SENSU_VERSION}/g"
-    find "content/sensu-go/${NEW_DOCS_VERSION}" -type f -iname '*.md' -print0 | xargs -0 sed -i "s/${OLD_SENSU_PRODUCT}/${NEW_SENSU_PRODUCT}/g"
-    find "content/sensu-go/${NEW_DOCS_VERSION}" -type f -iname '*.md' -print0 | xargs -0 sed -i "s/${OLD_SENSU_MENU}/${NEW_SENSU_MENU}/g"
+    echo "Updating version attribute in front matter"
+    find "$DOCS_ROOT/content/sensu-go/$NEW_SENSU_VERSION" -iname '*.md' -exec sed -i "s/version: \"${OLD_SENSU_VERSION}\"/version: \"${NEW_SENSU_VERSION}\"/g" {} +
+    echo "Renaming menu attribute in front attribute"
+    find "$DOCS_ROOT/content/sensu-go/$NEW_SENSU_VERSION" -iname '*.md' -exec sed -i "s/  sensu-go-${OLD_SENSU_VERSION}\:/  sensu-go-${NEW_SENSU_VERSION}\:/g" {} +
+    return 0
     ;;
   "Darwin")
-    find "content/sensu-go/${NEW_DOCS_VERSION}" -type f -iname '*.md' -print0 | xargs -0 sed -i '' "s/${OLD_SENSU_VERSION}/${NEW_SENSU_VERSION}/g"
-    find "content/sensu-go/${NEW_DOCS_VERSION}" -type f -iname '*.md' -print0 | xargs -0 sed -i '' "s/${OLD_SENSU_PRODUCT}/${NEW_SENSU_PRODUCT}/g"
-    find "content/sensu-go/${NEW_DOCS_VERSION}" -type f -iname '*.md' -print0 | xargs -0 sed -i '' "s/${OLD_SENSU_MENU}/${NEW_SENSU_MENU}/g"
+    echo "Updating version attribute in front matter"
+    find "$DOCS_ROOT/content/sensu-go/$NEW_SENSU_VERSION" -iname '*.md' -exec sed -i '' "s/version: \"${OLD_SENSU_VERSION}\"/version: \"${NEW_SENSU_VERSION}\"/g" {} +
+    echo "Renaming menu attribute in front attribute"
+    find "$DOCS_ROOT/content/sensu-go/$NEW_SENSU_VERSION" -iname '*.md' -exec sed -i '' "s/  sensu-go-${OLD_SENSU_VERSION}\:/  sensu-go-${NEW_SENSU_VERSION}\:/g" {} +
+    return 0
     ;;
   *)
     echo "Unsupported platform"
+    return 1
   esac
 }
 
+clone_directory() {
+  echo "Copying Sensu docs from ${OLD_SENSU_VERSION} to ${NEW_SENSU_VERSION}"
+  cp -R "$DOCS_ROOT/content/sensu-go/$OLD_SENSU_VERSION" "$DOCS_ROOT/content/sensu-go/$NEW_SENSU_VERSION"
+}
+
+check_yq
 check_args
-echo "Updating information in new Sensu docs version content for ${NEW_DOCS_VERSION}"
+clone_directory
 find_and_replace
+echo "Job done. Please update config.toml to include new version ${NEW_SENSU_VERSION}, then run 'yarn server' to test your changes."
