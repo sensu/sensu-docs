@@ -34,8 +34,6 @@
           {{ range $y, $x := sort $v "Weight" }}
 
           <!-- Determine if one the children of this menu is active so we can apply the proper styling -->
-            {{ $isCurrent := ($currentNode.HasMenuCurrent $k $x) }}
-
             <!-- if the menu has a child menu -->
             {{ if .HasChildren }}
               {{ if (in $k $version) }}
@@ -43,7 +41,7 @@
                 {{ $niceName := title $niceName }}
 
                 <li>
-                  <a class="strong accordion {{ if $isCurrent }}current active{{ end }}">
+                  <a class="strong accordion {{ if or ($currentNode.IsMenuCurrent $k .) ($currentNode.HasMenuCurrent $k .) }}current active{{ end }}" href="{{ .URL | absURL }}">
                     {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
                       {{ upper $niceName }}
                     <!-- render the title normally if not API -->
@@ -59,7 +57,7 @@
                         <!-- Determine if this child is active -->
                         <li>
                           {{ if .HasChildren }}
-                            <a class="accordion {{ if ($currentNode.HasMenuCurrent $k .) }}active current{{ end }}">
+                            <a class="accordion {{ if or ($currentNode.IsMenuCurrent $k .) ($currentNode.HasMenuCurrent $k .) }}active current{{ end }}" href="{{ .URL | absURL }}">
                               {{ .Name }}
                               <i class="fa fa-chevron-down" aria-hidden="true"></i>
                             </a>
@@ -74,8 +72,7 @@
                               {{ end }}
                             </ul>
                           {{ else }}
-                            {{ $isCurrent := (eq $.Permalink (.URL | absURL )) }}
-                            <a class="{{ if $isCurrent }}current{{ end }}" href="{{ .URL | absURL }}">{{ .Name }}</a>
+                            <a class="{{ if (eq $.Permalink (.URL | absURL ))}}current{{ end }}" href="{{ .URL | absURL }}">{{ .Name }}</a>
                           {{ end }}
                         </li>
                     {{ end }}
@@ -99,12 +96,12 @@
 
 <!-- Script for the dropdown list items -->
 <script>
-  var acc = document.getElementsByClassName('accordion');
+  var acc = document.querySelectorAll('.accordion > .fa');
 
   for (var i = 0; i < acc.length; i++) {
     acc[i].addEventListener('click', function(e) {
       e.preventDefault();
-      this.classList.toggle('active');
+      this.parentElement.classList.toggle('active');
     });
   }
 </script>
