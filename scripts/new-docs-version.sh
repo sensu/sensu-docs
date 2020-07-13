@@ -24,17 +24,6 @@ check_args() {
   return 0
 }
 
-check_yq() {
-  if grep python "$(which yq)";
-  then
-    echo "Found yq"
-    return 0
-  else
-    echo "Did not find yq"
-    return 1
-  fi
-}
-
 find_and_replace() {
   case $(uname) in
   "Linux")
@@ -62,7 +51,6 @@ clone_directory() {
   cp -R "$DOCS_ROOT/content/sensu-go/$OLD_SENSU_VERSION" "$DOCS_ROOT/content/sensu-go/$NEW_SENSU_VERSION"
 }
 
-check_yq
 check_args
 clone_directory
 find_and_replace
