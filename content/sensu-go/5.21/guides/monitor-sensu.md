@@ -17,11 +17,10 @@ menu:
 - [Monitor Postgres](#postgres)
 
 {{< code markdown "Sensu Backend">}}
-| Service | Endpoint | Description |
-|---------|----------|-------------|
-| Sensu Backend        | `/health`         |             |
-| External etcd        |          |             |
-| Postgres`        |          |             |
+| Port | Endpoint | Description                                                                                                                |
+|------|----------|----------------------------------------------------------------------------------------------------------------------------|
+| 8080 | /health  | Sensu Go health endpoint. Provides health status for Sensu backends. Also provides health status for Postgres when enabled |
+| 2379 | /health  | Etcd health endpoint. Provides health status for etcd nodes.                                                               |
 {{< /code >}}
 
 This guide describes best practices and strategies for monitoring the Sensu backend with another Sensu backend or cluster.
