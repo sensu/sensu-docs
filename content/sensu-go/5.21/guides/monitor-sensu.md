@@ -16,13 +16,6 @@ menu:
   - [Monitor your External etcd](#monitor-your-external-etcd)
 - [Monitor Postgres](#postgres)
 
-{{< code markdown "Sensu Backend">}}
-| Port | Endpoint | Description                                                                                                                |
-|------|----------|----------------------------------------------------------------------------------------------------------------------------|
-| 8080 | /health  | Sensu Go health endpoint. Provides health status for Sensu backends. Also provides health status for Postgres when enabled |
-| 2379 | /health  | Etcd health endpoint. Provides health status for etcd nodes.                                                               |
-{{< /code >}}
-
 This guide describes best practices and strategies for monitoring the Sensu backend with another Sensu backend or cluster.
 
 To completely monitor Sensu (a Sensu backend with internal etcd and an agent), you will need at least one other independent Sensu instance.
@@ -41,6 +34,14 @@ Monitor the host running the `sensu-backend` in two ways:
 
 * Locally by a `sensu-agent` process for operating system checks and metrics.
 * Remotely from an independent Sensu instance for Sensu components that must be running for Sensu to create events.
+
+Below is a list of ports and endpoints that are monitored as part of this guide:
+
+| Port | Endpoint | Description                                                                                                                |
+|------|----------|----------------------------------------------------------------------------------------------------------------------------|
+| 8080 | `/health`  | Sensu Go health endpoint. Provides health status for Sensu backends. Also provides health status for Postgres when enabled. |
+| 2379 | `/health`  | Etcd health endpoint. Provides health status for etcd nodes.                                                               |
+
 
 ### Monitor the Sensu backend remotely
 
