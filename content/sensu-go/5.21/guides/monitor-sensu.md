@@ -255,5 +255,8 @@ A successful check result will look like:
 [11]: ../../reference/agent/#keepalive-monitoring
 [12]: ../../api/metrics/
 [13]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector
+<<<<<<< HEAD
 [postgres]: https://docs.sensu.io/sensu-go/latest/operations/deploy-sensu/scale-event-storage/
 [sensu-postgres-health]: /images/sensu-postgres-health.png
+=======
+>>>>>>> 825ef452fbea324f77f0988baaaefa6308c11047
