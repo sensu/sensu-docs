@@ -1098,7 +1098,7 @@ To get started with Sensu Go:
 [104]: /sensu-go/5.16/
 [105]: /sensu-go/5.16/getting-started/enterprise/
 [106]: /sensu-go/5.17/commercial/
-[107]: /sensu-go/5.17/web-ui/sign-in
+[107]: /sensu-go/5.17/web-ui/sign-in/
 [108]: /sensu-go/5.17/api/secrets
 [109]: /sensu-go/5.17/reference/backend/#docker-initialization
 [110]: /sensu-go/5.17/api/overview/#field-selector
@@ -1107,8 +1107,8 @@ To get started with Sensu Go:
 [113]: /sensu-go/5.17/sensuctl/reference/#list-commands
 [114]: /sensu-go/5.18/api/events#create-a-new-event
 [115]: /sensu-go/5.18/commercial/
-[116]: /sensu-go/5.18/api/overview/#label-selector
-[117]: /sensu-go/5.18/api/overview/#field-selector
+[116]: /sensu-go/5.18/api#label-selector
+[117]: /sensu-go/5.18/api#field-selector
 [118]: /sensu-go/5.18/api/events/
-[119]: /sensu-go/5.18/api/overview/#response-filtering
+[119]: /sensu-go/5.18/api#response-filtering
 [120]: /sensu-go/5.18/api/auth#authtest-get

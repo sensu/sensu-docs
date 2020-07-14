@@ -81,10 +81,10 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 [10]: guides/extract-metrics-with-checks/
 [11]: guides/send-slack-alerts/
 [12]: guides/influx-db-metric-handler/
-[13]: api/overview/
+[13]: api/
 [14]: guides/aggregate-metrics-statsd/
-[15]: web-ui/sign-in/
-[16]: sensuctl/set-up-manage/
+[15]: web-ui/
+[16]: sensuctl/
 [17]: reference/handlers/
 [18]: commercial/
 [19]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler/

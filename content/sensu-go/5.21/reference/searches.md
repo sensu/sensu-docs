@@ -285,5 +285,5 @@ spec:
 [6]: ../../sensuctl/create-manage-resources/#create-resources
 [7]: #spec-attributes
 [8]: ../rbac#namespaces
-[9]: ../../api/overview/#field-selector
-[10]: ../../api/overview/#label-selector
+[9]: ../../api/#field-selector
+[10]: ../../api/#label-selector
