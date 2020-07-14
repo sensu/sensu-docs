@@ -10,12 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Commands](#commands)
-- [Built-in mutators](#built-in-mutators)
-- [Mutator specification](#mutator-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [`secrets` attributes](#secrets-attributes)
-- [Examples](#examples)
-
 Handlers can specify a mutator to execute and transform event data before any handlers are applied.
 
 * When the Sensu backend processes an event, it checks the handler for the presence of a mutator and executes that mutator before executing the handler.
@@ -54,7 +48,7 @@ To use only check output, include the `only_check_output` mutator in the handler
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -66,9 +60,9 @@ spec:
     host: 10.0.1.99
     port: 2003
   type: tcp
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -85,7 +79,7 @@ spec:
     "mutator": "only_check_output"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -107,21 +101,21 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][5] resource type. Mutators should always be type `Mutator`.
 required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][5].
 type         | String
-example      | {{< highlight shell >}}"type": "Mutator"{{< /highlight >}}
+example      | {{< code shell >}}"type": "Mutator"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For mutators in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][5].
 type         | String
-example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the mutator that includes the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the mutator definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See the [metadata attributes reference][2] for details.
 required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][5].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "metadata": {
   "name": "example-mutator",
   "namespace": "default",
@@ -132,21 +126,21 @@ example      | {{< highlight shell >}}
     "slack-channel" : "#monitoring"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the mutator [spec attributes][6].
 required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][5].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "spec": {
   "command": "example_mutator.go",
   "timeout": 0,
   "env_vars": [],
   "runtime_assets": []
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Metadata attributes
 
@@ -155,7 +149,7 @@ example      | {{< highlight shell >}}
 description  | Unique string used to identify the mutator. Mutator names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][7]). Each mutator must have a unique name within its namespace.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "example-mutator"{{< /highlight >}}
+example      | {{< code shell >}}"name": "example-mutator"{{< /code >}}
 
 | namespace  |      |
 -------------|------
@@ -163,29 +157,29 @@ description  | Sensu [RBAC namespace][3] that the mutator belongs to.
 required     | false
 type         | String
 default      | `default`
-example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+example      | {{< code shell >}}"namespace": "production"{{< /code >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data that you can use for response and dashboard view filtering.<br><br>If you include labels in your event data, you can filter [API responses][8], [sensuctl responses][9], and [dashboard views][13] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][8], [sensuctl responses][9], and [web UI views][13] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}}"labels": {
+example      | {{< code shell >}}"labels": {
   "environment": "development",
   "region": "us-west-2"
-}{{< /highlight >}}
+}{{< /code >}}
 
 | annotations | |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with [event filters][12]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][8], [sensuctl response filtering][9], or [dashboard views][13].
+description  | Non-identifying metadata to include with event data that you can access with [event filters][12]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][8], [sensuctl response filtering][9], or [web UI views][15].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}} "annotations": {
+example      | {{< code shell >}} "annotations": {
   "managed-by": "ops",
   "playbook": "www.example.url"
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Spec attributes
 
@@ -194,35 +188,35 @@ command      |
 description  | Mutator command to be executed by the Sensu backend. 
 required     | true
 type         | String
-example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/mutated.go"{{</highlight>}}
+example      | {{< code shell >}}"command": "/etc/sensu/plugins/mutated.go"{{< /code>}}
 
 timeout      | 
 -------------|------ 
 description  | Mutator execution duration timeout (hard stop). In seconds.
 required     | false 
 type         | integer 
-example      | {{< highlight shell >}}"timeout": 30{{</highlight>}}
+example      | {{< code shell >}}"timeout": 30{{< /code>}}
 
 env_vars      | 
 -------------|------
 description  | Array of environment variables to use with command execution.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"env_vars": ["RUBY_VERSION=2.5.0"]{{< /highlight >}}
+example      | {{< code shell >}}"env_vars": ["RUBY_VERSION=2.5.0"]{{< /code >}}
 
 runtime_assets | 
 ---------------|------
 description    | Array of [Sensu assets][1] (by their names) required at runtime for execution of the `command`.
 required       | false
 type           | Array
-example        | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
+example        | {{< code shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /code >}}
 
 secrets        | 
 ---------------|------
 description    | Array of the name/secret pairs to use with command execution.
 required       | false
 type           | Array
-example        | {{< highlight shell >}}"secrets": [
+example        | {{< code shell >}}"secrets": [
   {
     "name": "ANSIBLE_HOST",
     "secret": "sensu-ansible-host"
@@ -231,7 +225,7 @@ example        | {{< highlight shell >}}"secrets": [
     "name": "ANSIBLE_TOKEN",
     "secret": "sensu-ansible-token"
   }
-]{{< /highlight >}}
+]{{< /code >}}
 
 #### `secrets` attributes
 
@@ -240,14 +234,14 @@ name         |
 description  | Name of the [secret][10] defined in the executable command. Becomes the environment variable presented to the mutator. See [Use secrets management in Sensu][14] for more information.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "ANSIBLE_HOST"{{< /highlight >}}
+example      | {{< code shell >}}"name": "ANSIBLE_HOST"{{< /code >}}
 
 secret       | 
 -------------|------
 description  | Name of the Sensu secret resource that defines how to retrieve the [secret][10].
 required     | true
 type         | String
-example      | {{< highlight shell >}}"secret": "sensu-ansible-host"{{< /highlight >}}
+example      | {{< code shell >}}"secret": "sensu-ansible-host"{{< /code >}}
 
 ## Examples
 
@@ -257,7 +251,7 @@ The following Sensu mutator definition uses an imaginary Sensu plugin, `example_
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Mutator
 api_version: core/v2
 metadata:
@@ -270,9 +264,9 @@ spec:
   env_vars: []
   runtime_assets: []
   timeout: 0
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Mutator",
   "api_version": "core/v2",
@@ -289,7 +283,7 @@ spec:
     "runtime_assets": []
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -297,7 +291,7 @@ spec:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Mutator
 api_version: core/v2
 metadata:
@@ -305,9 +299,9 @@ metadata:
   namespace: default
 spec:
   command: example_mutator.go
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Mutator",
   "api_version": "core/v2",
@@ -319,7 +313,7 @@ spec:
     "command": "example_mutator.go"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -329,7 +323,7 @@ Learn more about [secrets management][14] for your Sensu configuration in the [s
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 type: Mutator 
 api_version: core/v2 
@@ -343,9 +337,9 @@ spec:
     secret: sensu-ansible-host
   - name: ANSIBLE_TOKEN
     secret: sensu-ansible-token
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Mutator",
   "api_version": "core/v2",
@@ -367,7 +361,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -376,13 +370,14 @@ spec:
 [2]: #metadata-attributes
 [3]: ../rbac#namespaces
 [4]: ../../guides/install-check-executables-with-assets/
-[5]: ../../sensuctl/reference#create-resources
+[5]: ../../sensuctl/create-manage-resources/#create-resources
 [6]: #spec-attributes
 [7]: https://regex101.com/r/zo9mQU/2
 [8]: ../../api/overview#response-filtering
-[9]: ../../sensuctl/reference#response-filters
+[9]: ../../sensuctl/filter-responses/
 [10]: ../../reference/secrets/
 [11]: ../../reference/secrets-providers/
 [12]: ../filters/
-[13]: ../../dashboard/filtering#filter-with-label-selectors
-[14]: ../../guides/secrets-management/
+[13]: ../../web-ui/filter#filter-with-label-selectors
+[14]: ../../operations/manage-secrets/secrets-management/
+[15]: ../../web-ui/filter/

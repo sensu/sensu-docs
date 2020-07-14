@@ -129,7 +129,7 @@ inherently unable to run a `sensu-client`._
 
 Proxy clients are created when a check result includes a `source` attribute. See the example check definition below:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "check": {
     "command": "check-http.rb -u https://sensu.io",
@@ -141,7 +141,7 @@ Proxy clients are created when a check result includes a `source` attribute. See
     "source": "sensuapp.org"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: This `source` attribute can be provided in a [check definition][14], or
 included in a check result published to the Sensu [client input socket][36]._
@@ -149,14 +149,14 @@ included in a check result published to the Sensu [client input socket][36]._
 By default, proxy client data includes a minimal number of attributes. The
 following is an example of proxy client data that is added to the registry.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "name": "switch-x",
   "address": "unknown",
   "subscriptions": [],
   "keepalives": false
 }
-{{< /highlight >}}
+{{< /code >}}
 
 The Sensu API can be used to update proxy client data in the client registry. To
 update proxy client data, please refer to the [Client API reference
@@ -166,9 +166,9 @@ documentation][9].
 
 The following is an example of how to create a proxy client payload via the [client socket](#client-socket-input), using netcat:
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo '{"source": "mysql_01", "name": "app_01", "output": "could not connect to mysql", "status": 1}' | nc localhost 3030
-{{< /highlight >}}
+{{< /code >}}
 
 ### How are keepalive events created? {#keepalive-events}
 
@@ -240,7 +240,7 @@ subscription will execute a roundrobin check each time it is published.
 The following is a Sensu client definition that includes a round-robin
 subscription.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -252,12 +252,12 @@ subscription.
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 The following is a Sensu check definition that targets a round-robin
 subscription.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "web_application_api": {
@@ -269,7 +269,7 @@ subscription.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Client subscription configuration
 
@@ -344,21 +344,21 @@ The following is an example demonstrating external check result input via the
 Sensu client TCP socket. The example uses Bash's built-in `/dev/tcp` file to
 communicate with the Sensu client socket.
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' > /dev/tcp/localhost/3030
-{{< /highlight >}}
+{{< /code >}}
 
 [Netcat][17] can also be used, instead of the TCP file:
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' | nc localhost 3030
-{{< /highlight >}}
+{{< /code >}}
 
 You can do the same using the HTTP socket:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -v -H "Content-Type: application/json" -X POST -d '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' localhost:3031/results
-{{< /highlight >}}
+{{< /code >}}
 
 
 #### Creating a "dead man's switch"
@@ -387,13 +387,13 @@ script using the following code would be expected to continue to send a check
 result at least once every 7 hours or Sensu will create an [event][7] to
 indicate the silent failure.
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo '{"name": "backup_mysql", "ttl": 25200, "output": "backed up mysql successfully | size_mb=568", "status": 0}' | nc localhost 3030
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo '{"name": "backup_mysql", "ttl": 25200, "output": "failed to backup mysql", "status": 1}' | nc localhost 3030
-{{< /highlight >}}
+{{< /code >}}
 
 It is also worth noting that you can set the attribute `ttl_status`, which will change the exit code from its default ("1") to a different exit code. You can see an example of this in the check attributes reference documentation linked above.
 
@@ -420,7 +420,7 @@ Sensu with information about the system on which it resides. This is a
 production system, running a web server and a MySQL database. The client 'name'
 attribute is required in the definition, and must be unique.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -436,7 +436,7 @@ attribute is required in the definition, and must be unique.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Client definition specification
 
@@ -451,7 +451,7 @@ required     | false
 default      | System hostname as determined by Ruby `Socket.gethostname`
 type         | String
 validation   | `/^[\w\.-]+$/`
-example      | {{< highlight shell >}}"name": "i-424242"{{< /highlight >}}
+example      | {{< code shell >}}"name": "i-424242"{{< /code >}}
 
 address      | 
 -------------|------
@@ -459,14 +459,14 @@ description  | An address to help identify and reach the client. This is only in
 required     | false
 default      | Non-loopback IPv4 address as determined by Ruby `Socket.ip_address_list`
 type         | String
-example      | {{< highlight shell >}}"address": "8.8.8.8"{{< /highlight >}}
+example      | {{< code shell >}}"address": "8.8.8.8"{{< /code >}}
 
 subscriptions | 
 --------------|------
 description   |  An array of client subscriptions, a list of roles and/or responsibilities assigned to the system (e.g. webserver). These subscriptions determine which monitoring checks are executed by the client, as check requests are sent to subscriptions. The `subscriptions` array items must be strings.
 required      | true
 type          | Array
-example       | {{< highlight shell >}}"subscriptions": ["production", "webserver"]{{< /highlight >}}
+example       | {{< code shell >}}"subscriptions": ["production", "webserver"]{{< /code >}}
 
 safe_mode    | 
 -------------|------
@@ -474,32 +474,32 @@ description  | If safe mode is enabled for the client. Safe mode requires local 
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< highlight shell >}}"safe_mode": true{{< /highlight >}}
+example      | {{< code shell >}}"safe_mode": true{{< /code >}}
 
 redact       | 
 -------------|------
 description  | Client definition attributes to redact (values) when logging and sending client keepalives. When configuring this array, the default values will be overwritten, requiring them to be re-added to your array.
 required     | false
 type         | Array
-default      | {{< highlight shell >}}[
+default      | {{< code shell >}}[
   "password", "passwd", "pass",
   "api_key", "api_token", "access_key",
   "secret_key", "private_key","secret"
 ]
-{{< /highlight >}}
-example      | {{< highlight shell >}}"redact": [
+{{< /code >}}
+example      | {{< code shell >}}"redact": [
   "password",
   "ec2_access_key",
   "ec2_secret_key"
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 socket       | 
 -------------|------
 description  | The [`socket` definition scope][16], used to configure the [Sensu client socket][36].
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"socket": {}{{< /highlight >}}
+example      | {{< code shell >}}"socket": {}{{< /code >}}
 
 keepalives   | 
 -------------|------
@@ -507,70 +507,70 @@ description  | If Sensu should monitor [keepalives][3] for this client.
 required     | false
 default      | `true`
 type         | Boolean
-example      | {{< highlight shell >}}"keepalives": false{{< /highlight >}}
+example      | {{< code shell >}}"keepalives": false{{< /code >}}
 
 keepalive    | 
 -------------|------
 description  | The [`keepalive` definition scope][12], used to configure [Sensu client keepalives][2] behavior (e.g. keepalive thresholds, etc).
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"keepalive": {}{{< /highlight >}}
+example      | {{< code shell >}}"keepalive": {}{{< /code >}}
 
 signature    | 
 -------------|------
 description  | Unique string used to authenticate check results from the client in question.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"signature": "yVNxtPbRGwCYFYEr3V"{{< /highlight >}}
+example      | {{< code shell >}}"signature": "yVNxtPbRGwCYFYEr3V"{{< /code >}}
 
 registration | 
 -------------|------
 description  | The [`registration` definition scope][31], used to configure [Sensu registration event][37] handlers.
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"registration": {}{{< /highlight >}}
+example      | {{< code shell >}}"registration": {}{{< /code >}}
 
 deregister   | 
 -------------|------
 description  | If a deregistration event should be created upon Sensu client process stop.
 required     | false
 default      | `false`
-example      | {{< highlight shell >}}"deregister": true{{< /highlight >}}
+example      | {{< code shell >}}"deregister": true{{< /code >}}
 
 deregistration | 
 ---------------|------
 description    | The [`deregistration` definition scope][48], used to configure automated Sensu client de-registration.
 required       | false
 type           | Hash
-example        | {{< highlight shell >}}"deregistration": {}{{< /highlight >}}
+example        | {{< code shell >}}"deregistration": {}{{< /code >}}
 
 ec2          | 
 -------------|------
 description  | The [`ec2` definition scope][38], used to configure the [Sensu Enterprise AWS EC2 integration][39] ([Sensu Enterprise][40] users only).
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"ec2": {}{{< /highlight >}}
+example      | {{< code shell >}}"ec2": {}{{< /code >}}
 
 chef         | 
 -------------|------
 description  | The [`chef` definition scope][41], used to configure the [Sensu Enterprise Chef integration][42] ([Sensu Enterprise][40] users only).
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"chef": {}{{< /highlight >}}
+example      | {{< code shell >}}"chef": {}{{< /code >}}
 
 puppet       | 
 -------------|------
 description  | The [`puppet` definition scope][43], used to configure the [Sensu Enterprise Puppet integration][44] ([Sensu Enterprise][40] users only).
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"puppet": {}{{< /highlight >}}
+example      | {{< code shell >}}"puppet": {}{{< /code >}}
 
 servicenow   | 
 -------------|------
 description  | The [`servicenow` definition scope][45], used to configure the [Sensu Enterprise ServiceNow integration][46] ([Sensu Enterprise][40] users only).
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"servicenow": {}{{< /highlight >}}
+example      | {{< code shell >}}"servicenow": {}{{< /code >}}
 
 #### `socket` attributes
 
@@ -579,7 +579,7 @@ The following attributes are configured within the `{ "client": { "socket": {} }
 
 ##### EXAMPLE {#socket-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -590,7 +590,7 @@ The following attributes are configured within the `{ "client": { "socket": {} }
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#socket-attributes-specification}
 
@@ -600,7 +600,7 @@ description  | The address to bind the Sensu client socket to.
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | {{< highlight shell >}}"bind": "0.0.0.0"{{< /highlight >}}
+example      | {{< code shell >}}"bind": "0.0.0.0"{{< /code >}}
 
 port         | 
 -------------|------
@@ -608,7 +608,7 @@ description  | The port the Sensu client socket listens on.
 required     | false
 type         | Integer
 default      | `3030`
-example      | {{< highlight shell >}}"port": 3032{{< /highlight >}}
+example      | {{< code shell >}}"port": 3032{{< /code >}}
 
 #### `http socket` attributes
 
@@ -617,7 +617,7 @@ The following attributes are configured within the `{ "client": { "http_socket":
 
 ##### EXAMPLE {#http-socket-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -630,7 +630,7 @@ The following attributes are configured within the `{ "client": { "http_socket":
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#http-socket-attributes-specification}
 
@@ -640,7 +640,7 @@ description  | The address to bind the Sensu client socket to.
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | {{< highlight shell >}}"bind": "0.0.0.0"{{< /highlight >}}
+example      | {{< code shell >}}"bind": "0.0.0.0"{{< /code >}}
 
 port         | 
 -------------|------
@@ -648,21 +648,21 @@ description  | The port the HTTP Sensu client socket listens on.
 required     | false
 type         | Integer
 default      | `3031`
-example      | {{< highlight shell >}}"port": 8000{{< /highlight >}}
+example      | {{< code shell >}}"port": 8000{{< /code >}}
 
 user         | 
 -------------|------
 description  | The user name to enforce HTTP authentication on endpoints that require it
 required     | false
 type         | String
-example      | {{< highlight shell >}}"user": "sensu"{{< /highlight >}}
+example      | {{< code shell >}}"user": "sensu"{{< /code >}}
 
 password     | 
 -------------|------
 description  | The password to enforce HTTP authentication on endpoints that require it
 required     | false
 type         | String
-example      | {{< highlight shell >}}"password": "F76639PML6c7sk5nI46N"{{< /highlight >}}
+example      | {{< code shell >}}"password": "F76639PML6c7sk5nI46N"{{< /code >}}
 
 #### `keepalive` attributes
 
@@ -671,7 +671,7 @@ The following attributes are configured within the `{ "client": { "keepalive":
 
 ##### EXAMPLE {#keepalive-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -685,7 +685,7 @@ The following attributes are configured within the `{ "client": { "keepalive":
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#keepalive-attributes-specification}
 
@@ -694,21 +694,21 @@ handler      |
 description  | The Sensu event handler (name) to use for events created by keepalives.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"handler": "pagerduty"{{< /highlight >}}
+example      | {{< code shell >}}"handler": "pagerduty"{{< /code >}}
 
 handlers     | 
 -------------|------
 description  | An array of Sensu event handlers (names) to use for events created by keepalives. Each array item must be a string.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"handlers": ["pagerduty", "chef"]{{< /highlight >}}
+example      | {{< code shell >}}"handlers": ["pagerduty", "chef"]{{< /code >}}
 
 thresholds   | 
 -------------|------
 description  | A set of attributes that configure the client keepalive "staleness" thresholds, when a client is determined to be unhealthy.
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"thresholds": {}{{< /highlight >}}
+example      | {{< code shell >}}"thresholds": {}{{< /code >}}
 
 #### `thresholds` attributes (for client keepalives) {#thresholds-attributes}
 
@@ -717,7 +717,7 @@ The following attributes are configured within the `{ "client": { "keepalive": {
 
 ##### EXAMPLE {#thresholds-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -731,7 +731,7 @@ The following attributes are configured within the `{ "client": { "keepalive": {
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#thresholds-attributes-specification}
 
@@ -741,7 +741,7 @@ description  | The warning threshold (in seconds) where a Sensu client is determ
 required     | false
 type         | Integer
 default      | `120`
-example      | {{< highlight shell >}}"warning": 60{{< /highlight >}}
+example      | {{< code shell >}}"warning": 60{{< /code >}}
 
 critical     | 
 -------------|------
@@ -749,7 +749,7 @@ description  | The critical threshold (in seconds) where a Sensu client is deter
 required     | false
 type         | Integer
 default      | `180`
-example      | {{< highlight shell >}}"critical": 90{{< /highlight >}}
+example      | {{< code shell >}}"critical": 90{{< /code >}}
 
 #### `registration` attributes
 
@@ -758,7 +758,7 @@ The following attributes are configured within the `{ "client": {
 
 ##### EXAMPLE {#registration-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -768,7 +768,7 @@ The following attributes are configured within the `{ "client": {
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#registration-attributes-specification}
 
@@ -778,7 +778,7 @@ description  | The registration handler that should process the client registrat
 required     | false
 type         | String
 default      | `registration`
-example      | {{< highlight shell >}}"handler": "registration_cmdb"{{< /highlight >}}
+example      | {{< code shell >}}"handler": "registration_cmdb"{{< /code >}}
 
 _NOTE: client `registration` attributes are used to generate [check result][28]
 data for the registration [event][7]. Client `registration` attributes are
@@ -795,7 +795,7 @@ The following attributes are configured within the `{ "client": {
 
 ##### EXAMPLE {#deregistration-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -806,7 +806,7 @@ The following attributes are configured within the `{ "client": {
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#deregistration-attributes-specification}
 
@@ -826,7 +826,7 @@ description  | The deregistration handler that should process the client deregis
 required     | false
 type         | String
 default      | `deregistration`
-example      | {{< highlight shell >}}"handler": "cmdb_deregistration"{{< /highlight >}}
+example      | {{< code shell >}}"handler": "cmdb_deregistration"{{< /code >}}
 
 #### `ec2` attributes
 
@@ -838,7 +838,7 @@ Enterprise AWS EC2 integration][39].**
 
 ##### EXAMPLE {#ec2-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -857,7 +857,7 @@ Enterprise AWS EC2 integration][39].**
       ]
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 _NOTE: In order for the EC2 integration to perform automatic deregistration, the `ec2` handler must be specified in the `keepalive` scope as in the example above._
 
@@ -869,7 +869,7 @@ description  | The AWS EC2 instance ID of the Sensu client system (if different 
 required     | false
 type         | String
 default      | defaults to the value of the [client definition `name` attribute][15].
-example      | {{< highlight shell >}}"instance_id": "i-424242"{{< /highlight >}}
+example      | {{< code shell >}}"instance_id": "i-424242"{{< /code >}}
 
 allowed_instance_states | 
 ------------------------|------
@@ -878,11 +878,11 @@ required                | false
 type                    | Array
 allowed values          | `pending`, `running`, `rebooting`, `stopping`, `stopped`, `shutting-down`, and `terminated`
 default                 | `running`
-example                 | {{< highlight shell >}}"allowed_instance_states": [
+example                 | {{< code shell >}}"allowed_instance_states": [
   "pending",
   "running",
   "rebooting"
-]{{< /highlight >}}
+]{{< /code >}}
 
 region         | 
 ---------------|------
@@ -891,21 +891,21 @@ required       | false
 type           | String
 allowed values |
 default        | `us-east-1`
-example        | {{< highlight shell >}}"region": "us-west-1"{{< /highlight >}}
+example        | {{< code shell >}}"region": "us-west-1"{{< /code >}}
 
 access_key_id | 
 --------------|------
 description   | The AWS IAM user access key ID to use when querying the EC2 API. This configuration can be provided to override the [built-in Sensu Enterprise `ec2` integration `access_key_id` configuration][39] for the client.
 required      | true
 type          | String
-example       | {{< highlight shell >}}"access_key_id": "AlygD0X6Z4Xr2m3gl70J"{{< /highlight >}}
+example       | {{< code shell >}}"access_key_id": "AlygD0X6Z4Xr2m3gl70J"{{< /code >}}
 
 secret_access_key | 
 ------------------|------
 description       | The AWS IAM user secret access key to use when querying the EC2 API. This configuration can be provided to override the [built-in Sensu Enterprise `ec2` integration `secret_access_key` configuration][39] for the client.
 required          | true
 type              | String
-example           | {{< highlight shell >}}"secret_access_key": "y9Jt5OqNOqdy5NCFjhcUsHMb6YqSbReLAJsy4d6obSZIWySv"{{< /highlight >}}
+example           | {{< code shell >}}"secret_access_key": "y9Jt5OqNOqdy5NCFjhcUsHMb6YqSbReLAJsy4d6obSZIWySv"{{< /code >}}
 
 timeout      | 
 -------------|------
@@ -913,14 +913,14 @@ description  | The handler execution duration timeout in seconds (hard stop). Th
 required     | false
 type         | Integer
 default      | `10`
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 account      | 
 -------------|------
 description  | The account name as specified in `/etc/sensu/conf.d/ec2.json` if using Sensu across AWS accounts.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"account": "sensu-testing"{{< /highlight >}}
+example      | {{< code shell >}}"account": "sensu-testing"{{< /code >}}
 
 #### `chef` attributes
 
@@ -932,7 +932,7 @@ Enterprise Chef integration][42].**
 
 ##### EXAMPLE {#chef-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -942,7 +942,7 @@ Enterprise Chef integration][42].**
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#chef-attributes-specification}
 
@@ -952,14 +952,14 @@ description  | The Chef node name (if different than the [client definition `nam
 required     | false
 type         | String
 default      | defaults to the value of the [client definition `name` attribute][15].
-example      | {{< highlight shell >}}"node_name": "webserver01"{{< /highlight >}}
+example      | {{< code shell >}}"node_name": "webserver01"{{< /code >}}
 
 endpoint     | 
 -------------|------
 description  | The Chef Server API endpoint (URL). This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `endpoint` configuration][42] for the client.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"endpoint": "https://api.chef.io/organizations/example"{{< /highlight >}}
+example      | {{< code shell >}}"endpoint": "https://api.chef.io/organizations/example"{{< /code >}}
 
 flavor         | 
 ---------------|------
@@ -967,28 +967,28 @@ description    | The Chef Server flavor (is it enterprise?). This configuration 
 required       | false
 type           | String
 allowed values | `enterprise`: for Hosted Chef and Enterprise Chef<br>`open_source`: for Chef Zero and Open Source Chef Server
-example        | {{< highlight shell >}}"flavor": "enterprise"{{< /highlight >}}
+example        | {{< code shell >}}"flavor": "enterprise"{{< /code >}}
 
 client       | 
 -------------|------
 description  | The Chef Client name to use when authenticating/querying the Chef Server API. This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `client` configuration][42] for the client.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"client": "sensu-server"{{< /highlight >}}
+example      | {{< code shell >}}"client": "sensu-server"{{< /code >}}
 
 key          | 
 -------------|------
 description  | The Chef Client key to use when authenticating/querying the Chef Server API. This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `key` configuration][42] for the client.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"key": "/etc/chef/i-424242.pem"{{< /highlight >}}
+example      | {{< code shell >}}"key": "/etc/chef/i-424242.pem"{{< /code >}}
 
 ssl_pem_file | 
 -------------|------
 description  | The Chef SSL pem file use when querying the Chef Server API. This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `ssl_pem_file` configuration][42] for the client.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"ssl_pem_file": "/etc/chef/ssl.pem"{{< /highlight >}}
+example      | {{< code shell >}}"ssl_pem_file": "/etc/chef/ssl.pem"{{< /code >}}
 
 ssl_verify   | 
 -------------|------
@@ -996,35 +996,35 @@ description  | If the SSL certificate will be verified when querying the Chef Se
 required     | false
 type         | Boolean
 default      | `true`
-example      | {{< highlight shell >}}"ssl_verify": false{{< /highlight >}}
+example      | {{< code shell >}}"ssl_verify": false{{< /code >}}
 
 proxy_address | 
 --------------|------
 description   | The HTTP proxy address. This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `proxy_address` configuration][42] for the client.
 required      | false
 type          | String
-example       | {{< highlight shell >}}"proxy_address": "proxy.example.com"{{< /highlight >}}
+example       | {{< code shell >}}"proxy_address": "proxy.example.com"{{< /code >}}
 
 proxy_port   | 
 -------------|------
 description  | The HTTP proxy port (if there is a proxy). This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `proxy_port` configuration][42] for the client.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"proxy_port": 8080{{< /highlight >}}
+example      | {{< code shell >}}"proxy_port": 8080{{< /code >}}
 
 proxy_username | 
 ---------------|------
 description    | The HTTP proxy username (if there is a proxy). This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `proxy_username` configuration][42] for the client.
 required       | false
 type           | String
-example        | {{< highlight shell >}}"proxy_username": "chef"{{< /highlight >}}
+example        | {{< code shell >}}"proxy_username": "chef"{{< /code >}}
 
 proxy_password | 
 ---------------|------
 description    | The HTTP proxy user password (if there is a proxy). This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `proxy_password` configuration][42] for the client.
 required       | false
 type           | String
-example        | {{< highlight shell >}}"proxy_password": "secret"{{< /highlight >}}
+example        | {{< code shell >}}"proxy_password": "secret"{{< /code >}}
 
 timeout      | 
 -------------|------
@@ -1032,7 +1032,7 @@ description  | The handler execution duration timeout in seconds (hard stop). Th
 required     | false
 type         | Integer
 default      | `10`
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 #### `puppet` attributes
 
@@ -1044,7 +1044,7 @@ Enterprise Puppet integration][44].**
 
 ##### EXAMPLE {#puppet-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -1054,7 +1054,7 @@ Enterprise Puppet integration][44].**
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#puppet-attributes-specification}
 
@@ -1064,7 +1064,7 @@ description  | The Puppet node name (if different than the [client definition `n
 required     | false
 type         | String
 default      | defaults to the value of the [client definition `name` attribute][15].
-example      | {{< highlight shell >}}"node_name": "webserver01"{{< /highlight >}}
+example      | {{< code shell >}}"node_name": "webserver01"{{< /code >}}
 
 #### `servicenow` attributes
 
@@ -1076,7 +1076,7 @@ Enterprise ServiceNow integration][46].**
 
 ##### EXAMPLE {#servicenow-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -1091,7 +1091,7 @@ Enterprise ServiceNow integration][46].**
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#servicenow-attributes-specification}
 
@@ -1100,20 +1100,20 @@ configuration_item |
 description        | The [ServiceNow Configuration Item definition scope][45] used to configure the ServiceNow CMDB Configuration Item for the client.
 required           | false
 type               | Hash
-example            | {{< highlight shell >}}"configuration_item": {
+example            | {{< code shell >}}"configuration_item": {
   "name": "webserver01"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 incident | 
 -------------------|------
 description        | Key values pairs used to configure ServiceNow incidents for the client. _NOTE: Requires Sensu Enterprise 3.5 or later._
 required           | false
 type               | Hash
-example            | {{< highlight shell >}}"incident": {
+example            | {{< code shell >}}"incident": {
   "product_team": "onboarding"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### `configuration_item` attributes
 
@@ -1122,7 +1122,7 @@ The following attributes are configured within the `{ "client": { "servicenow":
 
 ##### EXAMPLE {#configurationitem-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -1135,7 +1135,7 @@ The following attributes are configured within the `{ "client": { "servicenow":
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 _PRO TIP: ServiceNow users may provide custom Configuration Item (CI) field values
 via the `configuration_item` configuration scope. In this example, the CI field
@@ -1149,7 +1149,7 @@ description  | The [ServiceNow Configuration Item name][47] to be used for the s
 required     | false
 type         | String
 default      | defaults to the value of the [client definition `name` attribute][15].
-example      | {{< highlight shell >}}"name": "webserver01.example.com"{{< /highlight >}}
+example      | {{< code shell >}}"name": "webserver01.example.com"{{< /code >}}
 
 #### Custom attributes
 
@@ -1167,7 +1167,7 @@ The following is an example Sensu client definition that has custom attributes
 for the `environment` it is running in, a `mysql` attribute containing
 information about a local database, and a link to an operational `playbook`.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -1187,7 +1187,7 @@ information about a local database, and a link to an operational `playbook`.
     "playbook": "https://wiki.example.com/ops/mysql-playbook"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: Because client data is included in alerts created by Sensu, custom
 attributes that only exist for the purpose of providing troubleshooting

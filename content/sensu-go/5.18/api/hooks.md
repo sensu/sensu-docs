@@ -8,25 +8,15 @@ menu:
     parent: api
 ---
 
-- [The `/hooks` API endpoint](#the-hooks-api-endpoint)
-	- [`/hooks` (GET)](#hooks-get)
-	- [`/hooks` (POST)](#hooks-post)
-- [The `/hooks/:hook` API endpoint](#the-hookshook-api-endpoint)
-	- [`/hooks/:hook` (GET)](#hookshook-get)
-  - [`/hooks/:hook` (PUT)](#hookshook-put)
-  - [`/hooks/:hook` (DELETE)](#hookshook-delete)
-
-## The `/hooks` API endpoint
-
-### `/hooks` (GET)
+## Get all hooks
 
 The `/hooks` API endpoint provides HTTP GET access to [hook][1] data.
 
-#### EXAMPLE {#hooks-get-example}
+### Example {#hooks-get-example}
 
 The following example demonstrates a request to the `/hooks` API endpoint, resulting in a JSON array that contains [hook definitions][1].
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
@@ -54,9 +44,9 @@ HTTP/1.1 200 OK
     "runtime_assets": null
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#hooks-get-specification}
+### API Specification {#hooks-get-specification}
 
 /hooks (GET)  | 
 ---------------|------
@@ -66,7 +56,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}
+output         | {{< code shell >}}
 [
   {
     "metadata": {
@@ -89,18 +79,18 @@ output         | {{< highlight shell >}}
     "runtime_assets": null
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
-### `/hooks` (POST)
+## Create a new hook
 
 The `/hooks` API endpoint provides HTTP POST access to create a hook.
 
-#### EXAMPLE {#hooks-post-example}
+### Example {#hooks-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/hooks` API endpoint to create the hook `process-tree`.
 The request returns a successful HTTP `201 Created` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
@@ -118,15 +108,15 @@ curl -X POST \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#hooks-post-specification}
+### API Specification {#hooks-post-specification}
 
 /hooks (POST) | 
 ----------------|------
 description     | Creates a Sensu hook.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/hooks
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "metadata": {
     "name": "process-tree",
@@ -138,20 +128,18 @@ payload         | {{< highlight shell >}}
   "timeout": 10,
   "stdin": false
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/hooks/:hook` API endpoint {#the-hookshook-api-endpoint}
-
-### `/hooks/:hook` (GET) {#hookshook-get}
+## Get a specific hook {#hookshook-get}
 
 The `/hooks/:hook` API endpoint provides HTTP GET access to [hook data][1] for specific `:hook` definitions, by hook name.
 
-#### EXAMPLE {#hookshook-get-example}
+### Example {#hookshook-get-example}
 
 In the following example, querying the `/hooks/:hook` API endpoint returns a JSON map that contains the requested [`:hook` definition][1] (in this example, for the `:hook` named `process-tree`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
@@ -168,9 +156,9 @@ HTTP/1.1 200 OK
   "timeout": 10,
   "stdin": false
 }
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#hookshook-get-specification}
+### API Specification {#hookshook-get-specification}
 
 /hooks/:hook (GET) | 
 ---------------------|------
@@ -178,7 +166,7 @@ description          | Returns the specified hook.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/hooks/process-tree
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< code json >}}
 {
   "metadata": {
     "name": "process-tree",
@@ -190,18 +178,18 @@ output               | {{< highlight json >}}
   "timeout": 10,
   "stdin": false
 }
-{{< /highlight >}}
+{{< /code >}}
 
-### `/hooks/:hook` (PUT) {#hookshook-put}
+## Create or update a hook {#hookshook-put}
 
 The `/hooks/:hook` API endpoint provides HTTP PUT access to create or update specific `:hook` definitions, by hook name.
 
-#### EXAMPLE {#hooks-post-example}
+### Example {#hooks-post-example}
 
 In the following example, an HTTP PUT request is submitted to the `/hooks/:hook` API endpoint to create the hook `nginx-log`.
 The request returns a successful HTTP `201 Created` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
@@ -219,15 +207,15 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/nginx-log
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#hookshook-put-specification}
+### API Specification {#hookshook-put-specification}
 
 /hooks/:hook (PUT) | 
 ----------------|------
 description     | Creates or updates the specified Sensu hook.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/hooks/nginx-log
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "metadata": {
     "name": "nginx-log",
@@ -239,25 +227,25 @@ payload         | {{< highlight shell >}}
   "timeout": 10,
   "stdin": false
   }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/hooks/:hook` (DELETE) {#hookshook-delete}
+## Delete a hook {#hookshook-delete}
 
 The `/hooks/:hook` API endpoint provides HTTP DELETE access to delete a check hook from Sensu (specified by the hook name).
 
-#### EXAMPLE {#hookshook-delete-example}
+### Example {#hookshook-delete-example}
 The following example shows a request to the `/hooks/:hook` API endpoint to delete the hook `process-tree`, resulting in a successful HTTP `204 No Content` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 204 No Content
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#hookshook-delete-specification}
+### API Specification {#hookshook-delete-specification}
 
 /hooks/:hook (DELETE) | 
 --------------------------|------

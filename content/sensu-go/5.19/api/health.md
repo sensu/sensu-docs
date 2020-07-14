@@ -8,17 +8,15 @@ menu:
     parent: api
 ---
 
-## The `/health` API endpoint
-
-### `/health` (GET)
+## Get health data
 
 The `/health` API endpoint provides HTTP GET access to health data for your Sensu instance.
 
-#### EXAMPLE {#health-get-example}
+### Example {#health-get-example}
 
 The following example demonstrates a request to the `/health` API endpoint, resulting in a JSON map that contains Sensu health data.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/health
 
@@ -47,9 +45,9 @@ HTTP/1.1 200 OK
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#health-get-specification}
+### API Specification {#health-get-specification}
 
 /health (GET)    | 
 -----------------|------
@@ -58,7 +56,7 @@ example url      | http://hostname:8080/health
 query parameters | `timeout`: Defines the timeout when querying etcd. <ul><li>5.19.0: Default is `0`, which will cause the request to hang. To prevent this, upgrade to [5.19.1][1] or set to `?timeout=3` to match the sensuctl default.</li><li>5.19.1: Default is `3`.</li></ul>
 response type    | Map
 response codes   | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output           | {{< highlight shell >}}
+output           | {{< code shell >}}
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -83,6 +81,6 @@ output           | {{< highlight shell >}}
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 [1]: ../../release-notes/#5-19-1-release-notes

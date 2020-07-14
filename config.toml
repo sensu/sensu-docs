@@ -1,7 +1,6 @@
 baseurl = ""
 languageCode = "en-us"
 title = "Sensu Docs"
-theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyURLs = true
 # Enable Google Analytics by entering your tracking id
@@ -10,6 +9,14 @@ enableRobotsTXT = true
 pygmentsUseClasses = true
 ignoreFiles = ["sensu-doc-template.md"]
 disableKinds = ["taxonomy", "taxonomyTerm"]
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.tableOfContents]
+    endLevel = 2
+    ordered = false
+    startLevel = 2
 
 [["menu.sensu-core-1.0"]]
   name = "Moi API"
@@ -49,7 +56,11 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     description = "The next-generation monitoring event pipeline"
     notice = "Replaces Sensu Core and Enterprise"
     weight = 1
-    latest = "5.20"
+    latest = "5.21"
+
+    [[params.products.sensu_go.versions]]
+    version = "5.21"
+    platforms = []
 
     [[params.products.sensu_go.versions]]
     version = "5.20"
@@ -61,10 +72,6 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
 
     [[params.products.sensu_go.versions]]
     version = "5.18"
-    platforms = []
-
-    [[params.products.sensu_go.versions]]
-    version = "5.17"
     platforms = []
 
   [params.products.sensu_core]

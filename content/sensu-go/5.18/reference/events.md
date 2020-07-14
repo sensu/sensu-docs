@@ -10,19 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Check-only events](#check-only-events)
-- [Metric-only events](#metric-only-events)
-- [Check and metric events](#check-and-metric-events)
-- [Create events using the Sensu agent](#create-events-using-the-sensu-agent)
-- [Create events using the events API](#create-events-using-the-events-api)
-- [Manage events](#manage-events): [View events](#view-events) | [Delete events](#delete-events) | [Resolve events](#resolve-events)
-- [Event format](#event-format)
-- [Use event data](#use-event-data)
-  - [Occurrences](#occurrences-and-occurrences-watermark)
-- [Events specification](#events-specification)
-	- [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [Check attributes](#check-attributes) | [Metric attributes](#metric-attributes)
-- [Examples](#examples)
-
 An event is a generic container used by Sensu to provide context to checks and metrics.
 The context, called event data, contains information about the originating entity and the corresponding check or metric result.
 An event must contain a check or metrics.
@@ -30,7 +17,7 @@ In certain cases, an event can contain both.
 These generic containers allow Sensu to handle different types of events in the pipeline.
 Because events are polymorphic in nature, it is important to never assume their contents (or lack of content).
 
-### Check-only events
+## Check-only events
 
 A Sensu event is created every time a check result is processed by the Sensu server, regardless of the status indicated by the check result.
 The agent creates an event upon receipt of the check execution result.
@@ -38,13 +25,13 @@ The agent will execute any configured [hooks][4] the check might have.
 From there, the result is forwarded to the Sensu backend for processing.
 Potentially noteworthy events may be processed by one or more event handlers, for example to send an email or invoke an automated action.
 
-### Metric-only events
+## Metric-only events
 
 Sensu events can also be created when the agent receives metrics through the [StatsD listener][5].
 The agent will translate the StatsD metrics to Sensu metric format and place them inside an event.
 Because these events do not contain checks, they bypass the store and are sent to the event pipeline and corresponding event handlers.
 
-### Check and metric events
+## Check and metric events
 
 Events that contain _both_ a check and metrics most likely originated from [check output metric extraction][6].
 If a check is configured for metric extraction, the agent will parse the check output and transform it to Sensu metric format.
@@ -72,65 +59,65 @@ If you use the events API to create a new event referencing an entity that does 
 
 ## Manage events
 
-You can manage events using the [Sensu dashboard][15], [events API][16], and [sensuctl][17] command line tool.
+You can manage events using the [Sensu web UI][15], [events API][16], and [sensuctl][17] command line tool.
 
 ### View events
 
 To list all events:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event list
-{{< /highlight >}}
+{{< /code >}}
 
 To show event details in the default [output format][18]:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event info entity-name check-name
-{{< /highlight >}}
+{{< /code >}}
 
 With both the `list` and `info` commands, you can specify an [output format][18] using the `--format` flag:
 
 - `yaml` or `wrapped-json` formats for use with [`sensuctl create`][8]
 - `json` format for use with the [events API][16]
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event info entity-name check-name --format yaml
-{{< /highlight >}}
+{{< /code >}}
 
 ### Delete events
 
 To delete an event:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event delete entity-name check-name
-{{< /highlight >}}
+{{< /code >}}
 
 You can use the `--skip-confirm` flag to skip the confirmation step:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event delete entity-name check-name --skip-confirm
-{{< /highlight >}}
+{{< /code >}}
 
 You should see a confirmation message upon success:
 
-{{< highlight shell >}}
+{{< code shell >}}
 Deleted
-{{< /highlight >}}
+{{< /code >}}
 
 ### Resolve events
 
 You can use sensuctl to change the status of an event to `0` (OK).
 Events resolved by sensuctl include the output message `Resolved manually by sensuctl`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event resolve entity-name check-name
-{{< /highlight >}}
+{{< /code >}}
 
 You should see a confirmation message upon success:
 
-{{< highlight shell >}}
+{{< code shell >}}
 Resolved
-{{< /highlight >}}
+{{< /code >}}
 
 ## Event format
 
@@ -170,17 +157,17 @@ The following table shows the occurrences attributes for a series of example eve
 
 | event sequence   | `occurrences`   | `occurrences_watermark` |
 | -----------------| --------------- | ----------------------- |
-1. OK event        | `occurrences: 1`| `occurrences_watermark: 1`
-2. OK event        | `occurrences: 2`| `occurrences_watermark: 2`
-3. WARNING event   | `occurrences: 1`| `occurrences_watermark: 1`
-4. WARNING event   | `occurrences: 2`| `occurrences_watermark: 2`
-5. WARNING event   | `occurrences: 3`| `occurrences_watermark: 3`
-6. CRITICAL event  | `occurrences: 1`| `occurrences_watermark: 3`
-7. CRITICAL event  | `occurrences: 2`| `occurrences_watermark: 3`
-8. CRITICAL event  | `occurrences: 3`| `occurrences_watermark: 3`
-9. CRITICAL event  | `occurrences: 4`| `occurrences_watermark: 4`
-10. OK event       | `occurrences: 1`| `occurrences_watermark: 4`
-11. CRITICAL event | `occurrences: 1`| `occurrences_watermark: 1`
+|1. OK event        | `occurrences: 1`| `occurrences_watermark: 1`
+|2. OK event        | `occurrences: 2`| `occurrences_watermark: 2`
+|3. WARNING event   | `occurrences: 1`| `occurrences_watermark: 1`
+|4. WARNING event   | `occurrences: 2`| `occurrences_watermark: 2`
+|5. WARNING event   | `occurrences: 3`| `occurrences_watermark: 3`
+|6. CRITICAL event  | `occurrences: 1`| `occurrences_watermark: 3`
+|7. CRITICAL event  | `occurrences: 2`| `occurrences_watermark: 3`
+|8. CRITICAL event  | `occurrences: 3`| `occurrences_watermark: 3`
+|9. CRITICAL event  | `occurrences: 4`| `occurrences_watermark: 4`
+|10. OK event       | `occurrences: 1`| `occurrences_watermark: 4`
+|11. CRITICAL event | `occurrences: 1`| `occurrences_watermark: 1`
 
 ## Events specification
 
@@ -191,30 +178,30 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][8] resource type. Events should always be type `Event`.
 required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
 type         | String
-example      | {{< highlight shell >}}"type": "Event"{{< /highlight >}}
+example      | {{< code shell >}}"type": "Event"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For events in this version of Sensu, `api_version` should always be `core/v2`.
 required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
 type         | String
-example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
 
 metadata     | 
 -------------|------
 description  | Top-level scope that contains the event `namespace`. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes][29] for details.
 required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"metadata": {
+example      | {{< code shell >}}"metadata": {
   "namespace": "default"
-}{{< /highlight >}}
+}{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the event [spec attributes][9].
 required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "spec": {
   "check": {
     "check_hooks": null,
@@ -244,6 +231,9 @@ example      | {{< highlight shell >}}
     },
     "occurrences": 1,
     "occurrences_watermark": 1,
+    "silenced": [
+      "webserver:*"
+    ],
     "output": "sensu-go-sandbox.curl_timings.time_total 0.005 1552506033\nsensu-go-sandbox.curl_timings.time_namelookup 0.004",
     "output_metric_format": "graphite_plaintext",
     "output_metric_handlers": [
@@ -338,7 +328,7 @@ example      | {{< highlight shell >}}
   "timestamp": 1552506033,
   "event_id": "431a0085-96da-4521-863f-c38b480701e9"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Metadata attributes
 
@@ -348,7 +338,7 @@ description  | [Sensu RBAC namespace][26] that this event belongs to.
 required     | false
 type         | String
 default      | `default`
-example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+example      | {{< code shell >}}"namespace": "production"{{< /code >}}
 
 ### Spec attributes
 
@@ -358,21 +348,21 @@ description  | Time that the event occurred. In seconds since the Unix epoch.
 required     | false
 type         | Integer
 default      | Time that the event occurred
-example      | {{< highlight shell >}}"timestamp": 1522099512{{< /highlight >}}
+example      | {{< code shell >}}"timestamp": 1522099512{{< /code >}}
 
 event_id     |      |
 -------------|------
 description  | Universally unique identifier (UUID) for the event.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"event_id": "431a0085-96da-4521-863f-c38b480701e9"{{< /highlight >}}
+example      | {{< code shell >}}"event_id": "431a0085-96da-4521-863f-c38b480701e9"{{< /code >}}
 
 |entity      |      |
 -------------|------
 description  | [Entity attributes][2] from the originating entity (agent or proxy). If you use the [events API][35] to create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
 type         | Map
 required     | true
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "entity": {
   "deregister": false,
   "deregistration": {},
@@ -425,14 +415,14 @@ example      | {{< highlight shell >}}
   },
   "user": "agent"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 |check       |      |
 -------------|------
 description  | [Check definition][1] used to create the event and information about the status and history of the event. The check scope includes attributes described in the [event specification][21] and the [check specification][20].
 type         | Map
 required     | true
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "check": {
   "check_hooks": null,
   "command": "/opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u \"http://localhost\"",
@@ -461,6 +451,9 @@ example      | {{< highlight shell >}}
   },
   "occurrences": 1,
   "occurrences_watermark": 1,
+  "silenced": [
+    "webserver:*"
+  ],
   "output": "sensu-go-sandbox.curl_timings.time_total 0.005",
   "output_metric_format": "graphite_plaintext",
   "output_metric_handlers": [
@@ -481,7 +474,7 @@ example      | {{< highlight shell >}}
   "total_state_change": 0,
   "ttl": 0
 }
-{{< /highlight >}}
+{{< /code >}}
 
 <a name="metrics"></a>
 
@@ -490,7 +483,7 @@ example      | {{< highlight shell >}}
 description  | Metrics collected by the entity in Sensu metric format. See the [metric attributes][30].
 type         | Map
 required     | false
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "metrics": {
   "handlers": [
     "influx-db"
@@ -510,7 +503,7 @@ example      | {{< highlight shell >}}
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Check attributes
 
@@ -521,21 +514,21 @@ duration     |      |
 description  | Command execution time. In seconds.
 required     | false
 type         | Float
-example      | {{< highlight shell >}}"duration": 1.903135228{{< /highlight >}}
+example      | {{< code shell >}}"duration": 1.903135228{{< /code >}}
 
 executed     |      |
 -------------|------
 description  | Time at which the check request was executed. In seconds since the Unix epoch.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"executed": 1522100915{{< /highlight >}}
+example      | {{< code shell >}}"executed": 1522100915{{< /code >}}
 
 history      |      |
 -------------|------
 description  | Check status history for the last 21 check executions. See [history attributes][32].
 required     | false
 type         | Array
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "history": [
   {
     "executed": 1552505983,
@@ -546,65 +539,74 @@ example      | {{< highlight shell >}}
     "status": 0
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 issued       |      |
 -------------|------
 description  | Time that the check request was issued. In seconds since the Unix epoch.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"issued": 1552506033{{< /highlight >}}
+example      | {{< code shell >}}"issued": 1552506033{{< /code >}}
 
 last_ok      |      |
 -------------|------
 description  | Last time that the check returned an OK status (`0`). In seconds since the Unix epoch.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"last_ok": 1552506033{{< /highlight >}}
+example      | {{< code shell >}}"last_ok": 1552506033{{< /code >}}
 
 occurrences  |      |
 -------------|------
 description  | Number of preceding events with the same status as the current event (OK, WARNING, CRITICAL, or UNKNOWN). Starting at `1`, the `occurrences` attribute increments for events with the same status as the preceding event and resets whenever the status changes. See [Use event data][31] for more information.
 required     | false
 type         | Integer greater than 0
-example      | {{< highlight shell >}}"occurrences": 1{{< /highlight >}}
+example      | {{< code shell >}}"occurrences": 1{{< /code >}}
 
 occurrences_watermark | |
 -------------|------
 description  | For incident and resolution events, the number of preceding events with an OK status (for incident events) or non-OK status (for resolution events). The `occurrences_watermark` attribute gives you useful information when looking at events that change status between OK (`0`)and non-OK (`1`-WARNING, `2`-CRITICAL, or UNKNOWN).<br><br>Sensu resets `occurrences_watermark` to `1` whenever an event for a given entity and check transitions between OK and non-OK. Within a sequence of only OK or only non-OK events, Sensu increments `occurrences_watermark` only when the `occurrences` attribute is greater than the preceding `occurrences_watermark`. See [Use event data][31] for more information.
 required     | false
 type         | Integer greater than 0
-example      | {{< highlight shell >}}"occurrences_watermark": 1{{< /highlight >}}\
+example      | {{< code shell >}}"occurrences_watermark": 1{{< /code >}}
+
+silenced     | |
+-------------|------
+description  | Array of silencing entries that match the event. The `silenced` attribute is only present for events if one or more silencing entries matched the event at time of processing. If the `silenced` attribute is not present in an event, the event was not silenced at the time of processing.
+required     | false
+type         | Array
+example      | {{< code shell >}}"silenced": [
+  "webserver:*"
+]{{< /code >}}
 
 output       |      |
 -------------|------
 description  | Output from the execution of the check command.
 required     | false
 type         | String
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "output": "sensu-go-sandbox.curl_timings.time_total 0.005"
-{{< /highlight >}}
+{{< /code >}}
 
 state         |      |
 -------------|------
 description  | State of the check: `passing` (status `0`), `failing` (status other than `0`), or `flapping`. You can use the `low_flap_threshold` and `high_flap_threshold` [check attributes][33] to configure `flapping` state detection.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"state": "passing"{{< /highlight >}}
+example      | {{< code shell >}}"state": "passing"{{< /code >}}
 
 status       |      |
 -------------|------
 description  | Exit status code produced by the check.<ul><li><code>0</code> indicates “OK”</li><li><code>1</code> indicates “WARNING”</li><li><code>2</code> indicates “CRITICAL”</li></ul>Exit status codes other than <code>0</code>, <code>1</code>, or <code>2</code> indicate an “UNKNOWN” or custom status.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"status": 0{{< /highlight >}}
+example      | {{< code shell >}}"status": 0{{< /code >}}
 
 total_state_change | |
 -------------|------
 description  | Total state change percentage for the check's history.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"total_state_change": 0{{< /highlight >}}
+example      | {{< code shell >}}"total_state_change": 0{{< /code >}}
 
 #### History attributes
 
@@ -613,14 +615,14 @@ executed     |      |
 description  | Time at which the check request was executed. In seconds since the Unix epoch.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"executed": 1522100915{{< /highlight >}}
+example      | {{< code shell >}}"executed": 1522100915{{< /code >}}
 
 status       |      |
 -------------|------
 description  | Exit status code produced by the check.<ul><li><code>0</code> indicates “OK”</li><li><code>1</code> indicates “WARNING”</li><li><code>2</code> indicates “CRITICAL”</li></ul>Exit status codes other than <code>0</code>, <code>1</code>, or <code>2</code> indicate an “UNKNOWN” or custom status.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"status": 0{{< /highlight >}}
+example      | {{< code shell >}}"status": 0{{< /code >}}
 
 ### Metric attributes
 
@@ -629,18 +631,18 @@ handlers     |      |
 description  | Array of Sensu handlers to use for events created by the check. Each array item must be a string.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "handlers": [
   "influx-db"
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 points       |      |
 -------------|------
 description  | Metric data points, including a name, timestamp, value, and tags. See [points attributes][34].
 required     | false
 type         | Array
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "points": [
   {
     "name": "sensu-go-sandbox.curl_timings.time_total",
@@ -665,7 +667,7 @@ example      | {{< highlight shell >}}
     "value": 0.004
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### Points attributes
 
@@ -674,35 +676,35 @@ name         |      |
 description  | Metric name in the format `$entity.$check.$metric` where `$entity` is the entity name, `$check` is the check name, and `$metric` is the metric name.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"name": "sensu-go-sandbox.curl_timings.time_total"{{< /highlight >}}
+example      | {{< code shell >}}"name": "sensu-go-sandbox.curl_timings.time_total"{{< /code >}}
 
 tags         |      |
 -------------|------
 description  | Optional tags to include with the metric. Each element of the array must be a hash that contains two key value pairs: the `name` of the tag and the `value`. Both values of the pairs must be strings.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "tags": [
   {
     "name": "response_time_in_ms",
     "value": "101"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 timestamp    |      |
 -------------|------
 description  | Time at which the metric was collected. In seconds since the Unix epoch.
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"timestamp": 1552506033{{< /highlight >}}
+example      | {{< code shell >}}"timestamp": 1552506033{{< /code >}}
 
 value        |      |
 -------------|------
 description  | Metric value.
 required     | false
 type         | Float
-example      | {{< highlight shell >}}"value": 0.005{{< /highlight >}}
+example      | {{< code shell >}}"value": 0.005{{< /code >}}
 
 ## Examples
 
@@ -710,7 +712,7 @@ example      | {{< highlight shell >}}"value": 0.005{{< /highlight >}}
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Event
 api_version: core/v2
 metadata:
@@ -800,9 +802,9 @@ spec:
     user: agent
   timestamp: 1552594758
   event_id: 3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Event",
   "api_version": "core/v2",
@@ -917,7 +919,7 @@ spec:
     "event_id": "3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -925,7 +927,7 @@ spec:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Event
 api_version: core/v2
 metadata:
@@ -1025,9 +1027,9 @@ spec:
       value: 0.004
   timestamp: 1552506033
   event_id: 431a0085-96da-4521-863f-c38b480701e9
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Event",
   "api_version": "core/v2",
@@ -1158,7 +1160,7 @@ spec:
     "event_id": "431a0085-96da-4521-863f-c38b480701e9"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -1166,7 +1168,7 @@ spec:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Event
 api_version: core/v2
 metadata:
@@ -1225,9 +1227,9 @@ spec:
       value: 0.004
   timestamp: 1552506033
   event_id: 47ea07cd-1e50-4897-9e6d-09cd39ec5180
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Event",
   "api_version": "core/v2",
@@ -1310,7 +1312,7 @@ spec:
     "event_id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -1321,17 +1323,17 @@ spec:
 [5]: ../../guides/aggregate-metrics-statsd/
 [6]: ../../guides/extract-metrics-with-checks/
 [7]: ../checks/#check-specification
-[8]: ../../sensuctl/reference#create-resources
+[8]: ../../sensuctl/create-manage-resources/#create-resources
 [9]: #spec-attributes
 [10]: ../agent#create-monitoring-events-using-service-checks
 [11]: ../agent#create-monitoring-events-using-the-agent-api
 [12]: ../agent#create-monitoring-events-using-the-agent-tcp-and-udp-sockets
 [13]: ../agent#create-monitoring-events-using-the-statsd-listener
 [14]: ../../api/events#eventsentitycheck-put
-[15]: ../../dashboard/overview/
+[15]: ../../web-ui/sign-in/
 [16]: ../../api/events/
-[17]: ../../sensuctl/reference/
-[18]: ../../sensuctl/reference/#preferred-output-format
+[17]: ../../sensuctl/set-up-manage/
+[18]: ../../sensuctl/create-manage-resources/#sensuctl-event
 [20]: ../checks#check-specification
 [21]: #check-attributes
 [22]: #metrics
@@ -1347,4 +1349,4 @@ spec:
 [32]: #history-attributes
 [33]: ../checks#spec-attributes
 [34]: #points-attributes
-[35]: ../../api/events#events-post
+[35]: ../../api/events#create-a-new-event

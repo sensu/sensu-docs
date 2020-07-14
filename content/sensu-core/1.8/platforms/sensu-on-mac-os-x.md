@@ -39,8 +39,8 @@ notice._
    Mountain Lion users: please use [this installer][3]._
 
 2. Install the package using the `installer` utility
-   {{< highlight shell >}}
-sudo installer -pkg sensu-1.4.1-1.pkg -target /{{< /highlight >}}
+   {{< code shell >}}
+sudo installer -pkg sensu-1.4.1-1.pkg -target /{{< /code >}}
 
 3. Configure the Sensu client. **No "default" configuration is provided with
    Sensu**, so the Sensu Client will not start without the corresponding
@@ -72,14 +72,14 @@ In some cases, the default Sensu configuration directory (i.e.
 `/etc/sensu/conf.d/`) is not created by the Sensu installer, in which case it is
 necessary to create this directory manually.
 
-{{< highlight shell >}}
-mkdir /etc/sensu/conf.d{{< /highlight >}}
+{{< code shell >}}
+mkdir /etc/sensu/conf.d{{< /code >}}
 
 ### Example client configuration
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/client.json`:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "client": {
     "name": "macosx-client",
@@ -94,7 +94,7 @@ mkdir /etc/sensu/conf.d{{< /highlight >}}
       "port": 3030
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Example Transport Configuration
 
@@ -103,13 +103,13 @@ connect to the configured [Sensu Transport][6].
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/transport.json`:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "transport": {
     "name": "rabbitmq",
     "reconnect_on_error": true
   }
-}{{< /highlight >}}
+}{{< /code >}}
    _NOTE: if you are using Redis as your transport, please use `"name": "redis"`
    for your transport configuration. For more information, please visit the
    [transport definition specification][15]._
@@ -129,15 +129,15 @@ configuration file) to configure the `sensu-client` daemon run arguments (e.g.
    definition file entitled `org.sensuapp.sensu-client.plist` to
    `/Library/LaunchDaemons/org.sensuapp.sensu-client.plist` and edit it with
    your favorite text editor.
-   {{< highlight shell >}}
-sudo cp /opt/sensu/embedded/Cellar/sensu/1.4.1/Library/LaunchDaemons/org.sensuapp.sensu-client.plist /Library/LaunchDaemons/org.sensuapp.sensu-client.plist{{< /highlight >}}
+   {{< code shell >}}
+sudo cp /opt/sensu/embedded/Cellar/sensu/1.4.1/Library/LaunchDaemons/org.sensuapp.sensu-client.plist /Library/LaunchDaemons/org.sensuapp.sensu-client.plist{{< /code >}}
 
 2. This XML configuration file allows you to set Sensu client [CLI
    arguments][10]. The following example configuration file sets the Sensu
    client primary configuration file path to `/etc/sensu/config.json`, the Sensu
    configuration directory to `/etc/sensu/conf.d`, and the log file path to
    `/etc/sensu/sensu-client.log`.
-   {{< highlight xml >}}
+   {{< code xml >}}
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC -//Apple//DTD PLIST 1.0//EN http://www.apple.com/DTDs/PropertyList-1.0.dtd>
 <plist version="1.0">
@@ -157,7 +157,7 @@ sudo cp /opt/sensu/embedded/Cellar/sensu/1.4.1/Library/LaunchDaemons/org.sensuap
    <key>StandardOutPath</key><string>/var/log/sensu/sensu-client.log</string>
    <key>StandardErrorPath</key><string>/var/log/sensu/sensu-client.log</string>
  </dict>
-</plist>{{< /highlight >}}
+</plist>{{< /code >}}
 
 ## Operating Sensu
 
@@ -165,9 +165,9 @@ sudo cp /opt/sensu/embedded/Cellar/sensu/1.4.1/Library/LaunchDaemons/org.sensuap
 
 Start or stop the Sensu client using the [`launchctl` utility][11]:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo launchctl load -w /Library/LaunchDaemons/org.sensuapp.sensu-client.plist
-sudo launchctl unload -w /Library/LaunchDaemons/org.sensuapp.sensu-client.plist{{< /highlight >}}
+sudo launchctl unload -w /Library/LaunchDaemons/org.sensuapp.sensu-client.plist{{< /code >}}
 
 ### Interacting with Sensu via CLI
 
@@ -177,9 +177,9 @@ is installed by the Sensu OS X installer package.
 
 #### EXAMPLE
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ sudo -u _sensu /opt/sensu/bin/sensu-client -V
-1.4.1{{< /highlight >}}
+1.4.1{{< /code >}}
 
 
 [1]:  https://eol-repositories.sensuapp.org/osx/

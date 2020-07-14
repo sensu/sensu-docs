@@ -8,25 +8,15 @@ menu:
     parent: api
 ---
 
-- [The `/filters` API endpoint](#the-filters-api-endpoint)
-	- [`/filters` (GET)](#filters-get)
-	- [`/filters` (POST)](#filters-post)
-- [The `/filters/:filter` API endpoint](#the-filtersfilter-api-endpoint)
-	- [`/filters/:filter` (GET)](#filtersfilter-get)
-  - [`/filters/:filter` (PUT)](#filtersfilter-put)
-  - [`/filters/:filter` (DELETE)](#filtersfilter-delete)
-
-## The `/filters` API endpoint
-
-### `/filters` (GET)
+## Get all event filters
 
 The `/filters` API endpoint provides HTTP GET access to [event filter][1] data.
 
-#### EXAMPLE {#filters-get-example}
+### Example {#filters-get-example}
 
 The following example demonstrates a request to the `/filters` API endpoint, resulting in a JSON array that contains [event filter definitions][1].
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filters \
 -H "Authorization: Bearer $TOKEN"
@@ -56,9 +46,9 @@ HTTP/1.1 200 OK
     "runtime_assets": null
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#filters-get-specification}
+### API Specification {#filters-get-specification}
 
 /filters (GET)  | 
 ---------------|------
@@ -68,7 +58,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}
+output         | {{< code shell >}}
 [
   {
     "metadata": {
@@ -93,18 +83,18 @@ output         | {{< highlight shell >}}
     "runtime_assets": null
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
-### `/filters` (POST)
+## Create a new event filter
 
 The `/filters` API endpoint provides HTTP POST access to create an event filter.
 
-#### EXAMPLE {#filters-post-example}
+### Example {#filters-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/filters` API endpoint to create the event filter `development_filter`.
 The request returns a successful HTTP `201 Created` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
@@ -124,15 +114,15 @@ curl -X POST \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filters
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#filters-post-specification}
+### API Specification {#filters-post-specification}
 
 /filters (POST) | 
 ----------------|------
 description     | Creates a Sensu event filter.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/filters
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "metadata": {
     "name": "development_filter",
@@ -146,20 +136,18 @@ payload         | {{< highlight shell >}}
   ],
   "runtime_assets": []
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/filters/:filter` API endpoint {#the-filtersfilter-api-endpoint}
-
-### `/filters/:filter` (GET) {#filtersfilter-get}
+## Get a specific event filter {#filtersfilter-get}
 
 The `/filters/:filter` API endpoint provides HTTP GET access to [event filter data][1] for specific `:filter` definitions, by filter name.
 
-#### EXAMPLE {#filtersfilter-get-example}
+### Example {#filtersfilter-get-example}
 
 In the following example, querying the `/filters/:filter` API endpoint returns a JSON map that contains the requested [`:filter` definition][1] (in this example, for the `:filter` named `state_change_only`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/state_change_only \
 -H "Authorization: Bearer $TOKEN"
@@ -176,9 +164,9 @@ HTTP/1.1 200 OK
   ],
   "runtime_assets": null
 }
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#filtersfilter-get-specification}
+### API Specification {#filtersfilter-get-specification}
 
 /filters/:filter (GET) | 
 ---------------------|------
@@ -186,7 +174,7 @@ description          | Returns the specified event filter.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/filters/state_change_only
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< code json >}}
 {
   "metadata": {
     "name": "state_change_only",
@@ -198,18 +186,18 @@ output               | {{< highlight json >}}
   ],
   "runtime_assets": null
 }
-{{< /highlight >}}
+{{< /code >}}
 
-### `/filters/:filter` (PUT) {#filtersfilter-put}
+## Create or update an event filter {#filtersfilter-put}
 
 The `/filters/:filter` API endpoint provides HTTP PUT access to create or update an event filter.
 
-#### EXAMPLE {#filters-put-example}
+### Example {#filters-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/filters` API endpoint to create the event filter `development_filter`.
 The request returns a successful HTTP `200 OK` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
@@ -229,15 +217,15 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/development_filter
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#filtersfilter-put-specification}
+### API Specification {#filtersfilter-put-specification}
 
 /filters/:filter (PUT) | 
 ----------------|------
 description     | Creates or updates the specified Sensu event filter.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/filters/development_filter
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "metadata": {
     "name": "development_filter",
@@ -251,26 +239,26 @@ payload         | {{< highlight shell >}}
   ],
   "runtime_assets": []
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/filters/:filter` (DELETE) {#filtersfilter-delete}
+## Delete an event filter {#filtersfilter-delete}
 
 The `/filters/:filter` API endpoint provides HTTP DELETE access to delete an event filter from Sensu (specified by the filter name).
 
-#### EXAMPLE {#filtersfilter-delete-example}
+### Example {#filtersfilter-delete-example}
 
 The following example shows a request to the `/filters/:filter` API endpoint to delete the event filter `development_filter`, resulting in a successful HTTP `204 No Content` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/development_filter \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 204 No Content
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#filtersfilter-delete-specification}
+### API Specification {#filtersfilter-delete-specification}
 
 /filters/:filter (DELETE) | 
 --------------------------|------

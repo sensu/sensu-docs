@@ -58,8 +58,8 @@ can reliably detect if a service such as Cron is running or not. The following
 instructions will install the [Sensu Process Checks Plugin][2] (version
 0.0.6) using Sensu's embedded Ruby, providing the `check-process.rb` script.
 
-{{< highlight shell >}}
-sudo sensu-install -p process-checks:0.0.6{{< /highlight >}}
+{{< code shell >}}
+sudo sensu-install -p process-checks:0.0.6{{< /code >}}
 
 #### Create the check definition for Cron
 
@@ -72,7 +72,7 @@ cron` on Sensu clients with the `production` subscription, every `60` seconds
 
 _NOTE: Sensu services must be restarted in order to pick up configuration changes. Sensu Enterprise can be reloaded._
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "cron": {
@@ -83,7 +83,7 @@ _NOTE: Sensu services must be restarted in order to pick up configuration change
       "interval": 60
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 For a full listing of the `check-process.rb` command line arguments, run
 <kbd>/opt/sensu/embedded/bin/check-process.rb -h</kbd>.
@@ -96,7 +96,7 @@ check using `standalone` mode (`true`). The Cron check will now be executed
 every `60` seconds on each Sensu client with the check definition. A Sensu check
 definition with `"standalone": true` does not need to specify `subscribers`.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "cron": {
@@ -105,14 +105,14 @@ definition with `"standalone": true` does not need to specify `subscribers`.
       "interval": 60
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 By default, Sensu checks use the `default` Sensu event handler for events they
 create. To specify a different Sensu event handler for a check, use the
 `handler` attribute. The `debug` event handler used in this example will log the
 Sensu event data to the Sensu server (or Sensu Enterprise) log.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "cron": {
@@ -122,7 +122,7 @@ Sensu event data to the Sensu server (or Sensu Enterprise) log.
       "handler": "debug"
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Using multiple handlers
 
@@ -131,7 +131,7 @@ To specify multiple Sensu event handlers, use the `handlers` attribute (plural).
 _NOTE: if both `handler` and `handlers` (plural) check definition attributes are
 used, `handlers` will take precedence._
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "cron": {
@@ -141,7 +141,7 @@ used, `handlers` will take precedence._
       "handlers": ["default", "debug"]
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ## Create a metric collection check
 
@@ -163,8 +163,8 @@ collects and outputs CPU metrics in the Graphite plaintext format. The following
 instructions will install the [Sensu CPU Checks Plugin][8] (version 0.0.3) using
 Sensu's embedded Ruby, providing the `metrics-cpu.rb` script.
 
-{{< highlight shell >}}
-sudo sensu-install -p cpu-checks:0.0.3{{< /highlight >}}
+{{< code shell >}}
+sudo sensu-install -p cpu-checks:0.0.3{{< /code >}}
 
 #### Create the check definition for CPU metrics
 
@@ -188,7 +188,7 @@ handler is used to log the graphite plaintext CPU metrics to the Sensu server
 _NOTE: Sensu services must be restarted in order to pick up configuration
 changes. Sensu Enterprise can be reloaded._
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "cpu_metrics": {
@@ -201,7 +201,7 @@ changes. Sensu Enterprise can be reloaded._
       "handler": "debug"
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 For a full listing of the `metrics-cpu.rb` command line arguments, run
 <kbd>/opt/sensu/embedded/bin/metrics-cpu.rb -h</kbd>.
@@ -232,7 +232,7 @@ Graphite server would be responsible for scheduling and executing this check
 _NOTE: Sensu services must be restarted in order to pick up configuration
 changes. Sensu Enterprise can be reloaded._
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "session_count": {
@@ -241,7 +241,7 @@ changes. Sensu Enterprise can be reloaded._
       "interval": 30
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 The following check uses the `check-graphite-data.rb` script, provided by the
 [Sensu Graphite Plugin][12], to query the Graphite API at `localhost:9001` for
@@ -252,7 +252,7 @@ any machine are at the configured capacity threshold. In this example
 configuration, the check is configured to **warn** at 85% capacity (`-w 85`),
 and to raise a **critical** alert at 95% capacity (`-c 95`).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "disk_capacity": {
@@ -261,14 +261,14 @@ and to raise a **critical** alert at 95% capacity (`-c 95`).
       "interval": 30
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 The following instructions will install the [Sensu Graphite Plugin][12] (version
 0.0.6) using Sensu’s embedded Ruby, providing the `check-graphite-data.rb`
 script.
 
-{{< highlight shell >}}
-sudo sensu-install -p graphite:0.0.6{{< /highlight >}}
+{{< code shell >}}
+sudo sensu-install -p graphite:0.0.6{{< /code >}}
 
 ## Checking on Other Clients{#proxy-clients}
 
@@ -276,7 +276,7 @@ Sensu supports running checks where the results are considered to be for a **cli
 
 Checks are scheduled normally, but by specifying a [**Proxy Request**][13] in your check, clients that match certain definitions (their `client_attributes`) cause the check to run for each one. The attributes supplied must normally match *exactly* as stated- no variables or directives have any special meaning, but you can still use `eval` to perform more complicated filtering with Ruby on the available `value`, such as finding clients with particular subscriptions (given that we're dealing with arrays):
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "...": "...",
@@ -287,7 +287,7 @@ Checks are scheduled normally, but by specifying a [**Proxy Request**][13] in yo
       }
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 [1]:  ../../reference/checks
 [2]:  https://github.com/sensu-plugins/sensu-plugins-process-checks

@@ -22,7 +22,7 @@ _NOTE: Plugins found in the Sensu Plugins GitHub organization are community-main
 
 To install a Ruby-based plugin, you can use the `sensu-install` tool provided as part of the Sensu package.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensu-install --help
 Usage: sensu-install [options]
     -h, --help                       Display this message
@@ -33,11 +33,11 @@ Usage: sensu-install [options]
     -E, --extensions EXTENSION[,EXT] EXTENSION or comma-delimited list of Sensu extensions to install
     -s, --source SOURCE              Install Sensu plugins and extensions from a custom SOURCE
     -c, --clean                      Clean up (remove) other installed versions of the plugin(s) and/or extension(s)
-    -x, --proxy PROXY                Install Sensu plugins and extensions via a PROXY URL{{< /highlight >}}
+    -x, --proxy PROXY                Install Sensu plugins and extensions via a PROXY URL{{< /code >}}
 
 As an example, let's install the [Sensu Disk Checks Plugin][3]:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ sensu-install -p disk-checks
 [SENSU-INSTALL] installing Sensu plugins ...
 [SENSU-INSTALL] determining if Sensu gem 'sensu-plugins-disk-checks' is already installed ...
@@ -48,13 +48,13 @@ Fetching: sensu-plugins-disk-checks-3.1.0.gem (100%)
 You can use the embedded Ruby by setting EMBEDDED_RUBY=true in /etc/default/sensu
 Successfully installed sensu-plugins-disk-checks-3.1.0
 1 gem installed
-[SENSU-INSTALL] successfully installed Sensu plugins: ["sensu-plugins-disk-checks"]{{< /highlight >}}
+[SENSU-INSTALL] successfully installed Sensu plugins: ["sensu-plugins-disk-checks"]{{< /code >}}
 
 To install a specific version of the [Sensu Disk Checks Plugin][3] with `sensu-install`, run:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensu-install -p 'sensu-plugins-disk-checks:3.1.0'
-{{< /highlight >}}
+{{< /code >}}
 
 We strongly recommend using a configuration management or orchestration tool to pin the versions of any plugins installed in production.
 For more information about enforcing plugin versions with configuration management, see the [Sensu Community best practices documentation][6].
@@ -63,8 +63,8 @@ For more information about enforcing plugin versions with configuration manageme
 
 If you find that you need to remove a plugin, you can use the embedded `gem` command to remove a plugin. See the example below:
 
-{{< highlight shell >}}
-/opt/sensu/embedded/bin/gem uninstall sensu-plugins-disk-checks{{< /highlight >}}
+{{< code shell >}}
+/opt/sensu/embedded/bin/gem uninstall sensu-plugins-disk-checks{{< /code >}}
 
 {{< platformBlockClose >}}
 
@@ -76,7 +76,7 @@ To install a Ruby-based plugin on Windows, you can use the `sensu-install` utili
 
 For example, to install the [Sensu Windows Plugin][5], run the following from an administrative command prompt:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ c:\opt\sensu\embedded\bin\sensu-install -p sensu-plugins-windows
 [SENSU-INSTALL] installing Sensu plugins ...
 [SENSU-INSTALL] determining if Sensu gem 'sensu-plugins-windows' is already installed ...
@@ -87,15 +87,15 @@ Fetching: sensu-plugins-windows-2.8.1.gem (100%)
 You can use the embedded Ruby by setting EMBEDDED_RUBY=true in /etc/default/sensu
 Successfully installed sensu-plugins-windows-2.8.1
 1 gem installed
-[SENSU-INSTALL] successfully installed Sensu plugins: ["sensu-plugins-windows"]{{< /highlight >}}
+[SENSU-INSTALL] successfully installed Sensu plugins: ["sensu-plugins-windows"]{{< /code >}}
 
 _NOTE: When installing plugins on Windows, double check that the executable you're using is compatible with Windows. You can always check by examining the executable in the respective GitHub repo in the `bin` directory._
 
 To install a specific version of the [Sensu Windows Plugin][5], run the following from an administrative command prompt:
 
-{{< highlight shell >}}
+{{< code shell >}}
 c:\opt\sensu\embedded\bin\sensu-install -p 'sensu-plugins-windows:2.8.1'
-{{< /highlight >}}
+{{< /code >}}
 
 We strongly recommend using a configuration management or orchestration tool to pin the versions of any plugins installed in production.
 For more information about enforcing plugin versions with configuration management, see the [Sensu Community best practices documentation][6].
@@ -104,7 +104,7 @@ For more information about enforcing plugin versions with configuration manageme
 
 If you find that you need to remove a plugin, you can use the embedded `gem` command to remove a plugin. See the example below as run from an administrative command prompt:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ c:\opt\sensu\embedded\bin\gem uninstall sensu-plugins-windows
 Remove executables:
         check-windows-cpu-load.rb, check-windows-disk.rb, check-windows-process.rb, check-windows-processor-queue-length.rb, check-windows-ram.rb, check-windows-service.rb, metric-windows-cpu-load.rb, metric-windows-disk-usage.rb, metric-windows-network.rb, metric-windows-processor-queue-length.rb, metric-windows-ram-usage.rb, metric-windows-uptime.rb, powershell_helper.rb
@@ -123,7 +123,7 @@ Removing metric-windows-processor-queue-length.rb
 Removing metric-windows-ram-usage.rb
 Removing metric-windows-uptime.rb
 Removing powershell_helper.rb
-Successfully uninstalled sensu-plugins-windows-2.8.1{{< /highlight >}}
+Successfully uninstalled sensu-plugins-windows-2.8.1{{< /code >}}
 
 {{< platformBlockClose >}}
 

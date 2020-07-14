@@ -11,14 +11,6 @@ menu:
     parent: reference
 ---
 
-- [Asset builds](#asset-builds)
-- [Asset format specification](#asset-format-specification)
-- [Asset specification](#asset-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Examples](#examples)
-- [Share an asset on Bonsai](#share-an-asset-on-bonsai)
-- [Delete assets](#delete-assets)
-
 You can discover, download, and share assets using [Bonsai, the Sensu asset index][16].
 Read [Install plugins with assets][23] to get started.
 
@@ -28,7 +20,7 @@ Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and 
 
 {{% notice note %}}
 **NOTE**: Assets are not required to use Sensu Go in production.
-You can install Sensu plugins using the [sensu-install](../../installation/plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../installation/configuration-management/) solution.
+You can install Sensu plugins using the [sensu-install](../../operations/deploy-sensu/install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../operations/deploy-sensu/configuration-management/) solution.
 {{% /notice %}}
 
 The Sensu backend executes handler, filter, and mutator assets.
@@ -51,7 +43,17 @@ For each build provided in an asset, Sensu will evaluate any defined filters to 
 If all filters specified on a build evaluate to `true`, that build is considered a match.
 For assets with multiple builds, only the first build which matches will be downloaded and installed.
 
-### Asset build installation
+### Asset build download
+
+Sensu downloads the asset build on the host system where the asset contents are needed to execute the requested command.
+For example, if a check definition references an asset, the Sensu agent that executes the check will download the asset the first time it executes the check.
+The asset build the agent downloads will depend on the filter rules associated with each build defined for the asset.
+
+Sensu backends follow a similar process when pipeline elements (filters, mutators, and handlers) request runtime asset installation as part of operation.
+
+{{% notice note %}}
+**NOTE**: Asset builds are not downloaded until they are needed for command execution.
+{{% /notice %}}
 
 When Sensu finds a matching build, it downloads the build artifact from the specified URL.
 If the asset definition includes headers, they are passed along as part of the HTTP request.
@@ -59,6 +61,10 @@ If the downloaded artifact's SHA512 checksum matches the checksum provided by th
 
 Set the backend or agent's local cache path with the `--cache-dir` flag.
 Disable assets for an agent with the agent `--disable-assets` [configuration flag][30].
+
+{{% notice note %}}
+**NOTE**: Asset builds are unpacked into the cache directory that is configured with the `--cache-dir` flag.
+{{% /notice %}}
 
 ### Asset build execution
 
@@ -98,7 +104,7 @@ Sensu expects assets to be retrieved over HTTP or HTTPS.
 
 ### Example asset structure
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensu-example-handler_1.0.0_linux_amd64
 ├── CHANGELOG.md
 ├── LICENSE
@@ -107,13 +113,13 @@ sensu-example-handler_1.0.0_linux_amd64
   └── my-check.sh
 └── lib
 └── include
-{{< /highlight >}}
+{{< /code >}}
 
 ### Asset hello world example
 
 In this example, you'll run a script that outputs `Hello World`:
 
-{{< highlight bash >}}
+{{< code bash >}}
 hello-world.sh
 
 #!/bin/sh
@@ -127,14 +133,14 @@ if [ $? -eq 0 ]; then
 else
     exit 2
 fi
-{{< /highlight >}}
+{{< /code >}}
 
 The first step is to ensure that your directory structure is in place.
 As noted in [Example asset structure][15], your script could live in three potential directories in the project: `/bin`, `/lib`, or `/include`.
 For this example, put your script in the `/bin` directory.
 Create the directories `sensu-go-hello-world` and `/bin`:
 
-{{< highlight bash >}}
+{{< code bash >}}
 $ mkdir sensu-go-hello-world
 
 $ cd sensu-go-hello-world
@@ -147,14 +153,14 @@ $ tree
 .
 └── bin
     └── hello-world.sh
-{{< /highlight >}}
+{{< /code >}}
 
 Next, make sure that the script is marked as executable:
 
-{{< highlight bash >}}
+{{< code bash >}}
 $ chmod +x bin/hello-world.sh 
 mode of 'hello-world.sh' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)
-{{< /highlight >}}
+{{< /code >}}
 
 Now that the script is in the directory, move on to the next step: packaging the `sensu-go-hello-world` directory as an asset tarball.
 
@@ -163,18 +169,18 @@ Now that the script is in the directory, move on to the next step: packaging the
 Assets are archives, so the first step in packaging the asset is to create a tar.gz archive of your project.
 This assumes you're in the directory you want to tar up:
 
-{{< highlight bash >}}
+{{< code bash >}}
 $ cd ..
 $ tar -C sensu-go-hello-world -cvzf sensu-go-hello-world-0.0.1.tar.gz .
 ...
-{{< /highlight >}}
+{{< /code >}}
 
 Now that you've created an archive, you need to generate a SHA512 sum for it (this is required for the asset to work):
 
-{{< highlight bash >}}
+{{< code bash >}}
 sha512sum sensu-go-hello-world-0.0.1.tar.gz | tee sha512sum.txt
 dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff1ef4b154c198b9c7cdfe1e8867788c820db7bb5bcad83827 sensu-go-hello-world-0.0.1.tar.gz
-{{< /highlight >}}
+{{< /code >}}
 
 From here, you can host your asset wherever you’d like. To make the asset available via [Bonsai][16], you’ll need to host it on Github. Learn more in [The “Hello World” of Sensu Assets][18] on Discourse.
 
@@ -189,21 +195,21 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][11] resource type. Assets should always be type `Asset`.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | String
-example      | {{< highlight shell >}}"type": "Asset"{{< /highlight >}}
+example      | {{< code shell >}}"type": "Asset"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For assets in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | String
-example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the asset, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the asset definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][5] for details.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"metadata": {
+example      | {{< code shell >}}"metadata": {
   "name": "check_script",
   "namespace": "default",
   "labels": {
@@ -212,14 +218,14 @@ example      | {{< highlight shell >}}"metadata": {
   "annotations": {
     "playbook" : "www.example.url"
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the asset [spec attributes][12].
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | Map of key-value pairs
-example (multiple builds)     | {{< highlight shell >}}"spec": {
+example (multiple builds)     | {{< code shell >}}"spec": {
   "builds": [
     {
       "url": "http://example.com/asset-linux-amd64.tar.gz",
@@ -243,8 +249,8 @@ example (multiple builds)     | {{< highlight shell >}}"spec": {
     "Authorization": "Bearer $TOKEN",
     "X-Forwarded-For": "client1, proxy1, proxy2"
   }
-}{{< /highlight >}}
-example (single build, deprecated)     | {{< highlight shell >}}"spec": {
+}{{< /code >}}
+example (single build, deprecated)     | {{< code shell >}}"spec": {
   "url": "http://example.com/asset.tar.gz",
   "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
   "filters": [
@@ -255,7 +261,7 @@ example (single build, deprecated)     | {{< highlight shell >}}"spec": {
     "Authorization": "Bearer $TOKEN",
     "X-Forwarded-For": "client1, proxy1, proxy2"
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Metadata attributes
 
@@ -264,7 +270,7 @@ name         |      |
 description  | Unique name of the asset, validated with Go regex [`\A[\w\.\-]+\z`][19].
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "check_script"{{< /highlight >}}
+example      | {{< code shell >}}"name": "check_script"{{< /code >}}
 
 | namespace  |      |
 -------------|------
@@ -272,29 +278,29 @@ description  | [Sensu RBAC namespace][2] that the asset belongs to.
 required     | false
 type         | String
 default      | `default`
-example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+example      | {{< code shell >}}"namespace": "production"{{< /code >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data that you can use for response and dashboard view filtering.<br><br>If you include labels in your event data, you can filter [API responses][20], [sensuctl responses][21], and [dashboard views][39] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][20], [sensuctl responses][21], and [web UI views][39] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}}"labels": {
+example      | {{< code shell >}}"labels": {
   "environment": "development",
   "region": "us-west-2"
-}{{< /highlight >}}
+}{{< /code >}}
 
 | annotations | |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with [event filters][7]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][20], [sensuctl response filtering][21], or [dashboard views][39].
+description  | Non-identifying metadata to include with event data that you can access with [event filters][7]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][20], [sensuctl response filtering][21], or [web UI views][40].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}} "annotations": {
+example      | {{< code shell >}} "annotations": {
   "managed-by": "ops",
   "playbook": "www.example.url"
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Spec attributes
 
@@ -303,7 +309,7 @@ builds       |
 description  | List of asset builds used to define multiple artifacts that provide the named asset.
 required     | true, if `url`, `sha512` and `filters` are not provided
 type         | Array
-example      | {{< highlight shell >}}"builds": [
+example      | {{< code shell >}}"builds": [
     {
       "url": "http://example.com/asset-linux-amd64.tar.gz",
       "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
@@ -321,42 +327,104 @@ example      | {{< highlight shell >}}"builds": [
           "entity.system.arm_version == 7"
         ]
       }
-  ]{{< /highlight >}}
+  ]{{< /code >}}
 
 url          | 
 -------------|------ 
 description  | URL location of the asset. 
 required     | true, unless `builds` are provided
 type         | String 
-example      | {{< highlight shell >}}"url": "http://example.com/asset.tar.gz"{{< /highlight >}}
+example      | {{< code shell >}}"url": "http://example.com/asset.tar.gz"{{< /code >}}
 
 sha512       | 
 -------------|------ 
 description  | Checksum of the asset. 
 required     | true, unless `builds` are provided
 type         | String 
-example      | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >}}
+example      | {{< code shell >}}"sha512": "4f926bf4328..."{{< /code >}}
+
+<a name="filters"></a>
 
 filters      | 
 -------------|------ 
-description  | Set of [Sensu query expressions][1] used to determine if the asset should be installed. If multiple expressions are included, each expression must return `true` for Sensu to install the asset.<br><br>Filters for _check_ assets should match agent entity platforms. Filters for _handler_ and _filter_ assets should match your Sensu backend platform. You can create asset filter expressions using any supported [entity system attributes][10], including `os`, `arch`, `platform`, and `platform_family`. {{% notice protip %}}
+description  | Set of [Sensu query expressions][1] used to determine if the asset should be installed. If multiple expressions are included, each expression must return `true` for Sensu to install the asset.<br><br>Filters for _check_ assets should match agent entity platforms. Filters for _handler_ and _filter_ assets should match your Sensu backend platform. You can create asset filter expressions using any supported [entity.system attributes][10], including `os`, `arch`, `platform`, and `platform_family`. {{% notice protip %}}
 **PRO TIP**: Asset filters let you reuse checks across platforms safely. Assign assets for multiple platforms to a single check, and rely on asset filters to ensure that only the appropriate asset is installed on each agent.
 {{% /notice %}}
 required     | false 
 type         | Array 
-example      | {{< highlight shell >}}"filters": ["entity.system.os=='linux'", "entity.system.arch=='amd64'"] {{< /highlight >}}
+example      | {{< code shell >}}"filters": ["entity.system.os=='linux'", "entity.system.arch=='amd64'"] {{< /code >}}
 
 headers       |       |
 --------------|-------|
 description   | HTTP headers to apply to asset retrieval requests. You can use headers to access secured assets. For headers that require multiple values, separate the values with a comma.
 required     | false
 type         | Map of key-value string pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "headers": {
   "Authorization": "Bearer $TOKEN",
   "X-Forwarded-For": "client1, proxy1, proxy2"
 }
-{{< /highlight >}}
+{{< /code >}}
+
+## Asset filters based on entity.system attributes
+
+Use the [entity.system attributes][10] in asset [filters][42] to specify which systems and configurations an asset or asset builds can be used with.
+
+For example, the [Sensu Go Ruby Runtime][43] asset definition includes several builds, each with filters for several `entity.system` attributes:
+
+{{< code yaml >}}
+---
+type: Asset
+api_version: core/v2
+metadata:
+  name: sensu-ruby-runtime
+  labels: 
+  annotations:
+    io.sensu.bonsai.url: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
+    io.sensu.bonsai.api_url: https://bonsai.sensu.io/api/v1/assets/sensu/sensu-ruby-runtime
+    io.sensu.bonsai.tier: Community
+    io.sensu.bonsai.version: 0.0.10
+    io.sensu.bonsai.namespace: sensu
+    io.sensu.bonsai.name: sensu-ruby-runtime
+    io.sensu.bonsai.tags: ''
+spec:
+  builds:
+  - url: https://assets.bonsai.sensu.io/5123017d3dadf2067fa90fc28275b92e9b586885/sensu-ruby-runtime_0.0.10_ruby-2.4.4_centos6_linux_amd64.tar.gz
+    sha512: cbee19124b7007342ce37ff9dfd4a1dde03beb1e87e61ca2aef606a7ad3c9bd0bba4e53873c07afa5ac46b0861967a9224511b4504dadb1a5e8fb687e9495304
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
+    - entity.system.platform_family == 'rhel'
+    - parseInt(entity.system.platform_version.split('.')[0]) == 6
+  - url: https://assets.bonsai.sensu.io/5123017d3dadf2067fa90fc28275b92e9b586885/sensu-ruby-runtime_0.0.10_ruby-2.4.4_debian_linux_amd64.tar.gz
+    sha512: a28952fd93fc63db1f8988c7bc40b0ad815eb9f35ef7317d6caf5d77ecfbfd824a9db54184400aa0c81c29b34cb48c7e8c6e3f17891aaf84cafa3c134266a61a
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
+    - entity.system.platform_family == 'debian'
+  - url: https://assets.bonsai.sensu.io/5123017d3dadf2067fa90fc28275b92e9b586885/sensu-ruby-runtime_0.0.10_ruby-2.4.4_alpine_linux_amd64.tar.gz
+    sha512: 8d768d1fba545898a8d09dca603457eb0018ec6829bc5f609a1ea51a2be0c4b2d13e1aa46139ecbb04873449e4c76f463f0bdfbaf2107caf37ab1c8db87d5250
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
+    - entity.system.platform == 'alpine'
+    - entity.system.platform_version.split('.')[0] == '3'
+{{< /code >}}
+
+In this example, if you install the asset on a system running Linux AMD64 Alpine version 3.xx, Sensu will ignore the first two builds and install the third.
+
+{{% notice note %}}
+**NOTE**: Sensu downloads and installs the first build whose filter expressions all evaluate as `true`.
+If your system happens to match all of the filters for more than one build of an asset, Sensu will only install the first build.
+{{% /notice %}}
+
+All of the asset filter expressions must evaluate as true for Sensu to download and install the asset and run the check, handler, or filter that references the asset.
+
+To continue this example, if you try to install the asset on a system running Linux AMD64 Alpine version 2.xx, the `entity.system.platform_version` argument will evaluate as `false`.
+In this case, the asset will not be downloaded and the check, handler, or filter that references the asset will fail to run.
+
+Add asset filters to specify that an asset is compiled for any of the [entity.system attributes][10], including operating system, platform, platform version, and architecture.
+Then, you can rely on asset filters to ensure that you install only the appropriate asset for each of your agents.
 
 ## Examples
 
@@ -364,7 +432,7 @@ example      | {{< highlight shell >}}
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Asset
 api_version: core/v2
 metadata:
@@ -374,9 +442,9 @@ spec:
   builds:
   - sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
     url: http://example.com/asset.tar.gz
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -393,7 +461,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -401,7 +469,7 @@ spec:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Asset
 api_version: core/v2
 metadata:
@@ -421,9 +489,9 @@ spec:
   headers:
     Authorization: Bearer $TOKEN
     X-Forwarded-For: client1, proxy1, proxy2
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -451,7 +519,7 @@ spec:
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -459,7 +527,7 @@ spec:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Asset
 api_version: core/v2
 metadata:
@@ -497,9 +565,9 @@ spec:
     headers:
       Authorization: Bearer $TOKEN
       X-Forwarded-For: client1, proxy1, proxy2
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -556,7 +624,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -564,7 +632,7 @@ spec:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 type: Asset
 api_version: core/v2
@@ -594,9 +662,9 @@ spec:
   - sensu-prometheus-collector
   subscriptions:
   - system
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight wrapped-json >}}
+{{< code json "wrapped-json" >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -639,7 +707,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -658,7 +726,7 @@ Make sure to provide a helpful README for your asset with configuration examples
 
 ### `bonsai.yml` example
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 description: "#{repo}"
 builds:
@@ -677,7 +745,7 @@ builds:
   filter:
   -  "entity.system.os == 'windows'"
   -  "entity.system.arch == 'amd64'"
-{{< /highlight >}}
+{{< /code >}}
 
 ### `bonsai.yml` specification
 
@@ -686,14 +754,14 @@ builds:
 description  | Project description.
 required     | true
 type         | String
-example      | {{< highlight yml >}}description: "#{repo}"{{< /highlight >}}
+example      | {{< code yml >}}description: "#{repo}"{{< /code >}}
 
  builds      | 
 -------------|------
 description  | Array of asset details per platform.
 required     | true
 type         | Array
-example      | {{< highlight yml >}}
+example      | {{< code yml >}}
 builds:
 - platform: "linux"
   arch: "amd64"
@@ -702,7 +770,7 @@ builds:
   filter:
   -  "entity.system.os == 'linux'"
   -  "entity.system.arch == 'amd64'"
-{{< /highlight >}}
+{{< /code >}}
 
 ### Builds specification
 
@@ -711,39 +779,39 @@ builds:
 description  | Platform supported by the asset.
 required     | true
 type         | String
-example      | {{< highlight yml >}}- platform: "linux"{{< /highlight >}}
+example      | {{< code yml >}}- platform: "linux"{{< /code >}}
 
  arch        | 
 -------------|------
 description  | Architecture supported by the asset.
 required     | true
 type         | String
-example      | {{< highlight yml >}}  arch: "amd64"{{< /highlight >}}
+example      | {{< code yml >}}  arch: "amd64"{{< /code >}}
 
 asset_filename | 
 -------------|------
 description  | File name of the archive that contains the asset.
 required     | true
 type         | String
-example      | {{< highlight yml >}}asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"{{< /highlight >}}
+example      | {{< code yml >}}asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"{{< /code >}}
 
 sha_filename | 
 -------------|------
 description  | SHA-512 checksum for the asset archive.
 required     | true
 type         | String
-example      | {{< highlight yml >}}sha_filename: "#{repo}_#{version}_sha512-checksums.txt"{{< /highlight >}}
+example      | {{< code yml >}}sha_filename: "#{repo}_#{version}_sha512-checksums.txt"{{< /code >}}
 
  filter      | 
 -------------|------
 description  | Filter expressions that describe the operating system and architecture supported by the asset.
 required     | false
 type         | Array
-example      | {{< highlight yml >}}
+example      | {{< code yml >}}
   filter:
   -  "entity.system.os == 'linux'"
   -  "entity.system.arch == 'amd64'"
-{{< /highlight >}}
+{{< /code >}}
 
 ## Delete assets
 
@@ -766,18 +834,18 @@ You must remove the archive and downloaded files from the asset cache manually.
 [8]: ../mutators/
 [9]: ../handlers/
 [10]: ../entities#system-attributes
-[11]: ../../sensuctl/reference#create-resources
+[11]: ../../sensuctl/create-manage-resources/#create-resources
 [12]: #spec-attributes
 [15]: #example-asset-structure
 [16]: https://bonsai.sensu.io/
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
 [19]: https://regex101.com/r/zo9mQU/2
 [20]: ../../api/overview#response-filtering
-[21]: ../../sensuctl/reference#response-filters
+[21]: ../../sensuctl/filter-responses/
 [23]: ../../guides/install-check-executables-with-assets/
 [24]: https://github.com
 [25]: https://help.github.com/articles/about-releases/
-[26]: #bonsai-yml-specification
+[26]: #bonsaiyml-example
 [27]: https://goreleaser.com/
 [28]: https://github.com/sensu/sensu-go-plugin/
 [29]: /plugins/latest/reference/
@@ -787,4 +855,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [35]: #asset-definition-multiple-builds
 [37]: https://bonsai.sensu.io/sign-in
 [38]: https://bonsai.sensu.io/new
-[39]: ../../dashboard/filtering#filter-with-label-selectors
+[39]: ../../web-ui/filter#filter-with-label-selectors
+[40]: ../../web-ui/filter
+[42]: #filters
+[43]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime

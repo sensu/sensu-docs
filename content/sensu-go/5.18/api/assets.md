@@ -8,26 +8,15 @@ menu:
     parent: api
 ---
 
-- [The `/assets` API endpoint](#the-assets-api-endpoint)
-	- [`/assets` (GET)](#assets-get)
-	- [`/assets` (POST)](#assets-post)
-- [The `/assets/:asset` API endpoint](#the-assetsasset-api-endpoint)
-	- [`/assets/:asset` (GET)](#assetsasset-get)
-  - [`/assets/:asset` (PUT)](#assetsasset-put)
-  - [`/assets/:asset` (DELETE)](#assetsasset-delete)
-
-
-## The `/assets` API endpoint
-
-### `/assets` (GET)
+## Get all assets
 
 The `/assets` API endpoint provides HTTP GET access to [asset][1] data.
 
-#### EXAMPLE {#assets-get-example}
+### Example {#assets-get-example}
 
 The following example demonstrates a request to the `/assets` API endpoint, resulting in a JSON array that contains [asset definitions][1].
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
@@ -69,9 +58,9 @@ HTTP/1.1 200 OK
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#assets-get-specification}
+### API Specification {#assets-get-specification}
 
 /assets (GET)  | 
 ---------------|------
@@ -81,7 +70,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}
+output         | {{< code shell >}}
 [
   {
     "url": "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz",
@@ -118,18 +107,18 @@ output         | {{< highlight shell >}}
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
-### `/assets` (POST)
+## Create a new asset
 
 The `/assets` API endpoint provides HTTP POST access to [asset][1] data.
 
-#### EXAMPLE {#assets-post-example}
+### Example {#assets-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/assets` API endpoint to create a role named `sensu-slack-handler`.
 The request returns a successful HTTP `201 Created` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
@@ -152,15 +141,15 @@ curl -X POST \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#assets-post-specification}
+### API Specification {#assets-post-specification}
 
 /assets (POST) | 
 ----------------|------
 description     | Creates a Sensu asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
   "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
@@ -177,20 +166,18 @@ payload         | {{< highlight shell >}}
     "namespace": "default"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/assets/:asset` API endpoint {#the-assetsasset-api-endpoint}
-
-### `/assets/:asset` (GET) {#assetsasset-get}
+## Get a specific asset {#assetsasset-get}
 
 The `/assets/:asset` API endpoint provides HTTP GET access to [asset data][1] for specific `:asset` definitions, by asset `name`.
 
-#### EXAMPLE {#assetsasset-get-example}
+### Example {#assetsasset-get-example}
 
 In the following example, querying the `/assets/:asset` API endpoint returns a JSON map that contains the requested [`:asset` definition][1] (in this example, for the `:asset` named `check_script`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
@@ -215,9 +202,9 @@ HTTP/1.1 200 OK
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#assetsasset-get-specification}
+### API Specification {#assetsasset-get-specification}
 
 /assets/:asset (GET) | 
 ---------------------|------
@@ -225,7 +212,7 @@ description          | Returns the specified asset.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< code json >}}
 [
   {
     "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
@@ -245,18 +232,18 @@ output               | {{< highlight json >}}
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
-### `/assets/:asset` (PUT) {#assetsasset-put}
+## Create or update an asset {#assetsasset-put}
 
 The `/assets/:asset` API endpoint provides HTTP PUT access to create or update specific `:asset` definitions, by asset name.
 
-#### EXAMPLE {#assetsasset-put-example}
+### Example {#assetsasset-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/assets/:asset` API endpoint to create the asset `sensu-slack-handler`.
 The request returns a successful HTTP `201 Created` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
@@ -279,15 +266,15 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/sensu-slack-handler
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#assetsasset-put-specification}
+### API Specification {#assetsasset-put-specification}
 
 /assets/:asset (PUT) | 
 ----------------|------
 description     | Creates or updates the specified Sensu asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
   "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
@@ -304,10 +291,10 @@ payload         | {{< highlight shell >}}
     "namespace": "default"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/assets/:asset` (DELETE) {#assetsasset-delete}
+## Delete an asset {#assetsasset-delete}
 
 The `/assets/:asset` API endpoint provides HTTP DELETE access so you can delete an asset.
 
@@ -315,17 +302,17 @@ The `/assets/:asset` API endpoint provides HTTP DELETE access so you can delete 
 **NOTE**: Deleting an asset does not remove the downloaded files from the asset cache or remove any references to the deleted asset in other resources.
 {{% /notice %}} 
 
-#### EXAMPLE {#assetsasset-delete-example}
+### Example {#assetsasset-delete-example}
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 204 No Content
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#assetsasset-delete-specification}
+### API Specification {#assetsasset-delete-specification}
 
 /assets/:asset (DELETE) | 
 ----------------|------

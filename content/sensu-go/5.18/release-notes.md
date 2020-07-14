@@ -2,45 +2,47 @@
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
 description: "Read the Sensu Go release notes to learn about what's new in our latest release."
+weight: -80
 product: "Sensu Go"
+toc: false
 version: "5.18"
 menu: "sensu-go-5.18"
 ---
 
-- [5.18.1 release notes](#5-18-1-release-notes)
-- [5.18.0 release notes](#5-18-0-release-notes)
-- [5.17.2 release notes](#5-17-2-release-notes)
-- [5.17.1 release notes](#5-17-1-release-notes)
-- [5.17.0 release notes](#5-17-0-release-notes)
-- [5.16.1 release notes](#5-16-1-release-notes)
-- [5.16.0 release notes](#5-16-0-release-notes)
-- [5.15.0 release notes](#5-15-0-release-notes)
-- [5.14.2 release notes](#5-14-2-release-notes)
-- [5.14.1 release notes](#5-14-1-release-notes)
-- [5.14.0 release notes](#5-14-0-release-notes)
-- [5.13.2 release notes](#5-13-2-release-notes)
-- [5.13.1 release notes](#5-13-1-release-notes)
-- [5.13.0 release notes](#5-13-0-release-notes)
-- [5.12.0 release notes](#5-12-0-release-notes)
-- [5.11.1 release notes](#5-11-1-release-notes)
-- [5.11.0 release notes](#5-11-0-release-notes)
-- [5.10.2 release notes](#5-10-2-release-notes)
-- [5.10.1 release notes](#5-10-1-release-notes)
-- [5.10.0 release notes](#5-10-0-release-notes)
-- [5.9.0 release notes](#5-9-0-release-notes)
-- [5.8.0 release notes](#5-8-0-release-notes)
-- [5.7.0 release notes](#5-7-0-release-notes)
-- [5.6.0 release notes](#5-6-0-release-notes)
-- [5.5.1 release notes](#5-5-1-release-notes)
-- [5.5.0 release notes](#5-5-0-release-notes)
-- [5.4.0 release notes](#5-4-0-release-notes)
-- [5.3.0 release notes](#5-3-0-release-notes)
-- [5.2.1 release notes](#5-2-1-release-notes)
-- [5.2.0 release notes](#5-2-0-release-notes)
-- [5.1.1 release notes](#5-1-1-release-notes)
-- [5.1.0 release notes](#5-1-0-release-notes)
-- [5.0.1 release notes](#5-0-1-release-notes)
-- [5.0.0 release notes](#5-0-0-release-notes)
+- [5.18.1 release notes](#5181-release-notes)
+- [5.18.0 release notes](#5180-release-notes)
+- [5.17.2 release notes](#5172-release-notes)
+- [5.17.1 release notes](#5171-release-notes)
+- [5.17.0 release notes](#5170-release-notes)
+- [5.16.1 release notes](#5161-release-notes)
+- [5.16.0 release notes](#5160-release-notes)
+- [5.15.0 release notes](#5150-release-notes)
+- [5.14.2 release notes](#5142-release-notes)
+- [5.14.1 release notes](#5141-release-notes)
+- [5.14.0 release notes](#5140-release-notes)
+- [5.13.2 release notes](#5132-release-notes)
+- [5.13.1 release notes](#5131-release-notes)
+- [5.13.0 release notes](#5130-release-notes)
+- [5.12.0 release notes](#5120-release-notes)
+- [5.11.1 release notes](#5111-release-notes)
+- [5.11.0 release notes](#5110-release-notes)
+- [5.10.2 release notes](#5102-release-notes)
+- [5.10.1 release notes](#5101-release-notes)
+- [5.10.0 release notes](#5100-release-notes)
+- [5.9.0 release notes](#590-release-notes)
+- [5.8.0 release notes](#580-release-notes)
+- [5.7.0 release notes](#570-release-notes)
+- [5.6.0 release notes](#560-release-notes)
+- [5.5.1 release notes](#551-release-notes)
+- [5.5.0 release notes](#550-release-notes)
+- [5.4.0 release notes](#540-release-notes)
+- [5.3.0 release notes](#530-release-notes)
+- [5.2.1 release notes](#521-release-notes)
+- [5.2.0 release notes](#520-release-notes)
+- [5.1.1 release notes](#511-release-notes)
+- [5.1.0 release notes](#510-release-notes)
+- [5.0.1 release notes](#501-release-notes)
+- [5.0.0 release notes](#500-release-notes)
 
 ### Versioning
 
@@ -65,8 +67,8 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.18.1.
 
 **FIXES:**
 
-- ([Commercial feature][121]) Fixed a bug that caused SQL migrations to fail on PostgreSQL 12.
-- ([Commercial feature][121]) Fixed a bug where OIDC login could result in a nil pointer panic.
+- ([Commercial feature][115]) Fixed a bug that caused SQL migrations to fail on PostgreSQL 12.
+- ([Commercial feature][115]) Fixed a bug where OIDC login could result in a nil pointer panic.
 - Changed to using the gRPC client (rather than the embedded etcd client) to improve reliability and avoid nil pointer panics triggered by shutting down the embedded etcd client.
 - The Sensu backend no longer hangs indefinitely if a file lock for the asset manager cannot be obtained. Instead, the backend returns an error after 60 seconds.
 - Fixed a bug that caused sensu-backend to restart when agents disconnected.
@@ -427,7 +429,7 @@ See the [installation guide][16] for the latest download links.
 See our [authentication documentation][17] for details.
 - Added sensu-agent and sensuctl binary builds for FreeBSD.
 - Added sensuctl dump command to output resources to a file or STDOUT, making it easier to back up your Sensu backends.
-- Agents can now be configured with a whitelist of executables that are allowed to run as check and hook commands.
+- Agents can now be configured with a list of executables that are allowed to run as check and hook commands.
 See the [agent reference][78] for more information.
 
 **IMPROVEMENTS:**
@@ -990,7 +992,7 @@ To get started with Sensu Go:
 - [Install Sensu Go][8].
 - [Get started monitoring server resources][9].
 
-[1]: /sensu-go/latest/installation/upgrade/
+[1]: /sensu-go/latest/operations/maintain-sensu/upgrade/
 [2]: https://semver.org/spec/v2.0.0.html
 [3]: /sensu-go/5.1/installation/upgrade#upgrading-sensu-backend-binaries-to-5-1-0
 [4]: /sensu-go/5.1/reference/agent/
@@ -1082,7 +1084,7 @@ To get started with Sensu Go:
 [90]: https://sensu.io/contact/
 [91]: https://blog.sensu.io/one-year-of-sensu-go/
 [92]: /sensu-go/5.15/api/license/
-[93]: /sensu-go/5.15/sensuctl/reference/#extend-sensuctl-with-commands
+[93]: /sensu-go/5.15/sensuctl/sensuctl-bonsai#extend-sensuctl-with-commands
 [94]: /sensu-go/5.15/reference/checks/#cron-scheduling
 [95]: /sensu-go/5.15/getting-started/enterprise/
 [96]: /sensu-go/5.2/installation/auth/
@@ -1095,19 +1097,18 @@ To get started with Sensu Go:
 [103]: /sensu-go/5.16/dashboard/overview
 [104]: /sensu-go/5.16/
 [105]: /sensu-go/5.16/getting-started/enterprise/
-[106]: /sensu-go/5.17/getting-started/enterprise/
-[107]: /sensu-go/5.17/dashboard/overview
+[106]: /sensu-go/5.17/commercial/
+[107]: /sensu-go/5.17/web-ui/sign-in
 [108]: /sensu-go/5.17/api/secrets
 [109]: /sensu-go/5.17/reference/backend/#docker-initialization
 [110]: /sensu-go/5.17/api/overview/#field-selector
 [111]: /sensu-go/5.17/reference/rbac/#cluster-wide-resource-types
 [112]: /sensu-go/5.17/api/events/#events-post
 [113]: /sensu-go/5.17/sensuctl/reference/#list-commands
-[114]: /sensu-go/5.18/api/events/#events-post
-[115]: /sensu-go/5.18/getting-started/enterprise/
+[114]: /sensu-go/5.18/api/events#create-a-new-event
+[115]: /sensu-go/5.18/commercial/
 [116]: /sensu-go/5.18/api/overview/#label-selector
 [117]: /sensu-go/5.18/api/overview/#field-selector
-[118]: /sensu-go/5.18/api/events#events-post
+[118]: /sensu-go/5.18/api/events/
 [119]: /sensu-go/5.18/api/overview/#response-filtering
-[120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
-[121]: /sensu-go/5.18/getting-started/enterprise/
+[120]: /sensu-go/5.18/api/auth#authtest-get

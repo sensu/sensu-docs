@@ -20,12 +20,12 @@ _NOTE: Audit Logging requires authentication to be enabled._
 
 ### Example configuration
 
-{{< highlight shell >}}
+{{< code shell >}}
 "audit": {
   "logfile": "/var/log/sensu/sensu-enterprise-dashboard-audit.log",
   "level": "default"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Audit Logging attributes
 
@@ -35,7 +35,7 @@ description  | The location of the audit logging logfile.
 required     | false
 type         | String
 default      | `/var/log/sensu/sensu-enterprise-dashboard-audit.log`
-example      | {{< highlight shell >}}"logfile": "/var/log/sensu/sensu-enterprise-dashboard-audit.log"{{< /highlight >}}
+example      | {{< code shell >}}"logfile": "/var/log/sensu/sensu-enterprise-dashboard-audit.log"{{< /code >}}
 
 level          | 
 ---------------|------
@@ -44,4 +44,4 @@ required       | false
 type           | String
 default        | `default`
 allowed values | `default`, `verbose`, `disabled` _NOTE: `default` log level events are user login/logout, and any user "write" actions in the dashboard (i.e. silencing checks, deleting clients, deleting stashes). The `verbose` log level includes all of the `default` log level events, plus all `HTTP GET` requests (i.e. every view requested by the user, and every search query performed by the user)._
-example        | {{< highlight shell >}}"level": "verbose"{{< /highlight >}}
+example        | {{< code shell >}}"level": "verbose"{{< /code >}}

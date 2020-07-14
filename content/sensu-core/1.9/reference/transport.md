@@ -84,14 +84,14 @@ The following is an example transport definition, a JSON configuration file
 located at `/etc/sensu/conf.d/transport.json`. This example transport
 configuration indicates that Redis should be used as the Sensu transport.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "transport": {
     "name": "redis",
     "reconnect_on_error": true
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Maximum transport message size
 
@@ -99,7 +99,7 @@ Use `max_message_size` to specify the maximum transport message size (in bytes).
 
 The following is an example maximum transport message size definition:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "sensu": {
     "server": {
@@ -107,7 +107,7 @@ The following is an example maximum transport message size definition:
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Transport DNS resolution {#transport-dns}
 
@@ -134,7 +134,7 @@ required       | false
 type           | String
 allowed values | `rabbitmq`, `redis`
 default        | `rabbitmq`
-example        | {{< highlight shell >}}"name": "redis"{{< /highlight >}}
+example        | {{< code shell >}}"name": "redis"{{< /code >}}
 
 reconnect_on_error | 
 -------------------|------
@@ -142,7 +142,7 @@ description        | Attempt to reconnect after a connection error.
 required           | false
 type               | String
 default            | `true`
-example            | {{< highlight shell >}}"reconnect_on_error": "false"{{< /highlight >}}
+example            | {{< code shell >}}"reconnect_on_error": "false"{{< /code >}}
 
 [1]:  ../rabbitmq
 [2]:  http://github.com/sensu/sensu-transport

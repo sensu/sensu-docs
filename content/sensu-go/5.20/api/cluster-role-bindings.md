@@ -9,28 +9,23 @@ menu:
     parent: api
 ---
 
-- [The `/clusterrolebindings` API endpoint](#the-clusterrolebindings-api-endpoint)
-	- [`/clusterrolebindings` (GET)](#clusterrolebindings-get)
-	- [`/clusterrolebindings` (POST)](#clusterrolebindings-post)
-- [The `/clusterrolebindings/:clusterrolebinding` API endpoint](#the-clusterrolebindingsclusterrolebinding-api-endpoint)
-	- [`/clusterrolebindings/:clusterrolebinding` (GET)](#clusterrolebindingsclusterrolebinding-get)
-  - [`/clusterrolebindings/:clusterrolebinding` (PUT)](#clusterrolebindingsclusterrolebinding-put)
-	- [`/clusterrolebindings/:clusterrolebinding` (DELETE)](#clusterrolebindingsclusterrolebinding-delete)
+{{% notice note %}}
+**NOTE**: Requests to the cluster role bindings API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
 
-## The `/clusterrolebindings` API endpoint
-
-### `/clusterrolebindings` (GET)
+## Get all cluster role bindings
 
 The `/clusterrolebindings` API endpoint provides HTTP GET access to [cluster role binding][1] data.
 
-#### EXAMPLE {#clusterrolebindings-get-example}
+### Example {#clusterrolebindings-get-example}
 
 The following example demonstrates a request to the `/clusterrolebindings` API endpoint, resulting in a JSON array that contains [cluster role binding definitions][1].
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
@@ -67,9 +62,9 @@ HTTP/1.1 200 OK
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#clusterrolebindings-get-specification}
+### API Specification {#clusterrolebindings-get-specification}
 
 /clusterrolebindings (GET)  | 
 ---------------|------
@@ -79,7 +74,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}
+output         | {{< code shell >}}
 [
   {
     "subjects": [
@@ -113,20 +108,20 @@ output         | {{< highlight shell >}}
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
-### `/clusterrolebindings` (POST)
+## Create a new cluster role binding
 
 The `/clusterrolebindings` API endpoint provides HTTP POST access to create a [cluster role binding][1].
 
-#### EXAMPLE {#clusterrolebindings-post-example}
+### Example {#clusterrolebindings-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/clusterrolebindings` API endpoint to create a cluster role binding that assigns the `cluster-admin` cluster role to the user `bob`.
 The request includes the cluster role binding definition in the request body and returns a successful HTTP `200 OK` response and the created cluster role binding definition.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "subjects": [
@@ -146,15 +141,15 @@ curl -X POST \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#clusterrolebindings-post-specification}
+### API Specification {#clusterrolebindings-post-specification}
 
 /clusterrolebindings (POST) | 
 ----------------|------
 description     | Creates a Sensu cluster role binding.
 example URL     | http://hostname:8080/api/core/v2/clusterrolebindings
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "subjects": [
     {
@@ -170,23 +165,21 @@ payload         | {{< highlight shell >}}
     "name": "bob-binder"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/clusterrolebindings/:clusterrolebinding` API endpoint {#the-clusterrolebindingsclusterrolebinding-api-endpoint}
-
-### `/clusterrolebindings/:clusterrolebinding` (GET) {#clusterrolebindingsclusterrolebinding-get}
+## Get a specific cluster role binding {#clusterrolebindingsclusterrolebinding-get}
 
 The `/clusterrolebindings/:clusterrolebinding` API endpoint provides HTTP GET access to [cluster role binding data][1] for specific `:clusterrolebinding` definitions, by cluster role binding `name`.
 
-#### EXAMPLE {#clusterrolebindingsclusterrolebinding-get-example}
+### Example {#clusterrolebindingsclusterrolebinding-get-example}
 
 In the following example, querying the `/clusterrolebindings/:clusterrolebinding` API endpoint returns a JSON map that contains the requested [`:clusterrolebinding` definition][1] (in this example, for the `:clusterrolebinding` named `bob-binder`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings/bob-binder \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
@@ -205,9 +198,9 @@ HTTP/1.1 200 OK
     "created_by": "admin"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#clusterrolebindingsclusterrolebinding-get-specification}
+### API Specification {#clusterrolebindingsclusterrolebinding-get-specification}
 
 /clusterrolebindings/:clusterrolebinding (GET) | 
 ---------------------|------
@@ -215,7 +208,7 @@ description          | Returns the specified cluster role binding.
 example url          | http://hostname:8080/api/core/v2/clusterrolebindings/bob-binder
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< code json >}}
 {
   "subjects": [
     {
@@ -232,20 +225,20 @@ output               | {{< highlight json >}}
     "created_by": "admin"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
-### `/clusterrolebindings/:clusterrolebinding` (PUT) {#clusterrolebindingsclusterrolebinding-put}
+## Create or update a cluster role binding {#clusterrolebindingsclusterrolebinding-put}
 
 The `/clusterrolebindings/:clusterrolebinding` API endpoint provides HTTP PUT access to create or update a [cluster role binding][1], by cluster role binding `name`.
 
-#### EXAMPLE {#clusterrolebindingsclusterrolebinding-put-example}
+### Example {#clusterrolebindingsclusterrolebinding-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/clusterrolebindings/:clusterrolebinding` API endpoint to create a cluster role binding that assigns the `cluster-admin` cluster role to users in the group `ops`.
 The request includes the cluster role binding definition in the request body and returns a successful HTTP `200 OK` response and the created cluster role binding definition.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "subjects": [
@@ -265,15 +258,15 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings/ops-group-binder
 
 HTTP/1.1 201 Created
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#clusterrolebindingsclusterrolebinding-put-specification}
+### API Specification {#clusterrolebindingsclusterrolebinding-put-specification}
 
 /clusterrolebindings/:clusterrolebinding (PUT) | 
 ----------------|------
 description     | Creates or updates the specified Sensu cluster role binding.
 example URL     | http://hostname:8080/api/core/v2/clusterrolebindings/ops-group-binder
-payload         | {{< highlight shell >}}
+payload         | {{< code shell >}}
 {
   "subjects": [
     {
@@ -289,26 +282,26 @@ payload         | {{< highlight shell >}}
     "name": "ops-group-binder"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/clusterrolebindings/:clusterrolebinding` (DELETE) {#clusterrolebindingsclusterrolebinding-delete}
+## Delete a cluster role binding {#clusterrolebindingsclusterrolebinding-delete}
 
 The `/clusterrolebindings/:clusterrolebinding` API endpoint provides HTTP DELETE access to delete a cluster role binding from Sensu (specified by the cluster role binding name).
 
-#### EXAMPLE {#clusterrolebindingsclusterrolebinding-delete-example}
+### Example {#clusterrolebindingsclusterrolebinding-delete-example}
 
 The following example shows a request to the `/clusterrolebindings/:clusterrolebinding` API endpoint to delete the cluster role binding `ops-binding`, resulting in a successful HTTP `204 No Content` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings/ops-binding
 
 HTTP/1.1 204 No Content
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#clusterrolebindingsclusterrolebinding-delete-specification}
+### API Specification {#clusterrolebindingsclusterrolebinding-delete-specification}
 
 /clusterrolebindings/:clusterrolebinding (DELETE) | 
 --------------------------|------

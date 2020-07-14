@@ -98,7 +98,7 @@ own custom plugins for Sensu.
 The following example demonstrates how to write a very basic Sensu Plugin in the
 Ruby programming language.
 
-{{< highlight ruby >}}
+{{< code ruby >}}
 #!/usr/bin/env ruby
 #
 # A simple example handler plugin.
@@ -113,7 +113,7 @@ output = "The check named #{event[:check][:name]} generated the following output
 
 # Convert the mutated event data back to JSON and output it to STDOUT.
 puts output
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: this example doesn't provide much in terms of functionality (it would
 simply be logged to the [Sensu server][23] log file), but it does provide a
@@ -169,7 +169,7 @@ around the Ruby `gem` utility). The Sensu Install tool (`sensu-install`)
 simplifies installation of Ruby-based plugins. The `sensu-install` tool can be
 run with one or more arguments that determine the action(s) to take.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ sensu-install -h
 Usage: sensu-install [options]
     -h, --help                       Display this message
@@ -181,7 +181,7 @@ Usage: sensu-install [options]
     -s, --source SOURCE              Install Sensu plugins and extensions from a custom SOURCE
     -c, --clean                      Clean up (remove) other installed versions of the plugin(s) and/or extension(s)
     -x, --proxy PROXY                Install Sensu plugins and extensions via a PROXY URL
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: `sensu-install` is only available in Sensu Core >= `0.21.0`._
 
@@ -190,7 +190,7 @@ _NOTE: `sensu-install` is only available in Sensu Core >= `0.21.0`._
 The following instructions will install the [Sensu HTTP plugin][22], using the
 `sensu-install` utility:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ sudo sensu-install -p nginx
 [SENSU-INSTALL] installing Sensu plugins ...
 [SENSU-INSTALL] determining if Sensu plugin gem 'sensu-plugins-nginx' is already installed ...
@@ -202,12 +202,12 @@ You can use the embedded Ruby by setting EMBEDDED_RUBY=true in /etc/default/sens
 Successfully installed sensu-plugins-nginx-1.0.0
 1 gem installed
 [SENSU-INSTALL] successfully installed Sensu plugins: ["nginx"]
-{{< /highlight >}}
+{{< /code >}}
 
 To install a specific version of a plugin, simply provide a version number after
 the plugin name (separated by a colon); for example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ sudo sensu-install -p nginx:0.0.6
 [SENSU-INSTALL] installing Sensu plugins ...
 [SENSU-INSTALL] determining if Sensu plugin gem 'sensu-plugins-nginx:0.0.6' is already installed ...
@@ -223,7 +223,7 @@ You can use the embedded Ruby by setting EMBEDDED_RUBY=true in /etc/default/sens
 Successfully installed sensu-plugins-nginx-0.0.6
 3 gems installed
 [SENSU-INSTALL] successfully installed Sensu plugins: ["nginx:0.0.6"]
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: as shown in the examples above, the `sensu-install` utility will show the
 output of any gems (including gem dependencies) installed using
@@ -260,7 +260,7 @@ provide built-in support for reducing alert fatigue via the
 `Sensu::Plugin::Handler` class (i.e. only handling events on the first
 occurrence, and again every N occurrences, where N = `refresh`).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "checks": {
     "api_health": {
@@ -271,7 +271,7 @@ occurrence, and again every N occurrences, where N = `refresh`).
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Sensu plugin definition specification
 
@@ -289,7 +289,7 @@ specification][29], and not a definition of a distinct Sensu primitive)._
 | required    | false                                                                                     |
 | type        | Integer                                                                                   |
 | default     | `1`                                                                                       |
-| example     | {{< highlight shell >}}"occurrences": 3{{< /highlight >}}                                 |
+| example     | {{< code shell >}}"occurrences": 3{{< /code >}}                                 |
 
 | refresh     |                                                                                                                                                                                                                                                                                                               |
 |:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -297,25 +297,25 @@ specification][29], and not a definition of a distinct Sensu primitive)._
 | required    | false                                                                                                                                                                                                                                                                                                         |
 | type        | Integer                                                                                                                                                                                                                                                                                                       |
 | default     | `1800`                                                                                                                                                                                                                                                                                                        |
-| example     | {{< highlight shell >}}"refresh": 3600{{< /highlight >}}                                                                                                                                                                                                                                                      |
+| example     | {{< code shell >}}"refresh": 3600{{< /code >}}                                                                                                                                                                                                                                                      |
 
 | dependencies |                                                                                                                                                                                                                                                                             |
 |:-------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | description  | An array of check dependencies. Events for the check will not be handled if events exist for one or more of the check dependencies. A check dependency can be a check executed by the same Sensu client (eg. `check_app`), or a client/check pair (eg.`db-01/check_mysql`). |
 | required     | false                                                                                                                                                                                                                                                                       |
 | type         | Array                                                                                                                                                                                                                                                                       |
-| example      | {{< highlight shell >}}"dependencies": [                                                                                                                                                                                                                                    |
+| example      | {{< code shell >}}"dependencies": [                                                                                                                                                                                                                                    |
   "check_app",
   "db-01/check_mysql"
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 | notification |                                                                                                                                                                                                         |
 |:-------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | description  | The notification message used for events created by the check, instead of the commonly used check output. This attribute is used by most notification event handlers that use the sensu-plugin library. |
 | required     | false                                                                                                                                                                                                   |
 | type         | String                                                                                                                                                                                                  |
-| example      | {{< highlight shell >}}"notification": "the shopping cart application is not responding to requests"{{< /highlight >}}                                                                                  |
+| example      | {{< code shell >}}"notification": "the shopping cart application is not responding to requests"{{< /code >}}                                                                                  |
 
 [1]:  ../../../sensu-core/latest/reference/checks
 [2]:  ../../../sensu-core/latest/reference/handlers

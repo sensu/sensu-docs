@@ -3,6 +3,7 @@ title: "Interactive Tutorial: Up and Running with Sensu Go"
 linkTitle: "Up and Running with Sensu Go"
 description: "Get up and running with Sensu Go in your browser with an interactive tutorial. Learn the basics of Sensu Go and send email alerts."
 version: "5.20"
+toc: false
 product: "Sensu Go"
 layout: "katacoda-wide"
 ---
@@ -21,11 +22,9 @@ s.parentNode.insertBefore(b, s);})();
 <div id="katacoda-scenario-1"
     data-katacoda-id="sensu/up-and-running"
     data-katacoda-color="2c3458"
-    data-katacoda-ctaurl="https://docs.sensu.io/sensu-go/latest/getting-started/sandbox/"
+    data-katacoda-ctaurl="https://docs.sensu.io/sensu-go/latest/learn/sandbox/"
     data-katacoda-ctatext="Learn more in the Sensu Sandbox"
     style="height: 800px; padding-top: 10px;" 
 ></div>
 <br><br>
-[**<-- Back to Learn Sensu Go with interactive training**][1]
-
-[1]: ../learn-sensu-go/
+<a href="https://docs.sensu.io/sensu-go/5.20/learn/interactive-tutorials/"><-- Back to Learn Sensu with interactive training</a>

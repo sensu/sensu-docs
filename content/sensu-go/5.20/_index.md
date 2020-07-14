@@ -8,7 +8,7 @@ product: "Sensu Go"
 layout: "single"
 ---
 
-<iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-go&type=star&count=true" frameborder="0" scrolling="0" width="87px" height="20px"></iframe> | [Learn about licensing][18]
+<iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-go&type=star&count=true" frameborder="0" scrolling="0" width="87px" height="20px"></iframe> | <a href="https://docs.sensu.io/sensu-go/latest/commercial/">Learn about licensing</a>
 
 Sensu is the industry-leading solution for multi-cloud monitoring at scale.
 The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflows and gain deep visibility into their multi-cloud environments.
@@ -59,9 +59,9 @@ Know what's going on everywhere in your system.
 Sensu supports industry-standard [metric formats][10] like Nagios performance data, Graphite plaintext protocol, InfluxDB line protocol, OpenTSDB data specification, and [StatsD metrics][14].
 Use the Sensu agent to collect metrics alongside check results, then use the event pipeline to route the data to a time series database like [InfluxDB][2].
 
-### Intuitive API and dashboard interfaces
+### Intuitive API and web UI interfaces
 
-Sensu includes a [dashboard][15] to provide a unified view of your entities, checks, and events, as well as a user-friendly silencing tool.
+Sensu includes a [web UI][15] to provide a unified view of your entities, checks, and events, as well as a user-friendly silencing tool.
 The [Sensu API][13] and the [`sensuctl` command-line tool][16] allow you (and your internal customers) to create checks, register entities, manage configuration, and more.
 
 ### Open core software backed by Sensu Inc.
@@ -69,12 +69,12 @@ The [Sensu API][13] and the [`sensuctl` command-line tool][16] allow you (and yo
 Sensu Go's core is open source software, freely available under a permissive [MIT License][4] and publicly available on [GitHub][5].
 Learn about [support packages](https://sensu.io/support) and [commercial features designed for monitoring at scale][18].
 
-[1]: getting-started/get-started/
+[1]: get-started/
 [2]: https://www.influxdata.com/
 [3]: https://docs.sensu.io/plugins/latest/reference/
 [4]: https://www.github.com/sensu/sensu-go/blob/master/LICENSE/
 [5]: https://www.github.com/sensu/sensu-go/
-[6]: installation/install-sensu#install-sensu-agents
+[6]: operations/deploy-sensu/install-sensu#install-sensu-agents
 [7]: guides/monitor-external-resources/
 [8]: reference/filters/
 [9]: reference/hooks/
@@ -83,10 +83,10 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 [12]: guides/influx-db-metric-handler/
 [13]: api/overview/
 [14]: guides/aggregate-metrics-statsd/
-[15]: dashboard/overview/
-[16]: sensuctl/reference/
+[15]: web-ui/sign-in/
+[16]: sensuctl/set-up-manage/
 [17]: reference/handlers/
-[18]: getting-started/enterprise/
+[18]: commercial/
 [19]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler/
 [20]: https://bonsai.sensu.io/
 [21]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler/

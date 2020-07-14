@@ -35,7 +35,7 @@ Multiple enterprise filters can be applied to standard Sensu event handlers. The
 following example event handler uses the `handle_when` and `silence_stashes`
 event filters.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "custom_mailer": {
@@ -48,6 +48,6 @@ event filters.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 [0]:  /sensu-enterprise

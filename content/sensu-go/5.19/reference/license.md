@@ -1,19 +1,13 @@
 ---
-title: "License management"
-linkTitle: "License Management"
-description: "Sensu Go includes commercial features designed for monitoring at scale. Activate and manage your commercial license with sensuctl and your Sensu account. Read the reference documentation to learn more."
-weight: 190
+title: "License"
+description: "Sensu Go includes commercial features designed for monitoring at scale. Activate and manage your commercial license with sensuctl and your Sensu account. Read this document to learn more."
+weight: 125
 version: "5.19"
 product: "Sensu Go"
 menu:
   sensu-go-5.19:
     parent: reference
 ---
-
-- [Activate your commercial license](#activate-your-commercial-license)
-- [Entity limit](#entity-limit)
-- [License expiration](#license-expiration)
-- [Quick links](#quick-links)
 
 ## Activate your commercial license
 
@@ -27,13 +21,13 @@ With the license file downloaded, you can activate your license with sensuctl or
 
 To activate your license with sensuctl:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file sensu_license.json
-{{< /highlight >}}
+{{< /code >}}
 
 Use sensuctl to view your license details at any time.
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Active license
 sensuctl license info
 === Training Team - Sensu
@@ -51,7 +45,7 @@ Valid Until:  2019-03-15 00:00:00 -0800 -0800
 # No license found
 sensuctl license info
 Error: not found
-{{< /highlight >}}
+{{< /code >}}
 
 ## Entity limit
 
@@ -62,18 +56,18 @@ Both agent and proxy entities count toward the overall entity limit.
 
 To see your current entity count, use any `/api/core` or `/api/enterprise` [API request][9]. For example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
-{{< /highlight >}}
+{{< /code >}}
 
 Your current entity count and limit are listed as response headers:
 
-{{< highlight shell >}}
+{{< code shell >}}
 HTTP/1.1 200 OK
 Content-Type: application/json
 Sensu-Entity-Count: 4
 Sensu-Entity-Limit: 0
-{{< /highlight >}}
+{{< /code >}}
 
 ## License expiration
 
@@ -92,15 +86,16 @@ If your license expires, you will still have access to [commercial features][5],
 - [Contact Sensu support][8]
 - [Contact Sensu sales][7]
 
+
 [1]: https://account.sensu.io/
-[2]: ../../installation/install-sensu/
-[3]: ../../sensuctl/reference/#first-time-setup
-[4]: ../../api/license/
-[5]: ../../getting-started/enterprise/
-[6]: ../../guides/troubleshooting/
+[2]: ../../deploy-sensu/install-sensu/
+[3]: ../../../sensuctl/set-up-manage/#first-time-setup
+[4]: ../../../api/license/
+[5]: ../../../commercial/
+[6]: ../troubleshoot/
 [7]: https://sensu.io/contact?subject=contact-sales
 [8]: https://account.sensu.io/support
-[9]: ../../../latest/api/
-[10]: ../../installation/auth/
+[9]: ../../../api/
+[10]: ../../control-access/auth/
 [11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4
-[12]: ../../guides/install-check-executables-with-assets/
+[12]: ../../../guides/install-check-executables-with-assets/

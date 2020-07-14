@@ -40,7 +40,7 @@ compatible with any standards-compliant LDAP provider.
 
 ### Example RBAC for LDAP definition
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "dashboard": {
     "host": "0.0.0.0",
@@ -87,7 +87,7 @@ compatible with any standards-compliant LDAP provider.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: You'll notice in the example there are no attributes defined in dashboard.users. When using this provider, there will not be an option to have local users as a fallback option._
 
@@ -101,14 +101,14 @@ description  | Determines whether or not to output debug information about the L
 required     | false
 type         | Boolean
 default      | false
-example      | {{< highlight shell >}}"debug": true{{< /highlight >}}
+example      | {{< code shell >}}"debug": true{{< /code >}}
 
 servers      | |
 -------------|------
 description  | An array of [LDAP servers][6] that each represent a LDAP directory or a Microsoft Active Directory domain controller. _NOTE: each LDAP server will be tried in sequence until one of them authenticates the username and password provided or the end of the array._
 required     | true
 type         | Array
-example      | {{< highlight shell >}}"servers": [
+example      | {{< code shell >}}"servers": [
   {
     "server": "localhost",
     "port": 389,
@@ -120,14 +120,14 @@ example      | {{< highlight shell >}}"servers": [
     "userattribute": "sAMAccountName"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 roles        | |
 -------------|------
 description  | An array of [Role definitions][3] for LDAP groups.
 required     | true
 type         | Array
-example      | {{< highlight shell >}}"roles": [
+example      | {{< code shell >}}"roles": [
   {
     "name": "guests",
     "members": [
@@ -151,7 +151,7 @@ example      | {{< highlight shell >}}"roles": [
     "readonly": false
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### `servers` attributes
 
@@ -160,14 +160,14 @@ server       | |
 description  | **IP address** or **FQDN** of the LDAP directory or the Microsoft Active Directory domain controller.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"server": "localhost"{{< /highlight >}}
+example      | {{< code shell >}}"server": "localhost"{{< /code >}}
 
 port         | |
 -------------|------
 description  | Port of the LDAP/AD service (usually `389` or `636`)
 required     | true
 type         | Integer
-example      | {{< highlight shell >}}"port": 389{{< /highlight >}}
+example      | {{< code shell >}}"port": 389{{< /code >}}
 
 dialect        | |
 ---------------|------
@@ -175,42 +175,42 @@ description    | Which LDAP dialect to use (Microsoft Active Directory, or OpenL
 required       | false
 type           | String
 allowed values | `ad`, `openldap`
-example        | {{< highlight shell >}}"dialect": "ad"{{< /highlight >}}
+example        | {{< code shell >}}"dialect": "ad"{{< /code >}}
 
 basedn       | |
 -------------|------
 description  | Tells which part of the directory tree to search. For example, `cn=users,dc=domain,dc=tld` will search into all `users` of the `domain.tld` directory.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"basedn": "cn=users,dc=domain,dc=tld"{{< /highlight >}}
+example      | {{< code shell >}}"basedn": "cn=users,dc=domain,dc=tld"{{< /code >}}
 
 groupbasedn  | |
 -------------|------
 description  | Overrides the `basedn` attribute for the group lookups.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"groupbasedn": "cn=groups,dc=domain,dc=tld"{{< /highlight >}}
+example      | {{< code shell >}}"groupbasedn": "cn=groups,dc=domain,dc=tld"{{< /code >}}
 
 userbasedn   | |
 -------------|------
 description  | Overrides the `basedn` attribute for the user lookups.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"userbasedn": "cn=admins,dc=domain,dc=tld"{{< /highlight >}}
+example      | {{< code shell >}}"userbasedn": "cn=admins,dc=domain,dc=tld"{{< /code >}}
 
 binduser     | |
 -------------|------
 description  | The LDAP account that performs user lookups. We recommend to use a read-only account. Use the distinguished name (DN) format, such as `cn=binder,cn=users,dc=domain,dc=tld`. _NOTE: using a binder account is not required with Active Directory, although it is highly recommended._
 required     | true
 type         | String
-example      | {{< highlight shell >}}"binduser": "cn=binder,cn=users,dc=domain,dc=tld"{{< /highlight >}}
+example      | {{< code shell >}}"binduser": "cn=binder,cn=users,dc=domain,dc=tld"{{< /code >}}
 
 bindpass     | |
 -------------|------
 description  | The password for the binduser.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"bindpass": "secret"{{< /highlight >}}
+example      | {{< code shell >}}"bindpass": "secret"{{< /code >}}
 
 insecure     | |
 -------------|------
@@ -218,7 +218,7 @@ description  | Determines whether or not to skip SSL certificate verification (e
 required     | false
 type         | Boolean
 default      | false
-example      | {{< highlight shell >}}"insecure": true{{< /highlight >}}
+example      | {{< code shell >}}"insecure": true{{< /code >}}
 
 security       | |
 ---------------|------
@@ -226,7 +226,7 @@ description    | Determines the encryption type to be used for the connection to
 required       | true
 type           | String
 allowed values | `none`, `starttls`, or `tls`
-example        | {{< highlight shell >}}"security": "none"{{< /highlight >}}
+example        | {{< code shell >}}"security": "none"{{< /code >}}
 
 userattribute | |
 --------------|------
@@ -234,7 +234,7 @@ description   | The LDAP attribute used to identify an account. You should typic
 required      | false
 type          | String
 default       | `sAMAccountName`
-example       | {{< highlight shell >}}"userattribute": "uid"{{< /highlight >}}
+example       | {{< code shell >}}"userattribute": "uid"{{< /code >}}
 
 groupmemberattribute | |
 ---------------------|------
@@ -242,7 +242,7 @@ description          | The LDAP attribute used to identify the group memberships
 required             | false
 type                 | String
 default              | `member`
-example              | {{< highlight shell >}}"groupmemberattribute": "uniqueMember"{{< /highlight >}}
+example              | {{< code shell >}}"groupmemberattribute": "uniqueMember"{{< /code >}}
 
 userobjectclass | |
 ----------------|------
@@ -250,7 +250,7 @@ description     | The LDAP object class used for the user accounts.
 required        | false
 type            | String
 default         | `person`
-example         | {{< highlight shell >}}"userobjectclass": "inetOrgPerson"{{< /highlight >}}
+example         | {{< code shell >}}"userobjectclass": "inetOrgPerson"{{< /code >}}
 
 groupobjectclass | |
 -----------------|------
@@ -258,7 +258,7 @@ description      | The LDAP object class used for the groups.
 required         | false
 type             | String
 default          | `groupOfNames`
-example          | {{< highlight shell >}}"groupobjectclass": "posixGroup"{{< /highlight >}}
+example          | {{< code shell >}}"groupobjectclass": "posixGroup"{{< /code >}}
 
 #### `roles` attributes
 

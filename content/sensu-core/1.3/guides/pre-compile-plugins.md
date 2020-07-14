@@ -31,34 +31,34 @@ _NOTE: Compiled gems are tied to CPU architecture for which they are compiled on
 
 First we'll add the Sensu yum repository definition and install Sensu.
 
-{{< highlight shell >}}
+{{< code shell >}}
 printf '[sensu]
 name=sensu
 baseurl=https://eol-repositories.sensuapp.org/yum/$releasever/$basearch/
 gpgcheck=0
-enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo && sudo yum install -y sensu{{< /highlight >}}
+enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo && sudo yum install -y sensu{{< /code >}}
 
 Then install EPEL, dev tools, and libs required for the next steps.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo yum install -y epel-release
 sudo yum groupinstall -y "Development Tools"
 # installing dependencies for nokogiri
-sudo yum install -y libxml2 libxslt libxslt-devel libxml2-devel gcc ruby-devel zlib-devel{{< /highlight >}}
+sudo yum install -y libxml2 libxslt libxslt-devel libxml2-devel gcc ruby-devel zlib-devel{{< /code >}}
 
 ## Installing a gem to a tmp directory
 
 Install the gem-compiler package:
 
-{{< highlight shell >}}
-sudo /opt/sensu/embedded/bin/gem install gem-compiler{{< /highlight >}}
+{{< code shell >}}
+sudo /opt/sensu/embedded/bin/gem install gem-compiler{{< /code >}}
 
 We'll now install the source gems into a cache directory.
 
-{{< highlight shell >}}
+{{< code shell >}}
 mkdir /tmp/gems
 sudo /opt/sensu/embedded/bin/gem install --no-ri --no-rdoc --install-dir /tmp/gems sensu-plugins-aws --version '=12.3.0'
-sudo /opt/sensu/embedded/bin/gem install --no-ri --no-rdoc --install-dir /tmp/gems mini_portile2 --version '=2.3.0'{{< /highlight >}}
+sudo /opt/sensu/embedded/bin/gem install --no-ri --no-rdoc --install-dir /tmp/gems mini_portile2 --version '=2.3.0'{{< /code >}}
 
 Observing the `gem install` output, we can see that nokogiri and unf_ext both build native extensions.
 These are the gems we will compile so we can install them from our own repository.
@@ -67,10 +67,10 @@ These are the gems we will compile so we can install them from our own repositor
 
 We'll use `gem-compiler` to rebuild the gem packages with the included native extensions:
 
-{{< highlight shell >}}
+{{< code shell >}}
 cd /tmp/gems/cache
 sudo /opt/sensu/embedded/bin/gem compile unf_ext-0.0.7.5.gem
-sudo /opt/sensu/embedded/bin/gem compile nokogiri-1.8.5.gem --prune -- --use-system-libraries{{< /highlight >}}
+sudo /opt/sensu/embedded/bin/gem compile nokogiri-1.8.5.gem --prune -- --use-system-libraries{{< /code >}}
 
 _NOTE: `nokogiri` requires --prune flag per gem-compiler readme notes_
 _NOTE: For `nokogiri` we also use `-- --use-system-libraries` so `gem compile` uses the system gcc and lib's installed earlier_
@@ -78,10 +78,10 @@ _NOTE: For `nokogiri` we also use `-- --use-system-libraries` so `gem compile` u
 
 The resulting compiled gem files have a x86_64-linux in their file name denoting their system architecture:
 
-{{< highlight shell >}}
+{{< code shell >}}
 # ls  -1 *-x86_64-linux.gem
 nokogiri-1.8.5-x86_64-linux.gem
-unf_ext-0.0.7.5-x86_64-linux.gem{{< /highlight >}}
+unf_ext-0.0.7.5-x86_64-linux.gem{{< /code >}}
 
 ## Install Pre-Compiled Gems on Targeted System and Testing
 
@@ -94,14 +94,14 @@ Here we've copied the compiled gems to a system with Sensu installed, but no gcc
 
  _NOTE: nokogiri needs libxml2 and libxslt to be present on your system._
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo /opt/sensu/embedded/bin/gem install unf_ext-0.0.7.5-x86_64-linux.gem
-sudo /opt/sensu/embedded/bin/gem install nokogiri-1.8.5-x86_64-linux.gem{{< /highlight >}}
+sudo /opt/sensu/embedded/bin/gem install nokogiri-1.8.5-x86_64-linux.gem{{< /code >}}
 
 ### Install pre-complied Sensu plugins
 With these prerequisites in place we can install sensu-plugins-aws without a compiler. You can use `sensu-install` or `gem` commands:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo /opt/sensu/embedded/bin/gem -p aws
 [SENSU-INSTALL] installing Sensu plugins ...
 [SENSU-INSTALL] determining if Sensu gem 'sensu-plugins-aws' is already installed ...
@@ -124,17 +124,17 @@ Fetching: sensu-plugins-aws-10.0.3.gem (100%)
 You can use the embedded Ruby by setting EMBEDDED_RUBY=true in /etc/default/sensu
 Successfully installed sensu-plugins-aws-10.0.3
 7 gems installed
-[SENSU-INSTALL] successfully installed Sensu plugins: ["sensu-plugins-aws"]{{< /highlight >}}
+[SENSU-INSTALL] successfully installed Sensu plugins: ["sensu-plugins-aws"]{{< /code >}}
 
 To test our pre-compiled gems we can use `check-elb-health-fog.rb` as it should exercise the nokogiri dependency:
 _NOTE: This is to demonstrate that there are no errors while executing the plugin._
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo export AWS_ACCESS_KEY=fatchance
 sudo export AWS_SECRET_KEY=noway
 sudo /opt/sensu/embedded/bin/check-elb-health-fog.rb -n foo -r us-east-1
 ELBHealth WARNING: An issue occurred while communicating with the AWS EC2 API:
-There is no ACTIVE Load Balancer named 'foo'{{< /highlight >}}
+There is no ACTIVE Load Balancer named 'foo'{{< /code >}}
 
 ## Recap
 

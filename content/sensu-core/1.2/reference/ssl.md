@@ -48,35 +48,35 @@ SSL documentation][2] for a detailed guide on configuring RabbitMQ with SSL.
    Install OpenSSL on your platform:
    {{< platformBlock "Ubuntu/Debian" >}}<h5 id="ubuntu-debian"> Ubuntu/Debian </h5>
    {{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "1.0" "reference/SSL" "generate-self-signed-openssl-certificates-and-ca">}}<br>
-{{< highlight shell >}}
+{{< code shell >}}
 sudo apt-get update
 sudo apt-get install openssl
-openssl version{{< /highlight >}}{{< platformBlockClose >}}
+openssl version{{< /code >}}{{< platformBlockClose >}}
    {{< platformBlock "RHEL/CentOS" >}}
    <h5 id="rhel-centos"> RHEL/CentOS </h5>
    {{< platformDropdown "RHEL/CentOS" "Sensu-Core" "1.0" "reference/SSL" "generate-self-signed-openssl-certificates-and-ca">}}<br>
-{{< highlight shell >}}
+{{< code shell >}}
 sudo yum install openssl
-openssl version{{< /highlight >}}{{< platformBlockClose >}}
+openssl version{{< /code >}}{{< platformBlockClose >}}
 
 2. Download the Sensu SSL tool
-{{< highlight shell >}}
+{{< code shell >}}
 wget http://docs.sensu.io/sensu-core/1.2/files/sensu_ssl_tool.tar
 tar -xvf sensu_ssl_tool.tar
-{{< /highlight >}}
+{{< /code >}}
 
 3. Generate an OpenSSL certificate authority and self-signed certificates using
    the Sensu SSL tool:
-{{< highlight shell >}}
+{{< code shell >}}
 cd sensu_ssl_tool
 ./ssl_certs.sh generate
 ls -l
-{{< /highlight >}}
+{{< /code >}}
    _NOTE: the generated certificates will be valid for 5 years._
    The Sensu SSL tool will generate a certificate authority, SSL certificates
    for the RabbitMQ server, and a shared SSL certificate for all of the Sensu
    services.
-{{< highlight shell >}}
+{{< code shell >}}
 ├── client
 │   ├── cert.pem
 │   ├── keycert.p12
@@ -103,15 +103,15 @@ ls -l
 │   ├── key.pem
 │   └── req.pem
 └── ssl_certs.sh
-{{< /highlight >}}
+{{< /code >}}
 
 ### Enable RabbitMQ SSL support
 
 1. Stop RabbitMQ
    _NOTE: The `service` command will not work on CentOS 5, the
    sysvinit script must be used, e.g. `sudo /etc/init.d/rabbitmq-server stop`_
-{{< highlight shell >}}
-sudo service rabbitmq-server stop{{< /highlight >}}
+{{< code shell >}}
+sudo service rabbitmq-server stop{{< /code >}}
 
 2. Please refer to the [official RabbitMQ documentation for enabling SSL
    support][3] for instructions on installing the certificate authority and SSL
@@ -125,7 +125,7 @@ sudo service rabbitmq-server stop{{< /highlight >}}
    directory._
    When complete, your `/etc/rabbitmq/rabbitmq.config` file should contain the
    following configuration block:
-{{< highlight shell >}}
+{{< code shell >}}
 [
  {rabbit, [
     {ssl_listeners, [5671]},
@@ -138,16 +138,16 @@ sudo service rabbitmq-server stop{{< /highlight >}}
                    {fail_if_no_peer_cert,true}]}
   ]}
 ].
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: If using multiple CAs, it may be necessary to include the `{depth, 2},` parameter under `ssl_options`. For more information about this attribute, see the [RabbitMQ SSL Reference documentation][rmq-ssl-depth]._
 
 3. Start RabbitMQ
    _NOTE: The `service` command will not work on CentOS 5, the
    sysvinit script must be used, e.g. `sudo /etc/init.d/rabbitmq-server start`_
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service rabbitmq-server start
-{{< /highlight >}}
+{{< /code >}}
 
 ### Configure Sensu
 
@@ -161,7 +161,7 @@ sudo service rabbitmq-server start
    example][9], a JSON configuration file located at
    `/etc/sensu/conf.d/rabbitmq.json`. Please see the [`ssl` attributes][7]
    section of the RabbitMQ reference documentation for more information.
-{{< highlight json >}}
+{{< code json >}}
 {
   "rabbitmq": {
     "host": "127.0.0.1",
@@ -176,7 +176,7 @@ sudo service rabbitmq-server start
       "private_key_file": "/etc/sensu/ssl/key.pem"
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
    _WARNING: please note that by default, RabbitMQ will listen for SSL
    connections on port `5671` instead of `5672`, so if you are upgrading an
    existing configuration, please ensure that all Sensu services are attempting

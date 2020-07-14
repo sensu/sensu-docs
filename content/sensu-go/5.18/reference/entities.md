@@ -10,13 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Usage limits](#usage-limits)
-- [Proxy entities](#proxy-entities)
-- [Manage entity labels](#manage-entity-labels): [Proxy entity labels](#proxy-entities-managed) | [Agent entity labels](#agent-entities-managed)
-- [Entities specification](#entities-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [System attributes](#system-attributes) | [Network attributes](#network-attributes) | [NetworkInterface attributes](#networkinterface-attributes) | [Deregistration attributes](#deregistration-attributes)
-- [Examples](#examples)
-
 An entity represents anything that needs to be monitored, such as a server, container, or network switch, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment (from server hardware to serverless functions).
 We call these monitored parts of an infrastructure "entities."
 
@@ -64,8 +57,8 @@ Use [proxy entity filters][19] to establish a many-to-many relationship between 
 
 ## Manage entity labels
 
-Labels are custom attributes that Sensu includes with event data that you can use for response and dashboard view filtering.
-In contrast to annotations, you can use labels to filter [API responses][14], [sensuctl responses][15], and [dashboard views][23].
+Labels are custom attributes that Sensu includes with event data that you can use for response and web UI view filtering.
+In contrast to annotations, you can use labels to filter [API responses][14], [sensuctl responses][15], and [web UI views][23].
 
 Limit labels to metadata you need to use for response filtering.
 For complex, non-identifying metadata that you will *not* need to use in response filtering, use [annotations][20] rather than labels.
@@ -77,10 +70,9 @@ For example, to create a proxy entity with a `url` label using sensuctl `create`
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Entity
 api_version: core/v2
-sensu_agent_version: 1.0.0
 metadata:
   labels:
     url: docs.sensu.io
@@ -96,13 +88,13 @@ spec:
   system:
     network:
       interfaces: null
-{{< /highlight >}}
+  sensu_agent_version: 1.0.0
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Entity",
   "api_version": "core/v2",
-  "sensu_agent_version": "1.0.0",
   "metadata": {
     "name": "sensu-docs",
     "namespace": "default",
@@ -122,39 +114,34 @@ spec:
       "network": {
         "interfaces": null
       }
-    }
+    },
+    "sensu_agent_version": "1.0.0"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
-{{% notice note %}}
-**NOTE**: The proxy entity definition must include the same subscriptions as the sensu-agent to work with round robin scheduling **and** [proxy requests attributes](../checks#proxy-requests-attributes).
-If more than one sensu-agent will execute a proxy check and you did not configure the proxy entity with the same subscriptions as the sensu-agent, the sensu-backend will log an error and the proxy check will not be scheduled for agents to run.
-{{% /notice %}}
-
 Then run `sensuctl create` to create the entity based on the definition:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file entity.json
-{{< /highlight >}}
+{{< /code >}}
 
 To add a label to an existing entity, use sensuctl `edit`.
 For example, run `sensuctl edit` to add a `url` label to a `sensu-docs` entity:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl edit entity sensu-docs
-{{< /highlight >}}
+{{< /code >}}
 
 And update the `metadata` scope to include `labels`:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Entity
 api_version: core/v2
-sensu_agent_version: 1.0.0
 metadata:
   labels:
     url: docs.sensu.io
@@ -162,13 +149,12 @@ metadata:
   namespace: default
 spec:
   '...': '...'
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Entity",
   "api_version": "core/v2",
-  "sensu_agent_version": "1.0.0",
   "metadata": {
     "name": "sensu-docs",
     "namespace": "default",
@@ -180,7 +166,7 @@ spec:
     "...": "..."
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -198,16 +184,16 @@ See [proxy entities][16] for details about creating a proxy check for a proxy en
 For entities with class `agent`, you can define entity attributes in the `/etc/sensu/agent.yml` configuration file.
 For example, to add a `url` label, open `/etc/sensu/agent.yml` and add configuration for `labels`:
 
-{{< highlight yml >}}
+{{< code yml >}}
 labels:
   url: sensu.docs.io
-{{< /highlight >}}
+{{< /code >}}
 
 Or, use `sensu-agent start` configuration flags:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensu-agent start --labels url=sensu.docs.io
-{{< /highlight >}}
+{{< /code >}}
 
 ## Entities specification
 
@@ -218,21 +204,21 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][12] resource type. Entities should always be type `Entity`.
 required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][12].
 type         | String
-example      | {{< highlight shell >}}"type": "Entity"{{< /highlight >}}
+example      | {{< code shell >}}"type": "Entity"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For entities in this version of Sensu, this attribute should always be `core/v2`.
 required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][12].
 type         | String
-example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the entity, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the entity definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][8] for details.
 required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][12].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "metadata": {
   "name": "webserver01",
   "namespace": "default",
@@ -243,21 +229,14 @@ example      | {{< highlight shell >}}
     "slack-channel" : "#monitoring"
   }
 }
-{{< /highlight >}}
-
-sensu_agent_version  | 
----------------------|------
-description          | Sensu Semantic Versioning (SemVer) version of the agent entity.
-required             | true
-type                 | String
-example              | {{< highlight shell >}}"sensu_agent_version": "1.0.0"{{< /highlight >}}
+{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the entity [spec attributes][13].
 required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][12].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "spec": {
     "entity_class": "agent",
     "system": {
@@ -295,6 +274,7 @@ example      | {{< highlight shell >}}
       },
       "arch": "amd64"
     },
+    "sensu_agent_version": "1.0.0",
     "subscriptions": [
       "entity:webserver01"
     ],
@@ -314,7 +294,7 @@ example      | {{< highlight shell >}}
       "secret"
     ]
   }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Metadata attributes
 
@@ -323,7 +303,7 @@ example      | {{< highlight shell >}}
 description  | Unique name of the entity, validated with Go regex [`\A[\w\.\-]+\z`][21].
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "example-hostname"{{< /highlight >}}
+example      | {{< code shell >}}"name": "example-hostname"{{< /code >}}
 
 | namespace  |      |
 -------------|------
@@ -331,31 +311,31 @@ description  | [Sensu RBAC namespace][5] that this entity belongs to.
 required     | false
 type         | String
 default      | `default`
-example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+example      | {{< code shell >}}"namespace": "production"{{< /code >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data that you can use for response and dashboard view filtering.<br><br>If you include labels in your event data, you can filter [API responses][14], [sensuctl responses][15], and [dashboard views][23] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][14], [sensuctl responses][15], and [web UI views][23] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}}"labels": {
+example      | {{< code shell >}}"labels": {
   "environment": "development",
   "region": "us-west-2"
-}{{< /highlight >}}
+}{{< /code >}}
 
 <a name="annotations"></a>
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with [event filters][6]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][14], [sensuctl response filtering][15], or [dashboard views][23].
+description  | Non-identifying metadata to include with event data that you can access with [event filters][6]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][14], [sensuctl response filtering][15], or [web UI views][25].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}} "annotations": {
+example      | {{< code shell >}} "annotations": {
   "managed-by": "ops",
   "playbook": "www.example.url"
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Spec attributes
 
@@ -364,15 +344,15 @@ entity_class |     |
 description  | Entity type, validated with Go regex [`\A[\w\.\-]+\z`][21]. Class names have special meaning. An entity that runs an agent is class `agent` and is reserved. Setting the value of `entity_class` to `proxy` creates a proxy entity. For other types of entities, the `entity_class` attribute isn’t required, and you can use it to indicate an arbitrary type of entity (like `lambda` or `switch`).
 required     | true
 type         | String 
-example      | {{< highlight shell >}}"entity_class": "agent"{{< /highlight >}}
+example      | {{< code shell >}}"entity_class": "agent"{{< /code >}}
 
 subscriptions| 
 -------------|------ 
-description  | List of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{name}` where `name` is the entity's hostname. If you are using round robin scheduling **and** [proxy requests attributes][24], the proxy entity definition must include the same subscriptions as the sensu-agent.
+description  | List of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{name}` where `name` is the entity's hostname.
 required     | false 
 type         | Array 
 default      | The entity-specific subscription.
-example      | {{< highlight shell >}}"subscriptions": ["web", "prod", "entity:example-entity"]{{< /highlight >}}
+example      | {{< code shell >}}"subscriptions": ["web", "prod", "entity:example-entity"]{{< /code >}}
 
 system       | 
 -------------|------ 
@@ -381,7 +361,7 @@ required     | false
 type         | Map
 example      | {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 system:
   arch: amd64
   hostname: example-hostname
@@ -400,9 +380,9 @@ system:
   platform: ubuntu
   platform_family: debian
   platform_version: "16.04"
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "system": {
     "hostname": "example-hostname",
@@ -431,16 +411,23 @@ system:
     },
     "arch": "amd64"
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 {{< /language-toggle >}}
+
+sensu_agent_version  | 
+---------------------|------
+description          | Sensu Semantic Versioning (SemVer) version of the agent entity.
+required             | true
+type                 | String
+example              | {{< highlight shell >}}"sensu_agent_version": "1.0.0"{{< /highlight >}}
 
 last_seen    | 
 -------------|------ 
 description  | Timestamp the entity was last seen. In seconds since the Unix epoch. 
 required     | false 
 type         | Integer 
-example      | {{< highlight shell >}}"last_seen": 1522798317 {{< /highlight >}}
+example      | {{< code shell >}}"last_seen": 1522798317 {{< /code >}}
 
 
 deregister   | 
@@ -449,7 +436,7 @@ description  | `true` if the entity should be removed when it stops sending keep
 required     | false 
 type         | Boolean 
 default      | `false`
-example      | {{< highlight shell >}}"deregister": false {{< /highlight >}}
+example      | {{< code shell >}}"deregister": false {{< /code >}}
 
 deregistration  | 
 -------------|------ 
@@ -458,17 +445,17 @@ required     | false
 type         | Map
 example      | {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 deregistration:
   handler: email-handler
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "deregistration": {
     "handler": "email-handler"
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -480,17 +467,17 @@ type         | Array
 default      | ["password", "passwd", "pass", "api_key", "api_token", "access_key", "secret_key", "private_key", "secret"]
 example      | {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 redact:
 - extra_secret_tokens
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "redact": [
     "extra_secret_tokens"
   ]
-}{{< /highlight >}}
+}{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -499,9 +486,9 @@ redact:
 description   | [Sensu RBAC username][22] used by the entity. Agent entities require get, list, create, update, and delete permissions for events across all namespaces.
 type          | String
 default       | `agent`
-example       | {{< highlight shell >}}
+example       | {{< code shell >}}
 "user": "agent"
-{{< /highlight >}}
+{{< /code >}}
 
 ### System attributes
 
@@ -510,35 +497,35 @@ hostname     |
 description  | Hostname of the entity. 
 required     | false 
 type         | String 
-example      | {{< highlight shell >}}"hostname": "example-hostname" {{< /highlight >}}
+example      | {{< code shell >}}"hostname": "example-hostname" {{< /code >}}
 
 os           | 
 -------------|------ 
 description  | Entity's operating system. 
 required     | false 
 type         | String 
-example      | {{< highlight shell >}}"os": "linux" {{< /highlight >}}
+example      | {{< code shell >}}"os": "linux" {{< /code >}}
 
 platform     | 
 -------------|------ 
 description  | Entity's operating system distribution. 
 required     | false 
 type         | String 
-example      | {{< highlight shell >}}"platform": "ubuntu" {{< /highlight >}}
+example      | {{< code shell >}}"platform": "ubuntu" {{< /code >}}
 
 platform_family     | 
 -------------|------ 
 description  | Entity's operating system family. 
 required     | false 
 type         | String 
-example      | {{< highlight shell >}}"platform_family": "debian" {{< /highlight >}}
+example      | {{< code shell >}}"platform_family": "debian" {{< /code >}}
 
 platform_version     | 
 -------------|------ 
 description  | Entity's operating system version. 
 required     | false 
 type         | String 
-example      | {{< highlight shell >}}"platform_version": "16.04" {{< /highlight >}}
+example      | {{< code shell >}}"platform_version": "16.04" {{< /code >}}
 
 network     | 
 -------------|------ 
@@ -547,7 +534,7 @@ required     | false
 type         | Map
 example      | {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 network:
   interfaces:
   - addresses:
@@ -559,9 +546,9 @@ network:
     - 2606:2800:220:1:248:1893:25c8:1946/10
     mac: 52:54:00:20:1b:3c
     name: eth0
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "network": {
     "interfaces": [
@@ -582,7 +569,7 @@ network:
       }
     ]
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -591,7 +578,7 @@ arch         |
 description  | Entity's system architecture. This value is determined by the Go binary architecture as a function of runtime.GOARCH. An `amd` system running a `386` binary will report the `arch` as `386`.
 required     | false 
 type         | String 
-example      | {{< highlight shell >}}"arch": "amd64" {{< /highlight >}}
+example      | {{< code shell >}}"arch": "amd64" {{< /code >}}
 
 ### Network attributes
 
@@ -602,7 +589,7 @@ required     | false
 type         | Array [NetworkInterface][4] 
 example      | {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 interfaces:
 - addresses:
   - 127.0.0.1/8
@@ -613,9 +600,9 @@ interfaces:
   - 2606:2800:220:1:248:1893:25c8:1946/10
   mac: 52:54:00:20:1b:3c
   name: eth0
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "interfaces": [
     {
@@ -634,7 +621,7 @@ interfaces:
       ]
     }
   ]
-}{{< /highlight >}}
+}{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -645,21 +632,21 @@ name         |
 description  | Network interface name.
 required     | false 
 type         | String 
-example      | {{< highlight shell >}}"name": "eth0"{{< /highlight >}}
+example      | {{< code shell >}}"name": "eth0"{{< /code >}}
 
 mac          | 
 -------------|------ 
 description  | Network interface's MAC address.
 required     | false 
 type         | string 
-example      | {{< highlight shell >}}"mac": "52:54:00:20:1b:3c"{{< /highlight >}}
+example      | {{< code shell >}}"mac": "52:54:00:20:1b:3c"{{< /code >}}
 
 addresses    | 
 -------------|------ 
 description  | List of IP addresses for the network interface.
 required     | false 
 type         | Array 
-example      | {{< highlight shell >}} "addresses": ["93.184.216.34/24", "2606:2800:220:1:248:1893:25c8:1946/10"]{{< /highlight >}}
+example      | {{< code shell >}} "addresses": ["93.184.216.34/24", "2606:2800:220:1:248:1893:25c8:1946/10"]{{< /code >}}
 
 ### Deregistration attributes
 
@@ -668,7 +655,7 @@ handler      |
 description  | Name of the handler to call when an entity is deregistered.
 required     | false 
 type         | String 
-example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >}}
+example      | {{< code shell >}}"handler": "email-handler"{{< /code >}}
 
 ## Examples
 
@@ -676,10 +663,9 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Entity
 api_version: core/v2
-sensu_agent_version: 1.0.0
 metadata:
   annotations: null
   labels: null
@@ -725,14 +711,14 @@ spec:
     platform: centos
     platform_family: rhel
     platform_version: 7.4.1708
+  sensu_agent_version: 1.0.0
   user: agent
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Entity",
   "api_version": "core/v2",
-  "sensu_agent_version": "1.0.0",
   "metadata": {
     "name": "webserver01",
     "namespace": "default",
@@ -776,6 +762,7 @@ spec:
       },
       "arch": "amd64"
     },
+    "sensu_agent_version": "1.0.0",
     "subscriptions": [
       "entity:webserver01"
     ],
@@ -796,7 +783,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -808,13 +795,13 @@ spec:
 [6]: ../filters/
 [7]: ../tokens/
 [8]: #metadata-attributes
-[9]: ../../getting-started/enterprise/
+[9]: ../../commercial/
 [10]: https://sensu.io/contact
 [11]: https://blog.sensu.io/one-year-of-sensu-go
-[12]: ../../sensuctl/reference#create-resources
+[12]: ../../sensuctl/create-manage-resources/#create-resources
 [13]: #spec-attributes
 [14]: ../../api/overview#response-filtering
-[15]: ../../sensuctl/reference#response-filters
+[15]: ../../sensuctl/filter-responses/
 [16]: #proxy-entities
 [17]: ../../guides/monitor-external-resources/
 [18]: ../checks/#round-robin-checks
@@ -822,5 +809,6 @@ spec:
 [20]: #annotations
 [21]: https://regex101.com/r/zo9mQU/2
 [22]: ../rbac/
-[23]: ../../dashboard/filtering#filter-with-label-selectors
+[23]: ../../web-ui/filter#filter-with-label-selectors
 [24]: ../checks#proxy-requests-attributes
+[25]: ../../web-ui/filter/

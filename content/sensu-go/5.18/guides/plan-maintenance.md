@@ -12,9 +12,6 @@ menu:
     parent: guides
 ---
 
-- [Use silencing to plan maintenance](#use-silencing-to-plan-maintenance)
-- [Next steps](#next-steps)
-
 As the Sensu backend processes check results, the server executes [event handlers][1] to send alerts to personnel or otherwise relay event data to external services.
 Sensu’s built-in silencing, along with the built-in `not_silenced` filter, provides a way to suppress execution of event handlers on an ad hoc basis.
 
@@ -29,44 +26,42 @@ Sensu silencing makes it possible to:
 * [Silence a specific check on entities with a specific subscription][5]
 * [Silence a specific check on every entity][6]
 
-## Use silencing to plan maintenance
-
 Suppose you want to plan a maintenance window.
 In this example, you'll create a silenced entry for a specific entity named `i-424242` and its check, `check-http`, to prevent alerts as you restart and redeploy the services associated with this entity.
 
-### Create the silenced entry
+## Create the silenced entry
 
 To begin, create a silenced entry that will silence the check `check-http` on the entity `i-424242` for a planned maintenance window that starts at **01:00** on **Sunday** and ends **1 hour** later.
 Your username will be added automatically as the **creator** of the silenced entry:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl silenced create \
 --subscription 'entity:i-424242' \
 --check 'check-http' \
 --begin '2018-03-16 01:00:00 -04:00' \
 --expire 3600 \
 --reason 'Server upgrade'
-{{< /highlight >}}
+{{< /code >}}
 
 See the [sensuctl documentation][8] for the supported time formats for the `begin` flag.
 
-### Validate the silenced entry
+## Validate the silenced entry
 
 Use sensuctl to verify that the silenced entry against the entity `i-424242` was created properly:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl silenced info 'entity:i-424242:check-http'
-{{< /highlight >}}
+{{< /code >}}
 
 After the silenced entry starts to take effect, events that are silenced will be marked as such in `sensuctl events`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event list
 
    Entity         Check        Output       Status     Silenced          Timestamp
 ──────────────   ─────────    ─────────   ──────────── ────────── ───────────────────────────────
    i-424242      check-http                    0          true     2018-03-16 13:22:16 -0400 EDT
-{{< /highlight >}}
+{{< /code >}}
 
 {{% notice warning %}}
 **WARNING**: By default, a silenced event will be handled unless the handler uses the `not_silenced` filter to discard silenced events.
@@ -83,4 +78,4 @@ Next, read the [silencing reference][7] for in-depth documentation about silence
 [5]: ../../reference/silencing/#silence-a-specific-check-on-entities-with-a-specific-subscription
 [6]: ../../reference/silencing/#silence-a-specific-check-on-every-entity
 [7]: ../../reference/silencing/
-[8]: ../../sensuctl/reference/#dates-with-time
+[8]: ../../sensuctl/create-manage-resources/#time-formats

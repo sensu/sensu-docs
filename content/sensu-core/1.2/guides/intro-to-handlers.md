@@ -54,9 +54,9 @@ reads the event data via `STDIN`, parses it, creates a file name using the
 parsed event data, and then writes the event data to the file (e.g.
 `/tmp/client_name/check_name.json`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo wget -O /etc/sensu/plugins/event-file.rb http://sensuapp.org/docs/1.2/files/event-file.rb
-sudo chmod +x /etc/sensu/plugins/event-file.rb{{< /highlight >}}
+sudo chmod +x /etc/sensu/plugins/event-file.rb{{< /code >}}
 
 The `event-file` Sensu plugin requires a Ruby runtime. Install Ruby from the
 distribution repository and `sensu-plugin` from Rubygems:
@@ -67,14 +67,14 @@ started with checks guide][3]._
 
 #### Ubuntu/Debian
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo apt-get update
-sudo apt-get install ruby ruby-dev{{< /highlight >}}
+sudo apt-get install ruby ruby-dev{{< /code >}}
 
 #### CentOS/RHEL
 
-{{< highlight shell >}}
-sudo yum install ruby ruby-devel{{< /highlight >}}
+{{< code shell >}}
+sudo yum install ruby ruby-devel{{< /code >}}
 
 ### Create the pipe handler definition
 
@@ -87,7 +87,7 @@ providing it with JSON event data via `STDIN`.
 _NOTE: Sensu services must be restarted in order to pick up configuration
 changes. Sensu Enterprise can be reloaded._
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "file": {
@@ -95,12 +95,12 @@ changes. Sensu Enterprise can be reloaded._
       "command": "/etc/sensu/plugins/event-file.rb"
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 To add a handler execution timeout to the `file` handler, use the `timeout`
 attribute.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "file": {
@@ -109,12 +109,12 @@ attribute.
       "timeout": 10
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 To specify which check result severities (`OK`, `WARNING`, etc.) the handler
 supports, use the `severities` attribute.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "file": {
@@ -124,7 +124,7 @@ supports, use the `severities` attribute.
       "severities": ["critical", "unknown"]
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 To use the `file` handler for a check, please refer to the [getting started with
 checks guide][5].
@@ -150,14 +150,14 @@ The following command will create a TCP socket server listening on port 6000.
 _NOTE: netcat will output messages that it receives in the terminal window. This
 command will need to be run in a separate terminal window._
 
-{{< highlight shell >}}
-nc -l -k -4 -p 6000{{< /highlight >}}
+{{< code shell >}}
+nc -l -k -4 -p 6000{{< /code >}}
 
 To test the netcat TCP socket server, run the following command and observe the
 netcat output (`testing`).
 
-{{< highlight shell >}}
-echo "testing" | nc localhost 6000{{< /highlight >}}
+{{< code shell >}}
+echo "testing" | nc localhost 6000{{< /code >}}
 
 ### Create the TCP handler definition
 
@@ -168,7 +168,7 @@ event data to the TCP socket server (netcat in this example).
 _NOTE: Sensu services must be restarted in order to pick up configuration
 changes. Sensu Enterprise can be reloaded._
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "tcp_socket": {
@@ -179,7 +179,7 @@ changes. Sensu Enterprise can be reloaded._
       }
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ## Create a transport handler
 
@@ -196,7 +196,7 @@ will publish JSON event data to the Sensu transport.
 _NOTE: Sensu services must be restarted in order to pick up configuration
 changes. Sensu Enterprise can be reloaded._
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "transport": {
@@ -207,7 +207,7 @@ changes. Sensu Enterprise can be reloaded._
       }
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ## Create a set handler
 
@@ -224,7 +224,7 @@ The previous Sensu event handler examples are included in the set.
 _NOTE: Sensu services must be restarted in order to pick up configuration
 changes. Sensu Enterprise can be reloaded._
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "default": {
@@ -237,7 +237,7 @@ changes. Sensu Enterprise can be reloaded._
       ]
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 [1]:  ../../reference/handlers/
 [2]:  ../../reference/events/

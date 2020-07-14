@@ -2,50 +2,54 @@
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
 description: "Read the Sensu Go release notes to learn about what's new in our latest release."
+weight: -80
 product: "Sensu Go"
+toc: false
 version: "5.20"
 menu: "sensu-go-5.20"
 ---
 
-- [5.20.0 release notes](#5-20-0-release-notes)
-- [5.19.3 release notes](#5-19-3-release-notes)
-- [5.19.2 release notes](#5-19-2-release-notes)
-- [5.19.1 release notes](#5-19-1-release-notes)
-- [5.19.0 release notes](#5-19-0-release-notes)
-- [5.18.1 release notes](#5-18-1-release-notes)
-- [5.18.0 release notes](#5-18-0-release-notes)
-- [5.17.2 release notes](#5-17-2-release-notes)
-- [5.17.1 release notes](#5-17-1-release-notes)
-- [5.17.0 release notes](#5-17-0-release-notes)
-- [5.16.1 release notes](#5-16-1-release-notes)
-- [5.16.0 release notes](#5-16-0-release-notes)
-- [5.15.0 release notes](#5-15-0-release-notes)
-- [5.14.2 release notes](#5-14-2-release-notes)
-- [5.14.1 release notes](#5-14-1-release-notes)
-- [5.14.0 release notes](#5-14-0-release-notes)
-- [5.13.2 release notes](#5-13-2-release-notes)
-- [5.13.1 release notes](#5-13-1-release-notes)
-- [5.13.0 release notes](#5-13-0-release-notes)
-- [5.12.0 release notes](#5-12-0-release-notes)
-- [5.11.1 release notes](#5-11-1-release-notes)
-- [5.11.0 release notes](#5-11-0-release-notes)
-- [5.10.2 release notes](#5-10-2-release-notes)
-- [5.10.1 release notes](#5-10-1-release-notes)
-- [5.10.0 release notes](#5-10-0-release-notes)
-- [5.9.0 release notes](#5-9-0-release-notes)
-- [5.8.0 release notes](#5-8-0-release-notes)
-- [5.7.0 release notes](#5-7-0-release-notes)
-- [5.6.0 release notes](#5-6-0-release-notes)
-- [5.5.1 release notes](#5-5-1-release-notes)
-- [5.5.0 release notes](#5-5-0-release-notes)
-- [5.4.0 release notes](#5-4-0-release-notes)
-- [5.3.0 release notes](#5-3-0-release-notes)
-- [5.2.1 release notes](#5-2-1-release-notes)
-- [5.2.0 release notes](#5-2-0-release-notes)
-- [5.1.1 release notes](#5-1-1-release-notes)
-- [5.1.0 release notes](#5-1-0-release-notes)
-- [5.0.1 release notes](#5-0-1-release-notes)
-- [5.0.0 release notes](#5-0-0-release-notes)
+- [5.20.2 release notes](#5202-release-notes)
+- [5.20.1 release notes](#5201-release-notes)
+- [5.20.0 release notes](#5200-release-notes)
+- [5.19.3 release notes](#5193-release-notes)
+- [5.19.2 release notes](#5192-release-notes)
+- [5.19.1 release notes](#5191-release-notes)
+- [5.19.0 release notes](#5190-release-notes)
+- [5.18.1 release notes](#5181-release-notes)
+- [5.18.0 release notes](#5180-release-notes)
+- [5.17.2 release notes](#5172-release-notes)
+- [5.17.1 release notes](#5171-release-notes)
+- [5.17.0 release notes](#5170-release-notes)
+- [5.16.1 release notes](#5161-release-notes)
+- [5.16.0 release notes](#5160-release-notes)
+- [5.15.0 release notes](#5150-release-notes)
+- [5.14.2 release notes](#5142-release-notes)
+- [5.14.1 release notes](#5141-release-notes)
+- [5.14.0 release notes](#5140-release-notes)
+- [5.13.2 release notes](#5132-release-notes)
+- [5.13.1 release notes](#5131-release-notes)
+- [5.13.0 release notes](#5130-release-notes)
+- [5.12.0 release notes](#5120-release-notes)
+- [5.11.1 release notes](#5111-release-notes)
+- [5.11.0 release notes](#5110-release-notes)
+- [5.10.2 release notes](#5102-release-notes)
+- [5.10.1 release notes](#5101-release-notes)
+- [5.10.0 release notes](#5100-release-notes)
+- [5.9.0 release notes](#590-release-notes)
+- [5.8.0 release notes](#580-release-notes)
+- [5.7.0 release notes](#570-release-notes)
+- [5.6.0 release notes](#560-release-notes)
+- [5.5.1 release notes](#551-release-notes)
+- [5.5.0 release notes](#550-release-notes)
+- [5.4.0 release notes](#540-release-notes)
+- [5.3.0 release notes](#530-release-notes)
+- [5.2.1 release notes](#521-release-notes)
+- [5.2.0 release notes](#520-release-notes)
+- [5.1.1 release notes](#511-release-notes)
+- [5.1.0 release notes](#510-release-notes)
+- [5.0.1 release notes](#501-release-notes)
+- [5.0.0 release notes](#500-release-notes)
 
 ### Versioning
 
@@ -59,6 +63,41 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.20.2 release notes
+
+**May 26, 2020** &mdash; The latest release of Sensu Go, version 5.20.2, is now available for download.
+
+This patch release adds username to the API request log to help operators with troubleshooting and user activity reporting, as well as validation for subjects in role-based access control (RBAC) role binding and cluster role binding.
+Release 5.20.2 also temporarily disables process discovery so we can investigate and resolve its performance impact on the backend (increased CPU and memory usage).
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.20.2.
+
+**NEW FEATURES:**
+
+- The API request log now includes the username.
+
+**FIXES:**
+
+- ([Commercial feature][141]) [Process discovery in the agent][155] is temporarily disabled.
+- The system’s libc_type attribute is now properly populated for Ubuntu entities.
+- Single-letter subscriptions are now allowed.
+- Subjects are now validated in RBAC role binding and cluster role binding.
+- [Sensuctl command][154] assets can now be retrieved and installed from Bonsai.
+
+## 5.20.1 release notes
+
+**May 15, 2020** &mdash; The latest release of Sensu Go, version 5.20.1, is now available for download.
+
+This patch release includes a bug fix that affects the web UI federated homepage gauges when using the PostgreSQL datastore and several fixes for the data displayed in the web UI entity details.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.20.1.
+
+**FIXES:**
+
+- ([Commercial feature][141]) Fixes a bug that prevented the federated homepage in the [web UI][153] from retrieving the keepalive and event gauges when PostgreSQL was configured as the event datastore.
+- ([Commercial feature][141]) The [memory_percent and cpu_percent processes attributes][143] are now properly displayed in the [web UI][153].
+- In the [web UI][153], the entity details page no longer displays float type (which applies only for MIPS architectures). Also on entity details pages, the system's libc type is now listed and process names are no longer capitalized.
 
 ## 5.20.0 release notes
 
@@ -149,7 +188,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.19.2.
 
 **FIXES:**
 
-- ([Commercial feature][122]) Adds SQL database connection pool parameters `max_conn_lifetime` and `max_idle_conns` to [store/v1.PostgresConfig][132].
+- ([Commercial feature][122]) Adds SQL database connection pool parameters `max_conn_lifetime` and `max_idle_conns` to store/v1.PostgresConfig.
 
 **IMPROVEMENTS:**
 
@@ -190,7 +229,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.19.0.
 **NEW FEATURES:**
 
 - ([Commercial feature][122]) In the [web UI][124], you can now [save, recall, and delete filtered searches][123].
-- ([Commercial feature][122]) Added the `matches` substring matching operator for [API response][126], [sensuctl][127], and [dashboard][128] filtering selectors.
+- ([Commercial feature][122]) Added the `matches` substring matching operator for [API response][126], [sensuctl][127], and [web UI][128] filtering selectors.
 - ([Commercial feature][122]) Added agent and sensuctl builds for Linux architectures: `mips`, `mipsle`, `mips64`, and `mips64le` (hard float and soft float).
 - ([Commercial feature][122]) Sensu now automatically applies the `sensu.io/managed_by` label to resources created via `sensuctl create` for use in the [`sensuctl prune` alpha feature][129].
 
@@ -222,8 +261,8 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.18.1.
 
 **FIXES:**
 
-- ([Commercial feature][121]) Fixed a bug that caused SQL migrations to fail on PostgreSQL 12.
-- ([Commercial feature][121]) Fixed a bug where OIDC login could result in a nil pointer panic.
+- ([Commercial feature][115]) Fixed a bug that caused SQL migrations to fail on PostgreSQL 12.
+- ([Commercial feature][115]) Fixed a bug where OIDC login could result in a nil pointer panic.
 - Changed to using the gRPC client (rather than the embedded etcd client) to improve reliability and avoid nil pointer panics triggered by shutting down the embedded etcd client.
 - The Sensu backend no longer hangs indefinitely if a file lock for the asset manager cannot be obtained. Instead, the backend returns an error after 60 seconds.
 - Fixed a bug that caused sensu-backend to restart when agents disconnected.
@@ -584,7 +623,7 @@ See the [installation guide][16] for the latest download links.
 See our [authentication documentation][17] for details.
 - Added sensu-agent and sensuctl binary builds for FreeBSD.
 - Added sensuctl dump command to output resources to a file or STDOUT, making it easier to back up your Sensu backends.
-- Agents can now be configured with a whitelist of executables that are allowed to run as check and hook commands.
+- Agents can now be configured with a list of executables that are allowed to run as check and hook commands.
 See the [agent reference][78] for more information.
 
 **IMPROVEMENTS:**
@@ -1147,7 +1186,7 @@ To get started with Sensu Go:
 - [Install Sensu Go][8].
 - [Get started monitoring server resources][9].
 
-[1]: /sensu-go/latest/installation/upgrade/
+[1]: /sensu-go/latest/operations/maintain-sensu/upgrade/
 [2]: https://semver.org/spec/v2.0.0.html
 [3]: /sensu-go/5.1/installation/upgrade#upgrading-sensu-backend-binaries-to-5-1-0
 [4]: /sensu-go/5.1/reference/agent/
@@ -1239,7 +1278,7 @@ To get started with Sensu Go:
 [90]: https://sensu.io/contact/
 [91]: https://blog.sensu.io/one-year-of-sensu-go/
 [92]: /sensu-go/5.15/api/license/
-[93]: /sensu-go/5.15/sensuctl/reference/#extend-sensuctl-with-commands
+[93]: /sensu-go/5.15/sensuctl/sensuctl-bonsai#extend-sensuctl-with-commands
 [94]: /sensu-go/5.15/reference/checks/#cron-scheduling
 [95]: /sensu-go/5.15/getting-started/enterprise/
 [96]: /sensu-go/5.2/installation/auth/
@@ -1252,54 +1291,51 @@ To get started with Sensu Go:
 [103]: /sensu-go/5.16/dashboard/overview
 [104]: /sensu-go/5.16/
 [105]: /sensu-go/5.16/getting-started/enterprise/
-[106]: /sensu-go/5.17/getting-started/enterprise/
-[107]: /sensu-go/5.17/dashboard/overview
+[106]: /sensu-go/5.17/commercial/
+[107]: /sensu-go/5.17/web-ui/sign-in
 [108]: /sensu-go/5.17/api/secrets
 [109]: /sensu-go/5.17/reference/backend/#docker-initialization
 [110]: /sensu-go/5.17/api/overview/#field-selector
 [111]: /sensu-go/5.17/reference/rbac/#cluster-wide-resource-types
 [112]: /sensu-go/5.17/api/events/#events-post
 [113]: /sensu-go/5.17/sensuctl/reference/#list-commands
-[114]: /sensu-go/5.18/api/events/#events-post
-[115]: /sensu-go/5.18/getting-started/enterprise/
+[114]: /sensu-go/5.18/api/events#create-a-new-event
+[115]: /sensu-go/5.18/commercial/
 [116]: /sensu-go/5.18/api/overview/#label-selector
 [117]: /sensu-go/5.18/api/overview/#field-selector
-[118]: /sensu-go/5.18/api/events#events-post
+[118]: /sensu-go/5.18/api/events/
 [119]: /sensu-go/5.18/api/overview/#response-filtering
-[120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
-[121]: /sensu-go/5.18/getting-started/enterprise/
-[122]: /sensu-go/5.19/getting-started/enterprise/
-[123]: /sensu-go/5.19/dashboard/filtering/#save-a-filtered-search
-[124]: /sensu-go/5.19/dashboard/overview/
-[125]: /sensu-go/5.19/api/health/
+[120]: /sensu-go/5.18/api/auth#authtest-get
+[122]: /sensu-go/5.19/commercial/
+[123]: /sensu-go/5.19/web-ui/filter/#save-a-filtered-search
+[124]: /sensu-go/5.19/web-ui/sign-in/
+[125]: /sensu-go/5.19/reference/health/
 [126]: /sensu-go/5.19/api/overview/#response-filtering
-[127]: /sensu-go/5.19/sensuctl/reference/#response-filtering
-[128]: /sensu-go/5.19/dashboard/filtering
-[126]: /sensu-go/5.19/api/overview/#response-filtering
-[127]: /sensu-go/5.19/sensuctl/reference/#response-filtering
-[128]: /sensu-go/5.19/dashboard/filtering
-[129]: /sensu-go/5.19/sensuctl/reference/#sensuctl-prune
+[127]: /sensu-go/5.19/sensuctl/filter-responses
+[128]: /sensu-go/5.19/web-ui/filter/
+[129]: /sensu-go/5.19/sensuctl/create-manage-resources#sensuctl-prune
 [130]: /sensu-go/5.19/reference/tessen/
 [131]: /sensu-go/5.19/reference/handlers/#pipe-handler-command
-[132]: /sensu-go/5.19/reference/datastore/#max_conn_lifetime
-[133]: /sensu-go/5.19/installation/platforms/
-[134]: /sensu-go/5.19/installation/install-sensu/
-[135]: /sensu-go/5.19/dashboard/overview
-[136]: /sensu-go/5.19/reference/agent/#configuration
+[133]: /sensu-go/5.19/platforms/
+[134]: /sensu-go/5.19/operations/deploy-sensu/install-sensu/
+[135]: /sensu-go/5.19/web-ui/sign-in/
+[136]: /sensu-go/5.19/reference/agent/#configuration-via-flags
 [137]: /sensu-go/5.19/reference/backend/#configuration
 [138]: /sensu-go/5.20/api/overview/#field-selector
 [139]: /sensu-go/5.20/reference/backend/#log-rotation
-[140]: /sensu-go/5.20/guides/troubleshooting/#increment-log-level-verbosity
-[141]: /sensu-go/5.20/getting-started/enterprise/
-[142]: /sensu-go/5.20/reference/agent/#configuration
+[140]: /sensu-go/5.20/operations/maintain-sensu/troubleshoot/#increment-log-level-verbosity
+[141]: /sensu-go/5.20/commercial/
+[142]: /sensu-go/5.20/reference/agent/#configuration-via-flags
 [143]: /sensu-go/5.20/reference/entities/#processes-attributes
-[144]: /sensu-go/5.20/sensuctl/reference/#sensuctl-describe-type-resource-types
+[144]: /sensu-go/5.20/sensuctl/create-manage-resources/#sensuctl-describe-type-resource-types
 [145]: /sensu-go/5.20/reference/backend/#configuration-summary
 [146]: /sensu-go/5.20/reference/tokens/#manage-assets
 [147]: /sensu-go/5.20/reference/tokens/#token-substitution-with-quoted-strings
 [148]: /sensu-go/5.20/reference/webconfig/
-[149]: /sensu-go/5.20/api/license/#license-get
+[149]: /sensu-go/5.20/api/license#get-the-active-license-configuration
 [150]: /sensu-go/5.20/reference/license/#view-entity-count-and-entity-limit
 [151]: /sensu-go/5.20/reference/license/#entity-limit
-[152]: /sensu-go/5.20/dashboard/overview/#federated-webui
-[153]: /sensu-go/5.20/dashboard/overview/
+[152]: /sensu-go/5.20/web-ui/sign-in/#federated-webui
+[153]: /sensu-go/5.20/web-ui/sign-in/
+[154]: /sensu-go/5.20/sensuctl/sensuctl-bonsai/#extend-sensuctl-with-commands
+[155]: /sensu-go/5.20/reference/agent/#discover-processes

@@ -84,14 +84,14 @@ In some cases, the default Sensu configuration directory (i.e.
 `C:\opt\sensu\conf.d\`) is not created by the Sensu MSI installer, in which case
 it is necessary to create this directory manually.
 
-{{< highlight shell>}}
-mkdir C:\opt\sensu\conf.d\{{< /highlight >}}
+{{< code shell>}}
+mkdir C:\opt\sensu\conf.d\{{< /code >}}
 
 ### Example client configuration
 
 1. Copy the following contents to a configuration file located at
    `C:\opt\sensu\conf.d\client.json`:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "client": {
     "name": "windows-client",
@@ -106,7 +106,7 @@ mkdir C:\opt\sensu\conf.d\{{< /highlight >}}
       "port": 3030
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Example Transport Configuration
 
@@ -115,13 +115,13 @@ connect to the configured [Sensu Transport][6].
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/transport.json`:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "transport": {
     "name": "rabbitmq",
     "reconnect_on_error": true
   }
-}{{< /highlight >}}
+}{{< /code >}}
    _NOTE: if you are using Redis as your transport, please use `"name": "redis"`
    for your transport configuration.
    For more information, please visit the [transport definition specification][15]._
@@ -143,7 +143,7 @@ following example configuration file sets the Sensu client primary configuration
 file path to `C:\opt\sensu\config.json`, the Sensu configuration directory to
 `C:\opt\sensu\conf.d`, and the log file path to `C:\opt\sensu\sensu-client.log`.
 
-{{< highlight xml >}}
+{{< code xml >}}
 <!--
   Windows service definition for Sensu
 -->
@@ -153,14 +153,14 @@ file path to `C:\opt\sensu\config.json`, the Sensu configuration directory to
   <description>This service runs a Sensu client</description>
   <executable>C:\opt\sensu\embedded\bin\ruby</executable>
   <arguments>C:\opt\sensu\embedded\bin\sensu-client -c C:\opt\sensu\config.json -d C:\opt\sensu\conf.d -l C:\opt\sensu\sensu-client.log</arguments>
-</service>{{< /highlight >}}
+</service>{{< /code >}}
 
 ### Install the Sensu client Windows service
 
 Open an Administrative Command Prompt and use the [Windows SC][10] utility to create the Windows service for the Sensu client:
 
-{{< highlight shell>}}
-sc create sensu-client start= delayed-auto binPath= c:\opt\sensu\bin\sensu-client.exe DisplayName= "Sensu Client"{{< /highlight >}}
+{{< code shell>}}
+sc create sensu-client start= delayed-auto binPath= c:\opt\sensu\bin\sensu-client.exe DisplayName= "Sensu Client"{{< /code >}}
 
 _NOTE: the space between the equals (=) and the values is required._
 
@@ -173,9 +173,9 @@ To manually start and stop the Sensu client Windows service, use the
 
 - Start or stop the Sensu client
 
-{{< highlight shell >}}
+{{< code shell >}}
 sc start sensu-client
-sc stop sensu-client{{< /highlight >}}
+sc stop sensu-client{{< /code >}}
 
 
 [1]:  https://eol-repositories.sensuapp.org/msi/

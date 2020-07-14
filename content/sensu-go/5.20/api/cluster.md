@@ -8,29 +8,23 @@ menu:
     parent: api
 ---
 
-- [The `/cluster/members` API endpoint](#the-clustermembers-API-endpoint)
-  - [`/cluster/members` (GET)](#clustermembers-get)
-  - [`/cluster/members` (POST)](#clustermembers-post)
-- [The `/cluster/members/:member` API endpoint](#the-clustermembersmember-API-endpoint)
-  - [`/cluster/members/:member` (PUT)](#clustermembersmember-put)
-  - [`/cluster/members/:member` (DELETE)](#clustermembersmember-delete)
-- [The `/cluster/id` API endpoint](#the-clusterid-API-endpoint)
-  - [`/cluster/id` (GET)](#clusterid-get)
+{{% notice note %}}
+**NOTE**: Requests to the cluster API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
 
-## The `/cluster/members` API endpoint {#the-clustermembers-API-endpoint}
-
-### `/cluster/members` (GET) {#clustermembers-get}
+## Get all cluster data {#clustermembers-get}
 
 The `/cluster/members` API endpoint provides HTTP GET access to Sensu [cluster][1] data.
 
-#### EXAMPLE {#clustermembers-get-example}
+### Example {#clustermembers-get-example}
 
 The following example demonstrates a request to the `/cluster/members` API endpoint, resulting in a JSON map that contains a Sensu cluster definition.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/cluster/members \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 
 HTTP/1.1 200 OK
 {
@@ -52,9 +46,9 @@ HTTP/1.1 200 OK
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#clustermembers-get-specification}
+### API Specification {#clustermembers-get-specification}
 
 /cluster/members (GET)  | 
 ------------------------|------
@@ -63,7 +57,7 @@ example url             | http://hostname:8080/api/core/v2/cluster/members
 query parameters        | `timeout`: Defines the timeout when querying etcd. Default is `3`.
 response type           | Map
 response codes          | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-example output          | {{< highlight shell >}}
+example output          | {{< code shell >}}
 {
   "header": {
     "cluster_id": 4255616304056076734,
@@ -83,17 +77,17 @@ example output          | {{< highlight shell >}}
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
-### `/cluster/members` (POST) {#clustermembers-post}
+## Create a new cluster member {#clustermembers-post}
 
 The `/cluster/members` API endpoint provides HTTP POST access to create a Sensu cluster member.
 
-#### EXAMPLE {#clustermembers-post-example}
+### Example {#clustermembers-post-example}
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/cluster/members?peer-addrs=http://127.0.0.1:2380
 
 HTTP/1.1 200 OK
@@ -116,9 +110,9 @@ HTTP/1.1 200 OK
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#clustermembers-post-specification}
+### API Specification {#clustermembers-post-specification}
 
 /cluster/members/:member (POST) | 
 ----------------|------
@@ -127,17 +121,15 @@ example url     | http://hostname:8080/api/core/v2/cluster/members?peer-addrs=ht
 query parameters| <ul><li>Required: `peer-addrs` (a comma-delimited list of peer addresses).</li></ul>
 response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/cluster/members/:member` API endpoint {#the-clustermembersmember-API-endpoint}
-
-### `/cluster/members/:member` (PUT) {#clustermembersmember-put}
+## Create or update a cluster member {#clustermembersmember-put}
 
 The `/cluster/members/:member` API endpoint provides HTTP PUT access to create or update a cluster member, by cluster member ID.
 
-#### EXAMPLE {#clustermembersmember-put-example}
+### Example {#clustermembersmember-put-example}
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/cluster/members/8927110dc66458af?peer-addrs=http://127.0.0.1:2380
 
 HTTP/1.1 200 OK
@@ -160,9 +152,9 @@ HTTP/1.1 200 OK
     }
   ]
 }
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#clustermembersmember-put-specification}
+### API Specification {#clustermembersmember-put-specification}
 
 /cluster/members/:member (PUT) | 
 ----------------|------
@@ -172,23 +164,23 @@ url parameters  | Required: `8927110dc66458af` (hex-encoded uint64 cluster membe
 query parameters| Required: `peer-addrs` (a comma-delimited list of peer addresses).</li></ul>
 response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/cluster/members/:member` (DELETE) {#clustermembersmember-delete}
+## Delete a cluster member {#clustermembersmember-delete}
 
 The `/cluster/members/:member` API endpoint provides HTTP DELETE access to remove a Sensu cluster member.
 
-### EXAMPLE {#clustermembersmember-delete-example}
+### Example {#clustermembersmember-delete-example}
 
 The following example shows a request to the `/cluster/members/:member` API endpoint to remove the Sensu cluster member with the ID `8927110dc66458af`, resulting in a successful HTTP `204 No Content` response.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/cluster/members/8927110dc66458af
 
 HTTP/1.1 204 No Content
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#clustermembersmember-delete-specification}
+### API Specification {#clustermembersmember-delete-specification}
 
 /cluster/members/:member (DELETE) | 
 --------------------------|------
@@ -197,26 +189,24 @@ example url               | http://hostname:8080/api/core/v2/cluster/members/892
 url parameters            | <ul><li>`8927110dc66458af` (required): Required hex-encoded uint64 cluster member ID generated using `sensuctl cluster member-list`</li></ul>
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/cluster/id` API endpoint {#the-clusterid-API-endpoint}
-
-### `/cluster/id` (GET) {#clusterid-get}
+## Get a cluster ID {#clusterid-get}
 
 The `/cluster/id` API endpoint provides HTTP GET access to the Sensu cluster ID.
 
-#### EXAMPLE {#clusterid-get-example}
+### Example {#clusterid-get-example}
 
 The following example demonstrates a request to the `/cluster/id` API endpoint, resulting in a string that contains the Sensu cluster ID.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
- -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+ -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/cluster/id
 
 HTTP/1.1 200 OK
 "23481e76-5844-4d07-b714-6e2ffbbf9315"
-{{< /highlight >}}
+{{< /code >}}
 
-#### API Specification {#clusterid-get-specification}
+### API Specification {#clusterid-get-specification}
 
 /cluster/id (GET) | |
 ------------------|------
@@ -225,8 +215,8 @@ example url       | http://hostname:8080/api/core/v2/cluster/id
 query parameters  | `timeout`: Defines the timeout when querying etcd. Default is `3`.
 response type     | String
 response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-example output    | {{< highlight shell >}}
+example output    | {{< code shell >}}
 "23481e76-5844-4d07-b714-6e2ffbbf9315"
-{{< /highlight >}}
+{{< /code >}}
 
-[1]: ../../guides/clustering/
+[1]: ../../operations/deploy-sensu/cluster-sensu/
