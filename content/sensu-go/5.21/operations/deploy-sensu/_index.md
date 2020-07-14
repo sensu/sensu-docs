@@ -4,7 +4,8 @@ description: "Deploy Sensu, the flexible observability pipeline built to reduce 
 product: "Sensu Go"
 version: "5.21"
 weight: 10
-layout: "base-for-directory-listing"
+layout: "single"
+toc: false
 menu:
   sensu-go-5.21:
     parent: operations

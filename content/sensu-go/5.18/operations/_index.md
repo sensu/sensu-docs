@@ -4,7 +4,8 @@ description: "Follow the instructions in the Operations category to install, dep
 product: "Sensu Go"
 version: "5.18"
 weight: 20
-layout: "base-for-directory-listing"
+layout: "single"
+toc: false
 menu:
   sensu-go-5.18:
     identifier: operations
