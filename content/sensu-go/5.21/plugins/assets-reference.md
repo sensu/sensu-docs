@@ -1,14 +1,14 @@
 ---
-title: "Assets"
-linkTitle: "Assets"
+title: "Assets reference"
+linkTitle: "Assets Reference"
 description: "Assets are shareable, reusable packages that make it easier to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows. Read this reference doc to learn about assets."
-weight: 40
+weight: 50
 version: "5.21"
 product: "Sensu Go"
 platformContent: false 
 menu:
   sensu-go-5.21:
-    parent: reference
+    parent: plugins
 ---
 
 You can discover, download, and share assets using [Bonsai, the Sensu asset index][16].
@@ -26,54 +26,6 @@ You can install Sensu plugins using the [sensu-install](../../operations/deploy-
 The Sensu backend executes handler, filter, and mutator assets.
 The Sensu agent executes check assets.
 At runtime, the backend or agent sequentially evaluates assets that appear in the `runtime_assets` attribute of the handler, filter, mutator, or check being executed.
-
-## Asset builds
-
-An asset build is the combination of an artifact URL, SHA512 checksum, and optional [Sensu query expression][1] filters.
-Each asset definition may describe one or more builds.
-
-{{% notice note %}}
-**NOTE**: Assets that provide `url` and `sha512` attributes at the top level of the `spec` scope are [single-build assets](#asset-definition-single-build-deprecated), and this form of asset defintion is deprecated.
-We recommend using [multiple-build asset defintions](#asset-definition-multiple-builds), which specify one or more `builds` under the `spec` scope.
-{{% /notice %}}
-
-### Asset build evaluation
-
-For each build provided in an asset, Sensu will evaluate any defined filters to determine whether any build matches the agent or backend service's environment.
-If all filters specified on a build evaluate to `true`, that build is considered a match.
-For assets with multiple builds, only the first build which matches will be downloaded and installed.
-
-### Asset build download
-
-Sensu downloads the asset build on the host system where the asset contents are needed to execute the requested command.
-For example, if a check definition references an asset, the Sensu agent that executes the check will download the asset the first time it executes the check.
-The asset build the agent downloads will depend on the filter rules associated with each build defined for the asset.
-
-Sensu backends follow a similar process when pipeline elements (filters, mutators, and handlers) request runtime asset installation as part of operation.
-
-{{% notice note %}}
-**NOTE**: Asset builds are not downloaded until they are needed for command execution.
-{{% /notice %}}
-
-When Sensu finds a matching build, it downloads the build artifact from the specified URL.
-If the asset definition includes headers, they are passed along as part of the HTTP request.
-If the downloaded artifact's SHA512 checksum matches the checksum provided by the build, it is unpacked into the Sensu service's local cache directory.
-
-Set the backend or agent's local cache path with the `--cache-dir` flag.
-Disable assets for an agent with the agent `--disable-assets` [configuration flag][30].
-
-{{% notice note %}}
-**NOTE**: Asset builds are unpacked into the cache directory that is configured with the `--cache-dir` flag.
-{{% /notice %}}
-
-Use the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][40] and [backend][41] to configure a global rate limit for fetching assets.
-
-### Asset build execution
-
-The directory path of each asset defined in `runtime_assets` is appended to the `PATH` before the handler, filter, mutator, or check `command` is executed.
-Subsequent handler, filter, mutator, or check executions look for the asset in the local cache and ensure that the contents match the configured checksum.
-
-See the [example asset with a check][31] for a use case with a Sensu resource (a check) and an asset.
 
 ## Asset format specification
 
@@ -204,77 +156,6 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
-
-## Asset hello world example
-
-In this example, you'll run a script that outputs `Hello World`:
-
-{{< code bash >}}
-hello-world.sh
-
-#!/bin/sh
-
-STRING="Hello World"
-
-echo $STRING
-
-if [ $? -eq 0 ]; then
-    exit 0
-else
-    exit 2
-fi
-{{< /code >}}
-
-The first step is to ensure that your directory structure is in place.
-As noted in [Example asset structure][15], your script could live in three potential directories in the project: `/bin`, `/lib`, or `/include`.
-For this example, put your script in the `/bin` directory.
-Create the directories `sensu-go-hello-world` and `/bin`:
-
-{{< code bash >}}
-$ mkdir sensu-go-hello-world
-
-$ cd sensu-go-hello-world
-
-$ mkdir bin
-
-$ cp hello-world.sh bin/
-
-$ tree
-.
-└── bin
-    └── hello-world.sh
-{{< /code >}}
-
-Next, make sure that the script is marked as executable:
-
-{{< code bash >}}
-$ chmod +x bin/hello-world.sh 
-mode of 'hello-world.sh' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)
-{{< /code >}}
-
-Now that the script is in the directory, move on to the next step: packaging the `sensu-go-hello-world` directory as an asset tarball.
-
-### Package the asset
-
-Assets are archives, so the first step in packaging the asset is to create a tar.gz archive of your project.
-This assumes you're in the directory you want to tar up:
-
-{{< code bash >}}
-$ cd ..
-$ tar -C sensu-go-hello-world -cvzf sensu-go-hello-world-0.0.1.tar.gz .
-...
-{{< /code >}}
-
-Now that you've created an archive, you need to generate a SHA512 sum for it (this is required for the asset to work):
-
-{{< code bash >}}
-sha512sum sensu-go-hello-world-0.0.1.tar.gz | tee sha512sum.txt
-dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff1ef4b154c198b9c7cdfe1e8867788c820db7bb5bcad83827 sensu-go-hello-world-0.0.1.tar.gz
-{{< /code >}}
-
-From here, you can host your asset wherever you’d like. To make the asset available via [Bonsai][16], you’ll need to host it on Github. Learn more in [The “Hello World” of Sensu Assets][18] on Discourse.
-
-To host your asset on a different platform like Gitlab or Bitbucket, upload your asset there. You can also use Artifactory or even Apache or Nginx to serve your asset. All that’s required for your asset to work is the URL to the asset and the SHA512 sum for the asset to be downloaded.
 
 ## Asset specification
 
@@ -525,6 +406,77 @@ Add asset filters to specify that an asset is compiled for any of the [entity.sy
 Then, you can rely on asset filters to ensure that you install only the appropriate asset for each of your agents.
 
 ## Examples
+
+### Asset hello world example
+
+In this example, you'll run a script that outputs `Hello World`:
+
+{{< code bash >}}
+hello-world.sh
+
+#!/bin/sh
+
+STRING="Hello World"
+
+echo $STRING
+
+if [ $? -eq 0 ]; then
+    exit 0
+else
+    exit 2
+fi
+{{< /code >}}
+
+The first step is to ensure that your directory structure is in place.
+As noted in [Example asset structure][15], your script could live in three potential directories in the project: `/bin`, `/lib`, or `/include`.
+For this example, put your script in the `/bin` directory.
+Create the directories `sensu-go-hello-world` and `/bin`:
+
+{{< code bash >}}
+$ mkdir sensu-go-hello-world
+
+$ cd sensu-go-hello-world
+
+$ mkdir bin
+
+$ cp hello-world.sh bin/
+
+$ tree
+.
+└── bin
+    └── hello-world.sh
+{{< /code >}}
+
+Next, make sure that the script is marked as executable:
+
+{{< code bash >}}
+$ chmod +x bin/hello-world.sh 
+mode of 'hello-world.sh' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)
+{{< /code >}}
+
+Now that the script is in the directory, move on to the next step: packaging the `sensu-go-hello-world` directory as an asset tarball.
+
+#### Package the asset
+
+Assets are archives, so the first step in packaging the asset is to create a tar.gz archive of your project.
+This assumes you're in the directory you want to tar up:
+
+{{< code bash >}}
+$ cd ..
+$ tar -C sensu-go-hello-world -cvzf sensu-go-hello-world-0.0.1.tar.gz .
+...
+{{< /code >}}
+
+Now that you've created an archive, you need to generate a SHA512 sum for it (this is required for the asset to work):
+
+{{< code bash >}}
+sha512sum sensu-go-hello-world-0.0.1.tar.gz | tee sha512sum.txt
+dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff1ef4b154c198b9c7cdfe1e8867788c820db7bb5bcad83827 sensu-go-hello-world-0.0.1.tar.gz
+{{< /code >}}
+
+From here, you can host your asset wherever you’d like. To make the asset available via [Bonsai][16], you’ll need to host it on Github. Learn more in [The “Hello World” of Sensu Assets][18] on Discourse.
+
+To host your asset on a different platform like Gitlab or Bitbucket, upload your asset there. You can also use Artifactory or even Apache or Nginx to serve your asset. All that’s required for your asset to work is the URL to the asset and the SHA512 sum for the asset to be downloaded.
 
 ### Minimum required asset attributes
 
@@ -810,108 +762,6 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
-
-## Share an asset on Bonsai
-
-Share your open-source assets on [Bonsai][16] and connect with the Sensu community.
-Bonsai supports assets hosted on [GitHub][24] and released using [GitHub releases][25].
-For more information about creating Sensu Plugins, see the [Sensu Plugin specification][29].
-
-Bonsai requires a [`bonsai.yml` configuration file][26] in the root directory of your repository that includes the project description, platforms, asset filenames, and SHA-512 checksums.
-For a Bonsai-compatible asset template using Go and [GoReleaser][27], see the [Sensu Go plugin skeleton][28].
-
-To share your asset on Bonsai, [log in to Bonsai][37] with your GitHub account and authorize Sensu.
-After you are logged in, you can [register your asset on Bonsai][38] by adding the GitHub repository, a description, and tags.
-Make sure to provide a helpful README for your asset with configuration examples.
-
-### `bonsai.yml` example
-
-{{< code yml >}}
----
-description: "#{repo}"
-builds:
-- platform: "linux"
-  arch: "amd64"
-  asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"
-  sha_filename: "#{repo}_#{version}_sha512-checksums.txt"
-  filter:
-  -  "entity.system.os == 'linux'"
-  -  "entity.system.arch == 'amd64'"
-
-- platform: "Windows"
-  arch: "amd64"
-  asset_filename: "#{repo}_#{version}_windows_amd64.tar.gz"
-  sha_filename: "#{repo}_#{version}_sha512-checksums.txt"
-  filter:
-  -  "entity.system.os == 'windows'"
-  -  "entity.system.arch == 'amd64'"
-{{< /code >}}
-
-### `bonsai.yml` specification
-
- description | 
--------------|------
-description  | Project description.
-required     | true
-type         | String
-example      | {{< code yml >}}description: "#{repo}"{{< /code >}}
-
- builds      | 
--------------|------
-description  | Array of asset details per platform.
-required     | true
-type         | Array
-example      | {{< code yml >}}
-builds:
-- platform: "linux"
-  arch: "amd64"
-  asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"
-  sha_filename: "#{repo}_#{version}_sha512-checksums.txt"
-  filter:
-  -  "entity.system.os == 'linux'"
-  -  "entity.system.arch == 'amd64'"
-{{< /code >}}
-
-### Builds specification
-
- platform    | 
--------------|------
-description  | Platform supported by the asset.
-required     | true
-type         | String
-example      | {{< code yml >}}- platform: "linux"{{< /code >}}
-
- arch        | 
--------------|------
-description  | Architecture supported by the asset.
-required     | true
-type         | String
-example      | {{< code yml >}}  arch: "amd64"{{< /code >}}
-
-asset_filename | 
--------------|------
-description  | File name of the archive that contains the asset.
-required     | true
-type         | String
-example      | {{< code yml >}}asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"{{< /code >}}
-
-sha_filename | 
--------------|------
-description  | SHA-512 checksum for the asset archive.
-required     | true
-type         | String
-example      | {{< code yml >}}sha_filename: "#{repo}_#{version}_sha512-checksums.txt"{{< /code >}}
-
- filter      | 
--------------|------
-description  | Filter expressions that describe the operating system and architecture supported by the asset.
-required     | false
-type         | Array
-example      | {{< code yml >}}
-  filter:
-  -  "entity.system.os == 'linux'"
-  -  "entity.system.arch == 'amd64'"
-{{< /code >}}
 
 ## Delete assets
 
