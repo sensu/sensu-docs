@@ -4,7 +4,8 @@ description: "Log Sensu services and maintain visibility into your monitoring wo
 product: "Sensu Go"
 version: "5.19"
 weight: 40
-layout: "base-for-directory-listing"
+layout: "single"
+toc: false
 menu:
   sensu-go-5.19:
     parent: operations

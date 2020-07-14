@@ -4,7 +4,8 @@ description: "Read about how to maintain and troubleshoot your Sensu installatio
 product: "Sensu Go"
 version: "5.18"
 weight: 30
-layout: "base-for-directory-listing"
+layout: "single"
+toc: false
 menu:
   sensu-go-5.18:
     parent: operations

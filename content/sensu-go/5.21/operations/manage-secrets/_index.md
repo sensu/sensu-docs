@@ -4,7 +4,8 @@ description: "Sensu's secrets management allows you to avoid exposing secrets li
 product: "Sensu Go"
 version: "5.21"
 weight: 50
-layout: "base-for-directory-listing"
+layout: "single"
+toc: false
 menu:
   sensu-go-5.21:
     parent: operations
