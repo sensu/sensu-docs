@@ -334,7 +334,7 @@ Learn how to use Sensu to [Reduce alert fatigue][11].
 [1]: ../../operations/deploy-sensu/install-sensu#install-the-sensu-backend
 [2]: ../../operations/deploy-sensu/install-sensu#install-sensu-agents
 [3]: ../../operations/deploy-sensu/install-sensu#install-sensuctl
-[4]: ../../sensuctl/set-up-manage#first-time-setup
+[4]: ../../sensuctl#first-time-setup
 [5]: https://curl.haxx.se/
 [6]: https://api.slack.com/incoming-webhooks
 [7]: ../../learn/learn-sensu-sandbox/

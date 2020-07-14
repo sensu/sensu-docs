@@ -10,8 +10,6 @@ menu:
     parent: learn-sensu
 ---
 
-Sensu is the industry-leading telemetry and service health-checking solution for multi-cloud monitoring at scale.
-
 Our interactive training tutorials help you get started with Sensu Go, using only your browser.
 With these tutorials, you can learn how to automate your monitoring workflows, gain deep visibility into systems that are important to your business operations, get complete control over your alerts, and integrate anywhere, including with the tools you're already using.
 

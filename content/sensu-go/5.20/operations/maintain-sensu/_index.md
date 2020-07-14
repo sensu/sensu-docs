@@ -11,4 +11,8 @@ menu:
     identifier: maintain-sensu
 ---
 
-{{< directoryListing >}}
+Use the guides in the Maintain Sensu category to [upgrade][1] to the latest version of Sensu and [troubleshoot][2].
+
+
+[1]: upgrade/
+[2]: troubleshoot/

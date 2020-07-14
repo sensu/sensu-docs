@@ -436,5 +436,5 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 [1]: ../../reference/rbac#user-specification
 [2]: ../overview#pagination
 [3]: https://en.wikipedia.org/wiki/Bcrypt
-[4]: ../../sensuctl/set-up-manage/#generate-a-password-hash
+[4]: ../../sensuctl/#generate-a-password-hash
 [8]: ../overview#response-filtering

@@ -110,7 +110,7 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [6]: https://sensu.io/sales/
 [7]: ../learn/glossary/
 [8]: ../installation/install-sensu#install-sensu-agents
-[9]: ../api/overview/
+[9]: ../api/
 [10]: ../reference/entities/#proxy-entities
 [11]: https://github.com/sensu-plugins/
 [12]: https://docs.sensu.io/plugins/1.0/reference/#the-sensu-plugin-specification
@@ -125,12 +125,12 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [21]: ../reference/agent#create-monitoring-events-using-the-agent-api
 [22]: ../reference/agent/#using-the-http-socket
 [23]: ../reference/agent/#create-monitoring-events-using-the-statsd-listener
-[24]: ../web-ui/sign-in/
+[24]: web-ui/
 [25]: ../reference/backend/
 [26]: ../reference/agent/
 [27]: ../guides/clustering/
 [28]: ../commercial/
-[29]: ../web-ui/sign-in/
+[29]: web-ui/
 [30]: https://sensu.io/enterprise/
 [31]: https://blog.sensu.io/enterprise-features-in-sensu-go/
 [32]: https://bonsai.sensu.io/

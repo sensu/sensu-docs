@@ -1226,8 +1226,8 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 
 
 [1]: ../../../reference/backend/
-[2]: ../../../sensuctl/set-up-manage/
-[3]: ../../../web-ui/sign-in/
+[2]: ../../../sensuctl/
+[3]: ../../web-ui/
 [4]: #resources
 [5]: ../../../reference/assets/
 [6]: ../../../reference/checks/
@@ -1241,7 +1241,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [16]: ../../../reference/
 [17]: #namespaced-resource-types
 [18]: #cluster-wide-resource-types
-[19]: ../../../api/overview/
+[19]: ../../../api/
 [20]: #default-users
 [21]: #cluster-roles
 [22]: ../../../reference/filters/
@@ -1266,9 +1266,9 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [42]: ../../deploy-sensu/install-sensu/#install-the-sensu-backend
 [43]: ../auth#lightweight-directory-access-protocol-ldap-authentication
 [44]: ../auth/#active-directory-ad-authentication
-[45]: ../../../sensuctl/set-up-manage/#change-admin-users-password
+[45]: ../../../sensuctl/#change-admin-users-password
 [46]: ../../../reference/secrets-providers/
 [47]: ../../../reference/datastore/
 [48]: ../../../reference/secrets/
 [49]: ../../../web-ui/filter/#save-a-filtered-search
-[50]: ../../../sensuctl/set-up-manage/#reset-a-user-password
+[50]: ../../../sensuctl/#reset-a-user-password

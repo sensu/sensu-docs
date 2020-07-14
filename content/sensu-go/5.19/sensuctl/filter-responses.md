@@ -116,8 +116,8 @@ sensuctl check list --label-selector 'region == "us-west-1"' --field-selector 's
 
 
 [1]: ../create-manage-resources/#subcommands
-[2]: ../../api/overview#response-filtering
-[3]: ../../api/overview#field-selector
+[2]: ../../api#response-filtering
+[3]: ../../api#field-selector
 [4]: ../../commercial/
-[5]: ../../api/overview/#operators
+[5]: ../../api/#operators
 [6]: #examples
