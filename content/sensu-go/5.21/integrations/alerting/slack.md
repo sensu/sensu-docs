@@ -22,15 +22,13 @@ To use the [Sensu Slack Handler asset][1] to route alerts to a Slack channel, yo
 
 Follow [Send Slack alerts with handlers][2] to send alerts to Slack in the channel #monitoring by configuring a handler named `slack` to a check named `check-cpu`.
 
-You can also try the Slack integration in our [Learn Sensu in 15 minutes][3] tutorial.
-
 ## Slack integration specification
 
 Spec placeholder
 
 ## Interactive tutorial
 
-Tutorial placeholder
+Try the Slack integration in our [Learn Sensu in 15 minutes][3] tutorial.
 
 
 [1]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler

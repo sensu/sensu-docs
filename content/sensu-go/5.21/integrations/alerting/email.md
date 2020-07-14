@@ -23,15 +23,13 @@ To use the [Sensu Email handler asset][1] to send alerts to your email inbox, yo
 
 Read [Send email alerts with the Sensu Go Email Handler][2] to send alerts to your email inbox.
 
-You can also try the email integration in your browser with our [Up and running with Sensu Go][3] tutorial.
-
 ## Email integration specification
 
 Spec placeholder
 
 ## Interactive tutorial
 
-Tutorial placeholder
+Try the email integration in your browser with our [Up and running with Sensu Go][3] tutorial.
 
 
 [1]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
