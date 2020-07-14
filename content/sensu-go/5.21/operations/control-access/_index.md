@@ -4,7 +4,8 @@ description: "Set up access control for Sensu, the flexible observability pipeli
 product: "Sensu Go"
 version: "5.21"
 weight: 20
-layout: "base-for-directory-listing"
+layout: "single"
+toc: false
 menu:
   sensu-go-5.21:
     parent: operations
