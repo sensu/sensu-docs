@@ -1,0 +1,34 @@
+#sidebar {
+  background: white;
+  display: none;
+  grid-area: sidebar;
+
+  a {
+    display: block;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    position: relative;
+    text-decoration: none;
+  }
+
+  aside > div {
+    background-color: #fbfbfb;
+    padding: 2rem 1rem 2rem 1.5rem;
+    width: 100%;
+  }
+
+  h4 {
+    font-size: 1.6rem;
+    font-style: normal;
+    margin-top: 0;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    display: block;
+  }
+}
+
+
+#contribute {
+  padding: 4rem 0 0 1rem;
+}
