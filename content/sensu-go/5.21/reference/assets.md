@@ -120,12 +120,11 @@ sensu-example-handler_1.0.0_linux_amd64
 ## Asset path
 
 When you download and install an asset, the asset files are saved to a local path on disk.
-Most of the time, you won't need to know this path &mdash; except when you want to provide an argument to a command that uses the asset.
-In that case, you *will* need to know the full explicit path to the asset files.
+Most of the time, you won't need to know this path &mdash; except in cases where you need to provide the full path to asset files as part of a command argument.
 
-The asset path includes the asset's checksum, which changes every time the asset is updated.
+The asset directory path includes the asset's checksum, which changes every time underlying asset artifacts are updated.
 This would normally require you to manually update the commands for any of your checks, handlers, hooks, or mutators that consume the asset.
-However, the local path on disk is exposed to asset consumers via [environment variables][14] and the [`assetPath` custom function for token substitution][17], which allows you to avoid manual updates.
+However, because the asset directory path is exposed to asset consumers via [environment variables][14] and the [`assetPath` custom function for token substitution][17], you can avoid these manual updates.
 
 You can retrieve the asset's path as an environment variable in the `command` context for checks, handlers, hooks, and mutators.
 Token substitution with the `assetPath` custom function is only available for check and hook commands.
