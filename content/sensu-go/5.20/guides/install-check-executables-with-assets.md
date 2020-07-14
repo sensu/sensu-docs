@@ -28,6 +28,11 @@ This example uses the `-r` (rename) flag to specify a shorter name for the asset
 
 You can also click the Download button on the asset page in [Bonsai][7] to download the asset definition for your Sensu backend platform and architecture.
 
+{{% notice note %}}
+**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+{{% /notice %}}
+
 ## Adjust the asset definition
 
 Asset definitions tell Sensu how to download and verify the asset when required by a check, filter, mutator, or handler.
