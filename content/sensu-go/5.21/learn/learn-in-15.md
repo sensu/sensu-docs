@@ -27,6 +27,4 @@ s.parentNode.insertBefore(b, s);})();
     style="height: 800px; padding-top: 10px;" 
 ></div>
 <br><br>
-[**<-- Back to Learn Sensu with interactive training**][1]
-
-[1]: ../interactive-tutorials/
+<a href="https://docs.sensu.io/sensu-go/5.21/learn/interactive-tutorials/"><-- Back to Learn Sensu with interactive training</a>
