@@ -18,6 +18,10 @@ Sensu Go is available for [RHEL/CentOS, Debian, Ubuntu, and Docker][43].
 The Sensu Go agent is also available for Windows.
 [Configuration management][44] integrations for Sensu Go are available for Ansible, Chef, and Puppet.
 
+{{% notice important %}}
+**IMPORTANT**: To install Sensu Go alongside your current Sensu instance, you must upgrade to at least [Sensu Core 1.7.0](https://eol-repositories.sensuapp.org/).
+{{% /notice %}}
+
 Aside from this migration guide, these resources can help you migrate from Sensu Core to Sensu Go:
 
 - [**Sensu Community Slack**][46]: Join hundreds of other Sensu users in our Community Slack, where you can ask questions and benefit from tips others picked up during their own Sensu Go migrations.
@@ -35,8 +39,6 @@ Clients are represented within Sensu Go as abstract entities that can describe a
 Entities include agent entities that run a Sensu agent and the familiar proxy entities.
 
 The [glossary][1] includes more information about new terminology in Sensu Go.
-
-To install Sensu Go alongside your current Sensu instance, you must upgrade to at least [Sensu Core 1.7.0][35].
 
 ## Architecture
 
@@ -445,7 +447,6 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [29]: ../reference/backend#operation
 [33]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#configuration
 [34]: ../guides/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler-1
-[35]: https://eol-repositories.sensuapp.org/
 [36]: https://etcd.io/
 [37]: ../operations/deploy-sensu/cluster-sensu/
 [38]: ../operations/deploy-sensu/deployment-architecture/
