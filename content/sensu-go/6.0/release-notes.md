@@ -9,6 +9,7 @@ version: "6.0"
 menu: "sensu-go-6.0"
 ---
 
+- [6.0.0 release notes](#600-release-notes)
 - [5.21.0 release notes](#5210-release-notes)
 - [5.20.2 release notes](#5202-release-notes)
 - [5.20.1 release notes](#5201-release-notes)
@@ -64,6 +65,28 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.0.0 release notes
+
+**July 23, 2020** &mdash; The latest release of Sensu Go, version 6.0.0, is now available for download.
+
+**PLACEHOLDER FOR RELEASE SYNOPSIS**
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.0.0.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][162]) PLACEHOLDER.
+- Added supported packages for Raspbian 7, 8, 9, and 10.
+- Added binary-only distributions for FreeBSD `armv5`, `armv6`, and `armv7` and Linux `ppc64le` and `s390x`.
+
+**IMPROVEMENTS:**
+
+- Added support for the `memberOf` attribute in Active Directory (AD).
+
+**FIXES:**
+
+- PLACEHOLDER.
 
 ## 5.21.0 release notes
 
@@ -1372,3 +1395,4 @@ To get started with Sensu Go:
 [158]: /sensu-go/5.21/commercial/
 [160]: /sensu-go/5.21/reference/backend#fips-openssl
 [161]: /sensu-go/5.21/reference/agent#fips-openssl
+[162]: /sensu-go/6.0/commercial/
