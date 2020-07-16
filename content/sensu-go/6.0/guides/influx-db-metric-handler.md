@@ -26,7 +26,7 @@ This example uses the [Sensu InfluxDB Handler][13] asset to power an `influx-db`
 Use [`sensuctl asset add`][5] to register the [Sensu InfluxDB Handler][13] asset:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-influxdb-handler:3.1.2
+sensuctl asset add sensu/sensu-influxdb-handler:3.1.2 -r influxdb-handler
 fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.2
 added asset: sensu/sensu-influxdb-handler:3.1.2
 
