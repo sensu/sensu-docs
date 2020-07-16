@@ -73,10 +73,10 @@ Sensu binary-only distributions that contain the Sensu backend, agent, and sensu
 
 | Platform | Architectures |
 |----------|---------------|
-| Linux | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE`<br>`ppc64le` `s390x` |
+| Linux | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` `ppc64le` `s390x` |
 | Windows | `386` `amd64` |
 | macOS | `amd64` |
-| FreeBSD | `386` `amd64` `arm` |
+| FreeBSD | `386` `amd64` `armv5` `armv6` `armv7` |
 | Solaris | `amd64` |
 
 {{< platformBlock "Linux" >}}
@@ -134,12 +134,12 @@ Sensu binary-only distributions for Linux are available for these architectures 
 <td><code>MIPS hard float</code></td>
 <td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_mips-hardfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_mips-hardfloat.zip"><code>.zip</code></a></td>
 <td class="vertline"><code>s390x</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_s390x.tar.gz"><code>.tar.gz</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-enterprise-go_6.0.0_linux_s390x.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-enterprise-go_6.0.0_linux_s390x.zip"><code>.zip</code></a></td>
 </tr>
 <td><code>MIPS soft float</code></td>
 <td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_mips-softfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_mips-softfloat.zip"><code>.zip</code></a></td>
 <td class="vertline"><code>ppc64le</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_mips64-softfloat.tar.gz"><code>.tar.gz</code></a></td>
+<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-enterprise-go_6.0.0_linux_ppc64le.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-enterprise-go_6.0.0_linux_ppc64le.zip"><code>.zip</code></a></td>
 </tr>
 </tbody>
 </table>
@@ -177,8 +177,8 @@ Sensu binary-only distributions for Windows are available for these architecture
 
 | Architecture | Formats |
 | --- | --- |
-| `amd64` | [`.tar.gz`][26] \| [`.zip`][28]
 | `386` | [`.tar.gz`][27] \| [`.zip`][29]
+| `amd64` | [`.tar.gz`][26] \| [`.zip`][28]
 
 For example, to download Sensu for Windows `amd64` in `zip` format:
 
@@ -252,9 +252,11 @@ Sensu binary-only distributions for FreeBSD are available for these architecture
 
 | Architecture | Formats |
 | --- | --- |
-| `amd64` | [`.tar.gz`][32] \| [`.zip`][33]
-| `arm` | [`.tar.gz`][32] \| [`.zip`][33]
 | `386` | [`.tar.gz`][34] \| [`.zip`][35]
+| `amd64` | [`.tar.gz`][32] \| [`.zip`][33]
+| `armv5` | [`.tar.gz`][38] \| [`.zip`][39]
+| `armv6` | [`.tar.gz`][40] \| [`.zip`][41]
+| `armv7` | [`.tar.gz`][42] \| [`.zip`][43]
 
 For example, to download Sensu for FreeBSD `amd64` in `tar.gz` format:
 
@@ -332,7 +334,6 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [16]: https://github.com/sensu/sensu-go/blob/master/CONTRIBUTING.md
 [17]: https://github.com/jaredledvina/sensu-go-ansible/
 [18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_armv7.tar.gz
-[19]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_freebsd_arm.tar.gz
 [20]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_amd64.zip
 [21]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_arm64.zip
 [22]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_armv5.zip
@@ -350,6 +351,12 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [35]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_freebsd_386.zip
 [36]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_solaris_amd64.tar.gz
 [37]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_solaris_amd64.zip
+[38]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-enterprise-go_6.0.0_freebsd_armv5.tar.gz
+[39]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-enterprise-go_6.0.0_freebsd_armv5.zip
+[40]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-enterprise-go_6.0.0_freebsd_armv6.tar.gz
+[41]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-enterprise-go_6.0.0_freebsd_armv6.zip
+[42]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-enterprise-go_6.0.0_freebsd_armv7.tar.gz
+[43]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-enterprise-go_6.0.0_freebsd_armv7.zip
 [54]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_amd64.tar.gz
 [55]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_arm64.tar.gz
 [56]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_armv5.tar.gz
