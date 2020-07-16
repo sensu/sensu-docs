@@ -27,6 +27,12 @@ Use [`sensuctl asset add`][5] to register the [Sensu InfluxDB Handler][13] asset
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.1.2 -r influxdb-handler
+fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.2
+added asset: sensu/sensu-influxdb-handler:3.1.2
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["influxdb-handler"].
 {{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `influxdb-handler`.

@@ -27,15 +27,22 @@ Replace `[NAMESPACE/NAME]` with the namespace and name of the asset from Bonsai:
 sensuctl asset add sensu/sensu-influxdb-handler:3.1.1
 fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.1
 added asset: sensu/sensu-influxdb-handler:3.1.1
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["sensu/sensu-influxdb-handler"].
 {{< /code >}}
 
 You can also use the `--rename` flag to rename the asset on install:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-slack-handler --rename slack-handler
-no version specified, using latest: 1.0.3
-fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
-added asset: sensu/sensu-slack-handler:1.0.3
+sensuctl asset add sensu/sensu-influxdb-handler:3.1.1 --rename influxdb-handler
+fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.1
+added asset: sensu/sensu-influxdb-handler:3.1.1
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["influxdb-handler"].
 {{< /code >}}
 
 {{% notice note %}}

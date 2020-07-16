@@ -64,6 +64,12 @@ Use [`sensuctl asset add`][5] to register the [fatigue check filter][9] asset:
 
 {{< code shell >}}
 sensuctl asset add nixwiz/sensu-go-fatigue-check-filter:0.3.2 -r fatigue-filter
+fetching bonsai asset: nixwiz/sensu-go-fatigue-check-filter:0.3.2
+added asset: nixwiz/sensu-go-fatigue-check-filter:0.3.2
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["fatigue-filter"].
 {{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `fatigue-filter`.
