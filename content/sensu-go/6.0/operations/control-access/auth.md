@@ -749,6 +749,56 @@ spec:
 
 {{< /language-toggle >}}
 
+**Example AD configuration: Use `memberOf` attribute instead of `group_search`**
+
+AD automatically returns a `memberOf` attribute in users' accounts.
+The `memberOf` attribute contains the user's group membership, which effectively removes the requirement to look up the user's groups.
+
+To use the `memberOf` attribute in your AD implementation, remove the `group_search` object from your AD config:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: ad
+api_version: authentication/v2
+metadata:
+  name: activedirectory
+spec:
+  servers:
+    host: 127.0.0.1
+    user_search:
+      base_dn: dc=acme,dc=org
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "ad",
+  "api_version": "authentication/v2",
+  "spec": {
+    "servers": [
+      {
+        "host": "127.0.0.1",
+        "user_search": {
+          "base_dn": "dc=acme,dc=org"
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "name": "activedirectory"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+After you configure AD to use the `memberOf` attribute, the `debug` log level will include the following log entries:
+
+{{< code shell >}}
+{"component":"authentication/v2","level":"debug","msg":"using the \"memberOf\" attribute to determine the group membership of user \"user1\"","time":"2020-06-25T14:10:58-04:00"}
+{"component":"authentication/v2","level":"debug","msg":"found 1 LDAP group(s): [\"sensu\"]","time":"2020-06-25T14:10:58-04:00"}
+{{< /code >}}
+
 ### AD specification
 
 #### AD top-level attributes
@@ -945,8 +995,8 @@ example      | {{< code shell >}}
 
 | group_search |    |
 -------------|------
-description  | Search configuration for groups. See the [group search attributes][47] for more information.
-required     | true
+description  | Search configuration for groups. See the [group search attributes][47] for more information. Remove the `group_search` object from your configuration to use the [`memberOf` attribute][55] instead.
+required     | false
 type         | Map
 example      | {{< code shell >}}
 "group_search": {
@@ -956,6 +1006,15 @@ example      | {{< code shell >}}
   "object_class": "group"
 }
 {{< /code >}}
+
+<a name="ad-memberof"></a>
+
+| memberOf |    |
+-------------|------
+description  | Groups the user belongs to. If your AD configuration does not include the `group_search` object, AD will automatically return the `memberOf` attribute by default.
+required     | false
+type         | Array
+example      | {{< code shell >}}"memberOf": ["sensu", "admin", "dev"]{{< /code >}}
 
 | user_search |     |
 -------------|------
@@ -1008,6 +1067,39 @@ type         | String
 example      | {{< code shell >}}"password": "YOUR_PASSWORD"{{< /code >}}
 
 #### AD group search attributes
+
+| base_dn    |      |
+-------------|------
+description  | Tells Sensu which part of the directory tree to search. For example, `dc=acme,dc=org` searches within the `acme.org` directory.
+required     | true
+type         | String
+example      | {{< code shell >}}"base_dn": "dc=acme,dc=org"{{< /code >}}
+
+| attribute  |      |
+-------------|------
+description  | Used for comparing result entries. Combined with other filters as <br> `"(<Attribute>=<value>)"`.
+required     | false
+type         | String
+default      | `"member"`
+example      | {{< code shell >}}"attribute": "member"{{< /code >}}
+
+| name_attribute |  |
+-------------|------
+description  | Represents the attribute to use as the entry name.
+required     | false
+type         | String
+default      | `"cn"`
+example      | {{< code shell >}}"name_attribute": "cn"{{< /code >}}
+
+| object_class |   |
+-------------|------
+description  | Identifies the class of objects returned in the search result. Combined with other filters as `"(objectClass=<ObjectClass>)"`.
+required     | false
+type         | String
+default      | `"group"`
+example      | {{< code shell >}}"object_class": "group"{{< /code >}}
+
+#### AD memberOf attributes
 
 | base_dn    |      |
 -------------|------
@@ -1373,3 +1465,4 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [52]: https://www.pingidentity.com/en/software/pingfederate.html
 [53]: ../../../api/users/
 [54]: https://etcd.io/
+[55]: #ad-memberof
