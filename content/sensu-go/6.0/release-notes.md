@@ -83,6 +83,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.0.0.
 **IMPROVEMENTS:**
 
 - Added support for the `memberOf` attribute in Active Directory (AD).
+- Output of `sensuctl asset add` now includes help for using the runtime asset.
 
 **FIXES:**
 
