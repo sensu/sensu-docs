@@ -22,6 +22,12 @@ To add the [Sensu PagerDuty Handler asset][7] to Sensu, use [`sensuctl asset add
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
+fetching bonsai asset: sensu/sensu-pagerduty-handler:1.2.0
+added asset: sensu/sensu-pagerduty-handler:1.2.0
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["pagerduty-handler"].
 {{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `pagerduty-handler`.
