@@ -13,6 +13,11 @@ menu:
 
 ## Upgrade to Sensu Go 6.0 from a 5.x deployment
 
+{{% notice important %}}
+**IMPORTANT**: Before you upgrade to Sensu 6.0, create a backup of your existing installation.
+You will not be able to downgrade to a Sensu 5.x version after you upgrade your database to Sensu 6.0 in step 3 of this process.
+{{% /notice %}}
+
 To upgrade your Sensu Go 5.x deployment to 6.0:
 
 1. [Install][1] the 6.0 packages or Docker image.
