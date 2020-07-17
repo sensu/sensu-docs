@@ -79,6 +79,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.0.0.
 - ([Commercial feature][162]) PLACEHOLDER.
 - Added supported packages for Raspbian 7, 8, 9, and 10.
 - Added binary-only distributions for FreeBSD `armv5`, `armv6`, and `armv7` and Linux `ppc64le` and `s390x`.
+- The database schema for entities has changed. As a result, after upgrading to Sensu 6.0, you will not be able to use your database with older versions of Sensu.
 
 **IMPROVEMENTS:**
 
