@@ -995,7 +995,7 @@ example      | {{< code shell >}}
 
 | group_search |    |
 -------------|------
-description  | Search configuration for groups. See the [group search attributes][47] for more information. Remove the `group_search` object from your configuration to use the [`memberOf` attribute][55] instead.
+description  | Search configuration for groups. See the [group search attributes][47] for more information. Remove the `group_search` object from your configuration to use the `memberOf` attribute instead.
 required     | false
 type         | Map
 example      | {{< code shell >}}
@@ -1006,15 +1006,6 @@ example      | {{< code shell >}}
   "object_class": "group"
 }
 {{< /code >}}
-
-<a name="ad-memberof"></a>
-
-| memberOf |    |
--------------|------
-description  | Groups the user belongs to. If your AD configuration does not include the `group_search` object, AD will automatically return the `memberOf` attribute by default.
-required     | false
-type         | Array
-example      | {{< code shell >}}"memberOf": ["sensu", "admin", "dev"]{{< /code >}}
 
 | user_search |     |
 -------------|------
@@ -1067,39 +1058,6 @@ type         | String
 example      | {{< code shell >}}"password": "YOUR_PASSWORD"{{< /code >}}
 
 #### AD group search attributes
-
-| base_dn    |      |
--------------|------
-description  | Tells Sensu which part of the directory tree to search. For example, `dc=acme,dc=org` searches within the `acme.org` directory.
-required     | true
-type         | String
-example      | {{< code shell >}}"base_dn": "dc=acme,dc=org"{{< /code >}}
-
-| attribute  |      |
--------------|------
-description  | Used for comparing result entries. Combined with other filters as <br> `"(<Attribute>=<value>)"`.
-required     | false
-type         | String
-default      | `"member"`
-example      | {{< code shell >}}"attribute": "member"{{< /code >}}
-
-| name_attribute |  |
--------------|------
-description  | Represents the attribute to use as the entry name.
-required     | false
-type         | String
-default      | `"cn"`
-example      | {{< code shell >}}"name_attribute": "cn"{{< /code >}}
-
-| object_class |   |
--------------|------
-description  | Identifies the class of objects returned in the search result. Combined with other filters as `"(objectClass=<ObjectClass>)"`.
-required     | false
-type         | String
-default      | `"group"`
-example      | {{< code shell >}}"object_class": "group"{{< /code >}}
-
-#### AD memberOf attributes
 
 | base_dn    |      |
 -------------|------
@@ -1465,4 +1423,3 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [52]: https://www.pingidentity.com/en/software/pingfederate.html
 [53]: ../../../api/users/
 [54]: https://etcd.io/
-[55]: #ad-memberof
