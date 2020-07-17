@@ -9,8 +9,8 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to the APIKeys API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
-The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+**NOTE**: Requests to the APIKeys API require you to authenticate with a Sensu [access token](../#authenticate-with-the-authentication-api) or [API key](../#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
 ## Get all API keys
@@ -163,4 +163,4 @@ description     | Revokes the specified API key.
 example URL     | http://hostname:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
 response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../overview#pagination
+[1]: ../#pagination
