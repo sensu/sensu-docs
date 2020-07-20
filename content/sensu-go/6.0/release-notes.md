@@ -86,7 +86,7 @@ See the [Sensu Go Web repository][163] for more information.
 
 - ([Commercial feature][162]) Sensu now logs a warning when secrets cannot be sent to an agent because mTLS is not enabled.
 - ([Commercial feature][162]) Added `sensu.FetchEvent(entity, check)` and `sensu.ListEvents()` to the JavaScript filter execution environment so you can now query the Sensu event store for other events within the filter namespace.
-- Added supported packages for Raspbian 7, 8, 9, and 10.
+- Added Linux packages for 386; armv5, armv6, and armv7; MIPS hard float, MIPS LE hard float, and MIPS 64 LE hard float; ppc64le; and s390x architectures.
 See the [supported platforms][165] page for a complete list of Sensu’s supported platforms.
 - Added [binary-only distributions][164] for FreeBSD `armv5`, `armv6`, and `armv7` and Linux `ppc64le` and `s390x`.
 - Added the `is_silenced` Boolean attribute to the event.Check object to indicate whether the event was silenced at the time it was processed.
