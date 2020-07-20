@@ -89,6 +89,7 @@ See the [Sensu Go Web repository][163] for more information.
 - Added supported packages for Raspbian 7, 8, 9, and 10.
 See the [supported platforms][165] page for a complete list of Sensu’s supported platforms.
 - Added [binary-only distributions][164] for FreeBSD `armv5`, `armv6`, and `armv7` and Linux `ppc64le` and `s390x`.
+- Added the `is_silenced` Boolean attribute to the event.Check object to indicate whether the event was silenced at the time it was processed.
 
 **IMPROVEMENTS:**
 
