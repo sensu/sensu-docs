@@ -31,10 +31,10 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `armv5`<br>`armv6`<br>`armv7` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS hard float`<br>`MIPS soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS LE hard float`<br>`MIPS LE soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS 64 hard float`<br>`MIPS 64 soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS 64 LE hard float`<br>`MIPS 64 LE soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS LE hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS 64 hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS 64 LE hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 
@@ -45,10 +45,10 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `armv5`<br>`armv6`<br>`armv7` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS hard float`<br>`MIPS soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS LE hard float`<br>`MIPS LE soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS 64 hard float`<br>`MIPS 64 soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS 64 LE hard float`<br>`MIPS 64 LE soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS LE hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS 64 hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS 64 LE hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 
