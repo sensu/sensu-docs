@@ -26,6 +26,12 @@ Use [`sensuctl asset add`][10] to register the [Sensu Slack Handler][14] asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-slack-handler:1.0.3 -r sensu-slack-handler
+fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
+added asset: sensu/sensu-slack-handler:1.0.3
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["sensu-slack-handler"].
 {{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `sensu-slack-handler`.

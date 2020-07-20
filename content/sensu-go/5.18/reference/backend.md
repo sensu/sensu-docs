@@ -1328,7 +1328,7 @@ If you are running a clustered backend, rotating logs on all cluster members sim
 [3]: ../../guides/monitor-server-resources/
 [4]: ../../guides/extract-metrics-with-checks/
 [5]: ../../reference/checks/
-[6]: ../web-ui/
+[6]: ../../web-ui/
 [7]: ../../guides/send-slack-alerts/
 [8]: ../../guides/reduce-alert-fatigue/
 [9]: ../../reference/filters/

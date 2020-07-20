@@ -50,6 +50,12 @@ To add the has-contact asset to Sensu, use [`sensuctl asset add`][14]:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-go-has-contact-filter:0.2.0 -r contact-filter
+fetching bonsai asset: sensu/sensu-go-has-contact-filter:0.2.0
+added asset: sensu/sensu-go-has-contact-filter:0.2.0
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["contact-filter"].
 {{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `contact-filter`.
@@ -125,6 +131,12 @@ If you haven't already, add the [Slack handler asset][8] to Sensu with sensuctl:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-slack-handler:1.0.3 -r sensu-slack-handler
+fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
+added asset: sensu/sensu-slack-handler:1.0.3
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["sensu-slack-handler"].
 {{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `sensu-slack-handler`.
