@@ -74,21 +74,55 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.0.0.
 
+**BREAKING CHANGES FOR SENSU 6.0:**
+
+- The database schema for entities has changed. As a result, after upgrading to Sensu 6.0, you will not be able to use your database with older versions of Sensu.
+- The web UI is now a standalone product that is no longer distributed inside the `sensu-backend` binary. See the [Sensu Go Web repository][163] for more information.
+- After initial creation, you cannot change your `sensu-agent` entity configuration by modifying the agent's configuration file.
+
 **NEW FEATURES:**
 
 - ([Commercial feature][162]) PLACEHOLDER.
 - Added supported packages for Raspbian 7, 8, 9, and 10.
 - Added binary-only distributions for FreeBSD `armv5`, `armv6`, and `armv7` and Linux `ppc64le` and `s390x`.
-- The database schema for entities has changed. As a result, after upgrading to Sensu 6.0, you will not be able to use your database with older versions of Sensu.
+- Added `sensu.FetchEvent(entity, check)` and `sensu.ListEvents()` to the JavaScript filter execution environment, which means users can now query the Sensu event store for other events within the filter namespace.
+- Sensu now logs a warning when secrets cannot be sent to an agent because mTLS is not enabled.
 
 **IMPROVEMENTS:**
 
-- Added support for the `memberOf` attribute in Active Directory (AD).
+- ([Commercial feature][162]) Added support for the `memberOf` attribute in Active Directory (AD).
+- ([Commercial feature][162]) Added more descriptive information for errors in the federated web UI.
+- ([Commercial feature][162]) Sensu now passes users' secondary groups (i.e. groups other than the Sensu user group) to `chroot` for sysvinit services, which gives the Sensu agent and backend access to the file access writes that are granted to the secondary groups.
+- ([Commercial feature][162]) CGO builds for Darwin `amd64` are now automated.
+- ([Commercial feature][162]) AppVeyor is now triggered directly from a CircleCI step rather than CMake.
 - Output of `sensuctl asset add` now includes help for using the runtime asset.
+
+[NEED TO ADD]
+Improves logging around the agent websocket connection.
+Entities are now stored as two separate data structures, in order to optimize data access patterns.
+The dead and handleUpdate methods in keepalived now use EntityConfig and EntityState respectively.
+The dead() and createProxyEntity() methods in eventd now use corev3.EntityConfig and corev3.EntityState.
+sensu-agent configuration can now be managed via the HTTP API.
+ClusterRoleBinding and RoleBinding subjects names can now contain any unicode characters.
+Enriches output of sensuctl asset add with help usage for how to use the runtime asset.
+Unless the entity is a proxy entity, updates to entities now ignore state related fields.
 
 **FIXES:**
 
-- PLACEHOLDER.
+- ([Commercial feature][162]) Fixed label selectors with multiple requirements for events.
+- ([Commercial feature][162]) Fixed an issue that prevented broken secrets providers from surfacing their errors.
+
+
+[NEED TO ADD]
+Clarifies wording around a secret provider error message.
+Logs and returns an error if a mutator cannot be found.
+Errors produced in the agent by assets, check validation, token substitution, and event unmarshaling are logged once again.
+User-Agent header is only set on new client creation rather than on each request.
+Fixed a bug where highly concurrent event filtering could result in a panic.
+Fixed a bug where nil labels or annotations in an event filtering context would result in a bad user experience, with the user having to explicitly check if the annotations or labels are undefined. Now, the user is guaranteed that labels and annotations are always defined, though they may be empty.
+Automatically capitalize the roleRef and subject types in ClusterRoleBindings and RoleBindings.
+Log the proper CA certificate path in the error message when it can't be properly parsed by the agent.
+Fix the log entry field for the check's name in schedulerd.
 
 ## 5.21.0 release notes
 
@@ -1398,3 +1432,4 @@ To get started with Sensu Go:
 [160]: /sensu-go/5.21/reference/backend#fips-openssl
 [161]: /sensu-go/5.21/reference/agent#fips-openssl
 [162]: /sensu-go/6.0/commercial/
+[163]: https://github.com/sensu/web
