@@ -20,43 +20,37 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 ### Sensu backend
 
-| Platform and Version | `amd64` | | | |
-|----------------------|---------|---|---|---|
-| CentOS/RHEL 6, 7, 8 | {{< check >}} | | | |
-| Debian 8, 9, 10     | {{< check >}} | | | |
-| Ubuntu 14.04        | {{< check >}} | | | |
-| Ubuntu 16.04        | {{< check >}} | | | |
-| Ubuntu 18.04, 18.10 | {{< check >}} | | | |
-| Ubuntu 19.04, 19.10 | {{< check >}} | | | |
-| Ubuntu 20.04        | {{< check >}} | | | |
+|  | CentOS/RHEL<br>6, 7, 8 | Debian 8, 9, 10 | Ubuntu 14.04, 16.04, 18.04, 18.10, 19.04, 19.10, 20.04 |
+|----------------------|---------|---|---|
+| `amd64` | {{< check >}} | {{< check >}} | {{< check >}} |
 
 ### Sensu agent
 
-| Platform and Version | `amd64` | `386` | | | | |
-|----------------------|---------|-------|---|---|---|---|
-| CentOS/RHEL 6, 7, 8 | {{< check >}} | | | |
-| Debian 8, 9, 10     | {{< check >}} | | | |
-| Ubuntu 14.04        | {{< check >}} | | | |
-| Ubuntu 16.04        | {{< check >}} | | | |
-| Ubuntu 18.04, 18.10 | {{< check >}} | | | |
-| Ubuntu 19.04, 19.10 | {{< check >}} | | | |
-| Ubuntu 20.04        | {{< check >}} | | | |
-| Windows 7 and later | {{< check >}} | {{< check >}} | | |
-| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} | | |
+|  | CentOS/RHEL<br>6, 7, 8 | Debian 8, 9, 10 | Ubuntu 14.04, 16.04, 18.04, 18.10, 19.04, 19.10, 20.04 | Windows 7 and later | Windows Server 2008 R2 and later |
+|----------------------|---------|---|---|---|---|
+| `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
+| `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
+| `armv5`<br>`armv6`<br>`armv7` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS hard float`<br>`MIPS soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS LE hard float`<br>`MIPS LE soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS 64 hard float`<br>`MIPS 64 soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS 64 LE hard float`<br>`MIPS 64 LE soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 
 ### Sensuctl command line tool
 
-| Platform and Version | `amd64` | `386` | | | | |
-|----------------------|---------|-------|---|---|---|---|
-| CentOS/RHEL 6, 7, 8 | {{< check >}} | | | |
-| Debian 8, 9, 10     | {{< check >}} | | | |
-| Ubuntu 14.04        | {{< check >}} | | | |
-| Ubuntu 16.04        | {{< check >}} | | | |
-| Ubuntu 18.04, 18.10 | {{< check >}} | | | |
-| Ubuntu 19.04, 19.10 | {{< check >}} | | | |
-| Ubuntu 20.04        | {{< check >}} | | | |
-| Windows 7 and later | {{< check >}} | {{< check >}} | | |
-| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} | | |
+|  | CentOS/RHEL<br>6, 7, 8 | Debian 8, 9, 10 | Ubuntu 14.04, 16.04, 18.04, 18.10, 19.04, 19.10, 20.04 | Windows 7 and later | Windows Server 2008 R2 and later |
+|----------------------|---------|---|---|---|---|
+| `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
+| `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
+| `armv5`<br>`armv6`<br>`armv7` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS hard float`<br>`MIPS soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS LE hard float`<br>`MIPS LE soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS 64 hard float`<br>`MIPS 64 soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS 64 LE hard float`<br>`MIPS 64 LE soft float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 
 ## Docker images
 
