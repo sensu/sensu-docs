@@ -77,16 +77,16 @@ The default `agent.yml` file location depends on your operating system:
 You can modify agent entities with [sensuctl][32], the [entities API][31], and the [web UI][33].
 
 {{% notice note %}}
-**NOTE**: You cannot modify agent entities with `/etc/sensu/agent.yml`.
-The entity attributes in `/etc/sensu/agent.yml` are used only for initial entity creation.
+**NOTE**: You cannot modify agent entities with the `agent.yml` configuration file.
+The entity attributes in `agent.yml` are used only for initial entity creation.
 {{% /notice %}}
 
-To maintain agent entities based on `/etc/sensu/agent.yml`, create ephemeral agent entities with the [deregister attribute][34] set to `true`.
+To maintain agent entities based on `agent.yml`, create ephemeral agent entities with the [deregister attribute][34] set to `true`.
 With this setting, the agent entity will deregister every time the agent process stops.
-When it restarts, it will revert to the original configuration from `/etc/sensu/agent.yml`
-You must set `deregister: true` in `/etc/sensu/agent.yml` before the agent entity is created.
+When it restarts, it will revert to the original configuration from `agent.yml`
+You must set `deregister: true` in `agent.yml` before the agent entity is created.
 
-If you delete an agent entity that you modified with sensuctl, the entities API, or the web UI, it will revert to the original configuration from `/etc/sensu/agent.yml`.
+If you delete an agent entity that you modified with sensuctl, the entities API, or the web UI, it will revert to the original configuration from `agent.yml`.
 
 If you change an agent entity's class to `proxy`, the backend will revert the change to `agent`.
 
