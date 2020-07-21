@@ -832,6 +832,97 @@ spec:
 
 {{< /language-toggle >}}
 
+## Use built-in JavaScript filter execution functions
+
+Sensu includes four built-in JavaScript functions for event filter execution:
+
+- `sensu.CheckDependencies`
+- `sensu.FetchEvent`
+- `sensu.CheckStatus`
+- `sensu.ListEvents`
+
+You can use these functions to query your event stores.
+
+### `sensu.CheckDependencies`
+
+The `sensu.CheckDependencies` function takes zero or more checks as arguments.
+It returns `true` if all the specified checks are passing or `false` if any of the specified checks are failing.
+If you do not specify any checks, the function returns `true`.
+
+You can refer to the checks as strings:
+
+{{< code javascript >}}
+sensu.CheckDependencies("database", "disk")
+{{< /code >}}
+
+If you pass the check names as strings, Sensu assumes that the entites are the same as those in the events being filtered.
+
+You can also refer to the checks in objects that include both the entity and check name.
+For example:
+
+{{< code javascript >}}
+sensu.CheckDependencies({entity: "server01", check: "disk"}, {entity: "server01", check: "database"})
+{{< /code >}}
+
+In both cases, if no event matches the specified entities and checks, Sensu will raise an error.
+
+### `sensu.EventStatus`
+
+The `sensu.EventStatus` function takes zero or more checks as arguments.
+It returns an array of status codes for the events associated with the specified checks.
+
+sensu.EventStatus takes the same arguments as sensu.CheckDependencies, but returns an array of status codes instead of a true or false value.
+
+You can refer to the checks as strings:
+
+{{< code javascript >}}
+sensu.EventStatus("database", "disk")
+{{< /code >}}
+
+If you pass the check names as strings, Sensu assumes that the entites are the same as those in the events being filtered.
+
+You can also refer to the checks in objects that include both the entity and check name.
+For example:
+
+{{< code javascript >}}
+sensu.EventStatus({entity: "server01", check: "disk"}, {entity: "server01", check: "database"})
+{{< /code >}}
+
+In both cases, if no event matches the specified entities and checks, Sensu will raise an error.
+
+### `sensu.FetchEvent`
+
+The `sensu.FetchEvent` function loads the Sensu event that corresponds to the specified entity and check names.
+
+The format is `sensu.FetchEvent(entity, check)`.
+For example:
+
+{{< code javascript >}}
+sensu.FetchEvent("server01", "disk")
+{{< /code >}}
+
+You can only load events from the same namespace as the event being queried.
+The returned object uses the same format as responses for the [events API][43].
+
+If an event does not exist for the specified entity and check names, Sensu will raise an error.
+
+### `sensu.ListEvents`
+
+The `sensu.ListEvents` function returns an array of all events in the specified namespace.
+
+{{% notice note %}}
+**NOTE**: If you have many events in the namespace, this function may require a substantial amount of time to return them.
+{{% /notice %}}
+
+For example:
+
+{{< code javascript >}}
+sensu.ListEvents("production")
+{{< /code >}}
+
+The events in the returned array use the same format as responses for the [events API][43].
+
+
 [1]: #inclusive-and-exclusive-event-filters
 [2]: #when-attributes
 [3]: ../../reference/sensuctl/#time-windows
@@ -874,3 +965,4 @@ spec:
 [40]: ../filters/
 [41]: ../../web-ui/filter#filter-with-label-selectors
 [42]: ../../web-ui/filter/
+[43]: ../../api/events/
