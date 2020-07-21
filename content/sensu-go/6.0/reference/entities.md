@@ -66,33 +66,30 @@ You can modify the proxy entity later if needed.
 
 Use [proxy entity filters][19] to establish a many-to-many relationship between agent entities and proxy entities if you want even more power over the grouping.
 
-## Create and modify agent entities
+## Create and manage agent entities
 
 When an agent connects to a backend, the agent entity definition is created from the information in the `agent.yml` configuration file.
-The default `agent.yml` file location depends on your operating system:
+The default `agent.yml` file location [depends on your operating system][35].
 
-- Linux and macOS: `/etc/sensu/agent`
-- Windows: `C:\ProgramData\sensu\config`
-
-You can modify agent entities with [sensuctl][32], the [entities API][31], and the [web UI][33].
-
-{{% notice note %}}
-**NOTE**: You cannot modify agent entities with the `agent.yml` configuration file.
-The entity attributes in `agent.yml` are used only for initial entity creation.
-{{% /notice %}}
-
-To maintain agent entities based on `agent.yml`, create ephemeral agent entities with the [deregister attribute][34] set to `true`.
-With this setting, the agent entity will deregister every time the agent process stops.
-When it restarts, it will revert to the original configuration from `agent.yml`
-You must set `deregister: true` in `agent.yml` before the agent entity is created.
+You can manage agent entities via the backend with [sensuctl][32], the [entities API][31], and the [web UI][33].
 
 If you delete an agent entity that you modified with sensuctl, the entities API, or the web UI, it will revert to the original configuration from `agent.yml`.
 
+{{% notice note %}}
+**NOTE**: You cannot modify an agent entity with the `agent.yml` configuration file unless you delete the entity.
+The entity attributes in `agent.yml` are used only for initial entity creation unless you delete the entity.
+{{% /notice %}}
+
+To maintain agent entities based on `agent.yml`, create ephemeral agent entities with the [deregister attribute][34] set to `true`.
+With this setting, the agent entity will deregister every time the agent process stops and its keepalive expires.
+When it restarts, it will revert to the original configuration from `agent.yml`
+You must set `deregister: true` in `agent.yml` before the agent entity is created.
+
 If you change an agent entity's class to `proxy`, the backend will revert the change to `agent`.
 
-## Create and modify proxy entities
+## Create and manage proxy entities
 
-You can create proxy entities as described in the [proxy entities][16] section above and modify them with [sensuctl][32], the [entities API][31], and the [web UI][33].
+You can create proxy entities as described in the [proxy entities][16] section above and modify them via the backend with [sensuctl][32], the [entities API][31], and the [web UI][33].
 
 If you start an agent with the same name as an existing proxy entity, Sensu will change the proxy entity's class to `agent` and update its `system` field with information from the agent configuration.
 
@@ -1178,3 +1175,4 @@ spec:
 [32]: ../../sensuctl/create-manage-resources/#update-resources
 [33]: ../../web-ui/view-manage-resources/#manage-entities
 [34]: ../../reference/agent/#ephemeral-agent-configuration-flags
+[35]: ../../reference/agent/#config-file

@@ -888,6 +888,7 @@ sensu-agent start --cache-dir /cache/sensu-agent
 # /etc/sensu/agent.yml example
 cache-dir: "/cache/sensu-agent"{{< /code >}}
 
+<a name="config-file"></a>
 
 | config-file |      |
 --------------|------
