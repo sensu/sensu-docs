@@ -582,7 +582,7 @@ example      | {{< code shell >}}"occurrences_watermark": 1{{< /code >}}
 
 is_silenced  | |
 -------------|------
-description  | If `true`, the event was silenced at the time of processing. Otherwise, `false`. If `true`, the event.Check will also list the silenced entries that match the event in the `silenced` array.
+description  | If `true`, the event was silenced at the time of processing. Otherwise, `false`. If `true`, the event.Check definition will also list the silenced entries that match the event in the `silenced` array.
 required     | false
 type         | Boolean
 example      | {{< code shell >}}"is_silenced": "true"{{< /code >}}
