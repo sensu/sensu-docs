@@ -861,7 +861,7 @@ description   | ws or wss URL of the Sensu backend server. To specify multiple b
 **NOTE**: If you do not specify a port for your backend-url values, the agent will automatically append the default backend port (8081).
 {{% /notice %}}
 type          | List
-default       | `ws://127.0.0.1:8081`
+default       | `ws://127.0.0.1:8081` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`$SENSU_HOSTNAME:8080` (Docker)
 environment variable | `SENSU_BACKEND_URL`
 example       | {{< code shell >}}# Command line examples
 sensu-agent start --backend-url ws://0.0.0.0:8081
