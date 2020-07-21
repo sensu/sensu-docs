@@ -871,8 +871,6 @@ In both cases, if no event matches the specified entities and checks, Sensu will
 The `sensu.EventStatus` function takes zero or more checks as arguments.
 It returns an array of status codes for the events associated with the specified checks.
 
-sensu.EventStatus takes the same arguments as sensu.CheckDependencies, but returns an array of status codes instead of a true or false value.
-
 You can refer to the checks as strings:
 
 {{< code javascript >}}
