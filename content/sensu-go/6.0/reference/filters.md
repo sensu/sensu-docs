@@ -847,7 +847,8 @@ You can use these functions to query your event stores.
 
 The `sensu.CheckDependencies` function takes zero or more checks as arguments.
 It returns `true` if all the specified checks are passing or `false` if any of the specified checks are failing.
-If you do not specify any checks, the function returns `true`.
+
+If you do not specify any checks, the function always returns `true`.
 
 You can refer to the checks as strings:
 
@@ -906,7 +907,7 @@ If an event does not exist for the specified entity and check names, Sensu will 
 
 ### `sensu.ListEvents`
 
-The `sensu.ListEvents` function returns an array of all events in the specified namespace.
+The `sensu.ListEvents` function returns an array of all events in the same namespace as the event being queried.
 
 {{% notice note %}}
 **NOTE**: If you have many events in the namespace, this function may require a substantial amount of time to return them.
@@ -915,7 +916,7 @@ The `sensu.ListEvents` function returns an array of all events in the specified 
 For example:
 
 {{< code javascript >}}
-sensu.ListEvents("production")
+sensu.ListEvents()
 {{< /code >}}
 
 The events in the returned array use the same format as responses for the [events API][43].
