@@ -749,6 +749,56 @@ spec:
 
 {{< /language-toggle >}}
 
+**Example AD configuration: Use `memberOf` attribute instead of `group_search`**
+
+AD automatically returns a `memberOf` attribute in users' accounts.
+The `memberOf` attribute contains the user's group membership, which effectively removes the requirement to look up the user's groups.
+
+To use the `memberOf` attribute in your AD implementation, remove the `group_search` object from your AD config:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: ad
+api_version: authentication/v2
+metadata:
+  name: activedirectory
+spec:
+  servers:
+    host: 127.0.0.1
+    user_search:
+      base_dn: dc=acme,dc=org
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "ad",
+  "api_version": "authentication/v2",
+  "spec": {
+    "servers": [
+      {
+        "host": "127.0.0.1",
+        "user_search": {
+          "base_dn": "dc=acme,dc=org"
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "name": "activedirectory"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+After you configure AD to use the `memberOf` attribute, the `debug` log level will include the following log entries:
+
+{{< code shell >}}
+{"component":"authentication/v2","level":"debug","msg":"using the \"memberOf\" attribute to determine the group membership of user \"user1\"","time":"2020-06-25T14:10:58-04:00"}
+{"component":"authentication/v2","level":"debug","msg":"found 1 LDAP group(s): [\"sensu\"]","time":"2020-06-25T14:10:58-04:00"}
+{{< /code >}}
+
 ### AD specification
 
 #### AD top-level attributes
@@ -945,8 +995,8 @@ example      | {{< code shell >}}
 
 | group_search |    |
 -------------|------
-description  | Search configuration for groups. See the [group search attributes][47] for more information.
-required     | true
+description  | Search configuration for groups. See the [group search attributes][47] for more information. Remove the `group_search` object from your configuration to use the `memberOf` attribute instead.
+required     | false
 type         | Map
 example      | {{< code shell >}}
 "group_search": {

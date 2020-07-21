@@ -1,6 +1,6 @@
 ---
 title: "API"
-description: "Sensu API documentation"
+description: "Documentation for the Sensu APIs."
 weight: 60
 product: "Sensu Go"
 version: "6.0"
@@ -9,7 +9,6 @@ menu:
   sensu-go-6.0:
     identifier: api
 ---
-
 
 **API version: v2**
 

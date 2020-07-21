@@ -1330,7 +1330,7 @@ spec:
 [12]: ../agent#create-monitoring-events-using-the-agent-tcp-and-udp-sockets
 [13]: ../agent#create-monitoring-events-using-the-statsd-listener
 [14]: ../../api/events#eventsentitycheck-put
-[15]: ../web-ui/
+[15]: ../../web-ui/
 [16]: ../../api/events/
 [17]: ../../sensuctl/
 [18]: ../../sensuctl/create-manage-resources/#sensuctl-event

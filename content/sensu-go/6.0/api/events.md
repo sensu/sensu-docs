@@ -9,8 +9,8 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to the events API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
-The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+**NOTE**: Requests to the events API require you to authenticate with a Sensu [access token](../#authenticate-with-the-authentication-api) or [API key](../#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
 ## Get all events
@@ -59,6 +59,7 @@ HTTP/1.1 200 OK
       ],
       "high_flap_threshold": 0,
       "interval": 20,
+      "is_silenced": true,
       "low_flap_threshold": 0,
       "publish": true,
       "runtime_assets": [],
@@ -72,6 +73,9 @@ HTTP/1.1 200 OK
       "timeout": 0,
       "duration": 0.010849143,
       "output": "",
+      "silenced": [
+        "entity:gin:check-nginx"
+      ],
       "state": "failing",
       "status": 1,
       "total_state_change": 0,
@@ -136,6 +140,7 @@ output         | {{< code shell >}}
       ],
       "high_flap_threshold": 0,
       "interval": 20,
+      "is_silenced": true,
       "low_flap_threshold": 0,
       "publish": true,
       "runtime_assets": [],
@@ -149,6 +154,9 @@ output         | {{< code shell >}}
       "timeout": 0,
       "duration": 0.010849143,
       "output": "",
+      "silenced": [
+        "entity:gin:check-nginx"
+      ],
       "state": "failing",
       "status": 1,
       "total_state_change": 0,
@@ -193,10 +201,14 @@ curl -X POST \
   },
   "check": {
     "output": "Server error",
+    "silenced": [
+      "entity:gin:server-health"
+    ],
     "state": "failing",
     "status": 2,
     "handlers": ["slack"],
     "interval": 60,
+    "is_silenced": true,
     "metadata": {
       "name": "server-health"
     }
@@ -225,10 +237,14 @@ payload         | {{< code shell >}}
   },
   "check": {
     "output": "Server error",
+    "silenced": [
+      "entity:gin:server-health"
+    ],
     "state": "failing",
     "status": 2,
     "handlers": ["slack"],
     "interval": 60,
+    "is_silenced": true,
     "metadata": {
       "name": "server-health"
     }
@@ -285,6 +301,9 @@ HTTP/1.1 200 OK
       ],
       "issued": 1543871496,
       "output": "CPU OK - Usage:.50\n",
+      "silenced": [
+        "entity:gin:check-cpu"
+      ],
       "state": "passing",
       "status": 0,
       "total_state_change": 0,
@@ -334,6 +353,9 @@ HTTP/1.1 200 OK
       ],
       "issued": 1543871524,
       "output": "",
+      "silenced": [
+        "entity:gin:keepalive"
+      ],
       "state": "passing",
       "status": 0,
       "total_state_change": 0,
@@ -395,6 +417,9 @@ output               | {{< code json >}}
       ],
       "issued": 1543871524,
       "output": "",
+      "silenced": [
+        "entity:gin:keepalive"
+      ],
       "state": "passing",
       "status": 0,
       "total_state_change": 0,
@@ -453,6 +478,7 @@ HTTP/1.1 200 OK
         ],
         "high_flap_threshold": 0,
         "interval": 60,
+        "is_silenced": true,
         "low_flap_threshold": 0,
         "publish": false,
         "runtime_assets": null,
@@ -481,6 +507,9 @@ HTTP/1.1 200 OK
         ],
         "issued": 0,
         "output": "Server error",
+        "silenced": [
+          "entity:gin:server-health"
+        ],
         "state": "failing",
         "status": 1,
         "total_state_change": 0,
@@ -538,6 +567,7 @@ output               | {{< code json >}}
         ],
         "high_flap_threshold": 0,
         "interval": 60,
+        "is_silenced": true,
         "low_flap_threshold": 0,
         "publish": false,
         "runtime_assets": null,
@@ -566,6 +596,9 @@ output               | {{< code json >}}
         ],
         "issued": 0,
         "output": "Server error",
+        "silenced": [
+          "entity:gin:server-health"
+        ],
         "state": "failing",
         "status": 1,
         "total_state_change": 0,
@@ -608,9 +641,13 @@ curl -X POST \
   },
   "check": {
     "output": "Server error",
+    "silenced": [
+      "entity:gin:server-health"
+    ],
     "status": 1,
     "handlers": ["slack"],
     "interval": 60,
+    "is_silenced": true,
     "metadata": {
       "name": "server-health"
     }
@@ -658,9 +695,13 @@ payload         | {{< code shell >}}
   },
   "check": {
     "output": "Server error",
+    "silenced": [
+      "entity:gin:server-health"
+    ],
     "status": 1,
     "handlers": ["slack"],
     "interval": 60,
+    "is_silenced": true,
     "metadata": {
       "name": "server-health"
     }
@@ -692,9 +733,13 @@ curl -X PUT \
   },
   "check": {
     "output": "Server error",
+    "silenced": [
+      "entity:gin:server-health"
+    ],
     "status": 1,
     "handlers": ["slack"],
     "interval": 60,
+    "is_silenced": true,
     "metadata": {
       "name": "server-health"
     }
@@ -742,9 +787,13 @@ payload         | {{< code shell >}}
   },
   "check": {
     "output": "Server error",
+    "silenced": [
+      "entity:gin:server-health"
+    ],
     "status": 1,
     "handlers": ["slack"],
     "interval": 60,
+    "is_silenced": true,
     "metadata": {
       "name": "server-health"
     }
@@ -808,6 +857,9 @@ curl -X PUT \
   },
   "check": {
     "output": "Server error",
+    "silenced": [
+      "entity:gin:server-health"
+    ],
     "status": 1,
     "handlers": ["slack"],
     "interval": 60,
