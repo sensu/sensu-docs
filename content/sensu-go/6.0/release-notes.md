@@ -99,7 +99,7 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - The `dead()` and `createProxyEntity()` methods in eventd now use `corev3.EntityConfig` and `corev3.EntityState`.
 - Agent entity updates now ignore state-related fields.
 - You can now manage Sensu agent configuration via the HTTP API.
-- Sensu now passes users' secondary groups (i.e. groups other than the Sensu user group) to `chroot` for sysvinit services, which gives the Sensu agent and backend access to the file access writes that are granted to the secondary groups.
+- For sysvinit services, Sensu now passes users' secondary groups (i.e. groups other than the Sensu user group) to `chroot`, which gives the Sensu agent and backend access to the file access writes that are granted to the secondary groups.
 - Output of `sensuctl asset add` now includes help for using the runtime asset.
 - For role bindings and cluster role bindings, [`subjects.name`][166] values can now include unicode characters, and [`roleRef.type`][167] and [`subjects.type`][166] values are now automatically capitalized.
 - Improved logging for the agent websocket connection.
