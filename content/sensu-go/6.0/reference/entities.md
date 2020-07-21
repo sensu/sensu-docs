@@ -68,7 +68,11 @@ Use [proxy entity filters][19] to establish a many-to-many relationship between 
 
 ## Create and modify agent entities
 
-When an agent connects to a backend, the agent entity defnition is created from the information in `/etc/sensu/agent.yml`.
+When an agent connects to a backend, the agent entity definition is created from the information in the `agent.yml` configuration file.
+The default `agent.yml` file location depends on your operating system:
+
+- Linux and macOS: `/etc/sensu/agent`
+- Windows: `C:\ProgramData\sensu\config`
 
 You can modify agent entities with [sensuctl][32], the [entities API][31], and the [web UI][33].
 
