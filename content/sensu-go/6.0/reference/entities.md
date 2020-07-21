@@ -66,6 +66,32 @@ You can modify the proxy entity later if needed.
 
 Use [proxy entity filters][19] to establish a many-to-many relationship between agent entities and proxy entities if you want even more power over the grouping.
 
+## Create and modify agent entities
+
+When an agent connects to a backend, the agent entity defnition is created from the information in `/etc/sensu/agent.yml`.
+
+You can modify agent entities with [sensuctl][32], the [entities API][31], and the [web UI][33].
+
+{{% notice note %}}
+**NOTE**: You cannot modify agent entities with `/etc/sensu/agent.yml`.
+The entity attributes in `/etc/sensu/agent.yml` are used only for initial entity creation.
+{{% /notice %}}
+
+To maintain agent entities based on `/etc/sensu/agent.yml`, create ephemeral agent entities with the [deregister attribute][34] set to `true`.
+With this setting, the agent entity will deregister every time the agent process stops.
+When it restarts, it will revert to the original configuration from `/etc/sensu/agent.yml`
+You must set `deregister: true` in `/etc/sensu/agent.yml` before the agent entity is created.
+
+If you delete an agent entity that you modified with sensuctl, the entities API, or the web UI, it will revert to the original configuration from `/etc/sensu/agent.yml`.
+
+If you change an agent entity's class to `proxy`, the backend will revert the change to `agent`.
+
+## Create and modify proxy entities
+
+You can create proxy entities as described in the [proxy entities][16] section above and modify them with [sensuctl][32], the [entities API][31], and the [web UI][33].
+
+If you start an agent with the same name as an existing proxy entity, Sensu will change the proxy entity's class to `agent` and update its `system` field with information from the agent configuration.
+
 ## Manage entity labels
 
 Labels are custom attributes that Sensu includes with event data that you can use for response and web UI view filtering.
@@ -1144,3 +1170,7 @@ spec:
 [28]: http://man7.org/linux/man-pages/man1/top.1.html
 [29]: ../../reference/license/#view-entity-count-and-entity-limit
 [30]: ../../web-ui/filter/
+[31]: ../../api/entities/
+[32]: ../../sensuctl/create-manage-resources/#update-resources
+[33]: ../../web-ui/view-manage-resources/#manage-entities
+[34]: ../../reference/agent/#ephemeral-agent-configuration-flags
