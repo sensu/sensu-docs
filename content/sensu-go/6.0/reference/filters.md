@@ -891,7 +891,7 @@ In both cases, if no event matches the specified entities and checks, Sensu will
 
 ### `sensu.FetchEvent`
 
-The `sensu.FetchEvent` function loads the Sensu event that corresponds to the specified entity and check names.
+The `sensu.FetchEvent` function loads the Sensu events that correspond to the specified entity and check names.
 
 The format is `sensu.FetchEvent(entity, check)`.
 For example:
