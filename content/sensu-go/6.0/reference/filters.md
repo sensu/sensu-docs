@@ -900,14 +900,14 @@ For example:
 sensu.FetchEvent("server01", "disk")
 {{< /code >}}
 
-You can only load events from the same namespace as the event being queried.
+You can only load events from the same namespace as the event being filtered.
 The returned object uses the same format as responses for the [events API][43].
 
 If an event does not exist for the specified entity and check names, Sensu will raise an error.
 
 ### `sensu.ListEvents`
 
-The `sensu.ListEvents` function returns an array of all events in the same namespace as the event being queried.
+The `sensu.ListEvents` function returns an array of all events in the same namespace as the event being filtered.
 
 {{% notice note %}}
 **NOTE**: If you have many events in the namespace, this function may require a substantial amount of time to return them.
