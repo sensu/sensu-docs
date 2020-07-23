@@ -31,6 +31,13 @@ Use the following sensuctl example to register the [Sensu Go Email Handler][3] a
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-email-handler -r email-handler
+no version specified, using latest: 0.6.0
+fetching bonsai asset: sensu/sensu-email-handler:0.6.0
+added asset: sensu/sensu-email-handler:0.6.0
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["email-handler"].
 {{< /code >}}
 
 The -r (rename) flag allows you to specify a shorter name for the asset (in this case, `email-handler`).

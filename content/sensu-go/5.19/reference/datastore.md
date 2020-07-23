@@ -168,7 +168,7 @@ example      | {{< code shell >}}pool_size: 20{{< /code >}}
 [2]: ../../operations/maintain-sensu/troubleshoot/
 [3]: https://aws.amazon.com/rds/
 [8]: ../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster
-[9]: ../web-ui/
+[9]: ../../web-ui/
 [10]: ../../sensuctl/create-manage-resources/#sensuctl-event
 [11]: ../../api/events/
 [12]: ../../guides/influx-db-metric-handler/

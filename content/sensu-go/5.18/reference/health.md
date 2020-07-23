@@ -142,5 +142,5 @@ type         | Integer
 example      | {{< code shell >}}"raft_term": 26{{< /code >}}
 
 
-[1]: ../../../api/health/
+[1]: ../../api/health/
 [2]: https://etcd.io/docs/latest/learning/api/#response-header
