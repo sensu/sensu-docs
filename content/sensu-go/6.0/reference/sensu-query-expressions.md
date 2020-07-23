@@ -155,4 +155,4 @@ Likewise, this expression returns `true` if the event's entity includes the anno
 
 [1]: https://github.com/robertkrimen/otto
 [2]: ../backend/#event-logging
-[3]: ../filters/#build-event-filter-expressions
+[3]: ../filters/#build-event-filter-expressions-with-sensu-query-expressions
