@@ -26,29 +26,23 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 ### Sensu agent
 
-|  | CentOS/RHEL<br>6, 7, 8 | Debian 8, 9, 10 | Ubuntu 14.04, 16.04, 18.04, 18.10, 19.04, 19.10, 20.04 | Windows 7 and later | Windows Server 2008 R2 and later |
+|  | CentOS/RHEL<br>6, 7, 8 | Debian<br>8, 9, 10 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7 and later | Windows Server 2008 R2 and later |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `armv5`<br>`armv6`<br>`armv7` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS LE hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS 64 hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS 64 LE hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS hard float`<br>`MIPS 64 hard float`<br>`MIPS LE hard float`<br>`MIPS 64 LE hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 
 ### Sensuctl command line tool
 
-|  | CentOS/RHEL<br>6, 7, 8 | Debian 8, 9, 10 | Ubuntu 14.04, 16.04, 18.04, 18.10, 19.04, 19.10, 20.04 | Windows 7 and later | Windows Server 2008 R2 and later |
+|  | CentOS/RHEL<br>6, 7, 8 | Debian<br>8, 9, 10 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7 and later | Windows Server 2008 R2 and later |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `armv5`<br>`armv6`<br>`armv7` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS LE hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS 64 hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS 64 LE hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
+| `MIPS hard float`<br>`MIPS 64 hard float`<br>`MIPS LE hard float`<br>`MIPS 64 LE hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 
