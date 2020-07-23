@@ -331,6 +331,6 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [14]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
 [15]: ../../../reference/backend/
 [16]: ../secure-sensu/
-[17]: ../../../sensuctl/set-up-manage/
+[17]: ../../../sensuctl/
 [18]: https://github.com/etcd-io/etcd/blob/a621d807f061e1dd635033a8d6bc261461429e27/Documentation/v2/admin_guide.md#optimal-cluster-size
 [19]: #sensu-backend-configuration

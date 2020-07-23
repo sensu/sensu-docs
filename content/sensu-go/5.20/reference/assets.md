@@ -43,7 +43,17 @@ For each build provided in an asset, Sensu will evaluate any defined filters to 
 If all filters specified on a build evaluate to `true`, that build is considered a match.
 For assets with multiple builds, only the first build which matches will be downloaded and installed.
 
-### Asset build installation
+### Asset build download
+
+Sensu downloads the asset build on the host system where the asset contents are needed to execute the requested command.
+For example, if a check definition references an asset, the Sensu agent that executes the check will download the asset the first time it executes the check.
+The asset build the agent downloads will depend on the filter rules associated with each build defined for the asset.
+
+Sensu backends follow a similar process when pipeline elements (filters, mutators, and handlers) request runtime asset installation as part of operation.
+
+{{% notice note %}}
+**NOTE**: Asset builds are not downloaded until they are needed for command execution.
+{{% /notice %}}
 
 When Sensu finds a matching build, it downloads the build artifact from the specified URL.
 If the asset definition includes headers, they are passed along as part of the HTTP request.
@@ -51,6 +61,10 @@ If the downloaded artifact's SHA512 checksum matches the checksum provided by th
 
 Set the backend or agent's local cache path with the `--cache-dir` flag.
 Disable assets for an agent with the agent `--disable-assets` [configuration flag][30].
+
+{{% notice note %}}
+**NOTE**: Asset builds are unpacked into the cache directory that is configured with the `--cache-dir` flag.
+{{% /notice %}}
 
 Use the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][40] and [backend][41] to configure a global rate limit for fetching assets.
 
@@ -839,7 +853,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [16]: https://bonsai.sensu.io/
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
 [19]: https://regex101.com/r/zo9mQU/2
-[20]: ../../api/overview#response-filtering
+[20]: ../../api#response-filtering
 [21]: ../../sensuctl/filter-responses/
 [23]: ../../guides/install-check-executables-with-assets/
 [24]: https://github.com

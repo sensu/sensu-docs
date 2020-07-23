@@ -28,7 +28,10 @@
     </div>
   </article>
 
-  {{ partial "toc" . }}
+  <section id="sidebar">
+    {{ partial "contribute" . }}
+    {{ partial "toc" . }}
+  </section>
 </main>
 
 {{ partial "footer" . }}

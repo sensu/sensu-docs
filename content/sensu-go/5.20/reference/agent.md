@@ -715,11 +715,20 @@ Specify the agent configuration with either a `.yml` file or `sensu-agent start`
 Configuration via command line flags overrides attributes specified in a configuration file.
 See the [Example Sensu agent configuration file][5] for flags and defaults.
 
+### Certificate bundles or chains
+
+The Sensu agent supports all types of certificate bundles (or chains) as long as the agent (or leaf) certificate is the *first* certificate in the bundle.
+This is because the Go standard library assumes that the first certificate listed in the PEM file is the leaf certificate &mdash; the certificate that the program will use to show its own identity.
+
+If you send the leaf certificate alone instead of sending the whole bundle with the leaf certificate first, you will see a `certificate not signed by trusted authority` error.
+You must present the whole chain to the remote so it can determine whether it trusts the presented certificate through the chain.
+
 #### Configuration summary
 
 {{% notice important %}}
 **IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, the `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
+Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
 {{< code text >}}
@@ -847,7 +856,7 @@ assets-rate-limit: 1.39{{< /code >}}
 
 | backend-url |      |
 --------------|------
-description   | ws or wss URL of the Sensu backend server. To specify multiple backends with `sensu-agent start`, use this flag multiple times.<br>{{% notice note %}}
+description   | ws or wss URL of the Sensu backend server. To specify multiple backends with `sensu-agent start`, use this flag multiple times. {{% notice note %}}
 **NOTE**: If you do not specify a port for your backend-url values, the agent will automatically append the default backend port (8081).
 {{% /notice %}}
 type          | List
@@ -910,9 +919,10 @@ disable-assets: true{{< /code >}}
 
 | discover-processes |      |
 --------------|------
-description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].<br>{{% notice important %}}
+description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].{{% notice important %}}
 **IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, the `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
+Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 type          | Boolean
 default       | false
@@ -1212,7 +1222,7 @@ redact:
 
 | cert-file  |      |
 -------------|------
-description  | Path to the agent certificate file used in mutual TLS authentication.
+description  | Path to the agent certificate file used in mutual TLS authentication. Sensu supports certificate bundles (or chains) as long as the agent (or leaf) certificate is the *first* certificate in the bundle.
 type         | String
 default      | `""`
 environment variable | `SENSU_CERT_FILE`
@@ -1570,7 +1580,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [3]: ../entities/
 [4]: #keepalive-configuration-flags
 [5]: ../../files/windows/agent.yml
-[6]: ../../sensuctl/set-up-manage/
+[6]: ../../sensuctl/
 [7]: ../events/
 [8]: ../handlers/
 [9]: ../filters/
@@ -1589,7 +1599,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [22]: #statsd-configuration-flags
 [23]: https://github.com/statsd/statsd#key-concepts
 [24]: #configuration-via-flags
-[25]: ../../api/overview#response-filtering
+[25]: ../../api#response-filtering
 [26]: ../../sensuctl/filter-responses/
 [27]: ../tokens/
 [28]: #subscriptions-flag

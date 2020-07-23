@@ -4,11 +4,19 @@ description: "Set up access control for Sensu, the flexible observability pipeli
 product: "Sensu Go"
 version: "5.20"
 weight: 20
-layout: "base-for-directory-listing"
+layout: "single"
+toc: false
 menu:
   sensu-go-5.20:
     parent: operations
     identifier: control-access
 ---
 
-{{< directoryListing >}}
+The Control Access section describes how to authenticate identities and authorize access for your Sensu users.
+
+[Configure authentication][1] to use Sensu's built-in basic authentication provider or external authentication providers to authenticate via Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect.
+Then, use [role-based access control (RBAC)][2] to exercise fine-grained control over how Sensu users interact with Sensu resources.
+
+
+[1]: auth/
+[2]: create-read-only-user/

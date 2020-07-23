@@ -92,7 +92,7 @@ In a single-cluster environment, the namespace switcher will only list a local-c
 
 [1]: ../../commercial/
 [2]: ../../api/webconfig/
-[3]: ../../web-ui/sign-in/
+[3]: ../web-ui/
 [4]: ../../reference/webconfig/
 [5]: ../../sensuctl/create-manage-resources/#create-resources
 [6]: ../../reference/etcdreplicators/

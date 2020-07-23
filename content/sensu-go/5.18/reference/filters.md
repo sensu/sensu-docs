@@ -855,7 +855,7 @@ spec:
 [33]: ../../sensuctl/create-manage-resources/#create-resources
 [34]: #spec-attributes
 [35]: https://regex101.com/r/zo9mQU/2
-[36]: ../../api/overview#response-filtering
+[36]: ../../api#response-filtering
 [37]: ../../sensuctl/filter-responses/
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
 [39]: ../assets/

@@ -38,6 +38,11 @@ fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
 added asset: sensu/sensu-slack-handler:1.0.3
 {{< /code >}}
 
+{{% notice note %}}
+**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+{{% /notice %}}
+
 ## Check your Sensu backend for outdated assets
 
 To check your Sensu backend for assets that have newer versions available on Bonsai, use `sensuctl asset outdated`.

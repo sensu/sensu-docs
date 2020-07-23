@@ -58,6 +58,11 @@ You can also download the latest asset definition from [Bonsai][12].
 
 Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
 
+{{% notice note %}}
+**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+{{% /notice %}}
+
 ### 2. Create contact filters
 
 The [Bonsai][1] documentation for the asset explains that the has-contact asset supports two functions:
@@ -329,7 +334,7 @@ Learn how to use Sensu to [Reduce alert fatigue][11].
 [1]: ../../operations/deploy-sensu/install-sensu#install-the-sensu-backend
 [2]: ../../operations/deploy-sensu/install-sensu#install-sensu-agents
 [3]: ../../operations/deploy-sensu/install-sensu#install-sensuctl
-[4]: ../../sensuctl/set-up-manage/#first-time-setup
+[4]: ../../sensuctl/#first-time-setup
 [5]: https://curl.haxx.se/
 [6]: https://api.slack.com/incoming-webhooks
 [7]: ../../learn/learn-sensu-sandbox/

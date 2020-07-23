@@ -154,9 +154,9 @@ fieldSelector:slack in check.handlers
 
 
 [1]: ../../commercial/
-[2]: ../../api/overview/#field-selector
-[3]: ../../api/overview/#response-filtering
+[2]: ../../api/#field-selector
+[3]: ../../api/#response-filtering
 [4]: #create-web-ui-filters
 [5]: #basic-filters
-[6]: ../../api/overview/#label-selector
-[7]: ../../api/overview/#operators
+[6]: ../../api/#label-selector
+[7]: ../../api/#operators

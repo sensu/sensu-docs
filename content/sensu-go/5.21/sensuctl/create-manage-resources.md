@@ -599,7 +599,7 @@ Sensuctl supports the following formats:
 [1]: ../../reference/rbac/
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [3]: #sensuctl-create-resource-types
-[4]: ../set-up-manage/#preferred-output-format
+[4]: ../#preferred-output-format
 [5]: #sensuctl-edit-resource-types
 [6]: ../../reference/
 [7]: ../../operations/deploy-sensu/cluster-sensu/
@@ -626,7 +626,7 @@ Sensuctl supports the following formats:
 [28]: ../../reference/secrets/
 [29]: ../../reference/etcdreplicators/
 [30]: ../../commercial/
-[31]: ../set-up-manage/#manage-sensuctl
+[31]: ../#manage-sensuctl
 [32]: ../../reference/datastore/
 [33]: #create-resources-across-namespaces
 [34]: ../../reference/license/

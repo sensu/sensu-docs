@@ -55,6 +55,11 @@ sensuctl asset list
  sensu-ruby-runtime         //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.0.10_ruby-2.4.4_centos_linux_amd64.tar.gz     338b88b 
 {{< /code >}}
 
+{{% notice note %}}
+**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+{{% /notice %}}
+
 ### Create the check
 
 Now that the assets are registered, you can create a check named `check-sensu-site` to run the command `check-http.rb -u https://sensu.io` with the `sensu-plugins-http` and `sensu-ruby-runtime` assets, at an interval of 60 seconds, for all agents subscribed to the `proxy` subscription, using the `sensu-site` proxy entity name.
@@ -358,9 +363,9 @@ Now that you know how to run a proxy check to verify the status of a website and
 [3]: ../../reference/checks/#proxy-checks
 [5]: ../../reference/assets/
 [7]: ../send-slack-alerts/
-[8]: ../../sensuctl/set-up-manage/
+[8]: ../../sensuctl/
 [9]: ../../api/entities/
-[10]: ../../web-ui/sign-in/
+[10]: ../web-ui/
 [11]: ../../reference/entities#manage-entity-labels
 [12]: ../../reference/tokens/
 [13]: #register-assets

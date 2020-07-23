@@ -250,6 +250,14 @@ All other required flags have default values.
 See the [example backend configuration file][17] for flags and defaults.
 The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take effect.
 
+### Certificate bundles or chains
+
+The Sensu backend supports all types of certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
+This is because the Go standard library assumes that the first certificate listed in the PEM file is the server certificate &mdash; the certificate that the program will use to show its own identity.
+
+If you send the server certificate alone instead of sending the whole bundle with the server certificate first, you will see a `certificate not signed by trusted authority` error.
+You must present the whole chain to the remote so it can determine whether it trusts the server certificate through the chain.
+
 ### Configuration summary
 
 {{< code text >}}
@@ -502,7 +510,7 @@ state-dir: "/var/lib/sensu/sensu-backend"{{< /code >}}
 
 | agent-auth-cert-file |      |
 -------------|------
-description  | TLS certificate in PEM format for agent certificate authentication.
+description  | TLS certificate in PEM format for agent certificate authentication. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_CERT_FILE`
@@ -582,7 +590,7 @@ agent-port: 8081{{< /code >}}
 
 | cert-file  |      |
 -------------|------
-description  | Path to the primary backend certificate file. Specifies a fallback SSL/TLS certificate if the flag `dashboard-cert-file` is not used. This certificate secures communications between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
+description  | Path to the primary backend certificate file. Specifies a fallback SSL/TLS certificate if the flag `dashboard-cert-file` is not used. This certificate secures communications between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_CERT_FILE`
@@ -671,7 +679,7 @@ trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /code >}}
 
 | dashboard-cert-file | |
 -------------|------
-description  | Web UI TLS certificate in PEM format. This certificate secures communication with the Sensu web UI. If the `dashboard-cert-file` is not provided in the backend configuration, Sensu uses the certificate specified in the [`cert-file` flag](#security-configuration-flags) for the web UI.
+description  | Web UI TLS certificate in PEM format. This certificate secures communication with the Sensu web UI. If the `dashboard-cert-file` is not provided in the backend configuration, Sensu uses the certificate specified in the [`cert-file` flag](#security-configuration-flags) for the web UI. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_DASHBOARD_CERT_FILE`
@@ -742,7 +750,7 @@ etcd-advertise-client-urls:
 
 | etcd-cert-file |      |
 -----------------|------
-description      | Path to the etcd client API TLS certificate file. Secures communication between the embedded etcd client API and any etcd clients.
+description      | Path to the etcd client API TLS certificate file. Secures communication between the embedded etcd client API and any etcd clients. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 type             | String
 default          | `""`
 environment variable | `SENSU_BACKEND_ETCD_CERT_FILE`
@@ -960,7 +968,7 @@ etcd-name: "backend-0"{{< /code >}}
 
 | etcd-peer-cert-file |      |
 ----------------------|------
-description           | Path to the peer server TLS certificate file.
+description           | Path to the peer server TLS certificate file. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 type                  | String
 environment variable  | `SENSU_BACKEND_ETCD_PEER_CERT_FILE`
 example               | {{< code shell >}}# Command line example
@@ -1382,7 +1390,7 @@ The _SIGHUP_ signal causes the `backend` component to reload instead of restarti
 [3]: ../../guides/monitor-server-resources/
 [4]: ../../guides/extract-metrics-with-checks/
 [5]: ../../reference/checks/
-[6]: ../../web-ui/sign-in/
+[6]: ../../web-ui/
 [7]: ../../guides/send-slack-alerts/
 [8]: ../../guides/reduce-alert-fatigue/
 [9]: ../../reference/filters/
@@ -1402,5 +1410,5 @@ The _SIGHUP_ signal causes the `backend` component to reload instead of restarti
 [23]: #etcd-listen-client-urls
 [24]: ../../operations/deploy-sensu/install-sensu#2-configure-and-start
 [25]: ../../operations/deploy-sensu/install-sensu#3-initialize
-[26]: ../../sensuctl/set-up-manage/#change-admin-users-password
+[26]: ../../sensuctl/#change-admin-users-password
 [29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly

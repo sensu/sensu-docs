@@ -238,6 +238,6 @@ spec:
 
 [1]: ../../commercial/
 [2]: ../../api/webconfig/
-[3]: ../../web-ui/sign-in/
+[3]: ../../web-ui/
 [4]: #spec-attributes
 [5]: ../../web-ui/view-manage-resources/#use-the-namespace-switcher
