@@ -373,7 +373,6 @@ For more information, see [Get started with commercial features][44].
 
 In addition to [Sensu query expressions][27], Sensu includes several built-in JavaScript functions for event filter execution:
 
-- `sensu.CheckDependencies`
 - `sensu.FetchEvent`
 - `sensu.CheckStatus`
 - `sensu.ListEvents`
@@ -388,30 +387,6 @@ For example, to handle only events for the `server01` entity *and* the `disk` ch
 ]
 {{< /code >}}
 
-### `sensu.CheckDependencies`
-
-The `sensu.CheckDependencies` function takes zero or more checks as arguments.
-It returns `true` if all the specified checks are passing or `false` if any of the specified checks are failing.
-
-If you do not specify any checks, the function always returns `true`.
-
-You can refer to the checks as strings:
-
-{{< code javascript >}}
-sensu.CheckDependencies("database", "disk")
-{{< /code >}}
-
-If you pass the check names as strings, Sensu assumes that the entites are the same as those in the events being filtered.
-
-You can also refer to the checks in objects that include both the entity and check name.
-For example:
-
-{{< code javascript >}}
-sensu.CheckDependencies({entity: "server01", check: "disk"}, {entity: "server01", check: "database"})
-{{< /code >}}
-
-In both cases, if no event matches the specified entities and checks, Sensu will raise an error.
-
 ### `sensu.EventStatus`
 
 The `sensu.EventStatus` function takes zero or more checks as arguments.
@@ -425,7 +400,7 @@ You can refer to the checks as strings:
 sensu.EventStatus("database", "disk")
 {{< /code >}}
 
-If you pass the check names as strings, Sensu assumes that the entites are the same as those in the events being filtered.
+If you pass the check names as strings, Sensu assumes that the entities are the same as those in the events being filtered.
 
 You can also refer to the checks in objects that include both the entity and check name.
 For example:
