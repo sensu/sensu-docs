@@ -858,7 +858,7 @@ spec:
 [11]: https://blog.sensu.io/one-year-of-sensu-go
 [12]: ../../sensuctl/create-manage-resources/#create-resources
 [13]: #spec-attributes
-[14]: ../../api/overview#response-filtering
+[14]: ../../api#response-filtering
 [15]: ../../sensuctl/filter-responses/
 [16]: #proxy-entities
 [17]: ../../guides/monitor-external-resources/

@@ -316,7 +316,7 @@ spec: {}
 
 [1]: ../../commercial/
 [2]: ../../api/secrets/
-[3]: ../../sensuctl/set-up-manage/
+[3]: ../../sensuctl/
 [4]: ../backend/#configuration-via-environment-variables
 [5]: https://www.vaultproject.io/docs/what-is-vault/
 [6]: ../rbac#default-users

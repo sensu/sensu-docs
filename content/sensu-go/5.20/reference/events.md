@@ -157,17 +157,17 @@ The following table shows the occurrences attributes for a series of example eve
 
 | event sequence   | `occurrences`   | `occurrences_watermark` |
 | -----------------| --------------- | ----------------------- |
-1. OK event        | `occurrences: 1`| `occurrences_watermark: 1`
-2. OK event        | `occurrences: 2`| `occurrences_watermark: 2`
-3. WARNING event   | `occurrences: 1`| `occurrences_watermark: 1`
-4. WARNING event   | `occurrences: 2`| `occurrences_watermark: 2`
-5. WARNING event   | `occurrences: 3`| `occurrences_watermark: 3`
-6. CRITICAL event  | `occurrences: 1`| `occurrences_watermark: 3`
-7. CRITICAL event  | `occurrences: 2`| `occurrences_watermark: 3`
-8. CRITICAL event  | `occurrences: 3`| `occurrences_watermark: 3`
-9. CRITICAL event  | `occurrences: 4`| `occurrences_watermark: 4`
-10. OK event       | `occurrences: 1`| `occurrences_watermark: 4`
-11. CRITICAL event | `occurrences: 1`| `occurrences_watermark: 1`
+|1. OK event        | `occurrences: 1`| `occurrences_watermark: 1`
+|2. OK event        | `occurrences: 2`| `occurrences_watermark: 2`
+|3. WARNING event   | `occurrences: 1`| `occurrences_watermark: 1`
+|4. WARNING event   | `occurrences: 2`| `occurrences_watermark: 2`
+|5. WARNING event   | `occurrences: 3`| `occurrences_watermark: 3`
+|6. CRITICAL event  | `occurrences: 1`| `occurrences_watermark: 3`
+|7. CRITICAL event  | `occurrences: 2`| `occurrences_watermark: 3`
+|8. CRITICAL event  | `occurrences: 3`| `occurrences_watermark: 3`
+|9. CRITICAL event  | `occurrences: 4`| `occurrences_watermark: 4`
+|10. OK event       | `occurrences: 1`| `occurrences_watermark: 4`
+|11. CRITICAL event | `occurrences: 1`| `occurrences_watermark: 1`
 
 ## Events specification
 
@@ -1345,9 +1345,9 @@ spec:
 [12]: ../agent#create-monitoring-events-using-the-agent-tcp-and-udp-sockets
 [13]: ../agent#create-monitoring-events-using-the-statsd-listener
 [14]: ../../api/events#eventsentitycheck-put
-[15]: ../../web-ui/sign-in/
+[15]: ../../web-ui/
 [16]: ../../api/events/
-[17]: ../../sensuctl/set-up-manage/
+[17]: ../../sensuctl/
 [18]: ../../sensuctl/create-manage-resources/#sensuctl-event
 [20]: ../checks#check-specification
 [21]: #check-attributes

@@ -728,6 +728,7 @@ You must present the whole chain to the remote so it can determine whether it tr
 {{% notice important %}}
 **IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, the `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
+Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
 {{< code text >}}
@@ -920,9 +921,10 @@ disable-assets: true{{< /code >}}
 
 | discover-processes |      |
 --------------|------
-description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].<br>{{% notice important %}}
+description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].{{% notice important %}}
 **IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, the `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
+Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 type          | Boolean
 default       | false
@@ -1613,7 +1615,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [3]: ../entities/
 [4]: #keepalive-configuration-flags
 [5]: ../../files/windows/agent.yml
-[6]: ../../sensuctl/set-up-manage/
+[6]: ../../sensuctl/
 [7]: ../events/
 [8]: ../handlers/
 [9]: ../filters/
@@ -1632,7 +1634,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [22]: #statsd-configuration-flags
 [23]: https://github.com/statsd/statsd#key-concepts
 [24]: #configuration-via-flags
-[25]: ../../api/overview#response-filtering
+[25]: ../../api#response-filtering
 [26]: ../../sensuctl/filter-responses/
 [27]: ../tokens/
 [28]: #subscriptions-flag

@@ -1093,7 +1093,7 @@ spec:
 [51]: https://github.com/sensu/sensu-influxdb-handler
 [52]: #round-robin-checks
 [53]: https://regex101.com/r/zo9mQU/2
-[54]: ../../api/overview#response-filtering
+[54]: ../../api#response-filtering
 [55]: ../../sensuctl/filter-responses/
 [56]: ../../reference/secrets/
 [57]: ../../reference/secrets-providers/
