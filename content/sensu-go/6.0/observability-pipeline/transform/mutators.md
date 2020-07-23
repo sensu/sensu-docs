@@ -2,12 +2,12 @@
 title: "Mutators"
 description: "As part of the event pipeline, mutators let you transform event data before applying handlers. Read the reference doc to learn about mutators."
 product: "Sensu Go"
-weight: 130
+weight: 10
 version: "6.0"
 platformContent: False 
 menu:
   sensu-go-6.0:
-    parent: reference
+    parent: pipeline-transform
 ---
 
 Handlers can specify a mutator to execute and transform event data before any handlers are applied.

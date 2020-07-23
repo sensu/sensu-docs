@@ -9,7 +9,7 @@ platformContent: true
 platforms: ["Linux", "Windows"]
 menu:
   sensu-go-6.0:
-    parent: reference
+    parent: observability-pipeline
 ---
 
 [Example Sensu agent configuration file](../../files/agent.yml) (download)

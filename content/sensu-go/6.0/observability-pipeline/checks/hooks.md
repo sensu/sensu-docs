@@ -1,13 +1,13 @@
 ---
 title: "Hooks"
 description: "Check hooks allow you to automate data collection that operators would typically perform by investigating monitoring alerts manually. Hooks help free up precious operator time. Read the reference doc to learn about hooks."
-weight: 120
+weight: 30
 version: "6.0"
 product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-6.0:
-    parent: reference
+    parent: pipeline-checks
 ---
 
 Hooks are reusable commands the agent executes in response to a check result before creating a monitoring event.

@@ -8,7 +8,7 @@ product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-6.0:
-    parent: reference
+    parent: observability-pipeline
 ---
 
 [Example Sensu backend configuration file](../../files/backend.yml) (download)

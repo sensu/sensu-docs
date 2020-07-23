@@ -7,7 +7,7 @@ product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-6.0:
-    parent: reference
+    parent: pipeline-process
 ---
 
 Handlers are actions the Sensu backend executes on events.

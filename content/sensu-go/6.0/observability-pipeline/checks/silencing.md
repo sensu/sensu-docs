@@ -1,13 +1,13 @@
 ---
 title: "Silencing"
 description: "Sensu’s built-in silencing capability provides a way to suppress event handler execution on an ad hoc basis so you can plan maintenance and reduce alert fatigue. Read the reference doc to learn about silencing in Sensu."
-weight: 160
+weight: 40
 version: "6.0"
 product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-6.0:
-    parent: reference
+    parent: pipeline-checks
 ---
 
 Sensu's silencing capability allows you to suppress event handler execution on an ad hoc basis so you can plan maintenance and reduce alert fatigue.
