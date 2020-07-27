@@ -1178,7 +1178,7 @@ example      | {{< code shell >}}"metadata": {
 
 spec         | 
 -------------|------
-description  | Top-level map that includes the OIDC [spec attributes][39]
+description  | Top-level map that includes the OIDC [spec attributes][25].
 required     | true
 type         | Map of key-value pairs
 example      | {{< code shell >}}"spec": {
