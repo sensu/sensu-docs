@@ -1178,7 +1178,7 @@ example      | {{< code shell >}}"metadata": {
 
 spec         | 
 -------------|------
-description  | Top-level map that includes the OIDC [spec attributes][39]
+description  | Top-level map that includes the OIDC [spec attributes][55]
 required     | true
 type         | Map of key-value pairs
 example      | {{< code shell >}}"spec": {
@@ -1379,3 +1379,4 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [52]: https://www.pingidentity.com/en/software/pingfederate.html
 [53]: ../../../api/users/
 [54]: https://etcd.io/
+[55]: #oidc-spec-attributes
