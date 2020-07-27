@@ -66,6 +66,33 @@ You can modify the proxy entity later if needed.
 
 Use [proxy entity filters][19] to establish a many-to-many relationship between agent entities and proxy entities if you want even more power over the grouping.
 
+## Create and manage agent entities
+
+When an agent connects to a backend, the agent entity definition is created from the information in the `agent.yml` configuration file.
+The default `agent.yml` file location [depends on your operating system][35].
+
+You can manage agent entities via the backend with [sensuctl][32], the [entities API][31], and the [web UI][33].
+
+If you delete an agent entity that you modified with sensuctl, the entities API, or the web UI, it will revert to the original configuration from `agent.yml`.
+
+{{% notice note %}}
+**NOTE**: You cannot modify an agent entity with the `agent.yml` configuration file unless you delete the entity.
+The entity attributes in `agent.yml` are used only for initial entity creation unless you delete the entity.
+{{% /notice %}}
+
+To maintain agent entities based on `agent.yml`, create ephemeral agent entities with the [deregister attribute][34] set to `true`.
+With this setting, the agent entity will deregister every time the agent process stops and its keepalive expires.
+When it restarts, it will revert to the original configuration from `agent.yml`
+You must set `deregister: true` in `agent.yml` before the agent entity is created.
+
+If you change an agent entity's class to `proxy`, the backend will revert the change to `agent`.
+
+## Create and manage proxy entities
+
+You can create proxy entities as described in the [proxy entities][16] section above and modify them via the backend with [sensuctl][32], the [entities API][31], and the [web UI][33].
+
+If you start an agent with the same name as an existing proxy entity, Sensu will change the proxy entity's class to `agent` and update its `system` field with information from the agent configuration.
+
 ## Manage entity labels
 
 Labels are custom attributes that Sensu includes with event data that you can use for response and web UI view filtering.
@@ -403,9 +430,10 @@ example      | {{< code shell >}}"subscriptions": ["web", "prod", "entity:exampl
 
 system       | 
 -------------|------ 
-description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.<br>{{% notice important %}}
+description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.{{% notice important %}}
 **IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, new events will not include data in the `processes` attributes.
+Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false
 type         | Map
@@ -713,9 +741,10 @@ example        | {{< code shell >}}"cloud_provider": "" {{< /code >}}
 
 processes    | 
 -------------|------ 
-description  | List of processes on the local agent. See [processes attributes][26] for more information.<br>{{% notice important %}}
+description  | List of processes on the local agent. See [processes attributes][26] for more information.{{% notice important %}}
 **IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, new events will not include data in the `processes` attributes.
+Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false 
 type         | Map
@@ -855,6 +884,7 @@ example      | {{< code shell >}}"handler": "email-handler"{{< /code >}}
 {{% notice important %}}
 **IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, new events will not include data in the `processes` attributes.
+Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
 **COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][9].
@@ -1144,3 +1174,8 @@ spec:
 [28]: http://man7.org/linux/man-pages/man1/top.1.html
 [29]: ../../reference/license/#view-entity-count-and-entity-limit
 [30]: ../../web-ui/filter/
+[31]: ../../api/entities/
+[32]: ../../sensuctl/create-manage-resources/#update-resources
+[33]: ../../web-ui/view-manage-resources/#manage-entities
+[34]: ../../reference/agent/#ephemeral-agent-configuration-flags
+[35]: ../../reference/agent/#config-file

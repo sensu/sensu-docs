@@ -27,6 +27,12 @@ Use [`sensuctl asset add`][9] to register the `sensu-plugins-cpu-checks` asset:
 
 {{< code shell >}}
 sensuctl asset add sensu-plugins/sensu-plugins-cpu-checks:4.1.0 -r cpu-checks-plugins
+fetching bonsai asset: sensu-plugins/sensu-plugins-cpu-checks:4.1.0
+added asset: sensu-plugins/sensu-plugins-cpu-checks:4.1.0
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["cpu-checks-plugins"].
 {{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `cpu-checks-plugins`.
@@ -37,6 +43,12 @@ Then, use the following sensuctl example to register the `sensu-ruby-runtime` as
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
+fetching bonsai asset: sensu/sensu-ruby-runtime:0.0.10
+added asset: sensu/sensu-ruby-runtime:0.0.10
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["sensu-ruby-runtime"].
 {{< /code >}}
 
 You can also download the asset definition from [Bonsai][7] and register the asset using `sensuctl create --file filename.yml`.
