@@ -41,13 +41,21 @@ sudo service sensu-backend restart
 sensu-backend upgrade
 {{< /code >}}
 
+   - Add the `--skip-confirm` flag to skip the confirmation in step 4 and immediately run the upgrade command.
+
+    {{< code shell >}}
+sensu-backend upgrade --skip-confirm
+{{< /code >}}
+
    {{% notice note %}}
    **NOTE**: If you are deploying a new Sensu 6.0 cluster rather than upgrading from 5.x, you do not need to run the `sensu-backend upgrade` command.
    {{% /notice %}}
 
-4. Enter `y` or `n` to confirm and wait a few seconds for the upgrade command to run.
+4. Enter `y` or `n` to confirm if you did *not* add the `--skip-confirm` flag skip this step.
 
-Until your cluster finishes upgrading, your entity list may return empty and proxy check requests may not work.
+5. Wait a few seconds for the upgrade command to run.
+
+You may notice some inconsistencies in your entity list until the cluster finishes upgrading.
 Despite this, your cluster will continue to publish standard check requests and process events.
 
 If you run the upgrade command more than once, it will not harm the cluster &mdash; you'll just see a response that the upgrade command has already been run. 
