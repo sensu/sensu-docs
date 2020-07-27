@@ -383,7 +383,7 @@ For example, to handle only events for the `server01` entity *and* the `disk` ch
 
 {{< code javascript >}}
 "expressions": [
-  '(function () { var diskEvent = sensu.FetchEvent("router01", "disk"); if (diskEvent == nil) { return false; } return diskEvent.check.status == 0; })()'
+  '(function () { var diskEvent = sensu.FetchEvent("server01", "disk"); if (diskEvent == nil) { return false; } return diskEvent.check.status == 0; })()'
 ]
 {{< /code >}}
 
