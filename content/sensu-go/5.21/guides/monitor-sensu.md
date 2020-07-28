@@ -130,7 +130,7 @@ spec:
 
 In larger Sensu deployments, [Postgres may be used as an alternative datastore][postgres] to enable larger amounts of events to be processed. When using Postgres, the connection to Postgres is exposed on Sensu's `/health` endpoint, and will look like the example below:
 
-{{< code yaml >}}
+{{< code json >}}
 {
 	"Alarms": null,
 	"ClusterHealth": [{
