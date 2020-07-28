@@ -1,6 +1,8 @@
 ---
 title: "Secrets providers"
 linkTitle: "Secrets Providers"
+reference_title: "Secrets providers"
+type: "reference"
 description: "Sensu's secrets management capability allows you to avoid exposing secrets like usernames, passwords, and access keys in your Sensu configuration. Read the reference to obtain secrets from one or more external secrets providers and support references to external secrets in your Sensu configuration."
 weight: 148
 version: "5.18"
