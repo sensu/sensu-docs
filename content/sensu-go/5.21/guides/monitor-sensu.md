@@ -8,7 +8,7 @@ product: "Sensu Go"
 platformContent: False
 menu: 
   sensu-go-5.21:
-    parent: guides
+    parent: monitor-sensu
 ---
 
 - [Monitor your Sensu backend instances](#monitor-your-sensu-backend-instances)
