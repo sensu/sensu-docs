@@ -51,7 +51,7 @@ sensu-backend upgrade --skip-confirm
    **NOTE**: If you are deploying a new Sensu 6.0 cluster rather than upgrading from 5.x, you do not need to run the `sensu-backend upgrade` command.
    {{% /notice %}}
 
-4. Enter `y` or `n` to confirm if you did *not* add the `--skip-confirm` flag skip this step.
+4. Enter `y` or `n` to confirm if you did *not* add the `--skip-confirm` flag. Otherwise, skip this step.
 
 5. Wait a few seconds for the upgrade command to run.
 
