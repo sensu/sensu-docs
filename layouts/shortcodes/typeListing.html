@@ -11,9 +11,7 @@
       {{ $name := replace .Name ".md" "" }}
       {{ $name2 := replace $name "-" " " }}
       {{ $name2 := title $name }}
-
       <li><a href="{{ $name }}"> {{ $name2 }}</a></li>
-      
     {{ end }}
   {{ end }}
 </ul>

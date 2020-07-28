@@ -1,5 +1,6 @@
 ---
 title: "Handlers"
+reference_title: "Handlers"
 description: "Handlers are actions the Sensu backend executes on events, allowing you to created automated monitoring workflows. Read the reference doc to learn about handlers."
 weight: 110
 type: "reference"

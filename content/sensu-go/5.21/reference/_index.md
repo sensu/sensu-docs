@@ -11,4 +11,9 @@ menu:
     identifier: reference
 ---
 
-{{< typeListing >}}
+Here is an explanation of this reference index.
+This is where you will find a list of all of the references in the Sensu documentation.
+References are available throught the docs with other related information within major topic groupings.
+This index will help you find the reference you are looking for.
+
+

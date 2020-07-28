@@ -1,6 +1,7 @@
 ---
 title: "Searches reference"
 linkTitle: "Searches Reference"
+reference_title: "Searches"
 description: "The saved searches feature in the Sensu web UI allows you to create, update, and delete saved searches. Read the reference doc to learn about saved searches in Sensu."
 weight: 60
 type: "reference"

@@ -1,6 +1,7 @@
 ---
 title: "Health reference"
 linkTitle: "Health Reference"
+reference_title: "Health"
 description: "Access health data for your Sensu instance. Read this page to learn about the health information you can retrieve."
 weight: 20
 type: "reference"

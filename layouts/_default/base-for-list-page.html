@@ -12,12 +12,15 @@
 
     <article class="article">
       <div class="wrapper">
-        <h2>Reference Index</h2>
-        {{ range .Site.Pages }}
-        {{ if eq .Type "reference" }}
-          <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+        <h1>{{ .Title }}</h1>
+        {{ .Content }}
+        <ul>
+          {{ range (.Site.Pages.ByParam "reference_title") }}
+          {{ if eq .Type "reference" }}
+            <li><a href="{{ .Permalink }}">{{ .Params.reference_title }}</a></li>
         {{ end }}
       {{ end }}
+      </ul>
       </div>
     </article>
 
