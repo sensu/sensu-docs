@@ -1,5 +1,7 @@
 ---
 title: "Health"
+reference_title: "Health"
+type: "reference"
 description: "Access health data for your Sensu instance. Read this page to learn about the health information you can retrieve."
 weight: 115
 version: "6.0"

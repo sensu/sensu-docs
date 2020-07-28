@@ -1,5 +1,7 @@
 ---
 title: "Searches"
+reference_title: "Searches"
+type: "reference"
 description: "The saved searches feature in the Sensu web UI allows you to create, update, and delete saved searches. Read the reference doc to learn about saved searches in Sensu."
 weight: 143
 version: "5.21"
