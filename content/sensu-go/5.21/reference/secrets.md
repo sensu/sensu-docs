@@ -1,6 +1,8 @@
 ---
 title: "Secrets"
 linkTitle: "Secrets"
+reference_title: "Secrets"
+type: "reference"
 description: "Sensu's secrets management feature allows you to avoid exposing secrets like usernames, passwords, and access keys in your Sensu configuration. Read the reference to obtain secrets from one or more external secrets providers and use sensuctl to manage secrets."
 weight: 145
 version: "5.21"
@@ -210,15 +212,14 @@ spec:
 {{< /language-toggle >}}
 
 The `id` value for secrets that target a HashiCorp Vault must start with the name of the secret's path in Vault.
-The [Vault dev server][10] is preconfigured with the `secret` keyspace already set up.
-This is convenient for learning and getting started with Vault secrets management, so this example and our guide to [Secrets management][11] use the `secret/` path for the `id` value.
+Sensu requires the `secret/` path for the `id` value, and the [Vault dev server][10] is preconfigured with the `secret` keyspace already set up.
 In this example, the name of the secret is `database`.
 The `database` secret contains a key called `password`, and its value is the password to our database.
 
 
 [1]: ../../commercial/
 [2]: ../../api/secrets/
-[3]: ../../sensuctl/set-up-manage/
+[3]: ../../sensuctl/
 [4]: ../../sensuctl/create-manage-resources/#subcommands
 [5]: ../backend/#configuration-via-environment-variables
 [6]: ../rbac#default-users

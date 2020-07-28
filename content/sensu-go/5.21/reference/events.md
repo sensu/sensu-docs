@@ -1,5 +1,7 @@
 ---
 title: "Events"
+reference_title: "Events"
+type: "reference"
 description: "An event is a generic container that Sensu uses to provide context for checks and metrics. You can use events to represent the state of your infrastructure and create automated monitoring workflows. Read the reference doc to learn about events."
 weight: 90
 version: "5.21"
@@ -1345,9 +1347,9 @@ spec:
 [12]: ../agent#create-monitoring-events-using-the-agent-tcp-and-udp-sockets
 [13]: ../agent#create-monitoring-events-using-the-statsd-listener
 [14]: ../../api/events#eventsentitycheck-put
-[15]: ../../web-ui/sign-in/
+[15]: ../../web-ui/
 [16]: ../../api/events/
-[17]: ../../sensuctl/set-up-manage/
+[17]: ../../sensuctl/
 [18]: ../../sensuctl/create-manage-resources/#sensuctl-event
 [20]: ../checks#check-specification
 [21]: #check-attributes

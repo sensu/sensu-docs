@@ -1,5 +1,7 @@
 ---
 title: "Hooks"
+reference_title: "Hooks"
+type: "reference"
 description: "Check hooks allow you to automate data collection that operators would typically perform by investigating monitoring alerts manually. Hooks help free up precious operator time. Read the reference doc to learn about hooks."
 weight: 120
 version: "5.18"
@@ -325,7 +327,7 @@ spec:
 [7]: ../tokens/
 [8]: https://regex101.com/r/zo9mQU/2
 [9]: #spec-attributes
-[10]: ../../api/overview#response-filtering
+[10]: ../../api#response-filtering
 [11]: ../../sensuctl/filter-responses/
 [12]: ../../web-ui/filter#filter-with-label-selectors
 [13]: ../../web-ui/filter/

@@ -1092,6 +1092,12 @@ Sensu offers [commercial support][6] for the OIDC provider for using the OpenID 
 
 The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52].
 
+{{% notice note %}}
+**NOTE**: Defining multiple OIDC providers can lead to inconsistent authentication behavior.
+Use `sensuctl auth list` to verify that only one authentication provider of type `OIDC` is defined.
+If more than one OIDC auth provider configuration is listed, use `sensuctl auth delete $NAME` to remove the extra OIDC configurations by name.
+{{% /notice %}}
+
 ### OIDC configuration examples
 
 {{< language-toggle >}}
@@ -1172,7 +1178,7 @@ example      | {{< code shell >}}"metadata": {
 
 spec         | 
 -------------|------
-description  | Top-level map that includes the OIDC [spec attributes][39]
+description  | Top-level map that includes the OIDC [spec attributes][25].
 required     | true
 type         | Map of key-value pairs
 example      | {{< code shell >}}"spec": {
@@ -1326,14 +1332,14 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
 If a browser does not open, launch a browser to complete the login via your OIDC provider at following URL:
   - https://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/authorize
 
-[1]: ../../../web-ui/sign-in/
-[2]: ../../../sensuctl/set-up-manage/
+[1]: ../../web-ui/
+[2]: ../../../sensuctl/
 [3]: ../../../reference/rbac#default-users
 [4]: ../../../reference/rbac/
 [5]: ../create-read-only-user/
 [6]: ../../../commercial/
 [7]: https://www.openldap.org/
-[8]: ../../../api/overview/
+[8]: ../../../api/
 [9]: ../../../api/auth/
 [11]: ../../../reference/rbac#roles-and-cluster-roles
 [13]: ../../../reference/rbac#role-bindings-and-cluster-role-bindings
@@ -1354,7 +1360,7 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [33]: ../../../reference/rbac/#example-workflows
 [34]: #groups-prefix
 [35]: #username-prefix
-[36]: ../../../sensuctl/set-up-manage/#first-time-setup
+[36]: ../../../sensuctl/#first-time-setup
 [37]: #active-directory-ad-authentication
 [38]: ../../../sensuctl/create-manage-resources/#create-resources
 [39]: #ldap-spec-attributes

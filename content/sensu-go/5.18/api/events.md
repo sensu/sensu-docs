@@ -875,7 +875,7 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 [1]: ../../reference/events/
 [2]: ../overview#pagination
 [3]: #eventsentitycheck-put
-[4]: ../../web-ui/sign-in/
+[4]: ../web-ui/
 [5]: #eventsentitycheck-put-parameters
 [6]: ../../reference/entities#entities-specification
 [7]: ../../reference/checks#check-specification

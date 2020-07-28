@@ -18,6 +18,10 @@ Sensu Go is available for [RHEL/CentOS, Debian, Ubuntu, and Docker][43].
 The Sensu Go agent is also available for Windows.
 [Configuration management][44] integrations for Sensu Go are available for Ansible, Chef, and Puppet.
 
+{{% notice important %}}
+**IMPORTANT**: To install Sensu Go alongside your current Sensu instance, you must upgrade to at least [Sensu Core 1.7.0](https://eol-repositories.sensuapp.org/).
+{{% /notice %}}
+
 Aside from this migration guide, these resources can help you migrate from Sensu Core to Sensu Go:
 
 - [**Sensu Community Slack**][46]: Join hundreds of other Sensu users in our Community Slack, where you can ask questions and benefit from tips others picked up during their own Sensu Go migrations.
@@ -36,8 +40,6 @@ Entities include agent entities that run a Sensu agent and the familiar proxy en
 
 The [glossary][1] includes more information about new terminology in Sensu Go.
 
-To install Sensu Go alongside your current Sensu instance, you must upgrade to at least [Sensu Core 1.7.0][35].
-
 ## Architecture
 
 The external RabbitMQ transport and Redis datastore in Sensu Core 1.x are replaced with an embedded transport and [etcd datastore][2] in Sensu Go.
@@ -53,8 +55,8 @@ Sensu checks and pipeline elements are configured via the API or sensuctl tool i
 The [**Sensu backend**][3] is powered by an embedded transport and [etcd][36] datastore and gives you flexible, automated workflows to route metrics and alerts.
 Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and several exposed ports:
 
-- 2379 (HTTP/HTTPS) Sensu storage client: Required for Sensu backends using an external etcd instance
-- 2380 (HTTP/HTTPS) Sensu storage peer: Required for other Sensu backends in a [cluster][37]
+- 2379 (gRPC) Sensu storage client: Required for Sensu backends using an external etcd instance
+- 2380 (gRPC) Sensu storage peer: Required for other Sensu backends in a [cluster][37]
 - 3000 (HTTP/HTTPS) [Sensu web UI][29]: Required for all Sensu backends using a Sensu web UI
 - 8080 (HTTP/HTTPS) [Sensu API][40]: Required for all users accessing the Sensu API
 - 8081 (WS/WSS) Agent API: Required for all Sensu agents connecting to a Sensu backend
@@ -420,7 +422,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [2]: https://etcd.io/docs/latest/
 [3]: ../reference/backend/
 [4]: ../reference/agent/
-[5]: ../sensuctl/set-up-manage/
+[5]: ../sensuctl/
 [6]: ../reference/entities/
 [7]: ../guides/monitor-external-resources/
 [8]: ../reference/hooks/
@@ -432,7 +434,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [14]: ../operations/control-access/create-read-only-user/
 [15]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#asset-registration
 [16]: ../reference/tokens
-[17]: ../api/overview/
+[17]: ../api/
 [18]: https://github.com/sensu/sensu-translator/
 [19]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#filter-definition
 [20]: https://packagecloud.io/sensu/community/
@@ -445,12 +447,11 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [29]: ../reference/backend#operation
 [33]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#configuration
 [34]: ../guides/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler-1
-[35]: https://eol-repositories.sensuapp.org/
 [36]: https://etcd.io/
 [37]: ../operations/deploy-sensu/cluster-sensu/
 [38]: ../operations/deploy-sensu/deployment-architecture/
-[39]: ../web-ui/sign-in/
-[40]: ../api/overview/
+[39]: ../web-ui/
+[40]: ../api/
 [41]: ../reference/agent#create-monitoring-events-using-the-agent-api
 [42]: ../reference/agent/#create-monitoring-events-using-the-statsd-listener
 [43]: ../platforms/

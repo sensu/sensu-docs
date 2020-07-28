@@ -1,5 +1,7 @@
 ---
 title: "Silencing"
+reference_title: "Silencing"
+type: "reference"
 description: "Sensu’s built-in silencing capability provides a way to suppress event handler execution on an ad hoc basis so you can plan maintenance and reduce alert fatigue. Read the reference doc to learn about silencing in Sensu."
 weight: 160
 version: "5.18"
@@ -353,7 +355,7 @@ name: '*:mysql_status'
 [3]: #metadata-attributes
 [4]: ../../sensuctl/create-manage-resources/#create-resources
 [5]: #spec-attributes
-[6]: ../../api/overview#response-filtering
+[6]: ../../api#response-filtering
 [7]: ../../sensuctl/filter-responses/
 [8]: ../filters/
 [9]: ../../web-ui/filter#filter-with-label-selectors

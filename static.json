@@ -200,15 +200,27 @@
             "status": 301
         },
         "~ ^/sensu-go/latest/dashboard/overview/?$": {
-            "url": "/sensu-go/latest/web-ui/sign-in",
+            "url": "/sensu-go/latest/web-ui",
             "status": 301
         },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/dashboard/overview/?$": {
-            "url": "/sensu-go/latest/web-ui/sign-in",
+            "url": "/sensu-go/latest/web-ui",
             "status": 301
         },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/dashboard/overview/?$": {
-            "url": "/sensu-go/latest/web-ui/sign-in",
+            "url": "/sensu-go/latest/web-ui",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/web-ui/sign-in/?$": {
+            "url": "/sensu-go/latest/web-ui",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/web-ui/sign-in/?$": {
+            "url": "/sensu-go/latest/web-ui/",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/web-ui/sign-in/?$": {
+            "url": "/sensu-go/latest/web-ui/",
             "status": 301
         },
         "~ ^/sensu-go/latest/dashboard/filtering/?$": {
@@ -248,27 +260,39 @@
             "status": 301
         },
         "~ ^/sensu-go/latest/sensuctl/quickstart/?$": {
-            "url": "/sensu-go/latest/sensuctl/set-up-manage",
+            "url": "/sensu-go/latest/sensuctl",
             "status": 301
         },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/sensuctl/quickstart/?$": {
-            "url": "/sensu-go/latest/sensuctl/set-up-manage",
+            "url": "/sensu-go/latest/sensuctl",
             "status": 301
         },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/sensuctl/quickstart/?$": {
-            "url": "/sensu-go/latest/sensuctl/set-up-manage",
+            "url": "/sensu-go/latest/sensuctl",
             "status": 301
         },
         "~ ^/sensu-go/latest/sensuctl/reference/?$": {
-            "url": "/sensu-go/latest/sensuctl/set-up-manage",
+            "url": "/sensu-go/latest/sensuctl",
             "status": 301
         },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/sensuctl/reference/?$": {
-            "url": "/sensu-go/latest/sensuctl/set-up-manage",
+            "url": "/sensu-go/latest/sensuctl",
             "status": 301
         },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/sensuctl/reference/?$": {
-            "url": "/sensu-go/latest/sensuctl/set-up-manage",
+            "url": "/sensu-go/latest/sensuctl",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/sensuctl/set-up-manage/?$": {
+            "url": "/sensu-go/latest/sensuctl",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/sensuctl/set-up-manage/?$": {
+            "url": "/sensu-go/latest/sensuctl",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/sensuctl/set-up-manage/?$": {
+            "url": "/sensu-go/latest/sensuctl",
             "status": 301
         },
         "~ ^/sensu-go/latest/getting-started/get-started/?$": {
@@ -498,6 +522,18 @@
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/secrets-management/?$": {
             "url": "/sensu-go/latest/operations/manage-secrets/secrets-management",
             "status": 301
-        }       
+        },
+        "~ ^/sensu-go/latest/api/overview/?$": {
+            "url": "/sensu-go/latest/api",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/api/overview/?$": {
+            "url": "/sensu-go/latest/api",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/api/overview/?$": {
+            "url": "/sensu-go/latest/api",
+            "status": 301
+        }    
     }
 }

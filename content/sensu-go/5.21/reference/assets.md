@@ -1,6 +1,8 @@
 ---
 title: "Assets"
 linkTitle: "Assets"
+reference_title: "Assets"
+type: "reference"
 description: "Assets are shareable, reusable packages that make it easier to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows. Read this reference doc to learn about assets."
 weight: 40
 version: "5.21"
@@ -93,27 +95,68 @@ Follow the steps outlined in [Contributing Assets for Existing Ruby Sensu Plugin
 For further examples of Sensu users who have added the ability to use a community plugin as an asset, see [this Discourse post](https://discourse.sensu.io/t/how-to-use-the-sensu-plugins-kubernetes-plugin/1286).
 {{% /notice %}}
 
-### Asset path
+### Default cache directory
 
-When you download and install an asset, the asset's local path on disk is exposed to asset consumers via environment variables.
-This allows you to retrieve the asset's path from a check, hook, handler, or mutator either as an environment variable or from a check or hook using a custom function for token substitution, `assetPath`.
+system  | sensu-backend                         | sensu-agent
+--------|---------------------------------------|-------------
+Linux   | `/var/cache/sensu/sensu-backend`      | `/var/cache/sensu/sensu-agent`
+Windows | N/A                                   | `C:\ProgramData\sensu\cache\sensu-agent`
 
-For example, if you included a configuration file in the `include` directory of the asset [`sensu-plugins-windows`][4], you can reference the asset from your check in either of these ways:
+If the requested asset is not in the local cache, it is downloaded from the asset URL.
+The Sensu backend acts as an index of asset builds, and does not provide storage or hosting for the build artifacts.
+Sensu expects assets to be retrieved over HTTP or HTTPS.
 
-- `$SENSU_PLUGINS_WINDOWS/include/config.yaml`
-- `${{assetPath "sensu-plugins-windows"}}/include/config.yaml`
+### Example asset structure
+
+{{< code shell >}}
+sensu-example-handler_1.0.0_linux_amd64
+├── CHANGELOG.md
+├── LICENSE
+├── README.md
+└── bin
+  └── my-check.sh
+└── lib
+└── include
+{{< /code >}}
+
+## Asset path
+
+When you download and install an asset, the asset files are saved to a local path on disk.
+Most of the time, you won't need to know this path &mdash; except in cases where you need to provide the full path to asset files as part of a command argument.
+
+The asset directory path includes the asset's checksum, which changes every time underlying asset artifacts are updated.
+This would normally require you to manually update the commands for any of your checks, handlers, hooks, or mutators that consume the asset.
+However, because the asset directory path is exposed to asset consumers via [environment variables][14] and the [`assetPath` custom function for token substitution][17], you can avoid these manual updates.
+
+You can retrieve the asset's path as an environment variable in the `command` context for checks, handlers, hooks, and mutators.
+Token substitution with the `assetPath` custom function is only available for check and hook commands.
+
+### Environment variables for asset paths
+
+For each runtime asset, a corresponding environment variable will be available in the `command` context.
+
+Sensu generates the environment variable name by capitalizing the asset name, replacing any special characters with underscores, and appending the `_PATH` suffix.
+The value of the variable will be the path on disk where the asset build has been unpacked.
+
+For example, the environment variable path for the asset [`sensu-plugins-windows`][4] would be:
+
+`$SENSU_PLUGINS_WINDOWS_PATH/include/config.yaml`
+
+### Token substitution for asset paths
+
+The `assetPath` token subsitution function allows you to substitute the asset's local path on disk, so you will not need to manually update your check or hook commands every time the asset is updated.
 
 {{% notice note %}}
-**NOTE**: The `assetPath` function is only available where token substitution is available: checks and hooks.
+**NOTE**: The `assetPath` function is only available where token substitution is available: the `command` attribute of a check or hook resource.
+If you want to access an asset path in a handler or mutator command, you must use the [environment variable](#environment-variables-for-asset-paths).
 {{% /notice %}}
 
-The asset path includes the asset's checksum, which changes every time the asset is updated.
-This would normally require you to manually update the commands for any of your checks or hooks that consume the asset.
-However, the `assetPath` token subsitution function allows you to substitute the asset's local path on disk, so you will not need to manually update your check or hook commands every time the asset is updated.
+For example, you can reference the asset [`sensu-plugins-windows`][4] from your check or hook resources using either the environment variable or the `assetPath` function:
 
-This is useful any time a command requires the full explicit path to a file that is distributed in your asset.
-For example, when running PowerShell plugins on Windows, the [exit status codes that Sensu captures may not match the expected values][13].
+- `$SENSU_PLUGINS_WINDOWS_PATH/include/config.yaml`
+- `${{assetPath "sensu-plugins-windows"}}/include/config.yaml`
 
+When running PowerShell plugins on Windows, the [exit status codes that Sensu captures may not match the expected values][13].
 To correctly capture exit status codes from PowerShell plugins distributed as assets, use the asset path to construct the command:
 
 {{< language-toggle >}}
@@ -164,31 +207,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Default cache directory
-
-system  | sensu-backend                         | sensu-agent
---------|---------------------------------------|-------------
-Linux   | `/var/cache/sensu/sensu-backend`      | `/var/cache/sensu/sensu-agent`
-Windows | N/A                                   | `C:\ProgramData\sensu\cache\sensu-agent`
-
-If the requested asset is not in the local cache, it is downloaded from the asset URL.
-The Sensu backend does not currently provide any storage for assets.
-Sensu expects assets to be retrieved over HTTP or HTTPS.
-
-### Example asset structure
-
-{{< code shell >}}
-sensu-example-handler_1.0.0_linux_amd64
-├── CHANGELOG.md
-├── LICENSE
-├── README.md
-└── bin
-  └── my-check.sh
-└── lib
-└── include
-{{< /code >}}
-
-### Asset hello world example
+## Asset hello world example
 
 In this example, you'll run a script that outputs `Hello World`:
 
@@ -237,7 +256,7 @@ mode of 'hello-world.sh' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)
 
 Now that the script is in the directory, move on to the next step: packaging the `sensu-go-hello-world` directory as an asset tarball.
 
-#### Package the asset
+### Package the asset
 
 Assets are archives, so the first step in packaging the asset is to create a tar.gz archive of your project.
 This assumes you're in the directory you want to tar up:
@@ -922,11 +941,13 @@ You must remove the archive and downloaded files from the asset cache manually.
 [11]: ../../sensuctl/create-manage-resources/#create-resources
 [12]: #spec-attributes
 [13]: https://github.com/sensu/sensu/issues/1919
+[14]: #environment-variables-for-asset-paths
 [15]: #example-asset-structure
 [16]: https://bonsai.sensu.io/
+[17]: #token-substitution-for-asset-paths
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
 [19]: https://regex101.com/r/zo9mQU/2
-[20]: ../../api/overview#response-filtering
+[20]: ../../api#response-filtering
 [21]: ../../sensuctl/filter-responses/
 [23]: ../../guides/install-check-executables-with-assets/
 [24]: https://github.com

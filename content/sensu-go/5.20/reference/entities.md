@@ -1,5 +1,7 @@
 ---
 title: "Entities"
+reference_title: "Entities"
+type: "reference"
 description: "An entity represents anything that needs to be monitored, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment, from server hardware to serverless functions. Read this reference doc to learn about entities."
 weight: 70
 version: "5.20"
@@ -403,9 +405,10 @@ example      | {{< code shell >}}"subscriptions": ["web", "prod", "entity:exampl
 
 system       | 
 -------------|------ 
-description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.<br>{{% notice important %}}
+description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.{{% notice important %}}
 **IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, new events will not include data in the `processes` attributes.
+Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false
 type         | Map
@@ -713,9 +716,10 @@ example        | {{< code shell >}}"cloud_provider": "" {{< /code >}}
 
 processes    | 
 -------------|------ 
-description  | List of processes on the local agent. See [processes attributes][26] for more information.<br>{{% notice important %}}
+description  | List of processes on the local agent. See [processes attributes][26] for more information.{{% notice important %}}
 **IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, new events will not include data in the `processes` attributes.
+Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false 
 type         | Map
@@ -855,6 +859,7 @@ example      | {{< code shell >}}"handler": "email-handler"{{< /code >}}
 {{% notice important %}}
 **IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, new events will not include data in the `processes` attributes.
+Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
 **COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][9].
@@ -1127,7 +1132,7 @@ spec:
 [11]: https://blog.sensu.io/one-year-of-sensu-go
 [12]: ../../sensuctl/create-manage-resources/#create-resources
 [13]: #spec-attributes
-[14]: ../../api/overview#response-filtering
+[14]: ../../api#response-filtering
 [15]: ../../sensuctl/filter-responses/
 [16]: #proxy-entities
 [17]: ../../guides/monitor-external-resources/

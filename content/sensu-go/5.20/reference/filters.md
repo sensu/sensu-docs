@@ -1,5 +1,7 @@
 ---
 title: "Filters"
+reference_title: "Filters"
+type: "reference"
 description: "Filters help you reduce alert fatigue by controlling which events are acted on by Sensu handlers. Read the reference doc to learn about event filters, use Sensu's built-in filters, and create your own event filters."
 weight: 100
 version: "5.20"
@@ -867,7 +869,7 @@ spec:
 [33]: ../../sensuctl/create-manage-resources/#create-resources
 [34]: #spec-attributes
 [35]: https://regex101.com/r/zo9mQU/2
-[36]: ../../api/overview#response-filtering
+[36]: ../../api#response-filtering
 [37]: ../../sensuctl/filter-responses/
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
 [39]: ../assets/

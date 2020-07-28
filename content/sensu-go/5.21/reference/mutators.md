@@ -1,5 +1,7 @@
 ---
 title: "Mutators"
+reference_title: "Mutators"
+type: "reference"
 description: "As part of the event pipeline, mutators let you transform event data before applying handlers. Read the reference doc to learn about mutators."
 product: "Sensu Go"
 weight: 130
@@ -381,7 +383,7 @@ spec:
 [5]: ../../sensuctl/create-manage-resources/#create-resources
 [6]: #spec-attributes
 [7]: https://regex101.com/r/zo9mQU/2
-[8]: ../../api/overview#response-filtering
+[8]: ../../api#response-filtering
 [9]: ../../sensuctl/filter-responses/
 [10]: ../../reference/secrets/
 [11]: ../../reference/secrets-providers/

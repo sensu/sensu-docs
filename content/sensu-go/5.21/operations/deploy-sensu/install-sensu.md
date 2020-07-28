@@ -46,8 +46,8 @@ Sensu backends require the following ports:
 
 Port | Protocol | Description |
 ---- | -------- | ----------- |
-2379 | HTTP/HTTPS | Sensu storage client: Required for Sensu backends using an external etcd instance |
-2380 | HTTP/HTTPS | Sensu storage peer: Required for other Sensu backends in a [cluster][22] |
+2379 | gRPC | Sensu storage client: Required for Sensu backends using an external etcd instance |
+2380 | gRPC | Sensu storage peer: Required for other Sensu backends in a [cluster][22] |
 3000 | HTTP/HTTPS | [Sensu web UI][3]: Required for all Sensu backends using a Sensu web UI |
 8080 | HTTP/HTTPS | [Sensu API][26]: Required for all users accessing the Sensu API |
 8081 | WS/WSS | Agent API: Required for all Sensu agents connecting to a Sensu backend |
@@ -508,8 +508,8 @@ sensuctl license info
 
 [1]: https://github.com/sensu/sensu-go/releases/
 [2]: ../generate-certificates/
-[3]: ../../../web-ui/sign-in/
-[4]: ../../../sensuctl/set-up-manage/
+[3]: ../../web-ui/
+[4]: ../../../sensuctl/
 [5]: ../../../platforms/
 [6]: ../../../reference/backend#configuration
 [7]: ../../../reference/agent#configuration-via-flags
@@ -528,10 +528,10 @@ sensuctl license info
 [20]: ../../../commercial/
 [21]: #install-the-sensu-backend
 [22]: ../cluster-sensu/
-[23]: ../../../sensuctl/set-up-manage/
+[23]: ../../../sensuctl/
 [24]: #4-open-the-web-ui
 [25]: ../hardware-requirements/
-[26]: ../../../api/overview/
+[26]: ../../../api/
 [27]: ../../../reference/agent#create-monitoring-events-using-the-agent-api
 [28]: ../../../reference/agent#create-monitoring-events-using-the-statsd-listener
 [29]: https://blog.sensu.io/one-year-of-sensu-go/

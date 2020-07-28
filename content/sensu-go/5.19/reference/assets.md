@@ -1,6 +1,8 @@
 ---
 title: "Assets"
 linkTitle: "Assets"
+reference_title: "Assets"
+type: "reference"
 description: "Assets are shareable, reusable packages that make it easier to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows. Read this reference doc to learn about assets."
 weight: 40
 version: "5.19"
@@ -852,7 +854,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [16]: https://bonsai.sensu.io/
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
 [19]: https://regex101.com/r/zo9mQU/2
-[20]: ../../api/overview#response-filtering
+[20]: ../../api#response-filtering
 [21]: ../../sensuctl/filter-responses/
 [23]: ../../guides/install-check-executables-with-assets/
 [24]: https://github.com

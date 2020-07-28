@@ -1,5 +1,7 @@
 ---
 title: "Entities"
+reference_title: "Entities"
+type: "reference"
 description: "An entity represents anything that needs to be monitored, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment, from server hardware to serverless functions. Read this reference doc to learn about entities."
 weight: 70
 version: "5.19"
@@ -858,7 +860,7 @@ spec:
 [11]: https://blog.sensu.io/one-year-of-sensu-go
 [12]: ../../sensuctl/create-manage-resources/#create-resources
 [13]: #spec-attributes
-[14]: ../../api/overview#response-filtering
+[14]: ../../api#response-filtering
 [15]: ../../sensuctl/filter-responses/
 [16]: #proxy-entities
 [17]: ../../guides/monitor-external-resources/

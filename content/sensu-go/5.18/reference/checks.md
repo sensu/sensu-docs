@@ -1,5 +1,7 @@
 ---
 title: "Checks"
+reference_title: "Checks"
+type: "reference"
 description: "Checks work with Sensu agents to let you monitor your infrastructure automatically and send monitoring events to the Sensu pipeline. Read this reference doc to learn how to run service and metric checks."
 weight: 50
 version: "5.18"
@@ -1081,7 +1083,7 @@ spec:
 [51]: https://github.com/sensu/sensu-influxdb-handler
 [52]: #round-robin-checks
 [53]: https://regex101.com/r/zo9mQU/2
-[54]: ../../api/overview#response-filtering
+[54]: ../../api#response-filtering
 [55]: ../../sensuctl/filter-responses/
 [56]: ../../reference/secrets/
 [57]: ../../reference/secrets-providers/

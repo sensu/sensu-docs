@@ -363,9 +363,9 @@ Now that you know how to run a proxy check to verify the status of a website and
 [3]: ../../reference/checks/#proxy-checks
 [5]: ../../reference/assets/
 [7]: ../send-slack-alerts/
-[8]: ../../sensuctl/set-up-manage/
+[8]: ../../sensuctl/
 [9]: ../../api/entities/
-[10]: ../../web-ui/sign-in/
+[10]: ../web-ui/
 [11]: ../../reference/entities#manage-entity-labels
 [12]: ../../reference/tokens/
 [13]: #register-assets

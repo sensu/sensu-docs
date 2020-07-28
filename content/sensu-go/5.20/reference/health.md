@@ -1,5 +1,7 @@
 ---
 title: "Health"
+reference_title: "Health"
+type: "reference"
 description: "Access health data for your Sensu instance. Read this page to learn about the health information you can retrieve."
 weight: 115
 version: "5.20"
@@ -198,7 +200,7 @@ default      | `false`
 example      | {{< code shell >}}"Healthy": true{{< /code >}}
 
 
-[1]: ../../../api/health/
-[2]: ../../../reference/datastore/#scale-event-storage
-[3]: ../../../reference/datastore/#metadata-attributes
+[1]: ../../api/health/
+[2]: ../datastore/#scale-event-storage
+[3]: ../datastore/#metadata-attributes
 [4]: https://etcd.io/docs/latest/learning/api/#response-header

@@ -41,5 +41,5 @@ See the [sensuctl quickstart][2] to get started using sensuctl.
 The Caviar project shown in the demo monitors the [Sensu docs site][3] using a licensed Sensu cluster of three backends.
 
 [1]: ../../operations/deploy-sensu/install-sensu#install-sensuctl
-[2]: ../../sensuctl/set-up-manage/
+[2]: ../../sensuctl/
 [3]: https://docs.sensu.io/

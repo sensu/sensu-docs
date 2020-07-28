@@ -4,11 +4,16 @@ description: "Read about how to maintain and troubleshoot your Sensu installatio
 product: "Sensu Go"
 version: "5.21"
 weight: 30
-layout: "base-for-directory-listing"
+layout: "single"
+toc: false
 menu:
   sensu-go-5.21:
     parent: operations
     identifier: maintain-sensu
 ---
 
-{{< directoryListing >}}
+Use the guides in the Maintain Sensu category to [upgrade][1] to the latest version of Sensu and [troubleshoot][2].
+
+
+[1]: upgrade/
+[2]: troubleshoot/
