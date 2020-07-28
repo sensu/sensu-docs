@@ -1,5 +1,7 @@
 ---
 title: "Tokens"
+reference_title: "Tokens"
+type: "reference"
 description: "Tokens are placeholders in a check definition that the agent replaces with entity information before executing the check. You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while reusing check definitions. Read the reference doc to learn about tokens."
 weight: 180
 version: "5.18"
