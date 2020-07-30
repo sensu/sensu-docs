@@ -570,6 +570,11 @@ example      | {{< code shell >}}"annotations": {
 
 ### Spec attributes
 
+{{% notice note %}}
+**NOTE**: Spec attributes are not required when sending an HTTP `POST` request to the [agent](../agent/#events-post) or [backend](../../api/events/#create-a-new-event) /events API.
+In that case, the spec attributes are listed as individual [top-level attributes](#top-level-attributes) instead, and there is no `spec` object in the check definition.
+{{% /notice %}}
+
 |command     |      |
 -------------|------
 description  | Check command to be executed.
