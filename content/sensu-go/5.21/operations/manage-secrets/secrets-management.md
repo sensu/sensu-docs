@@ -109,7 +109,7 @@ This section explains how to use [HashiCorp Vault][1] as your external [secrets 
 The examples in this guide use the [Vault dev server](https://www.vaultproject.io/docs/concepts/dev-server/), which is useful for learning and experimenting.
 The Vault dev server gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away.
 Follow the [HashiCorp Learn curriculum](https://learn.hashicorp.com/vault) when you are ready to set up a production server in Vault.<br><br>
-The examples in this guide use the [Vault KV secrets engine](https://www.vaultproject.io/api/secret/kv/kv-v2.html) with the path `"secret/"`.
+In addition, this guide uses the [Vault KV secrets engine](https://www.vaultproject.io/api/secret/kv/kv-v2.html).
 Using the Vault KV secrets engine with the Vault dev server requires v2 connections.
 For this reason, in the `VaultProvider` spec in these examples, the client `version` value is **v2**.
 {{% /notice %}}
@@ -240,7 +240,7 @@ The `id` value for your secret will be `secret/pagerduty#key`.
 
 {{% notice note %}}
 **NOTE**: The `id` value for secrets that target a HashiCorp Vault must start with the name of the secret's path in Vault.
-The Vault dev server is preconfigured with the `secret` keyspace already set up, so we recommend using the `secret/` path for the `id` value while you are learning and getting started with Vault secrets management.
+The Vault dev server is preconfigured with the `secret` keyspace already set up, and Sensu requires the `secret/` path for the `id` value.
 {{% /notice %}}
 
 Run `vault kv get secret/pagerduty` to see the secret you just set up.

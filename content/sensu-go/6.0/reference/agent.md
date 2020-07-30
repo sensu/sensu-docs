@@ -1,6 +1,8 @@
 ---
 title: "Sensu agent"
 linkTitle: "Sensu Agent"
+reference_title: "Agent"
+type: "reference"
 description: "The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor. Read the reference doc to use the Sensu agent to create monitoring events."
 weight: 10
 version: "6.0"
@@ -889,6 +891,7 @@ sensu-agent start --cache-dir /cache/sensu-agent
 # /etc/sensu/agent.yml example
 cache-dir: "/cache/sensu-agent"{{< /code >}}
 
+<a name="config-file"></a>
 
 | config-file |      |
 --------------|------

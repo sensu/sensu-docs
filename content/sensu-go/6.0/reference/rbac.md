@@ -1,6 +1,11 @@
 ---
 title: "Role-based access control (RBAC)"
 linkTitle: "Role-based Access Control"
+reference_title: "Role-based access control (RBAC)"
+type: "reference"
+title: "Role-based access control (RBAC)"
+reference_title: "Role-based access control (RBAC)"
+type: "reference"
 description: "Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance. RBAC allows you to manage user access and resources based on namespaces, groups, roles, and bindings. Read the reference doc to learn about RBAC."
 weight: 135
 version: "6.0"
