@@ -3,7 +3,7 @@ title: "Checks"
 description: "Set up access control for Sensu, the flexible observability pipeline. Read these documents to authenticate to Sensu and authorize access for Sensu users."
 product: "Sensu Go"
 version: "6.0"
-weight: 40
+weight: 30
 layout: "single"
 toc: false
 menu:

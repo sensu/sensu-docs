@@ -1,6 +1,7 @@
 ---
-title: "Entities"
-description: "An entity represents anything that needs to be monitored, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment, from server hardware to serverless functions. Read this reference doc to learn about entities."
+title: "Entity reference"
+linkTitle: "Entity Reference"
+description: "Sensu entities represent anything that needs to be monitored, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment. This reference doc includes the specification and examples for Sensu entities."
 weight: 10
 version: "6.0"
 product: "Sensu Go"
@@ -10,48 +11,15 @@ menu:
     parent: pipeline-entities
 ---
 
-An entity represents anything that needs to be monitored, such as a server, container, or network switch, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment (from server hardware to serverless functions).
-We call these monitored parts of an infrastructure "entities."
-
-An entity provides context for event data &mdash; what and where the event is from &mdash; and an event's uniqueness is determined by the check name and the name of the entity upon which the check ran.
-Entities can also contain system information like the hostname, operating system, platform, and version.
-
-Agent entities are monitoring agents that are installed and run on every system that needs to be monitored.
-The agent entity registers the system with the Sensu backend service, sends keepalive messages (the Sensu heartbeat mechanism), and executes monitoring checks.
-Each entity is a member of one or more `subscriptions`: a list of roles and responsibilities assigned to the agent entity (e.g. a webserver or a database).
-Sensu entities "subscribe" to (or watch for) check requests published by the Sensu backend (via the Sensu transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu backend).
-
-[Proxy entities][16] are dynamically created entities that are added to the entity store if an entity does not already exist for a check result.
-Proxy entities allow Sensu to monitor external resources on systems where a Sensu agent cannot be installed (like a network switch or website) using the defined check `ProxyEntityName` to create a proxy entity for the external resource.
-
-## Usage limits
+An entity represents anything that needs to be monitored, such as a server, container, or network switch, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment.
+Sensu uses [agent entities][31] and [proxy entities][32].
 
 Sensu's free entity limit is 100 entities.
 All [commercial features][9] are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
 If your Sensu instance includes more than 100 entities, [contact us][10] to learn how to upgrade your installation and increase your limit.
 See [the announcement on our blog][11] for more information about our usage policy.
 
-Commercial licenses may include an entity limit and entity class limits:
-
-- Entity limit: the maximum number of entities of all classes your license includes. Both agent and proxy entities count toward the overall entity limit.
-- Entity class limits: the maximum number of a specific class of entities (e.g. agent or proxy) that your license includes.
-
-For example, if your license has an entity limit of 10,000 and an agent entity class limit of 3,000, you cannot run more than 10,000 entities (agent and proxy) total.
-At the same time, you cannot run more than 3,000 agents.
-If you use only 1,500 agent entities, you can have 8,500 proxy entities before you reach the overall entity limit of 10,000.
-
-Use sensuctl or the license API to [view your overall entity count and limit][29].
-
-## Proxy entities
-
-Proxy entities [formerly known as proxy clients or just-in-time (JIT) clients] are dynamically created entities that are added to the entity store if an entity does not already exist for a check result.
-Proxy entities allow Sensu to monitor external resources on systems and devices where a Sensu agent cannot be installed (like a network switch or website) using the defined check `ProxyEntityName` to create a proxy entity for the external resource.
-
-Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message).
-
-See [Monitor external resources][17] to learn how to use a proxy entity to monitor a website.
-
-### Proxy entities and round robin scheduling
+## Proxy entities and round robin scheduling
 
 Proxy entities make [round robin scheduling][18] more useful.
 Proxy entities allow you to combine all round robin events into a single event.
@@ -1117,6 +1085,7 @@ spec:
 
 {{< /language-toggle >}}
 
+
 [1]: #system-attributes
 [2]: #deregistration-attributes
 [3]: #network-attributes
@@ -1147,3 +1116,5 @@ spec:
 [28]: http://man7.org/linux/man-pages/man1/top.1.html
 [29]: ../../reference/license/#view-entity-count-and-entity-limit
 [30]: ../../web-ui/filter/
+[31]: ../#agent-entities
+[32]: ../#proxy-entities
