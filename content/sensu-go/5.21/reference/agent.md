@@ -91,7 +91,7 @@ The event will be handled according to an `email` handler definition.
 
 {{% notice note %}}
 **NOTE**: For HTTP `POST` requests to the agent /events API, check [spec attributes](../checks/#spec-attributes) are not required.
-In that case, the spec attributes (including `handlers`) are listed as individual [top-level attributes](../checks/#top-level-attributes) instead, and there is no `spec` object in the check definition.
+When doing so, the spec attributes (including `handlers`) are listed as individual [top-level attributes](../checks/#top-level-attributes) instead, and there is no `spec` object in the check definition.
 {{% /notice %}} 
 
 {{< code shell >}}
