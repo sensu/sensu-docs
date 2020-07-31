@@ -18,7 +18,7 @@ Checks work with Sensu agents to produce monitoring events automatically.
 You can use checks to monitor server resources, services, and application health as well as collect and analyze metrics.
 
 An event is a generic container Sensu uses to provide context to checks and metrics.
-The context, called event data, contains information about the originating entity and the corresponding check or metric result.
+The context, called observation data, is information about the originating entity and the corresponding check or metric result.
 These generic containers allow Sensu to handle different types of events in the pipeline.
 Because events are polymorphic in nature, it is important to never assume their contents (or lack of content).
 
