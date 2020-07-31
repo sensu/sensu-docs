@@ -115,11 +115,12 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - Sensu now logs and returns and error if it cannot find a mutator.
 - Errors produced in the agent by assets, check validation, token substitution, and event unmarshaling are logged once again.
 - The User-Agent header is now set only upon on new client creation rather than upon each request.
+- When the Sensu agent cannot parse the proper CA certificate path, Sensu logs this in the error message.
 - Fixed a bug where highly concurrent event filtering could result in a panic.
 - Fixed a bug where nil labels or annotations in an event filtering context would require you to explicitly check whether the annotations or labels are undefined.
 With this fix, labels and annotations are always defined (although they may be empty).
-- When the Sensu agent cannot parse the proper CA certificate path, Sensu logs this in the error message.
 - Fixed the log entry field for the check's name in schedulerd.
+- Fixed a bug for PostgreSQL datastores that could prevent GraphQL from retrieving all pages when fetching events in a namespace with more than 1000 total events, resulting in an unexpected error.
 
 ## 5.21.0 release notes
 
