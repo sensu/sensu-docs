@@ -92,7 +92,7 @@ The event will be handled according to an `email` handler definition.
 {{% notice note %}}
 **NOTE**: For HTTP `POST` requests to the agent /events API, check [spec attributes](../checks/#spec-attributes) are not required.
 When doing so, the spec attributes (including `handlers`) are listed as individual [top-level attributes](../checks/#top-level-attributes) in the check definition instead.
-{{% /notice %}} 
+{{% /notice %}}
 
 {{< code shell >}}
 curl -X POST \
