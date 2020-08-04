@@ -34,9 +34,9 @@ Sensu gives you full control over your alerts with flexible [event filters][8], 
 Sensu's open architecture integrates with the tools and services you already use, like [Ansible, Chef, and Puppet][23]; [PagerDuty][19]; [Slack][17]; and more.
 Check out [Bonsai, the Sensu asset index][18], or write your own [Sensu plugins][3] in any language.
 
-## Convenient registration and time-saving subscriptions
+## Automate with agent registration-deregistration and check subscriptions
 
-Sensu agents automatically [register and de-register][21] themselves with the Sensu backend so you can collect observation data about ephemeral infrastructure without getting overloaded with alerts.
+Sensu agents automatically [register and deregister][21] themselves with the Sensu backend so you can collect observation data about ephemeral infrastructure without getting overloaded with alerts.
 
 Instead of setting up traditional one-to-one entity-to-check mapping, use Sensu's subscriptions to make sure your entities automatically run the appropriate checks for their functionality.
 
