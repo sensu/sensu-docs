@@ -22,11 +22,9 @@ Then, you list the event filters you want to apply in your [handler][2] configur
 Any events that the filter component doesn't remove from your pipeline will be [processed][3] according to your handler configuration.
 Event filters can be [inclusive or exclusive][4], so you can require events to match or not match the filter expressions.
 
-The filter stage performs these steps:
-
-* Checks for a `handler` or `handlers` definition to learn which event filters to apply.
-* Applies all event filters listed in the handler definition in the order that they are listed.
-* Compares event filter `expressions` with observation data in the event.
+In the filter stage, the Sensu backend receives event data and checks for a `handler` or `handlers` definition to learn which event filters to apply.
+Then, Sensu applies all event filters listed in the handler definition and compares event filter `expressions` with observation data in the event.
+Sensu applies event filters in the order that they are listed.
 
 As soon as an event filter removes an event from your pipeline because it does not meet the conditions, triggers, or thresholds you specified, the Sensu observability pipeline ceases analysis for the event.
 Sensu will not execute any handlers you have configured.

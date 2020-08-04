@@ -55,6 +55,12 @@ Event handlers from `event.Check.Handlers` and `event.Metrics.Handlers` will be 
 
 *Also, add separate doc about check subscriptions. Start with content from check reference.*
 
+## Hooks
+
+[Hooks][4] are reusable commands the agent executes in response to a check result before creating a monitoring event.
+Hooks add context to your observation data and reduce incident response time by gathering relevant information based on the exit status code of a check.
+Hook commands can also receive JSON serialized Sensu client data via STDIN.
+
 
 [1]: ../../guides/monitor-server-resources/
 [2]: https://bonsai.sensu.io
