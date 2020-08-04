@@ -28,9 +28,10 @@ Configure the Sensu backend as a [cluster][6] for high availability and scale as
 
 ## Filtered, context-rich alerts that improve incident response
 
-Get meaningful alerts when and where you need them.
-Use [event filters][8] to reduce noise and [check hooks][9] to add context and speed up incident response.
-Sensu integrates with the tools and services your organization already uses like [PagerDuty][19], [Slack][17], and more.
+Get meaningful alerts when and where you need them so you can reduce alert fatigue and speed up incident response.
+Sensu gives you full control over your alerts with flexible [event filters][8], [check hooks][9] for context-rich notifications, reporting, [observation data handling][24], and auto-remediation.
+
+Sensu's open architecture integrates with the tools and services you already use, like [Ansible, Chef, and Puppet][23]; [PagerDuty][19]; [Slack][17]; and more.
 Check out [Bonsai, the Sensu asset index][18], or write your own [Sensu plugins][3] in any language.
 
 ## Convenient registration and time-saving subscriptions
@@ -81,3 +82,5 @@ Sensu Go is the latest version of Sensu, designed to be portable, straightforwar
 [20]: #filtered-context-rich-alerts-that-improve-incident-response
 [21]: observability-pipeline/agent/#registration-events
 [22]: https://sensu.io/support
+[23]: operations/deploy-sensu/configuration-management/
+[24]: observability-pipeline/pipeline-process/handlers/
