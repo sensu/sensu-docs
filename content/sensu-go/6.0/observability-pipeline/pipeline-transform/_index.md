@@ -23,7 +23,7 @@ Here's how this part of the pipeline works: first, the Sensu backend receives an
 If the event data meets the conditions, triggers, or thresholds you specified in your event filters, Sensu checks the handler for a mutator.
 If the handler includes a mutator, the Sensu backend executes the mutator.
 
-* If the mutator executes successfully (i.e. returns an exit status code of `0`), Sensu applies the mutator to transform the event data, returnes the transformed event data to the handler, and executes the handler.
+* If the mutator executes successfully (i.e. returns an exit status code of `0`), Sensu applies the mutator to transform the event data, returns the transformed event data to the handler, and executes the handler.
 * If the mutator fails to execute (i.e. returns a non-zero exit status code or fails to complete within its configured timeout), Sensu logs an error and does not execute the handler.
 
 
