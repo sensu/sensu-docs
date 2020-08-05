@@ -7,7 +7,7 @@ product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-6.0:
-    parent: pipeline-checks
+    parent: pipeline-checks-events
 ---
 
 Checks work with Sensu agents to produce monitoring events automatically.

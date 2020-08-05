@@ -7,7 +7,7 @@ product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-6.0:
-    parent: pipeline-checks
+    parent: pipeline-checks-events
 ---
 
 Hooks are reusable commands the agent executes in response to a check result before creating a monitoring event.

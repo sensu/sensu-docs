@@ -7,7 +7,7 @@ product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-6.0:
-    parent: pipeline-checks
+    parent: pipeline-checks-events
 ---
 
 An event is a generic container used by Sensu to provide context to checks and metrics.

@@ -7,7 +7,7 @@ product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-6.0:
-    parent: pipeline-checks
+    parent: pipeline-checks-events
 ---
 
 Sensu's silencing capability allows you to suppress event handler execution on an ad hoc basis so you can plan maintenance and reduce alert fatigue.
