@@ -11,8 +11,6 @@ menu:
     parent: pipeline-agent-backend
 ---
 
-<!--Source at https://app.lucidchart.com/invitations/accept/1ac5d0c9-8c70-4424-be3c-bdca6aa42d52--> </svg>
-
 [Example Sensu backend configuration file](../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and event data.

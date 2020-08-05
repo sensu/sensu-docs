@@ -12,8 +12,6 @@ menu:
     parent: pipeline-agent-backend
 ---
 
-<!--Source at https://app.lucidchart.com/invitations/accept/08781509-e254-4975-b1c2-a1f8d388d297--> </svg>
-
 [Example Sensu agent configuration file](../../files/agent.yml) (download)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
