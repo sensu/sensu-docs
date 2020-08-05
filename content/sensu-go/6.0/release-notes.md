@@ -5,8 +5,8 @@ description: "Read the Sensu Go release notes to learn about what's new in our l
 weight: -80
 product: "Sensu Go"
 toc: false
-version: "5.21"
-menu: "sensu-go-5.21"
+version: "6.0"
+menu: "sensu-go-6.0"
 ---
 
 - [5.21.1 release notes](#5211-release-notes)
@@ -70,18 +70,18 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **August 5, 2020** &mdash; The latest release of Sensu Go, version 5.21.1, is now available for download.
 
-This patch release includes fixes for a Web UI crash when interacting with namespaces containing a thousand or more events, regressions in logging of various agent errors, and an enhancement which provides additional context to websocket connection errors logged by the backend.
+This patch release includes fixes for a web UI crash when interacting with namespaces that contain 1000 or more events and regressions in logging various agent errors as well as an enhancement that provides additional context to websocket connection errors logged by the backend.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.21.1.
 
 **IMPROVEMENTS:**
 
-- Backend log messages related to connection errors on the Agent Websocket API now provide more context about the error.
+- Backend log messages related to connection errors on the agent websocket API now provide more context about the error.
 
 **FIXES:**
 
-- Fixed a potential Web UI crash when fetching events in namespace with > 1000 events.
-- Fixed a regression which prevented errors produced in the agent by assets, check validation, token substitution, and event unmarshaling from being logged.
+- Fixed a potential web UI crash when fetching events in namespace with 1000 or more events.
+- Fixed a regression that prevented errors produced in the agent by assets, check validation, token substitution, or event unmarshaling from being logged.
 
 ## 5.21.0 release notes
 
