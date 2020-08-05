@@ -81,7 +81,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.21.1.
 **FIXES:**
 
 - Fixed a potential web UI crash when fetching events in namespace with 1000 or more events.
-- Fixed a regression which prevented errors produced in the agent by assets, check validation, token substitution, and event unmarshaling from being logged.
+- Fixed a regression that prevented errors produced in the agent by assets, check validation, token substitution, or event unmarshaling from being logged.
 
 ## 5.21.0 release notes
 
