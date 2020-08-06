@@ -1,6 +1,8 @@
 ---
 title: "Sensu agent"
 linkTitle: "Sensu Agent"
+reference_title: "Agent"
+type: "reference"
 description: "The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor. Read the reference doc to use the Sensu agent to create monitoring events."
 weight: 10
 version: "5.21"
@@ -85,6 +87,13 @@ The following example submits an HTTP POST request to the `/events` API.
 The request creates event for a check named `check-mysql-status` with the output `could not connect to mysql` and a status of `1` (warning).
 The agent responds with an HTTP `202 Accepted` response to indicate that the event has been added to the queue to be sent to the backend.
 
+The event will be handled according to an `email` handler definition.
+
+{{% notice note %}}
+**NOTE**: For HTTP `POST` requests to the agent /events API, check [spec attributes](../checks/#spec-attributes) are not required.
+When doing so, the spec attributes (including `handlers`) are listed as individual [top-level attributes](../checks/#top-level-attributes) in the check definition instead.
+{{% /notice %}}
+
 {{< code shell >}}
 curl -X POST \
 -H 'Content-Type: application/json' \
@@ -93,6 +102,7 @@ curl -X POST \
     "metadata": {
       "name": "check-mysql-status"
     },
+    "handlers": ["email"],
     "status": 1,
     "output": "could not connect to mysql"
   }
@@ -728,6 +738,7 @@ You must present the whole chain to the remote so it can determine whether it tr
 {{% notice important %}}
 **IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, the `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
+Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
 {{< code text >}}
@@ -920,9 +931,10 @@ disable-assets: true{{< /code >}}
 
 | discover-processes |      |
 --------------|------
-description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].<br>{{% notice important %}}
+description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].{{% notice important %}}
 **IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
 As of 5.20.2, the `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
+Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 type          | Boolean
 default       | false

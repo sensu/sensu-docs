@@ -1,5 +1,7 @@
 ---
 title: "Events"
+reference_title: "Events"
+type: "reference"
 description: "An event is a generic container that Sensu uses to provide context for checks and metrics. You can use events to represent the state of your infrastructure and create automated monitoring workflows. Read the reference doc to learn about events."
 weight: 90
 version: "6.0"
@@ -223,6 +225,7 @@ example      | {{< code shell >}}
       }
     ],
     "interval": 10,
+    "is_silenced": true,
     "issued": 1552506033,
     "last_ok": 1552506033,
     "low_flap_threshold": 0,
@@ -451,6 +454,7 @@ example      | {{< code shell >}}
     }
   ],
   "interval": 10,
+  "is_silenced": true,
   "issued": 1552506033,
   "last_ok": 1552506033,
   "low_flap_threshold": 0,
@@ -577,6 +581,13 @@ description  | For incident and resolution events, the number of preceding event
 required     | false
 type         | Integer greater than 0
 example      | {{< code shell >}}"occurrences_watermark": 1{{< /code >}}
+
+is_silenced  | |
+-------------|------
+description  | If `true`, the event was silenced at the time of processing. Otherwise, `false`. If `true`, the event.Check definition will also list the silenced entries that match the event in the `silenced` array.
+required     | false
+type         | Boolean
+example      | {{< code shell >}}"is_silenced": "true"{{< /code >}}
 
 silenced     | |
 -------------|------
@@ -739,6 +750,7 @@ spec:
     - executed: 1552594757
       status: 0
     interval: 60
+    is_silenced: true
     issued: 1552594757
     last_ok: 1552594758
     low_flap_threshold: 0
@@ -749,6 +761,8 @@ spec:
     occurrences_watermark: 1
     output: |
       CPU OK - Usage:3.96
+    silenced:
+      entity:gin:server-health
     output_metric_format: ""
     output_metric_handlers: []
     proxy_entity_name: ""
@@ -837,6 +851,7 @@ spec:
         }
       ],
       "interval": 60,
+      "is_silenced": true,
       "issued": 1552594757,
       "last_ok": 1552594758,
       "low_flap_threshold": 0,
@@ -847,6 +862,9 @@ spec:
       "occurrences": 1,
       "occurrences_watermark": 1,
       "output": "CPU OK - Usage:3.96\n",
+      "silenced": [
+        "entity:gin:scheck-cpu"
+      ],
       "output_metric_format": "",
       "output_metric_handlers": [],
       "proxy_entity_name": "",
@@ -958,6 +976,7 @@ spec:
     - executed: 1552505843
       status: 0
     interval: 10
+    is_silenced: false
     issued: 1552506033
     last_ok: 1552506033
     low_flap_threshold: 0
@@ -1068,6 +1087,7 @@ spec:
         }
       ],
       "interval": 10,
+      "is_silenced": false,
       "issued": 1552506033,
       "last_ok": 1552506033,
       "low_flap_threshold": 0,
