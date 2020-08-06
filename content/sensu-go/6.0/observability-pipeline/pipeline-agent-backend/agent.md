@@ -20,13 +20,6 @@ Agent entities are responsible for creating [check and metrics events][7] to sen
 The Sensu agent is available for Linux, macOS, and Windows.
 See the [installation guide][1] to install the agent.
 
-## Communication between the agent and backend
-
-The Sensu agent uses [WebSocket][45] (ws) protocol to send and receive JSON messages with the Sensu backend.
-For optimal network throughput, agents will attempt to negotiate the use of [Protobuf][47] serialization when communicating with a Sensu backend that supports it.
-This communication is via clear text by default.
-Follow [Secure Sensu][46] to configure the backend and agent for WebSocket Secure (wss) encrypted communication.
-
 ## Create monitoring events using service checks
 
 Sensu uses the [publish/subscribe pattern of communication][15], which allows automated registration and deregistration of ephemeral systems.
