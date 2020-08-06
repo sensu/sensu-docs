@@ -10,6 +10,7 @@ menu: "sensu-go-6.0"
 ---
 
 - [6.0.0 release notes](#600-release-notes)
+- [5.21.1 release notes](#5211-release-notes)
 - [5.21.0 release notes](#5210-release-notes)
 - [5.20.2 release notes](#5202-release-notes)
 - [5.20.1 release notes](#5201-release-notes)
@@ -121,6 +122,23 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 With this fix, labels and annotations are always defined (although they may be empty).
 - Fixed the log entry field for the check's name in schedulerd.
 - Fixed a bug for PostgreSQL datastores that could prevent GraphQL from retrieving all pages when fetching events in a namespace with more than 1000 total events, resulting in an unexpected error.
+
+## 5.21.1 release notes
+
+**August 5, 2020** &mdash; The latest release of Sensu Go, version 5.21.1, is now available for download.
+
+This patch release includes fixes for a web UI crash when interacting with namespaces that contain 1000 or more events and regressions in logging various agent errors as well as an enhancement that provides additional context to websocket connection errors logged by the backend.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.1.
+
+**IMPROVEMENTS:**
+
+- Backend log messages related to connection errors on the agent websocket API now provide more context about the error.
+
+**FIXES:**
+
+- Fixed a potential web UI crash when fetching events in namespace with 1000 or more events.
+- Fixed a regression that prevented errors produced in the agent by assets, check validation, token substitution, or event unmarshaling from being logged.
 
 ## 5.21.0 release notes
 
