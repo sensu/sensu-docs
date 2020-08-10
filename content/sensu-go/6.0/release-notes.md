@@ -108,6 +108,8 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - For role bindings and cluster role bindings, [`subjects.name`][166] values can now include unicode characters, and [`roleRef.type`][167] and [`subjects.type`][166] values are now automatically capitalized.
 - Improved logging for the agent websocket connection.
 - Improved the wording of the secret provider error message.
+- Fewer keys in etcd are now stored for agents.
+- Keepalive and round robin scheduling leases are now dealt with more efficiently.
 - Upgraded Go version from 1.13.7 to 1.13.15.
 - Upgraded etcd version from 3.3.17 to 3.3.22.
 
@@ -115,6 +117,7 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 
 - ([Commercial feature][162]) Label selectors now work as expected with multiple requirements for events.
 - ([Commercial feature][162]) Fixed an issue that prevented broken secrets providers from surfacing their errors.
+- ([Commercial feature][162]) Fixed a bug for PostgreSQL datastores that could prevent GraphQL from retrieving all pages when fetching events in a namespace with more than 1000 total events, resulting in an unexpected error.
 - Sensu now logs and returns and error if it cannot find a mutator.
 - Errors produced in the agent by assets, check validation, token substitution, and event unmarshaling are logged once again.
 - The User-Agent header is now set only upon on new client creation rather than upon each request.
@@ -123,7 +126,6 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - Fixed a bug where nil labels or annotations in an event filtering context would require you to explicitly check whether the annotations or labels are undefined.
 With this fix, labels and annotations are always defined (although they may be empty).
 - Fixed the log entry field for the check's name in schedulerd.
-- Fixed a bug for PostgreSQL datastores that could prevent GraphQL from retrieving all pages when fetching events in a namespace with more than 1000 total events, resulting in an unexpected error.
 
 ## 5.21.1 release notes
 
