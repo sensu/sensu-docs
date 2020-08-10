@@ -23,10 +23,10 @@ http://127.0.0.1:8080/version
 HTTP/1.1 200 OK
 {
   "etcd": {
-    "etcdserver": "3.3.17",
+    "etcdserver": "3.3.22",
     "etcdcluster": "3.3.0"
   },
-  "sensu_backend": "5.x.x#yyyyyyy"
+  "sensu_backend": "6.x.x#yyyyyyy"
 }
 {{< /code >}}
 
@@ -42,9 +42,9 @@ response parameters | Required: <ul><li>`etcd.etcdserver` (string). Etcd server 
 output         | {{< code shell >}}
 {
   "etcd": {
-    "etcdserver": "3.3.17",
+    "etcdserver": "3.3.22",
     "etcdcluster": "3.3.0"
   },
-  "sensu_backend": "5.x.x#yyyyyyy"
+  "sensu_backend": "6.x.x#yyyyyyy"
 }
 {{< /code >}}
