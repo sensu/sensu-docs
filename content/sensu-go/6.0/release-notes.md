@@ -108,6 +108,8 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - For role bindings and cluster role bindings, [`subjects.name`][166] values can now include unicode characters, and [`roleRef.type`][167] and [`subjects.type`][166] values are now automatically capitalized.
 - Improved logging for the agent websocket connection.
 - Improved the wording of the secret provider error message.
+- Upgraded Go version from 1.13.7 to 1.13.15.
+- Upgraded etcd version from 3.3.17 to 3.3.22.
 
 **FIXES:**
 
