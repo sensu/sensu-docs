@@ -118,6 +118,7 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - ([Commercial feature][162]) Label selectors now work as expected with multiple requirements for events.
 - ([Commercial feature][162]) Fixed an issue that prevented broken secrets providers from surfacing their errors.
 - ([Commercial feature][162]) Fixed a bug for PostgreSQL datastores that could prevent GraphQL from retrieving all pages when fetching events in a namespace with more than 1000 total events, resulting in an unexpected error.
+- ([Commercial feature][162]) Fixed a bug that could cause the backend to panic in case of PostgreSQL errors.
 - Sensu now logs and returns and error if it cannot find a mutator.
 - Errors produced in the agent by assets, check validation, token substitution, and event unmarshaling are logged once again.
 - The User-Agent header is now set only upon on new client creation rather than upon each request.
