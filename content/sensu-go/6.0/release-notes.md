@@ -70,9 +70,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 ## 6.0.0 release notes
 
 **August 10, 2020** &mdash; The latest release of Sensu Go, version 6.0.0, is now available for download.
-
-**PLACEHOLDER FOR RELEASE SYNOPSIS**
-With Sensu Go 6, you can control everything through the API. You can still use configuration management tools to bootstrap agent entities, but you don’t need to! Our new agent entity management feature via the backend configuration API nearly eliminates the need for external (or out-of-band) configuration management for Sensu, empowering you to manage agent entity subscriptions and automate the discovery of system facts without updating agent local configuration files. Run a sensuctl command, click a button in the web UI, or execute a custom check plugin.
+With Sensu Go 6.0.0, you can control everything through the API. You can still use configuration management tools to bootstrap agent entities, but you don’t need to! Our new agent entity management feature via the backend configuration API nearly eliminates the need for external (or out-of-band) configuration management for Sensu, which allows you to manage agent entity subscriptions and automate the discovery of system facts without updating agent local configuration files. Run a sensuctl command, click a button in the web UI, or execute a custom check plugin!
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.0.0.
 
