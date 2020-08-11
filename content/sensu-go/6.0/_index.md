@@ -1,6 +1,6 @@
 ---
 title: "Sensu Go"
-description: "Sensu is the industry-leading solution for multi-cloud observability at scale. The Sensu observability pipeline empowers businesses to automate their observability and monitoring workflows and gain deep visibility into their multi-cloud environments. Built by operators and for operators, open source is at the heart of the Sensu product and company, with an active, thriving community of contributors."
+description: "Sensu is the industry-leading solution for multi-cloud observability at scale. The Sensu observability pipeline empowers businesses to automate observability and monitoring workflows and gain deep visibility into their multi-cloud environments. Built by operators and for operators, open source is at the heart of the Sensu product and company, with an active, thriving community of contributors."
 weight: -100
 menu: "sensu-go-6.0"
 version: "6.0"
@@ -22,7 +22,7 @@ The Sensu backend gives you a flexible, automated pipeline to filter, transform,
 
 Sensu Go is [operator-focused][11] and [developer-friendly][20] and [integrates][7] with popular monitoring and observability tools.
 You can deploy Sensu Go for any environment, including on-premises or public cloud infrastructures, containers, and bare metal.
-Configure the Sensu backend as a [cluster][6] for high availability and scale as needed to process more observation data.
+Configure the Sensu backend as a [cluster][6] for high availability and scale your installation as needed to process more observation data.
 
 **[Get started now][1] and feel the #monitoringlove**.
 

@@ -23,6 +23,7 @@ Every Sensu backend includes an integrated transport for scheduling checks using
 
 The Sensu agent is available for Linux, macOS, and Windows.
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
+Learn more in the [agent][11] and [backend][12] references.
 
 Follow the [installation guide][1] to install the agent and backend.
 
@@ -45,3 +46,6 @@ Follow [Secure Sensu][8] to configure the backend and agent for WebSocket Secure
 [8]: ../../operations/deploy-sensu/secure-sensu/
 [9]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
 [10]: https://etcd.io/docs
+[11]: agent/
+[12]: backend/
+
