@@ -78,7 +78,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.0.0.
 **BREAKING CHANGES FOR SENSU 6.0:**
 
 - The database schema for entities has changed.
-As a result, after upgrading to Sensu 6.0, you will not be able to use your database with older versions of Sensu.
+As a result, after you complete the steps to [upgrade to Sensu 6.0][170] (including running the `sensu-backend upgrade` command), you will not be able to use your database with older versions of Sensu.
 - In [binary-only distributions][164], the web UI is now a standalone product that is no longer distributed inside the `sensu-backend` binary.
 See the [Sensu Go Web repository][163] for more information.
 - After initial creation, you cannot change your `sensu-agent` entity configuration by modifying the agent's configuration file.
@@ -1459,3 +1459,4 @@ To get started with Sensu Go:
 [167]: /sensu-go/6.0/reference/rbac/#roleref-specification
 [168]: /sensu-go/6.0/reference/sensu-query-expressions/#sensucheckdependencies
 [169]: /sensu-go/6.0/reference/filters/#build-event-filter-expressions-with-javascript-execution-functions
+[170]: /sensu-go/6.0/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-60-from-a-5x-deployment
