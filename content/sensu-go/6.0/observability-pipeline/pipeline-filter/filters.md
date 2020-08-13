@@ -11,6 +11,8 @@ menu:
     parent: pipeline-filter
 ---
 
+Sensu executes event filters during the **[filter][43]** stage of the [observability pipeline][44].
+
 Sensu event filters are applied when you configure event handlers to use one or more filters.
 Before executing a handler, the Sensu backend will apply any event filters configured for the handler to the event data.
 If the filters do not remove the event, the handler will be executed.
@@ -875,3 +877,5 @@ spec:
 [40]: ../filters/
 [41]: ../../web-ui/filter#filter-with-label-selectors
 [42]: ../../web-ui/filter/
+[43]: ../
+[44]: ../../../observability-pipeline/

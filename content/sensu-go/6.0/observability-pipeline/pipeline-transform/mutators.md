@@ -11,6 +11,8 @@ menu:
     parent: pipeline-transform
 ---
 
+Sensu executes mutators during the **[transform][16]** stage of the [observability pipeline][17].
+
 Handlers can specify a mutator to execute and transform event data before any handlers are applied.
 
 * When the Sensu backend processes an event, it checks the handler for the presence of a mutator and executes that mutator before executing the handler.
@@ -390,3 +392,5 @@ spec:
 [13]: ../../web-ui/filter#filter-with-label-selectors
 [14]: ../../operations/manage-secrets/secrets-management/
 [15]: ../../web-ui/filter/
+[16]: ../
+[17]: ../../../observability-pipeline/

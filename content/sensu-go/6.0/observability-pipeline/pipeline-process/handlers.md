@@ -11,6 +11,8 @@ menu:
     parent: pipeline-process
 ---
 
+Sensu executes handlers during the **[process][22]** stage of the [observability pipeline][29].
+
 Handlers are actions the Sensu backend executes on events.
 Several types of handlers are available.
 The most common are `pipe` handlers, which work similarly to [checks][1] and enable Sensu to interact with almost any computer program via [standard streams][2].
@@ -676,9 +678,11 @@ spec:
 [19]: ../agent/#keepalive-handlers-flag
 [20]: ../../reference/secrets/
 [21]: ../../reference/secrets-providers/
+[22]: ../
 [23]: ../../guides/install-check-executables-with-assets
 [24]: ../filters/
 [25]: ../../web-ui/filter#filter-with-label-selectors
 [26]: ../../operations/manage-secrets/secrets-management/
 [27]: ../agent/#registration
 [28]: ../../web-ui/filter/
+[29]: ../../../observability-pipeline/
