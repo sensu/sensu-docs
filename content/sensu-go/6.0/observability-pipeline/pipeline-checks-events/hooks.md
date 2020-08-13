@@ -1,5 +1,6 @@
 ---
-title: "Hooks"
+title: "Hooks reference"
+linkTitle: "Hooks Reference"
 description: "Check hooks allow you to automate data collection that operators would typically perform by investigating monitoring alerts manually. Hooks help free up precious operator time. Read the reference doc to learn about hooks."
 weight: 30
 version: "6.0"

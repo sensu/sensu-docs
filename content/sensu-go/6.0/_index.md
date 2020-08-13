@@ -21,8 +21,7 @@ Sensu is an agent-based observability tool that you install on your organization
 The Sensu backend gives you a flexible, automated pipeline to filter, transform, and process alerts and metrics.
 
 Sensu Go is [operator-focused][11] and [developer-friendly][20] and [integrates][7] with popular monitoring and observability tools.
-You can deploy Sensu Go for any environment, including on-premises or public cloud infrastructures, containers, and bare metal.
-Configure the Sensu backend as a [cluster][6] for high availability and scale your installation as needed to process more observation data.
+Deploy Sensu Go for on-premises and public cloud infrastructures, containers, bare metal, or any other environment.
 
 **[Get started now][1] and feel the #monitoringlove**.
 

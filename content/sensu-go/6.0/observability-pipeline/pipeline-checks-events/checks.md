@@ -1,5 +1,6 @@
 ---
-title: "Checks"
+title: "Checks reference"
+linkTitle: "Checks Reference"
 description: "Checks work with Sensu agents to let you monitor your infrastructure automatically and send monitoring events to the Sensu pipeline. Read this reference doc to learn how to run service and metric checks."
 weight: 10
 version: "6.0"

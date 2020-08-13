@@ -1,5 +1,5 @@
 ---
-title: "Checks and events"
+title: "Events"
 description: "Checks work with Sensu agents to let you monitor your infrastructure automatically and send observation data to the Sensu backend pipeline. Events are generic containers that Sensu uses to provide context for checks and metrics. Read this page to learn more about Sensu checks and events."
 product: "Sensu Go"
 version: "6.0"

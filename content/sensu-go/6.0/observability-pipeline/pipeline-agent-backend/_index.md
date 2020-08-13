@@ -1,9 +1,9 @@
 ---
-title: "Agent and backend"
+title: "Subscriptions"
 description: "Placeholder."
 product: "Sensu Go"
 version: "6.0"
-weight: 30
+weight: 20
 layout: "single"
 toc: true
 menu:
