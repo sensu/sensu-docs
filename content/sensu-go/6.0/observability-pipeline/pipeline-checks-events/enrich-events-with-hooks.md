@@ -2,14 +2,14 @@
 title: "Augment event data with check hooks"
 linkTitle: "Augment Event Data"
 description: "Check hooks allow Sensu users to automate data collection that operators would routinely perform manually to investigate monitoring alerts, which frees up precious operator time. This guide helps you create a check hook that captures the process tree in case a service check returns a critical status."
-weight: 40
+weight: 90
 version: "6.0"
 product: "Sensu Go"
 platformContent: false
 lastTested: 2018-12-04
 menu:
   sensu-go-6.0:
-    parent: guides
+    parent: pipeline-checks-events
 ---
 
 Check hooks are **commands** the Sensu agent runs in response to the result of **check** command execution. 

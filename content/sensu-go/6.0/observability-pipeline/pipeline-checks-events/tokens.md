@@ -1,12 +1,13 @@
 ---
-title: "Tokens"
+title: "Tokens reference"
+linkTitle: "Tokens Reference"
 description: "Tokens are placeholders in a check definition that the agent replaces with entity information before executing the check. You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while reusing check definitions. Read the reference doc to learn about tokens."
-weight: 180
+weight: 50
 version: "6.0"
 product: "Sensu Go"
-menu: 
+menu:
   sensu-go-6.0:
-    parent: reference
+    parent: pipeline-checks-events
 ---
 
 Tokens are placeholders in a check definition that the agent replaces with entity information before executing the check.

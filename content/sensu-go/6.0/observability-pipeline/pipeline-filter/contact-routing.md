@@ -2,13 +2,13 @@
 title: "Route alerts with filters"
 linkTitle: "Route Alerts"
 description: "Every alert has an ideal first responder: a team or person who knows how to triage and address the issue. Sensu contact routing lets you alert the right people using their preferred contact method, reducing mean time to response and recovery."
-weight: 130
+weight: 20
 version: "6.0"
 product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-6.0:
-    parent: guides
+    parent: pipeline-filter
 ---
 
 Every alert has an ideal first responder: a team or person who knows how to triage and address the issue.

@@ -2,14 +2,14 @@
 title: "Plan maintenance windows with silencing"
 linkTitle: "Plan Maintenance Windows"
 description: "Perform system maintenance without getting overloaded with alerts. Sensu silencing bypasses event handlers during maintenance periods, giving operators the ability to quiet incoming alerts while coordinating their response. Read this guide to use Sensu silencing."
-weight: 200
+weight: 100
 version: "6.0"
 product: "Sensu Go"
 platformContent: False
 lastTested: 2018-12-04
 menu: 
   sensu-go-6.0:
-    parent: guides
+    parent: pipeline-checks-events
 ---
 
 As the Sensu backend processes check results, the server executes [event handlers][1] to send alerts to personnel or otherwise relay event data to external services.

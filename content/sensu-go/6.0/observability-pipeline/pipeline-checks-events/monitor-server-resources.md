@@ -2,13 +2,13 @@
 title: "Monitor server resources with checks"
 linkTitle: "Monitor Server Resources"
 description: "Sensu lets you monitor server resources with checks. Read this guide to learn about Sensu checks and how to use checks to monitor a service."
-weight: 10
+weight: 60
 version: "6.0"
 product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-6.0:
-    parent: guides
+    parent: pipeline-checks-events
 ---
 
 Sensu checks are **commands** (or scripts) the Sensu agent executes that output data and produce an exit code to indicate a state.

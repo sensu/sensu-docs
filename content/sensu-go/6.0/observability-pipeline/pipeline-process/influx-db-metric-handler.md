@@ -2,13 +2,13 @@
 title: "Populate metrics in InfluxDB with handlers"
 linkTitle: "Populate Metrics in InfluxDB"
 description: "A Sensu event handler is an action the Sensu backend executes when a specific event occurs. This guide helps you use an event handler to populate Sensu metrics into the time series database InfluxDB."
-weight: 70
+weight: 50
 version: "6.0"
 product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-6.0:
-    parent: guides
+    parent: pipeline-process
 ---
 
 A Sensu event handler is an action the Sensu backend executes when a specific [event][1] occurs.

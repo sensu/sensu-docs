@@ -2,13 +2,13 @@
 title: "Monitor external resources with proxy requests and entities"
 linkTitle: "Monitor External Resources"
 description: "Proxy entities allow Sensu to monitor external resources on systems and devices where a Sensu agent cannot be installed, like a network switch or a website. Read this guide to monitor a website with proxy entities."
-weight: 20
+weight: 70
 version: "6.0"
 product: "Sensu Go"
 platformContent: false
 menu: 
   sensu-go-6.0:
-    parent: guides
+    parent: pipeline-checks-events
 ---
 
 Proxy entities allow Sensu to monitor external resources on systems and devices where a Sensu agent cannot be installed, like a network switch or a website.

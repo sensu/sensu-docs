@@ -2,13 +2,13 @@
 title: "Reduce alert fatigue with filters"
 linkTitle: "Reduce Alert Fatigue"
 description: "Here’s how to reduce alert fatigue with Sensu. Learn about Sensu filters, how they reduce alert fatigue, and how to put them into action."
-weight: 120
+weight: 30
 version: "6.0"
 product: "Sensu Go"
 platformContent: False
 menu: 
   sensu-go-6.0:
-    parent: guides
+    parent: pipeline-filter
 ---
 
 Sensu event filters allow you to filter events destined for one or more event handlers.

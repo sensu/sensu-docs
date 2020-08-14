@@ -2,13 +2,13 @@
 title: "Collect metrics with Sensu checks"
 linkTitle: "Collect Service Metrics"
 description: "Sensu supports industry-standard metric formats like Nagios Performance Data, Graphite Plaintext Protocol, InfluxDB Line Protocol, and OpenTSDB Data Specification. Read this guide to collect metrics with Sensu."
-weight: 30
+weight: 80
 version: "6.0"
 product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-6.0:
-    parent: guides
+    parent: pipeline-checks-events
 ---
 
 Sensu checks are **commands** (or scripts) that the Sensu agent executes that output data and produce an exit code to indicate a state.

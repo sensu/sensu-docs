@@ -2,13 +2,13 @@
 title: "Sensu query expressions"
 linkTitle: "Sensu Query Expressions"
 description: "Based on JavaScript expressions, Sensu query expressions (or SQEs) provide additional functionality for Sensu usage, like nested parameters and custom functions, so Sensu resources can be evaluated directly. Read the reference doc to learn about SQEs."
-weight: 150
+weight: 40
 version: "6.0"
 product: "Sensu Go"
 platformContent: false 
 menu:
   sensu-go-6.0:
-    parent: reference
+    parent: pipeline-filter
 ---
 
 Sensu query expressions (SQEs) are JavaScript-based expressions that provide additional functionality for using Sensu, like nested parameters and custom functions.
