@@ -14,19 +14,19 @@ menu:
 [Example Sensu backend configuration file](../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and event data.
-Every Sensu backend includes an integrated transport for scheduling checks using subscriptions, an event processing pipeline that applies filters, mutators, and handlers, an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][6], and the `sensu-backend` command line tool.
+Every Sensu backend includes an integrated structure for scheduling checks using [subscriptions][33], an event processing pipeline that applies [event filters][30], [mutators][31], and [handlers][32], an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][6], and the `sensu-backend` command line tool.
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
 See the [installation guide][1] to install the backend.
 
 ## Create event pipelines
 
-The backend processes event data and executes filters, mutators, and handlers.
+Sensu backend event pipelines process observation data and executes event filters, mutators, and handlers.
 These pipelines are powerful tools to automate your monitoring workflows.
-To learn more about filters, mutators, and handlers, see:
+To learn more about event filters, mutators, and handlers, see:
 
-- [Guide to sending Slack alerts with handlers][7]
-- [Guide to reducing alerting fatigue with filters][8]
-- [Filters reference documentation][9]
+- [Send Slack alerts with handlers][7]
+- [Reduce alert fatigue with event filters][8]
+- [Event filters reference documentation][9]
 - [Mutators reference documentation][10]
 - [Handlers reference documentation][11]
 
@@ -1445,3 +1445,7 @@ The _SIGHUP_ signal causes the `backend` component to reload instead of restarti
 [25]: ../../operations/deploy-sensu/install-sensu#3-initialize
 [26]: ../../sensuctl/#change-admin-users-password
 [29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly
+[30]: ../../pipeline-filter/filters/
+[31]: ../../pipeline-transform/mutators/
+[32]: ../../pipeline-process/handlers/
+[33]: ../../pipeline-agent-backend/subscriptions/

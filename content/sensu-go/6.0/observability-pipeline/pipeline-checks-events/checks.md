@@ -58,8 +58,8 @@ The Sensu backend schedules checks and publishes check execution requests to ent
 
 ### Subscriptions
 
-Checks have a defined set of subscriptions: transport topics to which the Sensu backend publishes check requests.
-Sensu entities become subscribers to these topics (called subscriptions) via their individual `subscriptions` attribute. 
+Checks have a defined set of subscriptions: topics to which the Sensu backend publishes check requests.
+Sensu entities become "subscribers" via their individual `subscriptions` attribute. 
 Subscriptions typically correspond to a specific role or responsibility (for example. a webserver or database).
 
 Subscriptions are powerful primitives in the monitoring context because they allow you to effectively monitor for specific behaviors or characteristics that correspond to the function provided by a particular system.

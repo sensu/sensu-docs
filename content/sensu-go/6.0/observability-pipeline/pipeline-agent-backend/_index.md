@@ -29,7 +29,7 @@ Each Sensu agent's defined set of subscriptions determine which [checks][15] the
 Agent subscriptions allow Sensu to request check executions on a group of systems at a time instead of a traditional 1:1 mapping of configured hosts to monitoring checks.
 
 The Sensu backend manages check requests and event data.
-Every Sensu backend includes an integrated transport for scheduling checks using [subscriptions][4], an event processing pipeline that applies filters, mutators, and handlers, an embedded [etcd][10] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][5], and the `sensu-backend` command line tool.
+Every Sensu backend includes an integrated structure for scheduling checks using subscriptions, an event processing pipeline that applies [event filters][15], [mutators][16], and [handlers][17], an embedded [etcd][10] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][5], and the `sensu-backend` command line tool.
 
 The Sensu agent is available for Linux, macOS, and Windows.
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
@@ -49,7 +49,6 @@ Follow [Secure Sensu][8] to configure the backend and agent for WebSocket Secure
 [1]: ../../operations/deploy-sensu/install-sensu/
 [2]: backend/
 [3]: ../pipeline-entities/
-[4]: ../pipeline-checks-events/checks/#subscriptions
 [5]: ../../web-ui/
 [6]: ../pipeline-checks-events/
 [7]: https://en.m.wikipedia.org/wiki/WebSocket
@@ -61,3 +60,6 @@ Follow [Secure Sensu][8] to configure the backend and agent for WebSocket Secure
 [13]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
 [14]: subscriptions/
 [15]: ../pipeline-checks-events/checks/
+[16]: ../pipeline-filter/filters/
+[17]: ../pipeline-transform/mutators/
+[18]: ../pipeline-process/handlers/
