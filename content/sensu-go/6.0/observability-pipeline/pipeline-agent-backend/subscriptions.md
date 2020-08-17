@@ -2,7 +2,7 @@
 title: "Subscriptions reference"
 linkTitle: "Subscriptions Reference"
 description: "Placeholder."
-weight: 20
+weight: 30
 version: "6.0"
 product: "Sensu Go"
 menu:

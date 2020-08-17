@@ -2,7 +2,7 @@
 title: "Agent reference"
 linkTitle: "Agent Reference"
 description: "The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor. Read the reference doc to use the Sensu agent to create monitoring events."
-weight: 30
+weight: 10
 version: "6.0"
 product: "Sensu Go"
 platformContent: true
