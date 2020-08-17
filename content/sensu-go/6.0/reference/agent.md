@@ -29,41 +29,6 @@ For optimal network throughput, agents will attempt to negotiate the use of [Pro
 This communication is via clear text by default.
 Follow [Secure Sensu][46] to configure the backend and agent for WebSocket Secure (wss) encrypted communication.
 
-## Create monitoring events using service checks
-
-Sensu uses the [publish/subscribe pattern of communication][15], which allows automated registration and deregistration of ephemeral systems.
-At the core of this model are Sensu agent subscriptions.
-
-Each Sensu agent has a defined set of [`subscriptions`][28]: a list of roles and responsibilities assigned to the system (for example, a webserver or database).
-These subscriptions determine which [monitoring checks][14] the agent will execute.
-Agent subscriptions allow Sensu to request check executions on a group of systems at a time instead of a traditional 1:1 mapping of configured hosts to monitoring checks.
-For an agent to execute a service check, you must specify the same subscription in the [agent configuration][28] and the [check definition][32].
-
-After receiving a check request from the Sensu backend, the agent:
-
-1. Applies any [tokens][27] that match attribute values in the check definition.
-2. Fetches [assets][29] and stores them in its local cache.
-By default, agents cache asset data at `/var/cache/sensu/sensu-agent` (`C:\ProgramData\sensu\cache\sensu-agent` on Windows systems) or as specified by the the [`cache-dir` flag][30].
-3. Executes the [check `command`][14].
-4. Executes any [hooks][31] specified by the check based on the exit status.
-5. Creates an [event][7] that contains information about the applicable entity, check, and metric.
-
-### Subscription configuration
-
-To configure subscriptions for an agent, set [the `subscriptions` flag][28].
-To configure subscriptions for a check, set the [check definition attribute `subscriptions`][14].
-
-In addition to the subscriptions defined in the agent configuration, Sensu agent entities also subscribe automatically to subscriptions that match their [entity `name`][38].
-For example, an agent entity with `name: "i-424242"` subscribes to check requests with the subscription `entity:i-424242`.
-This makes it possible to generate ad hoc check requests that target specific entities via the API.
-
-### Proxy entities
-
-Sensu proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed (such a network switch).
-The [Sensu backend][2] stores proxy entity definitions (unlike agent entities, which the agent stores).
-When the backend requests a check that includes a [`proxy_entity_name`][14], the agent includes the provided entity information in the event data in place of the agent entity data.
-See the [entity reference][3] and [Monitor external resources][33] for more information about monitoring proxy entities.
-
 ## Create monitoring events using the agent API
 
 The Sensu agent API allows external sources to send monitoring data to Sensu without requiring the external sources to know anything about Sensu's internal implementation.
@@ -1635,7 +1600,6 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [12]: https://www.servicenow.com/products/it-operations-management.html
 [13]: #ephemeral-agent-configuration-flags
 [14]: ../checks/
-[15]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
 [16]: #general-configuration-flags
 [17]: #socket-configuration-flags
 [18]: #api-configuration-flags
@@ -1648,16 +1612,10 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [25]: ../../api#response-filtering
 [26]: ../../sensuctl/filter-responses/
 [27]: ../tokens/
-[28]: #subscriptions-flag
 [29]: ../assets/
-[30]: #cache-dir
-[31]: ../hooks/
-[32]: ../checks/
-[33]: ../../guides/monitor-external-resources/
 [35]: ../backend#datastore-and-cluster-configuration-flags
 [36]: ../../operations/deploy-sensu/cluster-sensu/
 [37]: ../backend#general-configuration-flags
-[38]: #name
 [39]: ../rbac/
 [40]: ../../guides/send-slack-alerts/
 [41]: ../handlers/#send-registration-events
