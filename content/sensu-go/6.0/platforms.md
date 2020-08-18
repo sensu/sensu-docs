@@ -57,7 +57,10 @@ Docker images that contain the Sensu backend and Sensu agent are available for L
 
 ## Binary-only distributions
 
-Sensu binary-only distributions that contain the Sensu backend, agent, and sensuctl tool are available in `.zip` and `.tar.gz` formats.
+Sensu binary-only distributions are available in `.zip` and `.tar.gz` formats.
+
+The Sensu web UI is a standalone product &mdash; it is not distributed inside the Sensu backend binary.
+See the [Sensu Go Web GitHub repository][60] for more information.
 
 | Platform | Architectures |
 |----------|---------------|
@@ -71,7 +74,12 @@ Sensu binary-only distributions that contain the Sensu backend, agent, and sensu
 
 ### Linux
 
-Sensu binary-only distributions for Linux are available for these architectures and formats:
+Sensu binary-only distributions for Linux are available for the architectures listed in the table below.
+
+{{% notice note %}}
+**NOTE**: The  Linux `amd64`, `arm64`, and `ppc64le` binary distributions include the agent, backend, and sensuctl CLI.
+Binaries for all other Linux architectures include only the Sensu agent and sensuctl CLI.
+{{% /notice %}}
 
 <table>
 <thead>
@@ -132,11 +140,6 @@ Sensu binary-only distributions for Linux are available for these architectures 
 </tbody>
 </table>
 
-{{% notice note %}}
-**NOTE**: 32-bit systems cannot run the Sensu backend reliably, so `armv5`, `armv6`, and `armv7` packages include only the agent and CLI.
-In addition, all `MIPS` and `s390x` packages include only the agent and CLI.
-{{% /notice %}}
-
 For example, to download Sensu for Linux `amd64` in `tar.gz` format:
 
 {{< code shell >}}
@@ -161,7 +164,11 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0
 
 ### Windows
 
-Sensu binary-only distributions for Windows are available for these architectures and formats:
+Sensu binary-only distributions for Windows are available for the architectures listed in the table below.
+
+{{% notice note %}}
+**NOTE**: The Windows binary distributions include only the Sensu agent and sensuctl CLI.
+{{% /notice %}}
 
 | Architecture | Formats |
 | --- | --- |
@@ -194,7 +201,11 @@ Get-Content "$env:userprofile\sensu-go_6.0.0_checksums.txt" | Select-String -Pat
 
 ### macOS
 
-Sensu binary-only distributions for macOS are available for these architectures and formats:
+Sensu binary-only distributions for macOS are available for the architectures listed in the table below.
+
+{{% notice note %}}
+**NOTE**: The macOS binary distributions include only the Sensu agent and sensuctl CLI.
+{{% /notice %}}
 
 | Architecture | Formats |
 | --- | --- |
@@ -237,7 +248,11 @@ sudo cp sensuctl /usr/local/bin/
 
 ### FreeBSD
 
-Sensu binary-only distributions for FreeBSD are available for these architectures and formats:
+Sensu binary-only distributions for FreeBSD are available for the architectures listed in the table below.
+
+{{% notice note %}}
+**NOTE**: The FreeBSD binary distributions include only the Sensu agent and sensuctl CLI.
+{{% /notice %}}
 
 | Architecture | Formats |
 | --- | --- |
@@ -271,7 +286,11 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0
 
 ### Solaris
 
-Sensu binary-only distributions for Solaris are available for these architectures and formats:
+Sensu binary-only distributions for Solaris are available for the architectures listed in the table below.
+
+{{% notice note %}}
+**NOTE**: The Solaris binary distributions include only the Sensu agent.
+{{% /notice %}}
 
 | Architecture | Formats |
 | --- | --- |
@@ -352,3 +371,4 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [57]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_armv6.tar.gz
 [58]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/cgo/sensu-go-cgo_6.0.0_darwin_amd64.tar.gz
 [59]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/cgo/sensu-go-cgo_6.0.0_darwin_amd64.zip
+[60]: https://github.com/sensu/web
