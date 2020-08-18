@@ -251,7 +251,7 @@ example (multiple builds)     | {{< code shell >}}"spec": {
       }
   ],
   "headers": {
-    "Authorization": "Bearer $TOKEN",
+    "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
     "X-Forwarded-For": "client1, proxy1, proxy2"
   }
 }{{< /code >}}
@@ -263,7 +263,7 @@ example (single build, deprecated)     | {{< code shell >}}"spec": {
     "entity.system.arch == 'amd64'"
   ],
   "headers": {
-    "Authorization": "Bearer $TOKEN",
+    "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
     "X-Forwarded-For": "client1, proxy1, proxy2"
   }
 }{{< /code >}}
@@ -373,7 +373,7 @@ required     | false
 type         | Map of key-value string pairs
 example      | {{< code shell >}}
 "headers": {
-  "Authorization": "Bearer $TOKEN",
+  "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
   "X-Forwarded-For": "client1, proxy1, proxy2"
 }
 {{< /code >}}
@@ -499,7 +499,7 @@ spec:
   - entity.system.os == 'linux'
   - entity.system.arch == 'amd64'
   headers:
-    Authorization: Bearer $TOKEN
+    Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
     X-Forwarded-For: client1, proxy1, proxy2
 {{< /code >}}
 
@@ -526,7 +526,7 @@ spec:
       "entity.system.arch == 'amd64'"
     ],
     "headers": {
-      "Authorization": "Bearer $TOKEN",
+      "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
       "X-Forwarded-For": "client1, proxy1, proxy2"
     }
   }
@@ -558,7 +558,7 @@ spec:
     - entity.system.os == 'linux'
     - entity.system.arch == 'amd64'
     headers:
-      Authorization: Bearer $TOKEN
+      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
       X-Forwarded-For: client1, proxy1, proxy2
   - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz
     sha512: 70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b
@@ -567,7 +567,7 @@ spec:
     - entity.system.arch == 'arm'
     - entity.system.arm_version == 7
     headers:
-      Authorization: Bearer $TOKEN
+      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
       X-Forwarded-For: client1, proxy1, proxy2
   - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz
     sha512: 10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f
@@ -575,7 +575,7 @@ spec:
     - entity.system.os == 'windows'
     - entity.system.arch == 'amd64'
     headers:
-      Authorization: Bearer $TOKEN
+      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
       X-Forwarded-For: client1, proxy1, proxy2
 {{< /code >}}
 
@@ -604,7 +604,7 @@ spec:
           "entity.system.arch == 'amd64'"
         ],
         "headers": {
-          "Authorization": "Bearer $TOKEN",
+          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
           "X-Forwarded-For": "client1, proxy1, proxy2"
         }
       },
@@ -617,7 +617,7 @@ spec:
           "entity.system.arm_version == 7"
         ],
         "headers": {
-          "Authorization": "Bearer $TOKEN",
+          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
           "X-Forwarded-For": "client1, proxy1, proxy2"
         }
       },
@@ -629,7 +629,7 @@ spec:
           "entity.system.arch == 'amd64'"
         ],
         "headers": {
-          "Authorization": "Bearer $TOKEN",
+          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
           "X-Forwarded-For": "client1, proxy1, proxy2"
         }
       }
