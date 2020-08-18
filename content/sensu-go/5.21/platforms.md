@@ -75,7 +75,7 @@ Sensu binary-only distributions that contain the Sensu backend, agent, and sensu
 |----------|---------------|
 | Linux | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` |
 | Windows | `386` `amd64` |
-| macOS | `amd64` |
+| macOS | `amd64`  `amd64 CGO` |
 | FreeBSD | `386` `amd64` |
 | Solaris | `amd64` |
 
@@ -207,6 +207,7 @@ Sensu binary-only distributions for macOS are available for these architectures 
 | Architecture | Formats |
 | --- | --- |
 | `amd64` | [`.tar.gz`][30] \| [`.zip`][31]
+| `amd64 CGO` | [`.tar.gz`][58] \| [`.zip`][59]
 
 For example, to download Sensu for macOS `amd64` in `tar.gz` format:
 
@@ -348,3 +349,5 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [55]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.1/sensu-go_5.21.1_linux_arm64.tar.gz
 [56]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.1/sensu-go_5.21.1_linux_armv5.tar.gz
 [57]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.1/sensu-go_5.21.1_linux_armv6.tar.gz
+[58]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.1/cgo-darwin-10.15/sensu-go-cgo_5.21.1_darwin_amd64.tar.gz
+[59]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.1/cgo-darwin-10.15/sensu-go-cgo_5.21.1_darwin_amd64.zip
