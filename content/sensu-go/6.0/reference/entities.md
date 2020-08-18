@@ -73,7 +73,13 @@ Use [proxy entity filters][19] to establish a many-to-many relationship between 
 When an agent connects to a backend, the agent entity definition is created from the information in the `agent.yml` configuration file.
 The default `agent.yml` file location [depends on your operating system][35].
 
-You can manage agent entities via the backend with [sensuctl][32], the [entities API][31], and the [web UI][33].
+You can centrally manage a subset of agent entity attributes via the backend with [sensuctl][32], the [entities API][31], and the [web UI][33].
+Specifically, these are the agent entity attributes you can centrally manage:
+
+- [Metadata attributes][8]: `labels` and `annotations`
+- [Spec attributes][13]: `deregister`, `deregistration`, `redact`, `subscriptions`, and `keepalive_handlers`
+
+When you update these attributes via sensuctl, the entities API, or the web UI, the updated values will override the values present in the `agent.yml` file.
 
 If you delete an agent entity that you modified with sensuctl, the entities API, or the web UI, it will revert to the original configuration from `agent.yml`.
 
@@ -347,6 +353,10 @@ example      | {{< code shell >}}
     "subscriptions": [
       "entity:webserver01"
     ],
+    "keepalive_handlers": [
+      "keepalive",
+      "keepalive-aws"
+    ],
     "last_seen": 1542667231,
     "deregister": false,
     "deregistration": {},
@@ -391,7 +401,10 @@ example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][14], [sensuctl responses][15], and [web UI views][23] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][14], [sensuctl responses][15], and [web UI views][23] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels. {{% notice note %}}
+**NOTE**: You can centrally manage agent entity `labels` via the backend with [sensuctl](../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../api/entities/), and the [web UI](../../web-ui/view-manage-resources/#manage-entities). 
+The `labels` values in the `agent.yml` file are used only for initial entity creation (unless you delete the entity).
+{{% /notice %}}
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -404,7 +417,10 @@ example      | {{< code shell >}}"labels": {
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with [event filters][6]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][14], [sensuctl response filtering][15], or [web UI views][30].
+description  | Non-identifying metadata to include with event data that you can access with [event filters][6]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][14], [sensuctl response filtering][15], or [web UI views][30].{{% notice note %}}
+**NOTE**: You can centrally manage agent entity `annotations` via the backend with [sensuctl](../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../api/entities/), and the [web UI](../../web-ui/view-manage-resources/#manage-entities). 
+The `annotations` values in the `agent.yml` file are used only for initial entity creation (unless you delete the entity).
+{{% /notice %}} 
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -424,7 +440,10 @@ example      | {{< code shell >}}"entity_class": "agent"{{< /code >}}
 
 subscriptions| 
 -------------|------ 
-description  | List of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{name}` where `name` is the entity's hostname.
+description  | List of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{name}` where `name` is the entity's hostname.{{% notice note %}}
+**NOTE**: You can centrally manage agent entity `subscriptions` via the backend with [sensuctl](../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../api/entities/), and the [web UI](../../web-ui/view-manage-resources/#manage-entities). 
+The `subscriptions` values in the `agent.yml` file are used only for initial entity creation (unless you delete the entity).
+{{% /notice %}}
 required     | false 
 type         | Array 
 default      | The entity-specific subscription.
@@ -561,9 +580,23 @@ required     | false
 type         | Integer 
 example      | {{< code shell >}}"last_seen": 1522798317 {{< /code >}}
 
+keepalive_handlers | 
+-------------|------ 
+description  | List of handler names to use for keepalive events issued by agent entities. If no keepalive handlers are specified, the Sensu backend will use the default keepalive handler and create an event in sensuctl and the Sensu web UI.{{% notice note %}}
+**NOTE**: You can centrally manage agent entity `keepalive_handlers` via the backend with [sensuctl](../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../api/entities/), and the [web UI](../../web-ui/view-manage-resources/#manage-entities). 
+The `keepalive_handlers` values in the `agent.yml` file are used only for initial entity creation (unless you delete the entity).
+{{% /notice %}}
+required     | false 
+type         | Array 
+default      | `keepalive`
+example      | {{< code shell >}}"keepalive_handlers": ["keepalive", "keepalive-aws"]{{< /code >}}
+
 deregister   | 
 -------------|------ 
-description  | `true` if the entity should be removed when it stops sending keepalive messages. Otherwise, `false`.
+description  | `true` if the entity should be removed when it stops sending keepalive messages. Otherwise, `false`.{{% notice note %}}
+**NOTE**: You can centrally manage the agent entity `deregister` value via the backend with [sensuctl](../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../api/entities/), and the [web UI](../../web-ui/view-manage-resources/#manage-entities). 
+The `deregister` value in the `agent.yml` file are used only for initial entity creation (unless you delete the entity).
+{{% /notice %}}
 required     | false 
 type         | Boolean 
 default      | `false`
@@ -571,7 +604,10 @@ example      | {{< code shell >}}"deregister": false {{< /code >}}
 
 deregistration  | 
 -------------|------ 
-description  | Map that contains a handler name to use when an entity is deregistered. See [deregistration attributes][2] for more information.
+description  | Map that contains a handler name to use when an entity is deregistered. See [deregistration attributes][2] for more information.{{% notice note %}}
+**NOTE**: You can centrally manage agent entity `deregistration` values via the backend with [sensuctl](../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../api/entities/), and the [web UI](../../web-ui/view-manage-resources/#manage-entities). 
+The `deregistration` values in the `agent.yml` file are used only for initial entity creation (unless you delete the entity).
+{{% /notice %}}
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
@@ -592,7 +628,10 @@ deregistration:
 
 redact       | 
 -------------|------ 
-description  | List of items to redact from log messages. If a value is provided, it overwrites the default list of items to be redacted.
+description  | List of items to redact from log messages. If a value is provided, it overwrites the default list of items to be redacted.{{% notice note %}}
+**NOTE**: You can centrally manage agent entity `redact` values via the backend with [sensuctl](../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../api/entities/), and the [web UI](../../web-ui/view-manage-resources/#manage-entities). 
+The `redact` values in the `agent.yml` file are used only for initial entity creation (unless you delete the entity).
+{{% /notice %}}
 required     | false 
 type         | Array 
 default      | ["password", "passwd", "pass", "api_key", "api_token", "access_key", "secret_key", "private_key", "secret"]
@@ -996,6 +1035,8 @@ spec:
   - secret
   subscriptions:
   - entity:webserver01
+  keepalive_handlers:
+  - keepalive
   system:
     arch: amd64
     libc_type: glibc
@@ -1124,6 +1165,9 @@ spec:
     "sensu_agent_version": "1.0.0",
     "subscriptions": [
       "entity:webserver01"
+    ],
+    "keepalive_handlers": [
+      "keepalive"
     ],
     "last_seen": 1542667231,
     "deregister": false,
