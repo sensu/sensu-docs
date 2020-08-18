@@ -26,19 +26,31 @@ See [supported platforms][5] for more information.
 
 ## Architecture overview
 
+Sensu works differently from other monitoring and observability solutions.
+
+The **Sensu backend** is powered by an an embedded transport and [etcd][16] datastore.
+You do not need to provision each device, server, container, or sidecar you want to monitor or list each of them in the Sensu backend.
+Instead, you create [subscriptions][41] and define which checks to run for all infrastructure components that belong to each subscription.
+
+Then, you install **Sensu agents**: lightweight clients that run on the infrastructure components you want to monitor.
+Agents automatically register with Sensu as entities when you start them up and connect to the Sensu backend with no need for further provisioning.
+You only need to specify the IP address for the Sensu backend server and the subscriptions the agents belong to.
+
 <img src="/images/install-sensu.png" alt="Sensu architecture diagram">
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/3949dde6-1bad-4f37-aa01-00a71c47a91b/0 -->
 
-The **Sensu backend** gives you flexible, automated workflows to route metrics and alerts.
-It is powered by an an embedded transport and [etcd][16] datastore and gives you flexible, automated workflows to route metrics and alerts.
-Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and several exposed ports.
+Sensu automatically downloads the files needed to run the checks from an asset repository like [Bonsai][42] or a local repo and schedules the checks on each agent.
+The agents execute the checks the backend sends to their subscriptions and send the resulting check and metric events to the backend event pipeline, which gives you flexible, automated workflows to route these events.
 
-**Sensu agents** are lightweight clients that run on the infrastructure components you want to monitor.
-Agents register automatically with Sensu as entities and are responsible for creating check and metric events to send to the backend event pipeline.
+The Sensu backend keeps track of all self-registered agents.
+If the backend loses a keepalive signal from any of the agents, it flags the agent and generates an event.
+You can configure your instance so that when an agent (e.g. a server) shuts down gracefully, the agent automatically de-registers from the backend and does not generate an alert.
+
+Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and several exposed ports.
 Agents that use Sensu [assets][17] require some disk space for a local cache.
 
 For more information, see the [Secure Sensu guide][8].
-See [Deploy Sensu][31] and [hardware requirements][25] for deployment recommendations.
+See [deployment architecture][31] and [hardware requirements][25] for deployment recommendations.
 
 ## Ports
 
@@ -508,7 +520,7 @@ sensuctl license info
 
 [1]: https://github.com/sensu/sensu-go/releases/
 [2]: ../generate-certificates/
-[3]: ../../web-ui/
+[3]: ../../../web-ui/
 [4]: ../../../sensuctl/
 [5]: ../../../platforms/
 [6]: ../../../reference/backend#configuration
@@ -546,3 +558,5 @@ sensuctl license info
 [38]: ../../../sensuctl/create-manage-resources/#export-resources
 [39]: ../../../sensuctl/create-manage-resources/#create-resources
 [40]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
+[41]: ../../../reference/checks/#subscriptions
+[42]: https://bonsai.sensu.io/

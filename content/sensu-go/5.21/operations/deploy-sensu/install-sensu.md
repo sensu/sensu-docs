@@ -520,7 +520,7 @@ sensuctl license info
 
 [1]: https://github.com/sensu/sensu-go/releases/
 [2]: ../generate-certificates/
-[3]: ../../web-ui/
+[3]: ../../../web-ui/
 [4]: ../../../sensuctl/
 [5]: ../../../platforms/
 [6]: ../../../reference/backend#configuration
