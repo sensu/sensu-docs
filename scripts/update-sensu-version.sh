@@ -27,12 +27,12 @@ find_and_replace() {
 
   case $(uname) in
   "Linux")
-    sed -i "s/${OLD_SENSU_VERSION}/${NEW_SENSU_VERSION}/g" content/sensu-go/${DOCS_VERSION}/installation/install-sensu.md content/sensu-go/${DOCS_VERSION}/platforms.md
-    sed -i "s/${OLD_SENSU_BUILD}/${NEW_SENSU_BUILD}/g" content/sensu-go/${DOCS_VERSION}/installation/install-sensu.md content/sensu-go/${DOCS_VERSION}/platforms.md
+    sed -i "s/${OLD_SENSU_VERSION}/${NEW_SENSU_VERSION}/g" content/sensu-go/${DOCS_VERSION}/operations/deploy-sensu/install-sensu.md content/sensu-go/${DOCS_VERSION}/platforms.md
+    sed -i "s/${OLD_SENSU_BUILD}/${NEW_SENSU_BUILD}/g" content/sensu-go/${DOCS_VERSION}/operations/deploy-sensu/install-sensu.md content/sensu-go/${DOCS_VERSION}/platforms.md
     ;;
   "Darwin")
-    sed -i '' "s/${OLD_SENSU_VERSION}/${NEW_SENSU_VERSION}/g" content/sensu-go/${DOCS_VERSION}/installation/install-sensu.md content/sensu-go/${DOCS_VERSION}/platforms.md
-    sed -i '' "s/${OLD_SENSU_BUILD}/${NEW_SENSU_BUILD}/g" content/sensu-go/${DOCS_VERSION}/installation/install-sensu.md content/sensu-go/${DOCS_VERSION}/platforms.md
+    sed -i '' "s/${OLD_SENSU_VERSION}/${NEW_SENSU_VERSION}/g" content/sensu-go/${DOCS_VERSION}/operations/deploy-sensu/install-sensu.md content/sensu-go/${DOCS_VERSION}/platforms.md
+    sed -i '' "s/${OLD_SENSU_BUILD}/${NEW_SENSU_BUILD}/g" content/sensu-go/${DOCS_VERSION}/operations/deploy-sensu/install-sensu.md content/sensu-go/${DOCS_VERSION}/platforms.md
     ;;
   *)
     echo "Unsupported platform"

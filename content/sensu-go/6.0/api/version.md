@@ -23,10 +23,10 @@ http://127.0.0.1:8080/version
 HTTP/1.1 200 OK
 {
   "etcd": {
-    "etcdserver": "3.3.17",
+    "etcdserver": "3.3.22",
     "etcdcluster": "3.3.0"
   },
-  "sensu_backend": "5.x.x#yyyyyyy"
+  "sensu_backend": "6.0.0"
 }
 {{< /code >}}
 
@@ -34,17 +34,16 @@ HTTP/1.1 200 OK
 
 /version (GET)      |      |
 --------------------|------
-description         | Returns the Sensu backend and etcd version for the Sensu instance.
+description         | Returns the etcd server version and Sensu backend version. For clustered Sensu installations with the default embedded etcd, also returns the etcd cluster version (which may not match the etcd server version or the cluster versions of other backends in the cluster).
 example url         | http://hostname:8080/version
 response type       | Map
 response codes      | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-response parameters | Required: <ul><li>`etcd.etcdserver` (string). Etcd server version.</li><li>`sensu_backend` (string). Sensu backend version in the format x.x.x#yyyyyyy where x.x.x is the Sensu version and yyyyyyy is the release SHA</li></ul><br>Optional:<ul><li>`etcd.etcdcluster` (string). Etcd cluster version for Sensu instances with the default embedded etcd. Not required to match the etcd server version or the cluster versions of other backends in the cluster.</li></ul>
 output         | {{< code shell >}}
 {
   "etcd": {
-    "etcdserver": "3.3.17",
+    "etcdserver": "3.3.22",
     "etcdcluster": "3.3.0"
   },
-  "sensu_backend": "5.x.x#yyyyyyy"
+  "sensu_backend": "6.x.x"
 }
 {{< /code >}}
