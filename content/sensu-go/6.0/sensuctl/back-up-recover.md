@@ -11,14 +11,9 @@ menu:
     parent: sensuctl
 ---
 
-The `sensuctl dump` command allows you to export your resources to standard out (STDOUT) or to a file.
+The `sensuctl dump` command allows you to export your [resources][6] to standard out (STDOUT) or to a file.
 You can export all of your resources or a subset of them based on a list of resource types.
 The `dump` command supports exporting in `wrapped-json` and `yaml`.
-
-{{% notice note %}}
-**NOTE**: Passwords are not included when exporting users.
-You must add the `password` attribute to any exported user resources before you can use them with `sensuctl create`.
-{{% /notice %}}
 
 For example, to export all resources to a file named `my-resources.yaml` in `yaml` format:
 
@@ -38,15 +33,12 @@ To export only handlers and filters to a file named `my-handlers-and-filters.yam
 sensuctl dump handler,filter --format yaml --file my-handlers-and-filters.yaml
 {{< /code >}}
 
-## Back up your resources
+After you use `sensuctl dump` to back up your Sensu resources, you can [restore][3] them later with [`sensuctl create`][1].
+This page explains how to back up your resources for two common use cases: before a Sensu version upgrade and to populate new namespaces with existing resources.
 
-Use `sensuctl dump` to back up your Sensu resources so you can [restore][3] them later with [`sensuctl create`][1].
-For example, we recommend creating a backup before you [upgrade][4] to a new version of Sensu.
+## Back up before a Sensu version upgrade
 
-{{% notice note %}}
-**NOTE**: You cannot export `secrets/v1.provider` resources &mdash; make sure to omit them from your `sensuctl dump` commands.
-{{% /notice %}}
-
+You should create a backup before you [upgrade][4] to a new version of Sensu.
 Here's the step-by-step process:
 
 1. Create a backup folder.
@@ -55,54 +47,84 @@ Here's the step-by-step process:
 mkdir backup
 {{< /code >}}
    
-2. Back up your pipeline resources, stripping namespaces to maintain portability and facilitate reuse.
-   
-   {{< code shell >}}
-sensuctl dump assets,checks,hooks,filters,mutators,handlers,silenced,secrets/v1.Secret \
---format yaml | grep -v "^\s*namespace:" > backup/pipelines.yaml
-{{< /code >}}
-   
-3. Create a namespaced backup of the entire cluster (except entities, events, and apikeys).
+2. Create a namespaced backup of the entire cluster, except entities, events, and [role-based access control (RBAC)][2] resources.
    
    {{< code shell >}}
 sensuctl dump all \
---omit entities,events,apikeys \
+--omit entities,events,apikeys,users,roles,rolebindings,clusterroles,clusterrolebindings \
 --format yaml > backup/config.yaml
 {{< /code >}}
    
-4. Back up your [role-based access control (RBAC)][2] resources.
+3. Export your [RBAC][2] resources, except API keys and users.
    
    {{< code shell >}}
-sensuctl dump apikeys,users,roles,rolebindings,clusterroles,clusterrolebindings
+sensuctl dump roles,rolebindings,clusterroles,clusterrolebindings
 --format yaml > backup/system-rbac.yaml
 {{< /code >}}
+
+4. Export your API keys and users resources.
    
-5. Back up your entity resources (if desired).
+   {{< code shell >}}
+sensuctl dump apikeys,users
+--format yaml > backup/cannotrestore.yaml
+{{< /code >}}
+
+   {{% notice note %}}
+**NOTE**: Passwords are not included when you export users.
+You must add the `password_hash` or `password` attribute to any exported `users` resources before you can use them with `sensuctl create`.
+Use `sensuctl user hash-password` to [generate a password hash](../#generate-a-password-hash).
+{{% /notice %}}
+   
+5. Export your entity resources (if desired).
      
    {{< code shell >}}
 sensuctl dump entities \
---format yaml | grep -v "^\s*namespace:" > backup/inventory.yaml
+--format yaml > backup/inventory.yaml
+{{< /code >}}
+
+   {{% notice note %}}
+**NOTE**: If you do not export your entities, proxy check requests will not be scheduled for the excluded proxy entities.
+{{% /notice %}}
+
+## Back up to populate new namespaces
+
+You can create a backup copy of your existing resources with their namespaces stripped from the record.
+This backup allows you to [replicate resources across namespaces][5] without manual editing.
+
+To create a backup of your resources that you can replicate in new namespaces:
+
+1. Create a backup folder.
+
+   {{< code shell >}}
+mkdir backup
+{{< /code >}}
+   
+2. Back up your pipeline resources, stripping namespaces so that your resources are portable for reuse in any namespace.
+   
+   {{< code shell >}}
+sensuctl dump assets,checks,hooks,filters,mutators,handlers,silenced,secrets/v1.Secret,secrets/v1.Provider \
+--format yaml | grep -v "^\s*namespace:" > backup/pipelines.yaml
 {{< /code >}}
 
 ## Restore resources from backup
 
-When you are ready to restore your backed-up resources, use [`sensuctl create`][1].
+When you are ready to restore your exported resources, use [`sensuctl create`][1].
 
-To restore everything you backed up all at once, run:
+To restore everything you exported all at once, run:
 
 {{< code shell >}}
 sensuctl create -r -f backup/
 {{< /code >}}
 
-To restore a subset of your backups (in this example, your pipeline resources), run:
+To restore a subset of your exported resources (in this example, your RBAC resources), run:
 
 {{< code shell >}}
-sensuctl create -f backup/pipelines.yaml
+sensuctl create -f backup/system-rbac.yaml
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: To restore `users` resources from `sensuctl dump` output, you must add a `password_hash` or `password` to your `sensuctl create` command.
-Use `sensuctl user hash-password` to [generate a password hash](../#generate-a-password-hash).
+**NOTE**: You can't restore API keys from a `sensuctl dump` backup, although you can restore them manually.
+To restore `users` resources from `sensuctl dump` output, you must add a [`password_hash`](../#generate-a-password-hash) or `password` to your `sensuctl create` command.
 {{% /notice %}}
 
 ## List types of supported resources
@@ -131,6 +153,8 @@ To list more than one type, use a comma-separated list:
 sensuctl describe-type core/v2.CheckConfig,core/v2.EventFilter,core/v2.Handler
 sensuctl describe-type checks,filters,handlers
 {{< /code >}}
+
+<a name="resource-types"></a>
 
 The table below lists supported `sensuctl describe-type` resource types.
 
@@ -181,3 +205,5 @@ sensuctl describe-type core/v2.CheckConfig --format wrapped-json
 [2]: ../../reference/rbac/
 [3]: #restore-resources-from-backup
 [4]: ../../operations/maintain-sensu/upgrade/
+[5]: ../create-manage-resources/#create-resources-across-namespaces
+[6]: #resource-types
