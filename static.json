@@ -463,15 +463,15 @@
             "url": "/sensu-go/latest/operations/control-access/use-apikeys",
             "status": 301
         },
-        "~ ^/sensu-go/latest/guides/create-a-read-only-user/?$": {
+        "~ ^/sensu-go/latest/guides/create-read-only-user/?$": {
             "url": "/sensu-go/latest/operations/control-access/create-read-only-user",
             "status": 301
         },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/guides/create-a-read-only-user/?$": {
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/guides/create-read-only-user/?$": {
             "url": "/sensu-go/latest/operations/control-access/create-read-only-user",
             "status": 301
         },
-        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/create-a-read-only-user/?$": {
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/create-read-only-user/?$": {
             "url": "/sensu-go/latest/operations/control-access/create-read-only-user",
             "status": 301
         },
