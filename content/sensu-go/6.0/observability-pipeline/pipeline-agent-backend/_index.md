@@ -18,12 +18,14 @@ menu:
 
 *Click any element in the Sensu observability pipeline to learn more about it*.
 
-Sensu uses the [publish/subscribe pattern of communication][13], which allows automated registration and deregistration of ephemeral systems.
+Sensu uses the [publish/subscribe pattern of communication][13]: the backend schedules checks for agents with matching subscriptions and publishes check execution requests to entities.
 At the core of this model are Sensu agent [subscriptions][14]: a list of roles and responsibilities assigned to the system (for example, a webserver or database).
+
+Subscriptions are an essential part of how Sensu works &mdash; subscriptions are how the Sensu backend connects to what the Sensu agent observes and monitors.
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor and observe.
 The agent registers with the Sensu backend as an [entity][3] with `type: "agent"`.
-Agent entities are responsible for creating [check and metrics events][6] to send to the [backend event pipeline][2].
+Agent entities are responsible for creating [status and metrics events][6] to send to the [backend event pipeline][2].
 
 The Sensu backend manages check requests and event data.
 Every Sensu backend includes an integrated structure for scheduling checks using subscriptions, an event processing pipeline that applies [event filters][15], [mutators][16], and [handlers][17], an embedded [etcd][10] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][5], and the `sensu-backend` command line tool.
