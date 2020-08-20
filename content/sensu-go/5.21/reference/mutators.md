@@ -1,7 +1,5 @@
 ---
 title: "Mutators"
-reference_title: "Mutators"
-type: "reference"
 description: "As part of the event pipeline, mutators let you transform event data before applying handlers. Read the reference doc to learn about mutators."
 product: "Sensu Go"
 weight: 130

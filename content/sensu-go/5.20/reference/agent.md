@@ -1,8 +1,6 @@
 ---
 title: "Sensu agent"
 linkTitle: "Sensu Agent"
-reference_title: "Agent"
-type: "reference"
 description: "The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor. Read the reference doc to use the Sensu agent to create monitoring events."
 weight: 10
 version: "5.20"
@@ -87,13 +85,6 @@ The following example submits an HTTP POST request to the `/events` API.
 The request creates event for a check named `check-mysql-status` with the output `could not connect to mysql` and a status of `1` (warning).
 The agent responds with an HTTP `202 Accepted` response to indicate that the event has been added to the queue to be sent to the backend.
 
-The event will be handled according to an `email` handler definition.
-
-{{% notice note %}}
-**NOTE**: For HTTP `POST` requests to the agent /events API, check [spec attributes](../checks/#spec-attributes) are not required.
-When doing so, the spec attributes (including `handlers`) are listed as individual [top-level attributes](../checks/#top-level-attributes) in the check definition instead.
-{{% /notice %}}
-
 {{< code shell >}}
 curl -X POST \
 -H 'Content-Type: application/json' \
@@ -102,7 +93,6 @@ curl -X POST \
     "metadata": {
       "name": "check-mysql-status"
     },
-    "handlers": ["email"],
     "status": 1,
     "output": "could not connect to mysql"
   }

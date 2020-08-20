@@ -1,7 +1,5 @@
 ---
 title: "Entities"
-reference_title: "Entities"
-type: "reference"
 description: "An entity represents anything that needs to be monitored, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment, from server hardware to serverless functions. Read this reference doc to learn about entities."
 weight: 70
 version: "5.20"

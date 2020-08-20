@@ -9,8 +9,6 @@ version: "6.0"
 menu: "sensu-go-6.0"
 ---
 
-- [6.0.0 release notes](#600-release-notes)
-- [5.21.1 release notes](#5211-release-notes)
 - [5.21.0 release notes](#5210-release-notes)
 - [5.20.2 release notes](#5202-release-notes)
 - [5.20.1 release notes](#5201-release-notes)
@@ -66,83 +64,6 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
-
-## 6.0.0 release notes
-
-**August 10, 2020** &mdash; The latest release of Sensu Go, version 6.0.0, is now available for download.
-
-With Sensu Go 6.0.0, you can control everything through the API. You can still use configuration management tools to bootstrap agent entities, but you don’t need to! Our new agent entity management feature via the backend configuration API nearly eliminates the need for external (or out-of-band) configuration management for Sensu, which allows you to manage agent entity subscriptions and automate the discovery of system facts without updating agent local configuration files. Run a sensuctl command, click a button in the web UI, or execute a custom check plugin!
-
-See the [upgrade guide][1] to upgrade Sensu to version 6.0.0.
-
-**BREAKING CHANGES FOR SENSU 6.0:**
-
-- The database schema for entities has changed.
-As a result, after you complete the steps to [upgrade to Sensu 6.0][170] (including running the `sensu-backend upgrade` command), you will not be able to use your database with older versions of Sensu.
-- In [binary-only distributions][164], the web UI is now a standalone product that is no longer distributed inside the `sensu-backend` binary.
-See the [Sensu Go Web repository][163] for more information.
-- After initial creation, you cannot change your `sensu-agent` entity configuration by modifying the agent's configuration file.
-
-**NEW FEATURES:**
-
-- ([Commercial feature][162]) Sensu now logs a warning when secrets cannot be sent to an agent because mTLS is not enabled.
-- ([Commercial feature][162]) Added [JavaScript functions][169] `sensu.EventStatus`, `sensu.FetchEvent`, and `sensu.ListEvents` to the filter execution environment so you can now query the Sensu event store for other events within the filter namespace.
-- ([Commercial feature][162]) Docker-only Sensu now binds to the hostname of containers instead of `localhost`. Docker images now set their own default values for environment variables `SENSU_AGENT_API_URL`, `SENSU_BACKEND_API_URL`, `SENSU_BACKEND_ETCD_INITIAL_CLUSTER`, `SENSU_BACKEND_ETCD_ADVERTISE_CLUSTER`, `SENSU_BACKEND_ETCD_INITIAL_ADVERTISE_PEER_URLS`, `SENSU_BACKEND_ETCD_LISTEN_CLIENT_URLS`, and `ETCD_LISTEN_PEER_URLS`.
-- ([Commercial feature][162]) Added Linux packages for 386; armv5, armv6, and armv7; MIPS hard float, MIPS LE hard float, and MIPS 64 LE hard float; ppc64le; and s390x architectures.
-See the [supported platforms][165] page for a complete list of Sensu’s supported platforms.
-- Added [Sensu query expression][168] `sensu.CheckDependencies`.
-- Added [binary-only distributions][164] for FreeBSD `armv5`, `armv6`, and `armv7` and Linux `ppc64le` and `s390x`.
-- Added the `is_silenced` Boolean attribute to the event.Check object to indicate whether the event was silenced at the time it was processed.
-
-**IMPROVEMENTS:**
-
-- ([Commercial feature][162]) Added support for the `memberOf` attribute in Active Directory (AD).
-- ([Commercial feature][162]) Added more descriptive information for errors in the federated web UI.
-- The `dead` and `handleUpdate` methods in keepalived now use `EntityConfig` and `EntityState` respectively.
-- The `dead()` and `createProxyEntity()` methods in eventd now use `corev3.EntityConfig` and `corev3.EntityState`.
-- Agent entity updates now ignore state-related fields.
-- You can now manage Sensu agent configuration via the HTTP API.
-- For sysvinit services, Sensu now passes users' secondary groups (i.e. groups other than the Sensu user group) to `chroot`, which gives the Sensu agent and backend access to the file access writes that are granted to the secondary groups.
-- Output of `sensuctl asset add` now includes help for using the runtime asset.
-- For role bindings and cluster role bindings, [`subjects.name`][166] values can now include unicode characters, and [`roleRef.type`][167] and [`subjects.type`][166] values are now automatically capitalized.
-- Improved logging for the agent websocket connection.
-- Improved the wording of the secret provider error message.
-- Fewer keys in etcd are now stored for agents.
-- Keepalive and round robin scheduling leases are now dealt with more efficiently.
-- Upgraded Go version from 1.13.7 to 1.13.15.
-- Upgraded etcd version from 3.3.17 to 3.3.22.
-
-**FIXES:**
-
-- ([Commercial feature][162]) Label selectors now work as expected with multiple requirements for events.
-- ([Commercial feature][162]) Fixed an issue that prevented broken secrets providers from surfacing their errors.
-- ([Commercial feature][162]) Fixed a bug for PostgreSQL datastores that could prevent GraphQL from retrieving all pages when fetching events in a namespace with more than 1000 total events, resulting in an unexpected error.
-- ([Commercial feature][162]) Fixed a bug that could cause the backend to panic in case of PostgreSQL errors.
-- Sensu now logs and returns and error if it cannot find a mutator.
-- Errors produced in the agent by assets, check validation, token substitution, and event unmarshaling are logged once again.
-- The User-Agent header is now set only upon on new client creation rather than upon each request.
-- When the Sensu agent cannot parse the proper CA certificate path, Sensu logs this in the error message.
-- Fixed a bug where highly concurrent event filtering could result in a panic.
-- Fixed a bug where nil labels or annotations in an event filtering context would require you to explicitly check whether the annotations or labels are undefined.
-With this fix, labels and annotations are always defined (although they may be empty).
-- Fixed the log entry field for the check's name in schedulerd.
-
-## 5.21.1 release notes
-
-**August 5, 2020** &mdash; The latest release of Sensu Go, version 5.21.1, is now available for download.
-
-This patch release includes fixes for a web UI crash when interacting with namespaces that contain 1000 or more events and regressions in logging various agent errors as well as an enhancement that provides additional context to websocket connection errors logged by the backend.
-
-See the [upgrade guide][1] to upgrade Sensu to version 5.21.1.
-
-**IMPROVEMENTS:**
-
-- Backend log messages related to connection errors on the agent websocket API now provide more context about the error.
-
-**FIXES:**
-
-- Fixed a potential web UI crash when fetching events in namespace with 1000 or more events.
-- Fixed a regression that prevented errors produced in the agent by assets, check validation, token substitution, or event unmarshaling from being logged.
 
 ## 5.21.0 release notes
 
@@ -1451,12 +1372,3 @@ To get started with Sensu Go:
 [158]: /sensu-go/5.21/commercial/
 [160]: /sensu-go/5.21/reference/backend#fips-openssl
 [161]: /sensu-go/5.21/reference/agent#fips-openssl
-[162]: /sensu-go/6.0/commercial/
-[163]: https://github.com/sensu/web
-[164]: /sensu-go/6.0/platforms/#binary-only-distributions
-[165]: /sensu-go/6.0/platforms/
-[166]: /sensu-go/6.0/reference/rbac/#subjects-specification
-[167]: /sensu-go/6.0/reference/rbac/#roleref-specification
-[168]: /sensu-go/6.0/reference/sensu-query-expressions/#sensucheckdependencies
-[169]: /sensu-go/6.0/reference/filters/#build-event-filter-expressions-with-javascript-execution-functions
-[170]: /sensu-go/6.0/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-60-from-a-5x-deployment

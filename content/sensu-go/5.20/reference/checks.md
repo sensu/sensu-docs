@@ -1,7 +1,5 @@
 ---
 title: "Checks"
-reference_title: "Checks"
-type: "reference"
 description: "Checks work with Sensu agents to let you monitor your infrastructure automatically and send monitoring events to the Sensu pipeline. Read this reference doc to learn how to run service and metric checks."
 weight: 50
 version: "5.20"
@@ -569,11 +567,6 @@ example      | {{< code shell >}}"annotations": {
 }{{< /code >}}
 
 ### Spec attributes
-
-{{% notice note %}}
-**NOTE**: Spec attributes are not required when sending an HTTP `POST` request to the [agent](../agent/#events-post) or [backend](../../api/events/#create-a-new-event) /events API.
-When doing so, the spec attributes are listed as individual [top-level attributes](#top-level-attributes) in the check definition instead.
-{{% /notice %}}
 
 |command     |      |
 -------------|------

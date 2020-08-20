@@ -1,8 +1,6 @@
 ---
 title: "Etcd replicators"
 linkTitle: "Etcd Replicators"
-reference_title: "Etcd replicators"
-type: "reference"
 description: "Etcd replicators allow you to manage RBAC resources in one place and mirror the changes to follower clusters. Read the reference to set up RBAC policy replication between Sensu clusters."
 weight: 80
 version: "5.19"

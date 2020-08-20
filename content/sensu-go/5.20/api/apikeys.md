@@ -24,7 +24,7 @@ The following example demonstrates a request to the `/apikeys` API endpoint, res
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/apikeys \
--H "Authorization: Key $SENSU_API_KEY"
+-H "Authorization: KEY $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 
