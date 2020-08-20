@@ -2,7 +2,7 @@
 title: "Create and manage resources with sensuctl"
 linkTitle: "Create and Manage Resources"
 description: "Use the sensuctl command line tool to create and manage resources within Sensu. Read this reference doc to learn how to use sensuctl."
-weight: 20
+weight: 10
 version: "5.19"
 product: "Sensu Go"
 platformContent: false 
@@ -227,103 +227,6 @@ sensuctl edit handler slack
 `handler` | `hook` | `mutator` | `namespace`
 `role` | `role-binding` | `silenced` | `user`
 [`auth`][26] | | |
-
-## Export resources
-
-The `sensuctl dump` command allows you to export your resources to standard out or to a file.
-You can export all of your resources or a subset of them based on a list of resource types.
-The `dump` command supports exporting in `wrapped-json` and `yaml`.
-
-{{% notice note %}}
-**NOTE**: Passwords are not included when exporting users. You must add the `password` attribute to any exported user resources before they can be used with `sensuctl create`.
-{{% /notice %}}
-
-To export all resources to a file named `my-resources.yaml` in `yaml` format:
-
-{{< code shell >}}
-sensuctl dump all --format yaml --file my-resources.yaml
-{{< /code >}}
-
-To export only checks to standard out in `yaml` format:
-
-{{< code shell >}}
-sensuctl dump check --format yaml
-{{< /code >}}
-
-To export only handlers and filters to a file named `my-handlers-and-filters.yaml` in `yaml` format:
-
-{{< code shell >}}
-sensuctl dump handler,filter --format yaml --file my-handlers-and-filters.yaml
-{{< /code >}}
-
-### sensuctl describe-type resource types
-
-{{% notice important %}}
-**IMPORTANT**: The `sensuctl describe-type` command deprecates `sensuctl dump --types`.
-{{% /notice %}}
-
-Use `sensuctl describe-type` to list the types of supported resources.
-For example, to list all types:
-
-{{< code shell >}}
-sensuctl describe-type all
-{{< /code >}}
-
-You can also list specific resource types by fully qualified name or synonym:
-
-{{< code shell >}}
-sensuctl describe-type core/v2.CheckConfig
-sensuctl describe-type checks
-{{< /code >}}
-
-To list more than one type, use a comma-separated list:
-
-{{< code shell >}}
-sensuctl describe-type core/v2.CheckConfig,core/v2.EventFilter,core/v2.Handler
-sensuctl describe-type checks,filters,handlers
-{{< /code >}}
-
-The table below lists supported `sensuctl describe-type` resource types.
-
-{{% notice note %}}
-**NOTE**: The resource types with no synonym listed are [commercial features](../../commercial/).
-{{% /notice %}}
-
-Synonym | Fully qualified name 
---------------------|---
-None | `authentication/v2.Provider`
-None | `licensing/v2.LicenseFile`
-None | `store/v1.PostgresConfig`
-None | `federation/v1.Replicator`
-None | `secrets/v1.Provider`
-None | `secrets/v1.Secret`
-`apikeys` | `core/v2.APIKey`
-`assets` | `core/v2.Asset`
-`checks` | `core/v2.CheckConfig`
-`clusterroles` | `core/v2.ClusterRole`
-`clusterrolebindings` | `core/v2.ClusterRoleBinding`
-`entities` | `core/v2.Entity`
-`events` | `core/v2.Event` 
-`filters` | `core/v2.EventFilter`
-`handlers` | `core/v2.Handler`
-`hooks` | `core/v2.Hook`
-`mutators` | `core/v2.Mutator`
-`namespaces` | `core/v2.Namespace`
-`roles` | `core/v2.Role`
-`rolebindings` | `core/v2.RoleBinding`
-`silenced` | `core/v2.Silenced`
-`tessen` | `core/v2.TessenConfig`
-`users` | `core/v2.User`
-
-#### Format the sensuctl describe-type response
-
-Add the `--format` flag to specify how the resources should be formatted in the `sensuctl describe-type` response.
-The default is unformatted, but you can specify either `wrapped-json` or `yaml`:
-
-{{< code shell >}}
-sensuctl describe-type core/v2.CheckConfig --format yaml
-sensuctl describe-type core/v2.CheckConfig --format wrapped-json
-{{< /code >}}
  
 ## Manage resources
 
