@@ -105,9 +105,10 @@ journalctl -u sensu-backend --since "2015-01-10" --until "2015-01-11 03:00" | te
 
 ##### Logging edge cases
 
-In some cases where a Sensu service experiences a panic crash, the service may seem to start and stop without producing any output in journalctl. This is due to a [bug in systemd][12].
+If a Sensu service experiences a panic crash, the service may seem to start and stop without producing any output in journalctl.
+This is due to a [bug in systemd][12].
 
-In these cases, you can try using the _COMM variable instead of the -u flag, to access additional log entries:
+In these cases, try using the `_COMM` variable instead of the `-u` flag to access additional log entries:
 
 {{< code shell >}}
 journalctl _COMM=sensu-backend.service --since yesterday
