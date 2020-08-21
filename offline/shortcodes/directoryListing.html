@@ -1,5 +1,4 @@
-{{ $path := .Get 0 }}
-{{ $files := readDir $path }}
+{{ $files := readDir (path.Join "content" $.Page.File.Dir) }}
 
 <!-- Loop through all files in dir -->
 <ul>
