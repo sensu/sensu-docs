@@ -81,27 +81,37 @@ You may substitute the name of the desired service (e.g. `backend` or `agent`) f
 
 Use the `journald` keyword `since` to refine the basic `journalctl` commands and narrow your search by timeframe.
 
-Retrieve all the logs for Sensu since yesterday:
+Retrieve all the logs for sensu-backend since yesterday:
 
 {{< code shell >}}
-journalctl _COMM=sensu-backend.service --since yesterday | tee sensu-backend-$(date +%Y-%m-%d).log
+journalctl -u sensu-backend --since yesterday | tee sensu-backend-$(date +%Y-%m-%d).log
 {{< /code >}}
 
-Retrieve all the logs for Sensu since a specific time:
+Retrieve all the logs for sensu-agent since a specific time:
 
 {{< code shell >}}
-journalctl _COMM=sensu-backend.service --since 09:00 --until "1 hour ago" | tee sensu-backend-$(date +%Y-%m-%d).log
+journalctl -u sensu-agent --since 09:00 --until "1 hour ago" | tee sensu-agent-$(date +%Y-%m-%d).log
 {{< /code >}}
 
-Retrieve all the logs for Sensu for a specific date range:
+Retrieve all the logs for sensu-backend for a specific date range:
 
 {{< code shell >}}
-journalctl _COMM=sensu-backend.service --since "2015-01-10" --until "2015-01-11 03:00" | tee sensu-backend-$(date +%Y-%m-%d).log
+journalctl -u sensu-backend --since "2015-01-10" --until "2015-01-11 03:00" | tee sensu-backend-$(date +%Y-%m-%d).log
 {{< /code >}}
 
 {{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
+
+##### Logging edge cases
+
+In some cases where a Sensu service experiences a panic crash, the service may seem to start and stop without producing any output in journalctl. This is due to a [bug in systemd][12].
+
+In these cases, you can try using the _COMM variable instead of the -u flag, to access additional log entries:
+
+{{< code shell >}}
+journalctl _COMM=sensu-backend.service --since yesterday
+{{< /code >}}
 
 #### Windows
 
@@ -365,3 +375,4 @@ This would allow the asset to be downloaded onto the target entity.
 [9]: ../../../reference/backend/#restart-the-service
 [10]: ../../../reference/assets/#asset-definition-multiple-builds
 [11]: ../../monitor-sensu/log-sensu-systemd/
+[12]: https://github.com/systemd/systemd/issues/2913
