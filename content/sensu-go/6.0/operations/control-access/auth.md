@@ -1351,16 +1351,12 @@ Use the instructions listed in this section to register an OIDC application for 
 
 1. From the Okta Administrator Dashboard, select `Applications > Add Application > Create New App` to start the wizard.
 2. Select the `Web` platform and `OpenID Connect` sign-in method.
-3. In *General Settings*, enter an app name and upload a logo (if desired).
-4. In *Configure OpenID Connect*, add the following redirect URI (replace `DASHBOARD_URL` with the URL for your dashboard: `{DASHBOARD_URL}/api/enterprise/authentication/v2/oidc/callback`.
-5. Click **Save**.
-6. Open the *Sign On* page. In the *OpenID Connect ID Token* section, click **Edit**.
-7. Enter the following information for the *Groups* claim attribute:
-  - First field: `groups`
-  - Dropdown menu: `Regex`
-  - Second field: `.*`
-8. Click **Save**.
-9. Assign people and groups in the *Assignments* page.
+3. Under *Application Settings*:
+   - In the *Name* field, enter an app name.
+   - In the *Login redirect URIs* field, enter `DASHBOARD_URL/api/enterprise/authentication/v2/oidc/callback` (replace `DASHBOARD_URL` with your dashboard URL).
+   - In the *Grant type allowed* section, click to select the boxes next to *Authorization Code* and *Refresh Token*.
+4. Click **Save**.
+5. Assign people and groups in the *Assignments* page.
 
 #### OIDC provider configuration
 
