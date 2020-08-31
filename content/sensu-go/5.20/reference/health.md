@@ -13,9 +13,11 @@ menu:
 
 Use Sensu's [health API][1] to make sure your backend is up and running and check the health of your etcd cluster members and [PostgreSQL datastore resources][2].
 
-## Health payload example
-
 A request to the health endpoint retrieves a JSON map with health data for your Sensu instance.
+
+## Healthy cluster example
+
+In this example, all cluster members are healthy. 
 
 {{< code shell >}}
 curl -X GET \
@@ -26,18 +28,33 @@ HTTP/1.1 200 OK
   "Alarms": null,
   "ClusterHealth": [
     {
-      "MemberID": 2882886652148554927,
-      "MemberIDHex": "8923110df66458af",
-      "Name": "default",
+      "MemberID": 9861478486968594000,
+      "MemberIDHex": "88db026f7feb72b4",
+      "Name": "backend01",
+      "Err": "",
+      "Healthy": true
+    },
+    {
+      "MemberID": 16828500076473182000,
+      "MemberIDHex": "e98ad7a888d16bd6",
+      "Name": "backend02",
+      "Err": "",
+      "Healthy": true
+    },
+    {
+      "MemberID": 848052855499371400,
+      "MemberIDHex": "bc4e39432cbb36d",
+      "Name": "backend03",
       "Err": "",
       "Healthy": true
     }
   ],
   "Header": {
-    "cluster_id": 4255616344056076734,
-    "member_id": 2882886652148554927,
-    "raft_term": 26
-  },
+    "cluster_id": 17701109828877156000,
+    "member_id": 16828500076473182000,
+    "raft_term": 42
+  }
+},
   "PostgresHealth": [
     {
       "Name": "my-first-postgres",
@@ -53,6 +70,67 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
+## Unhealthy cluster member example
+
+In this example, one cluster member is unhealthy: it cannot communicate with the other cluster members.
+
+{{< code shell >}}
+curl -X GET \
+http://127.0.0.1:8080/health
+
+HTTP/1.1 200 OK
+{
+  "Alarms": null,
+  "ClusterHealth": [
+    {
+      "MemberID": 9861478486968594000,
+      "MemberIDHex": "88db026f7feb72b4",
+      "Name": "backend01",
+      "Err": "context deadline exceeded",
+      "Healthy": false
+    },
+    {
+      "MemberID": 16828500076473182000,
+      "MemberIDHex": "e98ad7a888d16bd6",
+      "Name": "backend02",
+      "Err": "",
+      "Healthy": true
+    },
+    {
+      "MemberID": 848052855499371400,
+      "MemberIDHex": "bc4e39432cbb36d",
+      "Name": "backend03",
+      "Err": "",
+      "Healthy": true
+    }
+  ],
+  "Header": {
+    "cluster_id": 17701109828877156000,
+    "member_id": 16828500076473182000,
+    "raft_term": 42
+  }
+},
+  "PostgresHealth": [
+    {
+      "Name": "my-first-postgres",
+      "Active": true,
+      "Healthy": true
+    },
+    {
+      "Name": "my-other-postgres",
+      "Active": false,
+      "Healthy": false
+    }
+  ]
+}
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: The HTTP response codes for the health endpoint indicate whether your request reached Sensu rather than the health of your Sensu instance.
+In this example, even though the cluster is unhealthy, the request itself reached Sensu, so the response code is `200 OK`.
+To determine the health of your Sensu instance, you must process the JSON response body.
+The [health specification](#health-specification) describes each attribute in the response body.
+{{% /notice %}}
 
 ## Health specification
 
