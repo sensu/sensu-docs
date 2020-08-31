@@ -9,6 +9,7 @@ version: "5.21"
 menu: "sensu-go-5.21"
 ---
 
+- [5.21.2 release notes](#5212-release-notes)
 - [5.21.1 release notes](#5211-release-notes)
 - [5.21.0 release notes](#5210-release-notes)
 - [5.20.2 release notes](#5202-release-notes)
@@ -65,6 +66,19 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.21.2 release notes
+
+**August 31, 2020** &mdash; The latest release of Sensu Go, version 5.21.2, is now available for download.
+
+This patch release includes two fixes: one for PostgreSQL errors that could cause the backend to panic and one to ensure that failed check events are written to the event log file.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.2.
+
+**FIXES:**
+
+- ([Commercial feature][158]) Fixed a bug where PostgreSQL errors could cause the backend to panic.
+- Failed check events are now written to the event log file.
 
 ## 5.21.1 release notes
 
