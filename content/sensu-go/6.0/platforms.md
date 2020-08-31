@@ -76,8 +76,11 @@ See the [Sensu Go Web GitHub repository][60] for more information.
 
 Sensu binary-only distributions for Linux are available for the architectures listed in the table below.
 
-For binary distributions, we support Linux kernel 3.1 and later for `amd64`, `arm64`, `armv5`, `armv6`, and `armv7` architectures.
-For all other architectures, we support Linux kernel 2.6.23.
+For binary distributions, we support the following Linux kernels:
+
+- 3.1.x and later for `armv5`
+- 4.8 and later for `MIPS 64 LE hard float` and `MIPS 64 LE soft float`
+- 2.6.23 and later for all other architectures
 
 {{% notice note %}}
 **NOTE**: The  Linux `amd64`, `arm64`, and `ppc64le` binary distributions include the agent, backend, and sensuctl CLI.
