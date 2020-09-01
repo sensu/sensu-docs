@@ -76,6 +76,12 @@ See the [Sensu Go Web GitHub repository][60] for more information.
 
 Sensu binary-only distributions for Linux are available for the architectures listed in the table below.
 
+For binary distributions, we support the following Linux kernels:
+
+- 3.1.x and later for `armv5`
+- 4.8 and later for `MIPS 64 LE hard float` and `MIPS 64 LE soft float`
+- 2.6.23 and later for all other architectures
+
 {{% notice note %}}
 **NOTE**: The  Linux `amd64`, `arm64`, and `ppc64le` binary distributions include the agent, backend, and sensuctl CLI.
 Binaries for all other Linux architectures include only the Sensu agent and sensuctl CLI.
@@ -166,6 +172,8 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0
 
 Sensu binary-only distributions for Windows are available for the architectures listed in the table below.
 
+We support Windows 7 and later and Windows Server 2008R2 and later for binary distributions.
+
 {{% notice note %}}
 **NOTE**: The Windows binary distributions include only the Sensu agent and sensuctl CLI.
 {{% /notice %}}
@@ -202,6 +210,8 @@ Get-Content "$env:userprofile\sensu-go_6.0.0_checksums.txt" | Select-String -Pat
 ### macOS
 
 Sensu binary-only distributions for macOS are available for the architectures listed in the table below.
+
+We support macOS 10.11 and later for binary distributions.
 
 {{% notice note %}}
 **NOTE**: The macOS binary distributions include only the Sensu agent and sensuctl CLI.
@@ -250,6 +260,8 @@ sudo cp sensuctl /usr/local/bin/
 
 Sensu binary-only distributions for FreeBSD are available for the architectures listed in the table below.
 
+We support FreeBSD 11.2 and later for binary distributions.
+
 {{% notice note %}}
 **NOTE**: The FreeBSD binary distributions include only the Sensu agent and sensuctl CLI.
 {{% /notice %}}
@@ -287,6 +299,8 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0
 ### Solaris
 
 Sensu binary-only distributions for Solaris are available for the architectures listed in the table below.
+
+We support Solaris 11 and later (not SPARC) for binary distributions.
 
 {{% notice note %}}
 **NOTE**: The Solaris binary distributions include only the Sensu agent.
