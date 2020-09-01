@@ -395,7 +395,7 @@ sensuctl prune [RESOURCE TYPE],[RESOURCE TYPE]... -f [FILE or URL] [-r] ... ] [-
 
 In this example `sensuctl prune` command:
 
-- Replace [RESOURCE TYPE] with the [short name or fully qualified name][10] of the resource you want to prune.
+- Replace [RESOURCE TYPE] with the [fully qualified name or short name][10] of the resource you want to prune.
 You must specify at least one resource type or the `all` qualifier (to prune all resource types).
 - Replace [FILE or URL] with the name of the file or the URL that contains the set of Sensu objects you want to keep (the configuration).
 - Replace [flags] with the flags you want to use, if any.
@@ -407,7 +407,7 @@ Use a comma separator to prune more than one resource in a single command.
 For example, to prune checks and assets from the file `checks.yaml` for the `dev` namespace and the `admin` and `ops` users:
 
 {{< code shell >}}
-sensuctl prune checks,assets --file checks.yaml --namespace dev --users admin,ops
+sensuctl prune core/v2.CheckConfig,core/v2.Asset --file checks.yaml --namespace dev --users admin,ops
 {{< /code >}}
 
 ##### sensuctl prune flags
@@ -431,7 +431,7 @@ The following table describes the command-specific flags.
 Use `sensuctl describe-type all` to retrieve the list of supported `sensuctl prune` resource types.
 
 {{% notice note %}}
-**NOTE**: The resource types with no short name listed are [commercial features](../../commercial/).
+**NOTE**: Short names are only supported for `core/v2` resources.
 {{% /notice %}}
 
 {{< code shell >}}
@@ -468,14 +468,12 @@ sensuctl describe-type all
 
 ##### sensuctl prune examples
 
-`sensuctl prune` supports pruning resources by their short names or fully qualified names:
-
-{{< code shell >}}
-sensuctl prune checks,entities
-{{< /code >}}
+`sensuctl prune` supports pruning resources by their fully qualified names or short names:
 
 {{< code shell >}}
 sensuctl prune core/v2.CheckConfig,core/v2.Entity
+
+sensuctl prune checks,entities
 {{< /code >}}
 
 Use the `all` qualifier to prune all supported resources:
@@ -517,7 +515,7 @@ Sensuctl supports the following formats:
 [7]: ../../operations/deploy-sensu/cluster-sensu/
 [8]: ../../reference/rbac/#user-specification
 [9]: #wrapped-json-format
-[10]: #sensuctl-prune-resource-types
+[10]: #supported-resource-types
 [11]: ../../reference/webconfig/
 [12]: ../../reference/assets/
 [13]: ../../reference/checks/

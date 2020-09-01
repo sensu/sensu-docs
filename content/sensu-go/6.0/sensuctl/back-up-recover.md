@@ -24,13 +24,13 @@ sensuctl dump all --format yaml --file my-resources.yaml
 To export only checks to STDOUT in `yaml` format:
 
 {{< code shell >}}
-sensuctl dump checks --format yaml
+sensuctl dump core/v2.CheckConfig --format yaml
 {{< /code >}}
 
 To export only handlers and filters to a file named `my-handlers-and-filters.yaml` in `yaml` format:
 
 {{< code shell >}}
-sensuctl dump handlers,filters --format yaml --file my-handlers-and-filters.yaml
+sensuctl dump core/v2.Handler,core/v2.EventFilter --format yaml --file my-handlers-and-filters.yaml
 {{< /code >}}
 
 After you use `sensuctl dump` to back up your Sensu resources, you can [restore][3] them later with [`sensuctl create`][1].
@@ -51,21 +51,21 @@ mkdir backup
    
    {{< code shell >}}
 sensuctl dump all \
---omit entities,events,apikeys,users,roles,rolebindings,clusterroles,clusterrolebindings \
+--omit core/v2.Entity,core/v2.Event,core/v2.APIKey,core/v2.User,core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.ClusterRoleBinding \
 --format yaml > backup/config.yaml
 {{< /code >}}
    
 3. Export your [RBAC][2] resources, except API keys and users.
    
    {{< code shell >}}
-sensuctl dump roles,rolebindings,clusterroles,clusterrolebindings
+sensuctl dump core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.ClusterRoleBinding
 --format yaml > backup/rbac.yaml
 {{< /code >}}
 
 4. Export your API keys and users resources.
    
    {{< code shell >}}
-sensuctl dump apikeys,users
+sensuctl dump core/v2.APIKey,core/v2.User
 --format yaml > backup/cannotrestore.yaml
 {{< /code >}}
 
@@ -78,7 +78,7 @@ Because users require this additional configuration and API keys cannot be resto
 5. Export your entity resources (if desired).
      
    {{< code shell >}}
-sensuctl dump entities \
+sensuctl dump core/v2.Entity \
 --format yaml > backup/inventory.yaml
 {{< /code >}}
 
@@ -102,7 +102,7 @@ mkdir backup
 2. Back up your pipeline resources, stripping namespaces so that your resources are portable for reuse in any namespace.
    
    {{< code shell >}}
-sensuctl dump assets,checks,hooks,filters,mutators,handlers,silenced,secrets/v1.Secret,secrets/v1.Provider \
+sensuctl dump core/v2.Asset,core/v2.CheckConfig,core/v2.Hook,core/v2.EventFilter,core/v2.Mutator,core/v2.Handler,core/v2.Silenced,secrets/v1.Secret,secrets/v1.Provider \
 --format yaml | grep -v "^\s*namespace:" > backup/pipelines.yaml
 {{< /code >}}
 
@@ -138,7 +138,7 @@ You must add a [`password_hash`](../#generate-a-password-hash) or `password` to 
 Use `sensuctl describe-type all` to retrieve the list of supported `sensuctl dump` resource types.
 
 {{% notice note %}}
-**NOTE**: The resource types with no short name listed are [commercial features](../../commercial/).
+**NOTE**: Short names are only supported for `core/v2` resources.
 {{% /notice %}}
 
 {{< code shell >}}
@@ -173,17 +173,19 @@ sensuctl describe-type all
   core/v2.Silenced               silenced              core/v2             Silenced             true  
 {{< /code >}}
 
-You can also list specific resource types by short name or fully qualified name:
+You can also list specific resource types by fully qualified name or short name:
 
 {{< code shell >}}
-sensuctl describe-type checks
 sensuctl describe-type core/v2.CheckConfig
+
+sensuctl describe-type checks
 {{< /code >}}
 
 To list more than one type, use a comma-separated list:
 
 {{< code shell >}}
 sensuctl describe-type core/v2.CheckConfig,core/v2.EventFilter,core/v2.Handler
+
 sensuctl describe-type checks,filters,handlers
 {{< /code >}}
 
@@ -193,8 +195,9 @@ Add the `--format` flag to specify how the resources should be formatted in the 
 The default is unformatted, but you can specify either `wrapped-json` or `yaml`:
 
 {{< code shell >}}
-sensuctl describe-type checks --format yaml
-sensuctl describe-type checks --format wrapped-json
+sensuctl describe-type core/v2.CheckConfig --format yaml
+
+sensuctl describe-type core/v2.CheckConfig --format wrapped-json
 {{< /code >}}
 
 
