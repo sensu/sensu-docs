@@ -1349,14 +1349,25 @@ Use the instructions listed in this section to register an OIDC application for 
 
 #### Create an Okta application
 
-1. From the Okta Administrator Dashboard, select `Applications > Add Application > Create New App` to start the wizard.
-2. Select the `Web` platform and `OpenID Connect` sign-in method.
-3. Under *Application Settings*:
-   - In the *Name* field, enter an app name.
-   - In the *Login redirect URIs* field, enter `API_URL/api/enterprise/authentication/v2/oidc/callback` (replace `API_URL` with your API URL).
-   - In the *Grant type allowed* section, click to select the boxes next to *Authorization Code* and *Refresh Token*.
-   - (Optional) In the *Group assignments* field, add people and groups. You can also add group assignments later in the *Assignments* page, if you prefer.
-4. Click **Save**.
+1. In the Okta Administrator Dashboard, start the wizard:<br>select `Applications` > `Add Application` > `Create New App`.
+2. In the *Platform* dropdown, select `Web`.
+3. In the *Sign on method* section, select `OpenID Connect`.
+4. Click **Create**.
+5. In the *Create OpenID Connect Integration* window:
+   - *GENERAL SETTINGS* section: in the *Application name* field, enter the app name. You can also upload a logo in the  if desired.
+   - *CONFIGURE OPENID CONNECT* section: in the *Login redirect URIs* field, enter `API_URL/api/enterprise/authentication/v2/oidc/callback` (replace `API_URL` with your API URL).
+6. Click **Save**.
+7. Select the *General* tab and click **Edit**.
+8. In the *Allowed grant types* section, click to select the box next to **Refresh Token**.
+9. Click **Save**.
+10. Select the *Sign On* tab.
+11. In the *OpenID Connect ID Token* section, click **Edit**.
+12. In the *Groups claim filter* section:
+    - In the first field, enter `groups`
+    - In the dropdown menu, select `matches regex`
+    - In the second field, enter `.*`
+13. Click **Save**.
+14. (Optional) Select the *Assignments* tab to assign people and groups to your app.
 
 #### OIDC provider configuration
 
