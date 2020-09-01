@@ -107,6 +107,12 @@ Sensu binary-only distributions for Linux are available for these architectures 
 In addition, all `MIPS` packages include only the agent and CLI.
 {{% /notice %}}
 
+For binary distributions, we support the following Linux kernels:
+
+- 3.1.x and later for `armv5`
+- 4.8 and later for `MIPS 64 LE hard float` and `MIPS 64 LE soft float`
+- 2.6.23 and later for all other architectures
+
 For example, to download Sensu for Linux `amd64` in `tar.gz` format:
 
 {{< code shell >}}
@@ -137,6 +143,8 @@ Sensu binary-only distributions for Windows are available for these architecture
 | --- | --- |
 | `amd64` | [`.tar.gz`][26] \| [`.zip`][28]
 | `386` | [`.tar.gz`][27] \| [`.zip`][29]
+
+We support Windows 7 and later and Windows Server 2008R2 and later for binary distributions.
 
 For example, to download Sensu for Windows `amd64` in `zip` format:
 
@@ -169,6 +177,8 @@ Sensu binary-only distributions for macOS are available for these architectures 
 | Architecture | Formats |
 | --- | --- |
 | `amd64` | [`.tar.gz`][30] \| [`.zip`][31]
+
+We support macOS 10.11 and later for binary distributions.
 
 For example, to download Sensu for macOS `amd64` in `tar.gz` format:
 
@@ -213,6 +223,8 @@ Sensu binary-only distributions for FreeBSD are available for these architecture
 | `amd64` | [`.tar.gz`][32] \| [`.zip`][33]
 | `386` | [`.tar.gz`][34] \| [`.zip`][35]
 
+We support FreeBSD 11.2 and later for binary distributions.
+
 For example, to download Sensu for FreeBSD `amd64` in `tar.gz` format:
 
 {{< code shell >}}
@@ -242,6 +254,8 @@ Sensu binary-only distributions for Solaris are available for these architecture
 | Architecture | Formats |
 | --- | --- |
 | `amd64` | [`.tar.gz`][36] \| [`.zip`][37]
+
+We support Solaris 11 and later (not SPARC) for binary distributions.
 
 For example, to download Sensu for Solaris `amd64` in `tar.gz` format:
 
