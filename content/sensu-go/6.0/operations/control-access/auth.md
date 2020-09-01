@@ -1353,22 +1353,22 @@ Use the instructions listed in this section to register an OIDC application for 
 2. Select the `Web` platform and `OpenID Connect` sign-in method.
 3. Under *Application Settings*:
    - In the *Name* field, enter an app name.
-   - In the *Login redirect URIs* field, enter `DASHBOARD_URL/api/enterprise/authentication/v2/oidc/callback` (replace `DASHBOARD_URL` with your dashboard URL).
+   - In the *Login redirect URIs* field, enter `API_URL/api/enterprise/authentication/v2/oidc/callback` (replace `API_URL` with your API URL).
    - In the *Grant type allowed* section, click to select the boxes next to *Authorization Code* and *Refresh Token*.
+   - (Optional) In the *Group assignments* field, add people and groups. You can also add group assignments later in the *Assignments* page, if you prefer.
 4. Click **Save**.
-5. Assign people and groups in the *Assignments* page.
 
 #### OIDC provider configuration
 
 1. Add the `additional_scopes` configuration attribute in the [OIDC scope][25] and set the value to `[ "groups" ]`:
-  - `"additional_scopes": [ "groups" ]`
+   - `"additional_scopes": [ "groups" ]`
 
 2. Add the `groups` to the `groups_claim` string.
 For example, if you have an Okta group `groups` and you set the `groups_prefix` to `okta:`, you can set up RBAC objects to mention group `okta:groups` as needed:
-  - `"groups_claim": "okta:groups" `
+   - `"groups_claim": "okta:groups" `
 
-3. Add the `redirect_uri` configuration attribute in the [OIDC scope][25] and set the value to the Redirect URI configured at step 4 of [Create an Okta application][50]:
-  - `"redirect_uri": "{BACKEND_URL}/api/enterprise/authentication/v2/oidc/callback"`
+3. Add the `redirect_uri` configuration attribute in the [OIDC scope][25] and set the value to the Redirect URI configured at step 3 of [Create an Okta application][50]:
+   - `"redirect_uri": "API_URL/api/enterprise/authentication/v2/oidc/callback"`
 
 #### Sensuctl login with OIDC
 
@@ -1376,7 +1376,7 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
 
 2. If you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.
 If a browser does not open, launch a browser to complete the login via your OIDC provider at following URL:
-  - https://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/authorize
+   - https://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/authorize
 
 [1]: ../../web-ui/
 [2]: ../../../sensuctl/
