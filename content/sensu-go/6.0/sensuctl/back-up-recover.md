@@ -129,7 +129,7 @@ When you export users, required password attributes are not included.
 You must add a [`password_hash`](../#generate-a-password-hash) or `password` to `users` resources before restoring them with the `sensuctl create` command.
 {{% /notice %}}
 
-## Sensuctl dump resource types
+## Supported resource types
 
 {{% notice important %}}
 **IMPORTANT**: The `sensuctl describe-type` command deprecates `sensuctl dump --types`.
@@ -203,4 +203,4 @@ sensuctl describe-type checks --format wrapped-json
 [3]: #restore-resources-from-backup
 [4]: ../../operations/maintain-sensu/upgrade/
 [5]: ../create-manage-resources/#create-resources-across-namespaces
-[6]: #sensuctl-dump-resource-types
+[6]: #supported-resource-types

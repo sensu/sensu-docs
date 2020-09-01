@@ -426,7 +426,7 @@ The following table describes the command-specific flags.
 `-r` or `--recursive` | Prune command will follow subdirectories.
 `-u` or `--users` | Prunes only resources that were created by the specified users (comma-separated strings). Defaults to the currently configured sensuctl user.
 
-##### sensuctl prune resource types
+##### Supported resource types
 
 Use `sensuctl describe-type all` to retrieve the list of supported `sensuctl prune` resource types.
 
