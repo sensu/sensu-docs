@@ -395,7 +395,7 @@ sensuctl prune [RESOURCE TYPE],[RESOURCE TYPE]... -f [FILE or URL] [-r] ... ] [-
 
 In this example `sensuctl prune` command:
 
-- Replace [RESOURCE TYPE] with the [synonym or fully qualified name][10] of the resource you want to prune.
+- Replace [RESOURCE TYPE] with the [short name or fully qualified name][10] of the resource you want to prune.
 You must specify at least one resource type or the `all` qualifier (to prune all resource types).
 - Replace [FILE or URL] with the name of the file or the URL that contains the set of Sensu objects you want to keep (the configuration).
 - Replace [flags] with the flags you want to use, if any.
@@ -428,36 +428,47 @@ The following table describes the command-specific flags.
 
 ##### sensuctl prune resource types
 
-The table below lists supported `sensuctl prune` resource types.
+Use `sensuctl describe-type all` to retrieve the list of supported `sensuctl prune` resource types.
 
-Synonym | Fully qualified name 
---------------------|---
-None | `authentication/v2.Provider`
-None | `licensing/v2.LicenseFile`
-None | `store/v1.PostgresConfig`
-None | `federation/v1.EtcdReplicator`
-None | `secrets/v1.Provider`
-None | `secrets/v1.Secret`
-`apikey` | `core/v2.APIKey`
-`assets` | `core/v2.Asset`
-`checks` | `core/v2.CheckConfig`
-`clusterroles` | `core/v2.ClusterRole`
-`clusterrolebindings` | `core/v2.ClusterRoleBinding`
-`entities` | `core/v2.Entity`
-`filters` | `core/v2.EventFilter`
-`handlers` | `core/v2.Handler`
-`hooks` | `core/v2.Hook`
-`mutators` | `core/v2.Mutator`
-`namespaces` | `core/v2.Namespace`
-`roles` | `core/v2.Role`
-`rolebindings` | `core/v2.RoleBinding`
-`silenced` | `core/v2.Silenced`
-`tessen` | `core/v2.TessenConfig`
-`users` | `core/v2.User`
+{{% notice note %}}
+**NOTE**: The resource types with no short name listed are [commercial features](../../commercial/).
+{{% /notice %}}
+
+{{< code shell >}}
+sensuctl describe-type all
+
+      Fully Qualified Name           Short Name           API Version             Type          Namespaced  
+ ────────────────────────────── ───────────────────── ─────────────────── ──────────────────── ──────────── 
+  authentication/v2.Provider                           authentication/v2   Provider             false
+  licensing/v2.LicenseFile                             licensing/v2        LicenseFile          false
+  store/v1.PostgresConfig                              store/v1            PostgresConfig       false
+  federation/v1.EtcdReplicator                         federation/v1       EtcdReplicator       false
+  secrets/v1.Secret                                    secrets/v1          Secret               true
+  secrets/v1.Provider                                  secrets/v1          Provider             false
+  searches/v1.Search                                   searches/v1         Search               true
+  web/v1.GlobalConfig                                  web/v1              GlobalConfig         false
+  core/v2.Namespace              namespaces            core/v2             Namespace            false
+  core/v2.ClusterRole            clusterroles          core/v2             ClusterRole          false
+  core/v2.ClusterRoleBinding     clusterrolebindings   core/v2             ClusterRoleBinding   false
+  core/v2.User                   users                 core/v2             User                 false
+  core/v2.APIKey                 apikeys               core/v2             APIKey               false
+  core/v2.TessenConfig           tessen                core/v2             TessenConfig         false
+  core/v2.Asset                  assets                core/v2             Asset                true
+  core/v2.CheckConfig            checks                core/v2             CheckConfig          true
+  core/v2.Entity                 entities              core/v2             Entity               true
+  core/v2.Event                  events                core/v2             Event                true
+  core/v2.EventFilter            filters               core/v2             EventFilter          true
+  core/v2.Handler                handlers              core/v2             Handler              true
+  core/v2.Hook                   hooks                 core/v2             Hook                 true
+  core/v2.Mutator                mutators              core/v2             Mutator              true
+  core/v2.Role                   roles                 core/v2             Role                 true
+  core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true
+  core/v2.Silenced               silenced              core/v2             Silenced             true  
+{{< /code >}}
 
 ##### sensuctl prune examples
 
-`sensuctl prune` supports pruning resources by their synonyms or fully qualified names:
+`sensuctl prune` supports pruning resources by their short names or fully qualified names:
 
 {{< code shell >}}
 sensuctl prune checks,entities

@@ -24,13 +24,13 @@ sensuctl dump all --format yaml --file my-resources.yaml
 To export only checks to STDOUT in `yaml` format:
 
 {{< code shell >}}
-sensuctl dump check --format yaml
+sensuctl dump checks --format yaml
 {{< /code >}}
 
 To export only handlers and filters to a file named `my-handlers-and-filters.yaml` in `yaml` format:
 
 {{< code shell >}}
-sensuctl dump handler,filter --format yaml --file my-handlers-and-filters.yaml
+sensuctl dump handlers,filters --format yaml --file my-handlers-and-filters.yaml
 {{< /code >}}
 
 After you use `sensuctl dump` to back up your Sensu resources, you can [restore][3] them later with [`sensuctl create`][1].
@@ -129,24 +129,55 @@ When you export users, required password attributes are not included.
 You must add a [`password_hash`](../#generate-a-password-hash) or `password` to `users` resources before restoring them with the `sensuctl create` command.
 {{% /notice %}}
 
-## List types of supported resources
+## Sensuctl dump resource types
 
 {{% notice important %}}
 **IMPORTANT**: The `sensuctl describe-type` command deprecates `sensuctl dump --types`.
 {{% /notice %}}
 
-Use `sensuctl describe-type` to list the types of supported resources.
-For example, to list all types:
+Use `sensuctl describe-type all` to retrieve the list of supported `sensuctl dump` resource types.
+
+{{% notice note %}}
+**NOTE**: The resource types with no short name listed are [commercial features](../../commercial/).
+{{% /notice %}}
 
 {{< code shell >}}
 sensuctl describe-type all
+
+      Fully Qualified Name           Short Name           API Version             Type          Namespaced  
+ ────────────────────────────── ───────────────────── ─────────────────── ──────────────────── ──────────── 
+  authentication/v2.Provider                           authentication/v2   Provider             false
+  licensing/v2.LicenseFile                             licensing/v2        LicenseFile          false
+  store/v1.PostgresConfig                              store/v1            PostgresConfig       false
+  federation/v1.EtcdReplicator                         federation/v1       EtcdReplicator       false
+  secrets/v1.Secret                                    secrets/v1          Secret               true
+  secrets/v1.Provider                                  secrets/v1          Provider             false
+  searches/v1.Search                                   searches/v1         Search               true
+  web/v1.GlobalConfig                                  web/v1              GlobalConfig         false
+  core/v2.Namespace              namespaces            core/v2             Namespace            false
+  core/v2.ClusterRole            clusterroles          core/v2             ClusterRole          false
+  core/v2.ClusterRoleBinding     clusterrolebindings   core/v2             ClusterRoleBinding   false
+  core/v2.User                   users                 core/v2             User                 false
+  core/v2.APIKey                 apikeys               core/v2             APIKey               false
+  core/v2.TessenConfig           tessen                core/v2             TessenConfig         false
+  core/v2.Asset                  assets                core/v2             Asset                true
+  core/v2.CheckConfig            checks                core/v2             CheckConfig          true
+  core/v2.Entity                 entities              core/v2             Entity               true
+  core/v2.Event                  events                core/v2             Event                true
+  core/v2.EventFilter            filters               core/v2             EventFilter          true
+  core/v2.Handler                handlers              core/v2             Handler              true
+  core/v2.Hook                   hooks                 core/v2             Hook                 true
+  core/v2.Mutator                mutators              core/v2             Mutator              true
+  core/v2.Role                   roles                 core/v2             Role                 true
+  core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true
+  core/v2.Silenced               silenced              core/v2             Silenced             true  
 {{< /code >}}
 
-You can also list specific resource types by fully qualified name or synonym:
+You can also list specific resource types by short name or fully qualified name:
 
 {{< code shell >}}
-sensuctl describe-type core/v2.CheckConfig
 sensuctl describe-type checks
+sensuctl describe-type core/v2.CheckConfig
 {{< /code >}}
 
 To list more than one type, use a comma-separated list:
@@ -156,50 +187,14 @@ sensuctl describe-type core/v2.CheckConfig,core/v2.EventFilter,core/v2.Handler
 sensuctl describe-type checks,filters,handlers
 {{< /code >}}
 
-<a name="resource-types"></a>
-
-The table below lists supported `sensuctl describe-type` resource types.
-
-{{% notice note %}}
-**NOTE**: The resource types with no synonym listed are [commercial features](../../commercial/).
-{{% /notice %}}
-
-Synonym | Fully qualified name 
---------------------|---
-None | `authentication/v2.Provider`
-None | `licensing/v2.LicenseFile`
-None | `store/v1.PostgresConfig`
-None | `federation/v1.Replicator`
-None | `secrets/v1.Provider`
-None | `secrets/v1.Secret`
-None | `searches/v1.Search`
-None | `web/v1.GlobalConfig`
-`apikeys` | `core/v2.APIKey`
-`assets` | `core/v2.Asset`
-`checks` | `core/v2.CheckConfig`
-`clusterroles` | `core/v2.ClusterRole`
-`clusterrolebindings` | `core/v2.ClusterRoleBinding`
-`entities` | `core/v2.Entity`
-`events` | `core/v2.Event` 
-`filters` | `core/v2.EventFilter`
-`handlers` | `core/v2.Handler`
-`hooks` | `core/v2.Hook`
-`mutators` | `core/v2.Mutator`
-`namespaces` | `core/v2.Namespace`
-`roles` | `core/v2.Role`
-`rolebindings` | `core/v2.RoleBinding`
-`silenced` | `core/v2.Silenced`
-`tessen` | `core/v2.TessenConfig`
-`users` | `core/v2.User`
-
 ### Format the sensuctl describe-type response
 
 Add the `--format` flag to specify how the resources should be formatted in the `sensuctl describe-type` response.
 The default is unformatted, but you can specify either `wrapped-json` or `yaml`:
 
 {{< code shell >}}
-sensuctl describe-type core/v2.CheckConfig --format yaml
-sensuctl describe-type core/v2.CheckConfig --format wrapped-json
+sensuctl describe-type checks --format yaml
+sensuctl describe-type checks --format wrapped-json
 {{< /code >}}
 
 
@@ -208,4 +203,4 @@ sensuctl describe-type core/v2.CheckConfig --format wrapped-json
 [3]: #restore-resources-from-backup
 [4]: ../../operations/maintain-sensu/upgrade/
 [5]: ../create-manage-resources/#create-resources-across-namespaces
-[6]: #resource-types
+[6]: #sensuctl-dump-resource-types
