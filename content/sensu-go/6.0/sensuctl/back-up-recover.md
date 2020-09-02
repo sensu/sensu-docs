@@ -33,6 +33,14 @@ To export only handlers and filters to a file named `my-handlers-and-filters.yam
 sensuctl dump core/v2.Handler,core/v2.EventFilter --format yaml --file my-handlers-and-filters.yaml
 {{< /code >}}
 
+You can use [fully qualified names or short names][6] to specify resources in `sensuctl dump` commands:
+
+{{< code shell >}}
+sensuctl dump core/v2.Handler,core/v2.EventFilter --format yaml --file my-handlers-and-filters.yaml
+
+sensuctl dump handlers,filters --format yaml --file my-handlers-and-filters.yaml
+{{< /code >}}
+
 After you use `sensuctl dump` to back up your Sensu resources, you can [restore][3] them later with [`sensuctl create`][1].
 This page explains how to back up your resources for two common use cases: before a Sensu version upgrade and to populate new namespaces with existing resources.
 

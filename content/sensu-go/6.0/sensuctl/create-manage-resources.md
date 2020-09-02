@@ -408,6 +408,8 @@ For example, to prune checks and assets from the file `checks.yaml` for the `dev
 
 {{< code shell >}}
 sensuctl prune core/v2.CheckConfig,core/v2.Asset --file checks.yaml --namespace dev --users admin,ops
+
+sensuctl prune checks,assets --file checks.yaml --namespace dev --users admin,ops
 {{< /code >}}
 
 ##### sensuctl prune flags
