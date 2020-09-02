@@ -395,7 +395,7 @@ sensuctl prune [RESOURCE TYPE],[RESOURCE TYPE]... -f [FILE or URL] [-r] ... ] [-
 
 In this example `sensuctl prune` command:
 
-- Replace [RESOURCE TYPE] with the [synonym or fully qualified name][10] of the resource you want to prune.
+- Replace [RESOURCE TYPE] with the [fully qualified name or short name][10] of the resource you want to prune.
 You must specify at least one resource type or the `all` qualifier (to prune all resource types).
 - Replace [FILE or URL] with the name of the file or the URL that contains the set of Sensu objects you want to keep (the configuration).
 - Replace [flags] with the flags you want to use, if any.
@@ -407,6 +407,8 @@ Use a comma separator to prune more than one resource in a single command.
 For example, to prune checks and assets from the file `checks.yaml` for the `dev` namespace and the `admin` and `ops` users:
 
 {{< code shell >}}
+sensuctl prune core/v2.CheckConfig,core/v2.Asset --file checks.yaml --namespace dev --users admin,ops
+
 sensuctl prune checks,assets --file checks.yaml --namespace dev --users admin,ops
 {{< /code >}}
 
@@ -426,11 +428,15 @@ The following table describes the command-specific flags.
 `-r` or `--recursive` | Prune command will follow subdirectories.
 `-u` or `--users` | Prunes only resources that were created by the specified users (comma-separated strings). Defaults to the currently configured sensuctl user.
 
-##### sensuctl prune resource types
+##### Supported resource types
 
 The table below lists supported `sensuctl prune` resource types.
 
-Synonym | Fully qualified name 
+{{% notice note %}}
+**NOTE**: Short names are only supported for `core/v2` resources.
+{{% /notice %}}
+
+Short name | Fully qualified name 
 --------------------|---
 None | `authentication/v2.Provider`
 None | `licensing/v2.LicenseFile`
@@ -438,12 +444,14 @@ None | `store/v1.PostgresConfig`
 None | `federation/v1.EtcdReplicator`
 None | `secrets/v1.Provider`
 None | `secrets/v1.Secret`
-`apikey` | `core/v2.APIKey`
+None | `searches/v1.Search`
+`apikeys` | `core/v2.APIKey`
 `assets` | `core/v2.Asset`
 `checks` | `core/v2.CheckConfig`
 `clusterroles` | `core/v2.ClusterRole`
 `clusterrolebindings` | `core/v2.ClusterRoleBinding`
 `entities` | `core/v2.Entity`
+`events` | `core/v2.Event`
 `filters` | `core/v2.EventFilter`
 `handlers` | `core/v2.Handler`
 `hooks` | `core/v2.Hook`
@@ -457,14 +465,12 @@ None | `secrets/v1.Secret`
 
 ##### sensuctl prune examples
 
-`sensuctl prune` supports pruning resources by their synonyms or fully qualified names:
-
-{{< code shell >}}
-sensuctl prune checks,entities
-{{< /code >}}
+`sensuctl prune` supports pruning resources by their fully qualified names or short names:
 
 {{< code shell >}}
 sensuctl prune core/v2.CheckConfig,core/v2.Entity
+
+sensuctl prune checks,entities
 {{< /code >}}
 
 Use the `all` qualifier to prune all supported resources:
@@ -506,7 +512,7 @@ Sensuctl supports the following formats:
 [7]: ../../operations/deploy-sensu/cluster-sensu/
 [8]: ../../reference/rbac/#user-specification
 [9]: #wrapped-json-format
-[10]: #sensuctl-prune-resource-types
+[10]: #supported-resource-types
 [11]: ../../reference/license/
 [12]: ../../reference/assets/
 [13]: ../../reference/checks/
