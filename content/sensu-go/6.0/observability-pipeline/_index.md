@@ -15,15 +15,15 @@ menu:
 Sensu's observability pipeline is a flexible, automated tool that gives you visibility into every part of your organization's infrastructure.
 
 The Sensu [agent][1] is a lightweight client that runs on your [entities][2], which are the infrastructure components you want to observe.
-The agent sends events to the Sensu [backend][1], which [filters][5], [transforms][6], and [processes][7] the data in your events with event filters, mutators, and handlers.
+The Sensu [backend][1] schedules [checks][3] for agents to run on your entities based on the agent subscriptions you specify.
 
-The agent runs [checks][3] on your entities to gather observation data about them.
-For example, a check might evaluate status or collect metrics.
-[Events][3] contain the observation data that checks gather.
+The agent runs these checks on your entities to gather observation data about them.
+[Events][3] contain the observation data that your checks gather, which might include entity status, metrics, or both, depending on your needs and configuration.
+
+The agent sends events to the backend, which [filters][5], [transforms][6], and [processes][7] the data in your events with event filters, mutators, and handlers.
 
 Sensu's observability pipeline delivers contextualized information and deeper insights so you can take targeted actions.
-Entity status data might become an email, Slack, or PagerDuty alert.
-Metrics can be transported to storage in your Graphite, InfluxDB, or Prometheus databases.
+For example, Sensu can send entity status data in an email, Slack, or PagerDuty alert and transport metrics to storage in your Graphite, InfluxDB, or Prometheus databases.
 
 **<button onclick="window.location.href='pipeline-entities';">Next</button> or click any element in the pipeline to jump to it.**
 
