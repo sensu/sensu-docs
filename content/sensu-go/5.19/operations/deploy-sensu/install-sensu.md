@@ -543,6 +543,6 @@ sensuctl license info
 [35]: ../../../api/health/
 [36]: #4-open-the-web-ui
 [37]: ../../../guides/influx-db-metric-handler/
-[38]: ../../../sensuctl/create-manage-resources/#export-resources
+[38]: ../../../sensuctl/back-up-recover/
 [39]: ../../../sensuctl/create-manage-resources/#create-resources
 [40]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/

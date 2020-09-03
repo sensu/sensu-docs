@@ -1,4 +1,4 @@
-{{ if .Sections }}
+{{ if and .Sections (eq .Parent .FirstSection) }}
   <div id="toc">
     <h2>Contents</h2>
     {{ range .Sections }}
@@ -32,19 +32,34 @@
                     {{ $niceName := title $niceName }}
 
                     <li>
-                      <span class="strong">
-                        {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
-                          {{ upper $niceName }}
-                        <!-- render the title normally if not API -->
-                        {{ else }}
-                          {{ $niceName }}
-                        {{ end }}
-                      </span>
+                      {{ if and (ne .Page.Params.offline false) (ne $.Params.product $x.Name) }}
+                        <a class="strong" href="{{ .URL | absURL }}">
+                          {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
+                            {{ upper $niceName }}
+                          <!-- render the title normally if not API -->
+                          {{ else }}
+                            {{ $niceName }}
+                          {{ end }}
+                        </a>
+                      {{ end }}
                       <ul>
                         <!-- Loop through the child menu's pages -->
                         {{ range .Children.ByWeight }}
                           {{ if and (ne .Page.Params.offline false) (ne (lower .Parent) (lower .Name)) }}
-                            <li><a href="{{ .URL | absURL }}">{{ .Name }}</a></li>
+                            <li>
+                              <a href="{{ .URL | absURL }}">{{ .Name }}</a>
+                              {{ if .HasChildren }}
+                                <ul>
+                                  {{ range .Children.ByWeight }}
+                                    {{ if and (ne .Page.Params.offline false) (ne (lower .Parent) (lower .Name)) }}
+                                      <li>
+                                        <a href="{{ .URL | absURL }}">{{ .Name }}</a>
+                                      </li>
+                                    {{ end }}
+                                  {{ end }}
+                                </ul>
+                              {{ end }}
+                            </li>
                           {{ end }}
                         {{ end }}
                       </ul>
