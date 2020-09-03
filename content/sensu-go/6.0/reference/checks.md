@@ -59,26 +59,12 @@ At every execution of a check command, regardless of success or failure, the Sen
 
 The Sensu backend schedules checks and publishes check execution requests to entities via a [publish-subscribe model][2].
 
-### Subscriptions
+You can schedule checks using the [`interval`][18], [`cron`][19], and [`publish`][38] attributes.
+Sensu requires that checks include either an `interval` attribute (interval scheduling) or a `cron` attribute (cron scheduling).
 
-Checks have a defined set of subscriptions: transport topics to which the Sensu backend publishes check requests.
-Sensu entities become subscribers to these topics (called subscriptions) via their individual `subscriptions` attribute. 
-Subscriptions typically correspond to a specific role or responsibility (for example. a webserver or database).
+### Round robin checks
 
-Subscriptions are powerful primitives in the monitoring context because they allow you to effectively monitor for specific behaviors or characteristics that correspond to the function provided by a particular system.
-For example, disk capacity thresholds might be more important (or at least different) on a database server than on a webserver.
-Conversely, CPU or memory usage thresholds might be more important on a caching system than on a file server.
-
-Subscriptions also allow you to configure check requests for an entire group or subgroup of systems rather than requiring a traditional one-to-one mapping.
-
-To configure subscriptions for a check, use the `subscriptions` attribute to specify an array of one or more subscription names.
-Sensu schedules checks once per interval for each agent with a matching subscription.
-For example, if we have three agents configured with the `system` subscription, a check configured with the `system` subscription results in three monitoring events per interval: one check execution per agent per interval.
-For Sensu to execute a check, the check definition must include a subscription that matches the subscription of at least one Sensu agent.
-
-#### Round robin checks
-
-By default, Sensu schedules checks once per interval for each agent with a matching subscription: one check execution per agent per interval.
+By default, Sensu schedules checks once per interval for each agent with a matching [subscription][45]: one check execution per agent per interval.
 Sensu also supports deduplicated check execution when configured with the `round_robin` check attribute.
 For checks with `round_robin` set to `true`, Sensu executes the check once per interval, cycling through the available agents alphabetically according to agent name.
 
@@ -97,12 +83,7 @@ If you do not specify a `proxy_entity_name` when using check `ttl` and `round_ro
 **PRO TIP**: Use round robin to distribute check execution workload across multiple agents when using [proxy checks](#proxy-checks).
 {{% /notice %}}
 
-### Scheduling
-
-You can schedule checks using the `interval`, `cron`, and `publish` attributes.
-Sensu requires that checks include either an `interval` attribute (interval scheduling) or a `cron` attribute (cron scheduling).
-
-#### Interval scheduling
+### Interval scheduling
 
 You can schedule a check to be executed at regular intervals using the `interval` and `publish` check attributes.
 For example, to schedule a check to execute every 60 seconds, set the `interval` attribute to `60` and the `publish` attribute to `true`.
@@ -112,7 +93,7 @@ For example, to schedule a check to execute every 60 seconds, set the `interval`
 This helps balance the load of both the backend and the agent and may result in a delay before initial check execution.
 {{% /notice %}}
 
-**Example interval check**
+#### Example interval check
 
 {{< language-toggle >}}
 
@@ -152,7 +133,7 @@ spec:
 
 {{< /language-toggle >}}
 
-#### Cron scheduling
+### Cron scheduling
 
 You can also schedule checks using [cron syntax][14].
 
@@ -166,7 +147,7 @@ Examples of valid cron values include:
 **NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`).
 {{% /notice %}}
 
-**Example cron checks**
+#### Example cron checks
 
 To schedule a check to execute once a minute at the start of the minute, set the `cron` attribute to `* * * * *` and the `publish` attribute to `true`:
 
@@ -278,12 +259,12 @@ spec:
 
 {{< /language-toggle >}}
 
-#### Ad hoc scheduling
+### Ad hoc scheduling
 
 In addition to automatic execution, you can create checks to be scheduled manually using the [checks API][34].
 To create a check with ad-hoc scheduling, set the `publish` attribute to `false` in addition to an `interval` or `cron` schedule.
 
-**Example ad hoc check**
+#### Example ad hoc check
 
 {{< language-toggle >}}
 
@@ -581,6 +562,8 @@ description  | Check command to be executed.
 required     | true
 type         | String
 example      | {{< code shell >}}"command": "/etc/sensu/plugins/check-chef-client.go"{{< /code >}}
+
+<a name="check-subscriptions"></a>
 
 |subscriptions|     |
 -------------|------
@@ -1070,6 +1053,8 @@ The asset reference includes an [example check definition that uses the asset pa
 [15]: https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules
 [16]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
 [17]: #subdue-attributes
+[18]: #interval-scheduling
+[19]: #cron-scheduling
 [20]: ../entities/#proxy-entities
 [21]: ../entities/#spec-attributes
 [22]: ../../reference/sensuctl/#time-windows
@@ -1089,12 +1074,14 @@ The asset reference includes an [example check definition that uses the asset pa
 [35]: #use-a-proxy-check-to-monitor-a-proxy-entity
 [36]: #use-a-proxy-check-to-monitor-multiple-proxy-entities
 [37]: #proxy-requests-top-level
+[38]: #ad-hoc-scheduling
 [39]: #check-token-substitution
 [40]: ../entities#manage-entity-labels
 [41]: ../../sensuctl/create-manage-resources/#create-resources
 [42]: #spec-attributes
 [43]: #round-robin-attribute
 [44]: #proxy-entity-name-attribute
+[45]: ../subscriptions/
 [46]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
 [47]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [48]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement

@@ -29,6 +29,19 @@ For optimal network throughput, agents will attempt to negotiate the use of [Pro
 This communication is via clear text by default.
 Follow [Secure Sensu][46] to configure the backend and agent for WebSocket Secure (wss) encrypted communication.
 
+## Create monitoring events using service checks
+
+Sensu uses the [publish/subscribe pattern of communication][15], which allows automated registration and deregistration of ephemeral systems.
+Sensu agent subscriptions determine which checks the agent will execute.
+Read the [subscriptions reference][28] for more information.
+
+### Proxy entities
+
+Sensu proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed (such a network switch).
+The [Sensu backend][2] stores proxy entity definitions (unlike agent entities, which the agent stores).
+When the backend requests a check that includes a [`proxy_entity_name`][15], the agent includes the provided entity information in the event data in place of the agent entity data.
+See the [entity reference][3] and [Monitor external resources][33] for more information about monitoring proxy entities.
+
 ## Create monitoring events using the agent API
 
 The Sensu agent API allows external sources to send monitoring data to Sensu without requiring the external sources to know anything about Sensu's internal implementation.
@@ -1599,7 +1612,8 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [11]: https://en.wikipedia.org/wiki/Configuration_management_database
 [12]: https://www.servicenow.com/products/it-operations-management.html
 [13]: #ephemeral-agent-configuration-flags
-[14]: ../checks/
+[14]: ../checks/#check-specification
+[15]: ../checks/#proxy-entity-name-attribute
 [16]: #general-configuration-flags
 [17]: #socket-configuration-flags
 [18]: #api-configuration-flags
@@ -1612,7 +1626,9 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [25]: ../../api#response-filtering
 [26]: ../../sensuctl/filter-responses/
 [27]: ../tokens/
+[28]: ../../reference/subscriptions/
 [29]: ../assets/
+[33]: ../../guides/monitor-external-resources/
 [35]: ../backend#datastore-and-cluster-configuration-flags
 [36]: ../../operations/deploy-sensu/cluster-sensu/
 [37]: ../backend#general-configuration-flags
