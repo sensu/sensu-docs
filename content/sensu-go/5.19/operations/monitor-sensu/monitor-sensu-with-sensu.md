@@ -51,14 +51,15 @@ metadata:
   namespace: default
   name: check_beta_backend_health
 spec:
-  command: check_http -H sensu-backend-beta -p 8080 -u /health
+  command: check-http.rb -u http://sensu-backend-beta:8080/health -n false
   subscriptions:
     - backend_alpha
   interval: 10
   publish: true
   timeout: 10
   runtime_assets:
-    - monitoring-plugins
+    - sensu-ruby-runtime
+    - sensu-plugins-http
 {{< /code >}}
 
 {{< code yml "Backend Beta">}}
@@ -68,14 +69,15 @@ metadata:
   namespace: default
   name: check_alpha_backend_health
 spec:
-  command: check_http -H sensu-backend-alpha -p 8080 -u /health
+  command: check-http.rb -u http://sensu-backend-beta:8080/health -n false
   subscriptions:
     - backend_beta
   interval: 10
   publish: true
   timeout: 10
   runtime_assets:
-    - monitoring-plugins
+    - sensu-ruby-runtime
+    - sensu-plugins-http
 {{< /code >}}
 
 {{< /language-toggle >}}
