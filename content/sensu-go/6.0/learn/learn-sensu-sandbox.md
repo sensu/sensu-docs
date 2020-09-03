@@ -519,7 +519,7 @@ Here are some resources to help continue your journey:
 [6]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler/
 [7]: ../../learn/sandbox/
 [8]: ../../operations/deploy-sensu/install-sensu/
-[9]: ../../guides/aggregate-metrics-statsd/
+[9]: ../../observability-pipeline/observe-process/aggregate-metrics-statsd/
 [10]: ../../operations/control-access/create-read-only-user/
 [12]: https://www.vagrantup.com/downloads.html
 [13]: https://www.virtualbox.org/wiki/Downloads/

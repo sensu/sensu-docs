@@ -2,7 +2,7 @@
 title: "Scale Sensu Go with Enterprise datastore"
 linkTitle: "Scale with Enterprise Datastore"
 description: "Here’s how to scale your monitoring to thousands of events per second with Sensu."
-weight: 90
+weight: 120
 version: "6.0"
 product: "Sensu Go"
 platformContent: false

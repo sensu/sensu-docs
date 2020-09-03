@@ -400,7 +400,7 @@ For more information about monitoring with Sensu, check out these resources:
 - [Collect metrics with Sensu checks][13]
 
 [1]: https://kubernetes.io/docs/tasks/tools/install-minikube/
-[2]: ../../installation/install-sensu/#install-sensuctl
+[2]: ../../operations/deploy-sensu/install-sensu/#install-sensuctl
 [3]: https://github.com/sensu/sensu-influxdb-handler/
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler/
 [5]: https://slack.com/get-started#create
@@ -409,7 +409,7 @@ For more information about monitoring with Sensu, check out these resources:
 [8]: http://webui.sensu.local/events/
 [9]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector/
 [10]: http://grafana.local/
-[11]: ../../guides/reduce-alert-fatigue/
-[12]: ../../guides/aggregate-metrics-statsd/
-[13]: ../../guides/extract-metrics-with-checks/
-[14]: ../../installation/install-sensu/#3-initialize
+[11]: ../../observability-pipeline/observe-filter/reduce-alert-fatigue/
+[12]: ../../observability-pipeline/observe-process/aggregate-metrics-statsd/
+[13]: ../../observability-pipeline/observe-schedule/extract-metrics-with-checks/
+[14]: ../../operations/deploy-sensu/install-sensu/#3-initialize
