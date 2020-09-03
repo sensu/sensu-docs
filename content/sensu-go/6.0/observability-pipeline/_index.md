@@ -14,10 +14,12 @@ menu:
 
 Sensu's observability pipeline is a flexible, automated tool that gives you visibility into every part of your organization's infrastructure.
 
-The Sensu [agent][1] is a lightweight client that runs on your [entities][2], which are the infrastructure components you want to observe.
-The Sensu [backend][1] schedules [checks][3] for agents to run on your entities based on the agent subscriptions you specify.
+The Sensu [agent][1] is a lightweight process that runs on the infrastructure components you want to observe.
+Each agent is represented in Sensu as an [entity][2].
+The Sensu [backend][1] schedules [checks][3] for agents to run on your infrastructure.
+Agents receive check execution requests based on the agent subscriptions you specify.
 
-The agent runs these checks on your entities to gather observation data about them.
+The agent runs these checks on your infrastructure to gather observation data about your networking, compute resources, applications, and more .
 [Events][3] contain the observation data that your checks gather, which might include entity status, metrics, or both, depending on your needs and configuration.
 
 The agent sends events to the backend, which [filters][5], [transforms][6], and [processes][7] the data in your events with event filters, mutators, and handlers.
