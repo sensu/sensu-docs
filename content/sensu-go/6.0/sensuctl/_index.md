@@ -79,7 +79,7 @@ Your ability to get, list, create, update, and delete resources with sensuctl de
 For more information about configuring Sensu access control, see the [RBAC reference][1].
 
 {{% notice note %}}
-**NOTE**: For a **new** installation, you can set administrator credentials with environment variables during [initialization](../../../observability-pipeline/observe-schedule/backend/#initialization).
+**NOTE**: For a **new** installation, you can set administrator credentials with environment variables during [initialization](../observability-pipeline/observe-schedule/backend/#initialization).
 If you are using Docker and you do not include the environment variables to set administrator credentials, the backend will initialize with the default username (`admin`) and password (`P@ssw0rd!`).
 {{% /notice %}} 
 

@@ -131,7 +131,7 @@ spec:
 See the [reference docs][16] for the corresponding [resource type][17] to create resource definitions.
 
 {{% notice protip %}}
-**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference](../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
+**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference](../../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
 {{% /notice %}}
 
 ### Namespace specification
@@ -264,8 +264,8 @@ An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
 {{% notice note %}}
-**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../../operations/control-access/auth#use-built-in-basic-authentication).
-It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../operations/control-access/auth/#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../operations/control-access/auth/#active-directory-ad-authentication). 
+**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../auth#use-built-in-basic-authentication).
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../auth/#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../auth/#active-directory-ad-authentication). 
 {{% /notice %}}
 
 To change the password for a user:
@@ -1245,51 +1245,51 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 {{< /code >}}
 
 
-[1]: ../backend/
-[2]: ../../sensuctl/
-[3]: ../../web-ui/
+[1]: ../../../observability-pipeline/observe-schedule/backend/
+[2]: ../../../sensuctl/
+[3]: ../../../web-ui/
 [4]: #resources
-[5]: ../assets/
-[6]: ../checks/
-[7]: ../entities/
-[8]: ../events/
-[9]: ../handlers/
-[10]: ../hooks/
-[11]: ../mutators/
+[5]: ../../deploy-sensu/assets/
+[6]: ../../../observability-pipeline/observe-schedule/checks/
+[7]: ../../../observability-pipeline/observe-entities/entities/
+[8]: ../../../observability-pipeline/observe-events/events/
+[9]: ../../../observability-pipeline/observe-process/handlers/
+[10]: ../../../observability-pipeline/observe-schedule/hooks/
+[11]: ../../../observability-pipeline/observe-transform/mutators/
 [13]: #roles-and-cluster-roles
-[14]: ../silencing/
+[14]: ../../../observability-pipeline/observe-process/silencing/
 [16]: ../../../reference/
 [17]: #namespaced-resource-types
 [18]: #cluster-wide-resource-types
-[19]: ../../api/
+[19]: ../../../api/
 [20]: #default-users
 [21]: #cluster-roles
-[22]: ../filters/
+[22]: ../../../observability-pipeline/observe-filter/filters/
 [23]: #role-bindings-and-cluster-role-bindings
 [24]: #role-and-cluster-role-specification
 [25]: #create-roles
-[26]: ../../operations/deploy-sensu/install-sensu/#install-sensuctl
+[26]: ../../deploy-sensu/install-sensu/#install-sensuctl
 [27]: #create-users
 [28]: #create-cluster-wide-roles
 [29]: #create-role-bindings-and-cluster-role-bindings
 [30]: #role-binding-and-cluster-role-binding-specification
-[31]: ../../sensuctl/create-manage-resources/#create-resources
-[32]: ../../operations/control-access/auth#use-an-authentication-provider
-[33]: ../../commercial/
-[34]: ../../operations/control-access/auth#use-built-in-basic-authentication
+[31]: ../../../sensuctl/create-manage-resources/#create-resources
+[32]: ../auth#use-an-authentication-provider
+[33]: ../../../commercial/
+[34]: ../auth#use-built-in-basic-authentication
 [35]: https://en.wikipedia.org/wiki/Bcrypt
-[37]: ../license/
-[38]: ../../operations/control-access/auth/#groups-prefix
-[39]: ../../operations/control-access/auth/#ad-groups-prefix
-[40]: ../etcdreplicators/
-[41]: ../agent/#security-configuration-flags
-[42]: ../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
-[43]: ../../operations/control-access/auth#lightweight-directory-access-protocol-ldap-authentication
-[44]: ../../operations/control-access/auth/#active-directory-ad-authentication
-[45]: ../../sensuctl/#change-admin-users-password
-[46]: ../secrets-providers/
-[47]: ../datastore/
-[48]: ../secrets/
-[49]: ../../web-ui/filter/#save-a-filtered-search
-[50]: ../../sensuctl/#reset-a-user-password
-[51]: ../../sensuctl/#generate-a-password-hash
+[37]: ../../maintain-sensu/license/
+[38]: ../auth/#groups-prefix
+[39]: ../auth/#ad-groups-prefix
+[40]: ../../deploy-sensu/etcdreplicators/
+[41]: ../../../observability-pipeline/observe-schedule/agent/#security-configuration-flags
+[42]: ../../deploy-sensu/install-sensu/#install-the-sensu-backend
+[43]: ../auth#lightweight-directory-access-protocol-ldap-authentication
+[44]: ../auth/#active-directory-ad-authentication
+[45]: ../../../sensuctl/#change-admin-users-password
+[46]: ../../manage-secrets/secrets-providers/
+[47]: ../../deploy-sensu/datastore/
+[48]: ../../manage-secrets/secrets/
+[49]: ../../../web-ui/filter/#save-a-filtered-search
+[50]: ../../../sensuctl/#reset-a-user-password
+[51]: ../../../sensuctl/#generate-a-password-hash

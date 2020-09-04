@@ -196,17 +196,17 @@ default      | `0` (unlimited)
 type         | Integer
 example      | {{< code shell >}}pool_size: 20{{< /code >}}
 
-[1]: ../../sensuctl/#first-time-setup
-[2]: ../../operations/maintain-sensu/troubleshoot/
+[1]: ../../../sensuctl/#first-time-setup
+[2]: ../../maintain-sensu/troubleshoot/
 [3]: https://aws.amazon.com/rds/
-[8]: ../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster
-[9]: ../../web-ui/
-[10]: ../../sensuctl/create-manage-resources/#sensuctl-event
-[11]: ../../api/events/
-[12]: ../../observability-pipeline/observe-process/influx-db-metric-handler/
-[13]: ../../commercial/
+[8]: ../cluster-sensu/#use-an-external-etcd-cluster
+[9]: ../../../web-ui/
+[10]: ../../../sensuctl/create-manage-resources/#sensuctl-event
+[11]: ../../../api/events/
+[12]: ../../../observability-pipeline/observe-process/influx-db-metric-handler/
+[13]: ../../../commercial/
 [14]: https://www.postgresql.org
 [15]: https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING
-[16]: ../../sensuctl/create-manage-resources/#create-resources
+[16]: ../../../sensuctl/create-manage-resources/#create-resources
 [17]: #spec-attributes
 [18]: #datastore-specification

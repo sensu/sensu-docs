@@ -143,14 +143,14 @@ If your license expires, you will still have access to [commercial features][5],
 
 
 [1]: https://account.sensu.io/
-[2]: ../../operations/deploy-sensu/install-sensu/
-[3]: ../../sensuctl/#first-time-setup
-[4]: ../../api/license/
-[5]: ../../commercial/
-[6]: ../../operations/maintain-sensu/troubleshoot/
+[2]: ../../deploy-sensu/install-sensu/
+[3]: ../../../sensuctl/#first-time-setup
+[4]: ../../../api/license/
+[5]: ../../../commercial/
+[6]: ../troubleshoot/
 [7]: https://sensu.io/contact?subject=contact-sales
 [8]: https://account.sensu.io/support
-[9]: ../../api/
-[10]: ../../operations/control-access/auth/
+[9]: ../../../api/
+[10]: ../../control-access/auth/
 [11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4
-[12]: ../../operations/deploy-sensu/use-assets-to-install-plugins/
+[12]: ../../deploy-sensu/use-assets-to-install-plugins/

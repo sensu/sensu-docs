@@ -508,13 +508,13 @@ sensuctl license info
 
 [1]: https://github.com/sensu/sensu-go/releases/
 [2]: ../generate-certificates/
-[3]: ../../web-ui/
+[3]: ../../../web-ui/
 [4]: ../../../sensuctl/
 [5]: ../../../platforms/
 [6]: ../../../observability-pipeline/observe-schedule/backend#configuration
 [7]: ../../../observability-pipeline/observe-schedule/agent#configuration-via-flags
 [8]: ../secure-sensu/
-[9]: ../../../observability-pipeline/observe-process/monitor-server-resources/
+[9]: ../../../observability-pipeline/observe-schedule/monitor-server-resources/
 [10]: ../../../observability-pipeline/observe-process/send-slack-alerts/
 [11]: https://sensu.io/contact?subject=contact-sales/
 [12]: ../../../observability-pipeline/observe-process/email-handler/

@@ -80,9 +80,9 @@ SQEs are valid ECMAScript 5 (JavaScript) expressions that return either `true` o
 Other values are not allowed.
 If an SQE returns a value besides `true` or `false`, an error is recorded in the [Sensu backend log][2] and the filter evaluates to `false`.
 
-### Custom functions
+## Custom functions
 
-#### hour
+### hour
 
 The custom function `hour` returns the hour of a UNIX epoch time (in UTC and 24-hour time notation).
 
@@ -92,7 +92,7 @@ For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5
 hour(event.timestamp) >= 17
 {{< /code >}}
 
-#### weekday
+### weekday
 
 The custom function `weekday` returns a number that represents the day of the week of a UNIX epoch time.
 Sunday is `0`.
@@ -102,6 +102,31 @@ For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5
 {{< code go >}}
 weekday(event.timestamp) == 0
 {{< /code >}}
+
+### sensu.CheckDependencies
+
+The `sensu.CheckDependencies` SQE takes zero or more checks as arguments.
+It returns `true` if all the specified checks are passing or `false` if any of the specified checks are failing.
+
+If you do not specify any checks, the `sensu.CheckDependencies` SQE always returns `true`.
+
+You can refer to the checks as strings.
+In this example, if all checks named `database` or `disk` are passing, the following SQE returns `true`:
+
+{{< code javascript >}}
+sensu.CheckDependencies("database", "disk")
+{{< /code >}}
+
+If you pass the check names as strings, Sensu assumes that the entites are the same as those in the events being filtered.
+
+You can also refer to the checks in objects that include both the entity and check name.
+For example:
+
+{{< code javascript >}}
+sensu.CheckDependencies({entity: "server01", check: "disk"}, {entity: "server01", check: "database"})
+{{< /code >}}
+
+In both cases, if no event matches the specified entities and checks, Sensu will raise an error.
 
 ## Examples
 
@@ -156,5 +181,5 @@ Likewise, this expression returns `true` if the event's entity includes the anno
 
 
 [1]: https://github.com/robertkrimen/otto
-[2]: ../backend/#event-logging
-[3]: ../filters/#build-event-filter-expressions
+[2]: ../../observe-schedule/backend/#event-logging
+[3]: ../filters/#build-event-filter-expressions-with-sensu-query-expressions

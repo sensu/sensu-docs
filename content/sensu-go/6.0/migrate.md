@@ -446,11 +446,11 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check/
 [29]: ../observability-pipeline/observe-schedule/backend#operation
 [33]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#configuration
-[34]: ../observability-pipeline/observe-process/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler-1
+[34]: ../observability-pipeline/observe-filter/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler-1
 [36]: https://etcd.io/
 [37]: ../operations/deploy-sensu/cluster-sensu/
 [38]: ../operations/deploy-sensu/deployment-architecture/
-[39]: web-ui/
+[39]: ../web-ui/
 [40]: ../api/
 [41]: ../observability-pipeline/observe-schedule/agent#create-monitoring-events-using-the-agent-api
 [42]: ../observability-pipeline/observe-schedule/agent/#create-monitoring-events-using-the-statsd-listener
@@ -471,8 +471,8 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [57]: ../observability-pipeline/observe-schedule/extract-metrics-with-checks/
 [58]: ../observability-pipeline/observe-schedule/checks#metadata-attributes
 [59]: https://bonsai.sensu.io/assets?q=eventfilter
-[60]: ../observability-pipeline/observe-process/reduce-alert-fatigue/
-[61]: ../observability-pipeline/observe-filter/filters/#build-event-filter-expressions
+[60]: ../observability-pipeline/observe-filter/reduce-alert-fatigue/
+[61]: ../observability-pipeline/observe-filter/filters/#build-event-filter-expressions-with-sensu-query-expressions
 [62]: https://blog.sensu.io/filters-valves-for-the-sensu-monitoring-event-pipeline
 [63]: ../observability-pipeline/observe-filter/filters/#built-in-filter-is_incident
 [64]: ../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced

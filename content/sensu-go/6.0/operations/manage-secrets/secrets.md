@@ -19,7 +19,7 @@ Sensu's secrets management eliminates the need to expose secrets in your Sensu c
 When a Sensu resource definition requires a secret (e.g. a username or password), Sensu allows you to obtain secrets from one or more external secrets providers, so you can both refer to external secrets and consume secrets via [backend environment variables][5].
 
 {{% notice note %}}
-**NOTE**: Secrets management is implemented for [checks](../checks/#check-with-secret), [handlers](../handlers/#handler-with-secret), and [mutators](../mutators/#mutator-with-secret).
+**NOTE**: Secrets management is implemented for [checks](../../../observability-pipeline/observe-schedule/checks/#check-with-secret), [handlers](../../../observability-pipeline/observe-process/handlers/#handler-with-secret), and [mutators](../../../observability-pipeline/observe-transform/mutators/#mutator-with-secret).
 {{% /notice %}}
 
 Only Sensu backends have access to request secrets from a [secrets provider][7].
@@ -217,16 +217,16 @@ In this example, the name of the secret is `database`.
 The `database` secret contains a key called `password`, and its value is the password to our database.
 
 
-[1]: ../../commercial/
-[2]: ../../api/secrets/
-[3]: ../../sensuctl/
-[4]: ../../sensuctl/create-manage-resources/#subcommands
-[5]: ../backend/#configuration-via-environment-variables
-[6]: ../rbac#default-users
+[1]: ../../../commercial/
+[2]: ../../../api/secrets/
+[3]: ../../../sensuctl/
+[4]: ../../../sensuctl/create-manage-resources/#subcommands
+[5]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables
+[6]: ../../control-access/rbac#default-users
 [7]: ../secrets-providers/
 [8]: #spec-attributes
-[9]: ../rbac/#namespaces
+[9]: ../../control-access/rbac/#namespaces
 [10]: https://learn.hashicorp.com/vault/getting-started/dev-server
-[11]: ../../operations/manage-secrets/secrets-management/
+[11]: ../secrets-management/
 [12]: #metadata-attributes
-[13]: ../../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[13]: ../../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication

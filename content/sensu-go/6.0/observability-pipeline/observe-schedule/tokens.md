@@ -394,13 +394,13 @@ spec:
 
 [1]: https://pkg.go.dev/text/template
 [2]: https://pkg.go.dev/text/template?tab=doc#hdr-Examples
-[3]: ../entities/#entities-specification
-[4]: ../entities/
+[3]: ../../observe-entities/entities/#entities-specification
+[4]: ../../observe-entities/entities/
 [5]: ../checks/
-[6]: ../entities#manage-entity-labels
+[6]: ../../observe-entities/entities#manage-entity-labels
 [7]: ../checks/#check-commands
 [8]: ../hooks/
 [9]: #token-data-type-limitations
-[10]: ../handlers/
-[11]: ../mutators/
-[12]: ../assets/
+[10]: ../../observe-process/handlers/
+[11]: ../../observe-transform/mutators/
+[12]: ../../../operations/deploy-sensu/assets/

@@ -541,4 +541,4 @@ Sensuctl supports the following formats:
 [31]: ../#manage-sensuctl
 [32]: ../../operations/deploy-sensu/datastore/
 [33]: #create-resources-across-namespaces
-[34]: ../../operations/monitor-sensu/license/
+[34]: ../../operations/maintain-sensu/license/

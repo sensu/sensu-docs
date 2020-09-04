@@ -107,16 +107,16 @@ You can also try our interactive tutorial and learn how to [send Sensu Go alerts
 
 
 [1]: ../../observe-events/events/
-[2]: ../monitor-server-resources/
+[2]: ../../observe-schedule/monitor-server-resources/
 [3]: https://github.com/sensu/slack-handler
 [4]: https://golang.org/doc/install
 [5]: https://en.wikipedia.org/wiki/PATH_(variable)
 [6]: https://api.slack.com/incoming-webhooks
-[7]: ../../operations/maintain-sensu/troubleshoot/
+[7]: ../../../operations/maintain-sensu/troubleshoot/
 [8]: ../handlers/
-[9]: ../reduce-alert-fatigue/
-[10]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions
-[11]: ../../learn/sensu-pagerduty/
+[9]: ../../observe-filter/reduce-alert-fatigue/
+[10]: ../../../sensuctl/sensuctl-bonsai/#install-asset-definitions
+[11]: ../../../learn/sensu-pagerduty/
 [12]: https://slack.com/get-started#/create
 [13]: ../../../operations/deploy-sensu/assets
 [14]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler

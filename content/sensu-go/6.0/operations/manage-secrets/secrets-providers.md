@@ -19,7 +19,7 @@ Sensu's secrets management eliminates the need to expose secrets like usernames,
 With Sensu's secrets management, you can obtain secrets from one or more external secrets providers, refer to external secrets, and consume secrets via [backend environment variables][4].
 
 {{% notice note %}}
-**NOTE**: Secrets management is implemented for [checks](../checks/#check-with-secret), [handlers](../handlers/#handler-with-secret), and [mutators](../mutators/#mutator-with-secret).
+**NOTE**: Secrets management is implemented for [checks](../../../observability-pipeline/observe-schedule/checks/#check-with-secret), [handlers](../../../observability-pipeline/observe-process/handlers/#handler-with-secret), and [mutators](../../../observability-pipeline/observe-transform/mutators/#mutator-with-secret).
 {{% /notice %}}
 
 Only Sensu backends have access to request [secrets][9] from a secrets provider.
@@ -322,20 +322,20 @@ spec: {}
 {{< /language-toggle >}}
 
 
-[1]: ../../commercial/
-[2]: ../../api/secrets/
-[3]: ../../sensuctl/
-[4]: ../backend/#configuration-via-environment-variables
+[1]: ../../../commercial/
+[2]: ../../../api/secrets/
+[3]: ../../../sensuctl/
+[4]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables
 [5]: https://www.vaultproject.io/docs/what-is-vault/
-[6]: ../rbac#default-users
-[7]: ../../sensuctl/create-manage-resources/#create-resources
+[6]: ../../control-access/rbac#default-users
+[7]: ../../../sensuctl/create-manage-resources/#create-resources
 [8]: #spec-attributes
 [9]: ../secrets/
 [10]: https://www.vaultproject.io/docs/auth/token/
 [11]: https://www.vaultproject.io/api/auth/cert/index.html
 [12]: #client-attributes
-[13]: ../../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[13]: ../../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
 [14]: https://www.vaultproject.io/docs/secrets/kv
 [15]: https://www.vaultproject.io/api/auth/cert/index.html#parameters-7
-[16]: ../../operations/manage-secrets/secrets-management/
+[16]: ../secrets-management/
 [17]: #rate-limiter-attributes

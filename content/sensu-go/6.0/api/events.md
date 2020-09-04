@@ -946,7 +946,7 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 [1]: ../../observability-pipeline/observe-events/events/
 [2]: ../#pagination
 [3]: #eventsentitycheck-put
-[4]: ../web-ui/
+[4]: ../../web-ui/
 [5]: #eventsentitycheck-put-parameters
 [6]: ../../observability-pipeline/observe-entities/entities#entities-specification
 [7]: ../../observability-pipeline/observe-schedule/checks#check-specification

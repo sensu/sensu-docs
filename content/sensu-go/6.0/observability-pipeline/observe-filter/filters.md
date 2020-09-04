@@ -537,7 +537,7 @@ example      | {{< code shell >}}"labels": {
 
 | annotations | |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with [event filters][40]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][36], [sensuctl response filtering][37], or [web UI views][42].
+description  | Non-identifying metadata to include with event data that you can access with event filters. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][36], [sensuctl response filtering][37], or [web UI views][42].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`

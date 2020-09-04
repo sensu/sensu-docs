@@ -396,9 +396,9 @@ Before you implement etcd replicators, review these details &mdash; they are cri
 **WARNING**: Make sure to confirm your configuration. The server will accept incorrect EtcdReplicator definitions without sending a warning. If your configuration is incorrect, replication will not work.
 {{% /notice %}}
 
-[1]: ../../commercial/
-[2]: ../../api/etcdreplicators/
-[3]: ../rbac/
-[4]: ../../sensuctl/create-manage-resources/#create-resources
-[5]: ../../operations/deploy-sensu/secure-sensu/#create-self-signed-certificates-for-securing-etcd-and-backend-agent-communication
+[1]: ../../../commercial/
+[2]: ../../../api/etcdreplicators/
+[3]: ../../control-access/rbac/
+[4]: ../../../sensuctl/create-manage-resources/#create-resources
+[5]: ../secure-sensu/#create-self-signed-certificates-for-securing-etcd-and-backend-agent-communication
 [6]: #spec-attributes

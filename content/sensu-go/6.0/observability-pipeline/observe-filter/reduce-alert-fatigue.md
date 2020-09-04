@@ -193,13 +193,13 @@ However, if the event is being discarded by the event filter, a log entry with t
 
 Now that you know how to apply an event filter to a handler and use a filter asset to help reduce alert fatigue, read the [filters reference][1] for in-depth information about event filters. 
 
-[1]:  ../../observability-pipeline/observe-filter/filters/
-[2]: ../../operations/maintain-sensu/troubleshoot#log-file-locations
-[3]: ../send-slack-alerts/
+[1]:  ../filters/
+[2]: ../../../operations/maintain-sensu/troubleshoot#log-file-locations
+[3]: ../../observe-process/send-slack-alerts/
 [4]: #approach-1-use-sensuctl-to-create-an-event-filter
 [5]: #approach-2-use-an-event-filter-asset
-[6]: ../../operations/deploy-sensu/assets/ 
-[7]: ../use-assets-to-install-plugins/
+[6]: ../../../operations/deploy-sensu/assets/ 
+[7]: ../../../operations/deploy-sensu/use-assets-to-install-plugins/
 [8]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
 [9]: https://bonsai.sensu.io/
 [10]: https://github.com/nixwiz/sensu-go-fatigue-check-filter#configuration

@@ -327,16 +327,16 @@ spec:
 
 {{< /language-toggle >}}
 
-[1]: ../../sensuctl/create-manage-resources/#create-resources
+[1]: ../../../sensuctl/create-manage-resources/#create-resources
 [2]: #metadata-attributes
-[3]: ../rbac#namespaces
-[4]: ../filters/
-[5]: ../assets/
+[3]: ../../../operations/control-access/rbac#namespaces
+[4]: ../../observe-filter/filters/
+[5]: ../../../operations/deploy-sensu/assets/
 [6]: ../checks#check-hooks-attribute
 [7]: ../tokens/
 [8]: https://regex101.com/r/zo9mQU/2
 [9]: #spec-attributes
-[10]: ../../api#response-filtering
-[11]: ../../sensuctl/filter-responses/
-[12]: ../../web-ui/filter#filter-with-label-selectors
-[13]: ../../web-ui/filter
+[10]: ../../../api#response-filtering
+[11]: ../../../sensuctl/filter-responses/
+[12]: ../../../web-ui/filter#filter-with-label-selectors
+[13]: ../../../web-ui/filter

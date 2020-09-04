@@ -1448,7 +1448,7 @@ To get started with Sensu Go:
 [141]: /sensu-go/5.20/commercial/
 [142]: /sensu-go/5.20/reference/agent/#configuration-via-flags
 [143]: /sensu-go/5.20/reference/entities/#processes-attributes
-[144]: /sensu-go/5.20/sensuctl/create-manage-resources/#sensuctl-describe-type-resource-types
+[144]: /sensu-go/5.20/sensuctl/create-manage-resources/#supported-resource-types
 [145]: /sensu-go/5.20/reference/backend/#configuration-summary
 [146]: /sensu-go/5.20/reference/tokens/#manage-assets
 [147]: /sensu-go/5.20/reference/tokens/#token-substitution-with-quoted-strings
@@ -1472,5 +1472,5 @@ To get started with Sensu Go:
 [166]: /sensu-go/6.0/operations/control-access/rbac/#subjects-specification
 [167]: /sensu-go/6.0/operations/control-access/rbac/#roleref-specification
 [168]: /sensu-go/6.0/observability-pipeline/observe-filter/sensu-query-expressions/#sensucheckdependencies
-[169]: /sensu-go/6.0/reference/filters/#build-event-filter-expressions-with-javascript-execution-functions
+[169]: /sensu-go/6.0/observability-pipeline/observe-filter/filters/#build-event-filter-expressions-with-javascript-execution-functions
 [170]: /sensu-go/6.0/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-60-from-a-5x-deployment

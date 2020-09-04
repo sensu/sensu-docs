@@ -21,7 +21,7 @@ To extract metrics from check output, you'll need to:
 1. Configure the check `command` so that the command execution outputs metrics in one of the [supported output metric formats][3].
 2. Configure the check `output_metric_format` to one of the [supported output metric formats][3].
 
-You can also configure the check `output_metric_handlers` to a Sensu handler that is equipped to handle Sensu metrics if you wish. See [handlers][4] or [influx-db handler][5] to learn more.
+You can also configure the check `output_metric_handlers` to a Sensu handler that is equipped to handle Sensu metrics if you wish. See the [handlers reference][4] or [InfluxDB handler guide][5] to learn more.
 
 You can configure the check with these fields at creation or use the commands in this guide (assuming you have a check named `collect-metrics`).
 This example uses `graphite_plaintext` format and sends the metrics to a handler named `influx-db`.
@@ -159,9 +159,9 @@ Check out these resources for more information about scheduling checks and using
 [2]: ../monitor-server-resources/
 [3]: #supported-output-metric-formats
 [4]: ../../observe-process/handlers/
-[5]: ../influx-db-metric-handler/
+[5]: ../../observe-process/influx-db-metric-handler/
 [6]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
 [7]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [8]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [9]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
-[10]: ../../operations/maintain-sensu/troubleshoot#handlers-and-event-filters
+[10]: ../../../operations/maintain-sensu/troubleshoot#handlers-and-event-filters

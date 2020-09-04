@@ -65,7 +65,7 @@ sensuctl asset list
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+Read [the asset reference](../../../operations/deploy-sensu/assets#asset-builds) for more information about asset builds.
 {{% /notice %}}
 
 ## Create a check
@@ -119,11 +119,11 @@ Now that you know how to run a check to monitor CPU usage, read these resources 
 * [Send Slack alerts with handlers][6]
 
 [1]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-cpu-checks
-[2]: ../use-assets-to-install-plugins/
-[3]: ../../reference/checks/
-[4]: ../../operations/deploy-sensu/install-sensu/#install-sensu-agents
-[5]: ../monitor-external-resources/
-[6]: ../send-slack-alerts/
+[2]: ../../../operations/deploy-sensu/use-assets-to-install-plugins/
+[3]: ../checks/
+[4]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
+[5]: ../../observe-entities/monitor-external-resources/
+[6]: ../../observe-process/send-slack-alerts/
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
-[8]: ../../reference/agent/#restart-the-service
-[9]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions
+[8]: ../agent/#restart-the-service
+[9]: ../../../sensuctl/sensuctl-bonsai/#install-asset-definitions

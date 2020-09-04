@@ -65,16 +65,16 @@ Sensu's [events API][15] provides HTTP access to create, retrieve, update, and d
 If you create a new event that references an entity that does not already exist, the Sensu [backend][16] will automatically create a proxy entity when the event is published.
 
 
-[1]: ../../observability-pipeline/observe-schedule/monitor-server-resources/
+[1]: ../observe-schedule/monitor-server-resources/
 [2]: https://bonsai.sensu.io
 [3]: #status-only-events
-[4]: ../hooks/
-[5]: ../../observability-pipeline/observe-process/aggregate-metrics-statsd/
-[6]: ../../observability-pipeline/observe-schedule/extract-metrics-with-checks/
+[4]: ../observe-schedule/hooks/
+[5]: ../observe-process/aggregate-metrics-statsd/
+[6]: ../observe-schedule/extract-metrics-with-checks/
 [7]: #metrics-only-events
 [8]: #status-and-metrics-events
 [9]: checks/#subscriptions
-[10]: ../../operations/deploye-sensu/use-assets-to-install-plugins/
+[10]: ../../operations/deploy-sensu/use-assets-to-install-plugins/
 [11]: ../observe-schedule/agent/
 [12]: ../observe-schedule/
 [13]: #events-api

@@ -114,7 +114,7 @@ Tokens let you fine-tune check attributes (like thresholds) on a per-entity leve
 [9]: ../../observability-pipeline/observe-filter/filters/
 [10]: ../../observability-pipeline/observe-process/handlers/
 [11]: ../../observability-pipeline/observe-transform/mutators/
-[12]: ../../observability-pipeline/observe-entities/entities#proxy-entities
+[12]: ../../observability-pipeline/observe-entities/#proxy-entities
 [13]: ../../operations/control-access/rbac/
 [14]: ../../sensuctl/
 [15]: ../../observability-pipeline/observe-schedule/checks/#subdue-attributes

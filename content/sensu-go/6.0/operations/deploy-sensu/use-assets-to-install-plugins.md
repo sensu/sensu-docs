@@ -155,13 +155,13 @@ You can also try our interactive tutorial to [send critical alerts to your Pager
 [3]: https://bonsai.sensu.io
 [4]: ../../../observability-pipeline/observe-entities/entities/#system-attributes
 [5]: ../assets/#metadata-attributes
-[6]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions
+[6]: ../../../sensuctl/sensuctl-bonsai/#install-asset-definitions
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
-[8]: ../../learn/sensu-pagerduty/
+[8]: ../../../learn/sensu-pagerduty/
 [10]: https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler
 [11]: https://bonsai.sensu.io/assets/sensu/sensu-jira-handler
-[12]: ../../commercial/
-[13]: ../monitor-server-resources/
+[12]: ../../../commercial/
+[13]: ../../../observability-pipeline/observe-schedule/monitor-server-resources/
 [14]: ../assets#asset-format-specification
 [15]: ../assets#share-an-asset-on-bonsai
 [16]: https://bonsai.sensu.io

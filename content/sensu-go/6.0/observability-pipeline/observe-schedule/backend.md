@@ -378,7 +378,7 @@ api-listen-address: "[::]:8080"{{< /code >}}
 -------------|------
 description  | URL used to connect to the API.
 type         | String
-default      | `http://localhost:8080`
+default      | `http://localhost:8080` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://$SENSU_HOSTNAME:8080` (Docker)
 environment variable | `SENSU_BACKEND_API_URL`
 example      | {{< code shell >}}# Command line example
 sensu-backend start --api-url http://localhost:8080
@@ -770,7 +770,7 @@ dashboard-port: 4000{{< /code >}}
 --------------|------
 description   | List of this member's client URLs to advertise to the rest of the cluster.
 type          | List
-default       | `http://localhost:2379`
+default       | `http://localhost:2379` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://$SENSU_HOSTNAME:2379` (Docker)
 environment variable | `SENSU_BACKEND_ETCD_ADVERTISE_CLIENT_URLS`
 example       | {{< code shell >}}# Command line examples
 sensu-backend start --etcd-advertise-client-urls http://localhost:2378,http://localhost:2379
@@ -889,7 +889,7 @@ etcd-discovery-srv:
 -----------------------------------|------
 description                        | List of this member's peer URLs to advertise to the rest of the cluster.
 type                               | List
-default                            | `http://127.0.0.1:2380`
+default                            | `http://127.0.0.1:2380` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://$SENSU_HOSTNAME:2380` (Docker)
 environment variable               | `SENSU_BACKEND_ETCD_INITIAL_ADVERTISE_PEER_URLS`
 example                            | {{< code shell >}}# Command line examples
 sensu-backend start --etcd-initial-advertise-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
@@ -906,7 +906,7 @@ etcd-initial-advertise-peer-urls:
 -----------------------|------
 description            | Initial cluster configuration for bootstrapping.
 type                   | String
-default                | `default=http://127.0.0.1:2380`
+default                | `default=http://127.0.0.1:2380` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`default=http://$SENSU_HOSTNAME:2380` (Docker)
 environment variable   | `SENSU_BACKEND_ETCD_INITIAL_CLUSTER`
 example                | {{< code shell >}}# Command line example
 sensu-backend start --etcd-initial-cluster backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380
@@ -958,7 +958,7 @@ etcd-key-file: "./client-key.pem"{{< /code >}}
 --------------------------|------
 description               | List of URLs to listen on for client traffic.
 type                      | List
-default                   | `http://127.0.0.1:2379`
+default                   | `http://127.0.0.1:2379` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://[::]:2379` (Docker)
 environment variable      | `SENSU_BACKEND_ETCD_LISTEN_CLIENT_URLS`
 example                   | {{< code shell >}}# Command line examples
 sensu-backend start --etcd-listen-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379
@@ -975,7 +975,7 @@ etcd-listen-client-urls:
 ------------------------|------
 description             | List of URLs to listen on for peer traffic.
 type                    | List
-default                 | `http://127.0.0.1:2380`
+default                 | `http://127.0.0.1:2380` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://[::]:2380` (Docker)
 environment variable    | `SENSU_BACKEND_ETCD_LISTEN_PEER_URLS`
 example                 | {{< code shell >}}# Command line examples
 sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
