@@ -31,7 +31,6 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `armv5`<br>`armv6`<br>`armv7` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS hard float`<br>`MIPS 64 hard float`<br>`MIPS LE hard float`<br>`MIPS 64 LE hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 
@@ -42,7 +41,6 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `armv5`<br>`armv6`<br>`armv7` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS hard float`<br>`MIPS 64 hard float`<br>`MIPS LE hard float`<br>`MIPS 64 LE hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 
@@ -64,7 +62,7 @@ See the [Sensu Go Web GitHub repository][60] for more information.
 
 | Platform | Architectures |
 |----------|---------------|
-| Linux | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` `ppc64le` `s390x` |
+| Linux | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`ppc64le` `s390x` |
 | Windows | `386` `amd64` |
 | macOS | `amd64` `amd64 CGO` |
 | FreeBSD | `386` `amd64` `armv5` `armv6` `armv7` |
@@ -79,7 +77,6 @@ Sensu binary-only distributions for Linux are available for the architectures li
 For binary distributions, we support the following Linux kernels:
 
 - 3.1.x and later for `armv5`
-- 4.8 and later for `MIPS 64 LE hard float` and `MIPS 64 LE soft float`
 - 2.6.23 and later for all other architectures
 
 {{% notice note %}}
@@ -99,7 +96,7 @@ Binaries for all other Linux architectures include only the Sensu agent and sens
 <tbody>
 <tr>
 <td><code>386</code></td>
-<td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_386.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_386.zip"><code>.zip</code></a></td>
+<td><a href=""><code>.zip</code></a></td>
 <td class="vertline"><code>MIPS LE hard float</code></td>
 <td><a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_mipsle-hardfloat.tar.gz"><code>.tar.gz</code></a> | <a href="https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_mipsle-hardfloat.zip"><code>.zip</code></a></td>
 </tr>
@@ -379,6 +376,8 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [41]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_freebsd_armv6.zip
 [42]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_freebsd_armv7.tar.gz
 [43]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_freebsd_armv7.zip
+[44]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_386.tar.gz
+[45]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_386.zip
 [54]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_amd64.tar.gz
 [55]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_arm64.tar.gz
 [56]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_armv5.tar.gz
