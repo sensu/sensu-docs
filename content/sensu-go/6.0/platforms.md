@@ -62,7 +62,7 @@ See the [Sensu Go Web GitHub repository][60] for more information.
 
 | Platform | Architectures |
 |----------|---------------|
-| Linux | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`ppc64le` `s390x` |
+| Linux | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` `ppc64le` `s390x` |
 | Windows | `386` `amd64` |
 | macOS | `amd64` `amd64 CGO` |
 | FreeBSD | `386` `amd64` `armv5` `armv6` `armv7` |
@@ -77,6 +77,7 @@ Sensu binary-only distributions for Linux are available for the architectures li
 For binary distributions, we support the following Linux kernels:
 
 - 3.1.x and later for `armv5`
+- 4.8 and later for `MIPS 64 LE hard float` and `MIPS 64 LE soft float`
 - 2.6.23 and later for all other architectures
 
 {{% notice note %}}
