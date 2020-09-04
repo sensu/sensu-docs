@@ -46,7 +46,7 @@ Created
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+Read [the asset reference](../../../operations/deploy-sensu/assets#asset-builds) for more information about asset builds.
 {{% /notice %}}
 
 ## Get a Slack webhook
@@ -106,17 +106,17 @@ Now that you know how to apply a handler to a check and take action on events, r
 You can also try our interactive tutorial and learn how to [send Sensu Go alerts to your PagerDuty account][11].
 
 
-[1]: ../../reference/events/
+[1]: ../../observe-events/events/
 [2]: ../monitor-server-resources/
 [3]: https://github.com/sensu/slack-handler
 [4]: https://golang.org/doc/install
 [5]: https://en.wikipedia.org/wiki/PATH_(variable)
 [6]: https://api.slack.com/incoming-webhooks
 [7]: ../../operations/maintain-sensu/troubleshoot/
-[8]: ../../reference/handlers/
+[8]: ../handlers/
 [9]: ../reduce-alert-fatigue/
 [10]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions
 [11]: ../../learn/sensu-pagerduty/
 [12]: https://slack.com/get-started#/create
-[13]: ../../reference/assets
+[13]: ../../../operations/deploy-sensu/assets
 [14]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler

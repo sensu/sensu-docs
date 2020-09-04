@@ -2,7 +2,7 @@
 title: "Monitor Sensu with Sensu"
 linkTitle: "Monitor Sensu with Sensu"
 description: "Make sure your Sensu components are properly monitored. This guide describes best practices and strategies for monitoring Sensu."
-weight: 30
+weight: 20
 version: "6.0"
 product: "Sensu Go"
 platformContent: false
@@ -23,7 +23,7 @@ For more information about using Sensu plugins, see [Install plugins with assets
 **NOTE**: This guide describes approaches for monitoring a single backend.
 These strategies are also useful for monitoring individual members of a backend cluster.
 
-This guide does not describe Sensu agent [keepalive monitoring](../../../reference/agent/#keepalive-monitoring).
+This guide does not describe Sensu agent [keepalive monitoring](../../../observability-pipeline/observe-schedule/agent/#keepalive-monitoring).
 {{% /notice %}}
 
 The following ports and endpoints are monitored as part of this guide:
@@ -255,7 +255,7 @@ A successful check result will look like this:
 <p style="text-align:center"><i>Successful Postgres health check in Sensu Go web UI</i></p>
 
 
-[1]: ../../../guides/install-check-executables-with-assets/
+[1]: ../../../operations/deploy-sensu/use-assets-to-install-plugins/
 [2]: ../../../api/health/
 [3]: https://bonsai.sensu.io/assets/sensu/monitoring-plugins
 [4]: https://docs.sensu.io/sensu-go/latest/operations/deploy-sensu/scale-event-storage/

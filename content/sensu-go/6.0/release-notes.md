@@ -1469,8 +1469,8 @@ To get started with Sensu Go:
 [163]: https://github.com/sensu/web
 [164]: /sensu-go/6.0/platforms/#binary-only-distributions
 [165]: /sensu-go/6.0/platforms/
-[166]: /sensu-go/6.0/reference/rbac/#subjects-specification
-[167]: /sensu-go/6.0/reference/rbac/#roleref-specification
-[168]: /sensu-go/6.0/reference/sensu-query-expressions/#sensucheckdependencies
+[166]: /sensu-go/6.0/operations/control-access/rbac/#subjects-specification
+[167]: /sensu-go/6.0/operations/control-access/rbac/#roleref-specification
+[168]: /sensu-go/6.0/observability-pipeline/observe-filter/sensu-query-expressions/#sensucheckdependencies
 [169]: /sensu-go/6.0/reference/filters/#build-event-filter-expressions-with-javascript-execution-functions
 [170]: /sensu-go/6.0/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-60-from-a-5x-deployment

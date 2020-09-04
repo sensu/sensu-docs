@@ -66,7 +66,7 @@ Run `sensuctl asset list --format yaml` to confirm that the asset is ready to us
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+Read [the asset reference](../../../operations/deploy-sensu/assets#asset-builds) for more information about asset builds.
 {{% /notice %}}
 
 ### 2. Create contact filters
@@ -343,17 +343,17 @@ In this example, the `dev` label in the check configuration overrides the `ops` 
 Now that you've set up contact routing for two example teams, you can create additional filters, handlers, and labels to represent your team's contacts.
 Learn how to use Sensu to [Reduce alert fatigue][11].
 
-[1]: ../../operations/deploy-sensu/install-sensu#install-the-sensu-backend
-[2]: ../../operations/deploy-sensu/install-sensu#install-sensu-agents
-[3]: ../../operations/deploy-sensu/install-sensu#install-sensuctl
-[4]: ../../sensuctl/#first-time-setup
+[1]: ../../../operations/deploy-sensu/install-sensu#install-the-sensu-backend
+[2]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
+[3]: ../../../operations/deploy-sensu/install-sensu#install-sensuctl
+[4]: ../../../sensuctl/#first-time-setup
 [5]: https://curl.haxx.se/
 [6]: https://api.slack.com/incoming-webhooks
-[7]: ../../learn/learn-sensu-sandbox/
+[7]: ../../../learn/learn-sensu-sandbox/
 [8]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
-[9]: ../../guides/monitor-server-resources/
-[10]: ../../reference/entities/#manage-entity-labels
-[11]: ../../guides/reduce-alert-fatigue/
+[9]: ../../observe-schedule/monitor-server-resources/
+[10]: ../../observe-entities/entities/#manage-entity-labels
+[11]: ../reduce-alert-fatigue/
 [12]: https://bonsai.sensu.io/assets/sensu/sensu-go-has-contact-filter
-[13]: ../../reference/agent/#create-monitoring-events-using-the-agent-api
-[14]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions
+[13]: ../../observe-schedule/agent/#create-monitoring-events-using-the-agent-api
+[14]: ../../../sensuctl/sensuctl-bonsai/#install-asset-definitions

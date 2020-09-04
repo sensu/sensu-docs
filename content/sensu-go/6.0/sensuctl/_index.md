@@ -79,7 +79,7 @@ Your ability to get, list, create, update, and delete resources with sensuctl de
 For more information about configuring Sensu access control, see the [RBAC reference][1].
 
 {{% notice note %}}
-**NOTE**: For a **new** installation, you can set administrator credentials with environment variables during [initialization](../reference/backend/#initialization).
+**NOTE**: For a **new** installation, you can set administrator credentials with environment variables during [initialization](../../../observability-pipeline/observe-schedule/backend/#initialization).
 If you are using Docker and you do not include the environment variables to set administrator credentials, the backend will initialize with the default username (`admin`) and password (`P@ssw0rd!`).
 {{% /notice %}} 
 
@@ -322,9 +322,9 @@ create  delete  import  list
 {{< /code >}}
 
 
-[1]: ../reference/rbac/
+[1]: ../operations/control-access/rbac/
 [2]: ../operations/deploy-sensu/install-sensu/#install-sensuctl
-[3]: ../reference/agent/#general-configuration-flags
+[3]: ../observability-pipeline/observe-schedule/agent/#general-configuration-flags
 [4]: ../operations/deploy-sensu/cluster-sensu/
 [5]: create-manage-resources/#create-resources
 [6]: #sensu-backend-url

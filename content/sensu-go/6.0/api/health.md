@@ -58,7 +58,7 @@ response type    | Map
 response codes   | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 400 (Bad Request)</li></ul>{{% notice note %}}
 **NOTE**: The HTTP response codes for the health endpoint indicate whether your request reached Sensu rather than the health of your Sensu instance.
 To determine the health of your Sensu instance, you must process the JSON response body for your request.
-The [health specification](../../reference/health/#health-specification) describes each attribute in the response body.
+The [health specification](../../operations/monitor-sensu/health/#health-specification) describes each attribute in the response body.
 {{% /notice %}}
 output           | {{< code shell >}}
 {

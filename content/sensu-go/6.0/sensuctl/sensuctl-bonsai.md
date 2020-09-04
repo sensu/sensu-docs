@@ -47,7 +47,7 @@ resource, populate the "runtime_assets" field with ["influxdb-handler"].
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+Read [the asset reference](../../operations/deploy-sensu/assets#asset-builds) for more information about asset builds.
 {{% /notice %}}
 
 ## Check your Sensu backend for outdated assets

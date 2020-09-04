@@ -4,7 +4,7 @@ linkTitle: "Assets Reference"
 reference_title: "Assets"
 type: "reference"
 description: "Assets are shareable, reusable packages that make it easier to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows. Read this reference doc to learn about assets."
-weight: 140
+weight: 150
 version: "6.0"
 product: "Sensu Go"
 platformContent: false 
@@ -22,7 +22,7 @@ Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and 
 
 {{% notice note %}}
 **NOTE**: Assets are not required to use Sensu Go in production.
-You can install Sensu plugins using the [sensu-install](../../operations/deploy-sensu/install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../operations/deploy-sensu/configuration-management/) solution.
+You can install Sensu plugins using the [sensu-install](../install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../configuration-management/) solution.
 {{% /notice %}}
 
 The Sensu backend executes handler, filter, and mutator assets.
@@ -928,17 +928,17 @@ Errors as a result of failing to remove the asset reference on a mutator, handle
 Deleting an asset does not delete the archive or downloaded files on disk.
 You must remove the archive and downloaded files from the asset cache manually.
 
-[1]: ../sensu-query-expressions/
-[2]: ../rbac#namespaces
-[3]: ../tokens/#manage-assets
+[1]: ../../../observability-pipeline/observe-filter/sensu-query-expressions/
+[2]: ../../control-access/rbac#namespaces
+[3]: ../../../observability-pipeline/observe-schedule/tokens/#manage-assets
 [4]: https://bonsai.sensu.io/assets/samroy92/sensu-plugins-windows
 [5]: #metadata-attributes
-[6]: ../checks/
-[7]: ../filters/
-[8]: ../mutators/
-[9]: ../handlers/
-[10]: ../entities#system-attributes
-[11]: ../../sensuctl/create-manage-resources/#create-resources
+[6]: ../../../observability-pipeline/observe-schedule/checks/
+[7]: ../../../observability-pipeline/observe-filter/filters/
+[8]: ../../../observability-pipeline/observe-transform/mutators/
+[9]: ../../../observability-pipeline/observe-process/handlers/
+[10]: ../../../observability-pipeline/observe-entities/entities#system-attributes
+[11]: ../../../sensuctl/create-manage-resources/#create-resources
 [12]: #spec-attributes
 [13]: https://github.com/sensu/sensu/issues/1919
 [14]: #environment-variables-for-asset-paths
@@ -947,23 +947,23 @@ You must remove the archive and downloaded files from the asset cache manually.
 [17]: #token-substitution-for-asset-paths
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
 [19]: https://regex101.com/r/zo9mQU/2
-[20]: ../../api#response-filtering
-[21]: ../../sensuctl/filter-responses/
-[23]: ../../guides/install-check-executables-with-assets/
+[20]: ../../../api#response-filtering
+[21]: ../../../sensuctl/filter-responses/
+[23]: ../use-assets-to-install-plugins/
 [24]: https://github.com
 [25]: https://help.github.com/articles/about-releases/
 [26]: #bonsaiyml-example
 [27]: https://goreleaser.com/
 [28]: https://github.com/sensu/sensu-go-plugin/
 [29]: /plugins/latest/reference/
-[30]: ../agent#disable-assets
+[30]: ../../../observability-pipeline/observe-schedule/agent#disable-assets
 [31]: #example-asset-with-a-check
 [34]: #asset-definition-single-build-deprecated
 [35]: #asset-definition-multiple-builds
 [37]: https://bonsai.sensu.io/sign-in
 [38]: https://bonsai.sensu.io/new
-[39]: ../../web-ui/filter#filter-with-label-selectors
-[40]: ../../reference/agent/#configuration-via-flags
-[41]: ../../reference/backend/#configuration
+[39]: ../../../web-ui/filter#filter-with-label-selectors
+[40]: ../../../observability-pipeline/observe-schedule/agent/#configuration-via-flags
+[41]: ../../../observability-pipeline/observe-schedule/backend/#configuration
 [42]: #filters
 [43]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime

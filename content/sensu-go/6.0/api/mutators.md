@@ -252,6 +252,6 @@ description               | Removes the specified mutator from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/mutators/example-mutator
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/mutators/
-[2]: ../overview#pagination
-[3]: ../overview#response-filtering
+[1]: ../../observability-pipeline/observe-transform/mutators/
+[2]: ../#pagination
+[3]: ../#response-filtering

@@ -35,7 +35,7 @@ Read [Install plugins with assets][10] to get started.
 
 
 [1]: handlers/
-[2]: ../checks/
+[2]: ../observe-schedule/checks/
 [3]: https://en.wikipedia.org/wiki/Standard_streams
 [4]: handlers/#pipe-handlers
 [5]: handlers/#tcpudp-handlers
@@ -43,4 +43,4 @@ Read [Install plugins with assets][10] to get started.
 [7]: ../observe-filter/
 [8]: ../observe-transform/
 [9]: https://bonsai.sensu.io/
-[10]: ../../guides/install-check-executables-with-assets/
+[10]: ../../operations/deploy-sensu/use-assets-to-install-plugins/

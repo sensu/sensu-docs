@@ -15,8 +15,8 @@ menu:
 
 An event is a generic container used by Sensu to provide context to checks and metrics.
 The context, called event data, contains information about the originating entity and the corresponding check or metric result.
-An event must contain a [check][4] or [metrics][5].
-In certain cases, an event can contain [both a check and metrics][19].
+An event must contain a [status][4] or [metrics][5].
+In certain cases, an event can contain [both a status and metrics][19].
 These generic containers allow Sensu to handle different types of events in the pipeline.
 Because events are polymorphic in nature, it is important to never assume their contents (or lack of content).
 
@@ -1331,38 +1331,38 @@ spec:
 
 {{< /language-toggle >}}
 
-[1]: ../checks/
-[2]: ../entities#entities-specification
-[3]: ../entities/
-[4]: ../#check-only-events
+[1]: ../../observe-schedule/checks/
+[2]: ../../observe-entities/entities#entities-specification
+[3]: ../../observe-entities/entities/
+[4]: ../#status-only-events
 [5]: ../#metrics-only-events
-[6]: ../../guides/extract-metrics-with-checks/
-[7]: ../checks/#check-specification
-[8]: ../../sensuctl/create-manage-resources/#create-resources
+[6]: ../../observe-schedule/extract-metrics-with-checks/
+[7]: ../../observe-schedule/checks/#check-specification
+[8]: ../../../sensuctl/create-manage-resources/#create-resources
 [9]: #spec-attributes
-[10]: ../agent#create-monitoring-events-using-service-checks
-[11]: ../agent#create-monitoring-events-using-the-agent-api
-[12]: ../agent#create-monitoring-events-using-the-agent-tcp-and-udp-sockets
-[13]: ../agent#create-monitoring-events-using-the-statsd-listener
-[14]: ../../api/events#eventsentitycheck-put
-[15]: ../../web-ui/
-[16]: ../../api/events/
-[17]: ../../sensuctl/
-[18]: ../../sensuctl/create-manage-resources/#sensuctl-event
-[19]: ../#check-and-metric-events
-[20]: ../checks#check-specification
+[10]: ../../observe-schedule/agent#create-monitoring-events-using-service-checks
+[11]: ../../observe-schedule/agent#create-monitoring-events-using-the-agent-api
+[12]: ../../observe-schedule/agent#create-monitoring-events-using-the-agent-tcp-and-udp-sockets
+[13]: ../../observe-schedule/agent#create-monitoring-events-using-the-statsd-listener
+[14]: ../../../api/events#eventsentitycheck-put
+[15]: ../../../web-ui/
+[16]: ../../../api/events/
+[17]: ../../../sensuctl/
+[18]: ../../../sensuctl/create-manage-resources/#sensuctl-event
+[19]: ../#status-and-metrics-events
+[20]: ../../observe-schedule/checks#check-specification
 [21]: #check-attributes
 [22]: #metrics
-[23]: ../../guides/reduce-alert-fatigue/
-[24]: ../filters/
-[25]: ../checks/#check-result-specification
-[26]: ../rbac#namespaces
-[27]: ../filters/#handle-state-change-only
-[28]: ../filters/#handle-repeated-events
+[23]: ../../observe-filter/reduce-alert-fatigue/
+[24]: ../../observe-filter/filters/
+[25]: ../../observe-schedule/checks/#check-result-specification
+[26]: ../../../operations/control-access/rbac#namespaces
+[27]: ../../observe-filter/filters/#handle-state-change-only
+[28]: ../../observe-filter/filters/#handle-repeated-events
 [29]: #metadata-attributes
 [30]: #metric-attributes
 [31]: #use-event-data
 [32]: #history-attributes
-[33]: ../checks#spec-attributes
+[33]: ../../observe-schedule/checks#spec-attributes
 [34]: #points-attributes
-[35]: ../../api/events#create-a-new-event
+[35]: ../../../api/events#create-a-new-event

@@ -49,7 +49,7 @@ Run `sensuctl asset list --format yaml` to confirm that the asset is ready to us
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+Read [the asset reference](../../../operations/deploy-sensu/assets#asset-builds) for more information about asset builds.
 {{% /notice %}}
 
 ## Create the handler
@@ -105,14 +105,14 @@ Now that you know how to apply a handler to metrics and take action on events, h
 * [Aggregate metrics with the Sensu StatsD listener][3]
 * [Collect metrics with Sensu checks][10]
 
-[1]: ../../reference/events/
+[1]: ../../observe-events/events/
 [2]: https://github.com/influxdata/influxdb
 [3]: ../aggregate-metrics-statsd/
 [4]: https://github.com/sensu/sensu-influxdb-handler#installation
 [5]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions
 [8]: ../../operations/maintain-sensu/troubleshoot/
-[9]: ../../reference/handlers/
+[9]: ../handlers/
 [10]: ../extract-metrics-with-checks/
 [11]: https://github.com/sensu/sensu-influxdb-handler/releases
-[12]: ../../reference/assets/
+[12]: ../../../operations/deploy-sensu/assets/
 [13]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler

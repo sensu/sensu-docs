@@ -2,7 +2,7 @@
 title: "Monitor server resources with checks"
 linkTitle: "Monitor Server Resources"
 description: "Sensu lets you monitor server resources with checks. Read this guide to learn about Sensu checks and how to use checks to monitor a service."
-weight: 70
+weight: 40
 version: "6.0"
 product: "Sensu Go"
 platformContent: false
@@ -119,7 +119,7 @@ Now that you know how to run a check to monitor CPU usage, read these resources 
 * [Send Slack alerts with handlers][6]
 
 [1]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-cpu-checks
-[2]: ../install-check-executables-with-assets/
+[2]: ../use-assets-to-install-plugins/
 [3]: ../../reference/checks/
 [4]: ../../operations/deploy-sensu/install-sensu/#install-sensu-agents
 [5]: ../monitor-external-resources/

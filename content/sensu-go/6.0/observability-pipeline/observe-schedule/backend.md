@@ -13,10 +13,10 @@ menu:
     parent: observe-schedule
 ---
 
-[Example Sensu backend configuration file](../../files/backend.yml) (download)
+[Example Sensu backend configuration file](../../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and event data.
-Every Sensu backend includes an integrated structure for scheduling checks using [subscriptions][33], an event processing pipeline that applies [event filters][30], [mutators][31], and [handlers][32], an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][6], and the `sensu-backend` command line tool.
+Every Sensu backend includes an integrated structure for scheduling checks using [subscriptions][28], an event processing pipeline that applies [event filters][9], [mutators][10], and [handlers][11], an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][6], and the `sensu-backend` command line tool.
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
 See the [installation guide][1] to install the backend.
 
@@ -55,7 +55,7 @@ This step bootstraps the first admin user account for your Sensu installation.
 This account will be granted the cluster admin role.
 
 {{% notice important %}}
-**IMPORTANT**: If you plan to [run a Sensu cluster](../../operations/deploy-sensu/cluster-sensu/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you initialize.
+**IMPORTANT**: If you plan to [run a Sensu cluster](../../../operations/deploy-sensu/cluster-sensu/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you initialize.
 {{% /notice %}}
 
 ### Docker initialization
@@ -1400,7 +1400,7 @@ In this script, `systemctl reload` sends a _SIGHUP_ signal to the sensu-backend 
 The _SIGHUP_ signal causes the `backend` component to reload instead of restarting the process.
 
 {{% notice note %}}
-**NOTE**: Event logs do not include log messages produced by sensu-backend service. To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../operations/monitor-sensu/log-sensu-systemd/).
+**NOTE**: Event logs do not include log messages produced by sensu-backend service. To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../../operations/monitor-sensu/log-sensu-systemd/).
 {{% /notice %}}
 
 #### Log rotation for sysvinit
@@ -1420,34 +1420,31 @@ The _SIGHUP_ signal causes the `backend` component to reload instead of restarti
 {{< /code >}}
 
 
-[1]: ../../operations/deploy-sensu/install-sensu#install-the-sensu-backend
+[1]: ../../../operations/deploy-sensu/install-sensu#install-the-sensu-backend
 [2]: https://etcd.io/docs
-[3]: ../../guides/monitor-server-resources/
-[4]: ../../guides/extract-metrics-with-checks/
-[5]: ../../reference/checks/
-[6]: ../../web-ui/
-[7]: ../../guides/send-slack-alerts/
-[8]: ../../guides/reduce-alert-fatigue/
-[9]: ../../reference/filters/
-[10]: ../../reference/mutators/
-[11]: ../../reference/handlers/
+[3]: ../monitor-server-resources/
+[4]: ../extract-metrics-with-checks/
+[5]: ../checks/
+[6]: ../../../web-ui/
+[7]: ../../observe-process/send-slack-alerts/
+[8]: ../../observe-filter/reduce-alert-fatigue/
+[9]: ../../observe-filter/filters/
+[10]: ../../observe-transform/mutators/
+[11]: ../../observe-process/handlers/
 [12]: #datastore-and-cluster-configuration-flags
-[13]: ../../operations/deploy-sensu/cluster-sensu/
-[14]: ../../commercial/
+[13]: ../../../operations/deploy-sensu/cluster-sensu/
+[14]: ../../../commercial/
 [15]: #general-configuration-flags
 [16]: https://github.com/etcd-io/etcd/blob/master/Documentation/tuning.md#time-parameters
-[17]: ../../files/backend.yml
+[17]: ../../../files/backend.yml
 [18]: https://golang.org/pkg/crypto/tls/#pkg-constants
 [19]: https://etcd.io/docs/latest/op-guide/clustering/#discovery
 [20]: https://etcd.io/docs/latest/op-guide/clustering/#etcd-discovery
 [21]: https://etcd.io/docs/latest/op-guide/clustering/#dns-discovery
 [22]: #initialization
 [23]: #etcd-listen-client-urls
-[24]: ../../operations/deploy-sensu/install-sensu#2-configure-and-start
-[25]: ../../operations/deploy-sensu/install-sensu#3-initialize
-[26]: ../../sensuctl/#change-admin-users-password
+[24]: ../../../operations/deploy-sensu/install-sensu#2-configure-and-start
+[25]: ../../../operations/deploy-sensu/install-sensu#3-initialize
+[26]: ../../../sensuctl/#change-admin-users-password
+[28]: ../checks/#subscriptions
 [29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly
-[30]: ../../observe-filter/filters/
-[31]: ../../observe-transform/mutators/
-[32]: ../../observe-process/handlers/
-[33]: ../../observe-schedule/subscriptions/

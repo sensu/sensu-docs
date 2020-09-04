@@ -534,6 +534,14 @@
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/api/overview/?$": {
             "url": "/sensu-go/latest/api",
             "status": 301
-        }    
+        },
+        "~ ^/sensu-go/latest/guides/install-check-executables-with-assets/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/use-assets-to-install-plugins",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.0/?((?<=\/).*)?/guides/install-check-executables-with-assets/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/use-assets-to-install-plugins",
+            "status": 301
+        }
     }
 }

@@ -61,7 +61,7 @@ The asset includes the `sensu-email-handler` command, which you will use when yo
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+Read [the asset reference](../../../operations/deploy-sensu/assets#asset-builds) for more information about asset builds.
 {{% /notice %}}
 
 ## Add an event filter
@@ -270,20 +270,20 @@ Now that you know how to apply a handler to a check and take action on events:
 
 You can also follow our [Up and running with Sensu Go][9] interactive tutorial to set up the Sensu Go email handler and test a similar workflow with the addition of a Sensu agent for producing events using scheduled checks.
 
-[1]: ../../reference/events/
+[1]: ../../observe-events/events/
 [2]: ../monitor-server-resources/
 [3]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
 [4]: ../../operations/deploy-sensu/install-sensu/#install-sensuctl
-[5]: ../../reference/filters/
-[6]: ../../reference/handlers/
+[5]: ../../observe-filter/filters/
+[6]: ../handlers/
 [7]: ../reduce-alert-fatigue/
-[8]: ../../reference/assets
+[8]: ../../../operations/deploy-sensu/assets
 [9]: ../../learn/up-and-running/
-[10]: ../../reference/filters/#built-in-filter-is_incident
-[11]: ../../reference/filters/#built-in-filter-not_silenced
+[10]: ../../observe-filter/filters/#built-in-filter-is_incident
+[11]: ../../observe-filter/filters/#built-in-filter-not_silenced
 [12]: ../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
 [13]: ../../operations/deploy-sensu/install-sensu/#install-sensu-agents
 [14]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler#templates
-[16]: ../../reference/filters/
+[16]: ../../observe-filter/filters/
 [17]: #create-an-ad-hoc-event
 [18]: #create-the-email-handler-definition

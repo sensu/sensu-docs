@@ -78,7 +78,7 @@ You can also download the asset directly from [Bonsai, the Sensu asset index][9]
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+Read [the asset reference](../../../operations/deploy-sensu/assets#asset-builds) for more information about asset builds.
 {{% /notice %}}
 
 You've registered the asset, but you still need to create the filter.
@@ -193,13 +193,13 @@ However, if the event is being discarded by the event filter, a log entry with t
 
 Now that you know how to apply an event filter to a handler and use a filter asset to help reduce alert fatigue, read the [filters reference][1] for in-depth information about event filters. 
 
-[1]:  ../../reference/filters/
+[1]:  ../../observability-pipeline/observe-filter/filters/
 [2]: ../../operations/maintain-sensu/troubleshoot#log-file-locations
 [3]: ../send-slack-alerts/
 [4]: #approach-1-use-sensuctl-to-create-an-event-filter
 [5]: #approach-2-use-an-event-filter-asset
-[6]: ../../reference/assets/ 
-[7]: ../install-check-executables-with-assets/
+[6]: ../../operations/deploy-sensu/assets/ 
+[7]: ../use-assets-to-install-plugins/
 [8]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
 [9]: https://bonsai.sensu.io/
 [10]: https://github.com/nixwiz/sensu-go-fatigue-check-filter#configuration

@@ -100,5 +100,5 @@ Sensu also offers logging of event data to a separate log file as a [commercial 
 See the [Sensu backend reference][1] for more information about event logging.
 
 
-[1]: ../../../reference/backend/#event-logging
+[1]: ../../../observability-pipeline/observe-schedule/backend/#event-logging
 [2]: ../../../commercial/

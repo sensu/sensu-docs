@@ -61,7 +61,7 @@ Now that you know how to feed StatsD metrics into Sensu, check out these resourc
 * [InfluxDB handler guide][3]: instructions on Sensu's built-in metric handler
 
 [1]: https://github.com/statsd/statsd
-[2]: ../../reference/handlers/
+[2]: ../handlers/
 [3]: ../influx-db-metric-handler/
 [4]: #configure-the-statsd-listener
 [5]: https://github.com/statsd/statsd

@@ -69,7 +69,7 @@ sensuctl asset list
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+Read [the asset reference](../../../operations/deploy-sensu/assets#asset-builds) for more information about asset builds.
 {{% /notice %}}
 
 ### Create the check
@@ -343,7 +343,7 @@ sensuctl check list
 
 {{% notice protip %}}
 **PRO TIP**: To distribute check executions across multiple agents, set the `round-robin` check attribute to `true`.
-For more information about round robin checks, see the [check reference](../../reference/checks#round-robin-checks).
+For more information about round robin checks, see the [check reference](../observe-schedule/checks#round-robin-checks).
 {{% /notice %}}
 
 ### Validate the check
@@ -370,21 +370,21 @@ Now that you know how to run a proxy check to verify the status of a website and
 * [Assets reference][5]
 * [Send Slack alerts with handlers][7]
 
-[1]: ../../reference/entities/#proxy-entities
-[2]: ../../reference/checks/#proxy-entity-name-attribute
-[3]: ../../reference/checks/#proxy-checks
-[5]: ../../reference/assets/
+[1]: ../entities/#proxy-entities
+[2]: ../../observe-schedule/checks/#proxy-entity-name-attribute
+[3]: ../../observe-schedule/checks/#proxy-checks
+[5]: ../../operations/deploy-sensu/assets/
 [7]: ../send-slack-alerts/
 [8]: ../../sensuctl/
 [9]: ../../api/entities/
 [10]: ../web-ui/
-[11]: ../../reference/entities#manage-entity-labels
-[12]: ../../reference/tokens/
+[11]: ../../observe-entities/entities#manage-entity-labels
+[12]: ../../observe-schedule/tokens/
 [13]: #register-assets
 [14]: #add-the-subscription
 [16]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http
 [17]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
-[18]: ../../reference/checks#round-robin-checks
+[18]: ../../observe-schedule/checks#round-robin-checks
 [19]: ../../operations/deploy-sensu/install-sensu/
-[20]: ../../reference/agent#restart-the-service
+[20]: ../../observe-schedule/agent#restart-the-service
 [21]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions

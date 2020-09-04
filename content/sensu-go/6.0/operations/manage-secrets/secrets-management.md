@@ -277,7 +277,7 @@ sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `pagerduty-handler`.
 
 {{% notice note %}}
-**NOTE**: You can [adjust the asset definition](../../../guides/install-check-executables-with-assets/#adjust-the-asset-definition) according to your Sensu configuration if needed.
+**NOTE**: You can [adjust the asset definition](../../deploy-sensu/use-assets-to-install-plugins/#adjust-the-asset-definition) according to your Sensu configuration if needed.
 {{% /notice %}}
 
 Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
@@ -316,31 +316,30 @@ See [Monitor server resources][24] to learn more.
 
 ## Next steps
 
-Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets management documentation.
+Read the [secrets][9] or [secrets providers][2] reference for in-depth secrets management documentation.
 
 
 [1]: https://www.vaultproject.io/docs/what-is-vault/
-[2]: ../../../reference/secrets-providers/
+[2]: ../../../operations/manage-secrets/secrets-providers/
 [3]: https://www.vaultproject.io/docs/auth/token/
 [4]: https://www.vaultproject.io/docs/auth/cert/
 [5]: ../../deploy-sensu/install-sensu/#install-the-sensu-backend
 [6]: ../../deploy-sensu/install-sensu/#install-sensu-agents
 [7]: ../../deploy-sensu/install-sensu/#install-sensuctl
 [8]: ../../../api/secrets/
-[9]: ../../../reference/secrets/
-[10]: ../../../reference/secrets-providers/
+[9]: ../../../operations/manage-secrets/secrets/
 [11]: ../../deploy-sensu/install-sensu/#install-sensu-agents
 [12]: https://www.vaultproject.io/docs/concepts/lease.html#lease-durations-and-renewal
 [13]: ../../../api/secrets#providers-provider-put
 [14]: ../../../api/secrets#secrets-secret-put
 [15]: ../../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
-[17]: ../../../reference/secrets-providers#tls-vault
+[17]: ../../../operations/manage-secrets/secrets-providers#tls-vault
 [19]: #add-a-handler
 [20]: ../../../commercial/
-[21]: ../../../reference/backend/#configuration-via-environment-variables
+[21]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables
 [22]: ../../../sensuctl/sensuctl-bonsai/#install-asset-definitions
 [23]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
-[24]: ../../../guides/monitor-server-resources/
+[24]: ../../../observability-pipeline/observe-schedule/monitor-server-resources/
 [25]: https://www.vaultproject.io/downloads/
 [28]: #create-your-backend-environment-variable
 [29]: #create-your-vault-secret

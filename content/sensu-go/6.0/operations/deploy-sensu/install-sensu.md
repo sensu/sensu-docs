@@ -106,7 +106,7 @@ The Sensu backend requires the `state-dir` flag at minimum, but other useful con
 
 {{% notice note %}}
 **NOTE**: If you are using Docker, intitialization is included in this step when you start the backend rather than in [3. Initialize](#3-initialize).
-For details about intialization in Docker, see the [backend reference](../../../reference/backend#docker-initialization).
+For details about intialization in Docker, see the [backend reference](../../../observability-pipeline/observe-schedule/backend#docker-initialization).
 {{% /notice %}}
 
 {{< language-toggle >}}
@@ -511,18 +511,18 @@ sensuctl license info
 [3]: ../../web-ui/
 [4]: ../../../sensuctl/
 [5]: ../../../platforms/
-[6]: ../../../reference/backend#configuration
-[7]: ../../../reference/agent#configuration-via-flags
+[6]: ../../../observability-pipeline/observe-schedule/backend#configuration
+[7]: ../../../observability-pipeline/observe-schedule/agent#configuration-via-flags
 [8]: ../secure-sensu/
-[9]: ../../../guides/monitor-server-resources/
-[10]: ../../../guides/send-slack-alerts/
+[9]: ../../../observability-pipeline/observe-process/monitor-server-resources/
+[10]: ../../../observability-pipeline/observe-process/send-slack-alerts/
 [11]: https://sensu.io/contact?subject=contact-sales/
-[12]: ../../../guides/email-handler/
+[12]: ../../../observability-pipeline/observe-process/email-handler/
 [13]: https://sensu.io/sensu-license/
 [14]: ../../../learn/learn-sensu-sandbox/
-[15]: ../../../reference/agent/#events-post-example
+[15]: ../../../observability-pipeline/observe-schedule/agent/#events-post-example
 [16]: https://etcd.io/
-[17]: ../../../reference/assets/
+[17]: ../../../operations/deploy-sensu/assets/
 [18]: #install-sensu-agents
 [19]: #install-sensuctl
 [20]: ../../../commercial/
@@ -532,17 +532,17 @@ sensuctl license info
 [24]: #4-open-the-web-ui
 [25]: ../hardware-requirements/
 [26]: ../../../api/
-[27]: ../../../reference/agent#create-monitoring-events-using-the-agent-api
-[28]: ../../../reference/agent#create-monitoring-events-using-the-statsd-listener
+[27]: ../../../observability-pipeline/observe-schedule/agent#create-monitoring-events-using-the-agent-api
+[28]: ../../../observability-pipeline/observe-schedule/agent#create-monitoring-events-using-the-statsd-listener
 [29]: https://blog.sensu.io/one-year-of-sensu-go/
-[30]: ../../../reference/backend#initialization
+[30]: ../../../observability-pipeline/observe-schedule/backend#initialization
 [31]: ../deployment-architecture/
 [32]: http://localhost:3000/
-[33]: ../../../guides/extract-metrics-with-checks/
+[33]: ../../../observability-pipeline/observe-schedule/extract-metrics-with-checks/
 [34]: https://account.sensu.io/
 [35]: ../../../api/health/
 [36]: #4-open-the-web-ui
-[37]: ../../../guides/influx-db-metric-handler/
+[37]: ../../../observability-pipeline/observe-process/influx-db-metric-handler/
 [38]: ../../../sensuctl/back-up-recover/
 [39]: ../../../sensuctl/create-manage-resources/#create-resources
 [40]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/

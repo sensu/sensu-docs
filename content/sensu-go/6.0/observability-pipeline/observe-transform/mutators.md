@@ -379,20 +379,20 @@ spec:
 {{< /language-toggle >}}
 
 
-[1]: ../assets/
+[1]: ../../../operations/deploy-sensu/assets/
 [2]: #metadata-attributes
-[3]: ../rbac#namespaces
-[4]: ../../guides/install-check-executables-with-assets/
-[5]: ../../sensuctl/create-manage-resources/#create-resources
+[3]: ../../../operations/control-access/rbac#namespaces
+[4]: ../../../operations/deploy-sensu/use-assets-to-install-plugins/
+[5]: ../../../sensuctl/create-manage-resources/#create-resources
 [6]: #spec-attributes
 [7]: https://regex101.com/r/zo9mQU/2
-[8]: ../../api#response-filtering
-[9]: ../../sensuctl/filter-responses/
-[10]: ../../reference/secrets/
-[11]: ../../reference/secrets-providers/
-[12]: ../filters/
-[13]: ../../web-ui/filter#filter-with-label-selectors
-[14]: ../../operations/manage-secrets/secrets-management/
-[15]: ../../web-ui/filter/
+[8]: ../../../api#response-filtering
+[9]: ../../../sensuctl/filter-responses/
+[10]: ../../../operations/manage-secrets/secrets/
+[11]: ../../../operations/manage-secrets/secrets-providers/
+[12]: ../../observe-filter/filters/
+[13]: ../../../web-ui/filter#filter-with-label-selectors
+[14]: ../../../operations/manage-secrets/secrets-management/
+[15]: ../../../web-ui/filter/
 [16]: ../
 [17]: ../../../observability-pipeline/

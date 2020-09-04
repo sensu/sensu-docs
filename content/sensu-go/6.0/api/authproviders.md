@@ -335,4 +335,4 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 [1]: ../../operations/control-access/auth/
 [2]: ../../commercial/
-[3]: ../overview#pagination
+[3]: ../#pagination

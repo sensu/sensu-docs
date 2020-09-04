@@ -14,7 +14,7 @@ menu:
     parent: observe-schedule
 ---
 
-[Example Sensu agent configuration file](../../files/agent.yml) (download)
+[Example Sensu agent configuration file](../../../files/agent.yml) (download)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
 Agents register with the Sensu backend as [monitoring entities][3] with `type: "agent"`.
@@ -37,7 +37,7 @@ At the core of this model are Sensu agent subscriptions.
 Each Sensu agent has a defined set of [`subscriptions`][28]: a list of roles and responsibilities assigned to the system (for example, a webserver or database).
 These subscriptions determine which [monitoring checks][14] the agent will execute.
 Agent subscriptions allow Sensu to request check executions on a group of systems at a time instead of a traditional 1:1 mapping of configured hosts to monitoring checks.
-For an agent to execute a service check, you must specify the same subscription in the [agent configuration][28] and the [check definition][32].
+For an agent to execute a service check, you must specify the same subscription in the [agent configuration][28] and the [check definition][14].
 
 After receiving a check request from the Sensu backend, the agent:
 
@@ -425,8 +425,8 @@ The value you specify for `keepalive-warning-timeout` must be lower than the val
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
 
 {{% notice note %}}
-**NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../entities/#proxy-entities) because they cannot run a Sensu agent.
-You can use the [events API](../../api/events/#eventsentitycheck-put) to send manual keepalive events for proxy entities.
+**NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../../observe-entities/#proxy-entities) because they cannot run a Sensu agent.
+You can use the [events API](../../../api/events/#eventsentitycheck-put) to send manual keepalive events for proxy entities.
 {{% /notice %}}
 
 ### Handle keepalive events
@@ -685,7 +685,7 @@ All Sensu agent data provided in keepalive events gets stored in the agent regis
 If a [Sensu event handler][8] named `registration` is configured, the [Sensu backend][2] creates and processes an [event][7] for agent registration, applying any configured [filters][9] and [mutators][10] before executing the configured [handler][8].
 
 {{% notice protip %}}
-**PRO TIP**: Use a [handler set](../handlers#handler-sets) to execute multiple handlers in response to registration events.
+**PRO TIP**: Use a [handler set](../../observe-process/handlers#handler-sets) to execute multiple handlers in response to registration events.
 {{% /notice %}}
 
 You can use registration events to execute one-time handlers for new Sensu agents.
@@ -736,7 +736,7 @@ You must present the whole chain to the remote so it can determine whether it tr
 ### Configuration summary
 
 {{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
 As of 5.20.2, the `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
@@ -933,7 +933,7 @@ disable-assets: true{{< /code >}}
 | discover-processes |      |
 --------------|------
 description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
 As of 5.20.2, the `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
@@ -1177,7 +1177,7 @@ keepalive-warning-timeout: 300{{< /code >}}
 ---------------|------
 description    | Agent namespace. {{% notice note %}}
 **NOTE**: Agents are represented in the backend as a class of entity.
-Entities can only belong to a [single namespace](../rbac/#namespaced-resource-types).
+Entities can only belong to a [single namespace](../../../operations/control-access/rbac/#namespaced-resource-types).
 {{% /notice %}}
 type           | String
 default        | `default`
@@ -1621,16 +1621,16 @@ This includes your checks and plugins.
 For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
 
 
-[1]: ../../operations/deploy-sensu/install-sensu#install-sensu-agents
+[1]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
 [2]: ../backend/
-[3]: ../entities/
+[3]: ../../observe-entities/entities/
 [4]: #keepalive-configuration-flags
-[5]: ../../files/windows/agent.yml
-[6]: ../../sensuctl/
-[7]: ../events/
-[8]: ../handlers/
-[9]: ../filters/
-[10]: ../mutators/
+[5]: ../../../files/windows/agent.yml
+[6]: ../../../sensuctl/
+[7]: ../../observe-events/events/
+[8]: ../../observe-process/handlers/
+[9]: ../../observe-filter/filters/
+[10]: ../../observe-transform/mutators/
 [11]: https://en.wikipedia.org/wiki/Configuration_management_database
 [12]: https://www.servicenow.com/products/it-operations-management.html
 [13]: #ephemeral-agent-configuration-flags
@@ -1645,32 +1645,31 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [22]: #statsd-configuration-flags
 [23]: https://github.com/statsd/statsd#key-concepts
 [24]: #configuration-via-flags
-[25]: ../../api#response-filtering
-[26]: ../../sensuctl/filter-responses/
+[25]: ../../../api#response-filtering
+[26]: ../../../sensuctl/filter-responses/
 [27]: ../tokens/
 [28]: #subscriptions-flag
-[29]: ../assets/
+[29]: ../../../operations/deploy-sensu/assets/
 [30]: #cache-dir
 [31]: ../hooks/
-[32]: ../checks/
-[33]: ../../guides/monitor-external-resources/
+[33]: ../../observe-entities/monitor-external-resources/
 [35]: ../backend#datastore-and-cluster-configuration-flags
-[36]: ../../operations/deploy-sensu/cluster-sensu/
+[36]: ../../../operations/deploy-sensu/cluster-sensu/
 [37]: ../backend#general-configuration-flags
 [38]: #name
-[39]: ../rbac/
-[40]: ../../guides/send-slack-alerts/
-[41]: ../handlers/#send-registration-events
+[39]: ../../../operations/control-access/rbac/
+[40]: ../../observe-process/send-slack-alerts/
+[41]: ../../observe-process/handlers/#send-registration-events
 [44]: ../checks#ttl-attribute
 [45]: https://en.m.wikipedia.org/wiki/WebSocket
-[46]: ../../operations/deploy-sensu/secure-sensu/
+[46]: ../../../operations/deploy-sensu/secure-sensu/
 [47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
 [48]: #example-allow-list-configuration-file
 [49]: #allow-list-configuration-commands
 [50]: #configuration-via-environment-variables
 [51]: #events-post-specification
-[52]: ../handlers/#keepalive-event-handlers
+[52]: ../../observe-process/handlers/#keepalive-event-handlers
 [53]: #keepalive-handlers-flag
-[54]: ../../web-ui/filter#filter-with-label-selectors
-[55]: ../../commercial/
+[54]: ../../../web-ui/filter#filter-with-label-selectors
+[55]: ../../../commercial/
 [56]: #allow-list

@@ -2,7 +2,7 @@
 title: "Augment event data with check hooks"
 linkTitle: "Augment Event Data"
 description: "Check hooks allow Sensu users to automate data collection that operators would routinely perform manually to investigate monitoring alerts, which frees up precious operator time. This guide helps you create a check hook that captures the process tree in case a service check returns a critical status."
-weight: 90
+weight: 70
 version: "6.0"
 product: "Sensu Go"
 platformContent: false
@@ -98,4 +98,4 @@ Now when you are alerted that Nginx is not running, you can review the check hoo
 
 To learn more about data collection with check hooks, read the [hooks reference][1].
 
-[1]: ../../reference/hooks/
+[1]: ../hooks/

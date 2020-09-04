@@ -4,7 +4,7 @@ linkTitle: "Health Reference"
 reference_title: "Health"
 type: "reference"
 description: "Access health data for your Sensu instance. Read this page to learn about the health information you can retrieve."
-weight: 20
+weight: 30
 version: "6.0"
 product: "Sensu Go"
 menu: 

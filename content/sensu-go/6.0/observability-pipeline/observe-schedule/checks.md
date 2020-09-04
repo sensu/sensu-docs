@@ -572,7 +572,7 @@ example      | {{< code shell >}}"annotations": {
 ### Spec attributes
 
 {{% notice note %}}
-**NOTE**: Spec attributes are not required when sending an HTTP `POST` request to the [agent](../agent/#events-post) or [backend](../../api/events/#create-a-new-event) /events API.
+**NOTE**: Spec attributes are not required when sending an HTTP `POST` request to the [agent](../agent/#events-post) or [backend](../../../api/events/#create-a-new-event) /events API.
 When doing so, the spec attributes are listed as individual [top-level attributes](#top-level-attributes) in the check definition instead.
 {{% /notice %}}
 
@@ -723,7 +723,7 @@ example      | {{< code shell >}}"silenced": ["*:routers"]{{< /code >}}
 |env_vars    |      |
 -------------|------
 description  | Array of environment variables to use with command execution. {{% notice note %}}
-**NOTE**: To add `env_vars` to a check, use [`sensuctl create`](../../sensuctl/create-manage-resources/#create-resources).
+**NOTE**: To add `env_vars` to a check, use [`sensuctl create`](../../../sensuctl/create-manage-resources/#create-resources).
 {{% /notice %}}
 required     | false
 type         | Array
@@ -1061,38 +1061,36 @@ The asset reference includes an [example check definition that uses the asset pa
 [5]: ../tokens/
 [6]: ../hooks/
 [7]: /sensu-core/latest/reference/checks/#standalone-checks
-[8]: ../rbac/
-[9]: ../assets/
+[8]: ../../../operations/control-access/rbac/
+[9]: ../../../operations/deploy-sensu/assets/
 [10]: #proxy-requests-attributes
-[11]: ../sensu-query-expressions/
-[12]: ../../guides/monitor-server-resources/
+[11]: ../../observe-filter/sensu-query-expressions/
+[12]: ../monitor-server-resources/
 [13]: #check-attributes
 [14]: https://en.wikipedia.org/wiki/Cron#CRON_expression
 [15]: https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules
 [16]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
 [17]: #subdue-attributes
-[20]: ../entities/#proxy-entities
-[21]: ../entities/#spec-attributes
-[22]: ../../reference/sensuctl/#time-windows
-[22]: ../../reference/sensuctl/#time-windows
-[23]: ../../guides/extract-metrics-with-checks/
-[24]: ../events/
+[20]: ../../observe-entities/#proxy-entities
+[21]: ../../observe-entities/entities/#spec-attributes
+[23]: ../extract-metrics-with-checks/
+[24]: ../../observe-events/events/
 [25]: #metadata-attributes
-[26]: ../rbac#namespaces
-[27]: ../filters/
-[28]: ../../guides/monitor-external-resources/
+[26]: ../../../operations/control-access/rbac#namespaces
+[27]: ../../observe-filter/filters/
+[28]: ../../observe-entities/monitor-external-resources/
 [29]: https://bonsai.sensu.io
 [30]: https://en.wikipedia.org/wiki/Cron#Timezone_handling
 [31]: #ttl-attribute
 [32]: #proxy-entity-name-attribute
 [33]: #proxy-checks
-[34]: ../../api/checks#checkscheckexecute-post
+[34]: ../../../api/checks#checkscheckexecute-post
 [35]: #use-a-proxy-check-to-monitor-a-proxy-entity
 [36]: #use-a-proxy-check-to-monitor-multiple-proxy-entities
 [37]: #proxy-requests-top-level
 [39]: #check-token-substitution
-[40]: ../entities#manage-entity-labels
-[41]: ../../sensuctl/create-manage-resources/#create-resources
+[40]: ../../observe-entities/entities#manage-entity-labels
+[41]: ../../../sensuctl/create-manage-resources/#create-resources
 [42]: #spec-attributes
 [43]: #round-robin-attribute
 [44]: #proxy-entity-name-attribute
@@ -1100,15 +1098,15 @@ The asset reference includes an [example check definition that uses the asset pa
 [47]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [48]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [49]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
-[50]: ../../reference/events/#metrics
+[50]: ../../observe-events/events/#metrics
 [51]: https://github.com/sensu/sensu-influxdb-handler
 [52]: #round-robin-checks
 [53]: https://regex101.com/r/zo9mQU/2
-[54]: ../../api#response-filtering
-[55]: ../../sensuctl/filter-responses/
-[56]: ../../reference/secrets/
-[57]: ../../reference/secrets-providers/
-[58]: ../../web-ui/filter#filter-with-label-selectors
-[59]: ../../operations/manage-secrets/secrets-management/
-[60]: ../assets#asset-path
-[61]: ../../web-ui/filter/
+[54]: ../../../api#response-filtering
+[55]: ../../../sensuctl/filter-responses/
+[56]: ../../../operations/manage-secrets/secrets/
+[57]: ../../../operations/manage-secrets/secrets-providers/
+[58]: ../../../web-ui/filter#filter-with-label-selectors
+[59]: ../../../operations/manage-secrets/secrets-management/
+[60]: ../../../operations/deploy-sensu/assets#asset-path
+[61]: ../../../web-ui/filter/

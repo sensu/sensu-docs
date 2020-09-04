@@ -72,7 +72,7 @@ Sensu includes built-in event filters to help you customize event pipelines for 
 To start using built-in event filters, see [Send Slack alerts][4] and [Plan maintenance][5].
 
 {{% notice note %}}
-**NOTE**: Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x, but you can replicate its functionality with [the repeated events filter definition](../../reference/filters/#handle-repeated-events).
+**NOTE**: Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x, but you can replicate its functionality with [the repeated events filter definition](#handle-repeated-events).
 {{% /notice %}}
 
 ### Built-in filter: is_incident
@@ -257,7 +257,7 @@ spec:
 
 When applied to a handler configuration, the has_metrics event filter allows only events that include a [`metrics` scope][9].
 
-## Build event filter expressions
+## Build event filter expressions with Sensu query expressions
 
 You can write custom event filter expressions as [Sensu query expressions][27] using the event data attributes described in this section.
 For more information about event attributes, see the [event reference][28].
@@ -370,6 +370,83 @@ For more information about event attributes, see the [event reference][28].
 `event.entity.system.platform_family`  | string  | The entity’s operating system family
 `event.entity.system.platform_version` | string  | The entity’s operating system version
 `event.entity.user`                    | string  | Sensu [RBAC][25] username used by the agent entity
+
+## Build event filter expressions with JavaScript execution functions
+
+**COMMERCIAL FEATURE**: Access built-in JavaScript event filter execution functions in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][44].
+
+In addition to [Sensu query expressions][27], Sensu includes several built-in JavaScript functions for event filter execution:
+
+- `sensu.FetchEvent`
+- `sensu.CheckStatus`
+- `sensu.ListEvents`
+
+Use these functions to query your event stores for other events in the same namespace.
+
+For example, to handle only events for the `server01` entity *and* the `disk` check, use the `sensu.FetchEvent` function in your event filter expressions:
+
+{{< code javascript >}}
+"expressions": [
+  '(function () { var diskEvent = sensu.FetchEvent("server01", "disk"); if (diskEvent == nil) { return false; } return diskEvent.check.status == 0; })()'
+]
+{{< /code >}}
+
+### `sensu.EventStatus`
+
+The `sensu.EventStatus` function takes zero or more checks as arguments.
+It returns an array of status codes for the events associated with the specified checks.
+
+If you do not specify any checks, the function always returns an empty array.
+
+You can refer to the checks as strings:
+
+{{< code javascript >}}
+sensu.EventStatus("database", "disk")
+{{< /code >}}
+
+If you pass the check names as strings, Sensu assumes that the entities are the same as those in the events being filtered.
+
+You can also refer to the checks in objects that include both the entity and check name.
+For example:
+
+{{< code javascript >}}
+sensu.EventStatus({entity: "server01", check: "disk"}, {entity: "server01", check: "database"})
+{{< /code >}}
+
+In both cases, if no event matches the specified entities and checks, Sensu will raise an error.
+
+### `sensu.FetchEvent`
+
+The `sensu.FetchEvent` function loads the Sensu event that corresponds to the specified entity and check names.
+
+The format is `sensu.FetchEvent(entity, check)`.
+For example:
+
+{{< code javascript >}}
+sensu.FetchEvent("server01", "disk")
+{{< /code >}}
+
+You can only load events from the same namespace as the event being filtered.
+The returned object uses the same format as responses for the [events API][43].
+
+If an event does not exist for the specified entity and check names, Sensu will raise an error.
+
+### `sensu.ListEvents`
+
+The `sensu.ListEvents` function returns an array of all events in the same namespace as the event being filtered.
+
+{{% notice note %}}
+**NOTE**: If you have many events in the namespace, this function may require a substantial amount of time to return them.
+{{% /notice %}}
+
+For example:
+
+{{< code javascript >}}
+sensu.ListEvents()
+{{< /code >}}
+
+The events in the returned array use the same format as responses for the [events API][43].
 
 ## Event filter specification
 
@@ -839,45 +916,43 @@ spec:
 
 [1]: #inclusive-and-exclusive-event-filters
 [2]: #when-attributes
-[3]: ../../reference/sensuctl/#time-windows
-[4]: ../../guides/send-slack-alerts/
-[5]: ../../guides/plan-maintenance/
-[6]: ../silencing/
+[4]: ../../observe-process/send-slack-alerts/
+[5]: ../../observe-process/plan-maintenance/
+[6]: ../../observe-process/silencing/
 [7]: #built-in-filter-is_incident
-[8]: ../backend/
-[9]: ../events/
-[10]: ../rbac#namespaces
+[8]: ../../observe-schedule/backend/
+[9]: ../../observe-events/events/
+[10]: ../../../operations/control-access/rbac#namespaces
 [11]: #metadata-attributes
-[12]: ../hooks/
-[13]: ../../guides/extract-metrics-with-checks/
-[14]: ../checks#use-a-proxy-check-to-monitor-a-proxy-entity
-[15]: ../checks#use-a-proxy-check-to-monitor-multiple-proxy-entities
-[16]: ../checks#round-robin-checks
-[17]: ../assets/
-[18]: ../entities#system-attributes
-[19]: ../checks/#metadata-attributes
-[20]: ../events/#history-attributes
-[21]: ../checks#check-scheduling
-[22]: ../handlers/
-[23]: ../events#metric-attributes
-[24]: ../entities#metadata-attributes
-[25]: ../rbac#default-roles
-[26]: ../agent#keepalive-monitoring
-[27]: ../sensu-query-expressions/
-[28]: ../events#event-format
-[29]: ../events#occurrences-and-occurrences-watermark
-[30]: ../../guides/reduce-alert-fatigue/
+[12]: ../../observe-schedule/hooks/
+[13]: ../../observe-schedule/extract-metrics-with-checks/
+[14]: ../../observe-schedule/checks#use-a-proxy-check-to-monitor-a-proxy-entity
+[15]: ../../observe-schedule/checks#use-a-proxy-check-to-monitor-multiple-proxy-entities
+[16]: ../../observe-schedule/checks#round-robin-checks
+[17]: ../../../operations/deploy-sensu/assets/
+[18]: ../../observe-entities/entities#system-attributes
+[19]: ../../observe-schedule/checks/#metadata-attributes
+[20]: ../../observe-events/events/#history-attributes
+[21]: ../../observe-schedule/checks#check-scheduling
+[22]: ../../observe-process/handlers/
+[23]: ../../observe-events/events#metric-attributes
+[24]: ../../observe-entities/entities#metadata-attributes
+[25]: ../../../operations/control-access/rbac#default-roles
+[26]: ../../observe-schedule/agent#keepalive-monitoring
+[27]: ../../observe-filter/sensu-query-expressions/
+[28]: ../../observe-events/events#event-format
+[29]: ../../observe-events/events#occurrences-and-occurrences-watermark
+[30]: ../../observe-filter/reduce-alert-fatigue/
 [31]: https://github.com/robertkrimen/otto
 [32]: https://github.com/robertkrimen/otto/blob/master/README.markdown
-[33]: ../../sensuctl/create-manage-resources/#create-resources
+[33]: ../../../sensuctl/create-manage-resources/#create-resources
 [34]: #spec-attributes
 [35]: https://regex101.com/r/zo9mQU/2
-[36]: ../../api#response-filtering
-[37]: ../../sensuctl/filter-responses/
+[36]: ../../../api#response-filtering
+[37]: ../../../sensuctl/filter-responses/
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
-[39]: ../assets/
-[40]: ../filters/
-[41]: ../../web-ui/filter#filter-with-label-selectors
-[42]: ../../web-ui/filter/
+[39]: ../../../operations/deploy-sensu/assets/
+[41]: ../../../web-ui/filter#filter-with-label-selectors
+[42]: ../../../web-ui/filter/
 [43]: ../
 [44]: ../../../observability-pipeline/

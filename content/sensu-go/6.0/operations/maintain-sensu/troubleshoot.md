@@ -2,7 +2,7 @@
 title: "Troubleshoot Sensu"
 linkTitle: "Troubleshoot"
 description: "Here’s how to troubleshoot Sensu, including how to look into errors, service logging, log levels. Sensu service logs produced by sensu-backend and sensu-agent are often the best source of truth when troubleshooting issues, so start there."
-weight: 30
+weight: 20
 version: "6.0"
 product: "Sensu Go"
 platformContent: true
@@ -366,14 +366,14 @@ or
 
 This would allow the asset to be downloaded onto the target entity.
 
-[1]: ../../../reference/agent#operation
+[1]: ../../../observability-pipeline/observe-schedule/agent#operation
 [2]: ../../../platforms/#windows
 [3]: ../../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
 [4]: https://etcd.io/docs/v3.4.0/op-guide/security/
-[5]: ../../../reference/agent/#restart-the-service
-[6]: ../../../reference/agent#events-post
+[5]: ../../../observability-pipeline/observe-schedule/agent/#restart-the-service
+[6]: ../../../observability-pipeline/observe-schedule/agent#events-post
 [7]: https://dzone.com/articles/what-is-structured-logging
-[9]: ../../../reference/backend/#restart-the-service
-[10]: ../../../reference/assets/#asset-definition-multiple-builds
+[9]: ../../../observability-pipeline/observe-schedule/backend/#restart-the-service
+[10]: ../../deploy-sensu/assets/#asset-definition-multiple-builds
 [11]: ../../monitor-sensu/log-sensu-systemd/
 [12]: https://github.com/systemd/systemd/issues/2913

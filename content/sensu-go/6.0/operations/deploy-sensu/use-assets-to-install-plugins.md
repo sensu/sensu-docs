@@ -1,8 +1,8 @@
 ---
-title: "Install plugins with assets"
-linkTitle: "Install Plugins with Assets"
+title: "Use assets to install plugins"
+linkTitle: "Use Assets to Install Plugins"
 description: "Assets are shareable, reusable packages that make it easier to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to power your monitoring workflows. Read the guide to get started using assets."
-weight: 110
+weight: 140
 version: "6.0"
 product: "Sensu Go"
 platformContent: False
@@ -36,7 +36,7 @@ You can also click the Download button on the asset page in [Bonsai][7] to downl
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+Read [the asset reference](../assets#asset-builds) for more information about asset builds.
 {{% /notice %}}
 
 ## Adjust the asset definition
@@ -150,11 +150,11 @@ Read these resources for more information about using assets in Sensu:
 You can also try our interactive tutorial to [send critical alerts to your PagerDuty account][8].
 
 
-[1]: ../../reference/assets/
+[1]: ../assets/
 [2]: #create-an-asset
 [3]: https://bonsai.sensu.io
-[4]: ../../reference/entities/#system-attributes
-[5]: ../../reference/assets/#metadata-attributes
+[4]: ../../../observability-pipeline/observe-entities/entities/#system-attributes
+[5]: ../assets/#metadata-attributes
 [6]: ../../sensuctl/sensuctl-bonsai/#install-asset-definitions
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 [8]: ../../learn/sensu-pagerduty/
@@ -162,6 +162,6 @@ You can also try our interactive tutorial to [send critical alerts to your Pager
 [11]: https://bonsai.sensu.io/assets/sensu/sensu-jira-handler
 [12]: ../../commercial/
 [13]: ../monitor-server-resources/
-[14]: ../../reference/assets#asset-format-specification
-[15]: ../../reference/assets#share-an-asset-on-bonsai
+[14]: ../assets#asset-format-specification
+[15]: ../assets#share-an-asset-on-bonsai
 [16]: https://bonsai.sensu.io

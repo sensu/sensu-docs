@@ -374,7 +374,7 @@ example      | {{< code shell >}}"subscriptions": ["web", "prod", "entity:exampl
 system       | 
 -------------|------ 
 description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
 As of 5.20.2, new events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
@@ -685,7 +685,7 @@ example        | {{< code shell >}}"cloud_provider": "" {{< /code >}}
 processes    | 
 -------------|------ 
 description  | List of processes on the local agent. See [processes attributes][26] for more information.{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
 As of 5.20.2, new events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
@@ -825,7 +825,7 @@ example      | {{< code shell >}}"handler": "email-handler"{{< /code >}}
 ### Processes attributes
 
 {{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
 As of 5.20.2, new events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
@@ -1092,31 +1092,31 @@ spec:
 [2]: #deregistration-attributes
 [3]: #network-attributes
 [4]: #networkinterface-attributes
-[5]: ../rbac#namespaces
-[6]: ../filters/
-[7]: ../tokens/
+[5]: ../../../operations/control-access/rbac#namespaces
+[6]: ../../observe-filter/filters/
+[7]: ../../observe-schedule/tokens/
 [8]: #metadata-attributes
-[9]: ../../commercial/
+[9]: ../../../commercial/
 [10]: https://sensu.io/contact
 [11]: https://blog.sensu.io/one-year-of-sensu-go
-[12]: ../../sensuctl/create-manage-resources/#create-resources
+[12]: ../../../sensuctl/create-manage-resources/#create-resources
 [13]: #spec-attributes
-[14]: ../../api#response-filtering
-[15]: ../../sensuctl/filter-responses/
-[16]: #proxy-entities
-[17]: ../../guides/monitor-external-resources/
-[18]: ../checks/#round-robin-checks
+[14]: ../../../api#response-filtering
+[15]: ../../../sensuctl/filter-responses/
+[16]: ../#proxy-entities
+[17]: ../../observe-entities/monitor-external-resources/
+[18]: ../../observe-schedule/checks/#round-robin-checks
 [19]: #proxy-entities-managed
 [20]: #annotations
 [21]: https://regex101.com/r/zo9mQU/2
-[22]: ../rbac/
-[23]: ../../web-ui/filter#filter-with-label-selectors
-[24]: ../checks#proxy-requests-attributes
-[25]: ../agent/#detect-cloud-provider-flag
+[22]: ../../../operations/control-access/rbac/
+[23]: ../../../web-ui/filter#filter-with-label-selectors
+[24]: ../../observe-schedule/checks#proxy-requests-attributes
+[25]: ../../observe-schedule/agent/#detect-cloud-provider-flag
 [26]: #processes-attributes
-[27]: ../agent/#discover-processes
+[27]: ../../observe-schedule/agent/#discover-processes
 [28]: http://man7.org/linux/man-pages/man1/top.1.html
-[29]: ../../reference/license/#view-entity-count-and-entity-limit
-[30]: ../../web-ui/filter/
+[29]: ../../../operations/maintain-sensu/license/#view-entity-count-and-entity-limit
+[30]: ../../../web-ui/filter/
 [31]: ../#agent-entities
 [32]: ../#proxy-entities

@@ -45,4 +45,4 @@ Read [Install plugins with assets][9] to get started.
 [6]: ../observe-filter/filters#filter-expression-comparison
 [7]: filters/#built-in-filter-is_incident
 [8]: https://bonsai.sensu.io/
-[9]: ../../guides/install-check-executables-with-assets/
+[9]: ../../operations/deploy-sensu/use-assets-to-install-plugins/

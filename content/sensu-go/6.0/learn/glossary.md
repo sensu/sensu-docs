@@ -103,21 +103,21 @@ A placeholder in a check definition that the agent replaces with local informati
 Tokens let you fine-tune check attributes (like thresholds) on a per-entity level while reusing the check definition.
 [Read more about tokens][16].
 
-[1]: ../../reference/agent/
-[2]: ../../reference/backend/
-[3]: ../../reference/checks/
-[4]: ../../reference/assets/
-[5]: ../../reference/hooks/
-[6]: ../../reference/checks/
-[7]: ../../reference/entities/
-[8]: ../../reference/events/
-[9]: ../../reference/filters/
-[10]: ../../reference/handlers/
-[11]: ../../reference/mutators/
-[12]: ../../reference/entities#proxy-entities
-[13]: ../../reference/rbac/
+[1]: ../../observability-pipeline/observe-schedule/agent/
+[2]: ../../observability-pipeline/observe-schedule/backend/
+[3]: ../../observability-pipeline/observe-schedule/checks/
+[4]: ../../operations/deploy-sensu/assets/
+[5]: ../../observability-pipeline/observe-schedule/hooks/
+[6]: ../../operations/deploy-sensu/install-plugins/
+[7]: ../../observability-pipeline/observe-entities/entities/
+[8]: ../../observability-pipeline/observe-events/events/
+[9]: ../../observability-pipeline/observe-filter/filters/
+[10]: ../../observability-pipeline/observe-process/handlers/
+[11]: ../../observability-pipeline/observe-transform/mutators/
+[12]: ../../observability-pipeline/observe-entities/entities#proxy-entities
+[13]: ../../operations/control-access/rbac/
 [14]: ../../sensuctl/
-[15]: ../../reference/checks/#subdue-attributes
-[16]: ../../reference/tokens/
-[17]: ../../reference/silencing/
-[18]: ../../reference/rbac#resources
+[15]: ../../observability-pipeline/observe-schedule/checks/#subdue-attributes
+[16]: ../../observability-pipeline/observe-schedule/tokens/
+[17]: ../../observability-pipeline/observe-process/silencing/
+[18]: ../../operations/control-access/rbac#resources

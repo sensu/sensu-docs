@@ -64,10 +64,10 @@ If you use only 1,500 agent entities, you can have 8,500 proxy entities before y
 Use sensuctl or the license API to [view your overall entity count and limit][5].
 
 
-[1]: ../../guides/monitor-external-resources/
+[1]: monitor-external-resources/
 [2]: ../../commercial/
 [3]: https://sensu.io/contact
 [4]: https://blog.sensu.io/one-year-of-sensu-go
-[5]: ../../reference/license/#view-entity-count-and-entity-limit
+[5]: ../../operations/maintain-sensu/license/#view-entity-count-and-entity-limit
 [6]: entities/
-[7]: checks/#proxy-entity-name-attribute
+[7]: ../observe-schedule/checks/#proxy-entity-name-attribute

@@ -4,7 +4,7 @@ linkTitle: "Hooks Reference"
 reference_title: "Hooks"
 type: "reference"
 description: "Check hooks allow you to automate data collection that operators would typically perform by investigating monitoring alerts manually. Hooks help free up precious operator time. Read the reference doc to learn about hooks."
-weight: 50
+weight: 60
 version: "6.0"
 product: "Sensu Go"
 platformContent: false

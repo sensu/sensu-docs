@@ -230,4 +230,4 @@ example url               | http://hostname:8080/api/enterprise/store/v1/provide
 url parameters            | Required: `my-postgres` (name of provider to delete).
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/datastore/
+[1]: ../../operations-deploy-sensu/datastore/

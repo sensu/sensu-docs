@@ -144,11 +144,11 @@ Conversely, you cannot configure the sensuctl command line tool with multiple ba
 Under normal conditions, sensuctl communications and browser access to the web UI should be routed via a load balancer.
 
 [1]: ../hardware-requirements/
-[3]: ../../../reference/agent/#general-configuration-flags
+[3]: ../../../observability-pipeline/observe-schedule/agent/#general-configuration-flags
 [4]: https://etcd.io/docs/
 [5]: https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/security.md
 [6]: ../secure-sensu/
 [7]: ../cluster-sensu/
-[8]: ../../../reference/datastore/
+[8]: ../datastore/
 [9]: ../../../commercial/
 [10]: https://github.com/sensu/sensu-perf

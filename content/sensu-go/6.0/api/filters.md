@@ -275,6 +275,6 @@ description               | Removes the specified event filter from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/filters/development_filter
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/filters/
-[2]: ../overview#pagination
-[3]: ../overview#response-filtering
+[1]: ../../observability-pipeline/observe-filter/filters/
+[2]: ../#pagination
+[3]: ../#response-filtering

@@ -7,7 +7,7 @@ title: "Role-based access control (RBAC)"
 reference_title: "Role-based access control (RBAC)"
 type: "reference"
 description: "Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance. RBAC allows you to manage user access and resources based on namespaces, groups, roles, and bindings. Read the reference doc to learn about RBAC."
-weight: 40
+weight: 50
 version: "6.0"
 product: "Sensu Go"
 menu:
@@ -1258,7 +1258,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [11]: ../mutators/
 [13]: #roles-and-cluster-roles
 [14]: ../silencing/
-[16]: ../../reference/
+[16]: ../../../reference/
 [17]: #namespaced-resource-types
 [18]: #cluster-wide-resource-types
 [19]: ../../api/

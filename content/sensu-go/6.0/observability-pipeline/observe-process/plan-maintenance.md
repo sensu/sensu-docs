@@ -2,7 +2,7 @@
 title: "Plan maintenance windows with silencing"
 linkTitle: "Plan Maintenance Windows"
 description: "Perform system maintenance without getting overloaded with alerts. Sensu silencing bypasses event handlers during maintenance periods, giving operators the ability to quiet incoming alerts while coordinating their response. Read this guide to use Sensu silencing."
-weight: 100
+weight: 70
 version: "6.0"
 product: "Sensu Go"
 platformContent: False
@@ -71,11 +71,11 @@ sensuctl event list
 
 Next, read the [silencing reference][7] for in-depth documentation about silenced entries.
 
-[1]: ../../reference/handlers/
-[2]: ../../reference/silencing/#silence-all-checks-on-a-specific-entity
-[3]: ../../reference/silencing/#silence-a-specific-check-on-a-specific-entity
-[4]: ../../reference/silencing/#silence-all-checks-on-entities-with-a-specific-subscription
-[5]: ../../reference/silencing/#silence-a-specific-check-on-entities-with-a-specific-subscription
-[6]: ../../reference/silencing/#silence-a-specific-check-on-every-entity
-[7]: ../../reference/silencing/
-[8]: ../../sensuctl/create-manage-resources/#time-formats
+[1]: ../handlers/
+[2]: ../silencing/#silence-all-checks-on-a-specific-entity
+[3]: ../silencing/#silence-a-specific-check-on-a-specific-entity
+[4]: ../silencing/#silence-all-checks-on-entities-with-a-specific-subscription
+[5]: ../silencing/#silence-a-specific-check-on-entities-with-a-specific-subscription
+[6]: ../silencing/#silence-a-specific-check-on-every-entity
+[7]: ../silencing/
+[8]: ../../../sensuctl/create-manage-resources/#time-formats
