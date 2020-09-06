@@ -71,7 +71,7 @@ If you create a new event that references an entity that does not already exist,
 [3]: #status-only-events
 [4]: ../observe-schedule/hooks/
 [5]: ../observe-process/aggregate-metrics-statsd/
-[6]: ../observe-schedule/extract-metrics-with-checks/
+[6]: ../observe-schedule/collect-metrics-with-checks/
 [7]: #metrics-only-events
 [8]: #status-and-metrics-events
 [9]: checks/#subscriptions

@@ -1,5 +1,5 @@
 ---
-title: "Collect metrics with Sensu checks"
+title: "Collect service metrics with Sensu checks"
 linkTitle: "Collect Service Metrics"
 description: "Sensu supports industry-standard metric formats like Nagios Performance Data, Graphite Plaintext Protocol, InfluxDB Line Protocol, and OpenTSDB Data Specification. Read this guide to collect metrics with Sensu."
 weight: 50
@@ -159,7 +159,7 @@ Check out these resources for more information about scheduling checks and using
 [2]: ../monitor-server-resources/
 [3]: #supported-output-metric-formats
 [4]: ../../observe-process/handlers/
-[5]: ../../observe-process/influx-db-metric-handler/
+[5]: ../../observe-process/populate-metrics-influxdb/
 [6]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
 [7]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [8]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement

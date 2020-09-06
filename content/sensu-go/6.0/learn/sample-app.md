@@ -411,5 +411,5 @@ For more information about monitoring with Sensu, check out these resources:
 [10]: http://grafana.local/
 [11]: ../../observability-pipeline/observe-filter/reduce-alert-fatigue/
 [12]: ../../observability-pipeline/observe-process/aggregate-metrics-statsd/
-[13]: ../../observability-pipeline/observe-schedule/extract-metrics-with-checks/
+[13]: ../../observability-pipeline/observe-schedule/collect-metrics-with-checks/
 [14]: ../../operations/deploy-sensu/install-sensu/#3-initialize

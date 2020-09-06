@@ -69,7 +69,7 @@ Sensu Go is the latest version of Sensu, designed to be portable, straightforwar
 [7]: #built-in-support-for-industry-standard-tools
 [8]: observability-pipeline/observe-filter/filters/
 [9]: observability-pipeline/observe-schedule/hooks/
-[10]: observability-pipeline/observe-schedule/extract-metrics-with-checks/
+[10]: observability-pipeline/observe-schedule/collect-metrics-with-checks/
 [11]: #intuitive-api-with-command-line-and-web-interfaces
 [12]: commercial/
 [13]: api/

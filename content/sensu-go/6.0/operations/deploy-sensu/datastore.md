@@ -203,7 +203,7 @@ example      | {{< code shell >}}pool_size: 20{{< /code >}}
 [9]: ../../../web-ui/
 [10]: ../../../sensuctl/create-manage-resources/#sensuctl-event
 [11]: ../../../api/events/
-[12]: ../../../observability-pipeline/observe-process/influx-db-metric-handler/
+[12]: ../../../observability-pipeline/observe-process/populate-metrics-influxdb/
 [13]: ../../../commercial/
 [14]: https://www.postgresql.org
 [15]: https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING

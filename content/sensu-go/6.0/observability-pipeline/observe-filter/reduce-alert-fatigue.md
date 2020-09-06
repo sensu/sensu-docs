@@ -1,8 +1,8 @@
 ---
-title: "Reduce alert fatigue with filters"
+title: "Reduce alert fatigue with event filters"
 linkTitle: "Reduce Alert Fatigue"
 description: "Here’s how to reduce alert fatigue with Sensu. Learn about Sensu filters, how they reduce alert fatigue, and how to put them into action."
-weight: 30
+weight: 20
 version: "6.0"
 product: "Sensu Go"
 platformContent: False

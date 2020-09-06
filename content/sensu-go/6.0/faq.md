@@ -119,7 +119,7 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [15]: https://github.com/sensu-plugins/sensu-plugins-puppet/
 [16]: https://github.com/sensu-plugins/sensu-plugins-influxdb/
 [17]: https://github.com/sensu-plugins/sensu-plugins-snmp/
-[18]: ../observability-pipeline/observe-process/influx-db-metric-handler/
+[18]: ../observability-pipeline/observe-process/populate-metrics-influxdb/
 [19]: https://www.influxdata.com/
 [20]: ../operations/deploy-sensu/secure-sensu/
 [21]: ../observability-pipeline/observe-schedule/agent#create-monitoring-events-using-the-agent-api

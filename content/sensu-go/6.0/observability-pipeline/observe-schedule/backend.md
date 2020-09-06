@@ -1423,7 +1423,7 @@ The _SIGHUP_ signal causes the `backend` component to reload instead of restarti
 [1]: ../../../operations/deploy-sensu/install-sensu#install-the-sensu-backend
 [2]: https://etcd.io/docs
 [3]: ../monitor-server-resources/
-[4]: ../extract-metrics-with-checks/
+[4]: ../collect-metrics-with-checks/
 [5]: ../checks/
 [6]: ../../../web-ui/
 [7]: ../../observe-process/send-slack-alerts/

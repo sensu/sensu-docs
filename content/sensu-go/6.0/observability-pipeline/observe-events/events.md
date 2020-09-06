@@ -1336,7 +1336,7 @@ spec:
 [3]: ../../observe-entities/entities/
 [4]: ../#status-only-events
 [5]: ../#metrics-only-events
-[6]: ../../observe-schedule/extract-metrics-with-checks/
+[6]: ../../observe-schedule/collect-metrics-with-checks/
 [7]: ../../observe-schedule/checks/#check-specification
 [8]: ../../../sensuctl/create-manage-resources/#create-resources
 [9]: #spec-attributes

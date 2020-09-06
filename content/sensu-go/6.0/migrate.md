@@ -468,7 +468,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [54]: ../operations/control-access/rbac/#resources
 [55]: ../operations/deploy-sensu/install-sensu#install-sensu-agents
 [56]: ../observability-pipeline/observe-schedule/agent#configuration-via-flags
-[57]: ../observability-pipeline/observe-schedule/extract-metrics-with-checks/
+[57]: ../observability-pipeline/observe-schedule/collect-metrics-with-checks/
 [58]: ../observability-pipeline/observe-schedule/checks#metadata-attributes
 [59]: https://bonsai.sensu.io/assets?q=eventfilter
 [60]: ../observability-pipeline/observe-filter/reduce-alert-fatigue/

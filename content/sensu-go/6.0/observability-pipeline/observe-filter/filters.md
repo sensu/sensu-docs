@@ -925,7 +925,7 @@ spec:
 [10]: ../../../operations/control-access/rbac#namespaces
 [11]: #metadata-attributes
 [12]: ../../observe-schedule/hooks/
-[13]: ../../observe-schedule/extract-metrics-with-checks/
+[13]: ../../observe-schedule/collect-metrics-with-checks/
 [14]: ../../observe-schedule/checks#use-a-proxy-check-to-monitor-a-proxy-entity
 [15]: ../../observe-schedule/checks#use-a-proxy-check-to-monitor-multiple-proxy-entities
 [16]: ../../observe-schedule/checks#round-robin-checks

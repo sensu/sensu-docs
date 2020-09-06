@@ -1073,7 +1073,7 @@ The asset reference includes an [example check definition that uses the asset pa
 [17]: #subdue-attributes
 [20]: ../../observe-entities/#proxy-entities
 [21]: ../../observe-entities/entities/#spec-attributes
-[23]: ../extract-metrics-with-checks/
+[23]: ../collect-metrics-with-checks/
 [24]: ../../observe-events/events/
 [25]: #metadata-attributes
 [26]: ../../../operations/control-access/rbac#namespaces

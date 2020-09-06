@@ -517,7 +517,7 @@ sensuctl license info
 [9]: ../../../observability-pipeline/observe-schedule/monitor-server-resources/
 [10]: ../../../observability-pipeline/observe-process/send-slack-alerts/
 [11]: https://sensu.io/contact?subject=contact-sales/
-[12]: ../../../observability-pipeline/observe-process/email-handler/
+[12]: ../../../observability-pipeline/observe-process/send-email-alerts/
 [13]: https://sensu.io/sensu-license/
 [14]: ../../../learn/learn-sensu-sandbox/
 [15]: ../../../observability-pipeline/observe-schedule/agent/#events-post-example
@@ -538,11 +538,11 @@ sensuctl license info
 [30]: ../../../observability-pipeline/observe-schedule/backend#initialization
 [31]: ../deployment-architecture/
 [32]: http://localhost:3000/
-[33]: ../../../observability-pipeline/observe-schedule/extract-metrics-with-checks/
+[33]: ../../../observability-pipeline/observe-schedule/collect-metrics-with-checks/
 [34]: https://account.sensu.io/
 [35]: ../../../api/health/
 [36]: #4-open-the-web-ui
-[37]: ../../../observability-pipeline/observe-process/influx-db-metric-handler/
+[37]: ../../../observability-pipeline/observe-process/populate-metrics-influxdb/
 [38]: ../../../sensuctl/back-up-recover/
 [39]: ../../../sensuctl/create-manage-resources/#create-resources
 [40]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/

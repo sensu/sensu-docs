@@ -112,7 +112,7 @@ Now that you know how to apply a handler to metrics and take action on events, h
 [5]: ../../../sensuctl/sensuctl-bonsai/#install-asset-definitions
 [8]: ../../../operations/maintain-sensu/troubleshoot/
 [9]: ../handlers/
-[10]: ../../observe-schedule/extract-metrics-with-checks/
+[10]: ../../observe-schedule/collect-metrics-with-checks/
 [11]: https://github.com/sensu/sensu-influxdb-handler/releases
 [12]: ../../../operations/deploy-sensu/assets/
 [13]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
