@@ -216,11 +216,11 @@
             "status": 301
         },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/web-ui/sign-in/?$": {
-            "url": "/sensu-go/latest/web-ui/",
+            "url": "/sensu-go/latest/web-ui",
             "status": 301
         },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/web-ui/sign-in/?$": {
-            "url": "/sensu-go/latest/web-ui/",
+            "url": "/sensu-go/latest/web-ui",
             "status": 301
         },
         "~ ^/sensu-go/latest/dashboard/filtering/?$": {
@@ -608,11 +608,11 @@
             "status": 301
         },
         "~ ^/sensu-go/latest/reference/filters/?$": {
-            "url": "/sensu-go/latest/observability-pipeline/",
+            "url": "/sensu-go/latest/observability-pipeline/observe-filter/filters",
             "status": 301
         },
         "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/filters/?$": {
-            "url": "/sensu-go/latest/observability-pipeline/",
+            "url": "/sensu-go/latest/observability-pipeline/observe-filter/filters",
             "status": 301
         },
         "~ ^/sensu-go/latest/reference/handlers/?$": {
