@@ -1,17 +1,15 @@
-{{ $files := readDir (path.Join "content" $.Page.File.Dir) }}
-
-<!-- Loop through all files in dir -->
 <ul>
-  {{ range $files }}
+  <!-- Specify pages should be listed in alphabetical order -->
+  {{ range (.Site.Pages.ByParam "reference_title") }}
+    <!-- Only include pages from the specified version -->
+    {{ if eq .Params.version "6.0" }}
+      <!-- Only include pages with specified frontmatter type "reference" -->
+      {{ if eq .Type "reference" }}
 
-    <!-- Don't list the index, cause we're there -->
-    {{ if ne .Name "_index.md" }}
-
-      <!-- Format the name nicely -->
-      {{ $name := replace .Name ".md" "" }}
-      {{ $name2 := replace $name "-" " " }}
-      {{ $name2 := title $name }}
-      <li><a href="{{ $name }}"> {{ $name2 }}</a></li>
+      <li><a href="{{ .Permalink }}">{{ .Params.reference_title }}</a></li>
+      {{ end }}
     {{ end }}
   {{ end }}
 </ul>
+
+            

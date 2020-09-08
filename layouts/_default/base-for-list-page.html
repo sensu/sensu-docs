@@ -12,15 +12,8 @@
 
     <article class="article">
       <div class="wrapper">
-        <h1>{{ .Title }}</h1>
+        <h1>{{ .Title }} {{ if .Draft }} (Draft){{ end }}</h1>
         {{ .Content }}
-        <ul>
-          {{ range (.Site.Pages.ByParam "reference_title") }}
-          {{ if eq .Type "reference" }}
-            <li><a href="{{ .Permalink }}">{{ .Params.reference_title }}</a></li>
-        {{ end }}
-      {{ end }}
-      </ul>
       </div>
     </article>
 

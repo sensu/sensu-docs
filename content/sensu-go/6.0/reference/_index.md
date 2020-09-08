@@ -5,7 +5,7 @@ description: "Read the reference documentation for information about Sensu resou
 product: "Sensu Go"
 version: "6.0"
 weight: 100
-layout: "base-for-list-page"
+layout: "single"
 toc: false
 menu:
   sensu-go-6.0:
@@ -13,6 +13,6 @@ menu:
 ---
 
 This index links to every reference in the Sensu documentation.
-Reference documentation includes specifications, examples, configuration notes, and other details about each Sensu resource, the Sensu agent and backend, and Sensu query expressions.
+Reference documentation includes specifications, examples, configuration notes, and other details about Sensu resources, the agent and backend, and Sensu query expressions.
 
 {{< typeListing >}}
