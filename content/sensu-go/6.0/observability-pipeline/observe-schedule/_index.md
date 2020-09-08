@@ -18,12 +18,17 @@ menu:
 
 **<button onclick="window.location.href='../observe-filter';">Next</button> or click any element in the pipeline to jump to it.**
 
+Sensu's schedule function is based on subscriptions: transport topics to which the Sensu [backend][2] publishes check requests.
+The subscriptions you specify in your Sensu [agent][11] definition determine which [checks][15] the agent will execute.
+The Sensu backend schedules checks for agents based on the agents' subscriptions and publishes check execution requests to [entities][3].
+
+## Agent and backend
+
 The Sensu agent is a lightweight process that runs on the infrastructure components you want to monitor and observe.
-The agent registers with the Sensu backend as an [entity][3] with `type: "agent"`.
+The agent registers with the Sensu backend as an entity with `type: "agent"`.
 Agent entities are responsible for creating [status and metrics events][6] to send to the [backend event pipeline][2].
 
-The Sensu backend manages check requests and event data: it schedules checks for agents with matching subscriptions and publishes check execution requests to entities.
-Every Sensu backend includes an integrated structure for scheduling checks using subscriptions, an event processing pipeline that applies [event filters][15], [mutators][16], and [handlers][17], an embedded [etcd][10] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][5], and the `sensu-backend` command line tool.
+The Sensu backend includes an integrated structure for scheduling checks using subscriptions and an event pipeline that applies [event filters][15], [mutators][16], and [handlers][17], an embedded [etcd][10] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][5], and the `sensu-backend` command line tool.
 
 The Sensu agent is available for Linux, macOS, and Windows.
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
@@ -33,8 +38,7 @@ Follow the [installation guide][1] to install the agent and backend.
 
 ## Subscriptions
 
-Sensu uses the [publish/subscribe pattern of communication][13].
-At the core of this model are Sensu subscriptions: transport topics to which the Sensu [backend][2] publishes check requests.
+Subscriptions are at the core of Sensu's [publish/subscribe pattern of communication][13]: subscriptions are transport topics to which the Sensu [backend][2] publishes check requests.
 Sensu entities become subscribers to these topics via their individual `subscriptions` attribute.
 
 Each Sensu agent's defined set of subscriptions determine which [checks][15] the agent will execute.
@@ -69,8 +73,8 @@ Follow [Secure Sensu][8] to configure the backend and agent for WebSocket Secure
 [11]: agent/
 [12]: backend/
 [13]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
-[14]: ../observe-schedule/agent/#create-monitoring-events-using-service-checks
-[15]: ../observe-schedule/checks/
+[14]: agent/#create-monitoring-events-using-service-checks
+[15]: checks/
 [16]: ../observe-filter/filters/
 [17]: ../observe-transform/mutators/
 [18]: ../observe-process/handlers/
