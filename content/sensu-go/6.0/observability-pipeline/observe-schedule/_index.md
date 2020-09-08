@@ -20,7 +20,7 @@ menu:
 
 Sensu's schedule function is based on subscriptions: transport topics to which the Sensu [backend][2] publishes check requests.
 The subscriptions you specify in your Sensu [agent][11] definition determine which [checks][15] the agent will execute.
-The Sensu backend schedules checks for agents based on the agents' subscriptions and publishes check execution requests to [entities][3].
+The Sensu backend schedules checks and publishes check execution requests to [entities][3].
 
 ## Agent and backend
 
