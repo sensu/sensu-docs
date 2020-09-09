@@ -585,6 +585,6 @@ description               | Removes a entity from Sensu (specified by the entity
 example url               | http://hostname:8080/api/core/v2/namespaces/default/entities/server1
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/entities/
-[2]: ../overview#pagination
-[3]: ../overview#response-filtering
+[1]: ../../observability-pipeline/observe-entities/entities/
+[2]: ../#pagination
+[3]: ../#response-filtering

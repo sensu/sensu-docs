@@ -133,7 +133,7 @@ Then restart the backend.
 
 
 [1]: ../../deploy-sensu/install-sensu/
-[2]: ../../../reference/backend#operation
+[2]: ../../../observability-pipeline/observe-schedule/backend#operation
 [3]: /images/web-ui-entity-warning.png
 [4]: https://sensu.io/contact?subject=contact-sales/
 [5]: https://blog.sensu.io/one-year-of-sensu-go

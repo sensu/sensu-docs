@@ -173,7 +173,7 @@ sudo systemctl start grafana-server
 
 ### Create a Sensu InfluxDB handler asset
 
-Put the following asset definition in a file called `asset_influxdb`:
+Put the following dynamic runtime asset definition in a file called `asset_influxdb`:
 
 {{< language-toggle >}}
 
@@ -251,7 +251,7 @@ spec:
 **PRO TIP**: `sensuctl create -f` also accepts files that contain multiple resources' definitions.
 {{% /notice %}}
 
-Use `sensuctl` to add the handler and the asset to Sensu:
+Use `sensuctl` to add the handler and the dynamic runtime asset to Sensu:
 
 {{< code shell >}}
 sensuctl create --file handler --file asset_influxdb

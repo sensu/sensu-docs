@@ -210,7 +210,7 @@ sensuctl describe-type core/v2.CheckConfig --format wrapped-json
 
 
 [1]: ../create-manage-resources/#create-resources
-[2]: ../../reference/rbac/
+[2]: ../../operations/control-access/rbac/
 [3]: #restore-resources-from-backup
 [4]: ../../operations/maintain-sensu/upgrade/
 [5]: ../create-manage-resources/#create-resources-across-namespaces

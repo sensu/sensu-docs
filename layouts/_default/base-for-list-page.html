@@ -1,0 +1,38 @@
+{{ partial "head" . }}
+
+{{ if (eq (trim .Site.Params.provider " " | lower) "github") | and (isset .Site.Params "repo_url") }}
+  {{ $repo_id := replace .Site.Params.repo_url "https://github.com/" ""}}
+  {{ .Scratch.Set "repo_id" $repo_id }}
+{{ end }}
+
+{{ partial "header" . }}
+
+  <main class="main">
+    {{ partial "drawer" . }}
+
+    <article class="article">
+      <div class="wrapper">
+        <h1>{{ .Title }} {{ if .Draft }} (Draft){{ end }}</h1>
+        {{ .Content }}
+      </div>
+    </article>
+
+    <div class="results" role="status" aria-live="polite">
+      <div class="scrollable">
+          <div class="wrapper">
+          <div class="meta"></div>
+          <div class="list"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  {{ partial "footer" . }}
+  {{ partial "footer_js" . }}
+  <script>
+    function setPlatformCookie(platform) {
+      Cookies.set('platform', platform, { expires: 2030 });
+    }
+  </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 ---
 title: "Interactive Tutorial: Send Sensu Go alerts to PagerDuty"
 linkTitle: "Send Sensu Go alerts to PagerDuty"
-description: "See Sensu Go's monitoring event pipeline in action, using PagerDuty to view Sensu alerts."
+description: "See Sensu Go's observability pipeline in action, using PagerDuty to view Sensu alerts."
 version: "6.0"
 toc: false
 product: "Sensu Go"

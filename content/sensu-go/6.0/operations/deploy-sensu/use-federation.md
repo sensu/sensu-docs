@@ -359,14 +359,14 @@ If you haven't changed the permissions of the default `admin` user, that user sh
 Learn more about configuring RBAC policies in our [RBAC reference documentation][10].
 
 [1]: ../../../api/federation/
-[2]: ../../../reference/etcdreplicators/
+[2]: ../etcdreplicators/
 [3]: ../../control-access/use-apikeys/
-[4]: ../../../reference/backend#jwt-attributes
+[4]: ../../../observability-pipeline/observe-schedule/backend#jwt-attributes
 [5]: ../../../sensuctl/create-manage-resources/#create-resources
 [6]: ../../../sensuctl/create-manage-resources/#update-resources
 [7]: ../../../sensuctl/create-manage-resources/#delete-resources
 [8]: ../../../commercial/
-[9]: ../../../reference/etcdreplicators#example-etcdreplicator-resources
+[9]: ../etcdreplicators#example-etcdreplicator-resources
 [10]: ../../control-access/rbac/
 [11]: ../../../api/federation#get-all-clusters
 [12]: https://github.com/etcd-io/etcd/blob/master/etcdctl/README.md#make-mirror-options-destination
