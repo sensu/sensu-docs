@@ -12,7 +12,7 @@ menu:
 ---
 
 Sensu event filters allow you to filter events destined for one or more event handlers.
-Sensu event filters evaluate their expressions against the event data to determine whether the event should be passed to an event handler.
+Sensu event filters evaluate their expressions against the observation data in events to determine whether the event should be passed to an event handler.
 
 Use event filters to eliminate notification noise from recurring events and to filter events from systems in pre-production environments.
 

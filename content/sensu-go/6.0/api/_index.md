@@ -12,7 +12,7 @@ menu:
 
 **API version: v2**
 
-The Sensu backend REST API provides access to Sensu workflow configurations and monitoring event data.
+The Sensu backend REST API provides access to Sensu workflow configurations and observation data (events).
 For information about the Sensu agent API, see the [agent reference][4].
 
 ## URL format

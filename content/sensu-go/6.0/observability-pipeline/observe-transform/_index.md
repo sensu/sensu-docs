@@ -19,7 +19,7 @@ menu:
 
 **In the transform stage, Sensu executes [mutators][1]**.
 
-The transform stage of the Sensu observability pipeline executes any [mutators][1] you have specified in your [handler][2] configuration to transform your event data so other technologies can consume it.
+The transform stage of the Sensu observability pipeline executes any [mutators][1] you have specified in your [handler][2] configuration to transform your observation event data so other technologies can consume it.
 For example, if you're sending metrics to Graphite using a TCP handler, Graphite expects data that follows the Graphite plaintext protocol.
 You can add Sensu's [built-in only_check_output mutator][4] to transform the data into the format Graphite can accept.
 

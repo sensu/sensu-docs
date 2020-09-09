@@ -14,7 +14,7 @@ menu:
 ---
 
 An event is a generic container used by Sensu to provide context to checks and metrics.
-The context, called event data, contains information about the originating entity and the corresponding check or metric result.
+The context, called observation data or event data, contains information about the originating entity and the corresponding check or metric result.
 An event must contain a [status][4] or [metrics][5].
 In certain cases, an event can contain [both a status and metrics][19].
 These generic containers allow Sensu to handle different types of events in the pipeline.
@@ -119,7 +119,7 @@ Sensu events contain:
 
 ## Use event data
 
-Event data is a powerful tool for automating monitoring workflows.
+Observation event data is a powerful tool for automating monitoring workflows.
 For example, you can [reduce alert fatigue][23] by filtering events based on the event `occurrences` attribute.
 
 ### Occurrences and occurrences watermark

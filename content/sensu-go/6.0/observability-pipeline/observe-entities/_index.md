@@ -21,7 +21,7 @@ menu:
 An [entity][6] represents anything that needs to be observed or monitored, such as a server, container, or network switch, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment (from server hardware to serverless functions).
 Sensu calls parts of an infrastructure "entities."
 
-An entity provides the context for event data &mdash; what and where the event is from.
+An entity provides the context for observation data in events &mdash; what and where the event is from.
 The check and entity names associated with an event determine the event's uniqueness.
 Entities can also contain system information like the hostname, operating system, platform, and version.
 

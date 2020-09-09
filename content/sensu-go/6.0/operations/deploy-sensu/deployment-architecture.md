@@ -14,7 +14,7 @@ menu:
 This guide describes various deployment considerations and recommendations for a production-ready Sensu deployment, including details related to communication security and common deployment architectures.
 
 etcd is a key-value store that is used by applications of varying complexity, from simple web apps to Kubernetes.
-The Sensu backend uses an embedded etcd instance for storing both configuration and event data, so you can get Sensu up and running without external dependencies.
+The Sensu backend uses an embedded etcd instance for storing both configuration and observation event data, so you can get Sensu up and running without external dependencies.
 
 By building atop etcd, Sensu's backend inherits a number of characteristics to consider when you're planning for a Sensu deployment.
 

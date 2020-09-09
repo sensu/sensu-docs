@@ -25,7 +25,7 @@ Event filters give you control over which events continue through your pipeline 
 For example, use the [built-in is_incident event filter][7] to allow only high-priority events through your Sensu pipeline and reduce noise for operators.
 
 To tell Sensu which event filters you want to apply, you list them in your [handler][2] definition.
-Sensu compares your event data against the [expressions][6] in your event filters to determine whether each event should continue through the pipeline or be removed.
+Sensu compares your observation data in events against the [expressions][6] in your event filters to determine whether each event should continue through the pipeline or be removed.
 Any events that the filter doesn't remove from your pipeline will be [processed][3] according to your handler configuration.
 
 Event filters can be [inclusive or exclusive][4], so you can require events to match or not match your filter expressions.

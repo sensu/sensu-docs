@@ -25,15 +25,15 @@ Dynamic runtime assets let you manage runtime dependencies without using configu
 [Read more about dynamic runtime assets][4].
 
 ## Backend
-A flexible, scalable monitoring event pipeline.
-The Sensu backend processes event data using filters, mutators, and handlers.
-It maintains configuration files, stores recent event data, and schedules monitoring checks.
+A flexible, scalable observation event pipeline.
+The Sensu backend processes observation data (events) using filters, mutators, and handlers.
+It maintains configuration files, stores recent observation data, and schedules monitoring checks.
 You can interact with the backend using the API, command line, and web UI interfaces.
 [Read more about the Sensu backend][2].
 
 ## Check
 A recurring check the agent runs to determine the state of a system component or collect metrics.
-The backend is responsible for storing check definitions, scheduling checks, and processing event data.
+The backend is responsible for storing check definitions, scheduling checks, and processing observation data (events).
 Check definitions specify the command to be executed, an interval for execution, one or more subscriptions, and one or more handlers to process the resulting event data.
 [Read more about checks][3].
 
@@ -45,18 +45,18 @@ Events can be tied to the entity where the agent runs or a proxy entity that the
 
 ## Event
 A representation of the state of an infrastructure component at a point in time.
-The Sensu backend uses events to power the monitoring event pipeline.
-Event data includes the result of a check or metric (or both), the executing agent, and a timestamp.
+The Sensu backend uses events to power the observation event pipeline.
+Observation data in events include the result of a check or metric (or both), the executing agent, and a timestamp.
 [Read more about events][8].
 
 ## Event filter
 Logical expressions that handlers evaluate before processing monitoring events.
-Event filters can instruct handlers to allow or deny matching events based on day, time, namespace, or any attribute in the event data.
+Event filters can instruct handlers to allow or deny matching events based on day, time, namespace, or any attribute in the observation data (event).
 [Read more about event filters][9].
 
 ## Handler
 A component of the monitoring event pipeline that acts on events.
-Handlers can send monitoring event data to an executable (or handler plugin), a TCP socket, or a UDP socket.
+Handlers can send observation event data to an executable (or handler plugin), a TCP socket, or a UDP socket.
 [Read more about handlers][10].
 
 ## Hook
@@ -65,11 +65,11 @@ Hooks create context-rich events by gathering relevant information based on chec
 [Read more about hooks][5].
 
 ## Mutator
-An executable the backend runs prior to a handler to transform event data.
+An executable the backend runs prior to a handler to transform observation data (events).
 [Read more about mutators][11].
 
 ## Plugin
-Executables designed to work with Sensu event data either as a check, mutator, or handler plugin. 
+Executables designed to work with Sensu observation data (events) either as a check, mutator, or handler plugin. 
 You can write your own check executables in Go, Ruby, Python, and more, or use one of more than 200 plugins shared by the Sensu community.
 [Read more about plugins][6].
 

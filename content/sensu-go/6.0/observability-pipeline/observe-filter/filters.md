@@ -16,7 +16,7 @@ menu:
 Sensu executes event filters during the **[filter][43]** stage of the [observability pipeline][44].
 
 Sensu event filters are applied when you configure event handlers to use one or more filters.
-Before executing a handler, the Sensu backend will apply any event filters configured for the handler to the event data.
+Before executing a handler, the Sensu backend will apply any event filters configured for the handler to the observation data in events.
 If the filters do not remove the event, the handler will be executed.
 
 The filter analysis performs these steps:

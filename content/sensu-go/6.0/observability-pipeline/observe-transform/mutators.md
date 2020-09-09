@@ -3,7 +3,7 @@ title: "Mutators reference"
 linkTitle: "Mutators Reference"
 reference_title: "Mutators"
 type: "reference"
-description: "As part of the event pipeline, mutators let you transform event data before applying handlers. Read the reference doc to learn about mutators."
+description: "As part of the event pipeline, mutators let you transform observation event data before applying handlers. Read the reference doc to learn about mutators."
 product: "Sensu Go"
 weight: 10
 version: "6.0"
@@ -15,7 +15,7 @@ menu:
 
 Sensu executes mutators during the **[transform][16]** stage of the [observability pipeline][17].
 
-Handlers can specify a mutator to execute and transform event data before any handlers are applied.
+Handlers can specify a mutator to execute and transform observation event data before any handlers are applied.
 
 * When the Sensu backend processes an event, it checks the handler for the presence of a mutator and executes that mutator before executing the handler.
 * If the mutator executes successfully (returns an exit status code of `0`), the modified event data return to the handler and the handler is executed.

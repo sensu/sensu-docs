@@ -54,7 +54,7 @@ Read [the asset reference](../../../operations/deploy-sensu/assets#dynamic-runti
 
 ## Create the handler
 
-Now that you have registered the dynamic runtime asset, you'll use sensuctl to create a handler called `influx-db` that pipes event data to InfluxDB with the `sensu-influxdb-handler` dynamic runtime asset.
+Now that you have registered the dynamic runtime asset, you'll use sensuctl to create a handler called `influx-db` that pipes observation data (events) to InfluxDB with the `sensu-influxdb-handler` dynamic runtime asset.
 Edit the command below to include your database name, address, username, and password.
 For more information about the Sensu InfluxDB handler, see [the asset page in Bonsai][13].
 

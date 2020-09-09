@@ -57,7 +57,7 @@ After saving, you'll see your webhook URL under Integration Settings.
 
 ## Create a handler
 
-Use sensuctl to create a handler called `slack` that pipes event data to Slack using the `sensu-slack-handler` dynamic runtime asset.
+Use sensuctl to create a handler called `slack` that pipes observation data (events) to Slack using the `sensu-slack-handler` dynamic runtime asset.
 Edit the command below to include your Slack channel and webhook URL.
 For more information about customizing your Sensu slack alerts, see the asset page in [Bonsai][14].
 

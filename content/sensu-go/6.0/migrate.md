@@ -11,7 +11,7 @@ product: "Sensu Go"
 This guide includes general information for migrating your Sensu instance from Sensu Core 1.x to Sensu Go.
 For instructions and tools to help you translate your Sensu configuration from Sensu Core 1.x to Sensu Go, see the [Sensu Translator project][18] and our [blog post about check configuration upgrades with the Sensu Go sandbox][25].
 
-Sensu Go includes important changes to all parts of Sensu: architecture, installation, resource definitions, the event data model, check dependencies, filter evaluation, and more.
+Sensu Go includes important changes to all parts of Sensu: architecture, installation, resource definitions, the observation data (event) model, check dependencies, filter evaluation, and more.
 Sensu Go also includes many powerful [commercial features][27] to make monitoring easier to build, scale, and offer as a self-service tool to your internal customers.
 
 Sensu Go is available for [RHEL/CentOS, Debian, Ubuntu, and Docker][43].

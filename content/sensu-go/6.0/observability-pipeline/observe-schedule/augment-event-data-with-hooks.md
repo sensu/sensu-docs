@@ -16,7 +16,7 @@ Check hooks are **commands** the Sensu agent runs in response to the result of *
 The Sensu agent executes the appropriate configured hook command based on the exit status code of the check command (e.g. `1`).
 
 Check hooks allow Sensu users to automate data collection that operators would routinely perform to investigate monitoring alerts, which frees up precious operator time.
-Although you can use check hooks for rudimentary auto-remediation tasks, they are intended to enrich monitoring event data.
+Although you can use check hooks for rudimentary auto-remediation tasks, they are intended to enrich observation event data.
 This guide helps you create a check hook that captures the process tree in case a service check returns a critical status.
 
 Follow these steps to create a check hook that captures the process tree in the event that an `nginx_process` check returns a status of `2` (critical, not running).

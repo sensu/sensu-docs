@@ -238,7 +238,7 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /code >}}
 
-The event data should be written to `/var/log/sensu/debug-event.json` for inspection.
+The observation event data should be written to `/var/log/sensu/debug-event.json` for inspection.
 The contents of this file will be overwritten by every event sent to the `debug` handler.
 
 {{% notice note %}}

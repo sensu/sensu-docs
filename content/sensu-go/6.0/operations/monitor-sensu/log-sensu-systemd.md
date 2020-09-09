@@ -96,7 +96,7 @@ logrotate -d /etc/logrotate.d/sensu.conf
 
 ## Next steps
 
-Sensu also offers logging of event data to a separate log file as a [commercial feature][2].
+Sensu also offers logging of observation event data to a separate log file as a [commercial feature][2].
 See the [Sensu backend reference][1] for more information about event logging.
 
 

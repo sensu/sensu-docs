@@ -12,7 +12,7 @@ menu:
     parent: observe-process
 ---
 
-As the Sensu backend processes check results, the server executes [event handlers][1] to send alerts to personnel or otherwise relay event data to external services.
+As the Sensu backend processes check results, the server executes [event handlers][1] to send alerts to personnel or otherwise relay observation data (events) to external services.
 Sensu’s built-in silencing, along with the built-in `not_silenced` filter, provides a way to suppress execution of event handlers on an ad hoc basis.
 
 Use silencing to prevent handlers configured with the `not_silenced` filter from being triggered based on the check name in a check result or the subscriptions associated with the entity that published the check result.
