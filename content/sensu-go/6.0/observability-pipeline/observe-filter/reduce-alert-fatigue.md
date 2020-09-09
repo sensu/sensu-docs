@@ -22,7 +22,7 @@ If you don't already have a handler in place, follow [Send Slack alerts with han
 You can use either of two approaches to create the event filter to handle occurrences:
 
 - [Use sensuctl][4]
-- [Use a filter asset][5]
+- [Use a filter dynamic runtime asset][5]
 
 ## Approach 1: Use sensuctl to create an event filter
 
@@ -50,17 +50,17 @@ Follow the prompts to add the `hourly` and `is_incident` event filters to the Sl
 
 ### Create a fatigue check event filter
 
-Although you can use `sensuctl` to interactively create a filter, you can create more reusable filters with assets.
+Although you can use `sensuctl` to interactively create a filter, you can create more reusable filters with dynamic runtime assets.
 Read on to see how to implement a filter using this approach. 
 
-## Approach 2: Use an event filter asset
+## Approach 2: Use an event filter dynamic runtime asset
 
-If you're not already familiar with [assets][6], please take a moment to read [Install plugins with assets][7].
-This will help you understand what assets are and how they are used in Sensu. 
+If you're not already familiar with [dynamic runtime assets][6], please take a moment to read [Use assets to install plugins][7].
+This will help you understand what dynamic runtime assets are and how they are used in Sensu. 
 
-In this approach, the first step is to obtain an event filter asset that will allow you to replicate the behavior of the `hourly` event filter created in [Approach 1 via `sensuctl`][4].
+In this approach, the first step is to obtain an event filter dynamic runtime asset that will allow you to replicate the behavior of the `hourly` event filter created in [Approach 1 via `sensuctl`][4].
 
-Use [`sensuctl asset add`][5] to register the [fatigue check filter][9] asset:
+Use [`sensuctl asset add`][5] to register the [fatigue check filter][9] dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add nixwiz/sensu-go-fatigue-check-filter:0.3.2 -r fatigue-filter
@@ -77,11 +77,11 @@ This example uses the `-r` (rename) flag to specify a shorter name for the asset
 You can also download the asset directly from [Bonsai, the Sensu asset index][9].
 
 {{% notice note %}}
-**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../operations/deploy-sensu/assets#asset-builds) for more information about asset builds.
+**NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../../operations/deploy-sensu/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
-You've registered the asset, but you still need to create the filter.
+You've registered the dynamic runtime asset, but you still need to create the filter.
 To do this, use the following configuration:
 
 {{< code yaml >}}
@@ -105,9 +105,9 @@ Then, create the filter, naming it `sensu-fatigue-check-filter.yml`:
 sensuctl create -f sensu-fatigue-check-filter.yml
 {{< /code >}}
 
-Now that you've created the filter asset and the event filter, you can create the check annotations you need for the asset to work properly. 
+Now that you've created the filter dynamic runtime asset and the event filter, you can create the check annotations you need for the dynamic runtime asset to work properly. 
 
-### Annotate a check for filter asset use
+### Annotate a check for filter dynamic runtime asset use
 
 Next, you need to make some additions to any checks you want to use the filter with.
 Here's an example CPU check:
@@ -146,14 +146,14 @@ spec:
 {{< /code >}}
 
 Notice the annotations under the `metadata` scope.
-The annotations are required for the filter asset to work the same way as the interactively created event filter.
+The annotations are required for the filter dynamic runtime asset to work the same way as the interactively created event filter.
 Specifically, the annotations in this check definition are doing several things: 
 
 1. `fatigue_check/occurrences`: Tells the event filter on which occurrence to send the event for further processing
 2. `fatigue_check/interval`: Tells the event filter the interval at which to allow additional events to be processed (in seconds)
 3. `fatigue_check/allow_resolution`: Determines whether to pass a `resolve` event through to the filter
 
-For more information about configuring these values, see the [filter asset's README][10].
+For more information about configuring these values, see the [filter dynamic runtime asset's README][10].
 Next, you'll assign the newly minted event filter to a handler.
 
 ### Assign the event filter to a handler
@@ -191,13 +191,13 @@ However, if the event is being discarded by the event filter, a log entry with t
 
 ## Next steps
 
-Now that you know how to apply an event filter to a handler and use a filter asset to help reduce alert fatigue, read the [filters reference][1] for in-depth information about event filters. 
+Now that you know how to apply an event filter to a handler and use a filter dynamic runtime asset to help reduce alert fatigue, read the [filters reference][1] for in-depth information about event filters. 
 
 [1]:  ../filters/
 [2]: ../../../operations/maintain-sensu/troubleshoot#log-file-locations
 [3]: ../../observe-process/send-slack-alerts/
 [4]: #approach-1-use-sensuctl-to-create-an-event-filter
-[5]: #approach-2-use-an-event-filter-asset
+[5]: #approach-2-use-an-event-filter-dynamic-runtime-asset
 [6]: ../../../operations/deploy-sensu/assets/ 
 [7]: ../../../operations/deploy-sensu/use-assets-to-install-plugins/
 [8]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter

@@ -1,7 +1,7 @@
 ---
 title: "Install Sensu plugins"
 linkTitle: "Install Plugins"
-description: "Sensu plugins provide executables for performing status or metric checks, mutators for changing data to a desired format, and handlers for performing an action on a Sensu event. Read this plugin installation guide to learn how to install plugins with assets and use Sensu Community plugins with Sensu Go."
+description: "Sensu plugins provide executables for performing status or metric checks, mutators for changing data to a desired format, and handlers for performing an action on a Sensu event. Read this plugin installation guide to learn how to install plugins with dynamic runtime assets and use Sensu Community plugins with Sensu Go."
 weight: 130
 version: "6.0"
 product: "Sensu Go"
@@ -14,14 +14,14 @@ menu:
 
 Extend Sensu's functionality with [plugins][10], which provide executables for performing status or metric checks, mutators for changing data to a desired format, and handlers for performing an action on a Sensu event.
 
-## Install plugins with assets
+## Install plugins with dynamic runtime assets
 
-Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
-To start using and deploying assets, read [Install plugins with assets][7] to become familiar with workflows that involve assets. 
+Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
+To start using and deploying assets, read [Use dynamic runtime assets to install plugins][7] to become familiar with workflows that involve assets. 
 
 ## Use Bonsai, the Sensu asset index
 
-[Bonsai, the Sensu asset index][8], is a centralized place for downloading and sharing plugin assets.
+[Bonsai, the Sensu asset index][8], is a centralized place for downloading and sharing dynamic runtime assets.
 Make Bonsai your first stop when you need to find an asset.
 Bonsai includes plugins, libraries, and runtimes you need to automate your monitoring workflows.
 You can also [share your asset on Bonsai][9].
@@ -75,7 +75,7 @@ To install a specific version of the Sensu InfluxDB plugin with `sensu-install`,
 sudo sensu-install -p 'sensu-plugins-influxdb:2.0.0'
 {{< /code >}}
 
-We recommend using a configuration management tool or using [Sensu assets][5] to pin the versions of any plugins installed in production.
+We recommend using a configuration management tool or using [Sensu dynamic runtime assets][5] to pin the versions of any plugins installed in production.
 
 {{% notice note %}}
 **NOTE**: If a plugin is not Sensu Go-enabled and there is no analogue on Bonsai, you can add the necessary functionality to make the plugin compatible with Sensu Go.

@@ -43,10 +43,10 @@ To set up a quick testing environment, download and start the [Sensu sandbox][7]
 
 ## Configure contact routing
 
-### 1. Register the has-contact filter asset
+### 1. Register the has-contact filter dynamic runtime asset
 
-Contact routing is powered by the [has-contact filter asset][12].
-To add the has-contact asset to Sensu, use [`sensuctl asset add`][14]:
+Contact routing is powered by the [has-contact filter dynamic runtime asset][12].
+To add the has-contact dynamic runtime asset to Sensu, use [`sensuctl asset add`][14]:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-go-has-contact-filter:0.2.0 -r contact-filter
@@ -60,18 +60,18 @@ resource, populate the "runtime_assets" field with ["contact-filter"].
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `contact-filter`.
 
-You can also download the latest asset definition from [Bonsai][12].
+You can also download the latest dynamic runtime asset definition from [Bonsai][12].
 
-Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
+Run `sensuctl asset list --format yaml` to confirm that the dynamic runtime asset is ready to use.
 
 {{% notice note %}}
-**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../operations/deploy-sensu/assets#asset-builds) for more information about asset builds.
+**NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../../operations/deploy-sensu/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ### 2. Create contact filters
 
-The [Bonsai][1] documentation for the asset explains that the has-contact asset supports two functions:
+The [Bonsai][1] documentation for the asset explains that the has-contact dynamic runtime asset supports two functions:
 
 - `has_contact`, which takes the Sensu event and the contact name as arguments
 - `no_contact`, which is available as a fallback in the absence of contact labels and takes only the event as an argument
@@ -127,7 +127,7 @@ Run `sensuctl filter list --format yaml` to confirm that the filters are ready t
 ### 3. Create a handler for each contact
 
 With your contact filters in place, you can create a handler for each contact: ops, dev, and fallback.
-If you haven't already, add the [Slack handler asset][8] to Sensu with sensuctl:
+If you haven't already, add the [Slack handler dynamic runtime asset][8] to Sensu with sensuctl:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-slack-handler:1.0.3 -r sensu-slack-handler
@@ -139,7 +139,7 @@ it's invoked by another Sensu resource (ex. check). To add this runtime asset to
 resource, populate the "runtime_assets" field with ["sensu-slack-handler"].
 {{< /code >}}
 
-This example uses the `-r` (rename) flag to specify a shorter name for the asset: `sensu-slack-handler`.
+This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `sensu-slack-handler`.
 
 In each handler definition, specify:
 
@@ -148,7 +148,7 @@ In each handler definition, specify:
 - The contact filter
 - The built-in `is_incident` and `not_silenced` filters to reduce noise and enable silences
 - An environment variable that contains your Slack webhook URL
-- The `sensu-slack-handler` runtime asset
+- The `sensu-slack-handler` dynamic runtime asset
 
 To create the `slack_ops`, `slack_dev`, and `slack_fallback` handlers, edit and run this example:
 
@@ -356,4 +356,4 @@ Learn how to use Sensu to [Reduce alert fatigue][11].
 [11]: ../reduce-alert-fatigue/
 [12]: https://bonsai.sensu.io/assets/sensu/sensu-go-has-contact-filter
 [13]: ../../observe-schedule/agent/#create-monitoring-events-using-the-agent-api
-[14]: ../../../sensuctl/sensuctl-bonsai/#install-asset-definitions
+[14]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions

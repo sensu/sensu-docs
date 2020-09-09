@@ -19,10 +19,10 @@ An agent can run checks on the entity it’s installed on or connect to a remote
 
 ## Asset
 An executable that a check, handler, or mutator can specify as a dependency.
-Assets must be a tar archive (optionally gzipped) with scripts or executables within a bin folder.
+Dynamic runtime assets must be a tar archive (optionally gzipped) with scripts or executables within a bin folder.
 At runtime, the backend or agent installs required assets using the specified URL.
-Assets let you manage runtime dependencies without using configuration management tools.
-[Read more about assets][4].
+Dynamic runtime assets let you manage runtime dependencies without using configuration management tools.
+[Read more about dynamic runtime assets][4].
 
 ## Backend
 A flexible, scalable monitoring event pipeline.

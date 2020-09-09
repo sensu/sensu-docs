@@ -246,9 +246,9 @@ The contents of this file will be overwritten by every event sent to the `debug`
 You may need to check the filesystem of each Sensu backend to locate the debug output for your test event.
 {{% /notice %}}
 
-## Assets
+## Dynamic runtime assets
 
-Asset filters allow you to scope an asset to a particular operating system or architecture.
+Dynamic runtime asset filters allow you to scope an asset to a particular operating system or architecture.
 You can see an example in the [asset reference][10].
 An improperly applied asset filter can prevent the asset from being downloaded by the desired entity and result in error messages both on the agent and the backend illustrating that the command was not found:
 

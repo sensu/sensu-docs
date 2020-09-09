@@ -18,12 +18,12 @@ If you're not familiar with handlers, consider reading the [handlers reference][
 The example in this guide explains how to populate Sensu metrics into the time series database [InfluxDB][2].
 Metrics can be collected from [check output][10] or the [Sensu StatsD Server][3].
 
-## Register the asset
+## Register the dynamic runtime asset
 
-[Assets][12] are shareable, reusable packages that make it easier to deploy Sensu plugins.
-This example uses the [Sensu InfluxDB Handler][13] asset to power an `influx-db` handler.
+[Dynamic runtime assets][12] are shareable, reusable packages that make it easier to deploy Sensu plugins.
+This example uses the [Sensu InfluxDB Handler][13] dynamic runtime asset to power an `influx-db` handler.
 
-Use [`sensuctl asset add`][5] to register the [Sensu InfluxDB Handler][13] asset:
+Use [`sensuctl asset add`][5] to register the [Sensu InfluxDB Handler][13] dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.1.2 -r influxdb-handler
@@ -35,9 +35,9 @@ it's invoked by another Sensu resource (ex. check). To add this runtime asset to
 resource, populate the "runtime_assets" field with ["influxdb-handler"].
 {{< /code >}}
 
-This example uses the `-r` (rename) flag to specify a shorter name for the asset: `influxdb-handler`.
+This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `influxdb-handler`.
 
-You can also download the latest asset definition for your platform from [Bonsai][13] and register the asset with `sensuctl create --file filename.yml`.
+You can also download the latest dynamic runtime asset definition for your platform from [Bonsai][13] and register the asset with `sensuctl create --file filename.yml`.
 
 You should see a confirmation message from sensuctl:
 
@@ -45,16 +45,16 @@ You should see a confirmation message from sensuctl:
 Created
 {{< /code >}}
 
-Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
+Run `sensuctl asset list --format yaml` to confirm that the dynamic runtime asset is ready to use.
 
 {{% notice note %}}
-**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../operations/deploy-sensu/assets#asset-builds) for more information about asset builds.
+**NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../../operations/deploy-sensu/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Create the handler
 
-Now that you have registered the asset, you'll use sensuctl to create a handler called `influx-db` that pipes event data to InfluxDB with the `sensu-influxdb-handler` asset.
+Now that you have registered the dynamic runtime asset, you'll use sensuctl to create a handler called `influx-db` that pipes event data to InfluxDB with the `sensu-influxdb-handler` dynamic runtime asset.
 Edit the command below to include your database name, address, username, and password.
 For more information about the Sensu InfluxDB handler, see [the asset page in Bonsai][13].
 
@@ -109,7 +109,7 @@ Now that you know how to apply a handler to metrics and take action on events, h
 [2]: https://github.com/influxdata/influxdb
 [3]: ../aggregate-metrics-statsd/
 [4]: https://github.com/sensu/sensu-influxdb-handler#installation
-[5]: ../../../sensuctl/sensuctl-bonsai/#install-asset-definitions
+[5]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [8]: ../../../operations/maintain-sensu/troubleshoot/
 [9]: ../handlers/
 [10]: ../../observe-schedule/collect-metrics-with-checks/

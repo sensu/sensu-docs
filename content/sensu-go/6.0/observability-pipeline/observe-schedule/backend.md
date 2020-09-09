@@ -346,7 +346,7 @@ discovery instead of the static `--initial-cluster method`
 
 | annotations|      |
 -------------|------
-description  | Non-identifying metadata to include with entity data for backend assets (e.g. handler and mutator assets).
+description  | Non-identifying metadata to include with entity data for backend dynamic runtime assets (e.g. handler and mutator dynamic runtime assets).
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -389,7 +389,7 @@ api-url: "http://localhost:8080"{{< /code >}}
 
 | assets-burst-limit   |      |
 --------------|------
-description   | Maximum amount of burst allowed in a rate interval when fetching assets.
+description   | Maximum amount of burst allowed in a rate interval when fetching dynamic runtime assets.
 type          | Integer
 default       | `100`
 environment variable | `SENSU_BACKEND_ASSETS_BURST_LIMIT`
@@ -402,7 +402,7 @@ assets-burst-limit: 100{{< /code >}}
 
 | assets-rate-limit   |      |
 --------------|------
-description   | Maximum number of assets to fetch per second. The default value `1.39` is equivalent to approximately 5000 user-to-server requests per hour.
+description   | Maximum number of dynamic runtime assets to fetch per second. The default value `1.39` is equivalent to approximately 5000 user-to-server requests per hour.
 type          | Float
 default       | `1.39`
 environment variable | `SENSU_BACKEND_ASSETS_RATE_LIMIT`
@@ -468,7 +468,7 @@ deregistration-handler: "/path/to/handler.sh"{{< /code >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with entity data for backend assets (e.g. handler and mutator assets).
+description  | Custom attributes to include with entity data for backend dynamic runtime assets (e.g. handler and mutator dynamic runtime assets).
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`

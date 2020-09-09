@@ -59,10 +59,10 @@ Otto is an ECMAScript 5 (JavaScript) virtual machine that evaluates JavaScript e
 There are some caveats to using Otto: not all of the regular expressions specified in ECMAScript 5 will work.
 See the [Otto README][32] for more details.
 
-### Filter assets
+### Filter dynamic runtime assets
 
-Sensu event filters can have assets that are included in their execution context.
-When valid assets are associated with an event filter, Sensu evaluates any files it finds that have a ".js" extension before executing the filter.
+Sensu event filters can have dynamic runtime assets that are included in their execution context.
+When valid dynamic runtime assets are associated with an event filter, Sensu evaluates any files it finds that have a ".js" extension before executing the filter.
 The result of evaluating the scripts is cached for a given asset set for the sake of performance.
 For an example of how to implement an event filter as an asset, see [Reduce alert fatigue][30].
 
@@ -337,7 +337,7 @@ For more information about event attributes, see the [event reference][28].
 `event.check.proxy_requests`         | map     | [Proxy request][15] configuration
 `event.check.publish`                | Boolean | Whether the check is scheduled automatically
 `event.check.round_robin`            | Boolean | Whether the check is configured to be executed in a [round-robin style][16]
-`event.check.runtime_assets`         | array   | Sensu [assets][17] used by the check
+`event.check.runtime_assets`         | array   | Sensu [dynamic runtime assets][17] used by the check
 `event.check.state`                  | string  | The state of the check: `passing` (status `0`), `failing` (status other than `0`), or `flapping`
 `event.check.status`                 | integer | Exit status code produced by the check: `0` (OK), `1` (warning), `2` (critical), or other status (unknown or custom status)
 `event.check.stdin`                  | Boolean | Whether the Sensu agent writes JSON-serialized entity and check data to the command process’ STDIN
@@ -568,7 +568,7 @@ example      | {{< code shell >}}"expressions": [
 
 runtime_assets |      |
 ---------------|------
-description    | Assets to apply to the event filter's execution context. JavaScript files in the lib directory of the asset will be evaluated.
+description    | Dynamic runtime assets to apply to the event filter's execution context. JavaScript files in the lib directory of the dynamic runtime asset will be evaluated.
 required       | false
 type           | Array of string
 default        | []
@@ -870,7 +870,7 @@ spec:
 
 ## Use JavaScript libraries with Sensu filters
 
-You can include JavaScript libraries in their event filter execution context with [assets][39].
+You can include JavaScript libraries in their event filter execution context with [dynamic runtime assets][39].
 For instance, if you package underscore.js into a Sensu asset, you can use functions from the underscore library for filter expressions:
 
 {{< language-toggle >}}

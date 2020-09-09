@@ -75,7 +75,6 @@ If you create a new event that references an entity that does not already exist,
 [7]: #metrics-only-events
 [8]: #status-and-metrics-events
 [9]: checks/#subscriptions
-[10]: ../../operations/deploy-sensu/use-assets-to-install-plugins/
 [11]: ../observe-schedule/agent/
 [12]: ../observe-schedule/
 [13]: #events-api

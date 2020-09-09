@@ -136,8 +136,8 @@ If your license expires, you will still have access to [commercial features][5],
 - [Log in to your Sensu account][1]
 - [Configure authentication providers][10]
 - [Use the license management API][4]
-- [Discover enterprise assets][11]
-- [Install plugins with assets][12]
+- [Discover enterprise-tier dynamic runtime assets][11]
+- [Use dynamic runtime assets to install plugins][12]
 - [Contact Sensu support][8]
 - [Contact Sensu sales][7]
 

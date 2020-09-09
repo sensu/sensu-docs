@@ -31,8 +31,8 @@ The most common are [pipe handlers][4], which work similarly to [checks][2] and 
 
 You can also use [TCP/UDP handlers][5] to send your observation data to remote sockets and [handler sets][6] to streamline groups of actions to execute for certain types of events.
 
-Discover, download, and share Sensu handler assets in [Bonsai][9], the Sensu asset hub
-Read [Install plugins with assets][10] to get started.
+Discover, download, and share Sensu handler dynamic runtime assets in [Bonsai][9], the Sensu asset hub
+Read [Use assets to install plugins][10] to get started.
 
 
 [1]: handlers/

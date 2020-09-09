@@ -25,7 +25,7 @@ With Sensu's secrets management, you can obtain secrets from one or more externa
 Only Sensu backends have access to request [secrets][9] from a secrets provider.
 Secrets are only transmitted over a transport layer security (TLS) websocket connection.
 Unencrypted connections must not transmit privileged information.
-For checks, hooks, and assets, you must [enable mutual TLS (mTLS)][13].
+For checks, hooks, and dynamic runtime assets, you must [enable mutual TLS (mTLS)][13].
 Sensu will not transmit secrets to agents that do not use mTLS.
 
 The [Sensu Go commercial distribution][1] includes a built-in secrets provider, `Env`, that exposes secrets from [environment variables][4] on your Sensu backend nodes.

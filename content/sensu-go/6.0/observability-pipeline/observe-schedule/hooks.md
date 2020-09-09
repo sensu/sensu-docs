@@ -187,7 +187,7 @@ example      | {{< code shell >}}"stdin": true{{< /code >}}
 
 |runtime_assets |   |
 -------------|------
-description  | Array of [Sensu assets][5] (by their names) required at runtime for execution of the `command`.
+description  | Array of [Sensu dynamic runtime assets][5] (by their names) required at runtime for execution of the `command`.
 required     | false
 type         | Array
 example      | {{< code shell >}}"runtime_assets": ["log-context"]{{< /code >}}

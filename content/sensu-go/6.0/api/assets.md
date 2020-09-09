@@ -1,6 +1,6 @@
 ---
 title: "Assets API"
-description: "The Sensu assets API provides HTTP access to asset data. This reference includes examples for returning lists of assets, creating assets, and more."
+description: "The Sensu assets API provides HTTP access to dynamic runtime asset data. This reference includes examples for returning lists of dynamic runtime assets, creating dynamic runtime assets, and more."
 version: "6.0"
 product: "Sensu Go"
 menu:
@@ -15,11 +15,11 @@ The code examples in this document use the [environment variable](../#configure-
 
 ## Get all assets
 
-The `/assets` API endpoint provides HTTP GET access to [asset][1] data.
+The `/assets` API endpoint provides HTTP GET access to [dynamic runtime asset][1] data.
 
 ### Example {#assets-get-example}
 
-The following example demonstrates a request to the `/assets` API endpoint, resulting in a JSON array that contains [asset definitions][1].
+The following example demonstrates a request to the `/assets` API endpoint, resulting in a JSON array that contains [dynamic runtime asset definitions][1].
 
 {{< code shell >}}
 curl -X GET \
@@ -71,7 +71,7 @@ HTTP/1.1 200 OK
 
 /assets (GET)  | 
 ---------------|------
-description    | Returns the list of assets.
+description    | Returns the list of dynamic runtime assets.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/assets
 pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response filtering | This endpoint supports [API response filtering][3].
@@ -118,9 +118,9 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-## Create a new asset
+## Create a new dynamic runtime asset
 
-The `/assets` API endpoint provides HTTP POST access to [asset][1] data.
+The `/assets` API endpoint provides HTTP POST access to [dynamic runtime asset][1] data.
 
 ### Example {#assets-post-example}
 
@@ -156,7 +156,7 @@ HTTP/1.1 201 Created
 
 /assets (POST) | 
 ----------------|------
-description     | Creates a Sensu asset.
+description     | Creates a Sensu dynamic runtime asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets
 payload         | {{< code shell >}}
 {
@@ -178,9 +178,9 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## Get a specific asset {#assetsasset-get}
+## Get a specific dynamic runtime asset {#assetsasset-get}
 
-The `/assets/:asset` API endpoint provides HTTP GET access to [asset data][1] for specific `:asset` definitions, by asset `name`.
+The `/assets/:asset` API endpoint provides HTTP GET access to [dynamic runtime asset data][1] for specific `:asset` definitions, by asset `name`.
 
 ### Example {#assetsasset-get-example}
 
@@ -218,7 +218,7 @@ HTTP/1.1 200 OK
 
 /assets/:asset (GET) | 
 ---------------------|------
-description          | Returns the specified asset.
+description          | Returns the specified dynamic runtime asset.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -245,13 +245,13 @@ output               | {{< code json >}}
 ]
 {{< /code >}}
 
-## Create or update an asset {#assetsasset-put}
+## Create or update a dynamic runtime asset {#assetsasset-put}
 
-The `/assets/:asset` API endpoint provides HTTP PUT access to create or update specific `:asset` definitions, by asset name.
+The `/assets/:asset` API endpoint provides HTTP PUT access to create or update specific `:asset` definitions, by dynamic runtime asset name.
 
 ### Example {#assetsasset-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/assets/:asset` API endpoint to create the asset `sensu-slack-handler`.
+In the following example, an HTTP PUT request is submitted to the `/assets/:asset` API endpoint to create the dynamic runtime asset `sensu-slack-handler`.
 The request returns a successful HTTP `201 Created` response.
 
 {{< code shell >}}
@@ -283,7 +283,7 @@ HTTP/1.1 201 Created
 
 /assets/:asset (PUT) | 
 ----------------|------
-description     | Creates or updates the specified Sensu asset.
+description     | Creates or updates the specified Sensu dynamic runtime asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
 payload         | {{< code shell >}}
 {
@@ -305,12 +305,12 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## Delete an asset {#assetsasset-delete}
+## Delete a dynamic runtime asset {#assetsasset-delete}
 
-The `/assets/:asset` API endpoint provides HTTP DELETE access so you can delete an asset.
+The `/assets/:asset` API endpoint provides HTTP DELETE access so you can delete a dynamic runtime assets.
 
 {{% notice note %}}
-**NOTE**: Deleting an asset does not remove the downloaded files from the asset cache or remove any references to the deleted asset in other resources.
+**NOTE**: Deleting a dynamic runtime asset does not remove the downloaded files from the asset cache or remove any references to the deleted asset in other resources.
 {{% /notice %}} 
 
 ### Example {#assetsasset-delete-example}
@@ -327,7 +327,7 @@ HTTP/1.1 204 No Content
 
 /assets/:asset (DELETE) | 
 ----------------|------
-description     | Deletes the specified Sensu asset.
+description     | Deletes the specified Sensu dynamic runtime asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
 response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 

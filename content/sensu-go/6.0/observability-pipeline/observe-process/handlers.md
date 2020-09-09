@@ -23,8 +23,8 @@ The most common are `pipe` handlers, which work similarly to [checks][1] and ena
 - **TCP/UDP handlers** send event data to a remote socket
 - **Handler sets** group event handlers and streamline groups of actions to execute for certain types of events (also called "set handlers")
 
-Discover, download, and share Sensu handlers assets using [Bonsai][16], the Sensu asset index.
-Read [Install plugins with assets][23] to get started.
+Discover, download, and share Sensu handler dynamic runtime assets using [Bonsai][16], the Sensu asset index.
+Read [Use assets to install plugins][23] to get started.
 
 ## Pipe handlers
 
@@ -269,7 +269,7 @@ example      | {{< code shell >}}"handlers": ["pagerduty", "email", "ec2"]{{< /c
 
 runtime_assets | 
 ---------------|------
-description    | Array of [Sensu assets][7] (by names) required at runtime to execute the `command`
+description    | Array of [Sensu dynamic runtime assets][7] (by names) required at runtime to execute the `command`
 required       | false
 type           | Array
 example        | {{< code shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /code >}}

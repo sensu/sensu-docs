@@ -266,21 +266,21 @@ In the [add a handler][19] section, you'll use your `pagerduty_key` secret in yo
 
 ## Add a handler
 
-### Register the PagerDuty Handler asset
+### Register the PagerDuty Handler dynamic runtime asset
 
-To begin, register the [Sensu PagerDuty Handler asset][23] with [`sensuctl asset add`][22]:
+To begin, register the [Sensu PagerDuty Handler dynamic runtime asset][23] with [`sensuctl asset add`][22]:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
 {{< /code >}}
 
-This example uses the `-r` (rename) flag to specify a shorter name for the asset: `pagerduty-handler`.
+This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `pagerduty-handler`.
 
 {{% notice note %}}
-**NOTE**: You can [adjust the asset definition](../../deploy-sensu/use-assets-to-install-plugins/#adjust-the-asset-definition) according to your Sensu configuration if needed.
+**NOTE**: You can [adjust the dynamic runtime asset definition](../../deploy-sensu/use-assets-to-install-plugins/#adjust-the-asset-definition) according to your Sensu configuration if needed.
 {{% /notice %}}
 
-Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
+Run `sensuctl asset list --format yaml` to confirm that the dynamic runtime asset is ready to use.
 
 With this handler, Sensu can trigger and resolve PagerDuty incidents.
 However, you still need to add your secret to the handler spec so that it requires your backend to request secrets from your secrets provider.
@@ -337,7 +337,7 @@ Read the [secrets][9] or [secrets providers][2] reference for in-depth secrets m
 [19]: #add-a-handler
 [20]: ../../../commercial/
 [21]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables
-[22]: ../../../sensuctl/sensuctl-bonsai/#install-asset-definitions
+[22]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [23]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 [24]: ../../../observability-pipeline/observe-schedule/monitor-server-resources/
 [25]: https://www.vaultproject.io/downloads/

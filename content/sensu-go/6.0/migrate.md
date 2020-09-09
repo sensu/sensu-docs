@@ -53,7 +53,7 @@ In Sensu Go, the Sensu backend and agent are configured with YAML files or the `
 Sensu checks and pipeline elements are configured via the API or sensuctl tool in Sensu Go instead of JSON files.
 
 The [**Sensu backend**][3] is powered by an embedded transport and [etcd][36] datastore and gives you flexible, automated workflows to route metrics and alerts.
-Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and several exposed ports:
+Sensu backends require persistent storage for their embedded database, disk space for local dynamic runtime asset caching, and several exposed ports:
 
 - 2379 (gRPC) Sensu storage client: Required for Sensu backends using an external etcd instance
 - 2380 (gRPC) Sensu storage peer: Required for other Sensu backends in a [cluster][37]
@@ -72,7 +72,7 @@ The Sensu agent uses:
 
 The agent TCP and UDP sockets are deprecated in favor of the [agent API][41].
 
-Agents that use Sensu [assets][12] require some disk space for a local cache.
+Agents that use Sensu [dynamic runtime assets][12] require some disk space for a local cache.
 
 See the [backend][3], [agent][4], and [sensuctl][5] reference docs for more information.
 
@@ -84,7 +84,7 @@ See the [entity reference][6] and the guide to [monitoring external resources][7
 
 ## Checks
 
-Standalone checks are not supported in Sensu Go, although [you can achieve similar functionality with role-based access control (RBAC), assets, and entity subscriptions][26].
+Standalone checks are not supported in Sensu Go, although [you can achieve similar functionality with role-based access control (RBAC), dynamic runtime assets, and entity subscriptions][26].
 There are also a few changes to check definitions in Sensu Go.
 The `stdin` check attribute is not supported in Sensu Go, and Sensu Go does not try to run a "default" handler when executing a check without a specified handler.
 In addition, check subdues are not available in Sensu Go.
@@ -117,13 +117,13 @@ This filter looks for [check and entity annotations][33] in each event it receiv
 
 The [Sensu Translator version 1.1.0][18] retrieves occurrence and refresh values from a Sensu Core 1.x check definition and outputs them as annotations in a Sensu Go check definition, compatible with the fatigue check filter.
 
-However, the Sensu Translator doesn't automatically add the fatigue check filter asset or the filter configuration you need to run it.
-To use the fatigue check filter asset, you must [register it][15], create a correctly configured [event filter definition][19], and [add the event filter][34] to the list of filters on applicable handlers.
+However, the Sensu Translator doesn't automatically add the fatigue check filter dynamic runtime asset or the filter configuration you need to run it.
+To use the fatigue check filter dynamic runtime asset, you must [register it][15], create a correctly configured [event filter definition][19], and [add the event filter][34] to the list of filters on applicable handlers.
 
-## Assets
+## Dynamic runtime assets
 
 The `sensu-install` tool in Sensu Core 1.x is replaced by [assets][12] in Sensu Go.
-Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
+Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 You can still install [Sensu Community plugins][21] in Ruby via `sensu-install` by installing [sensu-plugins-ruby][20].
 See the [installing plugins guide][51] for more information.
@@ -256,7 +256,7 @@ Review your Sensu Core check configuration for the following attributes, and mak
 `stdin: true`  | No updates required. Sensu Go checks accept data on stdin by default.
 `handlers: default` | Sensu Go does not have a default handler. Create a handler named `default` to continue using this pattern.
 `subdues` | Check subdues are not available in Sensu Go.
-`standalone: true` | Standalone checks are not supported in Sensu Go, although you can achieve similar functionality using [role-based access control, assets, and entity subscriptions][26]. The translator assigns all Core standalone checks to a `standalone` subscription in Sensu Go. Configure one or more Sensu Go agents with the `standalone` subscription to execute formerly standalone checks.
+`standalone: true` | Standalone checks are not supported in Sensu Go, although you can achieve similar functionality using [role-based access control, dynamic runtime assets, and entity subscriptions][26]. The translator assigns all Core standalone checks to a `standalone` subscription in Sensu Go. Configure one or more Sensu Go agents with the `standalone` subscription to execute formerly standalone checks.
 `metrics: true` | See the [translate metric checks][71] section.
 `proxy_requests` | See the [translate proxy requests][72] section.
 `subscribers: roundrobin...` | Remove `roundrobin` from the subscription name, and add the `round_robin` check attribute set to `true`.
@@ -297,15 +297,15 @@ See the [guide][55] and [hooks reference docs][8] to re-create your Sensu Core h
 **Custom attributes**
 
 Custom check attributes are not supported in Sensu Go.
-Instead, Sensu Go allows you to add custom labels and annotations to entities, checks, assets, hooks, filters, mutators, handlers, and silences.
+Instead, Sensu Go allows you to add custom labels and annotations to entities, checks, dynamic runtime assets, hooks, filters, mutators, handlers, and silences.
 See the metadata attributes section in the reference documentation for more information about using labels and annotations (for example, [metadata attributes for entities][24]).
 
 The Sensu Translator stores all check extended attributes in the check metadata annotation named `sensu.io.json_attributes`.
 See the [check reference][58] for more information about using labels and annotations in check definitions.
 
-#### 3. Translate filters
+#### 3. Translate event filters
 
-Ruby eval logic used in Sensu Core filters is replaced with JavaScript expressions in Sensu Go, opening up powerful possibilities to combine filters with [filter assets][59].
+Ruby eval logic used in Sensu Core filters is replaced with JavaScript expressions in Sensu Go, opening up powerful possibilities to combine filters with [filter dynamic runtime assets][59].
 As a result, you'll need to rewrite your Sensu Core filters in Sensu Go format.
 
 First, review your Core handlers to identify which filters are being used. Then, follow the [filter reference][9] and [guide to using filters][60] to re-write your filters using Sensu Go expressions and [event data][61]. Check out the [blog post on filters][62] for a deep dive into Sensu Go filter capabilities.
@@ -387,7 +387,7 @@ For example, `sensuctl check list --format json`.
 Run `sensuctl help` to see available commands.
 For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), see the [sensuctl reference][5].
 
-### Step 3: Translate plugins and register assets
+### Step 3: Translate plugins and register dynamic runtime assets
 
 #### Sensu plugins
 
@@ -397,20 +397,20 @@ This allows you to use Sensu plugins for handlers and mutators with Sensu Go wit
 
 To re-install Sensu plugins onto your Sensu Go agent nodes (check plugins) and backend nodes (mutator and handler plugins), see the [guide][51] to installing the `sensu-install` tool for use with Sensu Go.
 
-#### Sensu Go assets
+#### Sensu Go dynamic runtime assets
 
-The `sensu-install` tool in Sensu Core 1.x is replaced by [assets][12] in Sensu Go.
-Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
+The `sensu-install` tool in Sensu Core 1.x is replaced by [dynamic runtime assets][12] in Sensu Go.
+Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
-Although assets are not required to run Sensu Go, we recommend [using assets to install plugins][50] where possible.
+Although dynamic runtime assets are not required to run Sensu Go, we recommend [using assets to install plugins][50] where possible.
 You can still install [Sensu Community plugins][21] in Ruby via `sensu-install` by installing [sensu-plugins-ruby][20].
 See the [installing plugins guide][51] for more information.
 
-Sensu supports runtime assets for checks, filters, mutators, and handlers.
-Discover, download, and share assets with [Bonsai][68], the Sensu asset index.
+Sensu supports dynamic runtime assets for checks, filters, mutators, and handlers.
+Discover, download, and share dynamic runtime assets with [Bonsai][68], the Sensu asset index.
 
-To create your own assets, see the [asset reference][12] and [guide to sharing an asset on Bonsai][69].
-To contribute to converting a Sensu plugin to an asset, see [the Discourse post][70].
+To create your own dynamic runtime assets, see the [asset reference][12] and [guide to sharing an asset on Bonsai][69].
+To contribute to converting a Sensu plugin to a dynamic runtime asset, see [the Discourse post][70].
 
 ### Step 4: Sunset your Sensu Core instance
 

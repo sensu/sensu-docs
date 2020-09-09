@@ -219,7 +219,7 @@ example      | {{< code shell >}}"env_vars": ["RUBY_VERSION=2.5.0"]{{< /code >}}
 
 runtime_assets | 
 ---------------|------
-description    | Array of [Sensu assets][1] (by their names) required at runtime for execution of the `command`.
+description    | Array of [Sensu dynamic runtime assets][1] (by their names) required at runtime for execution of the `command`.
 required       | false
 type           | Array
 example        | {{< code shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /code >}}

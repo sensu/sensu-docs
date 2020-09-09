@@ -16,7 +16,7 @@ menu:
 Checks work with Sensu agents to produce monitoring events automatically.
 You can use checks to monitor server resources, services, and application health as well as collect and analyze metrics.
 Read [Monitor server resources][12] to get started.
-Use [Bonsai][29], the Sensu asset index, to discover, download, and share Sensu check assets.
+Use [Bonsai][29], the Sensu asset index, to discover, download, and share Sensu check dynamic runtime assets.
 
 ## Check commands
 
@@ -24,7 +24,7 @@ Each Sensu check definition specifies a command and the schedule at which it sho
 Check commands are executable commands that the Sensu agent executes.
 
 A command may include command line arguments for controlling the behavior of the command executable.
-Many common checks are available as assets from [Bonsai][29] and support command line arguments so different check definitions can use the same executable.
+Many common checks are available as dynamic runtime assets from [Bonsai][29] and support command line arguments so different check definitions can use the same executable.
 
 {{% notice note %}}
 **NOTE**: Sensu advises against requiring root privileges to execute check commands or scripts.
@@ -663,7 +663,7 @@ example      | {{< code shell >}}"high_flap_threshold": 60{{< /code >}}
 
 |runtime_assets |   |
 -------------|------
-description  | Array of [Sensu assets][9] (names). Required at runtime for the execution of the `command`.
+description  | Array of [Sensu dynamic runtime assets][9] (names). Required at runtime for the execution of the `command`.
 required     | false
 type         | Array
 example      | {{< code shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /code >}}
@@ -1051,7 +1051,7 @@ spec:
 
 {{< /language-toggle >}}
 
-The asset reference includes an [example check definition that uses the asset path][60] to correctly capture exit status codes from PowerShell plugins distributed as assets.
+The dynamic runtime asset reference includes an [example check definition that uses the asset path][60] to correctly capture exit status codes from PowerShell plugins distributed as dynamic runtime assets.
 
 
 [1]: #subscription-checks
@@ -1108,5 +1108,5 @@ The asset reference includes an [example check definition that uses the asset pa
 [57]: ../../../operations/manage-secrets/secrets-providers/
 [58]: ../../../web-ui/filter#filter-with-label-selectors
 [59]: ../../../operations/manage-secrets/secrets-management/
-[60]: ../../../operations/deploy-sensu/assets#asset-path
+[60]: ../../../operations/deploy-sensu/assets#dynamic-runtime-asset-path
 [61]: ../../../web-ui/filter/

@@ -3,7 +3,7 @@ title: "Assets reference"
 linkTitle: "Assets Reference"
 reference_title: "Assets"
 type: "reference"
-description: "Assets are shareable, reusable packages that make it easier to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows. Read this reference doc to learn about assets."
+description: "Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins. You can use dynamic runtime assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows. Read this reference doc to learn about assets."
 weight: 150
 version: "6.0"
 product: "Sensu Go"
@@ -13,48 +13,48 @@ menu:
     parent: deploy-sensu
 ---
 
-You can discover, download, and share assets using [Bonsai, the Sensu asset index][16].
-Read [Install plugins with assets][23] to get started.
+You can discover, download, and share dynamic runtime assets using [Bonsai, the Sensu asset index][16].
+Read [Use assets to install plugins][23] to get started.
 
-Assets are shareable, reusable packages that make it easier to deploy Sensu [plugins][29].
-You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
-Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
+Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu [plugins][29].
+You can use dynamic runtime assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
+Sensu supports dynamic runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
 
 {{% notice note %}}
-**NOTE**: Assets are not required to use Sensu Go in production.
+**NOTE**: Dynamic runtime assets are not required to use Sensu Go in production.
 You can install Sensu plugins using the [sensu-install](../install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../configuration-management/) solution.
 {{% /notice %}}
 
-The Sensu backend executes handler, filter, and mutator assets.
-The Sensu agent executes check assets.
-At runtime, the backend or agent sequentially evaluates assets that appear in the `runtime_assets` attribute of the handler, filter, mutator, or check being executed.
+The Sensu backend executes handler, filter, and mutator dynamic runtime assets.
+The Sensu agent executes check dynamic runtime assets.
+At runtime, the backend or agent sequentially evaluates dynamic runtime assets that appear in the `runtime_assets` attribute of the handler, filter, mutator, or check being executed.
 
-## Asset builds
+## Dynamic runtime asset builds
 
-An asset build is the combination of an artifact URL, SHA512 checksum, and optional [Sensu query expression][1] filters.
+A dynamic runtime asset build is the combination of an artifact URL, SHA512 checksum, and optional [Sensu query expression][1] filters.
 Each asset definition may describe one or more builds.
 
 {{% notice note %}}
-**NOTE**: Assets that provide `url` and `sha512` attributes at the top level of the `spec` scope are [single-build assets](#asset-definition-single-build-deprecated), and this form of asset defintion is deprecated.
+**NOTE**: Dynamic runtime assets that provide `url` and `sha512` attributes at the top level of the `spec` scope are [single-build assets](#asset-definition-single-build-deprecated), and this form of asset defintion is deprecated.
 We recommend using [multiple-build asset defintions](#asset-definition-multiple-builds), which specify one or more `builds` under the `spec` scope.
 {{% /notice %}}
 
-### Asset build evaluation
+### Dynamic runtime asset build evaluation
 
-For each build provided in an asset, Sensu will evaluate any defined filters to determine whether any build matches the agent or backend service's environment.
+For each build provided in a dynamic runtime asset, Sensu will evaluate any defined filters to determine whether any build matches the agent or backend service's environment.
 If all filters specified on a build evaluate to `true`, that build is considered a match.
-For assets with multiple builds, only the first build which matches will be downloaded and installed.
+For dynamic runtime assets with multiple builds, only the first build that matches will be downloaded and installed.
 
-### Asset build download
+### Dynamic runtime asset build download
 
-Sensu downloads the asset build on the host system where the asset contents are needed to execute the requested command.
-For example, if a check definition references an asset, the Sensu agent that executes the check will download the asset the first time it executes the check.
-The asset build the agent downloads will depend on the filter rules associated with each build defined for the asset.
+Sensu downloads the dynamic runtime asset build on the host system where the asset contents are needed to execute the requested command.
+For example, if a check definition references a dynamic runtime asset, the Sensu agent that executes the check will download the asset the first time it executes the check.
+The dynamic runtime asset build the agent downloads will depend on the filter rules associated with each build defined for the asset.
 
-Sensu backends follow a similar process when pipeline elements (filters, mutators, and handlers) request runtime asset installation as part of operation.
+Sensu backends follow a similar process when pipeline elements (filters, mutators, and handlers) request dynamic runtime asset installation as part of operation.
 
 {{% notice note %}}
-**NOTE**: Asset builds are not downloaded until they are needed for command execution.
+**NOTE**: Dynamic runtime asset builds are not downloaded until they are needed for command execution.
 {{% /notice %}}
 
 When Sensu finds a matching build, it downloads the build artifact from the specified URL.
@@ -62,26 +62,26 @@ If the asset definition includes headers, they are passed along as part of the H
 If the downloaded artifact's SHA512 checksum matches the checksum provided by the build, it is unpacked into the Sensu service's local cache directory.
 
 Set the backend or agent's local cache path with the `--cache-dir` flag.
-Disable assets for an agent with the agent `--disable-assets` [configuration flag][30].
+Disable dynamic runtime assets for an agent with the agent `--disable-assets` [configuration flag][30].
 
 {{% notice note %}}
-**NOTE**: Asset builds are unpacked into the cache directory that is configured with the `--cache-dir` flag.
+**NOTE**: Dynamic runtime asset builds are unpacked into the cache directory that is configured with the `--cache-dir` flag.
 {{% /notice %}}
 
-Use the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][40] and [backend][41] to configure a global rate limit for fetching assets.
+Use the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][40] and [backend][41] to configure a global rate limit for fetching dynamic runtime assets.
 
-### Asset build execution
+### Dynamic runtime asset build execution
 
-The directory path of each asset defined in `runtime_assets` is appended to the `PATH` before the handler, filter, mutator, or check `command` is executed.
-Subsequent handler, filter, mutator, or check executions look for the asset in the local cache and ensure that the contents match the configured checksum.
+The directory path of each dynamic runtime asset defined in `runtime_assets` is appended to the `PATH` before the handler, filter, mutator, or check `command` is executed.
+Subsequent handler, filter, mutator, or check executions look for the dynamic runtime asset in the local cache and ensure that the contents match the configured checksum.
 
-See the [example asset with a check][31] for a use case with a Sensu resource (a check) and an asset.
+See the [example dynamic runtime asset with a check][31] for a use case with a Sensu resource (a check) and a dynamic runtime asset.
 
-## Asset format specification
+## Dynamic runtime asset format specification
 
-Sensu expects an asset to be a tar archive (optionally gzipped) that contains one or more executables within a bin folder.
+Sensu expects a dynamic runtime asset to be a tar archive (optionally gzipped) that contains one or more executables within a bin folder.
 Any scripts or executables should be within a `bin/` folder in the archive.
-See the [Sensu Go Plugin template][28] for an example asset and Bonsai configuration.
+See the [Sensu Go Plugin template][28] for an example dynamic runtime asset and Bonsai configuration.
 
 The following are injected into the execution context:
 
@@ -90,9 +90,9 @@ The following are injected into the execution context:
 - `{PATH_TO_ASSET}/include` is injected into the `CPATH` environment variable
 
 {{% notice note %}}
-**NOTE**: You cannot create an asset by creating an archive of an existing project (as in previous versions of Sensu for plugins from the [Sensu Plugins community](https://github.com/sensu-plugins/)).
+**NOTE**: You cannot create a dynamic runtime asset by creating an archive of an existing project (as in previous versions of Sensu for plugins from the [Sensu Plugins community](https://github.com/sensu-plugins/)).
 Follow the steps outlined in [Contributing Assets for Existing Ruby Sensu Plugins](https://discourse.sensu.io/t/contributing-assets-for-existing-ruby-sensu-plugins/1165), a Sensu Discourse guide.
-For further examples of Sensu users who have added the ability to use a community plugin as an asset, see [this Discourse post](https://discourse.sensu.io/t/how-to-use-the-sensu-plugins-kubernetes-plugin/1286).
+For further examples of Sensu users who have added the ability to use a community plugin as a dynamic runtime asset, see [this Discourse post](https://discourse.sensu.io/t/how-to-use-the-sensu-plugins-kubernetes-plugin/1286).
 {{% /notice %}}
 
 ### Default cache directory
@@ -102,11 +102,11 @@ system  | sensu-backend                         | sensu-agent
 Linux   | `/var/cache/sensu/sensu-backend`      | `/var/cache/sensu/sensu-agent`
 Windows | N/A                                   | `C:\ProgramData\sensu\cache\sensu-agent`
 
-If the requested asset is not in the local cache, it is downloaded from the asset URL.
-The Sensu backend acts as an index of asset builds, and does not provide storage or hosting for the build artifacts.
-Sensu expects assets to be retrieved over HTTP or HTTPS.
+If the requested dynamic runtime asset is not in the local cache, it is downloaded from the asset URL.
+The Sensu backend acts as an index of dynamic runtime asset builds, and does not provide storage or hosting for the build artifacts.
+Sensu expects dynamic runtime assets to be retrieved over HTTP or HTTPS.
 
-### Example asset structure
+### Example dynamic runtime asset structure
 
 {{< code shell >}}
 sensu-example-handler_1.0.0_linux_amd64
@@ -119,45 +119,45 @@ sensu-example-handler_1.0.0_linux_amd64
 └── include
 {{< /code >}}
 
-## Asset path
+## Dynamic runtime asset path
 
-When you download and install an asset, the asset files are saved to a local path on disk.
-Most of the time, you won't need to know this path &mdash; except in cases where you need to provide the full path to asset files as part of a command argument.
+When you download and install a dynamic runtime asset, the asset files are saved to a local path on disk.
+Most of the time, you won't need to know this path &mdash; except in cases where you need to provide the full path to dynamic runtime asset files as part of a command argument.
 
-The asset directory path includes the asset's checksum, which changes every time underlying asset artifacts are updated.
-This would normally require you to manually update the commands for any of your checks, handlers, hooks, or mutators that consume the asset.
-However, because the asset directory path is exposed to asset consumers via [environment variables][14] and the [`assetPath` custom function for token substitution][17], you can avoid these manual updates.
+The dynamic runtime asset directory path includes the asset's checksum, which changes every time underlying asset artifacts are updated.
+This would normally require you to manually update the commands for any of your checks, handlers, hooks, or mutators that consume the dynamic runtime asset.
+However, because the dynamic runtime asset directory path is exposed to asset consumers via [environment variables][14] and the [`assetPath` custom function for token substitution][17], you can avoid these manual updates.
 
-You can retrieve the asset's path as an environment variable in the `command` context for checks, handlers, hooks, and mutators.
+You can retrieve the dynamic runtime asset's path as an environment variable in the `command` context for checks, handlers, hooks, and mutators.
 Token substitution with the `assetPath` custom function is only available for check and hook commands.
 
-### Environment variables for asset paths
+### Environment variables for dynamic runtime asset paths
 
-For each runtime asset, a corresponding environment variable will be available in the `command` context.
+For each dynamic runtime asset, a corresponding environment variable will be available in the `command` context.
 
-Sensu generates the environment variable name by capitalizing the asset name, replacing any special characters with underscores, and appending the `_PATH` suffix.
-The value of the variable will be the path on disk where the asset build has been unpacked.
+Sensu generates the environment variable name by capitalizing the dynamic runtime asset name, replacing any special characters with underscores, and appending the `_PATH` suffix.
+The value of the variable will be the path on disk where the dynamic runtime asset build has been unpacked.
 
-For example, the environment variable path for the asset [`sensu-plugins-windows`][4] would be:
+For example, the environment variable path for the dynamic runtime asset [`sensu-plugins-windows`][4] would be:
 
 `$SENSU_PLUGINS_WINDOWS_PATH/include/config.yaml`
 
-### Token substitution for asset paths
+### Token substitution for dynamic runtime asset paths
 
-The `assetPath` token subsitution function allows you to substitute the asset's local path on disk, so you will not need to manually update your check or hook commands every time the asset is updated.
+The `assetPath` token subsitution function allows you to substitute the dynamic runtime asset's local path on disk, so you will not need to manually update your check or hook commands every time the asset is updated.
 
 {{% notice note %}}
 **NOTE**: The `assetPath` function is only available where token substitution is available: the `command` attribute of a check or hook resource.
-If you want to access an asset path in a handler or mutator command, you must use the [environment variable](#environment-variables-for-asset-paths).
+If you want to access a dynamic runtime asset path in a handler or mutator command, you must use the [environment variable](#environment-variables-for-dynamic-runtime-asset-paths).
 {{% /notice %}}
 
-For example, you can reference the asset [`sensu-plugins-windows`][4] from your check or hook resources using either the environment variable or the `assetPath` function:
+For example, you can reference the dynamic runtime asset [`sensu-plugins-windows`][4] from your check or hook resources using either the environment variable or the `assetPath` function:
 
 - `$SENSU_PLUGINS_WINDOWS_PATH/include/config.yaml`
 - `${{assetPath "sensu-plugins-windows"}}/include/config.yaml`
 
 When running PowerShell plugins on Windows, the [exit status codes that Sensu captures may not match the expected values][13].
-To correctly capture exit status codes from PowerShell plugins distributed as assets, use the asset path to construct the command:
+To correctly capture exit status codes from PowerShell plugins distributed as dynamic runtime assets, use the asset path to construct the command:
 
 {{< language-toggle >}}
 
@@ -228,7 +228,7 @@ fi
 {{< /code >}}
 
 The first step is to ensure that your directory structure is in place.
-As noted in [Example asset structure][15], your script could live in three potential directories in the project: `/bin`, `/lib`, or `/include`.
+As noted in [Example dynamic runtime asset structure][15], your script could live in three potential directories in the project: `/bin`, `/lib`, or `/include`.
 For this example, put your script in the `/bin` directory.
 Create the directories `sensu-go-hello-world` and `/bin`:
 
@@ -254,11 +254,11 @@ $ chmod +x bin/hello-world.sh
 mode of 'hello-world.sh' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)
 {{< /code >}}
 
-Now that the script is in the directory, move on to the next step: packaging the `sensu-go-hello-world` directory as an asset tarball.
+Now that the script is in the directory, move on to the next step: packaging the `sensu-go-hello-world` directory as a dynamic runtime asset tarball.
 
-### Package the asset
+### Package the dynamic runtime asset
 
-Assets are archives, so the first step in packaging the asset is to create a tar.gz archive of your project.
+Dynamic runtime assets are archives, so the first step in packaging the asset is to create a tar.gz archive of your project.
 This assumes you're in the directory you want to tar up:
 
 {{< code bash >}}
@@ -267,16 +267,19 @@ $ tar -C sensu-go-hello-world -cvzf sensu-go-hello-world-0.0.1.tar.gz .
 ...
 {{< /code >}}
 
-Now that you've created an archive, you need to generate a SHA512 sum for it (this is required for the asset to work):
+Now that you've created an archive, you need to generate a SHA512 sum for it (this is required for the dynamic runtime asset to work):
 
 {{< code bash >}}
 sha512sum sensu-go-hello-world-0.0.1.tar.gz | tee sha512sum.txt
 dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff1ef4b154c198b9c7cdfe1e8867788c820db7bb5bcad83827 sensu-go-hello-world-0.0.1.tar.gz
 {{< /code >}}
 
-From here, you can host your asset wherever you’d like. To make the asset available via [Bonsai][16], you’ll need to host it on Github. Learn more in [The “Hello World” of Sensu Assets][18] on Discourse.
+From here, you can host your dynamic runtime asset wherever you’d like.
+To make the asset available via [Bonsai][16], you’ll need to host it on Github.
+Learn more in [The “Hello World” of Sensu Assets][18] on Discourse.
 
-To host your asset on a different platform like Gitlab or Bitbucket, upload your asset there. You can also use Artifactory or even Apache or Nginx to serve your asset. All that’s required for your asset to work is the URL to the asset and the SHA512 sum for the asset to be downloaded.
+To host your dynamic runtime asset on a different platform like Gitlab or Bitbucket, upload your asset there. You can also use Artifactory or even Apache or Nginx to serve your asset.
+All that’s required for your dynamic runtime asset to work is the URL to the asset and the SHA512 sum for the asset to be downloaded.
 
 ## Asset specification
 
@@ -284,21 +287,21 @@ To host your asset on a different platform like Gitlab or Bitbucket, upload your
 
 type         | 
 -------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][11] resource type. Assets should always be type `Asset`.
+description  | Top-level attribute that specifies the [`sensuctl create`][11] resource type. Dynamic runtime assets should always be type `Asset`.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | String
 example      | {{< code shell >}}"type": "Asset"{{< /code >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For assets in this version of Sensu, the `api_version` should always be `core/v2`.
+description  | Top-level attribute that specifies the Sensu API group and version. For dynamic runtime assets in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | String
 example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the asset, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the asset definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][5] for details.
+description  | Top-level collection of metadata about the dynamic runtime asset, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the asset definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][5] for details.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | Map of key-value pairs
 example      | {{< code shell >}}"metadata": {
@@ -315,7 +318,7 @@ example      | {{< code shell >}}"metadata": {
 
 spec         | 
 -------------|------
-description  | Top-level map that includes the asset [spec attributes][12].
+description  | Top-level map that includes the dynamic runtime asset [spec attributes][12].
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | Map of key-value pairs
 example (multiple builds)     | {{< code shell >}}"spec": {
@@ -360,14 +363,14 @@ example (single build, deprecated)     | {{< code shell >}}"spec": {
 
 name         |      |
 -------------|------ 
-description  | Unique name of the asset, validated with Go regex [`\A[\w\.\-]+\z`][19].
+description  | Unique name of the dynamic runtime asset, validated with Go regex [`\A[\w\.\-]+\z`][19].
 required     | true
 type         | String
 example      | {{< code shell >}}"name": "check_script"{{< /code >}}
 
 | namespace  |      |
 -------------|------
-description  | [Sensu RBAC namespace][2] that the asset belongs to.
+description  | [Sensu RBAC namespace][2] that the dynamic runtime asset belongs to.
 required     | false
 type         | String
 default      | `default`
@@ -375,7 +378,7 @@ example      | {{< code shell >}}"namespace": "production"{{< /code >}}
 
 | created_by |      |
 -------------|------
-description  | Username of the Sensu user who created the asset or last updated the asset. Sensu automatically populates the `created_by` field when the asset is created or updated.
+description  | Username of the Sensu user who created the dynamic runtime asset or last updated the asset. Sensu automatically populates the `created_by` field when the dynamic runtime asset is created or updated.
 required     | false
 type         | String
 example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
@@ -406,7 +409,7 @@ example      | {{< code shell >}} "annotations": {
 
 builds       | 
 -------------|------ 
-description  | List of asset builds used to define multiple artifacts that provide the named asset.
+description  | List of dynamic runtime asset builds used to define multiple artifacts that provide the named asset.
 required     | true, if `url`, `sha512` and `filters` are not provided
 type         | Array
 example      | {{< code shell >}}"builds": [
@@ -431,14 +434,14 @@ example      | {{< code shell >}}"builds": [
 
 url          | 
 -------------|------ 
-description  | URL location of the asset. You can use [token substitution][3] in the URLs of your asset definitions so each backend or agent can download assets from the appropriate URL without duplicating your assets (for example, if you want to host your assets at different datacenters).
+description  | URL location of the dynamic runtime asset. You can use [token substitution][3] in the URLs of your asset definitions so each backend or agent can download dynamic runtime assets from the appropriate URL without duplicating your assets (for example, if you want to host your assets at different datacenters).
 required     | true, unless `builds` are provided
 type         | String 
 example      | {{< code shell >}}"url": "http://example.com/asset.tar.gz"{{< /code >}}
 
 sha512       | 
 -------------|------ 
-description  | Checksum of the asset. 
+description  | Checksum of the dynamic runtime asset. 
 required     | true, unless `builds` are provided
 type         | String 
 example      | {{< code shell >}}"sha512": "4f926bf4328..."{{< /code >}}
@@ -447,8 +450,8 @@ example      | {{< code shell >}}"sha512": "4f926bf4328..."{{< /code >}}
 
 filters      | 
 -------------|------ 
-description  | Set of [Sensu query expressions][1] used to determine if the asset should be installed. If multiple expressions are included, each expression must return `true` for Sensu to install the asset.<br><br>Filters for _check_ assets should match agent entity platforms. Filters for _handler_ and _filter_ assets should match your Sensu backend platform. You can create asset filter expressions using any supported [entity.system attributes][10], including `os`, `arch`, `platform`, and `platform_family`. {{% notice protip %}}
-**PRO TIP**: Asset filters let you reuse checks across platforms safely. Assign assets for multiple platforms to a single check, and rely on asset filters to ensure that only the appropriate asset is installed on each agent.
+description  | Set of [Sensu query expressions][1] used to determine if the dynamic runtime asset should be installed. If multiple expressions are included, each expression must return `true` for Sensu to install the asset.<br><br>Filters for _check_ dynamic runtime assets should match agent entity platforms. Filters for _handler_ and _filter_ dynamic runtime assets should match your Sensu backend platform. You can create asset filter expressions using any supported [entity.system attributes][10], including `os`, `arch`, `platform`, and `platform_family`. {{% notice protip %}}
+**PRO TIP**: Dynamic runtime asset filters let you reuse checks across platforms safely. Assign dynamic runtime assets for multiple platforms to a single check, and rely on asset filters to ensure that only the appropriate asset is installed on each agent.
 {{% /notice %}}
 required     | false 
 type         | Array 
@@ -456,7 +459,7 @@ example      | {{< code shell >}}"filters": ["entity.system.os=='linux'", "entit
 
 headers       |       |
 --------------|-------|
-description   | HTTP headers to apply to asset retrieval requests. You can use headers to access secured assets. For headers that require multiple values, separate the values with a comma. You can use [token substitution][3] in your asset headers (for example, to include secure information for authentication).
+description   | HTTP headers to apply to dynamic runtime asset retrieval requests. You can use headers to access secured dynamic runtime assets. For headers that require multiple values, separate the values with a comma. You can use [token substitution][3] in your dynamic runtime asset headers (for example, to include secure information for authentication).
 required     | false
 type         | Map of key-value string pairs
 example      | {{< code shell >}}
@@ -466,11 +469,11 @@ example      | {{< code shell >}}
 }
 {{< /code >}}
 
-## Asset filters based on entity.system attributes
+## Dynamic runtime asset filters based on entity.system attributes
 
-Use the [entity.system attributes][10] in asset [filters][42] to specify which systems and configurations an asset or asset builds can be used with.
+Use the [entity.system attributes][10] in dynamic runtime asset [filters][42] to specify which systems and configurations an asset or asset builds can be used with.
 
-For example, the [Sensu Go Ruby Runtime][43] asset definition includes several builds, each with filters for several `entity.system` attributes:
+For example, the [Sensu Go Ruby Runtime][43] dynamic runtime asset definition includes several builds, each with filters for several `entity.system` attributes:
 
 {{< code yaml >}}
 ---
@@ -511,20 +514,20 @@ spec:
     - entity.system.platform_version.split('.')[0] == '3'
 {{< /code >}}
 
-In this example, if you install the asset on a system running Linux AMD64 Alpine version 3.xx, Sensu will ignore the first two builds and install the third.
+In this example, if you install the dynamic runtime asset on a system running Linux AMD64 Alpine version 3.xx, Sensu will ignore the first two builds and install the third.
 
 {{% notice note %}}
 **NOTE**: Sensu downloads and installs the first build whose filter expressions all evaluate as `true`.
-If your system happens to match all of the filters for more than one build of an asset, Sensu will only install the first build.
+If your system happens to match all of the filters for more than one build of a dynamic runtime asset, Sensu will only install the first build.
 {{% /notice %}}
 
-All of the asset filter expressions must evaluate as true for Sensu to download and install the asset and run the check, handler, or filter that references the asset.
+All of the dynamic runtime asset filter expressions must evaluate as true for Sensu to download and install the asset and run the check, handler, or filter that references the asset.
 
-To continue this example, if you try to install the asset on a system running Linux AMD64 Alpine version 2.xx, the `entity.system.platform_version` argument will evaluate as `false`.
+To continue this example, if you try to install the dynamic runtime asset on a system running Linux AMD64 Alpine version 2.xx, the `entity.system.platform_version` argument will evaluate as `false`.
 In this case, the asset will not be downloaded and the check, handler, or filter that references the asset will fail to run.
 
-Add asset filters to specify that an asset is compiled for any of the [entity.system attributes][10], including operating system, platform, platform version, and architecture.
-Then, you can rely on asset filters to ensure that you install only the appropriate asset for each of your agents.
+Add dynamic runtime asset filters to specify that an asset is compiled for any of the [entity.system attributes][10], including operating system, platform, platform version, and architecture.
+Then, you can rely on dynamic runtime asset filters to ensure that you install only the appropriate asset for each of your agents.
 
 ## Examples
 
@@ -815,16 +818,16 @@ spec:
 
 ## Share an asset on Bonsai
 
-Share your open-source assets on [Bonsai][16] and connect with the Sensu community.
-Bonsai supports assets hosted on [GitHub][24] and released using [GitHub releases][25].
+Share your open-source dynamic runtime assets on [Bonsai][16] and connect with the Sensu community.
+Bonsai supports dynamic runtime assets hosted on [GitHub][24] and released using [GitHub releases][25].
 For more information about creating Sensu Plugins, see the [Sensu Plugin specification][29].
 
 Bonsai requires a [`bonsai.yml` configuration file][26] in the root directory of your repository that includes the project description, platforms, asset filenames, and SHA-512 checksums.
-For a Bonsai-compatible asset template using Go and [GoReleaser][27], see the [Sensu Go plugin skeleton][28].
+For a Bonsai-compatible dynamic runtime asset template using Go and [GoReleaser][27], see the [Sensu Go plugin skeleton][28].
 
-To share your asset on Bonsai, [log in to Bonsai][37] with your GitHub account and authorize Sensu.
-After you are logged in, you can [register your asset on Bonsai][38] by adding the GitHub repository, a description, and tags.
-Make sure to provide a helpful README for your asset with configuration examples.
+To share your dynamic runtime asset on Bonsai, [log in to Bonsai][37] with your GitHub account and authorize Sensu.
+After you are logged in, you can [register your dynamic runtime asset on Bonsai][38] by adding the GitHub repository, a description, and tags.
+Make sure to provide a helpful README for your dynamic runtime asset with configuration examples.
 
 ### `bonsai.yml` example
 
@@ -860,7 +863,7 @@ example      | {{< code yml >}}description: "#{repo}"{{< /code >}}
 
  builds      | 
 -------------|------
-description  | Array of asset details per platform.
+description  | Array of dynamic runtime asset details per platform.
 required     | true
 type         | Array
 example      | {{< code yml >}}
@@ -878,28 +881,28 @@ builds:
 
  platform    | 
 -------------|------
-description  | Platform supported by the asset.
+description  | Platform supported by the dynamic runtime asset.
 required     | true
 type         | String
 example      | {{< code yml >}}- platform: "linux"{{< /code >}}
 
  arch        | 
 -------------|------
-description  | Architecture supported by the asset.
+description  | Architecture supported by the dynamic runtime asset.
 required     | true
 type         | String
 example      | {{< code yml >}}  arch: "amd64"{{< /code >}}
 
 asset_filename | 
 -------------|------
-description  | File name of the archive that contains the asset.
+description  | File name of the archive that contains the dynamic runtime asset.
 required     | true
 type         | String
 example      | {{< code yml >}}asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"{{< /code >}}
 
 sha_filename | 
 -------------|------
-description  | SHA-512 checksum for the asset archive.
+description  | SHA-512 checksum for the dynamic runtime asset archive.
 required     | true
 type         | String
 example      | {{< code yml >}}sha_filename: "#{repo}_#{version}_sha512-checksums.txt"{{< /code >}}
@@ -915,22 +918,22 @@ example      | {{< code yml >}}
   -  "entity.system.arch == 'amd64'"
 {{< /code >}}
 
-## Delete assets
+## Delete dynamic runtime assets
 
-As of Sensu Go 5.12, you can delete assets with the `/assets (DELETE)` endpoint or via `sensuctl` (`sensuctl asset delete`).
-When you remove an asset from Sensu, this _*does not*_ remove references to the deleted asset in any other resource (including checks, filters, mutators, handlers, and hooks).
-You must also update resources and remove any reference to the deleted asset.
+As of Sensu Go 5.12, you can delete dynamic runtime assets with the `/assets (DELETE)` endpoint or via `sensuctl` (`sensuctl asset delete`).
+When you remove a dynamic runtime asset from Sensu, this _*does not*_ remove references to the deleted asset in any other resource (including checks, filters, mutators, handlers, and hooks).
+You must also update resources and remove any reference to the deleted dynamic runtime asset.
 Failure to do so will result in errors like `sh: asset.sh: command not found`. 
 
-Errors as a result of failing to remove the asset from checks and hooks will surface in the event data.
-Errors as a result of failing to remove the asset reference on a mutator, handler, or filter will only surface in the backend logs.
+Errors as a result of failing to remove the dynamic runtime asset from checks and hooks will surface in the event data.
+Errors as a result of failing to remove the dynamic runtime asset reference on a mutator, handler, or filter will only surface in the backend logs.
 
-Deleting an asset does not delete the archive or downloaded files on disk.
+Deleting a dynamic runtime asset does not delete the archive or downloaded files on disk.
 You must remove the archive and downloaded files from the asset cache manually.
 
 [1]: ../../../observability-pipeline/observe-filter/sensu-query-expressions/
 [2]: ../../control-access/rbac#namespaces
-[3]: ../../../observability-pipeline/observe-schedule/tokens/#manage-assets
+[3]: ../../../observability-pipeline/observe-schedule/tokens/#manage-dynamic-runtime-assets
 [4]: https://bonsai.sensu.io/assets/samroy92/sensu-plugins-windows
 [5]: #metadata-attributes
 [6]: ../../../observability-pipeline/observe-schedule/checks/
@@ -941,10 +944,10 @@ You must remove the archive and downloaded files from the asset cache manually.
 [11]: ../../../sensuctl/create-manage-resources/#create-resources
 [12]: #spec-attributes
 [13]: https://github.com/sensu/sensu/issues/1919
-[14]: #environment-variables-for-asset-paths
-[15]: #example-asset-structure
+[14]: #environment-variables-for-dynamic-runtime-asset-paths
+[15]: #example-dynamic-runtime-asset-structure
 [16]: https://bonsai.sensu.io/
-[17]: #token-substitution-for-asset-paths
+[17]: #token-substitution-for-dynamic-runtime-asset-paths
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
 [19]: https://regex101.com/r/zo9mQU/2
 [20]: ../../../api#response-filtering

@@ -17,12 +17,12 @@ You can use handlers to send an email alert, create or resolve incidents (in Pag
 This guide will help you send alerts to Slack in the channel `monitoring` by configuring a handler named `slack` to a check named `check-cpu`.
 If you don't already have a check in place, [Monitor server resources][2] is a great place to start.
 
-## Register the asset
+## Register the dynamic runtime asset
 
-[Assets][13] are shareable, reusable packages that help you deploy Sensu plugins.
-In this guide, you'll use the [Sensu Slack Handler][14] asset to power a `slack` handler.
+[Dynamic runtime assets][13] are shareable, reusable packages that help you deploy Sensu plugins.
+In this guide, you'll use the [Sensu Slack Handler][14] dynamic runtime asset to power a `slack` handler.
 
-Use [`sensuctl asset add`][10] to register the [Sensu Slack Handler][14] asset:
+Use [`sensuctl asset add`][10] to register the [Sensu Slack Handler][14] dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-slack-handler:1.0.3 -r sensu-slack-handler
@@ -34,9 +34,9 @@ it's invoked by another Sensu resource (ex. check). To add this runtime asset to
 resource, populate the "runtime_assets" field with ["sensu-slack-handler"].
 {{< /code >}}
 
-This example uses the `-r` (rename) flag to specify a shorter name for the asset: `sensu-slack-handler`.
+This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `sensu-slack-handler`.
 
-You can also download the latest asset definition for your platform from [Bonsai][14] and register the asset with `sensuctl create --file filename.yml`.
+You can also download the latest dynamic runtime asset definition for your platform from [Bonsai][14] and register the asset with `sensuctl create --file filename.yml`.
 
 You should see a confirmation message from sensuctl:
 
@@ -45,8 +45,8 @@ Created
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../operations/deploy-sensu/assets#asset-builds) for more information about asset builds.
+**NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../../operations/deploy-sensu/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Get a Slack webhook
@@ -57,7 +57,7 @@ After saving, you'll see your webhook URL under Integration Settings.
 
 ## Create a handler
 
-Use sensuctl to create a handler called `slack` that pipes event data to Slack using the `sensu-slack-handler` asset.
+Use sensuctl to create a handler called `slack` that pipes event data to Slack using the `sensu-slack-handler` dynamic runtime asset.
 Edit the command below to include your Slack channel and webhook URL.
 For more information about customizing your Sensu slack alerts, see the asset page in [Bonsai][14].
 
@@ -115,7 +115,7 @@ You can also try our interactive tutorial and learn how to [send Sensu Go alerts
 [7]: ../../../operations/maintain-sensu/troubleshoot/
 [8]: ../handlers/
 [9]: ../../observe-filter/reduce-alert-fatigue/
-[10]: ../../../sensuctl/sensuctl-bonsai/#install-asset-definitions
+[10]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [11]: ../../../learn/sensu-pagerduty/
 [12]: https://slack.com/get-started#/create
 [13]: ../../../operations/deploy-sensu/assets

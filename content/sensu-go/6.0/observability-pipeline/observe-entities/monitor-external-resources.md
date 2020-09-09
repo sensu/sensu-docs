@@ -23,11 +23,11 @@ When executing checks that include a `proxy_entity_name` or `proxy_requests` att
 
 In this section, you'll monitor the status of [sensu.io](https://sensu.io) by configuring a check with a **proxy entity name** so that Sensu creates an entity that represents the site and reports the status of the site under this entity.
 
-### Register assets
+### Register dynamic runtime assets
 
-To power the check, use the [Sensu Plugins HTTP][16] asset and the [Sensu Ruby Runtime][17] asset.
+To power the check, use the [Sensu Plugins HTTP][16] and [Sensu Ruby Runtime][17] dynamic runtime assets.
 
-Use [`sensuctl asset add`][21] to register the `sensu-plugins-http` asset:
+Use [`sensuctl asset add`][21] to register the `sensu-plugins-http` dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu-plugins/sensu-plugins-http:5.1.1 -r sensu-plugins-http
@@ -39,11 +39,11 @@ it's invoked by another Sensu resource (ex. check). To add this runtime asset to
 resource, populate the "runtime_assets" field with ["sensu-plugins-http"].
 {{< /code >}}
 
-This example uses the `-r` (rename) flag to specify a shorter name for the asset: `sensu-plugins-http`.
+This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `sensu-plugins-http`.
 
-You can also download the asset definition for Debian or Alpine from [Bonsai][16] and register the asset with `sensuctl create --file filename.yml`.
+You can also download the dynamic runtime asset definition for Debian or Alpine from [Bonsai][16] and register the asset with `sensuctl create --file filename.yml`.
 
-Then, use the following sensuctl example to register the `sensu-ruby-runtime` asset:
+Then, use the following sensuctl example to register the `sensu-ruby-runtime` dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
@@ -55,9 +55,9 @@ it's invoked by another Sensu resource (ex. check). To add this runtime asset to
 resource, populate the "runtime_assets" field with ["sensu-ruby-runtime"].
 {{< /code >}}
 
-You can also download the asset definition from [Bonsai][17] and register the asset using `sensuctl create --file filename.yml`. 
+You can also download the dynamic runtime asset definition from [Bonsai][17] and register the asset using `sensuctl create --file filename.yml`. 
 
-Use sensuctl to confirm that both the `sensu-plugins-http` and `sensu-ruby-runtime` assets are ready to use:
+Use sensuctl to confirm that both the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets are ready to use:
 
 {{< code shell >}}
 sensuctl asset list
@@ -68,13 +68,13 @@ sensuctl asset list
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../operations/deploy-sensu/assets#asset-builds) for more information about asset builds.
+**NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../../operations/deploy-sensu/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ### Create the check
 
-Now that the assets are registered, you can create a check named `check-sensu-site` to run the command `check-http.rb -u https://sensu.io` with the `sensu-plugins-http` and `sensu-ruby-runtime` assets, at an interval of 60 seconds, for all agents subscribed to the `proxy` subscription, using the `sensu-site` proxy entity name.
+Now that the dynamic runtime assets are registered, you can create a check named `check-sensu-site` to run the command `check-http.rb -u https://sensu.io` with the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets, at an interval of 60 seconds, for all agents subscribed to the `proxy` subscription, using the `sensu-site` proxy entity name.
 To avoid duplicate events, add the [`round_robin` attribute][18] to distribute the check execution across all agents subscribed to the `proxy` subscription.
 
 Create a file called `check.json` and add this check definition:
@@ -190,7 +190,7 @@ You can also see the new proxy entity in your [Sensu web UI][10].
 
 Suppose that instead of monitoring just sensu.io, you want to monitor multiple sites, like docs.sensu.io, packagecloud.io, and github.com.
 In this section, you'll use the [`proxy_requests` check attribute][3] along with [entity labels][11] and [token substitution][12] to monitor three sites with the same check.
-Before you start, [register the `sensu-plugins-http` and `sensu-ruby-runtime` assets][13] if you haven't already.
+Before you start, [register the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets][13] if you haven't already.
 
 ### Create proxy entities
 
@@ -348,7 +348,7 @@ For more information about round robin checks, see the [check reference](../../o
 
 ### Validate the check
 
-Before you validate the check, make sure that you've [registered the `sensu-plugins-http` and `sensu-ruby-runtime` assets][13] and [added the `proxy` subscription to a Sensu agent][14].
+Before you validate the check, make sure that you've [registered the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets][13] and [added the `proxy` subscription to a Sensu agent][14].
 
 Use sensuctl to confirm that Sensu is monitoring docs.sensu.io, packagecloud.io, and github.com with the `check-http`, returning a status of `0` (OK):
 
@@ -387,4 +387,4 @@ Now that you know how to run a proxy check to verify the status of a website and
 [18]: ../../observe-schedule/checks#round-robin-checks
 [19]: ../../../operations/deploy-sensu/install-sensu/
 [20]: ../../observe-schedule/agent#restart-the-service
-[21]: ../../../sensuctl/sensuctl-bonsai/#install-asset-definitions
+[21]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions

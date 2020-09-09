@@ -35,7 +35,7 @@ Sensu backends require persistent storage for their embedded database, disk spac
 
 **Sensu agents** are lightweight clients that run on the infrastructure components you want to monitor.
 Agents register automatically with Sensu as entities and are responsible for creating check and metric events to send to the backend event pipeline.
-Agents that use Sensu [assets][17] require some disk space for a local cache.
+Agents that use Sensu [dynamic runtime assets][17] require some disk space for a local cache.
 
 For more information, see the [Secure Sensu guide][8].
 See [Deploy Sensu][31] and [hardware requirements][25] for deployment recommendations.

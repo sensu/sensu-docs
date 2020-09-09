@@ -404,7 +404,7 @@ If you omit the namespace qualifier, the command defaults to the current configu
 
 Use a comma separator to prune more than one resource in a single command.
 
-For example, to prune checks and assets from the file `checks.yaml` for the `dev` namespace and the `admin` and `ops` users:
+For example, to prune checks and dynamic runtime assets from the file `checks.yaml` for the `dev` namespace and the `admin` and `ops` users:
 
 {{< code shell >}}
 sensuctl prune core/v2.CheckConfig,core/v2.Asset --file checks.yaml --namespace dev --users admin,ops

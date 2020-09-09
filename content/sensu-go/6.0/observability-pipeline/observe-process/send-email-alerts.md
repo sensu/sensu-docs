@@ -12,7 +12,7 @@ menu:
 ---
 
 Sensu event handlers are actions the Sensu backend executes on [events][1].
-This guide explains how to use the [Sensu Go Email Handler][3] asset to send notification emails.
+This guide explains how to use the [Sensu Go Email Handler][3] dynamic runtime asset to send notification emails.
 
 When you are using Sensu in production, events will come from a check or metric you configure.
 For this guide, you will create an ad hoc event that you can trigger manually to test your email handler.
@@ -22,12 +22,12 @@ To follow this guide, you’ll need to [install the Sensu backend][12], have at 
 Your backend will execute an email handler that sends notifications to the email address you specify.
 You'll also add an [event filter][5] to make sure you only receive a notification when your event represents a status change.
 
-## Add the email handler asset
+## Add the email handler dynamic runtime asset
 
-[Assets][8] are shareable, reusable packages that help you deploy Sensu plugins.
-In this guide, you'll use the [Sensu Go Email Handler][3] asset to power an `email` handler.
+[Dynamic runtime assets][8] are shareable, reusable packages that help you deploy Sensu plugins.
+In this guide, you'll use the [Sensu Go Email Handler][3] dynamic runtime asset to power an `email` handler.
 
-Use the following sensuctl example to register the [Sensu Go Email Handler][3] asset:
+Use the following sensuctl example to register the [Sensu Go Email Handler][3] dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-email-handler -r email-handler
@@ -40,28 +40,28 @@ it's invoked by another Sensu resource (ex. check). To add this runtime asset to
 resource, populate the "runtime_assets" field with ["email-handler"].
 {{< /code >}}
 
-The -r (rename) flag allows you to specify a shorter name for the asset (in this case, `email-handler`).
+The -r (rename) flag allows you to specify a shorter name for the dynamic runtime asset (in this case, `email-handler`).
 
-You can also download the latest asset definition for your platform from [Bonsai][3] and register the asset with `sensuctl create --file filename.yml`.
+You can also download the latest dynamic runtime asset definition for your platform from [Bonsai][3] and register the asset with `sensuctl create --file filename.yml`.
 
-To confirm that the handler asset was added correctly, run:
+To confirm that the handler dynamic runtime asset was added correctly, run:
 
 {{< code shell >}}
 sensuctl asset list
 {{< /code >}}
 
-You should see the `email-handler` asset in the list.
+You should see the `email-handler` dynamic runtime asset in the list.
 For a detailed list of everything related to the asset that Sensu added automatically, run:
 
 {{< code shell >}}
 sensuctl asset info email-handler
 {{< /code >}}
 
-The asset includes the `sensu-email-handler` command, which you will use when you [create the email handler definition][18] later in this guide.
+The dynamic runtime asset includes the `sensu-email-handler` command, which you will use when you [create the email handler definition][18] later in this guide.
 
 {{% notice note %}}
-**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../operations/deploy-sensu/assets#asset-builds) for more information about asset builds.
+**NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../../operations/deploy-sensu/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Add an event filter
@@ -98,7 +98,7 @@ EOF
 
 ## Create the email handler definition
 
-After you add an event filter, create the email handler definition to specify the email address where the `sensu/sensu-email-handler` asset will send notifications.
+After you add an event filter, create the email handler definition to specify the email address where the `sensu/sensu-email-handler` dynamic runtime asset will send notifications.
 In the handler definition's `command` value, you'll need to change a few things.
 
 Copy this text into a text editor:
@@ -146,7 +146,7 @@ After you add your email, server, username, and password values, run your update
 
 Now your handler and event filter are set up!
 
-The [Sensu Go Email Handler][3] asset makes it possible to [add a template][14] that provides context for your email notifications.
+The [Sensu Go Email Handler][3] dynamic runtime asset makes it possible to [add a template][14] that provides context for your email notifications.
 The email template functionality uses tokens to populate the values provided by the event, and you can use HTML to format the email.
 
 Before your handler can send alerts to your email, you need an [event][16] that generates the alerts.

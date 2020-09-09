@@ -16,8 +16,8 @@ This guide describes best practices and strategies for monitoring the Sensu back
 To completely monitor Sensu (a Sensu backend with internal etcd and an agent), you will need at least one independent Sensu instance in addition to the primary instance you want to monitor.
 The second Sensu instance will ensure that you are notified when the primary is down and vice versa.
 
-This guide requires Sensu plugins using assets.
-For more information about using Sensu plugins, see [Install plugins with assets][1].
+This guide requires Sensu plugins using dynamic runtime assets.
+For more information about using Sensu plugins, see [Use dynamic runtime assets to install plugins][1].
 
 {{% notice note %}}
 **NOTE**: This guide describes approaches for monitoring a single backend.
@@ -40,7 +40,7 @@ Monitor the host running the `sensu-backend` *locally* by a `sensu-agent` proces
 For Sensu components that must be running for Sensu to create events, you should also monitor the `sensu-backend` remotely from an independent Sensu instance.
 This will allow you to monitor whether your Sensu event pipeline is working.
 
-To do this, use the `check_http` plugin from the [Monitoring plugins asset][3] to query Sensu's [health API endpoint][2] with a check definition for your primary (Backend Alpha) and secondary (Backend Beta) backends:
+To do this, use the `check_http` plugin from the [Monitoring plugins dynamic runtime asset][3] to query Sensu's [health API endpoint][2] with a check definition for your primary (Backend Alpha) and secondary (Backend Beta) backends:
 
 {{< language-toggle >}}
 

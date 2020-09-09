@@ -181,7 +181,7 @@ You can access namespaced resources by [roles][13] and [cluster roles][21].
 
 | type | description |
 |---|---|
-| `assets` | [Asset][5] resources within a namespace |
+| `assets` | [Dynamic runtime asset][5] resources within a namespace |
 | `checks` | [Check][6] resources within a namespace |
 | `entities` | [Entity][7] resources within a namespace |
 | `events` | [Event][8] resources within a namespace |
