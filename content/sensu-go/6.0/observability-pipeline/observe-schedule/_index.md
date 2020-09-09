@@ -73,7 +73,7 @@ Follow [Secure Sensu][8] to configure the backend and agent for WebSocket Secure
 [11]: agent/
 [12]: backend/
 [13]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
-[14]: agent/#create-monitoring-events-using-service-checks
+[14]: agent/#create-observability-events-using-service-checks
 [15]: checks/
 [16]: ../observe-filter/filters/
 [17]: ../observe-transform/mutators/

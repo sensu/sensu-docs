@@ -1,14 +1,14 @@
 ---
 title: "Get started with Sensu"
 linkTitle: "Get Started with Sensu"
-description: "Sensu is the industry-leading solution for multi-cloud monitoring at scale. The Sensu monitoring event pipeline helps businesses automate their monitoring workflows and gain deep visibility into their multi-cloud environments. Get started now and feel the #monitoringlove."
+description: "Sensu is the industry-leading solution for multi-cloud monitoring at scale. The Sensu observability pipeline helps businesses automate their monitoring workflows and gain deep visibility into their multi-cloud environments. Get started now and feel the #monitoringlove."
 version: "6.0"
 weight: -70
 product: "Sensu Go"
 menu: "sensu-go-6.0"
 ---
 
-Sensu Go is the flexible monitoring event pipeline designed for container-based and multi-cloud infrastructures.
+Sensu Go is the flexible observability pipeline designed for container-based and multi-cloud infrastructures.
 
 Sensu is available as packages, Docker images, and binary-only distributions.
 You can [install the commercial distribution of Sensu Go][15] or [build Sensu from source][16].
@@ -18,7 +18,7 @@ You can [install the commercial distribution of Sensu Go][15] or [build Sensu fr
 We recommend these resources for learning more about Sensu:
 
 - Learn how the Sensu pipeline works in your browser with an [interactive tutorial][12]
-- [Download the sandbox][7] and create a monitoring event pipeline in your local environment
+- [Download the sandbox][7] and create an observability pipeline in your local environment
 - See a [live demo of the Sensu web UI][1]
 - Sign up for our step-by-step [Learn Sensu email course][21]
 - Join the [Sensu Community Forum on Discourse][8]

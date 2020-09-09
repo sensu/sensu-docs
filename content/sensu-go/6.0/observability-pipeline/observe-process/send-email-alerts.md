@@ -168,7 +168,7 @@ echo $SENSU_ACCESS_TOKEN
 efPxbRciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzkwMzY5NjQsImp0aSI6ImJiMmY0ODY4ZTJhZWEyMDhhMTExOTllMGZkNzkzMDc0Iiwic3ViIjoiYWRtaW4iLCJncm91cHMiOlsiY2x1c3Rlci1hZG1pbnMiLCJzeXN0ZW06dXNlcnMiXSwicHJvdmlkZXIiOnsicHJvdmlkZXJfaWQiOiJiYXNpYyIsInByb3ZpZGVyX3R5cGUiOiIiLCJ1c2VyX2lkIjoiYWRtaW4ifX0.6XmuvblCN743R2maF4yErS3K3sOVczsCBsjib9TenUU
 {{< /code >}}
 
-With the environment variables set, you can use the Sensu API to create your ad hoc monitoring event.
+With the environment variables set, you can use the Sensu API to create your ad hoc observability event.
 This event outputs the message "Everything is OK.” when it occurs:
 
 {{< code shell >}}

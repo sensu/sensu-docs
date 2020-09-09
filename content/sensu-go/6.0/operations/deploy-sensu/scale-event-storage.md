@@ -166,7 +166,7 @@ To verify that the change was effective, look for messages similar to these in t
 {"component":"store","level":"warning","msg":"switched event store to etcd","time":"2019-10-02T23:29:06Z"}
 {{< /code >}}
 
-Similar to enabling Postgres, switching back to the etcd datastore does not migrate current observation event data from one store to another.
+Similar to enabling Postgres, switching back to the etcd datastore does not migrate current observability event data from one store to another.
 You may see old events in the web UI or sensuctl output until the etcd datastore catches up with the current state of your monitored infrastructure.
 
 ## Configure Postgres streaming replication

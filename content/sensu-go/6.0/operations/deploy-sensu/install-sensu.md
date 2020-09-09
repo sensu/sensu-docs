@@ -211,7 +211,7 @@ For details about `sensu-backend init`, see the [backend reference][30].
 
 ### 4. Open the web UI
 
-The web UI provides a unified view of your monitoring events and user-friendly tools to reduce alert fatigue.
+The web UI provides a unified view of your observability events and user-friendly tools to reduce alert fatigue.
 After starting the Sensu backend, open the web UI by visiting http://localhost:3000.
 You may need to replace `localhost` with the hostname or IP address where the Sensu backend is running.
 
@@ -532,8 +532,8 @@ sensuctl license info
 [24]: #4-open-the-web-ui
 [25]: ../hardware-requirements/
 [26]: ../../../api/
-[27]: ../../../observability-pipeline/observe-schedule/agent#create-monitoring-events-using-the-agent-api
-[28]: ../../../observability-pipeline/observe-schedule/agent#create-monitoring-events-using-the-statsd-listener
+[27]: ../../../observability-pipeline/observe-schedule/agent#create-observability-events-using-the-agent-api
+[28]: ../../../observability-pipeline/observe-schedule/agent#create-observability-events-using-the-statsd-listener
 [29]: https://blog.sensu.io/one-year-of-sensu-go/
 [30]: ../../../observability-pipeline/observe-schedule/backend#initialization
 [31]: ../deployment-architecture/

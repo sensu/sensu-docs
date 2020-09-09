@@ -3,7 +3,7 @@ title: "Checks reference"
 linkTitle: "Checks Reference"
 reference_title: "Checks"
 type: "reference"
-description: "Checks work with Sensu agents to let you monitor your infrastructure automatically and send monitoring events to the Sensu pipeline. Read this reference doc to learn how to run service and metric checks."
+description: "Checks work with Sensu agents to let you monitor your infrastructure automatically and send observability events to the Sensu pipeline. Read this reference doc to learn how to run service and metric checks."
 weight: 30
 version: "6.0"
 product: "Sensu Go"
@@ -13,7 +13,7 @@ menu:
     parent: observe-schedule
 ---
 
-Checks work with Sensu agents to produce monitoring events automatically.
+Checks work with Sensu agents to produce observability events automatically.
 You can use checks to monitor server resources, services, and application health as well as collect and analyze metrics.
 Read [Monitor server resources][12] to get started.
 Use [Bonsai][29], the Sensu asset index, to discover, download, and share Sensu check dynamic runtime assets.
@@ -74,7 +74,7 @@ Subscriptions also allow you to configure check requests for an entire group or 
 
 To configure subscriptions for a check, use the `subscriptions` attribute to specify an array of one or more subscription names.
 Sensu schedules checks once per interval for each agent with a matching subscription.
-For example, if we have three agents configured with the `system` subscription, a check configured with the `system` subscription results in three monitoring events per interval: one check execution per agent per interval.
+For example, if we have three agents configured with the `system` subscription, a check configured with the `system` subscription results in three observability events per interval: one check execution per agent per interval.
 For Sensu to execute a check, the check definition must include a subscription that matches the subscription of at least one Sensu agent.
 
 #### Round robin checks
@@ -83,7 +83,7 @@ By default, Sensu schedules checks once per interval for each agent with a match
 Sensu also supports deduplicated check execution when configured with the `round_robin` check attribute.
 For checks with `round_robin` set to `true`, Sensu executes the check once per interval, cycling through the available agents alphabetically according to agent name.
 
-For example, for three agents configured with the `system` subscription (agents A, B, and C), a check configured with the `system` subscription and `round_robin` set to `true` results in one monitoring event per interval, with the agent creating the event following the pattern A -> B -> C -> A -> B -> C for the first six intervals.
+For example, for three agents configured with the `system` subscription (agents A, B, and C), a check configured with the `system` subscription and `round_robin` set to `true` results in one observability event per interval, with the agent creating the event following the pattern A -> B -> C -> A -> B -> C for the first six intervals.
 
 <img alt="Round robin check diagram" src="/images/round-robin.png">
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/41787f16-3457-49d9-9135-efc69b0e2b50 -->
@@ -384,7 +384,7 @@ spec:
 
 ### Use a proxy check to monitor multiple proxy entities
 
-The [`proxy_requests` check attributes][37] allow Sensu to run a check for each entity that matches the definitions specified in the `entity_attributes`, resulting in monitoring events that represent each matching proxy entity.
+The [`proxy_requests` check attributes][37] allow Sensu to run a check for each entity that matches the definitions specified in the `entity_attributes`, resulting in observability events that represent each matching proxy entity.
 The entity attributes must match exactly as stated.
 No variables or directives have any special meaning, but you can still use [Sensu query expressions][11] to perform more complicated filtering on the available value, such as finding entities with particular subscriptions.
 

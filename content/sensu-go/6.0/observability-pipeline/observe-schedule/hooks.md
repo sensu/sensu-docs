@@ -3,7 +3,7 @@ title: "Hooks reference"
 linkTitle: "Hooks Reference"
 reference_title: "Hooks"
 type: "reference"
-description: "Check hooks allow you to automate data collection that operators would typically perform by investigating monitoring alerts manually. Hooks help free up precious operator time. Read the reference doc to learn about hooks."
+description: "Check hooks allow you to automate data collection that operators would typically perform by investigating observability alerts manually. Hooks help free up precious operator time. Read the reference doc to learn about hooks."
 weight: 60
 version: "6.0"
 product: "Sensu Go"
@@ -13,9 +13,9 @@ menu:
     parent: observe-schedule
 ---
 
-Hooks are reusable commands the agent executes in response to a check result before creating a monitoring event.
+Hooks are reusable commands the agent executes in response to a check result before creating an observability event.
 You can create, manage, and reuse hooks independently of checks.
-Hooks enrich monitoring event context by gathering relevant information based on the exit status code of a check (ex: `1`).
+Hooks enrich observability event context by gathering relevant information based on the exit status code of a check (ex: `1`).
 Hook commands can also receive JSON serialized Sensu client data via `STDIN`.
 
 ## Check response types

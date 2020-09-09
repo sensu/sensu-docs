@@ -1,6 +1,6 @@
 ---
 title: "Learn Sensu Go"
-description: "Here’s everything you need to start learning Sensu Go, including how to set up the Sensu Go sandbox and your first three lesson plans. Learn how to create a monitoring event and event pipeline, as well as automate event production with the Sensu agent."
+description: "Here’s everything you need to start learning Sensu Go, including how to set up the Sensu Go sandbox and your first three lesson plans. Learn how to create an observability event and event pipeline, as well as automate event production with the Sensu agent."
 version: "6.0"
 product: "Sensu Go"
 ---
@@ -8,7 +8,7 @@ product: "Sensu Go"
 In this tutorial, you'll download the Sensu sandbox and create a monitoring workflow with Sensu.
 
 - [Set up the sandbox](#set-up-the-sandbox)
-- [Lesson \#1: Create a monitoring event](#lesson-1-create-a-sensu-monitoring-event)
+- [Lesson \#1: Create an observability event](#lesson-1-create-a-sensu-observability-event)
 - [Lesson \#2: Create an event pipeline](#lesson-2-pipe-keepalive-events-into-slack)
 - [Lesson \#3: Automate event production with the Sensu agent](#lesson-3-automate-event-production-with-the-sensu-agent)
 
@@ -75,7 +75,7 @@ Before installing sensuctl outside of the sandbox, read the [first time setup re
 
 ---
 
-## Lesson \#1: Create a Sensu monitoring event
+## Lesson \#1: Create a Sensu observability event
 
 First, make sure everything is working correctly using the sensuctl command line tool.
 Use sensuctl to see that your Sensu backend instance has a single namespace, `default`, and two users: the default admin user and the user created for a Sensu agent to use.
@@ -229,7 +229,7 @@ sensuctl handler list
  keepalive   pipe         0                       RUN:  /usr/local/bin/sensu-slack-handler -c "${KEEPALIVE_SLACK_CHANNEL}" -w "${KEEPALIVE_SLACK_WEBHOOK}"   KEEPALIVE_SLACK_WEBHOOK=https://hooks.slack.com/services/AAA/BBB/CCC,KEEPALIVE_SLACK_CHANNEL=#monitoring   sensu-slack-handler  
 {{< /code >}}
 
-Sensu monitoring events should begin arriving in your Slack channel, indicating that the sandbox entity is in an OK state.
+Sensu observability events should begin arriving in your Slack channel, indicating that the sandbox entity is in an OK state.
 
 **4. Filter keepalive events**
 

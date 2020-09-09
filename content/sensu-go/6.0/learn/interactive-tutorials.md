@@ -19,7 +19,7 @@ This interactive tutorial demonstrates how to:
 
 - Deploy a basic Sensu stack.
 - Log in to the Sensu web UI.
-- Create a monitoring event and use Sensu to send alerts based on the event to a Slack channel.
+- Create an observability event and use Sensu to send alerts based on the event to a Slack channel.
 - Use a Sensu agent to automatically produce events, then store event data with InfluxDB and visualize it with Grafana.
 
 [Launch **Learn Sensu in 15 minutes**][1].

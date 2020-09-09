@@ -355,5 +355,5 @@ Learn how to use Sensu to [Reduce alert fatigue][11].
 [10]: ../../observe-entities/entities/#manage-entity-labels
 [11]: ../reduce-alert-fatigue/
 [12]: https://bonsai.sensu.io/assets/sensu/sensu-go-has-contact-filter
-[13]: ../../observe-schedule/agent/#create-monitoring-events-using-the-agent-api
+[13]: ../../observe-schedule/agent/#create-observability-events-using-the-agent-api
 [14]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions

@@ -119,7 +119,7 @@ Sensu events contain:
 
 ## Use event data
 
-Observation event data is a powerful tool for automating monitoring workflows.
+observability data in events is a powerful tool for automating monitoring workflows.
 For example, you can [reduce alert fatigue][23] by filtering events based on the event `occurrences` attribute.
 
 ### Occurrences and occurrences watermark
@@ -1340,10 +1340,10 @@ spec:
 [7]: ../../observe-schedule/checks/#check-specification
 [8]: ../../../sensuctl/create-manage-resources/#create-resources
 [9]: #spec-attributes
-[10]: ../../observe-schedule/agent#create-monitoring-events-using-service-checks
-[11]: ../../observe-schedule/agent#create-monitoring-events-using-the-agent-api
-[12]: ../../observe-schedule/agent#create-monitoring-events-using-the-agent-tcp-and-udp-sockets
-[13]: ../../observe-schedule/agent#create-monitoring-events-using-the-statsd-listener
+[10]: ../../observe-schedule/agent#create-observability-events-using-service-checks
+[11]: ../../observe-schedule/agent#create-observability-events-using-the-agent-api
+[12]: ../../observe-schedule/agent#create-observability-events-using-the-agent-tcp-and-udp-sockets
+[13]: ../../observe-schedule/agent#create-observability-events-using-the-statsd-listener
 [14]: ../../../api/events#eventsentitycheck-put
 [15]: ../../../web-ui/
 [16]: ../../../api/events/

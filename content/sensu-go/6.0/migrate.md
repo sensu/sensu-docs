@@ -162,7 +162,7 @@ See the [installation guide][52] to install, configure, and start the Sensu back
 
 #### 2. Log in to the Sensu web UI
 
-The [Sensu Go web UI][39] provides a unified view of your monitoring events with user-friendly tools to reduce alert fatigue and manage your Sensu instance.
+The [Sensu Go web UI][39] provides a unified view of your observability events with user-friendly tools to reduce alert fatigue and manage your Sensu instance.
 After starting the Sensu backend, open the web UI by visiting http://localhost:3000.
 You may need to replace `localhost` with the hostname or IP address where the Sensu backend is running.
 
@@ -452,8 +452,8 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [38]: ../operations/deploy-sensu/deployment-architecture/
 [39]: ../web-ui/
 [40]: ../api/
-[41]: ../observability-pipeline/observe-schedule/agent#create-monitoring-events-using-the-agent-api
-[42]: ../observability-pipeline/observe-schedule/agent/#create-monitoring-events-using-the-statsd-listener
+[41]: ../observability-pipeline/observe-schedule/agent#create-observability-events-using-the-agent-api
+[42]: ../observability-pipeline/observe-schedule/agent/#create-observability-events-using-the-statsd-listener
 [43]: ../platforms/
 [44]: ../operations/deploy-sensu/configuration-management/
 [45]: https://github.com/sensu/sensu-translator

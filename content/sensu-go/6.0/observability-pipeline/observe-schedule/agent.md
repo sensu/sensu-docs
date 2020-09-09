@@ -3,7 +3,7 @@ title: "Agent reference"
 linkTitle: "Agent Reference"
 reference_title: "Agent"
 type: "reference"
-description: "The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor. Read the reference doc to use the Sensu agent to create monitoring events."
+description: "The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor. Read the reference doc to use the Sensu agent to create observability events."
 weight: 10
 version: "6.0"
 product: "Sensu Go"
@@ -29,7 +29,7 @@ For optimal network throughput, agents will attempt to negotiate the use of [Pro
 This communication is via clear text by default.
 Follow [Secure Sensu][46] to configure the backend and agent for WebSocket Secure (wss) encrypted communication.
 
-## Create monitoring events using service checks
+## Create observability events using service checks
 
 Sensu uses the [publish/subscribe pattern of communication][15], which allows automated registration and deregistration of ephemeral systems.
 At the core of this model are Sensu agent subscriptions.
@@ -64,7 +64,7 @@ The [Sensu backend][2] stores proxy entity definitions (unlike agent entities, w
 When the backend requests a check that includes a [`proxy_entity_name`][14], the agent includes the provided entity information in the observation data in events in place of the agent entity data.
 See the [entity reference][3] and [Monitor external resources][33] for more information about monitoring proxy entities.
 
-## Create monitoring events using the agent API
+## Create observability events using the agent API
 
 The Sensu agent API allows external sources to send monitoring data to Sensu without requiring the external sources to know anything about Sensu's internal implementation.
 The agent API listens on the address and port specified by the [API configuration flags][18].
@@ -73,7 +73,7 @@ Any requests for unknown endpoints result in an HTTP `404 Not Found` response.
 
 ### `/events` (POST)
 
-The `/events` API provides HTTP POST access to publish [monitoring events][7] to the Sensu backend pipeline via the agent API.
+The `/events` API provides HTTP POST access to publish [observability events][7] to the Sensu backend pipeline via the agent API.
 The agent places events created via the `/events` POST endpoint into a queue stored on disk.
 In case of a loss of connection with the backend or agent shutdown, the agent preserves queued event data.
 When the connection is reestablished, the agent sends the queued events to the backend.
@@ -155,7 +155,7 @@ http://127.0.0.1:3031/events
 
 With this initial event submitted to the agent API, you recorded in the Sensu backend that your script started.
 You also configured the dead man's switch so that you'll receive an alert if the job fails or runs for too long.
-Although it is possible for your script to handle errors gracefully and emit additional monitoring events, this approach allows you to worry less about handling every possible error case.
+Although it is possible for your script to handle errors gracefully and emit additional observability events, this approach allows you to worry less about handling every possible error case.
 A lack of additional events before the 7-hour period elapses results in an alert.
 
 If your backup script runs successfully, you can send an additional event without the TTL attribute, which removes the dead man's switch:
@@ -221,7 +221,7 @@ ok
 description     | Returns the agent status: `ok` if the agent is active and connected to a Sensu backend or `sensu backend unavailable` if the agent cannot connect to a backend.
 example url     | http://hostname:3031/healthz
 
-## Create monitoring events using the StatsD listener
+## Create observability events using the StatsD listener
 
 Sensu agents include a listener to send [StatsD][21] metrics to the event pipeline.
 By default, Sensu agents listen on UDP socket 8125 for messages that follow the [StatsD line protocol][21] and send metric events for handling by the Sensu backend.
@@ -260,7 +260,7 @@ Use the [StatsD configuration flags][22] to change the default settings for the 
 sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd-metrics-host 123.4.5.11 --statsd-metrics-port 8125
 {{< /code >}}
 
-## Create monitoring events using the agent TCP and UDP sockets
+## Create observability events using the agent TCP and UDP sockets
 
 {{% notice note %}}
 **NOTE**: The agent TCP and UDP sockets are deprecated in favor of the [agent API](#events-post-specification).

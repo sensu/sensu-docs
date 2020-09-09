@@ -25,7 +25,7 @@ Dynamic runtime assets let you manage runtime dependencies without using configu
 [Read more about dynamic runtime assets][4].
 
 ## Backend
-A flexible, scalable observation event pipeline.
+A flexible, scalable observability pipeline.
 The Sensu backend processes observation data (events) using filters, mutators, and handlers.
 It maintains configuration files, stores recent observation data, and schedules monitoring checks.
 You can interact with the backend using the API, command line, and web UI interfaces.
@@ -45,22 +45,22 @@ Events can be tied to the entity where the agent runs or a proxy entity that the
 
 ## Event
 A representation of the state of an infrastructure component at a point in time.
-The Sensu backend uses events to power the observation event pipeline.
+The Sensu backend uses events to power the observability pipeline.
 Observation data in events include the result of a check or metric (or both), the executing agent, and a timestamp.
 [Read more about events][8].
 
 ## Event filter
-Logical expressions that handlers evaluate before processing monitoring events.
+Logical expressions that handlers evaluate before processing observability events.
 Event filters can instruct handlers to allow or deny matching events based on day, time, namespace, or any attribute in the observation data (event).
 [Read more about event filters][9].
 
 ## Handler
-A component of the monitoring event pipeline that acts on events.
-Handlers can send observation event data to an executable (or handler plugin), a TCP socket, or a UDP socket.
+A component of the observability pipeline that acts on events.
+Handlers can send observability data to an executable (or handler plugin), a TCP socket, or a UDP socket.
 [Read more about handlers][10].
 
 ## Hook
-A command the agent executes in response to a check result *before* creating a monitoring event.
+A command the agent executes in response to a check result *before* creating an observability event.
 Hooks create context-rich events by gathering relevant information based on check status.
 [Read more about hooks][5].
 

@@ -20,7 +20,7 @@ See the [announcement on our blog][7] for more information.
 - **Scalable resource filtering** designed for large installations: Use label and field selectors to filter [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wider range of resource attributes. Build event filter expressions with [JavaScript execution functions][19].
 - **Event logging**: Log observation data to a file you can use as an input source for your favorite data lake solution.
 The [event logging][10] functionality provides better performance and reliability than event handlers.
-- **Enterprise-tier dynamic runtime assets**: Connect your monitoring event pipelines to industry-standard tools like ServiceNow and Jira with [enterprise-tier dynamic runtime assets][11].
+- **Enterprise-tier dynamic runtime assets**: Connect your observability pipelines to industry-standard tools like ServiceNow and Jira with [enterprise-tier dynamic runtime assets][11].
 - **Enterprise-scale event storage**: Scale your Sensu instance and handle high volumes of events with a [PostgreSQL event store][12].
 - **Enterprise-class support**: Rest assured that with [Sensu support][13], help is available if you need it.
 Our expert in-house team offers best-in-class support to get you up and running smoothly.

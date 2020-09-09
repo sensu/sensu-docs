@@ -122,9 +122,9 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [18]: ../observability-pipeline/observe-process/populate-metrics-influxdb/
 [19]: https://www.influxdata.com/
 [20]: ../operations/deploy-sensu/secure-sensu/
-[21]: ../observability-pipeline/observe-schedule/agent#create-monitoring-events-using-the-agent-api
+[21]: ../observability-pipeline/observe-schedule/agent#create-observability-events-using-the-agent-api
 [22]: ../observability-pipeline/observe-schedule/agent/#using-the-http-socket
-[23]: ../observability-pipeline/observe-schedule/agent/#create-monitoring-events-using-the-statsd-listener
+[23]: ../observability-pipeline/observe-schedule/agent/#create-observability-events-using-the-statsd-listener
 [24]: web-ui/
 [25]: ../observability-pipeline/observe-schedule/backend/
 [26]: ../observability-pipeline/observe-schedule/agent/
