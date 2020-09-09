@@ -823,12 +823,12 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-process/plan-maintenance",
             "status": 301
         },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/operations/deploy-sensu/use-assets-to-install-plugins/?$": {
-            "url": "/sensu-go/5.2[0-9]/?((?<=\/).*)?/guides/install-check-executables-with-assets",
+        "~ ^/sensu-go/5.21/operations/deploy-sensu/use-assets-to-install-plugins/?$": {
+            "url": "/sensu-go/5.21/guides/install-check-executables-with-assets",
             "status": 301
         },
-        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/operations/deploy-sensu/use-assets-to-install-plugins/?$": {
-            "url": "/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/install-check-executables-with-assets",
+        "~ ^/sensu-go/5.19/operations/deploy-sensu/use-assets-to-install-plugins/?$": {
+            "url": "/sensu-go/5.19/guides/install-check-executables-with-assets",
             "status": 301
         }
     }
