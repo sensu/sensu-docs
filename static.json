@@ -827,8 +827,24 @@
             "url": "/sensu-go/5.21/guides/install-check-executables-with-assets",
             "status": 301
         },
+        "~ ^/sensu-go/5.20/operations/deploy-sensu/use-assets-to-install-plugins/?$": {
+            "url": "/sensu-go/5.20/guides/install-check-executables-with-assets",
+            "status": 301
+        },
         "~ ^/sensu-go/5.19/operations/deploy-sensu/use-assets-to-install-plugins/?$": {
             "url": "/sensu-go/5.19/guides/install-check-executables-with-assets",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.21/operations/deploy-sensu/assets/?$": {
+            "url": "/sensu-go/5.21/reference/assets",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.20/operations/deploy-sensu/assets/?$": {
+            "url": "/sensu-go/5.20/reference/assets",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.19/operations/deploy-sensu/assets/?$": {
+            "url": "/sensu-go/5.19/reference/assets",
             "status": 301
         }
     }
