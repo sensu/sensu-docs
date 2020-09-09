@@ -904,7 +904,7 @@
             "status": 301
         },
         "~ ^/sensu-go/5.19/operations/maintain-sensu/license/?$": {
-            "url": "/sensu-go/5.19/referencelicense/",
+            "url": "/sensu-go/5.19/reference/license/",
             "status": 301
         },
         "~ ^/sensu-go/5.21/operations/monitor-sensu/health/?$": {
@@ -973,10 +973,6 @@
         },
         "~ ^/sensu-go/5.20/web-ui/webconfig-reference/?$": {
             "url": "/sensu-go/5.20/reference/webconfig",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.19/web-ui/webconfig-reference/?$": {
-            "url": "/sensu-go/5.19/reference/webconfig",
             "status": 301
         }
     }
