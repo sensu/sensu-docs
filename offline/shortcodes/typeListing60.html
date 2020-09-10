@@ -1,0 +1,15 @@
+<ul>
+  <!-- Specify pages should be listed in alphabetical order -->
+  {{ range (.Site.Pages.ByParam "reference_title") }}
+    <!-- Only include pages from the specified version -->
+    {{ if eq .Params.version "6.0" }}
+      <!-- Only include pages with specified frontmatter type "reference" -->
+      {{ if eq .Type "reference" }}
+
+      <li><a href="{{ .Permalink }}">{{ .Params.reference_title }}</a></li>
+      {{ end }}
+    {{ end }}
+  {{ end }}
+</ul>
+
+            
