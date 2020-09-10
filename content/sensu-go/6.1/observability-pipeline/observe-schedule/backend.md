@@ -279,6 +279,7 @@ General Flags:
       --agent-write-timeout int             timeout in seconds for agent writes (default 15)
       --annotations stringToString          entity annotations map (default [])
       --api-listen-address string           address to listen on for API traffic (default "[::]:8080")
+      --api-request-limit                   maximum API request body size, in bytes (default 512000)
       --api-url string                      URL of the API to connect to (default "http://localhost:8080")
       --assets-burst-limit int              asset fetch burst limit (default 100)
       --assets-rate-limit float             maximum number of assets fetched per second
@@ -373,6 +374,20 @@ sensu-backend start --api-listen-address [::]:8080
 # /etc/sensu/backend.yml example
 api-listen-address: "[::]:8080"{{< /code >}}
 
+
+<a name="api-request-limit"></a>
+
+| api-request-limit |      |
+-------------|------
+description  | Maximum size for API request bodies. In bytes.
+type         | Integer
+default      | `512000`
+environment variable | `SENSU_BACKEND_API_REQUEST_LIMIT`
+example      | {{< code shell >}}# Command line example
+sensu-backend start --api-request-limit 1024000
+
+# /etc/sensu/backend.yml example
+api-request-limit: 1024000{{< /code >}}
 
 | api-url  |      |
 -------------|------

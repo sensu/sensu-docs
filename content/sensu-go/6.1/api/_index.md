@@ -47,7 +47,8 @@ Beta APIs are more stable than alpha versions, but they offer similarly short-li
 
 ## Request size limit
 
-API request bodies are limited to 0.512 MB in size.
+The default limit for API request body size is 0.512 MB.
+Use the [`--api-request-limit` backend configuration flag][21] to customize the API request body size limit if needed.
 
 ## Access control
 
@@ -697,3 +698,4 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [18]: ../operations/control-access/use-apikeys/#sensuctl-management-commands
 [19]: apikeys/
 [20]: #authenticate-with-the-authentication-api
+[21]: ../observability-pipeline/observe-schedule/backend/#api-request-limit
