@@ -381,7 +381,7 @@ api-listen-address: "[::]:8080"{{< /code >}}
 -------------|------
 description  | Maximum size for API request bodies. In bytes.
 type         | Integer
-default      | `1024000`
+default      | `512000`
 environment variable | `SENSU_BACKEND_API_REQUEST_LIMIT`
 example      | {{< code shell >}}# Command line example
 sensu-backend start --api-request-limit 1024000
