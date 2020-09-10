@@ -34,7 +34,7 @@ sensuctl check set-output-metric-handlers collect-metrics influx-db
 
 ### Supported output metric formats
 
-The output metric formats that Sensu currently supports for check output metric extraction are `nagios`, `influxdb`, `graphite`, and `opentsdb`.
+The output metric formats that Sensu currently supports for check output metric extraction are `nagios`, `influxdb`, `graphite`, `opentsdb`, and `prometheus`.
 
 |nagios              |      |
 ---------------------|------
@@ -59,6 +59,12 @@ example              | {{< code plain >}}weather,location=us-midwest temperature
 output_metric_format | `opentsdb_line`
 documentation        | [OpenTSDB Data Specification][9]
 example              | {{< code plain >}}sys.cpu.user 1356998400 42.5 host=webserver01 cpu=0{{< /code >}}
+
+|prometheus          |      |
+---------------------|------
+output_metric_format | `prometheus_text`
+documentation        | [Prometheus Exposition Text][11]
+example              | {{< code plain >}}http_requests_total{method="post",code="200"} 1027 1395066363000{{< /code >}}
 
 ## Validate the metrics
 
@@ -165,3 +171,4 @@ Check out these resources for more information about scheduling checks and using
 [8]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [9]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [10]: ../../../operations/maintain-sensu/troubleshoot#handlers-and-event-filters
+[11]: https://prometheus.io/docs/instrumenting/exposition_formats/#text-based-format
