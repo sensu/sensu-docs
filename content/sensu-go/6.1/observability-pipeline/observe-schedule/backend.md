@@ -279,7 +279,7 @@ General Flags:
       --agent-write-timeout int             timeout in seconds for agent writes (default 15)
       --annotations stringToString          entity annotations map (default [])
       --api-listen-address string           address to listen on for API traffic (default "[::]:8080")
-      --api-request-limit                   maximum API request body size, in bytes
+      --api-request-limit                   maximum API request body size, in bytes (default 512000)
       --api-url string                      URL of the API to connect to (default "http://localhost:8080")
       --assets-burst-limit int              asset fetch burst limit (default 100)
       --assets-rate-limit float             maximum number of assets fetched per second
