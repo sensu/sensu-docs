@@ -83,7 +83,8 @@ HTTP/1.1 200 OK
       "occurrences": 1,
       "occurrences_watermark": 1,
       "output_metric_format": "",
-      "output_metric_handlers": [],
+      "output_metric_handlers": null,
+      "output_metric_tags": null,
       "env_vars": null,
       "metadata": {
         "name": "check-nginx",
@@ -164,7 +165,8 @@ output         | {{< code shell >}}
       "occurrences": 1,
       "occurrences_watermark": 1,
       "output_metric_format": "",
-      "output_metric_handlers": [],
+      "output_metric_handlers": null,
+      "output_metric_tags": null,
       "env_vars": null,
       "metadata": {
         "name": "check-nginx",
@@ -518,6 +520,7 @@ HTTP/1.1 200 OK
         "occurrences_watermark": 1,
         "output_metric_format": "",
         "output_metric_handlers": null,
+        "output_metric_tags": null,
         "env_vars": null,
         "metadata": {
             "name": "server-health",
@@ -607,6 +610,7 @@ output               | {{< code json >}}
         "occurrences_watermark": 1,
         "output_metric_format": "",
         "output_metric_handlers": null,
+        "output_metric_tags": null,
         "env_vars": null,
         "metadata": {
             "name": "server-health",

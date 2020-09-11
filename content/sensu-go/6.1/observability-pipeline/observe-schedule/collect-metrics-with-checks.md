@@ -24,12 +24,12 @@ To extract metrics from check output, you'll need to:
 You can also configure the check `output_metric_handlers` to a Sensu handler that is equipped to handle Sensu metrics if you wish. See the [handlers reference][4] or [InfluxDB handler guide][5] to learn more.
 
 You can configure the check with these fields at creation or use the commands in this guide (assuming you have a check named `collect-metrics`).
-This example uses `graphite_plaintext` format and sends the metrics to a handler named `influx-db`.
+This example uses `nagios_perfdata` format and sends the metrics to a handler named `prometheus_gateway`.
 
 {{< code shell >}}
 sensuctl check set-command collect-metrics collect_metrics.sh
-sensuctl check set-output-metric-format collect-metrics graphite_plaintext
-sensuctl check set-output-metric-handlers collect-metrics influx-db
+sensuctl check set-output-metric-format collect-metrics nagios_perfdata
+sensuctl check set-output-metric-handlers collect-metrics prometheus_gateway
 {{< /code >}}
 
 ### Supported output metric formats
@@ -85,12 +85,19 @@ spec:
     output: |-
       cpu.idle_percentage 61 1525462242
       mem.sys 104448 1525462242
-    output_metric_format: graphite_plaintext
+    output_metric_format: nagios_perfdata
     output_metric_handlers:
-    - influx-db
+    - prometheus_gateway
+    output_metric_tags:
+    - name: instance
+      value: '{{ .name }}'
+    - name: prometheus_type
+      value: gauge
+    - name: service
+      value: '{{ .labels.service }}'
   metrics:
     handlers:
-    - influx-db
+    - prometheus_gateway
     points:
     - name: cpu.idle_percentage
       tags: []
@@ -116,13 +123,28 @@ spec:
       "command": "collect_metrics.sh",
       "output": "cpu.idle_percentage 61 1525462242\nmem.sys 104448 1525462242",
       "output_metric_format": "graphite_plaintext",
-      "output_metric_handlers": [
-        "influx-db"
-      ]
-    },
+      "output_metric_format": "nagios_perfdata",
+    "output_metric_handlers": [
+      "prometheus_gateway"
+    ],
+    "output_metric_tags": [
+      {
+        "name": "instance",
+        "value": "{{ .name }}"
+      },
+      {
+        "name": "prometheus_type",
+        "value": "gauge"
+      },
+      {
+        "name": "service",
+        "value": "{{ .labels.service }}"
+      }
+    ]
+  },
     "metrics": {
       "handlers": [
-        "influx-db"
+        "prometheus_gateway"
       ],
       "points": [
         {
