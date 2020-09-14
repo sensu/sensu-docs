@@ -231,6 +231,7 @@ spec:
   low_flap_threshold: 0
   output_metric_format: ""
   output_metric_handlers: null
+  output_metric_tags: null
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -262,6 +263,7 @@ spec:
       "low_flap_threshold": 0,
       "output_metric_format": "",
       "output_metric_handlers": null,
+      "output_metric_tags": null,
       "proxy_entity_name": "",
       "publish": true,
       "round_robin": false,
@@ -743,6 +745,29 @@ required     | false
 type         | Array
 example      | {{< code shell >}}"output_metric_handlers": ["influx-db"]{{< /code >}}
 
+<a name="output-metric-tags"></a>
+
+|output_metric_tags    |      |
+-------------|------
+description  | Custom tags you can apply to enrich metric points produced by check output metric extraction. One name/value pair make up a single tag. The `output_metric_tags` array can contain multiple tags.
+required     | false
+type         | Array
+example      | {{< code shell >}}
+"output_metric_tags": [
+  {
+    "name": "instance",
+    "value": "{{ .name }}"
+  },
+  {
+    "name": "prometheus_type",
+    "value": "gauge"
+  },
+  {
+    "name": "service",
+    "value": "{{ .labels.service }}"
+  }
+]{{< /code >}}
+
 <a name="round-robin-attribute"></a>
 
 |round_robin |      |
@@ -816,6 +841,22 @@ description  | If `true`, discard check output after extracting metrics. No chec
 required     | false
 type         | Boolean
 example      | {{< code shell >}}"discard_output": true{{< /code >}}
+
+#### `output_metric_tags` attributes
+
+name         | 
+-------------|------
+description  | Name for the [output metric tag][19].
+required     | true
+type         | String
+example      | {{< code shell >}}"name": "instance"{{< /code >}}
+
+value        | 
+-------------|------
+description  | Value for the [output metric tag][19].
+required     | true
+type         | String
+example      | {{< code shell >}}"value": "{{ .name }}"{{< /code >}}
 
 #### `secrets` attributes
 
@@ -906,9 +947,16 @@ spec:
   high_flap_threshold: 0
   interval: 10
   low_flap_threshold: 0
-  output_metric_format: graphite_plaintext
+  output_metric_format: nagios_perfdata
   output_metric_handlers:
-  - influx-db
+  - prometheus_gateway
+  output_metric_tags:
+  - name: instance
+    value: '{{ .name }}'
+  - name: prometheus_type
+    value: gauge
+  - name: service
+    value: '{{ .labels.service }}'
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -951,9 +999,23 @@ spec:
     "ttl": 0,
     "timeout": 0,
     "round_robin": false,
-    "output_metric_format": "graphite_plaintext",
+    "output_metric_format": "nagios_perfdata",
     "output_metric_handlers": [
-      "influx-db"
+      "prometheus_gateway"
+    ],
+    "output_metric_tags": [
+      {
+        "name": "instance",
+        "value": "{{ .name }}"
+      },
+      {
+        "name": "prometheus_type",
+        "value": "gauge"
+      },
+      {
+        "name": "service",
+        "value": "{{ .labels.service }}"
+      }
     ],
     "env_vars": null,
     "discard_output": true
@@ -1072,6 +1134,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [16]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
 [17]: #subdue-attributes
 [18]: https://prometheus.io/docs/instrumenting/exposition_formats/#text-based-format
+[19]: #output-metric-tags
 [20]: ../../observe-entities/#proxy-entities
 [21]: ../../observe-entities/entities/#spec-attributes
 [23]: ../collect-metrics-with-checks/

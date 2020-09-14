@@ -277,7 +277,7 @@ Sensu Core checks could be configured as `type: metric`, which told Sensu to alw
 This allowed Sensu Core to process output metrics via a handler even when the check status was not in an alerting state.
 
 Sensu Go treats output metrics as first-class objects, so you can process check status as well as output metrics via different event pipelines.
-See the [guide to metric output][57] to update your metric checks with the `output_metric_handlers` and `output_metric_format` attributes.
+See the [guide to metric output][57] to update your metric checks with the `output_metric_handlers` and `output_metric_format` attributes and use `output_metric_tags` to enrich extracted metrics output.
 
 <a name="translate-proxy-requests-entities"></a>
 
