@@ -345,7 +345,7 @@ discovery instead of the static `--initial-cluster method`
 ### General configuration flags
 
 {{% notice note %}}
-**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in default flag values for Docker.
+**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
 {{% /notice %}}
 
 | annotations|      |

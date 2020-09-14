@@ -809,7 +809,7 @@ See the [example agent configuration file][5] (also provided with Sensu packages
 ### General configuration flags
 
 {{% notice note %}}
-**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in default flag values for Docker.
+**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
 {{% /notice %}}
 
 <a name="allow-list"></a>
