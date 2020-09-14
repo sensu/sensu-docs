@@ -124,24 +124,24 @@ spec:
       "output": "cpu.idle_percentage 61 1525462242\nmem.sys 104448 1525462242",
       "output_metric_format": "graphite_plaintext",
       "output_metric_format": "nagios_perfdata",
-    "output_metric_handlers": [
-      "prometheus_gateway"
-    ],
-    "output_metric_tags": [
-      {
-        "name": "instance",
-        "value": "{{ .name }}"
-      },
-      {
-        "name": "prometheus_type",
-        "value": "gauge"
-      },
-      {
-        "name": "service",
-        "value": "{{ .labels.service }}"
-      }
-    ]
-  },
+      "output_metric_handlers": [
+        "prometheus_gateway"
+      ],
+      "output_metric_tags": [
+        {
+          "name": "instance",
+          "value": "{{ .name }}"
+        },
+        {
+          "name": "prometheus_type",
+          "value": "gauge"
+        },
+        {
+          "name": "service",
+          "value": "{{ .labels.service }}"
+        }
+      ]
+    },
     "metrics": {
       "handlers": [
         "prometheus_gateway"
