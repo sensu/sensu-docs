@@ -67,6 +67,7 @@ Learn more in the [secrets providers reference](../../operations/manage-secrets/
 ---------------|------
 description    | Returns the list of secrets providers.
 example url    | http://hostname:8080/api/enterprise/secrets/v1/providers
+query parameters | `types`: Defines which type of secrets provider to retrieve. Join with `&` to retrieve multiple types: `?types=Env&types=VaultProvider`.
 response filtering | This endpoint supports [API response filtering][4].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
