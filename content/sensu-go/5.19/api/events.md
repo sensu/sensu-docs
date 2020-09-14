@@ -172,7 +172,7 @@ The `/events` API endpoint provides HTTP POST access to create an event and send
 ### Example {#events-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/events` API endpoint to create an event.
-The request includes information about the check and entity represented by the event and returns a successful HTTP `200 OK` response and the event definition.
+The request includes information about the check and entity represented by the event and returns a successful HTTP `201 Created` response and the event definition.
 
 {{< code shell >}}
 curl -X POST \

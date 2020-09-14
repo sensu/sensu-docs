@@ -1,0 +1,10 @@
+<ul>
+  {{ range (.Site.Pages.ByParam "reference_title") }}
+    <!-- Only include pages from the specified version -->
+    <!-- Only include pages with specified frontmatter type "reference" -->
+    {{ if and (eq .Type "reference") (.IsDescendant $.Page.CurrentSection.Parent) }}
+      <li><a href="{{ .Permalink }}">{{ .Params.reference_title }}</a></li>
+    {{ end }}
+  {{ end }}
+</ul>
+
