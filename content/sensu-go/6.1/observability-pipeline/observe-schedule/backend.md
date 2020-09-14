@@ -786,7 +786,7 @@ dashboard-port: 4000{{< /code >}}
 ### Datastore and cluster configuration flags
 
 {{% notice note %}}
-**NOTE**: Docker-only Sensu binds to the hostname of containers, which is represented here as `SENSU_HOSTNAME` in default flag values for Docker.
+**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
 {{% /notice %}}
 
 | etcd-advertise-client-urls |      |
