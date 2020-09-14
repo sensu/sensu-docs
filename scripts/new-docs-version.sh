@@ -62,4 +62,4 @@ clone_directory() {
 check_args
 clone_directory
 find_and_replace
-echo "Job done. Update layouts/shortcodes/typeListing.html and config.toml to include the new version ${NEW_SENSU_VERSION} and run 'yarn run server' to test your changes."
+echo "Job done. Update config.toml to include the new version ${NEW_SENSU_VERSION} and run 'yarn run server' to test your changes."
