@@ -24,7 +24,7 @@ s.parentNode.insertBefore(b, s);})();
     data-katacoda-color="2c3458"
     data-katacoda-ctaurl="https://docs.sensu.io/sensu-go/latest/learn/sandbox/"
     data-katacoda-ctatext="Learn more in the Sensu Sandbox"
-    style="height: 800px; padding-top: 10px;" 
+    style="height: 800px; padding-top: 10px;"
 ></div>
 <br><br>
-<a href="https://docs.sensu.io/sensu-go/5.21/learn/interactive-tutorials/"><-- Back to Learn Sensu with interactive training</a>
+<a href="https://docs.sensu.io/sensu-go/6.0/learn/interactive-tutorials/"><-- Back to Learn Sensu with interactive training</a> or <a href="https://github.com/sensu/sensu-docs/issues/new?assignees=&labels=&template=tutorial-issue.md&title=">report an issue in this tutorial</a>
