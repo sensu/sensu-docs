@@ -204,6 +204,7 @@ spec:
   low_flap_threshold: 0
   output_metric_format: ""
   output_metric_handlers: null
+  output_metric_tags: null
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -240,6 +241,7 @@ spec:
     "low_flap_threshold": 0,
     "output_metric_format": "",
     "output_metric_handlers": null,
+    "output_metric_tags": null,
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
