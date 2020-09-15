@@ -209,6 +209,11 @@ sensu-backend init
 
 For details about `sensu-backend init`, see the [backend reference][30].
 
+{{% notice note %}}
+**NOTE**: You may need to allow access to the [ports Sensu requires](#ports) in your local server firewall.
+Refer to the documentation for your operating system to configure port access as needed.
+{{% /notice %}}
+
 ### 4. Open the web UI
 
 The web UI provides a unified view of your observability events and user-friendly tools to reduce alert fatigue.
