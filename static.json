@@ -992,7 +992,7 @@
             "status": 301
         },
          "~ ^/sensu-go/6.1/migrate/?$": {
-            "url": "/sensu-go/6.1/migrate",
+            "url": "/sensu-go/6.1/operations/maintain-sensu/migrate",
             "status": 301
         },
         "~ ^/sensu-go/latest/migrate/?$": {
