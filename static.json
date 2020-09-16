@@ -987,7 +987,11 @@
             "url": "/sensu-go/5.20/operations/maintain-sensu/migrate",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?//migrate/?$": {
+        "~ ^/sensu-go/6.0/?((?<=\/).*)?/migrate/?$": {
+            "url": "/sensu-go/latest/operations/maintain-sensu/migrate",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/migrate/?$": {
             "url": "/sensu-go/latest/operations/maintain-sensu/migrate",
             "status": 301
         }
