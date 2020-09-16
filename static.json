@@ -980,15 +980,19 @@
             "status": 301
         },
         "~ ^/sensu-go/5.20/migrate/?$": {
-            "url": "/sensu-go/5.21/operations/maintain-sensu/migrate",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.21/migrate/?$": {
             "url": "/sensu-go/5.20/operations/maintain-sensu/migrate",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/migrate/?$": {
+        "~ ^/sensu-go/5.21/migrate/?$": {
+            "url": "/sensu-go/5.21/operations/maintain-sensu/migrate",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.0/migrate/?$": {
             "url": "/sensu-go/latest/operations/maintain-sensu/migrate",
+            "status": 301
+        },
+         "~ ^/sensu-go/6.1[0-9]/migrate/?$": {
+            "url": "/sensu-go/latest/migrate",
             "status": 301
         },
         "~ ^/sensu-go/latest/migrate/?$": {
