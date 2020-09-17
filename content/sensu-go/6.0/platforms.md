@@ -330,7 +330,7 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0
 
 ## Legacy systems and other platforms
 
-The [Sensu Run][25] utility allows you to execute Sensu checks on legacy systems and other platforms that cannot run the Sensu agent, such as AIX and SPARC Solaris.
+The [Sensu Push][25] utility allows you to execute Sensu checks on legacy systems and other platforms that cannot run the Sensu agent, such as AIX and SPARC Solaris.
 
 You can also use cron to run Sensu checks locally on these systems and forward the results to an upstream Sensu backend or agent via the [Sensu API][49].
 
@@ -365,7 +365,7 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [22]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_armv5.zip
 [23]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_armv6.zip
 [24]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_armv7.zip
-[25]: https://github.com/sensu/sensu-run
+[25]: https://github.com/sensu/sensu-push
 [26]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_windows_amd64.tar.gz
 [27]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_windows_386.tar.gz
 [28]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_windows_amd64.zip
