@@ -2,10 +2,12 @@
 title: "Migrate from Sensu Core to Sensu Go"
 linkTitle: "Migrate from Sensu Core"
 description: "Sensu Go includes important changes to all parts of Sensu as well as many powerful commercial features to make monitoring easier to build, scale to Sensu Go from Sensu Core 1.x. Follow this guide to migrate from Sensu Core to Sensu Go."
-weight: -20
-version: "6.0"
-menu: "sensu-go-6.0"
+weight: 20
+version: "6.1"
 product: "Sensu Go"
+menu:
+  sensu-go-6.1:
+    parent: maintain-sensu
 ---
 
 This guide includes general information for migrating your Sensu instance from Sensu Core 1.x to Sensu Go.
@@ -277,7 +279,7 @@ Sensu Core checks could be configured as `type: metric`, which told Sensu to alw
 This allowed Sensu Core to process output metrics via a handler even when the check status was not in an alerting state.
 
 Sensu Go treats output metrics as first-class objects, so you can process check status as well as output metrics via different event pipelines.
-See the [guide to metric output][57] to update your metric checks with the `output_metric_handlers` and `output_metric_format` attributes.
+See the [guide to metric output][57] to update your metric checks with the `output_metric_handlers` and `output_metric_format` attributes and use `output_metric_tags` to enrich extracted metrics output.
 
 <a name="translate-proxy-requests-entities"></a>
 
@@ -342,7 +344,7 @@ In Sensu Go, all check results are considered events and are processed by event 
 Use the built-in [`is_incident` filter][63] to recreate the Sensu Core behavior, in which only check results with a non-zero status are considered events.
 
 {{% notice note %}}
-**NOTE**: Silencing is disabled by default in Sensu Go and must be explicitly enabled using the built-in [`not_silenced` filter](../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced). Add the `not_silenced` filter to any handlers for which you want to enable Sensu's silencing feature.
+**NOTE**: Silencing is disabled by default in Sensu Go and must be explicitly enabled using the built-in [`not_silenced` filter](../../../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced). Add the `not_silenced` filter to any handlers for which you want to enable Sensu's silencing feature.
 {{% /notice %}}
 
 Review your Sensu Core check configuration for the following attributes, and make the corresponding updates to your Sensu Go configuration.
@@ -418,69 +420,69 @@ When you're ready to sunset your Sensu Core instance, see the [platform][74] doc
 You may also want to re-install the `sensu-install` tool using the [`sensu-plugins-ruby` package][20].
 
 
-[1]: ../learn/glossary/
+[1]: ../../../learn/glossary/
 [2]: https://etcd.io/docs/latest/
-[3]: ../observability-pipeline/observe-schedule/backend/
-[4]: ../observability-pipeline/observe-schedule/agent/
-[5]: ../sensuctl/
-[6]: ../observability-pipeline/observe-entities/entities/
-[7]: ../observability-pipeline/observe-entities/monitor-external-resources/
-[8]: ../observability-pipeline/observe-schedule/hooks/
-[9]: ../observability-pipeline/observe-filter/filters
-[10]: ../observability-pipeline/observe-filter/filters/#handle-repeated-events
+[3]: ../../../observability-pipeline/observe-schedule/backend/
+[4]: ../../../observability-pipeline/observe-schedule/agent/
+[5]: ../../../sensuctl/
+[6]: ../../../observability-pipeline/observe-entities/entities/
+[7]: ../../../observability-pipeline/observe-entities/monitor-external-resources/
+[8]: ../../../observability-pipeline/observe-schedule/hooks/
+[9]: ../../../observability-pipeline/observe-filter/filters
+[10]: ../../../observability-pipeline/observe-filter/filters/#handle-repeated-events
 [11]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/
-[12]: ../operations/deploy-sensu/assets/
-[13]: ../operations/control-access/rbac/
-[14]: ../operations/control-access/create-read-only-user/
+[12]: ../../deploy-sensu/assets/
+[13]: ../../control-access/rbac/
+[14]: ../../control-access/create-read-only-user/
 [15]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#asset-registration
-[16]: ../observability-pipeline/observe-schedule/tokens
-[17]: ../api/
+[16]: ../../../observability-pipeline/observe-schedule/tokens
+[17]: ../../../api/
 [18]: https://github.com/sensu/sensu-translator/
 [19]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#filter-definition
 [20]: https://packagecloud.io/sensu/community/
 [21]: https://github.com/sensu-plugins/
-[24]: ../observability-pipeline/observe-entities/entities#metadata-attributes
+[24]: ../../../observability-pipeline/observe-entities/entities#metadata-attributes
 [25]: https://blog.sensu.io/check-configuration-upgrades-with-the-sensu-go-sandbox/
 [26]: https://blog.sensu.io/self-service-monitoring-checks-in-sensu-go/
-[27]: ../commercial/
+[27]: ../../../commercial/
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check/
-[29]: ../observability-pipeline/observe-schedule/backend#operation
+[29]: ../../../observability-pipeline/observe-schedule/backend#operation
 [33]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#configuration
-[34]: ../observability-pipeline/observe-filter/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler-1
+[34]: ../../../observability-pipeline/observe-filter/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler-1
 [36]: https://etcd.io/
-[37]: ../operations/deploy-sensu/cluster-sensu/
-[38]: ../operations/deploy-sensu/deployment-architecture/
-[39]: ../web-ui/
-[40]: ../api/
-[41]: ../observability-pipeline/observe-schedule/agent#create-observability-events-using-the-agent-api
-[42]: ../observability-pipeline/observe-schedule/agent/#create-observability-events-using-the-statsd-listener
-[43]: ../platforms/
-[44]: ../operations/deploy-sensu/configuration-management/
+[37]: ../../deploy-sensu/cluster-sensu/
+[38]: ../../deploy-sensu/deployment-architecture/
+[39]: ../../../web-ui/
+[40]: ../../../api/
+[41]: ../../../observability-pipeline/observe-schedule/agent#create-observability-events-using-the-agent-api
+[42]: ../../../observability-pipeline/observe-schedule/agent/#create-observability-events-using-the-statsd-listener
+[43]: ../../../platforms/
+[44]: ../../deploy-sensu/configuration-management/
 [45]: https://github.com/sensu/sensu-translator
 [46]: https://slack.sensu.io/
 [47]: https://discourse.sensu.io/c/sensu-go/migrating-to-go
-[48]: ../learn/sandbox/
+[48]: ../../../learn/sandbox/
 [49]: https://sensu.io/support/
-[50]: ../operations/deploy-sensu/use-assets-to-install-plugins
-[51]: ../operations/deploy-sensu/install-plugins/
-[52]: ../operations/deploy-sensu/install-sensu#install-the-sensu-backend
-[53]: ../operations/deploy-sensu/install-sensu#install-sensuctl
-[54]: ../operations/control-access/rbac/#resources
-[55]: ../operations/deploy-sensu/install-sensu#install-sensu-agents
-[56]: ../observability-pipeline/observe-schedule/agent#configuration-via-flags
-[57]: ../observability-pipeline/observe-schedule/collect-metrics-with-checks/
-[58]: ../observability-pipeline/observe-schedule/checks#metadata-attributes
+[50]: ../../deploy-sensu/use-assets-to-install-plugins
+[51]: ../../deploy-sensu/install-plugins/
+[52]: ../../deploy-sensu/install-sensu#install-the-sensu-backend
+[53]: ../../deploy-sensu/install-sensu#install-sensuctl
+[54]: ../../control-access/rbac/#resources
+[55]: ../../deploy-sensu/install-sensu#install-sensu-agents
+[56]: ../../../observability-pipeline/observe-schedule/agent#configuration-via-flags
+[57]: ../../../observability-pipeline/observe-schedule/collect-metrics-with-checks/
+[58]: ../../../observability-pipeline/observe-schedule/checks#metadata-attributes
 [59]: https://bonsai.sensu.io/assets?q=eventfilter
-[60]: ../observability-pipeline/observe-filter/reduce-alert-fatigue/
-[61]: ../observability-pipeline/observe-filter/filters/#build-event-filter-expressions-with-sensu-query-expressions
+[60]: ../../../observability-pipeline/observe-filter/reduce-alert-fatigue/
+[61]: ../../../observability-pipeline/observe-filter/filters/#build-event-filter-expressions-with-sensu-query-expressions
 [62]: https://blog.sensu.io/filters-valves-for-the-sensu-monitoring-event-pipeline
-[63]: ../observability-pipeline/observe-filter/filters/#built-in-filter-is_incident
-[64]: ../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced
+[63]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-is_incident
+[64]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced
 [65]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
 [66]: https://github.com/sensu-plugins/sensu-plugin#sensu-go-enablement
-[67]: ../observability-pipeline/observe-events/events/#event-format
+[67]: ../../../observability-pipeline/observe-events/events/#event-format
 [68]: https://bonsai.sensu.io
-[69]: ../operations/deploy-sensu/assets#share-an-asset-on-bonsai
+[69]: ../../deploy-sensu/assets#share-an-asset-on-bonsai
 [70]: https://discourse.sensu.io/t/contributing-assets-for-existing-ruby-sensu-plugins/1165
 [71]: #translate-metric-checks
 [72]: #translate-proxy-requests-entities
