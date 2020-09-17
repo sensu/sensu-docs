@@ -2,16 +2,18 @@
 title: "Migrate from Sensu Core to Sensu Go"
 linkTitle: "Migrate from Sensu Core"
 description: "Sensu Go includes important changes to all parts of Sensu as well as many powerful commercial features to make monitoring easier to build, scale to Sensu Go from Sensu Core 1.x. Follow this guide to migrate from Sensu Core to Sensu Go."
-weight: -20
-version: "5.20"
-menu: "sensu-go-5.20"
+weight: 20
+version: "6.0"
 product: "Sensu Go"
+menu:
+  sensu-go-6.0:
+    parent: maintain-sensu
 ---
 
 This guide includes general information for migrating your Sensu instance from Sensu Core 1.x to Sensu Go.
 For instructions and tools to help you translate your Sensu configuration from Sensu Core 1.x to Sensu Go, see the [Sensu Translator project][18] and our [blog post about check configuration upgrades with the Sensu Go sandbox][25].
 
-Sensu Go includes important changes to all parts of Sensu: architecture, installation, resource definitions, the event data model, check dependencies, filter evaluation, and more.
+Sensu Go includes important changes to all parts of Sensu: architecture, installation, resource definitions, the observation data (event) model, check dependencies, filter evaluation, and more.
 Sensu Go also includes many powerful [commercial features][27] to make monitoring easier to build, scale, and offer as a self-service tool to your internal customers.
 
 Sensu Go is available for [RHEL/CentOS, Debian, Ubuntu, and Docker][43].
@@ -53,7 +55,7 @@ In Sensu Go, the Sensu backend and agent are configured with YAML files or the `
 Sensu checks and pipeline elements are configured via the API or sensuctl tool in Sensu Go instead of JSON files.
 
 The [**Sensu backend**][3] is powered by an embedded transport and [etcd][36] datastore and gives you flexible, automated workflows to route metrics and alerts.
-Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and several exposed ports:
+Sensu backends require persistent storage for their embedded database, disk space for local dynamic runtime asset caching, and several exposed ports:
 
 - 2379 (gRPC) Sensu storage client: Required for Sensu backends using an external etcd instance
 - 2380 (gRPC) Sensu storage peer: Required for other Sensu backends in a [cluster][37]
@@ -72,7 +74,7 @@ The Sensu agent uses:
 
 The agent TCP and UDP sockets are deprecated in favor of the [agent API][41].
 
-Agents that use Sensu [assets][12] require some disk space for a local cache.
+Agents that use Sensu [dynamic runtime assets][12] require some disk space for a local cache.
 
 See the [backend][3], [agent][4], and [sensuctl][5] reference docs for more information.
 
@@ -84,7 +86,7 @@ See the [entity reference][6] and the guide to [monitoring external resources][7
 
 ## Checks
 
-Standalone checks are not supported in Sensu Go, although [you can achieve similar functionality with role-based access control (RBAC), assets, and entity subscriptions][26].
+Standalone checks are not supported in Sensu Go, although [you can achieve similar functionality with role-based access control (RBAC), dynamic runtime assets, and entity subscriptions][26].
 There are also a few changes to check definitions in Sensu Go.
 The `stdin` check attribute is not supported in Sensu Go, and Sensu Go does not try to run a "default" handler when executing a check without a specified handler.
 In addition, check subdues are not available in Sensu Go.
@@ -117,13 +119,13 @@ This filter looks for [check and entity annotations][33] in each event it receiv
 
 The [Sensu Translator version 1.1.0][18] retrieves occurrence and refresh values from a Sensu Core 1.x check definition and outputs them as annotations in a Sensu Go check definition, compatible with the fatigue check filter.
 
-However, the Sensu Translator doesn't automatically add the fatigue check filter asset or the filter configuration you need to run it.
-To use the fatigue check filter asset, you must [register it][15], create a correctly configured [event filter definition][19], and [add the event filter][34] to the list of filters on applicable handlers.
+However, the Sensu Translator doesn't automatically add the fatigue check filter dynamic runtime asset or the filter configuration you need to run it.
+To use the fatigue check filter dynamic runtime asset, you must [register it][15], create a correctly configured [event filter definition][19], and [add the event filter][34] to the list of filters on applicable handlers.
 
-## Assets
+## Dynamic runtime assets
 
 The `sensu-install` tool in Sensu Core 1.x is replaced by [assets][12] in Sensu Go.
-Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
+Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 You can still install [Sensu Community plugins][21] in Ruby via `sensu-install` by installing [sensu-plugins-ruby][20].
 See the [installing plugins guide][51] for more information.
@@ -162,7 +164,7 @@ See the [installation guide][52] to install, configure, and start the Sensu back
 
 #### 2. Log in to the Sensu web UI
 
-The [Sensu Go web UI][39] provides a unified view of your monitoring events with user-friendly tools to reduce alert fatigue and manage your Sensu instance.
+The [Sensu Go web UI][39] provides a unified view of your observability events with user-friendly tools to reduce alert fatigue and manage your Sensu instance.
 After starting the Sensu backend, open the web UI by visiting http://localhost:3000.
 You may need to replace `localhost` with the hostname or IP address where the Sensu backend is running.
 
@@ -256,7 +258,7 @@ Review your Sensu Core check configuration for the following attributes, and mak
 `stdin: true`  | No updates required. Sensu Go checks accept data on stdin by default.
 `handlers: default` | Sensu Go does not have a default handler. Create a handler named `default` to continue using this pattern.
 `subdues` | Check subdues are not available in Sensu Go.
-`standalone: true` | Standalone checks are not supported in Sensu Go, although you can achieve similar functionality using [role-based access control, assets, and entity subscriptions][26]. The translator assigns all Core standalone checks to a `standalone` subscription in Sensu Go. Configure one or more Sensu Go agents with the `standalone` subscription to execute formerly standalone checks.
+`standalone: true` | Standalone checks are not supported in Sensu Go, although you can achieve similar functionality using [role-based access control, dynamic runtime assets, and entity subscriptions][26]. The translator assigns all Core standalone checks to a `standalone` subscription in Sensu Go. Configure one or more Sensu Go agents with the `standalone` subscription to execute formerly standalone checks.
 `metrics: true` | See the [translate metric checks][71] section.
 `proxy_requests` | See the [translate proxy requests][72] section.
 `subscribers: roundrobin...` | Remove `roundrobin` from the subscription name, and add the `round_robin` check attribute set to `true`.
@@ -297,15 +299,15 @@ See the [guide][55] and [hooks reference docs][8] to re-create your Sensu Core h
 **Custom attributes**
 
 Custom check attributes are not supported in Sensu Go.
-Instead, Sensu Go allows you to add custom labels and annotations to entities, checks, assets, hooks, filters, mutators, handlers, and silences.
+Instead, Sensu Go allows you to add custom labels and annotations to entities, checks, dynamic runtime assets, hooks, filters, mutators, handlers, and silences.
 See the metadata attributes section in the reference documentation for more information about using labels and annotations (for example, [metadata attributes for entities][24]).
 
 The Sensu Translator stores all check extended attributes in the check metadata annotation named `sensu.io.json_attributes`.
 See the [check reference][58] for more information about using labels and annotations in check definitions.
 
-#### 3. Translate filters
+#### 3. Translate event filters
 
-Ruby eval logic used in Sensu Core filters is replaced with JavaScript expressions in Sensu Go, opening up powerful possibilities to combine filters with [filter assets][59].
+Ruby eval logic used in Sensu Core filters is replaced with JavaScript expressions in Sensu Go, opening up powerful possibilities to combine filters with [filter dynamic runtime assets][59].
 As a result, you'll need to rewrite your Sensu Core filters in Sensu Go format.
 
 First, review your Core handlers to identify which filters are being used. Then, follow the [filter reference][9] and [guide to using filters][60] to re-write your filters using Sensu Go expressions and [event data][61]. Check out the [blog post on filters][62] for a deep dive into Sensu Go filter capabilities.
@@ -342,7 +344,7 @@ In Sensu Go, all check results are considered events and are processed by event 
 Use the built-in [`is_incident` filter][63] to recreate the Sensu Core behavior, in which only check results with a non-zero status are considered events.
 
 {{% notice note %}}
-**NOTE**: Silencing is disabled by default in Sensu Go and must be explicitly enabled using the built-in [`not_silenced` filter](../reference/filters/#built-in-filter-not_silenced). Add the `not_silenced` filter to any handlers for which you want to enable Sensu's silencing feature.
+**NOTE**: Silencing is disabled by default in Sensu Go and must be explicitly enabled using the built-in [`not_silenced` filter](../../../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced). Add the `not_silenced` filter to any handlers for which you want to enable Sensu's silencing feature.
 {{% /notice %}}
 
 Review your Sensu Core check configuration for the following attributes, and make the corresponding updates to your Sensu Go configuration.
@@ -387,7 +389,7 @@ For example, `sensuctl check list --format json`.
 Run `sensuctl help` to see available commands.
 For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), see the [sensuctl reference][5].
 
-### Step 3: Translate plugins and register assets
+### Step 3: Translate plugins and register dynamic runtime assets
 
 #### Sensu plugins
 
@@ -397,20 +399,20 @@ This allows you to use Sensu plugins for handlers and mutators with Sensu Go wit
 
 To re-install Sensu plugins onto your Sensu Go agent nodes (check plugins) and backend nodes (mutator and handler plugins), see the [guide][51] to installing the `sensu-install` tool for use with Sensu Go.
 
-#### Sensu Go assets
+#### Sensu Go dynamic runtime assets
 
-The `sensu-install` tool in Sensu Core 1.x is replaced by [assets][12] in Sensu Go.
-Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
+The `sensu-install` tool in Sensu Core 1.x is replaced by [dynamic runtime assets][12] in Sensu Go.
+Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
-Although assets are not required to run Sensu Go, we recommend [using assets to install plugins][50] where possible.
+Although dynamic runtime assets are not required to run Sensu Go, we recommend [using assets to install plugins][50] where possible.
 You can still install [Sensu Community plugins][21] in Ruby via `sensu-install` by installing [sensu-plugins-ruby][20].
 See the [installing plugins guide][51] for more information.
 
-Sensu supports runtime assets for checks, filters, mutators, and handlers.
-Discover, download, and share assets with [Bonsai][68], the Sensu asset index.
+Sensu supports dynamic runtime assets for checks, filters, mutators, and handlers.
+Discover, download, and share dynamic runtime assets with [Bonsai][68], the Sensu asset index.
 
-To create your own assets, see the [asset reference][12] and [guide to sharing an asset on Bonsai][69].
-To contribute to converting a Sensu plugin to an asset, see [the Discourse post][70].
+To create your own dynamic runtime assets, see the [asset reference][12] and [guide to sharing an asset on Bonsai][69].
+To contribute to converting a Sensu plugin to a dynamic runtime asset, see [the Discourse post][70].
 
 ### Step 4: Sunset your Sensu Core instance
 
@@ -418,69 +420,69 @@ When you're ready to sunset your Sensu Core instance, see the [platform][74] doc
 You may also want to re-install the `sensu-install` tool using the [`sensu-plugins-ruby` package][20].
 
 
-[1]: ../learn/glossary/
+[1]: ../../../learn/glossary/
 [2]: https://etcd.io/docs/latest/
-[3]: ../reference/backend/
-[4]: ../reference/agent/
-[5]: ../sensuctl/
-[6]: ../reference/entities/
-[7]: ../guides/monitor-external-resources/
-[8]: ../reference/hooks/
-[9]: ../reference/filters
-[10]: ../reference/filters/#handle-repeated-events
+[3]: ../../../observability-pipeline/observe-schedule/backend/
+[4]: ../../../observability-pipeline/observe-schedule/agent/
+[5]: ../../../sensuctl/
+[6]: ../../../observability-pipeline/observe-entities/entities/
+[7]: ../../../observability-pipeline/observe-entities/monitor-external-resources/
+[8]: ../../../observability-pipeline/observe-schedule/hooks/
+[9]: ../../../observability-pipeline/observe-filter/filters
+[10]: ../../../observability-pipeline/observe-filter/filters/#handle-repeated-events
 [11]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/
-[12]: ../reference/assets/
-[13]: ../reference/rbac/
-[14]: ../operations/control-access/create-read-only-user/
+[12]: ../../deploy-sensu/assets/
+[13]: ../../control-access/rbac/
+[14]: ../../control-access/create-read-only-user/
 [15]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#asset-registration
-[16]: ../reference/tokens
-[17]: ../api/
+[16]: ../../../observability-pipeline/observe-schedule/tokens
+[17]: ../../../api/
 [18]: https://github.com/sensu/sensu-translator/
 [19]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#filter-definition
 [20]: https://packagecloud.io/sensu/community/
 [21]: https://github.com/sensu-plugins/
-[24]: ../reference/entities#metadata-attributes
+[24]: ../../../observability-pipeline/observe-entities/entities#metadata-attributes
 [25]: https://blog.sensu.io/check-configuration-upgrades-with-the-sensu-go-sandbox/
 [26]: https://blog.sensu.io/self-service-monitoring-checks-in-sensu-go/
-[27]: ../commercial/
+[27]: ../../../commercial/
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check/
-[29]: ../reference/backend#operation
+[29]: ../../../observability-pipeline/observe-schedule/backend#operation
 [33]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#configuration
-[34]: ../guides/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler-1
+[34]: ../../../observability-pipeline/observe-filter/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler-1
 [36]: https://etcd.io/
-[37]: ../operations/deploy-sensu/cluster-sensu/
-[38]: ../operations/deploy-sensu/deployment-architecture/
-[39]: web-ui/
-[40]: ../api/
-[41]: ../reference/agent#create-monitoring-events-using-the-agent-api
-[42]: ../reference/agent/#create-monitoring-events-using-the-statsd-listener
-[43]: ../platforms/
-[44]: ../operations/deploy-sensu/configuration-management/
+[37]: ../../deploy-sensu/cluster-sensu/
+[38]: ../../deploy-sensu/deployment-architecture/
+[39]: ../../../web-ui/
+[40]: ../../../api/
+[41]: ../../../observability-pipeline/observe-schedule/agent#create-observability-events-using-the-agent-api
+[42]: ../../../observability-pipeline/observe-schedule/agent/#create-observability-events-using-the-statsd-listener
+[43]: ../../../platforms/
+[44]: ../../deploy-sensu/configuration-management/
 [45]: https://github.com/sensu/sensu-translator
 [46]: https://slack.sensu.io/
 [47]: https://discourse.sensu.io/c/sensu-go/migrating-to-go
-[48]: ../learn/sandbox/
+[48]: ../../../learn/sandbox/
 [49]: https://sensu.io/support/
-[50]: ../guides/install-check-executables-with-assets
-[51]: ../operations/deploy-sensu/install-plugins/
-[52]: ../operations/deploy-sensu/install-sensu#install-the-sensu-backend
-[53]: ../operations/deploy-sensu/install-sensu#install-sensuctl
-[54]: ../reference/rbac/#resources
-[55]: ../operations/deploy-sensu/install-sensu#install-sensu-agents
-[56]: ../reference/agent#configuration-via-flags
-[57]: ../guides/extract-metrics-with-checks/
-[58]: ../reference/checks#metadata-attributes
+[50]: ../../deploy-sensu/use-assets-to-install-plugins
+[51]: ../../deploy-sensu/install-plugins/
+[52]: ../../deploy-sensu/install-sensu#install-the-sensu-backend
+[53]: ../../deploy-sensu/install-sensu#install-sensuctl
+[54]: ../../control-access/rbac/#resources
+[55]: ../../deploy-sensu/install-sensu#install-sensu-agents
+[56]: ../../../observability-pipeline/observe-schedule/agent#configuration-via-flags
+[57]: ../../../observability-pipeline/observe-schedule/collect-metrics-with-checks/
+[58]: ../../../observability-pipeline/observe-schedule/checks#metadata-attributes
 [59]: https://bonsai.sensu.io/assets?q=eventfilter
-[60]: ../guides/reduce-alert-fatigue/
-[61]: ../reference/filters/#build-event-filter-expressions
+[60]: ../../../observability-pipeline/observe-filter/reduce-alert-fatigue/
+[61]: ../../../observability-pipeline/observe-filter/filters/#build-event-filter-expressions-with-sensu-query-expressions
 [62]: https://blog.sensu.io/filters-valves-for-the-sensu-monitoring-event-pipeline
-[63]: ../reference/filters/#built-in-filter-is_incident
-[64]: ../reference/filters/#built-in-filter-not_silenced
+[63]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-is_incident
+[64]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced
 [65]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
 [66]: https://github.com/sensu-plugins/sensu-plugin#sensu-go-enablement
-[67]: ../reference/events/#event-format
+[67]: ../../../observability-pipeline/observe-events/events/#event-format
 [68]: https://bonsai.sensu.io
-[69]: ../reference/assets#share-an-asset-on-bonsai
+[69]: ../../deploy-sensu/assets#share-an-asset-on-bonsai
 [70]: https://discourse.sensu.io/t/contributing-assets-for-existing-ruby-sensu-plugins/1165
 [71]: #translate-metric-checks
 [72]: #translate-proxy-requests-entities
