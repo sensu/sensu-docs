@@ -755,6 +755,9 @@ Flags:
       --api-port int                          port the Sensu client HTTP API listens on (default 3031)
       --assets-burst-limit int                asset fetch burst limit (default 100)
       --assets-rate-limit float               maximum number of assets fetched per second
+      --backend-handshake-timeout int         number of seconds the agent should wait when negotiating a new WebSocket connection (default 15)
+      --backend-heartbeat-interval int        interval at which the agent should send heartbeats to the backend (default 30)
+      --backend-heartbeat-timeout int         number of seconds the agent should wait for a response to a hearbeat (default 45)
       --backend-url strings                   ws/wss URL of Sensu backend server (to specify multiple backends use this flag multiple times) (default [ws://127.0.0.1:8081])
       --cache-dir string                      path to store cached data (default "/var/cache/sensu/sensu-agent")
       --cert-file string                      TLS certificate in PEM format
@@ -807,6 +810,10 @@ See the [example agent configuration file][5] (also provided with Sensu packages
 {{< platformBlockClose >}}
 
 ### General configuration flags
+
+{{% notice note %}}
+**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
+{{% /notice %}}
 
 <a name="allow-list"></a>
 
@@ -864,6 +871,45 @@ sensu-agent start --assets-rate-limit 1.39
 
 # /etc/sensu/agent.yml example
 assets-rate-limit: 1.39{{< /code >}}
+
+
+| backend-handshake-timeout |      |
+----------------------------|------
+description   | Number of seconds the Sensu agent should wait when negotiating a new WebSocket connection.
+type          | Integer
+default       | `15`
+environment variable | `SENSU_BACKEND_HANDSHAKE_TIMEOUT`
+example       | {{< code shell >}}# Command line example
+sensu-agent start --backend-handshake-timeout 20
+
+# /etc/sensu/agent.yml example
+backend-handshake-timeout: 20{{< /code >}}
+
+
+| backend-heartbeat-interval |      |
+-----------------------------|------
+description   | Interval at which the agent should send heartbeats to the Sensu backend. In seconds.
+type          | Integer
+default       | `30`
+environment variable | `SENSU_BACKEND_HEARTBEAT_INTERVAL`
+example       | {{< code shell >}}# Command line example
+sensu-agent start --backend-heartbeat-interval 45
+
+# /etc/sensu/agent.yml example
+backend-heartbeat-interval: 45{{< /code >}}
+
+
+| backend-heartbeat-timeout |      |
+----------------------------|------
+description   | Number of seconds the agent should wait for a response to a hearbeat from the Sensu backend.
+type          | Integer
+default       | `45`
+environment variable | `SENSU_BACKEND_HEARTBEAT_TIMEOUT`
+example       | {{< code shell >}}# Command line example
+sensu-agent start --backend-heartbeat-timeout 60
+
+# /etc/sensu/agent.yml example
+backend-heartbeat-timeout: 60{{< /code >}}
 
 
 | backend-url |      |

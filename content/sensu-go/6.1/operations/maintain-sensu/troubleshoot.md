@@ -2,7 +2,7 @@
 title: "Troubleshoot Sensu"
 linkTitle: "Troubleshoot"
 description: "Here’s how to troubleshoot Sensu, including how to look into errors, service logging, log levels. Sensu service logs produced by sensu-backend and sensu-agent are often the best source of truth when troubleshooting issues, so start there."
-weight: 20
+weight: 30
 version: "6.1"
 product: "Sensu Go"
 platformContent: true
@@ -312,6 +312,7 @@ An improperly applied asset filter can prevent the asset from being downloaded b
     "occurrences_watermark": 645,
     "output_metric_format": "",
     "output_metric_handlers": null,
+    "output_metric_tags": null,
     "env_vars": null,
     "metadata": {
       "name": "failing-disk-check",

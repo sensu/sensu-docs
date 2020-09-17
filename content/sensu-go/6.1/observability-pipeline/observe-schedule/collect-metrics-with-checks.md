@@ -24,41 +24,47 @@ To extract metrics from check output, you'll need to:
 You can also configure the check `output_metric_handlers` to a Sensu handler that is equipped to handle Sensu metrics if you wish. See the [handlers reference][4] or [InfluxDB handler guide][5] to learn more.
 
 You can configure the check with these fields at creation or use the commands in this guide (assuming you have a check named `collect-metrics`).
-This example uses `graphite_plaintext` format and sends the metrics to a handler named `influx-db`.
+This example uses `nagios_perfdata` format and sends the metrics to a handler named `prometheus_gateway`.
 
 {{< code shell >}}
 sensuctl check set-command collect-metrics collect_metrics.sh
-sensuctl check set-output-metric-format collect-metrics graphite_plaintext
-sensuctl check set-output-metric-handlers collect-metrics influx-db
+sensuctl check set-output-metric-format collect-metrics nagios_perfdata
+sensuctl check set-output-metric-handlers collect-metrics prometheus_gateway
 {{< /code >}}
 
 ### Supported output metric formats
 
-The output metric formats that Sensu currently supports for check output metric extraction are `nagios`, `influxdb`, `graphite`, and `opentsdb`.
+The output metric formats that Sensu currently supports for check output metric extraction are `nagios_perfdata`, `graphite_plaintext`, `influxdb_line`, `opentsdb_line`, and `prometheus_text`.
 
-|nagios              |      |
+| Nagios             |      |
 ---------------------|------
 output_metric_format | `nagios_perfdata`
 documentation        | [Nagios Performance Data][6]
 example              | {{< code plain >}}PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0, rta=0.80{{< /code >}}
 
-|graphite            |      |
+| Graphite           |      |
 ---------------------|------
 output_metric_format | `graphite_plaintext`
 documentation        | [Graphite Plaintext Protocol][7]
 example              | {{< code plain >}}local.random.diceroll 4 123456789{{< /code >}}
 
-|influxdb            |      |
+| InfluxDB           |      |
 ---------------------|------
 output_metric_format | `influxdb_line`
 documentation        | [InfluxDB Line Protocol][8]
 example              | {{< code plain >}}weather,location=us-midwest temperature=82 1465839830100400200{{< /code >}}
 
-|opentsdb            |      |
+| OpenTSDB           |      |
 ---------------------|------
 output_metric_format | `opentsdb_line`
 documentation        | [OpenTSDB Data Specification][9]
 example              | {{< code plain >}}sys.cpu.user 1356998400 42.5 host=webserver01 cpu=0{{< /code >}}
+
+| Prometheus         |      |
+---------------------|------
+output_metric_format | `prometheus_text`
+documentation        | [Prometheus Exposition Text][11]
+example              | {{< code plain >}}http_requests_total{method="post",code="200"} 1027 1395066363000{{< /code >}}
 
 ## Validate the metrics
 
@@ -85,12 +91,19 @@ spec:
     output: |-
       cpu.idle_percentage 61 1525462242
       mem.sys 104448 1525462242
-    output_metric_format: graphite_plaintext
+    output_metric_format: nagios_perfdata
     output_metric_handlers:
-    - influx-db
+    - prometheus_gateway
+    output_metric_tags:
+    - name: instance
+      value: '{{ .name }}'
+    - name: prometheus_type
+      value: gauge
+    - name: service
+      value: '{{ .labels.service }}'
   metrics:
     handlers:
-    - influx-db
+    - prometheus_gateway
     points:
     - name: cpu.idle_percentage
       tags: []
@@ -116,13 +129,28 @@ spec:
       "command": "collect_metrics.sh",
       "output": "cpu.idle_percentage 61 1525462242\nmem.sys 104448 1525462242",
       "output_metric_format": "graphite_plaintext",
+      "output_metric_format": "nagios_perfdata",
       "output_metric_handlers": [
-        "influx-db"
+        "prometheus_gateway"
+      ],
+      "output_metric_tags": [
+        {
+          "name": "instance",
+          "value": "{{ .name }}"
+        },
+        {
+          "name": "prometheus_type",
+          "value": "gauge"
+        },
+        {
+          "name": "service",
+          "value": "{{ .labels.service }}"
+        }
       ]
     },
     "metrics": {
       "handlers": [
-        "influx-db"
+        "prometheus_gateway"
       ],
       "points": [
         {
@@ -165,3 +193,4 @@ Check out these resources for more information about scheduling checks and using
 [8]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [9]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [10]: ../../../operations/maintain-sensu/troubleshoot#handlers-and-event-filters
+[11]: https://prometheus.io/docs/instrumenting/exposition_formats/#text-based-format

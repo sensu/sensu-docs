@@ -50,6 +50,7 @@ HTTP/1.1 200 OK
     "round_robin": false,
     "output_metric_format": "",
     "output_metric_handlers": null,
+    "output_metric_tags": null,
     "env_vars": null,
     "metadata": {
       "name": "check-email",
@@ -94,6 +95,7 @@ output         | {{< code shell >}}
     "round_robin": false,
     "output_metric_format": "",
     "output_metric_handlers": null,
+    "output_metric_tags": null,
     "env_vars": null,
     "metadata": {
       "name": "check-email",
@@ -199,6 +201,7 @@ HTTP/1.1 200 OK
   "round_robin": false,
   "output_metric_format": "",
   "output_metric_handlers": null,
+  "output_metric_tags": null,
   "env_vars": null,
   "metadata": {
     "name": "check-cpu",
@@ -239,6 +242,7 @@ output               | {{< code json >}}
   "round_robin": false,
   "output_metric_format": "",
   "output_metric_handlers": null,
+  "output_metric_tags": null,
   "env_vars": null,
   "metadata": {
     "name": "check-cpu",

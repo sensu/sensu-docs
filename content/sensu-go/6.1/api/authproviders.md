@@ -80,6 +80,7 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of active authentication providers.
 example url    | http://hostname:8080/api/enterprise/authentication/v2/authproviders
+query parameters | `types`: Defines which type of authentication provider to retrieve. Join with `&` to retrieve multiple types: `?types=AD&types=OIDC`.
 pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][3] for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>

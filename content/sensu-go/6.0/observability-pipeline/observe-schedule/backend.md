@@ -344,6 +344,10 @@ discovery instead of the static `--initial-cluster method`
 
 ### General configuration flags
 
+{{% notice note %}}
+**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
+{{% /notice %}}
+
 | annotations|      |
 -------------|------
 description  | Non-identifying metadata to include with entity data for backend dynamic runtime assets (e.g. handler and mutator dynamic runtime assets).
@@ -765,6 +769,10 @@ dashboard-port: 4000{{< /code >}}
 
 
 ### Datastore and cluster configuration flags
+
+{{% notice note %}}
+**NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
+{{% /notice %}}
 
 | etcd-advertise-client-urls |      |
 --------------|------

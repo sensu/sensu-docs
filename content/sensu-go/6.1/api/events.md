@@ -83,7 +83,8 @@ HTTP/1.1 200 OK
       "occurrences": 1,
       "occurrences_watermark": 1,
       "output_metric_format": "",
-      "output_metric_handlers": [],
+      "output_metric_handlers": null,
+      "output_metric_tags": null,
       "env_vars": null,
       "metadata": {
         "name": "check-nginx",
@@ -164,7 +165,8 @@ output         | {{< code shell >}}
       "occurrences": 1,
       "occurrences_watermark": 1,
       "output_metric_format": "",
-      "output_metric_handlers": [],
+      "output_metric_handlers": null,
+      "output_metric_tags": null,
       "env_vars": null,
       "metadata": {
         "name": "check-nginx",
@@ -185,7 +187,7 @@ The `/events` API endpoint provides HTTP POST access to create an event and send
 ### Example {#events-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/events` API endpoint to create an event.
-The request includes information about the check and entity represented by the event and returns a successful HTTP `200 OK` response and the event definition.
+The request includes information about the check and entity represented by the event and returns a successful HTTP `201 Created` response and the event definition.
 
 {{< code shell >}}
 curl -X POST \
@@ -518,6 +520,7 @@ HTTP/1.1 200 OK
         "occurrences_watermark": 1,
         "output_metric_format": "",
         "output_metric_handlers": null,
+        "output_metric_tags": null,
         "env_vars": null,
         "metadata": {
             "name": "server-health",
@@ -607,6 +610,7 @@ output               | {{< code json >}}
         "occurrences_watermark": 1,
         "output_metric_format": "",
         "output_metric_handlers": null,
+        "output_metric_tags": null,
         "env_vars": null,
         "metadata": {
             "name": "server-health",
