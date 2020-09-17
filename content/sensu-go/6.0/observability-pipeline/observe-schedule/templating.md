@@ -15,20 +15,13 @@ Templates include HTML-formatted text and data derived from event attributes lik
 Attributes are incorporated with [token substitution][2].
 
 Sensu's event-based templating allows you to add meaningful, actionable context to alerts.
-For example, this template for an email alert includes information about the affected entity and its status, as well as a link to the organization's playbook for resolving observability alerts:
+For example, this template for a brief Slack alert includes information about the affected entity and its status, as well as a link to the organization's playbook for resolving observability alerts:
 
 {{< code html >}}
 
 <html>
-Hello,<br>
-<br>
 The entity {{ .Entity.Name }} has a status of {{ .Check.State }}. The entity has reported the same status for {{ .Check.Occurrences }} preceding events.<br>
-<br>
-The playbook for managing this alert is availble at https://example.com/observability/alerts/playbook.<br>
-<br>
-#monitoringlove,<br>
-<br>
-Sensu<br>
+The playbook for managing this alert is availble at https://example.com/observability/alerts/playbook.
 </html>
 
 {{< /code >}}
