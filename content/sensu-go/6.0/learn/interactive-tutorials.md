@@ -19,7 +19,7 @@ This interactive tutorial demonstrates how to:
 
 - Deploy a basic Sensu stack.
 - Log in to the Sensu web UI.
-- Create a monitoring event and use Sensu to send alerts based on the event to a Slack channel.
+- Create an observability event and use Sensu to send alerts based on the event to a Slack channel.
 - Use a Sensu agent to automatically produce events, then store event data with InfluxDB and visualize it with Grafana.
 
 [Launch **Learn Sensu in 15 minutes**][1].
@@ -37,8 +37,8 @@ When you complete this tutorial, your system will have both the Sensu backend an
 When you complete this interactive tutorial, your Sensu Go backend will be configured with a handler that will send critical alerts to your PagerDuty account.
 In this scenario, you will:
 
-- Add a Sensu Nagios Foundation asset.
-- Add the PagerDuty asset and create a handler that uses your PagerDuty API key.
+- Add a Sensu Nagios Foundation dynamic runtime asset.
+- Add the PagerDuty dynamic runtime asset and create a handler that uses your PagerDuty API key.
 - Send an alert for a Sensu Go event to PagerDuty.
 
 [Launch **Send Sensu Go alerts to PagerDuty**][3].

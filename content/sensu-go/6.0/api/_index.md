@@ -12,7 +12,7 @@ menu:
 
 **API version: v2**
 
-The Sensu backend REST API provides access to Sensu workflow configurations and monitoring event data.
+The Sensu backend REST API provides access to Sensu workflow configurations and observation data (events).
 For information about the Sensu agent API, see the [agent reference][4].
 
 ## URL format
@@ -678,15 +678,15 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 {{< /code >}}
 
 
-[1]: ../sensuctl/set-up-manage#preferred-output-format
+[1]: ../sensuctl/#preferred-output-format
 [2]: ../operations/deploy-sensu/install-sensu#install-sensuctl
-[3]: ../reference/rbac/
-[4]: ../reference/agent/
+[3]: ../operations/control-access/rbac/
+[4]: ../observability-pipeline/observe-schedule/agent/
 [5]: health/
 [6]: metrics/
 [7]: ../sensuctl/environment-variables/
 [8]: ../commercial/
-[9]: ../reference/entities#metadata-attributes
+[9]: ../observability-pipeline/observe-entities/entities#metadata-attributes
 [11]: auth/#authtoken-post
 [12]: auth/
 [13]: #operators

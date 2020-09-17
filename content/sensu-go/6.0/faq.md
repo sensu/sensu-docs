@@ -49,7 +49,7 @@ Sensu supports a wide range of plugins for monitoring everything from the server
 [Install the Sensu agent][8] on the hosts you want to monitor, integrate with the [Sensu API][9], or take advantage of [proxy entities][10] to monitor anything on your network.
 
 Sensuctl integrates with [Bonsai, the Sensu asset index][32], where you’ll find plugins, libraries, and runtimes you need to automate your monitoring workflows.
-If you want to add your own asset, read the [guide for sharing an asset on Bonsai][33].
+If you want to add your own dynamic runtime assets, read the [guide for sharing an asset on Bonsai][33].
 
 You can also check out the 200+ plugins shared in the [Sensu plugins community][11], including monitoring checks for [AWS][13], [Jenkins][14], [Puppet][15], [InfluxDB][16], and [SNMP][17], or write your own Sensu plugins in any language using the [Sensu plugin specification][12].
 
@@ -111,7 +111,7 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [7]: ../learn/glossary/
 [8]: ../installation/install-sensu#install-sensu-agents
 [9]: ../api/
-[10]: ../reference/entities/#proxy-entities
+[10]: ../observability-pipeline/observe-entities/entities/#proxy-entities
 [11]: https://github.com/sensu-plugins/
 [12]: https://docs.sensu.io/plugins/1.0/reference/#the-sensu-plugin-specification
 [13]: https://github.com/sensu-plugins/sensu-plugins-aws/
@@ -119,22 +119,22 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [15]: https://github.com/sensu-plugins/sensu-plugins-puppet/
 [16]: https://github.com/sensu-plugins/sensu-plugins-influxdb/
 [17]: https://github.com/sensu-plugins/sensu-plugins-snmp/
-[18]: ../guides/influx-db-metric-handler/
+[18]: ../observability-pipeline/observe-process/populate-metrics-influxdb/
 [19]: https://www.influxdata.com/
-[20]: ../guides/securing-sensu/
-[21]: ../reference/agent#create-monitoring-events-using-the-agent-api
-[22]: ../reference/agent/#using-the-http-socket
-[23]: ../reference/agent/#create-monitoring-events-using-the-statsd-listener
+[20]: ../operations/deploy-sensu/secure-sensu/
+[21]: ../observability-pipeline/observe-schedule/agent#create-observability-events-using-the-agent-api
+[22]: ../observability-pipeline/observe-schedule/agent/#using-the-http-socket
+[23]: ../observability-pipeline/observe-schedule/agent/#create-observability-events-using-the-statsd-listener
 [24]: web-ui/
-[25]: ../reference/backend/
-[26]: ../reference/agent/
-[27]: ../guides/clustering/
+[25]: ../observability-pipeline/observe-schedule/backend/
+[26]: ../observability-pipeline/observe-schedule/agent/
+[27]: ../operations/deploy-sensu/cluster-sensu/
 [28]: ../commercial/
 [29]: web-ui/
 [30]: https://sensu.io/enterprise/
 [31]: https://blog.sensu.io/enterprise-features-in-sensu-go/
 [32]: https://bonsai.sensu.io/
-[33]: ../reference/assets/#share-an-asset-on-bonsai
+[33]: ../operations/deploy-sensu/assets/#share-an-asset-on-bonsai
 [34]: https://blog.sensu.io/one-year-of-sensu-go/
 [36]: https://sensu.io/contact/
 [37]: #go-ports

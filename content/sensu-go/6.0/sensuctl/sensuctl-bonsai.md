@@ -1,7 +1,7 @@
 ---
 title: "Use sensuctl with Bonsai"
 linkTitle: "Use sensuctl with Bonsai"
-description: "Sensuctl supports installing asset definitions directly from Bonsai, the Sensu asset index, and checking for outdated assets. Read this page to learn about using sensuctl with Bonsai."
+description: "Sensuctl supports installing dynamic runtime asset definitions directly from Bonsai, the Sensu asset index, and checking for outdated dynamic runtime assets. Read this page to learn about using sensuctl with Bonsai."
 weight: 50
 version: "6.0"
 product: "Sensu Go"
@@ -11,15 +11,15 @@ menu:
     parent: sensuctl
 ---
 
-Sensuctl supports installing asset definitions directly from [Bonsai, the Sensu asset index][1], and checking your Sensu backend for outdated assets.
+Sensuctl supports installing dynamic runtime asset definitions directly from [Bonsai, the Sensu asset index][1], and checking your Sensu backend for outdated dynamic runtime assets.
 You can also use `sensuctl command` to install, execute, list, and delete commands from Bonsai or a URL.
 
-## Install asset definitions
+## Install dynamic runtime asset definitions
 
-To install an asset definition directly from Bonsai, use `sensuctl asset add [NAMESPACE/NAME][:VERSION]`.
+To install a dynamic runtime asset definition directly from Bonsai, use `sensuctl asset add [NAMESPACE/NAME][:VERSION]`.
 `[:VERSION]` is only required if you require a specific version or are pinning to a specific version.
 
-Replace `[NAMESPACE/NAME]` with the namespace and name of the asset from Bonsai:
+Replace `[NAMESPACE/NAME]` with the namespace and name of the dynamic runtime asset from Bonsai:
 
 ![Bonsai page for InfluxDB handler showing namespace and name][2]
 
@@ -33,7 +33,7 @@ it's invoked by another Sensu resource (ex. check). To add this runtime asset to
 resource, populate the "runtime_assets" field with ["sensu/sensu-influxdb-handler"].
 {{< /code >}}
 
-You can also use the `--rename` flag to rename the asset on install:
+You can also use the `--rename` flag to rename the dynamic runtime asset on install:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.1.1 --rename influxdb-handler
@@ -46,14 +46,14 @@ resource, populate the "runtime_assets" field with ["influxdb-handler"].
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../reference/assets#asset-builds) for more information about asset builds.
+**NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../operations/deploy-sensu/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
-## Check your Sensu backend for outdated assets
+## Check your Sensu backend for outdated dynamic runtime assets
 
-To check your Sensu backend for assets that have newer versions available on Bonsai, use `sensuctl asset outdated`.
-This will print a list of assets installed in the backend whose version is older than the newest version available on Bonsai:
+To check your Sensu backend for dynamic runtime assets that have newer versions available on Bonsai, use `sensuctl asset outdated`.
+This will print a list of dynamic runtime assets installed in the backend whose version is older than the newest version available on Bonsai:
 
 {{< code shell >}}
 sensuctl asset outdated
@@ -102,19 +102,19 @@ Replace `[flags]` with the flags you want to use.
 Run `sensuctl command install -h` to view flags.
 Flags are optional and apply only to the `install` command &mdash; they are not saved as part of the command you are installing.
 
-For example, to install a command-test asset via URL with no flags:
+For example, to install a command-test dynamic runtime asset via URL with no flags:
 
 {{< code shell >}}
 sensuctl command install command-test --url https://github.com/amdprophet/command-test/releases/download/v0.0.4/command-test_0.0.4_darwin_amd64.tar.gz --checksum 8b15a170e091dab42256fe64ca7c4a050ed49a9dbfd6c8129c95506a8a9a91f2762ac1a6d24f4fc545430613fd45abc91d3e5d3605fcfffb270dcf01996caa7f
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: Asset definitions with multiple asset builds are only supported via Bonsai.
+**NOTE**: Dynamic runtime asset definitions with multiple asset builds are only supported via Bonsai.
 {{% /notice %}}
 
 ### Execute commands
 
-To execute a sensuctl command plugin via its asset's bin/entrypoint executable:
+To execute a sensuctl command plugin via its dynamic runtime asset's bin/entrypoint executable:
 
 {{< code shell >}}
 sensuctl command exec [ALIAS] [args] [flags]

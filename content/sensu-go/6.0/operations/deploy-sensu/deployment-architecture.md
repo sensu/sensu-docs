@@ -14,7 +14,7 @@ menu:
 This guide describes various deployment considerations and recommendations for a production-ready Sensu deployment, including details related to communication security and common deployment architectures.
 
 etcd is a key-value store that is used by applications of varying complexity, from simple web apps to Kubernetes.
-The Sensu backend uses an embedded etcd instance for storing both configuration and event data, so you can get Sensu up and running without external dependencies.
+The Sensu backend uses an embedded etcd instance for storing both configuration and observability event data, so you can get Sensu up and running without external dependencies.
 
 By building atop etcd, Sensu's backend inherits a number of characteristics to consider when you're planning for a Sensu deployment.
 
@@ -27,7 +27,7 @@ See [Run a Sensu cluster][7] and the [etcd documentation][4] for more informatio
 ## Hardware sizing
 
 Because etcd's design prioritizes consistency across a cluster, the speed with which write operations can be completed is very important to the performance of a Sensu cluster. 
-This means that you should provision Sensu backend infrastructure to provide sustained IO operations per second (IOPS) appropriate for the rate of monitoring events the system will be required to process.
+This means that you should provision Sensu backend infrastructure to provide sustained IO operations per second (IOPS) appropriate for the rate of observability events the system will be required to process.
 
 Our [hardware requirements][1] documentation describes the minimum and recommended hardware specifications for running the Sensu backend.
 
@@ -144,11 +144,11 @@ Conversely, you cannot configure the sensuctl command line tool with multiple ba
 Under normal conditions, sensuctl communications and browser access to the web UI should be routed via a load balancer.
 
 [1]: ../hardware-requirements/
-[3]: ../../../reference/agent/#general-configuration-flags
+[3]: ../../../observability-pipeline/observe-schedule/agent/#general-configuration-flags
 [4]: https://etcd.io/docs/
 [5]: https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/security.md
 [6]: ../secure-sensu/
 [7]: ../cluster-sensu/
-[8]: ../../../reference/datastore/
+[8]: ../datastore/
 [9]: ../../../commercial/
 [10]: https://github.com/sensu/sensu-perf

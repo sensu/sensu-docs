@@ -404,7 +404,7 @@ If you omit the namespace qualifier, the command defaults to the current configu
 
 Use a comma separator to prune more than one resource in a single command.
 
-For example, to prune checks and assets from the file `checks.yaml` for the `dev` namespace and the `admin` and `ops` users:
+For example, to prune checks and dynamic runtime assets from the file `checks.yaml` for the `dev` namespace and the `admin` and `ops` users:
 
 {{< code shell >}}
 sensuctl prune core/v2.CheckConfig,core/v2.Asset --file checks.yaml --namespace dev --users admin,ops
@@ -508,37 +508,37 @@ Sensuctl supports the following formats:
   America/Vancouver`
 
 
-[1]: ../../reference/rbac/
+[1]: ../../operations/control-access/rbac/
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [3]: #sensuctl-create-resource-types
 [4]: ../#preferred-output-format
 [5]: #sensuctl-edit-resource-types
 [6]: ../../reference/
 [7]: ../../operations/deploy-sensu/cluster-sensu/
-[8]: ../../reference/rbac/#user-specification
+[8]: ../../operations/control-access/rbac/#user-specification
 [9]: #wrapped-json-format
 [10]: #supported-resource-types
-[11]: ../../reference/webconfig/
-[12]: ../../reference/assets/
-[13]: ../../reference/checks/
-[14]: ../../reference/entities/
-[15]: ../../reference/events/
-[16]: ../../reference/filters/
-[17]: ../../reference/handlers/
-[18]: ../../reference/hooks/
-[19]: ../../reference/mutators/
-[20]: ../../reference/silencing/
-[21]: ../../reference/rbac#namespaces
-[22]: ../../reference/rbac#users
+[11]: ../../web-ui/webconfig-reference/
+[12]: ../../operations/deploy-sensu/assets/
+[13]: ../../observability-pipeline/observe-schedule/checks/
+[14]: ../../observability-pipeline/observe-entities/entities/
+[15]: ../../observability-pipeline/observe-events/events/
+[16]: ../../observability-pipeline/observe-filter/filters/
+[17]: ../../observability-pipeline/observe-process/handlers/
+[18]: ../../observability-pipeline/observe-schedule/hooks/
+[19]: ../../observability-pipeline/observe-transform/mutators/
+[20]: ../../observability-pipeline/observe-process/silencing/
+[21]: ../../operations/control-access/rbac#namespaces
+[22]: ../../operations/control-access/rbac#users
 [23]: #subcommands
-[24]: ../../reference/secrets-providers/
+[24]: ../../operations/manage-secrets/secrets-providers/
 [25]: ../../operations/control-access/auth/#active-directory-ad-authentication
 [26]: ../../operations/control-access/auth/#lightweight-directory-access-protocol-ldap-authentication
-[27]: ../../reference/tessen/
-[28]: ../../reference/secrets/
-[29]: ../../reference/etcdreplicators/
+[27]: ../../operations/monitor-sensu/tessen/
+[28]: ../../operations/manage-secrets/secrets/
+[29]: ../../operations/deploy-sensu/etcdreplicators/
 [30]: ../../commercial/
 [31]: ../#manage-sensuctl
-[32]: ../../reference/datastore/
+[32]: ../../operations/deploy-sensu/datastore/
 [33]: #create-resources-across-namespaces
-[34]: ../../reference/license/
+[34]: ../../operations/maintain-sensu/license/

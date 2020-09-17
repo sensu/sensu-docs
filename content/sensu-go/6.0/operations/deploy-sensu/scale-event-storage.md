@@ -2,7 +2,7 @@
 title: "Scale Sensu Go with Enterprise datastore"
 linkTitle: "Scale with Enterprise Datastore"
 description: "Here’s how to scale your monitoring to thousands of events per second with Sensu."
-weight: 90
+weight: 120
 version: "6.0"
 product: "Sensu Go"
 platformContent: false
@@ -166,7 +166,7 @@ To verify that the change was effective, look for messages similar to these in t
 {"component":"store","level":"warning","msg":"switched event store to etcd","time":"2019-10-02T23:29:06Z"}
 {{< /code >}}
 
-Similar to enabling Postgres, switching back to the etcd datastore does not migrate current event data from one store to another.
+Similar to enabling Postgres, switching back to the etcd datastore does not migrate current observability event data from one store to another.
 You may see old events in the web UI or sensuctl output until the etcd datastore catches up with the current state of your monitored infrastructure.
 
 ## Configure Postgres streaming replication

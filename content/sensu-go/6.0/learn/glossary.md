@@ -19,21 +19,21 @@ An agent can run checks on the entity it’s installed on or connect to a remote
 
 ## Asset
 An executable that a check, handler, or mutator can specify as a dependency.
-Assets must be a tar archive (optionally gzipped) with scripts or executables within a bin folder.
+Dynamic runtime assets must be a tar archive (optionally gzipped) with scripts or executables within a bin folder.
 At runtime, the backend or agent installs required assets using the specified URL.
-Assets let you manage runtime dependencies without using configuration management tools.
-[Read more about assets][4].
+Dynamic runtime assets let you manage runtime dependencies without using configuration management tools.
+[Read more about dynamic runtime assets][4].
 
 ## Backend
-A flexible, scalable monitoring event pipeline.
-The Sensu backend processes event data using filters, mutators, and handlers.
-It maintains configuration files, stores recent event data, and schedules monitoring checks.
+A flexible, scalable observability pipeline.
+The Sensu backend processes observation data (events) using filters, mutators, and handlers.
+It maintains configuration files, stores recent observation data, and schedules monitoring checks.
 You can interact with the backend using the API, command line, and web UI interfaces.
 [Read more about the Sensu backend][2].
 
 ## Check
 A recurring check the agent runs to determine the state of a system component or collect metrics.
-The backend is responsible for storing check definitions, scheduling checks, and processing event data.
+The backend is responsible for storing check definitions, scheduling checks, and processing observation data (events).
 Check definitions specify the command to be executed, an interval for execution, one or more subscriptions, and one or more handlers to process the resulting event data.
 [Read more about checks][3].
 
@@ -45,31 +45,31 @@ Events can be tied to the entity where the agent runs or a proxy entity that the
 
 ## Event
 A representation of the state of an infrastructure component at a point in time.
-The Sensu backend uses events to power the monitoring event pipeline.
-Event data includes the result of a check or metric (or both), the executing agent, and a timestamp.
+The Sensu backend uses events to power the observability pipeline.
+Observation data in events include the result of a check or metric (or both), the executing agent, and a timestamp.
 [Read more about events][8].
 
 ## Event filter
-Logical expressions that handlers evaluate before processing monitoring events.
-Event filters can instruct handlers to allow or deny matching events based on day, time, namespace, or any attribute in the event data.
+Logical expressions that handlers evaluate before processing observability events.
+Event filters can instruct handlers to allow or deny matching events based on day, time, namespace, or any attribute in the observation data (event).
 [Read more about event filters][9].
 
 ## Handler
-A component of the monitoring event pipeline that acts on events.
-Handlers can send monitoring event data to an executable (or handler plugin), a TCP socket, or a UDP socket.
+A component of the observability pipeline that acts on events.
+Handlers can send observability data to an executable (or handler plugin), a TCP socket, or a UDP socket.
 [Read more about handlers][10].
 
 ## Hook
-A command the agent executes in response to a check result *before* creating a monitoring event.
+A command the agent executes in response to a check result *before* creating an observability event.
 Hooks create context-rich events by gathering relevant information based on check status.
 [Read more about hooks][5].
 
 ## Mutator
-An executable the backend runs prior to a handler to transform event data.
+An executable the backend runs prior to a handler to transform observation data (events).
 [Read more about mutators][11].
 
 ## Plugin
-Executables designed to work with Sensu event data either as a check, mutator, or handler plugin. 
+Executables designed to work with Sensu observation data (events) either as a check, mutator, or handler plugin. 
 You can write your own check executables in Go, Ruby, Python, and more, or use one of more than 200 plugins shared by the Sensu community.
 [Read more about plugins][6].
 
@@ -103,21 +103,21 @@ A placeholder in a check definition that the agent replaces with local informati
 Tokens let you fine-tune check attributes (like thresholds) on a per-entity level while reusing the check definition.
 [Read more about tokens][16].
 
-[1]: ../../reference/agent/
-[2]: ../../reference/backend/
-[3]: ../../reference/checks/
-[4]: ../../reference/assets/
-[5]: ../../reference/hooks/
-[6]: ../../reference/checks/
-[7]: ../../reference/entities/
-[8]: ../../reference/events/
-[9]: ../../reference/filters/
-[10]: ../../reference/handlers/
-[11]: ../../reference/mutators/
-[12]: ../../reference/entities#proxy-entities
-[13]: ../../reference/rbac/
+[1]: ../../observability-pipeline/observe-schedule/agent/
+[2]: ../../observability-pipeline/observe-schedule/backend/
+[3]: ../../observability-pipeline/observe-schedule/checks/
+[4]: ../../operations/deploy-sensu/assets/
+[5]: ../../observability-pipeline/observe-schedule/hooks/
+[6]: ../../operations/deploy-sensu/install-plugins/
+[7]: ../../observability-pipeline/observe-entities/entities/
+[8]: ../../observability-pipeline/observe-events/events/
+[9]: ../../observability-pipeline/observe-filter/filters/
+[10]: ../../observability-pipeline/observe-process/handlers/
+[11]: ../../observability-pipeline/observe-transform/mutators/
+[12]: ../../observability-pipeline/observe-entities/#proxy-entities
+[13]: ../../operations/control-access/rbac/
 [14]: ../../sensuctl/
-[15]: ../../reference/checks/#subdue-attributes
-[16]: ../../reference/tokens/
-[17]: ../../reference/silencing/
-[18]: ../../reference/rbac#resources
+[15]: ../../observability-pipeline/observe-schedule/checks/#subdue-attributes
+[16]: ../../observability-pipeline/observe-schedule/tokens/
+[17]: ../../observability-pipeline/observe-process/silencing/
+[18]: ../../operations/control-access/rbac#resources

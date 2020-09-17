@@ -92,9 +92,9 @@ In a single-cluster environment, the namespace switcher will only list a local-c
 
 [1]: ../../commercial/
 [2]: ../../api/webconfig/
-[3]: ../web-ui/
-[4]: ../../reference/webconfig/
+[3]: ../
+[4]: ../webconfig-reference/
 [5]: ../../sensuctl/create-manage-resources/#create-resources
-[6]: ../../reference/etcdreplicators/
-[7]: ../../reference/webconfig/#show-local-cluster
-[8]: ../../web-ui/view-manage-resources/#use-the-namespace-switcher
+[6]: ../../operations/deploy-sensu/etcdreplicators/
+[7]: ../webconfig-reference/#show-local-cluster
+[8]: ../view-manage-resources/#use-the-namespace-switcher

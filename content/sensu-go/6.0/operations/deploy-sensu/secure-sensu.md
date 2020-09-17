@@ -212,7 +212,7 @@ The last step before you deploy Sensu is to [set up a Sensu cluster][10].
 [4]: ../../control-access/create-read-only-user/
 [5]: ../../../commercial/
 [6]: https://etcd.io/docs/v3.4.0/op-guide/security/
-[7]: ../../../reference/agent/#security-configuration-flags
+[7]: ../../../observability-pipeline/observe-schedule/agent/#security-configuration-flags
 [9]: https://github.com/cloudflare/cfssl
 [10]: ../cluster-sensu/
 [12]: ../generate-certificates/
