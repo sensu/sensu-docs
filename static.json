@@ -539,7 +539,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/agent",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/agent/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/agent/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/agent",
             "status": 301
         },
@@ -547,7 +547,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/backend",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/backend/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/backend/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/backend",
             "status": 301
         },
@@ -555,7 +555,7 @@
             "url": "/sensu-go/latest/operations/control-access/apikeys",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/apikeys/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/apikeys/?$": {
             "url": "/sensu-go/latest/operations/control-access/apikeys",
             "status": 301
         },
@@ -563,7 +563,7 @@
             "url": "/sensu-go/latest/operations/deploy-sensu/assets",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/assets/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/assets/?$": {
             "url": "/sensu-go/latest/operations/deploy-sensu/assets",
             "status": 301
         },
@@ -571,7 +571,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/checks",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/checks/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/checks/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/checks",
             "status": 301
         },
@@ -579,7 +579,7 @@
             "url": "/sensu-go/latest/operations/deploy-sensu/datastore",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/datastore/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/datastore/?$": {
             "url": "/sensu-go/latest/operations/deploy-sensu/datastore",
             "status": 301
         },
@@ -587,7 +587,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-entities/entities",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/entities/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/entities/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-entities/entities",
             "status": 301
         },
@@ -595,7 +595,7 @@
             "url": "/sensu-go/latest/operations/deploy-sensu/etcdreplicators",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/etcdreplicators/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/etcdreplicators/?$": {
             "url": "/sensu-go/latest/operations/deploy-sensu/etcdreplicators",
             "status": 301
         },
@@ -603,7 +603,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-events/events",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/events/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/events/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-events/events",
             "status": 301
         },
@@ -611,7 +611,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-filter/filters",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/filters/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/filters/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-filter/filters",
             "status": 301
         },
@@ -619,7 +619,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-process/handlers",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/handlers/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/handlers/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-process/handlers",
             "status": 301
         },
@@ -627,7 +627,7 @@
             "url": "/sensu-go/latest/operations/monitor-sensu/health",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/health/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/health/?$": {
             "url": "/sensu-go/latest/operations/monitor-sensu/health",
             "status": 301
         },
@@ -635,7 +635,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/hooks",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/hooks/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/hooks/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/hooks",
             "status": 301
         },
@@ -643,7 +643,7 @@
             "url": "/sensu-go/latest/operations/maintain-sensu/license",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/license/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/license/?$": {
             "url": "/sensu-go/latest/operations/maintain-sensu/license",
             "status": 301
         },
@@ -651,7 +651,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-transform/mutators",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/mutators/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/mutators/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-transform/mutators",
             "status": 301
         },
@@ -659,7 +659,7 @@
             "url": "/sensu-go/latest/operations/control-access/rbac",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/rbac/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/rbac/?$": {
             "url": "/sensu-go/latest/operations/control-access/rbac",
             "status": 301
         },
@@ -667,7 +667,7 @@
             "url": "/sensu-go/latest/web-ui/searches",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/searches/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/searches/?$": {
             "url": "/sensu-go/latest/web-ui/searches",
             "status": 301
         },
@@ -675,7 +675,7 @@
             "url": "/sensu-go/latest/operations/manage-secrets/secrets",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/secrets/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/secrets/?$": {
             "url": "/sensu-go/latest/operations/manage-secrets/secrets",
             "status": 301
         },
@@ -683,7 +683,7 @@
             "url": "/sensu-go/latest/operations/manage-secrets/secrets-providers",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/secrets-providers/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/secrets-providers/?$": {
             "url": "/sensu-go/latest/operations/manage-secrets/secrets-providers",
             "status": 301
         },
@@ -691,7 +691,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-filter/sensu-query-expressions",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/sensu-query-expressions/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/sensu-query-expressions/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-filter/sensu-query-expressions",
             "status": 301
         },
@@ -699,7 +699,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-process/silencing",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/silencing/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/silencing/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-process/silencing",
             "status": 301
         },
@@ -707,7 +707,7 @@
             "url": "/sensu-go/latest/operations/monitor-sensu/tessen",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/tessen/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/tessen/?$": {
             "url": "/sensu-go/latest/operations/monitor-sensu/tessen",
             "status": 301
         },
@@ -715,7 +715,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/tokens",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/tokens/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/tokens/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/tokens",
             "status": 301
         },
@@ -723,7 +723,7 @@
             "url": "/sensu-go/latest/web-ui/webconfig-reference",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/webconfig/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/webconfig/?$": {
             "url": "/sensu-go/latest/web-ui/webconfig-reference",
             "status": 301
         },
@@ -731,7 +731,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/monitor-server-resources",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/guides/monitor-server-resources/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/guides/monitor-server-resources/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/monitor-server-resources",
             "status": 301
         },
@@ -739,7 +739,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-entities/monitor-external-resources",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/guides/monitor-external-resources/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/guides/monitor-external-resources/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-entities/monitor-external-resources",
             "status": 301
         },
@@ -755,7 +755,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/augment-event-data-with-hooks",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/guides/enrich-events-with-hooks/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/guides/enrich-events-with-hooks/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/augment-event-data-with-hooks",
             "status": 301
         },
@@ -763,7 +763,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-process/aggregate-metrics-statsd",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/guides/aggregate-metrics-statsd/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/guides/aggregate-metrics-statsd/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-process/aggregate-metrics-statsd",
             "status": 301
         },
@@ -771,7 +771,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-process/populate-metrics-influxdb",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/guides/influx-db-metric-handler/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/guides/influx-db-metric-handler/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-process/populate-metrics-influxdb",
             "status": 301
         },
@@ -779,7 +779,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-process/send-slack-alerts",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/guides/send-slack-alerts//?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/guides/send-slack-alerts//?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-process/send-slack-alerts",
             "status": 301
         },
@@ -787,7 +787,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-process/send-email-alerts",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/guides/email-handler/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/guides/email-handler/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-process/send-email-alerts",
             "status": 301
         },
@@ -795,7 +795,7 @@
             "url": "/sensu-go/latest/operations/deploy-sensu/use-assets-to-install-plugins",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/guides/install-check-executables-with-assets/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/guides/install-check-executables-with-assets/?$": {
             "url": "/sensu-go/latest/operations/deploy-sensu/use-assets-to-install-plugins",
             "status": 301
         },
@@ -803,7 +803,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-filter/reduce-alert-fatigue",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/guides/reduce-alert-fatigue/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/guides/reduce-alert-fatigue/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-filter/reduce-alert-fatigue",
             "status": 301
         },
@@ -811,7 +811,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-filter/route-alerts",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/guides/contact-routing/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/guides/contact-routing/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-filter/route-alerts",
             "status": 301
         },
@@ -819,7 +819,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-process/plan-maintenance",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/guides/plan-maintenance/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/guides/plan-maintenance/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-process/plan-maintenance",
             "status": 301
         },

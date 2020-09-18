@@ -1339,7 +1339,7 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
 If a browser does not open, launch a browser to complete the login via your OIDC provider at following URL:
    - https://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/authorize
 
-[1]: ../../web-ui/
+[1]: ../../../web-ui/
 [2]: ../../../sensuctl/
 [3]: ../../../reference/rbac#default-users
 [4]: ../../../reference/rbac/
