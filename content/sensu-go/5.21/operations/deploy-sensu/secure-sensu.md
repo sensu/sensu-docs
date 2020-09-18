@@ -207,8 +207,8 @@ The last step before you deploy Sensu is to [set up a Sensu cluster][10].
 
 
 [1]: ../../manage-secrets/secrets-management/
-[2]: ../../control-access/rbac/#default-users
-[3]: ../../control-access/rbac/
+[2]: ../../../reference/rbac/#default-users
+[3]: ../../../reference/rbac/
 [4]: ../../control-access/create-read-only-user/
 [5]: ../../../commercial/
 [6]: https://etcd.io/docs/v3.4.0/op-guide/security/
