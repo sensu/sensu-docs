@@ -8,7 +8,7 @@ product: "Sensu Go"
 menu: "sensu-go-5.19"
 ---
 
-Sensu Go is the flexible monitoring event pipeline designed for container-based and multi-cloud infrastructures.
+[Sensu Go][2] is the flexible monitoring event pipeline designed for container-based and multi-cloud infrastructures.
 
 Sensu is available as packages, Docker images, and binary-only distributions.
 You can [install the commercial distribution of Sensu Go][15] or [build Sensu from source][16].
@@ -48,6 +48,7 @@ Sensu Go's core is open source software, freely available under an MIT License.
 - [Visit Sensu Go on GitHub][10]
 - [Compare OSS and commercial features][14]
 - [Build from source][11]
+
 
 [1]: ../learn/demo/
 [2]: ../operations/deploy-sensu/install-sensu/
