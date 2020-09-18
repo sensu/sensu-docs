@@ -747,7 +747,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/collect-metrics-with-checks",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/guides/extract-metrics-with-checks/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/guides/extract-metrics-with-checks/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/collect-metrics-with-checks",
             "status": 301
         },
