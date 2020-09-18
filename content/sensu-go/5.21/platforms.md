@@ -73,11 +73,11 @@ Sensu binary-only distributions are available in `.zip` and `.tar.gz` formats.
 
 | Platform | Architectures |
 |----------|---------------|
-| Linux | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` |
-| Windows | `386` `amd64` |
-| macOS | `amd64`  `amd64 CGO` |
-| FreeBSD | `386` `amd64` |
-| Solaris | `amd64` |
+| [Linux][38] | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` |
+| [Windows][39] | `386` `amd64` |
+| [macOS][40] | `amd64`  `amd64 CGO` |
+| [FreeBSD][41] | `386` `amd64` |
+| [Solaris][42] | `amd64` |
 
 {{< platformBlock "Linux" >}}
 
@@ -332,6 +332,12 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.2/sensu-go_5.
 
 {{< platformBlockClose >}}
 
+## Legacy systems and other platforms
+
+The [Sensu Push][25] utility allows you to execute Sensu checks on legacy systems and other platforms that cannot run the Sensu agent, such as AIX and SPARC Solaris.
+
+You can also use cron to run Sensu checks locally on these systems and forward the results to an upstream Sensu backend or agent via the [Sensu API][43].
+
 ## Build from source
 
 Sensu Go's core is open source software, freely available under an MIT License.
@@ -363,6 +369,7 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [22]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.2/sensu-go_5.21.2_linux_armv5.zip
 [23]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.2/sensu-go_5.21.2_linux_armv6.zip
 [24]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.2/sensu-go_5.21.2_linux_armv7.zip
+[25]: https://github.com/sensu/sensu-push
 [26]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.2/sensu-go_5.21.2_windows_amd64.tar.gz
 [27]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.2/sensu-go_5.21.2_windows_386.tar.gz
 [28]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.2/sensu-go_5.21.2_windows_amd64.zip
@@ -375,6 +382,12 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [35]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.2/sensu-go_5.21.2_freebsd_386.zip
 [36]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.2/sensu-go_5.21.2_solaris_amd64.tar.gz
 [37]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.2/sensu-go_5.21.2_solaris_amd64.zip
+[38]: #linux
+[39]: #windows
+[40]: #macos
+[41]: #freebsd
+[42]: #solaris
+[43]: ../api
 [54]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.2/sensu-go_5.21.2_linux_amd64.tar.gz
 [55]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.2/sensu-go_5.21.2_linux_arm64.tar.gz
 [56]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.2/sensu-go_5.21.2_linux_armv5.tar.gz
