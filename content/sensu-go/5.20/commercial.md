@@ -72,7 +72,7 @@ These resources will help you get started with commercial features in Sensu Go:
 [5]: ../sensuctl/filter-responses/
 [6]: ../web-ui/filter/
 [7]: https://blog.sensu.io/one-year-of-sensu-go/
-[8]: web-ui/
+[8]: ../web-ui/
 [9]: ../operations/control-access/auth/
 [10]: ../reference/backend#event-logging
 [11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4/
