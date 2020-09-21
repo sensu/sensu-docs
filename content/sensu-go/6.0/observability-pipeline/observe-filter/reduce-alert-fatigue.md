@@ -14,7 +14,7 @@ menu:
 Sensu event filters allow you to filter events destined for one or more event handlers.
 Sensu event filters evaluate their expressions against the observation data in events to determine whether the event should be passed to an event handler.
 
-Use event filters to eliminate notification noise from recurring events and to filter events from systems in pre-production environments.
+Use event filters to customize alert policies, improve contact routing, eliminate notification noise from recurring events, and filter events from systems in pre-production environments.
 
 In this guide, you learn how to reduce alert fatigue by configuring an event filter named `hourly` for a handler named `slack` to prevent alerts from being sent to Slack every minute.
 If you don't already have a handler in place, follow [Send Slack alerts with handlers][3] before continuing with this guide.
