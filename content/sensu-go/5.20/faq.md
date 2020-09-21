@@ -99,17 +99,17 @@ Yes, as long as you meet the [port requirements][37], a single Sensu backend can
 ## Can I use Uchiwa with Sensu Go?
 
 Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go.
-Sensu Go does have a [built-in web UI][29] that you can use to visually interact with your Sensu Go deployment.
+Sensu Go does have a [built-in web UI][24] that you can use to visually interact with your Sensu Go deployment.
 
 
 [1]: ../platforms/
-[2]: ../installation/install-sensu/
+[2]: ../operations/deploy-sensu/install-sensu/
 [3]: https://blog.sensu.io/sensu-go-is-here/
-[4]: ../installation/upgrade/
-[5]: ../installation/recommended-hardware/
+[4]: ../operations/maintain-sensu/upgrade/
+[5]: ../operations/deploy-sensu/hardware-requirements/
 [6]: https://sensu.io/sales/
 [7]: ../learn/glossary/
-[8]: ../installation/install-sensu#install-sensu-agents
+[8]: ../operations/deploy-sensu/install-sensu#install-sensu-agents
 [9]: ../api/
 [10]: ../reference/entities/#proxy-entities
 [11]: https://github.com/sensu-plugins/
@@ -121,16 +121,15 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [17]: https://github.com/sensu-plugins/sensu-plugins-snmp/
 [18]: ../guides/influx-db-metric-handler/
 [19]: https://www.influxdata.com/
-[20]: ../guides/securing-sensu/
+[20]: ../operations/deploy-sensu/secure-sensu/
 [21]: ../reference/agent#create-monitoring-events-using-the-agent-api
 [22]: ../reference/agent/#using-the-http-socket
 [23]: ../reference/agent/#create-monitoring-events-using-the-statsd-listener
-[24]: web-ui/
+[24]: ../web-ui/
 [25]: ../reference/backend/
 [26]: ../reference/agent/
-[27]: ../guides/clustering/
+[27]: ../operations/deploy-sensu/cluster-sensu/
 [28]: ../commercial/
-[29]: web-ui/
 [30]: https://sensu.io/enterprise/
 [31]: https://blog.sensu.io/enterprise-features-in-sensu-go/
 [32]: https://bonsai.sensu.io/

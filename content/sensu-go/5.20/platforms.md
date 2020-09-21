@@ -73,11 +73,11 @@ Sensu binary-only distributions that contain the Sensu backend, agent, and sensu
 
 | Platform | Architectures |
 |----------|---------------|
-| Linux | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` |
-| Windows | `386` `amd64` |
-| macOS | `amd64` |
-| FreeBSD | `386` `amd64` |
-| Solaris | `amd64` |
+| [Linux][59] | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` |
+| [Windows][60] | `386` `amd64` |
+| [macOS][61] | `amd64` |
+| [FreeBSD][62] | `386` `amd64` |
+| [Solaris][63] | `amd64` |
 
 {{< platformBlock "Linux" >}}
 
@@ -270,6 +270,10 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.
 
 {{< platformBlockClose >}}
 
+The [Sensu Push][58] utility allows you to execute Sensu checks on legacy systems and other platforms that cannot run the Sensu agent, such as AIX and SPARC Solaris.
+
+You can also use cron to run Sensu checks locally on these systems and forward the results to an upstream Sensu backend or agent via the [Sensu API][64].
+
 ## Build from source
 
 Sensu Go's core is open source software, freely available under an MIT License.
@@ -335,3 +339,10 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [55]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_linux_arm64.tar.gz
 [56]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_linux_armv5.tar.gz
 [57]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_linux_armv6.tar.gz
+[58]: https://github.com/sensu/sensu-push
+[59]: #linux
+[60]: #windows
+[61]: #macos
+[62]: #freebsd
+[63]: #solaris
+[64]: ../api
