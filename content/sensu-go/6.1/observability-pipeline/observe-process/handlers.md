@@ -685,6 +685,6 @@ spec:
 [24]: ../../observe-filter/filters/
 [25]: ../../../web-ui/filter#filter-with-label-selectors
 [26]: ../../../operations/manage-secrets/secrets-management/
-[27]: ../../observe-schedule/agent/#registration
+[27]: ../../observe-schedule/agent/#registration-endpoint-management-and-service-discovery
 [28]: ../../../web-ui/filter/
 [29]: ../../../observability-pipeline/

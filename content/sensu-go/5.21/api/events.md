@@ -892,13 +892,13 @@ example url               | http://hostname:8080/api/core/v2/namespaces/default/
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/events/
-[2]: ../overview#pagination
+[2]: ../#pagination
 [3]: #eventsentitycheck-put
-[4]: ../web-ui/
+[4]: ../../web-ui/
 [5]: #eventsentitycheck-put-parameters
 [6]: ../../reference/entities#entities-specification
 [7]: ../../reference/checks#check-specification
 [8]: ../../reference/events/
 [9]: ../../reference/events#metrics
-[10]: ../overview#response-filtering
+[10]: ../#response-filtering
 [11]: #eventsentitycheck-put

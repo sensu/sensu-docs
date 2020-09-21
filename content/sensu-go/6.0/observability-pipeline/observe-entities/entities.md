@@ -41,14 +41,15 @@ Use [proxy entity filters][19] to establish a many-to-many relationship between 
 When an agent connects to a backend, the agent entity definition is created from the information in the `agent.yml` configuration file.
 The default `agent.yml` file location [depends on your operating system][35].
 
-You can manage agent entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33].
-
-If you delete an agent entity that you modified with sensuctl, the entities API, or the web UI, it will revert to the original configuration from `agent.yml`.
+You can manage agent entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33], just like any other Sensu resource.
+This means you do not need to update the `agent.yml` configuration file to add, update, or delete agent entity attributes like subscriptions and labels.
 
 {{% notice note %}}
 **NOTE**: You cannot modify an agent entity with the `agent.yml` configuration file unless you delete the entity.
 The entity attributes in `agent.yml` are used only for initial entity creation unless you delete the entity.
 {{% /notice %}}
+
+If you delete an agent entity that you modified with sensuctl, the entities API, or the web UI, it will revert to the original configuration from `agent.yml`.
 
 To maintain agent entities based on `agent.yml`, create ephemeral agent entities with the [deregister attribute][34] set to `true`.
 With this setting, the agent entity will deregister every time the agent process stops and its keepalive expires.
