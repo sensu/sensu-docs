@@ -27,14 +27,14 @@ See [supported platforms][5] for more information.
 ## Architecture overview
 
 Sensu works differently from other monitoring and observability solutions.
-The **Sensu backend** is powered by an an embedded transport and [etcd][16] datastore.
-**Sensu agents** are lightweight clients that run on the infrastructure components you want to monitor.
-Agents are responsible for creating check and metric events to send to the backend event pipeline.
-
 Instead of provisioning each device, server, container, or sidecar you want to monitor, you install the Sensu agent on each infrastructure component.
+
+**Sensu agents** are lightweight clients that run on the infrastructure components you want to monitor.
+Agents are responsible for creating status and metric events to send to the Sensu backend event pipeline.
 Agents automatically register with Sensu as entities when you start them up and connect to the Sensu backend with no need for further provisioning.
 You only need to specify the IP address for the Sensu backend server &mdash; you do not need to list the components to monitor in the backend.
 
+The **Sensu backend** is powered by an an embedded transport and [etcd][16] datastore.
 The backend sends specific checks for each agent to execute according to the [subscriptions][41] you define in the agent configuration.
 Sensu automatically downloads the files needed to run the checks from an asset repository like [Bonsai][42] or a local repo and schedules the checks on each agent.
 The agents execute the checks the backend sends to their subscriptions and send the resulting status and metric events to the backend event pipeline, which gives you flexible, automated workflows to route these events.
@@ -563,5 +563,5 @@ sensuctl license info
 [38]: ../../../sensuctl/back-up-recover/
 [39]: ../../../sensuctl/create-manage-resources/#create-resources
 [40]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
-[41]: ../../../observability-pipeline/checks/#subscriptions
+[41]: ../../../observability-pipeline/observe-schedule/checks/#subscriptions
 [42]: https://bonsai.sensu.io/
