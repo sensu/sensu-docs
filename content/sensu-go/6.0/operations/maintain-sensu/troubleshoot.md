@@ -337,6 +337,8 @@ or
 sensuctl asset info sensu-plugins-disk-checks --format json
 {{< /code >}}
 
+### Conflating operating systems with families
+
 A common asset filter issue is conflating operating systems with the family they're a part of.
 For example, although Ubuntu is part of the Debian family of Linux distributions, Ubuntu is not the same as Debian.
 A practical example might be:
@@ -366,6 +368,17 @@ or
 
 This would allow the asset to be downloaded onto the target entity.
 
+### Running the agent on an unsupported Linux platform
+
+If you run the Sensu agent on an unsupported Linux platform, the agent might fail to correctly identify your version of Linux and could download the wrong version of an asset.
+
+This issue is specific to Linux distributions that do not include the `lsb_release` package in their default installations.
+In this case, `gopsutil` may try to open `/etc/lsb_release` or try to run `/usr/bin/lsb_release` to find system information, including Linux version.
+Since the `lsb_release` package is not installed, the agent will not be able to discover the Linux version as expected.
+
+To resolve this problem, install the [`lsb_release` package][8] for your Linux distribution.
+
+
 [1]: ../../../observability-pipeline/observe-schedule/agent#operation
 [2]: ../../../platforms/#windows
 [3]: ../../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
@@ -373,6 +386,7 @@ This would allow the asset to be downloaded onto the target entity.
 [5]: ../../../observability-pipeline/observe-schedule/agent/#restart-the-service
 [6]: ../../../observability-pipeline/observe-schedule/agent#events-post
 [7]: https://dzone.com/articles/what-is-structured-logging
+[8]: https://pkgs.org/download/lsb
 [9]: ../../../observability-pipeline/observe-schedule/backend/#restart-the-service
 [10]: ../../deploy-sensu/assets/#asset-definition-multiple-builds
 [11]: ../../monitor-sensu/log-sensu-systemd/
