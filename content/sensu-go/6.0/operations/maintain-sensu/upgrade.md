@@ -14,7 +14,7 @@ menu:
 ## Upgrade to Sensu Go 6.0 from a 5.x deployment
 
 {{% notice important %}}
-**IMPORTANT**: Before you upgrade to Sensu 6.0, use [`sensuctl dump`](../../../sensuctl/create-manage-resources/#export-resources) to create a backup of your existing installation.
+**IMPORTANT**: Before you upgrade to Sensu 6.0, use [`sensuctl dump`](../../../sensuctl/back-up-recover) to create a backup of your existing installation.
 You will not be able to downgrade to a Sensu 5.x version after you upgrade your database to Sensu 6.0 in step 3 of this process.
 {{% /notice %}}
 
@@ -133,7 +133,7 @@ Then restart the backend.
 
 
 [1]: ../../deploy-sensu/install-sensu/
-[2]: ../../../reference/backend#operation
+[2]: ../../../observability-pipeline/observe-schedule/backend#operation
 [3]: /images/web-ui-entity-warning.png
 [4]: https://sensu.io/contact?subject=contact-sales/
 [5]: https://blog.sensu.io/one-year-of-sensu-go

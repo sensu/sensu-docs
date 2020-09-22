@@ -1,14 +1,14 @@
 ---
 title: "Get started with Sensu"
 linkTitle: "Get Started with Sensu"
-description: "Sensu is the industry-leading solution for multi-cloud monitoring at scale. The Sensu monitoring event pipeline helps businesses automate their monitoring workflows and gain deep visibility into their multi-cloud environments. Get started now and feel the #monitoringlove."
+description: "Sensu is the industry-leading solution for multi-cloud monitoring at scale. The Sensu observability pipeline helps businesses automate their monitoring workflows and gain deep visibility into their multi-cloud environments. Get started now and feel the #monitoringlove."
 version: "6.0"
 weight: -70
 product: "Sensu Go"
 menu: "sensu-go-6.0"
 ---
 
-Sensu Go is the flexible monitoring event pipeline designed for container-based and multi-cloud infrastructures.
+[Sensu Go][2] is the flexible observability pipeline designed for container-based and multi-cloud infrastructures.
 
 Sensu is available as packages, Docker images, and binary-only distributions.
 You can [install the commercial distribution of Sensu Go][15] or [build Sensu from source][16].
@@ -18,7 +18,7 @@ You can [install the commercial distribution of Sensu Go][15] or [build Sensu fr
 We recommend these resources for learning more about Sensu:
 
 - Learn how the Sensu pipeline works in your browser with an [interactive tutorial][12]
-- [Download the sandbox][7] and create a monitoring event pipeline in your local environment
+- [Download the sandbox][7] and create an [observability pipeline][22] in your local environment
 - See a [live demo of the Sensu web UI][1]
 - Sign up for our step-by-step [Learn Sensu email course][21]
 - Join the [Sensu Community Forum on Discourse][8]
@@ -29,7 +29,7 @@ Sensu's [supported platforms][20] include CentOS/RHEL, Debian, Ubuntu, and Windo
 
 - [**Install Sensu Go**][2] and get started for free
 - Learn about Sensu's [commercial features][3] &mdash; all commercial features are available for free in the packaged Sensu Go distribution up to an entity limit of 100
-- Discover Sensu assets on [Bonsai, the Sensu asset index][6]
+- Discover Sensu dynamic runtime assets on [Bonsai, the Sensu asset index][6]
 - Find the [Sensu architecture][18] that best meets your needs
 - [Migrate from Sensu Core to Sensu Go][13]
 
@@ -49,6 +49,7 @@ Sensu Go's core is open source software, freely available under an MIT License.
 - [Compare OSS and commercial features][14]
 - [Build from source][11]
 
+
 [1]: ../learn/demo/
 [2]: ../operations/deploy-sensu/install-sensu/
 [3]: ../commercial
@@ -57,11 +58,11 @@ Sensu Go's core is open source software, freely available under an MIT License.
 [6]: https://bonsai.sensu.io/
 [7]: ../learn/sandbox/
 [8]: https://discourse.sensu.io/
-[9]: ../reference/license/
+[9]: ../operations/maintain-sensu/license/
 [10]: https://github.com/sensu/sensu-go/
 [11]: https://github.com/sensu/sensu-go/blob/master/README.md#building-from-source
 [12]: ../learn/learn-in-15/
-[13]: ../migrate/
+[13]: ../operations/maintain-sensu/migrate/
 [14]: https://sensu.io/features#free-vs-paid
 [15]: #install-the-commercial-distribution-of-sensu-go
 [16]: #build-sensu-from-source-oss
@@ -70,3 +71,4 @@ Sensu Go's core is open source software, freely available under an MIT License.
 [19]: ../platforms/#binary-only-distributions
 [20]: ../platforms/
 [21]: https://sensu.io/learn
+[22]: ../observability-pipeline/

@@ -265,6 +265,6 @@ description               | Removes the specified hook from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/hooks/process-tree
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/hooks/
-[2]: ../overview#pagination
-[3]: ../overview#response-filtering
+[1]: ../../observability-pipeline/observe-schedule/hooks/
+[2]: ../#pagination
+[3]: ../#response-filtering

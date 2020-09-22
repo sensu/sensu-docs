@@ -185,7 +185,7 @@ The `/events` API endpoint provides HTTP POST access to create an event and send
 ### Example {#events-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/events` API endpoint to create an event.
-The request includes information about the check and entity represented by the event and returns a successful HTTP `200 OK` response and the event definition.
+The request includes information about the check and entity represented by the event and returns a successful HTTP `201 Created` response and the event definition.
 
 {{< code shell >}}
 curl -X POST \
@@ -943,14 +943,14 @@ description               | Deletes the event created by the specified entity us
 example url               | http://hostname:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu 
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/events/
-[2]: ../overview#pagination
+[1]: ../../observability-pipeline/observe-events/events/
+[2]: ../#pagination
 [3]: #eventsentitycheck-put
-[4]: ../web-ui/
+[4]: ../../web-ui/
 [5]: #eventsentitycheck-put-parameters
-[6]: ../../reference/entities#entities-specification
-[7]: ../../reference/checks#check-specification
-[8]: ../../reference/events/
-[9]: ../../reference/events#metrics
-[10]: ../overview#response-filtering
+[6]: ../../observability-pipeline/observe-entities/entities#entities-specification
+[7]: ../../observability-pipeline/observe-schedule/checks#check-specification
+[8]: ../../observability-pipeline/observe-events/events/#events-specification
+[9]: ../../observability-pipeline/observe-events/events#metrics
+[10]: ../#response-filtering
 [11]: #eventsentitycheck-put

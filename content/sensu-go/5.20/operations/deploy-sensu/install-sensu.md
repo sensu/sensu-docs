@@ -221,6 +221,11 @@ sensu-backend init
 
 For details about `sensu-backend init`, see the [backend reference][30].
 
+{{% notice note %}}
+**NOTE**: You may need to allow access to the [ports Sensu requires](#ports) in your local server firewall.
+Refer to the documentation for your operating system to configure port access as needed.
+{{% /notice %}}
+
 ### 4. Open the web UI
 
 The web UI provides a unified view of your monitoring events and user-friendly tools to reduce alert fatigue.
@@ -555,7 +560,7 @@ sensuctl license info
 [35]: ../../../api/health/
 [36]: #4-open-the-web-ui
 [37]: ../../../guides/influx-db-metric-handler/
-[38]: ../../../sensuctl/create-manage-resources/#export-resources
+[38]: ../../../sensuctl/back-up-recover/
 [39]: ../../../sensuctl/create-manage-resources/#create-resources
 [40]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
 [41]: ../../../reference/checks/#subscriptions

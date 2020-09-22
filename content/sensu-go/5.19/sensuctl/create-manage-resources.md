@@ -2,7 +2,7 @@
 title: "Create and manage resources with sensuctl"
 linkTitle: "Create and Manage Resources"
 description: "Use the sensuctl command line tool to create and manage resources within Sensu. Read this reference doc to learn how to use sensuctl."
-weight: 20
+weight: 10
 version: "5.19"
 product: "Sensu Go"
 platformContent: false 
@@ -227,103 +227,6 @@ sensuctl edit handler slack
 `handler` | `hook` | `mutator` | `namespace`
 `role` | `role-binding` | `silenced` | `user`
 [`auth`][26] | | |
-
-## Export resources
-
-The `sensuctl dump` command allows you to export your resources to standard out or to a file.
-You can export all of your resources or a subset of them based on a list of resource types.
-The `dump` command supports exporting in `wrapped-json` and `yaml`.
-
-{{% notice note %}}
-**NOTE**: Passwords are not included when exporting users. You must add the `password` attribute to any exported user resources before they can be used with `sensuctl create`.
-{{% /notice %}}
-
-To export all resources to a file named `my-resources.yaml` in `yaml` format:
-
-{{< code shell >}}
-sensuctl dump all --format yaml --file my-resources.yaml
-{{< /code >}}
-
-To export only checks to standard out in `yaml` format:
-
-{{< code shell >}}
-sensuctl dump check --format yaml
-{{< /code >}}
-
-To export only handlers and filters to a file named `my-handlers-and-filters.yaml` in `yaml` format:
-
-{{< code shell >}}
-sensuctl dump handler,filter --format yaml --file my-handlers-and-filters.yaml
-{{< /code >}}
-
-### sensuctl describe-type resource types
-
-{{% notice important %}}
-**IMPORTANT**: The `sensuctl describe-type` command deprecates `sensuctl dump --types`.
-{{% /notice %}}
-
-Use `sensuctl describe-type` to list the types of supported resources.
-For example, to list all types:
-
-{{< code shell >}}
-sensuctl describe-type all
-{{< /code >}}
-
-You can also list specific resource types by fully qualified name or synonym:
-
-{{< code shell >}}
-sensuctl describe-type core/v2.CheckConfig
-sensuctl describe-type checks
-{{< /code >}}
-
-To list more than one type, use a comma-separated list:
-
-{{< code shell >}}
-sensuctl describe-type core/v2.CheckConfig,core/v2.EventFilter,core/v2.Handler
-sensuctl describe-type checks,filters,handlers
-{{< /code >}}
-
-The table below lists supported `sensuctl describe-type` resource types.
-
-{{% notice note %}}
-**NOTE**: The resource types with no synonym listed are [commercial features](../../commercial/).
-{{% /notice %}}
-
-Synonym | Fully qualified name 
---------------------|---
-None | `authentication/v2.Provider`
-None | `licensing/v2.LicenseFile`
-None | `store/v1.PostgresConfig`
-None | `federation/v1.Replicator`
-None | `secrets/v1.Provider`
-None | `secrets/v1.Secret`
-`apikeys` | `core/v2.APIKey`
-`assets` | `core/v2.Asset`
-`checks` | `core/v2.CheckConfig`
-`clusterroles` | `core/v2.ClusterRole`
-`clusterrolebindings` | `core/v2.ClusterRoleBinding`
-`entities` | `core/v2.Entity`
-`events` | `core/v2.Event` 
-`filters` | `core/v2.EventFilter`
-`handlers` | `core/v2.Handler`
-`hooks` | `core/v2.Hook`
-`mutators` | `core/v2.Mutator`
-`namespaces` | `core/v2.Namespace`
-`roles` | `core/v2.Role`
-`rolebindings` | `core/v2.RoleBinding`
-`silenced` | `core/v2.Silenced`
-`tessen` | `core/v2.TessenConfig`
-`users` | `core/v2.User`
-
-#### Format the sensuctl describe-type response
-
-Add the `--format` flag to specify how the resources should be formatted in the `sensuctl describe-type` response.
-The default is unformatted, but you can specify either `wrapped-json` or `yaml`:
-
-{{< code shell >}}
-sensuctl describe-type core/v2.CheckConfig --format yaml
-sensuctl describe-type core/v2.CheckConfig --format wrapped-json
-{{< /code >}}
  
 ## Manage resources
 
@@ -492,7 +395,7 @@ sensuctl prune [RESOURCE TYPE],[RESOURCE TYPE]... -f [FILE or URL] [-r] ... ] [-
 
 In this example `sensuctl prune` command:
 
-- Replace [RESOURCE TYPE] with the [synonym or fully qualified name][10] of the resource you want to prune.
+- Replace [RESOURCE TYPE] with the [fully qualified name or short name][10] of the resource you want to prune.
 You must specify at least one resource type or the `all` qualifier (to prune all resource types).
 - Replace [FILE or URL] with the name of the file or the URL that contains the set of Sensu objects you want to keep (the configuration).
 - Replace [flags] with the flags you want to use, if any.
@@ -504,6 +407,8 @@ Use a comma separator to prune more than one resource in a single command.
 For example, to prune checks and assets from the file `checks.yaml` for the `dev` namespace and the `admin` and `ops` users:
 
 {{< code shell >}}
+sensuctl prune core/v2.CheckConfig,core/v2.Asset --file checks.yaml --namespace dev --users admin,ops
+
 sensuctl prune checks,assets --file checks.yaml --namespace dev --users admin,ops
 {{< /code >}}
 
@@ -523,11 +428,15 @@ The following table describes the command-specific flags.
 `-r` or `--recursive` | Prune command will follow subdirectories.
 `-u` or `--users` | Prunes only resources that were created by the specified users (comma-separated strings). Defaults to the currently configured sensuctl user.
 
-##### sensuctl prune resource types
+##### Supported resource types
 
 The table below lists supported `sensuctl prune` resource types.
 
-Synonym | Fully qualified name 
+{{% notice note %}}
+**NOTE**: Short names are only supported for `core/v2` resources.
+{{% /notice %}}
+
+Short name | Fully qualified name 
 --------------------|---
 None | `authentication/v2.Provider`
 None | `licensing/v2.LicenseFile`
@@ -535,12 +444,14 @@ None | `store/v1.PostgresConfig`
 None | `federation/v1.EtcdReplicator`
 None | `secrets/v1.Provider`
 None | `secrets/v1.Secret`
-`apikey` | `core/v2.APIKey`
+None | `searches/v1.Search`
+`apikeys` | `core/v2.APIKey`
 `assets` | `core/v2.Asset`
 `checks` | `core/v2.CheckConfig`
 `clusterroles` | `core/v2.ClusterRole`
 `clusterrolebindings` | `core/v2.ClusterRoleBinding`
 `entities` | `core/v2.Entity`
+`events` | `core/v2.Event`
 `filters` | `core/v2.EventFilter`
 `handlers` | `core/v2.Handler`
 `hooks` | `core/v2.Hook`
@@ -554,14 +465,12 @@ None | `secrets/v1.Secret`
 
 ##### sensuctl prune examples
 
-`sensuctl prune` supports pruning resources by their synonyms or fully qualified names:
-
-{{< code shell >}}
-sensuctl prune checks,entities
-{{< /code >}}
+`sensuctl prune` supports pruning resources by their fully qualified names or short names:
 
 {{< code shell >}}
 sensuctl prune core/v2.CheckConfig,core/v2.Entity
+
+sensuctl prune checks,entities
 {{< /code >}}
 
 Use the `all` qualifier to prune all supported resources:
@@ -603,7 +512,7 @@ Sensuctl supports the following formats:
 [7]: ../../operations/deploy-sensu/cluster-sensu/
 [8]: ../../reference/rbac/#user-specification
 [9]: #wrapped-json-format
-[10]: #sensuctl-prune-resource-types
+[10]: #supported-resource-types
 [11]: ../../reference/license/
 [12]: ../../reference/assets/
 [13]: ../../reference/checks/

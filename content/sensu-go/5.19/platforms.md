@@ -73,11 +73,11 @@ Sensu binary-only distributions that contain the Sensu backend, agent, and sensu
 
 | Platform | Architectures |
 |----------|---------------|
-| Linux | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` |
-| Windows | `386` `amd64` |
-| macOS | `amd64` |
-| FreeBSD | `386` `amd64` |
-| Solaris | `amd64` |
+| [Linux][59] | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` |
+| [Windows][60] | `386` `amd64` |
+| [macOS][61] | `amd64` |
+| [FreeBSD][62] | `386` `amd64` |
+| [Solaris][63] | `amd64` |
 
 {{< platformBlock "Linux" >}}
 
@@ -106,6 +106,12 @@ Sensu binary-only distributions for Linux are available for these architectures 
 **NOTE**: 32-bit systems cannot run the Sensu backend reliably, so `armv5`, `armv6`, and `armv7` packages include the agent and CLI only.
 In addition, all `MIPS` packages include only the agent and CLI.
 {{% /notice %}}
+
+For binary distributions, we support the following Linux kernels:
+
+- 3.1.x and later for `armv5`
+- 4.8 and later for `MIPS 64 LE hard float` and `MIPS 64 LE soft float`
+- 2.6.23 and later for all other architectures
 
 For example, to download Sensu for Linux `amd64` in `tar.gz` format:
 
@@ -138,6 +144,8 @@ Sensu binary-only distributions for Windows are available for these architecture
 | `amd64` | [`.tar.gz`][26] \| [`.zip`][28]
 | `386` | [`.tar.gz`][27] \| [`.zip`][29]
 
+We support Windows 7 and later and Windows Server 2008R2 and later for binary distributions.
+
 For example, to download Sensu for Windows `amd64` in `zip` format:
 
 {{< code text >}}
@@ -169,6 +177,8 @@ Sensu binary-only distributions for macOS are available for these architectures 
 | Architecture | Formats |
 | --- | --- |
 | `amd64` | [`.tar.gz`][30] \| [`.zip`][31]
+
+We support macOS 10.11 and later for binary distributions.
 
 For example, to download Sensu for macOS `amd64` in `tar.gz` format:
 
@@ -213,6 +223,8 @@ Sensu binary-only distributions for FreeBSD are available for these architecture
 | `amd64` | [`.tar.gz`][32] \| [`.zip`][33]
 | `386` | [`.tar.gz`][34] \| [`.zip`][35]
 
+We support FreeBSD 11.2 and later for binary distributions.
+
 For example, to download Sensu for FreeBSD `amd64` in `tar.gz` format:
 
 {{< code shell >}}
@@ -243,6 +255,8 @@ Sensu binary-only distributions for Solaris are available for these architecture
 | --- | --- |
 | `amd64` | [`.tar.gz`][36] \| [`.zip`][37]
 
+We support Solaris 11 and later (not SPARC) for binary distributions.
+
 For example, to download Sensu for Solaris `amd64` in `tar.gz` format:
 
 {{< code shell >}}
@@ -262,6 +276,12 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.3/sensu-go_5.
 {{< /code >}}
 
 {{< platformBlockClose >}}
+
+## Legacy systems and other platforms
+
+The [Sensu Push][58] utility allows you to execute Sensu checks on legacy systems and other platforms that cannot run the Sensu agent, such as AIX and SPARC Solaris.
+
+You can also use cron to run Sensu checks locally on these systems and forward the results to an upstream Sensu backend or agent via the [Sensu API][64].
 
 ## Build from source
 
@@ -327,3 +347,10 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [55]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.3/sensu-go_5.19.3_linux_arm64.tar.gz
 [56]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.3/sensu-go_5.19.3_linux_armv5.tar.gz
 [57]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.3/sensu-go_5.19.3_linux_armv6.tar.gz
+[58]: https://github.com/sensu/sensu-push
+[59]: #linux
+[60]: #windows
+[61]: #macos
+[62]: #freebsd
+[63]: #solaris
+[64]: ../api

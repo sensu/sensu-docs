@@ -10,6 +10,7 @@ menu: "sensu-go-6.0"
 ---
 
 - [6.0.0 release notes](#600-release-notes)
+- [5.21.2 release notes](#5212-release-notes)
 - [5.21.1 release notes](#5211-release-notes)
 - [5.21.0 release notes](#5210-release-notes)
 - [5.20.2 release notes](#5202-release-notes)
@@ -81,7 +82,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.0.0.
 As a result, after you complete the steps to [upgrade to Sensu 6.0][170] (including running the `sensu-backend upgrade` command), you will not be able to use your database with older versions of Sensu.
 - In [binary-only distributions][164], the web UI is now a standalone product that is no longer distributed inside the `sensu-backend` binary.
 See the [Sensu Go Web repository][163] for more information.
-- After initial creation, you cannot change your `sensu-agent` entity configuration by modifying the agent's configuration file.
+- After initial creation, you cannot change your [`sensu-agent` entity configuration][171] by modifying the agent's configuration file.
 
 **NEW FEATURES:**
 
@@ -126,6 +127,19 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - Fixed a bug where nil labels or annotations in an event filtering context would require you to explicitly check whether the annotations or labels are undefined.
 With this fix, labels and annotations are always defined (although they may be empty).
 - Fixed the log entry field for the check's name in schedulerd.
+
+## 5.21.2 release notes
+
+**August 31, 2020** &mdash; The latest release of Sensu Go, version 5.21.2, is now available for download.
+
+This patch release includes two fixes: one for PostgreSQL errors that could cause the backend to panic and one to ensure that failed check events are written to the event log file.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.2.
+
+**FIXES:**
+
+- ([Commercial feature][158]) Fixed a bug where PostgreSQL errors could cause the backend to panic.
+- Failed check events are now written to the event log file.
 
 ## 5.21.1 release notes
 
@@ -1434,7 +1448,7 @@ To get started with Sensu Go:
 [141]: /sensu-go/5.20/commercial/
 [142]: /sensu-go/5.20/reference/agent/#configuration-via-flags
 [143]: /sensu-go/5.20/reference/entities/#processes-attributes
-[144]: /sensu-go/5.20/sensuctl/create-manage-resources/#sensuctl-describe-type-resource-types
+[144]: /sensu-go/5.20/sensuctl/create-manage-resources/#supported-resource-types
 [145]: /sensu-go/5.20/reference/backend/#configuration-summary
 [146]: /sensu-go/5.20/reference/tokens/#manage-assets
 [147]: /sensu-go/5.20/reference/tokens/#token-substitution-with-quoted-strings
@@ -1455,8 +1469,9 @@ To get started with Sensu Go:
 [163]: https://github.com/sensu/web
 [164]: /sensu-go/6.0/platforms/#binary-only-distributions
 [165]: /sensu-go/6.0/platforms/
-[166]: /sensu-go/6.0/reference/rbac/#subjects-specification
-[167]: /sensu-go/6.0/reference/rbac/#roleref-specification
-[168]: /sensu-go/6.0/reference/sensu-query-expressions/#sensucheckdependencies
-[169]: /sensu-go/6.0/reference/filters/#build-event-filter-expressions-with-javascript-execution-functions
+[166]: /sensu-go/6.0/operations/control-access/rbac/#subjects-specification
+[167]: /sensu-go/6.0/operations/control-access/rbac/#roleref-specification
+[168]: /sensu-go/6.0/observability-pipeline/observe-filter/sensu-query-expressions/#sensucheckdependencies
+[169]: /sensu-go/6.0/observability-pipeline/observe-filter/filters/#build-event-filter-expressions-with-javascript-execution-functions
 [170]: /sensu-go/6.0/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-60-from-a-5x-deployment
+[171]: /sensu-go/6.0/observability-pipeline/observe-entities/entities/#create-and-manage-agent-entities

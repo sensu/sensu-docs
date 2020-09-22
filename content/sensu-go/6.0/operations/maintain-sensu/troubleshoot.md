@@ -81,27 +81,38 @@ You may substitute the name of the desired service (e.g. `backend` or `agent`) f
 
 Use the `journald` keyword `since` to refine the basic `journalctl` commands and narrow your search by timeframe.
 
-Retrieve all the logs for Sensu since yesterday:
+Retrieve all the logs for sensu-backend since yesterday:
 
 {{< code shell >}}
-journalctl _COMM=sensu-backend.service --since yesterday | tee sensu-backend-$(date +%Y-%m-%d).log
+journalctl -u sensu-backend --since yesterday | tee sensu-backend-$(date +%Y-%m-%d).log
 {{< /code >}}
 
-Retrieve all the logs for Sensu since a specific time:
+Retrieve all the logs for sensu-agent since a specific time:
 
 {{< code shell >}}
-journalctl _COMM=sensu-backend.service --since 09:00 --until "1 hour ago" | tee sensu-backend-$(date +%Y-%m-%d).log
+journalctl -u sensu-agent --since 09:00 --until "1 hour ago" | tee sensu-agent-$(date +%Y-%m-%d).log
 {{< /code >}}
 
-Retrieve all the logs for Sensu for a specific date range:
+Retrieve all the logs for sensu-backend for a specific date range:
 
 {{< code shell >}}
-journalctl _COMM=sensu-backend.service --since "2015-01-10" --until "2015-01-11 03:00" | tee sensu-backend-$(date +%Y-%m-%d).log
+journalctl -u sensu-backend --since "2015-01-10" --until "2015-01-11 03:00" | tee sensu-backend-$(date +%Y-%m-%d).log
 {{< /code >}}
 
 {{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
+
+##### Logging edge cases
+
+If a Sensu service experiences a panic crash, the service may seem to start and stop without producing any output in journalctl.
+This is due to a [bug in systemd][12].
+
+In these cases, try using the `_COMM` variable instead of the `-u` flag to access additional log entries:
+
+{{< code shell >}}
+journalctl _COMM=sensu-backend.service --since yesterday
+{{< /code >}}
 
 #### Windows
 
@@ -227,7 +238,7 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /code >}}
 
-The event data should be written to `/var/log/sensu/debug-event.json` for inspection.
+The observability event data should be written to `/var/log/sensu/debug-event.json` for inspection.
 The contents of this file will be overwritten by every event sent to the `debug` handler.
 
 {{% notice note %}}
@@ -235,9 +246,9 @@ The contents of this file will be overwritten by every event sent to the `debug`
 You may need to check the filesystem of each Sensu backend to locate the debug output for your test event.
 {{% /notice %}}
 
-## Assets
+## Dynamic runtime assets
 
-Asset filters allow you to scope an asset to a particular operating system or architecture.
+Dynamic runtime asset filters allow you to scope an asset to a particular operating system or architecture.
 You can see an example in the [asset reference][10].
 An improperly applied asset filter can prevent the asset from being downloaded by the desired entity and result in error messages both on the agent and the backend illustrating that the command was not found:
 
@@ -355,13 +366,14 @@ or
 
 This would allow the asset to be downloaded onto the target entity.
 
-[1]: ../../../reference/agent#operation
+[1]: ../../../observability-pipeline/observe-schedule/agent#operation
 [2]: ../../../platforms/#windows
 [3]: ../../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
 [4]: https://etcd.io/docs/v3.4.0/op-guide/security/
-[5]: ../../../reference/agent/#restart-the-service
-[6]: ../../../reference/agent#events-post
+[5]: ../../../observability-pipeline/observe-schedule/agent/#restart-the-service
+[6]: ../../../observability-pipeline/observe-schedule/agent#events-post
 [7]: https://dzone.com/articles/what-is-structured-logging
-[9]: ../../../reference/backend/#restart-the-service
-[10]: ../../../reference/assets/#asset-definition-multiple-builds
+[9]: ../../../observability-pipeline/observe-schedule/backend/#restart-the-service
+[10]: ../../deploy-sensu/assets/#asset-definition-multiple-builds
 [11]: ../../monitor-sensu/log-sensu-systemd/
+[12]: https://github.com/systemd/systemd/issues/2913

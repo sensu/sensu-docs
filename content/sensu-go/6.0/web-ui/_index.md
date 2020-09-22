@@ -40,9 +40,9 @@ See the [role-based access control reference][3] for [default user credentials][
 Use the preferences menu to change the theme or switch to the dark theme.
 
 
-[1]: ../reference/backend#restart-the-service
+[1]: ../observability-pipeline/observe-schedule/backend#restart-the-service
 [2]: ../sensuctl/
-[3]: ../reference/rbac/
-[4]: ../reference/rbac#default-users
-[5]: ../reference/rbac#create-users
+[3]: ../operations/control-access/rbac/
+[4]: ../operations/control-access/rbac#default-users
+[5]: ../operations/control-access/rbac#create-users
 [6]: ../commercial/

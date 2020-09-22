@@ -31,7 +31,6 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `armv5`<br>`armv6`<br>`armv7` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS hard float`<br>`MIPS 64 hard float`<br>`MIPS LE hard float`<br>`MIPS 64 LE hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 
@@ -42,7 +41,6 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `armv5`<br>`armv6`<br>`armv7` | {{< check >}} | {{< check >}} | {{< check >}} | | |
-| `MIPS hard float`<br>`MIPS 64 hard float`<br>`MIPS LE hard float`<br>`MIPS 64 LE hard float` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `ppc64le` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 | `s390x` | {{< check >}} | {{< check >}} | {{< check >}} | | |
 
@@ -64,17 +62,23 @@ See the [Sensu Go Web GitHub repository][60] for more information.
 
 | Platform | Architectures |
 |----------|---------------|
-| Linux | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` `ppc64le` `s390x` |
-| Windows | `386` `amd64` |
-| macOS | `amd64` `amd64 CGO` |
-| FreeBSD | `386` `amd64` `armv5` `armv6` `armv7` |
-| Solaris | `amd64` |
+| [Linux][44] | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` `ppc64le` `s390x` |
+| [Windows][45] | `386` `amd64` |
+| [macOS][46] | `amd64` `amd64 CGO` |
+| [FreeBSD][47] | `386` `amd64` `armv5` `armv6` `armv7` |
+| [Solaris][48] | `amd64` |
 
 {{< platformBlock "Linux" >}}
 
 ### Linux
 
 Sensu binary-only distributions for Linux are available for the architectures listed in the table below.
+
+For binary distributions, we support the following Linux kernels:
+
+- 3.1.x and later for `armv5`
+- 4.8 and later for `MIPS 64 LE hard float` and `MIPS 64 LE soft float`
+- 2.6.23 and later for all other architectures
 
 {{% notice note %}}
 **NOTE**: The  Linux `amd64`, `arm64`, and `ppc64le` binary distributions include the agent, backend, and sensuctl CLI.
@@ -166,6 +170,8 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0
 
 Sensu binary-only distributions for Windows are available for the architectures listed in the table below.
 
+We support Windows 7 and later and Windows Server 2008R2 and later for binary distributions.
+
 {{% notice note %}}
 **NOTE**: The Windows binary distributions include only the Sensu agent and sensuctl CLI.
 {{% /notice %}}
@@ -202,6 +208,8 @@ Get-Content "$env:userprofile\sensu-go_6.0.0_checksums.txt" | Select-String -Pat
 ### macOS
 
 Sensu binary-only distributions for macOS are available for the architectures listed in the table below.
+
+We support macOS 10.11 and later for binary distributions.
 
 {{% notice note %}}
 **NOTE**: The macOS binary distributions include only the Sensu agent and sensuctl CLI.
@@ -250,6 +258,8 @@ sudo cp sensuctl /usr/local/bin/
 
 Sensu binary-only distributions for FreeBSD are available for the architectures listed in the table below.
 
+We support FreeBSD 11.2 and later for binary distributions.
+
 {{% notice note %}}
 **NOTE**: The FreeBSD binary distributions include only the Sensu agent and sensuctl CLI.
 {{% /notice %}}
@@ -288,6 +298,8 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0
 
 Sensu binary-only distributions for Solaris are available for the architectures listed in the table below.
 
+We support Solaris 11 and later (not SPARC) for binary distributions.
+
 {{% notice note %}}
 **NOTE**: The Solaris binary distributions include only the Sensu agent.
 {{% /notice %}}
@@ -315,6 +327,12 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0
 {{< /code >}}
 
 {{< platformBlockClose >}}
+
+## Legacy systems and other platforms
+
+The [Sensu Push][25] utility allows you to execute Sensu checks on legacy systems and other platforms that cannot run the Sensu agent, such as AIX and SPARC Solaris.
+
+You can also use cron to run Sensu checks locally on these systems and forward the results to an upstream Sensu backend or agent via the [Sensu API][49].
 
 ## Build from source
 
@@ -347,6 +365,7 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [22]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_armv5.zip
 [23]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_armv6.zip
 [24]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_armv7.zip
+[25]: https://github.com/sensu/sensu-push
 [26]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_windows_amd64.tar.gz
 [27]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_windows_386.tar.gz
 [28]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_windows_amd64.zip
@@ -365,6 +384,12 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [41]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_freebsd_armv6.zip
 [42]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_freebsd_armv7.tar.gz
 [43]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_freebsd_armv7.zip
+[44]: #linux
+[45]: #windows
+[46]: #macos
+[47]: #freebsd
+[48]: #solaris
+[49]: ../api
 [54]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_amd64.tar.gz
 [55]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_arm64.tar.gz
 [56]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.0.0/sensu-go_6.0.0_linux_armv5.tar.gz

@@ -1349,30 +1349,37 @@ Use the instructions listed in this section to register an OIDC application for 
 
 #### Create an Okta application
 
-1. From the Okta Administrator Dashboard, select `Applications > Add Application > Create New App` to start the wizard.
-2. Select the `Web` platform and `OpenID Connect` sign-in method.
-3. In *General Settings*, enter an app name and upload a logo (if desired).
-4. In *Configure OpenID Connect*, add the following redirect URI (replace `DASHBOARD_URL` with the URL for your dashboard: `{DASHBOARD_URL}/api/enterprise/authentication/v2/oidc/callback`.
-5. Click **Save**.
-6. Open the *Sign On* page. In the *OpenID Connect ID Token* section, click **Edit**.
-7. Enter the following information for the *Groups* claim attribute:
-  - First field: `groups`
-  - Dropdown menu: `Regex`
-  - Second field: `.*`
-8. Click **Save**.
-9. Assign people and groups in the *Assignments* page.
+1. In the Okta Administrator Dashboard, start the wizard:<br>select `Applications` > `Add Application` > `Create New App`.
+2. In the *Platform* dropdown, select `Web`.
+3. In the *Sign on method* section, select `OpenID Connect`.
+4. Click **Create**.
+5. In the *Create OpenID Connect Integration* window:
+   - *GENERAL SETTINGS* section: in the *Application name* field, enter the app name. You can also upload a logo in the  if desired.
+   - *CONFIGURE OPENID CONNECT* section: in the *Login redirect URIs* field, enter `API_URL/api/enterprise/authentication/v2/oidc/callback` (replace `API_URL` with your API URL).
+6. Click **Save**.
+7. Select the *General* tab and click **Edit**.
+8. In the *Allowed grant types* section, click to select the box next to **Refresh Token**.
+9. Click **Save**.
+10. Select the *Sign On* tab.
+11. In the *OpenID Connect ID Token* section, click **Edit**.
+12. In the *Groups claim filter* section:
+    - In the first field, enter `groups`
+    - In the dropdown menu, select `matches regex`
+    - In the second field, enter `.*`
+13. Click **Save**.
+14. (Optional) Select the *Assignments* tab to assign people and groups to your app.
 
 #### OIDC provider configuration
 
 1. Add the `additional_scopes` configuration attribute in the [OIDC scope][25] and set the value to `[ "groups" ]`:
-  - `"additional_scopes": [ "groups" ]`
+   - `"additional_scopes": [ "groups" ]`
 
 2. Add the `groups` to the `groups_claim` string.
 For example, if you have an Okta group `groups` and you set the `groups_prefix` to `okta:`, you can set up RBAC objects to mention group `okta:groups` as needed:
-  - `"groups_claim": "okta:groups" `
+   - `"groups_claim": "okta:groups" `
 
-3. Add the `redirect_uri` configuration attribute in the [OIDC scope][25] and set the value to the Redirect URI configured at step 4 of [Create an Okta application][50]:
-  - `"redirect_uri": "{BACKEND_URL}/api/enterprise/authentication/v2/oidc/callback"`
+3. Add the `redirect_uri` configuration attribute in the [OIDC scope][25] and set the value to the Redirect URI configured at step 3 of [Create an Okta application][50]:
+   - `"redirect_uri": "API_URL/api/enterprise/authentication/v2/oidc/callback"`
 
 #### Sensuctl login with OIDC
 
@@ -1380,21 +1387,21 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
 
 2. If you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.
 If a browser does not open, launch a browser to complete the login via your OIDC provider at following URL:
-  - https://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/authorize
+   - https://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/authorize
 
-[1]: ../../web-ui/
+[1]: ../../../web-ui/
 [2]: ../../../sensuctl/
-[3]: ../../../reference/rbac#default-users
-[4]: ../../../reference/rbac/
+[3]: ../rbac#default-users
+[4]: ../rbac/
 [5]: ../create-read-only-user/
 [6]: ../../../commercial/
 [7]: https://www.openldap.org/
 [8]: ../../../api/
 [9]: ../../../api/auth/
-[11]: ../../../reference/rbac#roles-and-cluster-roles
-[13]: ../../../reference/rbac#role-bindings-and-cluster-role-bindings
-[17]: ../../../reference/rbac#namespaced-resource-types
-[18]: ../../../reference/rbac#cluster-wide-resource-types
+[11]: ../rbac#roles-and-cluster-roles
+[13]: ../rbac#role-bindings-and-cluster-role-bindings
+[17]: ../rbac#namespaced-resource-types
+[18]: ../rbac#cluster-wide-resource-types
 [19]: ../../maintain-sensu/troubleshoot#log-levels
 [21]: #ldap-group-search-attributes
 [22]: #ldap-user-search-attributes
@@ -1407,7 +1414,7 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [30]: #ldap-specification
 [31]: #ad-configuration-examples
 [32]: #ad-specification
-[33]: ../../../reference/rbac/#example-workflows
+[33]: ../rbac/#example-workflows
 [34]: #groups-prefix
 [35]: #username-prefix
 [36]: ../../../sensuctl/#first-time-setup

@@ -237,7 +237,7 @@ The `/entities` API endpoint provides HTTP POST access to create a Sensu entity.
 ### Example {#entities-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/entities` API endpoint to create a proxy entity named `sensu-centos`.
-The request includes the entity definition in the request body and returns a successful `HTTP 201 Created` response.
+The request includes the entity definition in the request body and returns a successful `HTTP 200 OK` response.
 
 {{< code shell >}}
 curl -X POST \
@@ -260,7 +260,7 @@ curl -X POST \
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities
 
-HTTP/1.1 201 Created
+HTTP/1.1 200 OK
 {{< /code >}}
 
 ### API Specification {#entities-post-specification}
@@ -403,7 +403,7 @@ HTTP/1.1 200 OK
 description          | Returns the specified entity.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/entities/sensu-centos
 response type        | Map
-response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes       | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
 {
   "entity_class": "agent",
@@ -506,7 +506,7 @@ The `/entities/:entity` API endpoint provides HTTP PUT access to create or updat
 ### Example {#entitiesentity-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/entities/:entity` API endpoint to update the entity named `sensu-centos`.
-The request includes the updated entity definition in the request body and returns a successful `HTTP 201 Created` response.
+The request includes the updated entity definition in the request body and returns a successful `HTTP 200 OK` response.
 
 {{< code shell >}}
 curl -X PUT \
@@ -530,7 +530,7 @@ curl -X PUT \
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos
 
-HTTP/1.1 201 Created
+HTTP/1.1 200 OK
 {{< /code >}}
 
 ### API Specification {#entitiesentity-put-specification}
@@ -559,7 +559,7 @@ payload         | {{< code shell >}}
   }
 }
 {{< /code >}}
-response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Delete an entity {#entitiesentity-delete}
 
@@ -585,6 +585,6 @@ description               | Removes a entity from Sensu (specified by the entity
 example url               | http://hostname:8080/api/core/v2/namespaces/default/entities/server1
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/entities/
-[2]: ../overview#pagination
-[3]: ../overview#response-filtering
+[1]: ../../observability-pipeline/observe-entities/entities/
+[2]: ../#pagination
+[3]: ../#response-filtering

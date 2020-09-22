@@ -439,8 +439,8 @@ description               | Removes a single hook from a check (specified by the
 example url               | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical/hook/process_tree
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/checks/
-[2]: ../../reference/hooks/
-[3]: ../../reference/checks#check-hooks-attribute
-[4]: ../overview#pagination
-[5]: ../overview#response-filtering
+[1]: ../../observability-pipeline/observe-schedule/checks/
+[2]: ../../observability-pipeline/observe-schedule/hooks/
+[3]: ../../observability-pipeline/observe-schedule/checks#check-hooks-attribute
+[4]: ../#pagination
+[5]: ../#response-filtering
