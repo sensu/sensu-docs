@@ -89,7 +89,7 @@ Visit the [template toolkit command Bonsai page][8] to install the plugin.
 Use the template toolkit command to print a list of the available event attributes as well as the correct dot notation and capitalization pattern for a specific event (in this example, `event.json`):
 
 {{< code shell >}}
-cat event.json | sensuctl command execute jspaleta/template-toolkit-command -- --dump-names
+cat event.json | sensuctl command exec jspaleta/template-toolkit-command -- --dump-names
 
 .Entity{
     .EntityClass: "agent",
@@ -123,16 +123,6 @@ Template String Output: keepalive
 {{< /code >}}
 
 In this example, the command validates that for the `event.json` event, the handler template will replace `{{ .Check.Name }}` with `keepalive` in template output.
-
-You can also use `sensuctl event info` to validate a template attribute:
-
-{{< code shell >}}
-sensuctl event info event checkname --format json | sensuctl command exec template-toolkit-command -- --template "{{ .Check.Name }}"
-
-INFO[0000] asset includes builds, using builds instead of asset  asset=template-toolkit-command component=asset-manager entity=sensuctl
-executing command with --template {{ .Check.Name }}
-Template String Output: checkname
-{{< /code >}}
 
 ## Examples
 
