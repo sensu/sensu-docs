@@ -10,7 +10,7 @@ layout: "single"
 
 <iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-go&type=star&count=true" frameborder="0" scrolling="0" width="87px" height="20px"></iframe> | <a href="https://docs.sensu.io/sensu-go/latest/commercial/">Learn about licensing</a>
 
-Sensu is the industry-leading solution for multi-cloud monitoring at scale.
+[Sensu][22] is the industry-leading solution for multi-cloud monitoring at scale.
 The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflows and gain deep visibility into their multi-cloud environments.
 Founded in 2017, Sensu offers a comprehensive monitoring solution for enterprises, providing complete visibility across every system, every protocol, every time — from Kubernetes to bare metal.
 **Get started now and feel the #monitoringlove:** [Learn Sensu Go][1].
@@ -90,3 +90,4 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 [19]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler/
 [20]: https://bonsai.sensu.io/
 [21]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler/
+[22]: operations/deploy-sensu/install-sensu/

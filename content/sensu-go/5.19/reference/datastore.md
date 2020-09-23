@@ -153,7 +153,7 @@ example      | {{< code shell >}}name: my-postgres{{< /code >}}
 
 dsn          |      |
 -------------|------
-description  | Data source names. Specified as a URL or PostgreSQL connection string. See the [PostgreSQL docs][15] for more information about connection strings.
+description  | Data source names. Specified as a URL or [PostgreSQL connection string][15]. The Sensu backend uses the golang pq library, which supports a [subset of the PostgreSQL libpq connection string parameters][4].
 required     | true
 type         | String
 example      | {{< code shell >}}dsn: "postgresql://user:secret@host:port/dbname"{{< /code >}}
@@ -169,6 +169,7 @@ example      | {{< code shell >}}pool_size: 20{{< /code >}}
 [1]: ../../sensuctl/#first-time-setup
 [2]: ../../operations/maintain-sensu/troubleshoot/
 [3]: https://aws.amazon.com/rds/
+[4]: https://pkg.go.dev/github.com/lib/pq@v1.2.0#hdr-Connection_String_Parameters
 [8]: ../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster
 [9]: ../../web-ui/
 [10]: ../../sensuctl/create-manage-resources/#sensuctl-event

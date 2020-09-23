@@ -119,7 +119,7 @@ Sensu events contain:
 
 ## Use event data
 
-observability data in events is a powerful tool for automating monitoring workflows.
+Observability data in events is a powerful tool for automating monitoring workflows.
 For example, you can [reduce alert fatigue][23] by filtering events based on the event `occurrences` attribute.
 
 ### Occurrences and occurrences watermark

@@ -20,12 +20,14 @@ menu:
 
 Events are generic containers that Sensu uses to provide context to status and metrics check results.
 The context, called observation data, is information about the originating entity and the corresponding status or metric check result.
-These generic containers allow Sensu to handle different types of events in the pipeline.
-Because events are polymorphic in nature, it is important to never assume their content (or lack of content).
+
+These generic containers allow Sensu to handle different types of events in the pipeline for comprehensive system and service monitoring and observability.
+Events can contain CPU, memory, and disk usage data; custom application metrics; log data you can send to an external database; and more.
 
 Events require a timestamp, entity, and check.
 Each event must contain a check result, whether [status][3] or [metrics][7].
 In certain cases, an event can contain [both][8].
+Because events are polymorphic in nature, it is important to never assume their content (or lack of content).
 
 ## Checks
 
