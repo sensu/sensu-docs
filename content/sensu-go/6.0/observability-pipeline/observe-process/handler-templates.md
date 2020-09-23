@@ -11,7 +11,7 @@ menu:
 ---
 
 Sensu Go uses the [Go template package][1], which allows you to generate text output that includes observation data from events.
-Sensu handler templates include HTML-formatted text and data derived from event attributes like `event.entity.name` and `event.check.output`.
+Sensu handler templates include HTML-formatted text and data derived from event attributes like `event.entity.name` and `.event.check.output`.
 This allows you to add meaningful, actionable context to alerts.
 
 For example, a template for a brief Slack alert might include information about the affected entity and its status, as well as a link to the organization's playbook for resolving observability alerts:
@@ -30,10 +30,51 @@ The playbook for managing this alert is availble at https://example.com/observab
 Handler templates use dot notation syntax to access event attributes, with the event attribute wrapped in double curly braces.
 The initial dot indicates `event`.
 
-For example, in a handler template, a reference to the event attribute `event.check.occurrences` becomes `{{ .Check.Occurrences }}`.
+For example, in a handler template, a reference to the event attribute `.Check.occurrences` becomes `{{ .Check.Occurrences }}`.
 
 Use HTML to format the text and spacing in your templates.
 All text outside double curly braces is copied directly into the template output, with HTML formatting applied.
+
+## Available event attributes
+
+If you are using a [plugin][7] that supports template output, every attribute in the [Sensu event][3] is available.
+However, the attribute capitalization pattern is different for handler templates than for event format.
+
+The table below lists the event attributes that are available to use in handler templates, in the correct dot notation and capitalization pattern.
+You can also use the [template toolkit command][11] to print available event attributes for a specific event.
+
+{{% notice note %}}
+**NOTE**: The [entity](../../observe-entities/entities/#spec-attributes) and [events](../../observe-events/events/#spec-attributes) specifications describe each attribute in detail.
+{{% /notice %}}
+
+| attribute | attribute | attribute |
+| --- | --- | --- |
+| `.HasCheck` | `.HasMetrics` | `.IsIncident` |
+| `.IsResolution` | `.IsSilenced` | `.Timestamp` |
+| `.Check.Annotations` | `.Check.CheckHooks` | `.Check.Command` |
+| `.Check.Cron` | `.Check.DiscardOutput` | `.Check.Duration` |
+| `.Check.EnvVars` | `.Check.Executed` | `.Check.ExtendedAttributes` |
+| `.Check.Handlers` | `.Check.HighFlapThreshold` | `.Check.History` |
+| `.Check.Hooks` | `.Check.Interval` | `.Check.Issued` |
+| `.Check.Labels` | `.Check.LastOK` | `.Check.LowFlapThreshold` |
+| `.Check.MaxOutputSize` | `.Check.Name` | `.Check.Namespace` |
+| `.Check.Occurrences` | `.Check.OccurrencesWatermark` | `.Check.Output` |
+| `.Check.OutputMetricFormat` | `.Check.OutputMetricHandlers` | `.Check.ProxyEntityName` |
+| `.Check.ProxyRequests` | `.Check.Publish` | `.Check.RoundRobin` |
+| `.Check.RuntimeAssets` | `.Check.Secrets` | `.Check.Silenced` |
+| `.Check.State` | `.Check.Status` | `.Check.Stdin` |
+| `.Check.Subdue` | `.Check.Subscriptions` | `.Check.Timeout` |
+| `.Check.TotalStateChange` | `.Check.Ttl` | `.Entity.Annotations` |
+| `.Entity.Deregister` | `.Entity.Deregistration` | `.Entity.EntityClass` |
+| `.Entity.ExtendedAttributes` | `.Entity.KeepaliveHandlers` | `.Entity.Labels` |
+| `.Entity.LastSeen` | `.Entity.Name` | `.Entity.Namespace` |
+| `.Entity.Redact` | `.Entity.SensuAgentVersion` | `.Entity.Subscriptions` |
+| `.Entity.System` | `.Entity.System.Arch` | `.Entity.System.ARMVersion` |
+| `.Entity.System.CloudProvider` | `.Entity.System.Hostname` | `.Entity.System.LibcType` |
+| `.Entity.System.Network` | `.Entity.System.OS` | `.Entity.System.Platform` |
+| `.Entity.System.PlatformFamily` | `.Entity.System.PlatformVersion` | `.Entity.System.Processes` |
+| `.Entity.System.VMRole` | `.Entity.System.VMSystem` | `.Entity.User` |
+| `.Metrics.Handlers` | `.Metrics.Points` | |
 
 ## Template toolkit command
 
@@ -45,10 +86,7 @@ Visit the [template toolkit command Bonsai page][8] to install the plugin.
 
 ### Print available event attributes
 
-If you are using a [plugin][7] that supports template output, every attribute in the [Sensu event][3] is available.
-However, the template attribute capitalization pattern is different for handler templates than for event format.
-
-Use the template toolkit command to print a list of the attributes that are available for your handler template based on the `event.json` event:
+Use the template toolkit command to print a list of the available event attributes as well as the correct dot notation and capitalization pattern for a specific event (in this example, `event.json`):
 
 {{< code shell >}}
 cat event.json | sensuctl command execute jspaleta/template-toolkit-command -- --dump-names
@@ -64,7 +102,6 @@ cat event.json | sensuctl command execute jspaleta/template-toolkit-command -- -
 [...]
 {{< /code >}}
 
-The response will list the available event attributes with the correct dot notation and capitalization pattern.
 In this example, the response lists the available event attributes `.Entity.EntityClass`, `.Entity.System`, `.Check.Command`, `.Check.Handlers`, and `.Check.HighFlapThreshold`.
 
 {{% notice note %}}
@@ -75,7 +112,7 @@ In this example, the response lists the available event attributes `.Entity.Enti
 
 Use the template toolkit command to validate the dot notation syntax and output for any event attribute.
 
-For example, to test the output for the `{{ .Check.Name }}` attribute:
+For example, to test the output for the `{{ .Check.Name }}` attribute for the event `event.json`:
 
 {{< code shell >}}
 cat event.json | sensuctl command exec template-toolkit-command -- --template "{{ .Check.Name }}"
@@ -86,6 +123,16 @@ Template String Output: keepalive
 {{< /code >}}
 
 In this example, the command validates that for the `event.json` event, the handler template will replace `{{ .Check.Name }}` with `keepalive` in template output.
+
+You can also use `sensuctl event info` to validate a template attribute:
+
+{{< code shell >}}
+sensuctl event info event checkname --format json | sensuctl command exec template-toolkit-command -- --template "{{ .Check.Name }}"
+
+INFO[0000] asset includes builds, using builds instead of asset  asset=template-toolkit-command component=asset-manager entity=sensuctl
+executing command with --template {{ .Check.Name }}
+Template String Output: checkname
+{{< /code >}}
 
 ## Examples
 
@@ -151,3 +198,4 @@ See the [Sensu PagerDuty Handler Bonsai page][10] for details.
 [8]: https://bonsai.sensu.io/assets/jspaleta/template-toolkit-command
 [9]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
 [10]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
+[11]: #print-available-event-attributes
