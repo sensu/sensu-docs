@@ -52,7 +52,6 @@ Sensu includes these basic search functions:
 - **Handlers page**: search by handler type.
 - **Filters page**: search by action.
 
-
 If you are using the [basic web UI search functions][5], you can create a search by clicking in the search bar at the top of the web UI page:
 
 1. In the web UI, open the page of resources you want to search.
