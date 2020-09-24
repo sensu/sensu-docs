@@ -338,5 +338,5 @@ spec:
 [9]: #spec-attributes
 [10]: ../../../api#response-filtering
 [11]: ../../../sensuctl/filter-responses/
-[12]: ../../../web-ui/filter#filter-with-label-selectors
-[13]: ../../../web-ui/filter
+[12]: ../../../web-ui/use-search#search-based-on-labels
+[13]: ../../../web-ui/use-search

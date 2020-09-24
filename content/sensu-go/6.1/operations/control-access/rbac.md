@@ -1287,6 +1287,6 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [46]: ../../manage-secrets/secrets-providers/
 [47]: ../../deploy-sensu/datastore/
 [48]: ../../manage-secrets/secrets/
-[49]: ../../../web-ui/filter/#save-a-filtered-search
+[49]: ../../../web-ui/use-search#search-based-on-labels
 [50]: ../../../sensuctl/#reset-a-user-password
 [51]: ../../../sensuctl/#generate-a-password-hash

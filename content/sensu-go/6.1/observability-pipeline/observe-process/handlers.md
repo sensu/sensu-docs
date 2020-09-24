@@ -683,8 +683,8 @@ spec:
 [22]: ../
 [23]: ../../../operations/deploy-sensu/use-assets-to-install-plugins
 [24]: ../../observe-filter/filters/
-[25]: ../../../web-ui/filter#filter-with-label-selectors
+[25]: ../../../web-ui/use-search#search-based-on-labels
 [26]: ../../../operations/manage-secrets/secrets-management/
 [27]: ../../observe-schedule/agent/#registration-endpoint-management-and-service-discovery
-[28]: ../../../web-ui/filter/
+[28]: ../../../web-ui/use-search/
 [29]: ../../../observability-pipeline/

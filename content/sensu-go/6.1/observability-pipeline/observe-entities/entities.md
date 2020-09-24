@@ -66,11 +66,11 @@ If you start an agent with the same name as an existing proxy entity, Sensu will
 
 ## Manage entity labels
 
-Labels are custom attributes that Sensu includes with observation data in events that you can use for response and web UI view filtering.
-In contrast to annotations, you can use labels to filter [API responses][14], [sensuctl responses][15], and [web UI views][23].
+Labels are custom attributes that Sensu includes with observation data in events that you can use for response and web UI view searches.
+In contrast to annotations, you can use labels to filter [API responses][14], [sensuctl responses][15], and [web UI search views][23].
 
-Limit labels to metadata you need to use for response filtering.
-For complex, non-identifying metadata that you will *not* need to use in response filtering, use [annotations][20] rather than labels.
+Limit labels to metadata you need to use for response filtering and searches.
+For complex, non-identifying metadata that you will *not* need to use in response filtering and searches, use [annotations][20] rather than labels.
 
 ### Proxy entity labels {#proxy-entities-managed}
 
@@ -1138,14 +1138,14 @@ spec:
 [20]: #annotations
 [21]: https://regex101.com/r/zo9mQU/2
 [22]: ../../../operations/control-access/rbac/
-[23]: ../../../web-ui/filter#filter-with-label-selectors
+[23]: ../../../web-ui/use-search#search-based-on-labels
 [24]: ../../observe-schedule/checks#proxy-requests-attributes
 [25]: ../../observe-schedule/agent/#detect-cloud-provider-flag
 [26]: #processes-attributes
 [27]: ../../observe-schedule/agent/#discover-processes
 [28]: http://man7.org/linux/man-pages/man1/top.1.html
 [29]: ../../../operations/maintain-sensu/license/#view-entity-count-and-entity-limit
-[30]: ../../../web-ui/filter/
+[30]: ../../../web-ui/use-search/
 [31]: ../#agent-entities
 [32]: ../#proxy-entities
 [33]: ../../../web-ui/view-manage-resources/#manage-entities
