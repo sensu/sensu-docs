@@ -70,7 +70,7 @@ These resources will help you get started with commercial features in Sensu Go:
 [3]: https://sensu.io/features#free-vs-paid
 [4]: ../api#response-filtering
 [5]: ../sensuctl/filter-responses/
-[6]: ../web-ui/use-search/
+[6]: ../web-ui/search/
 [7]: https://blog.sensu.io/one-year-of-sensu-go/
 [8]: ../web-ui/
 [9]: ../operations/control-access/auth/

@@ -311,7 +311,7 @@ The Sensu API supports response filtering for all GET endpoints that return an a
 You can filter resources based on their labels with the `labelSelector` query parameter and based on certain pre-determined fields with the `fieldSelector` query parameter.
 
 {{% notice note %}}
-**NOTE**: To search based on fields and labels in the Sensu web UI, see [Search in the web UI](../web-ui/use-search/).
+**NOTE**: To search based on fields and labels in the Sensu web UI, see [Search in the web UI](../web-ui/search/).
 {{% /notice %}}
 
 ### Label selector

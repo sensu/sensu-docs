@@ -1719,6 +1719,6 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [51]: #events-post-specification
 [52]: ../../observe-process/handlers/#keepalive-event-handlers
 [53]: #keepalive-handlers-flag
-[54]: ../../../web-ui/use-search#search-based-on-labels
+[54]: ../../../web-ui/search#search-for-labels
 [55]: ../../../commercial/
 [56]: #allow-list

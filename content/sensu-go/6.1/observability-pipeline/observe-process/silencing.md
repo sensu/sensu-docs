@@ -366,5 +366,5 @@ name: '*:mysql_status'
 [6]: ../../../api#response-filtering
 [7]: ../../../sensuctl/filter-responses/
 [8]: ../../observe-filter/filters/
-[9]: ../../../web-ui/use-search#search-based-on-labels
-[10]: ../../../web-ui/use-search
+[9]: ../../../web-ui/search#search-for-labels
+[10]: ../../../web-ui/search

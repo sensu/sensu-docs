@@ -1000,7 +1000,7 @@
             "status": 301
         },
         "~ ^/sensu-go/6.1/web-ui/filter/?$": {
-            "url": "/sensu-go/6.1/web-ui/use-search",
+            "url": "/sensu-go/6.1/web-ui/search",
             "status": 301
         },
         "~ ^/sensu-go/6.1/web-ui/searches/?$": {

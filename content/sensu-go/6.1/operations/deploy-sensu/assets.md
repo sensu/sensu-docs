@@ -965,7 +965,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [35]: #asset-definition-multiple-builds
 [37]: https://bonsai.sensu.io/sign-in
 [38]: https://bonsai.sensu.io/new
-[39]: ../../../web-ui/use-search#search-based-on-labels
+[39]: ../../../web-ui/search#search-for-labels
 [40]: ../../../observability-pipeline/observe-schedule/agent/#configuration-via-flags
 [41]: ../../../observability-pipeline/observe-schedule/backend/#configuration
 [42]: #filters
