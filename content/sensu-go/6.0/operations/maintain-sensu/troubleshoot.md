@@ -372,7 +372,7 @@ This would allow the asset to be downloaded onto the target entity.
 
 If you run the Sensu agent on an unsupported Linux platform, the agent might fail to correctly identify your version of Linux and could download the wrong version of an asset.
 
-This issue is specific to Linux distributions that do not include the `lsb_release` package in their default installations.
+This issue affects Linux distributions that do not include the `lsb_release` package in their default installations.
 In this case, `gopsutil` may try to open `/etc/lsb_release` or try to run `/usr/bin/lsb_release` to find system information, including Linux version.
 Since the `lsb_release` package is not installed, the agent will not be able to discover the Linux version as expected.
 
