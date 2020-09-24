@@ -43,7 +43,15 @@ For example, on the Events page in the web UI, if you type `mysql` into the sear
 
 ## Create basic searches
 
-Sensu includes basic search functions for all resource pages.
+Sensu includes these basic search functions:
+
+- **Events page**: search by entity, check, status, and silenced/unsilenced.
+- **Entities page**: search by entity class and subscription.
+- **Silences page**: search by check and subscription.
+- **Checks page**: search by subscription and published/unpublished.
+- **Handlers page**: search by handler type.
+- **Filters page**: search by action.
+
 
 If you are using the [basic web UI search functions][5], you can create a search by clicking in the search bar at the top of the web UI page:
 
