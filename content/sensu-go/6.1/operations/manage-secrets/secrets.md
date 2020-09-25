@@ -103,10 +103,15 @@ example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
 
 id           | 
 -------------|------ 
-description  | Identifying key for the provider to retrieve the secret. For the `Env` secrets provider, the `id` is the environment variable. For the `Vault` secrets provider, the `id` is the secret path and key name in the form of `secret/path#key`.
+description  | Identifying key for the provider to retrieve the secret. For the `Env` secrets provider, the `id` is the environment variable. For the `Vault` secrets provider, the `id` specifies the secrets engine path, the path to the secret within that secrets engine, and the field to retrieve within the secret.
 required     | true
 type         | String
-example      | {{< code shell >}}"id": "secret/ansible#token"{{< /code >}}
+example      | {{< code shell >}}# Format for Vault KV Secrets Engine v1
+"id": "secret/ansible#token"
+
+# Format for Vault KV Secrets Engine v2
+"id": "secrets/sensu#ansible#token"
+{{< /code >}}
 
 provider     | 
 -------------|------ 
@@ -212,9 +217,10 @@ spec:
 {{< /language-toggle >}}
 
 The `id` value for secrets that target a HashiCorp Vault must start with the name of the secret's path in Vault.
-Sensu requires the `secret/` path for the `id` value, and the [Vault dev server][10] is preconfigured with the `secret` keyspace already set up.
+The [Vault dev server][10] is preconfigured with the secret keyspace already set up.
+This is convenient for learning and getting started with Vault secrets management, so this example and our guide to [secrets management][11] use the `secret/` path for the `id` value.
 In this example, the name of the secret is `database`.
-The `database` secret contains a key called `password`, and its value is the password to our database.
+The database secret contains a key called `password,` and its value is the password to our database.
 
 
 [1]: ../../../commercial/

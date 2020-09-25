@@ -41,10 +41,7 @@ Here's how to find your Integration Key in PagerDuty so you can set it up as you
 3. Click your Sensu service.
 4. Click the **Integrations** tab. The Integration Key is listed in the second column.
 
-<div style="text-align:center">
-<img alt="PagerDuty Integration Key location" title="PagerDuty Integration Key location" src="/images/sensu-pagerduty-integration-key.png" width="800 px">
-</div>
-<p style="text-align:center"><i>PagerDuty Integration Key location</i></p>
+{{< figure src="/images/sensu-pagerduty-integration-key.png" alt="PagerDuty Integration Key location" link="/images/sensu-pagerduty-integration-key.png" target="_blank" >}}
 
 Make a note of your Integration Key &mdash; you'll need it to create your [backend environment variable][28] or [HashiCorp Vault secret][29].
 
@@ -138,10 +135,7 @@ The command output includes a `Root Token` line.
 Find this line in your command output and copy the `Root Token` value.
 You will use it next to create your Vault secrets provider.
 
-<div style="text-align:center">
-<img alt="HashiCorp Vault Root Token location" title="HashiCorp Vault Root Token location" src="/images/vault-dev-root-token.png">
-</div>
-<p style="text-align:center"><i>HashiCorp Vault Root Token location</i></p>
+{{< figure src="/images/vault-dev-root-token.png" alt="HashiCorp Vault Root Token location" link="/images/vault-dev-root-token.png" target="_blank" >}}
 
 Leave the Vault dev server running.
 Because you aren't using TLS, you will need to set `VAULT_ADDR=http://127.0.0.1:8200` in your shell environment.
@@ -184,7 +178,9 @@ To continue, skip ahead to [create your Vault secret][29].
 This section explains how use HashiCorp Vault as your external [secrets provider][2] to authenticate with the HashiCorp Vault integration's [TLS certificate auth method][4].
 
 {{% notice note %}}
-**NOTE**: You will need to set up [HashiCorp Vault](https://www.vaultproject.io/docs/install/) in production to use TLS certificate-based authentication. In Vault's dev server, TLS is not enabled. Follow the [HashiCorp Learn curriculum](https://learn.hashicorp.com/vault) when you are ready to set up a production server in Vault.
+**NOTE**: You will need to set up [HashiCorp Vault](https://www.vaultproject.io/docs/install/) in production to use TLS certificate-based authentication.
+In Vault's dev server, TLS is not enabled.
+Follow the [HashiCorp Learn curriculum](https://learn.hashicorp.com/vault) when you are ready to set up a production server in Vault.
 {{% /notice %}}
 
 First, in your Vault, [enable and configure certificate authentication][32].
@@ -236,11 +232,11 @@ This writes your secret into Vault.
 
 In this example, the name of the secret is `pagerduty`.
 The `pagerduty` secret contains a key, and you specified that the `key` value is your PagerDuty Integration Key.
-The `id` value for your secret will be `secret/pagerduty#key`.
 
 {{% notice note %}}
-**NOTE**: The `id` value for secrets that target a HashiCorp Vault must start with the name of the secret's path in Vault.
-The Vault dev server is preconfigured with the `secret` keyspace already set up, and Sensu requires the `secret/` path for the `id` value.
+**NOTE**: The Vault dev server is preconfigured with the secret keyspace already set up, so we recommend using the `secret/` path for the `id` value while you are learning and getting started with Vault secrets management.<br><br>This example uses the `id` format for the Vault [KV Secrets Engine v1](https://www.vaultproject.io/api-docs/secret/kv/kv-v1): `secret/pagerduty#key`.
+If you are using the Vault [KV Secrets Engine v2](https://www.vaultproject.io/api-docs/secret/kv/kv-v2), the format is `secrets/sensu#pagerduty#key`.
+
 {{% /notice %}}
 
 Run `vault kv get secret/pagerduty` to see the secret you just set up.
