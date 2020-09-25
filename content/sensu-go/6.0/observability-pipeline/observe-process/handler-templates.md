@@ -207,7 +207,7 @@ See the [Sensu PagerDuty Handler Bonsai page][10] for details.
 [5]: https://golang.org/pkg/time/#Time.Format
 [6]: https://yourbasic.org/golang/format-parse-string-time-date-example/
 [7]: https://bonsai.sensu.io/
-[8]: https://bonsai.sensu.io/assets/jspaleta/template-toolkit-command
+[8]: https://bonsai.sensu.io/assets/sensu/template-toolkit-command
 [9]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
 [10]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 [11]: #print-available-event-attributes
