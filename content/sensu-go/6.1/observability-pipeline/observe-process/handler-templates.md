@@ -3,10 +3,10 @@ title: "Create handler templates"
 linkTitle: "Create Handler Templates"
 description: "PLACEHOLDER."
 weight: 80
-version: "6.0"
+version: "6.1"
 product: "Sensu Go"
 menu:
-  sensu-go-6.0:
+  sensu-go-6.1:
     parent: observe-process
 ---
 

@@ -2,12 +2,13 @@
 title: "Create handler templates"
 linkTitle: "Create Handler Templates"
 description: "PLACEHOLDER."
-weight: 80
-version: "6.0"
+weight: 95
+version: "5.19"
 product: "Sensu Go"
-menu:
-  sensu-go-6.0:
-    parent: observe-process
+platformContent: false
+menu: 
+  sensu-go-5.19:
+    parent: guides
 ---
 
 Sensu Go uses the [Go template package][1], which allows you to generate text output that includes observation data from events.
@@ -44,7 +45,7 @@ The table below lists the event attributes that are available to use in handler 
 You can also use the [template toolkit command][11] to print available event attributes for a specific event.
 
 {{% notice note %}}
-**NOTE**: The [entity](../../observe-entities/entities/#spec-attributes) and [events](../../observe-events/events/#spec-attributes) specifications describe each attribute in detail.
+**NOTE**: The [entity](../../reference/entities/#spec-attributes) and [events](../../reference/events/#spec-attributes) specifications describe each attribute in detail.
 {{% /notice %}}
 
 | attribute | attribute | attribute |
@@ -202,7 +203,7 @@ See the [Sensu PagerDuty Handler Bonsai page][10] for details.
 
 
 [1]: https://pkg.go.dev/text/template
-[3]: ../../observe-events/events/#spec-attributes
+[3]: ../../reference/events/#spec-attributes
 [4]: #available-event-attributes
 [5]: https://golang.org/pkg/time/#Time.Format
 [6]: https://yourbasic.org/golang/format-parse-string-time-date-example/
