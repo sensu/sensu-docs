@@ -19,7 +19,7 @@ For example, a template for a brief Slack alert might include information about 
 {{< code html >}}
 
 <html>
-The entity {{ .Entity.Name }} has a status of {{ .Check.State }}. The entity has reported the same status for {{ .Check.Occurrences }} preceding events.<br>
+The entity {{.Entity.Name}} has a status of {{.Check.State}}. The entity has reported the same status for {{.Check.Occurrences}} preceding events.<br>
 The playbook for managing this alert is availble at https://example.com/observability/alerts/playbook.
 </html>
 
@@ -30,7 +30,7 @@ The playbook for managing this alert is availble at https://example.com/observab
 Handler templates use dot notation syntax to access event attributes, with the event attribute wrapped in double curly braces.
 The initial dot indicates `event`.
 
-For example, in a handler template, a reference to the event attribute `.Check.occurrences` becomes `{{ .Check.Occurrences }}`.
+For example, in a handler template, a reference to the event attribute `.Check.occurrences` becomes `.Check.Occurrences}}`.
 
 Use HTML to format the text and spacing in your templates.
 All text outside double curly braces is copied directly into the template output, with HTML formatting applied.
@@ -89,40 +89,63 @@ Visit the [template toolkit command Bonsai page][8] to install the plugin.
 Use the template toolkit command to print a list of the available event attributes as well as the correct dot notation and capitalization pattern for a specific event (in this example, `event.json`):
 
 {{< code shell >}}
-cat event.json | sensuctl command exec jspaleta/template-toolkit-command -- --dump-names
-
-.Entity{
-    .EntityClass: "agent",
-    .System:      .System{
-[...]
-.Check{
-    .Command:           "",
-    .Handlers:          {"keepalive"},
-    .HighFlapThreshold: 0x0,
-[...]
+cat event.json | sensuctl command exec template-toolkit-command -- --dump-names
+INFO[0000] asset includes builds, using builds instead of asset  asset=template-toolkit-command component=asset-manager entity=sensuctl
+.Event{
+    .Timestamp: 1580310179,
+	.Entity{
+    	.EntityClass: "agent",
+    	.System:      .System{
+	[...]
+	.Check{
+    	.Command:           "",
+    	.Handlers:          {"keepalive"},
+    	.HighFlapThreshold: 0x0,
+	[...]
 {{< /code >}}
 
-In this example, the response lists the available event attributes `.Entity.EntityClass`, `.Entity.System`, `.Check.Command`, `.Check.Handlers`, and `.Check.HighFlapThreshold`.
+In this example, the response lists the available event attributes `.Timestamp`, `.Entity.EntityClass`, `.Entity.System`, `.Check.Command`, `.Check.Handlers`, and `.Check.HighFlapThreshold`.
 
-{{% notice note %}}
-**NOTE**: The [events specification](../../observe-events/events/#spec-attributes) describes each event attribute in detail.
-{{% /notice %}}
+You can also use `sensuctl event info [ENTITY_NAME] [CHECK_NAME]` to print the correct notation and pattern: template output for a specific event (in this example, an event for entity `webserver01` and check `check-http`):
+
+{{< code shell >}}
+sensuctl event info server01 server-health --format json | sensuctl command exec template-toolkit -- --dump-names
+INFO[0000] asset includes builds, using builds instead of asset  asset=template-toolkit-command component=asset-manager entity=sensuctl
+.Event{
+    .Timestamp: 1580310179,
+    .Entity:{
+        .EntityClass:        "proxy",
+        .System:             .System{
+	[...]
+    .Check:{
+        .Command:           "health.sh",
+        .Handlers:          {"slack"},
+        .HighFlapThreshold: 0x0,
+    [...]
+{{< /code >}}
 
 ### Validate handler template output
 
 Use the template toolkit command to validate the dot notation syntax and output for any event attribute.
 
-For example, to test the output for the `{{ .Check.Name }}` attribute for the event `event.json`:
+For example, to test the output for the `{{.Check.Name}}` attribute for the event `event.json`:
 
 {{< code shell >}}
-cat event.json | sensuctl command exec template-toolkit-command -- --template "{{ .Check.Name }}"
-
+cat event.json | sensuctl command exec template-toolkit-command -- --template "{{.Check.Name}}"
 INFO[0000] asset includes builds, using builds instead of asset  asset=template-toolkit-command component=asset-manager entity=sensuctl
-executing command with --template {{ .Check.Name }}
+executing command with --template {{.Check.Name}}
 Template String Output: keepalive
 {{< /code >}}
 
-In this example, the command validates that for the `event.json` event, the handler template will replace `{{ .Check.Name }}` with `keepalive` in template output.
+In this example, the command validates that for the `event.json` event, the handler template will replace `{{.Check.Name}}` with `keepalive` in template output.
+
+You can also use `sensuctl event info [ENTITY_NAME] [CHECK_NAME]` to validate template output for a specific event (in this example, an event for entity `webserver01` and check `check-http`):
+
+{{< code shell >}}
+sensuctl event info webserver01 check-http --format json | sensuctl command exec template-toolkit-command -- --template "Server: {{.Entity.Name}} Check: {{.Check.Name}} Status: {{.Check.State}}"
+Executing command with --template Server: {{.Entity.Name}} Check: {{.Check.Name}} Status: {{.Check.State}}
+Template String Output: Server: "webserver01 Check: check-http Status: passing"
+{{< /code >}}
 
 ## Examples
 
@@ -137,10 +160,10 @@ For example, this template will produce an email body that includes the name of 
 Greetings,
 
 <h3>Informational Details</h3>
-<b>Check</b>: {{ .Check.Name }}<br>
-<b>Entity</b>: {{ .Entity.Name }}<br>
-<b>State</b>: {{ .Check.State }}<br>
-<b>Occurrences</b>: {{ .Check.Occurrences }}<br>
+<b>Check</b>: {{.Check.Name}}<br>
+<b>Entity</b>: {{.Entity.Name}}<br>
+<b>State</b>: {{.Check.State}}<br>
+<b>Occurrences</b>: {{.Check.Occurrences}}<br>
 <b>Playbook</b>: https://example.com/monitoring/wiki/playbook
 <h3>Check Output Details</h3>
 <b>Check Output</b>: {{.Check.Output}}
