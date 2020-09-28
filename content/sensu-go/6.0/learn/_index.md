@@ -3,7 +3,7 @@ title: "Learn Sensu"
 description: "Learn Sensu with interactive tutorials in your browser, a live demo, a sandbox for building your first observability workflow, and more."
 product: "Sensu Go"
 version: "6.0"
-weight: 110
+weight: 120
 layout: "single"
 toc: false
 menu:
