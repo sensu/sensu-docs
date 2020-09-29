@@ -316,14 +316,15 @@ The `/checks/:check` API endpoint provides HTTP PATCH access to update `:check` 
 
 {{% notice note %}}
 **NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
-Use a [`/checks/:check` PUT request](#checkscheck-put) instead.
+Use a [PUT request](#checkscheck-put) instead.<br><br>
+Also, you cannot add elements to an array with a PATCH request &mdash; you must replace the entire array.
 {{% /notice %}}
 
 ### Example
 
-In the following example, an HTTP PATCH request is submitted to the `/checks/:check` API endpoint to update the `check-cpu` check, resulting in an HTTP `200 OK` response and the updated check definition.
+In the following example, an HTTP PATCH request is submitted to the `/checks/:check` API endpoint to update the subscriptions array for the `check-cpu` check, resulting in an HTTP `200 OK` response and the updated check definition.
 
-We support [JSON merge patches][2], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
+We support [JSON merge patches][6], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
 
 {{< code shell >}}
 curl -X PATCH \
@@ -337,7 +338,7 @@ curl -X PATCH \
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu
 
-HTTP/1.1 201 Created
+HTTP/1.1 200 OK
 {{< /code >}}
 
 ### API Specification
@@ -355,47 +356,7 @@ payload         | {{< code shell >}}
 }
 {{< /code >}}
 payload parameters | Required check attributes: `interval` (integer) or `cron` (string) and a `metadata` scope that contains `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1].
-response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
-## Update an API key
-
-The `/apikeys/:apikey` PATCH endpoint updates the specified API key.
-
-{{% notice note %}}
-**NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
-{{% /notice %}}
-
-### Example {#apikeysapikey-patch-example}
-
-In the following example, querying the `/apikeys/:apikey` API updates the username for the specified `:apikey` definition.
-
-We support [JSON merge patches][2], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
-
-{{< code shell >}}
-curl -X PATCH \
--H "Authorization: Key $SENSU_API_KEY" \
--H 'Content-Type: application/merge-patch+json' \
-{
-  "username": "devteam"
-} \
-http://127.0.0.1:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
-
-HTTP/1.1 200 OK
-{{< /code >}}
-
-### API Specification {#apikeysapikey-patch-specification}
-
-/apikeys/:apikey (PATCH) | 
----------------------|------
-description          | Updates the specified API key.
-example url          | http://hostname:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
-response type        | Map
-response codes       | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
-{
-  "username": "devteam"
-}
-{{< /code >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Delete a check {#checkscheck-delete}
 
@@ -530,8 +491,10 @@ description               | Removes a single hook from a check (specified by the
 example url               | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical/hook/process_tree
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+
 [1]: ../../observability-pipeline/observe-schedule/checks/
 [2]: ../../observability-pipeline/observe-schedule/hooks/
 [3]: ../../observability-pipeline/observe-schedule/checks#check-hooks-attribute
 [4]: ../#pagination
 [5]: ../#response-filtering
+[6]: https://tools.ietf.org/html/rfc7396
