@@ -381,11 +381,28 @@ For more information, see [Get started with commercial features][30].
 The `sensuctl prune` subcommand allows you to delete resources that do not appear in a given set of Sensu objects (called a "configuration") from a from a file, URL, or STDIN.
 For example, you can use `sensuctl create` to to apply a new configuration, then use `sensuctl prune` to prune unneeded resources, resources that were created by a specific user or that include a specific label selector, and more.
 
-`sensuctl prune` can only delete resources that have the label `sensu.io/managed_by: sensuctl`, which Sensu automatically adds to all resources created with sensuctl.
-This means you can only use `sensuctl prune` to delete resources that were created with sensuctl.
-
 The pruning operation always follows the role-based access control (RBAC) permissions of the current user.
 For example, to prune resources in the `dev` namespace, the current user who sends the prune command must have delete access to the `dev` namespace.
+In addition, pruning requires [cluster-level privileges][35], even when all resources belong to the same namespace.
+
+{{% notice note %}}
+**NOTE**: `sensuctl prune` can only delete resources that have the label `sensu.io/managed_by: sensuctl`, which Sensu automatically adds to all resources created with sensuctl.
+This means you can only use `sensuctl prune` to delete resources that were created with sensuctl.
+{{% /notice %}}
+
+To delete resources that do not include a label, use [`sensuctl dump`](../back-up-recover/) with `sensuctl delete`.
+For example, to delete all checks:
+
+{{< code shell >}}
+sensuctl dump core/v2.CheckConfig | sensuctl delete
+{{< /code >}}
+
+To dump the checks to a yaml file and then delete them:
+
+{{< code shell >}}
+sensuctl dump core/v2.CheckConfig --format yaml --file dumpedchecks.yaml
+sensuctl delete -f dumpedchecks.yaml
+{{< /code >}}
 
 ##### sensuctl prune usage
 
@@ -484,6 +501,8 @@ Use the `all` qualifier to prune all supported resources:
 sensuctl prune all
 {{< /code >}}
 
+
+
 ## Time formats
 
 Sensuctl supports multiple time formats depending on the manipulated resource.
@@ -542,3 +561,4 @@ Sensuctl supports the following formats:
 [32]: ../../operations/deploy-sensu/datastore/
 [33]: #create-resources-across-namespaces
 [34]: ../../operations/maintain-sensu/license/
+[35]: ../../operations/control-access/rbac/#cluster-roles
