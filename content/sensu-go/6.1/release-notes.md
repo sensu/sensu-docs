@@ -9,6 +9,7 @@ version: "6.1"
 menu: "sensu-go-6.1"
 ---
 
+- [6.1.0 release notes](#610-release-notes)
 - [6.0.0 release notes](#600-release-notes)
 - [5.21.2 release notes](#5212-release-notes)
 - [5.21.1 release notes](#5211-release-notes)
@@ -67,6 +68,48 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.1.0 release notes
+
+**October 5, 2020** &mdash; The latest release of Sensu Go, version 6.1.0, is now available for download.
+
+**PLACEHOLDER FOR RELEASE SYNOPSIS**
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.1.0.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][172]) Added support for custom secrets engine paths in [Vault secrets][175].
+- ([Commercial feature][172]) In the web UI, added [new search functionality][178], with improved syntax and suggestions.
+- ([Commercial feature][172]) Added [`strict` field to PostgresConfig][179] to help debug incorrect configurations and database permissions.
+- ([Commercial feature][172]) Added TLS configuration to the cluster resource so you can specify additional CA certificates and insecure mode.
+- ([Commercial feature][172]) Added a `types` query parameter for listing [authentication providers][176] and [secrets providers][177] via the API.
+- ([Commercial feature][172]) The Alpine-based Docker image now has multi-architecture support with support for the linux/386, linux/amd64, linux/arm64, linux/arm/v6, linux/arm/v7, linux/ppc64le, and linux/s390x platforms.
+- The backend flag [`--api-request-limit`][173] is now available to configure the maximum API request body size (in bytes).
+- In the [REST API][174], most configuration resources now support the PATCH method for making updates.
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][172]) Improved logging for OIDC authentication providers.
+- ([Commercial feature][172]) Added indexed field and label selectors to the PostgreSQL event store to improve performance for PostgreSQL event store queries with field and label selectors.
+- Added Prometheus transformer for extracting metrics from check output using the Prometheus Exposition Text Format.
+- A warning is now logged when you request a dynamic runtime asset that does not exist.
+- The trusted CA file is now used for agent, backend, and sensuctl asset retrieval.
+- Per-entity subscriptions (such as `entity:entityName`) are always available for agent entities, even you remove subscriptions via the entities API.
+
+**FIXES:**
+
+- ([Commercial feature][172]) Fixed a bug in `sensuctl dump` that allowed polymorphic resources (e.g., secrets providers and authentication providers) to dump other providers of the same type.
+- ([Commercial feature][172]) Check output is no longer truncated in the event log file when the max output size is set and the PostgreSQL event store is enabled.
+- ([Commercial feature][172]) Sensuctl prune now handles multi-file/multi-url input correctly.
+- ([Commercial feature][172]) Fixed a bug where PostgreSQL errors could cause the backend to panic.
+- ([Commercial feature][172]) Fixed a bug where PostgreSQL would refuse to store event with a negative check status.
+- The backend will no longer start if the web UI TLS configuration is not fully specified.
+- The agent entity is now included in data passed to the STDIN for the command process.
+- Proxy entities used in round robin check requests are no longer stale.
+- Fixed a bug that resulted in incorrect entity listings for agent entities created via the API instead of sensu-agent.
+- When downloading assets, Sensu now closes the response body after reading from it.
+- Fixed a crash in the backend and agent related to JavaScript execution.
 
 ## 6.0.0 release notes
 
@@ -1475,3 +1518,11 @@ To get started with Sensu Go:
 [169]: /sensu-go/6.0/observability-pipeline/observe-filter/filters/#build-event-filter-expressions-with-javascript-execution-functions
 [170]: /sensu-go/6.0/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-60-from-a-5x-deployment
 [171]: /sensu-go/6.0/observability-pipeline/observe-entities/entities/#create-and-manage-agent-entities
+[172]: /sensu-go/6.1/commercial/
+[173]: /sensu-go/6.1/observability-pipeline/observe-schedule/backend/#api-request-limit
+[174]: /sensu-go/6.1/api/
+[175]: /sensu-go/6.1/operations/manage-secrets/secrets-management/#use-hashicorp-vault-for-secrets-management
+[176]: /sensu-go/6.1/api/authproviders/#authproviders-get-specification
+[177]: /sensu-go/6.1/api/secrets/#providers-get-specification
+[178]: /sensu-go/6.1/web-ui/search/
+[179]: /sensu-go/6.1/operations/deploy-sensu/datastore/#strict
