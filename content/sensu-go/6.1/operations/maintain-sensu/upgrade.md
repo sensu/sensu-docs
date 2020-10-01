@@ -13,8 +13,7 @@ menu:
 
 ## Upgrade to Sensu Go 6.1.0 from 6.0.0
 
-To upgrade to Sensu Go 6.1.0 from version 6.0.0 or later, [install the latest packages][1].
-Then, restart the services.
+To upgrade to Sensu Go 6.1.0 from version 6.0.0 or later, [install the latest packages][1] and restart the services.
 
 {{% notice note %}}
 **NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services.
