@@ -1164,6 +1164,7 @@ spec:
   - email
   client_id: a8e43af034e7f2608780
   client_secret: b63968394be6ed2edb61c93847ee792f31bf6216
+  disable_offline_access: false
   redirect_uri: http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback
   server: https://oidc.example.com:9031
   groups_claim: groups
@@ -1186,6 +1187,7 @@ spec:
       ],
       "client_id": "a8e43af034e7f2608780",
       "client_secret": "b63968394be6ed2edb61c93847ee792f31bf6216",
+      "disable_offline_access": false,
       "redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback",
       "server": "https://oidc.example.com:9031",
       "groups_claim": "groups",
@@ -1238,6 +1240,7 @@ example      | {{< code shell >}}"spec": {
     ],
   "client_id": "a8e43af034e7f2608780",
   "client_secret": "b63968394be6ed2edb61c93847ee792f31bf6216",
+  "disable_offline_access": false,
   "redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback",
   "server": "https://oidc.example.com:9031",
   "groups_claim": "groups",
@@ -1267,7 +1270,7 @@ required     | false
 type         | Array
 example      | {{< code shell >}}"additional_scopes": ["groups", "email", "username"]{{< /code >}}
 
-| client_id    |      |
+| client_id  |      |
 -------------|------
 description  | The OIDC provider application `Client ID`. {{% notice note %}}
 **NOTE**: Requires [registering an application in the OIDC provider](#register-an-oidc-application).
@@ -1284,6 +1287,14 @@ description  | The OIDC provider application `Client Secret`. {{% notice note %}
 required     | true
 type         | String
 example      | {{< code shell >}}"client_secret": "a0f2a3c1dcd5b1cac71bf0c03f2ff1bd"{{< /code >}}
+
+| disable_offline_access |      |
+-------------|------
+description  | If `true`, the OIDC provider cannot include the `offline_access` scope in the authentication request. Otherwise, `false`.<br><br>We recommend setting `disable_offline_access` to `false`. If set to `true`, OIDC providers cannot return a refresh token that allows users to refresh their access tokens, and users will be logged out after 5 minutes.
+required     | true
+default      | false
+type         | Boolean
+example      | {{< code shell >}}"disable_offline_access": false{{< /code >}}
 
 | redirect_uri |   |
 -------------|------
