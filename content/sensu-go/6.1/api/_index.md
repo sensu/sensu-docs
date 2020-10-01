@@ -305,10 +305,47 @@ Content-Length: 54
 ## Etag response headers
 
 All GET and PATCH requests return an [Etag HTTP response header][10] that identifies a specific version of the resource.
-
 Use the Etag value from the response header to conditionally execute PATCH requests that use the [If-Match][22] and [If-None-Match][23] headers.
 
 If Sensu cannot execute a PATCH request because one of the conditions failed, the request will return the HTTP response code `412 Precondition Failed`.
+
+### If-Match example
+
+{{< code shell >}}
+curl -X PATCH \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/merge-patch+json' \
+-H 'If-Match: "drrn157624731797"' \
+-d '{
+  "metadata": {
+    "labels": {
+      "region": "us-west-1"
+    }
+  }
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
+
+HTTP/1.1 200 OK
+{{< /code >}}
+
+### If-None-Match example
+
+{{< code shell >}}
+curl -X PATCH \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/merge-patch+json' \
+-H 'If-None-Match: "drrn157624731797", "reew237527931897"' \
+-d '{
+  "metadata": {
+    "labels": {
+      "region": "us-west-1"
+    }
+  }
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
+
+HTTP/1.1 200 OK
+{{< /code >}}
 
 ## Response filtering
 
