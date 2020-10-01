@@ -90,7 +90,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.1.0.
 
 **IMPROVEMENTS:**
 
-- ([Commercial feature][172]) Improved logging for OIDC authentication providers.
+- ([Commercial feature][172]) Improved logging for OIDC authentication providers. Also added [`disable_offline_access` OIDC spec attribute][180], which allows OIDC providers to return a refresh token so users can refresh their access tokens.
 - ([Commercial feature][172]) Added indexed field and label selectors to the PostgreSQL event store to improve performance for PostgreSQL event store queries with field and label selectors.
 - Added Prometheus transformer for extracting metrics from check output using the Prometheus Exposition Text Format.
 - A warning is now logged when you request a dynamic runtime asset that does not exist.
@@ -1526,3 +1526,4 @@ To get started with Sensu Go:
 [177]: /sensu-go/6.1/api/secrets/#providers-get-specification
 [178]: /sensu-go/6.1/web-ui/search/
 [179]: /sensu-go/6.1/operations/deploy-sensu/datastore/#strict
+[180]: /sensu-go/6.1/operations/control-access/auth/#oidc-spec-attributes
