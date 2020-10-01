@@ -11,6 +11,31 @@ menu:
     parent: maintain-sensu
 ---
 
+## Upgrade to Sensu Go 6.1.0 from 6.0.0
+
+To upgrade to Sensu Go 6.1.0 from version 6.0.0 or later, [install the latest packages][1].
+Then, restart the services.
+
+{{% notice note %}}
+**NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services.
+{{% /notice %}}
+
+{{< code shell >}}
+# Restart the Sensu agent
+sudo service sensu-agent restart
+
+# Restart the Sensu backend
+sudo service sensu-backend restart
+{{< /code >}}
+
+To confirm the installed version, run `sensu-agent version`, `sensu-backend version`, and `sensuctl version`.
+
+If you have a large number of events in PostgreSQL, you may experience a short period of unavailability after you upgrade to 6.1.0. 
+This pause will occur while the optimized selector information is populating during automatic database migration.
+It may last for a period of a few seconds to a few minutes.
+
+This pause may extend to API request processing, so sensuctl and the web UI may also be unavailable during the migration.
+
 ## Upgrade to Sensu Go 6.0 from a 5.x deployment
 
 {{% notice important %}}
