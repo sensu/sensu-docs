@@ -24,14 +24,17 @@ Bonsai lists hundreds of Sensu plugins with installation instructions and usage 
 
 We also list popular Sensu-supported plugins in the [supported integrations][3] section.
 
+## Write your own custom plugins
+
+Write your own Sensu plugins in almost any programming language with [Sensu's plugin specification][4].
+The [Sensu Go plugin SDK library][9] provides a framework for building Sensu Go plugins so that all you need to do is define plugin arguments and input validation and execution functions.
+
+If you are interested in sharing your plugin with other Sensu users, you can find guidance for contributing plugins, pinning versions, writing plugin READMEs, and transferring repos to community responsibility at the [Sensu plugins community GitHub repo][8]
+
 ## Use Nagios plugins
 
 The [Sensu plugin specification][4] is compatible with the [Nagios plugin specification][5], so you can use Nagios plugins with Sensu without any modification.
 Sensu allows you to bring new life to the 50+ plugins in the official [Nagios Plugins project][6], a mature source of monitoring plugins, and more than 4000 plugins in the [Nagios Exchange][7].
-
-## Write your own custom plugins
-
-Write your own Sensu plugins in almost any programming language with [Sensu's plugin specification][4].
 
 
 [1]: developer-guidelines/
@@ -41,3 +44,5 @@ Write your own Sensu plugins in almost any programming language with [Sensu's pl
 [5]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/pluginapi.html
 [6]: https://www.nagios.org/downloads/nagios-plugins/
 [7]: https://exchange.nagios.org/
+[8]: https://github.com/sensu-plugins/community
+[9]: https://github.com/sensu-community/sensu-plugin-sdk
