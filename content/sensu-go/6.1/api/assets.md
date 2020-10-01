@@ -326,8 +326,11 @@ curl -X PATCH \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/merge-patch+json' \
 -d '{
-  "labels": {
-    "region": "us-west-1"
+  "metadata": {
+    "labels": {
+      "region": "us-west-1"
+    }
+  }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
 
@@ -342,8 +345,11 @@ description     | Updates the specified Sensu asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
 payload         | {{< code shell >}}
 {
-  "labels": {
-    "region": "us-west-1"
+  "metadata": {
+    "labels": {
+      "region": "us-west-1"
+    }
+  }
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>

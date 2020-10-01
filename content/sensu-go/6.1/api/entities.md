@@ -565,11 +565,16 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 
 The `/entities/:entity` API endpoint provides HTTP PATCH access to update **entity configuration attributes** in `:entity` definitions, specified by entity name:
 
+- `labels`
+- `annotations`
+- `created_by`
 - `entity_class`
 - `user`
 - `subscriptions`
 - `deregister`
+- `deregistration`
 - `redact`
+- `keepalive_handler`
 
 {{% notice note %}}
 **NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
@@ -579,7 +584,7 @@ Also, you cannot add elements to an array with a PATCH request &mdash; you must 
 
 ### Example
 
-In the following example, an HTTP PATCH request is submitted to the `/entities/:entity` API endpoint to update the subscriptions array within the rules array for the `sensu-centos` entity, resulting in an HTTP `200 OK` response and the updated entity definition.
+In the following example, an HTTP PATCH request is submitted to the `/entities/:entity` API endpoint to add a label for the `sensu-centos` entity, resulting in an HTTP `200 OK` response and the updated entity definition.
 
 We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
 
@@ -588,10 +593,11 @@ curl -X PATCH \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/merge-patch+json' \
 -d '{
-  "subscriptions": [
-    "webserver",
-    "system"
-  ]
+  "metadata": {
+    "labels": {
+      "region": "us-west-1"
+    }
+  }
 }' \
 http://127.0.0.1:8080/api/core/v2/entities/sensu-centos
 
@@ -606,10 +612,11 @@ description     | Updates the specified Sensu entity.
 example URL     | http://hostname:8080/api/core/v2/entities/sensu-centos
 payload         | {{< code shell >}}
 {
-  "subscriptions": [
-    "webserver",
-    "system"
-  ]
+  "metadata": {
+    "labels": {
+      "region": "us-west-1"
+    }
+  }
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>

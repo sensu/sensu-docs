@@ -139,7 +139,7 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-## Update an API key
+## Update an API key with PATCH
 
 The `/apikeys/:apikey` PATCH endpoint updates the specified API key.
 
