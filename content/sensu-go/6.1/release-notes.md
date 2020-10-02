@@ -81,7 +81,8 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.1.0.
 
 - ([Commercial feature][172]) Added support for custom secrets engine paths in [Vault secrets][175].
 - ([Commercial feature][172]) In the web UI, added [new search functionality][178], with improved syntax and suggestions.
-- ([Commercial feature][172]) Added [`strict` field to PostgresConfig][179] to help debug incorrect configurations and database permissions.
+- ([Commercial feature][172]) Added [`strict` attribute][179] to the PostgresConfig type to help debug incorrect configurations and database permissions.
+- ([Commercial feature][172]) Added [`batch_buffer`, `batch_size`, and `batch_buffer` attributes][181] to the PostgresConfig type so operators can optimize PostgreSQL latency and throughput.
 - ([Commercial feature][172]) Added TLS configuration to the cluster resource so you can specify additional CA certificates and insecure mode.
 - ([Commercial feature][172]) Added a `types` query parameter for listing [authentication providers][176] and [secrets providers][177] via the API.
 - ([Commercial feature][172]) The Alpine-based Docker image now has multi-architecture support with support for the linux/386, linux/amd64, linux/arm64, linux/arm/v6, linux/arm/v7, linux/ppc64le, and linux/s390x platforms.
@@ -1527,3 +1528,4 @@ To get started with Sensu Go:
 [178]: /sensu-go/6.1/web-ui/search/
 [179]: /sensu-go/6.1/operations/deploy-sensu/datastore/#strict
 [180]: /sensu-go/6.1/operations/control-access/auth/#oidc-spec-attributes
+[181]: /sensu-go/latest/operations/deploy-sensu/datastore/#spec-attributes
