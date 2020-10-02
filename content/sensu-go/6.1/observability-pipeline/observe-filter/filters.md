@@ -952,7 +952,7 @@ spec:
 [37]: ../../../sensuctl/filter-responses/
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
 [39]: ../../../operations/deploy-sensu/assets/
-[41]: ../../../web-ui/filter#filter-with-label-selectors
-[42]: ../../../web-ui/filter/
+[41]: ../../../web-ui/search#search-for-labels
+[42]: ../../../web-ui/search/
 [43]: ../
 [44]: ../../../observability-pipeline/
