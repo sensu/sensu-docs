@@ -1,7 +1,7 @@
 ---
 title: "Create handler templates"
 linkTitle: "Create Handler Templates"
-description: "PLACEHOLDER."
+description: "Add meaningful, actionable context to alerts with event-based templating for your handlers. Read this guide to learn how to create handler templates."
 weight: 80
 version: "6.0"
 product: "Sensu Go"
