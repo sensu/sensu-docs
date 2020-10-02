@@ -51,7 +51,7 @@ HTTP/1.1 200 OK
     "rules": [
       {
         "verbs": [
-          "read"
+          "get"
         ],
         "resources": [
           "*"
@@ -103,7 +103,7 @@ output         | {{< code shell >}}
     "rules": [
       {
         "verbs": [
-          "read"
+          "get"
         ],
         "resources": [
           "*"
@@ -309,6 +309,69 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Update a role with PATCH
+
+The `/roles/:role` API endpoint provides HTTP PATCH access to update `:role` definitions, specified by role name.
+
+{{% notice note %}}
+**NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
+Use a [PUT request](#rolesrole-put) instead.<br><br>
+Also, you cannot add elements to an array with a PATCH request &mdash; you must replace the entire array.
+{{% /notice %}}
+
+### Example
+
+In the following example, an HTTP PATCH request is submitted to the `/roles/:role` API endpoint to update the verbs array within the rules array for the `global-event-admin` role, resulting in an HTTP `200 OK` response and the updated role definition.
+
+We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
+
+{{< code shell >}}
+curl -X PATCH \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/merge-patch+json' \
+-d '{
+  "rules": [
+    {
+      "verbs": [
+        "get",
+        "list"
+      ],
+      "resources": [
+        "events"
+      ],
+      "resource_names": null
+    }
+  ]
+}' \
+http://127.0.0.1:8080/api/core/v2/roles/event-reader
+
+HTTP/1.1 200 OK
+{{< /code >}}
+
+### API Specification
+
+/roles/:role (PATCH) | 
+----------------|------
+description     | Updates the specified Sensu role.
+example URL     | http://hostname:8080/api/core/v2/roles/event-reader
+payload         | {{< code shell >}}
+{
+  "rules": [
+    {
+      "verbs": [
+        "get",
+        "list"
+      ],
+      "resources": [
+        "events"
+      ],
+      "resource_names": null
+    }
+  ]
+}
+{{< /code >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## Delete a role {#rolesrole-delete}
 
 The `/roles/:role` API endpoint provides HTTP DELETE access to delete a role from Sensu (specified by the role name).
@@ -333,6 +396,8 @@ description               | Removes the specified role from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/roles/read-only
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+
 [1]: ../../operations/control-access/rbac/
 [2]: ../#pagination
 [3]: ../#response-filtering
+[4]: https://tools.ietf.org/html/rfc7396

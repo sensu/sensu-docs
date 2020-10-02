@@ -95,7 +95,20 @@ curl -X POST \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
-  "name": "development"
+  "subjects": [
+    {
+      "type": "Group",
+      "name": "readers"
+    }
+  ],
+  "role_ref": {
+    "type": "Role",
+    "name": "read-only"
+  },
+  "metadata": {
+    "name": "readers-group-binding",
+    "namespace": "default"
+  }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings
 
@@ -249,6 +262,65 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Update a role binding with PATCH
+
+The `/rolebindings/:rolebinding` API endpoint provides HTTP PATCH access to update `:rolebinding` definitions, specified by role binding name.
+
+{{% notice note %}}
+**NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
+Use a [PUT request](#rolebindingsrolebinding-put) instead.<br><br>
+Also, you cannot add elements to an array with a PATCH request &mdash; you must replace the entire array.
+{{% /notice %}}
+
+### Example
+
+In the following example, an HTTP PATCH request is submitted to the `/rolebindings/:rolebinding` API endpoint to add a group to the subjects array for the `dev-binding` role binding, resulting in an HTTP `200 OK` response and the updated role binding definition.
+
+We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
+
+{{< code shell >}}
+curl -X PATCH \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/merge-patch+json' \
+-d '{
+  "subjects": [
+    {
+      "type": "Group",
+      "name": "dev_team_1"
+    },
+    {
+      "type": "Group",
+      "name": "dev_team_2"
+    }
+  ]
+}' \
+http://127.0.0.1:8080/api/core/v2/rolebindings/dev-binding
+
+HTTP/1.1 200 OK
+{{< /code >}}
+
+### API Specification
+
+/rolebindings/:rolebinding (PATCH) | 
+----------------|------
+description     | Updates the specified Sensu role binding.
+example URL     | http://hostname:8080/api/core/v2/rolebindings/dev-binding
+payload         | {{< code shell >}}
+{
+  "subjects": [
+    {
+      "type": "Group",
+      "name": "dev_team_1"
+    },
+    {
+      "type": "Group",
+      "name": "dev_team_2"
+    }
+  ]
+}
+{{< /code >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## Delete a role binding {#rolebindingsrolebinding-delete}
 
 The `/rolebindings/:rolebinding` API endpoint provides HTTP DELETE access to delete a role binding from Sensu (specified by the role binding name).
@@ -273,6 +345,8 @@ description               | Removes the specified role binding from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+
 [1]: ../../operations/control-access/rbac/
 [2]: ../#pagination
 [3]: ../#response-filtering
+[4]: https://tools.ietf.org/html/rfc7396

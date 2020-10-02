@@ -241,6 +241,47 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Update a hook with PATCH
+
+The `/hooks/:hook` API endpoint provides HTTP PATCH access to update `:hook` definitions, specified by hook name.
+
+{{% notice note %}}
+**NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
+Use a [PUT request](#hookshook-put) instead.<br><br>
+Also, you cannot add elements to an array with a PATCH request &mdash; you must replace the entire array.
+{{% /notice %}}
+
+### Example
+
+In the following example, an HTTP PATCH request is submitted to the `/hooks/:hook` API endpoint to update the timeout for the `process-tree` hook, resulting in an HTTP `200 OK` response and the updated hook definition.
+
+We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
+
+{{< code shell >}}
+curl -X PATCH \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/merge-patch+json' \
+-d '{
+  "timeout": 20
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/hook/process-tree
+
+HTTP/1.1 200 OK
+{{< /code >}}
+
+### API Specification
+
+/hooks/:hook (PATCH) | 
+----------------|------
+description     | Updates the specified Sensu hook.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/hooks/process-tree
+payload         | {{< code shell >}}
+{
+  "timeout": 20
+}
+{{< /code >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## Delete a hook {#hookshook-delete}
 
 The `/hooks/:hook` API endpoint provides HTTP DELETE access to delete a check hook from Sensu (specified by the hook name).
@@ -265,6 +306,8 @@ description               | Removes the specified hook from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/hooks/process-tree
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+
 [1]: ../../observability-pipeline/observe-schedule/hooks/
 [2]: ../#pagination
 [3]: ../#response-filtering
+[4]: https://tools.ietf.org/html/rfc7396

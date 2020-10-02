@@ -285,6 +285,65 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Update a cluster role binding with PATCH
+
+The `/clusterrolebindings/:clusterrolebinding` API endpoint provides HTTP PATCH access to update `:clusterrolebinding` definitions, specified by cluster role binding name.
+
+{{% notice note %}}
+**NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
+Use a [PUT request](#clusterrolebindingsclusterrolebinding-put) instead.<br><br>
+Also, you cannot add elements to an array with a PATCH request &mdash; you must replace the entire array.
+{{% /notice %}}
+
+### Example
+
+In the following example, an HTTP PATCH request is submitted to the `/clusterrolebindings/:clusterrolebinding` API endpoint to update the subjects array for the `ops-group-binder` cluster role binding, resulting in an HTTP `200 OK` response and the updated cluster role binding definition.
+
+We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
+
+{{< code shell >}}
+curl -X PATCH \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/merge-patch+json' \
+-d '{
+  "subjects": [
+    {
+      "type": "Group",
+      "name": "ops_team_1"
+    },
+    {
+      "type": "Group",
+      "name": "ops_team_2"
+    }
+  ]
+}' \
+http://127.0.0.1:8080/api/core/v2/clusterrolebindings/ops-group-binder
+
+HTTP/1.1 200 OK
+{{< /code >}}
+
+### API Specification
+
+/clusterrolebindings/:clusterrolebinding (PATCH) | 
+----------------|------
+description     | Updates the specified Sensu cluster role binding.
+example URL     | http://hostname:8080/api/core/v2/clusterrolebindings/ops-group-binder
+payload         | {{< code shell >}}
+{
+  "subjects": [
+    {
+      "type": "Group",
+      "name": "ops_team_1"
+    },
+    {
+      "type": "Group",
+      "name": "ops_team_2"
+    }
+  ]
+}
+{{< /code >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## Delete a cluster role binding {#clusterrolebindingsclusterrolebinding-delete}
 
 The `/clusterrolebindings/:clusterrolebinding` API endpoint provides HTTP DELETE access to delete a cluster role binding from Sensu (specified by the cluster role binding name).
@@ -309,6 +368,8 @@ description               | Removes a cluster role binding from Sensu (specified
 example url               | http://hostname:8080/api/core/v2/clusterrolebindings/ops-binding
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+
 [1]: ../../operations/control-access/rbac/
 [2]: ../#pagination
 [3]: ../#response-filtering
+[4]: https://tools.ietf.org/html/rfc7396
