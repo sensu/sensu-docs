@@ -56,6 +56,9 @@ api_version: store/v1
 metadata:
   name: my-postgres
 spec:
+  batch_buffer: 0
+  batch_size: 1
+  batch_workers: 0
   dsn: "postgresql://user:secret@host:port/dbname"
   max_conn_lifetime: 5m
   max_idle_conns: 2
@@ -70,6 +73,9 @@ spec:
     "name": "my-postgres"
   },
   "spec": {
+    "batch_buffer": 0,
+    "batch_size": 1,
+    "batch_workers": 0,
     "dsn": "postgresql://user:secret@host:port/dbname",
     "max_conn_lifetime": "5m",
     "max_idle_conns": 2,
@@ -142,6 +148,9 @@ required     | true
 type         | Map of key-value pairs
 example      | {{< code shell >}}
 spec:
+  batch_buffer: 0
+  batch_size: 1
+  batch_workers: 0
   dsn: "postgresql://user:secret@host:port/dbname"
   max_conn_lifetime: 5m
   max_idle_conns: 2
@@ -166,12 +175,36 @@ example      | {{< code shell >}}created_by: admin{{< /code >}}
 
 ### Spec attributes
 
+batch_buffer |      |
+-------------|------
+description  | Maximum number of requests to buffer in memory.
+required     | true
+default      | 0
+type         | Integer
+example      | {{< code shell >}}batch_buffer: 0{{< /code >}}
+
+batch_size   |      |
+-------------|------
+description  | Number of requests in each PostgreSQL write transaction, as specified in the PostgreSQL configuration.<br><br>We recommend a batch size between 2 and 8 to optimize PostgreSQL latency and throughput.
+required     | true
+default      | 1
+type         | Integer
+example      | {{< code shell >}}batch_size: 1{{< /code >}}
+
+batch_workers |      |
+-------------|------
+description  | Number of Goroutines sending data to PostgreSQL, as specified in the PostgreSQL configuration.<br>We recommend specifying a small multiple of the pool size, between 20 and 100, to optimize PostgreSQL latency and throughput.
+required     | true
+default      | Current PostgreSQL pool size
+type         | Integer
+example      | {{< code shell >}}batch_size: 0{{< /code >}}
+
 dsn          |      |
 -------------|------
 description  | Data source names. Specified as a URL or [PostgreSQL connection string][15]. The Sensu backend uses the golang pq library, which supports a [subset of the PostgreSQL libpq connection string parameters][4].
 required     | true
 type         | String
-example      | {{< code shell >}}dsn: "postgresql://user:secret@host:port/dbname"{{< /code >}}
+example      | {{< code shell >}}batch_workers: 0{{< /code >}}
 
 max_conn_lifetime    |      |
 -------------|------
