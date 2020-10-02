@@ -320,6 +320,53 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Update a handler with PATCH
+
+The `/handlers/:handler` API endpoint provides HTTP PATCH access to update `:handler` definitions, specified by handler name.
+
+{{% notice note %}}
+**NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
+Use a [PUT request](#handlershandler-put) instead.<br><br>
+Also, you cannot add elements to an array with a PATCH request &mdash; you must replace the entire array.
+{{% /notice %}}
+
+### Example
+
+In the following example, an HTTP PATCH request is submitted to the `/handlers/:handler` API endpoint to update the filters array for the `influx-db` handler, resulting in an HTTP `200 OK` response and the updated handler definition.
+
+We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
+
+{{< code shell >}}
+curl -X PATCH \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/merge-patch+json' \
+-d '{
+  "filters": [
+    "us-west",
+    "is_incident"
+  ]
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/influx-db
+
+HTTP/1.1 200 OK
+{{< /code >}}
+
+### API Specification
+
+/handlers/:handler (PATCH) | 
+----------------|------
+description     | Updates the specified Sensu handler.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/handlers/influx-db
+payload         | {{< code shell >}}
+{
+  "filters": [
+    "us-west",
+    "is_incident"
+  ]
+}
+{{< /code >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## Delete a handler {#handlershandler-delete}
 
 The `/handlers/:handler` API endpoint provides HTTP DELETE access to delete a handler from Sensu (specified by the handler name).
@@ -347,3 +394,4 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 [1]: ../../observability-pipeline/observe-process/handlers/
 [2]: ../#pagination
 [3]: ../#response-filtering
+[4]: https://tools.ietf.org/html/rfc7396
