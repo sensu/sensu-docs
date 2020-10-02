@@ -649,6 +649,8 @@ type         | Boolean
 default      | `false`
 example      | {{< code shell >}}"stdin": true{{< /code >}}
 
+<a name="flap-thresholds"></a>
+
 |low_flap_threshold ||
 -------------|------
 description  | Flap detection low threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][16].

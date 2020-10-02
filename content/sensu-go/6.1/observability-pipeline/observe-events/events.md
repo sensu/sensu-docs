@@ -120,7 +120,17 @@ Sensu events contain:
 ## Use event data
 
 Observability data in events is a powerful tool for automating monitoring workflows.
-For example, you can [reduce alert fatigue][23] by filtering events based on the event `occurrences` attribute.
+For example, you can use the [`state` attribute][36] to provide handlers with more information about changes in check status and [reduce alert fatigue][23] by filtering events based on the event `occurrences` attribute.
+
+### State attribute
+
+The `state` event attribute lists the status of the check:
+
+- `passing` means the check `status` is 0 (OK).
+- `failing` (status other than 0) means the check `status` changed from 0 to non-zero (WARNING or CRITICAL).
+- `flapping` indicates a rapid change in check result status (determined by the [low and high flap thresholds][37] set in the check attributes).
+
+Sensu uses the same [flap detection algorithm as Nagios][38].
 
 ### Occurrences and occurrences watermark
 
@@ -1331,6 +1341,7 @@ spec:
 
 {{< /language-toggle >}}
 
+
 [1]: ../../observe-schedule/checks/
 [2]: ../../observe-entities/entities#entities-specification
 [3]: ../../observe-entities/entities/
@@ -1366,3 +1377,6 @@ spec:
 [33]: ../../observe-schedule/checks#spec-attributes
 [34]: #points-attributes
 [35]: ../../../api/events#create-a-new-event
+[36]: #state-attribute
+[37]: ../../../observability-pipeline/observe-schedule/checks/#flap-thresholds
+[38]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
