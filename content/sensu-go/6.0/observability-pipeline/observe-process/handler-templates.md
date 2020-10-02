@@ -20,7 +20,7 @@ For example, a template for a brief Slack alert might include information about 
 
 <html>
 The entity {{.Entity.Name}} has a status of {{.Check.State}}. The entity has reported the same status for {{.Check.Occurrences}} preceding events.<br>
-The playbook for managing this alert is availble at https://example.com/observability/alerts/playbook.
+The playbook for managing this alert is available at https://example.com/observability/alerts/playbook.
 </html>
 
 {{< /code >}}
