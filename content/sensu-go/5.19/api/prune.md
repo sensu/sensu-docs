@@ -12,11 +12,15 @@ menu:
 **IMPORTANT**: The prune API is an alpha feature in release 5.19.0 and may include breaking changes.
 {{% /notice %}}
 
-**COMMERCIAL FEATURE**: Access sensuctl pruning in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][1].
+**COMMERCIAL FEATURE**: Access the prune API in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][1].
 
 ## Create a new pruning command
 
 The `/prune/v1alpha` API endpoint provides HTTP POST access to create a pruning command to delete resources that are not specified in the request body.
+
+{{% notice note %}}
+**NOTE**: The prune API requires [cluster-level privileges](../../reference/rbac/#cluster-roles), even when all resources belong to the same namespace.
+{{% /notice %}}
 
 ### Example {#prune-v1alpha-post-example}
 
