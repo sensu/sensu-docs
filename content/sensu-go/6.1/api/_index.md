@@ -302,6 +302,51 @@ Content-Length: 54
 ]
 {{< /code >}}
 
+## Etag response headers
+
+All GET and PATCH requests return an [Etag HTTP response header][10] that identifies a specific version of the resource.
+Use the Etag value from the response header to conditionally execute PATCH requests that use the [If-Match][22] and [If-None-Match][23] headers.
+
+If Sensu cannot execute a PATCH request because one of the conditions failed, the request will return the HTTP response code `412 Precondition Failed`.
+
+### If-Match example
+
+{{< code shell >}}
+curl -X PATCH \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/merge-patch+json' \
+-H 'If-Match: "drrn157624731797"' \
+-d '{
+  "metadata": {
+    "labels": {
+      "region": "us-west-1"
+    }
+  }
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
+
+HTTP/1.1 200 OK
+{{< /code >}}
+
+### If-None-Match example
+
+{{< code shell >}}
+curl -X PATCH \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/merge-patch+json' \
+-H 'If-None-Match: "drrn157624731797", "reew237527931897"' \
+-d '{
+  "metadata": {
+    "labels": {
+      "region": "us-west-1"
+    }
+  }
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
+
+HTTP/1.1 200 OK
+{{< /code >}}
+
 ## Response filtering
 
 **COMMERCIAL FEATURE**: Access API response filtering in the packaged Sensu Go distribution.
@@ -689,6 +734,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [7]: ../sensuctl/environment-variables/
 [8]: ../commercial/
 [9]: ../observability-pipeline/observe-entities/entities#metadata-attributes
+[10]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag
 [11]: auth/#authtoken-post
 [12]: auth/
 [13]: #operators
@@ -700,3 +746,5 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [19]: apikeys/
 [20]: #authenticate-with-the-authentication-api
 [21]: ../observability-pipeline/observe-schedule/backend/#api-request-limit
+[22]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match
+[23]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match

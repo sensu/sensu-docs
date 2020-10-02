@@ -139,6 +139,46 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
+## Update an API key with PATCH
+
+The `/apikeys/:apikey` PATCH endpoint updates the specified API key.
+
+{{% notice note %}}
+**NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
+{{% /notice %}}
+
+### Example
+
+In the following example, querying the `/apikeys/:apikey` API updates the username for the specified `:apikey` definition.
+
+We support [JSON merge patches][2], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
+
+{{< code shell >}}
+curl -X PATCH \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/merge-patch+json' \
+{
+  "username": "devteam"
+} \
+http://127.0.0.1:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
+
+HTTP/1.1 200 OK
+{{< /code >}}
+
+### API Specification
+
+/apikeys/:apikey (PATCH) | 
+---------------------|------
+description          | Updates the specified API key.
+example url          | http://hostname:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
+response type        | Map
+response codes       | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output               | {{< code json >}}
+{
+  "username": "devteam"
+}
+{{< /code >}}
+
 ## Delete an API key {#apikeysapikey-delete}
 
 The `/apikeys/:apikey` API endpoint provides HTTP DELETE access to remove an API key.
@@ -163,4 +203,6 @@ description     | Revokes the specified API key.
 example URL     | http://hostname:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
 response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+
 [1]: ../#pagination
+[2]: https://tools.ietf.org/html/rfc7396

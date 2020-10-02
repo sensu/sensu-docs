@@ -80,8 +80,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.0.0.
 
 - The database schema for entities has changed.
 As a result, after you complete the steps to [upgrade to Sensu 6.0][170] (including running the `sensu-backend upgrade` command), you will not be able to use your database with older versions of Sensu.
-- In [binary-only distributions][164], the web UI is now a standalone product that is no longer distributed inside the `sensu-backend` binary.
-See the [Sensu Go Web repository][163] for more information.
+- For Sensu Go instances [built from source][164], the web UI is now a [standalone product][163] &mdash; it is no longer included with the Sensu backend.
 - After initial creation, you cannot change your [`sensu-agent` entity configuration][171] by modifying the agent's configuration file.
 
 **NEW FEATURES:**
@@ -1467,7 +1466,7 @@ To get started with Sensu Go:
 [161]: /sensu-go/5.21/reference/agent#fips-openssl
 [162]: /sensu-go/6.0/commercial/
 [163]: https://github.com/sensu/web
-[164]: /sensu-go/6.0/platforms/#binary-only-distributions
+[164]: /sensu-go/6.0/platforms/#build-from-source
 [165]: /sensu-go/6.0/platforms/
 [166]: /sensu-go/6.0/operations/control-access/rbac/#subjects-specification
 [167]: /sensu-go/6.0/operations/control-access/rbac/#roleref-specification
