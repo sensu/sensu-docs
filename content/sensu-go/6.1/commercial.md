@@ -15,9 +15,9 @@ See the [announcement on our blog][7] for more information.
 
 ## Commercial features in Sensu Go
 
-- **Manage resources from your browser**: Create, edit, and delete checks, handlers, mutators, and filters using the Sensu [web UI][8], and access the Sensu web UI homepage.
+- **Manage resources from your browser**: Create, edit, and delete checks, handlers, mutators, and event filters using the Sensu [web UI][8], and access the Sensu web UI homepage.
 - **Authentication providers**: Scale Sensu role-based access control (RBAC) with [LDAP and Active Directory integrations][9].
-- **Scalable resource filtering** designed for large installations: Use label and field selectors to filter [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wider range of resource attributes. Build event filter expressions with [JavaScript execution functions][19].
+- **Scalable resource selectors** designed for large installations: Search [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wide range of resource attributes. Build event filter expressions with [JavaScript execution functions][19].
 - **Event logging**: Log observation data to a file you can use as an input source for your favorite data lake solution.
 The [event logging][10] functionality provides better performance and reliability than event handlers.
 - **Enterprise-tier dynamic runtime assets**: Connect your observability pipelines to industry-standard tools like ServiceNow and Jira with [enterprise-tier dynamic runtime assets][11].
@@ -70,7 +70,7 @@ These resources will help you get started with commercial features in Sensu Go:
 [3]: https://sensu.io/features#free-vs-paid
 [4]: ../api#response-filtering
 [5]: ../sensuctl/filter-responses/
-[6]: ../web-ui/filter/
+[6]: ../web-ui/search/
 [7]: https://blog.sensu.io/one-year-of-sensu-go/
 [8]: ../web-ui/
 [9]: ../operations/control-access/auth/

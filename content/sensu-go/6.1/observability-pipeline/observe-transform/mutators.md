@@ -391,8 +391,8 @@ spec:
 [10]: ../../../operations/manage-secrets/secrets/
 [11]: ../../../operations/manage-secrets/secrets-providers/
 [12]: ../../observe-filter/filters/
-[13]: ../../../web-ui/filter#filter-with-label-selectors
+[13]: ../../../web-ui/search#search-for-labels
 [14]: ../../../operations/manage-secrets/secrets-management/
-[15]: ../../../web-ui/filter/
+[15]: ../../../web-ui/search/
 [16]: ../
 [17]: ../../../observability-pipeline/

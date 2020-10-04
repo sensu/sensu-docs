@@ -310,6 +310,53 @@ payload         | {{< code shell >}}
 payload parameters | Required check attributes: `interval` (integer) or `cron` (string) and a `metadata` scope that contains `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1].
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Update a check with PATCH
+
+The `/checks/:check` API endpoint provides HTTP PATCH access to update `:check` definitions, specified by check name.
+
+{{% notice note %}}
+**NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
+Use a [PUT request](#checkscheck-put) instead.<br><br>
+Also, you cannot add elements to an array with a PATCH request &mdash; you must replace the entire array.
+{{% /notice %}}
+
+### Example
+
+In the following example, an HTTP PATCH request is submitted to the `/checks/:check` API endpoint to update the subscriptions array for the `check-cpu` check, resulting in an HTTP `200 OK` response and the updated check definition.
+
+We support [JSON merge patches][6], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
+
+{{< code shell >}}
+curl -X PATCH \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/merge-patch+json' \
+-d '{
+  "subscriptions": [
+    "linux",
+    "health"
+  ]
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu
+
+HTTP/1.1 200 OK
+{{< /code >}}
+
+### API Specification
+
+/checks/:check (PATCH) | 
+----------------|------
+description     | Updates the specified Sensu check.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu
+payload         | {{< code shell >}}
+{
+  "subscriptions": [
+    "linux",
+    "health"
+  ]
+}
+{{< /code >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## Delete a check {#checkscheck-delete}
 
 The `/checks/:check` API endpoint provides HTTP DELETE access to delete a check from Sensu, specified by the check name.
@@ -443,8 +490,10 @@ description               | Removes a single hook from a check (specified by the
 example url               | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical/hook/process_tree
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+
 [1]: ../../observability-pipeline/observe-schedule/checks/
 [2]: ../../observability-pipeline/observe-schedule/hooks/
 [3]: ../../observability-pipeline/observe-schedule/checks#check-hooks-attribute
 [4]: ../#pagination
 [5]: ../#response-filtering
+[6]: https://tools.ietf.org/html/rfc7396
