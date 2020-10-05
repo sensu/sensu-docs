@@ -63,6 +63,7 @@ spec:
   max_conn_lifetime: 5m
   max_idle_conns: 2
   pool_size: 20
+  strict: true
 {{< /code >}}
 
 {{< code json >}}
@@ -79,7 +80,8 @@ spec:
     "dsn": "postgresql://user:secret@host:port/dbname",
     "max_conn_lifetime": "5m",
     "max_idle_conns": 2,
-    "pool_size": 20
+    "pool_size": 20,
+    "strict": true
   }
 }
 {{< /code >}}
@@ -155,6 +157,7 @@ spec:
   max_conn_lifetime: 5m
   max_idle_conns: 2
   pool_size: 20
+  strict: true
 {{< /code >}}
 
 ### Metadata attributes
@@ -228,6 +231,17 @@ required     | false
 default      | `0` (unlimited)
 type         | Integer
 example      | {{< code shell >}}pool_size: 20{{< /code >}}
+
+<a name="strict"></a>
+
+strict       |      |
+-------------|------
+description  | If `true`, when the PostgresConfig resource is created, configuration validation will include connecting to the PostgreSQL database and executing a query to confirm whetherthe connected user has permission to create database tables. Otherwise, `false`.<br><br>We recommend setting `strict: true` in most cases. If the connection fails or the user does not have permission to create database tables, resource configuration will fail and the configuration will not be persisted. This extended configuration is useful for debugging when you are not sure whether the configuration is correct or the database is working properly.
+required     | false
+default     | false
+type         | Boolean
+example      | {{< code shell >}}strict: true{{< /code >}}
+
 
 [1]: ../../../sensuctl/#first-time-setup
 [2]: ../../maintain-sensu/troubleshoot/

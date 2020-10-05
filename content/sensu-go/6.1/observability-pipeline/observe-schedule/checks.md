@@ -1170,7 +1170,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [55]: ../../../sensuctl/filter-responses/
 [56]: ../../../operations/manage-secrets/secrets/
 [57]: ../../../operations/manage-secrets/secrets-providers/
-[58]: ../../../web-ui/filter#filter-with-label-selectors
+[58]: ../../../web-ui/search#search-for-labels
 [59]: ../../../operations/manage-secrets/secrets-management/
 [60]: ../../../operations/deploy-sensu/assets#dynamic-runtime-asset-path
-[61]: ../../../web-ui/filter/
+[61]: ../../../web-ui/search/
