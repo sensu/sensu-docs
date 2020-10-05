@@ -158,7 +158,7 @@ HTTP/1.1 200 OK
 /mutators/:mutator (GET) | 
 ---------------------|------
 description          | Returns the specified mutator.
-example url          | http://hostname:8080/api/core/v2/namespaces/default/mutators/mutator-name
+example url          | http://hostname:8080/api/core/v2/namespaces/default/mutators/example-mutator
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
@@ -229,6 +229,47 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Update a mutator with PATCH
+
+The `/mutators/:mutator` API endpoint provides HTTP PATCH access to update `:mutator` definitions, specified by mutator name.
+
+{{% notice note %}}
+**NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
+Use a [PUT request](#mutatorsmutator-put) instead.<br><br>
+Also, you cannot add elements to an array with a PATCH request &mdash; you must replace the entire array.
+{{% /notice %}}
+
+### Example
+
+In the following example, an HTTP PATCH request is submitted to the `/mutators/:mutator` API endpoint to update the timeout for the `example-mutator` mutator, resulting in an HTTP `200 OK` response and the updated mutator definition.
+
+We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
+
+{{< code shell >}}
+curl -X PATCH \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/merge-patch+json' \
+-d '{
+  "timeout": 10
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator
+
+HTTP/1.1 200 OK
+{{< /code >}}
+
+### API Specification
+
+/mutators/:mutator (PATCH) | 
+----------------|------
+description     | Updates the specified Sensu mutator.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/mutators/process-tree
+payload         | {{< code shell >}}
+{
+  "timeout": 10
+}
+{{< /code >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## Delete a mutator {#mutatorsmutator-delete}
 
 The `/mutators/:mutator` API endpoint provides HTTP DELETE access to delete a mutator from Sensu (specified by the mutator name).
@@ -252,6 +293,8 @@ description               | Removes the specified mutator from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/mutators/example-mutator
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+
 [1]: ../../observability-pipeline/observe-transform/mutators/
 [2]: ../#pagination
 [3]: ../#response-filtering
+[4]: https://tools.ietf.org/html/rfc7396

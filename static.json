@@ -998,6 +998,14 @@
         "~ ^/sensu-go/latest/migrate/?$": {
             "url": "/sensu-go/latest/operations/maintain-sensu/migrate",
             "status": 301
+        },
+        "~ ^/sensu-go/6.1/web-ui/filter/?$": {
+            "url": "/sensu-go/6.1/web-ui/search",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.1/web-ui/searches/?$": {
+            "url": "/sensu-go/6.1/web-ui/searches-reference",
+            "status": 301
         }
     }
 }
