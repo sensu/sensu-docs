@@ -133,13 +133,13 @@ The `state` event attribute adds meaning to the check status:
 #### Flap detection algorithm
 
 Flapping can indicate network or entity problems, but it can also indicate improper [flap threshold][37] configuration.
-Learning more about Sensu's flap detection algorithm will allow you to properly tune your flap threshold configuration and be confident in `flapping` state check results.
+Learning more about Sensu's flap detection algorithm will allow you to properly tune your flap threshold configuration and take appropriate action based on `flapping` state check results.
 
 Sensu uses the same flap detection algorithm as [Nagios][38].
 Every time you run a check, Sensu records whether the `status` value changed since the previous check.
 The flap detection algorithm uses the number of `status` value changes for the last 21 checks to determine an entity's overall percent state change.
 However, the algorithm weights these status changes differently: more recent changes have 50% more weight than older changes.
-Read the [Nagios Detection and Handling of State Flapping][38] guide for detailed flap detection logic calculation.
+Read the [Nagios Detection and Handling of State Flapping][38] guide for detailed information about the flap detection calculation.
 
 After calculating the weighted percent state change, Sensu compares this value with the [low and high flap thresholds][37] set in the check attributes:
 
@@ -149,14 +149,14 @@ After calculating the weighted percent state change, Sensu compares this value w
 
 If an entity has started flapping, Sensu will:
 
-- Log a message indicating that the entity is flapping.
+- Log a message that the entity is flapping.
 - Add a non-persistent comment to the entity indicating that it is flapping.
 - Send a "flapping start" notification for the entity to appropriate contacts.
 - Silence other notifications for the entity (if set as an event filter).
 
 If an entity has stopped flapping, Sensu will:
 
-- Log a message indicating that the entity has stopped flapping.
+- Log a message that the entity has stopped flapping.
 - Delete the comment that was originally added to the entity when it started flapping.
 - Send a "flapping stop" notification for the entity to appropriate contacts.
 - Remove the silence on notifications for the entity.
