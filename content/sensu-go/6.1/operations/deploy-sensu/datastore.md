@@ -197,14 +197,14 @@ description  | Number of Goroutines sending data to PostgreSQL, as specified in 
 required     | true
 default      | Current PostgreSQL pool size
 type         | Integer
-example      | {{< code shell >}}batch_size: 0{{< /code >}}
+example      | {{< code shell >}}batch_workers: 0{{< /code >}}
 
 dsn          |      |
 -------------|------
 description  | Data source names. Specified as a URL or [PostgreSQL connection string][15]. The Sensu backend uses the golang pq library, which supports a [subset of the PostgreSQL libpq connection string parameters][4].
 required     | true
 type         | String
-example      | {{< code shell >}}batch_workers: 0{{< /code >}}
+example      | {{< code shell >}}dsn: "postgresql://user:secret@host:port/dbname"{{< /code >}}
 
 max_conn_lifetime    |      |
 -------------|------
