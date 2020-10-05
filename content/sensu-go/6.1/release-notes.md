@@ -73,7 +73,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **October 5, 2020** &mdash; The latest release of Sensu Go, version 6.1.0, is now available for download.
 
-**PLACEHOLDER FOR RELEASE SYNOPSIS**
+The latest release of Sensu Go, version 6.1.0, is now available for download! This release delivers significant performance and stability gains, feature enhancements, and several bug fixes. The web UI is now much snappier, and its search is redesigned with an improved syntax and suggestions! Monitor even more services and infrastructure when using the PostgreSQL store: batched Sensu event writes and improved indexing allows a single Sensu Go deployment to process and query more data than ever before. If you’re using Prometheus client libraries to instrument your applications, the Sensu Go agent can now scrape and enrich those metrics! And if you’re collecting metrics in other formats like Nagios PerfData, you can use the new output metric tags feature to enrich those metrics too! The sensuctl prune command also received some love, and it now loads and prunes configuration resources from multiple files!
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.1.0.
 
