@@ -123,6 +123,17 @@ Or:
 cat my-resources.yml | sensuctl create
 {{< /code >}}
 
+### sensuctl create flags
+
+Run `sensuctl create -h` to view command-specific and global flags.
+The following table describes the command-specific flags.
+
+| Flag | Function and important notes
+| ---- | ----------------------------
+`-f` or `--file` | Files, URLs, or directories to create resources from. Strings.
+`-h` or `--help` | Help for the create command.
+`-r` or `--recursive` | Create command will follow subdirectories.
+
 ### sensuctl create resource types
 
 |sensuctl create types |   |   |   |
