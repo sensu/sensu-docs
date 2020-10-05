@@ -91,7 +91,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.1.0.
 
 **IMPROVEMENTS:**
 
-- ([Commercial feature][172]) Improved logging for OIDC authentication providers. Also added [`disable_offline_access` OIDC spec attribute][180], which allows OIDC providers to return a refresh token so users can refresh their access tokens.
+- ([Commercial feature][172]) Improved logging for OIDC authentication providers. Also added [`disable_offline_access` OIDC spec attribute][180], which provides a workaround for authorization servers that do not support the `offline_access` scope.
 - ([Commercial feature][172]) Added indexed field and label selectors to the PostgreSQL event store to improve performance for PostgreSQL event store queries with field and label selectors.
 - Added Prometheus transformer for extracting metrics from check output using the Prometheus Exposition Text Format.
 - Added the [`output_metric_tags` attribute][182] for checks so you can apply custom tags to enrich metric points produced by check output metric extraction.
