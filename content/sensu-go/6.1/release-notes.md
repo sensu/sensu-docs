@@ -108,7 +108,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.1.0.
 - ([Commercial feature][172]) Fixed a bug where PostgreSQL would refuse to store event with a negative check status.
 - The backend will no longer start if the web UI TLS configuration is not fully specified.
 - The agent entity is now included in data passed to the STDIN for the command process.
-- Proxy entities used in round robin check requests are no longer stale.
+Improved check scheduling to prevent stale proxy entity data when using cron or round robin schedulers.
 - Fixed a bug that resulted in incorrect entity listings for agent entities created via the API instead of sensu-agent.
 - When downloading assets, Sensu now closes the response body after reading from it.
 - Fixed a crash in the backend and agent related to JavaScript execution.
