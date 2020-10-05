@@ -124,13 +124,42 @@ For example, you can use the [`state` attribute][36] to provide handlers with mo
 
 ### State attribute
 
-The `state` event attribute lists the status of the check:
+The `state` event attribute adds meaning to the check status:
 
 - `passing` means the check `status` is 0 (OK).
 - `failing` (status other than 0) means the check `status` changed from 0 to non-zero (WARNING or CRITICAL).
 - `flapping` indicates a rapid change in check result status (determined by the [low and high flap thresholds][37] set in the check attributes).
 
-Sensu uses the same [flap detection algorithm as Nagios][38].
+#### Flap detection algorithm
+
+Flapping can indicate network or entity problems, but it can also indicate improper [flap threshold][37] configuration.
+Learning more about Sensu's flap detection algorithm will allow you to properly tune your flap threshold configuration and be confident in `flapping` state check results.
+
+Sensu uses the same flap detection algorithm as [Nagios][38].
+Every time you run a check, Sensu records whether the `status` value changed since the previous check.
+The flap detection algorithm uses the number of `status` value changes for the last 21 checks to determine an entity's overall percent state change.
+However, the algorithm weights these status changes differently: more recent changes have 50% more weight than older changes.
+Read the [Nagios Detection and Handling of State Flapping][38] guide for detailed flap detection logic calculation.
+
+After calculating the weighted percent state change, Sensu compares this value with the [low and high flap thresholds][37] set in the check attributes:
+
+- If the entity was **not** already flapping and the weighted percent state change is greater than or equal to the `high_flap_threshold` setting, Sensu determines that the entity has started flapping.
+- If the entity **was** already flapping and the weighted percent state change is less than the `low_flap_threshold` setting, Sensu determines that the entity has stopped flapping.
+- If neither, Sensu determines no change: either the entity has not started flapping or is still flapping.
+
+If an entity has started flapping, Sensu will:
+
+- Log a message indicating that the entity is flapping.
+- Add a non-persistent comment to the entity indicating that it is flapping.
+- Send a "flapping start" notification for the entity to appropriate contacts.
+- Silence other notifications for the entity (if set as an event filter).
+
+If an entity has stopped flapping, Sensu will:
+
+- Log a message indicating that the entity has stopped flapping.
+- Delete the comment that was originally added to the entity when it started flapping.
+- Send a "flapping stop" notification for the entity to appropriate contacts.
+- Remove the silence on notifications for the entity.
 
 ### Occurrences and occurrences watermark
 

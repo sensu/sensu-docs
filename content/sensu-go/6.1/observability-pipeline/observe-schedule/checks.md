@@ -653,7 +653,7 @@ example      | {{< code shell >}}"stdin": true{{< /code >}}
 
 |low_flap_threshold ||
 -------------|------
-description  | Flap detection low threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][16].
+description  | Flap detection low threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][16]. If you do not set a low flap threshold for the check, Sensu will use a global default based on the last 21 checks of the service.
 required     | false
 type         | Integer
 example      | {{< code shell >}}"low_flap_threshold": 20{{< /code >}}
