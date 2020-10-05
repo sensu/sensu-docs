@@ -39,7 +39,8 @@ HTTP/1.1 200 OK
       "dsn": "postgresql://user:secret@host:port/otherdbname",
       "max_conn_lifetime": "5m",
       "max_idle_conns": 2,
-      "pool_size": 20
+      "pool_size": 20,
+      "strict": true
     }
   },
   {
@@ -53,7 +54,8 @@ HTTP/1.1 200 OK
       "dsn": "postgresql://user:secret@host:port/dbname",
       "max_conn_lifetime": "5m",
       "max_idle_conns": 2,
-      "pool_size": 20
+      "pool_size": 20,
+      "strict": true
     }
   }
 ]
@@ -80,7 +82,8 @@ output         | {{< code json >}}
       "dsn": "postgresql://user:secret@host:port/otherdbname",
       "max_conn_lifetime": "5m",
       "max_idle_conns": 2,
-      "pool_size": 20
+      "pool_size": 20,
+      "strict": true
     }
   },
   {
@@ -94,7 +97,8 @@ output         | {{< code json >}}
       "dsn": "postgresql://user:secret@host:port/dbname",
       "max_conn_lifetime": "5m",
       "max_idle_conns": 2,
-      "pool_size": 20
+      "pool_size": 20,
+      "strict": true
     }
   }
 ]
@@ -123,7 +127,8 @@ HTTP/1.1 200 OK
     "dsn": "postgresql://user:secret@host:port/dbname",
     "max_conn_lifetime": "5m",
     "max_idle_conns": 2,
-    "pool_size": 20
+    "pool_size": 20,
+    "strict": true
   }
 }
 {{< /code >}}
@@ -148,7 +153,8 @@ output         | {{< code json >}}
     "dsn": "postgresql://user:secret@host:port/dbname",
     "max_conn_lifetime": "5m",
     "max_idle_conns": 2,
-    "pool_size": 20
+    "pool_size": 20,
+    "strict": true
   }
 }
 {{< /code >}}
@@ -173,7 +179,8 @@ http://127.0.0.1:8080/api/enterprise/store/v1/provider/my-postgres \
     "dsn": "postgresql://user:secret@host:port/dbname",
     "max_conn_lifetime": "5m",
     "max_idle_conns": 2,
-    "pool_size": 20
+    "pool_size": 20,
+    "strict": true
   }
 }'
 
@@ -199,7 +206,8 @@ payload         | {{< code shell >}}
     "dsn": "postgresql://user:secret@host:port/dbname",
     "max_conn_lifetime": "5m",
     "max_idle_conns": 2,
-    "pool_size": 20
+    "pool_size": 20,
+    "strict": true
   }
 }
 {{< /code >}}
