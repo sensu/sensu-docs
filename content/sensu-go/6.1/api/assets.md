@@ -305,6 +305,55 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Update a dynamic runtime asset with PATCH
+
+The `/assets/:asset` API endpoint provides HTTP PATCH access to update `:asset` definitions, specified by asset name.
+
+{{% notice note %}}
+**NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
+Use a [PUT request](#assetsasset-put) instead.<br><br>
+Also, you cannot add elements to an array with a PATCH request &mdash; you must replace the entire array.
+{{% /notice %}}
+
+### Example
+
+In the following example, an HTTP PATCH request is submitted to the `/assets/:asset` API endpoint to add a label for the `sensu-slack-handler` asset, resulting in an HTTP `200 OK` response and the updated asset definition.
+
+We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
+
+{{< code shell >}}
+curl -X PATCH \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/merge-patch+json' \
+-d '{
+  "metadata": {
+    "labels": {
+      "region": "us-west-1"
+    }
+  }
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
+
+HTTP/1.1 200 OK
+{{< /code >}}
+
+### API Specification
+
+/assets/:asset (PATCH) | 
+----------------|------
+description     | Updates the specified Sensu asset.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
+payload         | {{< code shell >}}
+{
+  "metadata": {
+    "labels": {
+      "region": "us-west-1"
+    }
+  }
+}
+{{< /code >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## Delete a dynamic runtime asset {#assetsasset-delete}
 
 The `/assets/:asset` API endpoint provides HTTP DELETE access so you can delete a dynamic runtime assets.
@@ -331,6 +380,8 @@ description     | Deletes the specified Sensu dynamic runtime asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
 response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+
 [1]: ../../operations/deploy-sensu/assets/
 [2]: ../#pagination
 [3]: ../#response-filtering
+[6]: https://tools.ietf.org/html/rfc7396

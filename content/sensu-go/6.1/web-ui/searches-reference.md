@@ -111,7 +111,7 @@ example      | {{< code shell >}}"resource": "core.v2/Event"{{< /code >}}
 
 action       | 
 -------------|------ 
-description  | For filter searches, the type of filter to include in the search: `allow` or `deny`.
+description  | For event filter searches, the type of filter to include in the search: `allow` or `deny`.
 required     | false
 type         | String
 example      | {{< code shell >}}"action:allow"{{< /code >}}
@@ -143,20 +143,6 @@ description  | Name of the event to include in the search.
 required     | false
 type         | String
 example      | {{< code shell >}}"event:server-testing"{{< /code >}}
-
-fieldSelector | 
--------------|------ 
-description  | [Field selector][9] to include in the search.
-required     | false
-type         | Filter statement
-example      | {{< code shell >}}"fieldSelector: entity.name == \"1b04994n\""{{< /code >}}
-
-labelSelector | 
--------------|------ 
-description  | [Label selector][10] to include in the search.
-required     | false
-type         | Filter statement
-example      | {{< code shell >}}"labelSelector:region == \"us-west-1\""{{< /code >}}
 
 published    | 
 -------------|------ 
@@ -282,11 +268,9 @@ spec:
 
 [1]: ../../commercial/
 [2]: ../../operations/control-access/rbac/#namespaced-resource-types
-[3]: ../../web-ui/filter/#save-a-filtered-search
+[3]: ../../web-ui/search/#save-a-search
 [4]: ../../api/searches
 [5]: #metadata-attributes
 [6]: ../../sensuctl/create-manage-resources/#create-resources
 [7]: #spec-attributes
 [8]: ../../operations/control-access/rbac#namespaces
-[9]: ../../api/#field-selector
-[10]: ../../api/#label-selector

@@ -251,6 +251,51 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Update a filter with PATCH
+
+The `/filters/:filter` API endpoint provides HTTP PATCH access to update `:filter` definitions, specified by filter name.
+
+{{% notice note %}}
+**NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
+Use a [PUT request](#filtersfilter-put) instead.<br><br>
+Also, you cannot add elements to an array with a PATCH request &mdash; you must replace the entire array.
+{{% /notice %}}
+
+### Example
+
+In the following example, an HTTP PATCH request is submitted to the `/filters/:filter` API endpoint to update the expressions array for the `us-west` filter, resulting in an HTTP `200 OK` response and the updated filter definition.
+
+We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
+
+{{< code shell >}}
+curl -X PATCH \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/merge-patch+json' \
+-d '{
+  "expressions": [
+    "event.check.occurrences == 3"
+  ]
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/filter/us-west
+
+HTTP/1.1 200 OK
+{{< /code >}}
+
+### API Specification
+
+/filters/:filter (PATCH) | 
+----------------|------
+description     | Updates the specified Sensu filter.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/filter/us-west
+payload         | {{< code shell >}}
+{
+  "expressions": [
+    "event.check.occurrences == 3"
+  ]
+}
+{{< /code >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## Delete an event filter {#filtersfilter-delete}
 
 The `/filters/:filter` API endpoint provides HTTP DELETE access to delete an event filter from Sensu (specified by the filter name).
@@ -275,6 +320,8 @@ description               | Removes the specified event filter from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/filters/development_filter
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+
 [1]: ../../observability-pipeline/observe-filter/filters/
 [2]: ../#pagination
 [3]: ../#response-filtering
+[4]: https://tools.ietf.org/html/rfc7396
