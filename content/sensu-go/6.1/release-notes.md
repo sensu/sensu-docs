@@ -94,6 +94,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.1.0.
 - ([Commercial feature][172]) Improved logging for OIDC authentication providers. Also added [`disable_offline_access` OIDC spec attribute][180], which allows OIDC providers to return a refresh token so users can refresh their access tokens.
 - ([Commercial feature][172]) Added indexed field and label selectors to the PostgreSQL event store to improve performance for PostgreSQL event store queries with field and label selectors.
 - Added Prometheus transformer for extracting metrics from check output using the Prometheus Exposition Text Format.
+- Added the [`output_metric_tags` attribute][182] for checks so you can apply custom tags to enrich metric points produced by check output metric extraction.
 - A warning is now logged when you request a dynamic runtime asset that does not exist.
 - The trusted CA file is now used for agent, backend, and sensuctl asset retrieval.
 - Per-entity subscriptions (such as `entity:entityName`) are always available for agent entities, even you remove subscriptions via the entities API.
@@ -1529,3 +1530,4 @@ To get started with Sensu Go:
 [179]: /sensu-go/6.1/operations/deploy-sensu/datastore/#strict
 [180]: /sensu-go/6.1/operations/control-access/auth/#oidc-spec-attributes
 [181]: /sensu-go/latest/operations/deploy-sensu/datastore/#spec-attributes
+[182]: /sensu-go/6.1/observability-pipeline/observe-schedule/checks#output-metric-tags
