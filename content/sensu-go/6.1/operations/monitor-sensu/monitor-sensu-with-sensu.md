@@ -1,6 +1,8 @@
 ---
 title: "Monitor Sensu with Sensu"
 linkTitle: "Monitor Sensu with Sensu"
+guide_title: "Monitor Sensu with Sensu"
+type: "guide"
 description: "Make sure your Sensu components are properly monitored. This guide describes best practices and strategies for monitoring Sensu."
 weight: 20
 version: "6.1"

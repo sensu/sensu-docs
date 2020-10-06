@@ -1,6 +1,8 @@
 ---
 title: "Use dynamic runtime assets to install plugins"
 linkTitle: "Use Assets to Install Plugins"
+guide_title: "Use dynamic runtime assets to install plugins"
+type: "guide"
 description: "Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to power your monitoring workflows. Read the guide to get started using dynamic runtime assets."
 weight: 140
 version: "6.0"
