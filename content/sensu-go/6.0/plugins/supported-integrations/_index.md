@@ -12,4 +12,5 @@ menu:
     identifier: supported-integrations
 ---
 
-PLACEHOLDER
+PLACEHOLDER for overview content describing the the value of Sensu's supported and enterprise-tier integrations.
+Explain that Sensu Go users rely on our integrations to get work done with Sensu as part of their existing workflows.
