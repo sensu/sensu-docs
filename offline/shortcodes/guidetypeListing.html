@@ -1,0 +1,10 @@
+<ul>
+  {{ range (.Site.Pages.ByParam "guide_title") }}
+    <!-- Only include pages from the specified version -->
+    <!-- Only include pages with specified frontmatter type "reference" -->
+    {{ if and (eq .Type "guide") (.IsDescendant $.Page.CurrentSection.Parent) }}
+      <li><a href="{{ .Permalink }}">{{ .Params.guide_title }}</a></li>
+    {{ end }}
+  {{ end }}
+</ul>
+

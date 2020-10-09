@@ -1,6 +1,8 @@
 ---
 title: "Create handler templates"
 linkTitle: "Create Handler Templates"
+guide_title: "Create handler templates"
+type: "guide"
 description: "Add meaningful, actionable context to alerts with event-based templating for your handlers. Read this guide to learn how to create handler templates."
 weight: 80
 version: "6.0"
