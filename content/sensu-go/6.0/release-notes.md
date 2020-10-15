@@ -130,7 +130,7 @@ With this fix, labels and annotations are always defined (although they may be e
 
 ## 5.21.3 release notes
 
-**October 14, 2020** &mdash; The latest release of Sensu Go, version 5.21.3, is now available for download.
+**October 14, 2020** &mdash; The latest release of Sensu Go 5, version 5.21.3, is now available for download.
 
 This patch release includes a few fixes to improve stability and correctness.
 
