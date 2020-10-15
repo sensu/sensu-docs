@@ -11,6 +11,7 @@ menu: "sensu-go-6.1"
 
 - [6.1.0 release notes](#610-release-notes)
 - [6.0.0 release notes](#600-release-notes)
+- [5.21.3 release notes](#5213-release-notes)
 - [5.21.2 release notes](#5212-release-notes)
 - [5.21.1 release notes](#5211-release-notes)
 - [5.21.0 release notes](#5210-release-notes)
@@ -177,6 +178,20 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - Fixed a bug where nil labels or annotations in an event filtering context would require you to explicitly check whether the annotations or labels are undefined.
 With this fix, labels and annotations are always defined (although they may be empty).
 - Fixed the log entry field for the check's name in schedulerd.
+
+## 5.21.3 release notes
+
+**October 14, 2020** &mdash; The latest release of Sensu Go 5, version 5.21.3, is now available for download.
+
+This patch release includes a few fixes to improve stability and correctness.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.3.
+
+**FIXES:**
+
+- Fixed a bug where HTTP connections could be left open after downloading assets.
+- Fixed a bug where event filter or asset filter execution could cause a crash.
+- ([Commercial feature][158]) Fixed a bug where PostgreSQL would refuse to store event with a negative check status.
 
 ## 5.21.2 release notes
 
