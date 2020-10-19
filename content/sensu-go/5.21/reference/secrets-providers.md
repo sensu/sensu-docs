@@ -31,7 +31,9 @@ Sensu will not transmit secrets to agents that do not use mTLS.
 The [Sensu Go commercial distribution][1] includes a built-in secrets provider, `Env`, that exposes secrets from [environment variables][4] on your Sensu backend nodes.
 You can also use the secrets provider `VaultProvider` to authenticate via the HashiCorp Vault integration's [token auth method][10] or [TLS certificate auth method][11].
 
-You can configure any number of secrets providers.
+You can configure any number of `VaultProvider` secrets providers.
+However, you can only have a single `Env` secrets provider: the one that is included with the Sensu Go [commercial distribution][1].
+
 Secrets providers are cluster-wide resources and compatible with generic functions.
  
 ## Secrets providers specification

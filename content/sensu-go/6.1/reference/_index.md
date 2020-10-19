@@ -15,4 +15,4 @@ menu:
 This index links to every reference in the Sensu documentation.
 Reference documentation includes specifications, examples, configuration notes, and other details about Sensu resources, the agent and backend, and Sensu query expressions.
 
-{{< typeListing >}}
+{{< reftypeListing >}}

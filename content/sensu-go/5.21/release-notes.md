@@ -9,6 +9,7 @@ version: "5.21"
 menu: "sensu-go-5.21"
 ---
 
+- [5.21.3 release notes](#5213-release-notes)
 - [5.21.2 release notes](#5212-release-notes)
 - [5.21.1 release notes](#5211-release-notes)
 - [5.21.0 release notes](#5210-release-notes)
@@ -66,6 +67,20 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.21.3 release notes
+
+**October 14, 2020** &mdash; The latest release of Sensu Go, version 5.21.3, is now available for download.
+
+This patch release includes a few fixes to improve stability and correctness.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.3.
+
+**FIXES:**
+
+- Fixed a bug where HTTP connections could be left open after downloading assets.
+- Fixed a bug where event filter or asset filter execution could cause a crash.
+- ([Commercial feature][158]) Fixed a bug where PostgreSQL would refuse to store event with a negative check status.
 
 ## 5.21.2 release notes
 

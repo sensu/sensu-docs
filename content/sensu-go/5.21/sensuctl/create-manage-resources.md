@@ -16,7 +16,7 @@ Sensuctl works by calling Sensu’s underlying API to create, read, update, and 
 
 ## Create resources
 
-The `sensuctl create` command allows you to create or update resources by reading from STDIN or a flag configured file (`-f`).
+The `sensuctl create` command allows you to create or update resources by reading from STDIN or a [flag][36] configured file (`-f`).
 The `create` command accepts Sensu resource definitions in `wrapped-json` and `yaml`.
 Both JSON and YAML resource definitions wrap the contents of the resource in `spec` and identify the resource `type`.
 See the [`wrapped-json`example][9] and [this table][3] for a list of supported types.
@@ -122,6 +122,17 @@ Or:
 {{< code shell >}}
 cat my-resources.yml | sensuctl create
 {{< /code >}}
+
+### sensuctl create flags
+
+Run `sensuctl create -h` to view command-specific and global flags.
+The following table describes the command-specific flags.
+
+| Flag | Function and important notes
+| ---- | ----------------------------
+`-f` or `--file` | Files, URLs, or directories to create resources from. Strings.
+`-h` or `--help` | Help for the create command.
+`-r` or `--recursive` | Create command will follow subdirectories.
 
 ### sensuctl create resource types
 
@@ -546,3 +557,4 @@ Sensuctl supports the following formats:
 [33]: #create-resources-across-namespaces
 [34]: ../../reference/license/
 [35]: ../../reference/rbac/#cluster-roles
+[36]: #sensuctl-create-flags

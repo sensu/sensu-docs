@@ -180,24 +180,30 @@ example      | {{< code shell >}}created_by: admin{{< /code >}}
 
 batch_buffer |      |
 -------------|------
-description  | Maximum number of requests to buffer in memory.
-required     | true
+description  | Maximum number of requests to buffer in memory.<br>{{% notice warning %}}
+**WARNING**: The batcher is sensitive to configuration values, and some `batch_buffer`, `batch_size`, and `batch_workers` combinations will not work optimally. We do not recommend configuring this attribute while we are testing and improving it.
+{{% /notice %}}
+required     | false
 default      | 0
 type         | Integer
 example      | {{< code shell >}}batch_buffer: 0{{< /code >}}
 
 batch_size   |      |
 -------------|------
-description  | Number of requests in each PostgreSQL write transaction, as specified in the PostgreSQL configuration.<br><br>We recommend a batch size between 2 and 8 to optimize PostgreSQL latency and throughput.
-required     | true
+description  | Number of requests in each PostgreSQL write transaction, as specified in the PostgreSQL configuration.<br>{{% notice warning %}}
+**WARNING**: The batcher is sensitive to configuration values, and some `batch_buffer`, `batch_size`, and `batch_workers` combinations will not work optimally. We do not recommend configuring this attribute while we are testing and improving it.
+{{% /notice %}}
+required     | false
 default      | 1
 type         | Integer
 example      | {{< code shell >}}batch_size: 1{{< /code >}}
 
 batch_workers |      |
 -------------|------
-description  | Number of Goroutines sending data to PostgreSQL, as specified in the PostgreSQL configuration.<br>We recommend specifying a small multiple of the pool size, between 20 and 100, to optimize PostgreSQL latency and throughput.
-required     | true
+description  | Number of Goroutines sending data to PostgreSQL, as specified in the PostgreSQL configuration.<br>{{% notice warning %}}
+**WARNING**: The batcher is sensitive to configuration values, and some `batch_buffer`, `batch_size`, and `batch_workers` combinations will not work optimally. We do not recommend configuring this attribute while we are testing and improving it.
+{{% /notice %}}
+required     | false
 default      | Current PostgreSQL pool size
 type         | Integer
 example      | {{< code shell >}}batch_workers: 0{{< /code >}}
