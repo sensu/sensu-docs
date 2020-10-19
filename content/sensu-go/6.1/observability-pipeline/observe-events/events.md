@@ -128,7 +128,7 @@ The `state` event attribute adds meaning to the check status:
 
 - `passing` means the check status is `0` (OK).
 - `failing` means the check status is non-zero (WARNING or CRITICAL).
-- `flapping` means a rapid change in check result status (determined based on per-check [low and high flap thresholds][37] attributes).
+- `flapping` indicates an unsteady state in which the check result status (determined based on per-check [low and high flap thresholds][37] attributes) is not settling on `passing` or `failing` according to the [flap detection algorithm][39].
 
 Flapping typically indicates intermittent problems with an entity, provided your low and high flap threshold settings are properly configured.
 Although some teams choose to filter out flapping events to reduce unactionable alerts, we suggest sending flapping events to a designated handler for later review.
