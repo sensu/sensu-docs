@@ -120,7 +120,8 @@ Sensu events contain:
 ## Use event data
 
 Observability data in events is a powerful tool for automating monitoring workflows.
-For example, the [`state` attribute][36] provides handlers with a high-level description of check status. Filtering events based on this attribute can help [reduce alert fatigue][23].
+For example, the [`state` attribute][36] provides handlers with a high-level description of check status.
+Filtering events based on this attribute can help [reduce alert fatigue][23].
 
 ### State attribute
 
@@ -146,7 +147,7 @@ After calculating the weighted total percent state change, Sensu compares it wit
 - If the entity was **not** already flapping and the weighted total percent state change for the entity/check pair is greater than or equal to the `high_flap_threshold` setting, the entity has started flapping.
 - If the entity **was** already flapping and the weighted total percent state change for the entity/check pair is less than the `low_flap_threshold` setting, the entity has stopped flapping.
 
-Depending on the result of this comparison, Sensu will trigger the appropriate event filters based on [check attributes][40] like `event.check.high_flap_threshold` and `event.check.low_flap_threshold`. 
+Depending on the result of this comparison, Sensu will trigger the appropriate event filters based on [check attributes][40] like `event.check.high_flap_threshold` and `event.check.low_flap_threshold`.
 
 ### Occurrences and occurrences watermark
 
