@@ -646,16 +646,18 @@ type         | Boolean
 default      | `false`
 example      | {{< code shell >}}"stdin": true{{< /code >}}
 
+<a name="flap-thresholds"></a>
+
 |low_flap_threshold ||
 -------------|------
-description  | Flap detection low threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][16].
+description  | Flap detection low threshold (% state change) for the check. Sensu uses the same flap detection algorithm as [Nagios][16]. Read the [event reference][62] to learn more about how Sensu uses the `low_flap_threshold` value.
 required     | false
 type         | Integer
 example      | {{< code shell >}}"low_flap_threshold": 20{{< /code >}}
 
 |high_flap_threshold ||
 -------------|------
-description  | Flap detection high threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][16].
+description  | Flap detection high threshold (% state change) for the check. Sensu uses the same flap detection algorithm as [Nagios][16]. Read the [event reference][62] to learn more about how Sensu uses the `low_flap_threshold` value.
 required     | true (if `low_flap_threshold` is configured)
 type         | Integer
 example      | {{< code shell >}}"high_flap_threshold": 60{{< /code >}}
@@ -1111,3 +1113,4 @@ The asset reference includes an [example check definition that uses the asset pa
 [59]: ../../operations/manage-secrets/secrets-management/
 [60]: ../assets#asset-path
 [61]: ../../web-ui/filter/
+[62]: ../events/#flap-detection-algorithm

@@ -140,12 +140,65 @@ Sensu events contain:
 ## Use event data
 
 Event data is a powerful tool for automating monitoring workflows.
-For example, you can [reduce alert fatigue][23] by filtering events based on the event `occurrences` attribute.
+For example, the [`state` attribute][36] provides handlers with a high-level description of check status.
+Filtering events based on this attribute can help [reduce alert fatigue][23].
+
+### State attribute
+
+The `state` event attribute adds meaning to the check status:
+
+- `passing` means the check status is `0` (OK).
+- `failing` means the check status is non-zero (WARNING or CRITICAL).
+- `flapping` indicates an unsteady state in which the check result status (determined based on per-check [low and high flap thresholds][37] attributes) is not settling on `passing` or `failing` according to the [flap detection algorithm][39].
+
+Flapping typically indicates intermittent problems with an entity, provided your low and high flap threshold settings are properly configured.
+Although some teams choose to filter out flapping events to reduce unactionable alerts, we suggest sending flapping events to a designated handler for later review.
+If you repeatedly observe events in flapping state, Sensu's per-check flap threshold configuration allows you to adjust the sensitivity of the [flap detection algorithm][39].
+
+#### Flap detection algorithm
+
+Sensu uses the same flap detection algorithm as [Nagios][38].
+Every time you run a check, Sensu records whether the `status` value changed since the previous check.
+Sensu stores the last 21 `status` values and uses them to calculate the percent state change for the entity/check pair.
+Then, Sensu's algorithm applies a weight to these status changes: more recent changes have more value than older changes.
+
+After calculating the weighted total percent state change, Sensu compares it with the [low and high flap thresholds][37] set in the check attributes.
+
+- If the entity was **not** already flapping and the weighted total percent state change for the entity/check pair is greater than or equal to the `high_flap_threshold` setting, the entity has started flapping.
+- If the entity **was** already flapping and the weighted total percent state change for the entity/check pair is less than the `low_flap_threshold` setting, the entity has stopped flapping.
+
+Depending on the result of this comparison, Sensu will trigger the appropriate event filters based on [check attributes][40] like `event.check.high_flap_threshold` and `event.check.low_flap_threshold`.
 
 ### Occurrences and occurrences watermark
 
 The `occurrences` and `occurrences_watermark` event attributes give you context about recent events for a given entity and check.
-You can use these attributes within [event filters][24] to fine-tune incident notifications and reduce alert fatigue.
+For example, the [`state` attribute][36] provides handlers with a high-level description of check status.Filtering events based on this attribute can help [reduce alert fatigue][23].
+
+### State attribute
+
+The `state` event attribute adds meaning to the check status:
+
+- `passing` means the check status is `0` (OK).
+- `failing` means the check status is non-zero (WARNING or CRITICAL).
+- `flapping` indicates an unsteady state in which the check result status (determined based on per-check [low and high flap thresholds][37] attributes) is not settling on `passing` or `failing` according to the [flap detection algorithm][39].
+
+Flapping typically indicates intermittent problems with an entity, provided your low and high flap threshold settings are properly configured.
+Although some teams choose to filter out flapping events to reduce unactionable alerts, we suggest sending flapping events to a designated handler for later review.
+If you repeatedly observe events in flapping state, Sensu's per-check flap threshold configuration allows you to adjust the sensitivity of the [flap detection algorithm][39].
+
+#### Flap detection algorithm
+
+Sensu uses the same flap detection algorithm as [Nagios][38].
+Every time you run a check, Sensu records whether the `status` value changed since the previous check.
+Sensu stores the last 21 `status` values and uses them to calculate the percent state change for the entity/check pair.
+Then, Sensu's algorithm applies a weight to these status changes: more recent changes have more value than older changes.
+
+After calculating the weighted total percent state change, Sensu compares it with the [low and high flap thresholds][37] set in the check attributes.
+
+- If the entity was **not** already flapping and the weighted total percent state change for the entity/check pair is greater than or equal to the `high_flap_threshold` setting, the entity has started flapping.
+- If the entity **was** already flapping and the weighted total percent state change for the entity/check pair is less than the `low_flap_threshold` setting, the entity has stopped flapping.
+
+Depending on the result of this comparison, Sensu will trigger the appropriate event filters based on [check attributes][40] like `event.check.high_flap_threshold` and `event.check.low_flap_threshold`. 
 
 Starting at `1`, the `occurrences` attribute increments for events with the same [status][25] as the preceding event (OK, WARNING, CRITICAL, or UNKNOWN) and resets whenever the status changes.
 You can use the `occurrences` attribute to create a [state-change-only filter][27] or an [interval filter][28].
@@ -1333,6 +1386,7 @@ spec:
 
 {{< /language-toggle >}}
 
+
 [1]: ../checks/
 [2]: ../entities#entities-specification
 [3]: ../entities/
@@ -1367,3 +1421,8 @@ spec:
 [33]: ../checks#spec-attributes
 [34]: #points-attributes
 [35]: ../../api/events#create-a-new-event
+[36]: #state-attribute
+[37]: ../checks/#flap-thresholds
+[38]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
+[39]: #flap-detection-algorithm
+[40]: ../filters/#check-attributes-available-to-filters
