@@ -749,7 +749,7 @@ example      | {{< code shell >}}"output_metric_handlers": ["influx-db"]{{< /cod
 
 |output_metric_tags    |      |
 -------------|------
-description  | Custom tags you can apply to enrich metric points produced by check output metric extraction. One name/value pair make up a single tag. The `output_metric_tags` array can contain multiple tags.
+description  | Custom tags you can apply to enrich metric points produced by check output metric extraction. One [name/value pair][22] make up a single tag. The `output_metric_tags` array can contain multiple tags.<br><br>You can use [check token substitution][39] for the `value` attribute in output metric tags.
 required     | false
 type         | Array
 example      | {{< code shell >}}
@@ -853,7 +853,7 @@ example      | {{< code shell >}}"name": "instance"{{< /code >}}
 
 value        | 
 -------------|------
-description  | Value for the [output metric tag][19].
+description  | Value for the [output metric tag][19]. You can use [check token substitution][39] for the `value` attribute.
 required     | true
 type         | String
 example      | {{< code shell >}}"value": "{{ .name }}"{{< /code >}}
@@ -1137,6 +1137,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [19]: #output-metric-tags
 [20]: ../../observe-entities/#proxy-entities
 [21]: ../../observe-entities/entities/#spec-attributes
+[22]: #output_metric_tags-attributes
 [23]: ../collect-metrics-with-checks/
 [24]: ../../observe-events/events/
 [25]: #metadata-attributes
