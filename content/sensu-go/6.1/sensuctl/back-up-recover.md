@@ -74,7 +74,7 @@ sensuctl dump all \
 --format yaml > backup/config.yaml
 {{< /code >}}
    
-3. Export your [RBAC][2] resources for all namespaces, except API keys and users.
+3. Export your [RBAC][2] resources, except API keys and users, for all namespaces.
    
    {{< code shell >}}
 sensuctl dump core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.ClusterRoleBinding \
