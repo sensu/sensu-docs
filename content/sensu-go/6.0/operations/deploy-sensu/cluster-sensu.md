@@ -264,11 +264,44 @@ See [Secure Sensu][16] for information about cluster security.
 
 ## Use an external etcd cluster
 
-To use Sensu with an external etcd cluster, you must have etcd 3.3.2 or newer.
-To stand up an external etcd cluster, follow etcd's [clustering guide][2] using the same store configuration.
+Using Sensu with an external etcd cluster requires etcd 3.3.2 or newer but is not compatible with etcd 3.4.0 or newer.
+Follow etcd's [clustering guide][2] using the same store configuration to stand up an external etcd cluster.
 
-In this example, you will enable client-to-server and peer communication authentication [using self-signed TLS certificates][13].
-To start etcd for `backend-1` based on the [three-node configuration example][19]:
+To initialize a backend that uses etcd authentication, configure read and write access to the `/sensu.io/` key space for your users:
+
+{{< highlight shell >}}
+# Add the sensu user (you will receive an interactive prompt for the password)
+etcdctl user add sensu
+# Create a role
+etcdctl role add sensu_readwrite
+# Give that role permission to read and write under the /sensu.io/ keyspace
+etcdctl role grant-permission sensu_readwrite readwrite --from-key '/sensu.io/'
+# Grant the sensu user the role
+etcdctl user grant-role sensu sensu_readwrite
+{{< /highlight >}}
+
+To double-check that the grant is configured correctly, run:
+
+{{< highlight shell >}}
+/opt/etcd/etcdctl user get USERNAME --detail
+{{< /highlight >}}
+
+The output should be:
+
+{{< highlight shell >}}
+User: USERNAME
+
+Role sensu_readwrite
+KV Read:
+	[/sensu.io/, <open ended>
+KV Write:
+	[/sensu.io/, <open ended>
+{{< /highlight >}}
+
+Etcd does not enable authentication by default, so additional configuration may be needed before etcd will enforce these controls.
+See the [etcd operators documentation][12] for details.
+
+To enable client-to-server and peer communication authentication [using self-signed TLS certificates][13], start etcd for `backend-1` based on the [three-node configuration example][19]:
 
 {{< code shell >}}
 etcd \
@@ -292,11 +325,10 @@ etcd \
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: The `auto-compaction-mode` and `auto-compaction-retention` flags are important.
-Without these settings, your database may quickly reach etcd's maximum database size limit.
+**NOTE**: Without the `auto-compaction-mode` and `auto-compaction-retention` flags, your database may quickly reach etcd's maximum database size limit.
 {{% /notice %}}
 
-To tell Sensu to use this external etcd data source, add the `sensu-backend` flag `--no-embed-etcd` to the original configuration, along with the path to a client certificate created using your CA:
+Next, tell Sensu to use this external etcd data source by adding the `sensu-backend` flag `--no-embed-etcd` to the original configuration and the path to a client certificate created using your CA:
 
 {{< code shell >}}
 sensu-backend start \
@@ -321,18 +353,18 @@ See the [etcd failure modes documentation][8] for information about cluster fail
 
 See the [etcd recovery guide][9] for disaster recovery information.
 
-[1]: https://etcd.io/docs/v3.4.0/op-guide/runtime-configuration/
-[2]: https://etcd.io/docs/v3.4.0/op-guide/clustering/
-[3]: https://etcd.io/docs/v3.4.0/op-guide/configuration/
+[1]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
+[2]: https://etcd.io/docs/v3.3.13/op-guide/clustering/
+[3]: https://etcd.io/docs/v3.3.13/op-guide/configuration/
 [4]: https://etcd.io/docs/
-[5]: https://etcd.io/docs/v3.4.0/platforms/
+[5]: https://etcd.io/docs/v3.3.13/platforms/
 [6]: #manage-and-monitor-clusters-with-sensuctl
 [7]: https://github.com/sensu/sensu-go/blob/master/docker-compose.yaml
-[8]: https://etcd.io/docs/v3.4.0/op-guide/failures/
-[9]: https://etcd.io/docs/v3.4.0/op-guide/recovery/
+[8]: https://etcd.io/docs/v3.3.13/op-guide/failures/
+[9]: https://etcd.io/docs/v3.3.13/op-guide/recovery/
 [10]: https://github.com/cloudflare/cfssl
-[11]: https://etcd.io/docs/v3.4.0/op-guide/clustering/#self-signed-certificates
-[12]: https://etcd.io/docs/v3.4.0/op-guide/
+[11]: https://etcd.io/docs/v3.3.13/op-guide/clustering/#self-signed-certificates
+[12]: https://etcd.io/docs/v3.3.13/op-guide/
 [13]: ../generate-certificates/
 [14]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
 [15]: ../../../observability-pipeline/observe-schedule/backend/

@@ -13,6 +13,9 @@ menu:
 ---
 
 Sensu stores the most recent event for each entity and check pair using either an embedded etcd (default) or an [external etcd][8] instance.
+Using Sensu with an external etcd cluster requires etcd 3.3.2 or newer but is not compatible with etcd 3.4.0 or newer.
+Follow etcd's [clustering guide][5] using the same store configuration to stand up an external etcd cluster.
+
 You can access observability event data with the [Sensu web UI][9] Events page, [`sensuctl event` commands][10], and the [events API][11].
 For longer retention of observability event data, integrate Sensu with a time series database like [InfluxDB][12] or a searchable index like ElasticSearch or Splunk.
 
@@ -253,6 +256,7 @@ example      | {{< code shell >}}strict: true{{< /code >}}
 [2]: ../../maintain-sensu/troubleshoot/
 [3]: https://aws.amazon.com/rds/
 [4]: https://pkg.go.dev/github.com/lib/pq@v1.2.0#hdr-Connection_String_Parameters
+[5]: https://etcd.io/docs/v3.3.13/op-guide/clustering/
 [8]: ../cluster-sensu/#use-an-external-etcd-cluster
 [9]: ../../../web-ui/
 [10]: ../../../sensuctl/create-manage-resources/#sensuctl-event
