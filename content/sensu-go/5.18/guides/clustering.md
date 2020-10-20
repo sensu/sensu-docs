@@ -258,7 +258,7 @@ See [Secure Sensu][16] for information about cluster security.
 
 ## Use an external etcd cluster
 
-You must have etcd 3.3.2 or newer to use Sensu with an external etcd cluster.
+Using Sensu with an external etcd cluster requires etcd 3.3.2 or newer but is not compatible with etcd 3.4.0 or newer.
 Follow etcd's [clustering guide][2] using the same store configuration to stand up an external etcd cluster.
 
 To initialize a backend that uses etcd authentication, configure read and write access to the `/sensu.io/` key space for your users:
