@@ -483,7 +483,7 @@ sensuctl describe-type all
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: In Sensu 6.1.0, for hooks, the fully qualified name is `core/v2.Hook` and the type is `Hook`.
+**NOTE**: In Sensu 6.1.0, `sensuctl prune` does not work with hooks.
 {{% /notice %}}
 
 ##### sensuctl prune examples
