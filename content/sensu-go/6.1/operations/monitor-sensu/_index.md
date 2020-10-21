@@ -14,5 +14,7 @@ menu:
 
 Add [log forwarding][1] from journald to syslog and set up log rotation to successfully monitor your Sensu installation.
 
+**<button onclick="window.location.href='log-sensu-systemd';">Next</button>**
+
 
 [1]: log-sensu-systemd/
