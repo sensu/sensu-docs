@@ -379,6 +379,62 @@ Since the `lsb_release` package is not installed, the agent will not be able to 
 
 To resolve this problem, install the [`lsb_release` package][8] for your Linux distribution.
 
+## Investigate etcd cluster status
+
+Some issues require investigating the state of the etcd cluster or data stored within etcd. In many such cases, this best accomplished by using the `etcdctl` tool to query and manage the etcd database.
+
+### Obtaining etcdctl
+
+Sensu official packages do not include the etcdctl executable. so you'll need to obtain it from a compatible etcd release.
+
+### Configure etcdctl environment variables
+
+```
+export ETCDCTL_API=3
+export ETCDCTL_CACERT=/etc/sensu/ca.pem
+export ETCDCTL_CERT=/rpool/data/subvol-112-disk-0/etc/sensu/etcd-client.crt
+export ETCDCTL_KEY=/rpool/data/subvol-112-disk-0/etc/sensu/etcd-client.key
+export ETCDCTL_ENDPOINTS="https://backend01:2379,https://backend02:2379,https://backend03:2379"
+```
+
+### See some stuff
+
+```
+# get status
+etcdctl --endpoints https://etcd.example.com:2379 endpoint status
+# list alarms
+etcdctl --endpoints https://etcd.example.com:2379 alarm list
+# clear alarms
+etcdctl --endpoints https://etcd.example.com:2379 alarm dearm
+```
+
+### Restore cluster with oversized database 
+
+```
+```
+# get current status; note etcd default max database size is 2gb
+etcdctl endpoint status
+https://backend01:2379, 88db026f7feb72b4, 3.3.22, 2.1GB, false, 144, 18619245
+https://backend02:2379, e98ad7a888d16bd6, 3.3.22, 2.1GB, true, 144, 18619245
+https://backend03:2379, bc4e39432cbb36d, 3.3.22, 2.1GB, false, 144, 18619245
+
+# get current revision number
+etcdctl endpoint status --write-out="json" | egrep -o '"revision":[0-9]*' | egrep -o '[0-9].*'
+
+# compact to revision, substitute revision obtained above for $rev
+etcdctl compact $rev
+
+# defrag to free space
+etcdctl defrag
+
+# confirm effective
+etcdctl endpoint status
+https://backend01:2379, 88db026f7feb72b4, 3.3.22, 1.0 MB, false, 144, 18619245
+https://backend02:2379, e98ad7a888d16bd6, 3.3.22, 1.0 MB, true, 144, 18619245
+https://backend03:2379, bc4e39432cbb36d, 3.3.22, 1.0 MB, false, 144, 18619245
+```
+
+
 
 [1]: ../../../observability-pipeline/observe-schedule/agent#operation
 [2]: ../../../platforms/#windows
@@ -392,3 +448,4 @@ To resolve this problem, install the [`lsb_release` package][8] for your Linux d
 [10]: ../../deploy-sensu/assets/#asset-definition-multiple-builds
 [11]: ../../monitor-sensu/log-sensu-systemd/
 [12]: https://github.com/systemd/systemd/issues/2913
+[13]: https://github.com/etcd-io/etcd/releases

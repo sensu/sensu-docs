@@ -12,9 +12,21 @@ menu:
     parent: deploy-sensu
 ---
 
-Sensu stores the most recent event for each entity and check pair using either an embedded etcd (default) or an [external etcd][8] instance.
+Sensu stores the most recent event for each entity and check pair using either an etcd (default) or PostgreSQL database.
 You can access observability event data with the [Sensu web UI][9] Events page, [`sensuctl event` commands][10], and the [events API][11].
 For longer retention of observability event data, integrate Sensu with a time series database like [InfluxDB][12] or a searchable index like ElasticSearch or Splunk.
+
+## Use default event storage
+
+By default, Sensu uses its embedded etcd database for storing configuration as well as event data.
+
+This embedded database makes it easy to get started with Sensu without requiring deployment of a complete, scalable architecture. As your Sensu deployment grows, you should review our documentation on suggested [deployment architectures][].
+
+Sensu requires at least etcd 3.3.2 and is tested against releases in the 3.3.x series. etcd versions 3.4.0 and later are not supported.
+
+Sensu can be configured to disable the embedded etcd database and instead use one or more external etcd nodes for configuration and event storage.
+
+Please see our documentation on [using an external etcd cluster][8] for details on this configuration.
 
 ## Scale event storage
 
