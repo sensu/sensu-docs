@@ -73,7 +73,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 6.1.1 release notes
 
-**October XX, 2020** &mdash; The latest release of Sensu Go, version 6.1.1, is now available for download.
+**October 22, 2020** &mdash; The latest release of Sensu Go, version 6.1.1, is now available for download.
 
 This patch release includes a number of bug fixes that affect proper hook handling with `sensuctl prune` and `sensuctl dump`, entity creation via `sensuctl create`, form validation for subscription names in the web UI, permissions for PATCH requests, and silence expiration times, among others.
 
