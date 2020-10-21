@@ -75,7 +75,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **October XX, 2020** &mdash; The latest release of Sensu Go, version 6.1.1, is now available for download.
 
-This patch release includes a number of bug fixes for `sensuctl prune` and `sensuctl dump`, subscription name validation in the web UI, permissions for PATCH requests, and silence expiration times.
+This patch release includes a number of bug fixes that affect proper hook handling with `sensuctl prune` and `sensuctl dump`, entity creation via `sensuctl create`, form validation for subscription names in the web UI, permissions for PATCH requests, and silence expiration times, among others.
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.1.1.
 
@@ -87,6 +87,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.1.1.
 - ([Commercial feature][172]) In the web UI, form validation for subscription names now matches allowed values.
 - Fixed a bug that could cause silences to take too long to expire if the cluster goes through a restart or an etcd election.
 - Fixed a bug that prevented sensu-agent from shutting down correctly.
+- Entities are now properly created using `sensuctl create`.
 - Per-entity subscriptions now persist with PATCH requests.
 - Any user with [`update` permissions][190] for a resource can now make PATCH requests for that resource.
 - Sensuctl now resolves symbolic links.
