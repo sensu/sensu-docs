@@ -1349,6 +1349,11 @@ Use the instructions listed in this section to register an OIDC application for 
 
 #### Create an Okta application
 
+{{% notice note %}}
+**NOTE**: These instructions are based on the Okta Classic UI.
+The steps may be different if you are using the Okta Developer Console.
+{{% /notice %}}
+
 1. In the Okta Administrator Dashboard, start the wizard:<br>select `Applications` > `Add Application` > `Create New App`.
 2. In the *Platform* dropdown, select `Web`.
 3. In the *Sign on method* section, select `OpenID Connect`.

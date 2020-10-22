@@ -21,6 +21,8 @@ Follow our guides to achieve a production-ready installation: [generate certific
 
 You can also [scale your monitoring and observability workflows][8] to many thousands of events per second with Enterprise datastore.
 
+**<button onclick="window.location.href='hardware-requirements';">Next</button>**
+
 
 [1]: hardware-requirements/
 [2]: deployment-architecture/

@@ -19,6 +19,8 @@ The content in the Operations category walks you through each step in getting Se
 - [Monitor Sensu][4]
 - [Manage Secrets][5]
 
+**<button onclick="window.location.href='deploy-sensu';">Next</button>**
+
 
 [1]: deploy-sensu/
 [2]: control-access/
