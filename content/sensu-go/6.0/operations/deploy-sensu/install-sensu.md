@@ -479,7 +479,7 @@ You can change the `output` value to `connected to mysql` to see a different mes
 Now that you have installed Sensu, you’re ready to build your observability pipelines!
 Here are some ideas for next steps.
 
-### Do something new with Sensu
+### Get started with Sensu
 
 If you're ready to see what Sensu can do, one of these pathways can get you started:
 
