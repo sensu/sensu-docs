@@ -9,6 +9,7 @@ version: "6.1"
 menu: "sensu-go-6.1"
 ---
 
+- [6.1.1 release notes](#611-release-notes)
 - [6.1.0 release notes](#610-release-notes)
 - [6.0.0 release notes](#600-release-notes)
 - [5.21.3 release notes](#5213-release-notes)
@@ -70,6 +71,28 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ---
 
+## 6.1.1 release notes
+
+**October 22, 2020** &mdash; The latest release of Sensu Go, version 6.1.1, is now available for download.
+
+This patch release includes a number of bug fixes that affect proper hook handling with `sensuctl prune` and `sensuctl dump`, entity creation via `sensuctl create`, form validation for subscription names in the web UI, and permissions for PATCH requests, among other fixes.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.1.1.
+
+**FIXES:**
+
+- ([Commercial feature][172]) [`sensuctl prune`][192] now properly handles hooks when pruning resources.
+- ([Commercial feature][172]) Fixed a bug that returned incorrect `!=` results for label selectors when no labels were defined.
+- ([Commercial feature][172]) In the web UI, fixed a bug that could cause a GraphQL `no claims` error when a user's access token was no longer valid instead of displaying the sign-out dialog window.
+- ([Commercial feature][172]) In the web UI, form validation for subscription names now matches allowed values.
+- Fixed a bug that prevented sensu-agent from shutting down correctly.
+- Entities are now properly created using `sensuctl create`.
+- Per-entity subscriptions now persist with PATCH requests.
+- Any user with [`update` permissions][190] for a resource can now make PATCH requests for that resource.
+- HookConfig can now be exported via [`sensuctl dump`][191]. Also, `sensuctl dump` now properly logs API errors.
+- eventd errors now include additional context for debugging.
+
+
 ## 6.1.0 release notes
 
 **October 5, 2020** &mdash; The latest release of Sensu Go, version 6.1.0, is now available for download.
@@ -91,7 +114,7 @@ SaltStack Enterprise Jobs for automated remediation.
 - ([Commercial feature][172]) The Alpine-based Docker image now has multi-architecture support with support for the linux/386, linux/amd64, linux/arm64, linux/arm/v6, linux/arm/v7, linux/ppc64le, and linux/s390x platforms.
 - The backend flag [`--api-request-limit`][173] is now available to configure the maximum API request body size (in bytes).
 - In the [REST API][174], most configuration resources now support the PATCH method for making updates.
-- Added new handler and check plugins: [Sensu Go Elasticsearch Handler][184], [Sensu Rundeck Handler][185], and [Sensu Kubernetes Events Check][186]
+- Added new handler and check plugins: [Sensu Go Elasticsearch Handler][184], [Sensu Rundeck Handler][185], and [Sensu Kubernetes Events Check][186].
 
 **IMPROVEMENTS:**
 
@@ -1558,3 +1581,6 @@ To get started with Sensu Go:
 [187]: https://bonsai.sensu.io/assets/sensu/sensu-timescaledb-handler
 [188]: https://github.com/sensu/grafana-sensu-go-datasource
 [189]: https://github.com/sensu/grafana-sensu-go-datasource/releases/tag/1.1.0
+[190]: /sensu-go/6.1/operations/control-access/rbac/#rule-attributes
+[191]: /sensu-go/6.1/sensuctl/back-up-recover/
+[192]: /sensu-go/6.1/sensuctl/create-manage-resources/#sensuctl-prune
