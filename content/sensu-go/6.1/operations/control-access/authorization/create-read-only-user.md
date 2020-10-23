@@ -10,7 +10,7 @@ product: "Sensu Go"
 platformContent: false
 menu: 
   sensu-go-6.1:
-    parent: control-access
+    parent: authorization
 ---
 
 Role-based access control (RBAC) allows you to exercise fine-grained control over how Sensu users interact with Sensu resources.

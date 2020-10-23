@@ -9,7 +9,7 @@ version: "6.1"
 product: "Sensu Go"
 menu:
   sensu-go-6.1:
-    parent: control-access
+    parent: authorization
 ---
 
 Sensu role-based access control (RBAC) helps different teams and projects share a Sensu instance.

@@ -9,7 +9,7 @@ version: "6.1"
 product: "Sensu Go"
 menu: 
   sensu-go-6.1:
-    parent: control-access
+    parent: authentication
 ---
 
 API keys are long-lived authentication tokens that make it more convenient for Sensu plugins and other Sensu-adjacent applications to authenticate with the Sensu API.

@@ -7,7 +7,7 @@ version: "6.1"
 product: "Sensu Go"
 menu:
   sensu-go-6.1:
-    parent: control-access
+    parent: authentication
 ---
 
 Sensu requires username and password authentication to access the [Sensu web UI][1], [API][8], and command line tool ([sensuctl][2]).

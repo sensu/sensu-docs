@@ -10,7 +10,7 @@ product: "Sensu Go"
 platformContent: False
 menu: 
   sensu-go-6.1:
-    parent: control-access
+    parent: authentication
 ---
 
 The Sensu API key feature (core/v2.APIKey) is a persistent UUID that maps to a stored Sensu username.
