@@ -23,9 +23,15 @@ See [Troubleshooting][5] to set the Sensu backend log level and view logs.
 
 ## Configure Tessen
 
-You can use the [Tessen API][2] and [sensuctl][3] to view and manage Tessen configuration.
-Tessen is enabled by default on Sensu backends and required for [licensed][4] Sensu instances.
-To manage Tessen configuration with sensuctl, configure sensuctl as the default [`admin` user][6].
+You can use the [Tessen API][2] and [sensuctl][3] to view your Tessen configuration.
+If you are using an unlicensed Sensu instances, you can also use the [Tessen API][2] and [sensuctl][3] to opt in or opt out of Tessen.
+
+{{% notice note %}}
+**NOTE**: Tessen is enabled by default on Sensu backends and required for [licensed][4] Sensu instances.
+If you have a licensed instance and want to opt out of Tessen, contact your account manager.
+{{% /notice %}}
+
+To manage Tessen configuration for your unlicensed instance with sensuctl, configure sensuctl as the default [`admin` user][6].
 
 To see Tessen status:
 
@@ -40,7 +46,7 @@ sensuctl tessen opt-out
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: [Licensed](../../maintain-sensu/license/) Sensu instances override Tessen configuration to opt in at runtime.
+**NOTE**: For [licensed](../../maintain-sensu/license/) Sensu instances, the Tessen configuration setting will automatically override to `opt-in` at runtime.
 {{% /notice %}}
 
 You can use the `--skip-confirm` flag to skip the confirmation step:
@@ -88,7 +94,7 @@ example      | {{< code shell >}}
 
 opt_out      | 
 -------------|------ 
-description  | `true` to opt out of Tessen. Otherwise, `false`. [Licensed][4] Sensu instances override the `opt_out` attribute to `false` at runtime.
+description  | `true` to opt out of Tessen. Otherwise, `false`. Tessen is enabled by default on Sensu backends and required for [licensed][4] Sensu instances.
 required     | true
 type         | Boolean
 default      | `false`
@@ -97,7 +103,7 @@ example      | {{< code shell >}}opt_out": false{{< /code >}}
 ## Tessen configuration example
 
 This example is in `wrapped-json`format for use with [`sensuctl create`][7].
-To manage Tessen with the [Tessen API][2], use non-wrapped `json` format as shown in the [API docs][2].
+To manage Tessen for unlicensed Sensu instances with the [Tessen API][2], use non-wrapped `json` format as shown in the [API docs][2].
 
 {{< language-toggle >}}
 
@@ -122,7 +128,7 @@ spec:
 
 ## Tessen metrics log examples
 
-If you opt in to Tessen, Sensu sends various metrics back to the Tessen service.
+For unlicensed instances that opt in to Tessen and all licensed instances, Sensu sends various metrics back to the Tessen service.
 In the example metrics log below, Sensu is sending the number of check hooks back to the Tessen service. 
 
 {{< code json >}}
