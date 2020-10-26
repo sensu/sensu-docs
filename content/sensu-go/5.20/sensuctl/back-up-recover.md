@@ -15,22 +15,32 @@ The `sensuctl dump` command allows you to export your [resources][6] to standard
 You can export all of your resources or a subset of them based on a list of resource types.
 The `dump` command supports exporting in `wrapped-json` and `yaml`.
 
-For example, to export all resources to a file named `my-resources.yaml` in `yaml` format:
+For example, to export all resources for the current namespace to a file named `my-resources.yaml` in `yaml` format:
 
 {{< code shell >}}
 sensuctl dump all --format yaml --file my-resources.yaml
 {{< /code >}}
 
-To export only checks to STDOUT in `yaml` format:
+To export only checks for only the current namespace to STDOUT in `yaml` format:
 
 {{< code shell >}}
 sensuctl dump core/v2.CheckConfig --format yaml
 {{< /code >}}
 
-To export only handlers and filters to a file named `my-handlers-and-filters.yaml` in `yaml` format:
+To export only handlers and filters for only the current namespace to a file named `my-handlers-and-filters.yaml` in `yaml` format:
 
 {{< code shell >}}
 sensuctl dump core/v2.Handler,core/v2.EventFilter --format yaml --file my-handlers-and-filters.yaml
+{{< /code >}}
+
+To export resources for **all namespaces**, add the `--all-namespaces` flag to any `sensuctl dump` command:
+
+{{< code shell >}}
+sensuctl dump all --all-namespaces --format yaml --file my-resources.yaml
+
+sensuctl dump core/v2.CheckConfig --all-namespaces --format yaml
+
+sensuctl dump core/v2.Handler,core/v2.EventFilter --all-namespaces --format yaml --file my-handlers-and-filters.yaml
 {{< /code >}}
 
 You can use [fully qualified names or short names][6] to specify resources in `sensuctl dump` commands:
@@ -55,25 +65,28 @@ Here's the step-by-step process:
 mkdir backup
 {{< /code >}}
    
-2. Create a namespaced backup of the entire cluster, except entities, events, and [role-based access control (RBAC)][2] resources.
+2. Create a backup of the entire cluster, except entities, events, and [role-based access control (RBAC)][2] resources, for all namespaces.
    
    {{< code shell >}}
 sensuctl dump all \
+--all-namespaces \
 --omit core/v2.Entity,core/v2.Event,core/v2.APIKey,core/v2.User,core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.ClusterRoleBinding \
 --format yaml > backup/config.yaml
 {{< /code >}}
    
-3. Export your [RBAC][2] resources, except API keys and users.
+3. Export your [RBAC][2] resources, except API keys and users, for all namespaces.
    
    {{< code shell >}}
-sensuctl dump core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.ClusterRoleBinding
+sensuctl dump core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.ClusterRoleBinding \
+--all-namespaces \
 --format yaml > backup/rbac.yaml
 {{< /code >}}
 
-4. Export your API keys and users resources.
+4. Export your API keys and users resources for all namespaces.
    
    {{< code shell >}}
-sensuctl dump core/v2.APIKey,core/v2.User
+sensuctl dump core/v2.APIKey,core/v2.User \
+--all-namespaces \
 --format yaml > backup/cannotrestore.yaml
 {{< /code >}}
 
@@ -83,10 +96,11 @@ You must add the [`password_hash`](../#generate-a-password-hash) or `password` a
 Because users require this additional configuration and API keys cannot be restored from a `sensuctl dump` backup, you might prefer to export your API keys and users to a different folder than `backup`.
 {{% /notice %}}
    
-5. Export your entity resources (if desired).
+5. Export your entity resources for all namespaces (if desired).
      
    {{< code shell >}}
 sensuctl dump core/v2.Entity \
+--all-namespaces \
 --format yaml > backup/inventory.yaml
 {{< /code >}}
 
@@ -107,10 +121,11 @@ To create a backup of your resources that you can replicate in new namespaces:
 mkdir backup
 {{< /code >}}
    
-2. Back up your pipeline resources, stripping namespaces so that your resources are portable for reuse in any namespace.
+2. Back up your pipeline resources for all namespaces, stripping namespaces so that your resources are portable for reuse in any namespace.
    
    {{< code shell >}}
 sensuctl dump core/v2.Asset,core/v2.CheckConfig,core/v2.Hook,core/v2.EventFilter,core/v2.Mutator,core/v2.Handler,core/v2.Silenced,secrets/v1.Secret,secrets/v1.Provider \
+--all-namespaces \
 --format yaml | grep -v "^\s*namespace:" > backup/pipelines.yaml
 {{< /code >}}
 
