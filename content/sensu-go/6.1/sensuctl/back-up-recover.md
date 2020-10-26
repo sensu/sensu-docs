@@ -124,7 +124,7 @@ mkdir backup
 2. Back up your pipeline resources for all namespaces, stripping namespaces so that your resources are portable for reuse in any namespace.
    
    {{< code shell >}}
-sensuctl dump core/v2.Asset,core/v2.CheckConfig,core/v2.Hook,core/v2.EventFilter,core/v2.Mutator,core/v2.Handler,core/v2.Silenced,secrets/v1.Secret,secrets/v1.Provider \
+sensuctl dump core/v2.Asset,core/v2.CheckConfig,core/v2.HookConfig,core/v2.EventFilter,core/v2.Mutator,core/v2.Handler,core/v2.Silenced,secrets/v1.Secret,secrets/v1.Provider \
 --all-namespaces \
 --format yaml | grep -v "^\s*namespace:" > backup/pipelines.yaml
 {{< /code >}}
@@ -189,12 +189,16 @@ sensuctl describe-type all
   core/v2.Event                  events                core/v2             Event                true
   core/v2.EventFilter            filters               core/v2             EventFilter          true
   core/v2.Handler                handlers              core/v2             Handler              true
-  core/v2.Hook                   hooks                 core/v2             Hook                 true
+  core/v2.HookConfig             hooks                 core/v2             HookConfig           true
   core/v2.Mutator                mutators              core/v2             Mutator              true
   core/v2.Role                   roles                 core/v2             Role                 true
   core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true
   core/v2.Silenced               silenced              core/v2             Silenced             true  
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: In Sensu 6.1.0, `sensuctl dump` does not work with hooks.
+{{% /notice %}}
 
 You can also list specific resource types by fully qualified name or short name:
 

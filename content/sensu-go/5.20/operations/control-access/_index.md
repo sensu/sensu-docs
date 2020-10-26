@@ -17,6 +17,8 @@ The Control Access section describes how to authenticate identities and authoriz
 [Configure authentication][1] to use Sensu's built-in basic authentication provider or external authentication providers to authenticate via Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect.
 Then, use [role-based access control (RBAC)][2] to exercise fine-grained control over how Sensu users interact with Sensu resources.
 
+**<button onclick="window.location.href='auth';">Next</button>**
+
 
 [1]: auth/
 [2]: create-read-only-user/
