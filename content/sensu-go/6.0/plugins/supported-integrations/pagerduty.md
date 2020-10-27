@@ -20,7 +20,7 @@ With this handler, Sensu can trigger and resolve PagerDuty incidents according t
 
 ## Get the plugin
 
-Add the Sensu PagerDuty Handler plugin with a [dynamic runtime asset][4] from Bonsai, the Sensu asset index.
+Add the [Sensu PagerDuty Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 
