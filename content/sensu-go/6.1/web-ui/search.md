@@ -11,7 +11,7 @@ menu:
     parent: web-ui
 ---
 
-The Sensu web UI includes basic search functions you can use to build customized views of your Sensu resources.
+The Sensu web UI includes basic search and filtering functions you can use to build customized views of your Sensu resources.
 Sensu also supports advanced web UI searches based on a wider range of resource attributes and custom labels as a [commercial feature][1].
 
 When you apply a search to a web UI page, it creates a unique link for the page of search results.
@@ -35,7 +35,7 @@ For details about operators, see [API response filtering operators][7].
 
 ## Use quick search
 
-The web UI quick search allows you to query Sensu resources without using search syntax.
+The web UI quick search allows you to query and filter Sensu resources without using search syntax.
 Type your search term into the search field on any page of the web UI and press `Enter`.
 Sensu will auto-complete a simple search statement for the resources on that page using substring matching.
 
