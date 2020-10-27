@@ -1571,7 +1571,7 @@ To get started with Sensu Go:
 [177]: /sensu-go/6.1/api/secrets/#providers-get-specification
 [178]: /sensu-go/6.1/web-ui/search/
 [179]: /sensu-go/6.1/operations/deploy-sensu/datastore/#strict
-[180]: /sensu-go/6.1/operations/control-access/auth/#oidc-spec-attributes
+[180]: /sensu-go/6.1/operations/control-access/oidc-auth/#oidc-spec-attributes
 [181]: /sensu-go/6.1/operations/deploy-sensu/datastore/#spec-attributes
 [182]: /sensu-go/6.1/observability-pipeline/observe-schedule/checks#output-metric-tags
 [183]: https://bonsai.sensu.io/assets/sensu/sensu-saltstack-handler

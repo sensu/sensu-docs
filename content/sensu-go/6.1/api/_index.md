@@ -57,6 +57,11 @@ With the exception of the [authentication][12], [health][5], and [metrics][6] AP
 
 Code examples in the Sensu API docs use the environment variable `$SENSU_API_KEY` to represent a valid API key in API requests.
 
+{{% notice note %}}
+**NOTE**: The authentication information on this page is specific to the Sensu API.
+For information about using Sensu's built-in basic authentication or external authentication providers to authenticate to the Sensu web UI, API, or sensuctl, read the [Control Access](../../operations/control-access) documentation.
+{{% /notice %}}
+
 ### Authentication quickstart
 
 To set up a local API testing environment, save your Sensu credentials and token as environment variables:

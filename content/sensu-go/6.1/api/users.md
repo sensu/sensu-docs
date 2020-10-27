@@ -9,7 +9,7 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../operations/control-access/auth#use-built-in-basic-authentication). To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../operations/control-access/auth#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../operations/control-access/auth/#active-directory-ad-authentication), use Sensu's [authentication providers API](../authproviders/).
+**NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../operations/control-access#use-built-in-basic-authentication). To configure user credentials with external provider like [Lightweight Directory Access Protocol (LDAP)](../../operations/control-access/ldap-auth/), [Active Directory (AD)](../../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../../operations/control-access/oidc-auth/), use Sensu's [authentication providers API](../authproviders/).
 {{% /notice %}}
 
 ## Get all users
