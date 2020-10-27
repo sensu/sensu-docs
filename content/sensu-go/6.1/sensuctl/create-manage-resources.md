@@ -475,12 +475,16 @@ sensuctl describe-type all
   core/v2.Event                  events                core/v2             Event                true
   core/v2.EventFilter            filters               core/v2             EventFilter          true
   core/v2.Handler                handlers              core/v2             Handler              true
-  core/v2.Hook                   hooks                 core/v2             Hook                 true
+  core/v2.HookConfig             hooks                 core/v2             HookConfig           true
   core/v2.Mutator                mutators              core/v2             Mutator              true
   core/v2.Role                   roles                 core/v2             Role                 true
   core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true
   core/v2.Silenced               silenced              core/v2             Silenced             true  
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: In Sensu 6.1.0, `sensuctl prune` does not work with hooks.
+{{% /notice %}}
 
 ##### sensuctl prune examples
 

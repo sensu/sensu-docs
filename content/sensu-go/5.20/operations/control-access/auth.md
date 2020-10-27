@@ -622,6 +622,8 @@ For example:
 Sensu offers [commercial support][6] for using Microsoft Active Directory (AD) for authentication to the Sensu web UI, API, and sensuctl.
 The AD authentication provider is based on the [LDAP authentication provider][44].
 
+To use AD authentication for Azure, follow Microsoft's tutorial to [set up secure LDAP in your Azure account][10] and create the host and certificates you need.
+
 ### AD configuration examples
 
 **Example AD configuration: Minimum required attributes**
@@ -1299,6 +1301,11 @@ Use the instructions listed in this section to register an OIDC application for 
 
 #### Create an Okta application
 
+{{% notice note %}}
+**NOTE**: These instructions are based on the Okta Classic UI.
+The steps may be different if you are using the Okta Developer Console.
+{{% /notice %}}
+
 1. In the Okta Administrator Dashboard, start the wizard:<br>select `Applications` > `Add Application` > `Create New App`.
 2. In the *Platform* dropdown, select `Web`.
 3. In the *Sign on method* section, select `OpenID Connect`.
@@ -1348,6 +1355,7 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [7]: https://www.openldap.org/
 [8]: ../../../api/
 [9]: ../../../api/auth/
+[10]: https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-configure-ldaps
 [11]: ../../../reference/rbac#roles-and-cluster-roles
 [13]: ../../../reference/rbac#role-bindings-and-cluster-role-bindings
 [17]: ../../../reference/rbac#namespaced-resource-types

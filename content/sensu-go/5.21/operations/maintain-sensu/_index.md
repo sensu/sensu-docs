@@ -14,6 +14,8 @@ menu:
 
 Use the guides in the Maintain Sensu category to [upgrade][1] to the latest version of Sensu and [troubleshoot][2].
 
+**<button onclick="window.location.href='upgrade';">Next</button>**
+
 
 [1]: upgrade/
 [2]: troubleshoot/
