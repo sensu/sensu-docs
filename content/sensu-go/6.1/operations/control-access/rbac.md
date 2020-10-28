@@ -747,6 +747,10 @@ To create and manage role bindings within a namespace, [create a role][25] with 
 
 To create and manage cluster role bindings, [configure sensuctl][26] as the [default `admin` user][20] or [create a cluster role][28] with permissions for `clusterrolebindings`.
 
+Make sure to include the [group prefix][34] and [username prefix][35] when creating Sensu role bindings and cluster role bindings.
+Without an assigned role or cluster role, users can sign in to the Sensu web UI but can't access any Sensu resources.
+With the correct roles and bindings configured, users can log in to [sensuctl][36] and the [Sensu web UI][1] using their single-sign-on username and password (no prefixes required).
+
 ### Manage role bindings and cluster role bindings
 
 You can use [sensuctl][2] to view, create, and delete role bindings and cluster role bindings.
@@ -1215,7 +1219,6 @@ You can add these resources to Sensu using [`sensuctl create`][31].
           "namespaces", "users", "authproviders", "license"
         ],
         "verbs": ["get", "list", "create", "update", "delete"]
-
       }
     ]
   }

@@ -5,42 +5,45 @@ product: "Sensu Go"
 version: "6.1"
 weight: 20
 layout: "single"
-toc: false
+toc: true
 menu:
   sensu-go-6.1:
     parent: operations
     identifier: control-access
 ---
 
-Sensu administrators control user access by authentication and authorization.
+Sensu administrators control access by authentication and authorization.
 
-Authentication means verifying user identities.
+Authentication means verifying user identities: confirming that users are who they say they are.
 Sensu requires username and password authentication to access the web UI, API, and sensuctl command line tool.
-You can use Sensu's [built-in basic authentication provider][14] or configure [external authentication providers][15] to authenticate via [Lightweight Directory Access Protocol (LDAP)][44], [Active Directory (AD)][37], or [OpenID Connect 1.0 protocol (OIDC)][7].
-
-Authorization means managing user access and permissions.
-After you have authenticated Sensu users, [role-based access control (RBAC)][2] allows you to exercise fine-grained control over how they interact with Sensu resources.
-See [Create a read-only user][5] for an example.
+You can use Sensu's [built-in basic authentication provider][14] or configure [external authentication providers][15].
 
 {{% notice note %}}
 **NOTE**: For API-specific authentication, see the [API overview](../../../api/#access-control) and [Use API keys to authenticate to Sensu](../use-apikeys/).
 {{% /notice %}}
 
-## Use built-in basic authentication
+Authorization means managing user access and permissions: determining which users can access which Sensu resources.
+Configure authorization with [role-based access control (RBAC)][2] to exercise fine-grained control over how they interact with Sensu resources.
+
+## Authentication
+
+Administrators can use Sensu's [built-in basic authentication provider][14] or configure [external authentication providers][15] to authenticate via Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC).
+
+### Use built-in basic authentication
 
 Sensu's built-in basic authentication provider allows you to create and manage user credentials (usernames and passwords) with the [users API][53], either directly or using [sensuctl][2].
 The basic authentication provider does not depend on external services and is not configurable.
 
 Sensu records basic authentication credentials in [etcd][54].
 
-## Use an authentication provider
+### Use an authentication provider
 
 **COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][6].
 
-In addition to built-in authentication, Sensu includes commercial support for authentication using external authentication providers, including [Microsoft Active Directory (AD)][37] and standards-compliant [Lightweight Directory Access Protocol (LDAP)][44] tools like OpenLDAP.
+In addition to built-in authentication, Sensu includes commercial support for authentication using external authentication providers via [Lightweight Directory Access Protocol (LDAP)][44], [Active Directory (AD)][37], or [OpenID Connect 1.0 protocol (OIDC)][7].
 
-### Configure authentication providers
+#### Configure authentication providers
 
 **1. Write an authentication provider configuration definition**
 
@@ -65,7 +68,7 @@ sensuctl auth list
  ldap   openldap  
 {{< /code >}}
 
-### Manage authentication providers
+#### Manage authentication providers
 
 View and delete authentication providers with the [authentication providers API][27] or these sensuctl commands.
 
@@ -87,11 +90,11 @@ To delete an authentication provider named `openldap`:
 sensuctl auth delete openldap
 {{< /code >}}
 
-## Integrate with role-based access control (RBAC)
+## Authorization
 
-After you configure an authentication provider, you'll need to configure Sensu role-based access control (RBAC) to give those users permissions within Sensu.
+After you set up authentication, configure authorization via [role-based access control (RBAC)][4] to give those users permissions within Sensu.
 Sensu RBAC allows you to manage and access users and resources based on namespaces, groups, roles, and bindings.
-Read the [RBAC reference][4] for information about configuring Sensu user permissions and [implementation examples][33].
+See [Create a read-only user][5] for an example.
 
 - **Namespaces** partition resources within Sensu.
 Sensu entities, checks, handlers, and other [namespaced resources][17] belong to a single namespace.
@@ -100,11 +103,7 @@ Sensu entities, checks, handlers, and other [namespaced resources][17] belong to
 - **Role bindings** assign a role to a set of users and groups within a namespace.
 **Cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
 
-To enable permissions for external users and groups within Sensu, create a set of [roles, cluster roles][11], [role bindings, and cluster role bindings][13] that map to the usernames and group names in your authentication provider.
-
-Make sure to include the [group prefix][34] and [username prefix][35] when creating Sensu role bindings and cluster role bindings.
-Without an assigned role or cluster role, users can sign in to the Sensu web UI but can't access any Sensu resources.
-With the correct roles and bindings configured, users can log in to [sensuctl][36] and the [Sensu web UI][1] using their single-sign-on username and password (no prefixes required).
+To enable permissions for external users and groups within Sensu, you can create a set of [roles, cluster roles][11], [role bindings, and cluster role bindings][13] that map to the usernames and group names in your authentication provider.
 
 
 [1]: ../../../web-ui/

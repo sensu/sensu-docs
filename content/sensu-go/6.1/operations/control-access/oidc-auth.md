@@ -10,15 +10,13 @@ menu:
     parent: control-access
 ---
 
-Sensu requires username and password authentication to access the [Sensu web UI][1], [API][8], and command line tool ([sensuctl][2]).
-You can use Sensu's built-in basic authentication provider or configure external authentication providers to authenticate via Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC).
+Sensu requires username and password authentication to access the [web UI][1], [API][8], and [sensuctl][2] command line tool.
+
+In addition to the built-in basic authentication provider, Sensu offers [commercial support][6] for authentication using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol for RBAC authentication.
+The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52].
 
 **COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][6].
-
-Sensu offers [commercial support][6] for the OIDC provider for using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol for RBAC authentication.
-
-The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52].
 
 {{% notice note %}}
 **NOTE**: Defining multiple OIDC providers can lead to inconsistent authentication behavior.
@@ -203,7 +201,7 @@ example      | {{< code shell >}} "groups_claim": "groups" {{< /code >}}
 
 | groups_prefix |   |
 -------------|------
-description  | The prefix to use to form the final RBAC groups if required.
+description  | The prefix added to all OIDC groups. Sensu appends the groups_prefix with a colon. For example, for the groups_prefix `oidc` and the group `dev`, the resulting group name in Sensu is `oidc:dev`. Use the groups_prefix when integrating OIDC groups with Sensu RBAC role bindings and cluster role bindings.
 required     | false
 type         | String
 example      | {{< code shell >}}"groups_prefix": "okta"{{< /code >}}
@@ -282,6 +280,7 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
 2. If you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.
 If a browser does not open, launch a browser to complete the login via your OIDC provider at following URL:
    - https://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/authorize
+
 
 [1]: ../../../web-ui/
 [2]: ../../../sensuctl/
