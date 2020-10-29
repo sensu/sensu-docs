@@ -19,11 +19,11 @@ Sensu requires username and password authentication to access the web UI, API, a
 You can use Sensu's [built-in basic authentication provider][14] or configure [external authentication providers][15].
 
 {{% notice note %}}
-**NOTE**: For API-specific authentication, see the [API overview](../../../api/#access-control) and [Use API keys to authenticate to Sensu](../use-apikeys/).
+**NOTE**: For API-specific authentication, see the [API overview](../../api/#access-control) and [Use API keys to authenticate to Sensu](use-apikeys/).
 {{% /notice %}}
 
-Authorization means managing user access and permissions: determining which users can access which Sensu resources.
-Configure authorization with [role-based access control (RBAC)][2] to exercise fine-grained control over how they interact with Sensu resources.
+Authorization means managing user access and permissions: determining the extent of access users have for different Sensu resources.
+Configure authorization with [role-based access control (RBAC)][4] to exercise fine-grained control over how they interact with Sensu resources.
 
 ## Authentication
 
@@ -47,8 +47,9 @@ In addition to built-in authentication, Sensu includes commercial support for au
 
 **1. Write an authentication provider configuration definition**
 
-For standards-compliant LDAP tools like OpenLDAP, see the [LDAP configuration examples][29] and [specification][30].
-For Microsoft AD, see the [AD configuration examples][31] and [specification][32].
+* Standards-compliant LDAP tools like OpenLDAP: [LDAP configuration examples][29] and [specification][30]
+* Microsoft AD, including Azure AD: [AD configuration examples][31] and [specification][32]
+* OIDC tools like Okta and PingFederate: [OIDC configuration examples][9] and [specification][12]
 
 **2. Apply the configuration with sensuctl**
 
@@ -105,40 +106,42 @@ Sensu entities, checks, handlers, and other [namespaced resources][17] belong to
 
 To enable permissions for external users and groups within Sensu, you can create a set of [roles, cluster roles][11], [role bindings, and cluster role bindings][13] that map to the usernames and group names in your authentication provider.
 
+After you configure the correct roles and bindings, users can log in to [sensuctl][36] and the [web UI][1] using a single-sign-on username and password (no prefix required).
 
-[1]: ../../../web-ui/
-[2]: ../../../sensuctl/
-[3]: ../rbac#default-users
-[4]: ../rbac/
-[5]: ../create-read-only-user/
-[6]: ../../../commercial/
-[7]: ../oidc-auth/
-[8]: ../../../api/
+
+[1]: ../../web-ui/
+[2]: ../../sensuctl/
+[3]: rbac#default-users
+[4]: rbac/
+[5]: create-read-only-user/
+[6]: ../../commercial/
+[7]: oidc-auth/
+[8]: ../../api/
+[9]: oidc-auth/#oidc-configuration-examples
 [10]: https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-configure-ldaps
-[11]: ../rbac#roles-and-cluster-roles
-[13]: ../rbac#role-bindings-and-cluster-role-bindings
+[11]: rbac#roles-and-cluster-roles
+[12]: oidc-auth/#oidc-specification
+[13]: rbac#role-bindings-and-cluster-role-bindings
 [14]: #use-built-in-basic-authentication
 [15]: #use-an-authentication-provider
-[17]: ../rbac#namespaced-resource-types
-[18]: ../rbac#cluster-wide-resource-types
-[19]: ../../maintain-sensu/troubleshoot#log-levels
-[21]: ../ldap-auth/#ldap-group-search-attributes
-[22]: ../ldap-auth/#ldap-user-search-attributes
-[23]: ../ad-auth/#ad-metadata-attributes
-[24]: ../ldap-auth/#ldap-metadata-attributes
-[25]:  ../oidc-auth/#oidc-spec-attributes
-[27]: ../../../api/authproviders/
-[29]: ../ldap-auth/#ldap-configuration-examples
-[30]: ../ldap-auth/#ldap-specification
-[31]: ../ad-auth/#ad-configuration-examples
-[32]: ../ad-auth/#ad-specification
-[33]: ../rbac/#example-workflows
-[34]: #groups-prefix
-[35]: #username-prefix
-[36]: ../../../sensuctl/#first-time-setup
-[37]: ../ad-auth/
-[38]: ../../../sensuctl/create-manage-resources/#create-resources
-[40]: ../ldap-auth/#ldap-server-attributes
-[44]: ../ldap-auth/
-[53]: ../../../api/users/
+[17]: rbac#namespaced-resource-types
+[18]: rbac#cluster-wide-resource-types
+[19]: ../maintain-sensu/troubleshoot#log-levels
+[21]: ldap-auth/#ldap-group-search-attributes
+[22]: ldap-auth/#ldap-user-search-attributes
+[23]: ad-auth/#ad-metadata-attributes
+[24]: ldap-auth/#ldap-metadata-attributes
+[25]: /oidc-auth/#oidc-spec-attributes
+[27]: ../../api/authproviders/
+[29]: ldap-auth/#ldap-configuration-examples
+[30]: ldap-auth/#ldap-specification
+[31]: ad-auth/#ad-configuration-examples
+[32]: ad-auth/#ad-specification
+[33]: rbac/#example-workflows
+[36]: ../../sensuctl/#first-time-setup
+[37]: ad-auth/
+[38]: ../../sensuctl/create-manage-resources/#create-resources
+[40]: ldap-auth/#ldap-server-attributes
+[44]: ldap-auth/
+[53]: ../../api/users/
 [54]: https://etcd.io/

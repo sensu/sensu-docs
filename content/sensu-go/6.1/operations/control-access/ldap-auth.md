@@ -1,6 +1,6 @@
 ---
 title: "Configure Lightweight Directory Access Protocol (LDAP) authentication to access Sensu"
-linktitle: "Configure LDAP Authentication"
+linktitle: "Authenticate with LDAP"
 description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using Lightweight Directory Access Protocol (LDAP). Read this guide to configure an LDAP authentication provider."
 weight: 20
 version: "6.1"
@@ -251,7 +251,7 @@ example      | {{< code shell >}}
 
 | groups_prefix |   |
 -------------|------
-description  | The prefix added to all LDAP groups. Sensu appends the `groups_prefix` with a colon. For example, for the groups_prefix `ldap` and the group `dev`, the resulting group name in Sensu is `ldap:dev`. Use the groups_prefix when integrating LDAP groups with Sensu RBAC [role bindings][13] and [cluster role bindings][13].
+description  | The prefix added to all LDAP groups. Sensu appends the groups_prefix with a colon. For example, for the groups_prefix `ldap` and the group `dev`, the resulting group name in Sensu is `ldap:dev`. Use the groups_prefix when integrating LDAP groups with Sensu RBAC [role bindings][13] and [cluster role bindings][13].
 required     | false
 type         | String
 example      | {{< code shell >}}"groups_prefix": "ldap"{{< /code >}}
@@ -260,7 +260,7 @@ example      | {{< code shell >}}"groups_prefix": "ldap"{{< /code >}}
 
 | username_prefix | |
 -------------|------
-description  | The prefix added to all LDAP usernames. Sensu prepends the `username_prefix` with a colon. For example, for the username_prefix `ldap` and the user `alice`, the resulting username in Sensu is `ldap:alice`. Use the username_prefix when integrating LDAP users with Sensu RBAC [role bindings][13] and [cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
+description  | The prefix added to all LDAP usernames. Sensu appends the username_prefix with a colon. For example, for the username_prefix `ldap` and the user `alice`, the resulting username in Sensu is `ldap:alice`. Use the username_prefix when integrating LDAP users with Sensu RBAC [role bindings][13] and [cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
 required     | false
 type         | String
 example      | {{< code shell >}}"username_prefix": "ldap"{{< /code >}}

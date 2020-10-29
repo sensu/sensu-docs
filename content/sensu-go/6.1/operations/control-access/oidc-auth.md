@@ -1,6 +1,6 @@
 ---
 title: "Configure OpenID Connect 1.0 protocol (OIDC) authentication to access Sensu"
-linktitle: "Configure OIDC Authentication"
+linktitle: "Authenticate with OIDC"
 description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using OpenID Connect 1.0 protocol (OIDC). Read this guide to configure an authentication provider."
 weight: 40
 version: "6.1"
@@ -201,7 +201,7 @@ example      | {{< code shell >}} "groups_claim": "groups" {{< /code >}}
 
 | groups_prefix |   |
 -------------|------
-description  | The prefix added to all OIDC groups. Sensu appends the groups_prefix with a colon. For example, for the groups_prefix `oidc` and the group `dev`, the resulting group name in Sensu is `oidc:dev`. Use the groups_prefix when integrating OIDC groups with Sensu RBAC role bindings and cluster role bindings.
+description  | The prefix added to all OIDC groups. Sensu appends the groups_prefix with a colon. For example, for the groups_prefix `okta` and the group `dev`, the resulting group name in Sensu is `okta:dev`. Use the groups_prefix when integrating OIDC groups with Sensu RBAC role bindings and cluster role bindings.
 required     | false
 type         | String
 example      | {{< code shell >}}"groups_prefix": "okta"{{< /code >}}
@@ -215,7 +215,7 @@ example      | {{< code shell >}}"username_claim": "person"{{< /code >}}
 
 | username_prefix |   |
 -------------|------
-description  | The prefix to use to form the final RBAC user name.
+description  | The prefix added to all OIDC usernames. Sensu appends the username_prefix with a colon. For example, for the username_prefix `okta` and the user `alice`, the resulting username in Sensu is `okta:alice`. Use the username_prefix when integrating OIDC users with Sensu RBAC [role bindings][13] and [cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
 required     | false
 type         | String
 example      | {{< code shell >}}"username_prefix": "okta"{{< /code >}}

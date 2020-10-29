@@ -1,6 +1,6 @@
 ---
 title: "Configure Active Directory (AD) authentication to access Sensu"
-linktitle: "Configure AD Authentication"
+linktitle: "Authenticate with AD"
 description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using Active Directory (AD). Read this guide to configure an AD authentication provider."
 weight: 30
 version: "6.1"
@@ -311,7 +311,7 @@ example      | {{< code shell >}}
 
 | groups_prefix |   |
 -------------|------
-description  | The prefix added to all AD groups. Sensu prepends prefixes with a colon. For example, for the groups_prefix `ad` and the group `dev`, the resulting group name in Sensu is `ad:dev`. Use the `groups_prefix` when integrating AD groups with Sensu RBAC [role bindings][13] and [cluster role bindings][13].
+description  | The prefix added to all AD groups. Sensu appends the groups_prefix with a colon. For example, for the groups_prefix `ad` and the group `dev`, the resulting group name in Sensu is `ad:dev`. Use the groups_prefix when integrating AD groups with Sensu RBAC [role bindings][13] and [cluster role bindings][13].
 required     | false
 type         | String
 example      | {{< code shell >}}"groups_prefix": "ad"{{< /code >}}
@@ -320,7 +320,7 @@ example      | {{< code shell >}}"groups_prefix": "ad"{{< /code >}}
 
 | username_prefix | |
 -------------|------
-description  | The prefix added to all AD usernames. Sensu prepends prefixes with a colon. For example, for the username_prefix `ad` and the user `alice`, the resulting username in Sensu is `ad:alice`. Use the `username_prefix` when integrating AD users with Sensu RBAC [role bindings][13] and [cluster role bindings][13]. Users _do not_ need to provide this prefix when logging in to Sensu.
+description  | The prefix added to all AD usernames. Sensu appends the username_prefix with a colon. For example, for the username_prefix `ad` and the user `alice`, the resulting username in Sensu is `ad:alice`. Use the username_prefix when integrating AD users with Sensu RBAC [role bindings][13] and [cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
 required     | false
 type         | String
 example      | {{< code shell >}}"username_prefix": "ad"{{< /code >}}

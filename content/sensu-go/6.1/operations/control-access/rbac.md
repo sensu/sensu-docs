@@ -12,16 +12,15 @@ menu:
     parent: control-access
 ---
 
-Sensu role-based access control (RBAC) helps different teams and projects share a Sensu instance.
-RBAC allows you to manage user access and resources based on namespaces, groups, roles, and bindings.
+Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance.
+RBAC allows you to authoriize and manage user access and resources based on namespaces, groups, roles, and bindings.
 
 - **Namespaces** partition resources within Sensu. Sensu entities, checks, handlers, and other [namespaced resources][17] belong to a single namespace.
 - **Roles** create sets of permissions (e.g. get and delete) tied to resource types. **Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
 - **Users** represent a person or agent that interacts with Sensu. Users can belong to one or more **groups**.
 - **Role bindings** assign a role to a set of users and groups within a namespace. **Cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
 
-Sensu access controls apply to [sensuctl][2], the Sensu [API][19], and the Sensu [web UI][3].
-In addition to built-in RBAC, Sensu includes [commercial][33] support for authentication using external [authentication providers][32].
+RBAC configuration applies to [sensuctl][2], the [API][19], and the [web UI][3].
 
 ## Namespaces
 
@@ -747,9 +746,9 @@ To create and manage role bindings within a namespace, [create a role][25] with 
 
 To create and manage cluster role bindings, [configure sensuctl][26] as the [default `admin` user][20] or [create a cluster role][28] with permissions for `clusterrolebindings`.
 
-Make sure to include the [group prefix][34] and [username prefix][35] when creating Sensu role bindings and cluster role bindings.
-Without an assigned role or cluster role, users can sign in to the Sensu web UI but can't access any Sensu resources.
-With the correct roles and bindings configured, users can log in to [sensuctl][36] and the [Sensu web UI][1] using their single-sign-on username and password (no prefixes required).
+Make sure to include the groups prefix and username prefix for the authentication provider when creating Sensu role bindings and cluster role bindings.
+Without an assigned role or cluster role, users can sign in to the web UI but can't access any Sensu resources.
+With the correct roles and bindings configured, users can log in to [sensuctl][36] and the [web UI][1] using their single-sign-on username and password (no prefixes required).
 
 ### Manage role bindings and cluster role bindings
 
