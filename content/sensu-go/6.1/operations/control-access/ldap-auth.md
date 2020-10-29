@@ -10,14 +10,16 @@ menu:
     parent: control-access
 ---
 
+**COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][6].
+
 Sensu requires username and password authentication to access the [web UI][1], [API][8], and [sensuctl][2] command line tool.
 
 In addition to the built-in basic authentication provider, Sensu offers [commercial support][6] for a standards-compliant Lightweight Directory Access Protocol (LDAP) tool for authentication.
 The Sensu LDAP authentication provider is tested with [OpenLDAP][7].
 If you're using AD, head to the [AD section][37].
 
-**COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][6].
+For general information about configuring authentication providers, see [Use an authentication provider][12].
 
 ## LDAP configuration examples
 
@@ -214,7 +216,7 @@ example      | {{< code shell >}}
 
 | servers    |      |
 -------------|------
-description  | An array of [LDAP servers][40]for your directory. During the authentication process, Sensu attempts to authenticate using each LDAP server in sequence.
+description  | An array of [LDAP servers][40] for your directory. During the authentication process, Sensu attempts to authenticate using each LDAP server in sequence.
 required     | true
 type         | Array
 example      | {{< code shell >}}
@@ -251,7 +253,7 @@ example      | {{< code shell >}}
 
 | groups_prefix |   |
 -------------|------
-description  | The prefix added to all LDAP groups. Sensu appends the groups_prefix with a colon. For example, for the groups_prefix `ldap` and the group `dev`, the resulting group name in Sensu is `ldap:dev`. Use the groups_prefix when integrating LDAP groups with Sensu RBAC [role bindings][13] and [cluster role bindings][13].
+description  | The prefix added to all LDAP groups. Sensu appends the groups_prefix with a colon. For example, for the groups_prefix `ldap` and the group `dev`, the resulting group name in Sensu is `ldap:dev`. Use the groups_prefix when integrating LDAP groups with Sensu RBAC [role bindings and cluster role bindings][13].
 required     | false
 type         | String
 example      | {{< code shell >}}"groups_prefix": "ldap"{{< /code >}}
@@ -260,7 +262,7 @@ example      | {{< code shell >}}"groups_prefix": "ldap"{{< /code >}}
 
 | username_prefix | |
 -------------|------
-description  | The prefix added to all LDAP usernames. Sensu appends the username_prefix with a colon. For example, for the username_prefix `ldap` and the user `alice`, the resulting username in Sensu is `ldap:alice`. Use the username_prefix when integrating LDAP users with Sensu RBAC [role bindings][13] and [cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
+description  | The prefix added to all LDAP usernames. Sensu appends the username_prefix with a colon. For example, for the username_prefix `ldap` and the user `alice`, the resulting username in Sensu is `ldap:alice`. Use the username_prefix when integrating LDAP users with Sensu RBAC [role bindings and cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
 required     | false
 type         | String
 example      | {{< code shell >}}"username_prefix": "ldap"{{< /code >}}
@@ -457,7 +459,7 @@ To troubleshoot any issue with LDAP authentication, start by [increasing the log
 Most authentication and authorization errors are only displayed on the debug log level to avoid flooding the log files.
 
 {{% notice note %}}
-**NOTE**: If you can't locate any log entries referencing LDAP authentication, make sure the LDAP provider was successfully installed using [sensuctl](#manage-authentication-providers).
+**NOTE**: If you can't locate any log entries referencing LDAP authentication, make sure the LDAP provider was successfully installed using [sensuctl](../#manage-authentication-providers).
 {{% /notice %}}
 
 ### Authentication errors
@@ -534,49 +536,19 @@ For example:
 
 [1]: ../../../web-ui/
 [2]: ../../../sensuctl/
-[3]: ../rbac#default-users
-[4]: ../rbac/
-[5]: ../create-read-only-user/
 [6]: ../../../commercial/
 [7]: https://www.openldap.org/
 [8]: ../../../api/
-[9]: ../../../api/auth/
 [10]: https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-configure-ldaps
-[11]: ../rbac#roles-and-cluster-roles
+[12]: ../#use-an-authentication-provider
 [13]: ../rbac#role-bindings-and-cluster-role-bindings
-[17]: ../rbac#namespaced-resource-types
-[18]: ../rbac#cluster-wide-resource-types
-[19]: ../../maintain-sensu/troubleshoot#log-levels
 [21]: #ldap-group-search-attributes
 [22]: #ldap-user-search-attributes
-[23]: #ad-metadata-attributes
 [24]: #ldap-metadata-attributes
-[25]: #oidc-spec-attributes
-[27]: ../../../api/authproviders/
-[28]: #configure-authentication-providers
-[29]: #ldap-configuration-examples
-[30]: #ldap-specification
-[31]: #ad-configuration-examples
-[32]: #ad-specification
-[33]: ../rbac/#example-workflows
-[34]: #groups-prefix
-[35]: #username-prefix
-[36]: ../../../sensuctl/#first-time-setup
-[37]: #active-directory-ad-authentication
+[37]: ../ad-auth/
 [38]: ../../../sensuctl/create-manage-resources/#create-resources
 [39]: #ldap-spec-attributes
 [40]: #ldap-server-attributes
 [41]: https://en.wikipedia.org/wiki/Fully_qualified_domain_name
 [42]: https://regex101.com/r/zo9mQU/2
 [43]: #ldap-binding-attributes
-[44]: #lightweight-directory-access-protocol-ldap-authentication
-[45]: #ad-spec-attributes
-[46]: #ad-server-attributes
-[47]: #ad-group-search-attributes
-[48]: #ad-user-search-attributes
-[49]: #ldap-troubleshooting
-[50]: #create-an-okta-application
-[51]: https://www.okta.com/
-[52]: https://www.pingidentity.com/en/software/pingfederate.html
-[53]: ../../../api/users/
-[54]: https://etcd.io/

@@ -550,8 +550,8 @@ Sensuctl supports the following formats:
 [22]: ../../operations/control-access/rbac#users
 [23]: #subcommands
 [24]: ../../operations/manage-secrets/secrets-providers/
-[25]: ../../operations/control-access/auth/#active-directory-ad-authentication
-[26]: ../../operations/control-access/auth/#lightweight-directory-access-protocol-ldap-authentication
+[25]: ../../operations/control-access/ad-auth/
+[26]: ../../operations/control-access/ldap-auth/
 [27]: ../../operations/monitor-sensu/tessen/
 [28]: ../../operations/manage-secrets/secrets/
 [29]: ../../operations/deploy-sensu/etcdreplicators/

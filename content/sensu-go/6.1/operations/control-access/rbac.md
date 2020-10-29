@@ -260,8 +260,8 @@ An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
 {{% notice note %}}
-**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../auth#use-built-in-basic-authentication).
-It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../auth/#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../auth/#active-directory-ad-authentication). 
+**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../#use-built-in-basic-authentication).
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../ldap-auth/), [Active Directory (AD)](../ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../oidc-auth/). 
 {{% /notice %}}
 
 To change the password for a user:
@@ -748,7 +748,7 @@ To create and manage cluster role bindings, [configure sensuctl][26] as the [def
 
 Make sure to include the groups prefix and username prefix for the authentication provider when creating Sensu role bindings and cluster role bindings.
 Without an assigned role or cluster role, users can sign in to the web UI but can't access any Sensu resources.
-With the correct roles and bindings configured, users can log in to [sensuctl][36] and the [web UI][1] using their single-sign-on username and password (no prefixes required).
+With the correct roles and bindings configured, users can log in to [sensuctl][2] and the [web UI][1] using their single-sign-on username and password (no prefixes required).
 
 ### Manage role bindings and cluster role bindings
 
@@ -1005,7 +1005,7 @@ The following role and role binding give a `dev` group access to create and mana
 
 #### Role and role binding example with a group prefix
 
-In this example, if a [groups prefix][38] of `ad` is configured for [Active Directory authentication][39], the role and role binding will give a `dev` group access to create and manage Sensu workflows within the `default` namespace.
+In this example, if a groups_prefix of `ad` is configured for [Active Directory authentication][39], the role and role binding will give a `dev` group access to create and manage Sensu workflows within the `default` namespace.
 
 {{< code text >}}
 {
@@ -1273,18 +1273,14 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [29]: #create-role-bindings-and-cluster-role-bindings
 [30]: #role-binding-and-cluster-role-binding-specification
 [31]: ../../../sensuctl/create-manage-resources/#create-resources
-[32]: ../auth#use-an-authentication-provider
-[33]: ../../../commercial/
-[34]: ../auth#use-built-in-basic-authentication
+[32]: ../#use-an-authentication-provider
+[34]: ../#use-built-in-basic-authentication
 [35]: https://en.wikipedia.org/wiki/Bcrypt
 [37]: ../../maintain-sensu/license/
-[38]: ../auth/#groups-prefix
-[39]: ../auth/#ad-groups-prefix
+[39]: ../ad-auth/#ad-groups-prefix
 [40]: ../../deploy-sensu/etcdreplicators/
 [41]: ../../../observability-pipeline/observe-schedule/agent/#security-configuration-flags
 [42]: ../../deploy-sensu/install-sensu/#install-the-sensu-backend
-[43]: ../auth#lightweight-directory-access-protocol-ldap-authentication
-[44]: ../auth/#active-directory-ad-authentication
 [45]: ../../../sensuctl/#change-admin-users-password
 [46]: ../../manage-secrets/secrets-providers/
 [47]: ../../deploy-sensu/datastore/

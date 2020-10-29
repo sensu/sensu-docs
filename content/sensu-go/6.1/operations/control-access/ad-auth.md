@@ -2,7 +2,7 @@
 title: "Configure Active Directory (AD) authentication to access Sensu"
 linktitle: "Authenticate with AD"
 description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using Active Directory (AD). Read this guide to configure an AD authentication provider."
-weight: 30
+weight: 10
 version: "6.1"
 product: "Sensu Go"
 menu:
@@ -10,16 +10,17 @@ menu:
     parent: control-access
 ---
 
-Sensu requires username and password authentication to access the [Sensu web UI][1], [API][8], and command line tool ([sensuctl][2]).
-You can use Sensu's built-in basic authentication provider or configure external authentication providers to authenticate via Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect.
-
 **COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][6].
 
-Sensu offers [commercial support][6] for using Microsoft Active Directory (AD) for authentication to the Sensu web UI, API, and sensuctl.
+Sensu requires username and password authentication to access the [web UI][1], [API][8], and [sensuctl][2] command line tool.
+
+In addition to the built-in basic authentication provider, Sensu offers [commercial support][6] for using Microsoft Active Directory (AD) for authentication.
 The AD authentication provider is based on the [LDAP authentication provider][44].
 
 To use AD authentication for Azure, follow Microsoft's tutorial to [set up secure LDAP in your Azure account][10] and create the host and certificates you need.
+
+For general information about configuring authentication providers, see [Use an authentication provider][12].
 
 ## AD configuration examples
 
@@ -311,7 +312,7 @@ example      | {{< code shell >}}
 
 | groups_prefix |   |
 -------------|------
-description  | The prefix added to all AD groups. Sensu appends the groups_prefix with a colon. For example, for the groups_prefix `ad` and the group `dev`, the resulting group name in Sensu is `ad:dev`. Use the groups_prefix when integrating AD groups with Sensu RBAC [role bindings][13] and [cluster role bindings][13].
+description  | The prefix added to all AD groups. Sensu appends the groups_prefix with a colon. For example, for the groups_prefix `ad` and the group `dev`, the resulting group name in Sensu is `ad:dev`. Use the groups_prefix when integrating AD groups with Sensu RBAC [role bindings and cluster role bindings][13].
 required     | false
 type         | String
 example      | {{< code shell >}}"groups_prefix": "ad"{{< /code >}}
@@ -320,7 +321,7 @@ example      | {{< code shell >}}"groups_prefix": "ad"{{< /code >}}
 
 | username_prefix | |
 -------------|------
-description  | The prefix added to all AD usernames. Sensu appends the username_prefix with a colon. For example, for the username_prefix `ad` and the user `alice`, the resulting username in Sensu is `ad:alice`. Use the username_prefix when integrating AD users with Sensu RBAC [role bindings][13] and [cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
+description  | The prefix added to all AD usernames. Sensu appends the username_prefix with a colon. For example, for the username_prefix `ad` and the user `alice`, the resulting username in Sensu is `ad:alice`. Use the username_prefix when integrating AD users with Sensu RBAC [role bindings and cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
 required     | false
 type         | String
 example      | {{< code shell >}}"username_prefix": "ad"{{< /code >}}
@@ -538,49 +539,18 @@ The troubleshooting steps in the [LDAP troubleshooting][49] section also apply f
 
 [1]: ../../../web-ui/
 [2]: ../../../sensuctl/
-[3]: ../rbac#default-users
-[4]: ../rbac/
-[5]: ../create-read-only-user/
 [6]: ../../../commercial/
-[7]: https://www.openldap.org/
 [8]: ../../../api/
-[9]: ../../../api/auth/
 [10]: https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-configure-ldaps
-[11]: ../rbac#roles-and-cluster-roles
+[12]: ../#use-an-authentication-provider
 [13]: ../rbac#role-bindings-and-cluster-role-bindings
-[17]: ../rbac#namespaced-resource-types
-[18]: ../rbac#cluster-wide-resource-types
-[19]: ../../maintain-sensu/troubleshoot#log-levels
-[21]: #ldap-group-search-attributes
-[22]: #ldap-user-search-attributes
 [23]: #ad-metadata-attributes
-[24]: #ldap-metadata-attributes
-[25]: #oidc-spec-attributes
-[27]: ../../../api/authproviders/
-[28]: #configure-authentication-providers
-[29]: #ldap-configuration-examples
-[30]: #ldap-specification
-[31]: #ad-configuration-examples
-[32]: #ad-specification
-[33]: ../rbac/#example-workflows
-[34]: #groups-prefix
-[35]: #username-prefix
-[36]: ../../../sensuctl/#first-time-setup
-[37]: #active-directory-ad-authentication
 [38]: ../../../sensuctl/create-manage-resources/#create-resources
-[39]: #ldap-spec-attributes
-[40]: #ldap-server-attributes
 [41]: https://en.wikipedia.org/wiki/Fully_qualified_domain_name
 [42]: https://regex101.com/r/zo9mQU/2
-[43]: #ldap-binding-attributes
-[44]: #lightweight-directory-access-protocol-ldap-authentication
+[44]: ../ldap-auth/
 [45]: #ad-spec-attributes
 [46]: #ad-server-attributes
 [47]: #ad-group-search-attributes
 [48]: #ad-user-search-attributes
-[49]: #ldap-troubleshooting
-[50]: #create-an-okta-application
-[51]: https://www.okta.com/
-[52]: https://www.pingidentity.com/en/software/pingfederate.html
-[53]: ../../../api/users/
-[54]: https://etcd.io/
+[49]: ../ldap-auth/#ldap-troubleshooting

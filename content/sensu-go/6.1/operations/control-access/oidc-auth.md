@@ -2,7 +2,7 @@
 title: "Configure OpenID Connect 1.0 protocol (OIDC) authentication to access Sensu"
 linktitle: "Authenticate with OIDC"
 description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using OpenID Connect 1.0 protocol (OIDC). Read this guide to configure an authentication provider."
-weight: 40
+weight: 30
 version: "6.1"
 product: "Sensu Go"
 menu:
@@ -10,16 +10,18 @@ menu:
     parent: control-access
 ---
 
-Sensu requires username and password authentication to access the [web UI][1], [API][8], and [sensuctl][2] command line tool.
-
-In addition to the built-in basic authentication provider, Sensu offers [commercial support][6] for authentication using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol for RBAC authentication.
-The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52].
-
 **COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][6].
 
-{{% notice note %}}
-**NOTE**: Defining multiple OIDC providers can lead to inconsistent authentication behavior.
+Sensu requires username and password authentication to access the [web UI][1], [API][8], and [sensuctl][2] command line tool.
+
+In addition to the built-in basic authentication provider, Sensu offers [commercial support][6] for authentication using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol.
+The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52].
+
+For general information about configuring authentication providers, see [Use an authentication provider][12].
+
+{{% notice warning %}}
+**WARNING**: Defining multiple OIDC providers can lead to inconsistent authentication behavior.
 Use `sensuctl auth list` to verify that only one authentication provider of type `OIDC` is defined.
 If more than one OIDC auth provider configuration is listed, use `sensuctl auth delete $NAME` to remove the extra OIDC configurations by name.
 {{% /notice %}}
@@ -201,7 +203,7 @@ example      | {{< code shell >}} "groups_claim": "groups" {{< /code >}}
 
 | groups_prefix |   |
 -------------|------
-description  | The prefix added to all OIDC groups. Sensu appends the groups_prefix with a colon. For example, for the groups_prefix `okta` and the group `dev`, the resulting group name in Sensu is `okta:dev`. Use the groups_prefix when integrating OIDC groups with Sensu RBAC role bindings and cluster role bindings.
+description  | The prefix added to all OIDC groups. Sensu appends the groups_prefix with a colon. For example, for the groups_prefix `okta` and the group `dev`, the resulting group name in Sensu is `okta:dev`. Use the groups_prefix when integrating OIDC groups with Sensu RBAC [role bindings and cluster role bindings][13].
 required     | false
 type         | String
 example      | {{< code shell >}}"groups_prefix": "okta"{{< /code >}}
@@ -215,7 +217,7 @@ example      | {{< code shell >}}"username_claim": "person"{{< /code >}}
 
 | username_prefix |   |
 -------------|------
-description  | The prefix added to all OIDC usernames. Sensu appends the username_prefix with a colon. For example, for the username_prefix `okta` and the user `alice`, the resulting username in Sensu is `okta:alice`. Use the username_prefix when integrating OIDC users with Sensu RBAC [role bindings][13] and [cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
+description  | The prefix added to all OIDC usernames. Sensu appends the username_prefix with a colon. For example, for the username_prefix `okta` and the user `alice`, the resulting username in Sensu is `okta:alice`. Use the username_prefix when integrating OIDC users with Sensu RBAC [role bindings and cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
 required     | false
 type         | String
 example      | {{< code shell >}}"username_prefix": "okta"{{< /code >}}
@@ -284,47 +286,20 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 
 [1]: ../../../web-ui/
 [2]: ../../../sensuctl/
-[3]: ../rbac#default-users
-[4]: ../rbac/
-[5]: ../create-read-only-user/
 [6]: ../../../commercial/
-[7]: https://www.openldap.org/
 [8]: ../../../api/
-[9]: ../../../api/auth/
 [10]: https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-configure-ldaps
-[11]: ../rbac#roles-and-cluster-roles
+[12]: ../#use-an-authentication-provider
 [13]: ../rbac#role-bindings-and-cluster-role-bindings
 [17]: ../rbac#namespaced-resource-types
 [18]: ../rbac#cluster-wide-resource-types
 [19]: ../../maintain-sensu/troubleshoot#log-levels
-[21]: #ldap-group-search-attributes
-[22]: #ldap-user-search-attributes
-[23]: #ad-metadata-attributes
-[24]: #ldap-metadata-attributes
 [25]: #oidc-spec-attributes
 [27]: ../../../api/authproviders/
-[28]: #configure-authentication-providers
-[29]: #ldap-configuration-examples
-[30]: #ldap-specification
-[31]: #ad-configuration-examples
-[32]: #ad-specification
-[33]: ../rbac/#example-workflows
-[34]: #groups-prefix
-[35]: #username-prefix
 [36]: ../../../sensuctl/#first-time-setup
-[37]: #active-directory-ad-authentication
 [38]: ../../../sensuctl/create-manage-resources/#create-resources
-[39]: #ldap-spec-attributes
-[40]: #ldap-server-attributes
 [41]: https://en.wikipedia.org/wiki/Fully_qualified_domain_name
 [42]: https://regex101.com/r/zo9mQU/2
-[43]: #ldap-binding-attributes
-[44]: #lightweight-directory-access-protocol-ldap-authentication
-[45]: #ad-spec-attributes
-[46]: #ad-server-attributes
-[47]: #ad-group-search-attributes
-[48]: #ad-user-search-attributes
-[49]: #ldap-troubleshooting
 [50]: #create-an-okta-application
 [51]: https://www.okta.com/
 [52]: https://www.pingidentity.com/en/software/pingfederate.html

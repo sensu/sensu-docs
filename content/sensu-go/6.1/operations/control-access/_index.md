@@ -14,7 +14,7 @@ menu:
 
 Sensu administrators control access by authentication and authorization.
 
-Authentication means verifying user identities: confirming that users are who they say they are.
+Authentication verifies user identities to confirm that users are who they say they are.
 Sensu requires username and password authentication to access the web UI, API, and sensuctl command line tool.
 You can use Sensu's [built-in basic authentication provider][14] or configure [external authentication providers][15].
 
@@ -22,7 +22,7 @@ You can use Sensu's [built-in basic authentication provider][14] or configure [e
 **NOTE**: For API-specific authentication, see the [API overview](../../api/#access-control) and [Use API keys to authenticate to Sensu](use-apikeys/).
 {{% /notice %}}
 
-Authorization means managing user access and permissions: determining the extent of access users have for different Sensu resources.
+Authorization establishes and manages user permissions: the extent of access users have for different Sensu resources.
 Configure authorization with [role-based access control (RBAC)][4] to exercise fine-grained control over how they interact with Sensu resources.
 
 ## Authentication
