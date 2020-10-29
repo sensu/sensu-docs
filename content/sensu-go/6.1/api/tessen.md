@@ -55,7 +55,7 @@ example output | {{< code shell >}}
 The `/tessen` API endpoint provides HTTP PUT access to opt in to or opt out of Tessen for unlicensed Sensu instances.
 
 {{% notice note %}}
-**NOTE**: Tessen is enabled by default on Sensu backends and required for [licensed][3] Sensu instances.
+**NOTE**: Tessen is enabled by default on Sensu backends and required for [licensed](../../operations/maintain-sensu/license) Sensu instances.
 If you have a licensed instance and want to opt out of Tessen, contact your account manager.
 {{% /notice %}}
 
