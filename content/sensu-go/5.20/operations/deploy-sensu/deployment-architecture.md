@@ -65,8 +65,6 @@ The single backend (standalone) with embedded etcd architecture requires minimal
 
 *<p style="text-align:center">Single Sensu Go backend or standalone architecture</p>*
 
-*Single Sensu Go backend or standalone architecture*
-
 You can reconfigure a single backend as a member of a cluster, but this operation is destructive: it requires destroying the existing database.
 
 The single backend (standalone) architecture may be a good fit for small- to medium-sized deployments (such as monitoring a remote office or datacenter), deploying alongside individual auto-scaling groups, or in various segments of a logical environment spanning multiple cloud providers.
