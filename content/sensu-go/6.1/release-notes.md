@@ -9,6 +9,7 @@ version: "6.1"
 menu: "sensu-go-6.1"
 ---
 
+- [6.1.2 release notes](#612-release-notes)
 - [6.1.1 release notes](#611-release-notes)
 - [6.1.0 release notes](#610-release-notes)
 - [6.0.0 release notes](#600-release-notes)
@@ -70,6 +71,19 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.1.2 release notes
+
+**October 28, 2020** &mdash; The latest release of Sensu Go, version 6.1.2, is now available for download.
+
+This patch release resolves a backend and agent crash related to JavaScript execution.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.1.2.
+
+**FIXES:**
+
+- Fixed a bug related to JavaScript execution that could cause a crash in the backend and agent.
+
 
 ## 6.1.1 release notes
 
