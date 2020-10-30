@@ -27,10 +27,6 @@ No matter which pathway you choose, you should begin with the [Install Sensu][3]
 If you just want to use Sensu locally, you can do that by installing Sensu according to the steps in the guide.
 You can also use the Install Sensu guide to set up proof-of-concept and testing in a development environment.
 
-You can also read the [assets reference][10] to learn about dynamic runtime assets.
-Assets are shareable, reusable packages that make it easier to deploy the [Sensu plugins][11], libraries, and runtimes you need to automate your monitoring workflows.
-Sensu supports dynamic runtime assets for checks, filters, mutators, and handlers.
-
 ## Deploy Sensu in production
 
 To deploy Sensu for use outside of a local development environment, [install Sensu][3] and follow these guides to achieve a production-ready installation:
@@ -65,8 +61,6 @@ Ansible, Chef, and Puppet have well-defined Sensu modules to help you get starte
 [7]: use-federation/
 [8]: scale-event-storage/
 [9]: etcdreplicators/
-[10]: assets/
-[11]: use-assets-to-install-plugins/
 [12]: configuration-management/
 [13]: scale-event-storage/
 [14]: datastore/
