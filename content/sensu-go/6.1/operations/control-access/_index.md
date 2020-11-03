@@ -34,7 +34,7 @@ Administrators can use Sensu's [built-in basic authentication provider][14] or c
 Sensu's built-in basic authentication provider allows you to create and manage user credentials (usernames and passwords) with the [users API][53], either directly or using [sensuctl][2].
 The basic authentication provider does not depend on external services and is not configurable.
 
-Sensu records basic authentication credentials in [etcd][54].
+Sensu hashes user passwords using the [bcrypt][26] algorithm and records the basic authentication credentials in [etcd][54].
 
 ### Use an authentication provider
 
@@ -132,6 +132,7 @@ After you configure the correct roles and bindings, users can log in to [sensuct
 [23]: ad-auth/#ad-metadata-attributes
 [24]: ldap-auth/#ldap-metadata-attributes
 [25]: /oidc-auth/#oidc-spec-attributes
+[26]: https://en.wikipedia.org/wiki/Bcrypt
 [27]: ../../api/authproviders/
 [29]: ldap-auth/#ldap-configuration-examples
 [30]: ldap-auth/#ldap-specification
