@@ -100,13 +100,13 @@ See [Create a read-only user][5] for an example.
 - **Namespaces** partition resources within Sensu.
 Sensu entities, checks, handlers, and other [namespaced resources][17] belong to a single namespace.
 - **Roles** create sets of permissions (like GET and DELETE) tied to resource types.
-**Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
+**Cluster roles** apply permissions across all namespaces and may include access to [cluster-wide resources][18] like users and namespaces. 
 - **Role bindings** assign a role to a set of users and groups within a namespace.
-**Cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
+**Cluster role bindings** assign a cluster role to a set of users and groups across all namespaces.
 
 To enable permissions for external users and groups within Sensu, you can create a set of [roles, cluster roles][11], [role bindings, and cluster role bindings][13] that map to the usernames and group names in your authentication provider.
 
-After you configure the correct roles and bindings, users can log in to [sensuctl][36] and the [web UI][1] using a single-sign-on username and password (no prefix required).
+After you configure an authentication provider and establish the roles and bindings to grant authenticated users the desired privileges, those users can log in via [sensuctl][36] and the [web UI][1] using a single-sign-on username and password (no prefix required).
 
 
 [1]: ../../web-ui/
