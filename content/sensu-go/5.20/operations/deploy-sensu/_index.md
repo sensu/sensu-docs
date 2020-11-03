@@ -36,8 +36,6 @@ To deploy Sensu for use outside of a local development environment, [install Sen
 3. [Run a Sensu cluster][6], a group of three or more sensu-backend nodes connected to a shared database, to improve Sensu's availability, reliability, and durability.
 4. [Reach multi-cluster visibility][7] with federation so you can gain visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI and mirror your changes in one cluster to follower clusters.
 
-Read the [etcd replicators reference][9] to learn how the etcd-replicators datatype in the federation API allows you to manage role-based access control (RBAC) resources in one place and mirror your changes to follower clusters.
-
 ## Scale your Sensu implementation
 
 As the number of entities and checks in your Sensu implementation grows, so does the rate of events being written to the datastore.
@@ -45,8 +43,6 @@ In clustered etcd deployments, each event must be replicated to each cluster mem
 
 Sensu's Enterprise datastore allows you to configure an external PostgreSQL instance for event storage so you can [scale your monitoring and observability workflows][13] beyond etcd’s 8-GB limit.
 Scale your Sensu implementation to many thousands of events per second, achieve much higher rates of event processing, and minimize the replication communication between etcd peers.
-
-Read the [datastore reference][14] for the Enterprise datastore requirements and specifications.
 
 For deployments at scale, [configuration management tools][12] can help ensure repeatable Sensu deployments and consistent configuration among Sensu backends.
 Ansible, Chef, and Puppet have well-defined Sensu modules to help you get started.
@@ -60,7 +56,5 @@ Ansible, Chef, and Puppet have well-defined Sensu modules to help you get starte
 [6]: cluster-sensu/
 [7]: use-federation/
 [8]: scale-event-storage/
-[9]: ../../reference/etcdreplicators/
 [12]: configuration-management/
 [13]: scale-event-storage/
-[14]: ../../reference/datastore/
