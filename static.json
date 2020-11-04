@@ -440,15 +440,15 @@
             "status": 301
         },
         "~ ^/sensu-go/latest/installation/auth/?$": {
-            "url": "/sensu-go/latest/operations/control-access/auth",
+            "url": "/sensu-go/latest/operations/control-access/",
             "status": 301
         },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/auth/?$": {
-            "url": "/sensu-go/latest/operations/control-access/auth",
+            "url": "/sensu-go/latest/operations/control-access/",
             "status": 301
         },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/auth/?$": {
-            "url": "/sensu-go/latest/operations/control-access/auth",
+            "url": "/sensu-go/latest/operations/control-access/",
             "status": 301
         },
         "~ ^/sensu-go/latest/guides/use-apikey-feature/?$": {
@@ -997,6 +997,26 @@
         },
         "~ ^/sensu-go/latest/migrate/?$": {
             "url": "/sensu-go/latest/operations/maintain-sensu/migrate",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.20/operations/control-access/auth/?$": {
+            "url": "/sensu-go/5.20/operations/control-access",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.21/operations/control-access/auth/?$": {
+            "url": "/sensu-go/5.21/operations/control-access",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.0/operations/control-access/auth/?$": {
+            "url": "/sensu-go/6.0/operations/control-access",
+            "status": 301
+        },
+         "~ ^/sensu-go/6.1/operations/control-access/auth/?$": {
+            "url": "/sensu-go/6.1/operations/control-access",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/operations/control-access/auth/?$": {
+            "url": "/sensu-go/latest/operations/control-access",
             "status": 301
         }
     }

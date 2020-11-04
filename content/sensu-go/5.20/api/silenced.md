@@ -395,5 +395,5 @@ output               | {{< code json >}}
 {{< /code >}}
 
 [1]: ../../reference/silencing/
-[2]: ../overview#pagination
-[3]: ../overview#response-filtering
+[2]: ../#pagination
+[3]: ../#response-filtering

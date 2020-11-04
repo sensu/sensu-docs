@@ -194,5 +194,5 @@ output         | {{< code shell >}}
 {{< /code >}}
 
 [1]: ../../reference/rbac/
-[2]: ../overview#limit-query-parameter
-[3]: ../overview#response-filtering
+[2]: ../#limit-query-parameter
+[3]: ../#response-filtering

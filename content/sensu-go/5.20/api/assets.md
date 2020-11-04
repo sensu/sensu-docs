@@ -332,5 +332,5 @@ example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/sen
 response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/assets/
-[2]: ../overview#pagination
-[3]: ../overview#response-filtering
+[2]: ../#pagination
+[3]: ../#response-filtering
