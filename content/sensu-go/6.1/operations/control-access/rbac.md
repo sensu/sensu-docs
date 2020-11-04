@@ -3,7 +3,7 @@ title: "Role-based access control (RBAC) reference"
 linkTitle: "RBAC Reference"
 reference_title: "Role-based access control (RBAC)"
 type: "reference"
-description: "Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance. RBAC allows you to manage user access and resources based on namespaces, groups, roles, and bindings. Read the reference doc to learn about RBAC."
+description: "Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance. RBAC allows you to authorize user access and specify the actions users are allowed to take against resources based on roles bound to users or groups. Read the reference doc to learn about RBAC."
 weight: 80
 version: "6.1"
 product: "Sensu Go"
@@ -13,7 +13,7 @@ menu:
 ---
 
 Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance.
-RBAC allows you to authoriize and manage user access and resources based on namespaces, groups, roles, and bindings.
+RBAC allows you to specify actions users are allowed to take against resources, within namespaces or across all namespaces, based on roles bound to the user or to one or more groups the user is a member of.
 
 - **Namespaces** partition resources within Sensu. Sensu entities, checks, handlers, and other [namespaced resources][17] belong to a single namespace.
 - **Roles** create sets of permissions (e.g. get and delete) tied to resource types. **Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 

@@ -546,8 +546,8 @@ Sensuctl supports the following formats:
 [22]: ../../reference/rbac#users
 [23]: #subcommands
 [24]: ../../reference/secrets-providers/
-[25]: ../../operations/control-access/auth/#active-directory-ad-authentication
-[26]: ../../operations/control-access/auth/#lightweight-directory-access-protocol-ldap-authentication
+[25]: ../../operations/control-access/ad-auth/
+[26]: ../../operations/control-access/ldap-auth/
 [27]: ../../reference/tessen/
 [28]: ../../reference/secrets/
 [29]: ../../reference/etcdreplicators/
@@ -558,4 +558,4 @@ Sensuctl supports the following formats:
 [34]: ../../reference/license/
 [35]: ../../reference/rbac/#cluster-roles
 [36]: #sensuctl-create-flags
-[37]: ../../operations/control-access/auth/#openid-connect-10-protocol-oidc-authentication
+[37]: ../../operations/control-access/oidc-auth/

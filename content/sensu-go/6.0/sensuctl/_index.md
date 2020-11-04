@@ -116,8 +116,8 @@ An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
 {{% notice note %}}
-**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../operations/control-access/auth#use-built-in-basic-authentication).
-It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../operations/control-access/auth/#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../operations/control-access/auth/#active-directory-ad-authentication). 
+**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../operations/control-access/#use-built-in-basic-authentication).
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../operations/control-access/ldap-auth/), [Active Directory (AD)](../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../operations/control-access/oidc-auth/).
 {{% /notice %}}
 
 For example, if you test LDAP credentials with the `sensuctl user test-creds` command, the backend will log an error, even if you know the LDAP credentials are correct:
@@ -332,7 +332,7 @@ create  delete  import  list
 [8]: #username-password-and-namespace
 [9]: ../api/
 [10]: ../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
-[11]: ../operations/control-access/auth#use-built-in-basic-authentication
+[11]: ../operations/control-access/#use-built-in-basic-authentication
 [12]: #first-time-setup
 [13]: create-manage-resources/#update-resources
 [15]: https://en.wikipedia.org/wiki/Bcrypt

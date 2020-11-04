@@ -94,7 +94,7 @@ sensuctl auth delete openldap
 ## Authorization
 
 After you set up authentication, configure authorization via [role-based access control (RBAC)][4] to give those users permissions within Sensu.
-Sensu RBAC allows you to manage and access users and resources based on namespaces, groups, roles, and bindings.
+RBAC allows you to specify actions users are allowed to take against resources, within namespaces or across all namespaces, based on roles bound to the user or to one or more groups the user is a member of.
 See [Create a read-only user][5] for an example.
 
 - **Namespaces** partition resources within Sensu.
@@ -106,10 +106,11 @@ Sensu entities, checks, handlers, and other [namespaced resources][17] belong to
 
 To enable permissions for external users and groups within Sensu, you can create a set of [roles, cluster roles][11], [role bindings, and cluster role bindings][13] that map to the usernames and group names in your authentication provider.
 
-After you configure an authentication provider and establish the roles and bindings to grant authenticated users the desired privileges, those users can log in via [sensuctl][36] and the [web UI][1] using a single-sign-on username and password (no prefix required).
+After you configure an authentication provider and establish the roles and bindings to grant authenticated users the desired privileges, those users can log in via [sensuctl][36] and the [web UI][1] using a single-sign-on username and password.
+Users do *not* need to provide the username prefix for the authentication provider when logging in to Sensu.
 
 
-[1]: ../../web-ui/
+[1]: ../../web-ui/#sign-in-to-the-web-ui
 [2]: ../../sensuctl/
 [3]: rbac#default-users
 [4]: rbac/

@@ -562,4 +562,4 @@ Sensuctl supports the following formats:
 [34]: ../../operations/maintain-sensu/license/
 [35]: ../../operations/control-access/rbac/#cluster-roles
 [36]: #sensuctl-create-flags
-[37]: ../../operations/control-access/auth/#openid-connect-10-protocol-oidc-authentication
+[37]: ../../operations/control-access/oidc-auth/
