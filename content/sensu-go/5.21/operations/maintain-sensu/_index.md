@@ -5,17 +5,38 @@ product: "Sensu Go"
 version: "5.21"
 weight: 30
 layout: "single"
-toc: false
+toc: true
 menu:
   sensu-go-5.21:
     parent: operations
     identifier: maintain-sensu
 ---
 
-Use the guides in the Maintain Sensu category to [upgrade][1] to the latest version of Sensu and [troubleshoot][2].
+The Maintain Sensu category includes information to keep your Sensu installation up-to-date and running smoothly.
 
-**<button onclick="window.location.href='upgrade';">Next</button>**
+## Upgrade or migrate
+
+Follow the [upgrade guide][1] for step-by-step instructions to upgrade to the latest version of Sensu from any earlier version.
+The upgrade instructions include details about important changes between versions that could affect your upgrade and any special requirements to make sure your upgrade is successful.
+
+If you are still using Sensu Core 1.x, follow the [migrate guide][2] to upgrade to Sensu Go.
+The migrate guide includes links to Sensu's migration resources and Core configuration translation tools, as well as instructions for [installing Sensu Go alongside your existing Sensu Core instance][3].
+
+## Troubleshoot
+
+Use the Sensu [troubleshooting guide][4] to diagnose and resolve common issues.
+Learn how to read, configure, and find the [logs produced by Sensu services][6].
+Sensu log messages can help you identify and solve [backend startup errors][7] and [permissions issues][8].
+
+The troubleshooting guide also describes how to [use Sensu handlers and filters to test and debug your observability pipeline][9] and diagnose problems related to [assets][10].
 
 
 [1]: upgrade/
-[2]: troubleshoot/
+[2]: migrate/
+[3]: migrate/#step-by-step-migration-instructions
+[4]: troubleshoot/
+[6]: troubleshoot/#service-logging
+[7]: troubleshoot/#sensu-backend-startup-errors
+[8]: troubleshoot/#permission-issues
+[9]: troubleshoot/#handlers-and-event-filters
+[10]: troubleshoot/#assets
