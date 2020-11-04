@@ -12,7 +12,12 @@ menu:
     identifier: monitor-sensu
 ---
 
-Add [log forwarding][1] from journald to syslog and set up log rotation to successfully monitor your Sensu installation.
+Use the guides in the Monitor Sensu category to successfully monitor your Sensu installation.
+
+Learn how to [log Sensu services with systemd][1], including adding log forwarding from journald to syslog, using rsyslog to write logging data to disk, and setting up log rotation.
+
+Read [Monitor Sensu with Sensu][2] to monitor the Sensu backend with another Sensu backend or cluster: use a secondary Sensu instance to notify you when your primary Sensu instance is down (and vice versa).
 
 
 [1]: log-sensu-systemd/
+[2]: monitor-sensu-with-sensu/

@@ -481,6 +481,8 @@ example      | {{< code shell >}}
 }
 {{< /code >}}
 
+<a name="checks"></a>
+
 |check       |      |
 -------------|------
 description  | [Check definition][1] used to create the event and information about the status and history of the event. The check scope includes attributes described in the [event specification][21] and the [check specification][20].

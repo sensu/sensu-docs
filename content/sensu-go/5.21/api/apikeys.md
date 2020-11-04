@@ -163,4 +163,4 @@ description     | Revokes the specified API key.
 example URL     | http://hostname:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
 response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../overview#pagination
+[1]: ../#pagination

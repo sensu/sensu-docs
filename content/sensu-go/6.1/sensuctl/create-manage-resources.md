@@ -148,7 +148,7 @@ The following table describes the command-specific flags.
 `namespace` | `Role` | `role` | `RoleBinding`
 `role_binding` | [`Secret`][28] | `Silenced` | `silenced`
 [`User`][8] | `user` | [`VaultProvider`][24] | [`ldap`][26]
-[`ad`][25] | [`TessenConfig`][27] | [`PostgresConfig`][32]
+[`ad`][25] | [`oidc`][37] | [`TessenConfig`][27] | [`PostgresConfig`][32]
 
 ### Create resources across namespaces
 
@@ -475,12 +475,16 @@ sensuctl describe-type all
   core/v2.Event                  events                core/v2             Event                true
   core/v2.EventFilter            filters               core/v2             EventFilter          true
   core/v2.Handler                handlers              core/v2             Handler              true
-  core/v2.Hook                   hooks                 core/v2             Hook                 true
+  core/v2.HookConfig             hooks                 core/v2             HookConfig           true
   core/v2.Mutator                mutators              core/v2             Mutator              true
   core/v2.Role                   roles                 core/v2             Role                 true
   core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true
   core/v2.Silenced               silenced              core/v2             Silenced             true  
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: In Sensu 6.1.0, `sensuctl prune` does not work with hooks.
+{{% /notice %}}
 
 ##### sensuctl prune examples
 
@@ -546,8 +550,8 @@ Sensuctl supports the following formats:
 [22]: ../../operations/control-access/rbac#users
 [23]: #subcommands
 [24]: ../../operations/manage-secrets/secrets-providers/
-[25]: ../../operations/control-access/auth/#active-directory-ad-authentication
-[26]: ../../operations/control-access/auth/#lightweight-directory-access-protocol-ldap-authentication
+[25]: ../../operations/control-access/ad-auth/
+[26]: ../../operations/control-access/ldap-auth/
 [27]: ../../operations/monitor-sensu/tessen/
 [28]: ../../operations/manage-secrets/secrets/
 [29]: ../../operations/deploy-sensu/etcdreplicators/
@@ -558,3 +562,4 @@ Sensuctl supports the following formats:
 [34]: ../../operations/maintain-sensu/license/
 [35]: ../../operations/control-access/rbac/#cluster-roles
 [36]: #sensuctl-create-flags
+[37]: ../../operations/control-access/oidc-auth/

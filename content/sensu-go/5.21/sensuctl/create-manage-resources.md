@@ -148,7 +148,7 @@ The following table describes the command-specific flags.
 `namespace` | `Role` | `role` | `RoleBinding`
 `role_binding` | [`Secret`][28] | `Silenced` | `silenced`
 [`User`][8] | `user` | [`VaultProvider`][24] | [`ldap`][26]
-[`ad`][25] | [`TessenConfig`][27] | [`PostgresConfig`][32]
+[`ad`][25] | [`oidc`][37] | [`TessenConfig`][27] | [`PostgresConfig`][32]
 
 ### Create resources across namespaces
 
@@ -546,8 +546,8 @@ Sensuctl supports the following formats:
 [22]: ../../reference/rbac#users
 [23]: #subcommands
 [24]: ../../reference/secrets-providers/
-[25]: ../../operations/control-access/auth/#active-directory-ad-authentication
-[26]: ../../operations/control-access/auth/#lightweight-directory-access-protocol-ldap-authentication
+[25]: ../../operations/control-access/ad-auth/
+[26]: ../../operations/control-access/ldap-auth/
 [27]: ../../reference/tessen/
 [28]: ../../reference/secrets/
 [29]: ../../reference/etcdreplicators/
@@ -558,3 +558,4 @@ Sensuctl supports the following formats:
 [34]: ../../reference/license/
 [35]: ../../reference/rbac/#cluster-roles
 [36]: #sensuctl-create-flags
+[37]: ../../operations/control-access/oidc-auth/

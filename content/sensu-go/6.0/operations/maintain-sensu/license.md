@@ -151,6 +151,6 @@ If your license expires, you will still have access to [commercial features][5],
 [7]: https://sensu.io/contact?subject=contact-sales
 [8]: https://account.sensu.io/support
 [9]: ../../../api/
-[10]: ../../control-access/auth/
+[10]: ../../control-access/
 [11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4
 [12]: ../../deploy-sensu/use-assets-to-install-plugins/
