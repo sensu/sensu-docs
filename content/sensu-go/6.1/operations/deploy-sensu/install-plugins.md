@@ -17,7 +17,12 @@ Extend Sensu's functionality with [plugins][10], which provide executables for p
 ## Install plugins with dynamic runtime assets
 
 Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
-To start using and deploying assets, read [Use dynamic runtime assets to install plugins][7] to become familiar with workflows that involve assets. 
+To start using and deploying assets, read [Use dynamic runtime assets to install plugins][7] to become familiar with workflows that involve assets.
+
+{{% notice note %}}
+**NOTE**: Dynamic runtime assets are not required to use Sensu Go.
+You can install Sensu plugins using the [sensu-install](#install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../configuration-management/) solution.
+{{% /notice %}}
 
 ## Use Bonsai, the Sensu asset index
 
