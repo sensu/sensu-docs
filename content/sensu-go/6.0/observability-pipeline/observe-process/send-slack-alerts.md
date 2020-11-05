@@ -1,6 +1,8 @@
 ---
 title: "Send Slack alerts with handlers"
 linkTitle: "Send Slack Alerts"
+guide_title: "Send Slack alerts with handlers"
+type: "guide"
 description: "Here’s how to send alerts to Slack with Sensu handlers, which are actions the Sensu backend executes on events. Use handlers to send events to your technology of choice (in this case, Slack) to alert you of incidents and help you resolve them more quickly."
 weight: 30
 version: "6.0"

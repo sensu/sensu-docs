@@ -16,6 +16,11 @@ You can use assets to provide the plugins, libraries, and runtimes you need to a
 See the [asset reference][1] for more information about assets.
 This guide uses the [Sensu PagerDuty Handler asset][7] as an example.
 
+{{% notice note %}}
+**NOTE**: Assets are not required to use Sensu Go.
+You can install Sensu plugins using the [sensu-install](../../operations/deploy-sensu/install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../operations/deploy-sensu/configuration-management/) solution.
+{{% /notice %}}
+
 ## Register the Sensu PagerDuty Handler asset
 
 To add the [Sensu PagerDuty Handler asset][7] to Sensu, use [`sensuctl asset add`][6]:

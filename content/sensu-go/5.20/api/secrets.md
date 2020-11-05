@@ -457,4 +457,4 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 
 [1]: ../../commercial/
-[4]: ../overview#response-filtering
+[4]: ../#response-filtering

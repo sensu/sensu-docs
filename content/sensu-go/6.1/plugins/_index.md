@@ -2,12 +2,12 @@
 title: "Plugins"
 description: "Learn how to find, install, use, and develop Sensu plugins."
 product: "Sensu Go"
-version: "6.0"
+version: "6.1"
 weight: 110
 layout: "single"
 toc: true
 menu:
-  sensu-go-6.0:
+  sensu-go-6.1:
     identifier: plugins
 ---
 

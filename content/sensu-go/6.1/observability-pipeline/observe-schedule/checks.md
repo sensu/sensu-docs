@@ -649,16 +649,18 @@ type         | Boolean
 default      | `false`
 example      | {{< code shell >}}"stdin": true{{< /code >}}
 
+<a name="flap-thresholds"></a>
+
 |low_flap_threshold ||
 -------------|------
-description  | Flap detection low threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][16].
+description  | Flap detection low threshold (% state change) for the check. Sensu uses the same flap detection algorithm as [Nagios][16]. Read the [event reference][62] to learn more about how Sensu uses the `low_flap_threshold` value.
 required     | false
 type         | Integer
 example      | {{< code shell >}}"low_flap_threshold": 20{{< /code >}}
 
 |high_flap_threshold ||
 -------------|------
-description  | Flap detection high threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][16].
+description  | Flap detection high threshold (% state change) for the check. Sensu uses the same flap detection algorithm as [Nagios][16]. Read the [event reference][62] to learn more about how Sensu uses the `high_flap_threshold` value.
 required     | true (if `low_flap_threshold` is configured)
 type         | Integer
 example      | {{< code shell >}}"high_flap_threshold": 60{{< /code >}}
@@ -749,7 +751,7 @@ example      | {{< code shell >}}"output_metric_handlers": ["influx-db"]{{< /cod
 
 |output_metric_tags    |      |
 -------------|------
-description  | Custom tags you can apply to enrich metric points produced by check output metric extraction. One name/value pair make up a single tag. The `output_metric_tags` array can contain multiple tags.
+description  | Custom tags you can apply to enrich metric points produced by check output metric extraction. One [name/value pair][22] make up a single tag. The `output_metric_tags` array can contain multiple tags.<br><br>You can use [check token substitution][39] for the `value` attribute in output metric tags.
 required     | false
 type         | Array
 example      | {{< code shell >}}
@@ -853,7 +855,7 @@ example      | {{< code shell >}}"name": "instance"{{< /code >}}
 
 value        | 
 -------------|------
-description  | Value for the [output metric tag][19].
+description  | Value for the [output metric tag][19]. You can use [check token substitution][39] for the `value` attribute.
 required     | true
 type         | String
 example      | {{< code shell >}}"value": "{{ .name }}"{{< /code >}}
@@ -1137,6 +1139,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [19]: #output-metric-tags
 [20]: ../../observe-entities/#proxy-entities
 [21]: ../../observe-entities/entities/#spec-attributes
+[22]: #output_metric_tags-attributes
 [23]: ../collect-metrics-with-checks/
 [24]: ../../observe-events/events/
 [25]: #metadata-attributes
@@ -1170,7 +1173,8 @@ The dynamic runtime asset reference includes an [example check definition that u
 [55]: ../../../sensuctl/filter-responses/
 [56]: ../../../operations/manage-secrets/secrets/
 [57]: ../../../operations/manage-secrets/secrets-providers/
-[58]: ../../../web-ui/filter#filter-with-label-selectors
+[58]: ../../../web-ui/search#search-for-labels
 [59]: ../../../operations/manage-secrets/secrets-management/
 [60]: ../../../operations/deploy-sensu/assets#dynamic-runtime-asset-path
-[61]: ../../../web-ui/filter/
+[61]: ../../../web-ui/search/
+[62]: ../../observe-events/events/#flap-detection-algorithm

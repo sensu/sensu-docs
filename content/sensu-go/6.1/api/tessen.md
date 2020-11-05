@@ -52,8 +52,12 @@ example output | {{< code shell >}}
 
 ## Opt in to or out of Tessen {#tessen-put}
 
-The `/tessen` API endpoint provides HTTP PUT access to opt in to or opt out of Tessen.
-Tessen is enabled by default on Sensu backends and required for [licensed][3] Sensu instances.
+The `/tessen` API endpoint provides HTTP PUT access to opt in to or opt out of Tessen for unlicensed Sensu instances.
+
+{{% notice note %}}
+**NOTE**: Tessen is enabled by default on Sensu backends and required for [licensed](../../operations/maintain-sensu/license) Sensu instances.
+If you have a licensed instance and want to opt out of Tessen, contact your account manager.
+{{% /notice %}}
 
 ### Example {#tessen-put-example}
 
@@ -79,9 +83,9 @@ HTTP/1.1 200 OK
 
 /tessen (PUT) | 
 ----------------|------
-description     | Updates the active Tessen configuration. [Licensed][3] Sensu instances override the `opt_out` attribute to `false` at runtime.
+description     | Updates the active Tessen configuration for unlicensed Sensu instances. Tessen is enabled by default on Sensu backends and required for [licensed][3] Sensu instances.
 example url     | http://hostname:8080/api/core/v2/tessen
-request parameters | Required: `opt_out` (set to `false` to enable Tessen; set to `true` to opt out of Tessen).
+request parameters | Required: `opt_out` (for unlicensed instances, set to `false` to enable Tessen; set to `true` to opt out of Tessen).
 response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 example output | {{< code shell >}}
 {

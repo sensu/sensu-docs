@@ -16,7 +16,7 @@ Sensuctl works by calling Sensu’s underlying API to create, read, update, and 
 
 ## Create resources
 
-The `sensuctl create` command allows you to create or update resources by reading from STDIN or a flag configured file (`-f`).
+The `sensuctl create` command allows you to create or update resources by reading from STDIN or a [flag][36] configured file (`-f`).
 The `create` command accepts Sensu resource definitions in `wrapped-json` and `yaml`.
 Both JSON and YAML resource definitions wrap the contents of the resource in `spec` and identify the resource `type`.
 See the [`wrapped-json`example][9] and [this table][3] for a list of supported types.
@@ -123,6 +123,17 @@ Or:
 cat my-resources.yml | sensuctl create
 {{< /code >}}
 
+### sensuctl create flags
+
+Run `sensuctl create -h` to view command-specific and global flags.
+The following table describes the command-specific flags.
+
+| Flag | Function and important notes
+| ---- | ----------------------------
+`-f` or `--file` | Files, URLs, or directories to create resources from. Strings.
+`-h` or `--help` | Help for the create command.
+`-r` or `--recursive` | Create command will follow subdirectories.
+
 ### sensuctl create resource types
 
 |sensuctl create types |   |   |   |
@@ -137,7 +148,7 @@ cat my-resources.yml | sensuctl create
 `namespace` | `Role` | `role` | `RoleBinding`
 `role_binding` | [`Secret`][28] | `Silenced` | `silenced`
 [`User`][8] | `user` | [`VaultProvider`][24] | [`ldap`][26]
-[`ad`][25] | [`TessenConfig`][27] | [`PostgresConfig`][32]
+[`ad`][25] | [`oidc`][37] | [`TessenConfig`][27] | [`PostgresConfig`][32]
 
 ### Create resources across namespaces
 
@@ -537,8 +548,8 @@ Sensuctl supports the following formats:
 [22]: ../../operations/control-access/rbac#users
 [23]: #subcommands
 [24]: ../../operations/manage-secrets/secrets-providers/
-[25]: ../../operations/control-access/auth/#active-directory-ad-authentication
-[26]: ../../operations/control-access/auth/#lightweight-directory-access-protocol-ldap-authentication
+[25]: ../../operations/control-access/ad-auth/
+[26]: ../../operations/control-access/ldap-auth/
 [27]: ../../operations/monitor-sensu/tessen/
 [28]: ../../operations/manage-secrets/secrets/
 [29]: ../../operations/deploy-sensu/etcdreplicators/
@@ -548,3 +559,5 @@ Sensuctl supports the following formats:
 [33]: #create-resources-across-namespaces
 [34]: ../../operations/maintain-sensu/license/
 [35]: ../../operations/control-access/rbac/#cluster-roles
+[36]: #sensuctl-create-flags
+[37]: ../../operations/control-access/oidc-auth/

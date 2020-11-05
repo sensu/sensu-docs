@@ -423,6 +423,7 @@ If a Sensu agent fails to send keepalive events over the period specified by the
 The value you specify for `keepalive-warning-timeout` must be lower than the value you specify for `keepalive-critical-timeout`.
 
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
+In addition, the agent maps [`keepalive-critical-timeout` and `keepalive-warning-timeout`][4] values to certain event check attributes, so you can create time-based event filters to reduce alert fatigue for agent keepliave events.
 
 {{% notice note %}}
 **NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../../observe-entities/#proxy-entities) because they cannot run a Sensu agent.
@@ -955,13 +956,11 @@ cache-dir: "/cache/sensu-agent"{{< /code >}}
 description   | Path to Sensu agent configuration file.
 type          | String
 default       | <ul><li>Linux: `/etc/sensu/agent.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/agent.yml`</li><li>Windows: `C:\ProgramData\sensu\config\agent.yml`</li></ul>
-environment variable | `SENSU_CONFIG_FILE`
+environment variable | The config file path cannot be set by an environment variable.
 example       | {{< code shell >}}# Command line example
 sensu-agent start --config-file /sensu/agent.yml
 sensu-agent start -c /sensu/agent.yml
-
-# /etc/sensu/agent.yml example
-config-file: "/sensu/agent.yml"{{< /code >}}
+{{< /code >}}
 
 <a name="disable-assets"></a>
 
@@ -1169,7 +1168,8 @@ detect-cloud-provider: "false"{{< /code >}}
 
 | keepalive-critical-timeout |      |
 --------------------|------
-description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. Set to disabled (`0`) by default. If the value is not `0`, it must be greater than or equal to `5`.
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. Set to disabled (`0`) by default. If the value is not `0`, it must be greater than or equal to `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-critical-timeout` value to the [`event.check.ttl` attribute](../../observe-events/events/#checks) when keepalive events are generated for the Sensu backend to process. The `event.check.ttl` attribute is useful for using time-based event filters to reduce alert fatigue for agent keepalive events.
+{{% /notice %}}
 type                | Integer
 default             | `0`
 environment variable   | `SENSU_KEEPALIVE_CRITICAL_TIMEOUT`
@@ -1209,7 +1209,8 @@ keepalive-interval: 30{{< /code >}}
 
 | keepalive-warning-timeout |      |
 --------------------|------
-description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-warning-timeout` value to the [`event.check.timeout` attribute](../../observe-events/events/#checks) when keepalive events are generated for the Sensu backend to process. The `event.check.timeout` attribute is useful for using time-based event filters to reduce alert fatigue for agent keepalive events.
+{{% /notice %}}
 type                | Integer
 default             | `120`
 environment variable   | `SENSU_KEEPALIVE_WARNING_TIMEOUT`
@@ -1719,6 +1720,6 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [51]: #events-post-specification
 [52]: ../../observe-process/handlers/#keepalive-event-handlers
 [53]: #keepalive-handlers-flag
-[54]: ../../../web-ui/filter#filter-with-label-selectors
+[54]: ../../../web-ui/search#search-for-labels
 [55]: ../../../commercial/
 [56]: #allow-list

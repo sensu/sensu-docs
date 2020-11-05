@@ -4,12 +4,12 @@ linkTitle: "Assets Reference"
 reference_title: "Assets"
 type: "reference"
 description: "Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins. You can use dynamic runtime assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows. Read this reference doc to learn about assets."
-weight: 40
-version: "6.0"
+weight: 60
+version: "6.1"
 product: "Sensu Go"
 platformContent: false 
 menu:
-  sensu-go-6.0:
+  sensu-go-6.1:
     parent: plugins
 ---
 
@@ -21,7 +21,7 @@ You can use dynamic runtime assets to provide the plugins, libraries, and runtim
 Sensu supports dynamic runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
 
 {{% notice note %}}
-**NOTE**: Dynamic runtime assets are not required to use Sensu Go in production.
+**NOTE**: Dynamic runtime assets are not required to use Sensu Go.
 You can install Sensu plugins using the [sensu-install](../install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../configuration-management/) solution.
 {{% /notice %}}
 
@@ -965,7 +965,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [35]: #asset-definition-multiple-builds
 [37]: https://bonsai.sensu.io/sign-in
 [38]: https://bonsai.sensu.io/new
-[39]: ../../../web-ui/filter#filter-with-label-selectors
+[39]: ../../../web-ui/search#search-for-labels
 [40]: ../../../observability-pipeline/observe-schedule/agent/#configuration-via-flags
 [41]: ../../../observability-pipeline/observe-schedule/backend/#configuration
 [42]: #filters

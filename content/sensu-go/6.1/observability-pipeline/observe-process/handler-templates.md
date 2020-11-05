@@ -1,7 +1,9 @@
 ---
 title: "Create handler templates"
 linkTitle: "Create Handler Templates"
-description: "PLACEHOLDER."
+guide_title: "Create handler templates"
+type: "guide"
+description: "Add meaningful, actionable context to alerts with event-based templating for your handlers. Read this guide to learn how to create handler templates."
 weight: 80
 version: "6.1"
 product: "Sensu Go"
@@ -20,7 +22,7 @@ For example, a template for a brief Slack alert might include information about 
 
 <html>
 The entity {{.Entity.Name}} has a status of {{.Check.State}}. The entity has reported the same status for {{.Check.Occurrences}} preceding events.<br>
-The playbook for managing this alert is availble at https://example.com/observability/alerts/playbook.
+The playbook for managing this alert is available at https://example.com/observability/alerts/playbook.
 </html>
 
 {{< /code >}}

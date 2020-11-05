@@ -9,7 +9,11 @@ version: "6.1"
 menu: "sensu-go-6.1"
 ---
 
+- [6.1.2 release notes](#612-release-notes)
+- [6.1.1 release notes](#611-release-notes)
+- [6.1.0 release notes](#610-release-notes)
 - [6.0.0 release notes](#600-release-notes)
+- [5.21.3 release notes](#5213-release-notes)
 - [5.21.2 release notes](#5212-release-notes)
 - [5.21.1 release notes](#5211-release-notes)
 - [5.21.0 release notes](#5210-release-notes)
@@ -68,6 +72,90 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ---
 
+## 6.1.2 release notes
+
+**October 28, 2020** &mdash; The latest release of Sensu Go, version 6.1.2, is now available for download.
+
+This patch release resolves a backend and agent crash related to JavaScript execution.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.1.2.
+
+**FIXES:**
+
+- Fixed a bug related to JavaScript execution that could cause a crash in the backend and agent.
+
+
+## 6.1.1 release notes
+
+**October 22, 2020** &mdash; The latest release of Sensu Go, version 6.1.1, is now available for download.
+
+This patch release includes a number of bug fixes that affect proper hook handling with `sensuctl prune` and `sensuctl dump`, entity creation via `sensuctl create`, form validation for subscription names in the web UI, and permissions for PATCH requests, among other fixes.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.1.1.
+
+**FIXES:**
+
+- ([Commercial feature][172]) [`sensuctl prune`][192] now properly handles hooks when pruning resources.
+- ([Commercial feature][172]) Fixed a bug that returned incorrect `!=` results for label selectors when no labels were defined.
+- ([Commercial feature][172]) In the web UI, fixed a bug that could cause a GraphQL `no claims` error when a user's access token was no longer valid instead of displaying the sign-out dialog window.
+- ([Commercial feature][172]) In the web UI, form validation for subscription names now matches allowed values.
+- Fixed a bug that prevented sensu-agent from shutting down correctly.
+- Entities are now properly created using `sensuctl create`.
+- Per-entity subscriptions now persist with PATCH requests.
+- Any user with [`update` permissions][190] for a resource can now make PATCH requests for that resource.
+- HookConfig can now be exported via [`sensuctl dump`][191]. Also, `sensuctl dump` now properly logs API errors.
+- eventd errors now include additional context for debugging.
+
+
+## 6.1.0 release notes
+
+**October 5, 2020** &mdash; The latest release of Sensu Go, version 6.1.0, is now available for download.
+
+This release delivers significant performance and stability gains, feature enhancements, and several bug fixes. The web UI is now much snappier, and its search is redesigned with an improved syntax and suggestions! Monitor even more services and infrastructure when using the PostgreSQL store: batched Sensu event writes and improved indexing allows a single Sensu Go deployment to process and query more data than ever before. If you’re using Prometheus client libraries to instrument your applications, the Sensu Go agent can now scrape and enrich those metrics! And if you’re collecting metrics in other formats like Nagios PerfData, you can use the new output metric tags feature to enrich those metrics too! The sensuctl prune command also received some love, and it now loads and prunes configuration resources from multiple files!
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.1.0.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][172]) Added support for custom secrets engine paths in [Vault secrets][175].
+- ([Commercial feature][172]) In the web UI, added [new search functionality][178], with improved syntax and suggestions.
+- ([Commercial feature][172]) Added [`strict` attribute][179] to the PostgresConfig type to help debug incorrect configurations and database permissions.
+- ([Commercial feature][172]) Added [`batch_buffer`, `batch_size`, and `batch_workers` attributes][181] to the PostgresConfig type so operators can optimize PostgreSQL latency and throughput.
+- ([Commercial feature][172]) Added TLS configuration to the cluster resource so you can specify additional CA certificates and insecure mode.
+- ([Commercial feature][172]) Added a `types` query parameter for listing [authentication providers][176] and [secrets providers][177] via the API.
+- ([Commercial feature][172]) Added the [Sensu SaltStack Enterprise Handler][183] for launching
+SaltStack Enterprise Jobs for automated remediation.
+- ([Commercial feature][172]) The Alpine-based Docker image now has multi-architecture support with support for the linux/386, linux/amd64, linux/arm64, linux/arm/v6, linux/arm/v7, linux/ppc64le, and linux/s390x platforms.
+- The backend flag [`--api-request-limit`][173] is now available to configure the maximum API request body size (in bytes).
+- In the [REST API][174], most configuration resources now support the PATCH method for making updates.
+- Added new handler and check plugins: [Sensu Go Elasticsearch Handler][184], [Sensu Rundeck Handler][185], and [Sensu Kubernetes Events Check][186].
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][172]) Improved logging for OIDC authentication providers. Also added [`disable_offline_access` OIDC spec attribute][180], which provides a workaround for authorization servers that do not support the `offline_access` scope.
+- ([Commercial feature][172]) Added indexed field and label selectors to the PostgreSQL event store to improve performance for PostgreSQL event store queries with field and label selectors.
+- Added Prometheus transformer for extracting metrics from check output using the Prometheus Exposition Text Format.
+- Added the [`output_metric_tags` attribute][182] for checks so you can apply custom tags to enrich metric points produced by check output metric extraction.
+- A warning is now logged when you request a dynamic runtime asset that does not exist.
+- The trusted CA file is now used for agent, backend, and sensuctl asset retrieval.
+- Per-entity subscriptions (such as `entity:entityName`) are always available for agent entities, even you remove subscriptions via the entities API.
+- Updated the [Sensu TimescaleDB Handler][187] to write tags as a JSON object instead of an array of objects, which facilitates tags queries.
+- Updated the [Sensu Go Data Source for Grafana][188] plugin to support using API keys, fetching resources from all namespaces, using Sensu's built-in resposne filtering, grouping aggregation results by attribute, and number of [other improvements][189].
+
+**FIXES:**
+
+- ([Commercial feature][172]) Fixed a bug in `sensuctl dump` that allowed polymorphic resources (e.g., secrets providers and authentication providers) to dump other providers of the same type.
+- ([Commercial feature][172]) Check output is no longer truncated in the event log file when the max output size is set and the PostgreSQL event store is enabled.
+- ([Commercial feature][172]) Sensuctl prune now handles multi-file/multi-url input correctly.
+- ([Commercial feature][172]) Fixed a bug where PostgreSQL errors could cause the backend to panic.
+- ([Commercial feature][172]) Fixed a bug where PostgreSQL would refuse to store event with a negative check status.
+- The backend will no longer start if the web UI TLS configuration is not fully specified.
+- The agent entity is now included in data passed to the STDIN for the command process.
+- Improved check scheduling to prevent stale proxy entity data when using cron or round robin schedulers.
+- Fixed a bug that resulted in incorrect entity listings for agent entities created via the API instead of sensu-agent.
+- When downloading assets, Sensu now closes the response body after reading from it.
+- Fixed a crash in the backend and agent related to JavaScript execution.
+
 ## 6.0.0 release notes
 
 **August 10, 2020** &mdash; The latest release of Sensu Go, version 6.0.0, is now available for download.
@@ -80,7 +168,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.0.0.
 
 - The database schema for entities has changed.
 As a result, after you complete the steps to [upgrade to Sensu 6.0][170] (including running the `sensu-backend upgrade` command), you will not be able to use your database with older versions of Sensu.
-- In [binary-only distributions][164], the web UI is now a standalone product that is no longer distributed inside the `sensu-backend` binary.
+- For Sensu Go instances [built from source][164], the web UI is now a [standalone product][163] &mdash; it is no longer included with the Sensu backend.
 See the [Sensu Go Web repository][163] for more information.
 - After initial creation, you cannot change your [`sensu-agent` entity configuration][171] by modifying the agent's configuration file.
 
@@ -127,6 +215,20 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - Fixed a bug where nil labels or annotations in an event filtering context would require you to explicitly check whether the annotations or labels are undefined.
 With this fix, labels and annotations are always defined (although they may be empty).
 - Fixed the log entry field for the check's name in schedulerd.
+
+## 5.21.3 release notes
+
+**October 14, 2020** &mdash; The latest release of Sensu Go 5, version 5.21.3, is now available for download.
+
+This patch release includes a few fixes to improve stability and correctness.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.3.
+
+**FIXES:**
+
+- Fixed a bug where HTTP connections could be left open after downloading assets.
+- Fixed a bug where event filter or asset filter execution could cause a crash.
+- ([Commercial feature][158]) Fixed a bug where PostgreSQL would refuse to store event with a negative check status.
 
 ## 5.21.2 release notes
 
@@ -1467,7 +1569,7 @@ To get started with Sensu Go:
 [161]: /sensu-go/5.21/reference/agent#fips-openssl
 [162]: /sensu-go/6.0/commercial/
 [163]: https://github.com/sensu/web
-[164]: /sensu-go/6.0/platforms/#binary-only-distributions
+[164]: /sensu-go/6.0/platforms/#build-from-source
 [165]: /sensu-go/6.0/platforms/
 [166]: /sensu-go/6.0/operations/control-access/rbac/#subjects-specification
 [167]: /sensu-go/6.0/operations/control-access/rbac/#roleref-specification
@@ -1475,3 +1577,24 @@ To get started with Sensu Go:
 [169]: /sensu-go/6.0/observability-pipeline/observe-filter/filters/#build-event-filter-expressions-with-javascript-execution-functions
 [170]: /sensu-go/6.0/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-60-from-a-5x-deployment
 [171]: /sensu-go/6.0/observability-pipeline/observe-entities/entities/#create-and-manage-agent-entities
+[172]: /sensu-go/6.1/commercial/
+[173]: /sensu-go/6.1/observability-pipeline/observe-schedule/backend/#api-request-limit
+[174]: /sensu-go/6.1/api/
+[175]: /sensu-go/6.1/operations/manage-secrets/secrets-management/#use-hashicorp-vault-for-secrets-management
+[176]: /sensu-go/6.1/api/authproviders/#authproviders-get-specification
+[177]: /sensu-go/6.1/api/secrets/#providers-get-specification
+[178]: /sensu-go/6.1/web-ui/search/
+[179]: /sensu-go/6.1/operations/deploy-sensu/datastore/#strict
+[180]: /sensu-go/6.1/operations/control-access/oidc-auth/#oidc-spec-attributes
+[181]: /sensu-go/6.1/operations/deploy-sensu/datastore/#spec-attributes
+[182]: /sensu-go/6.1/observability-pipeline/observe-schedule/checks#output-metric-tags
+[183]: https://bonsai.sensu.io/assets/sensu/sensu-saltstack-handler
+[184]: https://bonsai.sensu.io/assets/sensu/sensu-elasticsearch-handler
+[185]: https://bonsai.sensu.io/assets/sensu/sensu-rundeck-handler
+[186]: https://bonsai.sensu.io/assets/sensu/sensu-kubernetes-events
+[187]: https://bonsai.sensu.io/assets/sensu/sensu-timescaledb-handler
+[188]: https://github.com/sensu/grafana-sensu-go-datasource
+[189]: https://github.com/sensu/grafana-sensu-go-datasource/releases/tag/1.1.0
+[190]: /sensu-go/6.1/operations/control-access/rbac/#rule-attributes
+[191]: /sensu-go/6.1/sensuctl/back-up-recover/
+[192]: /sensu-go/6.1/sensuctl/create-manage-resources/#sensuctl-prune

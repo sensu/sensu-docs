@@ -1,13 +1,13 @@
 ---
 title: "Supported Integrations"
-description: "Start using Sensu plugins quickly with these supported integrations. Sensu integrations are available for PagerDuty, InfluxDB, and more."
+description: "Start using Sensu plugins with these supported integrations. Sensu integrations are available for PagerDuty, Ansible, Chef, Jira, Elasticsearch, InfluxDB, and more."
 product: "Sensu Go"
-version: "6.0"
+version: "6.1"
 weight: 80
 layout: "single"
 toc: false
 menu:
-  sensu-go-6.0:
+  sensu-go-6.1:
     parent: plugins
     identifier: supported-integrations
 ---

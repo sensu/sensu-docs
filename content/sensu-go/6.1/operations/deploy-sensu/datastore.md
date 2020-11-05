@@ -56,10 +56,14 @@ api_version: store/v1
 metadata:
   name: my-postgres
 spec:
+  batch_buffer: 0
+  batch_size: 1
+  batch_workers: 0
   dsn: "postgresql://user:secret@host:port/dbname"
   max_conn_lifetime: 5m
   max_idle_conns: 2
   pool_size: 20
+  strict: true
 {{< /code >}}
 
 {{< code json >}}
@@ -70,10 +74,14 @@ spec:
     "name": "my-postgres"
   },
   "spec": {
+    "batch_buffer": 0,
+    "batch_size": 1,
+    "batch_workers": 0,
     "dsn": "postgresql://user:secret@host:port/dbname",
     "max_conn_lifetime": "5m",
     "max_idle_conns": 2,
-    "pool_size": 20
+    "pool_size": 20,
+    "strict": true
   }
 }
 {{< /code >}}
@@ -142,10 +150,14 @@ required     | true
 type         | Map of key-value pairs
 example      | {{< code shell >}}
 spec:
+  batch_buffer: 0
+  batch_size: 1
+  batch_workers: 0
   dsn: "postgresql://user:secret@host:port/dbname"
   max_conn_lifetime: 5m
   max_idle_conns: 2
   pool_size: 20
+  strict: true
 {{< /code >}}
 
 ### Metadata attributes
@@ -165,6 +177,36 @@ type         | String
 example      | {{< code shell >}}created_by: admin{{< /code >}}
 
 ### Spec attributes
+
+batch_buffer |      |
+-------------|------
+description  | Maximum number of requests to buffer in memory.<br>{{% notice warning %}}
+**WARNING**: The batcher is sensitive to configuration values, and some `batch_buffer`, `batch_size`, and `batch_workers` combinations will not work optimally. We do not recommend configuring this attribute while we are testing and improving it.
+{{% /notice %}}
+required     | false
+default      | 0
+type         | Integer
+example      | {{< code shell >}}batch_buffer: 0{{< /code >}}
+
+batch_size   |      |
+-------------|------
+description  | Number of requests in each PostgreSQL write transaction, as specified in the PostgreSQL configuration.<br>{{% notice warning %}}
+**WARNING**: The batcher is sensitive to configuration values, and some `batch_buffer`, `batch_size`, and `batch_workers` combinations will not work optimally. We do not recommend configuring this attribute while we are testing and improving it.
+{{% /notice %}}
+required     | false
+default      | 1
+type         | Integer
+example      | {{< code shell >}}batch_size: 1{{< /code >}}
+
+batch_workers |      |
+-------------|------
+description  | Number of Goroutines sending data to PostgreSQL, as specified in the PostgreSQL configuration.<br>{{% notice warning %}}
+**WARNING**: The batcher is sensitive to configuration values, and some `batch_buffer`, `batch_size`, and `batch_workers` combinations will not work optimally. We do not recommend configuring this attribute while we are testing and improving it.
+{{% /notice %}}
+required     | false
+default      | Current PostgreSQL pool size
+type         | Integer
+example      | {{< code shell >}}batch_workers: 0{{< /code >}}
 
 dsn          |      |
 -------------|------
@@ -195,6 +237,17 @@ required     | false
 default      | `0` (unlimited)
 type         | Integer
 example      | {{< code shell >}}pool_size: 20{{< /code >}}
+
+<a name="strict"></a>
+
+strict       |      |
+-------------|------
+description  | If `true`, when the PostgresConfig resource is created, configuration validation will include connecting to the PostgreSQL database and executing a query to confirm whetherthe connected user has permission to create database tables. Otherwise, `false`.<br><br>We recommend setting `strict: true` in most cases. If the connection fails or the user does not have permission to create database tables, resource configuration will fail and the configuration will not be persisted. This extended configuration is useful for debugging when you are not sure whether the configuration is correct or the database is working properly.
+required     | false
+default     | false
+type         | Boolean
+example      | {{< code shell >}}strict: true{{< /code >}}
+
 
 [1]: ../../../sensuctl/#first-time-setup
 [2]: ../../maintain-sensu/troubleshoot/

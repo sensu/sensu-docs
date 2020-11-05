@@ -442,5 +442,5 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 [1]: ../../reference/checks/
 [2]: ../../reference/hooks/
 [3]: ../../reference/checks#check-hooks-attribute
-[4]: ../overview#pagination
-[5]: ../overview#response-filtering
+[4]: ../#pagination
+[5]: ../#response-filtering

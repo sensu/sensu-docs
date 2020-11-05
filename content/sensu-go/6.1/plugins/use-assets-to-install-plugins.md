@@ -1,20 +1,27 @@
 ---
 title: "Use dynamic runtime assets to install plugins"
 linkTitle: "Use Assets to Install Plugins"
+guide_title: "Use dynamic runtime assets to install plugins"
+type: "guide"
 description: "Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to power your monitoring workflows. Read the guide to get started using dynamic runtime assets."
-weight: 140
+weight: 40
 version: "6.1"
 product: "Sensu Go"
 platformContent: False
 menu: 
   sensu-go-6.1:
-    parent: deploy-sensu
+    parent: plugins
 ---
 
 Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
 See the [asset reference][1] for more information about dynamic runtime assets.
 This guide uses the [Sensu PagerDuty Handler dynamic runtime asset][7] as an example.
+
+{{% notice note %}}
+**NOTE**: Dynamic runtime assets are not required to use Sensu Go.
+You can install Sensu plugins using the [sensu-install](../install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../configuration-management/) solution.
+{{% /notice %}}
 
 ## Register the Sensu PagerDuty Handler asset
 
