@@ -21,7 +21,7 @@ You can use dynamic runtime assets to provide the plugins, libraries, and runtim
 Sensu supports dynamic runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
 
 {{% notice note %}}
-**NOTE**: Dynamic runtime assets are not required to use Sensu Go in production.
+**NOTE**: Dynamic runtime assets are not required to use Sensu Go.
 You can install Sensu plugins using the [sensu-install](../install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../configuration-management/) solution.
 {{% /notice %}}
 

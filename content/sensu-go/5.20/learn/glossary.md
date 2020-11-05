@@ -18,6 +18,7 @@ An agent can run checks on the entity it’s installed on or connect to a remote
 [Read more about the Sensu agent][1].
 
 ## Asset
+
 An executable that a check, handler, or mutator can specify as a dependency.
 Assets must be a tar archive (optionally gzipped) with scripts or executables within a bin folder.
 At runtime, the backend or agent installs required assets using the specified URL.
