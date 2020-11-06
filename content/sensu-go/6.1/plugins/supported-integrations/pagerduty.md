@@ -26,7 +26,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 For a turnkey experience with the Sensu PagerDuty Handler plugin, use our curated, configurable [quick-start template][3] for incident management to integrate Sensu with your existing PagerDuty workflows.
 
-To build your own workflow or integrate Sensu with existing workflows, use the [Sensu PagerDuty Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index.
+To build your own workflow or integrate Sensu with existing workflows, add the [Sensu PagerDuty Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 ## More resources
