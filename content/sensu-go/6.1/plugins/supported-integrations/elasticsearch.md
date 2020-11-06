@@ -31,7 +31,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 For a turnkey experience with the Sensu Elasticsearch Handler plugin, use our curated, configurable [quick-start template][3] for events and metrics data storage.
 
-Add the [Sensu Elasticsearch Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index, to build your own workflow or integrate Sensu with your existing Slack workflows.
+Add the [Sensu Elasticsearch Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index, to build your own workflow or integrate Sensu with your existing Elasticsearch workflows.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 

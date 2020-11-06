@@ -31,7 +31,7 @@ Add the [Sensu Slack Handler plugin][4] with a dynamic runtime asset from Bonsai
 ## More resources
 
 - Read [Send Slack alerts with handlers][3] to learn how to add and configure the Sensu Slack Handler plugin.
-- Try the Sensu Slack Handler integration right in your browser with the [Learn Sensu in 15 minutes][6] interactive tutorial.
+- Try the Sensu Slack Handler integration in your browser with the [Learn Sensu in 15 minutes][6] interactive tutorial.
 
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
