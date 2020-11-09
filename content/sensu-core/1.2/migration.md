@@ -58,7 +58,7 @@ This is a fundamental change in Sensu terminology from Sensu Core: the server is
 Clients are represented within Sensu Go as abstract entities that can describe a wider range of system components such as network gear, a web server, or a cloud resource.
 Entities include agent entities that run a Sensu agent and the familiar proxy entities.
 
-To install Sensu Go alongside your current Sensu instance, you must [upgrade][33] to at least [Sensu Core 1.7.0][34].
+_**IMPORTANT**: To install Sensu Go alongside your current Sensu instance, you must [upgrade][33] to at least [Sensu Core 1.9.0-2][34]._
 
 ### Sensu Go architecture
 
@@ -392,7 +392,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [31]: https://blog.sensu.io/enterprise-features-in-sensu-go
 [32]: https://docs.sensu.io/sensu-go/latest/getting-started/learn-sensu
 [33]: ../installation/upgrading/
-[34]: /sensu-core/1.8/changelog/#core-v1-7-0
+[34]: https://eol-repositories.sensuapp.org/
 [35]: /sensu-go/latest/installation/platforms
 [36]: /sensu-go/latest/installation/configuration-management
 [37]: /sensu-go/latest/installation/recommended-hardware

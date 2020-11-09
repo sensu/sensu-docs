@@ -21,7 +21,7 @@ The Sensu Go agent is also available for Windows.
 [Configuration management][44] integrations for Sensu Go are available for Ansible, Chef, and Puppet.
 
 {{% notice important %}}
-**IMPORTANT**: To install Sensu Go alongside your current Sensu instance, you must upgrade to at least [Sensu Core 1.7.0](https://eol-repositories.sensuapp.org/).
+**IMPORTANT**: To install Sensu Go alongside your current Sensu instance, you must upgrade to at least [Sensu Core 1.9.0-2](https://eol-repositories.sensuapp.org/).
 {{% /notice %}}
 
 Aside from this migration guide, these resources can help you migrate from Sensu Core to Sensu Go:
