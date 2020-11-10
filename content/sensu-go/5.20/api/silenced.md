@@ -134,6 +134,31 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced
 HTTP/1.1 201 Created
 {{< /code >}}
 
+Here's another example that shows an HTTP POST request to the `/silenced` API endpoint to create the silencing entry `*:http`, which will create a silence for any event with the check name `http`, regardless of the originating entities’ subscriptions.
+The request returns a successful HTTP `201 Created` response.
+
+{{< code shell >}}
+curl -X POST \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/json' \
+-d '{
+  "metadata": {
+    "name": "*:http",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "expire": -1,
+  "expire_on_resolve": false,
+  "creator": "admin",
+  "check": "http",
+  "reason": "Testing"
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced
+
+HTTP/1.1 201 Created
+{{< /code >}}
+
 ### API Specification {#silenced-post-specification}
 
 /silenced (POST) | 
