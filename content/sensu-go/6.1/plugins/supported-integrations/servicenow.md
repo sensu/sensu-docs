@@ -15,15 +15,15 @@ For more information, see [Get started with commercial features][6].
 The Sensu ServiceNow Handler plugin is a Sensu [handler][1] that creates and updates ServiceNow incidents and events based on observation data from Sensu events.
 
 {{% notice note %}}
-**NOTE**: The Sensu ServiceNow Handler plugin is an example of Sensu's incident, event, and inventory management integrations.
+**NOTE**: The Sensu ServiceNow Handler plugin is an example of Sensu's alerting and incident management integrations.
 To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
 {{% /notice %}}
 
 ## Features
 
-- Automatically creates a ServiceNow Configuration Item if none currently exists for a particular Sensu entity.
+- Automatically create a ServiceNow Configuration Item if none currently exists for a particular Sensu entity.
 - Tunable arguments: use Sensu annotations to set custom incident notes, event information, Configuration Item descriptions, and more in ServiceNow.
-- Can use [environment variables and secrets management][9] to avoid exposing your ServiceNow username/password.
+- Use Sensu [environment variables and secrets management][9] to avoid exposing your ServiceNow username and password.
 - [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context to ServiceNow incidents, events, and Configuration Items.
 
 ## Get the plugin

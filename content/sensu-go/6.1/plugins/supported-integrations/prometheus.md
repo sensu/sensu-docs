@@ -13,7 +13,7 @@ Sensu has two Prometheus plugins: the [Prometheus Collector][3] and the [Prometh
 Both help you get Sensu observability data into Prometheus.
 
 {{% notice note %}}
-**NOTE**: The Sensu Prometheus plugins are examples of Sensu's metrics processing and storage integrations.
+**NOTE**: The Sensu Prometheus plugins are examples of Sensu's status and metrics processing and storage integrations.
 To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
 {{% /notice %}}
 

@@ -22,7 +22,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 ## Features
 
 - Tunable arguments: use Sensu annotations to set custom project names, issue types, resolution states, and more in Jira
-- Can use [environment variables and secrets management][7] to avoid exposing your Jira username/password or API token.
+- Use Sensu [environment variables and secrets management][7] to avoid exposing your Jira username, password, and API token.
 - [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
 
 ## Get the plugin

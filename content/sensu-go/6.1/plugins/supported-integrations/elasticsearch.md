@@ -16,17 +16,17 @@ The Sensu Elasticsearch Handler plugin is a Sensu [handler][1] that sends observ
 With this handler, the Sensu observation data you send to Elasticsearch is available for indexing and visualization in Kibana.
 
 {{% notice note %}}
-**NOTE**: The Sensu Elasticsearch Handler plugin is an example of Sensu's event and metrics processing and storage integrations.
+**NOTE**: The Sensu Elasticsearch Handler plugin is an example of Sensu's status and metrics processing and storage integrations.
 To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
 {{% /notice %}}
 
 ## Features
 
 - Query metrics points within Elasticsearch: the handler automatically mutates metrics data by creating a top-level object with metric point names and their associated values.
-- Indexes the entire event for searching within Kibana.
-- Allows the use of daily, weekly, monthly, and yearly index specification (e.g. sensu_evnts-2020-11-10).
-- Can omit the transmission of certain redundant event fields to reduce the number of items indexed.
-- Can use [environment variables and secrets management][7] to avoid exposing your Elasticsearch username/password.
+- Index entire events for searching within Kibana.
+- Use daily, weekly, monthly, and yearly index specification (e.g. sensu_evnts-2020-11-10).
+- Omit the transmission of certain redundant event fields to reduce the number of items indexed.
+- Use Sensu's [environment variables and secrets management][7] to avoid exposing your Elasticsearch username and password.
 - [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
 
 ## Get the plugin

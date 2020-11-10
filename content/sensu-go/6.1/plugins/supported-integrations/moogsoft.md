@@ -15,8 +15,8 @@ For more information, see [Get started with commercial features][6].
 The Sensu Moogsoft Handler plugin is a Sensu [handler][1] that sends observation data from Sensu events and metrics to Moogsoft.
 
 {{% notice note %}}
-**NOTE**: The Sensu Moogsoft Handler plugin is under development and may include breaking changes.
-The plugin is an example of Sensu's event and metrics processing and storage integrations.
+**NOTE**: The Sensu Moogsoft Handler plugin is under development and may include breaking changes.<br><br>
+The plugin is an example of Sensu's status and metrics processing and storage integrations.
 To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
 {{% /notice %}}
 

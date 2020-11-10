@@ -13,7 +13,7 @@ The Sensu OpenTSDB Handler plugin is a Sensu [handler][1] that sends Sensu metri
 This allows you to extract, tag, and store Sensu metrics data in an OpenTSDB database.
 
 {{% notice note %}}
-**NOTE**: The Sensu OpenTSDB Handler plugin is an example of Sensu's metrics processing and storage integrations.
+**NOTE**: The Sensu OpenTSDB Handler plugin is an example of Sensu's status and metrics processing and storage integrations.
 To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
 {{% /notice %}}
 

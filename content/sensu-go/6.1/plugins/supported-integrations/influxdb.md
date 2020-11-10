@@ -13,15 +13,15 @@ The Sensu InfluxDB Handler plugin is a Sensu [handler][1] that sends Sensu metri
 You can also use the Sensu InfluxDB Handler integration to create metrics from Sensu status check results for long-term storage in InfluxDB.
 
 {{% notice note %}}
-**NOTE**: The Sensu InfluxDB Handler plugin is an example of Sensu's metrics processing and storage integrations.
+**NOTE**: The Sensu InfluxDB Handler plugin is an example of Sensu's status and metrics processing and storage integrations.
 To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
 {{% /notice %}}
 
 ## Features
 
 - Transform metrics to InfluxDB format: extract and transform the metrics you collect from different sources like Graphite, OpenTSDB, Nagios, and Influx and populate them into InfluxDB.
-- Can use [environment variables and secrets management][6] to avoid exposing your InfluxDB username/password.
-- Allows you to mutate the status of a check into a metric to be stored in InfluxDB.
+- Use Sensu [environment variables and secrets management][6] to avoid exposing your InfluxDB username and password.
+- Mutate check status into metrics to be stored in InfluxDB.
 
 ## Get the plugin
 
