@@ -22,9 +22,11 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Can use environment variables and secrets management to avoid exposing your email usernames and passwords? Are there other features to add here?
-
-- Query metrics points within Elasticsearch: the handler automatically mutates metrics data by creating an object with metric point names and their assoicated values and converting tags into event metadata labels.
+- Query metrics points within Elasticsearch: the handler automatically mutates metrics data by creating a top-level object with metric point names and their associated values.
+- Indexes the entire event for searching within Kibana.
+- Allows the use of daily, weekly, monthly, and yearly index specification (e.g. sensu_evnts-2020-11-10).
+- Can omit the transmission of certain redundant event fields to reduce the number of items indexed.
+- Can use [environment variables and secrets management][7] to avoid exposing your Elasticsearch username/password.
 - [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
 
 ## Get the plugin
@@ -41,3 +43,4 @@ Add the [Sensu Elasticsearch Handler plugin][4] with a dynamic runtime asset fro
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-elasticsearch-handler
 [5]: ../../assets
 [6]: ../../../commercial/
+[7]: ../../operations/manage-secrets/
