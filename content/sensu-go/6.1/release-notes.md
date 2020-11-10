@@ -9,6 +9,7 @@ version: "6.1"
 menu: "sensu-go-6.1"
 ---
 
+- [6.1.3 release notes](#613-release-notes)
 - [6.1.2 release notes](#612-release-notes)
 - [6.1.1 release notes](#611-release-notes)
 - [6.1.0 release notes](#610-release-notes)
@@ -71,6 +72,20 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.1.3 release notes
+
+**November 9, 2020** &mdash; The latest release of Sensu Go, version 6.1.3, is now available for download.
+
+This patch fixes a bug that caused event updates to fail with an error about a null value in the occurrences column.
+This bug only affects Sensu instances that use PostgreSQL as the event store.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.1.3.
+
+**FIXES:**
+
+- ([Commercial feature][172]) For instances that use PostgreSQL as the event store, fixed a bug that caused event updates to fail with an error message about a null value in the occurrences column.
+
 
 ## 6.1.2 release notes
 
