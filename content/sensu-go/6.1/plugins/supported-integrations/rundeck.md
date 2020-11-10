@@ -21,10 +21,11 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Can use environment variables and secrets management to avoid exposing your Rundeck API token and other sensitive information? Does event-based templating apply for the Rundeck integration? Are there other features to add here?
-
 - Use Sensu annotations to specify Rundeck jobs and webhooks along with trigger parameters for remediation actions for a check.
-- [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
+- Supports both Rundeck Enterprise and Rundeck Open Source.
+- Supports both standard job invocation or webhook invocation.
+- Can use [environment variables and secrets management][8] to avoid exposing your Rundeck auth token or webhook.
+- [Event-based templating][2]: make use of event data to specify the node to target for rememdiation.
 
 ## Get the plugin
 
@@ -44,3 +45,4 @@ You can also add the [Sensu Rundeck Handler plugin][4] with a dynamic runtime as
 [5]: ../../assets
 [6]: ../../../commercial/
 [7]: https://github.com/sensu-community/monitoring-pipelines/blob/latest/remediation/rundeck.yaml
+[8]: ../../operations/manage-secrets/
