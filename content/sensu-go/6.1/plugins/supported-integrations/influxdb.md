@@ -19,10 +19,9 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Can use environment variables and secrets management to avoid exposing your email usernames and passwords? Does event-based templating apply for the InfluxDB integration? Are there other features to add here?
-
 - Transform metrics to InfluxDB format: extract and transform the metrics you collect from different sources like Graphite, OpenTSDB, Nagios, and Influx and populate them into InfluxDB.
-- [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
+- Can use [environment variables and secrets management][6] to avoid exposing your InfluxDB username/password.
+- Allows you to mutate the status of a check into a metric to be stored in InfluxDB.
 
 ## Get the plugin
 
@@ -37,3 +36,4 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 [3]: https://github.com/sensu-community/monitoring-pipelines/blob/latest/metric-storage/influxdb.yaml
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 [5]: ../../assets/
+[6]: ../../../operations/manage-secrets/
