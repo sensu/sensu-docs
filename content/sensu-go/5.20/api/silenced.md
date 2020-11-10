@@ -30,18 +30,31 @@ HTTP/1.1 200 OK
 [
   {
     "metadata": {
-      "name": "linux:check-cpu",
+      "name": "*:http",
       "namespace": "default",
-      "created_by": "admin",
-      "labels": null,
-      "annotations": null
+      "created_by": "admin"
+    },
+    "expire": -1,
+    "expire_on_resolve": false,
+    "creator": "admin",
+    "check": "http",
+    "reason": "Testing",
+    "begin": 1605024595,
+    "expire_at": 0
+  },
+  {
+    "metadata": {
+      "name": "linux:*",
+      "namespace": "default",
+      "created_by": "admin"
     },
     "expire": -1,
     "expire_on_resolve": false,
     "creator": "admin",
     "reason": "reason for silence",
     "subscription": "linux",
-    "begin": 1542671205
+    "begin": 1542671205,
+    "expire_at": 0
   }
 ]
 {{< /code >}}
@@ -60,18 +73,31 @@ output         | {{< code shell >}}
 [
   {
     "metadata": {
-      "name": "linux:check-cpu",
+      "name": "*:http",
       "namespace": "default",
-      "created_by": "admin",
-      "labels": null,
-      "annotations": null
+      "created_by": "admin"
+    },
+    "expire": -1,
+    "expire_on_resolve": false,
+    "creator": "admin",
+    "check": "http",
+    "reason": "Testing",
+    "begin": 1605024595,
+    "expire_at": 0
+  },
+  {
+    "metadata": {
+      "name": "linux:*",
+      "namespace": "default",
+      "created_by": "admin"
     },
     "expire": -1,
     "expire_on_resolve": false,
     "creator": "admin",
     "reason": "reason for silence",
     "subscription": "linux",
-    "begin": 1542671205
+    "begin": 1542671205,
+    "expire_at": 0
   }
 ]
 {{< /code >}}
