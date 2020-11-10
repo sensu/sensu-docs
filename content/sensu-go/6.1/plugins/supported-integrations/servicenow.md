@@ -46,4 +46,4 @@ You can also add the [Sensu ServiceNow Handler plugin][4] with a dynamic runtime
 [6]: ../../../commercial/
 [7]: https://github.com/sensu-community/monitoring-pipelines/blob/latest/incident-management/servicenow-incident.yaml
 [8]: https://github.com/sensu-community/monitoring-pipelines/blob/latest/entity-registration/servicenow-cmdb.yaml
-[9]: ../../operations/manage-secrets/
+[9]: ../../../operations/manage-secrets/

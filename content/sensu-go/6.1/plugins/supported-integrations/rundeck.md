@@ -45,4 +45,4 @@ You can also add the [Sensu Rundeck Handler plugin][4] with a dynamic runtime as
 [5]: ../../assets
 [6]: ../../../commercial/
 [7]: https://github.com/sensu-community/monitoring-pipelines/blob/latest/remediation/rundeck.yaml
-[8]: ../../operations/manage-secrets/
+[8]: ../../../operations/manage-secrets/

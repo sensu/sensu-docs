@@ -43,4 +43,4 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 [5]: ../../assets/
 [6]: ../../use-assets-to-install-plugins/
 [7]: ../../../learn/sensu-pagerduty/
-[8]: ../../operations/manage-secrets/
+[8]: ../../../operations/manage-secrets/

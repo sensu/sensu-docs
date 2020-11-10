@@ -41,4 +41,4 @@ You can also add the [Sensu SaltStack Handler plugin][4] with a dynamic runtime 
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-saltstack-handler
 [5]: ../../assets
 [6]: ../../../commercial/
-[7]: ../../operations/manage-secrets/
+[7]: ../../../operations/manage-secrets/
