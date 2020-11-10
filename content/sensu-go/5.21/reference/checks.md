@@ -15,7 +15,7 @@ menu:
 Checks work with Sensu agents to produce monitoring events automatically.
 You can use checks to monitor server resources, services, and application health as well as collect and analyze metrics.
 Read [Monitor server resources][12] to get started.
-Use [Bonsai][29], the Sensu asset index, to discover, download, and share Sensu check assets.
+Use [Bonsai][29], the Sensu asset hub, to discover, download, and share Sensu check assets.
 
 ## Check commands
 

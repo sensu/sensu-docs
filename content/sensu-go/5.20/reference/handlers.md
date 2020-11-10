@@ -20,7 +20,7 @@ The most common are `pipe` handlers, which work similarly to [checks][1] and ena
 - **TCP/UDP handlers** send event data to a remote socket
 - **Handler sets** group event handlers and streamline groups of actions to execute for certain types of events (also called "set handlers")
 
-Discover, download, and share Sensu handlers assets using [Bonsai][16], the Sensu asset index.
+Discover, download, and share Sensu handlers assets using [Bonsai][16], the Sensu asset hub.
 Read [Install plugins with assets][23] to get started.
 
 ## Pipe handlers

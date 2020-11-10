@@ -1,7 +1,7 @@
 ---
 title: "Use sensuctl with Bonsai"
 linkTitle: "Use sensuctl with Bonsai"
-description: "Sensuctl supports installing dynamic runtime asset definitions directly from Bonsai, the Sensu asset index, and checking for outdated dynamic runtime assets. Read this page to learn about using sensuctl with Bonsai."
+description: "Sensuctl supports installing dynamic runtime asset definitions directly from Bonsai, the Sensu asset hub, and checking for outdated dynamic runtime assets. Read this page to learn about using sensuctl with Bonsai."
 weight: 50
 version: "6.1"
 product: "Sensu Go"
@@ -11,7 +11,7 @@ menu:
     parent: sensuctl
 ---
 
-Sensuctl supports installing dynamic runtime asset definitions directly from [Bonsai, the Sensu asset index][1], and checking your Sensu backend for outdated dynamic runtime assets.
+Sensuctl supports installing dynamic runtime asset definitions directly from [Bonsai, the Sensu asset hub][1], and checking your Sensu backend for outdated dynamic runtime assets.
 You can also use `sensuctl command` to install, execute, list, and delete commands from Bonsai or a URL.
 
 ## Install dynamic runtime asset definitions

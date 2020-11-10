@@ -32,7 +32,7 @@ Get meaningful alerts when and where you need them so you can [reduce alert fati
 Sensu gives you full control over your alerts with flexible [event filters][8], [check hooks][9] for context-rich notifications, reporting, [observation data handling][24], and auto-remediation.
 
 Sensu's open architecture integrates with the tools and services you already use, like [Ansible, Chef, and Puppet][23]; [PagerDuty][19]; [Slack][17]; and more.
-Check out [Bonsai, the Sensu asset index][18], or write your own [Sensu plugins][3] in any language.
+Check out [Bonsai, the Sensu asset hub][18], or write your own [Sensu plugins][3] in any language.
 
 ## Automate with agent registration-deregistration and check subscriptions
 
