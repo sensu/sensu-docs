@@ -21,10 +21,9 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Can use environment variables and secrets management to avoid exposing your ServiceNow API token, username/password, and other sensitive information? Does event-based templating apply for the ServiceNow integration? Are there other features to add here?
-
 - Automatically creates a ServiceNow Configuration Item if none currently exists for a particular Sensu entity.
 - Tunable arguments: use Sensu annotations to set custom incident notes, event information, Configuration Item descriptions, and more in ServiceNow.
+- Can use [environment variables and secrets management][9] to avoid exposing your ServiceNow username/password.
 - [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context to ServiceNow incidents, events, and Configuration Items.
 
 ## Get the plugin
@@ -47,3 +46,4 @@ You can also add the [Sensu ServiceNow Handler plugin][4] with a dynamic runtime
 [6]: ../../../commercial/
 [7]: https://github.com/sensu-community/monitoring-pipelines/blob/latest/incident-management/servicenow-incident.yaml
 [8]: https://github.com/sensu-community/monitoring-pipelines/blob/latest/entity-registration/servicenow-cmdb.yaml
+[9]: ../../operations/manage-secrets/
