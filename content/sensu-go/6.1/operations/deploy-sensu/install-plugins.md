@@ -24,9 +24,9 @@ To start using and deploying assets, read [Use dynamic runtime assets to install
 You can install Sensu plugins using the [sensu-install](#install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../configuration-management/) solution.
 {{% /notice %}}
 
-## Use Bonsai, the Sensu asset index
+## Use Bonsai, the Sensu asset hub
 
-[Bonsai, the Sensu asset index][8], is a centralized place for downloading and sharing dynamic runtime assets.
+[Bonsai, the Sensu asset hub][8], is a centralized place for downloading and sharing dynamic runtime assets.
 Make Bonsai your first stop when you need to find an asset.
 Bonsai includes plugins, libraries, and runtimes you need to automate your monitoring workflows.
 You can also [share your asset on Bonsai][9].

@@ -13,7 +13,7 @@ menu:
     parent: deploy-sensu
 ---
 
-You can discover, download, and share dynamic runtime assets using [Bonsai, the Sensu asset index][16].
+You can discover, download, and share dynamic runtime assets using [Bonsai, the Sensu asset hub][16].
 Read [Use assets to install plugins][23] to get started.
 
 Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu [plugins][29].

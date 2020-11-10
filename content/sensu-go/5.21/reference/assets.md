@@ -13,7 +13,7 @@ menu:
     parent: reference
 ---
 
-You can discover, download, and share assets using [Bonsai, the Sensu asset index][16].
+You can discover, download, and share assets using [Bonsai, the Sensu asset hub][16].
 Read [Install plugins with assets][23] to get started.
 
 Assets are shareable, reusable packages that make it easier to deploy Sensu [plugins][29].

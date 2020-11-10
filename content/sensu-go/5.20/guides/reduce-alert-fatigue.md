@@ -68,7 +68,7 @@ sensuctl asset add nixwiz/sensu-go-fatigue-check-filter:0.3.2 -r fatigue-filter
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `fatigue-filter`.
 
-You can also download the asset directly from [Bonsai, the Sensu asset index][9].
+You can also download the asset directly from [Bonsai, the Sensu asset hub][9].
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
