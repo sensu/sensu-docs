@@ -19,8 +19,8 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Can use environment variables and secrets management to avoid exposing your email usernames and passwords? Are there other features to add here?
-
+- Supports the login authentication mechanisms necessary for use with Google Mail, Office 365, and other standards based email providers and transports.
+- Can use [environment variables and secrets management][7] to avoid exposing your email provider username/password.
 - [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context to your email alert messages.
 
 ## Get the plugin
@@ -40,3 +40,4 @@ Add the [Sensu Email Handler plugin][4] with a dynamic runtime asset from Bonsai
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
 [5]: ../../assets/
 [6]: ../../../learn/up-and-running/
+[7]: ../../operations/manage-secrets/
