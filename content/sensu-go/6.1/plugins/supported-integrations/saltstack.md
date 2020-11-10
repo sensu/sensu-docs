@@ -21,10 +21,11 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Can use environment variables and secrets management to avoid exposing your SaltStack API token, username/password, and other sensitive information? Does event-based templating apply for the SaltStack integration? Are there other features to add here?
-
 - Use Sensu annotations to specify SaltStack functions and trigger parameters for remediation actions for a check.
-- [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
+- Supports both SaltStack Enterprise and SaltStack Open Source.
+- Supports SaltStack functions such as `service`, `state`, `saltutil`, and `grains` including `arg` and `kwarg` arguments.
+- Can use [environment variables and secrets management][7] to avoid exposing your SaltStack username/password.
+- [Event-based templating][2]: make use of event data to specify the minion to target for rememdiation.
 
 ## Get the plugin
 
@@ -40,3 +41,4 @@ You can also add the [Sensu SaltStack Handler plugin][4] with a dynamic runtime 
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-saltstack-handler
 [5]: ../../assets
 [6]: ../../../commercial/
+[7]: ../../operations/manage-secrets/
