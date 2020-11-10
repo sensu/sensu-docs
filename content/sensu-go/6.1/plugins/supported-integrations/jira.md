@@ -21,9 +21,8 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Can use environment variables and secrets management to avoid exposing your Jira API token, username/password, and other sensitive information? Are there other features to add here?
-
 - Tunable arguments: use Sensu annotations to set custom project names, issue types, resolution states, and more in Jira
+- Can use [environment variables and secrets management][7] to avoid exposing your Jira username/password or API token.
 - [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
 
 ## Get the plugin
@@ -40,3 +39,4 @@ Add the [Sensu Jira Handler plugin][4] with a dynamic runtime asset from Bonsai,
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-jira-handler
 [5]: ../../assets
 [6]: ../../../commercial/
+[7]: ../../operations/manage-secrets/
