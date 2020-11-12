@@ -224,15 +224,15 @@
             "status": 301
         },
         "~ ^/sensu-go/latest/dashboard/filtering/?$": {
-            "url": "/sensu-go/latest/web-ui/filter",
+            "url": "/sensu-go/latest/web-ui/search",
             "status": 301
         },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/dashboard/filtering/?$": {
-            "url": "/sensu-go/latest/web-ui/filter",
+            "url": "/sensu-go/latest/web-ui/search",
             "status": 301
         },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/dashboard/filtering/?$": {
-            "url": "/sensu-go/latest/web-ui/filter",
+            "url": "/sensu-go/latest/web-ui/search",
             "status": 301
         },
         "~ ^/sensu-go/latest/dashboard/webconfig/?$": {
@@ -535,6 +535,10 @@
             "url": "/sensu-go/latest/api",
             "status": 301
         },
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/api/overview/?$": {
+            "url": "/sensu-go/latest/api",
+            "status": 301
+        },
         "~ ^/sensu-go/latest/reference/agent/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/agent",
             "status": 301
@@ -588,6 +592,10 @@
             "status": 301
         },
         "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/entities/?$": {
+            "url": "/sensu-go/latest/observability-pipeline/observe-entities/entities",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1/reference/entites/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-entities/entities",
             "status": 301
         },
@@ -1016,6 +1024,10 @@
             "status": 301
         },
         "~ ^/sensu-go/latest/operations/control-access/auth/?$": {
+            "url": "/sensu-go/latest/operations/control-access",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.20/reference/auth/?$": {
             "url": "/sensu-go/latest/operations/control-access",
             "status": 301
         }
