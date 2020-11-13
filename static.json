@@ -175,6 +175,18 @@
             "url": "/sensu-go/latest/platforms",
             "status": 301
         },
+        "~ ^/sensu-go/5.[0-9]/?((?<=\/).*)?/getting-started/platforms/?$": {
+            "url": "/sensu-go/latest/platforms",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/versions/?$": {
+            "url": "/sensu-go/latest/versions",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.[0-9]/?((?<=\/).*)?/installation/versions/?$": {
+            "url": "/sensu-go/latest/versions",
+            "status": 301
+        },
         "~ ^/sensu-go/latest/installation/verify/?$": {
             "url": "/sensu-go/latest/platforms",
             "status": 301
@@ -537,6 +549,10 @@
         },
         "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/api/overview/?$": {
             "url": "/sensu-go/latest/api",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.21/latest/api/?$": {
+            "url": "/sensu-go/5.21/api",
             "status": 301
         },
         "~ ^/sensu-go/latest/reference/agent/?$": {
@@ -1007,6 +1023,10 @@
             "url": "/sensu-go/latest/operations/maintain-sensu/migrate",
             "status": 301
         },
+        "~ ^/sensu-go/latest/migrate/web-ui/?$": {
+            "url": "/sensu-go/latest/operations/maintain-sensu/migrate",
+            "status": 301
+        },
         "~ ^/sensu-go/5.20/operations/control-access/auth/?$": {
             "url": "/sensu-go/5.20/operations/control-access",
             "status": 301
@@ -1029,6 +1049,50 @@
         },
         "~ ^/sensu-go/5.20/reference/auth/?$": {
             "url": "/sensu-go/latest/operations/control-access",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/web-ui/filter/?$": {
+            "url": "/sensu-go/latest/web-ui/search",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/web-ui/searches/?$": {
+            "url": "/sensu-go/latest/web-ui/searches-reference",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.20/api/web-ui/?$": {
+            "url": "/sensu-go/5.20/api/webconfig",
+            "status": 301
+        },
+        "~ ^/sensu-go/sensu-go/5.19/api/apikeys/?$": {
+            "url": "/sensu-go/latest/api/apikeys",
+            "status": 301
+        },
+        "~ ^/sensu-go/sensu-go/5.19/getting-started/faq/?$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/sensu-go/5.19/guides/contact-routing/?$": {
+            "url": "/sensu-go/latest/observability-pipeline/observe-filter/route-alerts",
+            "status": 301
+        },
+        "~ ^/sensu-go/sensu-go/5.19/guides/secrets-management/?$": {
+            "url": "/sensu-go/latest/operations/manage-secrets/secrets-management",
+            "status": 301
+        },
+        "~ ^/sensu-go/sensu-go/5.19/release-notes/?$": {
+            "url": "/sensu-go/latest/release-notes",
+            "status": 301
+        },
+        "~ ^/sensu-go/sensu-go/5.0/guides/run-auto-remediation/?$": {
+            "url": "/sensu-go/latest/guides",
+            "status": 301
+        },
+        "~ ^/sensu-go/sensu-go/5.0/guides/schedule-checks/?$": {
+            "url": "/sensu-go/latest/guides",
+            "status": 301
+        },
+        "~ ^/sensu-go/sensu-go/5.0/installation/testing-nightly-releases/?$": {
+            "url": "/sensu-go/latest/operations",
             "status": 301
         }
     }
