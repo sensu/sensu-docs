@@ -55,14 +55,6 @@
             "url": "/plugins/latest/$1",
             "status": 302
         },
-        "~ ^/sensu-go/5.1/reference/entites/?$": {
-            "url": "/sensu-go/latest/observability-pipeline/observe-entities/entities",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.0/getting-started/platforms/?$": {
-            "url": "/sensu-go/latest/platforms",
-            "status": 301
-        },
         "~ ^/sensu-go/latest/learn/learn-sensu-go/?$": {
             "url": "/sensu-go/latest/learn/interactive-tutorials",
             "status": 301
