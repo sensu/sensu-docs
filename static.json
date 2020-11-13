@@ -187,7 +187,7 @@
             "url": "/sensu-go/latest/platforms",
             "status": 301
         },
-        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/versions/?$": {
+        "~ ^/sensu-go/5.11/installation/versions/?$": {
             "url": "/sensu-go/latest/versions",
             "status": 301
         },
