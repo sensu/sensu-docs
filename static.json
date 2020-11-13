@@ -39,6 +39,10 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-entities/entities",
             "status": 301
         },
+        "~ ^/sensu-go/5.0/getting-started/platforms/?$": {
+            "url": "/sensu-go/latest/platforms",
+            "status": 301
+        },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/getting-started/media/?$": {
             "url": "https://sensu.io/resources",
             "status": 301
