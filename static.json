@@ -175,18 +175,6 @@
             "url": "/sensu-go/latest/platforms",
             "status": 301
         },
-        "~ ^/sensu-go/5.[0-9]/?((?<=\/).*)?/getting-started/platforms/?$": {
-            "url": "/sensu-go/latest/platforms",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/versions/?$": {
-            "url": "/sensu-go/latest/versions",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.[0-9]/?((?<=\/).*)?/installation/versions/?$": {
-            "url": "/sensu-go/latest/versions",
-            "status": 301
-        },
         "~ ^/sensu-go/latest/installation/verify/?$": {
             "url": "/sensu-go/latest/platforms",
             "status": 301
@@ -1081,18 +1069,6 @@
         },
         "~ ^/sensu-go/sensu-go/5.19/release-notes/?$": {
             "url": "/sensu-go/latest/release-notes",
-            "status": 301
-        },
-        "~ ^/sensu-go/sensu-go/5.0/guides/run-auto-remediation/?$": {
-            "url": "/sensu-go/latest/guides",
-            "status": 301
-        },
-        "~ ^/sensu-go/sensu-go/5.0/guides/schedule-checks/?$": {
-            "url": "/sensu-go/latest/guides",
-            "status": 301
-        },
-        "~ ^/sensu-go/sensu-go/5.0/installation/testing-nightly-releases/?$": {
-            "url": "/sensu-go/latest/operations",
             "status": 301
         }
     }
