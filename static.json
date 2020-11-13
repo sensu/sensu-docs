@@ -187,6 +187,10 @@
             "url": "/sensu-go/latest/platforms",
             "status": 301
         },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/versions/?$": {
+            "url": "/sensu-go/latest/versions",
+            "status": 301
+        },
         "~ ^/sensu-go/latest/getting-started/enterprise/?$": {
             "url": "/sensu-go/latest/commercial",
             "status": 301
