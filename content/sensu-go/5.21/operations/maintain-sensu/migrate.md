@@ -34,10 +34,10 @@ We also offer [**commercial support** and **professional services** packages][49
 
 ## Configuration management with Ansible, Chef, and Puppet
 
-[Configuration management][44] integrations for Sensu Go are available for Ansible, Chef, and Puppet, with well-defined modules to help you get started.
+[Configuration management][44] integrations for Sensu Go are available for Ansible, Chef, and Puppet:
 
-- [Sensu Go Ansible Collection][77] (GitHub repo) and [documentation site][78]
-- [Chef Cookbook for Sensu Go][76] (GitHub repo)
+- [Ansible collection for Sensu Go][77] (GitHub repo) and [documentation site][78]
+- [Chef cookbook for Sensu Go][76] (GitHub repo) &mdash; [contact us][79] for more information
 - [Puppet module for Sensu Go][75] (GitHub repo)
 
 ## Packaging
@@ -499,3 +499,4 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [76]: https://github.com/sensu/sensu-go-chef
 [77]: https://github.com/sensu/sensu-go-ansible
 [78]: https://sensu.github.io/sensu-go-ansible/
+[79]: https://monitoringlove.sensu.io/chef
