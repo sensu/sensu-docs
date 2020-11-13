@@ -84,6 +84,11 @@ spec:
 
 {{< /language-toggle >}}
 
+{{% notice note %}}
+**NOTE**: This example uses the [Sensu Plugins HTTP](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http) and [Sensu Ruby Runtime](https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime) dynamic runtime assets.
+Read [Monitor server resources with checks](../../../observability-pipeline/observe-schedule/monitor-server-resources/#register-dynamic-runtime-assets) to learn how to add these assets.
+{{% /notice %}}
+
 ## Monitor external etcd
 
 If your Sensu Go deployment uses an external etcd cluster, you'll need to check the health of the respective etcd instances.
@@ -250,6 +255,11 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: This example uses the [Sensu Plugins HTTP](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http) and [Sensu Ruby Runtime](https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime) dynamic runtime assets.
+Read [Monitor server resources with checks](../../../observability-pipeline/observe-schedule/monitor-server-resources/#register-dynamic-runtime-assets) to learn how to add these assets.
+{{% /notice %}}
 
 A successful check result will look like this:
 
