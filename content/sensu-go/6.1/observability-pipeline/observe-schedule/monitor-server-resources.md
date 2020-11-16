@@ -25,9 +25,9 @@ To use this guide, you'll need to install a Sensu backend and have at least one 
 
 To power the check, you'll use the [Sensu CPU Checks][1] (`sensu-plugins-cpu-checks`) and [Sensu Ruby Runtime][7] (`sensu-ruby-runtime`) dynamic runtime assets.
 
-{{% notice protip %}}
-**PRO TIP**: You need the Sensu CPU Checks asset because it includes `check-cpu.rb`, which [your check](#create-a-check) will rely on.
-The Sensu assets packaged from Sensu Plugins HTTP are built against the Sensu Ruby runtime environment, so you also need the Sensu Ruby Runtime asset.
+{{% notice note %}}
+**NOTE**: You need the Sensu CPU Checks asset because it includes `check-cpu.rb`, which [your check](#create-a-check) will rely on.
+The Sensu assets packaged from Sensu CPU Checks are built against the Sensu Ruby runtime environment, so you also need the Sensu Ruby Runtime asset.
 Sensu Ruby Runtime delivers the Ruby runtime asset the check will need to run the `check-http.rb` command.
 {{% /notice %}}
 

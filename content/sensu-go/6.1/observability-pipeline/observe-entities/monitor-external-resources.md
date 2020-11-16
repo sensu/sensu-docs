@@ -29,8 +29,8 @@ In this section, you'll monitor the status of [sensu.io](https://sensu.io) by co
 
 To power the check, use the [Sensu Plugins HTTP][16] (`sensu-plugins-http`) and [Sensu Ruby Runtime][17] (`sensu-ruby-runtime`) dynamic runtime assets.
 
-{{% notice protip %}}
-**PRO TIP**: You need the Sensu Plugins HTTP asset because it includes `check-http.rb`, which [your check](#create-the-check) will rely on.
+{{% notice note %}}
+**NOTE**: You need the Sensu Plugins HTTP asset because it includes `check-http.rb`, which [your check](#create-the-check) will rely on.
 The Sensu assets packaged from Sensu Plugins HTTP are built against the Sensu Ruby runtime environment, so you also need the Sensu Ruby Runtime asset.
 Sensu Ruby Runtime delivers the Ruby runtime asset the check will need to run the `check-http.rb` command.
 {{% /notice %}}
