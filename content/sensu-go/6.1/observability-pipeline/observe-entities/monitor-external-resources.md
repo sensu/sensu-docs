@@ -27,15 +27,13 @@ In this section, you'll monitor the status of [sensu.io](https://sensu.io) by co
 
 ### Register dynamic runtime assets
 
-To power the check, use the [Sensu Plugins HTTP][16] (`sensu-plugins-http`) and [Sensu Ruby Runtime][17] (`sensu-ruby-runtime`) dynamic runtime assets.
+To power the check, you'll use the [Sensu Plugins HTTP][16] dynamic runtime asset.
+The Sensu Plugins HTTP asset includes `check-http.rb`, which [your check][15] will rely on.
 
-{{% notice note %}}
-**NOTE**: You need the Sensu Plugins HTTP asset because it includes `check-http.rb`, which [your check](#create-the-check) will rely on.
-The Sensu assets packaged from Sensu Plugins HTTP are built against the Sensu Ruby runtime environment, so you also need the Sensu Ruby Runtime asset.
-Sensu Ruby Runtime delivers the Ruby runtime asset the check will need to run the `check-http.rb` command.
-{{% /notice %}}
+The Sensu assets packaged from Sensu Plugins HTTP are built against the Sensu Ruby runtime environment, so you also need to add the [Sensu Ruby Runtime][7] dynamic runtime asset.
+Sensu Ruby Runtime delivers the Ruby runtime asset the check will need to run the `check-http.rb` plugin.
 
-Use [`sensuctl asset add`][21] to register the `sensu-plugins-http` dynamic runtime asset:
+Use [`sensuctl asset add`][21] to register the Sensu Plugins HTTP dynamic runtime asset, `sensu-plugins/sensu-plugins-http:5.1.1`:
 
 {{< code shell >}}
 sensuctl asset add sensu-plugins/sensu-plugins-http:5.1.1 -r sensu-plugins-http
@@ -51,7 +49,7 @@ This example uses the `-r` (rename) flag to specify a shorter name for the dynam
 
 You can also download the dynamic runtime asset definition for Debian or Alpine from [Bonsai][16] and register the asset with `sensuctl create --file filename.yml`.
 
-Then, use the following sensuctl example to register the `sensu-ruby-runtime` dynamic runtime asset:
+Then, use the following sensuctl example to register the Sensu Ruby Runtime dynamic runtime asset, `sensu/sensu-ruby-runtime:0.0.10`:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
@@ -390,6 +388,7 @@ Now that you know how to run a proxy check to verify the status of a website and
 [12]: ../../observe-schedule/tokens/
 [13]: #register-assets
 [14]: #add-the-subscription
+[15]: #create-the-check
 [16]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http
 [17]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
 [18]: ../../observe-schedule/checks#round-robin-checks
