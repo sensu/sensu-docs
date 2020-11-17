@@ -18,7 +18,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Can use environment variables and secrets management to avoid exposing sensitive information? Does event-based templating apply for the Chef integration? Are there other features to add here?
+**NEED TO COMPLETE** Does the Chef integration allow users to use environment variables and secrets management to avoid exposing sensitive information? Does event-based templating apply for the Chef integration? Are there other features to add here?
 
 - [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
 

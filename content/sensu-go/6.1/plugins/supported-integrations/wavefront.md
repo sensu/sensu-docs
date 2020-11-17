@@ -18,13 +18,16 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Can use environment variables and secrets management to avoid exposing your email usernames and passwords? Does event-based templating apply for the Wavefront integration? Are there other features to add here?
+**NEED TO COMPLETE** Is my draft list below accurate? Does event-based templating apply for the Wavefront integration? Are there other features to add here?
 
+- Transform metrics to Wavefront format: extract and transform the metrics you collect from different sources like Graphite, OpenTSDB, Nagios, and Influx and populate them into Wavefront.
+- Use Sensu [environment variables and secrets management][6] to avoid exposing your Wavefront username and password.
 - [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
 
 ## Get the plugin
 
-**The Wavefront monitoring-pipelines template does not include notes for configuration at the top of the yaml file**
+**NOTE TO REVIEWER**: The Wavefront monitoring-pipelines template does not include notes for configuration at the top of the yaml file. Do we need to fix this?
+
 For a turnkey experience with the Sensu Wavefront Handler plugin, use our curated, configurable [quick-start template][3] to integrate Sensu with your existing workflows and store Sensu metrics in Wavefront.
 
 To build your own workflow or integrate Sensu with existing workflows, add the [Sensu Wavefront Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index.
@@ -36,3 +39,4 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 [3]: https://github.com/sensu-community/monitoring-pipelines/blob/latest/metric-storage/wavefront.yaml
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-wavefront-handler
 [5]: ../../assets/
+[6]: ../../../operations/manage-secrets/

@@ -18,9 +18,10 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Can use environment variables and secrets management to avoid exposing your EC2 API token, username/password, and other sensitive information? Are there other features to add here?
+**NEED TO COMPLETE** Is my draft list below accurate? Are there other features to add here?
 
 - Tunable arguments: use Sensu annotations to set custom instance ID, instance ID labels, timeouts, and more in EC2
+- Use Sensu [environment variables and secrets management][3] to avoid exposing your AWS EC2 API token, username and password.
 - [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
 
 ## Get the plugin
@@ -31,6 +32,7 @@ Add the [Sensu EC2 Handler plugin][4] with a dynamic runtime asset from Bonsai, 
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
+[3]: ../../../operations/manage-secrets/
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-ec2-handler
 [5]: ../../assets
 [6]: ../../../commercial/
