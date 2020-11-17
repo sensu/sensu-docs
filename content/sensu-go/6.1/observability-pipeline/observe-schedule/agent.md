@@ -411,18 +411,6 @@ required     | false
 type         | Array
 example      | {{< code shell >}}"handlers": ["slack", "influxdb"]{{< /code >}}
 
-
-## Use a proxy to add assets and run checks
-
-To add dynamic runtime assets and run checks for entities that do cannot access the internet, define an `HTTP_PROXY` and `HTTPS_PROXY` in your agent config file.
-
-{{< code shell >}}
-http_proxy="http://YOUR_PROXY_SERVER:PORT"
-https_proxy="http://YOUR_PROXY_SERVER:PORT"
-{{< /code >}}
-
-With this configuration, Sensu will use the proxy server you specify to add dynamic runtime assets, run checks, and complete other tasks that typically require an internet connection for your unconnected entities.
-
 ## Keepalive monitoring
 
 Sensu `keepalives` are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the [Sensu backend][2].
@@ -1681,6 +1669,23 @@ Any environment variables you create in `/etc/default/sensu-agent` (Debian/Ubunt
 This includes your checks and plugins.
 
 For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
+
+##### Use environment variables to define proxies for unconnected entities
+
+To add dynamic runtime assets and run checks for entities that cannot access the internet, define `SENSU_HTTP_PROXY` and `SENSU_HTTPS_PROXY` environment variables in your sensu-agent file.
+
+{{< code shell >}}
+SENSU_HTTP_PROXY="http://YOUR_PROXY_SERVER:PORT"
+SENSU_HTTPS_PROXY="http://YOUR_PROXY_SERVER:PORT"
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: You can use the same proxy server URL for `SENSU_HTTP_PROXY` and `SENSU_HTTPS_PROXY`.
+The proxy server URL you specify for `SENSU_HTTPS_PROXY` does not need to use `https://`.
+{{% /notice %}}
+
+After you add the `SENSU_HTTP_PROXY` and `SENSU_HTTPS_PROXY` environment variables and restart sensu-agent, they will be available to check and hook commands executed by the Sensu agent.
+You can then use `SENSU_HTTP_PROXY` and `SENSU_HTTPS_PROXY` to add dynamic runtime assets, run checks, and complete other tasks that typically require an internet connection for your unconnected entities.
 
 
 [1]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
