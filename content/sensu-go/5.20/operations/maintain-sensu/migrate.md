@@ -18,7 +18,6 @@ Sensu Go also includes many powerful [commercial features][27] to make monitorin
 
 Sensu Go is available for [RHEL/CentOS, Debian, Ubuntu, and Docker][43].
 The Sensu Go agent is also available for Windows.
-[Configuration management][44] integrations for Sensu Go are available for Ansible, Chef, and Puppet.
 
 {{% notice important %}}
 **IMPORTANT**: To install Sensu Go alongside your current Sensu instance, you must upgrade to at least [Sensu Core 1.9.0-2](https://eol-repositories.sensuapp.org/).
@@ -32,6 +31,14 @@ Aside from this migration guide, these resources can help you migrate from Sensu
 - [**Sensu Translator**][45]: Use this command-line tool to generate Sensu Go configurations from your Sensu Core config files.
 
 We also offer [**commercial support** and **professional services** packages][49] to help with your Sensu Go migration.
+
+## Configuration management with Ansible, Chef, and Puppet
+
+[Configuration management][44] integrations for Sensu Go are available for Ansible, Chef, and Puppet:
+
+- [Ansible collection for Sensu Go][77] (GitHub repo) and [documentation site][78]
+- [Chef cookbook for Sensu Go][76] (GitHub repo) &mdash; [contact us][79] for more information
+- [Puppet module for Sensu Go][75] (GitHub repo)
 
 ## Packaging
 
@@ -488,3 +495,8 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [72]: #translate-proxy-requests-entities
 [73]: #translate-hooks
 [74]: https://docs.sensu.io/sensu-core/latest/platforms/
+[75]: https://github.com/sensu/sensu-puppet
+[76]: https://github.com/sensu/sensu-go-chef
+[77]: https://github.com/sensu/sensu-go-ansible
+[78]: https://sensu.github.io/sensu-go-ansible/
+[79]: https://monitoringlove.sensu.io/chef
