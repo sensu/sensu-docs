@@ -411,6 +411,18 @@ required     | false
 type         | Array
 example      | {{< code shell >}}"handlers": ["slack", "influxdb"]{{< /code >}}
 
+
+## Use a proxy to add assets and run checks
+
+To add dynamic runtime assets and run checks for entities that do cannot access the internet, define an `HTTP_PROXY` and `HTTPS_PROXY` in your agent config file.
+
+{{< code shell >}}
+http_proxy="http://YOUR_PROXY_SERVER:PORT"
+https_proxy="http://YOUR_PROXY_SERVER:PORT"
+{{< /code >}}
+
+With this configuration, Sensu will use the proxy server you specify to add dynamic runtime assets, run checks, and complete other tasks that typically require an internet connection for your unconnected entities.
+
 ## Keepalive monitoring
 
 Sensu `keepalives` are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the [Sensu backend][2].
