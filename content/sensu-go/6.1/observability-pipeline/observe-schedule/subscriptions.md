@@ -34,7 +34,7 @@ For Sensu to execute a check, the check definition must include a subscription t
 In other words, subscriptions are configured for both checks and agents:
 
 - To configure subscriptions for a check, add one or more subscription names in the [check `subscriptions` attribute][15].
-- To configure subscriptions for an agent, set the [`subscriptions` flag][2] and specify the subscriptions that include the checks the agent's entities should execute.
+- To configure subscriptions for an agent, configure the [`subscriptions`][2] by specifying the subscriptions that include the checks the agent's entities should execute.
 
 You must also set the `publish` attribute to `true` in the check definition.
 
