@@ -23,10 +23,10 @@ The Sensu backend coordinates check execution for you by comparing the subscript
 The diagram below shows how Sensu coordinates check execution based on subscriptions.
 For example, the `check_cpu` check includes the `system` subscription.
 All three entities include the `system` subscription, so all three entities will execute the `check_cpu` check.
-However, only Entity A and Entity C will execute `checkSshdProcess` &mdash; Entity B does not include the `linux` subscription required to execute `checkSshdProcess`.
+However, only Entity A and Entity C will execute `check_sshd_process` &mdash; Entity B does not include the `linux` subscription required to execute `check_sshd_process`.
 
 {{< figure src="/images/subscriptions_venn.png" alt="Venn diagram example of Sensu check execution based on subscriptions" link="/images/subscriptions_venn.png" target="_blank" >}}
-<!-- Diagram source: https://app.lucidchart.com/invitations/accept/0aa33f39-128d-449d-8312-04f415d8cfca -->
+<!-- Diagram source: https://app.lucidchart.com/lucidchart/invitations/accept/25d40e7e-7293-4189-84e0-ef8c3a4c8ec5 -->
 
 *<p style="text-align:center">Sensu check execution based on subscriptions</p>*
 
