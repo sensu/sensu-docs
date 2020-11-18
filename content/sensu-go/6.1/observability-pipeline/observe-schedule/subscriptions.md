@@ -62,12 +62,12 @@ This makes it possible to generate ad hoc check requests that target specific en
 If you want Sensu to automatically schedule and execute a check according to its subscriptions, set the [`publish` attribute][12] to `true` in the check definition.
 
 You can also manually schedule [ad hoc check execution][11] with the [check API][16], whether the `publish` attribute is set to `true` or `false`.
-To target the subscriptions defined in the check, include only the check name in the request body (e.g. `"check": "check-cpu"`).
+To target the subscriptions defined in the check, include only the check name in the request body (e.g. `"check": "check_cpu"`).
 To override the check's subscriptions and target an alternate entity or group of entities, add the subscriptions attribute to the request body:
 
 {{< code shell >}}
 {
-  "check": "check-cpu",
+  "check": "check_cpu",
   "subscriptions": [
     "entity:i-424242",
     "entity:i-828282"
