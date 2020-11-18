@@ -59,16 +59,15 @@ At every execution of a check command, regardless of success or failure, the Sen
 ## Check scheduling
 
 The Sensu backend schedules checks and publishes check execution requests to entities via a [publish/subscribe model][2].
-Checks have a defined set of subscriptions: transport topics to which the Sensu backend publishes check requests.
-Sensu entities become subscribers to these topics (called subscriptions) via their individual `subscriptions` attribute. 
-Read the [subscriptions reference][28] for more information.
+Checks have a defined set of [subscriptions][64]: transport topics to which the Sensu backend publishes check requests.
+Sensu entities become subscribers to these topics (called subscriptions) via their individual `subscriptions` attribute.
 
 You can schedule checks using the [`interval`][38], [`cron`][45], and [`publish`][63] attributes.
 Sensu requires that checks include either an `interval` attribute (interval scheduling) or a `cron` attribute (cron scheduling).
 
 ### Round robin checks
 
-By default, Sensu schedules checks once per interval for each agent with a matching [subscription][64]: one check execution per agent per interval.
+By default, Sensu schedules checks once per interval for each agent with a matching subscription: one check execution per agent per interval.
 Sensu also supports deduplicated check execution when configured with the `round_robin` check attribute.
 For checks with `round_robin` set to `true`, Sensu executes the check once per interval, cycling through the available agents alphabetically according to agent name.
 
@@ -600,6 +599,8 @@ description  | When the check should be executed, using [cron syntax][14] or [th
 required     | true (unless `interval` is configured)
 type         | String
 example      | {{< code shell >}}"cron": "0 0 * * *"{{< /code >}}
+
+<a name="publish-attribute"></a>
 
 |publish     |      |
 -------------|------

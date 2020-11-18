@@ -20,6 +20,16 @@ Because Sensu uses the publish/subscribe model, you can write checks even if you
 Likewise, your entities do not need to know the specific names of the checks they should execute.
 The Sensu backend coordinates check execution for you by comparing the subscriptions you specify in your checks and entities to determine which entities should receive execution requests for a given check.
 
+The diagram below shows how Sensu coordinates check execution based on subscriptions.
+For example, the `check_cpu` check includes the `system` subscription.
+All three entities include the `system` subscription, so all three entities will execute the `check_cpu` check.
+However, only Entity A and Entity C will execute `checkSshdProcess` &mdash; Entity B does not include the `linux` subscription required to execute `checkSshdProcess`.
+
+{{< figure src="/images/subscriptions_venn.png" alt="Venn diagram example of Sensu check execution based on subscriptions" link="/images/subscriptions_venn.png" target="_blank" >}}
+<!-- Diagram source: https://app.lucidchart.com/invitations/accept/0aa33f39-128d-449d-8312-04f415d8cfca -->
+
+*<p style="text-align:center">Sensu check execution based on subscriptions</p>*
+
 Sensu subscriptions are equivalent to topics in a traditional publish/subscribe system.
 Sensu entities become subscribers to these topics via the strings you specify with the agent `subscriptions` flag.
 Sensu checks have a `subscriptions` attribute, where you specify strings to indicate which subscribers will execute the checks.
@@ -28,15 +38,13 @@ For Sensu to execute a check, the check definition must include a subscription t
 As loosely coupled references, subscriptions avoid the fragility of traditional host-based monitoring systems.
 Subscriptions allow you to configure check requests in a one-to-many model for entire groups or subgroups of entities rather than a traditional one-to-one mapping of configured hosts or observability checks.
 
-## Subscription configuration
+## Configure subscriptions
 
 For Sensu to execute a check, the check definition must include a subscription that matches a subscription for at least one Sensu entity.
 In other words, subscriptions are configured for both checks and agents:
 
 - To configure subscriptions for a check, add one or more subscription names in the [check `subscriptions` attribute][15].
 - To configure subscriptions for an agent, configure the [`subscriptions`][2] by specifying the subscriptions that include the checks the agent's entities should execute.
-
-You must also set the `publish` attribute to `true` in the check definition.
 
 The Sensu backend [schedules][13] checks once per interval for each agent with a matching subscription.
 For example, if you have three agents configured with the `system` subscription, a check configured with the `system` subscription results in three monitoring events per interval: one check execution per agent per interval.
@@ -49,6 +57,24 @@ This makes it possible to generate ad hoc check requests that target specific en
 **NOTE**: You can directly add, update, and delete subscriptions for individual entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../../api/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
 {{% /notice %}}
 
+## Publish checks
+
+If you want Sensu to automatically schedule and execute a check according to its subscriptions, set the [`publish` attribute][12] to `true` in the check definition.
+
+You can also manually schedule [ad hoc check execution][11] with the [check API][16], whether the `publish` attribute is set to `true` or `false`.
+To target the subscriptions defined in the check, include only the check name in the request body (e.g. `"check": "check-cpu"`).
+To override the check's subscriptions and target an alternate entity or group of entities, add the subscriptions attribute to the request body:
+
+{{< code shell >}}
+{
+  "check": "check-cpu",
+  "subscriptions": [
+    "entity:i-424242",
+    "entity:i-828282"
+  ]
+}
+{{< /code >}}
+
 ## Example
 
 Suppose you have a Sensu agent with the `linux` subscription:
@@ -57,8 +83,7 @@ Suppose you have a Sensu agent with the `linux` subscription:
 sensu-agent start --subscriptions linux --log-level debug
 {{< /code >}}
 
-For this agent to run a check, you must have at least one check with `linux` specified in the `subscriptions` attribute.
-For example, suppose you have a check to collect status information:
+For this agent to run a check, you must have at least one check with `linux` specified in the `subscriptions` attribute, such as this check to collect status information:
 
 {{< language-toggle >}}
 
@@ -106,7 +131,7 @@ If this is your only check for the `linux` subscription, this is the only check 
 If you add more checks that specify the `linux` subscription, your agent will automatically run those checks too (as long as the `publish` attribute is set to `true` in the check definitions).
 
 You can also add more subscriptions for your agent.
-For example, if you want your agent to execute checks for the `webserver` subscription, you can specify it with the `subscriptions` flag:
+For example, if you want your agent to execute checks for the `webserver` subscription, you can add it with the `subscriptions` flag:
 
 {{< code shell >}}
 sensu-agent start --subscriptions linux,webserver --log-level debug
@@ -125,6 +150,9 @@ Now your agent will execute checks with the `linux` or `webserver` subscriptions
 [8]: ../hooks/
 [9]: ../events/
 [10]: ../agent/#name
+[11]: ../checks/#ad-hoc-scheduling
+[12]: ../checks/#publish-attribute
 [13]: ../checks/#check-scheduling
 [14]: ../agent/
 [15]: ../checks/#check-subscriptions
+[16]: ../../../api/checks/#checkscheckexecute-post
