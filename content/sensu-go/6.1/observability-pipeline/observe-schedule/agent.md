@@ -494,7 +494,7 @@ The agent iterates through the shuffled `backend-url` list until it successfully
 **NOTE**: Sensu's WebSocket connection heartbeat message and [keepalive monitoring](#keepalive-monitoring) mechanism are different, although they have similar purposes.<br><br>
 The WebSocket `backend-heartbeat-interval` and `backend-heartbeat-timeout` are specifically configured for the WebSocket connection heartbeat message the agent sends when it connects to a backend URL.<br><br>
 Keepalive monitoring is more fluid &mdash; it permits agents to reconnect any number of times within the configured timeout.
-As long as the agent can successfully send one event to any backend within the timeout, the keepalive is reset.
+As long as the agent can successfully send one event to any backend within the timeout, the keepalive logic is satisfied.
 {{% /notice %}}
 
 ## Service management {#operation}
