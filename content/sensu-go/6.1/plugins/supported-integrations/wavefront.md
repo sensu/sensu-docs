@@ -19,11 +19,9 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 ## Features
 
 - Transform metrics to Wavefront format: extract and transform the metrics you collect from different sources like Graphite, OpenTSDB, Nagios, and Influx and populate them into Wavefront.
-- Specify additional tags to include when processing metrics
+- Specify additional tags to include when processing metrics.
 
 ## Get the plugin
-
-**NOTE TO REVIEWER**: The Wavefront monitoring-pipelines template does not include notes for configuration at the top of the yaml file. Do we need to fix this?
 
 For a turnkey experience with the Sensu Wavefront Handler plugin, use our curated, configurable [quick-start template][3] to integrate Sensu with your existing workflows and store Sensu metrics in Wavefront.
 
