@@ -18,9 +18,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Does the Chef integration allow users to use environment variables and secrets management to avoid exposing sensitive information? Does event-based templating apply for the Chef integration? Are there other features to add here?
-
-- [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
+- Use Sensu [environment variables and secrets management][6] to avoid exposing sensitive API authentication information.
 
 ## Get the plugin
 
@@ -37,3 +35,4 @@ Use the official [Chef Cookbook for Sensu Go][3] for configuration management fo
 [3]: https://github.com/sensu/sensu-go-chef
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-chef-handler
 [5]: ../../assets
+[6]: ../../../operations/manage-secrets/
