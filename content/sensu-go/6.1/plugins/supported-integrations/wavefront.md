@@ -18,11 +18,8 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Is my draft list below accurate? Does event-based templating apply for the Wavefront integration? Are there other features to add here?
-
 - Transform metrics to Wavefront format: extract and transform the metrics you collect from different sources like Graphite, OpenTSDB, Nagios, and Influx and populate them into Wavefront.
-- Use Sensu [environment variables and secrets management][6] to avoid exposing your Wavefront username and password.
-- [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
+- Specify additional tags to include when processing metrics
 
 ## Get the plugin
 
