@@ -18,11 +18,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Does event-based templating apply for the TimescaleDB integration? Are there other features to add here? Is my draft list accurate?
-
 - Transform metrics to TimescaleDB format: extract and transform the metrics you collect from different sources like Graphite, OpenTSDB, Nagios, and Influx and populate them into TimescaleDB.
-- Use Sensu [environment variables and secrets management][3] to avoid exposing your TimescaleDB username and password.
-- [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
 
 ## Get the plugin
 
