@@ -18,10 +18,8 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Does the Puppet integration allow users to use environment variables and secrets management to avoid exposing sensitive information? Does event-based templating apply for the Puppet integration? Are there other features to add here?
-
 - Use Sensu annotations to override corresponding Puppet node names with Sensu event names.
-- [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
+- Use Sensu [environment variables and secrets management][6] to avoid exposing sensitive API authentication information.
 
 ## Get the plugin
 
@@ -38,3 +36,4 @@ Use the partner-supported [Sensu Puppet module][3] for configuration management 
 [3]: https://github.com/sensu/sensu-puppet
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-Puppet-handler
 [5]: ../../assets
+[6]: ../../../operations/manage-secrets/
