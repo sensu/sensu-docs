@@ -44,11 +44,16 @@ As a result, executable scripts (e.g. plugins) located in `/etc/sensu/plugins` w
 This allows command attributes to use relative paths for Sensu plugin commands, such as `"command": "check-http.rb -u https://sensuapp.org"`.
 {{% /notice %}}
 
-## Examples
+## Tools, templates, and examples
 
-### Go plugin example
+### Go plugin tool and templates
 
-**PLACEHOLDER**
+Use the [Sensu Plugin Tool][4] along with a [default template][5] to create the scaffolding for check, handler, mutator, and sensuctl plugins in the Go programming language.
+Follow the instructions in the Sensu Plugin Tool repository to generate a new plugin project based on the template repositories.
+The plugin template repositories wrap the [Sensu Plugin SDK][8], which provides the framework for building Sensu Go plugins.
+
+For a step-by-step walkthrough, read [How to publish an asset with the Sensu Go SDK][7] &mdash; you'll learn how to create a check plugin and a handler plugin with the Sensu Plugin SDK.
+You can also watch our 30-minute webinar, [Intro to assets with the Sensu Go SDK][6], and learn to build a check plugin.
 
 ### Ruby plugin example
 
@@ -57,7 +62,7 @@ The following example demonstrates how to write a very basic Sensu plugin in the
 {{< code ruby >}}
 #!/usr/bin/env ruby
 #
-# A simple example handler plugin.
+# A basic example handler plugin.
 
 require 'json'
 
@@ -72,10 +77,16 @@ puts output
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: This example doesn't provide much in terms of functionality but it is a starting point for a simple custom plugin.
+**NOTE**: This example is intended as a starting point for building a basic custom plugin in Ruby.
+It does not provide functionality.
 {{% /notice %}}
 
 
 [1]: #supported-programming-languages
 [2]: https://github.com/sensu-plugins/sensu-plugins-http
 [3]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
+[4]: https://github.com/sensu-community/sensu-plugin-tool
+[5]: https://github.com/sensu-community/sensu-plugin-tool#overview
+[6]: https://sensu.io/resources/webinar/intro-to-assets-with-the-sensu-go-sdk
+[7]: https://sensu.io/blog/how-to-publish-an-asset-with-the-sensu-go-sdk
+[8]: https://github.com/sensu-community/sensu-plugin-sdk
