@@ -18,11 +18,8 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Is my draft list below accurate? Are there other features to add here?
-
 - Tunable arguments: use Sensu annotations to set custom instance ID, instance ID labels, timeouts, and more in EC2
 - Use Sensu [environment variables and secrets management][3] to avoid exposing your AWS EC2 API token, username and password.
-- [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
 
 ## Get the plugin
 
