@@ -21,10 +21,12 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Does the Ansible integration allow users to use environment variables and secrets management to avoid exposing your Ansible API token and other sensitive information? Does event-based templating apply for the Ansible integration? Are there other features to add here?
+The Sensu Ansible Handler plugin supports both Ansible Tower and Ansible AWX implementations of the Ansible Tower API, authenticating using Ansible Tower API tokens.  
 
+- Specify Ansible Tower Job Templates for remediation actions for a check with Sensu annotations.
+- Use Sensu [environment variables and secrets management][9] to avoid exposing your Ansible Tower host and auth token.
+- Automatically limit Ansible Job to host matching Sensu entity name encoded in Sensu event
 - Optional job template requests: use Sensu check annotations to specify a set of Ansible Tower job template requests to run for matching Sensu event occurrence and severity conditions.
-- [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
 
 ## Get the plugin
 
@@ -47,3 +49,5 @@ The [documentation site][8] includes installation instructions, example playbook
 [6]: ../../../commercial/
 [7]: https://github.com/sensu/sensu-go-ansible
 [8]: https://sensu.github.io/sensu-go-ansible/
+[9]: ../../../operations/manage-secrets/
+
