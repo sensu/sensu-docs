@@ -1670,22 +1670,24 @@ This includes your checks and plugins.
 
 For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
 
-##### Use environment variables to define proxies for unconnected entities
+##### Use environment variables to specify an HTTP proxy for agent use
 
-To add dynamic runtime assets and run checks for entities that cannot access the internet, define `SENSU_HTTP_PROXY` and `SENSU_HTTPS_PROXY` environment variables in your sensu-agent file.
+If an HTTP proxy is required to access the internet in your compute environment, you may need to configure Sensu agent for this in order to successfully download dynamic runtime assets or execute commands which depend on internet access.
+
+For Sensu agents which require a proxy server, define `HTTP_PROXY` and `HTTPS_PROXY` environment variables in your sensu-agent file.
 
 {{< code shell >}}
-SENSU_HTTP_PROXY="http://YOUR_PROXY_SERVER:PORT"
-SENSU_HTTPS_PROXY="http://YOUR_PROXY_SERVER:PORT"
+HTTP_PROXY="http://YOUR_PROXY_SERVER:PORT"
+HTTPS_PROXY="http://YOUR_PROXY_SERVER:PORT"
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: You can use the same proxy server URL for `SENSU_HTTP_PROXY` and `SENSU_HTTPS_PROXY`.
-The proxy server URL you specify for `SENSU_HTTPS_PROXY` does not need to use `https://`.
+**NOTE**: You can use the same proxy server URL for `HTTP_PROXY` and `HTTPS_PROXY`.
+The proxy server URL you specify for `HTTPS_PROXY` does not need to use `https://`.
 {{% /notice %}}
 
-After you add the `SENSU_HTTP_PROXY` and `SENSU_HTTPS_PROXY` environment variables and restart sensu-agent, they will be available to check and hook commands executed by the Sensu agent.
-You can then use `SENSU_HTTP_PROXY` and `SENSU_HTTPS_PROXY` to add dynamic runtime assets, run checks, and complete other tasks that typically require an internet connection for your unconnected entities.
+After you add the `HTTP_PROXY` and `HTTPS_PROXY` environment variables and restart sensu-agent, they will be available to check and hook commands executed by the Sensu agent.
+You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, run checks, and complete other tasks that typically require an internet connection for your unconnected entities.
 
 
 [1]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
