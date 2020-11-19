@@ -1672,7 +1672,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 
 ##### Use environment variables to specify an HTTP proxy for agent use
 
-If an HTTP proxy is required to access the internet in your compute environment, you may need to configure Sensu agent for this in order to successfully download dynamic runtime assets or execute commands which depend on internet access.
+If an HTTP proxy is required to access the internet in your compute environment, you may need to configure the Sensu agent to successfully download dynamic runtime assets or execute commands that depend on internet access.
 
 For Sensu agents which require a proxy server, define `HTTP_PROXY` and `HTTPS_PROXY` environment variables in your sensu-agent file.
 
