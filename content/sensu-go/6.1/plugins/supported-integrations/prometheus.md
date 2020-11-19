@@ -23,9 +23,8 @@ The Sensu Prometheus Collector plugin is a Sensu [check][8] that collects metric
 
 ### Features
 
-**NEED TO COMPLETE** What other features should we add here?
-
 - Use Sensu's [publish/subscribe design][9] and [client auto-registration (discovery)][10] features to turn Sensu into a super-powered Prometheus metric poller.
+- Use Sensu [environment variables and secrets management][11] to avoid exposing needed metrics endpoint authentication.
 - Configure your Sensu instance to deliver the collected metrics to a time-series database like InfluxDB or Graphite.
 
 ## Sensu Prometheus Pushgateway Handler
@@ -34,11 +33,8 @@ The [Sensu Prometheus Pushgateway Handler][3] plugin is a Sensu [handler][1] tha
 
 ### Features
 
-**NEED TO COMPLETE** Does event-based templating apply for the Prom Pushgateway handler? Are there other features to add here?
-
 - Collect metrics via several means, including 20-year-old Nagios plugins with perfdata, and store them in Prometheus.
 - Use default Prometheus metric type, job name, and instance name or specify custom values for Sensu event metric points via metric tags.
-- [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
 
 ## Get the plugins
 
@@ -59,3 +55,4 @@ To build your own workflow or integrate Sensu with existing workflows, add the S
 [8]: ../../../observability-pipeline/observe-schedule/checks/
 [9]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
 [10]: ../../../observability-pipeline/observe-schedule/agent/#registration-endpoint-management-and-service-discovery
+[11]: ../../../operations/manage-secrets/
