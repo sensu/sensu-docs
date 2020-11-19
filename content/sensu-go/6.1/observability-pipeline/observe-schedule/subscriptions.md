@@ -20,7 +20,7 @@ Because Sensu uses the publish/subscribe model, you can write checks even if you
 Likewise, your entities do not need to know the specific names of the checks they should execute.
 The Sensu backend coordinates check execution for you by comparing the subscriptions you specify in your checks and entities to determine which entities should receive execution requests for a given check.
 
-The diagram below shows how Sensu coordinates check execution based on subscriptions.
+The diagram below uses overlap between entities and checks to show how Sensu coordinates check execution based on subscriptions.
 For example, the `check_cpu` check includes the `system` subscription.
 All three entities include the `system` subscription, so all three entities will execute the `check_cpu` check.
 However, only Entity A and Entity C will execute `check_sshd_process` &mdash; Entity B does not include the `linux` subscription required to execute `check_sshd_process`.
@@ -40,7 +40,7 @@ Subscriptions allow you to configure check requests in a one-to-many model for e
 
 ## Configure subscriptions
 
-For Sensu to execute a check, the check definition must include a subscription that matches a subscription for at least one Sensu entity.
+Sensu automatically executes a check when the check definition includes a subscription that matches a subscription for at least one Sensu entity.
 In other words, subscriptions are configured for both checks and agents:
 
 - To configure subscriptions for a check, add one or more subscription names in the [check `subscriptions` attribute][15].
@@ -139,6 +139,8 @@ sensu-agent start --subscriptions linux,webserver --log-level debug
 
 Now your agent will execute checks with the `linux` or `webserver` subscriptions.
 
+To directly add, update, and delete subscriptions for individual entities, use [sensuctl][17], the [entities API][18], or the [web UI][19].
+
 
 [1]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
 [2]: ../agent/#subscriptions-flag
@@ -156,3 +158,6 @@ Now your agent will execute checks with the `linux` or `webserver` subscriptions
 [14]: ../agent/
 [15]: ../checks/#check-subscriptions
 [16]: ../../../api/checks/#checkscheckexecute-post
+[17]: ../../../sensuctl/create-manage-resources/#update-resources
+[18]: ../../../api/entities/
+[19]: ../../../web-ui/view-manage-resources/#manage-entities
