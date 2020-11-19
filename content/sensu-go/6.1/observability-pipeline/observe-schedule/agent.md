@@ -32,11 +32,8 @@ Follow [Secure Sensu][46] to configure the backend and agent for WebSocket Secur
 ## Create observability events using service checks
 
 Sensu uses the [publish/subscribe pattern of communication][15], which allows automated registration and deregistration of ephemeral systems.
-At the core of this model are Sensu agent subscriptions.
-
-Each Sensu agent has a defined set of [`subscriptions`][28]: a list of roles and responsibilities assigned to the system (for example, a webserver or database).
+At the core of this model are Sensu [subscriptions][28]: a list of roles and responsibilities assigned to the system (for example, a webserver or database).
 These subscriptions determine which [monitoring checks][14] the agent will execute.
-Agent subscriptions allow Sensu to request check executions on a group of systems at a time instead of a traditional 1:1 mapping of configured hosts to monitoring checks.
 For an agent to execute a service check, you must specify the same subscription in the [agent configuration][28] and the [check definition][14].
 
 After receiving a check request from the Sensu backend, the agent:
@@ -48,20 +45,13 @@ By default, agents cache dynamic runtime asset data at `/var/cache/sensu/sensu-a
 4. Executes any [hooks][31] specified by the check based on the exit status.
 5. Creates an [event][7] that contains information about the applicable entity, check, and metric.
 
-### Subscription configuration
-
-To configure subscriptions for an agent, set [the `subscriptions` flag][28].
-To configure subscriptions for a check, set the [check definition attribute `subscriptions`][14].
-
-In addition to the subscriptions defined in the agent configuration, Sensu agent entities also subscribe automatically to subscriptions that match their [entity `name`][38].
-For example, an agent entity with `name: "i-424242"` subscribes to check requests with the subscription `entity:i-424242`.
-This makes it possible to generate ad hoc check requests that target specific entities via the API.
+Read the [subscriptions reference][28] for more information.
 
 ### Proxy entities
 
 Sensu proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed (such a network switch).
 The [Sensu backend][2] stores proxy entity definitions (unlike agent entities, which the agent stores).
-When the backend requests a check that includes a [`proxy_entity_name`][14], the agent includes the provided entity information in the observation data in events in place of the agent entity data.
+When the backend requests a check that includes a [`proxy_entity_name`][32], the agent includes the provided entity information in the observation data in events in place of the agent entity data.
 See the [entity reference][3] and [Monitor external resources][33] for more information about monitoring proxy entities.
 
 ## Create observability events using the agent API
@@ -482,7 +472,7 @@ Although connection failure may be due to different kinds of socket errors (such
 When you start up a Sensu instance with one or more working backends and an agent that is configured with a corresponding list of `backend-url` values, the Sensu agent shuffles the `backend-url` list.
 The agent attempts to connect to the first URL in the shuffled list.
 
-If the agent cannot establish a WebSocket connection with the first URL within the number of seconds specified for the [`backend-handshake-timeout`][32], the agent abandons the connection attempt and tries the next URL in the shuffled list.
+If the agent cannot establish a WebSocket connection with the first URL within the number of seconds specified for the [`backend-handshake-timeout`][43], the agent abandons the connection attempt and tries the next URL in the shuffled list.
 
 When the agent establishes a WebSocket connection with a backend URL within the `backend-handshake-timeout` period, the agent sends a heartbeat message to the backend at the specified [`backend-heartbeat-interval`][34].
 For every heartbeat the agent sends, the agent expects the connected backend to send a heartbeat response within the number of seconds specified for the [`backend-heartbeat-timeout`][42].
@@ -1723,11 +1713,11 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [25]: ../../../api#response-filtering
 [26]: ../../../sensuctl/filter-responses/
 [27]: ../tokens/
-[28]: #subscriptions-flag
+[28]: ../subscriptions/
 [29]: ../../../operations/deploy-sensu/assets/
 [30]: #cache-dir
 [31]: ../hooks/
-[32]: #backend-handshake-timeout
+[32]: ../checks/#proxy-entity-name-attribute
 [33]: ../../observe-entities/monitor-external-resources/
 [34]: #backend-heartbeat-interval
 [35]: ../backend#datastore-and-cluster-configuration-flags
@@ -1738,6 +1728,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [40]: ../../observe-process/send-slack-alerts/
 [41]: ../../observe-process/handlers/#send-registration-events
 [42]: #backend-heartbeat-timeout
+[43]: #backend-handshake-timeout
 [44]: ../checks#ttl-attribute
 [45]: https://en.m.wikipedia.org/wiki/WebSocket
 [46]: ../../../operations/deploy-sensu/secure-sensu/
