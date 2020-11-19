@@ -19,11 +19,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Is the list I drafted below accurate? Does event-based templating apply for the OpenTSDB integration? Are there other features to add here?
-
 - Transform metrics to OpenTSDB format: extract and transform the metrics you collect from different sources like Graphite, Influx, and Nagios and populate them into OpenTSDB.
-- Use Sensu [environment variables and secrets management][3] to avoid exposing your OpenTSDB username and password.
-- [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
 
 ## Get the plugin
 
