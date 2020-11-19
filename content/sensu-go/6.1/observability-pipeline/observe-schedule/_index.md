@@ -18,7 +18,7 @@ menu:
 
 **<button onclick="window.location.href='../observe-filter';">Next</button> or click any element in the pipeline to jump to it.**
 
-Sensu's schedule function is based on subscriptions: transport topics to which the Sensu [backend][2] publishes check requests.
+Sensu's schedule function is based on [subscriptions][12]: transport topics to which the Sensu [backend][2] publishes check requests.
 The subscriptions you specify in your Sensu [agent][11] definition determine which [checks][15] the agent will execute.
 The Sensu backend schedules checks, publishes check execution requests to [entities][3], and processes the [observation data (events)][6] it receives from the agent.
 
@@ -32,25 +32,27 @@ The Sensu backend includes an integrated structure for scheduling checks using s
 
 The Sensu agent is available for Linux, macOS, and Windows.
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
-Learn more in the [agent][11] and [backend][12] references.
+Learn more in the [agent][11] and [backend][2] references.
 
 Follow the [installation guide][1] to install the agent and backend.
 
 ## Subscriptions
 
-Subscriptions are at the core of Sensu's [publish/subscribe pattern of communication][13]: subscriptions are transport topics to which the Sensu [backend][2] publishes check requests.
+[Subscriptions][12] are at the core of Sensu's [publish/subscribe pattern of communication][13]: subscriptions are transport topics to which the Sensu backend publishes check requests.
 Sensu entities become subscribers to these topics via their individual `subscriptions` attribute.
 
 Each Sensu agent's defined set of subscriptions determine which [checks][15] the agent will execute.
-[Agent subscriptions][14] allow Sensu to request check executions on a group of systems at a time instead of a traditional 1:1 mapping of configured hosts to monitoring checks.
+Agent subscriptions allow Sensu to request check executions on a group of systems at a time instead of a traditional 1:1 mapping of configured hosts to monitoring checks.
 
 In each check's definition, you can specify which subscriptions should run the check.
-At the same time, you "subscribe" your entities to these subscriptions.
+At the same time, your entities are "subscribed" to these subscriptions.
 Subscriptions make sure your entities automatically run the appropriate checks for their functionality.
 
 Subscriptions typically correspond to a specific role or responsibility.
 For example, you might add all the checks you want to run on your database entities to a `database` subscription.
 Rather than specifying these checks individually for every database you are monitoring, you add the `database` subscription to your database entities and they run the desired checks automatically.
+
+Read the [subscriptions reference][12] to learn more.
 
 ## Communication between the agent and backend
 
@@ -71,7 +73,7 @@ Follow [Secure Sensu][8] to configure the backend and agent for WebSocket Secure
 [9]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
 [10]: https://etcd.io/docs
 [11]: agent/
-[12]: backend/
+[12]: subscriptions/
 [13]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
 [14]: agent/#create-observability-events-using-service-checks
 [15]: checks/
