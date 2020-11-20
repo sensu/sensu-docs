@@ -283,7 +283,7 @@ To assign an alert to a contact, add a `contacts` label to the check or entity.
 ### Checks
 
 This check definition includes two contacts (`ops` and `dev`) and the handler `slack`.
-To set up the `check_cpu` check, see [Monitor server resources][9].
+To add the runtime assets and set up the `check_cpu` check, see [Monitor server resources][9].
 
 {{< code yml >}}
 ---
