@@ -44,16 +44,75 @@ As a result, executable scripts (e.g. plugins) located in `/etc/sensu/plugins` w
 This allows command attributes to use relative paths for Sensu plugin commands, such as `"command": "check-http.rb -u https://sensuapp.org"`.
 {{% /notice %}}
 
-## Tools, templates, and examples
+## Examples
 
-### Go plugin tool and templates
+### Go plugin example
 
-Use the [Sensu Plugin Tool][4] along with a [default template][5] to create the scaffolding for check, handler, mutator, and sensuctl plugins in the Go programming language.
-Follow the instructions in the Sensu Plugin Tool repository to generate a new plugin project based on the template repositories.
+The following example shows the structure for a very basic Sensu Go plugin.
+
+{{< code go >}}
+package main
+
+import (
+	"fmt"
+	"log"
+
+	"github.com/sensu-community/sensu-plugin-sdk/sensu"
+	"github.com/sensu/sensu-go/types"
+)
+
+// Config represents the check plugin config.
+type Config struct {
+	sensu.PluginConfig
+	Example string
+}
+
+var (
+	plugin = Config{
+		PluginConfig: sensu.PluginConfig{
+			Name:     "check_name",
+			Short:    "Description for check_name",
+			Keyspace: "sensu.io/plugins/check_name/config",
+		},
+	}
+
+	options = []*sensu.PluginConfigOption{
+		&sensu.PluginConfigOption{
+			Path:      "example",
+			Env:       "CHECK_EXAMPLE",
+			Argument:  "example",
+			Shorthand: "e",
+			Default:   "",
+			Usage:     "An example string configuration option",
+			Value:     &plugin.Example,
+		},
+	}
+)
+
+func main() {
+	check := sensu.NewGoCheck(&plugin.PluginConfig, options, checkArgs, executeCheck, false)
+	check.Execute()
+}
+
+func checkArgs(event *types.Event) (int, error) {
+	if len(plugin.Example) == 0 {
+		return sensu.CheckStateWarning, fmt.Errorf("--example or CHECK_EXAMPLE environment variable is required")
+	}
+	return sensu.CheckStateOK, nil
+}
+
+func executeCheck(event *types.Event) (int, error) {
+	log.Println("executing check with --example", plugin.Example)
+	return sensu.CheckStateOK, nil
+}
+{{< /code >}}
+
+
+To create this scaffolding for a Sensu Go check, handler, mutator, or sensuctl plugin, use the [Sensu Plugin Tool][4] along with a [default plugin template][5].
 The plugin template repositories wrap the [Sensu Plugin SDK][8], which provides the framework for building Sensu Go plugins.
 
 For a step-by-step walkthrough, read [How to publish an asset with the Sensu Go SDK][7] &mdash; you'll learn how to create a check plugin and a handler plugin with the Sensu Plugin SDK.
-You can also watch our 30-minute webinar, [Intro to assets with the Sensu Go SDK][6], and learn to build a check plugin.
+You can also watch our 30-minute webinar, [Intro to assets with the Sensu Go SDK][6], and learn to build a check plugin for Sensu Go.
 
 ### Ruby plugin example
 
