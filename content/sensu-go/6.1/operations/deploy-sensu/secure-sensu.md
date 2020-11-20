@@ -139,13 +139,13 @@ See [Run a Sensu cluster](../cluster-sensu/) for more information about how to c
 For more information, see [Get started with commercial features][5].
 
 By default, Sensu agents require username and password authentication to communicate with Sensu backends.
-For Sensu's [default user credentials][2] and details about configuring Sensu role-based access control, see the [RBAC reference][3] and [Create a read-only user][4].
+For Sensu's [default user credentials][2] and details about configuring Sensu role-based access control (RBAC), see the [RBAC reference][3] and [Create a read-only user][4].
 
 Sensu can also use mutual transport layer security (mTLS) authentication for connecting agents to backends.
 When agent mTLS authentication is enabled, agents do not need to send password credentials to backends when they connect.
 To use [secrets management][1], Sensu agents must be secured with mTLS.
 In addition, when using mTLS authentication, agents do not require an explicit user in Sensu.
-Sensu agents default to connecting and authenticating with the `agent` user and the `system:agents` group.
+Sensu agents default to connecting and authenticating with the [`agent` user][2] and the `system:agents` group.
 
 You can still bind agents to a specific user when the `system:agents` group is problematic.
 For this use case, create a user that matches the Common Name (CN) of the agent's certificate.

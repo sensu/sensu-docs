@@ -127,7 +127,7 @@ Users do *not* need to provide the username prefix for the authentication provid
 [13]: rbac#role-bindings-and-cluster-role-bindings
 [14]: #use-built-in-basic-authentication
 [15]: #use-an-authentication-provider
-[16]: /rbac/#view-users
+[16]: rbac/#view-users
 [17]: rbac#namespaced-resource-types
 [18]: rbac#cluster-wide-resource-types
 [19]: ../maintain-sensu/troubleshoot#log-levels
