@@ -19,7 +19,7 @@ The agent replaces any tokens with matching attributes from the entity definitio
 Invalid templates or unmatched tokens return an error, which is logged and sent to the Sensu backend message transport.
 Checks with token-matching errors are not executed.
 
-Token substitution is supported for [check][7] and [hook][8] `command` attributes, as well as for [asset][12] definitions.
+Token substitution is supported for [check][7], [hook][8], and [asset][12] definitions.
 Only [entity attributes][4] are available for substitution.
 Token substitution is not available for event filters because filters already have access to the entity.
 
@@ -132,7 +132,7 @@ Check config token errors are logged by the agent and sent to Sensu backend mess
 ## Token data type limitations
 
 As part of the substitution process, Sensu converts all tokens to strings.
-This means that tokens cannot be used as bare integer values or to access individual list items.
+This means that token substitution cannot be applied to any non-string values like numbers or Booleans, although it can be applied to strings that are nested inside objects and arrays.
 
 For example, token substitution **cannot** be used for specifying a check interval because the interval attribute requires an _integer_ value.
 Token substitution **can** be used for alerting thresholds because those values are included within the command _string_.
