@@ -306,7 +306,7 @@ sensuctl user create alice --password='password' --groups=ops,dev
 {{< /code >}}
 
 You can create any number of users, each with their own passwords.
-Any user account used for an agent must belong to the `system:agent` group.
+Any agent user must belong to the `system:agent` group.
 
 #### Assign user permissions
 
