@@ -25,7 +25,7 @@ To power the check, you'll use the [Sensu CPU Checks][1] asset.
 The Sensu CPU Checks asset includes the `check-cpu.rb` plugin, which [your check][10] will rely on.
 
 The Sensu assets packaged from Sensu CPU Checks are built against the Sensu Ruby runtime environment, so you also need to add the [Sensu Ruby Runtime][7] asset.
-The Sensu Ruby Runtime asset delivers the Ruby runtime asset the check will need to run the `check-cpu.rb` plugin.
+The Sensu Ruby Runtime asset delivers the Ruby executable and supporting libraries the check will need to run the `check-cpu.rb` plugin.
 
 Use [`sensuctl asset add`][9] to register the Sensu CPU Checks asset, `sensu-plugins/sensu-plugins-cpu-checks:4.1.0`:
 
