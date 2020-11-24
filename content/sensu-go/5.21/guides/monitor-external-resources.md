@@ -29,7 +29,7 @@ To power the check, you'll use the [Sensu Plugins HTTP][16] asset.
 The Sensu Plugins HTTP asset includes `check-http.rb`, which [your check][15] will rely on.
 
 The Sensu assets packaged from Sensu Plugins HTTP are built against the Sensu Ruby runtime environment, so you also need to add the [Sensu Ruby Runtime][7] asset.
-Sensu Ruby Runtime delivers the Ruby runtime asset the check will need to run the `check-http.rb` plugin.
+Sensu Ruby Runtime delivers the Ruby executable and supporting libraries the check will need to run the `check-http.rb` plugin.
 
 Use [`sensuctl asset add`][21] to register the Sensu Plugins HTTP asset, `sensu-plugins/sensu-plugins-http:5.1.1`:
 
