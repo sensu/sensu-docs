@@ -566,4 +566,4 @@ sensuctl license info
 [40]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
 [41]: ../../../reference/checks/#subscriptions
 [42]: https://bonsai.sensu.io/
-[43]: ../../maintain-sensu/troubleshoot/#log-levels
+[43]: ../../../reference/backend/#debug-attribute
