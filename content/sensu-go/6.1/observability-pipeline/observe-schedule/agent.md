@@ -469,8 +469,7 @@ If you do not specify a keepalive handler with the `keepalive-handlers` flag, th
 
 Although connection failure may be due to different kinds of socket errors (such as unexpectedly closed connections and TLS handshake failures), the Sensu agent generally keeps retrying connections to each URL in the `backend-url` list until it is successfully connected to a backend URL or you stop the process.
 
-When you start up a Sensu instance with one or more working backends and an agent that is configured with a corresponding list of `backend-url` values, the Sensu agent shuffles the `backend-url` list.
-The agent attempts to connect to the first URL in the shuffled list.
+When you start up a Sensu agent configured with multiple `backend-url` values, the agent shuffles the `backend-url` list and attempts to connect to the first URL in the shuffled list.
 
 If the agent cannot establish a WebSocket connection with the first URL within the number of seconds specified for the [`backend-handshake-timeout`][43], the agent abandons the connection attempt and tries the next URL in the shuffled list.
 
