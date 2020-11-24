@@ -61,6 +61,7 @@ Port | Protocol | Description |
 2379 | gRPC | Sensu storage client: Required for Sensu backends using an external etcd instance |
 2380 | gRPC | Sensu storage peer: Required for other Sensu backends in a [cluster][22] |
 3000 | HTTP/HTTPS | [Sensu web UI][3]: Required for all Sensu backends using a Sensu web UI |
+6060 | HTTP/HTTPS | Required for all Sensu backends when [debug log level][43] is enabled |
 8080 | HTTP/HTTPS | [Sensu API][26]: Required for all users accessing the Sensu API |
 8081 | WS/WSS | Agent API: Required for all Sensu agents connecting to a Sensu backend |
 
@@ -565,3 +566,4 @@ sensuctl license info
 [40]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
 [41]: ../../../observability-pipeline/observe-schedule/checks/#subscriptions
 [42]: https://bonsai.sensu.io/
+[43]: ../../maintain-sensu/troubleshoot/#log-levels
