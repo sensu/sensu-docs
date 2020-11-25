@@ -27,9 +27,9 @@ Configure authorization with [role-based access control (RBAC)][4] to exercise f
 
 ## Authentication
 
-Users of the Sensu web UI and command-line tools can authenticate via [built-in basic authentication provider][14] or authenticate via Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC) when [external authentication providers][15] are configured by the administrator.
+Sensu web UI and sensuctl command line tool users can authenticate via [built-in basic authentication provider][14] or Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC) when [external authentication providers][15] are configured by the administrator.
 
-Sensu agents authenticate to the Sensu backend using either [basic][14] or [mutual TLS][] authentication.
+Sensu agents authenticate to the Sensu backend using either [basic][14] or [mutual transport layer security (TLS)][20] authentication.
 
 ### Use built-in basic authentication
 
@@ -131,6 +131,7 @@ Users do *not* need to provide the username prefix for the authentication provid
 [17]: rbac#namespaced-resource-types
 [18]: rbac#cluster-wide-resource-types
 [19]: ../maintain-sensu/troubleshoot#log-levels
+[20]: ../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
 [21]: ldap-auth/#ldap-group-search-attributes
 [22]: ldap-auth/#ldap-user-search-attributes
 [23]: ad-auth/#ad-metadata-attributes
