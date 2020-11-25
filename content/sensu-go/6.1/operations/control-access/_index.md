@@ -27,9 +27,9 @@ Configure authorization with [role-based access control (RBAC)][4] to exercise f
 
 ## Authentication
 
-Administrators can use Sensu's [built-in basic authentication provider][14] or configure [external authentication providers][15] to authenticate via Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC).
+Users of the Sensu web UI and command-line tools can authenticate via [built-in basic authentication provider][14] or authenticate via Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC) when [external authentication providers][15] are configured by the administrator.
 
-By default, Sensu agents connect and authenticate with the `agent` user, which is [listed as a Sensu user][16].
+Sensu agents authenticate to the Sensu backend using either [basic][14] or [mutual TLS][] authentication.
 
 ### Use built-in basic authentication
 

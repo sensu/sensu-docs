@@ -245,8 +245,8 @@ This is the admin user that you can use to manage all aspects of Sensu and creat
 
 After you [configure sensuctl][26], you can [change the admin user's password][45] with the `change-password` command.
 
-Sensu also includes an `agent` user, which is used internally by the Sensu agent &mdash; by default, Sensu agents connect and authenticate with the `agent` user.
-You can configure `agent` user credentials with the [`user` and `password` agent configuration flags][41].
+Sensu also creates a default `agent` user with password `P@ssw0rd!`. This user/password combination corresponds to defaults used by Sensu agent.
+You can configure the Sensu agent's user credentials with the [`user` and `password` agent configuration flags][41].
 
 ### Manage users
 
@@ -305,7 +305,7 @@ Passwords must have at least eight characters.
 sensuctl user create alice --password='password' --groups=ops,dev
 {{< /code >}}
 
-You can create any number of users, each with their own passwords.
+You can create any number of users, each with their own passwords. Users are granted permissions by role bindings or cluster role bindings, but as a general rule will have no permissions by default.
 Any agent user must belong to the `system:agent` group.
 
 #### Assign user permissions

@@ -145,7 +145,7 @@ Sensu can also use mutual transport layer security (mTLS) authentication for con
 When agent mTLS authentication is enabled, agents do not need to send password credentials to backends when they connect.
 To use [secrets management][1], Sensu agents must be secured with mTLS.
 In addition, when using mTLS authentication, agents do not require an explicit user in Sensu.
-Sensu agents default to connecting and authenticating with the [`agent` user][2] and the `system:agents` group.
+Sensu agents default to authenticating as the [`agent` user][2] and using permissions granted to the `system:agents` group by the `system:agents` cluster role and cluster role binding of the same name.
 
 You can still bind agents to a specific user when the `system:agents` group is problematic.
 For this use case, create a user that matches the Common Name (CN) of the agent's certificate.
