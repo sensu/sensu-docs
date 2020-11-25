@@ -19,7 +19,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-- Transform metrics to OpenTSDB format: extract and transform the metrics you collect from different sources like Graphite, Influx, and Nagios and populate them into OpenTSDB.
+- Transform metrics to OpenTSDB format: extract and transform the metrics you collect from different sources in formats like Graphite, Influx, and Nagios and populate them into OpenTSDB.
 
 ## Get the plugin
 

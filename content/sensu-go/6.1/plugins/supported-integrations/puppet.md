@@ -19,7 +19,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 ## Features
 
 - Use Sensu annotations to override corresponding Puppet node names with Sensu event names.
-- Use Sensu [environment variables and secrets management][6] to avoid exposing sensitive API authentication information.
+- Keep sensitive API authentication information secure with Sensu [environment variables and secrets management][6].
 
 ## Get the plugin
 
@@ -33,7 +33,7 @@ Use the partner-supported [Sensu Puppet module][3] for configuration management 
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
-[3]: https://github.com/sensu/sensu-puppet
+[3]: https://forge.puppet.com/modules/sensu/sensu
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-Puppet-handler
 [5]: ../../assets
 [6]: ../../../operations/manage-secrets/

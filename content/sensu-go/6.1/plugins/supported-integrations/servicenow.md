@@ -23,8 +23,8 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 - Automatically create a ServiceNow Configuration Item if none currently exists for a particular Sensu entity.
 - Tunable arguments: use Sensu annotations to set custom incident notes, event information, Configuration Item descriptions, and more in ServiceNow.
-- Use Sensu [environment variables and secrets management][9] to avoid exposing your ServiceNow username and password.
-- [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context to ServiceNow incidents, events, and Configuration Items.
+- Use [event-based templating][2] to include observation data from event attributes to add meaningful, actionable context to ServiceNow incidents, events, and Configuration Items.
+- Keep your ServiceNow username and password secure with Sensu [environment variables and secrets management][9].
 
 ## Get the plugin
 

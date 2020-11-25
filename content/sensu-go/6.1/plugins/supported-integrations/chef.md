@@ -18,7 +18,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-- Use Sensu [environment variables and secrets management][6] to avoid exposing sensitive API authentication information.
+- Keep your sensitive API authentication information secure with Sensu [environment variables and secrets management][6].
 
 ## Get the plugin
 
@@ -32,7 +32,7 @@ Use the official [Chef Cookbook for Sensu Go][3] for configuration management fo
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
-[3]: https://github.com/sensu/sensu-go-chef
+[3]: https://supermarket.chef.io/cookbooks/sensu-go
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-chef-handler
 [5]: ../../assets
 [6]: ../../../operations/manage-secrets/

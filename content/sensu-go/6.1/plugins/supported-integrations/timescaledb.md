@@ -18,7 +18,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-- Transform metrics to TimescaleDB format: extract and transform the metrics you collect from different sources like Graphite, OpenTSDB, Nagios, and Influx and populate them into TimescaleDB.
+- Transform metrics to TimescaleDB format: extract and transform the metrics you collect from different sources in formats like Graphite, OpenTSDB, Nagios, and Influx and populate them into TimescaleDB.
 
 ## Get the plugin
 

@@ -23,7 +23,6 @@ Although this category focuses on our most popular supported integrations, you c
 
 ## Alerting and incident management
 
-- [EC2][2]
 - [Email][3]
 - [Jira][4]
 - [PagerDuty][5]
@@ -41,8 +40,9 @@ Although this category focuses on our most popular supported integrations, you c
 - [Chef][11]
 - [Puppet][12]
 
-## Status and metrics processing and storage
+## Time-series and long-term event storage
 
+- [EC2][2]
 - [Elasticsearch][13]
 - [InfluxDB][14]
 - [Moogsoft][15]

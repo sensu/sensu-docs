@@ -19,9 +19,9 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-- Transform metrics to InfluxDB format: extract and transform the metrics you collect from different sources like Graphite, OpenTSDB, Nagios, and Influx and populate them into InfluxDB.
-- Use Sensu [environment variables and secrets management][6] to avoid exposing your InfluxDB username and password.
+- Transform metrics to InfluxDB format: extract and transform the metrics you collect from different sources in formats like Graphite, OpenTSDB, Nagios, and Influx and populate them into InfluxDB.
 - Mutate check status into metrics to be stored in InfluxDB.
+- Keep your InfluxDB username and password secure with Sensu [environment variables and secrets management][6].
 
 ## Get the plugin
 

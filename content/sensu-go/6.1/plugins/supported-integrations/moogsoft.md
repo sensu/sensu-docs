@@ -24,9 +24,9 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 **NEED TO COMPLETE** Is my draft list accurate? Are there other features to add here?
 
-- Transform metrics to Moogsoft format: extract and transform the metrics you collect from different sources like Graphite, Influx, and Nagios and populate them into Moogsoft.
-- Use Sensu [environment variables and secrets management][3] to avoid exposing your Moogsoft username and password.
-- [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
+- Transform metrics to Moogsoft format: extract and transform the metrics you collect from different sources in formats like Graphite, Influx, and Nagios and populate them into Moogsoft.
+- Use [event-based templating][2] to include observation data from event attributes to add meaningful, actionable context.
+- Keep your Moogsoft username and password secure with Sensu [environment variables and secrets management][3].
 
 ## Get the plugin
 

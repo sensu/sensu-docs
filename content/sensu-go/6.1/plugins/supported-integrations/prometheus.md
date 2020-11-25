@@ -24,8 +24,8 @@ The Sensu Prometheus Collector plugin is a Sensu [check][8] that collects metric
 ### Features
 
 - Turn Sensu into a super-powered Prometheus metric poller with Sensu's [publish/subscribe model][9] and [client auto-registration (discovery)][10] capabilities.
-- Use Sensu [environment variables and secrets management][11] to avoid exposing metrics endpoint authentication information.
 - Configure your Sensu instance to deliver the collected metrics to a time-series database like InfluxDB or Graphite.
+- Keep metrics endpoint authentication information secure with Sensu [environment variables and secrets management][11].
 
 ## Sensu Prometheus Pushgateway Handler
 

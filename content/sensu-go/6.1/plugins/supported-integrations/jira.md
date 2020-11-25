@@ -22,8 +22,8 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 ## Features
 
 - Tunable arguments: use Sensu annotations to set custom project names, issue types, resolution states, and more in Jira
-- Use Sensu [environment variables and secrets management][7] to avoid exposing your Jira username, password, and API token.
-- [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context.
+- Use [event-based templating][2] to include observation data from event attributes to add meaningful, actionable context.
+- Keep your Jira username, password, and API token secure with Sensu [environment variables and secrets management][7].
 
 ## Get the plugin
 

@@ -24,8 +24,8 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 The Sensu SaltStack Handler plugin supports both SaltStack Enterprise and SaltStack Open Source as well as SaltStack functions such as `service`, `state`, `saltutil`, and `grains` (including `arg` and `kwarg` arguments).
 
 - Specify SaltStack functions and trigger parameters for remediation actions for a check with Sensu annotations.
-- Use Sensu [environment variables and secrets management][7] to avoid exposing your SaltStack username or password.
-- [Event-based templating][2]: use event data to specify the minion to target for rememdiation.
+- Use [event-based templating][2] to specify the minion to target for rememdiation based on event data.
+- Keep your SaltStack username and password secure with Sensu [environment variables and secrets management][7].
 
 ## Get the plugin
 

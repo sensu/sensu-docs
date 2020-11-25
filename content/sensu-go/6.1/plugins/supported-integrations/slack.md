@@ -19,8 +19,8 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-- Use Sensu [environment variables and secrets management][7] to avoid exposing your Slack webhook.
-- [Event-based templating][2]: include observation data from event attributes in your alerts to add meaningful, actionable context.
+- Use [event-based templating][2] to include observation data from event attributes in your alerts to add meaningful, actionable context.
+- Keep your Slack webhook secure with Sensu [environment variables and secrets management][7].
 
 ## Get the plugin
 

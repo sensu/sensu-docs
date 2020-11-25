@@ -24,8 +24,8 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 The Sensu Rundeck Handler plugin supports both Rundeck Enterprise and Rundeck Open Source and standard job invocation or webhook invocation.
 
 - Specify Rundeck jobs and webhooks along with trigger parameters for remediation actions for a check with Sensu annotations.
-- Use Sensu [environment variables and secrets management][8] to avoid exposing your Rundeck auth token or webhook.
-- [Event-based templating][2]: make use of event data to specify the node to target for rememdiation.
+- Use [event-based templating][2] to make use of event data to specify the node to target for rememdiation.
+- Keep your Rundeck auth token and webhook secure with Sensu [environment variables and secrets management][8].
 
 ## Get the plugin
 

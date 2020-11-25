@@ -21,8 +21,8 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 The Sensu Email Handler plugin supports the login authentication mechanisms required for use with Google Mail, Office 365, and other standards-based email providers and transports.
 
-- Use Sensu [environment variables and secrets management][7] to avoid exposing your email provider username and password.
-- [Event-based templating][2]: include observation data from event attributes to add meaningful, actionable context to your email alert messages.
+- Use [event-based templating][2] to include observation data from event attributes to add meaningful, actionable context to your email alert messages.
+- Keep your email provider username and password secure with Sensu [environment variables and secrets management][7].
 
 ## Get the plugin
 
