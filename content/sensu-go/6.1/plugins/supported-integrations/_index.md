@@ -45,7 +45,6 @@ Although this category focuses on our most popular supported integrations, you c
 - [EC2][2]
 - [Elasticsearch][13]
 - [InfluxDB][14]
-- [Moogsoft][15]
 - [OpenTSDB][16]
 - [Prometheus][17]
 - [TimescaleDB][18]
@@ -66,7 +65,6 @@ Although this category focuses on our most popular supported integrations, you c
 [12]: puppet/
 [13]: elasticsearch/
 [14]: influxdb/
-[15]: moogsoft/
 [16]: opentsdb/
 [17]: prometheus/
 [18]: timescaledb/
