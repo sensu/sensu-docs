@@ -487,7 +487,7 @@ Every [Sensu backend][1] includes:
 | `edit`          | `ClusterRole` | Read and write access to most resources except roles and role bindings. You can apply this cluster role within a namespace by using a role binding (not a cluster role binding). |
 | `view`          | `ClusterRole` | Read-only permission to most [resource types][4] with the exception of roles and role bindings. You can apply this cluster role within a namespace by using a role binding (not a cluster role binding). |
 | `system:agent`  | `ClusterRole` | Used internally by Sensu agents. You can configure an agent's user credentials using the [`user` and `password` agent configuration flags][41]. |
-| `system:user`  | `ClusterRole` | Get and update permissions for local resources for the current user.|
+| `system:user`  | `ClusterRole` | Get and update permissions for local resources for the current user. |
 
 ### Manage roles and cluster roles
 
