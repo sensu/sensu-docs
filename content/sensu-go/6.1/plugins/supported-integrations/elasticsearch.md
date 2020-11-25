@@ -26,6 +26,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 - Index entire events for searching within Kibana.
 - Use daily, weekly, monthly, and yearly index specification (e.g. sensu_evnts-2020-11-10).
 - Omit the transmission of certain redundant event fields to reduce the number of items indexed.
+- Specify custom values for Sensu event metric points via [metric tags][8].
 - Use [event-based templating][2] to include observation data from event attributes to add meaningful, actionable context.
 - Keep your Elasticsearch username and password secure with Sensu [environment variables and secrets management][7].
 
@@ -44,3 +45,4 @@ Add the [Sensu Elasticsearch Handler plugin][4] with a dynamic runtime asset fro
 [5]: ../../assets
 [6]: ../../../commercial/
 [7]: ../../../operations/manage-secrets/
+[8]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags

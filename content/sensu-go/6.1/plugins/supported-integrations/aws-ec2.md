@@ -19,6 +19,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 ## Features
 
 - Tunable arguments: use Sensu annotations to set custom instance ID, instance ID labels, timeouts, and more in EC2.
+- Specify custom values for Sensu event metric points via [metric tags][7].
 - Keep your AWS EC2 API token, username, and password secure with Sensu [environment variables and secrets management][3].
 
 ## Get the plugin
@@ -33,3 +34,4 @@ Add the [Sensu EC2 Handler plugin][4] with a dynamic runtime asset from Bonsai, 
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-ec2-handler
 [5]: ../../assets
 [6]: ../../../commercial/
+[7]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags

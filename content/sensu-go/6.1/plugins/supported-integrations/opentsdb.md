@@ -20,6 +20,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 ## Features
 
 - Transform metrics to OpenTSDB format: extract and transform the metrics you collect from different sources in formats like Graphite, Influx, and Nagios and populate them into OpenTSDB.
+- Specify custom values for Sensu event metric points via [metric tags][6].
 
 ## Get the plugin
 
@@ -32,3 +33,4 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 [3]: ../../../operations/manage-secrets/
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-opentsdb-handler
 [5]: ../../assets/
+[6]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags

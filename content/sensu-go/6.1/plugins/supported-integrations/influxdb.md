@@ -21,6 +21,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 - Transform metrics to InfluxDB format: extract and transform the metrics you collect from different sources in formats like Graphite, OpenTSDB, Nagios, and Influx and populate them into InfluxDB.
 - Mutate check status into metrics to be stored in InfluxDB.
+- Specify custom values for Sensu event metric points via [metric tags][7].
 - Keep your InfluxDB username and password secure with Sensu [environment variables and secrets management][6].
 
 ## Get the plugin
@@ -37,3 +38,4 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 [5]: ../../assets/
 [6]: ../../../operations/manage-secrets/
+[7]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags

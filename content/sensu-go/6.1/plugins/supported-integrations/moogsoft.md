@@ -22,9 +22,8 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Features
 
-**NEED TO COMPLETE** Is my draft list accurate? Are there other features to add here?
-
 - Transform metrics to Moogsoft format: extract and transform the metrics you collect from different sources in formats like Graphite, Influx, and Nagios and populate them into Moogsoft.
+- Specify custom values for Sensu event metric points via [metric tags][7].
 - Use [event-based templating][2] to include observation data from event attributes to add meaningful, actionable context.
 - Keep your Moogsoft username and password secure with Sensu [environment variables and secrets management][3].
 
@@ -40,3 +39,4 @@ Add the [Sensu Moogsoft Handler plugin][4] with a dynamic runtime asset from Bon
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-moogsoft-handler
 [5]: ../../assets
 [6]: ../../../commercial/
+[7]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags

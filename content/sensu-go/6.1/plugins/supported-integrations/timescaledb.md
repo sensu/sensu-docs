@@ -19,6 +19,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 ## Features
 
 - Transform metrics to TimescaleDB format: extract and transform the metrics you collect from different sources in formats like Graphite, OpenTSDB, Nagios, and Influx and populate them into TimescaleDB.
+- Specify custom values for Sensu event metric points via [metric tags][3].
 
 ## Get the plugin
 
@@ -28,6 +29,6 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
-[3]: ../../../operations/manage-secrets/
+[3]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-timescaledb-handler
 [5]: ../../assets/
