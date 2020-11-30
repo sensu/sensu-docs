@@ -481,7 +481,7 @@ Every [Sensu backend][1] includes:
 
 | role name       | type          | description |
 | --------------- | ------------- | ----------- |
-| `system:pipeline`  | `Role` | Read-only permission (get and list) for events. Apply this role within a namespace by using the `system:pipeline` role binding. |
+| `system:pipeline`  | `Role` | Facility that allows the EventFilter engine to load events from Sensu's event store. `system:pipeline` is an implementation detail and should not be assigned to Sensu users. |
 | `cluster-admin` | `ClusterRole` | Full access to all [resource types][4] across namespaces, including access to [cluster-wide resource types][18]. |
 | `admin`         | `ClusterRole` | Full access to all [resource types][4]. You can apply this cluster role within a namespace by using a role binding (not a cluster role binding). |
 | `edit`          | `ClusterRole` | Read and write access to most resources except roles and role bindings. You can apply this cluster role within a namespace by using a role binding (not a cluster role binding). |
@@ -766,7 +766,7 @@ Every [Sensu backend][1] includes:
 
 | role name       | type          | description |
 | --------------- | ------------- | ----------- |
-| `system:pipeline`  | `RoleBinding` | Read-only permission (get and list) for all events. Add users to the group `system:pipeline` to apply this role binding. |
+| `system:pipeline`  | `RoleBinding` | Facility that allows the EventFilter engine to load events from Sensu's event store. `system:pipeline` is an implementation detail and should not be applied to Sensu users. |
 | `cluster-admin` | `ClusterRoleBinding` | Full access to all [resource types][4] across namespaces, including access to [cluster-wide resource types][18]. |
 | `system:agent` | `ClusterRoleBinding` | Full access to all events. Used internally by Sensu agents. |
 | `system:user` | `ClusterRoleBinding` | Get and update permissions for local resources for the current user. |
