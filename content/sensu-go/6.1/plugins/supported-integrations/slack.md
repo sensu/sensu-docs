@@ -14,7 +14,7 @@ With this handler, Sensu can trigger alerts to the Slack channels you specify ba
 
 {{% notice note %}}
 **NOTE**: The Sensu Slack Handler plugin is an example of Sensu's alerting and incident management integrations.
-To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
+To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
 {{% /notice %}}
 
 ## Features
@@ -24,7 +24,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Get the plugin
 
-Add the [Sensu Slack Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index, to build your own workflow or integrate Sensu with your existing Slack workflows.
+Add the [Sensu Slack Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing Slack workflows.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 ## More resources

@@ -19,7 +19,7 @@ Each plugin has self-contained documentation with in-depth information about how
 
 ## Find Sensu plugins
 
-Search [Bonsai, the Sensu asset index][2], to find Sensu plugins.
+Search [Bonsai, the Sensu asset hub][2], to find Sensu plugins.
 Bonsai lists hundreds of Sensu plugins with installation instructions and usage examples.
 
 We also list popular Sensu-supported plugins in the [supported integrations][3] section.

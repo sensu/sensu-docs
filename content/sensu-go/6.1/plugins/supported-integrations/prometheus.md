@@ -14,7 +14,7 @@ Both help you get Sensu observability data into Prometheus.
 
 {{% notice note %}}
 **NOTE**: The Sensu Prometheus plugins are examples of Sensu's status and metrics processing and storage integrations.
-To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
+To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
 {{% /notice %}}
 
 ## Sensu Prometheus Collector
@@ -39,7 +39,7 @@ The [Sensu Prometheus Pushgateway Handler][3] plugin is a Sensu [handler][1] tha
 
 ## Get the plugins
 
-To build your own workflow or integrate Sensu with existing workflows, add the Sensu Prometheus plugins with a dynamic runtime asset from Bonsai, the Sensu asset index.
+To build your own workflow or integrate Sensu with existing workflows, add the Sensu Prometheus plugins with a dynamic runtime asset from Bonsai, the Sensu asset hub.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 - [Sensu Prometheus Collector plugin][6]

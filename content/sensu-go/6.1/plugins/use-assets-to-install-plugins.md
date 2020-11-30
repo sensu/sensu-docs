@@ -161,7 +161,7 @@ You can also try our interactive tutorial to [send critical alerts to your Pager
 [2]: #create-an-asset
 [3]: https://bonsai.sensu.io
 [4]: ../../../observability-pipeline/observe-entities/entities/#system-attributes
-[5]: ../assets/#metadata-attributes
+[5]: ../assets#metadata-attributes
 [6]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 [8]: ../../../learn/sensu-pagerduty/

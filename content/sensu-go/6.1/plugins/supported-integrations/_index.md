@@ -19,7 +19,7 @@ Integrations are service-specific and have different setup and configuration req
 Each integration has self-contained documentation with in-depth information about how to install and use it.
 Many of the supported integrations include curated quick-start templates that you only need to edit to match your configuration.
 
-Although this category focuses on our most popular supported integrations, you can find more supported-, Enterprise-, and community-tier integrations at [Bonsai, the Sensu asset index][1].
+Although this category focuses on our most popular supported integrations, you can find more supported-, Enterprise-, and community-tier integrations at [Bonsai, the Sensu asset hub][1].
 
 ## Alerting and incident management
 

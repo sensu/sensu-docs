@@ -13,7 +13,7 @@ The Sensu TimescaleDB Handler plugin is a Sensu [handler][1] that sends Sensu me
 
 {{% notice note %}}
 **NOTE**: The Sensu TimescaleDB Handler plugin is an example of Sensu's status and metrics processing and storage integrations.
-To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
+To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
 {{% /notice %}}
 
 ## Features
@@ -23,7 +23,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Get the plugin
 
-To build your own workflow or integrate Sensu with existing workflows, add the [Sensu TimescaleDB Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index.
+To build your own workflow or integrate Sensu with existing workflows, add the [Sensu TimescaleDB Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 

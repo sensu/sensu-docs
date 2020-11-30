@@ -4,13 +4,13 @@ linkTitle: "Use Assets to Install Plugins"
 guide_title: "Use dynamic runtime assets to install plugins"
 type: "guide"
 description: "Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to power your monitoring workflows. Read the guide to get started using dynamic runtime assets."
-weight: 140
+weight: 40
 version: "6.0"
 product: "Sensu Go"
 platformContent: False
 menu: 
   sensu-go-6.0:
-    parent: deploy-sensu
+    parent: plugins
 ---
 
 Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
@@ -20,7 +20,7 @@ This guide uses the [Sensu PagerDuty Handler dynamic runtime asset][7] as an exa
 
 {{% notice note %}}
 **NOTE**: Dynamic runtime assets are not required to use Sensu Go.
-You can install Sensu plugins using the [sensu-install](../install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../configuration-management/) solution.
+You can install Sensu plugins using the [sensu-install](#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../configuration-management/) solution.
 {{% /notice %}}
 
 ## Register the Sensu PagerDuty Handler asset
@@ -161,7 +161,7 @@ You can also try our interactive tutorial to [send critical alerts to your Pager
 [2]: #create-an-asset
 [3]: https://bonsai.sensu.io
 [4]: ../../../observability-pipeline/observe-entities/entities/#system-attributes
-[5]: ../assets/#metadata-attributes
+[5]: ../assets#metadata-attributes
 [6]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 [8]: ../../../learn/sensu-pagerduty/

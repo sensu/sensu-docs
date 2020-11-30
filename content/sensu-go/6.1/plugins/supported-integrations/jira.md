@@ -16,7 +16,7 @@ The Sensu Jira Handler plugin is a Sensu [handler][1] that creates and updates J
 
 {{% notice note %}}
 **NOTE**: The Sensu Jira Handler plugin is an example of Sensu's alerting and incident management integrations.
-To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
+To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
 {{% /notice %}}
 
 ## Features
@@ -29,7 +29,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 For a turnkey experience with the Sensu Jira Handler plugin, use our curated, configurable [quick-start template][3] to send alerts based on Sensu events to Jira Service Desk.
 
-Add the [Sensu Jira Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index, to build your own workflow or integrate Sensu with your existing Jira workflows.
+Add the [Sensu Jira Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing Jira workflows.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 

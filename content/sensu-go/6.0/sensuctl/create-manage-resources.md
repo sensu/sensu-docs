@@ -535,7 +535,7 @@ Sensuctl supports the following formats:
 [9]: #wrapped-json-format
 [10]: #supported-resource-types
 [11]: ../../web-ui/webconfig-reference/
-[12]: ../../operations/deploy-sensu/assets/
+[12]: ../../plugins/assets/
 [13]: ../../observability-pipeline/observe-schedule/checks/
 [14]: ../../observability-pipeline/observe-entities/entities/
 [15]: ../../observability-pipeline/observe-events/events/

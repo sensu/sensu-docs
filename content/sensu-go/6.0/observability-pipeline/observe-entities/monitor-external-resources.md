@@ -379,7 +379,7 @@ Now that you know how to run a proxy check to verify the status of a website and
 [1]: ../../observe-entities/#proxy-entities
 [2]: ../../observe-schedule/checks/#proxy-entity-name-attribute
 [3]: ../../observe-schedule/checks/#proxy-checks
-[5]: ../../../operations/deploy-sensu/assets/
+[5]: ../../../plugins/assets/
 [7]: ../../observe-process/send-slack-alerts/
 [8]: ../../../sensuctl/
 [9]: ../../../api/entities/

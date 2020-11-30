@@ -14,7 +14,7 @@ With this handler, Sensu can send email messages to the email addresses you spec
 
 {{% notice note %}}
 **NOTE**: The Sensu Email Handler plugin is an example of Sensu's alerting integrations.
-To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
+To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
 {{% /notice %}}
 
 ## Features
@@ -26,7 +26,7 @@ The Sensu Email Handler plugin supports the login authentication mechanisms requ
 
 ## Get the plugin
 
-Add the [Sensu Email Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index, to build your own workflow or integrate Sensu with your existing email workflows.
+Add the [Sensu Email Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing email workflows.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 ## More resources

@@ -12,7 +12,7 @@ menu:
     parent: plugins
 ---
 
-Extend Sensu's functionality with [plugins][10], which provide executables for performing status or metric checks, mutators for changing data to a desired format, and handlers for performing an action on a Sensu event.
+Extend Sensu's functionality with plugins, which provide executables for performing status or metric checks, mutators for changing data to a desired format, and handlers for performing an action on a Sensu event.
 
 ## Install plugins with dynamic runtime assets
 
@@ -21,7 +21,7 @@ To start using and deploying assets, read [Use dynamic runtime assets to install
 
 {{% notice note %}}
 **NOTE**: Dynamic runtime assets are not required to use Sensu Go.
-You can install Sensu plugins using the [sensu-install](#install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../configuration-management/) solution.
+You can install Sensu plugins using the [sensu-install](#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../operations/deploy-sensu/configuration-management/) solution.
 {{% /notice %}}
 
 ## Use Bonsai, the Sensu asset hub
@@ -129,4 +129,3 @@ sudo yum groupinstall "Development Tools"
 [7]: ../use-assets-to-install-plugins/
 [8]: https://bonsai.sensu.io/
 [9]: ../assets#share-an-asset-on-bonsai
-[10]: /plugins/latest/reference/

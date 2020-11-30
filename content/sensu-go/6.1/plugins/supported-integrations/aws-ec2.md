@@ -13,7 +13,7 @@ The Sensu EC2 Handler plugin is a Sensu [handler][1] that checks an AWS EC2 inst
 
 {{% notice note %}}
 **NOTE**: The Sensu EC2 Handler plugin is an example of Sensu's alerting and incident management integrations.
-To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
+To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
 {{% /notice %}}
 
 ## Features
@@ -24,7 +24,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Get the plugin
 
-Add the [Sensu EC2 Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index, to build your own workflow or integrate Sensu with your existing EC2 workflows.
+Add the [Sensu EC2 Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing EC2 workflows.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 

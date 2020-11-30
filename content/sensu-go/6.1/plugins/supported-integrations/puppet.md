@@ -13,7 +13,7 @@ The Sensu Puppet Keepalive Handler plugin is a Sensu [handler][1] that deletes a
 
 {{% notice note %}}
 **NOTE**: The Sensu Puppet Keepalive Handler plugin is an example of Sensu's deregistration integrations.
-To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
+To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
 {{% /notice %}}
 
 ## Features
@@ -23,7 +23,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Get the plugin
 
-Add the [Sensu Puppet Keepalive Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index, to build your own workflow or integrate Sensu with your existing Puppet workflows.
+Add the [Sensu Puppet Keepalive Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing Puppet workflows.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 ## Configuration management

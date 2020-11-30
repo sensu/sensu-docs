@@ -327,17 +327,6 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     version = "1.0"
     platforms = []
 
-  [params.products.plugins]
-    identifier = "plugins"
-    name = "Plugins"
-    description = "Checks, handlers, and other plugins to power your Sensu deployment"
-    weight = 6
-    latest = "1.0"
-
-    [[params.products.plugins.versions]]
-    version = "1.0"
-    platforms = []
-
 [social]
   twitter = "sensu"
   github = "sensu"

@@ -16,7 +16,7 @@ The Sensu SaltStack Handler plugin is a Sensu [handler][1] that launches SaltSta
 
 {{% notice note %}}
 **NOTE**: The Sensu SaltStack Handler plugin is an example of Sensu's auto-remediation integrations.
-To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
+To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
 {{% /notice %}}
 
 ## Features
@@ -31,7 +31,7 @@ The Sensu SaltStack Handler plugin supports both SaltStack Enterprise and SaltSt
 
 For a turnkey experience with the Sensu SaltStack Handler plugin, use our curated, configurable [quick-start template][3] to integrate Sensu with your existing SaltStack workflows.
 
-You can also add the [Sensu SaltStack Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index, to build your own workflow or integrate Sensu with your existing SaltStack workflows.
+You can also add the [Sensu SaltStack Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing SaltStack workflows.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 

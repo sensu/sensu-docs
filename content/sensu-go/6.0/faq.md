@@ -113,7 +113,7 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [9]: ../api/
 [10]: ../observability-pipeline/observe-entities/entities/#proxy-entities
 [11]: https://github.com/sensu-plugins/
-[12]: https://docs.sensu.io/plugins/1.0/reference/#the-sensu-plugin-specification
+[12]: ../plugins/
 [13]: https://github.com/sensu-plugins/sensu-plugins-aws/
 [14]: https://github.com/sensu-plugins/sensu-plugins-jenkins/
 [15]: https://github.com/sensu-plugins/sensu-plugins-puppet/
@@ -134,7 +134,7 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [30]: https://sensu.io/enterprise/
 [31]: https://blog.sensu.io/enterprise-features-in-sensu-go/
 [32]: https://bonsai.sensu.io/
-[33]: ../operations/deploy-sensu/assets/#share-an-asset-on-bonsai
+[33]: ../plugins/assets#share-an-asset-on-bonsai
 [34]: https://blog.sensu.io/one-year-of-sensu-go/
 [36]: https://sensu.io/contact/
 [37]: #go-ports

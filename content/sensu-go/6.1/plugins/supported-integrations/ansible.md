@@ -16,7 +16,7 @@ The Sensu Ansible Handler plugin is a Sensu [handler][1] that launches Ansible T
 
 {{% notice note %}}
 **NOTE**: The Sensu Ansible Handler plugin is an example of Sensu's auto-remediation integrations.
-To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
+To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
 {{% /notice %}}
 
 ## Features
@@ -32,7 +32,7 @@ The Sensu Ansible Handler plugin supports both Ansible Tower and Ansible AWX imp
 
 For a turnkey experience with the Sensu Ansible Handler plugin, use our curated, configurable [quick-start template][3] to integrate Sensu with your existing Ansible Tower workflows.
 
-You can also add the [Sensu Ansible Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index, to build your own workflow or integrate Sensu with your existing Ansible workflows.
+You can also add the [Sensu Ansible Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing Ansible workflows.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 ## Configuration management

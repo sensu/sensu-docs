@@ -14,7 +14,7 @@ This allows you to extract, tag, and store Sensu metrics data in an OpenTSDB dat
 
 {{% notice note %}}
 **NOTE**: The Sensu OpenTSDB Handler plugin is an example of Sensu's status and metrics processing and storage integrations.
-To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
+To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
 {{% /notice %}}
 
 ## Features
@@ -24,7 +24,7 @@ To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai
 
 ## Get the plugin
 
-To build your own workflow or integrate Sensu with existing workflows, add the [Sensu OpenTSDB Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index.
+To build your own workflow or integrate Sensu with existing workflows, add the [Sensu OpenTSDB Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 

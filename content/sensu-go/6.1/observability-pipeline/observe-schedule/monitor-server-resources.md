@@ -71,7 +71,7 @@ sensuctl asset list
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../operations/deploy-sensu/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Create a check
@@ -125,7 +125,7 @@ Now that you know how to run a check to monitor CPU usage, read these resources 
 * [Send Slack alerts with handlers][6]
 
 [1]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-cpu-checks
-[2]: ../../../operations/deploy-sensu/use-assets-to-install-plugins/
+[2]: ../../../plugins/use-assets-to-install-plugins/
 [3]: ../checks/
 [4]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
 [5]: ../../observe-entities/monitor-external-resources/

@@ -16,7 +16,7 @@ The Sensu Rundeck Handler plugin is a Sensu [handler][1] that initiates Rundeck 
 
 {{% notice note %}}
 **NOTE**: The Sensu Rundeck Handler plugin is an example of Sensu's auto-remediation integrations.
-To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
+To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
 {{% /notice %}}
 
 ## Features
@@ -34,7 +34,7 @@ For a turnkey experience with the Sensu Rundeck Handler plugin, use one of our c
 - [Rundeck job][7]
 - [Rundeck webhook][3]
 
-You can also add the [Sensu Rundeck Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index, to build your own workflow or integrate Sensu with your existing Rundeck workflows.
+You can also add the [Sensu Rundeck Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing Rundeck workflows.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 

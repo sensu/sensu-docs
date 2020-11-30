@@ -16,7 +16,7 @@ The Sensu ServiceNow Handler plugin is a Sensu [handler][1] that creates and upd
 
 {{% notice note %}}
 **NOTE**: The Sensu ServiceNow Handler plugin is an example of Sensu's alerting and incident management integrations.
-To find more integrations, search [Bonsai, the Sensu asset index](https://bonsai.sensu.io/).
+To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
 {{% /notice %}}
 
 ## Features
@@ -34,7 +34,7 @@ For a turnkey experience with the Sensu ServiceNow Handler plugin, use one of ou
 - [ServiceNow Event Management][3]: send Sensu observability data to ServiceNow Event Management.
 - [ServiceNow Configuration Management Database (CMDB)][8]: register Sensu entities as configuration items in ServiceNow CMDB.
 
-You can also add the [Sensu ServiceNow Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset index, to build your own workflow or integrate Sensu with your existing ServiceNow workflows.
+You can also add the [Sensu ServiceNow Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing ServiceNow workflows.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 
