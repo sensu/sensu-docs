@@ -2,14 +2,14 @@
 title: "Install Sensu plugins"
 linkTitle: "Install Plugins"
 description: "Sensu plugins provide executables for performing status or metric checks, mutators for changing data to a desired format, and handlers for performing an action on a Sensu event. Read this plugin installation guide to learn how to install plugins with dynamic runtime assets and use Sensu Community plugins with Sensu Go."
-weight: 130
+weight: 20
 version: "6.1"
 product: "Sensu Go"
 platformContent: true
 platforms: ["Ubuntu/Debian", "RHEL/CentOS"]
 menu:
   sensu-go-6.1:
-    parent: deploy-sensu
+    parent: plugins
 ---
 
 Extend Sensu's functionality with [plugins][10], which provide executables for performing status or metric checks, mutators for changing data to a desired format, and handlers for performing an action on a Sensu event.
