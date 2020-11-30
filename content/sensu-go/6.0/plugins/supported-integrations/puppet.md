@@ -18,7 +18,7 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 
 ## Features
 
-- Use Sensu annotations to override corresponding Puppet node names with Sensu event names.
+- Use Sensu annotations to override Sensu entity names with corresponding Puppet node names.
 - Keep sensitive API authentication information secure with Sensu [environment variables and secrets management][6].
 
 ## Get the plugin
