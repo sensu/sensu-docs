@@ -4,16 +4,16 @@ linkTitle: "Assets Reference"
 reference_title: "Assets"
 type: "reference"
 description: "Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins. You can use dynamic runtime assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows. Read this reference doc to learn about assets."
-weight: 60
+weight: 150
 version: "6.1"
 product: "Sensu Go"
 platformContent: false 
 menu:
   sensu-go-6.1:
-    parent: plugins
+    parent: deploy-sensu
 ---
 
-You can discover, download, and share dynamic runtime assets using [Bonsai, the Sensu asset index][16].
+You can discover, download, and share dynamic runtime assets using [Bonsai, the Sensu asset hub][16].
 Read [Use assets to install plugins][23] to get started.
 
 Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu [plugins][29].

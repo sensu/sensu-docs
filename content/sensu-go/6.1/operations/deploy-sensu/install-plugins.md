@@ -2,14 +2,14 @@
 title: "Install Sensu plugins"
 linkTitle: "Install Plugins"
 description: "Sensu plugins provide executables for performing status or metric checks, mutators for changing data to a desired format, and handlers for performing an action on a Sensu event. Read this plugin installation guide to learn how to install plugins with dynamic runtime assets and use Sensu Community plugins with Sensu Go."
-weight: 20
+weight: 130
 version: "6.1"
 product: "Sensu Go"
 platformContent: true
 platforms: ["Ubuntu/Debian", "RHEL/CentOS"]
 menu:
   sensu-go-6.1:
-    parent: plugins
+    parent: deploy-sensu
 ---
 
 Extend Sensu's functionality with [plugins][10], which provide executables for performing status or metric checks, mutators for changing data to a desired format, and handlers for performing an action on a Sensu event.
@@ -24,9 +24,9 @@ To start using and deploying assets, read [Use dynamic runtime assets to install
 You can install Sensu plugins using the [sensu-install](#install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../configuration-management/) solution.
 {{% /notice %}}
 
-## Use Bonsai, the Sensu asset index
+## Use Bonsai, the Sensu asset hub
 
-[Bonsai, the Sensu asset index][8], is a centralized place for downloading and sharing dynamic runtime assets.
+[Bonsai, the Sensu asset hub][8], is a centralized place for downloading and sharing dynamic runtime assets.
 Make Bonsai your first stop when you need to find an asset.
 Bonsai includes plugins, libraries, and runtimes you need to automate your monitoring workflows.
 You can also [share your asset on Bonsai][9].
