@@ -224,15 +224,15 @@
             "status": 301
         },
         "~ ^/sensu-go/latest/dashboard/filtering/?$": {
-            "url": "/sensu-go/latest/web-ui/filter",
+            "url": "/sensu-go/latest/web-ui/search",
             "status": 301
         },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/dashboard/filtering/?$": {
-            "url": "/sensu-go/latest/web-ui/filter",
+            "url": "/sensu-go/latest/web-ui/search",
             "status": 301
         },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/dashboard/filtering/?$": {
-            "url": "/sensu-go/latest/web-ui/filter",
+            "url": "/sensu-go/latest/web-ui/search",
             "status": 301
         },
         "~ ^/sensu-go/latest/dashboard/webconfig/?$": {
@@ -535,6 +535,14 @@
             "url": "/sensu-go/latest/api",
             "status": 301
         },
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/api/overview/?$": {
+            "url": "/sensu-go/latest/api",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.21/latest/api/?$": {
+            "url": "/sensu-go/5.21/api",
+            "status": 301
+        },
         "~ ^/sensu-go/latest/reference/agent/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/agent",
             "status": 301
@@ -588,6 +596,10 @@
             "status": 301
         },
         "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/entities/?$": {
+            "url": "/sensu-go/latest/observability-pipeline/observe-entities/entities",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1/reference/entites/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-entities/entities",
             "status": 301
         },
@@ -664,11 +676,11 @@
             "status": 301
         },
         "~ ^/sensu-go/latest/reference/searches/?$": {
-            "url": "/sensu-go/latest/web-ui/searches",
+            "url": "/sensu-go/latest/web-ui/search",
             "status": 301
         },
         "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/searches/?$": {
-            "url": "/sensu-go/latest/web-ui/searches",
+            "url": "/sensu-go/latest/web-ui/search",
             "status": 301
         },
         "~ ^/sensu-go/latest/reference/secrets/?$": {
@@ -964,7 +976,7 @@
             "status": 301
         },
         "~ ^/sensu-go/5.19/web-ui/searches/?$": {
-            "url": "/sensu-go/5.19/reference/searches",
+            "url": "/sensu-go/latest/web-ui/search",
             "status": 301
         },
         "~ ^/sensu-go/5.21/web-ui/webconfig-reference/?$": {
@@ -976,7 +988,7 @@
             "status": 301
         },
         "~ ^/sensu-go/5.19/migrate/?$": {
-            "url": "/sensu-go/5.19/operations/maintain-sensu/migrate",
+            "url": "/sensu-go/latest/operations/maintain-sensu/migrate",
             "status": 301
         },
         "~ ^/sensu-go/5.20/migrate/?$": {
@@ -988,7 +1000,7 @@
             "status": 301
         },
         "~ ^/sensu-go/6.0/migrate/?$": {
-            "url": "/sensu-go/latest/operations/maintain-sensu/migrate",
+            "url": "/sensu-go/6.0/operations/maintain-sensu/migrate",
             "status": 301
         },
          "~ ^/sensu-go/6.1/migrate/?$": {
@@ -996,6 +1008,10 @@
             "status": 301
         },
         "~ ^/sensu-go/latest/migrate/?$": {
+            "url": "/sensu-go/latest/operations/maintain-sensu/migrate",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/migrate/web-ui/?$": {
             "url": "/sensu-go/latest/operations/maintain-sensu/migrate",
             "status": 301
         },
@@ -1017,6 +1033,42 @@
         },
         "~ ^/sensu-go/latest/operations/control-access/auth/?$": {
             "url": "/sensu-go/latest/operations/control-access",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.20/reference/auth/?$": {
+            "url": "/sensu-go/latest/operations/control-access",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/web-ui/filter/?$": {
+            "url": "/sensu-go/latest/web-ui/search",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/web-ui/searches/?$": {
+            "url": "/sensu-go/latest/web-ui/searches-reference",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.20/api/web-ui/?$": {
+            "url": "/sensu-go/5.20/api/webconfig",
+            "status": 301
+        },
+        "~ ^/sensu-go/sensu-go/5.19/api/apikeys/?$": {
+            "url": "/sensu-go/latest/api/apikeys",
+            "status": 301
+        },
+        "~ ^/sensu-go/sensu-go/5.19/getting-started/faq/?$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/sensu-go/5.19/guides/contact-routing/?$": {
+            "url": "/sensu-go/latest/observability-pipeline/observe-filter/route-alerts",
+            "status": 301
+        },
+        "~ ^/sensu-go/sensu-go/5.19/guides/secrets-management/?$": {
+            "url": "/sensu-go/latest/operations/manage-secrets/secrets-management",
+            "status": 301
+        },
+        "~ ^/sensu-go/sensu-go/5.19/release-notes/?$": {
+            "url": "/sensu-go/latest/release-notes",
             "status": 301
         }
     }

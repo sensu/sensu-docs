@@ -117,7 +117,7 @@ In this example, if all checks named `database` or `disk` are passing, the follo
 sensu.CheckDependencies("database", "disk")
 {{< /code >}}
 
-If you pass the check names as strings, Sensu assumes that the entites are the same as those in the events being filtered.
+If you pass the check names as strings, Sensu assumes that the entities are the same as those in the events being filtered.
 
 You can also refer to the checks in objects that include both the entity and check name.
 For example:

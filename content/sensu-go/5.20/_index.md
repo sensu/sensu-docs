@@ -37,8 +37,8 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/edb92c4b-101c-4c3f-89ec-a00c889a6b05 -->
 
 Sensu is an agent-based monitoring tool that you install on your organization's infrastructure.
-The Sensu agent gives you visibility into everything you care about.
-The Sensu backend gives you flexible, automated workflows to route metrics and alerts.
+The Sensu [agent][23] gives you visibility into everything you care about.
+The Sensu [backend][24] gives you flexible, automated workflows to route metrics and alerts.
 
 ### Monitor containers, instances, applications, and on-premises infrastructure
 
@@ -51,7 +51,7 @@ Sensu agents automatically register and de-register themselves with the Sensu ba
 Get meaningful alerts when and where you need them.
 Use [event filters][8] to reduce noise and [check hooks][9] to add context and speed up incident response.
 Sensu integrates with the tools and services your organization already uses like [PagerDuty][21], [Slack][19], and more.
-Check out [Bonsai, the Sensu asset index][20], or write your own [Sensu plugins][3] in any language.
+Check out [Bonsai, the Sensu asset hub][20], or write your own [Sensu plugins][3] in any language.
 
 ### Collect and store metrics with built-in support for industry-standard tools
 
@@ -61,7 +61,7 @@ Use the Sensu agent to collect metrics alongside check results, then use the eve
 
 ### Intuitive API and web UI interfaces
 
-Sensu includes a [web UI][15] to provide a unified view of your entities, checks, and events, as well as a user-friendly silencing tool.
+Sensu includes a [web UI][15] to provide a unified view of your entities, checks, and events, as well as a user-friendly [silencing][25] tool.
 The [Sensu API][13] and the [`sensuctl` command-line tool][16] allow you (and your internal customers) to create checks, register entities, manage configuration, and more.
 
 ### Open core software backed by Sensu Inc.
@@ -91,3 +91,6 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 [20]: https://bonsai.sensu.io/
 [21]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler/
 [22]: operations/deploy-sensu/install-sensu/
+[23]: reference/agent/
+[24]: reference/backend/
+[25]: web-ui/view-manage-resources/

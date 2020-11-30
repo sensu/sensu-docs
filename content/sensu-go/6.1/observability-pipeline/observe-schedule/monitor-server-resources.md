@@ -23,9 +23,13 @@ To use this guide, you'll need to install a Sensu backend and have at least one 
 
 ## Register dynamic runtime assets
 
-To power the check, you'll use the [Sensu CPU Checks][1] and [Sensu Ruby Runtime][7] dynamic runtime assets.
+To power the check, you'll use the [Sensu CPU Checks][1] dynamic runtime asset.
+The Sensu CPU Checks asset includes the `check-cpu.rb` plugin, which [your check][10] will rely on.
 
-Use [`sensuctl asset add`][9] to register the `sensu-plugins-cpu-checks` dynamic runtime asset:
+The Sensu assets packaged from Sensu CPU Checks are built against the Sensu Ruby runtime environment, so you also need to add the [Sensu Ruby Runtime][7] dynamic runtime asset.
+The Sensu Ruby Runtime asset delivers the Ruby executable and supporting libraries the check will need to run the `check-cpu.rb` plugin.
+
+Use [`sensuctl asset add`][9] to register the Sensu CPU Checks dynamic runtime asset, `sensu-plugins/sensu-plugins-cpu-checks:4.1.0`:
 
 {{< code shell >}}
 sensuctl asset add sensu-plugins/sensu-plugins-cpu-checks:4.1.0 -r cpu-checks-plugins
@@ -41,7 +45,7 @@ This example uses the `-r` (rename) flag to specify a shorter name for the dynam
 
 You can also download the dynamic runtime asset definition for Debian or Alpine from [Bonsai][1] and register the asset with `sensuctl create --file filename.yml`.
 
-Then, use the following sensuctl example to register the `sensu-ruby-runtime` dynamic runtime asset:
+Then, use the following sensuctl example to register the Sensu Ruby Runtime dynamic runtime asset, `sensu/sensu-ruby-runtime:0.0.10`:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
@@ -129,3 +133,4 @@ Now that you know how to run a check to monitor CPU usage, read these resources 
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
 [8]: ../agent/#restart-the-service
 [9]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
+[10]: #create-a-check

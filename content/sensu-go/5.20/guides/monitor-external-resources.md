@@ -25,9 +25,13 @@ In this section, you'll monitor the status of [sensu.io](https://sensu.io) by co
 
 ### Register assets
 
-To power the check, use the [Sensu Plugins HTTP][16] asset and the [Sensu Ruby Runtime][17] asset.
+To power the check, you'll use the [Sensu Plugins HTTP][16] asset.
+The Sensu Plugins HTTP asset includes `check-http.rb`, which [your check][15] will rely on.
 
-Use [`sensuctl asset add`][21] to register the `sensu-plugins-http` asset:
+The Sensu assets packaged from Sensu Plugins HTTP are built against the Sensu Ruby runtime environment, so you also need to add the [Sensu Ruby Runtime][7] asset.
+Sensu Ruby Runtime delivers the Ruby executable and supporting libraries the check will need to run the `check-http.rb` plugin.
+
+Use [`sensuctl asset add`][21] to register the Sensu Plugins HTTP asset, `sensu-plugins/sensu-plugins-http:5.1.1`:
 
 {{< code shell >}}
 sensuctl asset add sensu-plugins/sensu-plugins-http:5.1.1 -r sensu-plugins-http
@@ -37,7 +41,7 @@ This example uses the `-r` (rename) flag to specify a shorter name for the asset
 
 You can also download the asset definition for Debian or Alpine from [Bonsai][16] and register the asset with `sensuctl create --file filename.yml`.
 
-Then, use the following sensuctl example to register the `sensu-ruby-runtime` asset:
+Then, use the following sensuctl example to register the Sensu Ruby Runtime asset, `sensu/sensu-ruby-runtime:0.0.10`:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
@@ -370,6 +374,7 @@ Now that you know how to run a proxy check to verify the status of a website and
 [12]: ../../reference/tokens/
 [13]: #register-assets
 [14]: #add-the-subscription
+[15]: #create-the-check
 [16]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http
 [17]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
 [18]: ../../reference/checks#round-robin-checks
