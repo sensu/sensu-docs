@@ -22,6 +22,10 @@ By building atop etcd, Sensu's backend inherits a number of characteristics to c
 
 Sensu's embedded etcd supports initial cluster creation via a static list of peer URLs.
 After you create a cluster, you can add and remove cluster members with etcdctl tooling.
+
+If you have a healthy clustered backend, you only need to make [Sensu API][2] calls to any one of the cluster members.
+The cluster protocol will replicate your changes to all cluster members.
+
 See [Run a Sensu cluster][7] and the [etcd documentation][4] for more information.
 
 ## Hardware sizing
@@ -141,7 +145,9 @@ This approach gives operators more control over agent connection distribution an
 Conversely, you cannot configure the sensuctl command line tool with multiple backend URLs.
 Under normal conditions, sensuctl communications and browser access to the web UI should be routed via a load balancer.
 
+
 [1]: ../hardware-requirements/
+[2]: ../../../api/
 [3]: ../../../reference/agent/#general-configuration-flags
 [4]: https://etcd.io/docs/
 [5]: https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/security.md
