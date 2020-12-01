@@ -1129,7 +1129,7 @@ spec:
 [8]: #metadata-attributes
 [9]: ../../commercial/
 [10]: https://sensu.io/contact
-[11]: https://blog.sensu.io/one-year-of-sensu-go
+[11]: https://sensu.io/blog/one-year-of-sensu-go
 [12]: ../../sensuctl/create-manage-resources/#create-resources
 [13]: #spec-attributes
 [14]: ../../api#response-filtering

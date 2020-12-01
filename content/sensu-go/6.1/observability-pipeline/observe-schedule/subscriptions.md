@@ -144,18 +144,10 @@ To directly add, update, and delete subscriptions for individual entities, use [
 
 [1]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
 [2]: ../agent/#subscriptions-flag
-[3]: ../checks/
-[4]: ../backend/
-[5]: ../tokens/
-[6]: ../assets/
-[7]: ../agent/#cache-dir
-[8]: ../hooks/
-[9]: ../events/
 [10]: ../agent/#name
 [11]: ../checks/#ad-hoc-scheduling
 [12]: ../checks/#publish-attribute
 [13]: ../checks/#check-scheduling
-[14]: ../agent/
 [15]: ../checks/#check-subscriptions
 [16]: ../../../api/checks/#checkscheckexecute-post
 [17]: ../../../sensuctl/create-manage-resources/#update-resources

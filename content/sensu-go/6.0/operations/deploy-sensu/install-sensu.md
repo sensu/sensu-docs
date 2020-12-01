@@ -540,7 +540,7 @@ sensuctl license info
 [14]: ../../../learn/learn-sensu-sandbox/
 [15]: ../../../observability-pipeline/observe-schedule/agent/#events-post-example
 [16]: https://etcd.io/
-[17]: ../../../operations/deploy-sensu/assets/
+[17]: ../../../plugins/assets/
 [18]: #install-sensu-agents
 [19]: #install-sensuctl
 [20]: ../../../commercial/
@@ -552,7 +552,7 @@ sensuctl license info
 [26]: ../../../api/
 [27]: ../../../observability-pipeline/observe-schedule/agent#create-observability-events-using-the-agent-api
 [28]: ../../../observability-pipeline/observe-schedule/agent#create-observability-events-using-the-statsd-listener
-[29]: https://blog.sensu.io/one-year-of-sensu-go/
+[29]: https://sensu.io/blog/one-year-of-sensu-go/
 [30]: ../../../observability-pipeline/observe-schedule/backend#initialization
 [31]: ../deployment-architecture/
 [32]: http://localhost:3000/

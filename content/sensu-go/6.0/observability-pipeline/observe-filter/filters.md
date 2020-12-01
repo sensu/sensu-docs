@@ -929,7 +929,7 @@ spec:
 [14]: ../../observe-schedule/checks#use-a-proxy-check-to-monitor-a-proxy-entity
 [15]: ../../observe-schedule/checks#use-a-proxy-check-to-monitor-multiple-proxy-entities
 [16]: ../../observe-schedule/checks#round-robin-checks
-[17]: ../../../operations/deploy-sensu/assets/
+[17]: ../../../plugins/assets/
 [18]: ../../observe-entities/entities#system-attributes
 [19]: ../../observe-schedule/checks/#metadata-attributes
 [20]: ../../observe-events/events/#history-attributes

@@ -331,7 +331,7 @@ spec:
 [2]: #metadata-attributes
 [3]: ../../../operations/control-access/rbac#namespaces
 [4]: ../../observe-filter/filters/
-[5]: ../../../operations/deploy-sensu/assets/
+[5]: ../../../plugins/assets/
 [6]: ../checks#check-hooks-attribute
 [7]: ../tokens/
 [8]: https://regex101.com/r/zo9mQU/2

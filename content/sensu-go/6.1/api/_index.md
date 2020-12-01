@@ -14,6 +14,9 @@ menu:
 
 The Sensu backend REST API provides a centrally managed control plane for automated, repeatable observability workflow configuration and observation data (event) access.
 
+If you have a healthy [clustered][24] backend, you only need to make Sensu API calls to any one of the cluster members.
+The cluster protocol will replicate your changes to all cluster members.
+
 For information about the Sensu agent API, see the [agent reference][4].
 
 ## URL format
@@ -753,3 +756,4 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [21]: ../observability-pipeline/observe-schedule/backend/#api-request-limit
 [22]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match
 [23]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match
+[24]: ../operations/deploy-sensu/cluster-sensu/

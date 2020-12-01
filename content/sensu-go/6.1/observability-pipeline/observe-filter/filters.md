@@ -870,7 +870,7 @@ spec:
 
 ## Use JavaScript libraries with Sensu filters
 
-You can include JavaScript libraries in their event filter execution context with [dynamic runtime assets][39].
+You can include JavaScript libraries in their event filter execution context with [dynamic runtime assets][17].
 For instance, if you package underscore.js into a Sensu asset, you can use functions from the underscore library for filter expressions:
 
 {{< language-toggle >}}
@@ -929,7 +929,7 @@ spec:
 [14]: ../../observe-schedule/checks#use-a-proxy-check-to-monitor-a-proxy-entity
 [15]: ../../observe-schedule/checks#use-a-proxy-check-to-monitor-multiple-proxy-entities
 [16]: ../../observe-schedule/checks#round-robin-checks
-[17]: ../../../operations/deploy-sensu/assets/
+[17]: ../../../plugins/assets/
 [18]: ../../observe-entities/entities#system-attributes
 [19]: ../../observe-schedule/checks/#metadata-attributes
 [20]: ../../observe-events/events/#history-attributes
@@ -951,7 +951,6 @@ spec:
 [36]: ../../../api#response-filtering
 [37]: ../../../sensuctl/filter-responses/
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
-[39]: ../../../operations/deploy-sensu/assets/
 [41]: ../../../web-ui/search#search-for-labels
 [42]: ../../../web-ui/search/
 [43]: ../

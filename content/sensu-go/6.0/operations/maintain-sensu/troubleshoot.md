@@ -388,6 +388,6 @@ To resolve this problem, install the [`lsb_release` package][8] for your Linux d
 [7]: https://dzone.com/articles/what-is-structured-logging
 [8]: https://pkgs.org/download/lsb
 [9]: ../../../observability-pipeline/observe-schedule/backend/#restart-the-service
-[10]: ../../deploy-sensu/assets/#asset-definition-multiple-builds
+[10]: ../../../plugins/assets#asset-definition-multiple-builds
 [11]: ../../monitor-sensu/log-sensu-systemd/
 [12]: https://github.com/systemd/systemd/issues/2913
