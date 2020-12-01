@@ -20,7 +20,7 @@ This guide uses the [Sensu PagerDuty Handler dynamic runtime asset][7] as an exa
 
 {{% notice note %}}
 **NOTE**: Dynamic runtime assets are not required to use Sensu Go.
-You can install Sensu plugins using the [sensu-install](#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../configuration-management/) solution.
+You can install Sensu plugins using the [sensu-install](../install-plugins#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../operations/deploy-sensu/configuration-management/) solution.
 {{% /notice %}}
 
 ## Register the Sensu PagerDuty Handler asset
@@ -160,15 +160,15 @@ You can also try our interactive tutorial to [send critical alerts to your Pager
 [1]: ../assets/
 [2]: #create-an-asset
 [3]: https://bonsai.sensu.io
-[4]: ../../../observability-pipeline/observe-entities/entities/#system-attributes
+[4]: ../../observability-pipeline/observe-entities/entities/#system-attributes
 [5]: ../assets#metadata-attributes
-[6]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
+[6]: ../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
-[8]: ../../../learn/sensu-pagerduty/
+[8]: ../../learn/sensu-pagerduty/
 [10]: https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler
 [11]: https://bonsai.sensu.io/assets/sensu/sensu-jira-handler
-[12]: ../../../commercial/
-[13]: ../../../observability-pipeline/observe-schedule/monitor-server-resources/
+[12]: ../../commercial/
+[13]: ../../observability-pipeline/observe-schedule/monitor-server-resources/
 [14]: ../assets#dynamic-runtime-asset-format-specification
 [15]: ../assets#share-an-asset-on-bonsai
 [16]: https://bonsai.sensu.io
