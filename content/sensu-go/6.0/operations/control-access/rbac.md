@@ -1248,7 +1248,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [2]: ../../../sensuctl/
 [3]: ../../../web-ui/
 [4]: #resources
-[5]: ../../deploy-sensu/assets/
+[5]: ../../../plugins/assets/
 [6]: ../../../observability-pipeline/observe-schedule/checks/
 [7]: ../../../observability-pipeline/observe-entities/entities/
 [8]: ../../../observability-pipeline/observe-events/events/

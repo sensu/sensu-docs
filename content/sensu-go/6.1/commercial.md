@@ -92,7 +92,7 @@ These resources will help you get started with commercial features in Sensu Go:
 [14]: https://account.sensu.io/support/
 [15]: ../operations/deploy-sensu/install-sensu/
 [16]: ../sensuctl/#first-time-setup
-[17]: ../operations/deploy-sensu/use-assets-to-install-plugins/
+[17]: ../plugins/use-assets-to-install-plugins/
 [18]: ../operations/maintain-sensu/license/
 [19]: ../observability-pipeline/observe-filter/filters#build-event-filter-expressions-with-javascript-execution-functions
 [20]: ../operations/deploy-sensu/use-federation/	

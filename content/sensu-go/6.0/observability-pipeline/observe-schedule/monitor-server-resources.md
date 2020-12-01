@@ -125,7 +125,7 @@ Now that you know how to run a check to monitor CPU usage, read these resources 
 * [Send Slack alerts with handlers][6]
 
 [1]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-cpu-checks
-[2]: ../../../operations/deploy-sensu/use-assets-to-install-plugins/
+[2]: ../../../plugins/use-assets-to-install-plugins/
 [3]: ../checks/
 [4]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
 [5]: ../../observe-entities/monitor-external-resources/

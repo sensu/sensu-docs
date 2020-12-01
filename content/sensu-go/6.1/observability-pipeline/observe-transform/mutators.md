@@ -382,7 +382,7 @@ spec:
 [1]: ../../../operations/deploy-sensu/assets/
 [2]: #metadata-attributes
 [3]: ../../../operations/control-access/rbac#namespaces
-[4]: ../../../operations/deploy-sensu/use-assets-to-install-plugins/
+[4]: ../../../plugins/use-assets-to-install-plugins/
 [5]: ../../../sensuctl/create-manage-resources/#create-resources
 [6]: #spec-attributes
 [7]: https://regex101.com/r/zo9mQU/2

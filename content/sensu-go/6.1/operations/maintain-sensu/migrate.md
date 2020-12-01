@@ -471,7 +471,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [48]: ../../../learn/sandbox/
 [49]: https://sensu.io/support/
 [50]: ../../deploy-sensu/use-assets-to-install-plugins
-[51]: ../../deploy-sensu/install-plugins/
+[51]: ../../../plugins/install-plugins/
 [52]: ../../deploy-sensu/install-sensu#install-the-sensu-backend
 [53]: ../../deploy-sensu/install-sensu#install-sensuctl
 [54]: ../../control-access/rbac/#resources

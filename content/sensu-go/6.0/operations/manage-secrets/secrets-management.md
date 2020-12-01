@@ -279,7 +279,7 @@ sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
 This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `pagerduty-handler`.
 
 {{% notice note %}}
-**NOTE**: You can [adjust the dynamic runtime asset definition](../../deploy-sensu/use-assets-to-install-plugins/#adjust-the-asset-definition) according to your Sensu configuration if needed.
+**NOTE**: You can [adjust the dynamic runtime asset definition](../../../plugins/use-assets-to-install-plugins#adjust-the-asset-definition) according to your Sensu configuration if needed.
 {{% /notice %}}
 
 Run `sensuctl asset list --format yaml` to confirm that the dynamic runtime asset is ready to use.
