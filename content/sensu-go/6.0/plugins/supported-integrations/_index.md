@@ -38,11 +38,11 @@ Although this category focuses on our most popular supported integrations, you c
 ## Deregistration
 
 - [Chef][11]
+- [EC2][2]
 - [Puppet][12]
 
 ## Time-series and long-term event storage
 
-- [EC2][2]
 - [Elasticsearch][13]
 - [InfluxDB][14]
 - [OpenTSDB][16]
