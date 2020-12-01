@@ -211,7 +211,7 @@ journalctl _COMM=sensu-backend.service
 
 To view the events on-disk, see [Log Sensu services with systemd][9].
 
-[1]: https://blog.sensu.io/announcing-tessen-the-sensu-call-home-service
+[1]: https://sensu.io/blog/announcing-tessen-the-sensu-call-home-service
 [2]: ../../../api/tessen/
 [3]: ../../../sensuctl/
 [4]: ../../maintain-sensu/license/
