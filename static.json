@@ -51,8 +51,8 @@
             "url": "/sensu-go/latest/$1",
             "status": 301
         },
-        "~ ^/plugins/1.0/?((?<=\/).*)?$": {
-            "url": "/plugins/latest/$1",
+        "~ ^/plugins/?((?<=\/).*)?$": {
+            "url": "/sensu-go/latest/plugins",
             "status": 302
         },
         "~ ^/sensu-go/latest/learn/learn-sensu-go/?$": {
@@ -428,15 +428,39 @@
             "status": 301
         },
         "~ ^/sensu-go/latest/installation/plugins/?$": {
-            "url": "/sensu-go/latest/operations/deploy-sensu/install-plugins",
+            "url": "/sensu-go/latest/plugins/install-plugins",
             "status": 301
         },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/plugins/?$": {
-            "url": "/sensu-go/latest/operations/deploy-sensu/install-plugins",
+            "url": "/sensu-go/latest/plugins/install-plugins",
             "status": 301
         },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/plugins/?$": {
-            "url": "/sensu-go/latest/operations/deploy-sensu/install-plugins",
+            "url": "/sensu-go/latest/plugins/install-plugins",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/operations/deploy-sensu/install-plugins/?$": {
+            "url": "/sensu-go/latest/plugins/install-plugins",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/operations/deploy-sensu/install-plugins/?$": {
+            "url": "/sensu-go/latest/plugins/install-plugins",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/operations/deploy-sensu/assets/?$": {
+            "url": "/sensu-go/latest/plugins/assets",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/operations/deploy-sensu/assets/?$": {
+            "url": "/sensu-go/latest/plugins/assets",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/operations/deploy-sensu/use-assets-to-install-plugins/?$": {
+            "url": "/sensu-go/latest/plugins/use-assets-to-install-plugins",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/operations/deploy-sensu/use-assets-to-install-plugins/?$": {
+            "url": "/sensu-go/latest/plugins/use-assets-to-install-plugins",
             "status": 301
         },
         "~ ^/sensu-go/latest/installation/auth/?$": {
@@ -804,11 +828,11 @@
             "status": 301
         },
         "~ ^/sensu-go/latest/guides/install-check-executables-with-assets/?$": {
-            "url": "/sensu-go/latest/operations/deploy-sensu/use-assets-to-install-plugins",
+            "url": "/sensu-go/latest/plugins/use-assets-to-install-plugins",
             "status": 301
         },
         "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/guides/install-check-executables-with-assets/?$": {
-            "url": "/sensu-go/latest/operations/deploy-sensu/use-assets-to-install-plugins",
+            "url": "/sensu-go/latest/plugins/use-assets-to-install-plugins",
             "status": 301
         },
         "~ ^/sensu-go/latest/guides/reduce-alert-fatigue/?$": {

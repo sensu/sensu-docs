@@ -1713,7 +1713,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [26]: ../../../sensuctl/filter-responses/
 [27]: ../tokens/
 [28]: ../subscriptions/
-[29]: ../../../operations/deploy-sensu/assets/
+[29]: ../../../plugins/assets/
 [30]: #cache-dir
 [31]: ../hooks/
 [32]: ../checks/#proxy-entity-name-attribute

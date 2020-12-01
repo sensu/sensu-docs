@@ -106,9 +106,9 @@ Tokens let you fine-tune check attributes (like thresholds) on a per-entity leve
 [1]: ../../observability-pipeline/observe-schedule/agent/
 [2]: ../../observability-pipeline/observe-schedule/backend/
 [3]: ../../observability-pipeline/observe-schedule/checks/
-[4]: ../../operations/deploy-sensu/assets/
+[4]: ../../plugins/assets/
 [5]: ../../observability-pipeline/observe-schedule/hooks/
-[6]: ../../operations/deploy-sensu/install-plugins/
+[6]: ../../plugins/install-plugins/
 [7]: ../../observability-pipeline/observe-entities/entities/
 [8]: ../../observability-pipeline/observe-events/events/
 [9]: ../../observability-pipeline/observe-filter/filters/

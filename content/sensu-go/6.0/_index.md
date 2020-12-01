@@ -62,7 +62,7 @@ Sensu Go is the latest version of Sensu, designed to be portable, straightforwar
 
 [1]: get-started/
 [2]: https://www.influxdata.com/
-[3]: https://docs.sensu.io/plugins/latest/reference/
+[3]: plugins/
 [4]: https://www.github.com/sensu/sensu-go/blob/master/LICENSE/
 [5]: https://www.github.com/sensu/sensu-go/
 [6]: operations/deploy-sensu/cluster-sensu/

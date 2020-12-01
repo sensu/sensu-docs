@@ -1113,7 +1113,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [6]: ../hooks/
 [7]: /sensu-core/latest/reference/checks/#standalone-checks
 [8]: ../../../operations/control-access/rbac/
-[9]: ../../../operations/deploy-sensu/assets/
+[9]: ../../../plugins/assets/
 [10]: #proxy-requests-attributes
 [11]: ../../observe-filter/sensu-query-expressions/
 [12]: ../monitor-server-resources/
@@ -1164,7 +1164,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [57]: ../../../operations/manage-secrets/secrets-providers/
 [58]: ../../../web-ui/search#search-for-labels
 [59]: ../../../operations/manage-secrets/secrets-management/
-[60]: ../../../operations/deploy-sensu/assets#dynamic-runtime-asset-path
+[60]: ../../../plugins/assets#dynamic-runtime-asset-path
 [61]: ../../../web-ui/search/
 [62]: ../../observe-events/events/#flap-detection-algorithm
 [63]: #ad-hoc-scheduling

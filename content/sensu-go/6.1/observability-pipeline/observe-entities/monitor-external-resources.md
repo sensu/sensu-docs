@@ -75,7 +75,7 @@ sensuctl asset list
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../operations/deploy-sensu/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ### Create the check
@@ -379,14 +379,14 @@ Now that you know how to run a proxy check to verify the status of a website and
 [1]: ../../observe-entities/#proxy-entities
 [2]: ../../observe-schedule/checks/#proxy-entity-name-attribute
 [3]: ../../observe-schedule/checks/#proxy-checks
-[5]: ../../../operations/deploy-sensu/assets/
+[5]: ../../../plugins/assets/
 [7]: ../../observe-process/send-slack-alerts/
 [8]: ../../../sensuctl/
 [9]: ../../../api/entities/
 [10]: ../../../web-ui/
 [11]: ../../observe-entities/entities#manage-entity-labels
 [12]: ../../observe-schedule/tokens/
-[13]: #register-assets
+[13]: #register-dynamic-runtime-assets
 [14]: #add-the-subscription
 [15]: #create-the-check
 [16]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http
