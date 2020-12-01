@@ -104,7 +104,7 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 
 [1]: ../platforms/
 [2]: ../installation/install-sensu/
-[3]: https://blog.sensu.io/sensu-go-is-here/
+[3]: https://sensu.io/blog/sensu-go-is-here/
 [4]: ../installation/upgrade/
 [5]: ../installation/recommended-hardware/
 [6]: https://sensu.io/sales/
@@ -132,9 +132,9 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [28]: ../commercial/
 [29]: web-ui/
 [30]: https://sensu.io/enterprise/
-[31]: https://blog.sensu.io/enterprise-features-in-sensu-go/
+[31]: https://sensu.io/blog/enterprise-features-in-sensu-go/
 [32]: https://bonsai.sensu.io/
 [33]: ../plugins/assets#share-an-asset-on-bonsai
-[34]: https://blog.sensu.io/one-year-of-sensu-go/
+[34]: https://sensu.io/blog/one-year-of-sensu-go/
 [36]: https://sensu.io/contact/
 [37]: #go-ports
