@@ -51,6 +51,10 @@
             "url": "/sensu-go/latest/$1",
             "status": 301
         },
+        "~ ^/plugins/?((?<=\/).*)?$": {
+            "url": "/sensu-go/latest/plugins",
+            "status": 302
+        },
         "~ ^/plugins/1.0/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/plugins",
             "status": 302
