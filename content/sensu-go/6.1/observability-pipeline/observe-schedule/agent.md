@@ -412,12 +412,19 @@ The `keepalive-critical-timeout` is set to `0` (disabled) by default to help ens
 If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-warning-timeout` flag][4], the Sensu backend creates a keepalive **warning** alert in the Sensu web UI.
 The value you specify for `keepalive-warning-timeout` must be lower than the value you specify for `keepalive-critical-timeout`.
 
+{{% notice note %}}
+**NOTE**: If you set the [deregister flag](#ephemeral-agent-configuration-flags) to `true`, when a Sensu agent process stops, the Sensu backend will create and process a deregistration event.
+Deregistration prevents and clears alerts for failing keepalives &mdash; the backend does not distinguish between intentional shutdown and failure.
+As a result, if you set the deregister flag to `true` and an agent process stops for any reason, you will not see alerts for keepalive events in the web UI.
+If you want to see alerts for failing keepalives, set the [deregister flag](#ephemeral-agent-configuration-flags) to `false`.
+{{% /notice %}}
+
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
 In addition, the agent maps [`keepalive-critical-timeout` and `keepalive-warning-timeout`][4] values to certain event check attributes, so you can create time-based event filters to reduce alert fatigue for agent keepliave events.
 
 {{% notice note %}}
 **NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../../observe-entities/#proxy-entities) because they cannot run a Sensu agent.
-You can use the [events API](../../../api/events/#eventsentitycheck-put) to send manual keepalive events for proxy entities.
+Use the [events API](../../../api/events/#eventsentitycheck-put) to send manual keepalive events for proxy entities.
 {{% /notice %}}
 
 ### Handle keepalive events
@@ -1140,7 +1147,9 @@ events-rate-limit: 20.0{{< /code >}}
 
 | deregister  |      |
 --------------|------
-description   | `true` if a deregistration event should be created upon Sensu agent process stop. Otherwise, `false`.
+description   | `true` if a deregistration event should be created upon Sensu agent process stop. Otherwise, `false`.<br>{{% notice note %}}
+**NOTE**: To see alerts for failing [keepalives](#keepalive-monitoring), set to `false`.
+{{% /notice %}}
 type          | Boolean
 default       | `false`
 environment variable | `SENSU_DEREGISTER`
