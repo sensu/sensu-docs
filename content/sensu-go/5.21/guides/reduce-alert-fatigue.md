@@ -60,7 +60,7 @@ This will help you understand what assets are and how they are used in Sensu.
 
 In this approach, the first step is to obtain an event filter asset that will allow you to replicate the behavior of the `hourly` event filter created in [Approach 1 via `sensuctl`][4].
 
-Use [`sensuctl asset add`][5] to register the [fatigue check filter][9] asset:
+Use [`sensuctl asset add`][5] to register the [fatigue check filter][8] asset:
 
 {{< code shell >}}
 sensuctl asset add nixwiz/sensu-go-fatigue-check-filter:0.3.2 -r fatigue-filter
