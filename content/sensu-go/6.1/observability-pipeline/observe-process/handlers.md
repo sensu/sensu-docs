@@ -44,12 +44,71 @@ TCP and UDP handlers enable Sensu to forward event data to arbitrary TCP or UDP 
 
 ## Handler sets
 
-Handler set definitions allow you to use a single named handler set to refer to groups of handlers (individual collections of actions to take on event data).
+Handler set definitions allow you to use a single named handler set to refer to groups of handlers.
+The handler set becomes a collection of individual actions to take (via each included handler) on event data.
+
+For example, suppose you have already created these two handlers:
+
+- `elasticsearch` to send all observation data to Elasticsearch.
+- `opsgenie` to send non-OK status alerts to your OpsGenie notification channel.
+
+You can list both of these handlers in a handler set to automate and streamline your workflow, specifying `type: set`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: send_events_notify_operator
+  namespace: default
+spec:
+  handlers:
+  - elasticsearch
+  - opsgenie
+  type: set
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "send_events_notify_operator",
+    "namespace": "default"
+  },
+  "spec": {
+    "type": "set",
+    "handlers": [
+      "elasticsearch",
+      "opsgenie"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Now you can route observation data to Elasticsearch and alerts to OpsGenie with a single handler, the `send_events_notify_operator` handler set.
 
 {{% notice note %}}
-**NOTE**: Attributes defined on handler sets do not apply to the handlers they include.
+**NOTE**: Attributes defined in handler sets do not apply to the handlers they include.
 For example, `filters` and `mutator` attributes defined in a handler set will have no effect on handlers.
+Define these attributes in individual handlers instead.
 {{% /notice %}}
+
+## Handler stacks
+
+Handler stacks are handler sets that escalate events through a series of different handlers.
+For example, consider a handler stack with three levels of escalation:
+
+- Level 1: On first occurrence, attempt remediation with the `remediation` handler.
+- Level 2: On fifth occurrence, send an alert to Slack with the `slack_alert_channel` handler.
+- Level 3: On tenth occurrence, send an alert to PagerDuty with the `pagerduty_emergency` handler.
+
+The escalation levels are controlled by event filter definitions.
+At level 1, no filter is needed because every event triggers remediation with the `remediation` handler.
+For escalation to levels 2 and 3, you can define an event filter that uses the [fatigue check filter][30] asset to activate the `slack_alert_channel` and `pagerduty_emergency` handlers at the fifth and tenth occurrences, respectively. 
 
 ## Keepalive event handlers
 
@@ -568,9 +627,9 @@ spec:
 
 The [agent reference][27] describes agent registration and registration events in more detail.
 
-### Execute multiple handlers
+### Execute multiple handlers (handler set)
 
-The following example handler will execute three handlers: `slack`, `tcp_handler`, and `udp_handler`.
+The following example creates a handler set, `notify_all_the_things`, that will execute three handlers: `slack`, `tcp_handler`, and `udp_handler`.
 
 {{< language-toggle >}}
 
@@ -688,3 +747,4 @@ spec:
 [27]: ../../observe-schedule/agent/#registration-endpoint-management-and-service-discovery
 [28]: ../../../web-ui/search/
 [29]: ../../../observability-pipeline/
+[30]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
