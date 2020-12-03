@@ -16,7 +16,7 @@ The Sensu Elasticsearch Handler plugin is a Sensu [handler][1] that sends observ
 With this handler, the Sensu observation data you send to Elasticsearch is available for indexing and visualization in Kibana.
 
 {{% notice note %}}
-**NOTE**: The Sensu Elasticsearch Handler plugin is an example of Sensu's status and metrics processing and storage integrations.
+**NOTE**: The Sensu Elasticsearch Handler plugin is an example of Sensu's time-series and long-term event storage integrations.
 To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
 {{% /notice %}}
 

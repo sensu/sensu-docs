@@ -12,7 +12,7 @@ menu:
 The Sensu Wavefront Handler plugin is a Sensu [handler][1] that sends Sensu metrics to Wavefront via a proxy, which allows you to store, instrument, and visualize Sensu metrics data in an Wavefront database.
 
 {{% notice note %}}
-**NOTE**: The Sensu Wavefront Handler plugin is an example of Sensu's status and metrics processing and storage integrations.
+**NOTE**: The Sensu Wavefront Handler plugin is an example of Sensu's time-series and long-term event storage integrations.
 To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
 {{% /notice %}}
 
@@ -20,6 +20,7 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 
 - Transform metrics to Wavefront format: extract and transform the metrics you collect from different sources in formats like Graphite, OpenTSDB, Nagios, and Influx and populate them into Wavefront.
 - Specify additional tags to include when processing metrics either using the Wavefront plugin's `--tags` flag or via [metric tags][7].
+- Keep your Wavefront host and port secure with Sensu [environment variables and secrets management][6].
 
 ## Get the plugin
 

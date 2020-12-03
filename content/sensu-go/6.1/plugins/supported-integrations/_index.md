@@ -44,6 +44,7 @@ Although this category focuses on our most popular supported integrations, you c
 ## Time-series and long-term event storage
 
 - [Elasticsearch][13]
+- [Graphite][15]
 - [InfluxDB][14]
 - [OpenTSDB][16]
 - [Prometheus][17]
@@ -65,6 +66,7 @@ Although this category focuses on our most popular supported integrations, you c
 [12]: puppet/
 [13]: elasticsearch/
 [14]: influxdb/
+[15]: graphite/
 [16]: opentsdb/
 [17]: prometheus/
 [18]: timescaledb/
