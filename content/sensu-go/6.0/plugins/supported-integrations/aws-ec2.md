@@ -24,7 +24,9 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 
 ## Get the plugin
 
-Add the [Sensu EC2 Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing EC2 workflows.
+For a turnkey experience with the Sensu EC2 Handler plugin, use our curated, configurable [quick-start template][8] to integrate Sensu with your existing AWS EC2 workflows.
+
+You can also add the [Sensu EC2 Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing EC2 workflows.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 
@@ -35,3 +37,4 @@ Add the [Sensu EC2 Handler plugin][4] with a dynamic runtime asset from Bonsai, 
 [5]: ../../assets
 [6]: ../../../commercial/
 [7]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags
+[8]: https://github.com/sensu-community/monitoring-pipelines/blob/latest/deregistration/aws-ec2.yaml
