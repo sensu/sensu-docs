@@ -1,10 +1,10 @@
 ---
 title: "Role-based access control (RBAC) reference"
-linkTitle: "RBAC Reference"
+linkTitle: "RBAC"
 reference_title: "Role-based access control (RBAC)"
 type: "reference"
 description: "Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance. RBAC allows you to authorize user access and specify the actions users are allowed to take against resources based on roles bound to users or groups. Read the reference doc to learn about RBAC."
-weight: 80
+weight: 140
 version: "5.20"
 product: "Sensu Go"
 menu:
@@ -127,7 +127,7 @@ spec:
 See the [reference docs][16] for the corresponding [resource type][17] to create resource definitions.
 
 {{% notice protip %}}
-**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference](../../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
+**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference](../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
 {{% /notice %}}
 
 ### Namespace specification
@@ -261,8 +261,8 @@ An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
 {{% notice note %}}
-**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../#use-built-in-basic-authentication).
-It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../ldap-auth/), [Active Directory (AD)](../ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../oidc-auth/). 
+**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../../operations/control-access#use-built-in-basic-authentication).
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../operations/control-access/ldap-auth/), [Active Directory (AD)](../../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../../operations/control-access/oidc-auth/). 
 {{% /notice %}}
 
 To change the password for a user:
@@ -1266,10 +1266,10 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 
 
 [1]: ../backend/
-[2]: ../../../sensuctl/
-[3]: ../../../web-ui/
+[2]: ../../sensuctl/
+[3]: ../../web-ui/
 [4]: #resources
-[5]: ../../deploy-sensu/assets/
+[5]: ../assets/
 [6]: ../checks/
 [7]: ../entities/
 [8]: ../events/
@@ -1281,31 +1281,31 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [16]: ../
 [17]: #namespaced-resource-types
 [18]: #cluster-wide-resource-types
-[19]: ../../../api/
+[19]: ../../api/
 [20]: #default-users
 [21]: #cluster-roles
 [22]: ../filters/
 [23]: #role-bindings-and-cluster-role-bindings
 [24]: #role-and-cluster-role-specification
 [25]: #create-roles
-[26]: ../../deploy-sensu/install-sensu/#install-sensuctl
+[26]: ../../operations/deploy-sensu/install-sensu/#install-sensuctl
 [27]: #create-users
 [28]: #create-cluster-wide-roles
 [29]: #create-role-bindings-and-cluster-role-bindings
 [30]: #role-binding-and-cluster-role-binding-specification
-[31]: ../../../sensuctl/create-manage-resources/#create-resources
-[32]: ../#use-an-authentication-provider
-[34]: ../#use-built-in-basic-authentication
+[31]: ../../sensuctl/create-manage-resources/#create-resources
+[32]: ../../operations/control-access#use-an-authentication-provider
+[34]: ../../operations/control-access#use-built-in-basic-authentication
 [35]: https://en.wikipedia.org/wiki/Bcrypt
-[37]: ../../maintain-sensu/license/
-[39]: ../ad-auth/#ad-groups-prefix
-[40]: ../../deploy-sensu/etcdreplicators/
+[37]: ../license/
+[39]: ../../operations/control-access/ad-auth#ad-groups-prefix
+[40]: ../etcdreplicators/
 [41]: ../agent/#security-configuration-flags
-[42]: ../../deploy-sensu/install-sensu/#install-the-sensu-backend
-[45]: ../../../sensuctl/#change-admin-users-password
-[46]: ../../manage-secrets/secrets-providers/
-[47]: ../../deploy-sensu/datastore/
-[48]: ../../manage-secrets/secrets/
-[49]: ../../../web-ui/search#search-for-labels
-[50]: ../../../sensuctl/#reset-a-user-password
-[51]: ../../../sensuctl/#generate-a-password-hash
+[42]: ../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
+[45]: ../../sensuctl/#change-admin-users-password
+[46]: ../secrets-providers/
+[47]: ../datastore/
+[48]: ../secrets/
+[49]: ../../web-ui/filter#save-a-filtered-search
+[50]: ../../sensuctl/#reset-a-user-password
+[51]: ../../sensuctl/#generate-a-password-hash

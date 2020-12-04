@@ -369,7 +369,7 @@ Now that you know how to run a proxy check to verify the status of a website and
 [7]: ../send-slack-alerts/
 [8]: ../../sensuctl/
 [9]: ../../api/entities/
-[10]: ../web-ui/
+[10]: ../../web-ui/
 [11]: ../../reference/entities#manage-entity-labels
 [12]: ../../reference/tokens/
 [13]: #register-assets
