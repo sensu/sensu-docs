@@ -62,7 +62,7 @@ This will help you understand what dynamic runtime assets are and how they are u
 
 In this approach, the first step is to obtain an event filter dynamic runtime asset that will allow you to replicate the behavior of the `hourly` event filter created in [Approach 1 via `sensuctl`][4].
 
-Use [`sensuctl asset add`][5] to register the [fatigue check filter][9] dynamic runtime asset:
+Use [`sensuctl asset add`][5] to register the [fatigue check filter][8] dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add nixwiz/sensu-go-fatigue-check-filter:0.3.2 -r fatigue-filter
