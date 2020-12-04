@@ -821,6 +821,52 @@ spec:
 
 {{< /language-toggle >}}
 
+### Reduce alert fatigue for keepalive events
+
+In this example, the `keepalive_timeouts` event filter will match event data with a check timeout value of either 180 (3 minutes) or 300 (5 minutes) AND an occurrences value of 1 (the first occurrence) OR any occurrences value that is evenly divisible by 900 via a modulo operator calculation.
+This event filter will limit keepalive timeout events to the first occurrence and every 15 minutes thereafter for both agents.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: keepalive_timeouts
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - event.check.timeout == 180 || event.check.timeout == 300
+  - event.check.occurrences == 1 || event.check.occurrences % 900 == 0
+  runtime_assets: []
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "keepalive_timeouts",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "event.check.timeout == 180 || event.check.timeout == 300",
+      "event.check.occurrences == 1 || event.check.occurrences % 900 == 0"
+    ],
+    "runtime_assets": []
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ### Handle events during office hours only
 
 This event filter evaluates the event timestamp to determine if the event occurred between 9 AM and 5 PM UTC on a weekday.
