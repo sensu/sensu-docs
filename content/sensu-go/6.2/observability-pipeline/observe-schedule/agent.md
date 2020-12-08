@@ -977,7 +977,7 @@ cache-dir: "/cache/sensu-agent"{{< /code >}}
 description   | Path to Sensu agent configuration file.
 type          | String
 default       | <ul><li>Linux: `/etc/sensu/agent.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/agent.yml`</li><li>Windows: `C:\ProgramData\sensu\config\agent.yml`</li></ul>
-environment variable | The config file path cannot be set by an environment variable.
+environment variable | `SENSU_CONFIG_FILE`
 example       | {{< code shell >}}# Command line example
 sensu-agent start --config-file /sensu/agent.yml
 sensu-agent start -c /sensu/agent.yml

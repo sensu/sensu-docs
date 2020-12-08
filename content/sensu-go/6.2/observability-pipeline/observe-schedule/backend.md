@@ -450,7 +450,7 @@ cache-dir: "/cache/sensu-backend"{{< /code >}}
 description   | Path to Sensu backend config file.
 type          | String
 default       | `/etc/sensu/backend.yml`
-environment variable | The config file path cannot be set by an environment variable.
+environment variable | `SENSU_BACKEND_CONFIG_FILE`
 example       | {{< code shell >}}# Command line example
 sensu-backend start --config-file /etc/sensu/backend.yml
 sensu-backend start -c /etc/sensu/backend.yml
