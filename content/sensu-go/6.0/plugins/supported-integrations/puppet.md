@@ -34,6 +34,6 @@ Use the partner-supported [Sensu Puppet module][3] for configuration management 
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
 [3]: https://forge.puppet.com/modules/sensu/sensu
-[4]: https://bonsai.sensu.io/assets/sensu/sensu-Puppet-handler
+[4]: https://bonsai.sensu.io/assets/sensu/sensu-puppet-handler
 [5]: ../../assets
 [6]: ../../../operations/manage-secrets/

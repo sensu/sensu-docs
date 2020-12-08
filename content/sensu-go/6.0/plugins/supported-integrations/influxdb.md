@@ -13,7 +13,7 @@ The Sensu InfluxDB Handler plugin is a Sensu [handler][1] that sends Sensu metri
 You can also use the Sensu InfluxDB Handler integration to create metrics from Sensu status check results for long-term storage in InfluxDB.
 
 {{% notice note %}}
-**NOTE**: The Sensu InfluxDB Handler plugin is an example of Sensu's status and metrics processing and storage integrations.
+**NOTE**: The Sensu InfluxDB Handler plugin is an example of Sensu's time-series and long-term event storage integrations.
 To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
 {{% /notice %}}
 
