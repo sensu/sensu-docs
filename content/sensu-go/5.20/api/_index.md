@@ -16,6 +16,9 @@ menu:
 The Sensu backend REST API provides access to Sensu workflow configurations and monitoring event data.
 For information about the Sensu agent API, see the [agent reference][4].
 
+If you have a healthy [clustered][10] backend, you only need to make Sensu API calls to any one of the cluster members.
+The cluster protocol will replicate your changes to all cluster members.
+
 ## URL format
 
 Sensu API endpoints use the standard URL format `/api/{group}/{version}/namespaces/{namespace}` where:
@@ -693,6 +696,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [7]: ../sensuctl/environment-variables/
 [8]: ../commercial/
 [9]: ../reference/entities#metadata-attributes
+[10]: ../operations/deploy-sensu/cluster-sensu/
 [11]: auth/#authtoken-post
 [12]: auth/
 [13]: #operators

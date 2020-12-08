@@ -51,7 +51,7 @@ Sensu agents automatically register and de-register themselves with the Sensu ba
 Get meaningful alerts when and where you need them.
 Use [event filters][8] to reduce noise and [check hooks][9] to add context and speed up incident response.
 Sensu integrates with the tools and services your organization already uses like [PagerDuty][21], [Slack][19], and more.
-Check out [Bonsai, the Sensu asset hub][20], or write your own [Sensu plugins][3] in any language.
+Check out [Bonsai, the Sensu asset hub][20], or write your own Sensu plugins in any language.
 
 ### Collect and store metrics with built-in support for industry-standard tools
 
@@ -71,7 +71,6 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 
 [1]: get-started/
 [2]: https://www.influxdata.com/
-[3]: https://docs.sensu.io/plugins/latest/reference/
 [4]: https://www.github.com/sensu/sensu-go/blob/master/LICENSE/
 [5]: https://www.github.com/sensu/sensu-go/
 [6]: operations/deploy-sensu/install-sensu#install-sensu-agents

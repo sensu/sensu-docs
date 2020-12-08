@@ -18,6 +18,8 @@ Creating a Sensu cluster ultimately configures an [etcd cluster][2].
 
 Clustering improves Sensu's availability, reliability, and durability.
 It allows you to absorb the loss of a backend node, prevent data loss, and distribute the network load of agents.
+If you have a healthy clustered backend, you only need to make [Sensu API][20] calls to any one of the cluster members.
+The cluster protocol will replicate your changes to all cluster members.
 
 Scaling a single backend to a cluster or migrating a cluster from cleartext HTTP to encrypted HTTPS without downtime can require [a number of tedious steps][14].
 For this reason, we recommend that you **decide whether your deployment will require clustering as part of your initial planning effort**.
@@ -319,6 +321,7 @@ See the [etcd failure modes documentation][8] for information about cluster fail
 
 See the [etcd recovery guide][9] for disaster recovery information.
 
+
 [1]: https://etcd.io/docs/v3.4.0/op-guide/runtime-configuration/
 [2]: https://etcd.io/docs/v3.4.0/op-guide/clustering/
 [3]: https://etcd.io/docs/v3.4.0/op-guide/configuration/
@@ -338,3 +341,4 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [17]: ../../../sensuctl/
 [18]: https://github.com/etcd-io/etcd/blob/a621d807f061e1dd635033a8d6bc261461429e27/Documentation/v2/admin_guide.md#optimal-cluster-size
 [19]: #sensu-backend-configuration
+[20]: ../../../api/

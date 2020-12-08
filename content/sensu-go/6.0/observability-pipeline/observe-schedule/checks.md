@@ -1051,7 +1051,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [6]: ../hooks/
 [7]: /sensu-core/latest/reference/checks/#standalone-checks
 [8]: ../../../operations/control-access/rbac/
-[9]: ../../../operations/deploy-sensu/assets/
+[9]: ../../../plugins/assets/
 [10]: #proxy-requests-attributes
 [11]: ../../observe-filter/sensu-query-expressions/
 [12]: ../monitor-server-resources/

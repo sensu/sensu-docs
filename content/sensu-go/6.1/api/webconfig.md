@@ -53,7 +53,8 @@ HTTP/1.1 200 OK
           "steamapp://34234234",
           "//google.com",
           "//*.google.com",
-          "//bob.local"
+          "//bob.local",
+          "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
         ]
       }
     }
@@ -91,7 +92,8 @@ output         | {{< code shell >}}
           "steamapp://34234234",
           "//google.com",
           "//*.google.com",
-          "//bob.local"
+          "//bob.local",
+          "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
         ]
       }
     }
@@ -133,7 +135,8 @@ HTTP/1.1 200 OK
         "steamapp://34234234",
         "//google.com",
         "//*.google.com",
-        "//bob.local"
+        "//bob.local",
+        "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
       ]
     }
   }
@@ -169,7 +172,8 @@ output               | {{< code json >}}
         "steamapp://34234234",
         "//google.com",
         "//*.google.com",
-        "//bob.local"
+        "//bob.local",
+        "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
       ]
     }
   }
@@ -208,7 +212,8 @@ curl -X PUT \
         "steamapp://34234234",
         "//google.com",
         "//*.google.com",
-        "//bob.local"
+        "//bob.local",
+        "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
       ]
     }
   }
@@ -245,7 +250,8 @@ payload         | {{< code shell >}}
         "steamapp://34234234",
         "//google.com",
         "//*.google.com",
-        "//bob.local"
+        "//bob.local",
+        "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
       ]
     }
   }

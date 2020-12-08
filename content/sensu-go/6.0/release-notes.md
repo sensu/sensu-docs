@@ -1326,7 +1326,7 @@ To get started with Sensu Go:
 [3]: /sensu-go/5.1/installation/upgrade#upgrading-sensu-backend-binaries-to-5-1-0
 [4]: /sensu-go/5.1/reference/agent/
 [5]: https://www.github.com/sensu/sensu-go/blob/master/CHANGELOG.md#500---2018-11-30
-[6]: https://blog.sensu.io/sensu-go-is-here/
+[6]: https://sensu.io/blog/sensu-go-is-here/
 [7]: https://www.github.com/sensu/sandbox/tree/master/sensu-go/core/
 [8]: /sensu-go/5.0/installation/install-sensu/
 [9]: /sensu-go/5.0/guides/monitor-server-resources/
@@ -1334,7 +1334,7 @@ To get started with Sensu Go:
 [11]: /sensu-go/5.1/api/auth/
 [12]: /sensu-go/5.1/installation/install-sensu/
 [13]: https://nvd.nist.gov/vuln/detail/CVE-2019-6486/
-[14]: https://blog.sensu.io/enterprise-features-in-sensu-go/
+[14]: https://sensu.io/blog/enterprise-features-in-sensu-go/
 [15]: https://docs.sensu.io/sensu-go/5.2/reference/checks/#check-output-truncation-attributes
 [16]: /sensu-go/5.2/installation/install-sensu/
 [17]: /sensu-go/5.2/sensuctl/reference/#global-flags
@@ -1348,7 +1348,7 @@ To get started with Sensu Go:
 [25]: /sensu-go/5.4/guides/securing-sensu/
 [26]: /sensu-go/5.4/reference/agent#events-post
 [27]: /sensu-go/5.5/reference/tessen/
-[28]: https://blog.sensu.io/announcing-tessen-the-sensu-call-home-service/
+[28]: https://sensu.io/blog/announcing-tessen-the-sensu-call-home-service/
 [29]: /sensu-go/5.5/reference/agent#general-configuration-flags
 [30]: /sensu-go/5.5/reference/agent#creating-monitoring-events-using-the-agent-tcp-and-udp-sockets
 [31]: /sensu-go/5.4/api/metrics/
@@ -1411,7 +1411,7 @@ To get started with Sensu Go:
 [88]: /sensu-go/5.15/api/overview/#authenticate-with-the-api-key-feature
 [89]: /sensu-go/5.15/sensuctl/reference/
 [90]: https://sensu.io/contact/
-[91]: https://blog.sensu.io/one-year-of-sensu-go/
+[91]: https://sensu.io/blog/one-year-of-sensu-go/
 [92]: /sensu-go/5.15/api/license/
 [93]: /sensu-go/5.15/sensuctl/sensuctl-bonsai#extend-sensuctl-with-commands
 [94]: /sensu-go/5.15/reference/checks/#cron-scheduling

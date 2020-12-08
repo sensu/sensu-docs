@@ -405,4 +405,4 @@ spec:
 [9]: #token-data-type-limitations
 [10]: ../../observe-process/handlers/
 [11]: ../../observe-transform/mutators/
-[12]: ../../../operations/deploy-sensu/assets/
+[12]: ../../../plugins/assets/

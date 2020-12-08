@@ -71,7 +71,8 @@ example      | {{< code shell >}}
       "steamapp://34234234",
       "//google.com",
       "//*.google.com",
-      "//bob.local"
+      "//bob.local",
+      "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
     ]
   }
 }
@@ -127,7 +128,8 @@ example      | {{< code shell >}}"link_policy": {
     "steamapp://34234234",
     "//google.com",
     "//*.google.com",
-    "//bob.local"
+    "//bob.local",
+    "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
   ]
 }{{< /code >}}
 
@@ -165,7 +167,8 @@ example      | {{< code shell >}}"allow_list": true{{< /code >}}
 
 urls | 
 -------------|------ 
-description  | The list of URLs to use as an allow or deny list.
+description  | The list of URLs to use as an allow or deny list.<br>{{% notice note %}}**NOTE**: For images from services that may not have an easily distinguishable file extension, append the anchor `#sensu.io.graphic` to the image URLs.
+{{% /notice %}}
 required     | false
 type         | Array
 example      | {{< code shell >}}"urls": [
@@ -173,7 +176,8 @@ example      | {{< code shell >}}"urls": [
   "steamapp://34234234",
   "//google.com",
   "//*.google.com",
-  "//bob.local"
+  "//bob.local",
+  "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
 ]{{< /code >}}
 
 ## Web UI configuration examples
@@ -205,6 +209,7 @@ spec:
     - //google.com
     - //*.google.com
     - //bob.local
+    - https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic
 {{< /code >}}
 
 {{< code json >}}
@@ -228,7 +233,8 @@ spec:
         "steamapp://34234234",
         "//google.com",
         "//*.google.com",
-        "//bob.local"
+        "//bob.local",
+        "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
       ]
     }
   }

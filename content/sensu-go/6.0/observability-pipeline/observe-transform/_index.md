@@ -39,4 +39,4 @@ Read [Use assets to install plugins][6] to get started.
 [3]: ../observe-filter/
 [4]: mutators/#built-in-mutator-only_check_output
 [5]: https://bonsai.sensu.io/
-[6]: ../../operations/deploy-sensu/use-assets-to-install-plugins/
+[6]: ../../plugins/use-assets-to-install-plugins/

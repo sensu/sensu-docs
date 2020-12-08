@@ -269,7 +269,7 @@ A successful check result will look like this:
 <p style="text-align:center"><i>Successful Postgres health check in Sensu Go web UI</i></p>
 
 
-[1]: ../../../operations/deploy-sensu/use-assets-to-install-plugins/
+[1]: ../../../plugins/use-assets-to-install-plugins/
 [2]: ../../../api/health/
 [3]: https://bonsai.sensu.io/assets/sensu/monitoring-plugins
 [4]: https://docs.sensu.io/sensu-go/latest/operations/deploy-sensu/scale-event-storage/

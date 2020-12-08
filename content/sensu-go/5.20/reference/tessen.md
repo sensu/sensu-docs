@@ -26,7 +26,7 @@ You can use the [Tessen API][2] and [sensuctl][3] to view your Tessen configurat
 If you are using an unlicensed Sensu instances, you can also use the [Tessen API][2] and [sensuctl][3] to opt in or opt out of Tessen.
 
 {{% notice note %}}
-**NOTE**: Tessen is enabled by default on Sensu backends and required for [licensed](../../maintain-sensu/license/) Sensu instances.
+**NOTE**: Tessen is enabled by default on Sensu backends and required for [licensed](../license/) Sensu instances.
 If you have a licensed instance and want to opt out of Tessen, contact your account manager.
 {{% /notice %}}
 
@@ -45,7 +45,7 @@ sensuctl tessen opt-out
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: For [licensed](../../maintain-sensu/license/) Sensu instances, the Tessen configuration setting will automatically override to `opt-in` at runtime.
+**NOTE**: For [licensed](../license/) Sensu instances, the Tessen configuration setting will automatically override to `opt-in` at runtime.
 {{% /notice %}}
 
 You can use the `--skip-confirm` flag to skip the confirmation step:
@@ -210,7 +210,7 @@ journalctl _COMM=sensu-backend.service
 
 To view the events on-disk, see [Log Sensu services with systemd][9].
 
-[1]: https://blog.sensu.io/announcing-tessen-the-sensu-call-home-service
+[1]: https://sensu.io/blog/announcing-tessen-the-sensu-call-home-service
 [2]: ../../api/tessen/
 [3]: ../../sensuctl/
 [4]: ../license/

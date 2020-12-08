@@ -59,6 +59,10 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     latest = "6.1"
 
     [[params.products.sensu_go.versions]]
+    version = "6.2"
+    platforms = []
+
+    [[params.products.sensu_go.versions]]
     version = "6.1"
     platforms = []
 
@@ -324,17 +328,6 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     latest = "1.0"
 
     [[params.products.uchiwa.versions]]
-    version = "1.0"
-    platforms = []
-
-  [params.products.plugins]
-    identifier = "plugins"
-    name = "Plugins"
-    description = "Checks, handlers, and other plugins to power your Sensu deployment"
-    weight = 6
-    latest = "1.0"
-
-    [[params.products.plugins.versions]]
     version = "1.0"
     platforms = []
 
