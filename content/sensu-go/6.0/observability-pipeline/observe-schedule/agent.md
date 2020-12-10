@@ -1315,10 +1315,10 @@ type         | String
 default      | `""`
 environment variable | `SENSU_CERT_FILE`
 example      | {{< code shell >}}# Command line example
-sensu-agent start --cert-file /path/to/agent-1.pem
+sensu-agent start --cert-file /path/to/agent.pem
 
 # /etc/sensu/agent.yml example
-cert-file: "/path/to/agent-1.pem"{{< /code >}}
+cert-file: "/path/to/agent.pem"{{< /code >}}
 
 
 | trusted-ca-file |      |
@@ -1341,10 +1341,10 @@ type         | String
 default      | `""`
 environment variable | `SENSU_KEY_FILE`
 example      | {{< code shell >}}# Command line example
-sensu-agent start --key-file /path/to/agent-1-key.pem
+sensu-agent start --key-file /path/to/agent-key.pem
 
 # /etc/sensu/agent.yml example
-key-file: "/path/to/agent-1-key.pem"{{< /code >}}
+key-file: "/path/to/agent-key.pem"{{< /code >}}
 
 
 
