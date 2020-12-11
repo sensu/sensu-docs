@@ -117,7 +117,7 @@ Sensu events contain:
 - `event_id`
   - Universally unique identifier (UUID) for the event
 - `sequence`
-  - The event sequence number, automatically set and updated by the agent.
+  - The event sequence number, automatically set by the agent and incremented by 1 for each check execution or keepalive event.
 
 ## Use event data
 
@@ -381,7 +381,7 @@ example      | {{< code shell >}}"event_id": "431a0085-96da-4521-863f-c38b480701
 
 sequence     |      |
 -------------|------
-description  | Event sequence number. The Sensu agent sets the sequence to 1 at startup, then increments the sequence by 1 for every successive event. If the agent restarts or reconnects to another backend, the sequence number resets to 1.<br><br>A sequence value of 0 indicates that an outdated or non-conforming agent generated the event.
+description  | Event sequence number. The Sensu agent sets the sequence to 1 at startup, then increments the sequence by 1 for every successive check execution or keepalive event. If the agent restarts or reconnects to another backend, the sequence value resets to 1.<br><br>A sequence value of 0 indicates that an outdated or non-conforming agent generated the event.
 required     | false
 type         | Integer
 example      | {{< code shell >}}"sequence": 1{{< /code >}}
