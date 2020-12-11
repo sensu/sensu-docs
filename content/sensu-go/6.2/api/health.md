@@ -12,6 +12,10 @@ menu:
 
 The `/health` API endpoint provides HTTP GET access to health data for your Sensu instance.
 
+{{% notice note %}}
+**NOTE**: For information about agent transport status, use the [backend websocket health API](../../observability-pipeline/observe-schedule/agent/#backend-websocket-health-api).
+{{% /notice %}}
+
 ### Example {#health-get-example}
 
 The following example demonstrates a request to the `/health` API endpoint, resulting in a JSON map that contains Sensu health data.
@@ -86,3 +90,4 @@ output           | {{< code shell >}}
   ]
 }
 {{< /code >}}
+
