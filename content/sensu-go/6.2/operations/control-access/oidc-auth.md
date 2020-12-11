@@ -277,9 +277,16 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
 
 #### Sensuctl login with OIDC
 
-1. Run `sensuctl login oidc`.
+Run `sensuctl configure` and select the OIDC authentication method.
 
-2. If you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.
+{{< code shell >}}
+$ sensuctl configure
+? Authentication method:
+  username/password
+❯ OIDC
+{{< /code >}}
+
+If you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.
 If a browser does not open, launch a browser to complete the login via your OIDC provider at following URL:
    - https://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/authorize
 
