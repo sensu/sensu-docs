@@ -116,6 +116,8 @@ Sensu events contain:
   - Time that the event occurred in seconds since the Unix epoch
 - `event_id`
   - Universally unique identifier (UUID) for the event
+- `sequence`
+  - The event sequence number, automatically set and updated by the agent.
 
 ## Use event data
 
@@ -338,7 +340,8 @@ example      | {{< code shell >}}
     ]
   },
   "timestamp": 1552506033,
-  "event_id": "431a0085-96da-4521-863f-c38b480701e9"
+  "event_id": "431a0085-96da-4521-863f-c38b480701e9",
+  "sequence": 1
 }
 {{< /code >}}
 
@@ -375,6 +378,13 @@ description  | Universally unique identifier (UUID) for the event.
 required     | false
 type         | String
 example      | {{< code shell >}}"event_id": "431a0085-96da-4521-863f-c38b480701e9"{{< /code >}}
+
+sequence     |      |
+-------------|------
+description  | Event sequence number. The Sensu agent sets the sequence to 1 at startup, then increments the sequence by 1 for every successive event. If the agent restarts or reconnects to another backend, the sequence number resets to 1.<br><br>A sequence value of 0 indicates that an outdated or non-conforming agent generated the event.
+required     | false
+type         | Integer
+example      | {{< code shell >}}"sequence": 1{{< /code >}}
 
 |entity      |      |
 -------------|------
@@ -835,6 +845,7 @@ spec:
     user: agent
   timestamp: 1552594758
   event_id: 3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f
+  sequence: 1
 {{< /code >}}
 
 {{< code json >}}
@@ -954,7 +965,8 @@ spec:
       "user": "agent"
     },
     "timestamp": 1552594758,
-    "event_id": "3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f"
+    "event_id": "3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f",
+    "sequence": 1
   }
 }
 {{< /code >}}
@@ -1067,6 +1079,7 @@ spec:
       value: 0.004
   timestamp: 1552506033
   event_id: 431a0085-96da-4521-863f-c38b480701e9
+  sequence: 1
 {{< /code >}}
 
 {{< code json >}}
@@ -1199,7 +1212,8 @@ spec:
       ]
     },
     "timestamp": 1552506033,
-    "event_id": "431a0085-96da-4521-863f-c38b480701e9"
+    "event_id": "431a0085-96da-4521-863f-c38b480701e9",
+    "sequence": 1
   }
 }
 {{< /code >}}
@@ -1270,6 +1284,7 @@ spec:
       value: 0.004
   timestamp: 1552506033
   event_id: 47ea07cd-1e50-4897-9e6d-09cd39ec5180
+  sequence: 1
 {{< /code >}}
 
 {{< code json >}}
@@ -1353,7 +1368,8 @@ spec:
       ]
     },
     "timestamp": 1552506033,
-    "event_id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180"
+    "event_id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180",
+    "sequence": 1
   }
 }
 {{< /code >}}
