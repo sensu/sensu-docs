@@ -439,6 +439,7 @@ The following table describes the command-specific flags.
 `-f` or `--file` | Files, URLs, or directories to prune resources from. Strings.
 `-h` or `--help` | Help for the prune command.
 `--label-selector` | Prunes only resources that match the specified labels (comma-separated strings). Labels are a [commercial feature][30].
+`-o` or `--omit` | Resources that should be excluded from being pruned.
 `-r` or `--recursive` | Prune command will follow subdirectories.
 `-u` or `--users` | Prunes only resources that were created by the specified users (comma-separated strings). Defaults to the currently configured sensuctl user.
 
@@ -500,6 +501,12 @@ Use the `all` qualifier to prune all supported resources:
 
 {{< code shell >}}
 sensuctl prune all
+{{< /code >}}
+
+Use the `--omit` flag to identify resources you want to exclude from being pruned:
+
+{{< code shell >}}
+sensuctl prune all --omit core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.ClusterRoleBinding
 {{< /code >}}
 
 ## Time formats
