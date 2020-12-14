@@ -9,6 +9,7 @@ version: "6.2"
 menu: "sensu-go-6.2"
 ---
 
+- [6.2.0 release notes](#620-release-notes)
 - [6.1.3 release notes](#613-release-notes)
 - [6.1.2 release notes](#612-release-notes)
 - [6.1.1 release notes](#611-release-notes)
@@ -72,6 +73,44 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.2.0 release notes
+
+**December 16, 2020** &mdash; The latest release of Sensu Go, version 6.2.0, is now available for download.
+
+**ADD RELEASE SYNOPSIS HERE**
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.2.0.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][193]) Added support for the `memberof` attribute for the [LDAP authentication provider][199].
+- ([Commercial feature][193]) Added the ability to exclude resource types when using sensuctl prune with the [--omit flag][200].
+- ([Commercial feature][193]) Added support for [round robin scheduling on PostgreSQL][201] instead of etcd.
+- ([Commercial feature][193]) Added support for OIDC authentication via [sensuctl configure][202].
+- The [/metrics API endpoint][196] now exposes build information as a Prometheus metric.
+- Added /health endpoint to agentd.
+- Checks now include the [`scheduler` attribute][197], which Sensu automatically populates with the type of scheduler that schedules the check.
+- Events now include the [`sequence` attribute][198], which the Sensu agent automatically sets at startup and increments by 1 at every successive check execution or keepalive event.
+- Added support for using environment variables to define the configuration file paths for the Sensu agent (`SENSU_CONFIG_FILE`) and backend (`SENSU_BACKEND_CONFIG_FILE`).
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][193]) Refactored entity limiter to ensure that warning messages about approaching a license's entity or entity class limit are now only displayed for users with `create` or `update` permissions for the license.
+- Adjusted the format for silenced entry dates and durations in sensuctl. For all silenced entries, the begin date is now listed in RFC 3339 format. For silenced entries that have not begun, the list displays the expiration date in RFC 3339 format. For silenced entires with no expiration date, the list displays `-1`. For silenced entries that have begun, the list displays the duration (e.g. 1m30s).
+- Sensuctl and sensu-backend now ask users to retype their passwords when creating a new password in interactive mode.
+
+**FIXES:**
+
+- ([Commercial feature][193]) Sensuctl no longer produces an error when SSL certificates for the Vault provider do not exist on the local system.
+- ([Commercial feature][193]) The [prune API][194] and its [sensuctl interface][195] now need less broad permissions to work.
+- The agent now respects HTTP proxy environment variables when `trusted-ca-file` is configured.
+- Logs now consistenty use `event_id` rather than `event_uuid`.
+- Sensuctl commands that only contain subcommands now exit with status code 46 when no arguments or incorrect arguments are given.
+- The sensuctl dump command now includes a description.
+- Sensuctl command descriptions now have consistent capitalization.
+- The `config-file` flag is no longer order-dependent.
+
 
 ## 6.1.3 release notes
 
@@ -1613,3 +1652,13 @@ To get started with Sensu Go:
 [190]: /sensu-go/6.1/operations/control-access/rbac/#rule-attributes
 [191]: /sensu-go/6.1/sensuctl/back-up-recover/
 [192]: /sensu-go/6.1/sensuctl/create-manage-resources/#sensuctl-prune
+[193]: /sensu-go/6.2/commercial/
+[194]: /sensu-go/6.2/api/prune/
+[195]: /sensu-go/6.2/sensuctl/create-manage-resources/#sensuctl-prune
+[196]: /sensu-go/6.2/api/metrics/
+[197]: /sensu-go/6.2/observability-pipeline/observe-schedule/checks/#scheduler-attribute
+[198]: /sensu-go/6.2/observability-pipeline/observe-events/events/#sequence-attribute
+[199]: /sensu-go/6.2/operations/control-access/ldap-auth/
+[200]: /sensu-go/6.2/sensuctl/create-manage-resources/#sensuctl-prune-flags
+[201]: /sensu-go/6.2/operations/deploy-sensu/datastore/#round-robin-postgresql
+[202]: /sensu-go/6.2/sensuctl/#first-time-setup
