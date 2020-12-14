@@ -720,6 +720,8 @@ required     | false
 type         | Array
 example      | {{< code shell >}}"env_vars": ["RUBY_VERSION=2.5.0", "CHECK_HOST=my.host.internal"]{{< /code >}}
 
+<a name="scheduler-attribute"></a>
+
 |scheduler  |     |
 ------------|-----
 description | Type of scheduler that schedules the check. Sensu automatically sets the `scheduler` value and overrides any user-entered values. May be `memory` for checks scheduled in-memory, `etcd` for checks scheduled with etcd leases and watchers, or `postgres` for checks scheduled with PostgreSQL using transactions and asynchronous notification (NOTIFY).
