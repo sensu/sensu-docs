@@ -977,7 +977,7 @@ cache-dir: "/cache/sensu-agent"{{< /code >}}
 description   | Path to Sensu agent configuration file.
 type          | String
 default       | <ul><li>Linux: `/etc/sensu/agent.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/agent.yml`</li><li>Windows: `C:\ProgramData\sensu\config\agent.yml`</li></ul>
-environment variable | The config file path cannot be set by an environment variable.
+environment variable | `SENSU_CONFIG_FILE`
 example       | {{< code shell >}}# Command line example
 sensu-agent start --config-file /sensu/agent.yml
 sensu-agent start -c /sensu/agent.yml
@@ -1314,10 +1314,10 @@ type         | String
 default      | `""`
 environment variable | `SENSU_CERT_FILE`
 example      | {{< code shell >}}# Command line example
-sensu-agent start --cert-file /path/to/agent-1.pem
+sensu-agent start --cert-file /path/to/agent.pem
 
 # /etc/sensu/agent.yml example
-cert-file: "/path/to/agent-1.pem"{{< /code >}}
+cert-file: "/path/to/agent.pem"{{< /code >}}
 
 
 | trusted-ca-file |      |
@@ -1340,10 +1340,10 @@ type         | String
 default      | `""`
 environment variable | `SENSU_KEY_FILE`
 example      | {{< code shell >}}# Command line example
-sensu-agent start --key-file /path/to/agent-1-key.pem
+sensu-agent start --key-file /path/to/agent-key.pem
 
 # /etc/sensu/agent.yml example
-key-file: "/path/to/agent-1-key.pem"{{< /code >}}
+key-file: "/path/to/agent-key.pem"{{< /code >}}
 
 
 

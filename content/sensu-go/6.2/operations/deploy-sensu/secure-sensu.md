@@ -193,8 +193,8 @@ agent-auth-trusted-ca-file: "/path/to/ca.pem"
 ##
 # agent configuration
 ##
-cert-file: "/path/to/agent-1.pem"
-key-file: "/path/to/agent-1-key.pem"
+cert-file: "/path/to/agent.pem"
+key-file: "/path/to/agent-key.pem"
 trusted-ca-file: "/path/to/ca.pem"
 {{< /code >}}
 
