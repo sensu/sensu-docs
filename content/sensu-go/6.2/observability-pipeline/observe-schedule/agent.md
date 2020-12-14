@@ -29,80 +29,9 @@ For optimal network throughput, agents will attempt to negotiate the use of [Pro
 This communication is via clear text by default.
 Follow [Secure Sensu][46] to configure the backend and agent for WebSocket Secure (wss) encrypted communication.
 
-### Backend websocket health API
-
-The backend websocket API provides HTTP GET access to the status of the Sensu agent transport.
-
-#### Example
-
-The following example demonstrates a request to the backend websocket `/health` API endpoint using the default websocket port 8081, resulting in a JSON map that contains Sensu agent transport status.
-
-{{< code shell >}}
-curl -X GET \
-http://127.0.0.1:8081/health
-
-HTTP/1.1 200 OK
-{
-  "Alarms": null,
-  "ClusterHealth": [
-    {
-      "MemberID": 2882886652148554927,
-      "MemberIDHex": "8923110df66458af",
-      "Name": "default",
-      "Err": "",
-      "Healthy": true
-    }
-  ],
-  "Header": {
-    "cluster_id": 4255616344056076734,
-    "member_id": 2882886652148554927,
-    "raft_term": 26
-  },
-  "PostgresHealth": [
-    {
-      "Name": "my-postgres",
-      "Active": false,
-      "Healthy": false
-    }
-  ]
-}
-{{< /code >}}
-
-#### API Specification
-
-/health (GET)    | 
------------------|------
-description      | Returns health information about the Sensu agent transport.
-example url      | http://hostname:8081/health
-query parameters | `timeout`: Defines the timeout when querying etcd. Default is `3`.
-response type    | Map
-response codes   | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 400 (Bad Request)</li></ul>
-output           | {{< code shell >}}
-{
-  "Alarms": null,
-  "ClusterHealth": [
-    {
-      "MemberID": 2882886652148554927,
-      "MemberIDHex": "8923110df66458af",
-      "Name": "default",
-      "Err": "",
-      "Healthy": true
-    }
-  ],
-  "Header": {
-    "cluster_id": 4255616344056076734,
-    "member_id": 2882886652148554927,
-    "raft_term": 26
-  },
-  "PostgresHealth": [
-    {
-      "Name": "my-postgres",
-      "Active": false,
-      "Healthy": false
-    }
-  ]
-}
-{{< /code >}}
+{{% notice note %}}
+**NOTE**: For information about your agent transport status, use the [health API](../../../api/health/#get-health-data-for-your-agent-transport).
+{{% /notice %}}
 
 ## Create observability events using service checks
 
