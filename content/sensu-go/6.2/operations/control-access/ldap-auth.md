@@ -146,7 +146,7 @@ spec:
 
 **Example LDAP configuration: Use `memberOf` attribute instead of `group_search`**
 
-LDAP automatically returns a `memberOf` attribute in users' accounts.
+If your LDAP server is configured to return a `memberOf` attribute when you perform a query, you can use `memberOf` in your Sensu LDAP implementation instead of `group_search`.
 The `memberOf` attribute contains the user's group membership, which effectively removes the requirement to look up the user's groups.
 
 To use the `memberOf` attribute in your LDAP implementation, remove the `group_search` object from your LDAP config:
