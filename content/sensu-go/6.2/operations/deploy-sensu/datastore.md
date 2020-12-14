@@ -251,6 +251,8 @@ default     | false
 type         | Boolean
 example      | {{< code shell >}}strict: true{{< /code >}}
 
+<a name="round-robin-postgresql"></a>
+
 enable_round_robin |      |
 -------------|------
 description  | If `true`, enables [round robin scheduling][5] on PostgreSQL. Any existing round robin scheduling will stop and migrate to PostgreSQL as entities check in with keepalives. Sensu will gradually delete the existing etcd scheduler state as keepalives on the etcd scheduler keys expire over time. Otherwise, `false`.
