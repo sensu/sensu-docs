@@ -24,12 +24,12 @@ sensuctl configure
 {{< /code >}}
 
 This starts the prompts for interactive sensuctl setup.
-When prompted, type the [Sensu backend URL][6] and your [Sensu access credentials][8].
+When prompted, choose the authentication method you wish to use and type the [Sensu backend URL][6] and your [Sensu access credentials][8].
+
+This example shows the username/password authentication method:
 
 {{< code shell >}}
-? Authentication method:
-❯ username/password
-  OIDC
+? Authentication method: username/password
 ? Sensu Backend URL: http://127.0.0.1:8080
 ? Username: YOUR_USERNAME
 ? Password: YOUR_PASSWORD
@@ -38,17 +38,24 @@ When prompted, type the [Sensu backend URL][6] and your [Sensu access credential
 {{< /code >}}
 
 If you select the OIDC authentication method, if you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.
-If a browser does not open, launch a browser to complete the login via your OIDC provider at following URL:
-   - http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/authorize
+If a browser does not open, launch a browser to complete the login via your OIDC provider at the URL in the `sensuctl configure` response:
 
 {{< code shell >}}
-? Authentication method:
-  username/password
-❯ OIDC
+$ sensuctl configure
+? Authentication method: OIDC
 ? Sensu Backend URL: http://127.0.0.1:8080
 ? Namespace: default
 ? Preferred output format: tabular
+Launching browser to complete the login via your OIDC provider at following URL:
+
+  http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/authorize?callback=http%3A%2F%2Flocalhost%3A8000%2Fcallback
+
+You may also manually open this URL. Waiting for callback...
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: You can also use [`sensuctl login oidc`](../operations/control-access/oidc-auth/#sensuctl-login-with-oidc) to log in to sensuctl with OIDC.
+{{% /notice %}}
 
 ### Sensu backend URL
 
