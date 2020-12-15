@@ -1693,7 +1693,12 @@ This includes your checks and plugins.
 
 For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
 
-##### Use environment variables to specify an HTTP proxy for agent use
+#### Use environment variables to specify an HTTP proxy for agent use
+
+{{% notice important %}}
+**IMPORTANT**: In Sensu Go 6.1, the agent will not respect HTTP proxy environment variables when `trusted-ca-file` is configured.
+Upgrade to Sensu Go 6.2.0 to avoid this issue.
+{{% /notice %}}
 
 If an HTTP proxy is required to access the internet in your compute environment, you may need to configure the Sensu agent to successfully download dynamic runtime assets or execute commands that depend on internet access.
 
@@ -1713,6 +1718,7 @@ You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, r
 {{% notice note %}}
 **NOTE**: If you define the `HTTP_PROXY` and `HTTPS_PROXY` environment variables, the agent WebSocket connection will also use the proxy URL you specify.
 {{% /notice %}}
+
 
 [1]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
 [2]: ../backend/
