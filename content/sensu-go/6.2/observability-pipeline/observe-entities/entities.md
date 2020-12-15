@@ -26,22 +26,33 @@ See [the announcement on our blog][11] for more information about our usage poli
 When an agent connects to a backend, the agent entity definition is created from the information in the `agent.yml` configuration file.
 The default `agent.yml` file location [depends on your operating system][35].
 
+### Manage agent entities via the backend
+
 You can manage agent entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33], just like any other Sensu resource.
 This means you do not need to update the `agent.yml` configuration file to add, update, or delete agent entity attributes like subscriptions and labels.
+This is the default configuration for agent entities.
 
 {{% notice note %}}
-**NOTE**: You cannot modify an agent entity with the `agent.yml` configuration file unless you delete the entity.
-The entity attributes in `agent.yml` are used only for initial entity creation unless you delete the entity.
+**NOTE**: If you manage an agent entity via the backend, you cannot modify the agent entity with the `agent.yml` configuration file unless you delete the entity.
+In this case, the entity attributes in `agent.yml` are used only for initial entity creation unless you delete the entity.
 {{% /notice %}}
 
 If you delete an agent entity that you modified with sensuctl, the entities API, or the web UI, it will revert to the original configuration from `agent.yml`.
+If you change an agent entity's class to `proxy`, the backend will revert the change to `agent`.
 
-To maintain agent entities based on `agent.yml`, create ephemeral agent entities with the [deregister attribute][34] set to `true`.
+### Manage agent entities via the agent
+
+If you prefer, you can manage agent entities via the agent rather than the backend.
+To do this, add the [`agent-managed-entity` flag][16] when you start the Sensu agent or set `agent-managed-entity: true` in your `agent.yml` file.
+
+When you start an agent with the `--agent-managed-entity` flag or set `agent-managed-entity: true` in `agent.yml`, the agent becomes responsible for managing its entity configuration.
+In this case, you cannot edit the entity via the backend API (which will return HTTP 409 Conflict).
+To change an agent's configuration, restart the agent.
+
+You can also maintain agent entities based on `agent.yml` by creating ephemeral agent entities with the [deregister attribute][34] set to `true`.
 With this setting, the agent entity will deregister every time the agent process stops and its keepalive expires.
 When it restarts, it will revert to the original configuration from `agent.yml`
 You must set `deregister: true` in `agent.yml` before the agent entity is created.
-
-If you change an agent entity's class to `proxy`, the backend will revert the change to `agent`.
 
 ## Create and manage proxy entities
 
@@ -1134,6 +1145,7 @@ spec:
 [13]: #spec-attributes
 [14]: ../../../api#response-filtering
 [15]: ../../../sensuctl/filter-responses/
+[16]: ../../observe-schedule/agent/#agent-managed-entity
 [17]: ../../observe-entities/monitor-external-resources/
 [18]: ../../observe-schedule/checks/#round-robin-checks
 [19]: #proxy-entities-managed
