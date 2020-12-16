@@ -9,7 +9,7 @@ menu:
     parent: supported-integrations
 ---
 
-The Sensu PagerDuty Handler plugin is a Sensu [handler][1] that manages PagerDuty incidents and operator alerts.
+The [Sensu PagerDuty Handler plugin][4] is a Sensu [handler][1] that manages PagerDuty incidents and operator alerts.
 With this handler, Sensu can trigger and resolve PagerDuty incidents according to the PagerDuty schedules, notifications, and escalation, response, and orchestration workflows you already have configured.
 
 {{% notice note %}}
