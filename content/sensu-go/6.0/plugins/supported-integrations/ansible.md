@@ -21,7 +21,7 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 
 ## Features
 
-The Sensu Ansible Handler plugin supports both Ansible Tower and Ansible AWX implementations of the Ansible Tower API, authenticating using Ansible Tower API tokens.  
+The [Sensu Ansible Handler plugin][4] supports both Ansible Tower and Ansible AWX implementations of the Ansible Tower API, authenticating using Ansible Tower API tokens.  
 
 - Specify a default Ansible Tower job template for remediation actions for all checks and use check annotations to override the default as needed on a check-by check-basis.
 - Automatically limit Ansible jobs to the host that matches the Sensu entity name encoded in a Sensu event.
