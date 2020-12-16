@@ -771,6 +771,7 @@ Usage:
   sensu-agent start [flags]
 
 Flags:
+      --agent-managed-entity                  manage this entity via the agent
       --allow-list string                     path to agent execution allow list configuration file
       --annotations stringToString            entity annotations map (default [])
       --api-host string                       address to bind the Sensu client HTTP API to (default "127.0.0.1")
@@ -836,6 +837,22 @@ See the [example agent configuration file][5] (also provided with Sensu packages
 {{% notice note %}}
 **NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
 {{% /notice %}}
+
+<a name="agent-managed-entity"></a>
+
+| agent-managed-entity |      |
+-------------|------
+description  | Indicates whether the agent's entity solely managed by the agent rather than the backend API. Agent-managed entity definitions will include the label `sensu.io/managed_by: sensu-agent`, and you cannot update these agent-managed entities via the Sensu backend REST API.
+required     | false
+type         | Boolean
+default      | false
+environment variable | `SENSU_AGENT_MANAGED_ENTITY`
+example       | {{< code shell >}}# Command line example
+sensu-agent start --agent-managed-entity
+
+# /etc/sensu/agent.yml example
+agent-managed-entity: true{{< /code >}}
+
 
 <a name="allow-list"></a>
 
