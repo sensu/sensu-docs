@@ -45,8 +45,9 @@ If you change an agent entity's class to `proxy`, the backend will revert the ch
 If you prefer, you can manage agent entities via the agent rather than the backend.
 To do this, add the [`agent-managed-entity` flag][16] when you start the Sensu agent or set `agent-managed-entity: true` in your `agent.yml` file.
 
-When you start an agent with the `--agent-managed-entity` flag or set `agent-managed-entity: true` in `agent.yml`, the agent becomes responsible for managing its entity configuration.
-In this case, you cannot edit the entity via the backend API (which will return HTTP 409 Conflict).
+When you start an agent with the `--agent-managed-entity` flag or set `agent-managed-entity: true` in agent.yml, the agent becomes responsible for managing its entity configuration.
+An entity managed by this agent will include the label `sensu.io/managed_by: sensu-agent`.
+You cannot update these agent-managed entities via the Sensu backend REST API.
 To change an agent's configuration, restart the agent.
 
 You can also maintain agent entities based on `agent.yml` by creating ephemeral agent entities with the [deregister attribute][34] set to `true`.

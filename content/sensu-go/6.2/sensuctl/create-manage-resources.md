@@ -22,6 +22,11 @@ Both JSON and YAML resource definitions wrap the contents of the resource in `sp
 See the [`wrapped-json`example][9] and [this table][3] for a list of supported types.
 See the [reference docs][6] for information about creating resource definitions.
 
+{{% notice note %}}
+**NOTE**: You cannot use sensuctl to update [agent-managed entities](../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
+Requests to update agent-managed entities via sensuctl will fail and return an error.
+{{% /notice %}}
+
 ### `wrapped-json` format
 
 In this example, the file `my-resources.json` specifies two resources: a `marketing-site` check and a `slack` handler, separated _without_ a comma:
@@ -228,6 +233,11 @@ For example, to edit a handler named `slack` with `sensuctl edit`:
 {{< code shell >}}
 sensuctl edit handler slack
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: You cannot use sensuctl to update [agent-managed entities](../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
+Requests to update agent-managed entities via sensuctl will fail and return an error.
+{{% /notice %}}
 
 ### sensuctl edit resource types
 

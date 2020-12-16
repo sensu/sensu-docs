@@ -842,7 +842,7 @@ See the [example agent configuration file][5] (also provided with Sensu packages
 
 | agent-managed-entity |      |
 -------------|------
-description  | Indicates whether the agent's entity is solely managed by the agent rather than the backend API.
+description  | Indicates whether the agent's entity solely managed by the agent rather than the backend API. Agent-managed entity definitions will include the label `sensu.io/managed_by: sensu-agent`, and you cannot update these agent-managed entities via the Sensu backend REST API.
 required     | false
 type         | Boolean
 default      | false
