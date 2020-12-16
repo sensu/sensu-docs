@@ -104,7 +104,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.0.
 **FIXES:**
 
 - ([Commercial feature][193]) Sensuctl no longer produces an error when SSL certificates for the Vault provider do not exist on the local system.
-- ([Commercial feature][193]) The [prune API][194] and its [sensuctl interface][195] now need less broad permissions to work.
+- ([Commercial feature][193]) The [prune API][194] and its [sensuctl interface][195] now require less-broad permissions.
 - Logs now consistently use `event_id` rather than `event_uuid`.
 - Sensuctl commands that only contain subcommands now exit with status code 46 when no arguments or incorrect arguments are given.
 - The sensuctl dump command now includes a description.
