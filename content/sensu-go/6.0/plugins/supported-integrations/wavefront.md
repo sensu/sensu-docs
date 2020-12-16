@@ -9,7 +9,7 @@ menu:
     parent: supported-integrations
 ---
 
-The Sensu Wavefront Handler plugin is a Sensu [handler][1] that sends Sensu metrics to Wavefront via a proxy, which allows you to store, instrument, and visualize Sensu metrics data in an Wavefront database.
+The [Sensu Wavefront Handler plugin][4] is a Sensu [handler][1] that sends Sensu metrics to Wavefront via a proxy, which allows you to store, instrument, and visualize Sensu metrics data in an Wavefront database.
 
 {{% notice note %}}
 **NOTE**: The Sensu Wavefront Handler plugin is an example of Sensu's time-series and long-term event storage integrations.
