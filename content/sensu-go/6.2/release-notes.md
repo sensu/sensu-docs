@@ -90,7 +90,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.0.
 - ([Commercial feature][193]) Added support for [round robin scheduling on PostgreSQL][201] instead of etcd.
 - ([Commercial feature][193]) Added support for OIDC authentication via [sensuctl configure][202].
 - The [/metrics API endpoint][196] now exposes build information as a Prometheus metric.
-- Added /health endpoint to agentd.
+- Added /health API endpoint to agent websocket transport.
 - Checks now include the [`scheduler` attribute][197], which Sensu automatically populates with the type of scheduler that schedules the check.
 - Events now include the [`sequence` attribute][198], which the Sensu agent automatically sets at startup and increments by 1 at every successive check execution or keepalive event.
 - Added support for using environment variables to define the configuration file paths for the Sensu agent (`SENSU_CONFIG_FILE`) and backend (`SENSU_BACKEND_CONFIG_FILE`).
@@ -98,7 +98,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.0.
 **IMPROVEMENTS:**
 
 - ([Commercial feature][193]) Refactored entity limiter to ensure that warning messages about approaching a license's entity or entity class limit are now only displayed for users with `create` or `update` permissions for the license.
-- Adjusted the format for silenced entry dates and durations in sensuctl. For all silenced entries, the begin date is now listed in RFC 3339 format. For silenced entries that have not begun, the list displays the expiration date in RFC 3339 format. For silenced entires with no expiration date, the list displays `-1`. For silenced entries that have begun, the list displays the duration (e.g. 1m30s).
+- Adjusted the format for silenced entry dates and durations in sensuctl tabular-format output. For all silenced entries, the begin date is now listed in RFC 3339 format. For silenced entries that have not begun, the list displays the expiration date in RFC 3339 format. For silenced entires with no expiration date, the list displays `-1`. For silenced entries that have begun, the list displays the duration (e.g. 1m30s).
 - Sensuctl and sensu-backend now ask users to retype their passwords when creating a new password in interactive mode.
 
 **FIXES:**
@@ -109,7 +109,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.0.
 - Sensuctl commands that only contain subcommands now exit with status code 46 when no arguments or incorrect arguments are given.
 - The sensuctl dump command now includes a description.
 - Sensuctl command descriptions now have consistent capitalization.
-- The `config-file` flag is no longer order-dependent.
+- Use of the `config-file` flag is no longer order-dependent.
 
 ## 6.1.4 release notes
 
