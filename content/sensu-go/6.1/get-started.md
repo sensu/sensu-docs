@@ -11,17 +11,7 @@ menu: "sensu-go-6.1"
 [Sensu Go][2] is the flexible observability pipeline designed for container-based and multi-cloud infrastructures.
 
 Sensu is available as packages, Docker images, and binary-only distributions.
-You can [install the commercial distribution of Sensu Go][15] or [build Sensu from source][16].
-
-## Learn Sensu
-
-We recommend these resources for learning more about Sensu:
-
-- Learn how the Sensu pipeline works in your browser with an [interactive tutorial][12]
-- [Download the sandbox][7] and create an [observability pipeline][22] in your local environment
-- See a [live demo of the Sensu web UI][1]
-- Sign up for our step-by-step [Learn Sensu email course][21]
-- Join the [Sensu Community Forum on Discourse][8]
+You can [install the commercial distribution][15] or [build Sensu from source][16].
 
 ## Install the commercial distribution of Sensu Go
 
@@ -32,6 +22,20 @@ Sensu's [supported platforms][20] include CentOS/RHEL, Debian, Ubuntu, and Windo
 - Discover Sensu dynamic runtime assets on [Bonsai, the Sensu asset hub][6]
 - Find the [Sensu architecture][18] that best meets your needs
 - [Migrate from Sensu Core to Sensu Go][13]
+
+## Learn Sensu
+
+Watch this video for an 8-minute Sensu Go overview and demo:
+
+{{< youtube eUZTMdYtCmg >}}
+
+We recommend these resources for learning more about Sensu:
+
+- Learn how the Sensu pipeline works in your browser with an [interactive tutorial][12]
+- [Download the sandbox][7] and create an [observability pipeline][22] in your local environment
+- See a [live demo of the Sensu web UI][1]
+- Sign up for our step-by-step [Learn Sensu email course][21]
+- Join the [Sensu Community Forum on Discourse][8]
 
 ## Explore monitoring at scale with Sensu Go
 

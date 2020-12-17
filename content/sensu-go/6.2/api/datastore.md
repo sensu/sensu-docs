@@ -43,7 +43,8 @@ HTTP/1.1 200 OK
       "max_conn_lifetime": "5m",
       "max_idle_conns": 2,
       "pool_size": 20,
-      "strict": true
+      "strict": true,
+      "enable_round_robin": true
     }
   },
   {
@@ -58,7 +59,8 @@ HTTP/1.1 200 OK
       "max_conn_lifetime": "5m",
       "max_idle_conns": 2,
       "pool_size": 20,
-      "strict": true
+      "strict": true,
+      "enable_round_robin": true
     }
   }
 ]
@@ -89,7 +91,8 @@ output         | {{< code json >}}
       "max_conn_lifetime": "5m",
       "max_idle_conns": 2,
       "pool_size": 20,
-      "strict": true
+      "strict": true,
+      "enable_round_robin": true
     }
   },
   {
@@ -104,7 +107,8 @@ output         | {{< code json >}}
       "max_conn_lifetime": "5m",
       "max_idle_conns": 2,
       "pool_size": 20,
-      "strict": true
+      "strict": true,
+      "enable_round_robin": true
     }
   }
 ]
@@ -137,7 +141,8 @@ HTTP/1.1 200 OK
     "max_conn_lifetime": "5m",
     "max_idle_conns": 2,
     "pool_size": 20,
-    "strict": true
+    "strict": true,
+    "enable_round_robin": true
   }
 }
 {{< /code >}}
@@ -166,7 +171,8 @@ output         | {{< code json >}}
     "max_conn_lifetime": "5m",
     "max_idle_conns": 2,
     "pool_size": 20,
-    "strict": true
+    "strict": true,
+    "enable_round_robin": true
   }
 }
 {{< /code >}}
@@ -195,7 +201,8 @@ http://127.0.0.1:8080/api/enterprise/store/v1/provider/my-postgres \
     "max_conn_lifetime": "5m",
     "max_idle_conns": 2,
     "pool_size": 20,
-    "strict": true
+    "strict": true,
+    "enable_round_robin": true
   }
 }'
 
@@ -225,7 +232,8 @@ payload         | {{< code shell >}}
     "max_conn_lifetime": "5m",
     "max_idle_conns": 2,
     "pool_size": 20,
-    "strict": true
+    "strict": true,
+    "enable_round_robin": true
   }
 }
 {{< /code >}}

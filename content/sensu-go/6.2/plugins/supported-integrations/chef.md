@@ -9,7 +9,7 @@ menu:
     parent: supported-integrations
 ---
 
-The Sensu Chef Handler plugin is a Sensu [handler][1] that deletes a Sensu entity with a failing keepalive check when the entity's corresponding Chef node no longer exists.
+The [Sensu Chef Handler plugin][4] is a Sensu [handler][1] that deletes a Sensu entity with a failing keepalive check when the entity's corresponding Chef node no longer exists.
 
 {{% notice note %}}
 **NOTE**: The Sensu Chef Handler plugin is an example of Sensu's deregistration integrations.

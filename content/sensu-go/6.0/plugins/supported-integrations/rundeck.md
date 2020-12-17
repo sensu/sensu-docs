@@ -12,7 +12,7 @@ menu:
 **COMMERCIAL FEATURE**: Access the Sensu Rundeck Handler integration in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][6].
 
-The Sensu Rundeck Handler plugin is a Sensu [handler][1] that initiates Rundeck jobs for automated remediation based on Sensu event data.
+The [Sensu Rundeck Handler plugin][4] is a Sensu [handler][1] that initiates Rundeck jobs for automated remediation based on Sensu event data.
 
 {{% notice note %}}
 **NOTE**: The Sensu Rundeck Handler plugin is an example of Sensu's auto-remediation integrations.
@@ -21,7 +21,7 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 
 ## Features
 
-The Sensu Rundeck Handler plugin supports both Rundeck Enterprise and Rundeck Open Source and standard job invocation or webhook invocation.
+The [Sensu Rundeck Handler plugin][4] supports both Rundeck Enterprise and Rundeck Open Source and standard job invocation or webhook invocation.
 
 - Specify Rundeck jobs and webhooks along with trigger parameters for remediation actions for a check with Sensu annotations.
 - Use [event-based templating][2] to make use of event data to specify the node to target for rememdiation.

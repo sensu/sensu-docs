@@ -29,6 +29,10 @@ For optimal network throughput, agents will attempt to negotiate the use of [Pro
 This communication is via clear text by default.
 Follow [Secure Sensu][46] to configure the backend and agent for WebSocket Secure (wss) encrypted communication.
 
+{{% notice note %}}
+**NOTE**: For information about your agent transport status, use the [health API](../../../api/health/#get-health-data-for-your-agent-transport).
+{{% /notice %}}
+
 ## Create observability events using service checks
 
 Sensu uses the [publish/subscribe pattern of communication][15], which allows automated registration and deregistration of ephemeral systems.
@@ -1767,3 +1771,4 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [54]: ../../../web-ui/search#search-for-labels
 [55]: ../../../commercial/
 [56]: #allow-list
+[57]: ../../../api/health
