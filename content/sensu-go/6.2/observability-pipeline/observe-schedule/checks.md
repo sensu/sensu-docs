@@ -732,7 +732,7 @@ example      | {{< code shell >}}"env_vars": ["RUBY_VERSION=2.5.0", "CHECK_HOST=
 
 |scheduler  |     |
 ------------|-----
-description | Type of scheduler that schedules the check. Sensu automatically sets the `scheduler` value and overrides any user-entered values. Value may be:<ul><li>`memory` for checks scheduled in-memory</li><li>`etcd` for checks scheduled with etcd leases and watchers (check attribute `round_robin: true` and [etcd used for event storage][67])</li><li>`postgres` for checks scheduled with PostgreSQL using transactions and asynchronous notification (check attribute `round_robin: true` and [PostgreSQL used for event storage][67])</li></ul>
+description | Type of scheduler that schedules the check. Sensu automatically sets the `scheduler` value and overrides any user-entered values. Value may be:<ul><li>`memory` for checks scheduled in-memory</li><li>`etcd` for checks scheduled with etcd leases and watchers (check attribute `round_robin: true` and [etcd used for event storage][67])</li><li>`postgres` for checks scheduled with PostgreSQL using transactions and asynchronous notification (check attribute `round_robin: true` and [PostgreSQL used for event storage][67] with datastore attribute `enable_round_robin: true`)</li></ul>
 required     | false
 type         | String
 example      | {{< code shell >}}"scheduler": "postgres"{{< /code >}}
