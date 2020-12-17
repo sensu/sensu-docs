@@ -39,9 +39,13 @@
             "url": "https://sensu.io/resources",
             "status": 301
         },
-        "~ ^/sensu-go/6.1/?((?<=\/).*)?$": {
+        "~ ^/sensu-go/6.2/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 302
+        },
+        "~ ^/sensu-go/5.20/?((?<=\/).*)?$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
         },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
