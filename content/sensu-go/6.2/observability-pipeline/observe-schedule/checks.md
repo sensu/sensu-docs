@@ -732,7 +732,7 @@ example      | {{< code shell >}}"env_vars": ["RUBY_VERSION=2.5.0", "CHECK_HOST=
 
 |scheduler  |     |
 ------------|-----
-description | Type of scheduler that schedules the check. Sensu automatically sets the `scheduler` value and overrides any user-entered values. May be `memory` for checks scheduled in-memory, `etcd` for checks scheduled with etcd leases and watchers, or `postgres` for checks scheduled with PostgreSQL using transactions and asynchronous notification (NOTIFY).
+description | Type of scheduler that schedules the check. Sensu automatically sets the `scheduler` value and overrides any user-entered values. Value may be:<ul><li>`memory` for checks scheduled in-memory</li><li>`etcd` for checks scheduled with etcd leases and watchers (check attribute `round_robin: true` and [etcd used for event storage][67])</li><li>`postgres` for checks scheduled with PostgreSQL using transactions and asynchronous notification (check attribute `round_robin: true` and [PostgreSQL used for event storage][67])</li></ul>
 required     | false
 type         | String
 example      | {{< code shell >}}"scheduler": "postgres"{{< /code >}}
@@ -1188,3 +1188,4 @@ The dynamic runtime asset reference includes an [example check definition that u
 [64]: ../subscriptions/
 [65]: ../../../operations/deploy-sensu/datastore/
 [66]: ../../../operations/deploy-sensu/datastore/#round-robin-postgresql
+[67]: #event-storage-for-round-robin-scheduling
