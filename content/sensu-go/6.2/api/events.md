@@ -30,7 +30,7 @@ HTTP/1.1 200 OK
 [
   {
     "timestamp": 1542667666,
-    "event_id": "caaf2c38-2afb-4f96-89b3-8ca5c3e6f449",
+    "id": "caaf2c38-2afb-4f96-89b3-8ca5c3e6f449",
     "sequence": 1,
     "entity": {
       "entity_class": "agent",
@@ -113,7 +113,7 @@ output         | {{< code shell >}}
 [
   {
     "timestamp": 1542667666,
-    "event_id": "caaf2c38-2afb-4f96-89b3-8ca5c3e6f449",
+    "id": "caaf2c38-2afb-4f96-89b3-8ca5c3e6f449",
     "sequence": 1,
     "entity": {
       "entity_class": "agent",
@@ -274,7 +274,7 @@ HTTP/1.1 200 OK
 [
   {
     "timestamp": 1543871497,
-    "event_id": "a68906e0-7c5c-49f0-8424-59a71d3ecfe2",
+    "id": "a68906e0-7c5c-49f0-8424-59a71d3ecfe2",
     "sequence": 1,
     "entity": {
       "entity_class": "agent",
@@ -326,7 +326,7 @@ HTTP/1.1 200 OK
   },
   {
     "timestamp": 1543871524,
-    "event_id": "095c37e8-1cb4-4d10-91e9-0bdd55a4f35b",
+    "id": "095c37e8-1cb4-4d10-91e9-0bdd55a4f35b",
     "sequence": 1,
     "entity": {
       "entity_class": "agent",
@@ -391,7 +391,7 @@ output               | {{< code json >}}
 [
   {
     "timestamp": 1543871524,
-    "event_id": "095c37e8-1cb4-4d10-91e9-0bdd55a4f35b",
+    "id": "095c37e8-1cb4-4d10-91e9-0bdd55a4f35b",
     "sequence": 1,
     "entity": {
       "entity_class": "agent",
@@ -460,7 +460,7 @@ HTTP/1.1 200 OK
 
 {
     "timestamp": 1577724113,
-    "event_id": "cf3c9fc0-023a-497a-aaf4-880dbd490332",
+    "id": "cf3c9fc0-023a-497a-aaf4-880dbd490332",
     "sequence": 1,
     "entity": {
         "entity_class": "proxy",
@@ -551,7 +551,7 @@ response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (
 output               | {{< code json >}}
 {
     "timestamp": 1577724113,
-    "event_id": "cf3c9fc0-023a-497a-aaf4-880dbd490332",
+    "id": "cf3c9fc0-023a-497a-aaf4-880dbd490332",
     "sequence": 1,
     "entity": {
         "entity_class": "proxy",

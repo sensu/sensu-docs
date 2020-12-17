@@ -114,7 +114,7 @@ Sensu events contain:
   - Metric points in [Sensu metric format][22]
 - `timestamp`
   - Time that the event occurred in seconds since the Unix epoch
-- `event_id`
+- `id`
   - Universally unique identifier (UUID) for the event
 - `sequence`
   - The event sequence number, automatically set by the agent and incremented by 1 for each check execution or keepalive event.
@@ -340,7 +340,7 @@ example      | {{< code shell >}}
     ]
   },
   "timestamp": 1552506033,
-  "event_id": "431a0085-96da-4521-863f-c38b480701e9",
+  "id": "431a0085-96da-4521-863f-c38b480701e9",
   "sequence": 1
 }
 {{< /code >}}
@@ -846,7 +846,7 @@ spec:
       processes: null
     user: agent
   timestamp: 1552594758
-  event_id: 3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f
+  id: 3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f
   sequence: 1
 {{< /code >}}
 
@@ -967,7 +967,7 @@ spec:
       "user": "agent"
     },
     "timestamp": 1552594758,
-    "event_id": "3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f",
+    "id": "3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f",
     "sequence": 1
   }
 }
@@ -1214,7 +1214,7 @@ spec:
       ]
     },
     "timestamp": 1552506033,
-    "event_id": "431a0085-96da-4521-863f-c38b480701e9",
+    "id": "431a0085-96da-4521-863f-c38b480701e9",
     "sequence": 1
   }
 }
@@ -1285,7 +1285,7 @@ spec:
       timestamp: 1552506033
       value: 0.004
   timestamp: 1552506033
-  event_id: 47ea07cd-1e50-4897-9e6d-09cd39ec5180
+  id: 47ea07cd-1e50-4897-9e6d-09cd39ec5180
   sequence: 1
 {{< /code >}}
 
@@ -1370,7 +1370,7 @@ spec:
       ]
     },
     "timestamp": 1552506033,
-    "event_id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180",
+    "id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180",
     "sequence": 1
   }
 }
