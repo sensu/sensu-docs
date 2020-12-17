@@ -12,7 +12,7 @@ menu:
 **COMMERCIAL FEATURE**: Access the Sensu SaltStack Handler integration in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][6].
 
-The Sensu SaltStack Handler plugin is a Sensu [handler][1] that launches SaltStack functions for automated remediation based on Sensu event data.
+The [Sensu SaltStack Handler plugin][4] is a Sensu [handler][1] that launches SaltStack functions for automated remediation based on Sensu event data.
 
 {{% notice note %}}
 **NOTE**: The Sensu SaltStack Handler plugin is an example of Sensu's auto-remediation integrations.
@@ -21,7 +21,7 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 
 ## Features
 
-The Sensu SaltStack Handler plugin supports both SaltStack Enterprise and SaltStack Open Source as well as SaltStack functions such as `service`, `state`, `saltutil`, and `grains` (including `arg` and `kwarg` arguments).
+The [Sensu SaltStack Handler plugin][4] supports both SaltStack Enterprise and SaltStack Open Source as well as SaltStack functions such as `service`, `state`, `saltutil`, and `grains` (including `arg` and `kwarg` arguments).
 
 - Specify SaltStack functions and trigger parameters for remediation actions for a check with Sensu annotations.
 - Use [event-based templating][2] to specify the minion to target for rememdiation based on event data.

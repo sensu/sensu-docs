@@ -12,7 +12,7 @@ menu:
 **COMMERCIAL FEATURE**: Access the Sensu Jira Handler integration in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][6].
 
-The Sensu Jira Handler plugin is a Sensu [handler][1] that creates and updates Jira issues based on observation data from Sensu events.
+The [Sensu Jira Handler plugin][4] is a Sensu [handler][1] that creates and updates Jira issues based on observation data from Sensu events.
 
 {{% notice note %}}
 **NOTE**: The Sensu Jira Handler plugin is an example of Sensu's alerting and incident management integrations.
