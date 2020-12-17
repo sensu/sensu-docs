@@ -372,12 +372,12 @@ type         | Integer
 default      | Time that the event occurred
 example      | {{< code shell >}}"timestamp": 1522099512{{< /code >}}
 
-event_id     |      |
+id     |      |
 -------------|------
 description  | Universally unique identifier (UUID) for the event.
 required     | false
 type         | String
-example      | {{< code shell >}}"event_id": "431a0085-96da-4521-863f-c38b480701e9"{{< /code >}}
+example      | {{< code shell >}}"id": "431a0085-96da-4521-863f-c38b480701e9"{{< /code >}}
 
 <a name="sequence-attribute"></a>
 
@@ -1080,7 +1080,7 @@ spec:
       timestamp: 1552506033
       value: 0.004
   timestamp: 1552506033
-  event_id: 431a0085-96da-4521-863f-c38b480701e9
+  id: 431a0085-96da-4521-863f-c38b480701e9
   sequence: 1
 {{< /code >}}
 
