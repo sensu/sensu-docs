@@ -79,7 +79,9 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **December 17, 2020** &mdash; The latest release of Sensu Go, version 6.2.0, is now available for download.
 
-The latest release of Sensu Go, version 6.2.0, is now available for download! Sensu Go 5.x and configuration management users rejoice: this release adds support for agent local configuration (i.e. agent.yml) managed entities! Agent entities may now be managed exclusively by their agents when `sensu-agent` is started with the new `agent-managed-entity` configuration option. This makes it more straightforward to migrate from Sensu Go 5.x to 6.x, as existing agent entity management workflows like Puppet will just work with the new option enabled! Note that you will not be able to edit agent-managed entities via the backend REST API or web UI. This release also includes significant feature enhancements such as PostgreSQL backend round robin check scheduling for increased reliability and consistency. Also, the prune API no longer requires cluster-wide permissions; users with limited permissions can put it to use in their namespaces!
+The latest release of Sensu Go, version 6.2.0, is now available for download! Sensu Go 5.x and configuration management users rejoice: this release adds support for agent local configuration (i.e. agent.yml) managed entities! Agent entities may now be managed exclusively by their agents when `sensu-agent` is started with the new `agent-managed-entity` configuration option. This makes it more straightforward to migrate from Sensu Go 5.x to 6.x, as existing agent entity management workflows like Puppet will just work with the new option enabled! Note that you will not be able to edit agent-managed entities via the backend REST API or web UI.
+
+Sensu Go 6.2.0 includes significant feature enhancements such as PostgreSQL backend round robin check scheduling for increased reliability and consistency, an updated format for silenced entry dates and durations in sensuctl tabular-format output, and a /health API endpoint for agent websocket transport status. This release delivers important bug fixes like consistently using `event_id` in logs and eliminating the sensuctl error when Vault provider SSL certificates do not exist on the local system. Also, the prune API no longer requires cluster-wide permissions; users with limited permissions can put it to use in their namespaces!
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.2.0.
 
@@ -89,6 +91,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.0.
 - ([Commercial feature][193]) Added the ability to exclude resource types when using sensuctl prune with the [--omit flag][200].
 - ([Commercial feature][193]) Added support for [round robin scheduling on PostgreSQL][201] instead of etcd.
 - ([Commercial feature][193]) Added support for OIDC authentication via [sensuctl configure][202].
+- Entities may now be [managed exclusively by their agents][204] when sensu-agent is started with the [agent-managed-entity][203] configuration attribute.
 - The [/metrics API endpoint][196] now exposes build information as a Prometheus metric.
 - Added /health API endpoint to agent websocket transport.
 - Checks now include the [`scheduler` attribute][197], which Sensu automatically populates with the type of scheduler that schedules the check.
@@ -98,13 +101,13 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.0.
 **IMPROVEMENTS:**
 
 - ([Commercial feature][193]) Refactored entity limiter to ensure that warning messages about approaching a license's entity or entity class limit are now only displayed for users with `create` or `update` permissions for the license.
+- ([Commercial feature][193]) The [prune API][194] and its [sensuctl interface][195] now require less-broad permissions.
 - Adjusted the format for silenced entry dates and durations in sensuctl tabular-format output. For all silenced entries, the begin date is now listed in RFC 3339 format. For silenced entries that have not begun, the list displays the expiration date in RFC 3339 format. For silenced entires with no expiration date, the list displays `-1`. For silenced entries that have begun, the list displays the duration (e.g. 1m30s).
 - Sensuctl and sensu-backend now ask users to retype their passwords when creating a new password in interactive mode.
 
 **FIXES:**
 
 - ([Commercial feature][193]) Sensuctl no longer produces an error when SSL certificates for the Vault provider do not exist on the local system.
-- ([Commercial feature][193]) The [prune API][194] and its [sensuctl interface][195] now require less-broad permissions.
 - Logs now consistently use `event_id` rather than `event_uuid`.
 - Sensuctl commands that only contain subcommands now exit with status code 46 when no arguments or incorrect arguments are given.
 - The sensuctl dump command now includes a description.
@@ -1675,3 +1678,5 @@ To get started with Sensu Go:
 [200]: /sensu-go/6.2/sensuctl/create-manage-resources/#sensuctl-prune-flags
 [201]: /sensu-go/6.2/operations/deploy-sensu/datastore/#round-robin-postgresql
 [202]: /sensu-go/6.2/sensuctl/#first-time-setup
+[203]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#agent-managed-entity
+[204]: /sensu-go/6.2/observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent
