@@ -29,6 +29,10 @@ For optimal network throughput, agents will attempt to negotiate the use of [Pro
 This communication is via clear text by default.
 Follow [Secure Sensu][46] to configure the backend and agent for WebSocket Secure (wss) encrypted communication.
 
+{{% notice note %}}
+**NOTE**: For information about your agent transport status, use the [health API](../../../api/health/#get-health-data-for-your-agent-transport).
+{{% /notice %}}
+
 ## Create observability events using service checks
 
 Sensu uses the [publish/subscribe pattern of communication][15], which allows automated registration and deregistration of ephemeral systems.
@@ -771,6 +775,7 @@ Usage:
   sensu-agent start [flags]
 
 Flags:
+      --agent-managed-entity                  manage this entity via the agent
       --allow-list string                     path to agent execution allow list configuration file
       --annotations stringToString            entity annotations map (default [])
       --api-host string                       address to bind the Sensu client HTTP API to (default "127.0.0.1")
@@ -836,6 +841,22 @@ See the [example agent configuration file][5] (also provided with Sensu packages
 {{% notice note %}}
 **NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
 {{% /notice %}}
+
+<a name="agent-managed-entity"></a>
+
+| agent-managed-entity |      |
+-------------|------
+description  | Indicates whether the agent's entity solely managed by the agent rather than the backend API. Agent-managed entity definitions will include the label `sensu.io/managed_by: sensu-agent`, and you cannot update these agent-managed entities via the Sensu backend REST API.
+required     | false
+type         | Boolean
+default      | false
+environment variable | `SENSU_AGENT_MANAGED_ENTITY`
+example       | {{< code shell >}}# Command line example
+sensu-agent start --agent-managed-entity
+
+# /etc/sensu/agent.yml example
+agent-managed-entity: true{{< /code >}}
+
 
 <a name="allow-list"></a>
 
@@ -1750,3 +1771,4 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [54]: ../../../web-ui/search#search-for-labels
 [55]: ../../../commercial/
 [56]: #allow-list
+[57]: ../../../api/health

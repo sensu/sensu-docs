@@ -9,7 +9,7 @@ menu:
     parent: supported-integrations
 ---
 
-The Sensu OpenTSDB Handler plugin is a Sensu [handler][1] that sends Sensu metrics to an OpenTSDB server via its Telnet-style API.
+The [Sensu OpenTSDB Handler plugin][4] is a Sensu [handler][1] that sends Sensu metrics to an OpenTSDB server via its Telnet-style API.
 This allows you to extract, tag, and store Sensu metrics data in an OpenTSDB database.
 
 {{% notice note %}}
