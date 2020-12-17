@@ -74,7 +74,7 @@ curl -X POST \
 -d '{
   "name": "development"
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/namespaces
+http://127.0.0.1:8080/api/core/v2/namespaces
 
 HTTP/1.1 201 Created
 {{< /code >}}
@@ -108,7 +108,7 @@ curl -X PUT \
 -d '{
   "name": "development"
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/namespaces/development
+http://127.0.0.1:8080/api/core/v2/namespaces/development
 
 HTTP/1.1 201 Created
 {{< /code >}}
