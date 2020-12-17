@@ -501,6 +501,11 @@ output               | {{< code json >}}
 
 ## Create or update an entity {#entitiesentity-put}
 
+{{% notice note %}}
+**NOTE**: This endpoint will not update [agent-managed entities](../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
+Requests to update agent-managed entities via the Sensu backend REST API will fail and return `HTTP 409 Conflict`.
+{{% /notice %}}
+
 The `/entities/:entity` API endpoint provides HTTP PUT access to create or update the specified Sensu entity.
 
 ### Example {#entitiesentity-put-example}
@@ -562,6 +567,11 @@ payload         | {{< code shell >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Update an entity with PATCH
+
+{{% notice note %}}
+**NOTE**: This endpoint will not update [agent-managed entities](../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
+Requests to update agent-managed entities via the Sensu backend REST API will fail and return `HTTP 409 Conflict`.
+{{% /notice %}}
 
 The `/entities/:entity` API endpoint provides HTTP PATCH access to update **entity configuration attributes** in `:entity` definitions, specified by entity name:
 

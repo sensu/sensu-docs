@@ -9,6 +9,7 @@ version: "6.2"
 menu: "sensu-go-6.2"
 ---
 
+- [6.1.4 release notes](#614-release-notes)
 - [6.1.3 release notes](#613-release-notes)
 - [6.1.2 release notes](#612-release-notes)
 - [6.1.1 release notes](#611-release-notes)
@@ -72,6 +73,20 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.1.4 release notes
+
+**December 16, 2020** &mdash; The latest release of Sensu Go, version 6.1.4, is now available for download.
+
+This patch fixes a bug that could cause a crash in the backend API, addresses a case where agents do not honor HTTP proxy environment variables, and improves the error message reported by the agent when asset checksums do not match expectations.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.1.4.
+
+**FIXES:**
+
+- Fixed a bug that could cause a panic in the backend entity API.
+- The agent asset fetching mechanism now respects HTTP proxy environment variables when `trusted-ca-file` is configured.
+- When an asset artifact retrived by the agent does not match the expected checksum, the logged error now includes the size of the retrieved artifact and more clearly identifies the expected and actual checksums.
 
 ## 6.1.3 release notes
 

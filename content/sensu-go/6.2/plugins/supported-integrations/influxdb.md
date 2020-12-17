@@ -9,7 +9,7 @@ menu:
     parent: supported-integrations
 ---
 
-The Sensu InfluxDB Handler plugin is a Sensu [handler][1] that sends Sensu metrics to the time-series database InfluxDB so you can store, instrument, and visualize Sensu metrics data.
+The [Sensu InfluxDB Handler plugin][4] is a Sensu [handler][1] that sends Sensu metrics to the time-series database InfluxDB so you can store, instrument, and visualize Sensu metrics data.
 You can also use the Sensu InfluxDB Handler integration to create metrics from Sensu status check results for long-term storage in InfluxDB.
 
 {{% notice note %}}

@@ -86,6 +86,14 @@ If you do not specify a `proxy_entity_name` when using check `ttl` and `round_ro
 **PRO TIP**: Use round robin to distribute check execution workload across multiple agents when using [proxy checks](#proxy-checks).
 {{% /notice %}}
 
+#### Event storage for round robin scheduling
+
+If you use round robin scheduling for check execution, we recommend using [PostgreSQL][65] rather than etcd for event storage.
+Etcd leases are unreliable as the scheduling mechanism for round robin check execution, and etcd will not produce precise round robin behavior.
+
+When you [enable round robin scheduling on PostgreSQL][66], any existing round robin scheduling will stop and migrate to PostgreSQL as entities check in with keepalives.
+Sensu will gradually delete the existing etcd scheduler state as keepalives on the etcd scheduler keys expire over time.
+
 ### Interval scheduling
 
 You can schedule a check to be executed at regular intervals using the `interval` and `publish` check attributes.
@@ -1178,3 +1186,5 @@ The dynamic runtime asset reference includes an [example check definition that u
 [62]: ../../observe-events/events/#flap-detection-algorithm
 [63]: #ad-hoc-scheduling
 [64]: ../subscriptions/
+[65]: ../../../operations/deploy-sensu/datastore/
+[66]: ../../../operations/deploy-sensu/datastore/#round-robin-postgresql

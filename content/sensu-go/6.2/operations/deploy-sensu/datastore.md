@@ -64,6 +64,7 @@ spec:
   max_idle_conns: 2
   pool_size: 20
   strict: true
+  enable_round_robin: true
 {{< /code >}}
 
 {{< code json >}}
@@ -81,7 +82,8 @@ spec:
     "max_conn_lifetime": "5m",
     "max_idle_conns": 2,
     "pool_size": 20,
-    "strict": true
+    "strict": true,
+    "enable_round_robin": true
   }
 }
 {{< /code >}}
@@ -158,6 +160,7 @@ spec:
   max_idle_conns: 2
   pool_size: 20
   strict: true
+  enable_round_robin: true
 {{< /code >}}
 
 ### Metadata attributes
@@ -248,11 +251,22 @@ default     | false
 type         | Boolean
 example      | {{< code shell >}}strict: true{{< /code >}}
 
+<a name="round-robin-postgresql"></a>
+
+enable_round_robin |      |
+-------------|------
+description  | If `true`, enables [round robin scheduling][5] on PostgreSQL. Any existing round robin scheduling will stop and migrate to PostgreSQL as entities check in with keepalives. Sensu will gradually delete the existing etcd scheduler state as keepalives on the etcd scheduler keys expire over time. Otherwise, `false`.<br><br>We recommend using PostgreSQL rather than etcd for round robin scheduling because etcd leases are not reliable enough to produce precise [round robin behavior][5]. 
+required     | false
+default      | false
+type         | Boolean
+example      | {{< code shell >}}enable_round_robin: true{{< /code >}}
+
 
 [1]: ../../../sensuctl/#first-time-setup
 [2]: ../../maintain-sensu/troubleshoot/
 [3]: https://aws.amazon.com/rds/
 [4]: https://pkg.go.dev/github.com/lib/pq@v1.2.0#hdr-Connection_String_Parameters
+[5]: ../../../observability-pipeline/observe-schedule/checks/#round-robin-checks
 [8]: ../cluster-sensu/#use-an-external-etcd-cluster
 [9]: ../../../web-ui/
 [10]: ../../../sensuctl/create-manage-resources/#sensuctl-event

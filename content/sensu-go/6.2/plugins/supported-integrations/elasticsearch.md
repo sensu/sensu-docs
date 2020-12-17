@@ -12,7 +12,7 @@ menu:
 **COMMERCIAL FEATURE**: Access the Sensu Elasticsearch Handler integration in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][6].
 
-The Sensu Elasticsearch Handler plugin is a Sensu [handler][1] that sends observation data from Sensu events and metrics to Elasticsearch.
+The [Sensu Elasticsearch Handler plugin][4] is a Sensu [handler][1] that sends observation data from Sensu events and metrics to Elasticsearch.
 With this handler, the Sensu observation data you send to Elasticsearch is available for indexing and visualization in Kibana.
 
 {{% notice note %}}
