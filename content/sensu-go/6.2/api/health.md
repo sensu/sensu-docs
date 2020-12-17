@@ -90,6 +90,7 @@ output           | {{< code shell >}}
 ## Get health data for your agent transport
 
 The `/health` API endpoint provides HTTP GET access to health data for your Sensu agent transport via the backend websocket.
+Sensu backend `/health` API information is duplicated by this agent transport API endpoint as an affordance to satisfy the load balancing and security requirements of some deployments.
 
 #### Example
 
@@ -165,4 +166,3 @@ output           | {{< code shell >}}
   ]
 }
 {{< /code >}}
-
