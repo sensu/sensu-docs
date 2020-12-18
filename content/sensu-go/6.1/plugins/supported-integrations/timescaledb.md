@@ -9,7 +9,7 @@ menu:
     parent: supported-integrations
 ---
 
-The Sensu TimescaleDB Handler plugin is a Sensu [handler][1] that sends Sensu metrics to the time-series database TimescaleDB so you can store, instrument, and visualize Sensu metrics data.
+The [Sensu TimescaleDB Handler plugin][4] is a Sensu [handler][1] that sends Sensu metrics to the time-series database TimescaleDB so you can store, instrument, and visualize Sensu metrics data.
 
 {{% notice note %}}
 **NOTE**: The Sensu TimescaleDB Handler plugin is an example of Sensu's time-series and long-term event storage integrations.

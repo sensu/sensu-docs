@@ -29,6 +29,10 @@ For optimal network throughput, agents will attempt to negotiate the use of [Pro
 This communication is via clear text by default.
 Follow [Secure Sensu][46] to configure the backend and agent for WebSocket Secure (wss) encrypted communication.
 
+{{% notice note %}}
+**NOTE**: For information about your agent transport status, use the [health API](../../../api/health/#get-health-data-for-your-agent-transport).
+{{% /notice %}}
+
 ## Create observability events using service checks
 
 Sensu uses the [publish/subscribe pattern of communication][15], which allows automated registration and deregistration of ephemeral systems.
@@ -1710,6 +1714,27 @@ This includes your checks and plugins.
 
 For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
 
+#### Use environment variables to specify an HTTP proxy for agent use
+
+If an HTTP proxy is required to access the internet in your compute environment, you may need to configure the Sensu agent to successfully download dynamic runtime assets or execute commands that depend on internet access.
+
+For Sensu agents that require a proxy server, define `HTTP_PROXY` and `HTTPS_PROXY` environment variables in your sensu-agent file.
+
+{{< code shell >}}
+HTTP_PROXY="http://YOUR_PROXY_SERVER:PORT"
+HTTPS_PROXY="http://YOUR_PROXY_SERVER:PORT"
+{{< /code >}}
+
+You can use the same proxy server URL for `HTTP_PROXY` and `HTTPS_PROXY`.
+The proxy server URL you specify for `HTTPS_PROXY` does not need to use `https://`.
+
+After you add the `HTTP_PROXY` and `HTTPS_PROXY` environment variables and restart sensu-agent, they will be available to check and hook commands executed by the Sensu agent.
+You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, run checks, and complete other tasks that typically require an internet connection for your unconnected entities.
+
+{{% notice note %}}
+**NOTE**: If you define the `HTTP_PROXY` and `HTTPS_PROXY` environment variables, the agent WebSocket connection will also use the proxy URL you specify.
+{{% /notice %}}
+
 
 [1]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
 [2]: ../backend/
@@ -1767,3 +1792,4 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [54]: ../../../web-ui/search#search-for-labels
 [55]: ../../../commercial/
 [56]: #allow-list
+[57]: ../../../api/health

@@ -114,8 +114,10 @@ Sensu events contain:
   - Metric points in [Sensu metric format][22]
 - `timestamp`
   - Time that the event occurred in seconds since the Unix epoch
-- `event_id`
+- `id`
   - Universally unique identifier (UUID) for the event
+- `sequence`
+  - The event sequence number, automatically set by the agent and incremented by 1 for each check execution or keepalive event.
 
 ## Use event data
 
@@ -338,7 +340,8 @@ example      | {{< code shell >}}
     ]
   },
   "timestamp": 1552506033,
-  "event_id": "431a0085-96da-4521-863f-c38b480701e9"
+  "id": "431a0085-96da-4521-863f-c38b480701e9",
+  "sequence": 1
 }
 {{< /code >}}
 
@@ -369,12 +372,21 @@ type         | Integer
 default      | Time that the event occurred
 example      | {{< code shell >}}"timestamp": 1522099512{{< /code >}}
 
-event_id     |      |
+id     |      |
 -------------|------
 description  | Universally unique identifier (UUID) for the event.
 required     | false
 type         | String
-example      | {{< code shell >}}"event_id": "431a0085-96da-4521-863f-c38b480701e9"{{< /code >}}
+example      | {{< code shell >}}"id": "431a0085-96da-4521-863f-c38b480701e9"{{< /code >}}
+
+<a name="sequence-attribute"></a>
+
+sequence     |      |
+-------------|------
+description  | Event sequence number. The Sensu agent sets the sequence to 1 at startup, then increments the sequence by 1 for every successive check execution or keepalive event. If the agent restarts or reconnects to another backend, the sequence value resets to 1.<br><br>A sequence value of 0 indicates that an outdated or non-conforming agent generated the event.
+required     | false
+type         | Integer
+example      | {{< code shell >}}"sequence": 1{{< /code >}}
 
 |entity      |      |
 -------------|------
@@ -834,7 +846,8 @@ spec:
       processes: null
     user: agent
   timestamp: 1552594758
-  event_id: 3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f
+  id: 3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f
+  sequence: 1
 {{< /code >}}
 
 {{< code json >}}
@@ -954,7 +967,8 @@ spec:
       "user": "agent"
     },
     "timestamp": 1552594758,
-    "event_id": "3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f"
+    "id": "3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f",
+    "sequence": 1
   }
 }
 {{< /code >}}
@@ -1066,7 +1080,8 @@ spec:
       timestamp: 1552506033
       value: 0.004
   timestamp: 1552506033
-  event_id: 431a0085-96da-4521-863f-c38b480701e9
+  id: 431a0085-96da-4521-863f-c38b480701e9
+  sequence: 1
 {{< /code >}}
 
 {{< code json >}}
@@ -1199,7 +1214,8 @@ spec:
       ]
     },
     "timestamp": 1552506033,
-    "event_id": "431a0085-96da-4521-863f-c38b480701e9"
+    "id": "431a0085-96da-4521-863f-c38b480701e9",
+    "sequence": 1
   }
 }
 {{< /code >}}
@@ -1269,7 +1285,8 @@ spec:
       timestamp: 1552506033
       value: 0.004
   timestamp: 1552506033
-  event_id: 47ea07cd-1e50-4897-9e6d-09cd39ec5180
+  id: 47ea07cd-1e50-4897-9e6d-09cd39ec5180
+  sequence: 1
 {{< /code >}}
 
 {{< code json >}}
@@ -1353,7 +1370,8 @@ spec:
       ]
     },
     "timestamp": 1552506033,
-    "event_id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180"
+    "id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180",
+    "sequence": 1
   }
 }
 {{< /code >}}
