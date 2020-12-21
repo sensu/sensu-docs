@@ -627,10 +627,6 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-entities/entities",
             "status": 301
         },
-        "~ ^/sensu-go/5.1/reference/entites/?$": {
-            "url": "/sensu-go/latest/observability-pipeline/observe-entities/entities",
-            "status": 301
-        },
         "~ ^/sensu-go/latest/reference/etcdreplicators/?$": {
             "url": "/sensu-go/latest/operations/deploy-sensu/etcdreplicators",
             "status": 301
@@ -819,7 +815,7 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-process/send-slack-alerts",
             "status": 301
         },
-        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/guides/send-slack-alerts//?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/guides/send-slack-alerts/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-process/send-slack-alerts",
             "status": 301
         },
@@ -1011,20 +1007,12 @@
             "url": "/sensu-go/latest/operations/control-access",
             "status": 301
         },
-        "~ ^/sensu-go/5.20/reference/auth/?$": {
-            "url": "/sensu-go/latest/operations/control-access",
-            "status": 301
-        },
         "~ ^/sensu-go/latest/web-ui/filter/?$": {
             "url": "/sensu-go/latest/web-ui/search",
             "status": 301
         },
         "~ ^/sensu-go/latest/web-ui/searches/?$": {
             "url": "/sensu-go/latest/web-ui/searches-reference",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.20/api/web-ui/?$": {
-            "url": "/sensu-go/5.20/api/webconfig",
             "status": 301
         },
         "~ ^/sensu-go/sensu-go/5.19/api/apikeys/?$": {
