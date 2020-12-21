@@ -59,10 +59,6 @@
             "url": "/sensu-go/latest/learn/interactive-tutorials",
             "status": 301
         },
-        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/learn/learn-sensu-go/?$": {
-            "url": "/sensu-go/latest/learn/interactive-tutorials",
-            "status": 301
-        },
         "~ ^/sensu-go/latest/getting-started/glossary/?$": {
             "url": "/sensu-go/latest/learn/glossary",
             "status": 301
