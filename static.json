@@ -99,10 +99,6 @@
             "url": "/sensu-go/latest/learn/sandbox",
             "status": 301
         },
-        "~ ^/sensu-go/5.20/?((?<=\/).*)?/getting-started/sandbox/?$": {
-            "url": "/sensu-go/latest/learn/sandbox",
-            "status": 301
-        },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/getting-started/sandbox/?$": {
             "url": "/sensu-go/latest/learn/sandbox",
             "status": 301
