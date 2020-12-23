@@ -56,7 +56,11 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     description = "The next-generation monitoring event pipeline"
     notice = "Replaces Sensu Core and Enterprise"
     weight = 1
-    latest = "6.1"
+    latest = "6.2"
+
+    [[params.products.sensu_go.versions]]
+    version = "6.2"
+    platforms = []
 
     [[params.products.sensu_go.versions]]
     version = "6.1"
@@ -68,10 +72,6 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
 
     [[params.products.sensu_go.versions]]
     version = "5.21"
-    platforms = []
-
-    [[params.products.sensu_go.versions]]
-    version = "5.20"
     platforms = []
 
   [params.products.sensu_core]
@@ -324,17 +324,6 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     latest = "1.0"
 
     [[params.products.uchiwa.versions]]
-    version = "1.0"
-    platforms = []
-
-  [params.products.plugins]
-    identifier = "plugins"
-    name = "Plugins"
-    description = "Checks, handlers, and other plugins to power your Sensu deployment"
-    weight = 6
-    latest = "1.0"
-
-    [[params.products.plugins.versions]]
     version = "1.0"
     platforms = []
 

@@ -68,7 +68,7 @@ Use sensuctl or the license API to [view your overall entity count and limit][5]
 [1]: monitor-external-resources/
 [2]: ../../commercial/
 [3]: https://sensu.io/contact
-[4]: https://blog.sensu.io/one-year-of-sensu-go
+[4]: https://sensu.io/blog/one-year-of-sensu-go
 [5]: ../../operations/maintain-sensu/license/#view-entity-count-and-entity-limit
 [6]: entities/
 [7]: ../observe-schedule/checks/#proxy-entity-name-attribute

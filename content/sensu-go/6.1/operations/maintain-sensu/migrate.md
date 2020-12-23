@@ -36,9 +36,9 @@ We also offer [**commercial support** and **professional services** packages][49
 
 [Configuration management][44] integrations for Sensu Go are available for Ansible, Chef, and Puppet:
 
-- [Ansible collection for Sensu Go][77] (GitHub repo) and [documentation site][78]
-- [Chef cookbook for Sensu Go][76] (GitHub repo) &mdash; [contact us][79] for more information
-- [Puppet module for Sensu Go][75] (GitHub repo)
+- [Ansible collection for Sensu Go][77] and [documentation site][78]
+- [Chef cookbook for Sensu Go][76] &mdash; [contact us][79] for more information
+- [Puppet module for Sensu Go][75]
 
 ## Packaging
 
@@ -449,8 +449,8 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [20]: https://packagecloud.io/sensu/community/
 [21]: https://github.com/sensu-plugins/
 [24]: ../../../observability-pipeline/observe-entities/entities#metadata-attributes
-[25]: https://blog.sensu.io/check-configuration-upgrades-with-the-sensu-go-sandbox/
-[26]: https://blog.sensu.io/self-service-monitoring-checks-in-sensu-go/
+[25]: https://sensu.io/blog/check-configuration-upgrades-with-the-sensu-go-sandbox/
+[26]: https://sensu.io/blog/self-service-monitoring-checks-in-sensu-go/
 [27]: ../../../commercial/
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check/
 [29]: ../../../observability-pipeline/observe-schedule/backend#operation
@@ -471,7 +471,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [48]: ../../../learn/sandbox/
 [49]: https://sensu.io/support/
 [50]: ../../deploy-sensu/use-assets-to-install-plugins
-[51]: ../../deploy-sensu/install-plugins/
+[51]: ../../../plugins/install-plugins/
 [52]: ../../deploy-sensu/install-sensu#install-the-sensu-backend
 [53]: ../../deploy-sensu/install-sensu#install-sensuctl
 [54]: ../../control-access/rbac/#resources
@@ -482,7 +482,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [59]: https://bonsai.sensu.io/assets?q=eventfilter
 [60]: ../../../observability-pipeline/observe-filter/reduce-alert-fatigue/
 [61]: ../../../observability-pipeline/observe-filter/filters/#build-event-filter-expressions-with-sensu-query-expressions
-[62]: https://blog.sensu.io/filters-valves-for-the-sensu-monitoring-event-pipeline
+[62]: https://sensu.io/blog/filters-valves-for-the-sensu-monitoring-event-pipeline
 [63]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-is_incident
 [64]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced
 [65]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
@@ -495,8 +495,8 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [72]: #translate-proxy-requests-entities
 [73]: #translate-hooks
 [74]: https://docs.sensu.io/sensu-core/latest/platforms/
-[75]: https://github.com/sensu/sensu-puppet
-[76]: https://github.com/sensu/sensu-go-chef
-[77]: https://github.com/sensu/sensu-go-ansible
+[75]: https://forge.puppet.com/modules/sensu/sensu
+[76]: https://supermarket.chef.io/cookbooks/sensu-go
+[77]: https://galaxy.ansible.com/sensu/sensu_go
 [78]: https://sensu.github.io/sensu-go-ansible/
 [79]: https://monitoringlove.sensu.io/chef

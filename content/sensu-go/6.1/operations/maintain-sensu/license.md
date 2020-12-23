@@ -153,4 +153,4 @@ If your license expires, you will still have access to [commercial features][5],
 [9]: ../../../api/
 [10]: ../../control-access/
 [11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4
-[12]: ../../deploy-sensu/use-assets-to-install-plugins/
+[12]: ../../../plugins/use-assets-to-install-plugins/

@@ -42,7 +42,7 @@ Monitor the host running the `sensu-backend` *locally* by a `sensu-agent` proces
 For Sensu components that must be running for Sensu to create events, you should also monitor the `sensu-backend` remotely from an independent Sensu instance.
 This will allow you to monitor whether your Sensu event pipeline is working.
 
-To do this, use the `check_http` plugin from the [Monitoring plugins dynamic runtime asset][3] to query Sensu's [health API endpoint][2] with a check definition for your primary (Backend Alpha) and secondary (Backend Beta) backends:
+To do this, use the `check-http.rb` plugin from the [Sensu Plugins HTTP][3] dynamic runtime asset to query Sensu's [health API endpoint][2] with a check definition for your primary (Backend Alpha) and secondary (Backend Beta) backends:
 
 {{< language-toggle >}}
 
@@ -83,6 +83,11 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: This example uses the [Sensu Plugins HTTP](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http) and [Sensu Ruby Runtime](https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime) dynamic runtime assets.
+Read [Monitor server resources with checks](../../../observability-pipeline/observe-schedule/monitor-server-resources/#register-dynamic-runtime-assets) to learn how to add these assets.
+{{% /notice %}}
 
 ## Monitor external etcd
 
@@ -251,6 +256,11 @@ spec:
 
 {{< /language-toggle >}}
 
+{{% notice note %}}
+**NOTE**: This example uses the [Sensu Plugins HTTP](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http) and [Sensu Ruby Runtime](https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime) dynamic runtime assets.
+Read [Monitor server resources with checks](../../../observability-pipeline/observe-schedule/monitor-server-resources/#register-dynamic-runtime-assets) to learn how to add these assets.
+{{% /notice %}}
+
 A successful check result will look like this:
 
 <div style="text-align:center">
@@ -259,7 +269,7 @@ A successful check result will look like this:
 <p style="text-align:center"><i>Successful Postgres health check in Sensu Go web UI</i></p>
 
 
-[1]: ../../../operations/deploy-sensu/use-assets-to-install-plugins/
+[1]: ../../../plugins/use-assets-to-install-plugins/
 [2]: ../../../api/health/
 [3]: https://bonsai.sensu.io/assets/sensu/monitoring-plugins
 [4]: https://docs.sensu.io/sensu-go/latest/operations/deploy-sensu/scale-event-storage/

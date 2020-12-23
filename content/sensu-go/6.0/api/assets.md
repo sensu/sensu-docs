@@ -331,6 +331,6 @@ description     | Deletes the specified Sensu dynamic runtime asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
 response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../operations/deploy-sensu/assets/
+[1]: ../../plugins/assets/
 [2]: ../#pagination
 [3]: ../#response-filtering

@@ -62,7 +62,7 @@ This will help you understand what dynamic runtime assets are and how they are u
 
 In this approach, the first step is to obtain an event filter dynamic runtime asset that will allow you to replicate the behavior of the `hourly` event filter created in [Approach 1 via `sensuctl`][4].
 
-Use [`sensuctl asset add`][5] to register the [fatigue check filter][9] dynamic runtime asset:
+Use [`sensuctl asset add`][5] to register the [fatigue check filter][8] dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add nixwiz/sensu-go-fatigue-check-filter:0.3.2 -r fatigue-filter
@@ -200,8 +200,8 @@ Now that you know how to apply an event filter to a handler and use a filter dyn
 [3]: ../../observe-process/send-slack-alerts/
 [4]: #approach-1-use-sensuctl-to-create-an-event-filter
 [5]: #approach-2-use-an-event-filter-dynamic-runtime-asset
-[6]: ../../../operations/deploy-sensu/assets/ 
-[7]: ../../../operations/deploy-sensu/use-assets-to-install-plugins/
+[6]: ../../../plugins/assets/ 
+[7]: ../../../plugins/use-assets-to-install-plugins/
 [8]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
 [9]: https://bonsai.sensu.io/
 [10]: https://github.com/nixwiz/sensu-go-fatigue-check-filter#configuration

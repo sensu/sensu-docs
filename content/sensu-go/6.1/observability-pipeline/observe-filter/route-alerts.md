@@ -68,7 +68,7 @@ Run `sensuctl asset list --format yaml` to confirm that the dynamic runtime asse
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../operations/deploy-sensu/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ### 2. Create contact filters
@@ -297,7 +297,7 @@ To assign an alert to a contact, add a `contacts` label to the check or entity.
 ### Checks
 
 This check definition includes two contacts (`ops` and `dev`) and the handler `slack`.
-To set up the `check_cpu` check, see [Monitor server resources][9].
+To add the runtime assets and set up the `check_cpu` check, see [Monitor server resources][9].
 
 {{< code yml >}}
 ---
