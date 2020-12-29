@@ -402,7 +402,7 @@ export ETCDCTL_ENDPOINTS="https://backend01:2379,https://backend02:2379,https://
 ### View cluster status and alarms
 
 Use the commands listed here to retrieve etcd cluster status or list alarms.
-```
+{{< code shell >}}
 # get status
 etcdctl endpoint status
 # list alarms
