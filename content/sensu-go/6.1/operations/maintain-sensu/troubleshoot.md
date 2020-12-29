@@ -381,23 +381,24 @@ To resolve this problem, install the [`lsb_release` package][8] for your Linux d
 
 ## Investigate etcd cluster status
 
-Some issues require investigating the state of the etcd cluster or data stored within etcd. In many such cases, this best accomplished by using the `etcdctl` tool to query and manage the etcd database.
+Some issues require you to investigate the state of the etcd cluster or data stored within etcd.
+In these cases, we suggest using the `etcdctl` tool to query and manage the etcd database.
 
-### Obtaining etcdctl
-
-Sensu official packages do not include the etcdctl executable. so you'll need to obtain it from a compatible etcd release.
+Sensu's supported packages do not include the `etcdctl` executable, so you must get it from a compatible etcd release.
 
 ### Configure etcdctl environment variables
 
-```
+To use etcdctl to investigate etcd cluster and data storage issues, first run these commands to configure etcdctl environment variables:
+
+{{< code shell >}}
 export ETCDCTL_API=3
 export ETCDCTL_CACERT=/etc/sensu/ca.pem
 export ETCDCTL_CERT=/rpool/data/subvol-112-disk-0/etc/sensu/etcd-client.crt
 export ETCDCTL_KEY=/rpool/data/subvol-112-disk-0/etc/sensu/etcd-client.key
 export ETCDCTL_ENDPOINTS="https://backend01:2379,https://backend02:2379,https://backend03:2379"
-```
+{{< /code >}}
 
-### See some stuff
+### View cluster status and alarms
 
 ```
 # get status
@@ -410,14 +411,20 @@ etcdctl --endpoints https://etcd.example.com:2379 alarm dearm
 
 ### Restore cluster with oversized database 
 
-```
-```
-# get current status; note etcd default max database size is 2gb
+The etcd default maximum database size is 2 GB.
+If you suspect your etcd database has exceeded the maximum size, run this command to confirm cluster size:
+
+{{< code shell >}}
+# get current status with database size
 etcdctl endpoint status
 https://backend01:2379, 88db026f7feb72b4, 3.3.22, 2.1GB, false, 144, 18619245
 https://backend02:2379, e98ad7a888d16bd6, 3.3.22, 2.1GB, true, 144, 18619245
 https://backend03:2379, bc4e39432cbb36d, 3.3.22, 2.1GB, false, 144, 18619245
+{{< /code >}}
 
+To restore an etcd cluster with a database size that exceeds 2 GB, run these commands:
+
+{{< code shell >}}
 # get current revision number
 etcdctl endpoint status --write-out="json" | egrep -o '"revision":[0-9]*' | egrep -o '[0-9].*'
 
@@ -432,7 +439,7 @@ etcdctl endpoint status
 https://backend01:2379, 88db026f7feb72b4, 3.3.22, 1.0 MB, false, 144, 18619245
 https://backend02:2379, e98ad7a888d16bd6, 3.3.22, 1.0 MB, true, 144, 18619245
 https://backend03:2379, bc4e39432cbb36d, 3.3.22, 1.0 MB, false, 144, 18619245
-```
+{{< /code >}}
 
 
 

@@ -18,15 +18,14 @@ For longer retention of observability event data, integrate Sensu with a time se
 
 ## Use default event storage
 
-By default, Sensu uses its embedded etcd database for storing configuration as well as event data.
+By default, Sensu uses its embedded etcd database to store configuration and event data.
+This embedded database allows you to get started with Sensu without deploying a complete, scalable architecture.
+As your deployment grows, you should review [Deployment architecture for Sensu][5] for more information about deployment considerations and recommendations for a production-ready Sensu deployment.
 
-This embedded database makes it easy to get started with Sensu without requiring deployment of a complete, scalable architecture. As your Sensu deployment grows, you should review our documentation on suggested [deployment architectures][].
+Sensu requires at least etcd 3.3.2 and is tested against releases in the 3.3.x series.
+etcd versions 3.4.0 and later are not supported.
 
-Sensu requires at least etcd 3.3.2 and is tested against releases in the 3.3.x series. etcd versions 3.4.0 and later are not supported.
-
-Sensu can be configured to disable the embedded etcd database and instead use one or more external etcd nodes for configuration and event storage.
-
-Please see our documentation on [using an external etcd cluster][8] for details on this configuration.
+Sensu can be configured to disable the embedded etcd database and use one or more [external etcd nodes][8] for configuration and event storage instead.
 
 ## Scale event storage
 
