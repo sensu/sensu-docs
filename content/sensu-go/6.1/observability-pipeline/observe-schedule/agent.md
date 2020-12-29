@@ -32,11 +32,8 @@ Follow [Secure Sensu][46] to configure the backend and agent for WebSocket Secur
 ## Create observability events using service checks
 
 Sensu uses the [publish/subscribe pattern of communication][15], which allows automated registration and deregistration of ephemeral systems.
-At the core of this model are Sensu agent subscriptions.
-
-Each Sensu agent has a defined set of [`subscriptions`][28]: a list of roles and responsibilities assigned to the system (for example, a webserver or database).
+At the core of this model are Sensu [subscriptions][28]: a list of roles and responsibilities assigned to the system (for example, a webserver or database).
 These subscriptions determine which [monitoring checks][14] the agent will execute.
-Agent subscriptions allow Sensu to request check executions on a group of systems at a time instead of a traditional 1:1 mapping of configured hosts to monitoring checks.
 For an agent to execute a service check, you must specify the same subscription in the [agent configuration][28] and the [check definition][14].
 
 After receiving a check request from the Sensu backend, the agent:
@@ -48,20 +45,13 @@ By default, agents cache dynamic runtime asset data at `/var/cache/sensu/sensu-a
 4. Executes any [hooks][31] specified by the check based on the exit status.
 5. Creates an [event][7] that contains information about the applicable entity, check, and metric.
 
-### Subscription configuration
-
-To configure subscriptions for an agent, set [the `subscriptions` flag][28].
-To configure subscriptions for a check, set the [check definition attribute `subscriptions`][14].
-
-In addition to the subscriptions defined in the agent configuration, Sensu agent entities also subscribe automatically to subscriptions that match their [entity `name`][38].
-For example, an agent entity with `name: "i-424242"` subscribes to check requests with the subscription `entity:i-424242`.
-This makes it possible to generate ad hoc check requests that target specific entities via the API.
+Read the [subscriptions reference][28] for more information.
 
 ### Proxy entities
 
 Sensu proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed (such a network switch).
 The [Sensu backend][2] stores proxy entity definitions (unlike agent entities, which the agent stores).
-When the backend requests a check that includes a [`proxy_entity_name`][14], the agent includes the provided entity information in the observation data in events in place of the agent entity data.
+When the backend requests a check that includes a [`proxy_entity_name`][32], the agent includes the provided entity information in the observation data in events in place of the agent entity data.
 See the [entity reference][3] and [Monitor external resources][33] for more information about monitoring proxy entities.
 
 ## Create observability events using the agent API
@@ -422,12 +412,19 @@ The `keepalive-critical-timeout` is set to `0` (disabled) by default to help ens
 If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-warning-timeout` flag][4], the Sensu backend creates a keepalive **warning** alert in the Sensu web UI.
 The value you specify for `keepalive-warning-timeout` must be lower than the value you specify for `keepalive-critical-timeout`.
 
+{{% notice note %}}
+**NOTE**: If you set the [deregister flag](#ephemeral-agent-configuration-flags) to `true`, when a Sensu agent process stops, the Sensu backend will deregister the corresponding entity.
+Deregistration prevents and clears alerts for failing keepalives &mdash; the backend does not distinguish between intentional shutdown and failure.
+As a result, if you set the deregister flag to `true` and an agent process stops for any reason, you will not see alerts for keepalive events in the web UI.
+If you want to see alerts for failing keepalives, set the [deregister flag](#ephemeral-agent-configuration-flags) to `false`.
+{{% /notice %}}
+
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
 In addition, the agent maps [`keepalive-critical-timeout` and `keepalive-warning-timeout`][4] values to certain event check attributes, so you can create time-based event filters to reduce alert fatigue for agent keepliave events.
 
 {{% notice note %}}
 **NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../../observe-entities/#proxy-entities) because they cannot run a Sensu agent.
-You can use the [events API](../../../api/events/#eventsentitycheck-put) to send manual keepalive events for proxy entities.
+Use the [events API](../../../api/events/#eventsentitycheck-put) to send manual keepalive events for proxy entities.
 {{% /notice %}}
 
 ### Handle keepalive events
@@ -474,6 +471,27 @@ spec:
 
 You can also use the [`keepalive-handlers`][53] flag to send keepalive events to any handler you have configured.
 If you do not specify a keepalive handler with the `keepalive-handlers` flag, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.
+
+## Connection failure
+
+Although connection failure may be due to different kinds of socket errors (such as unexpectedly closed connections and TLS handshake failures), the Sensu agent generally keeps retrying connections to each URL in the `backend-url` list until it is successfully connected to a backend URL or you stop the process.
+
+When you start up a Sensu agent configured with multiple `backend-url` values, the agent shuffles the `backend-url` list and attempts to connect to the first URL in the shuffled list.
+
+If the agent cannot establish a WebSocket connection with the first URL within the number of seconds specified for the [`backend-handshake-timeout`][43], the agent abandons the connection attempt and tries the next URL in the shuffled list.
+
+When the agent establishes a WebSocket connection with a backend URL within the `backend-handshake-timeout` period, the agent sends a heartbeat message to the backend at the specified [`backend-heartbeat-interval`][34].
+For every heartbeat the agent sends, the agent expects the connected backend to send a heartbeat response within the number of seconds specified for the [`backend-heartbeat-timeout`][42].
+If the connected backend does not respond within the `backend-heartbeat-timeout` period, the agent closes the connection and attempts to connect to the next backend URL in the shuffled list.
+
+The agent iterates through the shuffled `backend-url` list until it successfully establishes a WebSocket connection with a backend, returning to the first URL if it fails to connect with the last URL in the list.
+
+{{% notice note %}}
+**NOTE**: Sensu's WebSocket connection heartbeat message and [keepalive monitoring](#keepalive-monitoring) mechanism are different, although they have similar purposes.<br><br>
+The WebSocket `backend-heartbeat-interval` and `backend-heartbeat-timeout` are specifically configured for the WebSocket connection heartbeat message the agent sends when it connects to a backend URL.<br><br>
+Keepalive monitoring is more fluid &mdash; it permits agents to reconnect any number of times within the configured timeout.
+As long as the agent can successfully send one event to any backend within the timeout, the keepalive logic is satisfied.
+{{% /notice %}}
 
 ## Service management {#operation}
 
@@ -876,6 +894,7 @@ sensu-agent start --assets-rate-limit 1.39
 # /etc/sensu/agent.yml example
 assets-rate-limit: 1.39{{< /code >}}
 
+<a name="backend-handshake-timeout"></a>
 
 | backend-handshake-timeout |      |
 ----------------------------|------
@@ -889,6 +908,7 @@ sensu-agent start --backend-handshake-timeout 20
 # /etc/sensu/agent.yml example
 backend-handshake-timeout: 20{{< /code >}}
 
+<a name="backend-heartbeat-interval"></a>
 
 | backend-heartbeat-interval |      |
 -----------------------------|------
@@ -902,6 +922,7 @@ sensu-agent start --backend-heartbeat-interval 45
 # /etc/sensu/agent.yml example
 backend-heartbeat-interval: 45{{< /code >}}
 
+<a name="backend-heartbeat-timeout"></a>
 
 | backend-heartbeat-timeout |      |
 ----------------------------|------
@@ -1126,7 +1147,9 @@ events-rate-limit: 20.0{{< /code >}}
 
 | deregister  |      |
 --------------|------
-description   | `true` if a deregistration event should be created upon Sensu agent process stop. Otherwise, `false`.
+description   | `true` if a deregistration event should be created upon Sensu agent process stop. Otherwise, `false`.<br>{{% notice note %}}
+**NOTE**: To see alerts for failing [keepalives](#keepalive-monitoring), set to `false`.
+{{% /notice %}}
 type          | Boolean
 default       | `false`
 environment variable | `SENSU_DEREGISTER`
@@ -1291,10 +1314,10 @@ type         | String
 default      | `""`
 environment variable | `SENSU_CERT_FILE`
 example      | {{< code shell >}}# Command line example
-sensu-agent start --cert-file /path/to/agent-1.pem
+sensu-agent start --cert-file /path/to/agent.pem
 
 # /etc/sensu/agent.yml example
-cert-file: "/path/to/agent-1.pem"{{< /code >}}
+cert-file: "/path/to/agent.pem"{{< /code >}}
 
 
 | trusted-ca-file |      |
@@ -1317,10 +1340,10 @@ type         | String
 default      | `""`
 environment variable | `SENSU_KEY_FILE`
 example      | {{< code shell >}}# Command line example
-sensu-agent start --key-file /path/to/agent-1-key.pem
+sensu-agent start --key-file /path/to/agent-key.pem
 
 # /etc/sensu/agent.yml example
-key-file: "/path/to/agent-1-key.pem"{{< /code >}}
+key-file: "/path/to/agent-key.pem"{{< /code >}}
 
 
 
@@ -1670,6 +1693,33 @@ This includes your checks and plugins.
 
 For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
 
+#### Use environment variables to specify an HTTP proxy for agent use
+
+{{% notice important %}}
+**IMPORTANT**: To use HTTP proxy environment variables, upgrade to Sensu Go 6.1.4 or later.
+In earlier versions of Sensu Go 6.1, the agent will not respect HTTP proxy environment variables when `trusted-ca-file` is configured.
+Upgrade to Sensu Go 6.1.4 or later to avoid this issue.
+{{% /notice %}}
+
+If an HTTP proxy is required to access the internet in your compute environment, you may need to configure the Sensu agent to successfully download dynamic runtime assets or execute commands that depend on internet access.
+
+For Sensu agents that require a proxy server, define `HTTP_PROXY` and `HTTPS_PROXY` environment variables in your sensu-agent file.
+
+{{< code shell >}}
+HTTP_PROXY="http://YOUR_PROXY_SERVER:PORT"
+HTTPS_PROXY="http://YOUR_PROXY_SERVER:PORT"
+{{< /code >}}
+
+You can use the same proxy server URL for `HTTP_PROXY` and `HTTPS_PROXY`.
+The proxy server URL you specify for `HTTPS_PROXY` does not need to use `https://`.
+
+After you add the `HTTP_PROXY` and `HTTPS_PROXY` environment variables and restart sensu-agent, they will be available to check and hook commands executed by the Sensu agent.
+You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, run checks, and complete other tasks that typically require an internet connection for your unconnected entities.
+
+{{% notice note %}}
+**NOTE**: If you define the `HTTP_PROXY` and `HTTPS_PROXY` environment variables, the agent WebSocket connection will also use the proxy URL you specify.
+{{% /notice %}}
+
 
 [1]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
 [2]: ../backend/
@@ -1698,11 +1748,13 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [25]: ../../../api#response-filtering
 [26]: ../../../sensuctl/filter-responses/
 [27]: ../tokens/
-[28]: #subscriptions-flag
-[29]: ../../../operations/deploy-sensu/assets/
+[28]: ../subscriptions/
+[29]: ../../../plugins/assets/
 [30]: #cache-dir
 [31]: ../hooks/
+[32]: ../checks/#proxy-entity-name-attribute
 [33]: ../../observe-entities/monitor-external-resources/
+[34]: #backend-heartbeat-interval
 [35]: ../backend#datastore-and-cluster-configuration-flags
 [36]: ../../../operations/deploy-sensu/cluster-sensu/
 [37]: ../backend#general-configuration-flags
@@ -1710,6 +1762,8 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [39]: ../../../operations/control-access/rbac/
 [40]: ../../observe-process/send-slack-alerts/
 [41]: ../../observe-process/handlers/#send-registration-events
+[42]: #backend-heartbeat-timeout
+[43]: #backend-handshake-timeout
 [44]: ../checks#ttl-attribute
 [45]: https://en.m.wikipedia.org/wiki/WebSocket
 [46]: ../../../operations/deploy-sensu/secure-sensu/

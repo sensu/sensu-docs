@@ -61,6 +61,7 @@ Port | Protocol | Description |
 2379 | gRPC | Sensu storage client: Required for Sensu backends using an external etcd instance |
 2380 | gRPC | Sensu storage peer: Required for other Sensu backends in a [cluster][22] |
 3000 | HTTP/HTTPS | [Sensu web UI][3]: Required for all Sensu backends using a Sensu web UI |
+6060 | HTTP/HTTPS | Required for all Sensu backends when performance profiling is enabled via [debug][43] setting |
 8080 | HTTP/HTTPS | [Sensu API][26]: Required for all users accessing the Sensu API |
 8081 | WS/WSS | Agent API: Required for all Sensu agents connecting to a Sensu backend |
 
@@ -539,7 +540,7 @@ sensuctl license info
 [14]: ../../../learn/learn-sensu-sandbox/
 [15]: ../../../observability-pipeline/observe-schedule/agent/#events-post-example
 [16]: https://etcd.io/
-[17]: ../../../operations/deploy-sensu/assets/
+[17]: ../../../plugins/assets/
 [18]: #install-sensu-agents
 [19]: #install-sensuctl
 [20]: ../../../commercial/
@@ -551,7 +552,7 @@ sensuctl license info
 [26]: ../../../api/
 [27]: ../../../observability-pipeline/observe-schedule/agent#create-observability-events-using-the-agent-api
 [28]: ../../../observability-pipeline/observe-schedule/agent#create-observability-events-using-the-statsd-listener
-[29]: https://blog.sensu.io/one-year-of-sensu-go/
+[29]: https://sensu.io/blog/one-year-of-sensu-go/
 [30]: ../../../observability-pipeline/observe-schedule/backend#initialization
 [31]: ../deployment-architecture/
 [32]: http://localhost:3000/
@@ -565,3 +566,4 @@ sensuctl license info
 [40]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
 [41]: ../../../observability-pipeline/observe-schedule/checks/#subscriptions
 [42]: https://bonsai.sensu.io/
+[43]: ../../../observability-pipeline/observe-schedule/backend/#debug-attribute

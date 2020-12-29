@@ -34,7 +34,7 @@ Sensu applies event filters in the order that they are listed in your handler de
 As soon as an event filter removes an event from your pipeline because it does not meet the conditions, triggers, or thresholds you specified, the Sensu observability pipeline ceases analysis for the event.
 Sensu will not [transform][5] or [process][3] events that your event filter removes from your pipeline.
 
-Use [Bonsai][8], the Sensu asset index, to discover, download, and share Sensu event filter dynamic runtime assets.
+Use [Bonsai][8], the Sensu asset hub, to discover, download, and share Sensu event filter dynamic runtime assets.
 Read [Use assets to install plugins][9] to get started.
 
 
@@ -46,4 +46,4 @@ Read [Use assets to install plugins][9] to get started.
 [6]: ../observe-filter/filters#filter-expression-comparison
 [7]: filters/#built-in-filter-is_incident
 [8]: https://bonsai.sensu.io/
-[9]: ../../operations/deploy-sensu/use-assets-to-install-plugins/
+[9]: ../../plugins/use-assets-to-install-plugins/

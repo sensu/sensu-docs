@@ -454,7 +454,7 @@ https://backend03:2379, bc4e39432cbb36d, 3.3.22, 1.0 MB, false, 144, 18619245
 [7]: https://dzone.com/articles/what-is-structured-logging
 [8]: https://pkgs.org/download/lsb
 [9]: ../../../observability-pipeline/observe-schedule/backend/#restart-the-service
-[10]: ../../deploy-sensu/assets/#asset-definition-multiple-builds
+[10]: ../../../plugins/assets#asset-definition-multiple-builds
 [11]: ../../monitor-sensu/log-sensu-systemd/
 [12]: https://github.com/systemd/systemd/issues/2913
 [13]: https://github.com/etcd-io/etcd/releases

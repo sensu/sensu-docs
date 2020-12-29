@@ -44,4 +44,4 @@ Read [Use assets to install plugins][10] to get started.
 [7]: ../observe-filter/
 [8]: ../observe-transform/
 [9]: https://bonsai.sensu.io/
-[10]: ../../operations/deploy-sensu/use-assets-to-install-plugins/
+[10]: ../../plugins/use-assets-to-install-plugins/

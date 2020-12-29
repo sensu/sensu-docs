@@ -23,7 +23,7 @@ The most common are `pipe` handlers, which work similarly to [checks][1] and ena
 - **TCP/UDP handlers** send observation data (events) to a remote socket
 - **Handler sets** group event handlers and streamline groups of actions to execute for certain types of events (also called "set handlers")
 
-Discover, download, and share Sensu handler dynamic runtime assets using [Bonsai][16], the Sensu asset index.
+Discover, download, and share Sensu handler dynamic runtime assets using [Bonsai][16], the Sensu asset hub.
 Read [Use assets to install plugins][23] to get started.
 
 ## Pipe handlers
@@ -665,7 +665,7 @@ spec:
 [4]: ../../../sensuctl/create-manage-resources/#create-resources
 [5]: #spec-attributes
 [6]: #socket-attributes
-[7]: ../../../operations/deploy-sensu/assets/
+[7]: ../../../plugins/assets/
 [8]: #metadata-attributes
 [9]: ../../../operations/control-access/rbac#namespaces
 [10]: ../../../api#response-filtering
@@ -681,7 +681,7 @@ spec:
 [20]: ../../../operations/manage-secrets/secrets/
 [21]: ../../../operations/manage-secrets/secrets-providers/
 [22]: ../
-[23]: ../../../operations/deploy-sensu/use-assets-to-install-plugins
+[23]: ../../../plugins/use-assets-to-install-plugins
 [24]: ../../observe-filter/filters/
 [25]: ../../../web-ui/filter#filter-with-label-selectors
 [26]: ../../../operations/manage-secrets/secrets-management/

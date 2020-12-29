@@ -80,7 +80,7 @@ To start using built-in event filters, see [Send Slack alerts][4] and [Plan main
 The is_incident event filter is included in every installation of the [Sensu backend][8].
 You can use the is_incident filter to allow only high-priority events through a Sensu pipeline.
 For example, you can use the is_incident filter to reduce noise when sending notifications to Slack.
-When applied to a handler, the is_incident filter allows only warning (`"status": 1`), critical (`"status": 2`), and resolution events to be processed.
+When applied to a handler, the is_incident filter allows warning (`"status": 1`), critical (`"status": 2`), other (unknown or custom status), and resolution events to be processed.
 
 To use the is_incident event filter, include `is_incident` in the handler configuration `filters` array:
 
@@ -134,11 +134,11 @@ The is_incident event filter applies the following filtering logic:
 
 | status | allow | discard |     |     |     |     |
 | ----- | ----- | ------- | --- | --- | --- | --- |
-| 0     |   |{{< cross >}}| | | | |
-| 1     |{{< check >}} |  | | | | |
-| 2     |{{< check >}} |  | | | | |
-| other |   |{{< cross >}}| | | | |
-| 1 --> 0 or 2 --> 0<br>(resolution event)  |{{< check >}} |  | | | | |
+| 0     | | {{< cross >}} | | | | |
+| 1     | {{< check >}} | | | | | |
+| 2     | {{< check >}} | | | | | |
+| other (unknown or custom status) | {{< check >}} | | | | | |
+| resolution event<br>such as 1 --> 0<br>or 3 --> 0 | {{< check >}} | | | | | |
 
 ### Built-in filter: not_silenced
 
@@ -870,7 +870,7 @@ spec:
 
 ## Use JavaScript libraries with Sensu filters
 
-You can include JavaScript libraries in their event filter execution context with [dynamic runtime assets][39].
+You can include JavaScript libraries in their event filter execution context with [dynamic runtime assets][17].
 For instance, if you package underscore.js into a Sensu asset, you can use functions from the underscore library for filter expressions:
 
 {{< language-toggle >}}
@@ -929,7 +929,7 @@ spec:
 [14]: ../../observe-schedule/checks#use-a-proxy-check-to-monitor-a-proxy-entity
 [15]: ../../observe-schedule/checks#use-a-proxy-check-to-monitor-multiple-proxy-entities
 [16]: ../../observe-schedule/checks#round-robin-checks
-[17]: ../../../operations/deploy-sensu/assets/
+[17]: ../../../plugins/assets/
 [18]: ../../observe-entities/entities#system-attributes
 [19]: ../../observe-schedule/checks/#metadata-attributes
 [20]: ../../observe-events/events/#history-attributes
@@ -951,7 +951,6 @@ spec:
 [36]: ../../../api#response-filtering
 [37]: ../../../sensuctl/filter-responses/
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
-[39]: ../../../operations/deploy-sensu/assets/
 [41]: ../../../web-ui/search#search-for-labels
 [42]: ../../../web-ui/search/
 [43]: ../

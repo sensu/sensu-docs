@@ -18,7 +18,7 @@ Use the information and instructions in the Deploy Sensu category to plan, insta
 
 Find Sensu agent and backend requirements and networking and cloud recommendations in the [hardware requirements][1].
 
-[Deployment architectures for Sensu][2] describes planning considerations and recommendations for a production-ready Sensu deployment, along with communication security details and diagrams showing single, clustered, and large-scale deployment architectures.
+[Deployment architecture for Sensu][2] describes planning considerations and recommendations for a production-ready Sensu deployment, along with communication security details and diagrams showing single, clustered, and large-scale deployment architectures.
 
 ## Install Sensu
 

@@ -48,7 +48,7 @@ Get in touch with us using [this form][6].
 Sensu supports a wide range of plugins for monitoring everything from the server closet to the cloud.
 [Install the Sensu agent][8] on the hosts you want to monitor, integrate with the [Sensu API][9], or take advantage of [proxy entities][10] to monitor anything on your network.
 
-Sensuctl integrates with [Bonsai, the Sensu asset index][32], where you’ll find plugins, libraries, and runtimes you need to automate your monitoring workflows.
+Sensuctl integrates with [Bonsai, the Sensu asset hub][32], where you’ll find plugins, libraries, and runtimes you need to automate your monitoring workflows.
 If you want to add your own dynamic runtime assets, read the [guide for sharing an asset on Bonsai][33].
 
 You can also check out the 200+ plugins shared in the [Sensu plugins community][11], including monitoring checks for [AWS][13], [Jenkins][14], [Puppet][15], [InfluxDB][16], and [SNMP][17], or write your own Sensu plugins in any language using the [Sensu plugin specification][12].
@@ -104,7 +104,7 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 
 [1]: ../platforms/
 [2]: ../installation/install-sensu/
-[3]: https://blog.sensu.io/sensu-go-is-here/
+[3]: https://sensu.io/blog/sensu-go-is-here/
 [4]: ../installation/upgrade/
 [5]: ../installation/recommended-hardware/
 [6]: https://sensu.io/sales/
@@ -113,7 +113,7 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [9]: ../api/
 [10]: ../observability-pipeline/observe-entities/entities/#proxy-entities
 [11]: https://github.com/sensu-plugins/
-[12]: https://docs.sensu.io/plugins/1.0/reference/#the-sensu-plugin-specification
+[12]: ../plugins/
 [13]: https://github.com/sensu-plugins/sensu-plugins-aws/
 [14]: https://github.com/sensu-plugins/sensu-plugins-jenkins/
 [15]: https://github.com/sensu-plugins/sensu-plugins-puppet/
@@ -132,9 +132,9 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [28]: ../commercial/
 [29]: web-ui/
 [30]: https://sensu.io/enterprise/
-[31]: https://blog.sensu.io/enterprise-features-in-sensu-go/
+[31]: https://sensu.io/blog/enterprise-features-in-sensu-go/
 [32]: https://bonsai.sensu.io/
-[33]: ../operations/deploy-sensu/assets/#share-an-asset-on-bonsai
-[34]: https://blog.sensu.io/one-year-of-sensu-go/
+[33]: ../plugins/assets#share-an-asset-on-bonsai
+[34]: https://sensu.io/blog/one-year-of-sensu-go/
 [36]: https://sensu.io/contact/
 [37]: #go-ports

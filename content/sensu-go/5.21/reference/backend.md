@@ -437,10 +437,11 @@ sensu-backend start --config-file /etc/sensu/backend.yml
 sensu-backend start -c /etc/sensu/backend.yml
 {{< /code >}}
 
+<a name="debug-attribute"></a>
 
 | debug     |      |
 ------------|------
-description | If `true`, enable debugging and profiling features. Otherwise, `false`.
+description | If `true`, enable debugging and profiling features for use with the [Go pprof package][27]. Otherwise, `false`.
 type        | Boolean
 default     | `false`
 environment variable | `SENSU_BACKEND_DEBUG`
@@ -1444,4 +1445,5 @@ The _SIGHUP_ signal causes the `backend` component to reload instead of restarti
 [24]: ../../operations/deploy-sensu/install-sensu#2-configure-and-start
 [25]: ../../operations/deploy-sensu/install-sensu#3-initialize
 [26]: ../../sensuctl/#change-admin-users-password
+[27]: https://golang.org/pkg/net/http/pprof/
 [29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly

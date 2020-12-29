@@ -17,11 +17,16 @@ Extend Sensu's functionality with [plugins][10], which provide executables for p
 ## Install plugins with assets
 
 Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
-To start using and deploying assets, read [Install plugins with assets][7] to become familiar with workflows that involve assets. 
+To start using and deploying assets, read [Install plugins with assets][7] to become familiar with workflows that involve assets.
 
-## Use Bonsai, the Sensu asset index
+{{% notice note %}}
+**NOTE**: Assets are not required to use Sensu Go.
+You can install Sensu plugins using the [sensu-install](../install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../configuration-management/) solution.
+{{% /notice %}}
 
-[Bonsai, the Sensu asset index][8], is a centralized place for downloading and sharing plugin assets.
+## Use Bonsai, the Sensu asset hub
+
+[Bonsai, the Sensu asset hub][8], is a centralized place for downloading and sharing plugin assets.
 Make Bonsai your first stop when you need to find an asset.
 Bonsai includes plugins, libraries, and runtimes you need to automate your monitoring workflows.
 You can also [share your asset on Bonsai][9].

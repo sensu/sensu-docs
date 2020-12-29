@@ -26,10 +26,10 @@ If there are one or more matching entries, the event is updated with a list of s
 The presence of silences indicates that the event is silenced.
 
 When creating a silencing entry, you can specify a combination of checks and subscriptions, but only one or the other is strictly required.
-For example, if you create a silencing entry specifying only a check, its name will contain an asterisk (or wildcard) in the `$SUBSCRIPTION` position.
+For example, if you create a silencing entry [specifying only a check][12], its name will contain an asterisk (or wildcard) in the `$SUBSCRIPTION` position.
 This indicates that any event with a matching check name will be marked as silenced, regardless of the originating entities’ subscriptions.
 
-Conversely, a silencing entry that specifies only a subscription will have a name with an asterisk in the `$CHECK` position.
+Conversely, a silencing entry that [specifies only a subscription][11] will have a name with an asterisk in the `$CHECK` position.
 This indicates that any event where the originating entities’ subscriptions match the subscription specified in the entry will be marked as silenced, regardless of the check name.
 
 ## Silencing specification
@@ -246,16 +246,34 @@ To continue the previous example, here's how to silence a check named `check_ntp
 {{< language-toggle >}}
 
 {{< code yml >}}
-check: check_ntp
-expire_on_resolve: true
-subscription: entity:i-424242
+type: Silenced
+api_version: core/v2
+metadata:
+  name: entity:i-424242:check_ntp
+  namespace: default
+  labels: 
+  annotations: 
+spec:
+  subscription: entity:i-424242
+  check: check_ntp
+  expire_on_resolve: true
 {{< /code >}}
 
 {{< code json >}}
 {
-  "subscription": "entity:i-424242", 
-  "check": "check_ntp", 
-  "expire_on_resolve": true 
+  "type": "Silenced",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "entity:i-424242:check_ntp",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "subscription": "entity:i-424242",
+    "check": "check_ntp",
+    "expire_on_resolve": true
+  }
 }
 {{< /code >}}
 
@@ -273,12 +291,30 @@ Just as in the example of silencing all checks on a specific entity, you’ll cr
 {{< language-toggle >}}
 
 {{< code yml >}}
-subscription: appserver
+type: Silenced
+api_version: core/v2
+metadata:
+  name: appserver
+  namespace: default
+  labels: 
+  annotations: 
+spec:
+  subscription: appserver
 {{< /code >}}
 
 {{< code json >}}
 {
-  "subscription": "appserver" 
+  "type": "Silenced",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "appserver",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "subscription": "appserver"
+  }
 }
 {{< /code >}}
 
@@ -291,14 +327,32 @@ To silence a check `mysql_status` that is running on Sensu entities with the sub
 {{< language-toggle >}}
 
 {{< code yml >}}
-check: mysql_status
-subscription: appserver
+type: Silenced
+api_version: core/v2
+metadata:
+  name: appserver:mysql_status
+  namespace: default
+  labels: 
+  annotations: 
+spec:
+  subscription: appserver
+  check: mysql_status
 {{< /code >}}
 
 {{< code json >}}
 {
-  "subscription": "appserver", 
-  "check": "mysql_status"
+  "type": "Silenced",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "appserver:mysql_status",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "subscription": "appserver",
+    "check": "mysql_status"
+  }
 }
 {{< /code >}}
 
@@ -311,12 +365,30 @@ To silence the check `mysql_status` on every entity in your infrastructure, rega
 {{< language-toggle >}}
 
 {{< code yml >}}
-check: mysql_status
+type: Silenced
+api_version: core/v2
+metadata:
+  name: mysql_status
+  namespace: default
+  labels: 
+  annotations: 
+spec:
+  check: mysql_status
 {{< /code >}}
 
 {{< code json >}}
 {
-  "check": "mysql_status"
+  "type": "Silenced",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "mysql_status",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "check": "mysql_status"
+  }
 }
 {{< /code >}}
 
@@ -326,7 +398,7 @@ check: mysql_status
 
 To delete a silencing entry, you must provide its name.
 
-Subscription-only silencing entry names will be similar to this example:
+Subscription-only silencing entry names will contain an asterisk (or wildcard) in the `$SUBSCRIPTION` position, similar to this example:
 
 {{< language-toggle >}}
 
@@ -342,7 +414,7 @@ name: appserver:*
 
 {{< /language-toggle >}}
 
-Check-only silencing entry names will be similar to this example:
+Check-only silencing entry names will contain an asterisk (or wildcard) in the `$CHECK` position, similar to this example:
 
 {{< language-toggle >}}
 
@@ -358,6 +430,7 @@ name: '*:mysql_status'
 
 {{< /language-toggle >}}
 
+
 [1]: ../../observe-events/events/#attributes
 [2]: ../../../operations/control-access/rbac#namespaces
 [3]: #metadata-attributes
@@ -367,4 +440,6 @@ name: '*:mysql_status'
 [7]: ../../../sensuctl/filter-responses/
 [8]: ../../observe-filter/filters/
 [9]: ../../../web-ui/search#search-for-labels
-[10]: ../../../web-ui/search
+[10]: ../../../web-ui/search/
+[11]: #silence-all-checks-on-entities-with-a-specific-subscription
+[12]: #silence-a-specific-check-on-every-entity

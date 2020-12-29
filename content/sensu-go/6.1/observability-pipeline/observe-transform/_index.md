@@ -30,7 +30,7 @@ If the handler includes a mutator, the Sensu backend executes the mutator.
 * If the mutator executes successfully (i.e. returns an exit status code of `0`), Sensu applies the mutator to transform the event data, returns the transformed event data to the handler, and executes the handler.
 * If the mutator fails to execute (i.e. returns a non-zero exit status code or fails to complete within its configured timeout), Sensu logs an error and does not execute the handler.
 
-Use [Bonsai][5], the Sensu asset index, to discover, download, and share Sensu mutator dynamic runtime assets.
+Use [Bonsai][5], the Sensu asset hub, to discover, download, and share Sensu mutator dynamic runtime assets.
 Read [Use assets to install plugins][6] to get started.
 
 
@@ -39,4 +39,4 @@ Read [Use assets to install plugins][6] to get started.
 [3]: ../observe-filter/
 [4]: mutators/#built-in-mutator-only_check_output
 [5]: https://bonsai.sensu.io/
-[6]: ../../operations/deploy-sensu/use-assets-to-install-plugins/
+[6]: ../../plugins/use-assets-to-install-plugins/

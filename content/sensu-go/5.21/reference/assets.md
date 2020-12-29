@@ -13,7 +13,7 @@ menu:
     parent: reference
 ---
 
-You can discover, download, and share assets using [Bonsai, the Sensu asset index][16].
+You can discover, download, and share assets using [Bonsai, the Sensu asset hub][16].
 Read [Install plugins with assets][23] to get started.
 
 Assets are shareable, reusable packages that make it easier to deploy Sensu [plugins][29].
@@ -21,7 +21,7 @@ You can use assets to provide the plugins, libraries, and runtimes you need to a
 Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
 
 {{% notice note %}}
-**NOTE**: Assets are not required to use Sensu Go in production.
+**NOTE**: Assets are not required to use Sensu Go.
 You can install Sensu plugins using the [sensu-install](../../operations/deploy-sensu/install-plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../operations/deploy-sensu/configuration-management/) solution.
 {{% /notice %}}
 

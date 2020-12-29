@@ -18,10 +18,9 @@ Sensu Go also includes many powerful [commercial features][27] to make monitorin
 
 Sensu Go is available for [RHEL/CentOS, Debian, Ubuntu, and Docker][43].
 The Sensu Go agent is also available for Windows.
-[Configuration management][44] integrations for Sensu Go are available for Ansible, Chef, and Puppet.
 
 {{% notice important %}}
-**IMPORTANT**: To install Sensu Go alongside your current Sensu instance, you must upgrade to at least [Sensu Core 1.7.0](https://eol-repositories.sensuapp.org/).
+**IMPORTANT**: To install Sensu Go alongside your current Sensu instance, you must upgrade to at least [Sensu Core 1.9.0-2](https://eol-repositories.sensuapp.org/).
 {{% /notice %}}
 
 Aside from this migration guide, these resources can help you migrate from Sensu Core to Sensu Go:
@@ -32,6 +31,14 @@ Aside from this migration guide, these resources can help you migrate from Sensu
 - [**Sensu Translator**][45]: Use this command-line tool to generate Sensu Go configurations from your Sensu Core config files.
 
 We also offer [**commercial support** and **professional services** packages][49] to help with your Sensu Go migration.
+
+## Configuration management with Ansible, Chef, and Puppet
+
+[Configuration management][44] integrations for Sensu Go are available for Ansible, Chef, and Puppet:
+
+- [Ansible collection for Sensu Go][77] and [documentation site][78]
+- [Chef cookbook for Sensu Go][76] &mdash; [contact us][79] for more information
+- [Puppet module for Sensu Go][75]
 
 ## Packaging
 
@@ -409,7 +416,7 @@ You can still install [Sensu Community plugins][21] in Ruby via `sensu-install` 
 See the [installing plugins guide][51] for more information.
 
 Sensu supports dynamic runtime assets for checks, filters, mutators, and handlers.
-Discover, download, and share dynamic runtime assets with [Bonsai][68], the Sensu asset index.
+Discover, download, and share dynamic runtime assets with [Bonsai][68], the Sensu asset hub.
 
 To create your own dynamic runtime assets, see the [asset reference][12] and [guide to sharing an asset on Bonsai][69].
 To contribute to converting a Sensu plugin to a dynamic runtime asset, see [the Discourse post][70].
@@ -442,8 +449,8 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [20]: https://packagecloud.io/sensu/community/
 [21]: https://github.com/sensu-plugins/
 [24]: ../../../observability-pipeline/observe-entities/entities#metadata-attributes
-[25]: https://blog.sensu.io/check-configuration-upgrades-with-the-sensu-go-sandbox/
-[26]: https://blog.sensu.io/self-service-monitoring-checks-in-sensu-go/
+[25]: https://sensu.io/blog/check-configuration-upgrades-with-the-sensu-go-sandbox/
+[26]: https://sensu.io/blog/self-service-monitoring-checks-in-sensu-go/
 [27]: ../../../commercial/
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check/
 [29]: ../../../observability-pipeline/observe-schedule/backend#operation
@@ -464,7 +471,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [48]: ../../../learn/sandbox/
 [49]: https://sensu.io/support/
 [50]: ../../deploy-sensu/use-assets-to-install-plugins
-[51]: ../../deploy-sensu/install-plugins/
+[51]: ../../../plugins/install-plugins/
 [52]: ../../deploy-sensu/install-sensu#install-the-sensu-backend
 [53]: ../../deploy-sensu/install-sensu#install-sensuctl
 [54]: ../../control-access/rbac/#resources
@@ -475,7 +482,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [59]: https://bonsai.sensu.io/assets?q=eventfilter
 [60]: ../../../observability-pipeline/observe-filter/reduce-alert-fatigue/
 [61]: ../../../observability-pipeline/observe-filter/filters/#build-event-filter-expressions-with-sensu-query-expressions
-[62]: https://blog.sensu.io/filters-valves-for-the-sensu-monitoring-event-pipeline
+[62]: https://sensu.io/blog/filters-valves-for-the-sensu-monitoring-event-pipeline
 [63]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-is_incident
 [64]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced
 [65]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
@@ -488,3 +495,8 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [72]: #translate-proxy-requests-entities
 [73]: #translate-hooks
 [74]: https://docs.sensu.io/sensu-core/latest/platforms/
+[75]: https://forge.puppet.com/modules/sensu/sensu
+[76]: https://supermarket.chef.io/cookbooks/sensu-go
+[77]: https://galaxy.ansible.com/sensu/sensu_go
+[78]: https://sensu.github.io/sensu-go-ansible/
+[79]: https://monitoringlove.sensu.io/chef

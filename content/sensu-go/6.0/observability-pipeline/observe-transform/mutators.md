@@ -379,7 +379,7 @@ spec:
 {{< /language-toggle >}}
 
 
-[1]: ../../../operations/deploy-sensu/assets/
+[1]: ../../../plugins/assets/
 [2]: #metadata-attributes
 [3]: ../../../operations/control-access/rbac#namespaces
 [4]: ../../../operations/deploy-sensu/use-assets-to-install-plugins/
