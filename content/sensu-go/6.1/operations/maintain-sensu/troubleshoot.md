@@ -393,23 +393,25 @@ To use etcdctl to investigate etcd cluster and data storage issues, first run th
 {{< code shell >}}
 export ETCDCTL_API=3
 export ETCDCTL_CACERT=/etc/sensu/ca.pem
-export ETCDCTL_CERT=/rpool/data/subvol-112-disk-0/etc/sensu/etcd-client.crt
-export ETCDCTL_KEY=/rpool/data/subvol-112-disk-0/etc/sensu/etcd-client.key
+# skip ETCDCTL_CERT and ETCDCTL_KEY, unless your etcd uses client certificate authentication
+# export ETCDCTL_CERT=/etc/sensu/cert.pem
+# export ETCDCTL_KEY=/etc/sensu/key.pem
 export ETCDCTL_ENDPOINTS="https://backend01:2379,https://backend02:2379,https://backend03:2379"
 {{< /code >}}
 
 ### View cluster status and alarms
 
+Use the commands listed here to retrieve etcd cluster status or list alarms.
 ```
 # get status
-etcdctl --endpoints https://etcd.example.com:2379 endpoint status
+etcdctl endpoint status
 # list alarms
-etcdctl --endpoints https://etcd.example.com:2379 alarm list
+etcdctl alarm list
 # clear alarms
-etcdctl --endpoints https://etcd.example.com:2379 alarm dearm
-```
+etcdctl alarm dearm
+{{< /code >}}
 
-### Restore cluster with oversized database 
+### Restore a cluster with an oversized database 
 
 The etcd default maximum database size is 2 GB.
 If you suspect your etcd database has exceeded the maximum size, run this command to confirm cluster size:
