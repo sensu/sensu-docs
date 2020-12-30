@@ -12,6 +12,50 @@ menu:
     parent: maintain-sensu
 ---
 
+## A word about etcd and disk latency
+
+**TL;DR:** etcd is very sensitive to disk and CPU latency. When latency thresholds are regularly exceeded, failures will cascade. Mount fast storage at /var/lib/sensu/sensu-backend. Review [etcd tuning documentation][14]. Use the commmercial Postgres datastore to reduce dependency on etcd.
+
+At the default "warn" log level, you may see messages like these from your Sensu backend:
+
+{{< code json >}}
+{"component":"etcd","level":"warning","msg":"read-only range request \"key:\\\"/sensu.io/handlers/default/keepalive\\\" limit:1 \" with result \"range_response_count:0 size:6\" took too long (169.767546ms) to execute","pkg":"etcdserver","time":"..."}
+{{< /code >}}
+
+The above message indicates that a database query ("read-only range request") exceeded a 100 millisecond threshold hard-coded into etcd. Messages like these are helpful in so far as they can alert us to a trend, but occasional warnings of this nature aren't necessarily indicative of a problem.
+
+However, a trend of increasingly long-running database transactions will eventually lead to decreased reliability. You may experience symptoms of these conditions as inconsistent behavior around check execution or updates to configuration fail to be applied as expected.
+
+As the etcd project's [tuning documentation][14] states, etcd is "very sensitive to disk latencies. Since etcd must persist proposals to its log, disk activity from other processes may cause long fsync latencies. [...] etcd may miss heartbeats, causing request timeouts and temporary leader loss."
+
+When Sensu's etcd component doesn't recieve sufficient CPU cycles, or when it's file system can't sustain a sufficient number of IOPS, transactions will begin to timeout, leading to cascading failures:
+
+A message like this one indicates that syncing the etcd database to disk exceeded another threshold:
+
+{{< code json >}}
+{"component":"etcd","level":"warning","msg":"sync duration of 1.031759056s, expected less than 1s","pkg":"wal","time":"..."}
+{{< /code >}}
+
+These subsequent "retrying of unary invoker failed" messages are indicative of failing requests to etcd:
+
+{{< code json >}}
+{"level":"warn","ts":"...","caller":"clientv3/retry_interceptor.go:62","msg":"retrying of unary invoker failed","target":"endpoint://client-6f6bfc7e-cf31-4498-a564-78d6b7b3a44e/localhost:2379","attempt":0,"error":"rpc error: code = Canceled desc = context canceled"}
+message repeated 5 times
+{{< /code >}}
+
+In many cases the backend service detects and attempts to recover from errors like these, so you may see a message like this one:
+
+{{< code json >}}
+{"component":"backend","error":"error from keepalived: internal error: etcdserver: request timed out","level":"error","msg":"backend stopped working and is restarting","time":"..."}
+{{< /code >}}
+
+In some scenarios this may result in a crash loop that is difficult to recover from. You may observe that the Sensu backend process continues running, but is not listening for connections on the agent websocket, API or web UI ports. The backend will stop listening on those ports when the etcd database is unavailable.
+
+To maximize Sensu Go performance, we recommend that you:
+ * Follow [documented etcd tuning practices][14] to maximize performance
+ * [Benchmark your etcd storage volumes][15] to establish baseline expectations
+ * Scale event storage using Postgres to reduce the volume of etcd read and write transactions.
+
 ## Service logging
 
 Logs produced by Sensu services (sensu-backend and sensu-agent) are often the best place to start when troubleshooting a variety of issues.
@@ -458,3 +502,5 @@ https://backend03:2379, bc4e39432cbb36d, 3.3.22, 1.0 MB, false, 144, 18619245
 [11]: ../../monitor-sensu/log-sensu-systemd/
 [12]: https://github.com/systemd/systemd/issues/2913
 [13]: https://github.com/etcd-io/etcd/releases
+[14]: https://etcd.io/docs/v3.4.0/tuning/#disk
+[15]: https://www.ibm.com/cloud/blog/using-fio-to-tell-whether-your-storage-is-fast-enough-for-etcd
