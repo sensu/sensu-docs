@@ -54,7 +54,7 @@ In some scenarios this may result in a crash loop that is difficult to recover f
 To maximize Sensu Go performance, we recommend that you:
  * Follow [documented etcd tuning practices][14] to maximize performance
  * [Benchmark your etcd storage volumes][15] to establish baseline expectations
- * Scale event storage using Postgres to reduce the volume of etcd read and write transactions.
+ * [Scale event storage using Postgres][16] to reduce the volume of etcd read and write transactions.
 
 ## Service logging
 
@@ -504,3 +504,4 @@ https://backend03:2379, bc4e39432cbb36d, 3.3.22, 1.0 MB, false, 144, 18619245
 [13]: https://github.com/etcd-io/etcd/releases
 [14]: https://etcd.io/docs/v3.4.0/tuning/#disk
 [15]: https://www.ibm.com/cloud/blog/using-fio-to-tell-whether-your-storage-is-fast-enough-for-etcd
+[16]: ../../deploy-sensu/datastore#scale-event-storage
