@@ -75,12 +75,8 @@
             "url": "/sensu-go/latest/versions/",
             "status": 301
         },
-        "~ ^/sensu-go/5.20/api/web-ui/?$": {
-            "url": "/sensu-go/latest/api/webconfig/",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.20/reference/auth/?$": {
-            "url": "/sensu-go/latest/operations/control-access/",
+        "~ ^/sensu-go/5.20/?((?<=\/).*)?$": {
+            "url": "/sensu-go/latest/$1",
             "status": 301
         },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?$": {
@@ -873,6 +869,14 @@
         },
         "~ ^/sensu-go/sensu-go/5.19/release-notes/?$": {
             "url": "/sensu-go/latest/release-notes",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.20/api/web-ui/?$": {
+            "url": "/sensu-go/5.20/api/webconfig/",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.20/reference/auth/?$": {
+            "url": "/sensu-go/5.20/operations/control-access/",
             "status": 301
         }
     }
