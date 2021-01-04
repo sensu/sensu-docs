@@ -3,9 +3,13 @@
     "https_only": true,
     "error_page": "/404.html",
     "pattern_redirects": {
-        "~ ^/sensu-core/1.9/?((?<=\/).*)?$": {
+        "~ ^/sensu-core/1.[0-9]/?((?<=\/).*)?$": {
             "url": "/sensu-core/latest/$1",
-            "status": 302
+            "status": 301
+        },
+        "~ ^/sensu-core/0.29/?((?<=\/).*)?$": {
+            "url": "/sensu-core/latest/$1",
+            "status": 301
         },
         "~ ^/sensu-core/2.0/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
@@ -15,13 +19,21 @@
             "url": "/uchiwa/latest/$1",
             "status": 302
         },
-        "~ ^/sensu-enterprise/3.8/?((?<=\/).*)?$": {
+        "~ ^/sensu-enterprise/3.[0-8]/?((?<=\/).*)?$": {
             "url": "/sensu-enterprise/latest/$1",
-            "status": 302
+            "status": 301
         },
-        "~ ^/sensu-enterprise-dashboard/2.16/?((?<=\/).*)?$": {
+        "~ ^/sensu-enterprise/2.[6-8]/?((?<=\/).*)?$": {
+            "url": "/sensu-enterprise/latest/$1",
+            "status": 301
+        },
+        "~ ^/sensu-enterprise-dashboard/2.1[0-6]/?((?<=\/).*)?$": {
             "url": "/sensu-enterprise-dashboard/latest/$1",
-            "status": 302
+            "status": 301
+        },
+        "~ ^/sensu-enterprise-dashboard/2.9/?((?<=\/).*)?$": {
+            "url": "/sensu-enterprise-dashboard/latest/$1",
+            "status": 301
         },
         "~ ^/sensu-go/latest/guides/create-a-ready-only-user$": {
             "url": "/sensu-go/latest/operations/control-access/create-read-only-user",
