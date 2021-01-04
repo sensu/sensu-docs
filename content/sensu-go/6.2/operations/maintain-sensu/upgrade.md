@@ -11,6 +11,18 @@ menu:
     parent: maintain-sensu
 ---
 
+## Upgrade to Sensu Go 6.2.0 from 6.1.x
+
+As of Sensu Go 6.0, it is not possible to delete namespaces that were referenced in other resources.
+However, before Sensu Go 6.0, sensu-backend did allow you to delete a namespace even when other resources still referenced that namespace.
+As a result, pre-6.0 users may have resources, including check configurations, that reference non-existent namespaces.
+
+Upgrading to Sensu Go 6.2.0 requires sensu-backend to upgrade check configurations.
+If you have check configurations that reference non-existent namespaces, the 6.2.0 upgrade operation will fail when it encounters one of these check configurations.
+
+To resolve this issue, revert your Sensu instance to Sensu Go 6.1.3.
+Then, recreate the missing namespaces referenced in your check configurations and upgrade again to 6.2.0.
+
 ## Upgrade to Sensu Go 6.1.0 from 6.0.0
 
 To upgrade to Sensu Go 6.1.0 from version 6.0.0 or later, [install the latest packages][1] and restart the services.
