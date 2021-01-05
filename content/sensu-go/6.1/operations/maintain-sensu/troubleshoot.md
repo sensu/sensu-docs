@@ -490,9 +490,9 @@ These subsequent "retrying of unary invoker failed" messages indicate failing re
 
 {{< code json >}}
 {"level":"warn","ts":"...","caller":"clientv3/retry_interceptor.go:62","msg":"retrying of unary invoker failed","target":"endpoint://client-6f6bfc7e-cf31-4498-a564-78d6b7b3a44e/localhost:2379","attempt":0,"error":"rpc error: code = Canceled desc = context canceled"}
-message repeated 5 times
 {{< /code >}}
 
+On busy systems you may also see output like "message repeated 5 times" indicating that failing requests were retried multiple times.
 In many cases, the backend service detects and attempts to recover from errors like these, so you may see a message like this:
 
 {{< code json >}}
