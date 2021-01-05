@@ -34,10 +34,10 @@ Because etcd's design prioritizes consistency across a cluster, the speed with w
 This means that you should provision Sensu backend infrastructure to provide sustained IO operations per second (IOPS) appropriate for the rate of observability events the system will be required to process.
 
 To maximize Sensu Go performance, we recommend that you:
- * Follow our [recommended backend hardware requirements][1] documentation.
+ * Follow our [recommended backend hardware configuration][1].
  * Implement [documented etcd system tuning practices][11].
  * [Benchmark your etcd storage volume][12] to establish baseline IOPS for your system.
- * [Scale event storage using Postgres][13], reducing the overall volume of etcd transactions.
+ * [Scale event storage using PostgreSQL][13] to reduce the overall volume of etcd transactions.
 
 ## Communications security
 
