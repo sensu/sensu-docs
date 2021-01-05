@@ -493,6 +493,7 @@ These subsequent "retrying of unary invoker failed" messages indicate failing re
 {{< /code >}}
 
 On busy systems you may also see output like "message repeated 5 times" indicating that failing requests were retried multiple times.
+
 In many cases, the backend service detects and attempts to recover from errors like these, so you may see a message like this:
 
 {{< code json >}}
