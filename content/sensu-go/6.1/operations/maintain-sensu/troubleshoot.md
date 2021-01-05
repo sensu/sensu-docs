@@ -450,7 +450,7 @@ As the number of checks and entities in your Sensu installation increases, so do
 
 One trade-off in etcd's design is its sensitivity to disk and CPU latency.
 When certain latency tolerances are regularly exceeded, failures will cascade.
-Sensu will attempt to recover from these conditions when it can, but 
+Sensu will attempt to recover from these conditions when it can, but this may not be successful.
 
 To maximize Sensu Go performance, we recommend that you:
  * Follow our [recommended backend hardware configuration][17].
