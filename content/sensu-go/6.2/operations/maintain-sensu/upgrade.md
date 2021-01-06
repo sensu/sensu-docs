@@ -14,9 +14,7 @@ menu:
 ## Upgrade to Sensu Go 6.2.0 from any previous version
 
 Prior to Sensu Go 6.0, sensu-backend allowed you to delete a namespace even when other resources still referenced that namespace. 
-
 As of Sensu Go 6.0, it is not possible to delete namespaces that are referenced in other resources.
-
 As a result, users whose configuration predates Sensu Go 6.0 may have lingering resources, including check configurations, that reference non-existent namespaces.
 
 Upgrading to Sensu Go 6.2.0 requires sensu-backend to upgrade check configurations.
