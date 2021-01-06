@@ -401,7 +401,7 @@ export ETCDCTL_ENDPOINTS="https://backend01:2379,https://backend02:2379,https://
 
 ### View cluster status and alarms
 
-Use the commands listed here to retrieve etcd cluster status or list alarms.
+Use the commands listed here to retrieve etcd cluster status and list and clear alarms.
 {{< code shell >}}
 # get status
 etcdctl endpoint status
@@ -414,7 +414,7 @@ etcdctl alarm dearm
 ### Restore a cluster with an oversized database 
 
 The etcd default maximum database size is 2 GB.
-If you suspect your etcd database has exceeded the maximum size, run this command to confirm cluster size:
+If you suspect your etcd database exceeds the maximum size, run this command to confirm cluster size:
 
 {{< code shell >}}
 # get current status with database size
