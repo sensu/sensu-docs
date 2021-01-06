@@ -30,7 +30,7 @@ See [Run a Sensu cluster][7] and the [etcd documentation][4] for more informatio
 
 ## Hardware sizing
 
-Because etcd's design prioritizes consistency across a cluster, the speed with which write operations can be completed is very important to the performance and health of a Sensu cluster. 
+Because etcd's design prioritizes consistency across a cluster, the speed with which write operations can be completed is very important to the Sensu cluster's performance and health.
 This means that you should provision Sensu backend infrastructure to provide sustained IO operations per second (IOPS) appropriate for the rate of observability events the system will be required to process.
 
 To maximize Sensu Go performance, we recommend that you:
