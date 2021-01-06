@@ -453,7 +453,7 @@ When certain latency tolerances are regularly exceeded, failures will cascade.
 Sensu will attempt to recover from these conditions when it can, but this may not be successful.
 
 To maximize Sensu Go performance, we recommend that you:
- * Follow our [recommended backend hardware configuration][17].
+ * Follow our [recommended backend hardware configuration][19].
  * Immplement [documented etcd system tuning practices][14].
  * [Benchmark your etcd storage volume][15] to establish baseline IOPS for your system.
  * [Scale event storage using PostgreSQL][16] to reduce the overall volume of etcd transactions.
@@ -522,4 +522,5 @@ The backend will stop listening on those ports when the etcd database is unavail
 [15]: https://www.ibm.com/cloud/blog/using-fio-to-tell-whether-your-storage-is-fast-enough-for-etcd
 [16]: ../../deploy-sensu/datastore/#scale-event-storage
 [17]: ../../deploy-sensu/datastore/#use-default-event-storage
-[18]: ../../api/metrics/
+[18]: ../../../api/metrics/
+[19]: ../../deploy-sensu/hardware-requirements/#backend-recommended-configuration

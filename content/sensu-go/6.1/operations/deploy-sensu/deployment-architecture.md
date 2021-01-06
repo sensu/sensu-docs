@@ -161,4 +161,4 @@ Under normal conditions, sensuctl communications and browser access to the web U
 [10]: https://github.com/sensu/sensu-perf
 [11]: https://etcd.io/docs/v3.4.0/tuning/#disk
 [12]: https://www.ibm.com/cloud/blog/using-fio-to-tell-whether-your-storage-is-fast-enough-for-etcd
-[13]: ../../deploy-sensu/datastore/#scale-event-storage
+[13]: ../datastore/#scale-event-storage

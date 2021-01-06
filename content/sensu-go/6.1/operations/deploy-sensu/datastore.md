@@ -23,7 +23,7 @@ This embedded database allows you to get started with Sensu without deploying a 
 
 Sensu can be configured to disable the embedded etcd database and use one or more [external etcd nodes][8] for configuration and event storage instead.
 
-As your deployment grows beyond the proof-of-concept stage, review [Deployment architecture for Sensu][5] for more information about deployment considerations and recommendations for a production-ready Sensu deployment.
+As your deployment grows beyond the proof-of-concept stage, review [Deployment architecture for Sensu][6] for more information about deployment considerations and recommendations for a production-ready Sensu deployment.
 
 Sensu requires at least etcd 3.3.2 and is tested against releases in the 3.3.x series.
 etcd versions 3.4.0 and later are not supported.
@@ -265,6 +265,7 @@ example      | {{< code shell >}}strict: true{{< /code >}}
 [2]: ../../maintain-sensu/troubleshoot/
 [3]: https://aws.amazon.com/rds/
 [4]: https://pkg.go.dev/github.com/lib/pq@v1.2.0#hdr-Connection_String_Parameters
+[6]: ../deployment-architecture/
 [8]: ../cluster-sensu/#use-an-external-etcd-cluster
 [9]: ../../../web-ui/
 [10]: ../../../sensuctl/create-manage-resources/#sensuctl-event
