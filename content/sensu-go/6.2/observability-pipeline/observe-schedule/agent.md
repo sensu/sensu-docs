@@ -1183,14 +1183,16 @@ deregister: true{{< /code >}}
 
 | deregistration-handler |      |
 -------------------------|------
-description              | Name of a deregistration handler that processes agent deregistration events. This flag overrides any handlers applied by the [`deregistration-handler` backend configuration flag][37].
+description              | Name of the event handler to use when processing the agent's deregistration events. This flag overrides any handlers applied by the [`deregistration-handler` backend configuration flag][37]. To use a dynamic runtime asset as the deregistration handler, specify the handler [asset path][58].
 type                     | String
 environment variable     | `SENSU_DEREGISTRATION_HANDLER`
-example                  | {{< code shell >}}# Command line example
+example                  | {{< code shell >}}# Command line examples
 sensu-agent start --deregistration-handler deregister
+sensu-agent start --deregistration-handler /path/to/handler.sh
 
-# /etc/sensu/agent.yml example
-deregistration-handler: "deregister"{{< /code >}}
+# /etc/sensu/agent.yml examples
+deregistration-handler: "deregister"
+deregistration-handler: "/path/to/handler.sh"{{< /code >}}
 
 <a name="detect-cloud-provider-flag"></a>
 
@@ -1793,3 +1795,4 @@ You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, r
 [55]: ../../../commercial/
 [56]: #allow-list
 [57]: ../../../api/health
+[58]: ../../../plugins/assets/#dynamic-runtime-asset-path
