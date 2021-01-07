@@ -9,6 +9,7 @@ version: "6.2"
 menu: "sensu-go-6.2"
 ---
 
+- [6.2.1 release notes](#621-release-notes)
 - [6.2.0 release notes](#620-release-notes)
 - [6.1.4 release notes](#614-release-notes)
 - [6.1.3 release notes](#613-release-notes)
@@ -74,6 +75,23 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.2.1 release notes
+
+**January 7, 2021** &mdash; The latest release of Sensu Go, version 6.2.1, is now available for download.
+
+This patch fixes bugs that could prevent users from enabling PostgreSQL after upgrading from 5.x or configuring agent labels and annotations with flags. In addition, `sensuctl prune hook` and `sensuctl prune check` now work as expected and users can no longer edit agent-managed entities in the web UI.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.2.1.
+
+**FIXES:**
+
+- ([Commercial feature][193]) Fixed a bug that prevented users from enabling PostgreSQL as the event store after upgrading from 5.x.
+- ([Commercial feature][193]) The `sensuctl prune hook` and `sensuctl prune check` subcommands now work as expected.
+- ([Commercial feature][193]) In the web UI, fixed a bug that allowed users to edit Sensu [agent-managed entities][204].
+- Fixed a bug that generated a small amount of extra etcd or PostgreSQL traffic upon keepalive failure.
+- In silenced entries, the `expire` field now represents the configured number of seconds until the entry should be deleted rather than the entry's remaining duration.
+- Sensu agent labels and annotations can now be configured with [flags][205].
 
 ## 6.2.0 release notes
 
@@ -1680,3 +1698,4 @@ To get started with Sensu Go:
 [202]: /sensu-go/6.2/sensuctl/#first-time-setup
 [203]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#agent-managed-entity
 [204]: /sensu-go/6.2/observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent
+[205]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#configuration-via-flags
