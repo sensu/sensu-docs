@@ -32,7 +32,7 @@ When this happens, the backend is effectively halted and subsequent restarts wil
 Use the following commands with the [jq utility][7] to identify and remove checks that reference deleted namespaces before you upgrade to Sensu Go 6.2.0.
 
 {{% notice note %}}
-**NOTE**: If you have already upgraded to Sensu Go 6.2.0, you can work around this issue by temporarily reverting your Sensu instance to Sensu Go 6.1.3.
+**NOTE**: If you have already upgraded to Sensu Go 6.2.0, you can work around this issue by temporarily reverting your Sensu instance to Sensu Go 6.1.4.
 Then, recreate the missing namespaces referenced in your check configurations and upgrade again to 6.2.0.
 {{% /notice %}}
 
