@@ -11,7 +11,7 @@ menu:
     parent: deploy-sensu
 ---
 
-This guide describes various deployment considerations and recommendations for a production-ready Sensu deployment, including details related to communication security and common deployment architectures.
+This guide describes various planning considerations and recommendations for a production-ready Sensu deployment, including details related to communication security and common deployment architectures.
 
 etcd is a key-value store that is used by applications of varying complexity, from simple web apps to Kubernetes.
 The Sensu backend uses an embedded etcd instance for storing both configuration and observability event data, so you can get Sensu up and running without external dependencies.
@@ -30,10 +30,14 @@ See [Run a Sensu cluster][7] and the [etcd documentation][4] for more informatio
 
 ## Hardware sizing
 
-Because etcd's design prioritizes consistency across a cluster, the speed with which write operations can be completed is very important to the performance of a Sensu cluster. 
+Because etcd's design prioritizes consistency across a cluster, the speed with which write operations can be completed is very important to the Sensu cluster's performance and health.
 This means that you should provision Sensu backend infrastructure to provide sustained IO operations per second (IOPS) appropriate for the rate of observability events the system will be required to process.
 
-Our [hardware requirements][1] documentation describes the minimum and recommended hardware specifications for running the Sensu backend.
+To maximize Sensu Go performance, we recommend that you:
+ * Follow our [recommended backend hardware configuration][1].
+ * Implement [documented etcd system tuning practices][11].
+ * [Benchmark your etcd storage volume][12] to establish baseline IOPS for your system.
+ * [Scale event storage using PostgreSQL][13] to reduce the overall volume of etcd transactions.
 
 ## Communications security
 
@@ -146,7 +150,7 @@ Conversely, you cannot configure the sensuctl command line tool with multiple ba
 Under normal conditions, sensuctl communications and browser access to the web UI should be routed via a load balancer.
 
 
-[1]: ../hardware-requirements/
+[1]: ../hardware-requirements/#backend-recommended-configuration
 [2]: ../../../api/
 [3]: ../../../observability-pipeline/observe-schedule/agent/#general-configuration-flags
 [4]: https://etcd.io/docs/
@@ -156,3 +160,6 @@ Under normal conditions, sensuctl communications and browser access to the web U
 [8]: ../datastore/
 [9]: ../../../commercial/
 [10]: https://github.com/sensu/sensu-perf
+[11]: https://etcd.io/docs/v3.4.0/tuning/#disk
+[12]: https://www.ibm.com/cloud/blog/using-fio-to-tell-whether-your-storage-is-fast-enough-for-etcd
+[13]: ../datastore/#scale-event-storage
