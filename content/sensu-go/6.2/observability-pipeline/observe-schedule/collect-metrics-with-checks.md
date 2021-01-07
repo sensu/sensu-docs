@@ -34,40 +34,6 @@ sensuctl check set-output-metric-format collect-metrics nagios_perfdata
 sensuctl check set-output-metric-handlers collect-metrics prometheus_gateway
 {{< /code >}}
 
-### Supported output metric formats
-
-The output metric formats that Sensu currently supports for check output metric extraction are `nagios_perfdata`, `graphite_plaintext`, `influxdb_line`, `opentsdb_line`, and `prometheus_text`.
-
-| Nagios             |      |
----------------------|------
-output_metric_format | `nagios_perfdata`
-documentation        | [Nagios Performance Data][6]
-example              | {{< code plain >}}PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0, rta=0.80{{< /code >}}
-
-| Graphite           |      |
----------------------|------
-output_metric_format | `graphite_plaintext`
-documentation        | [Graphite Plaintext Protocol][7]
-example              | {{< code plain >}}local.random.diceroll 4 123456789{{< /code >}}
-
-| InfluxDB           |      |
----------------------|------
-output_metric_format | `influxdb_line`
-documentation        | [InfluxDB Line Protocol][8]
-example              | {{< code plain >}}weather,location=us-midwest temperature=82 1465839830100400200{{< /code >}}
-
-| OpenTSDB           |      |
----------------------|------
-output_metric_format | `opentsdb_line`
-documentation        | [OpenTSDB Data Specification][9]
-example              | {{< code plain >}}sys.cpu.user 1356998400 42.5 host=webserver01 cpu=0{{< /code >}}
-
-| Prometheus         |      |
----------------------|------
-output_metric_format | `prometheus_text`
-documentation        | [Prometheus Exposition Text][11]
-example              | {{< code plain >}}http_requests_total{method="post",code="200"} 1027 1395066363000{{< /code >}}
-
 ## Validate the metrics
 
 If the check output is formatted correctly according to its `output_metric_format`, the metrics will be extracted in Sensu metric format and passed to the event pipeline.
@@ -187,12 +153,7 @@ Check out these resources for more information about scheduling checks and using
 
 [1]: ../checks/
 [2]: ../monitor-server-resources/
-[3]: #supported-output-metric-formats
+[3]: ../metrics/#supported-output-metric-formats
 [4]: ../../observe-process/handlers/
 [5]: ../../observe-process/populate-metrics-influxdb/
-[6]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
-[7]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
-[8]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
-[9]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [10]: ../../../operations/maintain-sensu/troubleshoot#handlers-and-event-filters
-[11]: https://prometheus.io/docs/instrumenting/exposition_formats/#text-based-format
