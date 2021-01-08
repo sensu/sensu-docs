@@ -11,6 +11,75 @@ menu:
     parent: maintain-sensu
 ---
 
+## Upgrade to Sensu Go 6.2.0 from any previous version
+
+Prior to Sensu Go 6.0, sensu-backend allowed you to delete a namespace even when other resources still referenced that namespace. 
+As of Sensu Go 6.0, it is not possible to delete namespaces that are referenced in other resources.
+As a result, users whose configuration predates Sensu Go 6.0 may have lingering resources, including check configurations, that reference non-existent namespaces.
+
+Upgrading to Sensu Go 6.2.0 requires sensu-backend to upgrade check configurations.
+If you have check configurations that reference non-existent namespaces, the 6.2.0 upgrade operation will fail when it encounters one of these check configurations.
+You will see an error message like this:
+
+{{< code shell >}}
+{"component":"store-providers","error":"the namespace test does not exist","level":"error","msg":"error enabling round robin scheduling,backend restart required","time":"2020-12-27T08:41:59Z"}
+{{< /code >}}
+
+When this happens, the backend is effectively halted and subsequent restarts will result in the same state.
+
+### Remove checks that reference non-existent namespaces
+
+Use the following commands with the [jq utility][7] to identify and remove checks that reference deleted namespaces before you upgrade to Sensu Go 6.2.0.
+
+{{% notice note %}}
+**NOTE**: If you have already upgraded to Sensu Go 6.2.0, you can work around this issue by temporarily reverting your Sensu instance to Sensu Go 6.1.4.
+Then, recreate the missing namespaces referenced in your check configurations and upgrade again to 6.2.0.
+{{% /notice %}}
+
+These commands use a Sensu backend running on `localhost` in the example URL and the environment variable $SENSU_API_KEY to represent a valid [API key][8].
+
+1. Get a list of existing namespaces.
+In this example, the existing namespaces are `stage` and `dev`.
+
+   {{< code shell >}}
+$ curl -s -H "Authorization: Key $SENSU_API_KEY" http://localhost:8080/api/core/v2/namespaces | jq '[.[].name]'
+[
+   "stage",
+   "dev"
+]
+{{< /code >}}
+
+2. Print the name and namespace for any checks that reference a namespace that is not specified in the jq expression on the same line.
+Your jq expression should include all of the namespaces you retrieved in step 1 (in this example, `["stage","dev"]`).
+
+   {{< code shell >}}
+$ curl -s -H "Authorization: Key $SENSU_API_KEY" http://localhost:8080/api/core/v2/checks | jq '["stage","dev"] as $valid | .[] | select(.metadata.namespace as $in | $valid | index($in) | not) | {name: .metadata.name, namespace: .metadata.namespace}'
+{
+  "name": "check-cpu",
+  "namespace": "test"
+}
+{{< /code >}}
+
+3. Recreate the missing `test` namespace so you can delete the `check-cpu` check.
+
+   {{< code shell >}}
+$ sensuctl namespace create test
+{{< /code >}}
+
+4. Delete the `check-cpu` check.
+
+   {{< code shell >}}
+$ sensuctl check delete check-cpu --namespace test
+{{< /code >}}
+
+5. Delete the `test` namespace, which is now empty after you deleted `check-cpu` in step 4.
+
+   {{< code shell >}}
+$ sensuctl namespace delete test
+{{< /code >}}
+
+After completing these commands, you can upgrade to 6.2.0.
+
 ## Upgrade to Sensu Go 6.1.0 from 6.0.0
 
 To upgrade to Sensu Go 6.1.0 from version 6.0.0 or later, [install the latest packages][1] and restart the services.
@@ -162,3 +231,5 @@ Then restart the backend.
 [4]: https://sensu.io/contact?subject=contact-sales/
 [5]: https://sensu.io/blog/one-year-of-sensu-go
 [6]: ../../../commercial/
+[7]: https://stedolan.github.io/jq/
+[8]: ../../../api/#authenticate-with-an-api-key
