@@ -66,9 +66,16 @@ example              | {{< code plain >}}http_requests_total{method="post",code=
 
 [Output metric tags][1] are custom tags you can apply to enrich the metric points produced by check output metric extraction.
 
-For example, these tags will **???**:
+You can use [check token substitution][22] for the [value attribute][21] to include any event attribute in an output metric tag.
+For example, this tag will list the `event.time` attribute:
 
-**ADD TAGS EXAMPLE HERE**
+{{< code shell >}}
+"output_metric_tags": [
+  {
+    "name": "instance",
+    "value": "{{ .time }}"
+  }
+]{{< /code >}}
 
 ## Process extracted and tagged metrics
 
@@ -354,3 +361,5 @@ spec:
 [18]: ../../../plugins/supported-integrations/#time-series-and-long-term-event-storage
 [19]: ../../../plugins/supported-integrations/prometheus/#sensu-prometheus-pushgateway-handler
 [20]: ../../observe-events/events/#example-event-with-check-and-metric-data
+[21]: ../checks/#output_metric_tags-attributes
+[22]: ../checks/#check-token-substitution
