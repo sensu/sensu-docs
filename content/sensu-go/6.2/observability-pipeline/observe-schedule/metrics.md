@@ -87,7 +87,7 @@ The [metrics attribute][5] format automatically reduces metrics data complexity 
 
 ## Example metric check
 
-This check definition collects metrics in Graphite Plaintext Protocol [format][9], enriches the metrics with [custom tags][1], and sends the collected and tagged metrics to the [Prometheus Pushgateway Handler][19] for long-term storage and visualization.
+This check definition collects metrics in Nagios Performance Data [format][9], enriches the metrics with [custom tags][1], and sends the collected and tagged metrics to the [Prometheus Pushgateway Handler][19] for long-term storage and visualization.
 
 {{< language-toggle >}}
 
@@ -110,7 +110,7 @@ spec:
   high_flap_threshold: 0
   interval: 10
   low_flap_threshold: 0
-  output_metric_format: graphite_plaintext
+  output_metric_format: nagios_perfdata
   output_metric_handlers:
   - prometheus_gateway
   output_metric_tags:
@@ -158,7 +158,7 @@ spec:
     "ttl": 0,
     "timeout": 0,
     "round_robin": false,
-    "output_metric_format": "graphite_plaintext",
+    "output_metric_format": "nagios_perfdata",
     "output_metric_handlers": [
       "prometheus_gateway"
     ],

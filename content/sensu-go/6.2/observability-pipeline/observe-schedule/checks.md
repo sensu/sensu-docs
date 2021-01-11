@@ -759,7 +759,7 @@ example      | {{< code shell >}}"output_metric_handlers": ["influx-db"]{{< /cod
 
 |output_metric_tags    |      |
 -------------|------
-description  | Custom tags you can apply to enrich metric points produced by check output metric extraction. One [name/value pair][22] make up a single tag. The `output_metric_tags` array can contain multiple tags.<br><br>You can use [check token substitution][39] for the `value` attribute in output metric tags.
+description  | Custom tags to enrich metric points produced by check output metric extraction. One [name/value pair][22] make up a single tag. The `output_metric_tags` array can contain multiple tags.<br><br>You can use [check token substitution][39] for the `value` attribute in output metric tags.
 required     | false
 type         | Array
 example      | {{< code shell >}}
@@ -863,7 +863,7 @@ example      | {{< code shell >}}"name": "instance"{{< /code >}}
 
 value        | 
 -------------|------
-description  | Value for the [output metric tag][19]. You can use [check token substitution][39] for the `value` attribute.
+description  | Value for the [output metric tag][19]. Use [check token substitution][39] for the `value` attribute, with dot-notation access to any event attribute.
 required     | true
 type         | String
 example      | {{< code shell >}}"value": "{{ .name }}"{{< /code >}}
