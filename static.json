@@ -35,6 +35,10 @@
             "url": "/sensu-enterprise-dashboard/latest/$1",
             "status": 301
         },
+        "~ ^/plugins/?((?<=\/).*)?$": {
+            "url": "/sensu-go/latest/plugins",
+            "status": 302
+        },
         "~ ^/sensu-go/6.2/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 302
