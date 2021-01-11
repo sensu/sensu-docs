@@ -78,7 +78,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 6.2.1 release notes
 
-**January 7, 2021** &mdash; The latest release of Sensu Go, version 6.2.1, is now available for download.
+**January 11, 2021** &mdash; The latest release of Sensu Go, version 6.2.1, is now available for download.
 
 This patch fixes bugs that could prevent users from enabling PostgreSQL after upgrading from 5.x or configuring agent labels and annotations with flags. In addition, `sensuctl prune hook` and `sensuctl prune check` now work as expected and users can no longer edit agent-managed entities in the web UI.
 
@@ -91,7 +91,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.1.
 - ([Commercial feature][193]) In the web UI, fixed a bug that allowed users to edit Sensu [agent-managed entities][204].
 - Fixed a bug that generated a small amount of extra etcd or PostgreSQL traffic upon keepalive failure.
 - In silenced entries, the `expire` field now represents the configured number of seconds until the entry should be deleted rather than the entry's remaining duration.
-- Sensu agent labels and annotations can now be configured with [flags][205].
+- Labels and annotations can now be configured with [flags][205] for sensu-agent.
 
 ## 6.2.0 release notes
 
