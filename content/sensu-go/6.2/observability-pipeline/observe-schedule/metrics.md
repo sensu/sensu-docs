@@ -314,14 +314,15 @@ spec:
         {
           "name": "sensu-go-sandbox.curl_timings.time_total",
           "tags": [
-      		{
-        	  "name": "response_time_in_ms",
-        	  "value": "101"
-      		}
-    	  ],
+      		  {
+        	    "name": "response_time_in_ms",
+        	    "value": "101"
+      		  }
+    	    ],
           "timestamp": 1552506033,
           "value": 0.005
-        },
+        }
+      ]
     },
     "timestamp": 1552506033,
     "id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180",
