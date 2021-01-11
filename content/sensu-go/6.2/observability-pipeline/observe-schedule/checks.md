@@ -936,104 +936,7 @@ spec:
 
 ### Metric check
 
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: CheckConfig
-api_version: core/v2
-metadata:
-  annotations:
-    slack-channel: '#monitoring'
-  labels:
-    region: us-west-1
-  name: collect-metrics
-  namespace: default
-spec:
-  check_hooks: null
-  command: collect.sh
-  discard_output: true
-  env_vars: null
-  handlers: []
-  high_flap_threshold: 0
-  interval: 10
-  low_flap_threshold: 0
-  output_metric_format: nagios_perfdata
-  output_metric_handlers:
-  - prometheus_gateway
-  output_metric_tags:
-  - name: instance
-    value: '{{ .name }}'
-  - name: prometheus_type
-    value: gauge
-  - name: service
-    value: '{{ .labels.service }}'
-  proxy_entity_name: ""
-  publish: true
-  round_robin: false
-  runtime_assets: null
-  stdin: false
-  subscriptions:
-  - system
-  timeout: 0
-  ttl: 0
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "collect-metrics",
-    "namespace": "default",
-    "labels": {
-      "region": "us-west-1"
-    },
-    "annotations": {
-      "slack-channel" : "#monitoring"
-    }
-  },
-  "spec": {
-    "command": "collect.sh",
-    "handlers": [],
-    "high_flap_threshold": 0,
-    "interval": 10,
-    "low_flap_threshold": 0,
-    "publish": true,
-    "runtime_assets": null,
-    "subscriptions": [
-      "system"
-    ],
-    "proxy_entity_name": "",
-    "check_hooks": null,
-    "stdin": false,
-    "ttl": 0,
-    "timeout": 0,
-    "round_robin": false,
-    "output_metric_format": "nagios_perfdata",
-    "output_metric_handlers": [
-      "prometheus_gateway"
-    ],
-    "output_metric_tags": [
-      {
-        "name": "instance",
-        "value": "{{ .name }}"
-      },
-      {
-        "name": "prometheus_type",
-        "value": "gauge"
-      },
-      {
-        "name": "service",
-        "value": "{{ .labels.service }}"
-      }
-    ],
-    "env_vars": null,
-    "discard_output": true
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
+The [metrics reference][68] includes an example metric check.
 
 ### Check with secret
 
@@ -1193,3 +1096,4 @@ The dynamic runtime asset reference includes an [example check definition that u
 [65]: ../../../operations/deploy-sensu/datastore/
 [66]: ../../../operations/deploy-sensu/datastore/#round-robin-postgresql
 [67]: #event-storage-for-round-robin-scheduling
+[68]: ../metrics/#example-metric-check

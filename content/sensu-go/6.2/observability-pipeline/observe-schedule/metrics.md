@@ -75,53 +75,262 @@ For example, these tags will **???**:
 Specify the event handlers you want to process your Sensu metrics in the check [`output_metric_handlers`][3] attribute.
 With these event handlers, you can route metrics to one or more databases for storing and visualizing metrics, like Elasticsearch, InfluxDB, Grafana, and Graphite.
 
-Use [Bonsai][8], the Sensu asset hub, to discover, download, and share dynamic runtime assets for processing metrics.
-For example, you can use the [Sensu InfluxDB handler][12] dynamic runtime asset:
-
-{{< code shell >}}
-sensuctl asset add sensu/sensu-influxdb-handler
-fetching bonsai asset: sensu/sensu-influxdb-handler
-added asset: sensu/sensu-influxdb-handler
-
-You have successfully added the Sensu asset resource, but the asset will not get downloaded until
-it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
-resource, populate the "runtime_assets" field with ["sensu-influxdb-handler"].
-{{< /code >}}
-
-Configure the asset definition with your InfluxDB information and list `sensu-influxdb-handler` in your check:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-output_metric_handlers:
-  - sensu-influxdb-handler
-{{< /code >}}
-
-{{< code json >}}
-"output_metric_handlers": ["sensu-influxdb-handler"]
-{{< /code >}}
-
-{{< /language-toggle >}}
+Many of our most popular metrics integrations for [time-series and long-term event storage][18] include curated, configurable quick-start templates to integrate Sensu with your existing workflows.
+You can also use [Bonsai][8], the Sensu asset hub, to discover, download, and share dynamic runtime assets for processing metrics.
 
 In check definitions, the `output_metrics_handlers` list for metrics event handlers is distinct and separate from the `handlers` list for status event handlers.
 Having separate handlers attributes allows you to use different workflows for metrics and status without applying conditional filter logic.
+The events reference includes an [example event with check and metric data][20].
 
 You do not need to add a mutator to your check definition to process metrics with an event handler.
 The [metrics attribute][5] format automatically reduces metrics data complexity so event handlers can process metrics effectively.
 
 ## Example metric check
 
-This check definition collects metrics from **???**, enriches the metrics with custom tags, and sends the collected and tagged metrics to the `sensu-influxdb-handler` event handler for long-term storage and visualization.
+This check definition collects metrics in Graphite Plaintext Protocol [format][9], enriches the metrics with [custom tags][1], and sends the collected and tagged metrics to the [Prometheus Pushgateway Handler][19] for long-term storage and visualization.
 
-**ADD CHECK EXAMPLE HERE**
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  annotations:
+  - slack-channel: '#monitoring'
+  labels:
+  - region: us-west-1
+  name: collect-metrics
+  namespace: default
+spec:
+  check_hooks: null
+  command: collect.sh
+  discard_output: true
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
+  interval: 10
+  low_flap_threshold: 0
+  output_metric_format: graphite_plaintext
+  output_metric_handlers:
+  - prometheus_gateway
+  output_metric_tags:
+  - name: response_time_in_ms
+    value: '{{ .time }}'
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets: null
+  stdin: false
+  subscriptions:
+  - system
+  timeout: 0
+  ttl: 0
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "collect-metrics",
+    "namespace": "default",
+    "labels": {
+      "region": "us-west-1"
+    },
+    "annotations": {
+      "slack-channel" : "#monitoring"
+    }
+  },
+  "spec": {
+    "command": "collect.sh",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 10,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": null,
+    "subscriptions": [
+      "system"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "output_metric_format": "graphite_plaintext",
+    "output_metric_handlers": [
+      "prometheus_gateway"
+    ],
+    "output_metric_tags": [
+      {
+        "name": "response_time_in_ms",
+        "value": "{{ .time }}"
+      }
+    ],
+    "env_vars": null,
+    "discard_output": true
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Example metric event
 
 The [example metric check][6] will produce events similar to this metric event:
 
-**ADD EVENT EXAMPLE HERE**
+{{< language-toggle >}}
 
-Sensu will send the data from these metric events to InfluxDB.
+{{< code yml >}}
+type: Event
+api_version: core/v2
+metadata:
+  namespace: default
+  annotations:
+    slack-channel: '#monitoring'
+  labels:
+    region: us-west-1
+spec:
+  entity:
+    deregister: false
+    deregistration: {}
+    entity_class: agent
+    last_seen: 1552495139
+    metadata:
+      name: sensu-go-sandbox
+      namespace: default
+    redact:
+    - password
+    - passwd
+    - pass
+    - api_key
+    - api_token
+    - access_key
+    - secret_key
+    - private_key
+    - secret
+    subscriptions:
+    - system
+    system:
+      arch: amd64
+      hostname: sensu-go-sandbox
+      network:
+        interfaces:
+        - addresses:
+          - 127.0.0.1/8
+          - ::1/128
+          name: lo
+        - addresses:
+          - 10.0.2.15/24
+          - fe80::5a94:f67a:1bfc:a579/64
+          mac: 08:00:27:8b:c9:3f
+          name: eth0
+      os: linux
+      platform: centos
+      platform_family: rhel
+      platform_version: 7.5.1804
+      processes: null
+    user: agent
+  metrics:
+    handlers:
+    - prometheus_gateway
+    points:
+    - name: sensu-go-sandbox.curl_timings.time_total
+      tags:
+      - name: response_time_in_ms
+    	value: 101
+  timestamp: 1552506033
+  id: 47ea07cd-1e50-4897-9e6d-09cd39ec5180
+  sequence: 1
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Event",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default"
+  },
+  "spec": {
+    "entity": {
+      "deregister": false,
+      "deregistration": {},
+      "entity_class": "agent",
+      "last_seen": 1552495139,
+      "metadata": {
+        "name": "sensu-go-sandbox",
+        "namespace": "default"
+      },
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
+      "subscriptions": [
+        "system"
+      ],
+      "system": {
+        "arch": "amd64",
+        "hostname": "sensu-go-sandbox",
+        "network": {
+          "interfaces": [
+            {
+              "addresses": [
+                "127.0.0.1/8",
+                "::1/128"
+              ],
+              "name": "lo"
+            },
+            {
+              "addresses": [
+                "10.0.2.15/24",
+                "fe80::5a94:f67a:1bfc:a579/64"
+              ],
+              "mac": "08:00:27:8b:c9:3f",
+              "name": "eth0"
+            }
+          ]
+        },
+        "os": "linux",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.5.1804",
+        "processes": null
+      },
+      "user": "agent"
+    },
+    "metrics": {
+      "handlers": [
+        "prometheus_gateway"
+      ],
+      "points": [
+        {
+          "name": "sensu-go-sandbox.curl_timings.time_total",
+          "tags": [
+      		{
+        	  "name": "response_time_in_ms",
+        	  "value": "101"
+      		}
+    	  ],
+          "timestamp": 1552506033,
+          "value": 0.005
+        },
+    },
+    "timestamp": 1552506033,
+    "id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180",
+    "sequence": 1
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 
 [1]: ../checks/#output-metric-tags
@@ -141,3 +350,6 @@ Sensu will send the data from these metric events to InfluxDB.
 [15]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [16]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [17]: https://prometheus.io/docs/instrumenting/exposition_formats/#text-based-format
+[18]: ../../../plugins/supported-integrations/#time-series-and-long-term-event-storage
+[19]: ../../../plugins/supported-integrations/prometheus/#sensu-prometheus-pushgateway-handler
+[20]: ../../observe-events/events/#example-event-with-check-and-metric-data
