@@ -30,7 +30,7 @@ The [Sensu Prometheus Collector plugin][6] is a Sensu [check][8] that collects m
 
 ## Sensu Prometheus Pushgateway Handler
 
-The [Sensu Prometheus Pushgateway Handler][3] plugin is a Sensu [handler][1] that sends Sensu metrics to a Prometheus Pushgateway, which Prometheus can then scrape.
+The [Sensu Prometheus Pushgateway Handler][7] plugin is a Sensu [handler][1] that sends Sensu metrics to a Prometheus Pushgateway, which Prometheus can then scrape.
 
 ### Features
 
