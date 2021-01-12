@@ -89,7 +89,7 @@ spec:
 
 {{< /language-toggle >}}
 
-Now you can route observation data to Elasticsearch and alerts to OpsGenie with a single handler, the `send_events_notify_operator` handler set.
+Now you can route observation data to Elasticsearch and alerts to OpsGenie with a single handler definition, the `send_events_notify_operator` handler set.
 
 {{% notice note %}}
 **NOTE**: Attributes defined in handler sets do not apply to the handlers they include.
@@ -99,7 +99,7 @@ Define these attributes in individual handlers instead.
 
 ## Handler stacks
 
-Handler stacks are handler sets that escalate events through a series of different handlers.
+Handler stacks are a group of handlers or a handler set that escalate events through a series of different handlers.
 For example, consider a handler stack with three levels of escalation:
 
 - Level 1: On first occurrence, attempt remediation with the `remediation` handler.
@@ -107,7 +107,8 @@ For example, consider a handler stack with three levels of escalation:
 - Level 3: On tenth occurrence, send an alert to PagerDuty with the `pagerduty_emergency` handler.
 
 The escalation levels are controlled by event filter definitions.
-At level 1, no filter is needed because every event triggers remediation with the `remediation` handler.
+At level 1, you only need the [`is_incident` event filter][31].
+Every event triggers remediation with the `remediation` handler.
 For escalation to levels 2 and 3, you can define an event filter that uses the [fatigue check filter][30] asset to activate the `slack_alert_channel` and `pagerduty_emergency` handlers at the fifth and tenth occurrences, respectively. 
 
 ## Keepalive event handlers
@@ -748,3 +749,4 @@ spec:
 [28]: ../../../web-ui/search/
 [29]: ../../../observability-pipeline/
 [30]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
+[31]: ../../observe-filter/filters/#built-in-filter-is_incident
