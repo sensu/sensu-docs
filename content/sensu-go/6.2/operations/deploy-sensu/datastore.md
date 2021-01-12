@@ -12,9 +12,21 @@ menu:
     parent: deploy-sensu
 ---
 
-Sensu stores the most recent event for each entity and check pair using either an embedded etcd (default) or an [external etcd][8] instance.
+Sensu stores the most recent event for each entity and check pair using either an etcd (default) or PostgreSQL database.
 You can access observability event data with the [Sensu web UI][9] Events page, [`sensuctl event` commands][10], and the [events API][11].
 For longer retention of observability event data, integrate Sensu with a time series database like [InfluxDB][12] or a searchable index like ElasticSearch or Splunk.
+
+## Use default event storage
+
+By default, Sensu uses its embedded etcd database to store configuration and event data.
+This embedded database allows you to get started with Sensu without deploying a complete, scalable architecture.
+
+Sensu can be configured to disable the embedded etcd database and use one or more [external etcd nodes][8] for configuration and event storage instead.
+
+As your deployment grows beyond the proof-of-concept stage, review [Deployment architecture for Sensu][6] for more information about deployment considerations and recommendations for a production-ready Sensu deployment.
+
+Sensu requires at least etcd 3.3.2 and is tested against releases in the 3.3.x series.
+etcd versions 3.4.0 and later are not supported.
 
 ## Scale event storage
 
@@ -64,6 +76,7 @@ spec:
   max_idle_conns: 2
   pool_size: 20
   strict: true
+  enable_round_robin: true
 {{< /code >}}
 
 {{< code json >}}
@@ -81,7 +94,8 @@ spec:
     "max_conn_lifetime": "5m",
     "max_idle_conns": 2,
     "pool_size": 20,
-    "strict": true
+    "strict": true,
+    "enable_round_robin": true
   }
 }
 {{< /code >}}
@@ -158,6 +172,7 @@ spec:
   max_idle_conns: 2
   pool_size: 20
   strict: true
+  enable_round_robin: true
 {{< /code >}}
 
 ### Metadata attributes
@@ -248,11 +263,23 @@ default     | false
 type         | Boolean
 example      | {{< code shell >}}strict: true{{< /code >}}
 
+<a name="round-robin-postgresql"></a>
+
+enable_round_robin |      |
+-------------|------
+description  | If `true`, enables [round robin scheduling][5] on PostgreSQL. Any existing round robin scheduling will stop and migrate to PostgreSQL as entities check in with keepalives. Sensu will gradually delete the existing etcd scheduler state as keepalives on the etcd scheduler keys expire over time. Otherwise, `false`.<br><br>We recommend using PostgreSQL rather than etcd for round robin scheduling because etcd leases are not reliable enough to produce precise [round robin behavior][5]. 
+required     | false
+default      | false
+type         | Boolean
+example      | {{< code shell >}}enable_round_robin: true{{< /code >}}
+
 
 [1]: ../../../sensuctl/#first-time-setup
 [2]: ../../maintain-sensu/troubleshoot/
 [3]: https://aws.amazon.com/rds/
 [4]: https://pkg.go.dev/github.com/lib/pq@v1.2.0#hdr-Connection_String_Parameters
+[5]: ../../../observability-pipeline/observe-schedule/checks/#round-robin-checks
+[6]: ../deployment-architecture/
 [8]: ../cluster-sensu/#use-an-external-etcd-cluster
 [9]: ../../../web-ui/
 [10]: ../../../sensuctl/create-manage-resources/#sensuctl-event

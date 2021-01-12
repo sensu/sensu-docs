@@ -23,15 +23,39 @@ To set up sensuctl, run `sensuctl configure` to log in to sensuctl and connect t
 sensuctl configure
 {{< /code >}}
 
-When prompted, type the [Sensu backend URL][6] and your [Sensu access credentials][8].
+This starts the prompts for interactive sensuctl setup.
+When prompted, choose the authentication method you wish to use and type the [Sensu backend URL][6] and your [Sensu access credentials][8].
+
+This example shows the username/password authentication method:
 
 {{< code shell >}}
+? Authentication method: username/password
 ? Sensu Backend URL: http://127.0.0.1:8080
 ? Username: YOUR_USERNAME
 ? Password: YOUR_PASSWORD
 ? Namespace: default
 ? Preferred output format: tabular
 {{< /code >}}
+
+If you select the OIDC authentication method, if you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.
+If a browser does not open, launch a browser to complete the login via your OIDC provider at the URL in the `sensuctl configure` response:
+
+{{< code shell >}}
+$ sensuctl configure
+? Authentication method: OIDC
+? Sensu Backend URL: http://127.0.0.1:8080
+? Namespace: default
+? Preferred output format: tabular
+Launching browser to complete the login via your OIDC provider at following URL:
+
+  http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/authorize?callback=http%3A%2F%2Flocalhost%3A8000%2Fcallback
+
+You may also manually open this URL. Waiting for callback...
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: You can also use [`sensuctl login oidc`](../operations/control-access/oidc-auth/#sensuctl-login-with-oidc) to log in to sensuctl with OIDC.
+{{% /notice %}}
 
 ### Sensu backend URL
 
@@ -40,6 +64,22 @@ The default URL is `http://127.0.0.1:8080`.
 
 To connect to a [Sensu cluster][4], connect sensuctl to any single backend in the cluster.
 For information about configuring the Sensu backend URL, see the [backend reference][3].
+
+### sensuctl configure flags
+
+Run `sensuctl configure -h` to view command-specific flags you can use to set up sensuctl and bypass interactive mode.
+The following table lists the command-specific flags.
+
+| Flag | Function and important notes
+| ---- | ----------------------------
+`--format` | Preferred output format (default "tabular"). String.
+`-h` or `--help` | Help for the configure command.
+`-n` or `--non-interactive` | Do not administer interactive questionnaire.
+`--oidc` | Use an OIDC provider for authentication (instead of username and password).
+`--password string` | User password. String.
+`--port` | Port for local HTTP webserver used for OAuth 2 callback during OIDC authentication (default 8000). Integer.
+`--url` |  The Sensu backend url (default "http://127.0.0.1:8080"). String.
+`--username` | Username. String.
 
 ### Configuration files
 

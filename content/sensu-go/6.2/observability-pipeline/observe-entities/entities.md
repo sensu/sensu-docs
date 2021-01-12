@@ -26,22 +26,34 @@ See [the announcement on our blog][11] for more information about our usage poli
 When an agent connects to a backend, the agent entity definition is created from the information in the `agent.yml` configuration file.
 The default `agent.yml` file location [depends on your operating system][35].
 
+### Manage agent entities via the backend
+
 You can manage agent entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33], just like any other Sensu resource.
 This means you do not need to update the `agent.yml` configuration file to add, update, or delete agent entity attributes like subscriptions and labels.
+This is the default configuration for agent entities.
 
 {{% notice note %}}
-**NOTE**: You cannot modify an agent entity with the `agent.yml` configuration file unless you delete the entity.
-The entity attributes in `agent.yml` are used only for initial entity creation unless you delete the entity.
+**NOTE**: If you manage an agent entity via the backend, you cannot modify the agent entity with the `agent.yml` configuration file unless you delete the entity.
+In this case, the entity attributes in `agent.yml` are used only for initial entity creation unless you delete the entity.
 {{% /notice %}}
 
 If you delete an agent entity that you modified with sensuctl, the entities API, or the web UI, it will revert to the original configuration from `agent.yml`.
+If you change an agent entity's class to `proxy`, the backend will revert the change to `agent`.
 
-To maintain agent entities based on `agent.yml`, create ephemeral agent entities with the [deregister attribute][34] set to `true`.
+### Manage agent entities via the agent
+
+If you prefer, you can manage agent entities via the agent rather than the backend.
+To do this, add the [`agent-managed-entity` flag][16] when you start the Sensu agent or set `agent-managed-entity: true` in your `agent.yml` file.
+
+When you start an agent with the `--agent-managed-entity` flag or set `agent-managed-entity: true` in agent.yml, the agent becomes responsible for managing its entity configuration.
+An entity managed by this agent will include the label `sensu.io/managed_by: sensu-agent`.
+You cannot update these agent-managed entities via the Sensu backend REST API.
+To change an agent's configuration, restart the agent.
+
+You can also maintain agent entities based on `agent.yml` by creating ephemeral agent entities with the [deregister attribute][34] set to `true`.
 With this setting, the agent entity will deregister every time the agent process stops and its keepalive expires.
 When it restarts, it will revert to the original configuration from `agent.yml`
 You must set `deregister: true` in `agent.yml` before the agent entity is created.
-
-If you change an agent entity's class to `proxy`, the backend will revert the change to `agent`.
 
 ## Create and manage proxy entities
 
@@ -363,7 +375,9 @@ example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][14], [sensuctl responses][15], and [web UI views][23] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][14], [sensuctl responses][15], and [web UI views][23] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.{{% notice note %}}
+**NOTE**: For labels that you define in agent.yml or backend.yml, the keys are automatically modified to use all lower-case letters. For example, if you define the label `proxyType: "website"` in agent.yml or backend.yml, it will be listed as `proxytype: "website"` in entity definitions.<br><br>Key cases are **not** modified for labels you define with a command line flag or an environment variable.
+{{% /notice %}}
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -376,7 +390,9 @@ example      | {{< code shell >}}"labels": {
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][6]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][14], [sensuctl response filtering][15], or [web UI views][30].
+description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][6]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][14], [sensuctl response filtering][15], or [web UI views][30].{{% notice note %}}
+**NOTE**: For annotations defined in agent.yml or backend.yml, the keys are automatically modified to use all lower-case letters. For example, if you define the annotation `webhookURL: "https://my-webhook.com"` in agent.yml or backend.yml, it will be listed as `webhookurl: "https://my-webhook.com"` in entity definitions.<br><br>Key cases are **not** modified for annotations you define with a command line flag or an environment variable.
+{{% /notice %}}
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -1134,6 +1150,7 @@ spec:
 [13]: #spec-attributes
 [14]: ../../../api#response-filtering
 [15]: ../../../sensuctl/filter-responses/
+[16]: ../../observe-schedule/agent/#agent-managed-entity
 [17]: ../../observe-entities/monitor-external-resources/
 [18]: ../../observe-schedule/checks/#round-robin-checks
 [19]: #proxy-entities-managed

@@ -351,7 +351,9 @@ discovery instead of the static `--initial-cluster method`
 
 | annotations|      |
 -------------|------
-description  | Non-identifying metadata to include with entity data for backend dynamic runtime assets (e.g. handler and mutator dynamic runtime assets).
+description  | Non-identifying metadata to include with entity data for backend dynamic runtime assets (e.g. handler and mutator dynamic runtime assets).{{% notice note %}}
+**NOTE**: For annotations that you define in backend.yml, the keys are automatically modified to use all lower-case letters. For example, if you define the annotation `webhookURL: "https://my-webhook.com"` in backend.yml, it will be listed as `webhookurl: "https://my-webhook.com"` in entity definitions.<br><br>Key cases are **not** modified for annotations you define with the `--annotations` command line flag or the `SENSU_BACKEND_ANNOTATIONS` environment variable.
+{{% /notice %}}
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -450,7 +452,7 @@ cache-dir: "/cache/sensu-backend"{{< /code >}}
 description   | Path to Sensu backend config file.
 type          | String
 default       | `/etc/sensu/backend.yml`
-environment variable | The config file path cannot be set by an environment variable.
+environment variable | `SENSU_BACKEND_CONFIG_FILE`
 example       | {{< code shell >}}# Command line example
 sensu-backend start --config-file /etc/sensu/backend.yml
 sensu-backend start -c /etc/sensu/backend.yml
@@ -486,7 +488,9 @@ deregistration-handler: "/path/to/handler.sh"{{< /code >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with entity data for backend dynamic runtime assets (e.g. handler and mutator dynamic runtime assets).
+description  | Custom attributes to include with entity data for backend dynamic runtime assets (e.g. handler and mutator dynamic runtime assets).{{% notice note %}}
+**NOTE**: For labels that you define in backend.yml, the keys are automatically modified to use all lower-case letters. For example, if you define the label `securityZone: "us-west-2a"` in backend.yml, it will be listed as `securityzone: "us-west-2a"` in entity definitions.<br><br>Key cases are **not** modified for labels you define with the `--labels` command line flag or the `SENSU_BACKEND_LABELS` environment variable.
+{{% /notice %}}
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`

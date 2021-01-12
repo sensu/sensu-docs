@@ -9,7 +9,7 @@ menu:
     parent: supported-integrations
 ---
 
-The Sensu EC2 Handler plugin is a Sensu [handler][1] that checks an AWS EC2 instance and removes it from Sensu if it is not in one of the specified states.
+The [Sensu EC2 Handler plugin][4] is a Sensu [handler][1] that checks an AWS EC2 instance and removes it from Sensu if it is not in one of the specified states.
 
 {{% notice note %}}
 **NOTE**: The Sensu EC2 Handler plugin is an example of Sensu's deregistration integrations.
