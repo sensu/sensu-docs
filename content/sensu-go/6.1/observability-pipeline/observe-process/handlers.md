@@ -101,306 +101,27 @@ Define these attributes in individual handlers instead.
 ## Handler stacks
 
 Handler stacks are a group of handlers or a handler set that escalate events through a series of different handlers.
-For example, consider a handler stack with three levels of escalation:
+For example, suppose you want a handler stack with three levels of escalation:
 
-- Level 1: On the first occurrence, attempt remediation with the `remediation` handler.
-- Level 2: On the fifth occurrence, send an alert to Slack with the `slack_alert_channel` handler.
-- Level 3: On the tenth occurrence, send an alert to PagerDuty with the `pagerduty_emergency` handler. Continue to send this alert on every tenth occurrence thereafter until the incident is resolved.
+- Level 1: On the first occurrence, attempt remediation.
+- Level 2: On the fifth occurrence, send an alert to Slack.
+- Level 3: On the tenth occurrence, send an alert to PagerDuty.
+Continue to send this alert on every tenth occurrence thereafter until the incident is resolved.
 
-**SOMETHING LIKE** "...this will require three event filters and three handlers. one of the filters is already built in to Sensu, so you don't have to write it. You can also use fatigue check filter asset or the auto-remediation integrations to streamline if you're already comfortable working with assets"
+A handler stack for this scenario requires three handlers to take the desired actions based on three corresponding event filters that control the escalation levels:
 
-The escalation levels are controlled by event filter definitions.
-At level 1, you only need the built-in [`is_incident` event filter][30].
-Every event will trigger remediation with the `remediation` handler.
+- Level 1 requires an event filter with the built-in [`is_incident` filter][30] and a corresponding remediation handler.
+- Level 2 requires an event filter with `is_incident` plus an [occurrence-based filter][32] that uses an expression like `event.check.occurrences == 5` and a corresponding Slack handler.
+- Level 3 requires an event filter with `is_incident` plus an [occurrence-based filter][32] that uses an expression like `event.check.occurrences % 10 == 0` to match event data with an occurrences value that is evenly divisible by 10 via a modulo operator calculation and a corresponding PagerDuty handler.
 
-For escalation to levels 2 and 3, you'll need the [`is_incident` event filter][30] plus an [occurrence-based event filter][32] that uses occurrence-based expressions based on the number of occurrences.
+With these event filters and handlers configured, you can create a [handler set][31] that includes the three handlers in your stack.
+You can also list the three handlers in the [handlers array][33] in your check definition instead.
 
-For level 2, that uses an expression like `event.check.occurrences == 5` to activate the `slack_alert_channel` handler at the fifth occurrence.
-
-For escalation to level 3, you'll need the [`is_incident` event filter][30] again, plus a slightly different occurrence-based event filter for [repeated events][32] to activate the `pagerduty_emergency` handler at every tenth occurrence.
-The event filter expression `event.check.occurrences % 10 == 0` will match event data with an occurrences value that is evenly divisible by 10 via a modulo operator calculation.
-
-{{% notice note %}}
-**NOTE**: Instead of setting up separate occurrence-based filters, use the `is_incident` event filter in conjunction with the [Sensu Go Fatigue Check Filter](https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter) asset for escalation.
+{{% notice protip %}}
+**PRO TIP**: This scenario relies on six different event filters and handlers to describe the handler stack concept, but you can use Sensu dynamic runtime assets and integrations to achieve the same escalating alert levels in other ways.<br><br>
+For example, you can use the `is_incident` event filter in conjunction with the [Sensu Go Fatigue Check Filter](https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter) asset to control event escalation.
+Sensu's [Ansible](../../../plugins/supported-integrations/ansible/), [Rundeck](../../../plugins/supported-integrations/rundeck/), and [Saltstack](../../../plugins/supported-integrations/saltstack/) auto-remediation integrations and the [Sensu Remediation Handler](https://bonsai.sensu.io/assets/sensu/sensu-remediation-handler) asset also include built-in occurrence- and severity-based event filtering.
 {{% /notice %}}
-
-With the event filters configured, you can create the three corresponding handler definitions.
-
-Your handler for level 1 could use a restart command to attempt remediation at the first occurrence:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: Handler
-api_version: core/v2
-metadata:
-  name: remediation
-  namespace: default
-spec:
-  command: sudo systemctl restart application
-  filters:
-  - is_incident
-  type: pipe
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "remediation",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "sudo systemctl restart application",
-    "filters": [
-      "is_incident"
-    ],
-    "type": "pipe"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-For the level 2 handler, you can  for levels 2 and 3, you can follow [Send Slack alerts][15] describes how to configure a handler that will send your level-2 alerts to a Slack channel.
-
-For your level-3 handler to send alerts to PagerDuty, follow [Register the Sensu PagerDuty Handler asset][33] to create your `pagerduty_emergency` handler.
-The handler definition must include the `is_incident` and `filter_tenth_occurrence` event filters. 
-
-Finally, 
-
-{{% notice note %}}
-**NOTE**: Sensu's [Ansible](../../../plugins/supported-integrations/ansible/), [Rundeck](../../../plugins/supported-integrations/rundeck/), and [Saltstack](../../../plugins/supported-integrations/saltstack/) auto-remediation integrations and the [Sensu Remediation Handler](https://bonsai.sensu.io/assets/sensu/sensu-remediation-handler) asset include built-in occurrence- and severity-based event filtering for a more streamlined approach to escalating event handling.
-{{% /notice %}}
-
-**PLACEHOLDER CONTENT**
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: EventFilter
-api_version: core/v2
-metadata:
-  annotations: null
-  labels: null
-  name: filter_fifth_occurrence
-  namespace: default
-spec:
-  action: allow
-  expressions:
-  - event.check.occurrences == 5
-  runtime_assets: []
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "EventFilter",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "filter_fifth_occurrence",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
-  },
-  "spec": {
-    "action": "allow",
-    "expressions": [
-      "event.check.occurrences"
-    ],
-    "runtime_assets": []
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-For escalation to level 3, you'll need the [`is_incident` event filter][31] again, and plus an event filter for [repeated events][32] to activate the `pagerduty_emergency` handler at every tenth occurrence.
-This event filter will match event data with an occurrences value of 10 OR any occurrences value that is evenly divisible by 10 via a modulo operator calculation:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: EventFilter
-api_version: core/v2
-metadata:
-  annotations: null
-  labels: null
-  name: filter_tenth_occurrence
-  namespace: default
-spec:
-  action: allow
-  expressions:
-  - event.check.occurrences == 10 || event.check.occurrences % 10 == 0
-  runtime_assets: []
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "EventFilter",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "filter_tenth_occurrence",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
-  },
-  "spec": {
-    "action": "allow",
-    "expressions": [
-      "event.check.occurrences == 10 || event.check.occurrences % 10 == 0"
-    ],
-    "runtime_assets": []
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-With the built-in `is_incident` event filter and the level-2 and level-3 event filters configured, you can create the three corresponding handler definitions.
-
-Your level-1 `remediation` handler might look like this:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: Handler
-api_version: core/v2
-metadata:
-  name: remediation
-  namespace: default
-spec:
-  command: sudo systemctl restart application
-  filters:
-  - is_incident
-  type: pipe
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "remediation",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "sudo systemctl restart application",
-    "filters": [
-      "is_incident"
-    ],
-    "type": "pipe"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-Using the your level-2 `slack_alert_channel` handler:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: Handler
-api_version: core/v2
-metadata:
-  name: slack_alert_channel
-  namespace: default
-spec:
-  command: sensu-slack-handler --channel '#alerts'
-  env_vars:
-  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
-  filters:
-  - is_incident
-  - filter_fifth_occurrence
-  type: pipe
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "slack_alert_channel",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "sensu-slack-handler --channel '#alerts'",
-    "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-    ],
-    "filters": [
-      "is_incident",
-      "filter_fifth_occurrence"
-    ],
-    "type": "pipe"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-Include the `filter_tenth_occurrence` event filter in your level-3 handler, `pagerduty_emergency`.
-This example uses the [Sensu PagerDuty Handler][] asset: 
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: Handler
-api_version: core/v2
-metadata:
-  name: pagerduty_emergency
-  namespace: default
-spec:
-  filters:
-  - is_incident
-  - filter_tenth_occurrence
-  type: pipe
-
-type: Handler
-api_version: core/v2
-metadata:
-  name: pagerduty_emergency
-  namespace: default
-spec:
-  type: pipe
-  command: sensu-pagerduty-handler
-  timeout: 10
-  runtime_assets:
-  - sensu/sensu-pagerduty-handler
-  filters:
-  - is_incident
-  - filter_tenth_occurrence
-  secrets:
-  - name: PAGERDUTY_TOKEN
-    secret: pagerduty_authtoken
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "pagerduty_emergency",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "sensu-slack-handler --channel '#monitoring'",
-    "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-    ],
-    "filters": [
-      "is_incident",
-      "filter_tenth_occurrence"
-    ],
-    "type": "pipe"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-
 
 ## Keepalive event handlers
 
@@ -1040,5 +761,6 @@ spec:
 [28]: ../../../web-ui/search/
 [29]: ../../../observability-pipeline/
 [30]: ../../observe-filter/filters/#built-in-filter-is_incident
+[31]: #handler-sets
 [32]: ../../observe-filter/filters/#handle-repeated-events
-[33]: ../../../plugins/use-assets-to-install-plugins/#register-the-sensu-pagerduty-handler-asset
+[33]: ../../observe-schedule/checks/#handlers-array
