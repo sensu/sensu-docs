@@ -1,5 +1,5 @@
 ---
-title: "Configure Active Directory (AD) authentication to access Sensu"
+title: "Configure Active Directory (AD) authentication"
 linktitle: "Authenticate with AD"
 description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using Active Directory (AD). Read this guide to configure an AD authentication provider."
 weight: 10

@@ -1,5 +1,5 @@
 ---
-title: "Configure Lightweight Directory Access Protocol (LDAP) authentication to access Sensu"
+title: "Configure Lightweight Directory Access Protocol (LDAP) authentication"
 linktitle: "Authenticate with LDAP"
 description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using Lightweight Directory Access Protocol (LDAP). Read this guide to configure an LDAP authentication provider."
 weight: 20
