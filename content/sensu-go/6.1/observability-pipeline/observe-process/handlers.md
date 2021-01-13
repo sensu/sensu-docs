@@ -110,9 +110,9 @@ Continue to send this alert on every tenth occurrence thereafter until the incid
 
 A handler stack for this scenario requires three handlers to take the desired actions based on three corresponding event filters that control the escalation levels:
 
-- Level 1 requires an event filter with the built-in [`is_incident` filter][30] and a corresponding remediation handler.
-- Level 2 requires an event filter with `is_incident` plus an [occurrence-based filter][32] that uses an expression like `event.check.occurrences == 5` and a corresponding Slack handler.
-- Level 3 requires an event filter with `is_incident` plus an [occurrence-based filter][32] that uses an expression like `event.check.occurrences % 10 == 0` to match event data with an occurrences value that is evenly divisible by 10 via a modulo operator calculation and a corresponding PagerDuty handler.
+- Level 1 requires an event filter with the built-in [`is_incident` filter][30] plus an [occurrence-based filter][32] that uses an expression like `event.check.occurrences ==1` and a corresponding remediation handler.
+- Level 2 requires an event filter with `is_incident` plus an occurrence-based filter that uses an expression like `event.check.occurrences == 5` and a corresponding Slack handler.
+- Level 3 requires an event filter with `is_incident` plus an occurrence-based filter that uses an expression like `event.check.occurrences % 10 == 0` to match event data with an occurrences value that is evenly divisible by 10 via a modulo operator calculation and a corresponding PagerDuty handler.
 
 With these event filters and handlers configured, you can create a [handler set][31] that includes the three handlers in your stack.
 You can also list the three handlers in the [handlers array][33] in your check definition instead.
