@@ -25,7 +25,7 @@ The most common are `pipe` handlers, which work similarly to [checks][1] and ena
 - **Handler stacks** are a group of handlers or a handler set that escalate events through a series of different handlers
 
 Discover, download, and share Sensu handler dynamic runtime assets using [Bonsai][16], the Sensu asset hub.
-Read [Use assets to install plugins][23] to get started.
+Read [Use dynamic runtime assets to install plugins][23] to get started.
 
 ## Pipe handlers
 
@@ -737,7 +737,7 @@ spec:
 [4]: ../../../sensuctl/create-manage-resources/#create-resources
 [5]: #spec-attributes
 [6]: #socket-attributes
-[7]: ../../../operations/deploy-sensu/assets/
+[7]: ../../../plugins/assets/
 [8]: #metadata-attributes
 [9]: ../../../operations/control-access/rbac#namespaces
 [10]: ../../../api#response-filtering
@@ -753,7 +753,7 @@ spec:
 [20]: ../../../operations/manage-secrets/secrets/
 [21]: ../../../operations/manage-secrets/secrets-providers/
 [22]: ../
-[23]: ../../../operations/deploy-sensu/use-assets-to-install-plugins
+[23]: ../../../plugins/use-assets-to-install-plugins/
 [24]: ../../observe-filter/filters/
 [25]: ../../../web-ui/search#search-for-labels
 [26]: ../../../operations/manage-secrets/secrets-management/
