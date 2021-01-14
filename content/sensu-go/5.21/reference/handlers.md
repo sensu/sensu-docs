@@ -744,7 +744,7 @@ spec:
 [14]: ../backend/
 [15]: ../../guides/send-slack-alerts/
 [16]: https://bonsai.sensu.io/
-[17]: https://github.com/sensu/sensu-servicenow-handler
+[17]: https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler/
 [18]: https://regex101.com/r/zo9mQU/2
 [19]: ../agent/#keepalive-handlers-flag
 [20]: ../../reference/secrets/
