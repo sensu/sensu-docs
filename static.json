@@ -39,10 +39,6 @@
             "url": "/sensu-go/latest/operations/control-access/create-read-only-user",
             "status": 301
         },
-        "~ ^/sensu-go/latest/getting-started/media/?$": {
-            "url": "https://sensu.io/resources",
-            "status": 301
-        },
         "~ ^/sensu-go/6.2/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 302
@@ -63,120 +59,12 @@
             "url": "/sensu-go/latest/plugins",
             "status": 301
         },
-        "~ ^/sensu-go/latest/learn/learn-sensu-go/?$": {
-            "url": "/sensu-go/latest/learn/interactive-tutorials",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/glossary/?$": {
-            "url": "/sensu-go/latest/learn/glossary",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/demo/?$": {
-            "url": "/sensu-go/latest/learn/demo",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/sandbox/?$": {
-            "url": "/sensu-go/latest/learn/sandbox",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/learn-sensu/?$": {
-            "url": "/sensu-go/latest/learn/learn-sensu-sandbox",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/sample-app/?$": {
-            "url": "/sensu-go/latest/learn/sample-app",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/prometheus-metrics/?$": {
-            "url": "/sensu-go/latest/learn/prometheus-metrics",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/tutorial/?$": {
-            "url": "/sensu-go/latest/learn/learn-in-15",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/guides/up-running-tutorial/?$": {
-            "url": "/sensu-go/latest/learn/up-and-running",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/installation/platforms/?$": {
-            "url": "/sensu-go/latest/platforms",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/platforms/?$": {
-            "url": "/sensu-go/latest/platforms",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/installation/verify/?$": {
-            "url": "/sensu-go/latest/platforms",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/verify/?$": {
-            "url": "/sensu-go/latest/platforms",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/enterprise/?$": {
-            "url": "/sensu-go/latest/commercial",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/getting-started/enterprise/?$": {
-            "url": "/sensu-go/latest/commercial",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/dashboard/overview/?$": {
-            "url": "/sensu-go/latest/web-ui",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/dashboard/overview/?$": {
-            "url": "/sensu-go/latest/web-ui",
-            "status": 301
-        },
         "~ ^/sensu-go/latest/web-ui/sign-in/?$": {
             "url": "/sensu-go/latest/web-ui",
             "status": 301
         },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/web-ui/sign-in/?$": {
             "url": "/sensu-go/latest/web-ui",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/dashboard/filtering/?$": {
-            "url": "/sensu-go/latest/web-ui/search",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/dashboard/filtering/?$": {
-            "url": "/sensu-go/latest/web-ui/search",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/dashboard/webconfig/?$": {
-            "url": "/sensu-go/latest/web-ui/webconfig",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/dashboard/webconfig/?$": {
-            "url": "/sensu-go/latest/web-ui/webconfig",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/versions/?$": {
-            "url": "/sensu-go/latest/versions",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/getting-started/versions/?$": {
-            "url": "/sensu-go/latest/versions",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/sensuctl/quickstart/?$": {
-            "url": "/sensu-go/latest/sensuctl",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/sensuctl/quickstart/?$": {
-            "url": "/sensu-go/latest/sensuctl",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/sensuctl/reference/?$": {
-            "url": "/sensu-go/latest/sensuctl",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/sensuctl/reference/?$": {
-            "url": "/sensu-go/latest/sensuctl",
             "status": 301
         },
         "~ ^/sensu-go/latest/sensuctl/set-up-manage/?$": {
@@ -193,14 +81,6 @@
         },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/getting-started/get-started/?$": {
             "url": "/sensu-go/latest/get-started",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/faq/?$": {
-            "url": "/sensu-go/latest/$1",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/getting-started/faq/?$": {
-            "url": "/sensu-go/latest/$1",
             "status": 301
         },
         "~ ^/sensu-go/latest/installation/recommended-hardware/?$": {
