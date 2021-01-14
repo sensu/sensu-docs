@@ -16,7 +16,7 @@ menu:
 You can discover, download, and share assets using [Bonsai, the Sensu asset hub][16].
 Read [Install plugins with assets][23] to get started.
 
-Assets are shareable, reusable packages that make it easier to deploy Sensu [plugins][29].
+Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
 Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
 
@@ -326,22 +326,26 @@ example (multiple builds)     | {{< code shell >}}"spec": {
       "filters": [
         "entity.system.os == 'linux'",
         "entity.system.arch == 'amd64'"
-      ]
+      ],
+      "headers": {
+        "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
+        "X-Forwarded-For": "client1, proxy1, proxy2"
+      }
     },
     {
-        "url": "http://example.com/asset-linux-armv7.tar.gz",
-        "sha512": "70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b",
-        "filters": [
-          "entity.system.os == 'linux'",
-          "entity.system.arch == 'arm'",
-          "entity.system.arm_version == 7"
-        ]
+      "url": "http://example.com/asset-linux-armv7.tar.gz",
+      "sha512": "70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b",
+      "filters": [
+        "entity.system.os == 'linux'",
+        "entity.system.arch == 'arm'",
+        "entity.system.arm_version == 7"
+        ],
+      "headers": {
+        "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
+        "X-Forwarded-For": "client1, proxy1, proxy2"
       }
-  ],
-  "headers": {
-    "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-    "X-Forwarded-For": "client1, proxy1, proxy2"
-  }
+    }
+  ]
 }{{< /code >}}
 example (single build, deprecated)     | {{< code shell >}}"spec": {
   "url": "http://example.com/asset.tar.gz",
@@ -955,7 +959,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [26]: #bonsaiyml-example
 [27]: https://goreleaser.com/
 [28]: https://github.com/sensu/sensu-go-plugin/
-[29]: /plugins/latest/reference/
+[29]: https://github.com/sensu-plugins
 [30]: ../agent#disable-assets
 [31]: #example-asset-with-a-check
 [34]: #asset-definition-single-build-deprecated
