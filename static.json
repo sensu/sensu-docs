@@ -17,7 +17,7 @@
         },
         "~ ^/uchiwa/1.0/?((?<=\/).*)?$": {
             "url": "/uchiwa/latest/$1",
-            "status": 302
+            "status": 301
         },
         "~ ^/sensu-enterprise/3.[0-8]/?((?<=\/).*)?$": {
             "url": "/sensu-enterprise/latest/$1",
@@ -57,7 +57,7 @@
         },
         "~ ^/plugins/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/plugins",
-            "status": 302
+            "status": 301
         },
         "~ ^/sensu-go/latest/web-ui/sign-in/?$": {
             "url": "/sensu-go/latest/web-ui",

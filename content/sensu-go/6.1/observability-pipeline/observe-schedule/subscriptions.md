@@ -25,10 +25,9 @@ For example, the `check_cpu` check includes the `system` subscription.
 All three entities include the `system` subscription, so all three entities will execute the `check_cpu` check.
 However, only Entity A and Entity C will execute `check_sshd_process` &mdash; Entity B does not include the `linux` subscription required to execute `check_sshd_process`.
 
-{{< figure src="/images/subscriptions_venn.png" alt="Venn diagram example of Sensu check execution based on subscriptions" link="/images/subscriptions_venn.png" target="_blank" >}}
-<!-- Diagram source: https://app.lucidchart.com/lucidchart/invitations/accept/25d40e7e-7293-4189-84e0-ef8c3a4c8ec5 -->
-
-*<p style="text-align:center">Sensu check execution based on subscriptions</p>*
+<div style="text-align:center">
+<img alt="Venn diagram example of Sensu check execution based on subscriptions" title="Sensu check execution based on subscriptions" src="/images/subscriptions_venn.png" >
+</div>
 
 Sensu subscriptions are equivalent to topics in a traditional publish/subscribe system.
 Sensu entities become subscribers to these topics via the strings you specify with the agent `subscriptions` flag.

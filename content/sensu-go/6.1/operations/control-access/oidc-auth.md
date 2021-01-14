@@ -1,5 +1,5 @@
 ---
-title: "Configure OpenID Connect 1.0 protocol (OIDC) authentication to access Sensu"
+title: "Configure OpenID Connect 1.0 protocol (OIDC) authentication"
 linktitle: "Authenticate with OIDC"
 description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using OpenID Connect 1.0 protocol (OIDC). Read this guide to configure an authentication provider."
 weight: 30
