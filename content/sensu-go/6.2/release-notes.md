@@ -9,6 +9,7 @@ version: "6.2"
 menu: "sensu-go-6.2"
 ---
 
+- [6.2.2 release notes](#622-release-notes)
 - [6.2.1 release notes](#621-release-notes)
 - [6.2.0 release notes](#620-release-notes)
 - [6.1.4 release notes](#614-release-notes)
@@ -75,6 +76,20 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.2.2 release notes
+
+**January 14, 2021** &mdash; The latest release of Sensu Go, version 6.2.2, is now available for download.
+
+This patch fixes bugs that prevented `sensuctl dump` and PostgreSQL round robin scheduing from working properly.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.2.2.
+
+**FIXES:**
+
+- ([Commercial feature][193]) Fixed a bug that could improperly enable PostgreSQL round robin scheduling after creating a PostgreSQL configuration.
+- ([Commercial feature][193]) Fixed a bug that prevented PostgreSQL round robin scheduling if the namespace and check names were more than 63 characters long, combined.
+- Fixed a bug where `sensuctl dump` output included events from all namespaces the user had access permissions for rather than events from only the specified namespace.
 
 ## 6.2.1 release notes
 
