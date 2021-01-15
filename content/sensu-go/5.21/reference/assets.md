@@ -476,7 +476,7 @@ Use the [entity.system attributes][10] in asset [filters][42] to specify which s
 
 For example, the [Sensu Go Ruby Runtime][43] asset definition includes several builds, each with filters for several `entity.system` attributes:
 
-{{< code yaml >}}
+{{< code yml >}}
 ---
 type: Asset
 api_version: core/v2

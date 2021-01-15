@@ -479,7 +479,7 @@ Use the [entity.system attributes][10] in dynamic runtime asset [filters][42] to
 
 For example, the [Sensu Go Ruby Runtime][43] dynamic runtime asset definition includes several builds, each with filters for several `entity.system` attributes:
 
-{{< code yaml >}}
+{{< code yml >}}
 ---
 type: Asset
 api_version: core/v2
