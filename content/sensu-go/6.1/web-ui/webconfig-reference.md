@@ -31,39 +31,196 @@ type         |
 description  | Top-level attribute that specifies the resource type. For web UI configuration, the type should always be `GlobalConfig`.
 required     | Required for web UI configuration in `wrapped-json` or `yaml` format.
 type         | String
-example      | {{< code shell >}}"type": "GlobalConfig"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: GlobalConfig
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "GlobalConfig"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For web UI configuration in this version of Sensu, the api_version should always be `web/v1`.
 required     | Required for web UI configuration in `wrapped-json` or `yaml` format.
 type         | String
-example      | {{< code shell >}}"api_version": "web/v1"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: web/v1
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "web/v1"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 metadata     |      |
 -------------|------
 description  | Top-level scope that contains the web UI configuration's `name` and `created_by` information.
 required     | true
 type         | Map of key-value pairs
-example      | {{< code shell >}}
-"metadata": {
-  "name": "custom-web-ui",
-  "created_by": "admin"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+metadata:
+  name: custom-web-ui
+  created_by: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "metadata": {
+    "name": "custom-web-ui",
+    "created_by": "admin"
+  }  
 }
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes web UI configuration [spec attributes][4].
 required     | Required for web UI configuration in `wrapped-json` or `yaml` format.
 type         | Map of key-value pairs
-example      | {{< code shell >}}
-"spec": {
-  "always_show_local_cluster": false,
+example      | {{< language-toggle >}}
+{{< code yml >}}
+spec:
+  always_show_local_cluster: false
+  default_preferences:
+    page_size: 50
+    theme: classic
+  link_policy:
+    allow_list: true
+    urls:
+    - https://example.com
+    - steamapp://34234234
+    - "//google.com"
+    - "//*.google.com"
+    - "//bob.local"
+    - https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic
+{{< /code >}}
+{{< code json >}}
+{
+  "spec": {
+    "always_show_local_cluster": false,
+    "default_preferences": {
+      "page_size": 50,
+      "theme": "classic"
+    },
+    "link_policy": {
+      "allow_list": true,
+      "urls": [
+        "https://example.com",
+        "steamapp://34234234",
+        "//google.com",
+        "//*.google.com",
+        "//bob.local",
+        "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
+      ]
+    }
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+### Metadata attributes
+
+name         |      |
+-------------|------
+description  | Name for the web UI configuration that is used internally by Sensu.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: custom-web-ui
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "custom-web-ui"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created or last updated the web UI configuration. Sensu automatically populates the `created_by` field when the web UI configuration is created or updated. The admin user, cluster admins, and any user with access to the [`GlobalConfig`][2] resource can create and update web UI configurations.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created_by: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+### Spec attributes
+
+<a name="show-local-cluster"></a>
+
+always_show_local_cluster | 
+-------------|------ 
+description  | Use only in federated environments. Set to `true` to display the cluster the user is currently connected to in the [namespace switcher][5]. To omit local cluster details, set to `false`.
+required     | false
+type         | Boolean
+default      | `false`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+always_show_local_cluster: false
+{{< /code >}}
+{{< code json >}}
+{
+  "always_show_local_cluster": false
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+default_preferences | 
+-------------|------ 
+description  | Global default page size and theme preferences for all users.
+required     | false
+type         | Map of key-value pairs
+example      | {{< language-toggle >}}
+{{< code yml >}}
+default_preferences:
+  page_size: 50
+  theme: classic
+{{< /code >}}
+{{< code json >}}
+{
   "default_preferences": {
     "page_size": 50,
     "theme": "classic"
-  },
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+link_policy | 
+-------------|------ 
+description  | For labels or annotations that contain a URL, the policy for which domains are valid and invalid targets for conversion to a link or an image.
+required     | false
+type         | Map of key-value pairs
+example      | {{< language-toggle >}}
+{{< code yml >}}
+link_policy:
+  allow_list: true
+  urls:
+  - https://example.com
+  - steamapp://34234234
+  - "//google.com"
+  - "//*.google.com"
+  - "//bob.local"
+  - https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic
+{{< /code >}}
+{{< code json >}}
+{
   "link_policy": {
     "allow_list": true,
     "urls": [
@@ -77,61 +234,7 @@ example      | {{< code shell >}}
   }
 }
 {{< /code >}}
-
-### Metadata attributes
-
-name         |      |
--------------|------
-description  | Name for the web UI configuration that is used internally by Sensu.
-required     | true
-type         | String
-example      | {{< code shell >}}"name": "custom-web-ui"{{< /code >}}
-
-| created_by |      |
--------------|------
-description  | Username of the Sensu user who created or last updated the web UI configuration. Sensu automatically populates the `created_by` field when the web UI configuration is created or updated. The admin user, cluster admins, and any user with access to the [`GlobalConfig`][2] resource can create and update web UI configurations.
-required     | false
-type         | String
-example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
-
-### Spec attributes
-
-<a name="show-local-cluster"></a>
-
-always_show_local_cluster | 
--------------|------ 
-description  | Use only in federated environments. Set to `true` to display the cluster the user is currently connected to in the [namespace switcher][5]. To omit local cluster details, set to `false`.
-required     | false
-type         | Boolean
-default      | `false`
-example      | {{< code shell >}}"always_show_local_cluster": false{{< /code >}}
-
-default_preferences | 
--------------|------ 
-description  | Global default page size and theme preferences for all users.
-required     | false
-type         | Map of key-value pairs
-example      | {{< code shell >}}"default_preferences": {
-  "page_size": 50,
-  "theme": "classic"
-}{{< /code >}}
-
-link_policy | 
--------------|------ 
-description  | For labels or annotations that contain a URL, the policy for which domains are valid and invalid targets for conversion to a link or an image.
-required     | false
-type         | Map of key-value pairs
-example      | {{< code shell >}}"link_policy": {
-  "allow_list": true,
-  "urls": [
-    "https://example.com",
-    "steamapp://34234234",
-    "//google.com",
-    "//*.google.com",
-    "//bob.local",
-    "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
-  ]
-}{{< /code >}}
+{{< /language-toggle >}}
 
 #### Default preferences attributes
 
@@ -141,7 +244,16 @@ description  | The number of items users will see on each page.
 required     | false
 type         | Integer
 default      | `25`
-example      | {{< code shell >}}"page_size": 25{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+page_size: 25
+{{< /code >}}
+{{< code json >}}
+{
+  "page_size": 25
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 theme | 
 ---------------|------ 
@@ -153,7 +265,16 @@ required       | false
 type           | String
 default        | `sensu`
 allowed values | `sensu`, `classic`, `uchiwa`, `tritanopia`, and `deuteranopia`
-example        | {{< code shell >}}"theme": "classic"{{< /code >}}
+example        | {{< language-toggle >}}
+{{< code yml >}}
+theme: classic
+{{< /code >}}
+{{< code json >}}
+{
+  "theme": "classic"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 #### Link policy attributes
 
@@ -163,7 +284,16 @@ description  | If the list of URLs acts as an allow list, `true`. If the list of
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< code shell >}}"allow_list": true{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+allow_list: true
+{{< /code >}}
+{{< code json >}}
+{
+  "allow_list": true
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 urls | 
 -------------|------ 
@@ -171,14 +301,29 @@ description  | The list of URLs to use as an allow or deny list.<br>{{% notice n
 {{% /notice %}}
 required     | false
 type         | Array
-example      | {{< code shell >}}"urls": [
-  "https://example.com",
-  "steamapp://34234234",
-  "//google.com",
-  "//*.google.com",
-  "//bob.local",
-  "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
-]{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+urls:
+- https://example.com
+- steamapp://34234234
+- "//google.com"
+- "//*.google.com"
+- "//bob.local"
+- https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic
+{{< /code >}}
+{{< code json >}}
+{
+  "urls": [
+    "https://example.com",
+    "steamapp://34234234",
+    "//google.com",
+    "//*.google.com",
+    "//bob.local",
+    "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ## Web UI configuration examples
 
