@@ -29,6 +29,7 @@ For general information about configuring authentication providers, see [Use an 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: ad
 api_version: authentication/v2
 metadata:
@@ -72,6 +73,7 @@ spec:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: ad
 api_version: authentication/v2
 metadata:
@@ -159,6 +161,7 @@ To use the `memberOf` attribute in your AD implementation, remove the `group_sea
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: ad
 api_version: authentication/v2
 metadata:
@@ -208,33 +211,160 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][38] resource type. For AD definitions, the `type` should always be `ad`.
 required     | true
 type         | String
-example      | {{< code shell >}}"type": "ad"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: ad
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "ad"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For AD definitions, the `api_version` should always be `authentication/v2`.
 required     | true
 type         | String
-example      | {{< code shell >}}"api_version": "authentication/v2"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: authentication/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "authentication/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 metadata     | 
 -------------|------
 description  | Top-level map that contains the AD definition `name`. See the [metadata attributes reference][23] for details.
 required     | true
 type         | Map of key-value pairs
-example      | {{< code shell >}}
-"metadata": {
-  "name": "activedirectory"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+metadata:
+  name: activedirectory
+{{< /code >}}
+{{< code json >}}
+{
+  "metadata": {
+    "name": "activedirectory"
+  }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the AD [spec attributes][45].
 required     | true
 type         | Map of key-value pairs
-example      | {{< code shell >}}
-"spec": {
+example      | {{< language-toggle >}}
+{{< code yml >}}
+spec:
+  servers:
+  - host: 127.0.0.1
+    port: 636
+    insecure: false
+    security: tls
+    trusted_ca_file: "/path/to/trusted-certificate-authorities.pem"
+    client_cert_file: "/path/to/ssl/cert.pem"
+    client_key_file: "/path/to/ssl/key.pem"
+    default_upn_domain: example.org
+    include_nested_groups: true
+    binding:
+      user_dn: cn=binder,cn=users,dc=acme,dc=org
+      password: YOUR_PASSWORD
+    group_search:
+      base_dn: dc=acme,dc=org
+      attribute: member
+      name_attribute: cn
+      object_class: group
+    user_search:
+      base_dn: dc=acme,dc=org
+      attribute: sAMAccountName
+      name_attribute: displayName
+      object_class: person
+  groups_prefix: ad
+  username_prefix: ad
+{{< /code >}}
+{{< code json >}}
+{
+  "spec": {
+    "servers": [
+      {
+        "host": "127.0.0.1",
+        "port": 636,
+        "insecure": false,
+        "security": "tls",
+        "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
+        "client_cert_file": "/path/to/ssl/cert.pem",
+        "client_key_file": "/path/to/ssl/key.pem",
+        "default_upn_domain": "example.org",
+        "include_nested_groups": true,
+        "binding": {
+          "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
+          "password": "YOUR_PASSWORD"
+        },
+        "group_search": {
+          "base_dn": "dc=acme,dc=org",
+          "attribute": "member",
+          "name_attribute": "cn",
+          "object_class": "group"
+        },
+        "user_search": {
+          "base_dn": "dc=acme,dc=org",
+          "attribute": "sAMAccountName",
+          "name_attribute": "displayName",
+          "object_class": "person"
+        }
+      }
+    ],
+    "groups_prefix": "ad",
+    "username_prefix": "ad"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+### AD spec attributes
+
+| servers    |      |
+-------------|------
+description  | An array of [AD servers][46] for your directory. During the authentication process, Sensu attempts to authenticate using each AD server in sequence.
+required     | true
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+servers:
+- host: 127.0.0.1
+  port: 636
+  insecure: false
+  security: tls
+  trusted_ca_file: "/path/to/trusted-certificate-authorities.pem"
+  client_cert_file: "/path/to/ssl/cert.pem"
+  client_key_file: "/path/to/ssl/key.pem"
+  default_upn_domain: example.org
+  include_nested_groups: true
+  binding:
+    user_dn: cn=binder,cn=users,dc=acme,dc=org
+    password: YOUR_PASSWORD
+  group_search:
+    base_dn: dc=acme,dc=org
+    attribute: member
+    name_attribute: cn
+    object_class: group
+  user_search:
+    base_dn: dc=acme,dc=org
+    attribute: sAMAccountName
+    name_attribute: displayName
+    object_class: person
+{{< /code >}}
+{{< code json >}}
+{
   "servers": [
     {
       "host": "127.0.0.1",
@@ -263,50 +393,10 @@ example      | {{< code shell >}}
         "object_class": "person"
       }
     }
-  ],
-  "groups_prefix": "ad",
-  "username_prefix": "ad"
+  ]
 }
 {{< /code >}}
-
-### AD spec attributes
-
-| servers    |      |
--------------|------
-description  | An array of [AD servers][46] for your directory. During the authentication process, Sensu attempts to authenticate using each AD server in sequence.
-required     | true
-type         | Array
-example      | {{< code shell >}}
-"servers": [
-  {
-    "host": "127.0.0.1",
-    "port": 636,
-    "insecure": false,
-    "security": "tls",
-    "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
-    "client_cert_file": "/path/to/ssl/cert.pem",
-    "client_key_file": "/path/to/ssl/key.pem",
-    "default_upn_domain": "example.org",
-    "include_nested_groups": true,
-    "binding": {
-      "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
-      "password": "YOUR_PASSWORD"
-    },
-    "group_search": {
-      "base_dn": "dc=acme,dc=org",
-      "attribute": "member",
-      "name_attribute": "cn",
-      "object_class": "group"
-    },
-    "user_search": {
-      "base_dn": "dc=acme,dc=org",
-      "attribute": "sAMAccountName",
-      "name_attribute": "displayName",
-      "object_class": "person"
-    }
-  }
-]
-{{< /code >}}
+{{< /language-toggle >}}
 
 <a name="ad-groups-prefix"></a>
 
@@ -315,7 +405,16 @@ example      | {{< code shell >}}
 description  | The prefix added to all AD groups. Sensu appends the groups_prefix with a colon. For example, for the groups_prefix `ad` and the group `dev`, the resulting group name in Sensu is `ad:dev`. Use the groups_prefix when integrating AD groups with Sensu RBAC [role bindings and cluster role bindings][13].
 required     | false
 type         | String
-example      | {{< code shell >}}"groups_prefix": "ad"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+groups_prefix: ad
+{{< /code >}}
+{{< code json >}}
+{
+  "groups_prefix": "ad"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 <a name="ad-username-prefix"></a>
 
@@ -324,7 +423,16 @@ example      | {{< code shell >}}"groups_prefix": "ad"{{< /code >}}
 description  | The prefix added to all AD usernames. Sensu appends the username_prefix with a colon. For example, for the username_prefix `ad` and the user `alice`, the resulting username in Sensu is `ad:alice`. Use the username_prefix when integrating AD users with Sensu RBAC [role bindings and cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
 required     | false
 type         | String
-example      | {{< code shell >}}"username_prefix": "ad"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+username_prefix: ad
+{{< /code >}}
+{{< code json >}}
+{
+  "username_prefix": "ad"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### AD server attributes
 
@@ -333,7 +441,16 @@ example      | {{< code shell >}}"username_prefix": "ad"{{< /code >}}
 description  | AD server IP address or [FQDN][41].
 required     | true
 type         | String
-example      | {{< code shell >}}"host": "127.0.0.1"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+host: 127.0.0.1
+{{< /code >}}
+{{< code json >}}
+{
+  "host": "127.0.0.1"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | port       |      |
 -------------|------
@@ -341,7 +458,16 @@ description  | AD server port.
 required     | true
 type         | Integer
 default      | `389` for insecure connections; `636` for TLS connections
-example      | {{< code shell >}}"port": 636{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+port: 636
+{{< /code >}}
+{{< code json >}}
+{
+  "port": 636
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | insecure   |      |
 -------------|------
@@ -351,75 +477,151 @@ description  | Skips SSL certificate verification when set to `true`. {{% notice
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< code shell >}}"insecure": false{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+insecure: false
+{{< /code >}}
+{{< code json >}}
+{
+  "insecure": false
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | security   |      |
 -------------|------
 description  | Determines the encryption type to be used for the connection to the AD server: `insecure` (unencrypted connection; not recommended for production), `tls` (secure encrypted connection), or `starttls` (unencrypted connection upgrades to a secure connection).
 type         | String
 default      | `"tls"`
-example      | {{< code shell >}}"security": "tls"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+security: tls
+{{< /code >}}
+{{< code json >}}
+{
+  "security": "tls"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | trusted_ca_file | |
 -------------|------
 description  | Path to an alternative CA bundle file in PEM format to be used instead of the system's default bundle. This CA bundle is used to verify the server's certificate.
 required     | false
 type         | String
-example      | {{< code shell >}}"trusted_ca_file": "/path/to/trusted-certificate-authorities.pem"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+trusted_ca_file: /path/to/trusted-certificate-authorities.pem
+{{< /code >}}
+{{< code json >}}
+{
+  "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | client_cert_file | |
 -------------|------
 description  | Path to the certificate that should be sent to the server if requested.
 required     | false
 type         | String
-example      | {{< code shell >}}"client_cert_file": "/path/to/ssl/cert.pem"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+client_cert_file: /path/to/ssl/cert.pem
+{{< /code >}}
+{{< code json >}}
+{
+  "client_cert_file": "/path/to/ssl/cert.pem"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | client_key_file | |
 -------------|------
 description  | Path to the key file associated with the `client_cert_file`.
 required     | false
 type         | String
-example      | {{< code shell >}}"client_key_file": "/path/to/ssl/key.pem"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+client_key_file: /path/to/ssl/key.pem
+{{< /code >}}
+{{< code json >}}
+{
+  "client_key_file": "/path/to/ssl/key.pem"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | binding    |      |
 -------------|------
 description  | The AD account that performs user and group lookups. If your sever supports anonymous binding, you can omit the `user_dn` or `password` attributes to query the directory without credentials. To use anonymous binding with AD, the `ANONYMOUS LOGON` object requires read permissions for users and groups.
 required     | false
 type         | Map
-example      | {{< code shell >}}
-"binding": {
-  "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
-  "password": "YOUR_PASSWORD"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+binding:
+  user_dn: cn=binder,cn=users,dc=acme,dc=org
+  password: YOUR_PASSWORD
+{{< /code >}}
+{{< code json >}}
+{
+  "binding": {
+    "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
+    "password": "YOUR_PASSWORD"
+  }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 | group_search |    |
 -------------|------
 description  | Search configuration for groups. See the [group search attributes][47] for more information. Remove the `group_search` object from your configuration to use the `memberOf` attribute instead.
 required     | false
 type         | Map
-example      | {{< code shell >}}
-"group_search": {
-  "base_dn": "dc=acme,dc=org",
-  "attribute": "member",
-  "name_attribute": "cn",
-  "object_class": "group"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+group_search:
+  base_dn: dc=acme,dc=org
+  attribute: member
+  name_attribute: cn
+  object_class: group
+{{< /code >}}
+{{< code json >}}
+{
+  "group_search": {
+    "base_dn": "dc=acme,dc=org",
+    "attribute": "member",
+    "name_attribute": "cn",
+    "object_class": "group"
+  }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 | user_search |     |
 -------------|------
 description  | Search configuration for users. See the [user search attributes][48] for more information.
 required     | true
 type         | Map
-example      | {{< code shell >}}
-"user_search": {
-  "base_dn": "dc=acme,dc=org",
-  "attribute": "sAMAccountName",
-  "name_attribute": "displayName",
-  "object_class": "person"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+user_search:
+  base_dn: dc=acme,dc=org
+  attribute: sAMAccountName
+  name_attribute: displayName
+  object_class: person
+{{< /code >}}
+{{< code json >}}
+{
+  "user_search": {
+    "base_dn": "dc=acme,dc=org",
+    "attribute": "sAMAccountName",
+    "name_attribute": "displayName",
+    "object_class": "person"
+  }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 | default_upn_domain |     |
 -------------|------
@@ -428,18 +630,32 @@ description  | Enables UPN authentication when set. The default UPN suffix that 
 {{% /notice %}}
 required     | false
 type         | String
-example      | {{< code shell >}}
-"default_upn_domain": "example.org"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+default_upn_domain: example.org
 {{< /code >}}
+{{< code json >}}
+{
+  "default_upn_domain": "example.org"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | include_nested_groups |     |
 -------------|------
 description  | If `true`, the group search includes any nested groups a user is a member of. If `false`, the group search includes only the top-level groups a user is a member of.
 required     | false
 type         | Boolean
-example      | {{< code shell >}}
-"include_nested_groups": true
+example      | {{< language-toggle >}}
+{{< code yml >}}
+include_nested_groups: true
 {{< /code >}}
+{{< code json >}}
+{
+  "include_nested_groups": true
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### AD binding attributes
 
@@ -448,14 +664,32 @@ example      | {{< code shell >}}
 description  | The AD account that performs user and group lookups. We recommend using a read-only account. Use the distinguished name (DN) format, such as `cn=binder,cn=users,dc=domain,dc=tld`. If your sever supports anonymous binding, you can omit this attribute to query the directory without credentials.
 required     | false
 type         | String
-example      | {{< code shell >}}"user_dn": "cn=binder,cn=users,dc=acme,dc=org"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+user_dn: cn=binder,cn=users,dc=acme,dc=org
+{{< /code >}}
+{{< code json >}}
+{
+  "user_dn": "cn=binder,cn=users,dc=acme,dc=org"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | password   |      |
 -------------|------
 description  | Password for the `user_dn` account. If your sever supports anonymous binding, you can omit this attribute to query the directory without credentials.
 required     | false
 type         | String
-example      | {{< code shell >}}"password": "YOUR_PASSWORD"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+password: YOUR_PASSWORD
+{{< /code >}}
+{{< code json >}}
+{
+  "password": "YOUR_PASSWORD"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### AD group search attributes
 
@@ -464,7 +698,16 @@ example      | {{< code shell >}}"password": "YOUR_PASSWORD"{{< /code >}}
 description  | Tells Sensu which part of the directory tree to search. For example, `dc=acme,dc=org` searches within the `acme.org` directory.
 required     | true
 type         | String
-example      | {{< code shell >}}"base_dn": "dc=acme,dc=org"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+base_dn: dc=acme,dc=org
+{{< /code >}}
+{{< code json >}}
+{
+  "base_dn": "dc=acme,dc=org"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | attribute  |      |
 -------------|------
@@ -472,7 +715,16 @@ description  | Used for comparing result entries. Combined with other filters as
 required     | false
 type         | String
 default      | `"member"`
-example      | {{< code shell >}}"attribute": "member"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+attribute: member
+{{< /code >}}
+{{< code json >}}
+{
+  "attribute": "member"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | name_attribute |  |
 -------------|------
@@ -480,7 +732,16 @@ description  | Represents the attribute to use as the entry name.
 required     | false
 type         | String
 default      | `"cn"`
-example      | {{< code shell >}}"name_attribute": "cn"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name_attribute: cn
+{{< /code >}}
+{{< code json >}}
+{
+  "name_attribute": "cn"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | object_class |   |
 -------------|------
@@ -488,7 +749,16 @@ description  | Identifies the class of objects returned in the search result. Co
 required     | false
 type         | String
 default      | `"group"`
-example      | {{< code shell >}}"object_class": "group"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+object_class: group
+{{< /code >}}
+{{< code json >}}
+{
+  "object_class": "group"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### AD user search attributes
 
@@ -497,7 +767,16 @@ example      | {{< code shell >}}"object_class": "group"{{< /code >}}
 description  | Tells Sensu which part of the directory tree to search. For example, `dc=acme,dc=org` searches within the `acme.org` directory.
 required     | true
 type         | String
-example      | {{< code shell >}}"base_dn": "dc=acme,dc=org"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+base_dn: dc=acme,dc=org
+{{< /code >}}
+{{< code json >}}
+{
+  "base_dn": "dc=acme,dc=org"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | attribute  |      |
 -------------|------
@@ -505,7 +784,16 @@ description  | Used for comparing result entries. Combined with other filters as
 required     | false
 type         | String
 default      | `"sAMAccountName"`
-example      | {{< code shell >}}"attribute": "sAMAccountName"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+attribute: sAMAccountName
+{{< /code >}}
+{{< code json >}}
+{
+  "attribute": "sAMAccountName"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | name_attribute |  |
 -------------|------
@@ -513,7 +801,16 @@ description  | Represents the attribute to use as the entry name.
 required     | false
 type         | String
 default      | `"displayName"`
-example      | {{< code shell >}}"name_attribute": "displayName"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name_attribute: displayName
+{{< /code >}}
+{{< code json >}}
+{
+  "name_attribute": "displayName"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | object_class |   |
 -------------|------
@@ -521,7 +818,16 @@ description  | Identifies the class of objects returned in the search result. Co
 required     | false
 type         | String
 default      | `"person"`
-example      | {{< code shell >}}"object_class": "person"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+object_class: person
+{{< /code >}}
+{{< code json >}}
+{
+  "object_class": "person"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### AD metadata attributes
 
@@ -530,7 +836,16 @@ example      | {{< code shell >}}"object_class": "person"{{< /code >}}
 description  | A unique string used to identify the AD configuration. Names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][42]).
 required     | true
 type         | String
-example      | {{< code shell >}}"name": "activedirectory"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: activedirectory
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "activedirectory"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ## AD troubleshooting
 
