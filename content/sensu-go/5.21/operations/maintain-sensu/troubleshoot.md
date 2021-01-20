@@ -193,6 +193,7 @@ We recommend using a debug handler like this one to write an event to disk as JS
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:
@@ -270,9 +271,55 @@ An improperly applied asset filter can prevent the asset from being downloaded b
 
 **Backend event**
 
-{{< code json >}}
+{{< language-toggle >}}
 
- {
+{{< code yml >}}
+---
+timestamp: 1568148292
+check:
+  command: check-disk-space
+  handlers: []
+  high_flap_threshold: 0
+  interval: 10
+  low_flap_threshold: 0
+  publish: true
+  runtime_assets:
+  - sensu-plugins-disk-checks
+  subscriptions:
+  - caching_servers
+  proxy_entity_name: ''
+  check_hooks:
+  stdin: false
+  subdue:
+  ttl: 0
+  timeout: 0
+  round_robin: false
+  duration: 0.001795508
+  executed: 1568148292
+  history:
+  - status: 127
+    executed: 1568148092
+  issued: 1568148292
+  output: 'sh: check-disk-space: command not found'
+  state: failing
+  status: 127
+  total_state_change: 0
+  last_ok: 0
+  occurrences: 645
+  occurrences_watermark: 645
+  output_metric_format: ''
+  output_metric_handlers:
+  output_metric_tags:
+  env_vars:
+  metadata:
+    name: failing-disk-check
+    namespace: default
+metadata:
+  namespace: default
+{{< /code >}}
+
+{{< code json >}}
+{
   "timestamp": 1568148292,
   "check": {
     "command": "check-disk-space",
@@ -312,6 +359,7 @@ An improperly applied asset filter can prevent the asset from being downloaded b
     "occurrences_watermark": 645,
     "output_metric_format": "",
     "output_metric_handlers": null,
+    "output_metric_tags": null,
     "env_vars": null,
     "metadata": {
       "name": "failing-disk-check",
@@ -324,18 +372,22 @@ An improperly applied asset filter can prevent the asset from being downloaded b
 }
 {{< /code >}}
 
-If you see a message like this, review your asset definition &mdash; it means that the entity wasn't able to download the required asset due to asset filter restrictions.
-You can review the filters for an asset by using the sensuctl `asset info` command with a `--format` flag:
+{{< /language-toggle >}}
 
-{{< code shell >}}
+If you see a message like this, review your asset definition &mdash; it means that the entity wasn't able to download the required asset due to asset filter restrictions.
+To review the filters for an asset, use the sensuctl `asset info` command with a `--format` flag:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 sensuctl asset info sensu-plugins-disk-checks --format yaml
 {{< /code >}}
 
-or 
-
-{{< code shell >}}
+{{< code shell "JSON" >}}
 sensuctl asset info sensu-plugins-disk-checks --format json
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 ### Conflating operating systems with families
 
@@ -343,28 +395,67 @@ A common asset filter issue is conflating operating systems with the family they
 For example, although Ubuntu is part of the Debian family of Linux distributions, Ubuntu is not the same as Debian.
 A practical example might be:
 
-{{< code shell >}}
-...
-    - entity.system.platform == 'debian'
-    - entity.system.arch == 'amd64'
+{{< language-toggle >}}
+
+{{< code yml >}}
+filters:
+- entity.system.platform == 'debian'
+- entity.system.arch == 'amd64'
 {{< /code >}}
+
+{{< code json >}}
+{
+  "filters": [
+    "entity.system.platform == 'debian'",
+    "entity.system.arch == 'amd64'"
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 This would not allow an Ubuntu system to run the asset.
 
 Instead, the asset filter should look like this:
 
-{{< code shell >}}
-...
-    - entity.system.platform_family == 'debian'
-    - entity.system.arch == 'amd64'
+{{< language-toggle >}}
+
+{{< code yml >}}
+filters:
+- entity.system.platform_family == 'debian'
+- entity.system.arch == 'amd64'
 {{< /code >}}
 
-or 
-
-{{< code shell >}}
-    - entity.system.platform == 'ubuntu'
-    - entity.system.arch == 'amd64'
+{{< code json >}}
+{
+  "filters": [
+    "entity.system.platform_family == 'debian'",
+    "entity.system.arch == 'amd64'"
+  ]
+}
 {{< /code >}}
+{{< /language-toggle >}}
+
+or
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+filters:
+- entity.system.platform == 'ubuntu'
+- entity.system.arch == 'amd64'
+{{< /code >}}
+
+{{< code json >}}
+{
+  "filters": [
+    "entity.system.platform == 'ubuntu'",
+    "entity.system.arch == 'amd64'"
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 This would allow the asset to be downloaded onto the target entity.
 
