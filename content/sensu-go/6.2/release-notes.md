@@ -80,7 +80,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 6.2.3 release notes
 
-**January 20, 2021** &mdash; The latest release of Sensu Go, version 6.2.3, is now available for download.
+**January 21, 2021** &mdash; The latest release of Sensu Go, version 6.2.3, is now available for download.
 
 This patch fixes a bug that could cause the the `--agent-managed-entity` configuration flag to prevent the agent from starting.
 
