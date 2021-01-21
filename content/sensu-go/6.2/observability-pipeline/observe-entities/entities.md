@@ -46,8 +46,8 @@ If you prefer, you can manage agent entities via the agent rather than the backe
 To do this, add the [`agent-managed-entity` flag][16] when you start the Sensu agent or set `agent-managed-entity: true` in your `agent.yml` file.
 
 {{% notice important%}}
-**IMPORTANT**: In Sensu Go 6.2.1 and 6.2.2, the agent-managed-entity flag can prevent the agent from starting.
-Include a [label](../../observe-schedule/agent/#labels) to mitigate this issue: `sensu-agent start --agent-managed-entity --labels workaround=agent_managed-entity_flag`.
+**IMPORTANT**: In Sensu Go 6.2.1 and 6.2.2, the agent-managed-entity configuration flag can prevent the agent from starting.
+Upgrade to [Sensu Go 6.2.3](../../../release-notes/#623-release-notes) to use the agent-managed-entity configuration flag.
 {{% /notice %}}
 
 When you start an agent with the `--agent-managed-entity` flag or set `agent-managed-entity: true` in agent.yml, the agent becomes responsible for managing its entity configuration.
