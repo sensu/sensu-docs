@@ -268,6 +268,103 @@ event:server-testing
 {{< /code >}}
 {{< /language-toggle >}}
 
+#### Parameters
+
+action       | 
+-------------|------ 
+description  | For event filter searches, the type of filter to include in the search: `allow` or `deny`.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+parameters:
+- action:allow
+{{< /code >}}
+{{< code json >}}
+{
+  "parameters": [
+    "action:allow"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+check        | 
+-------------|------ 
+description  | Name of the check to include in the search.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+parameters:
+- check:server-health
+{{< /code >}}
+{{< code json >}}
+{
+  "parameters": [
+    "check:server-health"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+class        | 
+-------------|------ 
+description  | For entity searches, the entity class to include in the search: `agent` or `proxy`.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+parameters:
+- class:agent
+{{< /code >}}
+{{< code json >}}
+{
+  "parameters": [
+    "class:agent"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+entity       | 
+-------------|------ 
+description  | Name of the entity to include in the search.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+parameters:
+- entity:server-testing
+{{< /code >}}
+{{< code json >}}
+{
+  "parameters": [
+    "entity:server-testing"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+event        | 
+-------------|------ 
+description  | Name of the event to include in the search.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+parameters:
+- event:server-testing
+{{< /code >}}
+{{< code json >}}
+{
+  "parameters": [
+    "event:server-testing"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 fieldSelector | 
 -------------|------ 
 description  | [Field selector][9] to include in the search.
@@ -275,11 +372,14 @@ required     | false
 type         | Filter statement
 example      | {{< language-toggle >}}
 {{< code yml >}}
-fieldSelector:entity.name == "1b04994n"
+parameters:
+- fieldSelector:entity.name == "1b04994n"
 {{< /code >}}
 {{< code json >}}
 {
-  "fieldSelector:entity.name == \"1b04994n\""
+  "parameters": [
+    "fieldSelector:entity.name == \"1b04994n\""
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -291,11 +391,14 @@ required     | false
 type         | Filter statement
 example      | {{< language-toggle >}}
 {{< code yml >}}
-labelSelector:region == "us-west-1"
+parameters:
+- labelSelector:region == "us-west-1"
 {{< /code >}}
 {{< code json >}}
 {
-  "labelSelector:region == \"us-west-1\""
+  "parameters": [
+    "labelSelector:region == \"us-west-1\""
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -307,11 +410,14 @@ required     | false
 type         | Boolean
 example      | {{< language-toggle >}}
 {{< code yml >}}
-published:true
+parameters:
+- published:true
 {{< /code >}}
 {{< code json >}}
 {
-  "published:true"
+  "parameters": [
+    "published:true"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -323,11 +429,14 @@ required     | false
 type         | Boolean
 example      | {{< language-toggle >}}
 {{< code yml >}}
-silenced:true
+parameters:
+- silenced:true
 {{< /code >}}
 {{< code json >}}
 {
-  "silenced:true"
+  "parameters": [
+    "silenced:true"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -339,11 +448,14 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-status:incident
+parameters:
+- status:incident
 {{< /code >}}
 {{< code json >}}
 {
-  "status:incident"
+  "parameters": [
+    "status:incident"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -355,11 +467,14 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-subscription:web
+parameters:
+- subscription:web
 {{< /code >}}
 {{< code json >}}
 {
-  "subscription:web"
+  "parameters": [
+    "subscription:web"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -371,11 +486,14 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-type:pipe
+parameters:
+- type:pipe
 {{< /code >}}
 {{< code json >}}
 {
-  "type:pipe"
+  "parameters": [
+    "type:pipe"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}

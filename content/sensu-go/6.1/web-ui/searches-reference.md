@@ -195,11 +195,14 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-action:allow
+parameters:
+- action:allow
 {{< /code >}}
 {{< code json >}}
 {
-  "action:allow"
+  "parameters": [
+    "action:allow"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -211,11 +214,14 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-check:server-health
+parameters:
+- check:server-health
 {{< /code >}}
 {{< code json >}}
 {
-  "check:server-health"
+  "parameters": [
+    "check:server-health"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -227,11 +233,14 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-class:agent
+parameters:
+- class:agent
 {{< /code >}}
 {{< code json >}}
 {
-  "class:agent"
+  "parameters": [
+    "class:agent"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -243,11 +252,14 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-entity:server-testing
+parameters:
+- entity:server-testing
 {{< /code >}}
 {{< code json >}}
 {
-  "entity:server-testing"
+  "parameters": [
+    "entity:server-testing"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -259,11 +271,14 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-event:server-testing
+parameters:
+- event:server-testing
 {{< /code >}}
 {{< code json >}}
 {
-  "event:server-testing"
+  "parameters": [
+    "event:server-testing"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -275,11 +290,14 @@ required     | false
 type         | Boolean
 example      | {{< language-toggle >}}
 {{< code yml >}}
-published:true
+parameters:
+- published:true
 {{< /code >}}
 {{< code json >}}
 {
-  "published:true"
+  "parameters": [
+    "published:true"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -291,11 +309,14 @@ required     | false
 type         | Boolean
 example      | {{< language-toggle >}}
 {{< code yml >}}
-silenced:true
+parameters:
+- silenced:true
 {{< /code >}}
 {{< code json >}}
 {
-  "silenced:true"
+  "parameters": [
+    "silenced:true"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -307,11 +328,14 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-status:incident
+parameters:
+- status:incident
 {{< /code >}}
 {{< code json >}}
 {
-  "status:incident"
+  "parameters": [
+    "status:incident"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -323,11 +347,14 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-subscription:web
+parameters:
+- subscription:web
 {{< /code >}}
 {{< code json >}}
 {
-  "subscription:web"
+  "parameters": [
+    "subscription:web"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -339,11 +366,14 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-type:pipe
+parameters:
+- type:pipe
 {{< /code >}}
 {{< code json >}}
 {
-  "type:pipe"
+  "parameters": [
+    "type:pipe"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
