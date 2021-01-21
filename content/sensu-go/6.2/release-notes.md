@@ -82,13 +82,14 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **January 21, 2021** &mdash; The latest release of Sensu Go, version 6.2.3, is now available for download.
 
-This patch fixes a bug that could cause the the `--agent-managed-entity` configuration flag to prevent the agent from starting.
+This patch fixes two bugs: one that could cause the `--agent-managed-entity` configuration flag to prevent the agent from starting and one that caused `sensuctl dump` output to include events from all namepaces rather than the specified namespace.
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.2.3.
 
 **FIXES:**
 
-- Fixes a bug that could prevent the agent from starting when using the `--agent-managed-entity` agent configuration flag.
+- Fixed a bug that could prevent the agent from starting when using the `--agent-managed-entity` agent configuration flag.
+- Fixed a bug where `sensuctl dump` output included events from all namespaces the user had access permissions for rather than events from only the specified namespace.
 
 ## 6.2.2 release notes
 
@@ -102,7 +103,6 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.2.
 
 - ([Commercial feature][193]) Fixed a bug that could improperly enable PostgreSQL round robin scheduling after creating a PostgreSQL configuration.
 - ([Commercial feature][193]) Fixed a bug that prevented PostgreSQL round robin scheduling if the namespace and check names were more than 63 characters long, combined.
-- Fixed a bug where `sensuctl dump` output included events from all namespaces the user had access permissions for rather than events from only the specified namespace.
 
 ## 6.2.1 release notes
 
