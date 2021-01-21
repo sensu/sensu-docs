@@ -195,11 +195,14 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-action:allow
+parameters:
+- action:allow
 {{< /code >}}
 {{< code json >}}
 {
-  "action:allow"
+  "parameters": [
+    "action:allow"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
