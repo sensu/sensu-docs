@@ -39,7 +39,7 @@ sensuctl asset add sensu-plugins/sensu-plugins-http:5.1.1 -r sensu-plugins-http
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `sensu-plugins-http`.
 
-You can also download the asset definition for Debian or Alpine from [Bonsai][16] and register the asset with `sensuctl create --file filename.yml`.
+You can also download the asset definition for Debian or Alpine from [Bonsai][16] and register the asset with `sensuctl create --file filename.yml` or `sensuctl create --file filename.json`.
 
 Then, use the following sensuctl example to register the Sensu Ruby Runtime asset, `sensu/sensu-ruby-runtime:0.0.10`:
 
@@ -47,7 +47,7 @@ Then, use the following sensuctl example to register the Sensu Ruby Runtime asse
 sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
 {{< /code >}}
 
-You can also download the asset definition from [Bonsai][17] and register the asset using `sensuctl create --file filename.yml`. 
+You can also download the asset definition from [Bonsai][17] and register the asset with `sensuctl create --file filename.yml` or `sensuctl create --file filename.json`.
 
 Use sensuctl to confirm that both the `sensu-plugins-http` and `sensu-ruby-runtime` assets are ready to use:
 
@@ -69,11 +69,12 @@ Read [the asset reference](../../reference/assets#asset-builds) for more informa
 Now that the assets are registered, you can create a check named `check-sensu-site` to run the command `check-http.rb -u https://sensu.io` with the `sensu-plugins-http` and `sensu-ruby-runtime` assets, at an interval of 60 seconds, for all agents subscribed to the `proxy` subscription, using the `sensu-site` proxy entity name.
 To avoid duplicate events, add the [`round_robin` attribute][18] to distribute the check execution across all agents subscribed to the `proxy` subscription.
 
-Create a file called `check.json` and add this check definition:
+Create a file called `check.yml` or `check.json` and add this check definition:
 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -121,9 +122,21 @@ spec:
 
 Now you can use sensuctl to add the check to Sensu:
 
-{{< code shell >}}
-sensuctl create --file check.json
+{{< language-toggle >}}
 
+{{< code shell "YML" >}}
+sensuctl create --file check.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create --file check.json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Use sensuctl to confirm that Sensu added the check:
+
+{{< code shell >}}
 sensuctl check list
        Name                     Command               Interval   Cron   Timeout   TTL   Subscriptions   Handlers                     Assets                Hooks   Publish?   Stdin?  
 ────────────────── ────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ─────────────────────────────────────── ─────── ────────── ────────
@@ -182,16 +195,30 @@ You can also see the new proxy entity in your [Sensu web UI][10].
 
 Suppose that instead of monitoring just sensu.io, you want to monitor multiple sites, like docs.sensu.io, packagecloud.io, and github.com.
 In this section, you'll use the [`proxy_requests` check attribute][3] along with [entity labels][11] and [token substitution][12] to monitor three sites with the same check.
-Before you start, [register the `sensu-plugins-http` and `sensu-ruby-runtime` assets][13] if you haven't already.
+Before you start, [register the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets][13] if you haven't already.
 
 ### Create proxy entities
 
 Instead of creating a proxy entity using the `proxy_entity_name` check attribute, use sensuctl to create proxy entities to represent the three sites you want to monitor.
 Your proxy entities need the `entity_class` attribute set to `proxy` to mark them as proxy entities as well as a few custom `labels` to identify them as a group and pass in individual URLs.
 
-Create a file called `entities.json` and add the following entity definitions:
+Create a file called `entities.yml` or `entities.json` and add the following entity definitions:
 
-{{< code shell >}}
+{{< language-toggle >}}
+{{< code yml >}}
+---
+type: Entity
+api_version: core/v2
+metadata:
+  name: sensu-docs
+  namespace: default
+  labels:
+    proxy_type: website
+    url: https://docs.sensu.io
+spec:
+  entity_class: proxy
+{{< /code >}}
+{{< code json >}}
 {
   "type": "Entity",
   "api_version": "core/v2",
@@ -207,6 +234,24 @@ Create a file called `entities.json` and add the following entity definitions:
     "entity_class": "proxy"
   }
 }
+{{< /code >}}
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+{{< code yml >}}
+---
+type: Entity
+api_version: core/v2
+metadata:
+  name: packagecloud-site
+  namespace: default
+  labels:
+    proxy_type: website
+    url: https://packagecloud.io
+spec:
+  entity_class: proxy
+{{< /code >}}
+{{< code json >}}
 {
   "type": "Entity",
   "api_version": "core/v2",
@@ -222,6 +267,24 @@ Create a file called `entities.json` and add the following entity definitions:
     "entity_class": "proxy"
   }
 }
+{{< /code >}}
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+{{< code yml >}}
+---
+type: Entity
+api_version: core/v2
+metadata:
+  name: github-site
+  namespace: default
+  labels:
+    proxy_type: website
+    url: https://github.com
+spec:
+  entity_class: proxy
+{{< /code >}}
+{{< code json >}}
 {
   "type": "Entity",
   "api_version": "core/v2",
@@ -238,6 +301,7 @@ Create a file called `entities.json` and add the following entity definitions:
   }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 {{% notice protip %}}
 **PRO TIP**: When you create proxy entities, you can add any custom labels that make sense for your environment.
@@ -246,9 +310,21 @@ For example, when monitoring a group of routers, you may want to add `ip_address
 
 Now you can use sensuctl to add these proxy entities to Sensu:
 
-{{< code shell >}}
-sensuctl create --file entities.json
+{{< language-toggle >}}
 
+{{< code shell "YML" >}}
+sensuctl create --file entities.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create --file entities.json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Use sensuctl to confirm that the entities were added:
+
+{{< code shell >}}
 sensuctl entity list
         ID           Class    OS           Subscriptions                   Last Seen            
 ─────────────────── ─────── ─────── ─────────────────────────── ─────────────────────────────── 
@@ -262,11 +338,12 @@ sensuctl entity list
 
 Now that you have three proxy entities set up, each with a `proxy_type` and `url` label, you can use proxy requests and [token substitution][12] to create a single check that monitors all three sites.
 
-Create a file called `check-proxy-requests.json` and add the following check definition:
+Create a file called `check-http.yml` or `check-http.json` and add the following check definition:
 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -322,11 +399,23 @@ Your `check-http` check uses the `proxy_requests` attribute to specify the appli
 In this case, you want to run the `check-http` check on all entities of entity class `proxy` and proxy type `website`.
 Because you're using this check to monitor multiple sites, you can use token substitution to apply the correct `url` in the check `command`.
 
-Use sensuctl to add the `check-proxy-requests` check to Sensu:
+Use sensuctl to add the `check-http` check to Sensu:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file check-http.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create --file check-http.json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Use sensuctl to confirm that Sensu created the check:
 
 {{< code shell >}}
-sensuctl create --file check-proxy-requests.json
-
 sensuctl check list
        Name                      Command               Interval   Cron   Timeout   TTL   Subscriptions   Handlers                   Assets                  Hooks   Publish?   Stdin?
 ───────────────── ─────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ─────────────────────────────────────── ─────── ────────── ────────
