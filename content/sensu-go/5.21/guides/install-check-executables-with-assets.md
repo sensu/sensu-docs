@@ -167,12 +167,12 @@ spec:
 
 {{< /language-toggle >}}
 
-Save the definition to a file (for example, `pagerduty-handler.yaml` or `pagerduty-handler.json`), and add it to Sensu with sensuctl:
+Save the definition to a file (for example, `pagerduty-handler.yml` or `pagerduty-handler.json`), and add it to Sensu with sensuctl:
 
 {{< language-toggle >}}
 
 {{< code shell "YML" >}}
-sensuctl create --file pagerduty-handler.yaml
+sensuctl create --file pagerduty-handler.yml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
