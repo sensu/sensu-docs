@@ -27,8 +27,10 @@ menu:
 
 ## Install Sensu {#sensu-core}
 
+_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][17], and we [permanently removed][18] the Sensu EOL repository on February 1, 2021.<br><br>This means the packages specified in the instructions below are no longer available. To migrate to Sensu Go, read the [Sensu Core migration guide][19]._
+
 Sensu Core is installed on Solaris systems via native system installer packages
-(i.e. .pkg or [IPS][13] .p5p files), which are available for download for [Solaris 10][1] and [Solaris 11][14] page and from the repositories for [Solaris 10 (.pkg)][2], and [Solaris 11 (IPS .p5p)][3].
+(i.e. .pkg or [IPS][13] .p5p files).
 
 ### Download and install Sensu on Solaris 10 {#download-and-install-sensu-core-on-solaris-10}
 
@@ -37,7 +39,7 @@ To install or upgrade to the latest version of Sensu, please ensure
 you have updated existing configurations to follow the repository URL
 format specified below._
 
-1. Download the Sensu [Solaris 10 package][1].
+1. Download the Sensu Solaris 10 package.
 
 2. Install the `sensu-1.4.1-1.i386.pkg` package using the `pkgadd` utility:
    {{< code shell >}}
@@ -56,7 +58,7 @@ svccfg import /lib/svc/manifest/site/sensu-client.xml{{< /code >}}
 
 ### Download and install Sensu on Solaris 11 {#download-and-install-sensu-core-on-solaris-11}
 
-1. Download the Sensu [Solaris 11 package][14] or use the `wget` utility:
+1. Download the Sensu Solaris 11 package or use the `wget` utility:
    {{< code shell >}}
 wget https://eol-repositories.sensuapp.org/solaris/ips/5.11/sensu-1.4.1-1.i386.p5p{{< /code >}}
 
@@ -161,9 +163,7 @@ $ svcadm enable sensu-client
 $ svcadm disable sensu-client
 $ svcadm restart sensu-client{{< /code >}}
 
-[1]: https://eol-repositories.sensuapp.org/solaris/pkg/
-[2]: https://eol-repositories.sensuapp.org/solaris/pkg/
-[3]: https://eol-repositories.sensuapp.org/solaris/ips/
+
 [4]: https://sensuapp.org/mit-license
 [5]: ../../reference/configuration/
 [6]: ../../reference/transport/
@@ -175,3 +175,6 @@ $ svcadm restart sensu-client{{< /code >}}
 [12]: ../../files/postinst.sh
 [13]: http://www.oracle.com/technetwork/server-storage/solaris11/technologies/ips-323421.html
 [14]: https://eol-repositories.sensuapp.org/solaris/ips/
+[17]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
+[18]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
+[19]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/

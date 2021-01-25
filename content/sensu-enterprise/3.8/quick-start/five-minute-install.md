@@ -9,6 +9,8 @@ menu:
     parent: quick-start
 ---
 
+_IMPORTANT: [Sensu Enterprise reached end-of-life (EOL) March 31, 2020][17], and we [permanently removed][18] the Sensu EOL repository on February 1, 2021.<br><br>This means the repositories specified in the instructions and code examples below are no longer available. To migrate to Sensu Go, read the [Sensu Enterprise migration guide][19]._
+
 This installation guide is intended to help you install Sensu Enterprise in
 a development environment for testing purposes.
 
@@ -262,3 +264,6 @@ Now you're ready to start building monitoring event pipelines with Sensu!
 [14]: ../../built-in-filters
 [15]: ../../integrations/influxdb
 [16]: /sensu-enterprise-dashboard/latest/rbac/overview/
+[17]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
+[18]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
+[19]: https://docs.sensu.io/sensu-enterprise/3.8/migration/
