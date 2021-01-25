@@ -90,9 +90,11 @@ For example:
 === You are currently using 10/unlimited total entities, 5/unlimited agent entities, and 5/unlimited proxy entities
 {{< /code >}}
 
-In other formats (e.g. yaml), the entity count and limit are included as labels:
+In other formats (e.g. YAML and JSON), the entity count and limit are included as labels:
 
-{{< code yml >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 sensuctl license info --format yaml
 
 type: LicenseFile
@@ -108,6 +110,31 @@ spec:
     accountName: Training Team - Sensu
 [...]
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl license info --format json
+
+{
+  "type": "LicenseFile",
+  "api_version": "licensing/v2",
+  "metadata": {
+    "labels": {
+      "sensu.io/entity-count": "10",
+      "sensu.io/entity-limit": "100"
+    }
+  },
+  "spec": {
+    "license": {
+      "version": 1,
+      "issue": "Sensu, Inc.",
+      "accountName": "Training Team - Sensu"
+    },
+    "...": "..."
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 You can also see your current entity count and limit in the response headers for any `/api/core` or `/api/enterprise` [API request][9]. For example:
 

@@ -124,7 +124,7 @@ Remember, if you change the configuration to wss, plaintext communication will n
 You can also provide a trusted CA as part of the agent configuration by passing `--trusted-ca-file` if you are starting the agent via `sensu-agent start`.
 You may include it as part of the agent configuration in `/etc/sensu/agent.yml`: 
 
-{{< code yaml>}}
+{{< code yml>}}
 trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
 {{< /code >}}
 

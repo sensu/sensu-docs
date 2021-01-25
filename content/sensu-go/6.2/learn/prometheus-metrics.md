@@ -178,6 +178,7 @@ Put the following dynamic runtime asset definition in a file called `asset_influ
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Asset
 api_version: core/v2
 metadata:
@@ -213,6 +214,7 @@ Put the following handler definition in a file called `handler`:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:
@@ -266,6 +268,7 @@ Put the following handler definition in a file called `asset_prometheus`:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Asset
 api_version: core/v2
 metadata:
@@ -300,6 +303,7 @@ Create the following check definition in a file called `check`:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: CheckConfig
 api_version: core/v2
 metadata:
