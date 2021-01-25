@@ -42,9 +42,8 @@ Here's how to find your Integration Key in PagerDuty so you can set it up as you
 4. Click the **Integrations** tab. The Integration Key is listed in the second column.
 
 <div style="text-align:center">
-<img alt="PagerDuty Integration Key location" title="PagerDuty Integration Key location" src="/images/sensu-pagerduty-integration-key.png" width="800 px">
+<img alt="PagerDuty Integration Key location" title="PagerDuty Integration Key location" src="/images/sensu-pagerduty-integration-key.png" >
 </div>
-<p style="text-align:center"><i>PagerDuty Integration Key location</i></p>
 
 Make a note of your Integration Key &mdash; you'll need it to create your [backend environment variable][28] or [HashiCorp Vault secret][29].
 
@@ -139,9 +138,8 @@ Find this line in your command output and copy the `Root Token` value.
 You will use it next to create your Vault secrets provider.
 
 <div style="text-align:center">
-<img alt="HashiCorp Vault Root Token location" title="HashiCorp Vault Root Token location" src="/images/vault-dev-root-token.png">
+<img alt="HashiCorp Vault Root Token location" title="HashiCorp Vault Root Token location" src="/images/vault-dev-root-token.png" >
 </div>
-<p style="text-align:center"><i>HashiCorp Vault Root Token location</i></p>
 
 Leave the Vault dev server running.
 Because you aren't using TLS, you will need to set `VAULT_ADDR=http://127.0.0.1:8200` in your shell environment.
@@ -200,7 +198,7 @@ vault write auth/cert/certs/sensu-backend \
 
 Second, configure your `VaultProvider` in Sensu: 
 
-{{< code yaml >}}
+{{< code yml >}}
 ---
 type: VaultProvider
 api_version: secrets/v1

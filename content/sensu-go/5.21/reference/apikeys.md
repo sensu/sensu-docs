@@ -39,6 +39,7 @@ When you specify an API key in a request, the system resolves it to an authentic
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: APIKey
 api_version: core/v2
 metadata:
@@ -73,35 +74,74 @@ type         |
 description  | Top-level attribute that specifies the resource type. API keys should always be type `APIKey`.
 required     | true
 type         | String
-example      | {{< code shell >}}"type": "APIKey"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: APIKey
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "APIKey"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. The `api_version` should always be `core/v2`.
 required     | true
 type         | String
-example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "core/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the API key, including `name` and `created_by`. The `metadata` map is always at the top level of the API key definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.
 required     | true
 type         | Map of key-value pairs
-example      | {{< code shell >}}"metadata": {
-  "name": "19803eb8-36a6-4203-a225-28ec4e9f4444",
-  "created_by": "admin"
-}{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+metadata:
+  name: 19803eb8-36a6-4203-a225-28ec4e9f4444
+  created_by: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "metadata": {
+    "name": "19803eb8-36a6-4203-a225-28ec4e9f4444",
+    "created_by": "admin"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the API key's [spec attributes][4].
 required     | true
 type         | Map of key-value pairs
-example      | {{< code shell >}}"spec": {
+example      | {{< language-toggle >}}
+{{< code yml >}}
+spec:
+  created_at: 1570732266
+  username: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "spec": {
     "created_at": 1570732266,
     "username": "admin"
   }
+}
 {{< /code >}}
+{{< /language-toggle >}}
 
 ### Metadata attributes
 
@@ -110,14 +150,32 @@ example      | {{< code shell >}}"spec": {
 description  | Unique string used to identify the API key. Sensu randomly generates a UUID for the `name` value &mdash; users cannot provide a name for an API key.
 required     | true
 type         | String
-example      | {{< code shell >}}"name": "19803eb8-36a6-4203-a225-28ec4e9f4444"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: 19803eb8-36a6-4203-a225-28ec4e9f4444
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "19803eb8-36a6-4203-a225-28ec4e9f4444"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created the API key or last updated the API key. Sensu automatically populates the `created_by` field when the API key is created or updated.
 required     | false
 type         | String
-example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created_by: "admin
+{{< /code >}}
+{{< code json >}}
+{
+  "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### Spec attributes
 
@@ -126,20 +184,39 @@ example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
 description  | User associated with the API key.
 required     | true
 type         | Array
-example      | {{< code shell >}}"username": "admin"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+username: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "username": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | created_at |      |
 -------------|------
 description  | Time at which the API key was created. Unix timestamp that is automatically generated when the API key is created.
 required     | true
 type         | Integer
-example      | {{< code shell >}}"created_at": 1234567890{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created_at: 1234567890
+{{< /code >}}
+{{< code json >}}
+{
+  "created_at": 1234567890
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ## Examples
 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: APIKey
 api_version: core/v2
 metadata:
@@ -163,6 +240,7 @@ spec:
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
 
 [1]: ../../api/apikeys/
 [2]: ../../api/auth/

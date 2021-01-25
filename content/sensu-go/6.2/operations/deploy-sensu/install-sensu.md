@@ -63,7 +63,7 @@ Port | Protocol | Description |
 3000 | HTTP/HTTPS | [Sensu web UI][3]: Required for all Sensu backends using a Sensu web UI |
 6060 | HTTP/HTTPS | Required for all Sensu backends when performance profiling is enabled via [debug][43] setting |
 8080 | HTTP/HTTPS | [Sensu API][26]: Required for all users accessing the Sensu API |
-8081 | WS/WSS | Agent API: Required for all Sensu agents connecting to a Sensu backend |
+8081 | WS/WSS | Agent API (backend websocket): Required for all Sensu agents connecting to a Sensu backend |
 
 The Sensu agent uses the following ports:
 
@@ -279,18 +279,18 @@ sudo yum install sensu-go-cli
 
 {{< code powershell "Windows" >}}
 # Download sensuctl for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.1.3/sensu-go_6.1.3_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.1.3_windows_amd64.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.3/sensu-go_6.2.3_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.3_windows_amd64.zip
 
 # Or for 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.1.3/sensu-go_6.1.3_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.1.3_windows_386.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.3/sensu-go_6.2.3_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.3_windows_386.zip
 {{< /code >}}
 
 {{< code shell "macOS" >}}
 # Download the latest release
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.1.3/sensu-go_6.1.3_darwin_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.3/sensu-go_6.2.3_darwin_amd64.tar.gz
 
 # Extract the archive
-tar -xvf sensu-go_6.1.3_darwin_amd64.tar.gz
+tar -xvf sensu-go_6.2.3_darwin_amd64.tar.gz
 
 # Copy the executable into your PATH
 sudo cp sensuctl /usr/local/bin/
@@ -360,13 +360,13 @@ sudo yum install sensu-go-agent
 
 {{< code powershell "Windows" >}}
 # Download the Sensu agent for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.1.3/sensu-go-agent_6.1.3.3642_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.1.3.3642_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.3/sensu-go-agent_6.2.3.3986_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.3.3986_en-US.x64.msi"
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.1.3/sensu-go-agent_6.1.3.3642_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.1.3.3642_en-US.x86.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.3/sensu-go-agent_6.2.3.3986_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.3.3986_en-US.x86.msi"
 
 # Install the Sensu agent
-msiexec.exe /i $env:userprofile\sensu-go-agent_6.1.3.3642_en-US.x64.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_6.2.3.3986_en-US.x64.msi /qn
 
 # Or via Chocolatey
 choco install sensu-agent
@@ -567,3 +567,4 @@ sensuctl license info
 [41]: ../../../observability-pipeline/observe-schedule/checks/#subscriptions
 [42]: https://bonsai.sensu.io/
 [43]: ../../../observability-pipeline/observe-schedule/backend/#debug-attribute
+

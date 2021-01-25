@@ -439,6 +439,7 @@ The resulting `keepalive` handler set configuration looks like this:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:
@@ -854,7 +855,9 @@ allow-list: /etc/sensu/check-allow-list.yaml{{< /code >}}
 
 | annotations|      |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with [event filters][9] and [tokens][27]. You can use annotations to add data that is meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][25], [sensuctl response filtering][26], or [web UI view filtering][54].
+description  | Non-identifying metadata to include with event data that you can access with [event filters][9] and [tokens][27]. You can use annotations to add data that is meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][25], [sensuctl response filtering][26], or [web UI view filtering][54].{{% notice note %}}
+**NOTE**: For annotations that you define in agent.yml, the keys are automatically modified to use all lower-case letters. For example, if you define the annotation `webhookURL: "https://my-webhook.com"` in agent.yml, it will be listed as `webhookurl: "https://my-webhook.com"` in entity definitions.<br><br>Key cases are **not** modified for annotations you define with the `--annotations` command line flag or the `SENSU_ANNOTATIONS` environment variable.
+{{% /notice %}}
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -1017,7 +1020,9 @@ discover-processes: true{{< /code >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][25], [sensuctl responses][26], and [web UI views][54] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][25], [sensuctl responses][26], and [web UI views][54] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.{{% notice note %}}
+**NOTE**: For labels that you define in agent.yml, the keys are automatically modified to use all lower-case letters. For example, if you define the label `proxyType: "website"` in agent.yml, it will be listed as `proxytype: "website"` in entity definitions.<br><br>Key cases are **not** modified for labels you define with the `--labels` command line flag or the `SENSU_LABELS` environment variable.
+{{% /notice %}}
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -1314,10 +1319,10 @@ type         | String
 default      | `""`
 environment variable | `SENSU_CERT_FILE`
 example      | {{< code shell >}}# Command line example
-sensu-agent start --cert-file /path/to/agent-1.pem
+sensu-agent start --cert-file /path/to/agent.pem
 
 # /etc/sensu/agent.yml example
-cert-file: "/path/to/agent-1.pem"{{< /code >}}
+cert-file: "/path/to/agent.pem"{{< /code >}}
 
 
 | trusted-ca-file |      |
@@ -1340,10 +1345,10 @@ type         | String
 default      | `""`
 environment variable | `SENSU_KEY_FILE`
 example      | {{< code shell >}}# Command line example
-sensu-agent start --key-file /path/to/agent-1-key.pem
+sensu-agent start --key-file /path/to/agent-key.pem
 
 # /etc/sensu/agent.yml example
-key-file: "/path/to/agent-1-key.pem"{{< /code >}}
+key-file: "/path/to/agent-key.pem"{{< /code >}}
 
 
 
@@ -1692,6 +1697,33 @@ Any environment variables you create in `/etc/default/sensu-agent` (Debian/Ubunt
 This includes your checks and plugins.
 
 For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
+
+#### Use environment variables to specify an HTTP proxy for agent use
+
+{{% notice important %}}
+**IMPORTANT**: To use HTTP proxy environment variables, upgrade to Sensu Go 6.1.4 or later.
+In earlier versions of Sensu Go 6.1, the agent will not respect HTTP proxy environment variables when `trusted-ca-file` is configured.
+Upgrade to Sensu Go 6.1.4 or later to avoid this issue.
+{{% /notice %}}
+
+If an HTTP proxy is required to access the internet in your compute environment, you may need to configure the Sensu agent to successfully download dynamic runtime assets or execute commands that depend on internet access.
+
+For Sensu agents that require a proxy server, define `HTTP_PROXY` and `HTTPS_PROXY` environment variables in your sensu-agent file.
+
+{{< code shell >}}
+HTTP_PROXY="http://YOUR_PROXY_SERVER:PORT"
+HTTPS_PROXY="http://YOUR_PROXY_SERVER:PORT"
+{{< /code >}}
+
+You can use the same proxy server URL for `HTTP_PROXY` and `HTTPS_PROXY`.
+The proxy server URL you specify for `HTTPS_PROXY` does not need to use `https://`.
+
+After you add the `HTTP_PROXY` and `HTTPS_PROXY` environment variables and restart sensu-agent, they will be available to check and hook commands executed by the Sensu agent.
+You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, run checks, and complete other tasks that typically require an internet connection for your unconnected entities.
+
+{{% notice note %}}
+**NOTE**: If you define the `HTTP_PROXY` and `HTTPS_PROXY` environment variables, the agent WebSocket connection will also use the proxy URL you specify.
+{{% /notice %}}
 
 
 [1]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents

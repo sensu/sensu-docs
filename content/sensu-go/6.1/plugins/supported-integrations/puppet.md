@@ -9,7 +9,7 @@ menu:
     parent: supported-integrations
 ---
 
-The Sensu Puppet Keepalive Handler plugin is a Sensu [handler][1] that deletes a Sensu entity with a failing keepalive check when the entity's corresponding Puppet node no longer exists or is deregistered.
+The [Sensu Puppet Keepalive Handler plugin][4] is a Sensu [handler][1] that deletes a Sensu entity with a failing keepalive check when the entity's corresponding Puppet node no longer exists or is deregistered.
 
 {{% notice note %}}
 **NOTE**: The Sensu Puppet Keepalive Handler plugin is an example of Sensu's deregistration integrations.
