@@ -46,7 +46,8 @@ To do this, use the `check-http.rb` plugin from the [Sensu Plugins HTTP][3] dyna
 
 {{< language-toggle >}}
 
-{{< code yml "Backend Alpha">}}
+{{< code yml "YML - Backend Alpha">}}
+---
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -64,7 +65,8 @@ spec:
     - sensu-plugins-http
 {{< /code >}}
 
-{{< code yml "Backend Beta">}}
+{{< code yml "YML - Backend Beta">}}
+---
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -82,6 +84,54 @@ spec:
     - sensu-plugins-http
 {{< /code >}}
 
+{{< code json "JSON - Backend Alpha">}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default",
+    "name": "check_beta_backend_health"
+  },
+  "spec": {
+    "command": "check-http.rb -u http://sensu-backend-beta:8080/health -n false",
+    "subscriptions": [
+      "backend_alpha"
+    ],
+    "interval": 10,
+    "publish": true,
+    "timeout": 10,
+    "runtime_assets": [
+      "sensu-ruby-runtime",
+      "sensu-plugins-http"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< code json "JSON - Backend Beta">}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default",
+    "name": "check_alpha_backend_health"
+  },
+  "spec": {
+    "command": "check-http.rb -u http://sensu-backend-beta:8080/health -n false",
+    "subscriptions": [
+      "backend_beta"
+    ],
+    "interval": 10,
+    "publish": true,
+    "timeout": 10,
+    "runtime_assets": [
+      "sensu-ruby-runtime",
+      "sensu-plugins-http"
+    ]
+  }
+}
+{{< /code >}}
+
 {{< /language-toggle >}}
 
 {{% notice note %}}
@@ -97,7 +147,8 @@ This example includes checks for your primary (Backend Alpha) and secondary (Bac
 
 {{< language-toggle >}}
 
-{{< code yml "Backend Alpha">}}
+{{< code yml "YML - Backend Alpha">}}
+---
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -114,7 +165,8 @@ spec:
     - monitoring-plugins
 {{< /code >}}
 
-{{< code yml "Backend Beta">}}
+{{< code yml "YML - Backend Beta">}}
+---
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -129,6 +181,52 @@ spec:
   timeout: 10
   runtime_assets:
     - monitoring-plugins
+{{< /code >}}
+
+{{< code json "JSON - Backend Alpha">}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default",
+    "name": "check_beta_etcd_health"
+  },
+  "spec": {
+    "command": "check_http -H sensu-beta-etcd -p 2379 -u /health",
+    "subscriptions": [
+      "backend_alpha"
+    ],
+    "interval": 10,
+    "publish": true,
+    "timeout": 10,
+    "runtime_assets": [
+      "monitoring-plugins"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< code json "JSON - Backend Beta">}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default",
+    "name": "check_alpha_etcd_health"
+  },
+  "spec": {
+    "command": "check_http -H sensu-alpha-etcd -p 2379 -u /health",
+    "subscriptions": [
+      "backend_beta"
+    ],
+    "interval": 10,
+    "publish": true,
+    "timeout": 10,
+    "runtime_assets": [
+      "monitoring-plugins"
+    ]
+  }
+}
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -181,6 +279,7 @@ To monitor Postgres' health from Sensu's perspective, use a check like this exam
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: CheckConfig
 api_version: core/v2
 metadata:

@@ -39,15 +39,9 @@ resource, populate the "runtime_assets" field with ["influxdb-handler"].
 
 This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `influxdb-handler`.
 
-You can also download the latest dynamic runtime asset definition for your platform from [Bonsai][13] and register the asset with `sensuctl create --file filename.yml`.
+You can also download the latest dynamic runtime asset definition for your platform from [Bonsai][13] and register the asset with `sensuctl create --file filename.yml` or `sensuctl create --file filename.json`.
 
-You should see a confirmation message from sensuctl:
-
-{{< code shell >}}
-Created
-{{< /code >}}
-
-Run `sensuctl asset list --format yaml` to confirm that the dynamic runtime asset is ready to use.
+Run `sensuctl asset list --format yaml` or `sensuctl asset list --format json` to confirm that the dynamic runtime asset is ready to use.
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
@@ -74,12 +68,72 @@ You should see a confirmation message from sensuctl:
 Created
 {{< /code >}}
 
+You can also create the handler definition in your monitoring-as-code repository:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Handler
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: influx-db
+  namespace: default
+spec:
+  command: sensu-influxdb-handler -d sensu
+  env_vars:
+  - INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086
+  - INFLUXDB_USER=sensu
+  - INFLUXDB_PASS=password
+  filters: null
+  handlers: null
+  runtime_assets:
+  - influxdb-handler
+  secrets: null
+  timeout: 0
+  type: pipe
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "influx-db",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "sensu-influxdb-handler -d sensu",
+    "env_vars": [
+      "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
+      "INFLUXDB_USER=sensu",
+      "INFLUXDB_PASS=password"
+    ],
+    "filters": null,
+    "handlers": null,
+    "runtime_assets": [
+      "influxdb-handler"
+    ],
+    "secrets": null,
+    "timeout": 0,
+    "type": "pipe"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Assign the handler to an event
 
-With the `influx-db` handler created, you can assign it to a check for [check output metric extraction][10]. 
-In this example, the check name is `collect-metrics`:
+With the `influx-db` handler created, you can assign it to a check for check output metric extraction. 
+For example, suppose you followed [Collect service metrics with Sensu checks][10] to create the check named `collect-metrics`.
+
+Update the output metric format and output metric handlers to use the check with InfluxDB:
 
 {{< code shell >}}
+sensuctl check set-output-metric-format collect-metrics influxdb_line
 sensuctl check set-output-metric-handlers collect-metrics influx-db
 {{< /code >}}
 
@@ -106,6 +160,7 @@ Now that you know how to apply a handler to metrics and take action on events, h
 * [Handlers reference][9]
 * [Aggregate metrics with the Sensu StatsD listener][3]
 * [Collect metrics with Sensu checks][10]
+
 
 [1]: ../../observe-events/events/
 [2]: https://github.com/influxdata/influxdb

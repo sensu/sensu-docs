@@ -457,48 +457,91 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][33] resource type. Event filters should always be type `EventFilter`.
 required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
 type         | String
-example      | {{< code shell >}}"type": "EventFilter"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: EventFilter
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "EventFilter"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For event filters in this version of Sensu, this attribute should always be `core/v2`.
 required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
 type         | String
-example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "core/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the event filter, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the filter definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][11] for details.
 required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
 type         | Map of key-value pairs
-example      | {{< code shell >}}
-"metadata": {
-  "name": "filter-weekdays-only",
-  "namespace": "default",
-  "created_by": "admin",
-  "labels": {
-    "region": "us-west-1"
-  },
-  "annotations": {
-    "slack-channel" : "#monitoring"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+metadata:
+  name: filter-weekdays-only
+  namespace: default
+  created_by: admin
+  labels:
+    region: us-west-1
+  annotations:
+    slack-channel: "#monitoring"
+{{< /code >}}
+{{< code json >}}
+{
+  "metadata": {
+    "name": "filter-weekdays-only",
+    "namespace": "default",
+    "created_by": "admin",
+    "labels": {
+      "region": "us-west-1"
+    },
+    "annotations": {
+      "slack-channel": "#monitoring"
+    }
   }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the event filter [spec attributes][34].
 required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
 type         | Map of key-value pairs
-example      | {{< code shell >}}
-"spec": {
-  "action": "allow",
-  "expressions": [
-    "event.entity.namespace == 'production'"
-  ],
-  "runtime_assets": []
+example      | {{< language-toggle >}}
+{{< code yml >}}
+spec:
+  action: allow
+  expressions:
+  - event.entity.namespace == 'production'
+  runtime_assets: []
+{{< /code >}}
+{{< code json >}}
+{
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "event.entity.namespace == 'production'"
+    ],
+    "runtime_assets": []
+  }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 ### Metadata attributes
 
@@ -507,7 +550,16 @@ example      | {{< code shell >}}
 description  | Unique string used to identify the event filter. Filter names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][35]). Each filter must have a unique name within its namespace.
 required     | true
 type         | String
-example      | {{< code shell >}}"name": "filter-weekdays-only"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: filter-weekdays-only
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "filter-weekdays-only"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | namespace  |      |
 -------------|------
@@ -515,14 +567,32 @@ description  | Sensu [RBAC namespace][10] that the event filter belongs to.
 required     | false
 type         | String
 default      | `default`
-example      | {{< code shell >}}"namespace": "production"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+namespace: production
+{{< /code >}}
+{{< code json >}}
+{
+  "namespace": "production"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created the filter or last updated the filter. Sensu automatically populates the `created_by` field when the filter is created or updated.
 required     | false
 type         | String
-example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created_by: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | labels     |      |
 -------------|------
@@ -530,10 +600,21 @@ description  | Custom attributes to include with event data that you can use for
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< code shell >}}"labels": {
-  "environment": "development",
-  "region": "us-west-2"
-}{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+labels:
+  environment: development
+  region: us-west-2
+{{< /code >}}
+{{< code json >}}
+{
+  "labels": {
+    "environment": "development",
+    "region": "us-west-2"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | annotations | |
 -------------|------
@@ -541,10 +622,21 @@ description  | Non-identifying metadata to include with event data that you can 
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< code shell >}} "annotations": {
-  "managed-by": "ops",
-  "playbook": "www.example.url"
-}{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+annotations:
+  managed-by: ops
+  playbook: www.example.url
+{{< /code >}}
+{{< code json >}}
+{
+  "annotations": {
+    "managed-by": "ops",
+    "playbook": "www.example.url"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### Spec attributes
 
@@ -554,17 +646,35 @@ description  | Action to take with the event if the event filter expressions mat
 required     | true
 type         | String
 allowed values | `allow`, `deny`
-example      | {{< code shell >}}"action": "allow"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+action: allow
+{{< /code >}}
+{{< code json >}}
+{
+  "action": "allow"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 expressions   | 
 -------------|------
 description  | Event filter expressions to be compared with event data. You can reference event metadata without including the `metadata` scope (for example, `event.entity.namespace`).
 required     | true
 type         | Array
-example      | {{< code shell >}}"expressions": [
-  "event.check.team == 'ops'"
-]
+example      | {{< language-toggle >}}
+{{< code yml >}}
+expressions:
+- event.check.team == 'ops'
 {{< /code >}}
+{{< code json >}}
+{
+  "expressions": [
+    "event.check.team == 'ops'"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 runtime_assets |      |
 ---------------|------
@@ -572,7 +682,19 @@ description    | Dynamic runtime assets to apply to the event filter's execution
 required       | false
 type           | Array of string
 default        | []
-example        | {{< code shell >}}"runtime_assets": ["underscore"]{{< /code >}}
+example        | {{< language-toggle >}}
+{{< code yml >}}
+runtime_assets:
+- underscore
+{{< /code >}}
+{{< code json >}}
+{
+  "runtime_assets": [
+    "underscore"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ## Event filter examples
 
@@ -913,6 +1035,7 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
+
 
 [1]: #inclusive-and-exclusive-event-filters
 [2]: #when-attributes
