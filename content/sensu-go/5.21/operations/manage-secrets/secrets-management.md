@@ -198,7 +198,7 @@ vault write auth/cert/certs/sensu-backend \
 
 Second, configure your `VaultProvider` in Sensu: 
 
-{{< code yaml >}}
+{{< code yml >}}
 ---
 type: VaultProvider
 api_version: secrets/v1

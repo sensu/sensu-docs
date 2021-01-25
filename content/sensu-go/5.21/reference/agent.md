@@ -449,6 +449,7 @@ The resulting `keepalive` handler set configuration looks like this:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:
