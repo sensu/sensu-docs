@@ -193,6 +193,7 @@ We recommend using a debug handler like this one to write an event to disk as JS
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:
@@ -270,9 +271,55 @@ An improperly applied asset filter can prevent the asset from being downloaded b
 
 **Backend event**
 
-{{< code json >}}
+{{< language-toggle >}}
 
- {
+{{< code yml >}}
+---
+timestamp: 1568148292
+check:
+  command: check-disk-space
+  handlers: []
+  high_flap_threshold: 0
+  interval: 10
+  low_flap_threshold: 0
+  publish: true
+  runtime_assets:
+  - sensu-plugins-disk-checks
+  subscriptions:
+  - caching_servers
+  proxy_entity_name: ''
+  check_hooks:
+  stdin: false
+  subdue:
+  ttl: 0
+  timeout: 0
+  round_robin: false
+  duration: 0.001795508
+  executed: 1568148292
+  history:
+  - status: 127
+    executed: 1568148092
+  issued: 1568148292
+  output: 'sh: check-disk-space: command not found'
+  state: failing
+  status: 127
+  total_state_change: 0
+  last_ok: 0
+  occurrences: 645
+  occurrences_watermark: 645
+  output_metric_format: ''
+  output_metric_handlers:
+  output_metric_tags:
+  env_vars:
+  metadata:
+    name: failing-disk-check
+    namespace: default
+metadata:
+  namespace: default
+{{< /code >}}
+
+{{< code json >}}
+{
   "timestamp": 1568148292,
   "check": {
     "command": "check-disk-space",
@@ -312,6 +359,7 @@ An improperly applied asset filter can prevent the asset from being downloaded b
     "occurrences_watermark": 645,
     "output_metric_format": "",
     "output_metric_handlers": null,
+    "output_metric_tags": null,
     "env_vars": null,
     "metadata": {
       "name": "failing-disk-check",
@@ -324,18 +372,22 @@ An improperly applied asset filter can prevent the asset from being downloaded b
 }
 {{< /code >}}
 
-If you see a message like this, review your asset definition &mdash; it means that the entity wasn't able to download the required asset due to asset filter restrictions.
-You can review the filters for an asset by using the sensuctl `asset info` command with a `--format` flag:
+{{< /language-toggle >}}
 
-{{< code shell >}}
+If you see a message like this, review your asset definition &mdash; it means that the entity wasn't able to download the required asset due to asset filter restrictions.
+To review the filters for an asset, use the sensuctl `asset info` command with a `--format` flag:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 sensuctl asset info sensu-plugins-disk-checks --format yaml
 {{< /code >}}
 
-or 
-
-{{< code shell >}}
+{{< code shell "JSON" >}}
 sensuctl asset info sensu-plugins-disk-checks --format json
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 ### Conflating operating systems with families
 
@@ -343,28 +395,67 @@ A common asset filter issue is conflating operating systems with the family they
 For example, although Ubuntu is part of the Debian family of Linux distributions, Ubuntu is not the same as Debian.
 A practical example might be:
 
-{{< code shell >}}
-...
-    - entity.system.platform == 'debian'
-    - entity.system.arch == 'amd64'
+{{< language-toggle >}}
+
+{{< code yml >}}
+filters:
+- entity.system.platform == 'debian'
+- entity.system.arch == 'amd64'
 {{< /code >}}
+
+{{< code json >}}
+{
+  "filters": [
+    "entity.system.platform == 'debian'",
+    "entity.system.arch == 'amd64'"
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 This would not allow an Ubuntu system to run the asset.
 
 Instead, the asset filter should look like this:
 
-{{< code shell >}}
-...
-    - entity.system.platform_family == 'debian'
-    - entity.system.arch == 'amd64'
+{{< language-toggle >}}
+
+{{< code yml >}}
+filters:
+- entity.system.platform_family == 'debian'
+- entity.system.arch == 'amd64'
 {{< /code >}}
 
-or 
-
-{{< code shell >}}
-    - entity.system.platform == 'ubuntu'
-    - entity.system.arch == 'amd64'
+{{< code json >}}
+{
+  "filters": [
+    "entity.system.platform_family == 'debian'",
+    "entity.system.arch == 'amd64'"
+  ]
+}
 {{< /code >}}
+{{< /language-toggle >}}
+
+or
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+filters:
+- entity.system.platform == 'ubuntu'
+- entity.system.arch == 'amd64'
+{{< /code >}}
+
+{{< code json >}}
+{
+  "filters": [
+    "entity.system.platform == 'ubuntu'",
+    "entity.system.arch == 'amd64'"
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 This would allow the asset to be downloaded onto the target entity.
 
@@ -377,6 +468,131 @@ In this case, `gopsutil` may try to open `/etc/lsb_release` or try to run `/usr/
 Since the `lsb_release` package is not installed, the agent will not be able to discover the Linux version as expected.
 
 To resolve this problem, install the [`lsb_release` package][8] for your Linux distribution.
+
+## Investigate etcd cluster status
+
+Some issues require you to investigate the state of the etcd cluster or data stored within etcd.
+In these cases, we suggest using the `etcdctl` tool to query and manage the etcd database.
+
+Sensu's supported packages do not include the `etcdctl` executable, so you must get it from a compatible etcd release.
+
+### Configure etcdctl environment variables
+
+To use etcdctl to investigate etcd cluster and data storage issues, first run these commands to configure etcdctl environment variables:
+
+{{< code shell >}}
+export ETCDCTL_API=3
+export ETCDCTL_CACERT=/etc/sensu/ca.pem
+# skip ETCDCTL_CERT and ETCDCTL_KEY, unless your etcd uses client certificate authentication
+# export ETCDCTL_CERT=/etc/sensu/cert.pem
+# export ETCDCTL_KEY=/etc/sensu/key.pem
+export ETCDCTL_ENDPOINTS="https://backend01:2379,https://backend02:2379,https://backend03:2379"
+{{< /code >}}
+
+### View cluster status and alarms
+
+Use the commands listed here to retrieve etcd cluster status and list and clear alarms.
+{{< code shell >}}
+# get status
+etcdctl endpoint status
+# list alarms
+etcdctl alarm list
+# clear alarms
+etcdctl alarm dearm
+{{< /code >}}
+
+### Restore a cluster with an oversized database 
+
+The etcd default maximum database size is 2 GB.
+If you suspect your etcd database exceeds the maximum size, run this command to confirm cluster size:
+
+{{< code shell >}}
+# get current status with database size
+etcdctl endpoint status
+https://backend01:2379, 88db026f7feb72b4, 3.3.22, 2.1GB, false, 144, 18619245
+https://backend02:2379, e98ad7a888d16bd6, 3.3.22, 2.1GB, true, 144, 18619245
+https://backend03:2379, bc4e39432cbb36d, 3.3.22, 2.1GB, false, 144, 18619245
+{{< /code >}}
+
+To restore an etcd cluster with a database size that exceeds 2 GB, run these commands:
+
+{{< code shell >}}
+# get current revision number
+etcdctl endpoint status --write-out="json" | egrep -o '"revision":[0-9]*' | egrep -o '[0-9].*'
+
+# compact to revision, substitute revision obtained above for $rev
+etcdctl compact $rev
+
+# defrag to free space
+etcdctl defrag
+
+# confirm effective
+etcdctl endpoint status
+https://backend01:2379, 88db026f7feb72b4, 3.3.22, 1.0 MB, false, 144, 18619245
+https://backend02:2379, e98ad7a888d16bd6, 3.3.22, 1.0 MB, true, 144, 18619245
+https://backend03:2379, bc4e39432cbb36d, 3.3.22, 1.0 MB, false, 144, 18619245
+{{< /code >}}
+
+## Datastore performance
+
+In a default deployment, Sensu uses [etcd datastore][17] for both configuration and state.
+As the number of checks and entities in your Sensu installation increases, so does the volume of read and write requests to etcd database.
+
+One trade-off in etcd's design is its sensitivity to disk and CPU latency.
+When certain latency tolerances are regularly exceeded, failures will cascade.
+Sensu will attempt to recover from these conditions when it can, but this may not be successful.
+
+To maximize Sensu Go performance, we recommend that you:
+ * Follow our [recommended backend hardware configuration][19].
+ * Immplement [documented etcd system tuning practices][14].
+ * [Benchmark your etcd storage volume][15] to establish baseline IOPS for your system.
+ * [Scale event storage using PostgreSQL][16] to reduce the overall volume of etcd transactions.
+
+ As your Sensu deployments grow, preventing issues associated with poor datastore performance relies on ongoing collection and review of [Sensu time-series performance metrics][18].
+
+### Symptoms of poor performance
+
+At the default "warn" log level, you may see messages like these from your Sensu backend:
+
+{{< code json >}}
+{"component":"etcd","level":"warning","msg":"read-only range request \"key:\\\"/sensu.io/handlers/default/keepalive\\\" limit:1 \" with result \"range_response_count:0 size:6\" took too long (169.767546ms) to execute","pkg":"etcdserver","time":"..."}
+{{< /code >}}
+
+The above message indicates that a database query ("read-only range request") exceeded a 100-millisecond threshold hard-coded into etcd.
+Messages like these are helpful because they can alert you to a trend, but these occasional warnings don't necessarily indicate a problem.
+
+However, a trend of increasingly long-running database transactions will eventually lead to decreased reliability.
+You may experience symptoms of these conditions as inconsistent check execution behavior or configuration updates that are not applied as expected.
+
+As the [etcd tuning documentation][14] states:
+
+> An etcd cluster is very sensitive to disk latencies. Since etcd must persist proposals to its log, disk activity from other processes may cause long fsync latencies. [...] etcd may miss heartbeats, causing request timeouts and temporary leader loss.
+
+When Sensu's etcd component doesn't recieve sufficient CPU cycles or its file system can't sustain a sufficient number of IOPS, transactions will begin to timeout, leading to cascading failures.
+
+A message like this indicates that syncing the etcd database to disk exceeded another threshold:
+
+{{< code json >}}
+{"component":"etcd","level":"warning","msg":"sync duration of 1.031759056s, expected less than 1s","pkg":"wal","time":"..."}
+{{< /code >}}
+
+These subsequent "retrying of unary invoker failed" messages indicate failing requests to etcd:
+
+{{< code json >}}
+{"level":"warn","ts":"...","caller":"clientv3/retry_interceptor.go:62","msg":"retrying of unary invoker failed","target":"endpoint://client-6f6bfc7e-cf31-4498-a564-78d6b7b3a44e/localhost:2379","attempt":0,"error":"rpc error: code = Canceled desc = context canceled"}
+{{< /code >}}
+
+On busy systems you may also see output like "message repeated 5 times" indicating that failing requests were retried multiple times.
+
+In many cases, the backend service detects and attempts to recover from errors like these, so you may see a message like this:
+
+{{< code json >}}
+{"component":"backend","error":"error from keepalived: internal error: etcdserver: request timed out","level":"error","msg":"backend stopped working and is restarting","time":"..."}
+{{< /code >}}
+
+This may result in a crash loop that is difficult to recover from.
+You may observe that the Sensu backend process continues running but is not listening for connections on the agent websocket, API, or web UI ports.
+The backend will stop listening on those ports when the etcd database is unavailable.
 
 
 [1]: ../../../observability-pipeline/observe-schedule/agent#operation
@@ -391,3 +607,10 @@ To resolve this problem, install the [`lsb_release` package][8] for your Linux d
 [10]: ../../../plugins/assets#asset-definition-multiple-builds
 [11]: ../../monitor-sensu/log-sensu-systemd/
 [12]: https://github.com/systemd/systemd/issues/2913
+[13]: https://github.com/etcd-io/etcd/releases
+[14]: https://etcd.io/docs/v3.4.0/tuning/#disk
+[15]: https://www.ibm.com/cloud/blog/using-fio-to-tell-whether-your-storage-is-fast-enough-for-etcd
+[16]: ../../deploy-sensu/datastore/#scale-event-storage
+[17]: ../../deploy-sensu/datastore/#use-default-event-storage
+[18]: ../../../api/metrics/
+[19]: ../../deploy-sensu/hardware-requirements/#backend-recommended-configuration

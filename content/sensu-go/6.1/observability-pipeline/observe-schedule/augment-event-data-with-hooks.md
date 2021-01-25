@@ -52,13 +52,41 @@ Verify that the check hook is behaving properly against a specific event with `s
 It might take a few moments after you assign the check hook for the check to be scheduled on the entity and the result sent back to the Sensu backend.
 The check hook command result is available in the `hooks` array, within the `check` scope:
 
-{{< code shell >}}
-sensuctl event info i-424242 nginx_process --format json
+{{< language-toggle >}}
 
+{{< code shell "YML">}}
+sensuctl event info i-424242 nginx_process --format yaml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl event info i-424242 nginx_process --format json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+check:
+  ...
+  hooks:
+  - config:
+      name: process_tree
+      command: ps aux
+      timeout: 10
+      namespace: default
+    duration: 0.008713605
+    executed: 1521724622
+    output: ''
+    status: 0
+    ...
+
+{{< /code >}}
+
+{{< code json >}}
 {
-  [...]
   "check": {
-    [...]
+    "...": "...",
     "hooks": [
       {
         "config": {
@@ -73,10 +101,12 @@ sensuctl event info i-424242 nginx_process --format json
         "status": 0
       }
     ],
-    [...]
+    "...": "..."
   }
 }
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 After you confirm that the hook is attached to your check, you can stop Nginx and observe the check hook in action on the next check execution.
 This example uses sensuctl to query event info and send the response to `jq` so you can isolate the check hook output:
