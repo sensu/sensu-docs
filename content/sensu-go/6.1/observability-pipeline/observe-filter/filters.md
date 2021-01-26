@@ -945,8 +945,10 @@ spec:
 
 ### Reduce alert fatigue for keepalive events
 
-In this example, the `keepalive_timeouts` event filter will match event data with a check timeout value of either 180 (3 minutes) or 300 (5 minutes) AND an occurrences value of 1 (the first occurrence) OR any occurrences value that is evenly divisible by 900 via a modulo operator calculation.
-This event filter will limit keepalive timeout events to the first occurrence and every 15 minutes thereafter for both agents.
+This example `keepalive_timeouts` event filter will match event data with an occurrences value of 1 OR any occurrences value that matches 15 minutes via a modulo operator calculation.
+The `parseInt()` function calculates the number of occurences that match 15 minutes and truncates the calculation to an integer if needed.
+
+This event filter will limit keepalive timeout events to the first occurrence and every 15 minutes thereafter.
 
 {{< language-toggle >}}
 
@@ -961,8 +963,8 @@ metadata:
 spec:
   action: allow
   expressions:
-  - event.check.timeout == 180 || event.check.timeout == 300
-  - event.check.occurrences == 1 || event.check.occurrences % 900 == 0
+   - is_incident
+   - event.check.occurrences == 1 || ( event.check.timeout > 0  && event.check.status == 1 && event.check.occurrences % parseInt( 60 * 15 / event.check.timeout ) == 0)
   runtime_assets: []
 {{< /code >}}
 
@@ -979,8 +981,8 @@ spec:
   "spec": {
     "action": "allow",
     "expressions": [
-      "event.check.timeout == 180 || event.check.timeout == 300",
-      "event.check.occurrences == 1 || event.check.occurrences % 900 == 0"
+      "is_incident",
+      "event.check.occurrences == 1 || ( event.check.timeout > 0  && event.check.status == 1 && event.check.occurrences % parseInt( 60 * 15 / event.check.timeout ) == 0)"
     ],
     "runtime_assets": []
   }
