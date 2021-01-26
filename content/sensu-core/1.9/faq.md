@@ -146,7 +146,6 @@ including RHEL, CentOS, Debian and Ubuntu.
 
 _IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][7], and we [permanently removed][2] the Sensu EOL repository on February 1, 2021. This means the Sensu Core packages are no longer available. To migrate to Sensu Go, read the [Sensu Core migration guide][6]._
 
-
 **Yes.** An MSI installer package is available.
 Please visit the Sensu documentation for
 more information on [configuring Sensu on
