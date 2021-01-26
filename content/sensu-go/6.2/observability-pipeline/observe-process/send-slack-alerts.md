@@ -17,7 +17,7 @@ Sensu event handlers are actions the Sensu backend executes on [events][1].
 You can use handlers to send an email alert, create or resolve incidents (in PagerDuty, for example), or store metrics in a time-series database like InfluxDB.
 
 This guide will help you send alerts to Slack in the channel `monitoring` by configuring a handler named `slack` to a check named `check-cpu`.
-If you don't already have a check in place, [Monitor server resources][2] is a great place to start.
+If you don't already have a check in place, follow [Monitor server resources][2] to add one.
 
 ## Register the dynamic runtime asset
 
@@ -38,7 +38,7 @@ resource, populate the "runtime_assets" field with ["sensu-slack-handler"].
 
 This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `sensu-slack-handler`.
 
-You can also download the latest dynamic runtime asset definition for your platform from [Bonsai][14] and register the asset with `sensuctl create --file filename.yml`.
+You can also download the latest dynamic runtime asset definition for your platform from [Bonsai][14] and register the asset with `sensuctl create --file filename.yml` or `sensuctl create --file filename.json`.
 
 You should see a confirmation message from sensuctl:
 
@@ -54,14 +54,15 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 ## Get a Slack webhook
 
 If you're already the admin of a Slack, visit `https://YOUR WORKSPACE NAME HERE.slack.com/services/new/incoming-webhook` and follow the steps to add the Incoming WebHooks integration, choose a channel, and save the settings.
-If you're not yet a Slack admin, [create a new workspace][12].
+If you're not yet a Slack admin, [create a new workspace][12] and then create your webhook.
+
 After saving, you'll see your webhook URL under Integration Settings.
 
 ## Create a handler
 
 Use sensuctl to create a handler called `slack` that pipes observation data (events) to Slack using the `sensu-slack-handler` dynamic runtime asset.
-Edit the command below to include your Slack channel and webhook URL.
-For more information about customizing your Sensu slack alerts, see the asset page in [Bonsai][14].
+Edit the sensuctl command below to include your Slack webhook URL and the channel where you want to receive observation event data.
+For more information about customizing your Slack alerts, see the [Sensu Slack Handler page in Bonsai][14].
 
 {{< code shell >}}
 sensuctl handler create slack \
@@ -77,15 +78,149 @@ You should see a confirmation message from sensuctl:
 Created
 {{< /code >}}
 
+You can also create the handler definition directly in your monitoring-as-code repository:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Handler
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: slack
+  namespace: default
+spec:
+  command: sensu-slack-handler --channel '#monitoring'
+  env_vars:
+  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX
+  filters: null
+  handlers: null
+  runtime_assets:
+  - sensu-slack-handler
+  secrets: null
+  timeout: 0
+  type: pipe
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "slack",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "sensu-slack-handler --channel '#monitoring'",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX"
+    ],
+    "filters": null,
+    "handlers": null,
+    "runtime_assets": [
+      "sensu-slack-handler"
+    ],
+    "secrets": null,
+    "timeout": 0,
+    "type": "pipe"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Assign the handler to a check
 
 With the `slack` handler created, you can assign it to a check.
-In this case, you're using the `check-cpu` check: you want to receive Slack alerts whenever the CPU usage of your systems reach some specific thresholds.
-Assign your handler to the check `check-cpu`:
+To continue this example, use the `check-cpu` check created in [Monitor server resources][2].
+
+Assign your `slack` handler to the `check-cpu` check to receive Slack alerts when the CPU usage of your systems reaches the specific thresholds set in the check command:
 
 {{< code shell >}}
 sensuctl check set-handlers check-cpu slack
 {{< /code >}}
+
+The updated check definition will be similar to this example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: check-cpu
+  namespace: default
+spec:
+  check_hooks: null
+  command: check-cpu.rb -w 75 -c 90
+  env_vars: null
+  handlers:
+  - slack
+  high_flap_threshold: 0
+  interval: 60
+  low_flap_threshold: 0
+  output_metric_format: ""
+  output_metric_handlers: null
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets:
+  - cpu-checks-plugins
+  - sensu-ruby-runtime
+  secrets: null
+  stdin: false
+  subdue: null
+  subscriptions:
+  - system
+  timeout: 0
+  ttl: 0
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "check-cpu",
+    "namespace": "default"
+  },
+  "spec": {
+    "check_hooks": null,
+    "command": "check-cpu.rb -w 75 -c 90",
+    "env_vars": null,
+    "handlers": [
+      "slack"
+    ],
+    "high_flap_threshold": 0,
+    "interval": 60,
+    "low_flap_threshold": 0,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": [
+      "cpu-checks-plugins",
+      "sensu-ruby-runtime"
+    ],
+    "secrets": null,
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "system"
+    ],
+    "timeout": 0,
+    "ttl": 0
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Validate the handler
 
