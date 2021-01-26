@@ -144,7 +144,8 @@ including RHEL, CentOS, Debian and Ubuntu.
 
 > Is Sensu available for Microsoft Windows?
 
-_IMPORTANT: We [permanently removed][1] the Sensu end-of-life (EOL) repository on February 1, 2021. [Start your migration to Sensu Go][6]._
+_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][7], and we [permanently removed][2] the Sensu EOL repository on February 1, 2021. This means the Sensu Core packages are no longer available. To migrate to Sensu Go, read the [Sensu Core migration guide][6]._
+
 
 **Yes.** An MSI installer package is available.
 Please visit the Sensu documentation for
@@ -215,3 +216,4 @@ _NOTE: For `config.json`, it is not necessary to have this file present on eithe
 [4]: ../installation/upgrading/#tls-ssl-changes
 [5]: https://github.com/sensu/sensu-omnibus/blob/master/platform-docs/MAC_OS_X.md
 [6]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/
+[7]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
