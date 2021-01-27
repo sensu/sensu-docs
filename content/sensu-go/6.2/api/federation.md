@@ -369,7 +369,7 @@ The `/clusters/:cluster` API endpoint provides HTTP GET access to data for a spe
 
 ### Example {#clusterscluster-get-example}
 
-In the following example, querying the `/clusters/:cluster` API endpoint returns a JSON map that contains the requested `:etcd-replicator`.
+In the following example, querying the `/clusters/:cluster` API endpoint returns a JSON map that contains the requested `:cluster`.
 
 {{< code shell >}}
 curl -X GET \
