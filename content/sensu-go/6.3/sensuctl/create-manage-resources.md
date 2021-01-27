@@ -145,15 +145,16 @@ The following table describes the command-specific flags.
 --------------------|---|---|---|
 `AdhocRequest` | `adhoc_request` | `Asset` | `asset`
 `CheckConfig` | `check_config` | `ClusterRole`  | `cluster_role`
-`ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | [`Env`][24]
-`entity` | [`EtcdReplicators`][29] | `Event` | `event`
-`EventFilter` | `event_filter` | [`GlobalConfig`][11] | `Handler` 
-`handler` | `Hook` | `hook` | `HookConfig`
-`hook_config` | `Mutator` | `mutator` | `Namespace`
-`namespace` | `Role` | `role` | `RoleBinding`
-`role_binding` | [`Secret`][28] | `Silenced` | `silenced`
-[`User`][8] | `user` | [`VaultProvider`][24] | [`ldap`][26]
-[`ad`][25] | [`oidc`][37] | [`TessenConfig`][27] | [`PostgresConfig`][32]
+`ClusterRoleBinding`  | `cluster_role_binding` | [`Component`][38] | `Entity`
+[`Env`][24] | `entity` | [`EtcdReplicators`][29] | `Event`
+`event`| `EventFilter` | `event_filter` | [`GlobalConfig`][11]
+`Handler`  | `handler` | `Hook` | `hook`
+`HookConfig` | `hook_config` | `Mutator` | `mutator`
+`Namespace` | `namespace` | `Role` | `role`
+`RoleBinding` | `role_binding` | [`RuleTemplate`][39] | [`Secret`][28]
+`Silenced` | `silenced` | [`User`][8] | `user`
+[`VaultProvider`][24] | [`ldap`][26] | [`ad`][25] | [`oidc`][37]
+[`TessenConfig`][27] | [`PostgresConfig`][32]
 
 ### Create resources across namespaces
 
@@ -244,10 +245,10 @@ Requests to update agent-managed entities via sensuctl will fail and return an e
 |sensuctl edit types |   |   |   |
 --------------------|---|---|---|
 `asset` | `check` | `cluster` | `cluster-role`
-`cluster-role-binding` | `entity` | `event` | `filter`
-`handler` | `hook` | `mutator` | `namespace`
-`role` | `role-binding` | `silenced` | `user`
-[`auth`][26] | | |
+`cluster-role-binding` | `component` | `entity` | `event`
+`filter` | `handler` | `hook` | `mutator`
+`namespace` | `role` | `role-binding` | `rule-template`
+`silenced` | `user` | [`auth`][26] | | 
  
 ## Manage resources
 
@@ -470,6 +471,8 @@ sensuctl describe-type all
   licensing/v2.LicenseFile                             licensing/v2        LicenseFile          false
   store/v1.PostgresConfig                              store/v1            PostgresConfig       false
   federation/v1.EtcdReplicator                         federation/v1       EtcdReplicator       false
+  bsm/v1.RuleTemplate                                  bsm/v1              RuleTemplate         true
+  bsm/v1.ServiceComponent                              bsm/v1              ServiceComponent     true
   secrets/v1.Secret                                    secrets/v1          Secret               true
   secrets/v1.Provider                                  secrets/v1          Provider             false
   searches/v1.Search                                   searches/v1         Search               true
@@ -580,3 +583,5 @@ Sensuctl supports the following formats:
 [35]: ../../operations/control-access/rbac/#cluster-roles
 [36]: #sensuctl-create-flags
 [37]: ../../operations/control-access/oidc-auth/
+[38]: ../../operations/manage-business-services/components/
+[39]: ../../operations/manage-business-services/rule-templates/
