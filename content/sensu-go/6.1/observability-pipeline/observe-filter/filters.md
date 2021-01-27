@@ -946,9 +946,10 @@ spec:
 ### Reduce alert fatigue for keepalive events
 
 This example `keepalive_timeouts` event filter will match event data with an occurrences value of 1 OR any occurrences value that matches 15 minutes via a modulo operator calculation.
-The `parseInt()` function calculates the number of occurences that match 15 minutes and truncates the calculation to an integer if needed.
+This limits keepalive timeout event alerts to the first occurrence and every 15 minutes thereafter.
 
-This event filter will limit keepalive timeout events to the first occurrence and every 15 minutes thereafter.
+This example uses conditional JavaScript logic to check for an entity-level annotation, `keepalive_alert_minutes`, and if it exists, parses the annotation value as an integer.
+If the annotation does not exist, the event filter uses 15 minutes for the alert cadence. 
 
 {{< language-toggle >}}
 
@@ -964,7 +965,7 @@ spec:
   action: allow
   expressions:
    - is_incident
-   - event.check.occurrences == 1 || ( event.check.timeout > 0  && event.check.status == 1 && event.check.occurrences % parseInt( 60 * 15 / event.check.timeout ) == 0)
+   - event.check.occurrences == 1 || event.check.occurrences % parseInt( 60 * ( 'keepalive_alert_minutes' in event.entity.annotations ? parseInt(event.entity.annotations.keepalive_alert_minutes): 15) / event.check.timeout ) == 0
   runtime_assets: []
 {{< /code >}}
 
@@ -982,7 +983,7 @@ spec:
     "action": "allow",
     "expressions": [
       "is_incident",
-      "event.check.occurrences == 1 || ( event.check.timeout > 0  && event.check.status == 1 && event.check.occurrences % parseInt( 60 * 15 / event.check.timeout ) == 0)"
+      "event.check.occurrences == 1 || event.check.occurrences % parseInt( 60 * ( 'keepalive_alert_minutes' in event.entity.annotations ? parseInt(event.entity.annotations.keepalive_alert_minutes): 15) / event.check.timeout ) == 0"
     ],
     "runtime_assets": []
   }
