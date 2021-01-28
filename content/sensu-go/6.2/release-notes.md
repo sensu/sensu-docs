@@ -9,6 +9,7 @@ version: "6.2"
 menu: "sensu-go-6.2"
 ---
 
+- [6.2.4 release notes](#624-release-notes)
 - [6.2.3 release notes](#623-release-notes)
 - [6.2.2 release notes](#622-release-notes)
 - [6.2.1 release notes](#621-release-notes)
@@ -77,6 +78,19 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.2.4 release notes
+
+**January 28, 2021** &mdash; The latest release of Sensu Go, version 6.2.4, is now available for download.
+
+This patch fixes a bug that prevented `federation/v1.Cluster` from appearing in the response for `sensuctl describe-type all` and resolves a web UI performance issue for PostgreSQL users.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.2.4.
+
+**FIXES:**
+
+- ([Commercial feature][193]) `federation/v1.Cluster` now appears in the `sensuctl describe-type all` response.
+- ([Commercial feature][193]) Fixed a performance issue that affected the web UI when using the PostgreSQL datastore.
 
 ## 6.2.3 release notes
 
