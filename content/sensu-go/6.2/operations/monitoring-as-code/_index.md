@@ -28,9 +28,7 @@ If you manage your monitoring and observability workflow in the same way as the 
 You can use any source control repository for maintaining your monitoring workflow configuration files.
 Your monitoring as code repository should include configuration files with the resource definitions you use in your monitoring workflow.
 
-Use `sensuctl dump` to export your Sensu resource definitions to standard out (STDOUT) or to a file.
-You can export all of your resources or a subset of them based on a list of resource types.
-The `dump` command supports exporting in `wrapped-json` and `yaml`. 
+Use `sensuctl dump` to [export some or all of your existing Sensu resource definitions][7] to standard out (STDOUT) or to a file.
 
 You can also use sensuctl commands to retrieve your Sensu resource definitions as you create them so you can copy them into your configuration files.
 For example, to retrieve the definition for a check named `check-cpu`:
@@ -128,6 +126,7 @@ For example, if a handler requires a dynamic runtime asset and a secret, include
 ## Monitoring as code with SensuFlow
 
 [SensuFlow][5] is a git-based approach to managing Sensu resources.
+
 The [SensuFlow GitHub Action][1] is a prescriptive monitoring-as-code workflow that uses [sensuctl][2] (including [sensuctl prune][3]) to synchronize your monitoring and observability code with your Sensu deployments.
 
 {{% notice note %}}
@@ -320,4 +319,5 @@ Ensure all resources have the needed label and value used by `sensuctl prune` la
 [4]: ../control-access/rbac/
 [5]: #monitoring-as-code-with-sensuflow
 [6]: ../../guides/
+[7]: ../../sensuctl/back-up-recover/
 
