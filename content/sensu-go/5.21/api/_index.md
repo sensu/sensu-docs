@@ -21,7 +21,8 @@ The cluster protocol will replicate your changes to all cluster members.
 
 ## Available APIs
 
-explain.........
+Access all of the data and functionality of Sensu's first-class API clients, [sensuctl][25] and the [web UI][26], with Sensu's backend REST APIs.
+Use the Sensu APIs to customize your workflows and integrate your favorite Sensu features with other tools and products.
 
 {{< apitypeListing >}}
 
