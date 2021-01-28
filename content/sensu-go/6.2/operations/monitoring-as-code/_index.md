@@ -17,7 +17,7 @@ Sensu supports end-to-end monitoring as code so you can manage your observabilit
 Sensu allows you to define your entire monitoring workflow as declarative YAML or JSON code in configuration files, from collecting observability events and metrics and diagnosing issues through sending alerts and automatically remediating problems.
 
 In the monitoring as code approach, when a new endpoint starts up, like a cloud compute instance or Kubernetes Pod, Sensu automatically registers itself with the platform and starts collecting monitoring and observability data according to the code in your configuration files.
-If you manage your monitoring and observability workflow in the same way as the systems you're monitoring &mdash; as code, using a centralized continuous integration/continuous deployment (CI/CD) pipeline &mdash; you can align your monitoring with your product and services and improve visibility, reliability, and repeatability.
+If you manage your monitoring and observability workflow in the same way as the systems you're monitoring &mdash; as code, using a centralized continuous integration/continuous delivery (CI/CD) pipeline &mdash; you can align your monitoring with your product and services and improve visibility, reliability, and repeatability.
 
 - Your entire team can share, edit, review, and version Sensu configuration files just like they would with other "as-code" solutions.
 - Export your Sensu configuration from one environment and initialize another environment with the same configuration.
