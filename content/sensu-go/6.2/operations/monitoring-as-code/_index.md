@@ -13,93 +13,136 @@ menu:
     identifier: monitoring-as-code
 ---
 
-"Everything as code" is common in DevOps and site reliability engineering, and monitoring and observability have lagged behind the advancements made in application and infrastructure delivery. The term "monitoring as code" isn't new by any means, but incorporating monitoring automation as part of an infrastructure as code (IaC) initiative is not the same as a complete end-to-end solution for monitoring as code. Monitoring as code is not just automated installation and configuration of agents, plugins, and exporters – it encompasses the entire observability lifecycle, including automated diagnosis, alerting & incident management, and even automated remediation. 
+Sensu supports end-to-end monitoring as code so you can manage your observability and monitoring workflows the same way you build, test, and deploy your applications and infrastructure.
+Sensu allows you to define your entire monitoring workflow as declarative YAML or JSON code in configuration files, from collecting observability events and metrics and diagnosing issues through sending alerts and automatically remediating problems.
 
-Incorporating the active monitoring of the infrastructure under management results in a symbiotic relationship in which new metrics and failures are collected and detected automatically in response to code changes and new deployments. Monitoring as code is the key to this unified view of the world and management of the entire application lifecycle.
+In the monitoring as code approach, when a new endpoint starts up, like a cloud compute instance or Kubernetes Pod, Sensu automatically registers itself with the platform and starts collecting monitoring and observability data according to the code in your configuration files.
+If you manage your monitoring and observability workflow in the same way as the systems you're monitoring &mdash; as code, using a centralized continuous integration/continuous deployment (CI/CD) pipeline &mdash; you can align your monitoring with your product and services and improve visibility, reliability, and repeatability.
 
-When we search the web for “monitoring as code,” we find a number of blog posts from a variety of popular monitoring tools. But as we dig deeper, what they are describing is not monitoring as code, but rather simply deploying an agent or configuring an exporter with configuration management tools like Puppet, Chef, Ansible, Terraform, or Helm — AKA, infrastructure as code for deploying monitoring. These solutions don't offer ways to configure much of the monitoring solution beyond simple data collection. This is largely a result of trying to retrofit traditional monitoring tools and workflows into the modern DevOps paradigm.
+- Your entire team can share, edit, review, and version Sensu configuration files just like they would with other "as-code" solutions.
+- Export your Sensu configuration from one environment and initialize another environment with the same configuration.
+- Use Sensu configuration files to remove, restore, back up, and recover Sensu instances.
 
-With this approach, developers are building, testing, and deploying their applications and monitoring data collection via the unified CI/CD pipeline, and then managing the rest of the monitoring solution completely out-of-band of this pipeline (e.g., configuring alerting rules and integrations by clicking buttons in a SaaS-based monitoring dashboard). Comprehensive monitoring as code includes collection, diagnosis, alerting, processing, and remediation (self-healing), all defined as code.
+## Create a monitoring as code repository
 
-Adopting a monitoring-as-code approach allows you to manage your observability and monitoring workflows the same way you build, test, and deploy your applications and infrastructure.
+You can use any source control repository for maintaining your monitoring workflow configuration files.
+Your monitoring as code repository should include configuration files with the resource definitions you use in your monitoring workflow.
 
-One of the primary benefits of the "everything as code" movement is version control, which provides logical "checkpoints" representing the state of our systems at a given point in time. If the complete monitoring and observability solution is not managed in the same manner as the systems they monitor (as code, via a centralized CI/CD pipeline), it becomes decoupled in a way that makes it difficult or impossible to reason about over time. By adopting true monitoring as code, you get version control of monitoring aligned with the building, testing, and deployment of your product and services, improving visibility, reliability, and repeatability. 
+Use `sensuctl dump` to export your Sensu resource definitions to standard out (STDOUT) or to a file.
+You can export all of your resources or a subset of them based on a list of resource types.
+The `dump` command supports exporting in `wrapped-json` and `yaml`. 
 
-Monitoring as code adds "observe" to your infrastructure as code pipeline.
+You can also use sensuctl commands to retrieve your Sensu resource definitions as you create them so you can copy them into your configuration files.
+For example, to retrieve the definition for a check named `check-cpu`:
 
-With monitoring as code, every observation becomes actionable in the form of a code change and new release.
+{{< language-toggle >}}
 
-Monitoring as code encompasses the entire observability lifecycle, from instrumentation and scheduling through alerting and automated remediation.
-
-Sensu was designed from as an observability pipeline to enable monitoring as code on any cloud.
-Sensu's developer- and operator-oriented declarative configuration files facilitate sharing among team members and can be treated just like code: edited, reviewed, and versioned.
-
-
-Sensu allows you to define your end-to-end monitoring solution, including collection, diagnosis, alerting, processing, and remediation, as declarative YAML or JSON code in your configuration files.
-When a new endpoint starts up, like a cloud compute instance or Kubernetes Pod, Sensu automatically registers itself with the platform and starts collecting monitoring and observability data according to the code in your configuration files.
-The automated diagnosis, management of alerts, and remediation of services are all defined as code in your configuration files.
-
-With a complete monitoring as code implementation, you can remove existing deployments and restore them, repeatably and reliably. 
-[SensuFlow][5] is a repeatable process you can follow to implement a monitoring as code workflow.
-
-
-
-## Best practices for monitoring as code
-
-The repository of resource definitions can be any manner of source control repository (git, subversion, etc.). While a specific directory structure is not required, we will be suggesting one later in this document.
-- To maintain consistency, save all of your resources as only one file type: YAML or JSON.
-- Include all dependencies within a resource definition.
-For example, if a handler requires a dynamic runtime asset and a secret, include the asset and secret definitions with the definition for the handler itself.
-
-   {{< language-toggle >}}
-
-{{< code yml >}}
----
-type: PostgresConfig
-api_version: store/v1
+{{< code shell "YML" >}}
+sensuctl check info check-cpu --format yaml
+type: CheckConfig
+api_version: core/v2
 metadata:
-  name: my-postgres
+  created_by: admin
+  name: check-cpu
+  namespace: default
 spec:
-  batch_buffer: 0
-  batch_size: 1
-  batch_workers: 0
-  dsn: "postgresql://user:secret@host:port/dbname"
-  max_conn_lifetime: 5m
-  max_idle_conns: 2
-  pool_size: 20
-  strict: true
-  enable_round_robin: true
+  check_hooks: null
+  command: check-cpu.rb -w 75 -c 90
+  env_vars: null
+  handlers:
+  - slack
+  high_flap_threshold: 0
+  interval: 60
+  low_flap_threshold: 0
+  output_metric_format: ""
+  output_metric_handlers: null
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets:
+  - cpu-checks-plugins
+  - sensu-ruby-runtime
+  secrets: null
+  stdin: false
+  subdue: null
+  subscriptions:
+  - system
+  timeout: 0
+  ttl: 0
 {{< /code >}}
 
-{{< code json >}}
+{{< code shell "JSON" >}}
+sensuctl check info check-cpu --format json
 {
-  "type": "PostgresConfig",
-  "api_version": "store/v1",
+  "command": "check-cpu.rb -w 75 -c 90",
+  "handlers": [
+    "slack"
+  ],
+  "high_flap_threshold": 0,
+  "interval": 60,
+  "low_flap_threshold": 0,
+  "publish": true,
+  "runtime_assets": [
+    "cpu-checks-plugins",
+    "sensu-ruby-runtime"
+  ],
+  "subscriptions": [
+    "system"
+  ],
+  "proxy_entity_name": "",
+  "check_hooks": null,
+  "stdin": false,
+  "subdue": null,
+  "ttl": 0,
+  "timeout": 0,
+  "round_robin": false,
+  "output_metric_format": "",
+  "output_metric_handlers": null,
+  "env_vars": null,
   "metadata": {
-    "name": "my-postgres"
+    "name": "check-cpu",
+    "namespace": "default",
+    "created_by": "admin"
   },
-  "spec": {
-    "batch_buffer": 0,
-    "batch_size": 1,
-    "batch_workers": 0,
-    "dsn": "postgresql://user:secret@host:port/dbname",
-    "max_conn_lifetime": "5m",
-    "max_idle_conns": 2,
-    "pool_size": 20,
-    "strict": true,
-    "enable_round_robin": true
-  }
+  "secrets": null
 }
 {{< /code >}}
 
 {{< /language-toggle >}}
 
+Many of our [guides][6] demonstrate how to create, update, and retrieve resource definitions in this way. 
+
+## Implement a monitoring as code workflow
+
+There's no one "correct" way to implement monitoring as code.
+To get started, try [SensuFlow][5], our git-based approach to managing Sensu resources.
+
+## Best practices for monitoring as code
+
+The repository of resource definitions can be any manner of source control repository (git, subversion, etc.). While a specific directory structure is not required, we will be suggesting one later in this document.
+
+- To maintain consistency, save all of your resources as only one file type: YAML or JSON.
+- Include all dependencies within a resource definition.
+For example, if a handler requires a dynamic runtime asset and a secret, include the asset and secret definitions with the definition for the handler itself.
 
 ## Monitoring as code with SensuFlow
 
+[SensuFlow][5] is a git-based approach to managing Sensu resources.
+The [SensuFlow GitHub Action][1] is a prescriptive monitoring-as-code workflow that uses [sensuctl][2] (including [sensuctl prune][3]) to synchronize your monitoring and observability code with your Sensu deployments.
 
-Practical monitoring as code with Sensu Go and SensuFlow
-Embracing monitoring as code principles and deploying an observability pipeline are great first steps towards <successful outcomes>, but without a repeatable process it may be hard to grow adoption. Although there's no one "correct" workflow for implementing monitoring as code at every company, an "over the counter" reference is available to help you get started, and we call it "SensuFlow". Together, SensuFlow and Sensu Go provide the process and tools to ensure <successful outcomes> for any monitoring as code initiative. 
+{{% notice note %}}
+**NOTE**: SensuFlow is available for technical preview, and individual components in the workflow may change.
+Before you use SensuFlow in production, test it in a development environment or a dedicated test namespace in your current environment.
+{{% /notice %}}
+
+SensuFlow requires:
+- A monitoring code repository of Sensu resource definitions
+- A Sensu [role-based access control (RBAC)][4] service account with permission to manage all resources in your repository
+- A labeling convention to designate which resources should be managed by this workflow
+- Integration with your CI/CD system that runs sensuctl commands as the aforementioned Sensu user from the repository of resource definitions
+
+ractical monitoring as code with Sensu Go and SensuFlow
+Embracing monitoring as code principles and deploying an observability pipeline are great first steps towards <successful outcomes>, but without a repeatable process it may be hard to grow adoption.  Together, SensuFlow and Sensu Go provide the process and tools to ensure <successful outcomes> for any monitoring as code initiative. 
 
 SensuFlow is the result of over 8 years of extensive research, development, integration testing, and end-user feedback collected from professional services engagements in over 50 companies ranging from SMBs to industry-leading enterprise organizations with tens of thousands of nodes under active management by Sensu. 
 
@@ -119,20 +162,11 @@ Label-based workflow facilitates self-service access to monitoring as code. Beca
 
 
 
-SensuFlow is a prescriptive monitoring-as-code workflow that uses [sensuctl][2] (including [sensuctl prune][3]) to synchronize your monitoring and observability code with your Sensu deployments.
 
-{{% notice note %}}
-**NOTE**: SensuFlow is available for technical preview, and individual components in the workflow may change.
-Before you use SensuFlow in production, test it in a development environment or a dedicated test namespace in your current environment.
-{{% /notice %}}
 
-SensuFlow requires:
-- A monitoring code repository of Sensu resource definitions
-- A Sensu [role-based access control (RBAC)][4] service account with permission to manage all resources in your repository
-- A labeling convention to designate which resources should be managed by this workflow
-- Integration with your CI/CD system that runs sensuctl commands as the aforementioned Sensu user from the repository of resource definitions
 
-The repository of resource definitions can be any manner of source control repository (git, subversion, etc.). While a specific directory structure is not required, we will be suggesting one later in this document. Since sensuctl supports both JSON and YAML files, either can be used, but it is suggested that you use only one file type for consistency. For formatting and readability reasons, our examples will use YAML. We also suggest you include all dependencies within a resource definition. For example, if you have a handler that requires a runtime asset as well as a secret, the definitions for both should be included with the definition for the handler itself.
+
+
 
 The use of sensuctl requires a Sensu user account with which to run commands. This user will need the appropriate RBAC permissions to manage the resources defined in your repository. If you are planning to manage namespaces using this workflow, these permissions need to be granted at the cluster level (cluster-role and cluster-role-binding). If the resources are confined to a single namespace, then the permissions can be granted within that namespace using a role and role-binding. This configuration (using a role and role-binding for namespace-specific resource management) requires Sensu Go 6.2.0 or newer — [download the latest version](http://sensu.io/downloads).
 
@@ -285,4 +319,5 @@ Ensure all resources have the needed label and value used by `sensuctl prune` la
 [3]: ../../sensuctl/create-manage-resources/#sensuctl-prune
 [4]: ../control-access/rbac/
 [5]: #monitoring-as-code-with-sensuflow
+[6]: ../../guides/
 
