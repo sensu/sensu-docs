@@ -470,6 +470,7 @@ sensuctl describe-type all
   authentication/v2.Provider                           authentication/v2   Provider             false
   licensing/v2.LicenseFile                             licensing/v2        LicenseFile          false
   store/v1.PostgresConfig                              store/v1            PostgresConfig       false
+  federation/v1.Cluster                                federation/v1       Cluster              false
   federation/v1.EtcdReplicator                         federation/v1       EtcdReplicator       false
   bsm/v1.RuleTemplate                                  bsm/v1              RuleTemplate         true
   bsm/v1.ServiceComponent                              bsm/v1              ServiceComponent     true
