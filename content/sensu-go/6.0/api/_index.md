@@ -714,3 +714,5 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [18]: ../operations/control-access/use-apikeys/#sensuctl-management-commands
 [19]: apikeys/
 [20]: #authenticate-with-the-authentication-api
+[25]: ../sensuctl/
+[26]: ../web-ui/

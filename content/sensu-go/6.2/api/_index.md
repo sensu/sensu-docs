@@ -764,3 +764,5 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [22]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match
 [23]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match
 [24]: ../operations/deploy-sensu/cluster-sensu/
+[25]: ../sensuctl/
+[26]: ../web-ui/
