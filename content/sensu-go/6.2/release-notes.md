@@ -95,7 +95,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.3.
 
 **January 14, 2021** &mdash; The latest release of Sensu Go, version 6.2.2, is now available for download.
 
-This patch fixes bugs that prevented PostgreSQL round robin scheduing from working properly.
+This patch fixes bugs that prevented PostgreSQL round robin scheduling from working properly.
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.2.2.
 
