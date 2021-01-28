@@ -1,6 +1,8 @@
 ---
 title: "Roles API"
 description: "The Sensu roles API provides HTTP access to user role data. This reference includes examples for returning lists of roles, creating Sensu roles, and more. Read on for the full reference."
+api_title: "Roles API"
+type: "api"
 version: "6.2"
 product: "Sensu Go"
 menu:

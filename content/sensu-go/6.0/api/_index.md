@@ -19,6 +19,12 @@ The cluster protocol will replicate your changes to all cluster members.
 
 For information about the Sensu agent API, see the [agent reference][4].
 
+## Available APIs
+
+explain.........
+
+{{< apitypeListing >}}
+
 ## URL format
 
 Sensu API endpoints use the standard URL format `/api/{group}/{version}/namespaces/{namespace}` where:

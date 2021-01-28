@@ -19,6 +19,12 @@ For information about the Sensu agent API, see the [agent reference][4].
 If you have a healthy [clustered][10] backend, you only need to make Sensu API calls to any one of the cluster members.
 The cluster protocol will replicate your changes to all cluster members.
 
+## Available APIs
+
+explain.........
+
+{{< apitypeListing >}}
+
 ## URL format
 
 Sensu API endpoints use the standard URL format `/api/{group}/{version}/namespaces/{namespace}` where:
