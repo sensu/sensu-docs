@@ -1,7 +1,8 @@
 ---
-title: "License management API"
-linkTitle: "License API"
+title: "License API"
 description: "The Sensu license API provides HTTP access to the active commercial license configuration. This reference includes examples for returning the active commercial license configuration and activating or updating a commercial license. Read on for the full reference."
+api_title: "License API"
+type: "api"
 version: "6.3"
 product: "Sensu Go"
 menu:

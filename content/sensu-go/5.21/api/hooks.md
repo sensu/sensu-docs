@@ -1,6 +1,8 @@
 ---
 title: "Hooks API"
 description: "The Sensu hooks API provides HTTP access to hook data. This reference includes examples for returning lists of hooks, creating a Sensu hook, and more. Read on for the full reference."
+api_title: "Hooks API"
+type: "api"
 version: "5.21"
 product: "Sensu Go"
 menu:
