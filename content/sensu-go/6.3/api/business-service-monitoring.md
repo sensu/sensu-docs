@@ -2,6 +2,8 @@
 title: "Business service monitoring API"
 linkTitle: "Business Service Monitoring API"
 description: "The business service monitoring API controls the service components and rule templates you can configure for your business services. This reference describes the Sensu business service monitoring API, including examples. Read on for the full reference."
+api_title: "Business service monitoring API"
+type: "api"
 version: "6.3"
 product: "Sensu Go"
 menu:
@@ -27,25 +29,41 @@ The following example demonstrates a request to the `/service-components` API en
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators \
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components \
 -H "Authorization: Key $SENSU_API_KEY"
 [
   {
-    "api_version": "federation/v1",
-    "type": "EtcdReplicator",
+    "type": "Component",
+    "api_version": "bsm/v1",
     "metadata": {
-      "name": "my_replicator",
-      "created_by": "admin"
+      "name": "postgresql-component"
     },
     "spec": {
-      "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
-      "cert": "/path/to/ssl/cert.pem",
-      "key": "/path/to/ssl/key.pem",
-      "insecure": false,
-      "url": "http://remote-etcd.example.com:2379",
-      "api_version": "core/v2",
-      "resource": "Role",
-      "replication_interval_seconds": 30
+      "services": [
+        "account-manager",
+        "tessen"
+      ],
+      "interval": 60,
+      "cron": "",
+      "query": [
+        {
+          "type": "labelSelector",
+          "value": "region == us-west-2 && cmpt == psql"
+        }
+      ],
+      "rules": [
+        {
+          "template": "status-threshold",
+          "arguments": {
+            "status": "non-zero",
+            "threshold": 25
+          }
+        }
+      ],
+      "handlers": [
+        "pagerduty",
+        "slack"
+      ]
     }
   }
 ]
@@ -56,27 +74,43 @@ http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators \
 /service-components (GET)  | 
 ---------------|------
 description    | Returns the list of service components.
-example url    | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators
+example url    | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/service-components
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code json >}}
 [
   {
-    "api_version": "federation/v1",
-    "type": "EtcdReplicator",
+    "type": "Component",
+    "api_version": "bsm/v1",
     "metadata": {
-      "name": "my_replicator",
-      "created_by": "admin"
+      "name": "postgresql-component"
     },
     "spec": {
-      "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
-      "cert": "/path/to/ssl/cert.pem",
-      "key": "/path/to/ssl/key.pem",
-      "insecure": false,
-      "url": "http://remote-etcd.example.com:2379",
-      "api_version": "core/v2",
-      "resource": "Role",
-      "replication_interval_seconds": 30
+      "services": [
+        "account-manager",
+        "tessen"
+      ],
+      "interval": 60,
+      "cron": "",
+      "query": [
+        {
+          "type": "labelSelector",
+          "value": "region == us-west-2 && cmpt == psql"
+        }
+      ],
+      "rules": [
+        {
+          "template": "status-threshold",
+          "arguments": {
+            "status": "non-zero",
+            "threshold": 25
+          }
+        }
+      ],
+      "handlers": [
+        "pagerduty",
+        "slack"
+      ]
     }
   }
 ]
@@ -88,30 +122,14 @@ The `/service-components` API endpoint provides HTTP POST access to create servi
 
 ### Example
 
-The following example demonstrates a request to the `/service-components` API endpoint to create the service component `my_replicator`.
+The following example demonstrates a request to the `/service-components` API endpoint to create the service component `postgresql-component`.
 
 {{< code shell >}}
 curl -X POST \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
--d '{
-  "api_version": "federation/v1",
-  "type": "EtcdReplicator",
-  "metadata": {
-    "name": "my_replicator"
-  },
-  "spec": {
-    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
-    "cert": "/path/to/ssl/cert.pem",
-    "key": "/path/to/ssl/key.pem",
-    "insecure": false,
-    "url": "http://remote-etcd.example.com:2379",
-    "api_version": "core/v2",
-    "resource": "Role",
-    "replication_interval_seconds": 30
-  }
-}' \
-http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators
+-d '' \
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components
 
 HTTP/1.1 200 OK
 {{< /code >}}
@@ -120,26 +138,9 @@ HTTP/1.1 200 OK
 
 /service-components (POST) | 
 ----------------|------
-description     | Creates a new replicator (if none exists).
-example URL     | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators
-payload         | {{< code shell >}}
-{
-  "api_version": "federation/v1",
-  "type": "EtcdReplicator",
-  "metadata": {
-    "name": "my_replicator"
-  },
-  "spec": {
-    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
-    "cert": "/path/to/ssl/cert.pem",
-    "key": "/path/to/ssl/key.pem",
-    "insecure": false,
-    "url": "http://remote-etcd.example.com:2379",
-    "api_version": "core/v2",
-    "resource": "Role",
-    "replication_interval_seconds": 30
-  }
-}
+description     | Creates a new business service component (if none exists).
+example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/service-components
+payload         | {{< code json >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -153,55 +154,20 @@ In the following example, querying the `/service-components/:service-component` 
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator \
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components/my_replicator \
 -H "Authorization: Key $SENSU_API_KEY"
-{
-  "api_version": "federation/v1",
-  "type": "EtcdReplicator",
-  "metadata": {
-    "name": "my_replicator",
-    "created_by": "admin"
-  },
-  "spec": {
-    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
-    "cert": "/path/to/ssl/cert.pem",
-    "key": "/path/to/ssl/key.pem",
-    "insecure": false,
-    "url": "http://remote-etcd.example.com:2379",
-    "api_version": "core/v2",
-    "resource": "Role",
-    "replication_interval_seconds": 30
-  }
-}
+
 {{< /code >}}
 
 ### API Specification
 
 /service-components/:service-component (GET) | 
 ---------------------|------
-description          | Returns the specified replicator.
-example url          | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
+description          | Returns the specified business service component.
+example url          | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/service-components/postgresql-component
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
-{
-  "api_version": "federation/v1",
-  "type": "EtcdReplicator",
-  "metadata": {
-    "name": "my_replicator",
-    "created_by": "admin"
-  },
-  "spec": {
-    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
-    "cert": "/path/to/ssl/cert.pem",
-    "key": "/path/to/ssl/key.pem",
-    "insecure": false,
-    "url": "http://remote-etcd.example.com:2379",
-    "api_version": "core/v2",
-    "resource": "Role",
-    "replication_interval_seconds": 30
-  }
-}
 {{< /code >}}
 
 ## Create or update a service component
@@ -210,30 +176,14 @@ The `/service-components/:service-component` API endpoint provides HTTP PUT acce
 
 ### Example
 
-The following example demonstrates a request to the `/service-components/:service-component` API endpoint to update the service component `my_replicator`.
+The following example demonstrates a request to the `/service-components/:service-component` API endpoint to update the service component `postgresql-component`.
 
 {{< code shell >}}
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
--d '{
-  "api_version": "federation/v1",
-  "type": "EtcdReplicator",
-  "metadata": {
-    "name": "my_replicator"
-  },
-  "spec": {
-    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
-    "cert": "/path/to/ssl/cert.pem",
-    "key": "/path/to/ssl/key.pem",
-    "insecure": false,
-    "url": "http://remote-etcd.example.com:2379",
-    "api_version": "core/v2",
-    "resource": "Role",
-    "replication_interval_seconds": 30
-  }
-}' \
-http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my-replicator
+-d '' \
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components/postgresql-component
 
 HTTP/1.1 200 OK
 {{< /code >}}
@@ -242,26 +192,9 @@ HTTP/1.1 200 OK
 
 /service-components/:service-component (PUT) | 
 ----------------|------
-description     | Creates or updates the specified replicator. The replicator resource and API version cannot be altered.
-example URL     | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
-payload         | {{< code shell >}}
-{
-  "api_version": "federation/v1",
-  "type": "EtcdReplicator",
-  "metadata": {
-    "name": "my_replicator"
-  },
-  "spec": {
-    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
-    "cert": "/path/to/ssl/cert.pem",
-    "key": "/path/to/ssl/key.pem",
-    "insecure": false,
-    "url": "http://remote-etcd.example.com:2379",
-    "api_version": "core/v2",
-    "resource": "Role",
-    "replication_interval_seconds": 30
-  }
-}
+description     | Creates or updates the specified business service component.
+example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/service-components/postgresql-component
+payload         | {{< code json >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -271,12 +204,12 @@ The `/service-components/:service-component` API endpoint provides HTTP DELETE a
 
 ### Example
 
-The following example shows a request to the `/service-components/:service-component` API endpoint to delete the service component `my_replicator`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/service-components/:service-component` API endpoint to delete the service component `postgresql-component`, resulting in a successful HTTP `204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
-http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components/postgresql-component
 
 HTTP/1.1 204 No Content
 {{< /code >}}
@@ -285,8 +218,8 @@ HTTP/1.1 204 No Content
 
 /service-components/:service-component (DELETE) | 
 --------------------------|------
-description               | Deletes the specified replicator from Sensu.
-example url               | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
+description               | Deletes the specified business service component from Sensu.
+example url               | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/service-components/postgresql-component
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get all rule templates
@@ -299,28 +232,11 @@ The following example demonstrates a request to the `/rule-templates` API endpoi
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/rule-templates \
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/rule-templates \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 
-[
-    {
-        "type": "Cluster",
-        "api_version": "federation/v1",
-        "metadata": {
-            "name": "us-west-2a",
-            "created_by": "admin"
-        },
-        "spec": {
-            "api_urls": [
-                "http://10.0.0.1:8080",
-                "http://10.0.0.2:8080",
-                "http://10.0.0.3:8080"
-            ]
-        }
-    }
-]
 {{< /code >}}
 
 ### API Specification
@@ -328,27 +244,11 @@ HTTP/1.1 200 OK
 /rule-templates (GET)  | 
 ---------------|------
 description    | Returns the list of rule templates.
-example url    | http://hostname:8080/api/enterprise/bsm/v1/rule-templates
+example url    | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/rule-templates
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
-[
-    {
-        "type": "Cluster",
-        "api_version": "federation/v1",
-        "metadata": {
-            "name": "us-west-2a",
-            "created_by": "admin"
-        },
-        "spec": {
-            "api_urls": [
-                "http://10.0.0.1:8080",
-                "http://10.0.0.2:8080",
-                "http://10.0.0.3:8080"
-            ]
-        }
-    }
-]
+output         | {{< code json >}}
+
 {{< /code >}}
 
 ## Get a specific rule template
@@ -361,61 +261,28 @@ In the following example, querying the `/rule-templates/:rule-template` API endp
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/rule-templates/us-west-2a \
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/rule-templates/us-west-2a \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 
-{
-  "type": "Cluster",
-  "api_version": "federation/v1",
-  "metadata": {
-      "name": "us-west-2a",
-      "created_by": "admin"
-  },
-  "spec": {
-      "api_urls": [
-          "http://10.0.0.1:8080",
-          "http://10.0.0.2:8080",
-          "http://10.0.0.3:8080"
-      ]
-  }
-}
 {{< /code >}}
 
 ### API Specification
 
 /rule-templates/:cluster (GET) | 
 ---------------------|------
-description          | Returns the specified cluster.
-example url          | http://hostname:8080/api/enterprise/bsm/v1/rule-templates/us-west-2a
+description          | Returns the specified rule template.
+example url          | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/rule-templates/us-west-2a
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
-{
-    "type": "Cluster",
-    "api_version": "federation/v1",
-    "metadata": {
-        "name": "us-west-2a",
-        "created_by": "admin"
-    },
-    "spec": {
-        "api_urls": [
-            "http://10.0.0.1:8080",
-            "http://10.0.0.2:8080",
-            "http://10.0.0.3:8080"
-        ]
-    }
-}
+
 {{< /code >}}
 
 ## Create or update a rule template
 
 The `/rule-templates/:rule-template` API endpoint provides HTTP PUT access to create or update a specific rule template by name.
-
-{{% notice note %}}
-**NOTE**: Only cluster admins have PUT access to clusters.
-{{% /notice %}}
 
 ### Example
 
@@ -425,21 +292,8 @@ The following example demonstrates a request to the `/rule-templates/:rule-templ
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
--d '{
-    "type": "Cluster",
-    "api_version": "federation/v1",
-    "metadata": {
-        "name": "us-west-2a"
-    },
-    "spec": {
-        "api_urls": [
-            "http://10.0.0.1:8080",
-            "http://10.0.0.2:8080",
-            "http://10.0.0.3:8080"
-        ]
-    }
-}' \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/rule-templates/us-west-2a
+-d '' \
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/rule-templates/us-west-2a
 
 HTTP/1.1 200 OK
 {{< /code >}}
@@ -449,22 +303,9 @@ HTTP/1.1 200 OK
 /rule-templates/:rule-template (PUT) | 
 ----------------|------
 description     | Creates or updates the specified rule tempalte.
-example URL     | http://hostname:8080/api/enterprise/bsm/v1/rule-templates/us-west-2a
-payload         | {{< code shell >}}
-{
-    "type": "Cluster",
-    "api_version": "federation/v1",
-    "metadata": {
-            "name": "us-west-2a"
-    },
-    "spec": {
-        "api_urls": [
-            "http://10.0.0.1:8080",
-            "http://10.0.0.2:8080",
-            "http://10.0.0.3:8080"
-        ]
-    }
-}
+example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/rule-templates/us-west-2a
+payload         | {{< code json >}}
+
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -483,7 +324,7 @@ The following example shows a request to the `/rule-templates/:rule-template` AP
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/rule-templates/us-west-2a
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/rule-templates/us-west-2a
 
 HTTP/1.1 204 No Content
 {{< /code >}}
