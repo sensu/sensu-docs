@@ -174,6 +174,8 @@ sensuctl describe-type all
   store/v1.PostgresConfig                              store/v1            PostgresConfig       false
   federation/v1.Cluster                                federation/v1       Cluster              false
   federation/v1.EtcdReplicator                         federation/v1       EtcdReplicator       false
+  bsm/v1.RuleTemplate                                  bsm/v1              RuleTemplate         true
+  bsm/v1.ServiceComponent                              bsm/v1              ServiceComponent     true
   secrets/v1.Secret                                    secrets/v1          Secret               true
   secrets/v1.Provider                                  secrets/v1          Provider             false
   searches/v1.Search                                   searches/v1         Search               true
