@@ -441,7 +441,7 @@ value: region == us-west-2 && cmpt == psql
 
 template     | 
 -------------|------ 
-description  | Name of the [rule template][8] the component should use .
+description  | Name of the [rule template][8] the component should use.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
