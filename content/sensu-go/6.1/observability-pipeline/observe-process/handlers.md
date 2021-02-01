@@ -22,9 +22,10 @@ The most common are `pipe` handlers, which work similarly to [checks][1] and ena
 - **Pipe handlers** send observation data (events) into arbitrary commands via `STDIN`
 - **TCP/UDP handlers** send observation data (events) to a remote socket
 - **Handler sets** group event handlers and streamline groups of actions to execute for certain types of events (also called "set handlers")
+- **Handler stacks** are a group of handlers or a handler set that escalate events through a series of different handlers
 
 Discover, download, and share Sensu handler dynamic runtime assets using [Bonsai][16], the Sensu asset hub.
-Read [Use assets to install plugins][23] to get started.
+Read [Use dynamic runtime assets to install plugins][23] to get started.
 
 ## Pipe handlers
 
@@ -44,11 +45,82 @@ TCP and UDP handlers enable Sensu to forward event data to arbitrary TCP or UDP 
 
 ## Handler sets
 
-Handler set definitions allow you to use a single named handler set to refer to groups of handlers (individual collections of actions to take on event data).
+Handler set definitions allow you to use a single named handler set to refer to groups of handlers.
+The handler set becomes a collection of individual actions to take (via each included handler) on event data.
+
+For example, suppose you have already created these two handlers:
+
+- `elasticsearch` to send all observation data to Elasticsearch.
+- `opsgenie` to send non-OK status alerts to your OpsGenie notification channel.
+
+You can list both of these handlers in a handler set to automate and streamline your workflow, specifying `type: set`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: send_events_notify_operator
+  namespace: default
+spec:
+  handlers:
+  - elasticsearch
+  - opsgenie
+  type: set
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "send_events_notify_operator",
+    "namespace": "default"
+  },
+  "spec": {
+    "type": "set",
+    "handlers": [
+      "elasticsearch",
+      "opsgenie"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Now you can route observation data to Elasticsearch and alerts to OpsGenie with a single handler definition, the `send_events_notify_operator` handler set.
 
 {{% notice note %}}
-**NOTE**: Attributes defined on handler sets do not apply to the handlers they include.
+**NOTE**: Attributes defined in handler sets do not apply to the handlers they include.
 For example, `filters` and `mutator` attributes defined in a handler set will have no effect on handlers.
+Define these attributes in individual handlers instead.
+{{% /notice %}}
+
+## Handler stacks
+
+Handler stacks are a group of handlers or a handler set that escalate events through a series of different handlers.
+For example, suppose you want a handler stack with three levels of escalation:
+
+- Level 1: On the first occurrence, attempt remediation.
+- Level 2: On the fifth occurrence, send an alert to Slack.
+- Level 3: On the tenth occurrence, send an alert to PagerDuty.
+Continue to send this alert on every tenth occurrence thereafter until the incident is resolved.
+
+A handler stack for this scenario requires three handlers to take the desired actions based on three corresponding event filters that control the escalation levels:
+
+- Level 1 requires an event filter with the built-in [`is_incident` filter][30] plus an [occurrence-based filter][32] that uses an expression like `event.check.occurrences ==1` and a corresponding remediation handler.
+- Level 2 requires an event filter with `is_incident` plus an occurrence-based filter that uses an expression like `event.check.occurrences == 5` and a corresponding Slack handler.
+- Level 3 requires an event filter with `is_incident` plus an occurrence-based filter that uses an expression like `event.check.occurrences % 10 == 0` to match event data with an occurrences value that is evenly divisible by 10 via a modulo operator calculation and a corresponding PagerDuty handler.
+
+With these event filters and handlers configured, you can create a [handler set][31] that includes the three handlers in your stack.
+You can also list the three handlers in the [handlers array][33] in your check definition instead.
+
+{{% notice protip %}}
+**PRO TIP**: This scenario relies on six different event filters and handlers to describe the handler stack concept, but you can use Sensu dynamic runtime assets and integrations to achieve the same escalating alert levels in other ways.<br><br>
+For example, you can use the `is_incident` event filter in conjunction with the [Sensu Go Fatigue Check Filter](https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter) asset to control event escalation.
+Sensu's [Ansible](../../../plugins/supported-integrations/ansible/), [Rundeck](../../../plugins/supported-integrations/rundeck/), and [Saltstack](../../../plugins/supported-integrations/saltstack/) auto-remediation integrations and the [Sensu Remediation Handler](https://bonsai.sensu.io/assets/sensu/sensu-remediation-handler) asset also include built-in occurrence- and severity-based event filtering.
 {{% /notice %}}
 
 ## Keepalive event handlers
@@ -818,9 +890,9 @@ spec:
 
 The [agent reference][27] describes agent registration and registration events in more detail.
 
-### Execute multiple handlers
+### Execute multiple handlers (handler set)
 
-The following example handler will execute three handlers: `slack`, `tcp_handler`, and `udp_handler`.
+The following example creates a handler set, `notify_all_the_things`, that will execute three handlers: `slack`, `tcp_handler`, and `udp_handler`.
 
 {{< language-toggle >}}
 
@@ -933,10 +1005,14 @@ spec:
 [20]: ../../../operations/manage-secrets/secrets/
 [21]: ../../../operations/manage-secrets/secrets-providers/
 [22]: ../
-[23]: ../../../plugins/use-assets-to-install-plugins
+[23]: ../../../plugins/use-assets-to-install-plugins/
 [24]: ../../observe-filter/filters/
 [25]: ../../../web-ui/search#search-for-labels
 [26]: ../../../operations/manage-secrets/secrets-management/
 [27]: ../../observe-schedule/agent/#registration-endpoint-management-and-service-discovery
 [28]: ../../../web-ui/search/
 [29]: ../../../observability-pipeline/
+[30]: ../../observe-filter/filters/#built-in-filter-is_incident
+[31]: #handler-sets
+[32]: ../../observe-filter/filters/#handle-repeated-events
+[33]: ../../observe-schedule/checks/#handlers-array
