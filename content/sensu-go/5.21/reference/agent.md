@@ -1169,7 +1169,7 @@ deregister: true{{< /code >}}
 
 | deregistration-handler |      |
 -------------------------|------
-description              | Name of a deregistration handler that processes agent deregistration events. This flag overrides any handlers applied by the [`deregistration-handler` backend configuration flag][37].
+description              | Name of the event handler to use when processing the agent's deregistration events. This flag overrides any handlers applied by the [`deregistration-handler` backend configuration flag][37].
 type                     | String
 environment variable     | `SENSU_DEREGISTRATION_HANDLER`
 example                  | {{< code shell >}}# Command line example

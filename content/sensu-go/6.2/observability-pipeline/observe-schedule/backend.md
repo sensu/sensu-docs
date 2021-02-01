@@ -475,17 +475,15 @@ debug: true{{< /code >}}
 
 | deregistration-handler |      |
 -------------------------|------
-description              | Name of the default event handler to use when processing agent deregistration events. To use a dynamic runtime asset as the deregistration handler, specify the handler [asset path][30].
+description              | Name of the default event handler to use when processing agent deregistration events.
 type                     | String
 default                  | `""`
 environment variable     | `SENSU_BACKEND_DEREGISTRATION_HANDLER`
 example                  | {{< code shell >}}# Command line examples
 sensu-backend start --deregistration-handler deregister
-sensu-backend start --deregistration-handler /path/to/handler.sh
 
 # /etc/sensu/backend.yml examples
-deregistration-handler: "deregister"
-deregistration-handler: "/path/to/handler.sh"{{< /code >}}
+deregistration-handler: "deregister"{{< /code >}}
 
 
 | labels     |      |
@@ -1477,4 +1475,3 @@ The _SIGHUP_ signal causes the `backend` component to reload instead of restarti
 [27]: https://golang.org/pkg/net/http/pprof/
 [28]: ../checks/#subscriptions
 [29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly
-[30]: ../../../plugins/assets/#dynamic-runtime-asset-path
