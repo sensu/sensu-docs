@@ -55,7 +55,7 @@ systemctl restart rsyslog
 
 {{% notice note %}}
 **NOTE**: Sensu log messages include the Sensu [log level](../../maintain-sensu/troubleshoot/#log-levels) as part of the log data.
-With some rsyslog expertise, it may be possible to extract the log level from Sensu log messages and use rsyslog processing capabilities to separate the log messages into different files based on log level.
+Users with rsyslog expertise may be able to extract the log level from Sensu log messages and use rsyslog processing capabilities to separate the log messages into different files based on log level.
 {{% /notice %}}
 
 ## Set up log rotation
