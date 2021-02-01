@@ -11,7 +11,7 @@ layout: "single"
 
 <iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu&type=star&count=true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe> | <a href="https://docs.sensu.io/sensu-go/latest/">Learn about Sensu Go</a>
 
-_**IMPORTANT**: [Sensu Core reached end-of-life (EOL) on December 31, 2019][21], more than 8 years after its inception as an open source software project. Learn more about [Core and Enterprise EOL][31]._
+_**IMPORTANT**: [Sensu Core reached end-of-life (EOL) on December 31, 2019][21], more than 8 years after its inception as an open source software project, and we [permanently removed][32] the Sensu EOL repository on February 1, 2021.<br><br>To migrate to Sensu Go, read the [Sensu Core migration guide][33]._
 
 **These resources can help you migrate to [Sensu Go][24]**, the latest version of Sensu:
 
@@ -104,4 +104,5 @@ training, and other benefits, check out [Sensu Enterprise][14].
 [28]: https://docs.sensu.io/sensu-go/latest/getting-started/sandbox/
 [29]: https://sensu.io/support/
 [30]: https://sensu.io/contact/
-[31]: https://blog.sensu.io/announcing-the-sensu-archives
+[32]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
+[33]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/

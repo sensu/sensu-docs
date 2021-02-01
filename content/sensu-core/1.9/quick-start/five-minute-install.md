@@ -9,6 +9,8 @@ menu:
     parent: quick-start
 ---
 
+_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][17], and we [permanently removed][18] the Sensu EOL repository on February 1, 2021.<br><br>This means the repositories and https://eol-repositories.sensuapp.org URLs specified in the instructions and code examples on this page are no longer available. To migrate to Sensu Go, read the [Sensu Core migration guide][19]._
+
 This installation guide is intended to help you install Sensu Core in
 a development environment for testing purposes. To try out Sensu Enterprise,
 see the [Sensu Enterprise quick install guide][12].
@@ -225,3 +227,6 @@ Now you're ready to start building monitoring event pipelines with Sensu!
 [14]: ../../guides/intro-to-mutators
 [15]: ../../guides/intro-to-checks
 [16]: ../../guides/adding-a-client/#add-a-remote-sensu-client
+[17]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
+[18]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
+[19]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/

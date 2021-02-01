@@ -31,6 +31,8 @@ _NOTE: Compiled gems are tied to CPU architecture for which they are compiled on
 
 First we'll add the Sensu yum repository definition and install Sensu.
 
+_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][1], and we [permanently removed][2] the Sensu EOL repository on February 1, 2021. This means the baseurl specified in the code example below is no longer available. To migrate to Sensu Go, read the [Sensu Core migration guide][3]._
+
 {{< code shell >}}
 printf '[sensu]
 name=sensu
@@ -139,3 +141,7 @@ There is no ACTIVE Load Balancer named 'foo'{{< /code >}}
 ## Recap
 
 In this guide we covered the components involved in building out Sensu pre-compiled plugins. This allows system builders a method to pre-compile gems for systems that you may not want all the build tools required installed on them or for an easy to ship package for deploying gems on systems that may not have access to the internet.
+
+[1]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
+[2]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
+[3]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/
