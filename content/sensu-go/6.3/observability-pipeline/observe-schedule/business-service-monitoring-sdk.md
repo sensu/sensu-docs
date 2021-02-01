@@ -2,13 +2,13 @@
 title: "Business service monitoring SDK"
 linkTitle: "Business Service Monitoring SDK"
 description: "Based on JavaScript expressions, Sensu's business service monitoring SDK provides additional functionality for Sensu rule templates that evaluate components. Read the reference doc to learn about the business service monitoring SDK."
-weight: 70
+weight: 75
 version: "6.3"
 product: "Sensu Go"
 platformContent: false 
 menu:
   sensu-go-6.3:
-    parent: operations
+    parent: observe-schedule
 ---
 
 Sensu's business service monitoring (BSM) feature uses a dedicated SDK of JavaScript-based expressions that provide additional functionality.
