@@ -3,13 +3,13 @@ title: "Rule templates reference"
 linkTitle: "Rule Templates Reference"
 reference_title: "Rule templates"
 type: "reference"
-description: "Sensu's rule templates ..."
-weight: 30
+description: "Sensu's rule templates are resources that Sensu applies to business service components. The rules define the conditions under which Sensu will consider a component online, degraded, or offline. Read this reference to learn more about Sensu's rule templates for business service management."
+weight: 70
 version: "6.3"
 product: "Sensu Go"
 menu: 
   sensu-go-6.3:
-    parent: manage-business-services
+    parent: observe-schedule
 ---
 
 **COMMERCIAL FEATURE**: Access business service management, including rule templates, in the packaged Sensu Go distribution.

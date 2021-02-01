@@ -3,13 +3,13 @@ title: "Components reference"
 linkTitle: "Components Reference"
 reference_title: "Components"
 type: "reference"
-description: "Sensu's components."
-weight: 20
+description: "A component is a meaningful selection of Sensu events for a business service, such as database monitoring events. Component resources allow you to define and manage elements of a business service. Read this reference to learn more about Sensu's business service components."
+weight: 60
 version: "6.3"
 product: "Sensu Go"
 menu: 
   sensu-go-6.3:
-    parent: manage-business-services
+    parent: observe-schedule
 ---
 
 **COMMERCIAL FEATURE**: Access business service management, including components, in the packaged Sensu Go distribution.
