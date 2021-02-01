@@ -1,6 +1,8 @@
 ---
 title: "Secrets API"
 description: "The secrets API controls secrets management for Sensu. This reference describes the Sensu secrets API, including examples. Read on for the full reference."
+api_title: "Secrets API"
+type: "api"
 version: "5.21"
 product: "Sensu Go"
 menu:

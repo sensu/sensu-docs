@@ -31,10 +31,10 @@ This example shows the username/password authentication method:
 {{< code shell >}}
 ? Authentication method: username/password
 ? Sensu Backend URL: http://127.0.0.1:8080
-? Username: YOUR_USERNAME
-? Password: YOUR_PASSWORD
 ? Namespace: default
 ? Preferred output format: tabular
+? Username: YOUR_USERNAME
+? Password: YOUR_PASSWORD
 {{< /code >}}
 
 If you select the OIDC authentication method, if you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.

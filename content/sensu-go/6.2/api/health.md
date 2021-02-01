@@ -1,6 +1,8 @@
 ---
 title: "Health API"
 description: "The Sensu health API provides HTTP access to health data for your Sensu instance. This reference includes examples for retrieving health information about your Sensu instance. Read on for the full reference."
+api_title: "Health API"
+type: "api"
 version: "6.2"
 product: "Sensu Go"
 menu:

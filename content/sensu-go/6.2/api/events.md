@@ -1,6 +1,8 @@
 ---
 title: "Events API"
 description: "The Sensu events API provides HTTP access to event data. This reference includes examples for returning lists of events, creating Sensu events, and more. Read on for the full reference."
+api_title: "Events API"
+type: "api"
 version: "6.2"
 product: "Sensu Go"
 menu:
