@@ -1,6 +1,8 @@
 ---
 title: "Assets API"
 description: "The Sensu assets API provides HTTP access to dynamic runtime asset data. This reference includes examples for returning lists of dynamic runtime assets, creating dynamic runtime assets, and more."
+api_title: "Assets API"
+type: "api"
 version: "6.0"
 product: "Sensu Go"
 menu:

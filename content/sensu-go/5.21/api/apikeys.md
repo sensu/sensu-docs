@@ -1,6 +1,8 @@
 ---
 title: "APIKeys API"
 description: "The Sensu APIKeys API provides HTTP access to API key data. This reference includes examples for returning lists of API keys, creating API keys, and more."
+api_title: "APIKeys API"
+type: "api"
 version: "5.21"
 product: "Sensu Go"
 menu:
