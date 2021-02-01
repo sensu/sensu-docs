@@ -1,6 +1,8 @@
 ---
 title: "Entities API"
 description: "The Sensu entities API provides HTTP access to entity data. This reference includes examples for returning lists of entities, creating Sensu entities, and more. Read on for the full reference."
+api_title: "Entities API"
+type: "api"
 version: "5.21"
 product: "Sensu Go"
 menu:

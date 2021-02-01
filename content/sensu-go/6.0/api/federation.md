@@ -1,6 +1,8 @@
 ---
 title: "Federation API"
 description: "The federation API controls federation of Sensu clusters. This reference describes the Sensu federation API, including examples. Read on for the full reference."
+api_title: "Federation API"
+type: "api"
 version: "6.0"
 product: "Sensu Go"
 menu:
