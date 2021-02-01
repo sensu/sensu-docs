@@ -49,6 +49,8 @@ running the `sensu-server` and `sensu-api` processes._
 
 ## Sensu Enterprise
 
+_IMPORTANT: [Sensu Enterprise reached end-of-life (EOL) on March 31, 2020][1], and we [permanently removed][2] the Sensu EOL repository on February 1, 2021. To migrate to Sensu Go, read the [Sensu Enterprise migration guide][4]._
+
 Sensu Enterprise is installed via native system installer packages for
 Linux-based operating systems, only (i.e. .deb and .rpm). The Sensu Enterprise
 installer packages are made available via the Sensu Enterprise software
@@ -62,4 +64,5 @@ functionality of Sensu server and API in a single process.
 [1]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
 [2]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
 [3]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/
+[4]: https://docs.sensu.io/sensu-enterprise/latest/migration/
 [9]: #sensu-enterprise
