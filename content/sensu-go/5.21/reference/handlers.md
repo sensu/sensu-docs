@@ -19,7 +19,8 @@ The most common are `pipe` handlers, which work similarly to [checks][1] and ena
 - **Pipe handlers** send event data into arbitrary commands via `STDIN`
 - **TCP/UDP handlers** send event data to a remote socket
 - **Handler sets** group event handlers and streamline groups of actions to execute for certain types of events (also called "set handlers")
-- **Handler stacks** are a group of handlers or a handler set that escalate events through a series of different handlers
+
+The handler stack concept describes a group of handlers or a handler set that escalates events through a series of different handlers.
 
 Discover, download, and share Sensu handlers assets using [Bonsai][16], the Sensu asset hub.
 Read [Install plugins with assets][23] to get started.
@@ -97,7 +98,7 @@ Define these attributes in individual handlers instead.
 
 ## Handler stacks
 
-Handler stacks are a group of handlers or a handler set that escalate events through a series of different handlers.
+The handler stack concept refers to a group of handlers or a handler set that escalates events through a series of different handlers.
 For example, suppose you want a handler stack with three levels of escalation:
 
 - Level 1: On the first occurrence, attempt remediation.
@@ -115,7 +116,7 @@ With these event filters and handlers configured, you can create a [handler set]
 You can also list the three handlers in the [handlers array][33] in your check definition instead.
 
 {{% notice protip %}}
-**PRO TIP**: This scenario relies on six different event filters and handlers to describe the handler stack concept, but you can use Sensu dynamic runtime assets and integrations to achieve the same escalating alert levels in other ways.<br><br>
+**PRO TIP**: This scenario relies on six different resources, three event filters and three handlers, to describe the handler stack concept, but you can use Sensu dynamic runtime assets and integrations to achieve the same escalating alert levels in other ways.<br><br>
 For example, you can use the `is_incident` event filter in conjunction with the [Sensu Go Fatigue Check Filter](https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter) asset to control event escalation.
 Sensu's [Ansible](https://bonsai.sensu.io/assets/sensu/sensu-ansible-handler), [Rundeck](https://bonsai.sensu.io/assets/sensu/sensu-rundeck-handler), and [Saltstack](https://bonsai.sensu.io/assets/sensu/sensu-saltstack-handler) auto-remediation integrations and the [Sensu Remediation Handler](https://bonsai.sensu.io/assets/sensu/sensu-remediation-handler) asset also include built-in occurrence- and severity-based event filtering.
 {{% /notice %}}
