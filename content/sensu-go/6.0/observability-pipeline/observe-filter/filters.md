@@ -943,6 +943,55 @@ spec:
 
 {{< /language-toggle >}}
 
+### Reduce alert fatigue for keepalive events
+
+This example `keepalive_timeouts` event filter will match event data with an occurrences value of 1 OR any occurrences value that matches 15 minutes via a modulo operator calculation.
+This limits keepalive timeout event alerts to the first occurrence and every 15 minutes thereafter.
+
+This example uses conditional JavaScript logic to check for an entity-level annotation, `keepalive_alert_minutes`, and if it exists, parses the annotation value as an integer.
+If the annotation does not exist, the event filter uses 15 minutes for the alert cadence. 
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: keepalive_timeouts
+  namespace: default
+spec:
+  action: allow
+  expressions:
+   - is_incident
+   - event.check.occurrences == 1 || event.check.occurrences % parseInt( 60 * ( 'keepalive_alert_minutes' in event.entity.annotations ? parseInt(event.entity.annotations.keepalive_alert_minutes): 15) / event.check.timeout ) == 0
+  runtime_assets: []
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "keepalive_timeouts",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "is_incident",
+      "event.check.occurrences == 1 || event.check.occurrences % parseInt( 60 * ( 'keepalive_alert_minutes' in event.entity.annotations ? parseInt(event.entity.annotations.keepalive_alert_minutes): 15) / event.check.timeout ) == 0"
+    ],
+    "runtime_assets": []
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ### Handle events during office hours only
 
 This event filter evaluates the event timestamp to determine if the event occurred between 9 AM and 5 PM UTC on a weekday.
