@@ -2,6 +2,8 @@
 title: "Authentication providers API"
 linkTitle: "Authentication Providers API"
 description: "The Sensu authentication providers API endpoint provides HTTP access to authentication provider configuration. This reference includes examples of how to return the list of active authentication providers and create or update an authentication provider."
+api_title: "Authentication providers API"
+type: "api"
 version: "6.1"
 product: "Sensu Go"
 menu:

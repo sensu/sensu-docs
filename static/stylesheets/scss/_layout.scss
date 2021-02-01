@@ -105,3 +105,8 @@ main {
     right: 0 !important;
   }
 }
+
+.grid-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}

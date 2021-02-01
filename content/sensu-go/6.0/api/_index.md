@@ -19,6 +19,13 @@ The cluster protocol will replicate your changes to all cluster members.
 
 For information about the Sensu agent API, see the [agent reference][4].
 
+## Available APIs
+
+Access all of the data and functionality of Sensu's first-class API clients, [sensuctl][25] and the [web UI][26], with Sensu's backend REST APIs.
+Use the Sensu APIs to customize your workflows and integrate your favorite Sensu features with other tools and products.
+
+{{< apitypeListing >}}
+
 ## URL format
 
 Sensu API endpoints use the standard URL format `/api/{group}/{version}/namespaces/{namespace}` where:
@@ -707,3 +714,5 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [18]: ../operations/control-access/use-apikeys/#sensuctl-management-commands
 [19]: apikeys/
 [20]: #authenticate-with-the-authentication-api
+[25]: ../sensuctl/
+[26]: ../web-ui/

@@ -1,6 +1,8 @@
 ---
 title: "Tessen API"
 description: "The Sensu Tessen API provides HTTP access to manage Tessen configuration. Read on for the full reference."
+api_title: "Tessen API"
+type: "api"
 version: "6.2"
 product: "Sensu Go"
 menu:
