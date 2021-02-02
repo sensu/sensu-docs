@@ -84,13 +84,14 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **February 2, 2021** &mdash; The latest release of Sensu Go, version 6.2.5, is now available for download.
 
-This patch fixes a bug regarding event occurrence watermark property. This bug interfered with expected behavior when using event filters like the popular fatigue check filter.
+This patch fixes a bug regarding the event occurrences_watermark property.
+This bug interfered with the property's expected behavior when using event filters like the popular fatigue check filter.
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.2.5.
 
 **FIXES:**
 
-- ([Commercial feature][193]) Fixed a bug where occurrences_watermark wouldn't increment for non-zero events when using the PostgreSQL datastore.
+- ([Commercial feature][193]) Fixed a bug that prevented occurrences_watermark from incrementing for non-zero events when using the PostgreSQL datastore.
 
 ## 6.2.4 release notes
 
