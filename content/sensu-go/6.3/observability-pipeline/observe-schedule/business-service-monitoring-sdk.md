@@ -1,7 +1,7 @@
 ---
 title: "Business service monitoring SDK"
 linkTitle: "Business Service Monitoring SDK"
-description: "Based on JavaScript expressions, Sensu's business service monitoring SDK provides additional functionality for Sensu rule templates that evaluate components. Read the reference doc to learn about the business service monitoring SDK."
+description: "Based on JavaScript expressions, Sensu's business service monitoring SDK provides additional functionality for Sensu rule templates that evaluate service components. Read the reference doc to learn about the business service monitoring SDK."
 weight: 75
 version: "6.3"
 product: "Sensu Go"
@@ -13,7 +13,7 @@ menu:
 
 Sensu's business service monitoring (BSM) feature uses a dedicated SDK of JavaScript-based expressions that provide additional functionality.
 
-BSM SDK expressions are defined in [rule templates][3], so they act in the context of determining whether aggregate data derived from a component’s selection of Sensu Go events should trigger a rule-based event.
+BSM SDK expressions are defined in [rule templates][3], so they act in the context of determining whether aggregate data derived from a service component’s selection of Sensu Go events should trigger a rule-based event.
 BSM SDK expressions always receive a single event and some information about that event, like `event.timestamp` or `event.check.interval`.
 
 BSM SDK expressions always return either `true` or `false`.
@@ -85,7 +85,7 @@ You can also configure expressions to ignore silenced events.
 
 ### sensu.Count()
 
-The custom function `sensu.Count()` returns the hour of a UNIX epoch time (in UTC and 24-hour time notation).
+The custom function `sensu.Count()` returns ...
 
 For example, ...:
 
@@ -95,7 +95,7 @@ For example, ...:
 
 ### sensu.Percentage()
 
-The custom function `sensu.Percentage()` returns a number that represents the day of the week of a UNIX epoch time.
+The custom function `sensu.Percentage()` returns ...
 Sunday is `0`.
 
 For example, ...:
@@ -106,7 +106,7 @@ For example, ...:
 
 ### sensu.NewEvent()
 
-The custom function `sensu.NewEvent()` returns
+The custom function `sensu.NewEvent()` returns ...
 
 For example, ...:
 
@@ -116,7 +116,7 @@ For example, ...:
 
 ### sensu.NewMetricEvent()
 
-The custom function `sensu.NewMetricEvent()` returns
+The custom function `sensu.NewMetricEvent()` returns ...
 
 For example, ...:
 
