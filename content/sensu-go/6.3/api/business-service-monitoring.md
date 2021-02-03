@@ -33,7 +33,7 @@ http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components
 -H "Authorization: Key $SENSU_API_KEY"
 [
   {
-    "type": "Component",
+    "type": "ServiceComponent",
     "api_version": "bsm/v1",
     "metadata": {
       "name": "postgresql-component"
@@ -80,7 +80,7 @@ response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal 
 output         | {{< code json >}}
 [
   {
-    "type": "Component",
+    "type": "ServiceComponent",
     "api_version": "bsm/v1",
     "metadata": {
       "name": "postgresql-component"
@@ -156,7 +156,11 @@ In the following example, querying the `/service-components/:service-component` 
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components/my_replicator \
 -H "Authorization: Key $SENSU_API_KEY"
-
+[
+  {
+    "TBD": "TBD"
+  }
+]
 {{< /code >}}
 
 ### API Specification
@@ -168,6 +172,11 @@ example url          | http://hostname:8080/api/enterprise/bsm/v1/namespace/defa
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
+[
+  {
+    "TBD": "TBD"
+  }
+]
 {{< /code >}}
 
 ## Create or update a service component
@@ -182,7 +191,9 @@ The following example demonstrates a request to the `/service-components/:servic
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
--d '' \
+-d '{
+  "TBD": "TBD"
+}' \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components/postgresql-component
 
 HTTP/1.1 200 OK
@@ -195,6 +206,9 @@ HTTP/1.1 200 OK
 description     | Creates or updates the specified business service component.
 example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/service-components/postgresql-component
 payload         | {{< code json >}}
+{
+  "TBD": "TBD"
+}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -234,7 +248,11 @@ The following example demonstrates a request to the `/rule-templates` API endpoi
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/rule-templates \
 -H "Authorization: Key $SENSU_API_KEY"
-
+[
+  {
+    "TBD": "TBD"
+  }
+]
 HTTP/1.1 200 OK
 
 {{< /code >}}
@@ -248,8 +266,45 @@ example url    | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/ru
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< code json >}}
-
+[
+  {
+    "TBD": "TBD"
+  }
+]
 {{< /code >}}
+
+## Create a new rule template
+
+The `/rule-templates` API endpoint provides HTTP POST access to create rule templates.
+
+### Example
+
+The following example demonstrates a request to the `/rule-templates` API endpoint to create the rule template `us-west-2a`.
+
+{{< code shell >}}
+curl -X POST \
+-H "Authorization: Key $SENSU_API_KEY" \
+-H 'Content-Type: application/json' \
+-d '{
+  "TBD": "TBD"
+}' \
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/rule-templates
+
+HTTP/1.1 200 OK
+{{< /code >}}
+
+### API Specification
+
+/rule-templates (POST) | 
+----------------|------
+description     | Creates a new rule template (if none exists).
+example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/rule-templates
+payload         | {{< code json >}}
+{
+  "TBD": "TBD"
+}
+{{< /code >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get a specific rule template
 
@@ -263,7 +318,11 @@ In the following example, querying the `/rule-templates/:rule-template` API endp
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/rule-templates/us-west-2a \
 -H "Authorization: Key $SENSU_API_KEY"
-
+[
+  {
+    "TBD": "TBD"
+  }
+]
 HTTP/1.1 200 OK
 
 {{< /code >}}
@@ -277,7 +336,11 @@ example url          | http://hostname:8080/api/enterprise/bsm/v1/namespace/defa
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
-
+[
+  {
+    "TBD": "TBD"
+  }
+]
 {{< /code >}}
 
 ## Create or update a rule template
@@ -292,7 +355,9 @@ The following example demonstrates a request to the `/rule-templates/:rule-templ
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
--d '' \
+-d '{
+  "TBD": "TBD"
+}' \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/rule-templates/us-west-2a
 
 HTTP/1.1 200 OK
@@ -302,10 +367,12 @@ HTTP/1.1 200 OK
 
 /rule-templates/:rule-template (PUT) | 
 ----------------|------
-description     | Creates or updates the specified rule tempalte.
+description     | Creates or updates the specified rule template.
 example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/rule-templates/us-west-2a
 payload         | {{< code json >}}
-
+{
+  "TBD": "TBD"
+}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
