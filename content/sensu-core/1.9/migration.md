@@ -8,7 +8,7 @@ menu: "sensu-core-1.9"
 product: "Sensu Core"
 ---
 
-_**IMPORTANT**: [Sensu Core reached end-of-life (EOL) on December 31, 2019][73]. This guide describes how to migrate your Sensu instance from Sensu Core to Sensu Go. To migrate from Sensu Enterprise, see the [Sensu Enterprise migration guide][30]. Learn more about [Core and Enterprise EOL][85]._
+_**IMPORTANT**: [Sensu Core reached end-of-life (EOL) on December 31, 2019][73], and we [permanently removed][86] the Sensu EOL repository on February 1, 2021.<br><br>This guide describes how to migrate your Sensu instance from Sensu Core to Sensu Go. To migrate from Sensu Enterprise, see the [Sensu Enterprise migration guide][30]._
 
 Here's a quick overview of Sensu Go's advantages:
 
@@ -58,7 +58,8 @@ This is a fundamental change in Sensu terminology from Sensu Core: the server is
 Clients are represented within Sensu Go as abstract entities that can describe a wider range of system components such as network gear, a web server, or a cloud resource.
 Entities include agent entities that run a Sensu agent and the familiar proxy entities.
 
-_**IMPORTANT**: To install Sensu Go alongside your current Sensu instance, you must [upgrade][33] to at least [Sensu Core 1.9.0-2][34]._
+_**IMPORTANT**: To install Sensu Go alongside your current Sensu instance, you must upgrade to at least Sensu Core 1.9.0-2.
+If you need to upgrade, please [contact Sensu](https://sensu.io/contact)._
 
 ### Sensu Go architecture
 
@@ -388,11 +389,10 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [25]: https://blog.sensu.io/check-configuration-upgrades-with-the-sensu-go-sandbox
 [26]: https://blog.sensu.io/self-service-monitoring-checks-in-sensu-go
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check
-[30]: /sensu-enterprise/3.6/migration
+[30]: https://docs.sensu.io/sensu-enterprise/3.8/migration
 [31]: https://blog.sensu.io/enterprise-features-in-sensu-go
 [32]: https://docs.sensu.io/sensu-go/latest/getting-started/learn-sensu
 [33]: ../installation/upgrading/
-[34]: https://eol-repositories.sensuapp.org/
 [35]: /sensu-go/latest/installation/platforms
 [36]: /sensu-go/latest/installation/configuration-management
 [37]: /sensu-go/latest/installation/recommended-hardware
@@ -446,3 +446,4 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [83]: https://docs.sensu.io/sensu-go/latest/reference/agent/
 [84]: https://docs.sensu.io/sensu-go/latest/reference/backend/
 [85]: https://blog.sensu.io/announcing-the-sensu-archives
+[86]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396

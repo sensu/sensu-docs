@@ -42,9 +42,7 @@ if $programname == 'sensu-agent' then {
 }
 {{< /code >}}
 
-{{% notice note %}}
-**NOTE**: On Ubuntu systems, run `chown -R syslog:adm /var/log/sensu` so syslog can write to that directory.
-{{% /notice %}}
+**On Ubuntu systems**, run `chown -R syslog:adm /var/log/sensu` so syslog can write to that directory.
 
 Restart rsyslog and journald to apply the new configuration:
 
@@ -52,6 +50,11 @@ Restart rsyslog and journald to apply the new configuration:
 systemctl restart systemd-journald
 systemctl restart rsyslog
 {{< /code>}}
+
+{{% notice note %}}
+**NOTE**: Sensu log messages include the Sensu [log level](../../maintain-sensu/troubleshoot/#log-levels) as part of the log data.
+Users with rsyslog expertise may be able to extract the log level from Sensu log messages and use rsyslog processing capabilities to separate the log messages into different files based on log level.
+{{% /notice %}}
 
 ## Set up log rotation
 
@@ -96,7 +99,7 @@ logrotate -d /etc/logrotate.d/sensu.conf
 
 ## Next steps
 
-Sensu also offers logging of event data to a separate log file as a [commercial feature][2].
+Sensu also offers logging of event data to a separate JSON log file as a [commercial feature][2].
 See the [Sensu backend reference][1] for more information about event logging.
 
 
