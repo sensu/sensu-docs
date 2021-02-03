@@ -18,18 +18,20 @@ software project][1] and collectively referred to as Sensu Core. Sensu Core
 provides multiple processes, including the [Sensu server][2] (`sensu-server`),
 [Sensu API][3] (`sensu-api`), and [Sensu client][4] (`sensu-client`).
 
+_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][7], and we [permanently removed][8] the Sensu EOL repository on February 1, 2021. To migrate to Sensu Go, read the [Sensu Core migration guide][9]._
+
 Installer packages are available for most modern operating systems via native
 installer packages (e.g. .deb, .rpm, .msi, .pkg, etc) which are available for
 download using the links below and from package manager repositories for
 APT (for Ubuntu/Debian systems), and YUM (for RHEL/CentOS).
 
-- [FreeBSD][7]
-- [IBM AIX][8]
-- [Mac OS X][9]
-- [Microsoft Windows][10]
-- [Solaris 10][11] or [Solaris 11][12]
-- [RHEL/CentOS][13]
-- [Ubuntu/Debian][14]
+- FreeBSD
+- IBM AIX
+- Mac OS X
+- Microsoft Windows
+- Solaris 10 or Solaris 11
+- RHEL/CentOS
+- Ubuntu/Debian
 
 _NOTE: although Sensu Core packages are available for a variety of platforms
 &ndash; thus making it technically possible to run the `sensu-server` and
@@ -55,6 +57,8 @@ running the `sensu-server` and `sensu-api` processes._
 - [Oracle Solaris](../../platforms/sensu-on-oracle-solaris/#sensu-core)
 
 ## Sensu Enterprise
+
+_IMPORTANT: [Sensu Enterprise reached end-of-life (EOL) on March 31, 2020][7], and we [permanently removed][8] the Sensu EOL repository on February 1, 2021. To migrate to Sensu Go, read the [Sensu Enterprise migration guide][10]._
 
 [Sensu Enterprise][5] is designed to be a drop-in replacement for the Sensu Core
 server and API, _only_ (i.e. Sensu Enterprise uses the same client as Sensu
@@ -82,12 +86,7 @@ by Sensu**.
 [4]:  ../../reference/clients/
 [5]:  https://sensu.io/products/enterprise
 [6]:  https://sensu.io/products/enterprise
-[7]: https://eol-repositories.sensuapp.org/freebsd/
-[8]: https://eol-repositories.sensuapp.org/aix/
-[9]: https://eol-repositories.sensuapp.org/osx/
-[10]: https://eol-repositories.sensuapp.org/msi/
-[11]: https://eol-repositories.sensuapp.org/solaris/pkg/
-[12]: https://eol-repositories.sensuapp.org/solaris/ips/
-[13]: https://eol-repositories.sensuapp.org/yum/
-[14]: https://eol-repositories.sensuapp.org/apt/pool/
-
+[7]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
+[8]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
+[9]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/
+[10]: https://docs.sensu.io/sensu-enterprise/latest/migration/

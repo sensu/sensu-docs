@@ -713,6 +713,8 @@ subscriptions:
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a name="handlers-array"></a>
+
 |handlers    |      |
 -------------|------
 description  | Array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string.
