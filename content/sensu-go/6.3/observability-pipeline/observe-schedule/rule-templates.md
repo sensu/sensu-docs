@@ -3,7 +3,7 @@ title: "Rule templates reference"
 linkTitle: "Rule Templates Reference"
 reference_title: "Rule templates"
 type: "reference"
-description: "Sensu's rule templates are resources that Sensu applies to business service components. The rules define the conditions under which Sensu will consider a component online, degraded, or offline. Read this reference to learn more about Sensu's rule templates for business service management."
+description: "Sensu's rule templates are resources that Sensu applies to business service components. The rules define the conditions under which Sensu will consider a service component online, degraded, or offline. Read this reference to learn more about Sensu's rule templates for business service management."
 weight: 70
 version: "6.3"
 product: "Sensu Go"
@@ -16,12 +16,12 @@ menu:
 For more information, see [Get started with commercial features][4].
 
 Rule templates are resources that Sensu applies to business service [components][3].
-The rules define the conditions under which Sensu will consider a component online, degraded, or offline.
-Rules apply to aggregate data derived from a component’s selection of Sensu Go events.
+The rules define the conditions under which Sensu will consider a service component online, degraded, or offline.
+Rules apply to aggregate data derived from a service component’s selection of Sensu Go events.
 
 In rule templates, you configure the conditions for creating an event with an ECMAScript 5 (JavaScript) expression.
-When you add rule templates by reference in your component definitions, Sensu evaluate events according to the monitoring rules you configure in the rule template.
-Monitoring rules create events when one or more thresholds are exceeded; for example, a threshold might be fewer than 70% of a component's selected events have a check status of OK.
+When you add rule templates by reference in your service component definitions, Sensu evaluate events according to the monitoring rules you configure in the rule template.
+Monitoring rules create events when one or more thresholds are exceeded; for example, a threshold might be fewer than 70% of a service component's selected events have a check status of OK.
 
 Components can reference more than one rule template.
 Sensu evaluates each rule separately, and each rule produces its own event as output.
@@ -122,7 +122,7 @@ spec:
 type         | 
 -------------|------
 description  | Top-level attribute that specifies the resource type. For rule template configuration, the type should always be `RuleTemplate`.
-required     | Required for component configuration in `wrapped-json` or `yaml` format.
+required     | Required for rule template configuration in `wrapped-json` or `yaml` format.
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}

@@ -1,9 +1,9 @@
 ---
-title: "Components reference"
-linkTitle: "Components Reference"
-reference_title: "Components"
+title: "Service components reference"
+linkTitle: "Service Components Reference"
+reference_title: "Service components"
 type: "reference"
-description: "A component is a meaningful selection of Sensu events for a business service, such as database monitoring events. Component resources allow you to define and manage elements of a business service. Read this reference to learn more about Sensu's business service components."
+description: "A service component is a meaningful selection of Sensu events for a business service, such as database monitoring events. Service component resources allow you to define and manage elements of a business service. Read this reference to learn more about Sensu's business service components."
 weight: 60
 version: "6.3"
 product: "Sensu Go"
@@ -12,34 +12,34 @@ menu:
     parent: observe-schedule
 ---
 
-**COMMERCIAL FEATURE**: Access business service management, including components, in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access business service management, including service components, in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][9].
 
 Each business service entity consists of a number of underlying business service components.
 Business service components are resources for defining and managing elements of a business service.
 A component is a meaningful selection of Sensu events for a business service, such as database monitoring events.
 
-A component includes event selectors to define the events that the component includes, a component scheduler (either an interval or cron expression), and references to at least one monitoring rule template with arguments.
-The monitoring rules are evaluated against aggregate data derived from the component's selection of events.
+A service component includes event selectors to define the events that the component includes, a service component scheduler (either an interval or cron expression), and references to at least one monitoring rule template with arguments.
+The monitoring rules are evaluated against aggregate data derived from the service component's selection of events.
 Monitoring rules are configured in a separate resource: [rule templates][8].
 
-## Component scheduling
+## Service component scheduling
 
-Sensu executes components on sensu-backend processes in a round-robin fashion and according to a schedule specified by an interval or a cron expression in the component definition.
-During each execution of the component, Sensu retrieves the events identified in the component's query expression and processes these events according to the monitoring rules specified in the component definition.
+Sensu executes service components on sensu-backend processes in a round-robin fashion and according to a schedule specified by an interval or a cron expression in the component definition.
+During each execution of the service component, Sensu retrieves the events identified in the component's query expression and processes these events according to the monitoring rules specified in the service component definition.
 The rules can emit new events based on the component input.
 
-## Component example
+## Service component example
 
-The example component below is a dependency of the `account-manager` and `tessen` business services.
+The example service component below is a dependency of the `account-manager` and `tessen` business services.
 Sensu will execute the component at 60-second intervals for entities that include labels `region` with the value `us-west-2` **and** `cmpt` with the value `psql`.
-The monitoring rule template for the component is `status-threshold`.
+The monitoring rule template for the service component is `status-threshold`.
 
 {{< language-toggle >}}
 
 {{< code yml >}}
 ---
-type: Component
+type: ServiceComponent
 api_version: bsm/v1
 metadata:
   name: postgresql-component
@@ -66,7 +66,7 @@ spec:
 
 {{< code json >}}
 {
-  "type": "Component",
+  "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
     "name": "postgresql-component",
@@ -105,30 +105,30 @@ spec:
 
 {{< /language-toggle >}}
 
-## Component specification
+## Service component specification
 
 ### Top-level attributes
 
 type         | 
 -------------|------
-description  | Top-level attribute that specifies the resource type. For component configuration, the type should always be `Component`.
-required     | Required for component configuration in `wrapped-json` or `yaml` format.
+description  | Top-level attribute that specifies the resource type. For service component configuration, the type should always be `ServiceComponent`.
+required     | Required for service component configuration in `wrapped-json` or `yaml` format.
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-type: Component
+type: ServiceComponent
 {{< /code >}}
 {{< code json >}}
 {
-  "type": "Component"
+  "type": "ServiceComponent"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For component configuration in this version of Sensu, the api_version should always be `bsm/v1`.
-required     | Required for component configuration in `wrapped-json` or `yaml` format.
+description  | Top-level attribute that specifies the Sensu API group and version. For service component configuration in this version of Sensu, the api_version should always be `bsm/v1`.
+required     | Required for service component configuration in `wrapped-json` or `yaml` format.
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
@@ -143,7 +143,7 @@ api_version: bsm/v1
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the component's `name` and `namespace` as well as the `created_by` field.
+description  | Top-level scope that contains the service component's `name` and `namespace` as well as the `created_by` field.
 required     | true
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -166,8 +166,8 @@ metadata:
 
 spec         | 
 -------------|------
-description  | Top-level map that includes the component configuration [spec attributes][6].
-required     | Required for component configuration in `wrapped-json` or `yaml` format.
+description  | Top-level map that includes the service component configuration [spec attributes][6].
+required     | Required for service component configuration in `wrapped-json` or `yaml` format.
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
@@ -226,7 +226,7 @@ spec:
 
 name         |      |
 -------------|------
-description  | Name for the component that is used internally by Sensu.
+description  | Name for the service component that is used internally by Sensu.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
@@ -242,7 +242,7 @@ name: postgresql-component
 
 namespace    |      |
 -------------|------
-description  | [Sensu RBAC namespace][7] that the component belongs to.
+description  | [Sensu RBAC namespace][7] that the service component belongs to.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
@@ -258,7 +258,7 @@ namespace: default
 
 | created_by |      |
 -------------|------
-description  | Username of the Sensu user who created the component or last updated the component. Sensu automatically populates the `created_by` field when the component is created or updated.
+description  | Username of the Sensu user who created or last updated the service component. Sensu automatically populates the `created_by` field when the service component is created or updated.
 required     | false
 type         | String
 example      | {{< language-toggle >}}
@@ -276,7 +276,7 @@ created_by: admin
 
 services     | 
 -------------|------ 
-description  | List of business service entities that include the component as a dependency.
+description  | List of business service entities that include the service component as a dependency.
 required     | true
 type         | Array
 example      | {{< language-toggle >}}
@@ -299,7 +299,7 @@ services:
 
 interval     | 
 -------------|------ 
-description  | How often the component should be executed. In seconds. Each component must have a value for either the `interval` or the `cron` attribute, but not both.
+description  | How often the service component should be executed. In seconds. Each service component must have a value for either the `interval` or the `cron` attribute, but not both.
 required     | true (unless `cron` is configured)
 type         | Integer
 example      | {{< language-toggle >}}
@@ -315,8 +315,8 @@ interval: 60
 
 cron         | 
 -------------|------
-description  | When the component should be executed, using [cron syntax][1] or [these predefined schedules][2]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][3] for the cron attribute. {{% notice note %}}
-**NOTE**: If you're using YAML to create a component that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`).
+description  | When the service component should be executed, using [cron syntax][1] or [these predefined schedules][2]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][3] for the cron attribute. {{% notice note %}}
+**NOTE**: If you're using YAML to create a service component that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`).
 {{% /notice %}}
 required     | true (unless `interval` is configured)
 type         | String
@@ -333,7 +333,7 @@ cron: 0 0 * * *
 
 query        | 
 -------------|------ 
-description  | Query expression that describes the events that each monitoring rule should process for the component.
+description  | Query expression that describes the events that each monitoring rule should process for the service component.
 required     | true
 type         | Array
 example      | {{< language-toggle >}}
@@ -356,7 +356,7 @@ query:
 
 rules        | 
 -------------|------ 
-description  | List of the [rule templates and arguments][4] that Sensu should apply for the component. Sensu evaluates each rule separately, and each rule produces its own event as output.
+description  | List of the [rule templates and arguments][4] that Sensu should apply for the service component. Sensu evaluates each rule separately, and each rule produces its own event as output.
 required     | true
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -384,7 +384,7 @@ rules:
 
 handlers     | 
 -------------|------ 
-description  | List of handlers to use for the events the component produces. The component will set the handlers property in events that are produced by rule evaluation. If no handlers are specified in the component definition, handlers can be set by the monitoring rule itself via template arguments. Handlers specified in the component definition will override any handlers set by rule evaluation.
+description  | List of handlers to use for the events the service component produces. The service component will set the handlers property in events that are produced by rule evaluation. If no handlers are specified in the service component definition, handlers can be set by the monitoring rule itself via template arguments. Handlers specified in the service component definition will override any handlers set by rule evaluation.
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -407,7 +407,7 @@ handlers:
 
 type         | 
 -------------|------ 
-description  | Type of selector to use to identify the events that the monitoring rule should process: `fieldSelector` or `labelSelector`.
+description  | Type of selector to use to identify the events that the service component's monitoring rule should process: `fieldSelector` or `labelSelector`.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
@@ -423,7 +423,7 @@ type: labelSelector
 
 value        | 
 -------------|------ 
-description  | Selector expression the query will use to identify the events that the monitoring rule should process.
+description  | Selector expression the query will use to identify the events that the service component's monitoring rule should process.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
@@ -441,7 +441,7 @@ value: region == us-west-2 && cmpt == psql
 
 template     | 
 -------------|------ 
-description  | Name of the [rule template][8] the component should use.
+description  | Name of the [rule template][8] the service component should use.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
@@ -457,7 +457,7 @@ template: status-threshold
 
 arguments    | 
 -------------|------ 
-description  | The [arguments][5] to pass to the [rule template][8] for the component.
+description  | The [arguments][5] to pass to the [rule template][8] for the service component.
 required     | false
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
