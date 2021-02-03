@@ -160,5 +160,5 @@ This BSM SDK expression returns `true` if ...:
 
 
 [1]: https://github.com/robertkrimen/otto
-[2]: ../../observe-schedule/backend/#event-logging
+[2]: ../backend/#event-logging
 [3]: ../filters/#build-event-filter-expressions-with-sensu-query-expressions
