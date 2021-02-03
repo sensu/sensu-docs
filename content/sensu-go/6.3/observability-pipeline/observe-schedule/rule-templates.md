@@ -465,8 +465,7 @@ properties:
 
 [1]: https://json-schema.org/
 [2]: #rule-properties
-[3]: ../components
+[3]: ../service-components/
 [4]: ../../../commercial/
 [5]: #spec-attributes
 [6]: ../../control-access/rbac/#namespaces
-
