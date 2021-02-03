@@ -128,7 +128,9 @@ The following example demonstrates a request to the `/service-components` API en
 curl -X POST \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
--d '' \
+-d '{
+  "TBD": "TBD"
+}' \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components
 
 HTTP/1.1 200 OK
@@ -141,6 +143,9 @@ HTTP/1.1 200 OK
 description     | Creates a new business service component (if none exists).
 example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/service-components
 payload         | {{< code json >}}
+{
+  "TBD": "TBD"
+}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
