@@ -14,30 +14,30 @@ menu:
 Sensu's business service management allows you to monitor every component in your system with a top-down approach that produces meaningful alerts, prevents alert fatigue, and helps you focus on your core business services.
 
 An example of a business service might be a company website.
-The website itself might have three components: the primary webserver that publishes website pages, a backup webserver in case the primary webserver fails, and an inventory database for the shop section of the website.
+The website itself might have three service components: the primary webserver that publishes website pages, a backup webserver in case the primary webserver fails, and an inventory database for the shop section of the website.
 At least one webserver and the database must be in an OK state for the website to be fully available.
 
-Business service management allows you to create customized monitoring rules that specify the threshold for taking action for different service components as well as what action to take for different service components.
+Business service management allows you to create customized monitoring rules that specify the threshold for taking action for different service components as well as what action to take.
 
 To continue the company website example, failure of the primary webserver does not affect the website availability because the backup webserver automatically takes over.
 In this scenario, a monitoring rule might create a ticket to address the next workday.
 On the other hand, failure of both webservers or the inventory database does affect website availability, so another monitoring rule that triggers an alert to the on-call operator might apply in that scenario.
 
-Business service management requires two resources that work together to achieve top-down monitoring: [components][1] and [rule templates][2].
-Components are the elements that make up your business services.
+Business service management requires two resources that work together to achieve top-down monitoring: [service components][1] and [rule templates][2].
+Service components are the elements that make up your business services.
 Rule templates define the monitoring rules that produce events for components based on customized evaluation expressions.
 
-## Example component and rule template definitions
+## Example service component and rule template definitions
 
-Although you can configure components and rule templates within the web UI, both are Sensu resources with complete definitions.
+Although you can configure service components and rule templates within the web UI, both are Sensu resources with complete definitions.
 
-Here is an example component definition that references the `status-threshold` rule template:
+Here is an example service component definition that references the `status-threshold` rule template:
 
 {{< language-toggle >}}
 
 {{< code yml >}}
 ---
-type: Component
+type: ServiceComponent
 api_version: bsm/v1
 metadata:
   name: postgresql-component
@@ -64,7 +64,7 @@ spec:
 
 {{< code json >}}
 {
-  "type": "Component",
+  "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
     "name": "postgresql-component",
@@ -239,5 +239,5 @@ Events produced by monitoring rule evaluation are processed like any other &mdas
 ...
 
 
-[1]: components/
+[1]: service-components/
 [2]: rule-templates/
