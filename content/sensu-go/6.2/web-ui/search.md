@@ -24,12 +24,12 @@ Web UI search supports two equality-based operators, two set-based operators, on
 
 | operator  | description        | example                |
 | --------- | ------------------ | ---------------------- |
-| `==`      | Equality           | `check.publish == true`
+| `==`      | Equality           | `check.publish == "true"`
 | `!=`      | Inequality         | `check.namespace != "default"`
-| `in`      | Included in        | `linux in check.subscriptions`
-| `notin`   | Not included in    | `slack notin check.handlers`
+| `in`      | Included in        | `"linux" in check.subscriptions`
+| `notin`   | Not included in    | `"slack" notin check.handlers`
 | `matches` | Substring matching | `check.name matches "linux-"`
-| `&&`      | Logical AND        | `check.publish == true && slack in check.handlers`
+| `&&`      | Logical AND        | `check.publish == "true" && "slack" in check.handlers`
 
 For details about operators, see [API response filtering operators][7].
 
@@ -89,25 +89,25 @@ Fields are specific [resource attributes][2] in dot notation.
 For example, this search will retrieve all events for entities with the `linux` subscription:
 
 {{< code text >}}
-linux in event.entity.subscriptions
+"linux" in event.entity.subscriptions
 {{< /code >}}
 
 This search will retrieve all events that whose status is *not* equal to `passing`:
 
 {{< code text >}}
-event.check.state != passing
+event.check.state != "passing"
 {{< /code >}}
 
 To display only events for checks with the subscription `webserver`, enter this search statement on the **Events page**:
 
 {{< code text >}}
-webserver in event.check.subscriptions
+"webserver" in event.check.subscriptions
 {{< /code >}}
 
 To display only checks that use the `slack` handler, enter this search statement on the **Checks page**:
 
 {{< code text >}}
-slack in check.handlers
+"slack" in check.handlers
 {{< /code >}}
 
 ## Search for numbers or special characters
@@ -145,7 +145,7 @@ check.labels.version matches "7"
 To display only checks with the `type` label set to `server`, enter this search statement on the **Checks page**:
 
 {{< code text >}}
-check.labels.type == server
+check.labels.type == "server"
 {{< /code >}}
 
 To search for entities that are labeled for any region in the US (e.g. `us-east-1`, `us-west-1`, and so on):
@@ -176,13 +176,13 @@ This search will retrieve events with the `type` label set to `server`, no matte
 To use the logical AND operator (`&&`) to return checks that include a `linux` subscription and the `slack` handler:
 
 {{< code text >}}
-linux in check.subscriptions && slack in check.handlers
+"linux" in check.subscriptions && "slack" in check.handlers
 {{< /code >}}
 
 To return events that include a `windows` check subscription and any email handler:
 
 {{< code text >}}
-windows in event.check.subscriptions && event.check.handlers matches email
+"windows" in event.check.subscriptions && event.check.handlers matches "email"
 {{< /code >}}
 
 ## Save a search
