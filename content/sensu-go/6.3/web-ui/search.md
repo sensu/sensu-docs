@@ -166,7 +166,7 @@ For label-based event searches, the web UI merges check and entity labels into a
 For example, to display events with the `type` label set to `server`, enter this search statement on the **Events** page:
 
 {{< code text >}}
-event.labels.type == server
+event.labels.type == "server"
 {{< /code >}}
 
 This search will retrieve events with the `type` label set to `server`, no matter whether the label is defined in the event's corresponding check or entity configuration.
