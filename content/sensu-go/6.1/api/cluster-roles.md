@@ -2,6 +2,8 @@
 title: "Cluster roles API"
 linkTitle: "Cluster Roles API"
 description: "The Sensu cluster roles API provides HTTP access to cluster role data. This reference includes examples for returning lists of cluster roles, creating Sensu cluster roles, and more. Read on for the full reference."
+api_title: "Cluster roles API"
+type: "api"
 version: "6.1"
 product: "Sensu Go"
 menu:

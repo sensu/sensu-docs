@@ -460,15 +460,15 @@ debug: true{{< /code >}}
 
 | deregistration-handler |      |
 -------------------------|------
-description              | Default event handler to use when processing agent deregistration events.
+description              | Name of the default event handler to use when processing agent deregistration events.
 type                     | String
 default                  | `""`
 environment variable     | `SENSU_BACKEND_DEREGISTRATION_HANDLER`
 example                  | {{< code shell >}}# Command line example
-sensu-backend start --deregistration-handler /path/to/handler.sh
+sensu-backend start --deregistration-handler deregister
 
 # /etc/sensu/backend.yml example
-deregistration-handler: "/path/to/handler.sh"{{< /code >}}
+deregistration-handler: "deregister"{{< /code >}}
 
 
 | labels     |      |

@@ -1,6 +1,8 @@
 ---
 title: "Cluster API"
 description: "The Sensu cluster API endpoint provides HTTP access to Sensu cluster data. This reference includes examples for returning the cluster definition, creating a cluster member, and more. Read on for the full reference."
+api_title: "Cluster API"
+type: "api"
 version: "6.3"
 product: "Sensu Go"
 menu:

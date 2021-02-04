@@ -1,6 +1,8 @@
 ---
 title: "Federation API"
 description: "The federation API controls federation of Sensu clusters. This reference describes the Sensu federation API, including examples. Read on for the full reference."
+api_title: "Federation API"
+type: "api"
 version: "6.1"
 product: "Sensu Go"
 menu:
@@ -369,7 +371,7 @@ The `/clusters/:cluster` API endpoint provides HTTP GET access to data for a spe
 
 ### Example {#clusterscluster-get-example}
 
-In the following example, querying the `/clusters/:cluster` API endpoint returns a JSON map that contains the requested `:etcd-replicator`.
+In the following example, querying the `/clusters/:cluster` API endpoint returns a JSON map that contains the requested `:cluster`.
 
 {{< code shell >}}
 curl -X GET \
