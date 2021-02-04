@@ -142,12 +142,6 @@ For example, to search based on a check label `version`, use:
 check.labels.version matches "7"
 {{< /code >}}
 
-To search based on an event label `type`, use:
-
-{{< code text >}}
-event.labels.type == server
-{{< /code >}}
-
 To display only checks with the `type` label set to `server`, enter this search statement on the **Checks page**:
 
 {{< code text >}}
@@ -164,6 +158,18 @@ entity.labels.region matches "us"
 **NOTE**: Web UI searches for label names that include hyphens are not supported.
 Searches that include a hyphenated label name, such as `entity.labels.imported-by`, will return an unsupported token error.
 {{% /notice %}}
+
+### Search for event labels
+
+For label-based event searches, the web UI merges check and entity labels into a single search term: `event.labels.[KEY]`.
+
+For example, to display events with the `type` label set to `server`, enter this search statement on the **Events** page:
+
+{{< code text >}}
+event.labels.type == server
+{{< /code >}}
+
+This search will retrieve events with the `type` label set to `server`, no matter whether the label is defined in the event's corresponding check or entity configuration.
 
 ## Use the logical AND operator
 
