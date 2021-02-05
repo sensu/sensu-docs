@@ -16,7 +16,7 @@ menu:
 Sensu Go offers first-class built-in support for collecting and processing metrics for your entire infrastructure.
 
 In Sensu, metrics are events that contain metrics data.
-Sensu metrics can be metrics-only events created with data from the [Sensu StatsD listener][2] or [Prometheus][7].
+Sensu events may contain check execution results, metrics, or both. Certain inputs like the [Sensu StatsD listener][2] or patterns like the [Prometheus][7] collector pattern will create metric-only events.
 They can also be status and metrics events from [check output metric extraction][4].
 
 ## Extract metrics from check output
@@ -26,7 +26,7 @@ The Sensu agent can extract metrics data from check command output and populate 
 To extract metrics from check output, the check must include an [`output_metric_format` attribute][10] that specifies one of Sensu's [supported output metric formats][9].
 When a check includes the `output_metric_format` attribute, Sensu will extract the specified metrics from the check output and add them to the event data in the [metrics attribute][5].
 
-In addition, the check command must output metrics in the supported metrics formats.
+In addition, the check command output must present metrics in one of the supported metrics formats.
 
 ### Supported output metric formats
 

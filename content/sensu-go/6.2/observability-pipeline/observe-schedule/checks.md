@@ -863,7 +863,7 @@ example      | {{< code shell >}}"name": "instance"{{< /code >}}
 
 value        | 
 -------------|------
-description  | Value for the [output metric tag][19]. Use [check token substitution][39] for the `value` attribute, with dot-notation access to any event attribute.
+description  | Value for the [output metric tag][19]. Use [check token substitution][39] syntax for the `value` attribute, with dot-notation access to any event attribute.
 required     | true
 type         | String
 example      | {{< code shell >}}"value": "{{ .name }}"{{< /code >}}
