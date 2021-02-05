@@ -69,25 +69,51 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][7] resource type. Tessen configuration should always be type `TessenConfig`.
 required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][7].
 type         | String
-example      | {{< code shell >}}"type": "TessenConfig"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: TessenConfig
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "TessenConfig"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For Tessen configuration in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][7].
 type         | String
-example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "core/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes Tessen configuration [spec attributes][8].
 required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][7].
 type         | Map of key-value pairs
-example      | {{< code shell >}}
-"spec": {
-  "opt_out": false
+example      | {{< language-toggle >}}
+{{< code yml >}}
+spec:
+  opt_out: false
+{{< /code >}}
+{{< code json >}}
+{
+  "spec": {
+    "opt_out": false
+    }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 ### Spec attributes
 
@@ -97,7 +123,16 @@ description  | `true` to opt out of Tessen. Otherwise, `false`. Tessen is enable
 required     | true
 type         | Boolean
 default      | `false`
-example      | {{< code shell >}}opt_out": false{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+opt_out: false
+{{< /code >}}
+{{< code json >}}
+{
+  "opt_out": false
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ## Tessen configuration example
 
@@ -107,6 +142,7 @@ To manage Tessen for unlicensed Sensu instances with the [Tessen API][2], use no
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: TessenConfig
 api_version: core/v2
 spec:

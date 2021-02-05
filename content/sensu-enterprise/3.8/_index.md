@@ -10,8 +10,7 @@ layout: "single"
 
 [Learn about Sensu Go](/sensu-go/latest/)
 
-_IMPORTANT: [Sensu Enterprise reached end-of-life (EOL) on March 31, 2020](https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise), more than 8 years after Sensu Core's inception as an open source software project.
-Learn more about [Core and Enterprise EOL](https://blog.sensu.io/announcing-the-sensu-archives) and [EOL schedule updates](https://discourse.sensu.io/t/updates-to-the-sensu-core-and-enterprise-eol-schedule-in-response-to-covid-19/1686)._
+_IMPORTANT: [Sensu Enterprise reached end-of-life (EOL) on March 31, 2020](https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise), more than 8 years after Sensu Core's inception as an open source software project, and we [permanently removed][27] the Sensu EOL repository on February 1, 2021.<br><br>To migrate to Sensu Go, see the [Sensu Enterprise migration guide][28]._
 
 Sensu Enterprise is the reliable, scalable monitoring event pipeline built to reduce operator burden and make developers and business owners happy.
 Built on [Sensu Core][3], Sensu Enterprise includes built-in integrations and features designed to solve your organization's unique monitoring challenges.
@@ -106,3 +105,5 @@ upgrading from Sensu Core to Sensu Enterprise and Sensu Enterprise Dashboard.
 [24]: #upgrading-to-sensu-enterprise
 [25]: /sensu-enterprise-dashboard/latest/rbac/overview
 [26]: built-in-mutators
+[27]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
+[28]: migration/

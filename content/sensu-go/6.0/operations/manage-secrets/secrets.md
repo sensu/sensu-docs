@@ -42,39 +42,76 @@ type         |
 description  | Top-level attribute that specifies the resource type. For secrets configuration, the type should always be `Secret`.
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | String
-example      | {{< code shell >}}"type": "Secret"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Secret
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "Secret"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For secrets configuration in this version of Sensu, the api_version should always be `secrets/v1`.
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | String
-example      | {{< code shell >}}"api_version": "secrets/v1"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: secrets/v1
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "secrets/v1"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 metadata     |      |
 -------------|------
 description  | Top-level scope that contains the secret's `name` and `namespace` as well as the `created_by` field.
 required     | true
 type         | Map of key-value pairs
-example      | {{< code shell >}}
-"metadata": {
-  "name": "sensu-ansible-token",
-  "namespace": "default",
-  "created_by": "admin"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+metadata:
+  name: sensu-ansible-token
+  namespace: default
+  created_by: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "metadata": {
+    "name": "sensu-ansible-token",
+    "namespace": "default",
+    "created_by": "admin"
+  }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes secrets configuration [spec attributes][8].
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | Map of key-value pairs
-example      | {{< code shell >}}
-"spec": {
-  "id": "ANSIBLE_TOKEN",
-  "provider": "env"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+spec:
+  id: ANSIBLE_TOKEN
+  provider: env
+{{< /code >}}
+{{< code json >}}
+{
+  "spec": {
+    "id": "ANSIBLE_TOKEN",
+    "provider": "env"
+  }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 ### Metadata attributes
 
@@ -83,21 +120,48 @@ name         |      |
 description  | Name for the secret that is used internally by Sensu.
 required     | true
 type         | String
-example      | {{< code shell >}}"name": "sensu-ansible-token"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: sensu-ansible-token
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "sensu-ansible-token"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 namespace    |      |
 -------------|------
 description  | [Sensu RBAC namespace][9] that the secret belongs to.
 required     | true
 type         | String
-example      | {{< code shell >}}"namespace": "default"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+namespace: default
+{{< /code >}}
+{{< code json >}}
+{
+  "namespace": "default"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created the secret or last updated the secret. Sensu automatically populates the `created_by` field when the secret is created or updated.
 required     | false
 type         | String
-example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created_by: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### Spec attributes
 
@@ -106,14 +170,32 @@ id           |
 description  | Identifying key for the provider to retrieve the secret. For the `Env` secrets provider, the `id` is the environment variable. For the `Vault` secrets provider, the `id` is the secret path and key name in the form of `secret/path#key`.
 required     | true
 type         | String
-example      | {{< code shell >}}"id": "secret/ansible#token"{{< /code >}}
+example | {{< language-toggle >}}
+{{< code yml >}}
+id: secret/ansible#token
+{{< /code >}}
+{{< code json >}}
+{
+  "id": "secret/ansible#token"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 provider     | 
 -------------|------ 
 description  | Name of the provider with the secret.
 required     | true
 type         | String
-example      | {{< code shell >}}"provider": "vault"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+provider: vault
+{{< /code >}}
+{{< code json >}}
+{
+  "provider": "vault"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ## Secret configuration
 
