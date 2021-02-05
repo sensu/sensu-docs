@@ -21,6 +21,11 @@ Before you can use this guide, you must have [generated the certificates][12] yo
 
 ## Secure etcd peer communication
 
+{{% notice warning %}}
+**WARNING**: You must update the default configuration for Sensu's embedded etcd with an explicit, non-default configuration to secure etcd communication in transit.
+If you do not properly configure secure etcd communication, your Sensu configuration will be vulnerable to unauthorized manipulation via etcd client connections.
+{{% /notice %}}
+
 You can secure etcd peer communication via the configuration at `/etc/sensu/backend.yml`.
 Here are the parameters you'll need to configure:
 
@@ -39,6 +44,14 @@ etcd-peer-key-file: "/path/to/your/peer/key"
 etcd-peer-client-cert-auth: "true"
 etcd-peer-trusted-ca-file: "/path/to/your/peer/ca/file"
 {{< /code >}}
+
+To properly secure etcd communication, replace the default parameter values in your backend store configuration with non-default versions of these certificates, keys, and URLs:
+
+ - A certificate and key for the `etcd-cert-file` and `etcd-key-file` to secure client communication
+ - A certificate and key for the `etcd-peer-cert-file` and `etcd-peer-key-file` to secure cluster communication
+ - Non-default values for `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-advertise-client-urls`
+
+You must also set `etcd-peer-client-cert-auth` to `true` to ensure that etcd only allows connections from clients and peers that present a valid, trusted certificate.
 
 ## Secure the API and web UI
 
