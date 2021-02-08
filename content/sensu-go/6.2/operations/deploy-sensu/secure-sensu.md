@@ -191,7 +191,7 @@ The `Subject:` field indicates the certificate's CN is `client`, so to bind the 
 To enable agent mTLS authentication, create and distribute new certificates and keys according to the [Generate certificates][12] guide.
 Once the TLS certificate and key are in place, [update the agent configuration using `cert-file` and `key-file` security configuration flags][7].
 
-After you create backend and agent certificates, modfiy the backend and agent configuration:
+After you create backend and agent certificates, modify the backend and agent configuration:
 
 {{< code yml >}}
 ##
