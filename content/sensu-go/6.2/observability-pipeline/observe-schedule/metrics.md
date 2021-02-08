@@ -15,28 +15,33 @@ menu:
 
 Sensu Go offers first-class built-in support for collecting and processing metrics for your entire infrastructure.
 
-In Sensu, metrics are events that contain metrics data.
-Sensu events may contain check execution results, metrics, or both. Certain inputs like the [Sensu StatsD listener][2] or patterns like the [Prometheus][7] collector pattern will create metric-only events.
-They can also be status and metrics events from [check output metric extraction][4].
+In Sensu, metrics are an optional component of observation data in events.
+Sensu events may contain check execution results, metrics, or both.
+Certain inputs like the [Sensu StatsD listener][2] or patterns like the [Prometheus][7] collector pattern will create metrics-only events.
+Events can also include metrics from [check output metric extraction][4].
+
+{{% notice note %}}
+**NOTE**: This reference describes the metrics component of observation data included in Sensu events, which is distinct from the Sensu metrics API.
+For information about HTTP GET access to internal Sensu metrics, read our [metrics API](../../api/metrics/) documentation.
+{{% /notice %}}
 
 ## Extract metrics from check output
 
 The Sensu agent can extract metrics data from check command output and populate an event's [metrics attribute][5] before sending the event to the Sensu backend for [processing][11].
 
-To extract metrics from check output, the check must include an [`output_metric_format` attribute][10] that specifies one of Sensu's [supported output metric formats][9].
-When a check includes the `output_metric_format` attribute, Sensu will extract the specified metrics from the check output and add them to the event data in the [metrics attribute][5].
+To extract metrics from check output:
 
-In addition, the check command output must present metrics in one of the supported metrics formats.
+- The check `command` execution must output metrics in one of Sensu's [supported output metric formats][9].
+- The check must include the [`output_metric_format` attribute][10] with a value that specifies one of Sensu's [supported output metric formats][9].
+
+When a check includes correctly configured `command` and `output_metric_format` attributes, Sensu will extract the specified metrics from the check output and add them to the event data in the [metrics attribute][5].
+
+You can also configure the check `output_metric_handlers` attribute to use a Sensu handler that is equipped to handle Sensu metrics.
+See the [check reference][3] or [InfluxDB handler guide][23] to learn more.
 
 ### Supported output metric formats
 
 Sensu supports the following formats for check output metric extraction.
-
-| Nagios             |      |
----------------------|------
-output_metric_format | `nagios_perfdata`
-documentation        | [Nagios Performance Data][13]
-example              | {{< code plain >}}PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0, rta=0.80{{< /code >}}
 
 | Graphite           |      |
 ---------------------|------
@@ -49,6 +54,12 @@ example              | {{< code plain >}}local.random.diceroll 4 123456789{{< /c
 output_metric_format | `influxdb_line`
 documentation        | [InfluxDB Line Protocol][15]
 example              | {{< code plain >}}weather,location=us-midwest temperature=82 1465839830100400200{{< /code >}}
+
+| Nagios             |      |
+---------------------|------
+output_metric_format | `nagios_perfdata`
+documentation        | [Nagios Performance Data][13]
+example              | {{< code plain >}}PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0, rta=0.80{{< /code >}}
 
 | OpenTSDB           |      |
 ---------------------|------
@@ -65,6 +76,10 @@ example              | {{< code plain >}}http_requests_total{method="post",code=
 ## Enrich metrics with tags
 
 [Output metric tags][1] are custom tags you can apply to enrich the metric points produced by check output metric extraction.
+
+Use output metric tags for the output metric formats that do not natively support tags: Graphite Plaintext Protocol and Nagios Performance Data.
+
+Values for output metric tags are passed through to the metric points produced by check output metric extraction for formats that natively support tags (InfluxDB Line Protocol, OpenTSDB Data Specification, and Prometheus Exposition Text).
 
 You can use [check token substitution][22] for the [value attribute][21] to include any event attribute in an output metric tag.
 For example, this tag will list the `event.time` attribute:
@@ -94,18 +109,19 @@ The [metrics attribute][5] format automatically reduces metrics data complexity 
 
 ## Example metric check
 
-This check definition collects metrics in Nagios Performance Data [format][9], enriches the metrics with [custom tags][1], and sends the collected and tagged metrics to the [Prometheus Pushgateway Handler][19] for long-term storage and visualization.
+This check definition collects metrics in Nagios Performance Data [format][9], enriches the metrics with [output metric tags][1], and sends the collected and tagged metrics to the [Prometheus Pushgateway Handler][19] for long-term storage and visualization.
 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: CheckConfig
 api_version: core/v2
 metadata:
   annotations:
-  - slack-channel: '#monitoring'
+    slack-channel: '#monitoring'
   labels:
-  - region: us-west-1
+    region: us-west-1
   name: collect-metrics
   namespace: default
 spec:
@@ -121,8 +137,12 @@ spec:
   output_metric_handlers:
   - prometheus_gateway
   output_metric_tags:
-  - name: response_time_in_ms
-    value: '{{ .time }}'
+  - name: instance
+    value: '{{ .name }}'
+  - name: prometheus_type
+    value: gauge
+  - name: service
+    value: '{{ .labels.service }}'
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -171,8 +191,16 @@ spec:
     ],
     "output_metric_tags": [
       {
-        "name": "response_time_in_ms",
-        "value": "{{ .time }}"
+        "name": "instance",
+        "value": "{{ .name }}"
+      },
+      {
+        "name": "prometheus_type",
+        "value": "gauge"
+      },
+      {
+        "name": "service",
+        "value": "{{ .labels.service }}"
       }
     ],
     "env_vars": null,
@@ -190,66 +218,42 @@ The [example metric check][6] will produce events similar to this metric event:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Event
 api_version: core/v2
 metadata:
   namespace: default
-  annotations:
-    slack-channel: '#monitoring'
-  labels:
-    region: us-west-1
 spec:
-  entity:
-    deregister: false
-    deregistration: {}
-    entity_class: agent
-    last_seen: 1552495139
+  check:
     metadata:
-      name: sensu-go-sandbox
+      name: collect-metrics
       namespace: default
-    redact:
-    - password
-    - passwd
-    - pass
-    - api_key
-    - api_token
-    - access_key
-    - secret_key
-    - private_key
-    - secret
-    subscriptions:
-    - system
-    system:
-      arch: amd64
-      hostname: sensu-go-sandbox
-      network:
-        interfaces:
-        - addresses:
-          - 127.0.0.1/8
-          - ::1/128
-          name: lo
-        - addresses:
-          - 10.0.2.15/24
-          - fe80::5a94:f67a:1bfc:a579/64
-          mac: 08:00:27:8b:c9:3f
-          name: eth0
-      os: linux
-      platform: centos
-      platform_family: rhel
-      platform_version: 7.5.1804
-      processes: null
-    user: agent
+    command: collect_metrics.sh
+    output: |-
+      cpu.idle_percentage 61 1525462242
+      mem.sys 104448 1525462242
+    output_metric_format: nagios_perfdata
+    output_metric_handlers:
+    - prometheus_gateway
+    output_metric_tags:
+    - name: instance
+      value: "{{ .name }}"
+    - name: prometheus_type
+      value: gauge
+    - name: service
+      value: "{{ .labels.service }}"
   metrics:
     handlers:
     - prometheus_gateway
     points:
-    - name: sensu-go-sandbox.curl_timings.time_total
-      tags:
-      - name: response_time_in_ms
-    	value: 101
-  timestamp: 1552506033
-  id: 47ea07cd-1e50-4897-9e6d-09cd39ec5180
-  sequence: 1
+    - name: cpu.idle_percentage
+      value: 61
+      timestamp: 1525462242
+      tags: []
+    - name: mem.sys
+      value: 104448
+      timestamp: 1525462242
+      tags: []
 {{< /code >}}
 
 {{< code json >}}
@@ -260,58 +264,31 @@ spec:
     "namespace": "default"
   },
   "spec": {
-    "entity": {
-      "deregister": false,
-      "deregistration": {},
-      "entity_class": "agent",
-      "last_seen": 1552495139,
+    "check": {
       "metadata": {
-        "name": "sensu-go-sandbox",
+        "name": "collect-metrics",
         "namespace": "default"
       },
-      "redact": [
-        "password",
-        "passwd",
-        "pass",
-        "api_key",
-        "api_token",
-        "access_key",
-        "secret_key",
-        "private_key",
-        "secret"
+      "command": "collect_metrics.sh",
+      "output": "cpu.idle_percentage 61 1525462242\nmem.sys 104448 1525462242",
+      "output_metric_format": "nagios_perfdata",
+      "output_metric_handlers": [
+        "prometheus_gateway"
       ],
-      "subscriptions": [
-        "system"
-      ],
-      "system": {
-        "arch": "amd64",
-        "hostname": "sensu-go-sandbox",
-        "network": {
-          "interfaces": [
-            {
-              "addresses": [
-                "127.0.0.1/8",
-                "::1/128"
-              ],
-              "name": "lo"
-            },
-            {
-              "addresses": [
-                "10.0.2.15/24",
-                "fe80::5a94:f67a:1bfc:a579/64"
-              ],
-              "mac": "08:00:27:8b:c9:3f",
-              "name": "eth0"
-            }
-          ]
+      "output_metric_tags": [
+        {
+          "name": "instance",
+          "value": "{{ .name }}"
         },
-        "os": "linux",
-        "platform": "centos",
-        "platform_family": "rhel",
-        "platform_version": "7.5.1804",
-        "processes": null
-      },
-      "user": "agent"
+        {
+          "name": "prometheus_type",
+          "value": "gauge"
+        },
+        {
+          "name": "service",
+          "value": "{{ .labels.service }}"
+        }
+      ]
     },
     "metrics": {
       "handlers": [
@@ -319,26 +296,32 @@ spec:
       ],
       "points": [
         {
-          "name": "sensu-go-sandbox.curl_timings.time_total",
-          "tags": [
-      		  {
-        	    "name": "response_time_in_ms",
-        	    "value": "101"
-      		  }
-    	    ],
-          "timestamp": 1552506033,
-          "value": 0.005
+          "name": "cpu.idle_percentage",
+          "value": 61,
+          "timestamp": 1525462242,
+          "tags": []
+        },
+        {
+          "name": "mem.sys",
+          "value": 104448,
+          "timestamp": 1525462242,
+          "tags": []
         }
       ]
-    },
-    "timestamp": 1552506033,
-    "id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180",
-    "sequence": 1
+    }
   }
 }
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+## Validate the metrics
+
+If the check output is formatted correctly according to its `output_metric_format`, the metrics will be extracted in Sensu metric format and passed to the observability pipeline.
+To confirm that metrics have been extracted from your check, inspect the event passed to the `output_metric_handler`.
+
+You should expect to see errors logged by sensu-agent if it is unable to parse the check output.
+See [Troubleshoot Sensu][24] for an example debug handler that writes events to a file for inspection.
 
 
 [1]: ../checks/#output-metric-tags
@@ -363,3 +346,5 @@ spec:
 [20]: ../../observe-events/events/#example-event-with-check-and-metric-data
 [21]: ../checks/#output_metric_tags-attributes
 [22]: ../checks/#check-token-substitution
+[23]: ../../observe-process/populate-metrics-influxdb/
+[24]: ../../../operations/maintain-sensu/troubleshoot#handlers-and-event-filters

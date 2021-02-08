@@ -1391,7 +1391,106 @@ spec:
 
 ### Metric check
 
-The [metrics reference][68] includes an example metric check.
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Event
+api_version: core/v2
+metadata:
+  namespace: default
+spec:
+  check:
+    metadata:
+      name: collect-metrics
+      namespace: default
+    command: collect_metrics.sh
+    output: |-
+      cpu.idle_percentage 61 1525462242
+      mem.sys 104448 1525462242
+    output_metric_format: nagios_perfdata
+    output_metric_handlers:
+    - prometheus_gateway
+    output_metric_tags:
+    - name: instance
+      value: "{{ .name }}"
+    - name: prometheus_type
+      value: gauge
+    - name: service
+      value: "{{ .labels.service }}"
+  metrics:
+    handlers:
+    - prometheus_gateway
+    points:
+    - name: cpu.idle_percentage
+      value: 61
+      timestamp: 1525462242
+      tags: []
+    - name: mem.sys
+      value: 104448
+      timestamp: 1525462242
+      tags: []
+
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Event",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default"
+  },
+  "spec": {
+    "check": {
+      "metadata": {
+        "name": "collect-metrics",
+        "namespace": "default"
+      },
+      "command": "collect_metrics.sh",
+      "output": "cpu.idle_percentage 61 1525462242\nmem.sys 104448 1525462242",
+      "output_metric_format": "nagios_perfdata",
+      "output_metric_handlers": [
+        "prometheus_gateway"
+      ],
+      "output_metric_tags": [
+        {
+          "name": "instance",
+          "value": "{{ .name }}"
+        },
+        {
+          "name": "prometheus_type",
+          "value": "gauge"
+        },
+        {
+          "name": "service",
+          "value": "{{ .labels.service }}"
+        }
+      ]
+    },
+    "metrics": {
+      "handlers": [
+        "prometheus_gateway"
+      ],
+      "points": [
+        {
+          "name": "cpu.idle_percentage",
+          "value": 61,
+          "timestamp": 1525462242,
+          "tags": []
+        },
+        {
+          "name": "mem.sys",
+          "value": 104448,
+          "timestamp": 1525462242,
+          "tags": []
+        }
+      ]
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ### Check with secret
 
