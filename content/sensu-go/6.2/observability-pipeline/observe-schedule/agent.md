@@ -24,11 +24,11 @@ See the [installation guide][1] to install the agent.
 
 ## Agent authentication
 
-The Sensu agent authenticates to the Sensu backend via [WebSocket][45] transport by either username and password or mutual transport layer security (mTLS) authentication.
+The Sensu agent authenticates to the Sensu backend via [WebSocket][45] transport by either built-in basic (username and password) or mutual transport layer security (mTLS) authentication.
 
 ### Username and password authentication
 
-Username and password authentication is the default mechanism for agent authentication.
+The default mechanism for agent authentication is [built-in basic authentication][59] with username and password.
 The Sensu agent uses username and password authentication unless mTLS authentication is configured for both sensu-agent and sensu-backend.
 
 For username and password authentication, sensu-agent joins the username and password with a colon and encodes them as a Base64 value.
@@ -1846,3 +1846,4 @@ You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, r
 [56]: #allow-list
 [57]: ../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events
 [58]: ../../../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[59]: ../../../operations/control-access/#use-built-in-basic-authentication
