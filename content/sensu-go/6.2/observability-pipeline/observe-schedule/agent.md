@@ -29,7 +29,7 @@ The Sensu agent authenticates to the Sensu backend via [WebSocket][45] transport
 ### Username and password authentication
 
 The default mechanism for agent authentication is [built-in basic authentication][59] with username and password.
-The Sensu agent uses username and password authentication unless mTLS authentication is configured for both sensu-agent and sensu-backend.
+The Sensu agent uses username and password authentication unless mTLS authentication has been explicitly configured.
 
 For username and password authentication, sensu-agent joins the username and password with a colon and encodes them as a Base64 value.
 Sensu provides the encoded string as the value of the `Authorization` HTTP header &mdash; for example, `Authorization: Basic YWdlbnQ6UEBzc3cwcmQh` &mdash; to authenticate to the Sensu backend.
