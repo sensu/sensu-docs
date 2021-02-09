@@ -41,6 +41,7 @@ etcd-key-file: "/path/to/your/key"
 etcd-trusted-ca-file: "/path/to/your/ca/file"
 etcd-peer-cert-file: "/path/to/your/peer/cert"
 etcd-peer-key-file: "/path/to/your/peer/key"
+etcd-client-cert-auth: "true"
 etcd-peer-client-cert-auth: "true"
 etcd-peer-trusted-ca-file: "/path/to/your/peer/ca/file"
 {{< /code >}}
@@ -51,7 +52,8 @@ To properly secure etcd communication, replace the default parameter values in y
  - A certificate and key for the `etcd-peer-cert-file` and `etcd-peer-key-file` to secure cluster communication
  - Non-default values for `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-advertise-client-urls`
 
-You must also set `etcd-peer-client-cert-auth` to `true` to ensure that etcd only allows connections from clients and peers that present a valid, trusted certificate.
+In addition, set `etcd-client-cert-auth` and `etcd-peer-client-cert-auth` to `true` to ensure that etcd only allows connections from clients and peers that present a valid, trusted certificate.
+Because etcd does not require authentication by default, you must set `etcd-client-cert-auth` and `etcd-peer-client-cert-auth` to `true` to secure Sensu's embedded etcd datastore against unauthorized access.
 
 ## Secure the API and web UI
 

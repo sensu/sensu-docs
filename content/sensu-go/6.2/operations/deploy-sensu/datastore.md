@@ -20,6 +20,7 @@ For longer retention of observability event data, integrate Sensu with a time se
 
 By default, Sensu uses its embedded etcd database to store configuration and event data.
 This embedded database allows you to get started with Sensu without deploying a complete, scalable architecture.
+Sensu's embedded etcd listens for unencrypted communication on [ports][19] 2379 (client requests) and 2380 (peer communication).
 
 Sensu can be configured to disable the embedded etcd database and use one or more [external etcd nodes][8] for configuration and event storage instead.
 
@@ -452,3 +453,4 @@ enable_round_robin: true
 [16]: ../../../sensuctl/create-manage-resources/#create-resources
 [17]: #spec-attributes
 [18]: #datastore-specification
+[19]: ../install-sensu/#ports
