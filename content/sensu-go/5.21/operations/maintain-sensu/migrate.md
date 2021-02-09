@@ -57,7 +57,7 @@ The [glossary][1] includes more information about new terminology in Sensu Go.
 
 ## Architecture
 
-The external RabbitMQ transport and Redis datastore in Sensu Core 1.x are replaced with an embedded transport and [etcd datastore][2] in Sensu Go.
+The external RabbitMQ transport and Redis datastore in Sensu Core are replaced with an embedded transport and [etcd datastore][2] in Sensu Go.
 
 {{< figure src="/images/standalone_architecture.png" alt="Single Sensu Go backend or standalone architecture" link="/images/standalone_architecture.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/d239f2db-15db-41c4-a191-b9b46990d156/0 -->
@@ -110,7 +110,7 @@ You can also execute multiple hooks for any given response code.
 ## Events
 
 In Sensu Go, all check results are considered events and are processed by event handlers.
-You can use the built-in [incidents filter][9] to recreate the Sensu Core 1.x behavior in which only check results with a non-zero status are considered events.
+You can use the built-in [incidents filter][9] to recreate the Sensu Core behavior in which only check results with a non-zero status are considered events.
 
 ## Handlers
 
@@ -121,23 +121,23 @@ Transport handlers are not supported by Sensu Go, but you can create similar fun
 Sensu Go includes three new built-in [event filters][9]: only-incidents, only-metrics, and allow-silencing.
 Sensu Go does not include a built-in check dependencies filter or a filter-when feature.
 
-Ruby eval logic from Sensu Core 1.x is replaced with JavaScript expressions in Sensu Go, opening up powerful ways to filter events based on occurrences and other event attributes.
-As a result, **Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x**, which allowed you to control the number of duplicate events that reached the handler.
+Ruby eval logic from Sensu Core is replaced with JavaScript expressions in Sensu Go, opening up powerful ways to filter events based on occurrences and other event attributes.
+As a result, **Sensu Go does not include the built-in occurrence-based event filter in Sensu Core**, which allowed you to control the number of duplicate events that reached the handler.
 You can replicate the occurrence-based filter's functionality with Sensu Go's [repeated events filter definition][10].
 
 ### Fatigue check filter
 
-For Sensu Go users, we recommend the [fatigue check filter][11], a JavaScript implementation of the `occurrences` filter from Sensu 1.x.
+For Sensu Go users, we recommend the [fatigue check filter][11], a JavaScript implementation of the `occurrences` filter from Sensu Core.
 This filter looks for [check and entity annotations][33] in each event it receives and uses the values of those annotations to configure the filter's behavior on a per-event basis.
 
-The [Sensu Translator version 1.1.0][18] retrieves occurrence and refresh values from a Sensu Core 1.x check definition and outputs them as annotations in a Sensu Go check definition, compatible with the fatigue check filter.
+The [Sensu Translator version 1.1.0][18] retrieves occurrence and refresh values from a Sensu Core check definition and outputs them as annotations in a Sensu Go check definition, compatible with the fatigue check filter.
 
 However, the Sensu Translator doesn't automatically add the fatigue check filter asset or the filter configuration you need to run it.
 To use the fatigue check filter asset, you must [register it][15], create a correctly configured [event filter definition][19], and [add the event filter][34] to the list of filters on applicable handlers.
 
 ## Assets
 
-The `sensu-install` tool in Sensu Core 1.x is replaced by [assets][12] in Sensu Go.
+The `sensu-install` tool in Sensu Core is replaced by [assets][12] in Sensu Go.
 Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 You can still install [Sensu Community plugins][21] in Ruby via `sensu-install` by installing [sensu-plugins-ruby][20].
@@ -156,7 +156,7 @@ You must explicitly enable silencing with the built-in `not_silenced` [event fil
 
 ## Token substitution
 
-The syntax for token substitution changed to [double curly braces][16] in Sensu Go (from triple colons in Sensu Core 1.x).
+The syntax for token substitution changed to [double curly braces][16] in Sensu Go (from triple colons in Sensu Core).
 
 ## Aggregates
 
@@ -414,7 +414,7 @@ To re-install Sensu plugins onto your Sensu Go agent nodes (check plugins) and b
 
 #### Sensu Go assets
 
-The `sensu-install` tool in Sensu Core 1.x is replaced by [assets][12] in Sensu Go.
+The `sensu-install` tool in Sensu Core is replaced by [assets][12] in Sensu Go.
 Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 Although assets are not required to run Sensu Go, we recommend [using assets to install plugins][50] where possible.
