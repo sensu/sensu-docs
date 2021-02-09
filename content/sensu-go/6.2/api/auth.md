@@ -14,8 +14,8 @@ menu:
 
 The `/auth` API endpoint provides HTTP GET access to generate an access token and a refresh token using Sensu's basic authentication.
 
-The access and refresh tokens are [JSON Web Tokens (JWTs)][2].
-Sensu uses access and refresh tokens to digitally sign the details of users' authenticated Sensu sessions.
+The access and refresh tokens are [JSON Web Tokens (JWTs)][2] that Sensu issues to record the details of users' authenticated Sensu sessions.
+The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
 
 ### Example {#auth-get-example}
 
@@ -87,8 +87,8 @@ The `/auth/token` API endpoint provides HTTP POST access to renew an access toke
 In the following example, an HTTP POST request is submitted to the `/auth/token` API endpoint to generate a valid access token.
 The request includes the refresh token in the request body and returns a successful HTTP `200 OK` response along with the new access token.
 
-The access and refresh tokens are [JSON Web Tokens (JWTs)][2].
-Sensu issues access and refresh tokens to record the details of users' authenticated Sensu sessions. These tokens are digitally signed by the backend, and can't be changed without invalidating the signature.
+The access and refresh tokens are [JSON Web Tokens (JWTs)][2] that Sensu issues to record the details of users' authenticated Sensu sessions.
+The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
 
 {{< code shell >}}
 curl -X POST \
