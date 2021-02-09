@@ -14,6 +14,9 @@ menu:
 
 The `/auth` API endpoint provides HTTP GET access to generate an access token and a refresh token using Sensu's basic authentication.
 
+The access and refresh tokens are [JSON Web Tokens (JWTs)][2].
+Sensu uses access and refresh tokens to digitally sign the details of users' authenticated Sensu sessions.
+
 ### Example {#auth-get-example}
 
 In the following example, querying the `/auth` API endpoint with a given username and password returns an HTTP `200 OK` response to indicate that the credentials are valid, along with an access token and a refresh token.
@@ -51,7 +54,8 @@ response codes       | <ul><li>**Valid credentials**: 200 (OK)</li><li> **Invali
 The `/auth/test` API endpoint provides HTTP GET access to test basic authentication user credentials that were created with Sensu's built-in [basic authentication][1].
 
 {{% notice note %}}
-**NOTE**: The `/auth/test` endpoint only tests user credentials created with Sensu's built-in [basic authentication provider](../../operations/control-access#use-built-in-basic-authentication). It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../operations/control-access/ldap-auth), [Active Directory (AD)](../../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../../operations/control-access/oidc-auth/).
+**NOTE**: The `/auth/test` endpoint only tests user credentials created with Sensu's built-in [basic authentication provider](../../operations/control-access#use-built-in-basic-authentication).
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../operations/control-access/ldap-auth), [Active Directory (AD)](../../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../../operations/control-access/oidc-auth/).
 {{% /notice %}}
  
 ### Example {#authtest-get-example}
@@ -82,6 +86,9 @@ The `/auth/token` API endpoint provides HTTP POST access to renew an access toke
 
 In the following example, an HTTP POST request is submitted to the `/auth/token` API endpoint to generate a valid access token.
 The request includes the refresh token in the request body and returns a successful HTTP `200 OK` response along with the new access token.
+
+The access and refresh tokens are [JSON Web Tokens (JWTs)][2].
+Sensu uses access and refresh tokens to digitally sign the details of users' authenticated Sensu sessions.
 
 {{< code shell >}}
 curl -X POST \
@@ -119,3 +126,4 @@ output               | {{< code json >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../operations/control-access#use-built-in-basic-authentication
+[2]: https://tools.ietf.org/html/rfc7519
