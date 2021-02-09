@@ -19,8 +19,8 @@ The Maintain Sensu category includes information to keep your Sensu installation
 Follow the [upgrade guide][1] for step-by-step instructions to upgrade to the latest version of Sensu from any earlier version.
 The upgrade instructions include details about important changes between versions that could affect your upgrade and any special requirements to make sure your upgrade is successful.
 
-If you are still using Sensu Core 1.x, follow the [migrate guide][2] to upgrade to Sensu Go.
-The migrate guide includes links to Sensu's migration resources and Core configuration translation tools, as well as instructions for [installing Sensu Go alongside your existing Sensu Core instance][3].
+If you are still using Sensu Core or Sensu Enterprise, follow [Migrate from Sensu Core and Sensu Enterprise to Sensu Go][2] to upgrade to Sensu Go.
+The migrate guide includes links to Sensu's migration resources and Core and Enterprise configuration translation tools, as well as instructions for [installing Sensu Go alongside your existing Sensu Core or Enterprise instance][3].
 
 ## Troubleshoot
 

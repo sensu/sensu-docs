@@ -37,7 +37,8 @@ Next, learn to configure authorization for your authenticated Sensu users with [
 
 [Maintain Sensu][3] includes upgrade, migration, troubleshooting, and license management information to keep your Sensu implementation running smoothly.
 
-Follow our step-by-step instructions to [upgrade to the latest version of Sensu][20] from any earlier version. If you're still using Sensu Core 1.x, read the [migrate guide][21] to upgrade to Sensu Go.
+Follow our step-by-step instructions to [upgrade to the latest version of Sensu][20] from any earlier version.
+If you're still using Sensu Core or Sensu Enterprise, read [Migrate from Sensu Core and Sensu Enterprise to Sensu Go][21].
 You can also learn how to activate and and view your commercial [Sensu license][23] or [troubleshoot][22] to identify and resolve problems with your Sensu implementation, from reading and configuring Sensu service logs to using Sensu handlers and filters to test and debug your implementation.
 
 ## Monitor Sensu

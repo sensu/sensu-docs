@@ -1,7 +1,7 @@
 ---
-title: "Migrate from Sensu Core to Sensu Go"
-linkTitle: "Migrate from Sensu Core"
-description: "Sensu Go includes important changes to all parts of Sensu as well as many powerful commercial features to make monitoring easier to build, scale to Sensu Go from Sensu Core 1.x. Follow this guide to migrate from Sensu Core to Sensu Go."
+title: "Migrate from Sensu Core and Sensu Enterprise to Sensu Go"
+linkTitle: "Migrate from Sensu Core and Sensu Enterprise"
+description: "Sensu Go includes important changes to all parts of Sensu as well as many powerful commercial features to make monitoring easier to build, scale to Sensu Go from Sensu Core and Sensu Enterprise. Follow this guide to migrate from Sensu Core or Sensu Enterprise to Sensu Go."
 weight: 20
 version: "5.21"
 product: "Sensu Go"
@@ -10,8 +10,13 @@ menu:
     parent: maintain-sensu
 ---
 
-This guide includes general information for migrating your Sensu instance from Sensu Core 1.x to Sensu Go.
-For instructions and tools to help you translate your Sensu configuration from Sensu Core 1.x to Sensu Go, see the [Sensu Translator project][18] and our [blog post about check configuration upgrades with the Sensu Go sandbox][25].
+This guide includes general information for migrating your Sensu instance from Sensu Core and Sensu Enterprise to Sensu Go.
+For instructions and tools to help you translate your Sensu configuration from Sensu Core and Enterprise to Sensu Go, see the [Sensu Translator project][18] and our [blog post about check configuration upgrades with the Sensu Go sandbox][25].
+
+{{% notice note %}}
+**NOTE**: The information in this guide applies to Sensu Enterprise as well as Sensu Core, although we refer to "Sensu Core" for brevity.
+One step applies to Sensu Enterprise (and not Sensu Core) &mdash; it is designated as Sensu Enterprise-only.
+{{% /notice %}}
 
 Sensu Go includes important changes to all parts of Sensu: architecture, installation, resource definitions, the event data model, check dependencies, filter evaluation, and more.
 Sensu Go also includes many powerful [commercial features][27] to make monitoring easier to build, scale, and offer as a self-service tool to your internal customers.
@@ -24,7 +29,7 @@ The Sensu Go agent is also available for Windows.
 If you need to upgrade, please [contact Sensu](https://sensu.io/contact).
 {{% /notice %}}
 
-Aside from this migration guide, these resources can help you migrate from Sensu Core to Sensu Go:
+Aside from this migration guide, these resources can help you migrate from Sensu Core and Sensu Enterprise to Sensu Go:
 
 - [**Sensu Community Slack**][46]: Join hundreds of other Sensu users in our Community Slack, where you can ask questions and benefit from tips others picked up during their own Sensu Go migrations.
 - [**Sensu Community Forum**][47]: Drop a question in our dedicated category for migrating to Go.
@@ -422,7 +427,34 @@ Discover, download, and share assets with [Bonsai][68], the Sensu asset hub.
 To create your own assets, see the [asset reference][12] and [guide to sharing an asset on Bonsai][69].
 To contribute to converting a Sensu plugin to an asset, see [the Discourse post][70].
 
-### Step 4: Sunset your Sensu Core instance
+### Step 4: Translate Sensu Enterprise-only features
+
+#### Integrations
+
+Most Sensu Enterprise integrations as available as Sensu Go assets.
+See the [guide to installing plugins with assets][50] to register assets with Sensu and update your Sensu Go handler definitions.
+
+- [Chef][80]
+- [Email][81]
+- [Graphite][82]
+- [InfluxDB][83]
+- [IRC][84]
+- [Jira][85]
+- [PagerDuty][86]
+- [ServiceNow][87]
+- [Slack][88]
+- [VictorOps][89]
+
+#### Contact routing
+
+Contact routing is available in Sensu Go using the has-contact filter asset.
+See [Route alerts with event filters][90] to set up contact routing in Sensu Go.
+
+#### LDAP
+
+In addition to built-in RBAC, Sensu includes [license-activated][91] support for authentication using Microsoft Active Directory and standards-compliant Lightweight Directory Access Protocol tools like OpenLDAP.
+
+### Step 5: Sunset your Sensu Core instance
 
 When you're ready to sunset your Sensu Core instance, see the [platform][74] documentation to stop the Sensu Core services.
 You may also want to re-install the `sensu-install` tool using the [`sensu-plugins-ruby` package][20].
@@ -501,3 +533,15 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [77]: https://galaxy.ansible.com/sensu/sensu_go
 [78]: https://sensu.github.io/sensu-go-ansible/
 [79]: https://monitoringlove.sensu.io/chef
+[80]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-chef
+[81]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
+[82]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-graphite-handler
+[83]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
+[84]: https://bonsai.sensu.io/assets/sensu-utils/sensu-irc-handler
+[85]: https://bonsai.sensu.io/assets/sensu/sensu-jira-handler
+[86]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
+[87]: https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler
+[88]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
+[89]: https://bonsai.sensu.io/assets/asachs01/sensu-plugins-victorops
+[90]: ../../../guides/contact-routing/
+[91]: ../../../commercial
