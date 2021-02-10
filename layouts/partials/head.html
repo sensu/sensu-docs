@@ -26,6 +26,10 @@
       <meta name="docsearch:version" content="{{ .Page.Params.version }}" />
     {{ end}}
 
+    {{ if not (eq .Params.product "Sensu Go") }}
+    <meta name="robots" content="noindex">
+    {{ end }}
+
     <meta name="twitter:card" content="summary">
     <meta property="og:url" content="{{ .Permalink }}">
     <meta property="og:site_name" content="Sensu Docs">
