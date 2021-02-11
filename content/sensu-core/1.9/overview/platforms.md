@@ -18,7 +18,7 @@ software project][1] and collectively referred to as Sensu Core. Sensu Core
 provides multiple processes, including the [Sensu server][2] (`sensu-server`),
 [Sensu API][3] (`sensu-api`), and [Sensu client][4] (`sensu-client`).
 
-_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][7], and we [permanently removed][8] the Sensu EOL repository on February 1, 2021. To migrate to Sensu Go, read the [Sensu Core migration guide][9]._
+_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][7], and we [permanently removed][8] the Sensu EOL repository on February 1, 2021. To migrate to Sensu Go, read [Migrate from Sensu Core and Sensu Enterprise to Sensu Go][9]._
 
 Installer packages are available for most modern operating systems via native
 installer packages (e.g. .deb, .rpm, .msi, .pkg, etc) which are available for
@@ -58,7 +58,7 @@ running the `sensu-server` and `sensu-api` processes._
 
 ## Sensu Enterprise
 
-_IMPORTANT: [Sensu Enterprise reached end-of-life (EOL) on March 31, 2020][7], and we [permanently removed][8] the Sensu EOL repository on February 1, 2021. To migrate to Sensu Go, read the [Sensu Enterprise migration guide][10]._
+_IMPORTANT: [Sensu Enterprise reached end-of-life (EOL) on March 31, 2020][7], and we [permanently removed][8] the Sensu EOL repository on February 1, 2021. To migrate to Sensu Go, read [Migrate from Sensu Core and Sensu Enterprise to Sensu Go][9]._
 
 [Sensu Enterprise][5] is designed to be a drop-in replacement for the Sensu Core
 server and API, _only_ (i.e. Sensu Enterprise uses the same client as Sensu
@@ -88,5 +88,4 @@ by Sensu**.
 [6]:  https://sensu.io/products/enterprise
 [7]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
 [8]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
-[9]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/
-[10]: https://docs.sensu.io/sensu-enterprise/latest/migration/
+[9]: /sensu-go/latest/operations/maintain-sensu/migrate/
