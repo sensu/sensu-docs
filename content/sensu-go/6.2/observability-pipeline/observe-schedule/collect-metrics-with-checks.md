@@ -30,9 +30,9 @@ The Sensu Ruby Runtime asset delivers the Ruby executable and supporting librari
 Use sensuctl to register the Sensu Disk Checks Plugin dynamic runtime asset, `sensu-plugins/sensu-plugins-disk-checks`:
 
 {{< code shell >}}
-sensuctl asset add sensu-plugins/sensu-plugins-disk-checks -r disk-checks-plugins
-fetching bonsai asset: sensu-plugins/sensu-plugins-disk-checks
-added asset: sensu-plugins/sensu-plugins-disk-checks
+sensuctl asset add sensu-plugins/sensu-plugins-disk-checks:5.1.4 -r disk-checks-plugins
+fetching bonsai asset: sensu-plugins/sensu-plugins-disk-checks:5.1.4
+added asset: sensu-plugins/sensu-plugins-disk-checks:5.1.4
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
@@ -41,21 +41,21 @@ resource, populate the "runtime_assets" field with ["disk-checks-plugins"].
 
 This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `cpu-checks-plugins`.
 
-You can also download the dynamic runtime asset definition for Debian or Alpine from [Bonsai][8] and register the asset with `sensuctl create --file filename.yml`.
+You can also download the dynamic runtime asset definition for Debian or Alpine from [Bonsai][7] and register the asset with `sensuctl create --file filename.yml`.
 
-Then, use the following sensuctl example to register the [Sensu Go Ruby Runtime Assets][] dynamic runtime asset, `sensu/sensu-ruby-runtime`:
+Then, use the following sensuctl example to register the [Sensu Go Ruby Runtime Assets][8] dynamic runtime asset, `sensu/sensu-ruby-runtime`:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-ruby-runtime -r sensu-ruby-runtime
-fetching bonsai asset: sensu/sensu-ruby-runtime
-added asset: sensu/sensu-ruby-runtime
+sensuctl asset add sensu/sensu-ruby-runtime:0.1.0 -r sensu-ruby-runtime
+fetching bonsai asset: sensu/sensu-ruby-runtime:0.1.0
+added asset: sensu/sensu-ruby-runtime:0.1.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
 resource, populate the "runtime_assets" field with ["sensu-ruby-runtime"].
 {{< /code >}}
 
-You can also download the dynamic runtime asset definition from [Bonsai][7] and register the asset using `sensuctl create --file filename.yml`.
+You can also download the dynamic runtime asset definition from [Bonsai][8] and register the asset using `sensuctl create --file filename.yml`.
 
 Use sensuctl to confirm that both the `disk-checks-plugins` and `sensu-ruby-runtime` dynamic runtime assets are ready to use:
 
