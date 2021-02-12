@@ -44,7 +44,7 @@ If you want to share complete end-to-end Sensu workflows with your colleagues, y
 This allows others to read through an entire workflow without interruption, and it's convenient for demonstrating a complete Sensu workflow.
 However, a single configuration file that includes every resource type isn't the best structure for CI/CD management or sharing resources among teams.
 
-For example, [SensuFlow][5], our GitHub Action for managing Sensu resources via repository commits, requires a repository structure organized by clusters and namespaces.
+[SensuFlow][5], our GitHub Action for managing Sensu resources via repository commits, requires a repository structure organized by clusters and namespaces.
 All resources of each type for each namespace are saved in a single configuration file:
 
 {{< code shell >}}
