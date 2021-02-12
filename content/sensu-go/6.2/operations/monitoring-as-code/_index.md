@@ -35,12 +35,14 @@ To get started with monitoring as code, you'll need a [repository][11] and [conf
 A monitoring as code repository will include configuration files that contain the resource definitions you use in your monitoring workflow.
 You can use any source control repository for maintaining your monitoring workflow configuration files, but you'll need to decide how to structure your repository.
 
-The way you will use your Sensu resource [configuration files][13] will help you choose the best structure for your monitoring as code repository:
+The way you will use your Sensu resource [configuration files][13] will help you choose the best structure for your monitoring as code repository.
 
-- If you want to share complete end-to-end Sensu workflows with your colleagues, you might save all of the resource definitions for each workflow in a single configuration file.
-This allows others to read through an entire workflow without interruption.
-- If you are more likely to share individual workflow components, it makes more sense to use individual configuration files for different types of resources, like one file for all of your checks, one file for all of your handlers, and so on.
-- If you want to facilitate even more granular sharing, you can save one resource definition per file.
+For example, if you are likely to share individual workflow components or manage your Sensu configuration files as part of your CI/CD workflow, it probably makes sense to use individual configuration files for different types of resources: one file for all of your checks, one file for all of your handlers, and so on.
+If you want to facilitate even more granular sharing, you can save one resource definition per file.
+
+If you want to share complete end-to-end Sensu workflows with your colleagues, you might save all of the resource definitions for each workflow in a single configuration file.
+This allows others to read through an entire workflow without interruption, and it's convenient for demonstrating a complete Sensu workflow.
+However, a single configuration file that includes every resource type isn't the best structure for CI/CD management or sharing resources among teams.
 
 For example, [SensuFlow][5], our GitHub Action for managing Sensu resources via repository commits, requires a repository structure organized by clusters and namespaces.
 All resources of each type for each namespace are saved in a single configuration file:
