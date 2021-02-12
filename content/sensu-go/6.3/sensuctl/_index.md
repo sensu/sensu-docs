@@ -15,7 +15,7 @@ It works by calling Sensu's underlying API to create, read, update, and delete r
 Sensuctl is available for Linux, macOS, and Windows.
 See [Install Sensu][2] to install and configure sensuctl.
 
-## First-time setup
+## First-time setup and authentication
 
 To set up sensuctl, run `sensuctl configure` to log in to sensuctl and connect to the Sensu backend:
 
@@ -24,7 +24,12 @@ sensuctl configure
 {{< /code >}}
 
 This starts the prompts for interactive sensuctl setup.
-When prompted, choose the authentication method you wish to use and type the [Sensu backend URL][6] and your [Sensu access credentials][8].
+When prompted, choose the authentication method you wish to use: username/password or OIDC.
+
+### Username/password authentication
+
+The `sensuctl configure` interactive prompts require you to select the username/password authentication method and enter the [Sensu backend URL][6], namespace, and preferred output format.
+Then you will be prompted to enter your [username and password Sensu access credentials][8].
 
 This example shows the username/password authentication method:
 
@@ -37,11 +42,21 @@ This example shows the username/password authentication method:
 ? Password: YOUR_PASSWORD
 {{< /code >}}
 
-If you select the OIDC authentication method, if you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.
-If a browser does not open, launch a browser to complete the login via your OIDC provider at the URL in the `sensuctl configure` response:
+Sensuctl uses your username and password to obtain access and refresh tokens via the [Sensu authentication API][14].
+The access and refresh tokens are [JSON Web Tokens (JWTs)][2] that Sensu issues to record the details of users' authenticated Sensu sessions.
+The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
+
+Sensuctl stores the access and refresh tokens in a "cluster" configuration file under the current user's home directory.
+For example, on Unix systems, sensuctl stores the tokens in `$HOME/.config/sensu/sensuctl/cluster`.
+
+### OIDC authentication
+
+The `sensuctl configure` interactive prompts require you to select the OIDC authentication method and enter the [Sensu backend URL][6], namespace, and preferred output format.
+Then, if you are using a desktop, a browser will open to allow you to authenticate and log in via your OIDC provider.
+
+This example shows the OIDC authentication method:
 
 {{< code shell >}}
-$ sensuctl configure
 ? Authentication method: OIDC
 ? Sensu Backend URL: http://127.0.0.1:8080
 ? Namespace: default
@@ -52,6 +67,8 @@ Launching browser to complete the login via your OIDC provider at following URL:
 
 You may also manually open this URL. Waiting for callback...
 {{< /code >}}
+
+If a browser does not open, launch a browser to complete the login via your OIDC provider at the Sensu backend URL you entered in your sensuctl configuration.
 
 {{% notice note %}}
 **NOTE**: You can also use [`sensuctl login oidc`](../operations/control-access/oidc-auth/#sensuctl-login-with-oidc) to log in to sensuctl with OIDC.
@@ -115,17 +132,17 @@ These configuration files are useful if you want to know which cluster you're co
 
 During the [Sensu backend installation][10] process, you create an administrator username and password and a `default` namespace.
 
-Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
-For more information about configuring Sensu access control, see the [RBAC reference][1].
-
 {{% notice note %}}
 **NOTE**: For a **new** installation, you can set administrator credentials with environment variables during [initialization](../observability-pipeline/observe-schedule/backend/#initialization).
 If you are using Docker and you do not include the environment variables to set administrator credentials, the backend will initialize with the default username (`admin`) and password (`P@ssw0rd!`).
 {{% /notice %}} 
 
+Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
+For more information about configuring Sensu access control, see the [RBAC reference][1].
+
 ### Change admin user's password
 
-After you have [installed and configured sensuctl][12], you can change the admin user's password.
+After you have [configured sensuctl and authenticated][12], you can change the admin user's password.
 Run:
 
 {{< code shell >}}
@@ -373,6 +390,8 @@ create  delete  import  list
 [9]: ../api/
 [10]: ../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
 [11]: ../operations/control-access/#use-built-in-basic-authentication
-[12]: #first-time-setup
+[12]: #first-time-setup-and-authentication
 [13]: create-manage-resources/#update-resources
+[14]: ../api/auth/
 [15]: https://en.wikipedia.org/wiki/Bcrypt
+[16]: https://tools.ietf.org/html/rfc7519
