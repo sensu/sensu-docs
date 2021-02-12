@@ -47,7 +47,7 @@ The access and refresh tokens are [JSON Web Tokens (JWTs)][2] that Sensu issues 
 The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
 
 Sensuctl stores the access and refresh tokens in a "cluster" configuration file under the current user's home directory.
-For example, on Unix systems, sensuctl stores the tokens in `$HOME/.config/sensu/sensuctl/cluster`
+For example, on Unix systems, sensuctl stores the tokens in `$HOME/.config/sensu/sensuctl/cluster`.
 
 ### OIDC authentication
 

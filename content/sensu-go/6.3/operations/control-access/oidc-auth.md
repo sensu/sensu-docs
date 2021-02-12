@@ -433,7 +433,7 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
 1. Run `sensuctl login oidc`.
 
     {{% notice note %}}
-**NOTE**: You can also use [`sensuctl configure`](../../../sensuctl/#first-time-setup) and choose the OIDC authentication method to log in to sensuctl with OIDC.
+**NOTE**: You can also use [`sensuctl configure`](../../../sensuctl/#first-time-setup-and-authentication) and choose the OIDC authentication method to log in to sensuctl with OIDC.
 {{% /notice %}}
 
 2. If you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.
@@ -454,7 +454,7 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [19]: ../../maintain-sensu/troubleshoot#log-levels
 [25]: #oidc-spec-attributes
 [27]: ../../../api/authproviders/
-[36]: ../../../sensuctl/#first-time-setup
+[36]: ../../../sensuctl/#first-time-setup-and-authentication
 [38]: ../../../sensuctl/create-manage-resources/#create-resources
 [41]: https://en.wikipedia.org/wiki/Fully_qualified_domain_name
 [42]: https://regex101.com/r/zo9mQU/2
