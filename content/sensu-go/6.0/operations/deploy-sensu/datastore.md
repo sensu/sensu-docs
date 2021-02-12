@@ -320,7 +320,7 @@ pool_size: 20
 {{< /language-toggle >}}
 
 
-[1]: ../../../sensuctl/#first-time-setup
+[1]: ../../../sensuctl/#first-time-setup-and-authentication
 [2]: ../../maintain-sensu/troubleshoot/
 [3]: https://aws.amazon.com/rds/
 [4]: https://pkg.go.dev/github.com/lib/pq@v1.2.0#hdr-Connection_String_Parameters

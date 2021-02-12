@@ -1751,7 +1751,7 @@ To get started with Sensu Go:
 [199]: /sensu-go/6.2/operations/control-access/ldap-auth/
 [200]: /sensu-go/6.2/sensuctl/create-manage-resources/#sensuctl-prune-flags
 [201]: /sensu-go/6.2/operations/deploy-sensu/datastore/#round-robin-postgresql
-[202]: /sensu-go/6.2/sensuctl/#first-time-setup
+[202]: /sensu-go/6.2/sensuctl/#first-time-setup-and-authentication
 [203]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#agent-managed-entity
 [204]: /sensu-go/6.2/observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent
 [205]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#configuration-via-flags
