@@ -169,16 +169,32 @@ c8f63ae435a5e6bf   backend-3                                                    
 
 ### Add a cluster member
 
-Add a new member node to an existing cluster:
+To add a new member node to an existing cluster:
 
-{{< code shell >}}
+1. Configure the new node's store in its `/etc/sensu/backend.yml` configuration file.
+For the new node `backend-4` with IP address `10.0.0.4`:
+
+   {{< code yml >}}
+etcd-advertise-client-urls: "http://10.0.0.4:2379"
+etcd-listen-client-urls: "http://10.0.0.4:2379"
+etcd-listen-peer-urls: "http://0.0.0.0:2380"
+etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380,backend-4=https://10.0.0.4:2380"
+etcd-initial-advertise-peer-urls: "http://10.0.0.4:2380"
+etcd-initial-cluster-state: "existing"
+etcd-initial-cluster-token: ""
+etcd-name: "backend-4"
+{{< /code >}}
+
+2. Run the sensuctl command to add the new cluster member:
+
+   {{< code shell >}}
 sensuctl cluster member-add backend-4 https://10.0.0.4:2380
+{{< /code >}}
 
+   You will receive a sensuctl response to confirm that the new member was added:
+
+   {{< code shell >}}
 added member 2f7ae42c315f8c2d to cluster
-
-ETCD_NAME="backend-4"
-ETCD_INITIAL_CLUSTER="backend-4=https://10.0.0.4:2380,backend-1=https://10.0.0.1:2380,backend-2=https://10.0.0.2:2380,backend-3=https://10.0.0.3:2380"
-ETCD_INITIAL_CLUSTER_STATE="existing"
 {{< /code >}}
 
 ### List cluster members
@@ -344,3 +360,4 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [18]: https://github.com/etcd-io/etcd/blob/a621d807f061e1dd635033a8d6bc261461429e27/Documentation/v2/admin_guide.md#optimal-cluster-size
 [19]: #sensu-backend-configuration
 [20]: ../../../api/
+[21]: ../install-sensu/
