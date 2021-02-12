@@ -63,6 +63,10 @@ When using mTLS authentication, sensu-agent sends the following HTTP headers in 
 
 If the Sensu agent is configured for mTLS authentication, it will not send the `Authorization` HTTP header.
 
+#### Certificate revocation check
+
+The Sensu backend checks certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) endpoints for mTLS, etcd client, and etcd peer connections whose remote sides present X.509 certificates that provide CRL and OCSP revocation information.
+
 ## Communication between the agent and backend
 
 The Sensu agent uses [WebSocket][45] (ws) protocol to send and receive JSON messages with the Sensu backend.
