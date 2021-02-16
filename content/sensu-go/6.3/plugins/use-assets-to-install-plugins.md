@@ -25,7 +25,7 @@ You can install Sensu plugins using the [sensu-install](../install-plugins#insta
 
 ## Register the Sensu PagerDuty Handler asset
 
-To add the [Sensu PagerDuty Handler dynamic runtime asset][7] to Sensu, use [`sensuctl asset add`][6]:
+To add the [Sensu PagerDuty Handler dynamic runtime asset][7] to Sensu, use [`sensuctl asset add [NAMESPACE/NAME]:[VERSION]`][6]:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
@@ -36,6 +36,11 @@ You have successfully added the Sensu asset resource, but the asset will not get
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
 resource, populate the "runtime_assets" field with ["pagerduty-handler"].
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: We recommend specifying the asset version you want to install to maintain the stability of your observability infrastructure.
+If you do not specify a version to install, Sensu automatically installs the latest version, which may include breaking changes.
+{{% /notice %}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `pagerduty-handler`.
 
