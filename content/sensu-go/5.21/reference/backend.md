@@ -260,6 +260,10 @@ This is because the Go standard library assumes that the first certificate liste
 If you send the server certificate alone instead of sending the whole bundle with the server certificate first, you will see a `certificate not signed by trusted authority` error.
 You must present the whole chain to the remote so it can determine whether it trusts the server certificate through the chain.
 
+### Certificate revocation check
+
+The Sensu backend checks certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) endpoints for mutual transport layer security (mTLS), etcd client, and etcd peer connections whose remote sides present X.509 certificates that provide CRL and OCSP revocation information.
+
 ### Configuration summary
 
 {{< code text >}}
@@ -530,7 +534,7 @@ agent-auth-cert-file: /path/to/ssl/cert.pem{{< /code >}}
 
 | agent-auth-crl-urls |      |
 -------------|------
-description  | URLs of CRLs for agent certificate authentication.
+description  | URLs of CRLs for agent certificate authentication. The Sensu backend uses this list to perform a revocation check for agent mTLS.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_CRL_URLS`
