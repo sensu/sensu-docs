@@ -141,7 +141,7 @@ For more information, see [Get started with commercial features][5].
 By default, Sensu agents require username and password authentication to communicate with Sensu backends.
 For Sensu's [default user credentials][2] and details about configuring Sensu role-based access control (RBAC), see the [RBAC reference][3] and [Create a read-only user][4].
 
-Sensu can also use mTLS authentication for connecting agents to backends.
+Alternately, Sensu agents can use mTLS for authenticating to the backend websocket transport.
 When agent mTLS authentication is enabled, agents do not need to send password credentials to backends when they connect.
 To use [secrets management][1], Sensu agents must be secured with mTLS.
 In addition, when using mTLS authentication, agents do not require an explicit user in Sensu.
@@ -203,7 +203,7 @@ However, deployments can also use the same certificates and keys for etcd peer a
 
 ### Certificate revocation check
 
-The Sensu backend checks certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) endpoints for mTLS, etcd client, and etcd peer connections whose remote sides present X.509 certificates that provide CRL and OCSP revocation information.
+The Sensu backend checks certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) endpoints for agent mTLS, etcd client, and etcd peer connections whose remote sides present X.509 certificates that provide CRL and OCSP revocation information.
 
 ## Next step: Run a Sensu cluster
 
