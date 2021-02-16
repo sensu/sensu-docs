@@ -183,7 +183,7 @@ created_by: admin
 ca_cert      |      |
 -------------|------
 description  | Path to an the PEM-format CA certificate to use for TLS client authentication.
-required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `ca_cert` is not required.
+required     | true if `insecure: false` (the default configuration). If `insecure: true`, `ca_cert` is not required.
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
@@ -198,8 +198,8 @@ ca_cert: /path/to/trusted-certificate-authorities.pem
 
 cert         |      |
 -------------|------
-description  | Path to the PEM-format certificate to use for TLS client authentication.
-required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `cert` is not required.
+description  | Path to the PEM-format certificate to use for TLS client authentication.  This certificate is required for secure client communication.
+required     | true if `insecure: false` (the default configuration). If `insecure: true`, `cert` is not required.
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
@@ -214,8 +214,8 @@ cert: /path/to/ssl/cert.pem
 
 key          |      |
 -------------|------
-description  | Path to the PEM-format key file associated with the `cert` to use for TLS client authentication.
-required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `key` is not required.
+description  | Path to the PEM-format key file associated with the `cert` to use for TLS client authentication. This key and its corresponding certificate are required for secure client communication.
+required     | true if `insecure: false` (the default configuration). If `insecure: true`, `key` is not required.
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
@@ -230,8 +230,8 @@ key: /path/to/ssl/key.pem
 
 insecure     |      |
 -------------|-------
-description  | `true` to disable transport security. Otherwise, `false`. {{% notice note %}}
-**NOTE**: Disable transport security with care.
+description  | `true` to disable transport security. Otherwise, `false`. {{% notice warning %}}
+**WARNING**: Disable transport security with care.
 {{% /notice %}}
 required     | false
 type         | Boolean
@@ -249,7 +249,7 @@ insecure: false
 
 url          |      |
 -------------|-------
-description  | Destination cluster URL. If specifying more than one, use a comma to separate.
+description  | Destination cluster URL. If specifying more than one, use a comma to separate. Replace with a non-default value for secure client communication.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
