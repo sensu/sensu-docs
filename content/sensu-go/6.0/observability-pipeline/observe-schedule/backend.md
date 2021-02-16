@@ -967,7 +967,7 @@ etcd-key-file: "./client-key.pem"{{< /code >}}
 
 | etcd-listen-client-urls |      |
 --------------------------|------
-description               | List of URLs to listen on for client traffic.
+description               | List of URLs to listen on for client traffic. Sensu's default embedded etcd configuration listens for unencrypted client communication on port 2379.
 type                      | List
 default                   | `http://127.0.0.1:2379` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://[::]:2379` (Docker)
 environment variable      | `SENSU_BACKEND_ETCD_LISTEN_CLIENT_URLS`
@@ -984,7 +984,7 @@ etcd-listen-client-urls:
 
 | etcd-listen-peer-urls |      |
 ------------------------|------
-description             | List of URLs to listen on for peer traffic.
+description             | List of URLs to listen on for peer traffic. Sensu's default embedded etcd configuration listens for unencrypted peer communication on port 2380.
 type                    | List
 default                 | `http://127.0.0.1:2380` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://[::]:2380` (Docker)
 environment variable    | `SENSU_BACKEND_ETCD_LISTEN_PEER_URLS`
