@@ -23,14 +23,14 @@ Teams can share and remix observability workflows for collecting events and metr
 - Maintain revision control and change history for your observability workflows.
 - Export the Sensu configuration for one environment and replicate the same configuration in other environments.
 - Remove, restore, back up, and recover Sensu instances based on Sensu workflow configuration files.
-- Include your monitoring workflow in your centralized continuous integration/continuous delivery (CI/CD) pipeline to keep your observability workflows aligned with your product and services.
+- Include your observability workflow in your centralized continuous integration/continuous delivery (CI/CD) pipeline to keep your observability workflows aligned with your product and services.
 
 To get started with monitoring as code, you'll need a [repository][11] and [configuration files][13] that contain your resource definitions.
 
 ## Create a monitoring as code repository
 
-A monitoring as code repository will include configuration files that contain the resource definitions you use in your monitoring workflow.
-You can use any source control repository for maintaining your monitoring workflow configuration files, but you'll need to decide how to structure your repository.
+A monitoring as code repository will include configuration files that contain the resource definitions you use in your observability workflow.
+You can use any source control repository for maintaining your observability workflow configuration files, but you'll need to decide how to structure your repository.
 
 The way you will use your Sensu resource [configuration files][13] will help you choose the best structure for your monitoring as code repository.
 
@@ -62,7 +62,7 @@ All resources of each type for each namespace are saved in a single configuratio
 
 Configuration files contain your Sensu resource definitions.
 You can [build configuration files as you go][6], adding resource definitions as you create them.
-You can also create your entire Sensu monitoring workflow first, then [export some or all of your resource definitions][7] to a file.
+You can also create your entire Sensu observability workflow first, then [export some or all of your resource definitions][7] to a file.
 Or, you can use a mix: export all of your existing resource definitions to configuration files and append new resources as you create them.
 
 When you are ready to replicate your exported resource definitions, use [`sensuctl create`][10].
@@ -235,7 +235,7 @@ sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json | tee -a resource.jso
 
 ### Export existing resources
 
-If you've already created a monitoring workflow, use `sensuctl dump` to create a copy of your existing resource definitions.
+If you've already created a observability workflow, use `sensuctl dump` to create a copy of your existing resource definitions.
 
 First, create a sensu directory:
 
