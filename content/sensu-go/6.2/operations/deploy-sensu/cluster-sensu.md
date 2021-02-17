@@ -67,6 +67,11 @@ The configuration file entries in the rest of this guide translate to `sensu-bac
 
 #### Sensu backend configuration
 
+{{% notice warning %}}
+**WARNING**: You must update the default configuration for Sensu's embedded etcd with an explicit, non-default configuration to secure etcd communication in transit.
+If you do not properly configure secure etcd communication, your Sensu configuration will be vulnerable to unauthorized manipulation via etcd client connections.
+{{% /notice %}}
+
 The examples in this section are configuration snippets from `/etc/sensu/backend.yml` using a three-node cluster.
 The nodes are named `backend-1`, `backend-2` and `backend-3` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3`, respectively.
 
@@ -122,6 +127,10 @@ etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: ""
 etcd-name: "backend-3"
 {{< /code >}}
+
+{{% notice important %}}
+**IMPORTANT**: To properly secure etcd communication, replace the default URLs for `etcd-advertise-client-urls`, `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-cluster` in the store configurations for your backends with non-default values.
+{{% /notice %}}
 
 After you configure each node as described in these examples, start each sensu-backend:
 
@@ -282,6 +291,11 @@ See [Secure Sensu][16] for information about cluster security.
 
 ## Use an external etcd cluster
 
+{{% notice warning %}}
+**WARNING**: You must update the example configuration for external etcd with an explicit, non-default configuration to secure etcd communication in transit.
+If you do not properly configure secure etcd communication, your Sensu configuration will be vulnerable to unauthorized manipulation via etcd client connections.
+{{% /notice %}}
+
 To use Sensu with an external etcd cluster, you must have etcd 3.3.2 or newer.
 To stand up an external etcd cluster, follow etcd's [clustering guide][2] using the same store configuration.
 
@@ -326,7 +340,7 @@ sensu-backend start \
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: The `etcd-cient-urls` value must be a space-delimited list or a YAML array.
+**NOTE**: The `etcd-client-urls` value must be a space-delimited list or a YAML array.
 {{% /notice %}}
 
 ## Troubleshoot clusters
