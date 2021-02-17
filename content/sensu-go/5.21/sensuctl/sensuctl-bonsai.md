@@ -16,8 +16,8 @@ You can also use `sensuctl command` to install, execute, list, and delete comman
 
 ## Install asset definitions
 
-To install an asset definition directly from Bonsai, use `sensuctl asset add [NAMESPACE/NAME][:VERSION]`.
-`[:VERSION]` is only required if you require a specific version or are pinning to a specific version.
+To install an asset definition directly from Bonsai, use `sensuctl asset add [NAMESPACE/NAME]:[VERSION]`.
+`:[VERSION]` is only required if you require a specific version or are pinning to a specific version.
 
 Replace `[NAMESPACE/NAME]` with the namespace and name of the asset from Bonsai:
 
@@ -70,7 +70,7 @@ sensuctl command install [ALIAS] ([NAMESPACE/NAME]:[VERSION] | --url [ARCHIVE_UR
 To install a command plugin, use the Bonsai asset name or specify a URL and SHA512 checksum.
 
 **To install a command using the Bonsai asset name**, replace `[NAMESPACE/NAME]` with the name of the asset from Bonsai.
-`[:VERSION]` is only required if you require a specific version or are pinning to a specific version.
+`:[VERSION]` is only required if you require a specific version or are pinning to a specific version.
 If you do not specify a version, sensuctl will fetch the latest version from Bonsai.
 
 Replace `[ALIAS]` with a unique name for the command.

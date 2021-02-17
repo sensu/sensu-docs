@@ -260,6 +260,10 @@ This is because the Go standard library assumes that the first certificate liste
 If you send the server certificate alone instead of sending the whole bundle with the server certificate first, you will see a `certificate not signed by trusted authority` error.
 You must present the whole chain to the remote so it can determine whether it trusts the server certificate through the chain.
 
+### Certificate revocation check
+
+The Sensu backend checks certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) endpoints for mutual transport layer security (mTLS), etcd client, and etcd peer connections whose remote sides present X.509 certificates that provide CRL and OCSP revocation information.
+
 ### Configuration summary
 
 {{< code text >}}
@@ -549,7 +553,7 @@ agent-auth-cert-file: /path/to/ssl/cert.pem{{< /code >}}
 
 | agent-auth-crl-urls |      |
 -------------|------
-description  | URLs of CRLs for agent certificate authentication.
+description  | URLs of CRLs for agent certificate authentication. The Sensu backend uses this list to perform a revocation check for agent mTLS.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_CRL_URLS`
@@ -982,7 +986,7 @@ etcd-key-file: "./client-key.pem"{{< /code >}}
 
 | etcd-listen-client-urls |      |
 --------------------------|------
-description               | List of URLs to listen on for client traffic.
+description               | List of URLs to listen on for client traffic. Sensu's default embedded etcd configuration listens for unencrypted client communication on port 2379.
 type                      | List
 default                   | `http://127.0.0.1:2379` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://[::]:2379` (Docker)
 environment variable      | `SENSU_BACKEND_ETCD_LISTEN_CLIENT_URLS`
@@ -999,7 +1003,7 @@ etcd-listen-client-urls:
 
 | etcd-listen-peer-urls |      |
 ------------------------|------
-description             | List of URLs to listen on for peer traffic.
+description             | List of URLs to listen on for peer traffic. Sensu's default embedded etcd configuration listens for unencrypted peer communication on port 2380.
 type                    | List
 default                 | `http://127.0.0.1:2380` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://[::]:2380` (Docker)
 environment variable    | `SENSU_BACKEND_ETCD_LISTEN_PEER_URLS`

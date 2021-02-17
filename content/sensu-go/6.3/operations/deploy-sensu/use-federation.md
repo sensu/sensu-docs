@@ -78,12 +78,15 @@ This prerequisite extends to configuring the following Sensu backend etcd parame
 | `etcd-cert-file`             | Path to certificate used for TLS on etcd client/peer communications.  |
 | `etcd-key-file`              | Path to key corresponding with `etcd-cert-file` certificate. |
 | `etcd-trusted-ca-file`       | Path to CA certificate chain file. This CA certificate chain must be usable to validate certificates for all backends in the federation. |
-| `etcd-client-cert-auth`      | Enforces certificate validation to authenticate etcd replicator connections. We recommend setting to `true`. |
+| `etcd-client-cert-auth`      | Enforces certificate validation to authenticate etcd replicator connections. Set to `true` to secure etcd communication. |
 | `etcd-advertise-client-urls` | List of https URLs to advertise for etcd replicators, accessible by other backends in the federation (e.g. `https://sensu.beta.example.com:2379`). |
 | `etcd-listen-client-urls`    | List of https URLs to listen on for etcd replicators (e.g. `https://0.0.0.0:2379` to listen on port 2379 across all ipv4 interfaces). |
 
-{{% notice note %}}
-**NOTE**: You *must* provide non-default values for the `etcd-advertise-client-urls` and `etcd-listen-client-urls` backend parameters.
+{{% notice warning %}}
+**WARNING**: You *must* provide an explicit, non-default etcd configuration to secure etcd communication in transit.
+If you do not properly configure secure etcd communication, your Sensu configuration will be vulnerable to unauthorized manipulation via etcd client connections.
+
+This includes providing non-default values for the `etcd-advertise-client-urls` and `etcd-listen-client-urls` backend parameters and creating a [certificate and key](../generate-certificates/) for the `etcd-cert-file` and `etcd-key-file` values.
 The default values are not suitable for use under federation.
 {{% /notice %}}
 
