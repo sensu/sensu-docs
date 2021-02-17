@@ -1,10 +1,10 @@
 ---
-title: "Service components reference"
+title: "Service components reference: Business service monitoring (BSM)"
 linkTitle: "Service Components Reference"
 reference_title: "Service components"
 type: "reference"
-description: "A service component is a meaningful selection of Sensu events for a business service, such as database monitoring events. Service component resources allow you to define and manage elements of a business service. Read this reference to learn more about Sensu's business service components."
-weight: 60
+description: "A service component is a meaningful selection of Sensu events for a business service, such as database monitoring events. Service component resources allow you to define and manage elements of a business service. Read this reference to learn more about Sensu's service components for business service monitoring."
+weight: 70
 version: "6.3"
 product: "Sensu Go"
 menu: 
@@ -12,12 +12,12 @@ menu:
     parent: observe-schedule
 ---
 
-**COMMERCIAL FEATURE**: Access business service management, including service components, in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access business service monitoring (BSM), including service components, in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][9].
 
-Each business service entity consists of a number of underlying business service components.
-Business service components are resources for defining and managing elements of a business service.
-A component is a meaningful selection of Sensu events for a business service, such as database monitoring events.
+Service components are resources for defining and managing elements of a business service in business service monitoring.
+Each business service entity consists of a number of underlying service components.
+A service component is a meaningful selection of Sensu events for a business service, such as database monitoring events.
 
 A service component includes event selectors to define the events that the component includes, a service component scheduler (either an interval or cron expression), and references to at least one monitoring rule template with arguments.
 The monitoring rules are evaluated against aggregate data derived from the service component's selection of events.

@@ -1,10 +1,10 @@
 ---
-title: "Rule templates reference"
+title: "Rule templates reference: Business service monitoring (BSM)"
 linkTitle: "Rule Templates Reference"
 reference_title: "Rule templates"
 type: "reference"
-description: "Sensu's rule templates are resources that Sensu applies to business service components. The rules define the conditions under which Sensu will consider a service component online, degraded, or offline. Read this reference to learn more about Sensu's rule templates for business service management."
-weight: 70
+description: "Sensu's rule templates are resources that Sensu applies to service components for business service monitoring. The rules define the conditions under which Sensu will consider a service component online, degraded, or offline. Read this reference to learn more about Sensu's rule templates for business service monitoring."
+weight: 60
 version: "6.3"
 product: "Sensu Go"
 menu: 
@@ -12,18 +12,44 @@ menu:
     parent: observe-schedule
 ---
 
-**COMMERCIAL FEATURE**: Access business service management, including rule templates, in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access business service monitoring (BSM), including rule templates, in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][4].
 
-Rule templates are resources that Sensu applies to business service [components][3].
-The rules define the conditions under which Sensu will consider a service component online, degraded, or offline.
-Rules apply to aggregate data derived from a service component’s selection of Sensu Go events.
+Rule templates are the resources that Sensu applies to [service components][3] for business service monitoring.
+A rule template applies to selections of events defined by a service component's query.
+This selection of events is the rule's input.
 
-In rule templates, you configure the conditions for creating an event with an ECMAScript 5 (JavaScript) expression.
-When you add rule templates by reference in your service component definitions, Sensu evaluate events according to the monitoring rules you configure in the rule template.
-Monitoring rules create events when one or more thresholds are exceeded; for example, a threshold might be fewer than 70% of a service component's selected events have a check status of OK.
+The rule template evaluates the selection of events using an ECMAScript 5 (JavaScript) expression specified in the rule template's `eval` object and emits a single event based on this evaluation.
+For example, a rule template's expression might define the thresholds at which Sensu will consider a service component online, degraded, or offline:
 
-Components can reference more than one rule template.
+- Online until fewer than 70% of the service component's events have a check status of OK.
+- Degraded while 50-69% of the service component's events have a check status of OK.
+- Offline when fewer than 50% of the service component's events have a check status of OK.
+
+The rule template expression can also create arbitrary events.
+
+## Apply rule templates to service components
+
+Rule templates are general, parameterized resources that can apply to one or more service components.
+To apply a rule template to a specific service component:
+
+- List the rule template name in the service component's `rules.template` field.
+- Specify the arguments the rule template requires in the service component's `rules.template.arguments` object.
+
+Several service components can use the same rule template with different argument values.
+For example, a rule template might evaluate one argument, `threshold_ok`, against the number of events with OK status, as represented by the following logic:
+
+{{< code javascript >}}
+if numberEventsOK < threshold_ok {
+  emit warning event
+}
+{{< /code >}}
+
+You can specify a variety of thresholds as arguments in service component definitions that reference this rule template.
+One service component might set the `threshold_ok` value at 10; another service component might set the value at 50.
+Both service components can make use of the same rule template at the threshold that makes sense for that component.
+
+Service components can reference more than one rule template.
 Sensu evaluates each rule separately, and each rule produces its own event as output.
 
 ## Rule template example
@@ -39,7 +65,6 @@ api_version: bsm/v1
 metadata:
   name: status-threshold
   namespace: default
-  created_by: admin
 spec:
   description: Creates an event when the percentage of events with the given status exceed the given threshold
   arguments:
@@ -69,9 +94,7 @@ spec:
       if (num / total <= args.threshold) {
         return;
       }
-      return sensu.new_event({
-        status: statusMap[args.status],
-        /* ... */,
+      return event.status = statusMap[args.status],
       });
     }
 {{< /code >}}
@@ -82,8 +105,7 @@ spec:
   "api_version": "bsm/v1",
   "metadata": {
     "name": "status-threshold",
-    "namespace": "default",
-    "created_by": "admin"
+    "namespace": "default"
   },
   "spec": {
     "description": "Creates an event when the percentage of events with the given status exceed the given threshold",
@@ -108,7 +130,272 @@ spec:
         }
       }
     },
-    "eval": "var statusMap = {\n  \"non-zero\": 1,\n  \"warning\": 1,\n  \"critical\": 2,\n};\nfunction main(args) {\n  var total = sensu.events.count();\n  var num = sensu.events.count(args.status);\n  if (num / total <= args.threshold) {\n    return;\n  }\n  return sensu.new_event({\n    status: statusMap[args.status],\n    /* ... */,\n  });\n}"
+    "eval": "var statusMap = {\n  \"non-zero\": 1,\n  \"warning\": 1,\n  \"critical\": 2,\n};\nfunction main(args) {\n  var total = sensu.events.count();\n  var num = sensu.events.count(args.status);\n  if (num / total <= args.threshold) {\n    return;\n  }\n  return event.status = statusMap[args.status],\n  });\n}"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Built-in rule templates
+
+Sensu's business service monitoring (BSM) includes built-in rule templates that address common BSM use cases.
+These built-in rule templates are ready to use with your service components.
+Reference the rule template name in the `rules.template` field and configure the arguments in the `rules.template.arguments` object in your service component resource definitions.
+
+### Aggregate rule template
+
+The `aggregate` rule template allows you to treat the results of multiple disparate check executions executed across multiple disparate systems as a single result (event).
+
+Use the `aggregate` rule template for services that can be considered healthy as long as a minimum threshold is satisfied.
+For example, you might set the minimum threshold at 10 web servers with an OK status or 70% of processes running with an OK status.
+
+The `aggregate` rule template is useful in dynamic environments and environments with some tolerance for failure.
+
+To view the `aggregate` resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+sensuctl RuleTemplate info aggregate --format yaml
+{{< /code >}}
+
+{{< code json >}}
+sensuctl RuleTemplate info aggregate --format wrapped-json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The response will include the complete `aggregate` rule template resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: RuleTemplate
+api_version: bsm/v1
+metadata:
+  name: aggregate
+spec:
+  description: |
+    An aggregate makes it possible to treat the result of multiple disparate check executions executed across multiple disparate systems as a single result (Event).
+    Aggregates are extremely useful in dynamic environments and/or environments that have a reasonable tolerance for failure.
+    Aggregates should be used when a service can be considered healthy as long as a minimum threshold is satisfied (e.g. are at least 5 healthy web servers? are at least 70% of N processes healthy?).
+  arguments:
+    required:
+      - produce_metrics
+    properties:
+      produce_metrics:
+        type: boolean
+        default: false
+      critical_threshold:
+        type: number
+        description: |
+          create an event with a critical status if the percentage of non-zero events is equal to or greater than this threshold
+      warning_threshold:
+        type: number
+        description: |
+          create an event with a warning status if the percentage of non-zero events is equal to or greater than this threshold
+      critical_count:
+        type: number
+        description: |
+          create an event with a critical status if there the number of critical events is equal to or greater than this count
+      warning_count:
+        type: number
+        description: |
+          create an event with a warning status if there the number of critical events is equal to or greater than this count
+  eval: |+
+    if (!!args["handlers"]) {
+        event.check.handlers = args["handlers"];
+    }
+
+    if (events && events.length == 0) {
+        event.check.output = "WARNING: No events selected for aggregate\n";
+        event.check.status = 1;
+        return event;
+    }
+
+    event.annotations["io.sensu.bsm.selected_event_count"] = events.length;
+
+    percentOK = sensu.PercentageBySeverity("ok");
+
+    if (!!args["produce_metrics"]) {
+        var handler = "";
+
+        if (!!args["metric_handler"]) {
+            handler = args["metric_handler"];
+        }
+
+        var ts = Math.floor(new Date().getTime() / 1000);
+
+        event.timestamp = ts;
+
+        var tags = [
+            {
+                name: "service",
+                value: event.entity.name
+            },
+            {
+                name: "entity",
+                value: event.entity.name
+            },
+            {
+                name: "check",
+                value: event.check.name
+            }
+        ];
+
+        event.metrics = sensu.NewMetrics({
+            handlers: [handler],
+            points: [
+                {
+                    name: "percent_non_zero",
+                    timestamp: ts,
+                    value: sensu.PercentageBySeverity("non-zero"),
+                    tags: tags
+                },
+                {
+                    name: "percent_ok",
+                    timestamp: ts,
+                    value: percentOK,
+                    tags: tags
+                },
+                {
+                    name: "percent_warning",
+                    timestamp: ts,
+                    value: sensu.PercentageBySeverity("warning"),
+                    tags: tags
+                },
+                {
+                    name: "percent_critical",
+                    timestamp: ts,
+                    value: sensu.PercentageBySeverity("critical"),
+                    tags: tags
+                },
+                {
+                    name: "percent_unknown",
+                    timestamp: ts,
+                    value: sensu.PercentageBySeverity("unknown"),
+                    tags: tags
+                },
+                {
+                    name: "count_non_zero",
+                    timestamp: ts,
+                    value: sensu.CountBySeverity("non-zero"),
+                    tags: tags
+                },
+                {
+                    name: "count_ok",
+                    timestamp: ts,
+                    value: sensu.CountBySeverity("ok"),
+                    tags: tags
+                },
+                {
+                    name: "count_warning",
+                    timestamp: ts,
+                    value: sensu.CountBySeverity("warning"),
+                    tags: tags
+                },
+                {
+                    name: "count_critical",
+                    timestamp: ts,
+                    value: sensu.CountBySeverity("critical"),
+                    tags: tags
+                },
+                {
+                    name: "count_unknown",
+                    timestamp: ts,
+                    value: sensu.CountBySeverity("unknown"),
+                    tags: tags
+                }
+            ]
+        });
+
+        if (!!args["set_metric_annotations"]) {
+            var i = 0;
+
+            while(i < event.metrics.points.length) {
+                event.annotations["io.sensu.bsm.selected_event_" + event.metrics.points[i].name] = event.metrics.points[i].value.toString();
+                i++;
+            }
+        }
+    }
+
+    if (!!args["critical_threshold"] && percentOK <= args["critical_threshold"]) {
+        event.check.output = "CRITICAL: Less than " + args["critical_threshold"].toString() + "% of selected events are OK (" + percentOK.toString() + "%)\n";
+        event.check.status = 2;
+        return event;
+    }
+
+    if (!!args["warning_threshold"] && percentOK <= args["warning_threshold"]) {
+        event.check.output = "WARNING: Less than " + args["warning_threshold"].toString() + "% of selected events are OK (" + percentOK.toString() + "%)\n";
+        event.check.status = 1;
+        return event;
+    }
+
+    if (!!args["critical_count"]) {
+        crit = sensu.CountBySeverity("critical");
+
+        if (crit >= args["critical_count"]) {
+            event.check.output = "CRITICAL: " + args["critical_count"].toString() + " or more selected events are in a critical state (" + crit.toString() + ")\n";
+            event.check.status = 2;
+            return event;
+        }
+    }
+
+    if (!!args["warning_count"]) {
+        warn = sensu.CountBySeverity("warning");
+
+        if (warn >= args["warning_count"]) {
+            event.check.output = "WARNING: " + args["warning_count"].toString() + " or more selected events are in a warning state (" + warn.toString() + ")\n";
+            event.check.status = 1;
+            return event;
+        }
+    }
+
+    event.check.output = "Everything looks good (" + percentOK.toString() + "% OK)";
+    event.check.status = 0;
+
+    return event;
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "RuleTemplate",
+  "api_version": "bsm/v1",
+  "metadata": {
+    "name": "aggregate"
+  },
+  "spec": {
+    "description": "An aggregate makes it possible to treat the result of multiple disparate check executions executed across multiple disparate systems as a single result (Event).\nAggregates are extremely useful in dynamic environments and/or environments that have a reasonable tolerance for failure.\nAggregates should be used when a service can be considered healthy as long as a minimum threshold is satisfied (e.g. are at least 5 healthy web servers? are at least 70% of N processes healthy?).\n",
+    "arguments": {
+      "required": [
+        "produce_metrics"
+      ],
+      "properties": {
+        "produce_metrics": {
+          "type": "boolean",
+          "default": false
+        },
+        "critical_threshold": {
+          "type": "number",
+          "description": "create an event with a critical status if the percentage of non-zero events is equal to or greater than this threshold\n"
+        },
+        "warning_threshold": {
+          "type": "number",
+          "description": "create an event with a warning status if the percentage of non-zero events is equal to or greater than this threshold\n"
+        },
+        "critical_count": {
+          "type": "number",
+          "description": "create an event with a critical status if there the number of critical events is equal to or greater than this count\n"
+        },
+        "warning_count": {
+          "type": "number",
+          "description": "create an event with a warning status if there the number of critical events is equal to or greater than this count\n"
+        }
+      }
+    },
+    "eval": "if (!!args[\"handlers\"]) {\n    event.check.handlers = args[\"handlers\"];\n}\n\nif (events && events.length == 0) {\n    event.check.output = \"WARNING: No events selected for aggregate\\n\";\n    event.check.status = 1;\n    return event;\n}\n\nevent.annotations[\"io.sensu.bsm.selected_event_count\"] = events.length;\n\npercentOK = sensu.PercentageBySeverity(\"ok\");\n\nif (!!args[\"produce_metrics\"]) {\n    var handler = \"\";\n\n    if (!!args[\"metric_handler\"]) {\n        handler = args[\"metric_handler\"];\n    }\n\n    var ts = Math.floor(new Date().getTime() / 1000);\n\n    event.timestamp = ts;\n\n    var tags = [\n        {\n            name: \"service\",\n            value: event.entity.name\n        },\n        {\n            name: \"entity\",\n            value: event.entity.name\n        },\n        {\n            name: \"check\",\n            value: event.check.name\n        }\n    ];\n\n    event.metrics = sensu.NewMetrics({\n        handlers: [handler],\n        points: [\n            {\n                name: \"percent_non_zero\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"non-zero\"),\n                tags: tags\n            },\n            {\n                name: \"percent_ok\",\n                timestamp: ts,\n                value: percentOK,\n                tags: tags\n            },\n            {\n                name: \"percent_warning\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"warning\"),\n                tags: tags\n            },\n            {\n                name: \"percent_critical\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"critical\"),\n                tags: tags\n            },\n            {\n                name: \"percent_unknown\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"unknown\"),\n                tags: tags\n            },\n            {\n                name: \"count_non_zero\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"non-zero\"),\n                tags: tags\n            },\n            {\n                name: \"count_ok\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"ok\"),\n                tags: tags\n            },\n            {\n                name: \"count_warning\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"warning\"),\n                tags: tags\n            },\n            {\n                name: \"count_critical\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"critical\"),\n                tags: tags\n            },\n            {\n                name: \"count_unknown\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"unknown\"),\n                tags: tags\n            }\n        ]\n    });\n\n    if (!!args[\"set_metric_annotations\"]) {\n        var i = 0;\n\n        while(i < event.metrics.points.length) {\n            event.annotations[\"io.sensu.bsm.selected_event_\" + event.metrics.points[i].name] = event.metrics.points[i].value.toString();\n            i++;\n        }\n    }\n}\n\nif (!!args[\"critical_threshold\"] && percentOK <= args[\"critical_threshold\"]) {\n    event.check.output = \"CRITICAL: Less than \" + args[\"critical_threshold\"].toString() + \"% of selected events are OK (\" + percentOK.toString() + \"%)\\n\";\n    event.check.status = 2;\n    return event;\n}\n\nif (!!args[\"warning_threshold\"] && percentOK <= args[\"warning_threshold\"]) {\n    event.check.output = \"WARNING: Less than \" + args[\"warning_threshold\"].toString() + \"% of selected events are OK (\" + percentOK.toString() + \"%)\\n\";\n    event.check.status = 1;\n    return event;\n}\n\nif (!!args[\"critical_count\"]) {\n    crit = sensu.CountBySeverity(\"critical\");\n\n    if (crit >= args[\"critical_count\"]) {\n        event.check.output = \"CRITICAL: \" + args[\"critical_count\"].toString() + \" or more selected events are in a critical state (\" + crit.toString() + \")\\n\";\n        event.check.status = 2;\n        return event;\n    }\n}\n\nif (!!args[\"warning_count\"]) {\n    warn = sensu.CountBySeverity(\"warning\");\n\n    if (warn >= args[\"warning_count\"]) {\n        event.check.output = \"WARNING: \" + args[\"warning_count\"].toString() + \" or more selected events are in a warning state (\" + warn.toString() + \")\\n\";\n        event.check.status = 1;\n        return event;\n    }\n}\n\nevent.check.output = \"Everything looks good (\" + percentOK.toString() + \"% OK)\";\nevent.check.status = 0;\n\nreturn event;"
   }
 }
 {{< /code >}}
@@ -402,7 +689,7 @@ eval: |
 required     | 
 -------------|------ 
 description  | List of keys the rule template argument requires. The listed keys must be configured in the [properties][2] object.
-required     | true
+required     | false
 type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
