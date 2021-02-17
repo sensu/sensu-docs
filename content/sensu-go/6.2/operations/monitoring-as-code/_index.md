@@ -13,20 +13,17 @@ menu:
     identifier: monitoring-as-code
 ---
 
-Sensu supports end-to-end monitoring as code so you can manage your observability and monitoring workflows the same way you build, test, and deploy your applications and infrastructure.
-Through the combination of composable building blocks and robust APIs, Sensu allows you to define your entire monitoring workflow as declarative YAML or JSON code in configuration files.
-Teams can share and remix monitoring workflows that include Sensu resources for collecting observability events and metrics, diagnosing issues, sending alerts, and automatically remediating problems.
+Sensu's end-to-end monitoring as code allows you to manage your observability workflows the same way you build, test, and deploy your applications and infrastructure, like Kubernetes and Terraform.
+Monitoring as code combines composable building blocks with robust APIs so you can define your entire observability workflow as declarative YAML or JSON code and improve visibility, reliability, portability, and repeatability.
 
-In the monitoring as code approach, when a new endpoint starts up, like a cloud compute instance or Kubernetes Pod, Sensu automatically registers itself with the platform and starts collecting monitoring and observability data according to the code in your configuration files.
-Your configuration files are composed of the Sensu resource definitions you use in your monitoring and observability workflows.
-You can manage your monitoring and observability workflow as code, the same way you manage other code and the systems you're monitoring, to improve visibility, reliability, portability, and repeatability.
+When a new endpoint starts up, like a cloud compute instance or Kubernetes Pod, Sensu automatically registers itself with the platform and starts collecting observability data according to the code in your configuration files.
+Teams can share and remix observability workflows for collecting events and metrics, diagnosing issues, sending alerts, and automatically remediating problems.
 
 - Share, edit, review, and version your Sensu workflow configuration files just like you would with other "as code" solutions, within one team or among teams across your organization.
-- Maintain revision control and change history for your monitoring workflows.
-- Export your Sensu configuration from one environment and initialize another environment with the same configuration.
+- Maintain revision control and change history for your observability workflows.
+- Export the Sensu configuration for one environment and replicate the same configuration in other environments.
 - Remove, restore, back up, and recover Sensu instances based on Sensu workflow configuration files.
-- Use `sensuctl prune` to consistently apply changes to your monitoring workflows with a single command.
-- Include your monitoring workflow in your centralized continuous integration/continuous delivery (CI/CD) pipeline to keep your monitoring aligned with your product and services.
+- Include your monitoring workflow in your centralized continuous integration/continuous delivery (CI/CD) pipeline to keep your observability workflows aligned with your product and services.
 
 To get started with monitoring as code, you'll need a [repository][11] and [configuration files][13] that contain your resource definitions.
 
@@ -81,7 +78,7 @@ You must add a [`password_hash`](../../sensuctl/#generate-a-password-hash) or `p
 
 To build as you go, use sensuctl commands to retrieve your Sensu resource definitions as you create them and copy the definitions into your configuration files.
 
-For example, if you followed [Monitor server resources][8] and created a check named `check-cpu`, you can retrieve that check definition in YAML or JSON format:
+For example, if you follow [Monitor server resources][8] and create a check named `check-cpu`, you can retrieve that check definition in YAML or JSON format:
 
 {{< language-toggle >}}
 
@@ -100,6 +97,7 @@ The sensuctl response will include the complete `check-cpu` resource definition 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -286,6 +284,16 @@ sensuctl dump all \
 
 {{< /language-toggle >}}
 
+## Best practices for monitoring as code
+
+The monitoring as code approach is flexible &mdash; you can use any source control repository and choose your own directory structure &mdash; but following a few best practices will contribute to a successful implementation.
+
+- To maintain consistency, save all of your resources as only one file type: YAML or JSON.
+- Include all dependencies within a resource definition.
+For example, if a handler requires a dynamic runtime asset and a secret, include the asset and secret definitions with the definition for the handler itself.
+- Choose the labels you use in your resource definitions with care. CI/CD systems like [SensuFlow][5] rely on labels to determine which resources to delete, so if all of your resources have the same labels, you could delete resources you didn't intend to be managed in a particular CI/CD workflow.
+- Establish a resource-labeling schema throughout your organization to facilitate CI/CD. Following the same method for applying labels helps keep unmanaged Sensu resources from multiplying and allows different teams to confidently deploy their own CI/CD workflows without the risk of accidentally deleting another team's resources.
+
 ## Implement CI/CD with monitoring as code
 
 When you're ready, you can expand your monitoring as code practices to include managing your Sensu configuration files with a CI/CD workflow.
@@ -294,7 +302,7 @@ CI/CD takes the manual work out of maintaining and updating your monitoring as c
 If you’re already using CI/CD, you already have workflows for versioning, building, testing, and deploying your code.
 Integrating monitoring as code means your monitoring can go through the same CI/CD workflows as your code.
 
-There's no one "correct" way to implement CI/CD with monitoring as code, but the [SensuFlow GitHub Action][1] offers a turnkey reference implementation that helps you create your own monitoring as code workflow and start managing Sensu resources via repository commits.
+There's no one "correct" way to implement CI/CD with monitoring as code, but the [SensuFlow GitHub Action][5] offers a turnkey reference implementation that helps you create your own monitoring as code workflow and start managing Sensu resources via repository commits.
 
 ### Use SensuFlow for CI/CD monitoring as code
 
@@ -313,16 +321,6 @@ SensuFlow requires:
 - Integration with your CI/CD system to run sensuctl commands as the service account user from the repository of resource definitions
 
 Read the [SensuFlow GitHub Action marketplace page][1] and [Monitoring as code with Sensu Go and SensuFlow][12] for more information.
-
-## Best practices for monitoring as code
-
-The monitoring as code approach is flexible &mdash; you can use any source control repository and choose your own directory structure &mdash; but following a few best practices will contribute to a successful implementation.
-
-- To maintain consistency, save all of your resources as only one file type: YAML or JSON.
-- Include all dependencies within a resource definition.
-For example, if a handler requires a dynamic runtime asset and a secret, include the asset and secret definitions with the definition for the handler itself.
-- Choose the labels you use in your resource definitions with care. CI/CD systems like SensuFlow rely on labels to determine which resources to delete, so if all of your resources have the same labels, you could delete resources you didn't intend to be managed in a particular CI/CD workflow.
-- Establish a resource-labeling schema throughout your organization to facilitate CI/CD. Following the same method for applying labels helps keep unmanaged Sensu resources from multiplying and allows different teams to confidently deploy their own CI/CD workflows without the risk of accidentally deleting another team's resources.
 
 
 [1]: https://github.com/marketplace/actions/sensuflow
