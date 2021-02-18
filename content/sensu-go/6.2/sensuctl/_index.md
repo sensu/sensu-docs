@@ -31,6 +31,12 @@ When prompted, choose the authentication method you wish to use: username/passwo
 The `sensuctl configure` interactive prompts require you to select the username/password authentication method and enter the [Sensu backend URL][6], namespace, and preferred output format.
 Then you will be prompted to enter your [username and password Sensu access credentials][8].
 
+Username/password authentication applies to the following authentication providers:
+
+* [Built-in basic authentication][11]
+* **COMMERCIAL FEATURE**: [LDAP authentication][17]
+* **COMMERCIAL FEATURE**: [ActiveDirectory authentication][18]
+
 This example shows the username/password authentication method:
 
 {{< code shell >}}
@@ -395,3 +401,5 @@ create  delete  import  list
 [14]: ../api/auth/
 [15]: https://en.wikipedia.org/wiki/Bcrypt
 [16]: https://tools.ietf.org/html/rfc7519
+[17]: ../operations/control-access/ldap-auth
+[18]: ../operations/control-access/ad-auth
