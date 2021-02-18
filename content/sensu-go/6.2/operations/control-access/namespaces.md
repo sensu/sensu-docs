@@ -51,6 +51,14 @@ spec:
 
 {{< /language-toggle >}}
 
+## Best practices for namespaces
+
+**Use namespaces for isolation, not organization**
+
+Use namespaces to enforce full isolation of different groups of resources, not to organize resources.
+Agents cannot belong to two namespaces or execute checks in two different namespaces.
+To organize resources, use labels rather than multiple namespaces.
+
 ## Default namespaces
 
 Every [Sensu backend][1] includes a `default` namespace.
@@ -253,3 +261,4 @@ name: production
 [9]: ../../deploy-sensu/install-sensu/#install-sensuctl
 [10]: ../../../sensuctl/create-manage-resources/#create-resources
 [11]: #spec-attributes
+[12]: ../../../observability-pipeline/observe-schedule/agent/#labels
