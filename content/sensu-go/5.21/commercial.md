@@ -91,7 +91,7 @@ These resources will help you get started with commercial features in Sensu Go:
 [13]: https://sensu.io/support/
 [14]: https://account.sensu.io/support/
 [15]: ../operations/deploy-sensu/install-sensu/
-[16]: ../sensuctl/#first-time-setup
+[16]: ../sensuctl/#first-time-setup-and-authentication
 [17]: ../guides/install-check-executables-with-assets/
 [18]: ../reference/license/
 [19]: ../operations/manage-secrets/secrets-management/

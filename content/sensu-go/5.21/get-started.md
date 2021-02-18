@@ -31,7 +31,7 @@ Sensu's [supported platforms][20] include CentOS/RHEL, Debian, Ubuntu, and Windo
 - Learn about Sensu's [commercial features][3] &mdash; all commercial features are available for free in the packaged Sensu Go distribution up to an entity limit of 100
 - Discover Sensu assets on [Bonsai, the Sensu asset hub][6]
 - Find the [Sensu architecture][18] that best meets your needs
-- [Migrate from Sensu Core to Sensu Go][13]
+- [Migrate from Sensu Core and Sensu Enterprise to Sensu Go][13]
 
 ## Explore monitoring at scale with Sensu Go
 

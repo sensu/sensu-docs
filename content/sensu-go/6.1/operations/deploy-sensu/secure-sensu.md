@@ -21,6 +21,11 @@ Before you can use this guide, you must have [generated the certificates][12] yo
 
 ## Secure etcd peer communication
 
+{{% notice warning %}}
+**WARNING**: You must update the default configuration for Sensu's embedded etcd with an explicit, non-default configuration to secure etcd communication in transit.
+If you do not properly configure secure etcd communication, your Sensu configuration will be vulnerable to unauthorized manipulation via etcd client connections.
+{{% /notice %}}
+
 You can secure etcd peer communication via the configuration at `/etc/sensu/backend.yml`.
 Here are the parameters you'll need to configure:
 
@@ -36,9 +41,19 @@ etcd-key-file: "/path/to/your/key"
 etcd-trusted-ca-file: "/path/to/your/ca/file"
 etcd-peer-cert-file: "/path/to/your/peer/cert"
 etcd-peer-key-file: "/path/to/your/peer/key"
+etcd-client-cert-auth: "true"
 etcd-peer-client-cert-auth: "true"
 etcd-peer-trusted-ca-file: "/path/to/your/peer/ca/file"
 {{< /code >}}
+
+To properly secure etcd communication, replace the default parameter values in your backend store configuration with non-default versions of these certificates, keys, and URLs:
+
+ - A certificate and key for the `etcd-cert-file` and `etcd-key-file` to secure client communication
+ - A certificate and key for the `etcd-peer-cert-file` and `etcd-peer-key-file` to secure cluster communication
+ - Non-default values for `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-advertise-client-urls`
+
+In addition, set `etcd-client-cert-auth` and `etcd-peer-client-cert-auth` to `true` to ensure that etcd only allows connections from clients and peers that present a valid, trusted certificate.
+Because etcd does not require authentication by default, you must set `etcd-client-cert-auth` and `etcd-peer-client-cert-auth` to `true` to secure Sensu's embedded etcd datastore against unauthorized access.
 
 ## Secure the API and web UI
 
@@ -141,7 +156,7 @@ For more information, see [Get started with commercial features][5].
 By default, Sensu agents require username and password authentication to communicate with Sensu backends.
 For Sensu's [default user credentials][2] and details about configuring Sensu role-based access control (RBAC), see the [RBAC reference][3] and [Create a read-only user][4].
 
-Sensu can also use mutual transport layer security (mTLS) authentication for connecting agents to backends.
+Alternately, Sensu agents can use mTLS for authenticating to the backend websocket transport.
 When agent mTLS authentication is enabled, agents do not need to send password credentials to backends when they connect.
 To use [secrets management][1], Sensu agents must be secured with mTLS.
 In addition, when using mTLS authentication, agents do not require an explicit user in Sensu.
@@ -178,7 +193,7 @@ The `Subject:` field indicates the certificate's CN is `client`, so to bind the 
 To enable agent mTLS authentication, create and distribute new certificates and keys according to the [Generate certificates][12] guide.
 Once the TLS certificate and key are in place, [update the agent configuration using `cert-file` and `key-file` security configuration flags][7].
 
-After you create backend and agent certificates, modfiy the backend and agent configuration:
+After you create backend and agent certificates, modify the backend and agent configuration:
 
 {{< code yml >}}
 ##
@@ -200,6 +215,10 @@ trusted-ca-file: "/path/to/ca.pem"
 
 You can use use certificates for authentication that are distinct from other communication channels used by Sensu, like etcd or the API.
 However, deployments can also use the same certificates and keys for etcd peer and client communication, the HTTP API, and agent authentication without issues.
+
+### Certificate revocation check
+
+The Sensu backend checks certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) endpoints for agent mTLS, etcd client, and etcd peer connections whose remote sides present X.509 certificates that provide CRL and OCSP revocation information.
 
 ## Next step: Run a Sensu cluster
 
