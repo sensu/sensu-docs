@@ -218,6 +218,16 @@ added member 2f7ae42c315f8c2d to cluster
 sudo systemctl start sensu-backend
 {{< /code >}}
 
+4. Add the new cluster member's WebSocket backend-url in `/etc/sensu/agent.yml` for all agents that connect to the cluster over WebSocket:
+
+   {{< code yml >}}
+backend-url:
+  - "ws://10.0.0.1:8081"
+  - "ws://10.0.0.2:8081"
+  - "ws://10.0.0.3:8081"
+  - "ws://10.0.0.4:8081"
+{{< /code >}}
+
 ### List cluster members
 
 List the ID, name, peer URLs, and client URLs of all nodes in a cluster:
