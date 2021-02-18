@@ -402,6 +402,74 @@ spec:
 
 {{< /language-toggle >}}
 
+The configuration for a service component that references the `aggregate` rule template might look like this example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: ServiceComponent
+api_version: bsm/v1
+metadata:
+  name: app
+spec:
+  services:
+    - app
+  query:
+    - type: fieldSelector
+      value: event.check.labels.service == 'app'
+  interval: 10
+  rules:
+    - template: aggregate
+      arguments:
+        warning_threshold: 70
+        critical_threshold: 50
+        handlers:
+          - slack
+        produce_metrics: true
+        set_metric_annotations: true
+        metric_handler: influxdb
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "ServiceComponent",
+  "api_version": "bsm/v1",
+  "metadata": {
+    "name": "app"
+  },
+  "spec": {
+    "services": [
+      "app"
+    ],
+    "query": [
+      {
+        "type": "fieldSelector",
+        "value": "event.check.labels.service == 'app'"
+      }
+    ],
+    "interval": 10,
+    "rules": [
+      {
+        "template": "aggregate",
+        "arguments": {
+          "warning_threshold": 70,
+          "critical_threshold": 50,
+          "handlers": [
+            "slack"
+          ],
+          "produce_metrics": true,
+          "set_metric_annotations": true,
+          "metric_handler": "influxdb"
+        }
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Rule template specification
 
 ### Top-level attributes
