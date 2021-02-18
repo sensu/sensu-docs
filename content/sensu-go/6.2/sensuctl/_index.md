@@ -26,6 +26,10 @@ sensuctl configure
 This starts the prompts for interactive sensuctl setup.
 When prompted, choose the authentication method you wish to use: username/password or OIDC.
 
+Sensuctl uses your username and password or OIDC credentials to obtain access and refresh tokens via the [Sensu authentication API][14].
+The access and refresh tokens are [JSON Web Tokens (JWTs)][2] that Sensu issues to record the details of users' authenticated Sensu sessions.
+The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
+
 Upon successful authentication, sensuctl stores the access and refresh tokens in a "cluster" configuration file under the current user's home directory.
 For example, on Unix systems, sensuctl stores the tokens in `$HOME/.config/sensu/sensuctl/cluster`.
 
@@ -50,10 +54,6 @@ This example shows the username/password authentication method:
 ? Username: YOUR_USERNAME
 ? Password: YOUR_PASSWORD
 {{< /code >}}
-
-Sensuctl uses your username and password to obtain access and refresh tokens via the [Sensu authentication API][14].
-The access and refresh tokens are [JSON Web Tokens (JWTs)][2] that Sensu issues to record the details of users' authenticated Sensu sessions.
-The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
 
 ### OIDC authentication
 
