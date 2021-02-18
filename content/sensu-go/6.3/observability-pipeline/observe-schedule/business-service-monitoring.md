@@ -1,6 +1,6 @@
 ---
-title: "Manage Business Services"
-description: "Sensu's business service management allows you to configure service components and rule templates for monitoring your business services."
+title: "Monitor Business Services"
+description: "Sensu's business service monitoring (BSM) provides high-level visibility into the current health of any number of your business services. Read this guide to learn how BSM provides an overall view of your business services."
 product: "Sensu Go"
 version: "6.3"
 weight: 55
@@ -11,21 +11,29 @@ menu:
     parent: observe-schedule
 ---
 
-Sensu's business service management allows you to monitor every component in your system with a top-down approach that produces meaningful alerts, prevents alert fatigue, and helps you focus on your core business services.
+Sensu's business service monitoring (BSM) provides high-level visibility into the current health of any number of your business services.
+Use BSM to monitor every component in your system with a top-down approach that produces meaningful alerts, prevents alert fatigue, and helps you focus on your core business services.
+
+BSM requires two resources that work together to achieve top-down monitoring: [service components][1] and [rule templates][2].
+Service components are the elements that make up your business services.
+Rule templates define the monitoring rules that produce events for service components based on customized evaluation expressions.
+
+## Business service monitoring (BSM) concept
 
 An example of a business service might be a company website.
 The website itself might have three service components: the primary webserver that publishes website pages, a backup webserver in case the primary webserver fails, and an inventory database for the shop section of the website.
 At least one webserver and the database must be in an OK state for the website to be fully available.
 
-Business service management allows you to create customized monitoring rules that specify the threshold for taking action for different service components as well as what action to take.
+In this scenario, you could use BSM to create a current status page for this company website that displays the website's high-level status at a glance.
+As long as one webserver and the database have an OK status, the website status is OK.
+Otherwise, the website status is not OK.
+Most people probably just want to know whether the website is currently available &mdash; it won't matter to them whether the website is functioning with one or both webservers.
 
-To continue the company website example, failure of the primary webserver does not affect the website availability because the backup webserver automatically takes over.
-In this scenario, a monitoring rule might create a ticket to address the next workday.
-On the other hand, failure of both webservers or the inventory database does affect website availability, so another monitoring rule that triggers an alert to the on-call operator might apply in that scenario.
+At the same time, the company *does* want to make sure the right person addresses any webserver failures, even if the website is technically still OK.
+BSM allows you to customize rule templates that apply a threshold for taking action for different service components as well as what action to take.
 
-Business service management requires two resources that work together to achieve top-down monitoring: [service components][1] and [rule templates][2].
-Service components are the elements that make up your business services.
-Rule templates define the monitoring rules that produce events for components based on customized evaluation expressions.
+To continue the company website example, if the primary webserver fails but the backup webserver does not, you might use a rule template that creates a service ticket to address the next workday (in addition to the rule template that is emitting "OK" events for the current status page).
+Another monitoring rule might trigger an alert to the on-call operator should both webservers or the inventory database fail.
 
 ## Example service component and rule template definitions
 
@@ -196,8 +204,8 @@ Sampling, polling, and hybrid are three general approaches to selecting events i
 
 ### Sampling
 
-In the sampling approach to business service monitoring, the Sensu Go backend evaluates events against the event selectors for each configured service component as the backend processes the events.
-When an event matches a component’s selectors, the backend samples the event data (including entity name, check name, check output, and check status) and stores this data as part of the service component.
+In the sampling approach to BSM, the Sensu Go backend evaluates events against the event selectors for each configured service component as the backend processes the events.
+When an event matches a service component’s selectors, the backend samples the event data (including entity name, check name, check output, and check status) and stores this data as part of the service component.
 After storing the sampled data, the Sensu backend updates and stores aggregate data for the service component, including the total number of selected events, unique entities, unique checks, and a total count of each check status/severity (ok, warning, critical, or unknown).
 
 If the selected event indicates a state change, the backend evaluates the service component’s monitoring rules for the newly updated aggregate data.
@@ -211,7 +219,7 @@ Events produced by monitoring rule evaluation are processed like any other &mdas
 
 ### Polling
 
-In the polling approach to business service monitoring, service components include a configured monitoring rule evaluation schedule based on either a set interval (in seconds) or cron string.
+In the polling approach to BSM, service components include a configured monitoring rule evaluation schedule based on either a set interval (in seconds) or cron string.
 According to the schedule, the Sensu backend periodically (e.g. every 30 seconds) selects Sensu events using component event selectors and calculates and stores a set of counters for the events.
 The calculated aggregate data includes the total number of selected events, unique entities, unique checks, and a total count of each check status/severity (ok, warning, critical, or unknown).
 
@@ -224,7 +232,7 @@ Events produced by monitoring rule evaluation are processed like any other &mdas
 
 ### Hybrid
 
-In the hybrid approach to business service monitoring, the Sensu Go backend evaluates events against the event selectors for each configured service component as the backend processes the events.
+In the hybrid approach to BSM, the Sensu Go backend evaluates events against the event selectors for each configured service component as the backend processes the events.
 When an event matches a component’s selectors, the backend samples the event data (including entity name, check name, check output, and check status) and stores this data as part of the service component.
 
 Service components also include a configured monitoring rule evaluation schedule based on either a set interval (in seconds) or cron string.
