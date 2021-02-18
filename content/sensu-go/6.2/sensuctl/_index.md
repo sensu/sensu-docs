@@ -26,8 +26,8 @@ sensuctl configure
 This starts the prompts for interactive sensuctl setup.
 When prompted, choose the authentication method you wish to use: username/password or OIDC.
 
-Upon successful authentication, Sensuctl stores the access and refresh tokens in a "cluster" configuration
-file under the current user's home directory. For example, on Unix systems, sensuctl stores the tokens in `$HOME/.config/sensu/sensuctl/cluster`.
+Upon successful authentication, sensuctl stores the access and refresh tokens in a "cluster" configuration file under the current user's home directory.
+For example, on Unix systems, sensuctl stores the tokens in `$HOME/.config/sensu/sensuctl/cluster`.
 
 ### Username/password authentication
 
@@ -36,9 +36,9 @@ Then you will be prompted to enter your [username and password Sensu access cred
 
 Username/password authentication applies to the following authentication providers:
 
-* [Built-in basic authentication][11]
-* **COMMERCIAL FEATURE**: [LDAP authentication][17]
-* **COMMERCIAL FEATURE**: [ActiveDirectory authentication][18]
+- [Built-in basic authentication][11]
+- [Lightweight Directory Access Protocol (LDAP) authentication][17] ([commercial feature][19])
+- [Active Directory (AD) authentication][18] ([commercial feature][19])
 
 This example shows the username/password authentication method:
 
@@ -403,3 +403,4 @@ create  delete  import  list
 [16]: https://tools.ietf.org/html/rfc7519
 [17]: ../operations/control-access/ldap-auth
 [18]: ../operations/control-access/ad-auth
+[19]: ../commercial/
