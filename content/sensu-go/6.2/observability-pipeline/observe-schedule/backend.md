@@ -22,14 +22,14 @@ See the [installation guide][1] to install the backend.
 
 ## Backend transport
 
-The Sensu backend is powered by an embedded [WebSocket][30] transport mechanism for communication with the Sensu agent.
-The backend publishes specific checks for each agent to execute via the transport.
-Sensu agents execute the checks the backend sends to their subscriptions locally for their entities and publish check results back to the transport to be processed by a Sensu backend.
+The Sensu backend listens for agent communications via [WebSocket][30] transport. By default this transport operates in on port 8080.
+The agent subscriptions are used to determine which check execution requests the backend publishes via the transport.
+Sensu agents locally execute checks as requested by the backend and publish check results back to the transport to be processed.
 
 Sensu agents authenticate to the Sensu backend via transport by either [built-in username and password][34] or [mutual transport layer security (mTLS)][31] authentication.
 
 To secure the WebSocket transport, first [generate the certificates][32] you will need to set up transport layer security (TLS).
-Then, [secure Sensu][33] to configure mTLS and make Sensu production-ready.
+Then, [secure Sensu][33] by configuring either TLS or mTLS to make Sensu production-ready.
 
 Read the [Sensu architecture overview][35] for a diagram that includes the WebSocket transport.
 
