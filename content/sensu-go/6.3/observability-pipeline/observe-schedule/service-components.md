@@ -23,6 +23,8 @@ A service component includes event selectors to define the events that the compo
 The monitoring rules are evaluated against aggregate data derived from the service component's selection of events.
 Monitoring rules are configured in a separate resource: [rule templates][8].
 
+If you delete a resource (e.g. an entity, check, or event) that is part of one or more service components, Sensu will automatically remove the deleted resource from the service components.
+
 ## Service component scheduling
 
 Sensu executes service components on sensu-backend processes in a round-robin fashion and according to a schedule specified by an interval or a cron expression in the component definition.
