@@ -137,15 +137,14 @@ spec:
 
 {{< /language-toggle >}}
 
-## Built-in rule templates
+## Built-in rule template: Aggregate
 
-Sensu's business service monitoring (BSM) includes built-in rule templates that address common BSM use cases.
-These built-in rule templates are ready to use with your service components.
+Sensu's business service monitoring (BSM) includes a built-in rule template, `aggregate`, that allows you to treat the results of multiple disparate check executions executed across multiple disparate systems as a single result (event).
+This built-in rule templates are ready to use with your service components.
+
 Reference the rule template name in the `rules.template` field and configure the arguments in the `rules.template.arguments` object in your service component resource definitions.
 
-### Aggregate rule template
-
-The `aggregate` rule template allows you to treat the results of multiple disparate check executions executed across multiple disparate systems as a single result (event).
+### Aggregate rule template example
 
 Use the `aggregate` rule template for services that can be considered healthy as long as a minimum threshold is satisfied.
 For example, you might set the minimum threshold at 10 web servers with an OK status or 70% of processes running with an OK status.
