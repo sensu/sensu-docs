@@ -512,6 +512,6 @@ spec:
 [5]: #metadata-attributes
 [6]: ../../sensuctl/create-manage-resources/#create-resources
 [7]: #spec-attributes
-[8]: ../../operations/control-access/rbac#namespaces
+[8]: ../../operations/control-access/namespaces/
 [9]: ../../api/#field-selector
 [10]: ../../api/#label-selector

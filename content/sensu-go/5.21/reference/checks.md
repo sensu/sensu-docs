@@ -1495,7 +1495,7 @@ The asset reference includes an [example check definition that uses the asset pa
 [23]: ../../guides/extract-metrics-with-checks/
 [24]: ../events/
 [25]: #metadata-attributes
-[26]: ../rbac#namespaces
+[26]: ../namespaces/
 [27]: ../filters/
 [28]: ../../guides/monitor-external-resources/
 [29]: https://bonsai.sensu.io

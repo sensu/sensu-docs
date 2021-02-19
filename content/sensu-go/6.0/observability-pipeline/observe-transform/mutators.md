@@ -548,7 +548,7 @@ spec:
 
 [1]: ../../../plugins/assets/
 [2]: #metadata-attributes
-[3]: ../../../operations/control-access/rbac#namespaces
+[3]: ../../../operations/control-access/namespaces/
 [4]: ../../../operations/deploy-sensu/use-assets-to-install-plugins/
 [5]: ../../../sensuctl/create-manage-resources/#create-resources
 [6]: #spec-attributes

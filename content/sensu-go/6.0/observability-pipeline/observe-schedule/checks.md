@@ -1481,7 +1481,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [23]: ../collect-metrics-with-checks/
 [24]: ../../observe-events/events/
 [25]: #metadata-attributes
-[26]: ../../../operations/control-access/rbac#namespaces
+[26]: ../../../operations/control-access/namespaces/
 [27]: ../../observe-filter/filters/
 [28]: ../../observe-entities/monitor-external-resources/
 [29]: https://bonsai.sensu.io

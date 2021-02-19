@@ -1186,7 +1186,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 
 
 [1]: ../../observability-pipeline/observe-filter/sensu-query-expressions/
-[2]: ../../operations/control-access/rbac#namespaces
+[2]: ../../operations/control-access/namespaces/
 [3]: ../../observability-pipeline/observe-schedule/tokens/#manage-dynamic-runtime-assets
 [4]: https://bonsai.sensu.io/assets/samroy92/sensu-plugins-windows
 [5]: #metadata-attributes

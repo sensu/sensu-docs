@@ -307,7 +307,7 @@ The `database` secret contains a key called `password`, and its value is the pas
 [6]: ../rbac#default-users
 [7]: ../secrets-providers/
 [8]: #spec-attributes
-[9]: ../rbac/#namespaces
+[9]: ../namespaces/
 [10]: https://learn.hashicorp.com/vault/getting-started/dev-server
 [11]: ../../operations/manage-secrets/secrets-management/
 [12]: #metadata-attributes
