@@ -11,6 +11,9 @@ menu:
     parent: observe-schedule
 ---
 
+**COMMERCIAL FEATURE**: Access business service monitoring (BSM) in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][4].
+
 Sensu's business service monitoring (BSM) feature uses a dedicated SDK of JavaScript-based expressions that provide additional functionality.
 
 BSM SDK expressions are defined in [rule templates][3], so they act in the context of determining whether aggregate data derived from a service component’s selection of Sensu Go events should trigger a rule-based event.
@@ -141,4 +144,5 @@ This BSM SDK expression returns `true` if ...:
 
 [1]: https://github.com/robertkrimen/otto
 [2]: ../backend/#event-logging
-[3]: ../filters/#build-event-filter-expressions-with-sensu-query-expressions
+[3]: ../rule-templates/
+[4]: ../../../commercial/
