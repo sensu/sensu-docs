@@ -11,6 +11,8 @@ menu:
     parent: observe-schedule
 ---
 
+**COMMERCIAL FEATURE**: Access business service monitoring (BSM) in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][6].
 Sensu's business service monitoring (BSM) provides high-level visibility into the current health of any number of your business services.
 Use BSM to monitor every component in your system with a top-down approach that produces meaningful alerts, prevents alert fatigue, and helps you focus on your core business services.
 
@@ -262,3 +264,4 @@ Events produced by monitoring rule evaluation are processed like any other &mdas
 [3]: ../../web-ui/bsm-module/
 [4]: #example-service-component
 [5]: ../../sensuctl/
+[6]: ../../commercial/
