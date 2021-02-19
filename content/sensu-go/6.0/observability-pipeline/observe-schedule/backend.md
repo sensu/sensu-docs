@@ -20,6 +20,20 @@ Every Sensu backend includes an integrated structure for scheduling checks using
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
 See the [installation guide][1] to install the backend.
 
+## Backend transport
+
+The Sensu backend listens for agent communications via [WebSocket][30] transport.
+By default, this transport operates on port 8080.
+The agent subscriptions are used to determine which check execution requests the backend publishes via the transport.
+Sensu agents locally execute checks as requested by the backend and publish check results back to the transport to be processed.
+
+Sensu agents authenticate to the Sensu backend via transport by either [built-in username and password][34] or [mutual transport layer security (mTLS)][31] authentication.
+
+To secure the WebSocket transport, first [generate the certificates][32] you will need to set up transport layer security (TLS).
+Then, [secure Sensu][33] by configuring either TLS or mTLS to make Sensu production-ready.
+
+Read the [Sensu architecture overview][35] for a diagram that includes the WebSocket transport.
+
 ## Create event pipelines
 
 Sensu backend event pipelines process observation data and executes event filters, mutators, and handlers.
@@ -1462,5 +1476,11 @@ The _SIGHUP_ signal causes the `backend` component to reload instead of restarti
 [25]: ../../../operations/deploy-sensu/install-sensu#3-initialize
 [26]: ../../../sensuctl/#change-admin-users-password
 [27]: https://golang.org/pkg/net/http/pprof/
-[28]: ../checks/#subscriptions
+[28]: ../subscriptions/
 [29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly
+[30]: https://en.m.wikipedia.org/wiki/WebSocket
+[31]: ../../../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[32]: ../../../operations/deploy-sensu/generate-certificates/
+[33]: ../../../operations/deploy-sensu/secure-sensu/
+[34]: ../agent/#username-and-password-authentication
+[35]: ../../../operations/deploy-sensu/install-sensu/#architecture-overview
