@@ -1,7 +1,7 @@
 ---
 title: "Monitoring as code with Sensu"
 linkTitle: "Monitoring as Code"
-description: "Sensu's end-to-end monitoring as code approach allows you to manage your observability workflows the same way you build, test, and deploy your applications and infrastructure, like Kubernetes and Terraform. Read this page to learn about using a monitoring as code approach with Sensu."
+description: "Sensu's end-to-end monitoring as code approach allows you to manage your observability configurations the same way you build, test, and deploy your applications and infrastructure, like Kubernetes and Terraform. Read this page to learn about using a monitoring as code approach with Sensu."
 product: "Sensu Go"
 version: "6.0"
 weight: 5
@@ -13,31 +13,31 @@ menu:
     identifier: monitoring-as-code
 ---
 
-Sensu's end-to-end monitoring as code approach allows you to manage your observability workflows the same way you build, test, and deploy your applications and infrastructure, like Kubernetes and Terraform.
-Monitoring as code combines composable building blocks with robust APIs so you can define your entire observability workflow as declarative YAML or JSON code and improve workflow visibility, reliability, portability, and repeatability.
+Sensu's end-to-end monitoring as code approach allows you to manage your observability configuration the same way you build, test, and deploy your applications and infrastructure, like Kubernetes and Terraform.
+Monitoring as code combines composable building blocks with robust APIs so you can define your entire observability configuration as declarative YAML or JSON code and improve visibility, reliability, portability, and repeatability.
 
-When a new endpoint starts up, like a cloud compute instance or Kubernetes Pod, Sensu automatically registers itself with the platform and starts collecting observability data according to the code in your workflow configuration files.
-Teams can share and remix observability workflows for collecting events and metrics, diagnosing issues, sending alerts, and automatically remediating problems.
+When a new endpoint starts up, like a cloud compute instance or Kubernetes Pod, Sensu automatically registers itself with the platform and starts collecting observability data according to the code in your configuration files.
+Teams can share and remix observability configurations for collecting events and metrics, diagnosing issues, sending alerts, and automatically remediating problems.
 
-- Share, edit, review, and version your observability workflow configuration files just like you would with other "as code" solutions, within one team or among teams across your organization.
-- Maintain revision control and change history for your observability workflows.
+- Share, edit, review, and version your observability configuration files just like you would with other "as code" solutions, within one team or among teams across your organization.
+- Maintain revision control and change history for your observability configurations.
 - Export the Sensu configuration for one environment and replicate the same configuration in other environments.
 - Remove, restore, back up, and recover Sensu instances based on your Sensu configuration files.
-- Include your observability workflow in your centralized continuous integration/continuous delivery (CI/CD) pipeline to keep your observability workflows aligned with your product and services.
+- Include your observability configuration in your centralized continuous integration/continuous delivery (CI/CD) pipeline to keep your configuration files aligned with your product and services.
 
 To get started with monitoring as code, you'll need a [repository][11] and [configuration files][13] that contain your resource definitions.
 
 ## Create a monitoring as code repository
 
-Create a monitoring as code repository for the configuration files that contain the Sensu resource definitions you use in your observability workflow.
+Create a monitoring as code repository for the configuration files that contain the Sensu resource definitions you use for monitoring and observability.
 You can use any source control repository.
 
 The way you will use your [configuration files][13] will help you choose the best structure for your monitoring as code repository.
-For example, if you are likely to share workflow components or manage your configuration files as part of your CI/CD workflow, it probably makes sense to use individual configuration files for different types of resources: one file for all of your checks, one file for all of your handlers, and so on.
+For example, if you are likely to share observability components or manage your configuration files as part of your CI/CD workflow, it probably makes sense to use individual configuration files for different types of resources: one file for all of your checks, one file for all of your handlers, and so on.
 If you want to facilitate more granular sharing, you can save one resource definition per file.
 
-If you want to share complete end-to-end observability workflows with your colleagues, you might save all of the resource definitions for each workflow in a single configuration file.
-This allows others to read through an entire workflow without interruption, and it's convenient for demonstrating a complete Sensu workflow.
+If you want to share complete end-to-end observability configurations with your colleagues, you might save all of the resource definitions for each observability configuration in a single configuration file.
+This allows others to read through an entire configuration without interruption, and it's convenient for demonstrating a complete Sensu configuration.
 However, a single configuration file that includes every resource type isn't the best structure for CI/CD management or sharing resources among teams.
 
 [SensuFlow][5], our GitHub Action for managing Sensu resources via repository commits, requires a repository structure organized by clusters and namespaces.
@@ -61,7 +61,7 @@ All resources of each type for each namespace are saved in a single configuratio
 
 Configuration files contain your Sensu resource definitions.
 You can [build configuration files as you go][6], adding resource definitions as you create them.
-You can also create your entire observability workflow first, then [export some or all of your resource definitions][7] to a file.
+You can also create your entire observability configuration first, then [export some or all of your resource definitions][7] to a file.
 Or, you can use a mix: export all of your existing resource definitions to configuration files and append new resources as you create them.
 
 When you are ready to replicate your exported resource definitions, use [`sensuctl create`][10].
@@ -234,7 +234,7 @@ sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json | tee -a resource.jso
 
 ### Export existing resources
 
-If you've already created an observability workflow, use `sensuctl dump` to create a copy of your existing resource definitions.
+If you've already created observability resources, use `sensuctl dump` to create a copy of your existing resource definitions.
 
 First, create a sensu directory:
 
@@ -242,7 +242,7 @@ First, create a sensu directory:
 mkdir sensu
 {{< /code >}}
    
-Then, copy your workflow resource definitions according to the [repository structure][11] you are using.
+Then, copy your observability resource definitions according to the [repository structure][11] you are using.
 For example, if you want to save resources according to type and namespace, this command will save all of your check definitions for the `production` namespace in one configuration file:
 
 {{< language-toggle >}}
