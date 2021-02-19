@@ -104,26 +104,6 @@ For example, ...:
 ...
 {{< /code >}}
 
-### sensu.NewEvent()
-
-The custom function `sensu.NewEvent()` returns ...
-
-For example, ...:
-
-{{< code go >}}
-...
-{{< /code >}}
-
-### sensu.NewMetricEvent()
-
-The custom function `sensu.NewMetricEvent()` returns ...
-
-For example, ...:
-
-{{< code go >}}
-...
-{{< /code >}}
-
 ## Examples
 
 ### Evaluate ???
