@@ -27,7 +27,7 @@ This starts the prompts for interactive sensuctl setup.
 When prompted, choose the authentication method you wish to use: username/password or OIDC.
 
 Sensuctl uses your username and password or OIDC credentials to obtain access and refresh tokens via the [Sensu authentication API][14].
-The access and refresh tokens are [JSON Web Tokens (JWTs)][2] that Sensu issues to record the details of users' authenticated Sensu sessions.
+The access and refresh tokens are HMAC-SHA256 [JSON Web Tokens (JWTs)][16] that Sensu issues to record the details of users' authenticated Sensu sessions.
 The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
 
 Upon successful authentication, sensuctl stores the access and refresh tokens in a "cluster" configuration file under the current user's home directory.
@@ -400,6 +400,7 @@ create  delete  import  list
 [13]: create-manage-resources/#update-resources
 [14]: ../api/auth/
 [15]: https://en.wikipedia.org/wiki/Bcrypt
+[16]: https://tools.ietf.org/html/rfc7519
 [17]: ../operations/control-access/ldap-auth
 [18]: ../operations/control-access/ad-auth
 [19]: ../commercial/
