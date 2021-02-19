@@ -22,7 +22,8 @@ See the [installation guide][1] to install the backend.
 
 ## Backend transport
 
-The Sensu backend listens for agent communications via [WebSocket][30] transport. By default this transport operates in on port 8080.
+The Sensu backend listens for agent communications via [WebSocket][30] transport.
+By default, this transport operates on port 8080.
 The agent subscriptions are used to determine which check execution requests the backend publishes via the transport.
 Sensu agents locally execute checks as requested by the backend and publish check results back to the transport to be processed.
 
