@@ -22,7 +22,7 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 | Platform and Version | `amd64` | | | |
 |----------------------|---------|---|---|---|
-| CentOS/RHEL 6, 7, 8 | {{< check >}} | | | |
+| RHEL/CentOS 6, 7, 8 | {{< check >}} | | | |
 | Debian 8, 9, 10     | {{< check >}} | | | |
 | Ubuntu 14.04        | {{< check >}} | | | |
 | Ubuntu 16.04        | {{< check >}} | | | |
@@ -34,7 +34,7 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 | Platform and Version | `amd64` | `386` | | | | |
 |----------------------|---------|-------|---|---|---|---|
-| CentOS/RHEL 6, 7, 8 | {{< check >}} | | | |
+| RHEL/CentOS 6, 7, 8 | {{< check >}} | | | |
 | Debian 8, 9, 10     | {{< check >}} | | | |
 | Ubuntu 14.04        | {{< check >}} | | | |
 | Ubuntu 16.04        | {{< check >}} | | | |
@@ -48,7 +48,7 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 | Platform and Version | `amd64` | `386` | | | | |
 |----------------------|---------|-------|---|---|---|---|
-| CentOS/RHEL 6, 7, 8 | {{< check >}} | | | |
+| RHEL/CentOS 6, 7, 8 | {{< check >}} | | | |
 | Debian 8, 9, 10     | {{< check >}} | | | |
 | Ubuntu 14.04        | {{< check >}} | | | |
 | Ubuntu 16.04        | {{< check >}} | | | |
@@ -172,6 +172,15 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.3/sensu-go_5.
 {{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
+
+#### Federal Information Processing Standard (FIPS) Compliance
+
+Builds that support the Federal Information Processing Standard (FIPS) for Federal Risk and Authorization Management Program (FedRAMP) compliance are available for Linux `amd64`.
+
+Sensu FIPS builds with [FIPS-mode configuration flags][51] are linked with the FIPS 140-2 validated cryptographic library.
+You can run Red Hat Enterprise Linux (RHEL) with the FIPS-mode kernel option to enforce FIPS systemwide &mdash; Sensu FIPS builds comply with this mode.
+
+[Contact Sensu][50] to request builds with FIPS support.
 
 ### Windows
 
@@ -388,6 +397,8 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [41]: #freebsd
 [42]: #solaris
 [43]: ../api
+[50]: https://sensu.io/contact
+[51]: ../reference/backend/#fips-openssl
 [54]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.3/sensu-go_5.21.3_linux_amd64.tar.gz
 [55]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.3/sensu-go_5.21.3_linux_arm64.tar.gz
 [56]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.3/sensu-go_5.21.3_linux_armv5.tar.gz

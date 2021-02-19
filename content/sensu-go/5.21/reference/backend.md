@@ -937,15 +937,15 @@ etcd-initial-cluster-state: "existing"{{< /code >}}
 
 | etcd-initial-cluster-token |      |
 -----------------------------|------
-description                  | Initial cluster token for the etcd cluster during bootstrap.
+description                  | Unique token for the etcd cluster. Provide the same `etcd-initial-cluster-token` value for each cluster member. The `etcd-initial-cluster-token` allows etcd to generate unique cluster IDs and member IDs even for clusters with otherwise identical configurations, which prevents cross-cluster-interaction and potential cluster corruption.
 type                         | String
 default                      | `""`
 environment variable         | `SENSU_BACKEND_ETCD_INITIAL_CLUSTER_TOKEN`
 example                      | {{< code shell >}}# Command line example
-sensu-backend start --etcd-initial-cluster-token sensu
+sensu-backend start --etcd-initial-cluster-token unique_token_for_this_cluster
 
 # /etc/sensu/backend.yml example
-etcd-initial-cluster-token: "sensu"{{< /code >}}
+etcd-initial-cluster-token: "unique_token_for_this_cluster"{{< /code >}}
 
 
 | etcd-key-file  |      |
