@@ -3,7 +3,7 @@ title: "Create limited service accounts with role-based access control (RBAC)"
 linkTitle: "Create Limited Service Accounts"
 guide_title: "Create limited service accounts with role-based access control (RBAC)"
 type: "guide"
-description: "Role-based access control (RBAC) allows you to exercise fine-grained control over how service accounts interact with Sensu resources. Read this guide to create limited service accounts with Sensu RBAC."
+description: "Role-based access control (RBAC) allows you to create limited service accounts so that applications can access and interact with Sensu resources. Read this guide to create limited service accounts with Sensu RBAC."
 weight: 65
 version: "6.2"
 product: "Sensu Go"
@@ -13,17 +13,27 @@ menu:
     parent: control-access
 ---
 
-[Role-based access control (RBAC)][1] allows you to exercise fine-grained control over how different users interact with Sensu resources.
-RBAC allows you to create a service account whose access is limited to the namespaces and role permissions it needs to operate properly.
+[Role-based access control (RBAC)][1] allows you to exercise fine-grained control over access to and interaction with Sensu resources.
 
-By default, Sensu includes a `default` namespace and an `admin` user with full permissions to create, modify, and delete resources within Sensu, including RBAC resources like users and roles.
+In some cases, you may want to give an application or service the ability to interact with Sensu resources.
+Accounts that represent applications or services rather than individual human users are called limited service accounts.
+
+For example, you might develop a service that displays a high-level view of your webservers' statuses.
+The service itself needs an account with permission to read the results of status checks executed on your webservers so it can route the check results to the status display.
+
+Limited service accounts are also useful for performing automated processes.
+This guide explains how to create a limited service account you can use with Sensu's [EC2 integration][3] to automatically remove AWS EC2 instances that are not in one of the specified states.
+
+By default, Sensu includes a `default` namespace and an `admin` user with full permissions to create, modify, and delete resources within Sensu, including the RBAC resources required to configure a limited service account.
 This guide requires a running Sensu backend and a sensuctl instance configured to connect to the backend as an [`admin` user][2].
 
-Follow the steps below to create a limited service account that you can use with Sensu's [EC2 integration][3] to remove AWS EC2 instances that are not in one of the specified states.
+## Create a limited service account
 
-## Create a service account
+A limited service account requires these resources:
 
-First, create a service account user and assign it get, list, and delete permissions for resources within the `default` namespace using a [role][4] and a [role binding][5].
+- A [user][7] assigned to a [group][8].
+- A [role][4] with get, list, and delete permissions for resources within the `default` [namespace][9].
+- A [role binding][5] that ties the role to the user's group.
 
 1. Create a user with the username `ec2-service` and assign it to the group `ec2`:
 
@@ -51,14 +61,17 @@ sensuctl role-binding create ec2-service-delete --role=ec2-delete --group=ec2
 
 Now you have created the `ec2-service` limited service account with permission to get, list, and delete all resources within the `default` namespace.
 
-You can use the `sensuctl user`, `sensuctl role`, and `sensuctl role-binding` commands to manage your RBAC configuration.
-
 ## Use the service account to remove AWS EC2 instances
 
+TODO: Need help to understand how the limited service account concept applies to the EC2 integration
 
-## Next steps
+## Best practices for limited service accounts
 
-Now that you know how to create a user, a role, and a role binding to assign a role to a user, check out the [RBAC reference][1] for in-depth documentation on role-based access control, examples, and information about cluster-wide permissions.
+- Restrict limited service account access to only the namespaces and role permissions they need to operate properly.
+Adjust namespaces and permissions if needed by updating the role that is tied to the service account.
+- Use unique and specific names for limited service accounts.
+Names should identify services accounts as such as well as the associated service.
+- Promptly delete any unused limited service accounts to make sure they do not become a security risk.
 
 
 [1]: ../rbac/
@@ -66,3 +79,7 @@ Now that you know how to create a user, a role, and a role binding to assign a r
 [3]: ../../../plugins/supported-integrations/aws-ec2/
 [4]: ../rbac/#roles-and-cluster-roles
 [5]: ../rbac/#role-bindings-and-cluster-role-bindings
+[6]: ../rbac/#rule-attributes
+[7]: ../rbac/#users
+[8]: ../rbac/#groups
+[9]: ../namespaces/
