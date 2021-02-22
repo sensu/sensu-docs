@@ -136,9 +136,17 @@ spec:
 
 Then run `sensuctl create` to create the entity based on the definition:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML">}}
+sensuctl create --file entity.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
 sensuctl create --file entity.json
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 To add a label to an existing entity, use sensuctl `edit`.
 For example, run `sensuctl edit` to add a `url` label to a `sensu-docs` entity:
@@ -216,41 +224,142 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][12] resource type. Entities should always be type `Entity`.
 required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][12].
 type         | String
-example      | {{< code shell >}}"type": "Entity"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Entity
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "Entity"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For entities in this version of Sensu, this attribute should always be `core/v2`.
 required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][12].
 type         | String
-example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "core/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the entity, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the entity definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][8] for details.
 required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][12].
 type         | Map of key-value pairs
-example      | {{< code shell >}}
-"metadata": {
-  "name": "webserver01",
-  "namespace": "default",
-  "created_by": "admin",
-  "labels": {
-    "region": "us-west-1"
-  },
-  "annotations": {
-    "slack-channel" : "#monitoring"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+metadata:
+  name: webserver01
+  namespace: default
+  created_by: admin
+  labels:
+    region: us-west-1
+  annotations:
+    slack-channel: "#monitoring"
+{{< /code >}}
+{{< code json >}}
+{
+  "metadata": {
+    "name": "webserver01",
+    "namespace": "default",
+    "created_by": "admin",
+    "labels": {
+      "region": "us-west-1"
+    },
+    "annotations": {
+      "slack-channel": "#monitoring"
+    }
   }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the entity [spec attributes][13].
 required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][12].
 type         | Map of key-value pairs
-example      | {{< code shell >}}
-"spec": {
+example      | {{< language-toggle >}}
+{{< code yml >}}
+spec:
+  entity_class: agent
+  system:
+    hostname: sensu2-centos
+    os: linux
+    platform: centos
+    platform_family: rhel
+    platform_version: 7.4.1708
+    network:
+      interfaces:
+      - name: lo
+        addresses:
+        - 127.0.0.1/8
+        - "::1/128"
+      - name: enp0s3
+        mac: '08:00:27:11:ad:d2'
+        addresses:
+        - 10.0.2.15/24
+        - fe80::26a5:54ec:cf0d:9704/64
+      - name: enp0s8
+        mac: '08:00:27:bc:be:60'
+        addresses:
+        - 172.28.128.3/24
+        - fe80::a00:27ff:febc:be60/64
+    arch: amd64
+    libc_type: glibc
+    vm_system: kvm
+    vm_role: host
+    cloud_provider: ''
+    processes:
+    - name: Slack
+      pid: 1349
+      ppid: 0
+      status: Ss
+      background: true
+      running: true
+      created: 1582137786
+      memory_percent: 1.09932518
+      cpu_percent: 0.3263987595984941
+    - name: Slack Helper
+      pid: 1360
+      ppid: 1349
+      status: Ss
+      background: true
+      running: true
+      created: 1582137786
+      memory_percent: 0.146866455
+      cpu_percent: 0.30897618146109257
+  sensu_agent_version: 1.0.0
+  subscriptions:
+  - entity:webserver01
+  last_seen: 1542667231
+  deregister: false
+  deregistration: {}
+  user: agent
+  redact:
+  - password
+  - passwd
+  - pass
+  - api_key
+  - api_token
+  - access_key
+  - secret_key
+  - private_key
+  - secret
+{{< /code >}}
+{{< code json >}}
+{
+  "spec": {
     "entity_class": "agent",
     "system": {
       "hostname": "sensu2-centos",
@@ -311,7 +420,7 @@ example      | {{< code shell >}}
           "running": true,
           "created": 1582137786,
           "memory_percent": 0.146866455,
-          "cpu_percent": 0.308976181461092553
+          "cpu_percent": 0.30897618146109257
         }
       ]
     },
@@ -335,7 +444,9 @@ example      | {{< code shell >}}
       "secret"
     ]
   }
+}
 {{< /code >}}
+{{< /language-toggle >}}
 
 ### Metadata attributes
 
@@ -344,7 +455,16 @@ example      | {{< code shell >}}
 description  | Unique name of the entity, validated with Go regex [`\A[\w\.\-]+\z`][21].
 required     | true
 type         | String
-example      | {{< code shell >}}"name": "example-hostname"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: example-hostname
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "example-hostname"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | namespace  |      |
 -------------|------
@@ -352,14 +472,32 @@ description  | [Sensu RBAC namespace][5] that this entity belongs to.
 required     | false
 type         | String
 default      | `default`
-example      | {{< code shell >}}"namespace": "production"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+namespace: production
+{{< /code >}}
+{{< code json >}}
+{
+  "namespace": "production"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created the entity or last updated the entity. Sensu automatically populates the `created_by` field when the entity is created or updated.
 required     | false
 type         | String
-example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created_by: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | labels     |      |
 -------------|------
@@ -369,10 +507,21 @@ description  | Custom attributes to include with observation data in events that
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< code shell >}}"labels": {
-  "environment": "development",
-  "region": "us-west-2"
-}{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+labels:
+  environment: development
+  region: us-west-2
+{{< /code >}}
+{{< code json >}}
+{
+  "labels": {
+    "environment": "development",
+    "region": "us-west-2"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 <a name="annotations"></a>
 
@@ -384,10 +533,21 @@ description  | Non-identifying metadata to include with observation data in even
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< code shell >}} "annotations": {
-  "managed-by": "ops",
-  "playbook": "www.example.url"
-}{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+annotations:
+  managed-by: ops
+  playbook: www.example.url
+{{< /code >}}
+{{< code json >}}
+{
+  "annotations": {
+    "managed-by": "ops",
+    "playbook": "www.example.url"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### Spec attributes
 
@@ -396,7 +556,16 @@ entity_class |     |
 description  | Entity type, validated with Go regex [`\A[\w\.\-]+\z`][21]. Class names have special meaning. An entity that runs an agent is class `agent` and is reserved. Setting the value of `entity_class` to `proxy` creates a proxy entity. For other types of entities, the `entity_class` attribute isn’t required, and you can use it to indicate an arbitrary type of entity (like `lambda` or `switch`).
 required     | true
 type         | String 
-example      | {{< code shell >}}"entity_class": "agent"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+entity_class: agent
+{{< /code >}}
+{{< code json >}}
+{
+  "entity_class": "agent"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 subscriptions| 
 -------------|------ 
@@ -404,7 +573,23 @@ description  | List of subscription names for the entity. The entity by default 
 required     | false 
 type         | Array 
 default      | The entity-specific subscription.
-example      | {{< code shell >}}"subscriptions": ["web", "prod", "entity:example-entity"]{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+subscriptions:
+- web
+- prod
+- entity:example-entity
+{{< /code >}}
+{{< code json >}}
+{
+  "subscriptions": [
+    "web",
+    "prod",
+    "entity:example-entity"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 system       | 
 -------------|------ 
@@ -416,7 +601,6 @@ Instead, the field will be empty: `"processes": null`.
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
-
 {{< code yml >}}
 system:
   arch: amd64
@@ -459,9 +643,7 @@ system:
   platform: ubuntu
   platform_family: debian
   platform_version: "16.04"
-
 {{< /code >}}
-
 {{< code json >}}
 {
   "system": {
@@ -520,7 +702,6 @@ system:
     ]
   }
 }{{< /code >}}
-
 {{< /language-toggle >}}
 
 sensu_agent_version  | 
@@ -528,14 +709,32 @@ sensu_agent_version  |
 description          | Sensu Semantic Versioning (SemVer) version of the agent entity.
 required             | true
 type                 | String
-example              | {{< highlight shell >}}"sensu_agent_version": "1.0.0"{{< /highlight >}}
+example              | {{< language-toggle >}}
+{{< code yml >}}
+sensu_agent_version: 1.0.0
+{{< /code >}}
+{{< code json >}}
+{
+  "sensu_agent_version": "1.0.0"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 last_seen    | 
 -------------|------ 
 description  | Timestamp the entity was last seen. In seconds since the Unix epoch. 
 required     | false 
 type         | Integer 
-example      | {{< code shell >}}"last_seen": 1522798317 {{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+last_seen: 1522798317
+{{< /code >}}
+{{< code json >}}
+{
+  "last_seen": 1522798317
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 deregister   | 
 -------------|------ 
@@ -543,7 +742,16 @@ description  | `true` if the entity should be removed when it stops sending keep
 required     | false 
 type         | Boolean 
 default      | `false`
-example      | {{< code shell >}}"deregister": false {{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+deregister: false
+{{< /code >}}
+{{< code json >}}
+{
+  "deregister": false
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 deregistration  | 
 -------------|------ 
@@ -551,19 +759,16 @@ description  | Map that contains a handler name to use when an entity is deregis
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
-
 {{< code yml >}}
 deregistration:
   handler: email-handler
 {{< /code >}}
-
 {{< code json >}}
 {
   "deregistration": {
     "handler": "email-handler"
   }
 }{{< /code >}}
-
 {{< /language-toggle >}}
 
 redact       | 
@@ -573,19 +778,16 @@ required     | false
 type         | Array 
 default      | ["password", "passwd", "pass", "api_key", "api_token", "access_key", "secret_key", "private_key", "secret"]
 example      | {{< language-toggle >}}
-
 {{< code yml >}}
 redact:
 - extra_secret_tokens
 {{< /code >}}
-
 {{< code json >}}
 {
   "redact": [
     "extra_secret_tokens"
   ]
 }{{< /code >}}
-
 {{< /language-toggle >}}
 
 | user |      |
@@ -593,9 +795,16 @@ redact:
 description   | [Sensu RBAC username][22] used by the entity. Agent entities require get, list, create, update, and delete permissions for events across all namespaces.
 type          | String
 default       | `agent`
-example       | {{< code shell >}}
-"user": "agent"
+example       | {{< language-toggle >}}
+{{< code yml >}}
+user: agent
 {{< /code >}}
+{{< code json >}}
+{
+  "user": "agent"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### System attributes
 
@@ -604,35 +813,80 @@ hostname     |
 description  | Hostname of the entity. 
 required     | false 
 type         | String 
-example      | {{< code shell >}}"hostname": "example-hostname" {{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+hostname: example-hostname
+{{< /code >}}
+{{< code json >}}
+{
+  "hostname": "example-hostname"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 os           | 
 -------------|------ 
 description  | Entity's operating system. 
 required     | false 
 type         | String 
-example      | {{< code shell >}}"os": "linux" {{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+os: linux
+{{< /code >}}
+{{< code json >}}
+{
+  "os": "linux"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 platform     | 
 -------------|------ 
 description  | Entity's operating system distribution. 
 required     | false 
 type         | String 
-example      | {{< code shell >}}"platform": "ubuntu" {{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+platform: ubuntu
+{{< /code >}}
+{{< code json >}}
+{
+  "platform": "ubuntu"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 platform_family     | 
 -------------|------ 
 description  | Entity's operating system family. 
 required     | false 
 type         | String 
-example      | {{< code shell >}}"platform_family": "debian" {{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+platform_family: debian
+{{< /code >}}
+{{< code json >}}
+{
+  "platform_family": "debian"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 platform_version     | 
 -------------|------ 
 description  | Entity's operating system version. 
 required     | false 
 type         | String 
-example      | {{< code shell >}}"platform_version": "16.04" {{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+platform_version: 16.04
+{{< /code >}}
+{{< code json >}}
+{
+  "platform_version": "16.04"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 network     | 
 -------------|------ 
@@ -640,7 +894,6 @@ description  | Entity's network interface list. See [network attributes][3] for 
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
-
 {{< code yml >}}
 network:
   interfaces:
@@ -654,7 +907,6 @@ network:
     mac: 52:54:00:20:1b:3c
     name: eth0
 {{< /code >}}
-
 {{< code json >}}
 {
   "network": {
@@ -677,7 +929,6 @@ network:
     ]
   }
 }{{< /code >}}
-
 {{< /language-toggle >}}
 
 arch         | 
@@ -685,28 +936,64 @@ arch         |
 description  | Entity's system architecture. This value is determined by the Go binary architecture as a function of runtime.GOARCH. An `amd` system running a `386` binary will report the `arch` as `386`.
 required     | false 
 type         | String 
-example      | {{< code shell >}}"arch": "amd64" {{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+arch: amd64
+{{< /code >}}
+{{< code json >}}
+{
+  "arch": "amd64"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 libc_type    | 
 -------------|------ 
 description  | Entity's libc type. Automatically populated upon agent startup.
 required     | false 
 type         | String 
-example      | {{< code shell >}}"libc_type": "glibc" {{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+libc_type: glibc
+{{< /code >}}
+{{< code json >}}
+{
+  "libc_type": "glibc"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 vm_system    | 
 -------------|------ 
 description  | Entity's virtual machine system. Automatically populated upon agent startup.
 required     | false 
 type         | String 
-example      | {{< code shell >}}"vm_system": "kvm" {{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+vm_system: kvm
+{{< /code >}}
+{{< code json >}}
+{
+  "vm_system": "kvm"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 vm_role      | 
 -------------|------ 
 description  | Entity's virtual machine role. Automatically populated upon agent startup.
 required     | false 
 type         | String 
-example      | {{< code shell >}}"vm_role": "host" {{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+vm_role: host
+{{< /code >}}
+{{< code json >}}
+{
+  "vm_role": "host"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 cloud_provider | 
 ---------------|------ 
@@ -715,7 +1002,16 @@ description    | Entity's cloud provider environment. Automatically populated up
 {{% /notice %}}
 required       | false 
 type           | String 
-example        | {{< code shell >}}"cloud_provider": "" {{< /code >}}
+example        | {{< language-toggle >}}
+{{< code yml >}}
+"cloud_provider": ""
+{{< /code >}}
+{{< code json >}}
+{
+  "cloud_provider": ""
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 processes    | 
 -------------|------ 
@@ -727,7 +1023,6 @@ Instead, the field will be empty: `"processes": null`.
 required     | false 
 type         | Map
 example      | {{< language-toggle >}}
-
 {{< code yml >}}
 processes:
 - name: Slack
@@ -749,7 +1044,6 @@ processes:
   memory_percent: 0.146866455
   cpu_percent: 0.30897618146109257
 {{< /code >}}
-
 {{< code json >}}
 {
   "processes": [
@@ -777,7 +1071,6 @@ processes:
     }
   ]
 }{{< /code >}}
-
 {{< /language-toggle >}}
 
 ### Network attributes
@@ -788,7 +1081,6 @@ description  | List of network interfaces available on the entity, with their as
 required     | false 
 type         | Array [NetworkInterface][4] 
 example      | {{< language-toggle >}}
-
 {{< code yml >}}
 interfaces:
 - addresses:
@@ -801,7 +1093,6 @@ interfaces:
   mac: 52:54:00:20:1b:3c
   name: eth0
 {{< /code >}}
-
 {{< code json >}}
 {
   "interfaces": [
@@ -822,7 +1113,6 @@ interfaces:
     }
   ]
 }{{< /code >}}
-
 {{< /language-toggle >}}
 
 ### NetworkInterface attributes
@@ -832,21 +1122,53 @@ name         |
 description  | Network interface name.
 required     | false 
 type         | String 
-example      | {{< code shell >}}"name": "eth0"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: eth0
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "eth0"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 mac          | 
 -------------|------ 
 description  | Network interface's MAC address.
 required     | false 
 type         | string 
-example      | {{< code shell >}}"mac": "52:54:00:20:1b:3c"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+mac: 52:54:00:20:1b:3c
+{{< /code >}}
+{{< code json >}}
+{
+  "mac": "52:54:00:20:1b:3c"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 addresses    | 
 -------------|------ 
 description  | List of IP addresses for the network interface.
 required     | false 
 type         | Array 
-example      | {{< code shell >}} "addresses": ["93.184.216.34/24", "2606:2800:220:1:248:1893:25c8:1946/10"]{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+addresses:
+- 93.184.216.34/24
+- 2606:2800:220:1:248:1893:25c8:1946/10
+{{< /code >}}
+{{< code json >}}
+{
+  "addresses": [
+    "93.184.216.34/24",
+    "2606:2800:220:1:248:1893:25c8:1946/10"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### Deregistration attributes
 
@@ -855,7 +1177,16 @@ handler      |
 description  | Name of the handler to call when an entity is deregistered.
 required     | false 
 type         | String 
-example      | {{< code shell >}}"handler": "email-handler"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+handler: email-handler
+{{< /code >}}
+{{< code json >}}
+{
+  "handler": "email-handler"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### Processes attributes
 
@@ -877,49 +1208,112 @@ name         |
 description  | Name of the process.
 required     | false
 type         | String
-example      | {{< code shell >}}"name": "Slack"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: Slack
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "Slack"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 pid          | 
 -------------|------ 
 description  | Process ID of the process.
 required     | false
 type         | Integer
-example      | {{< code shell >}}"pid": 1349{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+pid: 1349
+{{< /code >}}
+{{< code json >}}
+{
+  "pid": 1349
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ppid         | 
 -------------|------ 
 description  | Parent process ID of the process.
 required     | false
 type         | Integer
-example      | {{< code shell >}}"ppid": 0{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+ppid: 0
+{{< /code >}}
+{{< code json >}}
+{
+  "ppid": 0
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 status       | 
 -------------|------ 
 description  | Status of the process. See the [Linux `top` manual page][28] for examples.
 required     | false
 type         | String
-example      | {{< code shell >}}"status": "Ss"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+status: Ss
+{{< /code >}}
+{{< code json >}}
+{
+  "status": "Ss"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 background   | 
 -------------|------ 
 description  | If `true`, the process is a background process. Otherwise, `false`.
 required     | false
 type         | Boolean
-example      | {{< code shell >}}"background": true{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+background: true
+{{< /code >}}
+{{< code json >}}
+{
+  "background": true
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 running      | 
 -------------|------ 
 description  | If `true`, the process is running. Otherwise, `false`.
 required     | false
 type         | Boolean
-example      | {{< code shell >}}"running": true{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+running: true
+{{< /code >}}
+{{< code json >}}
+{
+  "running": true
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 created      | 
 -------------|------ 
 description  | Timestamp when the process was created. In seconds since the Unix epoch.
 required     | false
 type         | Integer
-example      | {{< code shell >}}"created": 1586138786{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created: 1586138786
+{{< /code >}}
+{{< code json >}}
+{
+  "created": 1586138786
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 memory_percent | 
 -------------|------ 
@@ -929,7 +1323,16 @@ It is not supported on Windows.
 {{% /notice %}}
 required     | false
 type         | float
-example      | {{< code shell >}}"memory_percent": 0.19932{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+memory_percent: 0.19932
+{{< /code >}}
+{{< code json >}}
+{
+  "memory_percent": 0.19932
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 cpu_percent  | 
 -------------|------ 
@@ -939,7 +1342,16 @@ It is not supported on Windows.
 {{% /notice %}}
 required     | false
 type         | float
-example      | {{< code shell >}}"cpu_percent": 0.12639{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+cpu_percent: 0.12639
+{{< /code >}}
+{{< code json >}}
+{
+  "cpu_percent": 0.12639
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ## Examples
 
@@ -1127,7 +1539,7 @@ spec:
 [2]: #deregistration-attributes
 [3]: #network-attributes
 [4]: #networkinterface-attributes
-[5]: ../../../operations/control-access/rbac#namespaces
+[5]: ../../../operations/control-access/namespaces/
 [6]: ../../observe-filter/filters/
 [7]: ../../observe-schedule/tokens/
 [8]: #metadata-attributes

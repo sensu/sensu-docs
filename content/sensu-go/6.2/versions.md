@@ -24,6 +24,10 @@ This table lists the supported versions of Sensu Go with links to active documen
 
 | Version | Release date     | Status    |     |
 | ------- |   -------------- | --------- | --- |
+6.2.5 | [February 2, 2021][60] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-2_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
+6.2.4 | [January 28, 2021][59] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-2_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
+6.2.3 | [January 21, 2021][58] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-2_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
+6.2.2 | [January 14, 2021][57] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-2_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 6.2.1 | [January 11, 2021][56] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-2_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 6.2.0 | [December 17, 2020][55] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-2_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 6.1.4 | [December 16, 2020][54] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-1_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
@@ -134,3 +138,7 @@ This table lists the supported versions of Sensu Go with links to active documen
 [54]: https://docs.sensu.io/sensu-go/latest/release-notes/#614-release-notes
 [55]: https://docs.sensu.io/sensu-go/latest/release-notes/#620-release-notes
 [56]: https://docs.sensu.io/sensu-go/latest/release-notes/#621-release-notes
+[57]: https://docs.sensu.io/sensu-go/latest/release-notes/#622-release-notes
+[58]: https://docs.sensu.io/sensu-go/latest/release-notes/#623-release-notes
+[59]: https://docs.sensu.io/sensu-go/latest/release-notes/#624-release-notes
+[60]: https://docs.sensu.io/sensu-go/latest/release-notes/#625-release-notes

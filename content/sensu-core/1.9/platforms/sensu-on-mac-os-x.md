@@ -26,7 +26,9 @@ menu:
 
 ## Install Sensu Core {#sensu-core}
 
-Sensu Core is installed on Mac OS X systems via a native system installer package (i.e. a .pkg file), which is available for [download][1].
+_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][17], and we [permanently removed][18] the Sensu EOL repository on February 1, 2021.<br><br>This means the packages specified in the instructions below are no longer available. To migrate to Sensu Go, read the [Sensu Core migration guide][19]._
+
+Sensu Core is installed on Mac OS X systems via a native system installer package (i.e. a .pkg file).
 
 _WARNING: Mac OS X packages are currently as a "beta" release. Support for
 running Sensu on Mac OS X will be provided on a best-effort basis until further
@@ -34,9 +36,9 @@ notice._
 
 ### Download and install Sensu using the Sensu Universal .pkg file {#download-and-install-sensu-core}
 
-1. Download the Sensu [Mac OS X package][1].
+1. Download the Sensu Mac OS X package.
    _NOTE: the Universal .pkg file supports OS X "Mavericks" (10.9) and newer.
-   Mountain Lion users: please use [this installer][3]._
+   Mountain Lion users: please use this installer._
 
 2. Install the package using the `installer` utility
    {{< code shell >}}
@@ -182,16 +184,17 @@ $ sudo -u _sensu /opt/sensu/bin/sensu-client -V
 1.4.1{{< /code >}}
 
 
-[1]:  https://eol-repositories.sensuapp.org/osx/
-[3]:  https://eol-repositories.sensuapp.org/osx/sensu-0.26.3-1.mountainlion.pkg
 [4]:  #configure-the-sensu-client-launchd-daemon
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/
 [7]:  ../../reference/redis/#configure-sensu
 [8]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
-[10]: ../../reference/configuration/#sensu-service-cli-arguments
+[10]: ../../reference/configuration/#sensu-command-line-interfaces-and-arguments
 [11]: https://ss64.com/osx/launchctl.html
 [12]: #configure-sensu
 [13]: #example-transport-configuration
 [14]: #example-client-configuration
 [15]: ../../reference/transport/#transport-definition-specification
+[17]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
+[18]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
+[19]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/

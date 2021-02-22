@@ -546,7 +546,7 @@ Sensuctl supports the following formats:
 [18]: ../../observability-pipeline/observe-schedule/hooks/
 [19]: ../../observability-pipeline/observe-transform/mutators/
 [20]: ../../observability-pipeline/observe-process/silencing/
-[21]: ../../operations/control-access/rbac#namespaces
+[21]: ../../operations/control-access/namespaces/
 [22]: ../../operations/control-access/rbac#users
 [23]: #subcommands
 [24]: ../../operations/manage-secrets/secrets-providers/

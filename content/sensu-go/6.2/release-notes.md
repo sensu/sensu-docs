@@ -9,6 +9,10 @@ version: "6.2"
 menu: "sensu-go-6.2"
 ---
 
+- [6.2.5 release notes](#625-release-notes)
+- [6.2.4 release notes](#624-release-notes)
+- [6.2.3 release notes](#623-release-notes)
+- [6.2.2 release notes](#622-release-notes)
 - [6.2.1 release notes](#621-release-notes)
 - [6.2.0 release notes](#620-release-notes)
 - [6.1.4 release notes](#614-release-notes)
@@ -75,6 +79,58 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.2.5 release notes
+
+**February 2, 2021** &mdash; The latest release of Sensu Go, version 6.2.5, is now available for download.
+
+This patch fixes a bug regarding the event occurrences_watermark property.
+This bug interfered with the property's expected behavior when using event filters like the popular fatigue check filter.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.2.5.
+
+**FIXES:**
+
+- ([Commercial feature][193]) Fixed a bug that prevented occurrences_watermark from incrementing for non-zero events when using the PostgreSQL datastore.
+
+## 6.2.4 release notes
+
+**January 28, 2021** &mdash; The latest release of Sensu Go, version 6.2.4, is now available for download.
+
+This patch fixes a bug that prevented `federation/v1.Cluster` from appearing in the response for `sensuctl describe-type all` and resolves a web UI performance issue for PostgreSQL users.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.2.4.
+
+**FIXES:**
+
+- ([Commercial feature][193]) `federation/v1.Cluster` now appears in the `sensuctl describe-type all` response.
+- ([Commercial feature][193]) Fixed a performance issue that affected the web UI when using the PostgreSQL datastore.
+
+## 6.2.3 release notes
+
+**January 21, 2021** &mdash; The latest release of Sensu Go, version 6.2.3, is now available for download.
+
+This patch fixes two bugs: one that could cause the `--agent-managed-entity` configuration flag to prevent the agent from starting and one that caused `sensuctl dump` output to include events from all namepaces rather than the specified namespace.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.2.3.
+
+**FIXES:**
+
+- Fixed a bug that could prevent the agent from starting when using the `--agent-managed-entity` agent configuration flag.
+- Fixed a bug where `sensuctl dump` output included events from all namespaces the user had access permissions for rather than events from only the specified namespace.
+
+## 6.2.2 release notes
+
+**January 14, 2021** &mdash; The latest release of Sensu Go, version 6.2.2, is now available for download.
+
+This patch fixes bugs that prevented PostgreSQL round robin scheduling from working properly.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.2.2.
+
+**FIXES:**
+
+- ([Commercial feature][193]) Fixed a bug that could improperly enable PostgreSQL round robin scheduling after creating a PostgreSQL configuration.
+- ([Commercial feature][193]) Fixed a bug that prevented PostgreSQL round robin scheduling if the namespace and check names were more than 63 characters long, combined.
 
 ## 6.2.1 release notes
 
@@ -1695,7 +1751,7 @@ To get started with Sensu Go:
 [199]: /sensu-go/6.2/operations/control-access/ldap-auth/
 [200]: /sensu-go/6.2/sensuctl/create-manage-resources/#sensuctl-prune-flags
 [201]: /sensu-go/6.2/operations/deploy-sensu/datastore/#round-robin-postgresql
-[202]: /sensu-go/6.2/sensuctl/#first-time-setup
+[202]: /sensu-go/6.2/sensuctl/#first-time-setup-and-authentication
 [203]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#agent-managed-entity
 [204]: /sensu-go/6.2/observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent
 [205]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#configuration-via-flags

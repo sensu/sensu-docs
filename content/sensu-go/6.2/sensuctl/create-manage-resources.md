@@ -469,6 +469,7 @@ sensuctl describe-type all
   authentication/v2.Provider                           authentication/v2   Provider             false
   licensing/v2.LicenseFile                             licensing/v2        LicenseFile          false
   store/v1.PostgresConfig                              store/v1            PostgresConfig       false
+  federation/v1.Cluster                                federation/v1       Cluster              false
   federation/v1.EtcdReplicator                         federation/v1       EtcdReplicator       false
   secrets/v1.Secret                                    secrets/v1          Secret               true
   secrets/v1.Provider                                  secrets/v1          Provider             false
@@ -563,7 +564,7 @@ Sensuctl supports the following formats:
 [18]: ../../observability-pipeline/observe-schedule/hooks/
 [19]: ../../observability-pipeline/observe-transform/mutators/
 [20]: ../../observability-pipeline/observe-process/silencing/
-[21]: ../../operations/control-access/rbac#namespaces
+[21]: ../../operations/control-access/namespaces/
 [22]: ../../operations/control-access/rbac#users
 [23]: #subcommands
 [24]: ../../operations/manage-secrets/secrets-providers/

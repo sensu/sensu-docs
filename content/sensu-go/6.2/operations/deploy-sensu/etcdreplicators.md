@@ -63,32 +63,61 @@ type         |      |
 description  | Top-level attribute that specifies the [`sensuctl create`][4] resource type. Always `EtcdReplicator.`
 required     | true
 type         | String
-example      | {{< code shell >}}type: EtcdReplicator{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: EtcdReplicator
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "EtcdReplicator"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 api_version  |      |
 -------------|------
 description  | Top-level attribute that specifies the Sensu API version of the etcd-replicators API. Always `federation/v1`.
 required     | true
 type         | String
-example      | {{< code shell >}}api_version: federation/v1{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: federation/v1
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "federation/v1"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 metadata     |      |
 -------------|------
 description  | Top-level scope that contains the replicator `name` and `created_by` value. Namespace is not supported in the metadata because etcd replicators are cluster-wide resources.
 required     | true
 type         | Map of key-value pairs
-example      | {{< code shell >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
 metadata:
   name: my_replicator
   created_by: admin
 {{< /code >}}
+{{< code json >}}
+{
+  "metadata": {
+    "name": "my_replicator",
+    "created_by": "admin"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 spec         |      |
 -------------|------
 description  | Top-level map that includes the replicator [spec attributes][6].
 required     | true
 type         | Map of key-value pairs
-example      | {{< code shell >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
 spec:
   ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
   cert: /path/to/ssl/cert.pem
@@ -99,6 +128,21 @@ spec:
   resource: Role
   replication_interval_seconds: 30
 {{< /code >}}
+{{< code json >}}
+{
+  "spec": {
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
+    "url": "http://127.0.0.1:2379",
+    "api_version": "core/v2",
+    "resource": "Role",
+    "replication_interval_seconds": 30
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 #### Metadata attributes
 
@@ -107,54 +151,117 @@ name         |      |
 description  | Replicator name used internally by Sensu.
 required     | true
 type         | String
-example      | {{< code shell >}}name: my_replicator{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: my_replicator
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "my_replicator"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created the replicator or last updated the replicator. Sensu automatically populates the `created_by` field when the replicator is created or updated.
 required     | false
 type         | String
-example      | {{< code shell >}}created_by: admin{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created_by: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 #### Spec attributes
 
 ca_cert      |      |
 -------------|------
 description  | Path to an the PEM-format CA certificate to use for TLS client authentication.
-required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `ca_cert` is not required.
+required     | true if `insecure: false` (the default configuration). If `insecure: true`, `ca_cert` is not required.
 type         | String
-example      | {{< code shell >}}ca_cert: /path/to/trusted-certificate-authorities.pem{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+ca_cert: /path/to/trusted-certificate-authorities.pem
+{{< /code >}}
+{{< code json >}}
+{
+  "ca_cert": "/path/to/trusted-certificate-authorities.pem"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 cert         |      |
 -------------|------
-description  | Path to the PEM-format certificate to use for TLS client authentication.
-required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `cert` is not required.
+description  | Path to the PEM-format certificate to use for TLS client authentication. This certificate is required for secure client communication.
+required     | true if `insecure: false` (the default configuration). If `insecure: true`, `cert` is not required.
 type         | String
-example      | {{< code shell >}}cert: /path/to/ssl/cert.pem{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+cert: /path/to/ssl/cert.pem
+{{< /code >}}
+{{< code json >}}
+{
+  "cert": "/path/to/ssl/cert.pem"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 key          |      |
 -------------|------
-description  | Path to the PEM-format key file associated with the `cert` to use for TLS client authentication.
-required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `key` is not required.
+description  | Path to the PEM-format key file associated with the `cert` to use for TLS client authentication. This key and its corresponding certificate are required for secure client communication.
+required     | true if `insecure: false` (the default configuration). If `insecure: true`, `key` is not required.
 type         | String
-example      | {{< code shell >}}key: /path/to/ssl/key.pem{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+key: /path/to/ssl/key.pem
+{{< /code >}}
+{{< code json >}}
+{
+  "key": "/path/to/ssl/key.pem"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 insecure     |      |
 -------------|-------
-description  | `true` to disable transport security. Otherwise, `false`. {{% notice note %}}
-**NOTE**: Disable transport security with care.
+description  | `true` to disable transport security. Otherwise, `false`. {{% notice warning %}}
+**WARNING**: Disable transport security with care.
 {{% /notice %}}
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< code shell >}}insecure: false{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+insecure: false
+{{< /code >}}
+{{< code json >}}
+{
+  "insecure": false
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 url          |      |
 -------------|-------
-description  | Destination cluster URL. If specifying more than one, use a comma to separate.
+description  | Destination cluster URL. If specifying more than one, use a comma to separate. Replace with a non-default value for secure client communication.
 required     | true
 type         | String
-example      | {{< code shell >}}url: http://127.0.0.1:2379 {{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+url: http://127.0.0.1:2379
+{{< /code >}}
+{{< code json >}}
+{
+  "url": "http://127.0.0.1:2379"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 api_version  |      |
 -------------|-------
@@ -162,14 +269,32 @@ description  | Sensu API version of the resource to replicate.
 required     | false
 type         | String
 default      | `core/v2`
-example      | {{< code shell >}}api_version: core/v2{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "core/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 resource     |      |
 -------------|-------
 description  | Name of the resource to replicate.
 required     | true
 type         | String
-example      | {{< code shell >}}resource: Role{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+resource: Role
+{{< /code >}}
+{{< code json >}}
+{
+  "resource": "Role"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 <a name="namespace-attribute"></a>
 
@@ -178,15 +303,33 @@ namespace    |      |
 description  | Namespace to constrain replication to. If you do not include `namespace`, all namespaces for a given resource are replicated.
 required     | false
 type         | String
-example      | {{< code shell >}}namespace: default{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+namespace: default
+{{< /code >}}
+{{< code json >}}
+{
+  "namespace": "default"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 replication_interval_seconds      |      |
 ----------------------------------|-------
 description  | Interval at which the resource will be replicated. In seconds.
 required     | false
-type         | String
+type         | Integer
 default      | 30
-example      | {{< code shell >}}replication_interval_seconds: 30{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+replication_interval_seconds: 30
+{{< /code >}}
+{{< code json >}}
+{
+  "replication_interval_seconds": 30
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ## Example EtcdReplicator resources
 
@@ -201,8 +344,9 @@ If you replicate the following four examples for `Role`, `RoleBinding`, `Cluster
 {{< language-toggle >}}
 
 {{< code yml >}}
-api_version: federation/v1
+---
 type: EtcdReplicator
+api_version: federation/v1
 metadata:
   name: role_replicator
 spec:
@@ -218,8 +362,8 @@ spec:
 
 {{< code json >}}
 {
-  "api_version": "federation/v1",
   "type": "EtcdReplicator",
+  "api_version": "federation/v1",
   "metadata": {
     "name": "role_replicator"
   },
@@ -243,8 +387,9 @@ spec:
 {{< language-toggle >}}
 
 {{< code yml >}}
-api_version: federation/v1
+---
 type: EtcdReplicator
+api_version: federation/v1
 metadata:
   name: rolebinding_replicator
 spec:
@@ -260,8 +405,8 @@ spec:
 
 {{< code json >}}
 {
-  "api_version": "federation/v1",
   "type": "EtcdReplicator",
+  "api_version": "federation/v1",
   "metadata": {
     "name": "rolebinding_replicator"
   },
@@ -285,8 +430,9 @@ spec:
 {{< language-toggle >}}
 
 {{< code yml >}}
-api_version: federation/v1
+---
 type: EtcdReplicator
+api_version: federation/v1
 metadata:
   name: clusterrole_replicator
 spec:
@@ -302,8 +448,8 @@ spec:
 
 {{< code json >}}
 {
-  "api_version": "federation/v1",
   "type": "EtcdReplicator",
+  "api_version": "federation/v1",
   "metadata": {
     "name": "clusterrole_replicator"
   },
@@ -327,8 +473,9 @@ spec:
 {{< language-toggle >}}
 
 {{< code yml >}}
-api_version: federation/v1
+---
 type: EtcdReplicator
+api_version: federation/v1
 metadata:
   name: clusterrolebinding_replicator
 spec:
@@ -344,8 +491,8 @@ spec:
 
 {{< code json >}}
 {
-  "api_version": "federation/v1",
   "type": "EtcdReplicator",
+  "api_version": "federation/v1",
   "metadata": {
     "name": "clusterrolebinding_replicator"
   },
@@ -395,6 +542,7 @@ Before you implement etcd replicators, review these details &mdash; they are cri
 {{% notice warning %}}
 **WARNING**: Make sure to confirm your configuration. The server will accept incorrect EtcdReplicator definitions without sending a warning. If your configuration is incorrect, replication will not work.
 {{% /notice %}}
+
 
 [1]: ../../../commercial/
 [2]: ../../../api/etcdreplicators/

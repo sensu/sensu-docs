@@ -1,5 +1,5 @@
 ---
-title: "Configure OpenID Connect 1.0 protocol (OIDC) authentication to access Sensu"
+title: "Configure OpenID Connect 1.0 protocol (OIDC) authentication"
 linktitle: "Authenticate with OIDC"
 description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using OpenID Connect 1.0 protocol (OIDC). Read this guide to configure an authentication provider."
 weight: 30
@@ -87,46 +87,93 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][38] resource type. For OIDC configuration, the `type` should always be `oidc`.
 required     | true
 type         | String
-example      | {{< code shell >}}"type": "oidc"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: oidc
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "oidc"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For OIDC configuration, the `api_version` should always be `authentication/v2`.
 required     | true
 type         | String
-example      | {{< code shell >}}"api_version": "authentication/v2"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: authentication/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "authentication/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the OIDC configuration. The `metadata` map is always at the top level of the OIDC definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.
 required     | true
 type         | Map of key-value pairs
-example      | {{< code shell >}}"metadata": {
-  "name": "oidc_name"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+metadata:
+  name: oidc_name
+{{< /code >}}
+{{< code json >}}
+{
+  "metadata": {
+    "name": "oidc_name"
   }
-}{{< /code >}}
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the OIDC [spec attributes][25].
 required     | true
 type         | Map of key-value pairs
-example      | {{< code shell >}}"spec": {
-  "additional_scopes": [
-    "groups",
-    "email"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+spec:
+  additional_scopes:
+  - groups
+  - email
+  client_id: a8e43af034e7f2608780
+  client_secret: b63968394be6ed2edb61c93847ee792f31bf6216
+  disable_offline_access: false
+  redirect_uri: http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback
+  server: https://oidc.example.com:9031
+  groups_claim: groups
+  groups_prefix: 'oidc:'
+  username_claim: email
+  username_prefix: 'oidc:'
+{{< /code >}}
+{{< code json >}}
+{
+  "spec": {
+    "additional_scopes": [
+      "groups",
+      "email"
     ],
-  "client_id": "a8e43af034e7f2608780",
-  "client_secret": "b63968394be6ed2edb61c93847ee792f31bf6216",
-  "disable_offline_access": false,
-  "redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback",
-  "server": "https://oidc.example.com:9031",
-  "groups_claim": "groups",
-  "groups_prefix": "oidc:",
-  "username_claim": "email",
-  "username_prefix": "oidc:"
+    "client_id": "a8e43af034e7f2608780",
+    "client_secret": "b63968394be6ed2edb61c93847ee792f31bf6216",
+    "disable_offline_access": false,
+    "redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback",
+    "server": "https://oidc.example.com:9031",
+    "groups_claim": "groups",
+    "groups_prefix": "oidc:",
+    "username_claim": "email",
+    "username_prefix": "oidc:"
   }
-}{{< /code >}}
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 #### OIDC metadata attribute
 
@@ -135,7 +182,16 @@ example      | {{< code shell >}}"spec": {
 description  | A unique string used to identify the OIDC configuration. The `metadata.name` cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][42]).
 required     | true
 type         | String
-example      | {{< code shell >}}"name": "oidc_name"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: oidc_name
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "oidc_name"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 #### OIDC spec attributes
 
@@ -146,7 +202,23 @@ description  | Scopes to include in the claims, in addition to the default `open
 {{% /notice %}}
 required     | false
 type         | Array
-example      | {{< code shell >}}"additional_scopes": ["groups", "email", "username"]{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+additional_scopes:
+- groups
+- email
+- username
+{{< /code >}}
+{{< code json >}}
+{
+  "additional_scopes": [
+    "groups",
+    "email",
+    "username"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | client_id  |      |
 -------------|------
@@ -155,7 +227,16 @@ description  | The OIDC provider application `Client ID`. {{% notice note %}}
 {{% /notice %}}
 required     | true
 type         | String
-example      | {{< code shell >}}"client_id": "1c9ae3e6f3cc79c9f1786fcb22692d1f"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+client_id: 1c9ae3e6f3cc79c9f1786fcb22692d1f
+{{< /code >}}
+{{< code json >}}
+{
+  "client_id": "1c9ae3e6f3cc79c9f1786fcb22692d1f"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | client_secret  |      |
 -------------|------
@@ -164,7 +245,16 @@ description  | The OIDC provider application `Client Secret`. {{% notice note %}
 {{% /notice %}}
 required     | true
 type         | String
-example      | {{< code shell >}}"client_secret": "a0f2a3c1dcd5b1cac71bf0c03f2ff1bd"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+client_secret: a0f2a3c1dcd5b1cac71bf0c03f2ff1bd
+{{< /code >}}
+{{< code json >}}
+{
+  "client_secret": "a0f2a3c1dcd5b1cac71bf0c03f2ff1bd"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | disable_offline_access |      |
 -------------|------
@@ -172,7 +262,16 @@ description  | If `true`, the OIDC provider cannot include the `offline_access` 
 required     | true
 default      | false
 type         | Boolean
-example      | {{< code shell >}}"disable_offline_access": false{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+disable_offline_access: false
+{{< /code >}}
+{{< code json >}}
+{
+  "disable_offline_access": false
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | redirect_uri |   |
 -------------|------
@@ -181,7 +280,16 @@ description  | Redirect URL to provide to the OIDC provider. Requires `/api/ente
 {{% /notice %}}
 required     | false
 type         | String
-example      | {{< code shell >}}"redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+redirect_uri: http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback
+{{< /code >}}
+{{< code json >}}
+{
+  "redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | server |  |
 -------------|------
@@ -190,7 +298,16 @@ description  | The location of the OIDC server you wish to authenticate against.
 {{% /notice %}}
 required     | true
 type         | String
-example      | {{< code shell >}}"server": "https://sensu.oidc.provider.example.com"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+server: https://sensu.oidc.provider.example.com
+{{< /code >}}
+{{< code json >}}
+{
+  "server": "https://sensu.oidc.provider.example.com"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | groups_claim |   |
 -------------|------
@@ -199,28 +316,64 @@ description  | The claim to use to form the associated RBAC groups. {{% notice n
 {{% /notice %}}
 required     | false
 type         | String
-example      | {{< code shell >}} "groups_claim": "groups" {{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+groups_claim: groups
+{{< /code >}}
+{{< code json >}}
+{
+  "groups_claim": "groups"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | groups_prefix |   |
 -------------|------
 description  | The prefix added to all OIDC groups. Sensu appends the groups_prefix with a colon. For example, for the groups_prefix `okta` and the group `dev`, the resulting group name in Sensu is `okta:dev`. Use the groups_prefix when integrating OIDC groups with Sensu RBAC [role bindings and cluster role bindings][13].
 required     | false
 type         | String
-example      | {{< code shell >}}"groups_prefix": "okta"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+groups_prefix: okta
+{{< /code >}}
+{{< code json >}}
+{
+  "groups_prefix": "okta"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | username_claim |   |
 -------------|------
 description  | The claim to use to form the final RBAC user name.
 required     | false
 type         | String
-example      | {{< code shell >}}"username_claim": "person"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+username_claim: person
+{{< /code >}}
+{{< code json >}}
+{
+  "username_claim": "person"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | username_prefix |   |
 -------------|------
 description  | The prefix added to all OIDC usernames. Sensu appends the username_prefix with a colon. For example, for the username_prefix `okta` and the user `alice`, the resulting username in Sensu is `okta:alice`. Use the username_prefix when integrating OIDC users with Sensu RBAC [role bindings and cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
 required     | false
 type         | String
-example      | {{< code shell >}}"username_prefix": "okta"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+username_prefix: okta
+{{< /code >}}
+{{< code json >}}
+{
+  "username_prefix": "okta"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ## Register an OIDC application
 
@@ -280,8 +433,9 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
 1. Run `sensuctl login oidc`.
 
 2. If you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.
-If a browser does not open, launch a browser to complete the login via your OIDC provider at following URL:
-   - https://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/authorize
+If a browser does not open, launch a browser to complete the login via your OIDC provider at:
+
+    - https://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/authorize
 
 
 [1]: ../../../web-ui/
@@ -296,7 +450,7 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [19]: ../../maintain-sensu/troubleshoot#log-levels
 [25]: #oidc-spec-attributes
 [27]: ../../../api/authproviders/
-[36]: ../../../sensuctl/#first-time-setup
+[36]: ../../../sensuctl/#first-time-setup-and-authentication
 [38]: ../../../sensuctl/create-manage-resources/#create-resources
 [41]: https://en.wikipedia.org/wiki/Fully_qualified_domain_name
 [42]: https://regex101.com/r/zo9mQU/2

@@ -1,5 +1,5 @@
 ---
-title: "Configure Lightweight Directory Access Protocol (LDAP) authentication to access Sensu"
+title: "Configure Lightweight Directory Access Protocol (LDAP) authentication"
 linktitle: "Authenticate with LDAP"
 description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using Lightweight Directory Access Protocol (LDAP). Read this guide to configure an LDAP authentication provider."
 weight: 20
@@ -28,6 +28,7 @@ For general information about configuring authentication providers, see [Use an 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: ldap
 api_version: authentication/v2
 metadata:
@@ -71,6 +72,7 @@ spec:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: ldap
 api_version: authentication/v2
 metadata:
@@ -154,6 +156,7 @@ To use the `memberOf` attribute in your LDAP implementation, remove the `group_s
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: ldap
 api_version: authentication/v2
 metadata:
@@ -203,33 +206,155 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][38] resource type. For LDAP definitions, the `type` should always be `ldap`.
 required     | true
 type         | String
-example      | {{< code shell >}}"type": "ldap"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: ldap
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "ldap"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For LDAP definitions, the `api_version` should always be `authentication/v2`.
 required     | true
 type         | String
-example      | {{< code shell >}}"api_version": "authentication/v2"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: authentication/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "authentication/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 metadata     | 
 -------------|------
 description  | Top-level map that contains the LDAP definition `name`. See the [metadata attributes reference][24] for details.
 required     | true
 type         | Map of key-value pairs
-example      | {{< code shell >}}
-"metadata": {
-  "name": "openldap"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+metadata:
+  name: openldap
+{{< /code >}}
+{{< code json >}}
+{
+  "metadata": {
+    "name": "openldap"
+  }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the LDAP [spec attributes][39].
 required     | true
 type         | Map of key-value pairs
-example      | {{< code shell >}}
-"spec": {
+example      | {{< language-toggle >}}
+{{< code yml >}}
+spec:
+  servers:
+  - host: 127.0.0.1
+    port: 636
+    insecure: false
+    security: tls
+    trusted_ca_file: "/path/to/trusted-certificate-authorities.pem"
+    client_cert_file: "/path/to/ssl/cert.pem"
+    client_key_file: "/path/to/ssl/key.pem"
+    binding:
+      user_dn: cn=binder,dc=acme,dc=org
+      password: YOUR_PASSWORD
+    group_search:
+      base_dn: dc=acme,dc=org
+      attribute: member
+      name_attribute: cn
+      object_class: groupOfNames
+    user_search:
+      base_dn: dc=acme,dc=org
+      attribute: uid
+      name_attribute: cn
+      object_class: person
+  groups_prefix: ldap
+  username_prefix: ldap
+
+{{< /code >}}
+{{< code json >}}
+{
+  "spec": {
+    "servers": [
+      {
+        "host": "127.0.0.1",
+        "port": 636,
+        "insecure": false,
+        "security": "tls",
+        "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
+        "client_cert_file": "/path/to/ssl/cert.pem",
+        "client_key_file": "/path/to/ssl/key.pem",
+        "binding": {
+          "user_dn": "cn=binder,dc=acme,dc=org",
+          "password": "YOUR_PASSWORD"
+        },
+        "group_search": {
+          "base_dn": "dc=acme,dc=org",
+          "attribute": "member",
+          "name_attribute": "cn",
+          "object_class": "groupOfNames"
+        },
+        "user_search": {
+          "base_dn": "dc=acme,dc=org",
+          "attribute": "uid",
+          "name_attribute": "cn",
+          "object_class": "person"
+        }
+      }
+    ],
+    "groups_prefix": "ldap",
+    "username_prefix": "ldap"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+### LDAP spec attributes
+
+| servers    |      |
+-------------|------
+description  | An array of [LDAP servers][40] for your directory. During the authentication process, Sensu attempts to authenticate using each LDAP server in sequence.
+required     | true
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+servers:
+- host: 127.0.0.1
+  port: 636
+  insecure: false
+  security: tls
+  trusted_ca_file: "/path/to/trusted-certificate-authorities.pem"
+  client_cert_file: "/path/to/ssl/cert.pem"
+  client_key_file: "/path/to/ssl/key.pem"
+  binding:
+    user_dn: cn=binder,dc=acme,dc=org
+    password: YOUR_PASSWORD
+  group_search:
+    base_dn: dc=acme,dc=org
+    attribute: member
+    name_attribute: cn
+    object_class: groupOfNames
+  user_search:
+    base_dn: dc=acme,dc=org
+    attribute: uid
+    name_attribute: cn
+    object_class: person
+{{< /code >}}
+{{< code json >}}
+{
   "servers": [
     {
       "host": "127.0.0.1",
@@ -256,48 +381,10 @@ example      | {{< code shell >}}
         "object_class": "person"
       }
     }
-  ],
-  "groups_prefix": "ldap",
-  "username_prefix": "ldap"
+  ]
 }
 {{< /code >}}
-
-### LDAP spec attributes
-
-| servers    |      |
--------------|------
-description  | An array of [LDAP servers][40] for your directory. During the authentication process, Sensu attempts to authenticate using each LDAP server in sequence.
-required     | true
-type         | Array
-example      | {{< code shell >}}
-"servers": [
-  {
-    "host": "127.0.0.1",
-    "port": 636,
-    "insecure": false,
-    "security": "tls",
-    "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
-    "client_cert_file": "/path/to/ssl/cert.pem",
-    "client_key_file": "/path/to/ssl/key.pem",
-    "binding": {
-      "user_dn": "cn=binder,dc=acme,dc=org",
-      "password": "YOUR_PASSWORD"
-    },
-    "group_search": {
-      "base_dn": "dc=acme,dc=org",
-      "attribute": "member",
-      "name_attribute": "cn",
-      "object_class": "groupOfNames"
-    },
-    "user_search": {
-      "base_dn": "dc=acme,dc=org",
-      "attribute": "uid",
-      "name_attribute": "cn",
-      "object_class": "person"
-    }
-  }
-]
-{{< /code >}}
+{{< /language-toggle >}}
 
 <a name="groups-prefix"></a>
 
@@ -306,7 +393,16 @@ example      | {{< code shell >}}
 description  | The prefix added to all LDAP groups. Sensu appends the groups_prefix with a colon. For example, for the groups_prefix `ldap` and the group `dev`, the resulting group name in Sensu is `ldap:dev`. Use the groups_prefix when integrating LDAP groups with Sensu RBAC [role bindings and cluster role bindings][13].
 required     | false
 type         | String
-example      | {{< code shell >}}"groups_prefix": "ldap"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+groups_prefix: ldap
+{{< /code >}}
+{{< code json >}}
+{
+  "groups_prefix": "ldap"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 <a name="username-prefix"></a>
 
@@ -315,7 +411,16 @@ example      | {{< code shell >}}"groups_prefix": "ldap"{{< /code >}}
 description  | The prefix added to all LDAP usernames. Sensu appends the username_prefix with a colon. For example, for the username_prefix `ldap` and the user `alice`, the resulting username in Sensu is `ldap:alice`. Use the username_prefix when integrating LDAP users with Sensu RBAC [role bindings and cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
 required     | false
 type         | String
-example      | {{< code shell >}}"username_prefix": "ldap"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+username_prefix: ldap
+{{< /code >}}
+{{< code json >}}
+{
+  "username_prefix": "ldap"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### LDAP server attributes
 
@@ -324,7 +429,16 @@ example      | {{< code shell >}}"username_prefix": "ldap"{{< /code >}}
 description  | LDAP server IP address or [FQDN][41].
 required     | true
 type         | String
-example      | {{< code shell >}}"host": "127.0.0.1"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+host: 127.0.0.1
+{{< /code >}}
+{{< code json >}}
+{
+  "host": "127.0.0.1"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | port       |      |
 -------------|------
@@ -332,7 +446,16 @@ description  | LDAP server port.
 required     | true
 type         | Integer
 default      | `389` for insecure connections; `636` for TLS connections
-example      | {{< code shell >}}"port": 636{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+port: 636
+{{< /code >}}
+{{< code json >}}
+{
+  "port": 636
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | insecure   |      |
 -------------|------
@@ -342,75 +465,151 @@ description  | Skips SSL certificate verification when set to `true`. {{% notice
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< code shell >}}"insecure": false{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+insecure: false
+{{< /code >}}
+{{< code json >}}
+{
+  "insecure": false
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | security   |      |
 -------------|------
 description  | Determines the encryption type to be used for the connection to the LDAP server: `insecure` (unencrypted connection; not recommended for production), `tls` (secure encrypted connection), or `starttls` (unencrypted connection upgrades to a secure connection).
 type         | String
 default      | `"tls"`
-example      | {{< code shell >}}"security": "tls"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+security: tls
+{{< /code >}}
+{{< code json >}}
+{
+  "security": "tls"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | trusted_ca_file | |
 -------------|------
 description  | Path to an alternative CA bundle file in PEM format to be used instead of the system's default bundle. This CA bundle is used to verify the server's certificate.
 required     | false
 type         | String
-example      | {{< code shell >}}"trusted_ca_file": "/path/to/trusted-certificate-authorities.pem"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+trusted_ca_file: /path/to/trusted-certificate-authorities.pem
+{{< /code >}}
+{{< code json >}}
+{
+  "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | client_cert_file | |
 -------------|------
 description  | Path to the certificate that should be sent to the server if requested.
 required     | false
 type         | String
-example      | {{< code shell >}}"client_cert_file": "/path/to/ssl/cert.pem"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+client_cert_file: /path/to/ssl/cert.pem
+{{< /code >}}
+{{< code json >}}
+{
+  "client_cert_file": "/path/to/ssl/cert.pem"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | client_key_file | |
 -------------|------
 description  | Path to the key file associated with the `client_cert_file`.
 required     | false
 type         | String
-example      | {{< code shell >}}"client_key_file": "/path/to/ssl/key.pem"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+client_key_file: /path/to/ssl/key.pem
+{{< /code >}}
+{{< code json >}}
+{
+  "client_key_file": "/path/to/ssl/key.pem"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | binding    |      |
 -------------|------
 description  | The LDAP account that performs user and group lookups. If your sever supports anonymous binding, you can omit the `user_dn` or `password` attributes to query the directory without credentials.
 required     | false
 type         | Map
-example      | {{< code shell >}}
-"binding": {
-  "user_dn": "cn=binder,dc=acme,dc=org",
-  "password": "YOUR_PASSWORD"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+binding:
+  user_dn: cn=binder,dc=acme,dc=org
+  password: YOUR_PASSWORD
+{{< /code >}}
+{{< code json >}}
+{
+  "binding": {
+    "user_dn": "cn=binder,dc=acme,dc=org",
+    "password": "YOUR_PASSWORD"
+  }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 | group_search |    |
 -------------|------
 description  | Search configuration for groups. See the [group search attributes][21] for more information. Remove the `group_search` object from your configuration to use the `memberOf` attribute instead.
 required     | false
 type         | Map
-example      | {{< code shell >}}
-"group_search": {
-  "base_dn": "dc=acme,dc=org",
-  "attribute": "member",
-  "name_attribute": "cn",
-  "object_class": "groupOfNames"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+group_search:
+  base_dn: dc=acme,dc=org
+  attribute: member
+  name_attribute: cn
+  object_class: groupOfNames
+{{< /code >}}
+{{< code json >}}
+{
+  "group_search": {
+    "base_dn": "dc=acme,dc=org",
+    "attribute": "member",
+    "name_attribute": "cn",
+    "object_class": "groupOfNames"
+  }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 | user_search |     |
 -------------|------
 description  | Search configuration for users. See the [user search attributes][22] for more information.
 required     | true
 type         | Map
-example      | {{< code shell >}}
-"user_search": {
-  "base_dn": "dc=acme,dc=org",
-  "attribute": "uid",
-  "name_attribute": "cn",
-  "object_class": "person"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+user_search:
+  base_dn: dc=acme,dc=org
+  attribute: uid
+  name_attribute: cn
+  object_class: person
+{{< /code >}}
+{{< code json >}}
+{
+  "user_search": {
+    "base_dn": "dc=acme,dc=org",
+    "attribute": "uid",
+    "name_attribute": "cn",
+    "object_class": "person"
+  }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 ### LDAP binding attributes
 
@@ -419,14 +618,32 @@ example      | {{< code shell >}}
 description  | The LDAP account that performs user and group lookups. We recommend using a read-only account. Use the distinguished name (DN) format, such as `cn=binder,cn=users,dc=domain,dc=tld`. If your sever supports anonymous binding, you can omit this attribute to query the directory without credentials.
 required     | false
 type         | String
-example      | {{< code shell >}}"user_dn": "cn=binder,dc=acme,dc=org"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+user_dn: cn=binder,dc=acme,dc=org
+{{< /code >}}
+{{< code json >}}
+{
+  "user_dn": "cn=binder,dc=acme,dc=org"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | password   |      |
 -------------|------
 description  | Password for the `user_dn` account. If your sever supports anonymous binding, you can omit this attribute to query the directory without credentials.
 required     | false
 type         | String
-example      | {{< code shell >}}"password": "YOUR_PASSWORD"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+password: YOUR_PASSWORD
+{{< /code >}}
+{{< code json >}}
+{
+  "password": "YOUR_PASSWORD"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### LDAP group search attributes
 
@@ -435,7 +652,16 @@ example      | {{< code shell >}}"password": "YOUR_PASSWORD"{{< /code >}}
 description  | Tells Sensu which part of the directory tree to search. For example, `dc=acme,dc=org` searches within the `acme.org` directory.
 required     | true
 type         | String
-example      | {{< code shell >}}"base_dn": "dc=acme,dc=org"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+base_dn: dc=acme,dc=org
+{{< /code >}}
+{{< code json >}}
+{
+  "base_dn": "dc=acme,dc=org"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | attribute  |      |
 -------------|------
@@ -443,7 +669,16 @@ description  | Used for comparing result entries. Combined with other filters as
 required     | false
 type         | String
 default      | `"member"`
-example      | {{< code shell >}}"attribute": "member"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+attribute: member
+{{< /code >}}
+{{< code json >}}
+{
+  "attribute": "member"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | name_attribute |  |
 -------------|------
@@ -451,7 +686,16 @@ description  | Represents the attribute to use as the entry name.
 required     | false
 type         | String
 default      | `"cn"`
-example      | {{< code shell >}}"name_attribute": "cn"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name_attribute: cn
+{{< /code >}}
+{{< code json >}}
+{
+  "name_attribute": "cn"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | object_class |   |
 -------------|------
@@ -459,7 +703,16 @@ description  | Identifies the class of objects returned in the search result. Co
 required     | false
 type         | String
 default      | `"groupOfNames"`
-example      | {{< code shell >}}"object_class": "groupOfNames"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+object_class: groupOfNames
+{{< /code >}}
+{{< code json >}}
+{
+  "object_class": "groupOfNames"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### LDAP user search attributes
 
@@ -468,7 +721,16 @@ example      | {{< code shell >}}"object_class": "groupOfNames"{{< /code >}}
 description  | Tells Sensu which part of the directory tree to search. For example, `dc=acme,dc=org` searches within the `acme.org` directory.
 required     | true
 type         | String
-example      | {{< code shell >}}"base_dn": "dc=acme,dc=org"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+base_dn: dc=acme,dc=org
+{{< /code >}}
+{{< code json >}}
+{
+  "base_dn": "dc=acme,dc=org"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | attribute  |      |
 -------------|------
@@ -476,7 +738,16 @@ description  | Used for comparing result entries. Combined with other filters as
 required     | false
 type         | String
 default      | `"uid"`
-example      | {{< code shell >}}"attribute": "uid"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+attribute: uid
+{{< /code >}}
+{{< code json >}}
+{
+  "attribute": "uid"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | name_attribute |  |
 -------------|------
@@ -484,7 +755,16 @@ description  | Represents the attribute to use as the entry name
 required     | false
 type         | String
 default      | `"cn"`
-example      | {{< code shell >}}"name_attribute": "cn"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name_attribute: cn
+{{< /code >}}
+{{< code json >}}
+{
+  "name_attribute": "cn"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | object_class |   |
 -------------|------
@@ -492,7 +772,16 @@ description  | Identifies the class of objects returned in the search result. Co
 required     | false
 type         | String
 default      | `"person"`
-example      | {{< code shell >}}"object_class": "person"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+object_class: person
+{{< /code >}}
+{{< code json >}}
+{
+  "object_class": "person"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### LDAP metadata attributes
 
@@ -501,7 +790,16 @@ example      | {{< code shell >}}"object_class": "person"{{< /code >}}
 description  | A unique string used to identify the LDAP configuration. Names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][42]).
 required     | true
 type         | String
-example      | {{< code shell >}}"name": "openldap"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: openldap
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "openldap"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ## LDAP troubleshooting
 
@@ -577,11 +875,11 @@ The Sensu backend logs each attempt made to authorize an RBAC request.
 This is useful for determining why a specific binding didn't grant the request.
 For example:
 
-```
+{{< code shell >}}
 [...] the user is not a subject of the ClusterRoleBinding cluster-admin [...]
 [...] could not authorize the request with the ClusterRoleBinding system:user [...]
 [...] could not authorize the request with any ClusterRoleBindings [...]
-```
+{{< /code >}}
 
 
 [1]: ../../../web-ui/

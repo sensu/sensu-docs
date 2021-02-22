@@ -20,13 +20,14 @@ For longer retention of observability event data, integrate Sensu with a time se
 
 By default, Sensu uses its embedded etcd database to store configuration and event data.
 This embedded database allows you to get started with Sensu without deploying a complete, scalable architecture.
+Sensu's default embedded etcd configuration listens for unencrypted communication on [ports][19] 2379 (client requests) and 2380 (peer communication).
 
 Sensu can be configured to disable the embedded etcd database and use one or more [external etcd nodes][8] for configuration and event storage instead.
 
 As your deployment grows beyond the proof-of-concept stage, review [Deployment architecture for Sensu][6] for more information about deployment considerations and recommendations for a production-ready Sensu deployment.
 
 Sensu requires at least etcd 3.3.2 and is tested against releases in the 3.3.x series.
-etcd versions 3.4.0 and later are not supported.
+etcd version 3.4.0 is compatible with Sensu but may result in slower performance than the 3.3.x series.
 
 ## Scale event storage
 
@@ -63,6 +64,7 @@ See [Datastore specification][18] for more information.
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: PostgresConfig
 api_version: store/v1
 metadata:
@@ -94,9 +96,17 @@ spec:
 
 With the `PostgresConfig` resource definition saved to a file (for example, `postgres.yml`), use sensuctl, [configured as the admin user][1], to activate the PostgreSQL event store.
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 sensuctl create --file postgres.yml
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create --file postgres.json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 To update your Sensu PostgreSQL configuration, repeat the `sensuctl create` process.
 You can expect to see PostgreSQL status updates in the [Sensu backend logs][2] at the `warn` log level and PostgreSQL error messages in the [Sensu backend logs][2] at the `error` log level.
@@ -105,9 +115,17 @@ You can expect to see PostgreSQL status updates in the [Sensu backend logs][2] a
 
 To disable the PostgreSQL event store, use `sensuctl delete` with your `PostgresConfig` resource definition:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 sensuctl delete --file postgres.yml
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl delete --file postgres.json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 The Sensu backend log will include a message to record that you successfully disabled PostgreSQL as the Sensu Go event store:
 
@@ -127,38 +145,78 @@ type         |      |
 description  | Top-level attribute that specifies the [`sensuctl create`][16] resource type. PostgreSQL datastore configs should always be type `PostgresConfig`.
 required     | true
 type         | String
-example      | {{< code shell >}}type: PostgresConfig{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: PostgresConfig
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "PostgresConfig"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 api_version  |      |
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For PostgreSQL datastore configs, the `api_version` should be `store/v1`.
 required     | true
 type         | String
-example      | {{< code shell >}}api_version: store/v1{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: store/v1
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "store/v1"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 metadata     |      |
 -------------|------
 description  | Top-level scope that contains the PostgreSQL datastore `name` and `created_by` field.
 required     | true
 type         | Map of key-value pairs
-example      | {{< code shell >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
 metadata:
   name: my-postgres
   created_by: admin
 {{< /code >}}
+{{< code json >}}
+{
+  "metadata": {
+    "name": "my-postgres",
+    "created_by": "admin"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 spec         |      |
 -------------|------
 description  | Top-level map that includes the PostgreSQL datastore config [spec attributes][17].
 required     | true
 type         | Map of key-value pairs
-example      | {{< code shell >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
 spec:
-  dsn: "postgresql://user:secret@host:port/dbname"
+  dsn: 'postgresql://user:secret@host:port/dbname'
   max_conn_lifetime: 5m
   max_idle_conns: 2
   pool_size: 20
 {{< /code >}}
+{{< code json >}}
+{
+  "spec": {
+    "dsn": "postgresql://user:secret@host:port/dbname",
+    "max_conn_lifetime": "5m",
+    "max_idle_conns": 2,
+    "pool_size": 20
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### Metadata attributes
 
@@ -167,14 +225,32 @@ name         |      |
 description  | PostgreSQL datastore name used internally by Sensu.
 required     | true
 type         | String
-example      | {{< code shell >}}name: my-postgres{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: my-postgres
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "my-postgres"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created the datastore or last updated the datastore. Sensu automatically populates the `created_by` field when the datastore is created or updated.
 required     | false
 type         | String
-example      | {{< code shell >}}created_by: admin{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created_by: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### Spec attributes
 
@@ -183,14 +259,32 @@ dsn          |      |
 description  | Data source names. Specified as a URL or [PostgreSQL connection string][15]. The Sensu backend uses the golang pq library, which supports a [subset of the PostgreSQL libpq connection string parameters][4].
 required     | true
 type         | String
-example      | {{< code shell >}}dsn: "postgresql://user:secret@host:port/dbname"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+dsn: 'postgresql://user:secret@host:port/dbname'
+{{< /code >}}
+{{< code json >}}
+{
+  "dsn": "postgresql://user:secret@host:port/dbname"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 max_conn_lifetime    |      |
 -------------|------
 description  | Maximum time a connection can persist before being destroyed. Specify values with a numeral and a letter indicator: `s` to indicate seconds, `m` to indicate minutes, and `h` to indicate hours. For example, `1m`, `2h`, and `2h1m3s` are valid. 
 required     | false
 type         | String
-example      | {{< code shell >}}max_conn_lifetime: 5m{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+max_conn_lifetime: 5m
+{{< /code >}}
+{{< code json >}}
+{
+  "max_conn_lifetime": "5m"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 max_idle_conns    |      |
 -------------|------
@@ -198,7 +292,16 @@ description  | Maximum number of number of idle connections to retain.
 required     | false
 default      | `2`
 type         | Integer
-example      | {{< code shell >}}max_idle_conns: 2{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+max_idle_conns: 2
+{{< /code >}}
+{{< code json >}}
+{
+  "max_idle_conns": 2
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 pool_size    |      |
 -------------|------
@@ -206,9 +309,19 @@ description  | Maximum number of connections to hold in the PostgreSQL connectio
 required     | false
 default      | `0` (unlimited)
 type         | Integer
-example      | {{< code shell >}}pool_size: 20{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+pool_size: 20
+{{< /code >}}
+{{< code json >}}
+{
+  "pool_size": 20
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
-[1]: ../../../sensuctl/#first-time-setup
+
+[1]: ../../../sensuctl/#first-time-setup-and-authentication
 [2]: ../../maintain-sensu/troubleshoot/
 [3]: https://aws.amazon.com/rds/
 [4]: https://pkg.go.dev/github.com/lib/pq@v1.2.0#hdr-Connection_String_Parameters
@@ -224,3 +337,4 @@ example      | {{< code shell >}}pool_size: 20{{< /code >}}
 [16]: ../../../sensuctl/create-manage-resources/#create-resources
 [17]: #spec-attributes
 [18]: #datastore-specification
+[19]: ../install-sensu/#ports

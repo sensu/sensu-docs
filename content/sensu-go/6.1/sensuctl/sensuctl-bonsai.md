@@ -16,10 +16,15 @@ You can also use `sensuctl command` to install, execute, list, and delete comman
 
 ## Install dynamic runtime asset definitions
 
-To install a dynamic runtime asset definition directly from Bonsai, use `sensuctl asset add [NAMESPACE/NAME][:VERSION]`.
-`[:VERSION]` is only required if you require a specific version or are pinning to a specific version.
+To install a dynamic runtime asset definition directly from Bonsai, use `sensuctl asset add [NAMESPACE/NAME]:[VERSION]`.
+Replace `[NAMESPACE/NAME]` with the namespace and name of the dynamic runtime asset from Bonsai and `[VERSION]` with the asset version you want to install.
 
-Replace `[NAMESPACE/NAME]` with the namespace and name of the dynamic runtime asset from Bonsai:
+To automatically install the latest version of the plugin, you do not need to specify the version: `sensuctl asset add [NAMESPACE/NAME]`.
+
+{{% notice note %}}
+**NOTE**: We recommend specifying the asset version you want to install to maintain the stability of your observability infrastructure.
+If you do not specify a version to install, Sensu automatically installs the latest version, which may include breaking changes.
+{{% /notice %}}
 
 ![Bonsai page for InfluxDB handler showing namespace and name][2]
 
@@ -77,7 +82,7 @@ sensuctl command install [ALIAS] ([NAMESPACE/NAME]:[VERSION] | --url [ARCHIVE_UR
 To install a command plugin, use the Bonsai asset name or specify a URL and SHA512 checksum.
 
 **To install a command using the Bonsai asset name**, replace `[NAMESPACE/NAME]` with the name of the asset from Bonsai.
-`[:VERSION]` is only required if you require a specific version or are pinning to a specific version.
+`:[VERSION]` is only required if you require a specific version or are pinning to a specific version.
 If you do not specify a version, sensuctl will fetch the latest version from Bonsai.
 
 Replace `[ALIAS]` with a unique name for the command.

@@ -13,160 +13,13 @@ menu:
 ---
 
 Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance.
-RBAC allows you to specify actions users are allowed to take against resources, within namespaces or across all namespaces, based on roles bound to the user or to one or more groups the user is a member of.
+RBAC allows you to specify actions users are allowed to take against resources, within [namespaces][12] or across all namespaces, based on roles bound to the user or to one or more groups the user is a member of.
 
-- **Namespaces** partition resources within Sensu. Sensu entities, checks, handlers, and other [namespaced resources][17] belong to a single namespace.
 - **Roles** create sets of permissions (e.g. get and delete) tied to resource types. **Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
 - **Users** represent a person or agent that interacts with Sensu. Users can belong to one or more **groups**.
 - **Role bindings** assign a role to a set of users and groups within a namespace. **Cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
 
 RBAC configuration applies to [sensuctl][2], the [API][19], and the [web UI][3].
-
-## Namespaces
-
-Namespaces help teams use different resources (like entities, checks, and handlers) within Sensu and impose their own controls on those resources.
-A Sensu instance can have multiple namespaces, each with their own set of managed resources.
-Resource names must be unique within a namespace but do not need to be unique across namespaces.
-
-To create and manage namespaces, [configure sensuctl][26] as the [default `admin` user][20] or create a [cluster role][21] with `namespaces` permissions.
-
-### Default namespaces
-
-Every [Sensu backend][1] includes a `default` namespace.
-All resources created without a specified namespace are created within the `default` namespace.
-
-### Manage namespaces
-
-You can use [sensuctl][2] to view, create, and delete namespaces.
-To get help with managing namespaces with sensuctl:
-
-{{< code shell >}}
-sensuctl namespace help
-{{< /code >}}
-
-#### View namespaces
-
-You can use [sensuctl][2] to view all namespaces within Sensu:
-
-{{< code shell >}}
-sensuctl namespace list
-{{< /code >}}
-
-{{% notice note %}}
-**NOTE**: For users on supported Sensu Go distributions,`sensuctl namespace list` lists only the namespaces that the current user has access to.
-{{% /notice %}}
-
-#### Create namespaces
-
-You can use [sensuctl][2] to create a namespace.
-For example, the following command creates a namespace called `production`:
-
-{{< code shell >}}
-sensuctl namespace create production
-{{< /code >}}
-
-Namespace names can contain alphanumeric characters and hyphens and must begin and end with an alphanumeric character.
-
-#### Delete namespaces
-
-To delete a namespace:
-
-{{< code shell >}}
-sensuctl namespace delete [NAMESPACE-NAME]
-{{< /code >}}
-
-#### Assign a resource to a namespace
-
-You can assign a resource to a namespace in the resource definition.
-Only resources that belong to a [namespaced resource type][17] (like checks, filters, and handlers) can be assigned to a namespace.
-
-For example, to assign a check called `check-cpu` to the `production` namespace, include the `namespace` attribute in the check definition:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: CheckConfig
-api_version: core/v2
-metadata:
-  name: check-cpu
-  namespace: production
-spec:
-  check_hooks: null
-  command: check-cpu.sh -w 75 -c 90
-  handlers:
-  - slack
-  interval: 30
-  subscriptions:
-  - system
-  timeout: 0
-  ttl: 0
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "check-cpu",
-    "namespace": "production"
-  },
-  "spec": {
-    "check_hooks": null,
-    "command": "check-cpu.sh -w 75 -c 90",
-    "handlers": ["slack"],
-    "interval": 30,
-    "subscriptions": ["system"],
-    "timeout": 0,
-    "ttl": 0
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-See the [reference docs][16] for the corresponding [resource type][17] to create resource definitions.
-
-{{% notice protip %}}
-**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference](../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
-{{% /notice %}}
-
-### Namespace specification
-
-#### Attributes
-
-name         | 
--------------|------ 
-description  | Name of the namespace. Names can contain alphanumeric characters and hyphens and must begin and end with an alphanumeric character.
-required     | true
-type         | String
-example      | {{< code shell >}}"name": "production"{{< /code >}}
-
-### Namespace example
-
-This example is in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31]:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: Namespace
-api_version: core/v2
-metadata: {}
-spec:
-  name: default
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Namespace",
-  "api_version": "core/v2",
-  "metadata": {},
-  "spec": {
-    "name": "default"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
 
 ## Resources
 
@@ -175,7 +28,7 @@ You can use resource types to configure permissions in Sensu roles and cluster r
 
 ### Namespaced resource types
 
-Namespaced resources must belong to a single namespace.
+Namespaced resources must belong to a single [namespace][12].
 You can access namespaced resources by [roles][13] and [cluster roles][21].
 
 | type | description |
@@ -261,7 +114,7 @@ An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
 {{% notice note %}}
-**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../../operations/control-access#use-built-in-basic-authentication).
+**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../../operations/control-access/#use-built-in-basic-authentication).
 It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../operations/control-access/ldap-auth/), [Active Directory (AD)](../../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../../operations/control-access/oidc-auth/). 
 {{% /notice %}}
 
@@ -330,7 +183,16 @@ username     |
 description  | Name of the user. Cannot contain special characters.
 required     | true
 type         | String
-example      | {{< code shell >}}"username": "alice"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+username: alice
+{{< /code >}}
+{{< code json >}}
+{
+  "username": "alice"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 <a name="password"></a>
 
@@ -341,14 +203,37 @@ description  | User's password. Passwords must have at least eight characters.{{
 {{% /notice %}}
 required     | true
 type         | String
-example      | {{< code shell >}}"password": "USER_PASSWORD"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+password: USER_PASSWORD
+{{< /code >}}
+{{< code json >}}
+{
+  "password": "USER_PASSWORD"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 groups       | 
 -------------|------ 
 description  | Groups to which the user belongs.
 required     | false
 type         | Array
-example      | {{< code shell >}}"groups": ["dev", "ops"]{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+groups:
+- dev
+- ops
+{{< /code >}}
+{{< code json >}}
+{
+  "groups": [
+    "dev",
+    "ops"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 disabled     | 
 -------------|------ 
@@ -356,7 +241,16 @@ description  | If `true`, the user's account is disabled. Otherwise, `false`.
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< code shell >}}"disabled": false{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+disabled: false
+{{< /code >}}
+{{< code json >}}
+{
+  "disabled": false
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 <a name="password-hash"></a>
 
@@ -367,7 +261,16 @@ description   | [Bcrypt][35] password hash. You can use the `password_hash` in y
 {{% /notice %}}
 required      | false
 type          | String
-example       | {{< code shell >}}"password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"{{< /code >}}
+example       | {{< language-toggle >}}
+{{< code yml >}}
+password_hash: $5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm
+{{< /code >}}
+{{< code json >}}
+{
+  "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### User example
 
@@ -376,6 +279,7 @@ The following example is in `yml` and `wrapped-json` formats for use with [`sens
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: User
 api_version: core/v2
 metadata: {}
@@ -571,27 +475,68 @@ name         |
 description  | Name of the role.
 required     | true
 type         | String
-example      | {{< code shell >}}"name": "admin"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 namespace    | 
 -------------|------ 
 description  | Namespace the role is restricted to. This attribute is not available for cluster roles.
 required     | false
 type         | String
-example      | {{< code shell >}}"namespace": "production"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+namespace: production
+{{< /code >}}
+{{< code json >}}
+{
+  "namespace": "production"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 rules        | 
 -------------|------ 
 description  | Rulesets that the role applies.
 required     | true
 type         | Array
-example      | {{< code shell >}}"rules": [
-  {
-    "verbs": ["get", "list"],
-    "resources": ["checks"],
-    "resource_names": [""]
-  }
-]{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+rules:
+- verbs:
+  - get
+  - list
+  resources:
+  - checks
+  resource_names:
+  - ''
+{{< /code >}}
+{{< code json >}}
+{
+  "rules": [
+    {
+      "verbs": [
+        "get",
+        "list"
+      ],
+      "resources": [
+        "checks"
+      ],
+      "resource_names": [
+        ""
+      ]
+    }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 #### Rule attributes
 
@@ -602,21 +547,59 @@ verbs  |
 description  | Permissions to be applied by the rule: `get`, `list`, `create`, `update`, or `delete`. 
 required     | true
 type         | Array
-example      | {{< code shell >}}"verbs": ["get", "list"]{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+verbs:
+- get
+- list
+{{< /code >}}
+{{< code json >}}
+{
+  "verbs": [
+    "get",
+    "list"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 resources         | 
 -------------|------ 
 description  | Type of resource that the rule has permission to access. Roles can only access [namespaced resource types][17]. Cluster roles can access namespaced and [cluster-wide resource types][18]. See [resource types][4] for available types.
 required     | true
 type         | Array
-example      | {{< code shell >}}"resources": ["checks"]{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+resources:
+- checks
+{{< /code >}}
+{{< code json >}}
+{
+  "resources": [
+    "checks"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 resource_names    | 
 -------------|------ 
 description  | Specific resource names that the rule has permission to access. Resource name permissions are only taken into account for requests using `get`, `update`, and `delete` verbs.
 required     | false
 type         | Array
-example      | {{< code shell >}}"resource_names": ["check-cpu"]{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+resource_names:
+- check-cpu
+{{< /code >}}
+{{< code json >}}
+{
+  "resource_names": [
+    "check-cpu"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### Role and cluster role examples
 
@@ -627,6 +610,7 @@ These examples are in `yml` and `wrapped-json` formats for use with [`sensuctl c
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Role
 api_version: core/v2
 metadata:
@@ -685,6 +669,7 @@ spec:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: ClusterRole
 api_version: core/v2
 metadata:
@@ -840,22 +825,44 @@ roleRef      |
 description  | Reference a role in the current namespace or a cluster role.
 required     | true
 type         | Hash
-example      | {{< code shell >}}"roleRef": {
-  "type": "Role",
-  "name": "event-reader"
-}{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+roleRef:
+  type: Role
+  name: event-reader
+{{< /code >}}
+{{< code json >}}
+{
+  "roleRef": {
+    "type": "Role",
+    "name": "event-reader"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 subjects     | 
 -------------|------ 
 description  | Users or groups being assigned.
 required     | true
 type         | Array
-example      | {{< code shell >}}"subjects": [
-  {
-    "type": "User",
-    "name": "alice"
-  }
-]{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+subjects:
+- type: User
+  name: alice
+{{< /code >}}
+{{< code json >}}
+{
+  "subjects": [
+    {
+      "type": "User",
+      "name": "alice"
+    }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 #### `roleRef` specification
 
@@ -864,14 +871,32 @@ type         |
 description  | `Role` for a role binding or `ClusterRole` for a cluster role binding.
 required     | true
 type         | String
-example      | {{< code shell >}}"type": "Role"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Role
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "Role"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 name         | 
 -------------|------ 
 description  | Name of the role or cluster role being assigned.
 required     | true
 type         | String
-example      | {{< code shell >}}"name": "event-reader"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: event-reader
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "event-reader"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 #### `subjects` specification
 
@@ -880,15 +905,42 @@ type         |
 description  | `User` for assigning a user or `Group` for assigning a group.
 required     | true
 type         | String
-example      | {{< code shell >}}"type": "User"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: User
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "User"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 name         | 
 -------------|------ 
 description  | Username or group name.
 required     | true
 type         | String
-example      | {{< code shell >}}"name": "alice"{{< /code >}}
- example with prefix | {{< code shell >}}"name": "ad:alice"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: alice
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "alice"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+example with prefix | {{< language-toggle >}}
+{{< code yml >}}
+name: ad:alice
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "ad:alice"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### Role binding and cluster role binding examples
 
@@ -899,6 +951,7 @@ These examples are in `yml` and `wrapped-json` formats for use with [`sensuctl c
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: RoleBinding
 api_version: core/v2
 metadata:
@@ -943,6 +996,7 @@ spec:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: ClusterRoleBinding
 api_version: core/v2
 metadata:
@@ -984,7 +1038,35 @@ spec:
 
 The following role and role binding give a `dev` group access to create and manage Sensu workflows within the `default` namespace.
 
-{{< code text >}}
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Role
+api_version: core/v2
+metadata:
+  name: workflow-creator
+  namespace: default
+spec:
+  rules:
+  - resource_names: []
+    resources:
+    - checks
+    - hooks
+    - filters
+    - events
+    - filters
+    - mutators
+    - handlers
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+{{< /code >}}
+
+{{< code json >}}
 {
   "type": "Role",
   "api_version": "core/v2",
@@ -1002,6 +1084,29 @@ The following role and role binding give a `dev` group access to create and mana
     ]
   }
 }
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: RoleBinding
+api_version: core/v2
+metadata:
+  name: dev-binding
+  namespace: default
+spec:
+  role_ref:
+    name: workflow-creator
+    type: Role
+  subjects:
+  - name: dev
+    type: Group
+{{< /code >}}
+
+{{< code json >}}
 {
   "type": "RoleBinding",
   "api_version": "core/v2",
@@ -1024,11 +1129,41 @@ The following role and role binding give a `dev` group access to create and mana
 }
 {{< /code >}}
 
+{{< /language-toggle >}}
+
 #### Role and role binding example with a group prefix
 
 In this example, if a groups_prefix of `ad` is configured for [Active Directory authentication][39], the role and role binding will give a `dev` group access to create and manage Sensu workflows within the `default` namespace.
 
-{{< code text >}}
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Role
+api_version: core/v2
+metadata:
+  name: workflow-creator
+  namespace: default
+spec:
+  rules:
+  - resource_names: []
+    resources:
+    - checks
+    - hooks
+    - filters
+    - events
+    - filters
+    - mutators
+    - handlers
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+{{< /code >}}
+
+{{< code json >}}
 {
   "type": "Role",
   "api_version": "core/v2",
@@ -1046,6 +1181,29 @@ In this example, if a groups_prefix of `ad` is configured for [Active Directory 
     ]
   }
 }
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: RoleBinding
+api_version: core/v2
+metadata:
+  name: dev-binding-with-groups-prefix
+  namespace: default
+spec:
+  role_ref:
+    name: workflow-creator
+    type: Role
+  subjects:
+  - name: ad:dev
+    type: Group
+{{< /code >}}
+
+{{< code json >}}
 {
   "type": "RoleBinding",
   "api_version": "core/v2",
@@ -1068,6 +1226,8 @@ In this example, if a groups_prefix of `ad` is configured for [Active Directory 
 }
 {{< /code >}}
 
+{{< /language-toggle >}}
+
 ## Example workflows
 
 ### Assign user permissions within a namespace
@@ -1081,7 +1241,19 @@ To assign permissions to a user:
 For example, the following configuration creates a user `alice`, a role `default-admin`, and a role binding `alice-default-admin`, giving `alice` full permissions for [namespaced resource types][17] within the `default` namespace.
 You can add these resources to Sensu using [`sensuctl create`][31].
 
-{{< code text >}}
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: User
+api_version: core/v2
+metadata: {}
+spec:
+  disabled: false
+  username: alice
+{{< /code >}}
+
+{{< code json >}}
 {
   "type": "User",
   "api_version": "core/v2",
@@ -1091,6 +1263,44 @@ You can add these resources to Sensu using [`sensuctl create`][31].
     "username": "alice"
   }
 }
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Role
+api_version: core/v2
+metadata:
+  name: default-admin
+  namespace: default
+spec:
+  rules:
+  - resource_names: []
+    resources:
+    - assets
+    - checks
+    - entities
+    - events
+    - filters
+    - handlers
+    - hooks
+    - mutators
+    - rolebindings
+    - roles
+    - searches
+    - silenced
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+{{< /code >}}
+
+{{< code json >}}
 {
   "type": "Role",
   "api_version": "core/v2",
@@ -1111,6 +1321,29 @@ You can add these resources to Sensu using [`sensuctl create`][31].
     ]
   }
 }
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: RoleBinding
+api_version: core/v2
+metadata:
+  name: alice-default-admin
+  namespace: default
+spec:
+  role_ref:
+    name: default-admin
+    type: Role
+  subjects:
+  - name: alice
+    type: User
+{{< /code >}}
+
+{{< code json >}}
 {
   "type": "RoleBinding",
   "api_version": "core/v2",
@@ -1133,6 +1366,8 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 }
 {{< /code >}}
 
+{{< /language-toggle >}}
+
 ### Assign group permissions within a namespace
 
 To assign permissions to group of users:
@@ -1144,7 +1379,19 @@ To assign permissions to group of users:
 For example, the following configuration creates a user `alice` assigned to the group `ops`, a role `default-admin`, and a role binding `ops-default-admin`, giving the `ops` group full permissions for [namespaced resource types][17] within the `default` namespace.
 You can add these resources to Sensu using [`sensuctl create`][31].
 
-{{< code text >}}
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: User
+api_version: core/v2
+metadata: {}
+spec:
+  disabled: false
+  username: alice
+{{< /code >}}
+
+{{< code json >}}
 {
   "type": "User",
   "api_version": "core/v2",
@@ -1154,6 +1401,44 @@ You can add these resources to Sensu using [`sensuctl create`][31].
     "username": "alice"
   }
 }
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Role
+api_version: core/v2
+metadata:
+  name: default-admin
+  namespace: default
+spec:
+  rules:
+  - resource_names: []
+    resources:
+    - assets
+    - checks
+    - entities
+    - events
+    - filters
+    - handlers
+    - hooks
+    - mutators
+    - rolebindings
+    - roles
+    - searches
+    - silenced
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+{{< /code >}}
+
+{{< code json >}}
 {
   "type": "Role",
   "api_version": "core/v2",
@@ -1174,6 +1459,29 @@ You can add these resources to Sensu using [`sensuctl create`][31].
     ]
   }
 }
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: RoleBinding
+api_version: core/v2
+metadata:
+  name: ops-default-admin
+  namespace: default
+spec:
+  role_ref:
+    name: default-admin
+    type: Role
+  subjects:
+  - name: ops
+    type: Group
+{{< /code >}}
+
+{{< code json >}}
 {
   "type": "RoleBinding",
   "api_version": "core/v2",
@@ -1196,6 +1504,8 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 }
 {{< /code >}}
 
+{{< /language-toggle >}}
+
 {{% notice protip %}}
 **PRO TIP**: To avoid recreating commonly used roles in each namespace, [create a cluster role](#create-cluster-wide-roles) and use a [role binding](#create-role-bindings-and-cluster-role-bindings) to restrict permissions within a specific namespace.
 {{% /notice %}}
@@ -1211,7 +1521,22 @@ To assign cluster-wide permissions to group of users:
 For example, the following configuration creates a user `alice` assigned to the group `ops`, a cluster role `default-admin`, and a cluster role binding `ops-default-admin`, giving the `ops` group full permissions for [namespaced resource types][17] and [cluster-wide resource types][18] across all namespaces.
 You can add these resources to Sensu using [`sensuctl create`][31].
 
-{{< code text >}}
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: User
+api_version: core/v2
+metadata: {}
+spec:
+  disabled: false
+  username: alice
+  groups:
+  - ops
+
+{{< /code >}}
+
+{{< code json >}}
 {
   "type": "User",
   "api_version": "core/v2",
@@ -1222,6 +1547,49 @@ You can add these resources to Sensu using [`sensuctl create`][31].
     "groups": ["ops"]
   }
 }
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: ClusterRole
+api_version: core/v2
+metadata:
+  name: default-admin
+spec:
+  rules:
+  - resource_names: []
+    resources:
+    - assets
+    - checks
+    - entities
+    - events
+    - filters
+    - handlers
+    - hooks
+    - mutators
+    - rolebindings
+    - roles
+    - silenced
+    - cluster
+    - clusterrolebindings
+    - clusterroles
+    - namespaces
+    - users
+    - authproviders
+    - license
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+{{< /code >}}
+
+{{< code json >}}
 {
   "type": "ClusterRole",
   "api_version": "core/v2",
@@ -1243,6 +1611,28 @@ You can add these resources to Sensu using [`sensuctl create`][31].
     ]
   }
 }
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: ClusterRoleBinding
+api_version: core/v2
+metadata:
+  name: ops-default-admin
+spec:
+  role_ref:
+    name: default-admin
+    type: ClusterRole
+  subjects:
+  - name: ops
+    type: Group
+{{< /code >}}
+
+{{< code json >}}
 {
   "type": "ClusterRoleBinding",
   "api_version": "core/v2",
@@ -1264,6 +1654,8 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 }
 {{< /code >}}
 
+{{< /language-toggle >}}
+
 
 [1]: ../backend/
 [2]: ../../sensuctl/
@@ -1276,6 +1668,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [9]: ../handlers/
 [10]: ../hooks/
 [11]: ../mutators/
+[12]: ../namespaces/
 [13]: #roles-and-cluster-roles
 [14]: ../silencing/
 [16]: ../

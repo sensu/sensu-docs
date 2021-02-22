@@ -1,6 +1,8 @@
 ---
 title: "Silencing API"
 description: "The Sensu silencing API provides HTTP access to silences. This reference includes examples for creating and removing Sensu silences. Read on for the full reference."
+api_title: "Silencing API"
+type: "api"
 version: "6.2"
 product: "Sensu Go"
 menu:

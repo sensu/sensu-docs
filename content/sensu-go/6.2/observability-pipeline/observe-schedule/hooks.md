@@ -38,11 +38,22 @@ Sensu captures the hook command output, status, executed timestamp, and duration
 
 You can use `sensuctl` to view hook command data:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML">}}
 sensuctl event info entity_name check_name --format yaml
 {{< /code >}}
 
-{{< code shell >}}
+{{< code shell "JSON" >}}
+sensuctl event info entity_name check_name --format json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
 type: Event
 api_version: core/v2
 metadata:
@@ -64,6 +75,39 @@ spec:
       timeout: 60
 {{< /code >}}
 
+{{< code json >}}
+{
+  "type": "Event",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default"
+  },
+  "spec": {
+    "check": {
+      "...": "...",
+      "hooks": [
+        {
+          "command": "df -hT / | grep '/'",
+          "duration": 0.002904412,
+          "executed": 1559948435,
+          "issued": 0,
+          "metadata": {
+            "name": "root_disk",
+            "namespace": "default"
+          },
+          "output": "/dev/mapper/centos-root xfs    41G  1.6G   40G   4% /\n",
+          "status": 0,
+          "stdin": false,
+          "timeout": 60
+        }
+      ]
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Hook specification
 
 ### Top-level attributes
@@ -73,46 +117,88 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][1] resource type. Hooks should always be type `HookConfig`.
 required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][1].
 type         | String
-example      | {{< code shell >}}"type": "HookConfig"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: HookConfig
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "HookConfig"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For hooks in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][1].
 type         | String
-example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "core/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the hook that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the hook definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][2] for details.
 required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][1].
 type         | Map of key-value pairs
-example      | {{< code shell >}}
-"metadata": {
-  "name": "process_tree",
-  "namespace": "default",
-  "created_by": "admin",
-  "labels": {
-    "region": "us-west-1"
-  },
-  "annotations": {
-    "slack-channel" : "#monitoring"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+metadata:
+  name: process_tree
+  namespace: default
+  created_by: admin
+  labels:
+    region: us-west-1
+  annotations:
+    slack-channel: "#monitoring"
+{{< /code >}}
+{{< code json >}}
+{
+  "metadata": {
+    "name": "process_tree",
+    "namespace": "default",
+    "created_by": "admin",
+    "labels": {
+      "region": "us-west-1"
+    },
+    "annotations": {
+      "slack-channel": "#monitoring"
+    }
   }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the hook [spec attributes][9].
 required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][1].
 type         | Map of key-value pairs
-example      | {{< code shell >}}
-"spec": {
-  "command": "ps aux",
-  "timeout": 60,
-  "stdin": false
+example      | {{< language-toggle >}}
+{{< code yml >}}
+spec:
+  command: ps aux
+  timeout: 60
+  stdin: false
+{{< /code >}}
+{{< code json >}}
+{
+  "spec": {
+    "command": "ps aux",
+    "timeout": 60,
+    "stdin": false
+  }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 ### Metadata attributes
 
@@ -121,7 +207,16 @@ example      | {{< code shell >}}
 description  | Unique string used to identify the hook. Hook names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][8]). Each hook must have a unique name within its namespace.
 required     | true
 type         | String
-example      | {{< code shell >}}"name": "process_tree"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: process_tree
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "process_tree"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | namespace  |      |
 -------------|------
@@ -129,14 +224,32 @@ description  | The Sensu [RBAC namespace][3] that this hook belongs to.
 required     | false
 type         | String
 default      | `default`
-example      | {{< code shell >}}"namespace": "production"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+namespace: production
+{{< /code >}}
+{{< code json >}}
+{
+  "namespace": "production"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created the hook or last updated the hook. Sensu automatically populates the `created_by` field when the hook is created or updated.
 required     | false
 type         | String
-example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created_by: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | labels     |      |
 -------------|------
@@ -144,10 +257,21 @@ description  | Custom attributes to include with observation data in events that
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< code shell >}}"labels": {
-  "environment": "development",
-  "region": "us-west-2"
-}{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+labels:
+  environment: development
+  region: us-west-2
+{{< /code >}}
+{{< code json >}}
+{
+  "labels": {
+    "environment": "development",
+    "region": "us-west-2"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | annotations |     |
 -------------|------
@@ -155,10 +279,21 @@ description  | Non-identifying metadata to include with observation data in even
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< code shell >}} "annotations": {
-  "managed-by": "ops",
-  "playbook": "www.example.url"
-}{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+annotations:
+  managed-by: ops
+  playbook: www.example.url
+{{< /code >}}
+{{< code json >}}
+{
+  "annotations": {
+    "managed-by": "ops",
+    "playbook": "www.example.url"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ### Spec attributes
 
@@ -167,7 +302,16 @@ command      |
 description  | Hook command to be executed.
 required     | true
 type         | String
-example      | {{< code shell >}}"command": "sudo /etc/init.d/nginx start"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+command: sudo /etc/init.d/nginx start
+{{< /code >}}
+{{< code json >}}
+{
+  "command": "sudo /etc/init.d/nginx start"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 timeout      | 
 -------------|------
@@ -175,7 +319,16 @@ description  | Hook execution duration timeout (hard stop). In seconds.
 required     | false
 type         | Integer
 default      | 60
-example      | {{< code shell >}}"timeout": 30{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+timeout: 30
+{{< /code >}}
+{{< code json >}}
+{
+  "timeout": 30
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 stdin        | 
 -------------|------
@@ -183,14 +336,35 @@ description  | If `true`, the Sensu agent writes JSON serialized Sensu entity an
 required     | false
 type         | Boolean
 default      | `false`
-example      | {{< code shell >}}"stdin": true{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+stdin: true
+{{< /code >}}
+{{< code json >}}
+{
+  "stdin": true
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 |runtime_assets |   |
 -------------|------
 description  | Array of [Sensu dynamic runtime assets][5] (by their names) required at runtime for execution of the `command`.
 required     | false
 type         | Array
-example      | {{< code shell >}}"runtime_assets": ["log-context"]{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+runtime_assets:
+- log-context
+{{< /code >}}
+{{< code json >}}
+{
+  "runtime_assets": [
+    "log-context"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ## Examples
 
@@ -205,6 +379,7 @@ You can use hooks for rudimentary auto-remediation tasks, such as starting a pro
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: HookConfig
 api_version: core/v2
 metadata:
@@ -245,6 +420,7 @@ You can use hooks to automate data gathering for incident triage, For example, y
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: HookConfig
 api_version: core/v2
 metadata:
@@ -291,6 +467,7 @@ You can create check hooks that use [token substitution][7] so you can fine-tune
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: HookConfig
 api_version: core/v2
 metadata:
@@ -327,9 +504,10 @@ spec:
 
 {{< /language-toggle >}}
 
+
 [1]: ../../../sensuctl/create-manage-resources/#create-resources
 [2]: #metadata-attributes
-[3]: ../../../operations/control-access/rbac#namespaces
+[3]: ../../../operations/control-access/namespaces/
 [4]: ../../observe-filter/filters/
 [5]: ../../../plugins/assets/
 [6]: ../checks#check-hooks-attribute

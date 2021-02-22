@@ -70,7 +70,7 @@ You should be greeted with this prompt:
 
 {{% notice note %}}
 **NOTE**: The sandbox pre-configures sensuctl with the Sensu Go admin user, so you won't have to configure sensuctl each time you spin up the sandbox to try out a new feature.
-Before installing sensuctl outside of the sandbox, read the [first time setup reference](../../sensuctl/#first-time-setup) to learn how to configure sensuctl.
+Before installing sensuctl outside of the sandbox, read the [first time setup reference](../../sensuctl/#first-time-setup-and-authentication) to learn how to configure sensuctl.
 {{% /notice %}}  
 
 ---
@@ -186,12 +186,20 @@ Created
 The `sensu-slack-handler` asset is now ready to use with Sensu.
 Use sensuctl to see the complete asset definition.
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 sensuctl asset info sensu-slack-handler --format yaml
 {{< /code >}}
 
+{{< code shell "JSON" >}}
+sensuctl asset info sensu-slack-handler --format json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 {{% notice protip %}}
-**PRO TIP**: You can use resource definitions to create and update resources (like assets) using `sensuctl create --file filename.yaml`. See the [sensuctl docs](../../sensuctl/create-manage-resources/#create-resources) for more information.
+**PRO TIP**: You can use resource definitions to create and update resources (like dynamic runtime assets) using `sensuctl create --file filename.yaml` or `sensuctl create --file filename.json`. See the [sensuctl docs](../../sensuctl/create-manage-resources/#create-resources) for more information.
 {{% /notice %}}
 
 **3. Create a Sensu Slack handler**

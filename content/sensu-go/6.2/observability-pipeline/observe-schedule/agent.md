@@ -22,11 +22,57 @@ Agent entities are responsible for creating [check and metrics events][7] to sen
 The Sensu agent is available for Linux, macOS, and Windows.
 See the [installation guide][1] to install the agent.
 
+## Agent authentication
+
+The Sensu agent authenticates to the Sensu backend via [WebSocket][45] transport by either built-in basic (username and password) or mutual transport layer security (mTLS) authentication.
+
+### Username and password authentication
+
+The default mechanism for agent authentication is [built-in basic authentication][59] with username and password.
+The Sensu agent uses username and password authentication unless mTLS authentication has been explicitly configured.
+
+For username and password authentication, sensu-agent joins the username and password with a colon and encodes them as a Base64 value.
+Sensu provides the encoded string as the value of the `Authorization` HTTP header &mdash; for example, `Authorization: Basic YWdlbnQ6UEBzc3cwcmQh` &mdash; to authenticate to the Sensu backend.
+
+When using username and password authentication, sensu-agent also sends the following HTTP headers in requests to the backend:
+
+- `Sensu-User`: the username in plaintext
+- `Sensu-AgentName`: the agent's configured name in plaintext
+- `Sensu-Subscriptions`: the agent's subscriptions in a comma-separated plaintext list
+- `Sensu-Namespace`: the agent's configured namespace in plaintext
+
+### mTLS authentication
+
+When mTLS is configured for both the Sensu agent and backend, the agent uses mTLS authentication instead of the default username and password authentication.
+
+Sensu backends that are configured for mTLS authentication will no longer accept agent authentication via username and password.
+Agents that are configured to use mTLS authentication cannot authenticate with the backend unless the backend is configured for mTLS.
+
+To [configure the agent and backend][58] for mTLS authentication:
+
+- In the backend configuration, specify valid certificate and key files as values for the `agent-auth-cert-file` and `agent-auth-key-file` parameters.
+- In the agent configuration, specify valid certificate and key files as values for the `cert-file` and `key-file` parameters.
+
+The agent and backend will compare the provided certificates with the trusted CA certificate either in the system trust store or specified explicitly as the `agent-auth-trusted-ca-file` in the backend configuration and `trusted-ca-file` in the agent configuration.
+
+When using mTLS authentication, sensu-agent sends the following HTTP headers in requests to the backend:
+
+- `Sensu-AgentName`: the agent's configured name in plaintext
+- `Sensu-Subscriptions`: the agent's subscriptions in a comma-separated, plaintext list
+- `Sensu-Namespace`: the agent's configured namespace in plaintext
+
+If the Sensu agent is configured for mTLS authentication, it will not send the `Authorization` HTTP header.
+
+#### Certificate revocation check
+
+The Sensu backend checks certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) endpoints for agent mTLS, etcd client, and etcd peer connections whose remote sides present X.509 certificates that provide CRL and OCSP revocation information.
+
 ## Communication between the agent and backend
 
 The Sensu agent uses [WebSocket][45] (ws) protocol to send and receive JSON messages with the Sensu backend.
 For optimal network throughput, agents will attempt to negotiate the use of [Protobuf][47] serialization when communicating with a Sensu backend that supports it.
 This communication is via clear text by default.
+
 Follow [Secure Sensu][46] to configure the backend and agent for WebSocket Secure (wss) encrypted communication.
 
 {{% notice note %}}
@@ -424,7 +470,7 @@ If you want to see alerts for failing keepalives, set the [deregister flag](#eph
 {{% /notice %}}
 
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
-In addition, the agent maps [`keepalive-critical-timeout` and `keepalive-warning-timeout`][4] values to certain event check attributes, so you can create time-based event filters to reduce alert fatigue for agent keepliave events.
+In addition, the agent maps [`keepalive-critical-timeout` and `keepalive-warning-timeout`][4] values to certain event check attributes, so you can [create time-based event filters][57] to reduce alert fatigue for agent keepliave events.
 
 {{% notice note %}}
 **NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../../observe-entities/#proxy-entities) because they cannot run a Sensu agent.
@@ -443,6 +489,7 @@ The resulting `keepalive` handler set configuration looks like this:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:
@@ -846,7 +893,10 @@ See the [example agent configuration file][5] (also provided with Sensu packages
 
 | agent-managed-entity |      |
 -------------|------
-description  | Indicates whether the agent's entity solely managed by the agent rather than the backend API. Agent-managed entity definitions will include the label `sensu.io/managed_by: sensu-agent`, and you cannot update these agent-managed entities via the Sensu backend REST API.
+description  | Indicates whether the agent's entity solely managed by the agent rather than the backend API. Agent-managed entity definitions will include the label `sensu.io/managed_by: sensu-agent`, and you cannot update these agent-managed entities via the Sensu backend REST API.<br>{{% notice important%}}
+**IMPORTANT**: In Sensu Go 6.2.1 and 6.2.2, the agent-managed-entity configuration flag can prevent the agent from starting.
+Upgrade to [Sensu Go 6.2.3](../../../release-notes/#623-release-notes) to use the agent-managed-entity configuration flag.
+{{% /notice %}}
 required     | false
 type         | Boolean
 default      | false
@@ -1038,6 +1088,8 @@ sensu-agent start --discover-processes
 # /etc/sensu/agent.yml example
 discover-processes: true{{< /code >}}
 
+<a name="labels"></a>
+
 | labels     |      |
 -------------|------
 description  | Custom attributes to include with event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][25], [sensuctl responses][26], and [web UI views][54] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.{{% notice note %}}
@@ -1187,13 +1239,13 @@ deregister: true{{< /code >}}
 
 | deregistration-handler |      |
 -------------------------|------
-description              | Name of a deregistration handler that processes agent deregistration events. This flag overrides any handlers applied by the [`deregistration-handler` backend configuration flag][37].
+description              | Name of the event handler to use when processing the agent's deregistration events. This flag overrides any handlers applied by the [`deregistration-handler` backend configuration flag][37].
 type                     | String
 environment variable     | `SENSU_DEREGISTRATION_HANDLER`
-example                  | {{< code shell >}}# Command line example
+example                  | {{< code shell >}}# Command line examples
 sensu-agent start --deregistration-handler deregister
 
-# /etc/sensu/agent.yml example
+# /etc/sensu/agent.yml examples
 deregistration-handler: "deregister"{{< /code >}}
 
 <a name="detect-cloud-provider-flag"></a>
@@ -1216,7 +1268,7 @@ detect-cloud-provider: "false"{{< /code >}}
 
 | keepalive-critical-timeout |      |
 --------------------|------
-description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. Set to disabled (`0`) by default. If the value is not `0`, it must be greater than or equal to `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-critical-timeout` value to the [`event.check.ttl` attribute](../../observe-events/events/#checks) when keepalive events are generated for the Sensu backend to process. The `event.check.ttl` attribute is useful for using time-based event filters to reduce alert fatigue for agent keepalive events.
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. Set to disabled (`0`) by default. If the value is not `0`, it must be greater than or equal to `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-critical-timeout` value to the [`event.check.ttl` attribute](../../observe-events/events/#checks) when keepalive events are generated for the Sensu backend to process. The `event.check.ttl` attribute is useful for [creating time-based event filters](../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
 {{% /notice %}}
 type                | Integer
 default             | `0`
@@ -1257,7 +1309,7 @@ keepalive-interval: 30{{< /code >}}
 
 | keepalive-warning-timeout |      |
 --------------------|------
-description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-warning-timeout` value to the [`event.check.timeout` attribute](../../observe-events/events/#checks) when keepalive events are generated for the Sensu backend to process. The `event.check.timeout` attribute is useful for using time-based event filters to reduce alert fatigue for agent keepalive events.
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-warning-timeout` value to the [`event.check.timeout` attribute](../../observe-events/events/#checks) when keepalive events are generated for the Sensu backend to process. The `event.check.timeout` attribute is useful for [creating time-based event filters](../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
 {{% /notice %}}
 type                | Integer
 default             | `120`
@@ -1334,7 +1386,7 @@ redact:
 
 | cert-file  |      |
 -------------|------
-description  | Path to the agent certificate file used in mutual TLS authentication. Sensu supports certificate bundles (or chains) as long as the agent (or leaf) certificate is the *first* certificate in the bundle.
+description  | Path to the agent certificate file used in mTLS authentication. Sensu supports certificate bundles (or chains) as long as the agent (or leaf) certificate is the *first* certificate in the bundle.
 type         | String
 default      | `""`
 environment variable | `SENSU_CERT_FILE`
@@ -1360,7 +1412,7 @@ trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /code >}}
 
 | key-file   |      |
 -------------|------
-description  | Path to the agent key file used in mutual TLS authentication.
+description  | Path to the agent key file used in mTLS authentication.
 type         | String
 default      | `""`
 environment variable | `SENSU_KEY_FILE`
@@ -1796,4 +1848,6 @@ You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, r
 [54]: ../../../web-ui/search#search-for-labels
 [55]: ../../../commercial/
 [56]: #allow-list
-[57]: ../../../api/health
+[57]: ../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events
+[58]: ../../../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[59]: ../../../operations/control-access/#use-built-in-basic-authentication

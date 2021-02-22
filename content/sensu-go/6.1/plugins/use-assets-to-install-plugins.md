@@ -25,7 +25,7 @@ You can install Sensu plugins using the [sensu-install](../install-plugins#insta
 
 ## Register the Sensu PagerDuty Handler asset
 
-To add the [Sensu PagerDuty Handler dynamic runtime asset][7] to Sensu, use [`sensuctl asset add`][6]:
+To add the [Sensu PagerDuty Handler dynamic runtime asset][7] to Sensu, use [`sensuctl asset add [NAMESPACE/NAME]:[VERSION]`][6]:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
@@ -36,6 +36,11 @@ You have successfully added the Sensu asset resource, but the asset will not get
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
 resource, populate the "runtime_assets" field with ["pagerduty-handler"].
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: We recommend specifying the asset version you want to install to maintain the stability of your observability infrastructure.
+If you do not specify a version to install, Sensu automatically installs the latest version, which may include breaking changes.
+{{% /notice %}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `pagerduty-handler`.
 
@@ -52,6 +57,8 @@ Asset definitions tell Sensu how to download and verify the asset when required 
 
 After you add or download the asset definition, open the file and adjust the `namespace` and `filters` for your Sensu instance.
 Here's the asset definition for version 1.2.0 of the [Sensu PagerDuty Handler][7] asset for Linux AMD64:
+
+{{< language-toggle >}}
 
 {{< code yml >}}
 ---
@@ -70,6 +77,31 @@ spec:
   - entity.system.arch == 'amd64'
 {{< /code >}}
 
+{{< code json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "pagerduty-handler",
+    "namespace": "default",
+    "labels": {
+    },
+    "annotations": {
+    }
+  },
+  "spec": {
+    "url": "https://assets.bonsai.sensu.io/02fc48fb7cbfd27f36915489af2725034a046772/sensu-pagerduty-handler_1.2.0_linux_amd64.tar.gz",
+    "sha512": "5be236b5b9ccceb10920d3a171ada4ac4f4caaf87f822475cd48bd7f2fab3235fa298f79ef6f97b0eb6498205740bb1af1120ca036fd3381edfebd9fb15aaa99",
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 Filters for _check_ dynamic runtime assets should match entity platforms.
 Filters for _handler and filter_ dynamic runtime assets should match your Sensu backend platform.
 If the provided filters are too restrictive for your platform, replace `os` and `arch` with any supported [entity system attributes][4] (for example, `entity.system.platform_family == 'rhel'`).
@@ -80,9 +112,17 @@ For more information about commercial features and to activate your license, see
 
 Use sensuctl to verify that the asset is registered and ready to use:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 sensuctl asset list --format yaml
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl asset list --format json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Create a workflow
 
@@ -95,6 +135,7 @@ For example, to use the [Sensu PagerDuty Handler][7] asset, you would create a `
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:
@@ -114,34 +155,44 @@ spec:
 
 {{< code json >}}
 {
-    "api_version": "core/v2",
-    "type": "Handler",
-    "metadata": {
-        "namespace": "default",
-        "name": "pagerduty"
-    },
-    "spec": {
-        "type": "pipe",
-        "command": "sensu-pagerduty-handler",
-        "env_vars": [
-          "PAGERDUTY_TOKEN=SECRET"
-        ],
-        "runtime_assets": ["pagerduty-handler"],
-        "timeout": 10,
-        "filters": [
-            "is_incident"
-        ]
-    }
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default",
+    "name": "pagerduty"
+  },
+  "spec": {
+    "type": "pipe",
+    "command": "sensu-pagerduty-handler",
+    "env_vars": [
+      "PAGERDUTY_TOKEN=SECRET"
+    ],
+    "runtime_assets": [
+      "pagerduty-handler"
+    ],
+    "timeout": 10,
+    "filters": [
+      "is_incident"
+    ]
+  }
 }
 {{< /code >}}
 
 {{< /language-toggle >}}
 
-Save the definition to a file (for example, `pagerduty-handler.json`), and add it to Sensu with sensuctl:
+Save the definition to a file (for example, `pagerduty-handler.yml` or `pagerduty-handler.json`), and add it to Sensu with sensuctl:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file pagerduty-handler.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
 sensuctl create --file pagerduty-handler.json
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 Now that Sensu can create incidents in PagerDuty, you can automate this workflow by adding the `pagerduty` handler to your Sensu service check definitions.
 See [Monitor server resources][13] to learn more.

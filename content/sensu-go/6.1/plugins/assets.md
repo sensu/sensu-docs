@@ -162,6 +162,7 @@ To correctly capture exit status codes from PowerShell plugins distributed as dy
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -275,7 +276,7 @@ dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff
 {{< /code >}}
 
 From here, you can host your dynamic runtime asset wherever you’d like.
-To make the asset available via [Bonsai][16], you’ll need to host it on Github.
+To make the asset available via [Bonsai][16], you’ll need to host it on GitHub.
 Learn more in [The “Hello World” of Sensu Assets][18] on Discourse.
 
 To host your dynamic runtime asset on a different platform like Gitlab or Bitbucket, upload your asset there. You can also use Artifactory or even Apache or Nginx to serve your asset.
@@ -290,38 +291,276 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][11] resource type. Dynamic runtime assets should always be type `Asset`.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | String
-example      | {{< code shell >}}"type": "Asset"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Asset
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "Asset"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For dynamic runtime assets in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | String
-example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "core/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the dynamic runtime asset, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the asset definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][5] for details.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | Map of key-value pairs
-example      | {{< code shell >}}"metadata": {
-  "name": "check_script",
-  "namespace": "default",
-  "created_by": "admin",
-  "labels": {
-    "region": "us-west-1"
-  },
-  "annotations": {
-    "playbook" : "www.example.url"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+metadata:
+  name: check_script
+  namespace: default
+  created_by: admin
+  labels:
+    region: us-west-1
+  annotations:
+    playbook: www.example.url
+{{< /code >}}
+{{< code json >}}
+{
+  "metadata": {
+    "name": "check_script",
+    "namespace": "default",
+    "created_by": "admin",
+    "labels": {
+      "region": "us-west-1"
+    },
+    "annotations": {
+      "playbook": "www.example.url"
+    }
   }
-}{{< /code >}}
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the dynamic runtime asset [spec attributes][12].
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | Map of key-value pairs
-example (multiple builds)     | {{< code shell >}}"spec": {
+example (multiple builds)     | {{< language-toggle >}}
+{{< code yml >}}
+spec:
+  builds:
+  - url: http://example.com/asset-linux-amd64.tar.gz
+    sha512: 487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
+    headers:
+      Authorization: Bearer {{ .annotations.asset_token | default "N/A" }}
+      X-Forwarded-For: client1, proxy1, proxy2
+  - url: http://example.com/asset-linux-armv7.tar.gz
+    sha512: 70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'arm'
+    - entity.system.arm_version == 7
+    headers:
+      Authorization: Bearer {{ .annotations.asset_token | default "N/A" }}
+      X-Forwarded-For: client1, proxy1, proxy2
+{{< /code >}}
+{{< code json >}}
+{
+  "spec": {
+    "builds": [
+      {
+        "url": "http://example.com/asset-linux-amd64.tar.gz",
+        "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'amd64'"
+        ],
+        "headers": {
+          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
+          "X-Forwarded-For": "client1, proxy1, proxy2"
+        }
+      },
+      {
+        "url": "http://example.com/asset-linux-armv7.tar.gz",
+        "sha512": "70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'arm'",
+          "entity.system.arm_version == 7"
+        ],
+        "headers": {
+          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
+          "X-Forwarded-For": "client1, proxy1, proxy2"
+        }
+      }
+    ]
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+example (single build, deprecated)     | {{< language-toggle >}}
+{{< code yml >}}
+spec:
+  url: http://example.com/asset.tar.gz
+  sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
+  filters:
+  - entity.system.os == 'linux'
+  - entity.system.arch == 'amd64'
+  headers:
+    Authorization: Bearer {{ .annotations.asset_token | default "N/A" }}
+    X-Forwarded-For: client1, proxy1, proxy2
+{{< /code >}}
+{{< code json >}}
+{
+  "spec": {
+    "url": "http://example.com/asset.tar.gz",
+    "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ],
+    "headers": {
+      "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
+      "X-Forwarded-For": "client1, proxy1, proxy2"
+    }
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+### Metadata attributes
+
+name         |      |
+-------------|------ 
+description  | Unique name of the dynamic runtime asset, validated with Go regex [`\A[\w\.\-]+\z`][19].
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: check_script
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "check_script"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| namespace  |      |
+-------------|------
+description  | [Sensu RBAC namespace][2] that the dynamic runtime asset belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+namespace: production
+{{< /code >}}
+{{< code json >}}
+{
+  "namespace": "production"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created the dynamic runtime asset or last updated the asset. Sensu automatically populates the `created_by` field when the dynamic runtime asset is created or updated.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created_by: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][20], [sensuctl responses][21], and [web UI views][39] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+required     | false
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+labels:
+  environment: development
+  region: us-west-2
+{{< /code >}}
+{{< code json >}}
+{
+  "labels": {
+    "environment": "development",
+    "region": "us-west-2"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| annotations | |
+-------------|------
+description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][7]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][20], [sensuctl response filtering][21], or [web UI views][39].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+annotations:
+  managed-by: ops
+  playbook: www.example.url
+{{< /code >}}
+{{< code json >}}
+{
+  "annotations": {
+    "managed-by": "ops",
+    "playbook": "www.example.url"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+### Spec attributes
+
+builds       | 
+-------------|------ 
+description  | List of dynamic runtime asset builds used to define multiple artifacts that provide the named asset.
+required     | true, if `url`, `sha512` and `filters` are not provided
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+builds:
+- url: http://example.com/asset-linux-amd64.tar.gz
+  sha512: 487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3
+  filters:
+  - entity.system.os == 'linux'
+  - entity.system.arch == 'amd64'
+- url: http://example.com/asset-linux-armv7.tar.gz
+  sha512: 70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b
+  filters:
+  - entity.system.os == 'linux'
+  - entity.system.arch == 'arm'
+  - entity.system.arm_version == 7
+{{< /code >}}
+{{< code json >}}
+{
   "builds": [
     {
       "url": "http://example.com/asset-linux-amd64.tar.gz",
@@ -332,119 +571,50 @@ example (multiple builds)     | {{< code shell >}}"spec": {
       ]
     },
     {
-        "url": "http://example.com/asset-linux-armv7.tar.gz",
-        "sha512": "70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b",
-        "filters": [
-          "entity.system.os == 'linux'",
-          "entity.system.arch == 'arm'",
-          "entity.system.arm_version == 7"
-        ]
-      }
-  ],
-  "headers": {
-    "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-    "X-Forwarded-For": "client1, proxy1, proxy2"
-  }
-}{{< /code >}}
-example (single build, deprecated)     | {{< code shell >}}"spec": {
-  "url": "http://example.com/asset.tar.gz",
-  "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
-  "filters": [
-    "entity.system.os == 'linux'",
-    "entity.system.arch == 'amd64'"
-  ],
-  "headers": {
-    "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-    "X-Forwarded-For": "client1, proxy1, proxy2"
-  }
-}{{< /code >}}
-
-### Metadata attributes
-
-name         |      |
--------------|------ 
-description  | Unique name of the dynamic runtime asset, validated with Go regex [`\A[\w\.\-]+\z`][19].
-required     | true
-type         | String
-example      | {{< code shell >}}"name": "check_script"{{< /code >}}
-
-| namespace  |      |
--------------|------
-description  | [Sensu RBAC namespace][2] that the dynamic runtime asset belongs to.
-required     | false
-type         | String
-default      | `default`
-example      | {{< code shell >}}"namespace": "production"{{< /code >}}
-
-| created_by |      |
--------------|------
-description  | Username of the Sensu user who created the dynamic runtime asset or last updated the asset. Sensu automatically populates the `created_by` field when the dynamic runtime asset is created or updated.
-required     | false
-type         | String
-example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
-
-| labels     |      |
--------------|------
-description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][20], [sensuctl responses][21], and [web UI views][39] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
-required     | false
-type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
-default      | `null`
-example      | {{< code shell >}}"labels": {
-  "environment": "development",
-  "region": "us-west-2"
-}{{< /code >}}
-
-| annotations | |
--------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][7]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][20], [sensuctl response filtering][21], or [web UI views][39].
-required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
-default      | `null`
-example      | {{< code shell >}} "annotations": {
-  "managed-by": "ops",
-  "playbook": "www.example.url"
-}{{< /code >}}
-
-### Spec attributes
-
-builds       | 
--------------|------ 
-description  | List of dynamic runtime asset builds used to define multiple artifacts that provide the named asset.
-required     | true, if `url`, `sha512` and `filters` are not provided
-type         | Array
-example      | {{< code shell >}}"builds": [
-    {
-      "url": "http://example.com/asset-linux-amd64.tar.gz",
-      "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
+      "url": "http://example.com/asset-linux-armv7.tar.gz",
+      "sha512": "70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b",
       "filters": [
         "entity.system.os == 'linux'",
-        "entity.system.arch == 'amd64'"
+        "entity.system.arch == 'arm'",
+        "entity.system.arm_version == 7"
       ]
-    },
-    {
-        "url": "http://example.com/asset-linux-armv7.tar.gz",
-        "sha512": "70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b",
-        "filters": [
-          "entity.system.os == 'linux'",
-          "entity.system.arch == 'arm'",
-          "entity.system.arm_version == 7"
-        ]
-      }
-  ]{{< /code >}}
+    }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 url          | 
 -------------|------ 
 description  | URL location of the dynamic runtime asset. You can use [token substitution][3] in the URLs of your asset definitions so each backend or agent can download dynamic runtime assets from the appropriate URL without duplicating your assets (for example, if you want to host your assets at different datacenters).
 required     | true, unless `builds` are provided
 type         | String 
-example      | {{< code shell >}}"url": "http://example.com/asset.tar.gz"{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+url: http://example.com/asset.tar.gz
+{{< /code >}}
+{{< code json >}}
+{
+  "url": "http://example.com/asset.tar.gz"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 sha512       | 
 -------------|------ 
 description  | Checksum of the dynamic runtime asset. 
 required     | true, unless `builds` are provided
 type         | String 
-example      | {{< code shell >}}"sha512": "4f926bf4328..."{{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+sha512: 4f926bf4328...
+{{< /code >}}
+{{< code json >}}
+{
+  "sha512": "4f926bf4328..."
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 <a name="filters"></a>
 
@@ -455,19 +625,42 @@ description  | Set of [Sensu query expressions][1] used to determine if the dyna
 {{% /notice %}}
 required     | false 
 type         | Array 
-example      | {{< code shell >}}"filters": ["entity.system.os=='linux'", "entity.system.arch=='amd64'"] {{< /code >}}
+example      | {{< language-toggle >}}
+{{< code yml >}}
+filters:
+- entity.system.os=='linux'
+- entity.system.arch=='amd64'
+{{< /code >}}
+{{< code json >}}
+{
+  "filters": [
+    "entity.system.os=='linux'",
+    "entity.system.arch=='amd64'"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 headers       |       |
 --------------|-------|
 description   | HTTP headers to apply to dynamic runtime asset retrieval requests. You can use headers to access secured dynamic runtime assets. For headers that require multiple values, separate the values with a comma. You can use [token substitution][3] in your dynamic runtime asset headers (for example, to include secure information for authentication).
 required     | false
 type         | Map of key-value string pairs
-example      | {{< code shell >}}
-"headers": {
-  "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-  "X-Forwarded-For": "client1, proxy1, proxy2"
+example      | {{< language-toggle >}}
+{{< code yml >}}
+headers:
+  Authorization: Bearer {{ .annotations.asset_token | default "N/A" }}
+  X-Forwarded-For: client1, proxy1, proxy2
+{{< /code >}}
+{{< code json >}}
+{
+  "headers": {
+    "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
+    "X-Forwarded-For": "client1, proxy1, proxy2"
+  }
 }
 {{< /code >}}
+{{< /language-toggle >}}
 
 ## Dynamic runtime asset filters based on entity.system attributes
 
@@ -475,7 +668,9 @@ Use the [entity.system attributes][10] in dynamic runtime asset [filters][42] to
 
 For example, the [Sensu Go Ruby Runtime][43] dynamic runtime asset definition includes several builds, each with filters for several `entity.system` attributes:
 
-{{< code yaml >}}
+{{< language-toggle >}}
+
+{{< code yml >}}
 ---
 type: Asset
 api_version: core/v2
@@ -514,6 +709,61 @@ spec:
     - entity.system.platform_version.split('.')[0] == '3'
 {{< /code >}}
 
+{{< code json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-ruby-runtime",
+    "labels": null,
+    "annotations": {
+      "io.sensu.bonsai.url": "https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime",
+      "io.sensu.bonsai.api_url": "https://bonsai.sensu.io/api/v1/assets/sensu/sensu-ruby-runtime",
+      "io.sensu.bonsai.tier": "Community",
+      "io.sensu.bonsai.version": "0.0.10",
+      "io.sensu.bonsai.namespace": "sensu",
+      "io.sensu.bonsai.name": "sensu-ruby-runtime",
+      "io.sensu.bonsai.tags": ""
+    }
+  },
+  "spec": {
+    "builds": [
+      {
+        "url": "https://assets.bonsai.sensu.io/5123017d3dadf2067fa90fc28275b92e9b586885/sensu-ruby-runtime_0.0.10_ruby-2.4.4_centos6_linux_amd64.tar.gz",
+        "sha512": "cbee19124b7007342ce37ff9dfd4a1dde03beb1e87e61ca2aef606a7ad3c9bd0bba4e53873c07afa5ac46b0861967a9224511b4504dadb1a5e8fb687e9495304",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'amd64'",
+          "entity.system.platform_family == 'rhel'",
+          "parseInt(entity.system.platform_version.split('.')[0]) == 6"
+        ]
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/5123017d3dadf2067fa90fc28275b92e9b586885/sensu-ruby-runtime_0.0.10_ruby-2.4.4_debian_linux_amd64.tar.gz",
+        "sha512": "a28952fd93fc63db1f8988c7bc40b0ad815eb9f35ef7317d6caf5d77ecfbfd824a9db54184400aa0c81c29b34cb48c7e8c6e3f17891aaf84cafa3c134266a61a",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'amd64'",
+          "entity.system.platform_family == 'debian'"
+        ]
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/5123017d3dadf2067fa90fc28275b92e9b586885/sensu-ruby-runtime_0.0.10_ruby-2.4.4_alpine_linux_amd64.tar.gz",
+        "sha512": "8d768d1fba545898a8d09dca603457eb0018ec6829bc5f609a1ea51a2be0c4b2d13e1aa46139ecbb04873449e4c76f463f0bdfbaf2107caf37ab1c8db87d5250",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'amd64'",
+          "entity.system.platform == 'alpine'",
+          "entity.system.platform_version.split('.')[0] == '3'"
+        ]
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 In this example, if you install the dynamic runtime asset on a system running Linux AMD64 Alpine version 3.xx, Sensu will ignore the first two builds and install the third.
 
 {{% notice note %}}
@@ -536,6 +786,7 @@ Then, you can rely on dynamic runtime asset filters to ensure that you install o
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Asset
 api_version: core/v2
 metadata:
@@ -573,6 +824,7 @@ spec:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Asset
 api_version: core/v2
 metadata:
@@ -631,6 +883,7 @@ spec:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Asset
 api_version: core/v2
 metadata:
@@ -931,8 +1184,9 @@ Errors as a result of failing to remove the dynamic runtime asset reference on a
 Deleting a dynamic runtime asset does not delete the archive or downloaded files on disk.
 You must remove the archive and downloaded files from the asset cache manually.
 
+
 [1]: ../../observability-pipeline/observe-filter/sensu-query-expressions/
-[2]: ../../operations/control-access/rbac#namespaces
+[2]: ../../operations/control-access/namespaces/
 [3]: ../../observability-pipeline/observe-schedule/tokens/#manage-dynamic-runtime-assets
 [4]: https://bonsai.sensu.io/assets/samroy92/sensu-plugins-windows
 [5]: #metadata-attributes

@@ -78,7 +78,9 @@ Read [the asset reference](../../reference/assets#asset-builds) for more informa
 You've registered the asset, but you still need to create the filter.
 To do this, use the following configuration:
 
-{{< code yaml >}}
+{{< language-toggle >}}
+
+{{< code yml >}}
 ---
 type: EventFilter
 api_version: core/v2
@@ -93,11 +95,41 @@ spec:
   - fatigue-filter
 {{< /code >}}
 
-Then, create the filter, naming it `sensu-fatigue-check-filter.yml`:
+{{< code json >}}
+{
+  "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "fatigue_check",
+    "namespace": "default"
+  },
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "fatigue_check(event)"
+    ],
+    "runtime_assets": [
+      "fatigue-filter"
+    ]
+  }
+}
+{{< /code >}}
 
-{{< code shell >}}
+{{< /language-toggle >}}
+
+Then, use sensuctl to create the filter, `sensu-fatigue-check-filter`:
+
+{{< language-toggle >}}
+
+{{< code shell "YML">}}
 sensuctl create -f sensu-fatigue-check-filter.yml
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create -f sensu-fatigue-check-filter.json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 Now that you've created the filter asset and the event filter, you can create the check annotations you need for the asset to work properly. 
 
@@ -106,7 +138,9 @@ Now that you've created the filter asset and the event filter, you can create th
 Next, you need to make some additions to any checks you want to use the filter with.
 Here's an example CPU check:
 
-{{< code yaml >}}
+{{< language-toggle >}}
+
+{{< code yml >}}
 ---
 type: CheckConfig
 api_version: core/v2
@@ -126,7 +160,7 @@ spec:
   interval: 60
   low_flap_threshold: 0
   output_metric_format: ''
-  output_metric_handlers: 
+  output_metric_handlers: null
   proxy_entity_name: ''
   publish: true
   round_robin: false
@@ -139,6 +173,47 @@ spec:
   ttl: 0
 {{< /code >}}
 
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "linux-cpu-check",
+    "namespace": "default",
+    "annotations": {
+      "fatigue_check/occurrences": "1",
+      "fatigue_check/interval": "3600",
+      "fatigue_check/allow_resolution": "false"
+    }
+  },
+  "spec": {
+    "command": "check-cpu -w 90 c 95",
+    "env_vars": null,
+    "handlers": [
+      "email"
+    ],
+    "high_flap_threshold": 0,
+    "interval": 60,
+    "low_flap_threshold": 0,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": null,
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "linux"
+    ],
+    "timeout": 0,
+    "ttl": 0
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 Notice the annotations under the `metadata` scope.
 The annotations are required for the filter asset to work the same way as the interactively created event filter.
 Specifically, the annotations in this check definition are doing several things: 
@@ -147,7 +222,7 @@ Specifically, the annotations in this check definition are doing several things:
 2. `fatigue_check/interval`: Tells the event filter the interval at which to allow additional events to be processed (in seconds)
 3. `fatigue_check/allow_resolution`: Determines whether to pass a `resolve` event through to the filter
 
-For more information about configuring these values, see the [filter asset's README][10].
+For more information about configuring these values, see the [Sensu Go Fatigue Check Filter][8] README.
 Next, you'll assign the newly minted event filter to a handler.
 
 ### Assign the event filter to a handler
@@ -155,7 +230,9 @@ Next, you'll assign the newly minted event filter to a handler.
 Just like with the [interactively created event filter][4], you'll introduce the filter into your Sensu workflow by configuring a handler to use it.
 Here's an example:
 
-{{< code yaml >}}
+{{< language-toggle >}}
+
+{{< code yml >}}
 ---
 api_version: core/v2
 type: Handler
@@ -173,6 +250,31 @@ spec:
   - fatigue_check
 {{< /code >}}
 
+{{< code json >}}
+{
+  "api_version": "core/v2",
+  "type": "Handler",
+  "metadata": {
+    "namespace": "default",
+    "name": "slack"
+  },
+  "spec": {
+    "type": "pipe",
+    "command": "sensu-slack-handler --channel '#general' --timeout 20 --username 'sensu' ",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://www.webhook-url-for-slack.com"
+    ],
+    "timeout": 30,
+    "filters": [
+      "is_incident",
+      "fatigue_check"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ### Validate the event filter
 
 Verify the proper behavior of these event filters with `sensu-backend` logs.
@@ -187,6 +289,7 @@ However, if the event is being discarded by the event filter, a log entry with t
 
 Now that you know how to apply an event filter to a handler and use a filter asset to help reduce alert fatigue, read the [filters reference][1] for in-depth information about event filters. 
 
+
 [1]:  ../../reference/filters/
 [2]: ../../operations/maintain-sensu/troubleshoot#log-file-locations
 [3]: ../send-slack-alerts/
@@ -196,4 +299,3 @@ Now that you know how to apply an event filter to a handler and use a filter ass
 [7]: ../install-check-executables-with-assets/
 [8]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
 [9]: https://bonsai.sensu.io/
-[10]: https://github.com/nixwiz/sensu-go-fatigue-check-filter#configuration

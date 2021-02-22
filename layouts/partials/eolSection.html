@@ -3,29 +3,29 @@
   {{ $product := replace .Section "-" "_" }}
   {{ $product_info := (index .Site.Params.products $product) }}
   {{ if and (isset .Params "version") (eq .Params.product "Sensu Core") }}
-    {{ $message := (printf "%s reached end-of-life on December 31, 2019. Click here to start your migration to Sensu Go." .Params.product) }}
-    {{ $link := replace "https://docs.sensu.io/sensu-core/../migration" ".." .Params.version }}
+    {{ $message := (printf "%s reached end-of-life (EOL) on December 31, 2019, and we removed the EOL repository on February 1, 2021. Click here to start your migration to Sensu Go." .Params.product) }}
+    {{ $link := replace "https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/" ".." .Params.version }}
     {{ $params := slice "#b7312e" $message $link }}
     {{ partial "alert" $params }}
   {{ end }}
 
   {{ if and (isset .Params "version") (eq .Params.product "Uchiwa") }}
-    {{ $message := (printf "%s reached end-of-life on December 31, 2019. Click here to start your migration to Sensu Go." .Params.product) }}
-    {{ $link := replace "https://docs.sensu.io/sensu-core/latest/migration" ".." .Params.version }}
+    {{ $message := (printf "%s reached end-of-life (EOL) on December 31, 2019, and we removed the EOL repository on February 1, 2021. Click here to start your migration to Sensu Go." .Params.product) }}
+    {{ $link := replace "https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/" ".." .Params.version }}
     {{ $params := slice "#b7312e" $message $link }}
     {{ partial "alert" $params }}
   {{ end }}
 
   {{ if and (isset .Params "version") (eq .Params.product "Sensu Enterprise") }}
-    {{ $message := (printf "%s reached end-of-life on March 31, 2020. Click here to start your migration to Sensu Go." .Params.product) }}
-    {{ $link := replace "https://docs.sensu.io/sensu-enterprise/../migration" ".." .Params.version }}
+    {{ $message := (printf "%s reached end-of-life (EOL) on March 31, 2020, and we removed the EOL repository on February 1, 2021. Click here to start your migration to Sensu Go." .Params.product) }}
+    {{ $link := replace "https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/" ".." .Params.version }}
     {{ $params := slice "#b7312e" $message $link }}
     {{ partial "alert" $params }}
   {{ end }}
 
   {{ if and (isset .Params "version") (eq .Params.product "Sensu Enterprise Dashboard") }}
-    {{ $message := (printf "%s reached end-of-life on March 31, 2020. Click here to start your migration to Sensu Go." .Params.product) }}
-    {{ $link := replace "https://docs.sensu.io/sensu-enterprise/latest/migration" ".." .Params.version }}
+    {{ $message := (printf "%s reached end-of-life (EOL) on March 31, 2020, and we removed the EOL repository on February 1, 2021. Click here to start your migration to Sensu Go." .Params.product) }}
+    {{ $link := replace "https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/" ".." .Params.version }}
     {{ $params := slice "#b7312e" $message $link }}
     {{ partial "alert" $params }}
   {{ end }}

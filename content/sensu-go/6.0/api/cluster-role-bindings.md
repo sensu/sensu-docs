@@ -2,6 +2,8 @@
 title: "Cluster role bindings API"
 linktitle: "Cluster Role Bindings API"
 description: "The Sensu cluster role bindings API provides HTTP access to cluster role binding data. This reference includes examples for returning lists of cluster role bindings, creating Sensu cluster role bindings, and more. Read on for the full reference."
+api_title: "Cluster role bindings API"
+type: "api"
 version: "6.0"
 product: "Sensu Go"
 menu:
