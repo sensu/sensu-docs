@@ -26,7 +26,7 @@ Sensu can be configured to disable the embedded etcd database and use one or mor
 As your deployment grows beyond the proof-of-concept stage, review [Deployment architecture for Sensu][6] for more information about deployment considerations and recommendations for a production-ready Sensu deployment.
 
 Sensu requires at least etcd 3.3.2 and is tested against releases in the 3.3.x series.
-etcd versions 3.4.0 and later are not supported.
+etcd version 3.4.0 is compatible with Sensu but may result in slower performance than the 3.3.x series.
 
 ## Scale event storage
 
