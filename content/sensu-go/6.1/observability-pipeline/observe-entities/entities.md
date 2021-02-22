@@ -1539,7 +1539,7 @@ spec:
 [2]: #deregistration-attributes
 [3]: #network-attributes
 [4]: #networkinterface-attributes
-[5]: ../../../operations/control-access/rbac#namespaces
+[5]: ../../../operations/control-access/namespaces/
 [6]: ../../observe-filter/filters/
 [7]: ../../observe-schedule/tokens/
 [8]: #metadata-attributes

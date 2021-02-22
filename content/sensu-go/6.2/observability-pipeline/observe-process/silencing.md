@@ -594,7 +594,7 @@ name: '*:mysql_status'
 
 
 [1]: ../../observe-events/events/#attributes
-[2]: ../../../operations/control-access/rbac#namespaces
+[2]: ../../../operations/control-access/namespaces/
 [3]: #metadata-attributes
 [4]: ../../../sensuctl/create-manage-resources/#create-resources
 [5]: #spec-attributes

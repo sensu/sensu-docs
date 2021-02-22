@@ -1896,7 +1896,7 @@ spec:
 [23]: ../../observe-filter/reduce-alert-fatigue/
 [24]: ../../observe-filter/filters/
 [25]: ../../observe-schedule/checks/#check-result-specification
-[26]: ../../../operations/control-access/rbac#namespaces
+[26]: ../../../operations/control-access/namespaces/
 [27]: ../../observe-filter/filters/#handle-state-change-only
 [28]: ../../observe-filter/filters/#handle-repeated-events
 [29]: #metadata-attributes

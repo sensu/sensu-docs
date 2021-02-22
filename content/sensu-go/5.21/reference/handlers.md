@@ -989,7 +989,7 @@ spec:
 [6]: #socket-attributes
 [7]: ../assets/
 [8]: #metadata-attributes
-[9]: ../rbac#namespaces
+[9]: ../namespaces/
 [10]: ../../api#response-filtering
 [11]: ../../sensuctl/filter-responses/
 [12]: ../agent#keepalive-monitoring

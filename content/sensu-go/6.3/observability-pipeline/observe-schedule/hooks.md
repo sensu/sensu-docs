@@ -507,7 +507,7 @@ spec:
 
 [1]: ../../../sensuctl/create-manage-resources/#create-resources
 [2]: #metadata-attributes
-[3]: ../../../operations/control-access/rbac#namespaces
+[3]: ../../../operations/control-access/namespaces/
 [4]: ../../observe-filter/filters/
 [5]: ../../../plugins/assets/
 [6]: ../checks#check-hooks-attribute

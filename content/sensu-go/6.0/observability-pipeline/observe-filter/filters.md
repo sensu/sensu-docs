@@ -1094,7 +1094,7 @@ spec:
 [7]: #built-in-filter-is_incident
 [8]: ../../observe-schedule/backend/
 [9]: ../../observe-events/events/
-[10]: ../../../operations/control-access/rbac#namespaces
+[10]: ../../../operations/control-access/namespaces/
 [11]: #metadata-attributes
 [12]: ../../observe-schedule/hooks/
 [13]: ../../observe-schedule/collect-metrics-with-checks/

@@ -474,4 +474,4 @@ spec:
 [5]: #metadata-attributes
 [6]: ../../sensuctl/create-manage-resources/#create-resources
 [7]: #spec-attributes
-[8]: ../../operations/control-access/rbac#namespaces
+[8]: ../../operations/control-access/namespaces/

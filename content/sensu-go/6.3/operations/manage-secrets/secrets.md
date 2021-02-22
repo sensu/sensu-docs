@@ -318,7 +318,7 @@ The database secret contains a key called `password,` and its value is the passw
 [6]: ../../control-access/rbac#default-users
 [7]: ../secrets-providers/
 [8]: #spec-attributes
-[9]: ../../control-access/rbac/#namespaces
+[9]: ../../control-access/namespaces/
 [10]: https://learn.hashicorp.com/vault/getting-started/dev-server
 [11]: ../secrets-management/
 [12]: #metadata-attributes

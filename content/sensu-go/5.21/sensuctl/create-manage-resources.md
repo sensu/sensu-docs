@@ -542,7 +542,7 @@ Sensuctl supports the following formats:
 [18]: ../../reference/hooks/
 [19]: ../../reference/mutators/
 [20]: ../../reference/silencing/
-[21]: ../../reference/rbac#namespaces
+[21]: ../../reference/namespaces/
 [22]: ../../reference/rbac#users
 [23]: #subcommands
 [24]: ../../reference/secrets-providers/

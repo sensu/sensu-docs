@@ -1185,7 +1185,7 @@ Deleting an asset does not delete the archive or downloaded files on disk.
 You must remove the archive and downloaded files from the asset cache manually.
 
 [1]: ../sensu-query-expressions/
-[2]: ../rbac#namespaces
+[2]: ../namespaces/
 [3]: ../tokens/#manage-assets
 [4]: https://bonsai.sensu.io/assets/samroy92/sensu-plugins-windows
 [5]: #metadata-attributes

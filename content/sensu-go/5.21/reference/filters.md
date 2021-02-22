@@ -1014,7 +1014,7 @@ spec:
 [7]: #built-in-filter-is_incident
 [8]: ../backend/
 [9]: ../events/
-[10]: ../rbac#namespaces
+[10]: ../namespaces/
 [11]: #metadata-attributes
 [12]: ../hooks/
 [13]: ../../guides/extract-metrics-with-checks/
