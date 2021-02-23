@@ -1859,8 +1859,8 @@ spec:
 [24]: ../filters/
 [25]: ../checks/#check-result-specification
 [26]: ../namespaces/
-[27]: ../filters/#handle-state-change-only
-[28]: ../filters/#handle-repeated-events
+[27]: ../filters/#example-for-state-change-only
+[28]: ../filters/#example-for-repeated-events
 [29]: #metadata-attributes
 [30]: #metric-attributes
 [31]: #use-event-data

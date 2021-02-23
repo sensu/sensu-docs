@@ -35,6 +35,43 @@ As soon as a filter removes an event, no further analysis is performed and the e
 Filters must be specified in individual handler definitions.
 {{% /notice %}}
 
+## Event filter example (minimum required attributes)
+
+This example shows the minimum required attributes for an event filter resource:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  name: filter_minimum
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - event.check.occurrences == 1
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "filter_minimum",
+    "namespace": "default"
+  },
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "event.check.occurrences == 1"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Inclusive and exclusive event filters
 
 Event filters can be _inclusive_ (`"action": "allow"`; replaces `"negate": false` in Sensu Core) or _exclusive_ (`"action": "deny"`; replaces `"negate": true` in Sensu Core).
@@ -72,7 +109,7 @@ Sensu includes built-in event filters to help you customize event pipelines for 
 To start using built-in event filters, see [Send Slack alerts][4] and [Plan maintenance][5].
 
 {{% notice note %}}
-**NOTE**: Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x, but you can replicate its functionality with [the repeated events filter definition](#handle-repeated-events).
+**NOTE**: Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x, but you can replicate its functionality with [the repeated events filter definition](#example-for-repeated-events).
 {{% /notice %}}
 
 ### Built-in filter: is_incident
@@ -696,9 +733,10 @@ runtime_assets:
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Event filter examples
+## Use JavaScript libraries with Sensu filters
 
-### Minimum required filter attributes
+You can include JavaScript libraries in their event filter execution context with [dynamic runtime assets][17].
+For instance, if you package underscore.js into a Sensu asset, you can use functions from the underscore library for filter expressions:
 
 {{< language-toggle >}}
 
@@ -706,12 +744,17 @@ runtime_assets:
 type: EventFilter
 api_version: core/v2
 metadata:
-  name: filter_minimum
+  annotations: null
+  labels: null
+  name: deny_if_failure_in_history
   namespace: default
 spec:
-  action: allow
+  action: deny
   expressions:
-  - event.check.occurrences == 1
+  - _.reduce(event.check.history, function(memo, h) { return (memo || h.status !=
+    0); })
+  runtime_assets:
+  - underscore
 {{< /code >}}
 
 {{< code json >}}
@@ -719,21 +762,24 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "filter_minimum",
-    "namespace": "default"
+    "name": "deny_if_failure_in_history",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
   },
   "spec": {
-    "action": "allow",
+    "action": "deny",
     "expressions": [
-      "event.check.occurrences == 1"
-    ]
+      "_.reduce(event.check.history, function(memo, h) { return (memo || h.status != 0); })"
+    ],
+    "runtime_assets": ["underscore"]
   }
 }
 {{< /code >}}
 
 {{< /language-toggle >}}
 
-### Handle production events
+## Example for production events
 
 The following event filter allows handling for only events with a custom entity label `"environment": "production"`:
 
@@ -770,7 +816,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Handle non-production events
+## Example for non-production events
 
 The following event filter discards events with a custom entity label `"environment": "production"`, allowing handling only for events without an `environment` label or events with `environment` set to something other than `production`.
 
@@ -812,7 +858,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Handle state change only
+## Example for state change only
 
 This example demonstrates how to use the `state_change_only` inclusive event filter to reproduce the behavior of a monitoring system that alerts only on state change:
 
@@ -855,7 +901,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Handle repeated events
+## Example for repeated events
 
 In this example, the `filter_interval_60_hourly` event filter will match event data with a check `interval` of `60` seconds _AND_ an `occurrences` value of `1` (the first occurrence) _OR_ any `occurrences` value that is evenly divisible by 60 via a [modulo operator][38] calculation (calculating the remainder after dividing `occurrences` by 60):
 
@@ -943,7 +989,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Reduce alert fatigue for keepalive events
+## Example to reduce alert fatigue for keepalive events
 
 This example `keepalive_timeouts` event filter will match event data with an occurrences value of 1 OR any occurrences value that matches 15 minutes via a modulo operator calculation.
 This limits keepalive timeout event alerts to the first occurrence and every 15 minutes thereafter.
@@ -992,7 +1038,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Handle events during office hours only
+## Example for events during office hours only
 
 This event filter evaluates the event timestamp to determine if the event occurred between 9 AM and 5 PM UTC on a weekday.
 Remember that `action` is equal to `allow`, so this is an inclusive event filter.
@@ -1033,52 +1079,6 @@ spec:
       "hour(event.timestamp) >= 9 && hour(event.timestamp) <= 17"
     ],
     "runtime_assets": []
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-## Use JavaScript libraries with Sensu filters
-
-You can include JavaScript libraries in their event filter execution context with [dynamic runtime assets][17].
-For instance, if you package underscore.js into a Sensu asset, you can use functions from the underscore library for filter expressions:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: EventFilter
-api_version: core/v2
-metadata:
-  annotations: null
-  labels: null
-  name: deny_if_failure_in_history
-  namespace: default
-spec:
-  action: deny
-  expressions:
-  - _.reduce(event.check.history, function(memo, h) { return (memo || h.status !=
-    0); })
-  runtime_assets:
-  - underscore
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "EventFilter",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "deny_if_failure_in_history",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
-  },
-  "spec": {
-    "action": "deny",
-    "expressions": [
-      "_.reduce(event.check.history, function(memo, h) { return (memo || h.status != 0); })"
-    ],
-    "runtime_assets": ["underscore"]
   }
 }
 {{< /code >}}

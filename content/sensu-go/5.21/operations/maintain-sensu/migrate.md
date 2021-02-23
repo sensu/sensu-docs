@@ -469,7 +469,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [7]: ../../../guides/monitor-external-resources/
 [8]: ../../../reference/hooks/
 [9]: ../../../reference/filters
-[10]: ../../../reference/filters/#handle-repeated-events
+[10]: ../../../reference/filters/#example-for-repeated-events
 [11]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/
 [12]: ../../../reference/assets/
 [13]: ../../../reference/rbac/

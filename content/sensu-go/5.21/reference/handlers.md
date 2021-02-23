@@ -1010,5 +1010,5 @@ spec:
 [28]: ../../web-ui/filter/
 [30]: ../../reference/filters/#built-in-filter-is_incident
 [31]: #handler-sets
-[32]: ../../reference/filters/#handle-repeated-events
+[32]: ../../reference/filters/#example-for-repeated-events
 [33]: ../../reference/checks/#handlers-array
