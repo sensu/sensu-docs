@@ -604,7 +604,7 @@ The backend will stop listening on those ports when the etcd database is unavail
 [7]: https://dzone.com/articles/what-is-structured-logging
 [8]: https://pkgs.org/download/lsb
 [9]: ../../../reference/backend/#restart-the-service
-[10]: ../../../reference/assets/#asset-definition-multiple-builds
+[10]: ../../../reference/assets/#asset-example-multiple-builds
 [11]: ../../monitor-sensu/log-sensu-systemd/
 [12]: https://github.com/systemd/systemd/issues/2913
 [13]: https://github.com/etcd-io/etcd/releases
