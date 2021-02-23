@@ -321,7 +321,7 @@ spec:
   - system
 {{< /code >}}
 
-{{< code json >}}
+{{< code json "JSON" >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
