@@ -43,6 +43,187 @@ You must set `deregister: true` in `agent.yml` before the agent entity is create
 
 If you change an agent entity's class to `proxy`, the backend will revert the change to `agent`.
 
+### Agent entity example
+
+This example shows the resource definition for an agent entity:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: Entity
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: webserver01
+  namespace: default
+spec:
+  deregister: false
+  deregistration: {}
+  entity_class: agent
+  last_seen: 1542667231
+  redact:
+  - password
+  - passwd
+  - pass
+  - api_key
+  - api_token
+  - access_key
+  - secret_key
+  - private_key
+  - secret
+  subscriptions:
+  - entity:webserver01
+  system:
+    arch: amd64
+    libc_type: glibc
+    vm_system: kvm
+    vm_role: host
+    cloud_provider: null
+    processes:
+    - name: Slack
+      pid: 1349
+      ppid: 0
+      status: Ss
+      background: true
+      running: true
+      created: 1582137786
+      memory_percent: 1.09932518
+      cpu_percent: 0.3263987595984941
+    - name: Slack Helper
+      pid: 1360
+      ppid: 1349
+      status: Ss
+      background: true
+      running: true
+      created: 1582137786
+      memory_percent: 0.146866455
+      cpu_percent: 0.30897618146109257
+      hostname: sensu2-centos
+    network:
+      interfaces:
+      - addresses:
+        - 127.0.0.1/8
+        - ::1/128
+        name: lo
+      - addresses:
+        - 10.0.2.15/24
+        - fe80::26a5:54ec:cf0d:9704/64
+        mac: 08:00:27:11:ad:d2
+        name: enp0s3
+      - addresses:
+        - 172.28.128.3/24
+        - fe80::a00:27ff:febc:be60/64
+        mac: 08:00:27:bc:be:60
+        name: enp0s8
+    os: linux
+    platform: centos
+    platform_family: rhel
+    platform_version: 7.4.1708
+  sensu_agent_version: 1.0.0
+  user: agent
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "webserver01",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "sensu2-centos",
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.4.1708",
+      "network": {
+        "interfaces": [
+          {
+            "name": "lo",
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ]
+          },
+          {
+            "name": "enp0s3",
+            "mac": "08:00:27:11:ad:d2",
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::26a5:54ec:cf0d:9704/64"
+            ]
+          },
+          {
+            "name": "enp0s8",
+            "mac": "08:00:27:bc:be:60",
+            "addresses": [
+              "172.28.128.3/24",
+              "fe80::a00:27ff:febc:be60/64"
+            ]
+          }
+        ]
+      },
+      "arch": "amd64",
+      "libc_type": "glibc",
+      "vm_system": "kvm",
+      "vm_role": "host",
+      "cloud_provider": "",
+      "processes": [
+        {
+          "name": "Slack",
+          "pid": 1349,
+          "ppid": 0,
+          "status": "Ss",
+          "background": true,
+          "running": true,
+          "created": 1582137786,
+          "memory_percent": 1.09932518,
+          "cpu_percent": 0.3263987595984941
+        },
+        {
+          "name": "Slack Helper",
+          "pid": 1360,
+          "ppid": 1349,
+          "status": "Ss",
+          "background": true,
+          "running": true,
+          "created": 1582137786,
+          "memory_percent": 0.146866455,
+          "cpu_percent": 0.308976181461092553
+        }
+      ]
+    },
+    "sensu_agent_version": "1.0.0",
+    "subscriptions": [
+      "entity:webserver01"
+    ],
+    "last_seen": 1542667231,
+    "deregister": false,
+    "deregistration": {},
+    "user": "agent",
+    "redact": [
+      "password",
+      "passwd",
+      "pass",
+      "api_key",
+      "api_token",
+      "access_key",
+      "secret_key",
+      "private_key",
+      "secret"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Create and manage proxy entities
 
 Proxy entities are dynamically created entities that Sensu adds to the entity store if an entity does not already exist for a check result.
@@ -51,6 +232,61 @@ Proxy entities allow Sensu to monitor external resources on systems where you ca
 You can modify proxy entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33].
 
 If you start an agent with the same name as an existing proxy entity, Sensu will change the proxy entity's class to `agent` and update its `system` field with information from the agent configuration.
+
+### Proxy entity example
+
+This example shows the resource definition for a proxy entity:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: Entity
+api_version: core/v2
+metadata:
+  name: sensu-docs
+  namespace: default
+  labels: null
+spec:
+  deregister: false
+  deregistration: {}
+  entity_class: proxy
+  last_seen: 0
+  subscriptions:
+  - proxy
+  system:
+    network:
+      interfaces: null
+  sensu_agent_version: 1.0.0
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-docs",
+    "namespace": "default",
+    "labels": null
+  },
+  "spec": {
+    "deregister": false,
+    "deregistration": {},
+    "entity_class": "proxy",
+    "last_seen": 0,
+    "subscriptions": [
+      "proxy"
+    ],
+    "system": {
+      "network": {
+        "interfaces": null
+      }
+    },
+    "sensu_agent_version": "1.0.0"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ### Proxy entities and round robin scheduling
 
