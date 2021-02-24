@@ -16,10 +16,90 @@ menu:
 Sensu executes mutators during the **[transform][16]** stage of the [observability pipeline][17].
 
 Handlers can specify a mutator to execute and transform observability event data before any handlers are applied.
+When the Sensu backend processes an event, it checks the handler for the presence of a mutator and executes that mutator before executing the handler.
 
-* When the Sensu backend processes an event, it checks the handler for the presence of a mutator and executes that mutator before executing the handler.
-* If the mutator executes successfully (returns an exit status code of `0`), the modified event data return to the handler and the handler is executed.
-* If the mutator fails to execute (returns a non-zero exit status code or fails to complete within its configured timeout), an error is logged and the handler will not execute.
+Mutators produce an exit status code to indicate state.
+A code of `0` indicates OK status.
+If the mutator executes successfully (returns an exit status code of `0`), the modified event data return to the handler and the handler is executed.
+
+Exit codes other than `0` indicate failure.
+If the mutator fails to execute (returns a non-zero exit status code or fails to complete within its configured timeout), an error is logged and the handler will not execute.
+
+Mutators accept input/data via `STDIN` and can parse JSON event data.
+They output JSON data (modified event data) to `STDOUT` or `STDERR`.
+
+## Mutator examples
+
+This example shows a mutator resource definition with the minimum required attributes:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: Mutator
+api_version: core/v2
+metadata:
+  name: mutator_minimum
+  namespace: default
+spec:
+  command: example_mutator.go
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "mutator_minimum",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "example_mutator.go"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The following mutator definition uses an imaginary Sensu plugin, `example_mutator.go`, to modify event data prior to handling the event:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Mutator
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: example-mutator
+  namespace: default
+spec:
+  command: example_mutator.go
+  env_vars: []
+  runtime_assets: []
+  timeout: 0
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "example-mutator",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },  
+  "spec": {
+    "command": "example_mutator.go",
+    "timeout": 0,
+    "env_vars": [],
+    "runtime_assets": []
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Commands
 
@@ -90,15 +170,6 @@ spec:
 {{< /language-toggle >}}
 
 ## Mutator specification
-
-Mutators:
-
-* Accept input/data via `STDIN`
-* Can parse JSON event data
-* Output JSON data (modified event data) to `STDOUT` or `STDERR`
-* Produce an exit status code to indicate state:
-  * `0` indicates OK status
-  * exit codes other than `0` indicate failure
 
 ### Top-level attributes
 
@@ -422,82 +493,7 @@ secret: sensu-ansible-host
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Examples
-
-### Example mutator definition
-
-The following Sensu mutator definition uses an imaginary Sensu plugin, `example_mutator.go`, to modify event data prior to handling the event.
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Mutator
-api_version: core/v2
-metadata:
-  annotations: null
-  labels: null
-  name: example-mutator
-  namespace: default
-spec:
-  command: example_mutator.go
-  env_vars: []
-  runtime_assets: []
-  timeout: 0
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Mutator",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "example-mutator",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
-  },  
-  "spec": {
-    "command": "example_mutator.go",
-    "timeout": 0,
-    "env_vars": [],
-    "runtime_assets": []
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Minimum required mutator attributes
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: Mutator
-api_version: core/v2
-metadata:
-  name: mutator_minimum
-  namespace: default
-spec:
-  command: example_mutator.go
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Mutator",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "mutator_minimum",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "example_mutator.go"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Mutator with secret
+## Mutator that uses secrets management
 
 Learn more about [secrets management][14] for your Sensu configuration in the [secrets][10] and [secrets providers][11] references.
 

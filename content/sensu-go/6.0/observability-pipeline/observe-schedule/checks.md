@@ -18,6 +18,58 @@ You can use checks to monitor server resources, services, and application health
 Read [Monitor server resources][12] to get started.
 Use [Bonsai][29], the Sensu asset hub, to discover, download, and share Sensu check dynamic runtime assets.
 
+## Check example (minimum recommended attributes)
+
+This example shows a check resource definition that includes the minimum recommended attributes.
+
+{{% notice note %}}
+**NOTE**: The attribute `interval` is not required if a valid `cron` schedule is defined.
+Read [scheduling](#interval-scheduling) for more information.
+{{% /notice %}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: check_minimum
+  namespace: default
+spec:
+  command: check-cpu.sh -w 75 -c 90
+  handlers:
+  - slack
+  interval: 10
+  publish: true
+  subscriptions:
+  - system
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default",
+    "name": "check_minimum"
+  },
+  "spec": {
+    "command": "check-cpu.sh -w 75 -c 90",
+    "subscriptions": [
+      "system"
+    ],
+    "handlers": [
+      "slack"
+    ],
+    "interval": 10,
+    "publish": true
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Check commands
 
 Each Sensu check definition specifies a command and the schedule at which it should be executed.
@@ -231,35 +283,35 @@ spec:
 
 {{< code json >}}
 {
-   "type": "CheckConfig",
-   "api_version": "core/v2",
-   "metadata": {
-      "name": "cron_check",
-      "namespace": "default"
-   },
-   "spec": {
-      "check_hooks": null,
-      "command": "hi",
-      "cron": "CRON_TZ=Asia/Tokyo * * * * *",
-      "env_vars": null,
-      "handlers": [],
-      "high_flap_threshold": 0,
-      "interval": 0,
-      "low_flap_threshold": 0,
-      "output_metric_format": "",
-      "output_metric_handlers": null,
-      "proxy_entity_name": "",
-      "publish": true,
-      "round_robin": false,
-      "runtime_assets": null,
-      "stdin": false,
-      "subdue": null,
-      "subscriptions": [
-         "sys"
-      ],
-      "timeout": 0,
-      "ttl": 0
-   }
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "cron_check",
+    "namespace": "default"
+  },
+  "spec": {
+    "check_hooks": null,
+    "command": "hi",
+    "cron": "CRON_TZ=Asia/Tokyo * * * * *",
+    "env_vars": null,
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 0,
+    "low_flap_threshold": 0,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": null,
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "sys"
+    ],
+    "timeout": 0,
+    "ttl": 0
+  }
 }
 {{< /code >}}
 
@@ -1235,58 +1287,9 @@ secret: sensu-ansible-host
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Examples
+## Metric check example
 
-### Minimum recommended check attributes
-
-{{% notice note %}}
-**NOTE**: The attribute `interval` is not required if a valid `cron` schedule is defined.
-{{% /notice %}}
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: CheckConfig
-api_version: core/v2
-metadata:
-  name: check_minimum
-  namespace: default
-spec:
-  command: collect.sh
-  handlers:
-  - slack
-  interval: 10
-  publish: true
-  subscriptions:
-  - system
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "namespace": "default",
-    "name": "check_minimum"
-  },
-  "spec": {
-    "command": "collect.sh",
-    "subscriptions": [
-      "system"
-    ],
-    "handlers": [
-      "slack"
-    ],
-    "interval": 10,
-    "publish": true
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Metric check
+The following example shows the resource definition for a check that collects metrics in Graphite Plaintext Protocol format:
 
 {{< language-toggle >}}
 
@@ -1367,9 +1370,10 @@ spec:
 
 {{< /language-toggle >}}
 
-### Check with secret
+## Check example that uses secrets management
 
-Learn more about [secrets management][59] for your Sensu configuration in the [secrets][56] and [secrets providers][57] references.
+The check in the following example uses [secrets management][59] to keep a GitHub token private.
+Learn more about secrets management for your Sensu configuration in the [secrets][56] and [secrets providers][57] references.
 
 {{< language-toggle >}}
 
@@ -1411,7 +1415,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### PowerShell script in check commands
+## Check example with a PowerShell script command
 
 If you use a PowerShell script in your check command, make sure to include the `-f` flag in the command.
 The `-f` flag ensures that the proper exit code is passed into Sensu.

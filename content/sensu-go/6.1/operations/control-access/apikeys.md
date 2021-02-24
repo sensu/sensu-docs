@@ -19,23 +19,9 @@ The Sensu backend generates API keys, and you can provide them to applications t
 
 Use the [APIKey API][1] to create, retrieve, and delete API keys.
 
-## Authorization header format
+## API key example
 
-Use the following header format to authenticate with API keys, replacing `API_KEY` with your API key value:
-
-{{< code shell "curl" >}}
-Authorization: Key API_KEY
-{{< /code >}}
-
-This is different from the authentication token, which uses the `Authorization: Bearer` header format.
-
-When you specify an API key in a request, the system resolves it to an authentication token and continues through the regular authentication process.
-
-{{% notice note %}}
-**NOTE**: The API key resource is not compatible with [`sensuctl create`](../../../sensuctl/create-manage-resources/#create-resources).
-{{% /notice %}}
-
-## API key resource structure
+This example shows an `APIKey` resource definition:
 
 {{< language-toggle >}}
 
@@ -65,6 +51,22 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+## Authorization header format
+
+Use the following header format to authenticate with API keys, replacing `API_KEY` with your API key value:
+
+{{< code shell "curl" >}}
+Authorization: Key API_KEY
+{{< /code >}}
+
+This is different from the authentication token, which uses the `Authorization: Bearer` header format.
+
+When you specify an API key in a request, the system resolves it to an authentication token and continues through the regular authentication process.
+
+{{% notice note %}}
+**NOTE**: The API key resource is not compatible with [`sensuctl create`](../../../sensuctl/create-manage-resources/#create-resources).
+{{% /notice %}}
 
 ## API key specification
 
@@ -169,7 +171,7 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-created_by: "admin
+created_by: admin
 {{< /code >}}
 {{< code json >}}
 {
@@ -208,36 +210,6 @@ created_at: 1234567890
 {{< code json >}}
 {
   "created_at": 1234567890
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-## Examples
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: APIKey
-api_version: core/v2
-metadata:
-  name: 19803eb8-36a6-4203-a225-28ec4e9f4444
-spec:
-  created_at: 1570732266
-  username: admin
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "APIKey",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "19803eb8-36a6-4203-a225-28ec4e9f4444"
-  },
-  "spec": {
-    "created_at": 1570732266,
-    "username": "admin"
-  }
 }
 {{< /code >}}
 {{< /language-toggle >}}
