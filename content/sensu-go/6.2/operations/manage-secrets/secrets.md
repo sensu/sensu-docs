@@ -32,6 +32,108 @@ For checks, hooks, and dynamic runtime assets, you must [enable mutual TLS (mTLS
 Sensu will not transmit secrets to agents that do not use mTLS.
 
 Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the web UI.
+
+## Secret examples
+
+A secret resource definition refers to a secrets `id` and a secrets `provider`.
+Read the [secrets provider reference][7] for the provider specification.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Secret
+api_version: secrets/v1
+metadata:
+  name: sensu-ansible-token
+  namespace: default
+spec:
+  id: ANSIBLE_TOKEN
+  provider: env
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Secret",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "sensu-ansible-token",
+    "namespace": "default"
+  },
+  "spec": {
+    "id": "ANSIBLE_TOKEN",
+    "provider": "env"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Configure secrets that target a HashiCorp Vault as shown in the following example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Secret
+api_version: secrets/v1
+metadata:
+  name: sensu-ansible
+  namespace: default
+spec:
+  id: 'secret/database#password'
+  provider: vault
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Secret",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "sensu-ansible",
+    "namespace": "default"
+  },
+  "spec": {
+    "id": "secret/database#password",
+    "provider": "vault"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The `id` value for secrets that target a HashiCorp Vault must start with the name of the secret's path in Vault.
+The [Vault dev server][10] is preconfigured with the secret keyspace already set up.
+This is convenient for learning and getting started with Vault secrets management, so this example and our guide to [secrets management][11] use the `secret/` path for the `id` value.
+In this example, the name of the secret is `database`.
+The database secret contains a key called `password,` and its value is the password to our database.
+
+## Secret configuration
+
+You can use the [Secrets API][2] and [sensuctl][3] to create, view, and manage your secrets configuration.
+To manage secrets configuration with sensuctl, configure sensuctl as the default [`admin` user][6].
+
+The [standard sensuctl subcommands][4] are available for secrets (list, info, and delete).
+
+To list all secrets:
+
+{{< code shell >}}
+sensuctl secret list
+{{< /code >}}
+
+To see a secret's status:
+
+{{< code shell >}}
+sensuctl secret info SECRET_NAME
+{{< /code >}}
+
+To delete a secret:
+
+{{< code shell >}}
+sensuctl secret delete SECRET_NAME
+{{< /code >}}
+
+`SECRET_NAME` is the value specified in the secret's `name` [metadata attribute][12].
  
 ## Secret specification
 
@@ -206,108 +308,6 @@ provider: vault
 }
 {{< /code >}}
 {{< /language-toggle >}}
-
-## Secret configuration
-
-You can use the [Secrets API][2] and [sensuctl][3] to create, view, and manage your secrets configuration.
-To manage secrets configuration with sensuctl, configure sensuctl as the default [`admin` user][6].
-
-The [standard sensuctl subcommands][4] are available for secrets (list, info, and delete).
-
-To list all secrets:
-
-{{< code shell >}}
-sensuctl secret list
-{{< /code >}}
-
-To see a secret's status:
-
-{{< code shell >}}
-sensuctl secret info SECRET_NAME
-{{< /code >}}
-
-To delete a secret:
-
-{{< code shell >}}
-sensuctl secret delete SECRET_NAME
-{{< /code >}}
-
-`SECRET_NAME` is the value specified in the secret's `name` [metadata attribute][12].
-
-## Secret examples
-
-A secret resource definition refers to a secrets `id` and a secrets `provider`.
-Read the [secrets provider reference][7] for the provider specification.
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Secret
-api_version: secrets/v1
-metadata:
-  name: sensu-ansible-token
-  namespace: default
-spec:
-  id: ANSIBLE_TOKEN
-  provider: env
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Secret",
-  "api_version": "secrets/v1",
-  "metadata": {
-    "name": "sensu-ansible-token",
-    "namespace": "default"
-  },
-  "spec": {
-    "id": "ANSIBLE_TOKEN",
-    "provider": "env"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-Configure secrets that target a HashiCorp Vault as shown in the following example:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Secret
-api_version: secrets/v1
-metadata:
-  name: sensu-ansible
-  namespace: default
-spec:
-  id: 'secret/database#password'
-  provider: vault
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Secret",
-  "api_version": "secrets/v1",
-  "metadata": {
-    "name": "sensu-ansible",
-    "namespace": "default"
-  },
-  "spec": {
-    "id": "secret/database#password",
-    "provider": "vault"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-The `id` value for secrets that target a HashiCorp Vault must start with the name of the secret's path in Vault.
-The [Vault dev server][10] is preconfigured with the secret keyspace already set up.
-This is convenient for learning and getting started with Vault secrets management, so this example and our guide to [secrets management][11] use the `secret/` path for the `id` value.
-In this example, the name of the secret is `database`.
-The database secret contains a key called `password,` and its value is the password to our database.
 
 
 [1]: ../../../commercial/
