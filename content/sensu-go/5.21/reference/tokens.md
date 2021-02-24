@@ -25,121 +25,7 @@ Token substitution is not available for event filters because filters already ha
 
 Available attributes will always have [string values][9], such as labels and annotations.
 
-## Manage entity labels
-
-You can use token substitution with any defined [entity attributes][4], including custom labels.
-See the [entity reference][6] for information about managing entity labels for proxy entities and agent entities.
-
-## Manage assets
-
-You can use token substitution in the URLs of your your [asset][12] definitions.
-Token substitution allows you to host your assets at different URLs (such as at different datacenters) without duplicating your assets, as shown in the following example:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: Asset
-api_version: core/v2
-metadata:
-  name: sensu-go-hello-world
-  namespace: default
-spec:
-  builds:
-  - sha512: 07665fda5b7c75e15e4322820aa7ddb791cc9338e38444e976e601bc7d7970592e806a7b88733690a238b7325437d31f85e98ae2fe47b008ca09c86530da9600
-    url: "{{ .labels.asset_url }}/sensu-go-hello-world-0.0.1.tar.gz"
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Asset",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "sensu-go-hello-world",
-    "namespace": "default"
-  },
-  "spec": {
-    "builds": [
-      {
-        "sha512": "07665fda5b7c75e15e4322820aa7ddb791cc9338e38444e976e601bc7d7970592e806a7b88733690a238b7325437d31f85e98ae2fe47b008ca09c86530da9600",
-        "url": "{{ .labels.asset_url }}/sensu-go-hello-world-0.0.1.tar.gz"
-      }
-    ]
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-With this asset definition, which includes the `.labels.asset_url` token substitution, checks and hooks can include the `sensu-go-hello-world` asset as a runtime asset and Sensu Go will use the token substitution for the agent's entity.
-Handlers and mutators can also include the `sensu-go-hello-world` asset as a runtime asset, but Sensu Go will use the token subtitution for the backend's entity instead of the agent's entity.
-
-You can also use token substitution to customize asset headers (for example, to include secure information for authentication).
-
-{{% notice note %}}
-**NOTE**: To maintain security, you cannot use token substitution for an asset's SHA512 value.
-{{% /notice %}}
-
-## Token specification
-
-Sensu Go uses the [Go template][1] package to implement token substitution.
-Use double curly braces around the token and a dot before the attribute to be substituted: `{{ .system.hostname }}`.
-
-### Token substitution syntax
-
-Tokens are invoked by wrapping references to entity attributes and labels with double curly braces, such as `{{ .name }}` to substitute an entity's name.
-Access nested Sensu [entity attributes][3] dot notation (for example, `system.arch`).
-
-- `{{ .name }}` would be replaced with the [entity `name` attribute][3]
-- `{{ .labels.url }}` would be replaced with a custom label called `url`
-- `{{ .labels.disk_warning }}` would be replaced with a custom label called `disk_warning`
-- `{{ index .labels "disk_warning" }}` would be replaced with a custom label called
-  `disk_warning`
-- `{{ index .labels "cpu.threshold" }}` would be replaced with a custom label called `cpu.threshold`
-
-{{% notice note %}}
-**NOTE**: When an annotation or label name has a dot (e.g. `cpu.threshold`), you must use the template index function syntax to ensure correct processing because the dot notation is also used for object nesting.
-{{% /notice %}}
-
-### Token substitution default values
-
-If an attribute is not provided by the [entity][3], a token's default value will be substituted.
-Token default values are separated by a pipe character and the word "default" (`| default`).
-Use token default values to provide a fallback value for entities that are missing a specified token attribute.
-
-For example, `{{.labels.url | default "https://sensu.io"}}` would be replaced with a custom label called `url`.
-If no such attribute called `url` is included in the entity definition, the default (or fallback) value of `https://sensu.io` will be used to substitute the token.
-
-### Token substitution with quoted strings
-
-You can escape quotes to express quoted strings in token substitution templates as shown in the [Go template package examples][2].
-For example, to provide `"substitution"` as a default value for entities that are missing the `website` attribute (including the quotation marks):
-
-{{< code shell >}}
-{{ .labels.website | default "\"substitution\"" }}
-{{< /code >}}
-
-## Unmatched tokens
-
-If a token is unmatched during check preparation, the agent check handler will return an error, and the check will not be executed.
-Unmatched token errors are similar to this example:
-
-{{< code shell >}}
-error: unmatched token: template: :1:22: executing "" at <.system.hostname>: map has no entry for key "System"
-{{< /code >}}
-
-Check config token errors are logged by the agent and sent to Sensu backend message transport as check failures.
-
-## Token data type limitations
-
-As part of the substitution process, Sensu converts all tokens to strings.
-This means that token substitution cannot be applied to any non-string values like numbers or Booleans, although it can be applied to strings that are nested inside objects and arrays.
-
-For example, token substitution **cannot** be used for specifying a check interval because the interval attribute requires an _integer_ value.
-Token substitution **can** be used for alerting thresholds because those values are included within the command _string_.
-
-## Examples
-
-### Token substitution for check thresholds 
+## Example: Token substitution for check thresholds 
 
 In this example [hook][8] and [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical) arguments to indicate the thresholds (as percentages) for creating warning or critical events.
 If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk_warning | default 80 }}`) and a critical event at 90% capacity (i.e. `{{ .labels.disk_critical | default 90 }}`).
@@ -389,6 +275,118 @@ spec:
 }{{< /code >}}
 
 {{< /language-toggle >}}
+
+## Manage entity labels
+
+You can use token substitution with any defined [entity attributes][4], including custom labels.
+See the [entity reference][6] for information about managing entity labels for proxy entities and agent entities.
+
+## Manage assets
+
+You can use token substitution in the URLs of your your [asset][12] definitions.
+Token substitution allows you to host your assets at different URLs (such as at different datacenters) without duplicating your assets, as shown in the following example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: Asset
+api_version: core/v2
+metadata:
+  name: sensu-go-hello-world
+  namespace: default
+spec:
+  builds:
+  - sha512: 07665fda5b7c75e15e4322820aa7ddb791cc9338e38444e976e601bc7d7970592e806a7b88733690a238b7325437d31f85e98ae2fe47b008ca09c86530da9600
+    url: "{{ .labels.asset_url }}/sensu-go-hello-world-0.0.1.tar.gz"
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-go-hello-world",
+    "namespace": "default"
+  },
+  "spec": {
+    "builds": [
+      {
+        "sha512": "07665fda5b7c75e15e4322820aa7ddb791cc9338e38444e976e601bc7d7970592e806a7b88733690a238b7325437d31f85e98ae2fe47b008ca09c86530da9600",
+        "url": "{{ .labels.asset_url }}/sensu-go-hello-world-0.0.1.tar.gz"
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+With this asset definition, which includes the `.labels.asset_url` token substitution, checks and hooks can include the `sensu-go-hello-world` asset as a runtime asset and Sensu Go will use the token substitution for the agent's entity.
+Handlers and mutators can also include the `sensu-go-hello-world` asset as a runtime asset, but Sensu Go will use the token subtitution for the backend's entity instead of the agent's entity.
+
+You can also use token substitution to customize asset headers (for example, to include secure information for authentication).
+
+{{% notice note %}}
+**NOTE**: To maintain security, you cannot use token substitution for an asset's SHA512 value.
+{{% /notice %}}
+
+## Token specification
+
+Sensu Go uses the [Go template][1] package to implement token substitution.
+Use double curly braces around the token and a dot before the attribute to be substituted: `{{ .system.hostname }}`.
+
+### Token substitution syntax
+
+Tokens are invoked by wrapping references to entity attributes and labels with double curly braces, such as `{{ .name }}` to substitute an entity's name.
+Access nested Sensu [entity attributes][3] dot notation (for example, `system.arch`).
+
+- `{{ .name }}` would be replaced with the [entity `name` attribute][3]
+- `{{ .labels.url }}` would be replaced with a custom label called `url`
+- `{{ .labels.disk_warning }}` would be replaced with a custom label called `disk_warning`
+- `{{ index .labels "disk_warning" }}` would be replaced with a custom label called
+  `disk_warning`
+- `{{ index .labels "cpu.threshold" }}` would be replaced with a custom label called `cpu.threshold`
+
+{{% notice note %}}
+**NOTE**: When an annotation or label name has a dot (e.g. `cpu.threshold`), you must use the template index function syntax to ensure correct processing because the dot notation is also used for object nesting.
+{{% /notice %}}
+
+### Token substitution default values
+
+If an attribute is not provided by the [entity][3], a token's default value will be substituted.
+Token default values are separated by a pipe character and the word "default" (`| default`).
+Use token default values to provide a fallback value for entities that are missing a specified token attribute.
+
+For example, `{{.labels.url | default "https://sensu.io"}}` would be replaced with a custom label called `url`.
+If no such attribute called `url` is included in the entity definition, the default (or fallback) value of `https://sensu.io` will be used to substitute the token.
+
+### Token substitution with quoted strings
+
+You can escape quotes to express quoted strings in token substitution templates as shown in the [Go template package examples][2].
+For example, to provide `"substitution"` as a default value for entities that are missing the `website` attribute (including the quotation marks):
+
+{{< code shell >}}
+{{ .labels.website | default "\"substitution\"" }}
+{{< /code >}}
+
+## Unmatched tokens
+
+If a token is unmatched during check preparation, the agent check handler will return an error, and the check will not be executed.
+Unmatched token errors are similar to this example:
+
+{{< code shell >}}
+error: unmatched token: template: :1:22: executing "" at <.system.hostname>: map has no entry for key "System"
+{{< /code >}}
+
+Check config token errors are logged by the agent and sent to Sensu backend message transport as check failures.
+
+## Token data type limitations
+
+As part of the substitution process, Sensu converts all tokens to strings.
+This means that token substitution cannot be applied to any non-string values like numbers or Booleans, although it can be applied to strings that are nested inside objects and arrays.
+
+For example, token substitution **cannot** be used for specifying a check interval because the interval attribute requires an _integer_ value.
+Token substitution **can** be used for alerting thresholds because those values are included within the command _string_.
 
 
 [1]: https://pkg.go.dev/text/template
