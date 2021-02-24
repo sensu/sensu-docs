@@ -109,7 +109,7 @@ Sensu includes built-in event filters to help you customize event pipelines for 
 To start using built-in event filters, see [Send Slack alerts][4] and [Plan maintenance][5].
 
 {{% notice note %}}
-**NOTE**: Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x, but you can replicate its functionality with [the repeated events filter definition](#example-for-repeated-events).
+**NOTE**: Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x, but you can replicate its functionality with [the repeated events filter definition](#filter-for-repeated-events).
 {{% /notice %}}
 
 ### Built-in filter: is_incident
@@ -989,7 +989,7 @@ spec:
 
 {{< /language-toggle >}}
 
-## Example to reduce alert fatigue for keepalive events
+## Filter to reduce alert fatigue for keepalive events
 
 This example `keepalive_timeouts` event filter will match event data with an occurrences value of 1 OR any occurrences value that matches 15 minutes via a modulo operator calculation.
 This limits keepalive timeout event alerts to the first occurrence and every 15 minutes thereafter.
@@ -1109,7 +1109,7 @@ spec:
 [22]: ../../observe-process/handlers/
 [23]: ../../observe-events/events#metric-attributes
 [24]: ../../observe-entities/entities#metadata-attributes
-[25]: ../../../operations/control-access/rbac#default-roles
+[25]: ../../../operations/control-access/rbac/#default-roles-and-cluster-roles
 [26]: ../../observe-schedule/agent#keepalive-monitoring
 [27]: ../../observe-filter/sensu-query-expressions/
 [28]: ../../observe-events/events#event-format

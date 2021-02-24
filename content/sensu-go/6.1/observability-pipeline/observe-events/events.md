@@ -1873,8 +1873,8 @@ value: 0.005
 [24]: ../../observe-filter/filters/
 [25]: ../../observe-schedule/checks/#check-result-specification
 [26]: ../../../operations/control-access/namespaces/
-[27]: ../../observe-filter/filters/#exanple-for-state-change-only
-[28]: ../../observe-filter/filters/#example-for-repeated-events
+[27]: ../../observe-filter/filters/#filter-for-state-change-only
+[28]: ../../observe-filter/filters/#filter-for-repeated-events
 [29]: #metadata-attributes
 [30]: #metric-attributes
 [31]: #use-event-data

@@ -469,7 +469,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [7]: ../../../observability-pipeline/observe-entities/monitor-external-resources/
 [8]: ../../../observability-pipeline/observe-schedule/hooks/
 [9]: ../../../observability-pipeline/observe-filter/filters
-[10]: ../../../observability-pipeline/observe-filter/filters/#example-for-repeated-events
+[10]: ../../../observability-pipeline/observe-filter/filters/#filter-for-repeated-events
 [11]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/
 [12]: ../../../plugins/assets/
 [13]: ../../control-access/rbac/

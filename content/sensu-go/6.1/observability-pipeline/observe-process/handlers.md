@@ -1015,5 +1015,5 @@ spec:
 [29]: ../../../observability-pipeline/
 [30]: ../../observe-filter/filters/#built-in-filter-is_incident
 [31]: #handler-sets
-[32]: ../../observe-filter/filters/#example-for-repeated-events
+[32]: ../../observe-filter/filters/#filter-for-repeated-events
 [33]: ../../observe-schedule/checks/#handlers-array

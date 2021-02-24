@@ -25,7 +25,7 @@ Token substitution is not available for event filters because filters already ha
 
 Available attributes will always have [string values][9], such as labels and annotations.
 
-## Example: Token substitution for check thresholds 
+## Example: Token substitution for check thresholds
 
 In this example [hook][8] and [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical) arguments to indicate the thresholds (as percentages) for creating warning or critical events.
 If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk_warning | default 80 }}`) and a critical event at 90% capacity (i.e. `{{ .labels.disk_critical | default 90 }}`).

@@ -29,7 +29,7 @@ Read [Install plugins with assets][23] to get started.
 
 Pipe handlers are external commands that can consume [event][3] data via STDIN.
 
-### Example pipe handler
+### Pipe handler example
 
 This example shows a pipe handler resource definition with the minimum required attributes:
 
@@ -76,7 +76,7 @@ Pipe handler `command` attributes may include command line arguments for control
 
 TCP and UDP handlers enable Sensu to forward event data to arbitrary TCP or UDP sockets for external services to consume.
 
-### Example TCP/UDP handler
+### TCP/UDP handler example
 
 This example demonstrates a TCP handler resource definition with the minimum required attributes.
 Change the `type` from `tcp` to `udp` to create the minimum configuration for a UDP handler. 
@@ -1010,5 +1010,5 @@ spec:
 [28]: ../../web-ui/filter/
 [30]: ../../reference/filters/#built-in-filter-is_incident
 [31]: #handler-sets
-[32]: ../../reference/filters/#example-for-repeated-events
+[32]: ../../reference/filters/#filter-for-repeated-events
 [33]: ../../reference/checks/#handlers-array
