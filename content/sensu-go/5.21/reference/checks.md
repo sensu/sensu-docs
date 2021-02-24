@@ -23,7 +23,7 @@ This example shows a check resource definition that includes the minimum recomme
 
 {{% notice note %}}
 **NOTE**: The attribute `interval` is not required if a valid `cron` schedule is defined.
-Read [scheduling](#scheduling) for more information.
+Read [scheduling](#interval-scheduling) for more information.
 {{% /notice %}}
 
 {{< language-toggle >}}
