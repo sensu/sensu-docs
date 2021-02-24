@@ -20,6 +20,92 @@ With the saved searches feature, you can apply search parameters to your entitie
 The saved searches feature is designed to be used directly in the [web UI][3].
 However, you can create, retrieve, update, and delete saved searches with the [searches API][4].
 
+## Search for events with any status except passing
+
+The following saved search will retrieve all events that have any status except `passing`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Search
+api_version: searches/v1
+metadata:
+  name: events-not-passing
+  namespace: default
+spec:
+  parameters:
+  - status:incident
+  - status:warning
+  - status:critical
+  - status:unknown
+  resource: core.v2/Event
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Search",
+  "api_version": "searches/v1",
+  "metadata": {
+    "name": "events-not-passing",
+    "namespace": "default"
+  },
+  "spec": {
+    "parameters": [
+      "status:incident",
+      "status:warning",
+      "status:critical",
+      "status:unknown"
+    ],
+    "resource": "core.v2/Event"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Search for published checks with a specific subscription and region
+
+The following saved search will retrieve all published checks for the `us-west-1` region with the `linux` subscription:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Search
+api_version: searches/v1
+metadata:
+  name: published-checks-linux-uswest
+  namespace: default
+spec:
+  parameters:
+  - published:true
+  - subscription:linux
+  - 'labelSelector: region == "us-west-1"'
+  resource: core.v2/CheckConfig
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Search",
+  "api_version": "searches/v1",
+  "metadata": {
+    "name": "published-checks-linux-uswest",
+    "namespace": "default"
+  },
+  "spec": {
+    "parameters": [
+      "published:true",
+      "subscription:linux",
+      "labelSelector: region == \"us-west-1\""
+    ],
+    "resource": "core.v2/CheckConfig"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Searches specification
 
 ### Top-level attributes
@@ -413,94 +499,6 @@ parameters:
   ]
 }
 {{< /code >}}
-{{< /language-toggle >}}
-
-## Examples
-
-### Search for events with any status except passing
-
-The following saved search will retrieve all events that have any status except `passing`:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Search
-api_version: searches/v1
-metadata:
-  name: events-not-passing
-  namespace: default
-spec:
-  parameters:
-  - status:incident
-  - status:warning
-  - status:critical
-  - status:unknown
-  resource: core.v2/Event
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Search",
-  "api_version": "searches/v1",
-  "metadata": {
-    "name": "events-not-passing",
-    "namespace": "default"
-  },
-  "spec": {
-    "parameters": [
-      "status:incident",
-      "status:warning",
-      "status:critical",
-      "status:unknown"
-    ],
-    "resource": "core.v2/Event"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Search for published checks with a specific subscription and region
-
-The following saved search will retrieve all published checks for the `us-west-1` region with the `linux` subscription:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Search
-api_version: searches/v1
-metadata:
-  name: published-checks-linux-uswest
-  namespace: default
-spec:
-  parameters:
-  - published:true
-  - subscription:linux
-  - 'labelSelector: region == "us-west-1"'
-  resource: core.v2/CheckConfig
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Search",
-  "api_version": "searches/v1",
-  "metadata": {
-    "name": "published-checks-linux-uswest",
-    "namespace": "default"
-  },
-  "spec": {
-    "parameters": [
-      "published:true",
-      "subscription:linux",
-      "labelSelector: region == \"us-west-1\""
-    ],
-    "resource": "core.v2/CheckConfig"
-  }
-}
-{{< /code >}}
-
 {{< /language-toggle >}}
 
 
