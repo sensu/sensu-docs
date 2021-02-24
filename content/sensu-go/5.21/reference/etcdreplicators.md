@@ -267,7 +267,7 @@ Etcd replicators are etcd key space replicators.
 Replicators contain configuration for forwarding a set of keys from one etcd cluster to another.
 Replicators are configured by specifying the TLS details of the remote cluster, its URL, and a resource type.
 
-## Etcd replicators specification
+## Etcd replicator specification
 
 #### Top-level attributes
 
