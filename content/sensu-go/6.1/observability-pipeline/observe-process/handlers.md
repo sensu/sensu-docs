@@ -81,8 +81,7 @@ TCP and UDP handlers enable Sensu to forward event data to arbitrary TCP or UDP 
 
 ### TCP/UDP handler example
 
-This example demonstrates a TCP handler resource definition with the minimum required attributes.
-Change the `type` from `tcp` to `udp` to create the minimum configuration for a UDP handler. 
+This handler will send event data to a TCP socket (10.0.1.99:4444) and timeout if an acknowledgement (`ACK`) is not received within 30 seconds:
 
 {{< language-toggle >}}
 
@@ -91,13 +90,14 @@ Change the `type` from `tcp` to `udp` to create the minimum configuration for a 
 type: Handler
 api_version: core/v2
 metadata:
-  name: tcp_udp_handler_minimum
+  name: tcp_handler
   namespace: default
 spec:
   socket:
     host: 10.0.1.99
     port: 4444
   type: tcp
+  timeout: 30
 {{< /code >}}
 
 {{< code json >}}
@@ -105,11 +105,52 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "tcp_udp_handler_minimum",
+    "name": "tcp_handler",
     "namespace": "default"
   },
   "spec": {
     "type": "tcp",
+    "timeout": 30,
+    "socket": {
+      "host": "10.0.1.99",
+      "port": 4444
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Change the `type` from `tcp` to `udp` to configure a UDP handler:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: udp_handler
+  namespace: default
+spec:
+  socket:
+    host: 10.0.1.99
+    port: 4444
+  type: udp
+  timeout: 30
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "udp_handler",
+    "namespace": "default"
+  },
+  "spec": {
+    "type": "udp",
+    "timeout": 30,
     "socket": {
       "host": "10.0.1.99",
       "port": 4444
@@ -762,86 +803,6 @@ spec:
     "runtime_assets": [],
     "timeout": 0,
     "type": "pipe"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-## Send event data to a TCP socket
-
-This handler will send event data to a TCP socket (10.0.1.99:4444) and timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Handler
-api_version: core/v2
-metadata:
-  name: tcp_handler
-  namespace: default
-spec:
-  socket:
-    host: 10.0.1.99
-    port: 4444
-  type: tcp
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "tcp_handler",
-    "namespace": "default"
-  },
-  "spec": {
-    "type": "tcp",
-    "socket": {
-      "host": "10.0.1.99",
-      "port": 4444
-    }
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-## Send event data to a UDP socket
-
-This handler will forward event data to a UDP socket (10.0.1.99:4444) and timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Handler
-api_version: core/v2
-metadata:
-  name: udp_handler
-  namespace: default
-spec:
-  socket:
-    host: 10.0.1.99
-    port: 4444
-  type: udp
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "udp_handler",
-    "namespace": "default"
-  },
-  "spec": {
-    "type": "udp",
-    "socket": {
-      "host": "10.0.1.99",
-      "port": 4444
-    }
   }
 }
 {{< /code >}}
