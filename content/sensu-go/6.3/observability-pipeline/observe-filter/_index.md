@@ -26,10 +26,46 @@ For example, use the [built-in is_incident event filter][7] to allow only high-p
 
 To tell Sensu which event filters you want to apply, you list them in your [handler][2] definition.
 Sensu compares your observation data in events against the [expressions][6] in your event filters to determine whether each event should continue through the pipeline or be removed.
-Any events that the filter doesn't remove from your pipeline will be [processed][3] according to your handler configuration.
-
 Event filters can be [inclusive or exclusive][4], so you can require events to match or not match your filter expressions.
+
+Here's an example that shows the resource definition for an event filter that would allow handling for only events with the custom entity label `"region": "us-west-1"`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: EventFilter
+api_version: core/v2
+metadata:
+  name: production_filter
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - event.entity.labels['region'] == 'us-west-1'
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "production_filter",
+    "namespace": "default"
+  },
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "event.entity.labels['region'] == 'us-west-1'"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 Sensu applies event filters in the order that they are listed in your handler definition.
+Any events that the filters do not remove from your pipeline will be [processed][3] according to your handler configuration.
 
 As soon as an event filter removes an event from your pipeline because it does not meet the conditions, triggers, or thresholds you specified, the Sensu observability pipeline ceases analysis for the event.
 Sensu will not [transform][5] or [process][3] events that your event filter removes from your pipeline.
