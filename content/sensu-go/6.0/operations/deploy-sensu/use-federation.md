@@ -371,7 +371,7 @@ Learn more about configuring RBAC policies in our [RBAC reference documentation]
 [6]: ../../../sensuctl/create-manage-resources/#update-resources
 [7]: ../../../sensuctl/create-manage-resources/#delete-resources
 [8]: ../../../commercial/
-[9]: ../etcdreplicators#example-etcdreplicator-resources
+[9]: ../etcdreplicators#etcd-replicator-examples
 [10]: ../../control-access/rbac/
 [11]: ../../../api/federation#get-all-clusters
 [12]: https://github.com/etcd-io/etcd/blob/master/etcdctl/README.md#make-mirror-options-destination

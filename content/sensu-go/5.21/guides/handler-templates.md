@@ -148,9 +148,7 @@ Executing command with --template Server: {{.Entity.Name}} Check: {{.Check.Name}
 Template String Output: Server: "webserver01 Check: check-http Status: passing"
 {{< /code >}}
 
-## Examples
-
-### Sensu Email Handler plugin
+## Sensu Email Handler plugin
 
 The [Sensu Email Handler plugin][9] allows you to provide a template for the body of the email.
 For example, this template will produce an email body that includes the name of the check and entity associated with the event, the status and number of occurrences, and other event details:
@@ -185,7 +183,7 @@ Sensu<br>
 The Sensu Email Handler plugin also includes a UnixTime function that allows you to print timestamp values from events in human-readable format.
 See the [Sensu Email Handler Bonsai page][9] for details.
 
-### Sensu PagerDuty Handler Example
+## Sensu PagerDuty Handler example
 
 The [Sensu PagerDuty Handler plugin][10] includes a basic template for the PagerDuty alert summary:
 
