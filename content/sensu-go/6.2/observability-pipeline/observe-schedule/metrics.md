@@ -13,7 +13,7 @@ menu:
     parent: observe-schedule
 ---
 
-Sensu Go offers first-class built-in support for collecting and processing metrics for your entire infrastructure.
+Sensu Go offers built-in support for collecting and processing metrics for your entire infrastructure.
 
 In Sensu, metrics are an optional component of observation data in events.
 Sensu events may contain check execution results, metrics, or both.
@@ -22,8 +22,374 @@ Events can also include metrics from [check output metric extraction][4].
 
 {{% notice note %}}
 **NOTE**: This reference describes the metrics component of observation data included in Sensu events, which is distinct from the Sensu metrics API.
-For information about HTTP GET access to internal Sensu metrics, read our [metrics API](../../api/metrics/) documentation.
+For information about HTTP GET access to internal Sensu metrics, read our [metrics API](../../../api/metrics/) documentation.
 {{% /notice %}}
+
+## Metric check example
+
+This check definition collects metrics in InfluxDB Line Protocol [format][9] and sends the collected metrics to a metrics handler configured with the [Sensu InfluxDB Handler][12] dynamic runtime asset:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: collect-metrics
+  namespace: default
+spec:
+  check_hooks: null
+  command: metrics-disk-usage.rb
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
+  interval: 30
+  low_flap_threshold: 0
+  output_metric_format: influxdb_line
+  output_metric_handlers: sensu-influxdb-handler
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets:
+  - sensu-plugins/sensu-plugins-disk-checks
+  - sensu/sensu-ruby-runtime
+  secrets: null
+  stdin: false
+  subdue: null
+  subscriptions:
+  - linux
+  timeout: 0
+  ttl: 0
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "collect-metrics",
+    "namespace": "default"
+  },
+  "spec": {
+    "check_hooks": null,
+    "command": "metrics-disk-usage.rb",
+    "env_vars": null,
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 30,
+    "low_flap_threshold": 0,
+    "output_metric_format": "influxdb_line",
+    "output_metric_handlers": "sensu-influxdb-handler",
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": [
+      "sensu-plugins/sensu-plugins-disk-checks",
+      "sensu/sensu-ruby-runtime"
+    ],
+    "secrets": null,
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "linux"
+    ],
+    "timeout": 0,
+    "ttl": 0
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Metric event example
+
+The [example metric check][6] will produce events similar to this metric event:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Event
+api_version: core/v2
+metadata:
+  namespace: default
+spec:
+  check:
+    check_hooks: null
+    command: metrics-disk-usage.rb
+    duration: 0.059301963
+    env_vars: null
+    executed: 1614379313
+    handlers: []
+    high_flap_threshold: 0
+    history:
+    - executed: 1614379193
+      status: 0
+    - executed: 1614379223
+      status: 0
+    - executed: 1614379253
+      status: 0
+    - executed: 1614379283
+      status: 0
+    - executed: 1614379313
+      status: 0
+    interval: 30
+    is_silenced: false
+    issued: 1614379313
+    last_ok: 1614379313
+    low_flap_threshold: 0
+    metadata:
+      name: collect-metrics
+      namespace: default
+    occurrences: 5
+    occurrences_watermark: 5
+    output: |
+      sensu-centos.disk_usage.root.used 1476 1614379313
+      sensu-centos.disk_usage.root.avail 40472 1614379313
+      sensu-centos.disk_usage.root.used_percentage 4 1614379313
+      sensu-centos.disk_usage.root.dev.used 0 1614379313
+      sensu-centos.disk_usage.root.dev.avail 485 1614379313
+      sensu-centos.disk_usage.root.dev.used_percentage 0 1614379313
+      sensu-centos.disk_usage.root.run.used 20 1614379313
+      sensu-centos.disk_usage.root.run.avail 477 1614379313
+      sensu-centos.disk_usage.root.run.used_percentage 4 1614379313
+      sensu-centos.disk_usage.root.home.used 33 1614379313
+      sensu-centos.disk_usage.root.home.avail 20446 1614379313
+      sensu-centos.disk_usage.root.home.used_percentage 1 1614379313
+      sensu-centos.disk_usage.root.boot.used 130 1614379313
+      sensu-centos.disk_usage.root.boot.avail 885 1614379313
+      sensu-centos.disk_usage.root.boot.used_percentage 13 1614379313
+      sensu-centos.disk_usage.root.vagrant.used 82069 1614379313
+      sensu-centos.disk_usage.root.vagrant.avail 871836 1614379313
+      sensu-centos.disk_usage.root.vagrant.used_percentage 9 1614379313
+    output_metric_format: influxdb_line
+    output_metric_handlers: null
+    proxy_entity_name: ""
+    publish: true
+    round_robin: false
+    runtime_assets:
+    - sensu-plugins/sensu-plugins-disk-checks
+    - sensu/sensu-ruby-runtime
+    scheduler: memory
+    secrets: null
+    state: passing
+    status: 0
+    stdin: false
+    subdue: null
+    subscriptions:
+    - linux
+    timeout: 0
+    total_state_change: 0
+    ttl: 0
+  entity:
+    deregister: false
+    deregistration: {}
+    entity_class: agent
+    last_seen: 1614379313
+    metadata:
+      created_by: admin
+      name: sensu-centos
+      namespace: default
+    redact:
+    - password
+    - passwd
+    - pass
+    - api_key
+    - api_token
+    - access_key
+    - secret_key
+    - private_key
+    - secret
+    sensu_agent_version: 6.2.5
+    subscriptions:
+    - entity:sensu-centos
+    - linux
+    system:
+      arch: amd64
+      cloud_provider: ""
+      hostname: sensu-centos
+      libc_type: glibc
+      network:
+        interfaces:
+        - addresses:
+          - 127.0.0.1/8
+          - ::1/128
+          name: lo
+        - addresses:
+          - 10.0.2.15/24
+          - fe80::146d:22df:fb9a:1c7c/64
+          mac: 08:00:27:8b:c9:3f
+          name: eth0
+        - addresses:
+          - 172.28.128.33/24
+          - fe80::a00:27ff:fee1:857a/64
+          mac: 08:00:27:e1:85:7a
+          name: eth1
+      os: linux
+      platform: centos
+      platform_family: rhel
+      platform_version: 7.5.1804
+      processes: null
+      vm_role: guest
+      vm_system: vbox
+    user: agent
+  id: 38de280d-444b-4017-a438-b35cd4a6f2f8
+  sequence: 5
+  timestamp: 1614379313
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Event",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default"
+  },
+  "spec": {
+    "check": {
+      "check_hooks": null,
+      "command": "metrics-disk-usage.rb",
+      "duration": 0.059301963,
+      "env_vars": null,
+      "executed": 1614379313,
+      "handlers": [],
+      "high_flap_threshold": 0,
+      "history": [
+        {
+          "executed": 1614379193,
+          "status": 0
+        },
+        {
+          "executed": 1614379223,
+          "status": 0
+        },
+        {
+          "executed": 1614379253,
+          "status": 0
+        },
+        {
+          "executed": 1614379283,
+          "status": 0
+        },
+        {
+          "executed": 1614379313,
+          "status": 0
+        }
+      ],
+      "interval": 30,
+      "is_silenced": false,
+      "issued": 1614379313,
+      "last_ok": 1614379313,
+      "low_flap_threshold": 0,
+      "metadata": {
+        "name": "collect-metrics",
+        "namespace": "default"
+      },
+      "occurrences": 5,
+      "occurrences_watermark": 5,
+      "output": "sensu-centos.disk_usage.root.used 1476 1614379313\nsensu-centos.disk_usage.root.avail 40472 1614379313\nsensu-centos.disk_usage.root.used_percentage 4 1614379313\nsensu-centos.disk_usage.root.dev.used 0 1614379313\nsensu-centos.disk_usage.root.dev.avail 485 1614379313\nsensu-centos.disk_usage.root.dev.used_percentage 0 1614379313\nsensu-centos.disk_usage.root.run.used 20 1614379313\nsensu-centos.disk_usage.root.run.avail 477 1614379313\nsensu-centos.disk_usage.root.run.used_percentage 4 1614379313\nsensu-centos.disk_usage.root.home.used 33 1614379313\nsensu-centos.disk_usage.root.home.avail 20446 1614379313\nsensu-centos.disk_usage.root.home.used_percentage 1 1614379313\nsensu-centos.disk_usage.root.boot.used 130 1614379313\nsensu-centos.disk_usage.root.boot.avail 885 1614379313\nsensu-centos.disk_usage.root.boot.used_percentage 13 1614379313\nsensu-centos.disk_usage.root.vagrant.used 82069 1614379313\nsensu-centos.disk_usage.root.vagrant.avail 871836 1614379313\nsensu-centos.disk_usage.root.vagrant.used_percentage 9 1614379313\n",
+      "output_metric_format": "influxdb_line",
+      "output_metric_handlers": null,
+      "proxy_entity_name": "",
+      "publish": true,
+      "round_robin": false,
+      "runtime_assets": [
+        "sensu-plugins/sensu-plugins-disk-checks",
+        "sensu/sensu-ruby-runtime"
+      ],
+      "scheduler": "memory",
+      "secrets": null,
+      "state": "passing",
+      "status": 0,
+      "stdin": false,
+      "subdue": null,
+      "subscriptions": [
+        "linux"
+      ],
+      "timeout": 0,
+      "total_state_change": 0,
+      "ttl": 0
+    },
+    "entity": {
+      "deregister": false,
+      "deregistration": {
+      },
+      "entity_class": "agent",
+      "last_seen": 1614379313,
+      "metadata": {
+        "created_by": "admin",
+        "name": "sensu-centos",
+        "namespace": "default"
+      },
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
+      "sensu_agent_version": "6.2.5",
+      "subscriptions": [
+        "entity:sensu-centos",
+        "linux"
+      ],
+      "system": {
+        "arch": "amd64",
+        "cloud_provider": "",
+        "hostname": "sensu-centos",
+        "libc_type": "glibc",
+        "network": {
+          "interfaces": [
+            {
+              "addresses": [
+                "127.0.0.1/8",
+                ":1/128"
+              ],
+              "name": "lo"
+            },
+            {
+              "addresses": [
+                "10.0.2.15/24",
+                "fe80::146d:22df:fb9a:1c7c/64"
+              ],
+              "mac": "08:00:27:8b:c9:3f",
+              "name": "eth0"
+            },
+            {
+              "addresses": [
+                "172.28.128.33/24",
+                "fe80::a00:27ff:fee1:857a/64"
+              ],
+              "mac": "08:00:27:e1:85:7a",
+              "name": "eth1"
+            }
+          ]
+        },
+        "os": "linux",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.5.1804",
+        "processes": null,
+        "vm_role": "guest",
+        "vm_system": "vbox"
+      },
+      "user": "agent"
+    },
+    "id": "38de280d-444b-4017-a438-b35cd4a6f2f8",
+    "sequence": 5,
+    "timestamp": 1614379313
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Extract metrics from check output
 
@@ -107,218 +473,26 @@ The events reference includes an [example event with check and metric data][20].
 You do not need to add a mutator to your check definition to process metrics with an event handler.
 The [metrics attribute][5] format automatically reduces metrics data complexity so event handlers can process metrics effectively.
 
-## Example metric check
-
-This check definition collects metrics in Nagios Performance Data [format][9], enriches the metrics with [output metric tags][1], and sends the collected and tagged metrics to the [Prometheus Pushgateway Handler][19] for long-term storage and visualization.
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: CheckConfig
-api_version: core/v2
-metadata:
-  annotations:
-    slack-channel: '#monitoring'
-  labels:
-    region: us-west-1
-  name: collect-metrics
-  namespace: default
-spec:
-  check_hooks: null
-  command: collect.sh
-  discard_output: true
-  env_vars: null
-  handlers: []
-  high_flap_threshold: 0
-  interval: 10
-  low_flap_threshold: 0
-  output_metric_format: nagios_perfdata
-  output_metric_handlers:
-  - prometheus_gateway
-  output_metric_tags:
-  - name: instance
-    value: '{{ .name }}'
-  - name: prometheus_type
-    value: gauge
-  - name: service
-    value: '{{ .labels.service }}'
-  proxy_entity_name: ""
-  publish: true
-  round_robin: false
-  runtime_assets: null
-  stdin: false
-  subscriptions:
-  - system
-  timeout: 0
-  ttl: 0
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "collect-metrics",
-    "namespace": "default",
-    "labels": {
-      "region": "us-west-1"
-    },
-    "annotations": {
-      "slack-channel" : "#monitoring"
-    }
-  },
-  "spec": {
-    "command": "collect.sh",
-    "handlers": [],
-    "high_flap_threshold": 0,
-    "interval": 10,
-    "low_flap_threshold": 0,
-    "publish": true,
-    "runtime_assets": null,
-    "subscriptions": [
-      "system"
-    ],
-    "proxy_entity_name": "",
-    "check_hooks": null,
-    "stdin": false,
-    "ttl": 0,
-    "timeout": 0,
-    "round_robin": false,
-    "output_metric_format": "nagios_perfdata",
-    "output_metric_handlers": [
-      "prometheus_gateway"
-    ],
-    "output_metric_tags": [
-      {
-        "name": "instance",
-        "value": "{{ .name }}"
-      },
-      {
-        "name": "prometheus_type",
-        "value": "gauge"
-      },
-      {
-        "name": "service",
-        "value": "{{ .labels.service }}"
-      }
-    ],
-    "env_vars": null,
-    "discard_output": true
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-## Example metric event
-
-The [example metric check][6] will produce events similar to this metric event:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Event
-api_version: core/v2
-metadata:
-  namespace: default
-spec:
-  check:
-    metadata:
-      name: collect-metrics
-      namespace: default
-    command: collect_metrics.sh
-    output: |-
-      cpu.idle_percentage 61 1525462242
-      mem.sys 104448 1525462242
-    output_metric_format: nagios_perfdata
-    output_metric_handlers:
-    - prometheus_gateway
-    output_metric_tags:
-    - name: instance
-      value: "{{ .name }}"
-    - name: prometheus_type
-      value: gauge
-    - name: service
-      value: "{{ .labels.service }}"
-  metrics:
-    handlers:
-    - prometheus_gateway
-    points:
-    - name: cpu.idle_percentage
-      value: 61
-      timestamp: 1525462242
-      tags: []
-    - name: mem.sys
-      value: 104448
-      timestamp: 1525462242
-      tags: []
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Event",
-  "api_version": "core/v2",
-  "metadata": {
-    "namespace": "default"
-  },
-  "spec": {
-    "check": {
-      "metadata": {
-        "name": "collect-metrics",
-        "namespace": "default"
-      },
-      "command": "collect_metrics.sh",
-      "output": "cpu.idle_percentage 61 1525462242\nmem.sys 104448 1525462242",
-      "output_metric_format": "nagios_perfdata",
-      "output_metric_handlers": [
-        "prometheus_gateway"
-      ],
-      "output_metric_tags": [
-        {
-          "name": "instance",
-          "value": "{{ .name }}"
-        },
-        {
-          "name": "prometheus_type",
-          "value": "gauge"
-        },
-        {
-          "name": "service",
-          "value": "{{ .labels.service }}"
-        }
-      ]
-    },
-    "metrics": {
-      "handlers": [
-        "prometheus_gateway"
-      ],
-      "points": [
-        {
-          "name": "cpu.idle_percentage",
-          "value": 61,
-          "timestamp": 1525462242,
-          "tags": []
-        },
-        {
-          "name": "mem.sys",
-          "value": 104448,
-          "timestamp": 1525462242,
-          "tags": []
-        }
-      ]
-    }
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-## Validate the metrics
+## Validate metrics
 
 If the check output is formatted correctly according to its `output_metric_format`, the metrics will be extracted in Sensu metric format and passed to the observability pipeline.
-To confirm that metrics have been extracted from your check, inspect the event passed to the `output_metric_handler`.
+To confirm that your check is extracting metrics, inspect the events the check yields:
+
+{{% notice note %}}
+**NOTE**: Replace `entity_name` and `check_name` with the names of the entity and check whose events you want to review.
+{{% /notice %}}
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl event info entity_name check_name --format yaml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl event info entity_name check_name --format json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 You should expect to see errors logged by sensu-agent if it is unable to parse the check output.
 See [Troubleshoot Sensu][24] for an example debug handler that writes events to a file for inspection.
@@ -329,7 +503,7 @@ See [Troubleshoot Sensu][24] for an example debug handler that writes events to 
 [3]: ../checks/#output-metric-handlers
 [4]: #extract-metrics-from-check-output
 [5]: ../../observe-events/events/#metrics
-[6]: #example-metric-check
+[6]: #metric-check-example
 [7]: ../../../learn/prometheus-metrics/
 [8]: https://bonsai.sensu.io/
 [9]: #supported-output-metric-formats
@@ -342,8 +516,7 @@ See [Troubleshoot Sensu][24] for an example debug handler that writes events to 
 [16]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [17]: https://prometheus.io/docs/instrumenting/exposition_formats/#text-based-format
 [18]: ../../../plugins/supported-integrations/#time-series-and-long-term-event-storage
-[19]: ../../../plugins/supported-integrations/prometheus/#sensu-prometheus-pushgateway-handler
-[20]: ../../observe-events/events/#example-event-with-check-and-metric-data
+[20]: ../../observe-events/events/#example-status-and-metrics-event
 [21]: ../checks/#output_metric_tags-attributes
 [22]: ../checks/#check-token-substitution
 [23]: ../../observe-process/populate-metrics-influxdb/
