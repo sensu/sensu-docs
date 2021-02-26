@@ -37,4 +37,4 @@ You can also add the [Sensu EC2 Handler plugin][4] with a dynamic runtime asset 
 [5]: ../../assets
 [6]: ../../../commercial/
 [7]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags
-[8]: https://github.com/sensu-community/monitoring-pipelines/blob/latest/deregistration/aws-ec2.yaml
+[8]: https://github.com/sensu/catalog/blob/main/pipelines/deregistration/aws-ec2.yaml
