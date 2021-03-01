@@ -29,7 +29,7 @@ The following example demonstrates a request to the `/service-components` API en
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components \
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components \
 -H "Authorization: Key $SENSU_API_KEY"
 [
   {
@@ -74,7 +74,7 @@ http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components
 /service-components (GET)  | 
 ---------------|------
 description    | Returns the list of service components.
-example url    | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/service-components
+example url    | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< code json >}}
@@ -131,7 +131,7 @@ curl -X POST \
 -d '{
   "TBD": "TBD"
 }' \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components
 
 HTTP/1.1 200 OK
 {{< /code >}}
@@ -141,7 +141,7 @@ HTTP/1.1 200 OK
 /service-components (POST) | 
 ----------------|------
 description     | Creates a new business service component (if none exists).
-example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/service-components
+example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components
 payload         | {{< code json >}}
 {
   "TBD": "TBD"
@@ -159,7 +159,7 @@ In the following example, querying the `/service-components/:service-component` 
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components/my_replicator \
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components/my_replicator \
 -H "Authorization: Key $SENSU_API_KEY"
 [
   {
@@ -173,7 +173,7 @@ http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components
 /service-components/:service-component (GET) | 
 ---------------------|------
 description          | Returns the specified business service component.
-example url          | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/service-components/postgresql-component
+example url          | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-component
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
@@ -199,7 +199,7 @@ curl -X PUT \
 -d '{
   "TBD": "TBD"
 }' \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components/postgresql-component
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-component
 
 HTTP/1.1 200 OK
 {{< /code >}}
@@ -209,7 +209,7 @@ HTTP/1.1 200 OK
 /service-components/:service-component (PUT) | 
 ----------------|------
 description     | Creates or updates the specified business service component.
-example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/service-components/postgresql-component
+example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-component
 payload         | {{< code json >}}
 {
   "TBD": "TBD"
@@ -228,7 +228,7 @@ The following example shows a request to the `/service-components/:service-compo
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/service-components/postgresql-component
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-component
 
 HTTP/1.1 204 No Content
 {{< /code >}}
@@ -238,7 +238,7 @@ HTTP/1.1 204 No Content
 /service-components/:service-component (DELETE) | 
 --------------------------|------
 description               | Deletes the specified business service component from Sensu.
-example url               | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/service-components/postgresql-component
+example url               | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-component
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get all rule templates
@@ -251,7 +251,7 @@ The following example demonstrates a request to the `/rule-templates` API endpoi
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/rule-templates \
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates \
 -H "Authorization: Key $SENSU_API_KEY"
 [
   {
@@ -267,7 +267,7 @@ HTTP/1.1 200 OK
 /rule-templates (GET)  | 
 ---------------|------
 description    | Returns the list of rule templates.
-example url    | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/rule-templates
+example url    | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< code json >}}
@@ -293,7 +293,7 @@ curl -X POST \
 -d '{
   "TBD": "TBD"
 }' \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/rule-templates
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates
 
 HTTP/1.1 200 OK
 {{< /code >}}
@@ -303,7 +303,7 @@ HTTP/1.1 200 OK
 /rule-templates (POST) | 
 ----------------|------
 description     | Creates a new rule template (if none exists).
-example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/rule-templates
+example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates
 payload         | {{< code json >}}
 {
   "TBD": "TBD"
@@ -321,7 +321,7 @@ In the following example, querying the `/rule-templates/:rule-template` API endp
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/rule-templates/us-west-2a \
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/us-west-2a \
 -H "Authorization: Key $SENSU_API_KEY"
 [
   {
@@ -337,7 +337,7 @@ HTTP/1.1 200 OK
 /rule-templates/:cluster (GET) | 
 ---------------------|------
 description          | Returns the specified rule template.
-example url          | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/rule-templates/us-west-2a
+example url          | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/us-west-2a
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
@@ -363,7 +363,7 @@ curl -X PUT \
 -d '{
   "TBD": "TBD"
 }' \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/rule-templates/us-west-2a
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/us-west-2a
 
 HTTP/1.1 200 OK
 {{< /code >}}
@@ -373,7 +373,7 @@ HTTP/1.1 200 OK
 /rule-templates/:rule-template (PUT) | 
 ----------------|------
 description     | Creates or updates the specified rule template.
-example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespace/default/rule-templates/us-west-2a
+example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/us-west-2a
 payload         | {{< code json >}}
 {
   "TBD": "TBD"
@@ -396,7 +396,7 @@ The following example shows a request to the `/rule-templates/:rule-template` AP
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespace/default/rule-templates/us-west-2a
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/us-west-2a
 
 HTTP/1.1 204 No Content
 {{< /code >}}
