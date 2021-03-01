@@ -18,7 +18,9 @@ The Sensu web UI includes a module to help you build and configure business serv
 
 ## Build a business service
 
-TODO: explain the steps involved in creating a business service using the web UI BSM module.
+1. Click the Services icon to open the services page: ![services icon](/images/web-ui-services-icon.png).
+2. Click ADD NEW SERVICE, enter the metadata for your new service, and click Submit.
+3. 
 
 ## View and manage business services
 
