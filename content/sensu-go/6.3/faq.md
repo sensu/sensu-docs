@@ -63,14 +63,14 @@ See the [guide to storing metrics with InfluxDB][18] to get started.
 
 No, Sensu Go agents and backends are not compatible with Sensu Core or Sensu Enterprise services.
 
-## Can I upgrade my Sensu Core 1.x deployment to Sensu Go?
+## Can I upgrade my Sensu Core or Sensu Enterprise deployment to Sensu Go?
 
 Sensu Go is a complete redesign of the original Sensu.
 It uses separate packages, dependencies, and data models to bring you powerful new features.
 See the [Sensu Go release announcement][3] for more information.
-Due to these changes, [some Sensu Core 1.x features][4] are no longer supported in Sensu Go, such as standalone checks.
-To upgrade your Sensu Core 1.x deployment to Sensu Go, you'll need to translate your Sensu Core 1.x configuration to the format Sensu Go expects and install the new Sensu Go services on your infrastructure.
-The [Sensu Go migrate guide][4] includes a detailed feature comparison between Sensu Go and Sensu Core 1.x as well as tools to help you get started.
+Due to these changes, [some Sensu Core features][4] are no longer supported in Sensu Go, such as standalone checks.
+To upgrade your Sensu Core or Sensu Enterprise deployment to Sensu Go, you'll need to translate your Sensu Core or Enterprise configuration to the format Sensu Go expects and install the new Sensu Go services on your infrastructure.
+[Migrate from Sensu Core and Sensu Enterprise to Sensu Go][4] includes a detailed feature comparison between Sensu Go and Sensu Core and Enterprise as well as tools to help you get started.
 
 ## Which ports does Sensu use? {#go-ports}
 

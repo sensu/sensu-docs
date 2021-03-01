@@ -1622,7 +1622,7 @@ To get started with Sensu Go:
 [67]: /sensu-go/5.11/dashboard/overview/
 [68]: /sensu-go/5.11/getting-started/enterprise/
 [69]: /sensu-go/5.11/installation/verify/
-[70]: /sensu-go/5.11/reference/assets#examples
+[70]: /sensu-go/5.11/reference/assets/#asset-example-minimum-required-attributes
 [71]: /sensu-go/5.11/reference/agent#disable-assets
 [72]: /sensu-go/5.11/sensuctl/reference#deleting-resources
 [73]: /sensu-go/5.11/installation/platforms/
@@ -1751,7 +1751,7 @@ To get started with Sensu Go:
 [199]: /sensu-go/6.2/operations/control-access/ldap-auth/
 [200]: /sensu-go/6.2/sensuctl/create-manage-resources/#sensuctl-prune-flags
 [201]: /sensu-go/6.2/operations/deploy-sensu/datastore/#round-robin-postgresql
-[202]: /sensu-go/6.2/sensuctl/#first-time-setup
+[202]: /sensu-go/6.2/sensuctl/#first-time-setup-and-authentication
 [203]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#agent-managed-entity
 [204]: /sensu-go/6.2/observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent
 [205]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#configuration-via-flags

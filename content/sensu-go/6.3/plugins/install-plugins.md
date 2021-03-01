@@ -80,11 +80,16 @@ To install a specific version of the Sensu InfluxDB plugin with `sensu-install`,
 sudo sensu-install -p 'sensu-plugins-influxdb:2.0.0'
 {{< /code >}}
 
-We recommend using a configuration management tool or using [Sensu dynamic runtime assets][5] to pin the versions of any plugins installed in production.
+{{% notice note %}}
+**NOTE**: We recommend specifying the plugin version you want to install to maintain the stability of your observability infrastructure.
+If you do not specify a version to install, Sensu automatically installs the latest version, which may include breaking changes.
+{{% /notice %}}
+
+Use a configuration management tool or [Sensu dynamic runtime assets][5] to pin the versions of any plugins installed in production.
 
 {{% notice note %}}
 **NOTE**: If a plugin is not Sensu Go-enabled and there is no analogue on Bonsai, you can add the necessary functionality to make the plugin compatible with Sensu Go.
-Follow [this discourse.sensu.io guide](https://discourse.sensu.io/t/contributing-assets-for-existing-ruby-sensu-plugins/1165) to walk through the process.
+Follow the Discourse guide [Contributing Assets for Existing Ruby Sensu Plugins](https://discourse.sensu.io/t/contributing-assets-for-existing-ruby-sensu-plugins/1165) to walk through the process.
 {{% /notice %}}
 
 ### Troubleshoot the sensu-install tool

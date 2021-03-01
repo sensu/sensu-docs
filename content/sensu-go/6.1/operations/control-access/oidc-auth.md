@@ -450,7 +450,7 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [19]: ../../maintain-sensu/troubleshoot#log-levels
 [25]: #oidc-spec-attributes
 [27]: ../../../api/authproviders/
-[36]: ../../../sensuctl/#first-time-setup
+[36]: ../../../sensuctl/#first-time-setup-and-authentication
 [38]: ../../../sensuctl/create-manage-resources/#create-resources
 [41]: https://en.wikipedia.org/wiki/Fully_qualified_domain_name
 [42]: https://regex101.com/r/zo9mQU/2

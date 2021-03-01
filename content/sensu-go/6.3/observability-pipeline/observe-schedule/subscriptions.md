@@ -37,44 +37,7 @@ For Sensu to execute a check, the check definition must include a subscription t
 As loosely coupled references, subscriptions avoid the fragility of traditional host-based monitoring systems.
 Subscriptions allow you to configure check requests in a one-to-many model for entire groups or subgroups of entities rather than a traditional one-to-one mapping of configured hosts or observability checks.
 
-## Configure subscriptions
-
-Sensu automatically executes a check when the check definition includes a subscription that matches a subscription for at least one Sensu entity.
-In other words, subscriptions are configured for both checks and agents:
-
-- To configure subscriptions for a check, add one or more subscription names in the [check `subscriptions` attribute][15].
-- To configure subscriptions for an agent, configure the [`subscriptions`][2] by specifying the subscriptions that include the checks the agent's entities should execute.
-
-The Sensu backend [schedules][13] checks once per interval for each agent with a matching subscription.
-For example, if you have three agents configured with the `system` subscription, a check configured with the `system` subscription results in three monitoring events per interval: one check execution per agent per interval.
-
-In addition to the subscriptions defined in the agent configuration, Sensu agent entities subscribe automatically to subscriptions that match their [entity `name`][10].
-For example, an agent entity with `name: "i-424242"` subscribes to check requests with the subscription `entity:i-424242`.
-This makes it possible to generate ad hoc check requests that target specific entities via the API.
-
-{{% notice note %}}
-**NOTE**: You can directly add, update, and delete subscriptions for individual entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../../api/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
-{{% /notice %}}
-
-## Publish checks
-
-If you want Sensu to automatically schedule and execute a check according to its subscriptions, set the [`publish` attribute][12] to `true` in the check definition.
-
-You can also manually schedule [ad hoc check execution][11] with the [check API][16], whether the `publish` attribute is set to `true` or `false`.
-To target the subscriptions defined in the check, include only the check name in the request body (e.g. `"check": "check_cpu"`).
-To override the check's subscriptions and target an alternate entity or group of entities, add the subscriptions attribute to the request body:
-
-{{< code shell >}}
-{
-  "check": "check_cpu",
-  "subscriptions": [
-    "entity:i-424242",
-    "entity:i-828282"
-  ]
-}
-{{< /code >}}
-
-## Example
+## Subscription example
 
 Suppose you have a Sensu agent with the `linux` subscription:
 
@@ -139,6 +102,43 @@ sensu-agent start --subscriptions linux,webserver --log-level debug
 Now your agent will execute checks with the `linux` or `webserver` subscriptions.
 
 To directly add, update, and delete subscriptions for individual entities, use [sensuctl][17], the [entities API][18], or the [web UI][19].
+
+## Configure subscriptions
+
+Sensu automatically executes a check when the check definition includes a subscription that matches a subscription for at least one Sensu entity.
+In other words, subscriptions are configured for both checks and agents:
+
+- To configure subscriptions for a check, add one or more subscription names in the [check `subscriptions` attribute][15].
+- To configure subscriptions for an agent, configure the [`subscriptions`][2] by specifying the subscriptions that include the checks the agent's entities should execute.
+
+The Sensu backend [schedules][13] checks once per interval for each agent with a matching subscription.
+For example, if you have three agents configured with the `system` subscription, a check configured with the `system` subscription results in three monitoring events per interval: one check execution per agent per interval.
+
+In addition to the subscriptions defined in the agent configuration, Sensu agent entities subscribe automatically to subscriptions that match their [entity `name`][10].
+For example, an agent entity with `name: "i-424242"` subscribes to check requests with the subscription `entity:i-424242`.
+This makes it possible to generate ad hoc check requests that target specific entities via the API.
+
+{{% notice note %}}
+**NOTE**: You can directly add, update, and delete subscriptions for individual entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../../api/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
+{{% /notice %}}
+
+## Publish checks
+
+If you want Sensu to automatically schedule and execute a check according to its subscriptions, set the [`publish` attribute][12] to `true` in the check definition.
+
+You can also manually schedule [ad hoc check execution][11] with the [check API][16], whether the `publish` attribute is set to `true` or `false`.
+To target the subscriptions defined in the check, include only the check name in the request body (e.g. `"check": "check_cpu"`).
+To override the check's subscriptions and target an alternate entity or group of entities, add the subscriptions attribute to the request body:
+
+{{< code shell >}}
+{
+  "check": "check_cpu",
+  "subscriptions": [
+    "entity:i-424242",
+    "entity:i-828282"
+  ]
+}
+{{< /code >}}
 
 
 [1]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern

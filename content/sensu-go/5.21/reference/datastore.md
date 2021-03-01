@@ -19,13 +19,14 @@ For longer retention of event data, integrate Sensu with a time series database 
 
 By default, Sensu uses its embedded etcd database to store configuration and event data.
 This embedded database allows you to get started with Sensu without deploying a complete, scalable architecture.
+Sensu's default embedded etcd configuration listens for unencrypted communication on [ports][19] 2379 (client requests) and 2380 (peer communication).
 
 Sensu can be configured to disable the embedded etcd database and use one or more [external etcd nodes][8] for configuration and event storage instead.
 
 As your deployment grows beyond the proof-of-concept stage, review [Deployment architecture for Sensu][6] for more information about deployment considerations and recommendations for a production-ready Sensu deployment.
 
 Sensu requires at least etcd 3.3.2 and is tested against releases in the 3.3.x series.
-etcd versions 3.4.0 and later are not supported.
+etcd version 3.4.0 is compatible with Sensu but may result in slower performance than the 3.3.x series.
 
 ## Scale event storage
 
@@ -39,12 +40,12 @@ When configured with a PostgreSQL event store, Sensu connects to PostgreSQL to s
 Etcd continues to store Sensu entity and configuration data.
 You can access event data stored in PostgreSQL using the same Sensu web UI, API, and sensuctl processes as etcd-stored events.
 
-## Requirements
+## PostgreSQL requirements
 
 Sensu supports PostgreSQL 9.5 and later, including [Amazon Relational Database Service][3] (Amazon RDS) when configured with the PostgreSQL engine.
 See the [PostgreSQL docs][14] to install and configure PostgreSQL.
 
-## Configuration
+## Configure the PostgreSQL event store
 
 At the time when you enable the PostgreSQL event store, event data cuts over from etcd to PostgreSQL.
 This results in a loss of recent event history.
@@ -56,7 +57,7 @@ When you successfully enable PostgreSQL as the Sensu Go event store, the Sensu b
 Mar 10 17:44:45 sensu-centos sensu-backend[1365]: {"component":"store-providers","level":"warning","msg":"switched event store to postgres","time":"2020-03-10T17:44:45Z"}
 {{< /code >}}
 
-After you install and configure PostgreSQL, configure Sensu by creating a `PostgresConfig` resource.
+After you [install and configure PostgreSQL][14], configure Sensu by creating a `PostgresConfig` resource like the following example.
 See [Datastore specification][18] for more information.
 
 {{< language-toggle >}}
@@ -92,7 +93,8 @@ spec:
 
 {{< /language-toggle >}}
 
-With the `PostgresConfig` resource definition saved to a file (for example, `postgres.yml`), use sensuctl, [configured as the admin user][1], to activate the PostgreSQL event store.
+Save your `PostgresConfig` resource definition to a file (in this example, `postgres.yml` or `postgres.json`).
+Then, use sensuctl [configured as the admin user][1] to activate the PostgreSQL event store.
 
 {{< language-toggle >}}
 
@@ -109,9 +111,9 @@ sensuctl create --file postgres.json
 To update your Sensu PostgreSQL configuration, repeat the `sensuctl create` process.
 You can expect to see PostgreSQL status updates in the [Sensu backend logs][2] at the `warn` log level and PostgreSQL error messages in the [Sensu backend logs][2] at the `error` log level.
 
-### Disable the PostgreSQL event store
+## Disable the PostgreSQL event store
 
-To disable the PostgreSQL event store, use `sensuctl delete` with your `PostgresConfig` resource definition:
+To disable the PostgreSQL event store, use `sensuctl delete` with your `PostgresConfig` resource definition file:
 
 {{< language-toggle >}}
 
@@ -319,7 +321,7 @@ pool_size: 20
 {{< /language-toggle >}}
 
 
-[1]: ../../sensuctl/#first-time-setup
+[1]: ../../sensuctl/#first-time-setup-and-authentication
 [2]: ../../operations/maintain-sensu/troubleshoot/
 [3]: https://aws.amazon.com/rds/
 [4]: https://pkg.go.dev/github.com/lib/pq@v1.2.0#hdr-Connection_String_Parameters
@@ -335,3 +337,4 @@ pool_size: 20
 [16]: ../../sensuctl/create-manage-resources/#create-resources
 [17]: #spec-attributes
 [18]: #datastore-specification
+[19]: ../../operations/deploy-sensu/install-sensu/#ports
