@@ -454,7 +454,7 @@ For example, this tag will list the `event.time` attribute:
 "output_metric_tags": [
   {
     "name": "instance",
-    "value": "{{ .time }}"
+    "value": "{{ .entity.system.hostname }}"
   }
 ]{{< /code >}}
 
@@ -466,7 +466,7 @@ With these event handlers, you can route metrics to one or more databases for st
 Many of our most popular metrics integrations for [time-series and long-term event storage][18] include curated, configurable quick-start templates to integrate Sensu with your existing workflows.
 You can also use [Bonsai][8], the Sensu asset hub, to discover, download, and share dynamic runtime assets for processing metrics.
 
-In check definitions, the `output_metrics_handlers` list for metrics event handlers is distinct and separate from the `handlers` list for status event handlers.
+In check definitions, the `output_metric_handlers` list for metrics event handlers is distinct and separate from the `handlers` list for status event handlers.
 Having separate handlers attributes allows you to use different workflows for metrics and status without applying conditional filter logic.
 The events reference includes an [example event with check and metric data][20].
 

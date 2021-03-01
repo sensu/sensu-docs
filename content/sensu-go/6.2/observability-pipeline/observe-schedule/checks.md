@@ -1392,103 +1392,102 @@ secret: sensu-ansible-host
 
 ## Metric check example
 
-The following example shows the resource definition for a check that collects metrics in Graphite Plaintext Protocol format:
+The following example shows the resource definition for a check that collects [metrics][68] in Nagios Performance Data format:
 
 {{< language-toggle >}}
 
 {{< code yml >}}
 ---
-type: Event
+type: CheckConfig
 api_version: core/v2
 metadata:
+  annotations:
+    slack-channel: '#monitoring'
+  labels:
+    region: us-west-1
+  name: collect-metrics
   namespace: default
 spec:
-  check:
-    metadata:
-      name: collect-metrics
-      namespace: default
-    command: collect_metrics.sh
-    output: |-
-      cpu.idle_percentage 61 1525462242
-      mem.sys 104448 1525462242
-    output_metric_format: nagios_perfdata
-    output_metric_handlers:
-    - prometheus_gateway
-    output_metric_tags:
-    - name: instance
-      value: "{{ .name }}"
-    - name: prometheus_type
-      value: gauge
-    - name: service
-      value: "{{ .labels.service }}"
-  metrics:
-    handlers:
-    - prometheus_gateway
-    points:
-    - name: cpu.idle_percentage
-      value: 61
-      timestamp: 1525462242
-      tags: []
-    - name: mem.sys
-      value: 104448
-      timestamp: 1525462242
-      tags: []
-
+  check_hooks: null
+  command: collect.sh
+  discard_output: true
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
+  interval: 10
+  low_flap_threshold: 0
+  output_metric_format: nagios_perfdata
+  output_metric_handlers:
+  - prometheus_gateway
+  output_metric_tags:
+  - name: instance
+    value: '{{ .name }}'
+  - name: prometheus_type
+    value: gauge
+  - name: service
+    value: '{{ .labels.service }}'
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets: null
+  stdin: false
+  subscriptions:
+  - system
+  timeout: 0
+  ttl: 0
 {{< /code >}}
 
 {{< code json >}}
 {
-  "type": "Event",
+  "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "namespace": "default"
+    "name": "collect-metrics",
+    "namespace": "default",
+    "labels": {
+      "region": "us-west-1"
+    },
+    "annotations": {
+      "slack-channel" : "#monitoring"
+    }
   },
   "spec": {
-    "check": {
-      "metadata": {
-        "name": "collect-metrics",
-        "namespace": "default"
+    "command": "collect.sh",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 10,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": null,
+    "subscriptions": [
+      "system"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "output_metric_format": "nagios_perfdata",
+    "output_metric_handlers": [
+      "prometheus_gateway"
+    ],
+    "output_metric_tags": [
+      {
+        "name": "instance",
+        "value": "{{ .name }}"
       },
-      "command": "collect_metrics.sh",
-      "output": "cpu.idle_percentage 61 1525462242\nmem.sys 104448 1525462242",
-      "output_metric_format": "nagios_perfdata",
-      "output_metric_handlers": [
-        "prometheus_gateway"
-      ],
-      "output_metric_tags": [
-        {
-          "name": "instance",
-          "value": "{{ .name }}"
-        },
-        {
-          "name": "prometheus_type",
-          "value": "gauge"
-        },
-        {
-          "name": "service",
-          "value": "{{ .labels.service }}"
-        }
-      ]
-    },
-    "metrics": {
-      "handlers": [
-        "prometheus_gateway"
-      ],
-      "points": [
-        {
-          "name": "cpu.idle_percentage",
-          "value": 61,
-          "timestamp": 1525462242,
-          "tags": []
-        },
-        {
-          "name": "mem.sys",
-          "value": 104448,
-          "timestamp": 1525462242,
-          "tags": []
-        }
-      ]
-    }
+      {
+        "name": "prometheus_type",
+        "value": "gauge"
+      },
+      {
+        "name": "service",
+        "value": "{{ .labels.service }}"
+      }
+    ],
+    "env_vars": null,
+    "discard_output": true
   }
 }
 {{< /code >}}
@@ -1655,4 +1654,4 @@ The dynamic runtime asset reference includes an [example check definition that u
 [65]: ../../../operations/deploy-sensu/datastore/
 [66]: ../../../operations/deploy-sensu/datastore/#round-robin-postgresql
 [67]: #event-storage-for-round-robin-scheduling
-[68]: ../metrics/#example-metric-check
+[68]: ../metrics/
