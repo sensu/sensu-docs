@@ -36,33 +36,71 @@ http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-component
     "type": "ServiceComponent",
     "api_version": "bsm/v1",
     "metadata": {
-      "name": "postgresql-component"
+      "name": "postgresql-1",
+      "namespace": "default",
+      "created_by": "admin"
     },
     "spec": {
-      "services": [
-        "account-manager",
-        "tessen"
+      "cron": "",
+      "handlers": [
+        "pagerduty",
+        "slack"
       ],
       "interval": 60,
-      "cron": "",
       "query": [
         {
           "type": "labelSelector",
-          "value": "region == us-west-2 && cmpt == psql"
+          "value": "region == 'us-west-1' && cmpt == psql"
         }
       ],
       "rules": [
         {
-          "template": "status-threshold",
           "arguments": {
             "status": "non-zero",
             "threshold": 25
-          }
+          },
+          "template": "status-threshold"
         }
       ],
+      "services": [
+        "account-manager",
+        "tessen"
+      ]
+    }
+  },
+  {
+    "type": "ServiceComponent",
+    "api_version": "bsm/v1",
+    "metadata": {
+      "name": "postgresql-2",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "spec": {
+      "cron": "",
       "handlers": [
         "pagerduty",
         "slack"
+      ],
+      "interval": 60,
+      "query": [
+        {
+          "type": "labelSelector",
+          "value": "region == 'us-west-2' && cmpt == psql"
+        }
+      ],
+      "rules": [
+        {
+          "arguments": {
+            "status": "non-zero",
+            "threshold": 25
+          },
+          "template": "status-threshold"
+        }
+      ],
+      "services": [
+        "account-manager",
+        "tessen"
       ]
     }
   }
@@ -83,33 +121,71 @@ output         | {{< code json >}}
     "type": "ServiceComponent",
     "api_version": "bsm/v1",
     "metadata": {
-      "name": "postgresql-component"
+      "name": "postgresql-1",
+      "namespace": "default",
+      "created_by": "admin"
     },
     "spec": {
-      "services": [
-        "account-manager",
-        "tessen"
+      "cron": "",
+      "handlers": [
+        "pagerduty",
+        "slack"
       ],
       "interval": 60,
-      "cron": "",
       "query": [
         {
           "type": "labelSelector",
-          "value": "region == us-west-2 && cmpt == psql"
+          "value": "region == 'us-west-1' && cmpt == psql"
         }
       ],
       "rules": [
         {
-          "template": "status-threshold",
           "arguments": {
             "status": "non-zero",
             "threshold": 25
-          }
+          },
+          "template": "status-threshold"
         }
       ],
+      "services": [
+        "account-manager",
+        "tessen"
+      ]
+    }
+  },
+  {
+    "type": "ServiceComponent",
+    "api_version": "bsm/v1",
+    "metadata": {
+      "name": "postgresql-2",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "spec": {
+      "cron": "",
       "handlers": [
         "pagerduty",
         "slack"
+      ],
+      "interval": 60,
+      "query": [
+        {
+          "type": "labelSelector",
+          "value": "region == 'us-west-2' && cmpt == psql"
+        }
+      ],
+      "rules": [
+        {
+          "arguments": {
+            "status": "non-zero",
+            "threshold": 25
+          },
+          "template": "status-threshold"
+        }
+      ],
+      "services": [
+        "account-manager",
+        "tessen"
       ]
     }
   }
@@ -129,7 +205,38 @@ curl -X POST \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
-  "TBD": "TBD"
+  "type": "ServiceComponent",
+  "api_version": "bsm/v1",
+  "metadata": {
+    "name": "postgresql-3"
+  },
+  "spec": {
+    "cron": "",
+    "handlers": [
+      "pagerduty",
+      "slack"
+    ],
+    "interval": 60,
+    "query": [
+      {
+        "type": "labelSelector",
+        "value": "region == 'us-west-3' && cmpt == psql"
+      }
+    ],
+    "rules": [
+      {
+        "arguments": {
+          "status": "non-zero",
+          "threshold": 25
+        },
+        "template": "status-threshold"
+      }
+    ],
+    "services": [
+      "account-manager",
+      "tessen"
+    ]
+  }
 }' \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components
 
@@ -144,7 +251,38 @@ description     | Creates a new business service component (if none exists).
 example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components
 payload         | {{< code json >}}
 {
-  "TBD": "TBD"
+  "type": "ServiceComponent",
+  "api_version": "bsm/v1",
+  "metadata": {
+    "name": "postgresql-3"
+  },
+  "spec": {
+    "cron": "",
+    "handlers": [
+      "pagerduty",
+      "slack"
+    ],
+    "interval": 60,
+    "query": [
+      {
+        "type": "labelSelector",
+        "value": "region == 'us-west-3' && cmpt == psql"
+      }
+    ],
+    "rules": [
+      {
+        "arguments": {
+          "status": "non-zero",
+          "threshold": 25
+        },
+        "template": "status-threshold"
+      }
+    ],
+    "services": [
+      "account-manager",
+      "tessen"
+    ]
+  }
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -159,13 +297,44 @@ In the following example, querying the `/service-components/:service-component` 
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components/my_replicator \
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-1 \
 -H "Authorization: Key $SENSU_API_KEY"
-[
-  {
-    "TBD": "TBD"
+{
+  "type": "ServiceComponent",
+  "api_version": "bsm/v1",
+  "metadata": {
+    "name": "postgresql-1",
+    "namespace": "default",
+    "created_by": "admin"
+  },
+  "spec": {
+    "cron": "",
+    "handlers": [
+      "pagerduty",
+      "slack"
+    ],
+    "interval": 60,
+    "query": [
+      {
+        "type": "labelSelector",
+        "value": "region == 'us-west-1' && cmpt == psql"
+      }
+    ],
+    "rules": [
+      {
+        "arguments": {
+          "status": "non-zero",
+          "threshold": 25
+        },
+        "template": "status-threshold"
+      }
+    ],
+    "services": [
+      "account-manager",
+      "tessen"
+    ]
   }
-]
+}
 {{< /code >}}
 
 ### API Specification
@@ -173,15 +342,46 @@ http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-component
 /service-components/:service-component (GET) | 
 ---------------------|------
 description          | Returns the specified business service component.
-example url          | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-component
+example url          | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-1
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
-[
-  {
-    "TBD": "TBD"
+{
+  "type": "ServiceComponent",
+  "api_version": "bsm/v1",
+  "metadata": {
+    "name": "postgresql-1",
+    "namespace": "default",
+    "created_by": "admin"
+  },
+  "spec": {
+    "cron": "",
+    "handlers": [
+      "pagerduty",
+      "slack"
+    ],
+    "interval": 60,
+    "query": [
+      {
+        "type": "labelSelector",
+        "value": "region == 'us-west-1' && cmpt == psql"
+      }
+    ],
+    "rules": [
+      {
+        "arguments": {
+          "status": "non-zero",
+          "threshold": 25
+        },
+        "template": "status-threshold"
+      }
+    ],
+    "services": [
+      "account-manager",
+      "tessen"
+    ]
   }
-]
+}
 {{< /code >}}
 
 ## Create or update a service component
@@ -190,16 +390,16 @@ The `/service-components/:service-component` API endpoint provides HTTP PUT acce
 
 ### Example
 
-The following example demonstrates a request to the `/service-components/:service-component` API endpoint to update the service component `postgresql-component`.
+The following example demonstrates a request to the `/service-components/:service-component` API endpoint to update the service component `postgresql-1`.
 
 {{< code shell >}}
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
-  "TBD": "TBD"
+TODO
 }' \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-component
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-1
 
 HTTP/1.1 200 OK
 {{< /code >}}
@@ -209,10 +409,10 @@ HTTP/1.1 200 OK
 /service-components/:service-component (PUT) | 
 ----------------|------
 description     | Creates or updates the specified business service component.
-example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-component
+example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-1
 payload         | {{< code json >}}
 {
-  "TBD": "TBD"
+TODO
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -223,12 +423,12 @@ The `/service-components/:service-component` API endpoint provides HTTP DELETE a
 
 ### Example
 
-The following example shows a request to the `/service-components/:service-component` API endpoint to delete the service component `postgresql-component`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/service-components/:service-component` API endpoint to delete the service component `postgresql-1`, resulting in a successful HTTP `204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-component
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-1
 
 HTTP/1.1 204 No Content
 {{< /code >}}
@@ -238,7 +438,7 @@ HTTP/1.1 204 No Content
 /service-components/:service-component (DELETE) | 
 --------------------------|------
 description               | Deletes the specified business service component from Sensu.
-example url               | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-component
+example url               | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-1
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get all rule templates
