@@ -397,7 +397,7 @@ curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
-TODO
+  "TODO": "TODO"
 }' \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-1
 
@@ -412,7 +412,7 @@ description     | Creates or updates the specified business service component.
 example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-1
 payload         | {{< code json >}}
 {
-TODO
+  "TODO": "TODO"
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -455,7 +455,78 @@ http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates \
 -H "Authorization: Key $SENSU_API_KEY"
 [
   {
-    "TBD": "TBD"
+    "type": "RuleTemplate",
+    "api_version": "bsm/v1",
+    "metadata": {
+      "name": "aggregate",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "spec": {
+      "arguments": {
+        "properties": {
+          "critical_count": {
+            "description": "create an event with a critical status if there the number of critical events is equal to or greater than this count\n",
+            "type": "number"
+          },
+          "critical_threshold": {
+            "description": "create an event with a critical status if the percentage of non-zero events is equal to or greater than this threshold\n",
+            "type": "number"
+          },
+          "produce_metrics": {
+            "default": {},
+            "type": "boolean"
+          },
+          "warning_count": {
+            "description": "create an event with a warning status if there the number of critical events is equal to or greater than this count\n",
+            "type": "number"
+          },
+          "warning_threshold": {
+            "description": "create an event with a warning status if the percentage of non-zero events is equal to or greater than this threshold\n",
+            "type": "number"
+          }
+        },
+        "required": [
+          "produce_metrics"
+        ]
+      },
+      "description": "An aggregate makes it possible to treat the result of multiple disparate check executions executed across multiple disparate systems as a single result (Event).\nAggregates are extremely useful in dynamic environments and/or environments that have a reasonable tolerance for failure.\nAggregates should be used when a service can be considered healthy as long as a minimum threshold is satisfied (e.g. are at least 5 healthy web servers? are at least 70% of N processes healthy?).\n",
+      "eval": "if (!!args[\"handlers\"]) {\n    event.check.handlers = args[\"handlers\"];\n}\n\nif (events && events.length == 0) {\n    event.check.output = \"WARNING: No events selected for aggregate\n\";\n    event.check.status = 1;\n    return event;\n}\n\nevent.annotations[\"io.sensu.bsm.selected_event_count\"] = events.length;\n\npercentOK = sensu.PercentageBySeverity(\"ok\");\n\nif (!!args[\"produce_metrics\"]) {\n    var handler = \"\";\n\n    if (!!args[\"metric_handler\"]) {\n        handler = args[\"metric_handler\"];\n    }\n\n    var ts = Math.floor(new Date().getTime() / 1000);\n\n    event.timestamp = ts;\n\n    var tags = [\n        {\n            name: \"service\",\n            value: event.entity.name\n        },\n        {\n            name: \"entity\",\n            value: event.entity.name\n        },\n        {\n            name: \"check\",\n            value: event.check.name\n        }\n    ];\n\n    event.metrics = sensu.NewMetrics({\n        handlers: [handler],\n        points: [\n            {\n                name: \"percent_non_zero\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"non-zero\"),\n                tags: tags\n            },\n            {\n                name: \"percent_ok\",\n                timestamp: ts,\n                value: percentOK,\n                tags: tags\n            },\n            {\n                name: \"percent_warning\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"warning\"),\n                tags: tags\n            },\n            {\n                name: \"percent_critical\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"critical\"),\n                tags: tags\n            },\n            {\n                name: \"percent_unknown\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"unknown\"),\n                tags: tags\n            },\n            {\n                name: \"count_non_zero\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"non-zero\"),\n                tags: tags\n            },\n            {\n                name: \"count_ok\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"ok\"),\n                tags: tags\n            },\n            {\n                name: \"count_warning\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"warning\"),\n                tags: tags\n            },\n            {\n                name: \"count_critical\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"critical\"),\n                tags: tags\n            },\n            {\n                name: \"count_unknown\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"unknown\"),\n                tags: tags\n            }\n        ]\n    });\n\n    if (!!args[\"set_metric_annotations\"]) {\n        var i = 0;\n\n        while(i < event.metrics.points.length) {\n            event.annotations[\"io.sensu.bsm.selected_event_\" + event.metrics.points[i].name] = event.metrics.points[i].value.toString();\n            i++;\n        }\n    }\n}\n\nif (!!args[\"critical_threshold\"] && percentOK <= args[\"critical_threshold\"]) {\n    event.check.output = \"CRITICAL: Less than \" + args[\"critical_threshold\"].toString() + \"% of selected events are OK (\" + percentOK.toString() + \"%)\n\";\n    event.check.status = 2;\n    return event;\n}\n\nif (!!args[\"warning_threshold\"] && percentOK <= args[\"warning_threshold\"]) {\n    event.check.output = \"WARNING: Less than \" + args[\"warning_threshold\"].toString() + \"% of selected events are OK (\" + percentOK.toString() + \"%)\n\";\n    event.check.status = 1;\n    return event;\n}\n\nif (!!args[\"critical_count\"]) {\n    crit = sensu.CountBySeverity(\"critical\");\n\n    if (crit >= args[\"critical_count\"]) {\n        event.check.output = \"CRITICAL: \" + args[\"critical_count\"].toString() + \" or more selected events are in a critical state (\" + crit.toString() + \")\n\";\n        event.check.status = 2;\n        return event;\n    }\n}\n\nif (!!args[\"warning_count\"]) {\n    warn = sensu.CountBySeverity(\"warning\");\n\n    if (warn >= args[\"warning_count\"]) {\n        event.check.output = \"WARNING: \" + args[\"warning_count\"].toString() + \" or more selected events are in a warning state (\" + warn.toString() + \")\n\";\n        event.check.status = 1;\n        return event;\n    }\n}\n\nevent.check.output = \"Everything looks good (\" + percentOK.toString() + \"% OK)\";\nevent.check.status = 0;\n\nreturn event;"
+    }
+  },
+  {
+    "type": "RuleTemplate",
+    "api_version": "bsm/v1",
+    "metadata": {
+      "name": "status-threshold",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "spec": {
+      "arguments": {
+        "properties": {
+          "status": {
+            "default": {},
+            "enum": [
+              "non-zero",
+              "warning",
+              "critical",
+              "unknown"
+            ],
+            "type": "string"
+          },
+          "threshold": {
+            "description": "Numeric value that triggers an event when surpassed",
+            "type": "number"
+          }
+        },
+        "required": [
+          "threshold"
+        ]
+      },
+      "description": "Creates an event when the percentage of events with the given status exceed the given threshold",
+      "eval": "var statusMap = {\n  \"non-zero\": 1,\n  \"warning\": 1,\n  \"critical\": 2,\n};\nfunction main(args) {\n  var total = sensu.events.count();\n  var num = sensu.events.count(args.status);\n  if (num / total <= args.threshold) {\n    return;\n  }\n  return event.status = statusMap[args.status],\n  });\n}"
+    }
   }
 ]
 HTTP/1.1 200 OK
@@ -473,7 +544,78 @@ response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal 
 output         | {{< code json >}}
 [
   {
-    "TBD": "TBD"
+    "type": "RuleTemplate",
+    "api_version": "bsm/v1",
+    "metadata": {
+      "name": "aggregate",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "spec": {
+      "arguments": {
+        "properties": {
+          "critical_count": {
+            "description": "create an event with a critical status if there the number of critical events is equal to or greater than this count\n",
+            "type": "number"
+          },
+          "critical_threshold": {
+            "description": "create an event with a critical status if the percentage of non-zero events is equal to or greater than this threshold\n",
+            "type": "number"
+          },
+          "produce_metrics": {
+            "default": {},
+            "type": "boolean"
+          },
+          "warning_count": {
+            "description": "create an event with a warning status if there the number of critical events is equal to or greater than this count\n",
+            "type": "number"
+          },
+          "warning_threshold": {
+            "description": "create an event with a warning status if the percentage of non-zero events is equal to or greater than this threshold\n",
+            "type": "number"
+          }
+        },
+        "required": [
+          "produce_metrics"
+        ]
+      },
+      "description": "An aggregate makes it possible to treat the result of multiple disparate check executions executed across multiple disparate systems as a single result (Event).\nAggregates are extremely useful in dynamic environments and/or environments that have a reasonable tolerance for failure.\nAggregates should be used when a service can be considered healthy as long as a minimum threshold is satisfied (e.g. are at least 5 healthy web servers? are at least 70% of N processes healthy?).\n",
+      "eval": "if (!!args[\"handlers\"]) {\n    event.check.handlers = args[\"handlers\"];\n}\n\nif (events && events.length == 0) {\n    event.check.output = \"WARNING: No events selected for aggregate\n\";\n    event.check.status = 1;\n    return event;\n}\n\nevent.annotations[\"io.sensu.bsm.selected_event_count\"] = events.length;\n\npercentOK = sensu.PercentageBySeverity(\"ok\");\n\nif (!!args[\"produce_metrics\"]) {\n    var handler = \"\";\n\n    if (!!args[\"metric_handler\"]) {\n        handler = args[\"metric_handler\"];\n    }\n\n    var ts = Math.floor(new Date().getTime() / 1000);\n\n    event.timestamp = ts;\n\n    var tags = [\n        {\n            name: \"service\",\n            value: event.entity.name\n        },\n        {\n            name: \"entity\",\n            value: event.entity.name\n        },\n        {\n            name: \"check\",\n            value: event.check.name\n        }\n    ];\n\n    event.metrics = sensu.NewMetrics({\n        handlers: [handler],\n        points: [\n            {\n                name: \"percent_non_zero\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"non-zero\"),\n                tags: tags\n            },\n            {\n                name: \"percent_ok\",\n                timestamp: ts,\n                value: percentOK,\n                tags: tags\n            },\n            {\n                name: \"percent_warning\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"warning\"),\n                tags: tags\n            },\n            {\n                name: \"percent_critical\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"critical\"),\n                tags: tags\n            },\n            {\n                name: \"percent_unknown\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"unknown\"),\n                tags: tags\n            },\n            {\n                name: \"count_non_zero\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"non-zero\"),\n                tags: tags\n            },\n            {\n                name: \"count_ok\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"ok\"),\n                tags: tags\n            },\n            {\n                name: \"count_warning\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"warning\"),\n                tags: tags\n            },\n            {\n                name: \"count_critical\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"critical\"),\n                tags: tags\n            },\n            {\n                name: \"count_unknown\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"unknown\"),\n                tags: tags\n            }\n        ]\n    });\n\n    if (!!args[\"set_metric_annotations\"]) {\n        var i = 0;\n\n        while(i < event.metrics.points.length) {\n            event.annotations[\"io.sensu.bsm.selected_event_\" + event.metrics.points[i].name] = event.metrics.points[i].value.toString();\n            i++;\n        }\n    }\n}\n\nif (!!args[\"critical_threshold\"] && percentOK <= args[\"critical_threshold\"]) {\n    event.check.output = \"CRITICAL: Less than \" + args[\"critical_threshold\"].toString() + \"% of selected events are OK (\" + percentOK.toString() + \"%)\n\";\n    event.check.status = 2;\n    return event;\n}\n\nif (!!args[\"warning_threshold\"] && percentOK <= args[\"warning_threshold\"]) {\n    event.check.output = \"WARNING: Less than \" + args[\"warning_threshold\"].toString() + \"% of selected events are OK (\" + percentOK.toString() + \"%)\n\";\n    event.check.status = 1;\n    return event;\n}\n\nif (!!args[\"critical_count\"]) {\n    crit = sensu.CountBySeverity(\"critical\");\n\n    if (crit >= args[\"critical_count\"]) {\n        event.check.output = \"CRITICAL: \" + args[\"critical_count\"].toString() + \" or more selected events are in a critical state (\" + crit.toString() + \")\n\";\n        event.check.status = 2;\n        return event;\n    }\n}\n\nif (!!args[\"warning_count\"]) {\n    warn = sensu.CountBySeverity(\"warning\");\n\n    if (warn >= args[\"warning_count\"]) {\n        event.check.output = \"WARNING: \" + args[\"warning_count\"].toString() + \" or more selected events are in a warning state (\" + warn.toString() + \")\n\";\n        event.check.status = 1;\n        return event;\n    }\n}\n\nevent.check.output = \"Everything looks good (\" + percentOK.toString() + \"% OK)\";\nevent.check.status = 0;\n\nreturn event;"
+    }
+  },
+  {
+    "type": "RuleTemplate",
+    "api_version": "bsm/v1",
+    "metadata": {
+      "name": "status-threshold",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "spec": {
+      "arguments": {
+        "properties": {
+          "status": {
+            "default": {},
+            "enum": [
+              "non-zero",
+              "warning",
+              "critical",
+              "unknown"
+            ],
+            "type": "string"
+          },
+          "threshold": {
+            "description": "Numeric value that triggers an event when surpassed",
+            "type": "number"
+          }
+        },
+        "required": [
+          "threshold"
+        ]
+      },
+      "description": "Creates an event when the percentage of events with the given status exceed the given threshold",
+      "eval": "var statusMap = {\n  \"non-zero\": 1,\n  \"warning\": 1,\n  \"critical\": 2,\n};\nfunction main(args) {\n  var total = sensu.events.count();\n  var num = sensu.events.count(args.status);\n  if (num / total <= args.threshold) {\n    return;\n  }\n  return event.status = statusMap[args.status],\n  });\n}"
+    }
   }
 ]
 {{< /code >}}
@@ -491,7 +633,7 @@ curl -X POST \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
-  "TBD": "TBD"
+  "TODO": "TODO"
 }' \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates
 
@@ -506,7 +648,7 @@ description     | Creates a new rule template (if none exists).
 example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates
 payload         | {{< code json >}}
 {
-  "TBD": "TBD"
+  "TODO": "TODO"
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
