@@ -1500,7 +1500,7 @@ The asset reference includes an [example check definition that uses the asset pa
 [27]: ../filters/
 [28]: ../../guides/monitor-external-resources/
 [29]: https://bonsai.sensu.io
-[30]: https://en.wikipedia.org/wiki/Cron#Timezone_handling
+[30]: https://en.wikipedia.org/wiki/Cron#Time_zone_handling
 [31]: #ttl-attribute
 [32]: #proxy-entity-name-attribute
 [33]: #proxy-checks
