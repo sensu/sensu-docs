@@ -17,9 +17,9 @@ Sensuctl works by calling Sensu’s underlying API to create, read, update, and 
 ## Create resources
 
 The `sensuctl create` command allows you to create or update resources by reading from STDIN or a [flag][36] configured file (`-f`).
-The `create` command accepts Sensu resource definitions in `wrapped-json` and `yaml`.
+The `create` command accepts Sensu resource definitions in [`yaml` or `wrapped-json` formats][4].
 Both JSON and YAML resource definitions wrap the contents of the resource in `spec` and identify the resource `type`.
-See the [`wrapped-json`example][9] and [this table][3] for a list of supported types.
+See the [list of supported resource types][3] `for sensuctl create`.
 See the [reference docs][6] for information about creating resource definitions.
 
 {{% notice note %}}
@@ -27,11 +27,45 @@ See the [reference docs][6] for information about creating resource definitions.
 Requests to update agent-managed entities via sensuctl will fail and return an error.
 {{% /notice %}}
 
-### `wrapped-json` format
+These examples specify two resources: a `marketing-site` check and a `slack` handler.
+In the YAML example, the resources are separated by a line with three hyphens: `---`.
+In the wrapped JSON example, the resources are separated *without* a comma.
 
-In this example, the file `my-resources.json` specifies two resources: a `marketing-site` check and a `slack` handler, separated _without_ a comma:
+Save these resource definitions to a file named `my-resources.yml` or `my-resources.json`:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: marketing-site
+  namespace: default
+spec:
+  command: check-http.rb -u https://sensu.io
+  subscriptions:
+  - demo
+  interval: 15
+  handlers:
+  - slack
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: slack
+  namespace: default
+spec:
+  command: sensu-slack-handler --channel '#monitoring'
+  env_vars:
+  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+  filters:
+  - is_incident
+  - not_silenced
+  type: pipe
+{{< /code >}}
+
+{{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -70,63 +104,35 @@ In this example, the file `my-resources.json` specifies two resources: a `market
 }
 {{< /code >}}
 
-To create all resources from `my-resources.json` using `sensuctl create`:
+{{< /language-toggle >}}
 
-{{< code shell >}}
-sensuctl create --file my-resources.json
-{{< /code >}}
+To create these resources from `my-resources.yml` or `my-resources.json` with `sensuctl create`:
 
-Or:
+{{< language-toggle >}}
 
-{{< code shell >}}
-cat my-resources.json | sensuctl create
-{{< /code >}}
-
-### `yaml` format
-
-In this example, the file `my-resources.yml` specifies two resources: a `marketing-site` check and a `slack` handler, separated with three dashes (`---`).
-
-{{< code yml >}}
----
-type: CheckConfig
-api_version: core/v2
-metadata:
-  name: marketing-site
-  namespace: default
-spec:
-  command: check-http.rb -u https://sensu.io
-  subscriptions:
-  - demo
-  interval: 15
-  handlers:
-  - slack
----
-type: Handler
-api_version: core/v2
-metadata:
-  name: slack
-  namespace: default
-spec:
-  command: sensu-slack-handler --channel '#monitoring'
-  env_vars:
-  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
-  filters:
-  - is_incident
-  - not_silenced
-  type: pipe
-{{< /code >}}
-
-To create all resources from `my-resources.yml` using `sensuctl create`:
-
-{{< code shell >}}
+{{< code shell "YML" >}}
 sensuctl create --file my-resources.yml
 {{< /code >}}
 
+{{< code shell "JSON" >}}
+sensuctl create --file my-resources.json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 Or:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 cat my-resources.yml | sensuctl create
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+cat my-resources.json | sensuctl create
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ### sensuctl create flags
 
@@ -167,9 +173,12 @@ The `sensuctl create` command applies namespaces to resources in the following o
 2. **`--namespace` flag**: If resource definitions do not specify a namespace, Sensu applies the namespace provided by the `sensuctl create --namespace` flag.
 3. **Current sensuctl namespace configuration**: If you do not specify an embedded `namespace` attribute or use the `--namespace` flag, Sensu applies the namespace configured in the current sensuctl session. See [Manage sensuctl][31] to view your current session config and set the session namespace.
 
-In this example, the file `pagerduty.yml` defines a handler _without_ a `namespace` attribute:
+This example defines a handler _without_ a `namespace` attribute:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:
@@ -181,23 +190,66 @@ spec:
   type: pipe
 {{< /code >}}
 
-To create the `pagerduty` handler in the `default` namespace:
+{{< code json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "pagerduty"
+  },
+  "spec": {
+    "command": "sensu-pagerduty-handler",
+    "env_vars": [
+      "PAGERDUTY_TOKEN=SECRET"
+    ],
+    "type": "pipe"
+  }
+}
+{{< /code >}}
 
-{{< code shell >}}
+{{< /language-toggle >}}
+
+If this resource definition is saved in a file named `pagerduty.yml` or `pagerduty.json`, create the `pagerduty` handler in the `default` namespace with this command:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 sensuctl create --file pagerduty.yml --namespace default
 {{< /code >}}
 
+{{< code shell "JSON" >}}
+sensuctl create --file pagerduty.json --namespace default
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 To create the `pagerduty` handler in the `production` namespace:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 sensuctl create --file pagerduty.yml --namespace production
 {{< /code >}}
 
+{{< code shell "JSON" >}}
+sensuctl create --file pagerduty.json --namespace production
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 To create the `pagerduty` handler in the current session namespace:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 sensuctl create --file pagerduty.yml
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create --file pagerduty.json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Delete resources
 
@@ -205,17 +257,33 @@ The `sensuctl delete` command allows you to delete resources by reading from STD
 The `delete` command accepts Sensu resource definitions in `wrapped-json` and `yaml` formats and uses the same [resource types][3] as `sensuctl create`.
 To be deleted successfully, resources provided to the `delete` command must match the name and namespace of an existing resource.
 
-To delete all resources from `my-resources.yml` with `sensuctl delete`:
+To delete all resources from `my-resources.yml` or `my-resources.json` with `sensuctl delete`:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 sensuctl delete --file my-resources.yml
 {{< /code >}}
 
+{{< code shell "JSON" >}}
+sensuctl delete --file my-resources.json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 Or:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 cat my-resources.yml | sensuctl delete
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+cat my-resources.json | sensuctl delete
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ### Delete resources across namespaces
 
@@ -296,17 +364,33 @@ To list checks from all namespaces:
 sensuctl check list --all-namespaces
 {{< /code >}}
 
-To write all checks to `my-resources.json` in `wrapped-json` format:
+To write all checks to `my-resources.yml` in `yaml` format or to `my-resources.json` in `wrapped-json` format:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl check list --format yaml > my-resources.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
 sensuctl check list --format wrapped-json > my-resources.json
 {{< /code >}}
 
-To see the definition for a check named `check-cpu` in [`wrapped-json` format][4]:
+{{< /language-toggle >}}
 
-{{< code shell >}}
+To see the definition for a check named `check-cpu` in `yaml` or `wrapped-json` format:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl check info check-cpu --format yaml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
 sensuctl check info check-cpu --format wrapped-json
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 In addition to the standard operations, commands may support subcommands or flags that allow you to take special action based on the resource type.
 The sections below describe these resource-specific operations.
@@ -411,48 +495,6 @@ The pruning operation always follows the role-based access control (RBAC) permis
 For example, to prune resources in the `dev` namespace, the current user who sends the prune command must have delete access to the `dev` namespace.
 In addition, pruning requires [cluster-level privileges][35], even when all resources belong to the same namespace.
 
-##### sensuctl prune usage
-
-{{< code shell >}}
-sensuctl prune [RESOURCE TYPE],[RESOURCE TYPE]... -f [FILE or URL] [-r] ... ] [--NAMESPACE] [flags]
-{{< /code >}}
-
-In this example `sensuctl prune` command:
-
-- Replace [RESOURCE TYPE] with the [fully qualified name or short name][10] of the resource you want to prune.
-You must specify at least one resource type or the `all` qualifier (to prune all resource types).
-- Replace [FILE or URL] with the name of the file or the URL that contains the set of Sensu objects you want to keep (the configuration).
-- Replace [flags] with the flags you want to use, if any.
-- Replace [--NAMESPACE] with the namespace where you want to apply pruning.
-If you omit the namespace qualifier, the command defaults to the current configured namespace.
-
-Use a comma separator to prune more than one resource in a single command.
-
-For example, to prune checks and dynamic runtime assets from the file `checks.yaml` for the `dev` namespace and the `admin` and `ops` users:
-
-{{< code shell >}}
-sensuctl prune core/v2.CheckConfig,core/v2.Asset --file checks.yaml --namespace dev --users admin,ops
-
-sensuctl prune checks,assets --file checks.yaml --namespace dev --users admin,ops
-{{< /code >}}
-
-##### sensuctl prune flags
-
-Run `sensuctl prune -h` to view command-specific and global flags.
-The following table describes the command-specific flags.
-
-| Flag | Function and important notes
-| ---- | ----------------------------
-`-a` or `--all-users` | Prunes resources created by all users. Mutually exclusive with the `--users` flag. Defaults to false.
-`-c` or `--cluster-wide` | Prunes any cluster-wide (non-namespaced) resources that are not defined in the configuration. Defaults to false.
-`-d` or `--dry-run` | Prints the resources that will be pruned but does not actually delete them. Defaults to false.
-`-f` or `--file` | Files, URLs, or directories to prune resources from. Strings.
-`-h` or `--help` | Help for the prune command.
-`--label-selector` | Prunes only resources that match the specified labels (comma-separated strings). Labels are a [commercial feature][30].
-`-o` or `--omit` | Resources that should be excluded from being pruned.
-`-r` or `--recursive` | Prune command will follow subdirectories.
-`-u` or `--users` | Prunes only resources that were created by the specified users (comma-separated strings). Defaults to the currently configured sensuctl user.
-
 ##### Supported resource types
 
 Use `sensuctl describe-type all` to retrieve the list of supported `sensuctl prune` resource types.
@@ -494,17 +536,64 @@ sensuctl describe-type all
   core/v2.Silenced               silenced              core/v2             Silenced             true  
 {{< /code >}}
 
-{{% notice note %}}
-**NOTE**: In Sensu 6.1.0, `sensuctl prune` does not work with hooks.
-{{% /notice %}}
+##### sensuctl prune flags
 
-##### sensuctl prune examples
+Run `sensuctl prune -h` to view command-specific and global flags.
+The following table describes the command-specific flags.
+
+| Flag | Function and important notes
+| ---- | ----------------------------
+`-a` or `--all-users` | Prunes resources created by all users. Mutually exclusive with the `--users` flag. Defaults to false.
+`-c` or `--cluster-wide` | Prunes any cluster-wide (non-namespaced) resources that are not defined in the configuration. Defaults to false.
+`-d` or `--dry-run` | Prints the resources that will be pruned but does not actually delete them. Defaults to false.
+`-f` or `--file` | Files, URLs, or directories to prune resources from. Strings.
+`-h` or `--help` | Help for the prune command.
+`--label-selector` | Prunes only resources that match the specified labels (comma-separated strings). Labels are a [commercial feature][30].
+`-o` or `--omit` | Resources that should be excluded from being pruned.
+`-r` or `--recursive` | Prune command will follow subdirectories.
+`-u` or `--users` | Prunes only resources that were created by the specified users (comma-separated strings). Defaults to the currently configured sensuctl user.
+
+##### sensuctl prune usage
+
+{{< code shell >}}
+sensuctl prune [RESOURCE TYPE],[RESOURCE TYPE]... -f [FILE or URL] [-r] ... ] [--NAMESPACE] [flags]
+{{< /code >}}
+
+In this example `sensuctl prune` command:
+
+- Replace [RESOURCE TYPE] with the [fully qualified name or short name][10] of the resource you want to prune.
+You must specify at least one resource type or the `all` qualifier (to prune all resource types).
+- Replace [FILE or URL] with the name of the file or the URL that contains the set of Sensu objects you want to keep (the configuration).
+- Replace [flags] with the flags you want to use, if any.
+- Replace [--NAMESPACE] with the namespace where you want to apply pruning.
+If you omit the namespace qualifier, the command defaults to the current configured namespace.
+
+Use a comma separator to prune more than one resource in a single command.
+For example, to prune checks and dynamic runtime assets from the file `checks.yaml` or `checks.json` for the `dev` namespace and the `admin` and `ops` users:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl prune core/v2.CheckConfig,core/v2.Asset --file checks.yaml --namespace dev --users admin,ops
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl prune core/v2.CheckConfig,core/v2.Asset --file checks.json --namespace dev --users admin,ops
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 `sensuctl prune` supports pruning resources by their fully qualified names or short names:
 
+Fully qualified names:
+
 {{< code shell >}}
 sensuctl prune core/v2.CheckConfig,core/v2.Entity
+{{< /code >}}
 
+Short names:
+
+{{< code shell >}}
 sensuctl prune checks,entities
 {{< /code >}}
 
@@ -552,10 +641,9 @@ Sensuctl supports the following formats:
 [6]: ../../reference/
 [7]: ../../operations/deploy-sensu/cluster-sensu/
 [8]: ../../operations/control-access/rbac/#user-specification
-[9]: #wrapped-json-format
 [10]: #supported-resource-types
 [11]: ../../web-ui/webconfig-reference/
-[12]: ../../operations/deploy-sensu/assets/
+[12]: ../../plugins/assets/
 [13]: ../../observability-pipeline/observe-schedule/checks/
 [14]: ../../observability-pipeline/observe-entities/entities/
 [15]: ../../observability-pipeline/observe-events/events/
@@ -578,6 +666,6 @@ Sensuctl supports the following formats:
 [32]: ../../operations/deploy-sensu/datastore/
 [33]: #create-resources-across-namespaces
 [34]: ../../operations/maintain-sensu/license/
-[35]: ../../operations/control-access/rbac/#cluster-roles
+[35]: ../../operations/control-access/rbac/#roles-and-cluster-roles
 [36]: #sensuctl-create-flags
 [37]: ../../operations/control-access/oidc-auth/

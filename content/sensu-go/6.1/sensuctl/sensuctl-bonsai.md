@@ -28,8 +28,15 @@ If you do not specify a version to install, Sensu automatically installs the lat
 
 ![Bonsai page for InfluxDB handler showing namespace and name][2]
 
+For example, to install version 3.1.1 of the [Sensu InfluxDB Handler][4] dynamic runtime asset:
+
 {{< code shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.1.1
+{{< /code >}}
+
+The response should be similar to this example:
+
+{{< code shell >}}
 fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.1
 added asset: sensu/sensu-influxdb-handler:3.1.1
 
@@ -42,17 +49,11 @@ You can also use the `--rename` flag to rename the dynamic runtime asset on inst
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.1.1 --rename influxdb-handler
-fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.1
-added asset: sensu/sensu-influxdb-handler:3.1.1
-
-You have successfully added the Sensu asset resource, but the asset will not get downloaded until
-it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
-resource, populate the "runtime_assets" field with ["influxdb-handler"].
 {{< /code >}}
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../operations/deploy-sensu/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read [the asset reference](../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Check your Sensu backend for outdated dynamic runtime assets
@@ -62,6 +63,11 @@ This will print a list of dynamic runtime assets installed in the backend whose 
 
 {{< code shell >}}
 sensuctl asset outdated
+{{< /code >}}
+
+The response should be similar to this example:
+
+{{< code shell >}}
           Asset Name                  Bonsai Asset          Current Version  Latest Version
 ----------------------------  ----------------------------  ---------------  --------------
 sensu/sensu-influxdb-handler  sensu/sensu-influxdb-handler       3.1.1            3.1.2
@@ -187,3 +193,4 @@ Flags are optional and apply only to the `delete` command.
 [1]: https://bonsai.sensu.io/
 [2]: /images/sensu-influxdb-handler-namespace.png
 [3]: https://bonsai.sensu.io/assets/portertech/sensu-ec2-discovery
+[4]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
