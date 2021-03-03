@@ -544,9 +544,9 @@ Sensu will attempt to recover from these conditions when it can, but this may no
 
 To maximize Sensu Go performance, we recommend that you:
  * Follow our [recommended backend hardware configuration][19].
- * Immplement [documented etcd system tuning practices][14].
+ * Implement [documented etcd system tuning practices][14].
  * [Benchmark your etcd storage volume][15] to establish baseline IOPS for your system.
- * [Scale event storage using PostgreSQL][16] to reduce the overall volume of etcd transactions.
+ * [Scale event storage using PostgreSQL][16] with [round robin scheduling enabled][20] to reduce the overall volume of etcd transactions.
 
  As your Sensu deployments grow, preventing issues associated with poor datastore performance relies on ongoing collection and review of [Sensu time-series performance metrics][18].
 
@@ -614,3 +614,4 @@ The backend will stop listening on those ports when the etcd database is unavail
 [17]: ../../deploy-sensu/datastore/#use-default-event-storage
 [18]: ../../../api/metrics/
 [19]: ../../deploy-sensu/hardware-requirements/#backend-recommended-configuration
+[20]: ../../deploy-sensu/datastore/#round-robin-postgresql
