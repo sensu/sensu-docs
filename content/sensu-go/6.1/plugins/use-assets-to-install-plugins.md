@@ -29,6 +29,11 @@ To add the [Sensu PagerDuty Handler dynamic runtime asset][7] to Sensu, use [`se
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
+{{< /code >}}
+
+The response should be similar to this example:
+
+{{< code shell >}}
 fetching bonsai asset: sensu/sensu-pagerduty-handler:1.2.0
 added asset: sensu/sensu-pagerduty-handler:1.2.0
 
