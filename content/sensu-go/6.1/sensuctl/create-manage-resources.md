@@ -60,7 +60,7 @@ spec:
   type: pipe
 {{< /code >}}
 
-{{< code json >}}
+{{< code shell "JSON" >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
