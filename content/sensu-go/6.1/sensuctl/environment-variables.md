@@ -38,9 +38,6 @@ export SENSU_ACCESS_TOKEN_EXPIRES_AT="1567716187"
 export SENSU_REFRESH_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x"
 export SENSU_TRUSTED_CA_FILE=""
 export SENSU_INSECURE_SKIP_TLS_VERIFY="true"
-
-# Run this command to configure your shell:
-# eval $(sensuctl env)
 {{< /code >}}
 
 {{< code cmd >}}
@@ -52,8 +49,6 @@ SET SENSU_ACCESS_TOKEN_EXPIRES_AT=1567716676
 SET SENSU_REFRESH_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x
 SET SENSU_TRUSTED_CA_FILE=
 SET SENSU_INSECURE_SKIP_TLS_VERIFY=true
-REM Run this command to configure your shell:
-REM   @FOR /f "tokens=*" %i IN ('sensuctl env --shell cmd') DO @%i
 {{< /code >}}
 
 {{< code powershell >}}
@@ -65,9 +60,24 @@ $Env:SENSU_ACCESS_TOKEN_EXPIRES_AT = "1567716738"
 $Env:SENSU_REFRESH_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x"
 $Env:SENSU_TRUSTED_CA_FILE = ""
 $Env:SENSU_INSECURE_SKIP_TLS_VERIFY = "true"
+{{< /code >}}
 
-# Run this command to configure your shell:
-# & sensuctl env --shell powershell | Invoke-Expression
+{{< /language-toggle >}}
+
+Run these commands to configure your shell:
+
+{{< language-toggle >}}
+
+{{< code bash >}}
+eval $(sensuctl env)
+{{< /code >}}
+
+{{< code cmd >}}
+@FOR /f "tokens=*" %i IN ('sensuctl env --shell cmd') DO @%i
+{{< /code >}}
+
+{{< code powershell >}}
+& sensuctl env --shell powershell | Invoke-Expression
 {{< /code >}}
 
 {{< /language-toggle >}}

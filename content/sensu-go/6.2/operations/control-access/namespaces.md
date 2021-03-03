@@ -257,7 +257,7 @@ name: production
 [5]: ../rbac/#namespaced-resource-types
 [6]: ../../../api/
 [7]: ../rbac/#default-users
-[8]: ../rbac/#cluster-roles
+[8]: ../rbac/#roles-and-cluster-roles
 [9]: ../../deploy-sensu/install-sensu/#install-sensuctl
 [10]: ../../../sensuctl/create-manage-resources/#create-resources
 [11]: #spec-attributes

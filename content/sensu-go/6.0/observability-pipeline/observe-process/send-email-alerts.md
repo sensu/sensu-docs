@@ -63,7 +63,7 @@ The dynamic runtime asset includes the `sensu-email-handler` command, which you 
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../operations/deploy-sensu/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Add an event filter
@@ -279,7 +279,7 @@ You can also follow our [Up and running with Sensu Go][9] interactive tutorial t
 [5]: ../../observe-filter/filters/
 [6]: ../handlers/
 [7]: ../../observe-filter/reduce-alert-fatigue/
-[8]: ../../../operations/deploy-sensu/assets
+[8]: ../../../plugins/assets
 [9]: ../../../learn/up-and-running/
 [10]: ../../observe-filter/filters/#built-in-filter-is_incident
 [11]: ../../observe-filter/filters/#built-in-filter-not_silenced

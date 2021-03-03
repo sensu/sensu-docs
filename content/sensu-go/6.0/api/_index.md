@@ -73,16 +73,23 @@ For information about using Sensu's built-in basic authentication or external au
 
 ### Authentication quickstart
 
-To set up a local API testing environment, save your Sensu credentials and token as environment variables:
+To set up a local API testing environment, save your Sensu credentials and access token as environment variables.
+
+Save your Sensu credentials as environemnt variables:
 
 {{< code shell >}}
-# Requires curl and jq
 export SENSU_USER=YOUR_USERNAME && SENSU_PASS=YOUR_PASSWORD
-
-export SENSU_ACCESS_TOKEN=`curl -X GET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
 {{< /code >}}
 
-The [sensuctl reference][7] demonstrates how to use the `sensuctl env` command to export your access token, token expiry time, and refresh token as environment variables.
+Save your Sensu access token as an environment variable:
+
+{{% notice note %}}
+**NOTE**: The command to save your access token as an environment variable requires curl and jq.
+{{% /notice %}}
+
+{{< code shell >}}
+export SENSU_ACCESS_TOKEN=`curl -X GET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
+{{< /code >}}
 
 ### Authenticate with the authentication API
 
@@ -217,28 +224,10 @@ curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/na
 This example uses the API key directly (rather than via an environment variable) to authenticate to the checks API:
 
 {{< code shell >}}
-$ curl -H "Authorization: Key 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
-
-HTTP/1.1 200 OK
-[
-  {
-    "command": "check-cpu.sh -w 75 -c 90",
-    "handlers": [
-      "slack"
-    ],
-    "interval": 60,
-    "publish": true,
-    "subscriptions": [
-      "linux"
-    ],
-    "metadata": {
-      "name": "check-cpu",
-      "namespace": "default",
-      "created_by": "admin"
-    }
-  }
-]
+curl -H "Authorization: Key 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
 {{< /code >}}
+
+A successful request will return the HTTP response code `HTTP/1.1 200 OK` and the definitions for the checks in the default namespace.
 
 ## Pagination
 
