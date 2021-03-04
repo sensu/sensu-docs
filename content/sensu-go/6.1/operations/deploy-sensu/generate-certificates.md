@@ -306,9 +306,9 @@ Now that you have generated the required certificates and copied them to the app
 
 
 [1]: ../secure-sensu/
-[2]: ../secure-sensu/#secure-etcd-peer-communication
-[3]: ../secure-sensu/#secure-the-api-and-web-ui
-[4]: ../secure-sensu/#secure-sensu-agent-to-server-communication
+[2]: ../secure-sensu/#etcd-peer-communication
+[3]: ../secure-sensu/#sensu-api-and-web-ui
+[4]: ../secure-sensu/#sensu-agent-to-server-communication
 [5]: ../secure-sensu/#sensu-agent-mtls-authentication
 [6]: https://github.com/cloudflare/cfssl
 [7]: https://etcd.io/docs/v3.3.13/op-guide/security/
