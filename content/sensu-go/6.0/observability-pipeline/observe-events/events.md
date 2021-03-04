@@ -707,10 +707,14 @@ With both the `list` and `info` commands, you can specify an [output format][18]
 - `yaml` or `wrapped-json` formats for use with [`sensuctl create`][8]
 - `json` format for use with the [events API][16]
 
-{{< code shell >}}
+{{< language-toggle >}}
+{{< code shell "YML" >}}
 sensuctl event info entity-name check-name --format yaml
+{{< /code >}}
+{{< code shell "JSON" >}}
 sensuctl event info entity-name check-name --format json
 {{< /code >}}
+{{< /language-toggle >}}
 
 ### Delete events
 
@@ -794,8 +798,8 @@ Within a sequence of only OK or only non-OK events, Sensu increments `occurrence
 
 The following table shows the occurrences attributes for a series of example events:
 
-| event sequence   | `occurrences`   | `occurrences_watermark` |
-| -----------------| --------------- | ----------------------- |
+| event sequence    | `occurrences`   | `occurrences_watermark` |
+| ----------------- | --------------- | ----------------------- |
 |1. OK event        | `occurrences: 1`| `occurrences_watermark: 1`
 |2. OK event        | `occurrences: 2`| `occurrences_watermark: 2`
 |3. WARNING event   | `occurrences: 1`| `occurrences_watermark: 1`
