@@ -34,7 +34,7 @@ Use sensuctl to register the Sensu Disk Checks Plugin dynamic runtime asset, `se
 sensuctl asset add sensu-plugins/sensu-plugins-disk-checks:5.1.4
 {{< /code >}}
 
-You should see a response like this:
+The response will indicate that the asset was added:
 
 {{< code shell >}}
 fetching bonsai asset: sensu-plugins/sensu-plugins-disk-checks:5.1.4

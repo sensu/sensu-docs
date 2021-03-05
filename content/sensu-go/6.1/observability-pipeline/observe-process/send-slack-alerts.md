@@ -28,6 +28,11 @@ Use [`sensuctl asset add`][10] to register the [Sensu Slack Handler][14] dynamic
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-slack-handler:1.0.3 -r sensu-slack-handler
+{{< /code >}}
+
+The response will indicate that the asset was added:
+
+{{< code shell >}}
 fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
 added asset: sensu/sensu-slack-handler:1.0.3
 

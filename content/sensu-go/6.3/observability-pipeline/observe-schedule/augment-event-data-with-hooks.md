@@ -50,7 +50,6 @@ sensuctl check set-hooks nginx_process  \
 
 Verify that the check hook is behaving properly against a specific event with `sensuctl`.
 It might take a few moments after you assign the check hook for the check to be scheduled on the entity and the result sent back to the Sensu backend.
-The check hook command result is available in the `hooks` array, within the `check` scope:
 
 {{< language-toggle >}}
 
@@ -63,6 +62,8 @@ sensuctl event info i-424242 nginx_process --format json
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+The check hook command result is available in the `hooks` array, within the `check` scope:
 
 {{< language-toggle >}}
 
@@ -113,7 +114,11 @@ This example uses sensuctl to query event info and send the response to `jq` so 
 
 {{< code shell >}}
 sensuctl event info i-424242 nginx_process --format json | jq -r '.check.hooks[0].output' 
+{{< /code >}}
 
+This example output is truncated for brevity, but it reflects the output of the `ps aux` command specified in the check hook you created:
+
+{{< code shell >}}
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root         1  0.0  0.3  46164  6704 ?        Ss   Nov17   0:11 /usr/lib/systemd/systemd --switched-root --system --deserialize 20
 root         2  0.0  0.0      0     0 ?        S    Nov17   0:00 [kthreadd]
@@ -123,11 +128,11 @@ root         8  0.0  0.0      0     0 ?        S    Nov17   0:00 [rcu_bh]
 root         9  0.0  0.0      0     0 ?        S    Nov17   0:34 [rcu_sched]
 {{< /code >}}
 
-Although this output is truncated in the interest of brevity, it reflects the output of the `ps aux` command specified in the check hook you created.
 Now when you are alerted that Nginx is not running, you can review the check hook output to confirm this is true with no need to start up an SSH session to investigate.
 
 ## Next steps
 
 To learn more about data collection with check hooks, read the [hooks reference][1].
+
 
 [1]: ../hooks/
