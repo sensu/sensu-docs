@@ -29,6 +29,11 @@ Use [`sensuctl asset add`][5] to register the [Sensu InfluxDB Handler][13] dynam
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.1.2 -r influxdb-handler
+{{< /code >}}
+
+The response will indicate that the asset was added:
+
+{{< code shell >}}
 fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.2
 added asset: sensu/sensu-influxdb-handler:3.1.2
 
@@ -130,10 +135,17 @@ spec:
 With the `influx-db` handler created, you can assign it to a check for check output metric extraction. 
 For example, suppose you followed [Collect service metrics with Sensu checks][10] to create the check named `collect-metrics`.
 
-Update the output metric format and output metric handlers to use the check with InfluxDB:
+Update the output metric format and output metric handlers to use the check with InfluxDB:.
+
+To update the output metric format, run:
 
 {{< code shell >}}
 sensuctl check set-output-metric-format collect-metrics influxdb_line
+{{< /code >}}
+
+To update the output metric handlers, run:
+
+{{< code shell >}}
 sensuctl check set-output-metric-handlers collect-metrics influx-db
 {{< /code >}}
 

@@ -1027,7 +1027,7 @@ spec:
 [20]: ../events/#history-attributes
 [21]: ../checks#check-scheduling
 [22]: ../handlers/
-[23]: ../events#metric-attributes
+[23]: ../events#metrics-attributes
 [24]: ../entities#metadata-attributes
 [25]: ../rbac/#default-roles-and-cluster-roles
 [26]: ../agent#keepalive-monitoring

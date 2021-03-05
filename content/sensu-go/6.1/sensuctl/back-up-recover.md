@@ -33,21 +33,32 @@ To export only handlers and filters for only the current namespace to a file nam
 sensuctl dump core/v2.Handler,core/v2.EventFilter --format yaml --file my-handlers-and-filters.yaml
 {{< /code >}}
 
-To export resources for **all namespaces**, add the `--all-namespaces` flag to any `sensuctl dump` command:
+To export resources for **all namespaces**, add the `--all-namespaces` flag to any `sensuctl dump` command.
+For example:
 
 {{< code shell >}}
 sensuctl dump all --all-namespaces --format yaml --file my-resources.yaml
+{{< /code >}}
 
+{{< code shell >}}
 sensuctl dump core/v2.CheckConfig --all-namespaces --format yaml
+{{< /code >}}
 
+{{< code shell >}}
 sensuctl dump core/v2.Handler,core/v2.EventFilter --all-namespaces --format yaml --file my-handlers-and-filters.yaml
 {{< /code >}}
 
-You can use [fully qualified names or short names][6] to specify resources in `sensuctl dump` commands:
+You can use [fully qualified names or short names][6] to specify resources in `sensuctl dump` commands.
+
+Here's an example that uses fully qualified names:
 
 {{< code shell >}}
 sensuctl dump core/v2.Handler,core/v2.EventFilter --format yaml --file my-handlers-and-filters.yaml
+{{< /code >}}
 
+Here's an example that uses short names:
+
+{{< code shell >}}
 sensuctl dump handlers,filters --format yaml --file my-handlers-and-filters.yaml
 {{< /code >}}
 
@@ -166,7 +177,11 @@ Use `sensuctl describe-type all` to retrieve the list of supported `sensuctl dum
 
 {{< code shell >}}
 sensuctl describe-type all
+{{< /code >}}
 
+The response will list the names and other details for the supported resource types:
+
+{{< code shell >}}
       Fully Qualified Name           Short Name           API Version             Type          Namespaced  
  ────────────────────────────── ───────────────────── ─────────────────── ──────────────────── ──────────── 
   authentication/v2.Provider                           authentication/v2   Provider             false
@@ -204,7 +219,9 @@ You can also list specific resource types by fully qualified name or short name:
 
 {{< code shell >}}
 sensuctl describe-type core/v2.CheckConfig
+{{< /code >}}
 
+{{< code shell >}}
 sensuctl describe-type checks
 {{< /code >}}
 
@@ -212,7 +229,9 @@ To list more than one type, use a comma-separated list:
 
 {{< code shell >}}
 sensuctl describe-type core/v2.CheckConfig,core/v2.EventFilter,core/v2.Handler
+{{< /code >}}
 
+{{< code shell >}}
 sensuctl describe-type checks,filters,handlers
 {{< /code >}}
 
@@ -221,11 +240,17 @@ sensuctl describe-type checks,filters,handlers
 Add the `--format` flag to specify how the resources should be formatted in the `sensuctl describe-type` response.
 The default is unformatted, but you can specify either `wrapped-json` or `yaml`:
 
-{{< code shell >}}
-sensuctl describe-type core/v2.CheckConfig --format yaml
+{{< language-toggle >}}
 
+{{< code shell "YML" >}}
+sensuctl describe-type core/v2.CheckConfig --format yaml
+{{< /code >}}
+
+{{< code shell "JSON">}}
 sensuctl describe-type core/v2.CheckConfig --format wrapped-json
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 
 [1]: ../create-manage-resources/#create-resources

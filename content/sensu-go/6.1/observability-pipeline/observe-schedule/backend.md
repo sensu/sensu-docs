@@ -128,11 +128,15 @@ sensu-backend init
 **NOTE**: Make sure the Sensu backend is running before you run `sensu-backend init`.
 {{% /notice %}}
 
-You can also run the `sensu-backend init` command in interactive mode if you prefer to respond to prompts for your username and password:
+You can also run the `sensu-backend init` command in interactive mode:
 
 {{< code shell >}}
 sensu-backend init --interactive
+{{< /code >}}
 
+You will receive prompts for your username and password in interactive mode:
+
+{{< code shell >}}
 Admin Username: YOUR_USERNAME
 Admin Password: YOUR_PASSWORD
 {{< /code >}}
@@ -233,13 +237,17 @@ sensu-backend version
 
 ### Get help
 
-The `sensu-backend` tool provides general and command-specific help flags:
+The `sensu-backend` tool provides general and command-specific help flags.
+
+To see sensu-backend commands, run:
 
 {{< code shell >}}
-# Show sensu-backend commands
 sensu-backend help
+{{< /code >}}
 
-# Show options for the sensu-backend start subcommand
+To see options for a specific command (in this case, sensu-backend start), run: 
+
+{{< code shell >}}
 sensu-backend start --help
 {{< /code >}}
 
@@ -280,8 +288,15 @@ The Sensu backend checks certificate revocation list (CRL) and Online Certificat
 
 ### Configuration summary
 
+To view configuration information for the sensu-backend start command, run:
+
+{{< code shell >}}
+sensu-backend start --help
+{{< /code >}}
+
+The response will list command information and configuration flags for sensu-backend start:
+
 {{< code text >}}
-$ sensu-backend start --help
 start the sensu backend
 
 Usage:
@@ -360,7 +375,6 @@ discovery instead of the static `--initial-cluster method`
       --no-embed-etcd                              don't embed etcd; use external etcd instead
 {{< /code >}}
 
-
 ### General configuration flags
 
 {{% notice note %}}
@@ -376,15 +390,14 @@ required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
 environment variable | `SENSU_BACKEND_ANNOTATIONS`
-example      | {{< code shell >}}# Command line examples
+command line example   | {{< code shell >}}
 sensu-backend start --annotations sensu.io/plugins/slack/config/webhook-url=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
 sensu-backend start --annotations example-key="example value" --annotations example-key2="example value"
-
-# /etc/sensu/backend.yml example
+{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 annotations:
   sensu.io/plugins/slack/config/webhook-url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
 {{< /code >}}
-
 
 | api-listen-address  |      |
 -------------|------
@@ -392,12 +405,10 @@ description  | Address the API daemon will listen for requests on.
 type         | String
 default      | `[::]:8080`
 environment variable | `SENSU_BACKEND_API_LISTEN_ADDRESS`
-example      | {{< code shell >}}# Command line example
-sensu-backend start --api-listen-address [::]:8080
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --api-listen-address [::]:8080{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 api-listen-address: "[::]:8080"{{< /code >}}
-
 
 <a name="api-request-limit"></a>
 
@@ -407,10 +418,9 @@ description  | Maximum size for API request bodies. In bytes.
 type         | Integer
 default      | `512000`
 environment variable | `SENSU_BACKEND_API_REQUEST_LIMIT`
-example      | {{< code shell >}}# Command line example
-sensu-backend start --api-request-limit 1024000
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --api-request-limit 1024000{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 api-request-limit: 1024000{{< /code >}}
 
 | api-url  |      |
@@ -419,12 +429,10 @@ description  | URL used to connect to the API.
 type         | String
 default      | `http://localhost:8080` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://$SENSU_HOSTNAME:8080` (Docker)
 environment variable | `SENSU_BACKEND_API_URL`
-example      | {{< code shell >}}# Command line example
-sensu-backend start --api-url http://localhost:8080
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --api-url http://localhost:8080{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 api-url: "http://localhost:8080"{{< /code >}}
-
 
 | assets-burst-limit   |      |
 --------------|------
@@ -432,12 +440,10 @@ description   | Maximum amount of burst allowed in a rate interval when fetching
 type          | Integer
 default       | `100`
 environment variable | `SENSU_BACKEND_ASSETS_BURST_LIMIT`
-example       | {{< code shell >}}# Command line example
-sensu-backend start --assets-burst-limit 100
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --assets-burst-limit 100{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 assets-burst-limit: 100{{< /code >}}
-
 
 | assets-rate-limit   |      |
 --------------|------
@@ -445,12 +451,10 @@ description   | Maximum number of dynamic runtime assets to fetch per second. Th
 type          | Float
 default       | `1.39`
 environment variable | `SENSU_BACKEND_ASSETS_RATE_LIMIT`
-example       | {{< code shell >}}# Command line example
-sensu-backend start --assets-rate-limit 1.39
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --assets-rate-limit 1.39{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 assets-rate-limit: 1.39{{< /code >}}
-
 
 | cache-dir   |      |
 --------------|------
@@ -458,12 +462,10 @@ description   | Path to store cached data.
 type          | String
 default       | `/var/cache/sensu/sensu-backend`
 environment variable | `SENSU_BACKEND_CACHE_DIR`
-example       | {{< code shell >}}# Command line example
-sensu-backend start --cache-dir /cache/sensu-backend
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --cache-dir /cache/sensu-backend{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 cache-dir: "/cache/sensu-backend"{{< /code >}}
-
 
 | config-file |      |
 --------------|------
@@ -471,7 +473,7 @@ description   | Path to Sensu backend config file.
 type          | String
 default       | `/etc/sensu/backend.yml`
 environment variable | The config file path cannot be set by an environment variable.
-example       | {{< code shell >}}# Command line example
+command line example   | {{< code shell >}}
 sensu-backend start --config-file /etc/sensu/backend.yml
 sensu-backend start -c /etc/sensu/backend.yml
 {{< /code >}}
@@ -484,12 +486,10 @@ description | If `true`, enable debugging and profiling features for use with th
 type        | Boolean
 default     | `false`
 environment variable | `SENSU_BACKEND_DEBUG`
-example     | {{< code shell >}}# Command line example
-sensu-backend start --debug
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --debug{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 debug: true{{< /code >}}
-
 
 | deregistration-handler |      |
 -------------------------|------
@@ -497,12 +497,10 @@ description              | Name of the default event handler to use when process
 type                     | String
 default                  | `""`
 environment variable     | `SENSU_BACKEND_DEREGISTRATION_HANDLER`
-example                  | {{< code shell >}}# Command line example
-sensu-backend start --deregistration-handler deregister
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --deregistration-handler deregister{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 deregistration-handler: "deregister"{{< /code >}}
-
 
 | labels     |      |
 -------------|------
@@ -513,15 +511,14 @@ required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 environment variable | `SENSU_BACKEND_LABELS`
-example               | {{< code shell >}}# Command line examples
+command line example   | {{< code shell >}}
 sensu-backend start --labels security_zone=us-west-2a
 sensu-backend start --labels example_key1="example value" example_key2="example value"
-
-# /etc/sensu/backend.yml example
+{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 labels:
   security_zone: "us-west-2a"
 {{< /code >}}
-
 
 | log-level  |      |
 -------------|------
@@ -529,12 +526,10 @@ description  | Logging level: `panic`, `fatal`, `error`, `warn`, `info`, or `deb
 type         | String
 default      | `warn`
 environment variable | `SENSU_BACKEND_LOG_LEVEL`
-example      | {{< code shell >}}# Command line example
-sensu-backend start --log-level debug
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --log-level debug{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 log-level: "debug"{{< /code >}}
-
 
 | state-dir  |      |
 -------------|------
@@ -542,13 +537,12 @@ description  | Path to Sensu state storage: `/var/lib/sensu/sensu-backend`.
 type         | String
 required     | true
 environment variable | `SENSU_BACKEND_STATE_DIR`
-example      | {{< code shell >}}# Command line example
+command line example   | {{< code shell >}}
 sensu-backend start --state-dir /var/lib/sensu/sensu-backend
 sensu-backend start -d /var/lib/sensu/sensu-backend
-
-# /etc/sensu/backend.yml example
+{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 state-dir: "/var/lib/sensu/sensu-backend"{{< /code >}}
-
 
 ### Agent communication configuration flags
 
@@ -558,12 +552,10 @@ description  | TLS certificate in PEM format for agent certificate authenticatio
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_CERT_FILE`
-example      | {{< code shell >}}# Command line example
-sensu-backend start --agent-auth-cert-file /path/to/ssl/cert.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --agent-auth-cert-file /path/to/ssl/cert.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 agent-auth-cert-file: /path/to/ssl/cert.pem{{< /code >}}
-
 
 | agent-auth-crl-urls |      |
 -------------|------
@@ -571,12 +563,10 @@ description  | URLs of CRLs for agent certificate authentication. The Sensu back
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_CRL_URLS`
-example      | {{< code shell >}}# Command line example
-sensu-backend start --agent-auth-crl-urls http://localhost/CARoot.crl
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --agent-auth-crl-urls http://localhost/CARoot.crl{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 agent-auth-crl-urls: http://localhost/CARoot.crl{{< /code >}}
-
 
 | agent-auth-key-file |      |
 -------------|------
@@ -584,12 +574,10 @@ description  | TLS certificate key in PEM format for agent certificate authentic
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_KEY_FILE`
-example      | {{< code shell >}}# Command line example
-sensu-backend start --agent-auth-key-file /path/to/ssl/key.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --agent-auth-key-file /path/to/ssl/key.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 agent-auth-key-file: /path/to/ssl/key.pem{{< /code >}}
-
 
 | agent-auth-trusted-ca-file |      |
 -------------|------
@@ -597,12 +585,10 @@ description  | TLS CA certificate bundle in PEM format for agent certificate aut
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_TRUSTED_CA_FILE`
-example      | {{< code shell >}}# Command line example
-sensu-backend start --agent-auth-trusted-ca-file /path/to/ssl/ca.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --agent-auth-trusted-ca-file /path/to/ssl/ca.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 agent-auth-trusted-ca-file: /path/to/ssl/ca.pem{{< /code >}}
-
 
 | agent-host   |      |
 ---------------|------
@@ -610,12 +596,10 @@ description    | Agent listener host. Listens on all IPv4 and IPv6 addresses by 
 type           | String
 default        | `[::]`
 environment variable | `SENSU_BACKEND_AGENT_HOST`
-example        | {{< code shell >}}# Command line example
-sensu-backend start --agent-host 127.0.0.1
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --agent-host 127.0.0.1{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 agent-host: "127.0.0.1"{{< /code >}}
-
 
 | agent-port |      |
 -------------|------
@@ -623,12 +607,10 @@ description  | Agent listener port.
 type         | Integer
 default      | `8081`
 environment variable | `SENSU_BACKEND_AGENT_PORT`
-example      | {{< code shell >}}# Command line example
-sensu-backend start --agent-port 8081
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --agent-port 8081{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 agent-port: 8081{{< /code >}}
-
 
 ### Security configuration flags
 
@@ -638,12 +620,10 @@ description  | Path to the primary backend certificate file. Specifies a fallbac
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_CERT_FILE`
-example      | {{< code shell >}}# Command line example
-sensu-backend start --cert-file /path/to/ssl/cert.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --cert-file /path/to/ssl/cert.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 cert-file: "/path/to/ssl/cert.pem"{{< /code >}}
-
 
 | insecure-skip-tls-verify |      |
 ---------------------------|------
@@ -653,12 +633,10 @@ description                | If `true`, skip SSL verification. Otherwise, `false
 type                       | Boolean
 default                    | `false`
 environment variable | `SENSU_BACKEND_INSECURE_SKIP_TLS_VERIFY`
-example                    | {{< code shell >}}# Command line example
-sensu-backend start --insecure-skip-tls-verify
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --insecure-skip-tls-verify{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 insecure-skip-tls-verify: true{{< /code >}}
-
 
 <a name="jwt-attributes"></a>
 
@@ -670,12 +648,10 @@ description  | Path to the PEM-encoded private key to use to sign JSON Web Token
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_JWT_PRIVATE_KEY_FILE`
-example      | {{< code shell >}}# Command line example
-sensu-backend start --jwt-private-key-file /path/to/key/private.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --jwt-private-key-file /path/to/key/private.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 jwt-private-key-file: /path/to/key/private.pem{{< /code >}}
-
 
 | jwt-public-key-file |      |
 -------------|------
@@ -686,12 +662,10 @@ type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_JWT_PUBLIC_KEY_FILE`
 required     | false, unless `jwt-private-key-file` is defined
-example      | {{< code shell >}}# Command line example
-sensu-backend start --jwt-public-key-file /path/to/key/public.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --jwt-public-key-file /path/to/key/public.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 jwt-public-key-file: /path/to/key/public.pem{{< /code >}}
-
 
 | key-file   |      |
 -------------|------
@@ -699,10 +673,9 @@ description  | Path to the primary backend key file. Specifies a fallback SSL/TL
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_KEY_FILE`
-example      | {{< code shell >}}# Command line example
-sensu-backend start --key-file /path/to/ssl/key.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --key-file /path/to/ssl/key.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 key-file: "/path/to/ssl/key.pem"{{< /code >}}
 
 <a name="fips-openssl"></a>
@@ -716,10 +689,9 @@ description       | Require Federal Information Processing Standard (FIPS) suppo
 type              | Boolean
 default           | false
 environment variable | `SENSU_BACKEND_REQUIRE_FIPS`
-example           | {{< code shell >}}# Command line example
-sensu-backend start --require-fips
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --require-fips{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 require-fips: true{{< /code >}}
 
 | require-openssl |      |
@@ -731,10 +703,9 @@ description       | Use OpenSSL instead of Go's standard cryptography library. L
 type              | Boolean
 default           | false
 environment variable | `SENSU_BACKEND_REQUIRE_OPENSSL`
-example           | {{< code shell >}}# Command line example
-sensu-backend start --require-openssl
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --require-openssl{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 require-openssl: true{{< /code >}}
 
 | trusted-ca-file |      |
@@ -743,12 +714,10 @@ description       | Path to the primary backend CA file. Specifies a fallback SS
 type              | String
 default           | `""`
 environment variable | `SENSU_BACKEND_TRUSTED_CA_FILE`
-example           | {{< code shell >}}# Command line example
-sensu-backend start --trusted-ca-file /path/to/trusted-certificate-authorities.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --trusted-ca-file /path/to/trusted-certificate-authorities.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /code >}}
-
 
 ### Web UI configuration flags
 
@@ -758,12 +727,10 @@ description  | Web UI TLS certificate in PEM format. This certificate secures co
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_DASHBOARD_CERT_FILE`
-example      | {{< code shell >}}# Command line example
-sensu-backend start --dashboard-cert-file /path/to/tls/cert.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --dashboard-cert-file /path/to/tls/cert.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 dashboard-cert-file: "/path/to/tls/cert.pem"{{< /code >}}
-
 
 | dashboard-host |      |
 -----------------|------
@@ -771,12 +738,10 @@ description      | Web UI listener host.
 type             | String
 default          | `[::]`
 environment variable | `SENSU_BACKEND_DASHBOARD_HOST`
-example          | {{< code shell >}}# Command line example
-sensu-backend start --dashboard-host 127.0.0.1
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --dashboard-host 127.0.0.1{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 dashboard-host: "127.0.0.1"{{< /code >}}
-
 
 | dashboard-key-file | |
 -------------|------
@@ -784,12 +749,10 @@ description  | Web UI TLS certificate key in PEM format. This key secures commun
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_DASHBOARD_KEY_FILE`
-example      | {{< code shell >}}# Command line example
-sensu-backend start --dashboard-key-file /path/to/tls/key.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --dashboard-key-file /path/to/tls/key.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 dashboard-key-file: "/path/to/tls/key.pem"{{< /code >}}
-
 
 | dashboard-port |      |
 -----------------|------
@@ -797,12 +760,10 @@ description      | Web UI listener port.
 type             | Integer
 default          | `3000`
 environment variable | `SENSU_BACKEND_DASHBOARD_PORT`
-example          | {{< code shell >}}# Command line example
-sensu-backend start --dashboard-port 4000
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --dashboard-port 4000{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 dashboard-port: 4000{{< /code >}}
-
 
 ### Datastore and cluster configuration flags
 
@@ -816,16 +777,15 @@ description   | List of this member's client URLs to advertise to the rest of th
 type          | List
 default       | `http://localhost:2379` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://$SENSU_HOSTNAME:2379` (Docker)
 environment variable | `SENSU_BACKEND_ETCD_ADVERTISE_CLIENT_URLS`
-example       | {{< code shell >}}# Command line examples
+command line example   | {{< code shell >}}
 sensu-backend start --etcd-advertise-client-urls http://localhost:2378,http://localhost:2379
 sensu-backend start --etcd-advertise-client-urls http://localhost:2378 --etcd-advertise-client-urls http://localhost:2379
-
-# /etc/sensu/backend.yml example
+{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-advertise-client-urls:
   - http://localhost:2378
   - http://localhost:2379
 {{< /code >}}
-
 
 | etcd-cert-file |      |
 -----------------|------
@@ -833,12 +793,10 @@ description      | Path to the etcd client API TLS certificate file. Secures com
 type             | String
 default          | `""`
 environment variable | `SENSU_BACKEND_ETCD_CERT_FILE`
-example          | {{< code shell >}}# Command line example
-sensu-backend start --etcd-cert-file ./client.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-cert-file ./client.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-cert-file: "./client.pem"{{< /code >}}
-
 
 <a name="etcd-cipher-suites"></a>
 
@@ -858,16 +816,15 @@ etcd-cipher-suites:
 {{< /code >}}
 type                    | List
 environment variable | `SENSU_BACKEND_ETCD_CIPHER_SUITES`
-example                 | {{< code shell >}}# Command line examples
+command line example   | {{< code shell >}}
 sensu-backend start --etcd-cipher-suites TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 sensu-backend start --etcd-cipher-suites TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 --etcd-cipher-suites TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-
-# /etc/sensu/backend.yml example
+{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-cipher-suites:
   - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
   - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 {{< /code >}}
-
 
 | etcd-client-cert-auth |      |
 ------------------------|------
@@ -875,12 +832,10 @@ description             | If `true`, enable client certificate authentication. O
 type                    | Boolean
 default                 | `false`
 environment variable | `SENSU_BACKEND_ETCD_CLIENT_CERT_AUTH`
-example                 | {{< code shell >}}# Command line example
-sensu-backend start --etcd-client-cert-auth
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-client-cert-auth{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-client-cert-auth: true{{< /code >}}
-
 
 | etcd-client-urls      |      |
 ------------------------|------
@@ -888,16 +843,15 @@ description             | List of client URLs to use when a sensu-backend is not
 type                    | List
 default                 | `http://127.0.0.1:2379`
 environment variable | `SENSU_BACKEND_ETCD_CLIENT_URLS`
-example                   | {{< code shell >}}# Command line examples
+command line example   | {{< code shell >}}
 sensu-backend start --etcd-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379
 sensu-backend start --etcd-client-urls https://10.0.0.1:2379 --etcd-client-urls https://10.1.0.1:2379
-
-# /etc/sensu/backend.yml example
+{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-client-urls:
   - https://10.0.0.1:2379
   - https://10.1.0.1:2379
 {{< /code >}}
-
 
 | etcd-discovery        |      |
 ------------------------|------
@@ -905,14 +859,12 @@ description             | Exposes [etcd's embedded auto-discovery features][19].
 type                    | String
 default                 | ""
 environment variable | `SENSU_BACKEND_ETCD_DISCOVERY`
-example                 | {{< code shell >}}# Command line example
-sensu-backend start --etcd-discovery https://discovery.etcd.io/3e86b59982e49066c5d813af1c2e2579cbf573de
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-discovery https://discovery.etcd.io/3e86b59982e49066c5d813af1c2e2579cbf573de{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-discovery:
   - https://discovery.etcd.io/3e86b59982e49066c5d813af1c2e2579cbf573de
 {{< /code >}}
-
 
 | etcd-discovery-srv    |      |
 ------------------------|------
@@ -920,14 +872,12 @@ description             | Exposes [etcd's embedded auto-discovery features][17].
 type                    | String
 default                 | ""
 environment variable | `SENSU_BACKEND_ETCD_DISCOVERY_SRV`
-example                 | {{< code shell >}}# Command line example
-sensu-backend start --etcd-discovery-srv example.org
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-discovery-srv example.org{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-discovery-srv:
   - example.org
 {{< /code >}}
-
 
 | etcd-initial-advertise-peer-urls |      |
 -----------------------------------|------
@@ -935,16 +885,15 @@ description                        | List of this member's peer URLs to advertis
 type                               | List
 default                            | `http://127.0.0.1:2380` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://$SENSU_HOSTNAME:2380` (Docker)
 environment variable               | `SENSU_BACKEND_ETCD_INITIAL_ADVERTISE_PEER_URLS`
-example                            | {{< code shell >}}# Command line examples
+command line example   | {{< code shell >}}
 sensu-backend start --etcd-initial-advertise-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
 sensu-backend start --etcd-initial-advertise-peer-urls https://10.0.0.1:2380 --etcd-initial-advertise-peer-urls https://10.1.0.1:2380
-
-# /etc/sensu/backend.yml example
+{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-initial-advertise-peer-urls:
   - https://10.0.0.1:2380
   - https://10.1.0.1:2380
 {{< /code >}}
-
 
 | etcd-initial-cluster |      |
 -----------------------|------
@@ -952,12 +901,10 @@ description            | Initial cluster configuration for bootstrapping.
 type                   | String
 default                | `default=http://127.0.0.1:2380` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`default=http://$SENSU_HOSTNAME:2380` (Docker)
 environment variable   | `SENSU_BACKEND_ETCD_INITIAL_CLUSTER`
-example                | {{< code shell >}}# Command line example
-sensu-backend start --etcd-initial-cluster backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-initial-cluster backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-initial-cluster: "backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380"{{< /code >}}
-
 
 | etcd-initial-cluster-state |      |
 -----------------------------|------
@@ -965,12 +912,10 @@ description                  | Initial cluster state (`new` or `existing`).
 type                         | String
 default                      | `new`
 environment variable         | `SENSU_BACKEND_ETCD_INITIAL_CLUSTER_STATE`
-example                      | {{< code shell >}}# Command line example
-sensu-backend start --etcd-initial-cluster-state existing
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-initial-cluster-state existing{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-initial-cluster-state: "existing"{{< /code >}}
-
 
 | etcd-initial-cluster-token |      |
 -----------------------------|------
@@ -978,22 +923,19 @@ description                  | Unique token for the etcd cluster. Provide the sa
 type                         | String
 default                      | `""`
 environment variable         | `SENSU_BACKEND_ETCD_INITIAL_CLUSTER_TOKEN`
-example                      | {{< code shell >}}# Command line example
-sensu-backend start --etcd-initial-cluster-token unique_token_for_this_cluster
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-initial-cluster-token unique_token_for_this_cluster{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-initial-cluster-token: "unique_token_for_this_cluster"{{< /code >}}
-
 
 | etcd-key-file  |      |
 -----------------|------
 description      | Path to the etcd client API TLS key file. Secures communication between the embedded etcd client API and any etcd clients.
 type             | String
 environment variable | `SENSU_BACKEND_ETCD_KEY_FILE`
-example          | {{< code shell >}}# Command line example
-sensu-backend start --etcd-key-file ./client-key.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-key-file ./client-key.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-key-file: "./client-key.pem"{{< /code >}}
 
 <a name="etcd-listen-client-urls"></a>
@@ -1004,16 +946,15 @@ description               | List of URLs to listen on for client traffic. Sensu'
 type                      | List
 default                   | `http://127.0.0.1:2379` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://[::]:2379` (Docker)
 environment variable      | `SENSU_BACKEND_ETCD_LISTEN_CLIENT_URLS`
-example                   | {{< code shell >}}# Command line examples
+command line example   | {{< code shell >}}
 sensu-backend start --etcd-listen-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379
 sensu-backend start --etcd-listen-client-urls https://10.0.0.1:2379 --etcd-listen-client-urls https://10.1.0.1:2379
-
-# /etc/sensu/backend.yml example
+{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-listen-client-urls:
   - https://10.0.0.1:2379
   - https://10.1.0.1:2379
 {{< /code >}}
-
 
 | etcd-listen-peer-urls |      |
 ------------------------|------
@@ -1021,16 +962,15 @@ description             | List of URLs to listen on for peer traffic. Sensu's de
 type                    | List
 default                 | `http://127.0.0.1:2380` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`http://[::]:2380` (Docker)
 environment variable    | `SENSU_BACKEND_ETCD_LISTEN_PEER_URLS`
-example                 | {{< code shell >}}# Command line examples
+command line example   | {{< code shell >}}
 sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
 sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380 --etcd-listen-peer-urls https://10.1.0.1:2380
-
-# /etc/sensu/backend.yml example
+{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-listen-peer-urls:
   - https://10.0.0.1:2380
   - https://10.1.0.1:2380
 {{< /code >}}
-
 
 | etcd-name      |      |
 -----------------|------
@@ -1038,24 +978,20 @@ description      | Human-readable name for this member.
 type             | String
 default          | `default`
 environment variable | `SENSU_BACKEND_ETCD_NAME`
-example          | {{< code shell >}}# Command line example
-sensu-backend start --etcd-name backend-0
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-name backend-0{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-name: "backend-0"{{< /code >}}
-
 
 | etcd-peer-cert-file |      |
 ----------------------|------
 description           | Path to the peer server TLS certificate file. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 type                  | String
 environment variable  | `SENSU_BACKEND_ETCD_PEER_CERT_FILE`
-example               | {{< code shell >}}# Command line example
-sensu-backend start --etcd-peer-cert-file ./backend-0.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-peer-cert-file ./backend-0.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-peer-cert-file: "./backend-0.pem"{{< /code >}}
-
 
 | etcd-peer-client-cert-auth |      |
 -----------------------------|------
@@ -1063,36 +999,30 @@ description                  | Enable peer client certificate authentication.
 type                         | Boolean
 default                      | `false`
 environment variable         | `SENSU_BACKEND_ETCD_PEER_CLIENT_CERT_AUTH`
-example                      | {{< code shell >}}# Command line example
-sensu-backend start --etcd-peer-client-cert-auth
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-peer-client-cert-auth{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-peer-client-cert-auth: true{{< /code >}}
-
 
 | etcd-peer-key-file |      |
 ---------------------|------
 description          | Path to the etcd peer API TLS key file. Secures communication between etcd cluster members.
 type                 | String
 environment variable | `SENSU_BACKEND_ETCD_PEER_KEY_FILE`
-example              | {{< code shell >}}# Command line example
-sensu-backend start --etcd-peer-key-file ./backend-0-key.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-peer-key-file ./backend-0-key.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-peer-key-file: "./backend-0-key.pem"{{< /code >}}
-
 
 | etcd-peer-trusted-ca-file |      |
 ----------------------------|------
 description                 | Path to the etcd peer API server TLS trusted CA file. Secures communication between etcd cluster members.
 type                        | String
 environment variable        | `SENSU_BACKEND_ETCD_PEER_TRUSTED_CA_FILE`
-example                     | {{< code shell >}}# Command line example
-sensu-backend start --etcd-peer-trusted-ca-file ./ca.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-peer-trusted-ca-file ./ca.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-peer-trusted-ca-file: "./ca.pem"{{< /code >}}
-
 
 | etcd-trusted-ca-file |      |
 -----------------------|------
@@ -1100,12 +1030,10 @@ description            | Path to the client server TLS trusted CA certificate fi
 type                   | String
 default                | `""`
 environment variable   | `SENSU_BACKEND_ETCD_TRUSTED_CA_FILE`
-example                | {{< code shell >}}# Command line example
-sensu-backend start --etcd-trusted-ca-file ./ca.pem
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-trusted-ca-file ./ca.pem{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-trusted-ca-file: "./ca.pem"{{< /code >}}
-
 
 | no-embed-etcd  |      |
 -----------------|------
@@ -1113,12 +1041,10 @@ description      | If `true`, do not embed etcd (use external etcd instead). Oth
 type             | Boolean
 default          | `false`
 environment variable | `SENSU_BACKEND_NO_EMBED_ETCD`
-example          | {{< code shell >}}# Command line example
-sensu-backend start --no-embed-etcd
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --no-embed-etcd{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 no-embed-etcd: true{{< /code >}}
-
 
 ### Advanced configuration options
 
@@ -1130,13 +1056,10 @@ description            | Number of incoming events that can be buffered before b
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_BACKEND_EVENTD_BUFFER_SIZE`
-example                | {{< code shell >}}# Command line example
-sensu-backend start --eventd-buffer-size 100
-
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --eventd-buffer-size 100{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 eventd-buffer-size: 100{{< /code >}}
-
 
 | eventd-workers       |      |
 -----------------------|------
@@ -1146,12 +1069,10 @@ description            | Number of workers spawned for processing incoming event
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_BACKEND_EVENTD_WORKERS`
-example                | {{< code shell >}}# Command line example
-sensu-backend start --eventd-workers 100
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --eventd-workers 100{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 eventd-workers: 100{{< /code >}}
-
 
 | keepalived-buffer-size |      |
 -----------------------|------
@@ -1161,12 +1082,10 @@ description            | Number of incoming keepalives that can be buffered befo
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_BACKEND_KEEPALIVED_BUFFER_SIZE`
-example                | {{< code shell >}}# Command line example
-sensu-backend start --keepalived-buffer-size 100
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --keepalived-buffer-size 100{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 keepalived-buffer-size: 100{{< /code >}}
-
 
 | keepalived-workers |      |
 -----------------------|------
@@ -1175,12 +1094,10 @@ description            | Number of workers spawned for processing incoming keepa
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_BACKEND_KEEPALIVED_WORKERS`
-example                | {{< code shell >}}# Command line example
-sensu-backend start --keepalived-workers 100
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --keepalived-workers 100{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 keepalived-workers: 100{{< /code >}}
-
 
 | pipelined-buffer-size |      |
 -----------------------|------
@@ -1190,12 +1107,10 @@ description            | Number of events to handle that can be buffered before 
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_BACKEND_PIPELINED_BUFFER_SIZE`
-example                | {{< code shell >}}# Command line example
-sensu-backend start --pipelined-buffer-size 100
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --pipelined-buffer-size 100{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 pipelined-buffer-size: 100{{< /code >}}
-
 
 | pipelined-workers |      |
 -----------------------|------
@@ -1205,12 +1120,10 @@ description            | Number of workers spawned for handling events through t
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_BACKEND_PIPELINED_WORKERS`
-example                | {{< code shell >}}# Command line example
-sensu-backend start --pipelined-workers 100
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --pipelined-workers 100{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 pipelined-workers: 100{{< /code >}}
-
 
 | etcd-election-timeout |      |
 -----------------------|------
@@ -1220,12 +1133,10 @@ description            | Time that a follower node will go without hearing a hea
 type                   | Integer
 default                | `1000`
 environment variable   | `SENSU_BACKEND_ETCD_ELECTION_TIMEOUT`
-example                | {{< code shell >}}# Command line example
-sensu-backend start --etcd-election-timeout 1000
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-election-timeout 1000{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-election-timeout: 1000{{< /code >}}
-
 
 | etcd-heartbeat-interval |      |
 -----------------------|------
@@ -1234,12 +1145,10 @@ description            | Interval at which the etcd leader will notify followers
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_BACKEND_ETCD_HEARTBEAT_INTERVAL`
-example                | {{< code shell >}}# Command line example
-sensu-backend start --etcd-heartbeat-interval 100
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-heartbeat-interval 100{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-heartbeat-interval: 100{{< /code >}}
-
 
 | etcd-max-request-bytes |      |
 -----------------------|------
@@ -1249,12 +1158,10 @@ description            | Maximum etcd request size in bytes that can be sent to 
 type                   | Integer
 default                | `1572864`
 environment variable   | `SENSU_BACKEND_ETCD_MAX_REQUEST_BYTES`
-example                | {{< code shell >}}# Command line example
-sensu-backend start --etcd-max-request-bytes 1572864
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-max-request-bytes 1572864{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-max-request-bytes: 1572864{{< /code >}}
-
 
 | etcd-quota-backend-bytes |      |
 -----------------------|------
@@ -1264,10 +1171,9 @@ description            | Maximum etcd database size in bytes. Increasing this va
 type                   | Integer
 default                | `4294967296`
 environment variable   | `SENSU_BACKEND_ETCD_QUOTA_BACKEND_BYTES`
-example                | {{< code shell >}}# Command line example
-sensu-backend start --etcd-quota-backend-bytes 4294967296
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-quota-backend-bytes 4294967296{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 etcd-quota-backend-bytes: 4294967296{{< /code >}}
 
 ### Configuration via environment variables
@@ -1381,20 +1287,16 @@ If you wish, you can log all Sensu events to a file in JSON format.
 You can use this file as an input source for your favorite data lake solution.
 The event logging functionality provides better performance and reliability than event handlers.
 
-
 | event-log-buffer-size |      |
 -----------------------|------
 description            | Buffer size of the event logger. Corresponds to the maximum number of events kept in memory in case the log file is temporarily unavailable or more events have been received than can be written to the log file. 
 type                   | Integer
 default                | 100000
 environment variable   | `SENSU_BACKEND_EVENT_LOG_BUFFER_SIZE`
-example                | {{< code shell >}}# Command line example
-sensu-backend start --event-log-buffer-size 100000
-
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --event-log-buffer-size 100000{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 event-log-buffer-size: 100000{{< /code >}}
-
 
 | event-log-file |      |
 -----------------------|------
@@ -1403,13 +1305,10 @@ description            | Path to the event log file. {{% notice warning %}}
 {{% /notice %}}
 type                   | String
 environment variable   | `SENSU_BACKEND_EVENT_LOG_FILE`
-example                | {{< code shell >}}# Command line example
-sensu-backend start --event-log-file /var/log/sensu/events.log
-
-
-# /etc/sensu/backend.yml example
+command line example   | {{< code shell >}}
+sensu-backend start --event-log-file /var/log/sensu/events.log{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
 event-log-file: "/var/log/sensu/events.log"{{< /code >}}
-
 
 ### Log rotation
 

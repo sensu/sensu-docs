@@ -259,10 +259,14 @@ For a consistent experience, repeat the `ClusterRoleBinding` example in this gui
 The [etcd replicators reference][2] includes [examples][9] you can follow for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources.
 
 To verify that the EtcdReplicator resource is working as expected, reconfigure `sensuctl` to communicate with the `alpha` and then `beta` clusters, issuing the `sensuctl cluster-role-binding list` command for each.
+
+{{< code shell >}}
+sensuctl cluster-role-binding info federation-viewer-readonly
+{{< /code >}}
+
 You should see the `federation-viewer-readonly` binding created in step 3 listed in the output from each cluster:
 
 {{< code shell >}}
-$ sensuctl cluster-role-binding info federation-viewer-readonly
 === federation-viewer-readonly
 Name:         federation-viewer-readonly
 Cluster Role: view

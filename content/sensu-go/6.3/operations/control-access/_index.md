@@ -65,7 +65,11 @@ Use sensuctl to verify that your provider configuration was applied successfully
 
 {{< code shell >}}
 sensuctl auth list
+{{< /code >}}
 
+The response will list your authentication provider types and names:
+
+{{< code shell >}}
  Type     Name    
 ────── ────────── 
  ldap   openldap  
