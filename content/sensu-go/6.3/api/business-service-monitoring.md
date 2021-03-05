@@ -198,7 +198,7 @@ The `/service-components` API endpoint provides HTTP POST access to create servi
 
 ### Example
 
-The following example demonstrates a request to the `/service-components` API endpoint to create the service component `postgresql-component`.
+The following example demonstrates a request to the `/service-components` API endpoint to create the service component `postgresql-3`.
 
 {{< code shell >}}
 curl -X POST \
@@ -364,7 +364,7 @@ output               | {{< code json >}}
     "query": [
       {
         "type": "labelSelector",
-        "value": "region == 'us-west-1' && cmpt == psql"
+        "value": "region == 'us-west-3' && cmpt == psql"
       }
     ],
     "rules": [
@@ -397,7 +397,38 @@ curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
-  "TODO": "TODO"
+  "type": "ServiceComponent",
+  "api_version": "bsm/v1",
+  "metadata": {
+    "name": "postgresql-1"
+  },
+  "spec": {
+    "cron": "",
+    "handlers": [
+      "pagerduty",
+      "slack"
+    ],
+    "interval": 30,
+    "query": [
+      {
+        "type": "labelSelector",
+        "value": "region == 'us-west-1' && cmpt == psql"
+      }
+    ],
+    "rules": [
+      {
+        "arguments": {
+          "status": "non-zero",
+          "threshold": 25
+        },
+        "template": "status-threshold"
+      }
+    ],
+    "services": [
+      "account-manager",
+      "tessen"
+    ]
+  }
 }' \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-1
 
@@ -412,7 +443,38 @@ description     | Creates or updates the specified business service component.
 example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components/postgresql-1
 payload         | {{< code json >}}
 {
-  "TODO": "TODO"
+  "type": "ServiceComponent",
+  "api_version": "bsm/v1",
+  "metadata": {
+    "name": "postgresql-1"
+  },
+  "spec": {
+    "cron": "",
+    "handlers": [
+      "pagerduty",
+      "slack"
+    ],
+    "interval": 30,
+    "query": [
+      {
+        "type": "labelSelector",
+        "value": "region == 'us-west-1' && cmpt == psql"
+      }
+    ],
+    "rules": [
+      {
+        "arguments": {
+          "status": "non-zero",
+          "threshold": 25
+        },
+        "template": "status-threshold"
+      }
+    ],
+    "services": [
+      "account-manager",
+      "tessen"
+    ]
+  }
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -626,14 +688,43 @@ The `/rule-templates` API endpoint provides HTTP POST access to create rule temp
 
 ### Example
 
-The following example demonstrates a request to the `/rule-templates` API endpoint to create the rule template `us-west-2a`.
+The following example demonstrates a request to the `/rule-templates` API endpoint to create the rule template `status-threshold`.
 
 {{< code shell >}}
 curl -X POST \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
-  "TODO": "TODO"
+  "type": "RuleTemplate",
+  "api_version": "bsm/v1",
+  "metadata": {
+    "name": "status-threshold"
+  },
+  "spec": {
+    "arguments": {
+      "properties": {
+        "status": {
+          "default": {},
+          "enum": [
+            "non-zero",
+            "warning",
+            "critical",
+            "unknown"
+          ],
+          "type": "string"
+        },
+        "threshold": {
+          "description": "Numeric value that triggers an event when surpassed",
+          "type": "number"
+        }
+      },
+      "required": [
+        "threshold"
+      ]
+    },
+    "description": "Creates an event when the percentage of events with the given status exceed the given threshold",
+    "eval": "var statusMap = {\n  \"non-zero\": 1,\n  \"warning\": 1,\n  \"critical\": 2,\n};\nfunction main(args) {\n  var total = sensu.events.count();\n  var num = sensu.events.count(args.status);\n  if (num / total <= args.threshold) {\n    return;\n  }\n  return event.status = statusMap[args.status],\n  });\n}"
+  }
 }' \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates
 
@@ -648,7 +739,36 @@ description     | Creates a new rule template (if none exists).
 example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates
 payload         | {{< code json >}}
 {
-  "TODO": "TODO"
+  "type": "RuleTemplate",
+  "api_version": "bsm/v1",
+  "metadata": {
+    "name": "status-threshold"
+  },
+  "spec": {
+    "arguments": {
+      "properties": {
+        "status": {
+          "default": {},
+          "enum": [
+            "non-zero",
+            "warning",
+            "critical",
+            "unknown"
+          ],
+          "type": "string"
+        },
+        "threshold": {
+          "description": "Numeric value that triggers an event when surpassed",
+          "type": "number"
+        }
+      },
+      "required": [
+        "threshold"
+      ]
+    },
+    "description": "Creates an event when the percentage of events with the given status exceed the given threshold",
+    "eval": "var statusMap = {\n  \"non-zero\": 1,\n  \"warning\": 1,\n  \"critical\": 2,\n};\nfunction main(args) {\n  var total = sensu.events.count();\n  var num = sensu.events.count(args.status);\n  if (num / total <= args.threshold) {\n    return;\n  }\n  return event.status = statusMap[args.status],\n  });\n}"
+  }
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -659,35 +779,93 @@ The `/rule-templates/:rule-template` API endpoint provides HTTP GET access to da
 
 ### Example
 
-In the following example, querying the `/rule-templates/:rule-template` API endpoint returns a JSON map that contains the requested `:cluster`.
+In the following example, querying the `/rule-templates/:rule-template` API endpoint returns a JSON map that contains the requested `:rule-template`.
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/us-west-2a \
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/status-threshold \
 -H "Authorization: Key $SENSU_API_KEY"
-[
-  {
-    "TBD": "TBD"
+{
+  "type": "RuleTemplate",
+  "api_version": "bsm/v1",
+  "metadata": {
+    "name": "status-threshold",
+    "namespace": "default",
+    "created_by": "admin"
+  },
+  "spec": {
+    "arguments": {
+      "properties": {
+        "status": {
+          "default": {},
+          "enum": [
+            "non-zero",
+            "warning",
+            "critical",
+            "unknown"
+          ],
+          "type": "string"
+        },
+        "threshold": {
+          "description": "Numeric value that triggers an event when surpassed",
+          "type": "number"
+        }
+      },
+      "required": [
+        "threshold"
+      ]
+    },
+    "description": "Creates an event when the percentage of events with the given status exceed the given threshold",
+    "eval": "var statusMap = {\n  \"non-zero\": 1,\n  \"warning\": 1,\n  \"critical\": 2,\n};\nfunction main(args) {\n  var total = sensu.events.count();\n  var num = sensu.events.count(args.status);\n  if (num / total <= args.threshold) {\n    return;\n  }\n  return event.status = statusMap[args.status],\n  });\n}"
   }
-]
+}
 HTTP/1.1 200 OK
 
 {{< /code >}}
 
 ### API Specification
 
-/rule-templates/:cluster (GET) | 
+/rule-templates/:rule-template (GET) | 
 ---------------------|------
 description          | Returns the specified rule template.
-example url          | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/us-west-2a
+example url          | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/status-threshold
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
-[
-  {
-    "TBD": "TBD"
+{
+  "type": "RuleTemplate",
+  "api_version": "bsm/v1",
+  "metadata": {
+    "name": "status-threshold",
+    "namespace": "default",
+    "created_by": "admin"
+  },
+  "spec": {
+    "arguments": {
+      "properties": {
+        "status": {
+          "default": {},
+          "enum": [
+            "non-zero",
+            "warning",
+            "critical",
+            "unknown"
+          ],
+          "type": "string"
+        },
+        "threshold": {
+          "description": "Numeric value that triggers an event when surpassed",
+          "type": "number"
+        }
+      },
+      "required": [
+        "threshold"
+      ]
+    },
+    "description": "Creates an event when the percentage of events with the given status exceed the given threshold",
+    "eval": "var statusMap = {\n  \"non-zero\": 1,\n  \"warning\": 1,\n  \"critical\": 2,\n};\nfunction main(args) {\n  var total = sensu.events.count();\n  var num = sensu.events.count(args.status);\n  if (num / total <= args.threshold) {\n    return;\n  }\n  return event.status = statusMap[args.status],\n  });\n}"
   }
-]
+}
 {{< /code >}}
 
 ## Create or update a rule template
@@ -696,16 +874,45 @@ The `/rule-templates/:rule-template` API endpoint provides HTTP PUT access to cr
 
 ### Example
 
-The following example demonstrates a request to the `/rule-templates/:rule-template` API endpoint to update the rule template `us-west-2a`.
+The following example demonstrates a request to the `/rule-templates/:rule-template` API endpoint to update the rule template `status-threshold`.
 
 {{< code shell >}}
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
-  "TBD": "TBD"
+  "type": "RuleTemplate",
+  "api_version": "bsm/v1",
+  "metadata": {
+    "name": "status-threshold"
+  },
+  "spec": {
+    "arguments": {
+      "properties": {
+        "status": {
+          "default": {},
+          "enum": [
+            "non-zero",
+            "warning",
+            "critical",
+            "unknown"
+          ],
+          "type": "string"
+        },
+        "threshold": {
+          "description": "Numeric value that triggers an event when surpassed",
+          "type": "number"
+        }
+      },
+      "required": [
+        "threshold"
+      ]
+    },
+    "description": "Creates an event when the number of events with the given status exceed the given threshold",
+    "eval": "var statusMap = {\n  \"non-zero\": 1,\n  \"warning\": 1,\n  \"critical\": 2,\n};\nfunction main(args) {\n  var total = sensu.events.count();\n  var num = sensu.events.count(args.status);\n  if (num / total <= args.threshold) {\n    return;\n  }\n  return event.status = statusMap[args.status],\n  });\n}"
+  }
 }' \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/us-west-2a
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/status-threshold
 
 HTTP/1.1 200 OK
 {{< /code >}}
@@ -715,10 +922,39 @@ HTTP/1.1 200 OK
 /rule-templates/:rule-template (PUT) | 
 ----------------|------
 description     | Creates or updates the specified rule template.
-example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/us-west-2a
+example URL     | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/status-threshold
 payload         | {{< code json >}}
 {
-  "TBD": "TBD"
+  "type": "RuleTemplate",
+  "api_version": "bsm/v1",
+  "metadata": {
+    "name": "status-threshold"
+  },
+  "spec": {
+    "arguments": {
+      "properties": {
+        "status": {
+          "default": {},
+          "enum": [
+            "non-zero",
+            "warning",
+            "critical",
+            "unknown"
+          ],
+          "type": "string"
+        },
+        "threshold": {
+          "description": "Numeric value that triggers an event when surpassed",
+          "type": "number"
+        }
+      },
+      "required": [
+        "threshold"
+      ]
+    },
+    "description": "Creates an event when the number of events with the given status exceed the given threshold",
+    "eval": "var statusMap = {\n  \"non-zero\": 1,\n  \"warning\": 1,\n  \"critical\": 2,\n};\nfunction main(args) {\n  var total = sensu.events.count();\n  var num = sensu.events.count(args.status);\n  if (num / total <= args.threshold) {\n    return;\n  }\n  return event.status = statusMap[args.status],\n  });\n}"
+  }
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -727,18 +963,14 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 The `/rule-templates/:rule-template` API endpoint provides HTTP DELETE access to delete the specified rule template from Sensu.
 
-{{% notice note %}}
-**NOTE**: Only cluster admins have DELETE access to clusters.
-{{% /notice %}}
-
 ### Example
 
-The following example shows a request to the `/rule-templates/:rule-template` API endpoint to delete the rule template `us-west-2a`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/rule-templates/:rule-template` API endpoint to delete the rule template `status-threshold`, resulting in a successful HTTP `204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
-http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/us-west-2a
+http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/status-threshold
 
 HTTP/1.1 204 No Content
 {{< /code >}}
@@ -748,7 +980,7 @@ HTTP/1.1 204 No Content
 /rule-templates/:rule-template (DELETE) | 
 --------------------------|------
 description               | Deletes the specified rule template from Sensu.
-example url               | http://hostname:8080/api/enterprise/bsm/v1/rule-templates/us-west-2a
+example url               | http://hostname:8080/api/enterprise/bsm/v1/rule-templates/status-threshold
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
