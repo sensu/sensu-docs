@@ -1397,7 +1397,7 @@ check:
 
 |metrics     |      |
 -------------|------
-description  | Metrics collected by the entity in Sensu metric format. See the [metric attributes][30].
+description  | Metrics collected by the entity in Sensu metric format. See the [metrics attributes][30].
 type         | Map
 required     | false
 example      | {{< language-toggle >}}
@@ -1686,7 +1686,7 @@ status: 0
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Metric attributes
+### Metrics attributes
 
 handlers     |      |
 -------------|------
@@ -1860,7 +1860,7 @@ value: 0.005
 [27]: ../filters/#filter-for-state-change-only
 [28]: ../filters/#filter-for-repeated-events
 [29]: #metadata-attributes
-[30]: #metric-attributes
+[30]: #metrics-attributes
 [31]: #use-event-data
 [32]: #history-attributes
 [33]: ../checks#spec-attributes

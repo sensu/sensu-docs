@@ -472,7 +472,14 @@ sensuctl event info entity_name check_name --format json
 You should expect to see errors logged by sensu-agent if it is unable to parse the check output.
 See [Troubleshoot Sensu][24] for an example debug handler that writes events to a file for inspection.
 
+## Metrics specification
 
+The check specification describes [metrics attributes in checks][19].
+
+The event specification describes [metrics attributes in events][5].
+
+
+[1]: ../checks/#output-metric-tags
 [2]: ../../observe-process/aggregate-metrics-statsd/
 [3]: ../checks/#output-metric-handlers
 [4]: #extract-metrics-from-check-output
@@ -482,13 +489,15 @@ See [Troubleshoot Sensu][24] for an example debug handler that writes events to 
 [8]: https://bonsai.sensu.io/
 [9]: #supported-output-metric-formats
 [10]: ../checks/#output-metric-format
-[11]: #process-extracted-metrics
+[11]: #process-extracted-and-tagged-metrics
 [12]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 [13]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
 [14]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [15]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [16]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
+[17]: https://prometheus.io/docs/instrumenting/exposition_formats/#text-based-format
 [18]: ../../../plugins/supported-integrations/#time-series-and-long-term-event-storage
+[19]: ../checks/#output-metric-format
 [20]: ../../observe-events/events/#example-status-and-metrics-event
 [22]: ../checks/#check-token-substitution
 [23]: ../../observe-process/populate-metrics-influxdb/
