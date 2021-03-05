@@ -37,6 +37,11 @@ Use [`sensuctl asset add`][21] to register the Sensu Plugins HTTP dynamic runtim
 
 {{< code shell >}}
 sensuctl asset add sensu-plugins/sensu-plugins-http:5.1.1 -r sensu-plugins-http
+{{< /code >}}
+
+The response will indicate that the asset was added:
+
+{{< code shell >}}
 fetching bonsai asset: sensu-plugins/sensu-plugins-http:5.1.1
 added asset: sensu-plugins/sensu-plugins-http:5.1.1
 
@@ -53,6 +58,11 @@ Then, use the following sensuctl example to register the Sensu Ruby Runtime dyna
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
+{{< /code >}}
+
+The response will indicate that the asset was added:
+
+{{< code shell >}}
 fetching bonsai asset: sensu/sensu-ruby-runtime:0.0.10
 added asset: sensu/sensu-ruby-runtime:0.0.10
 
@@ -63,10 +73,15 @@ resource, populate the "runtime_assets" field with ["sensu-ruby-runtime"].
 
 You can also download the dynamic runtime asset definition from [Bonsai][17] and register the asset using `sensuctl create --file filename.yml` or `sensuctl create --file filename.json`.
 
-Use sensuctl to confirm that both the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets are ready to use:
+Use sensuctl to confirm that both dynamic runtime assets are ready to use:
 
 {{< code shell >}}
 sensuctl asset list
+{{< /code >}}
+
+The response should list the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets:
+
+{{< code shell >}}
           Name                                                URL                                       Hash    
 ────────────────────────── ─────────────────────────────────────────────────────────────────────────── ───────── 
  sensu-plugins-http         //assets.bonsai.sensu.io/.../sensu-plugins-http_5.1.1_centos_linux_amd64.tar.gz         31023af  
@@ -152,6 +167,11 @@ Use sensuctl to confirm that Sensu added the check:
 
 {{< code shell >}}
 sensuctl check list
+{{< /code >}}
+
+The response should list `check-sensu-site`:
+
+{{< code shell >}}
        Name                     Command               Interval   Cron   Timeout   TTL   Subscriptions   Handlers                     Assets                Hooks   Publish?   Stdin?  
 ────────────────── ────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ─────────────────────────────────────── ─────── ────────── ────────
  check-sensu-site   check-http.rb -u https://sensu.io         60                0     0   proxy                      sensu-plugins-http,sensu-ruby-runtime             true     false
@@ -175,24 +195,31 @@ sudo service sensu-agent restart
 
 ### Validate the check
 
-Use sensuctl to confirm that Sensu created the proxy entity `sensu-site`:
+Use sensuctl to confirm that Sensu created `sensu-site`.
+It might take a few moments for Sensu to execute the check and create the proxy entity.
 
 {{< code shell >}}
 sensuctl entity list
+{{< /code >}}
+
+The response should list the `sensu-site` proxy entity:
+
+{{< code shell >}}
       ID        Class    OS           Subscriptions                   Last Seen            
 ────────────── ─────── ─────── ─────────────────────────── ─────────────────────────────── 
 sensu-centos   agent   linux   proxy,entity:sensu-centos   2019-01-16 21:50:03 +0000 UTC  
 sensu-site     proxy           entity:sensu-site           N/A  
 {{< /code >}}
 
-{{% notice note %}}
-**NOTE**: It might take a few moments for Sensu to execute the check and create the proxy entity.
-{{% /notice %}}
-
 Then, use sensuctl to confirm that Sensu is monitoring `sensu-site` with the `check-sensu-site` check:
 
 {{< code shell >}}
 sensuctl event info sensu-site check-sensu-site
+{{< /code >}}
+
+The response should list `check-sensu-site` status and history data for the `sensu-site` proxy entity:
+
+{{< code shell >}}
 === sensu-site - check-sensu-site
 Entity:    sensu-site
 Check:     check-sensu-site
@@ -340,6 +367,11 @@ Use sensuctl to confirm that the entities were added:
 
 {{< code shell >}}
 sensuctl entity list
+{{< /code >}}
+
+The response should list the new `sensu-docs`, `packagecloud-site`, and `github-site` proxy entities:
+
+{{< code shell >}}
         ID           Class    OS           Subscriptions                   Last Seen            
 ─────────────────── ─────── ─────── ─────────────────────────── ─────────────────────────────── 
  github-site         proxy                                       N/A                            
@@ -431,6 +463,12 @@ Use sensuctl to confirm that Sensu created the check:
 
 {{< code shell >}}
 sensuctl check list
+{{< /code >}}
+
+The response should include the `check-http` check:
+
+{{< code shell >}}
+sensuctl check list
        Name                      Command               Interval   Cron   Timeout   TTL   Subscriptions   Handlers                   Assets                  Hooks   Publish?   Stdin?
 ───────────────── ─────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ─────────────────────────────────────── ─────── ────────── ────────
   check-http        check-http.rb -u {{ .labels.url }}         60                0     0   proxy                     sensu-plugins-http,sensu-ruby-runtime           true       false                                     
@@ -449,6 +487,11 @@ Use sensuctl to confirm that Sensu is monitoring docs.sensu.io, packagecloud.io,
 
 {{< code shell >}}
 sensuctl event list
+{{< /code >}}
+
+The response should list check status data for the `sensu-docs`, `packagecloud-site`, and `github-site` proxy entities:
+
+{{< code shell >}}
       Entity                Check          Output   Status   Silenced             Timestamp            
 ─────────────────── ───────────────────── ──────── ──────── ────────── ─────────────────────────────── 
 github-site         check-http                           0   false      2019-01-17 17:10:31 +0000 UTC  

@@ -33,6 +33,11 @@ Use the following sensuctl example to register the [Sensu Go Email Handler][3] d
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-email-handler -r email-handler
+{{< /code >}}
+
+The response will indicate that the asset was added:
+
+{{< code shell >}}
 no version specified, using latest: 0.6.0
 fetching bonsai asset: sensu/sensu-email-handler:0.6.0
 added asset: sensu/sensu-email-handler:0.6.0
@@ -271,6 +276,7 @@ Now that you know how to apply a handler to a check and take action on events:
 - Check out the [Reduce alert fatigue][7] guide.
 
 You can also follow our [Up and running with Sensu Go][9] interactive tutorial to set up the Sensu Go email handler and test a similar workflow with the addition of a Sensu agent for producing events using scheduled checks.
+
 
 [1]: ../../observe-events/events/
 [2]: ../../observe-schedule/monitor-server-resources/

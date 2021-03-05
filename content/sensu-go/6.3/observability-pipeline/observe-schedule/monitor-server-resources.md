@@ -33,6 +33,11 @@ Use [`sensuctl asset add`][9] to register the Sensu CPU Checks dynamic runtime a
 
 {{< code shell >}}
 sensuctl asset add sensu-plugins/sensu-plugins-cpu-checks:4.1.0 -r cpu-checks-plugins
+{{< /code >}}
+
+The response will indicate that the asset was added:
+
+{{< code shell >}}
 fetching bonsai asset: sensu-plugins/sensu-plugins-cpu-checks:4.1.0
 added asset: sensu-plugins/sensu-plugins-cpu-checks:4.1.0
 
@@ -49,6 +54,11 @@ Then, use the following sensuctl example to register the Sensu Ruby Runtime dyna
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
+{{< /code >}}
+
+The response will indicate that the asset was added:
+
+{{< code shell >}}
 fetching bonsai asset: sensu/sensu-ruby-runtime:0.0.10
 added asset: sensu/sensu-ruby-runtime:0.0.10
 
@@ -59,10 +69,15 @@ resource, populate the "runtime_assets" field with ["sensu-ruby-runtime"].
 
 You can also download the dynamic runtime asset definition from [Bonsai][7] and register the asset using `sensuctl create --file filename.yml`.
 
-Use sensuctl to confirm that both the `cpu-checks-plugins` and `sensu-ruby-runtime` dynamic runtime assets are ready to use:
+To confirm that both dynamic runtime assets are ready to use:
 
 {{< code shell >}}
 sensuctl asset list
+{{< /code >}}
+
+The response should list the `cpu-checks-plugins` and `sensu-ruby-runtime` dynamic runtime assets:
+
+{{< code shell >}}
           Name                                                URL                                       Hash    
 ────────────────────────── ─────────────────────────────────────────────────────────────────────────── ───────── 
  cpu-checks-plugins   //assets.bonsai.sensu.io/.../sensu-plugins-cpu-checks_4.1.0_centos_linux_amd64.tar.gz          518e7c1  
@@ -105,11 +120,16 @@ sudo service sensu-agent restart
 
 ## Validate the check
 
-Use sensuctl to confirm that Sensu is monitoring CPU usage using the `check-cpu`, returning an OK status (`0`).
+Use sensuctl to confirm that Sensu is monitoring CPU usage.
 It might take a few moments after you create the check for the check to be scheduled on the entity and the event to return to Sensu backend.
 
 {{< code shell >}}
 sensuctl event list
+{{< /code >}}
+
+The response should list the `check-cpu` check, returning an OK status (`0`)
+
+{{< code shell >}}
     Entity        Check                                                                    Output                                                                   Status   Silenced             Timestamp            
 ────────────── ─────────── ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── 
  sensu-centos   check-cpu   CheckCPU TOTAL OK: total=0.2 user=0.0 nice=0.0 system=0.2 idle=99.8 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0        0   false      2019-04-23 16:42:28 +0000 UTC  
@@ -123,6 +143,7 @@ Now that you know how to run a check to monitor CPU usage, read these resources 
 * [Use assets to install plugins][2]
 * [Monitor external resources with proxy checks and entities][5]
 * [Send Slack alerts with handlers][6]
+
 
 [1]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-cpu-checks
 [2]: ../../../plugins/use-assets-to-install-plugins/
