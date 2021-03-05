@@ -1326,7 +1326,7 @@ Without the `postrotate` script, the backend will not reload.
 This will cause sensu-backend (and sensu-agent, if translated for the Sensu agent) to no longer write to the log file, even if logrotate recreates the log file.
 
 In this script, `systemctl reload` sends a _SIGHUP_ signal to the sensu-backend process.
-The _SIGHUP_ signal causes the `backend` component to reload instead of restarting the process.
+The _SIGHUP_ signal causes the `backend` component to restart.
 
 {{% notice note %}}
 **NOTE**: Event logs do not include log messages produced by sensu-backend service. To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../../operations/monitor-sensu/log-sensu-systemd/).
