@@ -1107,7 +1107,7 @@ spec:
 [20]: ../../observe-events/events/#history-attributes
 [21]: ../../observe-schedule/checks#check-scheduling
 [22]: ../../observe-process/handlers/
-[23]: ../../observe-events/events#metric-attributes
+[23]: ../../observe-events/events#metrics-attributes
 [24]: ../../observe-entities/entities#metadata-attributes
 [25]: ../../../operations/control-access/rbac/#default-roles-and-cluster-roles
 [26]: ../../observe-schedule/agent#keepalive-monitoring
