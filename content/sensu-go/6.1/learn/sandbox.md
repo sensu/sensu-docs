@@ -24,7 +24,7 @@ You'll also learn to use sensuctl to configure a Nagios-style monitoring check f
 
 ## Collect metrics
 
-The Prometheus ecosystem's exporters expose metrics that Sensu can collect and route to one or more time series databases.
+The Prometheus ecosystem's exporters expose metrics that Sensu can collect and route to one or more time-series databases.
 Follow [Collect Prometheus metrics with Sensu][3] to run Sensu and Prometheus in parallel and make use of environments where you've already deployed Prometheus.
 
 Learn to configure the Sensu Prometheus Collector check plugin to collect metrics from a Prometheus exporter or the Prometheus query API.

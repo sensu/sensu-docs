@@ -14,7 +14,7 @@ menu:
 
 Sensu stores the most recent event for each entity and check pair using either an etcd (default) or PostgreSQL database.
 You can access observability event data with the [Sensu web UI][9] Events page, [`sensuctl event` commands][10], and the [events API][11].
-For longer retention of observability event data, integrate Sensu with a time series database like [InfluxDB][12] or a searchable index like ElasticSearch or Splunk.
+For longer retention of observability event data, integrate Sensu with a time-series database like [InfluxDB][12] or a searchable index like ElasticSearch or Splunk.
 
 ## Use default event storage
 

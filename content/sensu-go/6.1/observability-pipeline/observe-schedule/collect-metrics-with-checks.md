@@ -534,7 +534,7 @@ spec:
 
 ## Next step: Send metrics to a handler
 
-Now that you know how to extract metrics from check output, learn to use a metrics handler to [populate metrics in InfluxDB][5].
+Now that you know how to extract metrics from check output, learn to use a metrics handler to [populate service and time-series metrics in InfluxDB][5].
 For a turnkey experience with the Sensu InfluxDB Handler plugin, use our curated, configurable [quick-start template][6] to integrate Sensu with your existing workflows and store Sensu metrics in InfluxDB.
 
 
