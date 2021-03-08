@@ -203,89 +203,49 @@ However, deployments can also use the same certificates and keys for etcd peer a
 
 The Sensu backend checks certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) endpoints for agent mTLS, etcd client, and etcd peer connections whose remote sides present X.509 certificates that provide CRL and OCSP revocation information.
 
-## Asset paths and sudo
+## Dynamic runtime asset paths and sudo
 
-When check commands on Linux require enhanced permissions to run, it's common to use sudo to escalate the Sensu user’s privileges in a targeted fashion.
-If you use dynamic runtime assets for check commands that use sudo, you may need to adjust your default sudo configuration.
+When check commands on Linux require enhanced permissions to run, you can use sudo to escalate the Sensu user’s privileges in a targeted fashion.
+If you use dynamic runtime assets for check commands that use sudo, you'll need to adjust your default sudo configuration.
 
 {{% notice warning %}}
-**WARNING**: Before you use this configuration, consider whether using dynamic runtime assets for privileged checks meets your security requirements.<br><br>
+**WARNING**: Before you adjust your sudo configuration, consider whether using dynamic runtime assets for privileged checks meets your security requirements.<br><br>
 Using dynamic runtime assets with sudo has important security implications.
 Rather than making a habit of using sudo for all check commands, carefully evaluate when its appropriate to escalate privileges in this way.
 {{% /notice %}}
 
-To give Sensu access to use `sudo -E` for assets installed under `var/cache/sensu/sensu-agent/`, add these lines to your Sensu sudoers file:
+<a name="sudo-all-assets"></a>
+
+To give Sensu access to use `sudo -E` for **all** assets installed under `var/cache/sensu/sensu-agent/`, add these lines to a file in your `/etc/sudoers.d/` directory:
 
 {{< code shell >}}
 sensu   ALL=(ALL)       NOPASSWD:SETENV: /var/cache/sensu/sensu-agent/**/bin/*
 sensu   ALL=(ALL)       NOPASSWD:SETENV: /var/cache/sensu/sensu-agent/**/bin/*.*
 {{< /code >}}
 
-In these lines, the `**` will match any directory other than `.` and `..`.
 Both lines are necessary because `bin/*.*` won't match Go assets that do not end with file extension `.ext`.
+The `**` is a [POSIX glob][8] that will match any subdirectory other than `.` and `..`.
+`NOPASSWD:SETENV:` allows the Sensu user to run commands without a password and use `sudo -E` to preserve the Sensu user’s environment.
 
-To give Sensu access to use `sudo -E` for diagnostic purposes, add this line to your Sensu sudoers file:
-
-{{< code shell >}}
-sensu   ALL=(ALL)       NOPASSWD:SETENV: /usr/bin/echo
-{{< /code >}}
+{{% notice warning %}}
+**WARNING**: Use this example with the `**` POSIX glob as a pattern for testing in non-production environments.
+If you include these lines in your sudo configuration, Sensu will run any script installed as an asset under sudo.
+With the `sudo -E` prefix added to the check command, sudo will use the environment variables meant for the Sensu check environment.
+**This opens all installed Sensu assets for privileged operation**.<br><br>
+We recommend replacing the `**` glob with the sha512 sum for the specific build of the dynamic runtime asset to [target a specific dynamic runtime asset directory](#target-a-specific-dynamic-runtime-asset-directory).
+In production, you should also replace the `bin/*.*` and `bin/*` globs in the sudo rule patterns with specific commands to further improve security.
+{{% /notice %}}
 
 With these changes, you can add `sudo -E` as the prefix for all asset-provided commands.
 This will ensure that agent-provided environment variables are passed to the sudo environment and provide the expected sensu-agent operation using default agent configuration settings.
 
-{{% notice warning %}}
-**WARNING**: With these changes in your sudo configuration, Sensu will run any script installed as an asset under sudo.
-With the `sudo -E` prefix added to the command, sudo will use the environment variables meant for the Sensu check environment.
-**This opens all installed Sensu assets for privileged operation**.
-{{% /notice %}}
-
-If the sudo `secure_path` option is enabled, you must also extend the path to include sensu-agent assets so that you do not have to explicitly use the full path to the asset binary in your sudo calls.
-Make this change in your Sensu sudoers file:
-
-{{< code shell >}}
-Defaults    secure_path = /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/cache/sensu/sensu-agent/**/bin
-{{< /code >}}
-
-
-
-----------------
-
-
-Notes:
-
-{{< code shell >}}
-## Ex rules thats sensu to run ALL installed asset commands:
-## This can be placed in in a file under /etc/sudoers.d/
-
-# sensu   ALL=(ALL)       NOPASSWD:SETENV: /var/cache/sensu/sensu-agent/**/bin/*.*
-# sensu   ALL=(ALL)       NOPASSWD:SETENV: /var/cache/sensu/sensu-agent/**/bin/*
-
-## NOTE: the '**' is a posix glob that matches for all subdirectories
-## If you would like to target specific directories for tighter security
-## you can replace the '**' with specific asset directories
-## Asset directories will match the sha512 sum for the specific asset build
-
-
-## Ex rules that only allow system-profile-linux asset for linux amd64
-## the directory name is taken from the sha512 from asset definition (see related yaml file)
-
-# sensu   ALL=(ALL)       NOPASSWD:SETENV: /var/cache/sensu/sensu-agent/29a6e1725f37e533cd9f6a8a17b40ef757ba5ea5dc27701c19a7fb9ac9c2bdf9f684d758d4440f278bb7fc669e52bf02efb3fc6758731f7f3e10617a2fe026cf/bin/*.*
-# sensu   ALL=(ALL)       NOPASSWD:SETENV: /var/cache/sensu/sensu-agent/29a6e1725f37e533cd9f6a8a17b40ef757ba5ea5dc27701c19a7fb9ac9c2bdf9f684d758d4440f278bb7fc669e52bf02efb3fc6758731f7f3e10617a2fe026cf/bin/*
-{{< /code >}}
-
 ### Example check with privileged check command
 
 This example check uses the `sudo -E` prefix to run a privileged check command provided by a dynamic runtime asset, [System Profile Linux][11].
-
 The dynamic runtime asset named `sensu/system-profile-linux` is mapped into the environment variable `SENSU_SYSTEM_PROFILE_LINUX_PATH`.
+Sensu will use the asset-specific path environment variable to prefix the check command instead of editing the sudo `secure_path`.
 
-This check requires sudo rules that allow the Sensu user to run commands under `/var/cache/sensu/sensu-agent/`:
-
-{{< code shell >}}
-sensu   ALL=(ALL)       NOPASSWD:SETENV: /var/cache/sensu/sensu-agent/**/bin/*.*
-sensu   ALL=(ALL)       NOPASSWD:SETENV: /var/cache/sensu/sensu-agent/**/bin/*
-{{< /code >}}
-
+This check requires sudo rules that [allow Sensu to use `sudo -E` to run commands for all assets][14] installed under `var/cache/sensu/sensu-agent/`.
 These rules allow Sensu to run **all** installed asset commands.
 
 {{< language-toggle >}}
@@ -297,9 +257,8 @@ api_version: core/v2
 metadata:
   name: sudo_example
 spec:
-  check_hooks: null
-    # Use the asset specific path envvar to prefix the command instead of editting sudo secure_path  
-  command: sudo -E  ${SENSU_SYSTEM_PROFILE_LINUX_PATH}/bin/system-profile-linux
+  check_hooks: null 
+  command: sudo -E ${SENSU_SYSTEM_PROFILE_LINUX_PATH}/bin/system-profile-linux
   interval: 60
   publish: false
   runtime_assets:
@@ -317,7 +276,7 @@ spec:
   },
   "spec": {
     "check_hooks": null,
-    "command": "sudo -E  ${SENSU_SYSTEM_PROFILE_LINUX_PATH}/bin/system-profile-linux",
+    "command": "sudo -E ${SENSU_SYSTEM_PROFILE_LINUX_PATH}/bin/system-profile-linux",
     "interval": 60,
     "publish": false,
     "runtime_assets": [
@@ -332,7 +291,9 @@ spec:
 
 {{< /language-toggle >}}
 
-The check requires the following definition for the `system-profile-linux` dynamic runtime asset:
+<a name="asset-definition"></a>
+
+The check requires the following definition for the [`system-profile-linux`][11] dynamic runtime asset:
 
 {{< language-toggle >}}
 
@@ -473,6 +434,113 @@ spec:
 
 {{< /language-toggle >}}
 
+### Target a specific dynamic runtime asset directory
+
+To improve security, configure Sensu access to use `sudo -E` only for specific assets installed under `var/cache/sensu/sensu-agent/`, 
+In your `/etc/sudoers.d/` file, in place of `**`, list the sha512 sum for the specific build of the dynamic runtime asset you are using.
+This effectively whitelists the asset paths you want sudo to be able to use.
+You can find the sha512 sum for the build you want to whitelist in the asset definition.
+
+For example, the following rules would allow `sudo -E` access for only the [Linux amd64 build of the System Profile Linux][13] dynamic runtime asset:
+
+{{< code shell >}}
+sensu   ALL=(ALL)       NOPASSWD:SETENV: /var/cache/sensu/sensu-agent/29a6e1725f37e533cd9f6a8a17b40ef757ba5ea5dc27701c19a7fb9ac9c2bdf9f684d758d4440f278bb7fc669e52bf02efb3fc6758731f7f3e10617a2fe026cf/bin/*.*
+sensu   ALL=(ALL)       NOPASSWD:SETENV: /var/cache/sensu/sensu-agent/29a6e1725f37e533cd9f6a8a17b40ef757ba5ea5dc27701c19a7fb9ac9c2bdf9f684d758d4440f278bb7fc669e52bf02efb3fc6758731f7f3e10617a2fe026cf/bin/*
+{{< /code >}}
+
+### Extend the sudo secure_path to include assets
+
+If the sudo `secure_path` option is enabled, you can extend the path to include sensu-agent assets so that you do not have to explicitly use the full path to the asset binary in your sudo calls.
+For example, this update allows you to call `sudo echo "hello world"` rather than `sudo /usr/bin/echo "hello world"`.
+This is useful for checks that need to run on different hosts or that have different builds for different hosts.
+
+Add this line to your `/etc/sudoers.d/` file:
+
+{{< code shell >}}
+Defaults    secure_path = /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/cache/sensu/sensu-agent/**/bin
+{{< /code >}}
+
+### Use sudo for diagnostic checks
+
+To give Sensu access to use `sudo -E` for diagnostic purposes, add this line to your `/etc/sudoers.d/` file:
+
+{{< code shell >}}
+sensu   ALL=(ALL)       NOPASSWD:SETENV: /usr/bin/echo
+{{< /code >}}
+
+This allows you to create diagnostic check commands to ensure that dynamic runtime asset paths work as you expect.
+
+For example, the event output for the following check should list both dynamic runtime asset paths prepended with an obvious asset directory under the configured sensu-agent cache directory:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: sudo_test
+spec:
+  check_hooks: null
+  command: sudo -E echo "PATH:$PATH \nLD:$LD_LIBRARY_PATH \n"
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
+  interval: 10
+  low_flap_threshold: 0
+  output_metric_format: ""
+  output_metric_handlers: null
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets:
+  - sensu/system-profile-linux
+  secrets: null
+  stdin: false
+  subdue: null
+  subscriptions:
+  - test
+  timeout: 0
+  ttl: 0
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sudo_test"
+  },
+  "spec": {
+    "check_hooks": null,
+    "command": "sudo -E echo \"PATH:$PATH \\nLD:$LD_LIBRARY_PATH \\n\"",
+    "env_vars": null,
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 10,
+    "low_flap_threshold": 0,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": [
+      "sensu/system-profile-linux"
+    ],
+    "secrets": null,
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "test"
+    ],
+    "timeout": 0,
+    "ttl": 0
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Next step: Run a Sensu cluster
 
 Well done!
@@ -487,7 +555,10 @@ The last step before you deploy Sensu is to [set up a Sensu cluster][10].
 [5]: ../../../commercial/
 [6]: https://etcd.io/docs/v3.3.13/op-guide/security/
 [7]: ../../../observability-pipeline/observe-schedule/agent/#security-configuration-flags
+[8]: https://en.wikipedia.org/wiki/Glob_%28programming%29
 [9]: https://github.com/cloudflare/cfssl
 [10]: ../cluster-sensu/
 [11]: https://bonsai.sensu.io/assets/sensu/system-profile-linux
 [12]: ../generate-certificates/
+[13]: #asset-definition
+[14]: #sudo-all-assets
