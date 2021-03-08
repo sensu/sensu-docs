@@ -3,7 +3,7 @@ title: "Metrics reference"
 linkTitle: "Metrics Reference"
 reference_title: "Metrics"
 type: "reference"
-description: "Use checks to collect and process service metrics for your infrastructure with the Sensu observability pipeline. Read this reference doc to learn about Sensu Go's first-class support for collecting and processing metrics."
+description: "Use checks to collect service and time-series metrics for your infrastructure and process extracted metrics with the Sensu observability pipeline. Read this reference doc to learn about Sensu Go's first-class support for collecting and processing service and time-series metrics."
 weight: 33
 version: "6.2"
 product: "Sensu Go"
@@ -13,12 +13,15 @@ menu:
     parent: observe-schedule
 ---
 
-Sensu Go offers built-in support for collecting and processing metrics for your entire infrastructure.
+Sensu Go offers built-in support for collecting and processing service and time-series metrics for your entire infrastructure.
 
 In Sensu, metrics are an optional component of observation data in events.
 Sensu events may contain check execution results, metrics, or both.
 Certain inputs like the [Sensu StatsD listener][2] or patterns like the [Prometheus][7] collector pattern will create metrics-only events.
 Events can also include metrics from [check output metric extraction][4].
+
+Use Sensu handlers to [process extracted metrics][11] and route them to databases like Elasticsearch, InfluxDB, Grafana, and Graphite.
+You can also use Sensu's [time-series and long-term event storage integrations][18] to process service and time-series metrics.
 
 {{% notice note %}}
 **NOTE**: This reference describes the metrics component of observation data included in Sensu events, which is distinct from the Sensu metrics API.
@@ -463,7 +466,7 @@ For example, this tag will list the `event.time` attribute:
 Specify the event handlers you want to process your Sensu metrics in the check [`output_metric_handlers`][3] attribute.
 With these event handlers, you can route metrics to one or more databases for storing and visualizing metrics, like Elasticsearch, InfluxDB, Grafana, and Graphite.
 
-Many of our most popular metrics integrations for [time-series and long-term event storage][18] include curated, configurable quick-start templates to integrate Sensu with your existing workflows.
+Many of our most popular metrics integrations for [time-series and long-term storage][18] include curated, configurable quick-start templates to integrate Sensu with your existing workflows.
 You can also use [Bonsai][8], the Sensu asset hub, to discover, download, and share dynamic runtime assets for processing metrics.
 
 In check definitions, the `output_metric_handlers` list for metrics event handlers is distinct and separate from the `handlers` list for status event handlers.

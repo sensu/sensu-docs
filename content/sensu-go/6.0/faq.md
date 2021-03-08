@@ -53,10 +53,10 @@ If you want to add your own dynamic runtime assets, read the [guide for sharing 
 
 You can also check out the 200+ plugins shared in the [Sensu plugins community][11], including monitoring checks for [AWS][13], [Jenkins][14], [Puppet][15], [InfluxDB][16], and [SNMP][17], or write your own Sensu plugins in any language using the [Sensu plugin specification][12].
 
-## Does Sensu include a time series database for long-term storage?
+## Does Sensu include a time-series database for long-term storage?
 
 No, Sensu does not store event data.
-We recommend integrating Sensu with a time series database, like [InfluxDB][19], to store event data.
+We recommend integrating Sensu with a time-series database, like [InfluxDB][19], to store event data.
 See the [guide to storing metrics with InfluxDB][18] to get started.
 
 ## Can I connect Sensu Go to clients and servers from Sensu Core and Sensu Enterprise?

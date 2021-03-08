@@ -57,7 +57,7 @@ Check out [Bonsai, the Sensu asset hub][20], or write your own [Sensu plugins][3
 
 Know what's going on everywhere in your system.
 Sensu supports industry-standard [metric formats][10] like Nagios performance data, Graphite plaintext protocol, InfluxDB line protocol, OpenTSDB data specification, and [StatsD metrics][14].
-Use the Sensu agent to collect metrics alongside check results, then use the event pipeline to route the data to a time series database like [InfluxDB][2].
+Use the Sensu agent to collect metrics alongside check results, then use the event pipeline to route the data to a time-series database like [InfluxDB][2].
 
 ### Intuitive API and web UI interfaces
 
