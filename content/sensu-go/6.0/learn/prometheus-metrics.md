@@ -1,16 +1,16 @@
 ---
 title: "Collect Prometheus metrics with Sensu"
 version: "6.0"
-description: "The Sensu Prometheus Collector is a check plugin that collects metrics from a Prometheus exporter or the Prometheus query API. This allows Sensu to route the collected metrics to a time series database, like InfluxDB. Follow this guide to start collecting Prometheus metrics with Sensu."
+description: "The Sensu Prometheus Collector is a check plugin that collects metrics from a Prometheus exporter or the Prometheus query API. This allows Sensu to route the collected metrics to a time-series database, like InfluxDB. Follow this guide to start collecting Prometheus metrics with Sensu."
 product: "Sensu Go"
 platformContent: false
 ---
 
 The [Sensu Prometheus Collector][1] is a check plugin that collects metrics from a [Prometheus exporter][2] or the [Prometheus query API][3].
-This allows Sensu to route the collected metrics to one or more time series databases, such as InfluxDB or Graphite.
+This allows Sensu to route the collected metrics to one or more time-series databases, such as InfluxDB or Graphite.
 
 The Prometheus ecosystem contains a number of actively maintained exporters, such as the [node exporter][5] for reporting hardware and operating system metrics or Google's [cAdvisor exporter][6] for monitoring containers.
-These exporters expose metrics that Sensu can collect and route to one or more time series databases.
+These exporters expose metrics that Sensu can collect and route to one or more time-series databases.
 Sensu and Prometheus can run in parallel, complementing each other and making use of environments where Prometheus is already deployed.  
 
 This guide uses CentOS 7 as the operating system with all components running on the same compute resource.
