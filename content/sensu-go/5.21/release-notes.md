@@ -9,6 +9,7 @@ version: "5.21"
 menu: "sensu-go-5.21"
 ---
 
+- [5.21.4 release notes](#5214-release-notes)
 - [5.21.3 release notes](#5213-release-notes)
 - [5.21.2 release notes](#5212-release-notes)
 - [5.21.1 release notes](#5211-release-notes)
@@ -67,6 +68,18 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.21.4 release notes
+
+**March 8, 2021** &mdash; The latest release of Sensu Go, version 5.21.4, is now available for download.
+
+This patch release fixes a bug that caused the SIGHUP signal to restart the sensu-backend.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.4.
+
+**FIXES:**
+
+- Fixed a bug that caused the SIGHUP signal used for [log rotation][206] to restart the sensu-backend.
 
 ## 5.21.3 release notes
 
@@ -1419,3 +1432,4 @@ To get started with Sensu Go:
 [158]: /sensu-go/5.21/commercial/
 [160]: /sensu-go/5.21/reference/backend#fips-openssl
 [161]: /sensu-go/5.21/reference/agent#fips-openssl
+[206]: /sensu-go/5.21/reference/backend/#log-rotation

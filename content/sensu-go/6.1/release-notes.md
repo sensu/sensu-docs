@@ -15,6 +15,7 @@ menu: "sensu-go-6.1"
 - [6.1.1 release notes](#611-release-notes)
 - [6.1.0 release notes](#610-release-notes)
 - [6.0.0 release notes](#600-release-notes)
+- [5.21.4 release notes](#5214-release-notes)
 - [5.21.3 release notes](#5213-release-notes)
 - [5.21.2 release notes](#5212-release-notes)
 - [5.21.1 release notes](#5211-release-notes)
@@ -245,6 +246,18 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - Fixed a bug where nil labels or annotations in an event filtering context would require you to explicitly check whether the annotations or labels are undefined.
 With this fix, labels and annotations are always defined (although they may be empty).
 - Fixed the log entry field for the check's name in schedulerd.
+
+## 5.21.4 release notes
+
+**March 8, 2021** &mdash; The latest release of Sensu Go, version 5.21.4, is now available for download.
+
+This patch release fixes a bug that caused the SIGHUP signal to restart the sensu-backend.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.4.
+
+**FIXES:**
+
+- Fixed a bug that caused the SIGHUP signal used for [log rotation][206] to restart the sensu-backend.
 
 ## 5.21.3 release notes
 
@@ -1628,3 +1641,4 @@ To get started with Sensu Go:
 [190]: /sensu-go/6.1/operations/control-access/rbac/#rule-attributes
 [191]: /sensu-go/6.1/sensuctl/back-up-recover/
 [192]: /sensu-go/6.1/sensuctl/create-manage-resources/#sensuctl-prune
+[206]: /sensu-go/5.21/reference/backend/#log-rotation
