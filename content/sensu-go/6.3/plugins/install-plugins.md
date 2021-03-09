@@ -5,8 +5,6 @@ description: "Sensu plugins provide executables for performing status or metric 
 weight: 20
 version: "6.3"
 product: "Sensu Go"
-platformContent: true
-platforms: ["Ubuntu/Debian", "RHEL/CentOS"]
 menu:
   sensu-go-6.3:
     parent: plugins
@@ -54,8 +52,15 @@ To install a [Sensu Community plugin][1] with Sensu Go:
 2. Run the `sensu-install` command to install plugins in the [Sensu Community Plugins GitHub organization][1] by repository name.
 Plugins are installed into `/opt/sensu-plugins-ruby/embedded/bin`.
 
+To see a list of all flags for the sensu-install command, run:
+
 {{< code shell >}}
 sensu-install --help
+{{< /code >}}
+
+The response will be similar to this example:
+
+{{< code shell >}}
 Usage: sensu-install [options]
     -h, --help                       Display this message
     -v, --verbose                    Enable verbose logging
@@ -80,46 +85,51 @@ To install a specific version of the Sensu InfluxDB plugin with `sensu-install`,
 sudo sensu-install -p 'sensu-plugins-influxdb:2.0.0'
 {{< /code >}}
 
-We recommend using a configuration management tool or using [Sensu dynamic runtime assets][5] to pin the versions of any plugins installed in production.
+{{% notice note %}}
+**NOTE**: We recommend specifying the plugin version you want to install to maintain the stability of your observability infrastructure.
+If you do not specify a version to install, Sensu automatically installs the latest version, which may include breaking changes.
+{{% /notice %}}
+
+Use a configuration management tool or [Sensu dynamic runtime assets][5] to pin the versions of any plugins installed in production.
 
 {{% notice note %}}
 **NOTE**: If a plugin is not Sensu Go-enabled and there is no analogue on Bonsai, you can add the necessary functionality to make the plugin compatible with Sensu Go.
-Follow [this discourse.sensu.io guide](https://discourse.sensu.io/t/contributing-assets-for-existing-ruby-sensu-plugins/1165) to walk through the process.
+Follow the Discourse guide [Contributing Assets for Existing Ruby Sensu Plugins](https://discourse.sensu.io/t/contributing-assets-for-existing-ruby-sensu-plugins/1165) to walk through the process.
 {{% /notice %}}
 
 ### Troubleshoot the sensu-install tool
 
 Some plugins require additional tools to install them successfully.
 An example is the [Sensu disk checks plugin][3].
-Depending on the plugin, you may need to install developer tool packages.
 
-{{< platformBlock "Ubuntu/Debian" >}}
+To download and update package information:
 
-**Ubuntu/Debian**:
+{{< language-toggle >}}
 
-{{< code shell >}}
+{{< code shell "Ubuntu/Debian" >}}
 sudo apt-get update
 {{< /code >}}
 
-{{< code shell >}}
-sudo apt-get install build-essential
-{{< /code >}}
-
-{{< platformBlockClose >}}
-
-{{< platformBlock "RHEL/CentOS" >}}
-
-**RHEL/CentOS**:
-
-{{< code shell >}}
+{{< code shell "RHEL/CentOS" >}}
 sudo yum update
 {{< /code >}}
 
-{{< code shell >}}
+{{< /language-toggle >}}
+
+Depending on the plugin, you may need to install developer tool packages:
+
+{{< language-toggle >}}
+
+{{< code shell "Ubuntu/Debian" >}}
+sudo apt-get install build-essential
+{{< /code >}}
+
+{{< code shell "RHEL/CentOS" >}}
 sudo yum groupinstall "Development Tools"
 {{< /code >}}
 
-{{< platformBlockClose >}}
+{{< /language-toggle >}}
+
 
 [1]: https://github.com/sensu-plugins/
 [2]: https://packagecloud.io/sensu/community/

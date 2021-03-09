@@ -312,7 +312,7 @@ sensuctl configure -n \
 Here, the `-n` flag triggers non-interactive mode.
 Run `sensuctl config view` to see your user profile.
 
-For more information about sensuctl, see the [quickstart][23] and [reference][4] docs.
+For more information about sensuctl, see the [sensuctl documentation][4].
 
 ### Change default admin password
 
@@ -540,13 +540,12 @@ sensuctl license info
 [14]: ../../../learn/learn-sensu-sandbox/
 [15]: ../../../observability-pipeline/observe-schedule/agent/#events-post-example
 [16]: https://etcd.io/
-[17]: ../../../operations/deploy-sensu/assets/
+[17]: ../../../plugins/assets/
 [18]: #install-sensu-agents
 [19]: #install-sensuctl
 [20]: ../../../commercial/
 [21]: #install-the-sensu-backend
 [22]: ../cluster-sensu/
-[23]: ../../../sensuctl/
 [24]: #4-open-the-web-ui
 [25]: ../hardware-requirements/
 [26]: ../../../api/

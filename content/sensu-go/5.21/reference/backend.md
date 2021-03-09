@@ -20,6 +20,20 @@ Every Sensu backend includes an integrated transport for scheduling checks using
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
 See the [installation guide][1] to install the backend.
 
+## Backend transport
+
+The Sensu backend listens for agent communications via [WebSocket][30] transport.
+By default, this transport operates on port 8081.
+The agent subscriptions are used to determine which check execution requests the backend publishes via the transport.
+Sensu agents locally execute checks as requested by the backend and publish check results back to the transport to be processed.
+
+Sensu agents authenticate to the Sensu backend via transport by either [built-in username and password][34] or [mutual transport layer security (mTLS)][31] authentication.
+
+To secure the WebSocket transport, first [generate the certificates][32] you will need to set up transport layer security (TLS).
+Then, [secure Sensu][33] by configuring either TLS or mTLS to make Sensu production-ready.
+
+Read the [Sensu architecture overview][35] for a diagram that includes the WebSocket transport.
+
 ## Create event pipelines
 
 The backend processes event data and executes filters, mutators, and handlers.
@@ -259,6 +273,10 @@ This is because the Go standard library assumes that the first certificate liste
 
 If you send the server certificate alone instead of sending the whole bundle with the server certificate first, you will see a `certificate not signed by trusted authority` error.
 You must present the whole chain to the remote so it can determine whether it trusts the server certificate through the chain.
+
+### Certificate revocation check
+
+The Sensu backend checks certificate revocation list (CRL) and Online Certificate Status Protocol (OCSP) endpoints for mutual transport layer security (mTLS), etcd client, and etcd peer connections whose remote sides present X.509 certificates that provide CRL and OCSP revocation information.
 
 ### Configuration summary
 
@@ -530,7 +548,7 @@ agent-auth-cert-file: /path/to/ssl/cert.pem{{< /code >}}
 
 | agent-auth-crl-urls |      |
 -------------|------
-description  | URLs of CRLs for agent certificate authentication.
+description  | URLs of CRLs for agent certificate authentication. The Sensu backend uses this list to perform a revocation check for agent mTLS.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_CRL_URLS`
@@ -933,15 +951,15 @@ etcd-initial-cluster-state: "existing"{{< /code >}}
 
 | etcd-initial-cluster-token |      |
 -----------------------------|------
-description                  | Initial cluster token for the etcd cluster during bootstrap.
+description                  | Unique token for the etcd cluster. Provide the same `etcd-initial-cluster-token` value for each cluster member. The `etcd-initial-cluster-token` allows etcd to generate unique cluster IDs and member IDs even for clusters with otherwise identical configurations, which prevents cross-cluster-interaction and potential cluster corruption.
 type                         | String
 default                      | `""`
 environment variable         | `SENSU_BACKEND_ETCD_INITIAL_CLUSTER_TOKEN`
 example                      | {{< code shell >}}# Command line example
-sensu-backend start --etcd-initial-cluster-token sensu
+sensu-backend start --etcd-initial-cluster-token unique_token_for_this_cluster
 
 # /etc/sensu/backend.yml example
-etcd-initial-cluster-token: "sensu"{{< /code >}}
+etcd-initial-cluster-token: "unique_token_for_this_cluster"{{< /code >}}
 
 
 | etcd-key-file  |      |
@@ -959,7 +977,7 @@ etcd-key-file: "./client-key.pem"{{< /code >}}
 
 | etcd-listen-client-urls |      |
 --------------------------|------
-description               | List of URLs to listen on for client traffic.
+description               | List of URLs to listen on for client traffic. Sensu's default embedded etcd configuration listens for unencrypted client communication on port 2379.
 type                      | List
 default                   | `http://127.0.0.1:2379`
 environment variable      | `SENSU_BACKEND_ETCD_LISTEN_CLIENT_URLS`
@@ -976,7 +994,7 @@ etcd-listen-client-urls:
 
 | etcd-listen-peer-urls |      |
 ------------------------|------
-description             | List of URLs to listen on for peer traffic.
+description             | List of URLs to listen on for peer traffic. Sensu's default embedded etcd configuration listens for unencrypted peer communication on port 2380.
 type                    | List
 default                 | `http://127.0.0.1:2380`
 environment variable    | `SENSU_BACKEND_ETCD_LISTEN_PEER_URLS`
@@ -1340,6 +1358,10 @@ If you wish, you can log all Sensu events to a file in JSON format.
 You can use this file as an input source for your favorite data lake solution.
 The event logging functionality provides better performance and reliability than event handlers.
 
+{{% notice note %}}
+**NOTE**: Event logs do not include log messages produced by sensu-backend service.
+To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../operations/monitor-sensu/log-sensu-systemd/).
+{{% /notice %}}
 
 | event-log-buffer-size |      |
 -----------------------|------
@@ -1369,11 +1391,10 @@ sensu-backend start --event-log-file /var/log/sensu/events.log
 # /etc/sensu/backend.yml example
 event-log-file: "/var/log/sensu/events.log"{{< /code >}}
 
-
 ### Log rotation
 
 To manually rotate event logs, first rename (move) the current log file.
-Then, send the _SIGHUP_ signal to the sensu-backend process so it creates a new log file and starts logging to it.
+Then, send the *SIGHUP* signal to the sensu-backend process so it creates a new log file and starts logging to it.
 Most Linux distributions include `logrotate` to automatically rotate log files as a standard utility, configured to run once per day by default.
 
 Because event log files can grow quickly for larger Sensu installations, we recommend using `logrotate` to automatically rotate log files more frequently.
@@ -1399,11 +1420,10 @@ In this example, the `postrotate` script will reload the backend after log rotat
 Without the `postrotate` script, the backend will not reload.
 This will cause sensu-backend (and sensu-agent, if translated for the Sensu agent) to no longer write to the log file, even if logrotate recreates the log file.
 
-In this script, `systemctl reload` sends a _SIGHUP_ signal to the sensu-backend process.
-The _SIGHUP_ signal causes the `backend` component to reload instead of restarting the process.
-
 {{% notice note %}}
-**NOTE**: Event logs do not include log messages produced by sensu-backend service. To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../operations/monitor-sensu/log-sensu-systemd/).
+**NOTE**: In Sensu 5.21.0 through 5.21.3, `systemctl reload` sends a *SIGHUP* signal to the sensu-backend process.
+The *SIGHUP* signal causes the `backend` component to restart.<br><br>
+[Upgrade to Sensu 5.21.4 or later](../../operations/maintain-sensu/upgrade/) to avoid this issue.
 {{% /notice %}}
 
 #### Log rotation for sysvinit
@@ -1451,3 +1471,9 @@ The _SIGHUP_ signal causes the `backend` component to reload instead of restarti
 [26]: ../../sensuctl/#change-admin-users-password
 [27]: https://golang.org/pkg/net/http/pprof/
 [29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly
+[30]: https://en.m.wikipedia.org/wiki/WebSocket
+[31]: ../../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[32]: ../../operations/deploy-sensu/generate-certificates/
+[33]: ../../operations/deploy-sensu/secure-sensu/
+[34]: ../agent/#username-and-password-authentication
+[35]: ../../operations/deploy-sensu/install-sensu/#architecture-overview

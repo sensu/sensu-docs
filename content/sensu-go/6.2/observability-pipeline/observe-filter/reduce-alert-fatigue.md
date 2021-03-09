@@ -194,6 +194,11 @@ Use [`sensuctl asset add`][5] to register the [fatigue check filter][8] dynamic 
 
 {{< code shell >}}
 sensuctl asset add nixwiz/sensu-go-fatigue-check-filter:0.3.2 -r fatigue-filter
+{{< /code >}}
+
+The response will indicate that the asset was added:
+
+{{< code shell >}}
 fetching bonsai asset: nixwiz/sensu-go-fatigue-check-filter:0.3.2
 added asset: nixwiz/sensu-go-fatigue-check-filter:0.3.2
 

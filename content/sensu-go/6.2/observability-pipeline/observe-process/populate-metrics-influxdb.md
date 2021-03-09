@@ -3,7 +3,7 @@ title: "Populate metrics in InfluxDB with handlers"
 linkTitle: "Populate Metrics in InfluxDB"
 guide_title: "Populate metrics in InfluxDB with handlers"
 type: "guide"
-description: "A Sensu event handler is an action the Sensu backend executes when a specific event occurs. This guide helps you use an event handler to populate Sensu metrics into the time series database InfluxDB."
+description: "A Sensu event handler is an action the Sensu backend executes when a specific event occurs. This guide helps you use an event handler to populate Sensu metrics into the time-series database InfluxDB."
 weight: 50
 version: "6.2"
 product: "Sensu Go"
@@ -14,10 +14,10 @@ menu:
 ---
 
 A Sensu event handler is an action the Sensu backend executes when a specific [event][1] occurs.
-In this guide, you'll use a handler to populate the time series database [InfluxDB][2].
+In this guide, you'll use a handler to populate the time-series database [InfluxDB][2].
 If you're not familiar with handlers, consider reading the [handlers reference][9] before continuing through this guide.
 
-The example in this guide explains how to populate Sensu metrics into the time series database [InfluxDB][2].
+The example in this guide explains how to populate Sensu metrics into the time-series database [InfluxDB][2].
 Metrics can be collected from [check output][10] or the [Sensu StatsD Server][3].
 
 ## Register the dynamic runtime asset
@@ -29,6 +29,11 @@ Use [`sensuctl asset add`][5] to register the [Sensu InfluxDB Handler][13] dynam
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.1.2 -r influxdb-handler
+{{< /code >}}
+
+The response will indicate that the asset was added:
+
+{{< code shell >}}
 fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.2
 added asset: sensu/sensu-influxdb-handler:3.1.2
 
@@ -130,10 +135,17 @@ spec:
 With the `influx-db` handler created, you can assign it to a check for check output metric extraction. 
 For example, suppose you followed [Collect service metrics with Sensu checks][10] to create the check named `collect-metrics`.
 
-Update the output metric format and output metric handlers to use the check with InfluxDB:
+Update the output metric format and output metric handlers to use the check with InfluxDB:.
+
+To update the output metric format, run:
 
 {{< code shell >}}
 sensuctl check set-output-metric-format collect-metrics influxdb_line
+{{< /code >}}
+
+To update the output metric handlers, run:
+
+{{< code shell >}}
 sensuctl check set-output-metric-handlers collect-metrics influx-db
 {{< /code >}}
 

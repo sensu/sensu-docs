@@ -58,37 +58,52 @@ In this example you'll walk through installing cfssl on a Linux system, which re
 
 This guide assumes that you'll install these certificates in the `/etc/sensu/tls` directory on each system.
 
+1. Download the cfssl executable:
 {{< code shell >}}
-
-# Download cfssl and cfssljson executables and install them in /usr/local/bin:
 sudo curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl_1.4.1_linux_amd64 -o /usr/local/bin/cfssl
+{{< /code >}}
+
+2. Download the cfssljson executable:
+{{< code shell >}}
 sudo curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssljson_1.4.1_linux_amd64 -o /usr/local/bin/cfssljson
+{{< /code >}}
+
+3. Install the cfssl and cfssljson executables in /usr/local/bin::
+{{< code shell >}}
 sudo chmod +x /usr/local/bin/cfssl*
+{{< /code >}}
 
-# Verify executable version:
+4. Verify the cfssl executable is version 1.4.1 and runtime go1.12.12:
+{{< code shell >}}
 cfssl version
+{{< /code >}}
 
-# Version: 1.4.1
-
-# Runtime: go1.12.12
+5. Verify the cfssljson executable is version 1.4.1 and runtime go1.12.12:
+{{< code shell >}}
 cfssljson -version
-
-# Version: 1.4.1
-
-# Runtime: go1.12.12
 {{< /code >}}
 
 ### Create a Certificate Authority (CA)
 
-Create a CA with cfssl and cfssljson:
+Follow these steps to create a CA with cfssl and cfssljson:
 
+1. Create /etc/sensu/tls (which does not exist by default):
 {{< code shell >}}
-# Create /etc/sensu/tls -- does not exist by default
 mkdir -p /etc/sensu/tls
+{{< /code >}}
+
+2. Navigate to the new /etc/sensu/tls directory:
+{{< code shell >}}
 cd /etc/sensu/tls
-# Create the Certificate Authority
+{{< /code >}}
+
+3. Create the CA:
+{{< code shell >}}
 echo '{"CN":"Sensu Test CA","key":{"algo":"rsa","size":2048}}' | cfssl gencert -initca - | cfssljson -bare ca -
-# Define signing parameters and profiles. Note that agent profile provides the "client auth" usage required for mTLS.
+{{< /code >}}
+
+4. Define signing parameters and profiles (the agent profile provides the "client auth" usage required for mTLS):
+{{< code shell >}}
 echo '{"signing":{"default":{"expiry":"17520h","usages":["signing","key encipherment","client auth"]},"profiles":{"backend":{"usages":["signing","key encipherment","server auth","client auth"],"expiry":"4320h"},"agent":{"usages":["signing","key encipherment","client auth"],"expiry":"4320h"}}}}' > ca-config.json
 {{< /code >}}
 
@@ -127,20 +142,31 @@ backend-3        | 10.0.0.3   | backend-3.example.com              | localhost, 
 
 Note that the additional names for localhost and 127.0.0.1 are added here for convenience and not strictly required.
 
-Use these name and address details to create two `*.pem` files and one `*.csr` file for each backend:
+Use these name and address details to create two `*.pem` files and one `*.csr` file for each backend.
+
+- The values provided for the ADDRESS variable will be used to populate the certificate's SAN records.
+For systems with multiple hostnames and IP addresses, add each to the comma-delimited value of the ADDRESS variable.
+- The value provided for the NAME variable will be used to populate the certificate's CN record.
+
+**backend-1**
 
 {{< code shell >}}
-# Value provided for the NAME variable will be used to populate the certificate's CN record
-# Values provided in the ADDRESS variable will be used to populate the certificate's SAN records
-# For systems with multiple hostnames and IP addresses, add each to the comma-delimited value of the ADDRESS variable
 export ADDRESS=localhost,127.0.0.1,10.0.0.1,backend-1
 export NAME=backend-1.example.com
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -profile="backend" -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" - | cfssljson -bare $NAME
+{{< /code >}}
 
+**backend-2**
+
+{{< code shell >}}
 export ADDRESS=localhost,127.0.0.1,10.0.0.2,backend-2
 export NAME=backend-2.example.com
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -profile="backend" -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" - | cfssljson -bare $NAME
+{{< /code >}}
 
+**backend-3**
+
+{{< code shell >}}
 export ADDRESS=localhost,127.0.0.1,10.0.0.3,backend-3
 export NAME=backend-3.example.com
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -profile="backend" -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" - | cfssljson -bare $NAME
@@ -157,22 +183,25 @@ filename               | description                  | required on backend?|
 `backend-*-key.pem`    | Backend server private key   | {{< check >}}       |
 `backend-*.csr`        | Certificate signing request  |                     |
 
-Again, make sure to copy all backend PEM files and CA root certificate to the corresponding backend system:
+Again, make sure to copy all backend PEM files and CA root certificate to the corresponding backend system:.
+For example, the directory listing of /etc/sensu/tls on backend-1 should include:
 
 {{< code shell >}}
-
-# Directory listing of /etc/sensu/tls on backend-1:
 /etc/sensu/tls/
 ├── backend-1-key.pem
 ├── backend-1.pem
 └── ca.pem
 {{< /code >}}
 
-These files should be accessible only by the `sensu` user.
-Use chown and chmod to make it so:
+To make sure these files are accessible only by the `sensu` user, run:
 
 {{< code shell >}}
 chown sensu /etc/sensu/tls/*.pem
+{{< /code >}}
+
+And:
+
+{{< code shell >}}
 chmod 400 /etc/sensu/tls/*.pem
 {{< /code >}}
 
@@ -201,11 +230,10 @@ filename           | description                  | required on agent?  |
 `agent-key.pem`    | Backend server private key   | {{< check >}}       |
 `agent.csr`        | Certificate signing request  |                     |
 
-Again, make sure to copy all agent PEM files and `ca.pem` to the corresponding backend system:
+Again, make sure to copy all agent PEM files and `ca.pem` to the corresponding backend system.
+To continue the example, the directory listing of /etc/sensu/tls on backend-1 should now include:
 
 {{< code shell >}}
-
-# Directory listing of /etc/sensu/tls on backend-1:
 /etc/sensu/tls/
 ├── backend-1-key.pem
 ├── backend-1.pem
@@ -214,11 +242,15 @@ Again, make sure to copy all agent PEM files and `ca.pem` to the corresponding b
 └── ca.pem
 {{< /code >}}
 
-These files should be accessible only by the `sensu` user.
-Use chown and chmod to make it so:
+To make sure these files are accessible only by the `sensu` user, run:
 
 {{< code shell >}}
 chown sensu /etc/sensu/tls/*.pem
+{{< /code >}}
+
+And:
+
+{{< code shell >}}
 chmod 400 /etc/sensu/tls/*.pem
 {{< /code >}}
 
@@ -228,7 +260,7 @@ Before you move on, make sure you have copied the certificates and keys to each 
 
 - [Copy the Certificate Authority (CA) root certificate file][11], `ca.pem`, to each agent and backend.
 - [Copy all backend PEM files][12] to their corresponding backend systems.
-- [Copy all agent PEM files][13]
+- [Copy all agent PEM files][13].
 
 We also recommend installing the CA root certificate in the trust store of both your Sensu systems and those systems used by operators to manage Sensu. 
 
@@ -256,8 +288,7 @@ sudo update-ca-trust
 Import the root CA certificate on the Mac.
 Double-click the root CA certificate to open it in Keychain Access.
 The root CA certificate appears in login.
-Copy the root CA certificate to System.
-You must copy the certificate to System to ensure that it is trusted by all users and local system processes.
+Copy the root CA certificate to System to ensure that it is trusted by all users and local system processes.
 Open the root CA certificate, expand Trust, select Use System Defaults, and save your changes.
 Reopen the root CA certificate, expand Trust, select Always Trust, and save your changes.
 Delete the root CA certificate from login.
@@ -275,12 +306,12 @@ Now that you have generated the required certificates and copied them to the app
 
 
 [1]: ../secure-sensu/
-[2]: ../secure-sensu/#secure-etcd-peer-communication
-[3]: ../secure-sensu/#secure-the-api-and-web-ui
-[4]: ../secure-sensu/#secure-sensu-agent-to-server-communication
+[2]: ../secure-sensu/#etcd-peer-communication
+[3]: ../secure-sensu/#sensu-api-and-web-ui
+[4]: ../secure-sensu/#sensu-agent-to-server-communication
 [5]: ../secure-sensu/#sensu-agent-mtls-authentication
 [6]: https://github.com/cloudflare/cfssl
-[7]: https://etcd.io/docs/v3.4.0/op-guide/security/
+[7]: https://etcd.io/docs/v3.3.13/op-guide/security/
 [8]: https://en.wikipedia.org/wiki/Public_key_infrastructure
 [9]: ../../manage-secrets/secrets-management/
 [10]: ../../deploy-sensu/install-sensu/

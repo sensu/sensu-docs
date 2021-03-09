@@ -65,7 +65,11 @@ Use sensuctl to verify that your provider configuration was applied successfully
 
 {{< code shell >}}
 sensuctl auth list
+{{< /code >}}
 
+The response will list your authentication provider types and names:
+
+{{< code shell >}}
  Type     Name    
 ────── ────────── 
  ldap   openldap  
@@ -144,7 +148,7 @@ Users do *not* need to provide the username prefix for the authentication provid
 [31]: ad-auth/#ad-configuration-examples
 [32]: ad-auth/#ad-specification
 [33]: rbac/#example-workflows
-[36]: ../../sensuctl/#first-time-setup
+[36]: ../../sensuctl/#first-time-setup-and-authentication
 [37]: ad-auth/
 [38]: ../../sensuctl/create-manage-resources/#create-resources
 [40]: ldap-auth/#ldap-server-attributes

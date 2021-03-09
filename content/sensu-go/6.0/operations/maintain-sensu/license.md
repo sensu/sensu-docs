@@ -28,11 +28,15 @@ To activate your license with sensuctl:
 sensuctl create --file sensu_license.json
 {{< /code >}}
 
-Use sensuctl to view your license details at any time.
+Use sensuctl to view your license details at any time:
 
 {{< code shell >}}
-# Active license
 sensuctl license info
+{{< /code >}}
+
+For an active license, the response should be similar to this example:
+
+{{< code shell >}}
 === You are currently using 10/100 total entities, 5/50 agent entities, and 5/50 proxy entities
 Account Name: Training Team - Sensu
 Account ID:   123
@@ -43,9 +47,11 @@ Issuer:       Sensu, Inc.
 Issued:       2020-02-15 15:01:44 -0500 -0500
 Valid:        true
 Valid Until:  2021-02-15 00:00:00 -0800 -0800
+{{< /code >}}
 
-# No license found
-sensuctl license info
+This response means you do not have an active license:
+
+{{< code shell >}}
 Error: not found
 {{< /code >}}
 
@@ -67,10 +73,16 @@ If you use only 1,500 agent entities, you can have 8,500 proxy entities before y
 
 Your current entity count and entity limit are included in the `sensuctl license info` response.
 
-In tabular format, the entity count and limit are included in the response title:
+In tabular format, the entity count and limit are included in the response title.
+To view license info in tabular format, run:
 
 {{< code shell >}}
 sensuctl license info --format tabular
+{{< /code >}}
+
+The response in tabular format should be similar to this example:
+
+{{< code shell >}}
 === You are currently using 10/100 total entities, 5/50 agent entities, and 5/50 proxy entities
 Account Name: Training Team - Sensu
 Account ID:   123
@@ -90,13 +102,22 @@ For example:
 === You are currently using 10/unlimited total entities, 5/unlimited agent entities, and 5/unlimited proxy entities
 {{< /code >}}
 
-In other formats (e.g. YAML and JSON), the entity count and limit are included as labels:
+To view license details in YAML or JSON, run:
+
+{{< language-toggle >}}
+{{< code shell "YML" >}}
+sensuctl license info --format yaml
+{{< /code >}}
+{{< code shell "JSON" >}}
+sensuctl license info --format json
+{{< /code >}}
+{{< /language-toggle >}}
+
+In YAML and JSON formats, the entity count and limit are included as labels:
 
 {{< language-toggle >}}
 
-{{< code shell "YML" >}}
-sensuctl license info --format yaml
-
+{{< code yml >}}
 type: LicenseFile
 api_version: licensing/v2
 metadata:
@@ -111,9 +132,7 @@ spec:
 [...]
 {{< /code >}}
 
-{{< code shell "JSON" >}}
-sensuctl license info --format json
-
+{{< code json >}}
 {
   "type": "LicenseFile",
   "api_version": "licensing/v2",
@@ -171,7 +190,7 @@ If your license expires, you will still have access to [commercial features][5],
 
 [1]: https://account.sensu.io/
 [2]: ../../deploy-sensu/install-sensu/
-[3]: ../../../sensuctl/#first-time-setup
+[3]: ../../../sensuctl/#first-time-setup-and-authentication
 [4]: ../../../api/license/
 [5]: ../../../commercial/
 [6]: ../troubleshoot/

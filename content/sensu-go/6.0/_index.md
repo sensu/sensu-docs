@@ -44,7 +44,7 @@ Instead of [setting up][30] traditional one-to-one entity-to-check mapping, use 
 
 Know what's going on everywhere in your system.
 Sensu supports [industry-standard metric formats][10] like Nagios performance data, Graphite plaintext protocol, InfluxDB line protocol, OpenTSDB data specification, and [StatsD metrics][14].
-Use the Sensu agent to collect metrics alongside check results, then use the Sensu observability pipeline to route observation data to a time series database like [InfluxDB][2].
+Use the Sensu agent to collect metrics alongside check results, then use the Sensu observability pipeline to route observation data to a time-series database like [InfluxDB][2].
 
 ## Intuitive API with command line and web interfaces
 

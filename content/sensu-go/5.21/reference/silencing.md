@@ -31,6 +31,98 @@ This indicates that any event with a matching check name will be marked as silen
 Conversely, a silencing entry that [specifies only a subscription][11] will have a name with an asterisk in the `$CHECK` position.
 This indicates that any event where the originating entities’ subscriptions match the subscription specified in the entry will be marked as silenced, regardless of the check name.
 
+## Silencing examples
+
+This example shows a silencing resource definition that uses a per-entity subscription to silence any alerts on a single Sensu entity, `i-424242`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Silenced
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: entity:i-424242:*
+  namespace: default
+spec:
+  begin: 1542671205
+  check: null
+  creator: admin
+  expire: -1
+  expire_on_resolve: false
+  reason: null
+  subscription: entity:i-424242
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Silenced",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "entity:i-424242:*",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "expire": -1,
+    "expire_on_resolve": false,
+    "creator": "admin",
+    "reason": null,
+    "check": null,
+    "subscription": "entity:i-424242",
+    "begin": 1542671205
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The following example shows how to silence a check named `check_ntp` on entity `i-424242`, ensuring the silencing entry is deleted after the underlying issue is resolved:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Silenced
+api_version: core/v2
+metadata:
+  name: entity:i-424242:check_ntp
+  namespace: default
+  labels: 
+  annotations: 
+spec:
+  subscription: entity:i-424242
+  check: check_ntp
+  expire_on_resolve: true
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Silenced",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "entity:i-424242:check_ntp",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "subscription": "entity:i-424242",
+    "check": "check_ntp",
+    "expire_on_resolve": true
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The optional `expire_on_resolve` attribute used in this example indicates that when the server processes a matching check from the specified entity with status OK, the silencing entry will be removed automatically.
+
+When used in combination with other attributes (like `creator` and `reason`), this gives Sensu operators a way to acknowledge that they received an alert, suppress additional notifications, and automatically clear the silencing entry when the check status returns to normal.
+
 ## Silencing specification
 
 ### Silenced entry names
@@ -344,104 +436,7 @@ reason: rebooting the world
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Examples
-
-### Silence all checks on a specific entity
-
-Suppose you want to silence any alerts on the Sensu entity `i-424242`.
-To do this, use per-entity subscriptions:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Silenced
-api_version: core/v2
-metadata:
-  annotations: null
-  labels: null
-  name: entity:i-424242:*
-  namespace: default
-spec:
-  begin: 1542671205
-  check: null
-  creator: admin
-  expire: -1
-  expire_on_resolve: false
-  reason: null
-  subscription: entity:i-424242
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Silenced",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "entity:i-424242:*",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
-  },
-  "spec": {
-    "expire": -1,
-    "expire_on_resolve": false,
-    "creator": "admin",
-    "reason": null,
-    "check": null,
-    "subscription": "entity:i-424242",
-    "begin": 1542671205
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Silence a specific check on a specific entity
-
-To continue the previous example, here's how to silence a check named `check_ntp` on entity `i-424242`, ensuring the entry is deleted after the underlying issue is resolved:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Silenced
-api_version: core/v2
-metadata:
-  name: entity:i-424242:check_ntp
-  namespace: default
-  labels: 
-  annotations: 
-spec:
-  subscription: entity:i-424242
-  check: check_ntp
-  expire_on_resolve: true
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Silenced",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "entity:i-424242:check_ntp",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
-  },
-  "spec": {
-    "subscription": "entity:i-424242",
-    "check": "check_ntp",
-    "expire_on_resolve": true
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-The optional `expire_on_resolve` attribute used in this example indicates that when the server processes a matching check from the specified entity with status OK, the silencing entry will be removed automatically.
-
-When used in combination with other attributes (like `creator` and `reason`), this gives Sensu operators a way to acknowledge that they received an alert, suppress additional notifications, and automatically clear the silencing entry when the check status returns to normal.
-
-### Silence all checks on entities with a specific subscription
+## Silence all checks on entities with a specific subscription
 
 In this example, you'll completely silence any entities subscribed to `appserver`.
 Just as in the example of silencing all checks on a specific entity, you’ll create a silencing entry that specifies only the `appserver` subscription:
@@ -479,7 +474,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Silence a specific check on entities with a specific subscription
+## Silence a specific check on entities with a specific subscription
 
 To silence a check `mysql_status` that is running on Sensu entities with the subscription `appserver`:
 
@@ -518,7 +513,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Silence a specific check on every entity
+## Silence a specific check on every entity
 
 To silence the check `mysql_status` on every entity in your infrastructure, regardless of subscriptions, you only need to provide the check name:
 
@@ -555,7 +550,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Delete a silence
+## Delete a silence
 
 To delete a silencing entry, you must provide its name.
 
@@ -593,7 +588,7 @@ name: '*:mysql_status'
 
 
 [1]: ../events/#attributes
-[2]: ../rbac#namespaces
+[2]: ../namespaces/
 [3]: #metadata-attributes
 [4]: ../../sensuctl/create-manage-resources/#create-resources
 [5]: #spec-attributes

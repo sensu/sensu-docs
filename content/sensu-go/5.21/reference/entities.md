@@ -1540,7 +1540,7 @@ spec:
 [2]: #deregistration-attributes
 [3]: #network-attributes
 [4]: #networkinterface-attributes
-[5]: ../rbac#namespaces
+[5]: ../namespaces/
 [6]: ../filters/
 [7]: ../tokens/
 [8]: #metadata-attributes

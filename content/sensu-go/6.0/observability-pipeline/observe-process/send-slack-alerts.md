@@ -28,6 +28,11 @@ Use [`sensuctl asset add`][10] to register the [Sensu Slack Handler][14] dynamic
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-slack-handler:1.0.3 -r sensu-slack-handler
+{{< /code >}}
+
+The response will indicate that the asset was added:
+
+{{< code shell >}}
 fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
 added asset: sensu/sensu-slack-handler:1.0.3
 
@@ -48,7 +53,7 @@ Created
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../operations/deploy-sensu/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Get a Slack webhook
@@ -120,5 +125,5 @@ You can also try our interactive tutorial and learn how to [send Sensu Go alerts
 [10]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [11]: ../../../learn/sensu-pagerduty/
 [12]: https://slack.com/get-started#/create
-[13]: ../../../operations/deploy-sensu/assets
+[13]: ../../../plugins/assets
 [14]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler

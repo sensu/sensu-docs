@@ -55,11 +55,9 @@ Use sensuctl to verify that the silenced entry against the entity `i-424242` was
 sensuctl silenced info 'entity:i-424242:check-http'
 {{< /code >}}
 
-After the silenced entry starts to take effect, events that are silenced will be marked as such in `sensuctl events`:
+After the silenced entry starts to take effect, events that are silenced will be marked as such in the response:
 
 {{< code shell >}}
-sensuctl event list
-
    Entity         Check        Output       Status     Silenced          Timestamp
 ──────────────   ─────────    ─────────   ──────────── ────────── ───────────────────────────────
    i-424242      check-http                    0          true     2018-03-16 13:22:16 -0400 EDT
@@ -72,6 +70,7 @@ sensuctl event list
 ## Next steps
 
 Next, read the [silencing reference][7] for in-depth documentation about silenced entries.
+
 
 [1]: ../handlers/
 [2]: ../silencing/#silence-all-checks-on-a-specific-entity

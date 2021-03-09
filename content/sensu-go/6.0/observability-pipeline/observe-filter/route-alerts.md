@@ -52,6 +52,11 @@ To add the has-contact dynamic runtime asset to Sensu, use [`sensuctl asset add`
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-go-has-contact-filter:0.2.0 -r contact-filter
+{{< /code >}}
+
+The response will indicate that the asset was added:
+
+{{< code shell >}}
 fetching bonsai asset: sensu/sensu-go-has-contact-filter:0.2.0
 added asset: sensu/sensu-go-has-contact-filter:0.2.0
 
@@ -68,7 +73,7 @@ Run `sensuctl asset list --format yaml` to confirm that the dynamic runtime asse
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../operations/deploy-sensu/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ### 2. Create contact filters
@@ -133,6 +138,11 @@ If you haven't already, add the [Slack handler dynamic runtime asset][8] to Sens
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-slack-handler:1.0.3 -r sensu-slack-handler
+{{< /code >}}
+
+The response will indicate that the asset was added:
+
+{{< code shell >}}
 fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
 added asset: sensu/sensu-slack-handler:1.0.3
 
@@ -152,14 +162,12 @@ In each handler definition, specify:
 - An environment variable that contains your Slack webhook URL
 - The `sensu-slack-handler` dynamic runtime asset
 
-To create the `slack_ops`, `slack_dev`, and `slack_fallback` handlers, edit and run this example:
+To create the `slack_ops`, `slack_dev`, and `slack_fallback` handlers, edit and run the following example:
+
+- Add replace #alert-ops, #alert-dev, and #alert-all with the names of the channels you want to use to receive alerts in your Slack instance.
+- Replace SLACK_WEBHOOK_URL with your Slack webhook URL.
 
 {{< code shell >}}
-# Edit before running:
-# 1. Add your SLACK_WEBHOOK_URL
-# 2. Make sure the Slack channels specified in the
-#    command` attributes match channels available
-#    to receive test alerts in your Slack instance.
 echo '---
 type: Handler
 api_version: core/v2
@@ -345,10 +353,11 @@ In this example, the `dev` label in the check configuration overrides the `ops` 
 Now that you've set up contact routing for two example teams, you can create additional filters, handlers, and labels to represent your team's contacts.
 Learn how to use Sensu to [Reduce alert fatigue][11].
 
+
 [1]: ../../../operations/deploy-sensu/install-sensu#install-the-sensu-backend
 [2]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
 [3]: ../../../operations/deploy-sensu/install-sensu#install-sensuctl
-[4]: ../../../sensuctl/#first-time-setup
+[4]: ../../../sensuctl/#first-time-setup-and-authentication
 [5]: https://curl.haxx.se/
 [6]: https://api.slack.com/incoming-webhooks
 [7]: ../../../learn/learn-sensu-sandbox/
