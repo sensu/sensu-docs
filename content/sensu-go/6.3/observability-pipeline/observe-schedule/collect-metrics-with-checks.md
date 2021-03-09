@@ -112,7 +112,7 @@ sensuctl check info collect-metrics --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info collect-metrics --format wrapped-json
+sensuctl check info collect-metrics --format json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -127,6 +127,8 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   created_by: admin
+  labels:
+    sensu.io/managed_by: sensuctl
   name: collect-metrics
   namespace: default
 spec:
@@ -160,6 +162,9 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "created_by": "admin",
+    "labels": {
+      "sensu.io/managed_by": "sensuctl"
+    },
     "name": "collect-metrics",
     "namespace": "default"
   },
