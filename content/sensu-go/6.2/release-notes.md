@@ -554,7 +554,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.19.3.
 - In the [web UI][135], color-blindness modes are now available.
 - In the [web UI][135], labels and annotations with links to images will now be displayed inline.
 - Adds a global rate limit for fetching assets to prevent abusive asset retries, which you can configure with the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][136] and [backend][137].
-- Adds support for reloading the backend via SIGHUP.
+- Adds support for restarting the backend via SIGHUP.
 - Adds a timeout flag to `sensu-backend init`.
 - Deprecated flags for `sensuctl silenced update` subcommand have been removed.
 
