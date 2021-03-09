@@ -363,7 +363,7 @@ With this fix, labels and annotations are always defined (although they may be e
 
 ## 5.21.4 release notes
 
-**March 8, 2021** &mdash; The latest release of Sensu Go, version 5.21.4, is now available for download.
+**March 9, 2021** &mdash; The latest release of Sensu Go, version 5.21.4, is now available for download.
 
 This patch release fixes a bug that caused the SIGHUP signal to restart the sensu-backend.
 
