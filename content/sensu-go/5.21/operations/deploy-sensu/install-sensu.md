@@ -360,13 +360,13 @@ sudo yum install sensu-go-agent
 
 {{< code powershell "Windows" >}}
 # Download the Sensu agent for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.4/sensu-go-agent_5.21.4.4281_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.21.4.4281_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.4/sensu-go-agent_5.21.4.71057_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.21.4.71057_en-US.x64.msi"
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.4/sensu-go-agent_5.21.4.4281_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_5.21.4.4281_en-US.x86.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.4/sensu-go-agent_5.21.4.71057_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_5.21.4.71057_en-US.x86.msi"
 
 # Install the Sensu agent
-msiexec.exe /i $env:userprofile\sensu-go-agent_5.21.4.4281_en-US.x64.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_5.21.4.71057_en-US.x64.msi /qn
 
 # Or via Chocolatey
 choco install sensu-agent
