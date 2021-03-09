@@ -1358,6 +1358,10 @@ If you wish, you can log all Sensu events to a file in JSON format.
 You can use this file as an input source for your favorite data lake solution.
 The event logging functionality provides better performance and reliability than event handlers.
 
+{{% notice note %}}
+**NOTE**: Event logs do not include log messages produced by sensu-backend service.
+To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../operations/monitor-sensu/log-sensu-systemd/).
+{{% /notice %}}
 
 | event-log-buffer-size |      |
 -----------------------|------
@@ -1387,11 +1391,10 @@ sensu-backend start --event-log-file /var/log/sensu/events.log
 # /etc/sensu/backend.yml example
 event-log-file: "/var/log/sensu/events.log"{{< /code >}}
 
-
 ### Log rotation
 
 To manually rotate event logs, first rename (move) the current log file.
-Then, send the _SIGHUP_ signal to the sensu-backend process so it creates a new log file and starts logging to it.
+Then, send the *SIGHUP* signal to the sensu-backend process so it creates a new log file and starts logging to it.
 Most Linux distributions include `logrotate` to automatically rotate log files as a standard utility, configured to run once per day by default.
 
 Because event log files can grow quickly for larger Sensu installations, we recommend using `logrotate` to automatically rotate log files more frequently.
@@ -1417,11 +1420,10 @@ In this example, the `postrotate` script will reload the backend after log rotat
 Without the `postrotate` script, the backend will not reload.
 This will cause sensu-backend (and sensu-agent, if translated for the Sensu agent) to no longer write to the log file, even if logrotate recreates the log file.
 
-In this script, `systemctl reload` sends a _SIGHUP_ signal to the sensu-backend process.
-The _SIGHUP_ signal causes the `backend` component to reload instead of restarting the process.
-
 {{% notice note %}}
-**NOTE**: Event logs do not include log messages produced by sensu-backend service. To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../operations/monitor-sensu/log-sensu-systemd/).
+**NOTE**: In Sensu 5.21.0 through 5.21.3, `systemctl reload` sends a *SIGHUP* signal to the sensu-backend process.
+The *SIGHUP* signal causes the `backend` component to restart.<br><br>
+[Upgrade to Sensu 5.21.4 or later](../../operations/maintain-sensu/upgrade/) to avoid this issue.
 {{% /notice %}}
 
 #### Log rotation for sysvinit
