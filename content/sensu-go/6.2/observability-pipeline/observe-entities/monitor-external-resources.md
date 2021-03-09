@@ -99,7 +99,7 @@ Now that the dynamic runtime assets are registered, you can create a check named
 To avoid duplicate events, add the [`round_robin` attribute][18] to distribute the check execution across all agents subscribed to the `proxy` subscription.
 
 Create a file named `check.yml` or `check.json` in your Sensu installation to store the check definition.
-Copy this this check definition into the `check.yml` or `check.json` file you created:
+Copy this this check definition into the `check.yml` or `check.json` file and save it:
 
 {{< language-toggle >}}
 

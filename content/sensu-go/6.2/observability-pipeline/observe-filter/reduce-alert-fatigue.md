@@ -39,13 +39,13 @@ sensuctl filter create hourly \
 --expressions "event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0"
 {{< /code >}}
 
-You should see a confirmation message from sensuctl:
+You should see a confirmation message:
 
 {{< code shell >}}
 Created
 {{< /code >}}
 
-You can also create the event filter definition directly in your monitoring-as-code repository:
+This sensuctl command creates an event filter resource with the following definition:
 
 {{< language-toggle >}}
 
@@ -85,6 +85,8 @@ spec:
 
 {{< /language-toggle >}}
 
+If you want to share and reuse this event filter like code, you can [save it to a file][10] and start building a [monitoring as code repository][11].
+
 ### Assign the event filter to a handler
 
 Now that you've created the `hourly` event filter, you can assign it to a handler.
@@ -95,11 +97,15 @@ You'll also add the built-in `is_incident` filter so that only failing events ar
 **NOTE**: If you haven't already created the `slack` handler, follow [Send Slack alerts with handlers](../../observe-process/send-slack-alerts/) before continuing with this step.
 {{% /notice %}}
 
-Run the `sensuctl handler update` command and follow the prompts to add the `hourly` and `is_incident` event filters to the `slack handler`:
+To update the handler, run:
 
 {{< code shell >}}
 sensuctl handler update slack
+{{< /code >}}
 
+Follow the prompts to add the `hourly` and `is_incident` event filters to the `slack handler`:
+
+{{< code shell >}}
 ? Environment variables: SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX
 ? Filters: hourly,is_incident
 ? Mutator: 
@@ -107,6 +113,11 @@ sensuctl handler update slack
 ? Type: pipe
 ? Runtime Assets: sensu-slack-handler
 ? Command: sensu-slack-handler --channel '#monitoring'
+{{< /code >}}
+
+You will see a confirmation message:
+
+{{< code shell >}}
 Updated
 {{< /code >}}
 
@@ -123,6 +134,8 @@ sensuctl handler info slack --format json
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+The updated handler definition will be similar to this example:
 
 {{< language-toggle >}}
 
@@ -217,7 +230,9 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 {{% /notice %}}
 
 You've registered the dynamic runtime asset, but you still need to create the filter.
-To do this, use the following configuration:
+
+Create a file named `sensu-fatigue-check-filter.yml` or `sensu-fatigue-check-filter.json` in your Sensu installation to store the event filter definition.
+Copy this this filter definition into the file and save it:
 
 {{< language-toggle >}}
 
@@ -258,7 +273,7 @@ spec:
 
 {{< /language-toggle >}}
 
-Then, use sensuctl to create the filter, `sensu-fatigue-check-filter`:
+Then, use sensuctl to create a filter named `fatigue_check` from the file:
 
 {{< language-toggle >}}
 
@@ -276,7 +291,7 @@ Now that you've created the filter dynamic runtime asset and the event filter, y
 
 ### Annotate a check for filter dynamic runtime asset use
 
-Next, you'll need to make some additions to any checks you want to use the filter with.
+Next, you'll need to make some additions to any checks you want to use the `fatigue_check` filter with.
 Here's an example CPU check:
 
 {{< language-toggle >}}
@@ -306,7 +321,7 @@ spec:
   proxy_entity_name: ''
   publish: true
   round_robin: false
-  runtime_assets: 
+  runtime_assets: null
   stdin: false
   subdue: 
   subscriptions:
@@ -374,7 +389,11 @@ Just like with the [interactively created event filter][4], you'll introduce the
 
 {{< code shell >}}
 sensuctl handler update slack
+{{< /code >}}
 
+Follow the prompts to add the `fatigue_check` and `is_incident` event filters to the `slack handler`:
+
+{{< code shell >}}
 ? Environment variables: SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX
 ? Filters: fatigue_check,is_incident
 ? Mutator: 
@@ -382,10 +401,29 @@ sensuctl handler update slack
 ? Type: pipe
 ? Runtime Assets: sensu-slack-handler
 ? Command: sensu-slack-handler --channel '#monitoring'
+{{< /code >}}
+
+You will see a confirmation message:
+
+{{< code shell >}}
 Updated
 {{< /code >}}
 
-Here's an example:
+To view the updated `slack` handler definition:
+
+{{< language-toggle >}}
+
+{{< code shell "YML">}}
+sensuctl handler info slack --format yaml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl handler info slack --format json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The updated handler definition will be similar to this example:
 
 {{< language-toggle >}}
 
@@ -455,7 +493,7 @@ However, if the event is being discarded by the event filter, a log entry with t
 
 ## Next steps
 
-Now that you know how to apply an event filter to a handler and use a dynamic runtime asset to help reduce alert fatigue, read the [filters reference][1] for in-depth information about event filters. 
+Now that you know how to apply an event filter to a handler and use a dynamic runtime asset to help reduce alert fatigue, read the [filters reference][1] for in-depth information about event filters.
 
 
 [1]:  ../filters/
@@ -467,3 +505,5 @@ Now that you know how to apply an event filter to a handler and use a dynamic ru
 [7]: ../../../plugins/use-assets-to-install-plugins/
 [8]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
 [9]: https://bonsai.sensu.io/
+[10]: ../../../operations/monitoring-as-code/#build-as-you-go
+[11]: ../../../operations/monitoring-as-code/

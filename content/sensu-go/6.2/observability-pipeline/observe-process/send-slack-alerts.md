@@ -17,7 +17,7 @@ Sensu event handlers are actions the Sensu backend executes on [events][1].
 You can use handlers to send an email alert, create or resolve incidents (in PagerDuty, for example), or store metrics in a time-series database like InfluxDB.
 
 This guide will help you send alerts to Slack in the channel `monitoring` by configuring a handler named `slack` to a check named `check-cpu`.
-If you don't already have a check in place, follow [Monitor server resources][2] to add one.
+If you don't already have this check in place, follow [Monitor server resources][2] to add it.
 
 ## Register the dynamic runtime asset
 
@@ -77,13 +77,28 @@ sensuctl handler create slack \
 --runtime-assets sensu-slack-handler
 {{< /code >}}
 
-You should see a confirmation message from sensuctl:
+You should see a confirmation message:
 
 {{< code shell >}}
 Created
 {{< /code >}}
 
-You can also create the handler definition directly in your monitoring-as-code repository:
+The `sensuctl handler create slack` command creates a handler resource.
+To view the `slack` handler definition, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML">}}
+sensuctl handler info slack --format yaml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl handler info slack --format json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The `slack` handler resource definition will be similar to this example:
 
 {{< language-toggle >}}
 
@@ -136,6 +151,8 @@ spec:
 
 {{< /language-toggle >}}
 
+You can share and reuse this handler like code &mdash; [save it to a file][15] and start building a [monitoring as code repository][16].
+
 ## Assign the handler to a check
 
 With the `slack` handler created, you can assign it to a check.
@@ -146,6 +163,20 @@ Assign your `slack` handler to the `check-cpu` check to receive Slack alerts whe
 {{< code shell >}}
 sensuctl check set-handlers check-cpu slack
 {{< /code >}}
+
+To view the updated `check-cpu` resource definition, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML">}}
+sensuctl check info check-cpu --format yaml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl check info check-cpu --format json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 The updated check definition will be similar to this example:
 
@@ -262,3 +293,5 @@ You can also try our interactive tutorial and learn how to [send Sensu Go alerts
 [12]: https://slack.com/get-started#/create
 [13]: ../../../plugins/assets/
 [14]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
+[15]: ../../../operations/monitoring-as-code/#build-as-you-go
+[16]: ../../../operations/monitoring-as-code/
