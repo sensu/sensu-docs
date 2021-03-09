@@ -98,7 +98,8 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 Now that the dynamic runtime assets are registered, you can create a check named `check-sensu-site` to run the command `check-http.rb -u https://sensu.io` with the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets, at an interval of 60 seconds, for all agents subscribed to the `proxy` subscription, using the `sensu-site` proxy entity name.
 To avoid duplicate events, add the [`round_robin` attribute][18] to distribute the check execution across all agents subscribed to the `proxy` subscription.
 
-Create a file called `check.yml` or `check.json` and add this check definition:
+Create a file named `check.yml` or `check.json` in your Sensu installation to store the check definition.
+Copy this this check definition into the `check.yml` or `check.json` file and save it:
 
 {{< language-toggle >}}
 
@@ -149,7 +150,7 @@ spec:
 
 {{< /language-toggle >}}
 
-Now you can use sensuctl to add the check to Sensu:
+Use sensuctl to add `check-sensu-site` to Sensu directly from the `check.yml` or `check.json` file:
 
 {{< language-toggle >}}
 
@@ -243,7 +244,7 @@ Before you start, [register the `sensu-plugins-http` and `sensu-ruby-runtime` dy
 Instead of creating a proxy entity using the `proxy_entity_name` check attribute, use sensuctl to create proxy entities to represent the three sites you want to monitor.
 Your proxy entities need the `entity_class` attribute set to `proxy` to mark them as proxy entities as well as a few custom `labels` to identify them as a group and pass in individual URLs.
 
-Create a file called `entities.yml` or `entities.json` and add the following entity definitions:
+Create a file named `entities.yml` or `entities.json` in your Sensu installation and add the following entity definitions:
 
 {{< language-toggle >}}
 {{< code yml >}}
@@ -349,7 +350,7 @@ spec:
 For example, when monitoring a group of routers, you may want to add `ip_address` labels.
 {{% /notice %}}
 
-Now you can use sensuctl to add these proxy entities to Sensu:
+Now you can use sensuctl to add these proxy entities to Sensu directly from the `entities.yml` or `entities.json` file:
 
 {{< language-toggle >}}
 
@@ -384,7 +385,7 @@ The response should list the new `sensu-docs`, `packagecloud-site`, and `github-
 
 Now that you have three proxy entities set up, each with a `proxy_type` and `url` label, you can use proxy requests and [token substitution][12] to create a single check that monitors all three sites.
 
-Create a file called `check-http.yml` or `check-http.json` and add the following check definition:
+Create a file called `check-http.yml` or `check-http.json` in your Sensu installation and add the following check definition:
 
 {{< language-toggle >}}
 
@@ -445,7 +446,7 @@ Your `check-http` check uses the `proxy_requests` attribute to specify the appli
 In this case, you want to run the `check-http` check on all entities of entity class `proxy` and proxy type `website`.
 Because you're using this check to monitor multiple sites, you can use token substitution to apply the correct `url` in the check `command`.
 
-Use sensuctl to add the `check-http` check to Sensu:
+Use sensuctl to add the `check-http` check to Sensu directly from the `check-http.yml` or `check-http.json` file:
 
 {{< language-toggle >}}
 
@@ -468,7 +469,6 @@ sensuctl check list
 The response should include the `check-http` check:
 
 {{< code shell >}}
-sensuctl check list
        Name                      Command               Interval   Cron   Timeout   TTL   Subscriptions   Handlers                   Assets                  Hooks   Publish?   Stdin?
 ───────────────── ─────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ─────────────────────────────────────── ─────── ────────── ────────
   check-http        check-http.rb -u {{ .labels.url }}         60                0     0   proxy                     sensu-plugins-http,sensu-ruby-runtime           true       false                                     
@@ -502,6 +502,10 @@ sensu-docs          check-http                           0   false      2019-01-
 
 ## Next steps
 
+The files you created with check and entity definitions can become part of your [monitoring as code][4] repository.
+Storing your Sensu configurations the same way you would store code means they are portable and repeatable.
+Monitoring as code makes it possible to move to a more robust deployment without losing what you’ve started here and reproduce one environment’s configuration in another.
+
 Now that you know how to run a proxy check to verify the status of a website and use proxy requests to run a check on two different proxy entities based on label evaluation, read these recommended resources:
 
 * [Proxy checks][2]
@@ -512,6 +516,7 @@ Now that you know how to run a proxy check to verify the status of a website and
 [1]: ../../observe-entities/#proxy-entities
 [2]: ../../observe-schedule/checks/#proxy-entity-name-attribute
 [3]: ../../observe-schedule/checks/#proxy-checks
+[4]: ../../../operations/monitoring-as-code/
 [5]: ../../../plugins/assets/
 [7]: ../../observe-process/send-slack-alerts/
 [8]: ../../../sensuctl/
