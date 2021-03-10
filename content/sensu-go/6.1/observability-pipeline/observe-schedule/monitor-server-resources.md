@@ -18,7 +18,7 @@ Sensu checks use the same specification as **Nagios**, so you can use Nagios che
 
 You can use checks to monitor server resources, services, and application health (for example, to check whether Nginx is running) and collect and analyze metrics (for example, to learn how much disk space you have left).
 
-This guide will help you monitor server resources (specifically, CPU usage) by configuring a check named `check-cpu` with a subscription named `system` to target all entities that are subscribed to the `system` subscription.
+This guide will help you monitor server resources (specifically, CPU usage) by configuring a check named `check_cpu` with a subscription named `system` to target all entities that are subscribed to the `system` subscription.
 To use this guide, you'll need to install a Sensu backend and have at least one Sensu agent running on Linux.
 
 ## Register dynamic runtime assets
@@ -91,11 +91,11 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 ## Create a check
 
-Now that the dynamic runtime assets are registered, create a check named `check-cpu` that runs the command `check-cpu.rb -w 75 -c 90` with the `cpu-checks-plugins` and `sensu-ruby-runtime` dynamic runtime assets at an interval of 60 seconds for all entities subscribed to the `system` subscription.
+Now that the dynamic runtime assets are registered, create a check named `check_cpu` that runs the command `check-cpu.rb -w 75 -c 90` with the `cpu-checks-plugins` and `sensu-ruby-runtime` dynamic runtime assets at an interval of 60 seconds for all entities subscribed to the `system` subscription.
 This check generates a warning event (`-w`) when CPU usage reaches 75% and a critical alert (`-c`) at 90%.
 
 {{< code shell >}}
-sensuctl check create check-cpu \
+sensuctl check create check_cpu \
 --command 'check-cpu.rb -w 75 -c 90' \
 --interval 60 \
 --subscriptions system \
@@ -108,21 +108,21 @@ You should see a confirmation message:
 Created
 {{< /code >}}
 
-To view the complete resource definition for `check-cpu`, run:
+To view the complete resource definition for `check_cpu`, run:
 
 {{< language-toggle >}}
 
 {{< code shell "YML" >}}
-sensuctl check info check-cpu --format yaml
+sensuctl check info check_cpu --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info check-cpu --format json
+sensuctl check info check_cpu --format json
 {{< /code >}}
 
 {{< /language-toggle >}}
 
-The sensuctl response will include the complete `check-cpu` resource definition in the specified format:
+The sensuctl response will include the complete `check_cpu` resource definition in the specified format:
 
 {{< language-toggle >}}
 
@@ -132,7 +132,7 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   created_by: admin
-  name: check-cpu
+  name: check_cpu
   namespace: default
 spec:
   check_hooks: null
@@ -166,7 +166,7 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "created_by": "admin",
-    "name": "check-cpu",
+    "name": "check_cpu",
     "namespace": "default"
   },
   "spec": {
@@ -229,12 +229,12 @@ It might take a few moments after you create the check for the check to be sched
 sensuctl event list
 {{< /code >}}
 
-The response should list the `check-cpu` check, returning an OK status (`0`)
+The response should list the `check_cpu` check, returning an OK status (`0`)
 
 {{< code shell >}}
     Entity        Check                                                                    Output                                                                   Status   Silenced             Timestamp            
 ────────────── ─────────── ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── 
- sensu-centos   check-cpu   CheckCPU TOTAL OK: total=0.2 user=0.0 nice=0.0 system=0.2 idle=99.8 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0        0   false      2019-04-23 16:42:28 +0000 UTC  
+ sensu-centos   check_cpu   CheckCPU TOTAL OK: total=0.2 user=0.0 nice=0.0 system=0.2 idle=99.8 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0        0   false      2019-04-23 16:42:28 +0000 UTC  
 {{< /code >}}
 
 ## Next steps
