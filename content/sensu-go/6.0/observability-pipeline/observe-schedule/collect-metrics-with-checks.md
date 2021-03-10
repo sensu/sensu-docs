@@ -127,8 +127,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   created_by: admin
-  labels:
-    sensu.io/managed_by: sensuctl
   name: collect-metrics
   namespace: default
 spec:
@@ -162,9 +160,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "created_by": "admin",
-    "labels": {
-      "sensu.io/managed_by": "sensuctl"
-    },
     "name": "collect-metrics",
     "namespace": "default"
   },
