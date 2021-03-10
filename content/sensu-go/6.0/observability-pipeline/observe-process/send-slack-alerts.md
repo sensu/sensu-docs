@@ -16,7 +16,7 @@ menu:
 Sensu event handlers are actions the Sensu backend executes on [events][1].
 You can use handlers to send an email alert, create or resolve incidents (in PagerDuty, for example), or store metrics in a time-series database like InfluxDB.
 
-This guide will help you send alerts to Slack in the channel `monitoring` by configuring a handler named `slack` to a check named `check-cpu`.
+This guide will help you send alerts to Slack in the channel `monitoring` by configuring a handler named `slack` to a check named `check_cpu`.
 If you don't already have this check in place, follow [Monitor server resources][2] to add it.
 
 ## Register the dynamic runtime asset
@@ -156,24 +156,24 @@ You can share and reuse this handler like code &mdash; [save it to a file][15] a
 ## Assign the handler to a check
 
 With the `slack` handler created, you can assign it to a check.
-To continue this example, use the `check-cpu` check created in [Monitor server resources][2].
+To continue this example, use the `check_cpu` check created in [Monitor server resources][2].
 
-Assign your `slack` handler to the `check-cpu` check to receive Slack alerts when the CPU usage of your systems reaches the specific thresholds set in the check command:
+Assign your `slack` handler to the `check_cpu` check to receive Slack alerts when the CPU usage of your systems reaches the specific thresholds set in the check command:
 
 {{< code shell >}}
-sensuctl check set-handlers check-cpu slack
+sensuctl check set-handlers check_cpu slack
 {{< /code >}}
 
-To view the updated `check-cpu` resource definition, run:
+To view the updated `check_cpu` resource definition, run:
 
 {{< language-toggle >}}
 
 {{< code shell "YML">}}
-sensuctl check info check-cpu --format yaml
+sensuctl check info check_cpu --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info check-cpu --format json
+sensuctl check info check_cpu --format json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -188,7 +188,7 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   created_by: admin
-  name: check-cpu
+  name: check_cpu
   namespace: default
 spec:
   check_hooks: null
@@ -222,7 +222,7 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "created_by": "admin",
-    "name": "check-cpu",
+    "name": "check_cpu",
     "namespace": "default"
   },
   "spec": {

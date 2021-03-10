@@ -257,7 +257,7 @@ You should receive another email because the event status changed to `0` (OK).
 
 Now that you know how to apply a handler to a check and take action on events:
 
-- Reuse this email handler with the `check-cpu` check from our [Monitor server resources][2] guide.
+- Reuse this email handler with the `check_cpu` check from our [Monitor server resources][2] guide.
 - Read the [handlers reference][6] for in-depth handler documentation.
 - Check out the [Reduce alert fatigue][7] guide.
 
