@@ -393,7 +393,7 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [15]: ../../../reference/backend/
 [16]: ../secure-sensu/
 [17]: ../../../sensuctl/
-[18]: https://github.com/etcd-io/etcd/blob/a621d807f061e1dd635033a8d6bc261461429e27/Documentation/v2/admin_guide.md#optimal-cluster-size
+[18]: https://etcd.io/docs/current/dev-internal/discovery_protocol/#specifying-the-expected-cluster-size
 [19]: #sensu-backend-configuration
 [20]: ../../../api/
 [21]: ../install-sensu/

@@ -154,7 +154,7 @@ Under normal conditions, sensuctl communications and browser access to the web U
 [2]: ../../../api/
 [3]: ../../../reference/agent/#general-configuration-flags
 [4]: https://etcd.io/docs/
-[5]: https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/security.md
+[5]: https://etcd.io/docs/current/op-guide/security/
 [6]: ../secure-sensu/
 [7]: ../cluster-sensu/
 [8]: ../../../reference/datastore/
