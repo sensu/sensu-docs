@@ -112,7 +112,7 @@ sensuctl check info collect-metrics --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info collect-metrics --format wrapped-json
+sensuctl check info collect-metrics --format json
 {{< /code >}}
 
 {{< /language-toggle >}}

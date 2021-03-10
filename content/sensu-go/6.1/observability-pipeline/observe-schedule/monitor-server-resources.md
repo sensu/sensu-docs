@@ -35,7 +35,7 @@ Use [`sensuctl asset add`][9] to register the Sensu CPU Checks dynamic runtime a
 sensuctl asset add sensu-plugins/sensu-plugins-cpu-checks:4.1.0 -r cpu-checks-plugins
 {{< /code >}}
 
-The response will indicate that the asset was added:
+The response will confirm that the asset was added:
 
 {{< code shell >}}
 fetching bonsai asset: sensu-plugins/sensu-plugins-cpu-checks:4.1.0
@@ -56,7 +56,7 @@ Then, use the following sensuctl example to register the Sensu Ruby Runtime dyna
 sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
 {{< /code >}}
 
-The response will indicate that the asset was added:
+The response will confirm that the asset was added:
 
 {{< code shell >}}
 fetching bonsai asset: sensu/sensu-ruby-runtime:0.0.10
@@ -101,6 +101,108 @@ sensuctl check create check-cpu \
 --subscriptions system \
 --runtime-assets cpu-checks-plugins,sensu-ruby-runtime
 {{< /code >}}
+
+You should see a confirmation message:
+
+{{< code shell >}}
+Created
+{{< /code >}}
+
+To view the complete resource definition for `check-cpu`, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl check info check-cpu --format yaml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl check info check-cpu --format json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The sensuctl response will include the complete `check-cpu` resource definition in the specified format:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: check-cpu
+  namespace: default
+spec:
+  check_hooks: null
+  command: check-cpu.rb -w 75 -c 90
+  env_vars: null
+  handlers:
+  - slack
+  high_flap_threshold: 0
+  interval: 60
+  low_flap_threshold: 0
+  output_metric_format: ""
+  output_metric_handlers: null
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets:
+  - cpu-checks-plugins
+  - sensu-ruby-runtime
+  secrets: null
+  stdin: false
+  subdue: null
+  subscriptions:
+  - system
+  timeout: 0
+  ttl: 0
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "check-cpu",
+    "namespace": "default"
+  },
+  "spec": {
+    "check_hooks": null,
+    "command": "check-cpu.rb -w 75 -c 90",
+    "env_vars": null,
+    "handlers": [
+      "slack"
+    ],
+    "high_flap_threshold": 0,
+    "interval": 60,
+    "low_flap_threshold": 0,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": [
+      "cpu-checks-plugins",
+      "sensu-ruby-runtime"
+    ],
+    "secrets": null,
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "system"
+    ],
+    "timeout": 0,
+    "ttl": 0
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+If you want to share, reuse, and maintain this check just like you would code, you can [save it to a file][11] and start building a [monitoring as code repository][12].
 
 ## Configure the subscription
 
@@ -155,3 +257,5 @@ Now that you know how to run a check to monitor CPU usage, read these resources 
 [8]: ../agent/#restart-the-service
 [9]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [10]: #create-a-check
+[11]: ../../../operations/monitoring-as-code/#build-as-you-go
+[12]: ../../../operations/monitoring-as-code/
