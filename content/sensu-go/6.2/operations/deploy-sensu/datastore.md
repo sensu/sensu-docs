@@ -23,6 +23,8 @@ This embedded database allows you to get started with Sensu without deploying a 
 Sensu's default embedded etcd configuration listens for unencrypted communication on [ports][19] 2379 (client requests) and 2380 (peer communication).
 
 Sensu can be configured to disable the embedded etcd database and use one or more [external etcd nodes][8] for configuration and event storage instead.
+To stand up an external etcd cluster, follow etcd's [clustering guide][7] using the same store configuration.
+Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 
 As your deployment grows beyond the proof-of-concept stage, review [Deployment architecture for Sensu][6] for more information about deployment considerations and recommendations for a production-ready Sensu deployment.
 
@@ -443,6 +445,7 @@ enable_round_robin: true
 [4]: https://pkg.go.dev/github.com/lib/pq@v1.2.0#hdr-Connection_String_Parameters
 [5]: ../../../observability-pipeline/observe-schedule/checks/#round-robin-checks
 [6]: ../deployment-architecture/
+[7]: https://etcd.io/docs/v3.3.13/op-guide/clustering/
 [8]: ../cluster-sensu/#use-an-external-etcd-cluster
 [9]: ../../../web-ui/
 [10]: ../../../sensuctl/create-manage-resources/#sensuctl-event
