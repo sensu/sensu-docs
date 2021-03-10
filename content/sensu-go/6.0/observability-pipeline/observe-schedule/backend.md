@@ -1113,7 +1113,7 @@ pipelined-workers: 100{{< /code >}}
 
 | etcd-election-timeout |      |
 -----------------------|------
-description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). See [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
+description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). Set to at least 10 times the [etcd-heartbeat-interval][36]. See [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
 **WARNING**: Make sure to set the same election timeout value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.
 {{% /notice %}}
 type                   | Integer
@@ -1123,6 +1123,8 @@ command line example   | {{< code shell >}}
 sensu-backend start --etcd-election-timeout 1000{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 etcd-election-timeout: 1000{{< /code >}}
+
+<a name="etcd-heartbeat-interval"></a>
 
 | etcd-heartbeat-interval |      |
 -----------------------|------
@@ -1362,7 +1364,7 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [13]: ../../../operations/deploy-sensu/cluster-sensu/
 [14]: ../../../commercial/
 [15]: #general-configuration-flags
-[16]: https://github.com/etcd-io/etcd/blob/master/Documentation/tuning.md#time-parameters
+[16]: https://etcd.io/docs/current/tuning/#time-parameters
 [17]: ../../../files/backend.yml
 [18]: https://golang.org/pkg/crypto/tls/#pkg-constants
 [19]: https://etcd.io/docs/latest/op-guide/clustering/#discovery
@@ -1382,3 +1384,4 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [33]: ../../../operations/deploy-sensu/secure-sensu/
 [34]: ../agent/#username-and-password-authentication
 [35]: ../../../operations/deploy-sensu/install-sensu/#architecture-overview
+[36]: #etcd-heartbeat-interval
