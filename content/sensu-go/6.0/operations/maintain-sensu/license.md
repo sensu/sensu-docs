@@ -20,13 +20,22 @@ Log in to your Sensu account at [account.sensu.io][1] and click **Download licen
 
 <img alt="Screenshot of Sensu account license download" src="/images/go-license-download.png" width="350px">
 
-With the license file downloaded, you can activate your license with sensuctl or the [license API][4].
+Save your license to a file such as `sensu_license.yml` or `sensu_license.json`.
+With the license file downloaded and saved to a file, you can activate your license with sensuctl or the [license API][4].
 
 To activate your license with sensuctl:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file sensu_license.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
 sensuctl create --file sensu_license.json
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 Use sensuctl to view your license details at any time:
 

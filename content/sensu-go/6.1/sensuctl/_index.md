@@ -53,19 +53,32 @@ For information about configuring the Sensu backend URL, see the [backend refere
 During configuration, sensuctl creates configuration files that contain information for connecting to your Sensu Go deployment.
 You can find these files at `$HOME/.config/sensu/sensuctl/profile` and `$HOME/.config/sensu/sensuctl/cluster`.
 
-For example:
+Use the `cat` command to view the contents of these files.
+For example, to view your sensuctl profile configuration, run:
 
 {{< code shell >}}
 cat .config/sensu/sensuctl/profile
+{{< /code >}}
+
+The response should be similar to this example:
+
+{{< code shell >}}
 {
   "format": "tabular",
-  "namespace": "demo",
+  "namespace": "default",
   "username": "admin"
 }
 {{< /code >}}
 
+To view your sensuctl cluster configuration, run:
+
 {{< code shell >}}
 cat .config/sensu/sensuctl/cluster 
+{{< /code >}}
+
+The response should be similar to this example:
+
+{{< code shell >}}
 {
   "api-url": "http://localhost:8080",
   "trusted-ca-file": "",

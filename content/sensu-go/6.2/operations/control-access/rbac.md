@@ -84,8 +84,7 @@ Use your Sensu username and password to [configure sensuctl][26] or log in to th
 
 ### User example
 
-The following example shows a user resource definition.
-You can use this example with [`sensuctl create`][31].
+The following example shows a user resource definition:
 
 {{< language-toggle >}}
 
@@ -117,6 +116,22 @@ spec:
     "groups": ["ops", "dev"]
   }
 }
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+To create this user with [`sensuctl create`][31], first save the definition to a file like `users.yml` or `users.json`.
+
+Then, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file users.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create --file users.json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -181,11 +196,19 @@ sensuctl user reinstate USERNAME
 
 You can use [sensuctl][2] to see a list of all users within Sensu.
 
-To return a list of users in `yaml` format for use with `sensuctl create`:
+To return a list of users in `yaml` or `json` format for use with `sensuctl create`:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 sensuctl user list --format yaml
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl user list --format json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 #### Create users
 
@@ -380,8 +403,7 @@ To create and manage cluster roles, [configure sensuctl][26] as the [default `ad
 
 ### Role example
 
-The following example shows a role resource definition.
-You can use this example with [`sensuctl create`][31].
+The following example shows a role resource definition:
 
 {{< language-toggle >}}
 
@@ -440,10 +462,25 @@ spec:
 
 {{< /language-toggle >}}
 
+To create this role with [`sensuctl create`][31], first save the definition to a file like `roles.yml` or `roles.json`.
+
+Then, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file roles.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create --file roles.json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ### Cluster role example
 
-The following example shows a cluster role resource definition.
-You can use this example with [`sensuctl create`][31].
+The following example shows a cluster role resource definition:
 
 {{< language-toggle >}}
 
@@ -505,6 +542,22 @@ spec:
     ]
   }
 }
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+To create this cluster role with [`sensuctl create`][31], first save the definition to a file like `cluster_roles.yml` or `cluster_roles.json`.
+
+Then, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file cluster_roles.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create --file cluster_roles.json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -572,12 +625,115 @@ For example, the following command creates an admin role restricted to the produ
 sensuctl role create prod-admin --verb='get,list,create,update,delete' --resource='*' --namespace production
 {{< /code >}}
 
+This command creates the following role resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Role
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: prod-admin
+  namespace: production
+spec:
+  rules:
+  - resource_names: null
+    resources:
+    - '*'
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Role",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "prod-admin",
+    "namespace": "production"
+  },
+  "spec": {
+    "rules": [
+      {
+        "resource_names": null,
+        "resources": [
+          "*"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update",
+          "delete"
+        ]
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 After you create a role, [create a role binding][23] (or [cluster role binding][23]) to assign the role to users and groups.
 For example, to assign the `prod-admin` role created above to the `oncall` group, create this role binding:
 
 {{< code shell >}}
 sensuctl role-binding create prod-admin-oncall --role=prod-admin --group=oncall
 {{< /code >}}
+
+This command creates the following role binding resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: RoleBinding
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: prod-admin-oncall
+  namespace: production
+spec:
+  role_ref:
+    name: prod-admin
+    type: Role
+  subjects:
+  - name: oncall
+    type: Group
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "RoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "prod-admin-oncall",
+    "namespace": "production"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "prod-admin",
+      "type": "Role"
+    },
+    "subjects": [
+      {
+        "name": "oncall",
+        "type": "Group"
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 #### Create cluster-wide roles
 
@@ -587,6 +743,54 @@ For example, the following command creates a global event reader role that can r
 {{< code shell >}}
 sensuctl cluster-role create global-event-reader --verb='get,list' --resource='events'
 {{< /code >}}
+
+This command creates the following cluster-wide role resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: ClusterRole
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: global-event-reader
+spec:
+  rules:
+  - resource_names: null
+    resources:
+    - events
+    verbs:
+    - get
+    - list
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "ClusterRole",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "global-event-reader"
+  },
+  "spec": {
+    "rules": [
+      {
+        "resource_names": null,
+        "resources": [
+          "events"
+        ],
+        "verbs": [
+          "get",
+          "list"
+        ]
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 #### Delete roles and cluster roles
 
@@ -746,11 +950,9 @@ Make sure to include the groups prefix and username prefix for the authenticatio
 Without an assigned role or cluster role, users can sign in to the web UI but can't access any Sensu resources.
 With the correct roles and bindings configured, users can log in to [sensuctl][2] and the [web UI][1] using their single-sign-on username and password (no prefixes required).
 
-
 ### Role binding example
 
-The following example shows a role binding resource definition.
-You can use this example with [`sensuctl create`][31].
+The following example shows a role binding resource definition:
 
 {{< language-toggle >}}
 
@@ -795,10 +997,25 @@ spec:
 
 {{< /language-toggle >}}
 
+To create this role binding with [`sensuctl create`][31], first save the definition to a file like `rolebindings.yml` or `rolebindings.json`.
+
+Then, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file rolebindings.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create --file rolebindings.json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ### Cluster role binding example
 
-The following example shows a cluster role binding resource definition.
-You can use this example with [`sensuctl create`][31].
+The following example shows a cluster role binding resource definition:
 
 {{< language-toggle >}}
 
@@ -837,6 +1054,22 @@ spec:
     ]
   }
 }
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+To create this cluster role binding with [`sensuctl create`][31], first save the definition to a file like `clusterrolebindings.yml` or `clusterrolebindings.json`.
+
+Then, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file clusterrolebindings.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create --file clusterrolebindings.json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -891,20 +1124,177 @@ sensuctl cluster-role-binding list
 You can use [sensuctl][2] to see a create a role binding that assigns a role:
 
 {{< code shell >}}
-sensuctl role-binding create [NAME] --role=NAME [--user=username] [--group=groupname]
+sensuctl role-binding create NAME --role=NAME --user=username --group=groupname
 {{< /code >}}
+
+This command creates the following role binding resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: RoleBinding
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: NAME
+  namespace: default
+spec:
+  role_ref:
+    name: NAME
+    type: Role
+  subjects:
+  - name: groupname
+    type: Group
+  - name: username
+    type: User
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "RoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "NAME",
+    "namespace": "default"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "NAME",
+      "type": "Role"
+    },
+    "subjects": [
+      {
+        "name": "groupname",
+        "type": "Group"
+      },
+      {
+        "name": "username",
+        "type": "User"
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 To create a role binding that assigns a cluster role:
 
 {{< code shell >}}
-sensuctl role-binding create [NAME] --cluster-role=NAME [--user=username] [--group=groupname]
+sensuctl role-binding create NAME --cluster-role=NAME --user=username --group=groupname
 {{< /code >}}
+
+This command creates the following role binding resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: RoleBinding
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: NAME
+  namespace: default
+spec:
+  role_ref:
+    name: NAME
+    type: ClusterRole
+  subjects:
+  - name: groupname
+    type: Group
+  - name: username
+    type: User
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "RoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "NAME",
+    "namespace": "default"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "NAME",
+      "type": "ClusterRole"
+    },
+    "subjects": [
+      {
+        "name": "groupname",
+        "type": "Group"
+      },
+      {
+        "name": "username",
+        "type": "User"
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 To create a cluster role binding:
 
 {{< code shell >}}
-sensuctl cluster-role-binding create [NAME] --cluster-role=NAME [--user=username] [--group=groupname]
+sensuctl cluster-role-binding create NAME --cluster-role=NAME --user=username --group=groupname
 {{< /code >}}
+
+This command creates the following cluster role binding resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: ClusterRoleBinding
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: NAME
+spec:
+  role_ref:
+    name: NAME
+    type: ClusterRole
+  subjects:
+  - name: groupname
+    type: Group
+  - name: username
+    type: User
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "ClusterRoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "NAME"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "NAME",
+      "type": "ClusterRole"
+    },
+    "subjects": [
+      {
+        "name": "groupname",
+        "type": "Group"
+      },
+      {
+        "name": "username",
+        "type": "User"
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 #### Delete role bindings and cluster role bindings
 
