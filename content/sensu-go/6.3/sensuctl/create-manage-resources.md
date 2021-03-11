@@ -378,7 +378,7 @@ sensuctl check list --format wrapped-json > my-resources.json
 
 {{< /language-toggle >}}
 
-To see the definition for a check named `check-cpu` in `yaml` or `wrapped-json` format:
+To see the definition for a check named `check-cpu` in `yaml` or `json` format:
 
 {{< language-toggle >}}
 
@@ -387,7 +387,7 @@ sensuctl check info check-cpu --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info check-cpu --format wrapped-json
+sensuctl check info check-cpu --format json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -497,15 +497,15 @@ In addition, pruning requires [cluster-level privileges][35], even when all reso
 
 ##### Supported resource types
 
-Use `sensuctl describe-type all` to retrieve the list of supported `sensuctl prune` resource types.
-
-{{% notice note %}}
-**NOTE**: Short names are only supported for `core/v2` resources.
-{{% /notice %}}
+To retrieve the supported `sensuctl prune` resource types, run:
 
 {{< code shell >}}
 sensuctl describe-type all
+{{< /code >}}
 
+The response will list all supported `sensuctl prune` resource types:
+
+{{< code shell >}}
       Fully Qualified Name           Short Name           API Version             Type          Namespaced  
  ────────────────────────────── ───────────────────── ─────────────────── ──────────────────── ──────────── 
   authentication/v2.Provider                           authentication/v2   Provider             false
@@ -535,6 +535,10 @@ sensuctl describe-type all
   core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true
   core/v2.Silenced               silenced              core/v2             Silenced             true  
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Short names are only supported for `core/v2` resources.
+{{% /notice %}}
 
 ##### sensuctl prune flags
 

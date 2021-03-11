@@ -207,7 +207,7 @@ In addition to built-in RBAC, Sensu Go's [commercial features][27] include suppo
 The Sensu agent is available for Ubuntu/Debian, RHEL/CentOS, Windows, and Docker.
 See the [installation guide][55] to install, configure, and start Sensu agents.
 
-If you're doing a side-by-side migration, add `api-port` (default: `3031`) and `socket-port` (default: `3030`) to your [agent configuration][56] (/etc/sensu/agent.yml).
+If you're doing a side-by-side migration, add `api-port` (default: `3031`) and `socket-port` (default: `3030`) to your [agent configuration][56] (`/etc/sensu/agent.yml`).
 This prevents the Sensu Go agent API and socket from conflicting with the Sensu Core client API and socket.
 
 {{< code yml >}}
@@ -296,7 +296,7 @@ Sensu Core checks could be configured as `type: metric`, which told Sensu to alw
 This allowed Sensu Core to process output metrics via a handler even when the check status was not in an alerting state.
 
 Sensu Go treats output metrics as first-class objects, so you can process check status as well as output metrics via different event pipelines.
-See the [guide to metric output][57] to update your metric checks with the `output_metric_handlers` and `output_metric_format` attributes.
+See the [guide to metric output][57] to update your metric checks with the `output_metric_handlers` and `output_metric_format` attributes and use `output_metric_tags` to enrich extracted metrics output.
 
 <a name="translate-proxy-requests-entities"></a>
 
@@ -345,19 +345,42 @@ Sensu Core hourly filter:
 
 Sensu Go hourly filter:
 
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: hourly
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0
+  runtime_assets: null
+{{< /code >}}
+
 {{< code json >}}
 {
+  "type": "EventFilter",
+  "api_version": "core/v2",
   "metadata": {
+    "created_by": "admin",
     "name": "hourly",
     "namespace": "default"
   },
-  "action": "allow",
-  "expressions": [
-    "event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0"
-  ],
-  "runtime_assets": null
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0"
+    ],
+    "runtime_assets": null
+  }
 }
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 #### 4. Translate handlers
 
