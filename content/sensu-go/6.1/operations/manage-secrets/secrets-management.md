@@ -65,16 +65,20 @@ Then, run the following code, replacing `INTEGRATION_KEY` with your PagerDuty In
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee -a /etc/default/sensu-backend
-$ sudo systemctl restart sensu-backend
+echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee -a /etc/sysconfig/sensu-backend
-$ sudo systemctl restart sensu-backend
+echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+Restart the sensu-backend:
+
+{{< code shell >}}
+sudo systemctl restart sensu-backend
+{{< /code >}}
 
 This configures the `SENSU_PAGERDUTY_KEY` environment variable to your PagerDuty Integration Key in the context of the sensu-backend process.
 
@@ -84,7 +88,9 @@ Now you'll use `sensuctl create` to create your secret.
 This code creates a secret named `pagerduty_key` that refers to the environment variable ID `SENSU_PAGERDUTY_KEY`.
 Run:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 cat << EOF | sensuctl create
 ---
 type: Secret
@@ -97,6 +103,25 @@ spec:
   provider: env
 EOF
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "Secret",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "pagerduty_key",
+    "namespace": "default"
+  },
+  "spec": {
+    "id": "SENSU_PAGERDUTY_KEY",
+    "provider": "env"
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 You can securely pass your PagerDuty Integration Key in Sensu checks, handlers, and mutators by referring to the `pagerduty_key` secret.
 Skip to the [add a handler][19] section, where you'll use your `pagerduty_key` secret in your handler definition.
@@ -156,7 +181,9 @@ Use `sensuctl create` to create your secrets provider, `vault`.
 In the code below, replace `ROOT_TOKEN` with the `Root Token` value for your Vault dev server.
 Then, run:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 cat << EOF | sensuctl create
 ---
 type: VaultProvider
@@ -176,6 +203,34 @@ spec:
       burst: 100
 EOF
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "VaultProvider",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "vault"
+  },
+  "spec": {
+    "client": {
+      "address": "http://localhost:8200",
+      "token": "ROOT_TOKEN",
+      "version": "v2",
+      "tls": null,
+      "max_retries": 2,
+      "timeout": "20s",
+      "rate_limiter": {
+        "limit": 10,
+        "burst": 100
+      }
+    }
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 To continue, skip ahead to [create your Vault secret][29].
 
@@ -202,6 +257,8 @@ vault write auth/cert/certs/sensu-backend \
 
 Second, configure your `VaultProvider` in Sensu: 
 
+{{< language-toggle >}}
+
 {{< code yml >}}
 ---
 type: VaultProvider
@@ -223,6 +280,36 @@ spec:
       limit: 10
       burst: 100
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+{
+  "type": "VaultProvider",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "vault"
+  },
+  "spec": {
+    "client": {
+      "address": "https://vault.example.com:8200",
+      "version": "v2",
+      "tls": {
+        "ca_cert": "/path/to/your/ca.pem",
+        "client_cert": "/etc/sensu/ssl/sensu-backend-vault.pem",
+        "client_key": "/etc/sensu/ssl/sensu-backend-vault-key.pem",
+        "cname": "sensu-backend.example.com"
+      },
+      "max_retries": 2,
+      "timeout": "20s",
+      "rate_limiter": {
+        "limit": 10,
+        "burst": 100
+      }
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 The certificate you specify for `tls.client_cert` should be the same certificate you configured in your Vault for certificate authentication.
 
@@ -249,7 +336,9 @@ Run `vault kv get secret/pagerduty` to see the secret you just set up.
 
 Use `sensuctl create` to create your `vault` secret:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 cat << EOF | sensuctl create
 ---
 type: Secret
@@ -262,6 +351,25 @@ spec:
   provider: vault
 EOF
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "Secret",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "pagerduty_key",
+    "namespace": "default"
+  },
+  "spec": {
+    "id": "secret/pagerduty#key",
+    "provider": "vault"
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 Now you can securely pass your PagerDuty Integration Key in the handlers, and mutators by referring to the `pagerduty_key` secret.
 In the [add a handler][19] section, you'll use your `pagerduty_key` secret in your handler definition.
@@ -291,7 +399,9 @@ However, you still need to add your secret to the handler spec so that it requir
 
 To create a handler definition that uses your `pagerduty_key` secret, run:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 cat << EOF | sensuctl create
 ---
 api_version: core/v2
@@ -312,6 +422,38 @@ spec:
   - is_incident
 EOF
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "api_version": "core/v2",
+  "type": "Handler",
+  "metadata": {
+    "namespace": "default",
+    "name": "pagerduty"
+  },
+  "spec": {
+    "type": "pipe",
+    "command": "pagerduty-handler --token $PD_TOKEN",
+    "secrets": [
+      {
+        "name": "PD_TOKEN",
+        "secret": "pagerduty_key"
+      }
+    ],
+    "runtime_assets": [
+      "pagerduty-handler"
+    ],
+    "timeout": 10,
+    "filters": [
+      "is_incident"
+    ]
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 Now that your handler is set up and Sensu can create incidents in PagerDuty, you can automate this workflow by adding your `pagerduty` handler to your Sensu service check definitions.
 See [Monitor server resources][24] to learn more.
