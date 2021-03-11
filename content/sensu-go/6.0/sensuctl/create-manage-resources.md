@@ -368,7 +368,7 @@ sensuctl check list --format wrapped-json > my-resources.json
 
 {{< /language-toggle >}}
 
-To see the definition for a check named `check-cpu` in `yaml` or `wrapped-json` format:
+To see the definition for a check named `check-cpu` in `yaml` or `json` format:
 
 {{< language-toggle >}}
 
@@ -377,7 +377,7 @@ sensuctl check info check-cpu --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info check-cpu --format wrapped-json
+sensuctl check info check-cpu --format json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -487,20 +487,21 @@ In addition, pruning requires [cluster-level privileges][35], even when all reso
 
 ##### Supported resource types
 
-Use `sensuctl describe-type all` to retrieve the list of supported `sensuctl prune` resource types.
-
-{{% notice note %}}
-**NOTE**: Short names are only supported for `core/v2` resources.
-{{% /notice %}}
+To retrieve the supported `sensuctl prune` resource types, run:
 
 {{< code shell >}}
 sensuctl describe-type all
+{{< /code >}}
 
+The response will list all supported `sensuctl prune` resource types:
+
+{{< code shell >}}
       Fully Qualified Name           Short Name           API Version             Type          Namespaced  
  ────────────────────────────── ───────────────────── ─────────────────── ──────────────────── ──────────── 
   authentication/v2.Provider                           authentication/v2   Provider             false
   licensing/v2.LicenseFile                             licensing/v2        LicenseFile          false
   store/v1.PostgresConfig                              store/v1            PostgresConfig       false
+  federation/v1.Cluster                                federation/v1       Cluster              false
   federation/v1.EtcdReplicator                         federation/v1       EtcdReplicator       false
   secrets/v1.Secret                                    secrets/v1          Secret               true
   secrets/v1.Provider                                  secrets/v1          Provider             false
@@ -518,12 +519,16 @@ sensuctl describe-type all
   core/v2.Event                  events                core/v2             Event                true
   core/v2.EventFilter            filters               core/v2             EventFilter          true
   core/v2.Handler                handlers              core/v2             Handler              true
-  core/v2.Hook                   hooks                 core/v2             Hook                 true
+  core/v2.HookConfig             hooks                 core/v2             HookConfig           true
   core/v2.Mutator                mutators              core/v2             Mutator              true
   core/v2.Role                   roles                 core/v2             Role                 true
   core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true
   core/v2.Silenced               silenced              core/v2             Silenced             true  
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Short names are only supported for `core/v2` resources.
+{{% /notice %}}
 
 ##### sensuctl prune flags
 
