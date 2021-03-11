@@ -5,6 +5,7 @@ weight: 3
 version: "1.9"
 product: "Sensu Core"
 platformContent: true
+platforms: ["Ubuntu/Debian", "RHEL/CentOS"]
 menu:
   sensu-core-1.9:
     parent: quick-start
