@@ -267,6 +267,14 @@
             "url": "/sensu-go/5.21/api",
             "status": 301
         },
+        "~ ^/sensu-go/latest/learn/prometheus-metrics/?$": {
+            "url": "/sensu-go/latest/observability-pipeline/observe-schedule/prometheus-metrics",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/prometheus-metrics/?$": {
+            "url": "/sensu-go/latest/observability-pipeline/observe-schedule/prometheus-metrics",
+            "status": 301
+        },
         "~ ^/sensu-go/latest/reference/agent/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/agent",
             "status": 301
