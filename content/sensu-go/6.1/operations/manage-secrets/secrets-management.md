@@ -7,7 +7,7 @@ description: "Sensu's secrets management allows you to avoid exposing secrets li
 weight: 10
 version: "6.1"
 product: "Sensu Go"
-platformContent: False
+platformContent: false
 menu: 
   sensu-go-6.1:
     parent: manage-secrets

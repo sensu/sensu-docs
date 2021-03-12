@@ -6,7 +6,7 @@ description: "As part of the event pipeline, mutators let you transform event da
 product: "Sensu Go"
 weight: 130
 version: "5.21"
-platformContent: False 
+platformContent: false 
 menu:
   sensu-go-5.21:
     parent: reference
