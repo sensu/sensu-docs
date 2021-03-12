@@ -7,7 +7,7 @@ description: "Here’s how to reduce alert fatigue with Sensu. Learn about Sensu
 weight: 20
 version: "6.0"
 product: "Sensu Go"
-platformContent: False
+platformContent: false
 menu: 
   sensu-go-6.0:
     parent: observe-filter

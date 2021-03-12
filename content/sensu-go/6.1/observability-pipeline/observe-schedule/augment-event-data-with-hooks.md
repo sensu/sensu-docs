@@ -8,7 +8,6 @@ weight: 70
 version: "6.1"
 product: "Sensu Go"
 platformContent: false
-lastTested: 2018-12-04
 menu:
   sensu-go-6.1:
     parent: observe-schedule

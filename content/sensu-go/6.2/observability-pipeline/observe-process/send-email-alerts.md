@@ -7,7 +7,7 @@ description: "Here’s how to send alerts to your email with the Sensu Go Email 
 weight: 20
 version: "6.2"
 product: "Sensu Go"
-platformContent: False
+platformContent: false
 menu: 
   sensu-go-6.2:
     parent: observe-process

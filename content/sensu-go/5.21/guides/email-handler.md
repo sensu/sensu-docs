@@ -5,7 +5,7 @@ description: "Here’s how to send alerts to your email with the Sensu Go Email 
 weight: 85
 version: "5.21"
 product: "Sensu Go"
-platformContent: False
+platformContent: false
 menu: 
   sensu-go-5.21:
     parent: guides

@@ -7,7 +7,7 @@ description: "Dynamic runtime assets are shareable, reusable packages that make 
 weight: 40
 version: "6.1"
 product: "Sensu Go"
-platformContent: False
+platformContent: false
 menu: 
   sensu-go-6.1:
     parent: plugins
