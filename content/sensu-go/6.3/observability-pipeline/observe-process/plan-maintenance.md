@@ -7,8 +7,7 @@ description: "Perform system maintenance without getting overloaded with alerts.
 weight: 70
 version: "6.3"
 product: "Sensu Go"
-platformContent: False
-lastTested: 2021-03-11
+platformContent: false
 menu: 
   sensu-go-6.3:
     parent: observe-process
