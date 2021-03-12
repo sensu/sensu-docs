@@ -4,7 +4,7 @@ description: "Reference documentation for using Sensu with SSL."
 product: "Sensu Core"
 version: "1.9"
 weight: 17
-platformContent: true
+platformContent: false
 menu:
   sensu-core-1.9:
     parent: reference
@@ -46,18 +46,17 @@ SSL documentation][2] for a detailed guide on configuring RabbitMQ with SSL.
 
 1. OpenSSL is required on the machine that will generate the SSL certificates.
    Install OpenSSL on your platform:
-   {{< platformBlock "Ubuntu/Debian" >}}<h5 id="ubuntu-debian"> Ubuntu/Debian </h5>
-   {{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "1.0" "reference/SSL" "generate-self-signed-openssl-certificates-and-ca">}}<br>
-{{< code shell >}}
+   {{< language-toggle >}}
+   {{< code shell "Ubuntu/Debian">}}
 sudo apt-get update
 sudo apt-get install openssl
-openssl version{{< /code >}}{{< platformBlockClose >}}
-   {{< platformBlock "RHEL/CentOS" >}}
-   <h5 id="rhel-centos"> RHEL/CentOS </h5>
-   {{< platformDropdown "RHEL/CentOS" "Sensu-Core" "1.0" "reference/SSL" "generate-self-signed-openssl-certificates-and-ca">}}<br>
-{{< code shell >}}
+openssl version
+{{< /code >}}
+{{< code shell "RHEL/CentOS">}}
 sudo yum install openssl
-openssl version{{< /code >}}{{< platformBlockClose >}}
+openssl version
+{{< /code >}}
+{{< /language-toggle >}}
 
 2. Download the Sensu SSL tool
 {{< code shell >}}
@@ -139,7 +138,6 @@ sudo service rabbitmq-server stop{{< /code >}}
   ]}
 ].
 {{< /code >}}
-
 _NOTE: If using multiple CAs, it may be necessary to include the `{depth, 2},` parameter under `ssl_options`. For more information about this attribute, see the [RabbitMQ SSL Reference documentation][rmq-ssl-depth]._
 
 3. Start RabbitMQ
