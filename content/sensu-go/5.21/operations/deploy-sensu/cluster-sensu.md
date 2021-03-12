@@ -320,6 +320,7 @@ If you do not properly configure secure etcd communication, your Sensu configura
 
 To use Sensu with an external etcd cluster, you must have etcd 3.3.2 or newer.
 To stand up an external etcd cluster, follow etcd's [clustering guide][2] using the same store configuration.
+Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 
 In this example, you will enable client-to-server and peer communication authentication [using self-signed TLS certificates][13].
 To start etcd for `backend-1` based on the [three-node configuration example][19]:
