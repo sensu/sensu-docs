@@ -91,14 +91,10 @@ sensuctl entity update sensu-centos
 - For `Entity Class`, press enter.
 - For `Subscriptions`, type `app_tier` and press enter.
 
-Run these commands to confirm both Sensu services are running:
+Run this command to confirm both Sensu services are running:
 
 {{< code shell >}}
-systemctl status sensu-backend
-{{< /code >}}
-
-{{< code shell >}}
-systemctl status sensu-agent
+systemctl status sensu-backend && systemctl status sensu-agent
 {{< /code >}}
 
 ### Install and configure InfluxDB
