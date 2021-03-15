@@ -1,17 +1,24 @@
 ---
 title: "Collect Prometheus metrics with Sensu"
-version: "6.2"
+linkTitle: "Collect Prometheus Metrics"
+guide_title: "Collect Prometheus metrics with Sensu"
+type: "guide"
 description: "The Sensu Prometheus Collector is a check plugin that collects metrics from a Prometheus exporter or the Prometheus query API. This allows Sensu to route the collected metrics to a time-series database, like InfluxDB. Follow this guide to start collecting Prometheus metrics with Sensu."
+weight: 55
+version: "6.3"
 product: "Sensu Go"
 platformContent: false
+menu:
+  sensu-go-6.3:
+    parent: observe-schedule
 ---
 
-The [Sensu Prometheus Collector][1] is a check plugin that collects metrics from a [Prometheus exporter][2] or the [Prometheus query API][3].
+The [Sensu Prometheus Collector][1] is a check plugin that collects [metrics][10] from a [Prometheus exporter][2] or the [Prometheus query API][3].
 This allows Sensu to route the collected metrics to one or more time-series databases, such as InfluxDB or Graphite.
 
 The Prometheus ecosystem contains a number of actively maintained exporters, such as the [node exporter][5] for reporting hardware and operating system metrics or Google's [cAdvisor exporter][6] for monitoring containers.
 These exporters expose metrics that Sensu can collect and route to one or more time-series databases.
-Sensu and Prometheus can run in parallel, complementing each other and making use of environments where Prometheus is already deployed.  
+Sensu and Prometheus can run in parallel, complementing each other and making use of environments where Prometheus is already deployed.
 
 This guide uses CentOS 7 as the operating system with all components running on the same compute resource.
 Commands and steps may change for different distributions or if components are running on different compute resources.
@@ -75,20 +82,16 @@ vagrant   7647  3937  2 22:23 pts/0    00:00:00 ./prometheus --config.file=prome
 
 Follow the RHEL/CentOS [install instructions][4] for the Sensu backend, the Sensu agent, and sensuctl.
 
-Add an `app_tier` subscription to `/etc/sensu/agent.yml`:
+Use [sensuctl][15] to add an `app_tier` subscription to the sensu-centos entity the Sensu agent is observing:
 
 {{< code shell >}}
-subscriptions:
-  - "app_tier"
+sensuctl entity update sensu-centos
 {{< /code >}}
 
-Restart the Sensu agent to apply the configuration change:
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `app_tier` and press enter.
 
-{{< code shell >}}
-sudo systemctl restart sensu-agent
-{{< /code >}}
-
-Run these commands to ensure Sensu services are running:
+Run these commands to confirm both Sensu services are running:
 
 {{< code shell >}}
 systemctl status sensu-backend
@@ -153,7 +156,7 @@ Install Grafana:
 sudo yum install -y https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-5.1.4-1.x86_64.rpm
 {{< /code >}}
 
-Change Grafana's listen port so that it does not conflict with the Sensu web UI:
+Change Grafana's listen port so that it does not conflict with the Sensu [web UI][14]:
 
 {{< code shell >}}
 sudo sed -i 's/^;http_port = 3000/http_port = 4000/' /etc/grafana/grafana.ini
@@ -189,7 +192,7 @@ sudo systemctl start grafana-server
 
 ### Create a Sensu InfluxDB handler asset
 
-Create a file named `asset_influxdb` that contains the following dynamic runtime asset definition:
+Create a file named `asset_influxdb.yml` or `asset_influxdb.json` that contains the following [dynamic runtime asset][11] definition:
 
 {{< language-toggle >}}
 
@@ -225,7 +228,7 @@ spec:
 
 ### Create a Sensu handler
 
-Create a file named `handler` that contains the following handler definition:
+Create a file named `handler.yml` or `handler.json` that contains the following [handler][12] definition:
 
 {{< language-toggle >}}
 
@@ -269,17 +272,25 @@ spec:
 **PRO TIP**: `sensuctl create -f` also accepts files that contain multiple resources' definitions.
 {{% /notice %}}
 
-Use `sensuctl` to add the handler and the dynamic runtime asset to Sensu:
+Use `sensuctl` to add the handler and dynamic runtime asset to Sensu:
 
-{{< code shell >}}
-sensuctl create --file handler --file asset_influxdb
+{{< language-toggle >}}
+
+{{< code shell "YAML" >}}
+sensuctl create --file handler.yml --file asset_influxdb.yml
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create --file handler.json --file asset_influxdb.json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Collect Prometheus metrics with Sensu
 
 ### Create a Sensu Prometheus Collector asset
 
-Create a file named `asset_prometheus` that contains the following handler definition:
+Create a file named `asset_prometheus.yml` or `asset_prometheus.json` that contains the following [dynamic runtime asset][11] definition:
 
 {{< language-toggle >}}
 
@@ -314,7 +325,7 @@ spec:
 
 ### Add a Sensu check to complete the pipeline
 
-Create a file named `check` that contains the following check definition:
+Create a file named `check.yml` or `check.json` that contains the following [check][13] definition:
 
 {{< language-toggle >}}
 
@@ -371,13 +382,21 @@ spec:
 
 {{< /language-toggle >}}
 
-Use `sensuctl` to add the check to Sensu:
+Use `sensuctl` to add the check and dynamic runtime asset to Sensu:
 
-{{< code shell >}}
-sensuctl create --file check --file asset_prometheus
+{{< language-toggle >}}
+
+{{< code shell "YAML" >}}
+sensuctl create --file check.yml --file asset_prometheus.yml
 {{< /code >}}
 
-Open the Sensu web UI to see the events generated by the `prometheus_metrics` check.
+{{< code shell "JSON" >}}
+sensuctl create --file check.json --file asset_prometheus.json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Open the Sensu [web UI][14] to see the events generated by the `prometheus_metrics` check.
 Visit http://127.0.0.1:3000, and log in as the admin user (created during the [initialization step][8] when you installed the Sensu backend).
 
 You can also see the metric event data using sensuctl.
@@ -428,7 +447,7 @@ You should now have a working set-up with Prometheus scraping metrics.
 The Sensu Prometheus Collector runs via a Sensu check and collects metrics from the Prometheus API.
 The metrics are handled by the InfluxDB handler, sent to InfluxDB, and visualized by a Grafana dashboard.
 
-You can plug the Sensu Prometheus Collector into your Sensu ecosystem.
+You can add the Sensu Prometheus Collector to your Sensu ecosystem and include it in your [monitoring as code][9] repository.
 Use Prometheus to gather metrics and use Sensu to send them to the proper final destination.
 Prometheus has a [comprehensive list][7] of additional exporters to pull in metrics.
 
@@ -436,8 +455,15 @@ Prometheus has a [comprehensive list][7] of additional exporters to pull in metr
 [1]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector/
 [2]: https://prometheus.io/docs/instrumenting/exporters/
 [3]: https://prometheus.io/docs/prometheus/latest/querying/api/
-[4]: ../../operations/deploy-sensu/install-sensu/
+[4]: ../../../operations/deploy-sensu/install-sensu/
 [5]: https://github.com/prometheus/node_exporter/
 [6]: https://github.com/google/cadvisor/
 [7]: https://prometheus.io/docs/instrumenting/exporters/
-[8]: ../../operations/deploy-sensu/install-sensu/#3-initialize
+[8]: ../../../operations/deploy-sensu/install-sensu/#3-initialize
+[9]: ../../../operations/monitoring-as-code/
+[10]: ../metrics/
+[11]: ../../../plugins/assets/
+[12]: ../../observe-process/handlers/
+[13]: ../checks/
+[14]: ../../../web-ui/
+[15]: ../../../sensuctl/
