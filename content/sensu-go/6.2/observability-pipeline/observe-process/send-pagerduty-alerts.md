@@ -35,7 +35,7 @@ sensuctl entity update ENTITY_NAME
 {{< /code >}}
 
 - For `Entity Class`, press enter.
-- For `Subscriptions`, type `app_tier` and press enter.
+- For `Subscriptions`, type `system` and press enter.
 
 Confirm both Sensu services are running:
 
