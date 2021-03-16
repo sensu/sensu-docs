@@ -21,13 +21,16 @@ One quick note before you begin: you'll need your [PagerDuty API integration key
 
 Follow the RHEL/CentOS [install instructions][4] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
 
-Use [sensuctl][12] to add the `system` [subscription][13] to the entity the Sensu agent is observing.
-Before you run the following code, replace `ENTITY_NAME` with the name of the entity on your system.
+Find your entity name:
 
-{{% notice note %}}
-**NOTE**: To find your entity name, run `sensuctl entity list`.
-The `ID` is the name of your entity.
-{{% /notice %}}
+{{< code shell >}}
+sensuctl entity list
+{{< /code >}}
+
+The `ID` in the response is the name of your entity.
+
+In the [sensuctl][12] command below, replace `ENTITY_NAME` with the name of the entity on your system.
+Then run the command to add the `system` [subscription][13] to the entity the Sensu agent is observing:
 
 {{< code shell >}}
 sensuctl entity update ENTITY_NAME
