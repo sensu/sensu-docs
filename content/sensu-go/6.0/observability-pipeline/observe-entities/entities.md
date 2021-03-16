@@ -314,7 +314,7 @@ For complex, non-identifying metadata that you will *not* need to use in respons
 ### Proxy entity labels {#proxy-entities-managed}
 
 For entities with class `proxy`, you can create and manage labels with sensuctl.
-For example, to create a proxy entity with a `url` label using sensuctl `create`, create a file called `example.json` with an entity definition that includes `labels`:
+For example, to create a proxy entity with a `url` label using sensuctl `create`, create a file named `example.yml` or `example.json` with an entity definition that includes `labels`:
 
 {{< language-toggle >}}
 
@@ -375,11 +375,11 @@ Then run `sensuctl create` to create the entity based on the definition:
 {{< language-toggle >}}
 
 {{< code shell "YML">}}
-sensuctl create --file entity.yml
+sensuctl create --file example.yml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl create --file entity.json
+sensuctl create --file example.json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -437,7 +437,7 @@ See [Monitor external resources with proxy requests and entities][17] for detail
 
 ### Agent entity labels {#agent-entities-managed}
 
-For entities with class `agent`, you can define entity attributes in the `/etc/sensu/agent.yml` configuration file.
+For new entities with class `agent`, you can define entity attributes in the `/etc/sensu/agent.yml` configuration file.
 For example, to add a `url` label, open `/etc/sensu/agent.yml` and add configuration for `labels`:
 
 {{< code yml >}}
@@ -450,6 +450,11 @@ Or, use `sensu-agent start` configuration flags:
 {{< code shell >}}
 sensu-agent start --labels url=sensu.docs.io
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: The entity attributes in `agent.yml` are used only for initial entity creation.
+Modify existing agent entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../../api/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
+{{% /notice %}}
 
 ## Entities specification
 
