@@ -27,9 +27,7 @@ At the end of this guide, Prometheus will be scraping metrics.
 The Sensu Prometheus Collector will then query the Prometheus API as a Sensu check and send the metrics to an InfluxDB Sensu handler, which will send metrics to an InfluxDB instance.
 Finally, Grafana will query InfluxDB to display the collected metrics.
 
-## Set up
-
-### Install and configure Prometheus
+## Install and configure Prometheus
 
 Download and extract Prometheus with these commands:
 
@@ -78,14 +76,20 @@ The response should be similar to this example:
 vagrant   7647  3937  2 22:23 pts/0    00:00:00 ./prometheus --config.file=prometheus.yml
 {{< /code >}}
 
-### Install and configure Sensu Go
+## Install and configure Sensu
 
 Follow the RHEL/CentOS [install instructions][4] for the Sensu backend, the Sensu agent, and sensuctl.
 
-Use [sensuctl][15] to add an `app_tier` subscription to the sensu-centos entity the Sensu agent is observing:
+Use [sensuctl][15] to add an `app_tier` [subscription][16] to the entity the Sensu agent is observing.
+Before you run the following code, replace `ENTITY_NAME` with the name of the entity on your system.
+
+{{% notice note %}}
+**NOTE**: To find your entity name, run `sensuctl entity list`.
+The `ID` is the name of your entity.
+{{% /notice %}}
 
 {{< code shell >}}
-sensuctl entity update sensu-centos
+sensuctl entity update ENTITY_NAME
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -97,7 +101,7 @@ Run this command to confirm both Sensu services are running:
 systemctl status sensu-backend && systemctl status sensu-agent
 {{< /code >}}
 
-### Install and configure InfluxDB
+## Install and configure InfluxDB
 
 Add an InfluxDB repo:
 
@@ -144,7 +148,7 @@ influx -execute "CREATE USER sensu WITH PASSWORD 'sensu'"
 influx -execute "GRANT ALL ON sensu TO sensu"
 {{< /code >}}
 
-### Install and configure Grafana
+## Install and configure Grafana
 
 Install Grafana:
 
@@ -378,6 +382,10 @@ spec:
 
 {{< /language-toggle >}}
 
+The check subscription matches the [subscription][16] you added to your entity during [set-up][17].
+The Sensu backend will coordinate check execution for you by comparing the subscriptions in your checks and entities.
+Sensu automatically executes a check when the check definition includes a subscription that matches a subscription for a Sensu entity.
+
 Use `sensuctl` to add the check and dynamic runtime asset to Sensu:
 
 {{< language-toggle >}}
@@ -439,16 +447,16 @@ You should see a graph with initial metrics, similar to:
 
 ## Next steps
 
-You should now have a working set-up with Prometheus scraping metrics.
-The Sensu Prometheus Collector runs via a Sensu check and collects metrics from the Prometheus API.
-The metrics are handled by the InfluxDB handler, sent to InfluxDB, and visualized by a Grafana dashboard.
+You should now have a working observability pipeline with Prometheus scraping metrics.
+In this pipeline, Sensu Prometheus Collector dynamic runtime asset runs via the `prometheus_metrics` Sensu check and collects metrics from the Prometheus API.
+The `influxdb` handler sends the metrics to InfluxDB, and you can visualize the metrics in a Grafana dashboard.
 
-You can add the Sensu Prometheus Collector to your Sensu ecosystem and include it in your [monitoring as code][9] repository.
+Add the [Sensu Prometheus Collector][1] to your Sensu ecosystem and include it in your [monitoring as code][9] repository.
 Use Prometheus to gather metrics and use Sensu to send them to the proper final destination.
 Prometheus has a [comprehensive list][7] of additional exporters to pull in metrics.
 
 
-[1]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector/
+[1]: ../../../plugins/supported-integrations/prometheus/#sensu-prometheus-collector
 [2]: https://prometheus.io/docs/instrumenting/exporters/
 [3]: https://prometheus.io/docs/prometheus/latest/querying/api/
 [4]: ../../../operations/deploy-sensu/install-sensu/
@@ -463,3 +471,5 @@ Prometheus has a [comprehensive list][7] of additional exporters to pull in metr
 [13]: ../checks/
 [14]: ../../../web-ui/
 [15]: ../../../sensuctl/
+[16]: ../subscriptions/
+[17]: #install-and-configure-sensu
