@@ -15,8 +15,7 @@ menu:
 
 Follow this guide to add Sensu Nagios Foundation and PagerDuty dynamic runtime assets and configure your Sensu Go backend with a handler that will send critical events to PagerDuty.
 
-One quick note before you begin: you'll need your [PagerDuty API key][1] to complete this scenario.
-PagerDuty may also call this the "integration key" for your account.
+One quick note before you begin: you'll need your [PagerDuty API integration key][1] to complete this scenario.
 
 ## Install and configure Sensu Go
 
@@ -191,11 +190,11 @@ The response will list the available builds for the PagerDuty handler dynamic ru
 Now that you've added the Sensu PagerDuty Handler dynamic runtime asset, you can create a [handler][9] that uses the asset to send non-OK events to PagerDuty.
 This requires you to update the handler command by adding your PagerDuty API key.
 
-In the following command, replace `YOUR_PAGERDUTY_TOKEN` with your [PagerDuty API key][1].
+In the following command, replace `YOUR_PAGERDUTY_KEY` with your [PagerDuty API integration key][1].
 Then run the updated command:
 
 {{< code shell >}}
-sensuctl handler create pagerduty --type pipe --filters is_incident --runtime-assets sensu/sensu-pagerduty-handler --command "sensu-pagerduty-handler -t YOUR_PAGERDUTY_TOKEN"
+sensuctl handler create pagerduty --type pipe --filters is_incident --runtime-assets sensu/sensu-pagerduty-handler --command "sensu-pagerduty-handler -t YOUR_PAGERDUTY_KEY"
 {{< /code >}}
 
 Make sure that your handler was added by retrieving the complete handler definition in YAML or JSON format:
@@ -222,7 +221,7 @@ metadata:
   name: pagerduty
   namespace: default
 spec:
-  command: sensu-pagerduty-handler -t YOUR_PAGERDUTY_TOKEN
+  command: sensu-pagerduty-handler -t YOUR_PAGERDUTY_KEY
   env_vars: null
   filters:
   - is_incident
@@ -336,7 +335,7 @@ To share and reuse the check and handler like code, [save them to files][6] and 
 Learn more about the [Sensu PagerDuty integration][14] and our curated, configurable [quick-start template][15] for incident management to integrate Sensu with your existing PagerDuty workflows.
 
 
-[1]: https://support.pagerduty.com/docs/generating-api-keys
+[1]: https://support.pagerduty.com/docs/generating-api-keys#section-events-api-keys
 [2]: ../../observe-schedule/checks/
 [3]: https://bonsai.sensu.io/assets/ncr-devops-platform/nagiosfoundation
 [4]: ../../../operations/deploy-sensu/install-sensu/
