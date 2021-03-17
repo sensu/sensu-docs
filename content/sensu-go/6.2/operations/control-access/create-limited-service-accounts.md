@@ -14,11 +14,10 @@ menu:
 ---
 
 [Role-based access control (RBAC)][1] allows you to exercise fine-grained control over access to and interaction with Sensu resources.
-
-In some cases, you may want to give an application or service the ability to interact with Sensu resources.
+In some cases, you may want to allow an application or service to interact with Sensu resources.
 Accounts that represent applications or services rather than individual human users are called limited service accounts.
 
-For example, you might develop a service that displays a high-level view of your webservers' statuses.
+For example, you might develop a service that displays a high-level view of your webserver statuses.
 The service itself needs an account with permission to read the results of status checks executed on your webservers so it can route the check results to the status display.
 
 Limited service accounts are also useful for performing automated processes.
@@ -34,6 +33,11 @@ A limited service account requires these resources:
 - A [user][7] assigned to a [group][8].
 - A [role][4] with get, list, and delete permissions for resources within the `default` [namespace][9].
 - A [role binding][5] that ties the role to the user's group.
+
+{{% notice note %}}
+**NOTE**: If you will use the service account to manage Sensu resources in more than one namespace, create a [cluster role][10] instead of a role.
+To grant cluster-wide permissions, create a [cluster role binding][11] instead of a role binding.
+{{% /notice %}}
 
 1. Create a user with the username `ec2-service` and assign it to the group `ec2`:
 
@@ -59,7 +63,7 @@ sensuctl role-binding create ec2-service-delete --role=ec2-delete --group=ec2
 
    This steps creates the role binding that ties the correct permissions (via the `ec2-delete` role) with your service account (via the group `ec2`).
 
-Now you have created the `ec2-service` limited service account with permission to get, list, and delete all resources within the `default` namespace.
+The `ec2-service` limited service account, with permission to get, list, and delete all resources within the `default` namespace, is now ready to use.
 
 ## Use the service account to remove AWS EC2 instances
 
@@ -68,9 +72,9 @@ TODO: Need help to understand how the limited service account concept applies to
 ## Best practices for limited service accounts
 
 - Restrict limited service account access to only the namespaces and role permissions they need to operate properly.
-Adjust namespaces and permissions if needed by updating the role that is tied to the service account.
+Adjust namespaces and permissions if needed by updating the role or cluster role that is tied to the service account.
 - Use unique and specific names for limited service accounts.
-Names should identify services accounts as such as well as the associated service.
+Names should identify service accounts as well as the associated service.
 - Promptly delete any unused limited service accounts to make sure they do not become a security risk.
 
 
@@ -83,3 +87,5 @@ Names should identify services accounts as such as well as the associated servic
 [7]: ../rbac/#users
 [8]: ../rbac/#groups
 [9]: ../namespaces/
+[10]: ../rbac/#cluster-role-example
+[11]: ../rbac/#cluster-role-binding-example
