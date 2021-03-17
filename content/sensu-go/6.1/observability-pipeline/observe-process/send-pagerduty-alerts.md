@@ -5,11 +5,11 @@ guide_title: "Send PagerDuty alerts with Sensu"
 type: "guide"
 description: "See Sensu Go's observability pipeline in action. Follow this guide to configure a check that generates status events and a handler that sends Sensu alerts to PagerDuty for non-OK events."
 weight: 25
-version: "6.2"
+version: "6.1"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-6.2:
+  sensu-go-6.1:
     parent: observe-process
 ---
 

@@ -33,7 +33,7 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 ## More resources
 
 - Follow the [Use dynamic runtime assets to install plugins][6] guide to learn how to add and configure Sensu PagerDuty Handler asset.
-- Demo the Sensu PagerDuty Handler integration in your browser with the [Send Sensu Go alerts to PagerDuty][7] interactive tutorial.
+- Demo the Sensu PagerDuty Handler integration with the [Send Sensu Go alerts to PagerDuty][7] guide.
 
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
@@ -42,5 +42,5 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 [5]: ../../assets/
 [6]: ../../use-assets-to-install-plugins/
-[7]: ../../../learn/sensu-pagerduty/
+[7]: ../../../observability-pipeline/observe-process/send-pagerduty-alerts/
 [8]: ../../../operations/manage-secrets/
