@@ -77,21 +77,21 @@ You must add a [`password_hash`](../../sensuctl/#generate-a-password-hash) or `p
 
 To build as you go, use sensuctl commands to retrieve your Sensu resource definitions as you create them and copy the definitions into your configuration files.
 
-For example, if you follow [Monitor server resources][8] and create a check named `check-cpu`, you can retrieve that check definition in YAML or JSON format:
+For example, if you follow [Monitor server resources][8] and create a check named `check_cpu`, you can retrieve that check definition in YAML or JSON format:
 
 {{< language-toggle >}}
 
 {{< code shell "YML" >}}
-sensuctl check info check-cpu --format yaml
+sensuctl check info check_cpu --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info check-cpu --format wrapped-json
+sensuctl check info check_cpu --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
 
-The sensuctl response will include the complete `check-cpu` resource definition in the specified format:
+The sensuctl response will include the complete `check_cpu` resource definition in the specified format:
 
 {{< language-toggle >}}
 
@@ -101,7 +101,7 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   created_by: admin
-  name: check-cpu
+  name: check_cpu
   namespace: default
 spec:
   check_hooks: null
@@ -135,7 +135,7 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "created_by": "admin",
-    "name": "check-cpu",
+    "name": "check_cpu",
     "namespace": "default"
   },
   "spec": {
@@ -174,7 +174,7 @@ spec:
 You can copy these resource definitions and paste them into manually created configuration files located anywhere on your system.
 
 Alternatively, you can view resource definitions and copy them into a new or existing configuration file with a single sensuctl command.
-To use the following examples, replace `RESOURCE` with the resource type (like `check`) and replace `RESOURCE_NAME` with the name of the resource (like `check-cpu`).
+To use the following examples, replace `RESOURCE` with the resource type (like `check`) and replace `RESOURCE_NAME` with the name of the resource (like `check_cpu`).
 
 - Copy the resource defintion to a new file (or overwrite an existing file with the same name):
 

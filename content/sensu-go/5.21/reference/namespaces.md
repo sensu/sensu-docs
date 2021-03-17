@@ -4,7 +4,7 @@ linkTitle: "Namespaces"
 reference_title: "Namespaces"
 type: "reference"
 description: "Namespaces partition resources within Sensu so that teams and projects can use Sensu's role-based access control (RBAC) to share a Sensu instance. Use namespaces with RBAC to authorize user access to Sensu resources. Read the reference doc to learn about namespaces."
-weight: 75
+weight: 135
 version: "5.21"
 product: "Sensu Go"
 menu: 
@@ -257,7 +257,7 @@ name: production
 [5]: ../rbac/#namespaced-resource-types
 [6]: ../../api/
 [7]: ../rbac/#default-users
-[8]: ../rbac/#cluster-roles
+[8]: ../rbac/#roles-and-cluster-roles
 [9]: ../../operations/deploy-sensu/install-sensu/#install-sensuctl
 [10]: ../../sensuctl/create-manage-resources/#create-resources
 [11]: #spec-attributes

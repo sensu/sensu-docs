@@ -34,7 +34,7 @@ Resolve, re-run, silence, and delete Sensu events in the web UI Events page.
 
 ## Manage entities
 
-Silence and delete Sensu entities in the web UI Entities page.
+Edit, silence, and delete Sensu entities in the web UI Entities page.
 
 ## Manage silences
 

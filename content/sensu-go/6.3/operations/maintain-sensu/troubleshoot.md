@@ -41,10 +41,15 @@ For help with restarting a service, see the [agent reference][5] or [backend ref
 
 #### Increment log level verbosity
 
-Use these commands to increment the log level verbosity at runtime:
+To increment the log level verbosity at runtime for the backend, run:
 
 {{< code shell >}}
 kill -s SIGUSR1 $(pidof sensu-backend)
+{{< /code >}}
+
+To increment the log level verbosity at runtime for the agent, run:
+
+{{< code shell >}}
 kill -s SIGUSR1 $(pidof sensu-agent)
 {{< /code >}}
 
@@ -61,17 +66,43 @@ To capture these log messages to disk or another logging facility, Sensu service
 For example, logs are sent to the journald when systemd is the service manager, whereas log messages are redirected to `/var/log/sensu` when running under sysv init schemes.
 If you are running systemd as your service manager and would rather have logs written to `/var/log/sensu/`, see [forwarding logs from journald to syslog][11].
 
-The following table lists the common targets for logging and example commands for following those logs.
-You may substitute the name of the desired service (e.g. `backend` or `agent`) for the `${service}` variable.
+For journald targets, use these commands to follow the logs.
+Replace the `${service}` variable with the name of the desired service (e.g. `backend` or `agent`).
 
-| Platform     | Version           | Target | Command to follow log |
-|--------------|-------------------|--------------|-----------------------------------------------|
-| RHEL/Centos  | >= 7       | journald     | {{< code shell >}}journalctl --follow --unit sensu-${service}{{< /code >}}   |
-| RHEL/Centos  | <= 6       | log file     | {{< code shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /code >}} |
-| Ubuntu       | >= 15.04   | journald     | {{< code shell >}}journalctl --follow --unit sensu-${service}{{< /code >}}   |
-| Ubuntu       | <= 14.10   | log file     | {{< code shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /code >}} |
-| Debian       | >= 8       | journald     | {{< code shell >}}journalctl --follow --unit sensu-${service}{{< /code >}}   |
-| Debian       | <= 7       | log file     | {{< code shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /code >}} |
+{{< language-toggle >}}
+
+{{< code shell "RHEL/CentOS >= 7" >}}
+journalctl --follow --unit sensu-${service}
+{{< /code >}}
+
+{{< code shell "Ubuntu >= 15.04" >}}
+journalctl --follow --unit sensu-${service}
+{{< /code >}}
+
+{{< code shell "Debian >= 8" >}}
+journalctl --follow --unit sensu-${service}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+For log file targets, use these commands to follow the logs.
+Replace the `${service}` variable with the name of the desired service (e.g. `backend` or `agent`).
+
+{{< language-toggle >}}
+
+{{< code shell "RHEL/CentOS <= 6" >}}
+tail --follow /var/log/sensu/sensu-${service}
+{{< /code >}}
+
+{{< code shell "Ubuntu <= 14.10" >}}
+tail --follow /var/log/sensu/sensu-${service}
+{{< /code >}}
+
+{{< code shell "Debian <= 7" >}}
+tail --follow /var/log/sensu/sensu-${service}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 {{% notice note %}}
 **NOTE**: Platform versions are listed for reference only and do not supersede the documented [supported platforms](../../../platforms).
@@ -257,15 +288,15 @@ An improperly applied asset filter can prevent the asset from being downloaded b
 
 {{< code json >}}
 {
-    "asset": "check-disk-space",
-    "component": "asset-manager",
-    "entity": "sensu-centos",
-    "filters": [
-        "true == false"
-    ],
-    "level": "debug",
-    "msg": "entity not filtered, not installing asset",
-    "time": "2019-09-12T18:28:05Z"
+  "asset": "check-disk-space",
+  "component": "asset-manager",
+  "entity": "sensu-centos",
+  "filters": [
+    "true == false"
+  ],
+  "level": "debug",
+  "msg": "entity not filtered, not installing asset",
+  "time": "2019-09-12T18:28:05Z"
 }
 {{< /code >}}
 
@@ -483,21 +514,35 @@ To use etcdctl to investigate etcd cluster and data storage issues, first run th
 {{< code shell >}}
 export ETCDCTL_API=3
 export ETCDCTL_CACERT=/etc/sensu/ca.pem
-# skip ETCDCTL_CERT and ETCDCTL_KEY, unless your etcd uses client certificate authentication
-# export ETCDCTL_CERT=/etc/sensu/cert.pem
-# export ETCDCTL_KEY=/etc/sensu/key.pem
 export ETCDCTL_ENDPOINTS="https://backend01:2379,https://backend02:2379,https://backend03:2379"
+{{< /code >}}
+
+If your etcd uses client certificate authentication, run these commands too:
+
+{{< code shell >}}
+export ETCDCTL_CERT=/etc/sensu/cert.pem
+export ETCDCTL_KEY=/etc/sensu/key.pem
 {{< /code >}}
 
 ### View cluster status and alarms
 
 Use the commands listed here to retrieve etcd cluster status and list and clear alarms.
+
+To retrieve etcd cluster status:
+
 {{< code shell >}}
-# get status
 etcdctl endpoint status
-# list alarms
+{{< /code >}}
+
+To retrieve a list of etcd alarms:
+
+{{< code shell >}}
 etcdctl alarm list
-# clear alarms
+{{< /code >}}
+
+To clear etcd alarms:
+
+{{< code shell >}}
 etcdctl alarm dearm
 {{< /code >}}
 
@@ -507,27 +552,41 @@ The etcd default maximum database size is 2 GB.
 If you suspect your etcd database exceeds the maximum size, run this command to confirm cluster size:
 
 {{< code shell >}}
-# get current status with database size
 etcdctl endpoint status
+{{< /code >}}
+
+The response will list the current cluster status and database size:
+
+{{< code shell >}}
 https://backend01:2379, 88db026f7feb72b4, 3.3.22, 2.1GB, false, 144, 18619245
 https://backend02:2379, e98ad7a888d16bd6, 3.3.22, 2.1GB, true, 144, 18619245
 https://backend03:2379, bc4e39432cbb36d, 3.3.22, 2.1GB, false, 144, 18619245
 {{< /code >}}
 
-To restore an etcd cluster with a database size that exceeds 2 GB, run these commands:
+To restore an etcd cluster with a database size that exceeds 2 GB:
 
+1. Get the current revision number:
 {{< code shell >}}
-# get current revision number
 etcdctl endpoint status --write-out="json" | egrep -o '"revision":[0-9]*' | egrep -o '[0-9].*'
+{{< /code >}}
 
-# compact to revision, substitute revision obtained above for $rev
+2. Compact to revision and substitute the crrent revision for `$rev`:
+{{< code shell >}}
 etcdctl compact $rev
+{{< /code >}}
 
-# defrag to free space
+3. Defragment to free up space:
+{{< code shell >}}
 etcdctl defrag
+{{< /code >}}
 
-# confirm effective
+4. Confirm that the cluster is restored:
+{{< code shell >}}
 etcdctl endpoint status
+{{< /code >}}
+
+   The response should list the current cluster status and database size:
+{{< code shell >}}
 https://backend01:2379, 88db026f7feb72b4, 3.3.22, 1.0 MB, false, 144, 18619245
 https://backend02:2379, e98ad7a888d16bd6, 3.3.22, 1.0 MB, true, 144, 18619245
 https://backend03:2379, bc4e39432cbb36d, 3.3.22, 1.0 MB, false, 144, 18619245
@@ -544,9 +603,9 @@ Sensu will attempt to recover from these conditions when it can, but this may no
 
 To maximize Sensu Go performance, we recommend that you:
  * Follow our [recommended backend hardware configuration][19].
- * Immplement [documented etcd system tuning practices][14].
+ * Implement [documented etcd system tuning practices][14].
  * [Benchmark your etcd storage volume][15] to establish baseline IOPS for your system.
- * [Scale event storage using PostgreSQL][16] to reduce the overall volume of etcd transactions.
+ * [Scale event storage using PostgreSQL][16] with [round robin scheduling enabled][20] to reduce the overall volume of etcd transactions.  
 
  As your Sensu deployments grow, preventing issues associated with poor datastore performance relies on ongoing collection and review of [Sensu time-series performance metrics][18].
 
@@ -604,7 +663,7 @@ The backend will stop listening on those ports when the etcd database is unavail
 [7]: https://dzone.com/articles/what-is-structured-logging
 [8]: https://pkgs.org/download/lsb
 [9]: ../../../observability-pipeline/observe-schedule/backend/#restart-the-service
-[10]: ../../../plugins/assets#asset-definition-multiple-builds
+[10]: ../../../plugins/assets#asset-example-multiple-builds
 [11]: ../../monitor-sensu/log-sensu-systemd/
 [12]: https://github.com/systemd/systemd/issues/2913
 [13]: https://github.com/etcd-io/etcd/releases
@@ -614,3 +673,4 @@ The backend will stop listening on those ports when the etcd database is unavail
 [17]: ../../deploy-sensu/datastore/#use-default-event-storage
 [18]: ../../../api/metrics/
 [19]: ../../deploy-sensu/hardware-requirements/#backend-recommended-configuration
+[20]: ../../deploy-sensu/datastore/#round-robin-postgresql

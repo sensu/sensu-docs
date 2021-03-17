@@ -22,14 +22,6 @@ The Learn Sensu sandbox is a CentOS 7 virtual machine pre-installed with Sensu, 
 Follow the instructions for [Getting Started with Sensu Go on Kubernetes][2] to deploy a Sensu cluster and an example application (NGINX) into Kubernetes with a Sensu agent sidecar.
 You'll also learn to use sensuctl to configure a Nagios-style monitoring check for the example application.
 
-## Collect metrics
-
-The Prometheus ecosystem's exporters expose metrics that Sensu can collect and route to one or more time series databases.
-Follow [Collect Prometheus metrics with Sensu][3] to run Sensu and Prometheus in parallel and make use of environments where you've already deployed Prometheus.
-
-Learn to configure the Sensu Prometheus Collector check plugin to collect metrics from a Prometheus exporter or the Prometheus query API.
-Then, use Sensu to route the collected metrics to the time-series database InfluxDB and query InfluxDB to display the collected metrics with Grafana.
-
 ## Upgrade from Sensu Core 1.x to Sensu Go
 
 Use the [Sensu translator][4] to translate check configurations from Sensu Core 1.x to Sensu Go and learn how to visually inspect and adjust check token substitution and extended attributes to make sure your Core checks work properly in Sensu Go.
@@ -37,5 +29,4 @@ Use the [Sensu translator][4] to translate check configurations from Sensu Core 
 
 [1]: ../learn-sensu-sandbox/
 [2]: https://github.com/sensu/sensu-k8s-quick-start
-[3]: ../../learn/prometheus-metrics/
 [4]: https://github.com/sensu/sandbox/tree/master/sensu-go/lesson_plans/check-upgrade/

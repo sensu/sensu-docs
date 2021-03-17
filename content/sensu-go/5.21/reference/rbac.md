@@ -29,7 +29,7 @@ You can use resource types to configure permissions in Sensu roles and cluster r
 ### Namespaced resource types
 
 Namespaced resources must belong to a single [namespace][12].
-You can access namespaced resources by [roles][13] and [cluster roles][21].
+You can access namespaced resources by [roles and cluster roles][13].
 
 | type | description |
 |---|---|
@@ -50,7 +50,7 @@ You can access namespaced resources by [roles][13] and [cluster roles][21].
 ### Cluster-wide resource types
 
 Cluster-wide resources cannot be assigned to a namespace.
-You can access cluster-wide resources only by [cluster roles][21].
+You can access cluster-wide resources only by cluster roles.
 
 | type | description |
 |---|---|
@@ -68,7 +68,7 @@ You can access cluster-wide resources only by [cluster roles][21].
 
 ### Special resource types
 
-You can access special resource types by both [roles][13] and [cluster roles][21].
+You can access special resource types by both [roles and cluster roles][13].
 
 | Type | Description |
 |---|---|
@@ -81,6 +81,45 @@ You can assign users and groups to one or more roles.
 Users and groups inherit all permissions from each role assigned to them.
 
 Use your Sensu username and password to [configure sensuctl][26] or log in to the [web UI][3].
+
+### User example
+
+The following example shows a user resource definition.
+You can use this example with [`sensuctl create`][31].
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: User
+api_version: core/v2
+metadata: {}
+spec:
+  disabled: false
+  groups:
+  - ops
+  - dev
+  password: USER_PASSWORD
+  password_hash: $5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm
+  username: alice
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "User",
+  "api_version": "core/v2",
+  "metadata": {},
+  "spec": {
+    "username": "alice",
+    "password": "USER_PASSWORD",
+    "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm",
+    "disabled": false,
+    "groups": ["ops", "dev"]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ### Default users
 
@@ -272,44 +311,6 @@ password_hash: $5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm
 {{< /code >}}
 {{< /language-toggle >}}
 
-### User example
-
-The following example is in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: User
-api_version: core/v2
-metadata: {}
-spec:
-  disabled: false
-  groups:
-  - ops
-  - dev
-  password: USER_PASSWORD
-  password_hash: $5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm
-  username: alice
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "User",
-  "api_version": "core/v2",
-  "metadata": {},
-  "spec": {
-    "username": "alice",
-    "password": "USER_PASSWORD",
-    "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm",
-    "disabled": false,
-    "groups": ["ops", "dev"]
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
 ## Groups
 
 A group is a set of users within Sensu.
@@ -362,15 +363,13 @@ sensuctl user remove-groups USERNAME
 
 A role is a set of permissions that control access to Sensu resources.
 Roles specify permissions for resources within a namespace.
-Cluster role can include permissions for [cluster-wide resources][18].
+Cluster roles can include permissions for [cluster-wide resources][18].
 
 You can use [role bindings][23] to assign roles to user and groups.
 To avoid recreating commonly used roles in each namespace, [create a cluster role][28] and use a [role binding][29] (not a cluster role binding) to restrict permissions within a specific namespace.
 
-To create and manage roles cluster-wide, [configure sensuctl][26] as the [default `admin` user][20] or create a [cluster role][21] with `roles` permissions.
+To create and manage roles cluster-wide, [configure sensuctl][26] as the [default `admin` user][20] or create a cluster role with `roles` permissions.
 To create and manage roles within a namespace, [create a role][25] with `roles` permissions within that namespace.
-
-### Cluster roles
 
 Cluster roles can specify access permissions for [cluster-wide resources][18] like users and namespaces as well as [namespaced resources][17] like checks and handlers.
 They can also be used to grant access to namespaced resources across all namespaces (for example, to run `sensuctl check list --all-namespaces`) when used in conjunction with cluster role bindings.
@@ -378,6 +377,137 @@ They can also be used to grant access to namespaced resources across all namespa
 Cluster roles use the same [specification][24] as roles and can be managed using the same sensuctl commands with `cluster-role` substituted for `role`.
 
 To create and manage cluster roles, [configure sensuctl][26] as the [default `admin` user][20] or [create a cluster role][25] with permissions for `clusterroles`.
+
+### Role example
+
+The following example shows a role resource definition.
+You can use this example with [`sensuctl create`][31].
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Role
+api_version: core/v2
+metadata:
+  name: namespaced-resources-all-verbs
+  namespace: default
+spec:
+  rules:
+  - resource_names: []
+    resources:
+    - assets
+    - checks
+    - entities
+    - events
+    - filters
+    - handlers
+    - hooks
+    - mutators
+    - rolebindings
+    - roles
+    - silenced
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Role",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "namespaced-resources-all-verbs",
+    "namespace": "default"
+  },
+  "spec": {
+    "rules": [
+      {
+        "resource_names": [],
+        "resources": [
+          "assets", "checks", "entities", "events", "filters", "handlers",
+          "hooks", "mutators", "rolebindings", "roles", "silenced"
+        ],
+        "verbs": ["get", "list", "create", "update", "delete"]
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Cluster role example
+
+The following example shows a cluster role resource definition.
+You can use this example with [`sensuctl create`][31].
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: ClusterRole
+api_version: core/v2
+metadata:
+  name: all-resources-all-verbs
+spec:
+  rules:
+  - resource_names: []
+    resources:
+    - assets
+    - checks
+    - entities
+    - events
+    - filters
+    - handlers
+    - hooks
+    - mutators
+    - rolebindings
+    - roles
+    - silenced
+    - cluster
+    - clusterrolebindings
+    - clusterroles
+    - namespaces
+    - users
+    - authproviders
+    - license
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "ClusterRole",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "all-resources-all-verbs"
+  },
+  "spec": {
+    "rules": [
+      {
+        "resource_names": [],
+        "resources": [
+          "assets", "checks", "entities", "events", "filters", "handlers",
+          "hooks", "mutators", "rolebindings", "roles", "silenced",
+          "cluster", "clusterrolebindings", "clusterroles",
+          "namespaces", "users", "authproviders", "license"
+        ],
+        "verbs": ["get", "list", "create", "update", "delete"]
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ### Default roles and cluster roles
 
@@ -601,135 +731,6 @@ resource_names:
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Role and cluster role examples
-
-These examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
-
-### Role example
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Role
-api_version: core/v2
-metadata:
-  name: namespaced-resources-all-verbs
-  namespace: default
-spec:
-  rules:
-  - resource_names: []
-    resources:
-    - assets
-    - checks
-    - entities
-    - events
-    - filters
-    - handlers
-    - hooks
-    - mutators
-    - rolebindings
-    - roles
-    - silenced
-    verbs:
-    - get
-    - list
-    - create
-    - update
-    - delete
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Role",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "namespaced-resources-all-verbs",
-    "namespace": "default"
-  },
-  "spec": {
-    "rules": [
-      {
-        "resource_names": [],
-        "resources": [
-          "assets", "checks", "entities", "events", "filters", "handlers",
-          "hooks", "mutators", "rolebindings", "roles", "silenced"
-        ],
-        "verbs": ["get", "list", "create", "update", "delete"]
-      }
-    ]
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-#### Cluster role example
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: ClusterRole
-api_version: core/v2
-metadata:
-  name: all-resources-all-verbs
-spec:
-  rules:
-  - resource_names: []
-    resources:
-    - assets
-    - checks
-    - entities
-    - events
-    - filters
-    - handlers
-    - hooks
-    - mutators
-    - rolebindings
-    - roles
-    - silenced
-    - cluster
-    - clusterrolebindings
-    - clusterroles
-    - namespaces
-    - users
-    - authproviders
-    - license
-    verbs:
-    - get
-    - list
-    - create
-    - update
-    - delete
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "ClusterRole",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "all-resources-all-verbs"
-  },
-  "spec": {
-    "rules": [
-      {
-        "resource_names": [],
-        "resources": [
-          "assets", "checks", "entities", "events", "filters", "handlers",
-          "hooks", "mutators", "rolebindings", "roles", "silenced",
-          "cluster", "clusterrolebindings", "clusterroles",
-          "namespaces", "users", "authproviders", "license"
-        ],
-        "verbs": ["get", "list", "create", "update", "delete"]
-      }
-    ]
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
 ## Role bindings and cluster role bindings
 
 A role binding assigns a _role_ or _cluster role_ to users and groups within a namespace.
@@ -744,6 +745,100 @@ To create and manage cluster role bindings, [configure sensuctl][26] as the [def
 Make sure to include the groups prefix and username prefix for the authentication provider when creating Sensu role bindings and cluster role bindings.
 Without an assigned role or cluster role, users can sign in to the web UI but can't access any Sensu resources.
 With the correct roles and bindings configured, users can log in to [sensuctl][2] and the [web UI][1] using their single-sign-on username and password (no prefixes required).
+
+### Role binding example
+
+The following example shows a role binding resource definition.
+You can use this example with [`sensuctl create`][31].
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: RoleBinding
+api_version: core/v2
+metadata:
+  name: event-reader-binding
+  namespace: default
+spec:
+  role_ref:
+    name: event-reader
+    type: Role
+  subjects:
+  - name: bob
+    type: User
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "RoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "event-reader-binding",
+    "namespace": "default"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "event-reader",
+      "type": "Role"
+    },
+    "subjects": [
+      {
+        "name": "bob",
+        "type": "User"
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Cluster role binding example
+
+The following example shows a cluster role binding resource definition.
+You can use this example with [`sensuctl create`][31].
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: ClusterRoleBinding
+api_version: core/v2
+metadata:
+  name: cluster-admin
+spec:
+  role_ref:
+    name: cluster-admin
+    type: ClusterRole
+  subjects:
+  - name: cluster-admins
+    type: Group
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "ClusterRoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "cluster-admin"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "cluster-admin",
+      "type": "ClusterRole"
+    },
+    "subjects": [
+      {
+        "name": "cluster-admins",
+        "type": "Group"
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ### Default role bindings and cluster role bindings
 
@@ -942,99 +1037,9 @@ name: ad:alice
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Role binding and cluster role binding examples
+## Example workflows
 
-These examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
-
-#### Role binding example
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: RoleBinding
-api_version: core/v2
-metadata:
-  name: event-reader-binding
-  namespace: default
-spec:
-  role_ref:
-    name: event-reader
-    type: Role
-  subjects:
-  - name: bob
-    type: User
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "RoleBinding",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "event-reader-binding",
-    "namespace": "default"
-  },
-  "spec": {
-    "role_ref": {
-      "name": "event-reader",
-      "type": "Role"
-    },
-    "subjects": [
-      {
-        "name": "bob",
-        "type": "User"
-      }
-    ]
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-#### Cluster role binding example
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: ClusterRoleBinding
-api_version: core/v2
-metadata:
-  name: cluster-admin
-spec:
-  role_ref:
-    name: cluster-admin
-    type: ClusterRole
-  subjects:
-  - name: cluster-admins
-    type: Group
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "ClusterRoleBinding",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "cluster-admin"
-  },
-  "spec": {
-    "role_ref": {
-      "name": "cluster-admin",
-      "type": "ClusterRole"
-    },
-    "subjects": [
-      {
-        "name": "cluster-admins",
-        "type": "Group"
-      }
-    ]
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-#### Role and role binding example
+### Role and role binding
 
 The following role and role binding give a `dev` group access to create and manage Sensu workflows within the `default` namespace.
 
@@ -1131,7 +1136,7 @@ spec:
 
 {{< /language-toggle >}}
 
-#### Role and role binding example with a group prefix
+### Role and role binding with a group prefix
 
 In this example, if a groups_prefix of `ad` is configured for [Active Directory authentication][39], the role and role binding will give a `dev` group access to create and manage Sensu workflows within the `default` namespace.
 
@@ -1227,8 +1232,6 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
-
-## Example workflows
 
 ### Assign user permissions within a namespace
 
@@ -1676,7 +1679,6 @@ spec:
 [18]: #cluster-wide-resource-types
 [19]: ../../api/
 [20]: #default-users
-[21]: #cluster-roles
 [22]: ../filters/
 [23]: #role-bindings-and-cluster-role-bindings
 [24]: #role-and-cluster-role-specification

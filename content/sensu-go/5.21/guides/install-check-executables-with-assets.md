@@ -5,7 +5,7 @@ description: "Assets are shareable, reusable packages that make it easier to dep
 weight: 100
 version: "5.21"
 product: "Sensu Go"
-platformContent: False
+platformContent: false
 menu: 
   sensu-go-5.21:
     parent: guides

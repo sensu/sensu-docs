@@ -556,6 +556,6 @@ Sensuctl supports the following formats:
 [32]: ../../reference/datastore/
 [33]: #create-resources-across-namespaces
 [34]: ../../reference/license/
-[35]: ../../reference/rbac/#cluster-roles
+[35]: ../../reference/rbac/#roles-and-cluster-roles
 [36]: #sensuctl-create-flags
 [37]: ../../operations/control-access/oidc-auth/

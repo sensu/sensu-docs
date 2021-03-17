@@ -32,7 +32,42 @@ Read [Use dynamic runtime assets to install plugins][23] to get started.
 
 Pipe handlers are external commands that can consume [event][3] data via STDIN.
 
-#### Pipe handler command
+### Pipe handler example
+
+This example shows a pipe handler resource definition with the minimum required attributes:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: pipe_handler_minimum
+  namespace: default
+spec:
+  command: command-example
+  type: pipe
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "pipe_handler_minimum",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "command-example",
+    "type": "pipe"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Pipe handler command
 
 Pipe handler definitions include a `command` attribute, which is a command for the Sensu backend to execute.
 
@@ -43,6 +78,88 @@ Pipe handler `command` attributes may include command line arguments for control
 ## TCP/UDP handlers
 
 TCP and UDP handlers enable Sensu to forward event data to arbitrary TCP or UDP sockets for external services to consume.
+
+### TCP/UDP handler example
+
+This handler will send event data to a TCP socket (10.0.1.99:4444) and timeout if an acknowledgement (`ACK`) is not received within 30 seconds:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: tcp_handler
+  namespace: default
+spec:
+  socket:
+    host: 10.0.1.99
+    port: 4444
+  type: tcp
+  timeout: 30
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "tcp_handler",
+    "namespace": "default"
+  },
+  "spec": {
+    "type": "tcp",
+    "timeout": 30,
+    "socket": {
+      "host": "10.0.1.99",
+      "port": 4444
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Change the `type` from `tcp` to `udp` to configure a UDP handler:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: udp_handler
+  namespace: default
+spec:
+  socket:
+    host: 10.0.1.99
+    port: 4444
+  type: udp
+  timeout: 30
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "udp_handler",
+    "namespace": "default"
+  },
+  "spec": {
+    "type": "udp",
+    "timeout": 30,
+    "socket": {
+      "host": "10.0.1.99",
+      "port": 4444
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Handler sets
 
@@ -639,83 +756,7 @@ secret: sensu-ansible-host
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Handler examples
-
-### Minimum required pipe handler attributes
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Handler
-api_version: core/v2
-metadata:
-  name: pipe_handler_minimum
-  namespace: default
-spec:
-  command: command-example
-  type: pipe
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "pipe_handler_minimum",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "command-example",
-    "type": "pipe"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Minimum required TCP/UDP handler attributes
-
-This example demonstrates a `tcp` type handler.
-Change the type from `tcp` to `udp` to create the minimum configuration for a `udp` type handler. 
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Handler
-api_version: core/v2
-metadata:
-  name: tcp_udp_handler_minimum
-  namespace: default
-spec:
-  socket:
-    host: 10.0.1.99
-    port: 4444
-  type: tcp
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "tcp_udp_handler_minimum",
-    "namespace": "default"
-  },
-  "spec": {
-    "type": "tcp",
-    "socket": {
-      "host": "10.0.1.99",
-      "port": 4444
-    }
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Send Slack alerts
+## Send Slack alerts
 
 This handler will send alerts to a channel named `monitoring` with the configured webhook URL, using the `handler-slack` executable command.
 
@@ -768,87 +809,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Send event data to a TCP socket
-
-This handler will send event data to a TCP socket (10.0.1.99:4444) and timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Handler
-api_version: core/v2
-metadata:
-  name: tcp_handler
-  namespace: default
-spec:
-  socket:
-    host: 10.0.1.99
-    port: 4444
-  type: tcp
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "tcp_handler",
-    "namespace": "default"
-  },
-  "spec": {
-    "type": "tcp",
-    "socket": {
-      "host": "10.0.1.99",
-      "port": 4444
-    }
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Send event data to a UDP socket
-
-This handler will forward event data to a UDP socket (10.0.1.99:4444) and timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Handler
-api_version: core/v2
-metadata:
-  name: udp_handler
-  namespace: default
-spec:
-  socket:
-    host: 10.0.1.99
-    port: 4444
-  type: udp
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "udp_handler",
-    "namespace": "default"
-  },
-  "spec": {
-    "type": "udp",
-    "socket": {
-      "host": "10.0.1.99",
-      "port": 4444
-    }
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Send registration events
+## Send registration events
 
 If you configure a Sensu event handler named `registration`, the Sensu backend will create and process an event for the agent registration, apply any configured filters and mutators, and execute the registration handler.
 
@@ -891,7 +852,7 @@ spec:
 
 The [agent reference][27] describes agent registration and registration events in more detail.
 
-### Execute multiple handlers (handler set)
+## Execute multiple handlers (handler set)
 
 The following example creates a handler set, `notify_all_the_things`, that will execute three handlers: `slack`, `tcp_handler`, and `udp_handler`.
 
@@ -933,7 +894,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Handler with secret
+## Use secrets management in a handler
 
 Learn more about [secrets management][26] for your Sensu configuration in the [secrets][20] and [secrets providers][21] references.
 
@@ -1006,7 +967,7 @@ spec:
 [20]: ../../../operations/manage-secrets/secrets/
 [21]: ../../../operations/manage-secrets/secrets-providers/
 [22]: ../
-[23]: ../../../plugins/use-assets-to-install-plugins
+[23]: ../../../plugins/use-assets-to-install-plugins/
 [24]: ../../observe-filter/filters/
 [25]: ../../../web-ui/search#search-for-labels
 [26]: ../../../operations/manage-secrets/secrets-management/
@@ -1015,5 +976,5 @@ spec:
 [29]: ../../../observability-pipeline/
 [30]: ../../observe-filter/filters/#built-in-filter-is_incident
 [31]: #handler-sets
-[32]: ../../observe-filter/filters/#handle-repeated-events
+[32]: ../../observe-filter/filters/#filter-for-repeated-events
 [33]: ../../observe-schedule/checks/#handlers-array

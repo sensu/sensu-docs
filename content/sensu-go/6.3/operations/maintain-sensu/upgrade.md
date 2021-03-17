@@ -40,9 +40,8 @@ These commands use a Sensu backend running on `localhost` in the example URL and
 
 1. Get a list of existing namespaces.
 In this example, the existing namespaces are `stage` and `dev`.
-
-   {{< code shell >}}
-$ curl -s -H "Authorization: Key $SENSU_API_KEY" http://localhost:8080/api/core/v2/namespaces | jq '[.[].name]'
+{{< code shell >}}
+curl -s -H "Authorization: Key $SENSU_API_KEY" http://localhost:8080/api/core/v2/namespaces | jq '[.[].name]'
 [
    "stage",
    "dev"
@@ -51,9 +50,8 @@ $ curl -s -H "Authorization: Key $SENSU_API_KEY" http://localhost:8080/api/core/
 
 2. Print the name and namespace for any checks that reference a namespace that is not specified in the jq expression on the same line.
 Your jq expression should include all of the namespaces you retrieved in step 1 (in this example, `["stage","dev"]`).
-
-   {{< code shell >}}
-$ curl -s -H "Authorization: Key $SENSU_API_KEY" http://localhost:8080/api/core/v2/checks | jq '["stage","dev"] as $valid | .[] | select(.metadata.namespace as $in | $valid | index($in) | not) | {name: .metadata.name, namespace: .metadata.namespace}'
+{{< code shell >}}
+curl -s -H "Authorization: Key $SENSU_API_KEY" http://localhost:8080/api/core/v2/checks | jq '["stage","dev"] as $valid | .[] | select(.metadata.namespace as $in | $valid | index($in) | not) | {name: .metadata.name, namespace: .metadata.namespace}'
 {
   "name": "check-cpu",
   "namespace": "test"
@@ -61,21 +59,18 @@ $ curl -s -H "Authorization: Key $SENSU_API_KEY" http://localhost:8080/api/core/
 {{< /code >}}
 
 3. Recreate the missing `test` namespace so you can delete the `check-cpu` check.
-
-   {{< code shell >}}
-$ sensuctl namespace create test
+{{< code shell >}}
+sensuctl namespace create test
 {{< /code >}}
 
 4. Delete the `check-cpu` check.
-
-   {{< code shell >}}
-$ sensuctl check delete check-cpu --namespace test
+{{< code shell >}}
+sensuctl check delete check-cpu --namespace test
 {{< /code >}}
 
 5. Delete the `test` namespace, which is now empty after you deleted `check-cpu` in step 4.
-
-   {{< code shell >}}
-$ sensuctl namespace delete test
+{{< code shell >}}
+sensuctl namespace delete test
 {{< /code >}}
 
 After completing these commands, you can upgrade to 6.2.0.
@@ -88,11 +83,15 @@ To upgrade to Sensu Go 6.1.0 from version 6.0.0 or later, [install the latest pa
 **NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services.
 {{% /notice %}}
 
-{{< code shell >}}
-# Restart the Sensu agent
-sudo service sensu-agent restart
+To restart the Sensu agent, run:
 
-# Restart the Sensu backend
+{{< code shell >}}
+sudo service sensu-agent restart
+{{< /code >}}
+
+To restart the Sensu backend, run:
+
+{{< code shell >}}
 sudo service sensu-backend restart
 {{< /code >}}
 
@@ -114,39 +113,41 @@ You will not be able to downgrade to a Sensu 5.x version after you upgrade your 
 To upgrade your Sensu Go 5.x deployment to 6.0:
 
 1. [Install][1] the 6.0 packages or Docker image.
-2. Restart the services.
+2. Restart the Sensu agent.
    
-   {{% notice note %}}
+ {{% notice note %}}
    **NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services.
-   {{% /notice %}}
-   
-   {{< code shell >}}
-# Restart the Sensu agent
-sudo service sensu-agent restart
+{{% /notice %}}
 
-# Restart the Sensu backend
+  {{< code shell >}}
+sudo service sensu-agent restart
+{{< /code >}}
+
+3. Restart the Sensu backend.
+
+  {{< code shell >}}
 sudo service sensu-backend restart
 {{< /code >}}
 
-3. Run a single upgrade command on one your Sensu backends to migrate the cluster:
+4. Run a single upgrade command on one your Sensu backends to migrate the cluster:
 
-   {{< code shell >}}
+  {{< code shell >}}
 sensu-backend upgrade
 {{< /code >}}
 
    - Add the `--skip-confirm` flag to skip the confirmation in step 4 and immediately run the upgrade command.
 
-    {{< code shell >}}
+  {{< code shell >}}
 sensu-backend upgrade --skip-confirm
 {{< /code >}}
 
-   {{% notice note %}}
+  {{% notice note %}}
    **NOTE**: If you are deploying a new Sensu 6.0 cluster rather than upgrading from 5.x, you do not need to run the `sensu-backend upgrade` command.
-   {{% /notice %}}
+{{% /notice %}}
 
-4. Enter `y` or `n` to confirm if you did *not* add the `--skip-confirm` flag. Otherwise, skip this step.
+5. Enter `y` or `n` to confirm if you did *not* add the `--skip-confirm` flag. Otherwise, skip this step.
 
-5. Wait a few seconds for the upgrade command to run.
+6. Wait a few seconds for the upgrade command to run.
 
 You may notice some inconsistencies in your entity list until the cluster finishes upgrading.
 Despite this, your cluster will continue to publish standard check requests and process events.
@@ -163,11 +164,15 @@ Then, restart the services.
 **NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services.
 {{% /notice %}}
 
-{{< code shell >}}
-# Restart the Sensu agent
-sudo service sensu-agent restart
+To restart the Sensu agent, run:
 
-# Restart the Sensu backend
+{{< code shell >}}
+sudo service sensu-agent restart
+{{< /code >}}
+
+To restart the Sensu backend, run:
+
+{{< code shell >}}
 sudo service sensu-backend restart
 {{< /code >}}
 
@@ -215,14 +220,17 @@ See the [backend reference][2] for more information about stopping and starting 
 For Sensu backend binaries, the default `state-dir` in 5.1.0 is now `/var/lib/sensu/sensu-backend` instead of `/var/lib/sensu`.
 To upgrade your Sensu backend binary to 5.1.0, first [download the latest version][1].
 Then, make sure the `/etc/sensu/backend.yml` configuration file specifies a `state-dir`.
-To continue using `/var/lib/sensu` as the `state-dir`, add the following configuration to `/etc/sensu/backend.yml`.
+To continue using `/var/lib/sensu` as the `state-dir` to store backend data, add the following configuration to `/etc/sensu/backend.yml`:
 
 {{< code yml >}}
-# /etc/sensu/backend.yml configuration to store backend data at /var/lib/sensu
 state-dir: "/var/lib/sensu"
 {{< /code >}}
 
-Then restart the backend.
+Then restart the backend:
+
+{{< code shell >}}
+sudo service sensu-backend restart
+{{< /code >}}
 
 
 [1]: ../../deploy-sensu/install-sensu/

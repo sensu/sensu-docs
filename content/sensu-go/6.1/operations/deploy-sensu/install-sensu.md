@@ -511,11 +511,22 @@ Sensu Inc. offers support packages for Sensu Go and [commercial features][20] de
 All commercial features are [free for your first 100 entities][29].
 To learn more about Sensu Go commercial licenses for more than 100 entities, [contact the Sensu sales team][11].
 
-If you already have a Sensu commercial license, [log in to your Sensu account][34] and download your license file, then add your license using sensuctl.
+If you already have a Sensu commercial license, [log in to your Sensu account][34] and download your license file.
+Save your license to a file such as `sensu_license.yml` or `sensu_license.json`.
 
-{{< code shell >}}
+Use sensuctl to activate your license:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file sensu_license.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
 sensuctl create --file sensu_license.json
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 You can use sensuctl to view your license details at any time.
 
@@ -540,7 +551,7 @@ sensuctl license info
 [14]: ../../../learn/learn-sensu-sandbox/
 [15]: ../../../observability-pipeline/observe-schedule/agent/#events-post-example
 [16]: https://etcd.io/
-[17]: ../../../operations/deploy-sensu/assets/
+[17]: ../../../plugins/assets/
 [18]: #install-sensu-agents
 [19]: #install-sensuctl
 [20]: ../../../commercial/
