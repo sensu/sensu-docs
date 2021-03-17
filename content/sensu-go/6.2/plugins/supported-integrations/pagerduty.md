@@ -21,6 +21,7 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 
 - Optional severity mapping: match Sensu check statuses with PagerDuty incident severities via a JSON document.
 - Use [event-based templating][2] to create deduplication key arguments to group repeated alerts into one incident and summary template arguments to make sure your PagerDuty notifications include the event data your operators need to take action.
+- Authenticate and route alerts based on PagerDuty teams using check and agent annotations.
 - Keep your PagerDuty integration key secure with Sensu [environment variables and secrets management][8].
 
 ## Get the plugin

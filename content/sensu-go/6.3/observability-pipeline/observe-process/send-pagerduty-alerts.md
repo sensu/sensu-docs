@@ -202,6 +202,13 @@ Then run the updated command:
 sensuctl handler create pagerduty --type pipe --filters is_incident --runtime-assets sensu/sensu-pagerduty-handler --command "sensu-pagerduty-handler -t YOUR_PAGERDUTY_KEY"
 {{< /code >}}
 
+{{% notice note %}}
+**NOTE**: For checks whose handlers use the Sensu PagerDuty Handler dynamic runtime asset (like the one you've created in this guide), you can use an alternative method for [authenticating and routing alerts based on PagerDuty teams](https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler#pager-teams).<br><br>
+To use this option, list the teams' PagerDuty API integration keys in the handler definition as environment variables or secrets or in the `/etc/default/sensu-backend` configuration file as environment variables.
+Then, add check or agent annotations to specify which PagerDuty teams should receive alerts based on check events.
+Sensu will look up the key in the handler definition or backend configuration file that corresponds to the team name in the check annotation to authenticate and send alerts.
+{{% /notice %}}
+
 Make sure that your handler was added by retrieving the complete handler definition in YAML or JSON format:
 
 {{< language-toggle >}}
@@ -337,7 +344,7 @@ The [web UI][11] Events page will also show that the `file_check` check is passi
 You should now have a working set-up with a `file_exists` check and a handler that sends alerts to your PagerDuty account.
 To share and reuse the check and handler like code, [save them to files][6] and start building a [monitoring as code repository][7].
 
-You can customize your PagerDuty handler with configuration options like [severity mapping][16], [pager team-based authentication][17], and [event-based templating][18].
+You can customize your PagerDuty handler with configuration options like [severity mapping][16], [PagerDuty team-based routing and authentication][17] via check and agent annotations, and [event-based templating][18].
 Learn more about the [Sensu PagerDuty integration][14] and our curated, configurable [quick-start template][15] for incident management to integrate Sensu with your existing PagerDuty workflows.
 
 
