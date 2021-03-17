@@ -34,7 +34,7 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 ## More resources
 
 - Walk through adding and configuring the Sensu Email Handler asset in the [Send email alerts with the Sensu Go Email Handler][3] guide.
-- Try the Sensu Email Handler integration in your browswer with the [Up and running with Sensu Go][6] interactive tutorial.
+- Try the Sensu Email Handler integration in your browser with the [Up and running with Sensu Go][6] interactive tutorial.
 
 
 [1]: ../../../observability-pipeline/observe-process/handlers/

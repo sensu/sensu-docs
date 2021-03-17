@@ -276,7 +276,7 @@ Whenever an event is being handled, a log entry is added with the message `"hand
 
 Now that you know how to apply a handler to a check and take action on events, read the [handlers reference][8] for in-depth handler documentation and check out the [Reduce alert fatigue][9] guide.
 
-You can also try our interactive tutorial and learn how to [send Sensu Go alerts to your PagerDuty account][11].
+Follow [Send PagerDuty alerts with Sensu][11] to configure a check that generates status events and a handler that sends Sensu alerts to PagerDuty for non-OK events.
 
 
 [1]: ../../observe-events/events/
@@ -289,7 +289,7 @@ You can also try our interactive tutorial and learn how to [send Sensu Go alerts
 [8]: ../handlers/
 [9]: ../../observe-filter/reduce-alert-fatigue/
 [10]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
-[11]: ../../../learn/sensu-pagerduty/
+[11]: ../../../observability-pipeline/observe-process/send-pagerduty-alerts/
 [12]: https://slack.com/get-started#/create
 [13]: ../../../plugins/assets/
 [14]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
