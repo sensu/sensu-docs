@@ -181,18 +181,17 @@ The response should list `check-sensu-site`:
 ### Add the subscription
 
 To run the check, you'll need a Sensu agent with the subscription `proxy`.
-After you [install an agent][19], open `/etc/sensu/agent.yml` and add the `proxy` subscription so the subscription configuration looks like this:
+After you [install an agent][19], use sensuctl to add the `proxy` subscription to the entity the Sensu agent is observing.
 
-{{< code yml >}}
-subscriptions:
-  - proxy
-{{< /code >}}
-
-Then, restart the agent:
+In the following command, replace `ENTITY_NAME` with the name of the entity on your system.
+Then, run:
 
 {{< code shell >}}
-sudo service sensu-agent restart
+sensuctl entity update ENTITY_NAME
 {{< /code >}}
+
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `proxy` and press enter.
 
 ### Validate the check
 

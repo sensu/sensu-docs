@@ -51,7 +51,8 @@ spec:
   interval: 30
   low_flap_threshold: 0
   output_metric_format: influxdb_line
-  output_metric_handlers: sensu-influxdb-handler
+  output_metric_handlers:
+  - sensu-influxdb-handler
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -85,7 +86,9 @@ spec:
     "interval": 30,
     "low_flap_threshold": 0,
     "output_metric_format": "influxdb_line",
-    "output_metric_handlers": "sensu-influxdb-handler",
+    "output_metric_handlers": [
+      "sensu-influxdb-handler"
+    ],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,

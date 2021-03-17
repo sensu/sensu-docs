@@ -207,18 +207,17 @@ If you want to share, reuse, and maintain this check just like you would code, y
 ## Configure the subscription
 
 To run the check, you'll need a Sensu agent with the subscription `system`.
-After you [install an agent][4], open `/etc/sensu/agent.yml` and add the `system` subscription so the subscription configuration looks like this:
+After you [install an agent][4], use sensuctl to add the `system` subscription to the entity the Sensu agent is observing.
 
-{{< code yml >}}
-subscriptions:
-  - system
-{{< /code >}}
-
-Then, restart the agent:
+In the following command, replace `ENTITY_NAME` with the name of the entity on your system.
+Then, run:
 
 {{< code shell >}}
-sudo service sensu-agent restart
+sensuctl entity update ENTITY_NAME
 {{< /code >}}
+
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `system` and press enter.
 
 ## Validate the check
 
