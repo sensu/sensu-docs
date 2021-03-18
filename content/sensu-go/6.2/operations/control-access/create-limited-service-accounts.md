@@ -18,12 +18,12 @@ Sensu's [role-based access control (RBAC)][1] allows you to exercise fine-graine
 You can use RBAC to set up limited service accounts, which are accounts that represent applications or services rather than individual human users.
 
 For example, you might develop a service that displays a high-level view of your webserver statuses based on an aggregate check.
-The service itself only needs an API key and permission to read the results of status checks executed on your webservers so it can route the check results to the status display.
+The service itself only needs an API key and permission to read the results of checks executed on your webservers so it can route the check results to the status display.
 No human user needs to log into the service, and the service does not need edit or delete permissions.
 You can create a limited service account to provide the necessary access.
 
 Limited service accounts are also useful for performing automated processes.
-This guide explains how to create a limited service account to use with the [Sensu EC2 Handler][3] integration to automatically remove AWS EC2 instances that are not in a pending or running state.
+This guide explains how to create a limited service account and use it with the [Sensu EC2 Handler][3] integration to automatically remove AWS EC2 instances that are not in a pending or running state.
 
 By default, Sensu includes a `default` namespace and an `admin` user with full permissions to create, modify, and delete resources within Sensu, including the RBAC resources required to configure a limited service account.
 This guide requires a running Sensu backend and a sensuctl instance configured to connect to the backend as the [`admin` user][2].
@@ -32,9 +32,9 @@ This guide requires a running Sensu backend and a sensuctl instance configured t
 
 A limited service account requires:
 
-- A [user][7] assigned to a [group][8].
+- A [user][7].
 - A [role][4] with get, list, and delete permissions for resources within the `default` [namespace][9].
-- A [role binding][5] that ties the role to the user's group.
+- A [role binding][5] that ties the role to the user.
 - An [API key][12] for the user.
 
 {{% notice note %}}
@@ -77,7 +77,7 @@ spec:
 2. Create a `ec2-delete` role with get, list, and delete permissions for entity resources within the `default` namespace:
 
    {{< code shell >}}
-sensuctl role create ec2-delete --verb get,list,delete --resource entity --namespace default
+sensuctl role create ec2-delete --verb get,list,delete --resource entities --namespace default
 {{< /code >}}
 
    This command creates the role that has the permissions your service account will need:
@@ -94,7 +94,7 @@ spec:
   rules:
   - resource_names: null
     resources:
-    - entity
+    - entities
     verbs:
     - get
     - list
@@ -114,7 +114,7 @@ spec:
       {
         "resource_names": null,
         "resources": [
-          "entity"
+          "entities"
         ],
         "verbs": [
           "get",
@@ -219,7 +219,7 @@ To configure the EC2 handler, you will need AWS account credentials and details 
 You will also need the API key for the `ec2-service` user.
 
 {{% notice note %}}
-**NOTE**: Use [secrets management](../../manage-secrets/secrets-management/) to configure environment variables for your AWS access and secret keys and the `ec2-service` user's API key and avoid exposing this sensitive information by listing it directly in the EC2 handler definition.<br><br>
+**NOTE**: Use [secrets management](../../manage-secrets/secrets-management/) to configure environment variables for your AWS access and secret keys and the `ec2-service` user's API key and avoid exposing this sensitive information by listing it directly in the handler definition.<br><br>
 The [Sensu Go EC2 Handler's Bonsai page](https://bonsai.sensu.io/assets/sensu/sensu-ec2-handler#environment-variables) includes an example for configuring secrets definitions with Sensu's built-in [`env` secrets provider](../../manage-secrets/secrets-providers/#env-secrets-provider-example).
 {{% /notice %}}
 
@@ -227,8 +227,11 @@ In the following code, replace the placeholders for these attributes with valid 
 
 - `aws-region`: the AWS region where your EC2 instance is located.
 - `aws-instance-id-label`: the Sensu entity label that contains the AWS instance ID.
-If your AWS EC2 instance entities do not include labels that specify the instance ID, use `aws-instance-id` instead and specify the AWS instance IDs themselves.
+If your AWS EC2 instance entities do not include labels that specify the instance ID, use `aws-instance-id` instead and enter the AWS instance ID itself as the value.
 - `sensu-api-url`: the Sensu API URL.
+
+You can also adjust the `aws-allowed-instance-states` value to include any of the Sensu EC2 integration's [available states][10].
+This example lists only "pending" and "running."
 
 Then, run this command with your valid values in place to create the handler defintion:
 
@@ -327,6 +330,7 @@ Names should identify service accounts as well as the associated service.
 [7]: ../rbac/#users
 [8]: ../rbac/#groups
 [9]: ../namespaces/
+[10]: https://bonsai.sensu.io/assets/sensu/sensu-ec2-handler#ec2-instance-states
 [12]: ../../../api/#authenticate-with-an-api-key
 [13]: https://bonsai.sensu.io/assets/sensu/sensu-ec2-handler
 [14]: ../../../plugins/assets/
