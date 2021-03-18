@@ -268,10 +268,6 @@ spec:
 
 {{< /language-toggle >}}
 
-{{% notice protip %}}
-**PRO TIP**: `sensuctl create -f` also accepts files that contain multiple resources' definitions.
-{{% /notice %}}
-
 Use `sensuctl` to add the handler and dynamic runtime asset to Sensu:
 
 {{< language-toggle >}}
@@ -285,6 +281,11 @@ sensuctl create --file handler.json --file asset_influxdb.json
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+{{% notice protip %}}
+**PRO TIP**: `sensuctl create --file` also accepts files that contain multiple resources' definitions.
+You could save both the asset and handler definitions in a single file and use `sensuctl create --file FILE_NAME.EXT` to add them.
+{{% /notice %}}
 
 ## Collect Prometheus metrics with Sensu
 
