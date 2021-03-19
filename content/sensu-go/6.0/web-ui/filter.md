@@ -225,4 +225,4 @@ To delete a saved search:
 [10]: #examples
 [11]: ../../operations/control-access/rbac/#namespaced-resource-types
 [12]: ../../operations/control-access/rbac/#roles-and-cluster-roles
-[13]: ../../operations/control-access/rbac/#example-workflows
+[13]: ../../operations/control-access/rbac/#create-a-role-and-role-binding

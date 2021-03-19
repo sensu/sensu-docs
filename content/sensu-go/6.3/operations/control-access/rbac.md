@@ -1428,9 +1428,7 @@ name: ad:alice
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Example workflows
-
-### Role and role binding
+## Create a role and role binding
 
 The following role and role binding give a `dev` group access to create and manage Sensu workflows within the `default` namespace.
 
@@ -1527,7 +1525,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Role and role binding with a group prefix
+## Create a role and role binding with a group prefix
 
 In this example, if a groups_prefix of `ad` is configured for [Active Directory authentication][39], the role and role binding will give a `dev` group access to create and manage Sensu workflows within the `default` namespace.
 
@@ -1624,7 +1622,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Assign user permissions within a namespace
+## Assign user permissions within a namespace
 
 To assign permissions to a user:
 
@@ -1762,7 +1760,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Assign group permissions within a namespace
+## Assign group permissions within a namespace
 
 To assign permissions to group of users:
 
@@ -1904,13 +1902,13 @@ spec:
 **PRO TIP**: To avoid recreating commonly used roles in each namespace, [create a cluster role](#create-cluster-wide-roles) and use a [role binding](#create-role-bindings-and-cluster-role-bindings) to restrict permissions within a specific namespace.
 {{% /notice %}}
 
-### Assign group permissions across all namespaces
+## Assign group permissions across all namespaces
 
 To assign cluster-wide permissions to group of users:
 
 1. [Create at least one user assigned to a group][27].
 2. [Create a cluster role][28].
-3. [Create a cluster role binding][29]) to assign the role to the group.
+3. [Create a cluster role binding][29] to assign the role to the group.
 
 For example, the following configuration creates a user `alice` assigned to the group `ops`, a cluster role `default-admin`, and a cluster role binding `ops-default-admin`, giving the `ops` group full permissions for [namespaced resource types][17] and [cluster-wide resource types][18] across all namespaces.
 You can add these resources to Sensu using [`sensuctl create`][31].
@@ -2050,6 +2048,164 @@ spec:
 
 {{< /language-toggle >}}
 
+## Reuse cluster roles across namespaces
+
+Reusing cluster roles across namespaces can reduce the number of resources you need to manage.
+
+For example, suppose you have three teams, each with its own namespace.
+You write a script that uses [limited service accounts][15] to create and delete silences.
+You want to use the script for all three team namespaces, so you create a role with the required permissions and a role binding in each namespace: six new resources.
+If you need to change the permissions for the script, you will need to update each role in the team namespaces (three resources).
+
+A better approach is to create a single cluster role that grants the required permissions, plus one role binding in each namespace to tie the permissions to the namespace's limited service account.
+With this configuration, you only need to update one resource to make permission changes: the `silencing-script` cluster role.
+Sensu will automatically apply updates in each team's namespace using the role bindings that define each limited service account as a subject of the cluster role.
+
+1. Create a [limited service account][15] user in each namespace:
+
+   {{< code shell >}}
+sensuctl user create silencing-service-team-1 --password='password'
+{{< /code >}}
+
+   This creates the following user definition:
+
+   {{< language-toggle >}}
+{{< code yml >}}
+---
+type: User
+api_version: core/v2
+metadata:
+  name: silencing-service-team-1
+spec:
+  disabled: false
+  username: silencing-service-team-1
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "User",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "silencing-service-team-1"
+  },
+  "spec": {
+    "disabled": false,
+    "username": "silencing-service-team-1"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+   Repeat this step to create a limited service account user in each team's namespace.
+
+2. Create a [cluster role][28] with get, list, create, update, and delete permissions for silences:
+
+   {{< code shell >}}
+sensuctl cluster-role create silencing-script --verb get,list,create,update,delete --resource silenced
+{{< /code >}}
+
+   This command creates the cluster role that has the permissions the silencing service accounts will need:
+
+   {{< language-toggle >}}
+{{< code yml >}}
+---
+type: ClusterRole
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: silencing-script
+spec:
+  rules:
+  - resource_names: null
+    resources:
+    - silenced
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "ClusterRole",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "silencing-script"
+  },
+  "spec": {
+    "rules": [
+      {
+        "resource_names": null,
+        "resources": [
+          "silenced"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update",
+          "delete"
+        ]
+      }
+    ]
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+3. Create a [role binding][29] in each team namespace to assign the `silencing-script` cluster role to the team's `silencing-service` user.
+For example, use this command to create the role binding for Team 1:
+
+   {{< code shell >}}
+sensuctl role-binding create silencing-script-binding-team-1 --cluster-role silencing-script --user silencing-service-team-1 --namespace team1
+{{< /code >}}
+
+   This command creates the role binding that ties the correct permissions (via the `silencing-script` cluster role) with your service account (via the user `silencing-service-team-1`):
+   {{< language-toggle >}}
+{{< code yml >}}
+---
+type: RoleBinding
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: silencing-script-binding-team-1
+  namespace: team1
+spec:
+  role_ref:
+    name: silencing-script
+    type: ClusterRole
+  subjects:
+  - name: silencing-service-team-1
+    type: User
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "RoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "silencing-script-binding-team-1",
+    "namespace": "team1"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "silencing-script",
+      "type": "ClusterRole"
+    },
+    "subjects": [
+      {
+        "name": "silencing-service-team-1",
+        "type": "User"
+      }
+    ]
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+   Repeat this step to create a role binding for the `silencing-script` cluster role and the limited service account user in each team's namespace.
+
 
 [1]: ../../../observability-pipeline/observe-schedule/backend/
 [2]: ../../../sensuctl/
@@ -2065,6 +2221,7 @@ spec:
 [12]: ../namespaces/
 [13]: #roles-and-cluster-roles
 [14]: ../../../observability-pipeline/observe-process/silencing/
+[15]: ../create-limited-service-accounts/
 [16]: ../../../reference/
 [17]: #namespaced-resource-types
 [18]: #cluster-wide-resource-types
