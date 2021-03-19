@@ -92,7 +92,7 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 Every Sensu agent has a defined set of [subscriptions][8] that determine which checks the agent will execute.
 For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
-To run the CPU and NGINX checks, you'll need a Sensu agent with the subscriptions `system` and `webserver`.
+To run the CPU and NGINX webserver checks, you'll need a Sensu agent with the subscriptions `system` and `webserver`.
 
 {{% notice note %}}
 **NOTE**: In production, your CPU and NGINX servers would be different entities, with the `system` subscription specified for the CPU entity and the `webserver` subscription specified for the NGINX entity.
@@ -411,7 +411,7 @@ spec:
 
 As with the `check_cpu` check, you can share, reuse, and maintain this check [just like code][12].
 
-### Validate the NGINX check
+### Validate the webserver check
 
 It might take a few moments after you create the check for the check to be scheduled on the entity and the event to return to Sensu backend.
 Use sensuctl to view event data and confirm that Sensu is monitoring the NGINX webserver status:
