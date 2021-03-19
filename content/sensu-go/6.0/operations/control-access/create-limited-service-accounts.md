@@ -5,11 +5,11 @@ guide_title: "Create limited service accounts with role-based access control (RB
 type: "guide"
 description: "Role-based access control (RBAC) allows you to create limited service accounts so that applications can access and interact with Sensu resources. Read this guide to create limited service accounts with Sensu RBAC."
 weight: 65
-version: "6.2"
+version: "6.0"
 product: "Sensu Go"
 platformContent: false
 menu: 
-  sensu-go-6.2:
+  sensu-go-6.0:
     parent: control-access
 ---
 
