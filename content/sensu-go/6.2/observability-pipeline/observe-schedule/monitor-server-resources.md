@@ -59,13 +59,10 @@ Then, use the following sensuctl command to register the Sensu Ruby Runtime dyna
 sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
 {{< /code >}}
 
-And use this command to register the [nagiosfoundation check plugin collection][15] for your webserver check:
+And use this command to register the [nagiosfoundation check plugin collection][15], which you'll use later for your webserver check:
 
 {{< code shell >}}
 sensuctl asset add ncr-devops-platform/nagiosfoundation:0.5.2 -r nagiosfoundation
-{{< /code >}}
-
-{{< code shell >}}
 {{< /code >}}
 
 To confirm that all three dynamic runtime assets are ready to use, run:
@@ -98,8 +95,8 @@ For an agent to execute a specific check, you must specify the same subscription
 To run the CPU and NGINX checks, you'll need a Sensu agent with the subscriptions `system` and `webserver`.
 
 {{% notice note %}}
-**NOTE**: In production, your CPU and NGINX servers would be different agent entities, with the `system` subscription specified for the CPU entity and the `webserver` subscription specified for the NGINX entity.
-To keep things streamlined, this guide uses one agent entity to represent both.
+**NOTE**: In production, your CPU and NGINX servers would be different entities, with the `system` subscription specified for the CPU entity and the `webserver` subscription specified for the NGINX entity.
+To keep things streamlined, this guide uses one entity to represent both.
 {{% /notice %}}
 
 To add the `system` and `webserver` subscriptions to the entity the Sensu agent is observing, first find your agent entity name:
@@ -110,7 +107,7 @@ sensuctl entity list
 
 The `ID` is the name of your entity.
 
-Replace `ENTITY_NAME` with the name of your agent entity in the following [sensuctl][] command.
+Replace `ENTITY_NAME` with the name of your agent entity in the following [sensuctl][17] command.
 Run:
 
 {{< code shell >}}
@@ -237,8 +234,12 @@ If you want to share, reuse, and maintain this check just like you would code, y
 
 ### Validate the CPU check
 
-Use sensuctl to confirm that Sensu is monitoring CPU usage.
+The Sensu agent uses websockets to communicate with the Sensu backend, sending event data as JSON messages.
+As your checks run, the Sensu agent captures check standard output (`STDOUT`) or standard error (`STDERR`).
+This data will be included in the JSON payload the agent sends to your Sensu backend as the event data.
+
 It might take a few moments after you create the check for the check to be scheduled on the entity and the event to return to Sensu backend.
+Use sensuctl to view the event data and confirm that Sensu is monitoring CPU usage:
 
 {{< code shell >}}
 sensuctl event list
@@ -412,8 +413,8 @@ As with the `check_cpu` check, you can share, reuse, and maintain this check [ju
 
 ### Validate the NGINX check
 
-Use sensuctl to confirm that Sensu is monitoring the NGINX webserver status.
 It might take a few moments after you create the check for the check to be scheduled on the entity and the event to return to Sensu backend.
+Use sensuctl to view event data and confirm that Sensu is monitoring the NGINX webserver status:
 
 {{< code shell >}}
 sensuctl event list
@@ -427,15 +428,9 @@ The response should list the `nginx_service` check, returning an OK status (`0`)
   sensu-centos   nginx_service   CheckService OK - nginx in a running state                                                                                                    0   false      2021-03-18 19:38:04 +0000 UTC   ab605f6a-26e2-47c8-a843-765129e74f37
 {{< /code >}}
 
-The Sensu agent uses websockets to communicate with the Sensu backend, sending event data as JSON messages.
-
-In this tutorial, as your `nginx_service` check runs, the Sensu agent will capture the check's standard output (`STDOUT`) or standard error (`STDERR`). This will be included in the JSON payload the agent sends to your Sensu backend as the event data.
-
-To see how this works, you'll simulate a critical event that might occur when you're monitoring a webserver.
-
 ### Simulate a critical event
 
-You can manually generate a critical event for your `nginx_service` check by stopping the service.
+To manually generate a critical event for your `nginx_service` check, stop the NGINX service.
 Run:
 
 {{< code shell >}}
@@ -457,7 +452,7 @@ The response should list the `nginx_service` check, returning a CRITICAL status 
   sensu-centos   nginx_service   CheckService CRITICAL - nginx not in a running state (State: inactive)                                                                           2   false      2021-03-18 19:42:19 +0000 UTC   cb3et55a-1649-43b9-b559-ebu3aa9352b4
 {{< /code >}}
 
-Restart the 'nginx_service' to clear the event:
+Restart the NGINX service to clear the event:
 
 {{< code shell >}}
 systemctl start nginx
@@ -469,7 +464,7 @@ After a moment, you can verify that the event cleared:
 sensuctl event list
 {{< /code >}}
 
-The response should list the `nginx_service` check with an OK status (`0`) again.
+The response should list the `nginx_service` check with an OK status (`0`).
 
 ## Next steps
 
@@ -495,3 +490,4 @@ You can also create a [handler][10] to send alerts to [email][13], [PagerDuty][9
 [14]: https://bonsai.sensu.io/
 [15]: https://bonsai.sensu.io/assets/ncr-devops-platform/nagiosfoundation
 [16]: https://github.com/ncr-devops-platform/nagiosfoundation/blob/master/cmd/check_service/README.md
+[17]: ../../../sensuctl/
