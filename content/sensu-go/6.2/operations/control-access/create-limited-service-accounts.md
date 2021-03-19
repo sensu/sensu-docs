@@ -308,7 +308,8 @@ EOF
 
 {{< /language-toggle >}}
 
-The handler will use the `ec2-service` user's API key to check the specified AWS EC2 instance and remove the instance if its status is not "pending" or "running."
+The handler will use the provided AWS credentials to check the specified EC2 instance.
+If the instance's status is not "pending" or "running," the handler will use the `ec2-service` user's API key to remove the corresponding entity.
 
 ## Best practices for limited service accounts
 
