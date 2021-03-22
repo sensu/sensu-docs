@@ -7,7 +7,7 @@ description: "In this guide, you'll learn how to use Sensu's API key feature for
 weight: 50
 version: "6.3"
 product: "Sensu Go"
-platformContent: False
+platformContent: false
 menu: 
   sensu-go-6.3:
     parent: control-access

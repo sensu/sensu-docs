@@ -504,7 +504,7 @@ spec:
 
 In this example, you'll run a script that outputs `Hello World`:
 
-{{< code bash >}}
+{{< code shell >}}
 hello-world.sh
 
 #!/bin/sh
@@ -523,27 +523,46 @@ fi
 The first step is to ensure that your directory structure is in place.
 As noted in [Example dynamic runtime asset structure][15], your script could live in three potential directories in the project: `/bin`, `/lib`, or `/include`.
 For this example, put your script in the `/bin` directory.
-Create the directories `sensu-go-hello-world` and `/bin`:
 
-{{< code bash >}}
-$ mkdir sensu-go-hello-world
+1. Create the directory `sensu-go-hello-world`:
+{{< code shell >}}
+mkdir sensu-go-hello-world
+{{< /code >}}
 
-$ cd sensu-go-hello-world
+2. Navigate to the `sensu-go-hello-world` directory:
+{{< code shell >}}
+cd sensu-go-hello-world
+{{< /code >}}
 
-$ mkdir bin
+3. Create the directory `/bin`:
+{{< code shell >}}
+mkdir bin
+{{< /code >}}
 
-$ cp hello-world.sh bin/
+4. Copy the script into the `/bin` directory:
+{{< code shell >}}
+cp hello-world.sh bin/
+{{< /code >}}
 
-$ tree
+5. Confirm that the script is in the `/bin` directory:
+{{< code shell >}}
+tree
+{{< /code >}}
+
+   The response should list the `hello-world.sh` script in the `/bin` directory:
+   {{< code shell >}}
 .
 └── bin
     └── hello-world.sh
 {{< /code >}}
 
-Next, make sure that the script is marked as executable:
-
-{{< code bash >}}
+6. Make sure that the script is marked as executable:
+{{< code shell >}}
 $ chmod +x bin/hello-world.sh 
+{{< /code >}}
+
+   The response will confirm the change:
+   {{< code shell >}}
 mode of 'hello-world.sh' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)
 {{< /code >}}
 
@@ -551,18 +570,17 @@ Now that the script is in the directory, move on to the next step: packaging the
 
 ### Package the dynamic runtime asset
 
-Dynamic runtime assets are archives, so the first step in packaging the asset is to create a tar.gz archive of your project.
-This assumes you're in the directory you want to tar up:
+Dynamic runtime assets are archives, so packaging the asset requires creating a tar.gz archive of your project.
 
-{{< code bash >}}
-$ cd ..
-$ tar -C sensu-go-hello-world -cvzf sensu-go-hello-world-0.0.1.tar.gz .
-...
+1. Navigate to the directory you want to tar up.
+
+2. Create the tar.gz archive:
+{{< code shell >}}
+tar -C sensu-go-hello-world -cvzf sensu-go-hello-world-0.0.1.tar.gz .
 {{< /code >}}
 
-Now that you've created an archive, you need to generate a SHA512 sum for it (this is required for the dynamic runtime asset to work):
-
-{{< code bash >}}
+3. Generate a SHA512 sum for the tar.gz archive (this is required for the dynamic runtime asset to work):
+{{< code shell >}}
 sha512sum sensu-go-hello-world-0.0.1.tar.gz | tee sha512sum.txt
 dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff1ef4b154c198b9c7cdfe1e8867788c820db7bb5bcad83827 sensu-go-hello-world-0.0.1.tar.gz
 {{< /code >}}

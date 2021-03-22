@@ -8,7 +8,6 @@ weight: 70
 version: "6.1"
 product: "Sensu Go"
 platformContent: false
-lastTested: 2018-12-04
 menu:
   sensu-go-6.1:
     parent: observe-schedule
@@ -33,6 +32,59 @@ sensuctl hook create process_tree  \
 --command 'ps aux' \
 --timeout 10
 {{< /code >}}
+
+To confirm that the hook was added, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl hook info process_tree --format yaml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl hook info process_tree --format json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The response will include the complete hook resource definition in the specified format:
+
+{{< language-toggle >}}
+
+{{< code yaml >}}
+---
+type: HookConfig
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: process_tree
+  namespace: default
+spec:
+  command: ps aux
+  runtime_assets: null
+  stdin: false
+  timeout: 10
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "HookConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "process_tree",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "ps aux",
+    "runtime_assets": null,
+    "stdin": false,
+    "timeout": 10
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Assign the hook to a check
 

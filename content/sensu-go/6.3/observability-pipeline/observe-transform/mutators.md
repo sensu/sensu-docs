@@ -7,7 +7,7 @@ description: "As part of the event pipeline, mutators let you transform observab
 product: "Sensu Go"
 weight: 10
 version: "6.3"
-platformContent: False 
+platformContent: false 
 menu:
   sensu-go-6.3:
     parent: observe-transform

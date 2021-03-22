@@ -21,6 +21,7 @@ menu: "sensu-go-6.3"
 - [6.1.1 release notes](#611-release-notes)
 - [6.1.0 release notes](#610-release-notes)
 - [6.0.0 release notes](#600-release-notes)
+- [5.21.4 release notes](#5214-release-notes)
 - [5.21.3 release notes](#5213-release-notes)
 - [5.21.2 release notes](#5212-release-notes)
 - [5.21.1 release notes](#5211-release-notes)
@@ -360,6 +361,18 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 With this fix, labels and annotations are always defined (although they may be empty).
 - Fixed the log entry field for the check's name in schedulerd.
 
+## 5.21.4 release notes
+
+**March 9, 2021** &mdash; The latest release of Sensu Go, version 5.21.4, is now available for download.
+
+This patch release fixes a bug that caused the SIGHUP signal to restart the sensu-backend.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.4.
+
+**FIXES:**
+
+- Fixed a bug that caused the SIGHUP signal used for [log rotation][206] to restart the sensu-backend.
+
 ## 5.21.3 release notes
 
 **October 14, 2020** &mdash; The latest release of Sensu Go 5, version 5.21.3, is now available for download.
@@ -541,7 +554,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.19.3.
 - In the [web UI][135], color-blindness modes are now available.
 - In the [web UI][135], labels and annotations with links to images will now be displayed inline.
 - Adds a global rate limit for fetching assets to prevent abusive asset retries, which you can configure with the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][136] and [backend][137].
-- Adds support for reloading the backend via SIGHUP.
+- Adds support for restarting the backend via SIGHUP.
 - Adds a timeout flag to `sensu-backend init`.
 - Deprecated flags for `sensuctl silenced update` subcommand have been removed.
 
@@ -1755,3 +1768,4 @@ To get started with Sensu Go:
 [203]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#agent-managed-entity
 [204]: /sensu-go/6.2/observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent
 [205]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#configuration-via-flags
+[206]: /sensu-go/5.21/reference/backend/#log-rotation

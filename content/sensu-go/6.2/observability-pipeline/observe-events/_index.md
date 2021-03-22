@@ -315,7 +315,7 @@ Sensu's [events API][15] provides HTTP access to create, retrieve, update, and d
 If you create a new event that references an entity that does not already exist, the Sensu [backend][16] will automatically create a proxy entity when the event is published.
 
 
-[1]: ../observe-schedule/monitor-server-resources/
+[1]: ../observe-entities/monitor-external-resources/
 [2]: https://bonsai.sensu.io
 [3]: #status-only-events
 [4]: ../observe-schedule/hooks/

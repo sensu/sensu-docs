@@ -7,7 +7,7 @@ description: "Here’s how to send alerts to your email with the Sensu Go Email 
 weight: 20
 version: "6.0"
 product: "Sensu Go"
-platformContent: False
+platformContent: false
 menu: 
   sensu-go-6.0:
     parent: observe-process
@@ -35,7 +35,7 @@ Use the following sensuctl example to register the [Sensu Go Email Handler][3] d
 sensuctl asset add sensu/sensu-email-handler -r email-handler
 {{< /code >}}
 
-The response will indicate that the asset was added:
+The response will confirm that the asset was added:
 
 {{< code shell >}}
 no version specified, using latest: 0.6.0
@@ -85,7 +85,9 @@ Here's an overview of how the `state_change_only` filter will work:
 
 To create the event filter, run:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code text "YML">}}
 cat << EOF | sensuctl create
 ---
 type: EventFilter
@@ -93,7 +95,7 @@ api_version: core/v2
 metadata:
   annotations: null
   labels: null
-  name: state_change_only
+  name: state_change_only2
   namespace: default
 spec:
   action: allow
@@ -103,14 +105,54 @@ spec:
 EOF
 {{< /code >}}
 
+{{< code text "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "annotations": null,
+    "labels": null,
+    "name": "state_change_only",
+    "namespace": "default"
+  },
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "event.check.occurrences == 1"
+    ],
+    "runtime_assets": [
+
+    ]
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Create the email handler definition
 
 After you add an event filter, create the email handler definition to specify the email address where the `sensu/sensu-email-handler` dynamic runtime asset will send notifications.
-In the handler definition's `command` value, you'll need to change a few things.
+In the handler definition's `command` value, you'll need to change a few things:
 
-Copy this text into a text editor:
+- `YOUR-SENDER@example.com`: Replace with the email address you want to use to send email alerts.
+- `YOUR-RECIPIENT@example.com`: Replace with the email address you want to receive email alerts.
+- `YOUR-SMTP-SERVER.example.com`: Replace with the hostname of your SMTP server.
+- `USERNAME`: Replace with your SMTP username, typically your email address.
+- `PASSWORD`: Replace with your SMTP password, typically the same as your email password.
 
-{{< code shell >}}
+{{% notice note %}}
+**NOTE**: To use Gmail or G Suite as your SMTP server, follow Google's instructions to [send email via SMTP](https://support.google.com/a/answer/176600?hl=en).
+If you have enabled 2-step verification on your Google account, use an [app password](https://support.google.com/accounts/answer/185833?hl=en) instead of your login password.
+If you have not enabled 2-step verification, you may need to adjust your [app access settings](https://support.google.com/accounts/answer/6010255) to follow the example in this guide.
+{{% /notice %}}
+
+With your updates, create the handler using sensuctl:
+
+{{< language-toggle >}}
+
+{{< code text "YML">}}
 cat << EOF | sensuctl create
 ---
 api_version: core/v2
@@ -132,19 +174,33 @@ spec:
 EOF
 {{< /code >}}
 
-Then, replace the following text:
+{{< code text "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "api_version": "core/v2",
+  "type": "Handler",
+  "metadata": {
+    "namespace": "default",
+    "name": "email"
+  },
+  "spec": {
+    "type": "pipe",
+    "command": "sensu-email-handler -f YOUR-SENDER@example.com -t YOUR-RECIPIENT@example.com -s YOUR-SMTP-SERVER.example.com -u USERNAME -p PASSWORD",
+    "timeout": 10,
+    "filters": [
+      "is_incident",
+      "not_silenced",
+      "state_change_only"
+    ],
+    "runtime_assets": [
+      "email-handler"
+    ]
+  }
+}
+EOF
+{{< /code >}}
 
-- `YOUR-SENDER@example.com`: Replace with the email address you want to use to send email alerts.
-- `YOUR-RECIPIENT@example.com`: Replace with the email address you want to receive email alerts.
-- `YOUR-SMTP-SERVER.example.com`: Replace with the hostname of your SMTP server.
-- `USERNAME`: Replace with your SMTP username, typically your email address.
-- `PASSWORD`: Replace with your SMTP password, typically the same as your email password.
-
-{{% notice note %}}
-**NOTE**: To use Gmail or G Suite as your SMTP server, follow Google's instructions to [send email via SMTP](https://support.google.com/a/answer/176600?hl=en).
-If you have enabled 2-step verification on your Google account, use an [app password](https://support.google.com/accounts/answer/185833?hl=en) instead of your login password.
-If you have not enabled 2-step verification, you may need to adjust your [app access settings](https://support.google.com/accounts/answer/6010255) to follow the example in this guide.
-{{% /notice %}}
+{{< /language-toggle >}}
 
 You probably noticed that the handler definition includes two other filters besides `state_change_only`: [`is_incident`][10] and [`not_silenced`][11].
 These two filters are included in every Sensu backend installation, so you don't have to create them.
@@ -271,7 +327,8 @@ You should receive another email because the event status changed to `0` (OK).
 
 Now that you know how to apply a handler to a check and take action on events:
 
-- Reuse this email handler with the `check-cpu` check from our [Monitor server resources][2] guide.
+- Reuse this email handler with the `check_cpu` check from our [Monitor server resources][2] guide.
+- Learn how to use the event filter and handler resources you created to start developing a [monitoring as code][15] repository.
 - Read the [handlers reference][6] for in-depth handler documentation.
 - Check out the [Reduce alert fatigue][7] guide.
 
@@ -285,13 +342,14 @@ You can also follow our [Up and running with Sensu Go][9] interactive tutorial t
 [5]: ../../observe-filter/filters/
 [6]: ../handlers/
 [7]: ../../observe-filter/reduce-alert-fatigue/
-[8]: ../../../plugins/assets
+[8]: ../../../plugins/assets/
 [9]: ../../../learn/up-and-running/
 [10]: ../../observe-filter/filters/#built-in-filter-is_incident
 [11]: ../../observe-filter/filters/#built-in-filter-not_silenced
 [12]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
 [13]: ../../../operations/deploy-sensu/install-sensu/#install-sensu-agents
 [14]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler#templates
+[15]: ../../../operations/monitoring-as-code/
 [16]: ../../observe-filter/filters/
 [17]: #create-an-ad-hoc-event
 [18]: #create-the-email-handler-definition

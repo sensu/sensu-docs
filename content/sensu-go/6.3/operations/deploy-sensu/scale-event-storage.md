@@ -140,11 +140,19 @@ spec:
 
 {{< /language-toggle >}}
 
-This configuration is written to disk as `my-postgres.yml`, and you can install it using `sensuctl`:
+Save this configuration as `my-postgres.yml` or `my-postgres.json` and install it with `sensuctl`:
 
-{{< code shell >}}
-sensuctl create -f my-postgres.yml
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file my-postgres.yml
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create --file my-postgres.json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 The Sensu backend is now configured to use Postgres for event storage!
 
@@ -220,11 +228,19 @@ select sensu_entity from events where sensu_check = 'keepalive';
 ## Revert to the built-in datastore
 
 If you want to revert to the default etcd event store, delete the PostgresConfig resource.
-In this example, my-postgres.yml contains the same configuration you used to configure the Enterprise event store earlier in this guide:
+In this example, `my-postgres.yml` or `my-postgres.json` contain the same configuration you used to configure the Enterprise event store earlier in this guide:
 
-{{< code shell >}}
-sensuctl delete -f my-postgres.yml
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl delete --file my-postgres.yml
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl delete --file my-postgres.json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 To verify that the change was effective, look for messages similar to these in the [sensu-backend log][4]:
 
@@ -274,11 +290,15 @@ Make a copy of the current `pg_hba.conf`:
 sudo cp /var/lib/pgsql/data/pg_hba.conf /var/tmp/pg_hba.conf.bak
 {{< /code >}}
 
-Next, give the repl user permissions to replicate from the standby host.
-In the following command, replace `STANDBY_IP` with the IP address of your standby host:
+In the following command, replace the `STANDBY_IP` value with the IP address of your standby host and then run the command:
 
 {{< code shell >}}
 export STANDBY_IP=192.168.52.10
+{{< /code >}}
+
+Next, give the repl user permissions to replicate from the standby host:
+
+{{< code shell >}}
 echo "host replication repl ${STANDYB_IP}/32 md5" | sudo tee -a /var/lib/pgsql/data/pg_hba.conf
 {{< /code >}}
 
@@ -332,10 +352,16 @@ sudo systemctl restart postgresql
 The standby host must be bootstrapped using the `pg_basebackup` command.
 This process will copy all configuration files from the primary as well as databases.
 
-If the standby host has ever run Postgres, you must empty the data directory:
+If the standby host has ever run Postgres, you must empty the data directory.
+First, stop Postgres:
 
 {{< code shell >}}
 sudo systemctl stop postgresql
+{{< /code >}}
+
+Empty the data directory:
+
+{{< code shell >}}
 sudo mv /var/lib/pgsql/data /var/lib/pgsql/data.bak
 {{< /code >}}
 
@@ -345,17 +371,28 @@ Make the standby data directory:
 sudo install -d -o postgres -g postgres -m 0700 /var/lib/pgsql/data
 {{< /code >}}
 
-And then bootstrap the standby data directory:
+Then bootstrap the standby data directory.
+In the following command, replace PRIMARY_IP with the IP address of your primary host and then run the command:
 
 {{< code shell >}}
 export PRIMARY_IP=192.168.52.11
+{{< /code >}}
+
+Then bootstrap the standby data directory:
+
+{{< code shell >}}
 sudo -u postgres pg_basebackup -h $PRIMARY_IP -D /var/lib/pgsql/data -P -U repl -R --xlog-method=stream
 {{< /code >}}
 
-Postgres will prompt for your password and then list database copy progress.
+Postgres will prompt for your password:
 
 {{< code postgresql >}}
 Password: 
+{{< /code >}}
+
+After you enter your password, Postgres will list database copy progress:
+
+{{< code postgresql >}}
 30318/30318 kB (100%), 1/1 tablespace
 {{< /code >}}
 

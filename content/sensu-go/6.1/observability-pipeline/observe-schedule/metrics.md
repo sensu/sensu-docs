@@ -3,7 +3,7 @@ title: "Metrics reference"
 linkTitle: "Metrics Reference"
 reference_title: "Metrics"
 type: "reference"
-description: "Use checks to collect and process service metrics for your infrastructure with the Sensu observability pipeline. Read this reference doc to learn about Sensu Go's first-class support for collecting and processing metrics."
+description: "Use checks to collect service and time-series metrics for your infrastructure and process extracted metrics with the Sensu observability pipeline. Read this reference doc to learn about Sensu Go's first-class support for collecting and processing service and time-series metrics."
 weight: 33
 version: "6.1"
 product: "Sensu Go"
@@ -13,12 +13,15 @@ menu:
     parent: observe-schedule
 ---
 
-Sensu Go offers built-in support for collecting and processing metrics for your entire infrastructure.
+Sensu Go offers built-in support for collecting and processing service and time-series metrics for your entire infrastructure.
 
 In Sensu, metrics are an optional component of observation data in events.
 Sensu events may contain check execution results, metrics, or both.
 Certain inputs like the [Sensu StatsD listener][2] or patterns like the [Prometheus][7] collector pattern will create metrics-only events.
 Events can also include metrics from [check output metric extraction][4].
+
+Use Sensu handlers to [process extracted metrics][11] and route them to databases like Elasticsearch, InfluxDB, Grafana, and Graphite.
+You can also use Sensu's [time-series and long-term event storage integrations][18] to process service and time-series metrics.
 
 {{% notice note %}}
 **NOTE**: This reference describes the metrics component of observation data included in Sensu events, which is distinct from the Sensu metrics API.
@@ -48,7 +51,8 @@ spec:
   interval: 30
   low_flap_threshold: 0
   output_metric_format: influxdb_line
-  output_metric_handlers: sensu-influxdb-handler
+  output_metric_handlers:
+  - sensu-influxdb-handler
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -82,7 +86,9 @@ spec:
     "interval": 30,
     "low_flap_threshold": 0,
     "output_metric_format": "influxdb_line",
-    "output_metric_handlers": "sensu-influxdb-handler",
+    "output_metric_handlers": [
+      "sensu-influxdb-handler"
+    ],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
@@ -510,7 +516,7 @@ The event specification describes [metrics attributes in events][5].
 [4]: #extract-metrics-from-check-output
 [5]: ../../observe-events/events/#metrics
 [6]: #metric-check-example
-[7]: ../../../learn/prometheus-metrics/
+[7]: ../prometheus-metrics/
 [8]: https://bonsai.sensu.io/
 [9]: #supported-output-metric-formats
 [10]: ../checks/#output-metric-format

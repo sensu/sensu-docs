@@ -35,7 +35,7 @@ The live demo also gives you a chance to try commands with [sensuctl][8], the Se
 ## Sensu sandbox
 
 For further learning opportunities, download the [Sensu sandbox][4].
-Follow the sandbox lessons to [build your first monitoring and observability workflow][5] and [collect Prometheus metrics][6] with a Sensu check plugin.
+Follow the sandbox lessons to [build your first monitoring and observability workflow][5] with Sensu.
 
 We also have a GitHub lesson that guides you through [deploying a Sensu cluster and example application into Kubernetes][7], plus a configuration that allows you to reuse Nagios-style monitoring checks to monitor the example application with a Sensu sidecar.
 
@@ -45,6 +45,5 @@ We also have a GitHub lesson that guides you through [deploying a Sensu cluster 
 [3]: demo/
 [4]: sandbox/
 [5]: learn-sensu-sandbox/
-[6]: prometheus-metrics/
 [7]: https://github.com/sensu/sensu-k8s-quick-start#getting-started-with-sensu-go-on-kubernetes
 [8]: ../sensuctl/

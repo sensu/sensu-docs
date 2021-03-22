@@ -437,7 +437,7 @@ See [Monitor external resources with proxy requests and entities][17] for detail
 
 ### Agent entity labels {#agent-entities-managed}
 
-For entities with class `agent`, you can define entity attributes in the `/etc/sensu/agent.yml` configuration file.
+For new entities with class `agent`, you can define entity attributes in the `/etc/sensu/agent.yml` configuration file.
 For example, to add a `url` label, open `/etc/sensu/agent.yml` and add configuration for `labels`:
 
 {{< code yml >}}
@@ -450,6 +450,11 @@ Or, use `sensu-agent start` configuration flags:
 {{< code shell >}}
 sensu-agent start --labels url=sensu.docs.io
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: The entity attributes in `agent.yml` are used only for initial entity creation.
+Modify existing agent entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../../api/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
+{{% /notice %}}
 
 ## Entities specification
 

@@ -7,8 +7,7 @@ description: "Perform system maintenance without getting overloaded with alerts.
 weight: 70
 version: "6.0"
 product: "Sensu Go"
-platformContent: False
-lastTested: 2018-12-04
+platformContent: false
 menu: 
   sensu-go-6.0:
     parent: observe-process
@@ -40,10 +39,56 @@ Your username will be added automatically as the **creator** of the silenced ent
 sensuctl silenced create \
 --subscription 'entity:i-424242' \
 --check 'check-http' \
---begin '2018-03-16 01:00:00 -04:00' \
+--begin '2021-03-14 01:00:00 -04:00' \
 --expire 3600 \
 --reason 'Server upgrade'
 {{< /code >}}
+
+This command creates the following silenced resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: Silenced
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: entity:i-424242:check-http
+  namespace: default
+spec:
+  begin: 1615698000
+  check: check-http
+  creator: admin
+  expire: 3600
+  expire_at: 1615701600
+  expire_on_resolve: false
+  reason: Server upgrade
+  subscription: entity:i-424242
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Silenced",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "entity:i-424242:check-http",
+    "namespace": "default"
+  },
+  "spec": {
+    "begin": 1615698000,
+    "check": "check-http",
+    "creator": "admin",
+    "expire": 3600,
+    "expire_at": 1615701600,
+    "expire_on_resolve": false,
+    "reason": "Server upgrade",
+    "subscription": "entity:i-424242"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 See the [sensuctl documentation][8] for the supported time formats for the `begin` flag.
 
@@ -51,16 +96,27 @@ See the [sensuctl documentation][8] for the supported time formats for the `begi
 
 Use sensuctl to verify that the silenced entry against the entity `i-424242` was created properly:
 
-{{< code shell >}}
-sensuctl silenced info 'entity:i-424242:check-http'
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl silenced info 'entity:i-424242:check-http' --format yaml
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl silenced info 'entity:i-424242:check-http' --format json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The response will list the silenced resource definition.
+
 
 After the silenced entry starts to take effect, events that are silenced will be marked as such in the response:
 
 {{< code shell >}}
    Entity         Check        Output       Status     Silenced          Timestamp
 ──────────────   ─────────    ─────────   ──────────── ────────── ───────────────────────────────
-   i-424242      check-http                    0          true     2018-03-16 13:22:16 -0400 EDT
+   i-424242      check-http                    0          true     2021-03-14 13:22:16 -0400 EDT
 {{< /code >}}
 
 {{% notice warning %}}
@@ -69,7 +125,7 @@ After the silenced entry starts to take effect, events that are silenced will be
 
 ## Next steps
 
-Next, read the [silencing reference][7] for in-depth documentation about silenced entries.
+Read the [silencing reference][7] for in-depth documentation about silenced entries.
 
 
 [1]: ../handlers/

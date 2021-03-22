@@ -207,7 +207,7 @@ In addition to built-in RBAC, Sensu Go's [commercial features][27] include suppo
 The Sensu agent is available for Ubuntu/Debian, RHEL/CentOS, Windows, and Docker.
 See the [installation guide][55] to install, configure, and start Sensu agents.
 
-If you're doing a side-by-side migration, add `api-port` (default: `3031`) and `socket-port` (default: `3030`) to your [agent configuration][56] (/etc/sensu/agent.yml).
+If you're doing a side-by-side migration, add `api-port` (default: `3031`) and `socket-port` (default: `3030`) to your [agent configuration][56] (`/etc/sensu/agent.yml`).
 This prevents the Sensu Go agent API and socket from conflicting with the Sensu Core client API and socket.
 
 {{< code yml >}}
@@ -345,19 +345,42 @@ Sensu Core hourly filter:
 
 Sensu Go hourly filter:
 
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: hourly
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0
+  runtime_assets: null
+{{< /code >}}
+
 {{< code json >}}
 {
+  "type": "EventFilter",
+  "api_version": "core/v2",
   "metadata": {
+    "created_by": "admin",
     "name": "hourly",
     "namespace": "default"
   },
-  "action": "allow",
-  "expressions": [
-    "event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0"
-  ],
-  "runtime_assets": null
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0"
+    ],
+    "runtime_assets": null
+  }
 }
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 #### 4. Translate handlers
 

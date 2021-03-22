@@ -5,7 +5,7 @@ description: "User documentation for installing and operating Sensu on Red Hat
 weight: 6
 version: "1.9"
 product: "Sensu Core"
-platformContent: true
+platformContent: false
 menu:
   sensu-core-1.9:
     parent: platforms

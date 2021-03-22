@@ -254,7 +254,7 @@ And:
 chmod 400 /etc/sensu/tls/*.pem
 {{< /code >}}
 
-## Installing CA certificates
+## Install CA certificates
 
 Before you move on, make sure you have copied the certificates and keys to each of the backend and agent systems you are securing:
 
@@ -302,14 +302,14 @@ TODO: Document steps for adding CA root to Windows trust store
 
 ## Next step: Secure Sensu
 
-Now that you have generated the required certificates and copied them to the applicable hosts, follow our [Secure Sensu][1] guide to make your Sensu installation production-ready.
+Now that you have generated the required certificates and copied them to the applicable hosts, follow [Secure Sensu][1] to make your Sensu installation production-ready.
 
 
 [1]: ../secure-sensu/
-[2]: ../secure-sensu/#etcd-peer-communication
-[3]: ../secure-sensu/#sensu-api-and-web-ui
-[4]: ../secure-sensu/#sensu-agent-to-server-communication
-[5]: ../secure-sensu/#sensu-agent-mtls-authentication
+[2]: ../secure-sensu/#secure-etcd-peer-communication
+[3]: ../secure-sensu/#secure-the-sensu-api-and-web-ui
+[4]: ../secure-sensu/#secure-sensu-agent-to-server-communication
+[5]: ../secure-sensu/#configure-sensu-agent-mtls-authentication
 [6]: https://github.com/cloudflare/cfssl
 [7]: https://etcd.io/docs/v3.3.13/op-guide/security/
 [8]: https://en.wikipedia.org/wiki/Public_key_infrastructure

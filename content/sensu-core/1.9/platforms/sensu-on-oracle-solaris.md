@@ -5,7 +5,7 @@ description: "User documentation for installing and operating Sensu on Solaris
 weight: 5
 version: "1.9"
 product: "Sensu Core"
-platformContent: true
+platformContent: false
 menu:
   sensu-core-1.9:
     parent: platforms
