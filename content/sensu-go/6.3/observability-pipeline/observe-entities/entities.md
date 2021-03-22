@@ -482,7 +482,7 @@ spec:
 
 {{< /language-toggle >}}
 
-Then run `sensuctl create` to create the entity based on the definition:
+Then run sensuctl create to create the entity based on the definition:
 
 {{< language-toggle >}}
 
