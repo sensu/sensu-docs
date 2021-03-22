@@ -572,6 +572,7 @@ spec:
     "namespace": "default",
     "labels": {
       "service_type": "datastore"
+    }
   },
   "spec": {
     "deregister": false,
