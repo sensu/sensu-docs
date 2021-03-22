@@ -33,7 +33,6 @@ This example shows the resource definition for an agent entity:
 {{< language-toggle >}}
 
 {{< code yml >}}
----
 type: Entity
 api_version: core/v2
 metadata:
@@ -258,7 +257,6 @@ This example shows the resource definition for a proxy entity:
 {{< language-toggle >}}
 
 {{< code yml >}}
----
 type: Entity
 api_version: core/v2
 metadata:
@@ -322,77 +320,6 @@ You can modify the proxy entity later if needed.
 
 Use [proxy entity filters][19] to establish a many-to-many relationship between agent entities and proxy entities if you want even more power over the grouping.
 
-## Create and manage service entities
-
-Service entities are dynamically created entities that Sensu adds to the entity store when a [service component][39] generates an event.
-Service entities allow Sensu to monitor [business monitoring services][38].
-
-You can create and modify service entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33].
-
-### Service entity example
-
-This example shows the resource definition for a service entity:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Entity
-api_version: core/v2
-metadata:
-  created_by: admin
-  name: postgresql
-  namespace: default
-spec:
-  deregister: false
-  deregistration: {}
-  entity_class: service
-  last_seen: 0
-  sensu_agent_version: ""
-  subscriptions: null
-  system:
-    cloud_provider: ""
-    libc_type: ""
-    network:
-      interfaces: null
-    processes: null
-    vm_role: ""
-    vm_system: ""
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Entity",
-  "api_version": "core/v2",
-  "metadata": {
-    "created_by": "admin",
-    "name": "postgresql",
-    "namespace": "default"
-  },
-  "spec": {
-    "deregister": false,
-    "deregistration": {
-    },
-    "entity_class": "service",
-    "last_seen": 0,
-    "sensu_agent_version": "",
-    "subscriptions": null,
-    "system": {
-      "cloud_provider": "",
-      "libc_type": "",
-      "network": {
-        "interfaces": null
-      },
-      "processes": null,
-      "vm_role": "",
-      "vm_system": ""
-    }
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
 ## Manage entity labels
 
 Labels are custom attributes that Sensu includes with observation data in events that you can use for response and web UI view searches.
@@ -401,36 +328,14 @@ In contrast to annotations, you can use labels to filter [API responses][14], [s
 Limit labels to metadata you need to use for response filtering and searches.
 For complex, non-identifying metadata that you will *not* need to use in response filtering and searches, use [annotations][20] rather than labels.
 
-### Agent entity labels {#agent-entities-managed}
-
-For new entities with class `agent`, you can define entity attributes in the `/etc/sensu/agent.yml` configuration file.
-For example, to add a `url` label, open `/etc/sensu/agent.yml` and add configuration for `labels`:
-
-{{< code yml >}}
-labels:
-  url: sensu.docs.io
-{{< /code >}}
-
-Or, use `sensu-agent start` configuration flags:
-
-{{< code shell >}}
-sensu-agent start --labels url=sensu.docs.io
-{{< /code >}}
-
-{{% notice note %}}
-**NOTE**: The entity attributes in `agent.yml` are used only for initial entity creation.
-Modify existing agent entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../../api/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
-{{% /notice %}}
-
 ### Proxy entity labels {#proxy-entities-managed}
 
 For entities with class `proxy`, you can create and manage labels with sensuctl.
-For example, to create a proxy entity with a `url` label using sensuctl create, first create a file named `proxy-example.yml` or `proxy-example.json` with an entity definition that includes labels:
+For example, to create a proxy entity with a `url` label using sensuctl `create`, create a file called `example.json` with an entity definition that includes `labels`:
 
 {{< language-toggle >}}
 
 {{< code yml >}}
----
 type: Entity
 api_version: core/v2
 metadata:
@@ -487,37 +392,56 @@ Then run `sensuctl create` to create the entity based on the definition:
 {{< language-toggle >}}
 
 {{< code shell "YML">}}
-sensuctl create --file proxy-example.yml
+sensuctl create --file entity.yml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl create --file proxy-example.json
+sensuctl create --file entity.json
 {{< /code >}}
 
 {{< /language-toggle >}}
 
-To add a label to an existing entity, use sensuctl edit.
-For example, to add a `proxy_type` label to the `sensu-docs` entity you just created:
+To add a label to an existing entity, use sensuctl `edit`.
+For example, run `sensuctl edit` to add a `url` label to a `sensu-docs` entity:
 
 {{< code shell >}}
 sensuctl edit entity sensu-docs
 {{< /code >}}
 
-And update the metadata scope to include the `proxy_type` label:
+And update the `metadata` scope to include `labels`:
+
+{{< language-toggle >}}
 
 {{< code yml >}}
----
 type: Entity
 api_version: core/v2
 metadata:
   labels:
     url: docs.sensu.io
-    proxy_type: website
   name: sensu-docs
   namespace: default
 spec:
   '...': '...'
 {{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-docs",
+    "namespace": "default",
+    "labels": {
+      "url": "docs.sensu.io"
+    }
+  },
+  "spec": {
+    "...": "..."
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 #### Proxy entity checks
 
@@ -528,112 +452,26 @@ On the first check result, if the proxy entity does not exist, Sensu will create
 After you create a proxy entity check, define which agents will run the check by configuring a subscription.
 See [Monitor external resources with proxy requests and entities][17] for details about creating a proxy check for a proxy entity.
 
-### Service entity labels
+### Agent entity labels {#agent-entities-managed}
 
-For entities with class `service`, you can create and manage labels with sensuctl.
-To create a service entity with a `service_type` label using sensuctl `create`, create a file called `service-entity.json` with an entity definition that includes `labels`:
-
-{{< language-toggle >}}
+For new entities with class `agent`, you can define entity attributes in the `/etc/sensu/agent.yml` configuration file.
+For example, to add a `url` label, open `/etc/sensu/agent.yml` and add configuration for `labels`:
 
 {{< code yml >}}
----
-type: Entity
-api_version: core/v2
-metadata:
-  created_by: admin
-  name: postgresql
-  namespace: default
-  labels:
-    service_type: datastore
-spec:
-  deregister: false
-  deregistration: {}
-  entity_class: service
-  last_seen: 0
-  sensu_agent_version: ""
-  subscriptions: null
-  system:
-    cloud_provider: ""
-    libc_type: ""
-    network:
-      interfaces: null
-    processes: null
-    vm_role: ""
-    vm_system: ""
+labels:
+  url: sensu.docs.io
 {{< /code >}}
 
-{{< code json >}}
-{
-  "type": "Entity",
-  "api_version": "core/v2",
-  "metadata": {
-    "created_by": "admin",
-    "name": "postgresql",
-    "namespace": "default",
-    "labels": {
-      "service_type": "datastore"
-    }
-  },
-  "spec": {
-    "deregister": false,
-    "deregistration": {
-    },
-    "entity_class": "service",
-    "last_seen": 0,
-    "sensu_agent_version": "",
-    "subscriptions": null,
-    "system": {
-      "cloud_provider": "",
-      "libc_type": "",
-      "network": {
-        "interfaces": null
-      },
-      "processes": null,
-      "vm_role": "",
-      "vm_system": ""
-    }
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-Then run sensuctl create to create the entity based on the definition:
-
-{{< language-toggle >}}
-
-{{< code shell "YML">}}
-sensuctl create --file service-entity.yml
-{{< /code >}}
-
-{{< code shell "JSON" >}}
-sensuctl create --file service-entity.json
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-To add a label to an existing service entity, use sensuctl edit.
-For example, to add a `url` label to a `postgresql` entity:
+Or, use `sensu-agent start` configuration flags:
 
 {{< code shell >}}
-sensuctl edit entity postgresql
+sensu-agent start --labels url=sensu.docs.io
 {{< /code >}}
 
-And update the metadata scope to include the `region` label:
-
-{{< code yml >}}
----
-type: Entity
-api_version: core/v2
-metadata:
-  labels:
-    service_type: datastore
-    region: us-west-1
-  name: postgresql
-  namespace: default
-spec:
-  '...': '...'
-{{< /code >}}
+{{% notice note %}}
+**NOTE**: The entity attributes in `agent.yml` are used only for initial entity creation.
+Modify existing agent entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../../api/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
+{{% /notice %}}
 
 ## Entities specification
 
@@ -973,7 +811,7 @@ annotations:
 
 entity_class |     |
 -------------|------ 
-description  | Entity type, validated with Go regex [`\A[\w\.\-]+\z`][21]. Class names have special meaning. An entity that runs an agent is class `agent` and is reserved. Setting the value of `entity_class` to `proxy` creates a proxy entity. An entity that represents a business service is class `service`. For other types of entities, the `entity_class` attribute isn’t required, and you can use it to indicate an arbitrary type of entity (like `lambda` or `switch`).
+description  | Entity type, validated with Go regex [`\A[\w\.\-]+\z`][21]. Class names have special meaning. An entity that runs an agent is class `agent` and is reserved. Setting the value of `entity_class` to `proxy` creates a proxy entity. For other types of entities, the `entity_class` attribute isn’t required, and you can use it to indicate an arbitrary type of entity (like `lambda` or `switch`).
 required     | true
 type         | String 
 example      | {{< language-toggle >}}
@@ -1811,5 +1649,3 @@ cpu_percent: 0.12639
 [35]: ../../observe-schedule/agent/#config-file
 [36]: ../../../api/entities/
 [37]: ../../../sensuctl/create-manage-resources/#update-resources
-[38]: ../../observe-schedule/business-service-monitoring/
-[39]: ../../observe-schedule/service-components/
