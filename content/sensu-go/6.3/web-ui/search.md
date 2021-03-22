@@ -237,4 +237,4 @@ You can sort all resources by name, but events and silences have additional sort
 [9]: #search-operators
 [11]: ../../operations/control-access/rbac/#namespaced-resource-types
 [12]: ../../operations/control-access/rbac/#roles-and-cluster-roles
-[13]: ../../operations/control-access/rbac/#example-workflows
+[13]: ../../operations/control-access/rbac/#create-a-role-and-role-binding
