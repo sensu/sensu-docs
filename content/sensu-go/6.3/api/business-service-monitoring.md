@@ -59,6 +59,7 @@ http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-component
             "status": "non-zero",
             "threshold": 25
           },
+          "name": "nonzero-25",
           "template": "status-threshold"
         }
       ],
@@ -95,6 +96,7 @@ http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-component
             "status": "non-zero",
             "threshold": 25
           },
+          "name": "nonzero-25",
           "template": "status-threshold"
         }
       ],
@@ -144,6 +146,7 @@ output         | {{< code json >}}
             "status": "non-zero",
             "threshold": 25
           },
+          "name": "nonzero-25",
           "template": "status-threshold"
         }
       ],
@@ -180,6 +183,7 @@ output         | {{< code json >}}
             "status": "non-zero",
             "threshold": 25
           },
+          "name": "nonzero-25",
           "template": "status-threshold"
         }
       ],
@@ -208,7 +212,8 @@ curl -X POST \
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "postgresql-3"
+    "name": "postgresql-3",
+    "namespace": "default"
   },
   "spec": {
     "cron": "",
@@ -229,6 +234,7 @@ curl -X POST \
           "status": "non-zero",
           "threshold": 25
         },
+        "name": "nonzero-25",
         "template": "status-threshold"
       }
     ],
@@ -254,7 +260,8 @@ payload         | {{< code json >}}
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "postgresql-3"
+    "name": "postgresql-3",
+    "namespace": "default"
   },
   "spec": {
     "cron": "",
@@ -275,6 +282,7 @@ payload         | {{< code json >}}
           "status": "non-zero",
           "threshold": 25
         },
+        "name": "nonzero-25",
         "template": "status-threshold"
       }
     ],
@@ -326,6 +334,7 @@ http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-component
           "status": "non-zero",
           "threshold": 25
         },
+        "name": "nonzero-25",
         "template": "status-threshold"
       }
     ],
@@ -364,7 +373,7 @@ output               | {{< code json >}}
     "query": [
       {
         "type": "labelSelector",
-        "value": "region == 'us-west-3' && cmpt == psql"
+        "value": "region == 'us-west-1' && cmpt == psql"
       }
     ],
     "rules": [
@@ -373,6 +382,7 @@ output               | {{< code json >}}
           "status": "non-zero",
           "threshold": 25
         },
+        "name": "nonzero-25",
         "template": "status-threshold"
       }
     ],
@@ -400,7 +410,8 @@ curl -X PUT \
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "postgresql-1"
+    "name": "postgresql-1",
+    "namespace": "default"
   },
   "spec": {
     "cron": "",
@@ -421,6 +432,7 @@ curl -X PUT \
           "status": "non-zero",
           "threshold": 25
         },
+        "name": "nonzero-25",
         "template": "status-threshold"
       }
     ],
@@ -446,7 +458,8 @@ payload         | {{< code json >}}
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "postgresql-1"
+    "name": "postgresql-1",
+    "namespace": "default"
   },
   "spec": {
     "cron": "",
@@ -467,6 +480,7 @@ payload         | {{< code json >}}
           "status": "non-zero",
           "threshold": 25
         },
+        "name": "nonzero-25",
         "template": "status-threshold"
       }
     ],
@@ -698,7 +712,8 @@ curl -X POST \
   "type": "RuleTemplate",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "status-threshold"
+    "name": "status-threshold",
+    "namespace": "default"
   },
   "spec": {
     "arguments": {
@@ -742,7 +757,8 @@ payload         | {{< code json >}}
   "type": "RuleTemplate",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "status-threshold"
+    "name": "status-threshold",
+    "namespace": "default"
   },
   "spec": {
     "arguments": {
@@ -884,7 +900,8 @@ curl -X PUT \
   "type": "RuleTemplate",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "status-threshold"
+    "name": "status-threshold",
+    "namespace": "default"
   },
   "spec": {
     "arguments": {
@@ -928,7 +945,8 @@ payload         | {{< code json >}}
   "type": "RuleTemplate",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "status-threshold"
+    "name": "status-threshold",
+    "namespace": "default"
   },
   "spec": {
     "arguments": {
