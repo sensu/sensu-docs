@@ -22,7 +22,7 @@ and jump directly to [installing Sensu Enterprise][9]._
 
 ## Sensu Core (OSS) {#sensu-core}
 
-_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][1], and we [permanently removed][2] the Sensu EOL repository on February 1, 2021. To migrate to Sensu Go, read the [Sensu Core migration guide][3]._
+_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][1], and we [permanently removed][2] the Sensu EOL repository on February 1, 2021. To migrate to Sensu Go, read [Migrate from Sensu Core and Sensu Enterprise to Sensu Go][3]._
 
 Sensu Core is installed via native system installer package formats (e.g. .deb, .rpm, .msi, .pkg, etc), which are available for download using the links listed below and from package manager repositories for APT (for Ubuntu/Debian systems) and YUM (for RHEL/CentOS).
 
@@ -49,7 +49,7 @@ running the `sensu-server` and `sensu-api` processes._
 
 ## Sensu Enterprise
 
-_IMPORTANT: [Sensu Enterprise reached end-of-life (EOL) on March 31, 2020][1], and we [permanently removed][2] the Sensu EOL repository on February 1, 2021. To migrate to Sensu Go, read the [Sensu Enterprise migration guide][4]._
+_IMPORTANT: [Sensu Enterprise reached end-of-life (EOL) on March 31, 2020][1], and we [permanently removed][2] the Sensu EOL repository on February 1, 2021. To migrate to Sensu Go, read [Migrate from Sensu Core and Sensu Enterprise to Sensu Go][3]._
 
 Sensu Enterprise is installed via native system installer packages for
 Linux-based operating systems, only (i.e. .deb and .rpm). The Sensu Enterprise
@@ -63,6 +63,5 @@ functionality of Sensu server and API in a single process.
 
 [1]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
 [2]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
-[3]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/
-[4]: https://docs.sensu.io/sensu-enterprise/latest/migration/
+[3]: /sensu-go/latest/operations/maintain-sensu/migrate/
 [9]: #sensu-enterprise

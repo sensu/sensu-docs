@@ -29,6 +29,10 @@ For a turnkey experience with the Sensu EC2 Handler plugin, use our curated, con
 You can also add the [Sensu EC2 Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing EC2 workflows.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
+## More resources
+
+- Set up a [limited service account][9] with the access and permissions required to automatically remove AWS EC2 instances using the Sensu EC2 Handler integration.
+
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
@@ -37,4 +41,5 @@ You can also add the [Sensu EC2 Handler plugin][4] with a dynamic runtime asset 
 [5]: ../../assets
 [6]: ../../../commercial/
 [7]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags
-[8]: https://github.com/sensu-community/monitoring-pipelines/blob/latest/deregistration/aws-ec2.yaml
+[8]: https://github.com/sensu/catalog/blob/main/pipelines/deregistration/aws-ec2.yaml
+[9]: ../../../operations/control-access/create-limited-service-accounts/

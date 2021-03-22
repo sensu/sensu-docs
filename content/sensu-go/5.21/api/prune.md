@@ -26,7 +26,7 @@ The code examples in this document use the [environment variable](../#configure-
 The `/prune/v1alpha` API endpoint provides HTTP POST access to create a pruning command to delete resources that are not specified in the request body.
 
 {{% notice note %}}
-**NOTE**: The prune API requires [cluster-level privileges](../../reference/rbac/#cluster-roles), even when all resources belong to the same namespace.
+**NOTE**: The prune API requires [cluster-level privileges](../../reference/rbac/#roles-and-cluster-roles), even when all resources belong to the same namespace.
 {{% /notice %}}
 
 ### Example {#prune-v1alpha-post-example}

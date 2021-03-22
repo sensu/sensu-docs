@@ -3,7 +3,7 @@ title: "Populate metrics in InfluxDB with handlers"
 linkTitle: "Populate Metrics in InfluxDB"
 guide_title: "Populate metrics in InfluxDB with handlers"
 type: "guide"
-description: "A Sensu event handler is an action the Sensu backend executes when a specific event occurs. This guide helps you use an event handler to populate Sensu metrics into the time series database InfluxDB."
+description: "A Sensu event handler is an action the Sensu backend executes when a specific event occurs. This guide helps you use an event handler to populate Sensu metrics into the time-series database InfluxDB."
 weight: 50
 version: "6.1"
 product: "Sensu Go"
@@ -14,10 +14,10 @@ menu:
 ---
 
 A Sensu event handler is an action the Sensu backend executes when a specific [event][1] occurs.
-In this guide, you'll use a handler to populate the time series database [InfluxDB][2].
+In this guide, you'll use a handler to populate the time-series database [InfluxDB][2].
 If you're not familiar with handlers, consider reading the [handlers reference][9] before continuing through this guide.
 
-The example in this guide explains how to populate Sensu metrics into the time series database [InfluxDB][2].
+The example in this guide explains how to populate Sensu metrics into the time-series database [InfluxDB][2].
 Metrics can be collected from [check output][10] or the [Sensu StatsD Server][3].
 
 ## Register the dynamic runtime asset
@@ -29,6 +29,11 @@ Use [`sensuctl asset add`][5] to register the [Sensu InfluxDB Handler][13] dynam
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.1.2 -r influxdb-handler
+{{< /code >}}
+
+The response will confirm that the asset was added:
+
+{{< code shell >}}
 fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.2
 added asset: sensu/sensu-influxdb-handler:3.1.2
 
@@ -62,13 +67,27 @@ sensuctl handler create influx-db \
 --runtime-assets influxdb-handler
 {{< /code >}}
 
-You should see a confirmation message from sensuctl:
+You should see a confirmation message:
 
 {{< code shell >}}
 Created
 {{< /code >}}
 
-You can also create the handler definition in your monitoring-as-code repository:
+To see the complete resource definition for the handler resource you just created with sensuctl, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl handler info influx-db --format yaml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl handler info influx-db --format json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The `influx-db` handler resource definition will be similar to this example:
 
 {{< language-toggle >}}
 
@@ -125,41 +144,146 @@ spec:
 
 {{< /language-toggle >}}
 
-## Assign the handler to an event
+You can share, reuse, and maintain this handler just like you would code: [save it to a file][6] and start building a [monitoring as code repository][7].
+
+## Assign the InfluxDB handler to a check
 
 With the `influx-db` handler created, you can assign it to a check for check output metric extraction. 
-For example, suppose you followed [Collect service metrics with Sensu checks][10] to create the check named `collect-metrics`.
+For example, if you followed [Collect service metrics with Sensu checks][10], you created the check named `collect-metrics`.
+You can update the check's output metric format and output metric handlers to extract the metrics with your `influx-db` handler.
 
-Update the output metric format and output metric handlers to use the check with InfluxDB:
+To update the output metric format, run:
 
 {{< code shell >}}
 sensuctl check set-output-metric-format collect-metrics influxdb_line
+{{< /code >}}
+
+To update the output metric handlers, run:
+
+{{< code shell >}}
 sensuctl check set-output-metric-handlers collect-metrics influx-db
 {{< /code >}}
 
-You can also assign the handler to the [Sensu StatsD listener][3] at agent startup to pass all StatsD metrics into InfluxDB:
+You should see a confirmation message:
+
+{{< code shell >}}
+Updated
+{{< /code >}}
+
+To see the updated check resource definition, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl check info collect-metrics --format yaml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl check info collect-metrics --format json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The updated `collect-metrics` check definition will be similar to this example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: collect-metrics
+  namespace: default
+spec:
+  check_hooks: null
+  command: metrics-disk-usage.rb
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
+  interval: 60
+  low_flap_threshold: 0
+  output_metric_format: influxdb_line
+  output_metric_handlers:
+  - influx-db
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets:
+  - sensu-plugins/sensu-plugins-disk-checks
+  - sensu/sensu-ruby-runtime
+  secrets: null
+  stdin: false
+  subdue: null
+  subscriptions:
+  - linux
+  timeout: 0
+  ttl: 0
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "collect-metrics",
+    "namespace": "default"
+  },
+  "spec": {
+    "check_hooks": null,
+    "command": "metrics-disk-usage.rb",
+    "env_vars": null,
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 60,
+    "low_flap_threshold": 0,
+    "output_metric_format": "influxdb_line",
+    "output_metric_handlers": [
+      "influx-db"
+    ],
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": [
+      "sensu-plugins/sensu-plugins-disk-checks",
+      "sensu/sensu-ruby-runtime"
+    ],
+    "secrets": null,
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "linux"
+    ],
+    "timeout": 0,
+    "ttl": 0
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Assign the InfluxDB handler to the Sensu StatsD listener
+
+To assign your `influx-db` handler to the [Sensu StatsD listener][3] at agent startup and pass all StatsD metrics into InfluxDB:
 
 {{< code shell >}}
 sensu-agent start --statsd-event-handlers influx-db
 {{< /code >}}
 
-## Validate the handler
+## Validate the InfluxDB handler
 
 It might take a few moments after you assign the handler to the check or StatsD server for Sensu to receive the metrics, but after an event is handled you should start to see metrics populating InfluxDB.
 You can verify proper handler behavior with `sensu-backend` logs.
 See [Troubleshoot Sensu][8] for log locations by platform.
 
-Whenever an event is being handled, a log entry is added with the message `"handler":"influx-db","level":"debug","msg":"sending event to handler"`,
-followed by a second log entry with the message `"msg":"pipelined executed event pipe
+Whenever an event is being handled, a log entry is added with the message `"handler":"influx-db","level":"debug","msg":"sending event to handler"`, followed by a second log entry with the message `"msg":"pipelined executed event pipe
 handler","output":"","status":0`.
 
 ## Next steps
 
-Now that you know how to apply a handler to metrics and take action on events, here are a few other recommended resources:
-
-* [Handlers reference][9]
-* [Aggregate metrics with the Sensu StatsD listener][3]
-* [Collect metrics with Sensu checks][10]
+Now that you know how to apply a handler to metrics and take action on events, read the [handlers reference][9] to learn more about using Sensu handlers.
 
 
 [1]: ../../observe-events/events/
@@ -167,6 +291,8 @@ Now that you know how to apply a handler to metrics and take action on events, h
 [3]: ../aggregate-metrics-statsd/
 [4]: https://github.com/sensu/sensu-influxdb-handler#installation
 [5]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
+[6]: ../../../operations/monitoring-as-code/#build-as-you-go
+[7]: ../../../operations/monitoring-as-code/
 [8]: ../../../operations/maintain-sensu/troubleshoot/
 [9]: ../handlers/
 [10]: ../../observe-schedule/collect-metrics-with-checks/

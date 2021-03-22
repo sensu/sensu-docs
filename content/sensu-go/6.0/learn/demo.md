@@ -17,15 +17,18 @@ Log in with username `guest` and password `i<3sensu`.
 Explore the <a href="https://caviar.tf.sensu.io:3000/default/entities" onclick="ga('send', 'event', 'Demo', 'Click', 'Entities page');">Entities page</a> to see what Sensu is monitoring, the <a href="https://caviar.tf.sensu.io:3000/default/events" onclick="ga('send', 'event', 'Demo', 'Click', 'Events page');">Events page</a> to see the latest observability events, and the <a href="https://caviar.tf.sensu.io:3000/default/checks" onclick="ga('send', 'event', 'Demo', 'Click', 'Checks page');">Checks page</a> to see active service and metric checks.
 
 You can also use the demo to try out sensuctl, the Sensu command line tool.
-First, [install sensuctl][1] on your workstation. Then, configure sensuctl to connect to the demo:
+First, [install sensuctl][1] on your workstation.
+Then, configure sensuctl to connect to the demo.
+
+Run `sensuctl configure` and enter the following information:
 
 {{< code shell >}}
-sensuctl configure
+? Authentication method: username/password
 ? Sensu Backend URL: https://caviar.tf.sensu.io:8080
-? Username: guest
-? Password: i<3sensu
 ? Namespace: default
 ? Preferred output format: tabular
+? Username: guest
+? Password: i<3sensu
 {{< /code >}}
 
 With sensuctl configured, to see the latest observability events, run:

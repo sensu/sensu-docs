@@ -62,7 +62,7 @@ API request bodies are limited to 0.512 MB in size.
 
 ## Access control
 
-With the exception of the [authentication][12], [health][5], and [metrics][6] APIs, the Sensu API requires authentication using a JSON Web Token (JWT) [access token][20] or [API key][17].
+With the exception of the [authentication][12], [health][5], and [metrics][6] APIs, the Sensu API requires authentication using a [JSON Web Token][27] (JWT) [access token][20] or [API key][17].
 
 Code examples in the Sensu API docs use the environment variable `$SENSU_API_KEY` to represent a valid API key in API requests.
 
@@ -73,16 +73,23 @@ For information about using Sensu's built-in basic authentication or external au
 
 ### Authentication quickstart
 
-To set up a local API testing environment, save your Sensu credentials and token as environment variables:
+To set up a local API testing environment, save your Sensu credentials and access token as environment variables.
+
+Save your Sensu credentials as environemnt variables:
 
 {{< code shell >}}
-# Requires curl and jq
 export SENSU_USER=YOUR_USERNAME && SENSU_PASS=YOUR_PASSWORD
-
-export SENSU_ACCESS_TOKEN=`curl -X GET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
 {{< /code >}}
 
-The [sensuctl reference][7] demonstrates how to use the `sensuctl env` command to export your access token, token expiry time, and refresh token as environment variables.
+Save your Sensu access token as an environment variable:
+
+{{% notice note %}}
+**NOTE**: The command to save your access token as an environment variable requires curl and jq.
+{{% /notice %}}
+
+{{< code shell >}}
+export SENSU_ACCESS_TOKEN=`curl -X GET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
+{{< /code >}}
 
 ### Authenticate with the authentication API
 
@@ -102,6 +109,7 @@ The access token should be included in the output, along with a refresh token:
   "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
 }
 {{< /code >}}
+The access and refresh tokens are [JWTs][2] that Sensu uses to digitally sign the details of users' authenticated Sensu sessions.
 
 2. Use the access token in the authentication header of the API request.
 For example:
@@ -132,9 +140,9 @@ The new access token should be included in the output:
 ### Generate an API token with sensuctl
 
 You can also generate an API access token using the sensuctl command line tool.
-The user credentials that you use to log in to sensuctl determine your permissions to get, list, create, update, and delete resources with the Sensu API.
+The user credentials that you use to configure sensuctl determine your permissions to get, list, create, update, and delete resources with the Sensu API.
 
-1. [Install and log in to sensuctl][2].
+1. [Install and configure sensuctl][2].
 
 2. Retrieve an access token for your user:
 {{< code shell >}}
@@ -216,28 +224,10 @@ curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/na
 This example uses the API key directly (rather than via an environment variable) to authenticate to the checks API:
 
 {{< code shell >}}
-$ curl -H "Authorization: Key 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
-
-HTTP/1.1 200 OK
-[
-  {
-    "command": "check-cpu.sh -w 75 -c 90",
-    "handlers": [
-      "slack"
-    ],
-    "interval": 60,
-    "publish": true,
-    "subscriptions": [
-      "linux"
-    ],
-    "metadata": {
-      "name": "check-cpu",
-      "namespace": "default",
-      "created_by": "admin"
-    }
-  }
-]
+curl -H "Authorization: Key 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
 {{< /code >}}
+
+A successful request will return the HTTP response code `HTTP/1.1 200 OK` and the definitions for the checks in the default namespace.
 
 ## Pagination
 
@@ -716,3 +706,4 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [20]: #authenticate-with-the-authentication-api
 [25]: ../sensuctl/
 [26]: ../web-ui/
+[27]: https://tools.ietf.org/html/rfc7519

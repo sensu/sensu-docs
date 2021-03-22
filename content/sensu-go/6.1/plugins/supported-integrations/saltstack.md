@@ -37,7 +37,7 @@ You can also add the [Sensu SaltStack Handler plugin][4] with a dynamic runtime 
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
-[3]: https://github.com/sensu-community/monitoring-pipelines/blob/latest/remediation/saltstack.yaml
+[3]: https://github.com/sensu/catalog/blob/main/pipelines/remediation/saltstack.yaml
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-saltstack-handler
 [5]: ../../assets
 [6]: ../../../commercial/

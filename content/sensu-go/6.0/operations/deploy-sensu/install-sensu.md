@@ -312,7 +312,7 @@ sensuctl configure -n \
 Here, the `-n` flag triggers non-interactive mode.
 Run `sensuctl config view` to see your user profile.
 
-For more information about sensuctl, see the [quickstart][23] and [reference][4] docs.
+For more information about sensuctl, see the [sensuctl documentation][4].
 
 ### Change default admin password
 
@@ -511,11 +511,22 @@ Sensu Inc. offers support packages for Sensu Go and [commercial features][20] de
 All commercial features are [free for your first 100 entities][29].
 To learn more about Sensu Go commercial licenses for more than 100 entities, [contact the Sensu sales team][11].
 
-If you already have a Sensu commercial license, [log in to your Sensu account][34] and download your license file, then add your license using sensuctl.
+If you already have a Sensu commercial license, [log in to your Sensu account][34] and download your license file.
+Save your license to a file such as `sensu_license.yml` or `sensu_license.json`.
 
-{{< code shell >}}
+Use sensuctl to activate your license:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file sensu_license.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
 sensuctl create --file sensu_license.json
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 You can use sensuctl to view your license details at any time.
 
@@ -546,7 +557,6 @@ sensuctl license info
 [20]: ../../../commercial/
 [21]: #install-the-sensu-backend
 [22]: ../cluster-sensu/
-[23]: ../../../sensuctl/
 [24]: #4-open-the-web-ui
 [25]: ../hardware-requirements/
 [26]: ../../../api/

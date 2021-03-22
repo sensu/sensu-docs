@@ -15,7 +15,7 @@ It works by calling Sensu's underlying API to create, read, update, and delete r
 Sensuctl is available for Linux, macOS, and Windows.
 See [Install Sensu][2] to install and configure sensuctl.
 
-## First-time setup
+## First-time setup and authentication
 
 To set up sensuctl, run `sensuctl configure` to log in to sensuctl and connect to the Sensu backend:
 
@@ -33,6 +33,13 @@ When prompted, type the [Sensu backend URL][6] and your [Sensu access credential
 ? Preferred output format: tabular
 {{< /code >}}
 
+Sensuctl uses your username and password to obtain access and refresh tokens via the [Sensu authentication API][14].
+The access and refresh tokens are HMAC-SHA256 [JSON Web Tokens (JWTs)][16] that Sensu issues to record the details of users' authenticated Sensu sessions.
+The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
+
+Upon successful authentication, sensuctl stores the access and refresh tokens in a "cluster" configuration file under the current user's home directory.
+For example, on Unix systems, sensuctl stores the tokens in `$HOME/.config/sensu/sensuctl/cluster`.
+
 ### Sensu backend URL
 
 The Sensu backend URL is the HTTP or HTTPS URL where sensuctl can connect to the Sensu backend server.
@@ -46,19 +53,32 @@ For information about configuring the Sensu backend URL, see the [backend refere
 During configuration, sensuctl creates configuration files that contain information for connecting to your Sensu Go deployment.
 You can find these files at `$HOME/.config/sensu/sensuctl/profile` and `$HOME/.config/sensu/sensuctl/cluster`.
 
-For example:
+Use the `cat` command to view the contents of these files.
+For example, to view your sensuctl profile configuration, run:
 
 {{< code shell >}}
 cat .config/sensu/sensuctl/profile
+{{< /code >}}
+
+The response should be similar to this example:
+
+{{< code shell >}}
 {
   "format": "tabular",
-  "namespace": "demo",
+  "namespace": "default",
   "username": "admin"
 }
 {{< /code >}}
 
+To view your sensuctl cluster configuration, run:
+
 {{< code shell >}}
 cat .config/sensu/sensuctl/cluster 
+{{< /code >}}
+
+The response should be similar to this example:
+
+{{< code shell >}}
 {
   "api-url": "http://localhost:8080",
   "trusted-ca-file": "",
@@ -83,9 +103,12 @@ For more information about configuring Sensu access control, see the [RBAC refer
 If you are using Docker and you do not include the environment variables to set administrator credentials, the backend will initialize with the default username (`admin`) and password (`P@ssw0rd!`).
 {{% /notice %}} 
 
+Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
+For more information about configuring Sensu access control, see the [RBAC reference][1].
+
 ### Change admin user's password
 
-After you have [installed and configured sensuctl][12], you can change the admin user's password.
+After you have [configured sensuctl and authenticated][12], you can change the admin user's password.
 Run:
 
 {{< code shell >}}
@@ -333,6 +356,8 @@ create  delete  import  list
 [9]: ../api/
 [10]: ../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
 [11]: ../operations/control-access/#use-built-in-basic-authentication
-[12]: #first-time-setup
+[12]: #first-time-setup-and-authentication
 [13]: create-manage-resources/#update-resources
+[14]: ../api/auth/
 [15]: https://en.wikipedia.org/wiki/Bcrypt
+[16]: https://tools.ietf.org/html/rfc7519
