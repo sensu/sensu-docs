@@ -151,16 +151,15 @@ The following table describes the command-specific flags.
 --------------------|---|---|---|
 `AdhocRequest` | `adhoc_request` | `Asset` | `asset`
 `CheckConfig` | `check_config` | `ClusterRole`  | `cluster_role`
-`ClusterRoleBinding`  | `cluster_role_binding` | [`ServiceComponent`][38] | `Entity`
-[`Env`][24] | `entity` | [`EtcdReplicators`][29] | `Event`
-`event`| `EventFilter` | `event_filter` | [`GlobalConfig`][11]
-`Handler`  | `handler` | `Hook` | `hook`
-`HookConfig` | `hook_config` | `Mutator` | `mutator`
-`Namespace` | `namespace` | `Role` | `role`
-`RoleBinding` | `role_binding` | [`RuleTemplate`][39] | [`Secret`][28]
-`Silenced` | `silenced` | [`User`][8] | `user`
-[`VaultProvider`][24] | [`ldap`][26] | [`ad`][25] | [`oidc`][37]
-[`TessenConfig`][27] | [`PostgresConfig`][32]
+`ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | [`Env`][24]
+`entity` | [`EtcdReplicators`][29] | `Event` | `event`
+`EventFilter` | `event_filter` | [`GlobalConfig`][11] | `Handler`
+`handler` | `Hook` | `hook` | `HookConfig`
+`hook_config` | `Mutator` | `mutator` | `Namespace`
+`namespace` | `Role` | `role` | `RoleBinding`
+`role_binding` | [`Secret`][28] | `Silenced` | `silenced`
+[`User`][8] | `user` | [`VaultProvider`][24] | [`ldap`][26] | [`ad`][25]
+[`oidc`][37] | [`TessenConfig`][27] | [`PostgresConfig`][32]
 
 ### Create resources across namespaces
 
@@ -313,10 +312,10 @@ Requests to update agent-managed entities via sensuctl will fail and return an e
 |sensuctl edit types |   |   |   |
 --------------------|---|---|---|
 `asset` | `check` | `cluster` | `cluster-role`
-`cluster-role-binding` | `bsm/v1.ServiceComponent` | `entity` | `event`
-`filter` | `handler` | `hook` | `mutator`
-`namespace` | `role` | `role-binding` | `bsm/v1.RuleTemplate`
-`silenced` | `user` | [`auth`][26] | | 
+`cluster-role-binding` | `entity` | `event` | `filter`
+`handler` | `hook` | `mutator` | `namespace`
+`role` | `role-binding` | `silenced` | `user`
+[`auth`][26] | | |
  
 ## Manage resources
 
