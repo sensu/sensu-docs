@@ -366,7 +366,7 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [13]: https://github.com/sensu/sensu-go-chef/
 [14]: https://github.com/sensu/sensu-puppet/
 [15]: https://sensu.io/enterprise/
-[16]: https://github.com/sensu/sensu-go/blob/master/CONTRIBUTING.md
+[16]: https://www.github.com/sensu/sensu-go/blob/main/CONTRIBUTING.md
 [17]: https://github.com/jaredledvina/sensu-go-ansible/
 [18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.5/sensu-go_6.2.5_linux_armv7.tar.gz
 [20]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.5/sensu-go_6.2.5_linux_amd64.zip

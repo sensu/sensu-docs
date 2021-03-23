@@ -1278,9 +1278,9 @@ To get started with Sensu Go:
 [2]: https://semver.org/spec/v2.0.0.html
 [3]: /sensu-go/5.1/installation/upgrade#upgrading-sensu-backend-binaries-to-5-1-0
 [4]: /sensu-go/5.1/reference/agent/
-[5]: https://www.github.com/sensu/sensu-go/blob/master/CHANGELOG.md#500---2018-11-30
+[5]: https://www.github.com/sensu/sensu-go/blob/main/CHANGELOG.md#500---2018-11-30
 [6]: https://sensu.io/blog/sensu-go-is-here/
-[7]: https://www.github.com/sensu/sandbox/tree/master/sensu-go/core/
+[7]: https://www.github.com/sensu/sandbox/tree/main/sensu-go/core/
 [8]: /sensu-go/5.0/installation/install-sensu/
 [9]: /sensu-go/5.0/guides/monitor-server-resources/
 [10]: /sensu-go/5.1/reference/rbac#managing-users
