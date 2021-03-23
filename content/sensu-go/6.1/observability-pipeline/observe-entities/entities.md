@@ -311,14 +311,36 @@ In contrast to annotations, you can use labels to filter [API responses][14], [s
 Limit labels to metadata you need to use for response filtering and searches.
 For complex, non-identifying metadata that you will *not* need to use in response filtering and searches, use [annotations][20] rather than labels.
 
+### Agent entity labels {#agent-entities-managed}
+
+For new entities with class `agent`, you can define entity attributes in the `/etc/sensu/agent.yml` configuration file.
+For example, to add a `url` label, open `/etc/sensu/agent.yml` and add configuration for `labels`:
+
+{{< code yml >}}
+labels:
+  url: sensu.docs.io
+{{< /code >}}
+
+Or, use `sensu-agent start` configuration flags:
+
+{{< code shell >}}
+sensu-agent start --labels url=sensu.docs.io
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: The entity attributes in `agent.yml` are used only for initial entity creation.
+Modify existing agent entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../../api/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
+{{% /notice %}}
+
 ### Proxy entity labels {#proxy-entities-managed}
 
 For entities with class `proxy`, you can create and manage labels with sensuctl.
-For example, to create a proxy entity with a `url` label using sensuctl `create`, create a file called `example.json` with an entity definition that includes `labels`:
+For example, to create a proxy entity with a `url` label using sensuctl create, first create a file named `proxy-example.yml` or `proxy-example.json` with an entity definition that includes labels:
 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Entity
 api_version: core/v2
 metadata:
@@ -370,30 +392,28 @@ spec:
 
 {{< /language-toggle >}}
 
-Then run `sensuctl create` to create the entity based on the definition:
+Then run sensuctl create to create the entity based on the definition:
 
 {{< language-toggle >}}
 
 {{< code shell "YML">}}
-sensuctl create --file entity.yml
+sensuctl create --file proxy-example.yml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl create --file entity.json
+sensuctl create --file proxy-example.json
 {{< /code >}}
 
 {{< /language-toggle >}}
 
-To add a label to an existing entity, use sensuctl `edit`.
-For example, run `sensuctl edit` to add a `url` label to a `sensu-docs` entity:
+To add a label to an existing entity, use sensuctl edit.
+For example, to add a `proxy_type` label to the `sensu-docs` entity you just created:
 
 {{< code shell >}}
 sensuctl edit entity sensu-docs
 {{< /code >}}
 
-And update the `metadata` scope to include `labels`:
-
-{{< language-toggle >}}
+And update the metadata scope to include the `proxy_type` label:
 
 {{< code yml >}}
 type: Entity
@@ -401,30 +421,12 @@ api_version: core/v2
 metadata:
   labels:
     url: docs.sensu.io
+    proxy_type: website
   name: sensu-docs
   namespace: default
 spec:
   '...': '...'
 {{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Entity",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "sensu-docs",
-    "namespace": "default",
-    "labels": {
-      "url": "docs.sensu.io"
-    }
-  },
-  "spec": {
-    "...": "..."
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
 
 #### Proxy entity checks
 
@@ -434,27 +436,6 @@ On the first check result, if the proxy entity does not exist, Sensu will create
 
 After you create a proxy entity check, define which agents will run the check by configuring a subscription.
 See [Monitor external resources with proxy requests and entities][17] for details about creating a proxy check for a proxy entity.
-
-### Agent entity labels {#agent-entities-managed}
-
-For new entities with class `agent`, you can define entity attributes in the `/etc/sensu/agent.yml` configuration file.
-For example, to add a `url` label, open `/etc/sensu/agent.yml` and add configuration for `labels`:
-
-{{< code yml >}}
-labels:
-  url: sensu.docs.io
-{{< /code >}}
-
-Or, use `sensu-agent start` configuration flags:
-
-{{< code shell >}}
-sensu-agent start --labels url=sensu.docs.io
-{{< /code >}}
-
-{{% notice note %}}
-**NOTE**: The entity attributes in `agent.yml` are used only for initial entity creation.
-Modify existing agent entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../../api/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
-{{% /notice %}}
 
 ## Entities specification
 
