@@ -44,26 +44,28 @@ The monitoring rule template for the service component is `status-threshold`.
 type: ServiceComponent
 api_version: bsm/v1
 metadata:
-  name: postgresql-component
+  name: postgresql-1
   namespace: default
   created_by: admin
 spec:
-  services:
-    - account-manager
-    - tessen
-  interval: 60
-  cron: ""
-  query:
-    - type: labelSelector
-      value: region == us-west-2 && cmpt == psql
-  rules:
-    - template: status-threshold
-      arguments:
-        status: non-zero
-        threshold: 25
+  cron: ''
   handlers:
-    - pagerduty
-    - slack
+  - pagerduty
+  - slack
+  interval: 60
+  query:
+  - type: labelSelector
+    value: region == 'us-west-1' && cmpt == psql
+  rules:
+  - arguments:
+      status: non-zero
+      threshold: 25
+    name: nonzero-25
+    template: status-threshold
+  services:
+  - account-manager
+  - tessen
+
 {{< /code >}}
 
 {{< code json >}}
@@ -71,35 +73,36 @@ spec:
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "postgresql-component",
+    "name": "postgresql-1",
     "namespace": "default",
     "created_by": "admin"
   },
   "spec": {
-    "services": [
-      "account-manager",
-      "tessen"
+    "cron": "",
+    "handlers": [
+      "pagerduty",
+      "slack"
     ],
     "interval": 60,
-    "cron": "",
     "query": [
       {
         "type": "labelSelector",
-        "value": "region == us-west-2 && cmpt == psql"
+        "value": "region == 'us-west-1' && cmpt == psql"
       }
     ],
     "rules": [
       {
-        "template": "status-threshold",
         "arguments": {
           "status": "non-zero",
           "threshold": 25
-        }
+        },
+        "name": "nonzero-25",
+        "template": "status-threshold"
       }
     ],
-    "handlers": [
-      "pagerduty",
-      "slack"
+    "services": [
+      "account-manager",
+      "tessen"
     ]
   }
 }
@@ -151,14 +154,14 @@ type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 metadata:
-  name: postgresql-component
+  name: postgresql-1
   namespace: default
   created_by: admin
 {{< /code >}}
 {{< code json >}}
 {
   "metadata": {
-    "name": "postgresql-component",
+    "name": "postgresql-1",
     "namespace": "default",
     "created_by": "admin"
   }
@@ -174,50 +177,52 @@ type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 spec:
-  services:
-    - account-manager
-    - tessen
-  interval: 60
-  cron: ""
-  query:
-    - type: labelSelector
-      value: region == us-west-2 && cmpt == psql
-  rules:
-    - template: status-threshold
-      arguments:
-        status: non-zero
-        threshold: 25
+  cron: ''
   handlers:
-    - pagerduty
-    - slack
+  - pagerduty
+  - slack
+  interval: 60
+  query:
+  - type: labelSelector
+    value: region == 'us-west-1' && cmpt == psql
+  rules:
+  - arguments:
+      status: non-zero
+      threshold: 25
+    name: nonzero-25
+    template: status-threshold
+  services:
+  - account-manager
+  - tessen
 {{< /code >}}
 {{< code json >}}
 {
   "spec": {
-    "services": [
-      "account-manager",
-      "tessen"
+    "cron": "",
+    "handlers": [
+      "pagerduty",
+      "slack"
     ],
     "interval": 60,
-    "cron": "",
     "query": [
       {
         "type": "labelSelector",
-        "value": "region == us-west-2 && cmpt == psql"
+        "value": "region == 'us-west-1' && cmpt == psql"
       }
     ],
     "rules": [
       {
-        "template": "status-threshold",
         "arguments": {
           "status": "non-zero",
           "threshold": 25
-        }
+        },
+        "name": "nonzero-25",
+        "template": "status-threshold"
       }
     ],
-    "handlers": [
-      "pagerduty",
-      "slack"
+    "services": [
+      "account-manager",
+      "tessen"
     ]
   }
 }
@@ -233,11 +238,11 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: postgresql-component
+name: postgresql-1
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "postgresql-component"
+  "name": "postgresql-1"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -276,25 +281,41 @@ created_by: admin
 
 ### Spec attributes
 
-services     | 
--------------|------ 
-description  | List of business service entities that include the service component as a dependency.
-required     | true
-type         | Array
+cron         | 
+-------------|------
+description  | When the service component should be executed, using [cron syntax][1] or [these predefined schedules][2]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][3] for the cron attribute. {{% notice note %}}
+**NOTE**: If you're using YAML to create a service component that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`).
+{{% /notice %}}
+required     | true (unless `interval` is configured)
+type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-services:
-  - account-manager
-  - tessen
+cron: 0 0 * * *
 {{< /code >}}
 {{< code json >}}
 {
-  "spec": {
-    "services": [
-      "account-manager",
-      "tessen"
-    ]
-  }
+  "cron": "0 0 * * *"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+handlers     | 
+-------------|------ 
+description  | List of handlers to use for the events the service component produces. The service component will set the handlers property in events that are produced by rule evaluation. If no handlers are specified in the service component definition, handlers can be set by the monitoring rule itself via template arguments. Handlers specified in the service component definition will override any handlers set by rule evaluation.
+required     | false
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+handlers:
+  - pagerduty
+  - slack
+{{< /code >}}
+{{< code json >}}
+{
+  "handlers": [
+    "pagerduty",
+    "slack"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -311,24 +332,6 @@ interval: 60
 {{< code json >}}
 {
   "interval": 60
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-cron         | 
--------------|------
-description  | When the service component should be executed, using [cron syntax][1] or [these predefined schedules][2]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][3] for the cron attribute. {{% notice note %}}
-**NOTE**: If you're using YAML to create a service component that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`).
-{{% /notice %}}
-required     | true (unless `interval` is configured)
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-cron: 0 0 * * *
-{{< /code >}}
-{{< code json >}}
-{
-  "cron": "0 0 * * *"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -364,43 +367,47 @@ type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 rules:
-  - template: status-threshold
-    arguments:
-      status: non-zero
-      threshold: 25
+- arguments:
+    status: non-zero
+    threshold: 25
+  name: nonzero-25
+  template: status-threshold
 {{< /code >}}
 {{< code json >}}
 {
   "rules": [
     {
-      "template": "status-threshold",
       "arguments": {
         "status": "non-zero",
         "threshold": 25
-      }
+      },
+      "name": "nonzero-25",
+      "template": "status-threshold"
     }
   ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
-handlers     | 
+services     | 
 -------------|------ 
-description  | List of handlers to use for the events the service component produces. The service component will set the handlers property in events that are produced by rule evaluation. If no handlers are specified in the service component definition, handlers can be set by the monitoring rule itself via template arguments. Handlers specified in the service component definition will override any handlers set by rule evaluation.
-required     | false
+description  | List of business service entities that include the service component as a dependency.
+required     | true
 type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
-handlers:
-  - pagerduty
-  - slack
+services:
+  - account-manager
+  - tessen
 {{< /code >}}
 {{< code json >}}
 {
-  "handlers": [
-    "pagerduty",
-    "slack"
-  ]
+  "spec": {
+    "services": [
+      "account-manager",
+      "tessen"
+    ]
+  }
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -441,22 +448,6 @@ value: region == us-west-2 && cmpt == psql
 
 #### Rules attributes
 
-template     | 
--------------|------ 
-description  | Name of the [rule template][8] the service component should use.
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-template: status-threshold
-{{< /code >}}
-{{< code json >}}
-{
-  "template": "status-threshold"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 arguments    | 
 -------------|------ 
 description  | The [arguments][5] to pass to the [rule template][8] for the service component.
@@ -474,6 +465,38 @@ arguments:
     "status": "non-zero",
     "threshold": 25
   }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+name         | 
+-------------|------ 
+description  | Explicit name to use for the rule-specific events generated for the service component. These names help keep events distinct when a service component includes different rules for the same [rule template][8].
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: nonzero-25
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "nonzero-25"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+template     | 
+-------------|------ 
+description  | Name of the [rule template][8] the service component should use.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+template: status-threshold
+{{< /code >}}
+{{< code json >}}
+{
+  "template": "status-threshold"
 }
 {{< /code >}}
 {{< /language-toggle >}}
