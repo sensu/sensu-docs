@@ -49,26 +49,28 @@ Here is an example service component definition that includes the `account-manag
 type: ServiceComponent
 api_version: bsm/v1
 metadata:
-  name: postgresql-component
+  name: postgresql-1
   namespace: default
   created_by: admin
 spec:
-  services:
-    - account-manager
-    - tessen
-  interval: 60
-  cron: ""
-  query:
-    - type: labelSelector
-      value: region == us-west-2 && cmpt == psql
-  rules:
-    - template: status-threshold
-      arguments:
-        status: non-zero
-        threshold: 25
+  cron: ''
   handlers:
-    - pagerduty
-    - slack
+  - pagerduty
+  - slack
+  interval: 60
+  query:
+  - type: labelSelector
+    value: region == 'us-west-1' && cmpt == psql
+  rules:
+  - arguments:
+      status: non-zero
+      threshold: 25
+    name: nonzero-25
+    template: status-threshold
+  services:
+  - account-manager
+  - tessen
+
 {{< /code >}}
 
 {{< code json >}}
@@ -76,35 +78,36 @@ spec:
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "postgresql-component",
+    "name": "postgresql-1",
     "namespace": "default",
     "created_by": "admin"
   },
   "spec": {
-    "services": [
-      "account-manager",
-      "tessen"
+    "cron": "",
+    "handlers": [
+      "pagerduty",
+      "slack"
     ],
     "interval": 60,
-    "cron": "",
     "query": [
       {
         "type": "labelSelector",
-        "value": "region == us-west-2 && cmpt == psql"
+        "value": "region == 'us-west-1' && cmpt == psql"
       }
     ],
     "rules": [
       {
-        "template": "status-threshold",
         "arguments": {
           "status": "non-zero",
           "threshold": 25
-        }
+        },
+        "name": "nonzero-25",
+        "template": "status-threshold"
       }
     ],
-    "handlers": [
-      "pagerduty",
-      "slack"
+    "services": [
+      "account-manager",
+      "tessen"
     ]
   }
 }
