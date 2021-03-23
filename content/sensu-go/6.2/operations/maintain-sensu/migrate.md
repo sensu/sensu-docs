@@ -29,7 +29,7 @@ The Sensu Go agent is also available for Windows.
 If you need to upgrade, please [contact Sensu](https://sensu.io/contact).
 {{% /notice %}}
 
-Aside from this migration guide, these resources can help you migrate from Sensu Core and Sensu Enterprise to Sensu Go:
+Aside from this migration guide, these resources can help you migrate from Sensu Core or Sensu Enterprise to Sensu Go:
 
 - [**Sensu Community Slack**][46]: Join hundreds of other Sensu users in our Community Slack, where you can ask questions and benefit from tips others picked up during their own Sensu Go migrations.
 - [**Sensu Community Forum**][47]: Drop a question in our dedicated category for migrating to Go.
@@ -207,17 +207,15 @@ In addition to built-in RBAC, Sensu Go's [commercial features][27] include suppo
 The Sensu agent is available for Ubuntu/Debian, RHEL/CentOS, Windows, and Docker.
 See the [installation guide][55] to install, configure, and start Sensu agents.
 
-If you're doing a side-by-side migration, add `api-port` (default: `3031`) and `socket-port` (default: `3030`) to your [agent configuration][56].
+If you're doing a side-by-side migration, add `api-port` (default: `3031`) and `socket-port` (default: `3030`) to your [agent configuration][56] (`/etc/sensu/agent.yml`).
 This prevents the Sensu Go agent API and socket from conflicting with the Sensu Core client API and socket.
-You can also disable these features in the agent configuration using the `disable-socket` and `disable-api` flags.
 
 {{< code yml >}}
-# agent configuration: /etc/sensu.agent.yml
-...
 api-port: 4041
 socket-port: 4030
-...
 {{< /code >}}
+
+You can also disable these features in the agent configuration using the `disable-socket` and `disable-api` flags.
 
 Sensu should now be installed and functional. The next step is to translate your Sensu Core configuration to Sensu Go.
 
@@ -227,21 +225,27 @@ Use t [Sensu Translator][18] command line tool to transfer your Sensu Core check
 
 #### 1. Run the translator
 
-Install and run the translator.
+Install dependencies:
 
 {{< code shell >}}
-# Install dependencies
 yum install -q -y rubygems ruby-devel
+{{< /code >}}
 
-# Install sensu-translator
+Install the Sensu translator:
+
+{{< code shell >}}
 gem install sensu-translator
+{{< /code >}}
 
-# Translate all config in /etc/sensu/conf.d to Sensu Go and output to /sensu_config_translated
-# Option: translate your config in sections according to resource type
+Run the Sensu translator to translate all configuration in /etc/sensu/conf.d to Sensu Go and output to /sensu_config_translated:
+
+{{< code shell >}}
 sensu-translator -d /etc/sensu/conf.d -o /sensu_config_translated
 {{< /code >}}
 
-If translation is successful, you should see a few callouts followed by `DONE!`.
+As an option, you can also translate your configuration in sections according to resource type.
+
+If translation is successful, you should see a few callouts followed by `DONE!`, similar to this example:
 
 {{< code shell >}}
 Sensu 1.x filter translation is not yet supported
@@ -325,8 +329,9 @@ As a result, you'll need to rewrite your Sensu Core filters in Sensu Go format.
 
 First, review your Core handlers to identify which filters are being used. Then, follow the [filter reference][9] and [guide to using filters][60] to re-write your filters using Sensu Go expressions and [event data][61]. Check out the [blog post on filters][62] for a deep dive into Sensu Go filter capabilities.
 
-{{< code shell >}}
-# Sensu Core hourly filter
+Sensu Core hourly filter:
+
+{{< code json >}}
 {
   "filters": {
     "recurrences": {
@@ -336,20 +341,46 @@ First, review your Core handlers to identify which filters are being used. Then,
     }
   }
 }
+{{< /code >}}
 
-# Sensu Go hourly filter
-  {
-    "metadata": {
-      "name": "hourly",
-      "namespace": "default"
-    },
+Sensu Go hourly filter:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: hourly
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0
+  runtime_assets: null
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "hourly",
+    "namespace": "default"
+  },
+  "spec": {
     "action": "allow",
     "expressions": [
       "event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0"
     ],
     "runtime_assets": null
   }
+}
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 #### 4. Translate handlers
 
@@ -383,17 +414,23 @@ _PRO TIP: `sensuctl create` (and `sensuctl delete`) are powerful tools to help y
 
 Access your Sensu Go config using the [Sensu API][17].
 
+Set up a local API testing environment by saving your Sensu credentials and token as environment variables.
+This command requires curl and jq.
+
 {{< code shell >}}
-# Set up a local API testing environment by saving your Sensu credentials
-# and token as environment variables. Requires curl and jq.
 export SENSU_USER=admin && SENSU_PASS=P@ssw0rd!
-
 export SENSU_TOKEN=`curl -XGET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
+{{< /code >}}
 
-# Return list of all configured checks
+Return a list of all configured checks:
+
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
+{{< /code >}}
 
-# Return list of all configured handlers
+Return a list of all configured handlers:
+
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers
 {{< /code >}}
 
@@ -469,7 +506,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [7]: ../../../observability-pipeline/observe-entities/monitor-external-resources/
 [8]: ../../../observability-pipeline/observe-schedule/hooks/
 [9]: ../../../observability-pipeline/observe-filter/filters
-[10]: ../../../observability-pipeline/observe-filter/filters/#handle-repeated-events
+[10]: ../../../observability-pipeline/observe-filter/filters/#filter-for-repeated-events
 [11]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/
 [12]: ../../../plugins/assets/
 [13]: ../../control-access/rbac/

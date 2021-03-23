@@ -26,10 +26,23 @@ sensuctl configure
 This starts the prompts for interactive sensuctl setup.
 When prompted, choose the authentication method you wish to use: username/password or OIDC.
 
+Sensuctl uses your username and password or OIDC credentials to obtain access and refresh tokens via the [Sensu authentication API][14].
+The access and refresh tokens are HMAC-SHA256 [JSON Web Tokens (JWTs)][16] that Sensu issues to record the details of users' authenticated Sensu sessions.
+The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
+
+Upon successful authentication, sensuctl stores the access and refresh tokens in a "cluster" configuration file under the current user's home directory.
+For example, on Unix systems, sensuctl stores the tokens in `$HOME/.config/sensu/sensuctl/cluster`.
+
 ### Username/password authentication
 
 The `sensuctl configure` interactive prompts require you to select the username/password authentication method and enter the [Sensu backend URL][6], namespace, and preferred output format.
 Then you will be prompted to enter your [username and password Sensu access credentials][8].
+
+Username/password authentication applies to the following authentication providers:
+
+- [Built-in basic authentication][11]
+- [Lightweight Directory Access Protocol (LDAP) authentication][17] ([commercial feature][19])
+- [Active Directory (AD) authentication][18] ([commercial feature][19])
 
 This example shows the username/password authentication method:
 
@@ -41,13 +54,6 @@ This example shows the username/password authentication method:
 ? Username: YOUR_USERNAME
 ? Password: YOUR_PASSWORD
 {{< /code >}}
-
-Sensuctl uses your username and password to obtain access and refresh tokens via the [Sensu authentication API][14].
-The access and refresh tokens are [JSON Web Tokens (JWTs)][2] that Sensu issues to record the details of users' authenticated Sensu sessions.
-The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
-
-Sensuctl stores the access and refresh tokens in a "cluster" configuration file under the current user's home directory.
-For example, on Unix systems, sensuctl stores the tokens in `$HOME/.config/sensu/sensuctl/cluster`.
 
 ### OIDC authentication
 
@@ -103,19 +109,32 @@ The following table lists the command-specific flags.
 During configuration, sensuctl creates configuration files that contain information for connecting to your Sensu Go deployment.
 You can find these files at `$HOME/.config/sensu/sensuctl/profile` and `$HOME/.config/sensu/sensuctl/cluster`.
 
-For example:
+Use the `cat` command to view the contents of these files.
+For example, to view your sensuctl profile configuration, run:
 
 {{< code shell >}}
 cat .config/sensu/sensuctl/profile
+{{< /code >}}
+
+The response should be similar to this example:
+
+{{< code shell >}}
 {
   "format": "tabular",
-  "namespace": "demo",
+  "namespace": "default",
   "username": "admin"
 }
 {{< /code >}}
 
+To view your sensuctl cluster configuration, run:
+
 {{< code shell >}}
 cat .config/sensu/sensuctl/cluster 
+{{< /code >}}
+
+The response should be similar to this example:
+
+{{< code shell >}}
 {
   "api-url": "http://localhost:8080",
   "trusted-ca-file": "",
@@ -395,3 +414,6 @@ create  delete  import  list
 [14]: ../api/auth/
 [15]: https://en.wikipedia.org/wiki/Bcrypt
 [16]: https://tools.ietf.org/html/rfc7519
+[17]: ../operations/control-access/ldap-auth
+[18]: ../operations/control-access/ad-auth
+[19]: ../commercial/

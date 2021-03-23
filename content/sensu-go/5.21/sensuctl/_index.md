@@ -34,10 +34,10 @@ When prompted, type the [Sensu backend URL][6] and your [Sensu access credential
 {{< /code >}}
 
 Sensuctl uses your username and password to obtain access and refresh tokens via the [Sensu authentication API][14].
-The access and refresh tokens are [JSON Web Tokens (JWTs)][2] that Sensu issues to record the details of users' authenticated Sensu sessions.
+The access and refresh tokens are HMAC-SHA256 [JSON Web Tokens (JWTs)][16] that Sensu issues to record the details of users' authenticated Sensu sessions.
 The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
 
-Sensuctl stores the access and refresh tokens in a "cluster" configuration file under the current user's home directory.
+Upon successful authentication, sensuctl stores the access and refresh tokens in a "cluster" configuration file under the current user's home directory.
 For example, on Unix systems, sensuctl stores the tokens in `$HOME/.config/sensu/sensuctl/cluster`.
 
 ### Sensu backend URL

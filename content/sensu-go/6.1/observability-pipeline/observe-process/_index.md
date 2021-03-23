@@ -29,6 +29,59 @@ Sensu also checks your handlers for the event filters and mutators to apply in t
 A few different types of handlers are available in Sensu.
 The most common are [pipe handlers][4], which work similarly to [checks][2] and enable Sensu to interact with almost any computer program via [standard streams][3].
 
+Here's an example resource definition for a pipe handler &mdash; read [Send Slack alerts with handlers][11] to learn how to configure your own version of this handler:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Handler
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: slack
+  namespace: default
+spec:
+  command: sensu-slack-handler --channel '#monitoring'
+  env_vars:
+  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX
+  filters: null
+  handlers: null
+  runtime_assets:
+  - sensu-slack-handler
+  secrets: null
+  timeout: 0
+  type: pipe
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "slack",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "sensu-slack-handler --channel '#monitoring'",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX"
+    ],
+    "filters": null,
+    "handlers": null,
+    "runtime_assets": [
+      "sensu-slack-handler"
+    ],
+    "secrets": null,
+    "timeout": 0,
+    "type": "pipe"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 You can also use [TCP/UDP handlers][5] to send your observation data to remote sockets and [handler sets][6] to streamline groups of actions to execute for certain types of events.
 
 Discover, download, and share Sensu handler dynamic runtime assets in [Bonsai][9], the Sensu asset hub
@@ -45,3 +98,4 @@ Read [Use assets to install plugins][10] to get started.
 [8]: ../observe-transform/
 [9]: https://bonsai.sensu.io/
 [10]: ../../plugins/use-assets-to-install-plugins/
+[11]: send-slack-alerts/

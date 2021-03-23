@@ -5,8 +5,7 @@ description: "Perform system maintenance without getting overloaded with alerts.
 weight: 200
 version: "5.21"
 product: "Sensu Go"
-platformContent: False
-lastTested: 2018-12-04
+platformContent: false
 menu: 
   sensu-go-5.21:
     parent: guides

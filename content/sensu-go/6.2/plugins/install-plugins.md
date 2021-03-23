@@ -5,8 +5,6 @@ description: "Sensu plugins provide executables for performing status or metric 
 weight: 20
 version: "6.2"
 product: "Sensu Go"
-platformContent: true
-platforms: ["Ubuntu/Debian", "RHEL/CentOS"]
 menu:
   sensu-go-6.2:
     parent: plugins
@@ -54,8 +52,15 @@ To install a [Sensu Community plugin][1] with Sensu Go:
 2. Run the `sensu-install` command to install plugins in the [Sensu Community Plugins GitHub organization][1] by repository name.
 Plugins are installed into `/opt/sensu-plugins-ruby/embedded/bin`.
 
+To see a list of all flags for the sensu-install command, run:
+
 {{< code shell >}}
 sensu-install --help
+{{< /code >}}
+
+The response will be similar to this example:
+
+{{< code shell >}}
 Usage: sensu-install [options]
     -h, --help                       Display this message
     -v, --verbose                    Enable verbose logging
@@ -96,35 +101,35 @@ Follow the Discourse guide [Contributing Assets for Existing Ruby Sensu Plugins]
 
 Some plugins require additional tools to install them successfully.
 An example is the [Sensu disk checks plugin][3].
-Depending on the plugin, you may need to install developer tool packages.
 
-{{< platformBlock "Ubuntu/Debian" >}}
+To download and update package information:
 
-**Ubuntu/Debian**:
+{{< language-toggle >}}
 
-{{< code shell >}}
+{{< code shell "Ubuntu/Debian" >}}
 sudo apt-get update
 {{< /code >}}
 
-{{< code shell >}}
-sudo apt-get install build-essential
-{{< /code >}}
-
-{{< platformBlockClose >}}
-
-{{< platformBlock "RHEL/CentOS" >}}
-
-**RHEL/CentOS**:
-
-{{< code shell >}}
+{{< code shell "RHEL/CentOS" >}}
 sudo yum update
 {{< /code >}}
 
-{{< code shell >}}
+{{< /language-toggle >}}
+
+Depending on the plugin, you may need to install developer tool packages:
+
+{{< language-toggle >}}
+
+{{< code shell "Ubuntu/Debian" >}}
+sudo apt-get install build-essential
+{{< /code >}}
+
+{{< code shell "RHEL/CentOS" >}}
 sudo yum groupinstall "Development Tools"
 {{< /code >}}
 
-{{< platformBlockClose >}}
+{{< /language-toggle >}}
+
 
 [1]: https://github.com/sensu-plugins/
 [2]: https://packagecloud.io/sensu/community/

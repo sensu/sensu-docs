@@ -542,7 +542,7 @@ Sensuctl supports the following formats:
 [18]: ../../reference/hooks/
 [19]: ../../reference/mutators/
 [20]: ../../reference/silencing/
-[21]: ../../reference/rbac#namespaces
+[21]: ../../reference/namespaces/
 [22]: ../../reference/rbac#users
 [23]: #subcommands
 [24]: ../../reference/secrets-providers/
@@ -556,6 +556,6 @@ Sensuctl supports the following formats:
 [32]: ../../reference/datastore/
 [33]: #create-resources-across-namespaces
 [34]: ../../reference/license/
-[35]: ../../reference/rbac/#cluster-roles
+[35]: ../../reference/rbac/#roles-and-cluster-roles
 [36]: #sensuctl-create-flags
 [37]: ../../operations/control-access/oidc-auth/

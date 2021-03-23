@@ -1,6 +1,8 @@
 ---
 title: "Run a Sensu cluster"
 linkTitle: "Run a Sensu Cluster"
+guide_title: "Run a Sensu cluster"
+type: "guide"
 description: "Clustering improves Sensu's availability, reliability, and durability. It can help you cope with the loss of a backend node, prevent data loss, and distribute the network load of agents. Read the guide to configure a Sensu cluster."
 weight: 70
 version: "5.21"
@@ -13,7 +15,7 @@ menu:
 
 To deploy Sensu for use outside of a local development environment, first decide whether you want to run a Sensu cluster.
 
-A Sensu cluster is a group of [at least three][1] sensu-backend nodes, each connected to a shared database provided either by Sensu’s embedded etcd or an external etcd cluster.
+A Sensu cluster is a group of at least three sensu-backend nodes, each connected to a shared database provided either by Sensu’s embedded etcd or an external etcd cluster.
 Creating a Sensu cluster ultimately configures an [etcd cluster][2].
 
 Clustering improves Sensu's availability, reliability, and durability.
@@ -28,7 +30,7 @@ No matter whether you deploy a single backend or a clustered configuration, begi
 The first step in setting up TLS is to [generate the certificates you need][13].
 Then, follow our [Secure Sensu][16] guide to make Sensu production-ready.
 
-After you've secured Sensu, continue reading this document to set up a clustered configuration.
+After you've secured Sensu, continue reading this document to [set up][2] and [update][1] a clustered configuration.
 
 {{% notice note %}}
 **NOTE**: We recommend using a load balancer to evenly distribute agent connections across a cluster.
@@ -37,7 +39,7 @@ After you've secured Sensu, continue reading this document to set up a clustered
 ## Configure a cluster
 
 The sensu-backend arguments for its store mirror the [etcd configuration flags][3], but the Sensu flags are prefixed with `etcd`.
-For more detailed descriptions of the different arguments, see the [etcd docs][4] or the [Sensu backend reference][15].
+For more detailed descriptions of the different arguments, see the [etcd documentation][4] or the [Sensu backend reference][15].
 
 You can configure a Sensu cluster in a couple different ways &mdash; we'll show you a few below &mdash; but you should adhere to some etcd cluster guidelines as well:
 
@@ -90,7 +92,7 @@ etcd-listen-peer-urls: "http://0.0.0.0:2380"
 etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
 etcd-initial-advertise-peer-urls: "http://10.0.0.1:2380"
 etcd-initial-cluster-state: "new"
-etcd-initial-cluster-token: ""
+etcd-initial-cluster-token: "unique_token_for_this_cluster"
 etcd-name: "backend-1"
 {{< /code >}}
 
@@ -106,7 +108,7 @@ etcd-listen-peer-urls: "http://0.0.0.0:2380"
 etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
 etcd-initial-advertise-peer-urls: "http://10.0.0.2:2380"
 etcd-initial-cluster-state: "new"
-etcd-initial-cluster-token: ""
+etcd-initial-cluster-token: "unique_token_for_this_cluster"
 etcd-name: "backend-2"
 {{< /code >}}
 
@@ -122,12 +124,14 @@ etcd-listen-peer-urls: "http://0.0.0.0:2380"
 etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
 etcd-initial-advertise-peer-urls: "http://10.0.0.3:2380"
 etcd-initial-cluster-state: "new"
-etcd-initial-cluster-token: ""
+etcd-initial-cluster-token: "unique_token_for_this_cluster"
 etcd-name: "backend-3"
 {{< /code >}}
 
 {{% notice important %}}
-**IMPORTANT**: To properly secure etcd communication, replace the default URLs for `etcd-advertise-client-urls`, `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-cluster` in the store configurations for your backends with non-default values.
+**IMPORTANT**: To properly secure etcd communication, replace the default URLs for `etcd-advertise-client-urls`, `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-cluster` in the store configurations for your backends with non-default values.<br><br>
+Specify the same `etcd-initial-cluster-token` value for all three backends.
+This allows etcd to generate unique cluster IDs and member IDs even for clusters that have otherwise identical configurations and prevents cross-cluster-interaction.
 {{% /notice %}}
 
 After you configure each node as described in these examples, start each sensu-backend:
@@ -176,16 +180,52 @@ c8f63ae435a5e6bf   backend-3                                                    
 
 ### Add a cluster member
 
-Add a new member node to an existing cluster:
+To add a new member node to an existing cluster:
 
-{{< code shell >}}
+1. Configure the new node's store in its `/etc/sensu/backend.yml` configuration file.
+For the new node `backend-4` with IP address `10.0.0.4`:
+
+   {{< code yml >}}
+etcd-advertise-client-urls: "http://10.0.0.4:2379"
+etcd-listen-client-urls: "http://10.0.0.4:2379"
+etcd-listen-peer-urls: "http://0.0.0.0:2380"
+etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380,backend-4=https://10.0.0.4:2380"
+etcd-initial-advertise-peer-urls: "http://10.0.0.4:2380"
+etcd-initial-cluster-state: "existing"
+etcd-initial-cluster-token: "unique_token_for_this_cluster"
+etcd-name: "backend-4"
+{{< /code >}}
+
+   {{% notice note %}}
+**NOTE**: To make sure the new member is added to the correct cluster, specify the same `etcd-initial-cluster-token` value that you used for the other members in the cluster.
+{{% /notice %}}
+
+2. Run the sensuctl command to add the new cluster member:
+
+   {{< code shell >}}
 sensuctl cluster member-add backend-4 https://10.0.0.4:2380
+{{< /code >}}
 
+   You will receive a sensuctl response to confirm that the new member was added:
+
+   {{< code shell >}}
 added member 2f7ae42c315f8c2d to cluster
+{{< /code >}}
 
-ETCD_NAME="backend-4"
-ETCD_INITIAL_CLUSTER="backend-4=https://10.0.0.4:2380,backend-1=https://10.0.0.1:2380,backend-2=https://10.0.0.2:2380,backend-3=https://10.0.0.3:2380"
-ETCD_INITIAL_CLUSTER_STATE="existing"
+3. Start the new backend:
+
+   {{< code shell >}}
+sudo systemctl start sensu-backend
+{{< /code >}}
+
+4. Add the new cluster member's WebSocket backend-url in `/etc/sensu/agent.yml` for all agents that connect to the cluster over WebSocket:
+
+   {{< code yml >}}
+backend-url:
+  - "ws://10.0.0.1:8081"
+  - "ws://10.0.0.2:8081"
+  - "ws://10.0.0.3:8081"
+  - "ws://10.0.0.4:8081"
 {{< /code >}}
 
 ### List cluster members
@@ -280,6 +320,7 @@ If you do not properly configure secure etcd communication, your Sensu configura
 
 To use Sensu with an external etcd cluster, you must have etcd 3.3.2 or newer.
 To stand up an external etcd cluster, follow etcd's [clustering guide][2] using the same store configuration.
+Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 
 In this example, you will enable client-to-server and peer communication authentication [using self-signed TLS certificates][13].
 To start etcd for `backend-1` based on the [three-node configuration example][19]:
@@ -336,23 +377,24 @@ See the [etcd failure modes documentation][8] for information about cluster fail
 See the [etcd recovery guide][9] for disaster recovery information.
 
 
-[1]: https://etcd.io/docs/v3.4.0/op-guide/runtime-configuration/
-[2]: https://etcd.io/docs/v3.4.0/op-guide/clustering/
-[3]: https://etcd.io/docs/v3.4.0/op-guide/configuration/
-[4]: https://etcd.io/docs/
-[5]: https://etcd.io/docs/v3.4.0/platforms/
+[1]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
+[2]: https://etcd.io/docs/v3.3.13/op-guide/clustering/
+[3]: https://etcd.io/docs/v3.3.13/op-guide/configuration/
+[4]: https://etcd.io/docs/v3.3.13/
+[5]: https://etcd.io/docs/v3.3.13/platforms/
 [6]: #manage-and-monitor-clusters-with-sensuctl
 [7]: https://github.com/sensu/sensu-go/blob/master/docker-compose.yaml
-[8]: https://etcd.io/docs/v3.4.0/op-guide/failures/
-[9]: https://etcd.io/docs/v3.4.0/op-guide/recovery/
+[8]: https://etcd.io/docs/v3.3.13/op-guide/failures/
+[9]: https://etcd.io/docs/v3.3.13/op-guide/recovery/
 [10]: https://github.com/cloudflare/cfssl
-[11]: https://etcd.io/docs/v3.4.0/op-guide/clustering/#self-signed-certificates
-[12]: https://etcd.io/docs/v3.4.0/op-guide/
+[11]: https://etcd.io/docs/v3.3.13/op-guide/clustering/#self-signed-certificates
+[12]: https://etcd.io/docs/v3.3.13/op-guide/
 [13]: ../generate-certificates/
 [14]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
 [15]: ../../../reference/backend/
 [16]: ../secure-sensu/
 [17]: ../../../sensuctl/
-[18]: https://github.com/etcd-io/etcd/blob/a621d807f061e1dd635033a8d6bc261461429e27/Documentation/v2/admin_guide.md#optimal-cluster-size
+[18]: https://etcd.io/docs/current/dev-internal/discovery_protocol/#specifying-the-expected-cluster-size
 [19]: #sensu-backend-configuration
 [20]: ../../../api/
+[21]: ../install-sensu/

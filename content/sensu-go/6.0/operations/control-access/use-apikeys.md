@@ -7,7 +7,7 @@ description: "In this guide, you'll learn how to use Sensu's API key feature for
 weight: 50
 version: "6.0"
 product: "Sensu Go"
-platformContent: False
+platformContent: false
 menu: 
   sensu-go-6.0:
     parent: control-access
@@ -76,27 +76,67 @@ HTTP/1.1 200 OK
 To generate a new API key for the admin user:
 
 {{< code shell >}}
-$ sensuctl api-key grant admin
+sensuctl api-key grant admin
+{{< /code >}}
+
+The response will include the new API key:
+
+{{< code shell >}}
 Created: /api/core/v2/apikeys/7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2
 {{< /code >}}
 
-To get information about an API key:
+To get information about an API key in YAML or JSON format:
 
-{{< code shell >}}
-$ sensuctl api-key info 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --format json
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl api-key info 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --format yaml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl api-key info 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --format json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The response will include information about the API key in the specified format:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: APIKey
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2
+spec:
+  created_at: 1570718917
+  username: admin
+{{< /code >}}
+
+{{< code json >}}
 {
   "metadata": {
-    "name": "7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2"
+    "name": "7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2",
+    "created_by": "admin"
   },
   "username": "admin",
-  "created_at": 1570744117
+  "created_at": 1570718917
 }
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 To get a list of all API keys:
 
 {{< code shell >}}
-$ sensuctl api-key list
+sensuctl api-key list
+{{< /code >}}
+
+The response lists all API keys along with the name of the user who created each key and the date and time each key was created:
+
+{{< code shell >}}
                   Name                   Username            Created At            
  ────────────────────────────────────── ────────── ─────────────────────────────── 
   7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2   admin      2019-10-10 14:48:37 -0700 PDT
@@ -105,8 +145,14 @@ $ sensuctl api-key list
 To revoke an API key for the admin user:
 
 {{< code shell >}}
-$ sensuctl api-key revoke 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --skip-confirm
+sensuctl api-key revoke 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --skip-confirm
+{{< /code >}}
+
+The response will confirm that the API key is deleted:
+
+{{< code shell >}}
 Deleted
 {{< /code >}}
+
 
 [1]: ../../../api/auth/

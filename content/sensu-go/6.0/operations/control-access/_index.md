@@ -53,19 +53,33 @@ In addition to built-in authentication, Sensu includes commercial support for au
 * Microsoft AD, including Azure AD: [AD configuration examples][31] and [specification][32]
 * OIDC tools like Okta and PingFederate: [OIDC configuration examples][9] and [specification][12]
 
+Save your configuration definition to a file, such as `authconfig.yaml` or `authconfig.json`.
+
 **2. Apply the configuration with sensuctl**
 
-Log in to sensuctl as the [default admin user][3] and apply the configuration to Sensu:
+Log in to sensuctl as the [default admin user][3] and use sensuctl to apply the configuration to Sensu:
 
-{{< code shell >}}
-sensuctl create --file filename.json
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file authconfig.yml
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create --file authconfig.json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 Use sensuctl to verify that your provider configuration was applied successfully:
 
 {{< code shell >}}
 sensuctl auth list
+{{< /code >}}
 
+The response will list your authentication provider types and names:
+
+{{< code shell >}}
  Type     Name    
 ────── ────────── 
  ldap   openldap  
@@ -143,7 +157,6 @@ Users do *not* need to provide the username prefix for the authentication provid
 [30]: ldap-auth/#ldap-specification
 [31]: ad-auth/#ad-configuration-examples
 [32]: ad-auth/#ad-specification
-[33]: rbac/#example-workflows
 [36]: ../../sensuctl/#first-time-setup-and-authentication
 [37]: ad-auth/
 [38]: ../../sensuctl/create-manage-resources/#create-resources

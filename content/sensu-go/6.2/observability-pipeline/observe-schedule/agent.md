@@ -287,16 +287,16 @@ For more information, see the [StatsD documentation][21].
 ### Configure the StatsD listener
 
 To configure the StatsD listener, specify the [`statsd-event-handlers` configuration flag][22] in the [agent configuration][24], and start the agent.
+For example, to start an agent that sends StatsD metrics to InfluxDB, run:
 
 {{< code shell >}}
-# Start an agent that sends StatsD metrics to InfluxDB
 sensu-agent --statsd-event-handlers influx-db
 {{< /code >}}
 
 Use the [StatsD configuration flags][22] to change the default settings for the StatsD listener address, port, and [flush interval][23].
+For example, to start an agent with a customized address and flush interval, run:
 
 {{< code shell >}}
-# Start an agent with a customized address and flush interval
 sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd-metrics-host 123.4.5.11 --statsd-metrics-port 8125
 {{< /code >}}
 
@@ -380,21 +380,27 @@ name         |
 description  | Check name.
 required     | true
 type         | String
-example      | {{< code shell >}}"name": "check-mysql-status"{{< /code >}}
+example      | {{< code json >}}{
+  "name": "check-mysql-status"
+}{{< /code >}}
 
 status       | 
 -------------|------
 description  | Check execution exit status code. An exit status code of `0` (zero) indicates `OK`, `1` indicates `WARNING`, and `2` indicates `CRITICAL`. Exit status codes other than `0`, `1`, and `2` indicate an `UNKNOWN` or custom status.
 required     | true
 type         | Integer
-example      | {{< code shell >}}"status": 0{{< /code >}}
+example      | {{< code json >}}{
+  "status": 0
+}{{< /code >}}
 
 output       | 
 -------------|------
 description  | Output produced by the check `command`.
 required     | true
 type         | String
-example      | {{< code shell >}}"output": "CheckHttp OK: 200, 78572 bytes"{{< /code >}}
+example      | {{< code json >}}{
+  "output": "CheckHttp OK: 200, 78572 bytes"
+}{{< /code >}}
 
 source       | 
 -------------|------
@@ -402,7 +408,9 @@ description  | Name of the Sensu entity associated with the event. Use this attr
 required     | false
 default      | The agent entity that receives the event data.
 type         | String
-example      | {{< code shell >}}"source": "sensu-docs-site"{{< /code >}}
+example      | {{< code json >}}{
+  "source": "sensu-docs-site"
+}{{< /code >}}
 
 client       | 
 -------------|------
@@ -412,7 +420,9 @@ description  | Name of the Sensu entity associated with the event. Use this attr
 required     | false
 default      | The agent entity that receives the event data.
 type         | String
-example      | {{< code shell >}}"client": "sensu-docs-site"{{< /code >}}
+example      | {{< code json >}}{
+  "client": "sensu-docs-site"
+}{{< /code >}}
 
 executed     | 
 -------------|------
@@ -420,21 +430,27 @@ description  | Time at which the check was executed. In seconds since the Unix e
 required     | false
 default      | The time the event was received by the agent.
 type         | Integer
-example      | {{< code shell >}}"executed": 1458934742{{< /code >}}
+example      | {{< code json >}}{
+  "executed": 1458934742
+}{{< /code >}}
 
 duration     | 
 -------------|------
 description  | Amount of time it took to execute the check. In seconds.
 required     | false
 type         | Float
-example      | {{< code shell >}}"duration": 1.903135228{{< /code >}}
+example      | {{< code json >}}{
+  "duration": 1.903135228
+}{{< /code >}}
 
 command      | 
 -------------|------
 description  | Command executed to produce the event. Use the `command` attribute to add context to the event data. Sensu does not execute the command included in this attribute.
 required     | false
 type         | String
-example      | {{< code shell >}}"command": "check-http.rb -u https://sensuapp.org"{{< /code >}}
+example      | {{< code json >}}{
+  "command": "check-http.rb -u https://sensuapp.org"
+}{{< /code >}}
 
 interval     | 
 -------------|------
@@ -442,14 +458,18 @@ description  | Interval used to produce the event. Use the `interval` attribute 
 required     | false
 default      | `1`
 type         | Integer
-example      | {{< code shell >}}"interval": 60{{< /code >}}
+example      | {{< code json >}}{
+  "interval": 60
+}{{< /code >}}
 
 handlers     | 
 -------------|------
 description  | Array of Sensu handler names to use for handling the event. Each handler name in the array must be a string.
 required     | false
 type         | Array
-example      | {{< code shell >}}"handlers": ["slack", "influxdb"]{{< /code >}}
+example      | {{< code json >}}{
+  "handlers": ["slack", "influxdb"]
+}{{< /code >}}
 
 ## Keepalive monitoring
 
@@ -733,13 +753,17 @@ sensu-agent service uninstall
 
 ### Get help
 
-The `sensu-agent` tool provides general and command-specific help flags:
+The `sensu-agent` tool provides general and command-specific help flags.
+
+To see sensu-agent commands, run:
 
 {{< code shell >}}
-# Show sensu-agent commands
 sensu-agent help
+{{< /code >}}
 
-# Show options for the sensu-agent start subcommand
+To see options for a specific command (in this case, sensu-agent start), run: 
+
+{{< code shell >}}
 sensu-agent start --help
 {{< /code >}}
 
@@ -814,8 +838,15 @@ As of 5.20.2, the `--discover-processes` flag is not available, and new events w
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
+To view configuration information for the sensu-agent start command, run:
+
+{{< code shell >}}
+sensu-agent start --help
+{{< /code >}}
+
+The response will list command information and configuration flags for sensu-agent start:
+
 {{< code text >}}
-$ sensu-agent start --help
 start the sensu agent
 
 Usage:
@@ -901,12 +932,10 @@ required     | false
 type         | Boolean
 default      | false
 environment variable | `SENSU_AGENT_MANAGED_ENTITY`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --agent-managed-entity
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --agent-managed-entity{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 agent-managed-entity: true{{< /code >}}
-
 
 <a name="allow-list"></a>
 
@@ -916,12 +945,10 @@ description       | Path to yaml or json file that contains the allow list of ch
 type              | String
 default           | `""`
 environment variable | `SENSU_ALLOW_LIST`
-example           | {{< code shell >}}# Command line example
-sensu-agent start --allow-list /etc/sensu/check-allow-list.yaml
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --allow-list /etc/sensu/check-allow-list.yaml{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 allow-list: /etc/sensu/check-allow-list.yaml{{< /code >}}
-
 
 | annotations|      |
 -------------|------
@@ -932,15 +959,14 @@ required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
 environment variable | `SENSU_ANNOTATIONS`
-example      | {{< code shell >}}# Command line examples
+command line example   | {{< code shell >}}
 sensu-agent start --annotations sensu.io/plugins/slack/config/webhook-url=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
 sensu-agent start --annotations example-key="example value" --annotations example-key2="example value"
-
-# /etc/sensu/agent.yml example
+{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 annotations:
   sensu.io/plugins/slack/config/webhook-url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
 {{< /code >}}
-
 
 | assets-burst-limit   |      |
 --------------|------
@@ -948,12 +974,10 @@ description   | Maximum amount of burst allowed in a rate interval when fetching
 type          | Integer
 default       | `100`
 environment variable | `SENSU_ASSETS_BURST_LIMIT`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --assets-burst-limit 100
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --assets-burst-limit 100{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 assets-burst-limit: 100{{< /code >}}
-
 
 | assets-rate-limit   |      |
 --------------|------
@@ -961,10 +985,9 @@ description   | Maximum number of dynamic runtime assets to fetch per second. Th
 type          | Float
 default       | `1.39`
 environment variable | `SENSU_ASSETS_RATE_LIMIT`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --assets-rate-limit 1.39
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --assets-rate-limit 1.39{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 assets-rate-limit: 1.39{{< /code >}}
 
 <a name="backend-handshake-timeout"></a>
@@ -975,10 +998,9 @@ description   | Number of seconds the Sensu agent should wait when negotiating a
 type          | Integer
 default       | `15`
 environment variable | `SENSU_BACKEND_HANDSHAKE_TIMEOUT`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --backend-handshake-timeout 20
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --backend-handshake-timeout 20{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 backend-handshake-timeout: 20{{< /code >}}
 
 <a name="backend-heartbeat-interval"></a>
@@ -989,10 +1011,9 @@ description   | Interval at which the agent should send heartbeats to the Sensu 
 type          | Integer
 default       | `30`
 environment variable | `SENSU_BACKEND_HEARTBEAT_INTERVAL`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --backend-heartbeat-interval 45
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --backend-heartbeat-interval 45{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 backend-heartbeat-interval: 45{{< /code >}}
 
 <a name="backend-heartbeat-timeout"></a>
@@ -1003,12 +1024,10 @@ description   | Number of seconds the agent should wait for a response to a hear
 type          | Integer
 default       | `45`
 environment variable | `SENSU_BACKEND_HEARTBEAT_TIMEOUT`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --backend-heartbeat-timeout 60
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --backend-heartbeat-timeout 60{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 backend-heartbeat-timeout: 60{{< /code >}}
-
 
 | backend-url |      |
 --------------|------
@@ -1018,16 +1037,15 @@ description   | ws or wss URL of the Sensu backend server. To specify multiple b
 type          | List
 default       | `ws://127.0.0.1:8081` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`$SENSU_HOSTNAME:8080` (Docker)
 environment variable | `SENSU_BACKEND_URL`
-example       | {{< code shell >}}# Command line examples
+command line example   | {{< code shell >}}
 sensu-agent start --backend-url ws://0.0.0.0:8081
 sensu-agent start --backend-url ws://0.0.0.0:8081 --backend-url ws://0.0.0.0:8082
-
-# /etc/sensu/agent.yml example
+{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 backend-url:
   - "ws://0.0.0.0:8081"
   - "ws://0.0.0.0:8082"
-  {{< /code >}}
-
+{{< /code >}}
 
 <a name="cache-dir"></a>
 
@@ -1037,10 +1055,9 @@ description   | Path to store cached data.
 type          | String
 default       | <ul><li>Linux: `/var/cache/sensu/sensu-agent`</li><li>Windows: `C:\ProgramData\sensu\cache\sensu-agent`</li></ul>
 environment variable | `SENSU_CACHE_DIR`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --cache-dir /cache/sensu-agent
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --cache-dir /cache/sensu-agent{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 cache-dir: "/cache/sensu-agent"{{< /code >}}
 
 <a name="config-file"></a>
@@ -1051,7 +1068,7 @@ description   | Path to Sensu agent configuration file.
 type          | String
 default       | <ul><li>Linux: `/etc/sensu/agent.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/agent.yml`</li><li>Windows: `C:\ProgramData\sensu\config\agent.yml`</li></ul>
 environment variable | `SENSU_CONFIG_FILE`
-example       | {{< code shell >}}# Command line example
+command line example   | {{< code shell >}}
 sensu-agent start --config-file /sensu/agent.yml
 sensu-agent start -c /sensu/agent.yml
 {{< /code >}}
@@ -1064,10 +1081,9 @@ description   | When set to `true`, disables [dynamic runtime assets][29] for th
 type          | Boolean
 default       | false
 environment variable | `SENSU_DISABLE_ASSETS`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --disable-assets
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --disable-assets{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 disable-assets: true{{< /code >}}
 
 <a name="discover-processes"></a>
@@ -1082,10 +1098,9 @@ Instead, the field will be empty: `"processes": null`.
 type          | Boolean
 default       | false
 environment variable | `SENSU_DISCOVER_PROCESSES`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --discover-processes
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --discover-processes{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 discover-processes: true{{< /code >}}
 
 <a name="labels"></a>
@@ -1099,13 +1114,13 @@ required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 environment variable | `SENSU_LABELS`
-example               | {{< code shell >}}# Command line examples
+command line example   | {{< code shell >}}
 sensu-agent start --labels proxy_type=website
 sensu-agent start --labels example_key1="example value" example_key2="example value"
-
-# /etc/sensu/agent.yml example
+{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 labels:
-  proxy_type: "website"
+  proxy_type: website
 {{< /code >}}
 
 <a name="name"></a>
@@ -1116,11 +1131,10 @@ description   | Entity name assigned to the agent entity.
 type          | String
 default       | Defaults to hostname (for example, `sensu-centos`).
 environment variable | `SENSU_NAME`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --name agent-01
-
-# /etc/sensu/agent.yml example
-name: "agent-01" {{< /code >}}
+command line example   | {{< code shell >}}
+sensu-agent start --name agent-01{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+name: "agent-01"{{< /code >}}
 
 <a name="log-level"></a>
 
@@ -1130,11 +1144,10 @@ description   | Logging level: `panic`, `fatal`, `error`, `warn`, `info`, or `de
 type          | String
 default       | `info`
 environment variable | `SENSU_LOG_LEVEL`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --log-level debug
-
-# /etc/sensu/agent.yml example
-log-level: "debug"{{< /code >}}
+command line example   | {{< code shell >}}
+sensu-agent start --log-level debug{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+log-level: debug{{< /code >}}
 
 <a name="subscriptions-flag"></a>
 
@@ -1143,15 +1156,15 @@ log-level: "debug"{{< /code >}}
 description     | Array of agent subscriptions that determine which monitoring checks the agent will execute. The subscriptions array items must be strings.
 type            | List
 environment variable | `SENSU_SUBSCRIPTIONS`
-example         | {{< code shell >}}# Command line examples
+command line example   | {{< code shell >}}
 sensu-agent start --subscriptions disk-checks,process-checks
 sensu-agent start --subscriptions disk-checks --subscriptions process-checks
-
-# /etc/sensu/agent.yml example
+{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 subscriptions:
   - disk-checks
-  - process-checks{{< /code >}}
-
+  - process-checks
+{{< /code >}}
 
 ### API configuration flags
 
@@ -1161,12 +1174,10 @@ description   | Bind address for the Sensu agent HTTP API.
 type          | String
 default       | `127.0.0.1`
 environment variable | `SENSU_API_HOST`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --api-host 0.0.0.0
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --api-host 0.0.0.0{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 api-host: "0.0.0.0"{{< /code >}}
-
 
 | api-port    |      |
 --------------|------
@@ -1174,12 +1185,10 @@ description   | Listening port for the Sensu agent HTTP API.
 type          | Integer
 default       | `3031`
 environment variable | `SENSU_API_PORT`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --api-port 4041
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --api-port 4041{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 api-port: 4041{{< /code >}}
-
 
 | disable-api |      |
 --------------|------
@@ -1187,12 +1196,10 @@ description   | `true` to disable the agent HTTP API. Otherwise, `false`.
 type          | Boolean
 default       | `false`
 environment variable | `SENSU_DISABLE_API`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --disable-api
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --disable-api{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 disable-api: true{{< /code >}}
-
 
 | events-burst-limit | |
 --------------|------
@@ -1200,12 +1207,10 @@ description   | Maximum amount of burst allowed in a rate interval for the [agen
 type          | Integer
 default       | `10`
 environment variable | `SENSU_EVENTS_BURST_LIMIT`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --events-burst-limit 20
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --events-burst-limit 20{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 events-burst-limit: 20{{< /code >}}
-
 
 | events-rate-limit | |
 --------------|------
@@ -1213,12 +1218,10 @@ description   | Maximum number of events per second that can be transmitted to t
 type          | Float
 default       | `10.0`
 environment variable | `SENSU_EVENTS_RATE_LIMIT`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --events-rate-limit 20.0
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --events-rate-limit 20.0{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 events-rate-limit: 20.0{{< /code >}}
-
 
 ### Ephemeral agent configuration flags
 
@@ -1230,26 +1233,22 @@ description   | `true` if a deregistration event should be created upon Sensu ag
 type          | Boolean
 default       | `false`
 environment variable | `SENSU_DEREGISTER`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --deregister
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --deregister{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 deregister: true{{< /code >}}
-
 
 | deregistration-handler |      |
 -------------------------|------
 description              | Name of the event handler to use when processing the agent's deregistration events. This flag overrides any handlers applied by the [`deregistration-handler` backend configuration flag][37].
 type                     | String
 environment variable     | `SENSU_DEREGISTRATION_HANDLER`
-example                  | {{< code shell >}}# Command line examples
-sensu-agent start --deregistration-handler deregister
-
-# /etc/sensu/agent.yml examples
-deregistration-handler: "deregister"{{< /code >}}
+command line example   | {{< code shell >}}
+sensu-agent start --deregistration-handler deregister{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+deregistration-handler: deregister{{< /code >}}
 
 <a name="detect-cloud-provider-flag"></a>
-
 
 | detect-cloud-provider  |      |
 -------------------------|------
@@ -1257,12 +1256,10 @@ description              | `true` to enable cloud provider detection mechanisms.
 type                     | Boolean
 default                  | `false`
 environment variable     | `SENSU_DETECT_CLOUD_PROVIDER`
-example                  | {{< code shell >}}# Command line example
-sensu-agent start --detect-cloud-provider false
-
-# /etc/sensu/agent.yml example
-detect-cloud-provider: "false"{{< /code >}}
-
+command line example   | {{< code shell >}}
+sensu-agent start --detect-cloud-provider false{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+detect-cloud-provider: false{{< /code >}}
 
 ### Keepalive configuration flags
 
@@ -1273,10 +1270,9 @@ description         | Number of seconds after a missing keepalive event until th
 type                | Integer
 default             | `0`
 environment variable   | `SENSU_KEEPALIVE_CRITICAL_TIMEOUT`
-example             | {{< code shell >}}# Command line example
-sensu-agent start --keepalive-critical-timeout 300
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --keepalive-critical-timeout 300{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 keepalive-critical-timeout: 300{{< /code >}}
 
 <a name="keepalive-handlers-flag"></a>
@@ -1287,12 +1283,13 @@ description         | [Keepalive event handlers][52] to use for the entity, spec
 type                | List
 default             | `keepalive`
 environment variable   | `SENSU_KEEPALIVE_HANDLERS`
-example             | {{< code shell >}}# Command line example
-sensu-agent start --keepalive-handlers slack,email
-
-# /etc/sensu/agent.yml example
-keepalive-handlers: slack,email{{< /code >}}
-
+command line example   | {{< code shell >}}
+sensu-agent start --keepalive-handlers slack,email{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+keepalive-handlers:
+- slack
+- email
+{{< /code >}}
 
 | keepalive-interval |      |
 ---------------------|------
@@ -1300,12 +1297,10 @@ description          | Number of seconds between keepalive events.
 type                 | Integer
 default              | `20`
 environment variable   | `SENSU_KEEPALIVE_INTERNAL`
-example              | {{< code shell >}}# Command line example
-sensu-agent start --keepalive-interval 30
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --keepalive-interval 30{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 keepalive-interval: 30{{< /code >}}
-
 
 | keepalive-warning-timeout |      |
 --------------------|------
@@ -1314,12 +1309,10 @@ description         | Number of seconds after a missing keepalive event until th
 type                | Integer
 default             | `120`
 environment variable   | `SENSU_KEEPALIVE_WARNING_TIMEOUT`
-example             | {{< code shell >}}# Command line example
-sensu-agent start --keepalive-warning-timeout 300
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --keepalive-warning-timeout 300{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 keepalive-warning-timeout: 300{{< /code >}}
-
 
 ### Security configuration flags
 
@@ -1332,12 +1325,10 @@ Entities can only belong to a [single namespace](../../../operations/control-acc
 type           | String
 default        | `default`
 environment variable   | `SENSU_NAMESPACE`
-example        | {{< code shell >}}# Command line example
-sensu-agent start --namespace ops
-
-# /etc/sensu/agent.yml example
-namespace: "ops"{{< /code >}}
-
+command line example   | {{< code shell >}}
+sensu-agent start --namespace ops{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+namespace: ops{{< /code >}}
 
 | user |      |
 --------------|------
@@ -1345,12 +1336,10 @@ description   | [Sensu RBAC username][39] used by the agent. Agents require get,
 type          | String
 default       | `agent`
 environment variable   | `SENSU_USER`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --user agent-01
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --user agent-01{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 user: "agent-01"{{< /code >}}
-
 
 | password    |      |
 --------------|------
@@ -1358,12 +1347,10 @@ description   | [Sensu RBAC password][39] used by the agent.
 type          | String
 default       | `P@ssw0rd!`
 environment variable   | `SENSU_PASSWORD`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --password secure-password
-
-# /etc/sensu/agent.yml example
-password: "secure-password"{{< /code >}}
-
+command line example   | {{< code shell >}}
+sensu-agent start --password secure-password{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+password: secure-password{{< /code >}}
 
 | redact      |      |
 --------------|------
@@ -1374,15 +1361,13 @@ They are not logged or displayed via the Sensu API.
 type          | List
 default       | By default, Sensu redacts the following fields: `password`, `passwd`, `pass`, `api_key`, `api_token`, `access_key`, `secret_key`, `private_key`, `secret`.
 environment variable   | `SENSU_REDACT`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --redact secret,ec2_access_key
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --redact secret,ec2_access_key{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 redact:
   - secret
   - ec2_access_key
 {{< /code >}}
-
 
 | cert-file  |      |
 -------------|------
@@ -1390,12 +1375,10 @@ description  | Path to the agent certificate file used in mTLS authentication. S
 type         | String
 default      | `""`
 environment variable | `SENSU_CERT_FILE`
-example      | {{< code shell >}}# Command line example
-sensu-agent start --cert-file /path/to/agent.pem
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --cert-file /path/to/agent.pem{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 cert-file: "/path/to/agent.pem"{{< /code >}}
-
 
 | trusted-ca-file |      |
 ------------------|------
@@ -1403,12 +1386,10 @@ description       | SSL/TLS certificate authority.
 type              | String
 default           | `""`
 environment variable   | `SENSU_TRUSTED_CA_FILE`
-example           | {{< code shell >}}# Command line example
-sensu-agent start --trusted-ca-file /path/to/trusted-certificate-authorities.pem
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --trusted-ca-file /path/to/trusted-certificate-authorities.pem{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /code >}}
-
 
 | key-file   |      |
 -------------|------
@@ -1416,13 +1397,10 @@ description  | Path to the agent key file used in mTLS authentication.
 type         | String
 default      | `""`
 environment variable | `SENSU_KEY_FILE`
-example      | {{< code shell >}}# Command line example
-sensu-agent start --key-file /path/to/agent-key.pem
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --key-file /path/to/agent-key.pem{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 key-file: "/path/to/agent-key.pem"{{< /code >}}
-
-
 
 | insecure-skip-tls-verify |      |
 ---------------------------|------
@@ -1432,10 +1410,9 @@ description                | Skip SSL verification. {{% notice warning %}}
 type                       | Boolean
 default                    | `false`
 environment variable       | `SENSU_INSECURE_SKIP_TLS_VERIFY`
-example                    | {{< code shell >}}# Command line example
-sensu-agent start --insecure-skip-tls-verify
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --insecure-skip-tls-verify{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 insecure-skip-tls-verify: true{{< /code >}}
 
 <a name="fips-openssl"></a>
@@ -1449,10 +1426,9 @@ description       | Require Federal Information Processing Standard (FIPS) suppo
 type              | Boolean
 default           | false
 environment variable | `SENSU_REQUIRE_FIPS`
-example           | {{< code shell >}}# Command line example
-sensu-agent start --require-fips
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --require-fips{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 require-fips: true{{< /code >}}
 
 | require-openssl |      |
@@ -1464,12 +1440,10 @@ description       | Use OpenSSL instead of Go's standard cryptography library. L
 type              | Boolean
 default           | false
 environment variable | `SENSU_REQUIRE_OPENSSL`
-example           | {{< code shell >}}# Command line example
-sensu-agent start --require-openssl
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --require-openssl{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 require-openssl: true{{< /code >}}
-
 
 ### Socket configuration flags
 
@@ -1479,12 +1453,10 @@ description   | Address to bind the Sensu agent socket to.
 type          | String
 default       | `127.0.0.1`
 environment variable   | `SENSU_SOCKET_HOST`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --socket-host 0.0.0.0
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --socket-host 0.0.0.0{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 socket-host: "0.0.0.0"{{< /code >}}
-
 
 | socket-port |      |
 --------------|------
@@ -1492,12 +1464,10 @@ description   | Port the Sensu agent socket listens on.
 type          | Integer
 default       | `3030`
 environment variable   | `SENSU_SOCKET_PORT`
-example       | {{< code shell >}}# Command line example
-sensu-agent start --socket-port 4030
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --socket-port 4030{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 socket-port: 4030{{< /code >}}
-
 
 | disable-sockets |      |
 ------------------|------
@@ -1505,12 +1475,10 @@ description       | `true` to disable the agent TCP and UDP event sockets. Othew
 type              | Boolean
 default           | `false`
 environment variable   | `SENSU_DISABLE_SOCKETS`
-example           | {{< code shell >}}# Command line example
-sensu-agent start --disable-sockets
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --disable-sockets{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 disable-sockets: true{{< /code >}}
-
 
 ### StatsD configuration flags
 
@@ -1520,28 +1488,25 @@ description      | `true` to disable the [StatsD][21] listener and metrics serve
 type             | Boolean
 default          | `false`
 environment variable   | `SENSU_STATSD_DISABLE`
-example          | {{< code shell >}}# Command line example
-sensu-agent start --statsd-disable
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --statsd-disable{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 statsd-disable: true{{< /code >}}
-
 
 | statsd-event-handlers |      |
 ------------------------|------
 description             | List of event handlers for StatsD metrics.
 type                    | List
 environment variable    | `SENSU_STATSD_EVENT_HANDLERS`
-example                 | {{< code shell >}}# Command line examples
+command line example   | {{< code shell >}}
 sensu-agent start --statsd-event-handlers influxdb,opentsdb
 sensu-agent start --statsd-event-handlers influxdb --statsd-event-handlers opentsdb
-
-# /etc/sensu/agent.yml example
+{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 statsd-event-handlers:
   - influxdb
   - opentsdb
 {{< /code >}}
-
 
 | statsd-flush-interval  |      |
 -------------------------|------
@@ -1549,12 +1514,10 @@ description              | Number of seconds between [StatsD flushes][23].
 type                     | Integer
 default                  | `10`
 environment variable     | `SENSU_STATSD_FLUSH_INTERVAL`
-example                  | {{< code shell >}}# Command line example
-sensu-agent start --statsd-flush-interval 30
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --statsd-flush-interval 30{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 statsd-flush-interval: 30{{< /code >}}
-
 
 | statsd-metrics-host |      |
 ----------------------|------
@@ -1562,12 +1525,10 @@ description           | Address used for the StatsD metrics server.
 type                  | String
 default               | `127.0.0.1`
 environment variable   | `SENSU_STATSD_METRICS_HOST`
-example               | {{< code shell >}}# Command line example
-sensu-agent start --statsd-metrics-host 0.0.0.0
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --statsd-metrics-host 0.0.0.0{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 statsd-metrics-host: "0.0.0.0"{{< /code >}}
-
 
 | statsd-metrics-port |      |
 ----------------------|------
@@ -1575,10 +1536,9 @@ description           | Port used for the StatsD metrics server.
 type                  | Integer
 default               | `8125`
 environment variable   | `SENSU_STATSD_METRICS_PORT`
-example               | {{< code shell >}}# Command line example
-sensu-agent start --statsd-metrics-port 6125
-
-# /etc/sensu/agent.yml example
+command line example   | {{< code shell >}}
+sensu-agent start --statsd-metrics-port 6125{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
 statsd-metrics-port: 6125{{< /code >}}
 
 ### Allow list configuration commands
@@ -1593,28 +1553,65 @@ Use these commands to build your allow list configuration file.
 description           | Command to allow the Sensu agent to run as a check or a hook.
 required              | true
 type                  | String
-example               | {{< code shell >}}"exec": "/usr/local/bin/check_memory.sh"{{< /code >}}
+example               | {{< language-toggle >}}
+{{< code yml >}}
+exec: "/usr/local/bin/check_memory.sh"
+{{< /code >}}
+{{< code json >}}
+{
+  "exec": "/usr/local/bin/check_memory.sh"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | sha512 |      |
 ----------------------|------
 description           | Checksum of the check or hook executable.
 required              | false
 type                  | String
-example               | {{< code shell >}}"sha512": "4f926bf4328..."{{< /code >}}
+example               | {{< language-toggle >}}
+{{< code yml >}}
+sha512: 4f926bf4328...
+{{< /code >}}
+{{< code json >}}
+{
+  "sha512": "4f926bf4328..."
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | args |      |
 ----------------------|------
 description           | Arguments for the `exec` command.
 required              | true
 type                  | Array
-example               | {{< code shell >}}"args": ["foo"]{{< /code >}}
+example               | {{< language-toggle >}}
+{{< code yml >}}
+args:
+- foo
+{{< /code >}}
+{{< code json >}}
+{
+  "args": ["foo"]
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | enable_env |      |
 ----------------------|------
 description           | `true` to enable environment variables. Otherwise, `false`.
 required              | false
 type                  | Boolean
-example               | {{< code shell >}}"enable_env": true{{< /code >}}
+example               | {{< language-toggle >}}
+{{< code yml >}}
+enable_env: true
+{{< /code >}}
+{{< code json >}}
+{
+  "enable_env": true
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 #### Example allow list configuration file
 
