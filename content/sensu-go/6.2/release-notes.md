@@ -9,6 +9,7 @@ version: "6.2"
 menu: "sensu-go-6.2"
 ---
 
+- [6.2.5 release notes](#625-release-notes)
 - [6.2.4 release notes](#624-release-notes)
 - [6.2.3 release notes](#623-release-notes)
 - [6.2.2 release notes](#622-release-notes)
@@ -20,6 +21,7 @@ menu: "sensu-go-6.2"
 - [6.1.1 release notes](#611-release-notes)
 - [6.1.0 release notes](#610-release-notes)
 - [6.0.0 release notes](#600-release-notes)
+- [5.21.4 release notes](#5214-release-notes)
 - [5.21.3 release notes](#5213-release-notes)
 - [5.21.2 release notes](#5212-release-notes)
 - [5.21.1 release notes](#5211-release-notes)
@@ -78,6 +80,19 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.2.5 release notes
+
+**February 2, 2021** &mdash; The latest release of Sensu Go, version 6.2.5, is now available for download.
+
+This patch fixes a bug regarding the event occurrences_watermark property.
+This bug interfered with the property's expected behavior when using event filters like the popular fatigue check filter.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.2.5.
+
+**FIXES:**
+
+- ([Commercial feature][193]) Fixed a bug that prevented occurrences_watermark from incrementing for non-zero events when using the PostgreSQL datastore.
 
 ## 6.2.4 release notes
 
@@ -345,6 +360,18 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - Fixed a bug where nil labels or annotations in an event filtering context would require you to explicitly check whether the annotations or labels are undefined.
 With this fix, labels and annotations are always defined (although they may be empty).
 - Fixed the log entry field for the check's name in schedulerd.
+
+## 5.21.4 release notes
+
+**March 9, 2021** &mdash; The latest release of Sensu Go, version 5.21.4, is now available for download.
+
+This patch release fixes a bug that caused the SIGHUP signal to restart the sensu-backend.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.4.
+
+**FIXES:**
+
+- Fixed a bug that caused the SIGHUP signal used for [log rotation][206] to restart the sensu-backend.
 
 ## 5.21.3 release notes
 
@@ -1608,7 +1635,7 @@ To get started with Sensu Go:
 [67]: /sensu-go/5.11/dashboard/overview/
 [68]: /sensu-go/5.11/getting-started/enterprise/
 [69]: /sensu-go/5.11/installation/verify/
-[70]: /sensu-go/5.11/reference/assets#examples
+[70]: /sensu-go/5.11/reference/assets/#asset-example-minimum-required-attributes
 [71]: /sensu-go/5.11/reference/agent#disable-assets
 [72]: /sensu-go/5.11/sensuctl/reference#deleting-resources
 [73]: /sensu-go/5.11/installation/platforms/
@@ -1737,7 +1764,8 @@ To get started with Sensu Go:
 [199]: /sensu-go/6.2/operations/control-access/ldap-auth/
 [200]: /sensu-go/6.2/sensuctl/create-manage-resources/#sensuctl-prune-flags
 [201]: /sensu-go/6.2/operations/deploy-sensu/datastore/#round-robin-postgresql
-[202]: /sensu-go/6.2/sensuctl/#first-time-setup
+[202]: /sensu-go/6.2/sensuctl/#first-time-setup-and-authentication
 [203]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#agent-managed-entity
 [204]: /sensu-go/6.2/observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent
 [205]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#configuration-via-flags
+[206]: /sensu-go/5.21/reference/backend/#log-rotation

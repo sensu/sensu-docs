@@ -279,18 +279,18 @@ sudo yum install sensu-go-cli
 
 {{< code powershell "Windows" >}}
 # Download sensuctl for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.4/sensu-go_6.2.4_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.4_windows_amd64.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.5/sensu-go_6.2.5_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.5_windows_amd64.zip
 
 # Or for 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.4/sensu-go_6.2.4_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.4_windows_386.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.5/sensu-go_6.2.5_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.5_windows_386.zip
 {{< /code >}}
 
 {{< code shell "macOS" >}}
 # Download the latest release
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.4/sensu-go_6.2.4_darwin_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.5/sensu-go_6.2.5_darwin_amd64.tar.gz
 
 # Extract the archive
-tar -xvf sensu-go_6.2.4_darwin_amd64.tar.gz
+tar -xvf sensu-go_6.2.5_darwin_amd64.tar.gz
 
 # Copy the executable into your PATH
 sudo cp sensuctl /usr/local/bin/
@@ -312,7 +312,7 @@ sensuctl configure -n \
 Here, the `-n` flag triggers non-interactive mode.
 Run `sensuctl config view` to see your user profile.
 
-For more information about sensuctl, see the [quickstart][23] and [reference][4] docs.
+For more information about sensuctl, see the [sensuctl documentation][4].
 
 ### Change default admin password
 
@@ -360,13 +360,13 @@ sudo yum install sensu-go-agent
 
 {{< code powershell "Windows" >}}
 # Download the Sensu agent for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.4/sensu-go-agent_6.2.4.4013_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.4.4013_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.5/sensu-go-agent_6.2.5.4040_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.5.4040_en-US.x64.msi"
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.4/sensu-go-agent_6.2.4.4013_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.4.4013_en-US.x86.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.5/sensu-go-agent_6.2.5.4040_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.5.4040_en-US.x86.msi"
 
 # Install the Sensu agent
-msiexec.exe /i $env:userprofile\sensu-go-agent_6.2.4.4013_en-US.x64.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_6.2.5.4040_en-US.x64.msi /qn
 
 # Or via Chocolatey
 choco install sensu-agent
@@ -511,11 +511,22 @@ Sensu Inc. offers support packages for Sensu Go and [commercial features][20] de
 All commercial features are [free for your first 100 entities][29].
 To learn more about Sensu Go commercial licenses for more than 100 entities, [contact the Sensu sales team][11].
 
-If you already have a Sensu commercial license, [log in to your Sensu account][34] and download your license file, then add your license using sensuctl.
+If you already have a Sensu commercial license, [log in to your Sensu account][34] and download your license file.
+Save your license to a file such as `sensu_license.yml` or `sensu_license.json`.
 
-{{< code shell >}}
+Use sensuctl to activate your license:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file sensu_license.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
 sensuctl create --file sensu_license.json
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 You can use sensuctl to view your license details at any time.
 
@@ -540,13 +551,12 @@ sensuctl license info
 [14]: ../../../learn/learn-sensu-sandbox/
 [15]: ../../../observability-pipeline/observe-schedule/agent/#events-post-example
 [16]: https://etcd.io/
-[17]: ../../../operations/deploy-sensu/assets/
+[17]: ../../../plugins/assets/
 [18]: #install-sensu-agents
 [19]: #install-sensuctl
 [20]: ../../../commercial/
 [21]: #install-the-sensu-backend
 [22]: ../cluster-sensu/
-[23]: ../../../sensuctl/
 [24]: #4-open-the-web-ui
 [25]: ../hardware-requirements/
 [26]: ../../../api/

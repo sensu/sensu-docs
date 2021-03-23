@@ -18,6 +18,50 @@ You can create, manage, and reuse hooks independently of checks.
 Hooks enrich observability event context by gathering relevant information based on the exit status code of a check (ex: `1`).
 Hook commands can also receive JSON serialized Sensu client data via `STDIN`.
 
+## Hook example
+
+You can use hooks to automate data gathering for incident triage.
+This example demonstrates a check hook to capture the process tree when a process is not running:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: HookConfig
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: process_tree
+  namespace: default
+spec:
+  command: ps aux
+  stdin: false
+  timeout: 60
+  runtime_assets: null
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "HookConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "process_tree",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "command": "ps aux",
+    "timeout": 60,
+    "stdin": false,
+    "runtime_assets": null
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Check response types
 
 Each **type** of response (ex: `non-zero`) can contain one or more hooks and correspond to one or more exit status codes. Hooks are executed in order of precedence, based on their type:
@@ -366,9 +410,7 @@ runtime_assets:
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Examples
-
-### Rudimentary auto-remediation
+## Hook for rudimentary auto-remediation
 
 You can use hooks for rudimentary auto-remediation tasks, such as starting a process that is no longer running.
 
@@ -413,50 +455,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Capture the process tree
-
-You can use hooks to automate data gathering for incident triage, For example, you can use a check hook to capture the process tree when a process is not running.
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: HookConfig
-api_version: core/v2
-metadata:
-  annotations: null
-  labels: null
-  name: process_tree
-  namespace: default
-spec:
-  command: ps aux
-  stdin: false
-  timeout: 60
-  runtime_assets: null
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "HookConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "process_tree",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
-  },
-  "spec": {
-    "command": "ps aux",
-    "timeout": 60,
-    "stdin": false,
-    "runtime_assets": null
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Check hook using token substitution
+## Hook that uses token substitution
 
 You can create check hooks that use [token substitution][7] so you can fine-tune check attributes on a per-entity level and re-use the check definition.
 
@@ -507,7 +506,7 @@ spec:
 
 [1]: ../../../sensuctl/create-manage-resources/#create-resources
 [2]: #metadata-attributes
-[3]: ../../../operations/control-access/rbac#namespaces
+[3]: ../../../operations/control-access/namespaces/
 [4]: ../../observe-filter/filters/
 [5]: ../../../plugins/assets/
 [6]: ../checks#check-hooks-attribute

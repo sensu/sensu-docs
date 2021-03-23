@@ -34,11 +34,16 @@ Resolve, re-run, silence, and delete Sensu events in the web UI Events page.
 
 ## Manage entities
 
-Silence and delete Sensu entities in the web UI Entities page.
+Edit, silence, and delete Sensu entities in the web UI Entities page.
 
 ## Manage silences
 
-Create and clear silences in the web UI Silences page.
+Create silences by check or subscription name and clear silences in the web UI Silences page.
+
+You can also silence checks and entities from their respective pages in the web UI.
+To silence more than one check or entity at a time, click to select the checkbox next to the check or entity name.
+
+After you create a silence, it will be listed in the web UI Silences page until you clear the silence or the silence expires.
 
 ## Manage checks, handlers, event filters, and mutators
 

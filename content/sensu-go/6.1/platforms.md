@@ -20,13 +20,13 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 ### Sensu backend
 
-|  | CentOS/RHEL<br>6, 7, 8 | Debian 8, 9, 10 | Ubuntu 14.04, 16.04, 18.04, 18.10, 19.04, 19.10, 20.04 |
+|  | RHEL/CentOS<br>6, 7, 8 | Debian 8, 9, 10 | Ubuntu 14.04, 16.04, 18.04, 18.10, 19.04, 19.10, 20.04 |
 |----------------------|---------|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} |
 
 ### Sensu agent
 
-|  | CentOS/<br>RHEL<br>6, 7, 8 | Debian<br>8, 9, 10 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7 and later | Windows Server 2008 R2 and later |
+|  | RHEL/<br>CentOS<br>6, 7, 8 | Debian<br>8, 9, 10 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7 and later | Windows Server 2008 R2 and later |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
@@ -36,7 +36,7 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 ### Sensuctl command line tool
 
-|  | CentOS/<br>RHEL<br>6, 7, 8 | Debian<br>8, 9, 10 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7 and later | Windows Server 2008 R2 and later |
+|  | RHEL/<br>CentOS<br>6, 7, 8 | Debian<br>8, 9, 10 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7 and later | Windows Server 2008 R2 and later |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
@@ -165,6 +165,15 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.1.4/sensu-go_6.1
 {{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
+
+#### Federal Information Processing Standard (FIPS) Compliance
+
+Builds that support the Federal Information Processing Standard (FIPS) for Federal Risk and Authorization Management Program (FedRAMP) compliance are available for Linux `amd64`.
+
+Sensu FIPS builds with [FIPS-mode configuration flags][51] are linked with the FIPS 140-2 validated cryptographic library.
+You can run Red Hat Enterprise Linux (RHEL) with the FIPS-mode kernel option to enforce FIPS systemwide &mdash; Sensu FIPS builds comply with this mode.
+
+[Contact Sensu][50] to request builds with FIPS support.
 
 ### Windows
 
@@ -350,7 +359,7 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [6]: /sensu-go/5.21/operations/deploy-sensu/configuration-management/
 [7]: https://sensu.io/sensu-license/
 [8]: https://packagecloud.io/sensu/stable/
-[9]: https://sensu.io/downloads/
+[9]: https://sensu.io/downloads
 [10]: https://hub.docker.com/r/sensu/sensu/
 [11]: https://hub.docker.com/r/sensu/sensu-rhel/
 [12]: https://github.com/sensu/grafana-sensu-go-datasource/
@@ -390,6 +399,8 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [47]: #freebsd
 [48]: #solaris
 [49]: ../api
+[50]: https://sensu.io/contact
+[51]: ../observability-pipeline/observe-schedule/backend/#fips-openssl
 [54]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.1.4/sensu-go_6.1.4_linux_amd64.tar.gz
 [55]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.1.4/sensu-go_6.1.4_linux_arm64.tar.gz
 [56]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.1.4/sensu-go_6.1.4_linux_armv5.tar.gz

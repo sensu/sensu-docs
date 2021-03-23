@@ -5,7 +5,7 @@ description: "Here’s how to send alerts to your email with the Sensu Go Email 
 weight: 85
 version: "5.21"
 product: "Sensu Go"
-platformContent: False
+platformContent: false
 menu: 
   sensu-go-5.21:
     parent: guides
@@ -257,7 +257,7 @@ You should receive another email because the event status changed to `0` (OK).
 
 Now that you know how to apply a handler to a check and take action on events:
 
-- Reuse this email handler with the `check-cpu` check from our [Monitor server resources][2] guide.
+- Reuse this email handler with the `check_cpu` check from our [Monitor server resources][2] guide.
 - Read the [handlers reference][6] for in-depth handler documentation.
 - Check out the [Reduce alert fatigue][7] guide.
 

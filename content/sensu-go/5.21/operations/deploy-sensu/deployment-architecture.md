@@ -154,12 +154,12 @@ Under normal conditions, sensuctl communications and browser access to the web U
 [2]: ../../../api/
 [3]: ../../../reference/agent/#general-configuration-flags
 [4]: https://etcd.io/docs/
-[5]: https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/security.md
+[5]: https://etcd.io/docs/current/op-guide/security/
 [6]: ../secure-sensu/
 [7]: ../cluster-sensu/
 [8]: ../../../reference/datastore/
 [9]: ../../../commercial/
 [10]: https://github.com/sensu/sensu-perf
-[11]: https://etcd.io/docs/v3.4.0/tuning/#disk
+[11]: https://etcd.io/docs/v3.3.13/tuning/#disk
 [12]: https://www.ibm.com/cloud/blog/using-fio-to-tell-whether-your-storage-is-fast-enough-for-etcd
 [13]: ../../../reference/datastore/#scale-event-storage

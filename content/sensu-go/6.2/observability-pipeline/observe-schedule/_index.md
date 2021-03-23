@@ -48,6 +48,88 @@ In each check's definition, you can specify which subscriptions should run the c
 At the same time, your entities are "subscribed" to these subscriptions.
 Subscriptions make sure your entities automatically run the appropriate checks for their functionality.
 
+The following example shows the resource definition for a check with the `system` and `linux` subscriptions.
+This check would run on any entities whose definitions also specify the `system` or `linux` subscriptions.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: check-cpu
+  namespace: default
+spec:
+  check_hooks: null
+  command: check-cpu.rb -w 75 -c 90
+  env_vars: null
+  handlers:
+  - slack
+  high_flap_threshold: 0
+  interval: 60
+  low_flap_threshold: 0
+  output_metric_format: ""
+  output_metric_handlers: null
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets:
+  - cpu-checks-plugins
+  - sensu-ruby-runtime
+  secrets: null
+  stdin: false
+  subdue: null
+  subscriptions:
+  - system
+  - linux
+  timeout: 0
+  ttl: 0
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "check-cpu",
+    "namespace": "default"
+  },
+  "spec": {
+    "check_hooks": null,
+    "command": "check-cpu.rb -w 75 -c 90",
+    "env_vars": null,
+    "handlers": [
+      "slack"
+    ],
+    "high_flap_threshold": 0,
+    "interval": 60,
+    "low_flap_threshold": 0,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": [
+      "cpu-checks-plugins",
+      "sensu-ruby-runtime"
+    ],
+    "secrets": null,
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "system"
+    ],
+    "timeout": 0,
+    "ttl": 0
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 Subscriptions typically correspond to a specific role or responsibility.
 For example, you might add all the checks you want to run on your database entities to a `database` subscription.
 Rather than specifying these checks individually for every database you are monitoring, you add the `database` subscription to your database entities and they run the desired checks automatically.

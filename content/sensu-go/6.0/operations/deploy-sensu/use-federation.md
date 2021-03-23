@@ -78,12 +78,15 @@ This prerequisite extends to configuring the following Sensu backend etcd parame
 | `etcd-cert-file`             | Path to certificate used for TLS on etcd client/peer communications.  |
 | `etcd-key-file`              | Path to key corresponding with `etcd-cert-file` certificate. |
 | `etcd-trusted-ca-file`       | Path to CA certificate chain file. This CA certificate chain must be usable to validate certificates for all backends in the federation. |
-| `etcd-client-cert-auth`      | Enforces certificate validation to authenticate etcd replicator connections. We recommend setting to `true`. |
+| `etcd-client-cert-auth`      | Enforces certificate validation to authenticate etcd replicator connections. Set to `true` to secure etcd communication. |
 | `etcd-advertise-client-urls` | List of https URLs to advertise for etcd replicators, accessible by other backends in the federation (e.g. `https://sensu.beta.example.com:2379`). |
 | `etcd-listen-client-urls`    | List of https URLs to listen on for etcd replicators (e.g. `https://0.0.0.0:2379` to listen on port 2379 across all ipv4 interfaces). |
 
-{{% notice note %}}
-**NOTE**: You *must* provide non-default values for the `etcd-advertise-client-urls` and `etcd-listen-client-urls` backend parameters.
+{{% notice warning %}}
+**WARNING**: You *must* provide an explicit, non-default etcd configuration to secure etcd communication in transit.
+If you do not properly configure secure etcd communication, your Sensu configuration will be vulnerable to unauthorized manipulation via etcd client connections.
+
+This includes providing non-default values for the `etcd-advertise-client-urls` and `etcd-listen-client-urls` backend parameters and creating a [certificate and key](../generate-certificates/) for the `etcd-cert-file` and `etcd-key-file` values.
 The default values are not suitable for use under federation.
 {{% /notice %}}
 
@@ -144,14 +147,77 @@ Second, create a `federation-viewer` user:
 sensuctl user create federation-viewer --interactive
 {{< /code >}}
 
-When prompted, enter a password for the `federation-viewer` user.
-When prompted for groups, press enter. Note the `federation-viewer` password you entered &mdash; you'll use it to log in to the web UI after you configure RBAC policy replication and registered clusters into your federation.
+When prompted for username and groups, press enter.
+When prompted for password, enter a password for the `federation-viewer` user.
+Note the password you entered &mdash; you'll use it to log in to the web UI after you configure RBAC policy replication and registered clusters into your federation.
+
+This creates the following user:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+username: federation-viewer
+disabled: false
+{{< /code >}}
+
+{{< code json >}}
+{
+  "username": "federation-viewer",
+  "disabled": false
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 Next, grant the `federation-viewer` user read-only access through a cluster role binding for the built-in `view` cluster role:
 
 {{< code shell >}}
 sensuctl cluster-role-binding create federation-viewer-readonly --cluster-role=view --user=federation-viewer
 {{< /code >}}
+
+This command creates the following cluster role binding resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: ClusterRoleBinding
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: federation-viewer-readonly
+spec:
+  role_ref:
+    name: view
+    type: ClusterRole
+  subjects:
+  - name: federation-viewer
+    type: User
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "ClusterRoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "federation-viewer-readonly"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "view",
+      "type": "ClusterRole"
+    },
+    "subjects": [
+      {
+        "name": "federation-viewer",
+        "type": "User"
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 In step 4, you'll configure etcd replicators to copy the cluster role bindings and other RBAC policies you created in the `gateway` cluster to the `alpha` and `beta` clusters.
 
@@ -255,11 +321,15 @@ Write these EtcdReplicator definitions written to disk and use `sensuctl create 
 For a consistent experience, repeat the `ClusterRoleBinding` example in this guide for `Role`, `RoleBinding` and `ClusterRole` resource types.
 The [etcd replicators reference][2] includes [examples][9] you can follow for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources.
 
-To verify that the EtcdReplicator resource is working as expected, reconfigure `sensuctl` to communicate with the `alpha` and then `beta` clusters, issuing the `sensuctl cluster-role-binding list` command for each.
-You should see the `federation-viewer-readonly` binding created in step 3 listed in the output from each cluster:
+To verify that the EtcdReplicator resource is working as expected, reconfigure `sensuctl` to communicate with the `alpha` and then `beta` clusters and run the following command for each:
 
 {{< code shell >}}
-$ sensuctl cluster-role-binding info federation-viewer-readonly
+sensuctl cluster-role-binding info federation-viewer-readonly
+{{< /code >}}
+
+The `federation-viewer-readonly` binding you created in step 3 should be listed in the output from each cluster:
+
+{{< code shell >}}
 === federation-viewer-readonly
 Name:         federation-viewer-readonly
 Cluster Role: view
@@ -360,6 +430,7 @@ If you haven't changed the permissions of the default `admin` user, that user sh
 
 Learn more about configuring RBAC policies in our [RBAC reference documentation][10].
 
+
 [1]: ../../../api/federation/
 [2]: ../etcdreplicators/
 [3]: ../../control-access/use-apikeys/
@@ -368,7 +439,7 @@ Learn more about configuring RBAC policies in our [RBAC reference documentation]
 [6]: ../../../sensuctl/create-manage-resources/#update-resources
 [7]: ../../../sensuctl/create-manage-resources/#delete-resources
 [8]: ../../../commercial/
-[9]: ../etcdreplicators#example-etcdreplicator-resources
+[9]: ../etcdreplicators#etcd-replicator-examples
 [10]: ../../control-access/rbac/
 [11]: ../../../api/federation#get-all-clusters
 [12]: https://github.com/etcd-io/etcd/blob/master/etcdctl/README.md#make-mirror-options-destination

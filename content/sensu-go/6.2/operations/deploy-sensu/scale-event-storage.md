@@ -46,18 +46,39 @@ The `sensu-perf` test environment comfortably handles 40,000 Sensu agent connect
 Before Sensu can start writing events to Postgres, you need a database and an account with permissions to write to that database.
 To provide consistent event throughput, we recommend exclusively dedicating your Postgres instance to storage of Sensu events.
 
-If you have administrative access to Postgres, you can create the database and user:
+If you have administrative access to Postgres, you can create the database and user.
 
-{{< code shell >}}
-$ sudo -u postgres psql
-postgres=# CREATE DATABASE sensu_events;
-CREATE DATABASE
-postgres=# CREATE USER sensu WITH ENCRYPTED PASSWORD 'mypass';
-CREATE ROLE
-postgres=# GRANT ALL PRIVILEGES ON DATABASE sensu_events TO sensu;
-GRANT
-postgres-# \q
+1. Change to the postgres user and open the Postgres prompt (`postgres=#`):
+
+   {{< code shell >}}
+sudo -u postgres psql
 {{< /code >}}
+
+2. Create the `sensu_events` database:
+
+   {{< code postgresql >}}
+CREATE DATABASE sensu_events;
+{{< /code >}}
+
+   Postgres will return a confirmation message: `CREATE DATABASE`.
+
+3. Create the `sensu` role with a password:
+
+   {{< code postgresql >}}
+CREATE USER sensu WITH ENCRYPTED PASSWORD 'mypass';
+{{< /code >}}
+
+   Postgres will return a confirmation message: `CREATE ROLE`.
+
+4. Grant the `sensu` role all privileges for the `sensu_events` database:
+
+   {{< code postgresql >}}
+GRANT ALL PRIVILEGES ON DATABASE sensu_events TO sensu;
+{{< /code >}}
+
+   Postgres will return a confirmation message: `GRANT`.
+
+5. Exit the PostgreSQL prompt: type `/q`.
 
 With this configuration complete, Postgres will have a `sensu_events` database for storing Sensu events and a `sensu` user with permissions to that database.
 
@@ -65,12 +86,21 @@ By default, the Postgres user you've just added will not be able to authenticate
 The required change will depend on how Sensu will connect to Postgres.
 In this case, you'll configure Postgres to allow the `sensu` user to connect to the `sensu_events` database from any host using an [md5][5]-encrypted password:
 
-{{< code shell >}}
-# make a copy of the current pg_hba.conf
+1. Make a copy of the current `pg_hba.conf` file:
+
+   {{< code shell >}}
 sudo cp /var/lib/pgsql/data/pg_hba.conf /var/tmp/pg_hba.conf.bak
-# give sensu user permissions to connect to sensu_events database from any IP address
+{{< /code >}}
+
+2. Give the Sensu user permissions to connect to the `sensu_events` database from any IP address:
+
+   {{< code shell >}}
 echo 'host sensu_events sensu 0.0.0.0/0 md5' | sudo tee -a /var/lib/pgsql/data/pg_hba.conf
-# restart postgresql service to activate pg_hba.conf changes
+{{< /code >}}
+
+3. Restart the postgresql service to activate the `pg_hba.conf` changes:
+
+   {{< code shell >}}
 sudo systemctl restart postgresql
 {{< /code >}}
 
@@ -84,6 +114,7 @@ Create a `PostgresConfig` resource that describes the database connection as a d
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: PostgresConfig
 api_version: store/v1
 metadata:
@@ -109,11 +140,19 @@ spec:
 
 {{< /language-toggle >}}
 
-This configuration is written to disk as `my-postgres.yml`, and you can install it using `sensuctl`:
+Save this configuration as `my-postgres.yml` or `my-postgres.json` and install it with `sensuctl`:
 
-{{< code shell >}}
-sensuctl create -f my-postgres.yml
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file my-postgres.yml
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create --file my-postgres.json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 The Sensu backend is now configured to use Postgres for event storage!
 
@@ -131,19 +170,53 @@ To verify that the change was effective and your connection to Postgres was succ
 {{< /code >}}
 
 You can also use `psql` to verify that events are being written to the `sensu_events` database.
-This code illustrates connecting to the `sensu_events` database, listing the tables in the database, and requesting a list of all entities reporting keepalives:
 
-{{< code shell >}}
-postgres=# \c sensu_events
+1. Change to the postgres user and open the Postgres prompt (`postgres=#`):
+
+   {{< code shell >}}
+sudo -u postgres psql
+{{< /code >}}
+
+2. Connect to the `sensu_events` database:
+
+   {{< code postgresql >}}
+\c sensu_events
+{{< /code >}}
+
+   Postgres will return a confirmation message:
+
+   {{< code postgresql >}}
 You are now connected to database "sensu_events" as user "postgres".
-sensu_events=# \dt
+{{< /code >}}
+
+   The prompt will change to `sensu_events=#`.
+
+3. List the tables in the `sensu_events` database:
+
+   {{< code postgresql >}}
+\dt
+{{< /code >}}
+
+   Postgres will list the tables:
+
+   {{< code postgresql >}}
              List of relations
  Schema |       Name        | Type  | Owner 
 --------+-------------------+-------+-------
  public | events            | table | sensu
  public | migration_version | table | sensu
 (2 rows)
-sensu_events=# select sensu_entity from events where sensu_check = 'keepalive';
+{{< /code >}}
+
+4. Request a list of all entities reporting keepalives:
+
+   {{< code postgresql >}}
+select sensu_entity from events where sensu_check = 'keepalive';
+{{< /code >}}
+
+   Postgres will return a list of the entities:
+
+   {{< code postgresql >}}
  sensu_entity 
 --------------
  i-414141
@@ -155,11 +228,19 @@ sensu_events=# select sensu_entity from events where sensu_check = 'keepalive';
 ## Revert to the built-in datastore
 
 If you want to revert to the default etcd event store, delete the PostgresConfig resource.
-In this example, my-postgres.yml contains the same configuration you used to configure the Enterprise event store earlier in this guide:
+In this example, `my-postgres.yml` or `my-postgres.json` contain the same configuration you used to configure the Enterprise event store earlier in this guide:
 
-{{< code shell >}}
-sensuctl delete -f my-postgres.yml
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl delete --file my-postgres.yml
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl delete --file my-postgres.json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 To verify that the change was effective, look for messages similar to these in the [sensu-backend log][4]:
 
@@ -184,14 +265,23 @@ This section describes how to configure PostgreSQL streaming replication in four
 
 ### Step 1: Create and add the replication role
 
-If you have administrative access to Postgres, you can create the replication role:
+If you have administrative access to Postgres, you can create the replication role. 
+
+First, change to the postgres user and open the Postgres prompt (`postgres=#`):
 
 {{< code shell >}}
-$ sudo -u postgres psql
-postgres=# CREATE ROLE repl PASSWORD 'secret' LOGIN REPLICATION;
-CREATE ROLE
-postgres-# \q
+sudo -u postgres psql
 {{< /code >}}
+
+Create the `repl` role:
+
+{{< code postgresql >}}
+CREATE ROLE repl PASSWORD 'mypass' LOGIN REPLICATION;
+{{< /code >}}
+
+Postgres will return a confirmation message: `CREATE ROLE`.
+
+To exit the PostgreSQL prompt, type `/q`.
 
 Then, you must add the replication role to `pg_hba.conf` using an [md5-encrypted password][5].
 Make a copy of the current `pg_hba.conf`:
@@ -200,11 +290,15 @@ Make a copy of the current `pg_hba.conf`:
 sudo cp /var/lib/pgsql/data/pg_hba.conf /var/tmp/pg_hba.conf.bak
 {{< /code >}}
 
-Next, give the repl user permissions to replicate from the standby host.
-In the following command, replace `STANDBY_IP` with the IP address of your standby host:
+In the following command, replace the `STANDBY_IP` value with the IP address of your standby host and then run the command:
 
 {{< code shell >}}
 export STANDBY_IP=192.168.52.10
+{{< /code >}}
+
+Next, give the repl user permissions to replicate from the standby host:
+
+{{< code shell >}}
 echo "host replication repl ${STANDYB_IP}/32 md5" | sudo tee -a /var/lib/pgsql/data/pg_hba.conf
 {{< /code >}}
 
@@ -258,10 +352,16 @@ sudo systemctl restart postgresql
 The standby host must be bootstrapped using the `pg_basebackup` command.
 This process will copy all configuration files from the primary as well as databases.
 
-If the standby host has ever run Postgres, you must empty the data directory:
+If the standby host has ever run Postgres, you must empty the data directory.
+First, stop Postgres:
 
 {{< code shell >}}
 sudo systemctl stop postgresql
+{{< /code >}}
+
+Empty the data directory:
+
+{{< code shell >}}
 sudo mv /var/lib/pgsql/data /var/lib/pgsql/data.bak
 {{< /code >}}
 
@@ -271,18 +371,34 @@ Make the standby data directory:
 sudo install -d -o postgres -g postgres -m 0700 /var/lib/pgsql/data
 {{< /code >}}
 
-And then bootstrap the standby data directory:
+Then bootstrap the standby data directory.
+In the following command, replace PRIMARY_IP with the IP address of your primary host and then run the command:
 
 {{< code shell >}}
 export PRIMARY_IP=192.168.52.11
+{{< /code >}}
+
+Then bootstrap the standby data directory:
+
+{{< code shell >}}
 sudo -u postgres pg_basebackup -h $PRIMARY_IP -D /var/lib/pgsql/data -P -U repl -R --xlog-method=stream
+{{< /code >}}
+
+Postgres will prompt for your password:
+
+{{< code postgresql >}}
 Password: 
+{{< /code >}}
+
+After you enter your password, Postgres will list database copy progress:
+
+{{< code postgresql >}}
 30318/30318 kB (100%), 1/1 tablespace
 {{< /code >}}
 
 ### Step 4: Confirm replication
 
-To confirm your configuration is working properly, start by removing configurations that are only for the primary:
+To confirm your configuration is working properly, first remove configurations that are only for the primary:
 
 {{< code shell >}}
 sudo sed -r -i.bak '/^(wal_level|max_wal_senders|wal_keep_segments).*/d' /var/lib/pgsql/data/postgresql.conf
@@ -294,24 +410,38 @@ Start the PostgreSQL service:
 sudo systemcl start postgresql
 {{< /code >}}
 
-To verify that the replication is taking place, check the commit log location on the primary and standby hosts:
+To verify that the replication is taking place, check the commit log location on the primary and standby hosts.
+
+From primary:
 
 {{< code shell >}}
-# From master
 sudo -u postgres psql -c "select pg_current_xlog_location()"
+{{< /code >}}
+
+Postgres will list the commit log location:
+
+{{< code postgresql >}}
  pg_current_xlog_location 
 --------------------------
  0/3000568
 (1 row)
-# From standby
+{{< /code >}}
+
+From standby:
+
+{{< code shell >}}
 sudo -u postgres psql -c "select pg_last_xlog_receive_location()"
+sudo -u postgres psql -c "select pg_last_xlog_replay_location()"
+{{< /code >}}
+
+Postgres will list the commit log location:
+
+{{< code postgresql >}}
  pg_last_xlog_receive_location 
 -------------------------------
  0/3000568
 (1 row)
 
-# From standby
-sudo -u postgres psql -c "select pg_last_xlog_replay_location()"
  pg_last_xlog_replay_location 
 ------------------------------
  0/3000568
