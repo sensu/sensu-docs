@@ -144,8 +144,6 @@ This built-in rule templates are ready to use with your service components.
 
 Reference the rule template name in the `rules.template` field and configure the arguments in the `rules.template.arguments` object in your service component resource definitions.
 
-### Aggregate rule template example
-
 Use the `aggregate` rule template for services that can be considered healthy as long as a minimum threshold is satisfied.
 For example, you might set the minimum threshold at 10 web servers with an OK status or 70% of processes running with an OK status.
 
@@ -160,7 +158,7 @@ sensuctl RuleTemplate info aggregate --format yaml
 {{< /code >}}
 
 {{< code json >}}
-sensuctl RuleTemplate info aggregate --format wrapped-json
+sensuctl RuleTemplate info aggregate --format json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -175,11 +173,11 @@ type: RuleTemplate
 api_version: bsm/v1
 metadata:
   name: aggregate
+  namespace: default
+  created_by: admin
 spec:
   description: |
-    An aggregate makes it possible to treat the result of multiple disparate check executions executed across multiple disparate systems as a single result (Event).
-    Aggregates are extremely useful in dynamic environments and/or environments that have a reasonable tolerance for failure.
-    Aggregates should be used when a service can be considered healthy as long as a minimum threshold is satisfied (e.g. are at least 5 healthy web servers? are at least 70% of N processes healthy?).
+    Monitor a distributed service - aggregate one or more events into a single event. This BSM rule template allows you to treat the results of multiple disparate check executions – executed across multiple disparate systems – as a single event. This template is extremely useful in dynamic environments and/or environments that have a reasonable tolerance for failure. Use this template when a service can be considered healthy as long as a minimum threshold is satisfied (e.g. at least 5 healthy web servers? at least 70% of N processes healthy?).
   arguments:
     required:
       - produce_metrics
@@ -207,28 +205,20 @@ spec:
     if (!!args["handlers"]) {
         event.check.handlers = args["handlers"];
     }
-
     if (events && events.length == 0) {
         event.check.output = "WARNING: No events selected for aggregate\n";
         event.check.status = 1;
         return event;
     }
-
     event.annotations["io.sensu.bsm.selected_event_count"] = events.length;
-
     percentOK = sensu.PercentageBySeverity("ok");
-
     if (!!args["produce_metrics"]) {
         var handler = "";
-
         if (!!args["metric_handler"]) {
             handler = args["metric_handler"];
         }
-
         var ts = Math.floor(new Date().getTime() / 1000);
-
         event.timestamp = ts;
-
         var tags = [
             {
                 name: "service",
@@ -243,7 +233,6 @@ spec:
                 value: event.check.name
             }
         ];
-
         event.metrics = sensu.NewMetrics({
             handlers: [handler],
             points: [
@@ -309,52 +298,42 @@ spec:
                 }
             ]
         });
-
         if (!!args["set_metric_annotations"]) {
             var i = 0;
-
             while(i < event.metrics.points.length) {
                 event.annotations["io.sensu.bsm.selected_event_" + event.metrics.points[i].name] = event.metrics.points[i].value.toString();
                 i++;
             }
         }
     }
-
     if (!!args["critical_threshold"] && percentOK <= args["critical_threshold"]) {
         event.check.output = "CRITICAL: Less than " + args["critical_threshold"].toString() + "% of selected events are OK (" + percentOK.toString() + "%)\n";
         event.check.status = 2;
         return event;
     }
-
     if (!!args["warning_threshold"] && percentOK <= args["warning_threshold"]) {
         event.check.output = "WARNING: Less than " + args["warning_threshold"].toString() + "% of selected events are OK (" + percentOK.toString() + "%)\n";
         event.check.status = 1;
         return event;
     }
-
     if (!!args["critical_count"]) {
         crit = sensu.CountBySeverity("critical");
-
         if (crit >= args["critical_count"]) {
             event.check.output = "CRITICAL: " + args["critical_count"].toString() + " or more selected events are in a critical state (" + crit.toString() + ")\n";
             event.check.status = 2;
             return event;
         }
     }
-
     if (!!args["warning_count"]) {
         warn = sensu.CountBySeverity("warning");
-
         if (warn >= args["warning_count"]) {
             event.check.output = "WARNING: " + args["warning_count"].toString() + " or more selected events are in a warning state (" + warn.toString() + ")\n";
             event.check.status = 1;
             return event;
         }
     }
-
     event.check.output = "Everything looks good (" + percentOK.toString() + "% OK)";
     event.check.status = 0;
-
     return event;
 {{< /code >}}
 
@@ -363,10 +342,12 @@ spec:
   "type": "RuleTemplate",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "aggregate"
+    "name": "aggregate",
+    "namespace": "default",
+    "created_by": "admin"
   },
   "spec": {
-    "description": "An aggregate makes it possible to treat the result of multiple disparate check executions executed across multiple disparate systems as a single result (Event).\nAggregates are extremely useful in dynamic environments and/or environments that have a reasonable tolerance for failure.\nAggregates should be used when a service can be considered healthy as long as a minimum threshold is satisfied (e.g. are at least 5 healthy web servers? are at least 70% of N processes healthy?).\n",
+    "description": "Monitor a distributed service - aggregate one or more events into a single event. This BSM rule template allows you to treat the results of multiple disparate check executions – executed across multiple disparate systems – as a single event. This template is extremely useful in dynamic environments and/or environments that have a reasonable tolerance for failure. Use this template when a service can be considered healthy as long as a minimum threshold is satisfied (e.g. at least 5 healthy web servers? at least 70% of N processes healthy?).\n",
     "arguments": {
       "required": [
         "produce_metrics"
@@ -411,6 +392,8 @@ type: ServiceComponent
 api_version: bsm/v1
 metadata:
   name: app
+  namespace: default
+  created_by: admin
 spec:
   services:
     - app
@@ -435,7 +418,9 @@ spec:
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "app"
+    "name": "app",
+    "namespace": "default",
+    "created_by": "admin"
   },
   "spec": {
     "services": [
@@ -755,7 +740,7 @@ eval: |
 
 required     | 
 -------------|------ 
-description  | List of keys the rule template argument requires. The listed keys must be configured in the [properties][2] object.
+description  | List of attributes the rule template argument requires. The listed attributes must be configured in the [properties][2] object.
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
