@@ -21,8 +21,6 @@ BSM requires two resources that work together to achieve top-down monitoring: [s
 Service components are the elements that make up your business services.
 Rule templates define the monitoring rules that produce events for service components based on customized evaluation expressions.
 
-## Use case example
-
 An example of a business service might be a company website.
 The website itself might have three service components: the primary webserver that publishes website pages, a backup webserver in case the primary webserver fails, and an inventory database for the shop section of the website.
 At least one webserver and the database must be in an OK state for the website to be fully available.
@@ -38,7 +36,7 @@ BSM allows you to customize rule templates that apply a threshold for taking act
 To continue the company website example, if the primary webserver fails but the backup webserver does not, you might use a rule template that creates a service ticket to address the next workday (in addition to the rule template that is emitting "OK" events for the current status page).
 Another monitoring rule might trigger an alert to the on-call operator should both webservers or the inventory database fail.
 
-## Example service component
+## Service component example
 
 Here is an example service component definition that includes the `account-manager` and `tessen` services and applies a rule template named `status-threshold` by reference:
 
@@ -115,7 +113,7 @@ spec:
 
 {{< /language-toggle >}}
 
-## Example rule template
+## Rule template example
 
 The `status-threshold` rule template (referenced in the [service component example][4]) could be configured as shown in this example:
 
