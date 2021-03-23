@@ -675,5 +675,3 @@ Sensuctl supports the following formats:
 [35]: ../../operations/control-access/rbac/#roles-and-cluster-roles
 [36]: #sensuctl-create-flags
 [37]: ../../operations/control-access/oidc-auth/
-[38]: ../../observability-pipeline/observe-schedule/service-components/
-[39]: ../../observability-pipeline/observe-schedule/rule-templates/
