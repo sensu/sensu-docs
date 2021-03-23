@@ -210,7 +210,7 @@ The Sensu [web UI BSM module][3] allows you to create, edit, and delete service 
 
 BSM service components and rule templates are Sensu resources with complete definitions, so you can use Sensu's [service component][1] and [rule template][2] APIs to create, retrieve, update, and delete service components and rule templates.
 
-You can use [sensuctl][5] to create and manage service components and rule templates via the APIs from the command line.
+You can also use [sensuctl][5] to create and manage service components and rule templates via the APIs from the command line.
 
 ## Sampling, polling, and hybrid approaches to BSM
 
