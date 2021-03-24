@@ -10,6 +10,7 @@ menu: "sensu-go-6.0"
 ---
 
 - [6.0.0 release notes](#600-release-notes)
+- [5.21.5 release notes](#5215-release-notes)
 - [5.21.4 release notes](#5214-release-notes)
 - [5.21.3 release notes](#5213-release-notes)
 - [5.21.2 release notes](#5212-release-notes)
@@ -128,6 +129,18 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - Fixed a bug where nil labels or annotations in an event filtering context would require you to explicitly check whether the annotations or labels are undefined.
 With this fix, labels and annotations are always defined (although they may be empty).
 - Fixed the log entry field for the check's name in schedulerd.
+
+## 5.21.5 release notes
+
+**March 24, 2021** &mdash; The latest release of Sensu Go, version 5.21.5, is now available for download.
+
+The Sensu 5.21.5 patch release improves the validation for POST/PUT requests for enterprise API endpoints.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.5.
+
+**FIXES:**
+
+- ([Commercial feature][158]) Improved the validation for POST/PUT requests for enterprise API endpoints.
 
 ## 5.21.4 release notes
 
