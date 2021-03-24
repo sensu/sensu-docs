@@ -258,7 +258,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.21.5.
 
 **FIXES:**
 
-- ([Commercial feature][158]) Improved the validation for POST/PUT requests for enterprise API endpoints.
+- ([Commercial feature][158]) Improved the validation for POST/PUT requests for enterprise API endpoints. Sensu now checks the type and namespace in the request body against the type and namespace in the request URL.
 
 ## 5.21.4 release notes
 
