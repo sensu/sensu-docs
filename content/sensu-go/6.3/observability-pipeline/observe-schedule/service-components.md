@@ -16,7 +16,7 @@ menu:
 For more information, see [Get started with commercial features][9].
 
 Service components are resources for defining and managing elements of a business service in business service monitoring.
-Each business service entity consists of a number of underlying service components.
+A [service entity][10] consists of a number of underlying service components.
 A service component is a meaningful selection of Sensu events for a business service, such as database monitoring events.
 
 A service component includes event selectors to define the events that the component includes, a service component scheduler (either an interval or cron expression), and references to at least one monitoring rule template with arguments.
@@ -33,8 +33,8 @@ The rules can emit new events based on the component input.
 
 ## Service component example
 
-The example service component below is a dependency of the `account-manager` and `tessen` business services.
-Sensu will execute the component at 60-second intervals for entities that include labels `region` with the value `us-west-2` **and** `cmpt` with the value `psql`.
+The example service component below is a dependency of the business service entities `account-manager` and `tessen`.
+Sensu will execute the component at 60-second intervals for `account-manager` and `tessen` service entities that include labels `region` with the value `us-west-2` **and** `cmpt` with the value `psql`.
 The monitoring rule template for the service component is `status-threshold`.
 
 {{< language-toggle >}}
@@ -391,7 +391,7 @@ rules:
 
 services     | 
 -------------|------ 
-description  | List of business service entities that include the service component as a dependency.
+description  | List of business [service entities][10] that include the service component as a dependency.
 required     | true
 type         | Array
 example      | {{< language-toggle >}}
@@ -542,6 +542,7 @@ threshold: 25
 [4]: #rules-attributes
 [5]: #arguments-attributes
 [6]: #spec-attributes
-[7]: ../../control-access/rbac/#namespaces
+[7]: ../../../operations/control-access/rbac/#namespaces
 [8]: ../rule-templates/
 [9]: ../../../commercial/
+[10]: ../../observe-entities/#service-entities
