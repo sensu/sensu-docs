@@ -84,7 +84,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 6.2.6 release notes
 
-**March 24, 2021** &mdash; The latest release of Sensu Go, version 6.2.6, is now available for download.
+**March 25, 2021** &mdash; The latest release of Sensu Go, version 6.2.6, is now available for download.
 
 This patch fixes a bug that allowed PostgreSQL round robin scheduling to use a separate PostgreSQL connection for each subscription and improves the validation for POST/PUT requests for enterprise API endpoints.
 
