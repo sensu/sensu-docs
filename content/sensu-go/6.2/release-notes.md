@@ -9,6 +9,7 @@ version: "6.2"
 menu: "sensu-go-6.2"
 ---
 
+- [6.2.6 release notes](#626-release-notes)
 - [6.2.5 release notes](#625-release-notes)
 - [6.2.4 release notes](#624-release-notes)
 - [6.2.3 release notes](#623-release-notes)
@@ -81,6 +82,19 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.2.6 release notes
+
+**March 25, 2021** &mdash; The latest release of Sensu Go, version 6.2.6, is now available for download.
+
+This patch fixes a bug that allowed PostgreSQL round robin scheduling to use a separate PostgreSQL connection for each subscription and improves the validation for POST/PUT requests for enterprise API endpoints.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.2.6.
+
+**FIXES:**
+
+- ([Commercial feature][193]) Fixed a bug that allowed PostgreSQL round robin scheduling to use a separate PostgreSQL connection for each subscription. PostgreSQL round robin scheduling now uses exactly one extra PostgreSQL connection.
+- ([Commercial feature][193]) Improved the validation for POST/PUT requests for enterprise API endpoints. Sensu now checks the type and namespace in the request body against the type and namespace in the request URL.
 
 ## 6.2.5 release notes
 
