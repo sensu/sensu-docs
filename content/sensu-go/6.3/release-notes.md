@@ -9,6 +9,7 @@ version: "6.3"
 menu: "sensu-go-6.3"
 ---
 
+- [6.2.6 release notes](#626-release-notes)
 - [6.2.5 release notes](#625-release-notes)
 - [6.2.4 release notes](#624-release-notes)
 - [6.2.3 release notes](#623-release-notes)
@@ -21,6 +22,7 @@ menu: "sensu-go-6.3"
 - [6.1.1 release notes](#611-release-notes)
 - [6.1.0 release notes](#610-release-notes)
 - [6.0.0 release notes](#600-release-notes)
+- [5.21.5 release notes](#5215-release-notes)
 - [5.21.4 release notes](#5214-release-notes)
 - [5.21.3 release notes](#5213-release-notes)
 - [5.21.2 release notes](#5212-release-notes)
@@ -80,6 +82,19 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.2.6 release notes
+
+**March 25, 2021** &mdash; The latest release of Sensu Go, version 6.2.6, is now available for download.
+
+This patch fixes a bug that allowed PostgreSQL round robin scheduling to use a separate PostgreSQL connection for each subscription and improves the validation for POST/PUT requests for enterprise API endpoints.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.2.6.
+
+**FIXES:**
+
+- ([Commercial feature][193]) Fixed a bug that allowed PostgreSQL round robin scheduling to use a separate PostgreSQL connection for each subscription. PostgreSQL round robin scheduling now uses exactly one extra PostgreSQL connection.
+- ([Commercial feature][193]) Improved the validation for POST/PUT requests for enterprise API endpoints. Sensu now checks the type and namespace in the request body against the type and namespace in the request URL.
 
 ## 6.2.5 release notes
 
@@ -360,6 +375,18 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - Fixed a bug where nil labels or annotations in an event filtering context would require you to explicitly check whether the annotations or labels are undefined.
 With this fix, labels and annotations are always defined (although they may be empty).
 - Fixed the log entry field for the check's name in schedulerd.
+
+## 5.21.5 release notes
+
+**March 25, 2021** &mdash; The latest release of Sensu Go, version 5.21.5, is now available for download.
+
+The Sensu 5.21.5 patch release improves the validation for POST/PUT requests for enterprise API endpoints.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.5.
+
+**FIXES:**
+
+- ([Commercial feature][158]) Improved the validation for POST/PUT requests for enterprise API endpoints. Sensu now checks the type and namespace in the request body against the type and namespace in the request URL.
 
 ## 5.21.4 release notes
 
