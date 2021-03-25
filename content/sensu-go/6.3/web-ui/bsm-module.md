@@ -14,7 +14,7 @@ menu:
 **COMMERCIAL FEATURE**: Access business service monitoring (BSM) in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][3].
 
-The Sensu web UI includes a module to help you build and configure business service monitoring (BSM) [service components][1] and [rule templates][2].
+The Sensu web UI includes a module to help you build and configure business service monitoring (BSM) [service entities][4], [service components][1] and [rule templates][2].
 
 ## Build a business service
 
@@ -25,16 +25,15 @@ To build a business service in the web UI module:
 3. Enter the metadata for the new service and click **Submit**.
 
 The Services page will be updated to include a tile for the new service.
-
 The business service itself is an entity with the class `service`, so it will also be listed on the Entities page.
 
 To add service components to a business service:
 
-1. Click the edit icon for the business service: ![edit icon](/images/web-ui-edit-icon.png)
+1. Click the kebab icon for the business service: ![kebab icon](/images/web-ui-kebab-icon.png)
 2. Select **Add Component** from the drop-down menu to open the Configure New Service Component dialog window.
 3. Enter the metadata, query selectors, rule templates, check scheduling, and handlers for the service component and click **Submit**.
 
-The list on the business service tile will be updated to include the service component. 
+The list on the business service tile will be updated to include the service component.
 
 ## View and manage business services
 
@@ -42,12 +41,12 @@ After you create a business service by any means (web UI, API, or sensuctl), it 
 Click the business service name to view its events and other related details.
 You can also edit, silence, and delete the service from the detail page.
 
-To edit, add components to, or delete a business service, click the edit icon in the top-right corner of the service's tile.
+To edit, add components to, or delete a business service, click the kebab icon in the top-right corner of the service's tile.
 
 ## View and manage service components
 
 After you add a service component to a business service, it will be listed on the business service tile in the web UI Services page until you delete it.
-To edit or delete a service component, click the edit icon to the right of the component name in the list.
+To edit or delete a service component, click the kebab icon to the right of the component name in the list.
 
 Click the service component name to view its events and other related details.
 You can also edit, silence, and delete the component from the detail page.
@@ -56,3 +55,4 @@ You can also edit, silence, and delete the component from the detail page.
 [1]: ../../observability-pipeline/observe-schedule/service-components/
 [2]: ../../observability-pipeline/observe-schedule/rule-templates/
 [3]: ../../commercial/
+[4]: ../../observability-pipeline/observe-entities/#service-entities
