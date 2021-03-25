@@ -15,41 +15,116 @@ The `sensuctl dump` command allows you to export your [resources][6] to standard
 You can export all of your resources or a subset of them based on a list of resource types.
 The `dump` command supports exporting in `wrapped-json` and `yaml`.
 
-For example, to export all resources for the current namespace to a file named `my-resources.yaml` in `yaml` format:
+For example, to export all resources for the current namespace to a file named `my-resources.yml` or `my-resources.json` in YAML or JSON format:
 
-{{< code shell >}}
-sensuctl dump all --format yaml --file my-resources.yaml
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl dump all --format yaml --file my-resources.yml
 {{< /code >}}
 
-To export only checks for only the current namespace to STDOUT in `yaml` format:
+{{< code shell "JSON" >}}
+sensuctl dump all --format json --file my-resources.json
+{{< /code >}}
 
-{{< code shell >}}
+{{< /language-toggle >}}
+
+To export only checks for only the current namespace to STDOUT in YAML or JSON format:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 sensuctl dump core/v2.CheckConfig --format yaml
 {{< /code >}}
 
-To export only handlers and filters for only the current namespace to a file named `my-handlers-and-filters.yaml` in `yaml` format:
-
-{{< code shell >}}
-sensuctl dump core/v2.Handler,core/v2.EventFilter --format yaml --file my-handlers-and-filters.yaml
+{{< code shell "JSON" >}}
+sensuctl dump core/v2.CheckConfig --format json
 {{< /code >}}
 
-To export resources for **all namespaces**, add the `--all-namespaces` flag to any `sensuctl dump` command:
+{{< /language-toggle >}}
 
-{{< code shell >}}
-sensuctl dump all --all-namespaces --format yaml --file my-resources.yaml
+To export only handlers and filters for only the current namespace to a file named `my-handlers-and-filters` in YAML or JSON format:
 
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl dump core/v2.Handler,core/v2.EventFilter --format yaml --file my-handlers-and-filters.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl dump core/v2.Handler,core/v2.EventFilter --format json --file my-handlers-and-filters.json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+To export resources for **all namespaces**, add the `--all-namespaces` flag to any `sensuctl dump` command.
+For example:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl dump all --all-namespaces --format yaml --file my-resources.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl dump all --all-namespaces --format json --file my-resources.json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
 sensuctl dump core/v2.CheckConfig --all-namespaces --format yaml
-
-sensuctl dump core/v2.Handler,core/v2.EventFilter --all-namespaces --format yaml --file my-handlers-and-filters.yaml
 {{< /code >}}
 
-You can use [fully qualified names or short names][6] to specify resources in `sensuctl dump` commands:
-
-{{< code shell >}}
-sensuctl dump core/v2.Handler,core/v2.EventFilter --format yaml --file my-handlers-and-filters.yaml
-
-sensuctl dump handlers,filters --format yaml --file my-handlers-and-filters.yaml
+{{< code shell "JSON" >}}
+sensuctl dump core/v2.CheckConfig --all-namespaces --format json
 {{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl dump core/v2.Handler,core/v2.EventFilter --all-namespaces --format yaml --file my-handlers-and-filters.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl dump core/v2.Handler,core/v2.EventFilter --all-namespaces --format json --file my-handlers-and-filters.json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+You can use [fully qualified names or short names][6] to specify resources in `sensuctl dump` commands.
+
+Here's an example that uses fully qualified names:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl dump core/v2.Handler,core/v2.EventFilter --format yaml --file my-handlers-and-filters.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl dump core/v2.Handler,core/v2.EventFilter --format json --file my-handlers-and-filters.json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Here's an example that uses short names:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl dump handlers,filters --format yaml --file my-handlers-and-filters.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl dump handlers,filters --format json --file my-handlers-and-filters.json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 After you use `sensuctl dump` to back up your Sensu resources, you can [restore][3] them later with [`sensuctl create`][1].
 This page explains how to back up your resources for two common use cases: before a Sensu version upgrade and to populate new namespaces with existing resources.
@@ -60,51 +135,73 @@ You should create a backup before you [upgrade][4] to a new version of Sensu.
 Here's the step-by-step process:
 
 1. Create a backup folder.
-
-   {{< code shell >}}
+{{< code shell >}}
 mkdir backup
 {{< /code >}}
    
 2. Create a backup of the entire cluster, except entities, events, and [role-based access control (RBAC)][2] resources, for all namespaces.
-   
-   {{< code shell >}}
+{{< language-toggle >}}
+{{< code shell "YML" >}}
 sensuctl dump all \
 --all-namespaces \
 --omit core/v2.Entity,core/v2.Event,core/v2.APIKey,core/v2.User,core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.ClusterRoleBinding \
---format yaml > backup/config.yaml
+--format yaml > backup/config.yml
 {{< /code >}}
-   
+{{< code shell "JSON" >}}
+sensuctl dump all \
+--all-namespaces \
+--omit core/v2.Entity,core/v2.Event,core/v2.APIKey,core/v2.User,core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.ClusterRoleBinding \
+--format json > backup/config.json
+{{< /code >}}
+{{< /language-toggle >}}
+
 3. Export your [RBAC][2] resources, except API keys and users, for all namespaces.
-   
-   {{< code shell >}}
+{{< language-toggle >}}
+{{< code shell "YML" >}}
 sensuctl dump core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.ClusterRoleBinding \
 --all-namespaces \
---format yaml > backup/rbac.yaml
+--format yaml > backup/rbac.yml
 {{< /code >}}
+{{< code shell "JSON" >}}
+sensuctl dump core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.ClusterRoleBinding \
+--all-namespaces \
+--format json > backup/rbac.json
+{{< /code >}}
+{{< /language-toggle >}}
 
 4. Export your API keys and users resources for all namespaces.
-   
-   {{< code shell >}}
+{{< language-toggle >}}
+{{< code shell "YML" >}}
 sensuctl dump core/v2.APIKey,core/v2.User \
 --all-namespaces \
---format yaml > backup/cannotrestore.yaml
+--format yaml > backup/cannotrestore.yml
 {{< /code >}}
-
-   {{% notice note %}}
+{{< code shell "JSON" >}}
+sensuctl dump core/v2.APIKey,core/v2.User \
+--all-namespaces \
+--format json > backup/cannotrestore.json
+{{< /code >}}
+{{< /language-toggle >}}
+{{% notice note %}}
 **NOTE**: Passwords are not included when you export users.
 You must add the [`password_hash`](../#generate-a-password-hash) or `password` attribute to any exported `users` resources before you can use them with `sensuctl create`.<br><br>
 Because users require this additional configuration and API keys cannot be restored from a `sensuctl dump` backup, you might prefer to export your API keys and users to a different folder than `backup`.
 {{% /notice %}}
    
 5. Export your entity resources for all namespaces (if desired).
-     
-   {{< code shell >}}
+{{< language-toggle >}}
+{{< code shell "YML" >}}
 sensuctl dump core/v2.Entity \
 --all-namespaces \
---format yaml > backup/inventory.yaml
+--format yaml > backup/inventory.yml
 {{< /code >}}
-
-   {{% notice note %}}
+{{< code shell "JSON" >}}
+sensuctl dump core/v2.Entity \
+--all-namespaces \
+--format json > backup/inventory.json
+{{< /code >}}
+{{< /language-toggle >}}
+{{% notice note %}}
 **NOTE**: If you do not export your entities, proxy check requests will not be scheduled for the excluded proxy entities.
 {{% /notice %}}
 
@@ -116,18 +213,23 @@ This backup allows you to [replicate resources across namespaces][5] without man
 To create a backup of your resources that you can replicate in new namespaces:
 
 1. Create a backup folder.
-
-   {{< code shell >}}
+{{< code shell >}}
 mkdir backup
 {{< /code >}}
    
 2. Back up your pipeline resources for all namespaces, stripping namespaces so that your resources are portable for reuse in any namespace.
-   
-   {{< code shell >}}
+{{< language-toggle >}}
+{{< code shell "YML" >}}
 sensuctl dump core/v2.Asset,core/v2.CheckConfig,core/v2.HookConfig,core/v2.EventFilter,core/v2.Mutator,core/v2.Handler,core/v2.Silenced,secrets/v1.Secret,secrets/v1.Provider \
 --all-namespaces \
---format yaml | grep -v "^\s*namespace:" > backup/pipelines.yaml
+--format yaml | grep -v "^\s*namespace:" > backup/pipelines.yml
 {{< /code >}}
+{{< code shell "JSON" >}}
+sensuctl dump core/v2.Asset,core/v2.CheckConfig,core/v2.HookConfig,core/v2.EventFilter,core/v2.Mutator,core/v2.Handler,core/v2.Silenced,secrets/v1.Secret,secrets/v1.Provider \
+--all-namespaces \
+--format json | grep -v "^\s*namespace:" > backup/pipelines.json
+{{< /code >}}
+{{< /language-toggle >}}
 
 ## Restore resources from backup
 
@@ -141,9 +243,17 @@ sensuctl create -r -f backup/
 
 To restore a subset of your exported resources (in this example, your RBAC resources), run:
 
-{{< code shell >}}
-sensuctl create -f backup/rbac.yaml
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create -f backup/rbac.yml
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create -f backup/rbac.json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 {{% notice note %}}
 **NOTE**: You can't restore API keys or users from a `sensuctl dump` backup.<br><br>
@@ -166,7 +276,11 @@ Use `sensuctl describe-type all` to retrieve the list of supported `sensuctl dum
 
 {{< code shell >}}
 sensuctl describe-type all
+{{< /code >}}
 
+The response will list the names and other details for the supported resource types:
+
+{{< code shell >}}
       Fully Qualified Name           Short Name           API Version             Type          Namespaced  
  ────────────────────────────── ───────────────────── ─────────────────── ──────────────────── ──────────── 
   authentication/v2.Provider                           authentication/v2   Provider             false
@@ -197,15 +311,13 @@ sensuctl describe-type all
   core/v2.Silenced               silenced              core/v2             Silenced             true  
 {{< /code >}}
 
-{{% notice note %}}
-**NOTE**: In Sensu 6.1.0, `sensuctl dump` does not work with hooks.
-{{% /notice %}}
-
 You can also list specific resource types by fully qualified name or short name:
 
 {{< code shell >}}
 sensuctl describe-type core/v2.CheckConfig
+{{< /code >}}
 
+{{< code shell >}}
 sensuctl describe-type checks
 {{< /code >}}
 
@@ -213,7 +325,9 @@ To list more than one type, use a comma-separated list:
 
 {{< code shell >}}
 sensuctl describe-type core/v2.CheckConfig,core/v2.EventFilter,core/v2.Handler
+{{< /code >}}
 
+{{< code shell >}}
 sensuctl describe-type checks,filters,handlers
 {{< /code >}}
 
@@ -222,11 +336,17 @@ sensuctl describe-type checks,filters,handlers
 Add the `--format` flag to specify how the resources should be formatted in the `sensuctl describe-type` response.
 The default is unformatted, but you can specify either `wrapped-json` or `yaml`:
 
-{{< code shell >}}
-sensuctl describe-type core/v2.CheckConfig --format yaml
+{{< language-toggle >}}
 
+{{< code shell "YML" >}}
+sensuctl describe-type core/v2.CheckConfig --format yaml
+{{< /code >}}
+
+{{< code shell "JSON">}}
 sensuctl describe-type core/v2.CheckConfig --format wrapped-json
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 
 [1]: ../create-manage-resources/#create-resources

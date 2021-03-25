@@ -29,6 +29,253 @@ Each event must contain a check result, whether [status][3] or [metrics][7].
 In certain cases, an event can contain [both][8].
 Because events are polymorphic in nature, it is important to never assume their content (or lack of content).
 
+Here's an example event that includes both status and metrics data:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: Event
+api_version: core/v2
+metadata:
+  namespace: default
+spec:
+  check:
+    check_hooks: null
+    command: /opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u "http://localhost"
+    duration: 0.060790838
+    env_vars: null
+    executed: 1552506033
+    handlers: []
+    high_flap_threshold: 0
+    history:
+    - executed: 1552505833
+      status: 0
+    - executed: 1552505843
+      status: 0
+    interval: 10
+    is_silenced: false
+    issued: 1552506033
+    last_ok: 1552506033
+    low_flap_threshold: 0
+    metadata:
+      name: curl_timings
+      namespace: default
+    occurrences: 1
+    occurrences_watermark: 1
+    output: |-
+      sensu-go-sandbox.curl_timings.time_total 0.005 1552506033
+      sensu-go-sandbox.curl_timings.time_namelookup 0.004
+    output_metric_format: graphite_plaintext
+    output_metric_handlers:
+    - influx-db
+    proxy_entity_name: ""
+    publish: true
+    round_robin: false
+    runtime_assets: []
+    state: passing
+    status: 0
+    stdin: false
+    subdue: null
+    subscriptions:
+    - entity:sensu-go-sandbox
+    timeout: 0
+    total_state_change: 0
+    ttl: 0
+  entity:
+    deregister: false
+    deregistration: {}
+    entity_class: agent
+    last_seen: 1552495139
+    metadata:
+      name: sensu-go-sandbox
+      namespace: default
+    redact:
+    - password
+    - passwd
+    - pass
+    - api_key
+    - api_token
+    - access_key
+    - secret_key
+    - private_key
+    - secret
+    subscriptions:
+    - entity:sensu-go-sandbox
+    system:
+      arch: amd64
+      hostname: sensu-go-sandbox
+      network:
+        interfaces:
+        - addresses:
+          - 127.0.0.1/8
+          - ::1/128
+          name: lo
+        - addresses:
+          - 10.0.2.15/24
+          - fe80::5a94:f67a:1bfc:a579/64
+          mac: 08:00:27:8b:c9:3f
+          name: eth0
+      os: linux
+      platform: centos
+      platform_family: rhel
+      platform_version: 7.5.1804
+      processes: null
+    user: agent
+  metrics:
+    handlers:
+    - influx-db
+    points:
+    - name: sensu-go-sandbox.curl_timings.time_total
+      tags: []
+      timestamp: 1552506033
+      value: 0.005
+    - name: sensu-go-sandbox.curl_timings.time_namelookup
+      tags: []
+      timestamp: 1552506033
+      value: 0.004
+  timestamp: 1552506033
+  id: 431a0085-96da-4521-863f-c38b480701e9
+  sequence: 1
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Event",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default"
+  },
+  "spec": {
+    "check": {
+      "check_hooks": null,
+      "command": "/opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u \"http://localhost\"",
+      "duration": 0.060790838,
+      "env_vars": null,
+      "executed": 1552506033,
+      "handlers": [],
+      "high_flap_threshold": 0,
+      "history": [
+        {
+          "executed": 1552505833,
+          "status": 0
+        },
+        {
+          "executed": 1552505843,
+          "status": 0
+        }
+      ],
+      "interval": 10,
+      "is_silenced": false,
+      "issued": 1552506033,
+      "last_ok": 1552506033,
+      "low_flap_threshold": 0,
+      "metadata": {
+        "name": "curl_timings",
+        "namespace": "default"
+      },
+      "occurrences": 1,
+      "occurrences_watermark": 1,
+      "output": "sensu-go-sandbox.curl_timings.time_total 0.005 1552506033\nsensu-go-sandbox.curl_timings.time_namelookup 0.004",
+      "output_metric_format": "graphite_plaintext",
+      "output_metric_handlers": [
+        "influx-db"
+      ],
+      "proxy_entity_name": "",
+      "publish": true,
+      "round_robin": false,
+      "runtime_assets": [],
+      "state": "passing",
+      "status": 0,
+      "stdin": false,
+      "subdue": null,
+      "subscriptions": [
+        "entity:sensu-go-sandbox"
+      ],
+      "timeout": 0,
+      "total_state_change": 0,
+      "ttl": 0
+    },
+    "entity": {
+      "deregister": false,
+      "deregistration": {},
+      "entity_class": "agent",
+      "last_seen": 1552495139,
+      "metadata": {
+        "name": "sensu-go-sandbox",
+        "namespace": "default"
+      },
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
+      "subscriptions": [
+        "entity:sensu-go-sandbox"
+      ],
+      "system": {
+        "arch": "amd64",
+        "hostname": "sensu-go-sandbox",
+        "network": {
+          "interfaces": [
+            {
+              "addresses": [
+                "127.0.0.1/8",
+                "::1/128"
+              ],
+              "name": "lo"
+            },
+            {
+              "addresses": [
+                "10.0.2.15/24",
+                "fe80::5a94:f67a:1bfc:a579/64"
+              ],
+              "mac": "08:00:27:8b:c9:3f",
+              "name": "eth0"
+            }
+          ]
+        },
+        "os": "linux",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.5.1804",
+        "processes": null
+      },
+      "user": "agent"
+    },
+    "metrics": {
+      "handlers": [
+        "influx-db"
+      ],
+      "points": [
+        {
+          "name": "sensu-go-sandbox.curl_timings.time_total",
+          "tags": [],
+          "timestamp": 1552506033,
+          "value": 0.005
+        },
+        {
+          "name": "sensu-go-sandbox.curl_timings.time_namelookup",
+          "tags": [],
+          "timestamp": 1552506033,
+          "value": 0.004
+        }
+      ]
+    },
+    "timestamp": 1552506033,
+    "id": "431a0085-96da-4521-863f-c38b480701e9",
+    "sequence": 1
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Checks
 
 Checks work with the Sensu [agent][11] to produce events automatically. You can use checks to monitor server resources, services, and application health as well as collect and analyze metrics.
@@ -68,7 +315,7 @@ Sensu's [events API][15] provides HTTP access to create, retrieve, update, and d
 If you create a new event that references an entity that does not already exist, the Sensu [backend][16] will automatically create a proxy entity when the event is published.
 
 
-[1]: ../observe-schedule/monitor-server-resources/
+[1]: ../observe-entities/monitor-external-resources/
 [2]: https://bonsai.sensu.io
 [3]: #status-only-events
 [4]: ../observe-schedule/hooks/

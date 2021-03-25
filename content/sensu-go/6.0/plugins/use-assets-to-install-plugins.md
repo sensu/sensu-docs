@@ -7,7 +7,7 @@ description: "Dynamic runtime assets are shareable, reusable packages that make 
 weight: 40
 version: "6.0"
 product: "Sensu Go"
-platformContent: False
+platformContent: false
 menu: 
   sensu-go-6.0:
     parent: plugins
@@ -29,6 +29,11 @@ To add the [Sensu PagerDuty Handler dynamic runtime asset][7] to Sensu, use [`se
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
+{{< /code >}}
+
+The response should be similar to this example:
+
+{{< code shell >}}
 fetching bonsai asset: sensu/sensu-pagerduty-handler:1.2.0
 added asset: sensu/sensu-pagerduty-handler:1.2.0
 
@@ -205,7 +210,7 @@ Read these resources for more information about using dynamic runtime assets in 
 - [Asset format specification][14]
 - [Share assets on Bonsai][15]
 
-You can also try our interactive tutorial to [send critical alerts to your PagerDuty account][8].
+Follow [Send PagerDuty alerts with Sensu][8] to configure a check that generates status events and a handler that sends Sensu alerts to PagerDuty for non-OK events.
 
 
 [1]: ../assets/
@@ -215,7 +220,7 @@ You can also try our interactive tutorial to [send critical alerts to your Pager
 [5]: ../assets#metadata-attributes
 [6]: ../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
-[8]: ../../learn/sensu-pagerduty/
+[8]: ../../observability-pipeline/observe-process/send-pagerduty-alerts/
 [10]: https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler
 [11]: https://bonsai.sensu.io/assets/sensu/sensu-jira-handler
 [12]: ../../commercial/

@@ -320,6 +320,7 @@ If you do not properly configure secure etcd communication, your Sensu configura
 
 To use Sensu with an external etcd cluster, you must have etcd 3.3.2 or newer.
 To stand up an external etcd cluster, follow etcd's [clustering guide][2] using the same store configuration.
+Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 
 In this example, you will enable client-to-server and peer communication authentication [using self-signed TLS certificates][13].
 To start etcd for `backend-1` based on the [three-node configuration example][19]:
@@ -382,7 +383,7 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [4]: https://etcd.io/docs/v3.3.13/
 [5]: https://etcd.io/docs/v3.3.13/platforms/
 [6]: #manage-and-monitor-clusters-with-sensuctl
-[7]: https://github.com/sensu/sensu-go/blob/master/docker-compose.yaml
+[7]: https://github.com/sensu/sensu-go/blob/main/docker-compose.yaml
 [8]: https://etcd.io/docs/v3.3.13/op-guide/failures/
 [9]: https://etcd.io/docs/v3.3.13/op-guide/recovery/
 [10]: https://github.com/cloudflare/cfssl
@@ -393,7 +394,7 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [15]: ../../../reference/backend/
 [16]: ../secure-sensu/
 [17]: ../../../sensuctl/
-[18]: https://github.com/etcd-io/etcd/blob/a621d807f061e1dd635033a8d6bc261461429e27/Documentation/v2/admin_guide.md#optimal-cluster-size
+[18]: https://etcd.io/docs/current/dev-internal/discovery_protocol/#specifying-the-expected-cluster-size
 [19]: #sensu-backend-configuration
 [20]: ../../../api/
 [21]: ../install-sensu/

@@ -35,11 +35,143 @@ The agent entity registers the system with the Sensu backend service, sends keep
 Each entity is a member of one or more `subscriptions`: a list of roles and responsibilities assigned to the agent entity (e.g. a webserver or a database).
 Sensu entities "subscribe" to (or watch for) check requests published by the Sensu backend (via the Sensu transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu backend).
 
+This example shows an agent entity resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Entity
+api_version: core/v2
+metadata:
+  name: i-424242
+  namespace: default
+spec:
+  deregister: false
+  deregistration: {}
+  entity_class: agent
+  last_seen: 0
+  sensu_agent_version: 1.0.0
+  subscriptions:
+  - web
+  system:
+    cloud_provider: ""
+    libc_type: ""
+    network:
+      interfaces: null
+    processes: null
+    vm_role: ""
+    vm_system: ""
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "i-424242",
+    "namespace": "default"
+  },
+  "spec": {
+    "deregister": false,
+    "deregistration": {
+    },
+    "entity_class": "agent",
+    "last_seen": 0,
+    "sensu_agent_version": "1.0.0",
+    "subscriptions": [
+      "web"
+    ],
+    "system": {
+      "cloud_provider": "",
+      "libc_type": "",
+      "network": {
+        "interfaces": null
+      },
+      "processes": null,
+      "vm_role": "",
+      "vm_system": ""
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Proxy entities
 
 Proxy entities [formerly known as proxy clients or just-in-time (JIT) clients] are dynamically created entities that Sensu adds to the entity store if an entity does not already exist for a check result.
 Proxy entities allow Sensu to monitor external resources on systems where you cannot install a Sensu agent, like a network switch or website.
 Sensu uses the [defined check `proxy_entity_name`][7] to create a proxy entity for the external resource.
+
+This example shows a proxy entity resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Entity
+api_version: core/v2
+metadata:
+  labels:
+    proxy_type: website
+    sensu.io/managed_by: sensuctl
+    url: https://docs.sensu.io
+  name: sensu-docs
+  namespace: default
+spec:
+  deregister: false
+  deregistration: {}
+  entity_class: proxy
+  last_seen: 0
+  sensu_agent_version: ""
+  subscriptions: null
+  system:
+    cloud_provider: ""
+    libc_type: ""
+    network:
+      interfaces: null
+    processes: null
+    vm_role: ""
+    vm_system: ""
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "labels": {
+      "proxy_type": "website",
+      "sensu.io/managed_by": "sensuctl",
+      "url": "https://docs.sensu.io"
+    },
+    "name": "sensu-docs",
+    "namespace": "default"
+  },
+  "spec": {
+    "deregister": false,
+    "deregistration": {
+    },
+    "entity_class": "proxy",
+    "last_seen": 0,
+    "sensu_agent_version": "",
+    "subscriptions": null,
+    "system": {
+      "cloud_provider": "",
+      "libc_type": "",
+      "network": {
+        "interfaces": null
+      },
+      "processes": null,
+      "vm_role": "",
+      "vm_system": ""
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message).
 

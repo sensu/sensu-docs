@@ -35,6 +35,104 @@ You can configure any number of `VaultProvider` secrets providers.
 However, you can only have a single `Env` secrets provider: the one that is included with the Sensu Go [commercial distribution][1].
 
 Secrets providers are cluster-wide resources and compatible with generic functions.
+
+## VaultProvider secrets provider example
+
+The `VaultProvider` secrets provider is a vendor-specific implementation for [HashiCorp Vault][5] secrets management.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: VaultProvider
+api_version: secrets/v1
+metadata:
+  name: vault
+spec:
+  client:
+    address: https://vaultserver.example.com:8200
+    token: VAULT_TOKEN
+    version: v1
+    tls:
+      ca_cert: "/etc/ssl/certs/vault_ca_cert.pem"
+    max_retries: 2
+    timeout: 20s
+    rate_limiter:
+      limit: 10
+      burst: 100
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "VaultProvider",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "vault"
+  },
+  "spec": {
+    "client": {
+      "address": "https://vaultserver.example.com:8200",
+      "token": "VAULT_TOKEN",
+      "version": "v1",
+      "tls": {
+        "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
+      },
+      "max_retries": 2,
+      "timeout": "20s",
+      "rate_limiter": {
+        "limit": 10.0,
+        "burst": 100
+      }
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Env secrets provider example
+
+Sensu's built-in `Env` secrets provider exposes secrets from [backend environment variables][4].
+The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
+
+Using the `Env` secrets provider may require you to synchronize environment variables in Sensu backend clusters.
+The [Use secrets management][16] guide demonstrates how to configure the `Env` secrets provider.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Env
+api_version: secrets/v1
+metadata:
+  name: env
+spec: {}
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Env",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "env"
+  },
+  "spec": {}
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Secrets providers configuration
+
+You can use the [Secrets API][2] to create, view, and manage your secrets providers configuration.
+
+For example, to retrieve the list of secrets providers:
+
+{{< code shell >}}
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+{{< /code >}}
  
 ## Secrets providers specification
 
@@ -381,106 +479,6 @@ burst: 100
   "burst": 100
 }
 {{< /code >}}
-{{< /language-toggle >}}
-
-## Secrets providers configuration
-
-You can use the [Secrets API][2] to create, view, and manage your secrets providers configuration.
-
-For example, to retrieve the list of secrets providers:
-
-{{< code shell >}}
-curl -X GET \
-http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
-{{< /code >}}
-
-## Secrets providers examples
-
-### VaultProvider example
-
-The `VaultProvider` secrets provider is a vendor-specific implementation for [HashiCorp Vault][5] secrets management.
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: VaultProvider
-api_version: secrets/v1
-metadata:
-  name: vault
-spec:
-  client:
-    address: https://vaultserver.example.com:8200
-    token: VAULT_TOKEN
-    version: v1
-    tls:
-      ca_cert: "/etc/ssl/certs/vault_ca_cert.pem"
-    max_retries: 2
-    timeout: 20s
-    rate_limiter:
-      limit: 10
-      burst: 100
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "VaultProvider",
-  "api_version": "secrets/v1",
-  "metadata": {
-    "name": "vault"
-  },
-  "spec": {
-    "client": {
-      "address": "https://vaultserver.example.com:8200",
-      "token": "VAULT_TOKEN",
-      "version": "v1",
-      "tls": {
-        "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
-      },
-      "max_retries": 2,
-      "timeout": "20s",
-      "rate_limiter": {
-        "limit": 10.0,
-        "burst": 100
-      }
-    }
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Env example
-
-Sensu's built-in `Env` secrets provider exposes secrets from [backend environment variables][4].
-The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
-
-Using the `Env` secrets provider may require you to synchronize environment variables in Sensu backend clusters.
-The [Use secrets management][16] guide demonstrates how to configure the `Env` secrets provider.
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Env
-api_version: secrets/v1
-metadata:
-  name: env
-spec: {}
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Env",
-  "api_version": "secrets/v1",
-  "metadata": {
-    "name": "env"
-  },
-  "spec": {}
-}
-{{< /code >}}
-
 {{< /language-toggle >}}
 
 

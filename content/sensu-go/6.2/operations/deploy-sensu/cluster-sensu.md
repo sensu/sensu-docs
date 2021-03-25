@@ -80,12 +80,9 @@ The nodes are named `backend-1`, `backend-2` and `backend-3` with IP addresses `
 Follow the [Install Sensu](../install-sensu/) guide if you have not already done this.
 {{% /notice %}}
 
-**backend-1**
+**Store configuration for backend-1/10.0.0.1**
 
 {{< code yml >}}
-##
-# store configuration for backend-1/10.0.0.1
-##
 etcd-advertise-client-urls: "http://10.0.0.1:2379"
 etcd-listen-client-urls: "http://10.0.0.1:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
@@ -96,12 +93,9 @@ etcd-initial-cluster-token: "unique_token_for_this_cluster"
 etcd-name: "backend-1"
 {{< /code >}}
 
-**backend-2**
+**Store configuration for backend-2/10.0.0.2**
 
 {{< code yml >}}
-##
-# store configuration for backend-2/10.0.0.2
-##
 etcd-advertise-client-urls: "http://10.0.0.2:2379"
 etcd-listen-client-urls: "http://10.0.0.2:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
@@ -112,12 +106,9 @@ etcd-initial-cluster-token: "unique_token_for_this_cluster"
 etcd-name: "backend-2"
 {{< /code >}}
 
-**backend-3**
+**Store configuration for backend-3/10.0.0.3**
 
 {{< code yml >}}
-##
-# store configuration for backend-3/10.0.0.3
-##
 etcd-advertise-client-urls: "http://10.0.0.3:2379"
 etcd-listen-client-urls: "http://10.0.0.3:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
@@ -145,11 +136,9 @@ sudo systemctl start sensu-backend
 Each Sensu agent should have the following entries in `/etc/sensu/agent.yml` to ensure the agent is aware of all cluster members.
 This allows the agent to reconnect to a working backend if the backend it is currently connected to goes into an unhealthy state.
 
-{{< code yml >}}
-##
-# backend-url configuration for all agents connecting to cluster over ws
-##
+Here is an exmaple backend-url configuration for all agents connecting to the cluster over WebSocket:
 
+{{< code yml >}}
 backend-url:
   - "ws://10.0.0.1:8081"
   - "ws://10.0.0.2:8081"
@@ -170,7 +159,11 @@ Get cluster health status and etcd alarm information:
 
 {{< code shell >}}
 sensuctl cluster health
+{{< /code >}}
 
+The cluster health response will list the health status for each cluster member, similar to this example:
+
+{{< code shell >}}
        ID            Name                          Error                           Healthy  
 ────────────────── ─────────── ─────────────────────────────────────────────────── ─────────
 a32e8f613b529ad4   backend-1                                                        true
@@ -234,7 +227,11 @@ List the ID, name, peer URLs, and client URLs of all nodes in a cluster:
 
 {{< code shell >}}
 sensuctl cluster member-list
+{{< /code >}}
 
+You will receive a sensuctl response that lists all cluster members:
+
+{{< code shell >}}
        ID            Name             Peer URLs                Client URLs
 ────────────────── ─────────── ───────────────────────── ─────────────────────────
 a32e8f613b529ad4   backend-1    https://10.0.0.1:2380     https://10.0.0.1:2379  
@@ -249,7 +246,11 @@ Remove a faulty or decommissioned member node from a cluster:
 
 {{< code shell >}}
 sensuctl cluster member-remove 2f7ae42c315f8c2d
+{{< /code >}}
 
+You will receive a sensuctl response to confirm that the cluster member was removed:
+
+{{< code shell >}}
 Removed member 2f7ae42c315f8c2d from cluster
 {{< /code >}}
 
@@ -258,11 +259,9 @@ Removed member 2f7ae42c315f8c2d from cluster
 To replace a faulty cluster member to restore a cluster's health, start by running `sensuctl cluster health` to identify the faulty cluster member.
 For a faulty cluster member, the `Error` column will include an error message and the `Healthy` column will list `false`.
 
-In this example, cluster member `backend-4` is faulty:
+In this example, the response indicates that cluster member `backend-4` is faulty:
 
 {{< code shell >}}
-sensuctl cluster health
-
        ID            Name                          Error                           Healthy  
 ────────────────── ─────────── ─────────────────────────────────────────────────── ─────────
 a32e8f613b529ad4   backend-1                                                        true
@@ -277,7 +276,11 @@ To continue this example, you will delete cluster member `backend-4` using its I
 
 {{< code shell >}}
 sensuctl cluster member-remove 2f7ae42c315f8c2d
+{{< /code >}}
 
+The response should indicate that the cluster member was removed:
+
+{{< code shell >}}
 Removed member 2f7ae42c315f8c2d from cluster
 {{< /code >}}
 
@@ -303,7 +306,11 @@ Update the peer URLs of a member in a cluster:
 
 {{< code shell >}}
 sensuctl cluster member-update c8f63ae435a5e6bf https://10.0.0.4:2380
+{{< /code >}}
 
+You will receive a sensuctl response to confirm that the cluster member was updated:
+
+{{< code shell >}}
 Updated member with ID c8f63ae435a5e6bf in cluster
 {{< /code >}}
 
@@ -320,6 +327,7 @@ If you do not properly configure secure etcd communication, your Sensu configura
 
 To use Sensu with an external etcd cluster, you must have etcd 3.3.2 or newer.
 To stand up an external etcd cluster, follow etcd's [clustering guide][2] using the same store configuration.
+Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 
 In this example, you will enable client-to-server and peer communication authentication [using self-signed TLS certificates][13].
 To start etcd for `backend-1` based on the [three-node configuration example][19]:
@@ -382,7 +390,7 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [4]: https://etcd.io/docs/v3.3.13/
 [5]: https://etcd.io/docs/v3.3.13/platforms/
 [6]: #manage-and-monitor-clusters-with-sensuctl
-[7]: https://github.com/sensu/sensu-go/blob/master/docker-compose.yaml
+[7]: https://github.com/sensu/sensu-go/blob/main/docker-compose.yaml
 [8]: https://etcd.io/docs/v3.3.13/op-guide/failures/
 [9]: https://etcd.io/docs/v3.3.13/op-guide/recovery/
 [10]: https://github.com/cloudflare/cfssl
@@ -393,7 +401,7 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [15]: ../../../observability-pipeline/observe-schedule/backend/
 [16]: ../secure-sensu/
 [17]: ../../../sensuctl/
-[18]: https://github.com/etcd-io/etcd/blob/a621d807f061e1dd635033a8d6bc261461429e27/Documentation/v2/admin_guide.md#optimal-cluster-size
+[18]: https://etcd.io/docs/current/dev-internal/discovery_protocol/#specifying-the-expected-cluster-size
 [19]: #sensu-backend-configuration
 [20]: ../../../api/
 [21]: ../install-sensu/
