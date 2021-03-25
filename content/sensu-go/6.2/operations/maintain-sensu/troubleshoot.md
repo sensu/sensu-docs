@@ -570,7 +570,7 @@ To restore an etcd cluster with a database size that exceeds 2 GB:
 etcdctl endpoint status --write-out="json" | egrep -o '"revision":[0-9]*' | egrep -o '[0-9].*'
 {{< /code >}}
 
-2. Compact to revision and substitute the crrent revision for `$rev`:
+2. Compact to revision and substitute the current revision for `$rev`:
 {{< code shell >}}
 etcdctl compact $rev
 {{< /code >}}
