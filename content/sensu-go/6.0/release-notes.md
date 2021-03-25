@@ -132,7 +132,7 @@ With this fix, labels and annotations are always defined (although they may be e
 
 ## 5.21.5 release notes
 
-**March 24, 2021** &mdash; The latest release of Sensu Go, version 5.21.5, is now available for download.
+**March 25, 2021** &mdash; The latest release of Sensu Go, version 5.21.5, is now available for download.
 
 The Sensu 5.21.5 patch release improves the validation for POST/PUT requests for enterprise API endpoints.
 
