@@ -4,7 +4,7 @@ $( ".rating label" ).click(function() {
     const pageURL = document.location.pathname + document.location.search;
     const rating =  $("#" + $(this).attr('for')).val();
 
-    if (!fieldset.classList.contains('disabled')) {
+    if (!fieldset.classList.contains('disabled') && typeof ga === "function") {
       ga('send','event','Rating',rating,pageURL);
     }
 
