@@ -14,7 +14,7 @@ menu:
 **COMMERCIAL FEATURE**: Access business service monitoring (BSM) in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][3].
 
-The Sensu web UI includes a module to help you build and configure business service monitoring (BSM) [service entities][4], [service components][1] and [rule templates][2].
+The Sensu web UI includes a module to help you build and configure business service monitoring (BSM) [service entities][4] with [service components][1] and [rule templates][2].
 
 ## Build a business service
 
