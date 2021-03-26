@@ -33,9 +33,9 @@
   float: right;
 }
 
-.rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* show gold star on current hover */
-.rating:not(:checked) > label:hover ~ label { /* show gold star for all previous */
+.rating > input:checked ~ label, /* show green heart when clicked */
+.rating:not(:checked) > label:hover, /* show green heart on current hover */
+.rating:not(:checked) > label:hover ~ label { /* show green heart for all previous */
   color: #89C967;
 }
 
