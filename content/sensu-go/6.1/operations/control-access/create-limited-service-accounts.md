@@ -44,7 +44,7 @@ A limited service account requires:
 1. Create a user with the username `ec2-service` and a dynamically created random password:
 
    {{< code shell >}}
-sensuctl user create ec2-service --password='password'
+sensuctl user create ec2-service --password=$(head -c1M /dev/urandom | sha512sum | cut -d' ' -f1 | head -c 32)
 {{< /code >}}
 
    This command creates the following user definition:
