@@ -41,7 +41,7 @@ A limited service account requires:
 **NOTE**: To use a service account to manage Sensu resources in more than one namespace, create a [cluster role](../rbac/#cluster-role-example) instead of a role and a [cluster role binding](../rbac/#cluster-role-binding-example) instead of a role binding.
 {{% /notice %}}
 
-1. Create a user with the username `ec2-service`:
+1. Create a user with the username `ec2-service` and a dynamically created random password:
 
    {{< code shell >}}
 sensuctl user create ec2-service --password='password'
