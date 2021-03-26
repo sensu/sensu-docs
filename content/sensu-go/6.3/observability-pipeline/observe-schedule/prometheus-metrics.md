@@ -190,13 +190,14 @@ sudo systemctl start grafana-server
 
 ## Create a Sensu InfluxDB pipeline
 
-### Create a Sensu InfluxDB handler asset
+### Add the Sensu InfluxDB handler asset
 
-Create a file named `asset_influxdb.yml` or `asset_influxdb.json` that contains the following [dynamic runtime asset][11] definition:
+To add the [Sensu InfluxDB Handler][18] [dynamic runtime asset][11] to Sensu, run the following command:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
 ---
 type: Asset
 api_version: core/v2
@@ -206,10 +207,11 @@ metadata:
 spec:
   sha512: 612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd
   url: https://assets.bonsai.sensu.io/b28f8719a48aa8ea80c603f97e402975a98cea47/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz
-
+EOF
 {{< /code >}}
 
-{{< code json >}}
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -222,17 +224,19 @@ spec:
     "url": "https://assets.bonsai.sensu.io/b28f8719a48aa8ea80c603f97e402975a98cea47/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz"
   }
 }
+EOF
 {{< /code >}}
 
 {{< /language-toggle >}}
 
-### Create a Sensu handler
+### Add the Sensu handler
 
-Create a file named `handler.yml` or `handler.json` that contains the following [handler][12] definition:
+To add the [handler][12] definition that uses the Sensu InfluxDB Handler dynamic runtime asset, run:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
 ---
 type: Handler
 api_version: core/v2
@@ -245,9 +249,11 @@ spec:
   type: pipe
   runtime_assets:
   - sensu-influxdb-handler
+EOF
 {{< /code >}}
 
-{{< code json >}}
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -264,20 +270,7 @@ spec:
     ]
   }
 }
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-Use `sensuctl` to add the handler and dynamic runtime asset to Sensu:
-
-{{< language-toggle >}}
-
-{{< code shell "YAML" >}}
-sensuctl create --file handler.yml --file asset_influxdb.yml
-{{< /code >}}
-
-{{< code shell "JSON" >}}
-sensuctl create --file handler.json --file asset_influxdb.json
+EOF
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -289,13 +282,14 @@ You could save both the asset and handler definitions in a single file and use `
 
 ## Collect Prometheus metrics with Sensu
 
-### Create a Sensu Prometheus Collector asset
+### Add the Sensu Prometheus Collector asset
 
-Create a file named `asset_prometheus.yml` or `asset_prometheus.json` that contains the following [dynamic runtime asset][11] definition:
+To add the [Sensu Prometheus Collector][19] [dynamic runtime asset][11] to Sensu, run the following command:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
 ---
 type: Asset
 api_version: core/v2
@@ -305,9 +299,11 @@ metadata:
 spec:
   url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
   sha512: a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808
+EOF
 {{< /code >}}
 
-{{< code json >}}
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -320,17 +316,19 @@ spec:
     "sha512": "a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808"
   }
 }
+EOF
 {{< /code >}}
 
 {{< /language-toggle >}}
 
 ### Add a Sensu check to complete the pipeline
 
-Create a file named `check.yml` or `check.json` that contains the following [check][13] definition:
+To add the [check][13] definition that uses the Sensu Prometheus Collector dynamic runtime asset, run:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
 ---
 type: CheckConfig
 api_version: core/v2
@@ -339,21 +337,22 @@ metadata:
   namespace: default
 spec:
   command: "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up"
-  handlers:
-  - influxdb
+  handlers: []
   interval: 10
   publish: true
   output_metric_format: influxdb_line
-  output_metric_handlers: []
+  output_metric_handlers:
+  - influxdb
   subscriptions:
   - app_tier
   timeout: 0
   runtime_assets:
   - sensu-prometheus-collector
-
+EOF
 {{< /code >}}
 
-{{< code json >}}
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -363,13 +362,13 @@ spec:
   },
   "spec": {
     "command": "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
-    "handlers": [
-      "influxdb"
-    ],
+    "handlers": [],
     "interval": 10,
     "publish": true,
     "output_metric_format": "influxdb_line",
-    "output_metric_handlers": [],
+    "output_metric_handlers": [
+      "influxdb"
+    ],
     "subscriptions": [
       "app_tier"
     ],
@@ -379,6 +378,7 @@ spec:
     ]
   }
 }
+EOF
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -386,20 +386,6 @@ spec:
 The check subscription matches the [subscription][16] you added to your entity during [set-up][17].
 The Sensu backend will coordinate check execution for you by comparing the subscriptions in your checks and entities.
 Sensu automatically executes a check when the check definition includes a subscription that matches a subscription for a Sensu entity.
-
-Use `sensuctl` to add the check and dynamic runtime asset to Sensu:
-
-{{< language-toggle >}}
-
-{{< code shell "YAML" >}}
-sensuctl create --file check.yml --file asset_prometheus.yml
-{{< /code >}}
-
-{{< code shell "JSON" >}}
-sensuctl create --file check.json --file asset_prometheus.json
-{{< /code >}}
-
-{{< /language-toggle >}}
 
 Open the Sensu [web UI][14] to see the events generated by the `prometheus_metrics` check.
 Visit http://127.0.0.1:3000, and log in as the admin user (created during the [initialization step][8] when you installed the Sensu backend).
@@ -474,3 +460,5 @@ Prometheus has a [comprehensive list][7] of additional exporters to pull in metr
 [15]: ../../../sensuctl/
 [16]: ../subscriptions/
 [17]: #install-and-configure-sensu
+[18]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
+[19]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector
