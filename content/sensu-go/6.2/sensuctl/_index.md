@@ -217,12 +217,12 @@ You can use this hash instead of the password when you use sensuctl to [create][
 
 Sensuctl supports the following output formats:
 
-- `tabular`: A user-friendly, columnar format
-- `wrapped-json`: An accepted format for use with [`sensuctl create`][5]
-- `yaml`: An accepted format for use with [`sensuctl create`][5]
-- `json`: A format used by the [Sensu API][9]
+- `tabular`: A user-friendly columnar format (and the default output format)
+- `wrapped-json`: A format that includes an outer-level "wrapping" that lists the resource `type` and `api_version` for use with [`sensuctl create`][5]
+- `yaml`: A format that includes the `type` and `api_version` in the resource definition for use with [`sensuctl create`][5]
+- `json`: The format the [Sensu API][9] uses for all resources
 
-After you are logged in, you can change the output format with `sensuctl config set-format` or set the output format per command with the `--format` flag.
+After you are logged in, you can change the default output format with `sensuctl config set-format` or set the output format per command with the `--format` flag.
 
 ## Non-interactive mode
 

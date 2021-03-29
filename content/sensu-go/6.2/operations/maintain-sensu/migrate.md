@@ -435,7 +435,7 @@ curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/n
 {{< /code >}}
 
 You can also access your Sensu Go configuration in JSON or YAML using sensuctl.
-For example, `sensuctl check list --format json`.
+For example, `sensuctl check list --format wrapped-json`.
 Run `sensuctl help` to see available commands.
 For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), see the [sensuctl reference][5].
 
@@ -501,7 +501,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [2]: https://etcd.io/docs/latest/
 [3]: ../../../observability-pipeline/observe-schedule/backend/
 [4]: ../../../observability-pipeline/observe-schedule/agent/
-[5]: ../../../sensuctl/
+[5]: ../../../sensuctl/#preferred-output-format
 [6]: ../../../observability-pipeline/observe-entities/entities/
 [7]: ../../../observability-pipeline/observe-entities/monitor-external-resources/
 [8]: ../../../observability-pipeline/observe-schedule/hooks/

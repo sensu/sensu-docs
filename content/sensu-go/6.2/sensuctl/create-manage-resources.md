@@ -378,7 +378,7 @@ sensuctl check list --format wrapped-json > my-resources.json
 
 {{< /language-toggle >}}
 
-To see the definition for a check named `check-cpu` in `yaml` or `json` format:
+To see the definition for a check named `check-cpu`:
 
 {{< language-toggle >}}
 
@@ -387,7 +387,7 @@ sensuctl check info check-cpu --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info check-cpu --format json
+sensuctl check info check-cpu --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
