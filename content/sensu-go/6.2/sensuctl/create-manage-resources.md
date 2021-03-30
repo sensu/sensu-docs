@@ -17,8 +17,7 @@ Sensuctl works by calling Sensu’s underlying API to create, read, update, and 
 ## Create resources
 
 The `sensuctl create` command allows you to create or update resources by reading from STDIN or a [flag][36] configured file (`-f`).
-The `create` command accepts Sensu resource definitions in [`yaml` or `wrapped-json` formats][4].
-Both JSON and YAML resource definitions wrap the contents of the resource in `spec` and identify the resource `type`.
+The `create` command accepts Sensu resource definitions in [`yaml` or `wrapped-json` formats][4], which wrap the contents of the resource in `spec` and identify the resource `type` and `api_version`.
 See the [list of supported resource types][3] `for sensuctl create`.
 See the [reference docs][6] for information about creating resource definitions.
 
