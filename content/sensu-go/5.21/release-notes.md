@@ -9,6 +9,7 @@ version: "5.21"
 menu: "sensu-go-5.21"
 ---
 
+- [5.21.5 release notes](#5215-release-notes)
 - [5.21.4 release notes](#5214-release-notes)
 - [5.21.3 release notes](#5213-release-notes)
 - [5.21.2 release notes](#5212-release-notes)
@@ -68,6 +69,18 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.21.5 release notes
+
+**March 25, 2021** &mdash; The latest release of Sensu Go, version 5.21.5, is now available for download.
+
+The Sensu 5.21.5 patch release improves the validation for POST/PUT requests for enterprise API endpoints.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.5.
+
+**FIXES:**
+
+- ([Commercial feature][158]) Improved the validation for POST/PUT requests for enterprise API endpoints. Sensu now checks the type and namespace in the request body against the type and namespace in the request URL.
 
 ## 5.21.4 release notes
 
@@ -1278,9 +1291,9 @@ To get started with Sensu Go:
 [2]: https://semver.org/spec/v2.0.0.html
 [3]: /sensu-go/5.1/installation/upgrade#upgrading-sensu-backend-binaries-to-5-1-0
 [4]: /sensu-go/5.1/reference/agent/
-[5]: https://www.github.com/sensu/sensu-go/blob/master/CHANGELOG.md#500---2018-11-30
+[5]: https://www.github.com/sensu/sensu-go/blob/main/CHANGELOG.md#500---2018-11-30
 [6]: https://sensu.io/blog/sensu-go-is-here/
-[7]: https://www.github.com/sensu/sandbox/tree/master/sensu-go/core/
+[7]: https://www.github.com/sensu/sandbox/tree/main/sensu-go/core/
 [8]: /sensu-go/5.0/installation/install-sensu/
 [9]: /sensu-go/5.0/guides/monitor-server-resources/
 [10]: /sensu-go/5.1/reference/rbac#managing-users
