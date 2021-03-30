@@ -72,7 +72,7 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 [1]: get-started/
 [2]: https://www.influxdata.com/
 [3]: https://docs.sensu.io/plugins/latest/reference/
-[4]: https://www.github.com/sensu/sensu-go/blob/master/LICENSE/
+[4]: https://www.github.com/sensu/sensu-go/blob/main/LICENSE/
 [5]: https://www.github.com/sensu/sensu-go/
 [6]: operations/deploy-sensu/install-sensu#install-sensu-agents
 [7]: guides/monitor-external-resources/

@@ -29,4 +29,4 @@ Use the [Sensu translator][4] to translate check configurations from Sensu Core 
 
 [1]: ../learn-sensu-sandbox/
 [2]: https://github.com/sensu/sensu-k8s-quick-start
-[4]: https://github.com/sensu/sandbox/tree/master/sensu-go/lesson_plans/check-upgrade/
+[4]: https://www.github.com/sensu/sandbox/tree/main/sensu-go/lesson_plans/check-upgrade/
