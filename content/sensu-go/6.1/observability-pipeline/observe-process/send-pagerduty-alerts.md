@@ -80,7 +80,7 @@ To confirm that the check was added to your Sensu backend and view the check def
 sensuctl check info file_exists --format yaml
 {{< /code >}}
 {{< code shell "JSON" >}}
-sensuctl check info file_exists --format json
+sensuctl check info file_exists --format wrapped-json
 {{< /code >}}
 {{< /language-toggle >}}
 
@@ -216,7 +216,7 @@ Make sure that your handler was added by retrieving the complete handler definit
 sensuctl handler info pagerduty --format yaml
 {{< /code >}}
 {{< code shell "JSON" >}}
-sensuctl handler info pagerduty --format json
+sensuctl handler info pagerduty --format wrapped-json
 {{< /code >}}
 {{< /language-toggle >}}
 

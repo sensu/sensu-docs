@@ -45,7 +45,12 @@ See the [RBAC reference][3] for more information about configuring Sensu users a
 ## Data format
 
 The Sensu API uses JSON-formatted requests and responses.
-In terms of [sensuctl output types][1], the Sensu API uses the `json` format, not `wrapped-json`.
+
+In terms of output formats, the [Sensu API][9] uses `json` output format for responses for APIs in the `core` [group][22].
+For APIs that are not in the `core` group, responses are in the `wrapped-json` output format.
+The `wrapped-json` format includes an outer-level `spec` "wrapping" for resource attributes and lists the resource `type` and `api_version`.
+
+Sensu sends events to the backend [in `json` format][28], without the `spec` attribute wrapper or `type` and `api_version` attributes.
 
 ## Versioning
 
@@ -758,3 +763,4 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [25]: ../sensuctl/
 [26]: ../web-ui/
 [27]: https://tools.ietf.org/html/rfc7519
+[28]: ../observability-pipeline/observe-events/events/#example-status-only-event-from-the-sensu-api

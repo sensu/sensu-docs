@@ -437,7 +437,7 @@ curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/n
 You can also access your Sensu Go configuration in JSON or YAML using sensuctl.
 For example, `sensuctl check list --format wrapped-json`.
 Run `sensuctl help` to see available commands.
-For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), see the [sensuctl reference][5].
+For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), see the [sensuctl reference][22].
 
 ### Step 3: Translate plugins and register dynamic runtime assets
 
@@ -501,7 +501,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [2]: https://etcd.io/docs/latest/
 [3]: ../../../observability-pipeline/observe-schedule/backend/
 [4]: ../../../observability-pipeline/observe-schedule/agent/
-[5]: ../../../sensuctl/#preferred-output-format
+[5]: ../../../sensuctl/
 [6]: ../../../observability-pipeline/observe-entities/entities/
 [7]: ../../../observability-pipeline/observe-entities/monitor-external-resources/
 [8]: ../../../observability-pipeline/observe-schedule/hooks/
@@ -518,6 +518,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [19]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#filter-definition
 [20]: https://packagecloud.io/sensu/community/
 [21]: https://github.com/sensu-plugins/
+[22]: ../../../sensuctl/#preferred-output-format
 [24]: ../../../observability-pipeline/observe-entities/entities#metadata-attributes
 [25]: https://sensu.io/blog/check-configuration-upgrades-with-the-sensu-go-sandbox/
 [26]: https://sensu.io/blog/self-service-monitoring-checks-in-sensu-go/

@@ -15,12 +15,16 @@ The `sensuctl dump` command allows you to export your [resources][6] to standard
 You can export all of your resources or a subset of them based on a list of resource types.
 The `dump` command supports exporting in `wrapped-json` and `yaml`.
 
-For example, to export all resources for the current namespace to a file named `my-resources.yml` or `my-resources.json` in YAML or JSON format:
+For example, to export all resources for the current namespace to a file named `my-resources.yml` or `my-resources.json` in `yaml` or `wrapped-json` format for use with sensuctl or `json` format for use with the Sensu API:
 
 {{< language-toggle >}}
 
 {{< code shell "YML" >}}
 sensuctl dump all --format yaml --file my-resources.yml
+{{< /code >}}
+
+{{< code shell "Wrapped JSON" >}}
+sensuctl dump all --format wrapped-json --file my-resources.json
 {{< /code >}}
 
 {{< code shell "JSON" >}}
@@ -37,6 +41,10 @@ To export only checks for only the current namespace to STDOUT in YAML or JSON f
 sensuctl dump core/v2.CheckConfig --format yaml
 {{< /code >}}
 
+{{< code shell "Wrapped JSON" >}}
+sensuctl dump core/v2.CheckConfig --format wrapped-json
+{{< /code >}}
+
 {{< code shell "JSON" >}}
 sensuctl dump core/v2.CheckConfig --format json
 {{< /code >}}
@@ -49,6 +57,10 @@ To export only handlers and filters for only the current namespace to a file nam
 
 {{< code shell "YML" >}}
 sensuctl dump core/v2.Handler,core/v2.EventFilter --format yaml --file my-handlers-and-filters.yml
+{{< /code >}}
+
+{{< code shell "Wrapped JSON" >}}
+sensuctl dump core/v2.Handler,core/v2.EventFilter --format wrapped-json --file my-handlers-and-filters.json
 {{< /code >}}
 
 {{< code shell "JSON" >}}
@@ -66,6 +78,10 @@ For example:
 sensuctl dump all --all-namespaces --format yaml --file my-resources.yml
 {{< /code >}}
 
+{{< code shell "Wrapped JSON" >}}
+sensuctl dump all --all-namespaces --format wrapped-json --file my-resources.json
+{{< /code >}}
+
 {{< code shell "JSON" >}}
 sensuctl dump all --all-namespaces --format json --file my-resources.json
 {{< /code >}}
@@ -78,6 +94,10 @@ sensuctl dump all --all-namespaces --format json --file my-resources.json
 sensuctl dump core/v2.CheckConfig --all-namespaces --format yaml
 {{< /code >}}
 
+{{< code shell "Wrapped JSON" >}}
+sensuctl dump core/v2.CheckConfig --all-namespaces --format wrapped-json
+{{< /code >}}
+
 {{< code shell "JSON" >}}
 sensuctl dump core/v2.CheckConfig --all-namespaces --format json
 {{< /code >}}
@@ -88,6 +108,10 @@ sensuctl dump core/v2.CheckConfig --all-namespaces --format json
 
 {{< code shell "YML" >}}
 sensuctl dump core/v2.Handler,core/v2.EventFilter --all-namespaces --format yaml --file my-handlers-and-filters.yml
+{{< /code >}}
+
+{{< code shell "Wrapped JSON" >}}
+sensuctl dump core/v2.Handler,core/v2.EventFilter --all-namespaces --format wrapped-json --file my-handlers-and-filters.json
 {{< /code >}}
 
 {{< code shell "JSON" >}}
@@ -106,6 +130,10 @@ Here's an example that uses fully qualified names:
 sensuctl dump core/v2.Handler,core/v2.EventFilter --format yaml --file my-handlers-and-filters.yml
 {{< /code >}}
 
+{{< code shell "Wrapped JSON" >}}
+sensuctl dump core/v2.Handler,core/v2.EventFilter --format wrapped-json --file my-handlers-and-filters.json
+{{< /code >}}
+
 {{< code shell "JSON" >}}
 sensuctl dump core/v2.Handler,core/v2.EventFilter --format json --file my-handlers-and-filters.json
 {{< /code >}}
@@ -118,6 +146,10 @@ Here's an example that uses short names:
 
 {{< code shell "YML" >}}
 sensuctl dump handlers,filters --format yaml --file my-handlers-and-filters.yml
+{{< /code >}}
+
+{{< code shell "Wrapped JSON" >}}
+sensuctl dump handlers,filters --format wrapped-json --file my-handlers-and-filters.json
 {{< /code >}}
 
 {{< code shell "JSON" >}}
@@ -147,6 +179,12 @@ sensuctl dump all \
 --omit core/v2.Entity,core/v2.Event,core/v2.APIKey,core/v2.User,core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.ClusterRoleBinding \
 --format yaml > backup/config.yml
 {{< /code >}}
+{{< code shell "Wrapped JSON" >}}
+sensuctl dump all \
+--all-namespaces \
+--omit core/v2.Entity,core/v2.Event,core/v2.APIKey,core/v2.User,core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.ClusterRoleBinding \
+--format wrapped-json > backup/config.json
+{{< /code >}}
 {{< code shell "JSON" >}}
 sensuctl dump all \
 --all-namespaces \
@@ -162,6 +200,11 @@ sensuctl dump core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.Clust
 --all-namespaces \
 --format yaml > backup/rbac.yml
 {{< /code >}}
+{{< code shell "Wrapped JSON" >}}
+sensuctl dump core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.ClusterRoleBinding \
+--all-namespaces \
+--format wrapped-json > backup/rbac.json
+{{< /code >}}
 {{< code shell "JSON" >}}
 sensuctl dump core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.ClusterRoleBinding \
 --all-namespaces \
@@ -175,6 +218,11 @@ sensuctl dump core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,core/v2.Clust
 sensuctl dump core/v2.APIKey,core/v2.User \
 --all-namespaces \
 --format yaml > backup/cannotrestore.yml
+{{< /code >}}
+{{< code shell "Wrapped JSON" >}}
+sensuctl dump core/v2.APIKey,core/v2.User \
+--all-namespaces \
+--format wrapped-json > backup/cannotrestore.json
 {{< /code >}}
 {{< code shell "JSON" >}}
 sensuctl dump core/v2.APIKey,core/v2.User \
@@ -194,6 +242,11 @@ Because users require this additional configuration and API keys cannot be resto
 sensuctl dump core/v2.Entity \
 --all-namespaces \
 --format yaml > backup/inventory.yml
+{{< /code >}}
+{{< code shell "Wrapped JSON" >}}
+sensuctl dump core/v2.Entity \
+--all-namespaces \
+--format wrapped-json > backup/inventory.json
 {{< /code >}}
 {{< code shell "JSON" >}}
 sensuctl dump core/v2.Entity \
@@ -223,6 +276,11 @@ mkdir backup
 sensuctl dump core/v2.Asset,core/v2.CheckConfig,core/v2.HookConfig,core/v2.EventFilter,core/v2.Mutator,core/v2.Handler,core/v2.Silenced,secrets/v1.Secret,secrets/v1.Provider \
 --all-namespaces \
 --format yaml | grep -v "^\s*namespace:" > backup/pipelines.yml
+{{< /code >}}
+{{< code shell "Wrapped JSON" >}}
+sensuctl dump core/v2.Asset,core/v2.CheckConfig,core/v2.HookConfig,core/v2.EventFilter,core/v2.Mutator,core/v2.Handler,core/v2.Silenced,secrets/v1.Secret,secrets/v1.Provider \
+--all-namespaces \
+--format wrapped-json | grep -v "^\s*namespace:" > backup/pipelines.json
 {{< /code >}}
 {{< code shell "JSON" >}}
 sensuctl dump core/v2.Asset,core/v2.CheckConfig,core/v2.HookConfig,core/v2.EventFilter,core/v2.Mutator,core/v2.Handler,core/v2.Silenced,secrets/v1.Secret,secrets/v1.Provider \
@@ -345,7 +403,7 @@ The default is unformatted, but you can specify either `wrapped-json` or `yaml`:
 sensuctl describe-type core/v2.CheckConfig --format yaml
 {{< /code >}}
 
-{{< code shell "JSON">}}
+{{< code shell "Wrapped JSON">}}
 sensuctl describe-type core/v2.CheckConfig --format wrapped-json
 {{< /code >}}
 

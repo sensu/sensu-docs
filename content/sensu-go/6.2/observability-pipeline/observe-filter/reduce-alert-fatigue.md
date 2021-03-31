@@ -409,7 +409,7 @@ You will see a confirmation message:
 Updated
 {{< /code >}}
 
-To view the updated `slack` handler definition:
+To view the updated `slack` handler resource definition:
 
 {{< language-toggle >}}
 

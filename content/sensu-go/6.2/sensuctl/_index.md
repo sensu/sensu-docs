@@ -220,7 +220,7 @@ Sensuctl supports the following output formats:
 - `tabular`: Output is organized in user-friendly columns (default).
 - `yaml`: Output is in [YAML][20] format. Resource definitions include an outer-level `spec` "wrapping" for resource attributes and list the resource `type` and `api_version`.
 - `wrapped-json`: Output is in [JSON][21] format. Resource definitions include an outer-level `spec` "wrapping" for resource attributes and list the resource `type` and `api_version`.
-- `json`: Output is in [JSON][21] format. Resource definitions **do not** include an outer-level `spec` "wrapping" or the resource `type` and `api_version`. 
+- `json`: Output is in [JSON][21] format. Resource definitions **do not** include an outer-level `spec` "wrapping" or the resource `type` and `api_version`.
 
 After you are logged in, you can change the default output format with `sensuctl config set-format` or set the output format per command with the `--format` flag.
 

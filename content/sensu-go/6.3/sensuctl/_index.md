@@ -217,12 +217,22 @@ You can use this hash instead of the password when you use sensuctl to [create][
 
 Sensuctl supports the following output formats:
 
-- `tabular`: A user-friendly, columnar format
-- `wrapped-json`: An accepted format for use with [`sensuctl create`][5]
-- `yaml`: An accepted format for use with [`sensuctl create`][5]
-- `json`: A format used by the [Sensu API][9]
+- `tabular`: Output is organized in user-friendly columns (default).
+- `yaml`: Output is in [YAML][20] format. Resource definitions include an outer-level `spec` "wrapping" for resource attributes and list the resource `type` and `api_version`.
+- `wrapped-json`: Output is in [JSON][21] format. Resource definitions include an outer-level `spec` "wrapping" for resource attributes and list the resource `type` and `api_version`.
+- `json`: Output is in [JSON][21] format. Resource definitions **do not** include an outer-level `spec` "wrapping" or the resource `type` and `api_version`.
 
-After you are logged in, you can change the output format with `sensuctl config set-format` or set the output format per command with the `--format` flag.
+After you are logged in, you can change the default output format with `sensuctl config set-format` or set the output format per command with the `--format` flag.
+
+### Output format significance
+
+To use [sensuctl create][5] to create a resource, you must provide the resource definition in `yaml` or `wrapped-json` format.
+These formats include the resource type, which sensuctl needs to determine what kind of resource to create.
+
+The [Sensu API][9] uses `json` output format for responses for APIs in the `core` [group][22].
+For APIs that are not in the `core` group, responses are in the `wrapped-json` output format.
+
+Sensu sends events to the backend [in `json` format][23], without the `spec` attribute wrapper or `type` and `api_version` attributes.
 
 ## Non-interactive mode
 
@@ -417,3 +427,7 @@ create  delete  import  list
 [17]: ../operations/control-access/ldap-auth
 [18]: ../operations/control-access/ad-auth
 [19]: ../commercial/
+[20]: https://yaml.org/
+[21]: https://www.json.org/
+[22]: ../api/#url-format
+[23]: ../observability-pipeline/observe-events/events/#example-status-only-event-from-the-sensu-api

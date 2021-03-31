@@ -304,7 +304,7 @@ spec:
 
 ### Example status-only event from the Sensu API
 
-Sensu sends events to the backend in `json` format, without the outer-level `type` and `api_version` attributes that are included in the `wrapped-json` format.
+Sensu sends events to the backend in `json` format, without the outer-level `spec` wrapper or `type` and `api_version` attributes that are included in the `wrapped-json` format.
 This is the format that events are in when Sensu sends them to handlers:
 
 {{< code json >}}

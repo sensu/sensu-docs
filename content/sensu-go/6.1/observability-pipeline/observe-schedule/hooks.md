@@ -89,7 +89,7 @@ sensuctl event info entity_name check_name --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl event info entity_name check_name --format json
+sensuctl event info entity_name check_name --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}

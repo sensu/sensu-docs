@@ -415,7 +415,7 @@ sensuctl asset info sensu-plugins-disk-checks --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl asset info sensu-plugins-disk-checks --format json
+sensuctl asset info sensu-plugins-disk-checks --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}

@@ -488,17 +488,9 @@ To confirm that your check is extracting metrics, inspect the events the check y
 **NOTE**: Replace `entity_name` and `check_name` with the names of the entity and check whose events you want to review.
 {{% /notice %}}
 
-{{< language-toggle >}}
-
-{{< code shell "YML" >}}
-sensuctl event info entity_name check_name --format yaml
-{{< /code >}}
-
 {{< code shell "JSON" >}}
-sensuctl event info entity_name check_name --format wrapped-json
+sensuctl event info entity_name check_name --format json
 {{< /code >}}
-
-{{< /language-toggle >}}
 
 You should expect to see errors logged by sensu-agent if it is unable to parse the check output.
 See [Troubleshoot Sensu][24] for an example debug handler that writes events to a file for inspection.

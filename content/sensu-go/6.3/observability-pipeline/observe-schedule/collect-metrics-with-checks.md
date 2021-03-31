@@ -112,7 +112,7 @@ sensuctl check info collect-metrics --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info collect-metrics --format json
+sensuctl check info collect-metrics --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -242,7 +242,7 @@ sensuctl event info sensu-centos collect-metrics --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl event info sensu-centos collect-metrics --format json
+sensuctl event info sensu-centos collect-metrics --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}

@@ -42,7 +42,7 @@ sensuctl hook info process_tree --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl hook info process_tree --format json
+sensuctl hook info process_tree --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -110,7 +110,7 @@ sensuctl event info i-424242 nginx_process --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl event info i-424242 nginx_process --format json
+sensuctl event info i-424242 nginx_process --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
