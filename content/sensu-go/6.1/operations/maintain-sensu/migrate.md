@@ -435,9 +435,9 @@ curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/n
 {{< /code >}}
 
 You can also access your Sensu Go configuration in JSON or YAML using sensuctl.
-For example, `sensuctl check list --format json`.
+For example, `sensuctl check list --format wrapped-json`.
 Run `sensuctl help` to see available commands.
-For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), see the [sensuctl reference][5].
+For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), see the [sensuctl reference][22].
 
 ### Step 3: Translate plugins and register dynamic runtime assets
 
@@ -517,6 +517,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [18]: https://github.com/sensu/sensu-translator/
 [19]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#filter-definition
 [20]: https://packagecloud.io/sensu/community/
+[22]: ../../../sensuctl/#preferred-output-format
 [21]: https://github.com/sensu-plugins/
 [24]: ../../../observability-pipeline/observe-entities/entities#metadata-attributes
 [25]: https://sensu.io/blog/check-configuration-upgrades-with-the-sensu-go-sandbox/

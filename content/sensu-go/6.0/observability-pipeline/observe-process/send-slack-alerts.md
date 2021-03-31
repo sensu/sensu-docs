@@ -93,7 +93,7 @@ sensuctl handler info slack --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl handler info slack --format json
+sensuctl handler info slack --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -173,7 +173,7 @@ sensuctl check info check_cpu --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info check_cpu --format json
+sensuctl check info check_cpu --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}

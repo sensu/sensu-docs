@@ -17,8 +17,7 @@ Sensuctl works by calling Sensu’s underlying API to create, read, update, and 
 ## Create resources
 
 The `sensuctl create` command allows you to create or update resources by reading from STDIN or a [flag][36] configured file (`-f`).
-The `create` command accepts Sensu resource definitions in [`yaml` or `wrapped-json` formats][4].
-Both JSON and YAML resource definitions wrap the contents of the resource in `spec` and identify the resource `type`.
+The `create` command accepts Sensu resource definitions in [`yaml` or `wrapped-json` formats][4], which wrap the contents of the resource in `spec` and identify the resource `type` and `api_version`.
 See the [list of supported resource types][3] `for sensuctl create`.
 See the [reference docs][6] for information about creating resource definitions.
 
@@ -149,12 +148,12 @@ The following table describes the command-specific flags.
 `ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | [`Env`][24]
 `entity` | [`EtcdReplicators`][29] | `Event` | `event`
 `EventFilter` | `event_filter` | [`GlobalConfig`][11] | `Handler` 
-`handler` | `Hook` | `hook` | `Hook`
-`hook_config` | `Mutator` | `mutator` | `Namespace`
-`namespace` | `Role` | `role` | `RoleBinding`
-`role_binding` | [`Secret`][28] | `Silenced` | `silenced`
-[`User`][8] | `user` | [`VaultProvider`][24] | [`ldap`][26]
-[`ad`][25] | [`oidc`][37] | [`TessenConfig`][27] | [`PostgresConfig`][32]
+`handler` | `Hook` | `hook` | `Mutator`
+`mutator` | `Namespace` | `namespace` | `Role`
+`role` | `RoleBinding` | `role_binding` | [`Secret`][28]
+`Silenced` | `silenced` | [`User`][8] | `user`
+[`VaultProvider`][24] | [`ldap`][26] | [`ad`][25] | [`oidc`][37]
+[`TessenConfig`][27] | [`PostgresConfig`][32]
 
 ### Create resources across namespaces
 
@@ -368,7 +367,7 @@ sensuctl check list --format wrapped-json > my-resources.json
 
 {{< /language-toggle >}}
 
-To see the definition for a check named `check-cpu` in `yaml` or `json` format:
+To see the definition for a check named `check-cpu`:
 
 {{< language-toggle >}}
 
@@ -377,7 +376,7 @@ sensuctl check info check-cpu --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info check-cpu --format json
+sensuctl check info check-cpu --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -501,7 +500,6 @@ The response will list all supported `sensuctl prune` resource types:
   authentication/v2.Provider                           authentication/v2   Provider             false
   licensing/v2.LicenseFile                             licensing/v2        LicenseFile          false
   store/v1.PostgresConfig                              store/v1            PostgresConfig       false
-  federation/v1.Cluster                                federation/v1       Cluster              false
   federation/v1.EtcdReplicator                         federation/v1       EtcdReplicator       false
   secrets/v1.Secret                                    secrets/v1          Secret               true
   secrets/v1.Provider                                  secrets/v1          Provider             false
