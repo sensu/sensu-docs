@@ -28,10 +28,128 @@ Available attributes will always have [string values][9], such as labels and ann
 
 ## Example: Token substitution for check thresholds 
 
-In this example [hook][8] and [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical) arguments to indicate the thresholds (as percentages) for creating warning or critical events.
-If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk_warning | default 80 }}`) and a critical event at 90% capacity (i.e. `{{ .labels.disk_critical | default 90 }}`).
+You can use tokens in [check commands][5] to indicate the thresholds (as percentages) for creating warning or critical events, with default threshold values to use for entities that do not include labels for token substitution.
+Follow this example to set up a reusable check for disk usage. 
 
-Hook configuration:
+First, add the [Sensu disk usage check][13] dynamic runtime asset, which includes the command you will need for your check:
+{{< code shell >}}
+sensuctl asset add sensu/check-disk-usage:0.4.1
+{{< /code >}}
+
+You will see a response to confirm that the asset was added:
+{{< code shell >}}
+fetching bonsai asset: sensu/check-disk-usage:0.4.1
+added asset: sensu/check-disk-usage:0.4.1
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["sensu/check-disk-usage].
+{{< /code >}}
+
+Next, create the `check-disk-usage` check:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: check-disk-usage
+  namespace: default
+spec:
+  check_hooks: []
+  command: check-disk-usage -w {{index .labels.disk_warning | default 80}} -c
+    {{.labels.disk_critical | default 90}}
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
+  interval: 10
+  low_flap_threshold: 0
+  output_metric_format: ""
+  output_metric_handlers: null
+  output_metric_tags: null
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets:
+  - sensu/check-disk-usage
+  stdin: false
+  subdue: null
+  subscriptions:
+  - system
+  timeout: 0
+  ttl: 0
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check-disk-usage",
+    "namespace": "default"
+  },
+  "spec": {
+    "check_hooks": [],
+    "command": "check-disk-usage -w {{index .labels.disk_warning | default 80}} -c {{.labels.disk_critical | default 90}}",
+    "env_vars": null,
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 10,
+    "low_flap_threshold": 0,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "output_metric_tags": null,
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": [
+      "sensu/check-disk-usage"
+    ],
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "system"
+    ],
+    "timeout": 0,
+    "ttl": 0
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+This check will run on every entity with the subscription `system`.
+According to the default values in the command, the check will generate a warning event at 80% disk usage and a critical event at 90% disk usage.
+
+Because the check command is written to permit token subsitution, you can also use this check for entities that should generate warning or critical events at different thresholds.
+Instead of creating a different check for every set of thresholds, you can specify different thresholds in the entities themselves.
+
+For example, suppose you want to receive alerts at lower thresholds for an existing `webserver` entity: a warning event at 65% and a critical event at 75%.
+
+Use sensuctl to open the `webserver` entity in a text editor:
+
+{{< code shell >}}
+sensuctl edit entity webserver
+{{< /code >}}
+
+And add the following labels in the entity metadata:
+
+{{< code yml >}}
+  labels:
+    disk_warning: "65"
+    disk_critical: "75"
+{{< /code >}}
+
+After you save these changes, the `check-disk-usage` check will substitute the `disk_warning` and `disk_critical` label values to generate events at 65% and 75% of disk usage, respectively, instead of the 80% and 90% default values.
+
+
+**TODO: add the [hook][8] configuration example**
 
 {{< language-toggle >}}
 
@@ -64,218 +182,6 @@ spec:
   }
 }
 {{< /code >}}
-
-{{< /language-toggle >}}
-
-Check configuration: 
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: CheckConfig
-api_version: core/v2
-metadata:
-  name: check-disk-usage
-  namespace: default
-spec:
-  check_hooks:
-  - non-zero:
-    - disk_usage_details
-  command: check-disk-usage.rb -w {{index .labels "disk_warning" | default 80}} -c
-    {{.labels.disk_critical | default 90}}
-  env_vars: null
-  handlers: []
-  high_flap_threshold: 0
-  interval: 10
-  low_flap_threshold: 0
-  output_metric_format: ""
-  output_metric_handlers: null
-  output_metric_tags: null
-  proxy_entity_name: ""
-  publish: true
-  round_robin: false
-  runtime_assets: null
-  stdin: false
-  subdue: null
-  subscriptions:
-  - staging
-  timeout: 0
-  ttl: 0
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "check-disk-usage",
-    "namespace": "default"
-  },
-  "spec": {
-    "check_hooks": [
-      {
-        "non-zero": [
-          "disk_usage_details"
-        ]
-      }
-    ],
-    "command": "check-disk-usage.rb -w {{index .labels \"disk_warning\" | default 80}} -c {{.labels.disk_critical | default 90}}",
-    "env_vars": null,
-    "handlers": [],
-    "high_flap_threshold": 0,
-    "interval": 10,
-    "low_flap_threshold": 0,
-    "output_metric_format": "",
-    "output_metric_handlers": null,
-    "output_metric_tags": null,
-    "proxy_entity_name": "",
-    "publish": true,
-    "round_robin": false,
-    "runtime_assets": null,
-    "stdin": false,
-    "subdue": null,
-    "subscriptions": [
-      "staging"
-    ],
-    "timeout": 0,
-    "ttl": 0
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-The following example [entity][4] provides the necessary attributes to override the `.labels.disk_warning` and `labels.disk_critical` tokens declared above:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: Entity
-api_version: core/v2
-metadata:
-  annotations: null
-  labels:
-    disk_critical: "90"
-    disk_warning: "80"
-  name: example-hostname
-  namespace: default
-spec:
-  deregister: false
-  deregistration: {}
-  entity_class: agent
-  last_seen: 1542667231
-  redact:
-  - password
-  - passwd
-  - pass
-  - api_key
-  - api_token
-  - access_key
-  - secret_key
-  - private_key
-  - secret
-  subscriptions:
-  - entity:example-hostname
-  - staging
-  system:
-    arch: amd64
-    hostname: example-hostname
-    network:
-      interfaces:
-      - addresses:
-        - 127.0.0.1/8
-        - ::1/128
-        name: lo
-      - addresses:
-        - 10.0.2.15/24
-        - fe80::26a5:54ec:cf0d:9704/64
-        mac: 08:00:27:11:ad:d2
-        name: enp0s3
-      - addresses:
-        - 172.28.128.3/24
-        - fe80::a00:27ff:febc:be60/64
-        mac: 08:00:27:bc:be:60
-        name: enp0s8
-    os: linux
-    platform: centos
-    platform_family: rhel
-    platform_version: 7.4.1708
-    processes: null
-  user: agent
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Entity",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "example-hostname",
-    "namespace": "default",
-    "labels": {
-      "disk_warning": "80",
-      "disk_critical": "90"
-    },
-    "annotations": null
-  },
-  "spec": {
-    "entity_class": "agent",
-    "system": {
-      "hostname": "example-hostname",
-      "os": "linux",
-      "platform": "centos",
-      "platform_family": "rhel",
-      "platform_version": "7.4.1708",
-      "processes": null,
-      "network": {
-        "interfaces": [
-          {
-            "name": "lo",
-            "addresses": [
-              "127.0.0.1/8",
-              "::1/128"
-            ]
-          },
-          {
-            "name": "enp0s3",
-            "mac": "08:00:27:11:ad:d2",
-            "addresses": [
-              "10.0.2.15/24",
-              "fe80::26a5:54ec:cf0d:9704/64"
-            ]
-          },
-          {
-            "name": "enp0s8",
-            "mac": "08:00:27:bc:be:60",
-            "addresses": [
-              "172.28.128.3/24",
-              "fe80::a00:27ff:febc:be60/64"
-            ]
-          }
-        ]
-      },
-      "arch": "amd64"
-    },
-    "subscriptions": [
-      "entity:example-hostname",
-      "staging"
-    ],
-    "last_seen": 1542667231,
-    "deregister": false,
-    "deregistration": {},
-    "user": "agent",
-    "redact": [
-      "password",
-      "passwd",
-      "pass",
-      "api_key",
-      "api_token",
-      "access_key",
-      "secret_key",
-      "private_key",
-      "secret"
-    ]
-  }
-}{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -396,7 +302,7 @@ Token substitution **can** be used for alerting thresholds because those values 
 [2]: https://pkg.go.dev/text/template?tab=doc#hdr-Examples
 [3]: ../../observe-entities/entities/#entities-specification
 [4]: ../../observe-entities/entities/
-[5]: ../checks/
+[5]: ../checks/#check-commands
 [6]: ../../observe-entities/entities#manage-entity-labels
 [7]: ../checks/#check-commands
 [8]: ../hooks/
@@ -404,3 +310,4 @@ Token substitution **can** be used for alerting thresholds because those values 
 [10]: ../../observe-process/handlers/
 [11]: ../../observe-transform/mutators/
 [12]: ../../../plugins/assets/
+[13]: https://bonsai.sensu.io/assets/sensu/check-disk-usage
