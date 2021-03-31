@@ -50,7 +50,7 @@ In terms of output formats, the [Sensu API][9] uses `json` output format for res
 For APIs that are not in the `core` group, responses are in the `wrapped-json` output format.
 The `wrapped-json` format includes an outer-level `spec` "wrapping" for resource attributes and lists the resource `type` and `api_version`.
 
-Sensu sends events to the backend [in `json` format][28], without the `spec` attribute wrapper or `type` and `api_version` attributes.
+Sensu sends events to the backend in [`json` format][28], without the `spec` attribute wrapper or `type` and `api_version` attributes.
 
 ## Versioning
 
