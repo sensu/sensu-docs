@@ -24,19 +24,25 @@ Token substitution is supported for [check][7], [hook][8], and [dynamic runtime 
 Only [entity attributes][4] are available for substitution.
 Token substitution is not available for event filters because filters already have access to the entity.
 
-Available attributes will always have [string values][9], such as labels and annotations.
+Available entity attributes will always have [string values][9], such as labels and annotations.
 
-## Example: Token substitution for check thresholds 
+## Example: Token substitution for check thresholds
 
-You can use tokens in [check commands][5] to indicate the thresholds (as percentages) for creating warning or critical events, with default threshold values to use for entities that do not include labels for token substitution.
-Follow this example to set up a reusable check for disk usage. 
+This example demonstrates a reusable disk usage check.
+The [check command][5] includes `-w` (warning) and `-c` (critical) arguments with default values for the thresholds (as percentages) for generating warning or critical events.
+The check will compare every subscribed entity's disk space against the default threshold values to determine whether generate a warning or critical event.
 
-First, add the [Sensu disk usage check][13] dynamic runtime asset, which includes the command you will need for your check:
+However, the check command also includes token substitution, which means you can add entity labels that correspond to the check commnand tokens to specify different warning and critical values for individual entities.
+Instead of creating a different check for every set of thresholds, you can use the same check to apply the defaults in most cases and the token-subsituted values for specific entities.
+
+Follow this example to set up a reusable check for disk usage:
+
+1. Add the [Sensu disk usage check][13] dynamic runtime asset, which includes the command you will need for your check:
 {{< code shell >}}
 sensuctl asset add sensu/check-disk-usage:0.4.1
 {{< /code >}}
 
-You will see a response to confirm that the asset was added:
+   You will see a response to confirm that the asset was added:
 {{< code shell >}}
 fetching bonsai asset: sensu/check-disk-usage:0.4.1
 added asset: sensu/check-disk-usage:0.4.1
@@ -46,10 +52,8 @@ it's invoked by another Sensu resource (ex. check). To add this runtime asset to
 resource, populate the "runtime_assets" field with ["sensu/check-disk-usage].
 {{< /code >}}
 
-Next, create the `check-disk-usage` check:
-
+2. Create the `check-disk-usage` check:
 {{< language-toggle >}}
-
 {{< code shell "YML" >}}
 cat << EOF | sensuctl create
 ---
@@ -60,7 +64,7 @@ metadata:
   namespace: default
 spec:
   check_hooks: []
-  command: check-disk-usage -w {{index .labels.disk_warning | default 80}} -c
+  command: check-disk-usage -w {{index .labels "disk_warning" | default 80}} -c
     {{.labels.disk_critical | default 90}}
   env_vars: null
   handlers: []
@@ -83,7 +87,6 @@ spec:
   ttl: 0
 EOF
 {{< /code >}}
-
 {{< code shell "JSON" >}}
 cat << EOF | sensuctl create
 {
@@ -95,7 +98,7 @@ cat << EOF | sensuctl create
   },
   "spec": {
     "check_hooks": [],
-    "command": "check-disk-usage -w {{index .labels.disk_warning | default 80}} -c {{.labels.disk_critical | default 90}}",
+    "command": "check-disk-usage -w {{index .labels "disk_warning" | default 80}} -c {{.labels.disk_critical | default 90}}",
     "env_vars": null,
     "handlers": [],
     "high_flap_threshold": 0,
@@ -121,39 +124,42 @@ cat << EOF | sensuctl create
 }
 EOF
 {{< /code >}}
-
 {{< /language-toggle >}}
 
-This check will run on every entity with the subscription `system`.
+   This check will run on every entity with the subscription `system`.
 According to the default values in the command, the check will generate a warning event at 80% disk usage and a critical event at 90% disk usage.
 
-Because the check command is written to permit token subsitution, you can also use this check for entities that should generate warning or critical events at different thresholds.
-Instead of creating a different check for every set of thresholds, you can specify different thresholds in the entities themselves.
+3. To receive alerts at different thresholds for an existing entity with the `system` subscription, add `disk_warning` and `disk_critical` labels to the entity.
 
-For example, suppose you want to receive alerts at lower thresholds for an existing `webserver` entity: a warning event at 65% and a critical event at 75%.
-
-Use sensuctl to open the `webserver` entity in a text editor:
-
+   Use sensuctl to open an existing entity in a text editor:
 {{< code shell >}}
-sensuctl edit entity webserver
+sensuctl edit entity ENTITY_NAME
 {{< /code >}}
 
-And add the following labels in the entity metadata:
-
+   And add the following labels in the entity metadata:
 {{< code yml >}}
   labels:
     disk_warning: "65"
     disk_critical: "75"
 {{< /code >}}
 
-After you save these changes, the `check-disk-usage` check will substitute the `disk_warning` and `disk_critical` label values to generate events at 65% and 75% of disk usage, respectively, instead of the 80% and 90% default values.
+After you save your changes, the `check-disk-usage` check will substitute the `disk_warning` and `disk_critical` label values to generate events at 65% and 75% of disk usage, respectively, for this entity only.
+The check will continue to use the 80% and 90% default values for other subscribed entities.
 
+### Add a hook that uses token substitution
 
-**TODO: add the [hook][8] configuration example**
+Now you have a resusable check that will send disk usage alerts at default or entity-specific thresholds.
+You may want to add a [hook][8] that will list more details about disk usage for warning and critical events.
 
+The hook in this example will list disk usage in human-readable format, with error messages filtered from the hook output.
+By default, the hook will list details for the top directory and the first layer of subdirectories.
+As with the `check-disk-usage` check, you can add a `disk_usage_root` label to individual entities to specify a different directory for the hook via token substitution.
+
+1. Add the hook definition:
 {{< language-toggle >}}
-
 {{< code yml >}}
+cat << EOF | sensuctl create
+---
 type: HookConfig
 api_version: core/v2
 metadata:
@@ -164,9 +170,10 @@ spec:
   runtime_assets: null
   stdin: false
   timeout: 60
+EOF
 {{< /code >}}
-
 {{< code json >}}
+cat << EOF | sensuctl create
 {
   "type": "HookConfig",
   "api_version": "core/v2",
@@ -175,15 +182,45 @@ spec:
     "namespace": "default"
   },
   "spec": {
-    "command": "du -h --max-depth=1 -c {{index .labels \"disk_usage_root\" | default \"/\"}}  2>/dev/null",
+    "command": "du -h --max-depth=1 -c {{index .labels "disk_usage_root" | default \"/\"}}  2>/dev/null",
     "runtime_assets": null,
     "stdin": false,
     "timeout": 60
   }
 }
+EOF
+{{< /code >}}
+{{< /language-toggle >}}
+
+2. Add the hook to the `check-disk-usage` check.
+
+   Use sensuctl to open the check in a text editor:
+{{< code shell >}}
+sensuctl edit check check-disk-usage
 {{< /code >}}
 
-{{< /language-toggle >}}
+   Update the check definition to include the `disk_usage_details` hook for `non-zero` events:
+{{< code yml >}}
+  check_hooks:
+  - non-zero:
+    - disk_usage_details
+{{< /code >}}
+
+3. As with the disk usage check command, the hook command includes a token substitution option.
+To use a specific directory instead of the default for specific entities, edit the entity definition to add a `disk_usage_root` label and specify the directory:
+
+   Use sensuctl to open the entity in a text editor:
+{{< code shell >}}
+sensuctl edit entity ENTITY_NAME
+{{< /code >}}
+
+   Add the `disk_usage_root` label with the desired substitute directory in the entity metadata:
+{{< code yml >}}
+  labels:
+    disk_usage_root: "/substitute-directory"
+{{< /code >}}
+
+After you save your changes, the hook will substitute the directory you specified for the `disk_usage_root` abel to provide additional disk usage details for every non-zero event the `check-disk-usage` check generates.
 
 ## Manage entity labels
 
