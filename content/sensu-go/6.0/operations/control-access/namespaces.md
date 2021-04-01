@@ -56,7 +56,7 @@ spec:
 **Use namespaces for isolation, not organization**
 
 Use namespaces to enforce full isolation of different groups of resources, not to organize resources.
-Agents cannot belong to two namespaces or execute checks in two different namespaces.
+An agent cannot belong to two namespaces or execute checks in two different namespaces.
 To organize resources, use labels rather than multiple namespaces.
 
 ## Default namespaces
