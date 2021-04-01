@@ -101,6 +101,7 @@ internal restart.
 - Fixed a bug that could cause the scheduler to crash when using round robin checks.
 - Fixed a bug that calculated build information for every keepalive in OSS builds.
 - Fixed a potential crash in tessend that could occur if the `ringv2.Event.Value` has a zero length.
+- Fixed a bug that allowed some etcd watchers to try to process watch events that contain invalid pointers.
 
 ## 6.2.6 release notes
 
