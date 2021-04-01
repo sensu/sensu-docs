@@ -226,7 +226,9 @@ HTTP/1.1 201 Created
 
 /events (POST) | 
 ----------------|------
-description     | Creates a new Sensu event. To update an existing event, use the [`/events` PUT endpoint][11].<br><br>If you create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
+description     | Creates a new Sensu event. To update an existing event, use the [`/events` PUT endpoint][11].<br><br>If you create a new event that references an entity that does not already exist, the sensu-backend will automatically create a proxy entity in the same namespace when the event is published.<br>{{% notice note %}}
+**NOTE**: An agent cannot belong to, execute checks in, or create events in more than one namespace. 
+{{% /notice %}}
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/events
 payload         | {{< code shell >}}
 {
