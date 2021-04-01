@@ -157,7 +157,7 @@ As with the `check-disk-usage` check, you can add a `disk_usage_root` label to i
 
 1. Add the hook definition:
 {{< language-toggle >}}
-{{< code yml >}}
+{{< code shell "YML" >}}
 cat << EOF | sensuctl create
 ---
 type: HookConfig
@@ -172,7 +172,7 @@ spec:
   timeout: 60
 EOF
 {{< /code >}}
-{{< code json >}}
+{{< code shell "JSON" >}}
 cat << EOF | sensuctl create
 {
   "type": "HookConfig",
