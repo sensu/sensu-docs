@@ -30,10 +30,10 @@ Available entity attributes will always have [string values][9], such as labels 
 
 This example demonstrates a reusable disk usage check.
 The [check command][5] includes `-w` (warning) and `-c` (critical) arguments with default values for the thresholds (as percentages) for generating warning or critical events.
-The check will compare every subscribed entity's disk space against the default threshold values to determine whether generate a warning or critical event.
+The check will compare every subscribed entity's disk space against the default threshold values to determine whether to generate a warning or critical event.
 
 However, the check command also includes token substitution, which means you can add entity labels that correspond to the check commnand tokens to specify different warning and critical values for individual entities.
-Instead of creating a different check for every set of thresholds, you can use the same check to apply the defaults in most cases and the token-subsituted values for specific entities.
+Instead of creating a different check for every set of thresholds, you can use the same check to apply the defaults in most cases and the token-substituted values for specific entities.
 
 Follow this example to set up a reusable check for disk usage:
 
@@ -149,7 +149,7 @@ The check will continue to use the 80% and 90% default values for other subscrib
 ### Add a hook that uses token substitution
 
 Now you have a resusable check that will send disk usage alerts at default or entity-specific thresholds.
-You may want to add a [hook][8] that will list more details about disk usage for warning and critical events.
+You may want to add a [hook][8] to list more details about disk usage for warning and critical events.
 
 The hook in this example will list disk usage in human-readable format, with error messages filtered from the hook output.
 By default, the hook will list details for the top directory and the first layer of subdirectories.
@@ -220,7 +220,7 @@ sensuctl edit entity ENTITY_NAME
     disk_usage_root: "/substitute-directory"
 {{< /code >}}
 
-After you save your changes, the hook will substitute the directory you specified for the `disk_usage_root` label to provide additional disk usage details for every non-zero event the `check-disk-usage` check generates.
+After you save your changes, for this entity, the hook will substitute the directory you specified for the `disk_usage_root` label to provide additional disk usage details for every non-zero event the `check-disk-usage` check generates.
 
 ## Manage entity labels
 
