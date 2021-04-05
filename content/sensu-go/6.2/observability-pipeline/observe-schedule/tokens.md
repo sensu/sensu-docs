@@ -220,7 +220,7 @@ sensuctl edit entity ENTITY_NAME
     disk_usage_root: "/substitute-directory"
 {{< /code >}}
 
-After you save your changes, the hook will substitute the directory you specified for the `disk_usage_root` abel to provide additional disk usage details for every non-zero event the `check-disk-usage` check generates.
+After you save your changes, the hook will substitute the directory you specified for the `disk_usage_root` label to provide additional disk usage details for every non-zero event the `check-disk-usage` check generates.
 
 ## Manage entity labels
 
