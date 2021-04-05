@@ -275,6 +275,54 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/prometheus-metrics",
             "status": 301
         },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/?$": {
+            "url": "/sensu-go/latest/learn",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/learn/interactive-tutorials/?$": {
+            "url": "/sensu-go/latest/learn",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/?$": {
+            "url": "/sensu-go/latest/learn",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/learn-in-15/?$": {
+            "url": "/sensu-go/latest/learn/learn-sensu-sandbox",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/learn/interactive-tutorials/learn-in-15/?$": {
+            "url": "/sensu-go/latest/learn/learn-sensu-sandbox",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/learn-in-15/?$": {
+            "url": "/sensu-go/latest/learn/learn-sensu-sandbox",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/up-and-running/?$": {
+            "url": "/sensu-go/latest/observability-pipeline/observe-schedule/monitor-server-resources",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/learn/interactive-tutorials/up-and-running/?$": {
+            "url": "/sensu-go/latest/observability-pipeline/observe-schedule/monitor-server-resources",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/up-and-running/?$": {
+            "url": "/sensu-go/latest/observability-pipeline/observe-schedule/monitor-server-resources",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/sensu-pagerduty/?$": {
+            "url": "/sensu-go/latest/observability-pipeline/observe-process/send-pagerduty-alerts",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/learn/interactive-tutorials/sensu-pagerduty/?$": {
+            "url": "/sensu-go/latest/observability-pipeline/observe-process/send-pagerduty-alerts",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/sensu-pagerduty/?$": {
+            "url": "/sensu-go/latest/observability-pipeline/observe-process/send-pagerduty-alerts",
+            "status": 301
+        },
         "~ ^/sensu-go/latest/reference/agent/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/agent",
             "status": 301

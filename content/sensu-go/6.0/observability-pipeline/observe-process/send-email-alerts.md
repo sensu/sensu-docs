@@ -332,8 +332,6 @@ Now that you know how to apply a handler to a check and take action on events:
 - Read the [handlers reference][6] for in-depth handler documentation.
 - Check out the [Reduce alert fatigue][7] guide.
 
-You can also follow our [Up and running with Sensu Go][9] interactive tutorial to set up the Sensu Go email handler and test a similar workflow with the addition of a Sensu agent for producing events using scheduled checks.
-
 
 [1]: ../../observe-events/events/
 [2]: ../../observe-schedule/monitor-server-resources/
@@ -343,7 +341,6 @@ You can also follow our [Up and running with Sensu Go][9] interactive tutorial t
 [6]: ../handlers/
 [7]: ../../observe-filter/reduce-alert-fatigue/
 [8]: ../../../plugins/assets/
-[9]: ../../../learn/up-and-running/
 [10]: ../../observe-filter/filters/#built-in-filter-is_incident
 [11]: ../../observe-filter/filters/#built-in-filter-not_silenced
 [12]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
