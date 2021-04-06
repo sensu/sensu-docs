@@ -307,8 +307,10 @@ General Flags:
       --agent-auth-crl-urls strings         URLs of CRLs for agent certificate authentication
       --agent-auth-key-file string          TLS certificate key in PEM format for agent certificate authentication
       --agent-auth-trusted-ca-file string   TLS CA certificate bundle in PEM format for agent certificate authentication
+      --agent-burst-limit int               agent connections maximum burst size
       --agent-host string                   agent listener host (default "[::]")
       --agent-port int                      agent listener port (default 8081)
+      --agent-rate-limit int                agent connections maximum rate limit
       --agent-write-timeout int             timeout in seconds for agent writes (default 15)
       --annotations stringToString          entity annotations map (default [])
       --api-listen-address string           address to listen on for API traffic (default "[::]:8080")
@@ -590,6 +592,17 @@ sensu-backend start --agent-auth-trusted-ca-file /path/to/ssl/ca.pem{{< /code >}
 /etc/sensu/backend.yml example | {{< code shell >}}
 agent-auth-trusted-ca-file: /path/to/ssl/ca.pem{{< /code >}}
 
+| agent-burst-limit   |      |
+--------------|------
+description   | Maximum amount of burst allowed in a rate interval for agent transport WebSocket connections.
+type          | Integer
+default       | `null`
+environment variable | `SENSU_BACKEND_AGENT_BURST_LIMIT`
+command line example   | {{< code shell >}}
+sensu-backend start --agent-burst-limit 10{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+agent-burst-limit: 10{{< /code >}}
+
 | agent-host   |      |
 ---------------|------
 description    | Agent listener host. Listens on all IPv4 and IPv6 addresses by default.
@@ -611,6 +624,17 @@ command line example   | {{< code shell >}}
 sensu-backend start --agent-port 8081{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 agent-port: 8081{{< /code >}}
+
+| agent-rate-limit   |      |
+--------------|------
+description   | Maximum number of agent transport WebSocket connections per second.
+type          | Integer
+default       | `null`
+environment variable | `SENSU_BACKEND_AGENT_RATE_LIMIT`
+command line example   | {{< code shell >}}
+sensu-backend start --agent-rate-limit 10{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+agent-rate-limit: 10{{< /code >}}
 
 ### Security configuration flags
 
