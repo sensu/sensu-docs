@@ -20,7 +20,7 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 ### Sensu backend
 
-| Platform and Version | `amd64` | | | |
+| Platform<br>and Version | `amd64` | | | |
 |----------------------|---------|---|---|---|
 | RHEL/CentOS 6, 7, 8 | {{< check >}} | | | |
 | Debian 8, 9, 10     | {{< check >}} | | | |
@@ -32,7 +32,7 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 ### Sensu agent
 
-| Platform and Version | `amd64` | `386` | | | | |
+| Platform<br>and Version | `amd64` | `386` | | | | |
 |----------------------|---------|-------|---|---|---|---|
 | RHEL/CentOS 6, 7, 8 | {{< check >}} | | | |
 | Debian 8, 9, 10     | {{< check >}} | | | |
@@ -46,7 +46,7 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 ### Sensuctl command line tool
 
-| Platform and Version | `amd64` | `386` | | | | |
+| Platform<br>and Version | `amd64` | `386` | | | | |
 |----------------------|---------|-------|---|---|---|---|
 | RHEL/CentOS 6, 7, 8 | {{< check >}} | | | |
 | Debian 8, 9, 10     | {{< check >}} | | | |

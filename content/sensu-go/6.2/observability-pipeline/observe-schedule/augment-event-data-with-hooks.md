@@ -51,7 +51,7 @@ The response will include the complete hook resource definition in the specified
 
 {{< language-toggle >}}
 
-{{< code yaml >}}
+{{< code yml >}}
 ---
 type: HookConfig
 api_version: core/v2
