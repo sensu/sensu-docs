@@ -38,6 +38,12 @@ table {
     white-space: nowrap;
   }
 
+  @media only screen and (max-width: 600px) {
+    th {
+      white-space: normal;
+    }
+  }
+
   thead {
     background-color: #2C3458;
   }
