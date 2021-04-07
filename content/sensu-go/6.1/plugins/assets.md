@@ -430,14 +430,15 @@ For each dynamic runtime asset, a corresponding environment variable will be ava
 Sensu generates the environment variable name by capitalizing the dynamic runtime asset name, replacing any special characters with underscores, and appending the `_PATH` suffix.
 The value of the variable will be the path on disk where the dynamic runtime asset build has been unpacked.
 
-For example, in a Windows agent, the environment variable path for the dynamic runtime asset [`sensu-plugins-windows`][4] would be:
+For example, for a Sensu Windows agent, the environment variable path for the dynamic runtime asset [`sensu-plugins-windows`][4] would be:
 
 `%SENSU_PLUGINS_WINDOWS_PATH%/include/config.yaml`
 
-The Windows console environment interprets the content between the paired `%` characters as an environment variable name and will substitute the value of that [environment variable] [45].
+The Windows console environment interprets the content between the [paired `%` characters][44] as an environment variable name and will substitute the value of that [environment variable][45].
 
 {{% notice note %}}
-**NOTE**: The Sensu Windows agent uses `cmd.exe` for check execution environment. Sensu agents for POSIX complaint OSes use Bourne shells ( ex: bash ) will use `${VARIABLE_NAME}` [shell syntax][46].     
+**NOTE**: The Sensu Windows agent uses `cmd.exe` for the check execution environment.
+Sensu agents for POSIX-compliant operating systems use Bourne shells (like bash) and `${VARIABLE_NAME}` [shell syntax](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-linux).     
 {{% /notice %}}
 
 ### Token substitution for dynamic runtime asset paths
@@ -507,9 +508,8 @@ spec:
 {{< /language-toggle >}}
 
 {{% notice note %}}
-**NOTE**: The check commands above use the Windows console syntax for accessing environemt variables used to configure the powershell commandline arguments. 
+**NOTE**: In this example, the check command uses the Windows console syntax for accessing the environment variables used to configure the PowerShell command line arguments. 
 {{% /notice %}}
-
 
 ## Asset hello world Bourne shell example
 
@@ -1254,4 +1254,3 @@ You must remove the archive and downloaded files from the asset cache manually.
 [43]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
 [44]: https://devblogs.microsoft.com/oldnewthing/20060823-00/?p=29993
 [45]: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.1
-[46]: https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-linux
