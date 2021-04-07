@@ -48,19 +48,6 @@ You can access event data stored in PostgreSQL using the same Sensu web UI, API,
 Sensu supports PostgreSQL 9.5 and later, including [Amazon Relational Database Service][3] (Amazon RDS) when configured with the PostgreSQL engine.
 See the [PostgreSQL docs][14] to install and configure PostgreSQL.
 
-## Configure the PostgreSQL event store
-
-When you enable the PostgreSQL event store, event data cuts over from etcd to PostgreSQL.
-This results in a loss of recent event history.
-No restarts or Sensu backend configuration changes are required to enable the PostgreSQL event store.
-
-When you successfully enable PostgreSQL as the Sensu Go event store, the Sensu backend log will include a message like this:
-
-{{< code shell >}}
-Mar 10 17:44:45 sensu-centos sensu-backend[1365]: {"component":"store-providers","level":"warning","msg":"switched event store to postgres","time":"2020-03-10T17:44:45Z"}
-{{< /code >}}
-
-First, [install and configure PostgreSQL][14].
 For optimal performance, use the following PostgreSQL configuration settings in your `postgresql.conf` file:
 
 {{< code postgresql >}}
@@ -97,7 +84,19 @@ autovacuum_analyze_scale_factor = 0.025
 
 Read the [PostgreSQL parameters documentation][20] for information about setting parameters.
 
-After you install and configure PosgtreSQL, configure Sensu by creating a `PostgresConfig` resource like the following example.
+## Configure the PostgreSQL event store
+
+When you enable the PostgreSQL event store, event data cuts over from etcd to PostgreSQL.
+This results in a loss of recent event history.
+No restarts or Sensu backend configuration changes are required to enable the PostgreSQL event store.
+
+When you successfully enable PostgreSQL as the Sensu Go event store, the Sensu backend log will include a message like this:
+
+{{< code shell >}}
+Mar 10 17:44:45 sensu-centos sensu-backend[1365]: {"component":"store-providers","level":"warning","msg":"switched event store to postgres","time":"2020-03-10T17:44:45Z"}
+{{< /code >}}
+
+After you [install and configure PostgreSQL][14], configure Sensu by creating a `PostgresConfig` resource like the following example.
 See [Datastore specification][18] for more information.
 
 {{< language-toggle >}}
