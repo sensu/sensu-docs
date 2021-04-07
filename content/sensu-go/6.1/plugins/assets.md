@@ -465,8 +465,8 @@ To correctly capture exit status codes from PowerShell plugins distributed as dy
 type: CheckConfig
 api_version: core/v2
 metadata:
-namespace: default
-name: win-cpu-check
+  namespace: default
+  name: win-cpu-check
 spec:
   command: powershell.exe -ExecutionPolicy ByPass -f %{{assetPath "sensu-plugins-windows"}}%\bin\check-windows-cpu-load.ps1 90 95
   subscriptions:
@@ -484,9 +484,10 @@ spec:
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
-  "metadata": null,
-  "namespace": "default",
-  "name": "win-cpu-check",
+  "metadata": {
+    "name": "win-cpu-check",
+    "namespace": "default"
+  },
   "spec": {
     "command": "powershell.exe -ExecutionPolicy ByPass -f %{{assetPath \"sensu-plugins-windows\"}}%\\bin\\check-windows-cpu-load.ps1 90 95",
     "subscriptions": [
