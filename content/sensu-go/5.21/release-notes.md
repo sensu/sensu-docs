@@ -1421,7 +1421,7 @@ To get started with Sensu Go:
 [134]: /sensu-go/5.19/operations/deploy-sensu/install-sensu/
 [135]: /sensu-go/5.19/web-ui/
 [136]: /sensu-go/5.19/reference/agent/#configuration-via-flags
-[137]: /sensu-go/5.19/reference/backend/#configuration
+[137]: /sensu-go/5.19/reference/backend/#configuration-via-flags
 [138]: /sensu-go/5.20/api#field-selector
 [139]: /sensu-go/5.20/reference/backend/#log-rotation
 [140]: /sensu-go/5.20/operations/maintain-sensu/troubleshoot/#increment-log-level-verbosity
