@@ -1238,6 +1238,6 @@ You must remove the archive and downloaded files from the asset cache manually.
 [38]: https://bonsai.sensu.io/new
 [39]: ../../web-ui/search#search-for-labels
 [40]: ../../observability-pipeline/observe-schedule/agent/#configuration-via-flags
-[41]: ../../observability-pipeline/observe-schedule/backend/#configuration
+[41]: ../../observability-pipeline/observe-schedule/backend/#configuration-via-flags
 [42]: #filters
 [43]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime

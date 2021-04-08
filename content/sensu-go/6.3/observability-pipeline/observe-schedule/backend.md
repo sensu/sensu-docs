@@ -266,7 +266,7 @@ To configure a cluster, see:
 
 System clocks between agents and the backend should be synchronized to a central NTP server. If system time is out-of-sync, it may cause issues with keepalive, metric, and check alerts.
 
-## Configuration
+## Configuration via flags
 
 You can specify the backend configuration with either a `/etc/sensu/backend.yml` file or `sensu-backend start` [configuration flags][15].
 The backend requires that the `state-dir` flag is set before starting.
@@ -1275,7 +1275,7 @@ sensu-backend start --etcd-quota-backend-bytes 4294967296{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 etcd-quota-backend-bytes: 4294967296{{< /code >}}
 
-### Configuration via environment variables
+## Configuration via environment variables
 
 Instead of using configuration flags, you can use environment variables to configure your Sensu backend.
 Each backend configuration flag has an associated environment variable.
@@ -1339,7 +1339,7 @@ $ sudo systemctl restart sensu-backend
 They are listed in the [configuration flag description tables](#general-configuration-flags).
 {{% /notice %}}
 
-#### Format for label and annotation environment variables
+### Format for label and annotation environment variables
 
 To use labels and annotations as environment variables in your handler configurations, you must use a specific format when you create the `SENSU_BACKEND_LABELS` and `SENSU_BACKEND_ANNOTATIONS` environment variables.
 
@@ -1371,7 +1371,7 @@ $ echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "http
 
 {{< /language-toggle >}}
 
-#### Use environment variables with the Sensu backend
+### Use environment variables with the Sensu backend
 
 Any environment variables you create in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS) will be available to handlers executed by the Sensu backend.
 

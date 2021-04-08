@@ -540,8 +540,8 @@ sensuctl license info
 [3]: ../../../web-ui/
 [4]: ../../../sensuctl/
 [5]: ../../../platforms/
-[6]: ../../../observability-pipeline/observe-schedule/backend#configuration
-[7]: ../../../observability-pipeline/observe-schedule/agent#configuration-via-flags
+[6]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-flags
+[7]: ../../../observability-pipeline/observe-schedule/agent/#configuration-via-flags
 [8]: ../secure-sensu/
 [9]: ../../../observability-pipeline/observe-schedule/monitor-server-resources/
 [10]: ../../../observability-pipeline/observe-process/send-slack-alerts/
