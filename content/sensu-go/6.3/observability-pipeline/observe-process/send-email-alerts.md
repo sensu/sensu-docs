@@ -95,7 +95,7 @@ api_version: core/v2
 metadata:
   annotations: null
   labels: null
-  name: state_change_only2
+  name: state_change_only
   namespace: default
 spec:
   action: allow
