@@ -438,7 +438,7 @@ The Windows console environment interprets the content between the [paired `%` c
 
 {{% notice note %}}
 **NOTE**: The Sensu Windows agent uses `cmd.exe` for the check execution environment.
-Sensu agents for POSIX-compliant operating systems use Bourne shells (like bash) and `${VARIABLE_NAME}` [shell syntax](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-linux).     
+For all other operating systems, the Sensu agent uses the Bourne shell (sh) and `${VARIABLE_NAME}` [shell syntax](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-linux).
 {{% /notice %}}
 
 ### Token substitution for dynamic runtime asset paths
