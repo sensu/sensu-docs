@@ -287,39 +287,39 @@
             "url": "/sensu-go/latest/learn",
             "status": 301
         },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/learn-in-15/?$": {
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/learn/learn-in-15/?$": {
             "url": "/sensu-go/latest/learn/learn-sensu-sandbox",
             "status": 301
         },
-        "~ ^/sensu-go/latest/learn/interactive-tutorials/learn-in-15/?$": {
+        "~ ^/sensu-go/latest/learn/learn-in-15/?$": {
             "url": "/sensu-go/latest/learn/learn-sensu-sandbox",
             "status": 301
         },
-        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/learn-in-15/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/learn-in-15/?$": {
             "url": "/sensu-go/latest/learn/learn-sensu-sandbox",
             "status": 301
         },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/up-and-running/?$": {
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/learn/up-and-running/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/monitor-server-resources",
             "status": 301
         },
-        "~ ^/sensu-go/latest/learn/interactive-tutorials/up-and-running/?$": {
+        "~ ^/sensu-go/latest/learn/up-and-running/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/monitor-server-resources",
             "status": 301
         },
-        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/up-and-running/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/up-and-running/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/monitor-server-resources",
             "status": 301
         },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/sensu-pagerduty/?$": {
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/learn/sensu-pagerduty/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-process/send-pagerduty-alerts",
             "status": 301
         },
-        "~ ^/sensu-go/latest/learn/interactive-tutorials/sensu-pagerduty/?$": {
+        "~ ^/sensu-go/latest/learn/sensu-pagerduty/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-process/send-pagerduty-alerts",
             "status": 301
         },
-        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/sensu-pagerduty/?$": {
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/sensu-pagerduty/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-process/send-pagerduty-alerts",
             "status": 301
         },
