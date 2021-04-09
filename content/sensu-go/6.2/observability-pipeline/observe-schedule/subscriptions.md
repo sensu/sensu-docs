@@ -20,7 +20,7 @@ Because Sensu uses the publish/subscribe model, you can write checks even if you
 Likewise, your entities do not need to know the specific names of the checks they should execute.
 The Sensu backend coordinates check execution for you by comparing the subscriptions you specify in your checks and entities to determine which entities should receive execution requests for a given check.
 
-The diagram below uses overlap between entities and checks to show how Sensu coordinates check execution based on subscriptions.
+The diagram below shows how Sensu coordinates check execution based on subscriptions.
 For example, the `check_cpu` check includes the `system` subscription.
 All three entities include the `system` subscription, so all three entities will execute the `check_cpu` check.
 However, only the `server01` and `database01` entities will execute `check_sshd_process` &mdash; the `webserver01` entity does not include the `linux` subscription required to execute `check_sshd_process`.
