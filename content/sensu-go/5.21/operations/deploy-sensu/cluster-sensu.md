@@ -383,7 +383,7 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [4]: https://etcd.io/docs/v3.3.13/
 [5]: https://etcd.io/docs/v3.3.13/platforms/
 [6]: #manage-and-monitor-clusters-with-sensuctl
-[7]: https://github.com/sensu/sensu-go/blob/master/docker-compose.yaml
+[7]: https://github.com/sensu/sensu-go/blob/main/docker-compose.yaml
 [8]: https://etcd.io/docs/v3.3.13/op-guide/failures/
 [9]: https://etcd.io/docs/v3.3.13/op-guide/recovery/
 [10]: https://github.com/cloudflare/cfssl

@@ -20,13 +20,13 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 ### Sensu backend
 
-|  | RHEL/CentOS<br>6, 7, 8 | Debian 8, 9, 10 | Ubuntu 14.04, 16.04, 18.04, 18.10, 19.04, 19.10, 20.04 |
+|  | RHEL/CentOS<br>6, 7, 8 | Debian 8, 9, 10 | Ubuntu 14.04<br>16.04, 18.04<br>18.10, 19.04<br>19.10, 20.04 |
 |----------------------|---------|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} |
 
 ### Sensu agent
 
-|  | RHEL/<br>CentOS<br>6, 7, 8 | Debian<br>8, 9, 10 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7 and later | Windows Server 2008 R2 and later |
+|  | RHEL/<br>CentOS<br>6, 7, 8 | Debian<br>8, 9, 10 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
@@ -36,7 +36,7 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 ### Sensuctl command line tool
 
-|  | RHEL/<br>CentOS<br>6, 7, 8 | Debian<br>8, 9, 10 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7 and later | Windows Server 2008 R2 and later |
+|  | RHEL/<br>CentOS<br>6, 7, 8 | Debian<br>8, 9, 10 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
@@ -366,7 +366,7 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [13]: https://github.com/sensu/sensu-go-chef/
 [14]: https://github.com/sensu/sensu-puppet/
 [15]: https://sensu.io/enterprise/
-[16]: https://github.com/sensu/sensu-go/blob/master/CONTRIBUTING.md
+[16]: https://www.github.com/sensu/sensu-go/blob/main/CONTRIBUTING.md
 [17]: https://github.com/jaredledvina/sensu-go-ansible/
 [18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.1.4/sensu-go_6.1.4_linux_armv7.tar.gz
 [20]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.1.4/sensu-go_6.1.4_linux_amd64.zip

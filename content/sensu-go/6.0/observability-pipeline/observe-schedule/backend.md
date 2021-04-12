@@ -17,7 +17,10 @@ menu:
 
 The Sensu backend is a service that manages check requests and observability data.
 Every Sensu backend includes an integrated structure for scheduling checks using [subscriptions][28], an event processing pipeline that applies [event filters][9], [mutators][10], and [handlers][11], an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][6], and the `sensu-backend` command line tool.
+
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
+For these operating systems, the Sensu backend uses the Bourne shell (sh) for the execution environment.
+
 See the [installation guide][1] to install the backend.
 
 ## Backend transport
@@ -266,7 +269,7 @@ To configure a cluster, see:
 
 System clocks between agents and the backend should be synchronized to a central NTP server. If system time is out-of-sync, it may cause issues with keepalive, metric, and check alerts.
 
-## Configuration
+## Configuration via flags
 
 You can specify the backend configuration with either a `/etc/sensu/backend.yml` file or `sensu-backend start` [configuration flags][15].
 The backend requires that the `state-dir` flag is set before starting.
@@ -1237,7 +1240,7 @@ sensu-backend start --etcd-quota-backend-bytes 4294967296{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 etcd-quota-backend-bytes: 4294967296{{< /code >}}
 
-### Configuration via environment variables
+## Configuration via environment variables
 
 Instead of using configuration flags, you can use environment variables to configure your Sensu backend.
 Each backend configuration flag has an associated environment variable.
@@ -1301,7 +1304,7 @@ $ sudo systemctl restart sensu-backend
 They are listed in the [configuration flag description tables](#general-configuration-flags).
 {{% /notice %}}
 
-#### Format for label and annotation environment variables
+### Format for label and annotation environment variables
 
 To use labels and annotations as environment variables in your handler configurations, you must use a specific format when you create the `SENSU_BACKEND_LABELS` and `SENSU_BACKEND_ANNOTATIONS` environment variables.
 
@@ -1333,7 +1336,7 @@ $ echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "http
 
 {{< /language-toggle >}}
 
-#### Use environment variables with the Sensu backend
+### Use environment variables with the Sensu backend
 
 Any environment variables you create in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS) will be available to handlers executed by the Sensu backend.
 

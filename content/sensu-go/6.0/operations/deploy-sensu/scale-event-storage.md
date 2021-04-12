@@ -41,6 +41,42 @@ The `sensu-perf` test environment comfortably handles 40,000 Sensu agent connect
 * Postgres user with permissions to the database (or administrative access to create such a user)
 * [Licensed Sensu Go backend][3]
 
+For optimal performance, use the following PostgreSQL configuration settings in your `postgresql.conf` file:
+
+{{< code postgresql >}}
+max_connections = 200
+
+shared_buffers = 10GB
+
+maintenance_work_mem = 1GB
+
+vacuum_cost_delay = 10ms
+vacuum_cost_limit = 10000
+
+bgwriter_delay = 50ms
+bgwriter_lru_maxpages = 1000
+
+max_worker_processes = 8
+max_parallel_maintenance_workers = 2
+max_parallel_workers_per_gather = 2
+max_parallel_workers = 8
+
+synchronous_commit = off
+
+wal_sync_method = fdatasync
+wal_writer_delay = 5000ms
+max_wal_size = 5GB
+min_wal_size = 1GB
+
+checkpoint_completion_target = 0.9
+
+autovacuum_naptime = 10s
+autovacuum_vacuum_scale_factor = 0.05
+autovacuum_analyze_scale_factor = 0.025
+{{< /code >}}
+
+Read the [PostgreSQL parameters documentation][2] for informmation about setting parameters.
+
 ## Configure Postgres
 
 Before Sensu can start writing events to Postgres, you need a database and an account with permissions to write to that database.
@@ -452,6 +488,7 @@ With this configuration complete, your Sensu events will be replicated to the st
 
 
 [1]: https://github.com/sensu/sensu-perf
+[2]: https://www.postgresql.org/docs/current/config-setting.html
 [3]: ../../../commercial/
 [4]: ../../maintain-sensu/troubleshoot/#log-file-locations
 [5]: https://www.postgresql.org/docs/9.5/auth-methods.html#AUTH-PASSWORD

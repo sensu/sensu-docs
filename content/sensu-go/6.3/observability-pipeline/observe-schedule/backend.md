@@ -17,7 +17,10 @@ menu:
 
 The Sensu backend is a service that manages check requests and observability data.
 Every Sensu backend includes an integrated structure for scheduling checks using [subscriptions][28], an event processing pipeline that applies [event filters][9], [mutators][10], and [handlers][11], an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][6], and the `sensu-backend` command line tool.
+
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
+For these operating systems, the Sensu backend uses the Bourne shell (sh) for the execution environment.
+
 See the [installation guide][1] to install the backend.
 
 ## Backend transport
@@ -266,7 +269,7 @@ To configure a cluster, see:
 
 System clocks between agents and the backend should be synchronized to a central NTP server. If system time is out-of-sync, it may cause issues with keepalive, metric, and check alerts.
 
-## Configuration
+## Configuration via flags
 
 You can specify the backend configuration with either a `/etc/sensu/backend.yml` file or `sensu-backend start` [configuration flags][15].
 The backend requires that the `state-dir` flag is set before starting.
@@ -307,8 +310,10 @@ General Flags:
       --agent-auth-crl-urls strings         URLs of CRLs for agent certificate authentication
       --agent-auth-key-file string          TLS certificate key in PEM format for agent certificate authentication
       --agent-auth-trusted-ca-file string   TLS CA certificate bundle in PEM format for agent certificate authentication
+      --agent-burst-limit int               agent connections maximum burst size
       --agent-host string                   agent listener host (default "[::]")
       --agent-port int                      agent listener port (default 8081)
+      --agent-rate-limit int                agent connections maximum rate limit
       --agent-write-timeout int             timeout in seconds for agent writes (default 15)
       --annotations stringToString          entity annotations map (default [])
       --api-listen-address string           address to listen on for API traffic (default "[::]:8080")
@@ -590,6 +595,17 @@ sensu-backend start --agent-auth-trusted-ca-file /path/to/ssl/ca.pem{{< /code >}
 /etc/sensu/backend.yml example | {{< code shell >}}
 agent-auth-trusted-ca-file: /path/to/ssl/ca.pem{{< /code >}}
 
+| agent-burst-limit   |      |
+--------------|------
+description   | Maximum amount of burst allowed in a rate interval for agent transport WebSocket connections.
+type          | Integer
+default       | `null`
+environment variable | `SENSU_BACKEND_AGENT_BURST_LIMIT`
+command line example   | {{< code shell >}}
+sensu-backend start --agent-burst-limit 10{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+agent-burst-limit: 10{{< /code >}}
+
 | agent-host   |      |
 ---------------|------
 description    | Agent listener host. Listens on all IPv4 and IPv6 addresses by default.
@@ -611,6 +627,17 @@ command line example   | {{< code shell >}}
 sensu-backend start --agent-port 8081{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 agent-port: 8081{{< /code >}}
+
+| agent-rate-limit   |      |
+--------------|------
+description   | Maximum number of agent transport WebSocket connections per second.
+type          | Integer
+default       | `null`
+environment variable | `SENSU_BACKEND_AGENT_RATE_LIMIT`
+command line example   | {{< code shell >}}
+sensu-backend start --agent-rate-limit 10{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+agent-rate-limit: 10{{< /code >}}
 
 ### Security configuration flags
 
@@ -1251,7 +1278,7 @@ sensu-backend start --etcd-quota-backend-bytes 4294967296{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 etcd-quota-backend-bytes: 4294967296{{< /code >}}
 
-### Configuration via environment variables
+## Configuration via environment variables
 
 Instead of using configuration flags, you can use environment variables to configure your Sensu backend.
 Each backend configuration flag has an associated environment variable.
@@ -1315,7 +1342,7 @@ $ sudo systemctl restart sensu-backend
 They are listed in the [configuration flag description tables](#general-configuration-flags).
 {{% /notice %}}
 
-#### Format for label and annotation environment variables
+### Format for label and annotation environment variables
 
 To use labels and annotations as environment variables in your handler configurations, you must use a specific format when you create the `SENSU_BACKEND_LABELS` and `SENSU_BACKEND_ANNOTATIONS` environment variables.
 
@@ -1347,7 +1374,7 @@ $ echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "http
 
 {{< /language-toggle >}}
 
-#### Use environment variables with the Sensu backend
+### Use environment variables with the Sensu backend
 
 Any environment variables you create in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS) will be available to handlers executed by the Sensu backend.
 

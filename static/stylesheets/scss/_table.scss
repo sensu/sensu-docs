@@ -34,6 +34,14 @@ table {
     color: white;
     font-size: 1.8rem;
     font-weight: 600;
+    overflow-x: visible;
+    white-space: nowrap;
+  }
+
+  @media only screen and (max-width: 600px) {
+    th {
+      white-space: normal;
+    }
   }
 
   thead {
