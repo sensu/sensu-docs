@@ -452,7 +452,7 @@ If you want to access a dynamic runtime asset path in a handler or mutator comma
 
 For example, you can reference the dynamic runtime asset [`sensu-plugins-windows`][4] from your check or hook resources using either the environment variable or the `assetPath` function:
 
-- `$%SENSU_PLUGINS_WINDOWS_PATH%/include/config.yaml`
+- `%SENSU_PLUGINS_WINDOWS_PATH%/include/config.yaml`
 - `${{assetPath "sensu-plugins-windows"}}/include/config.yaml`
 
 When running PowerShell plugins on Windows, the [exit status codes that Sensu captures may not match the expected values][13].
