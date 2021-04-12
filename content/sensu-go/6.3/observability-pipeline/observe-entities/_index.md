@@ -196,20 +196,7 @@ metadata:
   name: postgresql
   namespace: default
 spec:
-  deregister: false
-  deregistration: {}
   entity_class: service
-  last_seen: 0
-  sensu_agent_version: ""
-  subscriptions: null
-  system:
-    cloud_provider: ""
-    libc_type: ""
-    network:
-      interfaces: null
-    processes: null
-    vm_role: ""
-    vm_system: ""
 {{< /code >}}
 
 {{< code json >}}
@@ -222,23 +209,7 @@ spec:
     "namespace": "default"
   },
   "spec": {
-    "deregister": false,
-    "deregistration": {
-    },
     "entity_class": "service",
-    "last_seen": 0,
-    "sensu_agent_version": "",
-    "subscriptions": null,
-    "system": {
-      "cloud_provider": "",
-      "libc_type": "",
-      "network": {
-        "interfaces": null
-      },
-      "processes": null,
-      "vm_role": "",
-      "vm_system": ""
-    }
   }
 }
 {{< /code >}}

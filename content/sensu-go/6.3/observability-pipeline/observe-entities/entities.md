@@ -344,20 +344,7 @@ metadata:
   name: postgresql
   namespace: default
 spec:
-  deregister: false
-  deregistration: {}
   entity_class: service
-  last_seen: 0
-  sensu_agent_version: ""
-  subscriptions: null
-  system:
-    cloud_provider: ""
-    libc_type: ""
-    network:
-      interfaces: null
-    processes: null
-    vm_role: ""
-    vm_system: ""
 {{< /code >}}
 
 {{< code json >}}
@@ -370,23 +357,7 @@ spec:
     "namespace": "default"
   },
   "spec": {
-    "deregister": false,
-    "deregistration": {
-    },
     "entity_class": "service",
-    "last_seen": 0,
-    "sensu_agent_version": "",
-    "subscriptions": null,
-    "system": {
-      "cloud_provider": "",
-      "libc_type": "",
-      "network": {
-        "interfaces": null
-      },
-      "processes": null,
-      "vm_role": "",
-      "vm_system": ""
-    }
   }
 }
 {{< /code >}}
@@ -546,20 +517,7 @@ metadata:
   labels:
     service_type: datastore
 spec:
-  deregister: false
-  deregistration: {}
   entity_class: service
-  last_seen: 0
-  sensu_agent_version: ""
-  subscriptions: null
-  system:
-    cloud_provider: ""
-    libc_type: ""
-    network:
-      interfaces: null
-    processes: null
-    vm_role: ""
-    vm_system: ""
 {{< /code >}}
 
 {{< code json >}}
@@ -575,23 +533,7 @@ spec:
     }
   },
   "spec": {
-    "deregister": false,
-    "deregistration": {
-    },
     "entity_class": "service",
-    "last_seen": 0,
-    "sensu_agent_version": "",
-    "subscriptions": null,
-    "system": {
-      "cloud_provider": "",
-      "libc_type": "",
-      "network": {
-        "interfaces": null
-      },
-      "processes": null,
-      "vm_role": "",
-      "vm_system": ""
-    }
   }
 }
 {{< /code >}}
@@ -613,7 +555,7 @@ sensuctl create --file service-entity.json
 {{< /language-toggle >}}
 
 To add a label to an existing service entity, use sensuctl edit.
-For example, to add a `url` label to a `postgresql` entity:
+For example, to add a `region` label to a `postgresql` entity:
 
 {{< code shell >}}
 sensuctl edit entity postgresql
