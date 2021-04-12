@@ -357,7 +357,7 @@ spec:
     "namespace": "default"
   },
   "spec": {
-    "entity_class": "service",
+    "entity_class": "service"
   }
 }
 {{< /code >}}
@@ -533,7 +533,7 @@ spec:
     }
   },
   "spec": {
-    "entity_class": "service",
+    "entity_class": "service"
   }
 }
 {{< /code >}}

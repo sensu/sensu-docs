@@ -209,7 +209,7 @@ spec:
     "namespace": "default"
   },
   "spec": {
-    "entity_class": "service",
+    "entity_class": "service"
   }
 }
 {{< /code >}}
