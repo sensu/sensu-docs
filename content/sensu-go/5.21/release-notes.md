@@ -9,6 +9,7 @@ version: "5.21"
 menu: "sensu-go-5.21"
 ---
 
+- [5.21.5 release notes](#5215-release-notes)
 - [5.21.4 release notes](#5214-release-notes)
 - [5.21.3 release notes](#5213-release-notes)
 - [5.21.2 release notes](#5212-release-notes)
@@ -68,6 +69,18 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.21.5 release notes
+
+**March 25, 2021** &mdash; The latest release of Sensu Go, version 5.21.5, is now available for download.
+
+The Sensu 5.21.5 patch release improves the validation for POST/PUT requests for enterprise API endpoints.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.5.
+
+**FIXES:**
+
+- ([Commercial feature][158]) Improved the validation for POST/PUT requests for enterprise API endpoints. Sensu now checks the type and namespace in the request body against the type and namespace in the request URL.
 
 ## 5.21.4 release notes
 
@@ -1408,7 +1421,7 @@ To get started with Sensu Go:
 [134]: /sensu-go/5.19/operations/deploy-sensu/install-sensu/
 [135]: /sensu-go/5.19/web-ui/
 [136]: /sensu-go/5.19/reference/agent/#configuration-via-flags
-[137]: /sensu-go/5.19/reference/backend/#configuration
+[137]: /sensu-go/5.19/reference/backend/#configuration-via-flags
 [138]: /sensu-go/5.20/api#field-selector
 [139]: /sensu-go/5.20/reference/backend/#log-rotation
 [140]: /sensu-go/5.20/operations/maintain-sensu/troubleshoot/#increment-log-level-verbosity

@@ -19,7 +19,11 @@ menu:
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
 Agents register with the Sensu backend as [monitoring entities][3] with `type: "agent"`.
 Agent entities are responsible for creating [check and metrics events][7] to send to the [backend event pipeline][2].
+
 The Sensu agent is available for Linux, macOS, and Windows.
+For Windows operating systems, the Sensu agent uses `cmd.exe` for the execution environment.
+For all other operating systems, the Sensu agent uses the Bourne shell (sh).
+
 See the [installation guide][1] to install the agent.
 
 ## Agent authentication

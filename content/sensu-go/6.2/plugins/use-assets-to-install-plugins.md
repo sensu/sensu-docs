@@ -124,7 +124,7 @@ sensuctl asset list --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl asset list --format json
+sensuctl asset list --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}

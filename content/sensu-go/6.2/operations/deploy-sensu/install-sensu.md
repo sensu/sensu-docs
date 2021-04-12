@@ -279,18 +279,18 @@ sudo yum install sensu-go-cli
 
 {{< code powershell "Windows" >}}
 # Download sensuctl for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.5/sensu-go_6.2.5_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.5_windows_amd64.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go_6.2.7_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.7_windows_amd64.zip
 
 # Or for 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.5/sensu-go_6.2.5_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.5_windows_386.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go_6.2.7_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.7_windows_386.zip
 {{< /code >}}
 
 {{< code shell "macOS" >}}
 # Download the latest release
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.5/sensu-go_6.2.5_darwin_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go_6.2.7_darwin_amd64.tar.gz
 
 # Extract the archive
-tar -xvf sensu-go_6.2.5_darwin_amd64.tar.gz
+tar -xvf sensu-go_6.2.7_darwin_amd64.tar.gz
 
 # Copy the executable into your PATH
 sudo cp sensuctl /usr/local/bin/
@@ -360,13 +360,13 @@ sudo yum install sensu-go-agent
 
 {{< code powershell "Windows" >}}
 # Download the Sensu agent for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.5/sensu-go-agent_6.2.5.4040_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.5.4040_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go-agent_6.2.7.4449_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.7.4449_en-US.x64.msi"
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.5/sensu-go-agent_6.2.5.4040_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.5.4040_en-US.x86.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go-agent_6.2.7.4449_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.7.4449_en-US.x86.msi"
 
 # Install the Sensu agent
-msiexec.exe /i $env:userprofile\sensu-go-agent_6.2.5.4040_en-US.x64.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_6.2.7.4449_en-US.x64.msi /qn
 
 # Or via Chocolatey
 choco install sensu-agent
@@ -540,8 +540,8 @@ sensuctl license info
 [3]: ../../../web-ui/
 [4]: ../../../sensuctl/
 [5]: ../../../platforms/
-[6]: ../../../observability-pipeline/observe-schedule/backend#configuration
-[7]: ../../../observability-pipeline/observe-schedule/agent#configuration-via-flags
+[6]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-flags
+[7]: ../../../observability-pipeline/observe-schedule/agent/#configuration-via-flags
 [8]: ../secure-sensu/
 [9]: ../../../observability-pipeline/observe-schedule/monitor-server-resources/
 [10]: ../../../observability-pipeline/observe-process/send-slack-alerts/

@@ -9,6 +9,8 @@ version: "6.3"
 menu: "sensu-go-6.3"
 ---
 
+- [6.2.7 release notes](#627-release-notes)
+- [6.2.6 release notes](#626-release-notes)
 - [6.2.5 release notes](#625-release-notes)
 - [6.2.4 release notes](#624-release-notes)
 - [6.2.3 release notes](#623-release-notes)
@@ -21,6 +23,7 @@ menu: "sensu-go-6.3"
 - [6.1.1 release notes](#611-release-notes)
 - [6.1.0 release notes](#610-release-notes)
 - [6.0.0 release notes](#600-release-notes)
+- [5.21.5 release notes](#5215-release-notes)
 - [5.21.4 release notes](#5214-release-notes)
 - [5.21.3 release notes](#5213-release-notes)
 - [5.21.2 release notes](#5212-release-notes)
@@ -80,6 +83,38 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.2.7 release notes
+
+**April 1, 2021** &mdash; The latest release of Sensu Go, version 6.2.7, is now available for download.
+
+This patch includes fixes for potential deadlocks in metricsd and agentd and crashes in the scheduler and tessend as well as for bugs that calculated build information for every keepalive and prevented the agent-managed-entity configuration attribute from working properly.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.2.7.
+
+**FIXES:**
+
+- ([Commercial feature][193]) Fixed a potential deadlock in metricsd that could occur when performing an
+internal restart.
+- Fixed a potential deadlock in agentd due to the unit test timing out in the build pipeline.
+- Fixed a bug that prevented the [agent-managed-entity][203] configuration attribute from working properly when no labels are defined.
+- Fixed a bug that could cause the scheduler to crash when using round robin checks.
+- Fixed a bug that calculated build information for every keepalive in OSS builds.
+- Fixed a potential crash in tessend that could occur if the `ringv2.Event.Value` has a zero length.
+- Fixed a bug that allowed some etcd watchers to try to process watch events that contain invalid pointers.
+
+## 6.2.6 release notes
+
+**March 25, 2021** &mdash; The latest release of Sensu Go, version 6.2.6, is now available for download.
+
+This patch fixes a bug that allowed PostgreSQL round robin scheduling to use a separate PostgreSQL connection for each subscription and improves the validation for POST/PUT requests for enterprise API endpoints.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.2.6.
+
+**FIXES:**
+
+- ([Commercial feature][193]) Fixed a bug that allowed PostgreSQL round robin scheduling to use a separate PostgreSQL connection for each subscription. PostgreSQL round robin scheduling now uses exactly one extra PostgreSQL connection.
+- ([Commercial feature][193]) Improved the validation for POST/PUT requests for enterprise API endpoints. Sensu now checks the type and namespace in the request body against the type and namespace in the request URL.
 
 ## 6.2.5 release notes
 
@@ -360,6 +395,18 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - Fixed a bug where nil labels or annotations in an event filtering context would require you to explicitly check whether the annotations or labels are undefined.
 With this fix, labels and annotations are always defined (although they may be empty).
 - Fixed the log entry field for the check's name in schedulerd.
+
+## 5.21.5 release notes
+
+**March 25, 2021** &mdash; The latest release of Sensu Go, version 5.21.5, is now available for download.
+
+The Sensu 5.21.5 patch release improves the validation for POST/PUT requests for enterprise API endpoints.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.5.
+
+**FIXES:**
+
+- ([Commercial feature][158]) Improved the validation for POST/PUT requests for enterprise API endpoints. Sensu now checks the type and namespace in the request body against the type and namespace in the request URL.
 
 ## 5.21.4 release notes
 
@@ -1700,7 +1747,7 @@ To get started with Sensu Go:
 [134]: /sensu-go/5.19/operations/deploy-sensu/install-sensu/
 [135]: /sensu-go/5.19/web-ui/
 [136]: /sensu-go/5.19/reference/agent/#configuration-via-flags
-[137]: /sensu-go/5.19/reference/backend/#configuration
+[137]: /sensu-go/5.19/reference/backend/#configuration-via-flags
 [138]: /sensu-go/5.20/api#field-selector
 [139]: /sensu-go/5.20/reference/backend/#log-rotation
 [140]: /sensu-go/5.20/operations/maintain-sensu/troubleshoot/#increment-log-level-verbosity
