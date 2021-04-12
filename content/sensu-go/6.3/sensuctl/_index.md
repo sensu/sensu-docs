@@ -12,7 +12,11 @@ menu:
 
 Sensuctl is a command line tool for managing resources within Sensu.
 It works by calling Sensu's underlying API to create, read, update, and delete resources, events, and entities.
+
 Sensuctl is available for Linux, macOS, and Windows.
+For Windows operating systems, sensuctl uses `cmd.exe` for the execution environment.
+For all other operating systems, sensuctl uses the Bourne shell (sh).
+
 See [Install Sensu][2] to install and configure sensuctl.
 
 ## First-time setup and authentication
