@@ -63,7 +63,7 @@ In this approach, the first step is to obtain an event filter asset that will al
 Use [`sensuctl asset add`][5] to register the [fatigue check filter][8] asset:
 
 {{< code shell >}}
-sensuctl asset add nixwiz/sensu-go-fatigue-check-filter:0.3.2 -r fatigue-filter
+sensuctl asset add sensu/sensu-go-fatigue-check-filter:0.8.1 -r fatigue-filter
 {{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `fatigue-filter`.
@@ -297,5 +297,5 @@ Now that you know how to apply an event filter to a handler and use a filter ass
 [5]: #approach-2-use-an-event-filter-asset
 [6]: ../../reference/assets/ 
 [7]: ../install-check-executables-with-assets/
-[8]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
+[8]: https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter
 [9]: https://bonsai.sensu.io/
