@@ -1683,7 +1683,8 @@ duration: 1.903135228
 
 executed     |      |
 -------------|------
-description  | Time at which the check request was executed. In seconds since the Unix epoch.
+description  | Time at which the check request was executed. In seconds since the Unix epoch.{{% notice note %}}**NOTE**: For events created with the [events API](../../../api/events/), the `executed` value is `0`.
+{{% /notice %}}
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1728,7 +1729,8 @@ history:
 
 issued       |      |
 -------------|------
-description  | Time that the check request was issued. In seconds since the Unix epoch.
+description  | Time that the check request was issued. In seconds since the Unix epoch.{{% notice note %}}**NOTE**: For events created with the [events API](../../../api/events/), the `issued` value is `0`.
+{{% /notice %}}
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1744,7 +1746,8 @@ issued: 1552506033
 
 last_ok      |      |
 -------------|------
-description  | Last time that the check returned an OK status (`0`). In seconds since the Unix epoch.
+description  | Last time that the check returned an OK status (`0`). In seconds since the Unix epoch.{{% notice note %}}**NOTE**: For events created with the [events API](../../../api/events/), the `last_ok` value is `0`.
+{{% /notice %}}
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1893,7 +1896,8 @@ total_state_change: 0
 
 executed     |      |
 -------------|------
-description  | Time at which the check request was executed. In seconds since the Unix epoch.
+description  | Time at which the check request was executed. In seconds since the Unix epoch.{{% notice note %}}**NOTE**: For events created with the [events API](../../../api/events/), the `executed` value is `0`.
+{{% /notice %}}
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
