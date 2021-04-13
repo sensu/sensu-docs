@@ -206,14 +206,14 @@ In this approach, the first step is to obtain an event filter dynamic runtime as
 Use [`sensuctl asset add`][5] to register the [fatigue check filter][8] dynamic runtime asset:
 
 {{< code shell >}}
-sensuctl asset add nixwiz/sensu-go-fatigue-check-filter:0.3.2 -r fatigue-filter
+sensuctl asset add sensu/sensu-go-fatigue-check-filter:0.8.1 -r fatigue-filter
 {{< /code >}}
 
 The response will indicate that the asset was added:
 
 {{< code shell >}}
-fetching bonsai asset: nixwiz/sensu-go-fatigue-check-filter:0.3.2
-added asset: nixwiz/sensu-go-fatigue-check-filter:0.3.2
+fetching bonsai asset: sensu/sensu-go-fatigue-check-filter:0.8.1
+added asset: sensu/sensu-go-fatigue-check-filter:0.8.1
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
@@ -503,7 +503,7 @@ Now that you know how to apply an event filter to a handler and use a dynamic ru
 [5]: #approach-2-use-an-event-filter-dynamic-runtime-asset
 [6]: ../../../plugins/assets/
 [7]: ../../../plugins/use-assets-to-install-plugins/
-[8]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
+[8]: https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter
 [9]: https://bonsai.sensu.io/
 [10]: ../../../operations/monitoring-as-code/#build-as-you-go
 [11]: ../../../operations/monitoring-as-code/

@@ -470,15 +470,15 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [8]: ../../../reference/hooks/
 [9]: ../../../reference/filters
 [10]: ../../../reference/filters/#filter-for-repeated-events
-[11]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/
+[11]: https://github.com/sensu/sensu-go-fatigue-check-filter/
 [12]: ../../../reference/assets/
 [13]: ../../../reference/rbac/
 [14]: ../../control-access/create-read-only-user/
-[15]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#asset-registration
+[15]: https://github.com/sensu/sensu-go-fatigue-check-filter/#asset-registration
 [16]: ../../../reference/tokens
 [17]: ../../../api/
 [18]: https://github.com/sensu/sensu-translator/
-[19]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#filter-definition
+[19]: https://github.com/sensu/sensu-go-fatigue-check-filter/#filter-definition
 [20]: https://packagecloud.io/sensu/community/
 [21]: https://github.com/sensu-plugins/
 [22]: https://bonsai.sensu.io/assets/sensu/sensu-dependencies-filter
@@ -488,7 +488,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [27]: ../../../commercial/
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check/
 [29]: ../../../reference/backend#operation
-[33]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#configuration
+[33]: https://github.com/sensu/sensu-go-fatigue-check-filter/#configuration
 [34]: ../../../guides/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler-1
 [36]: https://etcd.io/
 [37]: ../../deploy-sensu/cluster-sensu/
@@ -519,7 +519,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [62]: https://sensu.io/blog/filters-valves-for-the-sensu-monitoring-event-pipeline
 [63]: ../../../reference/filters/#built-in-filter-is_incident
 [64]: ../../../reference/filters/#built-in-filter-not_silenced
-[65]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
+[65]: https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter
 [66]: https://github.com/sensu-plugins/sensu-plugin#sensu-go-enablement
 [67]: ../../../reference/events/#event-format
 [68]: https://bonsai.sensu.io
@@ -536,7 +536,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [79]: https://monitoringlove.sensu.io/chef
 [80]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-chef
 [81]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
-[82]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-graphite-handler
+[82]: https://bonsai.sensu.io/assets/sensu/sensu-go-graphite-handler
 [83]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 [84]: https://bonsai.sensu.io/assets/sensu-utils/sensu-irc-handler
 [85]: https://bonsai.sensu.io/assets/sensu/sensu-jira-handler
