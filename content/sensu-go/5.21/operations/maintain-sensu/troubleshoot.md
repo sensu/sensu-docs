@@ -167,6 +167,9 @@ sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 ## Handlers and event filters
 
 Whether implementing new workflows or modifying existing workflows, you may need to troubleshoot various stages of the event pipeline.
+
+### Create an agent API test event
+
 In many cases, generating events using the [agent API][6] will save you time and effort over modifying existing check configurations.
 
 Here's an example that uses cURL with the API of a local sensu-agent process to generate test-event check results:
@@ -186,6 +189,8 @@ curl -X POST \
 }' \
 http://127.0.0.1:3031/events
 {{< /code >}}
+
+### Use a debug handler
 
 It may also be helpful to see the complete event object being passed to your workflows.
 We recommend using a debug handler like this one to write an event to disk as JSON data:
@@ -239,13 +244,61 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /code >}}
 
-The event data should be written to `/var/log/sensu/debug-event.json` for inspection.
+The observability event data should be written to `/var/log/sensu/debug-event.json` for inspection.
 The contents of this file will be overwritten by every event sent to the `debug` handler.
 
 {{% notice note %}}
 **NOTE**: When multiple Sensu backends are configured in a cluster, event processing is distributed across all members.
 You may need to check the filesystem of each Sensu backend to locate the debug output for your test event.
 {{% /notice %}}
+
+### Manually execute a handler
+
+If you are not receiving events via a handler even though a check is generating events as expected, follow these steps to manually execute the handler and confirm whether the handler is working properly.
+
+1. List all events:
+{{< code shell >}}
+sensuctl event list
+{{< /code >}}
+
+   Choose an event from the list to use for troubleshooting and note the event's check and entity names.
+
+2. Navigate to the `/var/cache/sensu/sensu-backend/` directory:
+{{< code shell >}}
+cd /var/cache/sensu/sensu-backend/
+{{< /code >}}
+
+3. Run `ls` to list the contents of the `/var/cache/sensu/sensu-backend/` directory.
+In the list, identify the handler's dynamic runtime asset SHA.
+
+   {{% notice note %}}
+**NOTE**: If the list includes more than one SHA, run `sensuctl asset list`.
+In the response, the Hash column contains the first seven characters for each asset build's SHA.
+Note the hash for your build of the handler asset and compare it with the SHAs listed in the `/var/cache/sensu/sensu-backend/` directory to find the correct handler asset SHA.
+{{% /notice %}}
+
+4. Navigate to the `bin` directory for the handler asset SHA.
+Before you run the command below, replace `HANDLER_ASSET_SHA` with the SHA you identified in the previous step.
+{{< code shell >}}
+cd HANDLER_ASSET_SHA/bin
+{{< /code >}}
+
+5. Run the command to manually execute the handler.
+Before you run the command below, replace the following text:
+   - `ENTITY_NAME`: Replace with the entity name for the event you are using to troubleshoot.
+   - `CHECK_NAME`: Replace with the check name for the event you are using to troubleshoot.
+   - `HANDLER_COMMAND`: Replace with the `command` value for the handler you are troubleshooting.
+
+   {{< code shell >}}
+sensuctl event info ENTITY_NAME CHECK_NAME --format json | ./HANDLER_COMMAND
+{{< /code >}}
+
+If your handler is working properly, you will receive an alert for the event via the handler.
+The response for your manual execution command will also include a message to confirm notification was sent.
+In this case, your Sensu pipeline is not causing the problem with missing events.
+
+If you do not receive an alert for the event, the handler is not working properly.
+In this case, the manual execution response will include the message `Error executing HANDLER_ASSET_NAME:` followed by a description of the specific error to help you correct the problem.
 
 ## Assets
 
