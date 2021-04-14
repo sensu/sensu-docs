@@ -31,12 +31,13 @@
 
 #page-rating {
   float: left;
+  white-space: nowrap;
 }
 
 .rating {
   width: auto;
   border: none;
-  line-height: 0.5;
+  line-height: 0.25;
   float: left;
 }
 
@@ -45,7 +46,7 @@
 }
 
 .rating > label:before {
-  margin: 5px;
+  margin: 4px;
   font-size: 2.0em;
   font-family: FontAwesome;
   display: inline;
