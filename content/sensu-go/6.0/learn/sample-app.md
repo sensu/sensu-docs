@@ -222,7 +222,7 @@ sensuctl create --file go/config/assets/slack-handler.yaml
 
 **2. Get your Slack webhook URL and add it to `go/config/handlers/slack.yaml`.**
 
-If you're already an admin of a Slack, visit `https://YOUR WORKSPACE NAME HERE.slack.com/services/new/incoming-webhook` and follow the steps to add the Incoming WebHooks integration and save the settings.
+If you're already an admin of a Slack, visit `https://YOUR_WORKSPACE_NAME_HERE.slack.com/services/new/incoming-webhook` and follow the steps to add the Incoming WebHooks integration and save the settings.
 If you're not yet a Slack admin, [start here][5] to create a new workspace.
 After saving, you'll see your webhook URL under Integration Settings.
 
