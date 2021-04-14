@@ -944,6 +944,52 @@ spec:
 
 {{< /language-toggle >}}
 
+## Troubleshoot a handler
+
+If you are not receiving events via a handler even though a check is generating events as expected, follow these steps to manually execute the handler and confirm whether the handler is working properly.
+
+1. List all events:
+{{< code shell >}}
+sensuctl event list
+{{< /code >}}
+
+   Choose an event from the list to use for troubleshooting and note the event's check and entity names.
+
+2. Navigate to the `/var/cache/sensu/sensu-backend/` directory:
+{{< code shell >}}
+cd /var/cache/sensu/sensu-backend/
+{{< /code >}}
+
+3. Run `ls` to list the contents of the `/var/cache/sensu/sensu-backend/` directory.
+In the list, identify the handler's dynamic runtime asset SHA.
+
+   {{% notice note %}}
+**NOTE**: If the list includes more than one SHA, run `sensuctl asset list`.
+In the response, the Hash column contains the first seven characters for each asset build's SHA.
+Note the SHA for your build of the handler asset and match it against the SHAs listed in the `/var/cache/sensu/sensu-backend/` directory to find the correct handler asset SHA.
+{{% /notice %}}
+
+4. Navigate to the `bin` directory for the handler asset SHA.
+Replace `HANDLER_ASSET_SHA` with the SHA you identified in the previous step.
+{{< code shell >}}
+cd HANDLER_ASSET_SHA/bin
+{{< /code >}}
+
+5. Run the command to manually execute the handler.
+Before you run the command example below, replace the following text:
+   - `ENTITY_NAME`: Replace with the entity name for the event you are using to troubleshoot.
+   - `CHECK_NAME`: Replace with the check name for the event you are using to troubleshoot.
+   - `HANDLER_COMMAND`: Replace with the `command` value for the handler you are troubleshooting.
+
+   {{< code shell >}}
+sensuctl event info ENTITY_NAME CHECK_NAME --format json | ./HANDLER_COMMAND
+{{< /code >}}
+
+If your handler is working properly and the problem lies elsewhere, you will receive an alert for the event via the handler.
+The response for your manual execution command will also include a message to confirm notification was sent.
+
+If there is a problem with your handler, the response will include the message `Error executing HANDLER_ASSET_NAME:`, followed by a description of the specific error.
+
 
 [1]: ../../observe-schedule/checks/
 [2]: https://en.wikipedia.org/wiki/Standard_streams
