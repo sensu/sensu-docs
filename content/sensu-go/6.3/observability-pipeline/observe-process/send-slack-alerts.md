@@ -58,7 +58,7 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 ## Get a Slack webhook
 
-If you're already the admin of a Slack, visit `https://YOUR WORKSPACE NAME HERE.slack.com/services/new/incoming-webhook` and follow the steps to add the Incoming WebHooks integration, choose a channel, and save the settings.
+If you're already the admin of a Slack, visit `https://YOUR_WORKSPACE_NAME_HERE.slack.com/services/new/incoming-webhook` and follow the steps to add the Incoming WebHooks integration, choose a channel, and save the settings.
 If you're not yet a Slack admin, [create a new workspace][12] and then create your webhook.
 
 After saving, you'll see your webhook URL under Integration Settings.
