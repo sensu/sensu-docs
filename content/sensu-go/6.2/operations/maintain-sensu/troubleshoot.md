@@ -333,6 +333,8 @@ In this case, the manual execution response will include the message `Error exec
 
 ## Dynamic runtime assets
 
+Use the information in this section to troubleshoot error messages related to dynamic runtime assets.
+
 ### Incorrect asset filter
 
 Dynamic runtime asset filters allow you to scope an asset to a particular operating system or architecture.
@@ -351,7 +353,7 @@ An improperly applied asset filter can prevent the asset from being downloaded b
   ],
   "level": "debug",
   "msg": "entity not filtered, not installing asset",
-  "time": "2019-09-12T18:28:05Z"
+  "time": "2020-09-12T18:28:05Z"
 }
 {{< /code >}}
 
@@ -557,7 +559,7 @@ To resolve this problem, install the [`lsb_release` package][8] for your Linux d
 
 ### Checksum mismatch
 
-When a downloaded dynamic runtime asset artifact checksum does not match the checksum specified in the asset definition, the agent logs a message similar to this example:
+When a downloaded dynamic runtime asset checksum does not match the checksum specified in the asset definition, the agent logs a message similar to this example:
 
 {{< code json >}}
 {
@@ -573,8 +575,6 @@ When a downloaded dynamic runtime asset artifact checksum does not match the che
 }
 {{< /code >}}
 
-The log error message also specifies the size of the downloaded artifact in parentheses after the asset name.
-
 To correct this issue, first confirm that the URL in the asset definition is valid.
 Manually download the asset with a cURL or wget command and make sure that the downloaded file is a valid `tar.gz` file with the contents you expect.
 
@@ -582,6 +582,7 @@ If the downloaded `tar.gz` file contents are correct, use the [`sha512sum` comma
 
 If the checksum in the downloaded asset definition is correct, confirm that there is enough space available in `/tmp` to download the asset.
 On Linux systems, the Sensu agent downloads assets into `/tmp`.
+The log error message specifies the size of the asset artifact in parentheses after the asset name.
 If space in `/tmp` is insufficient, asset downloads will be truncated and the checksum will not be validated.
 
 ## Etcd clusters
