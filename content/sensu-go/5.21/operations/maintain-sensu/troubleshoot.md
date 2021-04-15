@@ -522,7 +522,7 @@ Since the `lsb_release` package is not installed, the agent will not be able to 
 
 To resolve this problem, install the [`lsb_release` package][8] for your Linux distribution.
 
-## Investigate etcd cluster status
+## Etcd clusters
 
 Some issues require you to investigate the state of the etcd cluster or data stored within etcd.
 In these cases, we suggest using the `etcdctl` tool to query and manage the etcd database.
