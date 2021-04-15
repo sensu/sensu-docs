@@ -333,6 +333,10 @@ In this case, the manual execution response will include the message `Error exec
 
 ## Dynamic runtime assets
 
+Use the information in this section to troubleshoot error messages related to dynamic runtime assets.
+
+### Incorrect asset filter
+
 Dynamic runtime asset filters allow you to scope an asset to a particular operating system or architecture.
 You can see an example in the [asset reference][10].
 An improperly applied asset filter can prevent the asset from being downloaded by the desired entity and result in error messages both on the agent and the backend illustrating that the command was not found:
@@ -473,7 +477,7 @@ sensuctl asset info sensu-plugins-disk-checks --format wrapped-json
 
 {{< /language-toggle >}}
 
-### Conflating operating systems with families
+#### Conflating operating systems with families
 
 A common asset filter issue is conflating operating systems with the family they're a part of.
 For example, although Ubuntu is part of the Debian family of Linux distributions, Ubuntu is not the same as Debian.
@@ -543,7 +547,7 @@ filters:
 
 This would allow the asset to be downloaded onto the target entity.
 
-### Running the agent on an unsupported Linux platform
+#### Running the agent on an unsupported Linux platform
 
 If you run the Sensu agent on an unsupported Linux platform, the agent might fail to correctly identify your version of Linux and could download the wrong version of an asset.
 
@@ -553,7 +557,35 @@ Since the `lsb_release` package is not installed, the agent will not be able to 
 
 To resolve this problem, install the [`lsb_release` package][8] for your Linux distribution.
 
-## Investigate etcd cluster status
+### Checksum mismatch
+
+When a downloaded dynamic runtime asset checksum does not match the checksum specified in the asset definition, the agent logs a message similar to this example:
+
+{{< code json >}}
+{
+  "asset": "check-disk-space",
+  "component": "asset-manager",
+  "entity": "sensu-centos",
+  "filters": [
+    "true == false"
+  ],
+  "level": "debug",
+  "msg": "error getting assets for check: could not validate downloaded asset $ASSET_NAME (X.X MB): sha512 of downloaded asset (6b73p32XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX) does not match specified sha512 in asset definition (e6b7c8eXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX)",
+  "time": "2020-09-12T18:28:05Z"
+}
+{{< /code >}}
+
+To correct this issue, first confirm that the URL in the asset definition is valid.
+Manually download the asset with a cURL or wget command and make sure that the downloaded file is a valid `tar.gz` file with the contents you expect.
+
+If the downloaded `tar.gz` file contents are correct, use the [`sha512sum` command][21] to calculate the asset checksum and manually confirm that the checksum in the downloaded asset definition is correct.
+
+If the checksum in the downloaded asset definition is correct, confirm that there is enough space available in `/tmp` to download the asset.
+On Linux systems, the Sensu agent downloads assets into `/tmp`.
+The log error message specifies the size of the asset artifact in parentheses after the asset name.
+If space in `/tmp` is insufficient, asset downloads will be truncated and the checksum will not be validated.
+
+## Etcd clusters
 
 Some issues require you to investigate the state of the etcd cluster or data stored within etcd.
 In these cases, we suggest using the `etcdctl` tool to query and manage the etcd database.
@@ -726,3 +758,4 @@ The backend will stop listening on those ports when the etcd database is unavail
 [17]: ../../deploy-sensu/datastore/#use-default-event-storage
 [18]: ../../../api/metrics/
 [19]: ../../deploy-sensu/hardware-requirements/#backend-recommended-configuration
+[21]: https://www.computerhope.com/unix/sha512sum.htm

@@ -333,6 +333,10 @@ In this case, the manual execution response will include the message `Error exec
 
 ## Dynamic runtime assets
 
+Use the information in this section to troubleshoot error messages related to dynamic runtime assets.
+
+### Incorrect asset filter
+
 Dynamic runtime asset filters allow you to scope an asset to a particular operating system or architecture.
 You can see an example in the [asset reference][10].
 An improperly applied asset filter can prevent the asset from being downloaded by the desired entity and result in error messages both on the agent and the backend illustrating that the command was not found:
@@ -473,7 +477,7 @@ sensuctl asset info sensu-plugins-disk-checks --format wrapped-json
 
 {{< /language-toggle >}}
 
-### Conflating operating systems with families
+#### Conflating operating systems with families
 
 A common asset filter issue is conflating operating systems with the family they're a part of.
 For example, although Ubuntu is part of the Debian family of Linux distributions, Ubuntu is not the same as Debian.
@@ -543,7 +547,7 @@ filters:
 
 This would allow the asset to be downloaded onto the target entity.
 
-### Running the agent on an unsupported Linux platform
+#### Running the agent on an unsupported Linux platform
 
 If you run the Sensu agent on an unsupported Linux platform, the agent might fail to correctly identify your version of Linux and could download the wrong version of an asset.
 
@@ -553,7 +557,7 @@ Since the `lsb_release` package is not installed, the agent will not be able to 
 
 To resolve this problem, install the [`lsb_release` package][8] for your Linux distribution.
 
-## Investigate etcd cluster status
+## Etcd clusters
 
 Some issues require you to investigate the state of the etcd cluster or data stored within etcd.
 In these cases, we suggest using the `etcdctl` tool to query and manage the etcd database.
