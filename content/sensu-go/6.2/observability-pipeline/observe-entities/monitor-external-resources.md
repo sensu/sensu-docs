@@ -228,7 +228,7 @@ Status:    0
 History:   0,0,0
 Silenced:  false
 Timestamp: 2021-04-16 22:02:02 +0000 UTC
-UUID:      a35599cb-3596-4ad4-91ad-aa3f942690c6
+UUID:      d34599cb-5596-9ad4-51ad-cc3d942690c6
 {{< /code >}}
 
 You can also see the new proxy entity in your [Sensu web UI][10].
