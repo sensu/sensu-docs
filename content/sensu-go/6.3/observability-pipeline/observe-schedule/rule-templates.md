@@ -28,30 +28,6 @@ For example, a rule template's expression might define the thresholds at which S
 
 The rule template expression can also create arbitrary events.
 
-## Apply rule templates to service components
-
-Rule templates are general, parameterized resources that can apply to one or more service components.
-To apply a rule template to a specific service component:
-
-- List the rule template name in the service component's `rules.template` field.
-- Specify the arguments the rule template requires in the service component's `rules.template.arguments` object.
-
-Several service components can use the same rule template with different argument values.
-For example, a rule template might evaluate one argument, `threshold_ok`, against the number of events with OK status, as represented by the following logic:
-
-{{< code javascript >}}
-if numberEventsOK < threshold_ok {
-  emit warning event
-}
-{{< /code >}}
-
-You can specify a variety of thresholds as arguments in service component definitions that reference this rule template.
-One service component might set the `threshold_ok` value at 10; another service component might set the value at 50.
-Both service components can make use of the same rule template at the threshold that makes sense for that component.
-
-Service components can reference more than one rule template.
-Sensu evaluates each rule separately, and each rule produces its own event as output.
-
 ## Rule template example
 
 This example rule template creates an event when the percentage of events with the given status exceed the given threshold:
@@ -137,10 +113,34 @@ spec:
 
 {{< /language-toggle >}}
 
+## Apply rule templates to service components
+
+Rule templates are general, parameterized resources that can apply to one or more service components.
+To apply a rule template to a specific service component:
+
+- List the rule template name in the service component's `rules.template` field.
+- Specify the arguments the rule template requires in the service component's `rules.template.arguments` object.
+
+Several service components can use the same rule template with different argument values.
+For example, a rule template might evaluate one argument, `threshold_ok`, against the number of events with OK status, as represented by the following logic:
+
+{{< code javascript >}}
+if numberEventsOK < threshold_ok {
+  emit warning event
+}
+{{< /code >}}
+
+You can specify a variety of thresholds as arguments in service component definitions that reference this rule template.
+One service component might set a `threshold_ok` value at 10; another service component might set the value at 50.
+Both service components can make use of the same rule template at the threshold that makes sense for that component.
+
+Service components can reference more than one rule template.
+Sensu evaluates each rule separately, and each rule produces its own event as output.
+
 ## Built-in rule template: Aggregate
 
 Sensu's business service monitoring (BSM) includes a built-in rule template, `aggregate`, that allows you to treat the results of multiple disparate check executions executed across multiple disparate systems as a single result (event).
-This built-in rule templates are ready to use with your service components.
+This built-in rule template is ready to use with your service components.
 
 Reference the rule template name in the `rules.template` field and configure the arguments in the `rules.template.arguments` object in your service component resource definitions.
 
@@ -491,7 +491,7 @@ description: Creates an event when the percentage of events with the given statu
 
 arguments    | 
 -------------|------ 
-description  | The rule template's arguments using [JSON Schema][1] properties.
+description  | The rule template's [arguments][7] using [JSON Schema][1] properties.
 required     | true
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -596,7 +596,7 @@ required:
 
 properties   | 
 -------------|------ 
-description  | Lists of properties that define the rule template's behavior. In [JSON Schema][1].
+description  | List of properties that define the argument's behavior. In [JSON Schema][1].
 required     | true
 type         | Array
 example      | {{< language-toggle >}}
@@ -642,4 +642,5 @@ properties:
 [3]: ../service-components/
 [4]: ../../../commercial/
 [5]: #spec-attributes
-[6]: ../../control-access/rbac/#namespaces
+[6]: ../../../operations/control-access/namespaces
+[7]: #arguments-attributes

@@ -25,12 +25,6 @@ Monitoring rules are configured in a separate resource: [rule templates][8].
 
 If you delete a resource (e.g. an entity, check, or event) that is part of one or more service components, Sensu will automatically remove the deleted resource from the service components.
 
-## Service component scheduling
-
-Sensu executes service components on sensu-backend processes in a round-robin fashion and according to a schedule specified by an interval or a cron expression in the component definition.
-During each execution of the service component, Sensu retrieves the events identified in the component's query expression and processes these events according to the monitoring rules specified in the service component definition.
-The rules can emit new events based on the component input.
-
 ## Service component example
 
 The example service component below is a dependency of the business service entities `account-manager` and `tessen`.
@@ -109,6 +103,12 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+## Service component scheduling
+
+Sensu executes service components on sensu-backend processes in a round-robin fashion and according to a schedule specified by an interval or a cron expression in the component definition.
+During each execution of the service component, Sensu retrieves the events identified in the component's query expression and processes these events according to the monitoring rules specified in the service component definition.
+The rules can emit new events based on the component input.
 
 ## Service component specification
 
@@ -450,7 +450,7 @@ value: region == us-west-2 && cmpt == psql
 
 arguments    | 
 -------------|------ 
-description  | The [arguments][5] to pass to the [rule template][8] for the service component.
+description  | The arguments to pass to the [rule template][8] for the service component. Argument names and values will vary depending on the arguments configured in the specified rule template.
 required     | false
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -501,48 +501,13 @@ template: status-threshold
 {{< /code >}}
 {{< /language-toggle >}}
 
-##### Arguments attributes
-
-status       | 
--------------|------ 
-description  | ...
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-status: non-zero
-{{< /code >}}
-{{< code json >}}
-{
-  "status": "non-zero"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-threshold    | 
--------------|------ 
-description  | ...
-required     | true
-type         | Integer
-example      | {{< language-toggle >}}
-{{< code yml >}}
-threshold: 25
-{{< /code >}}
-{{< code json >}}
-{
-  "threshold": 25
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 
 [1]: https://en.wikipedia.org/wiki/Cron#CRON_expression
 [2]: https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules
 [3]: https://en.wikipedia.org/wiki/Cron#Timezone_handling
 [4]: #rules-attributes
-[5]: #arguments-attributes
 [6]: #spec-attributes
-[7]: ../../../operations/control-access/rbac/#namespaces
+[7]: ../../../operations/control-access/namespaces
 [8]: ../rule-templates/
 [9]: ../../../commercial/
 [10]: ../../observe-entities/#service-entities
