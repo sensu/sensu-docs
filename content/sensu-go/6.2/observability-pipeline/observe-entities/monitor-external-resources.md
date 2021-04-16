@@ -223,11 +223,12 @@ The response should list `check-sensu-site` status and history data for the `sen
 === sensu-site - check-sensu-site
 Entity:    sensu-site
 Check:     check-sensu-site
-Output:    
+Output:    CheckHttp OK: 200, 72024 bytes
 Status:    0
-History:   0,0
+History:   0,0,0
 Silenced:  false
-Timestamp: 2019-01-16 21:51:53 +0000 UTC
+Timestamp: 2021-04-16 22:02:02 +0000 UTC
+UUID:      d34599cb-5596-9ad4-51ad-cc3d942690c6
 {{< /code >}}
 
 You can also see the new proxy entity in your [Sensu web UI][10].
