@@ -196,7 +196,7 @@ sensuctl user reinstate USERNAME
 
 You can use [sensuctl][2] to see a list of all users within Sensu.
 
-To return a list of users in `yaml` or `json` format for use with `sensuctl create`:
+To return a list of users in `yaml` or `wrapped-json` format for use with `sensuctl create`:
 
 {{< language-toggle >}}
 
@@ -205,7 +205,7 @@ sensuctl user list --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl user list --format json
+sensuctl user list --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}

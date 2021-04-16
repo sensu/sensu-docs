@@ -46,7 +46,7 @@ This example uses the `-r` (rename) flag to specify a shorter name for the dynam
 
 You can also download the latest dynamic runtime asset definition for your platform from [Bonsai][13] and register the asset with `sensuctl create --file filename.yml` or `sensuctl create --file filename.json`.
 
-Run `sensuctl asset list --format yaml` or `sensuctl asset list --format json` to confirm that the dynamic runtime asset is ready to use.
+Run `sensuctl asset list --format yaml` or `sensuctl asset list --format wrapped-json` to confirm that the dynamic runtime asset is ready to use.
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
@@ -82,7 +82,7 @@ sensuctl handler info influx-db --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl handler info influx-db --format json
+sensuctl handler info influx-db --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -179,7 +179,7 @@ sensuctl check info collect-metrics --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info collect-metrics --format json
+sensuctl check info collect-metrics --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}

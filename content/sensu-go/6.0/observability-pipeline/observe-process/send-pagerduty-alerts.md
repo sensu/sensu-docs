@@ -70,7 +70,12 @@ Now that you've added the Nagios Foundation dynamic runtime asset, you can add i
 Use sensuctl to add the check:
 
 {{< code shell >}}
-sensuctl check create file_exists --command "check_file_exists --pattern /tmp/my-file.txt" --subscriptions system --handlers pagerduty --interval 10 --runtime-assets ncr-devops-platform/nagiosfoundation
+sensuctl check create file_exists \
+--command "check_file_exists --pattern /tmp/my-file.txt" \
+--subscriptions system \
+--handlers pagerduty \
+--interval 10 \
+--runtime-assets ncr-devops-platform/nagiosfoundation
 {{< /code >}}
 
 To confirm that the check was added to your Sensu backend and view the check definition in YAML or JSON format, run:
@@ -80,7 +85,7 @@ To confirm that the check was added to your Sensu backend and view the check def
 sensuctl check info file_exists --format yaml
 {{< /code >}}
 {{< code shell "JSON" >}}
-sensuctl check info file_exists --format json
+sensuctl check info file_exists --format wrapped-json
 {{< /code >}}
 {{< /language-toggle >}}
 
@@ -199,7 +204,11 @@ In the following command, replace `YOUR_PAGERDUTY_KEY` with your [PagerDuty API 
 Then run the updated command:
 
 {{< code shell >}}
-sensuctl handler create pagerduty --type pipe --filters is_incident --runtime-assets sensu/sensu-pagerduty-handler --command "sensu-pagerduty-handler -t YOUR_PAGERDUTY_KEY"
+sensuctl handler create pagerduty \
+--type pipe \
+--filters is_incident \
+--runtime-assets sensu/sensu-pagerduty-handler \
+--command "sensu-pagerduty-handler -t YOUR_PAGERDUTY_KEY"
 {{< /code >}}
 
 {{% notice note %}}
@@ -216,7 +225,7 @@ Make sure that your handler was added by retrieving the complete handler definit
 sensuctl handler info pagerduty --format yaml
 {{< /code >}}
 {{< code shell "JSON" >}}
-sensuctl handler info pagerduty --format json
+sensuctl handler info pagerduty --format wrapped-json
 {{< /code >}}
 {{< /language-toggle >}}
 

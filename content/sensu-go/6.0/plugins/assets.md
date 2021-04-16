@@ -430,9 +430,16 @@ For each dynamic runtime asset, a corresponding environment variable will be ava
 Sensu generates the environment variable name by capitalizing the dynamic runtime asset name, replacing any special characters with underscores, and appending the `_PATH` suffix.
 The value of the variable will be the path on disk where the dynamic runtime asset build has been unpacked.
 
-For example, the environment variable path for the dynamic runtime asset [`sensu-plugins-windows`][4] would be:
+For example, for a Sensu Windows agent, the environment variable path for the dynamic runtime asset [`sensu-plugins-windows`][4] would be:
 
-`$SENSU_PLUGINS_WINDOWS_PATH/include/config.yaml`
+`%SENSU_PLUGINS_WINDOWS_PATH%/include/config.yaml`
+
+The Windows console environment interprets the content between the [paired `%` characters][44] as an environment variable name and will substitute the value of that [environment variable][45].
+
+{{% notice note %}}
+**NOTE**: The Sensu Windows agent uses `cmd.exe` for the check execution environment.
+For all other operating systems, the Sensu agent uses the Bourne shell (sh) and `${VARIABLE_NAME}` [shell syntax](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-linux).
+{{% /notice %}}
 
 ### Token substitution for dynamic runtime asset paths
 
@@ -445,7 +452,7 @@ If you want to access a dynamic runtime asset path in a handler or mutator comma
 
 For example, you can reference the dynamic runtime asset [`sensu-plugins-windows`][4] from your check or hook resources using either the environment variable or the `assetPath` function:
 
-- `$SENSU_PLUGINS_WINDOWS_PATH/include/config.yaml`
+- `%SENSU_PLUGINS_WINDOWS_PATH%/include/config.yaml`
 - `${{assetPath "sensu-plugins-windows"}}/include/config.yaml`
 
 When running PowerShell plugins on Windows, the [exit status codes that Sensu captures may not match the expected values][13].
@@ -458,8 +465,8 @@ To correctly capture exit status codes from PowerShell plugins distributed as dy
 type: CheckConfig
 api_version: core/v2
 metadata:
-namespace: default
-name: win-cpu-check
+  namespace: default
+  name: win-cpu-check
 spec:
   command: powershell.exe -ExecutionPolicy ByPass -f %{{assetPath "sensu-plugins-windows"}}%\bin\check-windows-cpu-load.ps1 90 95
   subscriptions:
@@ -477,9 +484,10 @@ spec:
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
-  "metadata": null,
-  "namespace": "default",
-  "name": "win-cpu-check",
+  "metadata": {
+    "name": "win-cpu-check",
+    "namespace": "default"
+  },
   "spec": {
     "command": "powershell.exe -ExecutionPolicy ByPass -f %{{assetPath \"sensu-plugins-windows\"}}%\\bin\\check-windows-cpu-load.ps1 90 95",
     "subscriptions": [
@@ -500,7 +508,11 @@ spec:
 
 {{< /language-toggle >}}
 
-## Asset hello world example
+{{% notice note %}}
+**NOTE**: In this example, the check command uses the Windows console syntax for accessing the environment variables used to configure the PowerShell command line arguments. 
+{{% /notice %}}
+
+## Asset hello world Bourne shell example
 
 In this example, you'll run a script that outputs `Hello World`:
 
@@ -1238,6 +1250,8 @@ You must remove the archive and downloaded files from the asset cache manually.
 [38]: https://bonsai.sensu.io/new
 [39]: ../../web-ui/search#search-for-labels
 [40]: ../../observability-pipeline/observe-schedule/agent/#configuration-via-flags
-[41]: ../../observability-pipeline/observe-schedule/backend/#configuration
+[41]: ../../observability-pipeline/observe-schedule/backend/#configuration-via-flags
 [42]: #filters
 [43]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
+[44]: https://devblogs.microsoft.com/oldnewthing/20060823-00/?p=29993
+[45]: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.1

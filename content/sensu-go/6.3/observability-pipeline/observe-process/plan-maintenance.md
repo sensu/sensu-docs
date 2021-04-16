@@ -103,7 +103,7 @@ sensuctl silenced info 'entity:i-424242:check-http' --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl silenced info 'entity:i-424242:check-http' --format json
+sensuctl silenced info 'entity:i-424242:check-http' --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}

@@ -177,6 +177,45 @@ Proxy entity registration differs from keepalive-based registration because the 
 
 See [Monitor external resources][1] to learn how to use a proxy entity to monitor a website.
 
+## Service entities
+
+A service entity represents a business service in [business service monitoring (BSM)][8].
+Sensu processes service entity events just like events generated for agent and proxy entities.
+You can also use service entities for proxy check requests and events.
+
+This example shows a service entity resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Entity
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: postgresql
+  namespace: default
+spec:
+  entity_class: service
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "postgresql",
+    "namespace": "default"
+  },
+  "spec": {
+    "entity_class": "service"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Usage limits
 
 Sensu's usage limits are based on entities.
@@ -187,8 +226,8 @@ If your Sensu instance includes more than 100 entities, [contact us][3] to learn
 
 Commercial licenses may include an entity limit and entity class limits:
 
-- Entity limit: the maximum number of entities of all classes your license includes. Both agent and proxy entities count toward the overall entity limit.
-- Entity class limits: the maximum number of a specific class of entities (e.g. agent or proxy) that your license includes.
+- Entity limit: the maximum number of entities of all classes your license includes. Agent, proxy, and service entities count toward the overall entity limit.
+- Entity class limits: the maximum number of a specific class of entities (agent, proxy, or service) that your license includes.
 
 For example, if your license has an entity limit of 10,000 and an agent entity class limit of 3,000, you cannot run more than 10,000 entities (agent and proxy) total.
 At the same time, you cannot run more than 3,000 agents.
@@ -204,3 +243,4 @@ Use sensuctl or the license API to [view your overall entity count and limit][5]
 [5]: ../../operations/maintain-sensu/license/#view-entity-count-and-entity-limit
 [6]: entities/
 [7]: ../observe-schedule/checks/#proxy-entity-name-attribute
+[8]: ../observe-schedule/business-service-monitoring/

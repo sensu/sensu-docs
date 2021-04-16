@@ -145,7 +145,7 @@ sensuctl check info check_cpu --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info check_cpu --format json
+sensuctl check info check_cpu --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -329,7 +329,7 @@ sensuctl check info nginx_service --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info nginx_service --format json
+sensuctl check info nginx_service --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}

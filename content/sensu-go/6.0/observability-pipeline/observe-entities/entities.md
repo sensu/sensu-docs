@@ -944,7 +944,8 @@ sensu_agent_version: 1.0.0
 
 last_seen    | 
 -------------|------ 
-description  | Timestamp the entity was last seen. In seconds since the Unix epoch. 
+description  | Timestamp the entity was last seen. In seconds since the Unix epoch.{{% notice note %}}**NOTE**: In the entity attributes for events created with the [events API](../../../api/events/), the `last_seen` value is `0`.
+{{% /notice %}}
 required     | false 
 type         | Integer 
 example      | {{< language-toggle >}}
