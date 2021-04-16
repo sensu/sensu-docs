@@ -33,17 +33,17 @@ The Sensu Plugins HTTP asset includes `check-http.rb`, which [your check][15] wi
 The Sensu assets packaged from Sensu Plugins HTTP are built against the Sensu Ruby runtime environment, so you also need to add the [Sensu Ruby Runtime][7] dynamic runtime asset.
 Sensu Ruby Runtime delivers the Ruby executable and supporting libraries the check will need to run the `check-http.rb` plugin.
 
-Use [`sensuctl asset add`][21] to register the Sensu Plugins HTTP dynamic runtime asset, `sensu-plugins/sensu-plugins-http:5.1.1`:
+Use [`sensuctl asset add`][21] to register the Sensu Plugins HTTP dynamic runtime asset, `sensu-plugins/sensu-plugins-http`:
 
 {{< code shell >}}
-sensuctl asset add sensu-plugins/sensu-plugins-http:5.1.1 -r sensu-plugins-http
+sensuctl asset add sensu-plugins/sensu-plugins-http:6.0.0 -r sensu-plugins-http
 {{< /code >}}
 
 The response will indicate that the asset was added:
 
 {{< code shell >}}
-fetching bonsai asset: sensu-plugins/sensu-plugins-http:5.1.1
-added asset: sensu-plugins/sensu-plugins-http:5.1.1
+fetching bonsai asset: sensu-plugins/sensu-plugins-http:6.0.0
+added asset: sensu-plugins/sensu-plugins-http:6.0.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
@@ -54,7 +54,7 @@ This example uses the `-r` (rename) flag to specify a shorter name for the dynam
 
 You can also download the dynamic runtime asset definition for Debian or Alpine from [Bonsai][16] and register the asset with `sensuctl create --file filename.yml` or `sensuctl create --file filename.json`.
 
-Then, use the following sensuctl example to register the Sensu Ruby Runtime dynamic runtime asset, `sensu/sensu-ruby-runtime:0.0.10`:
+Then, use the following sensuctl example to register the Sensu Ruby Runtime dynamic runtime asset, `sensu/sensu-ruby-runtime`:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
@@ -84,7 +84,7 @@ The response should list the `sensu-plugins-http` and `sensu-ruby-runtime` dynam
 {{< code shell >}}
           Name                                                URL                                       Hash    
 ────────────────────────── ─────────────────────────────────────────────────────────────────────────── ───────── 
- sensu-plugins-http         //assets.bonsai.sensu.io/.../sensu-plugins-http_5.1.1_centos_linux_amd64.tar.gz         31023af  
+ sensu-plugins-http         //assets.bonsai.sensu.io/.../sensu-plugins-http_6.0.0_centos_linux_amd64.tar.gz         31023af  
  sensu-ruby-runtime         //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.0.10_ruby-2.4.4_centos_linux_amd64.tar.gz     338b88b 
 {{< /code >}}
 

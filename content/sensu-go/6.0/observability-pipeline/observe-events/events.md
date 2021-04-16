@@ -38,7 +38,7 @@ Sensu events contain:
 
 ## Example status-only event
 
-The following example shows a [status-only event][4]:
+The following example shows the complete resource definition for a [status-only event][4]:
 
 {{< language-toggle >}}
 
@@ -50,41 +50,51 @@ metadata:
 spec:
   check:
     check_hooks: null
-    command: check-cpu.sh -w 75 -c 90
-    duration: 1.07055808
+    command: check-cpu.rb -w 75 -c 90
+    duration: 5.058211427
     env_vars: null
-    executed: 1552594757
+    executed: 1617050501
     handlers: []
     high_flap_threshold: 0
     history:
-    - executed: 1552594757
+    - executed: 1617050261
+      status: 0
+    - executed: 1617050321
+      status: 0
+    - executed: 1617050381
+      status: 0
+    - executed: 1617050441
+      status: 0
+    - executed: 1617050501
       status: 0
     interval: 60
-    is_silenced: true
-    issued: 1552594757
-    last_ok: 1552594758
+    is_silenced: false
+    issued: 1617050501
+    last_ok: 1617050501
     low_flap_threshold: 0
     metadata:
-      name: check-cpu
+      name: check_cpu
       namespace: default
-    occurrences: 1
-    occurrences_watermark: 1
+    occurrences: 5
+    occurrences_watermark: 5
     output: |
-      CPU OK - Usage:3.96
-    silenced:
-      entity:gin:server-health
+      CheckCPU TOTAL OK: total=0.41 user=0.2 nice=0.0 system=0.2 idle=99.59 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0
     output_metric_format: ""
-    output_metric_handlers: []
+    output_metric_handlers: null
     proxy_entity_name: ""
     publish: true
     round_robin: false
-    runtime_assets: []
+    runtime_assets:
+    - cpu-checks-plugins
+    - sensu-ruby-runtime
+    scheduler: memory
+    secrets: null
     state: passing
     status: 0
     stdin: false
     subdue: null
     subscriptions:
-    - linux
+    - system
     timeout: 0
     total_state_change: 0
     ttl: 0
@@ -92,7 +102,7 @@ spec:
     deregister: false
     deregistration: {}
     entity_class: agent
-    last_seen: 1552594641
+    last_seen: 1617050501
     metadata:
       name: sensu-centos
       namespace: default
@@ -106,12 +116,15 @@ spec:
     - secret_key
     - private_key
     - secret
+    sensu_agent_version: 6.0.0
     subscriptions:
     - linux
     - entity:sensu-centos
     system:
       arch: amd64
+      cloud_provider: ""
       hostname: sensu-centos
+      libc_type: glibc
       network:
         interfaces:
         - addresses:
@@ -120,22 +133,24 @@ spec:
           name: lo
         - addresses:
           - 10.0.2.15/24
-          - fe80::9688:67ca:3d78:ced9/64
-          mac: 08:00:27:11:ad:d2
-          name: enp0s3
+          - fe80::a268:dcce:3be:1c73/64
+          mac: 08:00:27:8b:c9:3f
+          name: eth0
         - addresses:
-          - 172.28.128.3/24
-          - fe80::a00:27ff:fe6b:c1e9/64
-          mac: 08:00:27:6b:c1:e9
-          name: enp0s8
+          - 172.28.128.45/24
+          - fe80::a00:27ff:feb2:dc46/64
+          mac: 08:00:27:b2:dc:46
+          name: eth1
       os: linux
       platform: centos
       platform_family: rhel
-      platform_version: 7.4.1708
+      platform_version: 7.5.1804
       processes: null
+      vm_role: guest
+      vm_system: vbox
     user: agent
-  timestamp: 1552594758
-  event_id: 3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f
+  id: 3c3e68f6-6db7-40d3-9b84-4d61817ae559
+  timestamp: 1617050507
 {{< /code >}}
 
 {{< code json >}}
@@ -148,45 +163,63 @@ spec:
   "spec": {
     "check": {
       "check_hooks": null,
-      "command": "check-cpu.sh -w 75 -c 90",
-      "duration": 1.07055808,
+      "command": "check-cpu.rb -w 75 -c 90",
+      "duration": 5.058211427,
       "env_vars": null,
-      "executed": 1552594757,
+      "executed": 1617050501,
       "handlers": [],
       "high_flap_threshold": 0,
       "history": [
         {
-          "executed": 1552594757,
+          "executed": 1617050261,
+          "status": 0
+        },
+        {
+          "executed": 1617050321,
+          "status": 0
+        },
+        {
+          "executed": 1617050381,
+          "status": 0
+        },
+        {
+          "executed": 1617050441,
+          "status": 0
+        },
+        {
+          "executed": 1617050501,
           "status": 0
         }
       ],
       "interval": 60,
-      "is_silenced": true,
-      "issued": 1552594757,
-      "last_ok": 1552594758,
+      "is_silenced": false,
+      "issued": 1617050501,
+      "last_ok": 1617050501,
       "low_flap_threshold": 0,
       "metadata": {
-        "name": "check-cpu",
+        "name": "check_cpu",
         "namespace": "default"
       },
-      "occurrences": 1,
-      "occurrences_watermark": 1,
-      "output": "CPU OK - Usage:3.96\n",
-      "silenced": [
-        "entity:gin:scheck-cpu"
-      ],
+      "occurrences": 5,
+      "occurrences_watermark": 5,
+      "output": "CheckCPU TOTAL OK: total=0.41 user=0.2 nice=0.0 system=0.2 idle=99.59 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0\n",
       "output_metric_format": "",
-      "output_metric_handlers": [],
+      "output_metric_handlers": null,
       "proxy_entity_name": "",
       "publish": true,
       "round_robin": false,
-      "runtime_assets": [],
+      "runtime_assets": [
+        "cpu-checks-plugins",
+        "sensu-ruby-runtime"
+      ],
+      "scheduler": "memory",
+      "secrets": null,
       "state": "passing",
       "status": 0,
       "stdin": false,
       "subdue": null,
       "subscriptions": [
-        "linux"
+        "system"
       ],
       "timeout": 0,
       "total_state_change": 0,
@@ -196,7 +229,7 @@ spec:
       "deregister": false,
       "deregistration": {},
       "entity_class": "agent",
-      "last_seen": 1552594641,
+      "last_seen": 1617050501,
       "metadata": {
         "name": "sensu-centos",
         "namespace": "default"
@@ -212,59 +245,210 @@ spec:
         "private_key",
         "secret"
       ],
+      "sensu_agent_version": "6.0.0",
       "subscriptions": [
         "linux",
         "entity:sensu-centos"
       ],
       "system": {
         "arch": "amd64",
+        "cloud_provider": "",
         "hostname": "sensu-centos",
+        "libc_type": "glibc",
         "network": {
           "interfaces": [
             {
               "addresses": [
                 "127.0.0.1/8",
-                "::1/128"
+                ":1/128"
               ],
               "name": "lo"
             },
             {
               "addresses": [
                 "10.0.2.15/24",
-                "fe80::9688:67ca:3d78:ced9/64"
+                "fe80::a268:dcce:3be:1c73/64"
               ],
-              "mac": "08:00:27:11:ad:d2",
-              "name": "enp0s3"
+              "mac": "08:00:27:8b:c9:3f",
+              "name": "eth0"
             },
             {
               "addresses": [
-                "172.28.128.3/24",
-                "fe80::a00:27ff:fe6b:c1e9/64"
+                "172.28.128.45/24",
+                "fe80::a00:27ff:feb2:dc46/64"
               ],
-              "mac": "08:00:27:6b:c1:e9",
-              "name": "enp0s8"
+              "mac": "08:00:27:b2:dc:46",
+              "name": "eth1"
             }
           ]
         },
         "os": "linux",
         "platform": "centos",
         "platform_family": "rhel",
-        "platform_version": "7.4.1708",
-        "processes": null
+        "platform_version": "7.5.1804",
+        "processes": null,
+        "vm_role": "guest",
+        "vm_system": "vbox"
       },
       "user": "agent"
     },
-    "timestamp": 1552594758,
-    "event_id": "3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f"
+    "id": "3c3e68f6-6db7-40d3-9b84-4d61817ae559",
+    "timestamp": 1617050507
   }
 }
 {{< /code >}}
 
 {{< /language-toggle >}}
 
+### Example status-only event from the Sensu API
+
+Sensu sends events to the backend in `json` format, without the outer-level `spec` wrapper or `type` and `api_version` attributes that are included in the `wrapped-json` format.
+This is the format that events are in when Sensu sends them to handlers:
+
+{{< code json >}}
+{
+  "check": {
+    "command": "check-cpu.rb -w 75 -c 90",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 60,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [
+      "cpu-checks-plugins",
+      "sensu-ruby-runtime"
+    ],
+    "subscriptions": [
+      "system"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "duration": 5.058211427,
+    "executed": 1617050501,
+    "history": [
+      {
+        "status": 0,
+        "executed": 1617050261
+      },
+      {
+        "status": 0,
+        "executed": 1617050321
+      },
+      {
+        "status": 0,
+        "executed": 1617050381
+      },
+      {
+        "status": 0,
+        "executed": 1617050441
+      },
+      {
+        "status": 0,
+        "executed": 1617050501
+      }
+    ],
+    "issued": 1617050501,
+    "output": "CheckCPU TOTAL OK: total=0.4 user=0.2 nice=0.0 system=0.2 idle=99.6 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0\n",
+    "state": "passing",
+    "status": 0,
+    "total_state_change": 0,
+    "last_ok": 1617050501,
+    "occurrences": 5,
+    "occurrences_watermark": 5,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "env_vars": null,
+    "metadata": {
+      "name": "check_cpu",
+      "namespace": "default"
+    },
+    "secrets": null,
+    "is_silenced": false,
+    "scheduler": "memory"
+  },
+  "entity": {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "sensu-centos",
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.5.1804",
+      "network": {
+        "interfaces": [
+          {
+            "name": "lo",
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ]
+          },
+          {
+            "name": "eth0",
+            "mac": "08:00:27:8b:c9:3f",
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::a268:dcce:3be:1c73/64"
+            ]
+          },
+          {
+            "name": "eth1",
+            "mac": "08:00:27:b2:dc:46",
+            "addresses": [
+              "172.28.128.45/24",
+              "fe80::a00:27ff:feb2:dc46/64"
+            ]
+          }
+        ]
+      },
+      "arch": "amd64",
+      "libc_type": "glibc",
+      "vm_system": "vbox",
+      "vm_role": "guest",
+      "cloud_provider": "",
+      "processes": null
+    },
+    "subscriptions": [
+      "linux",
+      "entity:sensu-centos"
+    ],
+    "last_seen": 1617049781,
+    "deregister": false,
+    "deregistration": {},
+    "user": "agent",
+    "redact": [
+      "password",
+      "passwd",
+      "pass",
+      "api_key",
+      "api_token",
+      "access_key",
+      "secret_key",
+      "private_key",
+      "secret"
+    ],
+    "metadata": {
+      "name": "sensu-centos",
+      "namespace": "default"
+    },
+    "sensu_agent_version": "6.0.0"
+  },
+  "id": "3c3e68f6-6db7-40d3-9b84-4d61817ae559",
+  "metadata": {
+    "namespace": "default"
+  },
+  "timestamp": 1617050507
+}
+{{< /code >}}
+
 ## Example metrics-only event
 
-This example shows a [metrics-only event][5]:
+This example shows the complete resource definition for a [metrics-only event][5]:
 
 {{< language-toggle >}}
 
@@ -420,7 +604,7 @@ spec:
 
 ## Example status and metrics event
 
-The following example [status and metrics event][19] contains _both_ a check and metrics:
+The following example resource definition for a [status and metrics event][19] contains _both_ a check and metrics:
 
 {{< language-toggle >}}
 
@@ -682,7 +866,11 @@ Sensu agents can also act as a collector for metrics throughout your infrastruct
 You can send events directly to the Sensu pipeline using the [events API][16].
 To create an event, send a JSON event definition to the [events API PUT endpoint][14].
 
-If you use the events API to create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
+If you use the events API to create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity in the same namespace when the event is published.
+
+{{% notice note %}}
+**NOTE**: An agent cannot belong to, execute checks in, or create events in more than one namespace. 
+{{% /notice %}}
 
 ## Manage events
 
@@ -696,7 +884,7 @@ To list all events:
 sensuctl event list
 {{< /code >}}
 
-To show event details in the default [output format][18]:
+To show event details in the default [output format][18] (tabular):
 
 {{< code shell >}}
 sensuctl event info entity-name check-name
@@ -710,6 +898,9 @@ With both the `list` and `info` commands, you can specify an [output format][18]
 {{< language-toggle >}}
 {{< code shell "YML" >}}
 sensuctl event info entity-name check-name --format yaml
+{{< /code >}}
+{{< code shell "Wrapped JSON" >}}
+sensuctl event info entity-name check-name --format wrapped-json
 {{< /code >}}
 {{< code shell "JSON" >}}
 sensuctl event info entity-name check-name --format json
@@ -1465,7 +1656,8 @@ duration: 1.903135228
 
 executed     |      |
 -------------|------
-description  | Time at which the check request was executed. In seconds since the Unix epoch.
+description  | Time at which the check request was executed. In seconds since the Unix epoch.{{% notice note %}}**NOTE**: For events created with the [events API](../../../api/events/), the `executed` value is `0`.
+{{% /notice %}}
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1510,7 +1702,8 @@ history:
 
 issued       |      |
 -------------|------
-description  | Time that the check request was issued. In seconds since the Unix epoch.
+description  | Time that the check request was issued. In seconds since the Unix epoch.{{% notice note %}}**NOTE**: For events created with the [events API](../../../api/events/), the `issued` value is `0`.
+{{% /notice %}}
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1526,7 +1719,8 @@ issued: 1552506033
 
 last_ok      |      |
 -------------|------
-description  | Last time that the check returned an OK status (`0`). In seconds since the Unix epoch.
+description  | Last time that the check returned an OK status (`0`). In seconds since the Unix epoch.{{% notice note %}}**NOTE**: For events created with the [events API](../../../api/events/), the `last_ok` value is `0`.
+{{% /notice %}}
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1675,7 +1869,8 @@ total_state_change: 0
 
 executed     |      |
 -------------|------
-description  | Time at which the check request was executed. In seconds since the Unix epoch.
+description  | Time at which the check request was executed. In seconds since the Unix epoch.{{% notice note %}}**NOTE**: For events created with the [events API](../../../api/events/), the `executed` value is `0`.
+{{% /notice %}}
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1868,7 +2063,7 @@ value: 0.005
 [15]: ../../../web-ui/
 [16]: ../../../api/events/
 [17]: ../../../sensuctl/
-[18]: ../../../sensuctl/create-manage-resources/#sensuctl-event
+[18]: ../../../sensuctl/#preferred-output-format
 [19]: ../#status-and-metrics-events
 [20]: ../../observe-schedule/checks#check-specification
 [21]: #check-attributes

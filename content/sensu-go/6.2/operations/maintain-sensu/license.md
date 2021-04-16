@@ -118,7 +118,7 @@ To view license details in YAML or JSON, run:
 sensuctl license info --format yaml
 {{< /code >}}
 {{< code shell "JSON" >}}
-sensuctl license info --format json
+sensuctl license info --format wrapped-json
 {{< /code >}}
 {{< /language-toggle >}}
 

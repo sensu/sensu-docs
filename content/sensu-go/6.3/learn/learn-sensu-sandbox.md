@@ -206,7 +206,7 @@ sensuctl asset info sensu-slack-handler --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl asset info sensu-slack-handler --format json
+sensuctl asset info sensu-slack-handler --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}

@@ -671,7 +671,11 @@ Sensu agents can also act as a collector for metrics throughout your infrastruct
 You can send events directly to the Sensu pipeline using the [events API][16].
 To create an event, send a JSON event definition to the [events API PUT endpoint][14].
 
-If you use the events API to create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
+If you use the events API to create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity in the same namespace when the event is published.
+
+{{% notice note %}}
+**NOTE**: An agent cannot belong to, execute checks in, or create events in more than one namespace. 
+{{% /notice %}}
 
 ## Manage events
 
@@ -1462,7 +1466,8 @@ duration: 1.903135228
 
 executed     |      |
 -------------|------
-description  | Time at which the check request was executed. In seconds since the Unix epoch.
+description  | Time at which the check request was executed. In seconds since the Unix epoch.{{% notice note %}}**NOTE**: For events created with the [events API](../../api/events/), the `executed` value is `0`.
+{{% /notice %}}
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1507,7 +1512,8 @@ history:
 
 issued       |      |
 -------------|------
-description  | Time that the check request was issued. In seconds since the Unix epoch.
+description  | Time that the check request was issued. In seconds since the Unix epoch.{{% notice note %}}**NOTE**: For events created with the [events API](../../api/events/), the `issued` value is `0`.
+{{% /notice %}}
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1523,7 +1529,8 @@ issued: 1552506033
 
 last_ok      |      |
 -------------|------
-description  | Last time that the check returned an OK status (`0`). In seconds since the Unix epoch.
+description  | Last time that the check returned an OK status (`0`). In seconds since the Unix epoch.{{% notice note %}}**NOTE**: For events created with the [events API](../../api/events/), the `last_ok` value is `0`.
+{{% /notice %}}
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1656,7 +1663,8 @@ total_state_change: 0
 
 executed     |      |
 -------------|------
-description  | Time at which the check request was executed. In seconds since the Unix epoch.
+description  | Time at which the check request was executed. In seconds since the Unix epoch.{{% notice note %}}**NOTE**: For events created with the [events API](../../api/events/), the `executed` value is `0`.
+{{% /notice %}}
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}

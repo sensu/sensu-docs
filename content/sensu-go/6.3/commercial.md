@@ -15,6 +15,7 @@ If you have more than 100 entities, [contact the Sensu sales team][1] for a free
 
 ## Commercial features in Sensu Go
 
+- **Maintain high-level visibility into the current health of your business services**. Use [business service monitoring (BSM)][23] to monitor your system with a top-down approach that produces meaningful alerts, prevents alert fatigue, and helps you focus on your core business services.
 - **Protect your sensitive information** with [secrets management][22].
 Avoid exposing usernames, passwords, and access keys in your Sensu configuration by integrating with HashiCorp Vault or using Sensu's built-in environment variable secrets provider.
 - **Manage your monitoring resources across multiple data centers, cloud regions, or providers** and mirror changes to follower clusters with [federation][20].
@@ -98,3 +99,4 @@ These resources will help you get started with commercial features in Sensu Go:
 [20]: ../operations/deploy-sensu/use-federation/	
 [21]: ../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
 [22]: ../operations/manage-secrets/secrets-management/
+[23]: ../observability-pipeline/observe-schedule/business-service-monitoring/

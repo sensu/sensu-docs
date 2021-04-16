@@ -529,8 +529,8 @@ sensuctl license info
 [3]: ../../../web-ui/
 [4]: ../../../sensuctl/
 [5]: ../../../platforms/
-[6]: ../../../reference/backend#configuration
-[7]: ../../../reference/agent#configuration-via-flags
+[6]: ../../../reference/backend/#configuration-via-flags
+[7]: ../../../reference/agent/#configuration-via-flags
 [8]: ../secure-sensu/
 [9]: ../../../guides/monitor-server-resources/
 [10]: ../../../guides/send-slack-alerts/

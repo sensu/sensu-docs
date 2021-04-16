@@ -17,8 +17,7 @@ Sensuctl works by calling Sensu’s underlying API to create, read, update, and 
 ## Create resources
 
 The `sensuctl create` command allows you to create or update resources by reading from STDIN or a [flag][36] configured file (`-f`).
-The `create` command accepts Sensu resource definitions in [`yaml` or `wrapped-json` formats][4].
-Both JSON and YAML resource definitions wrap the contents of the resource in `spec` and identify the resource `type`.
+The `create` command accepts Sensu resource definitions in [`yaml` or `wrapped-json` formats][4], which wrap the contents of the resource in `spec` and identify the resource `type` and `api_version`.
 See the [list of supported resource types][3] `for sensuctl create`.
 See the [reference docs][6] for information about creating resource definitions.
 
@@ -153,13 +152,13 @@ The following table describes the command-specific flags.
 `CheckConfig` | `check_config` | `ClusterRole`  | `cluster_role`
 `ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | [`Env`][24]
 `entity` | [`EtcdReplicators`][29] | `Event` | `event`
-`EventFilter` | `event_filter` | [`GlobalConfig`][11] | `Handler` 
+`EventFilter` | `event_filter` | [`GlobalConfig`][11] | `Handler`
 `handler` | `Hook` | `hook` | `HookConfig`
 `hook_config` | `Mutator` | `mutator` | `Namespace`
 `namespace` | `Role` | `role` | `RoleBinding`
 `role_binding` | [`Secret`][28] | `Silenced` | `silenced`
-[`User`][8] | `user` | [`VaultProvider`][24] | [`ldap`][26]
-[`ad`][25] | [`oidc`][37] | [`TessenConfig`][27] | [`PostgresConfig`][32]
+[`User`][8] | `user` | [`VaultProvider`][24] | [`ldap`][26] | [`ad`][25]
+[`oidc`][37] | [`TessenConfig`][27] | [`PostgresConfig`][32]
 
 ### Create resources across namespaces
 
@@ -378,7 +377,7 @@ sensuctl check list --format wrapped-json > my-resources.json
 
 {{< /language-toggle >}}
 
-To see the definition for a check named `check-cpu` in `yaml` or `json` format:
+To see the definition for a check named `check-cpu`:
 
 {{< language-toggle >}}
 
@@ -387,7 +386,7 @@ sensuctl check info check-cpu --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info check-cpu --format json
+sensuctl check info check-cpu --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -508,32 +507,34 @@ The response will list all supported `sensuctl prune` resource types:
 {{< code shell >}}
       Fully Qualified Name           Short Name           API Version             Type          Namespaced  
  ────────────────────────────── ───────────────────── ─────────────────── ──────────────────── ──────────── 
-  authentication/v2.Provider                           authentication/v2   Provider             false
-  licensing/v2.LicenseFile                             licensing/v2        LicenseFile          false
-  store/v1.PostgresConfig                              store/v1            PostgresConfig       false
-  federation/v1.Cluster                                federation/v1       Cluster              false
-  federation/v1.EtcdReplicator                         federation/v1       EtcdReplicator       false
-  secrets/v1.Secret                                    secrets/v1          Secret               true
-  secrets/v1.Provider                                  secrets/v1          Provider             false
-  searches/v1.Search                                   searches/v1         Search               true
-  web/v1.GlobalConfig                                  web/v1              GlobalConfig         false
-  core/v2.Namespace              namespaces            core/v2             Namespace            false
-  core/v2.ClusterRole            clusterroles          core/v2             ClusterRole          false
-  core/v2.ClusterRoleBinding     clusterrolebindings   core/v2             ClusterRoleBinding   false
-  core/v2.User                   users                 core/v2             User                 false
-  core/v2.APIKey                 apikeys               core/v2             APIKey               false
-  core/v2.TessenConfig           tessen                core/v2             TessenConfig         false
-  core/v2.Asset                  assets                core/v2             Asset                true
-  core/v2.CheckConfig            checks                core/v2             CheckConfig          true
-  core/v2.Entity                 entities              core/v2             Entity               true
-  core/v2.Event                  events                core/v2             Event                true
-  core/v2.EventFilter            filters               core/v2             EventFilter          true
-  core/v2.Handler                handlers              core/v2             Handler              true
-  core/v2.HookConfig             hooks                 core/v2             HookConfig           true
-  core/v2.Mutator                mutators              core/v2             Mutator              true
-  core/v2.Role                   roles                 core/v2             Role                 true
-  core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true
-  core/v2.Silenced               silenced              core/v2             Silenced             true  
+  authentication/v2.Provider                           authentication/v2   Provider             false       
+  licensing/v2.LicenseFile                             licensing/v2        LicenseFile          false       
+  store/v1.PostgresConfig                              store/v1            PostgresConfig       false       
+  federation/v1.EtcdReplicator                         federation/v1       EtcdReplicator       false       
+  federation/v1.Cluster                                federation/v1       Cluster              false       
+  secrets/v1.Secret                                    secrets/v1          Secret               true        
+  secrets/v1.Provider                                  secrets/v1          Provider             false       
+  searches/v1.Search                                   searches/v1         Search               true        
+  web/v1.GlobalConfig                                  web/v1              GlobalConfig         false       
+  bsm/v1.RuleTemplate                                  bsm/v1              RuleTemplate         true        
+  bsm/v1.ServiceComponent                              bsm/v1              ServiceComponent     true        
+  core/v2.Namespace              namespaces            core/v2             Namespace            false       
+  core/v2.ClusterRole            clusterroles          core/v2             ClusterRole          false       
+  core/v2.ClusterRoleBinding     clusterrolebindings   core/v2             ClusterRoleBinding   false       
+  core/v2.User                   users                 core/v2             User                 false       
+  core/v2.APIKey                 apikeys               core/v2             APIKey               false       
+  core/v2.TessenConfig           tessen                core/v2             TessenConfig         false       
+  core/v2.Asset                  assets                core/v2             Asset                true        
+  core/v2.CheckConfig            checks                core/v2             CheckConfig          true        
+  core/v2.Entity                 entities              core/v2             Entity               true        
+  core/v2.Event                  events                core/v2             Event                true        
+  core/v2.EventFilter            filters               core/v2             EventFilter          true        
+  core/v2.Handler                handlers              core/v2             Handler              true        
+  core/v2.HookConfig             hooks                 core/v2             HookConfig           true        
+  core/v2.Mutator                mutators              core/v2             Mutator              true        
+  core/v2.Role                   roles                 core/v2             Role                 true        
+  core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true        
+  core/v2.Silenced               silenced              core/v2             Silenced             true        
 {{< /code >}}
 
 {{% notice note %}}
