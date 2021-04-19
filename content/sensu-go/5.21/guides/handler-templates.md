@@ -128,7 +128,7 @@ INFO[0000] asset includes builds, using builds instead of asset  asset=template-
 
 In this example, the response lists the available event attributes `.Timestamp`, `.Entity.EntityClass`, `.Entity.System`, `.Check.Command`, `.Check.Handlers`, and `.Check.HighFlapThreshold`.
 
-You can also use `sensuctl event info [ENTITY_NAME] [CHECK_NAME]` to print the correct notation and pattern: template output for a specific event (in this example, an event for entity `webserver01` and check `check-http`):
+You can also use `sensuctl event info <entity_name> <check_name>` to print the correct notation and pattern: template output for a specific event (in this example, an event for entity `webserver01` and check `check-http`):
 
 {{< code shell >}}
 sensuctl event info server01 server-health --format json | sensuctl command exec template-toolkit-command -- --dump-names
@@ -161,7 +161,7 @@ Template String Output: keepalive
 
 In this example, the command validates that for the `event.json` event, the handler template will replace `{{.Check.Name}}` with `keepalive` in template output.
 
-You can also use `sensuctl event info [ENTITY_NAME] [CHECK_NAME]` to validate template output for a specific event (in this example, an event for entity `webserver01` and check `check-http`):
+You can also use `sensuctl event info <entity_name> <check_name>` to validate template output for a specific event (in this example, an event for entity `webserver01` and check `check-http`):
 
 {{< code shell >}}
 sensuctl event info webserver01 check-http --format json | sensuctl command exec template-toolkit-command -- --template "Server: {{.Entity.Name}} Check: {{.Check.Name}} Status: {{.Check.State}}"
