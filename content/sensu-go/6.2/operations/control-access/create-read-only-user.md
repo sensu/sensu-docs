@@ -8,6 +8,8 @@ weight: 60
 version: "6.2"
 product: "Sensu Go"
 platformContent: false
+aliases:
+  - ../../../guides/create-a-ready-only-user/
 menu: 
   sensu-go-6.2:
     parent: control-access
