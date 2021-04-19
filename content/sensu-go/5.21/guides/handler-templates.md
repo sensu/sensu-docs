@@ -31,7 +31,7 @@ The playbook for managing this alert is available at https://example.com/observa
 Handler templates use dot notation syntax to access event attributes, with the event attribute wrapped in double curly braces.
 The initial dot indicates `event`.
 
-For example, in a handler template, a reference to the event attribute `.Check.occurrences` becomes `.Check.Occurrences}}`.
+For example, in a handler template, a reference to the event attribute `.Check.occurrences` becomes `{{.Check.Occurrences}}`.
 
 Use HTML to format the text and spacing in your templates.
 All text outside double curly braces is copied directly into the template output, with HTML formatting applied.
@@ -83,7 +83,28 @@ The [Sensu template toolkit command][8] is a sensuctl command plugin you can use
 
 The template toolkit command uses event data you supply via STDIN in JSON format.
 
-Visit the [template toolkit command Bonsai page][8] to install the plugin.
+Add the Sensu template toolkit command asset to Sensu:
+
+{{< code shell >}}
+sensuctl asset add sensu/template-toolkit-command:0.4.0 -r template-toolkit-command
+{{< /code >}}
+
+This example uses the `-r` (rename) flag to specify a shorter name for the asset: `template-toolkit-command`.
+
+You can also download the latest asset definition from [Bonsai][8].
+
+Run `sensuctl asset list` to confirm that the asset is ready to use:
+
+{{< code shell >}}
+            Name                                                         URL                                                Hash    
+ ────────────────────────── ───────────────────────────────────────────────────────────────────────────────────────────── ───────── 
+  template-toolkit-command   //assets.bonsai.sensu.io/.../template-toolkit-command_0.4.0_windows_amd64.tar.gz              019ccf3  
+  template-toolkit-command   //assets.bonsai.sensu.io/.../template-toolkit-command_0.4.0_darwin_amd64.tar.gz               b771813  
+  template-toolkit-command   //assets.bonsai.sensu.io/.../template-toolkit-command_0.4.0_linux_armv7.tar.gz                4e7ad65  
+  template-toolkit-command   //assets.bonsai.sensu.io/.../template-toolkit-command_0.4.0_linux_arm64.tar.gz                02eca1f  
+  template-toolkit-command   //assets.bonsai.sensu.io/.../template-toolkit-command_0.4.0_linux_386.tar.gz                  56ed603  
+  template-toolkit-command   //assets.bonsai.sensu.io/.../template-toolkit-command_0.4.0_linux_amd64.tar.gz                7dbd2c6  
+{{< /code >}}
 
 ### Print available event attributes
 
@@ -110,7 +131,7 @@ In this example, the response lists the available event attributes `.Timestamp`,
 You can also use `sensuctl event info [ENTITY_NAME] [CHECK_NAME]` to print the correct notation and pattern: template output for a specific event (in this example, an event for entity `webserver01` and check `check-http`):
 
 {{< code shell >}}
-sensuctl event info server01 server-health --format json | sensuctl command exec template-toolkit -- --dump-names
+sensuctl event info server01 server-health --format json | sensuctl command exec template-toolkit-command -- --dump-names
 INFO[0000] asset includes builds, using builds instead of asset  asset=template-toolkit-command component=asset-manager entity=sensuctl
 .Event{
     .Timestamp: 1580310179,
