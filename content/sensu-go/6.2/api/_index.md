@@ -28,14 +28,14 @@ Use the Sensu APIs to customize your workflows and integrate your favorite Sensu
 
 ## URL format
 
-Sensu API endpoints use the standard URL format `/api/{group}/{version}/namespaces/{namespace}` where:
+Sensu API endpoints use the standard URL format `/api/<group>/<version>/namespaces/<namespace>` where:
 
-- `{group}` is the API group: `core`.
-- `{version}` is the API version: `v2`.
-- `{namespace}` is the namespace name.
+- `<group>` is the API group: `core`.
+- `<version>` is the API version: `v2`.
+- `<namespace>` is the namespace name.
 The examples in these API docs use the `default` namespace.
 The Sensu API requires the authenticated user to have the correct access permissions for the namespace specified in the URL.
-If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/{namespace}` portion of the URL to access Sensu resources across namespaces.
+If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/<namespace>` portion of the URL to access Sensu resources across namespaces.
 See the [RBAC reference][3] for more information about configuring Sensu users and access controls.
 
 {{% notice note %}}
