@@ -174,18 +174,18 @@ spec:
 You can copy these resource definitions and paste them into manually created configuration files located anywhere on your system.
 
 Alternatively, you can view resource definitions and copy them into a new or existing configuration file with a single sensuctl command.
-To use the following examples, replace `RESOURCE` with the resource type (like `check`) and replace `RESOURCE_NAME` with the name of the resource (like `check-cpu`).
+To use the following examples, replace `<resource>` with the resource type (like `check`) and replace `<resource_name>` with the name of the resource (like `check-cpu`).
 
 - Copy the resource defintion to a new file (or overwrite an existing file with the same name):
 
   {{< language-toggle >}}
 
 {{< code shell "YML" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format yaml > resource.yml
+sensuctl <resource> info <resource_name> --format yaml > resource.yml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json > resource.json
+sensuctl <resource> info <resource_name> --format wrapped-json > resource.json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -195,11 +195,10 @@ sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json > resource.json
   {{< language-toggle >}}
 
 {{< code shell "YML" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format yaml | tee resource.yml
+sensuctl <resource> info <resource_name> --format yaml | tee resource.yml
 {{< /code >}}
-
 {{< code shell "JSON" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json | tee resource.json
+sensuctl <resource> info <resource_name> --format wrapped-json | tee resource.json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -209,11 +208,11 @@ sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json | tee resource.json
   {{< language-toggle >}}
 
 {{< code shell "YML" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format yaml >> resource.yml
+sensuctl <resource> info <resource_name> --format yaml >> resource.yml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json >> resource.json
+sensuctl <resource> info <resource_name> --format wrapped-json >> resource.json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -223,11 +222,11 @@ sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json >> resource.json
   {{< language-toggle >}}
 
 {{< code shell "YML" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format yaml | tee -a resource.yml
+sensuctl <resource> info <resource_name> --format yaml | tee -a resource.yml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json | tee -a resource.json
+sensuctl <resource> info <resource_name> --format wrapped-json | tee -a resource.json
 {{< /code >}}
 
 {{< /language-toggle >}}

@@ -61,13 +61,13 @@ To filter resources based on [label selectors][6] or [field selectors][2], you'l
 The filter statement construction is slightly different for different [operators][9], but the standard web UI filtering syntax is:
 
 {{< code text >}}
-SELECTOR:FILTER_STATEMENT
+<selector>:<filter_statement>
 {{< /code >}}
 
 To write a web UI filter command:
 
-- Replace `SELECTOR` with the selector you want to use: `labelSelector` or `fieldSelector`.
-- Replace `FILTER_STATEMENT` with the filter to apply.
+- Replace `<selector>` with the selector you want to use: `labelSelector` or `fieldSelector`.
+- Replace `<filter_statement>` with the filter to apply.
 
 The [examples][10] demonstrate how to construct web UI filter statements for different operators and specific purposes.
 

@@ -224,7 +224,7 @@ Do not expose this sensitive information by listing it directly in the handler d
 The [Sensu Go EC2 Handler's Bonsai page](https://bonsai.sensu.io/assets/sensu/sensu-ec2-handler#environment-variables) includes an example for configuring secrets definitions with Sensu's built-in [`env` secrets provider](../../manage-secrets/secrets-providers/#env-secrets-provider-example).
 {{% /notice %}}
 
-In the following code, replace the placeholders for these attributes with valid values:
+In the following code, replace the bracketed placeholders for these attributes with valid values:
 
 - `aws-region`: the AWS region where your EC2 instance is located.
 - `aws-instance-id-label`: the Sensu entity label that contains the AWS instance ID.
@@ -255,10 +255,10 @@ spec:
     - not_silenced
   command: >-
     sensu-ec2-handler
-    --aws-region region
-    --aws-instance-id-label aws-instance-id
+    --aws-region <region>
+    --aws-instance-id-label <aws-instance-id>
     --aws-allowed-instance-states pending,running
-    --sensu-api-url http://localhost:8080
+    --sensu-api-url <http://localhost:8080>
   secrets:
     - name: AWS_ACCESS_KEY_ID
       secret: aws_access_key_id

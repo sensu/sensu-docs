@@ -593,7 +593,7 @@ sensuctl role help
 To edit a role:
 
 {{< code shell >}}
-sensuctl edit role [ROLE-NAME] [flags]
+sensuctl edit role [ROLE-NAME] <flags>
 {{< /code >}}
 
 ### View roles and cluster roles

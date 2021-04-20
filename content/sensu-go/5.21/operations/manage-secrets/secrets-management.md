@@ -151,7 +151,7 @@ Because you aren't using TLS, you will need to set `VAULT_ADDR=http://127.0.0.1:
 {{% /notice %}}
 
 Use `sensuctl create` to create your secrets provider, `vault`.
-In the code below, replace `ROOT_TOKEN` with the `Root Token` value for your Vault dev server.
+In the code below, replace `<root_token>` with the `Root Token` value for your Vault dev server.
 Then, run:
 
 {{< code shell >}}
@@ -164,7 +164,7 @@ metadata:
 spec:
   client:
     address: http://localhost:8200
-    token: ROOT_TOKEN
+    token: <root_token>
     version: v2
     tls: null
     max_retries: 2
@@ -228,8 +228,8 @@ Next, [create your Vault secret][29].
 
 First, retrieve your [PagerDuty Integration Key][30] (the secret you will set up in Vault).
 
-Next, open a new terminal and run `vault kv put secret/pagerduty key=INTEGRATION_KEY`.
-Replace `INTEGRATION_KEY` with your PagerDuty Integration Key.
+Next, open a new terminal and run `vault kv put secret/pagerduty key=<integration_key>`.
+Replace `<integration_key>` with your PagerDuty Integration Key.
 This writes your secret into Vault.
 
 In this example, the name of the secret is `pagerduty`.

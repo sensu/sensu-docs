@@ -547,17 +547,17 @@ The following table describes the command-specific flags.
 ##### sensuctl prune usage
 
 {{< code shell >}}
-sensuctl prune [RESOURCE TYPE],[RESOURCE TYPE]... -f [FILE or URL] [-r] ... ] [--NAMESPACE] [flags]
+sensuctl prune <resource_type>,<resource_type>... -f <file_or_url> [-r] ... ] --<namespace> <flags>
 {{< /code >}}
 
 In this example `sensuctl prune` command:
 
-- Replace [RESOURCE TYPE] with the [fully qualified name or short name][10] of the resource you want to prune.
+- Replace `<resource_type>` with the [fully qualified name or short name][10] of the resource you want to prune.
 You must specify at least one resource type or the `all` qualifier (to prune all resource types).
-- Replace [FILE or URL] with the name of the file or the URL that contains the set of Sensu objects you want to keep (the configuration).
-- Replace [flags] with the flags you want to use, if any.
-- Replace [--NAMESPACE] with the namespace where you want to apply pruning.
-If you omit the namespace qualifier, the command defaults to the current configured namespace.
+- Replace `<file_or_url>` with the name of the file or the URL that contains the set of Sensu objects you want to keep (the configuration).
+- Replace `<namespace>` with the namespace where you want to apply pruning.
+  If you omit the namespace qualifier, the command defaults to the current configured namespace.
+- Replace `<flags>` with the flags you want to use, if any.
 
 Use a comma separator to prune more than one resource in a single command.
 For example, to prune checks and dynamic runtime assets from the file `checks.yaml` or `checks.json` for the `dev` namespace and the `admin` and `ops` users:

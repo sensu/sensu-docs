@@ -303,7 +303,7 @@ The response will list command information and configuration flags for sensu-bac
 start the sensu backend
 
 Usage:
-  sensu-backend start [flags]
+  sensu-backend start <flags>
 
 General Flags:
       --agent-auth-cert-file string         TLS certificate in PEM format for agent certificate authentication
