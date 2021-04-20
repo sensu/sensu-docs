@@ -190,7 +190,8 @@ http://localhost:8080/api/core/v2/namespaces/default/events
 As configured, the event status is `0` (OK).
 Now it's time to trigger an event and see the results!
 
-To generate a status change event, use the update event endpoint to create a `1` (warning) event. Run:
+To generate a status change event, use the update event endpoint to create a `1` (warning) event.
+Run:
 
 {{< code shell >}}
 curl -sS -X PUT \

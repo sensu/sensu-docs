@@ -23,7 +23,7 @@ A service component includes event selectors to define the events that the compo
 The monitoring rules are evaluated against aggregate data derived from the service component's selection of events.
 Monitoring rules are configured in a separate resource: [rule templates][8].
 
-If you delete a resource (e.g. an entity, check, or event) that is part of one or more service components, Sensu will automatically remove the deleted resource from the service components.
+If you delete a resource (for example, an entity, check, or event) that is part of one or more service components, Sensu will automatically remove the deleted resource from the service components.
 
 ## Service component example
 
@@ -284,7 +284,7 @@ created_by: admin
 cron         | 
 -------------|------
 description  | When the service component should be executed, using [cron syntax][1] or [these predefined schedules][2]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][3] for the cron attribute. {{% notice note %}}
-**NOTE**: If you're using YAML to create a service component that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`).
+**NOTE**: If you're using YAML to create a service component that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (for example, `cron: '* * * * *'`).
 {{% /notice %}}
 required     | true (unless `interval` is configured)
 type         | String

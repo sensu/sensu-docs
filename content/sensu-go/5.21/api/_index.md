@@ -494,7 +494,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'fieldSelector=entity.name matches "webserver-"'
 {{< /code >}}
 
-Similarly, if you have entities labeled for different regions, you can use `matches` to find the entities that are labeled for the US (e.g. `us-east-1`, `us-west-1`, and so on):
+Similarly, if you have entities labeled for different regions, you can use `matches` to find the entities that are labeled for the US (for example, `us-east-1`, `us-west-1`, and so on):
 
 {{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \

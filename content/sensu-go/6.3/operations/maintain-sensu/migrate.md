@@ -48,7 +48,8 @@ We also offer [**commercial support** and **professional services** packages][49
 
 ## Packaging
 
-Sensu Go is provided as three packages: sensu-go-backend, sensu-go-agent, and sensu-go-cli (sensuctl). This is a fundamental change in Sensu terminology from Sensu Core: the server is now the backend.
+Sensu Go is provided as three packages: sensu-go-backend, sensu-go-agent, and sensu-go-cli (sensuctl).
+This is a fundamental change in Sensu terminology from Sensu Core: the server is now the backend.
 
 Clients are represented within Sensu Go as abstract entities that can describe a wider range of system components such as network gear, a web server, or a cloud resource.
 Entities include agent entities that run a Sensu agent and the familiar proxy entities.
@@ -217,7 +218,8 @@ socket-port: 4030
 
 You can also disable these features in the agent configuration using the `disable-socket` and `disable-api` flags.
 
-Sensu should now be installed and functional. The next step is to translate your Sensu Core configuration to Sensu Go.
+Sensu should now be installed and functional.
+The next step is to translate your Sensu Core configuration to Sensu Go.
 
 ### Step 2: Translate your configuration
 
@@ -327,7 +329,9 @@ See the [check reference][58] for more information about using labels and annota
 Ruby eval logic used in Sensu Core filters is replaced with JavaScript expressions in Sensu Go, opening up powerful possibilities to combine filters with [filter dynamic runtime assets][59].
 As a result, you'll need to rewrite your Sensu Core filters in Sensu Go format.
 
-First, review your Core handlers to identify which filters are being used. Then, follow the [filter reference][9] and [guide to using filters][60] to re-write your filters using Sensu Go expressions and [event data][61]. Check out the [blog post on filters][62] for a deep dive into Sensu Go filter capabilities.
+First, review your Core handlers to identify which filters are being used.
+Then, follow the [filter reference][9] and [guide to using filters][60] to re-write your filters using Sensu Go expressions and [event data][61].
+Check out the [blog post on filters][62] for a deep dive into Sensu Go filter capabilities.
 
 Sensu Core hourly filter:
 
@@ -388,7 +392,8 @@ In Sensu Go, all check results are considered events and are processed by event 
 Use the built-in [`is_incident` filter][63] to recreate the Sensu Core behavior, in which only check results with a non-zero status are considered events.
 
 {{% notice note %}}
-**NOTE**: Silencing is disabled by default in Sensu Go and must be explicitly enabled using the built-in [`not_silenced` filter](../../../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced). Add the `not_silenced` filter to any handlers for which you want to enable Sensu's silencing feature.
+**NOTE**: Silencing is disabled by default in Sensu Go and must be explicitly enabled using the built-in [`not_silenced` filter](../../../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced).
+Add the `not_silenced` filter to any handlers for which you want to enable Sensu's silencing feature.
 {{% /notice %}}
 
 Review your Sensu Core check configuration for the following attributes, and make the corresponding updates to your Sensu Go configuration.

@@ -148,7 +148,7 @@ To display only checks with the `type` label set to `server`, enter this search 
 check.labels.type == "server"
 {{< /code >}}
 
-To search for entities that are labeled for any region in the US (e.g. `us-east-1`, `us-west-1`, and so on):
+To search for entities that are labeled for any region in the US (for example, `us-east-1`, `us-west-1`, and so on):
 
 {{< code shell >}}
 entity.labels.region matches "us"

@@ -102,7 +102,8 @@ Although Sensu agents attempt to execute any command defined for a check, succes
     - Exit status codes other than `0`, `1`, and `2` indicate an UNKNOWN or custom status
 
 {{% notice protip %}}
-**PRO TIP**: If you're familiar with the **Nagios** monitoring system, you may recognize this specification &mdash; it is the same one that Nagios plugins use. As a result, you can use Nagios plugins with Sensu without any modification.
+**PRO TIP**: If you're familiar with the **Nagios** monitoring system, you may recognize this specification &mdash; it is the same one that Nagios plugins use.
+As a result, you can use Nagios plugins with Sensu without any modification.
 {{% /notice %}}
 
 At every execution of a check command, regardless of success or failure, the Sensu agent publishes the check’s result for eventual handling by the **event processor** (the Sensu backend).
@@ -115,7 +116,7 @@ The Sensu backend schedules checks and publishes check execution requests to ent
 
 Checks have a defined set of subscriptions: transport topics to which the Sensu backend publishes check requests.
 Sensu entities become subscribers to these topics (called subscriptions) via their individual `subscriptions` attribute. 
-Subscriptions typically correspond to a specific role or responsibility (for example. a webserver or database).
+Subscriptions typically correspond to a specific role or responsibility (for example, a webserver or database).
 
 Subscriptions are powerful primitives in the monitoring context because they allow you to effectively monitor for specific behaviors or characteristics that correspond to the function provided by a particular system.
 For example, disk capacity thresholds might be more important (or at least different) on a database server than on a webserver.
@@ -216,7 +217,7 @@ Examples of valid cron values include:
 - `cron: '* * * * *'`
 
 {{% notice note %}}
-**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`).
+**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (for example, `cron: '* * * * *'`).
 {{% /notice %}}
 
 **Example cron checks**
@@ -522,7 +523,8 @@ Learn how to use check tokens with the [Sensu tokens reference documentation][5]
 
 ## Check hooks
 
-Check hooks are commands run by the Sensu agent in response to the result of check command execution. The Sensu agent will execute the appropriate configured hook command, depending on the check execution status (e.g. `0`, `1`, or `2`).
+Check hooks are commands run by the Sensu agent in response to the result of check command execution.
+The Sensu agent will execute the appropriate configured hook command, depending on the check execution status (for example, `0`, `1`, or `2`).
 
 Learn how to use check hooks with the [Sensu hooks reference documentation][6].
 
@@ -806,7 +808,7 @@ interval: 60
 |cron        |      |
 -------------|------
 description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute. {{% notice note %}}
-**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`).
+**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (for example, `cron: '* * * * *'`).
 {{% /notice %}}
 required     | true (unless `interval` is configured)
 type         | String
@@ -987,7 +989,7 @@ check_hooks:
 
 |proxy_entity_name|   |
 -------------|------
-description  | Entity name. Used to create a [proxy entity][20] for an external resource (e.g. a network switch).
+description  | Entity name. Used to create a [proxy entity][20] for an external resource (for example, a network switch).
 required     | false
 type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)

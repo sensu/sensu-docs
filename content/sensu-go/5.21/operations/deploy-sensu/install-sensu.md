@@ -44,7 +44,7 @@ The agents execute the checks the backend sends to their subscriptions and send 
 
 The Sensu backend keeps track of all self-registered agents.
 If the backend loses a keepalive signal from any of the agents, it flags the agent and generates an event.
-You can configure your instance so that when an agent (e.g. a server) shuts down gracefully, the agent automatically de-registers from the backend and does not generate an alert.
+You can configure your instance so that when an agent (for example, a server) shuts down gracefully, the agent automatically de-registers from the backend and does not generate an alert.
 
 Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and several exposed ports.
 Agents that use Sensu [assets][17] require some disk space for a local cache.

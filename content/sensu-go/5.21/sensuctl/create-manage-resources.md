@@ -158,9 +158,11 @@ To learn more about namespaces and namespaced resource types, see the [RBAC refe
 
 The `sensuctl create` command applies namespaces to resources in the following order, from highest precedence to lowest:
 
-1. **Namespaces specified within resource definitions**: You can specify a resource's namespace within individual resource definitions using the `namespace` attribute. Namespaces specified in resource definitions take precedence over all other methods.
+1. **Namespaces specified within resource definitions**: You can specify a resource's namespace within individual resource definitions using the `namespace` attribute.
+Namespaces specified in resource definitions take precedence over all other methods.
 2. **`--namespace` flag**: If resource definitions do not specify a namespace, Sensu applies the namespace provided by the `sensuctl create --namespace` flag.
-3. **Current sensuctl namespace configuration**: If you do not specify an embedded `namespace` attribute or use the `--namespace` flag, Sensu applies the namespace configured in the current sensuctl session. See [Manage sensuctl][31] to view your current session config and set the session namespace.
+3. **Current sensuctl namespace configuration**: If you do not specify an embedded `namespace` attribute or use the `--namespace` flag, Sensu applies the namespace configured in the current sensuctl session.
+See [Manage sensuctl][31] to view your current session config and set the session namespace.
 
 In this example, the file `pagerduty.yml` defines a handler _without_ a `namespace` attribute:
 

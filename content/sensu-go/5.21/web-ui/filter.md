@@ -129,7 +129,7 @@ To filter resources using custom labels (in this example, to display only resour
 labelSelector:type == server
 {{< /code >}}
 
-To filter for entities that are labeled for any region in the US (e.g. `us-east-1`, `us-west-1`, and so on):
+To filter for entities that are labeled for any region in the US (for example, `us-east-1`, `us-west-1`, and so on):
 
 {{< code shell >}}
 labelSelector:region matches "us"

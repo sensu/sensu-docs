@@ -32,7 +32,7 @@ There are two types of Sensu entities: agent entities and proxy entities.
 Agent entities are monitoring agents that are installed and run on every system that needs to be observed or monitored.
 The agent entity registers the system with the Sensu backend service, sends keepalive messages (the Sensu heartbeat mechanism), and executes observability checks.
 
-Each entity is a member of one or more `subscriptions`: a list of roles and responsibilities assigned to the agent entity (e.g. a webserver or a database).
+Each entity is a member of one or more `subscriptions`: a list of roles and responsibilities assigned to the agent entity (for example, a webserver or a database).
 Sensu entities "subscribe" to (or watch for) check requests published by the Sensu backend (via the Sensu transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu backend).
 
 This example shows an agent entity resource definition:
@@ -226,7 +226,8 @@ If your Sensu instance includes more than 100 entities, [contact us][3] to learn
 
 Commercial licenses may include an entity limit and entity class limits:
 
-- Entity limit: the maximum number of entities of all classes your license includes. Agent, proxy, and service entities count toward the overall entity limit.
+- Entity limit: the maximum number of entities of all classes your license includes.
+Agent, proxy, and service entities count toward the overall entity limit.
 - Entity class limits: the maximum number of a specific class of entities (agent, proxy, or service) that your license includes.
 
 For example, if your license has an entity limit of 10,000 and an agent entity class limit of 3,000, you cannot run more than 10,000 entities (agent and proxy) total.

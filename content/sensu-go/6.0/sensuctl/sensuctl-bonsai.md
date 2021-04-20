@@ -105,7 +105,7 @@ To install a command from the [Sensu EC2 Discovery Plugin][3] with no flags:
 sensuctl command install sensu-ec2-discovery portertech/sensu-ec2-discovery:0.3.0
 {{< /code >}}
 
-**To install a command from a URL**, replace `<archive_url>` with a command URL that points to a tarball (e.g. https://path/to/asset.tar.gz).
+**To install a command from a URL**, replace `<archive_url>` with a command URL that points to a tarball (for example, https://path/to/asset.tar.gz).
 Replace `<archive_checksum>` with the checksum you want to use.
 Replace `<alias>` with a unique name for the command.
 

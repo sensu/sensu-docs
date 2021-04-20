@@ -15,9 +15,12 @@ menu:
 Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance.
 RBAC allows you to specify actions users are allowed to take against resources, within [namespaces][12] or across all namespaces, based on roles bound to the user or to one or more groups the user is a member of.
 
-- **Roles** create sets of permissions (e.g. get and delete) tied to resource types. **Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
-- **Users** represent a person or agent that interacts with Sensu. Users can belong to one or more **groups**.
-- **Role bindings** assign a role to a set of users and groups within a namespace. **Cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
+- **Roles** create sets of permissions (for example, get and delete) tied to resource types.
+**Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
+- **Users** represent a person or agent that interacts with Sensu.
+Users can belong to one or more **groups**.
+- **Role bindings** assign a role to a set of users and groups within a namespace.
+**Cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
 
 RBAC configuration applies to [sensuctl][2], the [API][19], and the [web UI][3].
 
@@ -63,7 +66,7 @@ You can access cluster-wide resources only by cluster roles.
 | `namespaces` | Resource partitions within a Sensu instance |
 | `provider` | [PostgreSQL event store][47] provider |
 | `providers` | [Secrets providers][46] |
-| `secrets` |[Secrets][48] (e.g. username or password) |
+| `secrets` |[Secrets][48] (for example, username or password) |
 | `users` | People or agents that interact with Sensu |
 
 ### Special resource types

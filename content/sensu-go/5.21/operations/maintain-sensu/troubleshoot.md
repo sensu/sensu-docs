@@ -62,7 +62,7 @@ For example, logs are sent to the journald when systemd is the service manager, 
 If you are running systemd as your service manager and would rather have logs written to `/var/log/sensu/`, see [forwarding logs from journald to syslog][11].
 
 The following table lists the common targets for logging and example commands for following those logs.
-You may substitute the name of the desired service (e.g. `backend` or `agent`) for the `<service>` variable.
+You may substitute the name of the desired service (for example, `backend` or `agent`) for the `<service>` variable.
 
 | Platform     | Version           | Target | Command to follow log |
 |--------------|-------------------|--------------|-----------------------------------------------|

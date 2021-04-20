@@ -22,7 +22,9 @@ Federation affords visibility into the health of your infrastructure and service
 - **Use mutual transport layer security (mTLS) authentication** to [provide two-way verification of your Sensu agents and backend connections][21].
 - **Manage resources from your browser**: Create, edit, and delete checks, handlers, mutators, and event filters using the Sensu [web UI][8], and access the Sensu web UI homepage.
 - **Control permissions with Sensu role-based access control (RBAC)**, with the option of using [Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC)][9] for authentication.
-- **Use powerful filtering capabilities** designed for large installations. With label and field selectors, you can filter [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wider range of resource attributes. Build event filter expressions with [JavaScript execution functions][19].
+- **Use powerful filtering capabilities** designed for large installations.
+With label and field selectors, you can filter [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wider range of resource attributes.
+Build event filter expressions with [JavaScript execution functions][19].
 - **Log observation data** [to a file][10] you can use as an input to your favorite data lake solution.
 - **Connect your observability pipelines to industry-standard tools** like ServiceNow and Jira with [enterprise-tier dynamic runtime assets][11].
 - **Achieve enterprise-scale event handling** for your Sensu instance with a [PostgreSQL event store][12].

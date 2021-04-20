@@ -91,7 +91,8 @@ Read [Run a Sensu cluster][7] for more information.
 
 Clustering requires an odd number of backend instances.
 Although larger clusters provide better fault tolerance, write performance suffers because data must be replicated across more machines.
-The etcd maintainers recommend clusters of 3, 5, or 7 backends. See the [etcd documentation][4] for more information.
+The etcd maintainers recommend clusters of 3, 5, or 7 backends.
+See the [etcd documentation][4] for more information.
 
 ### Clustered deployment for multiple availability zones
 

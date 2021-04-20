@@ -290,8 +290,10 @@ The monitoring as code approach is flexible &mdash; you can use any source contr
 - To maintain consistency, save all of your resources as only one file type: YAML or JSON.
 - Include all dependencies within a resource definition.
 For example, if a handler requires a dynamic runtime asset and a secret, include the asset and secret definitions with the definition for the handler itself.
-- Choose the labels you use in your resource definitions with care. CI/CD systems like [SensuFlow][5] rely on labels to determine which resources to delete, so if all of your resources have the same labels, you could delete resources you didn't intend to be managed in a particular CI/CD workflow.
-- Establish a resource-labeling schema throughout your organization to facilitate CI/CD. Following the same method for applying labels helps keep unmanaged Sensu resources from multiplying and allows different teams to confidently deploy their own CI/CD workflows without the risk of accidentally deleting another team's resources.
+- Choose the labels you use in your resource definitions with care.
+CI/CD systems like [SensuFlow][5] rely on labels to determine which resources to delete, so if all of your resources have the same labels, you could delete resources you didn't intend to be managed in a particular CI/CD workflow.
+- Establish a resource-labeling schema throughout your organization to facilitate CI/CD.
+Following the same method for applying labels helps keep unmanaged Sensu resources from multiplying and allows different teams to confidently deploy their own CI/CD workflows without the risk of accidentally deleting another team's resources.
 
 ## Implement CI/CD with monitoring as code
 

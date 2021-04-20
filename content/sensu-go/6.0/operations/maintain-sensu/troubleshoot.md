@@ -67,7 +67,7 @@ For example, logs are sent to the journald when systemd is the service manager, 
 If you are running systemd as your service manager and would rather have logs written to `/var/log/sensu/`, see [forwarding logs from journald to syslog][11].
 
 For journald targets, use these commands to follow the logs.
-Replace the `<service>` variable with the name of the desired service (e.g. `backend` or `agent`).
+Replace the `<service>` variable with the name of the desired service (for example, `backend` or `agent`).
 
 {{< language-toggle >}}
 
@@ -86,7 +86,7 @@ journalctl --follow --unit sensu-<service>
 {{< /language-toggle >}}
 
 For log file targets, use these commands to follow the logs.
-Replace the `<service>` variable with the name of the desired service (e.g. `backend` or `agent`).
+Replace the `<service>` variable with the name of the desired service (for example, `backend` or `agent`).
 
 {{< language-toggle >}}
 
