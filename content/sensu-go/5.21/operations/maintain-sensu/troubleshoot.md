@@ -62,16 +62,16 @@ For example, logs are sent to the journald when systemd is the service manager, 
 If you are running systemd as your service manager and would rather have logs written to `/var/log/sensu/`, see [forwarding logs from journald to syslog][11].
 
 The following table lists the common targets for logging and example commands for following those logs.
-You may substitute the name of the desired service (e.g. `backend` or `agent`) for the `${service}` variable.
+You may substitute the name of the desired service (for example, `backend` or `agent`) for the `<service>` variable.
 
 | Platform     | Version           | Target | Command to follow log |
 |--------------|-------------------|--------------|-----------------------------------------------|
-| RHEL/Centos  | >= 7       | journald     | {{< code shell >}}journalctl --follow --unit sensu-${service}{{< /code >}}   |
-| RHEL/Centos  | <= 6       | log file     | {{< code shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /code >}} |
-| Ubuntu       | >= 15.04   | journald     | {{< code shell >}}journalctl --follow --unit sensu-${service}{{< /code >}}   |
-| Ubuntu       | <= 14.10   | log file     | {{< code shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /code >}} |
-| Debian       | >= 8       | journald     | {{< code shell >}}journalctl --follow --unit sensu-${service}{{< /code >}}   |
-| Debian       | <= 7       | log file     | {{< code shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /code >}} |
+| RHEL/Centos  | >= 7       | journald     | {{< code shell >}}journalctl --follow --unit sensu-<service>{{< /code >}}   |
+| RHEL/Centos  | <= 6       | log file     | {{< code shell >}}tail --follow /var/log/sensu/sensu-<service>{{< /code >}} |
+| Ubuntu       | >= 15.04   | journald     | {{< code shell >}}journalctl --follow --unit sensu-<service>{{< /code >}}   |
+| Ubuntu       | <= 14.10   | log file     | {{< code shell >}}tail --follow /var/log/sensu/sensu-<service>{{< /code >}} |
+| Debian       | >= 8       | journald     | {{< code shell >}}journalctl --follow --unit sensu-<service>{{< /code >}}   |
+| Debian       | <= 7       | log file     | {{< code shell >}}tail --follow /var/log/sensu/sensu-<service>{{< /code >}} |
 
 {{% notice note %}}
 **NOTE**: Platform versions are listed for reference only and do not supersede the documented [supported platforms](../../../platforms).
@@ -278,19 +278,19 @@ Note the hash for your build of the handler asset and compare it with the SHAs l
 {{% /notice %}}
 
 4. Navigate to the `bin` directory for the handler asset SHA.
-Before you run the command below, replace `HANDLER_ASSET_SHA` with the SHA you identified in the previous step.
+Before you run the command below, replace `<handler_asset_sha>` with the SHA you identified in the previous step.
 {{< code shell >}}
-cd HANDLER_ASSET_SHA/bin
+cd <handler_asset_sha>/bin
 {{< /code >}}
 
 5. Run the command to manually execute the handler.
 Before you run the command below, replace the following text:
-   - `ENTITY_NAME`: Replace with the entity name for the event you are using to troubleshoot.
-   - `CHECK_NAME`: Replace with the check name for the event you are using to troubleshoot.
-   - `HANDLER_COMMAND`: Replace with the `command` value for the handler you are troubleshooting.
+   - `<entity_name>`: Replace with the entity name for the event you are using to troubleshoot.
+   - `<check_name>`: Replace with the check name for the event you are using to troubleshoot.
+   - `<handler_command>`: Replace with the `command` value for the handler you are troubleshooting.
 
    {{< code shell >}}
-sensuctl event info ENTITY_NAME CHECK_NAME --format json | ./HANDLER_COMMAND
+sensuctl event info <entity_name> <check_name> --format json | ./<handler_command>
 {{< /code >}}
 
 If your handler is working properly, you will receive an alert for the event via the handler.
@@ -298,7 +298,7 @@ The response for your manual execution command will also include a message to co
 In this case, your Sensu pipeline is not causing the problem with missing events.
 
 If you do not receive an alert for the event, the handler is not working properly.
-In this case, the manual execution response will include the message `Error executing HANDLER_ASSET_NAME:` followed by a description of the specific error to help you correct the problem.
+In this case, the manual execution response will include the message `Error executing <handler_asset_name>:` followed by a description of the specific error to help you correct the problem.
 
 ## Assets
 

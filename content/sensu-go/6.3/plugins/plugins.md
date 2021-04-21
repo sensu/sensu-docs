@@ -16,7 +16,7 @@ Sensu plugins provide executable scripts or other programs that you can use as S
 Sensu plugins must comply with the following specification:
 
 - Accept input/data via `STDIN` (handler and mutator plugins only)
-  - Optionally able to parse a JSON data payload (i.e. observation data in an event)
+  - Optionally able to parse a JSON data payload (that is, observation data in an event)
 - Output data to `STDOUT` or `STDERR`
 - Produce an exit status code to indicate state:
   - `0` indicates `OK`
@@ -36,11 +36,11 @@ For example, to use a Ruby plugin with Sensu Go, you must install the [Sensu Go 
 ## Plugin execution
 
 All plugins are executed by the Sensu backend.
-Plugins must be executable files that are discoverable on the Sensu system (i.e. installed in a system `$PATH` directory) or referenced with an absolute path (e.g. `/opt/path/to/my/plugin`).
+Plugins must be executable files that are discoverable on the Sensu system (that is, installed in a system `$PATH` directory) or referenced with an absolute path (for example, `/opt/path/to/my/plugin`).
 
 {{% notice note %}}
 **NOTE**: By default, Sensu installer packages will modify the system `$PATH` for the Sensu processes to include `/etc/sensu/plugins`.
-As a result, executable scripts (e.g. plugins) located in `/etc/sensu/plugins` will be valid commands.
+As a result, executable scripts (for example, plugins) located in `/etc/sensu/plugins` will be valid commands.
 This allows command attributes to use relative paths for Sensu plugin commands, such as `"command": "check-http.rb -u https://sensuapp.org"`.
 {{% /notice %}}
 

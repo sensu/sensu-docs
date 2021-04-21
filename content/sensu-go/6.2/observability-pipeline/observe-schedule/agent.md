@@ -795,7 +795,8 @@ For example, you can use registration event handlers to update external [configu
 The handlers reference includes an [example registration event handler][41].
 
 {{% notice warning %}}
-**WARNING**: Registration events are not stored in the event registry, so they are not accessible via the Sensu API. However, all registration events are logged in the [Sensu backend log](../backend/#event-logging).
+**WARNING**: Registration events are not stored in the event registry, so they are not accessible via the Sensu API.
+However, all registration events are logged in the [Sensu backend log](../backend/#event-logging).
 {{% /notice %}}
 
 #### Deregistration events
@@ -807,7 +808,8 @@ You can specify a deregistration handler per agent using the [`deregistration-ha
 
 ### Cluster
 
-Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16]. For more information about clustering, see [Backend datastore configuration flags][35] and [Run a Sensu cluster][36].
+Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16].
+For more information about clustering, see [Backend datastore configuration flags][35] and [Run a Sensu cluster][36].
 
 ### Synchronize time
 
@@ -1094,7 +1096,8 @@ disable-assets: true{{< /code >}}
 
 | discover-processes |      |
 --------------|------
-description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].{{% notice important %}}
+description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][55].{{% notice important %}}
 **IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
 As of 5.20.2, the `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.

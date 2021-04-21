@@ -20,7 +20,8 @@ By default, the web UI displays the `default` namespace.
 
 To switch namespaces, select the menu icon in the upper-left corner and choose a namespace from the dropdown.
 
-**COMMERCIAL FEATURE**: In the packaged Sensu Go distribution, the namespace switcher will list only the namespaces to which the current user has access. For more information, see [Get started with commercial features][1].
+**COMMERCIAL FEATURE**: In the packaged Sensu Go distribution, the namespace switcher will list only the namespaces to which the current user has access.
+For more information, see [Get started with commercial features][1].
 
 <div style="text-align:center">
 <img src="/images/namespace-switcher-1.png" alt="Sensu web UI namespace switcher" width="750">
@@ -47,7 +48,8 @@ After you create a silence, it will be listed in the web UI Silences page until 
 
 ## Manage checks, handlers, event filters, and mutators
 
-**COMMERCIAL FEATURE**: Access check, handler, event filter, and mutator management in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][1].
+**COMMERCIAL FEATURE**: Access check, handler, event filter, and mutator management in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][1].
 
 Create, edit, and delete Sensu checks, handlers, event filters, and mutators from their respective pages in the web UI.
 

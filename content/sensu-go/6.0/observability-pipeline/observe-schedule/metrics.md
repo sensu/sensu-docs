@@ -460,11 +460,11 @@ If the check output is formatted correctly according to its `output_metric_forma
 To confirm that your check is extracting metrics, inspect the events the check yields:
 
 {{% notice note %}}
-**NOTE**: Replace `entity_name` and `check_name` with the names of the entity and check whose events you want to review.
+**NOTE**: Replace `<entity_name>` and `<check_name>` with the names of the entity and check whose events you want to review.
 {{% /notice %}}
 
 {{< code shell "JSON" >}}
-sensuctl event info entity_name check_name --format json
+sensuctl event info <entity_name> <check_name> --format json
 {{< /code >}}
 
 You should expect to see errors logged by sensu-agent if it is unable to parse the check output.

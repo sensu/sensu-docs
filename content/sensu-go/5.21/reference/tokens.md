@@ -28,7 +28,7 @@ Available attributes will always have [string values][9], such as labels and ann
 ## Example: Token substitution for check thresholds
 
 In this example [hook][8] and [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical) arguments to indicate the thresholds (as percentages) for creating warning or critical events.
-If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk_warning | default 80 }}`) and a critical event at 90% capacity (i.e. `{{ .labels.disk_critical | default 90 }}`).
+If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (that is, `{{ .labels.disk_warning | default 80 }}`) and a critical event at 90% capacity (that is, `{{ .labels.disk_critical | default 90 }}`).
 
 Hook configuration:
 
@@ -348,7 +348,7 @@ Access nested Sensu [entity attributes][3] dot notation (for example, `system.ar
 - `{{ index .labels "cpu.threshold" }}` would be replaced with a custom label called `cpu.threshold`
 
 {{% notice note %}}
-**NOTE**: When an annotation or label name has a dot (e.g. `cpu.threshold`), you must use the template index function syntax to ensure correct processing because the dot notation is also used for object nesting.
+**NOTE**: When an annotation or label name has a dot (for example, `cpu.threshold`), you must use the template index function syntax to ensure correct processing because the dot notation is also used for object nesting.
 {{% /notice %}}
 
 ### Token substitution default values

@@ -67,39 +67,39 @@ For example, logs are sent to the journald when systemd is the service manager, 
 If you are running systemd as your service manager and would rather have logs written to `/var/log/sensu/`, see [forwarding logs from journald to syslog][11].
 
 For journald targets, use these commands to follow the logs.
-Replace the `${service}` variable with the name of the desired service (e.g. `backend` or `agent`).
+Replace the `<service>` variable with the name of the desired service (for example, `backend` or `agent`).
 
 {{< language-toggle >}}
 
 {{< code shell "RHEL/CentOS >= 7" >}}
-journalctl --follow --unit sensu-${service}
+journalctl --follow --unit sensu-<service>
 {{< /code >}}
 
 {{< code shell "Ubuntu >= 15.04" >}}
-journalctl --follow --unit sensu-${service}
+journalctl --follow --unit sensu-<service>
 {{< /code >}}
 
 {{< code shell "Debian >= 8" >}}
-journalctl --follow --unit sensu-${service}
+journalctl --follow --unit sensu-<service>
 {{< /code >}}
 
 {{< /language-toggle >}}
 
 For log file targets, use these commands to follow the logs.
-Replace the `${service}` variable with the name of the desired service (e.g. `backend` or `agent`).
+Replace the `<service>` variable with the name of the desired service (for example, `backend` or `agent`).
 
 {{< language-toggle >}}
 
 {{< code shell "RHEL/CentOS <= 6" >}}
-tail --follow /var/log/sensu/sensu-${service}
+tail --follow /var/log/sensu/sensu-<service>
 {{< /code >}}
 
 {{< code shell "Ubuntu <= 14.10" >}}
-tail --follow /var/log/sensu/sensu-${service}
+tail --follow /var/log/sensu/sensu-<service>
 {{< /code >}}
 
 {{< code shell "Debian <= 7" >}}
-tail --follow /var/log/sensu/sensu-${service}
+tail --follow /var/log/sensu/sensu-<service>
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -309,19 +309,19 @@ Note the hash for your build of the handler asset and compare it with the SHAs l
 {{% /notice %}}
 
 4. Navigate to the `bin` directory for the handler asset SHA.
-Before you run the command below, replace `HANDLER_ASSET_SHA` with the SHA you identified in the previous step.
+Before you run the command below, replace `<handler_asset_sha>` with the SHA you identified in the previous step.
 {{< code shell >}}
-cd HANDLER_ASSET_SHA/bin
+cd <handler_asset_sha>/bin
 {{< /code >}}
 
 5. Run the command to manually execute the handler.
 Before you run the command below, replace the following text:
-   - `ENTITY_NAME`: Replace with the entity name for the event you are using to troubleshoot.
-   - `CHECK_NAME`: Replace with the check name for the event you are using to troubleshoot.
-   - `HANDLER_COMMAND`: Replace with the `command` value for the handler you are troubleshooting.
+   - `<entity_name>`: Replace with the entity name for the event you are using to troubleshoot.
+   - `<check_name>`: Replace with the check name for the event you are using to troubleshoot.
+   - `<handler_command>`: Replace with the `command` value for the handler you are troubleshooting.
 
    {{< code shell >}}
-sensuctl event info ENTITY_NAME CHECK_NAME --format json | ./HANDLER_COMMAND
+sensuctl event info <entity_name> <check_name> --format json | ./<handler_command>
 {{< /code >}}
 
 If your handler is working properly, you will receive an alert for the event via the handler.
@@ -329,7 +329,7 @@ The response for your manual execution command will also include a message to co
 In this case, your Sensu pipeline is not causing the problem with missing events.
 
 If you do not receive an alert for the event, the handler is not working properly.
-In this case, the manual execution response will include the message `Error executing HANDLER_ASSET_NAME:` followed by a description of the specific error to help you correct the problem.
+In this case, the manual execution response will include the message `Error executing <handler_asset_name>:` followed by a description of the specific error to help you correct the problem.
 
 ## Dynamic runtime assets
 

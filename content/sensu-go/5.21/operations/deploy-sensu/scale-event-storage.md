@@ -275,11 +275,11 @@ sudo cp /var/lib/pgsql/data/pg_hba.conf /var/tmp/pg_hba.conf.bak
 {{< /code >}}
 
 Next, give the repl user permissions to replicate from the standby host.
-In the following command, replace `STANDBY_IP` with the IP address of your standby host:
+In the following command, replace `<standby_ip>` with the IP address of your standby host:
 
 {{< code shell >}}
-export STANDBY_IP=192.168.52.10
-echo "host replication repl ${STANDYB_IP}/32 md5" | sudo tee -a /var/lib/pgsql/data/pg_hba.conf
+export STANDBY_IP=<standby_ip>
+echo "host replication repl ${STANDBY_IP}/32 md5" | sudo tee -a /var/lib/pgsql/data/pg_hba.conf
 {{< /code >}}
 
 Restart the PostgreSQL service to activate the `pg_hba.conf` changes:
@@ -345,10 +345,11 @@ Make the standby data directory:
 sudo install -d -o postgres -g postgres -m 0700 /var/lib/pgsql/data
 {{< /code >}}
 
-And then bootstrap the standby data directory:
+Then bootstrap the standby data directory.
+In the following command, replace `<primary_ip>` with the IP address of your primary host and then run the command:
 
 {{< code shell >}}
-export PRIMARY_IP=192.168.52.11
+export PRIMARY_IP=<primary_ip>
 sudo -u postgres pg_basebackup -h $PRIMARY_IP -D /var/lib/pgsql/data -P -U repl -R --xlog-method=stream
 {{< /code >}}
 

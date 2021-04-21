@@ -1559,7 +1559,8 @@ As of 5.20.2, new events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
-**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][9].
+**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][9].
 
 {{% notice note %}}
 **NOTE**: The `processes` field is populated in the packaged Sensu Go distributions.

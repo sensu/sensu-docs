@@ -31,11 +31,11 @@ sensuctl entity list
 
 The `ID` in the response is the name of your entity.
 
-Replace `ENTITY_NAME` with the name of your entity in the [sensuctl][12] command below.
+Replace `<entity_name>` with the name of your entity in the [sensuctl][12] command below.
 Then run the command to add the `system` [subscription][13] to your entity:
 
 {{< code shell >}}
-sensuctl entity update ENTITY_NAME
+sensuctl entity update <entity_name>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -200,7 +200,7 @@ The response will list the available builds for the PagerDuty handler dynamic ru
 Now that you've added the Sensu PagerDuty Handler dynamic runtime asset, you can create a [handler][9] that uses the asset to send non-OK events to PagerDuty.
 This requires you to update the handler command by adding your PagerDuty API integration key.
 
-In the following command, replace `YOUR_PAGERDUTY_KEY` with your [PagerDuty API integration key][1].
+In the following command, replace `<pagerduty_key>` with your [PagerDuty API integration key][1].
 Then run the updated command:
 
 {{< code shell >}}
@@ -208,7 +208,7 @@ sensuctl handler create pagerduty \
 --type pipe \
 --filters is_incident \
 --runtime-assets sensu/sensu-pagerduty-handler \
---command "sensu-pagerduty-handler -t YOUR_PAGERDUTY_KEY"
+--command "sensu-pagerduty-handler -t <pagerduty_key>"
 {{< /code >}}
 
 {{% notice note %}}
@@ -242,7 +242,7 @@ metadata:
   name: pagerduty
   namespace: default
 spec:
-  command: sensu-pagerduty-handler -t YOUR_PAGERDUTY_KEY
+  command: sensu-pagerduty-handler -t <pagerduty_key>
   env_vars: null
   filters:
   - is_incident
@@ -264,7 +264,7 @@ spec:
     "namespace": "default"
   },
   "spec": {
-    "command": "sensu-pagerduty-handler -t YOUR_PAGERDUTY_TOKEN",
+    "command": "sensu-pagerduty-handler -t <pagerduty_key>",
     "env_vars": null,
     "filters": [
       "is_incident"
