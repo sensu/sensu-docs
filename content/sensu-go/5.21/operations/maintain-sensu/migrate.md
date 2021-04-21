@@ -261,7 +261,9 @@ find sensu_config_translated/ -name '*.json' -exec cat {} \; > sensu_config_tran
 
 Most attributes are ready to use as-is, but you'll need to adjust your Sensu Go configuration manually to migrate some of Sensu's features.
 
-_NOTE: To streamline a comparison of your Sensu Core configuration with your Sensu Go configuration, output your current Sensu Core configuration using the API: `curl -s http://127.0.0.1:4567/settings | jq . > sensu_config_original.json`_
+{{% notice note %}}
+**NOTE**: To streamline a comparison of your Sensu Core configuration with your Sensu Go configuration, output your current Sensu Core configuration using the API: `curl -s http://127.0.0.1:4567/settings | jq . > sensu_config_original.json`.
+{{% /notice %}}
 
 #### 2. Translate checks
 
@@ -282,7 +284,7 @@ Review your Sensu Core check configuration for the following attributes, and mak
 `dependencies`| Use the [Core Dependencies Filter][22] dynamic runtime asset.
 
 {{% notice protip %}}
-**PRO TIP**: When using **token substitution** in Sensu Go and accessing labels or annotations that include `.` (for example: `sensu.io.json_attributes`), use the `index` function. For example, `{{index .annotations "web_url"}}` substitutes the value of the `web_url` annotation; `{{index .annotations "production.ID"}}` substitutes the value of the `production.ID` annotation.
+**PRO TIP**: When using token substitution in Sensu Go and accessing labels or annotations that include `.` (for example: `sensu.io.json_attributes`), use the `index` function. For example, `{{index .annotations "web_url"}}` substitutes the value of the `web_url` annotation; `{{index .annotations "production.ID"}}` substitutes the value of the `production.ID` annotation.
 {{% /notice %}}
 
 <a name="translate-metric-checks"></a>
@@ -384,7 +386,9 @@ After you review your translated configuration, make any necessary updates, and 
 sensuctl create --file /path/to/config.json
 {{< /code >}}
 
-_PRO TIP: `sensuctl create` (and `sensuctl delete`) are powerful tools to help you manage your Sensu configs across namespaces. See the [sensuctl reference][5] for more information._
+{{% notice protip %}}
+**PRO TIP**: `sensuctl create` (and `sensuctl delete`) are powerful tools to help you manage your Sensu configs across namespaces. See the [sensuctl reference][5] for more information.
+{{% /notice %}}
 
 Access your Sensu Go config using the [Sensu API][17].
 
