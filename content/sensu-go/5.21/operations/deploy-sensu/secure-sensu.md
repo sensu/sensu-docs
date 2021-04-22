@@ -50,6 +50,10 @@ To properly secure etcd communication, replace the default parameter values in y
  - A certificate and key for the `etcd-peer-cert-file` and `etcd-peer-key-file` to secure cluster communication
  - Non-default values for `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-advertise-client-urls`
 
+    {{% notice note %}}
+**NOTE**: If you are securing a [cluster](../cluster-sensu), use your backend node IP address instead of `localhost` in the non-default values for `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-advertise-client-urls`.
+{{% /notice %}}
+
 In addition, set `etcd-client-cert-auth` and `etcd-peer-client-cert-auth` to `true` to ensure that etcd only allows connections from clients and peers that present a valid, trusted certificate.
 Because etcd does not require authentication by default, you must set `etcd-client-cert-auth` and `etcd-peer-client-cert-auth` to `true` to secure Sensu's embedded etcd datastore against unauthorized access.
 
