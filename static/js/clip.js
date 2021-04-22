@@ -22,16 +22,25 @@
             return trigger.previousElementSibling;
         }
     });
-    
-    /*
-     * sends clicks on buttons with .copy class as a Google Analytics event
-     */
+})(document, Clipboard);
 
-    $(".copy").on("click", function() {
-        const pageURL = document.location.pathname + document.location.search;
+
+/*
+ * sends clicks on buttons with .copy class as a Google Analytics event
+ */
+
+(function() {
+    const pageURL = document.location.pathname + document.location.search;
+
+    var button = document.getElementsByClassName("copy");
+    button.addEventListener("click", function() {
 
         if (typeof ga === "function") {
-          ga('send','event','Clipboard','Code copied',pageURL);
+            ga('send','event','Clipboard','Code copied',pageURL);
         }
     });
-})(document, Clipboard);
+})();
+
+
+
+
