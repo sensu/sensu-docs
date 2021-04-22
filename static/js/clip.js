@@ -34,10 +34,7 @@
 
     var button = document.getElementsByClassName("copy");
     button.addEventListener("click", function() {
-
-        if (typeof ga === "function") {
-            ga('send','event','Clipboard','Code copied',pageURL);
-        }
+        ga('send','event','Clipboard','Code copied',pageURL);
     });
 })();
 
