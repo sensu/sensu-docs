@@ -401,8 +401,9 @@ The steps may be different if you are using the Okta Developer Console.
 3. In the *Sign on method* section, select `OpenID Connect`.
 4. Click **Create**.
 5. In the *Create OpenID Connect Integration* window:
-   - *GENERAL SETTINGS* section: in the *Application name* field, enter the app name. You can also upload a logo in the  if desired.
-   - *CONFIGURE OPENID CONNECT* section: in the *Login redirect URIs* field, enter `API_URL/api/enterprise/authentication/v2/oidc/callback` (replace `API_URL` with your API URL).
+   - *GENERAL SETTINGS* section: in the *Application name* field, enter the app name.
+You can also upload a logo in the  if desired.
+   - *CONFIGURE OPENID CONNECT* section: in the *Login redirect URIs* field, enter `<api_url>/api/enterprise/authentication/v2/oidc/callback` (replace `<api_url>` with your API URL).
 6. Click **Save**.
 7. Select the *General* tab and click **Edit**.
 8. In the *Allowed grant types* section, click to select the box next to **Refresh Token**.

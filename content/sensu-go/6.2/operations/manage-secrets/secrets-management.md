@@ -27,7 +27,8 @@ Secrets are configured via [secrets resources][8].
 A secret resource definition refers to the secrets provider (`Env` or `VaultProvider`) and an ID (the named secret to fetch from the secrets provider).
 
 This guide only covers the handler use case, but you can use secrets management in handler, mutator, and check execution.
-When a check configuration references a secret, the Sensu backend will only transmit the check's execution requests to agents that are connected via mutually authenticated transport layer security (mTLS)-encrypted websockets. Read more about [enabling mTLS][15].
+When a check configuration references a secret, the Sensu backend will only transmit the check's execution requests to agents that are connected via mutually authenticated transport layer security (mTLS)-encrypted websockets.
+Read more about [enabling mTLS][15].
 
 The secret included in your Sensu handler will be exposed to Sensu services at runtime as an environment variable.
 Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the web UI.
@@ -41,7 +42,8 @@ Here's how to find your Integration Key in PagerDuty so you can set it up as you
 1. Log in to your PagerDuty account.
 2. In the **Configuration** drop-down menu, select **Services**.
 3. Click your Sensu service.
-4. Click the **Integrations** tab. The Integration Key is listed in the second column.
+4. Click the **Integrations** tab.
+The Integration Key is listed in the second column.
 
 <div style="text-align:center">
 <img alt="PagerDuty Integration Key location" title="PagerDuty Integration Key location" src="/images/sensu-pagerduty-integration-key.png" >
@@ -178,7 +180,7 @@ Because you aren't using TLS, you will need to set `VAULT_ADDR=http://127.0.0.1:
 {{% /notice %}}
 
 Use `sensuctl create` to create your secrets provider, `vault`.
-In the code below, replace `ROOT_TOKEN` with the `Root Token` value for your Vault dev server.
+In the code below, replace `<root_toekn>` with the `Root Token` value for your Vault dev server.
 Then, run:
 
 {{< language-toggle >}}
@@ -193,7 +195,7 @@ metadata:
 spec:
   client:
     address: http://localhost:8200
-    token: ROOT_TOKEN
+    token: <root_token>
     version: v2
     tls: null
     max_retries: 2
@@ -215,7 +217,7 @@ cat << EOF | sensuctl create
   "spec": {
     "client": {
       "address": "http://localhost:8200",
-      "token": "ROOT_TOKEN",
+      "token": "<root_token>",
       "version": "v2",
       "tls": null,
       "max_retries": 2,
@@ -319,8 +321,8 @@ Next, [create your Vault secret][29].
 
 First, retrieve your [PagerDuty Integration Key][30] (the secret you will set up in Vault).
 
-Next, open a new terminal and run `vault kv put secret/pagerduty key=INTEGRATION_KEY`.
-Replace `INTEGRATION_KEY` with your PagerDuty Integration Key.
+Next, open a new terminal and run `vault kv put secret/pagerduty key=<integration_key>`.
+Replace `<integration_key>` with your PagerDuty Integration Key.
 This writes your secret into Vault.
 
 In this example, the name of the secret is `pagerduty`.

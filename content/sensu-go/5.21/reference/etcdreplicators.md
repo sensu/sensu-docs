@@ -235,7 +235,9 @@ Before you implement etcd replicators, review these details &mdash; they are cri
 - Replicating `namespace` resources will **not** replicate the resources that belong to those namespaces.
 
 {{% notice warning %}}
-**WARNING**: Make sure to confirm your configuration. The server will accept incorrect EtcdReplicator definitions without sending a warning. If your configuration is incorrect, replication will not work.
+**WARNING**: Make sure to confirm your configuration.
+The server will accept incorrect EtcdReplicator definitions without sending a warning.
+If your configuration is incorrect, replication will not work.
 {{% /notice %}}
 
 ## Create a replicator

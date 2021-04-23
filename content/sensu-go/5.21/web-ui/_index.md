@@ -14,7 +14,8 @@ menu:
 
 The Sensu backend includes the **Sensu web UI**: a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue.
 
-**COMMERCIAL FEATURE**: Access the Sensu web UI homepage (shown below) in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][6].
+**COMMERCIAL FEATURE**: Access the Sensu web UI homepage (shown below) in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][6].
 
 <div style="text-align:center">
 <img src="/images/web-ui.png" alt="Sensu web UI homepage" width="750">

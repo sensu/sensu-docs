@@ -236,8 +236,8 @@ In each handler definition, you will specify:
 
 Before you run the following code to create the handlers with sensuctl, make these changes:
 
-- Replace #alert-ops, #alert-dev, and #alert-all with the names of the channels you want to use to receive alerts in your Slack instance.
-- Replace SLACK_WEBHOOK_URL with your Slack webhook URL.
+- Replace `<alert-ops>`, `<alert-dev>`, and `<alert-all>` with the names of the channels you want to use to receive alerts in your Slack instance.
+- Replace `<slack_webhook_url>` with your Slack webhook URL.
 
 After you update the code to use your preferred Slack channels and webhook URL, run:
 
@@ -250,9 +250,9 @@ api_version: core/v2
 metadata:
   name: slack_ops
 spec:
-  command: sensu-slack-handler --channel "#alert-ops"
+  command: sensu-slack-handler --channel "#<alert-ops>"
   env_vars:
-  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX
+  - SLACK_WEBHOOK_URL=<slack_webhook_url>"
   filters:
   - is_incident
   - not_silenced
@@ -266,9 +266,9 @@ api_version: core/v2
 metadata:
   name: slack_dev
 spec:
-  command: sensu-slack-handler --channel "#alert-dev"
+  command: sensu-slack-handler --channel "#<alert-dev>"
   env_vars:
-  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX
+  - SLACK_WEBHOOK_URL=<slack_webhook_url>"
   filters:
   - is_incident
   - not_silenced
@@ -282,9 +282,9 @@ api_version: core/v2
 metadata:
   name: slack_fallback
 spec:
-  command: sensu-slack-handler --channel "#alert-all"
+  command: sensu-slack-handler --channel "#<alert-all>"
   env_vars:
-  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX
+  - SLACK_WEBHOOK_URL=<slack_webhook_url>"
   filters:
   - is_incident
   - not_silenced
@@ -302,9 +302,9 @@ echo '{
     "name": "slack_ops"
   },
   "spec": {
-    "command": "sensu-slack-handler --channel \"#alert-ops\"",
+    "command": "sensu-slack-handler --channel "#<alert-ops>",
     "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX"
+      "SLACK_WEBHOOK_URL=<slack_webhook_url>"
     ],
     "filters": [
       "is_incident",
@@ -324,9 +324,9 @@ echo '{
     "name": "slack_dev"
   },
   "spec": {
-    "command": "sensu-slack-handler --channel \"#alert-dev\"",
+    "command": "sensu-slack-handler --channel "#<alert-dev>",
     "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX"
+      "SLACK_WEBHOOK_URL=<slack_webhook_url>"
     ],
     "filters": [
       "is_incident",
@@ -346,9 +346,9 @@ echo '{
     "name": "slack_fallback"
   },
   "spec": {
-    "command": "sensu-slack-handler --channel \"#alert-all\"",
+    "command": "sensu-slack-handler --channel "#<alert-all>",
     "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX"
+      "SLACK_WEBHOOK_URL=<slack_webhook_url>"
     ],
     "filters": [
       "is_incident",

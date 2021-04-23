@@ -571,7 +571,8 @@ From here, you can host your asset wherever you’d like.
 To make the asset available via [Bonsai][16], you’ll need to host it on GitHub.
 Learn more in [The “Hello World” of Sensu Assets][18] on Discourse.
 
-To host your asset on a different platform like Gitlab or Bitbucket, upload your asset there. You can also use Artifactory or even Apache or Nginx to serve your asset.
+To host your asset on a different platform like Gitlab or Bitbucket, upload your asset there.
+You can also use Artifactory or even Apache or Nginx to serve your asset.
 All that’s required for your asset to work is the URL to the asset and the SHA512 sum for the asset to be downloaded.
 
 ## Asset specification
@@ -580,7 +581,7 @@ All that’s required for your asset to work is the URL to the asset and the SHA
 
 type         | 
 -------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][11] resource type. assets should always be type `Asset`.
+description  | Top-level attribute that specifies the [`sensuctl create`][11] resource type. Assets should always be type `Asset`.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | String
 example      | {{< language-toggle >}}
