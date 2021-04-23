@@ -31,10 +31,16 @@
 */
 
 (function() {
-    const pageURL = document.location.pathname + document.location.search;
+    var pageURL = document.location.pathname + document.location.search;
 
-    var button = document.getElementsByClassName("copy");
-    button.addEventListener("click", function() {
+    var buttonSet = document.querySelectorAll(".copy");
+    buttonSet.forEach(function (btn) {
+      btn.addEventListener("click", function() {
+        // noop if google analytics isn't initialized
+        if (typeof ga !== "function") {
+          return;
+        }
         ga('send','event','Clipboard','Code copied',pageURL);
-    });
+       });
+     });
 })();
