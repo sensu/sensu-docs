@@ -140,6 +140,51 @@ To override the check's subscriptions and target an alternate entity or group of
 }
 {{< /code >}}
 
+## Monitor multiple servers
+
+With subscriptions, you can configure monitoring and observability for multiple servers with different operating systems and monitoring requirements.
+
+For example, suppose you want to configure Sensu monitoring for multiple servers as follows:
+
+- 10 Linux servers:
+    - Get CPU, memory, and disk status for all 10
+    - Get NGINX metrics for five
+    - Get PostgreSQL metrics for two
+    - Email all notifications to `linuxadmin@gmail.com`
+    - Email notifications for NGINX metrics to `nginx@gmail.com`
+    - Email notifications for PostgreSQL metrics to `postgresql@gmail.com`
+- 10 Windows servers:
+    - Get CPU, memory, and disk checks for all 10
+    - Get SQL Server metrics for two
+    - Email all notifications to `winadmin@gmail.com`
+    - Email notifications for SQL Server metrics to email address `sqlserver@gmail.com`
+
+The example monitoring scheme requires a number of checks:
+
+- CPU status
+- Memory status
+- Disk status
+- NGINX metrics
+- PostgreSQL metrics
+- SQL Server metrics
+
+Configure the following subscriptions to ensure that Sensu publishes checks to the correct entities:
+
+Subscription | Entities | Checks
+------------ | -------- | ------
+linux | All Linux servers | CPU, memory, and disk status checks
+nginx | Five Linux servers that require NGINX metrics collection | NGINX metrics check
+postgresql | Two Linux servers that require PostgreSQL metrics collection | PostgreSQL metrics check
+windows | All Windows servers | CPU, memory, and disk status checks
+sqlserver | Two Windows servers that require SQL Server metrics collection | SQL Server metrics check
+
+Finally, to ensure that you receive the desired notifications, configure the following handlers:
+
+- Email handlers for linuxadmin@gmail.com, nginx@gmail.com, and postgresql@gmail.com
+- Email handlers for winadmin@gmail.com and sqlserver@gmail.com
+- Handler set for Linux that includes the handlers for linuxadmin@gmail.com, nginx@gmail.com, and postgresql@gmail.com
+- Handler set for Windows that includes the handlers for winadmin@gmail.com and sqlserver@gmail.com
+
 
 [1]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
 [2]: ../agent/#subscriptions-flag
