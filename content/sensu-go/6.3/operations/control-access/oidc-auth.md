@@ -429,6 +429,12 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
 3. Add the `redirect_uri` configuration attribute in the [OIDC scope][25] and set the value to the Redirect URI configured at step 3 of [Create an Okta application][50]:
    - `"redirect_uri": "API_URL/api/enterprise/authentication/v2/oidc/callback"`
 
+4. Configure [authorization][3] via for your OIDC users and groups by creating [roles (or cluster roles)][4] and [role bindings (or cluster role bindings)][13] that map to the user and group names.
+
+   {{% notice note %}}
+**NOTE**: If you do not configure authorization, users will be able to log in with OIDC but will have no permissions by default.
+{{% /notice %}}
+
 #### Sensuctl login with OIDC
 
 1. Run `sensuctl login oidc`.
@@ -445,6 +451,8 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 
 [1]: ../../../web-ui/
 [2]: ../../../sensuctl/
+[3]: ../#authorization
+[4]: ../rbac/#roles-and-cluster-roles
 [6]: ../../../commercial/
 [8]: ../../../api/
 [10]: https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-configure-ldaps

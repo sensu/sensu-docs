@@ -432,7 +432,7 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
 4. Configure [authorization][3] via for your OIDC users and groups by creating [roles (or cluster roles)][4] and [role bindings (or cluster role bindings)][13] that map to the user and group names.
 
    {{% notice note %}}
-**NOTE**: If you do not configure authorization, you will be able to log in with OIDC but will have no permissions by default.
+**NOTE**: If you do not configure authorization, users will be able to log in with OIDC but will have no permissions by default.
 {{% /notice %}}
 
 #### Sensuctl login with OIDC
