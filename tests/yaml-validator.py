@@ -23,7 +23,7 @@ for root, dirs, files in os.walk(args.directory):
 
             for yaml_block in x:
                 try:
-                    yaml.load(yaml_block)
+                    yaml.loads(yaml_block)
                 except ValueError as exception:
                     print "In file " + validation_file.name + " the following YAML is invalid\n" + \
                     str(exception) + "\n" + yaml_block + "\n"
