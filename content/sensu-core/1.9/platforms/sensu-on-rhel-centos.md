@@ -5,7 +5,7 @@ description: "User documentation for installing and operating Sensu on Red Hat
 weight: 6
 version: "1.9"
 product: "Sensu Core"
-platformContent: true
+platformContent: false
 menu:
   sensu-core-1.9:
     parent: platforms
@@ -20,7 +20,6 @@ menu:
 - [Installing Sensu Enterprise](#sensu-enterprise)
   - [Install the Sensu Enterprise repository](#install-sensu-enterprise-repository)
   - [Install the Sensu Enterprise Dashboard repository](#install-sensu-enterprise-dashboard-repository)
-  - [Install Sensu Enterprise (server & API)](#install-sensu-enterprise)
 - [Configure Sensu](#configure-sensu)
   - [Create the Sensu configuration directory](#create-the-sensu-configuration-directory)
   - [Example client configuration](#example-client-configuration)
@@ -39,7 +38,9 @@ menu:
 
 ## Install Sensu Core {#sensu-core}
 
-Sensu Core is installed on RHEL and CentOS systems via a native system installer package (i.e. a .rpm file), which is available for [download][1] and from YUM package management repositories.
+_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][17], and we [permanently removed][18] the Sensu EOL repository on February 1, 2021.<br><br>This means the packages and https://eol-repositories.sensuapp.org URLs specified in the instructions and code examples below are no longer available. To migrate to Sensu Go, read the [Sensu Core migration guide][19]._
+
+Sensu Core is installed on RHEL and CentOS systems via a native system installer package (i.e. a .rpm file), which is available for download and from YUM package management repositories.
 The Sensu Core package installs several processes including `sensu-server`, `sensu-api`, and `sensu-client`.
 
 ### Install Sensu using YUM (recommended) {#install-sensu-core-repository}
@@ -87,6 +88,8 @@ sudo yum install sensu{{< /code >}}
    below.
 
 ## Install Sensu Enterprise {#sensu-enterprise}
+
+_IMPORTANT: [Sensu Enterprise reached end-of-life (EOL) March 31, 2020][17], and we [permanently removed][18] the Sensu EOL repository on February 1, 2021.<br><br>This means the packages and https://eol-repositories.sensuapp.org URLs specified in the instructions and code examples below are no longer available. To migrate to Sensu Go, read the [Sensu Enterprise migration guide][20]._
 
 [Sensu Enterprise][2] is installed on RHEL and CentOS systems via a native
 system installer package (i.e. a .rpm file). The Sensu Enterprise installer
@@ -439,7 +442,6 @@ sudo service sensu-enterprise-dashboard stop{{< /code >}}
   IP address where the Sensu Enterprise Dashboard is running).
 
 
-[1]:  https://eol-repositories.sensuapp.org/yum/
 [2]:  https://sensu.io/products/enterprise
 [3]:  ../../reference/configuration/
 [4]:  ../../reference/transport/
@@ -456,3 +458,7 @@ sudo service sensu-enterprise-dashboard stop{{< /code >}}
 [15]: https://account.sensu.io
 [16]: #example-sensu-enterprise-dashboard-configurations
 [epel]: https://www.fedoraproject.org/wiki/EPEL
+[17]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
+[18]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
+[19]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/
+[20]: https://docs.sensu.io/sensu-enterprise/3.8/migration/

@@ -30,30 +30,38 @@ Next, set up rsyslog to write the logging data received from journald to `/var/l
 In this example, the `sensu-backend` and `sensu-agent` logging data is sent to individual files named after the service.
 The `sensu-backend` is not required if you're only setting up log forwarding for the `sensu-agent` service.
 
+1. For the sensu-backend service, in /etc/rsyslog.d/99-sensu-backend.conf, add:
 {{< code shell >}}
-# For the sensu-backend service, inside /etc/rsyslog.d/99-sensu-backend.conf
 if $programname == 'sensu-backend' then {
         /var/log/sensu/sensu-backend.log
         ~
 }
+{{< /code >}}
 
-# For the sensu-agent service, inside /etc/rsyslog.d/99-sensu-agent.conf
+2. For the sensu-agent service, in /etc/rsyslog.d/99-sensu-agent.conf, add:
+{{< code shell >}}
 if $programname == 'sensu-agent' then {
         /var/log/sensu/sensu-agent.log
         ~
 }
 {{< /code >}}
 
-{{% notice note %}}
-**NOTE**: On Ubuntu systems, run `chown -R syslog:adm /var/log/sensu` so syslog can write to that directory.
-{{% /notice %}}
+3. **On Ubuntu systems**, run `chown -R syslog:adm /var/log/sensu` so syslog can write to that directory.
 
-Restart rsyslog and journald to apply the new configuration:
-
+4. Restart journald:
 {{< code shell>}}
 systemctl restart systemd-journald
+{{< /code>}}
+
+5. Restart rsyslog to apply the new configuration:
+{{< code shell>}}
 systemctl restart rsyslog
 {{< /code>}}
+
+{{% notice note %}}
+**NOTE**: Sensu log messages include the Sensu [log level](../../maintain-sensu/troubleshoot/#log-levels) as part of the log data.
+Users with rsyslog expertise may be able to extract the log level from Sensu log messages and use rsyslog processing capabilities to separate the log messages into different files based on log level.
+{{% /notice %}}
 
 ## Set up log rotation
 
@@ -63,8 +71,8 @@ These examples rotate the log files `/var/log/sensu/sensu-agent.log` and `/var/l
 The last seven rotated logs are kept and compressed, with the exception of the most recent log.
 After rotation, `rsyslog` is restarted to ensure logging is written to a new file and not the most recent rotated file.
 
+1. In /etc/logrotate.d/sensu-agent.conf, add:
 {{< code shell>}}
-# Inside /etc/logrotate.d/sensu-agent.conf
 /var/log/sensu/sensu-agent.log {
     daily
     rotate 7
@@ -75,8 +83,10 @@ After rotation, `rsyslog` is restarted to ensure logging is written to a new fil
       /bin/systemctl restart rsyslog
     endscript
 }
+{{< /code>}}
 
-# Inside /etc/logrotate.d/sensu-backend.conf
+2. In /etc/logrotate.d/sensu-backend.conf, add:
+{{< code shell>}}
 /var/log/sensu/sensu-backend.log {
     daily
     rotate 7
@@ -98,7 +108,7 @@ logrotate -d /etc/logrotate.d/sensu.conf
 
 ## Next steps
 
-Sensu also offers logging of observability event data to a separate log file as a [commercial feature][2].
+Sensu also offers logging of observability event data to a separate JSON log file as a [commercial feature][2].
 See the [Sensu backend reference][1] for more information about event logging.
 
 

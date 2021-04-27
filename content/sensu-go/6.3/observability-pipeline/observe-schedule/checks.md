@@ -18,6 +18,58 @@ You can use checks to monitor server resources, services, and application health
 Read [Monitor server resources][12] to get started.
 Use [Bonsai][29], the Sensu asset hub, to discover, download, and share Sensu check dynamic runtime assets.
 
+## Check example (minimum recommended attributes)
+
+This example shows a check resource definition that includes the minimum recommended attributes.
+
+{{% notice note %}}
+**NOTE**: The attribute `interval` is not required if a valid `cron` schedule is defined.
+Read [scheduling](#interval-scheduling) for more information.
+{{% /notice %}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: check_minimum
+  namespace: default
+spec:
+  command: collect.sh
+  handlers:
+  - slack
+  interval: 10
+  publish: true
+  subscriptions:
+  - system
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default",
+    "name": "check_minimum"
+  },
+  "spec": {
+    "command": "collect.sh",
+    "subscriptions": [
+      "system"
+    ],
+    "handlers": [
+      "slack"
+    ],
+    "interval": 10,
+    "publish": true
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Check commands
 
 Each Sensu check definition specifies a command and the schedule at which it should be executed.
@@ -51,7 +103,8 @@ Although Sensu agents attempt to execute any command defined for a check, succes
     - Exit status codes other than `0`, `1`, and `2` indicate an UNKNOWN or custom status
 
 {{% notice protip %}}
-**PRO TIP**: If you're familiar with the **Nagios** monitoring system, you may recognize this specification &mdash; it is the same one that Nagios plugins use. As a result, you can use Nagios plugins with Sensu without any modification.
+**PRO TIP**: If you're familiar with the **Nagios** monitoring system, you may recognize this specification &mdash; it is the same one that Nagios plugins use.
+As a result, you can use Nagios plugins with Sensu without any modification.
 {{% /notice %}}
 
 At every execution of a check command, regardless of success or failure, the Sensu agent publishes the check’s result for eventual handling by the **event processor** (the Sensu backend).
@@ -156,7 +209,7 @@ Examples of valid cron values include:
 - `cron: '* * * * *'`
 
 {{% notice note %}}
-**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`).
+**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (for example, `cron: '* * * * *'`).
 {{% /notice %}}
 
 #### Example cron checks
@@ -465,7 +518,8 @@ Learn how to use check tokens with the [Sensu tokens reference documentation][5]
 
 ## Check hooks
 
-Check hooks are commands run by the Sensu agent in response to the result of check command execution. The Sensu agent will execute the appropriate configured hook command, depending on the check execution status (e.g. `0`, `1`, or `2`).
+Check hooks are commands run by the Sensu agent in response to the result of check command execution.
+The Sensu agent will execute the appropriate configured hook command, depending on the check execution status (for example, `0`, `1`, or `2`).
 
 Learn how to use check hooks with the [Sensu hooks reference documentation][6].
 
@@ -709,6 +763,8 @@ subscriptions:
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a name="handlers-array"></a>
+
 |handlers    |      |
 -------------|------
 description  | Array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string.
@@ -749,7 +805,7 @@ interval: 60
 |cron        |      |
 -------------|------
 description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute. {{% notice note %}}
-**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`).
+**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (for example, `cron: '* * * * *'`).
 {{% /notice %}}
 required     | true (unless `interval` is configured)
 type         | String
@@ -932,7 +988,7 @@ check_hooks:
 
 |proxy_entity_name|   |
 -------------|------
-description  | Entity name. Used to create a [proxy entity][20] for an external resource (e.g. a network switch).
+description  | Entity name. Used to create a [proxy entity][20] for an external resource (for example, a network switch).
 required     | false
 type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
@@ -1037,6 +1093,8 @@ scheduler: postgres
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a name="output-metric-format"></a>
+
 |output_metric_format    |      |
 -------------|------
 description  | Metric format generated by the check command. Sensu supports the following metric formats:<br>`nagios_perfdata` ([Nagios Performance Data][46])<br>`graphite_plaintext` ([Graphite Plaintext Protocol][47])<br>`influxdb_line` ([InfluxDB Line Protocol][48])<br>`opentsdb_line` ([OpenTSDB Data Specification][49])<br>`prometheus_text` ([Prometheus Exposition Text][18])<br><br>When a check includes an `output_metric_format`, Sensu will extract the metrics from the check output and add them to the event data in [Sensu metric format][50]. Read [Collect metrics with Sensu checks][23]. 
@@ -1055,6 +1113,8 @@ output_metric_format:
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+<a name="output-metric-handlers"></a>
 
 |output_metric_handlers    |      |
 -------------|------
@@ -1079,7 +1139,7 @@ output_metric_handlers:
 
 |output_metric_tags    |      |
 -------------|------
-description  | Custom tags you can apply to enrich metric points produced by check output metric extraction. One [name/value pair][22] make up a single tag. The `output_metric_tags` array can contain multiple tags.<br><br>You can use [check token substitution][39] for the `value` attribute in output metric tags.
+description  | Custom tags to enrich metric points produced by check output metric extraction. One [name/value pair][22] make up a single tag. The `output_metric_tags` array can contain multiple tags.<br><br>You can use [check token substitution][39] for the `value` attribute in output metric tags.
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -1284,7 +1344,7 @@ name: instance
 
 value        | 
 -------------|------
-description  | Value for the [output metric tag][19]. You can use [check token substitution][39] for the `value` attribute.
+description  | Value for the [output metric tag][19]. Use [check token substitution][39] syntax for the `value` attribute, with dot-notation access to any event attribute.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
@@ -1332,58 +1392,9 @@ secret: sensu-ansible-host
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Examples
+## Metric check example
 
-### Minimum recommended check attributes
-
-{{% notice note %}}
-**NOTE**: The attribute `interval` is not required if a valid `cron` schedule is defined.
-{{% /notice %}}
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: CheckConfig
-api_version: core/v2
-metadata:
-  name: check_minimum
-  namespace: default
-spec:
-  command: collect.sh
-  handlers:
-  - slack
-  interval: 10
-  publish: true
-  subscriptions:
-  - system
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "namespace": "default",
-    "name": "check_minimum"
-  },
-  "spec": {
-    "command": "collect.sh",
-    "subscriptions": [
-      "system"
-    ],
-    "handlers": [
-      "slack"
-    ],
-    "interval": 10,
-    "publish": true
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Metric check
+The following example shows the resource definition for a check that collects [metrics][68] in Nagios Performance Data format:
 
 {{< language-toggle >}}
 
@@ -1485,9 +1496,10 @@ spec:
 
 {{< /language-toggle >}}
 
-### Check with secret
+## Check example that uses secrets management
 
-Learn more about [secrets management][59] for your Sensu configuration in the [secrets][56] and [secrets providers][57] references.
+The check in the following example uses [secrets management][59] to keep a GitHub token private.
+Learn more about secrets management for your Sensu configuration in the [secrets][56] and [secrets providers][57] references.
 
 {{< language-toggle >}}
 
@@ -1529,7 +1541,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### PowerShell script in check commands
+## Check example with a PowerShell script command
 
 If you use a PowerShell script in your check command, make sure to include the `-f` flag in the command.
 The `-f` flag ensures that the proper exit code is passed into Sensu.
@@ -1602,7 +1614,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [23]: ../collect-metrics-with-checks/
 [24]: ../../observe-events/events/
 [25]: #metadata-attributes
-[26]: ../../../operations/control-access/rbac#namespaces
+[26]: ../../../operations/control-access/namespaces/
 [27]: ../../observe-filter/filters/
 [28]: ../../observe-entities/monitor-external-resources/
 [29]: https://bonsai.sensu.io
@@ -1627,7 +1639,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [48]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [49]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [50]: ../../observe-events/events/#metrics
-[51]: https://github.com/sensu/sensu-influxdb-handler
+[51]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 [52]: #round-robin-checks
 [53]: https://regex101.com/r/zo9mQU/2
 [54]: ../../../api#response-filtering
@@ -1644,3 +1656,4 @@ The dynamic runtime asset reference includes an [example check definition that u
 [65]: ../../../operations/deploy-sensu/datastore/
 [66]: ../../../operations/deploy-sensu/datastore/#round-robin-postgresql
 [67]: #event-storage-for-round-robin-scheduling
+[68]: ../metrics/

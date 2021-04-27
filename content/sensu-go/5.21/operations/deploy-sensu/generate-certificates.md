@@ -115,9 +115,9 @@ During initial configuration of a cluster of Sensu backends, you must describe e
 
 In issuing certificates for cluster members, the IP address or hostname used in these URLs must be represented in either the Common Name (CN) or Subject Alternative Name (SAN) records in the certificate.
 
-This guide assumes a scenario with three backend members that are reachable via a `10.0.0.x` IP address, a fully qualified name (e.g. `backend-1.example.com`), and an unqualified name (e.g. `backend-1`):
+This guide assumes a scenario with three backend members that are reachable via a `10.0.0.x` IP address, a fully qualified name (for example, `backend-1.example.com`), and an unqualified name (for example, `backend-1`):
 
-Unqualified name | IP address | Fully qualified domain name (FQDN) | Additional names     |
+Unqualified<br>name | IP address | Fully qualified<br>domain name<br>(FQDN) | Additional<br>names |
 -----------------|------------|------------------------------------|----------------------|
 backend-1        | 10.0.0.1   | backend-1.example.com              | localhost, 127.0.0.1 |
 backend-2        | 10.0.0.2   | backend-2.example.com              | localhost, 127.0.0.1 |
@@ -278,7 +278,7 @@ Now that you have generated the required certificates and copied them to the app
 [4]: ../secure-sensu/#secure-sensu-agent-to-server-communication
 [5]: ../secure-sensu/#sensu-agent-mtls-authentication
 [6]: https://github.com/cloudflare/cfssl
-[7]: https://etcd.io/docs/v3.4.0/op-guide/security/
+[7]: https://etcd.io/docs/v3.3.13/op-guide/security/
 [8]: https://en.wikipedia.org/wiki/Public_key_infrastructure
 [9]: ../../manage-secrets/secrets-management/
 [10]: ../../deploy-sensu/install-sensu/

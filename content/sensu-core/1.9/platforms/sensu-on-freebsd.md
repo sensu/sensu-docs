@@ -4,7 +4,7 @@ description: "User documentation for installing and operating Sensu on FreeBSD s
 weight: 1
 version: "1.9"
 product: "Sensu Core"
-platformContent: true
+platformContent: false
 menu:
   sensu-core-1.9:
     parent: platforms
@@ -23,8 +23,10 @@ menu:
 
 ## Install Sensu Core {#sensu-core}
 
+_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][17], and we [permanently removed][18] the Sensu EOL repository on February 1, 2021.<br><br>This means the packages specified in the instructions below are no longer available. To migrate to Sensu Go, read the [Sensu Core migration guide][19]._
+
 Sensu Core is installed on FreeBSD systems via a native system installer package
-(i.e. a .txz file), which is available for [download][1] and from [this repository (64-bit FreeBSD 10+ only)][2].
+(i.e. a .txz file).
 
 _WARNING: FreeBSD packages are currently as a "beta" release. Support for
 running Sensu on FreeBSD will be provided on a best-effort basis until further
@@ -37,7 +39,7 @@ To install or upgrade to the latest version of Sensu, please ensure
 you have updated existing configurations to follow the repository URL
 format specified below._
 
-1. Download the Sensu [FreeBSD package][1].
+1. Download the Sensu FreeBSD package.
    _NOTE: FreeBSD packages are available for FreeBSD 10 and 11._
 
 2. Install the `sensu-1.4.1_1.txz` package using the `pkg` utility:
@@ -115,9 +117,6 @@ connect to the configured [Sensu Transport][6].
 Please see [Redis][7] or [RabbitMQ][8] reference documentation for examples.
 
 
-[1]:  https://eol-repositories.sensuapp.org/freebsd/
-[2]:  https://eol-repositories.sensuapp.org/freebsd/
-[3]:  https://eol-repositories.sensuapp.org/freebsd/FreeBSD:10:amd64/sensu/sensu-1.4.1_1.txz
 [4]:  https://sensuapp.org/mit-license
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/
@@ -126,3 +125,6 @@ Please see [Redis][7] or [RabbitMQ][8] reference documentation for examples.
 [9]:  #configure-sensu
 [10]: #example-transport-configuration
 [11]: #example-client-configuration
+[17]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
+[18]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
+[19]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/

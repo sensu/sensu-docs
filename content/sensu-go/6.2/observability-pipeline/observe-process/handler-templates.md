@@ -4,7 +4,7 @@ linkTitle: "Create Handler Templates"
 guide_title: "Create handler templates"
 type: "guide"
 description: "Add meaningful, actionable context to alerts with event-based templating for your handlers. Read this guide to learn how to create handler templates."
-weight: 80
+weight: 55
 version: "6.2"
 product: "Sensu Go"
 menu:
@@ -32,7 +32,7 @@ The playbook for managing this alert is available at https://example.com/observa
 Handler templates use dot notation syntax to access event attributes, with the event attribute wrapped in double curly braces.
 The initial dot indicates `event`.
 
-For example, in a handler template, a reference to the event attribute `.Check.occurrences` becomes `.Check.Occurrences}}`.
+For example, in a handler template, a reference to the event attribute `.Check.occurrences` becomes `{{.Check.Occurrences}}`.
 
 Use HTML to format the text and spacing in your templates.
 All text outside double curly braces is copied directly into the template output, with HTML formatting applied.
@@ -84,7 +84,28 @@ The [Sensu template toolkit command][8] is a sensuctl command plugin you can use
 
 The template toolkit command uses event data you supply via STDIN in JSON format.
 
-Visit the [template toolkit command Bonsai page][8] to install the plugin.
+Add the Sensu template toolkit command asset to Sensu:
+
+{{< code shell >}}
+sensuctl asset add sensu/template-toolkit-command:0.4.0 -r template-toolkit-command
+{{< /code >}}
+
+This example uses the `-r` (rename) flag to specify a shorter name for the asset: `template-toolkit-command`.
+
+You can also download the latest asset definition from [Bonsai][8].
+
+Run `sensuctl asset list` to confirm that the asset is ready to use:
+
+{{< code shell >}}
+            Name                                                         URL                                                Hash    
+ ────────────────────────── ───────────────────────────────────────────────────────────────────────────────────────────── ───────── 
+  template-toolkit-command   //assets.bonsai.sensu.io/.../template-toolkit-command_0.4.0_windows_amd64.tar.gz              019ccf3  
+  template-toolkit-command   //assets.bonsai.sensu.io/.../template-toolkit-command_0.4.0_darwin_amd64.tar.gz               b771813  
+  template-toolkit-command   //assets.bonsai.sensu.io/.../template-toolkit-command_0.4.0_linux_armv7.tar.gz                4e7ad65  
+  template-toolkit-command   //assets.bonsai.sensu.io/.../template-toolkit-command_0.4.0_linux_arm64.tar.gz                02eca1f  
+  template-toolkit-command   //assets.bonsai.sensu.io/.../template-toolkit-command_0.4.0_linux_386.tar.gz                  56ed603  
+  template-toolkit-command   //assets.bonsai.sensu.io/.../template-toolkit-command_0.4.0_linux_amd64.tar.gz                7dbd2c6  
+{{< /code >}}
 
 ### Print available event attributes
 
@@ -92,33 +113,43 @@ Use the template toolkit command to print a list of the available event attribut
 
 {{< code shell >}}
 cat event.json | sensuctl command exec template-toolkit-command -- --dump-names
+{{< /code >}}
+
+The response lists the available attributes for the event:
+
+{{< code shell >}}
 INFO[0000] asset includes builds, using builds instead of asset  asset=template-toolkit-command component=asset-manager entity=sensuctl
 .Event{
     .Timestamp: 1580310179,
-	.Entity{
-    	.EntityClass: "agent",
-    	.System:      .System{
-	[...]
-	.Check{
-    	.Command:           "",
-    	.Handlers:          {"keepalive"},
-    	.HighFlapThreshold: 0x0,
-	[...]
+    .Entity{
+        .EntityClass: "agent",
+        .System:      .System{
+    [...]
+    .Check{
+        .Command:           "",
+        .Handlers:          {"keepalive"},
+        .HighFlapThreshold: 0x0,
+    [...]
 {{< /code >}}
 
 In this example, the response lists the available event attributes `.Timestamp`, `.Entity.EntityClass`, `.Entity.System`, `.Check.Command`, `.Check.Handlers`, and `.Check.HighFlapThreshold`.
 
-You can also use `sensuctl event info [ENTITY_NAME] [CHECK_NAME]` to print the correct notation and pattern: template output for a specific event (in this example, an event for entity `webserver01` and check `check-http`):
+You can also use `sensuctl event info <entity_name> <check_name>` to print the correct notation and pattern: template output for a specific event (in this example, an event for entity `server01` and check `server-health`):
 
 {{< code shell >}}
-sensuctl event info server01 server-health --format json | sensuctl command exec template-toolkit -- --dump-names
+sensuctl event info server01 server-health --format json | sensuctl command exec template-toolkit-command -- --dump-names
+{{< /code >}}
+
+The response lists the available attributes for the event:
+
+{{< code shell >}}
 INFO[0000] asset includes builds, using builds instead of asset  asset=template-toolkit-command component=asset-manager entity=sensuctl
 .Event{
     .Timestamp: 1580310179,
     .Entity:{
         .EntityClass:        "proxy",
         .System:             .System{
-	[...]
+    [...]
     .Check:{
         .Command:           "health.sh",
         .Handlers:          {"slack"},
@@ -134,6 +165,11 @@ For example, to test the output for the `{{.Check.Name}}` attribute for the even
 
 {{< code shell >}}
 cat event.json | sensuctl command exec template-toolkit-command -- --template "{{.Check.Name}}"
+{{< /code >}}
+
+The response will list the template output:
+
+{{< code shell >}}
 INFO[0000] asset includes builds, using builds instead of asset  asset=template-toolkit-command component=asset-manager entity=sensuctl
 executing command with --template {{.Check.Name}}
 Template String Output: keepalive
@@ -141,17 +177,20 @@ Template String Output: keepalive
 
 In this example, the command validates that for the `event.json` event, the handler template will replace `{{.Check.Name}}` with `keepalive` in template output.
 
-You can also use `sensuctl event info [ENTITY_NAME] [CHECK_NAME]` to validate template output for a specific event (in this example, an event for entity `webserver01` and check `check-http`):
+You can also use `sensuctl event info <entity_name> <check_name>` to validate template output for a specific event (in this example, an event for entity `webserver01` and check `check-http`):
 
 {{< code shell >}}
 sensuctl event info webserver01 check-http --format json | sensuctl command exec template-toolkit-command -- --template "Server: {{.Entity.Name}} Check: {{.Check.Name}} Status: {{.Check.State}}"
+{{< /code >}}
+
+The response will list the template output:
+
+{{< code shell >}}
 Executing command with --template Server: {{.Entity.Name}} Check: {{.Check.Name}} Status: {{.Check.State}}
 Template String Output: Server: "webserver01 Check: check-http Status: passing"
 {{< /code >}}
 
-## Examples
-
-### Sensu Email Handler plugin
+## Sensu Email Handler plugin
 
 The [Sensu Email Handler plugin][9] allows you to provide a template for the body of the email.
 For example, this template will produce an email body that includes the name of the check and entity associated with the event, the status and number of occurrences, and other event details:
@@ -186,7 +225,7 @@ Sensu<br>
 The Sensu Email Handler plugin also includes a UnixTime function that allows you to print timestamp values from events in human-readable format.
 See the [Sensu Email Handler Bonsai page][9] for details.
 
-### Sensu PagerDuty Handler Example
+## Sensu PagerDuty Handler example
 
 The [Sensu PagerDuty Handler plugin][10] includes a basic template for the PagerDuty alert summary:
 

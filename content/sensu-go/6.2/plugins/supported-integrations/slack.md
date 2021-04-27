@@ -24,13 +24,14 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 
 ## Get the plugin
 
-Add the [Sensu Slack Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing Slack workflows.
+For a turnkey experience with the Sensu Slack Handler plugin, use our curated, configurable [quick-start template][8] to integrate Sensu with your existing workflows and send alerts to Slack channels.
+
+To build your own workflow or integrate Sensu with existing workflows, add the [Sensu Slack Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing Slack workflows.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 ## More resources
 
-- Read [Send Slack alerts with handlers][3] to learn how to add and configure the Sensu Slack Handler plugin.
-- Try the Sensu Slack Handler integration in your browser with the [Learn Sensu in 15 minutes][6] interactive tutorial.
+Read [Send Slack alerts with handlers][3] to learn how to add and configure the Sensu Slack Handler plugin.
 
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
@@ -38,5 +39,5 @@ Add the [Sensu Slack Handler plugin][4] with a dynamic runtime asset from Bonsai
 [3]: ../../../observability-pipeline/observe-process/send-slack-alerts/
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [5]: ../../assets/
-[6]: ../../../learn/learn-in-15/
 [7]: ../../../operations/manage-secrets/
+[8]: https://github.com/sensu/catalog/blob/main/pipelines/alert/slack.yaml

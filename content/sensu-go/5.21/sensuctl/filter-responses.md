@@ -24,14 +24,14 @@ You can use the same methods, selectors, and examples for sensuctl response filt
 The standard sensuctl response filtering syntax is:
 
 {{< code shell >}}
-sensuctl RESOURCE_TYPE list --SELECTOR 'FILTER_STATEMENT'
+sensuctl <resource_type> list --<selector> '<filter_statement>'
 {{< /code >}}
 
 To create a sensuctl response filtering command:
 
-- Replace `RESOURCE_TYPE` with the resource your filter is based on.
-- Replace `SELECTOR` with either `label-selector` or `field-selector`, depending on which selector you want to use.
-- Replace `FILTER_STATEMENT` with the filter to apply.
+- Replace `<resource_type>` with the resource your filter is based on.
+- Replace `<selector>` with either `label-selector` or `field-selector`, depending on which selector you want to use.
+- Replace `<filter_statement>` with the filter to apply.
 
 For example:
 

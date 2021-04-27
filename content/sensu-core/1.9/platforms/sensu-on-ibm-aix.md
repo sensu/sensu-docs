@@ -5,7 +5,7 @@ description: "User documentation for installing and operating Sensu on IBM AIX
 weight: 2
 version: "1.9"
 product: "Sensu Core"
-platformContent: true
+platformContent: false
 menu:
   sensu-core-1.9:
     parent: platforms
@@ -27,8 +27,10 @@ menu:
 
 ## Install Sensu Core {#sensu-core}
 
+_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][17], and we [permanently removed][18] the Sensu EOL repository on February 1, 2021.<br><br>This means the packages specified in the instructions below are no longer available. To migrate to Sensu Go, read the [Sensu Core migration guide][19]._
+
 Sensu Core is installed on IBM AIX systems via a native system installer package
-(i.e. a .bff file), which is available for [download][1] and from [this repository][2].
+(i.e. a .bff file).
 
 ### Download and install Sensu using the Sensu .bff package {#download-and-install-sensu-core}
 
@@ -37,7 +39,7 @@ install or upgrade to the latest version of Sensu, please ensure you
 have updated existing configurations to follow the repository URL
 format specified below._
 
-1. Download the Sensu [AIX package][1].
+1. Download the Sensu AIX package.
 
 2. The Sensu installer package for IBM AIX systems is provided in **backup file
    format** (.bff). In order to install the content, you will need to know the
@@ -159,9 +161,6 @@ not working at this time, so any Ruby-based Sensu plugins that require FFI will
 not work (however all other plugins should work). It is possible that FFI
 support will be enabled in a future release.
 
-[1]:  https://eol-repositories.sensuapp.org/aix/
-[2]:  https://eol-repositories.sensuapp.org/aix/
-[3]:  https://eol-repositories.sensuapp.org/aix/6.1/sensu-1.4.1-1.powerpc.bff
 [4]:  https://sensuapp.org/mit-license
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/
@@ -172,6 +171,9 @@ support will be enabled in a future release.
 [11]: #example-transport-configuration
 [12]: #example-client-configuration
 [13]: ../../reference/transport/#transport-definition-specification
+[17]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
+[18]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
+[19]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/
 
 <!-- Supplemental links -->
 [aix-logrotate]: https://www.ibm.com/developerworks/aix/library/aix-toolbox/alpha.html#L

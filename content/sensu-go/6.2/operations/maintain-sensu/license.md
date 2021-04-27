@@ -20,19 +20,32 @@ Log in to your Sensu account at [account.sensu.io][1] and click **Download licen
 
 <img alt="Screenshot of Sensu account license download" src="/images/go-license-download.png" width="350px">
 
-With the license file downloaded, you can activate your license with sensuctl or the [license API][4].
+Save your license to a file such as `sensu_license.yml` or `sensu_license.json`.
+With the license file downloaded and saved to a file, you can activate your license with sensuctl or the [license API][4].
 
 To activate your license with sensuctl:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file sensu_license.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
 sensuctl create --file sensu_license.json
 {{< /code >}}
 
-Use sensuctl to view your license details at any time.
+{{< /language-toggle >}}
+
+Use sensuctl to view your license details at any time:
 
 {{< code shell >}}
-# Active license
 sensuctl license info
+{{< /code >}}
+
+For an active license, the response should be similar to this example:
+
+{{< code shell >}}
 === You are currently using 10/100 total entities, 5/50 agent entities, and 5/50 proxy entities
 Account Name: Training Team - Sensu
 Account ID:   123
@@ -43,9 +56,11 @@ Issuer:       Sensu, Inc.
 Issued:       2020-02-15 15:01:44 -0500 -0500
 Valid:        true
 Valid Until:  2021-02-15 00:00:00 -0800 -0800
+{{< /code >}}
 
-# No license found
-sensuctl license info
+This response means you do not have an active license:
+
+{{< code shell >}}
 Error: not found
 {{< /code >}}
 
@@ -56,8 +71,9 @@ Your commercial license may include the entity limit and entity class limits tie
 
 Your Sensu license may include two types of entity limits:
 
-- Entity limit: the maximum number of entities of all classes your license includes. Both agent and proxy entities count toward the overall entity limit.
-- Entity class limits: the maximum number of a specific class of entities (e.g. agent or proxy) that your license includes.
+- Entity limit: the maximum number of entities of all classes your license includes.
+Both agent and proxy entities count toward the overall entity limit.
+- Entity class limits: the maximum number of a specific class of entities (for example, agent or proxy) that your license includes.
 
 For example, if your license has an entity limit of 10,000 and an agent entity class limit of 3,000, you cannot run more than 10,000 entities (agent and proxy) total.
 At the same time, you cannot run more than 3,000 agents.
@@ -67,10 +83,16 @@ If you use only 1,500 agent entities, you can have 8,500 proxy entities before y
 
 Your current entity count and entity limit are included in the `sensuctl license info` response.
 
-In tabular format, the entity count and limit are included in the response title:
+In tabular format, the entity count and limit are included in the response title.
+To view license info in tabular format, run:
 
 {{< code shell >}}
 sensuctl license info --format tabular
+{{< /code >}}
+
+The response in tabular format should be similar to this example:
+
+{{< code shell >}}
 === You are currently using 10/100 total entities, 5/50 agent entities, and 5/50 proxy entities
 Account Name: Training Team - Sensu
 Account ID:   123
@@ -90,13 +112,22 @@ For example:
 === You are currently using 10/unlimited total entities, 5/unlimited agent entities, and 5/unlimited proxy entities
 {{< /code >}}
 
-In other formats (e.g. YAML and JSON), the entity count and limit are included as labels:
+To view license details in YAML or JSON, run:
+
+{{< language-toggle >}}
+{{< code shell "YML" >}}
+sensuctl license info --format yaml
+{{< /code >}}
+{{< code shell "JSON" >}}
+sensuctl license info --format wrapped-json
+{{< /code >}}
+{{< /language-toggle >}}
+
+In YAML and JSON formats, the entity count and limit are included as labels:
 
 {{< language-toggle >}}
 
-{{< code shell "YML" >}}
-sensuctl license info --format yaml
-
+{{< code yml >}}
 type: LicenseFile
 api_version: licensing/v2
 metadata:
@@ -111,9 +142,7 @@ spec:
 [...]
 {{< /code >}}
 
-{{< code shell "JSON" >}}
-sensuctl license info --format json
-
+{{< code json >}}
 {
   "type": "LicenseFile",
   "api_version": "licensing/v2",
@@ -136,7 +165,8 @@ sensuctl license info --format json
 
 {{< /language-toggle >}}
 
-You can also see your current entity count and limit in the response headers for any `/api/core` or `/api/enterprise` [API request][9]. For example:
+You can also see your current entity count and limit in the response headers for any `/api/core` or `/api/enterprise` [API request][9].
+For example:
 
 {{< code shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
@@ -171,7 +201,7 @@ If your license expires, you will still have access to [commercial features][5],
 
 [1]: https://account.sensu.io/
 [2]: ../../deploy-sensu/install-sensu/
-[3]: ../../../sensuctl/#first-time-setup
+[3]: ../../../sensuctl/#first-time-setup-and-authentication-and-authentication
 [4]: ../../../api/license/
 [5]: ../../../commercial/
 [6]: ../troubleshoot/

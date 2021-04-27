@@ -29,15 +29,224 @@ The Sensu backend executes handler, filter, and mutator assets.
 The Sensu agent executes check assets.
 At runtime, the backend or agent sequentially evaluates assets that appear in the `runtime_assets` attribute of the handler, filter, mutator, or check being executed.
 
+## Asset example (minimum required attributes)
+
+This example shows an asset resource definition that includes the minimum required attributes:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Asset
+api_version: core/v2
+metadata:
+  name: check_script
+  namespace: default
+spec:
+  builds:
+  - sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
+    url: http://example.com/asset.tar.gz
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check_script",
+    "namespace": "default"
+  },
+  "spec": {
+    "builds": [
+      {
+        "url": "http://example.com/asset.tar.gz",
+        "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b"
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Asset builds
 
 An asset build is the combination of an artifact URL, SHA512 checksum, and optional [Sensu query expression][1] filters.
 Each asset definition may describe one or more builds.
 
 {{% notice note %}}
-**NOTE**: Assets that provide `url` and `sha512` attributes at the top level of the `spec` scope are [single-build assets](#asset-definition-single-build-deprecated), and this form of asset defintion is deprecated.
-We recommend using [multiple-build asset defintions](#asset-definition-multiple-builds), which specify one or more `builds` under the `spec` scope.
+**NOTE**: Assets that provide `url` and `sha512` attributes at the top level of the `spec` scope are [single-build assets](#asset-example-single-build-deprecated), and this form of asset defintion is deprecated.
+We recommend using [multiple-build asset defintions](#asset-example-multiple-builds), which specify one or more `builds` under the `spec` scope.
 {{% /notice %}}
+
+### Asset example: Multiple builds
+
+This example shows the resource definition for an asset with multiple builds:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Asset
+api_version: core/v2
+metadata:
+  name: check_cpu
+  namespace: default
+  labels:
+    origin: bonsai
+  annotations:
+    project_url: https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check
+    version: 0.0.3
+spec:
+  builds:
+  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz
+    sha512: 487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
+    headers:
+      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
+      X-Forwarded-For: client1, proxy1, proxy2
+  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz
+    sha512: 70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'arm'
+    - entity.system.arm_version == 7
+    headers:
+      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
+      X-Forwarded-For: client1, proxy1, proxy2
+  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz
+    sha512: 10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f
+    filters:
+    - entity.system.os == 'windows'
+    - entity.system.arch == 'amd64'
+    headers:
+      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
+      X-Forwarded-For: client1, proxy1, proxy2
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check_cpu",
+    "namespace": "default",
+    "labels": {
+      "origin": "bonsai"
+    },
+    "annotations": {
+      "project_url": "https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check",
+      "version": "0.0.3"
+    }
+  },
+  "spec": {
+    "builds": [
+      {
+        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz",
+        "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'amd64'"
+        ],
+        "headers": {
+          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
+          "X-Forwarded-For": "client1, proxy1, proxy2"
+        }
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz",
+        "sha512": "70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'arm'",
+          "entity.system.arm_version == 7"
+        ],
+        "headers": {
+          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
+          "X-Forwarded-For": "client1, proxy1, proxy2"
+        }
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz",
+        "sha512": "10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f",
+        "filters": [
+          "entity.system.os == 'windows'",
+          "entity.system.arch == 'amd64'"
+        ],
+        "headers": {
+          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
+          "X-Forwarded-For": "client1, proxy1, proxy2"
+        }
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Asset example: Single build (deprecated)
+
+This example shows the resource definition for an asset with a single build:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Asset
+api_version: core/v2
+metadata:
+  name: check_cpu_linux_amd64
+  namespace: default
+  labels:
+    origin: bonsai
+  annotations:
+    project_url: https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check
+    version: 0.0.3
+spec:
+  url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz
+  sha512: 487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3
+  filters:
+  - entity.system.os == 'linux'
+  - entity.system.arch == 'amd64'
+  headers:
+    Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
+    X-Forwarded-For: client1, proxy1, proxy2
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check_cpu_linux_amd64",
+    "namespace": "default",
+    "labels": {
+      "origin": "bonsai"
+    },
+    "annotations": {
+      "project_url": "https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check",
+      "version": "0.0.3"
+    }
+  },
+  "spec": {
+    "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz",
+    "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ],
+    "headers": {
+      "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
+      "X-Forwarded-For": "client1, proxy1, proxy2"
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ### Asset build evaluation
 
@@ -75,7 +284,90 @@ Use the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][4
 The directory path of each asset defined in `runtime_assets` is appended to the `PATH` before the handler, filter, mutator, or check `command` is executed.
 Subsequent handler, filter, mutator, or check executions look for the asset in the local cache and ensure that the contents match the configured checksum.
 
-See the [example asset with a check][31] for a use case with a Sensu resource (a check) and an asset.
+The following example demonstrates a use case with a Sensu check resource and an asset:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Asset
+api_version: core/v2
+metadata:
+  name: sensu-prometheus-collector
+  namespace: default
+spec:
+  builds:
+  - url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
+    sha512: a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: prometheus_collector
+  namespace: default
+spec:
+  command: "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up"
+  interval: 10
+  publish: true
+  output_metric_handlers:
+  - influxdb
+  output_metric_format: influxdb_line
+  runtime_assets:
+  - sensu-prometheus-collector
+  subscriptions:
+  - system
+{{< /code >}}
+
+{{< code json "JSON">}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-email-handler",
+    "namespace": "default"
+  },
+  "spec": {
+    "builds": [
+      {
+        "url": "https://assets.bonsai.sensu.io/45eaac0851501a19475a94016a4f8f9688a280f6/sensu-email-handler_0.2.0_linux_amd64.tar.gz",
+        "sha512": "d69df76612b74acd64aef8eed2ae10d985f6073f9b014c8115b7896ed86786128c20249fd370f30672bf9a11b041a99adb05e3a23342d3ad80d0c346ec23a946",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'amd64'"
+        ]
+      }
+    ]
+  }
+}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "prometheus_collector",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
+    "handlers": [
+    "influxdb"
+    ],
+    "interval": 10,
+    "publish": true,
+    "output_metric_format": "influxdb_line",
+    "runtime_assets": [
+      "sensu-prometheus-collector"
+    ],
+    "subscriptions": [
+      "system"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Asset format specification
 
@@ -279,7 +571,8 @@ From here, you can host your asset wherever you’d like.
 To make the asset available via [Bonsai][16], you’ll need to host it on GitHub.
 Learn more in [The “Hello World” of Sensu Assets][18] on Discourse.
 
-To host your asset on a different platform like Gitlab or Bitbucket, upload your asset there. You can also use Artifactory or even Apache or Nginx to serve your asset.
+To host your asset on a different platform like Gitlab or Bitbucket, upload your asset there.
+You can also use Artifactory or even Apache or Nginx to serve your asset.
 All that’s required for your asset to work is the URL to the asset and the SHA512 sum for the asset to be downloaded.
 
 ## Asset specification
@@ -288,7 +581,7 @@ All that’s required for your asset to work is the URL to the asset and the SHA
 
 type         | 
 -------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][11] resource type. assets should always be type `Asset`.
+description  | Top-level attribute that specifies the [`sensuctl create`][11] resource type. Assets should always be type `Asset`.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | String
 example      | {{< language-toggle >}}
@@ -662,7 +955,7 @@ headers:
 {{< /code >}}
 {{< /language-toggle >}}
 
-## asset filters based on entity.system attributes
+## Asset filters based on entity.system attributes
 
 Use the [entity.system attributes][10] in asset [filters][42] to specify which systems and configurations an asset or asset builds can be used with.
 
@@ -778,296 +1071,6 @@ In this case, the asset will not be downloaded and the check, handler, or filter
 
 Add asset filters to specify that an asset is compiled for any of the [entity.system attributes][10], including operating system, platform, platform version, and architecture.
 Then, you can rely on asset filters to ensure that you install only the appropriate asset for each of your agents.
-
-## Examples
-
-### Minimum required asset attributes
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Asset
-api_version: core/v2
-metadata:
-  name: check_script
-  namespace: default
-spec:
-  builds:
-  - sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
-    url: http://example.com/asset.tar.gz
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Asset",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "check_script",
-    "namespace": "default"
-  },
-  "spec": {
-    "builds": [
-      {
-        "url": "http://example.com/asset.tar.gz",
-        "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b"
-      }
-    ]
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Asset definition (single-build, deprecated)
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Asset
-api_version: core/v2
-metadata:
-  name: check_cpu_linux_amd64
-  namespace: default
-  labels:
-    origin: bonsai
-  annotations:
-    project_url: https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check
-    version: 0.0.3
-spec:
-  url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz
-  sha512: 487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3
-  filters:
-  - entity.system.os == 'linux'
-  - entity.system.arch == 'amd64'
-  headers:
-    Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
-    X-Forwarded-For: client1, proxy1, proxy2
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Asset",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "check_cpu_linux_amd64",
-    "namespace": "default",
-    "labels": {
-      "origin": "bonsai"
-    },
-    "annotations": {
-      "project_url": "https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check",
-      "version": "0.0.3"
-    }
-  },
-  "spec": {
-    "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz",
-    "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
-    "filters": [
-      "entity.system.os == 'linux'",
-      "entity.system.arch == 'amd64'"
-    ],
-    "headers": {
-      "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-      "X-Forwarded-For": "client1, proxy1, proxy2"
-    }
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Asset definition (multiple-builds)
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Asset
-api_version: core/v2
-metadata:
-  name: check_cpu
-  namespace: default
-  labels:
-    origin: bonsai
-  annotations:
-    project_url: https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check
-    version: 0.0.3
-spec:
-  builds:
-  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz
-    sha512: 487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3
-    filters:
-    - entity.system.os == 'linux'
-    - entity.system.arch == 'amd64'
-    headers:
-      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
-      X-Forwarded-For: client1, proxy1, proxy2
-  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz
-    sha512: 70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b
-    filters:
-    - entity.system.os == 'linux'
-    - entity.system.arch == 'arm'
-    - entity.system.arm_version == 7
-    headers:
-      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
-      X-Forwarded-For: client1, proxy1, proxy2
-  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz
-    sha512: 10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f
-    filters:
-    - entity.system.os == 'windows'
-    - entity.system.arch == 'amd64'
-    headers:
-      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
-      X-Forwarded-For: client1, proxy1, proxy2
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Asset",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "check_cpu",
-    "namespace": "default",
-    "labels": {
-      "origin": "bonsai"
-    },
-    "annotations": {
-      "project_url": "https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check",
-      "version": "0.0.3"
-    }
-  },
-  "spec": {
-    "builds": [
-      {
-        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz",
-        "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
-        "filters": [
-          "entity.system.os == 'linux'",
-          "entity.system.arch == 'amd64'"
-        ],
-        "headers": {
-          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-          "X-Forwarded-For": "client1, proxy1, proxy2"
-        }
-      },
-      {
-        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz",
-        "sha512": "70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b",
-        "filters": [
-          "entity.system.os == 'linux'",
-          "entity.system.arch == 'arm'",
-          "entity.system.arm_version == 7"
-        ],
-        "headers": {
-          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-          "X-Forwarded-For": "client1, proxy1, proxy2"
-        }
-      },
-      {
-        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz",
-        "sha512": "10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f",
-        "filters": [
-          "entity.system.os == 'windows'",
-          "entity.system.arch == 'amd64'"
-        ],
-        "headers": {
-          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-          "X-Forwarded-For": "client1, proxy1, proxy2"
-        }
-      }
-    ]
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Example asset with a check
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Asset
-api_version: core/v2
-metadata:
-  name: sensu-prometheus-collector
-  namespace: default
-spec:
-  builds:
-  - url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
-    sha512: a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808
-    filters:
-    - entity.system.os == 'linux'
-    - entity.system.arch == 'amd64'
----
-type: CheckConfig
-api_version: core/v2
-metadata:
-  name: prometheus_collector
-  namespace: default
-spec:
-  command: "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up"
-  interval: 10
-  publish: true
-  output_metric_handlers:
-  - influxdb
-  output_metric_format: influxdb_line
-  runtime_assets:
-  - sensu-prometheus-collector
-  subscriptions:
-  - system
-{{< /code >}}
-
-{{< code json "wrapped-json" >}}
-{
-  "type": "Asset",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "sensu-email-handler",
-    "namespace": default
-  },
-  "spec": {
-    "builds": [
-      {
-        "url": "https://assets.bonsai.sensu.io/45eaac0851501a19475a94016a4f8f9688a280f6/sensu-email-handler_0.2.0_linux_amd64.tar.gz",
-        "sha512": "d69df76612b74acd64aef8eed2ae10d985f6073f9b014c8115b7896ed86786128c20249fd370f30672bf9a11b041a99adb05e3a23342d3ad80d0c346ec23a946",
-        "filters": [
-          "entity.system.os == 'linux'",
-          "entity.system.arch == 'amd64'"
-        ]
-      }
-    ]
-  }
-}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "prometheus_collector",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
-    "handlers": [
-    "influxdb"
-    ],
-    "interval": 10,
-    "publish": true,
-    "output_metric_format": "influxdb_line",
-    "runtime_assets": [
-      "sensu-prometheus-collector"
-    ],
-    "subscriptions": [
-      "system"
-    ]
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
 
 ## Share an asset on Bonsai
 
@@ -1185,7 +1188,7 @@ Deleting an asset does not delete the archive or downloaded files on disk.
 You must remove the archive and downloaded files from the asset cache manually.
 
 [1]: ../sensu-query-expressions/
-[2]: ../rbac#namespaces
+[2]: ../namespaces/
 [3]: ../tokens/#manage-assets
 [4]: https://bonsai.sensu.io/assets/samroy92/sensu-plugins-windows
 [5]: #metadata-attributes
@@ -1213,13 +1216,10 @@ You must remove the archive and downloaded files from the asset cache manually.
 [28]: https://github.com/sensu/sensu-go-plugin/
 [29]: https://github.com/sensu-plugins
 [30]: ../agent#disable-assets
-[31]: #example-asset-with-a-check
-[34]: #asset-definition-single-build-deprecated
-[35]: #asset-definition-multiple-builds
 [37]: https://bonsai.sensu.io/sign-in
 [38]: https://bonsai.sensu.io/new
 [39]: ../../web-ui/filter#filter-with-label-selectors
 [40]: ../../reference/agent/#configuration-via-flags
-[41]: ../../reference/backend/#configuration
+[41]: ../../reference/backend/#configuration-via-flags
 [42]: #filters
 [43]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime

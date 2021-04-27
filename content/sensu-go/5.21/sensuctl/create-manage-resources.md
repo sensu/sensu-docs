@@ -158,9 +158,11 @@ To learn more about namespaces and namespaced resource types, see the [RBAC refe
 
 The `sensuctl create` command applies namespaces to resources in the following order, from highest precedence to lowest:
 
-1. **Namespaces specified within resource definitions**: You can specify a resource's namespace within individual resource definitions using the `namespace` attribute. Namespaces specified in resource definitions take precedence over all other methods.
+1. **Namespaces specified within resource definitions**: You can specify a resource's namespace within individual resource definitions using the `namespace` attribute.
+Namespaces specified in resource definitions take precedence over all other methods.
 2. **`--namespace` flag**: If resource definitions do not specify a namespace, Sensu applies the namespace provided by the `sensuctl create --namespace` flag.
-3. **Current sensuctl namespace configuration**: If you do not specify an embedded `namespace` attribute or use the `--namespace` flag, Sensu applies the namespace configured in the current sensuctl session. See [Manage sensuctl][31] to view your current session config and set the session namespace.
+3. **Current sensuctl namespace configuration**: If you do not specify an embedded `namespace` attribute or use the `--namespace` flag, Sensu applies the namespace configured in the current sensuctl session.
+See [Manage sensuctl][31] to view your current session config and set the session namespace.
 
 In this example, the file `pagerduty.yml` defines a handler _without_ a `namespace` attribute:
 
@@ -404,17 +406,17 @@ In addition, pruning requires [cluster-level privileges][35], even when all reso
 ##### sensuctl prune usage
 
 {{< code shell >}}
-sensuctl prune [RESOURCE TYPE],[RESOURCE TYPE]... -f [FILE or URL] [-r] ... ] [--NAMESPACE] [flags]
+sensuctl prune <resource_type>,<resource_type>... -f <file_or_url> [-r] ... ] --<namespace> <flags>
 {{< /code >}}
 
 In this example `sensuctl prune` command:
 
-- Replace [RESOURCE TYPE] with the [fully qualified name or short name][10] of the resource you want to prune.
+- Replace `<resource_type>` with the [fully qualified name or short name][10] of the resource you want to prune.
 You must specify at least one resource type or the `all` qualifier (to prune all resource types).
-- Replace [FILE or URL] with the name of the file or the URL that contains the set of Sensu objects you want to keep (the configuration).
-- Replace [flags] with the flags you want to use, if any.
-- Replace [--NAMESPACE] with the namespace where you want to apply pruning.
-If you omit the namespace qualifier, the command defaults to the current configured namespace.
+- Replace `<file_or_url>` with the name of the file or the URL that contains the set of Sensu objects you want to keep (the configuration).
+- Replace `<namespace>` with the namespace where you want to apply pruning.
+  If you omit the namespace qualifier, the command defaults to the current configured namespace.
+- Replace `<flags>` with the flags you want to use, if any.
 
 Use a comma separator to prune more than one resource in a single command.
 
@@ -542,7 +544,7 @@ Sensuctl supports the following formats:
 [18]: ../../reference/hooks/
 [19]: ../../reference/mutators/
 [20]: ../../reference/silencing/
-[21]: ../../reference/rbac#namespaces
+[21]: ../../reference/namespaces/
 [22]: ../../reference/rbac#users
 [23]: #subcommands
 [24]: ../../reference/secrets-providers/
@@ -556,6 +558,6 @@ Sensuctl supports the following formats:
 [32]: ../../reference/datastore/
 [33]: #create-resources-across-namespaces
 [34]: ../../reference/license/
-[35]: ../../reference/rbac/#cluster-roles
+[35]: ../../reference/rbac/#roles-and-cluster-roles
 [36]: #sensuctl-create-flags
 [37]: ../../operations/control-access/oidc-auth/

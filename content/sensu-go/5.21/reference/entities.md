@@ -20,7 +20,7 @@ Entities can also contain system information like the hostname, operating system
 
 Agent entities are monitoring agents that are installed and run on every system that needs to be monitored.
 The agent entity registers the system with the Sensu backend service, sends keepalive messages (the Sensu heartbeat mechanism), and executes monitoring checks.
-Each entity is a member of one or more `subscriptions`: a list of roles and responsibilities assigned to the agent entity (e.g. a webserver or a database).
+Each entity is a member of one or more `subscriptions`: a list of roles and responsibilities assigned to the agent entity (for example, a webserver or a database).
 Sensu entities "subscribe" to (or watch for) check requests published by the Sensu backend (via the Sensu transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu backend).
 
 [Proxy entities][16] are dynamically created entities that are added to the entity store if an entity does not already exist for a check result.
@@ -35,8 +35,9 @@ See [the announcement on our blog][11] for more information about our usage poli
 
 Commercial licenses may include an entity limit and entity class limits:
 
-- Entity limit: the maximum number of entities of all classes your license includes. Both agent and proxy entities count toward the overall entity limit.
-- Entity class limits: the maximum number of a specific class of entities (e.g. agent or proxy) that your license includes.
+- Entity limit: the maximum number of entities of all classes your license includes.
+Both agent and proxy entities count toward the overall entity limit.
+- Entity class limits: the maximum number of a specific class of entities (for example, agent or proxy) that your license includes.
 
 For example, if your license has an entity limit of 10,000 and an agent entity class limit of 3,000, you cannot run more than 10,000 entities (agent and proxy) total.
 At the same time, you cannot run more than 3,000 agents.
@@ -723,7 +724,8 @@ sensu_agent_version: 1.0.0
 
 last_seen    | 
 -------------|------ 
-description  | Timestamp the entity was last seen. In seconds since the Unix epoch. 
+description  | Timestamp the entity was last seen. In seconds since the Unix epoch.{{% notice note %}}**NOTE**: In the entity attributes for events created with the [events API](../../api/events/), the `last_seen` value is `0`.
+{{% /notice %}}
 required     | false 
 type         | Integer 
 example      | {{< language-toggle >}}
@@ -1197,7 +1199,8 @@ As of 5.20.2, new events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
-**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][9].
+**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][9].
 
 {{% notice note %}}
 **NOTE**: The `processes` field is populated in the packaged Sensu Go distributions.
@@ -1540,7 +1543,7 @@ spec:
 [2]: #deregistration-attributes
 [3]: #network-attributes
 [4]: #networkinterface-attributes
-[5]: ../rbac#namespaces
+[5]: ../namespaces/
 [6]: ../filters/
 [7]: ../tokens/
 [8]: #metadata-attributes

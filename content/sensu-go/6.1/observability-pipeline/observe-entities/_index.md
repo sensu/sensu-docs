@@ -32,14 +32,146 @@ There are two types of Sensu entities: agent entities and proxy entities.
 Agent entities are monitoring agents that are installed and run on every system that needs to be observed or monitored.
 The agent entity registers the system with the Sensu backend service, sends keepalive messages (the Sensu heartbeat mechanism), and executes observability checks.
 
-Each entity is a member of one or more `subscriptions`: a list of roles and responsibilities assigned to the agent entity (e.g. a webserver or a database).
+Each entity is a member of one or more `subscriptions`: a list of roles and responsibilities assigned to the agent entity (for example, a webserver or a database).
 Sensu entities "subscribe" to (or watch for) check requests published by the Sensu backend (via the Sensu transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu backend).
+
+This example shows an agent entity resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Entity
+api_version: core/v2
+metadata:
+  name: i-424242
+  namespace: default
+spec:
+  deregister: false
+  deregistration: {}
+  entity_class: agent
+  last_seen: 0
+  sensu_agent_version: 1.0.0
+  subscriptions:
+  - web
+  system:
+    cloud_provider: ""
+    libc_type: ""
+    network:
+      interfaces: null
+    processes: null
+    vm_role: ""
+    vm_system: ""
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "i-424242",
+    "namespace": "default"
+  },
+  "spec": {
+    "deregister": false,
+    "deregistration": {
+    },
+    "entity_class": "agent",
+    "last_seen": 0,
+    "sensu_agent_version": "1.0.0",
+    "subscriptions": [
+      "web"
+    ],
+    "system": {
+      "cloud_provider": "",
+      "libc_type": "",
+      "network": {
+        "interfaces": null
+      },
+      "processes": null,
+      "vm_role": "",
+      "vm_system": ""
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Proxy entities
 
 Proxy entities [formerly known as proxy clients or just-in-time (JIT) clients] are dynamically created entities that Sensu adds to the entity store if an entity does not already exist for a check result.
 Proxy entities allow Sensu to monitor external resources on systems where you cannot install a Sensu agent, like a network switch or website.
 Sensu uses the [defined check `proxy_entity_name`][7] to create a proxy entity for the external resource.
+
+This example shows a proxy entity resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Entity
+api_version: core/v2
+metadata:
+  labels:
+    proxy_type: website
+    sensu.io/managed_by: sensuctl
+    url: https://docs.sensu.io
+  name: sensu-docs
+  namespace: default
+spec:
+  deregister: false
+  deregistration: {}
+  entity_class: proxy
+  last_seen: 0
+  sensu_agent_version: ""
+  subscriptions: null
+  system:
+    cloud_provider: ""
+    libc_type: ""
+    network:
+      interfaces: null
+    processes: null
+    vm_role: ""
+    vm_system: ""
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "labels": {
+      "proxy_type": "website",
+      "sensu.io/managed_by": "sensuctl",
+      "url": "https://docs.sensu.io"
+    },
+    "name": "sensu-docs",
+    "namespace": "default"
+  },
+  "spec": {
+    "deregister": false,
+    "deregistration": {
+    },
+    "entity_class": "proxy",
+    "last_seen": 0,
+    "sensu_agent_version": "",
+    "subscriptions": null,
+    "system": {
+      "cloud_provider": "",
+      "libc_type": "",
+      "network": {
+        "interfaces": null
+      },
+      "processes": null,
+      "vm_role": "",
+      "vm_system": ""
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message).
 
@@ -55,8 +187,9 @@ If your Sensu instance includes more than 100 entities, [contact us][3] to learn
 
 Commercial licenses may include an entity limit and entity class limits:
 
-- Entity limit: the maximum number of entities of all classes your license includes. Both agent and proxy entities count toward the overall entity limit.
-- Entity class limits: the maximum number of a specific class of entities (e.g. agent or proxy) that your license includes.
+- Entity limit: the maximum number of entities of all classes your license includes.
+Both agent and proxy entities count toward the overall entity limit.
+- Entity class limits: the maximum number of a specific class of entities (for example, agent or proxy) that your license includes.
 
 For example, if your license has an entity limit of 10,000 and an agent entity class limit of 3,000, you cannot run more than 10,000 entities (agent and proxy) total.
 At the same time, you cannot run more than 3,000 agents.

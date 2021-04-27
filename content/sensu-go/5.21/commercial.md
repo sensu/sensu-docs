@@ -15,16 +15,17 @@ If you have more than 100 entities, [contact the Sensu sales team][1] for a free
 
 ## Commercial features in Sensu Go
 
+- **Integrate your Sensu observability pipeline with industry-standard tools** like ServiceNow and Jira with [enterprise-tier dynamic runtime assets][11].
+- **Manage resources from your browser**: Use the Sensu [web UI][8] to manage events and entities and create, edit, and delete checks, handlers, mutators, silences, and event filters.
+- **Control permissions with Sensu role-based access control (RBAC)**, with the option of using [Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC)][9] for authentication.
+- **Use mutual transport layer security (mTLS) authentication** to [provide two-way verification of your Sensu agents and backend connections][21].
 - **Protect your sensitive information** with [secrets management][19].
 Avoid exposing usernames, passwords, and access keys in your Sensu configuration by integrating with HashiCorp Vault or using Sensu's built-in environment variable secrets provider.
 - **Manage your monitoring resources across multiple data centers, cloud regions, or providers** and mirror changes to follower clusters with [federation][20].
 Federation affords visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI.
-- **Use mutual transport layer security (mTLS) authentication** to [provide two-way verification of your Sensu agents and backend connections][21].
-- **Manage resources from your browser**: Create, edit, and delete checks, handlers, mutators, and filters using the Sensu [web UI][8], and access the Sensu web UI homepage.
-- **Control permissions with Sensu role-based access control (RBAC)**, with the option of using [Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC)][9] for authentication.
-- **Use powerful filtering capabilities** designed for large installations. With label and field selectors, you can filter [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wider range of resource attributes.
+- **Use powerful filtering capabilities** designed for large installations.
+With label and field selectors, you can filter [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wider range of resource attributes.
 - **Log event data** [to a file][10] you can use as an input to your favorite data lake solution.
-- **Connect your monitoring event pipelines to industry-standard tools** like ServiceNow and Jira with [enterprise-tier assets][11].
 - **Achieve enterprise-scale event handling** for your Sensu instance with a [PostgreSQL event store][12].
 Access the PostgreSQL event datastore with the same Sensu web UI, API, and sensuctl processes as etcd-stored events.
 - **Get enterprise-class support**: Rest assured that with [Sensu support][13], help is available if you need it.
@@ -91,7 +92,7 @@ These resources will help you get started with commercial features in Sensu Go:
 [13]: https://sensu.io/support/
 [14]: https://account.sensu.io/support/
 [15]: ../operations/deploy-sensu/install-sensu/
-[16]: ../sensuctl/#first-time-setup
+[16]: ../sensuctl/#first-time-setup-and-authentication
 [17]: ../guides/install-check-executables-with-assets/
 [18]: ../reference/license/
 [19]: ../operations/manage-secrets/secrets-management/

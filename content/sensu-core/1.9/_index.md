@@ -11,11 +11,11 @@ layout: "single"
 
 <iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu&type=star&count=true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe> | <a href="https://docs.sensu.io/sensu-go/latest/">Learn about Sensu Go</a>
 
-_**IMPORTANT**: [Sensu Core reached end-of-life (EOL) on December 31, 2019][21], more than 8 years after its inception as an open source software project. Learn more about [Core and Enterprise EOL][31]._
+_**IMPORTANT**: [Sensu Core reached end-of-life (EOL) on December 31, 2019][21], more than 8 years after its inception as an open source software project, and we [permanently removed][32] the Sensu EOL repository on February 1, 2021.<br><br>To migrate to Sensu Go, read [Migrate from Sensu Core and Sensu Enterprise to Sensu Go][33]._
 
 **These resources can help you migrate to [Sensu Go][24]**, the latest version of Sensu:
 
-- [**Migration guide**][22]: Review this step-by-step guide to installing Sensu Go and using the [translator][23] command-line tool to transfer your Sensu Core checks, handlers, and mutators to Sensu Go.
+- [**Migrate from Sensu Core and Sensu Enterprise to Sensu Go**][33]: Review this step-by-step guide to installing Sensu Go and using the [translator][23] command-line tool to transfer your Sensu Core checks, handlers, and mutators to Sensu Go.
 - [**Sensu Go documentation**][24]: Learn about the Sensu Go architecture and APIs. The [Sensu Go migration section][25] includes an overview of Sensu Go features.
 - [**Sensu Community Slack**][26]: Join hundreds of other Sensu users in our Community Slack, where you can ask questions and benefit from tips others picked up during their own Sensu Go migrations.
 - [**Sensu Community Forum**][27]: Drop a question in our dedicated category for migrating to Go.
@@ -95,7 +95,6 @@ training, and other benefits, check out [Sensu Enterprise][14].
 [19]: reference/checks/#check-hooks
 [20]: /uchiwa/latest
 [21]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
-[22]: ../latest/migration/
 [23]: https://github.com/sensu/sensu-translator
 [24]: https://docs.sensu.io/sensu-go/latest/
 [25]: https://docs.sensu.io/sensu-go/latest/installation/upgrade/#upgrading-to-sensu-go-from-sensu-core-1-x
@@ -104,4 +103,5 @@ training, and other benefits, check out [Sensu Enterprise][14].
 [28]: https://docs.sensu.io/sensu-go/latest/getting-started/sandbox/
 [29]: https://sensu.io/support/
 [30]: https://sensu.io/contact/
-[31]: https://blog.sensu.io/announcing-the-sensu-archives
+[32]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
+[33]: /sensu-go/latest/operations/maintain-sensu/migrate/

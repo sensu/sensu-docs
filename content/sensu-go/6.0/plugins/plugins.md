@@ -16,7 +16,7 @@ Sensu plugins provide executable scripts or other programs that you can use as S
 Sensu plugins must comply with the following specification:
 
 - Accept input/data via `STDIN` (handler and mutator plugins only)
-  - Optionally able to parse a JSON data payload (i.e. observation data in an event)
+  - Optionally able to parse a JSON data payload (that is, observation data in an event)
 - Output data to `STDOUT` or `STDERR`
 - Produce an exit status code to indicate state:
   - `0` indicates `OK`
@@ -36,17 +36,15 @@ For example, to use a Ruby plugin with Sensu Go, you must install the [Sensu Go 
 ## Plugin execution
 
 All plugins are executed by the Sensu backend.
-Plugins must be executable files that are discoverable on the Sensu system (i.e. installed in a system `$PATH` directory) or referenced with an absolute path (e.g. `/opt/path/to/my/plugin`).
+Plugins must be executable files that are discoverable on the Sensu system (that is, installed in a system `$PATH` directory) or referenced with an absolute path (for example, `/opt/path/to/my/plugin`).
 
 {{% notice note %}}
 **NOTE**: By default, Sensu installer packages will modify the system `$PATH` for the Sensu processes to include `/etc/sensu/plugins`.
-As a result, executable scripts (e.g. plugins) located in `/etc/sensu/plugins` will be valid commands.
+As a result, executable scripts (for example, plugins) located in `/etc/sensu/plugins` will be valid commands.
 This allows command attributes to use relative paths for Sensu plugin commands, such as `"command": "check-http.rb -u https://sensuapp.org"`.
 {{% /notice %}}
 
-## Examples
-
-### Go plugin example
+## Go plugin example
 
 The following example shows the structure for a very basic Sensu Go plugin.
 
@@ -114,24 +112,22 @@ The plugin template repositories wrap the [Sensu Plugin SDK][8], which provides 
 For a step-by-step walkthrough, read [How to publish an asset with the Sensu Go SDK][7] &mdash; you'll learn how to create a check plugin and a handler plugin with the Sensu Plugin SDK.
 You can also watch our 30-minute webinar, [Intro to assets with the Sensu Go SDK][6], and learn to build a check plugin for Sensu Go.
 
-### Ruby plugin example
+## Ruby plugin example
 
-The following example demonstrates how to write a very basic Sensu plugin in the Ruby programming language.
+The following example demonstrates a very basic Sensu plugin in the Ruby programming language.
 
 {{< code ruby >}}
 #!/usr/bin/env ruby
 #
-# A basic example handler plugin.
-
 require 'json'
 
-# Read the incoming JSON data from STDIN.
+# Read the incoming JSON data from STDIN
 event = JSON.parse(STDIN.read, :symbolize_names => true)
 
 # Create an output object using Ruby string interpolation
 output = "The check named #{event[:check][:name]} generated the following output: #{event[:output]}"
 
-# Convert the mutated event data back to JSON and output it to STDOUT.
+# Convert the mutated event data back to JSON and output it to STDOUT
 puts output
 {{< /code >}}
 

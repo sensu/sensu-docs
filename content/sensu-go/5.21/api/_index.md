@@ -28,14 +28,14 @@ Use the Sensu APIs to customize your workflows and integrate your favorite Sensu
 
 ## URL format
 
-Sensu API endpoints use the standard URL format `/api/{group}/{version}/namespaces/{namespace}` where:
+Sensu API endpoints use the standard URL format `/api/<group>/<version>/namespaces/<namespace>` where:
 
-- `{group}` is the API group: `core`.
-- `{version}` is the API version: `v2`.
-- `{namespace}` is the namespace name.
+- `<group>` is the API group: `core`.
+- `<version>` is the API version: `v2`.
+- `<namespace>` is the namespace name.
 The examples in these API docs use the `default` namespace.
 The Sensu API requires the authenticated user to have the correct access permissions for the namespace specified in the URL.
-If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/{namespace}` portion of the URL to access Sensu resources across namespaces.
+If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/<namespace>` portion of the URL to access Sensu resources across namespaces.
 See the [RBAC reference][3] for more information about configuring Sensu users and access controls.
 
 {{% notice note %}}
@@ -62,7 +62,7 @@ API request bodies are limited to 0.512 MB in size.
 
 ## Access control
 
-With the exception of the [authentication][12], [health][5], and [metrics][6] APIs, the Sensu API requires authentication using a JSON Web Token (JWT) [access token][20] or [API key][17].
+With the exception of the [authentication][12], [health][5], and [metrics][6] APIs, the Sensu API requires authentication using a [JSON Web Token][27] (JWT) [access token][20] or [API key][17].
 
 Code examples in the Sensu API docs use the environment variable `$SENSU_API_KEY` to represent a valid API key in API requests.
 
@@ -102,6 +102,7 @@ The access token should be included in the output, along with a refresh token:
   "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
 }
 {{< /code >}}
+The access and refresh tokens are [JWTs][2] that Sensu uses to digitally sign the details of users' authenticated Sensu sessions.
 
 2. Use the access token in the authentication header of the API request.
 For example:
@@ -132,9 +133,9 @@ The new access token should be included in the output:
 ### Generate an API token with sensuctl
 
 You can also generate an API access token using the sensuctl command line tool.
-The user credentials that you use to log in to sensuctl determine your permissions to get, list, create, update, and delete resources with the Sensu API.
+The user credentials that you use to configure sensuctl determine your permissions to get, list, create, update, and delete resources with the Sensu API.
 
-1. [Install and log in to sensuctl][2].
+1. [Install and configure sensuctl][2].
 
 2. Retrieve an access token for your user:
 {{< code shell >}}
@@ -493,7 +494,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'fieldSelector=entity.name matches "webserver-"'
 {{< /code >}}
 
-Similarly, if you have entities labeled for different regions, you can use `matches` to find the entities that are labeled for the US (e.g. `us-east-1`, `us-west-1`, and so on):
+Similarly, if you have entities labeled for different regions, you can use `matches` to find the entities that are labeled for the US (for example, `us-east-1`, `us-west-1`, and so on):
 
 {{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \
@@ -716,3 +717,4 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [20]: #authenticate-with-the-authentication-api
 [25]: ../sensuctl/
 [26]: ../web-ui/
+[27]: https://tools.ietf.org/html/rfc7519

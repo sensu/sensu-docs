@@ -16,7 +16,8 @@ For more information, see [Get started with commercial features][8].
 
 Sensu's [federation API][1] allows you to register external clusters, access resources across multiple clusters via the web UI, and mirror your changes in one cluster to follower clusters.
 
-Federation is not enabled by default. You must create a cluster resource for the federation cluster and [register it][14].
+Federation is not enabled by default.
+You must create a cluster resource for the federation cluster and [register it][14].
 
 Create, update, and delete clusters using sensuctl [create][5], [edit][6], and [delete][7] commands.
 Only cluster administrators can register a new cluster, but every user can [query the list of clusters][11].
@@ -76,12 +77,15 @@ This prerequisite extends to configuring the following Sensu backend etcd parame
 | `etcd-cert-file`             | Path to certificate used for TLS on etcd client/peer communications.  |
 | `etcd-key-file`              | Path to key corresponding with `etcd-cert-file` certificate. |
 | `etcd-trusted-ca-file`       | Path to CA certificate chain file. This CA certificate chain must be usable to validate certificates for all backends in the federation. |
-| `etcd-client-cert-auth`      | Enforces certificate validation to authenticate etcd replicator connections. We recommend setting to `true`. |
-| `etcd-advertise-client-urls` | List of https URLs to advertise for etcd replicators, accessible by other backends in the federation (e.g. `https://sensu.beta.example.com:2379`). |
-| `etcd-listen-client-urls`    | List of https URLs to listen on for etcd replicators (e.g. `https://0.0.0.0:2379` to listen on port 2379 across all ipv4 interfaces). |
+| `etcd-client-cert-auth`      | Enforces certificate validation to authenticate etcd replicator connections. Set to `true` to secure etcd communication. |
+| `etcd-advertise-client-urls` | List of https URLs to advertise for etcd replicators, accessible by other backends in the federation (for example, `https://sensu.beta.example.com:2379`). |
+| `etcd-listen-client-urls`    | List of https URLs to listen on for etcd replicators (for example, `https://0.0.0.0:2379` to listen on port 2379 across all ipv4 interfaces). |
 
-{{% notice note %}}
-**NOTE**: You *must* provide non-default values for the `etcd-advertise-client-urls` and `etcd-listen-client-urls` backend parameters.
+{{% notice warning %}}
+**WARNING**: You *must* provide an explicit, non-default etcd configuration to secure etcd communication in transit.
+If you do not properly configure secure etcd communication, your Sensu configuration will be vulnerable to unauthorized manipulation via etcd client connections.
+
+This includes providing non-default values for the `etcd-advertise-client-urls` and `etcd-listen-client-urls` backend parameters and creating a [certificate and key](../generate-certificates/) for the `etcd-cert-file` and `etcd-key-file` values.
 The default values are not suitable for use under federation.
 {{% /notice %}}
 
@@ -143,7 +147,8 @@ sensuctl user create federation-viewer --interactive
 {{< /code >}}
 
 When prompted, enter a password for the `federation-viewer` user.
-When prompted for groups, press enter. Note the `federation-viewer` password you entered &mdash; you'll use it to log in to the web UI after you configure RBAC policy replication and registered clusters into your federation.
+When prompted for groups, press enter.
+Note the `federation-viewer` password you entered &mdash; you'll use it to log in to the web UI after you configure RBAC policy replication and registered clusters into your federation.
 
 Next, grant the `federation-viewer` user read-only access through a cluster role binding for the built-in `view` cluster role:
 
@@ -267,7 +272,8 @@ Subjects:
 
 ### Step 5 Register clusters
 
-Clusters must be registered to become visible in the web UI. Each registered cluster must have a name and a list of one or more cluster member URLs corresponding to the backend REST API.
+Clusters must be registered to become visible in the web UI.
+Each registered cluster must have a name and a list of one or more cluster member URLs corresponding to the backend REST API.
 
 {{% notice note %}}
 **NOTE**: Individual cluster resources may list the API URLs for a single stand-alone backend or multiple backends that are members of the same etcd cluster.
@@ -366,7 +372,7 @@ Learn more about configuring RBAC policies in our [RBAC reference documentation]
 [6]: ../../../sensuctl/create-manage-resources/#update-resources
 [7]: ../../../sensuctl/create-manage-resources/#delete-resources
 [8]: ../../../commercial/
-[9]: ../../../reference/etcdreplicators#example-etcdreplicator-resources
+[9]: ../../../reference/etcdreplicators#etcd-replicator-examples
 [10]: ../../../reference/rbac/
 [11]: ../../../api/federation#get-all-clusters
 [12]: https://github.com/etcd-io/etcd/blob/master/etcdctl/README.md#make-mirror-options-destination

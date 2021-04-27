@@ -5,7 +5,7 @@ description: "User documentation for installing and operating Sensu on Microsoft
 weight: 4
 version: "1.9"
 product: "Sensu Core"
-platformContent: true
+platformContent: false
 menu:
   sensu-core-1.9:
     parent: platforms
@@ -28,15 +28,17 @@ menu:
 
 ## Install Sensu Core {#sensu-core}
 
+_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][20], and we [permanently removed][18] the Sensu EOL repository on February 1, 2021.<br><br>This means the packages specified in the instructions below are no longer available. To migrate to Sensu Go, read the [Sensu Core migration guide][19]._
+
 Sensu Core is installed on Microsoft Windows systems via a native system
-installer package (i.e. a .msi file), which is available for [download][1] and from [this repository][2].
+installer package (i.e. a .msi file).
 
 ### Download and install Sensu using the Sensu MSI {#download-and-install-sensu-core}
 
 _NOTE: As of Sensu version 1.0, repository URLs have changed.
 To install or upgrade to the latest version of Sensu, please ensure you have updated existing configurations to follow the repository URL format specified below._
 
-1. Download the Sensu [Microsoft Windows package][1].
+1. Download the Sensu Microsoft Windows package.
 
 2. Double-click the `sensu-1.4.1-1-x64.msi` installer package to launch the
    installer, accept the Sensu Core [MIT License][4] and install Sensu using the
@@ -179,15 +181,12 @@ sc start sensu-client
 sc stop sensu-client{{< /code >}}
 
 
-[1]:  https://eol-repositories.sensuapp.org/msi/
-[2]:  https://eol-repositories.sensuapp.org/msi/
-[3]:  https://eol-repositories.sensuapp.org/msi/2012r2/sensu-1.4.1-1-x64.msi
 [4]:  https://sensuapp.org/mit-license
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/
 [7]:  ../../reference/redis/#configure-sensu
 [8]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
-[9]:  ../../reference/configuration/#sensu-service-cli-arguments
+[9]:  ../../reference/configuration/#sensu-command-line-interfaces-and-arguments
 [10]: https://technet.microsoft.com/en-us/library/bb490995.aspx
 [11]: https://technet.microsoft.com/en-us/library/cc755249.aspx
 [12]: #configure-sensu
@@ -196,3 +195,6 @@ sc stop sensu-client{{< /code >}}
 [15]: ../../reference/transport/#transport-definition-specification
 [16]: http://stackoverflow.com/questions/2223882/whats-different-between-utf-8-and-utf-8-without-bom
 [17]: http://stackoverflow.com/questions/5596982/using-powershell-to-write-a-file-in-utf-8-without-the-bom
+[18]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
+[19]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/
+[20]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise

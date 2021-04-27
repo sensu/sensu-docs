@@ -55,8 +55,9 @@ Your commercial license may include the entity limit and entity class limits tie
 
 Your Sensu license may include two types of entity limits:
 
-- Entity limit: the maximum number of entities of all classes your license includes. Both agent and proxy entities count toward the overall entity limit.
-- Entity class limits: the maximum number of a specific class of entities (e.g. agent or proxy) that your license includes.
+- Entity limit: the maximum number of entities of all classes your license includes.
+Both agent and proxy entities count toward the overall entity limit.
+- Entity class limits: the maximum number of a specific class of entities (for example, agent or proxy) that your license includes.
 
 For example, if your license has an entity limit of 10,000 and an agent entity class limit of 3,000, you cannot run more than 10,000 entities (agent and proxy) total.
 At the same time, you cannot run more than 3,000 agents.
@@ -89,7 +90,7 @@ For example:
 === You are currently using 10/unlimited total entities, 5/unlimited agent entities, and 5/unlimited proxy entities
 {{< /code >}}
 
-In other formats (e.g. YAML and JSON), the entity count and limit are included as labels:
+In other formats (for example, YAML and JSON), the entity count and limit are included as labels:
 
 {{< language-toggle >}}
 
@@ -135,7 +136,8 @@ sensuctl license info --format json
 
 {{< /language-toggle >}}
 
-You can also see your current entity count and limit in the response headers for any `/api/core` or `/api/enterprise` [API request][9]. For example:
+You can also see your current entity count and limit in the response headers for any `/api/core` or `/api/enterprise` [API request][9].
+For example:
 
 {{< code shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
@@ -170,7 +172,7 @@ If your license expires, you will still have access to [commercial features][5],
 
 [1]: https://account.sensu.io/
 [2]: ../../operations/deploy-sensu/install-sensu/
-[3]: ../../sensuctl/#first-time-setup
+[3]: ../../sensuctl/#first-time-setup-and-authentication
 [4]: ../../api/license/
 [5]: ../../commercial/
 [6]: ../../operations/maintain-sensu/troubleshoot/

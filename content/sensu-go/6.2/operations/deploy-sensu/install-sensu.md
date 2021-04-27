@@ -44,7 +44,7 @@ The agents execute the checks the backend sends to their subscriptions and send 
 
 The Sensu backend keeps track of all self-registered agents.
 If the backend loses a keepalive signal from any of the agents, it flags the agent and generates an event.
-You can configure your instance so that when an agent (e.g. a server) shuts down gracefully, the agent automatically de-registers from the backend and does not generate an alert.
+You can configure your instance so that when an agent (for example, a server) shuts down gracefully, the agent automatically de-registers from the backend and does not generate an alert.
 
 Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and several exposed ports.
 Agents that use Sensu [dynamic runtime assets][17] require some disk space for a local cache.
@@ -125,19 +125,19 @@ For details about intialization in Docker, see the [backend reference](../../../
 {{< language-toggle >}}
 
 {{< code Docker >}}
-# Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password
+# Replace `<username>` and `<password>` with the username and password
 # you want to use for your admin user credentials.
 docker run -v /var/lib/sensu:/var/lib/sensu \
 -d --name sensu-backend \
 -p 3000:3000 -p 8080:8080 -p 8081:8081 \
--e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME \
--e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD \
+-e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username> \
+-e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password> \
 sensu/sensu:latest \
 sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 {{< /code >}}
 
 {{< code docker "Docker Compose" >}}
-# Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password
+# Replace `<username>` and `<password>` with the username and password
 # you want to use for your admin user credentials.
 ---
 version: "3"
@@ -151,8 +151,8 @@ services:
     - "sensu-backend-data:/var/lib/sensu/sensu-backend/etcd"
     command: "sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug"
     environment:
-    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
-    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
+    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
     image: sensu/sensu:latest
 
 volumes:
@@ -202,19 +202,19 @@ If you did not use environment variables to override the default admin credentia
 **With the backend running**, run `sensu-backend init` to set up your Sensu administrator username and password.
 In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
 
-Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use.
+Replace `<username>` and `<password>` with the username and password you want to use.
 
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
-export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
+export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
 sensu-backend init
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
-export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
+export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
 sensu-backend init
 {{< /code >}}
 
@@ -279,18 +279,18 @@ sudo yum install sensu-go-cli
 
 {{< code powershell "Windows" >}}
 # Download sensuctl for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.4/sensu-go_6.2.4_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.4_windows_amd64.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go_6.2.7_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.7_windows_amd64.zip
 
 # Or for 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.4/sensu-go_6.2.4_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.4_windows_386.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go_6.2.7_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.7_windows_386.zip
 {{< /code >}}
 
 {{< code shell "macOS" >}}
 # Download the latest release
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.4/sensu-go_6.2.4_darwin_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go_6.2.7_darwin_amd64.tar.gz
 
 # Extract the archive
-tar -xvf sensu-go_6.2.4_darwin_amd64.tar.gz
+tar -xvf sensu-go_6.2.7_darwin_amd64.tar.gz
 
 # Copy the executable into your PATH
 sudo cp sensuctl /usr/local/bin/
@@ -312,7 +312,7 @@ sensuctl configure -n \
 Here, the `-n` flag triggers non-interactive mode.
 Run `sensuctl config view` to see your user profile.
 
-For more information about sensuctl, see the [quickstart][23] and [reference][4] docs.
+For more information about sensuctl, see the [sensuctl documentation][4].
 
 ### Change default admin password
 
@@ -360,13 +360,13 @@ sudo yum install sensu-go-agent
 
 {{< code powershell "Windows" >}}
 # Download the Sensu agent for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.4/sensu-go-agent_6.2.4.4013_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.4.4013_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go-agent_6.2.7.4449_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.7.4449_en-US.x64.msi"
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.4/sensu-go-agent_6.2.4.4013_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.4.4013_en-US.x86.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go-agent_6.2.7.4449_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.7.4449_en-US.x86.msi"
 
 # Install the Sensu agent
-msiexec.exe /i $env:userprofile\sensu-go-agent_6.2.4.4013_en-US.x64.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_6.2.7.4449_en-US.x64.msi /qn
 
 # Or via Chocolatey
 choco install sensu-agent
@@ -511,11 +511,22 @@ Sensu Inc. offers support packages for Sensu Go and [commercial features][20] de
 All commercial features are [free for your first 100 entities][29].
 To learn more about Sensu Go commercial licenses for more than 100 entities, [contact the Sensu sales team][11].
 
-If you already have a Sensu commercial license, [log in to your Sensu account][34] and download your license file, then add your license using sensuctl.
+If you already have a Sensu commercial license, [log in to your Sensu account][34] and download your license file.
+Save your license to a file such as `sensu_license.yml` or `sensu_license.json`.
 
-{{< code shell >}}
+Use sensuctl to activate your license:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl create --file sensu_license.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
 sensuctl create --file sensu_license.json
 {{< /code >}}
+
+{{< /language-toggle >}}
 
 You can use sensuctl to view your license details at any time.
 
@@ -529,8 +540,8 @@ sensuctl license info
 [3]: ../../../web-ui/
 [4]: ../../../sensuctl/
 [5]: ../../../platforms/
-[6]: ../../../observability-pipeline/observe-schedule/backend#configuration
-[7]: ../../../observability-pipeline/observe-schedule/agent#configuration-via-flags
+[6]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-flags
+[7]: ../../../observability-pipeline/observe-schedule/agent/#configuration-via-flags
 [8]: ../secure-sensu/
 [9]: ../../../observability-pipeline/observe-schedule/monitor-server-resources/
 [10]: ../../../observability-pipeline/observe-process/send-slack-alerts/
@@ -540,13 +551,12 @@ sensuctl license info
 [14]: ../../../learn/learn-sensu-sandbox/
 [15]: ../../../observability-pipeline/observe-schedule/agent/#events-post-example
 [16]: https://etcd.io/
-[17]: ../../../operations/deploy-sensu/assets/
+[17]: ../../../plugins/assets/
 [18]: #install-sensu-agents
 [19]: #install-sensuctl
 [20]: ../../../commercial/
 [21]: #install-the-sensu-backend
 [22]: ../cluster-sensu/
-[23]: ../../../sensuctl/
 [24]: #4-open-the-web-ui
 [25]: ../hardware-requirements/
 [26]: ../../../api/

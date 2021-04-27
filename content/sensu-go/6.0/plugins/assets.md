@@ -29,15 +29,224 @@ The Sensu backend executes handler, filter, and mutator dynamic runtime assets.
 The Sensu agent executes check dynamic runtime assets.
 At runtime, the backend or agent sequentially evaluates dynamic runtime assets that appear in the `runtime_assets` attribute of the handler, filter, mutator, or check being executed.
 
+## Dynamic runtime asset example (minimum required attributes)
+
+This example shows a dynamic runtime asset resource definition that includes the minimum required attributes:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Asset
+api_version: core/v2
+metadata:
+  name: check_script
+  namespace: default
+spec:
+  builds:
+  - sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
+    url: http://example.com/asset.tar.gz
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check_script",
+    "namespace": "default"
+  },
+  "spec": {
+    "builds": [
+      {
+        "url": "http://example.com/asset.tar.gz",
+        "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b"
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Dynamic runtime asset builds
 
 A dynamic runtime asset build is the combination of an artifact URL, SHA512 checksum, and optional [Sensu query expression][1] filters.
 Each asset definition may describe one or more builds.
 
 {{% notice note %}}
-**NOTE**: Dynamic runtime assets that provide `url` and `sha512` attributes at the top level of the `spec` scope are [single-build assets](#asset-definition-single-build-deprecated), and this form of asset defintion is deprecated.
-We recommend using [multiple-build asset defintions](#asset-definition-multiple-builds), which specify one or more `builds` under the `spec` scope.
+**NOTE**: Dynamic runtime assets that provide `url` and `sha512` attributes at the top level of the `spec` scope are [single-build assets](#asset-example-single-build-deprecated), and this form of asset defintion is deprecated.
+We recommend using [multiple-build asset defintions](#asset-example-multiple-builds), which specify one or more `builds` under the `spec` scope.
 {{% /notice %}}
+
+### Asset example: Multiple builds
+
+This example shows the resource definition for a dynamic runtime asset with multiple builds:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Asset
+api_version: core/v2
+metadata:
+  name: check_cpu
+  namespace: default
+  labels:
+    origin: bonsai
+  annotations:
+    project_url: https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check
+    version: 0.0.3
+spec:
+  builds:
+  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz
+    sha512: 487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
+    headers:
+      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
+      X-Forwarded-For: client1, proxy1, proxy2
+  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz
+    sha512: 70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'arm'
+    - entity.system.arm_version == 7
+    headers:
+      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
+      X-Forwarded-For: client1, proxy1, proxy2
+  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz
+    sha512: 10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f
+    filters:
+    - entity.system.os == 'windows'
+    - entity.system.arch == 'amd64'
+    headers:
+      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
+      X-Forwarded-For: client1, proxy1, proxy2
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check_cpu",
+    "namespace": "default",
+    "labels": {
+      "origin": "bonsai"
+    },
+    "annotations": {
+      "project_url": "https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check",
+      "version": "0.0.3"
+    }
+  },
+  "spec": {
+    "builds": [
+      {
+        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz",
+        "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'amd64'"
+        ],
+        "headers": {
+          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
+          "X-Forwarded-For": "client1, proxy1, proxy2"
+        }
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz",
+        "sha512": "70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'arm'",
+          "entity.system.arm_version == 7"
+        ],
+        "headers": {
+          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
+          "X-Forwarded-For": "client1, proxy1, proxy2"
+        }
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz",
+        "sha512": "10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f",
+        "filters": [
+          "entity.system.os == 'windows'",
+          "entity.system.arch == 'amd64'"
+        ],
+        "headers": {
+          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
+          "X-Forwarded-For": "client1, proxy1, proxy2"
+        }
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Asset example: Single build (deprecated)
+
+This example shows the resource definition for a dynamic runtime asset with a single build:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Asset
+api_version: core/v2
+metadata:
+  name: check_cpu_linux_amd64
+  namespace: default
+  labels:
+    origin: bonsai
+  annotations:
+    project_url: https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check
+    version: 0.0.3
+spec:
+  url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz
+  sha512: 487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3
+  filters:
+  - entity.system.os == 'linux'
+  - entity.system.arch == 'amd64'
+  headers:
+    Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
+    X-Forwarded-For: client1, proxy1, proxy2
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check_cpu_linux_amd64",
+    "namespace": "default",
+    "labels": {
+      "origin": "bonsai"
+    },
+    "annotations": {
+      "project_url": "https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check",
+      "version": "0.0.3"
+    }
+  },
+  "spec": {
+    "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz",
+    "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ],
+    "headers": {
+      "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
+      "X-Forwarded-For": "client1, proxy1, proxy2"
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ### Dynamic runtime asset build evaluation
 
@@ -75,7 +284,90 @@ Use the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][4
 The directory path of each dynamic runtime asset defined in `runtime_assets` is appended to the `PATH` before the handler, filter, mutator, or check `command` is executed.
 Subsequent handler, filter, mutator, or check executions look for the dynamic runtime asset in the local cache and ensure that the contents match the configured checksum.
 
-See the [example dynamic runtime asset with a check][31] for a use case with a Sensu resource (a check) and a dynamic runtime asset.
+The following example demonstrates a use case with a Sensu check resource and an asset:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Asset
+api_version: core/v2
+metadata:
+  name: sensu-prometheus-collector
+  namespace: default
+spec:
+  builds:
+  - url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
+    sha512: a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: prometheus_collector
+  namespace: default
+spec:
+  command: "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up"
+  interval: 10
+  publish: true
+  output_metric_handlers:
+  - influxdb
+  output_metric_format: influxdb_line
+  runtime_assets:
+  - sensu-prometheus-collector
+  subscriptions:
+  - system
+{{< /code >}}
+
+{{< code json "JSON" >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-email-handler",
+    "namespace": "default"
+  },
+  "spec": {
+    "builds": [
+      {
+        "url": "https://assets.bonsai.sensu.io/45eaac0851501a19475a94016a4f8f9688a280f6/sensu-email-handler_0.2.0_linux_amd64.tar.gz",
+        "sha512": "d69df76612b74acd64aef8eed2ae10d985f6073f9b014c8115b7896ed86786128c20249fd370f30672bf9a11b041a99adb05e3a23342d3ad80d0c346ec23a946",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'amd64'"
+        ]
+      }
+    ]
+  }
+}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "prometheus_collector",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
+    "handlers": [
+    "influxdb"
+    ],
+    "interval": 10,
+    "publish": true,
+    "output_metric_format": "influxdb_line",
+    "runtime_assets": [
+      "sensu-prometheus-collector"
+    ],
+    "subscriptions": [
+      "system"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Dynamic runtime asset format specification
 
@@ -138,9 +430,16 @@ For each dynamic runtime asset, a corresponding environment variable will be ava
 Sensu generates the environment variable name by capitalizing the dynamic runtime asset name, replacing any special characters with underscores, and appending the `_PATH` suffix.
 The value of the variable will be the path on disk where the dynamic runtime asset build has been unpacked.
 
-For example, the environment variable path for the dynamic runtime asset [`sensu-plugins-windows`][4] would be:
+For example, for a Sensu Windows agent, the environment variable path for the dynamic runtime asset [`sensu-plugins-windows`][4] would be:
 
-`$SENSU_PLUGINS_WINDOWS_PATH/include/config.yaml`
+`%SENSU_PLUGINS_WINDOWS_PATH%/include/config.yaml`
+
+The Windows console environment interprets the content between the [paired `%` characters][44] as an environment variable name and will substitute the value of that [environment variable][45].
+
+{{% notice note %}}
+**NOTE**: The Sensu Windows agent uses `cmd.exe` for the check execution environment.
+For all other operating systems, the Sensu agent uses the Bourne shell (sh) and `${VARIABLE_NAME}` [shell syntax](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-linux).
+{{% /notice %}}
 
 ### Token substitution for dynamic runtime asset paths
 
@@ -153,7 +452,7 @@ If you want to access a dynamic runtime asset path in a handler or mutator comma
 
 For example, you can reference the dynamic runtime asset [`sensu-plugins-windows`][4] from your check or hook resources using either the environment variable or the `assetPath` function:
 
-- `$SENSU_PLUGINS_WINDOWS_PATH/include/config.yaml`
+- `%SENSU_PLUGINS_WINDOWS_PATH%/include/config.yaml`
 - `${{assetPath "sensu-plugins-windows"}}/include/config.yaml`
 
 When running PowerShell plugins on Windows, the [exit status codes that Sensu captures may not match the expected values][13].
@@ -166,8 +465,8 @@ To correctly capture exit status codes from PowerShell plugins distributed as dy
 type: CheckConfig
 api_version: core/v2
 metadata:
-namespace: default
-name: win-cpu-check
+  namespace: default
+  name: win-cpu-check
 spec:
   command: powershell.exe -ExecutionPolicy ByPass -f %{{assetPath "sensu-plugins-windows"}}%\bin\check-windows-cpu-load.ps1 90 95
   subscriptions:
@@ -185,9 +484,10 @@ spec:
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
-  "metadata": null,
-  "namespace": "default",
-  "name": "win-cpu-check",
+  "metadata": {
+    "name": "win-cpu-check",
+    "namespace": "default"
+  },
   "spec": {
     "command": "powershell.exe -ExecutionPolicy ByPass -f %{{assetPath \"sensu-plugins-windows\"}}%\\bin\\check-windows-cpu-load.ps1 90 95",
     "subscriptions": [
@@ -208,11 +508,15 @@ spec:
 
 {{< /language-toggle >}}
 
-## Asset hello world example
+{{% notice note %}}
+**NOTE**: In this example, the check command uses the Windows console syntax for accessing the environment variables used to configure the PowerShell command line arguments. 
+{{% /notice %}}
+
+## Asset hello world Bourne shell example
 
 In this example, you'll run a script that outputs `Hello World`:
 
-{{< code bash >}}
+{{< code shell >}}
 hello-world.sh
 
 #!/bin/sh
@@ -231,27 +535,46 @@ fi
 The first step is to ensure that your directory structure is in place.
 As noted in [Example dynamic runtime asset structure][15], your script could live in three potential directories in the project: `/bin`, `/lib`, or `/include`.
 For this example, put your script in the `/bin` directory.
-Create the directories `sensu-go-hello-world` and `/bin`:
 
-{{< code bash >}}
-$ mkdir sensu-go-hello-world
+1. Create the directory `sensu-go-hello-world`:
+{{< code shell >}}
+mkdir sensu-go-hello-world
+{{< /code >}}
 
-$ cd sensu-go-hello-world
+2. Navigate to the `sensu-go-hello-world` directory:
+{{< code shell >}}
+cd sensu-go-hello-world
+{{< /code >}}
 
-$ mkdir bin
+3. Create the directory `/bin`:
+{{< code shell >}}
+mkdir bin
+{{< /code >}}
 
-$ cp hello-world.sh bin/
+4. Copy the script into the `/bin` directory:
+{{< code shell >}}
+cp hello-world.sh bin/
+{{< /code >}}
 
-$ tree
+5. Confirm that the script is in the `/bin` directory:
+{{< code shell >}}
+tree
+{{< /code >}}
+
+   The response should list the `hello-world.sh` script in the `/bin` directory:
+   {{< code shell >}}
 .
 └── bin
     └── hello-world.sh
 {{< /code >}}
 
-Next, make sure that the script is marked as executable:
-
-{{< code bash >}}
+6. Make sure that the script is marked as executable:
+{{< code shell >}}
 $ chmod +x bin/hello-world.sh 
+{{< /code >}}
+
+   The response will confirm the change:
+   {{< code shell >}}
 mode of 'hello-world.sh' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)
 {{< /code >}}
 
@@ -259,18 +582,17 @@ Now that the script is in the directory, move on to the next step: packaging the
 
 ### Package the dynamic runtime asset
 
-Dynamic runtime assets are archives, so the first step in packaging the asset is to create a tar.gz archive of your project.
-This assumes you're in the directory you want to tar up:
+Dynamic runtime assets are archives, so packaging the asset requires creating a tar.gz archive of your project.
 
-{{< code bash >}}
-$ cd ..
-$ tar -C sensu-go-hello-world -cvzf sensu-go-hello-world-0.0.1.tar.gz .
-...
+1. Navigate to the directory you want to tar up.
+
+2. Create the tar.gz archive:
+{{< code shell >}}
+tar -C sensu-go-hello-world -cvzf sensu-go-hello-world-0.0.1.tar.gz .
 {{< /code >}}
 
-Now that you've created an archive, you need to generate a SHA512 sum for it (this is required for the dynamic runtime asset to work):
-
-{{< code bash >}}
+3. Generate a SHA512 sum for the tar.gz archive (this is required for the dynamic runtime asset to work):
+{{< code shell >}}
 sha512sum sensu-go-hello-world-0.0.1.tar.gz | tee sha512sum.txt
 dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff1ef4b154c198b9c7cdfe1e8867788c820db7bb5bcad83827 sensu-go-hello-world-0.0.1.tar.gz
 {{< /code >}}
@@ -279,7 +601,8 @@ From here, you can host your dynamic runtime asset wherever you’d like.
 To make the asset available via [Bonsai][16], you’ll need to host it on GitHub.
 Learn more in [The “Hello World” of Sensu Assets][18] on Discourse.
 
-To host your dynamic runtime asset on a different platform like Gitlab or Bitbucket, upload your asset there. You can also use Artifactory or even Apache or Nginx to serve your asset.
+To host your dynamic runtime asset on a different platform like Gitlab or Bitbucket, upload your asset there.
+You can also use Artifactory or even Apache or Nginx to serve your asset.
 All that’s required for your dynamic runtime asset to work is the URL to the asset and the SHA512 sum for the asset to be downloaded.
 
 ## Asset specification
@@ -779,296 +1102,6 @@ In this case, the asset will not be downloaded and the check, handler, or filter
 Add dynamic runtime asset filters to specify that an asset is compiled for any of the [entity.system attributes][10], including operating system, platform, platform version, and architecture.
 Then, you can rely on dynamic runtime asset filters to ensure that you install only the appropriate asset for each of your agents.
 
-## Examples
-
-### Minimum required asset attributes
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Asset
-api_version: core/v2
-metadata:
-  name: check_script
-  namespace: default
-spec:
-  builds:
-  - sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
-    url: http://example.com/asset.tar.gz
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Asset",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "check_script",
-    "namespace": "default"
-  },
-  "spec": {
-    "builds": [
-      {
-        "url": "http://example.com/asset.tar.gz",
-        "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b"
-      }
-    ]
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Asset definition (single-build, deprecated)
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Asset
-api_version: core/v2
-metadata:
-  name: check_cpu_linux_amd64
-  namespace: default
-  labels:
-    origin: bonsai
-  annotations:
-    project_url: https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check
-    version: 0.0.3
-spec:
-  url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz
-  sha512: 487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3
-  filters:
-  - entity.system.os == 'linux'
-  - entity.system.arch == 'amd64'
-  headers:
-    Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
-    X-Forwarded-For: client1, proxy1, proxy2
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Asset",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "check_cpu_linux_amd64",
-    "namespace": "default",
-    "labels": {
-      "origin": "bonsai"
-    },
-    "annotations": {
-      "project_url": "https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check",
-      "version": "0.0.3"
-    }
-  },
-  "spec": {
-    "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz",
-    "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
-    "filters": [
-      "entity.system.os == 'linux'",
-      "entity.system.arch == 'amd64'"
-    ],
-    "headers": {
-      "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-      "X-Forwarded-For": "client1, proxy1, proxy2"
-    }
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Asset definition (multiple-builds)
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Asset
-api_version: core/v2
-metadata:
-  name: check_cpu
-  namespace: default
-  labels:
-    origin: bonsai
-  annotations:
-    project_url: https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check
-    version: 0.0.3
-spec:
-  builds:
-  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz
-    sha512: 487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3
-    filters:
-    - entity.system.os == 'linux'
-    - entity.system.arch == 'amd64'
-    headers:
-      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
-      X-Forwarded-For: client1, proxy1, proxy2
-  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz
-    sha512: 70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b
-    filters:
-    - entity.system.os == 'linux'
-    - entity.system.arch == 'arm'
-    - entity.system.arm_version == 7
-    headers:
-      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
-      X-Forwarded-For: client1, proxy1, proxy2
-  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz
-    sha512: 10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f
-    filters:
-    - entity.system.os == 'windows'
-    - entity.system.arch == 'amd64'
-    headers:
-      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
-      X-Forwarded-For: client1, proxy1, proxy2
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Asset",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "check_cpu",
-    "namespace": "default",
-    "labels": {
-      "origin": "bonsai"
-    },
-    "annotations": {
-      "project_url": "https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check",
-      "version": "0.0.3"
-    }
-  },
-  "spec": {
-    "builds": [
-      {
-        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz",
-        "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
-        "filters": [
-          "entity.system.os == 'linux'",
-          "entity.system.arch == 'amd64'"
-        ],
-        "headers": {
-          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-          "X-Forwarded-For": "client1, proxy1, proxy2"
-        }
-      },
-      {
-        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz",
-        "sha512": "70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b",
-        "filters": [
-          "entity.system.os == 'linux'",
-          "entity.system.arch == 'arm'",
-          "entity.system.arm_version == 7"
-        ],
-        "headers": {
-          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-          "X-Forwarded-For": "client1, proxy1, proxy2"
-        }
-      },
-      {
-        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz",
-        "sha512": "10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f",
-        "filters": [
-          "entity.system.os == 'windows'",
-          "entity.system.arch == 'amd64'"
-        ],
-        "headers": {
-          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-          "X-Forwarded-For": "client1, proxy1, proxy2"
-        }
-      }
-    ]
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Example asset with a check
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Asset
-api_version: core/v2
-metadata:
-  name: sensu-prometheus-collector
-  namespace: default
-spec:
-  builds:
-  - url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
-    sha512: a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808
-    filters:
-    - entity.system.os == 'linux'
-    - entity.system.arch == 'amd64'
----
-type: CheckConfig
-api_version: core/v2
-metadata:
-  name: prometheus_collector
-  namespace: default
-spec:
-  command: "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up"
-  interval: 10
-  publish: true
-  output_metric_handlers:
-  - influxdb
-  output_metric_format: influxdb_line
-  runtime_assets:
-  - sensu-prometheus-collector
-  subscriptions:
-  - system
-{{< /code >}}
-
-{{< code json "wrapped-json" >}}
-{
-  "type": "Asset",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "sensu-email-handler",
-    "namespace": default
-  },
-  "spec": {
-    "builds": [
-      {
-        "url": "https://assets.bonsai.sensu.io/45eaac0851501a19475a94016a4f8f9688a280f6/sensu-email-handler_0.2.0_linux_amd64.tar.gz",
-        "sha512": "d69df76612b74acd64aef8eed2ae10d985f6073f9b014c8115b7896ed86786128c20249fd370f30672bf9a11b041a99adb05e3a23342d3ad80d0c346ec23a946",
-        "filters": [
-          "entity.system.os == 'linux'",
-          "entity.system.arch == 'amd64'"
-        ]
-      }
-    ]
-  }
-}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "prometheus_collector",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
-    "handlers": [
-    "influxdb"
-    ],
-    "interval": 10,
-    "publish": true,
-    "output_metric_format": "influxdb_line",
-    "runtime_assets": [
-      "sensu-prometheus-collector"
-    ],
-    "subscriptions": [
-      "system"
-    ]
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
 ## Share an asset on Bonsai
 
 Share your open-source dynamic runtime assets on [Bonsai][16] and connect with the Sensu community.
@@ -1186,7 +1219,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 
 
 [1]: ../../observability-pipeline/observe-filter/sensu-query-expressions/
-[2]: ../../operations/control-access/rbac#namespaces
+[2]: ../../operations/control-access/namespaces/
 [3]: ../../observability-pipeline/observe-schedule/tokens/#manage-dynamic-runtime-assets
 [4]: https://bonsai.sensu.io/assets/samroy92/sensu-plugins-windows
 [5]: #metadata-attributes
@@ -1214,13 +1247,12 @@ You must remove the archive and downloaded files from the asset cache manually.
 [28]: https://github.com/sensu/sensu-go-plugin/
 [29]: ../plugins/
 [30]: ../../observability-pipeline/observe-schedule/agent#disable-assets
-[31]: #example-asset-with-a-check
-[34]: #asset-definition-single-build-deprecated
-[35]: #asset-definition-multiple-builds
 [37]: https://bonsai.sensu.io/sign-in
 [38]: https://bonsai.sensu.io/new
-[39]: ../../web-ui/filter/
+[39]: ../../web-ui/search#search-for-labels
 [40]: ../../observability-pipeline/observe-schedule/agent/#configuration-via-flags
-[41]: ../../observability-pipeline/observe-schedule/backend/#configuration
+[41]: ../../observability-pipeline/observe-schedule/backend/#configuration-via-flags
 [42]: #filters
 [43]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
+[44]: https://devblogs.microsoft.com/oldnewthing/20060823-00/?p=29993
+[45]: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.1

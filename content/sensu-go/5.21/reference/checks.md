@@ -17,6 +17,58 @@ You can use checks to monitor server resources, services, and application health
 Read [Monitor server resources][12] to get started.
 Use [Bonsai][29], the Sensu asset hub, to discover, download, and share Sensu check assets.
 
+## Check example (minimum recommended attributes)
+
+This example shows a check resource definition that includes the minimum recommended attributes.
+
+{{% notice note %}}
+**NOTE**: The attribute `interval` is not required if a valid `cron` schedule is defined.
+Read [scheduling](#interval-scheduling) for more information.
+{{% /notice %}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: check_minimum
+  namespace: default
+spec:
+  command: check-cpu.sh -w 75 -c 90
+  handlers:
+  - slack
+  interval: 10
+  publish: true
+  subscriptions:
+  - system
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default",
+    "name": "check_minimum"
+  },
+  "spec": {
+    "command": "check-cpu.sh -w 75 -c 90",
+    "subscriptions": [
+      "system"
+    ],
+    "handlers": [
+      "slack"
+    ],
+    "interval": 10,
+    "publish": true
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Check commands
 
 Each Sensu check definition specifies a command and the schedule at which it should be executed.
@@ -50,7 +102,8 @@ Although Sensu agents attempt to execute any command defined for a check, succes
     - Exit status codes other than `0`, `1`, and `2` indicate an UNKNOWN or custom status
 
 {{% notice protip %}}
-**PRO TIP**: If you're familiar with the **Nagios** monitoring system, you may recognize this specification &mdash; it is the same one that Nagios plugins use. As a result, you can use Nagios plugins with Sensu without any modification.
+**PRO TIP**: If you're familiar with the **Nagios** monitoring system, you may recognize this specification &mdash; it is the same one that Nagios plugins use.
+As a result, you can use Nagios plugins with Sensu without any modification.
 {{% /notice %}}
 
 At every execution of a check command, regardless of success or failure, the Sensu agent publishes the check’s result for eventual handling by the **event processor** (the Sensu backend).
@@ -63,7 +116,7 @@ The Sensu backend schedules checks and publishes check execution requests to ent
 
 Checks have a defined set of subscriptions: transport topics to which the Sensu backend publishes check requests.
 Sensu entities become subscribers to these topics (called subscriptions) via their individual `subscriptions` attribute. 
-Subscriptions typically correspond to a specific role or responsibility (for example. a webserver or database).
+Subscriptions typically correspond to a specific role or responsibility (for example, a webserver or database).
 
 Subscriptions are powerful primitives in the monitoring context because they allow you to effectively monitor for specific behaviors or characteristics that correspond to the function provided by a particular system.
 For example, disk capacity thresholds might be more important (or at least different) on a database server than on a webserver.
@@ -164,7 +217,7 @@ Examples of valid cron values include:
 - `cron: '* * * * *'`
 
 {{% notice note %}}
-**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`).
+**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (for example, `cron: '* * * * *'`).
 {{% /notice %}}
 
 **Example cron checks**
@@ -210,7 +263,6 @@ spec:
 
 {{< /language-toggle >}}
 
-
 Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the `cron` attribute:
 
 {{< language-toggle >}}
@@ -247,35 +299,35 @@ spec:
 
 {{< code json >}}
 {
-   "type": "CheckConfig",
-   "api_version": "core/v2",
-   "metadata": {
-      "name": "cron_check",
-      "namespace": "default"
-   },
-   "spec": {
-      "check_hooks": null,
-      "command": "hi",
-      "cron": "CRON_TZ=Asia/Tokyo * * * * *",
-      "env_vars": null,
-      "handlers": [],
-      "high_flap_threshold": 0,
-      "interval": 0,
-      "low_flap_threshold": 0,
-      "output_metric_format": "",
-      "output_metric_handlers": null,
-      "proxy_entity_name": "",
-      "publish": true,
-      "round_robin": false,
-      "runtime_assets": null,
-      "stdin": false,
-      "subdue": null,
-      "subscriptions": [
-         "sys"
-      ],
-      "timeout": 0,
-      "ttl": 0
-   }
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "cron_check",
+    "namespace": "default"
+  },
+  "spec": {
+    "check_hooks": null,
+    "command": "hi",
+    "cron": "CRON_TZ=Asia/Tokyo * * * * *",
+    "env_vars": null,
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 0,
+    "low_flap_threshold": 0,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": null,
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "sys"
+    ],
+    "timeout": 0,
+    "ttl": 0
+  }
 }
 {{< /code >}}
 
@@ -471,7 +523,8 @@ Learn how to use check tokens with the [Sensu tokens reference documentation][5]
 
 ## Check hooks
 
-Check hooks are commands run by the Sensu agent in response to the result of check command execution. The Sensu agent will execute the appropriate configured hook command, depending on the check execution status (e.g. `0`, `1`, or `2`).
+Check hooks are commands run by the Sensu agent in response to the result of check command execution.
+The Sensu agent will execute the appropriate configured hook command, depending on the check execution status (for example, `0`, `1`, or `2`).
 
 Learn how to use check hooks with the [Sensu hooks reference documentation][6].
 
@@ -713,6 +766,8 @@ subscriptions:
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a name="handlers-array"></a>
+
 |handlers    |      |
 -------------|------
 description  | Array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string.
@@ -753,7 +808,7 @@ interval: 60
 |cron        |      |
 -------------|------
 description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute. {{% notice note %}}
-**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`).
+**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (for example, `cron: '* * * * *'`).
 {{% /notice %}}
 required     | true (unless `interval` is configured)
 type         | String
@@ -934,7 +989,7 @@ check_hooks:
 
 |proxy_entity_name|   |
 -------------|------
-description  | Entity name. Used to create a [proxy entity][20] for an external resource (e.g. a network switch).
+description  | Entity name. Used to create a [proxy entity][20] for an external resource (for example, a network switch).
 required     | false
 type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
@@ -1245,58 +1300,9 @@ secret: sensu-ansible-host
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Examples
+## Metric check example
 
-### Minimum recommended check attributes
-
-{{% notice note %}}
-**NOTE**: The attribute `interval` is not required if a valid `cron` schedule is defined.
-{{% /notice %}}
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: CheckConfig
-api_version: core/v2
-metadata:
-  name: check_minimum
-  namespace: default
-spec:
-  command: collect.sh
-  handlers:
-  - slack
-  interval: 10
-  publish: true
-  subscriptions:
-  - system
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "namespace": "default",
-    "name": "check_minimum"
-  },
-  "spec": {
-    "command": "collect.sh",
-    "subscriptions": [
-      "system"
-    ],
-    "handlers": [
-      "slack"
-    ],
-    "interval": 10,
-    "publish": true
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Metric check
+The following example shows the resource definition for a check that collects metrics in Graphite Plaintext Protocol format:
 
 {{< language-toggle >}}
 
@@ -1377,9 +1383,10 @@ spec:
 
 {{< /language-toggle >}}
 
-### Check with secret
+## Check example that uses secrets management
 
-Learn more about [secrets management][59] for your Sensu configuration in the [secrets][56] and [secrets providers][57] references.
+The check in the following example uses [secrets management][59] to keep a GitHub token private.
+Learn more about secrets management for your Sensu configuration in the [secrets][56] and [secrets providers][57] references.
 
 {{< language-toggle >}}
 
@@ -1421,7 +1428,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### PowerShell script in check commands
+## Check example with a PowerShell script command
 
 If you use a PowerShell script in your check command, make sure to include the `-f` flag in the command.
 The `-f` flag ensures that the proper exit code is passed into Sensu.
@@ -1488,16 +1495,14 @@ The asset reference includes an [example check definition that uses the asset pa
 [17]: #subdue-attributes
 [20]: ../entities/#proxy-entities
 [21]: ../entities/#spec-attributes
-[22]: ../../reference/sensuctl/#time-windows
-[22]: ../../reference/sensuctl/#time-windows
 [23]: ../../guides/extract-metrics-with-checks/
 [24]: ../events/
 [25]: #metadata-attributes
-[26]: ../rbac#namespaces
+[26]: ../namespaces/
 [27]: ../filters/
 [28]: ../../guides/monitor-external-resources/
 [29]: https://bonsai.sensu.io
-[30]: https://en.wikipedia.org/wiki/Cron#Timezone_handling
+[30]: https://en.wikipedia.org/wiki/Cron#Time_zone_handling
 [31]: #ttl-attribute
 [32]: #proxy-entity-name-attribute
 [33]: #proxy-checks

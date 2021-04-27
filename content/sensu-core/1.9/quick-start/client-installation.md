@@ -5,10 +5,13 @@ weight: 3
 version: "1.9"
 product: "Sensu Core"
 platformContent: true
+platforms: ["Ubuntu/Debian", "RHEL/CentOS"]
 menu:
   sensu-core-1.9:
     parent: quick-start
 ---
+
+_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][17], and we [permanently removed][18] the Sensu EOL repository on February 1, 2021.<br><br>This means the packages and https://eol-repositories.sensuapp.org URLs specified in the instructions and code examples on this page are no longer available. To migrate to Sensu Go, read the [Sensu Core migration guide][19]._
 
 ## Install the Sensu Client
 
@@ -43,11 +46,10 @@ and/or enabling the Sensu client process to start automatically on system boot.
 
 ### Ubuntu/Debian
 
-Sensu Core is installed on Ubuntu and Debian systems via a native system installer package (i.e. a .deb file), which is available for [download][2] and from APT package management repositories.
+Sensu Core is installed on Ubuntu and Debian systems via a native system installer package (i.e. a .deb file).
 The Sensu Core package installs several processes including `sensu-server`, `sensu-api`, and `sensu-client`.
 
-Sensu packages for Debian target current [`stable` and `oldstable`
-releases][15].
+Sensu packages for Debian target current [`stable` and `oldstable` releases][15].
 
 Sensu packages for Ubuntu target current [Long Term Support (LTS) releases][16].
 
@@ -103,8 +105,7 @@ sudo apt-get install sensu{{< /code >}}
 ### RHEL/CentOS
 
 Sensu Core is installed on RHEL and CentOS systems via a native system installer
-package (i.e. a .rpm file), which is available for download from the [Sensu
-Downloads][2] page, and from YUM package management repositories. The Sensu Core
+package (i.e. a .rpm file). The Sensu Core
 package installs several processes including `sensu-server`, `sensu-api`, and
 `sensu-client`.
 
@@ -153,9 +154,11 @@ sudo yum install sensu{{< /code >}}
 {{< platformBlockClose >}}
 
 [1]: ../../quick-start/five-minute-install
-[2]: https://eol-repositories.sensuapp.org/apt/pool/
 [12]: ../../reference/transport/#transport-configuration
 [13]: ../../reference/clients/#client-configuration
 [14]: ../../reference/redis/#configure-sensu
 [15]: https://wiki.debian.org/DebianReleases
 [16]: https://wiki.ubuntu.com/LTS
+[17]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
+[18]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
+[19]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/

@@ -21,6 +21,69 @@ You can define a single custom web UI configuration to federate to all, some, or
 {{% notice note %}}
 **NOTE**: Each cluster should have only one web configuration.
 {{% /notice %}}
+
+## Web UI configuration example
+
+In this web UI configuration example:
+
+- Details for the local cluster will not be displayed
+- Each page will list 50 items
+- The web UI will use the classic theme
+- Expanded links and images will be allowed for the listed URLs
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: GlobalConfig
+api_version: web/v1
+metadata:
+  name: custom-web-ui
+spec:
+  always_show_local_cluster: false
+  default_preferences:
+    page_size: 50
+    theme: classic
+  link_policy:
+    allow_list: true
+    urls:
+    - https://example.com
+    - steamapp://34234234
+    - //google.com
+    - //*.google.com
+    - //bob.local
+    - https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "GlobalConfig",
+  "api_version": "web/v1",
+  "metadata": {
+    "name": "custom-web-ui",
+    "created_by": "admin"
+  },
+  "spec": {
+    "always_show_local_cluster": false,
+    "default_preferences": {
+      "page_size": 50,
+      "theme": "classic"
+    },
+    "link_policy": {
+      "allow_list": true,
+      "urls": [
+        "https://example.com",
+        "steamapp://34234234",
+        "//google.com",
+        "//*.google.com",
+        "//bob.local",
+        "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
+      ]
+    }
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
  
 ## Web UI configuration specification
 
@@ -323,69 +386,6 @@ urls:
   ]
 }
 {{< /code >}}
-{{< /language-toggle >}}
-
-## Web UI configuration examples
-
-In this web UI configuration example:
-
-- Details for the local cluster will not be displayed
-- Each page will list 50 items
-- The web UI will use the classic theme
-- Expanded links and images will be allowed for the listed URLs
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: GlobalConfig
-api_version: web/v1
-metadata:
-  name: custom-web-ui
-spec:
-  always_show_local_cluster: false
-  default_preferences:
-    page_size: 50
-    theme: classic
-  link_policy:
-    allow_list: true
-    urls:
-    - https://example.com
-    - steamapp://34234234
-    - //google.com
-    - //*.google.com
-    - //bob.local
-    - https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "GlobalConfig",
-  "api_version": "web/v1",
-  "metadata": {
-    "name": "custom-web-ui",
-    "created_by": "admin"
-  },
-  "spec": {
-    "always_show_local_cluster": false,
-    "default_preferences": {
-      "page_size": 50,
-      "theme": "classic"
-    },
-    "link_policy": {
-      "allow_list": true,
-      "urls": [
-        "https://example.com",
-        "steamapp://34234234",
-        "//google.com",
-        "//*.google.com",
-        "//bob.local",
-        "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
-      ]
-    }
-  }
-}
-{{< /code >}}
-
 {{< /language-toggle >}}
 
 

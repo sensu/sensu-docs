@@ -24,7 +24,7 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 
 - Query metrics points within Elasticsearch: the handler automatically mutates metrics data by creating a top-level object with metric point names and their associated values.
 - Index entire events for searching within Kibana.
-- Use daily, weekly, monthly, and yearly index specification (e.g. sensu_evnts-2020-11-10).
+- Use daily, weekly, monthly, and yearly index specification (for example, sensu_events-2020-11-10).
 - Omit the transmission of certain redundant event fields to reduce the number of items indexed.
 - Specify custom values for Sensu event metric points via [metric tags][8].
 - Use [event-based templating][2] to include observation data from event attributes to add meaningful, actionable context.
@@ -40,7 +40,7 @@ Add the [Sensu Elasticsearch Handler plugin][4] with a dynamic runtime asset fro
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
-[3]: https://github.com/sensu-community/monitoring-pipelines/blob/latest/event-storage/elasticsearch.yaml
+[3]: https://github.com/sensu/catalog/blob/main/pipelines/event-storage/elasticsearch.yaml
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-elasticsearch-handler
 [5]: ../../assets
 [6]: ../../../commercial/

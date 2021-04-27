@@ -182,7 +182,7 @@ sensuctl event info sensu-site check-sensu-site
 === sensu-site - check-sensu-site
 Entity:    sensu-site
 Check:     check-sensu-site
-Output:    
+Output:    CheckHttp OK: 200, 72024 bytes
 Status:    0
 History:   0,0
 Silenced:  false

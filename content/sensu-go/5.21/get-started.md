@@ -17,7 +17,6 @@ You can [install the commercial distribution of Sensu Go][15] or [build Sensu fr
 
 We recommend these resources for learning more about Sensu:
 
-- Learn how the Sensu pipeline works in your browser with an [interactive tutorial][12]
 - [Download the sandbox][7] and create a monitoring event pipeline in your local environment
 - See a [live demo of the Sensu web UI][1]
 - Sign up for our step-by-step [Learn Sensu email course][21]
@@ -31,7 +30,7 @@ Sensu's [supported platforms][20] include CentOS/RHEL, Debian, Ubuntu, and Windo
 - Learn about Sensu's [commercial features][3] &mdash; all commercial features are available for free in the packaged Sensu Go distribution up to an entity limit of 100
 - Discover Sensu assets on [Bonsai, the Sensu asset hub][6]
 - Find the [Sensu architecture][18] that best meets your needs
-- [Migrate from Sensu Core to Sensu Go][13]
+- [Migrate from Sensu Core and Sensu Enterprise to Sensu Go][13]
 
 ## Explore monitoring at scale with Sensu Go
 
@@ -60,8 +59,7 @@ Sensu Go's core is open source software, freely available under an MIT License.
 [8]: https://discourse.sensu.io/
 [9]: ../reference/license/
 [10]: https://github.com/sensu/sensu-go/
-[11]: https://github.com/sensu/sensu-go/blob/master/README.md#building-from-source
-[12]: ../learn/learn-in-15/
+[11]: https://www.github.com/sensu/sensu-go/blob/main/README.md#building-from-source
 [13]: ../operations/maintain-sensu/migrate/
 [14]: https://sensu.io/features/compare
 [15]: #install-the-commercial-distribution-of-sensu-go

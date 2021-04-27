@@ -12,10 +12,14 @@ menu:
 
 Sensuctl is a command line tool for managing resources within Sensu.
 It works by calling Sensu's underlying API to create, read, update, and delete resources, events, and entities.
+
 Sensuctl is available for Linux, macOS, and Windows.
+For Windows operating systems, sensuctl uses `cmd.exe` for the execution environment.
+For all other operating systems, sensuctl uses the Bourne shell (sh).
+
 See [Install Sensu][2] to install and configure sensuctl.
 
-## First-time setup
+## First-time setup and authentication
 
 To set up sensuctl, run `sensuctl configure` to log in to sensuctl and connect to the Sensu backend:
 
@@ -24,24 +28,45 @@ sensuctl configure
 {{< /code >}}
 
 This starts the prompts for interactive sensuctl setup.
-When prompted, choose the authentication method you wish to use and type the [Sensu backend URL][6] and your [Sensu access credentials][8].
+When prompted, choose the authentication method you wish to use: username/password or OIDC.
+
+Sensuctl uses your username and password or OIDC credentials to obtain access and refresh tokens via the [Sensu authentication API][14].
+The access and refresh tokens are HMAC-SHA256 [JSON Web Tokens (JWTs)][16] that Sensu issues to record the details of users' authenticated Sensu sessions.
+The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
+
+Upon successful authentication, sensuctl stores the access and refresh tokens in a "cluster" configuration file under the current user's home directory.
+For example, on Unix systems, sensuctl stores the tokens in `$HOME/.config/sensu/sensuctl/cluster`.
+
+### Username/password authentication
+
+The `sensuctl configure` interactive prompts require you to select the username/password authentication method and enter the [Sensu backend URL][6], namespace, and preferred output format.
+Then you will be prompted to enter your [username and password Sensu access credentials][8].
+
+Username/password authentication applies to the following authentication providers:
+
+- [Built-in basic authentication][11]
+- [Lightweight Directory Access Protocol (LDAP) authentication][17] ([commercial feature][19])
+- [Active Directory (AD) authentication][18] ([commercial feature][19])
 
 This example shows the username/password authentication method:
 
 {{< code shell >}}
 ? Authentication method: username/password
 ? Sensu Backend URL: http://127.0.0.1:8080
-? Username: YOUR_USERNAME
-? Password: YOUR_PASSWORD
 ? Namespace: default
 ? Preferred output format: tabular
+? Username: YOUR_USERNAME
+? Password: YOUR_PASSWORD
 {{< /code >}}
 
-If you select the OIDC authentication method, if you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.
-If a browser does not open, launch a browser to complete the login via your OIDC provider at the URL in the `sensuctl configure` response:
+### OIDC authentication
+
+The `sensuctl configure` interactive prompts require you to select the OIDC authentication method and enter the [Sensu backend URL][6], namespace, and preferred output format.
+Then, if you are using a desktop, a browser will open to allow you to authenticate and log in via your OIDC provider.
+
+This example shows the OIDC authentication method:
 
 {{< code shell >}}
-$ sensuctl configure
 ? Authentication method: OIDC
 ? Sensu Backend URL: http://127.0.0.1:8080
 ? Namespace: default
@@ -52,6 +77,8 @@ Launching browser to complete the login via your OIDC provider at following URL:
 
 You may also manually open this URL. Waiting for callback...
 {{< /code >}}
+
+If a browser does not open, launch a browser to complete the login via your OIDC provider at the Sensu backend URL you entered in your sensuctl configuration.
 
 {{% notice note %}}
 **NOTE**: You can also use [`sensuctl login oidc`](../operations/control-access/oidc-auth/#sensuctl-login-with-oidc) to log in to sensuctl with OIDC.
@@ -86,19 +113,32 @@ The following table lists the command-specific flags.
 During configuration, sensuctl creates configuration files that contain information for connecting to your Sensu Go deployment.
 You can find these files at `$HOME/.config/sensu/sensuctl/profile` and `$HOME/.config/sensu/sensuctl/cluster`.
 
-For example:
+Use the `cat` command to view the contents of these files.
+For example, to view your sensuctl profile configuration, run:
 
 {{< code shell >}}
 cat .config/sensu/sensuctl/profile
+{{< /code >}}
+
+The response should be similar to this example:
+
+{{< code shell >}}
 {
   "format": "tabular",
-  "namespace": "demo",
+  "namespace": "default",
   "username": "admin"
 }
 {{< /code >}}
 
+To view your sensuctl cluster configuration, run:
+
 {{< code shell >}}
 cat .config/sensu/sensuctl/cluster 
+{{< /code >}}
+
+The response should be similar to this example:
+
+{{< code shell >}}
 {
   "api-url": "http://localhost:8080",
   "trusted-ca-file": "",
@@ -115,17 +155,17 @@ These configuration files are useful if you want to know which cluster you're co
 
 During the [Sensu backend installation][10] process, you create an administrator username and password and a `default` namespace.
 
-Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
-For more information about configuring Sensu access control, see the [RBAC reference][1].
-
 {{% notice note %}}
 **NOTE**: For a **new** installation, you can set administrator credentials with environment variables during [initialization](../observability-pipeline/observe-schedule/backend/#initialization).
 If you are using Docker and you do not include the environment variables to set administrator credentials, the backend will initialize with the default username (`admin`) and password (`P@ssw0rd!`).
 {{% /notice %}} 
 
+Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
+For more information about configuring Sensu access control, see the [RBAC reference][1].
+
 ### Change admin user's password
 
-After you have [installed and configured sensuctl][12], you can change the admin user's password.
+After you have [configured sensuctl and authenticated][12], you can change the admin user's password.
 Run:
 
 {{< code shell >}}
@@ -181,12 +221,22 @@ You can use this hash instead of the password when you use sensuctl to [create][
 
 Sensuctl supports the following output formats:
 
-- `tabular`: A user-friendly, columnar format
-- `wrapped-json`: An accepted format for use with [`sensuctl create`][5]
-- `yaml`: An accepted format for use with [`sensuctl create`][5]
-- `json`: A format used by the [Sensu API][9]
+- `tabular`: Output is organized in user-friendly columns (default).
+- `yaml`: Output is in [YAML][20] format. Resource definitions include an outer-level `spec` "wrapping" for resource attributes and list the resource `type` and `api_version`.
+- `wrapped-json`: Output is in [JSON][21] format. Resource definitions include an outer-level `spec` "wrapping" for resource attributes and list the resource `type` and `api_version`.
+- `json`: Output is in [JSON][21] format. Resource definitions **do not** include an outer-level `spec` "wrapping" or the resource `type` and `api_version`.
 
-After you are logged in, you can change the output format with `sensuctl config set-format` or set the output format per command with the `--format` flag.
+After you are logged in, you can change the default output format with `sensuctl config set-format` or set the output format per command with the `--format` flag.
+
+### Output format significance
+
+To use [sensuctl create][5] to create a resource, you must provide the resource definition in `yaml` or `wrapped-json` format.
+These formats include the resource type, which sensuctl needs to determine what kind of resource to create.
+
+The [Sensu API][9] uses `json` output format for responses for APIs in the `core` [group][22].
+For APIs that are not in the `core` group, responses are in the `wrapped-json` output format.
+
+Sensu sends events to the backend in [`json` format][23], without the `spec` attribute wrapper or `type` and `api_version` attributes.
 
 ## Non-interactive mode
 
@@ -373,6 +423,15 @@ create  delete  import  list
 [9]: ../api/
 [10]: ../operations/deploy-sensu/install-sensu/#install-the-sensu-backend
 [11]: ../operations/control-access/#use-built-in-basic-authentication
-[12]: #first-time-setup
+[12]: #first-time-setup-and-authentication
 [13]: create-manage-resources/#update-resources
+[14]: ../api/auth/
 [15]: https://en.wikipedia.org/wiki/Bcrypt
+[16]: https://tools.ietf.org/html/rfc7519
+[17]: ../operations/control-access/ldap-auth
+[18]: ../operations/control-access/ad-auth
+[19]: ../commercial/
+[20]: https://yaml.org/
+[21]: https://www.json.org/
+[22]: ../api/#url-format
+[23]: ../observability-pipeline/observe-events/events/#example-status-only-event-from-the-sensu-api
