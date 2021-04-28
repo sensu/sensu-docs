@@ -158,7 +158,7 @@ For example, suppose you want to set up monitoring for these servers:
 This diagram shows the subscriptions to list for each of the 12 servers (the entities) and each check to achieve the example monitoring configuration:
 
 <div style="text-align:center">
-<img alt="Example of Sensu check execution based on subscriptions" title="Sensu check execution based on subscriptions" src="/images/subscriptions_multiple_servers.png" >
+<img alt="Example of Sensu check execution for multiple server entities based on subscriptions" title="Sensu check execution for multiple server entities based on subscriptions" src="/images/subscriptions_multiple_servers.png" >
 </div>
 
 In this scenario, none of the Windows servers should execute the NGINX metrics check, so the `check_nginx` subscriptions do not match any subscriptions listed for any of the Windows servers.
