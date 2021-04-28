@@ -1,3 +1,4 @@
+
 /*
  * clipboard for hugo
  */
@@ -23,3 +24,23 @@
         }
     });
 })(document, Clipboard);
+
+
+/*
+* sends clicks on clipboard buttons with .copy class as Google Analytics events
+*/
+
+(function() {
+    var pageURL = document.location.pathname + document.location.search;
+
+    var buttonSet = document.querySelectorAll(".copy");
+    buttonSet.forEach(function (btn) {
+      btn.addEventListener("click", function() {
+        // noop if google analytics isn't initialized
+        if (typeof ga !== "function") {
+          return;
+        }
+        ga('send','event','Clipboard','Code copied',pageURL);
+       });
+     });
+})();
