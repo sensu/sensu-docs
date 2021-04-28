@@ -39,7 +39,7 @@ Subscriptions allow you to configure check requests in a one-to-many model for e
 
 ## Subscription example
 
-Suppose you have a Sensu agent with the `linux` subscription:
+Suppose you have a Sensu agent entity with the `linux` subscription:
 
 {{< code shell >}}
 sensu-agent start --subscriptions linux --log-level debug
@@ -92,27 +92,27 @@ spec:
 If this is your only check for the `linux` subscription, this is the only check that your agent will execute.
 If you add more checks that specify the `linux` subscription, your agent will automatically run those checks too (as long as the `publish` attribute is set to `true` in the check definitions).
 
-You can also add more subscriptions for your agent.
-For example, if you want your agent to execute checks for the `webserver` subscription, you can add it with the `subscriptions` flag:
+You can also add more subscriptions for your entity.
+For example, if you want your agent entity to execute checks for the `webserver` subscription, you can add it with the `subscriptions` flag:
 
 {{< code shell >}}
 sensu-agent start --subscriptions linux,webserver --log-level debug
 {{< /code >}}
 
-Now your agent will execute checks with the `linux` or `webserver` subscriptions.
+Now your agent entity will execute checks with the `linux` or `webserver` subscriptions.
 
 To directly add, update, and delete subscriptions for individual entities, use [sensuctl][17], the [entities API][18], or the [web UI][19].
 
 ## Configure subscriptions
 
 Sensu automatically executes a check when the check definition includes a subscription that matches a subscription for at least one Sensu entity.
-In other words, subscriptions are configured for both checks and agents:
+In other words, subscriptions are configured for both checks and agent entities:
 
 - To configure subscriptions for a check, add one or more subscription names in the [check `subscriptions` attribute][15].
-- To configure subscriptions for an agent, configure the [`subscriptions`][2] by specifying the subscriptions that include the checks the agent's entities should execute.
+- To configure subscriptions for an agent entity, configure the [`subscriptions`][2] by specifying the subscriptions that include the checks the agent's entities should execute.
 
-The Sensu backend [schedules][13] checks once per interval for each agent with a matching subscription.
-For example, if you have three agents configured with the `system` subscription, a check configured with the `system` subscription results in three monitoring events per interval: one check execution per agent per interval.
+The Sensu backend [schedules][13] checks once per interval for each agent entity with a matching subscription.
+For example, if you have three entities configured with the `system` subscription, a check configured with the `system` subscription results in three monitoring events per interval: one check execution per entity per interval.
 
 In addition to the subscriptions defined in the agent configuration, Sensu agent entities subscribe automatically to subscriptions that match their [entity `name`][10].
 For example, an agent entity with `name: "i-424242"` subscribes to check requests with the subscription `entity:i-424242`.
@@ -139,6 +139,30 @@ To override the check's subscriptions and target an alternate entity or group of
   ]
 }
 {{< /code >}}
+
+## Monitor multiple servers
+
+You can use subscriptions to configure monitoring and observability for multiple servers with different operating systems and monitoring requirements.
+
+For example, suppose you want to set up monitoring for these servers:
+
+- Six Linux servers:
+    - Get CPU, memory, and disk status for all six
+    - Get NGINX metrics for four
+    - Get PostgreSQL metrics for two
+
+- Six Windows servers:
+    - Get CPU, memory, and disk checks for all six
+    - Get SQL Server metrics for two
+
+This diagram shows the subscriptions to list for each of the 12 servers (the entities) and for each check to achieve the example monitoring configuration:
+
+<div style="text-align:center">
+<img alt="Example of Sensu check execution for multiple server entities based on subscriptions" title="Sensu check execution for multiple server entities based on subscriptions" src="/images/subscriptions_multiple_servers.png" >
+</div>
+
+In this scenario, none of the Windows servers should execute the NGINX metrics check, so the `check_nginx` subscriptions do not match any subscriptions listed for any of the Windows servers.
+Two of the six Windows servers *should* execute the SQL Server metrics check, so the subscription listed in the `check_sqlsrv` definition matches a subscription listed for those two Windows server entities.
 
 
 [1]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern

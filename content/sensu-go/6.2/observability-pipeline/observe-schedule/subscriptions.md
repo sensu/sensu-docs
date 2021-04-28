@@ -155,14 +155,14 @@ For example, suppose you want to set up monitoring for these servers:
     - Get CPU, memory, and disk checks for all six
     - Get SQL Server metrics for two
 
-This diagram shows the subscriptions to list for each of the 12 servers (the entities) and each check to achieve the example monitoring configuration:
+This diagram shows the subscriptions to list for each of the 12 servers (the entities) and for each check to achieve the example monitoring configuration:
 
 <div style="text-align:center">
 <img alt="Example of Sensu check execution for multiple server entities based on subscriptions" title="Sensu check execution for multiple server entities based on subscriptions" src="/images/subscriptions_multiple_servers.png" >
 </div>
 
 In this scenario, none of the Windows servers should execute the NGINX metrics check, so the `check_nginx` subscriptions do not match any subscriptions listed for any of the Windows servers.
-Two of the six Windows servers *should* execute a SQL Server metrics check, so a subscription listed in the `check_sqlsrv` definition matches a subscription listed for those two Windows server entities.
+Two of the six Windows servers *should* execute the SQL Server metrics check, so the subscription listed in the `check_sqlsrv` definition matches a subscription listed for those two Windows server entities.
 
 
 [1]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
