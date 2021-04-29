@@ -33,8 +33,8 @@ Sensu events contain:
   - Metric points in [Sensu metric format][22]
 - `timestamp`
   - Time that the event occurred in seconds since the Unix epoch
-- `event_id`
-  - Universally unique identifier (UUID) for the event
+- `id`
+  - Universally unique identifier (UUID) for the event (logged as `event_id`)
 
 ## Example status-only event
 
@@ -1349,7 +1349,7 @@ created_by: "admin"
 
 |timestamp   |      |
 -------------|------
-description  | Time that the event occurred. In seconds since the Unix epoch.
+description  | Time that the event occurred. In seconds since the Unix epoch.<br><br>When an agent executes a check, Sensu sets the timestamp for the generated event.<br><br>For events created via the [events API][35], if the user includes a timestamp value in the event, Sensu respects the user-provided value. If the user does not include a timestamp value, Sensu sets the timestamp for the event.
 required     | false
 type         | Integer
 default      | Time that the event occurred
@@ -1366,7 +1366,9 @@ timestamp: 1522099512
 
 id     |      |
 -------------|------
-description  | Universally unique identifier (UUID) for the event.
+description  | Universally unique identifier (UUID) for the event. Logged as `event_id`.{{% notice note %}}
+**NOTE**: Do not manually set the `id` when using the [`/events` PUT endpoint](../../../api/events/#create-a-new-event).
+{{% /notice %}}
 required     | false
 type         | String
 example      | {{< language-toggle >}}
@@ -1384,7 +1386,7 @@ id: 431a0085-96da-4521-863f-c38b480701e9
 
 sequence     |      |
 -------------|------
-description  | Event sequence number. The Sensu agent sets the sequence to 1 at startup, then increments the sequence by 1 for every successive check execution or keepalive event. If the agent restarts or reconnects to another backend, the sequence value resets to 1.<br><br>A sequence value of 0 indicates that an outdated or non-conforming agent generated the event.
+description  | Event sequence number. The Sensu agent sets the sequence to 1 at startup, then increments the sequence by 1 for every successive check execution or keepalive event. If the agent restarts or reconnects to another backend, the sequence value resets to 1.<br><br>A sequence value of 0 indicates that an outdated or non-conforming agent generated the event.<br><br>Sensu only increments the sequence for agent-executed events. Sensu does not automatically update the sequence for events created with the [events API][35].
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1700,7 +1702,9 @@ executed: 1522100915
 
 history      |      |
 -------------|------
-description  | Check status history for the last 21 check executions. See [history attributes][32].
+description  | Check status history for the last 21 check executions. See [history attributes][32].{{% notice note %}}
+**NOTE**: Do not manually set the `history` attributes when using the [`/events` PUT endpoint](../../../api/events/#create-a-new-event).
+{{% /notice %}}
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -1896,7 +1900,8 @@ total_state_change: 0
 
 executed     |      |
 -------------|------
-description  | Time at which the check request was executed. In seconds since the Unix epoch.{{% notice note %}}**NOTE**: For events created with the [events API](../../../api/events/), the `executed` value is `0`.
+description  | Time at which the check request was executed. In seconds since the Unix epoch.{{% notice note %}}
+**NOTE**: For events created with the [events API](../../../api/events/), the `executed` value is `0`.
 {{% /notice %}}
 required     | false
 type         | Integer
@@ -1913,7 +1918,9 @@ executed: 1522100915
 
 status       |      |
 -------------|------
-description  | Exit status code produced by the check.<ul><li><code>0</code> indicates “OK”</li><li><code>1</code> indicates “WARNING”</li><li><code>2</code> indicates “CRITICAL”</li></ul>Exit status codes other than <code>0</code>, <code>1</code>, or <code>2</code> indicate an “UNKNOWN” or custom status.
+description  | Exit status code produced by the check.<ul><li><code>0</code> indicates “OK”</li><li><code>1</code> indicates “WARNING”</li><li><code>2</code> indicates “CRITICAL”</li></ul>Exit status codes other than <code>0</code>, <code>1</code>, or <code>2</code> indicate an “UNKNOWN” or custom status.{{% notice note %}}
+**NOTE**: Do not manually set the event's history array `status` when using the [`/events` PUT endpoint](../../../api/events/#create-a-new-event).
+{{% /notice %}}
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
