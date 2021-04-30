@@ -1685,7 +1685,8 @@ duration: 1.903135228
 
 executed     |      |
 -------------|------
-description  | Time at which the check request was executed. In seconds since the Unix epoch.{{% notice note %}}**NOTE**: For events created with the [events API](../../../api/events/), the `executed` value is `0`.
+description  | Time at which the check request was executed. In seconds since the Unix epoch.{{% notice note %}}
+**NOTE**: For agent-executed checks, Sensu automatically populates the `executed` value. For events created with the [events API](../../../api/events/), the `executed` value is `0` if no value is specified in the request body.
 {{% /notice %}}
 required     | false
 type         | Integer
@@ -1703,7 +1704,7 @@ executed: 1522100915
 history      |      |
 -------------|------
 description  | Check status history for the last 21 check executions. See [history attributes][32].{{% notice note %}}
-**NOTE**: Do not manually set the `history` attributes when using the [`/events` PUT endpoint](../../../api/events/#create-a-new-event).
+**NOTE**: Sensu automatically populates the history attributes with check execution data. Do not manually set the `history` attributes when using the [`/events` PUT endpoint](../../../api/events/#create-a-new-event).
 {{% /notice %}}
 required     | false
 type         | Array
@@ -1901,7 +1902,7 @@ total_state_change: 0
 executed     |      |
 -------------|------
 description  | Time at which the check request was executed. In seconds since the Unix epoch.{{% notice note %}}
-**NOTE**: For events created with the [events API](../../../api/events/), the `executed` value is `0`.
+**NOTE**: Sensu automatically populates the history attributes with check execution data. For events created with the [events API](../../../api/events/), the `executed` value is `0` if no value is specified in the request body.
 {{% /notice %}}
 required     | false
 type         | Integer
@@ -1919,7 +1920,7 @@ executed: 1522100915
 status       |      |
 -------------|------
 description  | Exit status code produced by the check.<ul><li><code>0</code> indicates “OK”</li><li><code>1</code> indicates “WARNING”</li><li><code>2</code> indicates “CRITICAL”</li></ul>Exit status codes other than <code>0</code>, <code>1</code>, or <code>2</code> indicate an “UNKNOWN” or custom status.{{% notice note %}}
-**NOTE**: Do not manually set the event's history array `status` when using the [`/events` PUT endpoint](../../../api/events/#create-a-new-event).
+**NOTE**: Sensu automatically populates the history attributes with check execution data. Do not manually set the event's history array `status` when using the [`/events` PUT endpoint](../../../api/events/#create-a-new-event).
 {{% /notice %}}
 required     | false
 type         | Integer
