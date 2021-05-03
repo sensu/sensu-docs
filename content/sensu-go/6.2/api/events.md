@@ -226,12 +226,18 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 HTTP/1.1 201 Created
 {{< /code >}}
 
+You can create an event with the `/events` POST endpoint using only the attributes in this example, but your request can include any attributes defined in the [event specification][8].
+To create useful, actionable events, we recommend adding check attributes such as the event `status` (`0` for OK, `1` for warning, `2` for critical), an `output` message, and one or more event `handlers`.
+
+For events created with this endpoint, the `status`, `last_seen`, `executed`, and `issued` attributes have the default value `0`.
+The `last_ok` attribute will default to `0` even if you manually specify a different value in the request body.
+For more information about event attributes and their available values, read the [event specification][8].
+
 ### API Specification {#events-post-specification}
 
 /events (POST) | 
 ----------------|------
-description     | Creates a new Sensu event. To update an existing event, use the [`/events` PUT endpoint][11].<br><br>If you create a new event that references an entity that does not already exist, sensu-backend will automatically create a proxy entity in the same namespace when the event is published.<br><br>If you create an event that references an existing entity but includes different information for entity attributes, Sensu **will not** make any changes to the existing entity's definition based on the event you create via the API.{{% notice note %}}
-**NOTE**: An agent cannot belong to, execute checks in, or create events in more than one namespace. 
+description     | Creates a new Sensu event. To update an existing event, use the [`/events` PUT endpoint][11].<br><br>If you create a new event that references an entity that does not already exist, sensu-backend will automatically create a proxy entity in the same namespace when the event is published.<br><br>If you create an event that references an existing entity but includes different information for entity attributes, Sensu **will not** make any changes to the existing entity's definition based on the event you create via the API.{{% notice note %}}**NOTE**: An agent cannot belong to, execute checks in, or create events in more than one namespace. 
 {{% /notice %}}
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/events
 payload         | {{< code shell >}}

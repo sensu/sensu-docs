@@ -961,8 +961,7 @@ sensu_agent_version: 1.0.0
 
 last_seen    | 
 -------------|------ 
-description  | Timestamp the entity was last seen. In seconds since the Unix epoch.{{% notice note %}}**NOTE**: In the entity attributes for events created with the [events API](../../../api/events/), the `last_seen` value is `0`.
-{{% /notice %}}
+description  | Time at which the entity was last seen. In seconds since the Unix epoch.<br><br>For events created with the [events API][38], if you do not specify a `last_seen` value, the default value is `0`.
 required     | false 
 type         | Integer 
 example      | {{< language-toggle >}}
@@ -978,7 +977,7 @@ last_seen: 1522798317
 
 deregister   | 
 -------------|------ 
-description  | `true` if the entity should be removed when it stops sending keepalive messages. Otherwise, `false`.
+description  | If the entity should be removed when it stops sending keepalive messages, `true`. Otherwise, `false`.
 required     | false 
 type         | Boolean 
 default      | `false`
@@ -1542,7 +1541,7 @@ running: true
 
 created      | 
 -------------|------ 
-description  | Timestamp when the process was created. In seconds since the Unix epoch.
+description  | Time at which the process was created. In seconds since the Unix epoch.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1632,3 +1631,4 @@ cpu_percent: 0.12639
 [35]: ../../observe-schedule/agent/#config-file
 [36]: ../../../api/entities/
 [37]: ../../../sensuctl/create-manage-resources/#update-resources
+[38]: ../../../api/events/#create-a-new-event

@@ -1703,9 +1703,7 @@ executed: 1522100915
 
 history      |      |
 -------------|------
-description  | Check status history for the last 21 check executions. See [history attributes][32].{{% notice note %}}
-**NOTE**: Sensu automatically populates the history attributes with check execution data. Do not manually set the `history` attributes when using the [`/events` PUT endpoint](../../../api/events/#create-a-new-event).
-{{% /notice %}}
+description  | Check status history for the last 21 check executions. See [history attributes][32].<br><br>For agent-executed checks, Sensu automatically populates the history attributes with check execution data.
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -1868,7 +1866,7 @@ state: passing
 
 status       |      |
 -------------|------
-description  | Exit status code produced by the check.<ul><li><code>0</code> indicates “OK”</li><li><code>1</code> indicates “WARNING”</li><li><code>2</code> indicates “CRITICAL”</li></ul>Exit status codes other than <code>0</code>, <code>1</code>, or <code>2</code> indicate an “UNKNOWN” or custom status.<br><br>For agent-executed checks, Sensu automatically populates the `status` value based on the check result. For events created with the [events API][35], if you do not include the `status` attribute, Sensu will assume the status is `0` (OK).
+description  | Exit status code produced by the check.<ul><li>`0` indicates OK</li><li>`1` indicates WARNING</li><li>`2` indicates CRITICAL</li></ul>Exit status codes other than `0`, `1`, or `2` indicate an UNKNOWN or custom status..<br><br>For agent-executed checks, Sensu automatically populates the `status` value based on the check result. For events created with the [events API][35], if you do not include the `status` attribute, Sensu will assume the status is `0` (OK).
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1902,9 +1900,7 @@ total_state_change: 0
 
 executed     |      |
 -------------|------
-description  | Time at which the check request was executed. In seconds since the Unix epoch.{{% notice note %}}
-**NOTE**: Sensu automatically populates the history attributes with check execution data. For events created with the [events API](../../../api/events/), the `executed` value is `0` if no value is specified in the request body.
-{{% /notice %}}
+description  | Time at which the check request was executed. In seconds since the Unix epoch.<br><br>For agent-executed checks, Sensu automatically populates the `executed` value with check execution data. For events created with the [events API][35], the `executed` default value is `0`. Do not manually specify a value for the history array's `executed` attribute when using the [`/events` PUT endpoint][35].
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1920,9 +1916,7 @@ executed: 1522100915
 
 status       |      |
 -------------|------
-description  | Exit status code produced by the check.<ul><li><code>0</code> indicates “OK”</li><li><code>1</code> indicates “WARNING”</li><li><code>2</code> indicates “CRITICAL”</li></ul>Exit status codes other than <code>0</code>, <code>1</code>, or <code>2</code> indicate an “UNKNOWN” or custom status.{{% notice note %}}
-**NOTE**: Sensu automatically populates the history attributes with check execution data. Do not manually set the event's history array `status` when using the [`/events` PUT endpoint](../../../api/events/#create-a-new-event).
-{{% /notice %}}
+description  | Exit status code produced by the check.<ul><li>`0` indicates OK</li><li>`1` indicates WARNING</li><li>`2` indicates CRITICAL</li></ul>Exit status codes other than `0`, `1`, or `2` indicate an UNKNOWN or custom status.<br><br>For agent-executed checks, Sensu automatically populates the `executed` value with check execution data. For events created with the [events API][35], if you do not manually specify a value for the `status` attribute, Sensu will assume the status is `0` (OK).
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
