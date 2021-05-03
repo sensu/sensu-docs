@@ -432,7 +432,7 @@ pool_size: 20
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="strict"></a>
+<a id="strict-attribute"></a>
 
 strict       |      |
 -------------|------

@@ -903,6 +903,6 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 [6]: ../../reference/entities#entities-specification
 [7]: ../../reference/checks#check-specification
 [8]: ../../reference/events/
-[9]: ../../reference/events#metrics
+[9]: ../../reference/events#metrics-attribute
 [10]: ../#response-filtering
 [11]: #eventsentitycheck-put

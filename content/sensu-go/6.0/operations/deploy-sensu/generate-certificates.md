@@ -107,7 +107,7 @@ echo '{"CN":"Sensu Test CA","key":{"algo":"rsa","size":2048}}' | cfssl gencert -
 echo '{"signing":{"default":{"expiry":"17520h","usages":["signing","key encipherment","client auth"]},"profiles":{"backend":{"usages":["signing","key encipherment","server auth","client auth"],"expiry":"4320h"},"agent":{"usages":["signing","key encipherment","client auth"],"expiry":"4320h"}}}}' > ca-config.json
 {{< /code >}}
 
-<a name="copy-ca-pem"></a>
+<a id="copy-ca-pem"></a>
 
 You should now have a directory at `/etc/sensu/tls` that contains the following files:
 
@@ -172,7 +172,7 @@ export NAME=backend-3.example.com
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -profile="backend" -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" - | cfssljson -bare $NAME
 {{< /code >}}
 
-<a name="copy-backend-pem"></a>
+<a id="copy-backend-pem"></a>
 
 You should now have a set of files for each backend:
 
@@ -219,7 +219,7 @@ export NAME=agent
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="" -profile=agent - | cfssljson -bare $NAME
 {{< /code >}}
 
-<a name="copy-agent-pem"></a>
+<a id="copy-agent-pem"></a>
 
 You should now have a set of files for use by Sensu agents:
 

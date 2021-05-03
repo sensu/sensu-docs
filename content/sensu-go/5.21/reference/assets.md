@@ -909,7 +909,7 @@ sha512: 4f926bf4328...
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="filters"></a>
+<a id="filters-attribute"></a>
 
 filters      | 
 -------------|------ 
@@ -1221,5 +1221,5 @@ You must remove the archive and downloaded files from the asset cache manually.
 [39]: ../../web-ui/filter#filter-with-label-selectors
 [40]: ../../reference/agent/#configuration-via-flags
 [41]: ../../reference/backend/#configuration-via-flags
-[42]: #filters
+[42]: #filters-attribute
 [43]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime

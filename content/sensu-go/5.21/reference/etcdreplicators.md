@@ -511,7 +511,7 @@ resource: Role
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="namespace-attribute"></a>
+<a id="namespace-attribute"></a>
 
 namespace    |      |
 -------------|-------

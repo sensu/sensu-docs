@@ -417,7 +417,7 @@ sensu-backend start --api-listen-address [::]:8080{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 api-listen-address: "[::]:8080"{{< /code >}}
 
-<a name="api-request-limit"></a>
+<a id="api-request-limit"></a>
 
 | api-request-limit |      |
 -------------|------
@@ -485,7 +485,7 @@ sensu-backend start --config-file /etc/sensu/backend.yml
 sensu-backend start -c /etc/sensu/backend.yml
 {{< /code >}}
 
-<a name="debug-attribute"></a>
+<a id="debug-attribute"></a>
 
 | debug     |      |
 ------------|------
@@ -667,7 +667,7 @@ sensu-backend start --insecure-skip-tls-verify{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 insecure-skip-tls-verify: true{{< /code >}}
 
-<a name="jwt-attributes"></a>
+<a id="jwt-attributes"></a>
 
 | jwt-private-key-file |      |
 -------------|------
@@ -707,7 +707,7 @@ sensu-backend start --key-file /path/to/ssl/key.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 key-file: "/path/to/ssl/key.pem"{{< /code >}}
 
-<a name="fips-openssl"></a>
+<a id="fips-openssl"></a>
 
 | require-fips |      |
 ------------------|------
@@ -833,7 +833,7 @@ sensu-backend start --etcd-cert-file ./client.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 etcd-cert-file: "./client.pem"{{< /code >}}
 
-<a name="etcd-cipher-suites"></a>
+<a id="etcd-cipher-suites"></a>
 
 | etcd-cipher-suites    |      |
 ------------------------|------
@@ -1001,7 +1001,7 @@ sensu-backend start --etcd-key-file ./client-key.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 etcd-key-file: "./client-key.pem"{{< /code >}}
 
-<a name="etcd-listen-client-urls"></a>
+<a id="etcd-listen-client-urls"></a>
 
 | etcd-listen-client-urls |      |
 --------------------------|------
@@ -1231,7 +1231,7 @@ sensu-backend start --etcd-election-timeout 1000{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 etcd-election-timeout: 1000{{< /code >}}
 
-<a name="etcd-heartbeat-interval"></a>
+<a id="etcd-heartbeat-interval"></a>
 
 | etcd-heartbeat-interval |      |
 -----------------------|------

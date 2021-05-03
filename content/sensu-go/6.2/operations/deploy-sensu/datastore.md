@@ -436,7 +436,7 @@ pool_size: 20
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="strict"></a>
+<a id="strict-attribute"></a>
 
 strict       |      |
 -------------|------
@@ -455,7 +455,7 @@ strict: true
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="round-robin-postgresql"></a>
+<a id="round-robin-postgresql"></a>
 
 enable_round_robin |      |
 -------------|------

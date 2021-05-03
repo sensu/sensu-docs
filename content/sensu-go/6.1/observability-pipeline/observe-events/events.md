@@ -1477,7 +1477,7 @@ entity:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="checks"></a>
+<a id="checks-attribute"></a>
 
 |check       |      |
 -------------|------
@@ -1587,7 +1587,7 @@ check:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="metrics"></a>
+<a id="metrics-attribute"></a>
 
 |metrics     |      |
 -------------|------
@@ -2067,7 +2067,7 @@ value: 0.005
 [19]: ../#status-and-metrics-events
 [20]: ../../observe-schedule/checks#check-specification
 [21]: #check-attributes
-[22]: #metrics
+[22]: #metrics-attribute
 [23]: ../../observe-filter/reduce-alert-fatigue/
 [24]: ../../observe-filter/filters/
 [25]: ../../observe-schedule/checks/#check-result-specification

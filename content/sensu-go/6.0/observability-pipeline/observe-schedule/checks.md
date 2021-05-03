@@ -732,7 +732,7 @@ command: /etc/sensu/plugins/check-chef-client.go
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="check-subscriptions"></a>
+<a id="check-subscriptions"></a>
 
 |subscriptions|     |
 -------------|------
@@ -753,7 +753,7 @@ subscriptions:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="handlers-array"></a>
+<a id="handlers-array"></a>
 
 |handlers    |      |
 -------------|------
@@ -810,7 +810,7 @@ cron: 0 0 * * *
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="publish-attribute"></a>
+<a id="publish-attribute"></a>
 
 |publish     |      |
 -------------|------
@@ -845,7 +845,7 @@ timeout: 30
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="ttl-attribute"></a>
+<a id="ttl-attribute"></a>
 
 |ttl         |      |
 -------------|------
@@ -882,7 +882,7 @@ stdin: true
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="flap-thresholds"></a>
+<a id="flap-thresholds"></a>
 
 |low_flap_threshold ||
 -------------|------
@@ -935,7 +935,7 @@ runtime_assets:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="check-hooks-attribute"></a>
+<a id="check-hooks-attribute"></a>
 
 |check_hooks |      |
 -------------|------
@@ -974,7 +974,7 @@ check_hooks:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="proxy-entity-name-attribute"></a>
+<a id="proxy-entity-name-attribute"></a>
 
 |proxy_entity_name|   |
 -------------|------
@@ -993,7 +993,7 @@ proxy_entity_name: switch-dc-01
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="proxy-requests-top-level"></a>
+<a id="proxy-requests-top-level"></a>
 
 |proxy_requests|    |
 -------------|------
@@ -1065,7 +1065,7 @@ env_vars:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="output-metric-format"></a>
+<a id="output-metric-format"></a>
 
 |output_metric_format    |      |
 -------------|------
@@ -1086,7 +1086,7 @@ output_metric_format:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="output-metric-handlers"></a>
+<a id="output-metric-handlers"></a>
 
 |output_metric_handlers    |      |
 -------------|------
@@ -1107,7 +1107,7 @@ output_metric_handlers:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="round-robin-attribute"></a>
+<a id="round-robin-attribute"></a>
 
 |round_robin |      |
 -------------|------
@@ -1515,7 +1515,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [47]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [48]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [49]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
-[50]: ../../observe-events/events/#metrics
+[50]: ../../observe-events/events/#metrics-attribute
 [51]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 [52]: #round-robin-checks
 [53]: https://regex101.com/r/zo9mQU/2
