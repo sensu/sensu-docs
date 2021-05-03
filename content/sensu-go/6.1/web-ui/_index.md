@@ -10,7 +10,7 @@ menu:
     identifier: web-ui
 ---
 
-<a name="federated-webui"></a>
+<a id="federated-webui"></a>
 
 The Sensu backend includes the **Sensu web UI**: a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue.
 

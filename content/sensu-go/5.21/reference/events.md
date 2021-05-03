@@ -1289,7 +1289,7 @@ entity:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="checks"></a>
+<a id="checks-attribute"></a>
 
 |check       |      |
 -------------|------
@@ -1397,7 +1397,7 @@ check:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="metrics"></a>
+<a id="metrics-attribute"></a>
 
 |metrics     |      |
 -------------|------
@@ -1860,7 +1860,7 @@ value: 0.005
 [18]: ../../sensuctl/create-manage-resources/#sensuctl-event
 [20]: ../checks#check-specification
 [21]: #check-attributes
-[22]: #metrics
+[22]: #metrics-attribute
 [23]: ../../guides/reduce-alert-fatigue/
 [24]: ../filters/
 [25]: ../checks/#check-result-specification
