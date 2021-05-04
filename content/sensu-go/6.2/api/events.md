@@ -226,12 +226,17 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 HTTP/1.1 201 Created
 {{< /code >}}
 
-You can create an event with the `/events` POST endpoint using only the attributes in this example, but your request can include any attributes defined in the [event specification][8].
-To create useful, actionable events, we recommend adding check attributes such as the event `status` (`0` for OK, `1` for warning, `2` for critical), an `output` message, and one or more event `handlers`.
-
-For events created with this endpoint, the `status`, `last_seen`, `executed`, and `issued` attributes have the default value `0`.
-The `last_ok` attribute will default to `0` even if you manually specify a different value in the request body.
+To create useful, actionable events, we recommend adding check attributes like `status` (`0` for OK, `1` for warning, `2` for critical), `output`, and `handlers` to the attributes included in this example.
 For more information about event attributes and their available values, read the [event specification][8].
+
+For events created with this endpoint, the following attributes have the default value `0`:
+
+- `executed`
+- `issued`
+- `last_seen`
+- `status`
+
+If you create a new event with this endpoint, the `last_ok` attribute will default to `0` even if you manually specify OK status in the request body.
 
 ### API Specification {#events-post-specification}
 
