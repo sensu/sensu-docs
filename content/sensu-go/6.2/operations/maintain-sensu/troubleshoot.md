@@ -677,6 +677,48 @@ https://backend02:2379, e98ad7a888d16bd6, 3.3.22, 1.0 MB, true, 144, 18619245
 https://backend03:2379, bc4e39432cbb36d, 3.3.22, 1.0 MB, false, 144, 18619245
 {{< /code >}}
 
+### Remove and redeploy a cluster
+
+In some cases, you may need to completely remove a cluster and redeploy it.
+
+{{% notice protip %}}
+**PRO TIP**: Make [regular backups with sensuctl dump](../../../sensuctl/back-up-recover/) so that you can restore your Sensu resources if you have to redeploy your cluster.
+If you wait until cluster nodes are failing, it may not be possible to make a backup.
+
+If 1 node fails, you will still be able to run sensuctl dump.
+If 2 nodes fail, the whole cluster will be down and you will not be able to run the sensuctl dump command.
+{{% /notice %}}
+
+To remove and redeploy a cluster:
+
+1. Open a terminal window for each cluster member.
+
+2. Stop each cluster member backend:
+{{< code shell >}}
+systemctl stop sensu-backend
+{{< /code >}}
+
+3. Confirm that each backend stopped:
+{{< code shell >}}
+systemctl status sensu-backend
+{{< /code >}}
+
+    For each backend, the response should begin with the following lines:
+    {{< code shell >}}
+● sensu-backend.service - The Sensu Backend service.
+Loaded: loaded (/usr/lib/systemd/system/sensu-backend.service; disabled; vendor preset: disabled)
+Active: inactive (dead)
+{{< /code >}}
+
+4. Delete the etcd directories for each cluster member:
+{{< code shell >}}
+rm -rf /var/lib/sensu/sensu-backend/etcd/
+{{< /code >}}
+
+5. Follow the [Sensu backend configuration][23] instructions to reconfigure a new cluster.
+
+6. Use sensuctl create to [restore your resources from backup][24].
+
 ## Datastore performance
 
 In a default deployment, Sensu uses [etcd datastore][17] for both configuration and state.
@@ -760,3 +802,6 @@ The backend will stop listening on those ports when the etcd database is unavail
 [19]: ../../deploy-sensu/hardware-requirements/#backend-recommended-configuration
 [20]: ../../deploy-sensu/datastore/#round-robin-postgresql
 [21]: https://www.computerhope.com/unix/sha512sum.htm
+[22]: ../../../sensuctl/back-up-recover/
+[23]: ../../deploy-sensu/cluster-sensu/#sensu-backend-configuration
+[24]: ../../../sensuctl/back-up-recover/#restore-resources-from-backup
