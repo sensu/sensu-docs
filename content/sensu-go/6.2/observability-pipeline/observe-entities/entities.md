@@ -961,7 +961,7 @@ sensu_agent_version: 1.0.0
 
 last_seen    | 
 -------------|------ 
-description  | Time at which the entity was last seen. In seconds since the Unix epoch.<br><br>For events created with the [events API][38], if you do not specify a `last_seen` value, the default value is `0`.
+description  | Time at which the entity was last seen. In seconds since the Unix epoch.
 required     | false 
 type         | Integer 
 example      | {{< language-toggle >}}

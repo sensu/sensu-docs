@@ -1349,7 +1349,7 @@ created_by: "admin"
 
 |timestamp   |      |
 -------------|------
-description  | Time that the event occurred. In seconds since the Unix epoch.<br><br>When an agent executes a check, Sensu sets the timestamp for the generated event.<br><br>For events created via the [events API][35], if you include a timestamp value in the event, Sensu respects the user-provided value. If you do not include a timestamp value, Sensu sets the timestamp for the event.
+description  | Time that the event occurred. In seconds since the Unix epoch.<br><br>Sensu automatically populates the timestamp value for the event. For events created via the [events API][35], Sensu automatically populates the timestamp value unless you specify a value in the request body.
 required     | false
 type         | Integer
 default      | Time that the event occurred
@@ -1402,7 +1402,7 @@ sequence: 1
 
 |entity      |      |
 -------------|------
-description  | [Entity attributes][2] from the originating entity (agent or proxy). If you use the [events API][35] to create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
+description  | [Entity attributes][2] from the originating entity (agent or proxy).<br><br>If you use the [events API][35] to create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
 type         | Map
 required     | true
 example      | {{< language-toggle >}}
@@ -1685,9 +1685,7 @@ duration: 1.903135228
 
 executed     |      |
 -------------|------
-description  | Time at which the check request was executed. In seconds since the Unix epoch.<br><br>The difference between a request's `issued` and `executed` values is the request latency.{{% notice note %}}
-**NOTE**: For agent-executed checks, Sensu automatically populates the `executed` value. For events created with the [events API](../../../api/events/), the `executed` value is `0` if no value is specified in the request body.
-{{% /notice %}}
+description  | Time at which the check request was executed. In seconds since the Unix epoch.<br><br>The difference between a request's `issued` and `executed` values is the request latency.<br><br>For agent-executed checks, Sensu automatically populates the `executed` value. For events created with the [events API][35], the default `executed` value is `0` unless you specify a value in the request body.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1703,7 +1701,7 @@ executed: 1522100915
 
 history      |      |
 -------------|------
-description  | Check status history for the last 21 check executions. See [history attributes][32].<br><br>For agent-executed checks, Sensu automatically populates the history attributes with check execution data.
+description  | Check status history for the last 21 check executions. See [history attributes][32].<br><br>Sensu automatically populates the history attributes with check execution data.
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -1732,9 +1730,7 @@ history:
 
 issued       |      |
 -------------|------
-description  | Time that the check request was issued. In seconds since the Unix epoch.<br><br>The difference between a request's `issued` and `executed` values is the request latency.{{% notice note %}}
-**NOTE**: For agent-executed checks, Sensu automatically populates the `issued` value. For events created with the [events API](../../../api/events/), the `issued` value is `0` unless you specify a value in the request body.
-{{% /notice %}}
+description  | Time that the check request was issued. In seconds since the Unix epoch.<br><br>The difference between a request's `issued` and `executed` values is the request latency.<br><br>For agent-executed checks, Sensu automatically populates the `issued` value. For events created with the [events API][35], the default `issued` value is `0` unless you specify a value in the request body.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1750,8 +1746,7 @@ issued: 1552506033
 
 last_ok      |      |
 -------------|------
-description  | Last time that the check returned an OK status (`0`). In seconds since the Unix epoch.{{% notice note %}}**NOTE**: For events created with the [events API](../../../api/events/), the `last_ok` value is `0`.
-{{% /notice %}}
+description  | Last time that the check returned an OK status (`0`). In seconds since the Unix epoch.<br><br>For events created with the [events API][35], the `last_ok` attribute will default to `0` even if you manually specify OK status in the request body.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1767,7 +1762,7 @@ last_ok: 1552506033
 
 occurrences  |      |
 -------------|------
-description  | Number of preceding events with the same status as the current event (OK, WARNING, CRITICAL, or UNKNOWN). Starting at `1`, the `occurrences` attribute increments for events with the same status as the preceding event and resets whenever the status changes. See [Use event data][31] for more information.<br><br>Sensu automatically populates the `occurrences` value. For events created with the [events API][35], Sensu overwrites any `occurences` value you provide with the correct value.
+description  | Number of preceding events with the same status as the current event (OK, WARNING, CRITICAL, or UNKNOWN). Starting at `1`, the `occurrences` attribute increments for events with the same status as the preceding event and resets whenever the status changes. See [Use event data][31] for more information.<br><br>Sensu automatically populates the `occurrences` value. In events created with the [events API][35], Sensu overwrites any `occurences` value you provide with the correct value.
 required     | false
 type         | Integer greater than 0
 example      | {{< language-toggle >}}
@@ -1783,7 +1778,7 @@ occurrences: 1
 
 occurrences_watermark | |
 -------------|------
-description  | For incident and resolution events, the number of preceding events with an OK status (for incident events) or non-OK status (for resolution events). The `occurrences_watermark` attribute gives you useful information when looking at events that change status between OK (`0`)and non-OK (`1`-WARNING, `2`-CRITICAL, or UNKNOWN).<br><br>Sensu resets `occurrences_watermark` to `1` whenever an event for a given entity and check transitions between OK and non-OK. Within a sequence of only OK or only non-OK events, Sensu increments `occurrences_watermark` only when the `occurrences` attribute is greater than the preceding `occurrences_watermark`. See [Use event data][31] for more information.<br><br>Sensu automatically populates the `occurrences_watermark` value. For events created with the [events API][35], Sensu overwrites any `occurences_watermark` value you provide with the correct value.
+description  | For incident and resolution events, the number of preceding events with an OK status (for incident events) or non-OK status (for resolution events). The `occurrences_watermark` attribute gives you useful information when looking at events that change status between OK (`0`)and non-OK (`1`-WARNING, `2`-CRITICAL, or UNKNOWN).<br><br>Sensu resets `occurrences_watermark` to `1` whenever an event for a given entity and check transitions between OK and non-OK. Within a sequence of only OK or only non-OK events, Sensu increments `occurrences_watermark` only when the `occurrences` attribute is greater than the preceding `occurrences_watermark`. See [Use event data][31] for more information.<br><br>Sensu automatically populates the `occurrences_watermark` value. In events created with the [events API][35], Sensu overwrites any `occurences_watermark` value you provide with the correct value.
 required     | false
 type         | Integer greater than 0
 example      | {{< language-toggle >}}
@@ -1834,7 +1829,7 @@ silenced:
 
 output       |      |
 -------------|------
-description  | Output from the execution of the check command.<br><br>For events created with the [events API][35], you can manually specify an `output` value if desired.
+description  | Output from the execution of the check command.
 required     | false
 type         | String
 example      | {{< language-toggle >}}
@@ -1850,7 +1845,7 @@ output: "sensu-go-sandbox.curl_timings.time_total 0.005
 
 state         |      |
 -------------|------
-description  | State of the check: `passing` (status `0`), `failing` (status other than `0`), or `flapping`. Use the `low_flap_threshold` and `high_flap_threshold` [check attributes][33] to configure `flapping` state detection.<br><br>Sensu automatically populates the `state` based on the `status`. For events created with the [events API][35], Sensu overwrites any `state` value you provide with the correct value based on the `status`.
+description  | State of the check: `passing` (status `0`), `failing` (status other than `0`), or `flapping`. Use the `low_flap_threshold` and `high_flap_threshold` [check attributes][33] to configure `flapping` state detection.<br><br>Sensu automatically populates the `state` based on the `status`.
 required     | false
 type         | String
 example      | {{< language-toggle >}}
@@ -1866,7 +1861,7 @@ state: passing
 
 status       |      |
 -------------|------
-description  | Exit status code produced by the check.<ul><li>`0` indicates OK</li><li>`1` indicates WARNING</li><li>`2` indicates CRITICAL</li></ul>Exit status codes other than `0`, `1`, or `2` indicate an UNKNOWN or custom status..<br><br>For agent-executed checks, Sensu automatically populates the `status` value based on the check result. For events created with the [events API][35], if you do not include the `status` attribute, Sensu will assume the status is `0` (OK).
+description  | Exit status code produced by the check.<ul><li>`0` indicates OK</li><li>`1` indicates WARNING</li><li>`2` indicates CRITICAL</li></ul>Exit status codes other than `0`, `1`, or `2` indicate an UNKNOWN or custom status..<br><br>For agent-executed checks, Sensu automatically populates the `status` value based on the check result. For events created with the [events API][35], Sensu will assume the status is `0` (OK) unless you specify a value in the request body.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1900,7 +1895,7 @@ total_state_change: 0
 
 executed     |      |
 -------------|------
-description  | Time at which the check request was executed. In seconds since the Unix epoch.<br><br>For agent-executed checks, Sensu automatically populates the `executed` value with check execution data. For events created with the [events API][35], the `executed` default value is `0`. Do not manually specify a value for the history array's `executed` attribute when using the [`/events` PUT endpoint][35].
+description  | Time at which the check request was executed. In seconds since the Unix epoch.<br><br>Sensu automatically populates the `executed` value with check execution data. For events created with the [events API][35], the `executed` default value is `0`.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1916,7 +1911,7 @@ executed: 1522100915
 
 status       |      |
 -------------|------
-description  | Exit status code produced by the check.<ul><li>`0` indicates OK</li><li>`1` indicates WARNING</li><li>`2` indicates CRITICAL</li></ul>Exit status codes other than `0`, `1`, or `2` indicate an UNKNOWN or custom status.<br><br>For agent-executed checks, Sensu automatically populates the `executed` value with check execution data. For events created with the [events API][35], if you do not manually specify a value for the `status` attribute, Sensu will assume the status is `0` (OK).
+description  | Exit status code produced by the check.<ul><li>`0` indicates OK</li><li>`1` indicates WARNING</li><li>`2` indicates CRITICAL</li></ul>Exit status codes other than `0`, `1`, or `2` indicate an UNKNOWN or custom status.<br><br>Sensu automatically populates the `status` value with check execution data.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -2045,7 +2040,7 @@ tags:
 
 timestamp    |      |
 -------------|------
-description  | Time at which the metric was collected. In seconds since the Unix epoch.
+description  | Time at which the metric was collected. In seconds since the Unix epoch. Sensu automatically populates the timestamp values for metric data points.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
