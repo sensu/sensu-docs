@@ -506,7 +506,7 @@ The event specification describes [metrics attributes in events][5].
 [2]: ../../observe-process/aggregate-metrics-statsd/
 [3]: ../checks/#output-metric-handlers
 [4]: #extract-metrics-from-check-output
-[5]: ../../observe-events/events/#metrics
+[5]: ../../observe-events/events/#metrics-attribute
 [6]: #metric-check-example
 [7]: ../prometheus-metrics/
 [8]: https://bonsai.sensu.io/

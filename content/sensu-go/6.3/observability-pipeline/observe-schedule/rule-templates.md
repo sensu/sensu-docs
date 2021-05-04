@@ -592,7 +592,7 @@ required:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="rule-properties"></a>
+<a id="rule-properties"></a>
 
 properties   | 
 -------------|------ 

@@ -889,7 +889,7 @@ See the [example agent configuration file][5] (also provided with Sensu packages
 
 ### General configuration flags
 
-<a name="allow-list"></a>
+<a id="allow-list"></a>
 
 | allow-list |      |
 ------------------|------
@@ -948,7 +948,7 @@ sensu-agent start --assets-rate-limit 1.39
 # /etc/sensu/agent.yml example
 assets-rate-limit: 1.39{{< /code >}}
 
-<a name="backend-handshake-timeout"></a>
+<a id="backend-handshake-timeout"></a>
 
 | backend-handshake-timeout |      |
 ----------------------------|------
@@ -962,7 +962,7 @@ sensu-agent start --backend-handshake-timeout 20
 # /etc/sensu/agent.yml example
 backend-handshake-timeout: 20{{< /code >}}
 
-<a name="backend-heartbeat-interval"></a>
+<a id="backend-heartbeat-interval"></a>
 
 | backend-heartbeat-interval |      |
 -----------------------------|------
@@ -976,7 +976,7 @@ sensu-agent start --backend-heartbeat-interval 45
 # /etc/sensu/agent.yml example
 backend-heartbeat-interval: 45{{< /code >}}
 
-<a name="backend-heartbeat-timeout"></a>
+<a id="backend-heartbeat-timeout"></a>
 
 | backend-heartbeat-timeout |      |
 ----------------------------|------
@@ -1010,7 +1010,7 @@ backend-url:
   {{< /code >}}
 
 
-<a name="cache-dir"></a>
+<a id="cache-dir"></a>
 
 | cache-dir   |      |
 --------------|------
@@ -1036,7 +1036,7 @@ sensu-agent start --config-file /sensu/agent.yml
 sensu-agent start -c /sensu/agent.yml
 {{< /code >}}
 
-<a name="disable-assets"></a>
+<a id="disable-assets"></a>
 
 | disable-assets |      |
 --------------|------
@@ -1050,7 +1050,7 @@ sensu-agent start --disable-assets
 # /etc/sensu/agent.yml example
 disable-assets: true{{< /code >}}
 
-<a name="discover-processes"></a>
+<a id="discover-processes"></a>
 
 | discover-processes |      |
 --------------|------
@@ -1087,7 +1087,7 @@ labels:
   proxy_type: "website"
 {{< /code >}}
 
-<a name="name"></a>
+<a id="name-attribute"></a>
 
 | name        |      |
 --------------|------
@@ -1101,7 +1101,7 @@ sensu-agent start --name agent-01
 # /etc/sensu/agent.yml example
 name: "agent-01" {{< /code >}}
 
-<a name="log-level"></a>
+<a id="log-level"></a>
 
 | log-level   |      |
 --------------|------
@@ -1115,7 +1115,7 @@ sensu-agent start --log-level debug
 # /etc/sensu/agent.yml example
 log-level: "debug"{{< /code >}}
 
-<a name="subscriptions-flag"></a>
+<a id="subscriptions-flag"></a>
 
 | subscriptions |      |
 ----------------|------
@@ -1227,7 +1227,7 @@ sensu-agent start --deregistration-handler deregister
 # /etc/sensu/agent.yml example
 deregistration-handler: "deregister"{{< /code >}}
 
-<a name="detect-cloud-provider-flag"></a>
+<a id="detect-cloud-provider-flag"></a>
 
 
 | detect-cloud-provider  |      |
@@ -1247,7 +1247,7 @@ detect-cloud-provider: "false"{{< /code >}}
 
 | keepalive-critical-timeout |      |
 --------------------|------
-description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. Set to disabled (`0`) by default. If the value is not `0`, it must be greater than or equal to `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-critical-timeout` value to the [`event.check.ttl` attribute](../events/#checks) when keepalive events are generated for the Sensu backend to process. The `event.check.ttl` attribute is useful for [creating time-based event filters](../../reference/filters#reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. Set to disabled (`0`) by default. If the value is not `0`, it must be greater than or equal to `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-critical-timeout` value to the [`event.check.ttl` attribute](../events/#checks-attribute) when keepalive events are generated for the Sensu backend to process. The `event.check.ttl` attribute is useful for [creating time-based event filters](../../reference/filters#reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
 {{% /notice %}}
 type                | Integer
 default             | `0`
@@ -1258,7 +1258,7 @@ sensu-agent start --keepalive-critical-timeout 300
 # /etc/sensu/agent.yml example
 keepalive-critical-timeout: 300{{< /code >}}
 
-<a name="keepalive-handlers-flag"></a>
+<a id="keepalive-handlers-flag"></a>
 
 | keepalive-handlers |      |
 --------------------|------
@@ -1288,7 +1288,7 @@ keepalive-interval: 30{{< /code >}}
 
 | keepalive-warning-timeout |      |
 --------------------|------
-description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-warning-timeout` value to the [`event.check.timeout` attribute](../events/#checks) when keepalive events are generated for the Sensu backend to process. The `event.check.timeout` attribute is useful for [creating time-based event filters](../../reference/filters#reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-warning-timeout` value to the [`event.check.timeout` attribute](../events/#checks-attribute) when keepalive events are generated for the Sensu backend to process. The `event.check.timeout` attribute is useful for [creating time-based event filters](../../reference/filters#reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
 {{% /notice %}}
 type                | Integer
 default             | `120`
@@ -1417,7 +1417,7 @@ sensu-agent start --insecure-skip-tls-verify
 # /etc/sensu/agent.yml example
 insecure-skip-tls-verify: true{{< /code >}}
 
-<a name="fips-openssl"></a>
+<a id="fips-openssl"></a>
 
 | require-fips |      |
 ------------------|------
@@ -1808,7 +1808,7 @@ You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, r
 [35]: ../backend#datastore-and-cluster-configuration-flags
 [36]: ../../operations/deploy-sensu/cluster-sensu/
 [37]: ../backend#general-configuration-flags
-[38]: #name
+[38]: #name-attribute
 [39]: ../rbac/
 [40]: ../../guides/send-slack-alerts/
 [41]: ../handlers/#send-registration-events

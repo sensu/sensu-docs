@@ -263,4 +263,3 @@ name: production
 [9]: ../../operations/deploy-sensu/install-sensu/#install-sensuctl
 [10]: ../../sensuctl/create-manage-resources/#create-resources
 [11]: #spec-attributes
-[12]: ../agent/#labels

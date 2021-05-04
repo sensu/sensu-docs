@@ -762,7 +762,7 @@ labels:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="annotations"></a>
+<a id="annotations-attribute"></a>
 
 | annotations |     |
 -------------|------
@@ -1613,7 +1613,7 @@ cpu_percent: 0.12639
 [17]: ../../observe-entities/monitor-external-resources/
 [18]: ../../observe-schedule/checks/#round-robin-checks
 [19]: #proxy-entities-managed
-[20]: #annotations
+[20]: #annotations-attribute
 [21]: https://regex101.com/r/zo9mQU/2
 [22]: ../../../operations/control-access/rbac/
 [23]: ../../../web-ui/search#search-for-labels

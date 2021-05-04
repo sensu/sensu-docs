@@ -525,7 +525,7 @@ labels:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="annotations"></a>
+<a id="annotations-attribute"></a>
 
 | annotations |     |
 -------------|------
@@ -1558,7 +1558,7 @@ spec:
 [17]: ../../guides/monitor-external-resources/
 [18]: ../checks/#round-robin-checks
 [19]: #proxy-entities-managed
-[20]: #annotations
+[20]: #annotations-attribute
 [21]: https://regex101.com/r/zo9mQU/2
 [22]: ../rbac/
 [23]: ../../web-ui/filter#filter-with-label-selectors
