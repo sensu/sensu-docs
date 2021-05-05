@@ -717,7 +717,18 @@ rm -rf /var/lib/sensu/sensu-backend/etcd/
 
 5. Follow the [Sensu backend configuration][23] instructions to reconfigure a new cluster.
 
-6. Use sensuctl create to [restore your resources from backup][24].
+6. [Initialize][25] each backend to specify admin credentials:
+{{< code shell >}}
+sensu-backend init --interactive
+{{< /code >}}
+    
+    When you receive prompts for your username and password, replace `<YOUR_USERNAME>` and `<YOUR_PASSWORD>` with the administrator username and password you wish to use:
+{{< code shell >}}
+Admin Username: <YOUR_USERNAME>
+Admin Password: <YOUR_PASSWORD>
+{{< /code >}}
+
+7. Use sensuctl create to [restore your resources from backup][24].
 
 ## Datastore performance
 
@@ -805,3 +816,4 @@ The backend will stop listening on those ports when the etcd database is unavail
 [22]: ../../../sensuctl/back-up-recover/
 [23]: ../../deploy-sensu/cluster-sensu/#sensu-backend-configuration
 [24]: ../../../sensuctl/back-up-recover/#restore-resources-from-backup
+[25]: ../../../observability-pipeline/observe-schedule/backend/#initialization
