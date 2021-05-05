@@ -9,6 +9,7 @@ version: "6.3"
 menu: "sensu-go-6.3"
 ---
 
+- [6.3.0 release notes](#630-release-notes)
 - [6.2.7 release notes](#627-release-notes)
 - [6.2.6 release notes](#626-release-notes)
 - [6.2.5 release notes](#625-release-notes)
@@ -83,6 +84,35 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.3.0 release notes
+
+**May X, 2021** &mdash; The latest release of Sensu Go, version 6.3.0, is now available for download.
+
+**RELEASE SYNOPSIS NEEDED**
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.3.0.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][207]) Added [business service monitoring (BSM)][210] to provide high-level visibility into the current health of any number of business services, with a [built-in aggregate check rule template][211].
+- ([Commercial feature][207]) Added support for agent transport rate limiting via [`agent-burst-limit`][208] and [`agent-rate-limit`][209] backend configuration flags.
+- Added the entity class [service][213], which represents a business service for the business service monitoring (BSM) feature.
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][207]) The [agent transport health API endpoint][212] repsonse now includes PostgreSQL health information.
+- ([Commercial feature][207]) In the web UI, added examples of valid values for form fields.
+- Logs for JavaScript filter evaluation errors now include more context.
+- Concatenated YAML files now support carriage return and line feed (CRLF).
+- Removed extraneous shell auto-completion suggestions for sensuctl.
+
+**FIXES:**
+
+- ([Commercial feature][207]) In the web UI, error messages are now visible in dark mode.
+- Fixed a bug that could cause the scheduler to crash when using round robin checks.
+- Fixed a bug that calculated build information for every keepalive in OSS builds.
+- SIGHUP no longer triggers an internal restart.
 
 ## 6.2.7 release notes
 
@@ -1816,3 +1846,10 @@ To get started with Sensu Go:
 [204]: /sensu-go/6.2/observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent
 [205]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#configuration-via-flags
 [206]: /sensu-go/5.21/reference/backend/#log-rotation
+[207]: /sensu-go/6.3/commercial/
+[208]: /sensu-go/6.3/observability-pipeline/observe-schedule/backend/#agent-burst-limit
+[209]: /sensu-go/6.3/observability-pipeline/observe-schedule/backend/#agent-rate-limit
+[210]: /sensu-go/6.3/observability-pipeline/observe-schedule/business-service-monitoring/
+[211]: /sensu-go/6.3/observability-pipeline/observe-schedule/rule-templates/#built-in-rule-template-aggregate
+[212]: /sensu-go/6.3/api/health/#get-health-data-for-your-agent-transport
+[213]: /sensu-go/6.3/observability-pipeline/observe-entities/#service-entities
