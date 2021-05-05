@@ -679,15 +679,22 @@ https://backend03:2379, bc4e39432cbb36d, 3.3.22, 1.0 MB, false, 144, 18619245
 
 ### Remove and redeploy a cluster
 
-In some cases, you may need to completely remove a cluster and redeploy it.
-
 {{% notice protip %}}
 **PRO TIP**: Make [regular backups with sensuctl dump](../../../sensuctl/back-up-recover/) so that you can restore your Sensu resources if you have to redeploy your cluster.
 If you wait until cluster nodes are failing, it may not be possible to make a backup.
 
-If 1 node fails, you will still be able to run sensuctl dump.
-If 2 nodes fail, the whole cluster will be down and you will not be able to run the sensuctl dump command.
+For example, in a three-node cluster, if one node fails, you will still be able to run sensuctl dump.
+If two nodes fail, the whole cluster will be down and you will not be able to run the sensuctl dump command.
+
+For information about using etcd snapshots for recovery, read the [etcd disaster recovery](https://etcd.io/docs/v3.3.13/op-guide/recovery/).
 {{% /notice %}}
+
+You may want to completely remove a cluster and redeploy it in cases such as:
+
+- Etcd configuration issues
+- Etcd corruption, perhaps from disk filling
+- Failure to reach consensus after losing more than `(N-1)/2` cluster members
+- Unrecoverable hardware failure
 
 To remove and redeploy a cluster:
 
@@ -717,12 +724,12 @@ rm -rf /var/lib/sensu/sensu-backend/etcd/
 
 5. Follow the [Sensu backend configuration][23] instructions to reconfigure a new cluster.
 
-6. [Initialize][25] each backend to specify admin credentials:
+6. [Initialize][25] a backend to specify admin credentials:
 {{< code shell >}}
 sensu-backend init --interactive
 {{< /code >}}
     
-    When you receive prompts for your username and password, replace `<YOUR_USERNAME>` and `<YOUR_PASSWORD>` with the administrator username and password you wish to use:
+    When you receive prompts for your username and password, replace `<YOUR_USERNAME>` and `<YOUR_PASSWORD>` with the administrator username and password you want to use for the cluster members:
 {{< code shell >}}
 Admin Username: <YOUR_USERNAME>
 Admin Password: <YOUR_PASSWORD>

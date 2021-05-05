@@ -371,8 +371,6 @@ sensu-backend start \
 
 ## Troubleshoot clusters
 
-If you want to restart a cluster, read [Remove and redeploy a cluster][23].
-
 ### Failure modes
 
 See the [etcd failure modes documentation][8] for information about cluster failure modes.
@@ -380,6 +378,10 @@ See the [etcd failure modes documentation][8] for information about cluster fail
 ### Disaster recovery
 
 See the [etcd recovery guide][9] for disaster recovery information.
+
+### Redeploy a cluster
+
+To redeploy a cluster due to an issue like etcd corruption, loss of quorum among cluster members, or unrecoverable hardware failure, read [Remove and redeploy a cluster][23].
 
 
 [1]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
