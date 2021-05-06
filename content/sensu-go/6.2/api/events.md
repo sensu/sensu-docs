@@ -1256,6 +1256,15 @@ You should see the event with the status and output specified in the request:
     server1    server-health   Server error                         1       false      2019-03-14 16:56:09 +0000 UTC 
 {{< /code >}}
 
+For events created with this endpoint, the following attributes have the default value `0` unless you specify a different value for testing:
+
+- `executed`
+- `issued`
+- `last_seen`
+- `status`
+
+The `last_ok` and `sensu_agent_version` attributes will default to `0` even if you manually specify non-zero values in the request body.
+
 ### API Specification {#eventsentitycheck-post-specification}
 
 /events/:entity/:check (POST) | 
