@@ -597,6 +597,8 @@ sensu-backend start --agent-auth-trusted-ca-file /path/to/ssl/ca.pem{{< /code >}
 /etc/sensu/backend.yml example | {{< code shell >}}
 agent-auth-trusted-ca-file: /path/to/ssl/ca.pem{{< /code >}}
 
+<a id="agent-burst-limit"></a>
+
 | agent-burst-limit   |      |
 --------------|------
 description   | Maximum amount of burst allowed in a rate interval for agent transport WebSocket connections.
@@ -629,6 +631,8 @@ command line example   | {{< code shell >}}
 sensu-backend start --agent-port 8081{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 agent-port: 8081{{< /code >}}
+
+<a id="agent-rate-limit"></a>
 
 | agent-rate-limit   |      |
 --------------|------
