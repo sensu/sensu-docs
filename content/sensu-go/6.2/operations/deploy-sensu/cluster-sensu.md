@@ -381,7 +381,7 @@ See the [etcd recovery guide][9] for disaster recovery information.
 
 ### Redeploy a cluster
 
-To redeploy a cluster due to an issue like etcd corruption, loss of quorum among cluster members, or unrecoverable hardware failure, read [Remove and redeploy a cluster][23].
+To redeploy a cluster due to an issue like loss of quorum among cluster members, etcd corruption, or hardware failure, read [Remove and redeploy a cluster][23].
 
 
 [1]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
