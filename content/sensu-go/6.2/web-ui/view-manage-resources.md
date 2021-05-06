@@ -52,7 +52,7 @@ After you create a silence, it will be listed in the web UI Silences page until 
 For more information, see [Get started with commercial features][1].
 
 Create, edit, and delete Sensu checks, handlers, event filters, and mutators from their respective pages in the web UI.
-Queue up ad hoc execution from individual check pages to test your observability pipeline. 
+Execute checks on demand from individual check pages to test your observability pipeline.
 
 
 [1]: ../../commercial/
