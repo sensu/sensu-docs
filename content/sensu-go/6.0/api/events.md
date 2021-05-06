@@ -1255,7 +1255,9 @@ For events created with this endpoint, the following attributes have the default
 - `last_seen`
 - `status`
 
-The `last_ok` and `sensu_agent_version` attributes will default to `0` even if you manually specify non-zero values in the request body.
+The `last_ok` attribute will default to `0` even if you manually specify OK status in the request body.
+
+The `sensu_agent_version` attribute will return with a null value for events created with this endpoint because these events are not created by an agent-executed check.
 
 ### API Specification {#eventsentitycheck-post-specification}
 
