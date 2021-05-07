@@ -10,6 +10,7 @@
     function addCopy(element) {
         var copy = document.createElement("button");
         copy.className = "copy";
+        copy.innerText = "Copy";
         element.append(copy);
     }
 
