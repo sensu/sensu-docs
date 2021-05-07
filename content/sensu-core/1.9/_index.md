@@ -82,7 +82,7 @@ training, and other benefits, check out [Sensu Enterprise][14].
 [2]:  https://slack.com
 [3]:  https://github.com/sensu-plugins
 [4]:  /plugins/latest/reference/
-[9]:  http://www.chef.io
+[9]:  https://www.chef.io
 [10]: https://puppetlabs.com
 [11]: http://www.ansible.com
 [12]: https://github.com/sensu/sensu/blob/master/MIT-LICENSE.txt
@@ -100,7 +100,7 @@ training, and other benefits, check out [Sensu Enterprise][14].
 [25]: https://docs.sensu.io/sensu-go/latest/installation/upgrade/#upgrading-to-sensu-go-from-sensu-core-1-x
 [26]: https://slack.sensu.io/
 [27]: https://discourse.sensu.io/c/sensu-go/migrating-to-go
-[28]: https://docs.sensu.io/sensu-go/latest/getting-started/sandbox/
+[28]: https://docs.sensu.io/sensu-go/latest/learn/sandbox/
 [29]: https://sensu.io/support/
 [30]: https://sensu.io/contact/
 [32]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
