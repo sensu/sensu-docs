@@ -1,7 +1,7 @@
 ---
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
-description: "Read the Sensu Go release notes to learn about what's new in our latest release."
+description: "Read the Sensu Go release notes to learn what's new in our latest release and get information about upgrading to the latest version of Sensu Go."
 weight: -80
 product: "Sensu Go"
 toc: false
