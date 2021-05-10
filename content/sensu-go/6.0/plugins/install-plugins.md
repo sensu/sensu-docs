@@ -1,7 +1,7 @@
 ---
 title: "Install Sensu plugins"
 linkTitle: "Install Plugins"
-description: "Sensu plugins provide executables for performing status or metric checks, mutators for changing data to a desired format, and handlers for performing an action on a Sensu event. Read this plugin installation guide to learn how to install plugins with dynamic runtime assets and use Sensu Community plugins with Sensu Go."
+description: "Learn how to install plugins to extend Sensu's functionality with executables for performing checks, mutators, and handlers."
 weight: 20
 version: "6.0"
 product: "Sensu Go"

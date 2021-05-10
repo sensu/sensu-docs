@@ -3,7 +3,7 @@ title: "Subscriptions reference"
 linkTitle: "Subscriptions Reference"
 reference_title: "Subscriptions"
 type: "reference"
-description: "Sensu subscriptions are equivalent to topics in a traditional publish/subscribe system. With Sensu subscriptions, you can configure check requests in a one-to-many model for an entire group or subgroup of systems rather than a traditional one-to-one mapping of configured hosts or observability checks. Read this reference doc to learn how to configure subscriptions in Sensu."
+description: "Use Sensu subscriptions to configure checks in a one-to-many model and write checks even if you don't know the names of the entities that should run the checks."
 weight: 35
 version: "6.3"
 product: "Sensu Go"
