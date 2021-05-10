@@ -1517,7 +1517,7 @@ The asset reference includes an [example check definition that uses the asset pa
 [43]: #round-robin-attribute
 [44]: #proxy-entity-name-attribute
 [46]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
-[47]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
+[47]: https://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [48]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [49]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [50]: ../../reference/events/#metrics-attribute

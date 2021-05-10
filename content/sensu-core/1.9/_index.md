@@ -84,9 +84,9 @@ training, and other benefits, check out [Sensu Enterprise][14].
 [4]:  /plugins/latest/reference/
 [9]:  https://www.chef.io
 [10]: https://puppetlabs.com
-[11]: http://www.ansible.com
+[11]: https://www.ansible.com
 [12]: https://github.com/sensu/sensu/blob/master/MIT-LICENSE.txt
-[13]: http://github.com/sensu/sensu
+[13]: https://github.com/sensu/sensu
 [14]: https://sensu.io/products/enterprise
 [15]: installation/install-sensu-client
 [16]: api/overview

@@ -490,7 +490,7 @@ The event specification describes [metrics attributes in events][5].
 [11]: #process-extracted-metrics
 [12]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 [13]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
-[14]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
+[14]: https://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [15]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [16]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [17]: https://prometheus.io/docs/instrumenting/exposition_formats/#text-based-format
