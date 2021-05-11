@@ -1812,8 +1812,8 @@ You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, r
 [16]: #general-configuration-flags
 [17]: #socket-configuration-flags
 [18]: #api-configuration-flags
-[19]: http://nc110.sourceforge.net/
-[20]: http://en.wikipedia.org/wiki/Dead_man%27s_switch
+[19]: https://sourceforge.net/projects/netcat/
+[20]: https://en.wikipedia.org/wiki/Dead_man%27s_switch
 [21]: https://github.com/etsy/statsd
 [22]: #statsd-configuration-flags
 [23]: https://github.com/statsd/statsd#key-concepts

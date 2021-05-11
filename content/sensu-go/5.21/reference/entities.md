@@ -1566,6 +1566,6 @@ spec:
 [25]: ../agent/#detect-cloud-provider-flag
 [26]: #processes-attributes
 [27]: ../agent/#discover-processes
-[28]: http://man7.org/linux/man-pages/man1/top.1.html
+[28]: https://man7.org/linux/man-pages/man1/top.1.html
 [29]: ../../reference/license/#view-entity-count-and-entity-limit
 [30]: ../../web-ui/filter/

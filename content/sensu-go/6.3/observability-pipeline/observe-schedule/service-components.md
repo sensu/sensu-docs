@@ -3,7 +3,7 @@ title: "Service components reference: Business service monitoring (BSM)"
 linkTitle: "Service Components Reference"
 reference_title: "Service components"
 type: "reference"
-description: "A service component is a meaningful selection of Sensu events for a business service, such as database monitoring events. Service component resources allow you to define and manage elements of a business service. Read this reference to learn more about Sensu's service components for business service monitoring."
+description: "Service components are meaningful selections of Sensu events, like database monitoring events, that allow you to define and manage business service elements."
 weight: 70
 version: "6.3"
 product: "Sensu Go"

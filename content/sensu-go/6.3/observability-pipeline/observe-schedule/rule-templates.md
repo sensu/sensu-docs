@@ -3,7 +3,7 @@ title: "Rule templates reference: Business service monitoring (BSM)"
 linkTitle: "Rule Templates Reference"
 reference_title: "Rule templates"
 type: "reference"
-description: "Sensu's rule templates are resources that Sensu applies to service components for business service monitoring. The rules define the conditions under which Sensu will consider a service component online, degraded, or offline. Read this reference to learn more about Sensu's rule templates for business service monitoring."
+description: "Rule templates define the conditions under which Sensu will consider a service component online, degraded, or offline for business service monitoring."
 weight: 60
 version: "6.3"
 product: "Sensu Go"
