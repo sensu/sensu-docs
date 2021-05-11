@@ -404,7 +404,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 
 **IMPROVEMENTS:**
 
-- ([Commercial feature][141]) The web UI homepage is now a [federated view][152]. 
+- ([Commercial feature][141]) The web UI homepage is now a federated view. 
 - You can now [increment the log level][140] by sending SIGUSR1 to the sensu-backend or sensu-agent process.
 - [License metadata][149] now includes the [current entity count and license entity limit][150].
 - In the [web UI][153], users will see a notification when they try to delete an event without appropriate authorization.
@@ -1614,7 +1614,6 @@ To get started with Sensu Go:
 [149]: /sensu-go/5.20/api/license#get-the-active-license-configuration
 [150]: /sensu-go/5.20/reference/license/#view-entity-count-and-entity-limit
 [151]: /sensu-go/5.20/reference/license/#entity-limit
-[152]: /sensu-go/5.20/web-ui/#federated-webui
 [153]: /sensu-go/5.20/web-ui/
 [154]: /sensu-go/5.20/sensuctl/sensuctl-bonsai/#extend-sensuctl-with-commands
 [155]: /sensu-go/5.20/reference/agent/#discover-processes
