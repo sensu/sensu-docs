@@ -33,7 +33,7 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 
 > Monitoring is the action of observing and checking the behaviors and outputs of a system and its components over time. - [Greg Poirier, Monitorama 2016](https://vimeo.com/173610062)
 
-<img alt="Sensu system diagram" src="/images/system-ce.png">
+{{< figure src="/images/system-ce.png" alt="Sensu system diagram" link="/images/system-ce.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/edb92c4b-101c-4c3f-89ec-a00c889a6b05 -->
 
 Sensu is an agent-based monitoring tool that you install on your organization's infrastructure.
