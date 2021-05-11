@@ -11,7 +11,7 @@ menu:
 
 In this guide, we'll cover configuring and using the Sensu Enterprise ServiceNow (SNOW) integration.
 
-# Prerequisites
+## Prerequisites
 
 Before diving into this guide, we recommend having the following components ready:
 

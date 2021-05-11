@@ -126,7 +126,7 @@ For checks with `round_robin` set to `true`, Sensu executes the check once per i
 
 For example, for three agents configured with the `system` subscription (agents A, B, and C), a check configured with the `system` subscription and `round_robin` set to `true` results in one observability event per interval, with the agent creating the event following the pattern A -> B -> C -> A -> B -> C for the first six intervals.
 
-<img alt="Round robin check diagram" src="/images/round-robin.png">
+{{< figure src="/images/round-robin.png" alt="Round robin check diagram" link="/images/round-robin.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/41787f16-3457-49d9-9135-efc69b0e2b50 -->
 
 In the diagram above, the standard check is executed by agents A, B, and C every 60 seconds.
@@ -1609,7 +1609,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [44]: #proxy-entity-name-attribute
 [45]: #cron-scheduling
 [46]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
-[47]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
+[47]: https://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [48]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [49]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [50]: ../../observe-events/events/#metrics-attribute
