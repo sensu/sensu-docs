@@ -40,7 +40,7 @@
         if (typeof ga !== "function") {
           return;
         }
-        ga('send','event','Pre test','Testing pre query selector',pageURL);
+        ga('send','event','Code examples','Clicks in code examples',pageURL);
        });
      });
 })();
