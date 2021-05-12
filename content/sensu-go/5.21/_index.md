@@ -1,6 +1,6 @@
 ---
 title: "Sensu Go"
-description: "Sensu is the industry-leading solution for multi-cloud monitoring at scale. The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflows and gain deep visibility into their multi-cloud environments. Built by operators and for operators, open source is at the heart of the Sensu product and company, with an active, thriving community of contributors."
+description: "Sensu is the operator-focused, developer-friendly, industry-leading solution for multi-cloud monitoring and observability at scale."
 weight: -100
 menu: "sensu-go-5.21"
 version: "5.21"
@@ -20,7 +20,7 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 
 **Automate your monitoring workflows**: Limitless pipelines let you validate and correlate events, [mutate data formats][10], [send alerts][11], manage incidents, [collect and store metrics][12], and more.
 
-<img alt="Sensu event pipeline diagram" title="Sensu lets you take monitoring events from your system and use pipelines to take the right action for your workflow." src="/images/pipeline-ce.png">
+{{< figure src="/images/pipeline-ce.png" alt="Sensu event pipeline diagram" link="/images/pipeline-ce.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/84ff2574-4290-49dc-88e0-18b15ba373ec -->
 
 **Reduce alert fatigue**: Sensu gives you full control over your alerts with flexible [filters][8], [context-rich notifications][19], reporting, [event handling][17], and auto-remediation.
@@ -33,7 +33,7 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 
 > Monitoring is the action of observing and checking the behaviors and outputs of a system and its components over time. - [Greg Poirier, Monitorama 2016](https://vimeo.com/173610062)
 
-<img alt="Sensu system diagram" src="/images/system-ce.png">
+{{< figure src="/images/system-ce.png" alt="Sensu system diagram" link="/images/system-ce.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/edb92c4b-101c-4c3f-89ec-a00c889a6b05 -->
 
 Sensu is an agent-based monitoring tool that you install on your organization's infrastructure.

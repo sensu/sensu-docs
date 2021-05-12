@@ -3,7 +3,7 @@ title: "Aggregate metrics with the Sensu StatsD listener"
 linkTitle: "Aggregate StatsD Metrics"
 guide_title: "Aggregate metrics with the Sensu StatsD listener"
 type: "guide"
-description: "StatsD allows you to measure anything and everything. To monitor application performance, collect custom metrics in your code and send them to a StatsD server. You can also monitor CPU, I/0, and network utilization with collection daemons. Sensu agents include a listener to send StatsD metrics to the event pipeline. Read the guide to get started."
+description: "Sensu agents include a StatsD listener you can use to send application performance, CPU, I/O, and network utilization metrics to your observability pipeline."
 weight: 40
 version: "6.0"
 product: "Sensu Go"

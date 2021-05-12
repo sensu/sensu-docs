@@ -1,6 +1,6 @@
 ---
 title: "API"
-description: "Documentation for the Sensu APIs."
+description: "Sensu's backend API provides a centrally managed control plane for automated, repeatable observability workflow configuration and observation event access."
 weight: 60
 product: "Sensu Go"
 version: "6.3"
