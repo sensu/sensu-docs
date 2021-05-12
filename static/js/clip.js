@@ -33,14 +33,14 @@
 (function() {
     var pageURL = document.location.pathname + document.location.search;
 
-    var buttonSet = document.querySelectorAll(".copy");
+    var buttonSet = document.querySelectorAll("pre");
     buttonSet.forEach(function (btn) {
       btn.addEventListener("click", function() {
         // noop if google analytics isn't initialized
         if (typeof ga !== "function") {
           return;
         }
-        ga('send','event','Clipboard','Code copied',pageURL);
+        ga('send','event','Code examples','Clicks in code examples',pageURL);
        });
      });
 })();
