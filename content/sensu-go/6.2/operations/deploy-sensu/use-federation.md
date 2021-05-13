@@ -301,7 +301,7 @@ Reconfigure `sensuctl` if needed.
 5. For a consistent experience, create an EtcdReplicator resource for `Role`, `RoleBinding` and `ClusterRole` resource types.
 The [etcd replicators reference][2] includes [examples][9] you can follow for `Role`, `RoleBinding`, and `ClusterRole` resources.
 
-6. Verify that the EtcdReplicator resource is working as expected: reconfigure `sensuctl` to communicate with the `alpha` and then `beta` clusters and run the following command for each:
+6. Verify that the EtcdReplicator resource is working as expected: reconfigure the sensuctl backend URL to communicate with the `alpha` and `beta` clusters and run the following command for each:
 {{< code shell >}}
 sensuctl cluster-role-binding info federation-viewer-readonly
 {{< /code >}}
