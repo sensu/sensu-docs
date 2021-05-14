@@ -26,6 +26,9 @@
 
     clipboard.on('success', function(e) {
         e.trigger.textContent = 'Copied!';
+        setTimeout(function () {
+            e.trigger.textContent = "Copy";
+            }, 2000);
     });
 
 })(document, Clipboard);
