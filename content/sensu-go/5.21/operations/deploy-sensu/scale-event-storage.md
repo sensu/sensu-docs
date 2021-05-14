@@ -78,7 +78,7 @@ GRANT ALL PRIVILEGES ON DATABASE sensu_events TO sensu;
 
    Postgres will return a confirmation message: `GRANT`.
 
-5. Exit the PostgreSQL prompt: type `/q`.
+5. Type `\q` to exit the PostgreSQL prompt.
 
 With this configuration complete, Postgres will have a `sensu_events` database for storing Sensu events and a `sensu` user with permissions to that database.
 
@@ -265,7 +265,7 @@ CREATE ROLE repl PASSWORD 'mypass' LOGIN REPLICATION;
 
 Postgres will return a confirmation message: `CREATE ROLE`.
 
-To exit the PostgreSQL prompt, type `/q`.
+Type `\q` to exit the PostgreSQL prompt.
 
 Then, you must add the replication role to `pg_hba.conf` using an [md5-encrypted password][5].
 Make a copy of the current `pg_hba.conf`:
