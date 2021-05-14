@@ -394,7 +394,7 @@ servers:
 
 | allowed_groups |   |
 -------------|------
-description  | An array of allowed LDAP group strings to include in the tokenized identity claim. This maybe needed in circumstances when authenticated LDAP user is a member of many groups and the tokenized identity claim would be too large for correct web client operation.
+description  | An array of allowed LDAP group strings to include in the tokenized identity claim. Use to specify which groups to encode in the authentication provider's JSON Web Token (JWT) when the authenticated LDAP user is a member of many groups and the tokenized identity claim would be too large for correct web client operation.
 required     | false
 type         | Array of strings
 example      | {{< language-toggle >}}

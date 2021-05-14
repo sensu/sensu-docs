@@ -406,9 +406,9 @@ servers:
 
 | allowed_groups |   |
 -------------|------
-description  | An array of allowed AD group strings to include in the tokenized identity claim. This maybe needed in circumstances when authenticated AD user is a member of many groups and the tokenized identity claim would be too large for correct web client operation.
+description  | An array of allowed AD group strings to include in the tokenized identity claim. Use to specify which groups to encode in the authentication provider's JSON Web Token (JWT) when the authenticated AD user is a member of many groups and the tokenized identity claim would be too large for correct web client operation.
 required     | false
-type         | Array of strings
+type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 allowed_groups:
@@ -421,8 +421,6 @@ allowed_groups:
 }
 {{< /code >}}
 {{< /language-toggle >}}
-
-
 
 <a id="ad-groups-prefix"></a>
 
