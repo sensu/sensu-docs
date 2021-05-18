@@ -63,6 +63,10 @@ With the license file downloaded, you can use sensuctl to activate your commerci
 sensuctl create --file sensu_license.json
 {{< /code >}}
 
+{{% notice note %}}
+**NOTE**: For [clustered configurations](../operations/deploy-sensu/cluster-sensu), you only need to activate your license for one of the backends within the cluster.
+{{% /notice %}}
+
 Use sensuctl to view your license details at any time:
 
 {{< code shell >}}

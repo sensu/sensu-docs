@@ -10,6 +10,7 @@
     function addCopy(element) {
         var copy = document.createElement("button");
         copy.className = "copy";
+        copy.innerText = "Copy";
         element.append(copy);
     }
 
@@ -17,17 +18,24 @@
         addCopy($codes[i]);
     }
 
-
     var clipboard = new ClipboardJS('.copy', {
         target: function(trigger) {
             return trigger.previousElementSibling;
         }
     });
+
+    clipboard.on('success', function(e) {
+        e.trigger.textContent = 'Copied!';
+        setTimeout(function () {
+            e.trigger.textContent = "Copy";
+            }, 2000);
+    });
+
 })(document, Clipboard);
 
 
 /*
-* sends clicks on clipboard buttons with .copy class as Google Analytics events
+* sends clicks anywhere in code examples (identified by <pre> tags) as Google Analytics events
 */
 
 (function() {
