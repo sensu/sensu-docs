@@ -1,5 +1,5 @@
 ---
-title: "Service components reference: Business service monitoring (BSM)"
+title: "Service components reference"
 linkTitle: "Service Components Reference"
 reference_title: "Service components"
 type: "reference"
