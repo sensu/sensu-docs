@@ -113,7 +113,7 @@ One of the most helpful ways you can benefit the Sensu community is by writing a
 
 We :heart: your participation and appreciate the unique perspective you bring to our community. Keep sharing the #monitoringlove.
 
-[slack]: http://slack.sensu.io
+[slack]: https://slack.sensu.io
 [wiki]: https://github.com/sensu/sensu-docs/wiki/Sensu-docs-style-guide
 [coc]: https://sensu.io/conduct
 [email]: mailto:docs@sensu.io

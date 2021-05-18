@@ -1,5 +1,5 @@
 ---
-title: "Rule templates reference: Business service monitoring (BSM)"
+title: "Rule templates reference"
 linkTitle: "Rule Templates Reference"
 reference_title: "Rule templates"
 type: "reference"

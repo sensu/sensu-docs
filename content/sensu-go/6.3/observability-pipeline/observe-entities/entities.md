@@ -497,7 +497,7 @@ You can configure a check with a proxy entity name to associate the check result
 On the first check result, if the proxy entity does not exist, Sensu will create the entity as a proxy entity.
 
 After you create a proxy entity check, define which agents will run the check by configuring a subscription.
-See [Monitor external resources with proxy requests and entities][17] for details about creating a proxy check for a proxy entity.
+See [Monitor external resources with proxy entities][17] for details about creating a proxy check for a proxy entity.
 
 ### Service entity labels
 
