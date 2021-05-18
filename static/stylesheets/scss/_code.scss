@@ -14,18 +14,31 @@ pre {
   position: relative;
 
   button {
-    background: transparent no-repeat url('/images/svg/clippy.svg') center/55%;
-    border: none;
-    cursor: pointer;
-    height: 2.5rem;
-    outline: none;
     position: absolute;
+    z-index: 2;
     right: 0;
     top: 0;
-    width: 2.7rem;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 14px;
+    letter-spacing: 0.5px;
+    width: 65px;
+    color: #FFFFFF;
+    background-color: #2C3458;
+    border: 1.75px solid #D5D6DE;
+    border-top-left-radius: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 5px;
+    white-space: nowrap;
+    padding: 4px 4px 5px 4px;
+    margin: 0 0 0 1px;
+    cursor: pointer;
+    opacity: 0.8;
 
     &:hover {
-      background-color: #c2cad6;
+      color: #2C3458;
+      background-color: #D5D6DE;
     }
   }
 
