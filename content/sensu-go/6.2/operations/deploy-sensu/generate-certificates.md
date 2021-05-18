@@ -38,7 +38,7 @@ This guide describes how to set up a minimal CA and generate the certificates yo
 
 If your organization has existing PKI for certificate issuance, you can adapt the suggestions in this guide to your organization's PKI.
 
-Recommended practices for deploying and maintaining production PKI can be complex and case-specific, so recommended practices are not included in the scope of this guide.
+Recommended practices for deploying and maintaining production PKI can be complex and case-specific, so they are not included in the scope of this guide.
 
 ## Issue certificates
 
@@ -56,7 +56,7 @@ You may install the toolkit on your laptop or workstation and store the files th
 
 In this example you'll walk through installing cfssl on a Linux system, which requires copying certain certificates and keys to each of the backend and agent systems you are securing.
 
-This guide assumes that you'll install these certificates in the `/etc/sensu/tls` directory on each system.
+This guide assumes that you'll install these certificates in the `/etc/sensu/tls` directory on each backend and agent system.
 
 1. Download the cfssl executable:
 {{< code shell >}}
@@ -120,7 +120,7 @@ You should now have a directory at `/etc/sensu/tls` that contains the following 
 
 The sensu-agent and sensu-backend use the CA root certificate to validate server certificates at connection time.
 
-Be certain to to copy the CA root certificate (`ca.pem`) file to each agent and backend.
+Make sure to copy the CA root certificate (`ca.pem`) file to each agent and backend.
 
 ### Generate backend cluster certificates
 
@@ -140,7 +140,7 @@ backend-1        | 10.0.0.1   | backend-1.example.com              | localhost, 
 backend-2        | 10.0.0.2   | backend-2.example.com              | localhost, 127.0.0.1 |
 backend-3        | 10.0.0.3   | backend-3.example.com              | localhost, 127.0.0.1 |
 
-Note that the additional names for localhost and 127.0.0.1 are added here for convenience and not strictly required.
+Note that the additional names for localhost and 127.0.0.1 are added here for convenience and are not strictly required.
 
 Use these name and address details to create two `*.pem` files and one `*.csr` file for each backend.
 
@@ -174,7 +174,7 @@ echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl ge
 
 <a id="copy-backend-pem"></a>
 
-You should now have a set of files for each backend:
+You should now have this set of files for each backend:
 
 filename               | description                  | required on backend?|
 -----------------------|------------------------------|---------------------|
@@ -183,7 +183,7 @@ filename               | description                  | required on backend?|
 `backend-*-key.pem`    | Backend server private key   | {{< check >}}       |
 `backend-*.csr`        | Certificate signing request  |                     |
 
-Again, make sure to copy all backend PEM files and CA root certificate to the corresponding backend system:.
+Again, make sure to copy all backend PEM files and the CA root certificate to the corresponding backend system.
 For example, the directory listing of /etc/sensu/tls on backend-1 should include:
 
 {{< code shell >}}
@@ -260,7 +260,7 @@ Before you move on, make sure you have copied the certificates and keys to each 
 
 - [Copy the Certificate Authority (CA) root certificate file][11], `ca.pem`, to each agent and backend.
 - [Copy all backend PEM files][12] to their corresponding backend systems.
-- [Copy all agent PEM files][13].
+- [Copy all agent PEM files][13] to each backend system.
 
 We also recommend installing the CA root certificate in the trust store of both your Sensu systems and those systems used by operators to manage Sensu. 
 
