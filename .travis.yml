@@ -8,7 +8,6 @@ matrix:
         apt:
           packages:
             - python-pygments
-            - pyyaml
 
       before_install:
         - export PATH="$TRAVIS_BUILD_DIR/bin:$PATH"
