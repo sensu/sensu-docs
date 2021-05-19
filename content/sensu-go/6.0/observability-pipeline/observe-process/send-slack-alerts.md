@@ -263,9 +263,7 @@ spec:
 It might take a few moments after you assign the handler to the check for the check to be scheduled on the entities and the result sent back to Sensu backend.
 After an event is handled, you should see the following message in Slack:
 
-<div style="width:500px">
-   <img class="html" alt="Example Slack message" src="/images/handler-slack.png"/>
-</div>
+{{< figure src="/images/handler-slack.png" alt="Example Slack message" link="/images/handler-slack.png" target="_blank" >}}
 
 Verify the proper behavior of this handler with `sensu-backend` logs.
 See [Troubleshooting][7] for log locations by platform.

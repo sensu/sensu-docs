@@ -12,15 +12,15 @@ menu:
 In this guide, we'll cover configuring and using the Sensu Enterprise Amazon Web Services (AWS) EC2 integration.
 
 - [Prerequisites](#prerequisites)
-  - [EC2 Integration Basics](#ec2-integration-basics)
-    - [Integration Configuration](#integration-configuration)
-    - [Client Configuration](#client-configuration)
-  - [IAM Roles and Sensu](#iam-roles-and-sensu)
-  - [Cross-Account IAM Roles](#cross-account-iam-roles)
-  - [Wrapping Up](#wrapping-up)
-  - [References](#references)
+- [EC2 Integration Basics](#ec2-integration-basics)
+  - [Integration Configuration](#integration-configuration)
+  - [Client Configuration](#client-configuration)
+- [IAM Roles and Sensu](#iam-roles-and-sensu)
+- [Cross-Account IAM Roles](#cross-account-iam-roles)
+- [Wrapping Up](#wrapping-up)
+- [References](#references)
 
-# Prerequisites
+## Prerequisites
 
 Before diving into this guide, we recommend having the following components ready:
 

@@ -939,7 +939,7 @@ sha512: 4f926bf4328...
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="filters"></a>
+<a id="filters-attribute"></a>
 
 filters      | 
 -------------|------ 
@@ -1252,7 +1252,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [39]: ../../web-ui/search#search-for-labels
 [40]: ../../observability-pipeline/observe-schedule/agent/#configuration-via-flags
 [41]: ../../observability-pipeline/observe-schedule/backend/#configuration-via-flags
-[42]: #filters
+[42]: #filters-attribute
 [43]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
 [44]: https://devblogs.microsoft.com/oldnewthing/20060823-00/?p=29993
 [45]: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.1

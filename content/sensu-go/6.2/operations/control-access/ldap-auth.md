@@ -386,7 +386,7 @@ servers:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="groups-prefix"></a>
+<a id="groups-prefix"></a>
 
 | groups_prefix |   |
 -------------|------
@@ -404,7 +404,7 @@ groups_prefix: ldap
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="username-prefix"></a>
+<a id="username-prefix"></a>
 
 | username_prefix | |
 -------------|------

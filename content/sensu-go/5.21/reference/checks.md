@@ -137,7 +137,7 @@ For checks with `round_robin` set to `true`, Sensu executes the check once per i
 
 For example, for three agents configured with the `system` subscription (agents A, B, and C), a check configured with the `system` subscription and `round_robin` set to `true` results in one monitoring event per interval, with the agent creating the event following the pattern A -> B -> C -> A -> B -> C for the first six intervals.
 
-<img alt="Round robin check diagram" src="/images/round-robin.png">
+{{< figure src="/images/round-robin.png" alt="Round robin check diagram" link="/images/round-robin.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/41787f16-3457-49d9-9135-efc69b0e2b50 -->
 
 In the diagram above, the standard check is executed by agents A, B, and C every 60 seconds.
@@ -766,7 +766,7 @@ subscriptions:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="handlers-array"></a>
+<a id="handlers-array"></a>
 
 |handlers    |      |
 -------------|------
@@ -856,7 +856,7 @@ timeout: 30
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="ttl-attribute"></a>
+<a id="ttl-attribute"></a>
 
 |ttl         |      |
 -------------|------
@@ -893,7 +893,7 @@ stdin: true
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="flap-thresholds"></a>
+<a id="flap-thresholds"></a>
 
 |low_flap_threshold ||
 -------------|------
@@ -946,7 +946,7 @@ runtime_assets:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="check-hooks-attribute"></a>
+<a id="check-hooks-attribute"></a>
 
 |check_hooks |      |
 -------------|------
@@ -985,7 +985,7 @@ check_hooks:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="proxy-entity-name-attribute"></a>
+<a id="proxy-entity-name-attribute"></a>
 
 |proxy_entity_name|   |
 -------------|------
@@ -1004,7 +1004,7 @@ proxy_entity_name: switch-dc-01
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="proxy-requests-top-level"></a>
+<a id="proxy-requests-top-level"></a>
 
 |proxy_requests|    |
 -------------|------
@@ -1114,7 +1114,7 @@ output_metric_handlers:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="round-robin-attribute"></a>
+<a id="round-robin-attribute"></a>
 
 |round_robin |      |
 -------------|------
@@ -1517,10 +1517,10 @@ The asset reference includes an [example check definition that uses the asset pa
 [43]: #round-robin-attribute
 [44]: #proxy-entity-name-attribute
 [46]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
-[47]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
+[47]: https://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [48]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [49]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
-[50]: ../../reference/events/#metrics
+[50]: ../../reference/events/#metrics-attribute
 [51]: https://github.com/sensu/sensu-influxdb-handler
 [52]: #round-robin-checks
 [53]: https://regex101.com/r/zo9mQU/2

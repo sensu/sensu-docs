@@ -112,6 +112,10 @@ output         | {{< code shell >}}
 
 The `/license` API endpoint provides HTTP PUT access to activate a commercial license.
 
+{{% notice note %}}
+**NOTE**: For [clustered configurations](../../operations/deploy-sensu/cluster-sensu), you only need to activate your license for one of the backends within the cluster.
+{{% /notice %}}
+
 ### Example {#license-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/license` API endpoint to create the license definition.

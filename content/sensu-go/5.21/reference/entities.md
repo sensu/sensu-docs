@@ -525,7 +525,7 @@ labels:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="annotations"></a>
+<a id="annotations-attribute"></a>
 
 | annotations |     |
 -------------|------
@@ -1558,7 +1558,7 @@ spec:
 [17]: ../../guides/monitor-external-resources/
 [18]: ../checks/#round-robin-checks
 [19]: #proxy-entities-managed
-[20]: #annotations
+[20]: #annotations-attribute
 [21]: https://regex101.com/r/zo9mQU/2
 [22]: ../rbac/
 [23]: ../../web-ui/filter#filter-with-label-selectors
@@ -1566,6 +1566,6 @@ spec:
 [25]: ../agent/#detect-cloud-provider-flag
 [26]: #processes-attributes
 [27]: ../agent/#discover-processes
-[28]: http://man7.org/linux/man-pages/man1/top.1.html
+[28]: https://man7.org/linux/man-pages/man1/top.1.html
 [29]: ../../reference/license/#view-entity-count-and-entity-limit
 [30]: ../../web-ui/filter/

@@ -120,7 +120,7 @@ dashboard-key-file: "/path/to/ssl/key.pem"
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#web-ui-configuration-flags) includes more information about the `` and `` web UI configuration parameter.
+**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#web-ui-configuration-flags) includes more information about the `dashboard-cert-file` and `dashboard-key-file` web UI configuration parameter.
 {{% /notice %}}
 
 ## Secure Sensu agent-to-server communication

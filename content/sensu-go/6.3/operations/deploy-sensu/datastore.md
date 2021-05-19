@@ -3,7 +3,7 @@ title: "Datastore reference"
 linkTitle: "Datastore Reference"
 reference_title: "Datastore"
 type: "reference"
-description: "Sensu stores the most recent event for each entity and check pair using an embedded etcd or an external etcd instance. Sensu also supports using an external PostgreSQL instance for event storage in place of etcd (commercial feature). Read the reference to configure enterprise-scale event storage using PostgreSQL."
+description: "Sensu stores observability events using an etcd database by default. You can also configure external PostgreSQL for enterprise-scale event storage."
 weight: 160
 version: "6.3"
 product: "Sensu Go"
@@ -436,7 +436,7 @@ pool_size: 20
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="strict"></a>
+<a id="strict-attribute"></a>
 
 strict       |      |
 -------------|------
@@ -455,7 +455,7 @@ strict: true
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="round-robin-postgresql"></a>
+<a id="round-robin-postgresql"></a>
 
 enable_round_robin |      |
 -------------|------
