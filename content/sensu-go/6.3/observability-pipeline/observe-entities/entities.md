@@ -325,7 +325,11 @@ Use [proxy entity filters][19] to establish a many-to-many relationship between 
 ## Create and manage service entities
 
 Service entities are dynamically created entities that Sensu adds to the entity store when a [service component][39] generates an event.
-Service entities allow Sensu to monitor [business monitoring services][38].
+Service entities allow Sensu to monitor [business services][38].
+
+{{% notice important %}}
+**IMPORTANT**: Business service monitoring is in public preview and is subject to change. 
+{{% /notice %}}
 
 You can create and modify service entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33].
 
