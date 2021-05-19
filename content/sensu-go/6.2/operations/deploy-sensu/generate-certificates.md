@@ -184,6 +184,7 @@ filename               | description                  | required on backend?|
 `backend-*.csr`        | Certificate signing request  |                     |
 
 Again, make sure to copy all backend PEM files and the CA root certificate to the corresponding backend system.
+
 For example, the directory listing of /etc/sensu/tls on backend-1 should include:
 
 {{< code shell >}}
