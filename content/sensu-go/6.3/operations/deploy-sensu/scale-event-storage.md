@@ -3,7 +3,7 @@ title: "Scale Sensu Go with Enterprise datastore"
 linkTitle: "Scale with Enterprise Datastore"
 guide_title: "Scale Sensu Go with Enterprise datastore"
 type: "guide"
-description: "Here’s how to scale your monitoring to thousands of events per second with Sensu."
+description: "Use Sensu's Enterprise datastore to scale your monitoring to thousands of events per second and minimize the replication communication between etcd peers."
 weight: 120
 version: "6.3"
 product: "Sensu Go"
@@ -40,6 +40,42 @@ The `sensu-perf` test environment comfortably handles 40,000 Sensu agent connect
 * Postgres database (or administrative access to create one)
 * Postgres user with permissions to the database (or administrative access to create such a user)
 * [Licensed Sensu Go backend][3]
+
+For optimal performance, use the following PostgreSQL configuration settings in your `postgresql.conf` file:
+
+{{< code postgresql >}}
+max_connections = 200
+
+shared_buffers = 10GB
+
+maintenance_work_mem = 1GB
+
+vacuum_cost_delay = 10ms
+vacuum_cost_limit = 10000
+
+bgwriter_delay = 50ms
+bgwriter_lru_maxpages = 1000
+
+max_worker_processes = 8
+max_parallel_maintenance_workers = 2
+max_parallel_workers_per_gather = 2
+max_parallel_workers = 8
+
+synchronous_commit = off
+
+wal_sync_method = fdatasync
+wal_writer_delay = 5000ms
+max_wal_size = 5GB
+min_wal_size = 1GB
+
+checkpoint_completion_target = 0.9
+
+autovacuum_naptime = 10s
+autovacuum_vacuum_scale_factor = 0.05
+autovacuum_analyze_scale_factor = 0.025
+{{< /code >}}
+
+Read the [PostgreSQL parameters documentation][2] for informmation about setting parameters.
 
 ## Configure Postgres
 
@@ -78,7 +114,7 @@ GRANT ALL PRIVILEGES ON DATABASE sensu_events TO sensu;
 
    Postgres will return a confirmation message: `GRANT`.
 
-5. Exit the PostgreSQL prompt: type `/q`.
+5. Type `\q` to exit the PostgreSQL prompt.
 
 With this configuration complete, Postgres will have a `sensu_events` database for storing Sensu events and a `sensu` user with permissions to that database.
 
@@ -281,7 +317,7 @@ CREATE ROLE repl PASSWORD 'mypass' LOGIN REPLICATION;
 
 Postgres will return a confirmation message: `CREATE ROLE`.
 
-To exit the PostgreSQL prompt, type `/q`.
+Type `\q` to exit the PostgreSQL prompt.
 
 Then, you must add the replication role to `pg_hba.conf` using an [md5-encrypted password][5].
 Make a copy of the current `pg_hba.conf`:
@@ -290,16 +326,16 @@ Make a copy of the current `pg_hba.conf`:
 sudo cp /var/lib/pgsql/data/pg_hba.conf /var/tmp/pg_hba.conf.bak
 {{< /code >}}
 
-In the following command, replace the `STANDBY_IP` value with the IP address of your standby host and then run the command:
+In the following command, replace `<standby_ip>` with the IP address of your standby host and then run the command:
 
 {{< code shell >}}
-export STANDBY_IP=192.168.52.10
+export STANDBY_IP=<standby_ip>
 {{< /code >}}
 
 Next, give the repl user permissions to replicate from the standby host:
 
 {{< code shell >}}
-echo "host replication repl ${STANDYB_IP}/32 md5" | sudo tee -a /var/lib/pgsql/data/pg_hba.conf
+echo "host replication repl ${STANDBY_IP}/32 md5" | sudo tee -a /var/lib/pgsql/data/pg_hba.conf
 {{< /code >}}
 
 Restart the PostgreSQL service to activate the `pg_hba.conf` changes:
@@ -372,10 +408,10 @@ sudo install -d -o postgres -g postgres -m 0700 /var/lib/pgsql/data
 {{< /code >}}
 
 Then bootstrap the standby data directory.
-In the following command, replace PRIMARY_IP with the IP address of your primary host and then run the command:
+In the following command, replace `<primary_ip>` with the IP address of your primary host and then run the command:
 
 {{< code shell >}}
-export PRIMARY_IP=192.168.52.11
+export PRIMARY_IP=<primary_ip>
 {{< /code >}}
 
 Then bootstrap the standby data directory:
@@ -452,6 +488,7 @@ With this configuration complete, your Sensu events will be replicated to the st
 
 
 [1]: https://github.com/sensu/sensu-perf
+[2]: https://www.postgresql.org/docs/current/config-setting.html
 [3]: ../../../commercial/
 [4]: ../../maintain-sensu/troubleshoot/#log-file-locations
 [5]: https://www.postgresql.org/docs/9.5/auth-methods.html#AUTH-PASSWORD

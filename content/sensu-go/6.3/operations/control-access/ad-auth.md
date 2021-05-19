@@ -398,7 +398,7 @@ servers:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="ad-groups-prefix"></a>
+<a id="ad-groups-prefix"></a>
 
 | groups_prefix |   |
 -------------|------
@@ -416,7 +416,7 @@ groups_prefix: ad
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="ad-username-prefix"></a>
+<a id="ad-username-prefix"></a>
 
 | username_prefix | |
 -------------|------

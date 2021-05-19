@@ -3,7 +3,7 @@ title: "Use API keys to authenticate to Sensu"
 linkTitle: "Use API Keys"
 guide_title: "Use API keys to authenticate to Sensu"
 type: "guide"
-description: "In this guide, you'll learn how to use Sensu's API key feature for authentication."
+description: "Sensu's API key feature improves integration efficiency, security, and administrative control. Read this guide to use Sensu's API key for authentication."
 weight: 50
 version: "6.1"
 product: "Sensu Go"
@@ -85,12 +85,16 @@ The response will include the new API key:
 Created: /api/core/v2/apikeys/7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2
 {{< /code >}}
 
-To get information about an API key in YAML or JSON format:
+To get information about an API key:
 
 {{< language-toggle >}}
 
 {{< code shell "YML" >}}
 sensuctl api-key info 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --format yaml
+{{< /code >}}
+
+{{< code shell "Wrapped JSON" >}}
+sensuctl api-key info 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --format wrapped-json
 {{< /code >}}
 
 {{< code shell "JSON" >}}
@@ -113,6 +117,21 @@ metadata:
 spec:
   created_at: 1570718917
   username: admin
+{{< /code >}}
+
+{{< code shell "Wrapped JSON" >}}
+{
+  "type": "APIKey",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2",
+    "created_by": "admin"
+  },
+  "spec": {
+    "created_at": 1570718917,
+    "username": "admin"
+  }
+}
 {{< /code >}}
 
 {{< code json >}}

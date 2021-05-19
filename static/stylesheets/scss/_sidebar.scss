@@ -29,6 +29,49 @@
 }
 
 
+#page-rating {
+  float: left;
+  white-space: nowrap;
+}
+
+.rating {
+  width: auto;
+  border: none;
+  line-height: 0.25;
+  float: left;
+}
+
+.rating > input {
+  display: none;
+}
+
+.rating > label:before {
+  margin: 4px;
+  font-size: 2.0em;
+  font-family: FontAwesome;
+  display: inline;
+  content: "\f004";
+  float: right;
+}
+
+.rating > label {
+  color: #DDDDDD;
+}
+
+.rating > input:checked ~ label, /* show green heart when clicked */
+.rating:not(:checked) > label:hover, /* show green heart on current hover */
+.rating:not(:checked) > label:hover ~ label { /* show green heart for all previous */
+  color: #89C967;
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label,
+.rating > input:checked ~ label:hover ~ label {
+  color: #6DA864;
+}
+
+
 #contribute {
   padding: 4rem 0 0 1rem;
 }

@@ -3,7 +3,7 @@ title: "Scale Sensu Go with Enterprise datastore"
 linkTitle: "Scale with Enterprise Datastore"
 guide_title: "Scale Sensu Go with Enterprise datastore"
 type: "guide"
-description: "Here’s how to scale your monitoring to thousands of events per second with Sensu."
+description: "Use Sensu's Enterprise datastore to scale your monitoring to thousands of events per second and minimize the replication communication between etcd peers."
 weight: 90
 version: "5.21"
 product: "Sensu Go"
@@ -78,7 +78,7 @@ GRANT ALL PRIVILEGES ON DATABASE sensu_events TO sensu;
 
    Postgres will return a confirmation message: `GRANT`.
 
-5. Exit the PostgreSQL prompt: type `/q`.
+5. Type `\q` to exit the PostgreSQL prompt.
 
 With this configuration complete, Postgres will have a `sensu_events` database for storing Sensu events and a `sensu` user with permissions to that database.
 
@@ -265,7 +265,7 @@ CREATE ROLE repl PASSWORD 'mypass' LOGIN REPLICATION;
 
 Postgres will return a confirmation message: `CREATE ROLE`.
 
-To exit the PostgreSQL prompt, type `/q`.
+Type `\q` to exit the PostgreSQL prompt.
 
 Then, you must add the replication role to `pg_hba.conf` using an [md5-encrypted password][5].
 Make a copy of the current `pg_hba.conf`:
@@ -275,11 +275,11 @@ sudo cp /var/lib/pgsql/data/pg_hba.conf /var/tmp/pg_hba.conf.bak
 {{< /code >}}
 
 Next, give the repl user permissions to replicate from the standby host.
-In the following command, replace `STANDBY_IP` with the IP address of your standby host:
+In the following command, replace `<standby_ip>` with the IP address of your standby host:
 
 {{< code shell >}}
-export STANDBY_IP=192.168.52.10
-echo "host replication repl ${STANDYB_IP}/32 md5" | sudo tee -a /var/lib/pgsql/data/pg_hba.conf
+export STANDBY_IP=<standby_ip>
+echo "host replication repl ${STANDBY_IP}/32 md5" | sudo tee -a /var/lib/pgsql/data/pg_hba.conf
 {{< /code >}}
 
 Restart the PostgreSQL service to activate the `pg_hba.conf` changes:
@@ -345,10 +345,11 @@ Make the standby data directory:
 sudo install -d -o postgres -g postgres -m 0700 /var/lib/pgsql/data
 {{< /code >}}
 
-And then bootstrap the standby data directory:
+Then bootstrap the standby data directory.
+In the following command, replace `<primary_ip>` with the IP address of your primary host and then run the command:
 
 {{< code shell >}}
-export PRIMARY_IP=192.168.52.11
+export PRIMARY_IP=<primary_ip>
 sudo -u postgres pg_basebackup -h $PRIMARY_IP -D /var/lib/pgsql/data -P -U repl -R --xlog-method=stream
 {{< /code >}}
 

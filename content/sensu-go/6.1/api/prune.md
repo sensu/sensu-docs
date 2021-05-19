@@ -14,7 +14,8 @@ menu:
 **IMPORTANT**: The prune API is an alpha feature and may include breaking changes.
 {{% /notice %}}
 
-**COMMERCIAL FEATURE**: Access the prune API in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][1].
+**COMMERCIAL FEATURE**: Access the prune API in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][1].
 
 {{% notice note %}}
 **NOTE**: Requests to the prune API require you to authenticate with a Sensu [access token](../#authenticate-with-the-authentication-api) or [API key](../#authenticate-with-an-api-key).

@@ -1,6 +1,6 @@
 ---
 title: "Sensu Go"
-description: "Sensu is the industry-leading solution for multi-cloud observability at scale. The Sensu observability pipeline empowers businesses to automate observability and monitoring workflows and gain deep visibility into their multi-cloud environments. Built by operators and for operators, open source is at the heart of the Sensu product and company, with an active, thriving community of contributors."
+description: "Sensu is the operator-focused, developer-friendly, industry-leading solution for multi-cloud monitoring and observability at scale."
 weight: -100
 menu: "sensu-go-6.0"
 version: "6.0"
@@ -63,7 +63,7 @@ Sensu Go is the latest version of Sensu, designed to be portable, straightforwar
 [1]: get-started/
 [2]: https://www.influxdata.com/
 [3]: plugins/
-[4]: https://www.github.com/sensu/sensu-go/blob/master/LICENSE/
+[4]: https://www.github.com/sensu/sensu-go/blob/main/LICENSE/
 [5]: https://www.github.com/sensu/sensu-go/
 [6]: operations/deploy-sensu/cluster-sensu/
 [7]: #built-in-support-for-industry-standard-tools

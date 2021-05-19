@@ -17,7 +17,7 @@ Sensuctl includes the `sensuctl env` command to help export and set environment 
 {{< code text >}}
 SENSU_API_URL                    URL of the Sensu backend API in sensuctl
 SENSU_NAMESPACE                  Name of the current namespace in sensuctl
-SENSU_FORMAT                     Set output format in sensuctl (e.g. JSON, YAML, etc.)
+SENSU_FORMAT                     Set output format in sensuctl (for example, JSON, YAML, etc.)
 SENSU_ACCESS_TOKEN               Current API access token in sensuctl
 SENSU_ACCESS_TOKEN_EXPIRES_AT    Timestamp specifying when the current API access token expires
 SENSU_REFRESH_TOKEN              Refresh token used to obtain a new access token

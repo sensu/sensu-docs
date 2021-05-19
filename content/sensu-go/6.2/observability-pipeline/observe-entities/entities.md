@@ -452,7 +452,7 @@ You can configure a check with a proxy entity name to associate the check result
 On the first check result, if the proxy entity does not exist, Sensu will create the entity as a proxy entity.
 
 After you create a proxy entity check, define which agents will run the check by configuring a subscription.
-See [Monitor external resources with proxy requests and entities][17] for details about creating a proxy check for a proxy entity.
+See [Monitor external resources with proxy entities][17] for details about creating a proxy check for a proxy entity.
 
 ## Entities specification
 
@@ -762,7 +762,7 @@ labels:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="annotations"></a>
+<a id="annotations-attribute"></a>
 
 | annotations |     |
 -------------|------
@@ -961,7 +961,7 @@ sensu_agent_version: 1.0.0
 
 last_seen    | 
 -------------|------ 
-description  | Timestamp the entity was last seen. In seconds since the Unix epoch. 
+description  | Time at which the entity was last seen. In seconds since the Unix epoch.
 required     | false 
 type         | Integer 
 example      | {{< language-toggle >}}
@@ -977,7 +977,7 @@ last_seen: 1522798317
 
 deregister   | 
 -------------|------ 
-description  | `true` if the entity should be removed when it stops sending keepalive messages. Otherwise, `false`.
+description  | If the entity should be removed when it stops sending keepalive messages, `true`. Otherwise, `false`.
 required     | false 
 type         | Boolean 
 default      | `false`
@@ -1435,7 +1435,8 @@ As of 5.20.2, new events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
-**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][9].
+**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][9].
 
 {{% notice note %}}
 **NOTE**: The `processes` field is populated in the packaged Sensu Go distributions.
@@ -1540,7 +1541,7 @@ running: true
 
 created      | 
 -------------|------ 
-description  | Timestamp when the process was created. In seconds since the Unix epoch.
+description  | Time at which the process was created. In seconds since the Unix epoch.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1612,7 +1613,7 @@ cpu_percent: 0.12639
 [17]: ../../observe-entities/monitor-external-resources/
 [18]: ../../observe-schedule/checks/#round-robin-checks
 [19]: #proxy-entities-managed
-[20]: #annotations
+[20]: #annotations-attribute
 [21]: https://regex101.com/r/zo9mQU/2
 [22]: ../../../operations/control-access/rbac/
 [23]: ../../../web-ui/search#search-for-labels
@@ -1620,7 +1621,7 @@ cpu_percent: 0.12639
 [25]: ../../observe-schedule/agent/#detect-cloud-provider-flag
 [26]: #processes-attributes
 [27]: ../../observe-schedule/agent/#discover-processes
-[28]: http://man7.org/linux/man-pages/man1/top.1.html
+[28]: https://man7.org/linux/man-pages/man1/top.1.html
 [29]: ../../../operations/maintain-sensu/license/#view-entity-count-and-entity-limit
 [30]: ../../../web-ui/search/
 [31]: ../#agent-entities
@@ -1630,3 +1631,4 @@ cpu_percent: 0.12639
 [35]: ../../observe-schedule/agent/#config-file
 [36]: ../../../api/entities/
 [37]: ../../../sensuctl/create-manage-resources/#update-resources
+[38]: ../../../api/events/#create-a-new-event

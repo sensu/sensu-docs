@@ -107,11 +107,11 @@ sensuctl entity list
 
 The `ID` is the name of your entity.
 
-Replace `ENTITY_NAME` with the name of your agent entity in the following [sensuctl][17] command.
+Replace `<entity_name>` with the name of your agent entity in the following [sensuctl][17] command.
 Run:
 
 {{< code shell >}}
-sensuctl entity update ENTITY_NAME
+sensuctl entity update <entity_name>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -145,7 +145,7 @@ sensuctl check info check_cpu --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info check_cpu --format json
+sensuctl check info check_cpu --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -329,7 +329,7 @@ sensuctl check info nginx_service --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info nginx_service --format json
+sensuctl check info nginx_service --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}

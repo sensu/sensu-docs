@@ -237,7 +237,7 @@ You can also list the three handlers in the [handlers array][33] in your check d
 
 {{% notice protip %}}
 **PRO TIP**: This scenario relies on six different resources, three event filters and three handlers, to describe the handler stack concept, but you can use Sensu dynamic runtime assets and integrations to achieve the same escalating alert levels in other ways.<br><br>
-For example, you can use the `is_incident` event filter in conjunction with the [Sensu Go Fatigue Check Filter](https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter) asset to control event escalation.
+For example, you can use the `is_incident` event filter in conjunction with the [Sensu Go Fatigue Check Filter](https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter) asset to control event escalation.
 Sensu's [Ansible](../../../plugins/supported-integrations/ansible/), [Rundeck](../../../plugins/supported-integrations/rundeck/), and [Saltstack](../../../plugins/supported-integrations/saltstack/) auto-remediation integrations and the [Sensu Remediation Handler](https://bonsai.sensu.io/assets/sensu/sensu-remediation-handler) asset also include built-in occurrence- and severity-based event filtering.
 {{% /notice %}}
 
@@ -561,7 +561,7 @@ timeout: 30
 command      | 
 -------------|------
 description  | Handler command to be executed. The event data is passed to the process via `STDIN`. {{% notice note %}}
-**NOTE**: The `command` attribute is only supported for pipe handlers (i.e. handlers configured with `"type": "pipe"`).
+**NOTE**: The `command` attribute is only supported for pipe handlers (that is, handlers configured with `"type": "pipe"`).
 {{% /notice %}}
 required     | true (if `type` equals `pipe`)
 type         | String
@@ -579,7 +579,7 @@ command: /etc/sensu/plugins/pagerduty.go
 env_vars      | 
 -------------|------
 description  | Array of environment variables to use with command execution. {{% notice note %}}
-**NOTE**: The `env_vars` attribute is only supported for pipe handlers (i.e. handlers configured with `"type": "pipe"`).
+**NOTE**: The `env_vars` attribute is only supported for pipe handlers (that is, handlers configured with `"type": "pipe"`).
 {{% /notice %}}
 required     | false
 type         | Array
@@ -600,7 +600,7 @@ env_vars:
 socket       | 
 -------------|------
 description  | Scope for [`socket` definition][6] used to configure the TCP/UDP handler socket. {{% notice note %}}
-**NOTE**: The `socket` attribute is only supported for TCP/UDP handlers (i.e. handlers configured with `"type": "tcp"` or `"type": "udp"`).
+**NOTE**: The `socket` attribute is only supported for TCP/UDP handlers (that is, handlers configured with `"type": "tcp"` or `"type": "udp"`).
 {{% /notice %}}
 required     | true (if `type` equals `tcp` or `udp`)
 type         | Hash
@@ -618,7 +618,7 @@ socket: {}
 handlers     | 
 -------------|------
 description  | Array of Sensu event handlers (by their names) to use for events using the handler set. Each array item must be a string. {{% notice note %}}
-**NOTE**: The `handlers` attribute is only supported for handler sets (i.e. handlers configured with `"type": "set"`).
+**NOTE**: The `handlers` attribute is only supported for handler sets (that is, handlers configured with `"type": "set"`).
 {{% /notice %}}
 required     | true (if `type` equals `set`)
 type         | Array

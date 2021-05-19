@@ -1,7 +1,7 @@
 ---
 title: "Augment event data with check hooks"
 linkTitle: "Augment Event Data"
-description: "Check hooks allow Sensu users to automate data collection that operators would routinely perform manually to investigate monitoring alerts, which frees up precious operator time. This guide helps you create a check hook that captures the process tree in case a service check returns a critical status."
+description: "Check hooks allow you to automate data collection that operators would typically perform by investigating observability alerts manually. Hooks help free up precious operator time. Read the reference doc to learn about hooks."
 weight: 40
 version: "5.21"
 product: "Sensu Go"
@@ -12,7 +12,7 @@ menu:
 ---
 
 Check hooks are **commands** the Sensu agent runs in response to the result of **check** command execution. 
-The Sensu agent executes the appropriate configured hook command based on the exit status code of the check command (e.g. `1`).
+The Sensu agent executes the appropriate configured hook command based on the exit status code of the check command (for example, `1`).
 
 Check hooks allow Sensu users to automate data collection that operators would routinely perform to investigate monitoring alerts, which frees up precious operator time.
 Although you can use check hooks for rudimentary auto-remediation tasks, they are intended to enrich monitoring event data.

@@ -1,6 +1,6 @@
 ---
 title: "API"
-description: "Documentation for the Sensu APIs."
+description: "Sensu's backend API provides a centrally managed control plane for automated, repeatable observability workflow configuration and observation event access."
 weight: 60
 product: "Sensu Go"
 version: "6.3"
@@ -28,14 +28,14 @@ Use the Sensu APIs to customize your workflows and integrate your favorite Sensu
 
 ## URL format
 
-Sensu API endpoints use the standard URL format `/api/{group}/{version}/namespaces/{namespace}` where:
+Sensu API endpoints use the standard URL format `/api/<group>/<version>/namespaces/<namespace>` where:
 
-- `{group}` is the API group: `core`.
-- `{version}` is the API version: `v2`.
-- `{namespace}` is the namespace name.
+- `<group>` is the API group: `core`.
+- `<version>` is the API version: `v2`.
+- `<namespace>` is the namespace name.
 The examples in these API docs use the `default` namespace.
 The Sensu API requires the authenticated user to have the correct access permissions for the namespace specified in the URL.
-If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/{namespace}` portion of the URL to access Sensu resources across namespaces.
+If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/<namespace>` portion of the URL to access Sensu resources across namespaces.
 See the [RBAC reference][3] for more information about configuring Sensu users and access controls.
 
 {{% notice note %}}
@@ -45,7 +45,12 @@ See the [RBAC reference][3] for more information about configuring Sensu users a
 ## Data format
 
 The Sensu API uses JSON-formatted requests and responses.
-In terms of [sensuctl output types][1], the Sensu API uses the `json` format, not `wrapped-json`.
+
+In terms of output formats, the [Sensu API][9] uses `json` output format for responses for APIs in the `core` [group][22].
+For APIs that are not in the `core` group, responses are in the `wrapped-json` output format.
+The `wrapped-json` format includes an outer-level `spec` "wrapping" for resource attributes and lists the resource `type` and `api_version`.
+
+Sensu sends events to the backend in [`json` format][28], without the `spec` attribute wrapper or `type` and `api_version` attributes.
 
 ## Versioning
 
@@ -531,7 +536,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'fieldSelector=entity.name matches "webserver-"'
 {{< /code >}}
 
-Similarly, if you have entities labeled for different regions, you can use `matches` to find the entities that are labeled for the US (e.g. `us-east-1`, `us-west-1`, and so on):
+Similarly, if you have entities labeled for different regions, you can use `matches` to find the entities that are labeled for the US (for example, `us-east-1`, `us-west-1`, and so on):
 
 {{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \
@@ -758,3 +763,4 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [25]: ../sensuctl/
 [26]: ../web-ui/
 [27]: https://tools.ietf.org/html/rfc7519
+[28]: ../observability-pipeline/observe-events/events/#example-status-only-event-from-the-sensu-api

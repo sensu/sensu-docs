@@ -17,7 +17,10 @@ menu:
 
 The Sensu backend is a service that manages check requests and observability data.
 Every Sensu backend includes an integrated structure for scheduling checks using [subscriptions][28], an event processing pipeline that applies [event filters][9], [mutators][10], and [handlers][11], an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][6], and the `sensu-backend` command line tool.
+
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
+For these operating systems, the Sensu backend uses the Bourne shell (sh) for the execution environment.
+
 See the [installation guide][1] to install the backend.
 
 ## Backend transport
@@ -63,7 +66,8 @@ For a **new** installation, the backend database must be initialized by providin
 Although initialization is required for every new installation, the implementation differs depending on your method of installation:
 
 - If you are using Docker, you can use environment variables to override the default admin username (`admin`) and password (`P@ssw0rd!`) during [step 2 of the backend installation process][24].
-- If you are using Ubuntu/Debian or RHEL/CentOS, you must specify admin credentials during [step 3 of the backend installation process][25]. Sensu does not apply a default admin username or password for Ubuntu/Debian or RHEL/CentoOS installations.
+- If you are using Ubuntu/Debian or RHEL/CentOS, you must specify admin credentials during [step 3 of the backend installation process][25].
+Sensu does not apply a default admin username or password for Ubuntu/Debian or RHEL/CentoOS installations.
 
 This step bootstraps the first admin user account for your Sensu installation.
 This account will be granted the cluster admin role.
@@ -264,9 +268,10 @@ To configure a cluster, see:
 
 ### Synchronize time
 
-System clocks between agents and the backend should be synchronized to a central NTP server. If system time is out-of-sync, it may cause issues with keepalive, metric, and check alerts.
+System clocks between agents and the backend should be synchronized to a central NTP server.
+If system time is out-of-sync, it may cause issues with keepalive, metric, and check alerts.
 
-## Configuration
+## Configuration via flags
 
 You can specify the backend configuration with either a `/etc/sensu/backend.yml` file or `sensu-backend start` [configuration flags][15].
 The backend requires that the `state-dir` flag is set before starting.
@@ -383,7 +388,7 @@ discovery instead of the static `--initial-cluster method`
 
 | annotations|      |
 -------------|------
-description  | Non-identifying metadata to include with entity data for backend dynamic runtime assets (e.g. handler and mutator dynamic runtime assets).{{% notice note %}}
+description  | Non-identifying metadata to include with entity data for backend dynamic runtime assets (for example, handler and mutator dynamic runtime assets).{{% notice note %}}
 **NOTE**: For annotations that you define in backend.yml, the keys are automatically modified to use all lower-case letters. For example, if you define the annotation `webhookURL: "https://my-webhook.com"` in backend.yml, it will be listed as `webhookurl: "https://my-webhook.com"` in entity definitions.<br><br>Key cases are **not** modified for annotations you define with the `--annotations` command line flag or the `SENSU_BACKEND_ANNOTATIONS` environment variable.
 {{% /notice %}}
 required     | false
@@ -410,7 +415,7 @@ sensu-backend start --api-listen-address [::]:8080{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 api-listen-address: "[::]:8080"{{< /code >}}
 
-<a name="api-request-limit"></a>
+<a id="api-request-limit"></a>
 
 | api-request-limit |      |
 -------------|------
@@ -478,7 +483,7 @@ sensu-backend start --config-file /etc/sensu/backend.yml
 sensu-backend start -c /etc/sensu/backend.yml
 {{< /code >}}
 
-<a name="debug-attribute"></a>
+<a id="debug-attribute"></a>
 
 | debug     |      |
 ------------|------
@@ -504,7 +509,7 @@ deregistration-handler: "deregister"{{< /code >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with entity data for backend dynamic runtime assets (e.g. handler and mutator dynamic runtime assets).{{% notice note %}}
+description  | Custom attributes to include with entity data for backend dynamic runtime assets (for example, handler and mutator dynamic runtime assets).{{% notice note %}}
 **NOTE**: For labels that you define in backend.yml, the keys are automatically modified to use all lower-case letters. For example, if you define the label `securityZone: "us-west-2a"` in backend.yml, it will be listed as `securityzone: "us-west-2a"` in entity definitions.<br><br>Key cases are **not** modified for labels you define with the `--labels` command line flag or the `SENSU_BACKEND_LABELS` environment variable.
 {{% /notice %}}
 required     | false
@@ -638,7 +643,7 @@ sensu-backend start --insecure-skip-tls-verify{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 insecure-skip-tls-verify: true{{< /code >}}
 
-<a name="jwt-attributes"></a>
+<a id="jwt-attributes"></a>
 
 | jwt-private-key-file |      |
 -------------|------
@@ -678,7 +683,7 @@ sensu-backend start --key-file /path/to/ssl/key.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 key-file: "/path/to/ssl/key.pem"{{< /code >}}
 
-<a name="fips-openssl"></a>
+<a id="fips-openssl"></a>
 
 | require-fips |      |
 ------------------|------
@@ -804,7 +809,7 @@ sensu-backend start --etcd-cert-file ./client.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 etcd-cert-file: "./client.pem"{{< /code >}}
 
-<a name="etcd-cipher-suites"></a>
+<a id="etcd-cipher-suites"></a>
 
 | etcd-cipher-suites    |      |
 ------------------------|------
@@ -972,7 +977,7 @@ sensu-backend start --etcd-key-file ./client-key.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 etcd-key-file: "./client-key.pem"{{< /code >}}
 
-<a name="etcd-listen-client-urls"></a>
+<a id="etcd-listen-client-urls"></a>
 
 | etcd-listen-client-urls |      |
 --------------------------|------
@@ -1202,7 +1207,7 @@ sensu-backend start --etcd-election-timeout 1000{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 etcd-election-timeout: 1000{{< /code >}}
 
-<a name="etcd-heartbeat-interval"></a>
+<a id="etcd-heartbeat-interval"></a>
 
 | etcd-heartbeat-interval |      |
 -----------------------|------
@@ -1251,7 +1256,7 @@ sensu-backend start --etcd-quota-backend-bytes 4294967296{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 etcd-quota-backend-bytes: 4294967296{{< /code >}}
 
-### Configuration via environment variables
+## Configuration via environment variables
 
 Instead of using configuration flags, you can use environment variables to configure your Sensu backend.
 Each backend configuration flag has an associated environment variable.
@@ -1315,7 +1320,7 @@ $ sudo systemctl restart sensu-backend
 They are listed in the [configuration flag description tables](#general-configuration-flags).
 {{% /notice %}}
 
-#### Format for label and annotation environment variables
+### Format for label and annotation environment variables
 
 To use labels and annotations as environment variables in your handler configurations, you must use a specific format when you create the `SENSU_BACKEND_LABELS` and `SENSU_BACKEND_ANNOTATIONS` environment variables.
 
@@ -1347,7 +1352,7 @@ $ echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "http
 
 {{< /language-toggle >}}
 
-#### Use environment variables with the Sensu backend
+### Use environment variables with the Sensu backend
 
 Any environment variables you create in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS) will be available to handlers executed by the Sensu backend.
 

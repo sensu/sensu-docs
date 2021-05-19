@@ -3,7 +3,7 @@ title: "Datastore reference"
 linkTitle: "Datastore Reference"
 reference_title: "Datastore"
 type: "reference"
-description: "Sensu stores the most recent event for each entity and check pair using an embedded etcd or an external etcd instance. Sensu also supports using an external PostgreSQL instance for event storage in place of etcd (commercial feature). Read the reference to configure enterprise-scale event storage using PostgreSQL."
+description: "Sensu stores observability events using an etcd database by default. You can also configure external PostgreSQL for enterprise-scale event storage."
 weight: 160
 version: "6.0"
 product: "Sensu Go"
@@ -47,6 +47,42 @@ You can access event data stored in PostgreSQL using the same Sensu web UI, API,
 
 Sensu supports PostgreSQL 9.5 and later, including [Amazon Relational Database Service][3] (Amazon RDS) when configured with the PostgreSQL engine.
 See the [PostgreSQL docs][14] to install and configure PostgreSQL.
+
+For optimal performance, use the following PostgreSQL configuration settings in your `postgresql.conf` file:
+
+{{< code postgresql >}}
+max_connections = 200
+
+shared_buffers = 10GB
+
+maintenance_work_mem = 1GB
+
+vacuum_cost_delay = 10ms
+vacuum_cost_limit = 10000
+
+bgwriter_delay = 50ms
+bgwriter_lru_maxpages = 1000
+
+max_worker_processes = 8
+max_parallel_maintenance_workers = 2
+max_parallel_workers_per_gather = 2
+max_parallel_workers = 8
+
+synchronous_commit = off
+
+wal_sync_method = fdatasync
+wal_writer_delay = 5000ms
+max_wal_size = 5GB
+min_wal_size = 1GB
+
+checkpoint_completion_target = 0.9
+
+autovacuum_naptime = 10s
+autovacuum_vacuum_scale_factor = 0.05
+autovacuum_analyze_scale_factor = 0.025
+{{< /code >}}
+
+Read the [PostgreSQL parameters documentation][20] for information about setting parameters.
 
 ## Configure the PostgreSQL event store
 
@@ -342,3 +378,4 @@ pool_size: 20
 [17]: #spec-attributes
 [18]: #datastore-specification
 [19]: ../install-sensu/#ports
+[20]: https://www.postgresql.org/docs/current/config-setting.html

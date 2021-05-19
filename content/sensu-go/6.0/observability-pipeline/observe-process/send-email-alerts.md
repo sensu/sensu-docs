@@ -95,7 +95,7 @@ api_version: core/v2
 metadata:
   annotations: null
   labels: null
-  name: state_change_only2
+  name: state_change_only
   namespace: default
 spec:
   action: allow
@@ -136,11 +136,11 @@ EOF
 After you add an event filter, create the email handler definition to specify the email address where the `sensu/sensu-email-handler` dynamic runtime asset will send notifications.
 In the handler definition's `command` value, you'll need to change a few things:
 
-- `YOUR-SENDER@example.com`: Replace with the email address you want to use to send email alerts.
-- `YOUR-RECIPIENT@example.com`: Replace with the email address you want to receive email alerts.
-- `YOUR-SMTP-SERVER.example.com`: Replace with the hostname of your SMTP server.
-- `USERNAME`: Replace with your SMTP username, typically your email address.
-- `PASSWORD`: Replace with your SMTP password, typically the same as your email password.
+- `<sender@example.com>`: Replace with the email address you want to use to send email alerts.
+- `<recipient@example.com>`: Replace with the email address you want to receive email alerts.
+- `<smtp_server@example.com>`: Replace with the hostname of your SMTP server.
+- `<username>`: Replace with your SMTP username, typically your email address.
+- `<password>`: Replace with your SMTP password, typically the same as your email password.
 
 {{% notice note %}}
 **NOTE**: To use Gmail or G Suite as your SMTP server, follow Google's instructions to [send email via SMTP](https://support.google.com/a/answer/176600?hl=en).
@@ -162,8 +162,7 @@ metadata:
   name: email
 spec:
   type: pipe
-  command: sensu-email-handler -f YOUR-SENDER@example.com -t YOUR-RECIPIENT@example.com -s YOUR-SMTP-SERVER.example.com
-    -u USERNAME -p PASSWORD
+  command: sensu-email-handler -f <sender@example.com> -t <recipient@example.com> -s <smtp_server@example.com> -u username -p password
   timeout: 10
   filters:
   - is_incident
@@ -185,7 +184,7 @@ cat << EOF | sensuctl create
   },
   "spec": {
     "type": "pipe",
-    "command": "sensu-email-handler -f YOUR-SENDER@example.com -t YOUR-RECIPIENT@example.com -s YOUR-SMTP-SERVER.example.com -u USERNAME -p PASSWORD",
+    "command": "sensu-email-handler -f <sender@example.com> -t <recipient@example.com> -s <smtp_server@example.com> -u username -p password",
     "timeout": 10,
     "filters": [
       "is_incident",
@@ -260,7 +259,8 @@ http://localhost:8080/api/core/v2/namespaces/default/events
 As configured, the event status is `0` (OK).
 Now it's time to trigger an event and see the results!
 
-To generate a status change event, use the update event endpoint to create a `1` (warning) event. Run:
+To generate a status change event, use the update event endpoint to create a `1` (warning) event.
+Run:
 
 {{< code shell >}}
 curl -sS -X PUT \
@@ -332,8 +332,6 @@ Now that you know how to apply a handler to a check and take action on events:
 - Read the [handlers reference][6] for in-depth handler documentation.
 - Check out the [Reduce alert fatigue][7] guide.
 
-You can also follow our [Up and running with Sensu Go][9] interactive tutorial to set up the Sensu Go email handler and test a similar workflow with the addition of a Sensu agent for producing events using scheduled checks.
-
 
 [1]: ../../observe-events/events/
 [2]: ../../observe-schedule/monitor-server-resources/
@@ -343,7 +341,6 @@ You can also follow our [Up and running with Sensu Go][9] interactive tutorial t
 [6]: ../handlers/
 [7]: ../../observe-filter/reduce-alert-fatigue/
 [8]: ../../../plugins/assets/
-[9]: ../../../learn/up-and-running/
 [10]: ../../observe-filter/filters/#built-in-filter-is_incident
 [11]: ../../observe-filter/filters/#built-in-filter-not_silenced
 [12]: ../../../operations/deploy-sensu/install-sensu/#install-the-sensu-backend

@@ -42,7 +42,7 @@ added asset: sensu-plugins/sensu-plugins-disk-checks:5.1.4
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
-resource, populate the "runtime_assets" field with ["disk-checks-plugins"].
+resource, populate the "runtime_assets" field with ["sensu-plugins/sensu-plugins-disk-checks"].
 {{< /code >}}
 
 You can also download the dynamic runtime asset definition for Debian or Alpine from [Bonsai][7] and register the asset with `sensuctl create --file filename.yml`.
@@ -112,7 +112,7 @@ sensuctl check info collect-metrics --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl check info collect-metrics --format json
+sensuctl check info collect-metrics --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -242,7 +242,7 @@ sensuctl event info sensu-centos collect-metrics --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl event info sensu-centos collect-metrics --format json
+sensuctl event info sensu-centos collect-metrics --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}

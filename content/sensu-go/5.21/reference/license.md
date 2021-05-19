@@ -17,9 +17,13 @@ If you haven't already, [install the backend, agent, and sensuctl][2] and [confi
 
 Log in to your Sensu account at [account.sensu.io][1] and click **Download license** to download your license file.
 
-<img alt="Screenshot of Sensu account license download" src="/images/go-license-download.png" width="350px">
+{{< figure src="/images/go-license-download.png" alt="Screenshot of Sensu account license download" link="/images/go-license-download.png" target="_blank" >}}
 
 With the license file downloaded, you can activate your license with sensuctl or the [license API][4].
+
+{{% notice note %}}
+**NOTE**: For [clustered configurations](../../operations/deploy-sensu/cluster-sensu), you only need to activate your license for one of the backends within the cluster.
+{{% /notice %}}
 
 To activate your license with sensuctl:
 
@@ -55,8 +59,9 @@ Your commercial license may include the entity limit and entity class limits tie
 
 Your Sensu license may include two types of entity limits:
 
-- Entity limit: the maximum number of entities of all classes your license includes. Both agent and proxy entities count toward the overall entity limit.
-- Entity class limits: the maximum number of a specific class of entities (e.g. agent or proxy) that your license includes.
+- Entity limit: the maximum number of entities of all classes your license includes.
+Both agent and proxy entities count toward the overall entity limit.
+- Entity class limits: the maximum number of a specific class of entities (for example, agent or proxy) that your license includes.
 
 For example, if your license has an entity limit of 10,000 and an agent entity class limit of 3,000, you cannot run more than 10,000 entities (agent and proxy) total.
 At the same time, you cannot run more than 3,000 agents.
@@ -89,7 +94,7 @@ For example:
 === You are currently using 10/unlimited total entities, 5/unlimited agent entities, and 5/unlimited proxy entities
 {{< /code >}}
 
-In other formats (e.g. YAML and JSON), the entity count and limit are included as labels:
+In other formats (for example, YAML and JSON), the entity count and limit are included as labels:
 
 {{< language-toggle >}}
 
@@ -135,7 +140,8 @@ sensuctl license info --format json
 
 {{< /language-toggle >}}
 
-You can also see your current entity count and limit in the response headers for any `/api/core` or `/api/enterprise` [API request][9]. For example:
+You can also see your current entity count and limit in the response headers for any `/api/core` or `/api/enterprise` [API request][9].
+For example:
 
 {{< code shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"

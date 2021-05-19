@@ -64,7 +64,8 @@ spec:
 
 ## Check response types
 
-Each **type** of response (ex: `non-zero`) can contain one or more hooks and correspond to one or more exit status codes. Hooks are executed in order of precedence, based on their type:
+Each **type** of response (ex: `non-zero`) can contain one or more hooks and correspond to one or more exit status codes.
+Hooks are executed in order of precedence, based on their type:
 
 1. `1` to `255`
 2. `ok`
@@ -89,7 +90,7 @@ sensuctl event info entity_name check_name --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl event info entity_name check_name --format json
+sensuctl event info entity_name check_name --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}

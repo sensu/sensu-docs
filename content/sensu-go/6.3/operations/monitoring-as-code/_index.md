@@ -174,18 +174,18 @@ spec:
 You can copy these resource definitions and paste them into manually created configuration files located anywhere on your system.
 
 Alternatively, you can view resource definitions and copy them into a new or existing configuration file with a single sensuctl command.
-To use the following examples, replace `RESOURCE` with the resource type (like `check`) and replace `RESOURCE_NAME` with the name of the resource (like `check_cpu`).
+To use the following examples, replace `<resource>` with the resource type (like `check`) and replace `<resource_name>` with the name of the resource (like `check_cpu`).
 
 - Copy the resource defintion to a new file (or overwrite an existing file with the same name):
 
   {{< language-toggle >}}
 
 {{< code shell "YML" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format yaml > resource.yml
+sensuctl <resource> info <resource_name> --format yaml > resource.yml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json > resource.json
+sensuctl <resource> info <resource_name> --format wrapped-json > resource.json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -195,11 +195,11 @@ sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json > resource.json
   {{< language-toggle >}}
 
 {{< code shell "YML" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format yaml | tee resource.yml
+sensuctl <resource> info <resource_name> --format yaml | tee resource.yml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json | tee resource.json
+sensuctl <resource> info <resource_name> --format wrapped-json | tee resource.json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -209,11 +209,11 @@ sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json | tee resource.json
   {{< language-toggle >}}
 
 {{< code shell "YML" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format yaml >> resource.yml
+sensuctl <resource> info <resource_name> --format yaml >> resource.yml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json >> resource.json
+sensuctl <resource> info <resource_name> --format wrapped-json >> resource.json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -223,11 +223,11 @@ sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json >> resource.json
   {{< language-toggle >}}
 
 {{< code shell "YML" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format yaml | tee -a resource.yml
+sensuctl <resource> info <resource_name> --format yaml | tee -a resource.yml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl RESOURCE info RESOURCE_NAME --format wrapped-json | tee -a resource.json
+sensuctl <resource> info <resource_name> --format wrapped-json | tee -a resource.json
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -290,8 +290,10 @@ The monitoring as code approach is flexible &mdash; you can use any source contr
 - To maintain consistency, save all of your resources as only one file type: YAML or JSON.
 - Include all dependencies within a resource definition.
 For example, if a handler requires a dynamic runtime asset and a secret, include the asset and secret definitions with the definition for the handler itself.
-- Choose the labels you use in your resource definitions with care. CI/CD systems like [SensuFlow][5] rely on labels to determine which resources to delete, so if all of your resources have the same labels, you could delete resources you didn't intend to be managed in a particular CI/CD workflow.
-- Establish a resource-labeling schema throughout your organization to facilitate CI/CD. Following the same method for applying labels helps keep unmanaged Sensu resources from multiplying and allows different teams to confidently deploy their own CI/CD workflows without the risk of accidentally deleting another team's resources.
+- Choose the labels you use in your resource definitions with care.
+CI/CD systems like [SensuFlow][5] rely on labels to determine which resources to delete, so if all of your resources have the same labels, you could delete resources you didn't intend to be managed in a particular CI/CD workflow.
+- Establish a resource-labeling schema throughout your organization to facilitate CI/CD.
+Following the same method for applying labels helps keep unmanaged Sensu resources from multiplying and allows different teams to confidently deploy their own CI/CD workflows without the risk of accidentally deleting another team's resources.
 
 ## Implement CI/CD with monitoring as code
 

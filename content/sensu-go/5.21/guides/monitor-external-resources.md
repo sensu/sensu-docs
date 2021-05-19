@@ -1,5 +1,5 @@
 ---
-title: "Monitor external resources with proxy requests and entities"
+title: "Monitor external resources with proxy entities"
 linkTitle: "Monitor External Resources"
 description: "Proxy entities allow Sensu to monitor external resources on systems and devices where a Sensu agent cannot be installed, like a network switch or a website. Read this guide to monitor a website with proxy entities."
 weight: 20
@@ -182,7 +182,7 @@ sensuctl event info sensu-site check-sensu-site
 === sensu-site - check-sensu-site
 Entity:    sensu-site
 Check:     check-sensu-site
-Output:    
+Output:    CheckHttp OK: 200, 72024 bytes
 Status:    0
 History:   0,0
 Silenced:  false

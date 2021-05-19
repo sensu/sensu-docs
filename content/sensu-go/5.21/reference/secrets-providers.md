@@ -386,7 +386,7 @@ timeout: 20s
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="tls-vault"></a>
+<a id="tls-vault"></a>
 
 tls          | 
 -------------|------ 
@@ -445,7 +445,7 @@ version: v1
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="rate-limiter-attributes"></a>
+<a id="rate-limiter-attributes"></a>
 
 #### Rate limiter attributes
 

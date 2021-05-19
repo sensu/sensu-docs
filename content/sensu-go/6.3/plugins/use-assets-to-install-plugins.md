@@ -25,7 +25,7 @@ You can install Sensu plugins using the [sensu-install](../install-plugins#insta
 
 ## Register the Sensu PagerDuty Handler asset
 
-To add the [Sensu PagerDuty Handler dynamic runtime asset][7] to Sensu, use [`sensuctl asset add [NAMESPACE/NAME]:[VERSION]`][6]:
+To add the [Sensu PagerDuty Handler dynamic runtime asset][7] to Sensu, use [`sensuctl asset add <namespace/name>:<version>`][6]:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
@@ -124,7 +124,7 @@ sensuctl asset list --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl asset list --format json
+sensuctl asset list --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}

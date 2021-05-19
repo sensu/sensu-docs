@@ -1,6 +1,6 @@
 ---
 title: "Learn Sensu"
-description: "Learn Sensu with interactive tutorials in your browser, a live demo, a sandbox for building your first observability workflow, and more."
+description: "Learn Sensu with a live web UI demo, a sandbox for building observability workflows, and a glossary of Sensu terminology with links to in-depth documentation."
 product: "Sensu Go"
 version: "6.0"
 weight: 110
@@ -22,11 +22,6 @@ The glossary includes links to relevant reference documentation for more in-dept
 **PRO TIP**: To visualize how Sensu concepts work together in our observability pipeline, [take the tour](../observability-pipeline/) &mdash; follow the `Next` buttons on each page.
 {{% /notice %}}
 
-## Interactive tutorials
-
-Discover what you can do with Sensu in our [interactive tutorials][2], which you can use to learn Sensu right in your browser.
-The tutorials demonstrate how to deploy a Sensu stack, log in to the Sensu web UI, create observability events, add Sensu assets and create event filters and handlers, and use Sensu to send incident alerts to services like Slack and PagerDuty or to monitor a local Nginx service.
-
 ## Live demo
 
 Explore a [live demo][3] of the Sensu web UI: view the Entities page to see what Sensu is monitoring, the Events page to see the latest observability events, and the Checks page to see active service and metric checks.
@@ -41,7 +36,6 @@ We also have a GitHub lesson that guides you through [deploying a Sensu cluster 
 
 
 [1]: glossary/
-[2]: interactive-tutorials/
 [3]: demo/
 [4]: sandbox/
 [5]: learn-sensu-sandbox/

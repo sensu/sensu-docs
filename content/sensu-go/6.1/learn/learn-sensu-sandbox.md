@@ -206,13 +206,14 @@ sensuctl asset info sensu-slack-handler --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl asset info sensu-slack-handler --format json
+sensuctl asset info sensu-slack-handler --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
 
 {{% notice protip %}}
-**PRO TIP**: You can use resource definitions to create and update resources (like dynamic runtime assets) using `sensuctl create --file filename.yaml` or `sensuctl create --file filename.json`. See the [sensuctl docs](../../sensuctl/create-manage-resources/#create-resources) for more information.
+**PRO TIP**: You can use resource definitions to create and update resources (like dynamic runtime assets) using `sensuctl create --file filename.yaml` or `sensuctl create --file filename.json`.
+See the [sensuctl docs](../../sensuctl/create-manage-resources/#create-resources) for more information.
 {{% /notice %}}
 
 **3. Create a Sensu Slack handler**
@@ -535,7 +536,8 @@ Now, you should be able to see disk usage metrics for the sandbox in Grafana: [r
 You made it! You're ready for the next level of Sensu-ing.
 
 Before you move on, take a moment to remove the virtual machine and resources installed during this sandbox lesson.
-Press `CTRL`+`D` to exit the sandbox. Then run:
+Press `CTRL`+`D` to exit the sandbox.
+ Then run:
 
 {{< code shell >}}
 vagrant destroy

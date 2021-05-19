@@ -102,7 +102,8 @@ Although Sensu agents attempt to execute any command defined for a check, succes
     - Exit status codes other than `0`, `1`, and `2` indicate an UNKNOWN or custom status
 
 {{% notice protip %}}
-**PRO TIP**: If you're familiar with the **Nagios** monitoring system, you may recognize this specification &mdash; it is the same one that Nagios plugins use. As a result, you can use Nagios plugins with Sensu without any modification.
+**PRO TIP**: If you're familiar with the **Nagios** monitoring system, you may recognize this specification &mdash; it is the same one that Nagios plugins use.
+As a result, you can use Nagios plugins with Sensu without any modification.
 {{% /notice %}}
 
 At every execution of a check command, regardless of success or failure, the Sensu agent publishes the check’s result for eventual handling by the **event processor** (the Sensu backend).
@@ -115,7 +116,7 @@ The Sensu backend schedules checks and publishes check execution requests to ent
 
 Checks have a defined set of subscriptions: transport topics to which the Sensu backend publishes check requests.
 Sensu entities become subscribers to these topics (called subscriptions) via their individual `subscriptions` attribute. 
-Subscriptions typically correspond to a specific role or responsibility (for example. a webserver or database).
+Subscriptions typically correspond to a specific role or responsibility (for example, a webserver or database).
 
 Subscriptions are powerful primitives in the monitoring context because they allow you to effectively monitor for specific behaviors or characteristics that correspond to the function provided by a particular system.
 For example, disk capacity thresholds might be more important (or at least different) on a database server than on a webserver.
@@ -136,7 +137,7 @@ For checks with `round_robin` set to `true`, Sensu executes the check once per i
 
 For example, for three agents configured with the `system` subscription (agents A, B, and C), a check configured with the `system` subscription and `round_robin` set to `true` results in one monitoring event per interval, with the agent creating the event following the pattern A -> B -> C -> A -> B -> C for the first six intervals.
 
-<img alt="Round robin check diagram" src="/images/round-robin.png">
+{{< figure src="/images/round-robin.png" alt="Round robin check diagram" link="/images/round-robin.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/41787f16-3457-49d9-9135-efc69b0e2b50 -->
 
 In the diagram above, the standard check is executed by agents A, B, and C every 60 seconds.
@@ -216,7 +217,7 @@ Examples of valid cron values include:
 - `cron: '* * * * *'`
 
 {{% notice note %}}
-**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`).
+**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (for example, `cron: '* * * * *'`).
 {{% /notice %}}
 
 **Example cron checks**
@@ -522,7 +523,8 @@ Learn how to use check tokens with the [Sensu tokens reference documentation][5]
 
 ## Check hooks
 
-Check hooks are commands run by the Sensu agent in response to the result of check command execution. The Sensu agent will execute the appropriate configured hook command, depending on the check execution status (e.g. `0`, `1`, or `2`).
+Check hooks are commands run by the Sensu agent in response to the result of check command execution.
+The Sensu agent will execute the appropriate configured hook command, depending on the check execution status (for example, `0`, `1`, or `2`).
 
 Learn how to use check hooks with the [Sensu hooks reference documentation][6].
 
@@ -764,7 +766,7 @@ subscriptions:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="handlers-array"></a>
+<a id="handlers-array"></a>
 
 |handlers    |      |
 -------------|------
@@ -806,7 +808,7 @@ interval: 60
 |cron        |      |
 -------------|------
 description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute. {{% notice note %}}
-**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`).
+**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (for example, `cron: '* * * * *'`).
 {{% /notice %}}
 required     | true (unless `interval` is configured)
 type         | String
@@ -854,7 +856,7 @@ timeout: 30
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="ttl-attribute"></a>
+<a id="ttl-attribute"></a>
 
 |ttl         |      |
 -------------|------
@@ -891,7 +893,7 @@ stdin: true
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="flap-thresholds"></a>
+<a id="flap-thresholds"></a>
 
 |low_flap_threshold ||
 -------------|------
@@ -944,7 +946,7 @@ runtime_assets:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="check-hooks-attribute"></a>
+<a id="check-hooks-attribute"></a>
 
 |check_hooks |      |
 -------------|------
@@ -983,11 +985,11 @@ check_hooks:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="proxy-entity-name-attribute"></a>
+<a id="proxy-entity-name-attribute"></a>
 
 |proxy_entity_name|   |
 -------------|------
-description  | Entity name. Used to create a [proxy entity][20] for an external resource (e.g. a network switch).
+description  | Entity name. Used to create a [proxy entity][20] for an external resource (for example, a network switch).
 required     | false
 type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
@@ -1002,7 +1004,7 @@ proxy_entity_name: switch-dc-01
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="proxy-requests-top-level"></a>
+<a id="proxy-requests-top-level"></a>
 
 |proxy_requests|    |
 -------------|------
@@ -1112,7 +1114,7 @@ output_metric_handlers:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="round-robin-attribute"></a>
+<a id="round-robin-attribute"></a>
 
 |round_robin |      |
 -------------|------
@@ -1515,10 +1517,10 @@ The asset reference includes an [example check definition that uses the asset pa
 [43]: #round-robin-attribute
 [44]: #proxy-entity-name-attribute
 [46]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
-[47]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
+[47]: https://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [48]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [49]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
-[50]: ../../reference/events/#metrics
+[50]: ../../reference/events/#metrics-attribute
 [51]: https://github.com/sensu/sensu-influxdb-handler
 [52]: #round-robin-checks
 [53]: https://regex101.com/r/zo9mQU/2

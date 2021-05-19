@@ -39,12 +39,12 @@ The backend sends specific checks for each agent to execute according to the [su
 Sensu automatically downloads the files needed to run the checks from an asset repository like [Bonsai][42] or a local repo and schedules the checks on each agent.
 The agents execute the checks the backend sends to their subscriptions and send the resulting status and metric events to the backend event pipeline, which gives you flexible, automated workflows to route these events.
 
-<img src="/images/install-sensu.png" alt="Sensu architecture diagram">
+{{< figure src="/images/install-sensu.png" alt="Sensu architecture diagram" link="/images/install-sensu.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/3949dde6-1bad-4f37-aa01-00a71c47a91b/0 -->
 
 The Sensu backend keeps track of all self-registered agents.
 If the backend loses a keepalive signal from any of the agents, it flags the agent and generates an event.
-You can configure your instance so that when an agent (e.g. a server) shuts down gracefully, the agent automatically de-registers from the backend and does not generate an alert.
+You can configure your instance so that when an agent (for example, a server) shuts down gracefully, the agent automatically de-registers from the backend and does not generate an alert.
 
 Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and several exposed ports.
 Agents that use Sensu [dynamic runtime assets][17] require some disk space for a local cache.
@@ -125,19 +125,19 @@ For details about intialization in Docker, see the [backend reference](../../../
 {{< language-toggle >}}
 
 {{< code Docker >}}
-# Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password
+# Replace `<username>` and `<password>` with the username and password
 # you want to use for your admin user credentials.
 docker run -v /var/lib/sensu:/var/lib/sensu \
 -d --name sensu-backend \
 -p 3000:3000 -p 8080:8080 -p 8081:8081 \
--e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME \
--e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD \
+-e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username> \
+-e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password> \
 sensu/sensu:latest \
 sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 {{< /code >}}
 
 {{< code docker "Docker Compose" >}}
-# Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password
+# Replace `<username>` and `<password>` with the username and password
 # you want to use for your admin user credentials.
 ---
 version: "3"
@@ -151,8 +151,8 @@ services:
     - "sensu-backend-data:/var/lib/sensu/sensu-backend/etcd"
     command: "sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug"
     environment:
-    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
-    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
+    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
     image: sensu/sensu:latest
 
 volumes:
@@ -202,19 +202,19 @@ If you did not use environment variables to override the default admin credentia
 **With the backend running**, run `sensu-backend init` to set up your Sensu administrator username and password.
 In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
 
-Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use.
+Replace `<username>` and `<password>` with the username and password you want to use.
 
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
-export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
+export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
 sensu-backend init
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
-export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
+export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
 sensu-backend init
 {{< /code >}}
 
@@ -540,7 +540,7 @@ sensuctl license info
 [3]: ../../../web-ui/
 [4]: ../../../sensuctl/
 [5]: ../../../platforms/
-[6]: ../../../observability-pipeline/observe-schedule/backend#configuration
+[6]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-flags
 [7]: ../../../observability-pipeline/observe-schedule/agent#configuration-via-flags
 [8]: ../secure-sensu/
 [9]: ../../../observability-pipeline/observe-schedule/monitor-server-resources/

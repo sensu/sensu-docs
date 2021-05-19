@@ -4,7 +4,7 @@ linkTitle: "Tokens Reference"
 reference_title: "Tokens"
 type: "reference"
 description: "Tokens are placeholders in a check definition that the agent replaces with entity information before executing the check. You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while reusing check definitions. Read the reference doc to learn about tokens."
-weight: 80
+weight: 100
 version: "6.3"
 product: "Sensu Go"
 menu:
@@ -24,64 +24,47 @@ Token substitution is supported for [check][7], [hook][8], and [dynamic runtime 
 Only [entity attributes][4] are available for substitution.
 Token substitution is not available for event filters because filters already have access to the entity.
 
-Available attributes will always have [string values][9], such as labels and annotations.
+Available entity attributes will always have [string values][9], such as labels and annotations.
 
-## Example: Token substitution for check thresholds 
+## Example: Token substitution for check thresholds
 
-In this example [hook][8] and [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical) arguments to indicate the thresholds (as percentages) for creating warning or critical events.
-If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk_warning | default 80 }}`) and a critical event at 90% capacity (i.e. `{{ .labels.disk_critical | default 90 }}`).
+This example demonstrates a reusable disk usage check.
+The [check command][5] includes `-w` (warning) and `-c` (critical) arguments with default values for the thresholds (as percentages) for generating warning or critical events.
+The check will compare every subscribed entity's disk space against the default threshold values to determine whether to generate a warning or critical event.
 
-Hook configuration:
+However, the check command also includes token substitution, which means you can add entity labels that correspond to the check commnand tokens to specify different warning and critical values for individual entities.
+Instead of creating a different check for every set of thresholds, you can use the same check to apply the defaults in most cases and the token-substituted values for specific entities.
 
-{{< language-toggle >}}
+Follow this example to set up a reusable check for disk usage:
 
-{{< code yml >}}
-type: HookConfig
-api_version: core/v2
-metadata:
-  name: disk_usage_details
-  namespace: default
-spec:
-  command: du -h --max-depth=1 -c {{index .labels "disk_usage_root" | default "/"}}  2>/dev/null
-  runtime_assets: null
-  stdin: false
-  timeout: 60
+1. Add the [Sensu disk usage check][13] dynamic runtime asset, which includes the command you will need for your check:
+{{< code shell >}}
+sensuctl asset add sensu/check-disk-usage:0.4.1
 {{< /code >}}
 
-{{< code json >}}
-{
-  "type": "HookConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "disk_usage_details",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "du -h --max-depth=1 -c {{index .labels \"disk_usage_root\" | default \"/\"}}  2>/dev/null",
-    "runtime_assets": null,
-    "stdin": false,
-    "timeout": 60
-  }
-}
+   You will see a response to confirm that the asset was added:
+{{< code shell >}}
+fetching bonsai asset: sensu/check-disk-usage:0.4.1
+added asset: sensu/check-disk-usage:0.4.1
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["sensu/check-disk-usage].
 {{< /code >}}
 
-{{< /language-toggle >}}
-
-Check configuration: 
-
+2. Create the `check-disk-usage` check:
 {{< language-toggle >}}
-
-{{< code yml >}}
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
 type: CheckConfig
 api_version: core/v2
 metadata:
   name: check-disk-usage
   namespace: default
 spec:
-  check_hooks:
-  - non-zero:
-    - disk_usage_details
-  command: check-disk-usage.rb -w {{index .labels "disk_warning" | default 80}} -c
+  check_hooks: []
+  command: check-disk-usage -w {{index .labels "disk_warning" | default 80}} -c
     {{.labels.disk_critical | default 90}}
   env_vars: null
   handlers: []
@@ -94,16 +77,18 @@ spec:
   proxy_entity_name: ""
   publish: true
   round_robin: false
-  runtime_assets: null
+  runtime_assets:
+  - sensu/check-disk-usage
   stdin: false
   subdue: null
   subscriptions:
-  - staging
+  - system
   timeout: 0
   ttl: 0
+EOF
 {{< /code >}}
-
-{{< code json >}}
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -112,14 +97,8 @@ spec:
     "namespace": "default"
   },
   "spec": {
-    "check_hooks": [
-      {
-        "non-zero": [
-          "disk_usage_details"
-        ]
-      }
-    ],
-    "command": "check-disk-usage.rb -w {{index .labels \"disk_warning\" | default 80}} -c {{.labels.disk_critical | default 90}}",
+    "check_hooks": [],
+    "command": "check-disk-usage -w {{index .labels "disk_warning" | default 80}} -c {{.labels.disk_critical | default 90}}",
     "env_vars": null,
     "handlers": [],
     "high_flap_threshold": 0,
@@ -131,153 +110,117 @@ spec:
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
-    "runtime_assets": null,
+    "runtime_assets": [
+      "sensu/check-disk-usage"
+    ],
     "stdin": false,
     "subdue": null,
     "subscriptions": [
-      "staging"
+      "system"
     ],
     "timeout": 0,
     "ttl": 0
   }
 }
+EOF
 {{< /code >}}
-
 {{< /language-toggle >}}
 
-The following example [entity][4] provides the necessary attributes to override the `.labels.disk_warning` and `labels.disk_critical` tokens declared above:
+   This check will run on every entity with the subscription `system`.
+According to the default values in the command, the check will generate a warning event at 80% disk usage and a critical event at 90% disk usage.
 
-{{< language-toggle >}}
+3. To receive alerts at different thresholds for an existing entity with the `system` subscription, add `disk_warning` and `disk_critical` labels to the entity.
 
+   Use sensuctl to open an existing entity in a text editor:
+{{< code shell >}}
+sensuctl edit entity ENTITY_NAME
+{{< /code >}}
+
+   And add the following labels in the entity metadata:
 {{< code yml >}}
-type: Entity
+  labels:
+    disk_warning: "65"
+    disk_critical: "75"
+{{< /code >}}
+
+After you save your changes, the `check-disk-usage` check will substitute the `disk_warning` and `disk_critical` label values to generate events at 65% and 75% of disk usage, respectively, for this entity only.
+The check will continue to use the 80% and 90% default values for other subscribed entities.
+
+### Add a hook that uses token substitution
+
+Now you have a resusable check that will send disk usage alerts at default or entity-specific thresholds.
+You may want to add a [hook][8] to list more details about disk usage for warning and critical events.
+
+The hook in this example will list disk usage in human-readable format, with error messages filtered from the hook output.
+By default, the hook will list details for the top directory and the first layer of subdirectories.
+As with the `check-disk-usage` check, you can add a `disk_usage_root` label to individual entities to specify a different directory for the hook via token substitution.
+
+1. Add the hook definition:
+{{< language-toggle >}}
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
+type: HookConfig
 api_version: core/v2
 metadata:
-  annotations: null
-  labels:
-    disk_critical: "90"
-    disk_warning: "80"
-  name: example-hostname
+  name: disk_usage_details
   namespace: default
 spec:
-  deregister: false
-  deregistration: {}
-  entity_class: agent
-  last_seen: 1542667231
-  redact:
-  - password
-  - passwd
-  - pass
-  - api_key
-  - api_token
-  - access_key
-  - secret_key
-  - private_key
-  - secret
-  subscriptions:
-  - entity:example-hostname
-  - staging
-  system:
-    arch: amd64
-    hostname: example-hostname
-    network:
-      interfaces:
-      - addresses:
-        - 127.0.0.1/8
-        - ::1/128
-        name: lo
-      - addresses:
-        - 10.0.2.15/24
-        - fe80::26a5:54ec:cf0d:9704/64
-        mac: 08:00:27:11:ad:d2
-        name: enp0s3
-      - addresses:
-        - 172.28.128.3/24
-        - fe80::a00:27ff:febc:be60/64
-        mac: 08:00:27:bc:be:60
-        name: enp0s8
-    os: linux
-    platform: centos
-    platform_family: rhel
-    platform_version: 7.4.1708
-    processes: null
-  user: agent
+  command: du -h --max-depth=1 -c {{index .labels "disk_usage_root" | default "/"}}  2>/dev/null
+  runtime_assets: null
+  stdin: false
+  timeout: 60
+EOF
 {{< /code >}}
-
-{{< code json >}}
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
 {
-  "type": "Entity",
+  "type": "HookConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "example-hostname",
-    "namespace": "default",
-    "labels": {
-      "disk_warning": "80",
-      "disk_critical": "90"
-    },
-    "annotations": null
+    "name": "disk_usage_details",
+    "namespace": "default"
   },
   "spec": {
-    "entity_class": "agent",
-    "system": {
-      "hostname": "example-hostname",
-      "os": "linux",
-      "platform": "centos",
-      "platform_family": "rhel",
-      "platform_version": "7.4.1708",
-      "processes": null,
-      "network": {
-        "interfaces": [
-          {
-            "name": "lo",
-            "addresses": [
-              "127.0.0.1/8",
-              "::1/128"
-            ]
-          },
-          {
-            "name": "enp0s3",
-            "mac": "08:00:27:11:ad:d2",
-            "addresses": [
-              "10.0.2.15/24",
-              "fe80::26a5:54ec:cf0d:9704/64"
-            ]
-          },
-          {
-            "name": "enp0s8",
-            "mac": "08:00:27:bc:be:60",
-            "addresses": [
-              "172.28.128.3/24",
-              "fe80::a00:27ff:febc:be60/64"
-            ]
-          }
-        ]
-      },
-      "arch": "amd64"
-    },
-    "subscriptions": [
-      "entity:example-hostname",
-      "staging"
-    ],
-    "last_seen": 1542667231,
-    "deregister": false,
-    "deregistration": {},
-    "user": "agent",
-    "redact": [
-      "password",
-      "passwd",
-      "pass",
-      "api_key",
-      "api_token",
-      "access_key",
-      "secret_key",
-      "private_key",
-      "secret"
-    ]
+    "command": "du -h --max-depth=1 -c {{index .labels "disk_usage_root" | default \"/\"}}  2>/dev/null",
+    "runtime_assets": null,
+    "stdin": false,
+    "timeout": 60
   }
-}{{< /code >}}
-
+}
+EOF
+{{< /code >}}
 {{< /language-toggle >}}
+
+2. Add the hook to the `check-disk-usage` check.
+
+   Use sensuctl to open the check in a text editor:
+{{< code shell >}}
+sensuctl edit check check-disk-usage
+{{< /code >}}
+
+   Update the check definition to include the `disk_usage_details` hook for `non-zero` events:
+{{< code yml >}}
+  check_hooks:
+  - non-zero:
+    - disk_usage_details
+{{< /code >}}
+
+3. As with the disk usage check command, the hook command includes a token substitution option.
+To use a specific directory instead of the default for specific entities, edit the entity definition to add a `disk_usage_root` label and specify the directory:
+
+   Use sensuctl to open the entity in a text editor:
+{{< code shell >}}
+sensuctl edit entity ENTITY_NAME
+{{< /code >}}
+
+   Add the `disk_usage_root` label with the desired substitute directory in the entity metadata:
+{{< code yml >}}
+  labels:
+    disk_usage_root: "/substitute-directory"
+{{< /code >}}
+
+After you save your changes, for this entity, the hook will substitute the directory you specified for the `disk_usage_root` label to provide additional disk usage details for every non-zero event the `check-disk-usage` check generates.
 
 ## Manage entity labels
 
@@ -351,7 +294,7 @@ Access nested Sensu [entity attributes][3] dot notation (for example, `system.ar
 - `{{ index .labels "cpu.threshold" }}` would be replaced with a custom label called `cpu.threshold`
 
 {{% notice note %}}
-**NOTE**: When an annotation or label name has a dot (e.g. `cpu.threshold`), you must use the template index function syntax to ensure correct processing because the dot notation is also used for object nesting.
+**NOTE**: When an annotation or label name has a dot (for example, `cpu.threshold`), you must use the template index function syntax to ensure correct processing because the dot notation is also used for object nesting.
 {{% /notice %}}
 
 ### Token substitution default values
@@ -396,7 +339,7 @@ Token substitution **can** be used for alerting thresholds because those values 
 [2]: https://pkg.go.dev/text/template?tab=doc#hdr-Examples
 [3]: ../../observe-entities/entities/#entities-specification
 [4]: ../../observe-entities/entities/
-[5]: ../checks/
+[5]: ../checks/#check-commands
 [6]: ../../observe-entities/entities#manage-entity-labels
 [7]: ../checks/#check-commands
 [8]: ../hooks/
@@ -404,3 +347,4 @@ Token substitution **can** be used for alerting thresholds because those values 
 [10]: ../../observe-process/handlers/
 [11]: ../../observe-transform/mutators/
 [12]: ../../../plugins/assets/
+[13]: https://bonsai.sensu.io/assets/sensu/check-disk-usage

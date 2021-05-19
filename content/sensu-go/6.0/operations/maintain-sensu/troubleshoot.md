@@ -67,39 +67,39 @@ For example, logs are sent to the journald when systemd is the service manager, 
 If you are running systemd as your service manager and would rather have logs written to `/var/log/sensu/`, see [forwarding logs from journald to syslog][11].
 
 For journald targets, use these commands to follow the logs.
-Replace the `${service}` variable with the name of the desired service (e.g. `backend` or `agent`).
+Replace the `<service>` variable with the name of the desired service (for example, `backend` or `agent`).
 
 {{< language-toggle >}}
 
 {{< code shell "RHEL/CentOS >= 7" >}}
-journalctl --follow --unit sensu-${service}
+journalctl --follow --unit sensu-<service>
 {{< /code >}}
 
 {{< code shell "Ubuntu >= 15.04" >}}
-journalctl --follow --unit sensu-${service}
+journalctl --follow --unit sensu-<service>
 {{< /code >}}
 
 {{< code shell "Debian >= 8" >}}
-journalctl --follow --unit sensu-${service}
+journalctl --follow --unit sensu-<service>
 {{< /code >}}
 
 {{< /language-toggle >}}
 
 For log file targets, use these commands to follow the logs.
-Replace the `${service}` variable with the name of the desired service (e.g. `backend` or `agent`).
+Replace the `<service>` variable with the name of the desired service (for example, `backend` or `agent`).
 
 {{< language-toggle >}}
 
 {{< code shell "RHEL/CentOS <= 6" >}}
-tail --follow /var/log/sensu/sensu-${service}
+tail --follow /var/log/sensu/sensu-<service>
 {{< /code >}}
 
 {{< code shell "Ubuntu <= 14.10" >}}
-tail --follow /var/log/sensu/sensu-${service}
+tail --follow /var/log/sensu/sensu-<service>
 {{< /code >}}
 
 {{< code shell "Debian <= 7" >}}
-tail --follow /var/log/sensu/sensu-${service}
+tail --follow /var/log/sensu/sensu-<service>
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -198,6 +198,9 @@ sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 ## Handlers and event filters
 
 Whether implementing new workflows or modifying existing workflows, you may need to troubleshoot various stages of the event pipeline.
+
+### Create an agent API test event
+
 In many cases, generating events using the [agent API][6] will save you time and effort over modifying existing check configurations.
 
 Here's an example that uses cURL with the API of a local sensu-agent process to generate test-event check results:
@@ -217,6 +220,8 @@ curl -X POST \
 }' \
 http://127.0.0.1:3031/events
 {{< /code >}}
+
+### Use a debug handler
 
 It may also be helpful to see the complete event object being passed to your workflows.
 We recommend using a debug handler like this one to write an event to disk as JSON data:
@@ -278,7 +283,59 @@ The contents of this file will be overwritten by every event sent to the `debug`
 You may need to check the filesystem of each Sensu backend to locate the debug output for your test event.
 {{% /notice %}}
 
+### Manually execute a handler
+
+If you are not receiving events via a handler even though a check is generating events as expected, follow these steps to manually execute the handler and confirm whether the handler is working properly.
+
+1. List all events:
+{{< code shell >}}
+sensuctl event list
+{{< /code >}}
+
+   Choose an event from the list to use for troubleshooting and note the event's check and entity names.
+
+2. Navigate to the `/var/cache/sensu/sensu-backend/` directory:
+{{< code shell >}}
+cd /var/cache/sensu/sensu-backend/
+{{< /code >}}
+
+3. Run `ls` to list the contents of the `/var/cache/sensu/sensu-backend/` directory.
+In the list, identify the handler's dynamic runtime asset SHA.
+
+   {{% notice note %}}
+**NOTE**: If the list includes more than one SHA, run `sensuctl asset list`.
+In the response, the Hash column contains the first seven characters for each asset build's SHA.
+Note the hash for your build of the handler asset and compare it with the SHAs listed in the `/var/cache/sensu/sensu-backend/` directory to find the correct handler asset SHA.
+{{% /notice %}}
+
+4. Navigate to the `bin` directory for the handler asset SHA.
+Before you run the command below, replace `<handler_asset_sha>` with the SHA you identified in the previous step.
+{{< code shell >}}
+cd <handler_asset_sha>/bin
+{{< /code >}}
+
+5. Run the command to manually execute the handler.
+Before you run the command below, replace the following text:
+   - `<entity_name>`: Replace with the entity name for the event you are using to troubleshoot.
+   - `<check_name>`: Replace with the check name for the event you are using to troubleshoot.
+   - `<handler_command>`: Replace with the `command` value for the handler you are troubleshooting.
+
+   {{< code shell >}}
+sensuctl event info <entity_name> <check_name> --format json | ./<handler_command>
+{{< /code >}}
+
+If your handler is working properly, you will receive an alert for the event via the handler.
+The response for your manual execution command will also include a message to confirm notification was sent.
+In this case, your Sensu pipeline is not causing the problem with missing events.
+
+If you do not receive an alert for the event, the handler is not working properly.
+In this case, the manual execution response will include the message `Error executing <handler_asset_name>:` followed by a description of the specific error to help you correct the problem.
+
 ## Dynamic runtime assets
+
+Use the information in this section to troubleshoot error messages related to dynamic runtime assets.
+
+### Incorrect asset filter
 
 Dynamic runtime asset filters allow you to scope an asset to a particular operating system or architecture.
 You can see an example in the [asset reference][10].
@@ -415,12 +472,12 @@ sensuctl asset info sensu-plugins-disk-checks --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl asset info sensu-plugins-disk-checks --format json
+sensuctl asset info sensu-plugins-disk-checks --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
 
-### Conflating operating systems with families
+#### Conflating operating systems with families
 
 A common asset filter issue is conflating operating systems with the family they're a part of.
 For example, although Ubuntu is part of the Debian family of Linux distributions, Ubuntu is not the same as Debian.
@@ -490,7 +547,7 @@ filters:
 
 This would allow the asset to be downloaded onto the target entity.
 
-### Running the agent on an unsupported Linux platform
+#### Running the agent on an unsupported Linux platform
 
 If you run the Sensu agent on an unsupported Linux platform, the agent might fail to correctly identify your version of Linux and could download the wrong version of an asset.
 
@@ -500,7 +557,7 @@ Since the `lsb_release` package is not installed, the agent will not be able to 
 
 To resolve this problem, install the [`lsb_release` package][8] for your Linux distribution.
 
-## Investigate etcd cluster status
+## Etcd clusters
 
 Some issues require you to investigate the state of the etcd cluster or data stored within etcd.
 In these cases, we suggest using the `etcdctl` tool to query and manage the etcd database.
@@ -570,7 +627,7 @@ To restore an etcd cluster with a database size that exceeds 2 GB:
 etcdctl endpoint status --write-out="json" | egrep -o '"revision":[0-9]*' | egrep -o '[0-9].*'
 {{< /code >}}
 
-2. Compact to revision and substitute the crrent revision for `$rev`:
+2. Compact to revision and substitute the current revision for `$rev`:
 {{< code shell >}}
 etcdctl compact $rev
 {{< /code >}}
@@ -591,6 +648,65 @@ https://backend01:2379, 88db026f7feb72b4, 3.3.22, 1.0 MB, false, 144, 18619245
 https://backend02:2379, e98ad7a888d16bd6, 3.3.22, 1.0 MB, true, 144, 18619245
 https://backend03:2379, bc4e39432cbb36d, 3.3.22, 1.0 MB, false, 144, 18619245
 {{< /code >}}
+
+### Remove and redeploy a cluster
+
+{{% notice protip %}}
+**PRO TIP**: Make [regular backups with sensuctl dump](../../../sensuctl/back-up-recover/) so that you can restore your Sensu resources if you have to redeploy your cluster.
+If you wait until cluster nodes are failing, it may not be possible to make a backup.
+For example, in a three-node cluster, if one node fails, you will still be able to run sensuctl dump.
+If two nodes fail, the whole cluster will be down and you will not be able to run the sensuctl dump command.
+
+For information about using etcd snapshots for recovery, read [etcd disaster recovery](https://etcd.io/docs/v3.3.13/op-guide/recovery/).
+{{% /notice %}}
+
+You may need to completely remove a cluster and redeploy it in cases such as:
+
+- Failure to reach consensus after losing more than `(N-1)/2` cluster members
+- Etcd configuration issues
+- Etcd corruption, perhaps from disk filling
+- Unrecoverable hardware failure
+
+To remove and redeploy a cluster:
+
+1. Open a terminal window for each cluster member.
+
+2. Stop each cluster member backend:
+{{< code shell >}}
+systemctl stop sensu-backend
+{{< /code >}}
+
+3. Confirm that each backend stopped:
+{{< code shell >}}
+systemctl status sensu-backend
+{{< /code >}}
+
+    For each backend, the response should begin with the following lines:
+    {{< code shell >}}
+● sensu-backend.service - The Sensu Backend service.
+Loaded: loaded (/usr/lib/systemd/system/sensu-backend.service; disabled; vendor preset: disabled)
+Active: inactive (dead)
+{{< /code >}}
+
+4. Delete the etcd directories for each cluster member:
+{{< code shell >}}
+rm -rf /var/lib/sensu/sensu-backend/etcd/
+{{< /code >}}
+
+5. Follow the [Sensu backend configuration][23] instructions to reconfigure a new cluster.
+
+6. [Initialize][25] a backend to specify admin credentials:
+{{< code shell >}}
+sensu-backend init --interactive
+{{< /code >}}
+    
+    When you receive prompts for your username and password, replace `<YOUR_USERNAME>` and `<YOUR_PASSWORD>` with the administrator username and password you want to use for the cluster members:
+{{< code shell >}}
+Admin Username: <YOUR_USERNAME>
+Admin Password: <YOUR_PASSWORD>
+{{< /code >}}
+
+7. Use sensuctl create to [restore your resources from backup][24].
 
 ## Datastore performance
 
@@ -673,3 +789,7 @@ The backend will stop listening on those ports when the etcd database is unavail
 [17]: ../../deploy-sensu/datastore/#use-default-event-storage
 [18]: ../../../api/metrics/
 [19]: ../../deploy-sensu/hardware-requirements/#backend-recommended-configuration
+[22]: ../../../sensuctl/back-up-recover/
+[23]: ../../deploy-sensu/cluster-sensu/#sensu-backend-configuration
+[24]: ../../../sensuctl/back-up-recover/#restore-resources-from-backup
+[25]: ../../../observability-pipeline/observe-schedule/backend/#initialization

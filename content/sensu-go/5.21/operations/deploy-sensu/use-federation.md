@@ -16,7 +16,8 @@ For more information, see [Get started with commercial features][8].
 
 Sensu's [federation API][1] allows you to register external clusters, access resources across multiple clusters via the web UI, and mirror your changes in one cluster to follower clusters.
 
-Federation is not enabled by default. You must create a cluster resource for the federation cluster and [register it][14].
+Federation is not enabled by default.
+You must create a cluster resource for the federation cluster and [register it][14].
 
 Create, update, and delete clusters using sensuctl [create][5], [edit][6], and [delete][7] commands.
 Only cluster administrators can register a new cluster, but every user can [query the list of clusters][11].
@@ -52,8 +53,9 @@ Upon completion of these steps, you'll be able to browse events, entities, check
 
 This diagram depicts the federation relationship documented in this guide:
 
+{{< figure src="/images/federation-guide-diagram.png" alt="Diagram depicting this guide's example federation architecture" link="/images/federation-guide-diagram.png" target="_blank" >}}
 <!-- Federation diagram source: https://www.lucidchart.com/documents/edit/1b676df9-534e-40e4-9881-6313013ecd28/n~8S.VTyl5JQ -->
-<a href="/images/federation-guide-diagram.png"><img alt="Diagram depicting this guide's example federation architecture" src="/images/federation-guide-diagram.png" width="800 px"></a>
+
 
 ### Step 1 Configure backends for TLS
 
@@ -77,8 +79,8 @@ This prerequisite extends to configuring the following Sensu backend etcd parame
 | `etcd-key-file`              | Path to key corresponding with `etcd-cert-file` certificate. |
 | `etcd-trusted-ca-file`       | Path to CA certificate chain file. This CA certificate chain must be usable to validate certificates for all backends in the federation. |
 | `etcd-client-cert-auth`      | Enforces certificate validation to authenticate etcd replicator connections. Set to `true` to secure etcd communication. |
-| `etcd-advertise-client-urls` | List of https URLs to advertise for etcd replicators, accessible by other backends in the federation (e.g. `https://sensu.beta.example.com:2379`). |
-| `etcd-listen-client-urls`    | List of https URLs to listen on for etcd replicators (e.g. `https://0.0.0.0:2379` to listen on port 2379 across all ipv4 interfaces). |
+| `etcd-advertise-client-urls` | List of https URLs to advertise for etcd replicators, accessible by other backends in the federation (for example, `https://sensu.beta.example.com:2379`). |
+| `etcd-listen-client-urls`    | List of https URLs to listen on for etcd replicators (for example, `https://0.0.0.0:2379` to listen on port 2379 across all ipv4 interfaces). |
 
 {{% notice warning %}}
 **WARNING**: You *must* provide an explicit, non-default etcd configuration to secure etcd communication in transit.
@@ -146,7 +148,8 @@ sensuctl user create federation-viewer --interactive
 {{< /code >}}
 
 When prompted, enter a password for the `federation-viewer` user.
-When prompted for groups, press enter. Note the `federation-viewer` password you entered &mdash; you'll use it to log in to the web UI after you configure RBAC policy replication and registered clusters into your federation.
+When prompted for groups, press enter.
+Note the `federation-viewer` password you entered &mdash; you'll use it to log in to the web UI after you configure RBAC policy replication and registered clusters into your federation.
 
 Next, grant the `federation-viewer` user read-only access through a cluster role binding for the built-in `view` cluster role:
 
@@ -270,7 +273,8 @@ Subjects:
 
 ### Step 5 Register clusters
 
-Clusters must be registered to become visible in the web UI. Each registered cluster must have a name and a list of one or more cluster member URLs corresponding to the backend REST API.
+Clusters must be registered to become visible in the web UI.
+Each registered cluster must have a name and a list of one or more cluster member URLs corresponding to the backend REST API.
 
 {{% notice note %}}
 **NOTE**: Individual cluster resources may list the API URLs for a single stand-alone backend or multiple backends that are members of the same etcd cluster.
@@ -352,7 +356,7 @@ spec:
 After you create clusters using the federation API, you can log in to the `gateway` Sensu web UI to view them as the `federation-viewer` user.
 Use the namespace switcher to change between namespaces across federated clusters:
 
-<img alt="Animated demonstration of federated views in Sensu Web UI" title="Cross-cluster visibility in the Sensu web UI" src="/images/federation-switcher-animated.gif" width="800 px">
+{{< figure src="/images/federation-switcher-animated.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/federation-switcher-animated.gif" target="_blank" >}}
 
 Because the `federation-viewer` user is granted only permissions provided by the built-in `view` role, this user should be able to view all resources across all clusters but should not be able to make any changes.
 If you haven't changed the permissions of the default `admin` user, that user should be able to view, create, delete, and update resources across all clusters.

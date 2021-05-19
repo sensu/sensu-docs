@@ -56,6 +56,10 @@ etcd-listen-peer-urls: "https://localhost:2380"
 etcd-initial-advertise-peer-urls: "https://localhost:2380"
 {{< /code >}}
 
+    {{% notice note %}}
+**NOTE**: If you are securing a [cluster](../cluster-sensu), use your backend node IP address instead of `localhost` in the non-default values for `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-advertise-client-urls`.
+{{% /notice %}}
+
 5. Set `etcd-client-cert-auth` and `etcd-peer-client-cert-auth` to `true` to ensure that etcd only allows connections from clients and peers that present a valid, trusted certificate:
 {{< code yml >}}
 etcd-client-cert-auth: "true"
@@ -116,7 +120,7 @@ dashboard-key-file: "/path/to/ssl/key.pem"
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#web-ui-configuration-flags) includes more information about the `` and `` web UI configuration parameter.
+**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#web-ui-configuration-flags) includes more information about the `dashboard-cert-file` and `dashboard-key-file` web UI configuration parameter.
 {{% /notice %}}
 
 ## Secure Sensu agent-to-server communication

@@ -485,20 +485,12 @@ If the check output is formatted correctly according to its `output_metric_forma
 To confirm that your check is extracting metrics, inspect the events the check yields:
 
 {{% notice note %}}
-**NOTE**: Replace `entity_name` and `check_name` with the names of the entity and check whose events you want to review.
+**NOTE**: Replace `<entity_name>` and `<check_name>` with the names of the entity and check whose events you want to review.
 {{% /notice %}}
 
-{{< language-toggle >}}
-
-{{< code shell "YML" >}}
-sensuctl event info entity_name check_name --format yaml
-{{< /code >}}
-
 {{< code shell "JSON" >}}
-sensuctl event info entity_name check_name --format json
+sensuctl event info <entity_name> <check_name> --format json
 {{< /code >}}
-
-{{< /language-toggle >}}
 
 You should expect to see errors logged by sensu-agent if it is unable to parse the check output.
 See [Troubleshoot Sensu][24] for an example debug handler that writes events to a file for inspection.
@@ -514,7 +506,7 @@ The event specification describes [metrics attributes in events][5].
 [2]: ../../observe-process/aggregate-metrics-statsd/
 [3]: ../checks/#output-metric-handlers
 [4]: #extract-metrics-from-check-output
-[5]: ../../observe-events/events/#metrics
+[5]: ../../observe-events/events/#metrics-attribute
 [6]: #metric-check-example
 [7]: ../prometheus-metrics/
 [8]: https://bonsai.sensu.io/
@@ -523,7 +515,7 @@ The event specification describes [metrics attributes in events][5].
 [11]: #process-extracted-and-tagged-metrics
 [12]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 [13]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
-[14]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
+[14]: https://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [15]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [16]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [17]: https://prometheus.io/docs/instrumenting/exposition_formats/#text-based-format

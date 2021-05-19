@@ -56,7 +56,7 @@ spec:
 **Use namespaces for isolation, not organization**
 
 Use namespaces to enforce full isolation of different groups of resources, not to organize resources.
-Agents cannot belong to two namespaces or execute checks in two different namespaces.
+An agent cannot belong to two namespaces or execute checks in two different namespaces.
 To organize resources, use labels rather than multiple namespaces.
 
 ## Default namespaces
@@ -157,7 +157,9 @@ spec:
 See the [reference docs][4] for the corresponding [resource type][5] to create resource definitions.
 
 {{% notice protip %}}
-**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference](../../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
+**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation.
+This allows you to replicate resources across namespaces without manual editing.
+See the [sensuctl reference](../../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
 {{% /notice %}}
 
 ## Namespace specification
@@ -261,4 +263,3 @@ name: production
 [9]: ../../deploy-sensu/install-sensu/#install-sensuctl
 [10]: ../../../sensuctl/create-manage-resources/#create-resources
 [11]: #spec-attributes
-[12]: ../../../observability-pipeline/observe-schedule/agent/#labels
