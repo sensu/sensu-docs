@@ -1176,7 +1176,7 @@ example      | {{< code yml >}}
 
 ## Delete assets
 
-As of Sensu Go 5.12, you can delete assets with the `/assets (DELETE)` endpoint or via `sensuctl` (`sensuctl asset delete`).
+Delete assets with the `/assets (DELETE)` endpoint or via `sensuctl` (`sensuctl asset delete`).
 When you remove an asset from Sensu, this _*does not*_ remove references to the deleted asset in any other resource (including checks, filters, mutators, handlers, and hooks).
 You must also update resources and remove any reference to the deleted asset.
 Failure to do so will result in errors like `sh: asset.sh: command not found`. 

@@ -387,7 +387,7 @@ Use the instructions listed in this section to register an OIDC application for 
 #### Requirements
 
 - Access to the Okta Administrator Dashboard
-- Sensu Go 5.12.0 or later (plus a valid commercial license for Sensu Go versions 5.12.0 through 5.14.2)
+- Sensu Go with a valid commercial license
 
 #### Create an Okta application
 
