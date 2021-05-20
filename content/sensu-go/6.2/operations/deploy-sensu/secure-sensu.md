@@ -43,10 +43,10 @@ etcd-peer-cert-file: "/etc/sensu/tls/backend-1.pem"
 etcd-peer-key-file: "/etc/sensu/tls/backend-1-key.pem"
 {{< /code >}}
 
-3. Replace the placeholder with the path to your certificate and key for the `etcd-trusted-ca-file` and `etcd-peer-trusted-ca-file` to secure communication with the etcd client server and between etcd cluster members:
+3. Replace the placeholder with the path to your `ca.pem` certificate and key for the `etcd-trusted-ca-file` and `etcd-peer-trusted-ca-file` to secure communication with the etcd client server and between etcd cluster members:
 {{< code yml >}}
-etcd-trusted-ca-file: "/path/to/your/ca/file"
-etcd-peer-trusted-ca-file: "/path/to/your/peer/ca/file"
+etcd-trusted-ca-file: "/etc/sensu/tls/ca.pem"
+etcd-peer-trusted-ca-file: "/etc/sensu/tls/ca.pem"
 {{< /code >}}
 
 4. Add non-default values for `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-advertise-client-urls`:
@@ -72,9 +72,9 @@ etcd-peer-client-cert-auth: "true"
 **NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#datastore-and-cluster-configuration-flags) includes more information about each etcd store parameter.
 {{% /notice %}}
 
-## Secure the Sensu API and web UI
+## Secure the Sensu agent API, HTTP API, and web UI
 
-The Sensu Go Agent API, HTTP API, and web UI use a common stanza in `/etc/sensu/backend.yml` to provide the certificate, key, and CA file needed to provide secure communication.
+The Sensu Go agent API, HTTP API, and web UI use a common stanza in `/etc/sensu/backend.yml` to provide the certificate, key, and CA file needed to provide secure communication.
 
 {{% notice note %}}
 **NOTE**: By changing these parameters, the server will communicate using transport layer security (TLS) and expect agents that connect to it to use the WebSocket secure protocol.
@@ -109,25 +109,28 @@ Configuring these attributes will also ensure that agents can communicate secure
 **NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#security-configuration-flags) includes more information about each API and web UI security configuration parameter.
 {{% /notice %}}
 
-### Specify separate web UI certificate and key
+### Specify a separate web UI certificate and key
 
-You can specify a certificate and key for the web UI separately from the API.
+You can use the same certificates and keys to secure etcd, the HTTP API, and the web UI.
+However, if you prefer, you can use a separate certificate and key for the web UI (for example, a commercially purchased certificate and key).
+
 To do this, add the `dashboard-cert-file` and `dashboard-key-file` parameters for backend SSL configuration in `/etc/sensu/backend.yml`:
 
 {{< code yml >}}
-dashboard-cert-file: "/etc/sensu/tls/cert.pem"
-dashboard-key-file: "/etc/sensu/tls/key.pem"
+dashboard-cert-file: "/etc/sensu/tls/separate-webui-cert.pem"
+dashboard-key-file: "/etc/sensu/tls/separate-webui-key.pem"
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#web-ui-configuration-flags) includes more information about the `dashboard-cert-file` and `dashboard-key-file` web UI configuration parameter.
+**NOTE**: If you do not specify a separate certificate and key for the web UI with `dashboard-cert-file` and `dashboard-key-file`, Sensu uses the certificate and key specified for the `cert-file` and `key-file` parameters for the web UI.
+The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#web-ui-configuration-flags) includes more information about the `dashboard-cert-file` and `dashboard-key-file` web UI configuration parameters.
 {{% /notice %}}
 
 ## Secure Sensu agent-to-server communication
 
 {{% notice note %}}
 **NOTE**: If you change the agent configuration to communicate via WebSocket Secure protocol, the agent will no longer communicate over a plaintext connection.
-For communication to continue, you must complete the steps in this section **and** [secure the Sensu API and web UI](#secure-the-sensu-api-and-web-ui).
+For communication to continue, you must complete the steps in this section **and** [secure the Sensu agent API, HTTP API, and web UI](#secure-the-sensu-agent-api-http-api-and-web-ui).
 {{% /notice %}}
 
 By default, an agent uses the insecure `ws://` transport.
@@ -161,7 +164,7 @@ trusted-ca-file: "/etc/sensu/tls/ca.pem"
 See [Run a Sensu cluster](../cluster-sensu/) for more information about how to configure agents for a clustered configuration.
 {{% /notice %}}
 
-## Configure Sensu agent mTLS authentication
+## Optional: Configure Sensu agent mTLS authentication
 
 **COMMERCIAL FEATURE**: Access client mutual transport layer security (mTLS) authentication in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][5].
@@ -210,18 +213,16 @@ The `Subject:` field indicates the certificate's CN is `client`, so to bind the 
 
 To enable agent mTLS authentication:
 
-1. Create and distribute new certificates and keys according to the [Generate certificates][12] guide.
+1. Create and distribute a new Certificate Authority (CA) root certificate and new agent and backend certificates and keys according to the [Generate certificates][12] guide.
 
-2. With the TLS certificate and key are in place, [update the agent configuration using `cert-file` and `key-file` security configuration flags][7].
-
-3. After you create backend and agent certificates, modify the backend configuration:
+2. Add the following parameters and values to the backend configuration:
 {{< code yml >}}
-agent-auth-cert-file: "/etc/sensu/tls/agent.pem"
-agent-auth-key-file: "/etc/sensu/tls/agent-key.pem"
+agent-auth-cert-file: "/etc/sensu/tls/backend-1.pem"
+agent-auth-key-file: "/etc/sensu/tls/backend-1-key.pem"
 agent-auth-trusted-ca-file: "/etc/sensu/tls/ca.pem"
 {{< /code >}}
 
-4. Modify the agent configuration:
+3. Modify the agent configuration:
 {{< code yml >}}
 cert-file: "/etc/sensu/tls/agent.pem"
 key-file: "/etc/sensu/tls/agent-key.pem"

@@ -178,12 +178,11 @@ You should now have this set of files for each backend:
 
 filename               | description                  | required on backend?|
 -----------------------|------------------------------|---------------------|
-`ca.pem`               | Trusted CA root certificate  | {{< check >}}       |
 `backend-*.pem`        | Backend server certificate   | {{< check >}}       |
 `backend-*-key.pem`    | Backend server private key   | {{< check >}}       |
 `backend-*.csr`        | Certificate signing request  |                     |
 
-Again, make sure to copy all backend PEM files and the CA root certificate to the corresponding backend system.
+Make sure to copy all backend PEM files to the corresponding backend system.
 
 For example, the directory listing of /etc/sensu/tls on backend-1 should include:
 
@@ -226,12 +225,11 @@ You should now have a set of files for use by Sensu agents:
 
 filename           | description                  | required on agent?  |
 -------------------|------------------------------|---------------------|
-`ca.pem`           | Trusted CA root certificate  | {{< check >}}       |
 `agent.pem`        | Backend server certificate   | {{< check >}}       |
 `agent-key.pem`    | Backend server private key   | {{< check >}}       |
 `agent.csr`        | Certificate signing request  |                     |
 
-Again, make sure to copy all agent PEM files and `ca.pem` to the corresponding backend system.
+Make sure to copy all agent PEM files to the corresponding backend system.
 To continue the example, the directory listing of /etc/sensu/tls on backend-1 should now include:
 
 {{< code shell >}}
@@ -261,7 +259,7 @@ Before you move on, make sure you have copied the certificates and keys to each 
 
 - [Copy the Certificate Authority (CA) root certificate file][11], `ca.pem`, to each agent and backend.
 - [Copy all backend PEM files][12] to their corresponding backend systems.
-- [Copy all agent PEM files][13] to each backend system.
+- [Copy all agent PEM files][13] to the agent.
 
 We also recommend installing the CA root certificate in the trust store of both your Sensu systems and those systems used by operators to manage Sensu. 
 
@@ -308,11 +306,11 @@ Now that you have generated the required certificates and copied them to the app
 
 [1]: ../secure-sensu/
 [2]: ../secure-sensu/#secure-etcd-peer-communication
-[3]: ../secure-sensu/#secure-the-sensu-api-and-web-ui
+[3]: ../secure-sensu/#secure-the-sensu-agent-api-http-api-and-web-ui
 [4]: ../secure-sensu/#secure-sensu-agent-to-server-communication
 [5]: ../secure-sensu/#configure-sensu-agent-mtls-authentication
 [6]: https://github.com/cloudflare/cfssl
-[7]: https://etcd.io/docs/v3.3.13/op-guide/security/
+[7]: #create-a-certificate-authority-ca
 [8]: https://en.wikipedia.org/wiki/Public_key_infrastructure
 [9]: ../../manage-secrets/secrets-management/
 [10]: ../../deploy-sensu/install-sensu/
