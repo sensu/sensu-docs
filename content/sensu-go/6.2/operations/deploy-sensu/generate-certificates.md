@@ -311,7 +311,7 @@ Now that you have generated the required certificates and copied them to the app
 [4]: ../secure-sensu/#secure-sensu-agent-to-server-communication
 [5]: ../secure-sensu/#configure-sensu-agent-mtls-authentication
 [6]: https://github.com/cloudflare/cfssl
-[7]: https://etcd.io/docs/v3.3.13/op-guide/security/
+[7]: https://etcd.io/docs/latest/op-guide/security/
 [8]: https://en.wikipedia.org/wiki/Public_key_infrastructure
 [9]: ../../manage-secrets/secrets-management/
 [10]: ../../deploy-sensu/install-sensu/
