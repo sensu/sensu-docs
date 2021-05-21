@@ -377,20 +377,20 @@ See the [etcd failure modes documentation][8] for information about cluster fail
 See the [etcd recovery guide][9] for disaster recovery information.
 
 
-[1]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
-[2]: https://etcd.io/docs/v3.3.13/op-guide/clustering/
-[3]: https://etcd.io/docs/v3.3.13/op-guide/configuration/
-[4]: https://etcd.io/docs/v3.3.13/
-[5]: https://etcd.io/docs/v3.3.13/platforms/
+[1]: https://etcd.io/docs/latest/op-guide/runtime-configuration/
+[2]: https://etcd.io/docs/latest/op-guide/clustering/
+[3]: https://etcd.io/docs/latest/op-guide/configuration/
+[4]: https://etcd.io/docs/latest/
+[5]: https://etcd.io/docs/latest/platforms/
 [6]: #manage-and-monitor-clusters-with-sensuctl
 [7]: https://github.com/sensu/sensu-go/blob/main/docker-compose.yaml
-[8]: https://etcd.io/docs/v3.3.13/op-guide/failures/
-[9]: https://etcd.io/docs/v3.3.13/op-guide/recovery/
+[8]: https://etcd.io/docs/latest/op-guide/failures/
+[9]: https://etcd.io/docs/latest/op-guide/recovery/
 [10]: https://github.com/cloudflare/cfssl
-[11]: https://etcd.io/docs/v3.3.13/op-guide/clustering/#self-signed-certificates
-[12]: https://etcd.io/docs/v3.3.13/op-guide/
+[11]: https://etcd.io/docs/latest/op-guide/clustering/#self-signed-certificates
+[12]: https://etcd.io/docs/latest/op-guide/
 [13]: ../generate-certificates/
-[14]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
+[14]: https://etcd.io/docs/latest/op-guide/runtime-configuration/
 [15]: ../../../reference/backend/
 [16]: ../secure-sensu/
 [17]: ../../../sensuctl/

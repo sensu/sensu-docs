@@ -685,7 +685,7 @@ If you wait until cluster nodes are failing, it may not be possible to make a ba
 For example, in a three-node cluster, if one node fails, you will still be able to run sensuctl dump.
 If two nodes fail, the whole cluster will be down and you will not be able to run the sensuctl dump command.
 
-For information about using etcd snapshots for recovery, read [etcd disaster recovery](https://etcd.io/docs/v3.3.13/op-guide/recovery/).
+For information about using etcd snapshots for recovery, read [etcd disaster recovery](https://etcd.io/docs/latest/op-guide/recovery/).
 {{% /notice %}}
 
 You may need to completely remove a cluster and redeploy it in cases such as:
@@ -801,7 +801,7 @@ The backend will stop listening on those ports when the etcd database is unavail
 [1]: ../../../observability-pipeline/observe-schedule/agent#operation
 [2]: ../../../platforms/#windows
 [3]: ../../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
-[4]: https://etcd.io/docs/v3.3.13/op-guide/security/
+[4]: https://etcd.io/docs/latest/op-guide/security/
 [5]: ../../../observability-pipeline/observe-schedule/agent/#restart-the-service
 [6]: ../../../observability-pipeline/observe-schedule/agent#events-post
 [7]: https://dzone.com/articles/what-is-structured-logging
@@ -811,7 +811,7 @@ The backend will stop listening on those ports when the etcd database is unavail
 [11]: ../../monitor-sensu/log-sensu-systemd/
 [12]: https://github.com/systemd/systemd/issues/2913
 [13]: https://github.com/etcd-io/etcd/releases
-[14]: https://etcd.io/docs/v3.3.13/tuning/#disk
+[14]: https://etcd.io/docs/latest/tuning/#disk
 [15]: https://www.ibm.com/cloud/blog/using-fio-to-tell-whether-your-storage-is-fast-enough-for-etcd
 [16]: ../../deploy-sensu/datastore/#scale-event-storage
 [17]: ../../deploy-sensu/datastore/#use-default-event-storage
