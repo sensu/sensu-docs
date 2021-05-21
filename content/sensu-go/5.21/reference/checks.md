@@ -554,7 +554,7 @@ type: CheckConfig
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For checks in Sensu backend version 5.4 and later, this attribute should always be `core/v2`.
+description  | Top-level attribute that specifies the Sensu API group and version. For checks in this version of Sensu, this attribute should always be `core/v2`.
 required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][41].
 type         | String
 example      | {{< language-toggle >}}
