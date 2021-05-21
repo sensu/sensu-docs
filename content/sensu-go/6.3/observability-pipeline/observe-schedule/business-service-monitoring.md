@@ -21,6 +21,11 @@ For more information, see [Get started with commercial features][6].
 Sensu's business service monitoring (BSM) provides high-level visibility into the current health of any number of your business services.
 Use BSM to monitor every component in your system with a top-down approach that produces meaningful alerts, prevents alert fatigue, and helps you focus on your core business services.
 
+{{% notice note %}}
+**NOTE**: BSM requires high event throughput.
+Configure a [PostgreSQL datastore](../../../operations/deploy-sensu/scale-event-storage/) to achieve the required throughput and use the BSM feature.
+{{% /notice %}}
+
 BSM requires two resources that work together to achieve top-down monitoring: [service components][1] and [rule templates][2].
 Service components are the elements that make up your business services.
 Rule templates define the monitoring rules that produce events for service components based on customized evaluation expressions.
@@ -216,9 +221,9 @@ BSM service components and rule templates are Sensu resources with complete defi
 
 You can also use [sensuctl][5] to create and manage service components and rule templates via the APIs from the command line.
 
-## Sampling, polling, and hybrid approaches to BSM
+## Sampling and polling approaches
 
-Sampling, polling, and hybrid are three general approaches to selecting events in service components, calculating aggregate data, and evaluating monitoring rules.
+Sampling and polling are two general approaches to selecting events in service components, calculating aggregate data, and evaluating monitoring rules.
 
 ### Sampling
 
@@ -245,22 +250,6 @@ The Sensu backend evaluates each service component monitoring rule against the a
 Events produced by monitoring rule evaluation are processed like any other &mdash; they are passed to eventd or pipelined.
 
 #### Polling example
-
-...
-
-### Hybrid
-
-In the hybrid approach to BSM, the Sensu Go backend evaluates events against the event selectors for each configured service component as the backend processes the events.
-When an event matches a component’s selectors, the backend samples the event data (including entity name, check name, check output, and check status) and stores this data as part of the service component.
-
-Service components also include a configured monitoring rule evaluation schedule based on either a set interval (in seconds) or cron string.
-According to the schedule, the Sensu backend periodically (e.g. every 30 seconds) selects Sensu events using component event selectors and calculates and stores a set of counters for the events.
-The calculated aggregate data includes the total number of sampled events, unique entities, unique checks, and a total count of each check status/severity (ok, warning, critical, or unknown).
-
-The Sensu backend evaluates each service component monitoring rule against the aggregate data.
-Events produced by monitoring rule evaluation are processed like any other &mdash; they are passed to eventd or pipelined.
-
-#### Hybrid example
 
 ...
 
