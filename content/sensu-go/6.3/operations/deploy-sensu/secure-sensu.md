@@ -120,7 +120,7 @@ dashboard-key-file: "/path/to/ssl/key.pem"
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#web-ui-configuration-flags) includes more information about the `` and `` web UI configuration parameter.
+**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#web-ui-configuration-flags) includes more information about the `dashboard-cert-file` and `dashboard-key-file` web UI configuration parameter.
 {{% /notice %}}
 
 ## Secure Sensu agent-to-server communication
@@ -246,7 +246,7 @@ The last step before you deploy Sensu is to [set up a Sensu cluster][10].
 [2]: ../../control-access/rbac/#default-users
 [3]: ../../control-access/rbac/
 [5]: ../../../commercial/
-[6]: https://etcd.io/docs/v3.3.13/op-guide/security/
+[6]: https://etcd.io/docs/latest/op-guide/security/
 [7]: ../../../observability-pipeline/observe-schedule/agent/#security-configuration-flags
 [9]: https://github.com/cloudflare/cfssl
 [10]: ../cluster-sensu/

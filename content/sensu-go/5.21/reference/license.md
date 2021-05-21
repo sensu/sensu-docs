@@ -21,6 +21,10 @@ Log in to your Sensu account at [account.sensu.io][1] and click **Download licen
 
 With the license file downloaded, you can activate your license with sensuctl or the [license API][4].
 
+{{% notice note %}}
+**NOTE**: For [clustered configurations](../../operations/deploy-sensu/cluster-sensu), you only need to activate your license for one of the backends within the cluster.
+{{% /notice %}}
+
 To activate your license with sensuctl:
 
 {{< code shell >}}

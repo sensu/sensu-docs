@@ -1,6 +1,6 @@
 ---
-title: "Build business services with the business service monitoring (BSM) module"
-linkTitle: "Build Business Services with the BSM Module"
+title: "Build business service monitoring"
+linkTitle: "Build Business Service Monitoring"
 description: "The Sensu web UI includes a module for creating, configuring, editing, and deleting business service monitoring (BSM) service components and rule templates. Read this page to learn how to use the Sensu web UI BSM module."
 weight: 30
 version: "6.3"
@@ -10,6 +10,10 @@ menu:
   sensu-go-6.3:
     parent: web-ui
 ---
+
+{{% notice important %}}
+**IMPORTANT**: Business service monitoring is in public preview and is subject to change. 
+{{% /notice %}}
 
 **COMMERCIAL FEATURE**: Access business service monitoring (BSM) in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][3].

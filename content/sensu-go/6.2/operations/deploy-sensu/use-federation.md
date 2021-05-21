@@ -19,10 +19,13 @@ For more information, see [Get started with commercial features][8].
 Sensu's [federation API][1] allows you to register external clusters, gain visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI, and mirror your changes in one cluster to follower clusters.
 This is useful when you want to provide a single entry point for Sensu users who need to manage monitoring across multiple distinct physical data centers, cloud regions, or providers.
 
+{{< figure src="/images/federation-switcher-clusters.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/federation-switcher-clusters.gif" target="_blank" >}}
+
 After you configure federation, you can also create, update, and delete clusters using sensuctl [create][5], [edit][6], and [delete][7] commands.
 
 Federation is not enabled by default.
 You must create a cluster resource for the federation cluster and [register it][14].
+
 Only cluster administrators can register a new cluster, but every user can [query the list of clusters][11].
 
 Complete federation of multiple Sensu instances relies on a combination of features:
@@ -110,13 +113,13 @@ openssl ec -in jwt_private.pem -pubout -out jwt_public.pem
 
 3. Save the JWT keys in `/etc/sensu/certs` on each cluster backend.
 
-4. Use the [`jwt-private-key-file` and `jwt-public-key-file` attributes][4] in `/etc/sensu/backend.yml` to specify the paths to these JWT keys:
+4. Add the [`jwt-private-key-file` and `jwt-public-key-file` attributes][4] in `/etc/sensu/backend.yml` and specify the paths to these JWT keys:
 {{< code yml >}}
 jwt-private-key-file: /etc/sensu/certs/jwt_private.pem
 jwt-public-key-file: /etc/sensu/certs/jwt_public.pem
 {{< /code >}}
 
-5. Restart `sensu-backend` so that your settings take effect:
+5. Restart the Sensu backend so that your settings take effect:
 {{< code shell >}}
 sensu-backend start
 {{< /code >}}
@@ -219,7 +222,7 @@ This allows you to centrally define RBAC policy on the `gateway` cluster and rep
 Replicating `namespace` resources will **not** replicate the Sensu resources that belong to those namespaces.
 {{% /notice %}}
 
-    For example, these etcd replicator resources will replicate ClusterRoleBinding resources from  the`gateway` cluster to two target clusters:
+    For example, these etcd replicator resources will replicate ClusterRoleBinding resources from  the `gateway` cluster to two target clusters:
 {{< language-toggle >}}
 {{< code yml >}}
 ---

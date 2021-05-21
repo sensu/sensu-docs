@@ -68,7 +68,7 @@ permissive [MIT License][12] and publicly available on [GitHub][13].
 Learn about [support packages](https://sensu.io/support) and [commercial features designed for monitoring at scale][28].
 
 [1]: getting-started/get-started
-[2]: http://slack.sensu.io/
+[2]: https://slack.sensu.io/
 [3]: reference/sensuctl
 [4]: guides/aggregate-metrics-statsd
 [5]: reference/rbac
