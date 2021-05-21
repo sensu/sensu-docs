@@ -839,8 +839,8 @@ You must present the whole chain to the remote so it can determine whether it tr
 ### Configuration summary
 
 {{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
-As of 5.20.2, the `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
+**IMPORTANT**: Process discovery is disabled in this version of Sensu.
+The `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
@@ -930,10 +930,7 @@ See the [example agent configuration file][5] (also provided with Sensu packages
 
 | agent-managed-entity |      |
 -------------|------
-description  | Indicates whether the agent's entity solely managed by the agent rather than the backend API. Agent-managed entity definitions will include the label `sensu.io/managed_by: sensu-agent`, and you cannot update these agent-managed entities via the Sensu backend REST API.<br>{{% notice important%}}
-**IMPORTANT**: In Sensu Go 6.2.1 and 6.2.2, the agent-managed-entity configuration flag can prevent the agent from starting.
-Upgrade to [Sensu Go 6.2.3](../../../release-notes/#623-release-notes) to use the agent-managed-entity configuration flag.
-{{% /notice %}}
+description  | Indicates whether the agent's entity solely managed by the agent rather than the backend API. Agent-managed entity definitions will include the label `sensu.io/managed_by: sensu-agent`, and you cannot update these agent-managed entities via the Sensu backend REST API.
 required     | false
 type         | Boolean
 default      | false
@@ -1098,9 +1095,7 @@ disable-assets: true{{< /code >}}
 --------------|------
 description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][55].{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
-As of 5.20.2, the `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
-Instead, the field will be empty: `"processes": null`.
+**IMPORTANT**: Process discovery is disabled in this version of Sensu. The `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 type          | Boolean
 default       | false
