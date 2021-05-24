@@ -83,11 +83,11 @@ For communication to continue, you must complete the configuration in this secti
 
 Configure the following backend secure sockets layer (SSL) attributes in `/etc/sensu/backend.yml`:
 
-1. Replace the placeholders with the paths to your CA root, agent certificate, and agent key files for the `trusted-ca-file`, `cert-file`, and `key-file` parameters:
+1. Replace the placeholders with the paths to your CA root, backend certificate, and backend key files for the `trusted-ca-file`, `cert-file`, and `key-file` parameters:
 {{< code yml >}}
 trusted-ca-file: "/etc/sensu/tls/ca.pem"
-cert-file: "/etc/sensu/tls/agent.pem"
-key-file: "/etc/sensu/tls/agent-key.pem"
+cert-file: "/etc/sensu/tls/backend-1.pem"
+key-file: "/etc/sensu/tls/backend-1-key.pem"
 insecure-skip-tls-verify: false
 {{< /code >}}
 
