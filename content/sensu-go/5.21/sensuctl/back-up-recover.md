@@ -52,6 +52,15 @@ sensuctl dump handlers,filters --format yaml --file my-handlers-and-filters.yaml
 {{< /code >}}
 
 After you use `sensuctl dump` to back up your Sensu resources, you can [restore][3] them later with [`sensuctl create`][1].
+
+{{% notice note %}}
+**NOTE**: The sensuctl dump command does not export user passwords &mdash; you must add the [`password_hash`](../#generate-a-password-hash) or `password` attribute to any exported users resources before restoring them with sensuctl create.
+In addition, sensuctl create does not restore API keys from a sensuctl dump backup, although you can use your backup as a reference for granting new API keys.
+
+Because users and API keys require these additional steps to restore with sensuctl create, you might prefer to use the [etcd snapshot and restore process](https://etcd.io/docs/latest/op-guide/recovery/) as your primary backup and restore method.
+Take regular etcd snapshots and make regular sensuctl dump backups for extra reassurance.
+{{% /notice %}}
+
 This page explains how to back up your resources for two common use cases: before a Sensu version upgrade and to populate new namespaces with existing resources.
 
 ## Back up before a Sensu version upgrade
