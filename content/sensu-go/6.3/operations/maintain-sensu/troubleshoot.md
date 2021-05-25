@@ -680,12 +680,12 @@ https://backend03:2379, bc4e39432cbb36d, 3.3.22, 1.0 MB, false, 144, 18619245
 ### Remove and redeploy a cluster
 
 {{% notice protip %}}
-**PRO TIP**: Make [regular backups with sensuctl dump](../../../sensuctl/back-up-recover/) so that you can restore your Sensu resources if you have to redeploy your cluster.
-If you wait until cluster nodes are failing, it may not be possible to make a backup.
-For example, in a three-node cluster, if one node fails, you will still be able to run sensuctl dump.
-If two nodes fail, the whole cluster will be down and you will not be able to run the sensuctl dump command.
+**PRO TIP**: Use [etcd snapshots](https://etcd.io/docs/latest/op-guide/recovery/) to keep a backup so that you can restore your Sensu resources if you have to redeploy your cluster.
+For extra reassurance, take regular etcd snapshots and make regular backups with [sensuctl dump](../../../sensuctl/back-up-recover/) in addition to etcd's running snapshots.
 
-For information about using etcd snapshots for recovery, read [etcd disaster recovery](https://etcd.io/docs/latest/op-guide/recovery/).
+If you wait until cluster nodes are failing, it may not be possible to make a backup.
+For example, in a three-node cluster, if one node fails, you will still be able to make a backup.
+If two nodes fail, the whole cluster will be down and you will not be able to create a snapshot or run sensuctl dump.
 {{% /notice %}}
 
 You may need to completely remove a cluster and redeploy it in cases such as:
@@ -734,7 +734,7 @@ Admin Username: <YOUR_USERNAME>
 Admin Password: <YOUR_PASSWORD>
 {{< /code >}}
 
-7. Use sensuctl create to [restore your resources from backup][24].
+7. Follow the [etcd restore process][26] or use [sensuctl create][24] to restore your cluster from a snapshot or backup.
 
 ## Datastore performance
 
@@ -823,3 +823,4 @@ The backend will stop listening on those ports when the etcd database is unavail
 [23]: ../../deploy-sensu/cluster-sensu/#sensu-backend-configuration
 [24]: ../../../sensuctl/back-up-recover/#restore-resources-from-backup
 [25]: ../../../observability-pipeline/observe-schedule/backend/#initialization
+[26]: https://etcd.io/docs/latest/op-guide/recovery/#restoring-a-cluster
