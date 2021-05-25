@@ -33,8 +33,8 @@ To properly secure etcd communication, replace the default parameter values in y
 
 1. Replace the placeholder with the path to your certificate and key for the `etcd-cert-file` and `etcd-key-file` to secure client communication:
 {{< code yml >}}
-etcd-cert-file: "/etc/sensu/tls/agent.pem"
-etcd-key-file: "/etc/sensu/tls/agent-key.pem"
+etcd-cert-file: "/etc/sensu/tls/backend-1.pem"
+etcd-key-file: "/etc/sensu/tls/backend-1-key.pem"
 {{< /code >}}
 
 2. Replace the placeholder with the path to your certificate and key for the `etcd-peer-cert-file` and `etcd-peer-key-file` to secure cluster communication:
@@ -88,7 +88,6 @@ Configure the following backend secure sockets layer (SSL) attributes in `/etc/s
 trusted-ca-file: "/etc/sensu/tls/ca.pem"
 cert-file: "/etc/sensu/tls/backend-1.pem"
 key-file: "/etc/sensu/tls/backend-1-key.pem"
-insecure-skip-tls-verify: false
 {{< /code >}}
 
 2. Set the `insecure-skip-tls-verify` parameter to `false`:
@@ -222,7 +221,7 @@ agent-auth-key-file: "/etc/sensu/tls/backend-1-key.pem"
 agent-auth-trusted-ca-file: "/etc/sensu/tls/ca.pem"
 {{< /code >}}
 
-3. Modify the agent configuration:
+3. Add the following parameters and values to the agent configuration:
 {{< code yml >}}
 cert-file: "/etc/sensu/tls/agent.pem"
 key-file: "/etc/sensu/tls/agent-key.pem"
