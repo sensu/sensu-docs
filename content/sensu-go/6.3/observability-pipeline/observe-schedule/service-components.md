@@ -1,5 +1,5 @@
 ---
-title: "Service components reference: Business service monitoring (BSM)"
+title: "Service components reference"
 linkTitle: "Service Components Reference"
 reference_title: "Service components"
 type: "reference"
@@ -11,6 +11,10 @@ menu:
   sensu-go-6.3:
     parent: observe-schedule
 ---
+
+{{% notice important %}}
+**IMPORTANT**: Business service monitoring is in public preview and is subject to change. 
+{{% /notice %}}
 
 **COMMERCIAL FEATURE**: Access business service monitoring (BSM), including service components, in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][9].

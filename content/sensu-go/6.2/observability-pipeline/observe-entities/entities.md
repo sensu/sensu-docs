@@ -452,7 +452,7 @@ You can configure a check with a proxy entity name to associate the check result
 On the first check result, if the proxy entity does not exist, Sensu will create the entity as a proxy entity.
 
 After you create a proxy entity check, define which agents will run the check by configuring a subscription.
-See [Monitor external resources with proxy requests and entities][17] for details about creating a proxy check for a proxy entity.
+See [Monitor external resources with proxy entities][17] for details about creating a proxy check for a proxy entity.
 
 ## Entities specification
 
@@ -833,9 +833,7 @@ subscriptions:
 system       | 
 -------------|------ 
 description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
-As of 5.20.2, new events will not include data in the `processes` attributes.
-Instead, the field will be empty: `"processes": null`.
+**IMPORTANT**: Process discovery is disabled in this version of Sensu. New events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false
 type         | Map
@@ -1255,9 +1253,7 @@ example        | {{< language-toggle >}}
 processes    | 
 -------------|------ 
 description  | List of processes on the local agent. See [processes attributes][26] for more information.{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
-As of 5.20.2, new events will not include data in the `processes` attributes.
-Instead, the field will be empty: `"processes": null`.
+**IMPORTANT**: Process discovery is disabled in this version of Sensu. New events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false 
 type         | Map
@@ -1430,8 +1426,8 @@ handler: email-handler
 ### Processes attributes
 
 {{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
-As of 5.20.2, new events will not include data in the `processes` attributes.
+**IMPORTANT**: Process discovery is disabled in this version of Sensu.
+New events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 

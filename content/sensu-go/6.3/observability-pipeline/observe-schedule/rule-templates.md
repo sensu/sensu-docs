@@ -1,5 +1,5 @@
 ---
-title: "Rule templates reference: Business service monitoring (BSM)"
+title: "Rule templates reference"
 linkTitle: "Rule Templates Reference"
 reference_title: "Rule templates"
 type: "reference"
@@ -11,6 +11,10 @@ menu:
   sensu-go-6.3:
     parent: observe-schedule
 ---
+
+{{% notice important %}}
+**IMPORTANT**: Business service monitoring is in public preview and is subject to change. 
+{{% /notice %}}
 
 **COMMERCIAL FEATURE**: Access business service monitoring (BSM), including rule templates, in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][4].

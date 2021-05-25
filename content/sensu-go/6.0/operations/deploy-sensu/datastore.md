@@ -365,7 +365,7 @@ pool_size: 20
 [3]: https://aws.amazon.com/rds/
 [4]: https://pkg.go.dev/github.com/lib/pq@v1.2.0#hdr-Connection_String_Parameters
 [6]: ../deployment-architecture/
-[7]: https://etcd.io/docs/v3.3.13/op-guide/clustering/
+[7]: https://etcd.io/docs/latest/op-guide/clustering/
 [8]: ../cluster-sensu/#use-an-external-etcd-cluster
 [9]: ../../../web-ui/
 [10]: ../../../sensuctl/create-manage-resources/#sensuctl-event
