@@ -614,7 +614,7 @@ environment variable | `SENSU_BACKEND_CERT_FILE`
 command line example   | {{< code shell >}}
 sensu-backend start --cert-file /path/to/tls/backend-1.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-cert-file: "/path/to/ssl/cert.pem"{{< /code >}}
+cert-file: "/path/to/tls/backend-1.pem"{{< /code >}}
 
 | insecure-skip-tls-verify |      |
 ---------------------------|------
@@ -665,7 +665,7 @@ type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_KEY_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --key-file /path/to/ssl/key.pem{{< /code >}}
+sensu-backend start --key-file /path/to/tls/backend-1-key.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 key-file: "/path/to/tls/backend-1-key.pem"{{< /code >}}
 
