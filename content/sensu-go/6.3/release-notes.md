@@ -89,7 +89,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **May 26, 2021** &mdash; The latest release of Sensu Go, version 6.3.0, is now available for download.
 
-**RELEASE SYNOPSIS NEEDED**
+This release includes several new features, enhancements, bug fixes, and usability improvements. Construct a top-level business service-centric view for distributed infrastructure and applications with a preview of Business Service Monitoring! Rate-limit Sensu Go agent transport connections without using a separate load balancer. Use an API key to authenticate sensuctl, which is handy when automating Sensu Go configuration (for example CI pipelines) and other actions (like ad hoc check execution requests). The 6.3.0 release also improves the PostgreSQL store batching capabilities, raising the event processing throughput ceiling for most deployments. Check out the release notes below for more details &mdash; there’s so much to love about this release!
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.3.0.
 
