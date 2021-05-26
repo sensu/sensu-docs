@@ -120,7 +120,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.3.0.
 
 **April 1, 2021** &mdash; The latest release of Sensu Go, version 6.2.7, is now available for download.
 
-This patch includes fixes for potential deadlocks in metricsd and agentd and crashes in the scheduler and tessend as well as for bugs that calculated build information for every keepalive and prevented the agent-managed-entity configuration attribute from working properly.
+This patch includes fixes for potential deadlocks in metricsd and agentd and crashes in the scheduler and tessend as well as for a bug that calculated build information for every keepalive.
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.2.7.
 
@@ -177,7 +177,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.4.
 
 **January 21, 2021** &mdash; The latest release of Sensu Go, version 6.2.3, is now available for download.
 
-This patch fixes two bugs: one that could cause the `--agent-managed-entity` configuration flag to prevent the agent from starting and one that caused `sensuctl dump` output to include events from all namepaces rather than the specified namespace.
+This patch fixes two bugs: one that could prevent the `--agent-managed-entity` configuration from working properly and one that caused `sensuctl dump` output to include events from all namepaces rather than the specified namespace.
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.2.3.
 
