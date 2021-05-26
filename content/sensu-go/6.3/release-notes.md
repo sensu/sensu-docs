@@ -129,7 +129,6 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.7.
 - ([Commercial feature][193]) Fixed a potential deadlock in metricsd that could occur when performing an
 internal restart.
 - Fixed a potential deadlock in agentd due to the unit test timing out in the build pipeline.
-- Fixed a bug that prevented the [agent-managed-entity][203] configuration attribute from working properly when no labels are defined.
 - Fixed a bug that could cause the scheduler to crash when using round robin checks.
 - Fixed a bug that calculated build information for every keepalive in OSS builds.
 - Fixed a potential crash in tessend that could occur if the `ringv2.Event.Value` has a zero length.
@@ -184,7 +183,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.3.
 
 **FIXES:**
 
-- Fixed a bug that could prevent the agent from starting when using the `--agent-managed-entity` agent configuration flag.
+- Fixed a bug that prevented the [agent-managed-entity][203] configuration attribute from working properly when no labels are defined.
 - Fixed a bug where `sensuctl dump` output included events from all namespaces the user had access permissions for rather than events from only the specified namespace.
 
 ## 6.2.2 release notes
