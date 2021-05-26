@@ -85,6 +85,13 @@ The response will include the new API key:
 Created: /api/core/v2/apikeys/7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2
 {{< /code >}}
 
+To bypass username/password authentication for sensuctl, add the `--api-key` [global flag][2] to specify your API key with sensuctl commands.
+For example:
+
+{{< code shell >}}
+sensuctl --api-key 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 event list
+{{< /code >}}
+
 To get information about an API key:
 
 {{< language-toggle >}}
@@ -175,3 +182,4 @@ Deleted
 
 
 [1]: ../../../api/auth/
+[2]: ../../../sensuctl/#global-flags
