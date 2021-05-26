@@ -560,9 +560,9 @@ type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_CERT_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --agent-auth-cert-file /path/to/ssl/cert.pem{{< /code >}}
+sensu-backend start --agent-auth-cert-file /path/to/tls/backend-1.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-agent-auth-cert-file: /path/to/ssl/cert.pem{{< /code >}}
+agent-auth-cert-file: /path/to/tls/backend-1.pem{{< /code >}}
 
 | agent-auth-crl-urls |      |
 -------------|------
@@ -582,9 +582,9 @@ type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_KEY_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --agent-auth-key-file /path/to/ssl/key.pem{{< /code >}}
+sensu-backend start --agent-auth-key-file /path/to/tls/backend-1-key.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-agent-auth-key-file: /path/to/ssl/key.pem{{< /code >}}
+agent-auth-key-file: /path/to/tls/backend-1-key.pem{{< /code >}}
 
 | agent-auth-trusted-ca-file |      |
 -------------|------
@@ -593,9 +593,9 @@ type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_TRUSTED_CA_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --agent-auth-trusted-ca-file /path/to/ssl/ca.pem{{< /code >}}
+sensu-backend start --agent-auth-trusted-ca-file /path/to/tls/ca.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-agent-auth-trusted-ca-file: /path/to/ssl/ca.pem{{< /code >}}
+agent-auth-trusted-ca-file: /path/to/tls/ca.pem{{< /code >}}
 
 <a id="agent-burst-limit"></a>
 
@@ -833,9 +833,9 @@ type             | String
 default          | `""`
 environment variable | `SENSU_BACKEND_ETCD_CERT_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --etcd-cert-file /path/to/tls/agent.pem{{< /code >}}
+sensu-backend start --etcd-cert-file /path/to/tls/backend-1.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-etcd-cert-file: "/path/to/tls/agent.pem"{{< /code >}}
+etcd-cert-file: "/path/to/tls/backend-1.pem"{{< /code >}}
 
 <a id="etcd-cipher-suites"></a>
 
@@ -1001,9 +1001,9 @@ Do not configure external etcd in Sensu via backend command line flags or the ba
 type             | String
 environment variable | `SENSU_BACKEND_ETCD_KEY_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --etcd-key-file /path/to/tls/agent-key.pem{{< /code >}}
+sensu-backend start --etcd-key-file /path/to/tls/backend-1-key.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-etcd-key-file: "/path/to/tls/agent-key.pem"{{< /code >}}
+etcd-key-file: "/path/to/tls/backend-1-key.pem"{{< /code >}}
 
 <a id="etcd-listen-client-urls"></a>
 
