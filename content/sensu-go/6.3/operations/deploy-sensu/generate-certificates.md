@@ -85,7 +85,7 @@ cfssljson -version
 
 ### Create a Certificate Authority (CA)
 
-Follow these steps to create a CA with cfssl and cfssljson:
+Follow these steps to create a CA with cfssl and cfssljson for each backend and agent system:
 
 1. Create /etc/sensu/tls (which does not exist by default):
 {{< code shell >}}
@@ -109,7 +109,7 @@ echo '{"signing":{"default":{"expiry":"17520h","usages":["signing","key encipher
 
 <a id="copy-ca-pem"></a>
 
-You should now have a directory at `/etc/sensu/tls` that contains the following files:
+You should now have a directory for each backend and agent at `/etc/sensu/tls` that contains the following files:
 
  filename        | description |
 -----------------|-------------|
@@ -118,9 +118,7 @@ You should now have a directory at `/etc/sensu/tls` that contains the following 
 `ca-config.json` | CA signing parameters and profiles. Not used by Sensu. |
 `ca.csr`         | Certificate signing request for the CA root certificate. Not used by Sensu. |
 
-The sensu-agent and sensu-backend use the CA root certificate to validate server certificates at connection time.
-
-Make sure to copy the CA root certificate (`ca.pem`) file to each agent and backend.
+The Sensu agent and Sensu backend use the CA root certificate to validate server certificates at connection time.
 
 ### Generate backend cluster certificates
 
@@ -178,19 +176,19 @@ You should now have this set of files for each backend:
 
 filename               | description                  | required on backend?|
 -----------------------|------------------------------|---------------------|
-`ca.pem`               | Trusted CA root certificate  | {{< check >}}       |
 `backend-*.pem`        | Backend server certificate   | {{< check >}}       |
 `backend-*-key.pem`    | Backend server private key   | {{< check >}}       |
 `backend-*.csr`        | Certificate signing request  |                     |
 
-Again, make sure to copy all backend PEM files and the CA root certificate to the corresponding backend system.
+Make sure to copy all backend PEM files to the corresponding backend system.
 For example, the directory listing of /etc/sensu/tls on backend-1 should include:
 
 {{< code shell >}}
 /etc/sensu/tls/
 ├── backend-1-key.pem
 ├── backend-1.pem
-└── ca.pem
+├── ca.pem
+└── ca-key.pem
 {{< /code >}}
 
 To make sure these files are accessible only by the `sensu` user, run:
@@ -212,7 +210,7 @@ Now you will generate a certificate that agents can use to connect to the Sensu 
 Sensu's commercial distribution offers support for authenticating agents via TLS certificates instead of a username and password.
 
 For this certificate, you only need to specify a CN (here, `agent`) &mdash; you don't need to specify an address.
-You will create the files `agent-key.pem`, `agent.csr`, and `agent.pem`:
+You will create the files `agent.pem`, `agent-key.pem`, and `agent.csr`:
 
 {{< code shell >}}
 export NAME=agent
@@ -225,20 +223,18 @@ You should now have a set of files for use by Sensu agents:
 
 filename           | description                  | required on agent?  |
 -------------------|------------------------------|---------------------|
-`ca.pem`           | Trusted CA root certificate  | {{< check >}}       |
-`agent.pem`        | Backend server certificate   | {{< check >}}       |
-`agent-key.pem`    | Backend server private key   | {{< check >}}       |
+`agent.pem`        | Agent certificate            | {{< check >}}       |
+`agent-key.pem`    | Agent private key            | {{< check >}}       |
 `agent.csr`        | Certificate signing request  |                     |
 
-Again, make sure to copy all agent PEM files and `ca.pem` to the corresponding backend system.
-To continue the example, the directory listing of /etc/sensu/tls on backend-1 should now include:
+Make sure to copy all agent PEM files to all agent systems.
+To continue the example, the directory listing of /etc/sensu/tls on each agent should now include:
 
 {{< code shell >}}
 /etc/sensu/tls/
-├── backend-1-key.pem
-├── backend-1.pem
-├── agent.pem
 ├── agent-key.pem
+├── agent.pem
+├── ca-key.pem
 └── ca.pem
 {{< /code >}}
 
@@ -260,7 +256,7 @@ Before you move on, make sure you have copied the certificates and keys to each 
 
 - [Copy the Certificate Authority (CA) root certificate file][11], `ca.pem`, to each agent and backend.
 - [Copy all backend PEM files][12] to their corresponding backend systems.
-- [Copy all agent PEM files][13].
+- [Copy all agent PEM files][13] to each agent system.
 
 We also recommend installing the CA root certificate in the trust store of both your Sensu systems and those systems used by operators to manage Sensu. 
 
@@ -307,11 +303,11 @@ Now that you have generated the required certificates and copied them to the app
 
 [1]: ../secure-sensu/
 [2]: ../secure-sensu/#secure-etcd-peer-communication
-[3]: ../secure-sensu/#secure-the-sensu-api-and-web-ui
+[3]: ../secure-sensu/#secure-the-sensu-agent-api-http-api-and-web-ui
 [4]: ../secure-sensu/#secure-sensu-agent-to-server-communication
 [5]: ../secure-sensu/#configure-sensu-agent-mtls-authentication
 [6]: https://github.com/cloudflare/cfssl
-[7]: https://etcd.io/docs/latest/op-guide/security/
+[7]: #create-a-certificate-authority-ca
 [8]: https://en.wikipedia.org/wiki/Public_key_infrastructure
 [9]: ../../manage-secrets/secrets-management/
 [10]: ../../deploy-sensu/install-sensu/
