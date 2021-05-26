@@ -87,7 +87,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 6.3.0 release notes
 
-**May X, 2021** &mdash; The latest release of Sensu Go, version 6.3.0, is now available for download.
+**May 26, 2021** &mdash; The latest release of Sensu Go, version 6.3.0, is now available for download.
 
 **RELEASE SYNOPSIS NEEDED**
 
@@ -102,13 +102,15 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.3.0.
 **IMPROVEMENTS:**
 
 - ([Commercial feature][207]) The [agent transport health API endpoint][212] repsonse now includes PostgreSQL health information.
-- ([Commercial feature][207]) In the web UI, added examples of valid values for form fields.
+- ([Commercial feature][207]) In the web UI, some form fields now include examples of valid values.
+- Added the `--api-key` [global flag][214] for sensuctl configure. Use this flag with the sensuctl configure command to bypass username/password authentication.
 - Logs for JavaScript filter evaluation errors now include more context.
 - Concatenated YAML files now support carriage return and line feed (CRLF).
 - Removed extraneous shell auto-completion suggestions for sensuctl.
 
 **FIXES:**
 
+- ([Commercial feature][207]) Migrated the PostgreSQL event store from github.com/lib/pq to github.com/jackc/pgx so that PostgreSQL batching works properly.
 - ([Commercial feature][207]) In the web UI, error messages are now visible in dark mode.
 - Fixed a bug that could cause the scheduler to crash when using round robin checks.
 - Fixed a bug that calculated build information for every keepalive in OSS builds.
@@ -1852,3 +1854,4 @@ To get started with Sensu Go:
 [211]: /sensu-go/6.3/observability-pipeline/observe-schedule/rule-templates/#built-in-rule-template-aggregate
 [212]: /sensu-go/6.3/api/health/#get-health-data-for-your-agent-transport
 [213]: /sensu-go/6.3/observability-pipeline/observe-entities/#service-entities
+[214]: /sensu-go/6.3/sensuctl/#global-flags
