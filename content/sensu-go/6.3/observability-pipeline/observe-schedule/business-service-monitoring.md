@@ -221,37 +221,6 @@ BSM service components and rule templates are Sensu resources with complete defi
 
 You can also use [sensuctl][5] to create and manage service components and rule templates via the APIs from the command line.
 
-## Sampling and polling approaches
-
-Sampling and polling are two general approaches to selecting events in service components, calculating aggregate data, and evaluating monitoring rules.
-
-### Sampling
-
-In the sampling approach to BSM, the Sensu Go backend evaluates events against the event selectors for each configured service component as the backend processes the events.
-When an event matches a service component’s selectors, the backend samples the event data (including entity name, check name, check output, and check status) and stores this data as part of the service component.
-After storing the sampled data, the Sensu backend updates and stores aggregate data for the service component, including the total number of selected events, unique entities, unique checks, and a total count of each check status/severity (ok, warning, critical, or unknown).
-
-If the selected event indicates a state change, the backend evaluates the service component’s monitoring rules for the newly updated aggregate data.
-If a monitoring rule creates an event, the event uses the service component’s handlers and business service entity.
-
-Events produced by monitoring rule evaluation are processed like any other &mdash; they are passed to eventd or pipelined. 
-
-#### Sampling example
-
-...
-
-### Polling
-
-In the polling approach to BSM, service components include a configured monitoring rule evaluation schedule based on either a set interval (in seconds) or cron string.
-According to the schedule, the Sensu backend periodically (e.g. every 30 seconds) selects Sensu events using component event selectors and calculates and stores a set of counters for the events.
-The calculated aggregate data includes the total number of selected events, unique entities, unique checks, and a total count of each check status/severity (ok, warning, critical, or unknown).
-
-The Sensu backend evaluates each service component monitoring rule against the aggregate data.
-Events produced by monitoring rule evaluation are processed like any other &mdash; they are passed to eventd or pipelined.
-
-#### Polling example
-
-...
 
 
 [1]: ../service-components/
