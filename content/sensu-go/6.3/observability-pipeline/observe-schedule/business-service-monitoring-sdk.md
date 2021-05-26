@@ -26,6 +26,10 @@ They always receive a single event and some information about that event, like `
 
 BSM SDK expressions are evaluated by the [Otto JavaScript VM][1] as JavaScript programs.
 
+{{% notice note %}}
+**NOTE**: [Sensu query expressions](../../observe-filter/sensu-query-expressions/) also provide JavaScript functions for using nested parameters and custom functions to retrieve events from the event store.
+{{% /notice %}}
+
 ## Syntax quick reference
 
 <table>
