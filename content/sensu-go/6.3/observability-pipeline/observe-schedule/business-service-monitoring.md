@@ -222,7 +222,6 @@ BSM service components and rule templates are Sensu resources with complete defi
 You can also use [sensuctl][5] to create and manage service components and rule templates via the APIs from the command line.
 
 
-
 [1]: ../service-components/
 [2]: ../rule-templates/
 [3]: ../../web-ui/bsm-module/
