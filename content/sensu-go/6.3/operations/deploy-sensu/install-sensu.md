@@ -39,7 +39,7 @@ The backend sends specific checks for each agent to execute according to the [su
 Sensu automatically downloads the files needed to run the checks from an asset repository like [Bonsai][42] or a local repo and schedules the checks on each agent.
 The agents execute the checks the backend sends to their subscriptions and send the resulting status and metric events to the backend event pipeline, which gives you flexible, automated workflows to route these events.
 
-<img src="/images/install-sensu.png" alt="Sensu architecture diagram">
+{{< figure src="/images/install-sensu.png" alt="Sensu architecture diagram" link="/images/install-sensu.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/3949dde6-1bad-4f37-aa01-00a71c47a91b/0 -->
 
 The Sensu backend keeps track of all self-registered agents.
@@ -573,7 +573,7 @@ sensuctl license info
 [37]: ../../../observability-pipeline/observe-process/populate-metrics-influxdb/
 [38]: ../../../sensuctl/back-up-recover/
 [39]: ../../../sensuctl/create-manage-resources/#create-resources
-[40]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
+[40]: https://etcd.io/docs/latest/op-guide/runtime-configuration/
 [41]: ../../../observability-pipeline/observe-schedule/checks/#subscriptions
 [42]: https://bonsai.sensu.io/
 [43]: ../../../observability-pipeline/observe-schedule/backend/#debug-attribute

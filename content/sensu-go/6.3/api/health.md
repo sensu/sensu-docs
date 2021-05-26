@@ -49,6 +49,10 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
+{{% notice note %}}
+**NOTE**: If your Sensu instance is not configured to use a [PostgreSQL datastore](../../operations/deploy-sensu/datastore/#scale-event-storage), the health payload will not include `PostgresHealth`.
+{{% /notice %}}
+
 ### API Specification {#health-get-specification}
 
 /health (GET)    | 
@@ -128,6 +132,10 @@ HTTP/1.1 200 OK
   ]
 }
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: If your Sensu instance is not configured to use a [PostgreSQL datastore](../../operations/deploy-sensu/datastore/#scale-event-storage), the health payload will not include `PostgresHealth`.
+{{% /notice %}}
 
 #### API Specification
 

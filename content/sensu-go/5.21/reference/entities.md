@@ -596,9 +596,7 @@ subscriptions:
 system       | 
 -------------|------ 
 description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
-As of 5.20.2, new events will not include data in the `processes` attributes.
-Instead, the field will be empty: `"processes": null`.
+**IMPORTANT**: Process discovery is disabled in this version of Sensu. New events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false
 type         | Map
@@ -1019,9 +1017,7 @@ example        | {{< language-toggle >}}
 processes    | 
 -------------|------ 
 description  | List of processes on the local agent. See [processes attributes][26] for more information.{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
-As of 5.20.2, new events will not include data in the `processes` attributes.
-Instead, the field will be empty: `"processes": null`.
+**IMPORTANT**: Process discovery is disabled in this version of Sensu. New events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false 
 type         | Map
@@ -1194,8 +1190,8 @@ handler: email-handler
 ### Processes attributes
 
 {{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5202-release-notes).
-As of 5.20.2, new events will not include data in the `processes` attributes.
+**IMPORTANT**: Process discovery is disabled in this version of Sensu.
+New events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
@@ -1566,6 +1562,6 @@ spec:
 [25]: ../agent/#detect-cloud-provider-flag
 [26]: #processes-attributes
 [27]: ../agent/#discover-processes
-[28]: http://man7.org/linux/man-pages/man1/top.1.html
+[28]: https://man7.org/linux/man-pages/man1/top.1.html
 [29]: ../../reference/license/#view-entity-count-and-entity-limit
 [30]: ../../web-ui/filter/

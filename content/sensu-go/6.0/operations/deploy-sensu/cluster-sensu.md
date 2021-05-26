@@ -136,7 +136,7 @@ sudo systemctl start sensu-backend
 Each Sensu agent should have the following entries in `/etc/sensu/agent.yml` to ensure the agent is aware of all cluster members.
 This allows the agent to reconnect to a working backend if the backend it is currently connected to goes into an unhealthy state.
 
-Here is an exmaple backend-url configuration for all agents connecting to the cluster over WebSocket:
+Here is an example backend-url configuration for all agents connecting to the cluster over WebSocket:
 
 {{< code yml >}}
 backend-url:
@@ -182,7 +182,7 @@ For the new node `backend-4` with IP address `10.0.0.4`:
 etcd-advertise-client-urls: "http://10.0.0.4:2379"
 etcd-listen-client-urls: "http://10.0.0.4:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
-etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380,backend-4=https://10.0.0.4:2380"
+etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380,backend-4=http://10.0.0.4:2380"
 etcd-initial-advertise-peer-urls: "http://10.0.0.4:2380"
 etcd-initial-cluster-state: "existing"
 etcd-initial-cluster-token: "unique_token_for_this_cluster"
@@ -191,12 +191,14 @@ etcd-name: "backend-4"
 
    {{% notice note %}}
 **NOTE**: To make sure the new member is added to the correct cluster, specify the same `etcd-initial-cluster-token` value that you used for the other members in the cluster.
+
+Also, when you are adding a cluster member, make sure the `etcd-initial-cluster-state` value is `existing`, **not** `new`.
 {{% /notice %}}
 
 2. Run the sensuctl command to add the new cluster member:
 
    {{< code shell >}}
-sensuctl cluster member-add backend-4 https://10.0.0.4:2380
+sensuctl cluster member-add backend-4 http://10.0.0.4:2380
 {{< /code >}}
 
    You will receive a sensuctl response to confirm that the new member was added:
@@ -234,10 +236,10 @@ You will receive a sensuctl response that lists all cluster members:
 {{< code shell >}}
        ID            Name             Peer URLs                Client URLs
 ────────────────── ─────────── ───────────────────────── ─────────────────────────
-a32e8f613b529ad4   backend-1    https://10.0.0.1:2380     https://10.0.0.1:2379  
-c3d9f4b8d0dd1ac9   backend-2    https://10.0.0.2:2380     https://10.0.0.2:2379
-c8f63ae435a5e6bf   backend-3    https://10.0.0.3:2380     https://10.0.0.3:2379
-2f7ae42c315f8c2d   backend-4    https://10.0.0.4:2380     https://10.0.0.4:2379
+a32e8f613b529ad4   backend-1    http://10.0.0.1:2380      http://10.0.0.1:2379  
+c3d9f4b8d0dd1ac9   backend-2    http://10.0.0.2:2380      http://10.0.0.2:2379
+c8f63ae435a5e6bf   backend-3    http://10.0.0.3:2380      http://10.0.0.3:2379
+2f7ae42c315f8c2d   backend-4    http://10.0.0.4:2380      http://10.0.0.4:2379
 {{< /code >}}
 
 ### Remove a cluster member
@@ -256,11 +258,15 @@ Removed member 2f7ae42c315f8c2d from cluster
 
 ### Replace a faulty cluster member
 
-To replace a faulty cluster member to restore a cluster's health, start by running `sensuctl cluster health` to identify the faulty cluster member.
-For a faulty cluster member, the `Error` column will include an error message and the `Healthy` column will list `false`.
+To replace a faulty cluster member to restore a cluster's health:
 
-In this example, the response indicates that cluster member `backend-4` is faulty:
+1. Get cluster health status and etcd alarm information:
+{{< code shell >}}
+sensuctl cluster health
+{{< /code >}}
 
+    In the response, for a faulty cluster member, the Error column will include an error message and the Healthy column will list `false`.
+    In this example, the response indicates that cluster member `backend-4` is faulty:
 {{< code shell >}}
        ID            Name                          Error                           Healthy  
 ────────────────── ─────────── ─────────────────────────────────────────────────── ─────────
@@ -271,32 +277,22 @@ c8f63ae435a5e6bf   backend-3                                                    
 
 {{< /code >}}
 
-Then, delete the faulty cluster member.
-To continue this example, you will delete cluster member `backend-4` using its ID:
-
+2. Remove the faulty cluster member &mdash; in this example, `backend-4` &mdash; using its ID.
+Removing the faulty cluster member prevents the cluster size from growing.
 {{< code shell >}}
 sensuctl cluster member-remove 2f7ae42c315f8c2d
 {{< /code >}}
 
-The response should indicate that the cluster member was removed:
-
+    The response should indicate that the cluster member was removed:
 {{< code shell >}}
 Removed member 2f7ae42c315f8c2d from cluster
 {{< /code >}}
 
-Finally, add a newly created member to the cluster.
-You can use the same name and IP address as the faulty member you deleted, with one change to the configuration: specify the `etcd-initial-cluster-state` as `existing`.
-
-{{< code yml >}}
-etcd-advertise-client-urls: "http://10.0.0.4:2379"
-etcd-listen-client-urls: "http://10.0.0.4:2379"
-etcd-listen-peer-urls: "http://0.0.0.0:2380"
-etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380,backend-4=http://10.0.0.4:2380"
-etcd-initial-advertise-peer-urls: "http://10.0.0.4:2380"
-etcd-initial-cluster-state: "existing"
-etcd-initial-cluster-token: ""
-etcd-name: "backend-4"
-{{< /code >}}
+3. Follow the steps in [Add a cluster member][22] to configure the replacement cluster member.
+{{% notice note %}}
+**NOTE**: You can use the same name and IP address as the removed faulty member for the replacement cluster member.
+When updating the replacement member's backend configuration file, make sure the `etcd-initial-cluster-state` value is `existing`, **not** `new`.
+{{% /notice %}}
 
 If replacing the faulty cluster member does not resolve the problem, see the [etcd operations guide][12] for more information.
 
@@ -305,7 +301,7 @@ If replacing the faulty cluster member does not resolve the problem, see the [et
 Update the peer URLs of a member in a cluster:
 
 {{< code shell >}}
-sensuctl cluster member-update c8f63ae435a5e6bf https://10.0.0.4:2380
+sensuctl cluster member-update c8f63ae435a5e6bf http://10.0.0.4:2380
 {{< /code >}}
 
 You will receive a sensuctl response to confirm that the cluster member was updated:
@@ -383,21 +379,25 @@ See the [etcd failure modes documentation][8] for information about cluster fail
 
 See the [etcd recovery guide][9] for disaster recovery information.
 
+### Redeploy a cluster
 
-[1]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
-[2]: https://etcd.io/docs/v3.3.13/op-guide/clustering/
-[3]: https://etcd.io/docs/v3.3.13/op-guide/configuration/
-[4]: https://etcd.io/docs/v3.3.13/
-[5]: https://etcd.io/docs/v3.3.13/platforms/
+To redeploy a cluster due to an issue like loss of quorum among cluster members, etcd corruption, or hardware failure, read [Remove and redeploy a cluster][23].
+
+
+[1]: https://etcd.io/docs/latest/op-guide/runtime-configuration/
+[2]: https://etcd.io/docs/latest/op-guide/clustering/
+[3]: https://etcd.io/docs/latest/op-guide/configuration/
+[4]: https://etcd.io/docs/latest/
+[5]: https://etcd.io/docs/latest/platforms/
 [6]: #manage-and-monitor-clusters-with-sensuctl
 [7]: https://github.com/sensu/sensu-go/blob/main/docker-compose.yaml
-[8]: https://etcd.io/docs/v3.3.13/op-guide/failures/
-[9]: https://etcd.io/docs/v3.3.13/op-guide/recovery/
+[8]: https://etcd.io/docs/latest/op-guide/failures/
+[9]: https://etcd.io/docs/latest/op-guide/recovery/
 [10]: https://github.com/cloudflare/cfssl
-[11]: https://etcd.io/docs/v3.3.13/op-guide/clustering/#self-signed-certificates
-[12]: https://etcd.io/docs/v3.3.13/op-guide/
+[11]: https://etcd.io/docs/latest/op-guide/clustering/#self-signed-certificates
+[12]: https://etcd.io/docs/latest/op-guide/
 [13]: ../generate-certificates/
-[14]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
+[14]: https://etcd.io/docs/latest/op-guide/runtime-configuration/
 [15]: ../../../observability-pipeline/observe-schedule/backend/
 [16]: ../secure-sensu/
 [17]: ../../../sensuctl/
@@ -405,3 +405,5 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [19]: #sensu-backend-configuration
 [20]: ../../../api/
 [21]: ../install-sensu/
+[22]: #add-a-cluster-member
+[23]: ../../maintain-sensu/troubleshoot/#remove-and-redeploy-a-cluster
