@@ -339,6 +339,7 @@ Global flags modify settings specific to sensuctl, such as the Sensu backend URL
 You can use global flags with most sensuctl commands.
 
 {{< code shell >}}
+--api-key string             API key to use for authentication
 --api-url string             host URL of Sensu installation
 --cache-dir string           path to directory containing cache & temporary files
 --config-dir string          path to directory containing configuration files
@@ -347,7 +348,7 @@ You can use global flags with most sensuctl commands.
 --trusted-ca-file string     TLS CA certificate bundle in PEM format
 {{< /code >}}
 
-You can set these flags permanently by editing `.config/sensu/sensuctl/{cluster, profile}`.
+To set these flags permanently, edit `.config/sensu/sensuctl/{cluster, profile}`.
 
 ## Shell auto-completion
 
