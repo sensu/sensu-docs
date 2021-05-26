@@ -103,7 +103,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.3.0.
 
 - ([Commercial feature][207]) The [agent transport health API endpoint][212] repsonse now includes PostgreSQL health information.
 - ([Commercial feature][207]) In the web UI, some form fields now include examples of valid values.
-- Added the `--api-key` [global flag][214] for sensuctl configure. Use this flag with the sensuctl configure command to bypass username/password authentication.
+- Added the `--api-key` [global flag][214] for sensuctl commands. Use this flag with sensuctl commands to bypass username/password authentication.
 - Logs for JavaScript filter evaluation errors now include more context.
 - Concatenated YAML files now support carriage return and line feed (CRLF).
 - Removed extraneous shell auto-completion suggestions for sensuctl.
