@@ -54,8 +54,8 @@ Agents that are configured to use mTLS authentication cannot authenticate with t
 
 To [configure the agent and backend][58] for mTLS authentication:
 
-- In the backend configuration, specify valid certificate and key files as values for the `agent-auth-cert-file` and `agent-auth-key-file` parameters.
-- In the agent configuration, specify valid certificate and key files as values for the `cert-file` and `key-file` parameters.
+- In the backend configuration, specify valid certificate and key files as values for the `agent-auth-cert-file` and `agent-auth-key-file` parameters (e.g. `backend-1.pem` and `backend-1-key.pem`, respectively).
+- In the agent configuration, specify valid certificate and key files as values for the `cert-file` and `key-file` parameters (e.g. `agent.pem` and `agent-key.pem`, respectively).
 
 The agent and backend will compare the provided certificates with the trusted CA certificate either in the system trust store or specified explicitly as the `agent-auth-trusted-ca-file` in the backend configuration and `trusted-ca-file` in the agent configuration.
 
@@ -1376,9 +1376,9 @@ type         | String
 default      | `""`
 environment variable | `SENSU_CERT_FILE`
 command line example   | {{< code shell >}}
-sensu-agent start --cert-file /path/to/agent.pem{{< /code >}}
+sensu-agent start --cert-file /path/to/tls/agent.pem{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-cert-file: "/path/to/agent.pem"{{< /code >}}
+cert-file: "/path/to/tls/agent.pem"{{< /code >}}
 
 | trusted-ca-file |      |
 ------------------|------
@@ -1387,9 +1387,9 @@ type              | String
 default           | `""`
 environment variable   | `SENSU_TRUSTED_CA_FILE`
 command line example   | {{< code shell >}}
-sensu-agent start --trusted-ca-file /path/to/trusted-certificate-authorities.pem{{< /code >}}
+sensu-agent start --trusted-ca-file /path/to/tls/ca.pem{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /code >}}
+trusted-ca-file: "/path/to/tls/ca.pem"{{< /code >}}
 
 | key-file   |      |
 -------------|------
@@ -1398,9 +1398,9 @@ type         | String
 default      | `""`
 environment variable | `SENSU_KEY_FILE`
 command line example   | {{< code shell >}}
-sensu-agent start --key-file /path/to/agent-key.pem{{< /code >}}
+sensu-agent start --key-file /path/to/tls/agent-key.pem{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-key-file: "/path/to/agent-key.pem"{{< /code >}}
+key-file: "/path/to/tls/agent-key.pem"{{< /code >}}
 
 | insecure-skip-tls-verify |      |
 ---------------------------|------
