@@ -43,7 +43,7 @@ etcd-peer-cert-file: "/etc/sensu/tls/backend-1.pem"
 etcd-peer-key-file: "/etc/sensu/tls/backend-1-key.pem"
 {{< /code >}}
 
-3. Replace the placeholder with the path to your `ca.pem` certificate and key for the `etcd-trusted-ca-file` and `etcd-peer-trusted-ca-file` to secure communication with the etcd client server and between etcd cluster members:
+3. Replace the placeholder with the path to your `ca.pem` certificate for the `etcd-trusted-ca-file` and `etcd-peer-trusted-ca-file` to secure communication with the etcd client server and between etcd cluster members:
 {{< code yml >}}
 etcd-trusted-ca-file: "/etc/sensu/tls/ca.pem"
 etcd-peer-trusted-ca-file: "/etc/sensu/tls/ca.pem"
