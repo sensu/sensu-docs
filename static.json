@@ -279,6 +279,10 @@
             "url": "/sensu-go/latest/api",
             "status": 301
         },
+        "~ ^/sensu-go/5.21/latest/api/?$": {
+            "url": "/sensu-go/latest/api",
+            "status": 301
+        },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/api/overview/?$": {
             "url": "/sensu-go/latest/api",
             "status": 301
