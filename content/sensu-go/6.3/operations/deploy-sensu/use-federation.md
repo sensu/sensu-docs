@@ -73,9 +73,9 @@ This prerequisite extends to configuring the following Sensu backend etcd parame
 
 | Backend property             | Note |
 |------------------------------|------|
-| `etcd-cert-file`             | Path to certificate used for TLS on etcd client/peer communications.  |
-| `etcd-key-file`              | Path to key corresponding with `etcd-cert-file` certificate. |
-| `etcd-trusted-ca-file`       | Path to CA certificate chain file. This CA certificate chain must be usable to validate certificates for all backends in the federation. |
+| `etcd-cert-file`             | Path to certificate used for TLS on etcd client/peer communications (for example, `/etc/sensu/tls/backend-1.pem`.  |
+| `etcd-key-file`              | Path to key corresponding with `etcd-cert-file` certificate (for example, `/etc/sensu/tls/backend-1-key.pem`. |
+| `etcd-trusted-ca-file`       | Path to CA certificate chain file (for example, `/etc/sensu/tls/ca.pem`. This CA certificate chain must be usable to validate certificates for all backends in the federation. |
 | `etcd-client-cert-auth`      | Enforces certificate validation to authenticate etcd replicator connections. Set to `true` to secure etcd communication. |
 | `etcd-advertise-client-urls` | List of https URLs to advertise for etcd replicators, accessible by other backends in the federation (for example, `https://sensu.beta.example.com:2379`). |
 | `etcd-listen-client-urls`    | List of https URLs to listen on for etcd replicators (for example, `https://0.0.0.0:2379` to listen on port 2379 across all ipv4 interfaces). |
