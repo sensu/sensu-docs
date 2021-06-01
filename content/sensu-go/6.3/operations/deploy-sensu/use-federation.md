@@ -46,14 +46,14 @@ The example assumes you wish to federate three named Sensu clusters:
 | `beta` | sensu.beta.example.com |
 
 In this example, the `gateway` cluster will be the entry point for operators to manage Sensu resources in the `alpha` and `beta` clusters.
-This guide assumes a single sensu-backend in each cluster, but named clusters comprised of multiple sensu-backends are supported.
+This guide assumes a single sensu-backend in each cluster, but named clusters composed of multiple sensu-backends are supported.
 
 This diagram depicts the federation relationship documented in this guide:
 
 {{< figure src="/images/federation-guide-diagram.png" alt="Diagram depicting this guide's example federation architecture" link="/images/federation-guide-diagram.png" target="_blank" >}}
 <!-- Federation diagram source: https://www.lucidchart.com/documents/edit/1b676df9-534e-40e4-9881-6313013ecd28/n~8S.VTyl5JQ -->
 
-Complete the steps in this guide to browse events, entities, checks and other resources in the `gateway`, `alpha` and `beta` clusters from the `gateway` cluster web UI.
+Complete the steps in this guide to browse events, entities, checks, and other resources in the `gateway`, `alpha`, and `beta` clusters from the `gateway` cluster web UI.
 
 ## Configure backends for TLS
 
@@ -64,10 +64,10 @@ In addition to the certificate's [Common Name (CN)][15], [Subject Alternative Na
 
 To continue with this guide, make sure you have the required TLS credentials in place:
 
-* PEM-formatted X.509 certificate and corresponding private key copied to each cluster member
-* Corresponding CA certificate chain copied to each cluster member
+* A PEM-formatted X.509 certificate and corresponding private key copied to each cluster member.
+* A corresponding certificate authority (CA) certificate chain copied to each cluster member.
 
-If you don't have existing infrastructure for issuing certificates, see [Secure Sensu][13] for our recommended self-signed certificate issuance process.
+If you don't have existing infrastructure for issuing certificates, see [Generate certificates][13] for our recommended self-signed certificate issuance process.
 
 This prerequisite extends to configuring the following Sensu backend etcd parameters:
 
@@ -96,7 +96,7 @@ The payload is used to determine permissions based on the configured [RBAC polic
 
 In a federation of Sensu backends, each backend needs to have the same public/private key pair.
 These asymmetric keys are used to crypotgraphically vouch for the user's identity in the JWT payload.
-This use of shared JWT keys enables clusters to grant users access to Sensu resources according to their local policies but without requiring user resources to be present uniformly across all clusters in the federation.
+Using shared JWT keys enables clusters to grant users access to Sensu resources according to their local policies but without requiring user resources to be present uniformly across all clusters in the federation.
 
 By default, a Sensu backend automatically generates an asymmetric key pair for signing JWTs and stores it in the etcd database.
 When configuring federation, you must generate keys as files on disk so they can be copied to all backends in the federation.
@@ -113,7 +113,7 @@ openssl ec -in jwt_private.pem -pubout -out jwt_public.pem
 
 3. Save the JWT keys in `/etc/sensu/certs` on each cluster backend.
 
-4. Add the [`jwt-private-key-file` and `jwt-public-key-file` attributes][4] in `/etc/sensu/backend.yml` and specify the paths to these JWT keys:
+4. Add the [`jwt-private-key-file` and `jwt-public-key-file` attributes][4] in `/etc/sensu/backend.yml` and specify the paths to the JWT private and public keys:
 {{< code yml >}}
 jwt-private-key-file: /etc/sensu/certs/jwt_private.pem
 jwt-public-key-file: /etc/sensu/certs/jwt_public.pem
@@ -214,16 +214,17 @@ spec:
 ## Create etcd replicators
 
 Etcd replicators use the [etcd make-mirror utility][12] for one-way replication of Sensu [RBAC policy resources][10].
-
 This allows you to centrally define RBAC policy on the `gateway` cluster and replicate RBAC resources to other clusters in the federation (`alpha` and `beta`), ensuring consistent permissions for Sensu users across multiple clusters via the `gateway` web UI.
 
 1. Configure one etcd replicator per cluster for each RBAC policy resource, across all namespaces, for each backend in the federation.
 {{% notice note %}}
-**NOTE**: Create a replicator for each resource type you want to replicate. 
-Replicating `namespace` resources will **not** replicate the resources that belong to those namespaces.
+**NOTE**: Create a replicator for each resource type you want to replicate.
+Replicating `namespace` resources will **not** replicate the Sensu resources that belong to those namespaces.
+
+The [etcd replicators reference](../etcdreplicators/) includes [examples](../etcdreplicators#etcd-replicator-examples) you can follow for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources.
 {{% /notice %}}
 
-    For example, these etcd replicator resources will replicate ClusterRoleBinding resources from  the `gateway` cluster to two target clusters:
+    In this example, the following etcd replicator resources will replicate ClusterRoleBinding resources from  the `gateway` cluster to the two target clusters:
 {{< language-toggle >}}
 {{< code yml >}}
 ---
@@ -233,8 +234,8 @@ metadata:
   name: AlphaClusterRoleBindings
 spec:
   ca_cert: "/etc/sensu/certs/ca.pem"
-  cert: "/etc/sensu/certs/cert.pem"
-  key: "/etc/sensu/certs/key.pem"
+  cert: "/etc/sensu/certs/gateway.pem"
+  key: "/etc/sensu/certs/gateway-key.pem"
   url: https://sensu.alpha.example.com:2379
   api_version: core/v2
   resource: ClusterRoleBinding
@@ -249,8 +250,8 @@ spec:
   },
   "spec": {
     "ca_cert": "/etc/sensu/certs/ca.pem",
-    "cert": "/etc/sensu/certs/cert.pem",
-    "key": "/etc/sensu/certs/key.pem",
+    "cert": "/etc/sensu/certs/gateway.pem",
+    "key": "/etc/sensu/certs/gateway-key.pem",
     "url": "https://sensu.alpha.example.com:2379",
     "api_version": "core/v2",
     "resource": "ClusterRoleBinding",
@@ -268,8 +269,8 @@ metadata:
   name: BetaClusterRoleBindings
 spec:
   ca_cert: "/etc/sensu/certs/ca.pem"
-  cert: "/etc/sensu/certs/cert.pem"
-  key: "/etc/sensu/certs/key.pem"
+  cert: "/etc/sensu/certs/gateway.pem"
+  key: "/etc/sensu/certs/gateway-key.pem"
   url: https://sensu.beta.example.com:2379
   api_version: core/v2
   resource: ClusterRoleBinding
@@ -284,8 +285,8 @@ spec:
   },
   "spec": {
     "ca_cert": "/etc/sensu/certs/ca.pem",
-    "cert": "/etc/sensu/certs/cert.pem",
-    "key": "/etc/sensu/certs/key.pem",
+    "cert": "/etc/sensu/certs/gateway.pem",
+    "key": "/etc/sensu/certs/gateway-key.pem",
     "url": "https://sensu.beta.example.com:2379",
     "api_version": "core/v2",
     "resource": "ClusterRoleBinding",
@@ -298,19 +299,24 @@ spec:
 2. Run `sensuctl config view` and verify that `sensuctl` is configured to talk to a `gateway` cluster API.
 Reconfigure `sensuctl` if needed.
 
-3. Write the `AlphaClusterRoleBindings` and `BetaClusterRoleBindings` EtcdReplicator definitions to disk.
+3. Save the `AlphaClusterRoleBindings` and `BetaClusterRoleBindings` EtcdReplicator definitions to a file (for example, `etcdreplicators.yml` or `etcdreplicators.json`).
 
-For a consistent experience, repeat the `ClusterRoleBinding` example in this guide for `Role`, `RoleBinding` and `ClusterRole` resource types.
-The [etcd replicators reference][2] includes [examples][9] you can follow for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources.
+4. Use `sensuctl create -f` to apply the `AlphaClusterRoleBindings` and `BetaClusterRoleBindings` EtcdReplicator definitions to the `gateway` cluster:
+{{< language-toggle >}}
+{{< code shell "YML" >}}
+sensuctl create -f etcdreplicators.yml
+{{< /code >}}
+{{< code shell "JSON" >}}
+sensuctl create -f etcdreplicators.json
+{{< /code >}}
+{{< /language-toggle >}}
 
-To verify that the EtcdReplicator resource is working as expected, reconfigure `sensuctl` to communicate with the `alpha` and then `beta` clusters and run the following command for each:
-
+5. Verify that the EtcdReplicator resource is working as expected: reconfigure the sensuctl backend URL to communicate with the `alpha` and `beta` clusters and run the following command for each:
 {{< code shell >}}
 sensuctl cluster-role-binding info federation-viewer-readonly
 {{< /code >}}
 
-The `federation-viewer-readonly` binding you created in step 3 should be listed in the output from each cluster:
-
+    The `federation-viewer-readonly` binding you created in the previous section should be listed in the output from each cluster:
 {{< code shell >}}
 === federation-viewer-readonly
 Name:         federation-viewer-readonly
@@ -415,18 +421,16 @@ Learn more about configuring RBAC policies in our [RBAC reference documentation]
 
 
 [1]: ../../../api/federation/
-[2]: ../etcdreplicators/
 [3]: ../../control-access/use-apikeys/
 [4]: ../../../observability-pipeline/observe-schedule/backend#jwt-attributes
 [5]: ../../../sensuctl/create-manage-resources/#create-resources
 [6]: ../../../sensuctl/create-manage-resources/#update-resources
 [7]: ../../../sensuctl/create-manage-resources/#delete-resources
 [8]: ../../../commercial/
-[9]: ../etcdreplicators#etcd-replicator-examples
 [10]: ../../control-access/rbac/
 [11]: ../../../api/federation#get-all-clusters
 [12]: https://github.com/etcd-io/etcd/blob/master/etcdctl/README.md#make-mirror-options-destination
-[13]: ../secure-sensu/
+[13]: ../generate-certificates/
 [14]: #register-a-single-cluster
 [15]: https://support.dnsimple.com/articles/what-is-common-name/
 [16]: https://support.dnsimple.com/articles/what-is-ssl-san/
