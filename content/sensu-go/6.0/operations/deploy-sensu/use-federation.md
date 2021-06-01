@@ -299,9 +299,17 @@ spec:
 2. Run `sensuctl config view` and verify that `sensuctl` is configured to talk to a `gateway` cluster API.
 Reconfigure `sensuctl` if needed.
 
-3. Write the `AlphaClusterRoleBindings` and `BetaClusterRoleBindings` EtcdReplicator definitions to disk.
+3. Save the `AlphaClusterRoleBindings` and `BetaClusterRoleBindings` EtcdReplicator definitions to a file (for example, `etcdreplicators.yml` or `etcdreplicators.json`).
 
-4. Use `sensuctl create -f` to apply the `AlphaClusterRoleBindings` and `BetaClusterRoleBindings` EtcdReplicator definitions to the `gateway` cluster.
+4. Use `sensuctl create -f` to apply the `AlphaClusterRoleBindings` and `BetaClusterRoleBindings` EtcdReplicator definitions to the `gateway` cluster:
+{{< language-toggle >}}
+{{< code shell "YML" >}}
+sensuctl create -f etcdreplicators.yml
+{{< /code >}}
+{{< code shell "JSON" >}}
+sensuctl create -f etcdreplicators.json
+{{< /code >}}
+{{< /language-toggle >}}
 
 5. Verify that the EtcdReplicator resource is working as expected: reconfigure the sensuctl backend URL to communicate with the `alpha` and `beta` clusters and run the following command for each:
 {{< code shell >}}
