@@ -3,7 +3,7 @@ title: "Use API keys to authenticate to Sensu"
 linkTitle: "Use API Keys"
 guide_title: "Use API keys to authenticate to Sensu"
 type: "guide"
-description: "In this guide, you'll learn how to use Sensu's API key feature for authentication."
+description: "Sensu's API key feature improves integration efficiency, security, and administrative control. Read this guide to use Sensu's API key for authentication."
 weight: 50
 version: "6.0"
 product: "Sensu Go"

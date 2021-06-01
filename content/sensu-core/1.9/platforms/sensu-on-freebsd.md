@@ -10,9 +10,7 @@ menu:
     parent: platforms
 ---
 
-# Sensu on FreeBSD
-
-## Reference documentation
+## Sensu on FreeBSD reference documentation
 
 - [Installing Sensu Core](#sensu-core)
   - [Download and install Sensu using the Sensu .txz file](#download-and-install-sensu-core)

@@ -259,12 +259,12 @@ username: alice
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="password"></a>
+<a id="password-attribute"></a>
 
 password     | 
 -------------|------ 
 description  | User's password. Passwords must have at least eight characters.{{% notice note %}}
-**NOTE**: You only need to set either the `password` or the [`password_hash`](#password-hash) (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
+**NOTE**: You only need to set either the `password` or the [`password_hash`](#password-hash-attribute) (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
 {{% /notice %}}
 required     | true
 type         | String
@@ -317,12 +317,12 @@ disabled: false
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="password-hash"></a>
+<a id="password-hash-attribute"></a>
 
 password_hash | 
 --------------|------ 
 description   | [Bcrypt][35] password hash. You can use the `password_hash` in your user definitions instead of storing cleartext passwords. {{% notice note %}}
-**NOTE**: You only need to set either the [`password`](#password) or the `password_hash` (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
+**NOTE**: You only need to set either the [`password`](#password-attribute) or the `password_hash` (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
 {{% /notice %}}
 required      | false
 type          | String

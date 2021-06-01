@@ -12,7 +12,7 @@ menu:
     parent: monitor-sensu
 ---
 
-Use Sensu's [health API][1] to make sure your backend is up and running and check the health of your etcd cluster members and [PostgreSQL datastore resources][2].
+Use Sensu's [health API][1] to make sure your agent transport and backend are running and check the health of your etcd cluster members and [PostgreSQL datastore resources][2].
 
 A request to the health endpoint retrieves a JSON map with health data for your Sensu instance.
 

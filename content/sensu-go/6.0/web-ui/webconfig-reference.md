@@ -221,7 +221,7 @@ created_by: admin
 
 ### Spec attributes
 
-<a name="show-local-cluster"></a>
+<a id="show-local-cluster"></a>
 
 always_show_local_cluster | 
 -------------|------ 

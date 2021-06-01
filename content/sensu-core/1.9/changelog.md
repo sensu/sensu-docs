@@ -282,7 +282,7 @@ Source: [GitHub.com][60]
   unprivileged users to execute code as the Sensu service user. This
   vulnerability is fixed in Sensu Core 1.4.2-3, released May
   31, 2018. Our thanks to Matt Bush with [The Missing
-  Link](http://themissinglink.com.au/) for discovering and reporting
+  Link](https://themissinglink.com.au/) for discovering and reporting
   this vulnerability.
 
 - **BUGFIX**: Fixed API GET /results, results were incorrectly reported
@@ -1732,7 +1732,7 @@ available for immediate download. Please note the following improvements:
 <!-- 0.23 -->
 
 [1]:  https://www.ruby-lang.org/en/news/2015/12/25/ruby-2-3-0-released/
-[2]:  http://redis.io/topics/sentinel
+[2]:  https://redis.io/topics/sentinel
 [3]:  /sensu-core/0.29/reference/redis#redis-high-availability-configuration
 [4]:  /sensu-core/0.29/reference/configuration#sensu-command-line-interfaces-and-arguments
 [5]:  https://github.com/JuanitoFatas/fast-ruby
@@ -1825,8 +1825,8 @@ available for immediate download. Please note the following improvements:
 <!-- 1.6 -->
 [63]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#160---2018-10-12
 [64]: /sensu-core/1.6/api/checks#checkscheck-delete
-[65]: http://www.rabbitmq.com/install-debian.html#kernel-resource-limits
-[66]: http://www.rabbitmq.com/install-rpm.html#kernel-resource-limits
+[65]: https://www.rabbitmq.com/install-debian.html#kernel-resource-limits
+[66]: https://www.rabbitmq.com/install-rpm.html#kernel-resource-limits
 
 <!-- 1.6.1 -->
 [67]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#161---2018-10-23

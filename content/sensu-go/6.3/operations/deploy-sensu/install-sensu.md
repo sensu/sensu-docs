@@ -39,7 +39,7 @@ The backend sends specific checks for each agent to execute according to the [su
 Sensu automatically downloads the files needed to run the checks from an asset repository like [Bonsai][42] or a local repo and schedules the checks on each agent.
 The agents execute the checks the backend sends to their subscriptions and send the resulting status and metric events to the backend event pipeline, which gives you flexible, automated workflows to route these events.
 
-<img src="/images/install-sensu.png" alt="Sensu architecture diagram">
+{{< figure src="/images/install-sensu.png" alt="Sensu architecture diagram" link="/images/install-sensu.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/3949dde6-1bad-4f37-aa01-00a71c47a91b/0 -->
 
 The Sensu backend keeps track of all self-registered agents.
@@ -279,18 +279,18 @@ sudo yum install sensu-go-cli
 
 {{< code powershell "Windows" >}}
 # Download sensuctl for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go_6.2.7_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.7_windows_amd64.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.3.0/sensu-go_6.3.0_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.3.0_windows_amd64.zip
 
 # Or for 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go_6.2.7_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.7_windows_386.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.3.0/sensu-go_6.3.0_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.3.0_windows_386.zip
 {{< /code >}}
 
 {{< code shell "macOS" >}}
 # Download the latest release
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go_6.2.7_darwin_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.3.0/sensu-go_6.3.0_darwin_amd64.tar.gz
 
 # Extract the archive
-tar -xvf sensu-go_6.2.7_darwin_amd64.tar.gz
+tar -xvf sensu-go_6.3.0_darwin_amd64.tar.gz
 
 # Copy the executable into your PATH
 sudo cp sensuctl /usr/local/bin/
@@ -360,13 +360,13 @@ sudo yum install sensu-go-agent
 
 {{< code powershell "Windows" >}}
 # Download the Sensu agent for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go-agent_6.2.7.4449_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.7.4449_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.3.0/sensu-go-agent_6.3.0.4680_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.3.0.4680_en-US.x64.msi"
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go-agent_6.2.7.4449_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.7.4449_en-US.x86.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.3.0/sensu-go-agent_6.3.0.4680_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.3.0.4680_en-US.x86.msi"
 
 # Install the Sensu agent
-msiexec.exe /i $env:userprofile\sensu-go-agent_6.2.7.4449_en-US.x64.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_6.3.0.4680_en-US.x64.msi /qn
 
 # Or via Chocolatey
 choco install sensu-agent
@@ -573,7 +573,7 @@ sensuctl license info
 [37]: ../../../observability-pipeline/observe-process/populate-metrics-influxdb/
 [38]: ../../../sensuctl/back-up-recover/
 [39]: ../../../sensuctl/create-manage-resources/#create-resources
-[40]: https://etcd.io/docs/v3.3.13/op-guide/runtime-configuration/
+[40]: https://etcd.io/docs/latest/op-guide/runtime-configuration/
 [41]: ../../../observability-pipeline/observe-schedule/checks/#subscriptions
 [42]: https://bonsai.sensu.io/
 [43]: ../../../observability-pipeline/observe-schedule/backend/#debug-attribute

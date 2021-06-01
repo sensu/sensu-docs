@@ -11,8 +11,6 @@ menu:
     parent: overview
 ---
 
-# Sensu Architecture
-
 ## Architectural Overview
 
 One of advantages that Sensu provides over other monitoring solutions is its

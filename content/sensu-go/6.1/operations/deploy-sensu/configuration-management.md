@@ -43,5 +43,5 @@ Sensu partnered with [Tailored Automation][7] to enhance the Puppet module with 
 [5]: https://www.ansible.com/
 [6]: https://galaxy.ansible.com/sensu/sensu_go
 [7]: https://tailoredautomation.io/
-[8]: http://monitoringlove.sensu.io/chef
+[8]: https://monitoringlove.sensu.io/chef
 [9]: https://sensu.github.io/sensu-go-ansible/

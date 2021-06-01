@@ -1,7 +1,7 @@
 ---
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
-description: "Read the Sensu Go release notes to learn about what's new in our latest release."
+description: "Read the Sensu Go release notes to learn what's new in our latest release and get information about upgrading to the latest version of Sensu Go."
 weight: -80
 product: "Sensu Go"
 toc: false
@@ -286,7 +286,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 
 **IMPROVEMENTS:**
 
-- ([Commercial feature][141]) The web UI homepage is now a [federated view][152]. 
+- ([Commercial feature][141]) The web UI homepage is now a federated view.
 - You can now [increment the log level][140] by sending SIGUSR1 to the sensu-backend or sensu-agent process.
 - [License metadata][149] now includes the [current entity count and license entity limit][150].
 - In the [web UI][153], users will see a notification when they try to delete an event without appropriate authorization.
@@ -1363,7 +1363,7 @@ To get started with Sensu Go:
 [14]: https://sensu.io/blog/enterprise-features-in-sensu-go/
 [15]: https://docs.sensu.io/sensu-go/5.2/reference/checks/#check-output-truncation-attributes
 [16]: /sensu-go/5.2/installation/install-sensu/
-[17]: /sensu-go/5.2/sensuctl/reference/#global-flags
+[17]: /sensu-go/5.2/sensuctl/#global-flags
 [18]: /sensu-go/5.3/reference/checks#spec-attributes
 [19]: /sensu-go/5.3/getting-started/enterprise/
 [20]: /sensu-go/5.3/installation/auth/
@@ -1381,7 +1381,7 @@ To get started with Sensu Go:
 [32]: /sensu-go/5.6/dashboard/overview/
 [33]: /sensu-go/5.6/getting-started/enterprise/
 [34]: /sensu-go/5.6/api/overview#filtering
-[35]: /sensu-go/5.6/sensuctl/reference#filtering
+[35]: /sensu-go/5.6/sensuctl/#filter-responses
 [36]: /sensu-go/5.6/api/health/
 [37]: /sensu-go/5.6/installation/auth/
 [38]: /sensu-go/5.6/installation/auth/#binding-attributes
@@ -1391,7 +1391,7 @@ To get started with Sensu Go:
 [42]: /sensu-go/5.7/reference/agent#operation
 [43]: /sensu-go/5.7/api/overview#filtering
 [44]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156/
-[45]: /sensu-go/5.8/sensuctl/reference#handling-large-datasets
+[45]: /sensu-go/5.8/sensuctl/create-manage-resources/#handle-large-datasets
 [46]: /sensu-go/5.8/api/version/
 [47]: /sensu-go/5.8/reference/backend#etcd-cipher-suites
 [48]: /sensu-go/5.8/reference/tessen/
@@ -1402,27 +1402,27 @@ To get started with Sensu Go:
 [53]: /sensu-go/5.9/getting-started/enterprise/
 [54]: /sensu-go/5.9/dashboard/overview/
 [55]: /sensu-go/5.9/reference/backend#event-logging
-[56]: /sensu-go/5.9/installation/platforms/
+[56]: /sensu-go/5.9/platforms/
 [57]: /sensu-go/5.9/installation/install-sensu/
 [58]: /sensu-go/5.9/reference/events#occurrences-and-occurrences-watermark
 [59]: /sensu-go/5.9/installation/upgrade/#upgrading-sensu-clusters-from-5-7-0-or-earlier-to-5-8-0-or-later
 [60]: /sensu-go/latest/getting-started/enterprise/
 [61]: /sensu-go/5.10/reference/datastore/
 [62]: /sensu-go/5.10/api/cluster#the-clusterid-API-endpoint
-[63]: /sensu-go/5.10/sensuctl/reference#creating-resources-across-namespaces
+[63]: /sensu-go/5.10/sensuctl/create-manage-resources/#create-resources-across-namespaces
 [64]: /sensu-go/5.10/reference/rbac/#assigning-group-permissions-across-all-namespaces
 [65]: /sensu-go/5.10/dashboard/overview/
-[66]: /sensu-go/5.10/dashboard/filtering/
+[66]: /sensu-go/5.10/web-ui/search/
 [67]: /sensu-go/5.11/dashboard/overview/
 [68]: /sensu-go/5.11/getting-started/enterprise/
-[69]: /sensu-go/5.11/installation/verify/
+[69]: /sensu-go/5.11/versions/
 [70]: /sensu-go/5.11/reference/assets/#asset-example-minimum-required-attributes
 [71]: /sensu-go/5.11/reference/agent#disable-assets
-[72]: /sensu-go/5.11/sensuctl/reference#deleting-resources
-[73]: /sensu-go/5.11/installation/platforms/
+[72]: /sensu-go/5.11/sensuctl/create-manage-resources/#delete-resources
+[73]: /sensu-go/5.11/platforms/
 [74]: /sensu-go/5.11/installation/auth#active-directory-authentication
 [75]: /sensu-go/5.11/api/overview/
-[76]: /sensu-go/5.11/sensuctl/reference#view-sensuctl-config
+[76]: /sensu-go/5.11/sensuctl/#view-sensuctl-config
 [77]: /sensu-go/5.11/reference/backend#advanced-configuration-options
 [78]: /sensu-go/5.12/reference/agent/#allow-list
 [79]: /sensu-go/5.14/getting-started/enterprise/
@@ -1430,12 +1430,12 @@ To get started with Sensu Go:
 [81]: /sensu-go/5.14/guides/securing-sensu#sensu-agent-tls-authentication
 [82]: /sensu-go/5.13/reference/entities/
 [83]: /sensu-go/5.14/reference/backend/#advanced-configuration-options
-[84]: /sensu-go/5.14/sensuctl/reference/#exporting-resources
+[84]: /sensu-go/5.14/sensuctl/back-up-recover/
 [85]: /sensu-go/5.15/api/federation/
 [86]: /sensu-go/5.15/reference/apikeys/
 [87]: /sensu-go/5.15/guides/use-apikey-feature/#sensuctl-management-commands
 [88]: /sensu-go/5.15/api/overview/#authenticate-with-the-api-key-feature
-[89]: /sensu-go/5.15/sensuctl/reference/
+[89]: /sensu-go/5.15/sensuctl/
 [90]: https://sensu.io/contact/
 [91]: https://sensu.io/blog/one-year-of-sensu-go/
 [92]: /sensu-go/5.15/api/license/
@@ -1459,7 +1459,7 @@ To get started with Sensu Go:
 [110]: /sensu-go/5.17/api/overview/#field-selector
 [111]: /sensu-go/5.17/reference/rbac/#cluster-wide-resource-types
 [112]: /sensu-go/5.17/api/events/#events-post
-[113]: /sensu-go/5.17/sensuctl/reference/#list-commands
+[113]: /sensu-go/5.17/sensuctl/sensuctl-bonsai/#list-commands
 [114]: /sensu-go/5.18/api/events#create-a-new-event
 [115]: /sensu-go/5.18/commercial/
 [116]: /sensu-go/5.18/api#label-selector
@@ -1496,7 +1496,6 @@ To get started with Sensu Go:
 [149]: /sensu-go/5.20/api/license#get-the-active-license-configuration
 [150]: /sensu-go/5.20/reference/license/#view-entity-count-and-entity-limit
 [151]: /sensu-go/5.20/reference/license/#entity-limit
-[152]: /sensu-go/5.20/web-ui/#federated-webui
 [153]: /sensu-go/5.20/web-ui/
 [154]: /sensu-go/5.20/sensuctl/sensuctl-bonsai/#extend-sensuctl-with-commands
 [155]: /sensu-go/5.20/reference/agent/#discover-processes

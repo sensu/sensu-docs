@@ -469,7 +469,7 @@ sensu-backend start --config-file /etc/sensu/backend.yml
 sensu-backend start -c /etc/sensu/backend.yml
 {{< /code >}}
 
-<a name="debug-attribute"></a>
+<a id="debug-attribute"></a>
 
 | debug     |      |
 ------------|------
@@ -544,9 +544,9 @@ type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_CERT_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --agent-auth-cert-file /path/to/ssl/cert.pem{{< /code >}}
+sensu-backend start --agent-auth-cert-file /path/to/tls/backend-1.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-agent-auth-cert-file: /path/to/ssl/cert.pem{{< /code >}}
+agent-auth-cert-file: /path/to/tls/backend-1.pem{{< /code >}}
 
 | agent-auth-crl-urls |      |
 -------------|------
@@ -566,9 +566,9 @@ type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_KEY_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --agent-auth-key-file /path/to/ssl/key.pem{{< /code >}}
+sensu-backend start --agent-auth-key-file /path/to/tls/backend-1-key.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-agent-auth-key-file: /path/to/ssl/key.pem{{< /code >}}
+agent-auth-key-file: /path/to/tls/backend-1-key.pem{{< /code >}}
 
 | agent-auth-trusted-ca-file |      |
 -------------|------
@@ -577,9 +577,9 @@ type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_AGENT_AUTH_TRUSTED_CA_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --agent-auth-trusted-ca-file /path/to/ssl/ca.pem{{< /code >}}
+sensu-backend start --agent-auth-trusted-ca-file /path/to/tls/ca.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-agent-auth-trusted-ca-file: /path/to/ssl/ca.pem{{< /code >}}
+agent-auth-trusted-ca-file: /path/to/tls/ca.pem{{< /code >}}
 
 | agent-host   |      |
 ---------------|------
@@ -612,9 +612,9 @@ type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_CERT_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --cert-file /path/to/ssl/cert.pem{{< /code >}}
+sensu-backend start --cert-file /path/to/tls/backend-1.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-cert-file: "/path/to/ssl/cert.pem"{{< /code >}}
+cert-file: "/path/to/tls/backend-1.pem"{{< /code >}}
 
 | insecure-skip-tls-verify |      |
 ---------------------------|------
@@ -629,7 +629,7 @@ sensu-backend start --insecure-skip-tls-verify{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 insecure-skip-tls-verify: true{{< /code >}}
 
-<a name="jwt-attributes"></a>
+<a id="jwt-attributes"></a>
 
 | jwt-private-key-file |      |
 -------------|------
@@ -665,11 +665,11 @@ type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_KEY_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --key-file /path/to/ssl/key.pem{{< /code >}}
+sensu-backend start --key-file /path/to/tls/backend-1-key.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-key-file: "/path/to/ssl/key.pem"{{< /code >}}
+key-file: "/path/to/tls/backend-1-key.pem"{{< /code >}}
 
-<a name="fips-openssl"></a>
+<a id="fips-openssl"></a>
 
 | require-fips |      |
 ------------------|------
@@ -706,9 +706,9 @@ type              | String
 default           | `""`
 environment variable | `SENSU_BACKEND_TRUSTED_CA_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --trusted-ca-file /path/to/trusted-certificate-authorities.pem{{< /code >}}
+sensu-backend start --trusted-ca-file /path/to/tls/ca.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /code >}}
+trusted-ca-file: "/path/to/tls/ca.pem"{{< /code >}}
 
 ### Web UI configuration flags
 
@@ -719,9 +719,9 @@ type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_DASHBOARD_CERT_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --dashboard-cert-file /path/to/tls/cert.pem{{< /code >}}
+sensu-backend start --dashboard-cert-file /path/to/tls/separate-webui-cert.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-dashboard-cert-file: "/path/to/tls/cert.pem"{{< /code >}}
+dashboard-cert-file: "/path/to/tls/separate-webui-cert.pem"{{< /code >}}
 
 | dashboard-host |      |
 -----------------|------
@@ -741,9 +741,9 @@ type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_DASHBOARD_KEY_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --dashboard-key-file /path/to/tls/key.pem{{< /code >}}
+sensu-backend start --dashboard-key-file /path/to/tls/separate-webui-key.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-dashboard-key-file: "/path/to/tls/key.pem"{{< /code >}}
+dashboard-key-file: "/path/to/tls/separate-webui-key.pem"{{< /code >}}
 
 | dashboard-port |      |
 -----------------|------
@@ -765,7 +765,7 @@ dashboard-port: 4000{{< /code >}}
 | etcd-advertise-client-urls |      |
 --------------|------
 description   | List of this member's client URLs to advertise to the rest of the cluster.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type          | List
@@ -784,23 +784,23 @@ etcd-advertise-client-urls:
 | etcd-cert-file |      |
 -----------------|------
 description      | Path to the etcd client API TLS certificate file. Secures communication between the embedded etcd client API and any etcd clients. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type             | String
 default          | `""`
 environment variable | `SENSU_BACKEND_ETCD_CERT_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --etcd-cert-file ./client.pem{{< /code >}}
+sensu-backend start --etcd-cert-file /path/to/tls/backend-1.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-etcd-cert-file: "./client.pem"{{< /code >}}
+etcd-cert-file: "/path/to/tls/backend-1.pem"{{< /code >}}
 
-<a name="etcd-cipher-suites"></a>
+<a id="etcd-cipher-suites"></a>
 
 | etcd-cipher-suites    |      |
 ------------------------|------
 description             | List of allowed cipher suites for etcd TLS configuration. Sensu supports TLS 1.0-1.2 cipher suites as listed in the [Go TLS documentation][18]. You can use this attribute to defend your TLS servers from attacks on weak TLS ciphers. Go determines the default cipher suites based on the hardware used. {{% notice note %}}
-**NOTE**: To use TLS 1.3, add the following environment variable: `GODEBUG="tls13=1"`.<br><br>To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use TLS 1.3, add the following environment variable: `GODEBUG="tls13=1"`.<br><br>To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 recommended             | {{< code shell >}}
@@ -827,7 +827,7 @@ etcd-cipher-suites:
 | etcd-client-cert-auth |      |
 ------------------------|------
 description             | If `true`, enable client certificate authentication. Otherwise, `false`.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                    | Boolean
@@ -841,7 +841,7 @@ etcd-client-cert-auth: true{{< /code >}}
 | etcd-client-urls      |      |
 ------------------------|------
 description             | List of client URLs to use when a sensu-backend is not operating as an etcd member. To configure sensu-backend for use with an external etcd instance, use this flag in conjunction with `--no-embed-etcd` when executing sensu-backend start or [sensu-backend init][22]. If you do not use this flag when using `--no-embed-etcd`, sensu-backend start and sensu-backend-init will fall back to [--etcd-listen-client-urls][23].{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                    | List
@@ -860,7 +860,7 @@ etcd-client-urls:
 | etcd-discovery        |      |
 ------------------------|------
 description             | Exposes [etcd's embedded auto-discovery features][19]. Attempts to use [etcd discovery][20] to get the cluster configuration.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                    | String
@@ -876,7 +876,7 @@ etcd-discovery:
 | etcd-discovery-srv    |      |
 ------------------------|------
 description             | Exposes [etcd's embedded auto-discovery features][17]. Attempts to use a [DNS SRV][21] record to get the cluster configuration.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                    | String
@@ -892,7 +892,7 @@ etcd-discovery-srv:
 | etcd-initial-advertise-peer-urls |      |
 -----------------------------------|------
 description                        | List of this member's peer URLs to advertise to the rest of the cluster.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                               | List
@@ -911,7 +911,7 @@ etcd-initial-advertise-peer-urls:
 | etcd-initial-cluster |      |
 -----------------------|------
 description            | Initial cluster configuration for bootstrapping.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                   | String
@@ -925,7 +925,7 @@ etcd-initial-cluster: "backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.
 | etcd-initial-cluster-state |      |
 -----------------------------|------
 description                  | Initial cluster state (`new` or `existing`).{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                         | String
@@ -939,7 +939,7 @@ etcd-initial-cluster-state: "existing"{{< /code >}}
 | etcd-initial-cluster-token |      |
 -----------------------------|------
 description                  | Unique token for the etcd cluster. Provide the same `etcd-initial-cluster-token` value for each cluster member. The `etcd-initial-cluster-token` allows etcd to generate unique cluster IDs and member IDs even for clusters with otherwise identical configurations, which prevents cross-cluster-interaction and potential cluster corruption.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                         | String
@@ -953,22 +953,22 @@ etcd-initial-cluster-token: "unique_token_for_this_cluster"{{< /code >}}
 | etcd-key-file  |      |
 -----------------|------
 description      | Path to the etcd client API TLS key file. Secures communication between the embedded etcd client API and any etcd clients.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type             | String
 environment variable | `SENSU_BACKEND_ETCD_KEY_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --etcd-key-file ./client-key.pem{{< /code >}}
+sensu-backend start --etcd-key-file /path/to/tls/backend-1-key.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-etcd-key-file: "./client-key.pem"{{< /code >}}
+etcd-key-file: "/path/to/tls/backend-1-key.pem"{{< /code >}}
 
-<a name="etcd-listen-client-urls"></a>
+<a id="etcd-listen-client-urls"></a>
 
 | etcd-listen-client-urls |      |
 --------------------------|------
 description               | List of URLs to listen on for client traffic. Sensu's default embedded etcd configuration listens for unencrypted client communication on port 2379.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                      | List
@@ -987,7 +987,7 @@ etcd-listen-client-urls:
 | etcd-listen-peer-urls |      |
 ------------------------|------
 description             | List of URLs to listen on for peer traffic. Sensu's default embedded etcd configuration listens for unencrypted peer communication on port 2380.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                    | List
@@ -1006,7 +1006,7 @@ etcd-listen-peer-urls:
 | etcd-name      |      |
 -----------------|------
 description      | Human-readable name for this member.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type             | String
@@ -1020,20 +1020,20 @@ etcd-name: "backend-0"{{< /code >}}
 | etcd-peer-cert-file |      |
 ----------------------|------
 description           | Path to the peer server TLS certificate file. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                  | String
 environment variable  | `SENSU_BACKEND_ETCD_PEER_CERT_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --etcd-peer-cert-file ./backend-0.pem{{< /code >}}
+sensu-backend start --etcd-peer-cert-file /path/to/tls/backend-1.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-etcd-peer-cert-file: "./backend-0.pem"{{< /code >}}
+etcd-peer-cert-file: "/path/to/tls/backend-1.pem"{{< /code >}}
 
 | etcd-peer-client-cert-auth |      |
 -----------------------------|------
 description                  | Enable peer client certificate authentication.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                         | Boolean
@@ -1047,20 +1047,20 @@ etcd-peer-client-cert-auth: true{{< /code >}}
 | etcd-peer-key-file |      |
 ---------------------|------
 description          | Path to the etcd peer API TLS key file. Secures communication between etcd cluster members.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                 | String
 environment variable | `SENSU_BACKEND_ETCD_PEER_KEY_FILE`
 command line example   | {{< code shell >}}
-sensu-backend start --etcd-peer-key-file ./backend-0-key.pem{{< /code >}}
+sensu-backend start --etcd-peer-key-file /path/to/tls/backend-1-key.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-etcd-peer-key-file: "./backend-0-key.pem"{{< /code >}}
+etcd-peer-key-file: "/path/to/tls/backend-1-key.pem"{{< /code >}}
 
 | etcd-peer-trusted-ca-file |      |
 ----------------------------|------
 description                 | Path to the etcd peer API server TLS trusted CA file. Secures communication between etcd cluster members.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                        | String
@@ -1073,7 +1073,7 @@ etcd-peer-trusted-ca-file: "./ca.pem"{{< /code >}}
 | etcd-trusted-ca-file |      |
 -----------------------|------
 description            | Path to the client server TLS trusted CA certificate file. Secures communication with the etcd client server.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                   | String
@@ -1087,7 +1087,7 @@ etcd-trusted-ca-file: "./ca.pem"{{< /code >}}
 | no-embed-etcd  |      |
 -----------------|------
 description      | If `true`, do not embed etcd (use external etcd instead). Otherwise, `false`.{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type             | Boolean
@@ -1182,7 +1182,7 @@ pipelined-workers: 100{{< /code >}}
 description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). Set to at least 10 times the [etcd-heartbeat-interval][36]. See [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
 **WARNING**: Make sure to set the same election timeout value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.
 {{% /notice %}}{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                   | Integer
@@ -1193,13 +1193,13 @@ sensu-backend start --etcd-election-timeout 1000{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 etcd-election-timeout: 1000{{< /code >}}
 
-<a name="etcd-heartbeat-interval"></a>
+<a id="etcd-heartbeat-interval"></a>
 
 | etcd-heartbeat-interval |      |
 -----------------------|------
 description            | Interval at which the etcd leader will notify followers that it is still the leader. In milliseconds (ms). Best practice is to set the interval based on round-trip time between members. See [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
 **WARNING**: Make sure to set the same heartbeat interval value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.{{% /notice %}}{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                   | Integer
@@ -1215,7 +1215,7 @@ etcd-heartbeat-interval: 100{{< /code >}}
 description            | Maximum etcd request size in bytes that can be sent to an etcd server by a client. Increasing this value allows etcd to process events with large outputs at the cost of overall latency. {{% notice warning %}}
 **WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.
 {{% /notice %}}{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                   | Integer
@@ -1231,7 +1231,7 @@ etcd-max-request-bytes: 1572864{{< /code >}}
 description            | Maximum etcd database size in bytes. Increasing this value allows for a larger etcd database at the cost of performance. {{% notice warning %}}
 **WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.
 {{% /notice %}}{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/v3.3.13/op-guide/clustering/).
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                   | Integer

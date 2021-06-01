@@ -49,6 +49,10 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
+{{% notice note %}}
+**NOTE**: If your Sensu instance is not configured to use a [PostgreSQL datastore](../../operations/deploy-sensu/datastore/#scale-event-storage), the backend health payload will not include `PostgresHealth`.
+{{% /notice %}}
+
 ### API Specification {#health-get-specification}
 
 /health (GET)    | 
@@ -118,14 +122,7 @@ HTTP/1.1 200 OK
     "cluster_id": 4255616344056076734,
     "member_id": 2882886652148554927,
     "raft_term": 26
-  },
-  "PostgresHealth": [
-    {
-      "Name": "my-postgres",
-      "Active": false,
-      "Healthy": false
-    }
-  ]
+  }
 }
 {{< /code >}}
 
@@ -158,13 +155,6 @@ output           | {{< code shell >}}
     "cluster_id": 4255616344056076734,
     "member_id": 2882886652148554927,
     "raft_term": 26
-  },
-  "PostgresHealth": [
-    {
-      "Name": "my-postgres",
-      "Active": false,
-      "Healthy": false
-    }
-  ]
+  }
 }
 {{< /code >}}

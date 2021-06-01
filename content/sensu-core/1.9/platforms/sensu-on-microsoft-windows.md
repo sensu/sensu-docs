@@ -11,9 +11,7 @@ menu:
     parent: platforms
 ---
 
-# Sensu on Microsoft Windows
-
-## Reference documentation
+## Sensu on Microsoft Windows reference documentation
 
 - [Installing Sensu Core](#sensu-core)
   - [Download and install Sensu using the Sensu MSI](#download-and-install-sensu-core)

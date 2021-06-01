@@ -10,6 +10,11 @@ menu:
     parent: api
 ---
 
+{{% notice protip %}}
+**PRO TIP**: The events API is primarily designed to provide HTTP access to event data created by agent-executed checks.
+To test your Sensu observability pipeline, use the [agent API](../../observability-pipeline/observe-schedule/agent/#create-observability-events-using-the-agent-api) to create new ad hoc events or [sensuctl](../../sensuctl/create-manage-resources/#sensuctl-check) or the [web UI](../../web-ui/view-manage-resources/#manage-checks-handlers-event-filters-and-mutators) to execute existing checks on demand.
+{{% /notice %}}
+
 {{% notice note %}}
 **NOTE**: Requests to the events API require you to authenticate with a Sensu [access token](../#authenticate-with-the-authentication-api) or [API key](../#authenticate-with-an-api-key).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
@@ -31,71 +36,130 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events \
 HTTP/1.1 200 OK
 [
   {
-    "timestamp": 1542667666,
-    "id": "caaf2c38-2afb-4f96-89b3-8ca5c3e6f449",
-    "entity": {
-      "entity_class": "agent",
-      "system": {
-        "hostname": "webserver01",
-        "...": "...",
-        "arch": "amd64"
-      },
-      "subscriptions": [
-        "testing",
-        "entity:webserver01"
-      ],
-      "metadata": {
-        "name": "check-nginx",
-        "namespace": "default",
-        "created_by": "admin",
-        "labels": null,
-        "annotations": null
-      }
-    },
     "check": {
-      "check_hooks": null,
-      "duration": 2.033888684,
-      "command": "http_check.sh http://localhost:80",
-      "handlers": [
-        "slack"
-      ],
+      "command": "check-cpu.rb -w 75 -c 90",
+      "handlers": [],
       "high_flap_threshold": 0,
-      "interval": 20,
-      "is_silenced": true,
+      "interval": 60,
       "low_flap_threshold": 0,
       "publish": true,
-      "runtime_assets": [],
+      "runtime_assets": [
+        "cpu-checks-plugins",
+        "sensu-ruby-runtime"
+      ],
       "subscriptions": [
-        "testing"
+        "system"
       ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
+      "subdue": null,
       "ttl": 0,
       "timeout": 0,
-      "duration": 0.010849143,
-      "output": "",
-      "silenced": [
-        "entity:gin:check-nginx"
+      "round_robin": false,
+      "duration": 5.052973881,
+      "executed": 1620313661,
+      "history": [
+        {
+          "status": 0,
+          "executed": 1620313601
+        },
+        {
+          "status": 0,
+          "executed": 1620313661
+        }
       ],
-      "state": "failing",
-      "status": 1,
+      "issued": 1620313661,
+      "output": "CheckCPU TOTAL OK: total=0.2 user=0.2 nice=0.0 system=0.0 idle=99.8 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0\n",
+      "state": "passing",
+      "status": 0,
       "total_state_change": 0,
-      "last_ok": 0,
-      "occurrences": 1,
-      "occurrences_watermark": 1,
+      "last_ok": 1620313661,
+      "occurrences": 2,
+      "occurrences_watermark": 2,
       "output_metric_format": "",
       "output_metric_handlers": null,
-      "output_metric_tags": null,
       "env_vars": null,
       "metadata": {
-        "name": "check-nginx",
-        "namespace": "default",
-        "created_by": "admin",
-        "labels": null,
-        "annotations": null
-      }
-    }
+        "name": "check-cpu",
+        "namespace": "default"
+      },
+      "secrets": null,
+      "is_silenced": false,
+      "scheduler": "memory"
+    },
+    "entity": {
+      "entity_class": "agent",
+      "system": {
+        "hostname": "server1",
+        "os": "linux",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.5.1804",
+        "network": {
+          "interfaces": [
+            {
+              "name": "lo",
+              "addresses": [
+                "127.0.0.1/8",
+                "::1/128"
+              ]
+            },
+            {
+              "name": "eth0",
+              "mac": "08:00:27:8b:c9:3f",
+              "addresses": [
+                "10.0.2.15/24",
+                "fe80::bc00:e2c8:1059:3868/64"
+              ]
+            },
+            {
+              "name": "eth1",
+              "mac": "08:00:27:73:87:93",
+              "addresses": [
+                "172.28.128.57/24",
+                "fe80::a00:27ff:fe73:8793/64"
+              ]
+            }
+          ]
+        },
+        "arch": "amd64",
+        "libc_type": "glibc",
+        "vm_system": "vbox",
+        "vm_role": "guest",
+        "cloud_provider": "",
+        "processes": null
+      },
+      "subscriptions": [
+        "system",
+        "entity:server1"
+      ],
+      "last_seen": 1620313661,
+      "deregister": false,
+      "deregistration": {},
+      "user": "agent",
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
+      "metadata": {
+        "name": "server1",
+        "namespace": "default"
+      },
+      "sensu_agent_version": "6.1.0"
+    },
+    "id": "da53be74-be42-4862-a481-b7e3236e8e6d",
+    "metadata": {
+      "namespace": "default"
+    },
+    "timestamp": 1620313666
   }
 ]
 {{< /code >}}
@@ -113,71 +177,130 @@ response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal 
 output         | {{< code shell >}}
 [
   {
-    "timestamp": 1542667666,
-    "id": "caaf2c38-2afb-4f96-89b3-8ca5c3e6f449",
-    "entity": {
-      "entity_class": "agent",
-      "system": {
-        "hostname": "webserver01",
-        "...": "...",
-        "arch": "amd64"
-      },
-      "subscriptions": [
-        "testing",
-        "entity:webserver01"
-      ],
-      "metadata": {
-        "name": "check-nginx",
-        "namespace": "default",
-        "created_by": "admin",
-        "labels": null,
-        "annotations": null
-      }
-    },
     "check": {
-      "check_hooks": null,
-      "duration": 2.033888684,
-      "command": "http_check.sh http://localhost:80",
-      "handlers": [
-        "slack"
-      ],
+      "command": "check-cpu.rb -w 75 -c 90",
+      "handlers": [],
       "high_flap_threshold": 0,
-      "interval": 20,
-      "is_silenced": true,
+      "interval": 60,
       "low_flap_threshold": 0,
       "publish": true,
-      "runtime_assets": [],
+      "runtime_assets": [
+        "cpu-checks-plugins",
+        "sensu-ruby-runtime"
+      ],
       "subscriptions": [
-        "testing"
+        "system"
       ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
+      "subdue": null,
       "ttl": 0,
       "timeout": 0,
-      "duration": 0.010849143,
-      "output": "",
-      "silenced": [
-        "entity:gin:check-nginx"
+      "round_robin": false,
+      "duration": 5.052973881,
+      "executed": 1620313661,
+      "history": [
+        {
+          "status": 0,
+          "executed": 1620313601
+        },
+        {
+          "status": 0,
+          "executed": 1620313661
+        }
       ],
-      "state": "failing",
-      "status": 1,
+      "issued": 1620313661,
+      "output": "CheckCPU TOTAL OK: total=0.2 user=0.2 nice=0.0 system=0.0 idle=99.8 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0\n",
+      "state": "passing",
+      "status": 0,
       "total_state_change": 0,
-      "last_ok": 0,
-      "occurrences": 1,
-      "occurrences_watermark": 1,
+      "last_ok": 1620313661,
+      "occurrences": 2,
+      "occurrences_watermark": 2,
       "output_metric_format": "",
       "output_metric_handlers": null,
-      "output_metric_tags": null,
       "env_vars": null,
       "metadata": {
-        "name": "check-nginx",
-        "namespace": "default",
-        "created_by": "admin",
-        "labels": null,
-        "annotations": null
-      }
-    }
+        "name": "check-cpu",
+        "namespace": "default"
+      },
+      "secrets": null,
+      "is_silenced": false,
+      "scheduler": "memory"
+    },
+    "entity": {
+      "entity_class": "agent",
+      "system": {
+        "hostname": "server1",
+        "os": "linux",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.5.1804",
+        "network": {
+          "interfaces": [
+            {
+              "name": "lo",
+              "addresses": [
+                "127.0.0.1/8",
+                "::1/128"
+              ]
+            },
+            {
+              "name": "eth0",
+              "mac": "08:00:27:8b:c9:3f",
+              "addresses": [
+                "10.0.2.15/24",
+                "fe80::bc00:e2c8:1059:3868/64"
+              ]
+            },
+            {
+              "name": "eth1",
+              "mac": "08:00:27:73:87:93",
+              "addresses": [
+                "172.28.128.57/24",
+                "fe80::a00:27ff:fe73:8793/64"
+              ]
+            }
+          ]
+        },
+        "arch": "amd64",
+        "libc_type": "glibc",
+        "vm_system": "vbox",
+        "vm_role": "guest",
+        "cloud_provider": "",
+        "processes": null
+      },
+      "subscriptions": [
+        "system",
+        "entity:server1"
+      ],
+      "last_seen": 1620313661,
+      "deregister": false,
+      "deregistration": {},
+      "user": "agent",
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
+      "metadata": {
+        "name": "server1",
+        "namespace": "default"
+      },
+      "sensu_agent_version": "6.1.0"
+    },
+    "id": "da53be74-be42-4862-a481-b7e3236e8e6d",
+    "metadata": {
+      "namespace": "default"
+    },
+    "timestamp": 1620313666
   }
 ]
 {{< /code >}}
@@ -205,14 +328,10 @@ curl -X POST \
   },
   "check": {
     "output": "Server error",
-    "silenced": [
-      "entity:gin:server-health"
-    ],
     "state": "failing",
     "status": 2,
     "handlers": ["slack"],
     "interval": 60,
-    "is_silenced": true,
     "metadata": {
       "name": "server-health"
     }
@@ -224,12 +343,25 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 HTTP/1.1 201 Created
 {{< /code >}}
 
+To create useful, actionable events, we recommend adding check attributes like `status` (`0` for OK, `1` for warning, `2` for critical), `output`, and `handlers` to the attributes included in this example.
+For more information about event attributes and their available values, read the [event specification][8].
+
+For events created with this endpoint, the following attributes have the default value `0` unless you specify a different value for testing:
+
+- `executed`
+- `issued`
+- `last_seen`
+- `status`
+
+The `last_ok` attribute will default to `0` even if you manually specify OK status in the request body.
+
+The `sensu_agent_version` attribute will return with a null value for events created with this endpoint because these events are not created by an agent-executed check.
+
 ### API Specification {#events-post-specification}
 
 /events (POST) | 
 ----------------|------
-description     | Creates a new Sensu event. To update an existing event, use the [`/events` PUT endpoint][11].<br><br>If you create a new event that references an entity that does not already exist, the sensu-backend will automatically create a proxy entity in the same namespace when the event is published.<br>{{% notice note %}}
-**NOTE**: An agent cannot belong to, execute checks in, or create events in more than one namespace. 
+description     | Creates a new Sensu event. To update an existing event, use the [`/events` PUT endpoint][11].<br><br>If you create a new event that references an entity that does not already exist, sensu-backend will automatically create a proxy entity in the same namespace when the event is published.<br><br>If you create an event that references an existing entity but includes different information for entity attributes, Sensu **will not** make any changes to the existing entity's definition based on the event you create via the API.{{% notice note %}}**NOTE**: An agent cannot belong to, execute checks in, or create events in more than one namespace. 
 {{% /notice %}}
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/events
 payload         | {{< code shell >}}
@@ -243,14 +375,10 @@ payload         | {{< code shell >}}
   },
   "check": {
     "output": "Server error",
-    "silenced": [
-      "entity:gin:server-health"
-    ],
     "state": "failing",
     "status": 2,
     "handlers": ["slack"],
     "interval": 60,
-    "is_silenced": true,
     "metadata": {
       "name": "server-health"
     }
@@ -265,115 +393,269 @@ The `/events/:entity` API endpoint provides HTTP GET access to [event data][1] s
 
 ### Example {#eventsentity-get-example}
 
-In the following example, querying the `/events/:entity` API endpoint returns a list of Sensu events for the `sensu-go-sandbox` entity and a successful HTTP `200 OK` response.
+In the following example, querying the `/events/:entity` API endpoint returns a list of Sensu events for the `server1` entity and a successful HTTP `200 OK` response.
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1 \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
   {
-    "timestamp": 1543871497,
-    "id": "a68906e0-7c5c-49f0-8424-59a71d3ecfe2",
-    "entity": {
-      "entity_class": "agent",
-      "system": {
-        "hostname": "webserver01",
-        "...": "...",
-        "arch": "amd64"
-      },
-      "subscriptions": [
-        "linux",
-        "entity:sensu-go-sandbox"
-      ],
-      "last_seen": 1543858763,
-      "metadata": {
-        "name": "sensu-go-sandbox",
-        "namespace": "default",
-        "created_by": "admin"
-      }
-    },
     "check": {
-      "command": "check-cpu.sh -w 75 -c 90",
-      "duration": 1.054253257,
-      "executed": 1543871496,
+      "command": "check-cpu.rb -w 75 -c 90",
+      "handlers": [],
+      "high_flap_threshold": 0,
+      "interval": 60,
+      "low_flap_threshold": 0,
+      "publish": true,
+      "runtime_assets": [
+        "cpu-checks-plugins",
+        "sensu-ruby-runtime"
+      ],
+      "subscriptions": [
+        "system"
+      ],
+      "proxy_entity_name": "",
+      "check_hooks": null,
+      "stdin": false,
+      "subdue": null,
+      "ttl": 0,
+      "timeout": 0,
+      "round_robin": false,
+      "duration": 5.052973881,
+      "executed": 1620313661,
       "history": [
         {
           "status": 0,
-          "executed": 1543870296
+          "executed": 1620313601
+        },
+        {
+          "status": 0,
+          "executed": 1620313661
         }
       ],
-      "issued": 1543871496,
-      "output": "CPU OK - Usage:.50\n",
-      "silenced": [
-        "entity:gin:check-cpu"
-      ],
+      "issued": 1620313661,
+      "output": "CheckCPU TOTAL OK: total=0.2 user=0.2 nice=0.0 system=0.0 idle=99.8 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0\n",
       "state": "passing",
       "status": 0,
       "total_state_change": 0,
-      "last_ok": 1543871497,
-      "occurrences": 1,
+      "last_ok": 1620313661,
+      "occurrences": 2,
+      "occurrences_watermark": 2,
+      "output_metric_format": "",
+      "output_metric_handlers": null,
+      "env_vars": null,
       "metadata": {
         "name": "check-cpu",
-        "namespace": "default",
-        "created_by": "admin"
-      }
+        "namespace": "default"
+      },
+      "secrets": null,
+      "is_silenced": false,
+      "scheduler": "memory"
     },
-    "metadata": {
-      "namespace": "default"
-    }
-  },
-  {
-    "timestamp": 1543871524,
-    "id": "095c37e8-1cb4-4d10-91e9-0bdd55a4f35b",
     "entity": {
       "entity_class": "agent",
       "system": {
-        "hostname": "webserver01",
-        "...": "...",
-        "arch": "amd64"
+        "hostname": "server1",
+        "os": "linux",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.5.1804",
+        "network": {
+          "interfaces": [
+            {
+              "name": "lo",
+              "addresses": [
+                "127.0.0.1/8",
+                "::1/128"
+              ]
+            },
+            {
+              "name": "eth0",
+              "mac": "08:00:27:8b:c9:3f",
+              "addresses": [
+                "10.0.2.15/24",
+                "fe80::bc00:e2c8:1059:3868/64"
+              ]
+            },
+            {
+              "name": "eth1",
+              "mac": "08:00:27:73:87:93",
+              "addresses": [
+                "172.28.128.57/24",
+                "fe80::a00:27ff:fe73:8793/64"
+              ]
+            }
+          ]
+        },
+        "arch": "amd64",
+        "libc_type": "glibc",
+        "vm_system": "vbox",
+        "vm_role": "guest",
+        "cloud_provider": "",
+        "processes": null
       },
       "subscriptions": [
-        "linux",
-        "entity:sensu-go-sandbox"
+        "system",
+        "entity:server1"
       ],
-      "last_seen": 1543871523,
+      "last_seen": 1620313661,
+      "deregister": false,
+      "deregistration": {},
+      "user": "agent",
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
       "metadata": {
-        "name": "sensu-go-sandbox",
-        "namespace": "default",
-        "created_by": "admin"
-      }
+        "name": "server1",
+        "namespace": "default"
+      },
+      "sensu_agent_version": "6.1.0"
     },
+    "id": "da53be74-be42-4862-a481-b7e3236e8e6d",
+    "metadata": {
+      "namespace": "default"
+    },
+    "timestamp": 1620313666
+  },
+  {
     "check": {
       "handlers": [
         "keepalive"
       ],
-      "executed": 1543871524,
+      "high_flap_threshold": 0,
+      "interval": 20,
+      "low_flap_threshold": 0,
+      "publish": false,
+      "runtime_assets": null,
+      "subscriptions": [],
+      "proxy_entity_name": "",
+      "check_hooks": null,
+      "stdin": false,
+      "subdue": null,
+      "ttl": 0,
+      "timeout": 120,
+      "round_robin": false,
+      "executed": 1620313714,
       "history": [
         {
           "status": 0,
-          "executed": 1543871124
+          "executed": 1620313314
+        },
+        {
+          "status": 0,
+          "executed": 1620313334
+        },
+        {
+          "status": 0,
+          "executed": 1620313354
+        },
+        {
+          "...": 0,
+          "...": 1620313374
         }
       ],
-      "issued": 1543871524,
-      "output": "",
-      "silenced": [
-        "entity:gin:keepalive"
-      ],
+      "issued": 1620313714,
+      "output": "Keepalive last sent from server1 at 2021-05-06 15:08:34 +0000 UTC",
       "state": "passing",
       "status": 0,
       "total_state_change": 0,
-      "last_ok": 1543871524,
-      "occurrences": 1,
+      "last_ok": 1620313714,
+      "occurrences": 358,
+      "occurrences_watermark": 358,
+      "output_metric_format": "",
+      "output_metric_handlers": null,
+      "env_vars": null,
       "metadata": {
         "name": "keepalive",
-        "namespace": "default",
-        "created_by": "admin"
-      }
+        "namespace": "default"
+      },
+      "secrets": null,
+      "is_silenced": false,
+      "scheduler": "etcd"
     },
-    "metadata": {}
+    "entity": {
+      "entity_class": "agent",
+      "system": {
+        "hostname": "server1",
+        "os": "linux",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.5.1804",
+        "network": {
+          "interfaces": [
+            {
+              "name": "lo",
+              "addresses": [
+                "127.0.0.1/8",
+                "::1/128"
+              ]
+            },
+            {
+              "name": "eth0",
+              "mac": "08:00:27:8b:c9:3f",
+              "addresses": [
+                "10.0.2.15/24",
+                "fe80::bc00:e2c8:1059:3868/64"
+              ]
+            },
+            {
+              "name": "eth1",
+              "mac": "08:00:27:73:87:93",
+              "addresses": [
+                "172.28.128.57/24",
+                "fe80::a00:27ff:fe73:8793/64"
+              ]
+            }
+          ]
+        },
+        "arch": "amd64",
+        "libc_type": "glibc",
+        "vm_system": "vbox",
+        "vm_role": "guest",
+        "cloud_provider": "",
+        "processes": null
+      },
+      "subscriptions": [
+        "system",
+        "entity:server1"
+      ],
+      "last_seen": 1620313714,
+      "deregister": false,
+      "deregistration": {},
+      "user": "agent",
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
+      "metadata": {
+        "name": "server1",
+        "namespace": "default"
+      },
+      "sensu_agent_version": "6.1.0"
+    },
+    "id": "8717b1dc-47d2-4b73-a259-ee2645cadbf5",
+    "metadata": {
+      "namespace": "default"
+    },
+    "timestamp": 1620313714
   }
 ]
 {{< /code >}}
@@ -383,61 +665,266 @@ HTTP/1.1 200 OK
 /events/:entity (GET) | 
 ---------------------|------
 description          | Returns a list of events for the specified entity.
-example url          | http://hostname:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox
+example url          | http://hostname:8080/api/core/v2/namespaces/default/events/server1
 pagination           | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response type        | Array
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
 [
   {
-    "timestamp": 1543871524,
-    "id": "095c37e8-1cb4-4d10-91e9-0bdd55a4f35b",
+    "check": {
+      "command": "check-cpu.rb -w 75 -c 90",
+      "handlers": [],
+      "high_flap_threshold": 0,
+      "interval": 60,
+      "low_flap_threshold": 0,
+      "publish": true,
+      "runtime_assets": [
+        "cpu-checks-plugins",
+        "sensu-ruby-runtime"
+      ],
+      "subscriptions": [
+        "system"
+      ],
+      "proxy_entity_name": "",
+      "check_hooks": null,
+      "stdin": false,
+      "subdue": null,
+      "ttl": 0,
+      "timeout": 0,
+      "round_robin": false,
+      "duration": 5.052973881,
+      "executed": 1620313661,
+      "history": [
+        {
+          "status": 0,
+          "executed": 1620313601
+        },
+        {
+          "status": 0,
+          "executed": 1620313661
+        }
+      ],
+      "issued": 1620313661,
+      "output": "CheckCPU TOTAL OK: total=0.2 user=0.2 nice=0.0 system=0.0 idle=99.8 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0\n",
+      "state": "passing",
+      "status": 0,
+      "total_state_change": 0,
+      "last_ok": 1620313661,
+      "occurrences": 2,
+      "occurrences_watermark": 2,
+      "output_metric_format": "",
+      "output_metric_handlers": null,
+      "env_vars": null,
+      "metadata": {
+        "name": "check-cpu",
+        "namespace": "default"
+      },
+      "secrets": null,
+      "is_silenced": false,
+      "scheduler": "memory"
+    },
     "entity": {
       "entity_class": "agent",
       "system": {
-        "hostname": "webserver01",
-        "...": "...",
-        "arch": "amd64"
+        "hostname": "server1",
+        "os": "linux",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.5.1804",
+        "network": {
+          "interfaces": [
+            {
+              "name": "lo",
+              "addresses": [
+                "127.0.0.1/8",
+                "::1/128"
+              ]
+            },
+            {
+              "name": "eth0",
+              "mac": "08:00:27:8b:c9:3f",
+              "addresses": [
+                "10.0.2.15/24",
+                "fe80::bc00:e2c8:1059:3868/64"
+              ]
+            },
+            {
+              "name": "eth1",
+              "mac": "08:00:27:73:87:93",
+              "addresses": [
+                "172.28.128.57/24",
+                "fe80::a00:27ff:fe73:8793/64"
+              ]
+            }
+          ]
+        },
+        "arch": "amd64",
+        "libc_type": "glibc",
+        "vm_system": "vbox",
+        "vm_role": "guest",
+        "cloud_provider": "",
+        "processes": null
       },
       "subscriptions": [
-        "linux",
-        "entity:sensu-go-sandbox"
+        "system",
+        "entity:server1"
       ],
-      "last_seen": 1543871523,
+      "last_seen": 1620313661,
+      "deregister": false,
+      "deregistration": {},
+      "user": "agent",
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
       "metadata": {
-        "name": "sensu-go-sandbox",
-        "namespace": "default",
-        "created_by": "admin"
-      }
+        "name": "server1",
+        "namespace": "default"
+      },
+      "sensu_agent_version": "6.1.0"
     },
+    "id": "da53be74-be42-4862-a481-b7e3236e8e6d",
+    "metadata": {
+      "namespace": "default"
+    },
+    "timestamp": 1620313666
+  },
+  {
     "check": {
       "handlers": [
         "keepalive"
       ],
-      "executed": 1543871524,
+      "high_flap_threshold": 0,
+      "interval": 20,
+      "low_flap_threshold": 0,
+      "publish": false,
+      "runtime_assets": null,
+      "subscriptions": [],
+      "proxy_entity_name": "",
+      "check_hooks": null,
+      "stdin": false,
+      "subdue": null,
+      "ttl": 0,
+      "timeout": 120,
+      "round_robin": false,
+      "executed": 1620313714,
       "history": [
         {
           "status": 0,
-          "executed": 1543871124
+          "executed": 1620313314
+        },
+        {
+          "status": 0,
+          "executed": 1620313334
+        },
+        {
+          "status": 0,
+          "executed": 1620313354
+        },
+        {
+          "...": 0,
+          "...": 1620313374
         }
       ],
-      "issued": 1543871524,
-      "output": "",
-      "silenced": [
-        "entity:gin:keepalive"
-      ],
+      "issued": 1620313714,
+      "output": "Keepalive last sent from server1 at 2021-05-06 15:08:34 +0000 UTC",
       "state": "passing",
       "status": 0,
       "total_state_change": 0,
-      "last_ok": 1543871524,
-      "occurrences": 1,
+      "last_ok": 1620313714,
+      "occurrences": 358,
+      "occurrences_watermark": 358,
+      "output_metric_format": "",
+      "output_metric_handlers": null,
+      "env_vars": null,
       "metadata": {
         "name": "keepalive",
-        "namespace": "default",
-        "created_by": "admin"
-      }
+        "namespace": "default"
+      },
+      "secrets": null,
+      "is_silenced": false,
+      "scheduler": "etcd"
     },
-    "metadata": {}
+    "entity": {
+      "entity_class": "agent",
+      "system": {
+        "hostname": "server1",
+        "os": "linux",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.5.1804",
+        "network": {
+          "interfaces": [
+            {
+              "name": "lo",
+              "addresses": [
+                "127.0.0.1/8",
+                "::1/128"
+              ]
+            },
+            {
+              "name": "eth0",
+              "mac": "08:00:27:8b:c9:3f",
+              "addresses": [
+                "10.0.2.15/24",
+                "fe80::bc00:e2c8:1059:3868/64"
+              ]
+            },
+            {
+              "name": "eth1",
+              "mac": "08:00:27:73:87:93",
+              "addresses": [
+                "172.28.128.57/24",
+                "fe80::a00:27ff:fe73:8793/64"
+              ]
+            }
+          ]
+        },
+        "arch": "amd64",
+        "libc_type": "glibc",
+        "vm_system": "vbox",
+        "vm_role": "guest",
+        "cloud_provider": "",
+        "processes": null
+      },
+      "subscriptions": [
+        "system",
+        "entity:server1"
+      ],
+      "last_seen": 1620313714,
+      "deregister": false,
+      "deregistration": {},
+      "user": "agent",
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
+      "metadata": {
+        "name": "server1",
+        "namespace": "default"
+      },
+      "sensu_agent_version": "6.1.0"
+    },
+    "id": "8717b1dc-47d2-4b73-a259-ee2645cadbf5",
+    "metadata": {
+      "namespace": "default"
+    },
+    "timestamp": 1620313714
   }
 ]
 {{< /code >}}
@@ -448,91 +935,131 @@ The `/events/:entity/:check` API endpoint provides HTTP GET access to [event][1]
 
 ### Example {#eventsentitycheck-get-example}
 
-In the following example, an HTTP GET request is submitted to the `/events/:entity/:check` API endpoint to retrieve the event for the `server1` entity and the `server-health` check.
+In the following example, an HTTP GET request is submitted to the `/events/:entity/:check` API endpoint to retrieve the event for the `server1` entity and the `check-cpu` check.
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/check-cpu \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 
 {
-    "timestamp": 1577724113,
-    "id": "cf3c9fc0-023a-497a-aaf4-880dbd490332",
-    "entity": {
-        "entity_class": "proxy",
-        "system": {
-            "network": {
-                "interfaces": null
-            }
-        },
-        "subscriptions": null,
-        "last_seen": 0,
-        "deregister": false,
-        "deregistration": {},
-        "metadata": {
-            "name": "server1",
-            "namespace": "default",
-            "created_by": "admin"
-        },
-        "sensu_agent_version": ""
+  "check": {
+    "command": "check-cpu.rb -w 75 -c 90",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 60,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [
+      "cpu-checks-plugins",
+      "sensu-ruby-runtime"
+    ],
+    "subscriptions": [
+      "system"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "duration": 5.050929017,
+    "executed": 1620313539,
+    "history": null,
+    "issued": 1620313539,
+    "output": "CheckCPU TOTAL OK: total=2.85 user=2.65 nice=0.0 system=0.2 idle=97.15 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0\n",
+    "state": "passing",
+    "status": 0,
+    "total_state_change": 0,
+    "last_ok": 1620313539,
+    "occurrences": 1,
+    "occurrences_watermark": 1,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "env_vars": null,
+    "metadata": {
+      "name": "check-cpu",
+      "namespace": "default"
     },
-    "check": {
-        "handlers": [
-            "slack"
-        ],
-        "high_flap_threshold": 0,
-        "interval": 60,
-        "is_silenced": true,
-        "low_flap_threshold": 0,
-        "publish": false,
-        "runtime_assets": null,
-        "subscriptions": [],
-        "proxy_entity_name": "",
-        "check_hooks": null,
-        "stdin": false,
-        "subdue": null,
-        "ttl": 0,
-        "timeout": 0,
-        "round_robin": false,
-        "executed": 1543880280,
-        "history": [
-            {
-                "status": 1,
-                "executed": 1543880296
-            },
-            {
-                "status": 2,
-                "executed": 1543880435
-            },
-            {
-                "status": 1,
-                "executed": 1543889363
-            }
-        ],
-        "issued": 0,
-        "output": "Server error",
-        "silenced": [
-          "entity:gin:server-health"
-        ],
-        "state": "failing",
-        "status": 1,
-        "total_state_change": 0,
-        "last_ok": 0,
-        "occurrences": 1,
-        "occurrences_watermark": 1,
-        "output_metric_format": "",
-        "output_metric_handlers": null,
-        "output_metric_tags": null,
-        "env_vars": null,
-        "metadata": {
-            "name": "server-health",
-            "namespace": "default",
-            "created_by": "admin"
-        }
+    "secrets": null,
+    "is_silenced": false,
+    "scheduler": ""
+  },
+  "entity": {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "server1",
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.5.1804",
+      "network": {
+        "interfaces": [
+          {
+            "name": "lo",
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ]
+          },
+          {
+            "name": "eth0",
+            "mac": "08:00:27:8b:c9:3f",
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::bc00:e2c8:1059:3868/64"
+            ]
+          },
+          {
+            "name": "eth1",
+            "mac": "08:00:27:73:87:93",
+            "addresses": [
+              "172.28.128.57/24",
+              "fe80::a00:27ff:fe73:8793/64"
+            ]
+          }
+        ]
+      },
+      "arch": "amd64",
+      "libc_type": "glibc",
+      "vm_system": "vbox",
+      "vm_role": "guest",
+      "cloud_provider": "",
+      "processes": null
     },
-    "metadata": {}
+    "subscriptions": [
+      "system",
+      "entity:server1"
+    ],
+    "last_seen": 1620313539,
+    "deregister": false,
+    "deregistration": {},
+    "user": "agent",
+    "redact": [
+      "password",
+      "passwd",
+      "pass",
+      "api_key",
+      "api_token",
+      "access_key",
+      "secret_key",
+      "private_key",
+      "secret"
+    ],
+    "metadata": {
+      "name": "server1",
+      "namespace": "default"
+    },
+    "sensu_agent_version": "6.1.0"
+  },
+  "id": "9a9c7515-0a04-43f3-9351-d8da88942b1b",
+  "metadata": {
+    "namespace": "default"
+  },
+  "timestamp": 1620313546
 }
 {{< /code >}}
 
@@ -543,86 +1070,126 @@ The request returns an HTTP `200 OK` response and the resulting event definition
 /events/:entity/:check (GET) | 
 ---------------------|------
 description          | Returns an event for the specified entity and check.
-example url          | http://hostname:8080/api/core/v2/namespaces/default/events/server1/server-health
+example url          | http://hostname:8080/api/core/v2/namespaces/default/events/server1/check-cpu
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
 {
-    "timestamp": 1577724113,
-    "id": "cf3c9fc0-023a-497a-aaf4-880dbd490332",
-    "entity": {
-        "entity_class": "proxy",
-        "system": {
-            "network": {
-                "interfaces": null
-            }
-        },
-        "subscriptions": null,
-        "last_seen": 0,
-        "deregister": false,
-        "deregistration": {},
-        "metadata": {
-            "name": "server1",
-            "namespace": "default",
-            "created_by": "admin"
-        },
-        "sensu_agent_version": ""
+  "check": {
+    "command": "check-cpu.rb -w 75 -c 90",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 60,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [
+      "cpu-checks-plugins",
+      "sensu-ruby-runtime"
+    ],
+    "subscriptions": [
+      "system"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "duration": 5.050929017,
+    "executed": 1620313539,
+    "history": null,
+    "issued": 1620313539,
+    "output": "CheckCPU TOTAL OK: total=2.85 user=2.65 nice=0.0 system=0.2 idle=97.15 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0\n",
+    "state": "passing",
+    "status": 0,
+    "total_state_change": 0,
+    "last_ok": 1620313539,
+    "occurrences": 1,
+    "occurrences_watermark": 1,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "env_vars": null,
+    "metadata": {
+      "name": "check-cpu",
+      "namespace": "default"
     },
-    "check": {
-        "handlers": [
-            "slack"
-        ],
-        "high_flap_threshold": 0,
-        "interval": 60,
-        "is_silenced": true,
-        "low_flap_threshold": 0,
-        "publish": false,
-        "runtime_assets": null,
-        "subscriptions": [],
-        "proxy_entity_name": "",
-        "check_hooks": null,
-        "stdin": false,
-        "subdue": null,
-        "ttl": 0,
-        "timeout": 0,
-        "round_robin": false,
-        "executed": 1543880280,
-        "history": [
-            {
-                "status": 1,
-                "executed": 1543880296
-            },
-            {
-                "status": 2,
-                "executed": 1543880435
-            },
-            {
-                "status": 1,
-                "executed": 1543889363
-            }
-        ],
-        "issued": 0,
-        "output": "Server error",
-        "silenced": [
-          "entity:gin:server-health"
-        ],
-        "state": "failing",
-        "status": 1,
-        "total_state_change": 0,
-        "last_ok": 0,
-        "occurrences": 1,
-        "occurrences_watermark": 1,
-        "output_metric_format": "",
-        "output_metric_handlers": null,
-        "output_metric_tags": null,
-        "env_vars": null,
-        "metadata": {
-            "name": "server-health",
-            "namespace": "default",
-            "created_by": "admin"
-        }
+    "secrets": null,
+    "is_silenced": false,
+    "scheduler": ""
+  },
+  "entity": {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "server1",
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.5.1804",
+      "network": {
+        "interfaces": [
+          {
+            "name": "lo",
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ]
+          },
+          {
+            "name": "eth0",
+            "mac": "08:00:27:8b:c9:3f",
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::bc00:e2c8:1059:3868/64"
+            ]
+          },
+          {
+            "name": "eth1",
+            "mac": "08:00:27:73:87:93",
+            "addresses": [
+              "172.28.128.57/24",
+              "fe80::a00:27ff:fe73:8793/64"
+            ]
+          }
+        ]
+      },
+      "arch": "amd64",
+      "libc_type": "glibc",
+      "vm_system": "vbox",
+      "vm_role": "guest",
+      "cloud_provider": "",
+      "processes": null
     },
-    "metadata": {}
+    "subscriptions": [
+      "system",
+      "entity:server1"
+    ],
+    "last_seen": 1620313539,
+    "deregister": false,
+    "deregistration": {},
+    "user": "agent",
+    "redact": [
+      "password",
+      "passwd",
+      "pass",
+      "api_key",
+      "api_token",
+      "access_key",
+      "secret_key",
+      "private_key",
+      "secret"
+    ],
+    "metadata": {
+      "name": "server1",
+      "namespace": "default"
+    },
+    "sensu_agent_version": "6.1.0"
+  },
+  "id": "9a9c7515-0a04-43f3-9351-d8da88942b1b",
+  "metadata": {
+    "namespace": "default"
+  },
+  "timestamp": 1620313546
 }
 {{< /code >}}
 
@@ -649,20 +1216,15 @@ curl -X POST \
   },
   "check": {
     "output": "Server error",
-    "silenced": [
-      "entity:gin:server-health"
-    ],
     "status": 1,
     "handlers": ["slack"],
     "interval": 60,
-    "is_silenced": true,
     "metadata": {
       "name": "server-health"
     }
   }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health
-
 
 HTTP/1.1 201 Created
 {{< /code >}}
@@ -686,6 +1248,17 @@ You should see the event with the status and output specified in the request:
     server1    server-health   Server error                         1       false      2019-03-14 16:56:09 +0000 UTC 
 {{< /code >}}
 
+For events created with this endpoint, the following attributes have the default value `0` unless you specify a different value for testing:
+
+- `executed`
+- `issued`
+- `last_seen`
+- `status`
+
+The `last_ok` attribute will default to `0` even if you manually specify OK status in the request body.
+
+The `sensu_agent_version` attribute will return with a null value for events created with this endpoint because these events are not created by an agent-executed check.
+
 ### API Specification {#eventsentitycheck-post-specification}
 
 /events/:entity/:check (POST) | 
@@ -703,13 +1276,9 @@ payload         | {{< code shell >}}
   },
   "check": {
     "output": "Server error",
-    "silenced": [
-      "entity:gin:server-health"
-    ],
     "status": 1,
     "handlers": ["slack"],
     "interval": 60,
-    "is_silenced": true,
     "metadata": {
       "name": "server-health"
     }
@@ -741,13 +1310,9 @@ curl -X PUT \
   },
   "check": {
     "output": "Server error",
-    "silenced": [
-      "entity:gin:server-health"
-    ],
     "status": 1,
     "handlers": ["slack"],
     "interval": 60,
-    "is_silenced": true,
     "metadata": {
       "name": "server-health"
     }
@@ -795,13 +1360,9 @@ payload         | {{< code shell >}}
   },
   "check": {
     "output": "Server error",
-    "silenced": [
-      "entity:gin:server-health"
-    ],
     "status": 1,
     "handlers": ["slack"],
     "interval": 60,
-    "is_silenced": true,
     "metadata": {
       "name": "server-health"
     }
@@ -865,9 +1426,6 @@ curl -X PUT \
   },
   "check": {
     "output": "Server error",
-    "silenced": [
-      "entity:gin:server-health"
-    ],
     "status": 1,
     "handlers": ["slack"],
     "interval": 60,
@@ -933,11 +1491,11 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-metri
 
 ### Example {#eventsentitycheck-delete-example}
 
-The following example shows a request to the `/events/:entity/:check` API endpoint to delete the event produced by the `sensu-go-sandbox` entity and `check-cpu` check, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/events/:entity/:check` API endpoint to delete the event produced by the `server1` entity and `check-cpu` check, resulting in a successful HTTP `204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/check-cpu \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 204 No Content
@@ -948,8 +1506,9 @@ HTTP/1.1 204 No Content
 /events/:entity/:check (DELETE) | 
 --------------------------|------
 description               | Deletes the event created by the specified entity using the specified check.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu 
+example url               | http://hostname:8080/api/core/v2/namespaces/default/events/server1/check-cpu 
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 
 [1]: ../../observability-pipeline/observe-events/events/
 [2]: ../#pagination
@@ -959,6 +1518,6 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 [6]: ../../observability-pipeline/observe-entities/entities#entities-specification
 [7]: ../../observability-pipeline/observe-schedule/checks#check-specification
 [8]: ../../observability-pipeline/observe-events/events/#events-specification
-[9]: ../../observability-pipeline/observe-events/events#metrics
+[9]: ../../observability-pipeline/observe-events/events#metrics-attribute
 [10]: ../#response-filtering
 [11]: #eventsentitycheck-put

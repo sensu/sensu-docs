@@ -1,6 +1,6 @@
 ---
 title: "Learn Sensu"
-description: "Learn Sensu with a live demo, a sandbox for building your first observability workflow, and more."
+description: "Learn Sensu with a live web UI demo, a sandbox for building observability workflows, and a glossary of Sensu terminology with links to in-depth documentation."
 product: "Sensu Go"
 version: "6.3"
 weight: 120

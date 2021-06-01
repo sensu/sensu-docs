@@ -11,7 +11,7 @@ menu:
     parent: platforms
 ---
 
-# Sensu on Mac OS X
+## Sensu on Mac OS X
 
 - [Installing Sensu Core](#sensu-core)
   - [Download and install Sensu using the Sensu Universal .pkg file](#download-and-install-sensu-core)

@@ -11,6 +11,26 @@ menu:
     parent: maintain-sensu
 ---
 
+To upgrade to the latest version of Sensu Go, [install the latest packages][1] and restart the services.
+
+{{% notice note %}}
+**NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services.
+{{% /notice %}}
+
+To restart the Sensu agent, run:
+
+{{< code shell >}}
+sudo service sensu-agent restart
+{{< /code >}}
+
+To restart the Sensu backend, run:
+
+{{< code shell >}}
+sudo service sensu-backend restart
+{{< /code >}}
+
+To confirm the installed version, run `sensu-agent version`, `sensu-backend version`, and `sensuctl version`.
+
 ## Upgrade to Sensu Go 6.2.0 from any previous version
 
 Prior to Sensu Go 6.0, sensu-backend allowed you to delete a namespace even when other resources still referenced that namespace. 

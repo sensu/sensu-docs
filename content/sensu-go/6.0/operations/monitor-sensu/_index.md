@@ -1,6 +1,6 @@
 ---
 title: "Monitor Sensu"
-description: "Log Sensu services and maintain visibility into your monitoring workflows. Learn to monitor Sensu."
+description: "Log Sensu services and monitor your Sensu backend with another Sensu backend to maintain visibility into your observability workflows."
 product: "Sensu Go"
 version: "6.0"
 weight: 40

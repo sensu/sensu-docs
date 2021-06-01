@@ -291,7 +291,7 @@ Review your Sensu Core check configuration for the following attributes, and mak
 **PRO TIP**: When using token substitution in Sensu Go and accessing labels or annotations that include `.` (for example: `sensu.io.json_attributes`), use the `index` function. For example, `{{index .annotations "web_url"}}` substitutes the value of the `web_url` annotation; `{{index .annotations "production.ID"}}` substitutes the value of the `production.ID` annotation.
 {{% /notice %}}
 
-<a name="translate-metric-checks"></a>
+<a id="translate-metric-checks"></a>
 
 **Translate metric checks**
 
@@ -302,14 +302,14 @@ This allowed Sensu Core to process output metrics via a handler even when the ch
 Sensu Go treats output metrics as first-class objects, so you can process check status as well as output metrics via different event pipelines.
 See the [guide to metric output][57] to update your metric checks with the `output_metric_handlers` and `output_metric_format` attributes and use `output_metric_tags` to enrich extracted metrics output.
 
-<a name="translate-proxy-requests-entities"></a>
+<a id="translate-proxy-requests-entities"></a>
 
 **Translate proxy requests and proxy entities**
 
 See the [guide to monitoring external resources][7] to re-configure `proxy_requests` attributes and update your proxy check configuration.
 See the [entity reference][6] to re-create your proxy client configurations as Sensu Go proxy entities.
 
-<a name="translate-hooks"></a>
+<a id="translate-hooks"></a>
 
 **Translate hooks**
 
