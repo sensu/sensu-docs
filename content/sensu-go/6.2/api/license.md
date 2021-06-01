@@ -28,7 +28,7 @@ The following example demonstrates a request to the `/license` API endpoint, res
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/license \
+http://127.0.0.1:8080/api/enterprise/licensing/v2/license \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json'
 
@@ -156,7 +156,7 @@ curl -X PUT \
     "metadata": {}
   }
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/license
+http://127.0.0.1:8080/api/enterprise/licensing/v2/license
 
 HTTP/1.1 201 Created
 {{< /code >}}

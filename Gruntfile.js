@@ -77,9 +77,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-postcss');
 
+  const getHugoArgs = () => {
+    return grunt.option.flags().filter(a => a !== '--color').filter(a => !a.startsWith("--gruntfile"));
+  }
+
   grunt.registerTask("hugo-build", function() {
     const done = this.async();
-    const args = process.argv.slice(3).filter(a => a !== '--color'); // fetch given arguments
+    const args = getHugoArgs();
     const toml = require('toml');
     const config = toml.parse(grunt.file.read('config.toml'));
     const latestProducts = Object.entries(config.params.products).map(([key, product]) => ({
@@ -144,7 +148,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask("hugo-server", function() {
     const done = this.async();
-    const args = process.argv.slice(3).filter(a => a !== '--color'); // fetch given arguments
+    const args = getHugoArgs();
+
+    console.debug({ args });
 
     grunt.log.writeln("Running Hugo server");
     grunt.util.spawn({

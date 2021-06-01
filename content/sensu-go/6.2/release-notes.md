@@ -88,7 +88,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **April 1, 2021** &mdash; The latest release of Sensu Go, version 6.2.7, is now available for download.
 
-This patch includes fixes for potential deadlocks in metricsd and agentd and crashes in the scheduler and tessend as well as for bugs that calculated build information for every keepalive and prevented the agent-managed-entity configuration attribute from working properly.
+This patch includes fixes for potential deadlocks in metricsd and agentd and crashes in the scheduler and tessend as well as for a bug that calculated build information for every keepalive.
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.2.7.
 
@@ -97,7 +97,6 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.7.
 - ([Commercial feature][193]) Fixed a potential deadlock in metricsd that could occur when performing an
 internal restart.
 - Fixed a potential deadlock in agentd due to the unit test timing out in the build pipeline.
-- Fixed a bug that prevented the [agent-managed-entity][203] configuration attribute from working properly when no labels are defined.
 - Fixed a bug that could cause the scheduler to crash when using round robin checks.
 - Fixed a bug that calculated build information for every keepalive in OSS builds.
 - Fixed a potential crash in tessend that could occur if the `ringv2.Event.Value` has a zero length.
@@ -146,13 +145,13 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.4.
 
 **January 21, 2021** &mdash; The latest release of Sensu Go, version 6.2.3, is now available for download.
 
-This patch fixes two bugs: one that could cause the `--agent-managed-entity` configuration flag to prevent the agent from starting and one that caused `sensuctl dump` output to include events from all namepaces rather than the specified namespace.
+This patch fixes two bugs: one that could prevent the `--agent-managed-entity` configuration from working properly and one that caused `sensuctl dump` output to include events from all namepaces rather than the specified namespace.
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.2.3.
 
 **FIXES:**
 
-- Fixed a bug that could prevent the agent from starting when using the `--agent-managed-entity` agent configuration flag.
+- Fixed a bug that prevented the [agent-managed-entity][203] configuration attribute from working properly when no labels are defined.
 - Fixed a bug where `sensuctl dump` output included events from all namespaces the user had access permissions for rather than events from only the specified namespace.
 
 ## 6.2.2 release notes

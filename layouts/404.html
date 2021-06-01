@@ -21,16 +21,6 @@
     var searchTerms = window.location.pathname.split("/");
     searchTerms.shift();
 
-    // Add notice about new 6.x pages that aren't present in 5.x
-    // TODO: Remove after all 5.x content is archived
-    if (searchTerms[0] === "sensu-go" && /^5\.\d+/.test(searchTerms[1]) && searchTerms[2] === "observability-pipeline") {
-      document.querySelector("#instructions").innerHTML = `We made some improvements in the version 6 docs that aren't reflected in earlier versions. Try the <a href="https://docs.sensu.io/sensu-go/">main Sensu Go ${searchTerms[1]} page</a> if you need to use pre-6.0 docs. You can also search the docs below or visit the <a href="/">Sensu docs homepage</a>.`
-    }
-
-    if (searchTerms[0] === "sensu-go" && /^5\.\d+/.test(searchTerms[1]) && searchTerms[2] === "plugins") {
-      document.querySelector("#instructions").innerHTML = `We made some improvements in the version 6 docs that aren't reflected in earlier versions. Try the <a href="https://docs.sensu.io/sensu-go/">main Sensu Go ${searchTerms[1]} page</a> if you need to use pre-6.0 docs. You can also search the docs below or visit the <a href="/">Sensu docs homepage</a>.`
-    }
-
     // Scope the search results to a product/version (dirty)
     // Versions
     if (searchTerms[1]) {
