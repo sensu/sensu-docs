@@ -224,7 +224,7 @@ You can also use [sensuctl][5] to create and manage service components and rule 
 
 [1]: ../service-components/
 [2]: ../rule-templates/
-[3]: ../../web-ui/bsm-module/
-[4]: #example-service-component
-[5]: ../../sensuctl/
-[6]: ../../commercial/
+[3]: ../../../web-ui/bsm-module/
+[4]: #service-component-example
+[5]: ../../../sensuctl/
+[6]: ../../../commercial/
