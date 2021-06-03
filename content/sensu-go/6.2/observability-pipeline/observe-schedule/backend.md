@@ -766,9 +766,9 @@ type             | Integer
 default          | `3000`
 environment variable | `SENSU_BACKEND_DASHBOARD_PORT`
 command line example   | {{< code shell >}}
-sensu-backend start --dashboard-port 4000{{< /code >}}
+sensu-backend start --dashboard-port 3000{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-dashboard-port: 4000{{< /code >}}
+dashboard-port: 3000{{< /code >}}
 
 ### Datastore and cluster configuration flags
 
