@@ -1,55 +1,63 @@
 ---
 # Sensu agent configuration
 
+
 ##
 # agent overview
 ##
 #name: "hostname"
 #namespace: "default"
-#subscriptions:
-#  - example
-#labels:
-#  example_key: "example value"
-#annotations:
-#  example/key: "example value"
+
 
 ##
-# agent configuration
+# often the same among agents
 ##
-#backend-url:
-#  - "ws://127.0.0.1:8081"
-#cache-dir: "/var/cache/sensu/sensu-agent"
-#config-file: "/etc/sensu/agent.yml"
-#disable-assets: false
-log-level: "debug" # available log levels: panic, fatal, error, warn, info, debug
-
-##
-# api configuration
-##
+#agent-managed-entity: false
 #api-host: "127.0.0.1"
 #api-port: 3031
+#assets-burst-limit: 100
+#assets-rate-limit: 1.39
+#backend-handshake-timeout: 15
+#backend-heartbeat-interval: 30
+#backend-heartbeat-timeout: 45
+#cache-dir: "/var/cache/sensu/sensu-agent"
+#config-file: "/etc/sensu/agent.yml"
+log-level: "debug" #available log levels: panic, fatal, error, warn, info, debug
+#detect-cloud-provider: false
 #disable-api: false
 #events-burst-limit: 10
 #events-rate-limit: 10.0
+#require-fips: false
+#require-openssl: false
+#socket-host: "127.0.0.1"
+#socket-port: 3030
+#disable-sockets: false
+#statsd-disable: false
+#statsd-event-handlers:
+#  - example_handler
+#statsd-flush-interval: 10
+#statsd-metrics-host: "127.0.0.1"
+#statsd-metrics-port: 8125
+
 
 ##
-# authentication configuration
+# often customized
 ##
-#user: "agent"
-#password: "P@ssw0rd!"
-
-##
-# monitoring configuration
-##
+#allow-list: /etc/sensu/check-allow-list.yaml
+#backend-url:
+#  - "ws://0.0.0.0:8081"
+#  - "ws://0.0.0.0:8082"
 #deregister: false
 #deregistration-handler: "example_handler"
-#keepalive-warning-timeout: 120
+#disable-assets: false
+#keepalive-critical-timeout: 0
+#keepalive-handlers:
+#  - slack
+#  - email
 #keepalive-interval: 20
-
-##
-# security configuration
-##
-#insecure-skip-tls-verify: false
+#keepalive-warning-timeout: 120
+#user: "agent"
+#password: "P@ssw0rd!"
 #redact:
 #  - password
 #  - passwd
@@ -60,21 +68,18 @@ log-level: "debug" # available log levels: panic, fatal, error, warn, info, debu
 #  - secret_key
 #  - private_key
 #  - secret
-#trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
+#labels:
+#  example_key: "example value"
+#annotations:
+#  example/key: "example value"
+#subscriptions:
+#  - example
+
 
 ##
-# socket configuration
+# security configuration
 ##
-#disable-sockets: false
-#socket-host: "127.0.0.1"
-#socket-port: 3030
-
-##
-# statsd configuration
-##
-#statsd-disable: false
-#statsd-event-handlers:
-#  - example_handler
-#statsd-flush-interval: 10
-#statsd-metrics-host: "127.0.0.1"
-#statsd-metrics-port: 8125
+#cert-file: "/path/to/tls/agent.pem"
+#trusted-ca-file: "/path/to/tls/ca.pem"
+#key-file: "/path/to/tls/agent-key.pem"
+#insecure-skip-tls-verify: false
