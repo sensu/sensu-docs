@@ -79,6 +79,7 @@ api_version: authentication/v2
 metadata:
   name: activedirectory
 spec:
+  allowed_groups: []
   groups_prefix: ad
   servers:
   - binding:
@@ -140,6 +141,7 @@ spec:
         }
       }
     ],
+    "allowed_groups": [],
     "groups_prefix": "ad",
     "username_prefix": "ad"
   },
@@ -288,6 +290,7 @@ spec:
       attribute: sAMAccountName
       name_attribute: displayName
       object_class: person
+  allowed_groups: []
   groups_prefix: ad
   username_prefix: ad
 {{< /code >}}
@@ -323,6 +326,7 @@ spec:
         }
       }
     ],
+    "allowed_groups": [],
     "groups_prefix": "ad",
     "username_prefix": "ad"
   }
@@ -393,6 +397,29 @@ servers:
         "object_class": "person"
       }
     }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="allowed-groups"></a>
+
+| allowed_groups |   |
+-------------|------
+description  | An array of allowed AD group strings to include in the tokenized identity claim. Use to specify which groups to encode in the authentication provider's JSON Web Token (JWT) when the authenticated AD user is a member of many groups and the tokenized identity claim would be too large for correct web client operation.
+required     | false
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+allowed_groups:
+- sensu-viewers
+- sensu-operators
+{{< /code >}}
+{{< code json >}}
+{
+  "allowed_groups": [
+    "sensu-viewers",
+    "sensu-operators"
   ]
 }
 {{< /code >}}

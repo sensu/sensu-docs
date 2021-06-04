@@ -78,6 +78,7 @@ api_version: authentication/v2
 metadata:
   name: openldap
 spec:
+  allowed_groups: []
   groups_prefix: ldap
   servers:
   - binding:
@@ -135,6 +136,7 @@ spec:
         }
       }
     ],
+    "allowed_groups": [],
     "groups_prefix": "ldap",
     "username_prefix": "ldap"
   },
@@ -281,6 +283,7 @@ spec:
       attribute: uid
       name_attribute: cn
       object_class: person
+  allowed_groups: []
   groups_prefix: ldap
   username_prefix: ldap
 
@@ -315,6 +318,7 @@ spec:
         }
       }
     ],
+    "allowed_groups": [],
     "groups_prefix": "ldap",
     "username_prefix": "ldap"
   }
@@ -381,6 +385,29 @@ servers:
         "object_class": "person"
       }
     }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="allowed-groups"></a>
+
+| allowed_groups |   |
+-------------|------
+description  | An array of allowed LDAP group strings to include in the tokenized identity claim. Use to specify which groups to encode in the authentication provider's JSON Web Token (JWT) when the authenticated LDAP user is a member of many groups and the tokenized identity claim would be too large for correct web client operation.
+required     | false
+type         | Array of strings
+example      | {{< language-toggle >}}
+{{< code yml >}}
+allowed_groups:
+- sensu-viewers
+- sensu-operators
+{{< /code >}}
+{{< code json >}}
+{
+  "allowed_groups": [
+    "sensu-viewers",
+    "sensu-operators"
   ]
 }
 {{< /code >}}
