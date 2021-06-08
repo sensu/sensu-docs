@@ -332,6 +332,7 @@ General Flags:
       --dashboard-port int                  dashboard listener port (default 3000)
       --debug                               enable debugging and profiling features
       --deregistration-handler string       default deregistration handler
+      --etcd-log-level string               etcd logging level [panic, fatal, error, warn, info, debug]
       --event-log-buffer-size int           buffer size of the event logger (default 100000)
       --event-log-file string               path to the event log file
       --eventd-buffer-size int              number of incoming events that can be buffered (default 100)
@@ -509,6 +510,17 @@ sensu-backend start --deregistration-handler deregister{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 deregistration-handler: "deregister"{{< /code >}}
 
+| etcd-log-level  |      |
+-------------|------
+description  | Logging level for the embedded etcd server: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`. Defaults to value provided for the [backend log level][37]. If the backend log level is set to `trace`, the etcd log level will be set to `debug` (`trace` is not a valid etcd log level).
+type         | String
+default      | [Backend log level][37] value (or `debug`, if the backend log level is set to `trace`)
+environment variable | `SENSU_BACKEND_ETCD_LOG_LEVEL`
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-log-level debug{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+etcd-log-level: "debug"{{< /code >}}
+
 | labels     |      |
 -------------|------
 description  | Custom attributes to include with entity data for backend dynamic runtime assets (for example, handler and mutator dynamic runtime assets).{{% notice note %}}
@@ -526,6 +538,8 @@ sensu-backend start --labels example_key1="example value" example_key2="example 
 labels:
   security_zone: "us-west-2a"
 {{< /code >}}
+
+<a id="backend-log-level"></a>
 
 | log-level  |      |
 -------------|------
@@ -1505,3 +1519,4 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [34]: ../agent/#username-and-password-authentication
 [35]: ../../../operations/deploy-sensu/install-sensu/#architecture-overview
 [36]: #etcd-heartbeat-interval
+[37]: #backend-log-level
