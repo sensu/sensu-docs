@@ -13,14 +13,17 @@ menu:
 
 The Learn Sensu category includes tools to help you understand and start using Sensu, the industry-leading observability pipeline for multi-cloud monitoring, consolidating monitoring tools, and filling observability gaps at scale.
 
+{{% notice protip %}}
+**PRO TIP**: In addition to these learning resources, try the [self-guided Sensu Go Workshop](https://github.com/sensu/sensu-go-workshop).
+To register for an interactive instructor-led session, visit the [Sensu Go Workshop registration page](https://sensu.io/sensu-go-workshop).
+{{% /notice %}}
+
 ## Glossary
 
-If you're new to Sensu, start with a basic review of terminology in the [glossary][1] of definitions for common Sensu terms.
+If you're new to Sensu, start with a basic review of terminology in the [glossary][1] of definitions for common Sensu terms and concepts.
 The glossary includes links to relevant reference documentation for more in-depth information.
 
-{{% notice protip %}}
-**PRO TIP**: To visualize how Sensu concepts work together in our observability pipeline, [take the tour](../observability-pipeline/) &mdash; follow the `Next` buttons on each page.
-{{% /notice %}}
+To visualize how Sensu concepts work together in the observability pipeline, [take the tour][6] &mdash; follow the `Next` buttons on each page.
 
 ## Live demo
 
@@ -39,5 +42,6 @@ We also have a GitHub lesson that guides you through [deploying a Sensu cluster 
 [3]: demo/
 [4]: sandbox/
 [5]: learn-sensu-sandbox/
+[6]: ../observability-pipeline/
 [7]: https://github.com/sensu/sensu-k8s-quick-start#getting-started-with-sensu-go-on-kubernetes
 [8]: ../sensuctl/
