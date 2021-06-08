@@ -543,7 +543,7 @@ labels:
 
 | log-level  |      |
 -------------|------
-description  | Logging level: `panic`, `fatal`, `error`, `warn`, `info`, `debug`, `trace`.
+description  | Logging level: `panic`, `fatal`, `error`, `warn`, `info`, `debug`, or `trace`.
 type         | String
 default      | `warn`
 environment variable | `SENSU_BACKEND_LOG_LEVEL`
