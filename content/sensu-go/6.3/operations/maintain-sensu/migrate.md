@@ -267,7 +267,7 @@ Most attributes are ready to use as-is, but you'll need to adjust your Sensu Go 
 
 {{% notice note %}}
 **NOTE**: To streamline a comparison of your Sensu Core configuration with your Sensu Go configuration, output your current Sensu Core configuration using the API: `curl -s http://127.0.0.1:4567/settings | jq . > sensu_config_original.json`.
-<<% /notice %}}
+{{% /notice %}}
 
 #### 2. Translate checks
 

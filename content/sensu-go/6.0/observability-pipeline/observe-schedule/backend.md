@@ -341,7 +341,7 @@ General Flags:
       --keepalived-workers int              number of workers spawned for processing incoming keepalives (default 100)
       --key-file string                     TLS certificate key in PEM format
       --labels stringToString               entity labels map (default [])
-      --log-level string                    logging level [panic, fatal, error, warn, info, debug] (default "warn")
+      --log-level string                    logging level [panic, fatal, error, warn, info, debug, trace] (default "warn")
       --pipelined-buffer-size int           number of events to handle that can be buffered (default 100)
       --pipelined-workers int               number of workers spawned for handling events through the event pipeline (default 100)
       --require-fips                        indicates whether fips support should be required in openssl
@@ -513,7 +513,7 @@ labels:
 
 | log-level  |      |
 -------------|------
-description  | Logging level: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`.
+description  | Logging level: `panic`, `fatal`, `error`, `warn`, `info`, `debug`, or `trace`.
 type         | String
 default      | `warn`
 environment variable | `SENSU_BACKEND_LOG_LEVEL`
@@ -752,9 +752,9 @@ type             | Integer
 default          | `3000`
 environment variable | `SENSU_BACKEND_DASHBOARD_PORT`
 command line example   | {{< code shell >}}
-sensu-backend start --dashboard-port 4000{{< /code >}}
+sensu-backend start --dashboard-port 3000{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-dashboard-port: 4000{{< /code >}}
+dashboard-port: 3000{{< /code >}}
 
 ### Datastore and cluster configuration flags
 

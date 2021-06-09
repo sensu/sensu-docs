@@ -164,7 +164,9 @@ The following table describes the command-specific flags.
 
 If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation.
 This allows you to replicate resources across namespaces without manual editing.
-To learn more about namespaces and namespaced resource types, see the [RBAC reference][21].
+
+To learn more about namespaces, read the [namespaces reference][21].
+The RBAC reference includes a list of [namespaced resource types][38].
 
 The `sensuctl create` command applies namespaces to resources in the following order, from highest precedence to lowest:
 
@@ -335,7 +337,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl hook`][18]
 - [`sensuctl license`][34] (commercial feature)
 - [`sensuctl mutator`][19]
-- [`sensuctl namespace`][1]
+- [`sensuctl namespace`][21]
 - [`sensuctl role`][1]
 - [`sensuctl role-binding`][1]
 - [`sensuctl secrets`][28]
@@ -469,7 +471,7 @@ sensuctl event resolve webserver1 check-http
 
 #### sensuctl namespace
 
-See the [RBAC reference][21] for information about using access control with namespaces.
+See the [namespaces reference][21] for information about using access control with namespaces.
 
 #### sensuctl user
 
@@ -674,3 +676,4 @@ Sensuctl supports the following formats:
 [35]: ../../operations/control-access/rbac/#roles-and-cluster-roles
 [36]: #sensuctl-create-flags
 [37]: ../../operations/control-access/oidc-auth/
+[38]: ../../operations/control-access/rbac/#namespaced-resource-types
