@@ -3,22 +3,20 @@
 
 
 ##
-# often the same among backends
+# backend configuration
 ##
-#agent-burst-limit: null
-#agent-host: "[::]" #listen on all IPv4 and IPv6 addresses
-#agent-port: 8081
-#agent-rate-limit: null
-#api-listen-address: "[::]:8080" #listen on all IPv4 and IPv6 addresses
-#api-request-limit: 512000
-#api-url: "http://localhost:8080"
+#labels:
+#  example_key: "example value"
+#annotations:
+#  example/key: "example value"
 #assets-burst-limit: 100
 #assets-rate-limit: 1.39
 #cache-dir: "/var/cache/sensu/sensu-backend"
 #config-file: "/etc/sensu/backend.yml"
 #debug: false
-state-dir: "/var/lib/sensu/sensu-backend"
-log-level: "debug" #available log levels: panic, fatal, error, warn, info, debug
+#deregistration-handler: "example_handler"
+log-level: "debug" #available log levels: panic, fatal, error, warn, info, debug, trace
+#state-dir: "/var/lib/sensu/sensu-backend"
 #require-fips: false
 #require-openssl: false
 #eventd-buffer-size: 100
@@ -30,22 +28,24 @@ log-level: "debug" #available log levels: panic, fatal, error, warn, info, debug
 
 
 ##
-# often customized
+# api configuration
 ##
-#labels:
-#  example_key: "example value"
-#annotations:
-#  example/key: "example value"
-#deregistration-handler: "example_handler"
+#api-listen-address: "[::]:8080" #listen on all IPv4 and IPv6 addresses
+#api-request-limit: 512000
+#api-url: "http://localhost:8080"
 
 
 ##
-# security configuration
+# tls configuration
 ##
 #agent-auth-cert-file: /path/to/tls/backend-1.pem
 #agent-auth-crl-urls: http://localhost/CARoot.crl
 #agent-auth-key-file: /path/to/tls/backend-1-key.pem
 #agent-auth-trusted-ca-file: /path/to/tls/ca.pem
+#agent-burst-limit: null
+#agent-host: "[::]" #listen on all IPv4 and IPv6 addresses
+#agent-port: 8081
+#agent-rate-limit: null
 #cert-file: "/path/to/tls/backend-1.pem"
 #insecure-skip-tls-verify: false
 #jwt-private-key-file: /path/to/key/private.pem

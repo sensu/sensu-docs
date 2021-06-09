@@ -3,52 +3,30 @@
 
 
 ##
-# agent overview
+# agent configuration
 ##
 #name: "hostname"
 #namespace: "default"
-
-
-##
-# often the same among agents
-##
+#subscriptions:
+#  - example
+#labels:
+#  example_key: "example value"
+#annotations:
+#  example/key: "example value"
 #agent-managed-entity: false
-#api-host: "127.0.0.1"
-#api-port: 3031
+#allow-list: /etc/sensu/check-allow-list.yaml
 #assets-burst-limit: 100
 #assets-rate-limit: 1.39
 #backend-handshake-timeout: 15
 #backend-heartbeat-interval: 30
 #backend-heartbeat-timeout: 45
+#backend-url:
+#  - "ws://127.0.0.1:8081"
 #cache-dir: "/var/cache/sensu/sensu-agent"
 #config-file: "/etc/sensu/agent.yml"
-log-level: "debug" #available log levels: panic, fatal, error, warn, info, debug
-#detect-cloud-provider: false
-#disable-api: false
-#events-burst-limit: 10
-#events-rate-limit: 10.0
-#require-fips: false
-#require-openssl: false
-#socket-host: "127.0.0.1"
-#socket-port: 3030
-#disable-sockets: false
-#statsd-disable: false
-#statsd-event-handlers:
-#  - example_handler
-#statsd-flush-interval: 10
-#statsd-metrics-host: "127.0.0.1"
-#statsd-metrics-port: 8125
-
-
-##
-# often customized
-##
-#allow-list: /etc/sensu/check-allow-list.yaml
-#backend-url:
-#  - "ws://0.0.0.0:8081"
-#  - "ws://0.0.0.0:8082"
 #deregister: false
 #deregistration-handler: "example_handler"
+#detect-cloud-provider: false
 #disable-assets: false
 #keepalive-critical-timeout: 0
 #keepalive-handlers:
@@ -56,6 +34,7 @@ log-level: "debug" #available log levels: panic, fatal, error, warn, info, debug
 #  - email
 #keepalive-interval: 20
 #keepalive-warning-timeout: 120
+log-level: "debug" # available log levels: panic, fatal, error, warn, info, debug
 #user: "agent"
 #password: "P@ssw0rd!"
 #redact:
@@ -68,16 +47,41 @@ log-level: "debug" #available log levels: panic, fatal, error, warn, info, debug
 #  - secret_key
 #  - private_key
 #  - secret
-#labels:
-#  example_key: "example value"
-#annotations:
-#  example/key: "example value"
-#subscriptions:
-#  - example
+#require-fips: false
+#require-openssl: false
 
 
 ##
-# security configuration
+# api configuration
+##
+#api-host: "127.0.0.1"
+#api-port: 4041
+#disable-api: false
+#events-burst-limit: 10
+#events-rate-limit: 10.0
+
+
+##
+# socket configuration
+##
+#socket-host: "127.0.0.1"
+#socket-port: 3030
+#disable-sockets: false
+
+
+##
+# statsd configuration
+##
+#statsd-disable: false
+#statsd-event-handlers:
+#  - example_handler
+#statsd-flush-interval: 10
+#statsd-metrics-host: "127.0.0.1"
+#statsd-metrics-port: 8125
+
+
+##
+# tls configuration
 ##
 #cert-file: "/path/to/tls/agent.pem"
 #trusted-ca-file: "/path/to/tls/ca.pem"
