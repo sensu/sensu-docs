@@ -212,8 +212,8 @@ If you're doing a side-by-side migration, add `api-port` (default: `3031`) and `
 This prevents the Sensu Go agent API and socket from conflicting with the Sensu Core client API and socket.
 
 {{< code yml >}}
-api-port: 4041
-socket-port: 4030
+api-port: 3031
+socket-port: 3030
 {{< /code >}}
 
 You can also disable these features in the agent configuration using the `disable-socket` and `disable-api` flags.

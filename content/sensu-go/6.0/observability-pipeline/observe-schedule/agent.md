@@ -1019,15 +1019,28 @@ description   | ws or wss URL of the Sensu backend server. To specify multiple b
 type          | List
 default       | `ws://127.0.0.1:8081` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`$SENSU_HOSTNAME:8080` (Docker)
 environment variable | `SENSU_BACKEND_URL`
-command line example   | {{< code shell >}}
-sensu-agent start --backend-url ws://0.0.0.0:8081
-sensu-agent start --backend-url ws://0.0.0.0:8081 --backend-url ws://0.0.0.0:8082
+command line example   | {{< language-toggle >}}
+{{< code shell "ws" >}}
+sensu-agent start --backend-url ws://127.0.0.1:8081
+sensu-agent start --backend-url ws://127.0.0.1:8081 --backend-url ws://127.0.0.1:8082
 {{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+{{< code shell "wss" >}}
+sensu-agent start --backend-url wss://127.0.0.1:8081
+sensu-agent start --backend-url wss://127.0.0.1:8081 --backend-url wss://127.0.0.1:8082
+{{< /code >}}
+{{< /language-toggle >}}
+/etc/sensu/agent.yml example | {{< language-toggle >}}
+{{< code shell "ws" >}}
 backend-url:
-  - "ws://0.0.0.0:8081"
-  - "ws://0.0.0.0:8082"
+  - "ws://127.0.0.1:8081"
+  - "ws://127.0.0.1:8082"
 {{< /code >}}
+{{< code shell "wss" >}}
+backend-url:
+  - "wss://127.0.0.1:8081"
+  - "wss://127.0.0.1:8082"
+{{< /code >}}
+{{< /language-toggle >}}
 
 <a id="cache-dir"></a>
 
@@ -1153,9 +1166,9 @@ type          | String
 default       | `127.0.0.1`
 environment variable | `SENSU_API_HOST`
 command line example   | {{< code shell >}}
-sensu-agent start --api-host 0.0.0.0{{< /code >}}
+sensu-agent start --api-host 127.0.0.1{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-api-host: "0.0.0.0"{{< /code >}}
+api-host: "127.0.0.1"{{< /code >}}
 
 | api-port    |      |
 --------------|------
@@ -1164,9 +1177,9 @@ type          | Integer
 default       | `3031`
 environment variable | `SENSU_API_PORT`
 command line example   | {{< code shell >}}
-sensu-agent start --api-port 4041{{< /code >}}
+sensu-agent start --api-port 3031{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-api-port: 4041{{< /code >}}
+api-port: 3031{{< /code >}}
 
 | disable-api |      |
 --------------|------
@@ -1432,9 +1445,9 @@ type          | String
 default       | `127.0.0.1`
 environment variable   | `SENSU_SOCKET_HOST`
 command line example   | {{< code shell >}}
-sensu-agent start --socket-host 0.0.0.0{{< /code >}}
+sensu-agent start --socket-host 127.0.0.1{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-socket-host: "0.0.0.0"{{< /code >}}
+socket-host: "127.0.0.1"{{< /code >}}
 
 | socket-port |      |
 --------------|------
@@ -1443,9 +1456,9 @@ type          | Integer
 default       | `3030`
 environment variable   | `SENSU_SOCKET_PORT`
 command line example   | {{< code shell >}}
-sensu-agent start --socket-port 4030{{< /code >}}
+sensu-agent start --socket-port 3030{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-socket-port: 4030{{< /code >}}
+socket-port: 3030{{< /code >}}
 
 | disable-sockets |      |
 ------------------|------
@@ -1504,9 +1517,9 @@ type                  | String
 default               | `127.0.0.1`
 environment variable   | `SENSU_STATSD_METRICS_HOST`
 command line example   | {{< code shell >}}
-sensu-agent start --statsd-metrics-host 0.0.0.0{{< /code >}}
+sensu-agent start --statsd-metrics-host 127.0.0.1{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-statsd-metrics-host: "0.0.0.0"{{< /code >}}
+statsd-metrics-host: "127.0.0.1"{{< /code >}}
 
 | statsd-metrics-port |      |
 ----------------------|------
@@ -1515,9 +1528,9 @@ type                  | Integer
 default               | `8125`
 environment variable   | `SENSU_STATSD_METRICS_PORT`
 command line example   | {{< code shell >}}
-sensu-agent start --statsd-metrics-port 6125{{< /code >}}
+sensu-agent start --statsd-metrics-port 8125{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-statsd-metrics-port: 6125{{< /code >}}
+statsd-metrics-port: 8125{{< /code >}}
 
 ### Allow list configuration commands
 
