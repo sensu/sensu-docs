@@ -55,7 +55,7 @@ log-level: "debug" # available log levels: panic, fatal, error, warn, info, debu
 # api configuration
 ##
 #api-host: "127.0.0.1"
-#api-port: 4041
+#api-port: 3031
 #disable-api: false
 #events-burst-limit: 10
 #events-rate-limit: 10.0

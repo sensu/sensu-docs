@@ -471,9 +471,9 @@ type          | String
 default       | `/var/cache/sensu/sensu-backend`
 environment variable | `SENSU_BACKEND_CACHE_DIR`
 command line example   | {{< code shell >}}
-sensu-backend start --cache-dir /cache/sensu-backend{{< /code >}}
+sensu-backend start --cache-dir /var/cache/sensu-backend{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-cache-dir: "/cache/sensu-backend"{{< /code >}}
+cache-dir: "/var/cache/sensu-backend"{{< /code >}}
 
 | config-file |      |
 --------------|------
@@ -537,6 +537,8 @@ sensu-backend start --labels example_key1="example value" example_key2="example 
 /etc/sensu/backend.yml example | {{< code shell >}}
 labels:
   security_zone: "us-west-2a"
+  example_key1: "example value"
+  example_key2: "example value"
 {{< /code >}}
 
 <a id="backend-log-level"></a>
