@@ -456,7 +456,7 @@ deployment._
 
 1. Download the Sensu Redis Sentinel configuration file.
 {{< code shell >}}
-sudo wget -O /etc/redis/sentinel.conf http://docs.sensu.io/sensu-core/1.4/files/sentinel.conf{{< /code >}}
+sudo wget -O /etc/redis/sentinel.conf http://docs.sensu.io/sensu-core/1.9/files/sentinel.conf{{< /code >}}
 
 2. Sentinel not only reads its configuration from `/etc/redis/sentinel.conf`, but
    it also writes changes to it (state), so the Redis user must own the

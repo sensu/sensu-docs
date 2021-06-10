@@ -109,4 +109,4 @@ Built-in event handlers:
 [2]:  /sensu-core/1.2/reference/checks
 [3]:  ../contact-routing
 [4]:  #list-of-built-in-handlers
-[5]: http://monitoringlove.sensu.io/influxdb
+[5]: https://monitoringlove.sensu.io/influx
