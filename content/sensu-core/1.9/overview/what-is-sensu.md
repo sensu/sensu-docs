@@ -53,4 +53,4 @@ Graphite).
 [16]: #service-checks
 [17]: ../../reference/clients/
 [18]: ../../reference/handlers/
-[19]: http://monitoringlove.sensu.io/nagios
+[19]: https://monitoringlove.sensu.io/nagios

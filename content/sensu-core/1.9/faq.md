@@ -133,7 +133,7 @@ timestamps. When system clocks are out of sync between Sensu clients
 (where data is collected) and the Sensu server (where data is
 processed), Sensu may generate false positive client keepalive events,
 among other potentially unexpected behaviors. Time synchronization can
-be facilitated with [NTP](http://www.ntp.org/).
+be facilitated with [NTP](https://www.ntp.org/).
 
 > Is Sensu Enterprise available as a hosted / SaaS solution?
 

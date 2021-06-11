@@ -228,7 +228,7 @@ Then you can use the [check-redis-ping plugin][13] to monitor whether Redis is r
 [3]: https://github.com/sensu-plugins/sensu-plugins-disk-checks
 [4]: https://github.com/sensu-plugins/sensu-plugins-network-checks
 [5]: https://github.com/sensu-plugins
-[6]: http://docs.sensu.io/sensu-core/1.4/api/health-and-info
+[6]: ../../api/health-and-info
 [7]: https://github.com/sensu-plugins/sensu-plugins-http/blob/master/bin/check-http.rb
 [8]: https://github.com/sensu-plugins/sensu-plugins-network-checks/blob/master/bin/check-ports.rb
 [9]: https://github.com/sensu-plugins/sensu-plugins-process-checks/blob/master/bin/check-process.rb
