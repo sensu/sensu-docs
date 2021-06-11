@@ -101,7 +101,15 @@ Namespace names can contain alphanumeric characters and hyphens and must begin a
 To delete a namespace:
 
 {{< code shell >}}
-sensuctl namespace delete [NAMESPACE-NAME]
+sensuctl namespace delete <namespace-name>
+{{< /code >}}
+
+Namespaces must be empty before you can delete them.
+If the response to `sensuctl namespace delete` is `Error: resource is invalid: namespace is not empty`, the namespace may still contain events.
+To remove all resources (including events) so that you can delete a namespace, run:
+
+{{< code shell >}}
+sensuctl dump entities,events,assets,checks,filters,handlers,secrets/v1.Secret --namespace <namespace-name> | sensuctl delete
 {{< /code >}}
 
 ### Assign a resource to a namespace

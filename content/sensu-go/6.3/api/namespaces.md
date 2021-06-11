@@ -144,6 +144,14 @@ http://127.0.0.1:8080/api/core/v2/namespaces/development \
 HTTP/1.1 204 No Content
 {{< /code >}}
 
+Namespaces must be empty before you can delete them.
+If the response to your delete request includes `Error: resource is invalid: namespace is not empty`, the namespace may still contain events.
+To remove all resources (including events) so that you can delete a namespace, use this sensuctl dump command:
+
+{{< code shell >}}
+sensuctl dump entities,events,assets,checks,filters,handlers,secrets/v1.Secret --namespace <namespace-name> | sensuctl delete
+{{< /code >}}
+
 ### API Specification {#namespacesnamespace-delete-specification}
 
 /namespaces/:namespace (DELETE) | 
