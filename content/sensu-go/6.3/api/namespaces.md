@@ -145,8 +145,8 @@ HTTP/1.1 204 No Content
 {{< /code >}}
 
 Namespaces must be empty before you can delete them.
-If the response to your delete request includes `Error: resource is invalid: namespace is not empty`, the namespace may still contain events.
-To remove all resources (including events) so that you can delete a namespace, use this sensuctl dump command:
+If the response to your delete request includes `Error: resource is invalid: namespace is not empty`, the namespace may still contain events or other resources.
+To remove all resources and events so that you can delete a namespace, use this sensuctl dump command (replace `<namespace-name>` with the namespace you want to empty):
 
 {{< code shell >}}
 sensuctl dump entities,events,assets,checks,filters,handlers,secrets/v1.Secret --namespace <namespace-name> | sensuctl delete

@@ -82,7 +82,7 @@ sensuctl namespace list
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: For users on supported Sensu Go distributions,`sensuctl namespace list` lists only the namespaces that the current user has access to.
+**NOTE**: For users on supported Sensu Go distributions, `sensuctl namespace list` lists only the namespaces that the current user has access to.
 {{% /notice %}}
 
 ### Create namespaces
@@ -105,8 +105,8 @@ sensuctl namespace delete <namespace-name>
 {{< /code >}}
 
 Namespaces must be empty before you can delete them.
-If the response to `sensuctl namespace delete` is `Error: resource is invalid: namespace is not empty`, the namespace may still contain events.
-To remove all resources (including events) so that you can delete a namespace, run:
+If the response to `sensuctl namespace delete` is `Error: resource is invalid: namespace is not empty`, the namespace may still contain events or other resources.
+To remove all resources and events so that you can delete a namespace, run this command (replace `<namespace-name>` with the namespace you want to empty):
 
 {{< code shell >}}
 sensuctl dump entities,events,assets,checks,filters,handlers,secrets/v1.Secret --namespace <namespace-name> | sensuctl delete
