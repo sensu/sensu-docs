@@ -1166,7 +1166,7 @@ spec:
   "spec": {
     "action": "allow",
     "expressions": [
-      "seconds_since(event.timestamp) > 30",
+      "seconds_since(event.timestamp) > 30"
     ],
     "runtime_assets": []
   }
