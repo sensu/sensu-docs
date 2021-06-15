@@ -403,7 +403,8 @@ The steps may be different if you are using the Okta Developer Console.
 5. In the *Create OpenID Connect Integration* window:
    - *GENERAL SETTINGS* section: in the *Application name* field, enter the app name.
 You can also upload a logo in the  if desired.
-   - *CONFIGURE OPENID CONNECT* section: in the *Login redirect URIs* field, enter `<api_url>/api/enterprise/authentication/v2/oidc/callback` (replace `<api_url>` with your API URL).
+   - *CONFIGURE OPENID CONNECT* section: in the *Login redirect URIs* field, enter `<api_url>/api/enterprise/authentication/v2/oidc/callback`.
+    Replace `<api_url>` with your API URL, including the API [port][5] 8080.
 6. Click **Save**.
 7. Select the *General* tab and click **Edit**.
 8. In the *Allowed grant types* section, click to select the box next to **Refresh Token**.
@@ -427,7 +428,7 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
    - `"groups_claim": "okta:groups" `
 
 3. Add the `redirect_uri` configuration attribute in the [OIDC scope][25] and set the value to the Redirect URI configured at step 3 of [Create an Okta application][50]:
-   - `"redirect_uri": "API_URL/api/enterprise/authentication/v2/oidc/callback"`
+   - `"redirect_uri": "<api_url>/api/enterprise/authentication/v2/oidc/callback"`
 
 4. Configure [authorization][3] for your OIDC users and groups by creating [roles (or cluster roles)][4] and [role bindings (or cluster role bindings)][13] that map to the user and group names.
 
@@ -453,6 +454,7 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [2]: ../../../sensuctl/
 [3]: ../#authorization
 [4]: ../rbac/#roles-and-cluster-roles
+[5]: ../../deploy-sensu/install-sensu/#ports
 [6]: ../../../commercial/
 [8]: ../../../api/
 [10]: https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-configure-ldaps
