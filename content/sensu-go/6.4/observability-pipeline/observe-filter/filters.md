@@ -1085,6 +1085,96 @@ spec:
 
 {{< /language-toggle >}}
 
+Add filter expressions that use the [`minute`][39] and [`second`][40] custom functions for more granular control.
+For example, if office hours are 8:30 AM to 5:30 PM:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: 830_to_530
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - weekday(event.timestamp) >= 1 && weekday(event.timestamp) <= 5
+  - hour(event.timestamp) >= 8 && minute(event.timestamp) >= 30
+  - hour(event.timestamp) <= 17 && minute(event.timestamp) <= 30
+  runtime_assets: []
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "830_to_530",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "weekday(event.timestamp) >= 1 && weekday(event.timestamp) <= 5",
+      "hour(event.timestamp) >= 8 && minute(event.timestamp) >= 30",
+      "hour(event.timestamp) <= 17 && minute(event.timestamp) <= 30"
+    ],
+    "runtime_assets": []
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Filter for events not processed within 30 seconds
+
+This event filter evaluates the event timestamp to determine if the event was created more than 30 seconds since the current time.
+In other words, this filter sets a 30-second time budget for event processing so you can identify and handle events that aren't processed within 30 seconds.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: budget_30
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - seconds_since(event.timestamp) > 30
+  runtime_assets: []
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "budget_30",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "seconds_since(event.timestamp) > 30"
+    ],
+    "runtime_assets": []
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 
 [1]: #inclusive-and-exclusive-event-filters
 [2]: #when-attributes
@@ -1123,6 +1213,8 @@ spec:
 [36]: ../../../api#response-filtering
 [37]: ../../../sensuctl/filter-responses/
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
+[39]: ../sensu-query-expressions/#minute
+[40]: ../sensu-query-expressions/#second
 [41]: ../../../web-ui/search#search-for-labels
 [42]: ../../../web-ui/search/
 [43]: ../

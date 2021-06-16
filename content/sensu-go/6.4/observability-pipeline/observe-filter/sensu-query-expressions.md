@@ -82,7 +82,22 @@ If an SQE returns a value besides `true` or `false`, an error is recorded in the
 
 ## Custom functions
 
-### hour
+### weekday, hour, minute, and second
+
+Together, the `weekday`, `hour`, `minute`, and `second` custom functions provide granular control of time-based filter expressions, comparable to cron scheduling.
+
+#### weekday
+
+The custom function `weekday` returns a number that represents the day of the week of a UNIX epoch time.
+Sunday is `0`.
+
+For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5, 2018 6:51:53 PM UTC, the following SQE returns `false`:
+
+{{< code go >}}
+weekday(event.timestamp) == 0
+{{< /code >}}
+
+#### hour
 
 The custom function `hour` returns the hour of a UNIX epoch time (in UTC and 24-hour time notation).
 
@@ -92,15 +107,35 @@ For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5
 hour(event.timestamp) >= 17
 {{< /code >}}
 
-### weekday
+#### minute
 
-The custom function `weekday` returns a number that represents the day of the week of a UNIX epoch time.
-Sunday is `0`.
+The custom function `minute` returns the minute of the hour (0 through 59) of a UNIX epoch time in UTC and 24-hour time notation.
 
 For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5, 2018 6:51:53 PM UTC, the following SQE returns `false`:
 
 {{< code go >}}
-weekday(event.timestamp) == 0
+minute(event.timestamp) <= 30
+{{< /code >}}
+
+#### second
+
+The custom function `second` returns the second of the minute (0 through 59) of a UNIX epoch time in UTC and 24-hour time notation.
+
+For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5, 2018 6:51:53 PM UTC, the following SQE returns `true`:
+
+{{< code go >}}
+second(event.timestamp) >= 30
+{{< /code >}}
+
+### seconds_since
+
+The custom function `seconds_since` returns the number of seconds (using float64) between the current time and an event's timestamp.
+
+For systems with event processing pressure, you can use `seconds_since` to create alerts for events that are not handled within a certain period.
+For example, the following SQE represents a 30-second time budget for event processing:
+
+{{< code go >}}
+seconds_since(event.timestamp) > 30
 {{< /code >}}
 
 ### sensu.CheckDependencies
