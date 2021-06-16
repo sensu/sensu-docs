@@ -49,6 +49,13 @@
   padding: 1rem;
 }
 
+.alert-commercial {
+  background-color: #9999ff;
+  color: #000099;
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
 div.notices {
   margin: 2rem 0;
   position: relative;
@@ -86,4 +93,8 @@ div.notices.note p {
 div.notices.protip p {
   background: #dff0d8;
   color: #3c763d;
+}
+div.notices.commercial p {
+  background: #9999ff;
+  color: #000099;
 }

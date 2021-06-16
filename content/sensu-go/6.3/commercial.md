@@ -13,6 +13,13 @@ All commercial features are available in the official Sensu Go distribution, and
 
 If you have more than 100 entities, [contact the Sensu sales team][1] for a free trial.
 
+Throughout the documentation, the following notice marks commercial features:
+
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access <feature_name> in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../commercial/).
+{{% /notice %}}
+
 ## Commercial features in Sensu Go
 
 - **Integrate your Sensu observability pipeline with industry-standard tools** like ServiceNow and Jira with [supported integrations][24] and [enterprise-tier dynamic runtime assets][11].
