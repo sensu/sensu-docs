@@ -556,7 +556,7 @@ sensuctl license info
 [10]: ../../../observability-pipeline/observe-process/send-slack-alerts/
 [11]: https://sensu.io/contact?subject=contact-sales/
 [12]: ../../../observability-pipeline/observe-process/send-email-alerts/
-[13]: https://sensu.io/sensu-license/
+[13]: https://sensu.io/licenses
 [14]: ../../../learn/learn-sensu-sandbox/
 [15]: ../../../observability-pipeline/observe-schedule/agent/#events-post-example
 [16]: https://etcd.io/
