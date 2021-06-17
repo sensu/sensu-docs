@@ -183,8 +183,8 @@ A service entity represents a business service in [business service monitoring (
 Sensu processes service entity events just like events generated for agent and proxy entities.
 You can also use service entities for proxy check requests and events.
 
-{{% notice important %}}
-**IMPORTANT**: Business service monitoring is in public preview and is subject to change. 
+{{% notice note %}}
+**NOTE**: Business service monitoring is in public preview and is subject to change. 
 {{% /notice %}}
 
 This example shows a service entity resource definition:

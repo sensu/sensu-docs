@@ -11,8 +11,8 @@ menu:
     parent: observe-schedule
 ---
 
-{{% notice important %}}
-**IMPORTANT**: Business service monitoring is in public preview and is subject to change. 
+{{% notice note %}}
+**NOTE**: Business service monitoring is in public preview and is subject to change. 
 {{% /notice %}}
 
 **COMMERCIAL FEATURE**: Access business service monitoring (BSM) in the packaged Sensu Go distribution.

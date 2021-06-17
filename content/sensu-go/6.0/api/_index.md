@@ -313,8 +313,10 @@ Content-Length: 54
 
 ## Response filtering
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access API response filtering in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][8].
+For more information, see [Get started with commercial features](../commercial/).
+{{% /notice %}}
 
 The Sensu API supports response filtering for all GET endpoints that return an array.
 You can filter resources based on their labels with the `labelSelector` query parameter and based on certain pre-determined fields with the `fieldSelector` query parameter.
@@ -696,7 +698,6 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [5]: health/
 [6]: metrics/
 [7]: ../sensuctl/environment-variables/
-[8]: ../commercial/
 [9]: ../observability-pipeline/observe-entities/entities#metadata-attributes
 [10]: ../operations/deploy-sensu/cluster-sensu/
 [11]: auth/#authtoken-post

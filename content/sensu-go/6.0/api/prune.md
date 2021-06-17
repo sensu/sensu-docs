@@ -10,8 +10,8 @@ menu:
     parent: api
 ---
 
-{{% notice important %}}
-**IMPORTANT**: The prune API is an alpha feature and may include breaking changes.
+{{% notice note %}}
+**NOTE**: The prune API is an alpha feature and may include breaking changes.
 {{% /notice %}}
 
 **COMMERCIAL FEATURE**: Access the prune API in the packaged Sensu Go distribution.

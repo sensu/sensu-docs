@@ -11,8 +11,8 @@ menu:
     parent: observe-schedule
 ---
 
-{{% notice important %}}
-**IMPORTANT**: Business service monitoring is in public preview and is subject to change. 
+{{% notice note %}}
+**NOTE**: Business service monitoring is in public preview and is subject to change. 
 {{% /notice %}}
 
 **COMMERCIAL FEATURE**: Access business service monitoring (BSM) in the packaged Sensu Go distribution.
@@ -20,11 +20,6 @@ For more information, see [Get started with commercial features][6].
 
 Sensu's business service monitoring (BSM) provides high-level visibility into the current health of any number of your business services.
 Use BSM to monitor every component in your system with a top-down approach that produces meaningful alerts, prevents alert fatigue, and helps you focus on your core business services.
-
-{{% notice note %}}
-**NOTE**: BSM requires high event throughput.
-Configure a [PostgreSQL datastore](../../../operations/deploy-sensu/scale-event-storage/) to achieve the required throughput and use the BSM feature.
-{{% /notice %}}
 
 BSM requires two resources that work together to achieve top-down monitoring: [service components][1] and [rule templates][2].
 Service components are the elements that make up your business services.
@@ -44,6 +39,11 @@ BSM allows you to customize rule templates that apply a threshold for taking act
 
 To continue the company website example, if the primary webserver fails but the backup webserver does not, you might use a rule template that creates a service ticket to address the next workday (in addition to the rule template that is emitting "OK" events for the current status page).
 Another monitoring rule might trigger an alert to the on-call operator should both webservers or the inventory database fail.
+
+{{% notice note %}}
+**NOTE**: BSM requires high event throughput.
+Configure a [PostgreSQL datastore](../../../operations/deploy-sensu/scale-event-storage/) to achieve the required throughput and use the BSM feature.
+{{% /notice %}}
 
 ## Service component example
 

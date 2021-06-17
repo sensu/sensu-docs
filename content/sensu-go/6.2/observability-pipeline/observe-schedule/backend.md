@@ -72,8 +72,8 @@ Sensu does not apply a default admin username or password for Ubuntu/Debian or R
 This step bootstraps the first admin user account for your Sensu installation.
 This account will be granted the cluster admin role.
 
-{{% notice important %}}
-**IMPORTANT**: If you plan to [run a Sensu cluster](../../../operations/deploy-sensu/cluster-sensu/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you initialize.
+{{% notice warning %}}
+**WARNING**: If you plan to [run a Sensu cluster](../../../operations/deploy-sensu/cluster-sensu/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you initialize.
 {{% /notice %}}
 
 ### Docker initialization

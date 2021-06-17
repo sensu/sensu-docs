@@ -479,8 +479,8 @@ See the [RBAC reference][22] for information about local user management with se
 
 #### sensuctl prune
 
-{{% notice important %}}
-**IMPORTANT**: `sensuctl prune` is an alpha feature and may include breaking changes.
+{{% notice note %}}
+**NOTE**: `sensuctl prune` is an alpha feature and may include breaking changes.
 {{% /notice %}}
 
 **COMMERCIAL FEATURE**: Access sensuctl pruning in the packaged Sensu Go distribution.

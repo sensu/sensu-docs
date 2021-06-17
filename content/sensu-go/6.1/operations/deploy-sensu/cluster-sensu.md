@@ -119,8 +119,8 @@ etcd-initial-cluster-token: "unique_token_for_this_cluster"
 etcd-name: "backend-3"
 {{< /code >}}
 
-{{% notice important %}}
-**IMPORTANT**: To properly secure etcd communication, replace the default URLs for `etcd-advertise-client-urls`, `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-cluster` in the store configurations for your backends with non-default values.<br><br>
+{{% notice warning %}}
+**WARNING**: To properly secure etcd communication, replace the default URLs for `etcd-advertise-client-urls`, `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-cluster` in the store configurations for your backends with non-default values.<br><br>
 Specify the same `etcd-initial-cluster-token` value for all three backends.
 This allows etcd to generate unique cluster IDs and member IDs even for clusters that have otherwise identical configurations and prevents cross-cluster-interaction.
 {{% /notice %}}
