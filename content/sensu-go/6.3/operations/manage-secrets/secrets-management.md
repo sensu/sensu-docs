@@ -13,8 +13,10 @@ menu:
     parent: manage-secrets
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Env and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][20].
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 Sensu's secrets management allows you to avoid exposing secrets like usernames, passwords, and access keys in your Sensu configuration.
 In this guide, you'll learn how to use Sensu's built-in secrets provider, `Env`, or [HashiCorp Vault][1] as your external [secrets provider][2] and authenticate without exposing your secrets.
@@ -477,7 +479,6 @@ Read the [secrets][9] or [secrets providers][2] reference for in-depth secrets m
 [15]: ../../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
 [17]: ../../../operations/manage-secrets/secrets-providers#tls-vault
 [19]: #add-a-handler
-[20]: ../../../commercial/
 [21]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables
 [22]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [23]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler

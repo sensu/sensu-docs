@@ -11,12 +11,14 @@ menu:
     parent: observe-schedule
 ---
 
-{{% notice note %}}
-**NOTE**: Business service monitoring is in public preview and is subject to change. 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access business service monitoring (BSM) in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
-**COMMERCIAL FEATURE**: Access business service monitoring (BSM) in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][4].
+{{% notice note %}}
+**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
+{{% /notice %}}
 
 Sensu's business service monitoring (BSM) feature uses a dedicated SDK of JavaScript-based expressions that provide additional functionality.
 Use the BSM SDK to create custom JavaScript expressions with complex logic.
@@ -130,4 +132,3 @@ if (sensu.Percentage("critical") >= 35) {
 [1]: https://github.com/robertkrimen/otto
 [2]: ../backend/#event-logging
 [3]: ../rule-templates/
-[4]: ../../../commercial/

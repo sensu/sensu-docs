@@ -35,8 +35,10 @@ You can also sort events and silences using the **SORT** dropdown menu:
 
 ## Advanced filters
 
-**COMMERCIAL FEATURE**: Access advanced filtering in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][1].
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access advanced web UI filtering in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 Sensu supports advanced web UI filtering using a wider range of attributes, including custom labels.
 You can use the same methods, selectors, and examples for web UI filtering as for [API response filtering][3], with some [syntax differences][4].
@@ -182,8 +184,10 @@ fieldSelector:slack in check.handlers
 
 ## Save a filtered search
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access saved filtered searches in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][1].
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 To save a filtered search:
 

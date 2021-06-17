@@ -9,8 +9,10 @@ menu:
     parent: supported-integrations
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Sensu ServiceNow Handler integration in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][6].
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 The [Sensu ServiceNow Handler plugin][4] is a Sensu [handler][1] that creates and updates ServiceNow incidents and events based on observation data from Sensu events.
 
@@ -42,8 +44,7 @@ You can also add the [Sensu ServiceNow Handler plugin][4] with a dynamic runtime
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
 [3]: https://github.com/sensu/catalog/blob/main/pipelines/event-storage/servicenow-events.yaml
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler
-[5]: ../../assets
-[6]: ../../../commercial/
+[5]: ../../assets/
 [7]: https://github.com/sensu/catalog/blob/main/pipelines/incident-management/servicenow-incident.yaml
 [8]: https://github.com/sensu/catalog/blob/main/pipelines/entity-registration/servicenow-cmdb.yaml
 [9]: ../../../operations/manage-secrets/

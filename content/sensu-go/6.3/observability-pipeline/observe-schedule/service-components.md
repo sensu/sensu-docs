@@ -12,12 +12,14 @@ menu:
     parent: observe-schedule
 ---
 
-{{% notice note %}}
-**NOTE**: Business service monitoring is in public preview and is subject to change. 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access business service monitoring (BSM), including service components, in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
-**COMMERCIAL FEATURE**: Access business service monitoring (BSM), including service components, in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][9].
+{{% notice note %}}
+**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
+{{% /notice %}}
 
 Service components are resources for defining and managing elements of a business service in business service monitoring.
 A [service entity][10] consists of a number of underlying service components.

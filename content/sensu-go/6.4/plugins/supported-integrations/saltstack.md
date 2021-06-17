@@ -9,8 +9,10 @@ menu:
     parent: supported-integrations
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Sensu SaltStack Handler integration in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][6].
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 The [Sensu SaltStack Handler plugin][4] is a Sensu [handler][1] that launches SaltStack functions for automated remediation based on Sensu event data.
 
@@ -39,6 +41,5 @@ You can also add the [Sensu SaltStack Handler plugin][4] with a dynamic runtime 
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
 [3]: https://github.com/sensu/catalog/blob/main/pipelines/remediation/saltstack.yaml
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-saltstack-handler
-[5]: ../../assets
-[6]: ../../../commercial/
+[5]: ../../assets/
 [7]: ../../../operations/manage-secrets/

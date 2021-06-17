@@ -319,11 +319,16 @@ Use [proxy entity filters][19] to establish a many-to-many relationship between 
 
 ## Create and manage service entities
 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access business service monitoring (BSM), including service entities, in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
+
 Service entities are dynamically created entities that Sensu adds to the entity store when a [service component][39] generates an event.
 Service entities allow Sensu to monitor [business services][38].
 
 {{% notice note %}}
-**NOTE**: Business service monitoring is in public preview and is subject to change. 
+**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
 {{% /notice %}}
 
 Create and modify service entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33].

@@ -9,8 +9,10 @@ menu:
     parent: supported-integrations
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Sensu Jira Handler integration in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][6].
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 The [Sensu Jira Handler plugin][4] is a Sensu [handler][1] that creates and updates Jira issues based on observation data from Sensu events.
 
@@ -37,6 +39,5 @@ Add the [Sensu Jira Handler plugin][4] with a dynamic runtime asset from Bonsai,
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
 [3]: https://github.com/sensu/catalog/blob/main/pipelines/incident-management/jira-servicedesk.yaml
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-jira-handler
-[5]: ../../assets
-[6]: ../../../commercial/
+[5]: ../../assets/
 [7]: ../../../operations/manage-secrets/

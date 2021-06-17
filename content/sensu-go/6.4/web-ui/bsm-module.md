@@ -11,12 +11,14 @@ menu:
     parent: web-ui
 ---
 
-{{% notice note %}}
-**NOTE**: Business service monitoring is in public preview and is subject to change. 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access business service monitoring (BSM) in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
-**COMMERCIAL FEATURE**: Access business service monitoring (BSM) in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][3].
+{{% notice note %}}
+**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
+{{% /notice %}}
 
 The Sensu web UI includes a module to help you build and configure business service monitoring (BSM) [service entities][4] with [service components][1] and [rule templates][2].
 

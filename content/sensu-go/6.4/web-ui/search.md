@@ -66,8 +66,10 @@ If you are using the [basic web UI search functions][5], you can create a search
 
 ## Create advanced searches
 
-**COMMERCIAL FEATURE**: Access advanced search functions in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][1].
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access advanced web UI searches in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 Sensu supports advanced web UI searches using a wider range of attributes, including custom labels.
 You can use the same methods, fields, and examples for web UI searches as for [API response filtering][3], with some [syntax differences][4].
@@ -187,8 +189,10 @@ To return events that include a `windows` check subscription and any email handl
 
 ## Save a search
 
-**COMMERCIAL FEATURE**: Access saved searches in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][1].
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access saved web UI searches in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 To save a web UI search:
 

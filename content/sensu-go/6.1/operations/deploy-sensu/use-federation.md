@@ -13,8 +13,10 @@ menu:
     parent: deploy-sensu
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access federation in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][8].
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 Sensu's [federation API][1] allows you to register external clusters, gain visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI, and mirror your changes in one cluster to follower clusters.
 This is useful when you want to provide a single entry point for Sensu users who need to manage monitoring across multiple distinct physical data centers, cloud regions, or providers.
@@ -426,7 +428,6 @@ Learn more about configuring RBAC policies in our [RBAC reference documentation]
 [5]: ../../../sensuctl/create-manage-resources/#create-resources
 [6]: ../../../sensuctl/create-manage-resources/#update-resources
 [7]: ../../../sensuctl/create-manage-resources/#delete-resources
-[8]: ../../../commercial/
 [10]: ../../control-access/rbac/
 [11]: ../../../api/federation#get-all-clusters
 [12]: https://github.com/etcd-io/etcd/blob/master/etcdctl/README.md#make-mirror-options-destination
