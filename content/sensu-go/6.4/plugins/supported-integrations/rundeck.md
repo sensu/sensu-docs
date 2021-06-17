@@ -9,8 +9,10 @@ menu:
     parent: supported-integrations
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Sensu Rundeck Handler integration in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][6].
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 The [Sensu Rundeck Handler plugin][4] is a Sensu [handler][1] that initiates Rundeck jobs for automated remediation based on Sensu event data.
 
@@ -42,7 +44,6 @@ You can also add the [Sensu Rundeck Handler plugin][4] with a dynamic runtime as
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
 [3]: https://github.com/sensu/catalog/blob/main/pipelines/remediation/rundeck-webhook.yaml
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-rundeck-handler
-[5]: ../../assets
-[6]: ../../../commercial/
+[5]: ../../assets/
 [7]: https://github.com/sensu/catalog/blob/main/pipelines/remediation/rundeck.yaml
 [8]: ../../../operations/manage-secrets/

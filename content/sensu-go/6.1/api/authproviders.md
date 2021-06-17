@@ -11,8 +11,10 @@ menu:
     parent: api
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][2].
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 {{% notice note %}}
 **NOTE**: Requests to the authentication providers API require you to authenticate with a Sensu [access token](../#authenticate-with-the-authentication-api) or [API key](../#authenticate-with-an-api-key).
@@ -337,5 +339,4 @@ example url               | http://hostname:8080/api/enterprise/authentication/v
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../operations/control-access/
-[2]: ../../commercial/
 [3]: ../#pagination

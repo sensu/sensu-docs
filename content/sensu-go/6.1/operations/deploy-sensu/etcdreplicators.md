@@ -12,8 +12,10 @@ menu:
     parent: deploy-sensu
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the EtcdReplicator datatype in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][1].
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 {{% notice note %}}
 **NOTE**: EtcdReplicator is a datatype in the federation API, which is only accessible for users who have a cluster role that permits access to replication resources.
@@ -546,7 +548,6 @@ replication_interval_seconds: 30
 {{< /language-toggle >}}
 
 
-[1]: ../../../commercial/
 [2]: ../../../api/federation/
 [3]: ../../control-access/rbac/
 [4]: ../../../sensuctl/create-manage-resources/#create-resources

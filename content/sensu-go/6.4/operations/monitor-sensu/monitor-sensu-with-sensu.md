@@ -233,8 +233,10 @@ spec:
 
 ## Monitor Postgres
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access enterprise-scale Postgres event storage in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][5].
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 Larger Sensu deployments may use [Postgres as an alternative datastore][4] to process larger numbers of events.
 The connection to Postgres is exposed on Sensu's `/health` endpoint and will look like the example below:
@@ -368,5 +370,4 @@ A successful PostgreSQL health check result will look like this:
 [1]: ../../../plugins/use-assets-to-install-plugins/
 [2]: ../../../api/health/
 [3]: https://bonsai.sensu.io/assets/sensu/monitoring-plugins
-[4]: https://docs.sensu.io/sensu-go/latest/operations/deploy-sensu/scale-event-storage/
-[5]: ../../../commercial/
+[4]: ../../deploy-sensu/scale-event-storage/

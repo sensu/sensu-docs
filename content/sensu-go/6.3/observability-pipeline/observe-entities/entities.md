@@ -319,14 +319,19 @@ Use [proxy entity filters][19] to establish a many-to-many relationship between 
 
 ## Create and manage service entities
 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access business service monitoring (BSM), including service entities, in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
+
 Service entities are dynamically created entities that Sensu adds to the entity store when a [service component][39] generates an event.
 Service entities allow Sensu to monitor [business services][38].
 
-{{% notice important %}}
-**IMPORTANT**: Business service monitoring is in public preview and is subject to change. 
+{{% notice note %}}
+**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
 {{% /notice %}}
 
-You can create and modify service entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33].
+Create and modify service entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33].
 
 ### Service entity example
 
@@ -954,8 +959,8 @@ subscriptions:
 
 system       | 
 -------------|------ 
-description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in this version of Sensu. New events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
+description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.{{% notice note %}}
+**NOTE**: Process discovery is disabled in this version of Sensu. New events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false
 type         | Map
@@ -1374,8 +1379,8 @@ example        | {{< language-toggle >}}
 
 processes    | 
 -------------|------ 
-description  | List of processes on the local agent. See [processes attributes][26] for more information.{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in this version of Sensu. New events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
+description  | List of processes on the local agent. See [processes attributes][26] for more information.{{% notice note %}}
+**NOTE**: Process discovery is disabled in this version of Sensu. New events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false 
 type         | Map
@@ -1547,18 +1552,15 @@ handler: email-handler
 
 ### Processes attributes
 
-{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in this version of Sensu.
-New events will not include data in the `processes` attributes.
-Instead, the field will be empty: `"processes": null`.
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag](../../observe-schedule/agent/#discover-processes) in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
-**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][9].
-
 {{% notice note %}}
-**NOTE**: The `processes` field is populated in the packaged Sensu Go distributions.
-In OSS builds, the field will be empty: `"processes": null`.
+**NOTE**: Process discovery is disabled in this version of Sensu.
+New events will not include data in the `processes` attributes.
+Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
 name         | 
@@ -1738,7 +1740,6 @@ cpu_percent: 0.12639
 [24]: ../../observe-schedule/checks#proxy-requests-attributes
 [25]: ../../observe-schedule/agent/#detect-cloud-provider-flag
 [26]: #processes-attributes
-[27]: ../../observe-schedule/agent/#discover-processes
 [28]: https://man7.org/linux/man-pages/man1/top.1.html
 [29]: ../../../operations/maintain-sensu/license/#view-entity-count-and-entity-limit
 [30]: ../../../web-ui/search/

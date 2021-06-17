@@ -469,18 +469,18 @@ See the [RBAC reference][22] for information about local user management with se
 
 #### sensuctl prune
 
-{{% notice important %}}
-**IMPORTANT**: `sensuctl prune` is an alpha feature and may include breaking changes.
-{{% /notice %}}
-
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access sensuctl pruning in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][30].
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 The `sensuctl prune` subcommand allows you to delete resources that do not appear in a given set of Sensu objects (called a "configuration") from a from a file, URL, or STDIN.
 For example, you can use `sensuctl create` to to apply a new configuration, then use `sensuctl prune` to prune unneeded resources, resources that were created by a specific user or that include a specific label selector, and more.
 
 {{% notice note %}}
-**NOTE**: `sensuctl prune` can only delete resources that have the label `sensu.io/managed_by: sensuctl`, which Sensu automatically adds to all resources created with sensuctl.
+**NOTE**: `sensuctl prune` is an alpha feature and may include breaking changes.
+
+`sensuctl prune` can only delete resources that have the label `sensu.io/managed_by: sensuctl`, which Sensu automatically adds to all resources created with sensuctl.
 This means you can only use `sensuctl prune` to delete resources that were created with sensuctl.
 {{% /notice %}}
 

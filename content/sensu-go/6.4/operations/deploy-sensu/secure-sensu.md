@@ -165,8 +165,10 @@ See [Run a Sensu cluster](../cluster-sensu/) for more information about how to c
 
 ## Optional: Configure Sensu agent mTLS authentication
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access client mutual transport layer security (mTLS) authentication in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][5].
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 By default, Sensu agents require username and password authentication to communicate with Sensu backends.
 For Sensu's [default user credentials][2] and details about configuring Sensu role-based access control (RBAC), see the [RBAC reference][3].
@@ -246,7 +248,6 @@ The last step before you deploy Sensu is to [set up a Sensu cluster][10].
 [2]: ../../control-access/rbac/#default-users
 [3]: ../../control-access/rbac/
 [4]: ../generate-certificates/#create-a-certificate-authority-ca
-[5]: ../../../commercial/
 [6]: https://etcd.io/docs/latest/op-guide/security/
 [7]: ../../../observability-pipeline/observe-schedule/agent/#security-configuration-flags
 [9]: https://github.com/cloudflare/cfssl

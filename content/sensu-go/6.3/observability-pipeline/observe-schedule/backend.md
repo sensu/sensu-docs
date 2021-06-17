@@ -72,8 +72,8 @@ Sensu does not apply a default admin username or password for Ubuntu/Debian or R
 This step bootstraps the first admin user account for your Sensu installation.
 This account will be granted the cluster admin role.
 
-{{% notice important %}}
-**IMPORTANT**: If you plan to [run a Sensu cluster](../../../operations/deploy-sensu/cluster-sensu/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you initialize.
+{{% notice warning %}}
+**WARNING**: If you plan to [run a Sensu cluster](../../../operations/deploy-sensu/cluster-sensu/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you initialize.
 {{% /notice %}}
 
 ### Docker initialization
@@ -1390,8 +1390,10 @@ For example, if you create a `SENSU_BACKEND_TEST_VAR` variable in your sensu-bac
 
 ## Event logging
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access event logging in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][14].
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 If you wish, you can log all Sensu events to a file in JSON format.
 You can use this file as an input source for your favorite data lake solution.
@@ -1484,7 +1486,6 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [11]: ../../observe-process/handlers/
 [12]: #datastore-and-cluster-configuration-flags
 [13]: ../../../operations/deploy-sensu/cluster-sensu/
-[14]: ../../../commercial/
 [15]: #general-configuration-flags
 [16]: https://etcd.io/docs/current/tuning/#time-parameters
 [17]: ../../../files/backend.yml

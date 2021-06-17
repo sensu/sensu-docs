@@ -10,8 +10,15 @@ product: "Sensu Go"
 
 Sensu Go offers commercial features designed for monitoring at scale.
 All commercial features are available in the official Sensu Go distribution, and you can use them for free [up to an entity limit of 100][7].
-
 If you have more than 100 entities, [contact the Sensu sales team][1] for a free trial.
+
+In addition to the [summary][25] on this page, we describe commercial features in detail throughout the documentation.
+Watch for this notice to identify commercial features:
+
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access <feature_name> in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../commercial/).
+{{% /notice %}}
 
 ## Commercial features in Sensu Go
 
@@ -107,3 +114,5 @@ These resources will help you get started with commercial features in Sensu Go:
 [22]: ../operations/manage-secrets/secrets-management/
 [23]: ../observability-pipeline/observe-schedule/business-service-monitoring/
 [24]: ../plugins/supported-integrations/
+[25]: #commercial-features-in-sensu-go
+[25]: #commercial-features-in-sensu-go

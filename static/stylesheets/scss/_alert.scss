@@ -24,29 +24,26 @@
 }
 
 .alert-note {
-  background-color: #d9edf7;
-  color: #31708f;
+  background-color: #e1e4f0;
+  color: #2C3458;
   margin: 1rem 0;
   padding: 1rem;
+  border-radius: 6px;
 }
-
 .alert-tip {
   @extend .alert-note;
-  background-color: #dff0d8;
-  color: #3c763d;
+  background-color: #c4ede9;
+  color: #0d5651;
 }
-
 .alert-warning {
   @extend .alert-note;
-  background-color: #fcf8e3;
-  color: #8a6d3b;
+  background-color: #ffebc8;
+  color: #671111;
 }
-
-.alert-important {
-  background-color: #f6eaae;
-  color: #691c1a;
-  margin: 1rem 0;
-  padding: 1rem;
+.alert-commercial {
+  @extend .alert-note;
+  background-color: #d4eaaf;
+  color: #425a18;
 }
 
 div.notices {
@@ -71,19 +68,23 @@ div.notices p:first-child:after {
   top: 2px;
   left: 2rem;
 }
-div.notices.important p {
-  background: #f6eaae;
-  color: #691c1a;
-}
-div.notices.warning p {
-  background: #fcf8e3;
-  color: #8a6d3b;
-}
 div.notices.note p {
-  background: #d9edf7;
-  color: #31708f;
+  background-color: #e1e4f0;
+  color: #2C3458;
+  border-radius: 6px;
 }
 div.notices.protip p {
-  background: #dff0d8;
-  color: #3c763d;
+  background-color: #c4ede9;
+  color: #0d5651;
+  border-radius: 6px;
+}
+div.notices.warning p {
+  background-color: #ffebc8;
+  color: #671111;
+  border-radius: 6px;
+}
+div.notices.commercial p {
+  background-color: #d4eaaf;
+  color: #425a18;
+  border-radius: 6px;
 }
