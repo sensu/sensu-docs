@@ -1408,18 +1408,15 @@ handler: email-handler
 
 ### Processes attributes
 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag](../../observe-schedule/agent/#discover-processes) in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
+
 {{% notice note %}}
 **NOTE**: Process discovery is disabled in this version of Sensu.
 New events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
-{{% /notice %}}
-
-**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][9].
-
-{{% notice note %}}
-**NOTE**: The `processes` field is populated in the packaged Sensu Go distributions.
-In OSS builds, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
 name         | 
@@ -1598,7 +1595,6 @@ cpu_percent: 0.12639
 [24]: ../../observe-schedule/checks#proxy-requests-attributes
 [25]: ../../observe-schedule/agent/#detect-cloud-provider-flag
 [26]: #processes-attributes
-[27]: ../../observe-schedule/agent/#discover-processes
 [28]: https://man7.org/linux/man-pages/man1/top.1.html
 [29]: ../../../operations/maintain-sensu/license/#view-entity-count-and-entity-limit
 [30]: ../../../web-ui/search/

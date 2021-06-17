@@ -11,15 +11,15 @@ menu:
     parent: api
 ---
 
-{{% notice note %}}
-**NOTE**: Business service monitoring is in public preview and is subject to change. 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access business service monitoring (BSM) in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
-**COMMERCIAL FEATURE**: Access business service monitoring (BSM) in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][1].
-
 {{% notice note %}}
-**NOTE**: Requests to the business service monitoring API require you to authenticate with a Sensu [access token](../#authenticate-with-the-authentication-api) or [API key](../#authenticate-with-an-api-key).
+**NOTE**: Business service monitoring is in public preview and is subject to change.
+
+Requests to the business service monitoring API require you to authenticate with a Sensu [access token](../#authenticate-with-the-authentication-api) or [API key](../#authenticate-with-an-api-key).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
@@ -1027,5 +1027,3 @@ description               | Deletes the specified rule template from Sensu.
 example url               | http://hostname:8080/api/enterprise/bsm/v1/rule-templates/status-threshold
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-
-[1]: ../../commercial/

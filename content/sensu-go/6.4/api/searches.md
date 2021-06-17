@@ -10,8 +10,10 @@ menu:
     parent: api
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the searches API in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][2].
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 {{% notice note %}}
 **NOTE**: Requests to the searches API require you to authenticate with a Sensu [access token](../#authenticate-with-the-authentication-api) or [API key](../#authenticate-with-an-api-key).
@@ -275,4 +277,3 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 
 [1]: ../#response-filtering
-[2]: ../../commercial/

@@ -13,7 +13,7 @@ menu:
     parent: observe-filter
 ---
 
-Sensu executes event filters during the **[filter][43]** stage of the [observability pipeline][44].
+Sensu executes event filters during the **[filter][39]** stage of the [observability pipeline][44].
 
 Sensu event filters are applied when you configure event handlers to use one or more filters.
 Before executing a handler, the Sensu backend will apply any event filters configured for the handler to the observation data in events.
@@ -410,8 +410,10 @@ For more information about event attributes, see the [event reference][28].
 
 ## Build event filter expressions with JavaScript execution functions
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access built-in JavaScript event filter execution functions in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][44].
+For more information, see [Get started with commercial features](../../../commercial).
+{{% /notice %}}
 
 In addition to [Sensu query expressions][27], Sensu includes several built-in JavaScript functions for event filter execution:
 
@@ -1123,7 +1125,8 @@ spec:
 [36]: ../../../api#response-filtering
 [37]: ../../../sensuctl/filter-responses/
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
+[39]: ../
 [41]: ../../../web-ui/search#search-for-labels
 [42]: ../../../web-ui/search/
-[43]: ../
+[43]: ../../../api/events/
 [44]: ../../../observability-pipeline/
