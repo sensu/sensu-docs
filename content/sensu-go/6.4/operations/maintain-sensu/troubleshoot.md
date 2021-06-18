@@ -165,7 +165,7 @@ The following errors are expected when starting up a Sensu backend with the defa
 
 {{< code shell >}}
 {"component":"etcd","level":"warning","msg":"simple token is not cryptographically signed","pkg":"auth","time":"2019-11-04T10:26:31-05:00"}
-{"component":"etcd","level":"warning","msg":"set the initial cluster version to 3.3","pkg":"etcdserver/membership","time":"2019-11-04T10:26:31-05:00"}
+{"component":"etcd","level":"warning","msg":"set the initial cluster version to 3.5","pkg":"etcdserver/membership","time":"2019-11-04T10:26:31-05:00"}
 {"component":"etcd","level":"warning","msg":"serving insecure client requests on 127.0.0.1:2379, this is strongly discouraged!","pkg":"embed","time":"2019-11-04T10:26:33-05:00"}
 {{< /code >}}
 
@@ -643,9 +643,9 @@ etcdctl endpoint status
 The response will list the current cluster status and database size:
 
 {{< code shell >}}
-https://backend01:2379, 88db026f7feb72b4, 3.3.22, 2.1GB, false, 144, 18619245
-https://backend02:2379, e98ad7a888d16bd6, 3.3.22, 2.1GB, true, 144, 18619245
-https://backend03:2379, bc4e39432cbb36d, 3.3.22, 2.1GB, false, 144, 18619245
+https://backend01:2379, 88db026f7feb72b4, 3.5.0, 2.1GB, false, 144, 18619245
+https://backend02:2379, e98ad7a888d16bd6, 3.5.0, 2.1GB, true, 144, 18619245
+https://backend03:2379, bc4e39432cbb36d, 3.5.0, 2.1GB, false, 144, 18619245
 {{< /code >}}
 
 To restore an etcd cluster with a database size that exceeds 2 GB:
@@ -672,9 +672,9 @@ etcdctl endpoint status
 
    The response should list the current cluster status and database size:
 {{< code shell >}}
-https://backend01:2379, 88db026f7feb72b4, 3.3.22, 1.0 MB, false, 144, 18619245
-https://backend02:2379, e98ad7a888d16bd6, 3.3.22, 1.0 MB, true, 144, 18619245
-https://backend03:2379, bc4e39432cbb36d, 3.3.22, 1.0 MB, false, 144, 18619245
+https://backend01:2379, 88db026f7feb72b4, 3.5.0, 1.0 MB, false, 144, 18619245
+https://backend02:2379, e98ad7a888d16bd6, 3.5.0, 1.0 MB, true, 144, 18619245
+https://backend03:2379, bc4e39432cbb36d, 3.5.0, 1.0 MB, false, 144, 18619245
 {{< /code >}}
 
 ### Remove and redeploy a cluster
