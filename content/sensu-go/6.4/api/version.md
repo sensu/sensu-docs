@@ -25,10 +25,10 @@ http://127.0.0.1:8080/version
 HTTP/1.1 200 OK
 {
   "etcd": {
-    "etcdserver": "3.3.22",
-    "etcdcluster": "3.3.0"
+    "etcdserver": "3.5.0",
+    "etcdcluster": "3.5.0"
   },
-  "sensu_backend": "6.0.0"
+  "sensu_backend": "6.4.0"
 }
 {{< /code >}}
 
@@ -43,9 +43,9 @@ response codes      | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Inte
 output         | {{< code shell >}}
 {
   "etcd": {
-    "etcdserver": "3.3.22",
-    "etcdcluster": "3.3.0"
+    "etcdserver": "3.5.0",
+    "etcdcluster": "3.5.0"
   },
-  "sensu_backend": "6.x.x"
+  "sensu_backend": "6.4.0"
 }
 {{< /code >}}
