@@ -13,7 +13,7 @@ menu: "sensu-go-6.0"
 Update Sensu frequently to stay in sync with the latest features and fixes.
 See the [upgrade guide][1] to upgrade to the latest version.
 
-Sensu supports the latest versions of official distributions, including packages, binary-only distributions, and Docker images.
+Sensu supports the latest versions of official distributions, including [packages][66], [binary-only distributions][67], and [Docker images][68].
 Learn more about Sensu [support and licensing][2].
 
 This table lists the supported versions of Sensu Go with links to active documentation (for supported versions) and offline documentation artifacts (for versions that are not supported).
@@ -123,3 +123,6 @@ This table lists the supported versions of Sensu Go with links to active documen
 [48]: https://docs.sensu.io/sensu-go/latest/release-notes/#5212-release-notes
 [61]: https://docs.sensu.io/sensu-go/latest/release-notes/#5214-release-notes
 [62]: https://docs.sensu.io/sensu-go/latest/release-notes/#5215-release-notes
+[66]: ../platforms/#supported-packages
+[67]: ../platforms/#binary-only-distributions
+[68]: ../platforms/#docker-images
