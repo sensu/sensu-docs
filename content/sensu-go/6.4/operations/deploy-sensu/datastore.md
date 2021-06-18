@@ -28,7 +28,7 @@ Do not configure external etcd in Sensu via backend command line flags or the ba
 
 As your deployment grows beyond the proof-of-concept stage, review [Deployment architecture for Sensu][6] for more information about deployment considerations and recommendations for a production-ready Sensu deployment.
 
-Sensu requires at least etcd 3.3.2 and is tested against releases in the 3.5.x series.
+Sensu requires at least etcd 3.3.2 and is tested against etcd 3.5.
 etcd version 3.4.0 is compatible with Sensu but may result in slower performance.
 
 ## Scale event storage
