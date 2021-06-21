@@ -52,7 +52,7 @@ This example shows the username/password authentication method:
 
 {{< code shell >}}
 ? Authentication method: username/password
-? Sensu Backend URL: http://127.0.0.1:8080
+? Sensu Backend API URL: http://127.0.0.1:8080
 ? Namespace: default
 ? Preferred output format: tabular
 ? Username: YOUR_USERNAME
@@ -68,7 +68,7 @@ This example shows the OIDC authentication method:
 
 {{< code shell >}}
 ? Authentication method: OIDC
-? Sensu Backend URL: http://127.0.0.1:8080
+? Sensu Backend API URL: http://127.0.0.1:8080
 ? Namespace: default
 ? Preferred output format: tabular
 Launching browser to complete the login via your OIDC provider at following URL:
