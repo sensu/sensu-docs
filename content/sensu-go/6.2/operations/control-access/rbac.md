@@ -2252,6 +2252,6 @@ spec:
 [46]: ../../manage-secrets/secrets-providers/
 [47]: ../../deploy-sensu/datastore/
 [48]: ../../manage-secrets/secrets/
-[49]: ../../../web-ui/search#search-for-labels
+[49]: ../../../web-ui/search/#save-a-search
 [50]: ../../../sensuctl/#reset-a-user-password
 [51]: ../../../sensuctl/#generate-a-password-hash
