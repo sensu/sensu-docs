@@ -38,6 +38,19 @@ The access and refresh tokens are saved in your browser's local storage.
 
 See the [role-based access control reference][3] for [default user credentials][4] and instructions for [creating new users][5].
 
+## Use the implicit OR operator
+
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access the Sensu web UI homepage in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../commercial/).
+{{% /notice %}}
+
+On the Sensu web UI homepage, you can use the search function to limit the display by cluster and namespace.
+If you specify the same attribute twice with different values, Sensu automatically applies a logical OR operator to your search.
+
+For example, suppose you enter two search expressions in the search bar on the web UI homepage: `namespace: devel_1` and `namespace: devel_2`.
+In this case, the web UI homepage will display all data for both namespaces: `devel_1` and `devel_2`.
+
 ## Change web UI themes
 
 Use the preferences menu to change the theme or switch to the dark theme.

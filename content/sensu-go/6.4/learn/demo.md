@@ -24,7 +24,7 @@ Run `sensuctl configure` and enter the following information:
 
 {{< code shell >}}
 ? Authentication method: username/password
-? Sensu Backend URL: https://caviar.tf.sensu.io:8080
+? Sensu Backend API URL: https://caviar.tf.sensu.io:8080
 ? Namespace: default
 ? Preferred output format: tabular
 ? Username: guest
