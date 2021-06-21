@@ -31,6 +31,16 @@ sudo service sensu-backend restart
 
 To confirm the installed version, run `sensu-agent version`, `sensu-backend version`, and `sensuctl version`.
 
+## Upgrade to Sensu Go 6.4.0 from any previous version
+
+In Sensu Go 6.4.0, we upgraded the embedded etcd version from 3.3.22 to 3.5.0.
+As a result, 6.4.0 is not backward-compatible with previous Sensu versions.
+
+Before you upgrade to Sensu Go 6.4.0, use the [etcd snapshot and restore process][9] to create a full etcd database backup.
+If you make a complete etcd database backup before upgrading to 6.4.0, you will be able to restore your pre-6.4.0 deployment if you need to revert to an earlier Sensu release.
+
+After creating a full etcd database backup, you can follow the [standard upgrade process][10] to upgrade to 6.4.0.
+
 ## Upgrade to Sensu Go 6.2.0 from any previous version
 
 Prior to Sensu Go 6.0, sensu-backend allowed you to delete a namespace even when other resources still referenced that namespace. 
@@ -261,3 +271,5 @@ sudo service sensu-backend restart
 [6]: ../../../commercial/
 [7]: https://stedolan.github.io/jq/
 [8]: ../../../api/#authenticate-with-an-api-key
+[9]: https://etcd.io/docs/latest/op-guide/recovery/
+[10]: ../../../operations/maintain-sensu/upgrade/
