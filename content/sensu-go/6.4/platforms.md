@@ -64,7 +64,7 @@ See the [Sensu Go Web GitHub repository][60] for more information.
 |----------|---------------|
 | [Linux][44] | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` `ppc64le` `s390x` |
 | [Windows][45] | `386` `amd64` |
-| [macOS][46] | `amd64` `amd64 CGO` |
+| [macOS][46] | `amd64` `amd64 CGO` `arm64` |
 | [FreeBSD][47] | `386` `amd64` `armv5` `armv6` `armv7` |
 | [Solaris][48] | `amd64` |
 
@@ -228,6 +228,7 @@ We support macOS 10.11 and later for binary distributions.
 | --- | --- |
 | `amd64` | [`.tar.gz`][30] \| [`.zip`][31]
 | `amd64 CGO` | [`.tar.gz`][58] \| [`.zip`][59]
+| `arm64` | [`.tar.gz`][61] \| [`.zip`][62]
 
 For example, to download Sensu for macOS `amd64` in `tar.gz` format:
 
@@ -408,3 +409,5 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [58]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.3.0/cgo/sensu-go-cgo_6.3.0_darwin_amd64.tar.gz
 [59]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.3.0/cgo/sensu-go-cgo_6.3.0_darwin_amd64.zip
 [60]: https://github.com/sensu/web
+[61]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.4.0/sensu-go_6.4.0_darwin_arm64.tar.gz
+[62]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.4.0/sensu-go_6.4.0_darwin_arm64.zip
