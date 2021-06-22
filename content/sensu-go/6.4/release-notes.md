@@ -96,6 +96,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.4.0.
 
 **NEW FEATURES:**
 
+- ([Commercial feature][207]) The system information modal in the Web UI now includes license expiration information, accessed via the `CTRL + .` keyboard shortcut.
 - Added `darwin/arm64` to the list of platforms we build sensu-agent & sensuctl for.
 
 **IMPROVEMENTS:**
