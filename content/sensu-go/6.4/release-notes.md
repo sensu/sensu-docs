@@ -96,13 +96,12 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.4.0.
 
 **NEW FEATURES:**
 
-- ([Commercial feature][207]) In the web UI, the system information modal now includes license expiration information, accessed via the `CTRL + .` keyboard shortcut, for users with the appropriate permissions.
+- ([Commercial feature][215]) In the web UI, the system information modal now includes license expiration information, accessed via the `CTRL + .` keyboard shortcut, for users with the appropriate permissions.
 - Added binary-only distribution for [macOS arm64][].
 
 **IMPROVEMENTS:**
 
-- ([Commercial feature][207]) Remove extraneous auto-completion suggestions.
-- ([Commercial feature][207]) Add the ability to configure certain parameters per page in the Web UI.
+- ([Commercial feature][215]) Add the ability to configure certain parameters per page in the Web UI.
 - Added [etcd-log-level configuration flag][] for setting the log level for the embedded etcd server.
 - Added [`wait` flag][] for the `sensu-backend init` command, which indicates the backend should repeatedly try to establish a connection to etcd until it is successful.
 Also, the `timeout` flag for `sensu-backend init` is now treated as a duration instead of seconds, and values less than 1 second are converted to seconds.
@@ -111,13 +110,12 @@ Also, the `timeout` flag for `sensu-backend init` is now treated as a duration i
 - Upgraded etcd version from `3.3.22` to `3.5.0`.
 Also, in etcd 3.5, some Prometheus metric names changed.
 Read the [etcd documentation][] for details.
-- The loadit tool now uses `UUIDv4` instead of `UUIDv1` for agent names.
 
 **FIXES:**
 
-- ([Commercial feature][207]) Selector statements that begin with quotes no longer cause an error if they follow the `&&` operator.
-- ([Commercial feature][207]) Invalid PostgresConfig resources can no longer be created.
-- ([Commercial feature][207]) PostgresConfig resources can no longer have a namespace attribute.
+- ([Commercial feature][215]) Selector statements that begin with quotes no longer cause an error if they follow the `&&` operator.
+- ([Commercial feature][215]) Invalid PostgresConfig resources can no longer be created.
+- ([Commercial feature][215]) PostgresConfig resources can no longer have a namespace attribute.
 - Fixed a bug that could cause config deprecation warnings to be shown when deprecated config options weren't set.
 - Fixed an issue with keepalive remaining in OK status after agent shutdown.
 - Fixed a bug where role bindings that refer to missing roles would cause the wrong status to be returned from the HTTP API, and the dashboard to go into a crash loop.
@@ -1893,3 +1891,4 @@ To get started with Sensu Go:
 [212]: /sensu-go/6.3/api/health/#get-health-data-for-your-agent-transport
 [213]: /sensu-go/6.3/observability-pipeline/observe-entities/#service-entities
 [214]: /sensu-go/6.3/sensuctl/#global-flags
+[215]: /sensu-go/6.4/commercial/
