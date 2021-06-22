@@ -9,6 +9,7 @@ version: "6.4"
 menu: "sensu-go-6.4"
 ---
 
+- [6.4.0 release notes](#640-release-notes)
 - [6.3.0 release notes](#630-release-notes)
 - [6.2.7 release notes](#627-release-notes)
 - [6.2.6 release notes](#626-release-notes)
@@ -84,6 +85,43 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.4.0 release notes
+
+**June 23, 2021** &mdash; THe latest release of Sensu Go, version 6.4.0, is now available for download. 
+
+<!--// synopsis placeholder //-->
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.4.0.
+
+**NEW FEATURES:**
+
+- Added `darwin/arm64` to the list of platforms we build sensu-agent & sensuctl for.
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][207]) Remove extraneous auto-completion suggestions.
+- ([Commercial feature][207]) Add the ability to configure certain parameters per page in the Web UI.
+- Added etcd-log-level configuration flag for setting the log level of the embedded etcd server.
+- Added API key authentication support to sensuctl.
+- Added wait flag to the `sensu-backend init` command which toggles waiting indefinitely for etcd to become available.
+- Added `sensu_go_keepalives` prometheus counter.
+- Upgraded Go version from `1.13.15` to `1.16.5`.
+- Upgraded Etcd version from `3.3.22` to `3.5.0`.
+- The loadit tool now uses `UUIDv4` instead of `UUIDv1` for agent names.
+- Some Prometheus metric names have changed with the upgrade to Etcd 3.5. See the [Etcd documentation][https://etcd.io/docs/v3.5/metrics/etcd-metrics-latest.txt] for the metrics that Etcd 3.5 exposes.
+- The timeout flag for `sensu-backend init` is now treated as a duration instead of seconds. If the value is less than 1 second, the value is converted to seconds.
+
+**FIXES:**
+
+- ([Commercial feature][207]) Fixed string tokens being considered to be unexpected if they appeared right after the && operator in selector expressions.
+- ([Commercial feature][207]) Invalid PostgresConfig resources can no longer be created.
+- ([Commercial feature][207]) PostgresConfig resources can no longer have a namespace attribute.
+- Fixed a bug that could cause config deprecation warnings to be shown when deprecated config options weren't set.
+- Fixed an issue with keepalive remaining in OK status after agent shutdown.
+- Fixed a bug where role bindings that refer to missing roles would cause the wrong status to be returned from the HTTP API, and the dashboard to go into a crash loop.
+- Fixed a bug where an empty subscription was present in the deregistration event's check.
+- Fixed issue with Windows agent not handling command timeouts properly
 
 ## 6.3.0 release notes
 
