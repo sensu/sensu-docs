@@ -97,19 +97,19 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.4.0.
 **NEW FEATURES:**
 
 - ([Commercial feature][215]) In the web UI, the system information modal now includes license expiration information, accessed via the `CTRL + .` keyboard shortcut, for users with the appropriate permissions.
-- Added binary-only distribution for [macOS arm64][].
+- Added binary-only distribution for [macOS arm64][216].
 
 **IMPROVEMENTS:**
 
 - ([Commercial feature][215]) Add the ability to configure certain parameters per page in the Web UI.
-- Added [etcd-log-level configuration flag][] for setting the log level for the embedded etcd server.
-- Added [`wait` flag][] for the `sensu-backend init` command, which indicates the backend should repeatedly try to establish a connection to etcd until it is successful.
+- Added [etcd-log-level configuration flag][217] for setting the log level for the embedded etcd server.
+- Added [`wait` flag][218] for the `sensu-backend init` command, which indicates the backend should repeatedly try to establish a connection to etcd until it is successful.
 Also, the `timeout` flag for `sensu-backend init` is now treated as a duration instead of seconds, and values less than 1 second are converted to seconds.
 - Added `sensu_go_keepalives` prometheus counter.
 - Upgraded Go version from `1.13.15` to `1.16.5`.
 - Upgraded etcd version from `3.3.22` to `3.5.0`.
 Also, in etcd 3.5, some Prometheus metric names changed.
-Read the [etcd documentation][] for details.
+Read the [etcd documentation][219] for details.
 
 **FIXES:**
 
@@ -1892,3 +1892,7 @@ To get started with Sensu Go:
 [213]: /sensu-go/6.3/observability-pipeline/observe-entities/#service-entities
 [214]: /sensu-go/6.3/sensuctl/#global-flags
 [215]: /sensu-go/6.4/commercial/
+[216]: /sensu-go/6.4/platforms/#macos
+[217]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#general-configuration-flags
+[218]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#initialization-timeout-and-wait-flags
+[219]: https://etcd.io/docs/v3.5/metrics/etcd-metrics-latest.txt
