@@ -157,6 +157,30 @@ To see available initialization flags:
 sensu-backend init --help
 {{< /code >}}
 
+#### Initialization timeout and wait flags
+
+When you initialize the sensu-backend, you can specify how long the backend should wait to establish a connection to etcd.
+
+If the backend should try to establish a connection to etcd for a certain period before timing out, use the `timeout` flag.
+
+To specify a timeout period in seconds:
+
+{{< code shell >}}
+sensu-backend init --timeout 30s
+{{< /code >}}
+
+To specify a timeout period in minutes:
+
+{{< code shell >}}
+sensu-backend init --timeout 5m
+{{< /code >}}
+
+If the backend should repeatedly try to establish a connection to etcd until it is successful, use the `wait` flag:
+
+{{< code shell >}}
+sensu-backend init --wait
+{{< /code >}}
+
 ## Operation and service management {#operation}
 
 {{% notice note %}}
