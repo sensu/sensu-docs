@@ -114,8 +114,8 @@ Read the [etcd documentation][219] for details.
 **FIXES:**
 
 - ([Commercial feature][215]) Selector statements that begin with quotes no longer cause an error if they follow the `&&` operator.
-- ([Commercial feature][215]) Invalid PostgresConfig resources can no longer be created.
-- ([Commercial feature][215]) PostgresConfig resources can no longer have a namespace attribute.
+- ([Commercial feature][215]) Fixed a bug that allowed PostgresConfig resources to include a namespace attribute.
+Also, invalid PostgresConfig resources can no longer be created.
 - Fixed a bug that could cause config deprecation warnings to be shown when deprecated config options weren't set.
 - Fixed a bug that resulted in OK keepalive status after shutting down the agent.
 - Fixed a bug where role bindings that refer to missing roles would cause the wrong status to be returned from the HTTP API, and the dashboard to go into a crash loop.
