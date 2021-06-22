@@ -96,26 +96,26 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.4.0.
 
 **NEW FEATURES:**
 
-- ([Commercial feature][207]) The system information modal in the Web UI now includes license expiration information, accessed via the `CTRL + .` keyboard shortcut.
-- Added `darwin/arm64` to the list of platforms we build sensu-agent & sensuctl for.
+- ([Commercial feature][207]) In the web UI, the system information modal now includes license expiration information, accessed via the `CTRL + .` keyboard shortcut, for users with the appropriate permissions.
+- Added binary-only distribution for [macOS arm64][].
 
 **IMPROVEMENTS:**
 
 - ([Commercial feature][207]) Remove extraneous auto-completion suggestions.
 - ([Commercial feature][207]) Add the ability to configure certain parameters per page in the Web UI.
-- Added etcd-log-level configuration flag for setting the log level of the embedded etcd server.
-- Added API key authentication support to sensuctl.
-- Added wait flag to the `sensu-backend init` command which toggles waiting indefinitely for etcd to become available.
+- Added [etcd-log-level configuration flag][] for setting the log level for the embedded etcd server.
+- Added [`wait` flag][] for the `sensu-backend init` command, which indicates the backend should repeatedly try to establish a connection to etcd until it is successful.
+Also, the `timeout` flag for `sensu-backend init` is now treated as a duration instead of seconds, and values less than 1 second are converted to seconds.
 - Added `sensu_go_keepalives` prometheus counter.
 - Upgraded Go version from `1.13.15` to `1.16.5`.
-- Upgraded Etcd version from `3.3.22` to `3.5.0`.
+- Upgraded etcd version from `3.3.22` to `3.5.0`.
+Also, in etcd 3.5, some Prometheus metric names changed.
+Read the [etcd documentation][] for details.
 - The loadit tool now uses `UUIDv4` instead of `UUIDv1` for agent names.
-- Some Prometheus metric names have changed with the upgrade to Etcd 3.5. See the [Etcd documentation][https://etcd.io/docs/v3.5/metrics/etcd-metrics-latest.txt] for the metrics that Etcd 3.5 exposes.
-- The timeout flag for `sensu-backend init` is now treated as a duration instead of seconds. If the value is less than 1 second, the value is converted to seconds.
 
 **FIXES:**
 
-- ([Commercial feature][207]) Fixed string tokens being considered to be unexpected if they appeared right after the && operator in selector expressions.
+- ([Commercial feature][207]) Selector statements that begin with quotes no longer cause an error if they follow the `&&` operator.
 - ([Commercial feature][207]) Invalid PostgresConfig resources can no longer be created.
 - ([Commercial feature][207]) PostgresConfig resources can no longer have a namespace attribute.
 - Fixed a bug that could cause config deprecation warnings to be shown when deprecated config options weren't set.
