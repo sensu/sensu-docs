@@ -41,6 +41,7 @@ type: GlobalConfig
 api_version: web/v1
 metadata:
   name: custom-web-ui
+  created_by: admin
 spec:
   signin_message: with your LDAP or system credentials
   always_show_local_cluster: false
@@ -68,7 +69,8 @@ spec:
   "type": "GlobalConfig",
   "api_version": "web/v1",
   "metadata": {
-    "name": "custom-web-ui"
+    "name": "custom-web-ui",
+    "created_by": "admin"
   },
   "spec": {
     "signin_message": "with your LDAP or system credentials",
@@ -338,7 +340,7 @@ page_preferences:
       "order": "example",
       "selector": "example = example"
     }
-  ],
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
