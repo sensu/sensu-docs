@@ -28,8 +28,9 @@ You can define a single custom web UI configuration to federate to all, some, or
 
 In this web UI configuration example:
 
+- Users will see a customized sign-in message
 - Details for the local cluster will not be displayed
-- Each page will list 50 items
+- Each page will list 50 items, except the events page (which will list 100 items)
 - The web UI will use the classic theme
 - Expanded links and images will be allowed for the listed URLs
 
@@ -41,10 +42,16 @@ api_version: web/v1
 metadata:
   name: custom-web-ui
 spec:
+  signin_message: with your LDAP or system credentials
   always_show_local_cluster: false
   default_preferences:
     page_size: 50
     theme: classic
+  page_preferences:
+    - page: events
+      page_size: 100
+      order: example
+      selector: example = example
   link_policy:
     allow_list: true
     urls:
@@ -61,15 +68,23 @@ spec:
   "type": "GlobalConfig",
   "api_version": "web/v1",
   "metadata": {
-    "name": "custom-web-ui",
-    "created_by": "admin"
+    "name": "custom-web-ui"
   },
   "spec": {
+    "signin_message": "with your LDAP or system credentials",
     "always_show_local_cluster": false,
     "default_preferences": {
       "page_size": 50,
       "theme": "classic"
     },
+    "page_preferences": [
+      {
+        "page": "events",
+        "page_size": 100,
+        "order": "example",
+        "selector": "example = example"
+      }
+    ],
     "link_policy": {
       "allow_list": true,
       "urls": [
@@ -153,10 +168,16 @@ type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 spec:
+  signin_message: with your LDAP or system credentials
   always_show_local_cluster: false
   default_preferences:
     page_size: 50
     theme: classic
+  page_preferences:
+    - page: events
+      page_size: 100
+      order: example
+      selector: example = example
   link_policy:
     allow_list: true
     urls:
@@ -170,11 +191,20 @@ spec:
 {{< code json >}}
 {
   "spec": {
+    "signin_message": "with your LDAP or system credentials",
     "always_show_local_cluster": false,
     "default_preferences": {
       "page_size": 50,
       "theme": "classic"
     },
+    "page_preferences": [
+      {
+        "page": "events",
+        "page_size": 100,
+        "order": "example",
+        "selector": "example = example"
+      }
+    ],
     "link_policy": {
       "allow_list": true,
       "urls": [
@@ -227,6 +257,25 @@ created_by: admin
 
 ### Spec attributes
 
+<a id="sign-in-message"></a>
+
+signin_message | 
+-------------|------ 
+description  | Custom message to display on the web UI sign-in modal.
+required     | false
+type         | String
+default      | `with your credentials`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+signin_message: with your LDAP or system credentials
+{{< /code >}}
+{{< code json >}}
+{
+  "signin_message": "with your LDAP or system credentials"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 <a id="show-local-cluster"></a>
 
 always_show_local_cluster | 
@@ -248,7 +297,7 @@ always_show_local_cluster: false
 
 default_preferences | 
 -------------|------ 
-description  | Global default page size and theme preferences for all users.
+description  | Global [default][1] page size and theme preferences for all users.
 required     | false
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -263,6 +312,33 @@ default_preferences:
     "page_size": 50,
     "theme": "classic"
   }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+page_preferences | 
+-------------|------ 
+description  | [Page-specific preferences][6] for page size, order, and selector for all users. Any page preferences will override default preferences for the specified page.
+required     | false
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+page_preferences:
+  - page: events
+    page_size: 100
+    order: example
+    selector: example = example
+{{< /code >}}
+{{< code json >}}
+{
+  "page_preferences": [
+    {
+      "page": "events",
+      "page_size": 100,
+      "order": "example",
+      "selector": "example = example"
+    }
+  ],
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -341,6 +417,73 @@ theme: classic
 {{< /code >}}
 {{< /language-toggle >}}
 
+#### Page preferences attributes
+
+page | 
+-------------|------ 
+description  | The page to which the page preference settings apply.
+required     | true
+type         | String
+allowed values | `events`, `entities`, `silences`, `checks`, `event-filters`, `handlers` and `mutators`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+page: events
+{{< /code >}}
+{{< code json >}}
+{
+  "page": "events"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+page_size | 
+-------------|------ 
+description  | The number of items users will see on the specified page.
+required     | false
+type         | Integer
+example      | {{< language-toggle >}}
+{{< code yml >}}
+page_size: 100
+{{< /code >}}
+{{< code json >}}
+{
+  "page_size": 100
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+order | 
+-------------|------ 
+description  | NEEDED.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+order: example
+{{< /code >}}
+{{< code json >}}
+{
+  "order": "example"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+selector | 
+-------------|------ 
+description  | NEEDED.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+selector: example = example
+{{< /code >}}
+{{< code json >}}
+{
+  "selector": "example = example"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 #### Link policy attributes
 
 allow_list | 
@@ -391,7 +534,10 @@ urls:
 {{< /language-toggle >}}
 
 
+
+[1]: #default-preferences-attributes
 [2]: ../../api/webconfig/
 [3]: ../../web-ui/
 [4]: #spec-attributes
 [5]: ../../web-ui/view-manage-resources/#use-the-namespace-switcher
+[6]: #page-preferences-attributes

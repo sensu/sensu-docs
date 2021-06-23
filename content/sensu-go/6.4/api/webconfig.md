@@ -47,7 +47,7 @@ HTTP/1.1 200 OK
     "spec": {
       "always_show_local_cluster": false,
       "default_preferences": {
-        "page_size": 50,
+        "page_size": 500,
         "theme": "sensu"
       },
       "link_policy": {
@@ -60,7 +60,16 @@ HTTP/1.1 200 OK
           "//bob.local",
           "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
         ]
-      }
+      },
+      "page_preferences": [
+        {
+          "order": "example",
+          "page": "events",
+          "page_size": 100,
+          "selector": "example = example"
+        }
+      ],
+      "signin_message": "with your LDAP or system credentials"
     }
   }
 ]
@@ -86,7 +95,7 @@ output         | {{< code shell >}}
     "spec": {
       "always_show_local_cluster": false,
       "default_preferences": {
-        "page_size": 50,
+        "page_size": 500,
         "theme": "sensu"
       },
       "link_policy": {
@@ -99,7 +108,16 @@ output         | {{< code shell >}}
           "//bob.local",
           "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
         ]
-      }
+      },
+      "page_preferences": [
+        {
+          "order": "example",
+          "page": "events",
+          "page_size": 100,
+          "selector": "example = example"
+        }
+      ],
+      "signin_message": "with your LDAP or system credentials"
     }
   }
 ]
@@ -129,7 +147,7 @@ HTTP/1.1 200 OK
   "spec": {
     "always_show_local_cluster": false,
     "default_preferences": {
-      "page_size": 50,
+      "page_size": 500,
       "theme": "sensu"
     },
     "link_policy": {
@@ -142,7 +160,16 @@ HTTP/1.1 200 OK
         "//bob.local",
         "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
       ]
-    }
+    },
+    "page_preferences": [
+      {
+        "order": "example",
+        "page": "events",
+        "page_size": 100,
+        "selector": "example = example"
+      }
+    ],
+    "signin_message": "with your LDAP or system credentials"
   }
 }
 {{< /code >}}
@@ -166,7 +193,7 @@ output               | {{< code json >}}
   "spec": {
     "always_show_local_cluster": false,
     "default_preferences": {
-      "page_size": 50,
+      "page_size": 500,
       "theme": "sensu"
     },
     "link_policy": {
@@ -179,7 +206,16 @@ output               | {{< code json >}}
         "//bob.local",
         "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
       ]
-    }
+    },
+    "page_preferences": [
+      {
+        "order": "example",
+        "page": "events",
+        "page_size": 100,
+        "selector": "example = example"
+      }
+    ],
+    "signin_message": "with your LDAP or system credentials"
   }
 }
 {{< /code >}}
@@ -200,15 +236,23 @@ curl -X PUT \
   "type": "GlobalConfig",
   "api_version": "web/v1",
   "metadata": {
-    "name": "custom-web-ui",
-    "created_by": "admin"
+    "name": "custom-web-ui"
   },
   "spec": {
+    "signin_message": "with your LDAP or system credentials",
     "always_show_local_cluster": false,
     "default_preferences": {
-      "page_size": 50,
-      "theme": "sensu"
+      "theme": "sensu",
+      "page_size": 500
     },
+    "page_preferences": [
+      {
+        "page": "events",
+        "page_size": 100,
+        "order": "example",
+        "selector": "example = example"
+      }
+    ],
     "link_policy": {
       "allow_list": true,
       "urls": [
@@ -238,15 +282,23 @@ payload         | {{< code shell >}}
   "type": "GlobalConfig",
   "api_version": "web/v1",
   "metadata": {
-    "name": "custom-web-ui",
-    "created_by": "admin"
+    "name": "custom-web-ui"
   },
   "spec": {
+    "signin_message": "with your LDAP or system credentials",
     "always_show_local_cluster": false,
     "default_preferences": {
-      "page_size": 50,
-      "theme": "sensu"
+      "theme": "sensu",
+      "page_size": 500
     },
+    "page_preferences": [
+      {
+        "page": "events",
+        "page_size": 100,
+        "order": "example",
+        "selector": "example = example"
+      }
+    ],
     "link_policy": {
       "allow_list": true,
       "urls": [
@@ -286,4 +338,3 @@ HTTP/1.1 204 No Content
 description               | Removes the specified global web UI configuration from Sensu.
 example url               | http://hostname:8080/api/enterprise/web/v1/config/custom-web-ui
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
