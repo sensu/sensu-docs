@@ -63,10 +63,15 @@ HTTP/1.1 200 OK
       },
       "page_preferences": [
         {
-          "order": "example",
-          "page": "events",
-          "page_size": 100,
-          "selector": "example = example"
+          "order": "LASTSEEN",
+          "page": "entities",
+          "page_size": 50,
+          "selector": "proxy in entity.subscriptions"
+        },
+        {
+          "order": "NAME",
+          "page": "checks",
+          "page_size": 100
         }
       ],
       "signin_message": "with your LDAP or system credentials"
@@ -111,10 +116,15 @@ output         | {{< code shell >}}
       },
       "page_preferences": [
         {
-          "order": "example",
-          "page": "events",
-          "page_size": 100,
-          "selector": "example = example"
+          "order": "LASTSEEN",
+          "page": "entities",
+          "page_size": 50,
+          "selector": "proxy in entity.subscriptions"
+        },
+        {
+          "order": "NAME",
+          "page": "checks",
+          "page_size": 100
         }
       ],
       "signin_message": "with your LDAP or system credentials"
@@ -163,10 +173,15 @@ HTTP/1.1 200 OK
     },
     "page_preferences": [
       {
-        "order": "example",
-        "page": "events",
-        "page_size": 100,
-        "selector": "example = example"
+        "order": "LASTSEEN",
+        "page": "entities",
+        "page_size": 50,
+        "selector": "proxy in entity.subscriptions"
+      },
+      {
+        "order": "NAME",
+        "page": "checks",
+        "page_size": 100
       }
     ],
     "signin_message": "with your LDAP or system credentials"
@@ -209,10 +224,15 @@ output               | {{< code json >}}
     },
     "page_preferences": [
       {
-        "order": "example",
-        "page": "events",
-        "page_size": 100,
-        "selector": "example = example"
+        "order": "LASTSEEN",
+        "page": "entities",
+        "page_size": 50,
+        "selector": "proxy in entity.subscriptions"
+      },
+      {
+        "order": "NAME",
+        "page": "checks",
+        "page_size": 100
       }
     ],
     "signin_message": "with your LDAP or system credentials"
@@ -239,20 +259,11 @@ curl -X PUT \
     "name": "custom-web-ui"
   },
   "spec": {
-    "signin_message": "with your LDAP or system credentials",
     "always_show_local_cluster": false,
     "default_preferences": {
-      "theme": "sensu",
-      "page_size": 500
+      "page_size": 500,
+      "theme": "sensu"
     },
-    "page_preferences": [
-      {
-        "page": "events",
-        "page_size": 100,
-        "order": "example",
-        "selector": "example = example"
-      }
-    ],
     "link_policy": {
       "allow_list": true,
       "urls": [
@@ -263,7 +274,21 @@ curl -X PUT \
         "//bob.local",
         "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
       ]
-    }
+    },
+    "page_preferences": [
+      {
+        "order": "LASTSEEN",
+        "page": "entities",
+        "page_size": 50,
+        "selector": "proxy in entity.subscriptions"
+      },
+      {
+        "order": "NAME",
+        "page": "checks",
+        "page_size": 100
+      }
+    ],
+    "signin_message": "with your LDAP or system credentials"
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/web/v1/config/custom-web-ui
@@ -285,20 +310,11 @@ payload         | {{< code shell >}}
     "name": "custom-web-ui"
   },
   "spec": {
-    "signin_message": "with your LDAP or system credentials",
     "always_show_local_cluster": false,
     "default_preferences": {
-      "theme": "sensu",
-      "page_size": 500
+      "page_size": 500,
+      "theme": "sensu"
     },
-    "page_preferences": [
-      {
-        "page": "events",
-        "page_size": 100,
-        "order": "example",
-        "selector": "example = example"
-      }
-    ],
     "link_policy": {
       "allow_list": true,
       "urls": [
@@ -309,7 +325,21 @@ payload         | {{< code shell >}}
         "//bob.local",
         "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
       ]
-    }
+    },
+    "page_preferences": [
+      {
+        "order": "LASTSEEN",
+        "page": "entities",
+        "page_size": 50,
+        "selector": "proxy in entity.subscriptions"
+      },
+      {
+        "order": "NAME",
+        "page": "checks",
+        "page_size": 100
+      }
+    ],
+    "signin_message": "with your LDAP or system credentials"
   }
 }
 {{< /code >}}

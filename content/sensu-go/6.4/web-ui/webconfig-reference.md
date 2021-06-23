@@ -30,8 +30,10 @@ In this web UI configuration example:
 
 - Users will see a customized sign-in message
 - Details for the local cluster will not be displayed
-- Each page will list 50 items, except the events page (which will list 100 items)
+- Each page will list 50 items, except the checks page (which will list 100 items)
 - The web UI will use the classic theme
+- The entities page will list only entities with the `proxy` subscription, starting with the last-seen
+- The checks page will list checks alphabetically by name
 - Expanded links and images will be allowed for the listed URLs
 
 {{< language-toggle >}}
@@ -49,10 +51,13 @@ spec:
     page_size: 50
     theme: classic
   page_preferences:
-    - page: events
+    - page: entities
+      page_size: 50
+      order: LASTSEEN
+      selector: proxy in entity.subscriptions
+    - page: checks
       page_size: 100
-      order: example
-      selector: example = example
+      order: NAME
   link_policy:
     allow_list: true
     urls:
@@ -81,10 +86,15 @@ spec:
     },
     "page_preferences": [
       {
-        "page": "events",
+        "page": "entities",
+        "page_size": 50,
+        "order": "LASTSEEN",
+        "selector": "proxy in entity.subscriptions"
+      },
+      {
+        "page": "checks",
         "page_size": 100,
-        "order": "example",
-        "selector": "example = example"
+        "order": "NAME"
       }
     ],
     "link_policy": {
@@ -176,10 +186,13 @@ spec:
     page_size: 50
     theme: classic
   page_preferences:
-    - page: events
+    - page: entities
+      page_size: 50
+      order: LASTSEEN
+      selector: proxy in entity.subscriptions
+    - page: checks
       page_size: 100
-      order: example
-      selector: example = example
+      order: NAME
   link_policy:
     allow_list: true
     urls:
@@ -201,10 +214,15 @@ spec:
     },
     "page_preferences": [
       {
-        "page": "events",
+        "page": "entities",
+        "page_size": 50,
+        "order": "LASTSEEN",
+        "selector": "proxy in entity.subscriptions"
+      },
+      {
+        "page": "checks",
         "page_size": 100,
-        "order": "example",
-        "selector": "example = example"
+        "order": "NAME"
       }
     ],
     "link_policy": {
@@ -326,19 +344,27 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 page_preferences:
-  - page: events
+  - page: entities
+    page_size: 50
+    order: LASTSEEN
+    selector: proxy in entity.subscriptions
+  - page: checks
     page_size: 100
-    order: example
-    selector: example = example
+    order: NAME
 {{< /code >}}
 {{< code json >}}
 {
   "page_preferences": [
     {
-      "page": "events",
+      "page": "entities",
+      "page_size": 50,
+      "order": "LASTSEEN",
+      "selector": "proxy in entity.subscriptions"
+    },
+    {
+      "page": "checks",
       "page_size": 100,
-      "order": "example",
-      "selector": "example = example"
+      "order": "NAME"
     }
   ]
 }
@@ -407,7 +433,7 @@ For example, if a user's system is set to dark mode and their web UI settings ar
 required       | false
 type           | String
 default        | `sensu`
-allowed values | `sensu`, `classic`, `uchiwa`, `tritanopia`, and `deuteranopia`
+allowed values | `sensu`, `classic`, `uchiwa`, `tritanopia`, `deuteranopia`
 example        | {{< language-toggle >}}
 {{< code yml >}}
 theme: classic
@@ -426,7 +452,7 @@ page |
 description  | The page to which the page preference settings apply.
 required     | true
 type         | String
-allowed values | `events`, `entities`, `silences`, `checks`, `event-filters`, `handlers` and `mutators`
+allowed values | `events`, `entities`, `silences`, `checks`, `event-filters`, `handlers`, `mutators`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 page: events
@@ -440,7 +466,7 @@ page: events
 
 page_size | 
 -------------|------ 
-description  | The number of items users will see on the specified page.
+description  | The number of items to list for the specified page.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -456,32 +482,34 @@ page_size: 100
 
 order | 
 -------------|------ 
-description  | NEEDED.
+description  | The order in which to list items on the specified page. Read [Page preferences order values][8] to learn more.
 required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-order: example
+order: LASTSEEN
 {{< /code >}}
 {{< code json >}}
 {
-  "order": "example"
+  "order": "LASTSEEN"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
 selector | 
 -------------|------ 
-description  | NEEDED.
+description  | The [search expression][7] to apply to the specified page.<br>{{% notice note %}}
+**NOTE**: The selector page preference is not available for the events page.
+{{% /notice %}}
 required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-selector: example = example
+selector: proxy in entity.subscriptions
 {{< /code >}}
 {{< code json >}}
 {
-  "selector": "example = example"
+  "selector": "proxy in entity.subscriptions"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -535,11 +563,26 @@ urls:
 {{< /code >}}
 {{< /language-toggle >}}
 
+## Page preferences order values
+
+Available values for the `order` attribute in page preferences vary depending on the page.
+
+Page | Order value and description
+---- | ---------------------------
+events | `ENTITY`: List events by the entities that created them, in ascending order by entity name<br><br>`ENTITY_DESC`: List events by the entities that created them, in descending order by entity name<br><br>`LASTOK`: List events by their last OK status, starting with the most recent<br><br>`NEWEST`: List events by their timestamps, starting with the most recent<br><br>`OLDEST`: List events by their timestamps, starting with the oldest<br><br>`SEVERITY`: List events by their status, starting with the most severe
+entities | `ID`: List entities by their IDs, in numerical order<br><br>`ID_DESC`: List entities by their IDs, in reverse numerical order<br><br>`LASTSEEN`: List entities by their `last_seen` timestamp, starting with the most recent
+silences | `ID`: List silences by their IDs, in numerical order<br><br>`ID_DESC`: List silences by their IDs, in reverse numerical order<br><br>`BEGIN`: List silences by the time they begin, starting with the silence that begins soonest<br><br>`BEGIN_DESC`: List silences by the time they begin, ending with the silence that begins first
+checks | `NAME`: List checks by name, in alphabetical order<br><br>`NAME_DESC`: List checks by name, in reverse alphabetical order
+event-filters | `NAME`: List event filters by name, in alphabetical order<br><br>`NAME_DESC`: List event filters by name, in reverse alphabetical order
+handlers | `NAME`: List handlers by name, in alphabetical order<br><br>`NAME_DESC`: List handlers by name, in reverse alphabetical order
+mutators | `NAME`: List mutators by name, in alphabetical order<br><br>`NAME_DESC`: List mutators by name, in reverse alphabetical order
 
 
 [1]: #default-preferences-attributes
 [2]: ../../api/webconfig/
-[3]: ../../web-ui/
+[3]: ../
 [4]: #spec-attributes
-[5]: ../../web-ui/view-manage-resources/#use-the-namespace-switcher
+[5]: ../view-manage-resources/#use-the-namespace-switcher
 [6]: #page-preferences-attributes
+[7]: ../search/
+[8]: #page-preferences-order-values
