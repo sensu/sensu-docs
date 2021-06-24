@@ -24,7 +24,7 @@ For more information, see [Get started with commercial features](../commercial/)
 
 - **Integrate your Sensu observability pipeline with industry-standard tools** like ServiceNow and Jira with [supported integrations][24] and [enterprise-tier dynamic runtime assets][11].
 - **Manage resources from your browser**: Use the Sensu [web UI][8] to manage events and entities and create, edit, and delete checks, handlers, mutators, silences, and event filters.
-Create customized [global default settings][26] for page size and theme and [page-specific settings][27] for page size, order, and selector.
+Create customized [global default settings][26] for page size and theme, [page-specific settings][27] for page size, order, and selector, and [sign-in messages][28].
 - **Control permissions with Sensu role-based access control (RBAC)**, with the option of using [Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC)][9] for authentication.
 - **Use mutual transport layer security (mTLS) authentication** to [provide two-way verification of your Sensu agents and backend connections][21].
 - **Maintain high-level visibility into the current health of your business services**.
@@ -119,3 +119,4 @@ These resources will help you get started with commercial features in Sensu Go:
 [25]: #commercial-features-in-sensu-go
 [26]: ../web-ui/webconfig-reference/#default-preferences-attributes
 [27]: ../web-ui/webconfig-reference/#page-preferences-attributes
+[28]: ../web-ui/webconfig-reference/#sign-in-message
