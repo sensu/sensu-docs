@@ -30,9 +30,9 @@ In this web UI configuration example:
 
 - Users will see a customized sign-in message
 - Details for the local cluster will not be displayed
-- Each page will list 50 items, except the checks page (which will list 100 items)
+- Each page will list 50 items (except the checks page, which will list 100 items)
 - The web UI will use the classic theme
-- The entities page will list only entities with the `proxy` subscription, starting with the last-seen
+- The entities page will list only entities with the `proxy` subscription, in ascending order based on `last_seen` value
 - The checks page will list checks alphabetically by name
 - Expanded links and images will be allowed for the listed URLs
 
