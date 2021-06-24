@@ -47,7 +47,7 @@ HTTP/1.1 200 OK
     "spec": {
       "always_show_local_cluster": false,
       "default_preferences": {
-        "page_size": 50,
+        "page_size": 500,
         "theme": "sensu"
       },
       "link_policy": {
@@ -60,7 +60,21 @@ HTTP/1.1 200 OK
           "//bob.local",
           "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
         ]
-      }
+      },
+      "page_preferences": [
+        {
+          "order": "LASTSEEN",
+          "page": "entities",
+          "page_size": 50,
+          "selector": "proxy in entity.subscriptions"
+        },
+        {
+          "order": "NAME",
+          "page": "checks",
+          "page_size": 100
+        }
+      ],
+      "signin_message": "with your LDAP or system credentials"
     }
   }
 ]
@@ -86,7 +100,7 @@ output         | {{< code shell >}}
     "spec": {
       "always_show_local_cluster": false,
       "default_preferences": {
-        "page_size": 50,
+        "page_size": 500,
         "theme": "sensu"
       },
       "link_policy": {
@@ -99,7 +113,21 @@ output         | {{< code shell >}}
           "//bob.local",
           "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
         ]
-      }
+      },
+      "page_preferences": [
+        {
+          "order": "LASTSEEN",
+          "page": "entities",
+          "page_size": 50,
+          "selector": "proxy in entity.subscriptions"
+        },
+        {
+          "order": "NAME",
+          "page": "checks",
+          "page_size": 100
+        }
+      ],
+      "signin_message": "with your LDAP or system credentials"
     }
   }
 ]
@@ -129,7 +157,7 @@ HTTP/1.1 200 OK
   "spec": {
     "always_show_local_cluster": false,
     "default_preferences": {
-      "page_size": 50,
+      "page_size": 500,
       "theme": "sensu"
     },
     "link_policy": {
@@ -142,7 +170,21 @@ HTTP/1.1 200 OK
         "//bob.local",
         "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
       ]
-    }
+    },
+    "page_preferences": [
+      {
+        "order": "LASTSEEN",
+        "page": "entities",
+        "page_size": 50,
+        "selector": "proxy in entity.subscriptions"
+      },
+      {
+        "order": "NAME",
+        "page": "checks",
+        "page_size": 100
+      }
+    ],
+    "signin_message": "with your LDAP or system credentials"
   }
 }
 {{< /code >}}
@@ -166,7 +208,7 @@ output               | {{< code json >}}
   "spec": {
     "always_show_local_cluster": false,
     "default_preferences": {
-      "page_size": 50,
+      "page_size": 500,
       "theme": "sensu"
     },
     "link_policy": {
@@ -179,7 +221,21 @@ output               | {{< code json >}}
         "//bob.local",
         "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
       ]
-    }
+    },
+    "page_preferences": [
+      {
+        "order": "LASTSEEN",
+        "page": "entities",
+        "page_size": 50,
+        "selector": "proxy in entity.subscriptions"
+      },
+      {
+        "order": "NAME",
+        "page": "checks",
+        "page_size": 100
+      }
+    ],
+    "signin_message": "with your LDAP or system credentials"
   }
 }
 {{< /code >}}
@@ -200,13 +256,12 @@ curl -X PUT \
   "type": "GlobalConfig",
   "api_version": "web/v1",
   "metadata": {
-    "name": "custom-web-ui",
-    "created_by": "admin"
+    "name": "custom-web-ui"
   },
   "spec": {
     "always_show_local_cluster": false,
     "default_preferences": {
-      "page_size": 50,
+      "page_size": 500,
       "theme": "sensu"
     },
     "link_policy": {
@@ -219,7 +274,21 @@ curl -X PUT \
         "//bob.local",
         "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
       ]
-    }
+    },
+    "page_preferences": [
+      {
+        "order": "LASTSEEN",
+        "page": "entities",
+        "page_size": 50,
+        "selector": "proxy in entity.subscriptions"
+      },
+      {
+        "order": "NAME",
+        "page": "checks",
+        "page_size": 100
+      }
+    ],
+    "signin_message": "with your LDAP or system credentials"
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/web/v1/config/custom-web-ui
@@ -238,13 +307,12 @@ payload         | {{< code shell >}}
   "type": "GlobalConfig",
   "api_version": "web/v1",
   "metadata": {
-    "name": "custom-web-ui",
-    "created_by": "admin"
+    "name": "custom-web-ui"
   },
   "spec": {
     "always_show_local_cluster": false,
     "default_preferences": {
-      "page_size": 50,
+      "page_size": 500,
       "theme": "sensu"
     },
     "link_policy": {
@@ -257,7 +325,21 @@ payload         | {{< code shell >}}
         "//bob.local",
         "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
       ]
-    }
+    },
+    "page_preferences": [
+      {
+        "order": "LASTSEEN",
+        "page": "entities",
+        "page_size": 50,
+        "selector": "proxy in entity.subscriptions"
+      },
+      {
+        "order": "NAME",
+        "page": "checks",
+        "page_size": 100
+      }
+    ],
+    "signin_message": "with your LDAP or system credentials"
   }
 }
 {{< /code >}}
@@ -286,4 +368,3 @@ HTTP/1.1 204 No Content
 description               | Removes the specified global web UI configuration from Sensu.
 example url               | http://hostname:8080/api/enterprise/web/v1/config/custom-web-ui
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
