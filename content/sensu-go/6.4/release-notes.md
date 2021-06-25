@@ -104,7 +104,8 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.4.0.
 
 - Added [etcd-log-level configuration flag][217] for setting the log level for the embedded etcd server.
 - Added [`wait` flag][218] for the `sensu-backend init` command, which indicates the backend should repeatedly try to establish a connection to etcd until it is successful.
-Also, the `timeout` flag for `sensu-backend init` is now treated as a duration instead of seconds, and values less than 1 second are converted to seconds.
+- The `timeout` flag for `sensu-backend init` is now treated as a duration instead of seconds (example duration format is `10s` for 10 seconds or `5m` for 5 minutes).
+Values less than 1 second and integer values will be interpreted as seconds.
 - Added `sensu_go_keepalives` Prometheus metric to count keepalive statuses over time and help identify instability due to keepalive failure.
 - Upgraded Go version from `1.13.15` to `1.16.5`.
 - Upgraded etcd version from `3.3.22` to `3.5.0`.
