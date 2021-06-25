@@ -33,8 +33,10 @@ etcd version 3.4.0 is compatible with Sensu but may result in slower performance
 
 ## Scale event storage
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access enterprise-scale event storage in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][13].
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 Sensu supports using an external PostgreSQL instance for event storage in place of etcd.
 PostgreSQL can handle significantly higher volumes of Sensu events, which allows you to scale Sensu beyond etcd's 8-GB limit.
@@ -463,7 +465,6 @@ strict: true
 [10]: ../../../sensuctl/create-manage-resources/#sensuctl-event
 [11]: ../../../api/events/
 [12]: ../../../observability-pipeline/observe-process/populate-metrics-influxdb/
-[13]: ../../../commercial/
 [14]: https://www.postgresql.org
 [15]: https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING
 [16]: ../../../sensuctl/create-manage-resources/#create-resources

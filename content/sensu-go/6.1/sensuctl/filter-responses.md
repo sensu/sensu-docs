@@ -11,8 +11,10 @@ menu:
     parent: sensuctl
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access sensuctl response filtering in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][4].
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 Sensuctl supports response filtering for all [commands using the `list` verb][1].
 For information about response filtering methods and available label and field selectors, see [API response filtering][2].
@@ -118,6 +120,5 @@ sensuctl check list --label-selector 'region == "us-west-1"' --field-selector 's
 [1]: ../create-manage-resources/#subcommands
 [2]: ../../api#response-filtering
 [3]: ../../api#field-selector
-[4]: ../../commercial/
 [5]: ../../api/#operators
 [6]: #examples

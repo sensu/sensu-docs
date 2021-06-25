@@ -11,8 +11,10 @@ menu:
     parent: web-ui
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access web UI configuration in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][1].
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 Web UI configuration allows you to define certain display options for the Sensu [web UI][3], such as which web UI theme to use, the number of items to list on each page, and which URLs and linked images to expand.
 You can define a single custom web UI configuration to federate to all, some, or only one of your clusters.
@@ -90,7 +92,6 @@ In a single-cluster environment, the namespace switcher will only list a local-c
 {{% /notice %}}
 
 
-[1]: ../../commercial/
 [2]: ../../api/webconfig/
 [3]: ../
 [4]: ../webconfig-reference/

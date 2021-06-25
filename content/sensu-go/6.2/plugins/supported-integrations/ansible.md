@@ -9,8 +9,10 @@ menu:
     parent: supported-integrations
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Sensu Ansible Handler integration in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][6].
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 The Sensu Ansible Handler plugin is a Sensu [handler][1] that launches Ansible Tower job templates for automated remediation based on Sensu event data.
 
@@ -45,8 +47,7 @@ The [documentation site][8] includes installation instructions, example playbook
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
 [3]: https://github.com/sensu/catalog/blob/main/pipelines/remediation/ansible-tower.yaml
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-ansible-handler
-[5]: ../../assets
-[6]: ../../../commercial/
+[5]: ../../assets/
 [7]: https://galaxy.ansible.com/sensu/sensu_go
 [8]: https://sensu.github.io/sensu-go-ansible/
 [9]: ../../../operations/manage-secrets/

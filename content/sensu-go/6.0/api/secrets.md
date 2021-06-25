@@ -10,8 +10,10 @@ menu:
     parent: api
 ---
 
-**COMMERCIAL FEATURE**: Access secrets management in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][1].
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access the secrets API in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 {{% notice note %}}
 **NOTE**: Requests to the secrets API require you to authenticate with a Sensu [access token](../#authenticate-with-the-authentication-api) or [API key](../#authenticate-with-an-api-key).
@@ -458,5 +460,4 @@ example url               | http://hostname:8080/api/enterprise/secrets/v1/names
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-[1]: ../../commercial/
 [4]: ../#response-filtering

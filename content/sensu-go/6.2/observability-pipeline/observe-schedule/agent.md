@@ -838,8 +838,8 @@ You must present the whole chain to the remote so it can determine whether it tr
 
 ### Configuration summary
 
-{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in this version of Sensu.
+{{% notice note %}}
+**NOTE**: Process discovery is disabled in this version of Sensu.
 The `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
@@ -930,8 +930,8 @@ See the [example agent configuration file][5] (also provided with Sensu packages
 
 | agent-managed-entity |      |
 -------------|------
-description  | Indicates whether the agent's entity solely managed by the agent rather than the backend API. Agent-managed entity definitions will include the label `sensu.io/managed_by: sensu-agent`, and you cannot update these agent-managed entities via the Sensu backend REST API.<br>{{% notice important%}}
-**IMPORTANT**: In Sensu Go 6.2.1 and 6.2.2, the agent-managed-entity configuration flag can prevent the agent from starting.
+description  | Indicates whether the agent's entity solely managed by the agent rather than the backend API. Agent-managed entity definitions will include the label `sensu.io/managed_by: sensu-agent`, and you cannot update these agent-managed entities via the Sensu backend REST API.<br>{{% notice warning %}}
+**WARNING**: In Sensu Go 6.2.1 and 6.2.2, the agent-managed-entity configuration flag can prevent the agent from starting.
 Upgrade to [Sensu Go 6.2.3](../../../release-notes/#623-release-notes) to use the agent-managed-entity configuration flag.
 {{% /notice %}}
 required     | false
@@ -1043,15 +1043,28 @@ description   | ws or wss URL of the Sensu backend server. To specify multiple b
 type          | List
 default       | `ws://127.0.0.1:8081` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`$SENSU_HOSTNAME:8080` (Docker)
 environment variable | `SENSU_BACKEND_URL`
-command line example   | {{< code shell >}}
-sensu-agent start --backend-url ws://0.0.0.0:8081
-sensu-agent start --backend-url ws://0.0.0.0:8081 --backend-url ws://0.0.0.0:8082
+command line example | {{< language-toggle >}}
+{{< code shell "ws" >}}
+sensu-agent start --backend-url ws://127.0.0.1:8081
+sensu-agent start --backend-url ws://127.0.0.1:8081 --backend-url ws://127.0.0.1:8082
 {{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+{{< code shell "wss" >}}
+sensu-agent start --backend-url wss://127.0.0.1:8081
+sensu-agent start --backend-url wss://127.0.0.1:8081 --backend-url wss://127.0.0.1:8082
+{{< /code >}}
+{{< /language-toggle >}}
+/etc/sensu/agent.yml example | {{< language-toggle >}}
+{{< code shell "ws" >}}
 backend-url:
-  - "ws://0.0.0.0:8081"
-  - "ws://0.0.0.0:8082"
+  - "ws://127.0.0.1:8081"
+  - "ws://127.0.0.1:8082"
 {{< /code >}}
+{{< code shell "wss" >}}
+backend-url:
+  - "wss://127.0.0.1:8081"
+  - "wss://127.0.0.1:8082"
+{{< /code >}}
+{{< /language-toggle >}}
 
 <a id="cache-dir"></a>
 
@@ -1096,9 +1109,8 @@ disable-assets: true{{< /code >}}
 
 | discover-processes |      |
 --------------|------
-description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][55].{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in this version of Sensu. The `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
+description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].{{% notice note %}}
+**NOTE**: Process discovery is disabled in this version of Sensu. The `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 type          | Boolean
 default       | false
@@ -1178,9 +1190,9 @@ type          | String
 default       | `127.0.0.1`
 environment variable | `SENSU_API_HOST`
 command line example   | {{< code shell >}}
-sensu-agent start --api-host 0.0.0.0{{< /code >}}
+sensu-agent start --api-host 127.0.0.1{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-api-host: "0.0.0.0"{{< /code >}}
+api-host: "127.0.0.1"{{< /code >}}
 
 | api-port    |      |
 --------------|------
@@ -1189,9 +1201,9 @@ type          | Integer
 default       | `3031`
 environment variable | `SENSU_API_PORT`
 command line example   | {{< code shell >}}
-sensu-agent start --api-port 4041{{< /code >}}
+sensu-agent start --api-port 3031{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-api-port: 4041{{< /code >}}
+api-port: 3031{{< /code >}}
 
 | disable-api |      |
 --------------|------
@@ -1457,9 +1469,9 @@ type          | String
 default       | `127.0.0.1`
 environment variable   | `SENSU_SOCKET_HOST`
 command line example   | {{< code shell >}}
-sensu-agent start --socket-host 0.0.0.0{{< /code >}}
+sensu-agent start --socket-host 127.0.0.1{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-socket-host: "0.0.0.0"{{< /code >}}
+socket-host: "127.0.0.1"{{< /code >}}
 
 | socket-port |      |
 --------------|------
@@ -1468,9 +1480,9 @@ type          | Integer
 default       | `3030`
 environment variable   | `SENSU_SOCKET_PORT`
 command line example   | {{< code shell >}}
-sensu-agent start --socket-port 4030{{< /code >}}
+sensu-agent start --socket-port 3030{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-socket-port: 4030{{< /code >}}
+socket-port: 3030{{< /code >}}
 
 | disable-sockets |      |
 ------------------|------
@@ -1529,9 +1541,9 @@ type                  | String
 default               | `127.0.0.1`
 environment variable   | `SENSU_STATSD_METRICS_HOST`
 command line example   | {{< code shell >}}
-sensu-agent start --statsd-metrics-host 0.0.0.0{{< /code >}}
+sensu-agent start --statsd-metrics-host 127.0.0.1{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-statsd-metrics-host: "0.0.0.0"{{< /code >}}
+statsd-metrics-host: "127.0.0.1"{{< /code >}}
 
 | statsd-metrics-port |      |
 ----------------------|------
@@ -1540,9 +1552,9 @@ type                  | Integer
 default               | `8125`
 environment variable   | `SENSU_STATSD_METRICS_PORT`
 command line example   | {{< code shell >}}
-sensu-agent start --statsd-metrics-port 6125{{< /code >}}
+sensu-agent start --statsd-metrics-port 8125{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-statsd-metrics-port: 6125{{< /code >}}
+statsd-metrics-port: 8125{{< /code >}}
 
 ### Allow list configuration commands
 

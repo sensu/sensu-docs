@@ -12,8 +12,10 @@ menu:
 
 The Sensu backend includes the **Sensu web UI**: a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue.
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Sensu web UI homepage (shown below) in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][6].
+For more information, see [Get started with commercial features](../commercial/).
+{{% /notice %}}
 
 {{< figure src="/images/web-ui.png" alt="Sensu web UI homepage" link="/images/web-ui.png" target="_blank" >}}
 
@@ -46,5 +48,4 @@ Use the preferences menu to change the theme or switch to the dark theme.
 [3]: ../operations/control-access/rbac/
 [4]: ../operations/control-access/rbac#default-users
 [5]: ../operations/control-access/rbac#create-users
-[6]: ../commercial/
 [7]: ../api/auth/

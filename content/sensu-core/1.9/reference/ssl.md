@@ -60,7 +60,7 @@ openssl version
 
 2. Download the Sensu SSL tool
 {{< code shell >}}
-wget http://docs.sensu.io/sensu-core/1.4/files/sensu_ssl_tool.tar
+wget http://docs.sensu.io/sensu-core/1.9/files/sensu_ssl_tool.tar
 tar -xvf sensu_ssl_tool.tar
 {{< /code >}}
 

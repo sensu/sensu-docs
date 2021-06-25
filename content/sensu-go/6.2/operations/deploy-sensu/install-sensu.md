@@ -187,8 +187,8 @@ service sensu-backend status
 
 For a complete list of configuration options, see the [backend reference][6].
 
-{{% notice important %}}
-**IMPORTANT**: If you plan to [run a Sensu cluster](../cluster-sensu/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you continue the installation process.
+{{% notice warning %}}
+**WARNING**: If you plan to [run a Sensu cluster](../cluster-sensu/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you continue the installation process.
 {{% /notice %}}
 
 ### 3. Initialize
@@ -281,8 +281,14 @@ sudo yum install sensu-go-cli
 # Download sensuctl for Windows amd64
 Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go_6.2.7_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.7_windows_amd64.zip
 
-# Or for 386
+# Or for Windows 386
 Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go_6.2.7_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.2.7_windows_386.zip
+
+# Unzip the file with PowerShell for Windows amd64
+Expand-Archive -LiteralPath 'C:\Users\Administrator\sensu-go_6.2.7_windows_amd64.zip' -DestinationPath 'C:\\Program Files\sensu\sensuctl\bin'
+
+# or for Windows 386
+Expand-Archive -LiteralPath 'C:\Users\Administrator\sensu-go_6.2.7_windows_386.zip' -DestinationPath 'C:\\Program Files\sensu\sensuctl\bin'
 {{< /code >}}
 
 {{< code shell "macOS" >}}
@@ -365,8 +371,11 @@ Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sen
 # Or for Windows 386
 Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.2.7/sensu-go-agent_6.2.7.4449_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.2.7.4449_en-US.x86.msi"
 
-# Install the Sensu agent
+# Install the Sensu agent for Windows amd64
 msiexec.exe /i $env:userprofile\sensu-go-agent_6.2.7.4449_en-US.x64.msi /qn
+
+# Or for Windows 386
+msiexec.exe /i $env:userprofile\sensu-go-agent_6.2.7.4449_en-US.x86.msi /qn
 
 # Or via Chocolatey
 choco install sensu-agent
@@ -547,7 +556,7 @@ sensuctl license info
 [10]: ../../../observability-pipeline/observe-process/send-slack-alerts/
 [11]: https://sensu.io/contact?subject=contact-sales/
 [12]: ../../../observability-pipeline/observe-process/send-email-alerts/
-[13]: https://sensu.io/sensu-license/
+[13]: https://sensu.io/licenses
 [14]: ../../../learn/learn-sensu-sandbox/
 [15]: ../../../observability-pipeline/observe-schedule/agent/#events-post-example
 [16]: https://etcd.io/

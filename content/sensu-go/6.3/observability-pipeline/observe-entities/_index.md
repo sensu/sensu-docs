@@ -179,12 +179,17 @@ See [Monitor external resources][1] to learn how to use a proxy entity to monito
 
 ## Service entities
 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access business service monitoring (BSM), including service entities, in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
+
 A service entity represents a business service in [business service monitoring (BSM)][8].
 Sensu processes service entity events just like events generated for agent and proxy entities.
 You can also use service entities for proxy check requests and events.
 
-{{% notice important %}}
-**IMPORTANT**: Business service monitoring is in public preview and is subject to change. 
+{{% notice note %}}
+**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
 {{% /notice %}}
 
 This example shows a service entity resource definition:
