@@ -90,7 +90,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **June 28, 2021** &mdash; The latest release of Sensu Go, version 6.4.0, is now available for download. 
 
-<!--// synopsis placeholder //-->
+The latest release of Sensu Go, version 6.4.0, is now available for download. This release includes a number of feature improvements and important bug fixes. We upgraded the embedded etcd from version 3.3 to 3.5 for improved stability and security. The `sensu-backend init` command now supports a `--wait` flag, which indicates that the backend should repeatedly try to establish a connection to etcd until it is successful -- fantastic news for Kubernetes users who want to bootstrap new Sensu Go clusters with external etcd! Check timeout also now works properly on Windows hosts: the Sensu Go agent can terminate check sub-processes on check execution timeout. This release fixes a bug that prevented deregistration events from working. There’s something for everyone in this release!
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.4.0.
 
