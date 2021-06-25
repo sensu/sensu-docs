@@ -296,6 +296,84 @@ TODO: Document steps for adding CA root to Windows trust store
 
 {{< /language-toggle >}}
 
+## Renew self-generated certificates
+
+Certificates expire, so you'll need to renew them from time to time to keep your Sensu deployment running smoothly.
+Depending on how your certificates are configured, one backend certificate may expire before the others, all three backend certificates may expire at the same time, or the agent certificate may expire before any of the backend certificates.
+
+This section explains how to find certificate expiration dates, confirm whether certificates have already expired, and renew certificates.
+
+### Find certificate expiration dates
+
+Use this check to find certificate expiration dates.
+This allows you to renew certificates before they expire to avoid observability interruptions.
+
+**TODO: Add check example**
+
+command: openssl x509 -noout -enddate -in cert.pem
+
+### Confirm expired certificates
+
+Use `sensuctl cluster health` to check your deployment for expired backend certificates.
+
+The following `sensuctl cluster health` response indicates that one backend certificate is expired:
+
+{{< code shell >}}
+Error: GET "/health": Get https://localhost:8080/health?timeout=3: x509: certificate has expired or is not yet valid
+{{< /code >}}
+
+The log for the expired backend will be similar to this example:
+
+{{< code shell >}}
+backend-01_1      | {"component":"etcd","level":"warning","msg":"health check for peer 4cc76e198efb22e8 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
+backend-01_1      | {"component":"etcd","level":"warning","msg":"health check for peer 8495a7b2d2ee8597 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
+{{< /code >}}
+
+If you restart the cluster with one expired backend certificate, the `sensuctl cluster health`response will include an error:
+
+{{< code shell >}}
+Error: GET "/health": failed to request new refresh token; client returned 'Post https://localhost:8080/auth/token: EOF'
+{{< /code >}}
+
+The following `sensuctl cluster health` response indicates that all three backend certificates are expired:
+
+{{< code shell >}}
+=== Etcd Cluster ID: 49c04eab9efc0d11
+         ID             Name                Error             Healthy  
+ ────────────────── ──────────── ─────────────────────────── ───────── 
+  a99ca1cdb0b1fcc3   backend-01   context deadline exceeded   false    
+  8495a7b2d2ee8597   backend-02   context deadline exceeded   false    
+  4cc76e198efb22e8   backend-03   context deadline exceeded   false
+{{< /code >}}
+
+When all three backend certificates are expired, the log will be similar to this example:
+
+{{< code shell >}}
+backend-01_1      | {"component":"etcd","level":"warning","msg":"health check for peer 8495a7b2d2ee8597 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:53Z"}
+backend-02_1      | {"component":"etcd","level":"warning","msg":"health check for peer 4cc76e198efb22e8 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
+backend-03_1      | {"component":"etcd","level":"warning","msg":"health check for peer 8495a7b2d2ee8597 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
+{{< /code >}}
+
+**TODO: How log can the cluster stay in this state before the etcd cluster becomes unrecoverable?**
+
+If you restart the cluster with three expired backend certificates, the `sensuctl cluster health`response will include an error:
+
+{{< code shell >}}
+Error: GET "/health": Get https://127.0.0.1:8080/health?timeout=3: EOF
+{{< /code >}}
+
+An expired agent certificate does not cause any errors or log messages to indicate the exipriation.
+Use the [certificate expiration check][] to find the agent certificate expiration date.
+
+### Renew certificates
+
+To renew your certificates, whether they expired or not, follow the steps to [create a CA][7], [generate backend certificates][14], or [generate an agent certificate][15].
+The new certificate will override the existing certificate.
+
+**TODO: Do users need to stop the cluster to re-create the certs?**
+
+**TODO: Do users need to restart the cluster after saving the new certs?**
+
 ## Next step: Secure Sensu
 
 Now that you have generated the required certificates and copied them to the applicable hosts, follow [Secure Sensu][1] to make your Sensu installation production-ready.
@@ -314,3 +392,6 @@ Now that you have generated the required certificates and copied them to the app
 [11]: #copy-ca-pem
 [12]: #copy-backend-pem
 [13]: #copy-agent-pem
+[14]: #generate-backend-cluster-certificates
+[15]: #generate-agent-certificate
+[16]: #find-certificate-expiration-dates
