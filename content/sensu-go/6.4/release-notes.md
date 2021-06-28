@@ -109,6 +109,8 @@ Values less than 1 second and integer values will be interpreted as seconds.
 - Added `sensu_go_keepalives` Prometheus metric to count keepalive statuses over time and help identify instability due to keepalive failure.
 - Upgraded Go version from `1.13.15` to `1.16.5`.
 - Upgraded etcd version from `3.3.22` to `3.5.0`.
+As a result, **6.4.0 is not backward-compatible with previous Sensu versions**.
+Read the [upgrade instructions][222] for details about creating a full etcd database backup before you upgrade to Sensu Go 6.4.0.
 Also, in etcd 3.5, some Prometheus metric names changed.
 Read the [etcd documentation][219] for details.
 
@@ -1899,3 +1901,4 @@ To get started with Sensu Go:
 [219]: https://etcd.io/docs/v3.5/metrics/etcd-metrics-latest.txt
 [220]: /sensu-go/6.4/web-ui/webconfig-reference/#sign-in-message
 [221]: /sensu-go/6.4/web-ui/webconfig-reference/#page-preferences-attributes
+[222]: /sensu-go/6.4/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-640-from-any-previous-version
