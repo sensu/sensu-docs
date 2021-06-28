@@ -45,21 +45,27 @@ The Entities page provides real-time inventory information for the namespace's e
 The top row of the entities list includes options for filtering and sorting entities on the page.
 Click the check boxes to select one or more entities and edit, silence, or delete them directly from the Entities page.
 
+Click an entity name to view information about associated events, system properties, and labels and annotations.
+
 ## Manage silences
 
-Create silences by check or subscription name and clear silences in the web UI Silences page.
+The Silences page lists all active silences for the namespace.
+Use the Silences page to create and clear silences for individual events, by check or subscription name, or by entity.
 
 You can also silence checks and entities from their respective pages in the web UI.
 To silence more than one check or entity at a time, click to select the checkbox next to the check or entity name.
 
 After you create a silence, it will be listed in the web UI Silences page until you clear the silence or the silence expires.
 
-## Manage checks, handlers, event filters, and mutators
+## Manage configuration resources
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access check, handler, event filter, and mutator management in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features](../../commercial/).
 {{% /notice %}}
+
+Under the Configuration menu option, you can access check, handler, event filter, and mutator resources.
+Each page provides Each of the configuration resources provides list + detail views, as well as the ability to create and/or edit configuration resources (e.g. modify check or handler configuration), assuming the user has the appropriate RBAC permissions.
 
 Create, edit, and delete Sensu checks, handlers, event filters, and mutators from their respective pages in the web UI.
 Execute checks on demand from individual check pages to test your observability pipeline.
