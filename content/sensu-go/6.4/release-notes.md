@@ -9,6 +9,7 @@ version: "6.4"
 menu: "sensu-go-6.4"
 ---
 
+- [6.4.0 release notes](#640-release-notes)
 - [6.3.0 release notes](#630-release-notes)
 - [6.2.7 release notes](#627-release-notes)
 - [6.2.6 release notes](#626-release-notes)
@@ -84,6 +85,45 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.4.0 release notes
+
+**June 28, 2021** &mdash; The latest release of Sensu Go, version 6.4.0, is now available for download. 
+
+The latest release of Sensu Go, version 6.4.0, is now available for download. This release includes a number of feature improvements and important bug fixes. We upgraded the embedded etcd from version 3.3 to 3.5 for improved stability and security. The `sensu-backend init` command now supports a `--wait` flag, which indicates that the backend should repeatedly try to establish a connection to etcd until it is successful -- fantastic news for Kubernetes users who want to bootstrap new Sensu Go clusters with external etcd! Check timeout also now works properly on Windows hosts: the Sensu Go agent can terminate check sub-processes on check execution timeout. This release fixes a bug that prevented deregistration events from working. There’s something for everyone in this release!
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.4.0.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][215]) In the web UI, the system information modal now includes license expiration information, accessed via the `CTRL + .` keyboard shortcut, for users with the appropriate permissions.
+- ([Commercial feature][215]) Added [page-specific configuration][221] options and a custom [sign-in message attribute][220] for the web UI.
+- Added binary-only distribution for [macOS arm64][216].
+
+**IMPROVEMENTS:**
+
+- Added [etcd-log-level configuration flag][217] for setting the log level for the embedded etcd server.
+- Added [`wait` flag][218] for the `sensu-backend init` command, which indicates the backend should repeatedly try to establish a connection to etcd until it is successful.
+- The `timeout` flag for `sensu-backend init` is now treated as a duration instead of seconds (example duration format is `10s` for 10 seconds or `5m` for 5 minutes).
+Values less than 1 second and integer values will be interpreted as seconds.
+- Added `sensu_go_keepalives` Prometheus metric to count keepalive statuses over time and help identify instability due to keepalive failure.
+- Upgraded Go version from `1.13.15` to `1.16.5`.
+- Upgraded etcd version from `3.3.22` to `3.5.0`.
+As a result, **6.4.0 is not backward-compatible with previous Sensu versions**.
+Read the [upgrade instructions][222] for details about creating a full etcd database backup before you upgrade to Sensu Go 6.4.0.
+Also, in etcd 3.5, some Prometheus metric names changed.
+Read the [etcd documentation][219] for details.
+
+**FIXES:**
+
+- ([Commercial feature][215]) Selector statements that begin with quotes no longer cause an error if they follow the `&&` operator.
+- ([Commercial feature][215]) Fixed a bug that allowed PostgresConfig resources to include a namespace attribute.
+Also, invalid PostgresConfig resources can no longer be created.
+- Fixed a bug that resulted in OK keepalive status after shutting down the agent.
+- Fixed a bug in role-based access control (RBAC) that caused incorrect HTTP API statuses and web UI crashes when role bindings referred to missing roles.
+The API now returns status `403` with a message to explain that the referenced role is missing.
+- Fixed a bug that prevented deregistration events from validating due to empty `event.check.subscriptions` arrays.
+- Fixed a bug that caused Windows agents to handle command timeouts improperly.
 
 ## 6.3.0 release notes
 
@@ -1854,3 +1894,11 @@ To get started with Sensu Go:
 [212]: /sensu-go/6.3/api/health/#get-health-data-for-your-agent-transport
 [213]: /sensu-go/6.3/observability-pipeline/observe-entities/#service-entities
 [214]: /sensu-go/6.3/sensuctl/#global-flags
+[215]: /sensu-go/6.4/commercial/
+[216]: /sensu-go/6.4/platforms/#macos
+[217]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#general-configuration-flags
+[218]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#initialization-timeout-and-wait-flags
+[219]: https://etcd.io/docs/v3.5/metrics/etcd-metrics-latest.txt
+[220]: /sensu-go/6.4/web-ui/webconfig-reference/#sign-in-message
+[221]: /sensu-go/6.4/web-ui/webconfig-reference/#page-preferences-attributes
+[222]: /sensu-go/6.4/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-640-from-any-previous-version
