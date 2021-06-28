@@ -34,12 +34,16 @@ To confirm the installed version, run `sensu-agent version`, `sensu-backend vers
 ## Upgrade to Sensu Go 6.4.0 from any previous version
 
 In Sensu Go 6.4.0, we upgraded the embedded etcd version from 3.3.22 to 3.5.0.
-As a result, 6.4.0 is not backward-compatible with previous Sensu versions.
+As a result, for deployments use embedded etcd, 6.4.0 is not backward-compatible with previous versions of the Sensu backend.
 
-Before you upgrade to Sensu Go 6.4.0, use the [etcd snapshot and restore process][9] to create a full etcd database backup.
-If you make a complete etcd database backup before upgrading to 6.4.0, you will be able to restore your pre-6.4.0 deployment if you need to revert to an earlier Sensu release.
+{{% notice note %}}
+**NOTE**: Sensu Go 6.4.0 is backward-compatible for deployments that use external etcd, as well as with previous versions of the Sensu agent.
+{{% /notice %}}
 
-After creating a full etcd database backup, you can follow the [standard upgrade process][10] to upgrade to 6.4.0.
+For embedded etcd deployments, before you upgrade to Sensu Go 6.4.0, use the [etcd snapshot and restore process][9] to create a full etcd database backup.
+If you make a full etcd database backup before upgrading to 6.4.0, you will be able to restore your pre-6.4.0 deployment if you need to revert to an earlier Sensu release.
+
+After creating a full backup of your embedded etcd database, you can follow the [standard upgrade process][10] to upgrade to 6.4.0.
 
 ## Upgrade to Sensu Go 6.2.0 from any previous version
 
