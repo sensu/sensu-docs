@@ -12,12 +12,17 @@ menu:
 
 The Sensu backend includes the **Sensu web UI**: a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue.
 
+<a id="webui-homepage"></a>
+
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Sensu web UI homepage (shown below) in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features](../commercial/).
+
+The web UI homepage provides a high-level overview of the overall health of the systems under Sensu's management, with a summary of active incidents, the number of incidents by severity, the types of entities under management, and the numbers of entities and incidents per namespace.
 {{% /notice %}}
 
 {{< figure src="/images/web-ui.png" alt="Sensu web UI homepage" link="/images/web-ui.png" target="_blank" >}}
+
 
 ## Access the web UI
 
@@ -36,7 +41,8 @@ The access and refresh tokens are [JSON Web Tokens (JWTs)][2] that Sensu issues 
 The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
 The access and refresh tokens are saved in your browser's local storage.
 
-See the [role-based access control reference][3] for [default user credentials][4] and instructions for [creating new users][5].
+The web UI complies with Sensu role-based access control (RBAC), so individual users see information according to their access configurations.
+See the [RBAC reference][3] for [default user credentials][4] and instructions for [creating new users][5].
 
 ## Change web UI themes
 
