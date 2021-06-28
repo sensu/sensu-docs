@@ -44,3 +44,4 @@ static/js/lunr/PagesIndex.json
 mix-manifest.json
 webpack.mix.js
 *.map
+*.code-workspace
