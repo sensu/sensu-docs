@@ -27,7 +27,13 @@ For more information, see [Get started with commercial features](../../commercia
 
 {{< figure src="/images/namespace-switcher-1.png" alt="Sensu web UI namespace switcher" link="/images/namespace-switcher-1.png" target="_blank" >}}
 
-When you switch to a namespace, the left-navigation menu expands so you can select specific views: events, entities, silences, services, and configuration, which includes checks, handlers, event filters, and mutators.
+When you switch to a namespace, the left navigation menu loads so you can select specific pages for events, entities, services, silences, and configuration, which includes checks, handlers, event filters, and mutators:
+
+{{< figure src="/images/webui-left-nav.png" alt="Sensu web UI left navigation menu" link="/images/webui-left-nav.png" target="_blank" >}}
+
+Click the kebab icon at the top of the left-navigation menu to expand the menu and display page labels:
+
+{{< figure src="/images/expand-webui-left-nav.png" alt="Sensu web UI with expanded left navigation menu" link="/images/expand-webui-left-nav.png" target="_blank" >}}
 
 ## Manage events
 
@@ -47,11 +53,17 @@ Click the check boxes to select one or more entities and edit, silence, or delet
 
 Click an entity name to view information about associated events, system properties, and labels and annotations.
 
+## Manage services
+
+The Services page includes a module to help you build and configure service entities with service components and rule templates for business service monitoring (BSM).
+Read [Build business service monitoring][2] for details about the web UI BSM module.
+
 ## Manage silences
 
 The Silences page lists all active silences for the namespace.
-Use the Silences page to create and clear silences for individual events, by check or subscription name, or by entity.
+The top row of the silences list includes options for filtering and sorting silences on the page.
 
+Use the Silences page to create and clear silences for individual events, by check or subscription name, or by entity.
 You can also silence checks and entities from their respective pages in the web UI.
 To silence more than one check or entity at a time, click to select the checkbox next to the check or entity name.
 
@@ -65,10 +77,14 @@ For more information, see [Get started with commercial features](../../commercia
 {{% /notice %}}
 
 Under the Configuration menu option, you can access check, handler, event filter, and mutator resources.
-Each page provides Each of the configuration resources provides list + detail views, as well as the ability to create and/or edit configuration resources (e.g. modify check or handler configuration), assuming the user has the appropriate RBAC permissions.
+Each resource page lists the namespace's resources.
+The top row of each page includes options for filtering and sorting the listed resources.
 
-Create, edit, and delete Sensu checks, handlers, event filters, and mutators from their respective pages in the web UI.
-Execute checks on demand from individual check pages to test your observability pipeline.
+Click a resource name to see detailed information and edit or delete it.
+
+On the Checks page, click the check boxes to select one or more checks to execute, silence, unpublish, or delete them.
+You can also execute individual checks on demand from their check detail pages to test your observability pipeline.
 
 
 [1]: ../#webui-homepage
+[2]: ../bsm-module/
