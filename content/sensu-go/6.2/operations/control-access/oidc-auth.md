@@ -443,7 +443,7 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
 1. Run `sensuctl login oidc`.
 
     {{% notice note %}}
-**NOTE**: You can also use [`sensuctl configure`](../../../sensuctl/#first-time-setup-and-authentication-and-authentication) and choose the OIDC authentication method to log in to sensuctl with OIDC.
+**NOTE**: You can also use [`sensuctl configure`](../../../sensuctl/#first-time-setup-and-authentication) and choose the OIDC authentication method to log in to sensuctl with OIDC.
 {{% /notice %}}
 
 2. If you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.

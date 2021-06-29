@@ -70,7 +70,7 @@ You should be greeted with this prompt:
 
 {{% notice note %}}
 **NOTE**: The sandbox pre-configures sensuctl with the Sensu Go admin user, so you won't have to configure sensuctl each time you spin up the sandbox to try out a new feature.
-Before installing sensuctl outside of the sandbox, read the [first time setup reference](../../sensuctl/#first-time-setup-and-authentication-and-authentication) to learn how to configure sensuctl.
+Before installing sensuctl outside of the sandbox, read the [first time setup reference](../../sensuctl/#first-time-setup-and-authentication) to learn how to configure sensuctl.
 {{% /notice %}}  
 
 ---

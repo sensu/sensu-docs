@@ -49,8 +49,8 @@ See the [RBAC reference][3] for [default user credentials][4] and instructions f
 Use the preferences menu to change the theme or switch to the dark theme.
 
 
-[1]: ../observability-pipeline/observe-schedule/backend#restart-the-service
-[2]: ../sensuctl/#first-time-setup-and-authentication-and-authentication
+[1]: ../observability-pipeline/observe-schedule/backend#start-the-service
+[2]: ../sensuctl/#first-time-setup-and-authentication
 [3]: ../operations/control-access/rbac/
 [4]: ../operations/control-access/rbac#default-users
 [5]: ../operations/control-access/rbac#create-users
