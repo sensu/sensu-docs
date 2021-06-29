@@ -158,7 +158,7 @@ Users do *not* need to provide the username prefix for the authentication provid
 [30]: ldap-auth/#ldap-specification
 [31]: ad-auth/#ad-configuration-examples
 [32]: ad-auth/#ad-specification
-[36]: ../../sensuctl/#first-time-setup-and-authentication-and-authentication
+[36]: ../../sensuctl/#first-time-setup-and-authentication
 [37]: ad-auth/
 [38]: ../../sensuctl/create-manage-resources/#create-resources
 [40]: ldap-auth/#ldap-server-attributes
