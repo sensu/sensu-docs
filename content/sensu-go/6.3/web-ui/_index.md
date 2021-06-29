@@ -17,9 +17,9 @@ The Sensu backend includes the **Sensu web UI**: a unified view of your events, 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Sensu web UI homepage (shown below) in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features](../commercial/).
+{{% /notice %}}
 
 The web UI homepage provides a high-level overview of the overall health of the systems under Sensu's management, with a summary of active incidents, the number of incidents by severity, the types of entities under management, and the numbers of entities and incidents per namespace.
-{{% /notice %}}
 
 {{< figure src="/images/web-ui.png" alt="Sensu web UI homepage" link="/images/web-ui.png" target="_blank" >}}
 
