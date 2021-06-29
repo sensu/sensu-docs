@@ -360,11 +360,11 @@ Error: GET "/health": Get https://localhost:8080/health?timeout=3: x509: certifi
 The log for the expired backend will be similar to this example:
 
 {{< code shell >}}
-backend-01_1      | {"component":"etcd","level":"warning","msg":"health check for peer 4cc76e198efb22e8 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
-backend-01_1      | {"component":"etcd","level":"warning","msg":"health check for peer 8495a7b2d2ee8597 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
+backend-01_1      | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
+backend-01_1      | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
 {{< /code >}}
 
-If you restart the cluster with one expired backend certificate, the `sensuctl cluster health`response will include an error:
+If you restart the cluster with one expired backend certificate, the `sensuctl cluster health` response will include an error:
 
 {{< code shell >}}
 Error: GET "/health": failed to request new refresh token; client returned 'Post https://localhost:8080/auth/token: EOF'
@@ -373,9 +373,9 @@ Error: GET "/health": failed to request new refresh token; client returned 'Post
 When all three backend certificates are expired, the log will be similar to this example:
 
 {{< code shell >}}
-backend-01_1      | {"component":"etcd","level":"warning","msg":"health check for peer 8495a7b2d2ee8597 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:53Z"}
-backend-02_1      | {"component":"etcd","level":"warning","msg":"health check for peer 4cc76e198efb22e8 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
-backend-03_1      | {"component":"etcd","level":"warning","msg":"health check for peer 8495a7b2d2ee8597 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
+backend-01_1      | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:53Z"}
+backend-02_1      | {"component":"etcd","level":"warning","msg":"health check for peer 4cc36e198efb22e8 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
+backend-03_1      | {"component":"etcd","level":"warning","msg":"health check for peer 8425a7b2d2ee8597 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
 {{< /code >}}
 
 If you restart the cluster with three expired backend certificates, the `sensuctl cluster health` response will include an error:
@@ -387,12 +387,12 @@ Error: GET "/health": Get https://127.0.0.1:8080/health?timeout=3: EOF
 The following `sensuctl cluster health` response helps confirm that all three backend certificates are expired, together with the log warning and restart error examples:
 
 {{< code shell >}}
-=== Etcd Cluster ID: 49c04eab9efc0d11
+=== Etcd Cluster ID: 45c04eab9efc0d11
          ID             Name                Error             Healthy  
  ────────────────── ──────────── ─────────────────────────── ───────── 
-  a99ca1cdb0b1fcc3   backend-01   context deadline exceeded   false    
-  8495a7b2d2ee8597   backend-02   context deadline exceeded   false    
-  4cc76e198efb22e8   backend-03   context deadline exceeded   false
+  a95ca1cdb0b1fcc3   backend-01   context deadline exceeded   false    
+  8425a7b2d2ee8597   backend-02   context deadline exceeded   false    
+  4cc36e198efb22e8   backend-03   context deadline exceeded   false
 {{< /code >}}
 
 An expired agent certificate does not cause any errors or log messages to indicate the exipriation.
@@ -403,9 +403,11 @@ Use the [certificate expiration check][16] to find the agent certificate expirat
 To renew your certificates, whether they expired or not, follow the steps to [create a CA][7], [generate backend certificates][14], or [generate an agent certificate][15].
 The new certificate will override the existing certificate.
 
-**TODO: Do users need to stop the cluster before they re-create the certs?**
+After you save the new certificates, restart each backend:
 
-**TODO: Do users need to restart the cluster after saving the new certs?**
+{{< code shell >}}
+sudo systemctl start sensu-backend
+{{< /code >}}
 
 ## Next step: Secure Sensu
 
