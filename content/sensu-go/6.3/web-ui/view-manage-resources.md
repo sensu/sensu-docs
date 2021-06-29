@@ -42,7 +42,7 @@ The top row of the events list includes several other options for filtering and 
 
 Click the check boxes to select one or more events and resolve, re-run, silence, or delete them directly from the Events page.
 
-Click an event name to view information like status, output, number of occurrences, labels and annotations, related check configuration (if the event was produced by a service check), and associated entity, as well as a timeline that displays the event's history at a glance.
+Click an event name to view information like status, output, number of occurrences, labels and annotations, related check configuration (if the event was produced by a service check), and associated entity, as well as a timeline that displays the event's last 20 statuses at a glance.
 
 ## Manage entities
 
