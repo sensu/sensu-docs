@@ -162,18 +162,26 @@ sensu-backend init --help
 When you initialize the sensu-backend, you can specify how long the backend should wait to establish a connection to etcd.
 
 If the backend should try to establish a connection to etcd for a certain period before timing out, use the `timeout` flag.
+To specify the timeout duration, use an integer paired with a unit of time:
 
-To specify a timeout period in seconds:
+- `s` for seconds
+- `m` for minutes
+- `h` for hours
+
+For example, to specify a 30-second timeout period:
 
 {{< code shell >}}
 sensu-backend init --timeout 30s
 {{< /code >}}
 
-To specify a timeout period in minutes:
+To specify a 5-minute timeout period:
 
 {{< code shell >}}
 sensu-backend init --timeout 5m
 {{< /code >}}
+
+Sensu interprets timeout values less than 1 second and integer-only values as seconds.
+For example, Sensu will convert both `20ms` and `20` to 20 seconds.
 
 If the backend should repeatedly try to establish a connection to etcd until it is successful, use the `wait` flag:
 

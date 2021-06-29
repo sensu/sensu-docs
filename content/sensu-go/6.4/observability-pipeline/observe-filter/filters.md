@@ -1177,6 +1177,45 @@ spec:
 
 {{< /language-toggle >}}
 
+## Disable alerts without a silence
+
+This filter allows you to disable alerts without creating silences.
+
+Add the filter name to the `filters` array for any handler you want to control.
+To disable alerts, change the filter's `action` attribute value from `allow` to `deny`.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: EventFilter
+api_version: core/v2
+metadata:
+  name: emergency_alert_control
+spec:
+  action: allow
+  expressions:
+  - event.has_check
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "emergency_alert_control"
+  },
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "event.has_check"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 
 [1]: #inclusive-and-exclusive-event-filters
 [2]: #when-attributes
