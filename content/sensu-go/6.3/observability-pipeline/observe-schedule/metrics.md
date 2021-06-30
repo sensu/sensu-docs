@@ -580,7 +580,7 @@ timestamp: 1625000586
 {{< /language-toggle >}}
 
 {{% notice note %}}
-**NOTE**: Metrics data points are not included in events retrieved with `sensuctl event info` &mdash; these events include text output rather than a set of metrics points.
+**NOTE**: Metrics data points are not included in events retrieved with `sensuctl event info` &mdash; these events include check output text rather than a set of metrics points.
 To view metrics points data, add a [debug handler](../../../operations/maintain-sensu/troubleshoot#use-a-debug-handler) that prints events to a JSON file. 
 {{% /notice %}}
 
