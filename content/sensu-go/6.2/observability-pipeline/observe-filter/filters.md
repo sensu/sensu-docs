@@ -383,7 +383,7 @@ For more information about event attributes, see the [event reference][28].
 `event.check.total_state_change`     | integer | The total state change percentage for the check’s history
 `event.check.ttl`                    | integer | The time-to-live (TTL) until the event is considered stale, in seconds
 `event.metrics.handlers`             | array   | Sensu metric [handlers][22] assigned to the check
-`event.metrics.points`               | array   | [Metric data points][23] including a name, timestamp, value, and tags
+`event.metrics.points`               | array   | [Metrics data points][23] including a name, timestamp, value, and tags
 
 ### Entity attributes available to filters
 
