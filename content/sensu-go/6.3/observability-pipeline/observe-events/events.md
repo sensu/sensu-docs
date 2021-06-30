@@ -897,6 +897,10 @@ To show event details in the default [output format][18] (tabular):
 sensuctl event info entity-name check-name
 {{< /code >}}
 
+{{% notice note %}}
+**NOTE**: Metrics data points are not included in events retrieved with `sensuctl event info` &mdash; these events include text output rather than a set of metrics points.
+{{% /notice %}}
+
 With both the `list` and `info` commands, you can specify an [output format][18] using the `--format` flag:
 
 - `yaml` or `wrapped-json` formats for use with [`sensuctl create`][8]
@@ -1943,6 +1947,8 @@ handlers:
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+<a id="metrics-points"></a>
 
 points       |      |
 -------------|------

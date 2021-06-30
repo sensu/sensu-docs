@@ -30,7 +30,7 @@ For information about HTTP GET access to internal Sensu metrics, read our [metri
 
 ## Metric check example
 
-This check definition collects metrics in InfluxDB Line Protocol [format][9] and sends the collected metrics to a metrics handler configured with the [Sensu InfluxDB Handler][12] dynamic runtime asset:
+This check definition collects metrics in Graphite Plaintext Protocol [format][9] and sends the collected metrics to a metrics handler configured with the [Sensu Go Graphite Handler][12] dynamic runtime asset:
 
 {{< language-toggle >}}
 
@@ -46,13 +46,14 @@ spec:
   check_hooks: null
   command: metrics-disk-usage.rb
   env_vars: null
-  handlers: []
+  handlers:
+  - debug
   high_flap_threshold: 0
   interval: 30
   low_flap_threshold: 0
-  output_metric_format: influxdb_line
+  output_metric_format: graphite_plaintext
   output_metric_handlers:
-  - sensu-influxdb-handler
+  - sensu-go-graphite-handler
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -81,13 +82,13 @@ spec:
     "check_hooks": null,
     "command": "metrics-disk-usage.rb",
     "env_vars": null,
-    "handlers": [],
+    "handlers": "debug",
     "high_flap_threshold": 0,
     "interval": 30,
     "low_flap_threshold": 0,
-    "output_metric_format": "influxdb_line",
+    "output_metric_format": "graphite_plaintext",
     "output_metric_handlers": [
-      "sensu-influxdb-handler"
+      "sensu-go-graphite-handler"
     ],
     "proxy_entity_name": "",
     "publish": true,
@@ -118,16 +119,470 @@ The [example metric check][6] will produce events similar to this metric event:
 
 {{< code yml >}}
 ---
-NEEDED
+entity:
+  entity_class: agent
+  system:
+    hostname: sensu-centos
+    os: linux
+    platform: centos
+    platform_family: rhel
+    platform_version: 7.5.1804
+    network:
+      interfaces:
+      - name: lo
+        addresses:
+        - 127.0.0.1/8
+        - "::1/128"
+      - name: eth0
+        mac: '08:00:27:8b:c9:3f'
+        addresses:
+        - 10.0.2.15/24
+        - fe80::2a24:13f4:6b:c0b8/64
+      - name: eth1
+        mac: '08:00:27:3d:ce:39'
+        addresses:
+        - 172.28.128.63/24
+        - fe80::a00:27ff:fe3d:ce39/64
+    arch: amd64
+    libc_type: glibc
+    vm_system: vbox
+    vm_role: guest
+    cloud_provider: ''
+    processes:
+  subscriptions:
+  - entity:sensu-centos
+  - linux
+  last_seen: 1625000586
+  deregister: false
+  deregistration: {}
+  user: agent
+  redact:
+  - password
+  - passwd
+  - pass
+  - api_key
+  - api_token
+  - access_key
+  - secret_key
+  - private_key
+  - secret
+  metadata:
+    name: sensu-centos
+    namespace: default
+  sensu_agent_version: 6.4.0
+check:
+  command: metrics-disk-usage.rb
+  handlers:
+  - debug
+  high_flap_threshold: 0
+  interval: 60
+  low_flap_threshold: 0
+  publish: true
+  runtime_assets:
+  - sensu-plugins/sensu-plugins-disk-checks
+  - sensu/sensu-ruby-runtime
+  subscriptions:
+  - linux
+  proxy_entity_name: ''
+  check_hooks:
+  stdin: false
+  subdue:
+  ttl: 0
+  timeout: 0
+  round_robin: false
+  duration: 0.060007931
+  executed: 1625000586
+  history:
+  - status: 0
+    executed: 1625000346
+  - status: 0
+    executed: 1625000406
+  - status: 0
+    executed: 1625000466
+  - status: 0
+    executed: 1625000526
+  - status: 0
+    executed: 1625000586
+  issued: 1625000586
+  output: |
+    sensu-centos.disk_usage.root.used 1515 1625000586
+    sensu-centos.disk_usage.root.avail 40433 1625000586
+    sensu-centos.disk_usage.root.used_percentage 4 1625000586
+    sensu-centos.disk_usage.root.dev.used 0 1625000586
+    sensu-centos.disk_usage.root.dev.avail 485 1625000586
+    sensu-centos.disk_usage.root.dev.used_percentage 0 1625000586
+    sensu-centos.disk_usage.root.run.used 51 1625000586
+    sensu-centos.disk_usage.root.run.avail 446 1625000586
+    sensu-centos.disk_usage.root.run.used_percentage 11 1625000586
+    sensu-centos.disk_usage.root.boot.used 130 1625000586
+    sensu-centos.disk_usage.root.boot.avail 885 1625000586
+    sensu-centos.disk_usage.root.boot.used_percentage 13 1625000586
+    sensu-centos.disk_usage.root.home.used 33 1625000586
+    sensu-centos.disk_usage.root.home.avail 20446 1625000586
+    sensu-centos.disk_usage.root.home.used_percentage 1 1625000586
+    sensu-centos.disk_usage.root.vagrant.used 79699 1625000586
+    sensu-centos.disk_usage.root.vagrant.avail 874206 1625000586
+    sensu-centos.disk_usage.root.vagrant.used_percentage 9 1625000586
+  state: passing
+  status: 0
+  total_state_change: 0
+  last_ok: 1625000586
+  occurrences: 5
+  occurrences_watermark: 5
+  output_metric_format: graphite_plaintext
+  output_metric_handlers: sensu-go-graphite-handler
+  env_vars:
+  metadata:
+    name: collect-metrics
+    namespace: default
+  secrets:
+  is_silenced: false
+  scheduler: memory
+metrics:
+  handlers:
+  points:
+  - name: sensu-centos.disk_usage.root.used
+    value: 1515
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.avail
+    value: 40433
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.used_percentage
+    value: 4
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.dev.used
+    value: 0
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.dev.avail
+    value: 485
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.dev.used_percentage
+    value: 0
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.run.used
+    value: 51
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.run.avail
+    value: 446
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.run.used_percentage
+    value: 11
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.boot.used
+    value: 130
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.boot.avail
+    value: 885
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.boot.used_percentage
+    value: 13
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.home.used
+    value: 33
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.home.avail
+    value: 20446
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.home.used_percentage
+    value: 1
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.vagrant.used
+    value: 79699
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.vagrant.avail
+    value: 874206
+    timestamp: 1625000586
+    tags:
+  - name: sensu-centos.disk_usage.root.vagrant.used_percentage
+    value: 9
+    timestamp: 1625000586
+    tags:
+metadata:
+  namespace: default
+id: 7468a597-bc3c-4ea7-899c-51c4d2992689
+sequence: 5
+timestamp: 1625000586
 {{< /code >}}
 
 {{< code json >}}
 {
-  NEEDED
+  "entity": {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "sensu-centos",
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.5.1804",
+      "network": {
+        "interfaces": [
+          {
+            "name": "lo",
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ]
+          },
+          {
+            "name": "eth0",
+            "mac": "08:00:27:8b:c9:3f",
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::2a24:13f4:6b:c0b8/64"
+            ]
+          },
+          {
+            "name": "eth1",
+            "mac": "08:00:27:3d:ce:39",
+            "addresses": [
+              "172.28.128.63/24",
+              "fe80::a00:27ff:fe3d:ce39/64"
+            ]
+          }
+        ]
+      },
+      "arch": "amd64",
+      "libc_type": "glibc",
+      "vm_system": "vbox",
+      "vm_role": "guest",
+      "cloud_provider": "",
+      "processes": null
+    },
+    "subscriptions": [
+      "entity:sensu-centos",
+      "linux"
+    ],
+    "last_seen": 1625000586,
+    "deregister": false,
+    "deregistration": {},
+    "user": "agent",
+    "redact": [
+      "password",
+      "passwd",
+      "pass",
+      "api_key",
+      "api_token",
+      "access_key",
+      "secret_key",
+      "private_key",
+      "secret"
+    ],
+    "metadata": {
+      "name": "sensu-centos",
+      "namespace": "default"
+    },
+    "sensu_agent_version": "6.4.0"
+  },
+  "check": {
+    "command": "metrics-disk-usage.rb",
+    "handlers": [
+      "debug"
+    ],
+    "high_flap_threshold": 0,
+    "interval": 60,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [
+      "sensu-plugins/sensu-plugins-disk-checks",
+      "sensu/sensu-ruby-runtime"
+    ],
+    "subscriptions": [
+      "linux"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "duration": 0.060007931,
+    "executed": 1625000586,
+    "history": [
+      {
+        "status": 0,
+        "executed": 1625000346
+      },
+      {
+        "status": 0,
+        "executed": 1625000406
+      },
+      {
+        "status": 0,
+        "executed": 1625000466
+      },
+      {
+        "status": 0,
+        "executed": 1625000526
+      },
+      {
+        "status": 0,
+        "executed": 1625000586
+      }
+    ],
+    "issued": 1625000586,
+    "output": "sensu-centos.disk_usage.root.used 1515 1625000586\nsensu-centos.disk_usage.root.avail 40433 1625000586\nsensu-centos.disk_usage.root.used_percentage 4 1625000586\nsensu-centos.disk_usage.root.dev.used 0 1625000586\nsensu-centos.disk_usage.root.dev.avail 485 1625000586\nsensu-centos.disk_usage.root.dev.used_percentage 0 1625000586\nsensu-centos.disk_usage.root.run.used 51 1625000586\nsensu-centos.disk_usage.root.run.avail 446 1625000586\nsensu-centos.disk_usage.root.run.used_percentage 11 1625000586\nsensu-centos.disk_usage.root.boot.used 130 1625000586\nsensu-centos.disk_usage.root.boot.avail 885 1625000586\nsensu-centos.disk_usage.root.boot.used_percentage 13 1625000586\nsensu-centos.disk_usage.root.home.used 33 1625000586\nsensu-centos.disk_usage.root.home.avail 20446 1625000586\nsensu-centos.disk_usage.root.home.used_percentage 1 1625000586\nsensu-centos.disk_usage.root.vagrant.used 79699 1625000586\nsensu-centos.disk_usage.root.vagrant.avail 874206 1625000586\nsensu-centos.disk_usage.root.vagrant.used_percentage 9 1625000586\n",
+    "state": "passing",
+    "status": 0,
+    "total_state_change": 0,
+    "last_ok": 1625000586,
+    "occurrences": 5,
+    "occurrences_watermark": 5,
+    "output_metric_format": "graphite_plaintext",
+    "output_metric_handlers": "sensu-go-graphite-handler",
+    "env_vars": null,
+    "metadata": {
+      "name": "collect-metrics",
+      "namespace": "default"
+    },
+    "secrets": null,
+    "is_silenced": false,
+    "scheduler": "memory"
+  },
+  "metrics": {
+    "handlers": null,
+    "points": [
+      {
+        "name": "sensu-centos.disk_usage.root.used",
+        "value": 1515,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.avail",
+        "value": 40433,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.used_percentage",
+        "value": 4,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.dev.used",
+        "value": 0,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.dev.avail",
+        "value": 485,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.dev.used_percentage",
+        "value": 0,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.run.used",
+        "value": 51,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.run.avail",
+        "value": 446,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.run.used_percentage",
+        "value": 11,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.boot.used",
+        "value": 130,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.boot.avail",
+        "value": 885,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.boot.used_percentage",
+        "value": 13,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.home.used",
+        "value": 33,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.home.avail",
+        "value": 20446,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.home.used_percentage",
+        "value": 1,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.vagrant.used",
+        "value": 79699,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.vagrant.avail",
+        "value": 874206,
+        "timestamp": 1625000586,
+        "tags": null
+      },
+      {
+        "name": "sensu-centos.disk_usage.root.vagrant.used_percentage",
+        "value": 9,
+        "timestamp": 1625000586,
+        "tags": null
+      }
+    ]
+  },
+  "metadata": {
+    "namespace": "default"
+  },
+  "id": "7468a597-bc3c-4ea7-899c-51c4d2992689",
+  "sequence": 5,
+  "timestamp": 1625000586
 }
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: Metrics data points are not included in events retrieved with `sensuctl event info` &mdash; these events include text output rather than a set of metrics points.
+To view metrics points data, add a [debug handler](../../../operations/maintain-sensu/troubleshoot#use-a-debug-handler) that prints events to a JSON file. 
+{{% /notice %}}
 
 ## Extract metrics from check output
 
@@ -216,8 +671,9 @@ The [metrics attribute][5] format automatically reduces metrics data complexity 
 If the check output is formatted correctly according to its `output_metric_format`, the metrics will be extracted in Sensu metric format and passed to the observability pipeline.
 The Sensu agent will log errors if it cannot parse the check output.
 
-See [Troubleshoot Sensu][24] for an example debug handler that writes events to a file for inspection.
-To confirm that the check extracted metrics, inspect the event passed to the handler.
+Use the [debug handler example][24] to write metric events to a file for inspection.
+To confirm that the check extracted metrics, inspect the event passed to the handler in the debug-event.json file.
+The event will include a top-level [metrics section][5] populated with [metrics points arrays][25] if the Sensu agent correctly ingested the metrics.
 
 ## Metrics specification
 
@@ -237,7 +693,7 @@ The event specification describes [metrics attributes in events][5].
 [9]: #supported-output-metric-formats
 [10]: ../checks/#output-metric-format
 [11]: #process-extracted-and-tagged-metrics
-[12]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
+[12]: https://bonsai.sensu.io/assets/sensu/sensu-go-graphite-handler
 [13]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
 [14]: https://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [15]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
@@ -250,3 +706,4 @@ The event specification describes [metrics attributes in events][5].
 [22]: ../checks/#check-token-substitution
 [23]: ../../observe-process/populate-metrics-influxdb/
 [24]: ../../../operations/maintain-sensu/troubleshoot#use-a-debug-handler
+[25]: ../../observe-events/#metrics-points
