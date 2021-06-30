@@ -479,4 +479,4 @@ For a turnkey experience with the Sensu InfluxDB Handler plugin, use our curated
 [9]: ../../../operations/monitoring-as-code/
 [10]: ../../../operations/maintain-sensu/troubleshoot/#use-a-debug-handler
 [11]: ../../observe-events/events/#metrics-attribute
-[12]: ../../observe-events/#metrics-points
+[12]: ../../observe-events/events/#metrics-points

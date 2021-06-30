@@ -706,4 +706,4 @@ The event specification describes [metrics attributes in events][5].
 [22]: ../checks/#check-token-substitution
 [23]: ../../observe-process/populate-metrics-influxdb/
 [24]: ../../../operations/maintain-sensu/troubleshoot#use-a-debug-handler
-[25]: ../../observe-events/#metrics-points
+[25]: ../../observe-events/events/#metrics-points
