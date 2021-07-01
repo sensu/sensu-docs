@@ -27,7 +27,7 @@ For more information, see [Get started with commercial features](../../commercia
 
 {{< figure src="/images/namespace-switcher-1.png" alt="Sensu web UI namespace switcher" link="/images/namespace-switcher-1.png" target="_blank" >}}
 
-When you switch to a namespace, the left navigation menu loads so you can select specific pages for events, entities, services, silences, and configuration, which includes checks, handlers, event filters, and mutators:
+When you switch to a namespace, the left navigation menu loads so you can select specific pages for events, entities, silences, and configuration, which includes checks, handlers, event filters, and mutators:
 
 {{< figure src="/images/webui-left-nav.png" alt="Sensu web UI left navigation menu" link="/images/webui-left-nav.png" target="_blank" >}}
 
@@ -52,11 +52,6 @@ The top row of the entities list includes options for filtering and sorting enti
 Click the check boxes to select one or more entities and edit, silence, or delete them directly from the Entities page.
 
 Click an entity name to view information about associated events, system properties, and labels and annotations.
-
-## Manage services
-
-The Services page includes a module to help you build and configure service entities with service components and rule templates for business service monitoring (BSM).
-Read [Build business service monitoring][2] for details about the web UI BSM module.
 
 ## Manage silences
 
@@ -89,4 +84,3 @@ You can also execute individual checks on demand from their check detail pages t
 
 
 [1]: ../#webui-homepage
-[2]: ../bsm-module/
