@@ -329,7 +329,7 @@ spec:
     "name": "expired_certs"
   },
   "spec": {
-    "command": "openssl x509 -noout -enddate -in cert.pem.sh",
+    "command": "openssl x509 -noout -enddate -in cert.pem",
     "subscriptions": [
       "system"
     ],
