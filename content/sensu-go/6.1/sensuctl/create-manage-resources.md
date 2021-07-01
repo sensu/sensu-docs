@@ -159,7 +159,9 @@ The following table describes the command-specific flags.
 
 If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation.
 This allows you to replicate resources across namespaces without manual editing.
-To learn more about namespaces and namespaced resource types, see the [RBAC reference][21].
+
+To learn more about namespaces, read the [namespaces reference][21].
+The RBAC reference includes a list of [namespaced resource types][38].
 
 The `sensuctl create` command applies namespaces to resources in the following order, from highest precedence to lowest:
 
@@ -325,7 +327,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl hook`][18]
 - [`sensuctl license`][34] (commercial feature)
 - [`sensuctl mutator`][19]
-- [`sensuctl namespace`][1]
+- [`sensuctl namespace`][21]
 - [`sensuctl role`][1]
 - [`sensuctl role-binding`][1]
 - [`sensuctl secrets`][28]
@@ -459,7 +461,7 @@ sensuctl event resolve webserver1 check-http
 
 #### sensuctl namespace
 
-See the [RBAC reference][21] for information about using access control with namespaces.
+See the [namespaces reference][21] for information about using access control with namespaces.
 
 #### sensuctl user
 
@@ -467,18 +469,18 @@ See the [RBAC reference][22] for information about local user management with se
 
 #### sensuctl prune
 
-{{% notice important %}}
-**IMPORTANT**: `sensuctl prune` is an alpha feature and may include breaking changes.
-{{% /notice %}}
-
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access sensuctl pruning in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][30].
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 The `sensuctl prune` subcommand allows you to delete resources that do not appear in a given set of Sensu objects (called a "configuration") from a from a file, URL, or STDIN.
 For example, you can use `sensuctl create` to to apply a new configuration, then use `sensuctl prune` to prune unneeded resources, resources that were created by a specific user or that include a specific label selector, and more.
 
 {{% notice note %}}
-**NOTE**: `sensuctl prune` can only delete resources that have the label `sensu.io/managed_by: sensuctl`, which Sensu automatically adds to all resources created with sensuctl.
+**NOTE**: `sensuctl prune` is an alpha feature and may include breaking changes.
+
+`sensuctl prune` can only delete resources that have the label `sensu.io/managed_by: sensuctl`, which Sensu automatically adds to all resources created with sensuctl.
 This means you can only use `sensuctl prune` to delete resources that were created with sensuctl.
 {{% /notice %}}
 
@@ -660,3 +662,4 @@ Sensuctl supports the following formats:
 [35]: ../../operations/control-access/rbac/#roles-and-cluster-roles
 [36]: #sensuctl-create-flags
 [37]: ../../operations/control-access/oidc-auth/
+[38]: ../../operations/control-access/rbac/#namespaced-resource-types

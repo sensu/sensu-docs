@@ -40,8 +40,10 @@ Sensu hashes user passwords using the [bcrypt][26] algorithm and records the bas
 
 ### Use an authentication provider
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][6].
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 In addition to built-in authentication, Sensu includes commercial support for authentication using external authentication providers via [Lightweight Directory Access Protocol (LDAP)][44], [Active Directory (AD)][37], or [OpenID Connect 1.0 protocol (OIDC)][7].
 
@@ -131,7 +133,6 @@ Users do *not* need to provide the username prefix for the authentication provid
 [3]: rbac#default-users
 [4]: rbac/
 [5]: create-read-only-user/
-[6]: ../../commercial/
 [7]: oidc-auth/
 [8]: ../../api/
 [9]: oidc-auth/#oidc-configuration-examples
@@ -157,7 +158,7 @@ Users do *not* need to provide the username prefix for the authentication provid
 [30]: ldap-auth/#ldap-specification
 [31]: ad-auth/#ad-configuration-examples
 [32]: ad-auth/#ad-specification
-[36]: ../../sensuctl/#first-time-setup-and-authentication-and-authentication
+[36]: ../../sensuctl/#first-time-setup-and-authentication
 [37]: ad-auth/
 [38]: ../../sensuctl/create-manage-resources/#create-resources
 [40]: ldap-auth/#ldap-server-attributes

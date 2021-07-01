@@ -12,12 +12,14 @@ menu:
     parent: observe-schedule
 ---
 
-{{% notice important %}}
-**IMPORTANT**: Business service monitoring is in public preview and is subject to change. 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access business service monitoring (BSM), including rule templates, in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
-**COMMERCIAL FEATURE**: Access business service monitoring (BSM), including rule templates, in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][4].
+{{% notice note %}}
+**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
+{{% /notice %}}
 
 Rule templates are the resources that Sensu applies to [service components][3] for business service monitoring.
 A rule template applies to selections of events defined by a service component's query.
@@ -644,7 +646,6 @@ properties:
 [1]: https://json-schema.org/
 [2]: #rule-properties
 [3]: ../service-components/
-[4]: ../../../commercial/
 [5]: #spec-attributes
 [6]: ../../../operations/control-access/namespaces
 [7]: #arguments-attributes

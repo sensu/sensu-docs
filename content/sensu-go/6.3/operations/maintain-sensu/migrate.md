@@ -24,9 +24,9 @@ Sensu Go also includes many powerful [commercial features][27] to make monitorin
 Sensu Go is available for [RHEL/CentOS, Debian, Ubuntu, and Docker][43].
 The Sensu Go agent is also available for Windows.
 
-{{% notice important %}}
-**IMPORTANT**: To install Sensu Go alongside your current Sensu instance, you must upgrade to at least Sensu Core 1.9.0-2.
-If you need to upgrade, please [contact Sensu](https://sensu.io/contact).
+{{% notice warning %}}
+**WARNING**: To install Sensu Go alongside your current Sensu instance, you must upgrade to at least Sensu Core 1.9.0-2.
+If you need to upgrade, [contact Sensu](https://sensu.io/contact).
 {{% /notice %}}
 
 Aside from this migration guide, these resources can help you migrate from Sensu Core or Sensu Enterprise to Sensu Go:
@@ -212,8 +212,8 @@ If you're doing a side-by-side migration, add `api-port` (default: `3031`) and `
 This prevents the Sensu Go agent API and socket from conflicting with the Sensu Core client API and socket.
 
 {{< code yml >}}
-api-port: 4041
-socket-port: 4030
+api-port: 3031
+socket-port: 3030
 {{< /code >}}
 
 You can also disable these features in the agent configuration using the `disable-socket` and `disable-api` flags.
@@ -267,7 +267,7 @@ Most attributes are ready to use as-is, but you'll need to adjust your Sensu Go 
 
 {{% notice note %}}
 **NOTE**: To streamline a comparison of your Sensu Core configuration with your Sensu Go configuration, output your current Sensu Core configuration using the API: `curl -s http://127.0.0.1:4567/settings | jq . > sensu_config_original.json`.
-<<% /notice %}}
+{{% /notice %}}
 
 #### 2. Translate checks
 

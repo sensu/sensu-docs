@@ -47,9 +47,13 @@
             "url": "/sensu-go/latest/operations/control-access/create-read-only-user",
             "status": 301
         },
-        "~ ^/sensu-go/6.3/?((?<=\/).*)?$": {
+        "~ ^/sensu-go/6.4/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 302
+        },
+        "~ ^/sensu-go/6.0/?((?<=\/).*)?$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
         },
         "~ ^/sensu-go/5.2[0-1]/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
@@ -659,36 +663,12 @@
             "url": "/sensu-go/6.1/operations/control-access",
             "status": 301
         },
-        "~ ^/sensu-go/latest/operations/control-access/auth/?$": {
-            "url": "/sensu-go/latest/operations/control-access",
-            "status": 301
-        },
         "~ ^/sensu-go/latest/web-ui/filter/?$": {
             "url": "/sensu-go/latest/web-ui/search",
             "status": 301
         },
         "~ ^/sensu-go/latest/web-ui/searches/?$": {
             "url": "/sensu-go/latest/web-ui/searches-reference",
-            "status": 301
-        },
-        "~ ^/sensu-go/sensu-go/5.19/api/apikeys/?$": {
-            "url": "/sensu-go/latest/api/apikeys",
-            "status": 301
-        },
-        "~ ^/sensu-go/sensu-go/5.19/getting-started/faq/?$": {
-            "url": "/sensu-go/latest/$1",
-            "status": 301
-        },
-        "~ ^/sensu-go/sensu-go/5.19/guides/contact-routing/?$": {
-            "url": "/sensu-go/latest/observability-pipeline/observe-filter/route-alerts",
-            "status": 301
-        },
-        "~ ^/sensu-go/sensu-go/5.19/guides/secrets-management/?$": {
-            "url": "/sensu-go/latest/operations/manage-secrets/secrets-management",
-            "status": 301
-        },
-        "~ ^/sensu-go/sensu-go/5.19/release-notes/?$": {
-            "url": "/sensu-go/latest/release-notes",
             "status": 301
         }
     }

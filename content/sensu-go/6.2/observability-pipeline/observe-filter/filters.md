@@ -13,7 +13,7 @@ menu:
     parent: observe-filter
 ---
 
-Sensu executes event filters during the **[filter][43]** stage of the [observability pipeline][44].
+Sensu executes event filters during the **[filter][39]** stage of the [observability pipeline][44].
 
 Sensu event filters are applied when you configure event handlers to use one or more filters.
 Before executing a handler, the Sensu backend will apply any event filters configured for the handler to the observation data in events.
@@ -383,7 +383,7 @@ For more information about event attributes, see the [event reference][28].
 `event.check.total_state_change`     | integer | The total state change percentage for the check’s history
 `event.check.ttl`                    | integer | The time-to-live (TTL) until the event is considered stale, in seconds
 `event.metrics.handlers`             | array   | Sensu metric [handlers][22] assigned to the check
-`event.metrics.points`               | array   | [Metric data points][23] including a name, timestamp, value, and tags
+`event.metrics.points`               | array   | [Metrics data points][23] including a name, timestamp, value, and tags
 
 ### Entity attributes available to filters
 
@@ -410,8 +410,10 @@ For more information about event attributes, see the [event reference][28].
 
 ## Build event filter expressions with JavaScript execution functions
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access built-in JavaScript event filter execution functions in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][44].
+For more information, see [Get started with commercial features](../../../commercial).
+{{% /notice %}}
 
 In addition to [Sensu query expressions][27], Sensu includes several built-in JavaScript functions for event filter execution:
 
@@ -1085,6 +1087,45 @@ spec:
 
 {{< /language-toggle >}}
 
+## Disable alerts without a silence
+
+This filter allows you to disable alerts without creating silences.
+
+Add the filter name to the `filters` array for any handler you want to control.
+To disable alerts, change the filter's `action` attribute value from `allow` to `deny`.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: EventFilter
+api_version: core/v2
+metadata:
+  name: emergency_alert_control
+spec:
+  action: allow
+  expressions:
+  - event.has_check
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "emergency_alert_control"
+  },
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "event.has_check"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 
 [1]: #inclusive-and-exclusive-event-filters
 [2]: #when-attributes
@@ -1123,7 +1164,8 @@ spec:
 [36]: ../../../api#response-filtering
 [37]: ../../../sensuctl/filter-responses/
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
+[39]: ../
 [41]: ../../../web-ui/search#search-for-labels
 [42]: ../../../web-ui/search/
-[43]: ../
+[43]: ../../../api/events/
 [44]: ../../../observability-pipeline/

@@ -38,8 +38,6 @@ find_and_replace() {
     echo "Renaming menu attribute in front matter"
     find "$DOCS_ROOT/content/sensu-go/$NEW_SENSU_VERSION" -iname '*.md' -exec sed -i "s/  sensu-go-${OLD_SENSU_VERSION}\:/  sensu-go-${NEW_SENSU_VERSION}\:/g" {} +
     find "$DOCS_ROOT/content/sensu-go/$NEW_SENSU_VERSION" -iname '*.md' -exec sed -i "s/menu: \"sensu-go-${OLD_SENSU_VERSION}\"/menu: \"sensu-go-${NEW_SENSU_VERSION}\"/g" {} +
-    echo "Updating version in interactive tutorial links"
-    sed -i "s/${OLD_SENSU_VERSION}/${NEW_SENSU_VERSION}/g" content/sensu-go/${NEW_SENSU_VERSION}/learn/learn-in-15.md content/sensu-go/${NEW_SENSU_VERSION}/learn/up-and-running.md content/sensu-go/${NEW_SENSU_VERSION}/learn/sensu-pagerduty.md
     return 0
     ;;
   "Darwin")
@@ -48,8 +46,6 @@ find_and_replace() {
     echo "Renaming menu attribute in front matter"
     find "$DOCS_ROOT/content/sensu-go/$NEW_SENSU_VERSION" -iname '*.md' -exec sed -i '' "s/  sensu-go-${OLD_SENSU_VERSION}\:/  sensu-go-${NEW_SENSU_VERSION}\:/g" {} +
     find "$DOCS_ROOT/content/sensu-go/$NEW_SENSU_VERSION" -iname '*.md' -exec sed -i '' "s/menu: \"sensu-go-${OLD_SENSU_VERSION}\"/menu: \"sensu-go-${NEW_SENSU_VERSION}\"/g" {} +
-    echo "Updating version in interactive tutorial links"
-    sed -i '' "s/${OLD_SENSU_VERSION}/${NEW_SENSU_VERSION}/g" content/sensu-go/${NEW_SENSU_VERSION}/learn/learn-in-15.md content/sensu-go/${NEW_SENSU_VERSION}/learn/up-and-running.md content/sensu-go/${NEW_SENSU_VERSION}/learn/sensu-pagerduty.md
     return 0
     ;;
   *)

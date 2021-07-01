@@ -13,8 +13,10 @@ menu:
     parent: web-ui
 ---
 
-**COMMERCIAL FEATURE**: Access saved searches in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][1].
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access saved web UI searches in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 With the saved searches feature, you can apply search parameters to your entities, events, and resources and save them to etcd in a [namespaced resource][2] named `searches`.
 
@@ -465,7 +467,6 @@ parameters:
 {{< /language-toggle >}}
 
 
-[1]: ../../commercial/
 [2]: ../../operations/control-access/rbac/#namespaced-resource-types
 [3]: ../../web-ui/search/#save-a-search
 [4]: ../../api/searches
