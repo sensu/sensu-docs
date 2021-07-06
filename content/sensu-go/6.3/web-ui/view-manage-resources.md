@@ -37,21 +37,36 @@ Click the triple-bar icon at the top of the left-navigation menu to expand the m
 
 ## Manage events
 
-The Events page opens by default when you navigate to a namespace, with an automatic filter to show only events with a non-passing status (i.e. `event.check.state != 0`).
-The top row of the events list includes several other options for filtering and sorting events.
+The Events page opens by default when you navigate to a namespace, with an automatic filter to show only events with a non-passing status (i.e. `event.check.state != 0`):
 
-Click the check boxes to select one or more events and resolve, re-run, silence, or delete them directly from the Events page.
+{{< figure src="/images/events-page-default.png" alt="Sensu web UI default Events page" link="/images/events-page-default.png" target="_blank" >}}
 
-Click an event name to view information like status, output, number of occurrences, labels and annotations, related check configuration (if the event was produced by a service check), and associated entity, as well as a timeline that displays the event's last 20 statuses at a glance.
+The top row of the events list includes several other options for filtering and sorting events:
+
+{{< figure src="/images/events-page-filter-sort.png" alt="Filter and sort events" link="/images/events-page-filter-sort.png" target="_blank" >}}
+
+Click the check boxes to select one or more events and resolve, silence, or delete them directly from the Events page:
+
+{{< figure src="/images/group-events.png" alt="Select one or more events on the Events page" link="/images/group-events.png" target="_blank" >}}
+
+Click an event name to view details like status, output, number of occurrences, labels and annotations, related check configuration (if the event was produced by a service check), and associated entity, as well as a timeline that displays the event's last 20 statuses at a glance:
+
+{{< figure src="/images/single-event-view.gif" alt="View details for a single event" link="/images/single-event-view.gif" target="_blank" >}}
 
 ## Manage entities
 
 The Entities page provides real-time inventory information for the namespace's endpoints under Sensu management.
+The top row of the entities list includes options for filtering and sorting entities on the page:
 
-The top row of the entities list includes options for filtering and sorting entities on the page.
-Click the check boxes to select one or more entities and edit, silence, or delete them directly from the Entities page.
+{{< figure src="/images/entities-page-filter-sort.png" alt="Filter and sort entities" link="/images/entities-page-filter-sort.png" target="_blank" >}}
 
-Click an entity name to view information about associated events, system properties, and labels and annotations.
+Click the check boxes to select one or more entities and silence or delete them directly from the Entities page:
+
+{{< figure src="/images/group-entities.png" alt="Select one or more entities on the Entities page" link="/images/group-entities.png" target="_blank" >}}
+
+Click an entity name to view details about associated events, system properties, and labels and annotations:
+
+{{< figure src="/images/single-entity-view.gif" alt="View details for a single entity" link="/images/single-entity-view.gif" target="_blank" >}}
 
 ## Manage services
 
@@ -60,12 +75,17 @@ Read [Build business service monitoring][2] for details about the web UI BSM mod
 
 ## Manage silences
 
+Create silences by check or subscription name and clear silences in the web UI Silences page.
 The Silences page lists all active silences for the namespace.
-The top row of the silences list includes options for filtering and sorting silences on the page.
+The top row of the silences list includes options for filtering and sorting silences on the page:
 
-Use the Silences page to create and clear silences for individual events, by check or subscription name, or by entity.
-You can also silence checks and entities from their respective pages in the web UI.
-To silence more than one check or entity at a time, click to select the checkbox next to the check or entity name.
+{{< figure src="/images/silences-filter-sort.png" alt="Filter and sort silences" link="/images/silences-filter-sort.png" target="_blank" >}}
+
+Click `+ NEW` to open a modal window and create silences for individual events, by check or subscription name, or by entity:
+
+{{< figure src="/images/silences-modal.gif" alt="Create a new silence in the modal window" link="/images/silences-modal.gif" target="_blank" >}}
+
+You can also silence individual checks and entities from their detail pages in the web UI.
 
 After you create a silence, it will be listed in the web UI Silences page until you clear the silence or the silence expires.
 
@@ -80,10 +100,14 @@ Under the Configuration menu option, you can access check, handler, event filter
 Each resource page lists the namespace's resources.
 The top row of each page includes options for filtering and sorting the listed resources.
 
+{{< figure src="/images/configuration-pages.gif" alt="Configuration resource pages in the web UI" link="/images/configuration-pages.gif" target="_blank" >}}
+
 Click a resource name to see detailed information and edit or delete it.
 
 On the Checks page, click the check boxes to select one or more checks to execute, silence, unpublish, or delete them.
-You can also execute individual checks on demand from their check detail pages to test your observability pipeline.
+You can also execute individual checks on demand from their check detail pages to test your observability pipeline:
+
+{{< figure src="/images/execute-checks.png" alt="Execute a check on demand in the web UI" link="/images/execute-checks.png" target="_blank" >}}
 
 
 [1]: ../#webui-homepage
