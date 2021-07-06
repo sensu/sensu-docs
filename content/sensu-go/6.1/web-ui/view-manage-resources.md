@@ -37,7 +37,7 @@ Click the triple-bar icon at the top of the left-navigation menu to expand the m
 
 ## Manage events
 
-The Events page opens by default when you navigate to a namespace, with an automatic filter to show only events with a non-passing status (i.e. `event.check.state != 0`):
+The Events page opens by default when you navigate to a namespace, with an automatic filter to show only events with a non-passing status (i.e. `event.check.state != passing`):
 
 {{< figure src="/images/events-page-default.png" alt="Sensu web UI default Events page" link="/images/events-page-default.png" target="_blank" >}}
 
