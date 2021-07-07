@@ -340,7 +340,7 @@ spec:
 
 | servers    |      |
 -------------|------
-description  | An array of [AD servers][46] for your directory. During the authentication process, Sensu attempts to authenticate using each AD server in sequence.
+description  | The list of [AD servers][46] to use. During the authentication process, Sensu attempts to authenticate against each AD server in sequence until authentication is successful or there are no more servers to try.
 required     | true
 type         | Array
 example      | {{< language-toggle >}}
