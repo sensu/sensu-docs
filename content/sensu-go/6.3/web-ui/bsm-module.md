@@ -24,6 +24,11 @@ The Sensu web UI includes a module to help you build and configure business serv
 
 ## Build a business service
 
+{{% notice note %}}
+**NOTE**: BSM requires [PostgreSQL](../../operations/deploy-sensu/scale-event-storage/) to achieve high event throughput.
+For this reason, the web UI will display a PostgreSQL prompt instead of the BSM module until you configure a PostgreSQL datastore.
+{{% /notice %}}
+
 To build a business service in the web UI module:
 
 1. Click the services icon in the left navigation menu to open the Services page: ![services icon](/images/web-ui-services-icon.png)
