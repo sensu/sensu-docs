@@ -414,6 +414,22 @@ sensu-backend start \
 **NOTE**: The `etcd-client-urls` value must be a space-delimited list or a YAML array.
 {{% /notice %}}
 
+## Migrate from embedded etcd to external etcd
+
+To migrate from embedded etcd to external etcd, first decide whether you need to migrate all of your etcd data or just your Sensu configurations.
+
+If you need to migrate all etcd data, you must create an [etcd snapshot][9].
+Use the snapshot to [restore][25] your entire cluster after setting up the new external cluster.
+
+If you need to migrate only your Sensu configuration, you can use [sensuctl dump][24] to create a backup and use [sensuctl create][26] to import your configuration to the new external cluster.
+
+{{% notice note %}}
+**NOTE**: The sensuctl dump command does not export user passwords, and sensuctl create does not restore API keys from a sensuctl dump backup.
+For this reason, you must use the [etcd snapshot and restore process](https://etcd.io/docs/latest/op-guide/recovery/) to migrate your entire embedded cluster to external etcd.
+{{% /notice %}}
+
+After you create the backups you need, follow [Use an external etcd cluster][27] to configure Sensu to use the external cluster as your datastore.
+
 ## Troubleshoot clusters
 
 ### Failure modes
@@ -452,3 +468,7 @@ To redeploy a cluster due to an issue like loss of quorum among cluster members,
 [21]: ../install-sensu/
 [22]: #add-a-cluster-member
 [23]: ../../maintain-sensu/troubleshoot/#remove-and-redeploy-a-cluster
+[24]: ../../../sensuctl/back-up-recover/
+[25]: https://etcd.io/docs/v3.5/op-guide/recovery/#restoring-a-cluster
+[26]: ../../../sensuctl/back-up-recover/#restore-resources-from-backup
+[27]: #use-an-external-etcd-cluster
