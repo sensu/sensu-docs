@@ -302,7 +302,9 @@ This section explains how to find certificate expiration dates, confirm whether 
 
 ### Find certificate expiration dates
 
-Use this check to find certificate expiration dates so you can renew certificates before they expire and avoid observability interruptions:
+Use this check to find certificate expiration dates so you can renew certificates before they expire and avoid observability interruptions.
+
+Before you run the check, replace `<cert-name>.pem` in the command with the name of the certificate you want to check (for example, `backend-1.pem`).
 
 {{< language-toggle >}}
 
@@ -314,7 +316,7 @@ metadata:
   name: expired_certs
   namespace: default
 spec:
-  command: openssl x509 -noout -enddate -in cert.pem
+  command: openssl x509 -noout -enddate -in <cert-name>.pem
   subscriptions:
   - system
   publish: true
@@ -329,7 +331,7 @@ spec:
     "name": "expired_certs"
   },
   "spec": {
-    "command": "openssl x509 -noout -enddate -in cert.pem",
+    "command": "openssl x509 -noout -enddate -in <cert-name>.pem",
     "subscriptions": [
       "system"
     ],
@@ -349,7 +351,7 @@ notAfter=Jul  3 22:23:50 2021 GMT
 
 Add a [handler][17] to send the check output as a notification or to a log file.
 
-### Confirm expired certificates
+### Identify expired certificates
 
 The following `sensuctl cluster health` response indicates that one backend certificate is expired:
 
@@ -360,8 +362,8 @@ Error: GET "/health": Get https://localhost:8080/health?timeout=3: x509: certifi
 The log for the expired backend will be similar to this example:
 
 {{< code shell >}}
-backend-01_1      | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
-backend-01_1      | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
+backend-1      | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
+backend-1      | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
 {{< /code >}}
 
 If you restart the cluster with one expired backend certificate, the `sensuctl cluster health` response will include an error:
@@ -373,9 +375,9 @@ Error: GET "/health": failed to request new refresh token; client returned 'Post
 When all three backend certificates are expired, the log will be similar to this example:
 
 {{< code shell >}}
-backend-01_1      | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:53Z"}
-backend-02_1      | {"component":"etcd","level":"warning","msg":"health check for peer 4cc36e198efb22e8 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
-backend-03_1      | {"component":"etcd","level":"warning","msg":"health check for peer 8425a7b2d2ee8597 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
+backend-1      | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:53Z"}
+backend-2      | {"component":"etcd","level":"warning","msg":"health check for peer 4cc36e198efb22e8 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
+backend-3      | {"component":"etcd","level":"warning","msg":"health check for peer 8425a7b2d2ee8597 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
 {{< /code >}}
 
 If you restart the cluster with three expired backend certificates, the `sensuctl cluster health` response will include an error:
@@ -390,9 +392,9 @@ The following `sensuctl cluster health` response helps confirm that all three ba
 === Etcd Cluster ID: 45c04eab9efc0d11
          ID             Name                Error             Healthy  
  ────────────────── ──────────── ─────────────────────────── ───────── 
-  a95ca1cdb0b1fcc3   backend-01   context deadline exceeded   false    
-  8425a7b2d2ee8597   backend-02   context deadline exceeded   false    
-  4cc36e198efb22e8   backend-03   context deadline exceeded   false
+  a95ca1cdb0b1fcc3   backend-1    context deadline exceeded   false    
+  8425a7b2d2ee8597   backend-2    context deadline exceeded   false    
+  4cc36e198efb22e8   backend-3    context deadline exceeded   false
 {{< /code >}}
 
 An expired agent certificate does not cause any errors or log messages to indicate the exipriation.
