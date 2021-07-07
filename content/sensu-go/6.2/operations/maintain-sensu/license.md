@@ -205,7 +205,7 @@ If your license expires, you will still have access to [commercial features][5],
 
 [1]: https://account.sensu.io/
 [2]: ../../deploy-sensu/install-sensu/
-[3]: ../../../sensuctl/#first-time-setup-and-authentication-and-authentication
+[3]: ../../../sensuctl/#first-time-setup-and-authentication
 [4]: ../../../api/license/
 [5]: ../../../commercial/
 [6]: ../troubleshoot/

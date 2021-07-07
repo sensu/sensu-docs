@@ -887,8 +887,12 @@ sensuctl event list
 To show event details in the default [output format][18] (tabular):
 
 {{< code shell >}}
-sensuctl event info entity-name check-name
+sensuctl event info <entity-name> <check-name>
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Metrics data points are not included in events retrieved with `sensuctl event info` &mdash; these events include check output text rather than a set of metrics points.
+{{% /notice %}}
 
 With both the `list` and `info` commands, you can specify an [output format][18] using the `--format` flag:
 
@@ -1917,9 +1921,11 @@ handlers:
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="metrics-points"></a>
+
 points       |      |
 -------------|------
-description  | Metric data points, including a name, timestamp, value, and tags. See [points attributes][34].
+description  | Metrics data points, including a name, timestamp, value, and tags. See [points attributes][34].
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -2011,7 +2017,7 @@ tags:
 
 timestamp    |      |
 -------------|------
-description  | Time at which the metric was collected. In seconds since the Unix epoch. Sensu automatically populates the timestamp values for metric data points.
+description  | Time at which the metric was collected. In seconds since the Unix epoch. Sensu automatically populates the timestamp values for metrics data points.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}

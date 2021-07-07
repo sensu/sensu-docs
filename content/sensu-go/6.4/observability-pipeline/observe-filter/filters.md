@@ -383,7 +383,7 @@ For more information about event attributes, see the [event reference][28].
 `event.check.total_state_change`     | integer | The total state change percentage for the check’s history
 `event.check.ttl`                    | integer | The time-to-live (TTL) until the event is considered stale, in seconds
 `event.metrics.handlers`             | array   | Sensu metric [handlers][22] assigned to the check
-`event.metrics.points`               | array   | [Metric data points][23] including a name, timestamp, value, and tags
+`event.metrics.points`               | array   | [Metrics data points][23] including a name, timestamp, value, and tags
 
 ### Entity attributes available to filters
 
@@ -1171,6 +1171,45 @@ spec:
       "seconds_since(event.timestamp) > 30"
     ],
     "runtime_assets": []
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Disable alerts without a silence
+
+This filter allows you to disable alerts without creating silences.
+
+Add the filter name to the `filters` array for any handler you want to control.
+To disable alerts, change the filter's `action` attribute value from `allow` to `deny`.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: EventFilter
+api_version: core/v2
+metadata:
+  name: emergency_alert_control
+spec:
+  action: allow
+  expressions:
+  - event.has_check
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "emergency_alert_control"
+  },
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "event.has_check"
+    ]
   }
 }
 {{< /code >}}
