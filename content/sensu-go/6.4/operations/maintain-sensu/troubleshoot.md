@@ -173,12 +173,12 @@ The `serving insecure client requests` warning is an expected warning from the e
 [TLS configuration][3] is recommended but not required.
 For more information, see [etcd security documentation][4].
 
-### CommonName deprecation in Go 1.15
+## CommonName deprecation in Go 1.15
 
 Sensu Go 6.4.0 upgrades the Go version from 1.13.15 to 1.16.5.
-[As of Go 1.15][27], certificates must include their CommonName (CN) as a Subject Alternative Name (SAN) field.
+As of [Go 1.15][27], certificates must include their CommonName (CN) as a Subject Alternative Name (SAN) field.
 
-The following error indicates that a certificate used to secure Sensu does not include the CN as a SAN field:
+The following logged error indicates that a certificate used to secure Sensu does not include the CN as a SAN field:
 
 {{< code shell >}}
 {"component":"agent","error":"x509: certificate relies on legacy Common Name field, use SANs or temporarily enable Common Name matching with GODEBUG=x509ignoreCN=0","level":"error","msg":"reconnection attempt failed","time":"2021-06-29T11:07:51+02:00"}

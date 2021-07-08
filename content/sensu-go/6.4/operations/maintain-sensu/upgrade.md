@@ -48,7 +48,7 @@ After creating a full backup of your embedded etcd database, you can follow the 
 ### CommonName deprecation in Go 1.15
 
 Sensu Go 6.4.0 upgrades the Go version from 1.13.15 to 1.16.5.
-[As of Go 1.15][11], certificates must include their CommonName (CN) as a Subject Alternative Name (SAN) field.
+As of [Go 1.15][11], certificates must include their CommonName (CN) as a Subject Alternative Name (SAN) field.
 
 To prevent connection errors after upgrading to Sensu Go 6.4.0, follow [Generate certificates][12] to make sure your certificates' SAN fields include their CNs.
 
