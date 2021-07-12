@@ -332,7 +332,7 @@ spec:
 
 | servers    |      |
 -------------|------
-description  | An array of [LDAP servers][40] for your directory. During the authentication process, Sensu attempts to authenticate using each LDAP server in sequence.
+description  | The list of [LDAP servers][40] to use. During the authentication process, Sensu attempts to authenticate against each LDAP server in sequence until authentication is successful or there are no more servers to try.
 required     | true
 type         | Array
 example      | {{< language-toggle >}}
