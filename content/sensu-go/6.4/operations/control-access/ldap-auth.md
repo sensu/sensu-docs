@@ -1,8 +1,10 @@
 ---
-title: "Configure Lightweight Directory Access Protocol (LDAP) authentication"
-linktitle: "Authenticate with LDAP"
-description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using Lightweight Directory Access Protocol (LDAP). Read this guide to configure an LDAP authentication provider."
-weight: 20
+title: "Lightweight Directory Access Protocol (LDAP) reference"
+linktitle: "LDAP Reference"
+reference_title: "Lightweight Directory Access Protocol"
+type: "reference"
+description: "In addition to built-in basic authentication, Sensu includes commercial support for single sign-on (SSO) authentication using Lightweight Directory Access Protocol (LDAP). Read this guide to configure an LDAP authentication provider."
+weight: 55
 version: "6.4"
 product: "Sensu Go"
 menu:
@@ -11,17 +13,17 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access Lightweight Directory Access Protocol (LDAP) authentication in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access Lightweight Directory Access Protocol (LDAP) authentication for single sign-on (SSO) in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 Sensu requires username and password authentication to access the [web UI][1], [API][8], and [sensuctl][2] command line tool.
 
-In addition to the built-in basic authentication provider, Sensu offers [commercial support][6] for a standards-compliant Lightweight Directory Access Protocol (LDAP) tool for authentication.
+In addition to the [built-in basic authentication provider][4], Sensu offers [commercial support][6] for a standards-compliant Lightweight Directory Access Protocol (LDAP) tool for single sign-on (SSO) authentication.
 The Sensu LDAP authentication provider is tested with [OpenLDAP][7].
 If you're using AD, head to the [AD section][37].
 
-For general information about configuring authentication providers, see [Use an authentication provider][12].
+For general information about configuring authentication providers, read [Configure single sign-on (SSO) authentication][12].
 
 ## LDAP configuration examples
 
@@ -913,11 +915,11 @@ For example:
 
 [1]: ../../../web-ui/
 [2]: ../../../sensuctl/
+[4]: ../#use-built-in-basic-authentication
 [6]: ../../../commercial/
 [7]: https://www.openldap.org/
 [8]: ../../../api/
-[10]: https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-configure-ldaps
-[12]: ../#use-an-authentication-provider
+[12]: ../sso/
 [13]: ../rbac#role-bindings-and-cluster-role-bindings
 [21]: #ldap-group-search-attributes
 [22]: #ldap-user-search-attributes
