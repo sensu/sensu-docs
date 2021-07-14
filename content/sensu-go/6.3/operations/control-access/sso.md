@@ -3,10 +3,10 @@ title: "Configure single sign-on (SSO) authentication"
 linktitle: "Configure SSO Authentication"
 description: "In addition to built-in basic authentication, Sensu includes commercial support for single sign-on (SSO) authentication using Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC). Read this guide to configure an SSO authentication provider."
 weight: 10
-version: "6.4"
+version: "6.3"
 product: "Sensu Go"
 menu:
-  sensu-go-6.4:
+  sensu-go-6.3:
     parent: control-access
 ---
 

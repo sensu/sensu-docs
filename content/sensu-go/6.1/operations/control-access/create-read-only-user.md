@@ -4,7 +4,7 @@ linkTitle: "Create a Read-only User"
 guide_title: "Create a read-only user with role-based access control (RBAC)"
 type: "guide"
 description: "Role-based access control (RBAC) allows you to exercise fine-grained control over how Sensu users interact with Sensu resources. Use RBAC rules to achieve multitenancy so different projects and teams can share a Sensu instance. Read this guide to create users with Sensu RBAC."
-weight: 60
+weight: 30
 version: "6.1"
 product: "Sensu Go"
 platformContent: false
