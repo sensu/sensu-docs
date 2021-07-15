@@ -48,6 +48,7 @@ spec:
   signin_message: with your LDAP or system credentials
   always_show_local_cluster: false
   default_preferences:
+    poll_interval: 120000
     page_size: 50
     theme: classic
   page_preferences:
@@ -81,6 +82,7 @@ spec:
     "signin_message": "with your LDAP or system credentials",
     "always_show_local_cluster": false,
     "default_preferences": {
+      "poll_interval": 120000,
       "page_size": 50,
       "theme": "classic"
     },
@@ -183,6 +185,7 @@ spec:
   signin_message: with your LDAP or system credentials
   always_show_local_cluster: false
   default_preferences:
+    poll_interval: 120000
     page_size: 50
     theme: classic
   page_preferences:
@@ -209,6 +212,7 @@ spec:
     "signin_message": "with your LDAP or system credentials",
     "always_show_local_cluster": false,
     "default_preferences": {
+      "poll_interval": 120000,
       "page_size": 50,
       "theme": "classic"
     },
@@ -317,18 +321,20 @@ always_show_local_cluster: false
 
 default_preferences | 
 -------------|------ 
-description  | Global [default][1] page size and theme preferences for all users.
+description  | Global [default preferences][1] page size and theme preferences for all users.
 required     | false
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 default_preferences:
+  poll_interval: 120000
   page_size: 50
   theme: classic
 {{< /code >}}
 {{< code json >}}
 {
   "default_preferences": {
+    "poll_interval": 120000,
     "page_size": 50,
     "theme": "classic"
   }
@@ -406,6 +412,22 @@ link_policy:
 {{< /language-toggle >}}
 
 #### Default preferences attributes
+
+poll_interval | 
+-------------|------ 
+description  | The frequency at which web UI pages will poll for new data from the Sensu backend, in milliseconds. Useful for increasing the polling interval duration if web UI sessions are causing heavy load. If you set the poll interval, all web UI views will use the poll interval value instead of their individual polling defaults.
+required     | false
+type         | Integer
+example      | {{< language-toggle >}}
+{{< code yml >}}
+poll_interval: 120000
+{{< /code >}}
+{{< code json >}}
+{
+  "poll_interval": 120000
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 page_size | 
 -------------|------ 
