@@ -43,6 +43,7 @@ metadata:
 spec:
   always_show_local_cluster: false
   default_preferences:
+    poll_interval: 120000
     page_size: 50
     theme: classic
   link_policy:
@@ -67,6 +68,7 @@ spec:
   "spec": {
     "always_show_local_cluster": false,
     "default_preferences": {
+      "poll_interval": 120000,
       "page_size": 50,
       "theme": "classic"
     },
@@ -155,6 +157,7 @@ example      | {{< language-toggle >}}
 spec:
   always_show_local_cluster: false
   default_preferences:
+    poll_interval: 120000
     page_size: 50
     theme: classic
   link_policy:
@@ -172,6 +175,7 @@ spec:
   "spec": {
     "always_show_local_cluster": false,
     "default_preferences": {
+      "poll_interval": 120000,
       "page_size": 50,
       "theme": "classic"
     },
@@ -248,18 +252,20 @@ always_show_local_cluster: false
 
 default_preferences | 
 -------------|------ 
-description  | Global default page size and theme preferences for all users.
+description  | Global [default preferences attributes][1] for all users: poll interval, page size, and theme preferences.
 required     | false
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 default_preferences:
+  poll_interval: 120000
   page_size: 50
   theme: classic
 {{< /code >}}
 {{< code json >}}
 {
   "default_preferences": {
+    "poll_interval": 120000,
     "page_size": 50,
     "theme": "classic"
   }
@@ -302,6 +308,23 @@ link_policy:
 {{< /language-toggle >}}
 
 #### Default preferences attributes
+
+poll_interval | 
+-------------|------ 
+description  | The frequency at which web UI pages will poll for new data from the Sensu backend. Increase the `poll_interval` value if web UI sessions are causing heavy load. In milliseconds.
+required     | false
+type         | Integer
+default      | `10000`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+poll_interval: 10000
+{{< /code >}}
+{{< code json >}}
+{
+  "poll_interval": 10000
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 page_size | 
 -------------|------ 
@@ -391,6 +414,7 @@ urls:
 {{< /language-toggle >}}
 
 
+[1]: #default-preferences-attributes
 [2]: ../../api/webconfig/
 [3]: ../../web-ui/
 [4]: #spec-attributes
