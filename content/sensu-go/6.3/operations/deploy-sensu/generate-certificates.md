@@ -397,7 +397,7 @@ The following `sensuctl cluster health` response helps confirm that all three ba
   4cc36e198efb22e8   backend-3    context deadline exceeded   false
 {{< /code >}}
 
-An expired agent certificate does not cause any errors or log messages to indicate the exipriation.
+An expired agent certificate does not cause any errors or log messages to indicate the expiration.
 Use the [certificate expiration check][16] to find the agent certificate expiration date.
 
 ### Renew certificates
