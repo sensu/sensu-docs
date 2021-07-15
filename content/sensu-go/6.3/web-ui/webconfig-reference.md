@@ -252,7 +252,7 @@ always_show_local_cluster: false
 
 default_preferences | 
 -------------|------ 
-description  | Global [default preferences attributes][1] for all users: poll interval, page size, and theme preferences.
+description  | Global [default preferences][1] for all users: poll interval, page size, and theme preferences.
 required     | false
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -311,17 +311,16 @@ link_policy:
 
 poll_interval | 
 -------------|------ 
-description  | The frequency at which web UI pages will poll for new data from the Sensu backend. Increase the `poll_interval` value if web UI sessions are causing heavy load. In milliseconds.
+description  | The frequency at which web UI pages will poll for new data from the Sensu backend, in milliseconds. Useful for increasing the polling interval duration if web UI sessions are causing heavy load. If you set the poll interval, all web UI views will use the poll interval value instead of their individual polling defaults.
 required     | false
 type         | Integer
-default      | `10000`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-poll_interval: 10000
+poll_interval: 120000
 {{< /code >}}
 {{< code json >}}
 {
-  "poll_interval": 10000
+  "poll_interval": 120000
 }
 {{< /code >}}
 {{< /language-toggle >}}
