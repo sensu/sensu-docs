@@ -40,11 +40,11 @@ The following ports and endpoints are monitored as part of this guide:
 To power the checks to monitor your Sensu backend, external etcd, and PostgreSQL instances, add the Sensu HTTP Plugin and and Monitoring Plugins dynamic runtime assets.
 These assets include the plugins the checks will rely on.
 
-The [Sensu HTTP Plugins][1] dynamic runtime asset includes the `check-http.rb` plugin, which your backend and PosgreSQL checks will rely on.
-The Sensu assets packaged from Sensu HTTP Plugins are built against the Sensu Ruby runtime environment, so you also need to add the [Sensu Go Ruby Runtime Assets][7] dynamic runtime asset.
+The [Sensu HTTP Plugin][5] dynamic runtime asset includes the `check-http.rb` plugin, which your backend and PosgreSQL checks will rely on.
+The Sensu assets packaged from Sensu HTTP Plugin are built against the Sensu Ruby runtime environment, so you also need to add the [Sensu Go Ruby Runtime Assets][6] dynamic runtime asset.
 The Ruby runtime asset delivers the Ruby executable and supporting libraries the check will need to run the `check-http.rb` plugin.
 
-To do this, use the `check-http.rb` plugin from the [Sensu HTTP Plugin][3] dynamic runtime asset to query Sensu's [health API endpoint][2] with a check definition for your primary (Backend Alpha) and secondary (Backend Beta) backends:
+To do this, use the `check-http.rb` plugin from the [Sensu HTTP Plugin][5] dynamic runtime asset to query Sensu's [health API endpoint][2] with a check definition for your primary (Backend Alpha) and secondary (Backend Beta) backends:
 
 To register the Sensu HTTP Plugin dynamic runtime asset, `sensu-plugins/sensu-plugins-http:6.0.0`, run:
 
@@ -113,7 +113,7 @@ Monitor the host running the `sensu-backend` *locally* by a `sensu-agent` proces
 For Sensu components that must be running for Sensu to create events, you should also monitor the `sensu-backend` remotely from an independent Sensu instance.
 This will allow you to monitor whether your Sensu event pipeline is working.
 
-To do this, add checks that use the `check-http.rb` plugin from the [Sensu Plugins HTTP][3] dynamic runtime asset to query Sensu's [health API endpoint][2] for your primary (Backend Alpha) and secondary (Backend Beta) backends:
+To do this, add checks that use the `check-http.rb` plugin from the [Sensu Plugins HTTP][5] dynamic runtime asset to query Sensu's [health API endpoint][2] for your primary (Backend Alpha) and secondary (Backend Beta) backends:
 
 {{< language-toggle >}}
 
@@ -212,9 +212,9 @@ Follow [Register dynamic runtime assets](#register-dynamic-runtime-assets) if yo
 
 ## Monitor external etcd
 
-If your Sensu Go deployment uses an external etcd cluster, you'll need to check the health of the respective etcd instances.
+If your Sensu Go deployment uses an external etcd cluster, you'll need to check the health of the respective etcd instances for your primary (Backend Alpha) and secondary (Backend Beta) backends.
 
-This example includes checks for your primary (Backend Alpha) and secondary (Backend Beta) backends:
+This example uses the `check_http` plugin from the [Monitoring Plugins][3] dynamic runtime asset:
 
 {{< language-toggle >}}
 
@@ -315,7 +315,7 @@ For more information, see [Get started with commercial features](../../../commer
 {{% /notice %}}
 
 Larger Sensu deployments may use [PostgreSQL as an alternative datastore][4] to process larger numbers of events.
-The connection to PostgreSQL is exposed on Sensu's `/health` endpoint and will look like the example below:
+The connection to PostgreSQL is exposed on Sensu's `/health` endpoint and will look like this example:
 
 {{< code json >}}
 {
@@ -352,7 +352,7 @@ The connection to PostgreSQL is exposed on Sensu's `/health` endpoint and will l
 }
 {{< /code >}}
 
-To monitor PostgreSQL's health from Sensu's perspective, use a check like this example:
+To monitor PostgreSQL's health from Sensu's perspective, use a check like this example, which uses the `check-http.rb` plugin from the [Sensu Plugins HTTP][5] dynamic runtime asset:
 
 {{< language-toggle >}}
 
@@ -447,3 +447,5 @@ A successful PostgreSQL health check result will be similar to this example:
 [2]: ../../../api/health/
 [3]: https://bonsai.sensu.io/assets/sensu/monitoring-plugins
 [4]: ../../deploy-sensu/scale-event-storage/
+[5]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http
+[6]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
