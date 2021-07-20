@@ -47,6 +47,7 @@ HTTP/1.1 200 OK
     "spec": {
       "always_show_local_cluster": false,
       "default_preferences": {
+        "poll_interval": 120000,
         "page_size": 50,
         "theme": "sensu"
       },
@@ -86,6 +87,7 @@ output         | {{< code shell >}}
     "spec": {
       "always_show_local_cluster": false,
       "default_preferences": {
+        "poll_interval": 120000,
         "page_size": 50,
         "theme": "sensu"
       },
@@ -129,6 +131,7 @@ HTTP/1.1 200 OK
   "spec": {
     "always_show_local_cluster": false,
     "default_preferences": {
+      "poll_interval": 120000,
       "page_size": 50,
       "theme": "sensu"
     },
@@ -166,6 +169,7 @@ output               | {{< code json >}}
   "spec": {
     "always_show_local_cluster": false,
     "default_preferences": {
+      "poll_interval": 120000,
       "page_size": 50,
       "theme": "sensu"
     },
@@ -206,6 +210,7 @@ curl -X PUT \
   "spec": {
     "always_show_local_cluster": false,
     "default_preferences": {
+      "poll_interval": 120000,
       "page_size": 50,
       "theme": "sensu"
     },
@@ -244,6 +249,7 @@ payload         | {{< code shell >}}
   "spec": {
     "always_show_local_cluster": false,
     "default_preferences": {
+      "poll_interval": 120000,
       "page_size": 50,
       "theme": "sensu"
     },

@@ -45,6 +45,13 @@ If you make a full etcd database backup before upgrading to 6.4.0, you will be a
 
 After creating a full backup of your embedded etcd database, you can follow the [standard upgrade process][10] to upgrade to 6.4.0.
 
+### CommonName deprecation in Go 1.15
+
+Sensu Go 6.4.0 upgrades the Go version from 1.13.15 to 1.16.5.
+As of [Go 1.15][11], certificates must include their CommonName (CN) as a Subject Alternative Name (SAN) field.
+
+To prevent connection errors after upgrading to Sensu Go 6.4.0, follow [Generate certificates][12] to make sure your certificates' SAN fields include their CNs.
+
 ## Upgrade to Sensu Go 6.2.0 from any previous version
 
 Prior to Sensu Go 6.0, sensu-backend allowed you to delete a namespace even when other resources still referenced that namespace. 
@@ -276,4 +283,6 @@ sudo service sensu-backend restart
 [7]: https://stedolan.github.io/jq/
 [8]: ../../../api/#authenticate-with-an-api-key
 [9]: https://etcd.io/docs/latest/op-guide/recovery/
-[10]: ../../../operations/maintain-sensu/upgrade/
+[10]: ../../maintain-sensu/upgrade/
+[11]: https://golang.google.cn/doc/go1.15#commonname
+[12]: ../../deploy-sensu/generate-certificates/
