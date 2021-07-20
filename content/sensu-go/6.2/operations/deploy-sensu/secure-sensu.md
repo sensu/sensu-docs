@@ -49,7 +49,7 @@ etcd-trusted-ca-file: "/etc/sensu/tls/ca.pem"
 etcd-peer-trusted-ca-file: "/etc/sensu/tls/ca.pem"
 {{< /code >}}
 
-4. Add non-default values for `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-advertise-client-urls`:
+4. Add non-default values for `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-advertise-peer-urls`:
 {{< code yml >}}
 etcd-listen-client-urls: "https://localhost:2379"
 etcd-listen-peer-urls: "https://localhost:2380"
@@ -57,7 +57,7 @@ etcd-initial-advertise-peer-urls: "https://localhost:2380"
 {{< /code >}}
 
     {{% notice note %}}
-**NOTE**: If you are securing a [cluster](../cluster-sensu), use your backend node IP address instead of `localhost` in the non-default values for `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-advertise-client-urls`.
+**NOTE**: If you are securing a [cluster](../cluster-sensu), use your backend node IP address instead of `localhost` in the non-default values for `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-advertise-peer-urls`.
 {{% /notice %}}
 
 5. Set `etcd-client-cert-auth` and `etcd-peer-client-cert-auth` to `true` to ensure that etcd only allows connections from clients and peers that present a valid, trusted certificate:
