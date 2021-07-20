@@ -173,6 +173,19 @@ The `serving insecure client requests` warning is an expected warning from the e
 [TLS configuration][3] is recommended but not required.
 For more information, see [etcd security documentation][4].
 
+## CommonName deprecation in Go 1.15
+
+Sensu Go 6.4.0 upgrades the Go version from 1.13.15 to 1.16.5.
+As of [Go 1.15][27], certificates must include their CommonName (CN) as a Subject Alternative Name (SAN) field.
+
+The following logged error indicates that a certificate used to secure Sensu does not include the CN as a SAN field:
+
+{{< code shell >}}
+{"component":"agent","error":"x509: certificate relies on legacy Common Name field, use SANs or temporarily enable Common Name matching with GODEBUG=x509ignoreCN=0","level":"error","msg":"reconnection attempt failed","time":"2021-06-29T11:07:51+02:00"}
+{{< /code >}}
+
+To prevent connection errors after upgrading to Sensu Go 6.4.0, follow [Generate certificates][28] to make sure your certificates' SAN fields include their CNs.
+
 ## Permission issues
 
 The Sensu user and group must own files and folders within `/var/cache/sensu/` and `/var/lib/sensu/`.
@@ -824,3 +837,5 @@ The backend will stop listening on those ports when the etcd database is unavail
 [24]: ../../../sensuctl/back-up-recover/#restore-resources-from-backup
 [25]: ../../../observability-pipeline/observe-schedule/backend/#initialization
 [26]: https://etcd.io/docs/latest/op-guide/recovery/#restoring-a-cluster
+[27]: https://golang.google.cn/doc/go1.15#commonname
+[28]: ../../deploy-sensu/generate-certificates/

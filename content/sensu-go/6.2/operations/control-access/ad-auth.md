@@ -1,8 +1,10 @@
 ---
-title: "Configure Active Directory (AD) authentication"
-linktitle: "Authenticate with AD"
-description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using Active Directory (AD). Read this guide to configure an AD authentication provider."
-weight: 10
+title: "Active Directory (AD) reference"
+linktitle: "AD Reference"
+reference_title: "Active Directory (AD)"
+type: "reference"
+description: "In addition to built-in basic authentication, Sensu includes commercial support for single sign-on (SSO) authentication using Active Directory (AD). Read this guide to configure an AD authentication provider."
+weight: 50
 version: "6.2"
 product: "Sensu Go"
 menu:
@@ -11,18 +13,18 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access active directory (AD) authentication in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access active directory (AD) authentication for single sign-on (SSO) in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 Sensu requires username and password authentication to access the [web UI][1], [API][8], and [sensuctl][2] command line tool.
 
-In addition to the built-in basic authentication provider, Sensu offers [commercial support][6] for using Microsoft Active Directory (AD) for authentication.
+In addition to the [built-in basic authentication provider][4], Sensu offers [commercial support][6] for using Microsoft Active Directory (AD) for single sign-on (SSO) authentication.
 The AD authentication provider is based on the [LDAP authentication provider][44].
 
 To use AD authentication for Azure, follow Microsoft's tutorial to [set up secure LDAP in your Azure account][10] and create the host and certificates you need.
 
-For general information about configuring authentication providers, see [Use an authentication provider][12].
+For general information about configuring authentication providers, read [Configure single sign-on (SSO) authentication][12].
 
 ## AD configuration examples
 
@@ -81,6 +83,7 @@ api_version: authentication/v2
 metadata:
   name: activedirectory
 spec:
+  allowed_groups: []
   groups_prefix: ad
   servers:
   - binding:
@@ -142,6 +145,7 @@ spec:
         }
       }
     ],
+    "allowed_groups": [],
     "groups_prefix": "ad",
     "username_prefix": "ad"
   },
@@ -290,6 +294,7 @@ spec:
       attribute: sAMAccountName
       name_attribute: displayName
       object_class: person
+  allowed_groups: []
   groups_prefix: ad
   username_prefix: ad
 {{< /code >}}
@@ -325,6 +330,7 @@ spec:
         }
       }
     ],
+    "allowed_groups": [],
     "groups_prefix": "ad",
     "username_prefix": "ad"
   }
@@ -336,7 +342,7 @@ spec:
 
 | servers    |      |
 -------------|------
-description  | An array of [AD servers][46] for your directory. During the authentication process, Sensu attempts to authenticate using each AD server in sequence.
+description  | The list of [AD servers][46] to use. During the authentication process, Sensu attempts to authenticate against each AD server in sequence until authentication is successful or there are no more servers to try.
 required     | true
 type         | Array
 example      | {{< language-toggle >}}
@@ -395,6 +401,29 @@ servers:
         "object_class": "person"
       }
     }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="allowed-groups"></a>
+
+| allowed_groups |   |
+-------------|------
+description  | An array of allowed AD group strings to include in the tokenized identity claim. Use to specify which groups to encode in the authentication provider's JSON Web Token (JWT) when the authenticated AD user is a member of many groups and the tokenized identity claim would be too large for correct web client operation.
+required     | false
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+allowed_groups:
+- sensu-viewers
+- sensu-operators
+{{< /code >}}
+{{< code json >}}
+{
+  "allowed_groups": [
+    "sensu-viewers",
+    "sensu-operators"
   ]
 }
 {{< /code >}}
@@ -856,10 +885,11 @@ The troubleshooting steps in the [LDAP troubleshooting][49] section also apply f
 
 [1]: ../../../web-ui/
 [2]: ../../../sensuctl/
+[4]: ../#use-built-in-basic-authentication
 [6]: ../../../commercial/
 [8]: ../../../api/
 [10]: https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-configure-ldaps
-[12]: ../#use-an-authentication-provider
+[12]: ../sso/
 [13]: ../rbac#role-bindings-and-cluster-role-bindings
 [23]: #ad-metadata-attributes
 [38]: ../../../sensuctl/create-manage-resources/#create-resources

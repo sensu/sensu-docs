@@ -483,10 +483,6 @@
             "url": "/sensu-go/latest/web-ui/searches-reference",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/?((?<=\/).*)?/reference/searches/?$": {
-            "url": "/sensu-go/6.0/web-ui/searches",
-            "status": 301
-        },
         "~ ^/sensu-go/latest/reference/secrets/?$": {
             "url": "/sensu-go/latest/operations/manage-secrets/secrets",
             "status": 301
@@ -639,10 +635,6 @@
             "url": "/sensu-go/latest/observability-pipeline/observe-process/plan-maintenance",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/migrate/?$": {
-            "url": "/sensu-go/6.0/operations/maintain-sensu/migrate",
-            "status": 301
-        },
          "~ ^/sensu-go/6.1/migrate/?$": {
             "url": "/sensu-go/6.1/operations/maintain-sensu/migrate",
             "status": 301
@@ -655,10 +647,6 @@
             "url": "/sensu-go/latest/operations/maintain-sensu/migrate",
             "status": 301
         },
-        "~ ^/sensu-go/6.0/operations/control-access/auth/?$": {
-            "url": "/sensu-go/6.0/operations/control-access",
-            "status": 301
-        },
          "~ ^/sensu-go/6.1/operations/control-access/auth/?$": {
             "url": "/sensu-go/6.1/operations/control-access",
             "status": 301
@@ -669,6 +657,46 @@
         },
         "~ ^/sensu-go/latest/web-ui/searches/?$": {
             "url": "/sensu-go/latest/web-ui/searches-reference",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/getting-started/prometheus-metrics/?$": {
+            "url": "/sensu-go/latest/observability-pipeline/observe-schedule/prometheus-metrics",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/operations/control-access/auth/?$": {
+            "url": "/sensu-go/latest/operations/control-access",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/sensuctl/reference/?$": {
+            "url": "/sensu-go/latest/sensuctl",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/sensuctl/quickstart/?$": {
+            "url": "/sensu-go/latest/sensuctl",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/getting-started/configuring-sensuctl/?$": {
+            "url": "/sensu-go/latest/sensuctl",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/getting-started/sandbox/?$": {
+            "url": "/sensu-go/latest/learn/learn-sensu-sandbox",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/getting-started/learn-sensu/?$": {
+            "url": "/sensu-go/latest/learn",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/getting-started/tutorial/?$": {
+            "url": "/sensu-go/latest/learn/learn-sensu-sandbox",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/getting-started/installation-and-configuration/?$": {
+            "url": "/sensu-go/latest/operations/deploy-sensu/install-sensu",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/installation/verify/?$": {
+            "url": "/sensu-go/latest/versions",
             "status": 301
         }
     }

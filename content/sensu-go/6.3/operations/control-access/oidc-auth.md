@@ -1,8 +1,10 @@
 ---
-title: "Configure OpenID Connect 1.0 protocol (OIDC) authentication"
-linktitle: "Authenticate with OIDC"
-description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using OpenID Connect 1.0 protocol (OIDC). Read this guide to configure an authentication provider."
-weight: 30
+title: "OpenID Connect 1.0 protocol (OIDC) reference"
+linktitle: "OIDC Reference"
+reference_title: "OpenID Connect 1.0 protocol (OIDC)"
+type: "reference"
+description: "In addition to built-in basic authentication, Sensu includes commercial support for single sign-on (SSO) authentication using OpenID Connect 1.0 protocol (OIDC). Read this guide to configure an authentication provider."
+weight: 60
 version: "6.3"
 product: "Sensu Go"
 menu:
@@ -11,16 +13,16 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access OpenID Connect 1.0 protocol (OIDC) authentication in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access OpenID Connect 1.0 protocol (OIDC) authentication for single sign-on (SSO) in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 Sensu requires username and password authentication to access the [web UI][1], [API][8], and [sensuctl][2] command line tool.
 
-In addition to the built-in basic authentication provider, Sensu offers [commercial support][6] for authentication using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol.
+In addition to the [built-in basic authentication provider][4], Sensu offers [commercial support][6] for single sign-on (SSO) authentication using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol.
 The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52].
 
-For general information about configuring authentication providers, see [Use an authentication provider][12].
+For general information about configuring authentication providers, read [Configure single sign-on (SSO) authentication][12].
 
 {{% notice warning %}}
 **WARNING**: Defining multiple OIDC providers can lead to inconsistent authentication behavior.
@@ -454,19 +456,18 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 
 [1]: ../../../web-ui/
 [2]: ../../../sensuctl/
+[4]: ../#use-built-in-basic-authentication
 [3]: ../#authorization
 [4]: ../rbac/#roles-and-cluster-roles
 [5]: ../../deploy-sensu/install-sensu/#ports
 [6]: ../../../commercial/
 [8]: ../../../api/
-[10]: https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-configure-ldaps
-[12]: ../#use-an-authentication-provider
+[12]: ../sso/
 [13]: ../rbac#role-bindings-and-cluster-role-bindings
 [17]: ../rbac#namespaced-resource-types
 [18]: ../rbac#cluster-wide-resource-types
 [19]: ../../maintain-sensu/troubleshoot#log-levels
 [25]: #oidc-spec-attributes
-[27]: ../../../api/authproviders/
 [36]: ../../../sensuctl/#first-time-setup-and-authentication
 [38]: ../../../sensuctl/create-manage-resources/#create-resources
 [41]: https://en.wikipedia.org/wiki/Fully_qualified_domain_name

@@ -404,9 +404,9 @@ Tell Sensu to use this external etcd data source by adding the `sensu-backend` f
 {{< code shell >}}
 sensu-backend start \
 --etcd-trusted-ca-file=./ca.pem \
---etcd-cert-file=./client.pem \
---etcd-key-file=./client-key.pem \
---etcd-client-urls=https://10.0.0.1:2379 https://10.0.0.2:2379 https://10.0.0.3:2379 \
+--etcd-cert-file=./backend-1.pem \
+--etcd-key-file=./backend-1-key.pem \
+--etcd-client-urls=https://10.0.0.1:2379,https://10.0.0.2:2379,https://10.0.0.3:2379 \
 --no-embed-etcd
 {{< /code >}}
 

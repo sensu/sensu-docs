@@ -2240,7 +2240,7 @@ spec:
 [29]: #create-role-bindings-and-cluster-role-bindings
 [30]: #role-binding-and-cluster-role-binding-specification
 [31]: ../../../sensuctl/create-manage-resources/#create-resources
-[32]: ../#use-an-authentication-provider
+[32]: ../sso/
 [34]: ../#use-built-in-basic-authentication
 [35]: https://en.wikipedia.org/wiki/Bcrypt
 [37]: ../../maintain-sensu/license/
