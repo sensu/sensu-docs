@@ -1434,6 +1434,51 @@ Any environment variables you create in `/etc/default/sensu-backend` (Debian/Ubu
 
 For example, if you create a `SENSU_BACKEND_TEST_VAR` variable in your sensu-backend file, it will be available to use in your handler configurations as `$SENSU_BACKEND_TEST_VAR`.
 
+## Create overrides
+
+Sensu and various operating systems have default limits for certain configuration attributes, like the maximum number of open files.
+Depending on your environment, you may need to create overrides for both Sensu-specific and system limits.
+
+You can create overrides in several ways:
+
+- Recommended method: Environment variables in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS).
+- Configuration settings in the backend.yml config file.
+- Command line arguments for `sensu-backend start`.
+
+{{% notice warning %}}
+**WARNING**: Do not edit the systemd unit file to create overrides.
+{{% /notice %}}
+
+Sensu applies the following precedence to override settings:
+
+1. Environment variables in `/etc/default/sensu-backend`.
+2. Configuration in the backend.yml config file.
+3. Arguments passed to the Sensu backend via command line.
+
+For example, if you create overrides in all three places, the values in `/etc/default/sensu-backend` will take priority over values in the backend.yml config file and command line arguments.
+
+### Example: TODO (Sensu-specific limit)
+
+### Example: Maximum open files (system limit)
+
+For many Linux operating systems, the default limit for the maximum number of open files for a single process is 1024.
+Development and production environments often require a higher limit to allow more open files, like 65536, so you will need to override the default limit.
+
+To do this, create a [custom environment variable][38] named `SENSU_BACKEND_MAX_OPEN_FILES`:
+
+{{< language-toggle >}}
+
+{{< code shell "Ubuntu/Debian" >}}
+$ echo 'SENSU_BACKEND_MAX_OPEN_FILES=65536' | sudo tee -a /etc/default/sensu-backend
+{{< /code >}}
+
+{{< code shell "RHEL/CentOS" >}}
+$ echo 'SENSU_BACKEND_MAX_OPEN_FILES=65536' | sudo tee -a /etc/sysconfig/sensu-backend
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+
 ## Event logging
 
 {{% notice commercial %}}
@@ -1555,3 +1600,4 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [35]: ../../../operations/deploy-sensu/install-sensu/#architecture-overview
 [36]: #etcd-heartbeat-interval
 [37]: #backend-log-level
+[38]: #configuration-via-environment-variables
