@@ -864,7 +864,7 @@ type                    | List
 default                 | `http://127.0.0.1:2379`
 environment variable | `SENSU_BACKEND_ETCD_CLIENT_URLS`
 command line example   | {{< code shell >}}
-sensu-backend start --etcd-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379
+sensu-backend start --etcd-client-urls 'https://10.0.0.1:2379 https://10.1.0.1:2379'
 sensu-backend start --etcd-client-urls https://10.0.0.1:2379 --etcd-client-urls https://10.1.0.1:2379
 {{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
