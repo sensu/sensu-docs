@@ -1441,7 +1441,7 @@ Depending on your environment, you may need to create overrides for both Sensu-s
 
 You can create overrides in several ways:
 
-- Recommended method: Environment variables in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS).
+- Recommended method: environment variables in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS).
 - Configuration settings in the backend.yml config file.
 - Command line arguments for `sensu-backend start`.
 
@@ -1459,7 +1459,7 @@ For example, if you create overrides in all three places, the values in `/etc/de
 
 ### Example: TODO (Sensu-specific limit)
 
-### Example: Maximum open files (system limit)
+### Example: Max open files (system limit)
 
 For many Linux operating systems, the default limit for the maximum number of open files for a single process is 1024.
 Development and production environments often require a higher limit to allow more open files, like 65536, so you will need to override the default limit.
@@ -1477,7 +1477,6 @@ $ echo 'SENSU_BACKEND_MAX_OPEN_FILES=65536' | sudo tee -a /etc/sysconfig/sensu-b
 {{< /code >}}
 
 {{< /language-toggle >}}
-
 
 ## Event logging
 
