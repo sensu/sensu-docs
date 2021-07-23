@@ -1441,27 +1441,34 @@ Depending on your environment and preferences, you may want to create overrides 
 
 You can create overrides in several ways:
 
-- **Recommended method**: environment variables in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS).
+- Command line configuration flag arguments for `sensu-backend start`.
+- Environment variables in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS).
 - Configuration settings in the backend.yml config file.
-- Command line arguments for `sensu-backend start`.
 
 {{% notice note %}}
 **NOTE**: We do not recommend editing the systemd unit file to create overrides.
-Overrides in the systemd unit file can be overwritten by future package upgrades.
+Future package upgrades can overwrite changes in the systemd unit file.
 {{% /notice %}}
 
 Sensu applies the following precedence to override settings:
 
-1. Environment variables in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS).
-2. Configuration in the backend.yml config file.
-3. Arguments passed to the Sensu backend via command line.
+1. Arguments passed to the Sensu backend via command line configuration flags.
+2. Environment variables in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS).
+3. Configuration in the backend.yml config file.
 
-For example, if you create overrides in all three places, the values in `/etc/default/sensu-backend` or `/etc/sysconfig/sensu-backend` will take priority over values in the backend.yml config file and command line arguments.
+For example, if you create overrides using all three methods, the command line configuration flag values will take precedence over the values you specify in `/etc/default/sensu-backend` or `/etc/sysconfig/sensu-backend` or the backend.yml config file.
 
 ### Example override: Log level
 
-The default [log level][37] for the Sensu backend is `warn`.
-To override the default and automatically apply a different log level for the backend, configure the backend log level environment variable with the desired level:
+The default [log level][60] for the Sensu backend is `info`.
+To override the default and automatically apply a different log level for the backend, add the `--log-level` command line configuration flag when you start the Sensu backend.
+For example, to specify `debug` as the log level:
+
+{{< code shell >}}
+sensu-backend start --log-level debug
+{{< /code >}}
+
+To configure an environment variable for the desired backend log level:
 
 {{< language-toggle >}}
 
@@ -1475,7 +1482,11 @@ $ echo 'SENSU_BACKEND_LOG_LEVEL=debug' | sudo tee -a /etc/sysconfig/sensu-backen
 
 {{< /language-toggle >}}
 
-After you restart the sensu-backend service, your settings will take effect.
+To configure the desired log level in the config file, add this line to backend.yml:
+
+{{< code shell >}}
+log-level: debug
+{{< /code >}}
 
 ## Event logging
 

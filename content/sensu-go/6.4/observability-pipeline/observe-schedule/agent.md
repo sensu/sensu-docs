@@ -1807,27 +1807,34 @@ Depending on your environment and preferences, you may want to create overrides 
 
 You can create overrides in several ways:
 
-- **Recommended method**: environment variables in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS).
+- Command line configuration flag arguments for `sensu-agent start`.
+- Environment variables in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS).
 - Configuration settings in the agent.yml config file.
-- Command line arguments for `sensu-agent start`.
 
 {{% notice note %}}
 **NOTE**: We do not recommend editing the systemd unit file to create overrides.
-Overrides in the systemd unit file can be overwritten by future package upgrades.
+Future package upgrades can overwrite changes in the systemd unit file.
 {{% /notice %}}
 
 Sensu applies the following precedence to override settings:
 
-1. Environment variables in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS).
-2. Configuration in the agent.yml config file.
-3. Arguments passed to the Sensu agent via command line.
+1. Arguments passed to the Sensu agent via command line configuration flags.
+2. Environment variables in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS).
+3. Configuration in the agent.yml config file.
 
-For example, if you create overrides in all three places, the values in `/etc/default/sensu-agent` or `/etc/sysconfig/sensu-agent` will take priority over values in the agent.yml config file and command line arguments.
+For example, if you create overrides using all three methods, the command line configuration flag values will take precedence over the values you specify in `/etc/default/sensu-agent` or `/etc/sysconfig/sensu-agent` or the agent.yml config file.
 
 ### Example override: Log level
 
 The default [log level][60] for the Sensu agent is `info`.
-To override the default and automatically apply a different log level for the agent, configure the agent log level environment variable with the desired level:
+To override the default and automatically apply a different log level for the agent, add the `--log-level` command line configuration flag when you start the Sensu agent.
+For example, to specify `debug` as the log level:
+
+{{< code shell >}}
+sensu-agent start --log-level debug
+{{< /code >}}
+
+To configure an environment variable for the desired agent log level:
 
 {{< language-toggle >}}
 
@@ -1841,7 +1848,11 @@ $ echo 'SENSU_LOG_LEVEL=debug' | sudo tee -a /etc/sysconfig/sensu-agent
 
 {{< /language-toggle >}}
 
-After you restart the sensu-agent service, your settings will take effect.
+To configure the desired log level in the config file, add this line to agent.yml:
+
+{{< code shell >}}
+log-level: debug
+{{< /code >}}
 
 
 [1]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
