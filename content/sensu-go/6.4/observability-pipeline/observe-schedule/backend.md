@@ -1436,7 +1436,7 @@ For example, if you create a `SENSU_BACKEND_TEST_VAR` variable in your sensu-bac
 
 ## Create overrides
 
-Sensu and various operating systems have default limits for certain configuration attributes, like the maximum number of open files.
+Sensu and various operating systems have default settings and limits for certain configuration attributes, like the default access credentials and maximum number of open files.
 Depending on your environment, you may need to create overrides for both Sensu-specific and system limits.
 
 You can create overrides in several ways:
@@ -1457,14 +1457,15 @@ Sensu applies the following precedence to override settings:
 
 For example, if you create overrides in all three places, the values in `/etc/default/sensu-backend` will take priority over values in the backend.yml config file and command line arguments.
 
-### Example: TODO (Sensu-specific limit)
+### Example: TODO (Sensu-specific override)
 
-### Example: Max open files (system limit)
+
+### Example: Max open files
 
 For many Linux operating systems, the default limit for the maximum number of open files for a single process is 1024.
-Development and production environments often require a higher limit to allow more open files, like 65536, so you will need to override the default limit.
+Development and production environments often require a higher limit to allow more open files, so you will need to override the default limit.
 
-To do this, create a [custom environment variable][38] named `SENSU_BACKEND_MAX_OPEN_FILES`:
+To do this, create a [custom environment variable][38] named `SENSU_BACKEND_MAX_OPEN_FILES` and specify your desired max open files limit:
 
 {{< language-toggle >}}
 
