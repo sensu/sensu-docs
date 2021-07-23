@@ -37,7 +37,7 @@ We recommend these resources for learning more about Sensu:
 - Join the [Sensu Community Forum on Discourse][8]
 
 {{% notice protip %}}
-**PRO TIP**: In addition to the resources listed on this page, try the [self-guided Sensu Go Workshop](https://github.com/sensu/sensu-go-workshop).
+**PRO TIP**: In addition to the resources listed on this page, try the [self-guided Sensu Go Workshop](https://sensu.io/resources?type=workshop).
 To register for an interactive instructor-led session, visit the [Sensu Go Workshop registration page](https://sensu.io/sensu-go-workshop).
 {{% /notice %}}
 
