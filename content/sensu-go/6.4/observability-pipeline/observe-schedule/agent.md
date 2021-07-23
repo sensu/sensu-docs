@@ -1800,6 +1800,49 @@ You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, r
 **NOTE**: If you define the `HTTP_PROXY` and `HTTPS_PROXY` environment variables, the agent WebSocket connection will also use the proxy URL you specify.
 {{% /notice %}}
 
+## Create overrides
+
+Sensu has default settings and limits for certain configuration attributes, like the default log level.
+Depending on your environment and preferences, you may want to create overrides for these Sensu-specific defaults and limits.
+
+You can create overrides in several ways:
+
+- **Recommended method**: environment variables in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS).
+- Configuration settings in the agent.yml config file.
+- Command line arguments for `sensu-agent start`.
+
+{{% notice note %}}
+**NOTE**: We do not recommend editing the systemd unit file to create overrides.
+Overrides in the systemd unit file can be overwritten by future package upgrades.
+{{% /notice %}}
+
+Sensu applies the following precedence to override settings:
+
+1. Environment variables in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS).
+2. Configuration in the agent.yml config file.
+3. Arguments passed to the Sensu agent via command line.
+
+For example, if you create overrides in all three places, the values in `/etc/default/sensu-agent` or `/etc/sysconfig/sensu-agent` will take priority over values in the agent.yml config file and command line arguments.
+
+### Example override: Log level
+
+The default [log level][60] for the Sensu agent is `info`.
+To override the default and automatically apply a different log level for the agent, configure the agent log level environment variable with the desired level:
+
+{{< language-toggle >}}
+
+{{< code shell "Ubuntu/Debian" >}}
+$ echo 'SENSU_LOG_LEVEL=debug' | sudo tee -a /etc/default/sensu-agent
+{{< /code >}}
+
+{{< code shell "RHEL/CentOS" >}}
+$ echo 'SENSU_LOG_LEVEL=debug' | sudo tee -a /etc/sysconfig/sensu-agent
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+After you restart the sensu-agent service, your settings will take effect.
+
 
 [1]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
 [2]: ../backend/
@@ -1860,3 +1903,4 @@ You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, r
 [57]: ../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events
 [58]: ../../../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
 [59]: ../../../operations/control-access/#use-built-in-basic-authentication
+[60]: #log-level

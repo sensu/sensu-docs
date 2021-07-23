@@ -1436,48 +1436,46 @@ For example, if you create a `SENSU_BACKEND_TEST_VAR` variable in your sensu-bac
 
 ## Create overrides
 
-Sensu and various operating systems have default settings and limits for certain configuration attributes, like the default access credentials and maximum number of open files.
-Depending on your environment, you may need to create overrides for both Sensu-specific and system limits.
+Sensu has default settings and limits for certain configuration attributes, like the default log level.
+Depending on your environment and preferences, you may want to create overrides for these Sensu-specific defaults and limits.
 
 You can create overrides in several ways:
 
-- Recommended method: environment variables in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS).
+- **Recommended method**: environment variables in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS).
 - Configuration settings in the backend.yml config file.
 - Command line arguments for `sensu-backend start`.
 
-{{% notice warning %}}
-**WARNING**: Do not edit the systemd unit file to create overrides.
+{{% notice note %}}
+**NOTE**: We do not recommend editing the systemd unit file to create overrides.
+Overrides in the systemd unit file can be overwritten by future package upgrades.
 {{% /notice %}}
 
 Sensu applies the following precedence to override settings:
 
-1. Environment variables in `/etc/default/sensu-backend`.
+1. Environment variables in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS).
 2. Configuration in the backend.yml config file.
 3. Arguments passed to the Sensu backend via command line.
 
-For example, if you create overrides in all three places, the values in `/etc/default/sensu-backend` will take priority over values in the backend.yml config file and command line arguments.
+For example, if you create overrides in all three places, the values in `/etc/default/sensu-backend` or `/etc/sysconfig/sensu-backend` will take priority over values in the backend.yml config file and command line arguments.
 
-### Example: TODO (Sensu-specific override)
+### Example override: Log level
 
-
-### Example: Max open files
-
-For many Linux operating systems, the default limit for the maximum number of open files for a single process is 1024.
-Development and production environments often require a higher limit to allow more open files, so you will need to override the default limit.
-
-To do this, create a [custom environment variable][38] named `SENSU_BACKEND_MAX_OPEN_FILES` and specify your desired max open files limit:
+The default [log level][37] for the Sensu backend is `warn`.
+To override the default and automatically apply a different log level for the backend, configure the backend log level environment variable with the desired level:
 
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_BACKEND_MAX_OPEN_FILES=65536' | sudo tee -a /etc/default/sensu-backend
+$ echo 'SENSU_BACKEND_LOG_LEVEL=debug' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_BACKEND_MAX_OPEN_FILES=65536' | sudo tee -a /etc/sysconfig/sensu-backend
+$ echo 'SENSU_BACKEND_LOG_LEVEL=debug' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+After you restart the sensu-backend service, your settings will take effect.
 
 ## Event logging
 
