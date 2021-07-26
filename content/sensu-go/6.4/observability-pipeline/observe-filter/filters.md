@@ -93,8 +93,83 @@ Event filters that return a `true` value will continue to be processed via addit
 
 When more complex conditional logic is needed than direct filter expression comparison, Sensu event filters provide support for expression evaluation using [Otto][31].
 Otto is an ECMAScript 5 (JavaScript) virtual machine that evaluates JavaScript expressions provided in an event filter.
-There are some caveats to using Otto: not all of the regular expressions specified in ECMAScript 5 will work.
+There are some caveats to using Otto: not all of the regular expressions (regex) specified in ECMAScript 5 will work.
 See the [Otto README][32] for more details.
+
+Use [Golang regex syntax][3] to create event filter expressions that combine any available [event][46], [check][47], or [entity][48] attributes.
+
+For example, this event filter allows handling for events whose `event.check.name` ends with `metrics`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: EventFilter
+api_version: core/v2
+metadata:
+  name: metrics-checks-only
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - event.check.name.match(/metrics$/)
+{{< /code >}}
+
+{{< code json >}}
+{
+   "type": "EventFilter",
+   "api_version": "core/v2",
+   "metadata": {
+      "name": "metrics-checks-only",
+      "namespace": "default"
+   },
+   "spec": {
+      "action": "allow",
+      "expressions": [
+         "event.check.name.match(/metrics$/)"
+      ]
+   }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Here's another example that uses regex matching for event entity labels.
+This event filter allows handling for events created by entities with the `region` label `us-west-1`, `us-west-2`, or `us-west-3`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: EventFilter
+api_version: core/v2
+metadata:
+  name: us-west-events
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - event.entity.labels.region.match(/us-west-\b[1-3]\b/)
+{{< /code >}}
+
+{{< code json >}}
+{
+   "type": "EventFilter",
+   "api_version": "core/v2",
+   "metadata": {
+      "name": "us-west-events",
+      "namespace": "default"
+   },
+   "spec": {
+      "action": "allow",
+      "expressions": [
+         "event.entity.labels.region.match(/us-west-\b[1-3]\b/)"
+      ]
+   }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ### Filter dynamic runtime assets
 
@@ -1219,6 +1294,7 @@ spec:
 
 [1]: #inclusive-and-exclusive-event-filters
 [2]: #when-attributes
+[3]: https://github.com/google/re2/wiki/Syntax
 [4]: ../../observe-process/send-slack-alerts/
 [5]: ../../observe-process/plan-maintenance/
 [6]: ../../observe-process/silencing/
@@ -1247,7 +1323,7 @@ spec:
 [29]: ../../observe-events/events#occurrences-and-occurrences-watermark
 [30]: ../../observe-filter/reduce-alert-fatigue/
 [31]: https://github.com/robertkrimen/otto
-[32]: https://github.com/robertkrimen/otto/blob/master/README.markdown
+[32]: https://github.com/robertkrimen/otto/blob/master/README.markdown#regular-expression-incompatibility
 [33]: ../../../sensuctl/create-manage-resources/#create-resources
 [34]: #spec-attributes
 [35]: https://regex101.com/r/zo9mQU/2
@@ -1261,3 +1337,6 @@ spec:
 [43]: ../../../api/events/
 [44]: ../../../observability-pipeline/
 [45]: ../
+[46]: #event-attributes-available-to-filters
+[47]: #check-attributes-available-to-filters
+[48]: #entity-attributes-available-to-filters
