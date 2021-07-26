@@ -768,7 +768,7 @@ To maximize Sensu Go performance, we recommend that you:
 
 ### Symptoms of poor performance
 
-At the default "warn" log level, you may see messages like these from your Sensu backend:
+At the Sensu backend's default "warn" log level, you may see messages like these from your backend:
 
 {{< code json >}}
 {"component":"etcd","level":"warning","msg":"read-only range request \"key:\\\"/sensu.io/handlers/default/keepalive\\\" limit:1 \" with result \"range_response_count:0 size:6\" took too long (169.767546ms) to execute","pkg":"etcdserver","time":"..."}
