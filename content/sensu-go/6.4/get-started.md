@@ -36,6 +36,11 @@ We recommend these resources for learning more about Sensu:
 - Sign up for our step-by-step [Learn Sensu email course][21]
 - Join the [Sensu Community Forum on Discourse][8]
 
+{{% notice protip %}}
+**PRO TIP**: In addition to these learning resources, try the [self-guided Sensu Go Workshop](https://sensu.io/resources?type=workshop).
+To register for an interactive instructor-led session, visit the [Sensu Go Workshop registration page](https://sensu.io/sensu-go-workshop).
+{{% /notice %}}
+
 ## Explore monitoring at scale with Sensu Go
 
 Sensu offers support packages for Sensu Go as well as commercial licenses designed for monitoring at scale.

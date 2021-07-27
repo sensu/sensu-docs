@@ -1800,6 +1800,60 @@ You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, r
 **NOTE**: If you define the `HTTP_PROXY` and `HTTPS_PROXY` environment variables, the agent WebSocket connection will also use the proxy URL you specify.
 {{% /notice %}}
 
+## Create overrides
+
+Sensu has default settings and limits for certain configuration attributes, like the default log level.
+Depending on your environment and preferences, you may want to create overrides for these Sensu-specific defaults and limits.
+
+You can create overrides in several ways:
+
+- Command line configuration flag arguments for `sensu-agent start`.
+- Environment variables in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS).
+- Configuration settings in the agent.yml config file.
+
+{{% notice note %}}
+**NOTE**: We do not recommend editing the systemd unit file to create overrides.
+Future package upgrades can overwrite changes in the systemd unit file.
+{{% /notice %}}
+
+Sensu applies the following precedence to override settings:
+
+1. Arguments passed to the Sensu agent via command line configuration flags.
+2. Environment variables in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS).
+3. Configuration in the agent.yml config file.
+
+For example, if you create overrides using all three methods, the command line configuration flag values will take precedence over the values you specify in `/etc/default/sensu-agent` or `/etc/sysconfig/sensu-agent` or the agent.yml config file.
+
+### Example override: Log level
+
+The default [log level][60] for the Sensu agent is `info`.
+To override the default and automatically apply a different log level for the agent, add the `--log-level` command line configuration flag when you start the Sensu agent.
+For example, to specify `debug` as the log level:
+
+{{< code shell >}}
+sensu-agent start --log-level debug
+{{< /code >}}
+
+To configure an environment variable for the desired agent log level:
+
+{{< language-toggle >}}
+
+{{< code shell "Ubuntu/Debian" >}}
+$ echo 'SENSU_LOG_LEVEL=debug' | sudo tee -a /etc/default/sensu-agent
+{{< /code >}}
+
+{{< code shell "RHEL/CentOS" >}}
+$ echo 'SENSU_LOG_LEVEL=debug' | sudo tee -a /etc/sysconfig/sensu-agent
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+To configure the desired log level in the config file, add this line to agent.yml:
+
+{{< code shell >}}
+log-level: debug
+{{< /code >}}
+
 
 [1]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
 [2]: ../backend/
@@ -1860,3 +1914,4 @@ You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, r
 [57]: ../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events
 [58]: ../../../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
 [59]: ../../../operations/control-access/#use-built-in-basic-authentication
+[60]: #log-level

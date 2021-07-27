@@ -406,12 +406,12 @@ sensu-backend start \
 --etcd-trusted-ca-file=./ca.pem \
 --etcd-cert-file=./backend-1.pem \
 --etcd-key-file=./backend-1-key.pem \
---etcd-client-urls=https://10.0.0.1:2379,https://10.0.0.2:2379,https://10.0.0.3:2379 \
+--etcd-client-urls='https://10.0.0.1:2379 https://10.0.0.2:2379 https://10.0.0.3:2379' \
 --no-embed-etcd
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: The `etcd-client-urls` value must be a space-delimited list or a YAML array.
+**NOTE**: The etcd and sensu-backend certificates must share a CA, and the `etcd-client-urls` value must be a space-delimited list or a YAML array.
 {{% /notice %}}
 
 ## Migrate from embedded etcd to external etcd

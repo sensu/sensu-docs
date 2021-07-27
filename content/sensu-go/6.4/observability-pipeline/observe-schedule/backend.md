@@ -938,7 +938,7 @@ type                    | List
 default                 | `http://127.0.0.1:2379`
 environment variable | `SENSU_BACKEND_ETCD_CLIENT_URLS`
 command line example   | {{< code shell >}}
-sensu-backend start --etcd-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379
+sensu-backend start --etcd-client-urls 'https://10.0.0.1:2379 https://10.1.0.1:2379'
 sensu-backend start --etcd-client-urls https://10.0.0.1:2379 --etcd-client-urls https://10.1.0.1:2379
 {{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
@@ -1434,6 +1434,60 @@ Any environment variables you create in `/etc/default/sensu-backend` (Debian/Ubu
 
 For example, if you create a `SENSU_BACKEND_TEST_VAR` variable in your sensu-backend file, it will be available to use in your handler configurations as `$SENSU_BACKEND_TEST_VAR`.
 
+## Create overrides
+
+Sensu has default settings and limits for certain configuration attributes, like the default log level.
+Depending on your environment and preferences, you may want to create overrides for these Sensu-specific defaults and limits.
+
+You can create overrides in several ways:
+
+- Command line configuration flag arguments for `sensu-backend start`.
+- Environment variables in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS).
+- Configuration settings in the backend.yml config file.
+
+{{% notice note %}}
+**NOTE**: We do not recommend editing the systemd unit file to create overrides.
+Future package upgrades can overwrite changes in the systemd unit file.
+{{% /notice %}}
+
+Sensu applies the following precedence to override settings:
+
+1. Arguments passed to the Sensu backend via command line configuration flags.
+2. Environment variables in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS).
+3. Configuration in the backend.yml config file.
+
+For example, if you create overrides using all three methods, the command line configuration flag values will take precedence over the values you specify in `/etc/default/sensu-backend` or `/etc/sysconfig/sensu-backend` or the backend.yml config file.
+
+### Example override: Log level
+
+The default [log level][60] for the Sensu backend is `info`.
+To override the default and automatically apply a different log level for the backend, add the `--log-level` command line configuration flag when you start the Sensu backend.
+For example, to specify `debug` as the log level:
+
+{{< code shell >}}
+sensu-backend start --log-level debug
+{{< /code >}}
+
+To configure an environment variable for the desired backend log level:
+
+{{< language-toggle >}}
+
+{{< code shell "Ubuntu/Debian" >}}
+$ echo 'SENSU_BACKEND_LOG_LEVEL=debug' | sudo tee -a /etc/default/sensu-backend
+{{< /code >}}
+
+{{< code shell "RHEL/CentOS" >}}
+$ echo 'SENSU_BACKEND_LOG_LEVEL=debug' | sudo tee -a /etc/sysconfig/sensu-backend
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+To configure the desired log level in the config file, add this line to backend.yml:
+
+{{< code shell >}}
+log-level: debug
+{{< /code >}}
+
 ## Event logging
 
 {{% notice commercial %}}
@@ -1555,3 +1609,4 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [35]: ../../../operations/deploy-sensu/install-sensu/#architecture-overview
 [36]: #etcd-heartbeat-interval
 [37]: #backend-log-level
+[38]: #configuration-via-environment-variables
