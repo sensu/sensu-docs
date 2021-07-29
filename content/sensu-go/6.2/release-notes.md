@@ -537,7 +537,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 
 - ([Commercial feature][141]) Added a [`processes` field ][143] to the system type to store agent local processes for entities and events and a `discover-processes` flag to the [agent configuration flags][142] to populate the `processes` field in entity.system if enabled.
 - ([Commercial feature][141]) Added a new resource, `GlobalConfig`, that you can use to [customize your web UI configuration][148].
-- ([Commercial feature][141]) Added metricsd to collect metrics for the [web UI][153].
+- ([Commercial feature][141]) Added metricsd to collect metrics for the [web UI][153] and the [`metrics-refresh-interval`][224] backend configuration flag for setting the interval at which Sensu should refresh metrics.
 - ([Commercial feature][141]) Added process and additional system information to the entity details view in the [web UI][153].
 - ([Commercial feature][141]) Added a PostgreSQL metrics suite so metricsd can collect metrics about events stored in PostgreSQL.
 - ([Commercial feature][141]) Added [entity class limits][151] to the license.
@@ -1814,3 +1814,4 @@ To get started with Sensu Go:
 [204]: /sensu-go/6.2/observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent
 [205]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#configuration-via-flags
 [206]: /sensu-go/5.21/reference/backend/#log-rotation
+[224]: /sensu-go/5.20/observability-pipeline/observe-schedule/backend/#metrics-refresh-interval

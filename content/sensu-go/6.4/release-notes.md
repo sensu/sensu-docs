@@ -610,7 +610,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 
 - ([Commercial feature][141]) Added a [`processes` field ][143] to the system type to store agent local processes for entities and events and a `discover-processes` flag to the [agent configuration flags][142] to populate the `processes` field in entity.system if enabled.
 - ([Commercial feature][141]) Added a new resource, `GlobalConfig`, that you can use to [customize your web UI configuration][148].
-- ([Commercial feature][141]) Added metricsd to collect metrics for the [web UI][153].
+- ([Commercial feature][141]) Added metricsd to collect metrics for the [web UI][153] and the [`metrics-refresh-interval`][224] backend configuration flag for setting the interval at which Sensu should refresh metrics.
 - ([Commercial feature][141]) Added process and additional system information to the entity details view in the [web UI][153].
 - ([Commercial feature][141]) Added a PostgreSQL metrics suite so metricsd can collect metrics about events stored in PostgreSQL.
 - ([Commercial feature][141]) Added [entity class limits][151] to the license.
@@ -1897,10 +1897,11 @@ To get started with Sensu Go:
 [214]: /sensu-go/6.3/sensuctl/#global-flags
 [215]: /sensu-go/6.4/commercial/
 [216]: /sensu-go/6.4/platforms/#macos
-[217]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#general-configuration-flags
+[217]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#etcd-log-level
 [218]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#initialization-timeout-and-wait-flags
 [219]: https://etcd.io/docs/v3.5/metrics/etcd-metrics-latest.txt
 [220]: /sensu-go/6.4/web-ui/webconfig-reference/#sign-in-message
 [221]: /sensu-go/6.4/web-ui/webconfig-reference/#page-preferences-attributes
 [222]: /sensu-go/6.4/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-640-from-any-previous-version
 [223]: /sensu-go/6.3/web-ui/webconfig-reference/#default-preferences-attributes
+[224]: /sensu-go/5.20/observability-pipeline/observe-schedule/backend/#metrics-refresh-interval

@@ -51,13 +51,15 @@ Use the Sensu agent to collect metrics alongside check results, then use the Sen
 The [Sensu API][13] and the [`sensuctl` command-line tool][16] allow you (and your internal customers) to create checks, register entities, manage configuration, and more.
 Sensu includes a [web UI][15] to provide a unified view of your entities, checks, and events, as well as a user-friendly [silencing][31] tool.
 
-## Open core software backed by Sensu Inc.
+## Commercial software based on open core
 
-Sensu Go's core is open source software, freely available under a permissive [MIT License][4] and publicly available on [GitHub][5].
-Learn about [support packages][22] and [commercial features designed for observability at scale][12].
+Sensu Go is a commercial product, based on an open source core that is freely available under a permissive [MIT License][4] and publicly available on [GitHub][5].
+Learn about our commercial [support packages][22] and [features designed for observability at scale][12].
 
-Founded in 2017, Sensu offers a comprehensive monitoring and observability solution for enterprises, providing complete visibility across every system, every protocol, every time — from Kubernetes to bare metal.
 Sensu Go is the latest version of Sensu, designed to be portable, straightforward to deploy, and friendly to containerized and ephemeral environments.
+Sensu Inc. released Sensu Go OSS as open source in 2017, and it is now a part of Sumo Logic Inc. (SUMO).
+
+Sensu is a comprehensive monitoring and observability solution for enterprises, providing complete visibility across every system, every protocol, every time &mdash; from Kubernetes to bare metal.
 
 
 [1]: get-started/

@@ -52,7 +52,8 @@ sudo rabbitmqctl add_vhost /sensu{{< /code >}}
 
 {{< code shell >}}
 sudo rabbitmqctl add_user sensu secret
-sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"{{< /code >}}
+sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
+{{< /code >}}
 
 ## Configure system limits on Linux
 
@@ -76,14 +77,14 @@ development environments.
 
   _Source: [rabbitmq.com][2]_
 
-To adjust this limit first check if you are booted with systemd by running.
+To adjust this limit first check if you are booted with systemd.
+Run:
+
 {{< code shell >}}
-systemctl is-system-running{{< /code >}}
-If it complains that the command is not found or the output is not "running",
-then please edit the configuration file found at `/etc/default/rabbitmq-server`
-by uncommenting the last line in the file, and
-adjusting the ulimit value to the recommendation corresponding to the
-environment where RabbitMQ is running.
+systemctl is-system-running
+{{< /code >}}
+
+If it complains that the command is not found or the output is not "running", then please edit the configuration file found at `/etc/default/rabbitmq-server` by uncommenting the last line in the file, and adjusting the ulimit value to the recommendation corresponding to the environment where RabbitMQ is running.
 
 {{< code shell >}}
 # This file is sourced by the rabbitmq-server service script. Its primary
@@ -94,18 +95,27 @@ environment where RabbitMQ is running.
 # to handle many simultaneous connections. Refer to the system
 # documentation for ulimit (in man bash) for more information.
 #
-ulimit -n 65536{{< /code >}}
-else run
+ulimit -n 65536
+{{< /code >}}
+
+else run:
+
 {{< code shell >}}
-systemctl edit rabbitmq-server{{< /code >}}
+systemctl edit rabbitmq-server
+{{< /code >}}
+
 and edit the (empty) file by inputting the following and then saving:
+
 {{< code shell >}}
 [Service]
-LimitNOFILE=65535{{< /code >}}
-Finally run:
+LimitNOFILE=65535
+{{< /code >}}
+
+Finally, to pick up the changes, run:
+
 {{< code shell >}}
-systemctl daemon-reload{{< /code >}}
-to pick-up the changes.
+systemctl daemon-reload
+{{< /code >}}
 
 ### Verifying the Limit
 
