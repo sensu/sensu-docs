@@ -314,7 +314,7 @@ sudo -u postgres psql
 Create the `repl` role:
 
 {{< code postgresql >}}
-CREATE ROLE repl PASSWORD 'mypass' LOGIN REPLICATION;
+CREATE ROLE repl PASSWORD '<your-password>' LOGIN REPLICATION;
 {{< /code >}}
 
 Postgres will return a confirmation message: `CREATE ROLE`.
@@ -331,7 +331,7 @@ sudo cp /var/lib/pgsql/data/pg_hba.conf /var/tmp/pg_hba.conf.bak
 In the following command, replace `<standby_ip>` with the IP address of your standby host and then run the command:
 
 {{< code shell >}}
-export STANDBY_IP=<standby_ip>
+export STANDBY_IP=<standby-ip>
 {{< /code >}}
 
 Next, give the repl user permissions to replicate from the standby host:
@@ -358,7 +358,7 @@ sudo cp -a /var/lib/pgsql/data/postgresql.conf /var/lib/pgsql/data/postgresql.co
 Next, append the necessary configuration options.
 
 {{< code shell >}}
-echo 'wal_level = hot_standby' | sudo tee -a /var/lib/pgsql/data/postgresql.conf
+echo 'wal_level = replica' | sudo tee -a /var/lib/pgsql/data/postgresql.conf
 {{< /code >}}
 
 Set the maximum number of concurrent connections from the standby servers:
