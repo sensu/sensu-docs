@@ -749,7 +749,7 @@ To maximize Sensu Go performance, we recommend that you:
  * Follow our [recommended backend hardware configuration][19].
  * Implement [documented etcd system tuning practices][14].
  * [Benchmark your etcd storage volume][15] to establish baseline IOPS for your system.
- * [Scale event storage using PostgreSQL][16] with [round robin scheduling enabled][20] to reduce the overall volume of etcd transactions.  
+ * [Scale event storage using PostgreSQL][16] with [round robin scheduling enabled][20] to reduce the overall volume of etcd transactions.
 
  As your Sensu deployments grow, preventing issues associated with poor datastore performance relies on ongoing collection and review of [Sensu time-series performance metrics][18].
 
@@ -763,6 +763,9 @@ At the default "warn" log level, you may see messages like these from your Sensu
 
 The above message indicates that a database query ("read-only range request") exceeded a 100-millisecond threshold hard-coded into etcd.
 Messages like these are helpful because they can alert you to a trend, but these occasional warnings don't necessarily indicate a problem.
+
+For example, you may see this message if you provision AWS attached storage but then use only the default storage, which can reduce performance.
+To improve performance in this case, format and mount the AWS attached storage, typically using device name `/dev/nvme1n1` (not `/dev/nvme0n1`).
 
 However, a trend of increasingly long-running database transactions will eventually lead to decreased reliability.
 You may experience symptoms of these conditions as inconsistent check execution behavior or configuration updates that are not applied as expected.
