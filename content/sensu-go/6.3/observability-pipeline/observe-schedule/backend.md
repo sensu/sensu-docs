@@ -318,14 +318,14 @@ General Flags:
       --agent-rate-limit int                agent connections maximum rate limit
       --agent-write-timeout int             timeout in seconds for agent writes (default 15)
       --annotations stringToString          entity annotations map (default [])
-      --api-listen-address string           address to listen on for API traffic (default "[::]:8080")
-      --api-request-limit                   maximum API request body size, in bytes (default 512000)
-      --api-url string                      URL of the API to connect to (default "http://localhost:8080")
+      --api-listen-address string           address to listen on for api traffic (default "[::]:8080")
+      --api-request-limit int               maximum API request body size, in bytes (default 512000)
+      --api-url string                      url of the api to connect to (default "http://localhost:8080")
       --assets-burst-limit int              asset fetch burst limit (default 100)
       --assets-rate-limit float             maximum number of assets fetched per second
       --cache-dir string                    path to store cached data (default "/var/cache/sensu/sensu-backend")
       --cert-file string                    TLS certificate in PEM format
-  -c, --config-file string                  path to sensu-backend config file
+  -c, --config-file string                  path to sensu-backend config file (default "/etc/sensu/backend.yml")
       --dashboard-cert-file string          dashboard TLS certificate in PEM format
       --dashboard-host string               dashboard listener host (default "[::]")
       --dashboard-key-file string           dashboard TLS certificate key in PEM format
@@ -333,53 +333,53 @@ General Flags:
       --debug                               enable debugging and profiling features
       --deregistration-handler string       default deregistration handler
       --event-log-buffer-size int           buffer size of the event logger (default 100000)
+      --event-log-buffer-wait string        full buffer wait time (default "10ms")
       --event-log-file string               path to the event log file
       --eventd-buffer-size int              number of incoming events that can be buffered (default 100)
       --eventd-workers int                  number of workers spawned for processing incoming events (default 100)
   -h, --help                                help for start
       --insecure-skip-tls-verify            skip TLS verification (not recommended!)
-      --jwt-private-key-file string         path to the PEM-encoded private key to use to sign JSON Web Tokens (JWTs)
+      --jwt-private-key-file string         path to the PEM-encoded private key to use to sign JWTs
       --jwt-public-key-file string          path to the PEM-encoded public key to use to verify JWT signatures
       --keepalived-buffer-size int          number of incoming keepalives that can be buffered (default 100)
       --keepalived-workers int              number of workers spawned for processing incoming keepalives (default 100)
       --key-file string                     TLS certificate key in PEM format
       --labels stringToString               entity labels map (default [])
       --log-level string                    logging level [panic, fatal, error, warn, info, debug, trace] (default "warn")
+      --metrics-refresh-interval string     Go duration value (e.g. 1h5m30s) that governs how often metrics are refreshed. (default "1m")
       --pipelined-buffer-size int           number of events to handle that can be buffered (default 100)
       --pipelined-workers int               number of workers spawned for handling events through the event pipeline (default 100)
-      --require-fips                        indicates whether fips support should be required in openssl
+      --require-fips                        indicates whether fips support should be required in openssl  
       --require-openssl                     indicates whether openssl should be required instead of go's built-in crypto
   -d, --state-dir string                    path to sensu state storage (default "/var/lib/sensu/sensu-backend")
       --trusted-ca-file string              TLS CA certificate bundle in PEM format
 
 Store Flags:
-      --etcd-advertise-client-urls strings         list of this member's client URLs to advertise to the rest of the cluster (default [http://localhost:2379])
+      --etcd-advertise-client-urls strings         list of this member's client URLs to advertise to clients (default [http://localhost:2379])
       --etcd-cert-file string                      path to the client server TLS cert file
       --etcd-cipher-suites strings                 list of ciphers to use for etcd TLS configuration
-      --etcd-client-urls string                    client URLs to use when operating as an etcd client
       --etcd-client-cert-auth                      enable client cert authentication
-      --etcd-discovery                             use the dynamic cluster configuration method etcd
-discovery instead of the static `--initial-cluster method`
-      --etcd-discovery-srv                         use the dynamic cluster configuration method DNS SRV
-discovery instead of the static `--initial-cluster method`
+      --etcd-client-urls string                    client URLs to use when operating as an etcd client
+      --etcd-discovery string                      discovery URL used to bootstrap the cluster
+      --etcd-discovery-srv string                  DNS SRV record used to bootstrap the cluster
       --etcd-election-timeout uint                 time in ms a follower node will go without hearing a heartbeat before attempting to become leader itself (default 1000)
       --etcd-heartbeat-interval uint               interval in ms with which the etcd leader will notify followers that it is still the leader (default 100)
       --etcd-initial-advertise-peer-urls strings   list of this member's peer URLs to advertise to the rest of the cluster (default [http://127.0.0.1:2380])
-      --etcd-initial-cluster string                initial cluster configuration for bootstrapping (default "default=http://127.0.0.1:2380")
-      --etcd-initial-cluster-state string          initial cluster state ("new" or "existing"; default "new")
+      --etcd-initial-cluster string                initial cluster configuration for bootstrapping
+      --etcd-initial-cluster-state string          initial cluster state ("new" or "existing") (default "new")
       --etcd-initial-cluster-token string          initial cluster token for the etcd cluster during bootstrap
       --etcd-key-file string                       path to the client server TLS key file
-      --etcd-listen-client-urls strings            list of URLs to listen on for client traffic (default [http://127.0.0.1:2379])
+      --etcd-listen-client-urls strings            list of etcd client URLs to listen on (default [http://127.0.0.1:2379])
       --etcd-listen-peer-urls strings              list of URLs to listen on for peer traffic (default [http://127.0.0.1:2380])
-      --etcd-max-request-bytes uint                maximum etcd request size in bytes (use with caution; default 1572864)
-      --etcd-name string                           human-readable name for this member (default "default")
+      --etcd-max-request-bytes uint                maximum etcd request size in bytes (use with caution) (default 1572864)
+      --etcd-name string                           name for this etcd node (default "default")
       --etcd-peer-cert-file string                 path to the peer server TLS cert file
       --etcd-peer-client-cert-auth                 enable peer client cert authentication
       --etcd-peer-key-file string                  path to the peer server TLS key file
       --etcd-peer-trusted-ca-file string           path to the peer server TLS trusted CA file
-      --etcd-quota-backend-bytes int               maximum etcd database size in bytes (use with caution; default 4294967296)
+      --etcd-quota-backend-bytes int               maximum etcd database size in bytes (use with caution) (default 4294967296)
       --etcd-trusted-ca-file string                path to the client server TLS trusted CA cert file
-      --no-embed-etcd                              don't embed etcd; use external etcd instead
+      --no-embed-etcd                              don't embed etcd, use external etcd instead
 {{< /code >}}
 
 ### General configuration flags
@@ -539,6 +539,19 @@ command line example   | {{< code shell >}}
 sensu-backend start --log-level debug{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 log-level: "debug"{{< /code >}}
+
+<a id="metrics-refresh-interval"></a>
+
+| metrics-refresh-interval |      |
+-------------|------
+description  | Interval at which Sensu should refresh metrics. In hours, minutes, seconds, or a combination &mdash; for example, `5m`, `1m30s`, and `1h10m30s` are all valid values.
+type         | String
+default      | `1m`
+environment variable | `SENSU_BACKEND_METRICS_REFRESH_INTERVAL`
+command line example   | {{< code shell >}}
+sensu-backend start --metrics-refresh-interval 10s{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+metrics-refresh-interval: "10s"{{< /code >}}
 
 | state-dir  |      |
 -------------|------
@@ -892,7 +905,7 @@ type                    | List
 default                 | `http://127.0.0.1:2379`
 environment variable | `SENSU_BACKEND_ETCD_CLIENT_URLS`
 command line example   | {{< code shell >}}
-sensu-backend start --etcd-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379
+sensu-backend start --etcd-client-urls 'https://10.0.0.1:2379 https://10.1.0.1:2379'
 sensu-backend start --etcd-client-urls https://10.0.0.1:2379 --etcd-client-urls https://10.1.0.1:2379
 {{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}

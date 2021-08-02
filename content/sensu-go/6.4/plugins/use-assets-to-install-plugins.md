@@ -49,7 +49,7 @@ If you do not specify a version to install, Sensu automatically installs the lat
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `pagerduty-handler`.
 
-You can also click the Download button on the asset page in [Bonsai][7] to download the asset definition for your Sensu backend platform and architecture.
+You can also open the **Release Assets** tab on asset pages in [Bonsai][3] to download the asset definition for your Sensu backend platform and architecture.
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.

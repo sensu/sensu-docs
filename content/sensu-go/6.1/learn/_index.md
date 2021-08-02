@@ -14,7 +14,7 @@ menu:
 The Learn Sensu category includes tools to help you understand and start using Sensu, the industry-leading observability pipeline for multi-cloud monitoring, consolidating monitoring tools, and filling observability gaps at scale.
 
 {{% notice protip %}}
-**PRO TIP**: In addition to these learning resources, try the [self-guided Sensu Go Workshop](https://github.com/sensu/sensu-go-workshop).
+**PRO TIP**: In addition to these learning resources, try the [self-guided Sensu Go Workshop](https://sensu.io/resources?type=workshop).
 To register for an interactive instructor-led session, visit the [Sensu Go Workshop registration page](https://sensu.io/sensu-go-workshop).
 {{% /notice %}}
 
