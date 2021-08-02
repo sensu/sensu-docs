@@ -77,7 +77,7 @@ autovacuum_vacuum_scale_factor = 0.05
 autovacuum_analyze_scale_factor = 0.025
 {{< /code >}}
 
-Read the [PostgreSQL parameters documentation][2] for informmation about setting parameters.
+Read the [PostgreSQL parameters documentation][2] for information about setting parameters.
 
 ## Configure Postgres
 
