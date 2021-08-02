@@ -1,7 +1,7 @@
 ---
 title: "Next steps with Sensu"
 description: "With Sensu Go running in a local development environment, read this page to envision where you can go from here. Take a few more steps in your local installation, take the work you’ve already done to a pre-production or production environment, or learn more in our Sensu Go workshop."
-version: "6.3"
+version: "6.1"
 product: "Sensu Go"
 ---
 
