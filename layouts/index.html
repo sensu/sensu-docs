@@ -15,30 +15,31 @@
   <main>
     {{ partial "drawer" . }}
     <nav class="nav-multicolored">
-      <a href="./sensu-go/6.3/">
-        Sensu Go documentation
-      </a>
-      <a href="https://bonsai.sensu.io/">
-        Bonsai Sensu asset hub
-      </a>
-      <a href="https://discourse.sensu.io/">
-        Discourse community
-      </a>
+      <a href="./sensu-go/6.3/">Sensu Go documentation</a>
+      <a href="https://bonsai.sensu.io/">Bonsai Sensu asset hub</a>
+      <a href="https://discourse.sensu.io/">Discourse community</a>
     </nav>
-    <div>
-      <div>
+    {{ $workflow := slice "1. Install Sensu" "2. Add integrations" "3. Use Sensu to create events, send alerts, and more" }}
+    <div class="inline">
+      <p class="inline-list-header">
         Start building your own monitoring-as-code workflows in three steps &ndash; Our fully featured product is free for up to 100 entities!
+      </p>
+      <div class="parallelograms">
+        {{ range $workflow }}
+          <div class="parallelogram">
+            <span>{{ . }}</span>
+          </div>
+          {{ end }}
       </div>
-      <div>
-        <div>
-          1. Install Sensu
-        </div>
-        <div>
-          2. Add integrations
-        </div>
-        <div>
-          3. Use Sensu to create events, send alerts, and more
-        </div>
+    </div>
+    <div class="inline">
+      <div class="colored colored--green">
+        <h3>New to Sensu?</h3>
+        <p><a>Click</a> for learning resources</p>
+      </div>
+      <div class="colored colored--blue">
+        <h3>Sensu Core user?</h3>
+        <p><a>Click</a> to migrate to Sensu Go</p>
       </div>
     </div>
     <div>
@@ -55,11 +56,10 @@
       <p>Integrate Sensu with the platforms and tools you?re already using to control costs, eliminate data silos, improve observability, and reduce multi-cloud tool sprawl.</p>
       {{/* Grid */}}
       <div>
-        <div>Ansible</div>
-        <div>Chef</div>
-        <div>Elastic</div>
-        <div>PagerDuty</div>
-        <div>Prometheus</div>
+        {{ $integrations := slice "Ansible" "Chef" "Elastic" "PagerDuty" "Prometheus" }}
+        {{ range $integrations }}
+          <div>{{ . }}</div>
+        {{ end }}
       </div>
       <div>
         <h3>Need help with a specific question?</h3>
@@ -72,7 +72,7 @@
       <div>
         <div>
           <div>Sensuctl</div>
-          <p>Manage Sensu resources from the command line</p>
+          <p></p>
         </div>
         <div>
           <div>Web UI</div>
