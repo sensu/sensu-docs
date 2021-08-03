@@ -50,7 +50,7 @@ You can access event data stored in PostgreSQL using the same Sensu web UI, API,
 Sensu supports PostgreSQL 9.5 and later, including [Amazon Relational Database Service][3] (Amazon RDS) when configured with the PostgreSQL engine.
 See the [PostgreSQL docs][14] to install and configure PostgreSQL.
 
-For optimal performance, use the following PostgreSQL configuration settings in your `postgresql.conf` file:
+For optimal performance, we recommend the following PostgreSQL configuration parameters and settings as a starting point for your `postgresql.conf` file:
 
 {{< code postgresql >}}
 max_connections = 200
@@ -84,6 +84,7 @@ autovacuum_vacuum_scale_factor = 0.05
 autovacuum_analyze_scale_factor = 0.025
 {{< /code >}}
 
+Adjust the parameters and settings as needed based on your hardware and the performance you observe.
 Read the [PostgreSQL parameters documentation][20] for information about setting parameters.
 
 ## Configure the PostgreSQL event store
