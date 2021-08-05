@@ -300,6 +300,8 @@ Configure streaming replication to replicate all Sensu events written to the pri
 **NOTE**: Paths and service names may vary based on your operating system.
 {{% /notice %}}
 
+Follow the steps in this section to create and add the replication role, set streaming replication configuration parameters, bootstrap the standby host, and confirm successful Postgres streaming replication.
+
 ### Create and add the replication role
 
 If you have administrative access to Postgres, you can create the replication role.
@@ -328,7 +330,7 @@ Make a copy of the current `pg_hba.conf`:
 sudo cp /var/lib/pgsql/data/pg_hba.conf /var/tmp/pg_hba.conf.bak
 {{< /code >}}
 
-5. In the following command, replace `<standby_ip>` with the IP address of your standby host and then run the command:
+5. In the following command, replace `<standby_ip>` with the IP address of your standby Postgres host and run the command:
 {{< code shell >}}
 export STANDBY_IP=<standby-ip>
 {{< /code >}}
@@ -383,7 +385,7 @@ sudo systemctl restart postgresql
 ### Bootstrap the standby host
 
 {{% notice note %}}
-**NOTE**: Complete these steps on the **standby** Postgres host to bootstrap the standby host with the `pg_basebackup` command and copy all configuration files from the primary host as well as databases.
+**NOTE**: Complete the steps to bootstrap the standby host on the **standby** Postgres host.
 {{% /notice %}}
 
 1. If the standby host has ever run Postgres, stop Postgres and empty the data directory:
@@ -400,14 +402,14 @@ sudo mv /var/lib/pgsql/data /var/lib/pgsql/data.bak
 sudo install -d -o postgres -g postgres -m 0700 /var/lib/pgsql/data
 {{< /code >}}
 
-3. In the following command, replace `<primary_ip>` with the IP address of your primary host and then run the command:
+3. In the following command, replace `<primary_ip>` with the IP address of your primary Postgres host and run the command:
 {{< code shell >}}
 export PRIMARY_IP=<primary_ip>
 {{< /code >}}
 
 4. Bootstrap the standby data directory:
 {{< code shell >}}
-sudo -u postgres pg_basebackup -h $PRIMARY_IP -D /var/lib/pgsql/data -P -U repl -R --xlog-method=stream
+sudo -u postgres pg_basebackup -h $PRIMARY_IP -D /var/lib/pgsql/data -P -U repl -R --wal-method=stream
 {{< /code >}}
 
 5. Enter your password at the Postgres prompt:
@@ -430,36 +432,39 @@ sudo sed -r -i.bak '/^(wal_level|max_wal_senders|wal_keep_segments).*/d' /var/li
 
 2. Start the PostgreSQL service:
 {{< code shell >}}
-sudo systemcl start postgresql
+sudo systemctl start postgresql
 {{< /code >}}
 
 3. Check the commit log location from the primary host:
 {{< code shell >}}
-sudo -u postgres psql -c "select pg_current_xlog_location()"
+sudo -u postgres psql -c "select pg_current_wal_lsn()"
 {{< /code >}}
 
    Postgres will list the primary host commit log location:
 {{< code postgresql >}}
- pg_current_xlog_location 
+ pg_current_wal_lsn 
 --------------------------
  0/3000568
 (1 row)
 {{< /code >}}
 
-3. Check the commit log location from the standby host:
+3. On the **standby** host, check the commit log location:
 {{< code shell >}}
-sudo -u postgres psql -c "select pg_last_xlog_receive_location()"
-sudo -u postgres psql -c "select pg_last_xlog_replay_location()"
+sudo -u postgres psql -c "select pg_last_wal_receive_lsn()"
+{{< /code >}}
+{{< code shell >}}
+sudo -u postgres psql -c "select pg_last_wal_replay_lsn()"
 {{< /code >}}
 
    Postgres will list the standby host commit log location:
 {{< code postgresql >}}
- pg_last_xlog_receive_location 
+ pg_last_wal_receive_lsn 
 -------------------------------
  0/3000568
 (1 row)
-
- pg_last_xlog_replay_location 
+{{< /code >}}
+{{< code postgresql >}}
+ pg_last_wal_replay_lsn 
 ------------------------------
  0/3000568
 (1 row)
