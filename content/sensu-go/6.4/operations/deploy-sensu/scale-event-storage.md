@@ -435,7 +435,7 @@ sudo sed -r -i.bak '/^(wal_level|max_wal_senders|wal_keep_segments).*/d' /var/li
 sudo systemctl start postgresql
 {{< /code >}}
 
-3. Check the commit log location from the primary host:
+3. Check the primary host commit log location:
 {{< code shell >}}
 sudo -u postgres psql -c "select pg_current_wal_lsn()"
 {{< /code >}}
@@ -448,7 +448,7 @@ sudo -u postgres psql -c "select pg_current_wal_lsn()"
 (1 row)
 {{< /code >}}
 
-3. On the **standby** host, check the commit log location:
+4. On the **standby** Postgres host, check the commit log location:
 {{< code shell >}}
 sudo -u postgres psql -c "select pg_last_wal_receive_lsn()"
 {{< /code >}}
