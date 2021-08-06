@@ -43,7 +43,7 @@ The `sensu-perf` test environment comfortably handles 40,000 Sensu agent connect
 * Postgres user with permissions to the database (or administrative access to create such a user)
 * [Licensed Sensu Go backend][3]
 
-For optimal performance, use the following PostgreSQL configuration settings in your `postgresql.conf` file:
+For optimal performance, we recommend the following PostgreSQL configuration parameters and settings as a starting point for your `postgresql.conf` file:
 
 {{< code postgresql >}}
 max_connections = 200
@@ -77,7 +77,8 @@ autovacuum_vacuum_scale_factor = 0.05
 autovacuum_analyze_scale_factor = 0.025
 {{< /code >}}
 
-Read the [PostgreSQL parameters documentation][2] for informmation about setting parameters.
+Adjust the parameters and settings as needed based on your hardware and the performance you observe.
+Read the [PostgreSQL parameters documentation][2] for information about setting parameters.
 
 ## Configure Postgres
 
