@@ -2,7 +2,7 @@
  * code for intercom chat window for https://docs.sensu.io/sensu-go/x.x/learn/learn-sensu-sandbox/
  */
 
-var APP_ID = "docs-sandbox-page";
+var APP_ID = "docsSandboxPage";
 
 window.intercomSettings = {
     app_id: APP_ID,
