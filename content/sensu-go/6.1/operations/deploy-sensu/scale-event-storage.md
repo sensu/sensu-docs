@@ -293,138 +293,126 @@ You may see old events in the web UI or sensuctl output until the etcd datastore
 
 ## Configure Postgres streaming replication
 
-Postgres supports an active standby by using [streaming replication][6].
-All Sensu events written to the primary Postgres server will be replicated to the standby server.
+Postgres supports an active standby with [streaming replication][6].
+Configure streaming replication to replicate all Sensu events written to the primary Postgres server to the standby server.
 
 {{% notice note %}}
 **NOTE**: Paths and service names may vary based on your operating system.
 {{% /notice %}}
 
-This section describes how to configure PostgreSQL streaming replication in four steps.
+Follow the steps in this section to create and add the replication role, set streaming replication configuration parameters, bootstrap the standby host, and confirm successful Postgres streaming replication.
 
-### Step 1: Create and add the replication role
+### Create and add the replication role
 
-If you have administrative access to Postgres, you can create the replication role. 
+If you have administrative access to Postgres, you can create the replication role.
 
-First, change to the postgres user and open the Postgres prompt (`postgres=#`):
+{{% notice note %}}
+**NOTE**: Complete the steps to create and add the replication role on the **primary** Postgres host.
+{{% /notice %}}
 
+1. Change to the postgres user and open the Postgres prompt (`postgres=#`):
 {{< code shell >}}
 sudo -u postgres psql
 {{< /code >}}
 
-Create the `repl` role:
-
+2. Create the `repl` role:
 {{< code postgresql >}}
-CREATE ROLE repl PASSWORD 'mypass' LOGIN REPLICATION;
+CREATE ROLE repl PASSWORD '<your-password>' LOGIN REPLICATION;
 {{< /code >}}
 
-Postgres will return a confirmation message: `CREATE ROLE`.
+   Postgres will return a confirmation message: `CREATE ROLE`.
 
-Type `\q` to exit the PostgreSQL prompt.
+3. Type `\q` to exit the PostgreSQL prompt.
 
-Then, you must add the replication role to `pg_hba.conf` using an [md5-encrypted password][5].
+4. Add the replication role to `pg_hba.conf` using an [md5-encrypted password][5].
 Make a copy of the current `pg_hba.conf`:
-
 {{< code shell >}}
 sudo cp /var/lib/pgsql/data/pg_hba.conf /var/tmp/pg_hba.conf.bak
 {{< /code >}}
 
-In the following command, replace `<standby_ip>` with the IP address of your standby host and then run the command:
-
+5. In the following command, replace `<standby_ip>` with the IP address of your standby Postgres host and run the command:
 {{< code shell >}}
-export STANDBY_IP=<standby_ip>
+export STANDBY_IP=<standby-ip>
 {{< /code >}}
 
-Next, give the repl user permissions to replicate from the standby host:
-
+6. Give the repl user permissions to replicate from the standby host:
 {{< code shell >}}
 echo "host replication repl ${STANDBY_IP}/32 md5" | sudo tee -a /var/lib/pgsql/data/pg_hba.conf
 {{< /code >}}
 
-Restart the PostgreSQL service to activate the `pg_hba.conf` changes:
-
+7. Restart the PostgreSQL service to activate the `pg_hba.conf` changes:
 {{< code shell >}}
 sudo systemctl restart postgresql
 {{< /code >}}
 
-### Step 2: Set streaming replication configuration parameters
+### Set streaming replication configuration parameters
 
-The next step is to set the streaming replication configuration parameters on the primary Postgres host.
-Begin by making a copy of the `postgresql.conf`:
+{{% notice note %}}
+**NOTE**: Complete the steps to set streaming replication configuration parameters on the **primary** Postgres host.
+{{% /notice %}}
 
+1. Make a copy of the `postgresql.conf`:
 {{< code shell >}}
 sudo cp -a /var/lib/pgsql/data/postgresql.conf /var/lib/pgsql/data/postgresql.conf.bak
 {{< /code >}}
 
-Next, append the necessary configuration options.
-
+2. Append the necessary configuration options.
 {{< code shell >}}
-echo 'wal_level = hot_standby' | sudo tee -a /var/lib/pgsql/data/postgresql.conf
+echo 'wal_level = replica' | sudo tee -a /var/lib/pgsql/data/postgresql.conf
 {{< /code >}}
 
-Set the maximum number of concurrent connections from the standby servers:
-
+3. Set the maximum number of concurrent connections from the standby servers:
 {{< code shell >}}
 echo 'max_wal_senders = 5' | sudo tee -a /var/lib/pgsql/data/postgresql.conf
 {{< /code >}}
 
-To prevent the primary server from removing the WAL segments required for the standby server before shipping them, set the minimum number of segments retained in the `pg_xlog` directory:
-
+4. To prevent the primary server from removing the WAL segments required for the standby server before shipping them, set the minimum number of segments retained in the `pg_xlog` directory:
 {{< code shell >}}
 echo 'wal_keep_segments = 32' | sudo tee -a /var/lib/pgsql/data/postgresql.conf
 {{< /code >}}
 
-At minimum, the number of `wal_keep_segments` should be larger than the number of segments generated between the beginning of online backup and the startup of streaming replication.
+   At minimum, the number of `wal_keep_segments` should be larger than the number of segments generated between the beginning of online backup and the startup of streaming replication.
 
-{{% notice note %}}
-**NOTE**: If you enable WAL archiving to an archive directory accessible from the standby, this may not be necessary.
+   {{% notice note %}}
+**NOTE**: If you enable WAL archiving to an archive directory accessible from the standby, this step may not be necessary.
 {{% /notice %}}
 
-Restart the PostgreSQL service to activate the `postgresql.conf` changes:
-
+5. Restart the PostgreSQL service to activate the `postgresql.conf` changes:
 {{< code shell >}}
 sudo systemctl restart postgresql
 {{< /code >}}
 
-### Step 3: Bootstrap the standby host
+### Bootstrap the standby host
 
-The standby host must be bootstrapped using the `pg_basebackup` command.
-This process will copy all configuration files from the primary as well as databases.
+{{% notice note %}}
+**NOTE**: Complete the steps to bootstrap the standby host on the **standby** Postgres host.
+{{% /notice %}}
 
-If the standby host has ever run Postgres, you must empty the data directory.
-First, stop Postgres:
-
+1. If the standby host has ever run Postgres, stop Postgres and empty the data directory:
 {{< code shell >}}
 sudo systemctl stop postgresql
 {{< /code >}}
 
-Empty the data directory:
-
-{{< code shell >}}
+   {{< code shell >}}
 sudo mv /var/lib/pgsql/data /var/lib/pgsql/data.bak
 {{< /code >}}
 
-Make the standby data directory:
-
+2. Make the standby data directory:
 {{< code shell >}}
 sudo install -d -o postgres -g postgres -m 0700 /var/lib/pgsql/data
 {{< /code >}}
 
-Then bootstrap the standby data directory.
-In the following command, replace `<primary_ip>` with the IP address of your primary host and then run the command:
-
+3. In the following command, replace `<primary_ip>` with the IP address of your primary Postgres host and run the command:
 {{< code shell >}}
 export PRIMARY_IP=<primary_ip>
 {{< /code >}}
 
-Then bootstrap the standby data directory:
-
+4. Bootstrap the standby data directory:
 {{< code shell >}}
-sudo -u postgres pg_basebackup -h $PRIMARY_IP -D /var/lib/pgsql/data -P -U repl -R --xlog-method=stream
+sudo -u postgres pg_basebackup -h $PRIMARY_IP -D /var/lib/pgsql/data -P -U repl -R --wal-method=stream
 {{< /code >}}
 
-Postgres will prompt for your password:
-
+5. Enter your password at the Postgres prompt:
 {{< code postgresql >}}
 Password: 
 {{< /code >}}
@@ -435,53 +423,48 @@ After you enter your password, Postgres will list database copy progress:
 30318/30318 kB (100%), 1/1 tablespace
 {{< /code >}}
 
-### Step 4: Confirm replication
+### Confirm replication
 
-To confirm your configuration is working properly, first remove configurations that are only for the primary:
-
+1. On the **primary** Postgres host, remove primary-only configurations:
 {{< code shell >}}
 sudo sed -r -i.bak '/^(wal_level|max_wal_senders|wal_keep_segments).*/d' /var/lib/pgsql/data/postgresql.conf
 {{< /code >}}
 
-Start the PostgreSQL service:
-
+2. Start the PostgreSQL service:
 {{< code shell >}}
-sudo systemcl start postgresql
+sudo systemctl start postgresql
 {{< /code >}}
 
-To verify that the replication is taking place, check the commit log location on the primary and standby hosts.
-
-From primary:
-
+3. Check the primary host commit log location:
 {{< code shell >}}
-sudo -u postgres psql -c "select pg_current_xlog_location()"
+sudo -u postgres psql -c "select pg_current_wal_lsn()"
 {{< /code >}}
 
-Postgres will list the commit log location:
-
+   Postgres will list the primary host commit log location:
 {{< code postgresql >}}
- pg_current_xlog_location 
+ pg_current_wal_lsn 
 --------------------------
  0/3000568
 (1 row)
 {{< /code >}}
 
-From standby:
-
+4. On the **standby** Postgres host, check the commit log location:
 {{< code shell >}}
-sudo -u postgres psql -c "select pg_last_xlog_receive_location()"
-sudo -u postgres psql -c "select pg_last_xlog_replay_location()"
+sudo -u postgres psql -c "select pg_last_wal_receive_lsn()"
+{{< /code >}}
+{{< code shell >}}
+sudo -u postgres psql -c "select pg_last_wal_replay_lsn()"
 {{< /code >}}
 
-Postgres will list the commit log location:
-
+   Postgres will list the standby host commit log location:
 {{< code postgresql >}}
- pg_last_xlog_receive_location 
+ pg_last_wal_receive_lsn 
 -------------------------------
  0/3000568
 (1 row)
-
- pg_last_xlog_replay_location 
+{{< /code >}}
+{{< code postgresql >}}
+ pg_last_wal_replay_lsn 
 ------------------------------
  0/3000568
 (1 row)
