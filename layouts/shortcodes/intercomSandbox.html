@@ -1,0 +1,7 @@
+<!-- Applies /js/intercomSandbox.js to pages with specified frontmatter type "intercom" and value "sandbox" -->
+{{ range (.Site.Pages.ByParam "intercom") }}
+	{{ if and (eq .Type "sandbox") }}
+  		<script type="text/javascript" src="/js/intercomSandbox.js"></script>
+	{{ end }}
+{{ end }}
+
