@@ -74,8 +74,9 @@ In the following example, an HTTP POST request is submitted to the `/apikeys` AP
 The request returns a successful HTTP `201 Created` response, along with a `Location` header that contains the relative path to the new API key.
 
 {{% notice note %}}
-**NOTE**: For the `/apikeys` POST endpoint, authenticate with a Sensu access token, which you can generate with the [authentication API](../#authenticate-with-the-authentication-api) or [sensuctl](../#generate-an-api-access-token-with-sensuctl) .
-This example uses `$SENSU_ACCESS_TOKEN` to represent a valid Sensu access token. 
+**NOTE**: For the `/apikeys` POST endpoint, authenticate with a Sensu access token, which you can generate with the [authentication API](../#authenticate-with-the-authentication-api) or [sensuctl](../#generate-an-api-access-token-with-sensuctl).
+This example uses `$SENSU_ACCESS_TOKEN` to represent a valid Sensu access token.<br><br>
+If you prefer, you can [create a new API key with sensuctl](../../operations/control-access/use-apikeys/#sensuctl-management-commands) instead of using this endpoint.
 {{% /notice %}}
 
 {{< code shell >}}
