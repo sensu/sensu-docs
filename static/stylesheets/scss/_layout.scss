@@ -21,6 +21,14 @@ main {
   }
 }
 
+#home a {
+  transition: opacity 0.25s ease-in-out;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
 #home h2 + p {
   font-size: 2rem;
   margin: 0.75em auto;
@@ -38,6 +46,7 @@ main {
   font-weight: bold;
   grid-template-columns: repeat(4, 1fr);
 
+  > a,
   > div {
     align-items: center;
     display: flex;
