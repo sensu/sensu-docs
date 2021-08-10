@@ -130,11 +130,11 @@ You can use the [Secrets API][2] to create, view, and manage your secrets provid
 
 For example, to retrieve the list of secrets providers:
 
-curl http://127.0.0.1:8080/api/core/v2/{{< code shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
 -H "Authorization: Key $SENSU_API_KEY"
-{{< /code >}}namespaces/default/entities -v -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
  
 ## Secrets providers specification
 
