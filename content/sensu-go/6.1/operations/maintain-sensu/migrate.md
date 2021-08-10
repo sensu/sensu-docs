@@ -24,9 +24,9 @@ Sensu Go also includes many powerful [commercial features][27] to make monitorin
 Sensu Go is available for [RHEL/CentOS, Debian, Ubuntu, and Docker][43].
 The Sensu Go agent is also available for Windows.
 
-{{% notice important %}}
-**IMPORTANT**: To install Sensu Go alongside your current Sensu instance, you must upgrade to at least Sensu Core 1.9.0-2.
-If you need to upgrade, please [contact Sensu](https://sensu.io/contact).
+{{% notice warning %}}
+**WARNING**: To install Sensu Go alongside your current Sensu instance, you must upgrade to at least Sensu Core 1.9.0-2.
+If you need to upgrade, [contact Sensu](https://sensu.io/contact).
 {{% /notice %}}
 
 Aside from this migration guide, these resources can help you migrate from Sensu Core or Sensu Enterprise to Sensu Go:
@@ -48,7 +48,8 @@ We also offer [**commercial support** and **professional services** packages][49
 
 ## Packaging
 
-Sensu Go is provided as three packages: sensu-go-backend, sensu-go-agent, and sensu-go-cli (sensuctl). This is a fundamental change in Sensu terminology from Sensu Core: the server is now the backend.
+Sensu Go is provided as three packages: sensu-go-backend, sensu-go-agent, and sensu-go-cli (sensuctl).
+This is a fundamental change in Sensu terminology from Sensu Core: the server is now the backend.
 
 Clients are represented within Sensu Go as abstract entities that can describe a wider range of system components such as network gear, a web server, or a cloud resource.
 Entities include agent entities that run a Sensu agent and the familiar proxy entities.
@@ -211,13 +212,14 @@ If you're doing a side-by-side migration, add `api-port` (default: `3031`) and `
 This prevents the Sensu Go agent API and socket from conflicting with the Sensu Core client API and socket.
 
 {{< code yml >}}
-api-port: 4041
-socket-port: 4030
+api-port: 3031
+socket-port: 3030
 {{< /code >}}
 
 You can also disable these features in the agent configuration using the `disable-socket` and `disable-api` flags.
 
-Sensu should now be installed and functional. The next step is to translate your Sensu Core configuration to Sensu Go.
+Sensu should now be installed and functional.
+The next step is to translate your Sensu Core configuration to Sensu Go.
 
 ### Step 2: Translate your configuration
 
@@ -263,7 +265,9 @@ find sensu_config_translated/ -name '*.json' -exec cat {} \; > sensu_config_tran
 
 Most attributes are ready to use as-is, but you'll need to adjust your Sensu Go configuration manually to migrate some of Sensu's features.
 
-_NOTE: To streamline a comparison of your Sensu Core configuration with your Sensu Go configuration, output your current Sensu Core configuration using the API: `curl -s http://127.0.0.1:4567/settings | jq . > sensu_config_original.json`_
+{{% notice note %}}
+**NOTE**: To streamline a comparison of your Sensu Core configuration with your Sensu Go configuration, output your current Sensu Core configuration using the API: `curl -s http://127.0.0.1:4567/settings | jq . > sensu_config_original.json`.
+{{% /notice %}}
 
 #### 2. Translate checks
 
@@ -281,13 +285,13 @@ Review your Sensu Core check configuration for the following attributes, and mak
 `subscribers: roundrobin...` | Remove `roundrobin` from the subscription name, and add the `round_robin` check attribute set to `true`.
 `aggregate` | Check aggregates are supported through the [commercial][27] [Sensu Go Aggregate Check Plugin][28].
 `hooks` | See the [translate hooks][73] section.
-`dependencies`| Check dependencies are not available in Sensu Go.
+`dependencies`| Use the [Core Dependencies Filter][23] dynamic runtime asset.
 
 {{% notice protip %}}
-**PRO TIP**: When using **token substitution** in Sensu Go and accessing labels or annotations that include `.` (for example: `sensu.io.json_attributes`), use the `index` function. For example, `{{index .annotations "web_url"}}` substitutes the value of the `web_url` annotation; `{{index .annotations "production.ID"}}` substitutes the value of the `production.ID` annotation.
+**PRO TIP**: When using token substitution in Sensu Go and accessing labels or annotations that include `.` (for example: `sensu.io.json_attributes`), use the `index` function. For example, `{{index .annotations "web_url"}}` substitutes the value of the `web_url` annotation; `{{index .annotations "production.ID"}}` substitutes the value of the `production.ID` annotation.
 {{% /notice %}}
 
-<a name="translate-metric-checks"></a>
+<a id="translate-metric-checks"></a>
 
 **Translate metric checks**
 
@@ -298,14 +302,14 @@ This allowed Sensu Core to process output metrics via a handler even when the ch
 Sensu Go treats output metrics as first-class objects, so you can process check status as well as output metrics via different event pipelines.
 See the [guide to metric output][57] to update your metric checks with the `output_metric_handlers` and `output_metric_format` attributes and use `output_metric_tags` to enrich extracted metrics output.
 
-<a name="translate-proxy-requests-entities"></a>
+<a id="translate-proxy-requests-entities"></a>
 
 **Translate proxy requests and proxy entities**
 
 See the [guide to monitoring external resources][7] to re-configure `proxy_requests` attributes and update your proxy check configuration.
 See the [entity reference][6] to re-create your proxy client configurations as Sensu Go proxy entities.
 
-<a name="translate-hooks"></a>
+<a id="translate-hooks"></a>
 
 **Translate hooks**
 
@@ -327,7 +331,9 @@ See the [check reference][58] for more information about using labels and annota
 Ruby eval logic used in Sensu Core filters is replaced with JavaScript expressions in Sensu Go, opening up powerful possibilities to combine filters with [filter dynamic runtime assets][59].
 As a result, you'll need to rewrite your Sensu Core filters in Sensu Go format.
 
-First, review your Core handlers to identify which filters are being used. Then, follow the [filter reference][9] and [guide to using filters][60] to re-write your filters using Sensu Go expressions and [event data][61]. Check out the [blog post on filters][62] for a deep dive into Sensu Go filter capabilities.
+First, review your Core handlers to identify which filters are being used.
+Then, follow the [filter reference][9] and [guide to using filters][60] to re-write your filters using Sensu Go expressions and [event data][61].
+Check out the [blog post on filters][62] for a deep dive into Sensu Go filter capabilities.
 
 Sensu Core hourly filter:
 
@@ -388,7 +394,8 @@ In Sensu Go, all check results are considered events and are processed by event 
 Use the built-in [`is_incident` filter][63] to recreate the Sensu Core behavior, in which only check results with a non-zero status are considered events.
 
 {{% notice note %}}
-**NOTE**: Silencing is disabled by default in Sensu Go and must be explicitly enabled using the built-in [`not_silenced` filter](../../../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced). Add the `not_silenced` filter to any handlers for which you want to enable Sensu's silencing feature.
+**NOTE**: Silencing is disabled by default in Sensu Go and must be explicitly enabled using the built-in [`not_silenced` filter](../../../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced).
+Add the `not_silenced` filter to any handlers for which you want to enable Sensu's silencing feature.
 {{% /notice %}}
 
 Review your Sensu Core check configuration for the following attributes, and make the corresponding updates to your Sensu Go configuration.
@@ -410,7 +417,9 @@ After you review your translated configuration, make any necessary updates, and 
 sensuctl create --file /path/to/config.json
 {{< /code >}}
 
-_PRO TIP: `sensuctl create` (and `sensuctl delete`) are powerful tools to help you manage your Sensu configs across namespaces. See the [sensuctl reference][5] for more information._
+{{% notice protip %}}
+**PRO TIP**: `sensuctl create` (and `sensuctl delete`) are powerful tools to help you manage your Sensu configs across namespaces. See the [sensuctl reference][5] for more information.
+{{% /notice %}}
 
 Access your Sensu Go config using the [Sensu API][17].
 
@@ -507,17 +516,18 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [8]: ../../../observability-pipeline/observe-schedule/hooks/
 [9]: ../../../observability-pipeline/observe-filter/filters
 [10]: ../../../observability-pipeline/observe-filter/filters/#filter-for-repeated-events
-[11]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/
+[11]: https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter/
 [12]: ../../../plugins/assets/
 [13]: ../../control-access/rbac/
 [14]: ../../control-access/create-read-only-user/
-[15]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#asset-registration
+[15]: https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter/#asset-registration
 [16]: ../../../observability-pipeline/observe-schedule/tokens
 [17]: ../../../api/
 [18]: https://github.com/sensu/sensu-translator/
-[19]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#filter-definition
+[19]: https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter/#filter-definition
 [20]: https://packagecloud.io/sensu/community/
 [22]: ../../../sensuctl/#preferred-output-format
+[23]: https://bonsai.sensu.io/assets/sensu/sensu-dependencies-filter
 [21]: https://github.com/sensu-plugins/
 [24]: ../../../observability-pipeline/observe-entities/entities#metadata-attributes
 [25]: https://sensu.io/blog/check-configuration-upgrades-with-the-sensu-go-sandbox/
@@ -525,7 +535,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [27]: ../../../commercial/
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check/
 [29]: ../../../observability-pipeline/observe-schedule/backend#operation
-[33]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#configuration
+[33]: https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter/#configuration
 [34]: ../../../observability-pipeline/observe-filter/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler-1
 [36]: https://etcd.io/
 [37]: ../../deploy-sensu/cluster-sensu/
@@ -556,7 +566,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [62]: https://sensu.io/blog/filters-valves-for-the-sensu-monitoring-event-pipeline
 [63]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-is_incident
 [64]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced
-[65]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
+[65]: https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter
 [66]: https://github.com/sensu-plugins/sensu-plugin#sensu-go-enablement
 [67]: ../../../observability-pipeline/observe-events/events/#event-format
 [68]: https://bonsai.sensu.io
@@ -573,7 +583,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [79]: https://monitoringlove.sensu.io/chef
 [80]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-chef
 [81]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
-[82]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-graphite-handler
+[82]: https://bonsai.sensu.io/assets/sensu/sensu-go-graphite-handler
 [83]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 [84]: https://bonsai.sensu.io/assets/sensu-utils/sensu-irc-handler
 [85]: https://bonsai.sensu.io/assets/sensu/sensu-jira-handler

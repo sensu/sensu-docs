@@ -1,6 +1,6 @@
 ---
 title: "Plugins"
-description: "Learn how to find, install, use, and develop Sensu plugins."
+description: "Learn how to find, install, use, and develop Sensu plugins: executable scripts or other programs that you can use as Sensu checks, handlers, and mutators."
 product: "Sensu Go"
 version: "6.3"
 weight: 110

@@ -13,7 +13,7 @@ menu:
     parent: observe-filter
 ---
 
-Sensu executes event filters during the **[filter][43]** stage of the [observability pipeline][44].
+Sensu executes event filters during the **[filter][39]** stage of the [observability pipeline][44].
 
 Sensu event filters are applied when you configure event handlers to use one or more filters.
 Before executing a handler, the Sensu backend will apply any event filters configured for the handler to the observation data in events.
@@ -93,13 +93,88 @@ Event filters that return a `true` value will continue to be processed via addit
 
 When more complex conditional logic is needed than direct filter expression comparison, Sensu event filters provide support for expression evaluation using [Otto][31].
 Otto is an ECMAScript 5 (JavaScript) virtual machine that evaluates JavaScript expressions provided in an event filter.
-There are some caveats to using Otto: not all of the regular expressions specified in ECMAScript 5 will work.
+There are some caveats to using Otto: not all of the regular expressions (regex) specified in ECMAScript 5 will work.
 See the [Otto README][32] for more details.
+
+Use [Golang regex syntax][3] to create event filter expressions that combine any available [event][46], [check][47], or [entity][48] attributes with `match(<regex>)`.
+
+For example, this event filter allows handling for events whose `event.check.name` ends with `metrics`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: EventFilter
+api_version: core/v2
+metadata:
+  name: metrics-checks-only
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - event.check.name.match(/metrics$/)
+{{< /code >}}
+
+{{< code json >}}
+{
+   "type": "EventFilter",
+   "api_version": "core/v2",
+   "metadata": {
+      "name": "metrics-checks-only",
+      "namespace": "default"
+   },
+   "spec": {
+      "action": "allow",
+      "expressions": [
+         "event.check.name.match(/metrics$/)"
+      ]
+   }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Here's another example that uses regex matching for event entity labels.
+This event filter allows handling for events created by entities with the `region` label `us-west-1`, `us-west-2`, or `us-west-3`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: EventFilter
+api_version: core/v2
+metadata:
+  name: us-west-events
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - event.entity.labels.region.match(/us-west-\b[1-3]\b/)
+{{< /code >}}
+
+{{< code json >}}
+{
+   "type": "EventFilter",
+   "api_version": "core/v2",
+   "metadata": {
+      "name": "us-west-events",
+      "namespace": "default"
+   },
+   "spec": {
+      "action": "allow",
+      "expressions": [
+         "event.entity.labels.region.match(/us-west-\b[1-3]\b/)"
+      ]
+   }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ### Filter dynamic runtime assets
 
 Sensu event filters can have dynamic runtime assets that are included in their execution context.
-When valid dynamic runtime assets are associated with an event filter, Sensu evaluates any files it finds that have a ".js" extension before executing the filter.
+When valid dynamic runtime assets are associated with an event filter, Sensu evaluates any files it finds that have a `.js` extension before executing the filter.
 The result of evaluating the scripts is cached for a given asset set for the sake of performance.
 For an example of how to implement an event filter as an asset, see [Reduce alert fatigue][30].
 
@@ -383,7 +458,7 @@ For more information about event attributes, see the [event reference][28].
 `event.check.total_state_change`     | integer | The total state change percentage for the check’s history
 `event.check.ttl`                    | integer | The time-to-live (TTL) until the event is considered stale, in seconds
 `event.metrics.handlers`             | array   | Sensu metric [handlers][22] assigned to the check
-`event.metrics.points`               | array   | [Metric data points][23] including a name, timestamp, value, and tags
+`event.metrics.points`               | array   | [Metrics data points][23] including a name, timestamp, value, and tags
 
 ### Entity attributes available to filters
 
@@ -410,8 +485,10 @@ For more information about event attributes, see the [event reference][28].
 
 ## Build event filter expressions with JavaScript execution functions
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access built-in JavaScript event filter execution functions in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][44].
+For more information, see [Get started with commercial features](../../../commercial).
+{{% /notice %}}
 
 In addition to [Sensu query expressions][27], Sensu includes several built-in JavaScript functions for event filter execution:
 
@@ -1085,9 +1162,49 @@ spec:
 
 {{< /language-toggle >}}
 
+## Disable alerts without a silence
+
+This filter allows you to disable alerts without creating silences.
+
+Add the filter name to the `filters` array for any handler you want to control.
+To disable alerts, change the filter's `action` attribute value from `allow` to `deny`.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: EventFilter
+api_version: core/v2
+metadata:
+  name: emergency_alert_control
+spec:
+  action: allow
+  expressions:
+  - event.has_check
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "emergency_alert_control"
+  },
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "event.has_check"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 
 [1]: #inclusive-and-exclusive-event-filters
 [2]: #when-attributes
+[3]: https://github.com/google/re2/wiki/Syntax
 [4]: ../../observe-process/send-slack-alerts/
 [5]: ../../observe-process/plan-maintenance/
 [6]: ../../observe-process/silencing/
@@ -1116,14 +1233,18 @@ spec:
 [29]: ../../observe-events/events#occurrences-and-occurrences-watermark
 [30]: ../../observe-filter/reduce-alert-fatigue/
 [31]: https://github.com/robertkrimen/otto
-[32]: https://github.com/robertkrimen/otto/blob/master/README.markdown
+[32]: https://github.com/robertkrimen/otto/blob/master/README.markdown#regular-expression-incompatibility
 [33]: ../../../sensuctl/create-manage-resources/#create-resources
 [34]: #spec-attributes
 [35]: https://regex101.com/r/zo9mQU/2
 [36]: ../../../api#response-filtering
 [37]: ../../../sensuctl/filter-responses/
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
+[39]: ../
 [41]: ../../../web-ui/search#search-for-labels
 [42]: ../../../web-ui/search/
-[43]: ../
+[43]: ../../../api/events/
 [44]: ../../../observability-pipeline/
+[46]: #event-attributes-available-to-filters
+[47]: #check-attributes-available-to-filters
+[48]: #entity-attributes-available-to-filters

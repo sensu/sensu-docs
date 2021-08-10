@@ -1,7 +1,7 @@
 ---
-title: "Monitor external resources with proxy requests and entities"
+title: "Monitor external resources with proxy entities"
 linkTitle: "Monitor External Resources"
-guide_title: "Monitor external resources with proxy requests and entities"
+guide_title: "Monitor external resources with proxy entities"
 type: "guide"
 description: "Proxy entities allow Sensu to monitor external resources on systems and devices where a Sensu agent cannot be installed, like a network switch or a website. Read this guide to monitor a website with proxy entities."
 weight: 20
@@ -33,17 +33,17 @@ The Sensu Plugins HTTP asset includes `check-http.rb`, which [your check][15] wi
 The Sensu assets packaged from Sensu Plugins HTTP are built against the Sensu Ruby runtime environment, so you also need to add the [Sensu Ruby Runtime][7] dynamic runtime asset.
 Sensu Ruby Runtime delivers the Ruby executable and supporting libraries the check will need to run the `check-http.rb` plugin.
 
-Use [`sensuctl asset add`][21] to register the Sensu Plugins HTTP dynamic runtime asset, `sensu-plugins/sensu-plugins-http:5.1.1`:
+Use [`sensuctl asset add`][21] to register the Sensu Plugins HTTP dynamic runtime asset, `sensu-plugins/sensu-plugins-http`:
 
 {{< code shell >}}
-sensuctl asset add sensu-plugins/sensu-plugins-http:5.1.1 -r sensu-plugins-http
+sensuctl asset add sensu-plugins/sensu-plugins-http:6.0.0 -r sensu-plugins-http
 {{< /code >}}
 
 The response will indicate that the asset was added:
 
 {{< code shell >}}
-fetching bonsai asset: sensu-plugins/sensu-plugins-http:5.1.1
-added asset: sensu-plugins/sensu-plugins-http:5.1.1
+fetching bonsai asset: sensu-plugins/sensu-plugins-http:6.0.0
+added asset: sensu-plugins/sensu-plugins-http:6.0.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
@@ -54,17 +54,17 @@ This example uses the `-r` (rename) flag to specify a shorter name for the dynam
 
 You can also download the dynamic runtime asset definition for Debian or Alpine from [Bonsai][16] and register the asset with `sensuctl create --file filename.yml` or `sensuctl create --file filename.json`.
 
-Then, use the following sensuctl example to register the Sensu Ruby Runtime dynamic runtime asset, `sensu/sensu-ruby-runtime:0.0.10`:
+Then, use the following sensuctl example to register the Sensu Ruby Runtime dynamic runtime asset, `sensu/sensu-ruby-runtime`:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
+sensuctl asset add sensu/sensu-ruby-runtime:0.1.0 -r sensu-ruby-runtime
 {{< /code >}}
 
 The response will indicate that the asset was added:
 
 {{< code shell >}}
-fetching bonsai asset: sensu/sensu-ruby-runtime:0.0.10
-added asset: sensu/sensu-ruby-runtime:0.0.10
+fetching bonsai asset: sensu/sensu-ruby-runtime:0.1.0
+added asset: sensu/sensu-ruby-runtime:0.1.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
@@ -84,8 +84,8 @@ The response should list the `sensu-plugins-http` and `sensu-ruby-runtime` dynam
 {{< code shell >}}
           Name                                                URL                                       Hash    
 ────────────────────────── ─────────────────────────────────────────────────────────────────────────── ───────── 
- sensu-plugins-http         //assets.bonsai.sensu.io/.../sensu-plugins-http_5.1.1_centos_linux_amd64.tar.gz         31023af  
- sensu-ruby-runtime         //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.0.10_ruby-2.4.4_centos_linux_amd64.tar.gz     338b88b 
+ sensu-plugins-http         //assets.bonsai.sensu.io/.../sensu-plugins-http_6.0.0_centos_linux_amd64.tar.gz         31023af  
+ sensu-ruby-runtime         //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.1.0_ruby-2.4.4_centos_linux_amd64.tar.gz     338b88b 
 {{< /code >}}
 
 {{% notice note %}}
@@ -183,11 +183,11 @@ The response should list `check-sensu-site`:
 To run the check, you'll need a Sensu agent with the subscription `proxy`.
 After you [install an agent][19], use sensuctl to add the `proxy` subscription to the entity the Sensu agent is observing.
 
-In the following command, replace `ENTITY_NAME` with the name of the entity on your system.
+In the following command, Replace `<entity_name>` with the name of the entity on your system.
 Then, run:
 
 {{< code shell >}}
-sensuctl entity update ENTITY_NAME
+sensuctl entity update <entity_name>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -223,11 +223,12 @@ The response should list `check-sensu-site` status and history data for the `sen
 === sensu-site - check-sensu-site
 Entity:    sensu-site
 Check:     check-sensu-site
-Output:    
+Output:    CheckHttp OK: 200, 72024 bytes
 Status:    0
-History:   0,0
+History:   0,0,0
 Silenced:  false
-Timestamp: 2019-01-16 21:51:53 +0000 UTC
+Timestamp: 2021-04-16 22:02:02 +0000 UTC
+UUID:      d34599cb-5596-9ad4-51ad-cc3d942690c6
 {{< /code >}}
 
 You can also see the new proxy entity in your [Sensu web UI][10].

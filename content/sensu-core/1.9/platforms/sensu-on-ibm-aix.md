@@ -11,7 +11,7 @@ menu:
     parent: platforms
 ---
 
-# Sensu on IBM AIX
+## Sensu on IBM AIX
 
 - [Installing Sensu Core](#sensu-core)
   - [Download and install Sensu using the Sensu .bff file](#download-and-install-sensu-core)

@@ -10,24 +10,22 @@ menu:
     parent: api
 ---
 
-{{% notice important %}}
-**IMPORTANT**: The prune API is an alpha feature and may include breaking changes.
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access the prune API in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
-**COMMERCIAL FEATURE**: Access the prune API in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][1].
-
 {{% notice note %}}
-**NOTE**: Requests to the prune API require you to authenticate with a Sensu [access token](../#authenticate-with-the-authentication-api) or [API key](../#authenticate-with-an-api-key).
+**NOTE**: The prune API is an alpha feature and may include breaking changes.
+The prune API requires [cluster-level privileges](../../operations/control-access/rbac/#roles-and-cluster-roles), even when all resources belong to the same namespace.
+
+Requests to the prune API require you to authenticate with a Sensu [access token](../#authenticate-with-the-authentication-api) or [API key](../#authenticate-with-an-api-key).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
 {{% /notice %}}
 
 ## Create a new pruning command
 
 The `/prune/v1alpha` API endpoint provides HTTP POST access to create a pruning command to delete resources that are not specified in the request body.
-
-{{% notice note %}}
-**NOTE**: The prune API requires [cluster-level privileges](../../operations/control-access/rbac/#roles-and-cluster-roles), even when all resources belong to the same namespace.
-{{% /notice %}}
 
 ### Example {#prune-v1alpha-post-example}
 

@@ -12,11 +12,13 @@ menu:
     parent: manage-secrets
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Secret datatype in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][1].
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 Sensu's secrets management eliminates the need to expose secrets in your Sensu configuration.
-When a Sensu resource definition requires a secret (e.g. a username or password), Sensu allows you to obtain secrets from one or more external secrets providers, so you can both refer to external secrets and consume secrets via [backend environment variables][5].
+When a Sensu resource definition requires a secret (for example, a username or password), Sensu allows you to obtain secrets from one or more external secrets providers, so you can both refer to external secrets and consume secrets via [backend environment variables][5].
 
 {{% notice note %}}
 **NOTE**: Secrets management is implemented for [checks](../../../observability-pipeline/observe-schedule/checks/#check-with-secret), [handlers](../../../observability-pipeline/observe-process/handlers/#handler-with-secret), and [mutators](../../../observability-pipeline/observe-transform/mutators/#mutator-with-secret).
@@ -310,7 +312,6 @@ provider: vault
 {{< /language-toggle >}}
 
 
-[1]: ../../../commercial/
 [2]: ../../../api/secrets/
 [3]: ../../../sensuctl/
 [4]: ../../../sensuctl/create-manage-resources/#subcommands

@@ -19,7 +19,11 @@ menu:
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
 Agents register with the Sensu backend as [monitoring entities][3] with `type: "agent"`.
 Agent entities are responsible for creating [check and metrics events][7] to send to the [backend event pipeline][2].
+
 The Sensu agent is available for Linux, macOS, and Windows.
+For Windows operating systems, the Sensu agent uses `cmd.exe` for the execution environment.
+For all other operating systems, the Sensu agent uses the Bourne shell (sh).
+
 See the [installation guide][1] to install the agent.
 
 ## Agent authentication
@@ -50,8 +54,8 @@ Agents that are configured to use mTLS authentication cannot authenticate with t
 
 To [configure the agent and backend][58] for mTLS authentication:
 
-- In the backend configuration, specify valid certificate and key files as values for the `agent-auth-cert-file` and `agent-auth-key-file` parameters.
-- In the agent configuration, specify valid certificate and key files as values for the `cert-file` and `key-file` parameters.
+- In the backend configuration, specify valid certificate and key files as values for the `agent-auth-cert-file` and `agent-auth-key-file` parameters (e.g. `backend-1.pem` and `backend-1-key.pem`, respectively).
+- In the agent configuration, specify valid certificate and key files as values for the `cert-file` and `key-file` parameters (e.g. `agent.pem` and `agent-key.pem`, respectively).
 
 The agent and backend will compare the provided certificates with the trusted CA certificate either in the system trust store or specified explicitly as the `agent-auth-trusted-ca-file` in the backend configuration and `trusted-ca-file` in the agent configuration.
 
@@ -791,7 +795,8 @@ For example, you can use registration event handlers to update external [configu
 The handlers reference includes an [example registration event handler][41].
 
 {{% notice warning %}}
-**WARNING**: Registration events are not stored in the event registry, so they are not accessible via the Sensu API. However, all registration events are logged in the [Sensu backend log](../backend/#event-logging).
+**WARNING**: Registration events are not stored in the event registry, so they are not accessible via the Sensu API.
+However, all registration events are logged in the [Sensu backend log](../backend/#event-logging).
 {{% /notice %}}
 
 #### Deregistration events
@@ -803,7 +808,8 @@ You can specify a deregistration handler per agent using the [`deregistration-ha
 
 ### Cluster
 
-Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16]. For more information about clustering, see [Backend datastore configuration flags][35] and [Run a Sensu cluster][36].
+Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16].
+For more information about clustering, see [Backend datastore configuration flags][35] and [Run a Sensu cluster][36].
 
 ### Synchronize time
 
@@ -832,9 +838,9 @@ You must present the whole chain to the remote so it can determine whether it tr
 
 ### Configuration summary
 
-{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
-As of 5.20.2, the `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
+{{% notice note %}}
+**NOTE**: Process discovery is disabled in this version of Sensu.
+The `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
 Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
@@ -853,54 +859,54 @@ Usage:
   sensu-agent start [flags]
 
 Flags:
-      --agent-managed-entity                  manage this entity via the agent
-      --allow-list string                     path to agent execution allow list configuration file
-      --annotations stringToString            entity annotations map (default [])
-      --api-host string                       address to bind the Sensu client HTTP API to (default "127.0.0.1")
-      --api-port int                          port the Sensu client HTTP API listens on (default 3031)
-      --assets-burst-limit int                asset fetch burst limit (default 100)
-      --assets-rate-limit float               maximum number of assets fetched per second
-      --backend-handshake-timeout int         number of seconds the agent should wait when negotiating a new WebSocket connection (default 15)
-      --backend-heartbeat-interval int        interval at which the agent should send heartbeats to the backend (default 30)
-      --backend-heartbeat-timeout int         number of seconds the agent should wait for a response to a hearbeat (default 45)
-      --backend-url strings                   ws/wss URL of Sensu backend server (to specify multiple backends use this flag multiple times) (default [ws://127.0.0.1:8081])
-      --cache-dir string                      path to store cached data (default "/var/cache/sensu/sensu-agent")
-      --cert-file string                      TLS certificate in PEM format
-  -c, --config-file string                    path to sensu-agent config file
-      --deregister                            ephemeral agent
-      --deregistration-handler string         deregistration handler that should process the entity deregistration event.
-      --detect-cloud-provider                 enable cloud provider detection mechanisms
-      --disable-assets                        disable check assets on this agent
-      --disable-api                           disable the Agent HTTP API
-      --disable-sockets                       disable the Agent TCP and UDP event sockets
-      --discover-processes                    indicates whether process discovery should be enabled
-      --events-burst-limit                    /events api burst limit
-      --events-rate-limit                     maximum number of events transmitted to the backend through the /events api
-  -h, --help                                  help for start
-      --insecure-skip-tls-verify              skip ssl verification
-      --keepalive-critical-timeout uint32     number of seconds until agent is considered dead by backend to create a critical event (default 0)
-      --keepalive-handlers string             comma-delimited list of keepalive handlers for this entity. This flag can also be invoked multiple times
-      --keepalive-interval uint32             number of seconds to send between keepalive events (default 20)
-      --keepalive-warning-timeout uint32      number of seconds until agent is considered dead by backend to create a warning event (default 120)
-      --key-file string                       TLS certificate key in PEM format
-      --labels stringToString                 entity labels map (default [])
-      --log-level string                      logging level [panic, fatal, error, warn, info, debug] (default "info")
-      --name string                           agent name (defaults to hostname) (default "my-hostname")
-      --namespace string                      agent namespace (default "default")
-      --password string                       agent password (default "P@ssw0rd!")
-      --redact string                         comma-delimited customized list of fields to redact
-      --require-fips                          indicates whether fips support should be required in openssl
-      --require-openssl                       indicates whether openssl should be required instead of go's built-in crypto
-      --socket-host string                    address to bind the Sensu client socket to (default "127.0.0.1")
-      --socket-port int                       port the Sensu client socket listens on (default 3030)
-      --statsd-disable                        disables the statsd listener and metrics server
-      --statsd-event-handlers strings         comma-delimited list of event handlers for statsd metrics
-      --statsd-flush-interval int             number of seconds between statsd flush (default 10)
-      --statsd-metrics-host string            address used for the statsd metrics server (default "127.0.0.1")
-      --statsd-metrics-port int               port used for the statsd metrics server (default 8125)
-      --subscriptions string                  comma-delimited list of agent subscriptions
-      --trusted-ca-file string                tls certificate authority
-      --user string                           agent user (default "agent")
+      --agent-managed-entity                manage this entity via the agent
+      --allow-list string                   path to agent execution allow list configuration file
+      --annotations stringToString          entity annotations map (default [])
+      --api-host string                     address to bind the Sensu client HTTP API to (default "127.0.0.1")
+      --api-port int                        port the Sensu client HTTP API listens on (default 3031)
+      --assets-burst-limit int              asset fetch burst limit (default 100)
+      --assets-rate-limit float             maximum number of assets fetched per second
+      --backend-handshake-timeout int       number of seconds the agent should wait when negotiating a new WebSocket connection (default 15)
+      --backend-heartbeat-interval int      interval at which the agent should send heartbeats to the backend (default 30)
+      --backend-heartbeat-timeout int       number of seconds the agent should wait for a response to a hearbeat (default 45)
+      --backend-url strings                 comma-delimited list of ws/wss URLs of Sensu backend servers. This flag can also be invoked multiple times (default [ws://127.0.0.1:8081])
+      --cache-dir string                    path to store cached data (default "/var/cache/sensu/sensu-agent")
+      --cert-file string                    certificate for TLS authentication
+  -c, --config-file string                  path to sensu-agent config file (default "/etc/sensu/agent.yml")
+      --deregister                          ephemeral agent
+      --deregistration-handler string       deregistration handler that should process the entity deregistration event
+      --detect-cloud-provider               enable cloud provider detection
+      --disable-api                         disable the Agent HTTP API
+      --disable-assets                      disable check assets on this agent
+      --disable-sockets                     disable the Agent TCP and UDP event sockets
+      --discover-processes                  indicates whether process discovery should be enabled
+      --events-burst-limit int              /events api burst limit (default 10)
+      --events-rate-limit float             maximum number of events transmitted to the backend through the /events api
+  -h, --help                                help for start
+      --insecure-skip-tls-verify            skip TLS verification (not recommended!)
+      --keepalive-critical-timeout uint32   number of seconds until agent is considered dead by backend to create a critical event
+      --keepalive-handlers strings          comma-delimited list of keepalive handlers for this entity. This flag can also be invoked multiple times
+      --keepalive-interval int              number of seconds to send between keepalive events (default 20)
+      --keepalive-warning-timeout uint32    number of seconds until agent is considered dead by backend to create a warning event (default 120)
+      --key-file string                     key for TLS authentication
+      --labels stringToString               entity labels map (default [])
+      --log-level string                    logging level [panic, fatal, error, warn, info, debug] (default "info")
+      --name string                         agent name (defaults to hostname) (default "my_hostname")
+      --namespace string                    agent namespace (default "default")
+      --password string                     agent password (default "P@ssw0rd!")
+      --redact strings                      comma-delimited list of fields to redact, overwrites the default fields. This flag can also be invoked multiple times (default [password,passwd,pass,api_key,api_token,access_key,secret_key,private_key,secret])
+      --require-fips                        indicates whether fips support should be required in openssl
+      --require-openssl                     indicates whether openssl should be required instead of go's built-in crypto
+      --socket-host string                  address to bind the Sensu client socket to (default "127.0.0.1")
+      --socket-port int                     port the Sensu client socket listens on (default 3030)
+      --statsd-disable                      disables the statsd listener and metrics server
+      --statsd-event-handlers strings       comma-delimited list of event handlers for statsd metrics. This flag can also be invoked multiple times
+      --statsd-flush-interval int           number of seconds between statsd flush (default 10)
+      --statsd-metrics-host string          address used for the statsd metrics server (default "127.0.0.1")
+      --statsd-metrics-port int             port used for the statsd metrics server (default 8125)
+      --subscriptions strings               comma-delimited list of agent subscriptions. This flag can also be invoked multiple times
+      --trusted-ca-file string              TLS CA certificate bundle in PEM format
+      --user string                         agent user (default "agent")
 {{< /code >}}
 
 {{< platformBlockClose >}}
@@ -920,12 +926,12 @@ See the [example agent configuration file][5] (also provided with Sensu packages
 **NOTE**: Docker-only Sensu binds to the hostnames of containers, represented here as `SENSU_HOSTNAME` in Docker default values.
 {{% /notice %}}
 
-<a name="agent-managed-entity"></a>
+<a id="agent-managed-entity"></a>
 
 | agent-managed-entity |      |
 -------------|------
-description  | Indicates whether the agent's entity solely managed by the agent rather than the backend API. Agent-managed entity definitions will include the label `sensu.io/managed_by: sensu-agent`, and you cannot update these agent-managed entities via the Sensu backend REST API.<br>{{% notice important%}}
-**IMPORTANT**: In Sensu Go 6.2.1 and 6.2.2, the agent-managed-entity configuration flag can prevent the agent from starting.
+description  | Indicates whether the agent's entity solely managed by the agent rather than the backend API. Agent-managed entity definitions will include the label `sensu.io/managed_by: sensu-agent`, and you cannot update these agent-managed entities via the Sensu backend REST API.<br>{{% notice warning %}}
+**WARNING**: In Sensu Go 6.2.1 and 6.2.2, the agent-managed-entity configuration flag can prevent the agent from starting.
 Upgrade to [Sensu Go 6.2.3](../../../release-notes/#623-release-notes) to use the agent-managed-entity configuration flag.
 {{% /notice %}}
 required     | false
@@ -937,7 +943,7 @@ sensu-agent start --agent-managed-entity{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 agent-managed-entity: true{{< /code >}}
 
-<a name="allow-list"></a>
+<a id="allow-list"></a>
 
 | allow-list |      |
 ------------------|------
@@ -990,7 +996,7 @@ sensu-agent start --assets-rate-limit 1.39{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 assets-rate-limit: 1.39{{< /code >}}
 
-<a name="backend-handshake-timeout"></a>
+<a id="backend-handshake-timeout"></a>
 
 | backend-handshake-timeout |      |
 ----------------------------|------
@@ -1003,7 +1009,7 @@ sensu-agent start --backend-handshake-timeout 20{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 backend-handshake-timeout: 20{{< /code >}}
 
-<a name="backend-heartbeat-interval"></a>
+<a id="backend-heartbeat-interval"></a>
 
 | backend-heartbeat-interval |      |
 -----------------------------|------
@@ -1016,7 +1022,7 @@ sensu-agent start --backend-heartbeat-interval 45{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 backend-heartbeat-interval: 45{{< /code >}}
 
-<a name="backend-heartbeat-timeout"></a>
+<a id="backend-heartbeat-timeout"></a>
 
 | backend-heartbeat-timeout |      |
 ----------------------------|------
@@ -1037,17 +1043,30 @@ description   | ws or wss URL of the Sensu backend server. To specify multiple b
 type          | List
 default       | `ws://127.0.0.1:8081` (CentOS/RHEL, Debian, and Ubuntu)<br><br>`$SENSU_HOSTNAME:8080` (Docker)
 environment variable | `SENSU_BACKEND_URL`
-command line example   | {{< code shell >}}
-sensu-agent start --backend-url ws://0.0.0.0:8081
-sensu-agent start --backend-url ws://0.0.0.0:8081 --backend-url ws://0.0.0.0:8082
+command line example | {{< language-toggle >}}
+{{< code shell "ws" >}}
+sensu-agent start --backend-url ws://127.0.0.1:8081
+sensu-agent start --backend-url ws://127.0.0.1:8081 --backend-url ws://127.0.0.1:8082
 {{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
+{{< code shell "wss" >}}
+sensu-agent start --backend-url wss://127.0.0.1:8081
+sensu-agent start --backend-url wss://127.0.0.1:8081 --backend-url wss://127.0.0.1:8082
+{{< /code >}}
+{{< /language-toggle >}}
+/etc/sensu/agent.yml example | {{< language-toggle >}}
+{{< code shell "ws" >}}
 backend-url:
-  - "ws://0.0.0.0:8081"
-  - "ws://0.0.0.0:8082"
+  - "ws://127.0.0.1:8081"
+  - "ws://127.0.0.1:8082"
 {{< /code >}}
+{{< code shell "wss" >}}
+backend-url:
+  - "wss://127.0.0.1:8081"
+  - "wss://127.0.0.1:8082"
+{{< /code >}}
+{{< /language-toggle >}}
 
-<a name="cache-dir"></a>
+<a id="cache-dir"></a>
 
 | cache-dir   |      |
 --------------|------
@@ -1060,7 +1079,7 @@ sensu-agent start --cache-dir /cache/sensu-agent{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 cache-dir: "/cache/sensu-agent"{{< /code >}}
 
-<a name="config-file"></a>
+<a id="config-file"></a>
 
 | config-file |      |
 --------------|------
@@ -1073,7 +1092,7 @@ sensu-agent start --config-file /sensu/agent.yml
 sensu-agent start -c /sensu/agent.yml
 {{< /code >}}
 
-<a name="disable-assets"></a>
+<a id="disable-assets"></a>
 
 | disable-assets |      |
 --------------|------
@@ -1086,14 +1105,12 @@ sensu-agent start --disable-assets{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 disable-assets: true{{< /code >}}
 
-<a name="discover-processes"></a>
+<a id="discover-processes"></a>
 
 | discover-processes |      |
 --------------|------
-description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
-As of 5.20.2, the `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes.
-Instead, the field will be empty: `"processes": null`.
+description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].{{% notice note %}}
+**NOTE**: Process discovery is disabled in this version of Sensu. The `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 type          | Boolean
 default       | false
@@ -1102,8 +1119,6 @@ command line example   | {{< code shell >}}
 sensu-agent start --discover-processes{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 discover-processes: true{{< /code >}}
-
-<a name="labels"></a>
 
 | labels     |      |
 -------------|------
@@ -1123,7 +1138,7 @@ labels:
   proxy_type: website
 {{< /code >}}
 
-<a name="name"></a>
+<a id="name-attribute"></a>
 
 | name        |      |
 --------------|------
@@ -1136,7 +1151,7 @@ sensu-agent start --name agent-01{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 name: "agent-01"{{< /code >}}
 
-<a name="log-level"></a>
+<a id="log-level"></a>
 
 | log-level   |      |
 --------------|------
@@ -1149,7 +1164,7 @@ sensu-agent start --log-level debug{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 log-level: debug{{< /code >}}
 
-<a name="subscriptions-flag"></a>
+<a id="subscriptions-flag"></a>
 
 | subscriptions |      |
 ----------------|------
@@ -1175,9 +1190,9 @@ type          | String
 default       | `127.0.0.1`
 environment variable | `SENSU_API_HOST`
 command line example   | {{< code shell >}}
-sensu-agent start --api-host 0.0.0.0{{< /code >}}
+sensu-agent start --api-host 127.0.0.1{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-api-host: "0.0.0.0"{{< /code >}}
+api-host: "127.0.0.1"{{< /code >}}
 
 | api-port    |      |
 --------------|------
@@ -1186,9 +1201,9 @@ type          | Integer
 default       | `3031`
 environment variable | `SENSU_API_PORT`
 command line example   | {{< code shell >}}
-sensu-agent start --api-port 4041{{< /code >}}
+sensu-agent start --api-port 3031{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-api-port: 4041{{< /code >}}
+api-port: 3031{{< /code >}}
 
 | disable-api |      |
 --------------|------
@@ -1248,7 +1263,7 @@ sensu-agent start --deregistration-handler deregister{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 deregistration-handler: deregister{{< /code >}}
 
-<a name="detect-cloud-provider-flag"></a>
+<a id="detect-cloud-provider-flag"></a>
 
 | detect-cloud-provider  |      |
 -------------------------|------
@@ -1265,7 +1280,7 @@ detect-cloud-provider: false{{< /code >}}
 
 | keepalive-critical-timeout |      |
 --------------------|------
-description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. Set to disabled (`0`) by default. If the value is not `0`, it must be greater than or equal to `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-critical-timeout` value to the [`event.check.ttl` attribute](../../observe-events/events/#checks) when keepalive events are generated for the Sensu backend to process. The `event.check.ttl` attribute is useful for [creating time-based event filters](../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. Set to disabled (`0`) by default. If the value is not `0`, it must be greater than or equal to `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-critical-timeout` value to the [`event.check.ttl` attribute](../../observe-events/events/#checks-attribute) when keepalive events are generated for the Sensu backend to process. The `event.check.ttl` attribute is useful for [creating time-based event filters](../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
 {{% /notice %}}
 type                | Integer
 default             | `0`
@@ -1275,7 +1290,7 @@ sensu-agent start --keepalive-critical-timeout 300{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 keepalive-critical-timeout: 300{{< /code >}}
 
-<a name="keepalive-handlers-flag"></a>
+<a id="keepalive-handlers-flag"></a>
 
 | keepalive-handlers |      |
 --------------------|------
@@ -1304,7 +1319,7 @@ keepalive-interval: 30{{< /code >}}
 
 | keepalive-warning-timeout |      |
 --------------------|------
-description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-warning-timeout` value to the [`event.check.timeout` attribute](../../observe-events/events/#checks) when keepalive events are generated for the Sensu backend to process. The `event.check.timeout` attribute is useful for [creating time-based event filters](../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-warning-timeout` value to the [`event.check.timeout` attribute](../../observe-events/events/#checks-attribute) when keepalive events are generated for the Sensu backend to process. The `event.check.timeout` attribute is useful for [creating time-based event filters](../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
 {{% /notice %}}
 type                | Integer
 default             | `120`
@@ -1376,9 +1391,9 @@ type         | String
 default      | `""`
 environment variable | `SENSU_CERT_FILE`
 command line example   | {{< code shell >}}
-sensu-agent start --cert-file /path/to/agent.pem{{< /code >}}
+sensu-agent start --cert-file /path/to/tls/agent.pem{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-cert-file: "/path/to/agent.pem"{{< /code >}}
+cert-file: "/path/to/tls/agent.pem"{{< /code >}}
 
 | trusted-ca-file |      |
 ------------------|------
@@ -1387,9 +1402,9 @@ type              | String
 default           | `""`
 environment variable   | `SENSU_TRUSTED_CA_FILE`
 command line example   | {{< code shell >}}
-sensu-agent start --trusted-ca-file /path/to/trusted-certificate-authorities.pem{{< /code >}}
+sensu-agent start --trusted-ca-file /path/to/tls/ca.pem{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /code >}}
+trusted-ca-file: "/path/to/tls/ca.pem"{{< /code >}}
 
 | key-file   |      |
 -------------|------
@@ -1398,9 +1413,9 @@ type         | String
 default      | `""`
 environment variable | `SENSU_KEY_FILE`
 command line example   | {{< code shell >}}
-sensu-agent start --key-file /path/to/agent-key.pem{{< /code >}}
+sensu-agent start --key-file /path/to/tls/agent-key.pem{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-key-file: "/path/to/agent-key.pem"{{< /code >}}
+key-file: "/path/to/tls/agent-key.pem"{{< /code >}}
 
 | insecure-skip-tls-verify |      |
 ---------------------------|------
@@ -1415,7 +1430,7 @@ sensu-agent start --insecure-skip-tls-verify{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 insecure-skip-tls-verify: true{{< /code >}}
 
-<a name="fips-openssl"></a>
+<a id="fips-openssl"></a>
 
 | require-fips |      |
 ------------------|------
@@ -1454,9 +1469,9 @@ type          | String
 default       | `127.0.0.1`
 environment variable   | `SENSU_SOCKET_HOST`
 command line example   | {{< code shell >}}
-sensu-agent start --socket-host 0.0.0.0{{< /code >}}
+sensu-agent start --socket-host 127.0.0.1{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-socket-host: "0.0.0.0"{{< /code >}}
+socket-host: "127.0.0.1"{{< /code >}}
 
 | socket-port |      |
 --------------|------
@@ -1465,9 +1480,9 @@ type          | Integer
 default       | `3030`
 environment variable   | `SENSU_SOCKET_PORT`
 command line example   | {{< code shell >}}
-sensu-agent start --socket-port 4030{{< /code >}}
+sensu-agent start --socket-port 3030{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-socket-port: 4030{{< /code >}}
+socket-port: 3030{{< /code >}}
 
 | disable-sockets |      |
 ------------------|------
@@ -1526,9 +1541,9 @@ type                  | String
 default               | `127.0.0.1`
 environment variable   | `SENSU_STATSD_METRICS_HOST`
 command line example   | {{< code shell >}}
-sensu-agent start --statsd-metrics-host 0.0.0.0{{< /code >}}
+sensu-agent start --statsd-metrics-host 127.0.0.1{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-statsd-metrics-host: "0.0.0.0"{{< /code >}}
+statsd-metrics-host: "127.0.0.1"{{< /code >}}
 
 | statsd-metrics-port |      |
 ----------------------|------
@@ -1537,9 +1552,9 @@ type                  | Integer
 default               | `8125`
 environment variable   | `SENSU_STATSD_METRICS_PORT`
 command line example   | {{< code shell >}}
-sensu-agent start --statsd-metrics-port 6125{{< /code >}}
+sensu-agent start --statsd-metrics-port 8125{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
-statsd-metrics-port: 6125{{< /code >}}
+statsd-metrics-port: 8125{{< /code >}}
 
 ### Allow list configuration commands
 
@@ -1807,8 +1822,8 @@ You can then use `HTTP_PROXY` and `HTTPS_PROXY` to add dynamic runtime assets, r
 [16]: #general-configuration-flags
 [17]: #socket-configuration-flags
 [18]: #api-configuration-flags
-[19]: http://nc110.sourceforge.net/
-[20]: http://en.wikipedia.org/wiki/Dead_man%27s_switch
+[19]: https://sourceforge.net/projects/netcat/
+[20]: https://en.wikipedia.org/wiki/Dead_man%27s_switch
 [21]: https://github.com/etsy/statsd
 [22]: #statsd-configuration-flags
 [23]: https://github.com/statsd/statsd#key-concepts

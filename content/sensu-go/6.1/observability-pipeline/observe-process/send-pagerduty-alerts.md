@@ -31,11 +31,11 @@ sensuctl entity list
 
 The `ID` in the response is the name of your entity.
 
-Replace `ENTITY_NAME` with the name of your entity in the [sensuctl][12] command below.
+Replace `<entity_name>` with the name of your entity in the [sensuctl][12] command below.
 Then run the command to add the `system` [subscription][13] to your entity:
 
 {{< code shell >}}
-sensuctl entity update ENTITY_NAME
+sensuctl entity update <entity_name>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -70,7 +70,12 @@ Now that you've added the Nagios Foundation dynamic runtime asset, you can add i
 Use sensuctl to add the check:
 
 {{< code shell >}}
-sensuctl check create file_exists --command "check_file_exists --pattern /tmp/my-file.txt" --subscriptions system --handlers pagerduty --interval 10 --runtime-assets ncr-devops-platform/nagiosfoundation
+sensuctl check create file_exists \
+--command "check_file_exists --pattern /tmp/my-file.txt" \
+--subscriptions system \
+--handlers pagerduty \
+--interval 10 \
+--runtime-assets ncr-devops-platform/nagiosfoundation
 {{< /code >}}
 
 To confirm that the check was added to your Sensu backend and view the check definition in YAML or JSON format, run:
@@ -195,11 +200,15 @@ The response will list the available builds for the PagerDuty handler dynamic ru
 Now that you've added the Sensu PagerDuty Handler dynamic runtime asset, you can create a [handler][9] that uses the asset to send non-OK events to PagerDuty.
 This requires you to update the handler command by adding your PagerDuty API key.
 
-In the following command, replace `YOUR_PAGERDUTY_KEY` with your [PagerDuty API integration key][1].
+In the following command, replace `<pagerduty_key>` with your [PagerDuty API integration key][1].
 Then run the updated command:
 
 {{< code shell >}}
-sensuctl handler create pagerduty --type pipe --filters is_incident --runtime-assets sensu/sensu-pagerduty-handler --command "sensu-pagerduty-handler -t YOUR_PAGERDUTY_KEY"
+sensuctl handler create pagerduty \
+--type pipe \
+--filters is_incident \
+--runtime-assets sensu/sensu-pagerduty-handler \
+--command "sensu-pagerduty-handler -t <pagerduty_key>"
 {{< /code >}}
 
 {{% notice note %}}
@@ -233,7 +242,7 @@ metadata:
   name: pagerduty
   namespace: default
 spec:
-  command: sensu-pagerduty-handler -t YOUR_PAGERDUTY_KEY
+  command: sensu-pagerduty-handler -t <pagerduty_key>
   env_vars: null
   filters:
   - is_incident
@@ -255,7 +264,7 @@ spec:
     "namespace": "default"
   },
   "spec": {
-    "command": "sensu-pagerduty-handler -t YOUR_PAGERDUTY_TOKEN",
+    "command": "sensu-pagerduty-handler -t <pagerduty_key>",
     "env_vars": null,
     "filters": [
       "is_incident"
@@ -309,9 +318,7 @@ The failing check's events will be listed on the Events page.
 After Sensu detects the non-OK event, the handler you set up will send the alert to PagerDuty.
 Log in to your PagerDuty account to see an event similar to this one:
 
-<div style="text-align:center">
-<img alt="Example alert in PagerDuty for failing Sensu check" title="Example alert in PagerDuty for failing Sensu check" src="/images/pagerduty_alert_example.png" >
-</div>
+{{< figure src="/images/pagerduty_alert_example.png" alt="Example alert in PagerDuty for failing Sensu check" link="/images/pagerduty_alert_example.png" target="_blank" >}}
 
 ## Resolve the alert in PagerDuty
 

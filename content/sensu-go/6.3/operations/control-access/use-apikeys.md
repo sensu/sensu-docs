@@ -3,8 +3,8 @@ title: "Use API keys to authenticate to Sensu"
 linkTitle: "Use API Keys"
 guide_title: "Use API keys to authenticate to Sensu"
 type: "guide"
-description: "In this guide, you'll learn how to use Sensu's API key feature for authentication."
-weight: 50
+description: "Sensu's API key feature improves integration efficiency, security, and administrative control. Read this guide to use Sensu's API key for authentication."
+weight: 20
 version: "6.3"
 product: "Sensu Go"
 platformContent: false
@@ -83,6 +83,13 @@ The response will include the new API key:
 
 {{< code shell >}}
 Created: /api/core/v2/apikeys/7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2
+{{< /code >}}
+
+To bypass username/password authentication for sensuctl, add the `--api-key` [global flag][2] to specify your API key with sensuctl commands.
+For example:
+
+{{< code shell >}}
+sensuctl --api-key 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 event list
 {{< /code >}}
 
 To get information about an API key:
@@ -175,3 +182,4 @@ Deleted
 
 
 [1]: ../../../api/auth/
+[2]: ../../../sensuctl/#global-flags

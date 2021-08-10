@@ -20,13 +20,13 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 ### Sensu backend
 
-|  | RHEL/CentOS<br>6, 7, 8 | Debian 8, 9, 10 | Ubuntu 14.04, 16.04, 18.04, 18.10, 19.04, 19.10, 20.04 |
+|  | RHEL/CentOS<br>6, 7, 8 | Debian 8, 9, 10 | Ubuntu 14.04<br>16.04, 18.04<br>18.10, 19.04<br>19.10, 20.04 |
 |----------------------|---------|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} |
 
 ### Sensu agent
 
-|  | RHEL/<br>CentOS<br>6, 7, 8 | Debian<br>8, 9, 10 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7 and later | Windows Server 2008 R2 and later |
+|  | RHEL/<br>CentOS<br>6, 7, 8 | Debian<br>8, 9, 10 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
@@ -36,7 +36,7 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 ### Sensuctl command line tool
 
-|  | RHEL/<br>CentOS<br>6, 7, 8 | Debian<br>8, 9, 10 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7 and later | Windows Server 2008 R2 and later |
+|  | RHEL/<br>CentOS<br>6, 7, 8 | Debian<br>8, 9, 10 | Ubuntu<br>14.04<br>16.04<br>18.04<br>18.10<br>19.04<br>19.10<br>20.04 | Windows 7<br>and later | Windows<br>Server<br>2008 R2<br>and later |
 |----------------------|---------|---|---|---|---|
 | `amd64` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
 | `386` | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}} |
@@ -357,7 +357,7 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [4]: #binary-only-distributions
 [5]: /sensu-go/5.21/operations/deploy-sensu/install-sensu/
 [6]: /sensu-go/5.21/operations/deploy-sensu/configuration-management/
-[7]: https://sensu.io/sensu-license/
+[7]: https://sensu.io/licenses
 [8]: https://packagecloud.io/sensu/stable/
 [9]: https://sensu.io/downloads
 [10]: https://hub.docker.com/r/sensu/sensu/

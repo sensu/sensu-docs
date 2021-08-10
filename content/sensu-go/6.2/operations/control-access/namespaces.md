@@ -56,7 +56,7 @@ spec:
 **Use namespaces for isolation, not organization**
 
 Use namespaces to enforce full isolation of different groups of resources, not to organize resources.
-Agents cannot belong to two namespaces or execute checks in two different namespaces.
+An agent cannot belong to two namespaces or execute checks in two different namespaces.
 To organize resources, use labels rather than multiple namespaces.
 
 ## Default namespaces
@@ -82,7 +82,7 @@ sensuctl namespace list
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: For users on supported Sensu Go distributions,`sensuctl namespace list` lists only the namespaces that the current user has access to.
+**NOTE**: For users on supported Sensu Go distributions, `sensuctl namespace list` lists only the namespaces that the current user has access to.
 {{% /notice %}}
 
 ### Create namespaces
@@ -101,7 +101,15 @@ Namespace names can contain alphanumeric characters and hyphens and must begin a
 To delete a namespace:
 
 {{< code shell >}}
-sensuctl namespace delete [NAMESPACE-NAME]
+sensuctl namespace delete <namespace-name>
+{{< /code >}}
+
+Namespaces must be empty before you can delete them.
+If the response to `sensuctl namespace delete` is `Error: resource is invalid: namespace is not empty`, the namespace may still contain events or other resources.
+To remove all resources and events so that you can delete a namespace, run this command (replace `<namespace-name>` with the namespace you want to empty):
+
+{{< code shell >}}
+sensuctl dump entities,events,assets,checks,filters,handlers,secrets/v1.Secret --namespace <namespace-name> | sensuctl delete
 {{< /code >}}
 
 ### Assign a resource to a namespace
@@ -157,7 +165,9 @@ spec:
 See the [reference docs][4] for the corresponding [resource type][5] to create resource definitions.
 
 {{% notice protip %}}
-**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference](../../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
+**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation.
+This allows you to replicate resources across namespaces without manual editing.
+See the [sensuctl reference](../../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
 {{% /notice %}}
 
 ## Namespace specification
@@ -261,4 +271,3 @@ name: production
 [9]: ../../deploy-sensu/install-sensu/#install-sensuctl
 [10]: ../../../sensuctl/create-manage-resources/#create-resources
 [11]: #spec-attributes
-[12]: ../../../observability-pipeline/observe-schedule/agent/#labels

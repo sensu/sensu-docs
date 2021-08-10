@@ -11,9 +11,7 @@ menu:
     parent: platforms
 ---
 
-# Sensu on RHEL/CentOS
-
-## Reference documentation
+## Sensu on RHEL/CentOS reference documentation
 
 - [Installing Sensu Core](#sensu-core)
   - [Install Sensu using YUM](#install-sensu-core-repository)

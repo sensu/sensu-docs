@@ -31,11 +31,15 @@ Watch this video for an 8-minute Sensu Go overview and demo:
 
 We recommend these resources for learning more about Sensu:
 
-- Learn how the Sensu pipeline works in your browser with an [interactive tutorial][12]
 - [Download the sandbox][7] and create an [observability pipeline][22] in your local environment
 - See a [live demo of the Sensu web UI][1]
 - Sign up for our step-by-step [Learn Sensu email course][21]
 - Join the [Sensu Community Forum on Discourse][8]
+
+{{% notice protip %}}
+**PRO TIP**: In addition to the resources listed on this page, try the [self-guided Sensu Go Workshop](https://sensu.io/resources?type=workshop).
+To register for an interactive instructor-led session, visit the [Sensu Go Workshop registration page](https://sensu.io/sensu-go-workshop).
+{{% /notice %}}
 
 ## Explore monitoring at scale with Sensu Go
 
@@ -65,7 +69,6 @@ Sensu Go's core is open source software, freely available under an MIT License.
 [9]: ../operations/maintain-sensu/license/
 [10]: https://github.com/sensu/sensu-go/
 [11]: https://www.github.com/sensu/sensu-go/blob/main/README.md#building-from-source
-[12]: ../learn/learn-in-15/
 [13]: ../operations/maintain-sensu/migrate/
 [14]: https://sensu.io/features/compare
 [15]: #install-the-commercial-distribution-of-sensu-go

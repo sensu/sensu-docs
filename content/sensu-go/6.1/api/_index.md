@@ -1,6 +1,6 @@
 ---
 title: "API"
-description: "Documentation for the Sensu APIs."
+description: "Sensu's backend API provides a centrally managed control plane for automated, repeatable observability workflow configuration and observation event access."
 weight: 60
 product: "Sensu Go"
 version: "6.1"
@@ -28,14 +28,14 @@ Use the Sensu APIs to customize your workflows and integrate your favorite Sensu
 
 ## URL format
 
-Sensu API endpoints use the standard URL format `/api/{group}/{version}/namespaces/{namespace}` where:
+Sensu API endpoints use the standard URL format `/api/<group>/<version>/namespaces/<namespace>` where:
 
-- `{group}` is the API group: `core`.
-- `{version}` is the API version: `v2`.
-- `{namespace}` is the namespace name.
+- `<group>` is the API group: `core`.
+- `<version>` is the API version: `v2`.
+- `<namespace>` is the namespace name.
 The examples in these API docs use the `default` namespace.
 The Sensu API requires the authenticated user to have the correct access permissions for the namespace specified in the URL.
-If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/{namespace}` portion of the URL to access Sensu resources across namespaces.
+If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/<namespace>` portion of the URL to access Sensu resources across namespaces.
 See the [RBAC reference][3] for more information about configuring Sensu users and access controls.
 
 {{% notice note %}}
@@ -361,8 +361,10 @@ A successful request will return the HTTP response code `HTTP/1.1 200 OK`.
 
 ## Response filtering
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access API response filtering in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][8].
+For more information, see [Get started with commercial features](../commercial/).
+{{% /notice %}}
 
 The Sensu API supports response filtering for all GET endpoints that return an array.
 You can filter resources based on their labels with the `labelSelector` query parameter and based on certain pre-determined fields with the `fieldSelector` query parameter.
@@ -536,7 +538,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'fieldSelector=entity.name matches "webserver-"'
 {{< /code >}}
 
-Similarly, if you have entities labeled for different regions, you can use `matches` to find the entities that are labeled for the US (e.g. `us-east-1`, `us-west-1`, and so on):
+Similarly, if you have entities labeled for different regions, you can use `matches` to find the entities that are labeled for the US (for example, `us-east-1`, `us-west-1`, and so on):
 
 {{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \
@@ -743,7 +745,6 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [5]: health/
 [6]: metrics/
 [7]: ../sensuctl/environment-variables/
-[8]: ../commercial/
 [9]: ../observability-pipeline/observe-entities/entities#metadata-attributes
 [10]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag
 [11]: auth/#authtoken-post

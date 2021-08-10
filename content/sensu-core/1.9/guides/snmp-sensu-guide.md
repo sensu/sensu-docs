@@ -246,7 +246,7 @@ The configurable result status map allows you to define SNMP trap varbind to num
 
 Configuring a result status map does not replace the built-in mappings, the configured mappings take precedence over them.
 
-# Wrapping Up
+## Wrapping Up
 Congratulations! You've successfully set up Sensu to act as an SNMP trap receiver. To recap, we covered the following:
 
 - Setting up a Sensu client as an SNMP trap receiver

@@ -1,7 +1,7 @@
 ---
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
-description: "Read the Sensu Go release notes to learn about what's new in our latest release."
+description: "Read the Sensu Go release notes to learn what's new in our latest release and get information about upgrading to the latest version of Sensu Go."
 weight: -80
 product: "Sensu Go"
 toc: false
@@ -9,6 +9,8 @@ version: "6.3"
 menu: "sensu-go-6.3"
 ---
 
+- [6.3.0 release notes](#630-release-notes)
+- [6.2.7 release notes](#627-release-notes)
 - [6.2.6 release notes](#626-release-notes)
 - [6.2.5 release notes](#625-release-notes)
 - [6.2.4 release notes](#624-release-notes)
@@ -83,6 +85,56 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ---
 
+## 6.3.0 release notes
+
+**May 26, 2021** &mdash; The latest release of Sensu Go, version 6.3.0, is now available for download.
+
+This release includes several new features, enhancements, bug fixes, and usability improvements. Construct a top-level business service-centric view for distributed infrastructure and applications with a preview of Business Service Monitoring! Rate-limit Sensu Go agent transport connections without using a separate load balancer. Use an API key to authenticate sensuctl, which is handy when automating Sensu Go configuration (for example CI pipelines) and other actions (like ad hoc check execution requests). The 6.3.0 release also improves the PostgreSQL store batching capabilities, raising the event processing throughput ceiling for most deployments. Check out the release notes below for more details &mdash; there’s so much to love about this release!
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.3.0.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][207]) Added [business service monitoring (BSM)][210] to provide high-level visibility into the current health of any number of business services, with a [built-in aggregate check rule template][211].
+- ([Commercial feature][207]) Added support for agent transport rate limiting via [`agent-burst-limit`][208] and [`agent-rate-limit`][209] backend configuration flags.
+- Added the entity class [service][213], which represents a business service for the business service monitoring (BSM) feature.
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][207]) The [agent transport health API endpoint][212] repsonse now includes PostgreSQL health information.
+- ([Commercial feature][207]) Added the [`poll_interval` default preferences][223] attribute to the `GlobalConfig` resource so administrators can adjust how often the web UI pages poll for new data.
+- ([Commercial feature][207]) In the web UI, some form fields now include examples of valid values.
+- Added the `--api-key` [global flag][214] for sensuctl commands. Use this flag with sensuctl commands to bypass username/password authentication.
+- Logs for JavaScript filter evaluation errors now include more context.
+- Concatenated YAML files now support carriage return and line feed (CRLF).
+- Removed extraneous shell auto-completion suggestions for sensuctl.
+
+**FIXES:**
+
+- ([Commercial feature][207]) Migrated the PostgreSQL event store from github.com/lib/pq to github.com/jackc/pgx so that PostgreSQL batching works properly.
+- ([Commercial feature][207]) In the web UI, error messages are now visible in dark mode.
+- Fixed a bug that could cause the scheduler to crash when using round robin checks.
+- Fixed a bug that calculated build information for every keepalive in OSS builds.
+- SIGHUP no longer triggers an internal restart.
+
+## 6.2.7 release notes
+
+**April 1, 2021** &mdash; The latest release of Sensu Go, version 6.2.7, is now available for download.
+
+This patch includes fixes for potential deadlocks in metricsd and agentd and crashes in the scheduler and tessend as well as for a bug that calculated build information for every keepalive.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.2.7.
+
+**FIXES:**
+
+- ([Commercial feature][193]) Fixed a potential deadlock in metricsd that could occur when performing an
+internal restart.
+- Fixed a potential deadlock in agentd due to the unit test timing out in the build pipeline.
+- Fixed a bug that could cause the scheduler to crash when using round robin checks.
+- Fixed a bug that calculated build information for every keepalive in OSS builds.
+- Fixed a potential crash in tessend that could occur if the `ringv2.Event.Value` has a zero length.
+- Fixed a bug that allowed some etcd watchers to try to process watch events that contain invalid pointers.
+
 ## 6.2.6 release notes
 
 **March 25, 2021** &mdash; The latest release of Sensu Go, version 6.2.6, is now available for download.
@@ -126,13 +178,13 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.4.
 
 **January 21, 2021** &mdash; The latest release of Sensu Go, version 6.2.3, is now available for download.
 
-This patch fixes two bugs: one that could cause the `--agent-managed-entity` configuration flag to prevent the agent from starting and one that caused `sensuctl dump` output to include events from all namepaces rather than the specified namespace.
+This patch fixes two bugs: one that could prevent the `--agent-managed-entity` configuration from working properly and one that caused `sensuctl dump` output to include events from all namepaces rather than the specified namespace.
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.2.3.
 
 **FIXES:**
 
-- Fixed a bug that could prevent the agent from starting when using the `--agent-managed-entity` agent configuration flag.
+- Fixed a bug that prevented the [agent-managed-entity][203] configuration attribute from working properly when no labels are defined.
 - Fixed a bug where `sensuctl dump` output included events from all namespaces the user had access permissions for rather than events from only the specified namespace.
 
 ## 6.2.2 release notes
@@ -169,7 +221,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.1.
 
 **December 17, 2020** &mdash; The latest release of Sensu Go, version 6.2.0, is now available for download.
 
-The latest release of Sensu Go, version 6.2.0, is now available for download! Sensu Go 5.x and configuration management users rejoice: this release adds support for agent local configuration (i.e. agent.yml) managed entities! Agent entities may now be managed exclusively by their agents when `sensu-agent` is started with the new `agent-managed-entity` configuration option. This makes it more straightforward to migrate from Sensu Go 5.x to 6.x, as existing agent entity management workflows like Puppet will just work with the new option enabled! Note that you will not be able to edit agent-managed entities via the backend REST API or web UI.
+The latest release of Sensu Go, version 6.2.0, is now available for download! Sensu Go 5.x and configuration management users rejoice: this release adds support for agent local configuration (that is, agent.yml) managed entities! Agent entities may now be managed exclusively by their agents when `sensu-agent` is started with the new `agent-managed-entity` configuration option. This makes it more straightforward to migrate from Sensu Go 5.x to 6.x, as existing agent entity management workflows like Puppet will just work with the new option enabled! Note that you will not be able to edit agent-managed entities via the backend REST API or web UI.
 
 Sensu Go 6.2.0 includes significant feature enhancements such as PostgreSQL backend round robin check scheduling for increased reliability and consistency, an updated format for silenced entry dates and durations in sensuctl tabular-format output, and a /health API endpoint for agent websocket transport status. This release delivers important bug fixes like consistently using `event_id` in logs and eliminating the sensuctl error when Vault provider SSL certificates do not exist on the local system. Also, the prune API no longer requires cluster-wide permissions; users with limited permissions can put it to use in their namespaces!
 
@@ -192,7 +244,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.0.
 
 - ([Commercial feature][193]) Refactored entity limiter to ensure that warning messages about approaching a license's entity or entity class limit are now only displayed for users with `create` or `update` permissions for the license.
 - ([Commercial feature][193]) The [prune API][194] and its [sensuctl interface][195] now require less-broad permissions.
-- Adjusted the format for silenced entry dates and durations in sensuctl tabular-format output. For all silenced entries, the begin date is now listed in RFC 3339 format. For silenced entries that have not begun, the list displays the expiration date in RFC 3339 format. For silenced entires with no expiration date, the list displays `-1`. For silenced entries that have begun, the list displays the duration (e.g. 1m30s).
+- Adjusted the format for silenced entry dates and durations in sensuctl tabular-format output. For all silenced entries, the begin date is now listed in RFC 3339 format. For silenced entries that have not begun, the list displays the expiration date in RFC 3339 format. For silenced entires with no expiration date, the list displays `-1`. For silenced entries that have begun, the list displays the duration (for example, 1m30s).
 - Sensuctl and sensu-backend now ask users to retype their passwords when creating a new password in interactive mode.
 
 **FIXES:**
@@ -351,7 +403,7 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - The `dead()` and `createProxyEntity()` methods in eventd now use `corev3.EntityConfig` and `corev3.EntityState`.
 - Agent entity updates now ignore state-related fields.
 - You can now manage Sensu agent configuration via the HTTP API.
-- For sysvinit services, Sensu now passes users' secondary groups (i.e. groups other than the Sensu user group) to `chroot`, which gives the Sensu agent and backend access to the file access writes that are granted to the secondary groups.
+- For sysvinit services, Sensu now passes users' secondary groups (that is, groups other than the Sensu user group) to `chroot`, which gives the Sensu agent and backend access to the file access writes that are granted to the secondary groups.
 - Output of `sensuctl asset add` now includes help for using the runtime asset.
 - For role bindings and cluster role bindings, [`subjects.name`][166] values can now include unicode characters, and [`roleRef.type`][167] and [`subjects.type`][166] values are now automatically capitalized.
 - Improved logging for the agent websocket connection.
@@ -518,7 +570,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 
 - ([Commercial feature][141]) Added a [`processes` field ][143] to the system type to store agent local processes for entities and events and a `discover-processes` flag to the [agent configuration flags][142] to populate the `processes` field in entity.system if enabled.
 - ([Commercial feature][141]) Added a new resource, `GlobalConfig`, that you can use to [customize your web UI configuration][148].
-- ([Commercial feature][141]) Added metricsd to collect metrics for the [web UI][153].
+- ([Commercial feature][141]) Added metricsd to collect metrics for the [web UI][153] and the [`metrics-refresh-interval`][224] backend configuration flag for setting the interval at which Sensu should refresh metrics.
 - ([Commercial feature][141]) Added process and additional system information to the entity details view in the [web UI][153].
 - ([Commercial feature][141]) Added a PostgreSQL metrics suite so metricsd can collect metrics about events stored in PostgreSQL.
 - ([Commercial feature][141]) Added [entity class limits][151] to the license.
@@ -532,7 +584,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 
 **IMPROVEMENTS:**
 
-- ([Commercial feature][141]) The web UI homepage is now a [federated view][152]. 
+- ([Commercial feature][141]) The web UI homepage is now a federated view. 
 - You can now [increment the log level][140] by sending SIGUSR1 to the sensu-backend or sensu-agent process.
 - [License metadata][149] now includes the [current entity count and license entity limit][150].
 - In the [web UI][153], users will see a notification when they try to delete an event without appropriate authorization.
@@ -680,7 +732,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.18.1.
 **February 25, 2020** &mdash; The latest release of Sensu Go, version 5.18.0, is now available for download.
 This release delivers a number of improvements to the overall Sensu Go experience.
 From automatic proxy entity creation to unique Sensu event IDs, it’s now much easier to use and troubleshoot your monitoring event pipelines!
-If you’re working behind an HTTP proxy, you can now manage remote Sensu Go clusters, as sensuctl now honors proxy environment variables (e.g. HTTPS_PROXY).
+If you’re working behind an HTTP proxy, you can now manage remote Sensu Go clusters, as sensuctl now honors proxy environment variables (for example, HTTPS_PROXY).
 This release also includes a number of fixes for usability bugs, making for the most polished release of Sensu Go yet, so go ahead and give it a download!
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.18.0.
@@ -741,7 +793,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.17.1.
 **January 28, 2020** &mdash; The latest release of Sensu Go, version 5.17.0, is now available for download.
 This is a significant release, with new features, improvements, and fixes!
 We’re ecstatic to announce the release of secrets management, which eliminates the need to expose sensitive information in your Sensu configuration.
-When a Sensu component (e.g. check, handler, etc.) requires a secret (like a username or password), Sensu will be able to fetch that information from one or more external secrets providers (e.g. HashiCorp Vault) and provide it to the Sensu component via temporary environment variables.
+When a Sensu component such as a check or handler requires a secret (like a username or password), Sensu will be able to fetch that information from one or more external secrets providers (for example, HashiCorp Vault) and provide it to the Sensu component via temporary environment variables.
 Secrets management allows you to move secrets out of your Sensu configuration, giving you the ability to safely and confidently share your Sensu configurations with your fellow Sensu users!
 This release also includes per-entity keepalive event handler configuration, a sought-after feature for users who have migrated from Sensu 1.x to Sensu Go.
 
@@ -989,7 +1041,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.13.1.
 **September 9, 2019** &mdash; The latest release of Sensu Go, version 5.13.0, is now available for download.
 This is one of the most user-friendly releases yet!
 Sensuctl now integrates with Bonsai, the Sensu asset hub, making it easier than ever to fetch and use countless Sensu monitoring plugins and integrations.
-Additionally, sensuctl now supports loading resource configuration files (e.g. checks) from directories and URLs.
+Additionally, sensuctl now supports loading resource configuration files (for example, checks) from directories and URLs.
 But that's not all!
 Sensuctl now provides a subcommand for exporting its configuration and API tokens to your shell environment.
 Use sensuctl to provide cURL and custom scripts with fresh API access information!
@@ -999,11 +1051,11 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.13.0.
 **NEW FEATURES:**
 
 - Sensuctl now integrates with Bonsai, the Sensu asset hub.
-Run a single sensuctl command to add an asset to your Sensu cluster (e.g. `sensuctl asset add sensu/sensu-pagerduty-handler:1.1.0`).
-Check to see which assets are outdated (new releases available) with the `outdated` subcommand (e.g. `sensuctl asset outdated`).
-- Sensuctl now supports the `env` subcommand for exporting sensuctl configuration and API tokens to your shell environment (e.g. `eval $(sensuctl env)`).
-- Sensuctl now supports loading multiple resource configuration files (e.g. checks and handlers) from directories!
-Sensuctl can also load a file using a URL (e.g. `sensuctl create -r -f ./checks` and `sensuctl create -f https://my.blog.ca/sensu-go/check.yaml`).
+Run a single sensuctl command to add an asset to your Sensu cluster (for example, `sensuctl asset add sensu/sensu-pagerduty-handler:1.1.0`).
+Check to see which assets are outdated (new releases available) with the `outdated` subcommand (for example, `sensuctl asset outdated`).
+- Sensuctl now supports the `env` subcommand for exporting sensuctl configuration and API tokens to your shell environment (for example, `eval $(sensuctl env)`).
+- Sensuctl now supports loading multiple resource configuration files (for example, checks and handlers) from directories!
+Sensuctl can also load a file using a URL (for example, `sensuctl create -r -f ./checks` and `sensuctl create -f https://my.blog.ca/sensu-go/check.yaml`).
 
 **FIXES:**
 
@@ -1185,7 +1237,7 @@ See the [RBAC reference][64] to create a cluster role.
 - The Sensu API now validates resource namespaces and types in request bodies to ensure RBAC permissions are enforced.
 - Check `state` and `total_state_change` attributes now update as expected based on check history.
 - Incident and entity links in the web UI homepage now navigate to the correct views.
-- The web UI now displays non-standard cron statements correctly (e.g. `@weekly`).
+- The web UI now displays non-standard cron statements correctly (for example, `@weekly`).
 - On sign-in, the web UI now ensures that users are directed to a valid namespace.
 - In the web UI, code block scrollbars now display only when necessary.
 - The web UI now displays the handler `timeout` attribute correctly.
@@ -1386,7 +1438,7 @@ See the [agent reference][26] for more information.
 - The backend now processes events without persisting metrics to etcd.
 - The events API POST and PUT endpoints now add the current timestamp to new events by default.
 - The users API now returns a 404 response code if a username cannot be found.
-- The sensuctl command line tool now correctly accepts global flags when passed after a subcommand flag (e.g. `--format yaml --namespace development`).
+- The sensuctl command line tool now correctly accepts global flags when passed after a subcommand flag (for example, `--format yaml --namespace development`).
 - The `sensuctl handler delete` and `sensuctl filter delete` commands now correctly delete resources from the currently configured namespace.
 - The agent now terminates consistently on SIGTERM and SIGINT.
 - In the event of a loss of connection with the backend, the agent now attempts to reconnect to any backends specified in its configuration.
@@ -1609,7 +1661,7 @@ To get started with Sensu Go:
 [14]: https://sensu.io/blog/enterprise-features-in-sensu-go/
 [15]: https://docs.sensu.io/sensu-go/5.2/reference/checks/#check-output-truncation-attributes
 [16]: /sensu-go/5.2/installation/install-sensu/
-[17]: /sensu-go/5.2/sensuctl/reference/#global-flags
+[17]: /sensu-go/5.2/sensuctl/#global-flags
 [18]: /sensu-go/5.3/reference/checks#spec-attributes
 [19]: /sensu-go/5.3/getting-started/enterprise/
 [20]: /sensu-go/5.3/installation/auth/
@@ -1627,7 +1679,7 @@ To get started with Sensu Go:
 [32]: /sensu-go/5.6/dashboard/overview/
 [33]: /sensu-go/5.6/getting-started/enterprise/
 [34]: /sensu-go/5.6/api/overview#filtering
-[35]: /sensu-go/5.6/sensuctl/reference#filtering
+[35]: /sensu-go/5.6/sensuctl/#filter-responses
 [36]: /sensu-go/5.6/api/health/
 [37]: /sensu-go/5.6/installation/auth/
 [38]: /sensu-go/5.6/installation/auth/#binding-attributes
@@ -1637,7 +1689,7 @@ To get started with Sensu Go:
 [42]: /sensu-go/5.7/reference/agent#operation
 [43]: /sensu-go/5.7/api/overview#filtering
 [44]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156/
-[45]: /sensu-go/5.8/sensuctl/reference#handling-large-datasets
+[45]: /sensu-go/5.8/sensuctl/create-manage-resources/#handle-large-datasets
 [46]: /sensu-go/5.8/api/version/
 [47]: /sensu-go/5.8/reference/backend#etcd-cipher-suites
 [48]: /sensu-go/5.8/reference/tessen/
@@ -1648,27 +1700,27 @@ To get started with Sensu Go:
 [53]: /sensu-go/5.9/getting-started/enterprise/
 [54]: /sensu-go/5.9/dashboard/overview/
 [55]: /sensu-go/5.9/reference/backend#event-logging
-[56]: /sensu-go/5.9/installation/platforms/
+[56]: /sensu-go/5.9/platforms/
 [57]: /sensu-go/5.9/installation/install-sensu/
 [58]: /sensu-go/5.9/reference/events#occurrences-and-occurrences-watermark
 [59]: /sensu-go/5.9/installation/upgrade/#upgrading-sensu-clusters-from-5-7-0-or-earlier-to-5-8-0-or-later
 [60]: /sensu-go/latest/getting-started/enterprise/
 [61]: /sensu-go/5.10/reference/datastore/
 [62]: /sensu-go/5.10/api/cluster#the-clusterid-API-endpoint
-[63]: /sensu-go/5.10/sensuctl/reference#creating-resources-across-namespaces
+[63]: /sensu-go/5.10/sensuctl/create-manage-resources/#create-resources-across-namespaces
 [64]: /sensu-go/5.10/reference/rbac/#assigning-group-permissions-across-all-namespaces
 [65]: /sensu-go/5.10/dashboard/overview/
-[66]: /sensu-go/5.10/dashboard/filtering/
+[66]: /sensu-go/5.10/web-ui/search/
 [67]: /sensu-go/5.11/dashboard/overview/
 [68]: /sensu-go/5.11/getting-started/enterprise/
-[69]: /sensu-go/5.11/installation/verify/
+[69]: /sensu-go/5.11/versions/
 [70]: /sensu-go/5.11/reference/assets/#asset-example-minimum-required-attributes
 [71]: /sensu-go/5.11/reference/agent#disable-assets
-[72]: /sensu-go/5.11/sensuctl/reference#deleting-resources
-[73]: /sensu-go/5.11/installation/platforms/
+[72]: /sensu-go/5.11/sensuctl/create-manage-resources/#delete-resources
+[73]: /sensu-go/5.11/platforms/
 [74]: /sensu-go/5.11/installation/auth#active-directory-authentication
 [75]: /sensu-go/5.11/api/overview/
-[76]: /sensu-go/5.11/sensuctl/reference#view-sensuctl-config
+[76]: /sensu-go/5.11/sensuctl/#view-sensuctl-config
 [77]: /sensu-go/5.11/reference/backend#advanced-configuration-options
 [78]: /sensu-go/5.12/reference/agent/#allow-list
 [79]: /sensu-go/5.14/getting-started/enterprise/
@@ -1676,12 +1728,12 @@ To get started with Sensu Go:
 [81]: /sensu-go/5.14/guides/securing-sensu#sensu-agent-tls-authentication
 [82]: /sensu-go/5.13/reference/entities/
 [83]: /sensu-go/5.14/reference/backend/#advanced-configuration-options
-[84]: /sensu-go/5.14/sensuctl/reference/#exporting-resources
+[84]: /sensu-go/5.14/sensuctl/back-up-recover/
 [85]: /sensu-go/5.15/api/federation/
 [86]: /sensu-go/5.15/reference/apikeys/
 [87]: /sensu-go/5.15/guides/use-apikey-feature/#sensuctl-management-commands
 [88]: /sensu-go/5.15/api/overview/#authenticate-with-the-api-key-feature
-[89]: /sensu-go/5.15/sensuctl/reference/
+[89]: /sensu-go/5.15/sensuctl/
 [90]: https://sensu.io/contact/
 [91]: https://sensu.io/blog/one-year-of-sensu-go/
 [92]: /sensu-go/5.15/api/license/
@@ -1705,7 +1757,7 @@ To get started with Sensu Go:
 [110]: /sensu-go/5.17/api/overview/#field-selector
 [111]: /sensu-go/5.17/reference/rbac/#cluster-wide-resource-types
 [112]: /sensu-go/5.17/api/events/#events-post
-[113]: /sensu-go/5.17/sensuctl/reference/#list-commands
+[113]: /sensu-go/5.17/sensuctl/sensuctl-bonsai/#list-commands
 [114]: /sensu-go/5.18/api/events#create-a-new-event
 [115]: /sensu-go/5.18/commercial/
 [116]: /sensu-go/5.18/api#label-selector
@@ -1727,7 +1779,7 @@ To get started with Sensu Go:
 [134]: /sensu-go/5.19/operations/deploy-sensu/install-sensu/
 [135]: /sensu-go/5.19/web-ui/
 [136]: /sensu-go/5.19/reference/agent/#configuration-via-flags
-[137]: /sensu-go/5.19/reference/backend/#configuration
+[137]: /sensu-go/5.19/reference/backend/#configuration-via-flags
 [138]: /sensu-go/5.20/api#field-selector
 [139]: /sensu-go/5.20/reference/backend/#log-rotation
 [140]: /sensu-go/5.20/operations/maintain-sensu/troubleshoot/#increment-log-level-verbosity
@@ -1742,7 +1794,6 @@ To get started with Sensu Go:
 [149]: /sensu-go/5.20/api/license#get-the-active-license-configuration
 [150]: /sensu-go/5.20/reference/license/#view-entity-count-and-entity-limit
 [151]: /sensu-go/5.20/reference/license/#entity-limit
-[152]: /sensu-go/5.20/web-ui/#federated-webui
 [153]: /sensu-go/5.20/web-ui/
 [154]: /sensu-go/5.20/sensuctl/sensuctl-bonsai/#extend-sensuctl-with-commands
 [155]: /sensu-go/5.20/reference/agent/#discover-processes
@@ -1768,7 +1819,7 @@ To get started with Sensu Go:
 [176]: /sensu-go/6.1/api/authproviders/#authproviders-get-specification
 [177]: /sensu-go/6.1/api/secrets/#providers-get-specification
 [178]: /sensu-go/6.1/web-ui/search/
-[179]: /sensu-go/6.1/operations/deploy-sensu/datastore/#strict
+[179]: /sensu-go/6.1/operations/deploy-sensu/datastore/#strict-attribute
 [180]: /sensu-go/6.1/operations/control-access/oidc-auth/#oidc-spec-attributes
 [181]: /sensu-go/6.1/operations/deploy-sensu/datastore/#spec-attributes
 [182]: /sensu-go/6.1/observability-pipeline/observe-schedule/checks#output-metric-tags
@@ -1796,3 +1847,13 @@ To get started with Sensu Go:
 [204]: /sensu-go/6.2/observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent
 [205]: /sensu-go/6.2/observability-pipeline/observe-schedule/agent/#configuration-via-flags
 [206]: /sensu-go/5.21/reference/backend/#log-rotation
+[207]: /sensu-go/6.3/commercial/
+[208]: /sensu-go/6.3/observability-pipeline/observe-schedule/backend/#agent-burst-limit
+[209]: /sensu-go/6.3/observability-pipeline/observe-schedule/backend/#agent-rate-limit
+[210]: /sensu-go/6.3/observability-pipeline/observe-schedule/business-service-monitoring/
+[211]: /sensu-go/6.3/observability-pipeline/observe-schedule/rule-templates/#built-in-rule-template-aggregate
+[212]: /sensu-go/6.3/api/health/#get-health-data-for-your-agent-transport
+[213]: /sensu-go/6.3/observability-pipeline/observe-entities/#service-entities
+[214]: /sensu-go/6.3/sensuctl/#global-flags
+[223]: /sensu-go/6.3/web-ui/webconfig-reference/#default-preferences-attributes
+[224]: /sensu-go/5.20/observability-pipeline/observe-schedule/backend/#metrics-refresh-interval

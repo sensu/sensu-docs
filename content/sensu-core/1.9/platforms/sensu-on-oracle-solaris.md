@@ -11,9 +11,7 @@ menu:
     parent: platforms
 ---
 
-# Sensu on Solaris
-
-## Reference documentation
+## Sensu on Solaris reference documentation
 
 - [Installing Sensu Core](#sensu-core)
   - [Download and install Sensu on Solaris 10](#download-and-install-sensu-core-on-solaris-10)

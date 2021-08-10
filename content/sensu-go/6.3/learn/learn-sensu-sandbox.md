@@ -1,18 +1,14 @@
 ---
 title: "Learn Sensu Go"
+intercom: "sandbox"
 description: "Here’s everything you need to start learning Sensu Go, including how to set up the Sensu Go sandbox and your first three lesson plans. Learn how to create an observability event and event pipeline, as well as automate event production with the Sensu agent."
 version: "6.3"
 product: "Sensu Go"
 ---
 
+{{< intercomSandbox >}}
+
 In this tutorial, you'll download the Sensu sandbox and create a monitoring workflow with Sensu.
-
-- [Set up the sandbox](#set-up-the-sandbox)
-- [Lesson \#1: Create an observability event](#lesson-1-create-a-sensu-observability-event)
-- [Lesson \#2: Create an event pipeline](#lesson-2-pipe-keepalive-events-into-slack)
-- [Lesson \#3: Automate event production with the Sensu agent](#lesson-3-automate-event-production-with-the-sensu-agent)
-
----
 
 ## Set up the sandbox
 
@@ -70,7 +66,7 @@ You should be greeted with this prompt:
 
 {{% notice note %}}
 **NOTE**: The sandbox pre-configures sensuctl with the Sensu Go admin user, so you won't have to configure sensuctl each time you spin up the sandbox to try out a new feature.
-Before installing sensuctl outside of the sandbox, read the [first time setup reference](../../sensuctl/#first-time-setup-and-authentication-and-authentication) to learn how to configure sensuctl.
+Before installing sensuctl outside of the sandbox, read the [first time setup reference](../../sensuctl/#first-time-setup-and-authentication) to learn how to configure sensuctl.
 {{% /notice %}}  
 
 ---
@@ -212,7 +208,8 @@ sensuctl asset info sensu-slack-handler --format wrapped-json
 {{< /language-toggle >}}
 
 {{% notice protip %}}
-**PRO TIP**: You can use resource definitions to create and update resources (like dynamic runtime assets) using `sensuctl create --file filename.yaml` or `sensuctl create --file filename.json`. See the [sensuctl docs](../../sensuctl/create-manage-resources/#create-resources) for more information.
+**PRO TIP**: You can use resource definitions to create and update resources (like dynamic runtime assets) using `sensuctl create --file filename.yaml` or `sensuctl create --file filename.json`.
+See the [sensuctl docs](../../sensuctl/create-manage-resources/#create-resources) for more information.
 {{% /notice %}}
 
 **3. Create a Sensu Slack handler**
@@ -535,7 +532,8 @@ Now, you should be able to see disk usage metrics for the sandbox in Grafana: [r
 You made it! You're ready for the next level of Sensu-ing.
 
 Before you move on, take a moment to remove the virtual machine and resources installed during this sandbox lesson.
-Press `CTRL`+`D` to exit the sandbox. Then run:
+Press `CTRL`+`D` to exit the sandbox.
+ Then run:
 
 {{< code shell >}}
 vagrant destroy

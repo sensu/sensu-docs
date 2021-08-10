@@ -103,7 +103,8 @@ Use Sensu role-based access control (RBAC) to create a `demo` namespace and a `d
 
 **1. Configure sensuctl to use the admin user.**
 
-When you installed the Sensu backend, during the [initialization step][14], you created an admin username and password for a `default` namespace. Use that username and password to configure sensuctl in this step.
+When you installed the Sensu backend, during the [initialization step][14], you created an admin username and password for a `default` namespace.
+Use that username and password to configure sensuctl in this step.
 
 {{< code shell >}}
 sensuctl configure
@@ -222,14 +223,15 @@ sensuctl create --file go/config/assets/slack-handler.yaml
 
 **2. Get your Slack webhook URL and add it to `go/config/handlers/slack.yaml`.**
 
-If you're already an admin of a Slack, visit `https://YOUR WORKSPACE NAME HERE.slack.com/services/new/incoming-webhook` and follow the steps to add the Incoming WebHooks integration and save the settings.
+If you're already an admin of a Slack, visit `https://YOUR_WORKSPACE_NAME_HERE.slack.com/services/new/incoming-webhook` and follow the steps to add the Incoming WebHooks integration and save the settings.
 If you're not yet a Slack admin, [start here][5] to create a new workspace.
 After saving, you'll see your webhook URL under Integration Settings.
 
-Open `go/config/handlers/slack.yaml`. In the following line, replace `SECRET` with your Slack workspace webhook URL and `#demo` with the Slack channel of your choice:
+Open `go/config/handlers/slack.yaml`.
+In the following line, replace `<secret>` with your Slack workspace webhook URL and `#demo` with the Slack channel of your choice:
 
 {{< code shell >}}
-"command": "slack-handler --channel '#demo' --timeout 20 --username 'sensu' --webhook-url 'SECRET'",
+"command": "slack-handler --channel '#demo' --timeout 20 --username 'sensu' --webhook-url '<secret>'",
 {{< /code >}}
 
 So it looks something like:

@@ -1,6 +1,6 @@
 ---
 title: "Operations"
-description: "Follow the instructions in the Operations category to install, deploy, and operate Sensu."
+description: "Read Sensu's Operations documentation to install, deploy, and operate Sensu, from local installation through a large-scale deployment with secrets management."
 product: "Sensu Go"
 version: "6.3"
 weight: 20

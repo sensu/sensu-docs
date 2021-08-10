@@ -1,0 +1,14 @@
+<script>
+$( ".rating label" ).click(function() {
+    const fieldset = document.querySelector('#page-rating fieldset');
+    const pageURL = document.location.pathname + document.location.search;
+    const rating =  $("#" + $(this).attr('for')).val();
+
+    if (!fieldset.classList.contains('disabled') && typeof ga === "function") {
+      ga('send','event','Rating',rating,pageURL);
+    }
+
+    // Add .disabled class to prevent multiple submissions
+    fieldset.classList.add('disabled');
+});
+</script>

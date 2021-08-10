@@ -1,19 +1,4 @@
 <script>
-$( ".rating label" ).click(function() {
-    const fieldset = document.querySelector('#page-rating fieldset');
-    const pageURL = document.location.pathname + document.location.search;
-    const rating =  $("#" + $(this).attr('for')).val();
-
-    if (!fieldset.classList.contains('disabled') && typeof ga === "function") {
-      ga('send','event','Rating',rating,pageURL);
-    }
-
-    // Add .disabled class to prevent multiple submissions
-    fieldset.classList.add('disabled');
-});
-</script>
-
-<script>
   {{ with .Scratch.Get "repo_id" }}
     var base_url = '{{ (printf "%s" $.Site.BaseURL) | safeJS }}';
     var repo_id  = '{{ . | safeJS }}';
@@ -218,7 +203,7 @@ $( ".rating label" ).click(function() {
           {{ if isset .Page.Params "product" }}
             'version:{{ .Page.Params.version }}'
           {{ else }}
-            'version:6.1',
+            'version:6.4',
             'version:1.0',
             'version:2.16',
             'version:1.9',

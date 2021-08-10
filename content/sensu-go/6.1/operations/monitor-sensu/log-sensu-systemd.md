@@ -30,19 +30,24 @@ Next, set up rsyslog to write the logging data received from journald to `/var/l
 In this example, the `sensu-backend` and `sensu-agent` logging data is sent to individual files named after the service.
 The `sensu-backend` is not required if you're only setting up log forwarding for the `sensu-agent` service.
 
-1. For the sensu-backend service, in /etc/rsyslog.d/99-sensu-backend.conf, add:
+{{% notice note %}}
+**NOTE**: Use a `conf` file name that will ensure the file is loaded before the default file in `/etc/rsyslog.d/`, which uses 50.
+This example uses `40-sensu-backend.conf` and `40-sensu-agent.conf` for this reason.
+{{% /notice %}}
+
+1. For the sensu-backend service, in /etc/rsyslog.d/40-sensu-backend.conf, add:
 {{< code shell >}}
 if $programname == 'sensu-backend' then {
         /var/log/sensu/sensu-backend.log
-        ~
+        & stop
 }
 {{< /code >}}
 
-2. For the sensu-agent service, in /etc/rsyslog.d/99-sensu-agent.conf, add:
+2. For the sensu-agent service, in /etc/rsyslog.d/40-sensu-agent.conf, add:
 {{< code shell >}}
 if $programname == 'sensu-agent' then {
         /var/log/sensu/sensu-agent.log
-        ~
+        & stop
 }
 {{< /code >}}
 

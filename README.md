@@ -104,7 +104,7 @@ offline: false
 
 Whenever changes are merged to the `master` branch, this project is automatically deployed to [docs.sensu.io][site]. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
 
-[slack]: http://slack.sensu.io
+[slack]: https://slack.sensu.io
 [wiki]: https://github.com/sensu/sensu-docs/wiki/Sensu-docs-style-guide
 [coc]: https://sensu.io/conduct
 [email]: mailto:docs@sensu.io

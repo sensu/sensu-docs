@@ -11,8 +11,10 @@ menu:
     parent: sensuctl
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access sensuctl response filtering in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][4].
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 Sensuctl supports response filtering for all [commands using the `list` verb][1].
 For information about response filtering methods and available label and field selectors, see [API response filtering][2].
@@ -24,14 +26,14 @@ You can use the same methods, selectors, and examples for sensuctl response filt
 The standard sensuctl response filtering syntax is:
 
 {{< code shell >}}
-sensuctl RESOURCE_TYPE list --SELECTOR 'FILTER_STATEMENT'
+sensuctl <resource_type> list --<selector> '<filter_statement>'
 {{< /code >}}
 
 To create a sensuctl response filtering command:
 
-- Replace `RESOURCE_TYPE` with the resource your filter is based on.
-- Replace `SELECTOR` with either `label-selector` or `field-selector`, depending on which selector you want to use.
-- Replace `FILTER_STATEMENT` with the filter to apply.
+- Replace `<resource_type>` with the resource your filter is based on.
+- Replace `<selector>` with either `label-selector` or `field-selector`, depending on which selector you want to use.
+- Replace `<filter_statement>` with the filter to apply.
 
 For example:
 
@@ -118,6 +120,5 @@ sensuctl check list --label-selector 'region == "us-west-1"' --field-selector 's
 [1]: ../create-manage-resources/#subcommands
 [2]: ../../api#response-filtering
 [3]: ../../api#field-selector
-[4]: ../../commercial/
 [5]: ../../api/#operators
 [6]: #examples

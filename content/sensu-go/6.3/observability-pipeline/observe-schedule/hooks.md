@@ -4,7 +4,7 @@ linkTitle: "Hooks Reference"
 reference_title: "Hooks"
 type: "reference"
 description: "Check hooks allow you to automate data collection that operators would typically perform by investigating observability alerts manually. Hooks help free up precious operator time. Read the reference doc to learn about hooks."
-weight: 60
+weight: 80
 version: "6.3"
 product: "Sensu Go"
 platformContent: false
@@ -64,7 +64,8 @@ spec:
 
 ## Check response types
 
-Each **type** of response (ex: `non-zero`) can contain one or more hooks and correspond to one or more exit status codes. Hooks are executed in order of precedence, based on their type:
+Each **type** of response (ex: `non-zero`) can contain one or more hooks and correspond to one or more exit status codes.
+Hooks are executed in order of precedence, based on their type:
 
 1. `1` to `255`
 2. `ok`

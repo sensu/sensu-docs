@@ -33,6 +33,7 @@ This example shows the resource definition for an agent entity:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Entity
 api_version: core/v2
 metadata:
@@ -226,11 +227,6 @@ If you change an agent entity's class to `proxy`, the backend will revert the ch
 If you prefer, you can manage agent entities via the agent rather than the backend.
 To do this, add the [`agent-managed-entity` flag][16] when you start the Sensu agent or set `agent-managed-entity: true` in your `agent.yml` file.
 
-{{% notice important%}}
-**IMPORTANT**: In Sensu Go 6.2.1 and 6.2.2, the agent-managed-entity configuration flag can prevent the agent from starting.
-Upgrade to [Sensu Go 6.2.3](../../../release-notes/#623-release-notes) to use the agent-managed-entity configuration flag.
-{{% /notice %}}
-
 When you start an agent with the `--agent-managed-entity` flag or set `agent-managed-entity: true` in agent.yml, the agent becomes responsible for managing its entity configuration.
 An entity managed by this agent will include the label `sensu.io/managed_by: sensu-agent`.
 You cannot update these agent-managed entities via the Sensu backend REST API.
@@ -257,6 +253,7 @@ This example shows the resource definition for a proxy entity:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Entity
 api_version: core/v2
 metadata:
@@ -319,6 +316,57 @@ If you don't create a proxy entity, it is created when the check is executed.
 You can modify the proxy entity later if needed.
 
 Use [proxy entity filters][19] to establish a many-to-many relationship between agent entities and proxy entities if you want even more power over the grouping.
+
+## Create and manage service entities
+
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access business service monitoring (BSM), including service entities, in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
+
+Service entities are dynamically created entities that Sensu adds to the entity store when a [service component][39] generates an event.
+Service entities allow Sensu to monitor [business services][38].
+
+{{% notice note %}}
+**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
+{{% /notice %}}
+
+Create and modify service entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33].
+
+### Service entity example
+
+This example shows the resource definition for a service entity:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Entity
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: postgresql
+  namespace: default
+spec:
+  entity_class: service
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "postgresql",
+    "namespace": "default"
+  },
+  "spec": {
+    "entity_class": "service"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Manage entity labels
 
@@ -433,6 +481,7 @@ sensuctl edit entity sensu-docs
 And update the metadata scope to include the `proxy_type` label:
 
 {{< code yml >}}
+---
 type: Entity
 api_version: core/v2
 metadata:
@@ -452,7 +501,85 @@ You can configure a check with a proxy entity name to associate the check result
 On the first check result, if the proxy entity does not exist, Sensu will create the entity as a proxy entity.
 
 After you create a proxy entity check, define which agents will run the check by configuring a subscription.
-See [Monitor external resources with proxy requests and entities][17] for details about creating a proxy check for a proxy entity.
+See [Monitor external resources with proxy entities][17] for details about creating a proxy check for a proxy entity.
+
+### Service entity labels
+
+For entities with class `service`, you can create and manage labels with sensuctl.
+To create a service entity with a `service_type` label using sensuctl `create`, create a file called `service-entity.json` with an entity definition that includes `labels`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Entity
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: postgresql
+  namespace: default
+  labels:
+    service_type: datastore
+spec:
+  entity_class: service
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "postgresql",
+    "namespace": "default",
+    "labels": {
+      "service_type": "datastore"
+    }
+  },
+  "spec": {
+    "entity_class": "service"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Then run sensuctl create to create the entity based on the definition:
+
+{{< language-toggle >}}
+
+{{< code shell "YML">}}
+sensuctl create --file service-entity.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl create --file service-entity.json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+To add a label to an existing service entity, use sensuctl edit.
+For example, to add a `region` label to a `postgresql` entity:
+
+{{< code shell >}}
+sensuctl edit entity postgresql
+{{< /code >}}
+
+And update the metadata scope to include the `region` label:
+
+{{< code yml >}}
+---
+type: Entity
+api_version: core/v2
+metadata:
+  labels:
+    service_type: datastore
+    region: us-west-1
+  name: postgresql
+  namespace: default
+spec:
+  '...': '...'
+{{< /code >}}
 
 ## Entities specification
 
@@ -762,7 +889,7 @@ labels:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="annotations"></a>
+<a id="annotations-attribute"></a>
 
 | annotations |     |
 -------------|------
@@ -792,7 +919,7 @@ annotations:
 
 entity_class |     |
 -------------|------ 
-description  | Entity type, validated with Go regex [`\A[\w\.\-]+\z`][21]. Class names have special meaning. An entity that runs an agent is class `agent` and is reserved. Setting the value of `entity_class` to `proxy` creates a proxy entity. For other types of entities, the `entity_class` attribute isn’t required, and you can use it to indicate an arbitrary type of entity (like `lambda` or `switch`).
+description  | Entity type, validated with Go regex [`\A[\w\.\-]+\z`][21]. Class names have special meaning. An entity that runs an agent is class `agent` and is reserved. Setting the value of `entity_class` to `proxy` creates a proxy entity. An entity that represents a business service is class `service`. For other types of entities, the `entity_class` attribute isn’t required, and you can use it to indicate an arbitrary type of entity (like `lambda` or `switch`).
 required     | true
 type         | String 
 example      | {{< language-toggle >}}
@@ -832,10 +959,8 @@ subscriptions:
 
 system       | 
 -------------|------ 
-description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
-As of 5.20.2, new events will not include data in the `processes` attributes.
-Instead, the field will be empty: `"processes": null`.
+description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.{{% notice note %}}
+**NOTE**: Process discovery is disabled in this version of Sensu. New events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false
 type         | Map
@@ -961,7 +1086,7 @@ sensu_agent_version: 1.0.0
 
 last_seen    | 
 -------------|------ 
-description  | Timestamp the entity was last seen. In seconds since the Unix epoch. 
+description  | Time at which the entity was last seen. In seconds since the Unix epoch.
 required     | false 
 type         | Integer 
 example      | {{< language-toggle >}}
@@ -977,7 +1102,7 @@ last_seen: 1522798317
 
 deregister   | 
 -------------|------ 
-description  | `true` if the entity should be removed when it stops sending keepalive messages. Otherwise, `false`.
+description  | If the entity should be removed when it stops sending keepalive messages, `true`. Otherwise, `false`.
 required     | false 
 type         | Boolean 
 default      | `false`
@@ -1254,10 +1379,8 @@ example        | {{< language-toggle >}}
 
 processes    | 
 -------------|------ 
-description  | List of processes on the local agent. See [processes attributes][26] for more information.{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
-As of 5.20.2, new events will not include data in the `processes` attributes.
-Instead, the field will be empty: `"processes": null`.
+description  | List of processes on the local agent. See [processes attributes][26] for more information.{{% notice note %}}
+**NOTE**: Process discovery is disabled in this version of Sensu. New events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false 
 type         | Map
@@ -1429,17 +1552,15 @@ handler: email-handler
 
 ### Processes attributes
 
-{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../../release-notes/#5202-release-notes).
-As of 5.20.2, new events will not include data in the `processes` attributes.
-Instead, the field will be empty: `"processes": null`.
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag](../../observe-schedule/agent/#discover-processes) in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
-**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][9].
-
 {{% notice note %}}
-**NOTE**: The `processes` field is populated in the packaged Sensu Go distributions.
-In OSS builds, the field will be empty: `"processes": null`.
+**NOTE**: Process discovery is disabled in this version of Sensu.
+New events will not include data in the `processes` attributes.
+Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
 name         | 
@@ -1540,7 +1661,7 @@ running: true
 
 created      | 
 -------------|------ 
-description  | Timestamp when the process was created. In seconds since the Unix epoch.
+description  | Time at which the process was created. In seconds since the Unix epoch.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -1612,15 +1733,14 @@ cpu_percent: 0.12639
 [17]: ../../observe-entities/monitor-external-resources/
 [18]: ../../observe-schedule/checks/#round-robin-checks
 [19]: #proxy-entities-managed
-[20]: #annotations
+[20]: #annotations-attribute
 [21]: https://regex101.com/r/zo9mQU/2
 [22]: ../../../operations/control-access/rbac/
 [23]: ../../../web-ui/search#search-for-labels
 [24]: ../../observe-schedule/checks#proxy-requests-attributes
 [25]: ../../observe-schedule/agent/#detect-cloud-provider-flag
 [26]: #processes-attributes
-[27]: ../../observe-schedule/agent/#discover-processes
-[28]: http://man7.org/linux/man-pages/man1/top.1.html
+[28]: https://man7.org/linux/man-pages/man1/top.1.html
 [29]: ../../../operations/maintain-sensu/license/#view-entity-count-and-entity-limit
 [30]: ../../../web-ui/search/
 [31]: ../#agent-entities
@@ -1630,3 +1750,6 @@ cpu_percent: 0.12639
 [35]: ../../observe-schedule/agent/#config-file
 [36]: ../../../api/entities/
 [37]: ../../../sensuctl/create-manage-resources/#update-resources
+[38]: ../../observe-schedule/business-service-monitoring/
+[39]: ../../observe-schedule/service-components/
+[38]: ../../../api/events/#create-a-new-event

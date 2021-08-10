@@ -12,7 +12,11 @@ menu:
 
 Sensuctl is a command line tool for managing resources within Sensu.
 It works by calling Sensu's underlying API to create, read, update, and delete resources, events, and entities.
+
 Sensuctl is available for Linux, macOS, and Windows.
+For Windows operating systems, sensuctl uses `cmd.exe` for the execution environment.
+For all other operating systems, sensuctl uses the Bourne shell (sh).
+
 See [Install Sensu][2] to install and configure sensuctl.
 
 ## First-time setup and authentication
@@ -335,6 +339,7 @@ Global flags modify settings specific to sensuctl, such as the Sensu backend URL
 You can use global flags with most sensuctl commands.
 
 {{< code shell >}}
+--api-key string             API key to use for authentication
 --api-url string             host URL of Sensu installation
 --cache-dir string           path to directory containing cache & temporary files
 --config-dir string          path to directory containing configuration files
@@ -343,7 +348,7 @@ You can use global flags with most sensuctl commands.
 --trusted-ca-file string     TLS CA certificate bundle in PEM format
 {{< /code >}}
 
-You can set these flags permanently by editing `.config/sensu/sensuctl/{cluster, profile}`.
+To set these flags permanently, edit `.config/sensu/sensuctl/{cluster, profile}`.
 
 ## Shell auto-completion
 

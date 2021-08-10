@@ -11,8 +11,6 @@ menu:
     parent: installation
 ---
 
-# Install a Sensu Dashboard
-
 Sensu was originally designed as an API-based monitoring solution, enabling
 operations teams to compose monitoring solutions where Sensu provides the
 monitoring instrumentation, collection of telemetry data, scalable event

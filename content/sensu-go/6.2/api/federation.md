@@ -10,8 +10,10 @@ menu:
     parent: api
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access federation in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][1].
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 {{% notice note %}}
 **NOTE**: Requests to the federation API require you to authenticate with a Sensu [access token](../#authenticate-with-the-authentication-api) or [API key](../#authenticate-with-an-api-key).
@@ -510,5 +512,3 @@ description               | Deletes the specified cluster from Sensu.
 example url               | http://hostname:8080/api/enterprise/federation/v1/clusters/us-west-2a
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-
-[1]: ../../commercial/

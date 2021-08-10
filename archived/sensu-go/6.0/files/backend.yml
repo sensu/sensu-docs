@@ -1,0 +1,103 @@
+---
+# Sensu backend configuration
+
+
+##
+# backend configuration
+##
+#labels:
+#  example_key: "example value"
+#annotations:
+#  example/key: "example value"
+#assets-burst-limit: 100
+#assets-rate-limit: 1.39
+#cache-dir: "/var/cache/sensu/sensu-backend"
+#config-file: "/etc/sensu/backend.yml"
+#debug: false
+#deregistration-handler: "example_handler"
+log-level: "debug" #available log levels: panic, fatal, error, warn, info, debug, trace
+#state-dir: "/var/lib/sensu/sensu-backend"
+#require-fips: false
+#require-openssl: false
+#eventd-buffer-size: 100
+#eventd-workers: 100
+#keepalived-buffer-size: 100
+#keepalived-workers: 100
+#pipelined-buffer-size: 100
+#pipelined-workers: 100
+
+
+##
+# api configuration
+##
+#api-listen-address: "[::]:8080" #listen on all IPv4 and IPv6 addresses
+#api-url: "http://localhost:8080"
+
+
+##
+# tls configuration
+##
+#agent-auth-cert-file: /path/to/tls/backend-1.pem
+#agent-auth-crl-urls: http://localhost/CARoot.crl
+#agent-auth-key-file: /path/to/tls/backend-1-key.pem
+#agent-auth-trusted-ca-file: /path/to/tls/ca.pem
+#agent-host: "[::]" #listen on all IPv4 and IPv6 addresses
+#agent-port: 8081
+#cert-file: "/path/to/tls/backend-1.pem"
+#insecure-skip-tls-verify: false
+#jwt-private-key-file: /path/to/key/private.pem
+#jwt-public-key-file: /path/to/key/public.pem
+#key-file: "/path/to/tls/backend-1-key.pem"
+#trusted-ca-file: "/path/to/tls/ca.pem"
+#dashboard-cert-file: "/path/to/tls/separate-webui-cert.pem"
+#dashboard-host: "[::]"
+#dashboard-key-file: "/path/to/tls/separate-webui-key.pem"
+#dashboard-port: 3000
+
+
+##
+# etcd datastore configuration
+##
+#etcd-advertise-client-urls:
+#  - http://localhost:2378
+#  - http://localhost:2379
+#etcd-cert-file: "/path/to/tls/backend-1.pem"
+#etcd-cipher-suites:
+#  - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+#  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+#  - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+#  - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+#  - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+#  - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+#etcd-client-cert-auth: false
+#etcd-client-urls:
+#  - https://10.0.0.1:2379
+#  - https://10.1.0.1:2379
+#etcd-discovery:
+#  - https://discovery.etcd.io/3e86b59982e49066c5d813af1c2e2579cbf573de
+#etcd-discovery-srv:
+#  - example.org
+#etcd-initial-advertise-peer-urls:
+#  - https://10.0.0.1:2380
+#  - https://10.1.0.1:2380
+#etcd-initial-cluster: "backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380"
+#etcd-initial-cluster-state: "new"
+#etcd-initial-cluster-token: "unique_token_for_this_cluster"
+#etcd-key-file: "/path/to/tls/backend-1-key.pem"
+#etcd-listen-client-urls:
+#  - https://10.0.0.1:2379
+#  - https://10.1.0.1:2379
+#etcd-listen-peer-urls:
+#  - https://10.0.0.1:2380
+#  - https://10.1.0.1:2380
+#etcd-name: "backend-0"
+#etcd-peer-cert-file: "/path/to/tls/backend-1.pem"
+#etcd-peer-client-cert-auth: false
+#etcd-peer-key-file: "/path/to/tls/backend-1-key.pem"
+#etcd-peer-trusted-ca-file: "./ca.pem"
+#etcd-trusted-ca-file: "./ca.pem"
+#no-embed-etcd: false
+#etcd-election-timeout: 1000
+#etcd-heartbeat-interval: 100
+#etcd-max-request-bytes: 1572864
+#etcd-quota-backend-bytes: 4294967296

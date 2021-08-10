@@ -81,7 +81,7 @@ vagrant   7647  3937  2 22:23 pts/0    00:00:00 ./prometheus --config.file=prome
 Follow the RHEL/CentOS [install instructions][4] for the Sensu backend, the Sensu agent, and sensuctl.
 
 Use [sensuctl][15] to add an `app_tier` [subscription][16] to the entity the Sensu agent is observing.
-Before you run the following code, replace `ENTITY_NAME` with the name of the entity on your system.
+Before you run the following code, Replace `<entity_name>` with the name of the entity on your system.
 
 {{% notice note %}}
 **NOTE**: To find your entity name, run `sensuctl entity list`.
@@ -89,7 +89,7 @@ The `ID` is the name of your entity.
 {{% /notice %}}
 
 {{< code shell >}}
-sensuctl entity update ENTITY_NAME
+sensuctl entity update <entity_name>
 {{< /code >}}
 
 - For `Entity Class`, press enter.

@@ -13,8 +13,10 @@ menu:
     parent: manage-secrets
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Env and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][20].
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 Sensu's secrets management allows you to avoid exposing secrets like usernames, passwords, and access keys in your Sensu configuration.
 In this guide, you'll learn how to use Sensu's built-in secrets provider, `Env`, or [HashiCorp Vault][1] as your external [secrets provider][2] and authenticate without exposing your secrets.
@@ -27,7 +29,8 @@ Secrets are configured via [secrets resources][8].
 A secret resource definition refers to the secrets provider (`Env` or `VaultProvider`) and an ID (the named secret to fetch from the secrets provider).
 
 This guide only covers the handler use case, but you can use secrets management in handler, mutator, and check execution.
-When a check configuration references a secret, the Sensu backend will only transmit the check's execution requests to agents that are connected via mutually authenticated transport layer security (mTLS)-encrypted websockets. Read more about [enabling mTLS][15].
+When a check configuration references a secret, the Sensu backend will only transmit the check's execution requests to agents that are connected via mutually authenticated transport layer security (mTLS)-encrypted websockets.
+Read more about [enabling mTLS][15].
 
 The secret included in your Sensu handler will be exposed to Sensu services at runtime as an environment variable.
 Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the web UI.
@@ -41,11 +44,10 @@ Here's how to find your Integration Key in PagerDuty so you can set it up as you
 1. Log in to your PagerDuty account.
 2. In the **Configuration** drop-down menu, select **Services**.
 3. Click your Sensu service.
-4. Click the **Integrations** tab. The Integration Key is listed in the second column.
+4. Click the **Integrations** tab.
+The Integration Key is listed in the second column.
 
-<div style="text-align:center">
-<img alt="PagerDuty Integration Key location" title="PagerDuty Integration Key location" src="/images/sensu-pagerduty-integration-key.png" >
-</div>
+{{< figure src="/images/sensu-pagerduty-integration-key.png" alt="PagerDuty Integration Key location" link="/images/sensu-pagerduty-integration-key.png" target="_blank" >}}
 
 Make a note of your Integration Key &mdash; you'll need it to create your [backend environment variable][28] or [HashiCorp Vault secret][29].
 
@@ -164,9 +166,7 @@ The command output includes a `Root Token` line.
 Find this line in your command output and copy the `Root Token` value.
 You will use it next to create your Vault secrets provider.
 
-<div style="text-align:center">
-<img alt="HashiCorp Vault Root Token location" title="HashiCorp Vault Root Token location" src="/images/vault-dev-root-token.png" >
-</div>
+{{< figure src="/images/vault-dev-root-token.png" alt="HashiCorp Vault Root Token location" link="/images/vault-dev-root-token.png" target="_blank" >}}
 
 Leave the Vault dev server running.
 Because you aren't using TLS, you will need to set `VAULT_ADDR=http://127.0.0.1:8200` in your shell environment.
@@ -178,7 +178,7 @@ Because you aren't using TLS, you will need to set `VAULT_ADDR=http://127.0.0.1:
 {{% /notice %}}
 
 Use `sensuctl create` to create your secrets provider, `vault`.
-In the code below, replace `ROOT_TOKEN` with the `Root Token` value for your Vault dev server.
+In the code below, replace `<root_token>` with the `Root Token` value for your Vault dev server.
 Then, run:
 
 {{< language-toggle >}}
@@ -193,7 +193,7 @@ metadata:
 spec:
   client:
     address: http://localhost:8200
-    token: ROOT_TOKEN
+    token: <root_token>
     version: v2
     tls: null
     max_retries: 2
@@ -215,7 +215,7 @@ cat << EOF | sensuctl create
   "spec": {
     "client": {
       "address": "http://localhost:8200",
-      "token": "ROOT_TOKEN",
+      "token": "<root_token>",
       "version": "v2",
       "tls": null,
       "max_retries": 2,
@@ -319,8 +319,8 @@ Next, [create your Vault secret][29].
 
 First, retrieve your [PagerDuty Integration Key][30] (the secret you will set up in Vault).
 
-Next, open a new terminal and run `vault kv put secret/pagerduty key=INTEGRATION_KEY`.
-Replace `INTEGRATION_KEY` with your PagerDuty Integration Key.
+Next, open a new terminal and run `vault kv put secret/pagerduty key=<integration_key>`.
+Replace `<integration_key>` with your PagerDuty Integration Key.
 This writes your secret into Vault.
 
 In this example, the name of the secret is `pagerduty`.
@@ -479,7 +479,6 @@ Read the [secrets][9] or [secrets providers][2] reference for in-depth secrets m
 [15]: ../../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
 [17]: ../../../operations/manage-secrets/secrets-providers#tls-vault
 [19]: #add-a-handler
-[20]: ../../../commercial/
 [21]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables
 [22]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [23]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler

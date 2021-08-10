@@ -15,9 +15,12 @@ menu:
 Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance.
 RBAC allows you to specify actions users are allowed to take against resources, within [namespaces][12] or across all namespaces, based on roles bound to the user or to one or more groups the user is a member of.
 
-- **Roles** create sets of permissions (e.g. get and delete) tied to resource types. **Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
-- **Users** represent a person or agent that interacts with Sensu. Users can belong to one or more **groups**.
-- **Role bindings** assign a role to a set of users and groups within a namespace. **Cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
+- **Roles** create sets of permissions (for example, get and delete) tied to resource types.
+**Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
+- **Users** represent a person or agent that interacts with Sensu.
+Users can belong to one or more **groups**.
+- **Role bindings** assign a role to a set of users and groups within a namespace.
+**Cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
 
 RBAC configuration applies to [sensuctl][2], the [API][19], and the [web UI][3].
 
@@ -63,7 +66,7 @@ You can access cluster-wide resources only by cluster roles.
 | `namespaces` | Resource partitions within a Sensu instance |
 | `provider` | [PostgreSQL event store][47] provider |
 | `providers` | [Secrets providers][46] |
-| `secrets` |[Secrets][48] (e.g. username or password) |
+| `secrets` |[Secrets][48] (for example, username or password) |
 | `users` | People or agents that interact with Sensu |
 
 ### Special resource types
@@ -256,12 +259,12 @@ username: alice
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="password"></a>
+<a id="password-attribute"></a>
 
 password     | 
 -------------|------ 
 description  | User's password. Passwords must have at least eight characters.{{% notice note %}}
-**NOTE**: You only need to set either the `password` or the [`password_hash`](#password-hash) (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
+**NOTE**: You only need to set either the `password` or the [`password_hash`](#password-hash-attribute) (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
 {{% /notice %}}
 required     | true
 type         | String
@@ -314,12 +317,12 @@ disabled: false
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a name="password-hash"></a>
+<a id="password-hash-attribute"></a>
 
 password_hash | 
 --------------|------ 
 description   | [Bcrypt][35] password hash. You can use the `password_hash` in your user definitions instead of storing cleartext passwords. {{% notice note %}}
-**NOTE**: You only need to set either the [`password`](#password) or the `password_hash` (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
+**NOTE**: You only need to set either the [`password`](#password-attribute) or the `password_hash` (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
 {{% /notice %}}
 required      | false
 type          | String
@@ -593,7 +596,7 @@ sensuctl role help
 To edit a role:
 
 {{< code shell >}}
-sensuctl edit role [ROLE-NAME] [flags]
+sensuctl edit role [ROLE-NAME] <flags>
 {{< /code >}}
 
 ### View roles and cluster roles
@@ -2237,7 +2240,7 @@ spec:
 [29]: #create-role-bindings-and-cluster-role-bindings
 [30]: #role-binding-and-cluster-role-binding-specification
 [31]: ../../../sensuctl/create-manage-resources/#create-resources
-[32]: ../#use-an-authentication-provider
+[32]: ../sso/
 [34]: ../#use-built-in-basic-authentication
 [35]: https://en.wikipedia.org/wiki/Bcrypt
 [37]: ../../maintain-sensu/license/
@@ -2249,6 +2252,6 @@ spec:
 [46]: ../../manage-secrets/secrets-providers/
 [47]: ../../deploy-sensu/datastore/
 [48]: ../../manage-secrets/secrets/
-[49]: ../../../web-ui/search#search-for-labels
+[49]: ../../../web-ui/search/#save-a-search
 [50]: ../../../sensuctl/#reset-a-user-password
 [51]: ../../../sensuctl/#generate-a-password-hash

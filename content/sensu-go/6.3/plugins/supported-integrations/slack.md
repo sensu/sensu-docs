@@ -31,8 +31,7 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 
 ## More resources
 
-- Read [Send Slack alerts with handlers][3] to learn how to add and configure the Sensu Slack Handler plugin.
-- Try the Sensu Slack Handler integration in your browser with the [Learn Sensu in 15 minutes][6] interactive tutorial.
+Read [Send Slack alerts with handlers][3] to learn how to add and configure the Sensu Slack Handler plugin.
 
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
@@ -40,6 +39,5 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 [3]: ../../../observability-pipeline/observe-process/send-slack-alerts/
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [5]: ../../assets/
-[6]: ../../../learn/learn-in-15/
 [7]: ../../../operations/manage-secrets/
 [8]: https://github.com/sensu/catalog/blob/main/pipelines/alert/slack.yaml

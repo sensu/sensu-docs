@@ -11,9 +11,7 @@ menu:
     parent: platforms
 ---
 
-# Sensu on Ubuntu/Debian
-
-## Reference documentation
+## Sensu on Ubuntu/Debian reference documentation
 
 - [Installing Sensu Core](#sensu-core)
   - [Install Sensu using APT](#install-sensu-core-repository)

@@ -4,7 +4,7 @@ linkTitle: "Create Limited Service Accounts"
 guide_title: "Create limited service accounts with role-based access control (RBAC)"
 type: "guide"
 description: "Role-based access control (RBAC) allows you to create limited service accounts so that applications can access and interact with Sensu resources. Read this guide to create limited service accounts with Sensu RBAC."
-weight: 65
+weight: 40
 version: "6.2"
 product: "Sensu Go"
 platformContent: false
@@ -224,12 +224,12 @@ Do not expose this sensitive information by listing it directly in the handler d
 The [Sensu Go EC2 Handler's Bonsai page](https://bonsai.sensu.io/assets/sensu/sensu-ec2-handler#environment-variables) includes an example for configuring secrets definitions with Sensu's built-in [`env` secrets provider](../../manage-secrets/secrets-providers/#env-secrets-provider-example).
 {{% /notice %}}
 
-In the following code, replace the placeholders for these attributes with valid values:
+In the following code, replace these bracketed placeholders with valid values:
 
-- `aws-region`: the AWS region where your EC2 instance is located.
-- `aws-instance-id-label`: the Sensu entity label that contains the AWS instance ID.
-If your AWS EC2 instance entities do not include labels that specify the instance ID, use `aws-instance-id` instead and enter the AWS instance ID itself as the value.
-- `sensu-api-url`: the Sensu API URL.
+- `<AWS_REGION>`: the AWS region where your EC2 instance is located.
+- `<AWS_INSTANCE_ID_LABEL>`: the Sensu entity label that contains the AWS instance ID.
+If your AWS EC2 instance entities do not include labels that specify the instance ID, use the `aws-instance-id` attribute instead and enter the AWS instance ID itself as the value.
+- `<http://localhost:8080>`: the Sensu API URL.
 
 You can also adjust the `aws-allowed-instance-states` value to include any of the Sensu EC2 integration's [available states][10].
 This example lists only "pending" and "running."
@@ -255,17 +255,17 @@ spec:
     - not_silenced
   command: >-
     sensu-ec2-handler
-    --aws-region region
-    --aws-instance-id-label aws-instance-id
+    --aws-region <AWS_REGION>
+    --aws-instance-id-label <AWS_INSTANCE_ID_LABEL>
     --aws-allowed-instance-states pending,running
-    --sensu-api-url http://localhost:8080
+    --sensu-api-url <http://localhost:8080>
   secrets:
     - name: AWS_ACCESS_KEY_ID
-      secret: aws_access_key_id
+      secret: <YOUR_AWS_ACCESS_KEY_ID>
     - name: AWS_SECRET_KEY
-      secret: aws_secret_key
+      secret: <YOUR_AWS_SECRET_KEY>
     - name: SENSU_API_KEY
-      secret: sensu_api_key
+      secret: <YOUR_SENSU_API_KEY>
 EOF
 {{< /code >}}
 
@@ -287,19 +287,19 @@ cat << EOF | sensuctl create
       "is_incident",
       "not_silenced"
     ],
-    "command": "sensu-ec2-handler --aws-region us-east-2 --aws-instance-id-label aws-instance-id --aws-allowed-instance-states pending,running --sensu-api-url http://localhost:8080",
+    "command": "sensu-ec2-handler --aws-region <AWS_REGION> --aws-instance-id-label AWS_INSTANCE_ID_LABEL --aws-allowed-instance-states pending,running --sensu-api-url <http://localhost:8080">,
     "secrets": [
       {
         "name": "AWS_ACCESS_KEY_ID",
-        "secret": "aws_access_key_id"
+        "secret": "<YOUR_AWS_ACCESS_KEY_ID>"
       },
       {
         "name": "AWS_SECRET_KEY",
-        "secret": "aws_secret_key"
+        "secret": "<YOUR_AWS_SECRET_KEY>"
       },
       {
         "name": "SENSU_API_KEY",
-        "secret": "sensu_api_key"
+        "secret": "<YOUR_SENSU_API_KEY>"
       }
     ]
   }
@@ -311,6 +311,10 @@ EOF
 
 The handler will use the provided AWS credentials to check the specified EC2 instance.
 If the instance's status is not "pending" or "running," the handler will use the `ec2-service` user's API key to remove the corresponding entity.
+
+{{% notice note %}}
+**NOTE**: Instead of directly referencing your `AWS_ACCESS_KEY_ID`, `AWS_SECRET_KEY`, and `SENSU_API_KEY` as shown in the `sensu-ec2-handler` example handler definition above, use [secrets management](../../manage-secrets/secrets-management/) to configure these values as environment variables.
+{{% /notice %}}
 
 ## Best practices for limited service accounts
 

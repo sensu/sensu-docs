@@ -12,8 +12,10 @@ menu:
     parent: web-ui
 ---
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access web UI configuration in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][1].
+For more information, see [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
 Web UI configuration allows you to define certain display options for the Sensu [web UI][3], such as which web UI theme to use, the number of items to list on each page, and which URLs and linked images to expand.
 You can define a single custom web UI configuration to federate to all, some, or only one of your clusters.
@@ -41,6 +43,7 @@ metadata:
 spec:
   always_show_local_cluster: false
   default_preferences:
+    poll_interval: 120000
     page_size: 50
     theme: classic
   link_policy:
@@ -65,6 +68,7 @@ spec:
   "spec": {
     "always_show_local_cluster": false,
     "default_preferences": {
+      "poll_interval": 120000,
       "page_size": 50,
       "theme": "classic"
     },
@@ -153,6 +157,7 @@ example      | {{< language-toggle >}}
 spec:
   always_show_local_cluster: false
   default_preferences:
+    poll_interval: 120000
     page_size: 50
     theme: classic
   link_policy:
@@ -170,6 +175,7 @@ spec:
   "spec": {
     "always_show_local_cluster": false,
     "default_preferences": {
+      "poll_interval": 120000,
       "page_size": 50,
       "theme": "classic"
     },
@@ -225,7 +231,7 @@ created_by: admin
 
 ### Spec attributes
 
-<a name="show-local-cluster"></a>
+<a id="show-local-cluster"></a>
 
 always_show_local_cluster | 
 -------------|------ 
@@ -246,18 +252,20 @@ always_show_local_cluster: false
 
 default_preferences | 
 -------------|------ 
-description  | Global default page size and theme preferences for all users.
+description  | Global [default preferences][1] for all users: poll interval, page size, and theme preferences.
 required     | false
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 default_preferences:
+  poll_interval: 120000
   page_size: 50
   theme: classic
 {{< /code >}}
 {{< code json >}}
 {
   "default_preferences": {
+    "poll_interval": 120000,
     "page_size": 50,
     "theme": "classic"
   }
@@ -300,6 +308,22 @@ link_policy:
 {{< /language-toggle >}}
 
 #### Default preferences attributes
+
+poll_interval | 
+-------------|------ 
+description  | The frequency at which web UI pages will poll for new data from the Sensu backend, in milliseconds. Useful for increasing the polling interval duration if web UI sessions are causing heavy load. If you set the poll interval, all web UI views will use the poll interval value instead of their individual polling defaults.
+required     | false
+type         | Integer
+example      | {{< language-toggle >}}
+{{< code yml >}}
+poll_interval: 120000
+{{< /code >}}
+{{< code json >}}
+{
+  "poll_interval": 120000
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 page_size | 
 -------------|------ 
@@ -389,7 +413,7 @@ urls:
 {{< /language-toggle >}}
 
 
-[1]: ../../commercial/
+[1]: #default-preferences-attributes
 [2]: ../../api/webconfig/
 [3]: ../../web-ui/
 [4]: #spec-attributes

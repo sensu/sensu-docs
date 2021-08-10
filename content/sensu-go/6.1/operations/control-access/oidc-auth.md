@@ -1,8 +1,10 @@
 ---
-title: "Configure OpenID Connect 1.0 protocol (OIDC) authentication"
-linktitle: "Authenticate with OIDC"
-description: "In addition to built-in basic authentication, Sensu includes commercial support for authentication using OpenID Connect 1.0 protocol (OIDC). Read this guide to configure an authentication provider."
-weight: 30
+title: "OpenID Connect 1.0 protocol (OIDC) reference"
+linktitle: "OIDC Reference"
+reference_title: "OpenID Connect 1.0 protocol (OIDC)"
+type: "reference"
+description: "In addition to built-in basic authentication, Sensu includes commercial support for single sign-on (SSO) authentication using OpenID Connect 1.0 protocol (OIDC). Read this guide to configure an authentication provider."
+weight: 60
 version: "6.1"
 product: "Sensu Go"
 menu:
@@ -10,15 +12,17 @@ menu:
     parent: control-access
 ---
 
-**COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][6].
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access OpenID Connect 1.0 protocol (OIDC) authentication for single sign-on (SSO) in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 Sensu requires username and password authentication to access the [web UI][1], [API][8], and [sensuctl][2] command line tool.
 
-In addition to the built-in basic authentication provider, Sensu offers [commercial support][6] for authentication using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol.
+In addition to the [built-in basic authentication provider][4], Sensu offers [commercial support][6] for single sign-on (SSO) authentication using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol.
 The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52].
 
-For general information about configuring authentication providers, see [Use an authentication provider][12].
+For general information about configuring authentication providers, read [Configure single sign-on (SSO) authentication][12].
 
 {{% notice warning %}}
 **WARNING**: Defining multiple OIDC providers can lead to inconsistent authentication behavior.
@@ -387,7 +391,7 @@ Use the instructions listed in this section to register an OIDC application for 
 #### Requirements
 
 - Access to the Okta Administrator Dashboard
-- Sensu Go 5.12.0 or later (plus a valid commercial license for Sensu Go versions 5.12.0 through 5.14.2)
+- Sensu Go with a valid commercial license
 
 #### Create an Okta application
 
@@ -401,8 +405,10 @@ The steps may be different if you are using the Okta Developer Console.
 3. In the *Sign on method* section, select `OpenID Connect`.
 4. Click **Create**.
 5. In the *Create OpenID Connect Integration* window:
-   - *GENERAL SETTINGS* section: in the *Application name* field, enter the app name. You can also upload a logo in the  if desired.
-   - *CONFIGURE OPENID CONNECT* section: in the *Login redirect URIs* field, enter `API_URL/api/enterprise/authentication/v2/oidc/callback` (replace `API_URL` with your API URL).
+   - *GENERAL SETTINGS* section: in the *Application name* field, enter the app name.
+You can also upload a logo in the  if desired.
+   - *CONFIGURE OPENID CONNECT* section: in the *Login redirect URIs* field, enter `<api_url>/api/enterprise/authentication/v2/oidc/callback`.
+    Replace `<api_url>` with your API URL, including the API [port][5] 8080.
 6. Click **Save**.
 7. Select the *General* tab and click **Edit**.
 8. In the *Allowed grant types* section, click to select the box next to **Refresh Token**.
@@ -426,12 +432,17 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
    - `"groups_claim": "okta:groups" `
 
 3. Add the `redirect_uri` configuration attribute in the [OIDC scope][25] and set the value to the Redirect URI configured at step 3 of [Create an Okta application][50]:
-   - `"redirect_uri": "API_URL/api/enterprise/authentication/v2/oidc/callback"`
+   - `"redirect_uri": "<api_url>/api/enterprise/authentication/v2/oidc/callback"`
+
+4. Configure [authorization][3] for your OIDC users and groups by creating [roles (or cluster roles)][4] and [role bindings (or cluster role bindings)][13] that map to the user and group names.
+
+   {{% notice note %}}
+**NOTE**: If you do not configure authorization, users will be able to log in with OIDC but will have no permissions by default.
+{{% /notice %}}
 
 #### Sensuctl login with OIDC
 
 1. Run `sensuctl login oidc`.
-
 2. If you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.
 If a browser does not open, launch a browser to complete the login via your OIDC provider at:
 
@@ -440,16 +451,18 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 
 [1]: ../../../web-ui/
 [2]: ../../../sensuctl/
+[4]: ../#use-built-in-basic-authentication
+[3]: ../#authorization
+[4]: ../rbac/#roles-and-cluster-roles
+[5]: ../../deploy-sensu/install-sensu/#ports
 [6]: ../../../commercial/
 [8]: ../../../api/
-[10]: https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-configure-ldaps
-[12]: ../#use-an-authentication-provider
+[12]: ../sso/
 [13]: ../rbac#role-bindings-and-cluster-role-bindings
 [17]: ../rbac#namespaced-resource-types
 [18]: ../rbac#cluster-wide-resource-types
 [19]: ../../maintain-sensu/troubleshoot#log-levels
 [25]: #oidc-spec-attributes
-[27]: ../../../api/authproviders/
 [36]: ../../../sensuctl/#first-time-setup-and-authentication
 [38]: ../../../sensuctl/create-manage-resources/#create-resources
 [41]: https://en.wikipedia.org/wiki/Fully_qualified_domain_name

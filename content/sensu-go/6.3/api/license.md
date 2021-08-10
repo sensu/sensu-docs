@@ -27,7 +27,7 @@ The following example demonstrates a request to the `/license` API endpoint, res
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/license \
+http://127.0.0.1:8080/api/enterprise/licensing/v2/license \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json'
 
@@ -111,6 +111,10 @@ output         | {{< code shell >}}
 
 The `/license` API endpoint provides HTTP PUT access to activate a commercial license.
 
+{{% notice note %}}
+**NOTE**: For [clustered configurations](../../operations/deploy-sensu/cluster-sensu), you only need to activate your license for one of the backends within the cluster.
+{{% /notice %}}
+
 ### Example {#license-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/license` API endpoint to create the license definition.
@@ -151,7 +155,7 @@ curl -X PUT \
     "metadata": {}
   }
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/license
+http://127.0.0.1:8080/api/enterprise/licensing/v2/license
 
 HTTP/1.1 201 Created
 {{< /code >}}

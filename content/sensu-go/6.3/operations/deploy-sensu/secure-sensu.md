@@ -33,28 +33,32 @@ To properly secure etcd communication, replace the default parameter values in y
 
 1. Replace the placeholder with the path to your certificate and key for the `etcd-cert-file` and `etcd-key-file` to secure client communication:
 {{< code yml >}}
-etcd-cert-file: "/path/to/your/cert"
-etcd-key-file: "/path/to/your/key"
+etcd-cert-file: "/etc/sensu/tls/backend-1.pem"
+etcd-key-file: "/etc/sensu/tls/backend-1-key.pem"
 {{< /code >}}
 
 2. Replace the placeholder with the path to your certificate and key for the `etcd-peer-cert-file` and `etcd-peer-key-file` to secure cluster communication:
 {{< code yml >}}
-etcd-peer-cert-file: "/path/to/your/peer/cert"
-etcd-peer-key-file: "/path/to/your/peer/key"
+etcd-peer-cert-file: "/etc/sensu/tls/backend-1.pem"
+etcd-peer-key-file: "/etc/sensu/tls/backend-1-key.pem"
 {{< /code >}}
 
-3. Replace the placeholder with the path to your certificate and key for the `etcd-trusted-ca-file` and `etcd-peer-trusted-ca-file` to secure communication with the etcd client server and between etcd cluster members:
+3. Replace the placeholder with the path to your `ca.pem` certificate for the `etcd-trusted-ca-file` and `etcd-peer-trusted-ca-file` to secure communication with the etcd client server and between etcd cluster members:
 {{< code yml >}}
-etcd-trusted-ca-file: "/path/to/your/ca/file"
-etcd-peer-trusted-ca-file: "/path/to/your/peer/ca/file"
+etcd-trusted-ca-file: "/etc/sensu/tls/ca.pem"
+etcd-peer-trusted-ca-file: "/etc/sensu/tls/ca.pem"
 {{< /code >}}
 
-4. Add non-default values for `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-advertise-client-urls`:
+4. Add non-default values for `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-advertise-peer-urls`:
 {{< code yml >}}
 etcd-listen-client-urls: "https://localhost:2379"
 etcd-listen-peer-urls: "https://localhost:2380"
 etcd-initial-advertise-peer-urls: "https://localhost:2380"
 {{< /code >}}
+
+    {{% notice note %}}
+**NOTE**: If you are securing a [cluster](../cluster-sensu), use your backend node IP address instead of `localhost` in the non-default values for `etcd-listen-client-urls`, `etcd-listen-peer-urls`, and `etcd-initial-advertise-peer-urls`.
+{{% /notice %}}
 
 5. Set `etcd-client-cert-auth` and `etcd-peer-client-cert-auth` to `true` to ensure that etcd only allows connections from clients and peers that present a valid, trusted certificate:
 {{< code yml >}}
@@ -68,9 +72,9 @@ etcd-peer-client-cert-auth: "true"
 **NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#datastore-and-cluster-configuration-flags) includes more information about each etcd store parameter.
 {{% /notice %}}
 
-## Secure the Sensu API and web UI
+## Secure the Sensu agent API, HTTP API, and web UI
 
-The Sensu Go Agent API, HTTP API, and web UI use a common stanza in `/etc/sensu/backend.yml` to provide the certificate, key, and CA file needed to provide secure communication.
+The Sensu Go agent API, HTTP API, and web UI use a common stanza in `/etc/sensu/backend.yml` to provide the certificate, key, and CA file needed to provide secure communication.
 
 {{% notice note %}}
 **NOTE**: By changing these parameters, the server will communicate using transport layer security (TLS) and expect agents that connect to it to use the WebSocket secure protocol.
@@ -79,12 +83,11 @@ For communication to continue, you must complete the configuration in this secti
 
 Configure the following backend secure sockets layer (SSL) attributes in `/etc/sensu/backend.yml`:
 
-1. Replace the placeholders with the paths to your certificate and key files for the `cert-file`, `key-file`, and `trusted-ca-file` parameters:
+1. Replace the placeholders with the paths to your CA root, backend certificate, and backend key files for the `trusted-ca-file`, `cert-file`, and `key-file` parameters:
 {{< code yml >}}
-cert-file: "/path/to/ssl/cert.pem"
-key-file: "/path/to/ssl/key.pem"
-trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
-insecure-skip-tls-verify: false
+trusted-ca-file: "/etc/sensu/tls/ca.pem"
+cert-file: "/etc/sensu/tls/backend-1.pem"
+key-file: "/etc/sensu/tls/backend-1-key.pem"
 {{< /code >}}
 
 2. Set the `insecure-skip-tls-verify` parameter to `false`:
@@ -105,25 +108,28 @@ Configuring these attributes will also ensure that agents can communicate secure
 **NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#security-configuration-flags) includes more information about each API and web UI security configuration parameter.
 {{% /notice %}}
 
-### Specify separate web UI certificate and key
+### Specify a separate web UI certificate and key
 
-You can specify a certificate and key for the web UI separately from the API.
+You can use the same certificates and keys to secure etcd, the HTTP API, and the web UI.
+However, if you prefer, you can use a separate certificate and key for the web UI (for example, a commercially purchased certificate and key).
+
 To do this, add the `dashboard-cert-file` and `dashboard-key-file` parameters for backend SSL configuration in `/etc/sensu/backend.yml`:
 
 {{< code yml >}}
-dashboard-cert-file: "/path/to/ssl/cert.pem"
-dashboard-key-file: "/path/to/ssl/key.pem"
+dashboard-cert-file: "/etc/sensu/tls/separate-webui-cert.pem"
+dashboard-key-file: "/etc/sensu/tls/separate-webui-key.pem"
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#web-ui-configuration-flags) includes more information about the `` and `` web UI configuration parameter.
+**NOTE**: If you do not specify a separate certificate and key for the web UI with `dashboard-cert-file` and `dashboard-key-file`, Sensu uses the certificate and key specified for the `cert-file` and `key-file` parameters for the web UI.
+The [Sensu backend reference](../../../observability-pipeline/observe-schedule/backend/#web-ui-configuration-flags) includes more information about the `dashboard-cert-file` and `dashboard-key-file` web UI configuration parameters.
 {{% /notice %}}
 
 ## Secure Sensu agent-to-server communication
 
 {{% notice note %}}
 **NOTE**: If you change the agent configuration to communicate via WebSocket Secure protocol, the agent will no longer communicate over a plaintext connection.
-For communication to continue, you must complete the steps in this section **and** [secure the Sensu API and web UI](#secure-the-sensu-api-and-web-ui).
+For communication to continue, you must complete the steps in this section **and** [secure the Sensu agent API, HTTP API, and web UI](#secure-the-sensu-agent-api-http-api-and-web-ui).
 {{% /notice %}}
 
 By default, an agent uses the insecure `ws://` transport.
@@ -144,12 +150,12 @@ backend-url:
 The agent will connect to Sensu backends over wss.
 Remember, if you change the configuration to wss, plaintext communication will not be possible.
 
-You can also provide a trusted CA as part of the agent configuration.
+You can also provide a trusted CA root certificate file as part of the agent configuration (named `ca.pem` in the example in [Generate certificates][4]).
 If you will start the agent via `sensu-agent start`, pass the `--trusted-ca-file` flag with the start command.
 Otherwise, include the `trusted-ca-file` parameter in the agent configuration in `/etc/sensu/agent.yml`: 
 
 {{< code yml>}}
-trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
+trusted-ca-file: "/etc/sensu/tls/ca.pem"
 {{< /code >}}
 
 {{% notice note %}}
@@ -157,10 +163,12 @@ trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
 See [Run a Sensu cluster](../cluster-sensu/) for more information about how to configure agents for a clustered configuration.
 {{% /notice %}}
 
-## Configure Sensu agent mTLS authentication
+## Optional: Configure Sensu agent mTLS authentication
 
+{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access client mutual transport layer security (mTLS) authentication in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features][5].
+For more information, see [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 
 By default, Sensu agents require username and password authentication to communicate with Sensu backends.
 For Sensu's [default user credentials][2] and details about configuring Sensu role-based access control (RBAC), see the [RBAC reference][3].
@@ -206,22 +214,20 @@ The `Subject:` field indicates the certificate's CN is `client`, so to bind the 
 
 To enable agent mTLS authentication:
 
-1. Create and distribute new certificates and keys according to the [Generate certificates][12] guide.
+1. Create and distribute a new Certificate Authority (CA) root certificate and new agent and backend certificates and keys according to the [Generate certificates][12] guide.
 
-2. With the TLS certificate and key are in place, [update the agent configuration using `cert-file` and `key-file` security configuration flags][7].
-
-3. After you create backend and agent certificates, modify the backend configuration:
+2. Add the following parameters and values to the backend configuration:
 {{< code yml >}}
-agent-auth-cert-file: "/path/to/backend-1.pem"
-agent-auth-key-file: "/path/to/backend-1-key.pem"
-agent-auth-trusted-ca-file: "/path/to/ca.pem"
+agent-auth-cert-file: "/etc/sensu/tls/backend-1.pem"
+agent-auth-key-file: "/etc/sensu/tls/backend-1-key.pem"
+agent-auth-trusted-ca-file: "/etc/sensu/tls/ca.pem"
 {{< /code >}}
 
-4. Modify the agent configuration:
+3. Add the following parameters and values to the agent configuration:
 {{< code yml >}}
-cert-file: "/path/to/agent.pem"
-key-file: "/path/to/agent-key.pem"
-trusted-ca-file: "/path/to/ca.pem"
+cert-file: "/etc/sensu/tls/agent.pem"
+key-file: "/etc/sensu/tls/agent-key.pem"
+trusted-ca-file: "/etc/sensu/tls/ca.pem"
 {{< /code >}}
 
 You can use use certificates for authentication that are distinct from other communication channels used by Sensu, like etcd or the API.
@@ -241,8 +247,8 @@ The last step before you deploy Sensu is to [set up a Sensu cluster][10].
 [1]: ../../manage-secrets/secrets-management/
 [2]: ../../control-access/rbac/#default-users
 [3]: ../../control-access/rbac/
-[5]: ../../../commercial/
-[6]: https://etcd.io/docs/v3.3.13/op-guide/security/
+[4]: ../generate-certificates/#create-a-certificate-authority-ca
+[6]: https://etcd.io/docs/latest/op-guide/security/
 [7]: ../../../observability-pipeline/observe-schedule/agent/#security-configuration-flags
 [9]: https://github.com/cloudflare/cfssl
 [10]: ../cluster-sensu/

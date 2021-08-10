@@ -1,6 +1,6 @@
 ---
 title: "Learn Sensu"
-description: "Learn Sensu with interactive tutorials in your browser, a live demo, a sandbox for building your first observability workflow, and more."
+description: "Learn Sensu with a live web UI demo, a sandbox for building observability workflows, and a glossary of Sensu terminology with links to in-depth documentation."
 product: "Sensu Go"
 version: "6.1"
 weight: 120
@@ -13,19 +13,17 @@ menu:
 
 The Learn Sensu category includes tools to help you understand and start using Sensu, the industry-leading observability pipeline for multi-cloud monitoring, consolidating monitoring tools, and filling observability gaps at scale.
 
-## Glossary
-
-If you're new to Sensu, start with a basic review of terminology in the [glossary][1] of definitions for common Sensu terms.
-The glossary includes links to relevant reference documentation for more in-depth information.
-
 {{% notice protip %}}
-**PRO TIP**: To visualize how Sensu concepts work together in our observability pipeline, [take the tour](../observability-pipeline/) &mdash; follow the `Next` buttons on each page.
+**PRO TIP**: In addition to these learning resources, try the [self-guided Sensu Go Workshop](https://sensu.io/resources?type=workshop).
+To register for an interactive instructor-led session, visit the [Sensu Go Workshop registration page](https://sensu.io/sensu-go-workshop).
 {{% /notice %}}
 
-## Interactive tutorials
+## Glossary
 
-Discover what you can do with Sensu in our [interactive tutorials][2], which you can use to learn Sensu right in your browser.
-The tutorials demonstrate how to deploy a Sensu stack, log in to the Sensu web UI, create observability events, add Sensu assets and create event filters and handlers, and use Sensu to send incident alerts to services like Slack and PagerDuty or to monitor a local Nginx service.
+If you're new to Sensu, start with a basic review of terminology in the [glossary][1] of definitions for common Sensu terms and concepts.
+The glossary includes links to relevant reference documentation for more in-depth information.
+
+To visualize how Sensu concepts work together in the observability pipeline, [take the tour][6] &mdash; follow the `Next` buttons on each page.
 
 ## Live demo
 
@@ -41,9 +39,9 @@ We also have a GitHub lesson that guides you through [deploying a Sensu cluster 
 
 
 [1]: glossary/
-[2]: interactive-tutorials/
 [3]: demo/
 [4]: sandbox/
 [5]: learn-sensu-sandbox/
+[6]: ../observability-pipeline/
 [7]: https://github.com/sensu/sensu-k8s-quick-start#getting-started-with-sensu-go-on-kubernetes
 [8]: ../sensuctl/

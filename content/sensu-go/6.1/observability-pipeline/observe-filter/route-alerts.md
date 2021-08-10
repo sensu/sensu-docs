@@ -24,12 +24,10 @@ To achieve this, you'll create two types of Sensu resources:
 - **Event filters** to match contact labels to the right handler
 
 Here's a quick overview of the configuration to set up contact routing.
-The check definition includes the `contacts: dev` label, which will result in an alert sent to the dev team but not to the ops team or the fallback option.
+The check definition includes the `contacts: dev` label, which will result in alerts to the dev team but not to the ops team or the fallback option.
 
-<a href="/images/contact-routing1.png"><img src="/images/contact-routing1.png" alt="Diagram that shows an event generated with a check label, matched to the dev team's handler using a contact filter, and routed to the dev team's Slack channel"></a>
+{{< figure src="/images/contact-routing1.png" alt="Diagram that shows an event generated with a check label, matched to the dev team's handler using a contact filter, and routed to the dev team's Slack channel" link="/images/contact-routing1.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/f66c930f-295d-458c-bde3-4e55edd9b2e8/0 -->
-
-<p style="text-align:center"><i>Sensu Go contact routing: Route alerts to the dev team using a check label</i></p>
 
 ## Prerequisites
 
@@ -236,8 +234,8 @@ In each handler definition, you will specify:
 
 Before you run the following code to create the handlers with sensuctl, make these changes:
 
-- Replace #alert-ops, #alert-dev, and #alert-all with the names of the channels you want to use to receive alerts in your Slack instance.
-- Replace SLACK_WEBHOOK_URL with your Slack webhook URL.
+- Replace `<alert-ops>`, `<alert-dev>`, and `<alert-all>` with the names of the channels you want to use to receive alerts in your Slack instance.
+- Replace `<slack_webhook_url>` with your Slack webhook URL.
 
 After you update the code to use your preferred Slack channels and webhook URL, run:
 
@@ -250,9 +248,9 @@ api_version: core/v2
 metadata:
   name: slack_ops
 spec:
-  command: sensu-slack-handler --channel "#alert-ops"
+  command: sensu-slack-handler --channel "#<alert-ops>"
   env_vars:
-  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX
+  - SLACK_WEBHOOK_URL=<slack_webhook_url>"
   filters:
   - is_incident
   - not_silenced
@@ -266,9 +264,9 @@ api_version: core/v2
 metadata:
   name: slack_dev
 spec:
-  command: sensu-slack-handler --channel "#alert-dev"
+  command: sensu-slack-handler --channel "#<alert-dev>"
   env_vars:
-  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX
+  - SLACK_WEBHOOK_URL=<slack_webhook_url>"
   filters:
   - is_incident
   - not_silenced
@@ -282,9 +280,9 @@ api_version: core/v2
 metadata:
   name: slack_fallback
 spec:
-  command: sensu-slack-handler --channel "#alert-all"
+  command: sensu-slack-handler --channel "#<alert-all>"
   env_vars:
-  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX
+  - SLACK_WEBHOOK_URL=<slack_webhook_url>"
   filters:
   - is_incident
   - not_silenced
@@ -302,9 +300,9 @@ echo '{
     "name": "slack_ops"
   },
   "spec": {
-    "command": "sensu-slack-handler --channel \"#alert-ops\"",
+    "command": "sensu-slack-handler --channel "#<alert-ops>",
     "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX"
+      "SLACK_WEBHOOK_URL=<slack_webhook_url>"
     ],
     "filters": [
       "is_incident",
@@ -324,9 +322,9 @@ echo '{
     "name": "slack_dev"
   },
   "spec": {
-    "command": "sensu-slack-handler --channel \"#alert-dev\"",
+    "command": "sensu-slack-handler --channel "#<alert-dev>",
     "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX"
+      "SLACK_WEBHOOK_URL=<slack_webhook_url>"
     ],
     "filters": [
       "is_incident",
@@ -346,9 +344,9 @@ echo '{
     "name": "slack_fallback"
   },
   "spec": {
-    "command": "sensu-slack-handler --channel \"#alert-all\"",
+    "command": "sensu-slack-handler --channel "#<alert-all>",
     "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX"
+      "SLACK_WEBHOOK_URL=<slack_webhook_url>"
     ],
     "filters": [
       "is_incident",
@@ -644,10 +642,8 @@ spec:
 
 Now when the `check_cpu` check generates an incident, Sensu will filter the event according to the `contact_ops` and `contact_dev` event filters and send alerts to #alert-ops and #alert-dev accordingly.
 
-<a href="/images/contact-routing2.png"><img src="/images/contact-routing2.png" alt="Diagram that shows an event generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops"></a>
+{{< figure src="/images/contact-routing2.png" alt="Diagram that shows an event generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops" link="/images/contact-routing2.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/3cbd2ad3-92ed-48cc-bbaa-a97f53dae1ba -->
-
-<p style="text-align:center"><i>Sensu Go contact routing: Route alerts to two contacts using a check label</i></p>
 
 ### Entities
 
@@ -657,10 +653,8 @@ For more information about managing entity labels, see the [entity reference][10
 If contact labels are present in both the check and entity, the check contacts override the entity contacts.
 In this example, the `dev` label in the check configuration overrides the `ops` label in the agent definition, resulting in an alert sent to #alert-dev but not to #alert-ops or #alert-all.
 
-<a href="/images/contact-routing3.png"><img src="/images/contact-routing3.png" alt="Diagram that shows that check labels override entity labels when both are present in an event"></a>
+{{< figure src="/images/contact-routing3.png" alt="Diagram that shows that check labels override entity labels when both are present in an event" link="/images/contact-routing3.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/da41741f-15c5-47f8-b2b4-9197593a67d8/0 -->
-
-<p style="text-align:center"><i>Sensu Go contact routing: Check contacts override entity contacts</i></p>
 
 ## Next steps
 

@@ -91,7 +91,8 @@ Read [Run a Sensu cluster][7] for more information.
 
 Clustering requires an odd number of backend instances.
 Although larger clusters provide better fault tolerance, write performance suffers because data must be replicated across more machines.
-The etcd maintainers recommend clusters of 3, 5, or 7 backends. See the [etcd documentation][4] for more information.
+The etcd maintainers recommend clusters of 3, 5, or 7 backends.
+See the [etcd documentation][4] for more information.
 
 ### Clustered deployment for multiple availability zones
 
@@ -117,7 +118,7 @@ Five etcd nodes allow you to tolerate the loss of two nodes, but with a greater 
 
 #### Scaled cluster performance with PostgreSQL
 
-To achieve the high rate of event processing that many enterprises require, Sensu supports PostgreSQL event storage as a [commmercial feature][9].
+To achieve the high rate of event processing that many enterprises require, Sensu supports PostgreSQL event storage as a [commercial feature][9].
 See the [Datastore reference][8] for details on configuring the Sensu backend to use PostgreSQL for event storage.
 
 {{< figure src="/images/clustered_architecture_postgres.png" alt="Clustered Sensu Go architecture with PostgreSQL" link="/images/clustered_architecture_postgres.png" target="_blank" >}}
@@ -159,6 +160,6 @@ Under normal conditions, sensuctl communications and browser access to the web U
 [8]: ../datastore/
 [9]: ../../../commercial/
 [10]: https://github.com/sensu/sensu-perf
-[11]: https://etcd.io/docs/v3.3.13/tuning/#disk
+[11]: https://etcd.io/docs/latest/tuning/#disk
 [12]: https://www.ibm.com/cloud/blog/using-fio-to-tell-whether-your-storage-is-fast-enough-for-etcd
 [13]: ../datastore/#scale-event-storage
