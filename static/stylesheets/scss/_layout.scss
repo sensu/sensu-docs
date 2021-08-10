@@ -8,6 +8,7 @@ main {
 
   #home & {
     display: block;
+    max-width: 1200px;
     padding-left: 2rem;
     padding-right: 2rem;
     text-align: center;
@@ -20,15 +21,54 @@ main {
   }
 }
 
+#home h2 + p {
+  font-size: 2rem;
+  margin: 0.75em auto;
+  max-width: 640px;
+}
+
 .katacodawide {
   background-color: white;
   grid-column: span 5;
   padding: 10px 0px;
 }
 
+.info-grid {
+  display: grid;
+  font-weight: bold;
+  grid-template-columns: repeat(4, 1fr);
+
+  > div {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  &--comfy {
+    grid-template-columns: repeat(2, 1fr);
+
+    > div {
+      padding: 2rem;
+    }
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(5, 1fr);
+
+    &--comfy {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    > div {
+      padding: 3rem;
+    }
+  }
+}
 
 .parallelograms {
   display: block;
+  flex: 1;
   margin: 1rem 2rem 2rem;
 
   @media (min-width: $breakpoint-md) {
@@ -37,23 +77,42 @@ main {
 }
 
 .colored {
-  margin: 2rem;
+  margin: 1.5rem;
   padding: 1.5rem 2.5rem;
-
-  .inline > & {
-    flex: auto;
-  }
 
   & > * {
     color: white;
   }
 
   &--blue {
-    background-color: #65b34e;
+    background-color: #2c3458;
   }
 
   &--green {
-    background-color: #2c3458;
+    background-color: #65b34e;
+  }
+
+  &--narrow {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 600px;
+  }
+
+  &--purple {
+    background-color: #7a4595;
+  }
+
+  &--rounded {
+    border-radius: 4px;
+  }
+
+  &--white {
+    background-color: white;
+    border: 2px solid #b2b2b2;
+
+    > p {
+      color: inherit;
+    }
   }
 
   a {
@@ -73,7 +132,7 @@ main {
 .parallelogram {
   align-items: center;
   border-radius: 4px;
-  border: 2px solid;
+  border: 2px solid #b2b2b2;
   flex: 0 0 100%;
   font-size: 1.6rem;
   justify-content: center;
@@ -147,13 +206,19 @@ main {
 }
 
 .inline {
-  align-items: center;
-  display: inline-flex;
+  align-items: stretch;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
 
-  & > * {
-    flex: 1;
+  & > div:not(.parallelograms),
+  & > p {
+    display: block;
+    flex: auto;
+
+    @media (min-width: $breakpoint-lg) {
+      flex: 1;
+    }
   }
 
   .inline-list-header {
