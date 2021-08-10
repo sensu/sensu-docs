@@ -217,7 +217,7 @@ In the final step, you will create an ad hoc event that you can trigger manually
 ## Create and trigger an ad hoc event
 
 To create an ad hoc event, first use `sensuctl env` to set up environment variables.
-The environment variables will provide the required credentials for the Sensu API:
+The environment variables will provide the required Sensu API access token credential for the Sensu API:
 
 {{< code shell >}}
 eval $(sensuctl env)
