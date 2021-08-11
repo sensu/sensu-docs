@@ -133,7 +133,7 @@ For example, to retrieve the list of secrets providers:
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 {{< /code >}}
  
 ## Secrets providers specification

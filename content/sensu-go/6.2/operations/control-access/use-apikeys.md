@@ -73,7 +73,7 @@ HTTP/1.1 200 OK
 **NOTE**: The API key resource is intentionally not compatible with [`sensuctl create`](../../../sensuctl/create-manage-resources/#create-resources).
 {{% /notice %}}
 
-To generate a new API key for the admin user:
+To use sensuctl to generate a new API key for the admin user, run:
 
 {{< code shell >}}
 sensuctl api-key grant admin
