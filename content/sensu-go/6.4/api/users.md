@@ -12,7 +12,9 @@ menu:
 
 {{% notice note %}}
 **NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../operations/control-access#use-built-in-basic-authentication).
-To configure user credentials with external provider like [Lightweight Directory Access Protocol (LDAP)](../../operations/control-access/ldap-auth/), [Active Directory (AD)](../../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../../operations/control-access/oidc-auth/), use Sensu's [authentication providers API](../authproviders/).
+To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../operations/control-access/ldap-auth/), [Active Directory (AD)](../../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../../operations/control-access/oidc-auth/), use Sensu's [authentication providers API](../authproviders/).<br><br>
+Requests to the users API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 ## Get all users
