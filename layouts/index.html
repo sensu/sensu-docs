@@ -14,11 +14,15 @@
   <!-- Main content -->
   <main>
     {{ partial "drawer" . }}
+    <img style="margin: 2rem; width: 300px;" alt="Sensu by Sumo Logic logo" title="Sensu by Sumo Logic" src="/images/sensu-by-sumologic-logo.png" />
     <nav class="nav-multicolored">
       <a href="./sensu-go/latest/">Sensu Go documentation</a>
       <a href="https://bonsai.sensu.io/" target="_blank">Bonsai Sensu asset hub</a>
       <a href="https://discourse.sensu.io/" target="_blank">Discourse community</a>
     </nav>
+    <br>
+    
+    <br><br>
     {{ $workflow := slice "1. Install Sensu" "2. Add integrations" "3. Use Sensu to create events, send alerts, and more" }}
     <div class="inline">
       <p class="inline-list-header">
@@ -56,25 +60,56 @@
       <h2>Sensu integrations</h2>
       <p>Integrate Sensu with the platforms and tools you?re already using to control costs, eliminate data silos, improve observability, and reduce multi-cloud tool sprawl.</p>
       <div class="info-grid">
-        <a>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Ansible_logo.svg" alt="Ansible" />
+        <a href="./sensu-go/latest/plugins/supported-integrations/ansible/">
+          <img src="/images/integrations/ansible_logo.png" alt="Ansible" />
         </a>
-        <a>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Chef_logo.svg" alt="Chef" />
+        <a href="./sensu-go/latest/plugins/supported-integrations/chef/">
+          <img src="/images/integrations/chef_logo.png" alt="Chef" />
         </a>
-        <a>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Elasticsearch_logo.svg" alt="Elastic" />
+        <a href="./sensu-go/latest/plugins/supported-integrations/ec2/">
+          <img src="/images/integrations/ec2_logo.png" alt="EC2" />
         </a>
-        <a>PagerDuty</a>
-        <a>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Prometheus_software_logo.svg" alt="Prometheus" />
+        <a href="./sensu-go/latest/plugins/supported-integrations/elasticsearch/">
+          <img src="/images/integrations/elasticsearch_logo.png" alt="Elasticsearch" />
         </a>
-        <a>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Ansible_logo.svg" alt="Ansible" />
+        <a href="./sensu-go/latest/plugins/supported-integrations/graphite/">
+          <img src="/images/integrations/graphite_logo.png" alt="Graphite" />
         </a>
-        <a>Place Holder</a>
-        <a>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Chef_logo.svg" alt="Chef" />
+        <a href="./sensu-go/latest/plugins/supported-integrations/influxdb/">
+          <img src="/images/integrations/influxdb_logo.png" alt="InfluxDB" />
+        </a>
+        <a href="./sensu-go/latest/plugins/supported-integrations/jira/">
+          <img src="/images/integrations/jira_logo.png" alt="Jira" />
+        </a>
+        <a href="./sensu-go/latest/plugins/supported-integrations/opentsdb/">
+          <img src="/images/integrations/opentsdb_logo.png" alt="OpenTSDB" />
+        </a>
+        <a href="./sensu-go/latest/plugins/supported-integrations/pagerduty/">
+          <img src="/images/integrations/pagerduty_logo.png" alt="PagerDuty" />
+        </a>
+        <a href="./sensu-go/latest/plugins/supported-integrations/prometheus/">
+          <img src="/images/integrations/prometheus_logo.png" alt="Prometheus" />
+        </a>
+        <a href="./sensu-go/latest/plugins/supported-integrations/puppet/">
+          <img src="/images/integrations/puppet_logo.png" alt="Puppet" />
+        </a>
+        <a href="./sensu-go/latest/plugins/supported-integrations/rundeck/">
+          <img src="/images/integrations/rundeck_logo.png" alt="Rundeck" />
+        </a>
+        <a href="./sensu-go/latest/plugins/supported-integrations/saltstack/">
+          <img src="/images/integrations/saltstack_logo.png" alt="Saltstack" />
+        </a>
+        <a href="./sensu-go/latest/plugins/supported-integrations/servicenow/">
+          <img src="/images/integrations/servicenow_logo.png" alt="ServiceNow" />
+        </a>
+        <a href="./sensu-go/latest/plugins/supported-integrations/slack/">
+          <img src="/images/integrations/slack_logo.png" alt="Slack" />
+        </a>
+        <a href="./sensu-go/latest/plugins/supported-integrations/timescaledb/">
+          <img src="/images/integrations/timescaledb_logo.png" alt="TimescaleDB" />
+        </a>
+        <a href="./sensu-go/latest/plugins/supported-integrations/wavefront/">
+          <img src="/images/integrations/wavefront_logo.png" alt="Wavefront" />
         </a>
       </div>
       <div class="colored colored--blue colored--narrow">
