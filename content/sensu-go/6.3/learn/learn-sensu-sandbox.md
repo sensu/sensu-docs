@@ -1,12 +1,9 @@
 ---
 title: "Learn Sensu Go"
-intercom: "sandbox"
 description: "Here’s everything you need to start learning Sensu Go, including how to set up the Sensu Go sandbox and your first three lesson plans. Learn how to create an observability event and event pipeline, as well as automate event production with the Sensu agent."
 version: "6.3"
 product: "Sensu Go"
 ---
-
-{{< intercomSandbox >}}
 
 In this tutorial, you'll download the Sensu sandbox and create a monitoring workflow with Sensu.
 
