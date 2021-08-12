@@ -16,11 +16,15 @@
     {{ partial "drawer" . }}
     <img style="margin: 2rem; width: 300px;" alt="Sensu by Sumo Logic logo" title="Sensu by Sumo Logic" src="/images/sensu-by-sumologic-logo.png" />
     <nav class="nav-multicolored">
-      <a href="./sensu-go/latest/">Sensu Go documentation</a>
+      <a href="./sensu-go/latest/">Sensu documentation</a>
       <a href="https://bonsai.sensu.io/" target="_blank">Bonsai Sensu asset hub</a>
       <a href="https://discourse.sensu.io/" target="_blank">Discourse community</a>
     </nav>
-    <br>
+
+    <div class="inline">
+      <h3>Welcome to Sensu's documentation!<br><br>
+      Use these guides, references, examples, and learning resources to install Sensu, integrate with other platforms and tools, and achieve monitoring and observability at scale.</h3>
+    </div>
     
     <br><br>
     {{ $workflow := slice "1. Install Sensu" "2. Add integrations" "3. Use Sensu to create events, send alerts, and more" }}
@@ -61,7 +65,7 @@
     </a>
     <div>
       <h2>Sensu integrations</h2>
-      <p>Integrate Sensu with the platforms and tools you?re already using to control costs, eliminate data silos, improve observability, and reduce multi-cloud tool sprawl.</p>
+      <p>Integrate Sensu with the platforms and tools you're already using to control costs, eliminate data silos, improve observability, and reduce multi-cloud tool sprawl.</p>
       <div class="info-grid">
         <a href="./sensu-go/latest/plugins/supported-integrations/ansible/">
           <img src="/images/integrations/ansible_logo.png" alt="Ansible" />
