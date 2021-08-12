@@ -1,6 +1,6 @@
 ---
 title: "APIKeys API"
-description: "The Sensu APIKeys API provides HTTP access to API key data. This reference includes examples for returning lists of API keys, creating API keys, and more."
+description: "The Sensu APIkeys API provides HTTP access to API key data. This reference includes examples for returning lists of API keys, creating API keys, and more."
 api_title: "APIKeys API"
 type: "api"
 version: "6.2"
@@ -11,8 +11,8 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to the APIKeys API require you to authenticate with a Sensu [access token](../#authenticate-with-the-authentication-api) or [API key](../#authenticate-with-an-api-key).
-The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+**NOTE**: Requests to the APIkeys API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 ## Get all API keys

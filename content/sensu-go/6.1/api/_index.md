@@ -190,11 +190,25 @@ API keys are cluster-wide resources, so only cluster admins can grant, view, and
 
 #### Configure an environment variable for API key authentication
 
-Code examples in the Sensu API docs use the environment variable `$SENSU_API_KEY` to represent a valid API key in API requests.
+Configure the `SENSU_API_KEY` environment variable with your own API key to use it for authentication in your Sensu API requests as shown in the Sensu API code examples.
 
-Use [sensuctl][18] or the [APIkeys API][19] to generate an API key.
-Then, follow this example to export your API key to the `SENSU_API_KEY` environment variable you can use for API authentication:
+Follow these steps to generate an API key and export it to the `SENSU_API_KEY` environment variable:
 
+1. Generate an API key with [sensuctl][18]:
+{{< code shell >}}
+sensuctl api-key grant admin
+{{< /code >}}
+
+   The response will include the new API key:
+{{< code shell >}}
+Created: /api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
+{{< /code >}}
+
+   {{% notice protip %}}
+**PRO TIP**: Sensuctl is the most direct way to generate an API key, but you can also use the [APIkeys API](apikeys/#create-a-new-api-key).
+{{% /notice %}}
+
+2. Export your API key to the `SENSU_API_KEY` environment variable:
 {{< language-toggle >}}
 
 {{< code bash >}}
@@ -755,7 +769,6 @@ curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/si
 [16]: #limit-query-parameter
 [17]: #authenticate-with-an-api-key
 [18]: ../operations/control-access/use-apikeys/#sensuctl-management-commands
-[19]: apikeys/
 [20]: #authenticate-with-the-authentication-api
 [21]: ../observability-pipeline/observe-schedule/backend/#api-request-limit
 [22]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match
