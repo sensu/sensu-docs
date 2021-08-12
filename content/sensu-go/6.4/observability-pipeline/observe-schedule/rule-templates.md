@@ -155,7 +155,7 @@ For example, you might set the minimum threshold at 10 web servers with an OK st
 
 The `aggregate` rule template is useful in dynamic environments and environments with some tolerance for failure.
 
-To review the `aggregate` resource definition, retrive it with a GET request to the BSM API:
+To review the `aggregate` resource definition, retrieve it with a GET request to the BSM API:
 
 {{< code shell >}}
 curl -X GET \
