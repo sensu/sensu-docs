@@ -27,6 +27,8 @@ However, only the `server01` and `database01` entities will execute `check_sshd_
 
 {{< figure src="/images/subscriptions_line.png" alt="Example of Sensu check execution based on subscriptions" link="/images/subscriptions_line.png" target="_blank" >}}
 
+<!--Source at https://lucid.app/lucidchart/invitations/accept/inv_e898337e-e3f2-4194-8a33-fc8a6a474234-->
+
 Sensu subscriptions are equivalent to topics in a traditional publish/subscribe system.
 Sensu entities become subscribers to these topics via the strings you specify with the agent `subscriptions` flag.
 Sensu checks have a `subscriptions` attribute, where you specify strings to indicate which subscribers will execute the checks.
@@ -156,6 +158,8 @@ For example, suppose you want to set up monitoring for these servers:
 This diagram shows the subscriptions to list for each of the 12 servers (the entities) and for each check to achieve the example monitoring configuration:
 
 {{< figure src="/images/subscriptions_multiple_servers.png" alt="Example of Sensu check execution for multiple server entities based on subscriptions" link="/images/subscriptions_multiple_servers.png" target="_blank" >}}
+
+<!--Source at https://lucid.app/lucidchart/invitations/accept/inv_b8325487-1e67-4fba-bc20-45eb088c0d7c-->
 
 In this scenario, none of the Windows servers should execute the NGINX metrics check, so the `check_nginx` subscriptions do not match any subscriptions listed for any of the Windows servers.
 Two of the six Windows servers *should* execute the SQL Server metrics check, so the subscription listed in the `check_sqlsrv` definition matches a subscription listed for those two Windows server entities.

@@ -173,7 +173,7 @@ You can also see your current entity count and limit in the response headers for
 For example:
 
 {{< code shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Key $SENSU_API_KEY"
 {{< /code >}}
 
 The response headers will include your current entity count and limit:

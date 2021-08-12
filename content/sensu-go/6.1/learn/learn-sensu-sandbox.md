@@ -7,13 +7,6 @@ product: "Sensu Go"
 
 In this tutorial, you'll download the Sensu sandbox and create a monitoring workflow with Sensu.
 
-- [Set up the sandbox](#set-up-the-sandbox)
-- [Lesson \#1: Create an observability event](#lesson-1-create-a-sensu-observability-event)
-- [Lesson \#2: Create an event pipeline](#lesson-2-pipe-keepalive-events-into-slack)
-- [Lesson \#3: Automate event production with the Sensu agent](#lesson-3-automate-event-production-with-the-sensu-agent)
-
----
-
 ## Set up the sandbox
 
 **1. Install Vagrant and VirtualBox**
