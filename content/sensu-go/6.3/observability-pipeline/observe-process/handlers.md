@@ -492,7 +492,7 @@ type         |
 description  | Handler type.
 required     | true
 type         | String
-allowed values | `pipe`, `tcp`, `udp` & `set`
+allowed values | `pipe`, `tcp`, `udp`, and `set`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 type: pipe
