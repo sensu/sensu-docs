@@ -253,7 +253,7 @@ main {
   & > div:not(.parallelograms),
   & > p {
     display: block;
-    flex: auto;
+    flex: 0 0 100%;
 
     @media (min-width: $breakpoint-lg) {
       flex: 1;
