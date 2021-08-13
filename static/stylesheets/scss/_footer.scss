@@ -144,7 +144,10 @@
   }
 
   footer {
-    @extend a;
+    color: $blue-dark;
+    font-size: 1.4rem;
+    line-height: 1.4;
+    text-decoration: none;
 
     border-top: 1px solid rgba(44, 52, 88, 0.25);
     flex: 0 0 100%;
@@ -216,6 +219,7 @@
   }
 
   ul {
+    justify-content: flex-start;
     margin: 0;
 
     &.inline li {

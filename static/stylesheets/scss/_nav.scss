@@ -9,11 +9,14 @@
     display: block;
     padding: 1rem 1.5rem;
     text-decoration: none;
-    transition: opacity 0.2s ease-in-out;
-  }
+    transition: all 0.25s ease-in-out;
 
-  > :hover {
-    opacity: 0.85;
+    #home &:hover,
+    &:hover {
+      opacity: 1;
+      transform: scale(1.05) translateZ(0);
+      z-index: 5;
+    }
   }
 
   :first-child {

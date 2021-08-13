@@ -22,10 +22,13 @@ main {
 }
 
 #home a {
-  transition: opacity 0.25s ease-in-out;
+  transform-origin: center;
+  transition: all 0.25s ease-in-out;
 
   &:hover {
     opacity: 0.85;
+    transform: scale(1.05) translateZ(0);
+    z-index: 5;
   }
 }
 
@@ -86,8 +89,10 @@ main {
 }
 
 .colored {
+  display: block;
   margin: 1.5rem;
   padding: 1.5rem 2.5rem;
+  text-decoration: none;
 
   & > * {
     color: white;
@@ -270,4 +275,8 @@ main {
 .grid-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+}
+
+svg a {
+  transform-box: fill-box;
 }
