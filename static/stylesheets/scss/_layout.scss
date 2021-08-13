@@ -57,35 +57,41 @@ main {
 }
 
 .info-grid {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   font-weight: bold;
-  grid-template-columns: repeat(4, 1fr);
+  justify-content: center;
 
   > a,
   > div {
     align-items: center;
     display: flex;
+    flex: 0 0 calc(25% - 3rem);
     justify-content: center;
+    margin: 1.5rem;
     padding: 1.5rem;
   }
 
   &--comfy {
-    grid-template-columns: repeat(2, 1fr);
-
+    > a,
     > div {
+      flex: 0 0 calc(50% - 3rem);
       padding: 2rem;
     }
   }
 
   @media (min-width: $breakpoint-lg) {
-    grid-template-columns: repeat(5, 1fr);
-
-    &--comfy {
-      grid-template-columns: repeat(4, 1fr);
+    > a,
+    > div {
+      flex: 0 0 calc(20% - 3rem);
     }
 
-    > div {
-      padding: 3rem;
+    &--comfy {
+      > a,
+      > div {
+        flex: 0 0 calc(25% - 3rem);
+        padding: 3rem;
+      }
     }
   }
 }
