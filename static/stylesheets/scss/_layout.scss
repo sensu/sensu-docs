@@ -243,6 +243,7 @@ main {
   flex-wrap: wrap;
   justify-content: center;
 
+  & > a,
   & > div:not(.parallelograms),
   & > p {
     display: block;
