@@ -38,6 +38,18 @@ main {
   max-width: 640px;
 }
 
+#home #logo {
+  display: block;
+  margin: 2rem 2rem 1rem;
+  max-width: 300px;
+  width: 100%;
+
+  @media (min-width: $breakpoint-md) {
+    display: inline;
+    margin: 2rem 6rem;
+  }
+}
+
 .katacodawide {
   background-color: white;
   grid-column: span 5;

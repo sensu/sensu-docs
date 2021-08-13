@@ -1,15 +1,23 @@
 .nav-multicolored {
   color: white;
-  font-size: 1.6rem;
   display: inline-flex;
+  font-size: 1.4rem;
   margin: 3rem auto;
+
+  @media (min-width: $breakpoint-md) {
+    font-size: 1.5rem;
+  }
 
   a {
     color: white;
     display: block;
-    padding: 1rem 1.5rem;
+    padding: 0.8rem 1rem;
     text-decoration: none;
     transition: all 0.25s ease-in-out;
+
+    @media (min-width: $breakpoint-md) {
+      padding: 1rem 1.5rem;
+    }
 
     #home &:hover,
     &:hover {
