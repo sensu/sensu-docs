@@ -436,6 +436,7 @@ version      |
 description  | HashiCorp Vault [key/value store version][14].
 required     | true
 type         | String
+allowed values | `v1` and `v2`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 version: v1

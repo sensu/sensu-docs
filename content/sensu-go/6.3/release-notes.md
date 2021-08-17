@@ -268,7 +268,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.1.4.
 
 - Fixed a bug that could cause a panic in the backend entity API.
 - The agent asset fetching mechanism now respects HTTP proxy environment variables when `trusted-ca-file` is configured.
-- When an asset artifact retrived by the agent does not match the expected checksum, the logged error now includes the size of the retrieved artifact and more clearly identifies the expected and actual checksums.
+- When an asset artifact retrieved by the agent does not match the expected checksum, the logged error now includes the size of the retrieved artifact and more clearly identifies the expected and actual checksums.
 
 ## 6.1.3 release notes
 

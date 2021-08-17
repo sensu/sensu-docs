@@ -35,15 +35,18 @@ To confirm the installed version, run `sensu-agent version`, `sensu-backend vers
 
 In Sensu Go 6.4.0, we upgraded the embedded etcd version from 3.3.22 to 3.5.0.
 As a result, for deployments that use embedded etcd, 6.4.0 is not backward-compatible with previous versions of the Sensu backend.
+In addition, Sensu 6.4.0 is not backward-compatible for PostgreSQL deployments.
 
 {{% notice note %}}
 **NOTE**: Sensu Go 6.4.0 is backward-compatible for deployments that use external etcd, as well as with previous versions of the Sensu agent.
 {{% /notice %}}
 
 For embedded etcd deployments, before you upgrade to Sensu Go 6.4.0, use the [etcd snapshot and restore process][9] to create a full etcd database backup.
-If you make a full etcd database backup before upgrading to 6.4.0, you will be able to restore your pre-6.4.0 deployment if you need to revert to an earlier Sensu release.
+If you use PostgreSQL, make sure to [back up your PostgreSQL database][13] also.
 
-After creating a full backup of your embedded etcd database, you can follow the [standard upgrade process][10] to upgrade to 6.4.0.
+If you make a full etcd database backup (and a PostgreSQL database backup, if you use PostgreSQL) before upgrading to 6.4.0, you will be able to restore your pre-6.4.0 deployment if you need to revert to an earlier Sensu release.
+
+After creating a full backup of your embedded etcd database and your PostgreSQL database, if you use PostgreSQL, you can follow the [standard upgrade process][10] to upgrade to 6.4.0.
 
 ### CommonName deprecation in Go 1.15
 
@@ -286,3 +289,4 @@ sudo service sensu-backend restart
 [10]: ../../maintain-sensu/upgrade/
 [11]: https://golang.google.cn/doc/go1.15#commonname
 [12]: ../../deploy-sensu/generate-certificates/
+[13]: https://www.postgresql.org/docs/current/backup.html

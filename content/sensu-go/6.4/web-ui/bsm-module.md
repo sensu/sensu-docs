@@ -33,9 +33,11 @@ To build a business service in the web UI module:
 
 1. Click the services icon in the left navigation menu to open the Services page: ![services icon](/images/web-ui-services-icon.png)
 2. Click **ADD NEW SERVICE** to open the Create New Service dialog window.
-3. Enter the metadata for the new service and click **Submit**.
+3. Enter a name for the service entity.
+4. Enter labels and annotations, if desired.
+5. Click **Submit**.
 
-The Services page will be updated to include a tile for the new service:
+The updated Services page will include a tile for the new service:
 
 {{< figure src="/images/create-service.gif" alt="Add a new business service with the web UI module" link="/images/create-service.gif" target="_blank" >}}
 
@@ -45,9 +47,17 @@ To add service components to a business service:
 
 1. Click the kebab icon for the business service: ![kebab icon](/images/web-ui-kebab-icon.png)
 2. Select **Add Component** from the drop-down menu to open the Configure New Service Component dialog window.
-3. Enter the metadata, query selectors, rule templates, check scheduling, and handlers for the service component and click **Submit**.
+3. Enter a name for the service component.
+4. Enter labels and annotations, if desired.
+5. Enter query selectors to describe the events that each monitoring rule should process for the service component.
+6. Select the rule template you wish to use and a unique name to use for the rule-specific events.
+7. Enter values for the arguments to pass to the rule template.
+Available arguments will vary for different rule templates.
+8. Specify the type of check scheduling the service component should use (interval or cron) as well as the desired interval in seconds or cron scheduling statement.
+9. Specify the handlers the service component should use.
+10. Click **Submit**.
 
-The list on the business service tile will be updated to include the service component:
+The updated business service tile will include the service component:
 
 {{< figure src="/images/create-service-component.gif" alt="Add a new service component to a business service with the web UI module" link="/images/create-service-component.gif" target="_blank" >}}
 
