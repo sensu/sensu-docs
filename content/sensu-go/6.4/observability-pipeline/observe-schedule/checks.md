@@ -1257,6 +1257,8 @@ entity_attributes:
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="splay"></a>
+
 |splay       |      |
 -------------|------
 description  | `true` if proxy check requests should be splayed, published evenly over a window of time, determined by the check interval and a configurable splay coverage percentage. Otherwise, `false`. For example, if a check has an interval of `60` seconds and a configured splay coverage of `90`%, its proxy check requests would be splayed evenly over a time window of `60` seconds * `90`%, `54` seconds, leaving `6`seconds for the last proxy check execution before the the next round of proxy check requests for the same check.
@@ -1273,6 +1275,8 @@ splay: true
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+<a id="splay-coverage"></a>
 
 |splay_coverage  | |
 -------------|------
