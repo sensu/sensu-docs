@@ -775,7 +775,7 @@ At the Sensu backend's default "warn" log level, you may see messages like these
 {{< /code >}}
 
 The above message indicates that a database query ("read-only range request") exceeded a 100-millisecond threshold hard-coded into etcd.
-Messages like these are helpful because they can alert you to a trend, but these occasional warnings don't necessarily indicate a problem.
+Messages like these are helpful because they can alert you to a trend, but these occasional warnings don't necessarily indicate a problem with Sensu.
 For example, you may see this message if you provision attached storage but do not mount it to the etcd data directory.
 
 However, a trend of increasingly long-running database transactions will eventually lead to decreased reliability.
@@ -808,7 +808,7 @@ In many cases, the backend service detects and attempts to recover from errors l
 {{< /code >}}
 
 This may result in a crash loop that is difficult to recover from.
-You may observe that the Sensu backend process continues running but is not listening for connections on the agent websocket, API, or web UI ports.
+You may observe that the Sensu backend process continues running but is not listening for connections on the agent WebSocket, API, or web UI ports.
 The backend will stop listening on those ports when the etcd database is unavailable.
 
 

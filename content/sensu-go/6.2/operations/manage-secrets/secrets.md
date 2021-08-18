@@ -28,7 +28,7 @@ Only Sensu backends have access to request secrets from a [secrets provider][7].
 Sensu backends cache fetched secrets in memory, with no persistence to a Sensu datastore or file on disk.
 Secrets provided via a "lease" with a "lease duration" are deleted from Sensu's in-memory cache after the configured number of seconds, prompting the Sensu backend to request the secret again.
 
-Secrets are only transmitted over a transport layer security (TLS) websocket connection.
+Secrets are only transmitted over a transport layer security (TLS) WebSocket connection.
 Unencrypted connections must not transmit privileged information.
 For checks, hooks, and dynamic runtime assets, you must [enable mutual TLS (mTLS)][13].
 Sensu will not transmit secrets to agents that do not use mTLS.

@@ -95,12 +95,12 @@ output           | {{< code shell >}}
 
 ## Get health data for your agent transport
 
-The `/health` API endpoint provides HTTP GET access to health data for your Sensu agent transport via the backend websocket.
+The `/health` API endpoint provides HTTP GET access to health data for your Sensu agent transport via the backend WebSocket.
 Sensu backend `/health` API information is duplicated by this agent transport API endpoint as an affordance to satisfy the load balancing and security requirements of some deployments.
 
 #### Example
 
-The following example demonstrates a request to the backend websocket `/health` API endpoint using the default websocket port 8081, resulting in a JSON map that contains Sensu agent transport status.
+The following example demonstrates a request to the backend WebSocket `/health` API endpoint using the default WebSocket port 8081, resulting in a JSON map that contains Sensu agent transport status.
 
 {{< code shell >}}
 curl -X GET \
