@@ -10,13 +10,11 @@ menu:
     parent: maintain-sensu
 ---
 
-If you consistently experience performance issues with your Sensu installation, these tuning options can help restore proper operation.
-
+If you consistently experience performance issues with your Sensu installation, these tuning options may help restore proper operation.
 
 {{% notice note %}}
-**NOTE** Read [Troubleshoot Sensu](../troubleshoot/) before you tune your Sensu installation.
-The troubleshooting page describes common problems and may resolve your issue without tuning adjustments.<br><br>
-The [Hardware requirements](../../deploy-sensu/hardware-requirements/) and [Deployment architecture for Sensu](../../deploy-sensu/deployment-architecture/) pages also include helpful information about planning and optimizing your Sensu installation; configuration, networking, and cloud recommendations; and architecture-specific considerations.
+**NOTE** Before you tune your Sensu installation, read [Troubleshoot Sensu](../troubleshoot/), [Hardware requirements](../../deploy-sensu/hardware-requirements/), and [Deployment architecture for Sensu](../../deploy-sensu/deployment-architecture/).
+These pages describe common problems and solutions, planning and optimization considerations, and other recommendations that may resolve your issue without tuning adjustments.
 {{% /notice %}}
 
 ## Latency tolerances for etcd
