@@ -100,7 +100,7 @@ Mar 10 17:44:45 sensu-centos sensu-backend[1365]: {"component":"store-providers"
 {{< /code >}}
 
 After you [install and configure PostgreSQL][14], configure Sensu by creating a `PostgresConfig` resource like the following example.
-See [Datastore specification][18] for more information.
+See the [datastore specification][18] for more information.
 
 {{< language-toggle >}}
 

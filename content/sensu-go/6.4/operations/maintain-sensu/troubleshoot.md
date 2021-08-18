@@ -808,7 +808,7 @@ In many cases, the backend service detects and attempts to recover from errors l
 {{< /code >}}
 
 This may result in a crash loop that is difficult to recover from.
-You may observe that the Sensu backend process continues running but is not listening for connections on the agent websocket, API, or web UI ports.
+You may observe that the Sensu backend process continues running but is not listening for connections on the agent WebSocket, API, or web UI ports.
 The backend will stop listening on those ports when the etcd database is unavailable.
 
 

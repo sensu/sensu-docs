@@ -226,7 +226,7 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - For sysvinit services, Sensu now passes users' secondary groups (that is, groups other than the Sensu user group) to `chroot`, which gives the Sensu agent and backend access to the file access writes that are granted to the secondary groups.
 - Output of `sensuctl asset add` now includes help for using the runtime asset.
 - For role bindings and cluster role bindings, [`subjects.name`][166] values can now include unicode characters, and [`roleRef.type`][167] and [`subjects.type`][166] values are now automatically capitalized.
-- Improved logging for the agent websocket connection.
+- Improved logging for the agent WebSocket connection.
 - Improved the wording of the secret provider error message.
 - Fewer keys in etcd are now stored for agents.
 - Keepalive and round robin scheduling leases are now dealt with more efficiently.
@@ -303,13 +303,13 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.21.2.
 
 **August 5, 2020** &mdash; The latest release of Sensu Go, version 5.21.1, is now available for download.
 
-This patch release includes fixes for a web UI crash when interacting with namespaces that contain 1000 or more events and regressions in logging various agent errors as well as an enhancement that provides additional context to websocket connection errors logged by the backend.
+This patch release includes fixes for a web UI crash when interacting with namespaces that contain 1000 or more events and regressions in logging various agent errors as well as an enhancement that provides additional context to WebSocket connection errors logged by the backend.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.21.1.
 
 **IMPROVEMENTS:**
 
-- Backend log messages related to connection errors on the agent websocket API now provide more context about the error.
+- Backend log messages related to connection errors on the agent WebSocket API now provide more context about the error.
 
 **FIXES:**
 
