@@ -116,6 +116,10 @@ p {
   font-size: 1.6rem;
   line-height: 1.375;
   margin: 1.5em 0 1.5625em;
+
+  &.emphasis {
+    font-size: 2rem;
+  }
 }
 
 strong {
