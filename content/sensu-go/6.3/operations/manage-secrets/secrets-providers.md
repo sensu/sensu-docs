@@ -25,7 +25,7 @@ With Sensu's secrets management, you can obtain secrets from one or more externa
 {{% /notice %}}
 
 Only Sensu backends have access to request [secrets][9] from a secrets provider.
-Secrets are only transmitted over a transport layer security (TLS) websocket connection.
+Secrets are only transmitted over a transport layer security (TLS) WebSocket connection.
 Unencrypted connections must not transmit privileged information.
 For checks, hooks, and dynamic runtime assets, you must [enable mutual TLS (mTLS)][13].
 Sensu will not transmit secrets to agents that do not use mTLS.

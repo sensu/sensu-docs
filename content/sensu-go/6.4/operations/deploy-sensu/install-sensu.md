@@ -63,7 +63,7 @@ Port | Protocol | Description |
 3000 | HTTP/HTTPS | [Sensu web UI][3]: Required for all Sensu backends using a Sensu web UI |
 6060 | HTTP/HTTPS | Required for all Sensu backends when performance profiling is enabled via [debug][43] setting |
 8080 | HTTP/HTTPS | [Sensu API][26]: Required for all users accessing the Sensu API |
-8081 | WS/WSS | Agent API (backend websocket): Required for all Sensu agents connecting to a Sensu backend |
+8081 | WS/WSS | Agent API (backend WebSocket): Required for all Sensu agents connecting to a Sensu backend |
 
 The Sensu agent uses the following ports:
 
