@@ -1,7 +1,8 @@
 .nav-multicolored {
   color: white;
-  display: inline-flex;
-  font-size: 1.4rem;
+  display: inline-grid;
+  font-size: 1.3rem;
+  grid-template-columns: repeat(3, 1fr);
   margin: 3rem auto;
 
   @media (min-width: $breakpoint-md) {
@@ -9,8 +10,10 @@
   }
 
   a {
+    align-items: center;
     color: white;
-    display: block;
+    display: flex;
+    justify-content: center;
     padding: 0.8rem 1rem;
     text-decoration: none;
     transition: all 0.25s ease-in-out;

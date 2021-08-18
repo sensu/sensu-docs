@@ -33,9 +33,13 @@ main {
 }
 
 #home h2 + p {
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin: 0.75em auto;
   max-width: 640px;
+
+  @media (min-width: $breakpoint-lg) {
+    font-size: 2rem;
+  }
 }
 
 #home #logo {
@@ -66,17 +70,21 @@ main {
   > div {
     align-items: center;
     display: flex;
-    flex: 0 0 calc(25% - 3rem);
+    flex: 0 0 calc(25% - 2rem);
     justify-content: center;
-    margin: 1.5rem;
-    padding: 1.5rem;
+    margin: 1rem;
+    padding: 1rem;
+
+    p {
+      font-size: 1.2rem;
+    }
   }
 
   &--comfy {
     > a,
     > div {
-      flex: 0 0 calc(50% - 3rem);
-      padding: 2rem;
+      flex: 0 0 calc(50% - 2rem);
+      padding: 1.5rem;
     }
   }
 
@@ -84,6 +92,12 @@ main {
     > a,
     > div {
       flex: 0 0 calc(20% - 3rem);
+      margin: 1.5rem;
+      padding: 1.5rem;
+
+      p {
+        font-size: initial;
+      }
     }
 
     &--comfy {
