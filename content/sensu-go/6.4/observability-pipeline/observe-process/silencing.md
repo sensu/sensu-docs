@@ -15,15 +15,9 @@ menu:
 
 Sensu's silencing capability allows you to suppress event handler execution on an ad hoc basis so you can plan maintenance and reduce alert fatigue.
 Silences are created on an ad hoc basis using `sensuctl`.
+
 Successfully created silencing entries are assigned a `name` in the format `$SUBSCRIPTION:$CHECK`, where `$SUBSCRIPTION` is the name of a Sensu entity subscription and `$CHECK` is the name of a Sensu check.
-
 You can use silences to silence checks on specific entities by taking advantage of per-entity subscriptions (for example, `entity:$ENTITY_NAME`).
-When the check name or subscription described in a silencing entry matches an event and the handler uses the `not_silenced` built-in filter, the handler will not be executed.
-
-These silences are persisted in the Sensu datastore.
-When the Sensu server processes subsequent check results, it retrieves matching silences from the store.
-If there are one or more matching entries, the event is updated with a list of silenced entry names.
-The presence of silences indicates that the event is silenced.
 
 When creating a silencing entry, you can specify a combination of checks and subscriptions, but only one or the other is strictly required.
 For example, if you create a silencing entry [specifying only a check][12], its name will contain an asterisk (or wildcard) in the `$SUBSCRIPTION` position.
@@ -31,6 +25,15 @@ This indicates that any event with a matching check name will be marked as silen
 
 Conversely, a silencing entry that [specifies only a subscription][11] will have a name with an asterisk in the `$CHECK` position.
 This indicates that any event where the originating entities’ subscriptions match the subscription specified in the entry will be marked as silenced, regardless of the check name.
+
+These silences are persisted in the Sensu datastore.
+When the Sensu server processes subsequent check results, it retrieves matching silences from the store.
+If there are one or more matching entries, the event is updated with a list of silenced entry names.
+When the check name or subscription described in a silencing entry matches an event, the event will include the [`silenced` attribute][13], which lists the silencing entries that match the event.
+
+Silenced checks still create events, and events from silenced checks are still passed to handlers.
+To prevent handler execution for events from silenced checks, make sure the handler definition includes the [built-in `not_silenced` event filter][14].
+The `not_silenced` event filter prevents handlers from processing events that include the `silenced` attribute.
 
 ## Silencing examples
 
@@ -600,3 +603,5 @@ name: '*:mysql_status'
 [10]: ../../../web-ui/search/
 [11]: #silence-all-checks-on-entities-with-a-specific-subscription
 [12]: #silence-a-specific-check-on-every-entity
+[13]: ../../observe-events/events/#silenced-attribute
+[14]: ../../observe-filter/filters/#built-in-filter-not_silenced
