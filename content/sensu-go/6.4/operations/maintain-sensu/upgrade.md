@@ -33,12 +33,7 @@ sudo service sensu-agent restart
 sudo service sensu-backend restart
 {{< /code >}}
 
-6. Upgrade the Sensu backend:
-{{< code shell >}}
-sensu-backend upgrade
-{{< /code >}}
-
-7. Run a single upgrade command on one your Sensu backends to migrate the cluster:
+6. Run a single upgrade command on one your Sensu backends to migrate the cluster:
 {{< code shell >}}
 sensu-backend upgrade
 {{< /code >}}
@@ -52,17 +47,17 @@ sensu-backend upgrade --skip-confirm
    **NOTE**: If you are deploying a new Sensu cluster rather than upgrading from a previous version, you do not need to run the `sensu-backend upgrade` command.
 {{% /notice %}}
 
-8. Enter `y` or `n` to confirm if you did *not* add the `--skip-confirm` flag in step 7.
+7. Enter `y` or `n` to confirm if you did *not* add the `--skip-confirm` flag in step 6.
 Otherwise, skip this step.
 
-9. Wait a few seconds for the upgrade command to run.
+8. Wait a few seconds for the upgrade command to run.
 
    You may notice some inconsistencies in your entity list until the cluster finishes upgrading.
 Despite this, your cluster will continue to publish standard check requests and process events.
 
    If you run the upgrade command more than once, it will not harm the cluster &mdash; you'll just see a response that the upgrade command has already been run.
 
-10. Confirm the installed version for the agent, backend, and sensuctl:
+9. Confirm the installed version for the agent, backend, and sensuctl:
 {{< code shell >}}
 sensu-agent version
 {{< /code >}}
