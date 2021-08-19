@@ -13,27 +13,24 @@ menu:
 
 To upgrade to the latest version of Sensu Go:
 
-1. Starting with your current version, read the version-specific information on this page and complete the instructions for each individual version up to the version you want to install.
-   - For example, to upgrade from 5.5.0 to 6.4.0, start with [Upgrade Sensu clusters from 5.7.0 or earlier to 5.8.0 or later][14].
+1. [Install][1] the latest packages or Docker image.
 
-2. [Install][1] the latest packages or Docker image.
-
-3. For systems that use `systemd`, run:
+2. For systems that use `systemd`, run:
 {{< code shell >}}
 sudo systemctl daemon-reload
 {{< /code >}}
 
-4. Restart the Sensu agent:
+3. Restart the Sensu agent:
 {{< code shell >}}
 sudo service sensu-agent restart
 {{< /code >}}
 
-5. Restart the Sensu backend:
+4. Restart the Sensu backend:
 {{< code shell >}}
 sudo service sensu-backend restart
 {{< /code >}}
 
-6. Run a single upgrade command on one your Sensu backends to migrate the cluster:
+5. Run a single upgrade command on one your Sensu backends to migrate the cluster:
 {{< code shell >}}
 sensu-backend upgrade
 {{< /code >}}
@@ -47,17 +44,17 @@ sensu-backend upgrade --skip-confirm
    **NOTE**: If you are deploying a new Sensu cluster rather than upgrading from a previous version, you do not need to run the `sensu-backend upgrade` command.
 {{% /notice %}}
 
-7. Enter `y` or `n` to confirm if you did *not* add the `--skip-confirm` flag in step 6.
+6. Enter `y` or `n` to confirm if you did *not* add the `--skip-confirm` flag in step 5.
 Otherwise, skip this step.
 
-8. Wait a few seconds for the upgrade command to run.
+7. Wait a few seconds for the upgrade command to run.
 
    You may notice some inconsistencies in your entity list until the cluster finishes upgrading.
 Despite this, your cluster will continue to publish standard check requests and process events.
 
    If you run the upgrade command more than once, it will not harm the cluster &mdash; you'll just see a response that the upgrade command has already been run.
 
-9. Confirm the installed version for the agent, backend, and sensuctl:
+8. Confirm the installed version for the agent, backend, and sensuctl:
 {{< code shell >}}
 sensu-agent version
 {{< /code >}}
@@ -67,6 +64,11 @@ sensu-backend version
 {{< code shell >}}
 sensuctl version
 {{< /code >}}
+
+{{% notice protip %}}
+**PRO TIP**: If your upgrade is unsuccessful, read the version-specific information on this page and complete the instructions for each version, starting with your current version and continuing up to the version you want to install.<br><br>
+For example, to debug an upgrade from 5.5.0 to 6.4.0, start with [Upgrade Sensu clusters from 5.7.0 or earlier to 5.8.0 or later](#upgrade-sensu-clusters-from-570-or-earlier-to-580-or-later).
+{{% /notice %}}
 
 ## Upgrade to Sensu Go 6.4.0 from any previous version
 
