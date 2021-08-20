@@ -18,10 +18,9 @@ The Learn Sensu category includes tools to help you understand and start using S
 To register for an interactive instructor-led session, visit the [Sensu Go Workshop registration page](https://sensu.io/sensu-go-workshop).
 {{% /notice %}}
 
-## Glossary
+## Concepts and terminology
 
-If you're new to Sensu, start with a basic review of terminology in the [glossary][1] of definitions for common Sensu terms and concepts.
-The glossary includes links to relevant reference documentation for more in-depth information.
+If you're new to Sensu, start with a basic review of Sensu [concepts and terminology][1], which includes definitions and links to relevant reference documentation for more in-depth information.
 
 To visualize how Sensu concepts work together in the observability pipeline, [take the tour][6] &mdash; follow the `Next` buttons on each page.
 
@@ -38,7 +37,7 @@ Follow the sandbox lessons to [build your first monitoring and observability wor
 We also have a GitHub lesson that guides you through [deploying a Sensu cluster and example application into Kubernetes][7], plus a configuration that allows you to reuse Nagios-style monitoring checks to monitor the example application with a Sensu sidecar.
 
 
-[1]: glossary/
+[1]: concepts-terminology/
 [3]: demo/
 [4]: sandbox/
 [5]: learn-sensu-sandbox/
