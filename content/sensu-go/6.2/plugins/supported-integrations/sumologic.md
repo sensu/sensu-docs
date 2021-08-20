@@ -2,10 +2,10 @@
 title: "Sumo Logic integration"
 linkTitle: "Sumo Logic"
 description: "Use the Sensu Sumo Logic Handler plugin to integrate Sensu with your Sumo Logic HTTP Logs and Metrics Source. Read about the features of Sensu's Sumo Logic integration and learn how to get the plugin."
-version: "6.4"
+version: "6.2"
 product: "Sensu Go"
 menu: 
-  sensu-go-6.4:
+  sensu-go-6.2:
     parent: supported-integrations
 ---
 
