@@ -48,6 +48,7 @@ Although this category focuses on our most popular supported integrations, you c
 - [InfluxDB][14]
 - [OpenTSDB][16]
 - [Prometheus][17]
+- [Sumo Logic][20]
 - [TimescaleDB][18]
 - [Wavefront][19]
 
@@ -71,3 +72,4 @@ Although this category focuses on our most popular supported integrations, you c
 [17]: prometheus/
 [18]: timescaledb/
 [19]: wavefront/
+[20]: sumologic/
