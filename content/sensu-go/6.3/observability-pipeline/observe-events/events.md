@@ -1810,6 +1810,8 @@ is_silenced: true
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="silenced-attribute"></a>
+
 silenced     | |
 -------------|------
 description  | Array of silencing entries that match the event. The `silenced` attribute is only present for events if one or more silencing entries matched the event at time of processing. If the `silenced` attribute is not present in an event, the event was not silenced at the time of processing.
