@@ -48,11 +48,13 @@ sensu-backend upgrade --skip-confirm
 Otherwise, skip this step.
 
 7. Wait a few seconds for the upgrade command to run.
-
-   You may notice some inconsistencies in your entity list until the cluster finishes upgrading.
+You may notice some inconsistencies in your entity list until the cluster finishes upgrading.
 Despite this, your cluster will continue to publish standard check requests and process events.
 
    If you run the upgrade command more than once, it will not harm the cluster &mdash; you'll just see a response that the upgrade command has already been run.
+
+   Some minor versions do not involve database-specific changes, and the `sensu-backend upgrade` tool will report that nothing was upgraded.
+Check the [release notes][16] to confirm whether a version has database-specific changes that require a backend upgrade.
 
 8. Confirm the installed version for the agent, backend, and sensuctl:
 {{< code shell >}}
@@ -241,3 +243,4 @@ sudo service sensu-backend restart
 [13]: https://www.postgresql.org/docs/current/backup.html
 [14]: #upgrade-sensu-clusters-from-570-or-earlier-to-580-or-later
 [15]: ../../../sensuctl/back-up-recover/
+[16]: ../../../release-notes/
