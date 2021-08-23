@@ -17,7 +17,11 @@ The dynamic nature of Kubernetes container orchestration requires a dynamic appr
 Sensu allows you to monitor the applications you deploy with Kubernetes and the health of the Kubernetes containers themselves, no matter the size of your deployment.
 
 {{% notice note %}}
-**NOTE:** If you need a Kubernetes introduction or refresher, read our blog posts [How Kubernetes works](https://sensu.io/blog/how-kubernetes-works) and [Kubernetes 101](https://sensu.io/blog/kubernetes-101) or head to the [Kubernetes docs](https://kubernetes.io/docs/home/).
+**NOTE**: If you need a Kubernetes introduction or refresher, read our blog posts [How Kubernetes works](https://sensu.io/blog/how-kubernetes-works) and [Kubernetes 101](https://sensu.io/blog/kubernetes-101) or head to the [Kubernetes docs](https://kubernetes.io/docs/home/).
+{{% /notice %}}
+
+{{% notice protip %}}
+**PRO TIP**: Join our [Kubernetes special interest group](https://discourse.sensu.io/c/sensu-go/sig-kubernetes/33) on Discourse &mdash; it's a sub-community of Sensu users who are monitoring Kubernetes or workloads running on Kubernetes.
 {{% /notice %}}
 
 ## Data sources for monitoring Kubernetes
