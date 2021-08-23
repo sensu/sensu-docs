@@ -54,7 +54,7 @@ This is a fundamental change in Sensu terminology from Sensu Core: the server is
 Clients are represented within Sensu Go as abstract entities that can describe a wider range of system components such as network gear, a web server, or a cloud resource.
 Entities include agent entities that run a Sensu agent and the familiar proxy entities.
 
-The [glossary][1] includes more information about new terminology in Sensu Go.
+Read [Sensu concepts and terminology][1] to learn more about new terms in Sensu Go.
 
 ## Architecture
 
@@ -506,7 +506,7 @@ When you're ready to sunset your Sensu Core instance, see the [platform][74] doc
 You may also want to re-install the `sensu-install` tool using the [`sensu-plugins-ruby` package][20].
 
 
-[1]: ../../../learn/glossary/
+[1]: ../../../learn/concepts-terminology/
 [2]: https://etcd.io/docs/latest/
 [3]: ../../../observability-pipeline/observe-schedule/backend/
 [4]: ../../../observability-pipeline/observe-schedule/agent/

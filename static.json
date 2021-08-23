@@ -295,6 +295,14 @@
             "url": "/sensu-go/latest/api",
             "status": 301
         },
+        "~ ^/sensu-go/latest/learn/glossary/?$": {
+            "url": "/sensu-go/latest/learn/concepts-terminology",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/glossary/?$": {
+            "url": "/sensu-go/latest/learn/concepts-terminology",
+            "status": 301
+        },
         "~ ^/sensu-go/latest/learn/prometheus-metrics/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-schedule/prometheus-metrics",
             "status": 301
