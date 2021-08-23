@@ -1,12 +1,12 @@
 ---
-title: "Glossary of Sensu terms"
-linkTitle: "Glossary"
-description: "Get familiar with Sensu terminology. Read our glossary to learn the definitions of common Sensu terms, including agent, asset, backend, check, event, and many more. Bonus: each term links to a corresponding guide!"
+title: "Sensu concepts and terminology"
+linkTitle: "Concepts and Terminology"
+description: "Get familiar with Sensu concepts terminology. Learn the definitions of common Sensu terms, including agent, asset, backend, check, event, and many more. Bonus: each term links to a corresponding guide!"
 weight: 10
-version: "6.1"
+version: "6.2"
 product: "Sensu Go"
 menu:
-  sensu-go-6.1:
+  sensu-go-6.2:
     parent: learn-sensu
 ---
 
@@ -98,10 +98,17 @@ Entries that allow you to suppress execution of event handlers on an ad-hoc basi
 Use silencing to schedule maintenance without being overloaded with alerts.
 [Read more about silencing][17].
 
+## Subscriptions
+Attributes used to indicate which entities will execute which checks.
+For Sensu to execute a check, the check definition must include a subscription that matches the subscription of at least one Sensu entity.
+Subscriptions allow you to configure check requests in a one-to-many model for entire groups or subgroups of entities rather than a traditional one-to-one mapping of configured hosts or observability checks.
+[Read more about subscriptions][22].
+
 ## Token
 A placeholder in a check definition that the agent replaces with local information before executing the check.
 Tokens let you fine-tune check attributes (like thresholds) on a per-entity level while reusing the check definition.
 [Read more about tokens][16].
+
 
 [1]: ../../observability-pipeline/observe-schedule/agent/
 [2]: ../../observability-pipeline/observe-schedule/backend/
@@ -121,3 +128,4 @@ Tokens let you fine-tune check attributes (like thresholds) on a per-entity leve
 [16]: ../../observability-pipeline/observe-schedule/tokens/
 [17]: ../../observability-pipeline/observe-process/silencing/
 [18]: ../../operations/control-access/rbac#resources
+[22]: ../../observability-pipeline/observe-schedule/subscriptions/
