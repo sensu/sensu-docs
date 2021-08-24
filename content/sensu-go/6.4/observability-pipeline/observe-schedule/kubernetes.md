@@ -47,6 +47,23 @@ cAdvisor can keep track of resource isolation parameters and historical resource
 `kube-state-metrics` listens to the Kubernetes API server and provides high-level information about your Kubernetes cluster.
 `kube-state-metrics` data includes which containers are running, their current state, the number of contains in a particular state, and whether any are unhealthy or at capacity.
 
+## Recommended approach for monitoring Kubernetes
+
+We recommend deploying Sensu agents as Kubernetes sidecars, a dynamic approach with one agent per [Kubernetes pod][2], to monitor applications.
+To monitor Kubernetes itself, add a Sensu agent on all Kubernetes hosts.
+
+Kubernetes sidecars are modular, composable, and reusable.
+Sidecar examples include service mesh, logging platforms with agents that run as sidecars, and observability solutions like Sensu, with an agent that runs as a sidecar and provides a 1:1 pairing of a monitoring agent per collection of services.
+
+When you use the sidecar pattern, your Kubernetes pod holds the container that runs your application alongside the container that runs the Sensu agent.
+These containers share the same network space, so Sensu can collect data from your applications as if they were running in the same container or host.
+
+Read [Monitoring Kubernetes, part 4: the Sensu native approach][3] to learn more about monitoring Kubernetes with the sidecar pattern.
+Our whitepaper [Monitoring Kubernetes: the sidecar pattern][4] includes a tutorial for getting started with sidecars.
+
+Run Sensu from outside of Kubernetes.
+If you monitor from within Kubernetes and Kubernetes fails, your monitoring will fail too.
+
 ## Use Sensu with Prometheus to monitor Kubernetes
 
 Prometheus can collect and analyze data on your Kubernetes deployment, but the data model is constrained: data must be represented as a measurement and can lack context as a result, and exporters provide only summarized data and scrape only periodically.
@@ -70,22 +87,12 @@ Here's how it works:
 
 Learn more about using Sensu with Prometheus to monitor Kubernetes in [Monitoring Kubernetes + Docker, part 3: Sensu + Prometheus][5].
 
-## Recommended approach for monitoring Kubernetes
+## Use secrets management with Kubernetes
 
-We recommend deploying Sensu agents as Kubernetes sidecars, a dynamic approach with one agent per [Kubernetes pod][2], to monitor applications.
-To monitor Kubernetes itself, add a Sensu agent on all Kubernetes hosts.
+**TO DO**: I pulled this info from https://discourse.sensu.io/t/secrets-management-on-kubernetes-with-env-provider/1841/ and it seems important, but it's too brief and I'm not sure what else to add.
 
-Kubernetes sidecars are modular, composable, and reusable.
-Sidecar examples include service mesh, logging platforms with agents that run as sidecars, and observability solutions like Sensu, with an agent that runs as a sidecar and provides a 1:1 pairing of a monitoring agent per collection of services.
-
-When you use the sidecar pattern, your Kubernetes pod holds the container that runs your application alongside the container that runs the Sensu agent.
-These containers share the same network space, so Sensu can collect data from your applications as if they were running in the same container or host.
-
-Read [Monitoring Kubernetes, part 4: the Sensu native approach][3] to learn more about monitoring Kubernetes with the sidecar pattern.
-Our whitepaper [Monitoring Kubernetes: the sidecar pattern][4] includes a tutorial for getting started with sidecars.
-
-Run Sensu from outside of Kubernetes.
-If you monitor from within Kubernetes and Kubernetes fails, your monitoring will fail too.
+Using `/etc/default/sensu-backend approach` for secrets management relies on process management like systemd or sysvinit, which is not normally present in a containerized environment.
+For this reason, we recommend using the Sensu Go `env` secrets provider directly with Kubernetes' own built-in secrets management.
 
 ## Sensu integrations for Kubernetes
 
