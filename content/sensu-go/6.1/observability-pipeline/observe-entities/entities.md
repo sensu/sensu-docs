@@ -17,7 +17,7 @@ An entity represents anything that needs to be monitored, such as a server, cont
 Sensu uses [agent entities][31] and [proxy entities][32].
 
 Sensu's free entity limit is 100 entities.
-All [commercial features][9] are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
+All [commercial features][9] are available for free in the packaged Sensu Go distribution for up to 100 entities.
 If your Sensu instance includes more than 100 entities, [contact us][10] to learn how to upgrade your installation and increase your limit.
 See [the announcement on our blog][11] for more information about our usage policy.
 
@@ -290,8 +290,7 @@ spec:
 
 ### Proxy entities and round robin scheduling
 
-Proxy entities make [round robin scheduling][18] more useful.
-Proxy entities allow you to combine all round robin events into a single event.
+Proxy entities make [round robin scheduling][18] more useful because they allow you to combine all round robin events into a single event.
 Instead of having a separate event for each agent entity, you have a single event for the entire round robin.
 
 If you don't use a proxy entity for round robin scheduling, you could have several failures in a row, but each event will only be aware of one of the failures.
@@ -791,7 +790,7 @@ entity_class: agent
 
 subscriptions| 
 -------------|------ 
-description  | List of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{name}` where `name` is the entity's hostname.
+description  | List of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:<name>` where `name` is the entity's hostname.
 required     | false 
 type         | Array 
 default      | The entity-specific subscription.
