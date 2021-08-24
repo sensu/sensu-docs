@@ -604,31 +604,31 @@ Sensu supports the following formats for check output metric extraction.
 
 | Graphite           |      |
 ---------------------|------
-output_metric_format | `graphite_plaintext`
+output metric format | `graphite_plaintext`
 documentation        | [Graphite Plaintext Protocol][14]
 example              | {{< code plain >}}local.random.diceroll 4 123456789{{< /code >}}
 
 | InfluxDB           |      |
 ---------------------|------
-output_metric_format | `influxdb_line`
+output metric format | `influxdb_line`
 documentation        | [InfluxDB Line Protocol][15]
 example              | {{< code plain >}}weather,location=us-midwest temperature=82 1465839830100400200{{< /code >}}
 
 | Nagios             |      |
 ---------------------|------
-output_metric_format | `nagios_perfdata`
+output metric format | `nagios_perfdata`
 documentation        | [Nagios Performance Data][13]
 example              | {{< code plain >}}PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0, rta=0.80{{< /code >}}
 
 | OpenTSDB           |      |
 ---------------------|------
-output_metric_format | `opentsdb_line`
+output metric format | `opentsdb_line`
 documentation        | [OpenTSDB Data Specification][16]
 example              | {{< code plain >}}sys.cpu.user 1356998400 42.5 host=webserver01 cpu=0{{< /code >}}
 
 | Prometheus         |      |
 ---------------------|------
-output_metric_format | `prometheus_text`
+output metric format | `prometheus_text`
 documentation        | [Prometheus Exposition Text][17]
 example              | {{< code plain >}}http_requests_total{method="post",code="200"} 1027 1395066363000{{< /code >}}
 
