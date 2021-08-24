@@ -177,7 +177,7 @@ You will not be able to downgrade to a Sensu 5.x version after you upgrade your 
 ## Upgrade to Sensu Go 5.16.0 from any earlier version
 
 As of Sensu Go 5.16.0, Sensu's free entity limit is 100 entities.
-All [commercial features][6] are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
+All [commercial features][6] are available for free in the packaged Sensu Go distribution for up to 100 entities.
 
 When you upgrade to 5.16.0, if your existing unlicensed instance has more than 100 entities, Sensu will continue to monitor those entities.
 However, if you try to create any new entities via the HTTP API or sensuctl, you will see the following message:

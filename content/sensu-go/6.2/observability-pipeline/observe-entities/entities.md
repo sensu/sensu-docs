@@ -17,7 +17,7 @@ An entity represents anything that needs to be monitored, such as a server, cont
 Sensu uses [agent entities][31] and [proxy entities][32].
 
 Sensu's free entity limit is 100 entities.
-All [commercial features][9] are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
+All [commercial features][9] are available for free in the packaged Sensu Go distribution for up to 100 entities.
 If your Sensu instance includes more than 100 entities, [contact us][10] to learn how to upgrade your installation and increase your limit.
 See [the announcement on our blog][11] for more information about our usage policy.
 
@@ -211,7 +211,8 @@ spec:
 
 You can manage agent entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33], just like any other Sensu resource.
 This means you do not need to update the `agent.yml` configuration file to add, update, or delete agent entity attributes like subscriptions and labels.
-This is the default configuration for agent entities.
+
+Management via the backend is the default configuration for agent entities.
 
 {{% notice note %}}
 **NOTE**: If you manage an agent entity via the backend, you cannot modify the agent entity with the `agent.yml` configuration file unless you delete the entity.
@@ -231,7 +232,7 @@ To do this, add the [`agent-managed-entity` flag][16] when you start the Sensu a
 Upgrade to [Sensu Go 6.2.3](../../../release-notes/#623-release-notes) to use the agent-managed-entity configuration flag.
 {{% /notice %}}
 
-When you start an agent with the `--agent-managed-entity` flag or set `agent-managed-entity: true` in agent.yml, the agent becomes responsible for managing its entity configuration.
+When you start an agent with the `--agent-managed-entity` flag or set `agent-managed-entity: true` in `agent.yml`, the agent becomes responsible for managing its entity configuration.
 An entity managed by this agent will include the label `sensu.io/managed_by: sensu-agent`.
 You cannot update these agent-managed entities via the Sensu backend REST API.
 To change an agent's configuration, restart the agent.
@@ -307,8 +308,7 @@ spec:
 
 ### Proxy entities and round robin scheduling
 
-Proxy entities make [round robin scheduling][18] more useful.
-Proxy entities allow you to combine all round robin events into a single event.
+Proxy entities make [round robin scheduling][18] more useful because they allow you to combine all round robin events into a single event.
 Instead of having a separate event for each agent entity, you have a single event for the entire round robin.
 
 If you don't use a proxy entity for round robin scheduling, you could have several failures in a row, but each event will only be aware of one of the failures.
@@ -808,7 +808,7 @@ entity_class: agent
 
 subscriptions| 
 -------------|------ 
-description  | List of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{name}` where `name` is the entity's hostname.
+description  | List of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:<name>` where `name` is the entity's hostname.
 required     | false 
 type         | Array 
 default      | The entity-specific subscription.
