@@ -1154,7 +1154,7 @@ name: "agent-01"{{< /code >}}
 --------------|------
 description   | Logging level: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`.
 type          | String
-default       | `info`
+default       | `info` in Sensu Go 6.4.0<br>`warn` in Sensu Go 6.4.1
 environment variable | `SENSU_LOG_LEVEL`
 command line example   | {{< code shell >}}
 sensu-agent start --log-level debug{{< /code >}}
@@ -1826,7 +1826,8 @@ For example, if you create overrides using all three methods, the command line c
 
 ### Example override: Log level
 
-The default [log level][60] for the Sensu agent is `info`.
+The default [log level][60] for the Sensu agent is `info` in Sensu Go 6.4.0 and `warn` in Sensu Go 6.4.1.
+
 To override the default and automatically apply a different log level for the agent, add the `--log-level` command line configuration flag when you start the Sensu agent.
 For example, to specify `debug` as the log level:
 
