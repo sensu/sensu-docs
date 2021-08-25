@@ -1099,9 +1099,9 @@ etcd-listen-peer-urls:
 
 | etcd-log-level  |      |
 -------------|------
-description  | Logging level for the embedded etcd server: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`. Defaults to value provided for the [backend log level][37]. If the backend log level is set to `trace`, the etcd log level will be set to `debug` (`trace` is not a valid etcd log level).
+description  | Logging level for the embedded etcd server: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`. Defaults to value provided for the [backend log level][60]. If the backend log level is set to `trace`, the etcd log level will be set to `debug` (`trace` is not a valid etcd log level).
 type         | String
-default      | [Backend log level][37] value (or `debug`, if the backend log level is set to `trace`)
+default      | [Backend log level][60] value (or `debug`, if the backend log level is set to `trace`)
 environment variable | `SENSU_BACKEND_ETCD_LOG_LEVEL`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-log-level debug{{< /code >}}
@@ -1473,7 +1473,7 @@ For example, if you create overrides using all three methods, the command line c
 
 ### Example override: Log level
 
-The default [log level][60] for the Sensu backend is `info`.
+The default [log level][60] for the Sensu backend is `warn`.
 To override the default and automatically apply a different log level for the backend, add the `--log-level` command line configuration flag when you start the Sensu backend.
 For example, to specify `debug` as the log level:
 
@@ -1621,5 +1621,5 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [34]: ../agent/#username-and-password-authentication
 [35]: ../../../operations/deploy-sensu/install-sensu/#architecture-overview
 [36]: #etcd-heartbeat-interval
-[37]: #backend-log-level
 [38]: #configuration-via-environment-variables
+[60]: #backend-log-level
