@@ -24,6 +24,7 @@ This table lists the supported versions of Sensu Go with links to active documen
 
 | Version | Release date     | Status    |     |
 | ------- |   -------------- | --------- | --- |
+6.4.1 | [August 25, 2021][70] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-4_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 6.4.0 | [June 28, 2021][69] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-4_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 6.3.0 | [May 26, 2021][65] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-3_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 6.2.7 | [April 1, 2021][64] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-2_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
@@ -157,3 +158,4 @@ This table lists the supported versions of Sensu Go with links to active documen
 [67]: ../platforms/#binary-only-distributions
 [68]: ../platforms/#docker-images
 [69]: https://docs.sensu.io/sensu-go/latest/release-notes/#640-release-notes
+[70]: https://docs.sensu.io/sensu-go/latest/release-notes/#641-release-notes
