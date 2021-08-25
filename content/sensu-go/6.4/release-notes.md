@@ -9,6 +9,7 @@ version: "6.4"
 menu: "sensu-go-6.4"
 ---
 
+- [6.4.1 release notes](#641-release-notes)
 - [6.4.0 release notes](#640-release-notes)
 - [6.3.0 release notes](#630-release-notes)
 - [6.2.7 release notes](#627-release-notes)
@@ -85,6 +86,29 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.4.1 release notes
+
+**August 25, 2021** &mdash; The latest release of Sensu Go, version 6.4.1, is now available for download.
+
+This patch includes fixes that improve forward- and backward-compatibility for backends and prevent `sensuctl cluster member-list` crashes, as well as changes to the default log levels for webd, the API, and the sensu-agent.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.4.1.
+
+**FIXES:**
+
+- ([Commercial feature][215]) For LDAP configurations, the `allowed_groups` attribute is omitted if not populated.
+This change improves backend reliability with older versions of federation and sensuctl.
+- Fixed a bug to prevent `sensuctl cluster member-list` crashes when the etcd response header is nil.
+- Fixed a `sensu-backend init` regression that returned exit status 0 if the store was already initialized.
+- Sensu Go OSS can now be built on darwin/arm64.
+
+**IMPROVEMENTS:**
+- ([Commercial feature][215]) The default webd log level is now `warn`.
+- The default log level for the Sensu API and [`sensu-agent`][225] is now `warn` (instead of `info`). 
+- The sensu-backend now reports when it is ready to process events at the `warn` level.
+- You can now create resources with fields that are unknown to Sensu.
+This change improves forward-compatibility with newer Sensu backends.
 
 ## 6.4.0 release notes
 
@@ -1905,3 +1929,4 @@ To get started with Sensu Go:
 [222]: /sensu-go/6.4/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-640-from-any-previous-version
 [223]: /sensu-go/6.3/web-ui/webconfig-reference/#default-preferences-attributes
 [224]: /sensu-go/5.20/observability-pipeline/observe-schedule/backend/#metrics-refresh-interval
+[225]: /sensu-go/6.4/reference/agent/#log-level
