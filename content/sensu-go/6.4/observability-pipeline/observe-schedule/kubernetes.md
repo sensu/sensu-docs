@@ -111,19 +111,56 @@ For this reason, we recommend using the Sensu Go `env` secrets provider directly
 
 ## Kubernetes monitors in the Sensu catalog
 
+**TO DO**: This section needs more work -- links left in text are placeholders for HF to come back to.
+
 ### Kubelet host metrics collection
 
 Use the Kubernetes [kubelet host metrics collection][10] monitor to collect host metrics, including for kubelet hosts, with the [Prometheus Node Exporter][11].
 
 This monitor collects metrics but does not provide alerts and requires Prometheus Node Exporter.
 
-Kubernetes kubelet health check
-Kubernetes kubelet etcd health check
-Kubernetes kubelet metrics (collection only, no alerting)
-Kubernetes kubelet probe metrics (collection only, no alerting)
-Kubernetes kubelet cAdvisor metrics (collection only, no alerting)
-Kubernetes cluster metrics (collection only, no alerting; depends on kube-state-metrics)
-Kubernetes cluster events (note: this uses an alpha release of a Sensu-native integration)
+### Kubelet
+
+The [Kubelet][12] monitor includes health checks and metrics collectors.
+
+#### Kubelet health check
+
+https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml#L37-L53
+
+#### Kubelet etcd health check
+
+https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml#L55-L72
+
+#### Kubelet metrics
+
+https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml#L74-L97
+
+This monitor collects metrics but does not provide alerts.
+
+#### Kubelet probe metrics
+
+https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml#L99-L122
+
+This monitor collects metrics but does not provide alerts.
+
+#### Kubelet cAdvisor metrics
+
+https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml#L124-L147
+
+This monitor collects metrics but does not provide alerts.
+
+### Kubernetes cluster metrics
+
+https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kube-state-metrics.yaml
+
+This monitor collects metrics but does not provide alerts and requires `kube-state-metrics`.
+
+### Kubernetes cluster events
+
+https://github.com/sensu/catalog/blob/main/monitors/kubernetes/events/sensu-kubernetes-events.yaml
+https://bonsai.sensu.io/assets/sensu/sensu-kubernetes-events
+
+This uses an alpha release of a Sensu-native integration.
 
 ### Sensu Kubernetes Events Check
 
@@ -148,3 +185,4 @@ The [Sensu Plugins Kubernetes][9] plugin allows you to check node and pod status
 [9]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-kubernetes
 [10]: https://github.com/sensu/catalog/blob/main/monitors/node_exporter/node_exporter.yaml
 [11]: https://prometheus.io/docs/guides/node-exporter/
+[12]: https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml
