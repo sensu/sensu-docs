@@ -601,9 +601,9 @@ If space in `/tmp` is insufficient, asset downloads will be truncated and the ch
 ## Etcd clusters
 
 Some issues require you to investigate the state of the etcd cluster or data stored within etcd.
-In these cases, we suggest using the `etcdctl` tool to query and manage the etcd database.
+In these cases, we suggest using the [etcdctl tool][29] to query and manage the etcd database.
 
-Sensu's supported packages do not include the `etcdctl` executable, so you must get it from a compatible etcd release.
+Sensu's supported packages do not include the etcdctl executable, so you must get it from a compatible etcd release.
 
 ### Configure etcdctl environment variables
 
@@ -840,3 +840,4 @@ The backend will stop listening on those ports when the etcd database is unavail
 [26]: https://etcd.io/docs/latest/op-guide/recovery/#restoring-a-cluster
 [27]: https://golang.google.cn/doc/go1.15#commonname
 [28]: ../../deploy-sensu/generate-certificates/
+[29]: https://etcd.io/docs/latest/dev-guide/interacting_v3/
