@@ -13,16 +13,31 @@ menu:
     parent: observe-schedule
 ---
 
-The dynamic nature of Kubernetes container orchestration requires a dynamic approach to monitoring.
-Sensu allows you to monitor the applications you deploy with Kubernetes and the health of the Kubernetes containers themselves, no matter the size of your deployment.
-
-{{% notice note %}}
-**NOTE**: If you need a Kubernetes introduction or refresher, read our blog posts [How Kubernetes works](https://sensu.io/blog/how-kubernetes-works) and [Kubernetes 101](https://sensu.io/blog/kubernetes-101) or head to the [Kubernetes docs](https://kubernetes.io/docs/home/).
-{{% /notice %}}
-
 {{% notice protip %}}
 **PRO TIP**: Join our [Kubernetes special interest group](https://discourse.sensu.io/c/sensu-go/sig-kubernetes/33) on Discourse &mdash; it's a sub-community of Sensu users who are monitoring Kubernetes or workloads running on Kubernetes.
 {{% /notice %}}
+
+The dynamic nature of Kubernetes container orchestration requires a dynamic approach to monitoring.
+Sensu allows you to monitor the applications you deploy with Kubernetes and the health of the Kubernetes containers themselves, no matter the size of your deployment.
+
+Kubernetes is a supported platform for the Sensu agent only.
+The Sensu backend is compatible with Kubernetes, but Kubernetes is not a supported platform for the Sensu backend.
+
+For a Kubernetes introduction or refresher, read our blog posts [How Kubernetes works](https://sensu.io/blog/how-kubernetes-works) and [Kubernetes 101](https://sensu.io/blog/kubernetes-101).
+
+## Configure the agent in Kubernetes
+
+To configure the Sensu agent in Kubernetes, configure the `NODE_EXPORTER_HOST` environment variable to the host IP address.
+
+For Sensu agents running as a Kubernetes daemonset, configure the `NODE_EXPORTER_HOST` environment variable via the "ClusterFirstWithHostNet" dnsPolicy, and use the Kubernetes Downward API to expose the host IP address as an environment variable:
+
+{{< code yml >}}
+env:
+- name: NODE_EXPORTER_HOST
+  valueFrom:
+    fieldRef:
+      fieldPath: status.hostIP
+{{< /code >}}
 
 ## Data sources for monitoring Kubernetes
 
@@ -94,7 +109,21 @@ Learn more about using Sensu with Prometheus to monitor Kubernetes in [Monitorin
 Using `/etc/default/sensu-backend approach` for secrets management relies on process management like systemd or sysvinit, which is not normally present in a containerized environment.
 For this reason, we recommend using the Sensu Go `env` secrets provider directly with Kubernetes' own built-in secrets management.
 
-## Sensu integrations for Kubernetes
+## Kubernetes monitors in the Sensu catalog
+
+### Kubelet host metrics collection
+
+Use the Kubernetes [kubelet host metrics collection][10] monitor to collect host metrics, including for kubelet hosts, with the [Prometheus Node Exporter][11].
+
+This monitor collects metrics but does not provide alerts and requires Prometheus Node Exporter.
+
+Kubernetes kubelet health check
+Kubernetes kubelet etcd health check
+Kubernetes kubelet metrics (collection only, no alerting)
+Kubernetes kubelet probe metrics (collection only, no alerting)
+Kubernetes kubelet cAdvisor metrics (collection only, no alerting)
+Kubernetes cluster metrics (collection only, no alerting; depends on kube-state-metrics)
+Kubernetes cluster events (note: this uses an alpha release of a Sensu-native integration)
 
 ### Sensu Kubernetes Events Check
 
@@ -117,3 +146,5 @@ The [Sensu Plugins Kubernetes][9] plugin allows you to check node and pod status
 [7]: ../agent/#create-observability-events-using-the-agent-api
 [8]: https://sensu.io/blog/filling-gaps-in-kubernetes-observability-with-the-sensu-kubernetes-events-integration
 [9]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-kubernetes
+[10]: https://github.com/sensu/catalog/blob/main/monitors/node_exporter/node_exporter.yaml
+[11]: https://prometheus.io/docs/guides/node-exporter/
