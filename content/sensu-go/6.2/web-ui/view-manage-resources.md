@@ -22,7 +22,7 @@ To switch namespaces, select the menu icon in the upper-left corner or press the
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: In the packaged Sensu Go distribution, the namespace switcher will list only the namespaces to which the current user has access.
-For more information, see [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 {{< figure src="/images/namespace-switcher-1.png" alt="Sensu web UI namespace switcher" link="/images/namespace-switcher-1.png" target="_blank" >}}
@@ -89,7 +89,7 @@ After you create a silence, it will be listed in the web UI Silences page until 
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access check, handler, event filter, and mutator management in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 Under the Configuration menu option, you can access check, handler, event filter, and mutator resources.

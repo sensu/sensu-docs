@@ -35,11 +35,11 @@ etcd version 3.4.0 is compatible with Sensu but may result in slower performance
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access enterprise-scale event storage in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 Sensu supports using an external PostgreSQL instance for event storage in place of etcd.
-PostgreSQL can handle significantly higher volumes of Sensu events, which allows you to scale Sensu beyond etcd's 8-GB limit.
+PostgreSQL can handle significantly higher volumes of Sensu events, which allows you to scale Sensu beyond etcd's 8GB limit.
 
 When configured with a PostgreSQL event store, Sensu connects to PostgreSQL to store and retrieve event data in place of etcd.
 Etcd continues to store Sensu entity and configuration data.

@@ -167,7 +167,7 @@ See [Run a Sensu cluster](../cluster-sensu/) for more information about how to c
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access client mutual transport layer security (mTLS) authentication in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 By default, Sensu agents require username and password authentication to communicate with Sensu backends.

@@ -1176,7 +1176,7 @@ output_metric_tags:
 
 |round_robin |      |
 -------------|------
-description  | When set to `true`, Sensu executes the check once per interval, cycling through each subscribing agent in turn. See [round robin checks][52] for more information.<br><br>Use the `round_robin` attribute with proxy checks to avoid duplicate events and distribute proxy check executions evenly across multiple agents. See [proxy checks][33] for more information.<br><br>To use check [`ttl`][31] and `round_robin` together, your check configuration must also specify a [`proxy_entity_name`][32]. If you do not specify a `proxy_entity_name` when using check `ttl` and `round_robin` together, your check will stop executing.
+description  | When set to `true`, Sensu executes the check once per interval, cycling through each subscribing agent in turn. Read [round robin checks][52] for more information.<br><br>Use the `round_robin` attribute with proxy checks to avoid duplicate events and distribute proxy check executions evenly across multiple agents. See [proxy checks][33] for more information.<br><br>To use check [`ttl`][31] and `round_robin` together, your check configuration must also specify a [`proxy_entity_name`][32]. If you do not specify a `proxy_entity_name` when using check `ttl` and `round_robin` together, your check will stop executing.
 required     | false
 type         | Boolean
 default      | `false`
@@ -1362,7 +1362,7 @@ value: {{ .name }}
 
 name         | 
 -------------|------
-description  | Name of the [secret][56] defined in the executable command. Becomes the environment variable presented to the check. See [Use secrets management in Sensu][59] for more information.
+description  | Name of the [secret][56] defined in the executable command. Becomes the environment variable presented to the check. Read [Use secrets management in Sensu][59] for more information.
 required     | true
 type         | String
 example      | {{< language-toggle >}}

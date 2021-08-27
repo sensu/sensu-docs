@@ -487,7 +487,7 @@ For more information about event attributes, see the [event reference][28].
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access built-in JavaScript event filter execution functions in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial).
+For more information, read [Get started with commercial features](../../../commercial).
 {{% /notice %}}
 
 In addition to [Sensu query expressions][27], Sensu includes several built-in JavaScript functions for event filter execution:
@@ -756,7 +756,7 @@ annotations:
 
 action       | 
 -------------|------
-description  | Action to take with the event if the event filter expressions match. See [Inclusive and exclusive event filters][1] for more information.
+description  | Action to take with the event if the event filter expressions match. Read [Inclusive and exclusive event filters][1] for more information.
 required     | true
 type         | String
 allowed values | `allow`, `deny`

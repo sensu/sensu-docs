@@ -15,7 +15,7 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the datastore feature in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 Sensu Go's datastore feature enables scaling your monitoring to many thousands of events per second.

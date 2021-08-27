@@ -15,7 +15,7 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access federation in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 Sensu's [federation API][1] allows you to register external clusters, gain visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI, and mirror your changes in one cluster to follower clusters.

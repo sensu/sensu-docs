@@ -16,7 +16,7 @@ menu:
 [Example Sensu backend configuration file](../../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and observability data.
-Every Sensu backend includes an integrated structure for scheduling checks using [subscriptions][28], an event processing pipeline that applies [event filters][9], [mutators][10], and [handlers][11], an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][6], and the `sensu-backend` command line tool.
+Every Sensu backend includes an integrated structure for scheduling checks using [subscriptions][28], an event processing pipeline that applies [event filters][9], [mutators][10], and [handlers][11], an embedded [etcd][2] datastore for storing configuration and state, and the Sensu [API][14], Sensu [web UI][6], and [sensuctl][37] command line tool.
 
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
 For these operating systems, the Sensu backend uses the Bourne shell (sh) for the execution environment.
@@ -1376,7 +1376,7 @@ For example, if you create a `SENSU_BACKEND_TEST_VAR` variable in your sensu-bac
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access event logging in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 If you wish, you can log all Sensu events to a file in JSON format.
@@ -1470,6 +1470,7 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [11]: ../../observe-process/handlers/
 [12]: #datastore-and-cluster-configuration-flags
 [13]: ../../../operations/deploy-sensu/cluster-sensu/
+[14]: ../../../api/
 [15]: #general-configuration-flags
 [16]: https://etcd.io/docs/current/tuning/#time-parameters
 [17]: ../../../files/backend.yml
@@ -1492,3 +1493,4 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [34]: ../agent/#username-and-password-authentication
 [35]: ../../../operations/deploy-sensu/install-sensu/#architecture-overview
 [36]: #etcd-heartbeat-interval
+[37]: ../../../sensuctl/

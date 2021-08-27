@@ -377,14 +377,14 @@ A successful request will return the HTTP response code `HTTP/1.1 200 OK`.
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access API response filtering in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../commercial/).
+For more information, read [Get started with commercial features](../commercial/).
 {{% /notice %}}
 
 The Sensu API supports response filtering for all GET endpoints that return an array.
 You can filter resources based on their labels with the `labelSelector` query parameter and based on certain pre-determined fields with the `fieldSelector` query parameter.
 
 {{% notice note %}}
-**NOTE**: To search based on fields and labels in the Sensu web UI, see [Search in the web UI](../web-ui/search/).
+**NOTE**: To search based on fields and labels in the Sensu web UI, read [Search in the web UI](../web-ui/search/).
 {{% /notice %}}
 
 ### Label selector

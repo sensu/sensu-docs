@@ -19,7 +19,7 @@ Sensu requires username and password authentication to access the web UI, API, a
 You can use Sensu's [built-in basic authentication provider][14] or configure [external authentication providers][15].
 
 {{% notice note %}}
-**NOTE**: For API-specific authentication, see the [API overview](../../api/#access-control) and [Use API keys to authenticate to Sensu](use-apikeys/).
+**NOTE**: For API-specific authentication, read the [API overview](../../api/#access-control) and [Use API keys to authenticate to Sensu](use-apikeys/).
 {{% /notice %}}
 
 Authorization establishes and manages user permissions: the extent of access users have for different Sensu resources.
@@ -42,7 +42,7 @@ Sensu hashes user passwords using the [bcrypt][26] algorithm and records the bas
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access authentication providers for single sign-on (SSO) in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 In addition to built-in basic authentication, Sensu includes commercial support for single sign-on (SSO) authentication using external authentication providers via Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC).

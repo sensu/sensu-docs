@@ -14,7 +14,7 @@ menu:
 ---
 
 An entity represents anything that needs to be monitored, such as a server, container, or network switch, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment.
-Sensu uses [agent entities][31] and [proxy entities][32].
+Sensu uses [agent entities][31], [proxy entities][32], and [service entities][40].
 
 Sensu's free entity limit is 100 entities.
 All [commercial features][9] are available for free in the packaged Sensu Go distribution for up to 100 entities.
@@ -321,7 +321,7 @@ Use [proxy entity filters][19] to establish a many-to-many relationship between 
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access business service monitoring (BSM), including service entities, in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
@@ -1554,7 +1554,7 @@ handler: email-handler
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag](../../observe-schedule/agent/#discover-processes) in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
@@ -1752,4 +1752,4 @@ cpu_percent: 0.12639
 [37]: ../../../sensuctl/create-manage-resources/#update-resources
 [38]: ../../observe-schedule/business-service-monitoring/
 [39]: ../../observe-schedule/service-components/
-[38]: ../../../api/events/#create-a-new-event
+[40]: ../#service-entities
