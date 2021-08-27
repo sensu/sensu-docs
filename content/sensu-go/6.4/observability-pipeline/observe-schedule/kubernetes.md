@@ -13,17 +13,16 @@ menu:
     parent: observe-schedule
 ---
 
-{{% notice protip %}}
-**PRO TIP**: Join our [Kubernetes special interest group](https://discourse.sensu.io/c/sensu-go/sig-kubernetes/33) on Discourse &mdash; it's a sub-community of Sensu users who are monitoring Kubernetes or workloads running on Kubernetes.
-{{% /notice %}}
-
 The dynamic nature of Kubernetes container orchestration requires a dynamic approach to monitoring.
 Sensu allows you to monitor the applications you deploy with Kubernetes and the health of the Kubernetes containers themselves, no matter the size of your deployment.
 
 Kubernetes is a supported platform for the Sensu agent only.
 The Sensu backend is compatible with Kubernetes, but Kubernetes is not a supported platform for the Sensu backend.
 
+{{% notice protip %}}
+**PRO TIP**: Join our [Kubernetes special interest group](https://discourse.sensu.io/c/sensu-go/sig-kubernetes/33) on Discourse &mdash; it's a sub-community of Sensu users who are monitoring Kubernetes or workloads running on Kubernetes.<br><br>
 For a Kubernetes introduction or refresher, read our blog posts [How Kubernetes works](https://sensu.io/blog/how-kubernetes-works) and [Kubernetes 101](https://sensu.io/blog/kubernetes-101).
+{{% /notice %}}
 
 ## Configure the agent in Kubernetes
 
@@ -39,37 +38,12 @@ env:
       fieldPath: status.hostIP
 {{< /code >}}
 
-## Data sources for monitoring Kubernetes
-
-Common Kubernetes data sources include Kubernetes hosts, Kubelet metrics, Kubelet cAdvisor, and `kube-state-metrics`.
-
-### Kubernetes hosts
-
-Kubernetes hosts are especially important to monitor because they have limited resources.
-A common method for collecting Kubernetes host data is using the [Prometheus node exporter][1] to scrape the host data and expose system resource telemetry data on an HTTP endpoint.
-
-### Kubelete metrics
-
-Kubelet metrics, also called Kubernetes processes, include apiserver, kube-scheduler, and kube-controller-manager, which provide data on Kubernetes nodes and the jobs they run.
-
-### Kubelet cAdvisor
-
-The built-in Kubelet cAdvisor collects, aggregates, processes, and exports metrics for each running container.
-cAdvisor can keep track of resource isolation parameters and historical resource usage so Kubernetes can designate how much memory is being used.
-
-### kube-state-metrics
-
-`kube-state-metrics` listens to the Kubernetes API server and provides high-level information about your Kubernetes cluster.
-`kube-state-metrics` data includes which containers are running, their current state, the number of contains in a particular state, and whether any are unhealthy or at capacity.
-
 ## Recommended approach for monitoring Kubernetes
 
 We recommend deploying Sensu agents as Kubernetes sidecars, a dynamic approach with one agent per [Kubernetes pod][2], to monitor applications.
 To monitor Kubernetes itself, add a Sensu agent on all Kubernetes hosts.
 
 Kubernetes sidecars are modular, composable, and reusable.
-Sidecar examples include service mesh, logging platforms with agents that run as sidecars, and observability solutions like Sensu, with an agent that runs as a sidecar and provides a 1:1 pairing of a monitoring agent per collection of services.
-
 When you use the sidecar pattern, your Kubernetes pod holds the container that runs your application alongside the container that runs the Sensu agent.
 These containers share the same network space, so Sensu can collect data from your applications as if they were running in the same container or host.
 
@@ -100,60 +74,42 @@ Here's how it works:
 - The Sensu agent provides a secure pub-sub transport to transmit event and telemetry data to the Sensu backend, traversing complex network topologies without compromising firewalls.
 - The Sensu backend provides a horizontally scalable observability data processing solution that extends beyond alerts to processing data via event handlers, routing metrics to your preferred datastore, triggering automated remediation actions, and creating and resolving tickets.
 
-Learn more about using Sensu with Prometheus to monitor Kubernetes in [Monitoring Kubernetes + Docker, part 3: Sensu + Prometheus][5].
-
-## Use secrets management with Kubernetes
-
-**TO DO**: I pulled this info from https://discourse.sensu.io/t/secrets-management-on-kubernetes-with-env-provider/1841/ and it seems important, but it's too brief and I'm not sure what else to add.
-
-Using `/etc/default/sensu-backend approach` for secrets management relies on process management like systemd or sysvinit, which is not normally present in a containerized environment.
-For this reason, we recommend using the Sensu Go `env` secrets provider directly with Kubernetes' own built-in secrets management.
-
-## Kubernetes monitors in the Sensu catalog
-
-**TO DO**: This section needs more work -- links left in text are placeholders for HF to come back to.
+## Use the Sensu catalog Kubernetes monitors
 
 ### Kubelet host metrics collection
 
-Use the Kubernetes [kubelet host metrics collection][10] monitor to collect host metrics, including for kubelet hosts, with the [Prometheus Node Exporter][11].
+Use Sensu's Kubernetes [kubelet host metrics collection][10] monitor to collect host metrics, including for [kubelet][20] hosts, with the [Prometheus Node Exporter][11].
 
 This monitor collects metrics but does not provide alerts and requires Prometheus Node Exporter.
+Learn more about using Sensu with Prometheus to monitor Kubernetes in [Monitoring Kubernetes + Docker, part 3: Sensu + Prometheus][5].
 
-### Kubelet
+### Kubelet monitor
 
-The [Kubelet][12] monitor includes health checks and metrics collectors.
+The Sensu [Kubelet monitor][12] includes both health and metrics checks:
+- [Kubelet health check][13]
+- [Kubelet etcd health check][14]
+- [Kubelet metrics][15]
+- [Kubelet probe metrics][16]
+- [Kubelet cAdvisor metrics][17]
 
-#### Kubelet health check
+The metrics checks collect metrics but do not provide alerts.
 
-https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml#L37-L53
+The Sensu kubelet monitor health checks and metrics collectors rely on [kubelet][20] metrics and cAdvisor as data sources.
 
-#### Kubelet etcd health check
+Kubelet metrics provide data for the Kubernetes nodes and the jobs they run.
+Metrics components include [kube-apiserver][19], [kube-controller-manager][22], and [kube-scheduler][21].
 
-https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml#L55-L72
-
-#### Kubelet metrics
-
-https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml#L74-L97
-
-This monitor collects metrics but does not provide alerts.
-
-#### Kubelet probe metrics
-
-https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml#L99-L122
-
-This monitor collects metrics but does not provide alerts.
-
-#### Kubelet cAdvisor metrics
-
-https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml#L124-L147
-
-This monitor collects metrics but does not provide alerts.
+The built-in kubelet cAdvisor collects, aggregates, processes, and exports metrics for each running container.
+cAdvisor can track resource isolation parameters and historical resource usage so Kubernetes can designate how much memory is being used.
 
 ### Kubernetes cluster metrics
 
-https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kube-state-metrics.yaml
+The [Kubernetes cluster metrics][18] monitor collects kubelet metrics from the [metrics-server][23] API.
 
-This monitor collects metrics but does not provide alerts and requires `kube-state-metrics`.
+Kubernetes cluster metrics requires [kube-state-metrics][24], which listens to the Kubernetes API server and provides high-level information about a Kubernetes cluster.
+kube-state-metrics data include which containers are running, their current state, the number of contains in a particular state, and whether any are unhealthy or at capacity.
+
+Kubernetes cluster metrics collects metrics but does not provide alerts.
 
 ### Kubernetes cluster events
 
@@ -186,3 +142,15 @@ The [Sensu Plugins Kubernetes][9] plugin allows you to check node and pod status
 [10]: https://github.com/sensu/catalog/blob/main/monitors/node_exporter/node_exporter.yaml
 [11]: https://prometheus.io/docs/guides/node-exporter/
 [12]: https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml
+[13]: https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml#L37-L53
+[14]: https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml#L55-L72
+[15]: https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml#L74-L97
+[16]: https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml#L99-L122
+[17]: https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kubelet.yaml#L124-L147
+[18]: https://github.com/sensu/catalog/blob/main/monitors/kubernetes/kube-state-metrics.yaml
+[19]: hhttps://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/
+[20]: https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/
+[21]: https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/
+[22]: https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/
+[23]: https://github.com/kubernetes-sigs/metrics-server
+[24]: https://github.com/kubernetes/kube-state-metrics
