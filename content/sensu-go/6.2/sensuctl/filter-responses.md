@@ -13,7 +13,7 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access sensuctl response filtering in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 Sensuctl supports response filtering for all [commands using the `list` verb][1].

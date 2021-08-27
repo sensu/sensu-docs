@@ -923,7 +923,7 @@ See the [example agent configuration file][5] (also provided with Sensu packages
 
 | allow-list |      |
 ------------------|------
-description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. See [allow list configuration commands][49] and the [example allow list configuration file][48] for information about building a configuration file.
+description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. Read [allow list configuration commands][49] and the [example allow list configuration file][48] for information about building a configuration file.
 type              | String
 default           | `""`
 environment variable | `SENSU_ALLOW_LIST`
@@ -1085,7 +1085,7 @@ disable-assets: true{{< /code >}}
 
 | discover-processes |      |
 --------------|------
-description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].{{% notice note %}}
+description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features][55].{{% notice note %}}
 **NOTE**: Process discovery is disabled in this version of Sensu. The `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 type          | Boolean

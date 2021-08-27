@@ -17,7 +17,7 @@ Watch for this notice to identify commercial features:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access <feature_name> in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../commercial/).
+For more information, read [Get started with commercial features](../commercial/).
 {{% /notice %}}
 
 ## Commercial features in Sensu Go

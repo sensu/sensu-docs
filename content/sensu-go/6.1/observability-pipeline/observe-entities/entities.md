@@ -1409,7 +1409,7 @@ handler: email-handler
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag](../../observe-schedule/agent/#discover-processes) in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
@@ -1604,4 +1604,3 @@ cpu_percent: 0.12639
 [35]: ../../observe-schedule/agent/#config-file
 [36]: ../../../api/entities/
 [37]: ../../../sensuctl/create-manage-resources/#update-resources
-[38]: ../../../api/events/#create-a-new-event

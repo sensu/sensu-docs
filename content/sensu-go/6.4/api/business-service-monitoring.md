@@ -13,7 +13,7 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access business service monitoring (BSM) in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}

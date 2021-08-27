@@ -304,7 +304,7 @@ Follow [Register dynamic runtime assets](#register-dynamic-runtime-assets) if yo
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access enterprise-scale PostgreSQL event storage in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 Larger Sensu deployments may use [PostgreSQL as an alternative datastore][4] to process larger numbers of events.

@@ -463,7 +463,7 @@ secrets:
 
 name         | 
 -------------|------
-description  | Name of the [secret][10] defined in the executable command. Becomes the environment variable presented to the mutator. See [Use secrets management in Sensu][14] for more information.
+description  | Name of the [secret][10] defined in the executable command. Becomes the environment variable presented to the mutator. Read [Use secrets management in Sensu][14] for more information.
 required     | true
 type         | String
 example      | {{< language-toggle >}}

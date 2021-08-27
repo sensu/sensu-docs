@@ -13,7 +13,7 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access web UI configuration in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 Web UI configuration allows you to define certain display options for the Sensu [web UI][3], such as which web UI theme to use, the number of items to list on each page, and which URLs and linked images to expand.

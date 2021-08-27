@@ -471,7 +471,7 @@ See the [RBAC reference][22] for information about local user management with se
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access sensuctl pruning in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 The `sensuctl prune` subcommand allows you to delete resources that do not appear in a given set of Sensu objects (called a "configuration") from a from a file, URL, or STDIN.

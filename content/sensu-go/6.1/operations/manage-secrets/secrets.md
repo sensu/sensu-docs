@@ -14,7 +14,7 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Secret datatype in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 Sensu's secrets management eliminates the need to expose secrets in your Sensu configuration.
