@@ -43,6 +43,9 @@ env:
 We recommend deploying Sensu agents as Kubernetes sidecars, a dynamic approach with one agent per [Kubernetes pod][2], to monitor applications.
 To monitor Kubernetes itself, add a Sensu agent on all Kubernetes hosts.
 
+Run Sensu from outside of Kubernetes.
+If you monitor from within Kubernetes and Kubernetes fails, your monitoring will fail too.
+
 Kubernetes sidecars are modular, composable, and reusable.
 When you use the sidecar pattern, your Kubernetes pod holds the container that runs your application alongside the container that runs the Sensu agent.
 These containers share the same network space, so Sensu can collect data from your applications as if they were running in the same container or host.
@@ -50,37 +53,16 @@ These containers share the same network space, so Sensu can collect data from yo
 Read [Monitoring Kubernetes, part 4: the Sensu native approach][3] to learn more about monitoring Kubernetes with the sidecar pattern.
 Our whitepaper [Monitoring Kubernetes: the sidecar pattern][4] includes a tutorial for getting started with sidecars.
 
-Run Sensu from outside of Kubernetes.
-If you monitor from within Kubernetes and Kubernetes fails, your monitoring will fail too.
+## Use the Sensu catalog of Kubernetes health and metrics checks
 
-## Use Sensu with Prometheus to monitor Kubernetes
+### Kubelet host metrics collection
 
 Prometheus can collect and analyze data on your Kubernetes deployment, but the data model is constrained: data must be represented as a measurement and can lack context as a result, and exporters provide only summarized data and scrape only periodically.
 Use Sensu with Prometheus to get a complete picture of your Kubernetes deployment.
 
-Advantages of using Sensu along with Prometheus to monitor Kubernetes include:
+Sensu's [kubelet host metrics collection][10] monitor allows you to collect host metrics, including for [kubelet][20] hosts, with the [Prometheus Node Exporter][11].
+The Sensu kubelet host metrics collection collects metrics but does not provide alerts and requires Prometheus Node Exporter.
 
-- Comprehensive service health monitoring with Sensu checks in addition to the Prometheus telemetry-based metrics.
-- Workflow automation that allows you to take action and helps eliminate repetitive work in response to monitoring alerts.
-Sensu’s observability event pipeline provides powerful and extensible solutions for automating workflows, including context collection, automated remediation, and automated node or endpoint registration.
-- Flexible options for data collection.
-Sensu allows you to collect monitoring data in many ways, including Prometheus endpoint scraping, service checks, and first-class APIs.
-- Secure data transport.
-Sensu's standard cryptography model allows a single agent to collect and securely transmit data over complex networks without compromising firewalls.
-
-Here's how it works:
-
-- The Sensu agent performs service health checks, which generate observability event data, and collects telemetry data from sources that include Prometheus endpoints.
-- The Sensu agent provides a secure pub-sub transport to transmit event and telemetry data to the Sensu backend, traversing complex network topologies without compromising firewalls.
-- The Sensu backend provides a horizontally scalable observability data processing solution that extends beyond alerts to processing data via event handlers, routing metrics to your preferred datastore, triggering automated remediation actions, and creating and resolving tickets.
-
-## Use the Sensu catalog Kubernetes monitors
-
-### Kubelet host metrics collection
-
-Use Sensu's Kubernetes [kubelet host metrics collection][10] monitor to collect host metrics, including for [kubelet][20] hosts, with the [Prometheus Node Exporter][11].
-
-This monitor collects metrics but does not provide alerts and requires Prometheus Node Exporter.
 Learn more about using Sensu with Prometheus to monitor Kubernetes in [Monitoring Kubernetes + Docker, part 3: Sensu + Prometheus][5].
 
 ### Kubelet monitor
@@ -111,23 +93,19 @@ kube-state-metrics data include which containers are running, their current stat
 
 Kubernetes cluster metrics collects metrics but does not provide alerts.
 
-### Kubernetes cluster events
-
-https://github.com/sensu/catalog/blob/main/monitors/kubernetes/events/sensu-kubernetes-events.yaml
-https://bonsai.sensu.io/assets/sensu/sensu-kubernetes-events
-
-This uses an alpha release of a Sensu-native integration.
-
 ### Sensu Kubernetes Events Check
 
-The [Sensu Kubernetes Events Check][6] is a Sensu check that uses the Kubernetes Events API to identify events that should generate corresponding Sensu events.
-The check itself returns an OK status (exit code 0), but the check creates separate events for each matching event type it finds using the [agent API][7].
+{{% notice note %}}
+**NOTE**: The Sensu Kubernetes Events Check is an alpha release of a Sensu-native integration and may include breaking changes.
+{{% /notice %}}
+
+The [Sensu Kubernetes Events Check][25] is an  Sensu Check that uses the [Kubernetes Event API][26] to identify events that should generate corresponding Sensu events.
+The check itself returns an OK status (exit code `0`) unless it encounters a problem like failing to authenticate with Kubernetes for API access.
+For each matching event type the check finds, it creates separate events with the Sensu [agent API][7].
+
+Use our curated, configurable [quick-start template][27] to get started with the Sensu Kubernetes Events Check plugin and integrate Sensu with your existing workflows.
 
 Read [Filling gaps in Kubernetes observability with the Sensu Kubernetes Events integration][8] for more information about the Kubernetes Events API and the Sensu Kubernetes Events Check integration.
-
-### Sensu Plugins Kubernetes
-
-The [Sensu Plugins Kubernetes][9] plugin allows you to check node and pod status as well as API and service availability.
 
 
 [1]: https://github.com/prometheus/node_exporter
@@ -154,3 +132,6 @@ The [Sensu Plugins Kubernetes][9] plugin allows you to check node and pod status
 [22]: https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/
 [23]: https://github.com/kubernetes-sigs/metrics-server
 [24]: https://github.com/kubernetes/kube-state-metrics
+[25]: https://bonsai.sensu.io/assets/sensu/sensu-kubernetes-events
+[26]: https://v1-18.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#event-v1-core
+[27]: https://github.com/sensu/catalog/blob/main/monitors/kubernetes/events/sensu-kubernetes-events.yaml
