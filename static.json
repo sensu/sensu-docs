@@ -7,6 +7,10 @@
             "url": "/sensu-core/latest/$1",
             "status": 301
         },
+        "~ docs.uchiwa.io/?$": {
+            "url": "/uchiwa/latest/",
+            "status": 301
+        },
         "~ ^/sensu-core/0.29/?((?<=\/).*)?$": {
             "url": "/sensu-core/latest/$1",
             "status": 301
