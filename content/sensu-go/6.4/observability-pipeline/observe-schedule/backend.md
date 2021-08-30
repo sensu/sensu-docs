@@ -1519,7 +1519,7 @@ To write Sensu service logs to flat files on disk, read [Log Sensu services with
 
 | event-log-buffer-size |      |
 -----------------------|------
-description            | Buffer size of the event logger. Corresponds to the maximum number of events kept in memory in case the log file is temporarily unavailable or more events have been received than can be written to the log file. 
+description            | Buffer size of the event logger. Corresponds to the maximum number of events kept in memory in case the log file is temporarily unavailable or more events have been received than can be written to the log file.
 type                   | Integer
 default                | 100000
 environment variable   | `SENSU_BACKEND_EVENT_LOG_BUFFER_SIZE`
@@ -1527,6 +1527,17 @@ command line example   | {{< code shell >}}
 sensu-backend start --event-log-buffer-size 100000{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 event-log-buffer-size: 100000{{< /code >}}
+
+| event-log-buffer-wait |      |
+-----------------------|------
+description            | Buffer wait time for the event logger. When the buffer is full, the event logger will wait for the specified time for the writer to consume events from the buffer.
+type                   | String
+default                | 10ms
+environment variable   | `SENSU_BACKEND_EVENT_LOG_BUFFER_WAIT`
+command line example   | {{< code shell >}}
+sensu-backend start --event-log-buffer-wait 10ms{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+event-log-buffer-wait: 10ms{{< /code >}}
 
 | event-log-file |      |
 -----------------------|------
