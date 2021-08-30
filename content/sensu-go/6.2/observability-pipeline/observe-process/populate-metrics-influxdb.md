@@ -57,7 +57,7 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 Now that you have registered the dynamic runtime asset, you'll use sensuctl to create a handler called `influx-db` that pipes observation data (events) to InfluxDB with the `sensu-influxdb-handler` dynamic runtime asset.
 Edit the command below to include your database name, address, username, and password.
-For more information about the Sensu InfluxDB handler, see [the asset page in Bonsai][13].
+For more information about the Sensu InfluxDB handler, read [the asset page in Bonsai][13].
 
 {{< code shell >}}
 sensuctl handler create influx-db \
@@ -276,7 +276,7 @@ sensu-agent start --statsd-event-handlers influx-db
 
 It might take a few moments after you assign the handler to the check or StatsD server for Sensu to receive the metrics, but after an event is handled you should start to see metrics populating InfluxDB.
 You can verify proper handler behavior with `sensu-backend` logs.
-See [Troubleshoot Sensu][8] for log locations by platform.
+read [Troubleshoot Sensu][8] for log locations by platform.
 
 Whenever an event is being handled, a log entry is added with the message `"handler":"influx-db","level":"debug","msg":"sending event to handler"`, followed by a second log entry with the message `"msg":"pipelined executed event pipe
 handler","output":"","status":0`.

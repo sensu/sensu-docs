@@ -1703,7 +1703,7 @@ executed: 1522100915
 
 history      |      |
 -------------|------
-description  | Check status history for the last 21 check executions. See [history attributes][32].<br><br>Sensu automatically populates the history attributes with check execution data.
+description  | Check status history for the last 21 check executions. Read [history attributes][32].<br><br>Sensu automatically populates the history attributes with check execution data.
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -1954,7 +1954,7 @@ handlers:
 
 points       |      |
 -------------|------
-description  | Metrics data points, including a name, timestamp, value, and tags. See [points attributes][34].
+description  | Metrics data points, including a name, timestamp, value, and tags. Read [points attributes][34].
 required     | false
 type         | Array
 example      | {{< language-toggle >}}

@@ -113,7 +113,7 @@ If the provided filters are too restrictive for your platform, replace `os` and 
 You may also want to customize the asset `name` to reflect the supported platform (for example, `pagerduty-handler-linux`) and add custom attributes with [`labels` and `annotations`][5].
 
 **Enterprise-tier dynamic runtime assets** (like the [ServiceNow][10] and [Jira][11] event handlers) require a Sensu commercial license.
-For more information about commercial features and to activate your license, see [Get started with commercial features][12].
+For more information about commercial features and to activate your license, read [Get started with commercial features][12].
 
 Use sensuctl to verify that the asset is registered and ready to use:
 
@@ -200,7 +200,7 @@ sensuctl create --file pagerduty-handler.json
 {{< /language-toggle >}}
 
 Now that Sensu can create incidents in PagerDuty, you can automate this workflow by adding the `pagerduty` handler to your Sensu service check definitions.
-See [Monitor server resources][13] to learn more.
+Read [Monitor server resources][13] to learn more.
 
 ## Next steps
 

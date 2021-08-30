@@ -119,7 +119,7 @@ In case of a loss of connection with the backend or agent shutdown, the agent pr
 When the connection is reestablished, the agent sends the queued events to the backend.
 
 The `/events` API uses a configurable burst limit and rate limit for relaying events to the backend.
-See [API configuration flags](#api-configuration-flags) to configure the `events-burst-limit` and `events-rate-limit` flags.
+Read [API configuration flags](#api-configuration-flags) to configure the `events-burst-limit` and `events-rate-limit` flags.
 
 #### Example POST request to events API {#events-post-example}
 
@@ -805,7 +805,7 @@ You can specify a deregistration handler per agent using the [`deregistration-ha
 ### Cluster
 
 Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16].
-For more information about clustering, see [Backend datastore configuration flags][35] and [Run a Sensu cluster][36].
+For more information about clustering, read [Backend datastore configuration flags][35] and [Run a Sensu cluster][36].
 
 ### Synchronize time
 

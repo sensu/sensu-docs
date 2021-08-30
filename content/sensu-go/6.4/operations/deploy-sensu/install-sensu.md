@@ -22,7 +22,7 @@ Read [Generate certificates](../generate-certificates) next to get the certifica
 Sensu downloads are provided under the [Sensu commercial license][13].
 
 Sensu Go is packaged for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
-See [supported platforms][5] for more information.
+Review [supported platforms][5] for more information.
 
 ## Architecture overview
 
@@ -50,7 +50,7 @@ Sensu backends require persistent storage for their embedded database, disk spac
 Agents that use Sensu [dynamic runtime assets][17] require some disk space for a local cache.
 
 For more information, see the [Secure Sensu guide][8].
-See [deployment architecture][31] and [hardware requirements][25] for deployment recommendations.
+Read [deployment architecture][31] and [hardware requirements][25] for deployment recommendations.
 
 ## Ports
 
@@ -78,7 +78,7 @@ The agent TCP and UDP sockets are deprecated in favor of the [agent API][27].
 ## Install the Sensu backend
 
 The Sensu backend is available for Ubuntu/Debian, RHEL/CentOS, and Docker.
-See [supported platforms][5] for more information.
+Review [supported platforms][5] for more information.
 
 ### 1. Download
 
@@ -332,7 +332,7 @@ sensuctl user change-password --interactive
 ## Install Sensu agents
 
 The Sensu agent is available for Ubuntu/Debian, RHEL/CentOS, Windows, and Docker.
-See [supported platforms][5] for more information.
+Review [supported platforms][5] for more information.
 
 ### 1. Download {#agent-download}
 

@@ -69,7 +69,7 @@ To continue with this guide, make sure you have the required TLS credentials in 
 * A PEM-formatted X.509 certificate and corresponding private key copied to each cluster member.
 * A corresponding certificate authority (CA) certificate chain copied to each cluster member.
 
-If you don't have existing infrastructure for issuing certificates, see [Generate certificates][13] for our recommended self-signed certificate issuance process.
+If you don't have existing infrastructure for issuing certificates, read [Generate certificates][13] for our recommended self-signed certificate issuance process.
 
 This prerequisite extends to configuring the following Sensu backend etcd parameters:
 

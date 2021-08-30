@@ -176,12 +176,12 @@ spec:
 Sensu event filters can have dynamic runtime assets that are included in their execution context.
 When valid dynamic runtime assets are associated with an event filter, Sensu evaluates any files it finds that have a `.js` extension before executing the filter.
 The result of evaluating the scripts is cached for a given asset set for the sake of performance.
-For an example of how to implement an event filter as an asset, see [Reduce alert fatigue][30].
+For an example of how to implement an event filter as an asset, read [Reduce alert fatigue][30].
 
 ## Built-in event filters
 
 Sensu includes built-in event filters to help you customize event pipelines for metrics and alerts.
-To start using built-in event filters, see [Send Slack alerts][4] and [Plan maintenance][5].
+To start using built-in event filters, read [Send Slack alerts][4] and [Plan maintenance][5].
 
 {{% notice note %}}
 **NOTE**: Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x, but you can replicate its functionality with [the repeated events filter definition](#filter-for-repeated-events).
@@ -600,7 +600,7 @@ api_version: core/v2
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the event filter, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the filter definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][11] for details.
+description  | Top-level collection of metadata about the event filter, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the filter definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. Read [metadata attributes][11] for details.
 required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}

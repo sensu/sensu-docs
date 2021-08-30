@@ -31,7 +31,7 @@ Web UI search supports two equality-based operators, two set-based operators, on
 | `matches` | Substring matching | `check.name matches "linux-"`
 | `&&`      | Logical AND        | `check.publish == "true" && "slack" in check.handlers`
 
-For details about operators, see [API response filtering operators][7].
+For details about operators, read about the [API response filtering operators][7].
 
 ## Use quick search
 

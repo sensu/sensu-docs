@@ -169,7 +169,7 @@ The `sensuctl create` command applies namespaces to resources in the following o
 Namespaces specified in resource definitions take precedence over all other methods.
 2. **`--namespace` flag**: If resource definitions do not specify a namespace, Sensu applies the namespace provided by the `sensuctl create --namespace` flag.
 3. **Current sensuctl namespace configuration**: If you do not specify an embedded `namespace` attribute or use the `--namespace` flag, Sensu applies the namespace configured in the current sensuctl session.
-See [Manage sensuctl][31] to view your current session config and set the session namespace.
+Read [Manage sensuctl][31] to view your current session config and set the session namespace.
 
 This example defines a handler _without_ a `namespace` attribute:
 

@@ -54,7 +54,7 @@ Read the [LDAP][44], [AD][37], or [OIDC][7] reference documentation for provider
 
 After you set up authentication, configure authorization via [role-based access control (RBAC)][4] to give those users permissions within Sensu.
 RBAC allows you to specify actions users are allowed to take against resources, within namespaces or across all namespaces, based on roles bound to the user or to one or more groups the user is a member of.
-See [Create a read-only user][5] for an example.
+Read [Create a read-only user][5] for an example.
 
 - **Namespaces** partition resources within Sensu.
 Sensu entities, checks, handlers, and other [namespaced resources][17] belong to a single namespace.

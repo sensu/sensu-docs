@@ -175,7 +175,7 @@ spec:
 
 Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message).
 
-See [Monitor external resources][1] to learn how to use a proxy entity to monitor a website.
+Read [Monitor external resources][1] to learn how to use a proxy entity to monitor a website.
 
 ## Service entities
 

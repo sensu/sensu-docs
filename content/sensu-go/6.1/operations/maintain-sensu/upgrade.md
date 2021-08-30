@@ -107,7 +107,7 @@ In the web UI, you will see the following message when you reach the 100-entity 
 ![Sensu web UI warning when the entity limit is reached][3]
 
 If your Sensu instance includes more than 100 entities, [contact Sales][4] to learn how to upgrade your installation and increase your limit.
-See [our blog announcement][5] for more information about our usage policy.
+Read [our blog announcement][5] for more information about our usage policy.
 
 ## Upgrade Sensu clusters from 5.7.0 or earlier to 5.8.0 or later
 

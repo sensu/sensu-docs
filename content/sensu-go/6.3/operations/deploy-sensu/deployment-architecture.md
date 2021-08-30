@@ -26,7 +26,7 @@ After you create a cluster, you can add and remove cluster members with etcdctl 
 If you have a healthy clustered backend, you only need to make [Sensu API][2] calls to any one of the cluster members.
 The cluster protocol will replicate your changes to all cluster members.
 
-See [Run a Sensu cluster][7] and the [etcd documentation][4] for more information.
+Read [Run a Sensu cluster][7] and the [etcd documentation][4] for more information.
 
 ## Hardware sizing
 
@@ -58,7 +58,7 @@ As described in [Secure Sensu][6], the backend uses a shared certificate and key
 You can secure communications with etcd using the same certificate and key.
 The certificate's common name or subject alternate names must include the network interfaces and DNS names that will point to those systems.
 
-See [Run a Sensu cluster][7] and the [etcd documentation][4] for more information about TLS setup and configuration, including a walkthrough for generating TLS certificates for your cluster.
+Read [Run a Sensu cluster][7] and the [etcd documentation][4] for more information about TLS setup and configuration, including a walkthrough for generating TLS certificates for your cluster.
 
 ## Common Sensu architectures
 

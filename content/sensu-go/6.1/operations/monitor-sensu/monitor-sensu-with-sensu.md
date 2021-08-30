@@ -19,7 +19,7 @@ To completely monitor Sensu (a Sensu backend with internal etcd and an agent), y
 The second Sensu instance will ensure that you are notified when the primary is down and vice versa.
 
 This guide requires Sensu plugins using dynamic runtime assets.
-For more information about using Sensu plugins, see [Use dynamic runtime assets to install plugins][1].
+For more information about using Sensu plugins, read [Use dynamic runtime assets to install plugins][1].
 
 {{% notice note %}}
 **NOTE**: Although this guide describes approaches for monitoring a single backend, these strategies are also useful for monitoring individual members of a backend cluster.
