@@ -471,7 +471,7 @@ Sensu supports dynamic runtime assets for checks, filters, mutators, and handler
 Discover, download, and share dynamic runtime assets with [Bonsai][68], the Sensu asset hub.
 
 To create your own dynamic runtime assets, see the [asset reference][12] and [guide to sharing an asset on Bonsai][69].
-To contribute to converting a Sensu plugin to a dynamic runtime asset, see [the Discourse post][70].
+To contribute to converting a Sensu plugin to a dynamic runtime asset, read [the Discourse post][70].
 
 ### Step 4: Translate Sensu Enterprise-only features
 
@@ -494,7 +494,7 @@ See the [guide to installing plugins with assets][50] to register assets with Se
 #### Contact routing
 
 Contact routing is available in Sensu Go using the has-contact filter asset.
-See [Route alerts with event filters][90] to set up contact routing in Sensu Go.
+Read [Route alerts with event filters][90] to set up contact routing in Sensu Go.
 
 #### LDAP
 

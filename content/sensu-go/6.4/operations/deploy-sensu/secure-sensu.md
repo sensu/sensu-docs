@@ -160,7 +160,7 @@ trusted-ca-file: "/etc/sensu/tls/ca.pem"
 
 {{% notice note %}}
 **NOTE**: If you are creating a Sensu cluster, every cluster member needs to be present in the configuration.
-See [Run a Sensu cluster](../cluster-sensu/) for more information about how to configure agents for a clustered configuration.
+Read [Run a Sensu cluster](../cluster-sensu/) for more information about how to configure agents for a clustered configuration.
 {{% /notice %}}
 
 ## Optional: Configure Sensu agent mTLS authentication

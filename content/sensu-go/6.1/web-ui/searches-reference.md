@@ -147,7 +147,7 @@ api_version: searches/v1
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the search that includes `name` and `namespace`. The `metadata` map is always at the top level of the search definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][5] for details.
+description  | Top-level collection of metadata about the search that includes `name` and `namespace`. The `metadata` map is always at the top level of the search definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. Read [metadata attributes][5] for details.
 required     | Required for search entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][6].
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}

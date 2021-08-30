@@ -19,7 +19,7 @@ Sensu uses [agent entities][31], [proxy entities][32], and [service entities][40
 Sensu's free entity limit is 100 entities.
 All [commercial features][9] are available for free in the packaged Sensu Go distribution for up to 100 entities.
 If your Sensu instance includes more than 100 entities, [contact us][10] to learn how to upgrade your installation and increase your limit.
-See [the announcement on our blog][11] for more information about our usage policy.
+Read [the announcement on our blog][11] for more information about our usage policy.
 
 ## Create and manage agent entities
 
@@ -501,7 +501,7 @@ You can configure a check with a proxy entity name to associate the check result
 On the first check result, if the proxy entity does not exist, Sensu will create the entity as a proxy entity.
 
 After you create a proxy entity check, define which agents will run the check by configuring a subscription.
-See [Monitor external resources with proxy entities][17] for details about creating a proxy check for a proxy entity.
+Read [Monitor external resources with proxy entities][17] for details about creating a proxy check for a proxy entity.
 
 ### Service entity labels
 
@@ -619,7 +619,7 @@ api_version: core/v2
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the entity, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the entity definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][8] for details.
+description  | Top-level collection of metadata about the entity, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the entity definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. Read [metadata attributes][8] for details.
 required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][12].
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -959,7 +959,7 @@ subscriptions:
 
 system       | 
 -------------|------ 
-description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.{{% notice note %}}
+description  | System information about the entity, such as operating system and platform. Read [system attributes][1] for more information.{{% notice note %}}
 **NOTE**: Process discovery is disabled in this version of Sensu. New events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false
@@ -1119,7 +1119,7 @@ deregister: false
 
 deregistration  | 
 -------------|------ 
-description  | Map that contains a handler name to use when an entity is deregistered. See [deregistration attributes][2] for more information.
+description  | Map that contains a handler name to use when an entity is deregistered. Read [deregistration attributes][2] for more information.
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
@@ -1254,7 +1254,7 @@ platform_version: 16.04
 
 network     | 
 -------------|------ 
-description  | Entity's network interface list. See [network attributes][3] for more information.
+description  | Entity's network interface list. Read [network attributes][3] for more information.
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
@@ -1379,7 +1379,7 @@ example        | {{< language-toggle >}}
 
 processes    | 
 -------------|------ 
-description  | List of processes on the local agent. See [processes attributes][26] for more information.{{% notice note %}}
+description  | List of processes on the local agent. Read [processes attributes][26] for more information.{{% notice note %}}
 **NOTE**: Process discovery is disabled in this version of Sensu. New events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false 

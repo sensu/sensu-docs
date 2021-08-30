@@ -456,7 +456,7 @@ EOF
 {{< /language-toggle >}}
 
 Now that your handler is set up and Sensu can create incidents in PagerDuty, you can automate this workflow by adding your `pagerduty` handler to your Sensu service check definitions.
-See [Monitor server resources][24] to learn more.
+Read [Monitor server resources][24] to learn more.
 
 ## Next steps
 

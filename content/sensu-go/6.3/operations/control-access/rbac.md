@@ -902,7 +902,7 @@ verbs:
 
 resources         | 
 -------------|------ 
-description  | Type of resource that the rule has permission to access. Roles can only access [namespaced resource types][17]. Cluster roles can access namespaced and [cluster-wide resource types][18]. See [resource types][4] for available types.
+description  | Type of resource that the rule has permission to access. Roles can only access [namespaced resource types][17]. Cluster roles can access namespaced and [cluster-wide resource types][18]. Read [resource types][4] to learn about available types.
 required     | true
 type         | Array
 example      | {{< language-toggle >}}
