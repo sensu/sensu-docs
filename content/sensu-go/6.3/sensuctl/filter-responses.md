@@ -13,11 +13,11 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access sensuctl response filtering in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 Sensuctl supports response filtering for all [commands using the `list` verb][1].
-For information about response filtering methods and available label and field selectors, see [API response filtering][2].
+For information about response filtering methods and available label and field selectors, read [API response filtering][2].
 
 ## Sensuctl-specific syntax
 
@@ -62,7 +62,7 @@ Sensuctl response filtering supports two equality-based operators, two set-based
 | `matches` | Substring matching | `check.name matches "linux-"`
 | `&&`      | Logical AND        | `check.publish == true && slack in check.handlers`
 
-For details about operators, see [API response filtering operators][5].
+For details about operators, read about the [API response filtering operators][5].
 
 ## Examples
 

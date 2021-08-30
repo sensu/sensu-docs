@@ -15,7 +15,7 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access federation in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 Sensu's [federation API][1] allows you to register external clusters, gain visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI, and mirror your changes in one cluster to follower clusters.
@@ -69,7 +69,7 @@ To continue with this guide, make sure you have the required TLS credentials in 
 * A PEM-formatted X.509 certificate and corresponding private key copied to each cluster member.
 * A corresponding certificate authority (CA) certificate chain copied to each cluster member.
 
-If you don't have existing infrastructure for issuing certificates, see [Generate certificates][13] for our recommended self-signed certificate issuance process.
+If you don't have existing infrastructure for issuing certificates, read [Generate certificates][13] for our recommended self-signed certificate issuance process.
 
 This prerequisite extends to configuring the following Sensu backend etcd parameters:
 

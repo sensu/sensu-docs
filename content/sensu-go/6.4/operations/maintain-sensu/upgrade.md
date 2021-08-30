@@ -11,39 +11,83 @@ menu:
     parent: maintain-sensu
 ---
 
-To upgrade to the latest version of Sensu Go, [install the latest packages][1] and restart the services.
+To upgrade to the latest version of Sensu Go:
 
-{{% notice note %}}
-**NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services.
-{{% /notice %}}
+1. [Install][1] the latest packages or Docker image.
 
-To restart the Sensu agent, run:
+2. For systems that use `systemd`, run:
+{{< code shell >}}
+sudo systemctl daemon-reload
+{{< /code >}}
 
+3. Restart the Sensu agent:
 {{< code shell >}}
 sudo service sensu-agent restart
 {{< /code >}}
 
-To restart the Sensu backend, run:
-
+4. Restart the Sensu backend:
 {{< code shell >}}
 sudo service sensu-backend restart
 {{< /code >}}
 
-To confirm the installed version, run `sensu-agent version`, `sensu-backend version`, and `sensuctl version`.
+5. Run a single upgrade command on one your Sensu backends to migrate the cluster:
+{{< code shell >}}
+sensu-backend upgrade
+{{< /code >}}
+
+   To skip confirmation and immediately run the upgrade command, add the `--skip-confirm` flag:
+{{< code shell >}}
+sensu-backend upgrade --skip-confirm
+{{< /code >}}
+
+   {{% notice note %}}
+   **NOTE**: If you are deploying a new Sensu cluster rather than upgrading from a previous version, you do not need to run the `sensu-backend upgrade` command.
+{{% /notice %}}
+
+6. Enter `y` or `n` to confirm if you did *not* add the `--skip-confirm` flag in step 5.
+Otherwise, skip this step.
+
+7. Wait a few seconds for the upgrade command to run.
+You may notice some inconsistencies in your entity list until the cluster finishes upgrading.
+Despite this, your cluster will continue to publish standard check requests and process events.
+
+   If you run the upgrade command more than once, it will not harm the cluster &mdash; you'll just see a response that the upgrade command has already been run.
+
+   Some minor versions do not involve database-specific changes, and the `sensu-backend upgrade` tool will report that nothing was upgraded.
+Check the [release notes][16] to confirm whether a version has database-specific changes that require a backend upgrade.
+
+8. Confirm the installed version for the agent, backend, and sensuctl:
+{{< code shell >}}
+sensu-agent version
+{{< /code >}}
+{{< code shell >}}
+sensu-backend version
+{{< /code >}}
+{{< code shell >}}
+sensuctl version
+{{< /code >}}
+
+{{% notice protip %}}
+**PRO TIP**: If your upgrade is unsuccessful, read the version-specific information on this page and complete the instructions for each version, starting with your current version and continuing up to the version you want to install.<br><br>
+For example, to debug an upgrade from 5.5.0 to 6.4.0, start with [Upgrade Sensu clusters from 5.7.0 or earlier to 5.8.0 or later](#upgrade-sensu-clusters-from-570-or-earlier-to-580-or-later).
+{{% /notice %}}
 
 ## Upgrade to Sensu Go 6.4.0 from any previous version
 
 In Sensu Go 6.4.0, we upgraded the embedded etcd version from 3.3.22 to 3.5.0.
 As a result, for deployments that use embedded etcd, 6.4.0 is not backward-compatible with previous versions of the Sensu backend.
+In addition, Sensu 6.4.0 is not backward-compatible for PostgreSQL deployments.
 
 {{% notice note %}}
 **NOTE**: Sensu Go 6.4.0 is backward-compatible for deployments that use external etcd, as well as with previous versions of the Sensu agent.
 {{% /notice %}}
 
 For embedded etcd deployments, before you upgrade to Sensu Go 6.4.0, use the [etcd snapshot and restore process][9] to create a full etcd database backup.
-If you make a full etcd database backup before upgrading to 6.4.0, you will be able to restore your pre-6.4.0 deployment if you need to revert to an earlier Sensu release.
+If you use PostgreSQL, make sure to [back up your PostgreSQL database][13] also.
 
-After creating a full backup of your embedded etcd database, you can follow the [standard upgrade process][10] to upgrade to 6.4.0.
+If you make a full etcd database backup (and a PostgreSQL database backup, if you use PostgreSQL) before upgrading to 6.4.0, you will be able to restore your pre-6.4.0 deployment if you need to revert to an earlier Sensu release.
+
+After creating a full backup of your embedded etcd database and your PostgreSQL database, if you use PostgreSQL, you can complete the [upgrade process][10].
 
 ### CommonName deprecation in Go 1.15
 
@@ -118,27 +162,7 @@ After completing these commands, you can upgrade to 6.2.0.
 
 ## Upgrade to Sensu Go 6.1.0 from 6.0.0
 
-To upgrade to Sensu Go 6.1.0 from version 6.0.0 or later, [install the latest packages][1] and restart the services.
-
-{{% notice note %}}
-**NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services.
-{{% /notice %}}
-
-To restart the Sensu agent, run:
-
-{{< code shell >}}
-sudo service sensu-agent restart
-{{< /code >}}
-
-To restart the Sensu backend, run:
-
-{{< code shell >}}
-sudo service sensu-backend restart
-{{< /code >}}
-
-To confirm the installed version, run `sensu-agent version`, `sensu-backend version`, and `sensuctl version`.
-
-If you have a large number of events in PostgreSQL, you may experience a short period of unavailability after you upgrade to 6.1.0. 
+If you are using 6.0.0 and have a large number of events in PostgreSQL, you may experience a short period of unavailability after you upgrade to 6.1.0. 
 This pause will occur while the optimized selector information is populating during automatic database migration.
 It may last for a period of a few seconds to a few minutes.
 
@@ -146,84 +170,14 @@ This pause may extend to API request processing, so sensuctl and the web UI may 
 
 ## Upgrade to Sensu Go 6.0 from a 5.x deployment
 
-{{% notice warning %}}
-**WARNING**: Before you upgrade to Sensu 6.0, use [`sensuctl dump`](../../../sensuctl/back-up-recover) to create a backup of your existing installation.
-You will not be able to downgrade to a Sensu 5.x version after you upgrade your database to Sensu 6.0 in step 3 of this process.
-{{% /notice %}}
+Before you upgrade to Sensu 6.0, use [`sensuctl dump`][15] to create a backup of your existing installation.
 
-To upgrade your Sensu Go 5.x deployment to 6.0:
-
-1. [Install][1] the 6.0 packages or Docker image.
-2. Restart the Sensu agent.
-   
- {{% notice note %}}
-   **NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services.
-{{% /notice %}}
-
-  {{< code shell >}}
-sudo service sensu-agent restart
-{{< /code >}}
-
-3. Restart the Sensu backend.
-
-  {{< code shell >}}
-sudo service sensu-backend restart
-{{< /code >}}
-
-4. Run a single upgrade command on one your Sensu backends to migrate the cluster:
-
-  {{< code shell >}}
-sensu-backend upgrade
-{{< /code >}}
-
-   - Add the `--skip-confirm` flag to skip the confirmation in step 4 and immediately run the upgrade command.
-
-  {{< code shell >}}
-sensu-backend upgrade --skip-confirm
-{{< /code >}}
-
-  {{% notice note %}}
-   **NOTE**: If you are deploying a new Sensu 6.0 cluster rather than upgrading from 5.x, you do not need to run the `sensu-backend upgrade` command.
-{{% /notice %}}
-
-5. Enter `y` or `n` to confirm if you did *not* add the `--skip-confirm` flag. Otherwise, skip this step.
-
-6. Wait a few seconds for the upgrade command to run.
-
-You may notice some inconsistencies in your entity list until the cluster finishes upgrading.
-Despite this, your cluster will continue to publish standard check requests and process events.
-
-If you run the upgrade command more than once, it will not harm the cluster &mdash; you'll just see a response that the upgrade command has already been run. 
-
-## Upgrade to the latest 5.x version of Sensu Go from 5.0.0 or later
-
-To upgrade to the latest version of Sensu Go from version 5.0.0 or later, [install the latest packages][1].
-
-Then, restart the services.
-
-{{% notice note %}}
-**NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services.
-{{% /notice %}}
-
-To restart the Sensu agent, run:
-
-{{< code shell >}}
-sudo service sensu-agent restart
-{{< /code >}}
-
-To restart the Sensu backend, run:
-
-{{< code shell >}}
-sudo service sensu-backend restart
-{{< /code >}}
-
-Use the `version` command to determine the installed version using the `sensu-agent`, `sensu-backend`, and `sensuctl` tools.
-For example, `sensu-backend version`.
+You will not be able to downgrade to a Sensu 5.x version after you upgrade your database to Sensu 6.0 after you restart the backend in the [upgrade process][10].
 
 ## Upgrade to Sensu Go 5.16.0 from any earlier version
 
 As of Sensu Go 5.16.0, Sensu's free entity limit is 100 entities.
-All [commercial features][6] are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
+All [commercial features][6] are available for free in the packaged Sensu Go distribution for up to 100 entities.
 
 When you upgrade to 5.16.0, if your existing unlicensed instance has more than 100 entities, Sensu will continue to monitor those entities.
 However, if you try to create any new entities via the HTTP API or sensuctl, you will see the following message:
@@ -241,7 +195,7 @@ In the web UI, you will see the following message when you reach the 100-entity 
 ![Sensu web UI warning when the entity limit is reached][3]
 
 If your Sensu instance includes more than 100 entities, [contact Sales][4] to learn how to upgrade your installation and increase your limit.
-See [our blog announcement][5] for more information about our usage policy.
+Read [our blog announcement][5] for more information about our usage policy.
 
 ## Upgrade Sensu clusters from 5.7.0 or earlier to 5.8.0 or later
 
@@ -286,3 +240,7 @@ sudo service sensu-backend restart
 [10]: ../../maintain-sensu/upgrade/
 [11]: https://golang.google.cn/doc/go1.15#commonname
 [12]: ../../deploy-sensu/generate-certificates/
+[13]: https://www.postgresql.org/docs/current/backup.html
+[14]: #upgrade-sensu-clusters-from-570-or-earlier-to-580-or-later
+[15]: ../../../sensuctl/back-up-recover/
+[16]: ../../../release-notes/

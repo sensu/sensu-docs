@@ -123,7 +123,7 @@ In case of a loss of connection with the backend or agent shutdown, the agent pr
 When the connection is reestablished, the agent sends the queued events to the backend.
 
 The `/events` API uses a configurable burst limit and rate limit for relaying events to the backend.
-See [API configuration flags](#api-configuration-flags) to configure the `events-burst-limit` and `events-rate-limit` flags.
+Read [API configuration flags](#api-configuration-flags) to configure the `events-burst-limit` and `events-rate-limit` flags.
 
 #### Example POST request to events API {#events-post-example}
 
@@ -809,7 +809,7 @@ You can specify a deregistration handler per agent using the [`deregistration-ha
 ### Cluster
 
 Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16].
-For more information about clustering, see [Backend datastore configuration flags][35] and [Run a Sensu cluster][36].
+For more information about clustering, read [Backend datastore configuration flags][35] and [Run a Sensu cluster][36].
 
 ### Synchronize time
 
@@ -859,54 +859,54 @@ Usage:
   sensu-agent start [flags]
 
 Flags:
-      --agent-managed-entity                  manage this entity via the agent
-      --allow-list string                     path to agent execution allow list configuration file
-      --annotations stringToString            entity annotations map (default [])
-      --api-host string                       address to bind the Sensu client HTTP API to (default "127.0.0.1")
-      --api-port int                          port the Sensu client HTTP API listens on (default 3031)
-      --assets-burst-limit int                asset fetch burst limit (default 100)
-      --assets-rate-limit float               maximum number of assets fetched per second
-      --backend-handshake-timeout int         number of seconds the agent should wait when negotiating a new WebSocket connection (default 15)
-      --backend-heartbeat-interval int        interval at which the agent should send heartbeats to the backend (default 30)
-      --backend-heartbeat-timeout int         number of seconds the agent should wait for a response to a hearbeat (default 45)
-      --backend-url strings                   ws/wss URL of Sensu backend server (to specify multiple backends use this flag multiple times) (default [ws://127.0.0.1:8081])
-      --cache-dir string                      path to store cached data (default "/var/cache/sensu/sensu-agent")
-      --cert-file string                      TLS certificate in PEM format
-  -c, --config-file string                    path to sensu-agent config file
-      --deregister                            ephemeral agent
-      --deregistration-handler string         deregistration handler that should process the entity deregistration event.
-      --detect-cloud-provider                 enable cloud provider detection mechanisms
-      --disable-assets                        disable check assets on this agent
-      --disable-api                           disable the Agent HTTP API
-      --disable-sockets                       disable the Agent TCP and UDP event sockets
-      --discover-processes                    indicates whether process discovery should be enabled
-      --events-burst-limit                    /events api burst limit
-      --events-rate-limit                     maximum number of events transmitted to the backend through the /events api
-  -h, --help                                  help for start
-      --insecure-skip-tls-verify              skip ssl verification
-      --keepalive-critical-timeout uint32     number of seconds until agent is considered dead by backend to create a critical event (default 0)
-      --keepalive-handlers string             comma-delimited list of keepalive handlers for this entity. This flag can also be invoked multiple times
-      --keepalive-interval uint32             number of seconds to send between keepalive events (default 20)
-      --keepalive-warning-timeout uint32      number of seconds until agent is considered dead by backend to create a warning event (default 120)
-      --key-file string                       TLS certificate key in PEM format
-      --labels stringToString                 entity labels map (default [])
-      --log-level string                      logging level [panic, fatal, error, warn, info, debug] (default "info")
-      --name string                           agent name (defaults to hostname) (default "my-hostname")
-      --namespace string                      agent namespace (default "default")
-      --password string                       agent password (default "P@ssw0rd!")
-      --redact string                         comma-delimited customized list of fields to redact
-      --require-fips                          indicates whether fips support should be required in openssl
-      --require-openssl                       indicates whether openssl should be required instead of go's built-in crypto
-      --socket-host string                    address to bind the Sensu client socket to (default "127.0.0.1")
-      --socket-port int                       port the Sensu client socket listens on (default 3030)
-      --statsd-disable                        disables the statsd listener and metrics server
-      --statsd-event-handlers strings         comma-delimited list of event handlers for statsd metrics
-      --statsd-flush-interval int             number of seconds between statsd flush (default 10)
-      --statsd-metrics-host string            address used for the statsd metrics server (default "127.0.0.1")
-      --statsd-metrics-port int               port used for the statsd metrics server (default 8125)
-      --subscriptions string                  comma-delimited list of agent subscriptions
-      --trusted-ca-file string                tls certificate authority
-      --user string                           agent user (default "agent")
+      --agent-managed-entity                manage this entity via the agent
+      --allow-list string                   path to agent execution allow list configuration file
+      --annotations stringToString          entity annotations map (default [])
+      --api-host string                     address to bind the Sensu client HTTP API to (default "127.0.0.1")
+      --api-port int                        port the Sensu client HTTP API listens on (default 3031)
+      --assets-burst-limit int              asset fetch burst limit (default 100)
+      --assets-rate-limit float             maximum number of assets fetched per second
+      --backend-handshake-timeout int       number of seconds the agent should wait when negotiating a new WebSocket connection (default 15)
+      --backend-heartbeat-interval int      interval at which the agent should send heartbeats to the backend (default 30)
+      --backend-heartbeat-timeout int       number of seconds the agent should wait for a response to a hearbeat (default 45)
+      --backend-url strings                 comma-delimited list of ws/wss URLs of Sensu backend servers. This flag can also be invoked multiple times (default [ws://127.0.0.1:8081])
+      --cache-dir string                    path to store cached data (default "/var/cache/sensu/sensu-agent")
+      --cert-file string                    certificate for TLS authentication
+  -c, --config-file string                  path to sensu-agent config file (default "/etc/sensu/agent.yml")
+      --deregister                          ephemeral agent
+      --deregistration-handler string       deregistration handler that should process the entity deregistration event
+      --detect-cloud-provider               enable cloud provider detection
+      --disable-api                         disable the Agent HTTP API
+      --disable-assets                      disable check assets on this agent
+      --disable-sockets                     disable the Agent TCP and UDP event sockets
+      --discover-processes                  indicates whether process discovery should be enabled
+      --events-burst-limit int              /events api burst limit (default 10)
+      --events-rate-limit float             maximum number of events transmitted to the backend through the /events api
+  -h, --help                                help for start
+      --insecure-skip-tls-verify            skip TLS verification (not recommended!)
+      --keepalive-critical-timeout uint32   number of seconds until agent is considered dead by backend to create a critical event
+      --keepalive-handlers strings          comma-delimited list of keepalive handlers for this entity. This flag can also be invoked multiple times
+      --keepalive-interval int              number of seconds to send between keepalive events (default 20)
+      --keepalive-warning-timeout uint32    number of seconds until agent is considered dead by backend to create a warning event (default 120)
+      --key-file string                     key for TLS authentication
+      --labels stringToString               entity labels map (default [])
+      --log-level string                    logging level [panic, fatal, error, warn, info, debug] (default "info")
+      --name string                         agent name (defaults to hostname) (default "my_hostname")
+      --namespace string                    agent namespace (default "default")
+      --password string                     agent password (default "P@ssw0rd!")
+      --redact strings                      comma-delimited list of fields to redact, overwrites the default fields. This flag can also be invoked multiple times (default [password,passwd,pass,api_key,api_token,access_key,secret_key,private_key,secret])
+      --require-fips                        indicates whether fips support should be required in openssl
+      --require-openssl                     indicates whether openssl should be required instead of go's built-in crypto
+      --socket-host string                  address to bind the Sensu client socket to (default "127.0.0.1")
+      --socket-port int                     port the Sensu client socket listens on (default 3030)
+      --statsd-disable                      disables the statsd listener and metrics server
+      --statsd-event-handlers strings       comma-delimited list of event handlers for statsd metrics. This flag can also be invoked multiple times
+      --statsd-flush-interval int           number of seconds between statsd flush (default 10)
+      --statsd-metrics-host string          address used for the statsd metrics server (default "127.0.0.1")
+      --statsd-metrics-port int             port used for the statsd metrics server (default 8125)
+      --subscriptions strings               comma-delimited list of agent subscriptions. This flag can also be invoked multiple times
+      --trusted-ca-file string              TLS CA certificate bundle in PEM format
+      --user string                         agent user (default "agent")
 {{< /code >}}
 
 {{< platformBlockClose >}}
@@ -944,7 +944,7 @@ agent-managed-entity: true{{< /code >}}
 
 | allow-list |      |
 ------------------|------
-description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. See [allow list configuration commands][49] and the [example allow list configuration file][48] for information about building a configuration file.
+description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. Read [allow list configuration commands][49] and the [example allow list configuration file][48] for information about building a configuration file.
 type              | String
 default           | `""`
 environment variable | `SENSU_ALLOW_LIST`
@@ -1106,7 +1106,7 @@ disable-assets: true{{< /code >}}
 
 | discover-processes |      |
 --------------|------
-description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].{{% notice note %}}
+description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features][55].{{% notice note %}}
 **NOTE**: Process discovery is disabled in this version of Sensu. The `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 type          | Boolean
@@ -1154,7 +1154,7 @@ name: "agent-01"{{< /code >}}
 --------------|------
 description   | Logging level: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`.
 type          | String
-default       | `info`
+default       | `info` in Sensu Go 6.4.0<br>`warn` in Sensu Go 6.4.1
 environment variable | `SENSU_LOG_LEVEL`
 command line example   | {{< code shell >}}
 sensu-agent start --log-level debug{{< /code >}}
@@ -1826,7 +1826,8 @@ For example, if you create overrides using all three methods, the command line c
 
 ### Example override: Log level
 
-The default [log level][60] for the Sensu agent is `info`.
+The default [log level][60] for the Sensu agent is `info` in Sensu Go 6.4.0 and `warn` in Sensu Go 6.4.1.
+
 To override the default and automatically apply a different log level for the agent, add the `--log-level` command line configuration flag when you start the Sensu agent.
 For example, to specify `debug` as the log level:
 

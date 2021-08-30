@@ -14,7 +14,7 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access business service monitoring (BSM), including rule templates, in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
@@ -155,7 +155,7 @@ For example, you might set the minimum threshold at 10 web servers with an OK st
 
 The `aggregate` rule template is useful in dynamic environments and environments with some tolerance for failure.
 
-To review the `aggregate` resource definition, retrive it with a GET request to the BSM API:
+To review the `aggregate` resource definition, retrieve it with a GET request to the BSM API:
 
 {{< code shell >}}
 curl -X GET \

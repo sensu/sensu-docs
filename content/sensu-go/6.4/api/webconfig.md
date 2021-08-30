@@ -13,12 +13,12 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access web UI configuration in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to the web UI configuration API require you to authenticate with a Sensu [access token](../#authenticate-with-the-authentication-api) or [API key](../#authenticate-with-an-api-key).
-The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+**NOTE**: Requests to the web UI configuration API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 ## Get the web UI configuration

@@ -284,7 +284,7 @@ Use double curly braces around the token and a dot before the attribute to be su
 ### Token substitution syntax
 
 Tokens are invoked by wrapping references to entity attributes and labels with double curly braces, such as `{{ .name }}` to substitute an entity's name.
-Access nested Sensu [entity attributes][3] dot notation (for example, `system.arch`).
+Access nested Sensu [entity attributes][3] with dot notation (for example, `system.arch`).
 
 - `{{ .name }}` would be replaced with the [entity `name` attribute][3]
 - `{{ .labels.url }}` would be replaced with a custom label called `url`

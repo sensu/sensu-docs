@@ -19,21 +19,81 @@ To completely monitor Sensu (a Sensu backend with internal etcd and an agent), y
 The second Sensu instance will ensure that you are notified when the primary is down and vice versa.
 
 This guide requires Sensu plugins using dynamic runtime assets.
-For more information about using Sensu plugins, see [Use dynamic runtime assets to install plugins][1].
+For more information about using Sensu plugins, read [Use dynamic runtime assets to install plugins][1].
 
 {{% notice note %}}
-**NOTE**: This guide describes approaches for monitoring a single backend.
-These strategies are also useful for monitoring individual members of a backend cluster.
+**NOTE**: Although this guide describes approaches for monitoring a single backend, these strategies are also useful for monitoring individual members of a backend cluster.
 
 This guide does not describe Sensu agent [keepalive monitoring](../../../observability-pipeline/observe-schedule/agent/#keepalive-monitoring).
 {{% /notice %}}
 
-The following ports and endpoints are monitored as part of this guide:
+The checks in this guide monitoring the following ports and endpoints:
 
 | Port | Endpoint | Description |
 |------|----------|-------------|
 | 2379 | `/health`  | Etcd health endpoint. Provides health status for etcd nodes. |
-| 8080 | `/health`  | Sensu Go health endpoint. Provides health status for Sensu backends, as well as for Postgres (when enabled). |
+| 8080 | `/health`  | Sensu Go health endpoint. Provides health status for Sensu backends, as well as for PostgreSQL (when enabled). |
+
+## Register dynamic runtime assets
+
+To power the checks to monitor your Sensu backend, external etcd, and PostgreSQL instances, add the [Sensu HTTP Plugin][5] dynamic runtime asset.
+This asset includes the `check-http.rb` plugin, which your checks will rely on.
+
+The Sensu assets packaged from Sensu HTTP Plugin are built against the Sensu Ruby runtime environment, so you also need to add the [Sensu Go Ruby Runtime Assets][6] dynamic runtime asset.
+The Ruby runtime asset delivers the Ruby executable and supporting libraries the check will need to run the `check-http.rb` plugin.
+
+To do this, use the `check-http.rb` plugin from the [Sensu HTTP Plugin][5] dynamic runtime asset to query Sensu's [health API endpoint][2] with a check definition for your primary (Backend Alpha) and secondary (Backend Beta) backends:
+
+To register the Sensu HTTP Plugin dynamic runtime asset, `sensu-plugins/sensu-plugins-http:6.0.0`, run:
+
+{{< code shell >}}
+sensuctl asset add sensu-plugins/sensu-plugins-http:6.0.0 -r sensu-plugins-http
+{{< /code >}}
+
+The response will confirm that the asset was added:
+
+{{< code shell >}}
+fetching bonsai asset: sensu-plugins/sensu-plugins-http:6.0.0
+added asset: sensu-plugins/sensu-plugins-http:6.0.0
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["sensu-plugins-http"].
+{{< /code >}}
+
+This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `sensu-plugins-http`.
+
+Then, use the following sensuctl command to register the Sensu Ruby Runtime dynamic runtime asset, `sensu/sensu-ruby-runtime:0.1.0`:
+
+{{< code shell >}}
+sensuctl asset add sensu/sensu-ruby-runtime:0.1.0 -r sensu-ruby-runtime
+{{< /code >}}
+
+To confirm that all three dynamic runtime assets are ready to use, run:
+
+{{< code shell >}}
+sensuctl asset list
+{{< /code >}}
+
+The response should list the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets:
+
+{{< code shell >}}
+         Name                                                      URL                                                Hash    
+───────────────────── ───────────────────────────────────────────────────────────────────────────────────────────── ──────────
+  sensu-plugins-http   //assets.bonsai.sensu.io/.../sensu-plugins-http_6.0.0_debian9_linux_amd64.tar.gz              ed9c3c8  
+  sensu-plugins-http   //assets.bonsai.sensu.io/.../sensu-plugins-http_6.0.0_debian_linux_amd64.tar.gz               bfa025f  
+  ...
+  sensu-ruby-runtime   //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.1.0_ruby-2.4.4_amzn2_linux_amd64.tar.gz     a83aaa5  
+  sensu-ruby-runtime   //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.1.0_ruby-2.4.4_amzn1_linux_amd64.tar.gz     7b504f0  
+  ...
+{{< /code >}}
+
+Because plugins are published for multiple platforms, including Linux and Windows, the output will include multiple entries for each of the dynamic runtime assets.
+
+{{% notice note %}}
+**NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+{{% /notice %}}
 
 ## Monitor your Sensu backend instances
 
@@ -42,7 +102,7 @@ Monitor the host running the `sensu-backend` *locally* by a `sensu-agent` proces
 For Sensu components that must be running for Sensu to create events, you should also monitor the `sensu-backend` remotely from an independent Sensu instance.
 This will allow you to monitor whether your Sensu event pipeline is working.
 
-To do this, use the `check-http.rb` plugin from the [Sensu Plugins HTTP][3] dynamic runtime asset to query Sensu's [health API endpoint][2] with a check definition for your primary (Backend Alpha) and secondary (Backend Beta) backends:
+To do this, add checks that use the `check-http.rb` plugin from the [Sensu HTTP Plugin][5] dynamic runtime asset to query Sensu's [health API endpoint][2] for your primary (Backend Alpha) and secondary (Backend Beta) backends:
 
 {{< language-toggle >}}
 
@@ -135,15 +195,15 @@ spec:
 {{< /language-toggle >}}
 
 {{% notice note %}}
-**NOTE**: This example uses the [Sensu Plugins HTTP](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http) and [Sensu Ruby Runtime](https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime) dynamic runtime assets.
-Read [Monitor server resources with checks](../../../observability-pipeline/observe-schedule/monitor-server-resources/#register-dynamic-runtime-assets) to learn how to add these assets.
+**NOTE**: This example uses the [Sensu HTTP Plugin](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http) and [Sensu Go Ruby Runtime](https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime) dynamic runtime assets.
+Follow [Register dynamic runtime assets](#register-dynamic-runtime-assets) if you have not previously added these assets.
 {{% /notice %}}
 
 ## Monitor external etcd
 
-If your Sensu Go deployment uses an external etcd cluster, you'll need to check the health of the respective etcd instances.
+If your Sensu Go deployment uses an external etcd cluster, you'll need to check the health of the respective etcd instances for your primary (Backend Alpha) and secondary (Backend Beta) backends.
 
-This example includes checks for your primary (Backend Alpha) and secondary (Backend Beta) backends:
+This example uses the `check-http.rb` plugin from the [Sensu HTTP Plugin][5] dynamic runtime asset:
 
 {{< language-toggle >}}
 
@@ -155,14 +215,15 @@ metadata:
   namespace: default
   name: check_beta_etcd_health
 spec:
-  command: check_http -H sensu-beta-etcd -p 2379 -u /health
+  command: check-http.rb -u http://sensu-etcd-beta:2379/health -n false
   subscriptions:
-    - backend_alpha
+  - backend_alpha
   interval: 10
   publish: true
   timeout: 10
   runtime_assets:
-    - monitoring-plugins
+  - sensu-plugins/sensu-plugins-http
+  - sensu/sensu-ruby-runtime
 {{< /code >}}
 
 {{< code yml "YML - Backend Beta">}}
@@ -173,14 +234,15 @@ metadata:
   namespace: default
   name: check_alpha_etcd_health
 spec:
-  command: check_http -H sensu-alpha-etcd -p 2379 -u /health
+  command: check-http.rb -u http://sensu-etcd-alpha:2379/health -n false
   subscriptions:
-    - backend_beta
+  - backend_beta
   interval: 10
   publish: true
   timeout: 10
   runtime_assets:
-    - monitoring-plugins
+  - sensu-plugins/sensu-plugins-http
+  - sensu/sensu-ruby-runtime
 {{< /code >}}
 
 {{< code json "JSON - Backend Alpha">}}
@@ -192,7 +254,7 @@ spec:
     "name": "check_beta_etcd_health"
   },
   "spec": {
-    "command": "check_http -H sensu-beta-etcd -p 2379 -u /health",
+    "command": "check-http.rb -u http://sensu-etcd-beta:2379/health -n false",
     "subscriptions": [
       "backend_alpha"
     ],
@@ -200,7 +262,8 @@ spec:
     "publish": true,
     "timeout": 10,
     "runtime_assets": [
-      "monitoring-plugins"
+      "sensu-plugins/sensu-plugins-http",
+      "sensu/sensu-ruby-runtime"
     ]
   }
 }
@@ -215,7 +278,7 @@ spec:
     "name": "check_alpha_etcd_health"
   },
   "spec": {
-    "command": "check_http -H sensu-alpha-etcd -p 2379 -u /health",
+    "command": "check-http.rb -u http://sensu-etcd-alpha:2379/health -n false",
     "subscriptions": [
       "backend_beta"
     ],
@@ -223,7 +286,8 @@ spec:
     "publish": true,
     "timeout": 10,
     "runtime_assets": [
-      "monitoring-plugins"
+      "sensu-plugins/sensu-plugins-http",
+      "sensu/sensu-ruby-runtime"
     ]
   }
 }
@@ -231,15 +295,20 @@ spec:
 
 {{< /language-toggle >}}
 
-## Monitor Postgres
-
-{{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access enterprise-scale Postgres event storage in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+{{% notice note %}}
+**NOTE**: This example uses the [Sensu HTTP Plugin](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http) and [Sensu Go Ruby Runtime](https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime) dynamic runtime assets.
+Follow [Register dynamic runtime assets](#register-dynamic-runtime-assets) if you have not previously added these assets.
 {{% /notice %}}
 
-Larger Sensu deployments may use [Postgres as an alternative datastore][4] to process larger numbers of events.
-The connection to Postgres is exposed on Sensu's `/health` endpoint and will look like the example below:
+## Monitor PostgreSQL
+
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access enterprise-scale PostgreSQL event storage in the packaged Sensu Go distribution.
+For more information, read [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
+
+Larger Sensu deployments may use [PostgreSQL as an alternative datastore][4] to process larger numbers of events.
+The connection to PostgreSQL is exposed on Sensu's `/health` endpoint and will look like this example:
 
 {{< code json >}}
 {
@@ -276,7 +345,7 @@ The connection to Postgres is exposed on Sensu's `/health` endpoint and will loo
 }
 {{< /code >}}
 
-To monitor Postgres' health from Sensu's perspective, use a check like this example:
+To monitor PostgreSQL's health from Sensu's perspective, use a check like this example, which uses the `check-http.rb` plugin from the [Sensu HTTP Plugin][5] dynamic runtime asset:
 
 {{< language-toggle >}}
 
@@ -358,16 +427,17 @@ spec:
 {{< /language-toggle >}}
 
 {{% notice note %}}
-**NOTE**: This example uses the [Sensu Plugins HTTP](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http) and [Sensu Ruby Runtime](https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime) dynamic runtime assets.
-Read [Monitor server resources with checks](../../../observability-pipeline/observe-schedule/monitor-server-resources/#register-dynamic-runtime-assets) to learn how to add these assets.
+**NOTE**: This example uses the [Sensu HTTP Plugin](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http) and [Sensu Go Ruby Runtime](https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime) dynamic runtime assets.
+Follow [Register dynamic runtime assets](#register-dynamic-runtime-assets) if you have not previously added these assets.
 {{% /notice %}}
 
-A successful PostgreSQL health check result will look like this:
+A successful PostgreSQL health check result will be similar to this example:
 
-{{< figure src="/images/sensu-postgres-health.png" alt="Successful Postgres health check in Sensu Go web UI" link="/images/sensu-postgres-health.png" target="_blank" >}}
+{{< figure src="/images/sensu-postgres-health.png" alt="Successful PostgreSQL health check in Sensu Go web UI" link="/images/sensu-postgres-health.png" target="_blank" >}}
 
 
 [1]: ../../../plugins/use-assets-to-install-plugins/
 [2]: ../../../api/health/
-[3]: https://bonsai.sensu.io/assets/sensu/monitoring-plugins
 [4]: ../../deploy-sensu/scale-event-storage/
+[5]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http
+[6]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime

@@ -19,7 +19,7 @@ Sensu requires username and password authentication to access the web UI, API, a
 You can use Sensu's [built-in basic authentication provider][14] or configure [external authentication providers][15].
 
 {{% notice note %}}
-**NOTE**: For API-specific authentication, see the [API overview](../../api/#access-control) and [Use API keys to authenticate to Sensu](use-apikeys/).
+**NOTE**: For API-specific authentication, read the [API overview](../../api/#access-control) and [Use API keys to authenticate to Sensu](use-apikeys/).
 {{% /notice %}}
 
 Authorization establishes and manages user permissions: the extent of access users have for different Sensu resources.
@@ -42,7 +42,7 @@ Sensu hashes user passwords using the [bcrypt][26] algorithm and records the bas
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access authentication providers for single sign-on (SSO) in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 In addition to built-in basic authentication, Sensu includes commercial support for single sign-on (SSO) authentication using external authentication providers via Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC).
@@ -54,7 +54,7 @@ Read the [LDAP][44], [AD][37], or [OIDC][7] reference documentation for provider
 
 After you set up authentication, configure authorization via [role-based access control (RBAC)][4] to give those users permissions within Sensu.
 RBAC allows you to specify actions users are allowed to take against resources, within namespaces or across all namespaces, based on roles bound to the user or to one or more groups the user is a member of.
-See [Create a read-only user][5] for an example.
+Read [Create a read-only user][5] for an example.
 
 - **Namespaces** partition resources within Sensu.
 Sensu entities, checks, handlers, and other [namespaced resources][17] belong to a single namespace.

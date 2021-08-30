@@ -14,12 +14,12 @@ menu:
 ---
 
 An entity represents anything that needs to be monitored, such as a server, container, or network switch, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment.
-Sensu uses [agent entities][31] and [proxy entities][32].
+Sensu uses [agent entities][31], [proxy entities][32], and [service entities][40].
 
 Sensu's free entity limit is 100 entities.
-All [commercial features][9] are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
+All [commercial features][9] are available for free in the packaged Sensu Go distribution for up to 100 entities.
 If your Sensu instance includes more than 100 entities, [contact us][10] to learn how to upgrade your installation and increase your limit.
-See [the announcement on our blog][11] for more information about our usage policy.
+Read [the announcement on our blog][11] for more information about our usage policy.
 
 ## Create and manage agent entities
 
@@ -212,7 +212,8 @@ spec:
 
 You can manage agent entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33], just like any other Sensu resource.
 This means you do not need to update the `agent.yml` configuration file to add, update, or delete agent entity attributes like subscriptions and labels.
-This is the default configuration for agent entities.
+
+Management via the backend is the default configuration for agent entities.
 
 {{% notice note %}}
 **NOTE**: If you manage an agent entity via the backend, you cannot modify the agent entity with the `agent.yml` configuration file unless you delete the entity.
@@ -227,7 +228,7 @@ If you change an agent entity's class to `proxy`, the backend will revert the ch
 If you prefer, you can manage agent entities via the agent rather than the backend.
 To do this, add the [`agent-managed-entity` flag][16] when you start the Sensu agent or set `agent-managed-entity: true` in your `agent.yml` file.
 
-When you start an agent with the `--agent-managed-entity` flag or set `agent-managed-entity: true` in agent.yml, the agent becomes responsible for managing its entity configuration.
+When you start an agent with the `--agent-managed-entity` flag or set `agent-managed-entity: true` in `agent.yml`, the agent becomes responsible for managing its entity configuration.
 An entity managed by this agent will include the label `sensu.io/managed_by: sensu-agent`.
 You cannot update these agent-managed entities via the Sensu backend REST API.
 To change an agent's configuration, restart the agent.
@@ -304,8 +305,7 @@ spec:
 
 ### Proxy entities and round robin scheduling
 
-Proxy entities make [round robin scheduling][18] more useful.
-Proxy entities allow you to combine all round robin events into a single event.
+Proxy entities make [round robin scheduling][18] more useful because they allow you to combine all round robin events into a single event.
 Instead of having a separate event for each agent entity, you have a single event for the entire round robin.
 
 If you don't use a proxy entity for round robin scheduling, you could have several failures in a row, but each event will only be aware of one of the failures.
@@ -321,15 +321,15 @@ Use [proxy entity filters][19] to establish a many-to-many relationship between 
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access business service monitoring (BSM), including service entities, in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
-
-Service entities are dynamically created entities that Sensu adds to the entity store when a [service component][39] generates an event.
-Service entities allow Sensu to monitor [business services][38].
 
 {{% notice note %}}
 **NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
 {{% /notice %}}
+
+Service entities are dynamically created entities that Sensu adds to the entity store when a [service component][39] generates an event.
+Service entities allow Sensu to monitor [business services][38].
 
 Create and modify service entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33].
 
@@ -501,7 +501,7 @@ You can configure a check with a proxy entity name to associate the check result
 On the first check result, if the proxy entity does not exist, Sensu will create the entity as a proxy entity.
 
 After you create a proxy entity check, define which agents will run the check by configuring a subscription.
-See [Monitor external resources with proxy entities][17] for details about creating a proxy check for a proxy entity.
+Read [Monitor external resources with proxy entities][17] for details about creating a proxy check for a proxy entity.
 
 ### Service entity labels
 
@@ -619,7 +619,7 @@ api_version: core/v2
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the entity, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the entity definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][8] for details.
+description  | Top-level collection of metadata about the entity, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the entity definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. Read [metadata attributes][8] for details.
 required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][12].
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -935,7 +935,7 @@ entity_class: agent
 
 subscriptions| 
 -------------|------ 
-description  | List of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{name}` where `name` is the entity's hostname.
+description  | List of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:<name>` where `name` is the entity's hostname.
 required     | false 
 type         | Array 
 default      | The entity-specific subscription.
@@ -959,7 +959,7 @@ subscriptions:
 
 system       | 
 -------------|------ 
-description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.{{% notice note %}}
+description  | System information about the entity, such as operating system and platform. Read [system attributes][1] for more information.{{% notice note %}}
 **NOTE**: Process discovery is disabled in this version of Sensu. New events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false
@@ -1119,7 +1119,7 @@ deregister: false
 
 deregistration  | 
 -------------|------ 
-description  | Map that contains a handler name to use when an entity is deregistered. See [deregistration attributes][2] for more information.
+description  | Map that contains a handler name to use when an entity is deregistered. Read [deregistration attributes][2] for more information.
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
@@ -1254,7 +1254,7 @@ platform_version: 16.04
 
 network     | 
 -------------|------ 
-description  | Entity's network interface list. See [network attributes][3] for more information.
+description  | Entity's network interface list. Read [network attributes][3] for more information.
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
@@ -1379,7 +1379,7 @@ example        | {{< language-toggle >}}
 
 processes    | 
 -------------|------ 
-description  | List of processes on the local agent. See [processes attributes][26] for more information.{{% notice note %}}
+description  | List of processes on the local agent. Read [processes attributes][26] for more information.{{% notice note %}}
 **NOTE**: Process discovery is disabled in this version of Sensu. New events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 required     | false 
@@ -1554,7 +1554,7 @@ handler: email-handler
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag](../../observe-schedule/agent/#discover-processes) in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
@@ -1752,4 +1752,4 @@ cpu_percent: 0.12639
 [37]: ../../../sensuctl/create-manage-resources/#update-resources
 [38]: ../../observe-schedule/business-service-monitoring/
 [39]: ../../observe-schedule/service-components/
-[38]: ../../../api/events/#create-a-new-event
+[40]: ../#service-entities

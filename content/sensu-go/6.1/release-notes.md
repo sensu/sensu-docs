@@ -88,7 +88,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.1.4.
 
 - Fixed a bug that could cause a panic in the backend entity API.
 - The agent asset fetching mechanism now respects HTTP proxy environment variables when `trusted-ca-file` is configured.
-- When an asset artifact retrived by the agent does not match the expected checksum, the logged error now includes the size of the retrieved artifact and more clearly identifies the expected and actual checksums.
+- When an asset artifact retrieved by the agent does not match the expected checksum, the logged error now includes the size of the retrieved artifact and more clearly identifies the expected and actual checksums.
 
 ## 6.1.3 release notes
 
@@ -226,7 +226,7 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - For sysvinit services, Sensu now passes users' secondary groups (that is, groups other than the Sensu user group) to `chroot`, which gives the Sensu agent and backend access to the file access writes that are granted to the secondary groups.
 - Output of `sensuctl asset add` now includes help for using the runtime asset.
 - For role bindings and cluster role bindings, [`subjects.name`][166] values can now include unicode characters, and [`roleRef.type`][167] and [`subjects.type`][166] values are now automatically capitalized.
-- Improved logging for the agent websocket connection.
+- Improved logging for the agent WebSocket connection.
 - Improved the wording of the secret provider error message.
 - Fewer keys in etcd are now stored for agents.
 - Keepalive and round robin scheduling leases are now dealt with more efficiently.
@@ -303,13 +303,13 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.21.2.
 
 **August 5, 2020** &mdash; The latest release of Sensu Go, version 5.21.1, is now available for download.
 
-This patch release includes fixes for a web UI crash when interacting with namespaces that contain 1000 or more events and regressions in logging various agent errors as well as an enhancement that provides additional context to websocket connection errors logged by the backend.
+This patch release includes fixes for a web UI crash when interacting with namespaces that contain 1000 or more events and regressions in logging various agent errors as well as an enhancement that provides additional context to WebSocket connection errors logged by the backend.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.21.1.
 
 **IMPROVEMENTS:**
 
-- Backend log messages related to connection errors on the agent websocket API now provide more context about the error.
+- Backend log messages related to connection errors on the agent WebSocket API now provide more context about the error.
 
 **FIXES:**
 
@@ -390,7 +390,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 
 - ([Commercial feature][141]) Added a [`processes` field ][143] to the system type to store agent local processes for entities and events and a `discover-processes` flag to the [agent configuration flags][142] to populate the `processes` field in entity.system if enabled.
 - ([Commercial feature][141]) Added a new resource, `GlobalConfig`, that you can use to [customize your web UI configuration][148].
-- ([Commercial feature][141]) Added metricsd to collect metrics for the [web UI][153].
+- ([Commercial feature][141]) Added metricsd to collect metrics for the [web UI][153] and the [`metrics-refresh-interval`][224] backend configuration flag for setting the interval at which Sensu should refresh metrics.
 - ([Commercial feature][141]) Added process and additional system information to the entity details view in the [web UI][153].
 - ([Commercial feature][141]) Added a PostgreSQL metrics suite so metricsd can collect metrics about events stored in PostgreSQL.
 - ([Commercial feature][141]) Added [entity class limits][151] to the license.
@@ -721,11 +721,11 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.15.0.
 
 **IMPORTANT:**
 Sensu's free entity limit is now 100 entities.
-All [commercial features][95] are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
+All [commercial features][95] are available for free in the packaged Sensu Go distribution for up to 100 entities.
 You will see a warning when you approach the 100-entity limit (at 75%).
 
 If your Sensu instance includes more than 100 entities, [contact us][90] to learn how to upgrade your installation and increase your limit.
-See [the blog announcement][91] for more information about our usage policy.
+Read [the blog announcement][91] for more information about our usage policy.
 
 **NEW FEATURES:**
 
@@ -1654,3 +1654,4 @@ To get started with Sensu Go:
 [191]: /sensu-go/6.1/sensuctl/back-up-recover/
 [192]: /sensu-go/6.1/sensuctl/create-manage-resources/#sensuctl-prune
 [206]: /sensu-go/5.21/reference/backend/#log-rotation
+[224]: /sensu-go/5.20/observability-pipeline/observe-schedule/backend/#metrics-refresh-interval

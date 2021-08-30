@@ -45,7 +45,7 @@ You can configure a Sensu cluster in a couple different ways &mdash; we'll show 
 
 > The recommended etcd cluster size is 3, 5 or 7, which is decided by the fault tolerance requirement. A 7-member cluster can provide enough fault tolerance in most cases. While a larger cluster provides better fault tolerance, the write performance reduces since data needs to be replicated to more machines. It is recommended to have an odd number of members in a cluster. Having an odd cluster size doesn't change the number needed for majority, but you gain a higher tolerance for failure by adding the extra member. *[etcd2 Admin Guide][18]*
 
-We also recommend using stable platforms to support your etcd instances (see [etcd's supported platforms][5]).
+We also recommend using stable platforms to support your etcd instances (review [etcd's supported platforms][5]).
 
 {{% notice note %}}
 **NOTE**: If a cluster member is started before it is configured to join a cluster, the member will persist its prior configuration to disk.
@@ -312,7 +312,7 @@ Updated member with ID c8f63ae435a5e6bf in cluster
 
 ## Cluster security
 
-See [Secure Sensu][16] for information about cluster security.
+Read [Secure Sensu][16] for information about cluster security.
 
 ## Use an external etcd cluster
 

@@ -11,7 +11,7 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Sensu Rundeck Handler integration in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 The [Sensu Rundeck Handler plugin][4] is a Sensu [handler][1] that initiates Rundeck jobs for automated remediation based on Sensu event data.
