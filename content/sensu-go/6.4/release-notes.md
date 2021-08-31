@@ -9,6 +9,7 @@ version: "6.4"
 menu: "sensu-go-6.4"
 ---
 
+- [6.4.2 release notes](#642-release-notes)
 - [6.4.1 release notes](#641-release-notes)
 - [6.4.0 release notes](#640-release-notes)
 - [6.3.0 release notes](#630-release-notes)
@@ -86,6 +87,18 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.4.2 release notes
+
+**August 31, 2021** &mdash; The latest release of Sensu Go, version 6.4.2, is now available for download.
+
+This patch adds a backend configuration flag that allows you to use parallel event log encoding.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.4.2.
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][215]) Added the [`--event-log-parallel-encoders`][226] backend configuration flag, which allows you to indicate whether Sensu should use parallel JSON encoders for event logging instead of the default (a single JSON encoding worker).
 
 ## 6.4.1 release notes
 
@@ -1931,3 +1944,4 @@ To get started with Sensu Go:
 [223]: /sensu-go/6.3/web-ui/webconfig-reference/#default-preferences-attributes
 [224]: /sensu-go/5.20/observability-pipeline/observe-schedule/backend/#metrics-refresh-interval
 [225]: /sensu-go/6.4/reference/agent/#log-level
+[226]: /sensu-go/6.4/reference/backend/#event-log-parallel-encoders
