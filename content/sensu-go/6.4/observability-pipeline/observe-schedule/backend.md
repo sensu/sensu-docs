@@ -367,6 +367,7 @@ General Flags:
       --event-log-buffer-size int           buffer size of the event logger (default 100000)
       --event-log-buffer-wait string        full buffer wait time (default "10ms")
       --event-log-file string               path to the event log file
+      --event-log-parallel-encoders         used to indicate parallel encoders should be used for event logging
       --eventd-buffer-size int              number of incoming events that can be buffered (default 100)
       --eventd-workers int                  number of workers spawned for processing incoming events (default 100)
   -h, --help                                help for start
@@ -1550,6 +1551,21 @@ command line example   | {{< code shell >}}
 sensu-backend start --event-log-file /var/log/sensu/events.log{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 event-log-file: "/var/log/sensu/events.log"{{< /code >}}
+
+<a id="event-log-parallel-encoders"></a>
+
+| event-log-parallel-encoders |      |
+-----------------------|------
+description            | Indicates whether Sensu should use parallel JSON encoders for event logging instead of the default, which is a single JSON encoding worker. If `event-log-parallel-encoders` is `true`, Sensu sets the number of JSON encoder workers to 50% of the total number of cores, with a minimum of 2 (for example, 6 JSON encoders on a 12-core machine). {{% notice note %}}
+**NOTE**: The `event-log-parallel-encoders` configuration option is available in [Sensu Go 6.4.2](../../../release-notes/#642-release-notes).
+{{% /notice %}}
+type                   | Boolean
+default                | false
+environment variable   | `SENSU_BACKEND_EVENT_LOG_PARALLEL_ENCODERS`
+command line example   | {{< code shell >}}
+sensu-backend start --event-log-parallel-encoders true{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+event-log-parallel-encoders: true{{< /code >}}
 
 ### Log rotation
 
