@@ -367,6 +367,7 @@ General Flags:
       --event-log-buffer-size int           buffer size of the event logger (default 100000)
       --event-log-buffer-wait string        full buffer wait time (default "10ms")
       --event-log-file string               path to the event log file
+      --event-log-parallel-encoders         used to indicate parallel encoders should be used for event logging
       --eventd-buffer-size int              number of incoming events that can be buffered (default 100)
       --eventd-workers int                  number of workers spawned for processing incoming events (default 100)
   -h, --help                                help for start
@@ -1539,6 +1540,8 @@ sensu-backend start --event-log-buffer-wait 10ms{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 event-log-buffer-wait: 10ms{{< /code >}}
 
+<a id="event-log-file"></a>
+
 | event-log-file |      |
 -----------------------|------
 description            | Path to the event log file. {{% notice warning %}}
@@ -1550,6 +1553,21 @@ command line example   | {{< code shell >}}
 sensu-backend start --event-log-file /var/log/sensu/events.log{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 event-log-file: "/var/log/sensu/events.log"{{< /code >}}
+
+<a id="event-log-parallel-encoders"></a>
+
+| event-log-parallel-encoders |      |
+-----------------------|------
+description            | Indicates whether Sensu should use parallel JSON encoders for event logging. If `true`, Sensu sets the number of JSON encoder workers to 50% of the total number of cores, with a minimum of 2 (for example, 6 JSON encoders on a 12-core machine). Otherwise, Sensu uses the default setting, which is a single JSON encoding worker.<br><br>The `event-log-parallel-encoders` setting will not take effect unless you also specify a path to the event log file with the [`event-log-file`][61] configuration attribute.{{% notice note %}}
+**NOTE**: The `event-log-parallel-encoders` configuration attribute is available in [Sensu Go 6.4.2](../../../release-notes/#642-release-notes).
+{{% /notice %}}
+type                   | Boolean
+default                | false
+environment variable   | `SENSU_BACKEND_EVENT_LOG_PARALLEL_ENCODERS`
+command line example   | {{< code shell >}}
+sensu-backend start --event-log-parallel-encoders true{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+event-log-parallel-encoders: true{{< /code >}}
 
 ### Log rotation
 
@@ -1636,3 +1654,4 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [37]: ../../../sensuctl/
 [38]: #configuration-via-environment-variables
 [60]: #backend-log-level
+[61]: #event-log-file
