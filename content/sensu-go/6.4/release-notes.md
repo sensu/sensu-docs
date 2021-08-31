@@ -9,6 +9,7 @@ version: "6.4"
 menu: "sensu-go-6.4"
 ---
 
+- [6.4.2 release notes](#642-release-notes)
 - [6.4.1 release notes](#641-release-notes)
 - [6.4.0 release notes](#640-release-notes)
 - [6.3.0 release notes](#630-release-notes)
@@ -86,6 +87,22 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.4.2 release notes
+
+**August 31, 2021** &mdash; The latest release of Sensu Go, version 6.4.2, is now available for download.
+
+This patch adds a backend configuration attribute that allows parallel event log encoding, as well as two summary metrics for the metrics API endpoint.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.4.2.
+
+**FIXES:**
+
+- ([Commercial feature][215]) Added the [`event-log-parallel-encoders`][226] backend configuration attribute, which allows you to indicate whether Sensu should use parallel JSON encoders for event logging instead of the default (a single JSON encoding worker). This fixes a bottleneck in the event logging feature.
+
+**IMPROVEMENTS:**
+
+- Added `sensu_go_agentd_event_bytes` and `sensu_go_store_event_bytes` summary metrics to the [metrics API endpoint][227]. `sensu_go_agentd_event_bytes` tracks the sizes of events, in bytes, received by agentd on the backend. `sensu_go_store_event_bytes` tracks event sizes, in bytes, received by the etcd store on the backend.
 
 ## 6.4.1 release notes
 
@@ -1930,4 +1947,6 @@ To get started with Sensu Go:
 [222]: /sensu-go/6.4/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-640-from-any-previous-version
 [223]: /sensu-go/6.3/web-ui/webconfig-reference/#default-preferences-attributes
 [224]: /sensu-go/5.20/observability-pipeline/observe-schedule/backend/#metrics-refresh-interval
-[225]: /sensu-go/6.4/reference/agent/#log-level
+[225]: /sensu-go/6.4/observability-pipeline/observe-schedule/agent/#log-level
+[226]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#event-log-parallel-encoders
+[227]: /sensu-go/6.4/api/metrics/
