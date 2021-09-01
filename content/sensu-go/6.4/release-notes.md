@@ -9,6 +9,7 @@ version: "6.4"
 menu: "sensu-go-6.4"
 ---
 
+- [6.4.3 release notes](#643-release-notes)
 - [6.4.2 release notes](#642-release-notes)
 - [6.4.1 release notes](#641-release-notes)
 - [6.4.0 release notes](#640-release-notes)
@@ -87,6 +88,18 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.4.3 release notes
+
+**September 1, 2021** &mdash; The latest release of Sensu Go, version 6.4.3, is now available for download.
+
+This patch fixes a deadlock in the event log writer.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.4.3.
+
+**FIXES:**
+
+- ([Commercial feature][215]) Fixed a bug that caused a deadlock in the [event log][228] writer.
 
 ## 6.4.2 release notes
 
@@ -1950,3 +1963,4 @@ To get started with Sensu Go:
 [225]: /sensu-go/6.4/observability-pipeline/observe-schedule/agent/#log-level
 [226]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#event-log-parallel-encoders
 [227]: /sensu-go/6.4/api/metrics/
+[228]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#event-logging
