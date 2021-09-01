@@ -95,7 +95,7 @@ sensuctl event list --field-selector 'event.check.status == "2"'
 To retrieve all entities whose name includes the substring `webserver`:
 
 {{< code shell >}}
-sensuctl entity list --fieldSelector 'entity.name matches "webserver"'
+sensuctl entity list --field-selector 'entity.name matches "webserver"'
 {{< /code >}}
 
 ### Use the logical AND operator
