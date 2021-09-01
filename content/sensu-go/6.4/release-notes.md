@@ -102,7 +102,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.4.2.
 
 **IMPROVEMENTS:**
 
-- Added `sensu_go_agentd_event_bytes` and `sensu_go_store_event_bytes` summary metrics to the [metrics API endpoint][227]. `sensu_go_agentd_event_bytes` tracks the sizes of events, in bytes, received by agentd on the backend. `sensu_go_store_event_bytes` tracks event sizes, in bytes, received by the etcd store on the backend.
+- Added sensu_go_agentd_event_bytes and sensu_go_store_event_bytes summary metrics to the [metrics API endpoint][227]. sensu_go_agentd_event_bytes tracks the sizes of events, in bytes, received by agentd on the backend. sensu_go_store_event_bytes tracks event sizes, in bytes, received by the etcd store on the backend.
 
 ## 6.4.1 release notes
 
