@@ -17,10 +17,10 @@ health, or collect & analyze metrics), [Sensu handlers][2] (i.e. to send
 notifications or perform other actions based on [Sensu events][3]), or [Sensu
 mutators][3] (i.e. to modify [event data][4] prior to handling).
 
-For more about Sensu plugins, please refer to the [Plugins reference documentation][5].
+For more about Sensu plugins, please refer to [Installing & Managing Plugins][5].
 
 [1]:  ../checks
 [2]:  ../handlers
 [3]:  ../events#event-data
 [4]:  ../mutators
-[5]:  ../../../../plugins/latest/reference
+[5]:  ../../installation/installing-plugins/
