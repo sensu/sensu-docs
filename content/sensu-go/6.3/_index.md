@@ -99,7 +99,7 @@ Sensu is a comprehensive monitoring and observability solution for enterprises, 
 [32]: plugins/supported-integrations/influxdb/
 [33]: plugins/supported-integrations/ansible/
 [34]: plugins/supported-integrations/sumologic/
-[35]: plugins/supported-integrations/ec2/
+[35]: plugins/supported-integrations/aws-ec2/
 [36]: plugins/supported-integrations/rundeck/
 [37]: plugins/supported-integrations/saltstack/
 [38]: plugins/supported-integrations/
