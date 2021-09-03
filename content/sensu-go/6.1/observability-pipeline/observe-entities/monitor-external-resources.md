@@ -30,7 +30,7 @@ In this section, you'll monitor the status of [sensu.io](https://sensu.io) by co
 To power the check, you'll use the [Sensu Plugins HTTP][16] dynamic runtime asset.
 The Sensu Plugins HTTP asset includes `check-http.rb`, which [your check][15] will rely on.
 
-The Sensu assets packaged from Sensu Plugins HTTP are built against the Sensu Ruby runtime environment, so you also need to add the [Sensu Ruby Runtime][7] dynamic runtime asset.
+The Sensu assets packaged from Sensu Plugins HTTP are built against the Sensu Ruby runtime environment, so you also need to add the [Sensu Ruby Runtime][17] dynamic runtime asset.
 Sensu Ruby Runtime delivers the Ruby executable and supporting libraries the check will need to run the `check-http.rb` plugin.
 
 Use [`sensuctl asset add`][21] to register the Sensu Plugins HTTP dynamic runtime asset, `sensu-plugins/sensu-plugins-http`:
@@ -52,7 +52,7 @@ resource, populate the "runtime_assets" field with ["sensu-plugins-http"].
 
 This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `sensu-plugins-http`.
 
-You can also download the dynamic runtime asset definition for Debian or Alpine from [Bonsai][16] and register the asset with `sensuctl create --file filename.yml` or `sensuctl create --file filename.json`.
+You can also download the dynamic runtime asset definition from [Bonsai][16] and register the asset with `sensuctl create --file filename.yml` or `sensuctl create --file filename.json`.
 
 Then, use the following sensuctl example to register the Sensu Ruby Runtime dynamic runtime asset, `sensu/sensu-ruby-runtime`:
 

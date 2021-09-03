@@ -45,7 +45,7 @@ it's invoked by another Sensu resource (ex. check). To add this runtime asset to
 resource, populate the "runtime_assets" field with ["sensu-plugins/sensu-plugins-disk-checks"].
 {{< /code >}}
 
-You can also download the dynamic runtime asset definition for Debian or Alpine from [Bonsai][7] and register the asset with `sensuctl create --file filename.yml`.
+You can also download the dynamic runtime asset definition from [Bonsai][7] and register the asset with `sensuctl create --file filename.yml`.
 
 Then, use the following sensuctl example to register the [Sensu Go Ruby Runtime Assets][8] dynamic runtime asset, `sensu/sensu-ruby-runtime`:
 
