@@ -151,13 +151,52 @@ Your installation has already seeded the admin username and password you have se
 Running `sensu-backend init` on a previously initialized cluster has no effect &mdash; it will not change the admin credentials.
 {{% /notice %}}
 
+#### Initialization flags
+
 To see available initialization flags:
 
 {{< code shell >}}
 sensu-backend init --help
 {{< /code >}}
 
-#### Initialization timeout and wait flags
+The response will list command information and configuration flags for `sensu-backend init`:
+
+{{< code shell >}}
+Usage:
+  sensu-backend init [flags]
+
+General Flags:
+      --cluster-admin-api-key string    cluster admin API key
+      --cluster-admin-password string   cluster admin password
+      --cluster-admin-username string   cluster admin username
+  -c, --config-file string              path to sensu-backend config file (default "/etc/sensu/backend.yml")
+  -h, --help                            help for init
+      --ignore-already-initialized      exit 0 if the cluster has already been initialized
+      --interactive                     interactive mode
+      --timeout string                  duration to wait before a connection attempt to etcd is considered failed (must be >= 1s) (default "5s")
+      --wait                            continuously retry to establish a connection to etcd until it is successful
+
+Store Flags:
+      --etcd-advertise-client-urls strings   list of this member's client URLs to advertise to clients (default [http://localhost:2379])
+      --etcd-cert-file string                path to the client server TLS cert file
+      --etcd-cipher-suites strings           list of ciphers to use for etcd TLS configuration
+      --etcd-client-cert-auth                enable client cert authentication
+      --etcd-client-urls string              client URLs to use when operating as an etcd client
+      --etcd-key-file string                 path to the client server TLS key file
+      --etcd-max-request-bytes uint          maximum etcd request size in bytes (use with caution) (default 1572864)
+      --etcd-trusted-ca-file string          path to the client server TLS trusted CA cert file
+{{< /code >}}
+
+##### Initialization ignore-already-initialized flag
+
+If you run sensu-backend init on a cluster that has already been initialized, the command returns a non-zero exit status.
+Add the `ignore-already-initialized` flag to sensu-backend init to suppress the "already initialized" response and return an exit code 0 if the cluster has already been initialized:
+
+{{< code shell >}}
+sensu-backend init --ignore-already-initialized
+{{< /code >}}
+
+##### Initialization timeout and wait flags
 
 When you initialize the sensu-backend, you can specify how long the backend should wait to establish a connection to etcd.
 
