@@ -69,6 +69,7 @@ spec:
       status: 0
     interval: 60
     is_silenced: false
+    processed_by: sensu-centos
     issued: 1617050501
     last_ok: 1617050501
     low_flap_threshold: 0
@@ -194,6 +195,7 @@ spec:
       ],
       "interval": 60,
       "is_silenced": false,
+      "processed_by": "sensu-centos",
       "issued": 1617050501,
       "last_ok": 1617050501,
       "low_flap_threshold": 0,
@@ -371,6 +373,7 @@ This is the format that events are in when Sensu sends them to handlers:
     },
     "secrets": null,
     "is_silenced": false,
+    "processed_by": "sensu-centos",
     "scheduler": "memory"
   },
   "entity": {
@@ -467,7 +470,7 @@ spec:
     entity_class: agent
     last_seen: 1552495139
     metadata:
-      name: sensu-go-sandbox
+      name: sensu-centos
       namespace: default
     redact:
     - password
@@ -634,6 +637,7 @@ spec:
       status: 0
     interval: 10
     is_silenced: false
+    processed_by: sensu-go-sandbox
     issued: 1552506033
     last_ok: 1552506033
     low_flap_threshold: 0
@@ -746,6 +750,7 @@ spec:
       ],
       "interval": 10,
       "is_silenced": false,
+      "processed_by": "sensu-go-sandbox",
       "issued": 1552506033,
       "last_ok": 1552506033,
       "low_flap_threshold": 0,
@@ -1094,6 +1099,7 @@ spec:
       status: 0
     interval: 10
     is_silenced: true
+    processed_by: sensu-go-sandbox
     issued: 1552506033
     last_ok: 1552506033
     low_flap_threshold: 0
@@ -1202,6 +1208,7 @@ spec:
       ],
       "interval": 10,
       "is_silenced": true,
+      "processed_by": "sensu-go-sandbox",
       "issued": 1552506033,
       "last_ok": 1552506033,
       "low_flap_threshold": 0,
@@ -1532,6 +1539,7 @@ check:
     status: 0
   interval: 10
   is_silenced: true
+  processed_by: sensu-go-sandbox
   issued: 1552506033
   last_ok: 1552506033
   low_flap_threshold: 0
@@ -1582,6 +1590,7 @@ check:
     ],
     "interval": 10,
     "is_silenced": true,
+    "processed_by": "sensu-go-sandbox",
     "issued": 1552506033,
     "last_ok": 1552506033,
     "low_flap_threshold": 0,
@@ -1843,6 +1852,24 @@ output: "sensu-go-sandbox.curl_timings.time_total 0.005
 {{< code json >}}
 {
   "output": "sensu-go-sandbox.curl_timings.time_total 0.005"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="processedby-attribute"></a>
+
+processed_by | |
+-------------|------
+description  | The name of the agent that processed the event. Useful for determining which agent processed an event executed by a [proxy check request][42] or a [POST request to the events API][41].
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+processed_by: sensu-go-sandbox
+{{< /code >}}
+{{< code json >}}
+{
+  "processed_by": "sensu-go-sandbox"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -2117,3 +2144,5 @@ value: 0.005
 [38]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
 [39]: #flap-detection-algorithm
 [40]: ../../observe-filter/filters/#check-attributes-available-to-filters
+[41]: ../../observe-schedule/agent/#create-observability-events-using-the-agent-api
+[42]: ../../observe-schedule/checks/#proxy-checks

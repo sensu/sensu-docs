@@ -86,6 +86,7 @@ HTTP/1.1 200 OK
       },
       "secrets": null,
       "is_silenced": false,
+      "processed_by": "server1",
       "scheduler": "memory"
     },
     "entity": {
@@ -228,6 +229,7 @@ output         | {{< code shell >}}
       },
       "secrets": null,
       "is_silenced": false,
+      "processed_by": "server1",
       "scheduler": "memory"
     },
     "entity": {
@@ -455,6 +457,7 @@ HTTP/1.1 200 OK
       },
       "secrets": null,
       "is_silenced": false,
+      "processed_by": "server1",
       "scheduler": "memory"
     },
     "entity": {
@@ -585,6 +588,7 @@ HTTP/1.1 200 OK
       },
       "secrets": null,
       "is_silenced": false,
+      "processed_by": "server1",
       "scheduler": "etcd"
     },
     "entity": {
@@ -726,6 +730,7 @@ output               | {{< code json >}}
       },
       "secrets": null,
       "is_silenced": false,
+      "processed_by": "server1",
       "scheduler": "memory"
     },
     "entity": {
@@ -856,6 +861,7 @@ output               | {{< code json >}}
       },
       "secrets": null,
       "is_silenced": false,
+      "processed_by": "server1",
       "scheduler": "etcd"
     },
     "entity": {
@@ -992,6 +998,7 @@ HTTP/1.1 200 OK
     },
     "secrets": null,
     "is_silenced": false,
+    "processed_by": "server1",
     "scheduler": ""
   },
   "entity": {
@@ -1123,6 +1130,7 @@ output               | {{< code json >}}
     },
     "secrets": null,
     "is_silenced": false,
+    "processed_by": "server1",
     "scheduler": ""
   },
   "entity": {
