@@ -3,10 +3,10 @@ title: "Tune Sensu"
 linkTitle: "Tune Sensu"
 description: "Learn when and how to tune Sensu to resolve performance issues, with links to more detailed documentation."
 weight: 25
-version: "6.4"
+version: "6.1"
 product: "Sensu Go"
 menu:
-  sensu-go-6.4:
+  sensu-go-6.1:
     parent: maintain-sensu
 ---
 
