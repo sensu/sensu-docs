@@ -123,7 +123,7 @@ In case of a loss of connection with the backend or agent shutdown, the agent pr
 When the connection is reestablished, the agent sends the queued events to the backend.
 
 The `/events` API uses a configurable burst limit and rate limit for relaying events to the backend.
-See [API configuration flags](#api-configuration-flags) to configure the `events-burst-limit` and `events-rate-limit` flags.
+Read [API configuration flags](#api-configuration-flags) to configure the `events-burst-limit` and `events-rate-limit` flags.
 
 #### Example POST request to events API {#events-post-example}
 
@@ -809,7 +809,7 @@ You can specify a deregistration handler per agent using the [`deregistration-ha
 ### Cluster
 
 Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16].
-For more information about clustering, see [Backend datastore configuration flags][35] and [Run a Sensu cluster][36].
+For more information about clustering, read [Backend datastore configuration flags][35] and [Run a Sensu cluster][36].
 
 ### Synchronize time
 
@@ -947,7 +947,7 @@ agent-managed-entity: true{{< /code >}}
 
 | allow-list |      |
 ------------------|------
-description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. See [allow list configuration commands][49] and the [example allow list configuration file][48] for information about building a configuration file.
+description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. Read [allow list configuration commands][49] and the [example allow list configuration file][48] for information about building a configuration file.
 type              | String
 default           | `""`
 environment variable | `SENSU_ALLOW_LIST`
@@ -1109,7 +1109,7 @@ disable-assets: true{{< /code >}}
 
 | discover-processes |      |
 --------------|------
-description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].{{% notice note %}}
+description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features][55].{{% notice note %}}
 **NOTE**: Process discovery is disabled in this version of Sensu. The `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 type          | Boolean

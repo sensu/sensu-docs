@@ -43,7 +43,7 @@ Read the [etcd replicators reference][9] to learn how the etcd-replicators datat
 As the number of entities and checks in your Sensu implementation grows, so does the rate of events being written to the datastore.
 In clustered etcd deployments, each event must be replicated to each cluster member, which increases network and disk IO utilization.
 
-Sensu's Enterprise datastore allows you to configure an external PostgreSQL instance for event storage so you can [scale your monitoring and observability workflows][13] beyond etcd’s 8-GB limit.
+Sensu's Enterprise datastore allows you to configure an external PostgreSQL instance for event storage so you can [scale your monitoring and observability workflows][13] beyond etcd’s 8GB limit.
 Scale your Sensu implementation to many thousands of events per second, achieve much higher rates of event processing, and minimize the replication communication between etcd peers.
 
 Read the [datastore reference][14] for the Enterprise datastore requirements and specifications.

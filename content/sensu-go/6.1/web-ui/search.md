@@ -31,7 +31,7 @@ Web UI search supports two equality-based operators, two set-based operators, on
 | `matches` | Substring matching | `check.name matches "linux-"`
 | `&&`      | Logical AND        | `check.publish == "true" && "slack" in check.handlers`
 
-For details about operators, see [API response filtering operators][7].
+For details about operators, read about the [API response filtering operators][7].
 
 ## Use quick search
 
@@ -68,7 +68,7 @@ If you are using the [basic web UI search functions][5], you can create a search
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access advanced web UI searches in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 Sensu supports advanced web UI searches using a wider range of attributes, including custom labels.
@@ -191,7 +191,7 @@ To return events that include a `windows` check subscription and any email handl
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access saved web UI searches in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 To save a web UI search:

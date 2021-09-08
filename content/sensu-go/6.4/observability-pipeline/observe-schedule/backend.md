@@ -16,7 +16,7 @@ menu:
 [Example Sensu backend configuration file](../../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and observability data.
-Every Sensu backend includes an integrated structure for scheduling checks using [subscriptions][28], an event processing pipeline that applies [event filters][9], [mutators][10], and [handlers][11], an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][6], and the `sensu-backend` command line tool.
+Every Sensu backend includes an integrated structure for scheduling checks using [subscriptions][28], an event processing pipeline that applies [event filters][9], [mutators][10], and [handlers][11], an embedded [etcd][2] datastore for storing configuration and state, and the Sensu [API][14], Sensu [web UI][6], and [sensuctl][37] command line tool.
 
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
 For these operating systems, the Sensu backend uses the Bourne shell (sh) for the execution environment.
@@ -367,6 +367,7 @@ General Flags:
       --event-log-buffer-size int           buffer size of the event logger (default 100000)
       --event-log-buffer-wait string        full buffer wait time (default "10ms")
       --event-log-file string               path to the event log file
+      --event-log-parallel-encoders         used to indicate parallel encoders should be used for event logging
       --eventd-buffer-size int              number of incoming events that can be buffered (default 100)
       --eventd-workers int                  number of workers spawned for processing incoming events (default 100)
   -h, --help                                help for start
@@ -1099,9 +1100,9 @@ etcd-listen-peer-urls:
 
 | etcd-log-level  |      |
 -------------|------
-description  | Logging level for the embedded etcd server: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`. Defaults to value provided for the [backend log level][37]. If the backend log level is set to `trace`, the etcd log level will be set to `debug` (`trace` is not a valid etcd log level).
+description  | Logging level for the embedded etcd server: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`. Defaults to value provided for the [backend log level][60]. If the backend log level is set to `trace`, the etcd log level will be set to `debug` (`trace` is not a valid etcd log level).
 type         | String
-default      | [Backend log level][37] value (or `debug`, if the backend log level is set to `trace`)
+default      | [Backend log level][60] value (or `debug`, if the backend log level is set to `trace`)
 environment variable | `SENSU_BACKEND_ETCD_LOG_LEVEL`
 command line example   | {{< code shell >}}
 sensu-backend start --etcd-log-level debug{{< /code >}}
@@ -1286,7 +1287,7 @@ pipelined-workers: 100{{< /code >}}
 
 | etcd-election-timeout |      |
 -----------------------|------
-description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). Set to at least 10 times the [etcd-heartbeat-interval][36]. See [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
+description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). Set to at least 10 times the [etcd-heartbeat-interval][36]. Read the [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
 **WARNING**: Make sure to set the same election timeout value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.
 {{% /notice %}}{{% notice note %}}
 **NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
@@ -1304,7 +1305,7 @@ etcd-election-timeout: 1000{{< /code >}}
 
 | etcd-heartbeat-interval |      |
 -----------------------|------
-description            | Interval at which the etcd leader will notify followers that it is still the leader. In milliseconds (ms). Best practice is to set the interval based on round-trip time between members. See [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
+description            | Interval at which the etcd leader will notify followers that it is still the leader. In milliseconds (ms). Best practice is to set the interval based on round-trip time between members. Read the [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
 **WARNING**: Make sure to set the same heartbeat interval value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.{{% /notice %}}{{% notice note %}}
 **NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
@@ -1320,8 +1321,7 @@ etcd-heartbeat-interval: 100{{< /code >}}
 | etcd-max-request-bytes |      |
 -----------------------|------
 description            | Maximum etcd request size in bytes that can be sent to an etcd server by a client. Increasing this value allows etcd to process events with large outputs at the cost of overall latency. {{% notice warning %}}
-**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.
-{{% /notice %}}{{% notice note %}}
+**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.{{% /notice %}}{{% notice note %}}
 **NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
@@ -1336,10 +1336,9 @@ etcd-max-request-bytes: 1572864{{< /code >}}
 | etcd-quota-backend-bytes |      |
 -----------------------|------
 description            | Maximum etcd database size in bytes. Increasing this value allows for a larger etcd database at the cost of performance. {{% notice warning %}}
-**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.{{% notice note %}}
+**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.{{% /notice %}}{{% notice note %}}
 **NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
-{{% /notice %}}
 {{% /notice %}}
 type                   | Integer
 default                | `4294967296`
@@ -1477,7 +1476,7 @@ For example, if you create overrides using all three methods, the command line c
 
 ### Example override: Log level
 
-The default [log level][60] for the Sensu backend is `info`.
+The default [log level][60] for the Sensu backend is `warn`.
 To override the default and automatically apply a different log level for the backend, add the `--log-level` command line configuration flag when you start the Sensu backend.
 For example, to specify `debug` as the log level:
 
@@ -1509,7 +1508,7 @@ log-level: debug
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access event logging in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 If you wish, you can log all Sensu events to a file in JSON format.
@@ -1523,7 +1522,7 @@ To write Sensu service logs to flat files on disk, read [Log Sensu services with
 
 | event-log-buffer-size |      |
 -----------------------|------
-description            | Buffer size of the event logger. Corresponds to the maximum number of events kept in memory in case the log file is temporarily unavailable or more events have been received than can be written to the log file. 
+description            | Buffer size of the event logger. Corresponds to the maximum number of events kept in memory in case the log file is temporarily unavailable or more events have been received than can be written to the log file.
 type                   | Integer
 default                | 100000
 environment variable   | `SENSU_BACKEND_EVENT_LOG_BUFFER_SIZE`
@@ -1531,6 +1530,19 @@ command line example   | {{< code shell >}}
 sensu-backend start --event-log-buffer-size 100000{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 event-log-buffer-size: 100000{{< /code >}}
+
+| event-log-buffer-wait |      |
+-----------------------|------
+description            | Buffer wait time for the event logger. When the buffer is full, the event logger will wait for the specified time for the writer to consume events from the buffer.
+type                   | String
+default                | 10ms
+environment variable   | `SENSU_BACKEND_EVENT_LOG_BUFFER_WAIT`
+command line example   | {{< code shell >}}
+sensu-backend start --event-log-buffer-wait 10ms{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+event-log-buffer-wait: 10ms{{< /code >}}
+
+<a id="event-log-file"></a>
 
 | event-log-file |      |
 -----------------------|------
@@ -1543,6 +1555,21 @@ command line example   | {{< code shell >}}
 sensu-backend start --event-log-file /var/log/sensu/events.log{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 event-log-file: "/var/log/sensu/events.log"{{< /code >}}
+
+<a id="event-log-parallel-encoders"></a>
+
+| event-log-parallel-encoders |      |
+-----------------------|------
+description            | Indicates whether Sensu should use parallel JSON encoders for event logging. If `true`, Sensu sets the number of JSON encoder workers to 50% of the total number of cores, with a minimum of 2 (for example, 6 JSON encoders on a 12-core machine). Otherwise, Sensu uses the default setting, which is a single JSON encoding worker.<br><br>The `event-log-parallel-encoders` setting will not take effect unless you also specify a path to the event log file with the [`event-log-file`][61] configuration attribute.{{% notice note %}}
+**NOTE**: The `event-log-parallel-encoders` configuration attribute is available in [Sensu Go 6.4.2](../../../release-notes/#642-release-notes).
+{{% /notice %}}
+type                   | Boolean
+default                | false
+environment variable   | `SENSU_BACKEND_EVENT_LOG_PARALLEL_ENCODERS`
+command line example   | {{< code shell >}}
+sensu-backend start --event-log-parallel-encoders true{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+event-log-parallel-encoders: true{{< /code >}}
 
 ### Log rotation
 
@@ -1603,6 +1630,7 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [11]: ../../observe-process/handlers/
 [12]: #datastore-and-cluster-configuration-flags
 [13]: ../../../operations/deploy-sensu/cluster-sensu/
+[14]: ../../../api/
 [15]: #general-configuration-flags
 [16]: https://etcd.io/docs/current/tuning/#time-parameters
 [17]: ../../../files/backend.yml
@@ -1625,5 +1653,7 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [34]: ../agent/#username-and-password-authentication
 [35]: ../../../operations/deploy-sensu/install-sensu/#architecture-overview
 [36]: #etcd-heartbeat-interval
-[37]: #backend-log-level
+[37]: ../../../sensuctl/
 [38]: #configuration-via-environment-variables
+[60]: #backend-log-level
+[61]: #event-log-file

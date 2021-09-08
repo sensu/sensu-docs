@@ -1676,7 +1676,7 @@ executed: 1522100915
 
 history      |      |
 -------------|------
-description  | Check status history for the last 21 check executions. See [history attributes][32].<br><br>Sensu automatically populates the history attributes with check execution data.
+description  | Check status history for the last 21 check executions. Read [history attributes][32].<br><br>Sensu automatically populates the history attributes with check execution data.
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -1737,7 +1737,7 @@ last_ok: 1552506033
 
 occurrences  |      |
 -------------|------
-description  | Number of preceding events with the same status as the current event (OK, WARNING, CRITICAL, or UNKNOWN). Starting at `1`, the `occurrences` attribute increments for events with the same status as the preceding event and resets whenever the status changes. See [Use event data][31] for more information.<br><br>Sensu automatically populates the `occurrences` value. For events created with the [events API][35], Sensu overwrites any `occurences` value you specify in the request body with the correct value.
+description  | Number of preceding events with the same status as the current event (OK, WARNING, CRITICAL, or UNKNOWN). Starting at `1`, the `occurrences` attribute increments for events with the same status as the preceding event and resets whenever the status changes. Read [Use event data][31] for more information.<br><br>Sensu automatically populates the `occurrences` value. For events created with the [events API][35], Sensu overwrites any `occurences` value you specify in the request body with the correct value.
 required     | false
 type         | Integer greater than 0
 example      | {{< language-toggle >}}
@@ -1753,7 +1753,7 @@ occurrences: 1
 
 occurrences_watermark | |
 -------------|------
-description  | For incident and resolution events, the number of preceding events with an OK status (for incident events) or non-OK status (for resolution events). The `occurrences_watermark` attribute gives you useful information when looking at events that change status between OK (`0`)and non-OK (`1`-WARNING, `2`-CRITICAL, or UNKNOWN).<br><br>Sensu resets `occurrences_watermark` to `1` whenever an event for a given entity and check transitions between OK and non-OK. Within a sequence of only OK or only non-OK events, Sensu increments `occurrences_watermark` only when the `occurrences` attribute is greater than the preceding `occurrences_watermark`. See [Use event data][31] for more information.<br><br>Sensu automatically populates the `occurrences_watermark` value. In events created with the [events API][35], Sensu overwrites any `occurences_watermark` value you specify in the request body with the correct value.
+description  | For incident and resolution events, the number of preceding events with an OK status (for incident events) or non-OK status (for resolution events). The `occurrences_watermark` attribute gives you useful information when looking at events that change status between OK (`0`)and non-OK (`1`-WARNING, `2`-CRITICAL, or UNKNOWN).<br><br>Sensu resets `occurrences_watermark` to `1` whenever an event for a given entity and check transitions between OK and non-OK. Within a sequence of only OK or only non-OK events, Sensu increments `occurrences_watermark` only when the `occurrences` attribute is greater than the preceding `occurrences_watermark`. Read [Use event data][31] for more information.<br><br>Sensu automatically populates the `occurrences_watermark` value. In events created with the [events API][35], Sensu overwrites any `occurences_watermark` value you specify in the request body with the correct value.
 required     | false
 type         | Integer greater than 0
 example      | {{< language-toggle >}}
@@ -1782,6 +1782,8 @@ is_silenced: true
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+<a id="silenced-attribute"></a>
 
 silenced     | |
 -------------|------
@@ -1925,7 +1927,7 @@ handlers:
 
 points       |      |
 -------------|------
-description  | Metrics data points, including a name, timestamp, value, and tags. See [points attributes][34].
+description  | Metrics data points, including a name, timestamp, value, and tags. Read [points attributes][34].
 required     | false
 type         | Array
 example      | {{< language-toggle >}}

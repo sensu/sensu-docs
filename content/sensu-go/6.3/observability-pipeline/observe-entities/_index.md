@@ -25,7 +25,7 @@ An entity provides the context for observation data in events &mdash; what and w
 The check and entity names associated with an event determine the event's uniqueness.
 Entities can also contain system information like the hostname, operating system, platform, and version.
 
-There are two types of Sensu entities: agent entities and proxy entities.
+There are three types of Sensu entities: agent, proxy, and service entities.
 
 ## Agent entities
 
@@ -175,22 +175,22 @@ spec:
 
 Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message).
 
-See [Monitor external resources][1] to learn how to use a proxy entity to monitor a website.
+Read [Monitor external resources][1] to learn how to use a proxy entity to monitor a website.
 
 ## Service entities
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access business service monitoring (BSM), including service entities, in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../commercial/).
+{{% /notice %}}
+
+{{% notice note %}}
+**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
 {{% /notice %}}
 
 A service entity represents a business service in [business service monitoring (BSM)][8].
 Sensu processes service entity events just like events generated for agent and proxy entities.
 You can also use service entities for proxy check requests and events.
-
-{{% notice note %}}
-**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
-{{% /notice %}}
 
 This example shows a service entity resource definition:
 
@@ -230,8 +230,8 @@ spec:
 Sensu's usage limits are based on entities.
 
 The free limit is 100 entities.
-All [commercial features][2] are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
-If your Sensu instance includes more than 100 entities, [contact us][3] to learn how to upgrade your installation and increase your limit. See [the announcement on our blog][4] for more information about our usage policy.
+All [commercial features][2] are available for free in the packaged Sensu Go distribution for up to 100 entities.
+If your Sensu instance includes more than 100 entities, [contact us][3] to learn how to upgrade your installation and increase your limit. Read [the announcement on our blog][4] for more information about our usage policy.
 
 Commercial licenses may include an entity limit and entity class limits:
 

@@ -484,7 +484,7 @@ spec:
 ### Validate the event filter
 
 Verify the proper behavior of these event filters with `sensu-backend` logs.
-The default location of these logs varies based on the platform used (see [Troubleshoot Sensu][2] for details).
+The default location of these logs varies based on the platform used (read [Troubleshoot Sensu][2] for details).
 
 Whenever an event is being handled, a log entry is added with the message `"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by
 a second log entry with the message `"msg":"pipelined executed event pipe

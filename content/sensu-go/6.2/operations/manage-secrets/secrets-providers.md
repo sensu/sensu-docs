@@ -14,7 +14,7 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Env and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 Sensu's secrets management eliminates the need to expose secrets like usernames, passwords, and access keys in your Sensu configuration.
@@ -25,7 +25,7 @@ With Sensu's secrets management, you can obtain secrets from one or more externa
 {{% /notice %}}
 
 Only Sensu backends have access to request [secrets][9] from a secrets provider.
-Secrets are only transmitted over a transport layer security (TLS) websocket connection.
+Secrets are only transmitted over a transport layer security (TLS) WebSocket connection.
 Unencrypted connections must not transmit privileged information.
 For checks, hooks, and dynamic runtime assets, you must [enable mutual TLS (mTLS)][13].
 Sensu will not transmit secrets to agents that do not use mTLS.

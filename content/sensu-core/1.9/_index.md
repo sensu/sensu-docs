@@ -81,7 +81,7 @@ training, and other benefits, check out [Sensu Enterprise][14].
 [1]:  https://www.pagerduty.com
 [2]:  https://slack.com
 [3]:  https://github.com/sensu-plugins
-[4]:  /plugins/latest/reference/
+[4]:  installation/installing-plugins/
 [9]:  https://www.chef.io
 [10]: https://puppetlabs.com
 [11]: https://www.ansible.com

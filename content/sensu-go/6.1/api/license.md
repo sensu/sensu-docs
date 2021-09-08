@@ -16,7 +16,7 @@ menu:
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
-For more information about commercial features designed for enterprises, see [Get started with commercial features][1].
+For more information about commercial features designed for enterprises, read [Get started with commercial features][1].
 
 ## Get the active license configuration
 

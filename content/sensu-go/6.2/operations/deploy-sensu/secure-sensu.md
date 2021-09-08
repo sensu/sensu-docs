@@ -160,20 +160,20 @@ trusted-ca-file: "/etc/sensu/tls/ca.pem"
 
 {{% notice note %}}
 **NOTE**: If you are creating a Sensu cluster, every cluster member needs to be present in the configuration.
-See [Run a Sensu cluster](../cluster-sensu/) for more information about how to configure agents for a clustered configuration.
+Read [Run a Sensu cluster](../cluster-sensu/) for more information about how to configure agents for a clustered configuration.
 {{% /notice %}}
 
 ## Optional: Configure Sensu agent mTLS authentication
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access client mutual transport layer security (mTLS) authentication in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 By default, Sensu agents require username and password authentication to communicate with Sensu backends.
 For Sensu's [default user credentials][2] and details about configuring Sensu role-based access control (RBAC), see the [RBAC reference][3].
 
-Alternatively, Sensu agents can use mTLS for authenticating to the backend websocket transport.
+Alternatively, Sensu agents can use mTLS for authenticating to the backend WebSocket transport.
 When agent mTLS authentication is enabled, agents do not need to send password credentials to backends when they connect.
 To use [secrets management][1], Sensu agents must be secured with mTLS.
 In addition, when using mTLS authentication, agents do not require an explicit user in Sensu.

@@ -9,6 +9,9 @@ version: "6.4"
 menu: "sensu-go-6.4"
 ---
 
+- [6.4.3 release notes](#643-release-notes)
+- [6.4.2 release notes](#642-release-notes)
+- [6.4.1 release notes](#641-release-notes)
 - [6.4.0 release notes](#640-release-notes)
 - [6.3.0 release notes](#630-release-notes)
 - [6.2.7 release notes](#627-release-notes)
@@ -86,6 +89,57 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ---
 
+## 6.4.3 release notes
+
+**September 1, 2021** &mdash; The latest release of Sensu Go, version 6.4.3, is now available for download.
+
+This patch fixes a deadlock in the event log writer.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.4.3.
+
+**FIXES:**
+
+- ([Commercial feature][215]) Fixed a bug that caused a deadlock in the [event log][228] writer.
+
+## 6.4.2 release notes
+
+**August 31, 2021** &mdash; The latest release of Sensu Go, version 6.4.2, is now available for download.
+
+This patch adds a backend configuration attribute that allows parallel event log encoding, as well as two summary metrics for the metrics API endpoint.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.4.2.
+
+**FIXES:**
+
+- ([Commercial feature][215]) Added the [`event-log-parallel-encoders`][226] backend configuration attribute, which allows you to indicate whether Sensu should use parallel JSON encoders for event logging instead of the default (a single JSON encoding worker). This fixes a bottleneck in the event logging feature.
+
+**IMPROVEMENTS:**
+
+- Added sensu_go_agentd_event_bytes and sensu_go_store_event_bytes summary metrics to the [metrics API endpoint][227]. sensu_go_agentd_event_bytes tracks the sizes of events, in bytes, received by agentd on the backend. sensu_go_store_event_bytes tracks event sizes, in bytes, received by the etcd store on the backend.
+
+## 6.4.1 release notes
+
+**August 25, 2021** &mdash; The latest release of Sensu Go, version 6.4.1, is now available for download.
+
+This patch includes fixes that improve forward- and backward-compatibility for backends and prevent `sensuctl cluster member-list` crashes, as well as changes to the default log levels for webd, the API, and the sensu-agent.
+
+See the [upgrade guide][1] to upgrade Sensu to version 6.4.1.
+
+**FIXES:**
+
+- ([Commercial feature][215]) For LDAP configurations, the `allowed_groups` attribute is omitted if not populated.
+This change improves backend reliability with older versions of federation and sensuctl.
+- Fixed a bug to prevent `sensuctl cluster member-list` crashes when the etcd response header is nil.
+- Fixed a `sensu-backend init` regression that returned exit status 0 if the store was already initialized.
+- Sensu Go OSS can now be built on darwin/arm64.
+
+**IMPROVEMENTS:**
+- ([Commercial feature][215]) The default webd log level is now `warn`.
+- The default log level for the Sensu API and [`sensu-agent`][225] is now `warn` (instead of `info`). 
+- The sensu-backend now reports when it is ready to process events at the `warn` level.
+- You can now create resources with fields that are unknown to Sensu.
+This change improves forward-compatibility with newer Sensu backends.
+
 ## 6.4.0 release notes
 
 **June 28, 2021** &mdash; The latest release of Sensu Go, version 6.4.0, is now available for download. 
@@ -137,6 +191,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.3.0.
 
 - ([Commercial feature][207]) Added [business service monitoring (BSM)][210] to provide high-level visibility into the current health of any number of business services, with a [built-in aggregate check rule template][211].
 - ([Commercial feature][207]) Added support for agent transport rate limiting via [`agent-burst-limit`][208] and [`agent-rate-limit`][209] backend configuration flags.
+- ([Commercial feature][207]) Added the `event-log-buffer-wait` backend configuration flag, which allows you to specify how long the event logger will wait for the writer to consume events from the buffer when the buffer is full.
 - Added the entity class [service][213], which represents a business service for the business service monitoring (BSM) feature.
 
 **IMPROVEMENTS:**
@@ -263,7 +318,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.1.
 
 The latest release of Sensu Go, version 6.2.0, is now available for download! Sensu Go 5.x and configuration management users rejoice: this release adds support for agent local configuration (that is, agent.yml) managed entities! Agent entities may now be managed exclusively by their agents when `sensu-agent` is started with the new `agent-managed-entity` configuration option. This makes it more straightforward to migrate from Sensu Go 5.x to 6.x, as existing agent entity management workflows like Puppet will just work with the new option enabled! Note that you will not be able to edit agent-managed entities via the backend REST API or web UI.
 
-Sensu Go 6.2.0 includes significant feature enhancements such as PostgreSQL backend round robin check scheduling for increased reliability and consistency, an updated format for silenced entry dates and durations in sensuctl tabular-format output, and a /health API endpoint for agent websocket transport status. This release delivers important bug fixes like consistently using `event_id` in logs and eliminating the sensuctl error when Vault provider SSL certificates do not exist on the local system. Also, the prune API no longer requires cluster-wide permissions; users with limited permissions can put it to use in their namespaces!
+Sensu Go 6.2.0 includes significant feature enhancements such as PostgreSQL backend round robin check scheduling for increased reliability and consistency, an updated format for silenced entry dates and durations in sensuctl tabular-format output, and a /health API endpoint for agent WebSocket transport status. This release delivers important bug fixes like consistently using `event_id` in logs and eliminating the sensuctl error when Vault provider SSL certificates do not exist on the local system. Also, the prune API no longer requires cluster-wide permissions; users with limited permissions can put it to use in their namespaces!
 
 See the [upgrade guide][1] to upgrade Sensu to version 6.2.0.
 
@@ -275,7 +330,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.2.0.
 - ([Commercial feature][193]) Added support for OIDC authentication via [sensuctl configure][202].
 - Entities may now be [managed exclusively by their agents][204] when sensu-agent is started with the [agent-managed-entity][203] configuration attribute.
 - The [/metrics API endpoint][196] now exposes build information as a Prometheus metric.
-- Added /health API endpoint to agent websocket transport.
+- Added /health API endpoint to agent WebSocket transport.
 - Checks now include the [`scheduler` attribute][197], which Sensu automatically populates with the type of scheduler that schedules the check.
 - Events now include the [`sequence` attribute][198], which the Sensu agent automatically sets at startup and increments by 1 at every successive check execution or keepalive event.
 - Added support for using environment variables to define the configuration file paths for the Sensu agent (`SENSU_CONFIG_FILE`) and backend (`SENSU_BACKEND_CONFIG_FILE`).
@@ -446,7 +501,7 @@ See the [supported platforms][165] page for a complete list of Sensu’s support
 - For sysvinit services, Sensu now passes users' secondary groups (that is, groups other than the Sensu user group) to `chroot`, which gives the Sensu agent and backend access to the file access writes that are granted to the secondary groups.
 - Output of `sensuctl asset add` now includes help for using the runtime asset.
 - For role bindings and cluster role bindings, [`subjects.name`][166] values can now include unicode characters, and [`roleRef.type`][167] and [`subjects.type`][166] values are now automatically capitalized.
-- Improved logging for the agent websocket connection.
+- Improved logging for the agent WebSocket connection.
 - Improved the wording of the secret provider error message.
 - Fewer keys in etcd are now stored for agents.
 - Keepalive and round robin scheduling leases are now dealt with more efficiently.
@@ -523,13 +578,13 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.21.2.
 
 **August 5, 2020** &mdash; The latest release of Sensu Go, version 5.21.1, is now available for download.
 
-This patch release includes fixes for a web UI crash when interacting with namespaces that contain 1000 or more events and regressions in logging various agent errors as well as an enhancement that provides additional context to websocket connection errors logged by the backend.
+This patch release includes fixes for a web UI crash when interacting with namespaces that contain 1000 or more events and regressions in logging various agent errors as well as an enhancement that provides additional context to WebSocket connection errors logged by the backend.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.21.1.
 
 **IMPROVEMENTS:**
 
-- Backend log messages related to connection errors on the agent websocket API now provide more context about the error.
+- Backend log messages related to connection errors on the agent WebSocket API now provide more context about the error.
 
 **FIXES:**
 
@@ -941,11 +996,11 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.15.0.
 
 **IMPORTANT:**
 Sensu's free entity limit is now 100 entities.
-All [commercial features][95] are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
+All [commercial features][95] are available for free in the packaged Sensu Go distribution for up to 100 entities.
 You will see a warning when you approach the 100-entity limit (at 75%).
 
 If your Sensu instance includes more than 100 entities, [contact us][90] to learn how to upgrade your installation and increase your limit.
-See [the blog announcement][91] for more information about our usage policy.
+Read [the blog announcement][91] for more information about our usage policy.
 
 **NEW FEATURES:**
 
@@ -1905,3 +1960,7 @@ To get started with Sensu Go:
 [222]: /sensu-go/6.4/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-640-from-any-previous-version
 [223]: /sensu-go/6.3/web-ui/webconfig-reference/#default-preferences-attributes
 [224]: /sensu-go/5.20/observability-pipeline/observe-schedule/backend/#metrics-refresh-interval
+[225]: /sensu-go/6.4/observability-pipeline/observe-schedule/agent/#log-level
+[226]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#event-log-parallel-encoders
+[227]: /sensu-go/6.4/api/metrics/
+[228]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#event-logging

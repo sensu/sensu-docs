@@ -28,7 +28,7 @@ The Sensu agent is a lightweight process that runs on the infrastructure compone
 The agent registers with the Sensu backend as an entity with `type: "agent"`.
 Agent entities are responsible for creating [status and metrics events][6] to send to the [backend event pipeline][2].
 
-The Sensu backend includes an integrated structure for scheduling checks using subscriptions and an event pipeline that applies [event filters][15], [mutators][16], and [handlers][17], an embedded [etcd][10] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][5], and the `sensu-backend` command line tool.
+The Sensu backend includes an integrated structure for scheduling checks using subscriptions and an event pipeline that applies [event filters][15], [mutators][16], and [handlers][17], an embedded [etcd][10] datastore for storing configuration and state, and the Sensu [API][4], Sensu [web UI][5], and [sensuctl][19] command line tool.
 
 The Sensu agent is available for Linux, macOS, and Windows.
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
@@ -148,6 +148,7 @@ Follow [Secure Sensu][8] to configure the backend and agent for WebSocket Secure
 [1]: ../../operations/deploy-sensu/install-sensu/
 [2]: backend/
 [3]: ../observe-entities/
+[4]: ../../api/
 [5]: ../../web-ui/
 [6]: ../observe-events/
 [7]: https://en.m.wikipedia.org/wiki/WebSocket
@@ -162,3 +163,4 @@ Follow [Secure Sensu][8] to configure the backend and agent for WebSocket Secure
 [16]: ../observe-filter/filters/
 [17]: ../observe-transform/mutators/
 [18]: ../observe-process/handlers/
+[19]: ../../sensuctl/

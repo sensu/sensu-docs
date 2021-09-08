@@ -11,7 +11,7 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Sensu ServiceNow Handler integration in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 The [Sensu ServiceNow Handler plugin][4] is a Sensu [handler][1] that creates and updates ServiceNow incidents and events based on observation data from Sensu events.
