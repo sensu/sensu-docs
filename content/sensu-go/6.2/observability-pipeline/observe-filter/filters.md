@@ -96,7 +96,7 @@ Otto is an ECMAScript 5 (JavaScript) virtual machine that evaluates JavaScript e
 There are some caveats to using Otto: not all of the regular expressions (regex) specified in ECMAScript 5 will work.
 See the [Otto README][32] for more details.
 
-Use [Golang regex syntax][3] to create event filter expressions that combine any available [event][46], [check][47], or [entity][48] attributes with `match(<regex>)`.
+Use [Go regex syntax][3] to create event filter expressions that combine any available [event][46], [check][47], or [entity][48] attributes with `match(<regex>)`.
 
 For example, this event filter allows handling for events whose `event.check.name` ends with `metrics`:
 
