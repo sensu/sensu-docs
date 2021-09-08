@@ -1,4 +1,4 @@
----
+ ---
 title: "Send PagerDuty alerts with Sensu"
 linkTitle: "Send PagerDuty Alerts"
 guide_title: "Send PagerDuty alerts with Sensu"
@@ -229,7 +229,7 @@ sensuctl handler info pagerduty --format wrapped-json
 {{< /code >}}
 {{< /language-toggle >}}
 
-The response will list the complete check resource definition:
+The response will list the complete handler resource definition:
 
 {{< language-toggle >}}
 
