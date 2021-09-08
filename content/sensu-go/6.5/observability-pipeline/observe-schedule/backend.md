@@ -1558,9 +1558,7 @@ event-log-file: "/var/log/sensu/events.log"{{< /code >}}
 
 | event-log-parallel-encoders |      |
 -----------------------|------
-description            | Indicates whether Sensu should use parallel JSON encoders for event logging. If `true`, Sensu sets the number of JSON encoder workers to 50% of the total number of cores, with a minimum of 2 (for example, 6 JSON encoders on a 12-core machine). Otherwise, Sensu uses the default setting, which is a single JSON encoding worker.<br><br>The `event-log-parallel-encoders` setting will not take effect unless you also specify a path to the event log file with the [`event-log-file`][61] configuration attribute.{{% notice note %}}
-**NOTE**: The `event-log-parallel-encoders` configuration attribute is available in [Sensu Go 6.4.2](../../../release-notes/#642-release-notes).
-{{% /notice %}}
+description            | Indicates whether Sensu should use parallel JSON encoders for event logging. If `true`, Sensu sets the number of JSON encoder workers to 50% of the total number of cores, with a minimum of 2 (for example, 6 JSON encoders on a 12-core machine). Otherwise, Sensu uses the default setting, which is a single JSON encoding worker.<br><br>The `event-log-parallel-encoders` setting will not take effect unless you also specify a path to the event log file with the [`event-log-file`][61] configuration attribute.
 type                   | Boolean
 default                | false
 environment variable   | `SENSU_BACKEND_EVENT_LOG_PARALLEL_ENCODERS`
