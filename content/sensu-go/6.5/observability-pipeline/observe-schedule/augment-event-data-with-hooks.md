@@ -161,6 +161,10 @@ check:
 
 {{< /language-toggle >}}
 
+{{% notice protip %}}
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data).
+{{% /notice %}}
+
 After you confirm that the hook is attached to your check, you can stop Nginx and observe the check hook in action on the next check execution.
 This example uses sensuctl to query event info and send the response to `jq` so you can isolate the check hook output:
 

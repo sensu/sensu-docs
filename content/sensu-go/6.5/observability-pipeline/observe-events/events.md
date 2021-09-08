@@ -918,6 +918,10 @@ sensuctl event info entity-name check-name --format json
 {{< /code >}}
 {{< /language-toggle >}}
 
+{{% notice protip %}}
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data).
+{{% /notice %}}
+
 ### Delete events
 
 To delete an event:

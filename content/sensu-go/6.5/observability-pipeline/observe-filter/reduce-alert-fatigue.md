@@ -193,6 +193,10 @@ spec:
 
 {{< /language-toggle >}}
 
+{{% notice protip %}}
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data).
+{{% /notice %}}
+
 In addition to using this approach with `sensuctl` to interactively create an event filter, you can create more reusable event filters with dynamic runtime assets.
 Read on to learn how. 
 

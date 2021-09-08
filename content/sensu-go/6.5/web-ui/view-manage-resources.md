@@ -109,6 +109,18 @@ You can also execute individual checks on demand from their check detail pages t
 
 {{< figure src="/images/execute-checks.png" alt="Execute a check on demand in the web UI" link="/images/execute-checks.png" target="_blank" >}}
 
+## View resource data
+
+To view the JSON definition for any event, entity, or other configuration resource directly in the web UI:
+
+1. Open the individual resource page.
+2. Click the kebab icon in the top-right of the page: ![kebab icon](/images/web-ui-kebab-icon.png)
+3. Select **< > View Data** to open the Resource Data modal window and view the resource's definition in JSON format.
+
+This example shows how to view the JSON definition for an event:
+
+{{< figure src="/images/view-data-web-ui.gif" alt="View an event's resource data in the web UI" link="/images/view-data-web-ui.gif" target="_blank" >}}
+
 
 [1]: ../#webui-homepage
 [2]: ../bsm-module/
