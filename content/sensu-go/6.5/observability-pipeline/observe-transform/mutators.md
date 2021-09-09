@@ -75,9 +75,12 @@ metadata:
   namespace: default
 spec:
   command: example_mutator.go
+  eval: ""
   env_vars: []
   runtime_assets: []
+  secrets: null
   timeout: 0
+  type: ""
 {{< /code >}}
 
 {{< code json >}}
@@ -94,7 +97,10 @@ spec:
     "command": "example_mutator.go",
     "timeout": 0,
     "env_vars": [],
-    "runtime_assets": []
+    "runtime_assets": [],
+    "secrets": null,
+    "type": "",
+    "eval": ""
   }
 }
 {{< /code >}}
@@ -118,6 +124,141 @@ Commands must be executable files that are discoverable on the Sensu backend sys
 As a result, executable scripts (like plugins) located in `/etc/sensu/plugins` will be valid commands.
 This allows `command` attributes to use “relative paths” for Sensu plugin commands (for example, `"command": "check-http.go -u https://sensuapp.org"`).
 {{% /notice %}}
+
+## JavaScript mutators
+
+Sensu's JavaScript mutators are an efficient alternative to regular mutators, which fork a process on each invocation.
+JavaScript mutators are evaluated by the [Otto JavaScript VM][19] as JavaScript programs, which enables greater mutator throughput at scale.
+
+JavaScript mutators do not require you to return any value &mdash; you can either return a new string or mutate the events that are passed to the mutator.
+However, if you do return a value with a JavaScript mutator, it must be a string.
+If a JavaScript mutator returns a non-string value (an array, object, integer, or Boolean), an error is recorded in the [Sensu backend log][20].
+
+JavaScript mutators can use dynamic runtime assets that include JavaScript source.
+
+JavaScript mutators cannot look up events from the event store.
+Secrets are not available to JavaScript mutators.
+
+### Example JavaScript mutator
+
+Mutator:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Mutator
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: echomutator
+  namespace: default
+spec:
+  eval: 'return JSON.stringify({"some stuff": "is here"});'
+  type: javascript
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "echomutator",
+    "namespace": "default"
+  },
+  "spec": {
+    "eval": "return JSON.stringify({\"some stuff\": \"is here\"});",
+    "type": "javascript"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Handler:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Handler
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: echohandler
+  namespace: default
+spec:
+  command: cat >> handler.log
+  mutator: echomutator
+  type: pipe
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "echohandler",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "cat >> handler.log",
+    "mutator": "echomutator",
+    "type": "pipe"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Check:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: echo
+  namespace: default
+spec:
+  command: echo hello
+  handlers:
+  - echohandler
+  interval: 1
+  publish: true
+  subscriptions:
+  - test
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "echo",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "echo hello",
+    "handlers": [
+      "echohandler"
+    ],
+    "interval": 1,
+    "publish": true,
+    "subscriptions": [
+      "test"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Built-in mutators
 
@@ -250,6 +391,8 @@ spec:
   timeout: 0
   env_vars: []
   runtime_assets: []
+  secrets: null
+  type: pipe
 {{< /code >}}
 {{< code json >}}
 {
@@ -257,7 +400,9 @@ spec:
     "command": "example_mutator.go",
     "timeout": 0,
     "env_vars": [],
-    "runtime_assets": []
+    "runtime_assets": [],
+    "secrets": null,
+    "type": "pipe"
   }
 }
 {{< /code >}}
@@ -362,8 +507,10 @@ annotations:
 
 command      | 
 -------------|------ 
-description  | Mutator command to be executed by the Sensu backend. 
-required     | true
+description  | Mutator command to be executed by the Sensu backend.{{% notice note %}}
+**NOTE**: [JavaScript mutators](#javascript-mutators) require the [eval attribute](#eval-attribute) instead of the command attribute.
+{{% /notice %}}
+required     | true, for pipe mutators
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
@@ -378,7 +525,9 @@ command: /etc/sensu/plugins/mutated.go
 
 timeout      | 
 -------------|------ 
-description  | Mutator execution duration timeout (hard stop). In seconds.
+description  | Mutator execution duration timeout (hard stop). In seconds.{{% notice warning %}}
+**WARNING**: The timeout attribute is available for [JavaScript mutators](#javascript-mutators) but may not work properly if the mutator is in a loop.
+{{% /notice %}}
 required     | false 
 type         | integer 
 example      | {{< language-toggle >}}
@@ -455,6 +604,44 @@ secrets:
       "secret": "sensu-ansible-token"
     }
   ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="eval-attribute"></a>
+
+eval         | 
+-------------|------ 
+description  | ECMAScript 5 (JavaScript) expression to be executed by the Sensu backend.{{% notice note %}}
+**NOTE**: Pipe mutators require the [command attribute](#spec-attributes) instead of the eval attribute.
+{{% /notice %}}
+required     | true, for [JavaScript mutators][18]
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+eval: 'return JSON.stringify({"some stuff": "is here"});'
+{{< /code >}}
+{{< code json >}}
+{
+  "eval": "return JSON.stringify({\"some stuff\": \"is here\"});"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+type         | 
+-------------|------ 
+description  | Mutator type. 
+required     | false
+type         | String
+default      | `pipe`
+allowed values | `pipe` and `javascript`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: pipe
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "pipe"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -559,3 +746,6 @@ spec:
 [15]: ../../../web-ui/search/
 [16]: ../
 [17]: ../../../observability-pipeline/
+[18]: #javascript-mutators
+[19]: https://github.com/robertkrimen/otto
+[20]: ../../observe-schedule/backend/#event-logging
