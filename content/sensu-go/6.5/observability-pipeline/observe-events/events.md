@@ -470,7 +470,7 @@ spec:
     entity_class: agent
     last_seen: 1552495139
     metadata:
-      name: sensu-centos
+      name: sensu-go-sandbox
       namespace: default
     redact:
     - password
