@@ -1234,6 +1234,8 @@ sensu-backend start --pipelined-workers 100{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 pipelined-workers: 100{{< /code >}}
 
+<a id="etcd-election-timeout"></a>
+
 | etcd-election-timeout |      |
 -----------------------|------
 description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). Set to at least 10 times the [etcd-heartbeat-interval][36]. Read the [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
