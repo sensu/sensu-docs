@@ -24,7 +24,7 @@ The migrate guide includes links to Sensu's migration resources and Core and Ent
 
 ## Troubleshoot
 
-Use the Sensu [troubleshooting guide][4] to diagnose and resolve common issues.
+Use the Sensu [troubleshooting guide][4] to diagnose and resolve common problems, and read about [tuning options][11] for specific performance issues.
 Learn how to read, configure, and find the [logs produced by Sensu services][6].
 Sensu log messages can help you identify and solve [backend startup errors][7] and [permissions issues][8].
 
@@ -46,3 +46,4 @@ The license reference also explains how to view your license details and expirat
 [8]: troubleshoot/#permission-issues
 [9]: troubleshoot/#handlers-and-event-filters
 [10]: troubleshoot/#dynamic-runtime-assets
+[11]: tune/
