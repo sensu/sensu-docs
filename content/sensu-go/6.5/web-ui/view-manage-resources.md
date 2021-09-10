@@ -107,7 +107,9 @@ Click a resource name to see detailed information and edit or delete it.
 On the Checks page, click the check boxes to select one or more checks to execute, silence, unpublish, or delete them.
 You can also execute individual checks on demand from their check detail pages to test your observability pipeline:
 
-{{< figure src="/images/execute-checks.png" alt="Execute a check on demand in the web UI" link="/images/execute-checks.png" target="_blank" >}}
+{{< figure src="/images/execute-checks-subs.png" alt="Execute a check on demand in the web UI" link="/images/execute-checks-subs.png" target="_blank" >}}
+
+{{< figure src="/images/execute-subscriptions.png" alt="Execute a check on demand on any agent from the web UI" link="/images/execute-subscriptions.png" target="_blank" >}}
 
 
 [1]: ../#webui-homepage
