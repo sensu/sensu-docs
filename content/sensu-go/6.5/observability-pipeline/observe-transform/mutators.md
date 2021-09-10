@@ -18,19 +18,14 @@ Sensu executes mutators during the **[transform][16]** stage of the [observabili
 Handlers can specify a mutator to execute and transform observability event data before any handlers are applied.
 When the Sensu backend processes an event, it checks the handler for the presence of a mutator and executes that mutator before executing the handler.
 
-Mutators produce an exit status code to indicate state.
-A code of `0` indicates OK status.
-If the mutator executes successfully (returns an exit status code of `0`), the modified event data return to the handler and the handler is executed.
-
-Exit codes other than `0` indicate failure.
-If the mutator fails to execute (returns a non-zero exit status code or fails to complete within its configured timeout), an error is logged and the handler will not execute.
-
 Mutators accept input/data via `STDIN` and can parse JSON event data.
 They output JSON data (modified event data) to `STDOUT` or `STDERR`.
 
-## Mutator examples
+There are two types of mutators: [pipe][21] and [JavaScript][18].
 
-This example shows a mutator resource definition with the minimum required attributes:
+## Pipe mutator examples
+
+This example shows a pipe mutator resource definition with the minimum required attributes:
 
 {{< language-toggle >}}
 
@@ -107,9 +102,89 @@ spec:
 
 {{< /language-toggle >}}
 
-## Commands
+## JavaScript mutator examples
 
-Each Sensu mutator definition defines a command to be executed.
+As shown in these examples, JavaScript mutators use the eval attribute instead of command.
+The eval value must be an ECMAScript 5 (JavaScript) expression.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Mutator
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: js_mutator_1
+  namespace: default
+spec:
+  eval: 'return JSON.stringify({"some info": "is here"});'
+  type: javascript
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "js_mutator_1",
+    "namespace": "default"
+  },
+  "spec": {
+    "eval": "return JSON.stringify({"some info": "is here"});",
+    "type": "javascript"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Mutator
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: js_mutator_2
+  namespace: default
+spec:
+  eval: event.check.labels["hello"] = "Sensu user";
+  type: javascript
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "js_mutator_2",
+    "namespace": "default"
+  },
+  "spec": {
+    "eval": "event.check.labels["hello"] = "Sensu user";",
+    "type": "javascript"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Pipe mutators
+
+**Pipe mutators** produce an exit status code to indicate state.
+A code of `0` indicates OK status.
+If the mutator executes successfully (returns an exit status code of `0`), the modified event data return to the handler and the handler is executed.
+
+Exit codes other than `0` indicate failure.
+If the mutator fails to execute (returns a non-zero exit status code or fails to complete within its configured timeout), an error is logged and the handler will not execute.
+
+### Pipe mutator commands
+
+Each Sensu pipe mutator definition defines a command to be executed.
 Mutator commands are executable commands that will be executed on a Sensu backend, run as the `sensu user`.
 Most mutator commands are provided by [Sensu plugins][4].
 
@@ -127,138 +202,26 @@ This allows `command` attributes to use “relative paths” for Sensu plugin co
 
 ## JavaScript mutators
 
-Sensu's JavaScript mutators are an efficient alternative to regular mutators, which fork a process on each invocation.
+Mutators that use JavaScript are an efficient alternative to pipe mutators, which fork a process on each invocation.
 JavaScript mutators are evaluated by the [Otto JavaScript VM][19] as JavaScript programs, which enables greater mutator throughput at scale.
 
-JavaScript mutators do not require you to return any value &mdash; you can either return a new string or mutate the events that are passed to the mutator.
+JavaScript mutators do not require you to return any value &mdash; you can either also mutate the events that are passed to the mutator.
 However, if you do return a value with a JavaScript mutator, it must be a string.
 If a JavaScript mutator returns a non-string value (an array, object, integer, or Boolean), an error is recorded in the [Sensu backend log][20].
 
-JavaScript mutators can use dynamic runtime assets that include JavaScript source.
-
-JavaScript mutators cannot look up events from the event store.
+JavaScript mutators can include environment variables, and the environment variables will be made available to the mutator's global environment.
 Secrets are not available to JavaScript mutators.
 
-### Example JavaScript mutator
+JavaScript mutators cannot look up events from the event store.
 
-Mutator:
+### JavaScript mutator eval attribute
 
-{{< language-toggle >}}
+Each Sensu JavaScript mutator definition includes the [eval attribute][22], whose value must be an ECMAScript 5 (JavaScript) expression.
+JavaScript mutators do not use the command attribute.
 
-{{< code yml >}}
----
-type: Mutator
-api_version: core/v2
-metadata:
-  created_by: admin
-  name: echomutator
-  namespace: default
-spec:
-  eval: 'return JSON.stringify({"some stuff": "is here"});'
-  type: javascript
-{{< /code >}}
+All mutator eval expressions are executed by a Sensu backend as the `sensu` user.
 
-{{< code json >}}
-{
-  "type": "Mutator",
-  "api_version": "core/v2",
-  "metadata": {
-    "created_by": "admin",
-    "name": "echomutator",
-    "namespace": "default"
-  },
-  "spec": {
-    "eval": "return JSON.stringify({\"some stuff\": \"is here\"});",
-    "type": "javascript"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-Handler:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Handler
-api_version: core/v2
-metadata:
-  created_by: admin
-  name: echohandler
-  namespace: default
-spec:
-  command: cat >> handler.log
-  mutator: echomutator
-  type: pipe
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "created_by": "admin",
-    "name": "echohandler",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "cat >> handler.log",
-    "mutator": "echomutator",
-    "type": "pipe"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-Check:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: CheckConfig
-api_version: core/v2
-metadata:
-  created_by: admin
-  name: echo
-  namespace: default
-spec:
-  command: echo hello
-  handlers:
-  - echohandler
-  interval: 1
-  publish: true
-  subscriptions:
-  - test
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "created_by": "admin",
-    "name": "echo",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "echo hello",
-    "handlers": [
-      "echohandler"
-    ],
-    "interval": 1,
-    "publish": true,
-    "subscriptions": [
-      "test"
-    ]
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
+JavaScript mutators can use dynamic runtime assets as long as they are valid JavaScript assets.
 
 ## Built-in mutators
 
@@ -623,7 +586,7 @@ eval: 'return JSON.stringify({"some stuff": "is here"});'
 {{< /code >}}
 {{< code json >}}
 {
-  "eval": "return JSON.stringify({\"some stuff\": \"is here\"});"
+  "eval": "return JSON.stringify({"some stuff": "is here"});"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -749,3 +712,5 @@ spec:
 [18]: #javascript-mutators
 [19]: https://github.com/robertkrimen/otto
 [20]: ../../observe-schedule/backend/#event-logging
+[21]: #pipe-mutators
+[22]: #eval-attribute
