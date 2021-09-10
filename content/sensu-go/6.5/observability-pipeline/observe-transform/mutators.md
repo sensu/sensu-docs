@@ -205,7 +205,7 @@ This allows `command` attributes to use “relative paths” for Sensu plugin co
 Mutators that use JavaScript are an efficient alternative to pipe mutators, which fork a process on each invocation.
 JavaScript mutators are evaluated by the [Otto JavaScript VM][19] as JavaScript programs, which enables greater mutator throughput at scale.
 
-JavaScript mutators do not require you to return any value &mdash; you can either also mutate the events that are passed to the mutator.
+JavaScript mutators do not require you to return any value &mdash; you can mutate the events that are passed to the mutator instead.
 However, if you do return a value with a JavaScript mutator, it must be a string.
 If a JavaScript mutator returns a non-string value (an array, object, integer, or Boolean), an error is recorded in the [Sensu backend log][20].
 
