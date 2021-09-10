@@ -184,8 +184,8 @@ If the mutator fails to execute (returns a non-zero exit status code or fails to
 
 ### Pipe mutator commands
 
-Each Sensu pipe mutator definition defines a command to be executed.
-Mutator commands are executable commands that will be executed on a Sensu backend, run as the `sensu user`.
+Each Sensu mutator definition defines a command to be executed.
+Mutator commands are executable commands that will be executed on a Sensu backend, run as the `sensu` user.
 Most mutator commands are provided by [Sensu plugins][4].
 
 Sensu mutator `command` attributes may include command line arguments for controlling the behavior of the `command` executable.
