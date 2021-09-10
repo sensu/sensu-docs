@@ -132,7 +132,7 @@ spec:
     "namespace": "default"
   },
   "spec": {
-    "eval": "return JSON.stringify({"some info": "is here"});",
+    "eval": "return JSON.stringify({\"some info\": \"is here\"});",
     "type": "javascript"
   }
 }
@@ -165,7 +165,7 @@ spec:
     "namespace": "default"
   },
   "spec": {
-    "eval": "event.check.labels["hello"] = "Sensu user";",
+    "eval": "event.check.labels[\"hello\"] = \"Sensu user\";",
     "type": "javascript"
   }
 }
@@ -586,7 +586,7 @@ eval: 'return JSON.stringify({"some stuff": "is here"});'
 {{< /code >}}
 {{< code json >}}
 {
-  "eval": "return JSON.stringify({"some stuff": "is here"});"
+  "eval": "return JSON.stringify({\"some info\": \"is here\"});"
 }
 {{< /code >}}
 {{< /language-toggle >}}
