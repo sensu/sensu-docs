@@ -350,7 +350,6 @@ You can use global flags with most sensuctl commands.
 {{< /code >}}
 
 To set these flags permanently, edit `.config/sensu/sensuctl/{cluster, profile}`.
-You can also [set the sensuctl global flags as environment variables][24] with sensuctl configure.
 
 ## Shell auto-completion
 

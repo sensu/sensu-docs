@@ -11,34 +11,44 @@ menu:
     parent: sensuctl
 ---
 
-Sensu allows you to set environment variables with sensuctl rather than editing the sensuctl config file.
+Sensu allows you to set sensuctl environment variables for a [single sensuctl command][1], with [sensuctl configure][2], or with [sensuctl env][3].
 
-You can set the following environment variables with sensuctl:
+## Set environment variables for a single command
+
+You can set the following environment variables for a single sensuctl command to temporarily override your current settings: 
 
 {{< code text >}}
-SENSU_ACCESS_TOKEN               Current API access token in sensuctl
-SENSU_ACCESS_TOKEN_EXPIRES_AT    Timestamp specifying when the current API access token expires
-SENSU_API_KEY                    API key to use for authentication
-SENSU_API_URL                    host URL of Sensu installation
-SENSU_CACHE_DIR                  path to directory containing cache & temporary files (default "/var/cache/sensu/sensuctl")
-SENSU_CONFIG_DIR                 path to directory containing configuration files (default "/var/cache/sensu/sensuctl")
-SENSU_FORMAT                     Set output format in sensuctl (for example, JSON, YAML, etc.)
-SENSU_INSECURE_SKIP_TLS_VERIFY   skip TLS certificate verification (not recommended!)
-SENSU_NAMESPACE                  Name of the current namespace in sensuctl
-SENSU_OIDC
-SENSU_PORT
-SENSU_REFRESH_TOKEN              Refresh token used to obtain a new access token
-SENSU_TIMEOUT                    timeout when communicating with sensu backend (default 15s)
-SENSU_TRUSTED_CA_FILE            TLS CA certificate bundle in PEM format
+SENSU_API_KEY                     API key to use for authentication
+SENSU_API_URL                     host URL of Sensu installation
+SENSU_CACHE_DIR                   path to directory containing cache & temporary files
+SENSU_CONFIG_DIR                  path to directory containing configuration files
+SENSU_INSECURE_SKIP_TLS_VERIFY    skip TLS certificate verification (Boolean value)
+SENSU_NAMESPACE                   namespace in which to perform actions (default "default")
+SENSU_TIMEOUT                     timeout when communicating with sensu backend (default 15s)
+SENSU_TRUSTED_CA_FILE             TLS CA certificate bundle in PEM format
 {{< /code >}}
 
-{{% notice note %}}
-**NOTE**: The list of supported environment variables includes the [sensuctl global flags](../#global-flags).
-{{% /notice %}}
+For example, to quickly check the entities in the `production` namespace while you are currently in the `default` namespace, run:
 
-To set environment variables with sensuctl, use either [sensuctl configure][1] or [sensuctl env][2].
+{{< code shell >}}
+SENSU_NAMESPACE=production sensuctl entity list
+{{< /code >}}
+
+Single-command environment variables are not persistent &mdash; to continue the example, if you run `sensuctl entity list` again, the response will include entities for the `default` namespace (not `production`).
 
 ## Set environment variables with sensuctl configure
+
+You can set the following environment variables for sensuctl configure:
+
+{{< code text >}}
+SENSU_FORMAT                      preferred output format (default "tabular")
+SENSU_NON_INTERACTIVE             do not administer interactive questionnaire
+SENSU_OIDC                        use an OIDC provider for authentication (Boolean value)
+SENSU_PASSWORD                    password
+SENSU_PORT (used with SENSU_OIDC) port for local HTTP web server used for OAuth 2 callback during OIDC authentication (default 8000)
+SENSU_URL                         the sensu backend url (default "http://localhost:8080")
+SENSU_USERNAME                    username
+{{< /code >}}
 
 To set environment variables with sensuctl configure, define the environment variables in the same command.
 For example:
@@ -47,9 +57,24 @@ For example:
 SENSU_OIDC=true SENSU_NON_INTERACTIVE=true SENSU_FORMAT=yaml SENSU_PORT=7999 SENSU_TIMEOUT=49s SENSU_URL=http://192.168.7.217:8080 sensuctl configure
 {{< /code >}}
 
+Setting environment variables in a sensuctl configure command allows you to inject the desired environment variables in an automation script, quickly and transparently configuring sensuctl.
+
+Environment variables set with `sensuctl configure` are persistent.
+
 ## Set environment variables with sensuctl env
 
-The `sensuctl env` command allows you to export and set environment variables on your systems.
+The `sensuctl env` command allows you to export and set the following environment variables:
+
+{{< code text >}}
+SENSU_API_URL                     URL of the Sensu backend API in sensuctl
+SENSU_NAMESPACE                   Name of the current namespace in sensuctl
+SENSU_FORMAT                      Set output format in sensuctl (for example, JSON, YAML, etc.)
+SENSU_ACCESS_TOKEN                Current API access token in sensuctl
+SENSU_ACCESS_TOKEN_EXPIRES_AT     Timestamp specifying when the current API access token expires
+SENSU_REFRESH_TOKEN               Refresh token used to obtain a new access token
+SENSU_TRUSTED_CA_FILE             Path to a trusted CA file if set in sensuctl
+SENSU_INSECURE_SKIP_TLS_VERIFY    Boolean value that can be set to skip TLS verification
+{{< /code >}}
 
 This example demonstrates how to use sensuctl env to export and set environment variables and configure your shell:
 
@@ -94,5 +119,6 @@ $Env:SENSU_INSECURE_SKIP_TLS_VERIFY = "true"
 {{< /language-toggle >}}
 
 
-[1]: #set-environment-variables-with-sensuctl-configure
-[2]: #set-environment-variables-with-sensuctl-env
+[1]: #set-environment-variables-for-a-single-command
+[2]: #set-environment-variables-with-sensuctl-configure
+[3]: #set-environment-variables-with-sensuctl-env
