@@ -345,7 +345,6 @@ You can use global flags with most sensuctl commands.
 --config-dir string          path to directory containing configuration files
 --insecure-skip-tls-verify   skip TLS certificate verification (not recommended!)
 --namespace string           namespace in which we perform actions
---timeout duration           timeout when communicating with sensu backend (default 15s)
 --trusted-ca-file string     TLS CA certificate bundle in PEM format
 {{< /code >}}
 
@@ -437,4 +436,3 @@ create  delete  import  list
 [21]: https://www.json.org/
 [22]: ../api/#url-format
 [23]: ../observability-pipeline/observe-events/events/#example-status-only-event-from-the-sensu-api
-[24]: ../sensuctl/environment-variables/#set-environment-variables-with-sensuctl-configure
