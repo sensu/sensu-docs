@@ -296,7 +296,7 @@ You can use global flags with most sensuctl commands.
 --trusted-ca-file string     TLS CA certificate bundle in PEM format
 {{< /code >}}
 
-You can set these flags permanently by editing `.config/sensu/sensuctl/{cluster, profile}`.
+You can permanently set these flags by editing `.config/sensu/sensuctl/{cluster, profile}`.
 
 ## Shell auto-completion
 
