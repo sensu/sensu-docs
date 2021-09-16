@@ -19,7 +19,7 @@ We rely on Tessen data to understand how Sensu is being used and make informed d
 Read [Announcing Tessen, the Sensu call-home service][1] to learn more about Tessen.
 
 All data submissions are logged for complete transparency at the `info` log level and transmitted over HTTPS.
-See [Troubleshooting][5] to set the Sensu backend log level and view logs.
+Read [Troubleshoot Sensu][5] to set the Sensu backend log level and view logs.
 
 ## Configure Tessen
 
@@ -245,7 +245,7 @@ If you opt into Tessen, you can view all of the metrics in the logs:
 journalctl _COMM=sensu-backend.service
 {{< /code >}}
 
-To view the events on-disk, see [Log Sensu services with systemd][9].
+To view the events on-disk, read [Log Sensu services with systemd][9].
 
 [1]: https://sensu.io/blog/announcing-tessen-the-sensu-call-home-service
 [2]: ../../../api/tessen/

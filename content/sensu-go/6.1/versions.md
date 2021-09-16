@@ -11,7 +11,7 @@ menu: "sensu-go-6.1"
 ---
 
 Update Sensu frequently to stay in sync with the latest features and fixes.
-See the [upgrade guide][1] to upgrade to the latest version.
+Read [Upgrade Sensu][1] to upgrade to the latest version.
 
 Sensu supports the latest versions of official distributions, including [packages][66], [binary-only distributions][67], and [Docker images][68].
 Learn more about Sensu [support and licensing][2].

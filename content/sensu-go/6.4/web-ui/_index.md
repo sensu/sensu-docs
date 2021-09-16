@@ -16,7 +16,7 @@ The Sensu backend includes the **Sensu web UI**: a unified view of your events, 
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Sensu web UI homepage (shown below) in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../commercial/).
+For more information, read [Get started with commercial features](../commercial/).
 {{% /notice %}}
 
 The web UI homepage provides a high-level overview of the overall health of the systems under Sensu's management, with a summary of active incidents, the number of incidents by severity, the types of entities under management, and the numbers of entities and incidents per namespace.
@@ -47,7 +47,7 @@ See the [RBAC reference][3] for [default user credentials][4] and instructions f
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the Sensu web UI homepage in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../commercial/).
+For more information, read [Get started with commercial features](../commercial/).
 {{% /notice %}}
 
 On the Sensu web UI homepage, you can use the search function to limit the display by cluster and namespace.

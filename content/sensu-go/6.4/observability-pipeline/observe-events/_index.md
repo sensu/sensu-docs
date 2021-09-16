@@ -307,7 +307,7 @@ Event handlers from `event.Check.Handlers` and `event.Metrics.Handlers` will be 
 
 You can create events with proxy entities, which are dynamically created entities that Sensu adds to the entity store if an entity does not already exist for a check result.
 Proxy entities allow Sensu to monitor external resources on systems where you cannot install a Sensu agent, like a network switch or website.
-See [Monitor external resources][1] to learn how to use a proxy entity to monitor a website.
+Read [Monitor external resources][1] to learn how to use a proxy entity to monitor a website.
 
 ## Events API
 

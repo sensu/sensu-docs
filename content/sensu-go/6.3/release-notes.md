@@ -97,6 +97,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 6.3.0.
 
 - ([Commercial feature][207]) Added [business service monitoring (BSM)][210] to provide high-level visibility into the current health of any number of business services, with a [built-in aggregate check rule template][211].
 - ([Commercial feature][207]) Added support for agent transport rate limiting via [`agent-burst-limit`][208] and [`agent-rate-limit`][209] backend configuration flags.
+- ([Commercial feature][207]) Added the `event-log-buffer-wait` backend configuration flag, which allows you to specify how long the event logger will wait for the writer to consume events from the buffer when the buffer is full.
 - Added the entity class [service][213], which represents a business service for the business service monitoring (BSM) feature.
 
 **IMPROVEMENTS:**
@@ -901,11 +902,11 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.15.0.
 
 **IMPORTANT:**
 Sensu's free entity limit is now 100 entities.
-All [commercial features][95] are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
+All [commercial features][95] are available for free in the packaged Sensu Go distribution for up to 100 entities.
 You will see a warning when you approach the 100-entity limit (at 75%).
 
 If your Sensu instance includes more than 100 entities, [contact us][90] to learn how to upgrade your installation and increase your limit.
-See [the blog announcement][91] for more information about our usage policy.
+Read [the blog announcement][91] for more information about our usage policy.
 
 **NEW FEATURES:**
 

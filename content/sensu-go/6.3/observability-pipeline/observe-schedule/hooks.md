@@ -191,7 +191,7 @@ api_version: core/v2
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the hook that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the hook definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][2] for details.
+description  | Top-level collection of metadata about the hook that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the hook definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. Read [metadata attributes][2] for details.
 required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][1].
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}

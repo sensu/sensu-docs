@@ -16,7 +16,7 @@ menu:
 [Example Sensu backend configuration file](../../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and observability data.
-Every Sensu backend includes an integrated structure for scheduling checks using [subscriptions][28], an event processing pipeline that applies [event filters][9], [mutators][10], and [handlers][11], an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][6], and the `sensu-backend` command line tool.
+Every Sensu backend includes an integrated structure for scheduling checks using [subscriptions][28], an event processing pipeline that applies [event filters][9], [mutators][10], and [handlers][11], an embedded [etcd][2] datastore for storing configuration and state, and the Sensu [API][14], Sensu [web UI][6], and [sensuctl][37] command line tool.
 
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
 For these operating systems, the Sensu backend uses the Bourne shell (sh) for the execution environment.
@@ -1234,9 +1234,11 @@ sensu-backend start --pipelined-workers 100{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 pipelined-workers: 100{{< /code >}}
 
+<a id="etcd-election-timeout"></a>
+
 | etcd-election-timeout |      |
 -----------------------|------
-description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). Set to at least 10 times the [etcd-heartbeat-interval][36]. See [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
+description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). Set to at least 10 times the [etcd-heartbeat-interval][36]. Read the [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
 **WARNING**: Make sure to set the same election timeout value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.
 {{% /notice %}}{{% notice note %}}
 **NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
@@ -1254,7 +1256,7 @@ etcd-election-timeout: 1000{{< /code >}}
 
 | etcd-heartbeat-interval |      |
 -----------------------|------
-description            | Interval at which the etcd leader will notify followers that it is still the leader. In milliseconds (ms). Best practice is to set the interval based on round-trip time between members. See [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
+description            | Interval at which the etcd leader will notify followers that it is still the leader. In milliseconds (ms). Best practice is to set the interval based on round-trip time between members. Read the [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
 **WARNING**: Make sure to set the same heartbeat interval value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.{{% /notice %}}{{% notice note %}}
 **NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
@@ -1403,7 +1405,7 @@ For example, if you create a `SENSU_BACKEND_TEST_VAR` variable in your sensu-bac
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access event logging in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 If you wish, you can log all Sensu events to a file in JSON format.
@@ -1425,6 +1427,17 @@ command line example   | {{< code shell >}}
 sensu-backend start --event-log-buffer-size 100000{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 event-log-buffer-size: 100000{{< /code >}}
+
+| event-log-buffer-wait |      |
+-----------------------|------
+description            | Buffer wait time for the event logger. When the buffer is full, the event logger will wait for the specified time for the writer to consume events from the buffer.
+type                   | String
+default                | 10ms
+environment variable   | `SENSU_BACKEND_EVENT_LOG_BUFFER_WAIT`
+command line example   | {{< code shell >}}
+sensu-backend start --event-log-buffer-wait 10ms{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+event-log-buffer-wait: 10ms{{< /code >}}
 
 | event-log-file |      |
 -----------------------|------
@@ -1497,6 +1510,7 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [11]: ../../observe-process/handlers/
 [12]: #datastore-and-cluster-configuration-flags
 [13]: ../../../operations/deploy-sensu/cluster-sensu/
+[14]: ../../../api/
 [15]: #general-configuration-flags
 [16]: https://etcd.io/docs/current/tuning/#time-parameters
 [17]: ../../../files/backend.yml
@@ -1519,3 +1533,4 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [34]: ../agent/#username-and-password-authentication
 [35]: ../../../operations/deploy-sensu/install-sensu/#architecture-overview
 [36]: #etcd-heartbeat-interval
+[37]: ../../../sensuctl/

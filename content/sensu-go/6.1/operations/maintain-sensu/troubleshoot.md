@@ -64,7 +64,7 @@ When you increment the log at the trace level (the most verbose log level), the 
 Sensu services print [structured log messages][7] to standard output.
 To capture these log messages to disk or another logging facility, Sensu services use capabilities provided by the underlying operating system's service management.
 For example, logs are sent to the journald when systemd is the service manager, whereas log messages are redirected to `/var/log/sensu` when running under sysv init schemes.
-If you are running systemd as your service manager and would rather have logs written to `/var/log/sensu/`, see [forwarding logs from journald to syslog][11].
+If you are running systemd as your service manager and would rather have logs written to `/var/log/sensu/`, read [forwarding logs from journald to syslog][11].
 
 For journald targets, use these commands to follow the logs.
 Replace the `<service>` variable with the name of the desired service (for example, `backend` or `agent`).
@@ -171,7 +171,7 @@ The following errors are expected when starting up a Sensu backend with the defa
 
 The `serving insecure client requests` warning is an expected warning from the embedded etcd database.
 [TLS configuration][3] is recommended but not required.
-For more information, see [etcd security documentation][4].
+For more information, read the [etcd security documentation][4].
 
 ## Permission issues
 
@@ -588,9 +588,9 @@ If space in `/tmp` is insufficient, asset downloads will be truncated and the ch
 ## Etcd clusters
 
 Some issues require you to investigate the state of the etcd cluster or data stored within etcd.
-In these cases, we suggest using the `etcdctl` tool to query and manage the etcd database.
+In these cases, we suggest using the [etcdctl tool][27] to query and manage the etcd database.
 
-Sensu's supported packages do not include the `etcdctl` executable, so you must get it from a compatible etcd release.
+Sensu's supported packages do not include the etcdctl executable, so you must get it from a compatible etcd release.
 
 ### Configure etcdctl environment variables
 
@@ -824,3 +824,4 @@ The backend will stop listening on those ports when the etcd database is unavail
 [24]: ../../../sensuctl/back-up-recover/#restore-resources-from-backup
 [25]: ../../../observability-pipeline/observe-schedule/backend/#initialization
 [26]: https://etcd.io/docs/latest/op-guide/recovery/#restoring-a-cluster
+[27]: https://etcd.io/docs/latest/dev-guide/interacting_v3/

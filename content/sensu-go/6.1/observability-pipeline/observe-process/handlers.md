@@ -326,7 +326,7 @@ api_version: core/v2
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the handler that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the handler definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][8] for details.
+description  | Top-level collection of metadata about the handler that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the handler definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. Read [metadata attributes][8] for details.
 required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -726,7 +726,7 @@ port: 4242
 
 name         | 
 -------------|------
-description  | Name of the [secret][20] defined in the executable command. Becomes the environment variable presented to the check. See [Use secrets management in Sensu][26] for more information.
+description  | Name of the [secret][20] defined in the executable command. Becomes the environment variable presented to the check. Read [Use secrets management in Sensu][26] for more information.
 required     | true
 type         | String
 example      | {{< language-toggle >}}

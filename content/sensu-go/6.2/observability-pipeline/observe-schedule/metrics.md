@@ -604,31 +604,31 @@ Sensu supports the following formats for check output metric extraction.
 
 | Graphite           |      |
 ---------------------|------
-output_metric_format | `graphite_plaintext`
+output metric format | `graphite_plaintext`
 documentation        | [Graphite Plaintext Protocol][14]
 example              | {{< code plain >}}local.random.diceroll 4 123456789{{< /code >}}
 
 | InfluxDB           |      |
 ---------------------|------
-output_metric_format | `influxdb_line`
+output metric format | `influxdb_line`
 documentation        | [InfluxDB Line Protocol][15]
 example              | {{< code plain >}}weather,location=us-midwest temperature=82 1465839830100400200{{< /code >}}
 
 | Nagios             |      |
 ---------------------|------
-output_metric_format | `nagios_perfdata`
+output metric format | `nagios_perfdata`
 documentation        | [Nagios Performance Data][13]
 example              | {{< code plain >}}PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0, rta=0.80{{< /code >}}
 
 | OpenTSDB           |      |
 ---------------------|------
-output_metric_format | `opentsdb_line`
+output metric format | `opentsdb_line`
 documentation        | [OpenTSDB Data Specification][16]
 example              | {{< code plain >}}sys.cpu.user 1356998400 42.5 host=webserver01 cpu=0{{< /code >}}
 
 | Prometheus         |      |
 ---------------------|------
-output_metric_format | `prometheus_text`
+output metric format | `prometheus_text`
 documentation        | [Prometheus Exposition Text][17]
 example              | {{< code plain >}}http_requests_total{method="post",code="200"} 1027 1395066363000{{< /code >}}
 
@@ -696,7 +696,7 @@ The event specification describes [metrics attributes in events][5].
 [12]: https://bonsai.sensu.io/assets/sensu/sensu-go-graphite-handler
 [13]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
 [14]: https://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
-[15]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
+[15]: https://docs.influxdata.com/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/
 [16]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [17]: https://prometheus.io/docs/instrumenting/exposition_formats/#text-based-format
 [18]: ../../../plugins/supported-integrations/#time-series-and-long-term-event-storage

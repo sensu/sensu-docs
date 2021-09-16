@@ -22,9 +22,9 @@ The upgrade instructions include details about important changes between version
 If you are still using Sensu Core or Sensu Enterprise, follow [Migrate from Sensu Core and Sensu Enterprise to Sensu Go][2] to upgrade to Sensu Go.
 The migrate guide includes links to Sensu's migration resources and Core and Enterprise configuration translation tools, as well as instructions for [installing Sensu Go alongside your existing Sensu Core or Enterprise instance][3].
 
-## Troubleshoot
+## Troubleshoot and tune
 
-Use the Sensu [troubleshooting guide][4] to diagnose and resolve common issues.
+Use the Sensu [troubleshooting guide][4] to diagnose and resolve common problems, and read about [tuning options][11] for specific performance issues.
 Learn how to read, configure, and find the [logs produced by Sensu services][6].
 Sensu log messages can help you identify and solve [backend startup errors][7] and [permissions issues][8].
 
@@ -46,3 +46,4 @@ The license reference also explains how to view your license details and expirat
 [8]: troubleshoot/#permission-issues
 [9]: troubleshoot/#handlers-and-event-filters
 [10]: troubleshoot/#dynamic-runtime-assets
+[11]: tune/

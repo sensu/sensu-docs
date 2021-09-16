@@ -31,25 +31,28 @@ Deploy Sensu Go for on-premises and public cloud infrastructures, containers, ba
 Get meaningful alerts when and where you need them so you can [reduce alert fatigue][28] and [speed up incident response][29].
 Sensu gives you full control over your alerts with flexible [event filters][8], [check hooks][9] for context-rich notifications, reporting, [observation data handling][24], and auto-remediation.
 
-Sensu's open architecture integrates with the tools and services you already use, like [Ansible, Chef, and Puppet][23]; [PagerDuty][19]; [Slack][17]; and more.
-Check out [Bonsai, the Sensu asset hub][18], or write your own [Sensu plugins][3] in any language.
+## Plugins that extend functionality and integrate with existing workflows
+
+Sensu's open architecture integrates with the tools and services you already use, like [Ansible][33], [EC2][35], [InfluxDB][32], [PagerDuty][19], [Puppet][23], [Rundeck][36], [Saltstack][37], [Slack][17], and [Sumo Logic][34].
+
+Check out our [supported integrations][38], search for more plugins in [Bonsai, the Sensu asset hub][18], or write your own [Sensu plugins][3] in any language.
 
 ## Automate with agent registration-deregistration and check subscriptions
 
 Sensu [agents][26] automatically [register and deregister][21] themselves with the Sensu backend so you can collect observation data about ephemeral infrastructure without getting overloaded with alerts.
 
-Instead of [setting up][30] traditional one-to-one entity-to-check mapping, use Sensu's subscriptions to make sure your entities automatically run the appropriate checks for their functionality.
+Instead of [setting up][30] traditional one-to-one entity-to-check mapping, use Sensu's [subscriptions][39] to make sure your entities automatically run the appropriate checks for their functionality.
 
 ## Built-in support for industry-standard tools
 
 Know what's going on everywhere in your system.
 Sensu supports [industry-standard metric formats][10] like Nagios performance data, Graphite plaintext protocol, InfluxDB line protocol, OpenTSDB data specification, Prometheus Exposition Text Format, and [StatsD metrics][14].
-Use the Sensu agent to collect metrics alongside check results, then use the Sensu observability pipeline to route observation data to a time-series database like [InfluxDB][2].
+Use the Sensu agent to [collect metrics][40] alongside check results, then use the Sensu observability pipeline to route observation data to a time-series database like [InfluxDB][2].
 
 ## Intuitive API with command line and web interfaces
 
 The [Sensu API][13] and the [`sensuctl` command-line tool][16] allow you (and your internal customers) to create checks, register entities, manage configuration, and more.
-Sensu includes a [web UI][15] to provide a unified view of your entities, checks, and events, as well as a user-friendly [silencing][31] tool.
+The Sensu [web UI][15] provides a unified view of your entities, checks, and events, as well as a user-friendly [silencing][31] tool.
 
 ## Commercial software based on open core
 
@@ -63,7 +66,7 @@ Sensu is a comprehensive monitoring and observability solution for enterprises, 
 
 
 [1]: get-started/
-[2]: https://www.influxdata.com/
+[2]: observability-pipeline/observe-process/populate-metrics-influxdb/
 [3]: plugins/
 [4]: https://www.github.com/sensu/sensu-go/blob/main/LICENSE/
 [5]: https://www.github.com/sensu/sensu-go/
@@ -71,20 +74,20 @@ Sensu is a comprehensive monitoring and observability solution for enterprises, 
 [7]: #built-in-support-for-industry-standard-tools
 [8]: observability-pipeline/observe-filter/filters/
 [9]: observability-pipeline/observe-schedule/hooks/
-[10]: observability-pipeline/observe-schedule/collect-metrics-with-checks/
+[10]: observability-pipeline/observe-schedule/metrics/#supported-output-metric-formats
 [11]: #intuitive-api-with-command-line-and-web-interfaces
 [12]: commercial/
 [13]: api/
 [14]: observability-pipeline/observe-process/aggregate-metrics-statsd/
 [15]: web-ui/
 [16]: sensuctl/
-[17]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler/
+[17]: plugins/supported-integrations/slack/
 [18]: https://bonsai.sensu.io/
-[19]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler/
+[19]: plugins/supported-integrations/pagerduty/
 [20]: #filtered-context-rich-alerts-that-improve-incident-response
 [21]: observability-pipeline/observe-schedule/agent/#registration-events
 [22]: https://sensu.io/support
-[23]: operations/deploy-sensu/configuration-management/
+[23]: plugins/supported-integrations/puppet/
 [24]: observability-pipeline/observe-process/handlers/
 [25]: operations/deploy-sensu/install-sensu/
 [26]: observability-pipeline/observe-schedule/agent/
@@ -93,3 +96,12 @@ Sensu is a comprehensive monitoring and observability solution for enterprises, 
 [29]: observability-pipeline/observe-filter/route-alerts/
 [30]: operations/deploy-sensu/
 [31]: web-ui/view-manage-resources/
+[32]: plugins/supported-integrations/influxdb/
+[33]: plugins/supported-integrations/ansible/
+[34]: plugins/supported-integrations/sumologic/
+[35]: plugins/supported-integrations/aws-ec2/
+[36]: plugins/supported-integrations/rundeck/
+[37]: plugins/supported-integrations/saltstack/
+[38]: plugins/supported-integrations/
+[39]: observability-pipeline/observe-schedule/subscriptions/
+[40]: observability-pipeline/observe-schedule/collect-metrics-with-checks/

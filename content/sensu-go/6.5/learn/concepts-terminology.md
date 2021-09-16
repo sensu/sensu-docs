@@ -1,12 +1,12 @@
 ---
-title: "Glossary of Sensu terms"
-linkTitle: "Glossary"
-description: "Get familiar with Sensu terminology. Read our glossary to learn the definitions of common Sensu terms, including agent, asset, backend, check, event, and many more. Bonus: each term links to a corresponding guide!"
+title: "Sensu concepts and terminology"
+linkTitle: "Concepts and Terminology"
+description: "Get familiar with Sensu concepts terminology. Learn the definitions of common Sensu terms, including agent, asset, backend, check, event, and many more. Bonus: each term links to a corresponding guide!"
 weight: 10
-version: "6.3"
+version: "6.5"
 product: "Sensu Go"
 menu:
-  sensu-go-6.3:
+  sensu-go-6.5:
     parent: learn-sensu
 ---
 
@@ -30,6 +30,17 @@ The Sensu backend processes observation data (events) using filters, mutators, a
 It maintains configuration files, stores recent observation data, and schedules monitoring checks.
 You can interact with the backend using the API, command line, and web UI interfaces.
 [Read more about the Sensu backend][2].
+
+## Business service monitoring (BSM)
+A feature that provides high-level visibility into the current health of your business services.
+An example business service is a company website, which might require several individual elements to have OK status for the website to function (e.g. webservers, an inventory database, and a shopping cart).
+With business service monitoring (BSM), you could create a current status page for the company website that displays the website’s overall status at a glance.
+
+BSM requires two resources that work together to achieve top-down monitoring: service components and rule templates.
+Service components are the elements that make up your business services.
+Rule templates define the monitoring rules that produce events for service components based on customized evaluation expressions.
+
+[Read more about BSM][19], [rule templates][20], and [service components][21].
 
 ## Check
 A recurring check the agent runs to determine the state of a system component or collect metrics.
@@ -98,10 +109,17 @@ Entries that allow you to suppress execution of event handlers on an ad-hoc basi
 Use silencing to schedule maintenance without being overloaded with alerts.
 [Read more about silencing][17].
 
+## Subscriptions
+Attributes used to indicate which entities will execute which checks.
+For Sensu to execute a check, the check definition must include a subscription that matches the subscription of at least one Sensu entity.
+Subscriptions allow you to configure check requests in a one-to-many model for entire groups or subgroups of entities rather than a traditional one-to-one mapping of configured hosts or observability checks.
+[Read more about subscriptions][22].
+
 ## Token
 A placeholder in a check definition that the agent replaces with local information before executing the check.
 Tokens let you fine-tune check attributes (like thresholds) on a per-entity level while reusing the check definition.
 [Read more about tokens][16].
+
 
 [1]: ../../observability-pipeline/observe-schedule/agent/
 [2]: ../../observability-pipeline/observe-schedule/backend/
@@ -121,3 +139,7 @@ Tokens let you fine-tune check attributes (like thresholds) on a per-entity leve
 [16]: ../../observability-pipeline/observe-schedule/tokens/
 [17]: ../../observability-pipeline/observe-process/silencing/
 [18]: ../../operations/control-access/rbac#resources
+[19]: ../../observability-pipeline/observe-schedule/business-service-monitoring/
+[20]: ../../observability-pipeline/observe-schedule/rule-templates/
+[21]: ../../observability-pipeline/observe-schedule/service-components/
+[22]: ../../observability-pipeline/observe-schedule/subscriptions/

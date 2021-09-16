@@ -14,6 +14,10 @@ menu:
 The Operations category will help you get Sensu up and running, from your first installation in your local development environment through a large-scale Sensu deployment using secrets management.
 You'll also learn how to keep your Sensu implementation running, with guides for upgrading, monitoring, and troubleshooting.
 
+## Monitoring as code
+
+[Monitoring as code with Sensu][31] explains how to use Sensu’s end-to-end monitoring as code approach to manage your observability configuration the same way you build, test, and deploy your applications and infrastructure.
+
 ## Deploy Sensu
 
 [Deploy Sensu][1] describes how to plan, install, configure, and deploy Sensu’s flexible monitoring and observability pipeline.
@@ -82,3 +86,4 @@ Learn to configure [secrets][29] and [secrets providers][30] resources to obtain
 [28]: manage-secrets/secrets-management/
 [29]: manage-secrets/secrets/
 [30]: manage-secrets/secrets-providers/
+[31]: monitoring-as-code/

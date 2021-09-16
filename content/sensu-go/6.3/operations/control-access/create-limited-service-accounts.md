@@ -206,7 +206,7 @@ it's invoked by another Sensu resource (ex. check). To add this runtime asset to
 resource, populate the "runtime_assets" field with ["sensu/sensu-ec2-handler"].
 {{< /code >}}
 
-You can also download the dynamic runtime asset definition for Debian or Alpine from [Bonsai][13] and register the asset with `sensuctl create --file filename.yml`.
+You can also download the dynamic runtime asset definition from [Bonsai][13] and register the asset with `sensuctl create --file filename.yml`.
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.

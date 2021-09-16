@@ -104,7 +104,7 @@ spec:
 ## Commands
 
 Each Sensu mutator definition defines a command to be executed.
-Mutator commands are executable commands that will be executed on a Sensu backend, run as the `sensu user`.
+Mutator commands are executable commands that will be executed on a Sensu backend, run as the `sensu` user.
 Most mutator commands are provided by [Sensu plugins][4].
 
 Sensu mutator `command` attributes may include command line arguments for controlling the behavior of the `command` executable.
@@ -463,7 +463,7 @@ secrets:
 
 name         | 
 -------------|------
-description  | Name of the [secret][10] defined in the executable command. Becomes the environment variable presented to the mutator. See [Use secrets management in Sensu][14] for more information.
+description  | Name of the [secret][10] defined in the executable command. Becomes the environment variable presented to the mutator. Read [Use secrets management in Sensu][14] for more information.
 required     | true
 type         | String
 example      | {{< language-toggle >}}

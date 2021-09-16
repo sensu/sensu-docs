@@ -353,10 +353,10 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 
 [1]: #supported-packages
 [2]: #docker-images
-[3]: /sensu-go/5.21/commercial/
+[3]: ../commercial/
 [4]: #binary-only-distributions
-[5]: /sensu-go/5.21/operations/deploy-sensu/install-sensu/
-[6]: /sensu-go/5.21/operations/deploy-sensu/configuration-management/
+[5]: ../operations/deploy-sensu/install-sensu/
+[6]: ../operations/deploy-sensu/configuration-management/
 [7]: https://sensu.io/licenses
 [8]: https://packagecloud.io/sensu/stable/
 [9]: https://sensu.io/downloads

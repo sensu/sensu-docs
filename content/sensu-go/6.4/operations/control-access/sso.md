@@ -12,7 +12,7 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access authentication providers for single sign-on (SSO) in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 Sensu requires username and password authentication to access the [web UI][1], [API][3], and [sensuctl][2] command line tool.

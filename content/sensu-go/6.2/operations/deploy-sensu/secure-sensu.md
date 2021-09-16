@@ -53,6 +53,7 @@ etcd-peer-trusted-ca-file: "/etc/sensu/tls/ca.pem"
 {{< code yml >}}
 etcd-listen-client-urls: "https://localhost:2379"
 etcd-listen-peer-urls: "https://localhost:2380"
+etcd-advertise-client-urls: "https://localhost:2379"
 etcd-initial-advertise-peer-urls: "https://localhost:2380"
 {{< /code >}}
 
@@ -160,14 +161,14 @@ trusted-ca-file: "/etc/sensu/tls/ca.pem"
 
 {{% notice note %}}
 **NOTE**: If you are creating a Sensu cluster, every cluster member needs to be present in the configuration.
-See [Run a Sensu cluster](../cluster-sensu/) for more information about how to configure agents for a clustered configuration.
+Read [Run a Sensu cluster](../cluster-sensu/) for more information about how to configure agents for a clustered configuration.
 {{% /notice %}}
 
 ## Optional: Configure Sensu agent mTLS authentication
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access client mutual transport layer security (mTLS) authentication in the packaged Sensu Go distribution.
-For more information, see [Get started with commercial features](../../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 By default, Sensu agents require username and password authentication to communicate with Sensu backends.
