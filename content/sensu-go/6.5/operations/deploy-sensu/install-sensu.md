@@ -125,20 +125,30 @@ For details about intialization in Docker, see the [backend reference](../../../
 {{< language-toggle >}}
 
 {{< code Docker >}}
-# Replace `<username>` and `<password>` with the username and password
-# you want to use for your admin user credentials.
+# Use either username and password or API key for credentials.
+# To use username and password, replace <username> and <password> with
+# the username and password you want to use for your admin user credentials
+# and delete the API key line.
+# To use API key, replace <api_key> with the API key you want to use for
+# your admin user credentials and delete the username and passwords lines.
+
 docker run -v /var/lib/sensu:/var/lib/sensu \
 -d --name sensu-backend \
 -p 3000:3000 -p 8080:8080 -p 8081:8081 \
 -e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username> \
 -e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password> \
+-e SENSU_BACKEND_CLUSTER_ADMIN_API_KEY=<api_key> \
 sensu/sensu:latest \
 sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 {{< /code >}}
 
 {{< code docker "Docker Compose" >}}
-# Replace `<username>` and `<password>` with the username and password
-# you want to use for your admin user credentials.
+# Use either username and password or API key for credentials.
+# To use username and password, replace <username> and <password> with
+# the username and password you want to use for your admin user credentials
+# and delete the API key line.
+# To use API key, replace <api_key> with the API key you want to use for
+# your admin user credentials and delete the username and passwords lines.
 ---
 version: "3"
 services:
@@ -153,6 +163,7 @@ services:
     environment:
     - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
     - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
+    - SENSU_BACKEND_CLUSTER_ADMIN_API_KEY=<api_key>
     image: sensu/sensu:latest
 
 volumes:
@@ -200,9 +211,9 @@ If you did not use environment variables to override the default admin credentia
 {{% /notice %}}
 
 **With the backend running**, run `sensu-backend init` to set up your Sensu administrator username and password.
-In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
+In this initialization step, you only need to set environment variables with **either** a username and password string **or** an API key &mdash; no need for role-based access control (RBAC).
 
-Replace `<username>` and `<password>` with the username and password you want to use.
+To initialize with your username and password, replace `<username>` and `<password>` with the username and password you want to use:
 
 {{< language-toggle >}}
 
@@ -219,6 +230,13 @@ sensu-backend init
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+To initialize with your admin API key, replace `<your_api_key>` with the API key you want to use:
+
+{{< code shell >}}
+export SENSU_BACKEND_CLUSTER_ADMIN_API_KEY=<your_api_key>
+sensu-backend init
+{{< /code >}}
 
 For details about `sensu-backend init`, see the [backend reference][30].
 
