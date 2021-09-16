@@ -379,80 +379,81 @@ Usage:
   sensu-backend start [flags]
 
 General Flags:
-      --agent-auth-cert-file string         TLS certificate in PEM format for agent certificate authentication
-      --agent-auth-crl-urls strings         URLs of CRLs for agent certificate authentication
-      --agent-auth-key-file string          TLS certificate key in PEM format for agent certificate authentication
-      --agent-auth-trusted-ca-file string   TLS CA certificate bundle in PEM format for agent certificate authentication
-      --agent-burst-limit int               agent connections maximum burst size
-      --agent-host string                   agent listener host (default "[::]")
-      --agent-port int                      agent listener port (default 8081)
-      --agent-rate-limit int                agent connections maximum rate limit
-      --agent-write-timeout int             timeout in seconds for agent writes (default 15)
-      --annotations stringToString          entity annotations map (default [])
-      --api-listen-address string           address to listen on for api traffic (default "[::]:8080")
-      --api-request-limit int               maximum API request body size, in bytes (default 512000)
-      --api-url string                      url of the api to connect to (default "http://localhost:8080")
-      --assets-burst-limit int              asset fetch burst limit (default 100)
-      --assets-rate-limit float             maximum number of assets fetched per second
-      --cache-dir string                    path to store cached data (default "/var/cache/sensu/sensu-backend")
-      --cert-file string                    TLS certificate in PEM format
-  -c, --config-file string                  path to sensu-backend config file (default "/etc/sensu/backend.yml")
-      --dashboard-cert-file string          dashboard TLS certificate in PEM format
-      --dashboard-host string               dashboard listener host (default "[::]")
-      --dashboard-key-file string           dashboard TLS certificate key in PEM format
-      --dashboard-port int                  dashboard listener port (default 3000)
-      --debug                               enable debugging and profiling features
-      --deregistration-handler string       default deregistration handler
-      --event-log-buffer-size int           buffer size of the event logger (default 100000)
-      --event-log-buffer-wait string        full buffer wait time (default "10ms")
-      --event-log-file string               path to the event log file
-      --event-log-parallel-encoders         used to indicate parallel encoders should be used for event logging
-      --eventd-buffer-size int              number of incoming events that can be buffered (default 100)
-      --eventd-workers int                  number of workers spawned for processing incoming events (default 100)
-  -h, --help                                help for start
-      --insecure-skip-tls-verify            skip TLS verification (not recommended!)
-      --jwt-private-key-file string         path to the PEM-encoded private key to use to sign JWTs
-      --jwt-public-key-file string          path to the PEM-encoded public key to use to verify JWT signatures
-      --keepalived-buffer-size int          number of incoming keepalives that can be buffered (default 100)
-      --keepalived-workers int              number of workers spawned for processing incoming keepalives (default 100)
-      --key-file string                     TLS certificate key in PEM format
-      --labels stringToString               entity labels map (default [])
-      --log-level string                    logging level [panic, fatal, error, warn, info, debug, trace] (default "warn")
-      --metrics-refresh-interval string     Go duration value (e.g. 1h5m30s) that governs how often metrics are refreshed. (default "1m")
-      --pipelined-buffer-size int           number of events to handle that can be buffered (default 100)
-      --pipelined-workers int               number of workers spawned for handling events through the event pipeline (default 100)
-      --require-fips                        indicates whether fips support should be required in openssl  
-      --require-openssl                     indicates whether openssl should be required instead of go's built-in crypto
-  -d, --state-dir string                    path to sensu state storage (default "/var/lib/sensu/sensu-backend")
-      --trusted-ca-file string              TLS CA certificate bundle in PEM format
+      --agent-auth-cert-file string               TLS certificate in PEM format for agent certificate authentication
+      --agent-auth-crl-urls strings               URLs of CRLs for agent certificate authentication
+      --agent-auth-key-file string                TLS certificate key in PEM format for agent certificate authentication
+      --agent-auth-trusted-ca-file string         TLS CA certificate bundle in PEM format for agent certificate authentication
+      --agent-burst-limit int                     agent connections maximum burst size
+      --agent-host string                         agent listener host (default "[::]")
+      --agent-port int                            agent listener port (default 8081)
+      --agent-rate-limit int                      agent connections maximum rate limit
+      --agent-write-timeout int                   timeout in seconds for agent writes (default 15)
+      --annotations stringToString                entity annotations map (default [])
+      --api-listen-address string                 address to listen on for api traffic (default "[::]:8080")
+      --api-request-limit int                     maximum API request body size, in bytes (default 512000)
+      --api-url string                            url of the api to connect to (default "http://localhost:8080")
+      --assets-burst-limit int                    asset fetch burst limit (default 100)
+      --assets-rate-limit float                   maximum number of assets fetched per second
+      --cache-dir string                          path to store cached data (default "/var/cache/sensu/sensu-backend")
+      --cert-file string                          TLS certificate in PEM format
+  -c, --config-file string                        path to sensu-backend config file (default "/etc/sensu/backend.yml")
+      --dashboard-cert-file string                dashboard TLS certificate in PEM format
+      --dashboard-host string                     dashboard listener host (default "[::]")
+      --dashboard-key-file string                 dashboard TLS certificate key in PEM format
+      --dashboard-port int                        dashboard listener port (default 3000)
+      --debug                                     enable debugging and profiling features
+      --deregistration-handler string             default deregistration handler
+      --disable-platform-metrics                  disable platform metrics logging
+      --event-log-buffer-size int                 buffer size of the event logger (default 100000)
+      --event-log-buffer-wait string              full buffer wait time (default "10ms")
+      --event-log-file string                     path to the event log file
+      --event-log-parallel-encoders               used to indicate parallel encoders should be used for event logging
+      --eventd-buffer-size int                    number of incoming events that can be buffered (default 100)
+      --eventd-workers int                        number of workers spawned for processing incoming events (default 100)
+  -h, --help                                      help for start
+      --insecure-skip-tls-verify                  skip TLS verification (not recommended!)
+      --jwt-private-key-file string               path to the PEM-encoded private key to use to sign JWTs
+      --jwt-public-key-file string                path to the PEM-encoded public key to use to verify JWT signatures
+      --keepalived-buffer-size int                number of incoming keepalives that can be buffered (default 100)
+      --keepalived-workers int                    number of workers spawned for processing incoming keepalives (default 100)
+      --key-file string                           TLS certificate key in PEM format
+      --labels stringToString                     entity labels map (default [])
+      --log-level string                          logging level [panic, fatal, error, warn, info, debug, trace] (default "warn")
+      --metrics-refresh-interval string           Go duration value (e.g. 1h5m30s) that governs how often metrics are refreshed. (default "1m")
+      --pipelined-buffer-size int                 number of events to handle that can be buffered (default 100)
+      --pipelined-workers int                     number of workers spawned for handling events through the event pipeline (default 100)
+      --platform-metrics-log-file string          platform metrics log file path
+      --platform-metrics-logging-interval string  platform metrics logging interval
+      --require-fips                              indicates whether fips support should be required in openssl  
+      --trusted-ca-file string                    TLS CA certificate bundle in PEM format
 
 Store Flags:
-      --etcd-advertise-client-urls strings         list of this member's client URLs to advertise to clients (default [http://localhost:2379])
-      --etcd-cert-file string                      path to the client server TLS cert file
-      --etcd-cipher-suites strings                 list of ciphers to use for etcd TLS configuration
-      --etcd-client-cert-auth                      enable client cert authentication
-      --etcd-client-urls string                    client URLs to use when operating as an etcd client
-      --etcd-discovery string                      discovery URL used to bootstrap the cluster
-      --etcd-discovery-srv string                  DNS SRV record used to bootstrap the cluster
-      --etcd-election-timeout uint                 time in ms a follower node will go without hearing a heartbeat before attempting to become leader itself (default 1000)
-      --etcd-heartbeat-interval uint               interval in ms with which the etcd leader will notify followers that it is still the leader (default 100)
-      --etcd-initial-advertise-peer-urls strings   list of this member's peer URLs to advertise to the rest of the cluster (default [http://127.0.0.1:2380])
-      --etcd-initial-cluster string                initial cluster configuration for bootstrapping
-      --etcd-initial-cluster-state string          initial cluster state ("new" or "existing") (default "new")
-      --etcd-initial-cluster-token string          initial cluster token for the etcd cluster during bootstrap
-      --etcd-key-file string                       path to the client server TLS key file
-      --etcd-listen-client-urls strings            list of etcd client URLs to listen on (default [http://127.0.0.1:2379])
-      --etcd-listen-peer-urls strings              list of URLs to listen on for peer traffic (default [http://127.0.0.1:2380])
-      --etcd-log-level string                      etcd logging level [panic, fatal, error, warn, info, debug]
-      --etcd-max-request-bytes uint                maximum etcd request size in bytes (use with caution) (default 1572864)
-      --etcd-name string                           name for this etcd node (default "default")
-      --etcd-peer-cert-file string                 path to the peer server TLS cert file
-      --etcd-peer-client-cert-auth                 enable peer client cert authentication
-      --etcd-peer-key-file string                  path to the peer server TLS key file
-      --etcd-peer-trusted-ca-file string           path to the peer server TLS trusted CA file
-      --etcd-quota-backend-bytes int               maximum etcd database size in bytes (use with caution) (default 4294967296)
-      --etcd-trusted-ca-file string                path to the client server TLS trusted CA cert file
-      --no-embed-etcd                              don't embed etcd, use external etcd instead
+      --etcd-advertise-client-urls strings        list of this member's client URLs to advertise to clients (default [http://localhost:2379])
+      --etcd-cert-file string                     path to the client server TLS cert file
+      --etcd-cipher-suites strings                list of ciphers to use for etcd TLS configuration
+      --etcd-client-cert-auth                     enable client cert authentication
+      --etcd-client-urls string                   client URLs to use when operating as an etcd client
+      --etcd-discovery string                     discovery URL used to bootstrap the cluster
+      --etcd-discovery-srv string                 DNS SRV record used to bootstrap the cluster
+      --etcd-election-timeout uint                time in ms a follower node will go without hearing a heartbeat before attempting to become leader itself (default 1000)
+      --etcd-heartbeat-interval uint              interval in ms with which the etcd leader will notify followers that it is still the leader (default 100)
+      --etcd-initial-advertise-peer-urls strings  list of this member's peer URLs to advertise to the rest of the cluster (default [http://127.0.0.1:2380])
+      --etcd-initial-cluster string               initial cluster configuration for bootstrapping
+      --etcd-initial-cluster-state string         initial cluster state ("new" or "existing") (default "new")
+      --etcd-initial-cluster-token string         initial cluster token for the etcd cluster during bootstrap
+      --etcd-key-file string                      path to the client server TLS key file
+      --etcd-listen-client-urls strings           list of etcd client URLs to listen on (default [http://127.0.0.1:2379])
+      --etcd-listen-peer-urls strings             list of URLs to listen on for peer traffic (default [http://127.0.0.1:2380])
+      --etcd-log-level string                     etcd logging level [panic, fatal, error, warn, info, debug]
+      --etcd-max-request-bytes uint               maximum etcd request size in bytes (use with caution) (default 1572864)
+      --etcd-name string                          name for this etcd node (default "default")
+      --etcd-peer-cert-file string                path to the peer server TLS cert file
+      --etcd-peer-client-cert-auth                enable peer client cert authentication
+      --etcd-peer-key-file string                 path to the peer server TLS key file
+      --etcd-peer-trusted-ca-file string          path to the peer server TLS trusted CA file
+      --etcd-quota-backend-bytes int              maximum etcd database size in bytes (use with caution) (default 4294967296)
+      --etcd-trusted-ca-file string               path to the client server TLS trusted CA cert file
+      --no-embed-etcd                             don't embed etcd, use external etcd instead
 {{< /code >}}
 
 ### General configuration flags
@@ -626,7 +627,7 @@ environment variable | `SENSU_BACKEND_METRICS_REFRESH_INTERVAL`
 command line example   | {{< code shell >}}
 sensu-backend start --metrics-refresh-interval 10s{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-metrics-refresh-interval: "10s"{{< /code >}}
+metrics-refresh-interval: 10s{{< /code >}}
 
 | state-dir  |      |
 -------------|------
@@ -1545,11 +1546,6 @@ log-level: debug
 
 ## Event logging
 
-{{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access event logging in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../../../commercial/).
-{{% /notice %}}
-
 If you wish, you can log all Sensu events to a file in JSON format.
 You can use this file as an input source for your favorite data lake solution.
 The event logging functionality provides better performance and reliability than event handlers.
@@ -1653,6 +1649,51 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 }
 {{< /code >}}
 
+## Platform metrics logging
+
+Sensu automatically writes core platform metrics in [InfluxDB Line Protocol][62] to a file at `/var/lib/sensu/sensu-backend/stats.log`.
+You can use this file as an input source for your favorite data lake solution.
+
+Metrics logging is enabled by default but can be disabled with the disable-platform-metrics configuration flag.
+Sensu appends updated metrics at the interval you specify (default is every 60 seconds).
+
+To rotate the platform metrics log, use the same methods as for [event log rotation][63].
+
+| disable-platform-metrics |      |
+-----------------------|------
+description            | `true` to disable platform metrics logging. Otherwise, `false`.
+type                   | Boolean
+default                | false
+environment variable   | `SENSU_BACKEND_DISABLE_PLATFORM_METRICS`
+command line example   | {{< code shell >}}
+sensu-backend start --disable-platform-metrics false{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+disable-platform-metrics: false{{< /code >}}
+
+| platform-metrics-log-file |      |
+-----------------------|------
+description            | Path to the platform metrics log file.{{% notice warning %}}
+**WARNING**: The log file should be located on a local drive. Logging directly to network drives is not supported.
+{{% /notice %}}
+type                   | String
+default                | /var/log/sensu/sensu-backend/stats.log
+environment variable   | `SENSU_BACKEND_PLATFORM_METRICS_LOG_FILE`
+command line example   | {{< code shell >}}
+sensu-backend start --platform-metrics-log-file /var/log/sensu/sensu-backend/stats.log{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+platform-metrics-log-file: "/var/log/sensu/sensu-backend/stats.log"{{< /code >}}
+
+| platform-metrics-logging-interval |      |
+-----------------------|------
+description            | Interval at which Sensu should append metrics to the platform metrics log.
+type                   | String
+default                | 60s
+environment variable   | `SENSU_BACKEND_PLATFORM_METRICS_LOGGING_INTERVAL`
+command line example   | {{< code shell >}}
+sensu-backend start --platform-metrics-logging-interval 60s{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+platform-metrics-logging-interval: 60s{{< /code >}}
+
 
 [1]: ../../../operations/deploy-sensu/install-sensu#install-the-sensu-backend
 [2]: https://etcd.io/docs
@@ -1694,3 +1735,5 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [38]: #configuration-via-environment-variables
 [60]: #backend-log-level
 [61]: #event-log-file
+[62]: https://docs.influxdata.com/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/
+[63]: #log-rotation
