@@ -130,7 +130,7 @@ For details about intialization in Docker, see the [backend reference](../../../
 # the username and password you want to use for your admin user credentials
 # and delete the API key line.
 # To use API key, replace <api_key> with the API key you want to use for
-# your admin user credentials and delete the username and passwords lines.
+# your admin user credentials and delete the username and password lines.
 
 docker run -v /var/lib/sensu:/var/lib/sensu \
 -d --name sensu-backend \
@@ -148,7 +148,7 @@ sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 # the username and password you want to use for your admin user credentials
 # and delete the API key line.
 # To use API key, replace <api_key> with the API key you want to use for
-# your admin user credentials and delete the username and passwords lines.
+# your admin user credentials and delete the username and password lines.
 ---
 version: "3"
 services:
