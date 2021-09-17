@@ -11,7 +11,15 @@ menu:
     parent: sensuctl
 ---
 
-Sensu allows you to set sensuctl environment variables for a [single sensuctl command][1], with [sensuctl configure][2], or with [sensuctl env][3].
+Sensu allows you to set sensuctl environment variables for a [single sensuctl command][1] or with [sensuctl configure][2].
+You can also export environment variables with [sensuctl env][3].
+
+These environment variables are alternatives to configuration flags such as the [sensuctl global flags][4] and [sensuctl configure flags][5].
+Setting sensuctl options as environment variables instead of using flags offers the following advantages:
+
+- Environment variables do not expose sensitive information like your API key and other security credentials. This information is visible when you use command-line configuration flags.
+- You can inject environment variables for sensuctl commands in an automation script, such as a container creation script.
+- If you have more than one Sensu instance, you can configure a shell for each instance with the desired set of environment variables rather than running sensuctl configure every time you want to switch between instances.
 
 ## Set environment variables for a single command
 
@@ -57,26 +65,28 @@ For example:
 SENSU_OIDC=true SENSU_NON_INTERACTIVE=true SENSU_FORMAT=yaml SENSU_PORT=7999 SENSU_TIMEOUT=49s SENSU_URL=http://192.168.7.217:8080 sensuctl configure
 {{< /code >}}
 
-Setting environment variables in a sensuctl configure command allows you to inject the desired environment variables in an automation script, quickly and transparently configuring sensuctl.
-
 Environment variables set with `sensuctl configure` are persistent.
 
-## Set environment variables with sensuctl env
+## Export environment variables with sensuctl env
 
-The `sensuctl env` command allows you to export and set the following environment variables:
+The `sensuctl env` command allows you to export the following environment variables:
 
 {{< code text >}}
+SENSU_API_KEY                     API key to use for authentication
 SENSU_API_URL                     URL of the Sensu backend API in sensuctl
 SENSU_NAMESPACE                   Name of the current namespace in sensuctl
 SENSU_FORMAT                      Set output format in sensuctl (for example, JSON, YAML, etc.)
 SENSU_ACCESS_TOKEN                Current API access token in sensuctl
 SENSU_ACCESS_TOKEN_EXPIRES_AT     Timestamp specifying when the current API access token expires
 SENSU_REFRESH_TOKEN               Refresh token used to obtain a new access token
+SENSU_TIMEOUT                     timeout when communicating with sensu backend (default 15s)
 SENSU_TRUSTED_CA_FILE             Path to a trusted CA file if set in sensuctl
 SENSU_INSECURE_SKIP_TLS_VERIFY    Boolean value that can be set to skip TLS verification
 {{< /code >}}
 
-This example demonstrates how to use sensuctl env to export and set environment variables and configure your shell:
+Once you export your shell environment with `sensuctl env`, you can use the exported environment variables with curl and other scripts.
+
+This example demonstrates how to use sensuctl env to export environment variables and configure your shell:
 
 {{< language-toggle >}}
 
@@ -122,3 +132,5 @@ $Env:SENSU_INSECURE_SKIP_TLS_VERIFY = "true"
 [1]: #set-environment-variables-for-a-single-command
 [2]: #set-environment-variables-with-sensuctl-configure
 [3]: #set-environment-variables-with-sensuctl-env
+[4]: ../#global-flags
+[5]: ../#sensuctl-configure-flags
