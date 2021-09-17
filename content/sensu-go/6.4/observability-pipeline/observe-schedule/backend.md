@@ -1206,6 +1206,71 @@ no-embed-etcd: true{{< /code >}}
 
 ### Advanced configuration options
 
+<a id="etcd-election-timeout"></a>
+
+| etcd-election-timeout |      |
+-----------------------|------
+description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). Set to at least 10 times the [etcd-heartbeat-interval][36]. Read the [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
+**WARNING**: Make sure to set the same election timeout value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.
+{{% /notice %}}{{% notice note %}}
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
+Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
+{{% /notice %}}
+type                   | Integer
+default                | `1000`
+environment variable   | `SENSU_BACKEND_ETCD_ELECTION_TIMEOUT`
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-election-timeout 1000{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+etcd-election-timeout: 1000{{< /code >}}
+
+<a id="etcd-heartbeat-interval"></a>
+
+| etcd-heartbeat-interval |      |
+-----------------------|------
+description            | Interval at which the etcd leader will notify followers that it is still the leader. In milliseconds (ms). Best practice is to set the interval based on round-trip time between members. Read the [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
+**WARNING**: Make sure to set the same heartbeat interval value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.{{% /notice %}}{{% notice note %}}
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
+Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
+{{% /notice %}}
+type                   | Integer
+default                | `100`
+environment variable   | `SENSU_BACKEND_ETCD_HEARTBEAT_INTERVAL`
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-heartbeat-interval 100{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+etcd-heartbeat-interval: 100{{< /code >}}
+
+| etcd-max-request-bytes |      |
+-----------------------|------
+description            | Maximum etcd request size in bytes that can be sent to an etcd server by a client. Increasing this value allows etcd to process events with large outputs at the cost of overall latency. {{% notice warning %}}
+**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.{{% /notice %}}{{% notice note %}}
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
+Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
+{{% /notice %}}
+type                   | Integer
+default                | `1572864`
+environment variable   | `SENSU_BACKEND_ETCD_MAX_REQUEST_BYTES`
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-max-request-bytes 1572864{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+etcd-max-request-bytes: 1572864{{< /code >}}
+
+| etcd-quota-backend-bytes |      |
+-----------------------|------
+description            | Maximum etcd database size in bytes. Increasing this value allows for a larger etcd database at the cost of performance. {{% notice warning %}}
+**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.{{% /notice %}}{{% notice note %}}
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
+Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
+{{% /notice %}}
+type                   | Integer
+default                | `4294967296`
+environment variable   | `SENSU_BACKEND_ETCD_QUOTA_BACKEND_BYTES`
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-quota-backend-bytes 4294967296{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+etcd-quota-backend-bytes: 4294967296{{< /code >}}
+
 | eventd-buffer-size   |      |
 -----------------------|------
 description            | Number of incoming events that can be buffered before being processed by an eventd worker. {{% notice warning %}}
@@ -1282,71 +1347,6 @@ command line example   | {{< code shell >}}
 sensu-backend start --pipelined-workers 100{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 pipelined-workers: 100{{< /code >}}
-
-<a id="etcd-election-timeout"></a>
-
-| etcd-election-timeout |      |
------------------------|------
-description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). Set to at least 10 times the [etcd-heartbeat-interval][36]. Read the [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
-**WARNING**: Make sure to set the same election timeout value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.
-{{% /notice %}}{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
-Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
-{{% /notice %}}
-type                   | Integer
-default                | `1000`
-environment variable   | `SENSU_BACKEND_ETCD_ELECTION_TIMEOUT`
-command line example   | {{< code shell >}}
-sensu-backend start --etcd-election-timeout 1000{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
-etcd-election-timeout: 1000{{< /code >}}
-
-<a id="etcd-heartbeat-interval"></a>
-
-| etcd-heartbeat-interval |      |
------------------------|------
-description            | Interval at which the etcd leader will notify followers that it is still the leader. In milliseconds (ms). Best practice is to set the interval based on round-trip time between members. Read the [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
-**WARNING**: Make sure to set the same heartbeat interval value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.{{% /notice %}}{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
-Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
-{{% /notice %}}
-type                   | Integer
-default                | `100`
-environment variable   | `SENSU_BACKEND_ETCD_HEARTBEAT_INTERVAL`
-command line example   | {{< code shell >}}
-sensu-backend start --etcd-heartbeat-interval 100{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
-etcd-heartbeat-interval: 100{{< /code >}}
-
-| etcd-max-request-bytes |      |
------------------------|------
-description            | Maximum etcd request size in bytes that can be sent to an etcd server by a client. Increasing this value allows etcd to process events with large outputs at the cost of overall latency. {{% notice warning %}}
-**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.{{% /notice %}}{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
-Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
-{{% /notice %}}
-type                   | Integer
-default                | `1572864`
-environment variable   | `SENSU_BACKEND_ETCD_MAX_REQUEST_BYTES`
-command line example   | {{< code shell >}}
-sensu-backend start --etcd-max-request-bytes 1572864{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
-etcd-max-request-bytes: 1572864{{< /code >}}
-
-| etcd-quota-backend-bytes |      |
------------------------|------
-description            | Maximum etcd database size in bytes. Increasing this value allows for a larger etcd database at the cost of performance. {{% notice warning %}}
-**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.{{% /notice %}}{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
-Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
-{{% /notice %}}
-type                   | Integer
-default                | `4294967296`
-environment variable   | `SENSU_BACKEND_ETCD_QUOTA_BACKEND_BYTES`
-command line example   | {{< code shell >}}
-sensu-backend start --etcd-quota-backend-bytes 4294967296{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
-etcd-quota-backend-bytes: 4294967296{{< /code >}}
 
 ## Configuration via environment variables
 
