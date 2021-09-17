@@ -343,7 +343,8 @@ You can use global flags with most sensuctl commands.
 --cache-dir string           path to directory containing cache & temporary files
 --config-dir string          path to directory containing configuration files
 --insecure-skip-tls-verify   skip TLS certificate verification (not recommended!)
---namespace string           namespace in which we perform actions
+--namespace string           namespace in which we perform actions (default "default")
+--timeout duration           timeout when communicating with sensu backend (default 15s)
 --trusted-ca-file string     TLS CA certificate bundle in PEM format
 {{< /code >}}
 
