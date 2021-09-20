@@ -258,7 +258,7 @@ output               | {{< code json >}}
 
 ## Create or update a handler {#handlershandler-put}
 
-The `/handlers/:handler` API endpoint provides HTTP GET access to create or update a specific `:handler` definition, by handler `name`.
+The `/handlers/:handler` API endpoint provides HTTP PUT access to create or update a specific `:handler` definition, by handler `name`.
 
 ### Example {#handlershandler-put-example}
 
