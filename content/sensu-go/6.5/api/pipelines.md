@@ -32,40 +32,71 @@ HTTP/1.1 200 OK
 [
   {
     "metadata": {
-      "name": "influx-db",
+      "name": "labeled_emails",
       "namespace": "default",
       "created_by": "admin"
     },
-    "type": "pipe",
-    "command": "sensu-influxdb-handler -d sensu",
-    "timeout": 0,
-    "handlers": null,
-    "filters": null,
-    "env_vars": [
-      "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-      "INFLUXDB_USER=sensu",
-      "INFLUXDB_PASSWORD=password"
-    ],
-    "runtime_assets": ["sensu/sensu-influxdb-handler"]
+    "workflows": [
+      {
+        "name": "default",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "state_change_only",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "mutator": {
+          "name": "add_labels",
+          "type": "Mutator",
+          "api_version": "core/v2"
+        },
+        "handler": {
+          "name": "email",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
   },
   {
     "metadata": {
-      "name": "slack",
+      "name": "slack_pipeline",
       "namespace": "default",
       "created_by": "admin"
     },
-    "type": "pipe",
-    "command": "sensu-slack-handler --channel '#monitoring'",
-    "timeout": 0,
-    "handlers": null,
-    "filters": [
-      "is_incident",
-      "not_silenced"
-    ],
-    "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-    ],
-    "runtime_assets": ["sensu/sensu-influxdb-handler"]
+    "workflows": [
+      {
+        "name": "default",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "state_change_only",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "mutator": {
+          "name": "add_labels",
+          "type": "Mutator",
+          "api_version": "core/v2"
+        },
+        "handler": {
+          "name": "slack",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
   }
 ]
 {{< /code >}}
@@ -84,39 +115,71 @@ output         | {{< code shell >}}
 [
   {
     "metadata": {
-      "name": "influx-db",
+      "name": "labeled_emails",
       "namespace": "default",
       "created_by": "admin"
     },
-    "type": "pipe",
-    "command": "sensu-influxdb-handler -d sensu",
-    "timeout": 0,
-    "handlers": null,
-    "filters": null,
-    "env_vars": [
-      "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-      "INFLUXDB_USER=sensu",
-      "INFLUXDB_PASSWORD=password"
-    ],
-    "runtime_assets": ["sensu/sensu-influxdb-handler"]
+    "workflows": [
+      {
+        "name": "default",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "state_change_only",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "mutator": {
+          "name": "add_labels",
+          "type": "Mutator",
+          "api_version": "core/v2"
+        },
+        "handler": {
+          "name": "email",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
   },
   {
     "metadata": {
-      "name": "slack",
-      "namespace": "default"
+      "name": "slack_pipeline",
+      "namespace": "default",
+      "created_by": "admin"
     },
-    "type": "pipe",
-    "command": "sensu-slack-handler --channel '#monitoring'",
-    "timeout": 0,
-    "handlers": null,
-    "filters": [
-      "is_incident",
-      "not_silenced"
-    ],
-    "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-    ],
-    "runtime_assets": ["sensu/sensu-slack-handler"]
+    "workflows": [
+      {
+        "name": "default",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "state_change_only",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "mutator": {
+          "name": "add_labels",
+          "type": "Mutator",
+          "api_version": "core/v2"
+        },
+        "handler": {
+          "name": "slack",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
   }
 ]
 {{< /code >}}
@@ -127,7 +190,7 @@ The `/pipelines` API endpoint provides HTTP POST access to create a pipeline.
 
 ### Example
 
-In the following example, an HTTP POST request is submitted to the `/pipelines` API endpoint to create the pipeline resource ` `.
+In the following example, an HTTP POST request is submitted to the `/pipelines` API endpoint to create the pipeline resource `labeled_emails`.
 The request returns a successful HTTP `201 Created` response.
 
 {{< code shell >}}
@@ -136,22 +199,36 @@ curl -X POST \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
-    "name": "influx-db",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "labeled_emails",
+    "namespace": "default"
   },
-  "command": "sensu-influxdb-handler -d sensu",
-  "env_vars": [
-    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-    "INFLUXDB_USER=sensu",
-    "INFLUXDB_PASSWORD=password"
-  ],
-  "filters": [],
-  "handlers": [],
-  "runtime_assets": [],
-  "timeout": 0,
-  "type": "pipe"
+  "workflows": [
+    {
+      "name": "default",
+      "filters": [
+        {
+          "api_version": "core/v2",
+          "type": "EventFilter",
+          "name": "is_incident"
+        },
+        {
+          "api_version": "core/v2",
+          "type": "EventFilter",
+          "name": "state_change_only"
+        }
+      ],
+      "mutator": {
+        "api_version": "core/v2",
+        "type": "Mutator",
+        "name": "add_labels"
+      },
+      "handler": {
+        "api_version": "core/v2",
+        "type": "Handler",
+        "name": "email"
+      }
+    }
+  ]
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/pipelines
 
@@ -167,60 +244,87 @@ example URL     | http://hostname:8080/api/core/v2/namespaces/default/pipelines
 payload         | {{< code shell >}}
 {
   "metadata": {
-    "name": "influx-db",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "labeled_email",
+    "namespace": "default"
   },
-  "command": "sensu-influxdb-handler -d sensu",
-  "env_vars": [
-    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-    "INFLUXDB_USER=sensu",
-    "INFLUXDB_PASSWORD=password"
-  ],
-  "filters": [],
-  "handlers": [],
-  "runtime_assets": [],
-  "timeout": 0,
-  "type": "pipe"
+  "workflows": [
+    {
+      "name": "default",
+      "filters": [
+        {
+          "api_version": "core/v2",
+          "type": "EventFilter",
+          "name": "is_incident"
+        },
+        {
+          "api_version": "core/v2",
+          "type": "EventFilter",
+          "name": "state_change_only"
+        }
+      ],
+      "mutator": {
+        "api_version": "core/v2",
+        "type": "Mutator",
+        "name": "add_labels"
+      },
+      "handler": {
+        "api_version": "core/v2",
+        "type": "Handler",
+        "name": "email"
+      }
+    }
+  ]
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get a specific pipeline
 
-The `/pipelines/:pipeline` API endpoint provides HTTP GET access to [pipeline data][1] for specific `:pipeline` definitions, by pipeline `name`.
+The `/pipelines/:pipeline` API endpoint provides HTTP GET access to [pipeline data][1] for specific `:pipeline` definitions, by pipeline name.
 
 ### Example
 
-In the following example, querying the `/pipelines/:pipeline` API endpoint returns a JSON map that contains the requested [`:pipeline` definition][1] (in this example, for the `:pipeline` named ` `).
+In the following example, querying the `/pipelines/:pipeline` API endpoint returns a JSON map that contains the requested [`:pipeline` definition][1] (in this example, for the `:pipeline` named `labeled_emails`).
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/pipelines/slack \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/pipelines/labeled_emails \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
   "metadata": {
-    "name": "slack",
+    "name": "labeled_emails",
     "namespace": "default",
-    "created_by": "admin",
-    "labels": null,
-    "annotations": null
+    "created_by": "admin"
   },
-  "command": "sensu-slack-handler --channel '#monitoring'",
-  "env_vars": [
-    "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-  ],
-  "filters": [
-    "is_incident",
-    "not_silenced"
-  ],
-  "handlers": [],
-  "runtime_assets": [],
-  "timeout": 0,
-  "type": "pipe"
+  "workflows": [
+    {
+      "name": "default",
+      "filters": [
+        {
+          "name": "is_incident",
+          "type": "EventFilter",
+          "api_version": "core/v2"
+        },
+        {
+          "name": "state_change_only",
+          "type": "EventFilter",
+          "api_version": "core/v2"
+        }
+      ],
+      "mutator": {
+        "name": "add_labels",
+        "type": "Mutator",
+        "api_version": "core/v2"
+      },
+      "handler": {
+        "name": "email",
+        "type": "Handler",
+        "api_version": "core/v2"
+      }
+    }
+  ]
 }
 {{< /code >}}
 
@@ -229,40 +333,53 @@ HTTP/1.1 200 OK
 /pipelines/:pipeline (GET) | 
 ---------------------|------
 description          | Returns a pipeline.
-example url          | http://hostname:8080/api/core/v2/namespaces/default/pipelines/slack
+example url          | http://hostname:8080/api/core/v2/namespaces/default/pipelines/labeled_emails
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
 {
   "metadata": {
-    "name": "slack",
+    "name": "labeled_emails",
     "namespace": "default",
-    "created_by": "admin",
-    "labels": null,
-    "annotations": null
+    "created_by": "admin"
   },
-  "command": "sensu-slack-handler --channel '#monitoring'",
-  "env_vars": [
-    "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-  ],
-  "filters": [
-    "is_incident",
-    "not_silenced"
-  ],
-  "handlers": [],
-  "runtime_assets": [],
-  "timeout": 0,
-  "type": "pipe"
+  "workflows": [
+    {
+      "name": "default",
+      "filters": [
+        {
+          "name": "is_incident",
+          "type": "EventFilter",
+          "api_version": "core/v2"
+        },
+        {
+          "name": "state_change_only",
+          "type": "EventFilter",
+          "api_version": "core/v2"
+        }
+      ],
+      "mutator": {
+        "name": "add_labels",
+        "type": "Mutator",
+        "api_version": "core/v2"
+      },
+      "handler": {
+        "name": "email",
+        "type": "Handler",
+        "api_version": "core/v2"
+      }
+    }
+  ]
 }
 {{< /code >}}
 
 ## Create or update a pipeline
 
-The `/pipelines/:pipeline` API endpoint provides HTTP GET access to create or update a specific `:pipeline` definition, by pipeline name.
+The `/pipelines/:pipeline` API endpoint provides HTTP PUT access to create or update a specific `:pipeline` definition, by pipeline name.
 
 ### Example
 
-In the following example, an HTTP PUT request is submitted to the `/pipelines/:pipeline` API endpoint to create the pipeline ` `.
+In the following example, an HTTP PUT request is submitted to the `/pipelines/:pipeline` API endpoint to update `slack_pipeline` to use `javascript_mutator` instead of the `add_labels` mutator.
 The request returns a successful HTTP `201 Created` response.
 
 {{< code shell >}}
@@ -271,24 +388,38 @@ curl -X PUT \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
-    "name": "influx-db",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "slack_pipeline",
+    "namespace": "default"
   },
-  "command": "sensu-influxdb-handler -d sensu",
-  "env_vars": [
-    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-    "INFLUXDB_USER=sensu",
-    "INFLUXDB_PASSWORD=password"
-  ],
-  "filters": [],
-  "handlers": [],
-  "runtime_assets": ["sensu/sensu-influxdb-handler"],
-  "timeout": 0,
-  "type": "pipe"
+  "workflows": [
+    {
+      "name": "default",
+      "filters": [
+        {
+          "api_version": "core/v2",
+          "type": "EventFilter",
+          "name": "is_incident"
+        },
+        {
+          "api_version": "core/v2",
+          "type": "EventFilter",
+          "name": "state_change_only"
+        }
+      ],
+      "mutator": {
+        "api_version": "core/v2",
+        "type": "Mutator",
+        "name": "javascript_mutator"
+      },
+      "handler": {
+        "api_version": "core/v2",
+        "type": "Handler",
+        "name": "slack"
+      }
+    }
+  ]
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/pipelines/influx-db
+http://127.0.0.1:8080/api/core/v2/namespaces/default/pipelines/slack_pipeline
 
 HTTP/1.1 201 Created
 {{< /code >}}
@@ -298,26 +429,40 @@ HTTP/1.1 201 Created
 /pipelines/:pipeline (PUT) | 
 ----------------|------
 description     | Creates or updates the specified Sensu pipeline.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/pipelines/influx-db
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/pipelines/slack_pipeline
 payload         | {{< code shell >}}
 {
   "metadata": {
-    "name": "influx-db",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "slack_pipeline",
+    "namespace": "default"
   },
-  "command": "sensu-influxdb-handler -d sensu",
-  "env_vars": [
-    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-    "INFLUXDB_USER=sensu",
-    "INFLUXDB_PASSWORD=password"
-  ],
-  "filters": [],
-  "handlers": [],
-  "runtime_assets": [],
-  "timeout": 0,
-  "type": "pipe"
+  "workflows": [
+    {
+      "name": "default",
+      "filters": [
+        {
+          "api_version": "core/v2",
+          "type": "EventFilter",
+          "name": "is_incident"
+        },
+        {
+          "api_version": "core/v2",
+          "type": "EventFilter",
+          "name": "state_change_only"
+        }
+      ],
+      "mutator": {
+        "api_version": "core/v2",
+        "type": "Mutator",
+        "name": "javascript_mutator"
+      },
+      "handler": {
+        "api_version": "core/v2",
+        "type": "Handler",
+        "name": "slack"
+      }
+    }
+  ]
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -334,7 +479,7 @@ Also, you cannot add elements to an array with a PATCH request &mdash; you must 
 
 ### Example
 
-In the following example, an HTTP PATCH request is submitted to the `/pipelines/:pipeline` API endpoint to update the filters array for the ` ` pipeline, resulting in an HTTP `200 OK` response and the updated pipeline definition.
+In the following example, an HTTP PATCH request is submitted to the `/pipelines/:pipeline` API endpoint to update the mutator for `slack_pipeline`, resulting in an HTTP `200 OK` response and the updated pipeline definition.
 
 We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
 
@@ -343,12 +488,17 @@ curl -X PATCH \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/merge-patch+json' \
 -d '{
-  "filters": [
-    "us-west",
-    "is_incident"
+  "workflows": [
+    {
+      "mutator": {
+        "api_version": "core/v2",
+        "type": "Mutator",
+        "name": "javascript_mutator"
+      }
+    }
   ]
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/pipelines/influx-db
+http://127.0.0.1:8080/api/core/v2/namespaces/default/pipelines/slack_pipeline
 
 HTTP/1.1 200 OK
 {{< /code >}}
@@ -358,12 +508,17 @@ HTTP/1.1 200 OK
 /pipelines/:pipeline (PATCH) | 
 ----------------|------
 description     | Updates the specified Sensu pipeline.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/pipelines/influx-db
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/pipelines/slack_pipeline
 payload         | {{< code shell >}}
 {
-  "filters": [
-    "us-west",
-    "is_incident"
+  "workflows": [
+    {
+      "mutator": {
+        "api_version": "core/v2",
+        "type": "Mutator",
+        "name": "javascript_mutator"
+      }
+    }
   ]
 }
 {{< /code >}}
@@ -379,7 +534,7 @@ The following example shows a request to the `/pipelines/:pipeline` API endpoint
 
 {{< code shell >}}
 curl -X DELETE \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/pipelines/slack \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/pipelines/slack_pipeline \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 204 No Content
@@ -390,7 +545,7 @@ HTTP/1.1 204 No Content
 /pipelines/:pipeline (DELETE) | 
 --------------------------|------
 description               | Removes the specified pipeline from Sensu.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/pipelines/slack
+example url               | http://hostname:8080/api/core/v2/namespaces/default/pipelines/slack_pipeline
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../observability-pipeline/observe-process/pipelines/
