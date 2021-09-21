@@ -399,7 +399,7 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name:"handler-slack
+name: handler-slack
 {{< /code >}}
 {{< code json >}}
 {
