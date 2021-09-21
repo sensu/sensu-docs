@@ -3,7 +3,7 @@ title: "Pipelines reference"
 linkTitle: "Pipelines Reference"
 reference_title: "Pipelines"
 type: "reference"
-description: "Pipelines are ... Read the reference doc to learn about pipelines."
+description: "Pipelines are observation event processing workflows made up of filters, mutators, and handlers. Read the reference doc to learn about pipelines."
 weight: 10
 version: "6.5"
 product: "Sensu Go"
@@ -13,194 +13,87 @@ menu:
     parent: observe-process
 ---
 
-Sensu executes handlers during the **[process][22]** stage of the [observability pipeline][29].
+Sensu executes pipelines during the **[process][22]** stage of the [observability pipeline][29].
 
-Handlers are actions the Sensu backend executes on events.
-Several types of handlers are available.
-The most common are `pipe` handlers, which work similarly to [checks][1] and enable Sensu to interact with almost any computer program via [standard streams][2].
+Pipelines are observation event processing [workflows][3] made up of filters, mutators, and handlers.
+Instead of specifying filters and mutators in handler definitions, you can specify all three in a single pipeline workflow.
 
-- **Pipe handlers** send observation data (events) into arbitrary commands via `STDIN`
-- **TCP/UDP handlers** send observation data (events) to a remote socket
-- **Handler sets** group event handlers and streamline groups of actions to execute for certain types of events (also called "set handlers")
+To use a pipeline, list it in a check definition's [pipelines attribute][19].
+All the observability events that the check produces will be processed according to the pipeline's workflows.
 
-The handler stack concept describes a group of handlers or a handler set that escalates events through a series of different handlers.
+Pipelines can replace [handler sets][1] and [handler stacks][2].
+We recommend migrating your existing handler sets and stacks to pipeline workflows.
 
-Discover, download, and share Sensu handler dynamic runtime assets using [Bonsai][16], the Sensu asset hub.
-Read [Use dynamic runtime assets to install plugins][23] to get started.
+## Pipeline example
 
-## Pipe handlers
-
-Pipe handlers are external commands that can consume [event][3] data via STDIN.
-
-### Pipe handler example
-
-This example shows a pipe handler resource definition with the minimum required attributes:
+This example shows a pipeline resource definition that includes event filters, a mutator, and a handler:
 
 {{< language-toggle >}}
 
 {{< code yml >}}
 ---
-type: Handler
+type: Pipeline
 api_version: core/v2
 metadata:
-  name: pipe_handler_minimum
+  name: incident_alerts
   namespace: default
+  created_by: admin
 spec:
-  command: command-example
-  type: pipe
+  workflows:
+  - name: labeled_email_alerts
+    filters:
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    - name: state_change_only
+      type: EventFilter
+      api_version: core/v2
+    mutator:
+      name: add_labels
+      type: Mutator
+      api_version: core/v2
+    handler:
+      name: email
+      type: Handler
+      api_version: core/v2
 {{< /code >}}
 
 {{< code json >}}
 {
-  "type": "Handler",
+  "type": "Pipeline",
   "api_version": "core/v2",
   "metadata": {
-    "name": "pipe_handler_minimum",
-    "namespace": "default"
+    "name": "incident_alerts",
+    "namespace": "default",
+    "created_by": "admin"
   },
   "spec": {
-    "command": "command-example",
-    "type": "pipe"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-### Pipe handler command
-
-Pipe handler definitions include a `command` attribute, which is a command for the Sensu backend to execute.
-
-#### Pipe handler command arguments
-
-Pipe handler `command` attributes may include command line arguments for controlling the behavior of the `command` executable.
-
-## TCP/UDP handlers
-
-TCP and UDP handlers enable Sensu to forward event data to arbitrary TCP or UDP sockets for external services to consume.
-
-### TCP/UDP handler example
-
-This handler will send event data to a TCP socket (10.0.1.99:4444) and timeout if an acknowledgement (`ACK`) is not received within 30 seconds:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Handler
-api_version: core/v2
-metadata:
-  name: tcp_handler
-  namespace: default
-spec:
-  socket:
-    host: 10.0.1.99
-    port: 4444
-  type: tcp
-  timeout: 30
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "tcp_handler",
-    "namespace": "default"
-  },
-  "spec": {
-    "type": "tcp",
-    "timeout": 30,
-    "socket": {
-      "host": "10.0.1.99",
-      "port": 4444
-    }
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-Change the `type` from `tcp` to `udp` to configure a UDP handler:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Handler
-api_version: core/v2
-metadata:
-  name: udp_handler
-  namespace: default
-spec:
-  socket:
-    host: 10.0.1.99
-    port: 4444
-  type: udp
-  timeout: 30
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "udp_handler",
-    "namespace": "default"
-  },
-  "spec": {
-    "type": "udp",
-    "timeout": 30,
-    "socket": {
-      "host": "10.0.1.99",
-      "port": 4444
-    }
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-## Handler sets
-
-Handler set definitions allow you to use a single named handler set to refer to groups of handlers.
-The handler set becomes a collection of individual actions to take (via each included handler) on event data.
-
-For example, suppose you have already created these two handlers:
-
-- `elasticsearch` to send all observation data to Elasticsearch.
-- `opsgenie` to send non-OK status alerts to your OpsGenie notification channel.
-
-You can list both of these handlers in a handler set to automate and streamline your workflow, specifying `type: set`:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: Handler
-api_version: core/v2
-metadata:
-  name: send_events_notify_operator
-  namespace: default
-spec:
-  handlers:
-  - elasticsearch
-  - opsgenie
-  type: set
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "send_events_notify_operator",
-    "namespace": "default"
-  },
-  "spec": {
-    "type": "set",
-    "handlers": [
-      "elasticsearch",
-      "opsgenie"
+    "workflows": [
+      {
+        "name": "labeled_email_alerts",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "state_change_only",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "mutator": {
+          "name": "add_labels",
+          "type": "Mutator",
+          "api_version": "core/v2"
+        },
+        "handler": {
+          "name": "email",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
     ]
   }
 }
@@ -208,76 +101,117 @@ spec:
 
 {{< /language-toggle >}}
 
-Now you can route observation data to Elasticsearch and alerts to OpsGenie with a single handler definition, the `send_events_notify_operator` handler set.
+## Workflows
 
-{{% notice note %}}
-**NOTE**: Attributes defined in handler sets do not apply to the handlers they include.
-For example, `filters` and `mutator` attributes defined in a handler set will have no effect on handlers.
-Define these attributes in individual handlers instead.
-{{% /notice %}}
+The workflow attribute is an array of event processing workflows that Sensu will apply for events produced by any check that references the pipeline.
 
-## Handler stacks
+Workflows do not have to include a filter or mutator, but they must specify at least one handler.
 
-The handler stack concept refers to a group of handlers or a handler set that escalates events through a series of different handlers.
-For example, suppose you want a handler stack with three levels of escalation:
+### Multiple workflows
 
-- Level 1: On the first occurrence, attempt remediation.
-- Level 2: On the fifth occurrence, send an alert to Slack.
-- Level 3: On the tenth occurrence, send an alert to PagerDuty.
-Continue to send this alert on every tenth occurrence thereafter until the incident is resolved.
+Pipelines can include more than one workflow.
 
-A handler stack for this scenario requires three handlers to take the desired actions based on three corresponding event filters that control the escalation levels:
-
-- Level 1 requires an event filter with the built-in [`is_incident` filter][30] plus an [occurrence-based filter][32] that uses an expression like `event.check.occurrences ==1` and a corresponding remediation handler.
-- Level 2 requires an event filter with `is_incident` plus an occurrence-based filter that uses an expression like `event.check.occurrences == 5` and a corresponding Slack handler.
-- Level 3 requires an event filter with `is_incident` plus an occurrence-based filter that uses an expression like `event.check.occurrences % 10 == 0` to match event data with an occurrences value that is evenly divisible by 10 via a modulo operator calculation and a corresponding PagerDuty handler.
-
-With these event filters and handlers configured, you can create a [handler set][31] that includes the three handlers in your stack.
-You can also list the three handlers in the [handlers array][33] in your check definition instead.
-
-{{% notice protip %}}
-**PRO TIP**: This scenario relies on six different resources, three event filters and three handlers, to describe the handler stack concept, but you can use Sensu dynamic runtime assets and integrations to achieve the same escalating alert levels in other ways.<br><br>
-For example, you can use the `is_incident` event filter in conjunction with the [Sensu Go Fatigue Check Filter](https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter) asset to control event escalation.
-Sensu's [Ansible](../../../plugins/supported-integrations/ansible/), [Rundeck](../../../plugins/supported-integrations/rundeck/), and [Saltstack](../../../plugins/supported-integrations/saltstack/) auto-remediation integrations and the [Sensu Remediation Handler](https://bonsai.sensu.io/assets/sensu/sensu-remediation-handler) asset also include built-in occurrence- and severity-based event filtering.
-{{% /notice %}}
-
-## Keepalive event handlers
-
-Sensu [keepalives][12] are the heartbeat mechanism used to ensure that all registered [Sensu agents][13] are operational and can reach the [Sensu backend][14].
-You can connect keepalive events to your monitoring workflows using a keepalive handler.
-Sensu looks for an event handler named `keepalive` and automatically uses it to process keepalive events.
-
-Suppose you want to receive Slack notifications for keepalive alerts, and you already have a [Slack handler set up to process events][15].
-To process keepalive events using the Slack pipeline, create a handler set named `keepalive` and add the `slack` handler to the `handlers` array.
-The resulting `keepalive` handler set configuration will look like this example:
+In this example, the pipeline includes `labeled_email_alerts` and `labeled_slack_alerts` workflows.
+All events from checks that specify this pipeline will be processed with both workflows:
 
 {{< language-toggle >}}
 
 {{< code yml >}}
 ---
-type: Handler
+type: Pipeline
 api_version: core/v2
 metadata:
-  name: keepalive
+  name: incident_alerts
   namespace: default
+  created_by: admin
 spec:
-  handlers:
-  - slack
-  type: set
+  workflows:
+  - name: labeled_email_alerts
+    filters:
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    - name: state_change_only
+      type: EventFilter
+      api_version: core/v2
+    mutator:
+      name: add_labels
+      type: Mutator
+      api_version: core/v2
+    handler:
+      name: email
+      type: Handler
+      api_version: core/v2
+  - name: slack_alerts
+    filters:
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    - name: state_change_only
+      type: EventFilter
+      api_version: core/v2
+    handler:
+      name: slack
+      type: Handler
+      api_version: core/v2
 {{< /code >}}
 
 {{< code json >}}
 {
-  "type": "Handler",
+  "type": "Pipeline",
   "api_version": "core/v2",
   "metadata": {
-    "name": "keepalive",
-    "namespace": "default"
+    "name": "incident_alerts",
+    "namespace": "default",
+    "created_by": "admin"
   },
   "spec": {
-    "type": "set",
-    "handlers": [
-      "slack"
+    "workflows": [
+      {
+        "name": "labeled_email_alerts",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "state_change_only",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "mutator": {
+          "name": "add_labels",
+          "type": "Mutator",
+          "api_version": "core/v2"
+        },
+        "handler": {
+          "name": "email",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      },
+      {
+        "name": "slack_alerts",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "state_change_only",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "handler": {
+          "name": "slack",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
     ]
   }
 }
@@ -285,33 +219,30 @@ spec:
 
 {{< /language-toggle >}}
 
-You can also use the [`keepalive-handlers`][19] flag to send keepalive events to any handler you have configured.
-If you do not specify a keepalive handler with the `keepalive-handlers` flag, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.
-
-## Handler specification
+## Pipeline specification
 
 ### Top-level attributes
 
 type         | 
 -------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][4] resource type. Handlers should always be type `Handler`.
-required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
+description  | Top-level attribute that specifies the [`sensuctl create`][4] resource type. Pipelines should always be type `Pipeline`.
+required     | Required for pipeline definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-type: Handler
+type: Pipeline
 {{< /code >}}
 {{< code json >}}
 {
-  "type": "Handler"
+  "type": "Pipeline"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For handlers in this version of Sensu, the `api_version` should always be `core/v2`.
-required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
+description  | Top-level attribute that specifies the Sensu API group and version. For pipelines in this version of Sensu, the api_version should always be `core/v2`.
+required     | Required for pipeline definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
@@ -326,31 +257,31 @@ api_version: core/v2
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the handler that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the handler definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. Read [metadata attributes][8] for details.
-required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
+description  | Top-level collection of metadata about the pipeline that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the pipeline definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. Read [metadata attributes][8] for details.
+required     | Required for pipeline definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 metadata:
-  name: handler-slack
+  name: incident_alerts
   namespace: default
   created_by: admin
   labels:
     region: us-west-1
   annotations:
-    slack-channel: "#monitoring"
+    slack-channel: "#incidents"
 {{< /code >}}
 {{< code json >}}
 {
   "metadata": {
-    "name": "handler-slack",
+    "name": "incident_alerts",
     "namespace": "default",
     "created_by": "admin",
     "labels": {
       "region": "us-west-1"
     },
     "annotations": {
-      "slack-channel": "#monitoring"
+      "slack-channel": "#incidents"
     }
   }
 }
@@ -359,32 +290,60 @@ metadata:
 
 spec         | 
 -------------|------
-description  | Top-level map that includes the handler [spec attributes][5].
-required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
+description  | Top-level map that includes the pipeline [spec attributes][5].
+required     | Required for pipeline definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 spec:
-  type: tcp
-  socket:
-    host: 10.0.1.99
-    port: 4444
-  metadata:
-    name: tcp_handler
-    namespace: default
+  workflows:
+  - name: labeled_email_alerts
+    filters:
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    - name: state_change_only
+      type: EventFilter
+      api_version: core/v2
+    mutator:
+      name: add_labels
+      type: Mutator
+      api_version: core/v2
+    handler:
+      name: email
+      type: Handler
+      api_version: core/v2
 {{< /code >}}
 {{< code json >}}
 {
   "spec": {
-    "type": "tcp",
-    "socket": {
-      "host": "10.0.1.99",
-      "port": 4444
-    },
-    "metadata": {
-      "name": "tcp_handler",
-      "namespace": "default"
-    }
+    "workflows": [
+      {
+        "name": "labeled_email_alerts",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "state_change_only",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "mutator": {
+          "name": "add_labels",
+          "type": "Mutator",
+          "api_version": "core/v2"
+        },
+        "handler": {
+          "name": "email",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
   }
 }
 {{< /code >}}
@@ -394,40 +353,40 @@ spec:
 
 | name       |      |
 -------------|------
-description  | Unique string used to identify the handler. Handler names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][18]). Each handler must have a unique name within its namespace.
+description  | Unique string used to identify the pipeline. Pipeline names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][18]). Each pipeline must have a unique name within its namespace.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name:"handler-slack
+name: incident_alerts
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "handler-slack"
+  "name": "incident_alerts"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
 | namespace  |      |
 -------------|------
-description  | Sensu [RBAC namespace][9] that the handler belongs to.
+description  | Sensu [RBAC namespace][9] that the pipeline belongs to.
 required     | false
 type         | String
 default      | `default`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-namespace: production
+namespace: default
 {{< /code >}}
 {{< code json >}}
 {
-  "namespace": "production"
+  "namespace": "default"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
 | created_by |      |
 -------------|------
-description  | Username of the Sensu user who created the handler or last updated the handler. Sensu automatically populates the `created_by` field when the handler is created or updated.
+description  | Username of the Sensu user who created the pipeline or last updated the handler. Sensu automatically populates the `created_by` field when the pipeline is created or updated.
 required     | false
 type         | String
 example      | {{< language-toggle >}}
@@ -450,14 +409,14 @@ default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 labels:
-  environment: development
-  region: us-west-2
+  environment: production
+  region: us-west-1
 {{< /code >}}
 {{< code json >}}
 {
   "labels": {
-    "environment": "development",
-    "region": "us-west-2"
+    "environment": "production",
+    "region": "us-west-1"
   }
 }
 {{< /code >}}
@@ -473,13 +432,13 @@ example      | {{< language-toggle >}}
 {{< code yml >}}
 annotations:
   managed-by: ops
-  playbook: www.example.url
+  slack-channel: "#incidents"
 {{< /code >}}
 {{< code json >}}
 {
   "annotations": {
     "managed-by": "ops",
-    "playbook": "www.example.url"
+    "slack-channel": "#incidents"
   }
 }
 {{< /code >}}
@@ -487,39 +446,95 @@ annotations:
 
 ### Spec attributes
 
-type         | 
+workflows    | 
 -------------|------
-description  | Handler type.
-required     | true
-type         | String
-allowed values | `pipe`, `tcp`, `udp`, and `set`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: pipe
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "pipe"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-filters      | 
--------------|------
-description  | Array of Sensu event filters (by names) to use when filtering events for the handler. Each array item must be a string.
+description  | Array of workflows (by names) to use when filtering, mutating, and handling observability events with a pipeline. Each array item must be a string. Read [workflows attributes][6] for details.
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
+workflows:
+  - name: labeled_email_alerts
+    filters:
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    - name: state_change_only
+      type: EventFilter
+      api_version: core/v2
+    mutator:
+      name: add_labels
+      type: Mutator
+      api_version: core/v2
+    handler:
+      name: email
+      type: Handler
+      api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "workflows": [
+    {
+      "name": "labeled_email_alerts",
+      "filters": [
+        {
+          "name": "is_incident",
+          "type": "EventFilter",
+          "api_version": "core/v2"
+        },
+        {
+          "name": "state_change_only",
+          "type": "EventFilter",
+          "api_version": "core/v2"
+        }
+      ],
+      "mutator": {
+        "name": "add_labels",
+        "type": "Mutator",
+        "api_version": "core/v2"
+      },
+      "handler": {
+        "name": "email",
+        "type": "Handler",
+        "api_version": "core/v2"
+      }
+    }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+#### Workflows attributes
+
+filters      | 
+-------------|------
+description  | Reference for the Sensu event filters to use when filtering events for the pipeline. Each pipeline workflow can reference more than one event filter. Read [filters attributes][7] for details.
+required     | false
+type         | Map of key-value pairs
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
 filters:
-- occurrences
-- production
+- name: is_incident
+  type: EventFilter
+  api_version: core/v2
+- name: state_change_only
+  type: EventFilter
+  api_version: core/v2
 {{< /code >}}
 {{< code json >}}
 {
   "filters": [
-    "occurrences",
-    "production"
+    {
+      "name": "is_incident",
+      "type": "EventFilter",
+      "api_version": "core/v2"
+    },
+    {
+      "name": "state_change_only",
+      "type": "EventFilter",
+      "api_version": "core/v2"
+    }
   ]
 }
 {{< /code >}}
@@ -527,454 +542,234 @@ filters:
 
 mutator      | 
 -------------|------
-description  | Name of the Sensu event mutator to use to mutate event data for the handler.
+description  | Reference for the Sensu mutator to use to mutate event data for the workflow. Each pipeline workflow can reference only one mutator. Read [mutator attributes][9] for details.
 required     | false
-type         | String
+type         | Map of key-value pairs
+default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-mutator: only_check_output
+mutator:
+  name: add_labels
+  type: Mutator
+  api_version: core/v2
 {{< /code >}}
 {{< code json >}}
 {
-  "mutator": "only_check_output"
+  "mutator": {
+    "name": "add_labels",
+    "type": "Mutator",
+    "api_version": "core/v2"
+  }
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
-timeout     | 
-------------|------
-description | Handler execution duration timeout (hard stop). In seconds. Only used by `pipe`, `tcp`, and `udp` handler types.
-required    | false
-type        | Integer
-default     | `60` (for `tcp` and `udp` handlers)
-example     | {{< language-toggle >}}
-{{< code yml >}}
-timeout: 30
-{{< /code >}}
-{{< code json >}}
-{
-  "timeout": 30
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-command      | 
+handler      | 
 -------------|------
-description  | Handler command to be executed. The event data is passed to the process via `STDIN`. {{% notice note %}}
-**NOTE**: The `command` attribute is only supported for pipe handlers (that is, handlers configured with `"type": "pipe"`).
-{{% /notice %}}
-required     | true (if `type` equals `pipe`)
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-command: /etc/sensu/plugins/pagerduty.go
-{{< /code >}}
-{{< code json >}}
-{
-  "command": "/etc/sensu/plugins/pagerduty.go"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-env_vars      | 
--------------|------
-description  | Array of environment variables to use with command execution. {{% notice note %}}
-**NOTE**: The `env_vars` attribute is only supported for pipe handlers (that is, handlers configured with `"type": "pipe"`).
-{{% /notice %}}
-required     | false
-type         | Array
-example      | {{< language-toggle >}}
-{{< code yml >}}
-env_vars:
-- API_KEY=0428d6b8nb51an4d95nbe28nf90865a66af5
-{{< /code >}}
-{{< code json >}}
-{
-  "env_vars": [
-    "API_KEY=0428d6b8nb51an4d95nbe28nf90865a66af5"
-  ]
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-socket       | 
--------------|------
-description  | Scope for [`socket` definition][6] used to configure the TCP/UDP handler socket. {{% notice note %}}
-**NOTE**: The `socket` attribute is only supported for TCP/UDP handlers (that is, handlers configured with `"type": "tcp"` or `"type": "udp"`).
-{{% /notice %}}
-required     | true (if `type` equals `tcp` or `udp`)
-type         | Hash
-example      | {{< language-toggle >}}
-{{< code yml >}}
-socket: {}
-{{< /code >}}
-{{< code json >}}
-{
-  "socket": {}
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-handlers     | 
--------------|------
-description  | Array of Sensu event handlers (by their names) to use for events using the handler set. Each array item must be a string. {{% notice note %}}
-**NOTE**: The `handlers` attribute is only supported for handler sets (that is, handlers configured with `"type": "set"`).
-{{% /notice %}}
-required     | true (if `type` equals `set`)
-type         | Array
-example      | {{< language-toggle >}}
-{{< code yml >}}
-handlers:
-- pagerduty
-- email
-- ec2
-{{< /code >}}
-{{< code json >}}
-{
-  "handlers": [
-    "pagerduty",
-    "email",
-    "ec2"
-  ]
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-runtime_assets | 
----------------|------
-description    | Array of [Sensu dynamic runtime assets][7] (by names) required at runtime to execute the `command`
-required       | false
-type           | Array
-example        | {{< language-toggle >}}
-{{< code yml >}}
-runtime_assets:
-- ruby-2.5.0
-{{< /code >}}
-{{< code json >}}
-{
-  "runtime_assets": [
-    "ruby-2.5.0"
-  ]
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-secrets        | 
----------------|------
-description    | Array of the name/secret pairs to use with command execution.
-required       | false
-type           | Array
-example        | {{< language-toggle >}}
-{{< code yml >}}
-secrets:
-- name: ANSIBLE_HOST
-  secret: sensu-ansible-host
-- name: ANSIBLE_TOKEN
-  secret: sensu-ansible-token
-{{< /code >}}
-{{< code json >}}
-{
-  "secrets": [
-    {
-      "name": "ANSIBLE_HOST",
-      "secret": "sensu-ansible-host"
-    },
-    {
-      "name": "ANSIBLE_TOKEN",
-      "secret": "sensu-ansible-token"
-    }
-  ]
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-#### `socket` attributes
-
-host         | 
--------------|------
-description  | Socket host address (IP or hostname) to connect to.
+description  | Reference for the Sensu handler to use for event processing in the workflow. Each pipeline workflow must reference one handler. Read [handler attributes][12] for details.
 required     | true
-type         | String
+type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
-host: 8.8.8.8
+handler:
+  name: email
+  type: Handler
+  api_version: core/v2
 {{< /code >}}
 {{< code json >}}
 {
-  "host": "8.8.8.8"
+  "handler": {
+    "name": "email",
+    "type": "Handler",
+    "api_version": "core/v2"
+  }
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
-port         | 
--------------|------
-description  | Socket port to connect to.
-required     | true
-type         | Integer
-example      | {{< language-toggle >}}
-{{< code yml >}}
-port: 4242
-{{< /code >}}
-{{< code json >}}
-{
-  "port": 4242
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-#### `secrets` attributes
+#### Filters attributes
 
 name         | 
 -------------|------
-description  | Name of the [secret][20] defined in the executable command. Becomes the environment variable presented to the check. Read [Use secrets management in Sensu][26] for more information.
+description  | Name of the Sensu [event filter][24] to use for the workflow.
 required     | true
 type         | String
+default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: ANSIBLE_HOST
+name: is_incident
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "ANSIBLE_HOST"
+  "name": "is_incident"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
-secret       | 
+type         | 
 -------------|------
-description  | Name of the Sensu secret resource that defines how to retrieve the [secret][20].
+description  | The [`sensuctl create`][4] resource type for the event filter. Event filters should always be type `EventFilter`.
 required     | true
 type         | String
+default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-secret: sensu-ansible-host
+type: EventFilter
 {{< /code >}}
 {{< code json >}}
 {
-  "secret": "sensu-ansible-host"
+ "type": "EventFilter"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Send Slack alerts
-
-This handler will send alerts to a channel named `monitoring` with the configured webhook URL, using the `handler-slack` executable command.
-
-{{< language-toggle >}}
-
+api_version  | 
+-------------|------
+description  | The Sensu API group and version for the event filter. For event filters in this version of Sensu, the api_version should always be `core/v2`.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
 {{< code yml >}}
----
-type: Handler
 api_version: core/v2
-metadata:
-  name: slack
-  namespace: default
-spec:
-  command: sensu-slack-handler --channel '#monitoring'
-  env_vars:
-  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
-  filters:
-  - is_incident
-  - not_silenced
-  handlers: []
-  runtime_assets: []
-  timeout: 0
-  type: pipe
 {{< /code >}}
-
 {{< code json >}}
 {
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "slack",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "sensu-slack-handler --channel '#monitoring'",
-    "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-    ],
-    "filters": [
-      "is_incident",
-      "not_silenced"
-    ],
-    "handlers": [],
-    "runtime_assets": [],
-    "timeout": 0,
-    "type": "pipe"
-  }
+  "api_version": "core/v2"
 }
 {{< /code >}}
-
 {{< /language-toggle >}}
 
-## Send registration events
+#### Mutator attributes
 
-If you configure a Sensu event handler named `registration`, the Sensu backend will create and process an event for the agent registration, apply any configured filters and mutators, and execute the registration handler.
-
-You can use registration events to execute one-time handlers for new Sensu agents to update an external configuration management database (CMDB).
-This example demonstrates how to configure a registration event handler to create or update a ServiceNow incident or event with the [Sensu Go ServiceNow Handler][17]:
-
-{{< language-toggle >}}
-
+name         | 
+-------------|------
+description  | Name of the Sensu [mutator][14] to use for the workflow.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
 {{< code yml >}}
----
-type: Handler
+name: add_labels
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "add_labels"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+type         | 
+-------------|------
+description  | The [`sensuctl create`][4] resource type for the mutator. Mutators should always be type `Mutator`.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Mutator
+{{< /code >}}
+{{< code json >}}
+{
+ "type": "Mutator"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+api_version  | 
+-------------|------
+description  | The Sensu API group and version for the mutator. For mutators in this version of Sensu, the api_version should always be `core/v2`.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
 api_version: core/v2
-metadata:
-  name: registration
-  namespace: default
-spec:
-  handlers:
-  - servicenow-cmdb
-  type: set
 {{< /code >}}
-
 {{< code json >}}
 {
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "registration",
-    "namespace": "default"
-  },
-  "spec": {
-    "handlers": [
-      "servicenow-cmdb"
-    ],
-    "type": "set"
-  }
+  "api_version": "core/v2"
 }
 {{< /code >}}
-
 {{< /language-toggle >}}
 
-The [agent reference][27] describes agent registration and registration events in more detail.
+#### Handler attributes
 
-## Execute multiple handlers (handler set)
-
-The following example creates a handler set, `notify_all_the_things`, that will execute three handlers: `slack`, `tcp_handler`, and `udp_handler`.
-
-{{< language-toggle >}}
-
+name         | 
+-------------|------
+description  | Name of the Sensu [handler][13] to use for the workflow.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
 {{< code yml >}}
----
+name: email
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "email"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+type         | 
+-------------|------
+description  | The [`sensuctl create`][4] resource type for the handler. For [pipe handlers][15], [TCP/UDP handlers][16], and [handler sets][1], the type should always be `Handler`. For [TCP stream handlers][17], the type should always be `TCPStreamHandler`.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
 type: Handler
-api_version: core/v2
-metadata:
-  name: notify_all_the_things
-  namespace: default
-spec:
-  handlers:
-  - slack
-  - tcp_handler
-  - udp_handler
-  type: set
 {{< /code >}}
-
 {{< code json >}}
 {
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "notify_all_the_things",
-    "namespace": "default"
-  },
-  "spec": {
-    "type": "set",
-    "handlers": [
-      "slack",
-      "tcp_handler",
-      "udp_handler"
-    ]
-  }
+ "type": "Handler"
 }
 {{< /code >}}
-
 {{< /language-toggle >}}
 
-## Use secrets management in a handler
-
-Learn more about [secrets management][26] for your Sensu configuration in the [secrets][20] and [secrets providers][21] references.
-
-{{< language-toggle >}}
-
+api_version  | 
+-------------|------
+description  | The Sensu API group and version for the handler. For [pipe handlers][15], [TCP/UDP handlers][16], and [handler sets][1], the api_version should always be `core/v2`. For [TCP stream handlers][17], the type should always be `pipeline/v1`.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
 {{< code yml >}}
----
-type: Handler 
-api_version: core/v2 
-metadata:
-  name: ansible-tower
-  namespace: ops
-spec: 
-  type: pipe
-  command: sensu-ansible-handler -h $ANSIBLE_HOST -t $ANSIBLE_TOKEN
-  secrets:
-  - name: ANSIBLE_HOST
-    secret: sensu-ansible-host
-  - name: ANSIBLE_TOKEN
-    secret: sensu-ansible-token
+api_version: core/v2
 {{< /code >}}
-
 {{< code json >}}
 {
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "ansible-tower",
-    "namespace": "ops"
-  },
-  "spec": {
-    "type": "pipe",
-    "command": "sensu-ansible-handler -h $ANSIBLE_HOST -t $ANSIBLE_TOKEN",
-    "secrets": [
-      {
-        "name": "ANSIBLE_HOST",
-        "secret": "sensu-ansible-host"
-      },
-      {
-        "name": "ANSIBLE_TOKEN",
-        "secret": "sensu-ansible-token"
-      }
-    ]
-  }
+  "api_version": "core/v2"
 }
 {{< /code >}}
-
 {{< /language-toggle >}}
 
 
-[1]: ../../observe-schedule/checks/
-[2]: https://en.wikipedia.org/wiki/Standard_streams
-[3]: ../../observe-events/events/
+[1]: ../handlers/#handler-sets
+[2]: ../handlers/#handler-stacks
+[3]: #workflows
 [4]: ../../../sensuctl/create-manage-resources/#create-resources
 [5]: #spec-attributes
-[6]: #socket-attributes
-[7]: ../../../plugins/assets/
+[6]: #workflows-attributes
+[7]: #filters-attributes
 [8]: #metadata-attributes
 [9]: ../../../operations/control-access/namespaces/
 [10]: ../../../api#response-filtering
 [11]: ../../../sensuctl/filter-responses/
-[12]: ../../observe-schedule/agent#keepalive-monitoring
-[13]: ../../observe-schedule/agent/
-[14]: ../../observe-schedule/backend/
-[15]: ../send-slack-alerts/
-[16]: https://bonsai.sensu.io/
-[17]: https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler/
+[12]: #handler-attributes
+[13]: ../handlers/
+[14]: ../../observe-transform/mutators/
+[15]: ../handlers/#pipe-handlers
+[16]: ../handlers/#tcpudp-handlers
+[17]: ../tcp-stream-handlers
 [18]: https://regex101.com/r/zo9mQU/2
-[19]: ../../observe-schedule/agent/#keepalive-handlers-flag
-[20]: ../../../operations/manage-secrets/secrets/
-[21]: ../../../operations/manage-secrets/secrets-providers/
+[19]: ../../observe-schedule/checks/#pipelines-attribute
 [22]: ../
-[23]: ../../../plugins/use-assets-to-install-plugins/
 [24]: ../../observe-filter/filters/
 [25]: ../../../web-ui/search#search-for-labels
 [26]: ../../../operations/manage-secrets/secrets-management/
 [27]: ../../observe-schedule/agent/#registration-endpoint-management-and-service-discovery
 [28]: ../../../web-ui/search/
 [29]: ../../../observability-pipeline/
-[30]: ../../observe-filter/filters/#built-in-filter-is_incident
-[31]: #handler-sets
-[32]: ../../observe-filter/filters/#filter-for-repeated-events
-[33]: ../../observe-schedule/checks/#handlers-array

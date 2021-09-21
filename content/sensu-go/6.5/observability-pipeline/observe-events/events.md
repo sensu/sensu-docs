@@ -81,6 +81,8 @@ spec:
       CheckCPU TOTAL OK: total=0.41 user=0.2 nice=0.0 system=0.2 idle=99.59 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0
     output_metric_format: ""
     output_metric_handlers: null
+    pipelines:
+    - incident_alerts
     proxy_entity_name: ""
     publish: true
     round_robin: false
@@ -206,6 +208,9 @@ spec:
       "output": "CheckCPU TOTAL OK: total=0.41 user=0.2 nice=0.0 system=0.2 idle=99.59 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0\n",
       "output_metric_format": "",
       "output_metric_handlers": null,
+      "pipelines": [
+        "incident_alerts"
+      ],
       "proxy_entity_name": "",
       "publish": true,
       "round_robin": false,
@@ -322,6 +327,9 @@ This is the format that events are in when Sensu sends them to handlers:
     ],
     "subscriptions": [
       "system"
+    ],
+    "pipelines": [
+      "incident_alerts"
     ],
     "proxy_entity_name": "",
     "check_hooks": null,
@@ -648,6 +656,8 @@ spec:
     output_metric_format: graphite_plaintext
     output_metric_handlers:
     - influx-db
+    pipelines:
+    - incident_alerts
     proxy_entity_name: ""
     publish: true
     round_robin: false
@@ -759,6 +769,9 @@ spec:
       "output_metric_format": "graphite_plaintext",
       "output_metric_handlers": [
         "influx-db"
+      ],
+      "pipelines": [
+        "incident_alerts"
       ],
       "proxy_entity_name": "",
       "publish": true,
@@ -1110,6 +1123,8 @@ spec:
     output_metric_format: graphite_plaintext
     output_metric_handlers:
     - influx-db
+    pipelines:
+    - incident_alerts
     proxy_entity_name: ''
     publish: true
     round_robin: false
@@ -1218,6 +1233,9 @@ spec:
       "output_metric_format": "graphite_plaintext",
       "output_metric_handlers": [
         "influx-db"
+      ],
+      "pipelines": [
+        "incident_alerts"
       ],
       "proxy_entity_name": "",
       "publish": true,
@@ -1546,6 +1564,8 @@ check:
   output_metric_format: graphite_plaintext
   output_metric_handlers:
   - influx-db
+  pipelines:
+  - incident_alerts
   proxy_entity_name: ''
   publish: true
   round_robin: false
@@ -1598,6 +1618,9 @@ check:
     "output_metric_format": "graphite_plaintext",
     "output_metric_handlers": [
       "influx-db"
+    ],
+    "pipelines": [
+      "incident_alerts"
     ],
     "proxy_entity_name": "",
     "publish": true,

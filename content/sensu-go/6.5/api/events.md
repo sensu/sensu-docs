@@ -50,6 +50,9 @@ HTTP/1.1 200 OK
       "subscriptions": [
         "system"
       ],
+      "pipelines": [
+        "incident_alerts"
+      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -191,6 +194,9 @@ output         | {{< code shell >}}
       ],
       "subscriptions": [
         "system"
+      ],
+      "pipelines": [
+        "incident_alerts"
       ],
       "proxy_entity_name": "",
       "check_hooks": null,
@@ -419,6 +425,9 @@ HTTP/1.1 200 OK
       "subscriptions": [
         "system"
       ],
+      "pipelines": [
+        "incident_alerts"
+      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -542,6 +551,9 @@ HTTP/1.1 200 OK
       "publish": false,
       "runtime_assets": null,
       "subscriptions": [],
+      "pipelines": [
+        "incident_alerts"
+      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -690,6 +702,9 @@ output               | {{< code json >}}
       "subscriptions": [
         "system"
       ],
+      "pipelines": [
+        "incident_alerts"
+      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -813,6 +828,9 @@ output               | {{< code json >}}
       "publish": false,
       "runtime_assets": null,
       "subscriptions": [],
+      "pipelines": [
+        "incident_alerts"
+      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -965,6 +983,9 @@ HTTP/1.1 200 OK
     "subscriptions": [
       "system"
     ],
+    "pipelines": [
+      "incident_alerts"
+    ],
     "proxy_entity_name": "",
     "check_hooks": null,
     "stdin": false,
@@ -1095,6 +1116,9 @@ output               | {{< code json >}}
     ],
     "subscriptions": [
       "system"
+    ],
+    "pipelines": [
+      "incident_alerts"
     ],
     "proxy_entity_name": "",
     "check_hooks": null,

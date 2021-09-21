@@ -609,6 +609,8 @@ spec:
   publish: true
   subscriptions:
   - production
+  pipelines:
+  - incident_alerts
 {{< /code >}}
 {{< code json >}}
 {
@@ -618,6 +620,9 @@ spec:
     "publish": true,
     "subscriptions": [
       "production"
+    ],
+    "pipelines": [
+      "incident_alerts"
     ]
   }
 }
@@ -979,6 +984,27 @@ check_hooks:
         "always-run-this-hook"
       ]
     }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="pipelines-attribute"></a>
+
+| pipelines  |   |
+-------------|------
+description  | Names of the [pipelines][69] to use for event processing. All the observability events that the check produces will be processed according to the pipeline's workflows.
+required     | false
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+pipelines:
+- incident_alerts
+{{< /code >}}
+{{< code json >}}
+{
+  "pipelines": [
+    "incident_alerts"
   ]
 }
 {{< /code >}}
@@ -1661,3 +1687,4 @@ The dynamic runtime asset reference includes an [example check definition that u
 [66]: ../../../operations/deploy-sensu/datastore/#round-robin-postgresql
 [67]: #event-storage-for-round-robin-scheduling
 [68]: ../metrics/
+[69]: ../../observe-process/pipelines/

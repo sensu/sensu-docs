@@ -43,6 +43,9 @@ HTTP/1.1 200 OK
     "subscriptions": [
       "linux"
     ],
+    "pipelines": [
+      "incident_alerts"
+    ],
     "proxy_entity_name": "",
     "check_hooks": null,
     "stdin": false,
@@ -88,6 +91,9 @@ output         | {{< code shell >}}
     "runtime_assets": null,
     "subscriptions": [
       "linux"
+    ],
+    "pipelines": [
+      "incident_alerts"
     ],
     "proxy_entity_name": "",
     "check_hooks": null,
@@ -196,6 +202,9 @@ HTTP/1.1 200 OK
   "subscriptions": [
     "linux"
   ],
+  "pipelines": [
+    "incident_alerts"
+  ],
   "proxy_entity_name": "",
   "check_hooks": null,
   "stdin": false,
@@ -237,6 +246,9 @@ output               | {{< code json >}}
   "runtime_assets": null,
   "subscriptions": [
     "linux"
+  ],
+  "pipelines": [
+    "incident_alerts"
   ],
   "proxy_entity_name": "",
   "check_hooks": null,
