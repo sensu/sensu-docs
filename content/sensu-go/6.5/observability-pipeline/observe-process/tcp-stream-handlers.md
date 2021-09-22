@@ -20,11 +20,24 @@ For more information, read [Get started with commercial features](../../commerci
 
 Sensu executes TCP stream handlers during the **[process][22]** stage of the [observability pipeline][29].
 
-Like other Sensu [handlers][1], TCP stream handlers are actions the Sensu backend executes on observability events.
+Like traditional [TCP handlers][1], TCP stream handlers send observability event data to TCP sockets for external services to consume.
+However, TCP stream handlers can help prevent the data bottlenecks you may experience with traditional TCP handlers.
+
+Traditional TCP handlers start a new UNIX process for every Sensu event they receive and require a new connection to send every event.
+As you scale up and process more events per second, the rate at which the TCP handler can transmit observability event data decreases.
+
+TCP stream handlers allow you to configure a connection pool with a minimum and maximum number of connections for the handler to use.
+For example, suppose you configure a TCP stream handler with a pool of 5 to 10 connections, and 1000 events are queued for transmission.
+As each connection finishes transmitting an event, it becomes available again and returns to the pool so the handler can use it to send the next event in the queue.
+
+TCP stream handlers will reuse the available connections as long as they can rather than requiring a new connection for every event, which increases event throughput.
+In addition to providing a persistent TCP connection to transmit Sensu observation events to a remote data storage service, TCP stream handlers allow you to use transport layer security (TLS) for secure data transmission.
+
+TCP stream handlers are commercial resources available to the [pipeline/v1 API][] **TODO**.
 
 ## TCP stream handler example
 
-This example shows a TCP stream handler resource definition with the required attributes:
+This example shows a TCP stream handler resource definition configured to use TLS:
 
 {{< language-toggle >}}
 
@@ -38,10 +51,10 @@ metadata:
 spec:
   address: 127.0.0.1:4242
   tls_ca_cert_file: "/path/to/tls/ca.pem"
-  tls_cert_file: "/etc/sensu/tls/cert.pem"
-  tls_key_file: "/path/to/tls/backend-1-key.pem"
+  tls_cert_file: "/path/to/tls/cert.pem"
+  tls_key_file: "/path/to/tls/key.pem"
   max_connections: 10
-  min_connections: 3
+  min_connections: 5
   min_reconnect_delay: 10ms
   max_reconnect_delay: 10s
 {{< /code >}}
@@ -57,10 +70,10 @@ spec:
   "spec": {
     "address": "127.0.0.1:4242",
     "tls_ca_cert_file": "/path/to/tls/ca.pem",
-    "tls_cert_file": "/etc/sensu/tls/cert.pem",
-    "tls_key_file": "/path/to/tls/backend-1-key.pem",
+    "tls_cert_file": "/path/to/tls/cert.pem",
+    "tls_key_file": "/path/to/tls/key.pem",
     "max_connections": 10,
-    "min_connections": 3,
+    "min_connections": 5,
     "min_reconnect_delay": "10ms",
     "max_reconnect_delay": "10s"
   }
@@ -116,23 +129,13 @@ metadata:
   name: logstash
   namespace: default
   created_by: admin
-  labels:
-    region: us-west-1
-  annotations:
-    managed-by: ops
 {{< /code >}}
 {{< code json >}}
 {
   "metadata": {
     "name": "logstash",
     "namespace": "default",
-    "created_by": "admin",
-    "labels": {
-      "region": "us-west-1"
-    },
-    "annotations": {
-      "managed-by": "ops"
-    }
+    "created_by": "admin"
   }
 }
 {{< /code >}}
@@ -148,10 +151,10 @@ example      | {{< language-toggle >}}
 spec:
   address: 127.0.0.1:4242
   tls_ca_cert_file: "/path/to/tls/ca.pem"
-  tls_cert_file: "/etc/sensu/tls/cert.pem"
-  tls_key_file: "/path/to/tls/backend-1-key.pem"
+  tls_cert_file: "/path/to/tls/cert.pem"
+  tls_key_file: "/path/to/tls/key.pem"
   max_connections: 10
-  min_connections: 3
+  min_connections: 5
   min_reconnect_delay: 10ms
   max_reconnect_delay: 10s
 {{< /code >}}
@@ -160,10 +163,10 @@ spec:
   "spec": {
     "address": "127.0.0.1:4242",
     "tls_ca_cert_file": "/path/to/tls/ca.pem",
-    "tls_cert_file": "/etc/sensu/tls/cert.pem",
-    "tls_key_file": "/path/to/tls/backend-1-key.pem",
+    "tls_cert_file": "/path/to/tls/cert.pem",
+    "tls_key_file": "/path/to/tls/key.pem",
     "max_connections": 10,
-    "min_connections": 3,
+    "min_connections": 5,
     "min_reconnect_delay": "10ms",
     "max_reconnect_delay": "10s"
   }
@@ -222,46 +225,6 @@ created_by: admin
 {{< /code >}}
 {{< /language-toggle >}}
 
-| labels     |      |
--------------|------
-description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][10], [sensuctl responses][11], and [web UI views][25] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
-required     | false
-type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
-default      | `null`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-labels:
-  region: us-west-1
-{{< /code >}}
-{{< code json >}}
-{
-  "labels": {
-    "region": "us-west-1"
-  }
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-| annotations |     |
--------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][24]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10], [sensuctl response filtering][11], or [web UI views][28].
-required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
-default      | `null`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-annotations:
-  managed-by: ops
-{{< /code >}}
-{{< code json >}}
-{
-  "annotations": {
-    "managed-by": "ops"
-  }
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 ### Spec attributes
 
 address      | 
@@ -284,9 +247,9 @@ Path to the client server TLS trusted CA certificate file. Secures communication
 
 tls_ca_cert_file | 
 -------------|------
-description  | Path to the primary backend CA file. This CA file is used in communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
+description  | Path to the PEM-format CA certificate to use for TLS client authentication.
 required     | false
-type         | Array
+type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
 tls_ca_cert_file: "/path/to/tls/ca.pem"
@@ -300,32 +263,32 @@ tls_ca_cert_file: "/path/to/tls/ca.pem"
 
 tls_cert_file | 
 -------------|------
-description  | Path to the public certificate file.
-required     | true
+description  | Path to the PEM-format certificate to use for TLS client authentication. This certificate and its corresponding key are required for secure client communication.
+required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-tls_cert_file: "/etc/sensu/tls/cert.pem"
+tls_cert_file: "/path/to/tls/cert.pem"
 {{< /code >}}
 {{< code json >}}
 {
-  "tls_cert_file": "/etc/sensu/tls/cert.pem"
+  "tls_cert_file": "/path/to/tls/cert.pem"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
 tls_key_file | 
 ------------|------
-description | Path to the primary backend key file. This key secures communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
-required    | true
+description | Path to the PEM-format key file associated with the tls_cert_file to use for TLS client authentication. This key and its corresponding certificate are required for secure client communication.
+required    | false
 type        | String
 example     | {{< language-toggle >}}
 {{< code yml >}}
-tls_key_file: "/path/to/tls/backend-1-key.pem"
+tls_key_file: "/path/to/tls/key.pem"
 {{< /code >}}
 {{< code json >}}
 {
-  "tls_key_file": "/path/to/tls/backend-1-key.pem"
+  "tls_key_file": "/path/to/tls/key.pem"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -395,16 +358,12 @@ min_reconnect_delay: 10ms
 {{< /language-toggle >}}
 
 
-[1]: ../handlers/
+[1]: ../handlers/#tcpudp-handlers
 [4]: ../../../sensuctl/create-manage-resources/#create-resources
 [5]: #spec-attributes
 [8]: #metadata-attributes
 [9]: ../../../operations/control-access/namespaces/
-[10]: ../../../api#response-filtering
-[11]: ../../../sensuctl/filter-responses/
 [18]: https://regex101.com/r/zo9mQU/2
 [22]: ../
 [24]: ../../observe-filter/filters/
-[25]: ../../../web-ui/search#search-for-labels
-[28]: ../../../web-ui/search/
 [29]: ../../../observability-pipeline/

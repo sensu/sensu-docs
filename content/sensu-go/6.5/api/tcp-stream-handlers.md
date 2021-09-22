@@ -31,7 +31,7 @@ The following example demonstrates a request to the `/tcpstreamhandlers` API end
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/TCPStreamHandler/v1/namespaces/default/tcpstreamhandlers \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/tcp-stream-handler \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
@@ -81,7 +81,7 @@ HTTP/1.1 200 OK
 /tcpstreamhandlers (GET)  | 
 ---------------|------
 description    | Returns the list of TCP stream handlers.
-example url    | http://hostname:8080/api/core/v2/namespaces/default/tcpstreamhandlers
+example url    | http://hostname:8080/api/enterprise/pipeline/v1/tcp-stream-handler
 pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
@@ -133,7 +133,7 @@ The `/tcpstreamhandlers` API endpoint provides HTTP POST access to create a TCP 
 
 ### Example {#handlers-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/tcpstreamhandlers` API endpoint to create the TCP stream handler ` `.
+In the following example, an HTTP POST request is submitted to the `/tcpstreamhandlers` API endpoint to create the TCP stream handler `???`.
 The request returns a successful HTTP `201 Created` response.
 
 {{< code shell >}}
@@ -159,7 +159,7 @@ curl -X POST \
   "timeout": 0,
   "type": "pipe"
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/tcpstreamhandlers
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/tcp-stream-handler
 
 HTTP/1.1 201 Created
 {{< /code >}}
@@ -169,7 +169,7 @@ HTTP/1.1 201 Created
 /tcpstreamhandlers (POST) | 
 ----------------|------
 description     | Creates a Sensu TCP stream handler.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/tcpstreamhandlers
+example URL     | http://hostname:8080/api/enterprise/pipeline/v1/tcp-stream-handler
 payload         | {{< code shell >}}
 {
   "metadata": {
@@ -199,11 +199,11 @@ The `/tcpstreamhandlers/:tcpstreamhandler` API endpoint provides HTTP GET access
 
 ### Example
 
-In the following example, querying the `/tcpstreamhandlers/:tcpstreamhandler` API endpoint returns a JSON map that contains the requested [`:tcpstreamhandler` definition][1] (in this example, for the `:tcpstreamhandler` named ` `).
+In the following example, querying the `/tcpstreamhandlers/:tcpstreamhandler` API endpoint returns a JSON map that contains the requested [`:tcpstreamhandler` definition][1] (in this example, for the `:tcpstreamhandler` named `???`).
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/tcpstreamhandlers/??? \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/tcp-stream-handler/??? \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
@@ -235,7 +235,7 @@ HTTP/1.1 200 OK
 /tcpstreamhandlers/:tcpstreamhandler (GET) | 
 ---------------------|------
 description          | Returns a TCP stream handler.
-example url          | http://hostname:8080/api/core/v2/namespaces/default/tcpstreamhandlers/???
+example url          | http://hostname:8080/api/enterprise/pipeline/v1/tcp-stream-handler/???
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
@@ -268,7 +268,7 @@ The `/tcpstreamhandlers/:tcpstreamhandler` API endpoint provides HTTP PUT access
 
 ### Example
 
-In the following example, an HTTP PUT request is submitted to the `/tcpstreamhandlers/:tcpstreamhandler` API endpoint to create the handler ` `.
+In the following example, an HTTP PUT request is submitted to the `/tcpstreamhandlers/:tcpstreamhandler` API endpoint to create the handler `???`.
 The request returns a successful HTTP `201 Created` response.
 
 {{< code shell >}}
@@ -294,7 +294,7 @@ curl -X PUT \
   "timeout": 0,
   "type": "pipe"
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/tcpstreamhandlers/???
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/tcp-stream-handler/???
 
 HTTP/1.1 201 Created
 {{< /code >}}
@@ -304,7 +304,7 @@ HTTP/1.1 201 Created
 /tcpstreamhandlers/:tcpstreamhandler (PUT) | 
 ----------------|------
 description     | Creates or updates the specified Sensu TCP stream handler.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/tcpstreamhandlers/???
+example URL     | http://hostname:8080/api/enterprise/pipeline/v1/tcp-stream-handler/???
 payload         | {{< code shell >}}
 {
   "metadata": {
@@ -340,7 +340,7 @@ Also, you cannot add elements to an array with a PATCH request &mdash; you must 
 
 ### Example
 
-In the following example, an HTTP PATCH request is submitted to the `/tcpstreamhandlers/:tcpstreamhandler` API endpoint to update the filters array for the ` ` handler, resulting in an HTTP `200 OK` response and the updated handler definition.
+In the following example, an HTTP PATCH request is submitted to the `/tcpstreamhandlers/:tcpstreamhandler` API endpoint to update the filters array for the `???` handler, resulting in an HTTP `200 OK` response and the updated handler definition.
 
 We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
 
@@ -354,7 +354,7 @@ curl -X PATCH \
     "is_incident"
   ]
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/tcpstreamhandlers/???
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/tcp-stream-handler/???
 
 HTTP/1.1 200 OK
 {{< /code >}}
@@ -364,7 +364,7 @@ HTTP/1.1 200 OK
 /tcpstreamhandlers/:tcpstreamhandler (PATCH) | 
 ----------------|------
 description     | Updates the specified Sensu TCP stream handler.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/tcpstreamhandlers/???
+example URL     | http://hostname:8080/api/enterprise/pipeline/v1/tcp-stream-handler/???
 payload         | {{< code shell >}}
 {
   "filters": [
@@ -381,11 +381,11 @@ The `/tcpstreamhandlers/:tcpstreamhandler` API endpoint provides HTTP DELETE acc
 
 ### Example
 
-The following example shows a request to the `/tcpstreamhandlers/:tcpstreamhandler` API endpoint to delete the TCP stream handler ` `, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/tcpstreamhandlers/:tcpstreamhandler` API endpoint to delete the TCP stream handler `???`, resulting in a successful HTTP `204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/tcpstreamhandlers/??? \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/tcp-stream-handler/??? \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 204 No Content
@@ -396,7 +396,7 @@ HTTP/1.1 204 No Content
 /tcpstreamhandlers/:tcpstreamhandler (DELETE) | 
 --------------------------|------
 description               | Removes the specified TCP stream handler from Sensu.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/tcpstreamhandlers/???
+example url               | http://hostname:8080/api/enterprise/pipeline/v1/tcp-stream-handler/???
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
