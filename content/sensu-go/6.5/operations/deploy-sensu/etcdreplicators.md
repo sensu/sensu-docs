@@ -398,7 +398,7 @@ created_by: admin
 
 ca_cert      |      |
 -------------|------
-description  | Path to an the PEM-format CA certificate to use for TLS client authentication.
+description  | Path to the PEM-format CA certificate to use for TLS client authentication.
 required     | true if `insecure: false` (the default configuration). If `insecure: true`, `ca_cert` is not required.
 type         | String
 example      | {{< language-toggle >}}
