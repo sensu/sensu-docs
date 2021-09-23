@@ -565,6 +565,7 @@ mutator:
 {{< /language-toggle >}}
 
 <a id="handlers-pipeline"></a>
+
 handler      | 
 -------------|------
 description  | Reference for the Sensu handler to use for event processing in the workflow. Each pipeline workflow must reference one handler. Read [handler attributes][12] for details.
