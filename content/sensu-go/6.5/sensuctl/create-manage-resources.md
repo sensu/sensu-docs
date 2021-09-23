@@ -158,7 +158,8 @@ The following table describes the command-specific flags.
 `namespace` | `Role` | `role` | `RoleBinding`
 `role_binding` | [`Secret`][28] | `Silenced` | `silenced`
 [`User`][8] | `user` | [`VaultProvider`][24] | [`ldap`][26] | [`ad`][25]
-[`oidc`][37] | [`TessenConfig`][27] | [`PostgresConfig`][32]
+[`oidc`][37] | [`SumoLogicMetricsHandler`][9] | [`TCPStreamHandler`][39] | [`TessenConfig`][27]
+[`PostgresConfig`][32]
 
 ### Create resources across namespaces
 
@@ -650,6 +651,7 @@ Sensuctl supports the following formats:
 [6]: ../../reference/
 [7]: ../../operations/deploy-sensu/cluster-sensu/
 [8]: ../../operations/control-access/rbac/#user-specification
+[9]: ../../observability-pipeline/observe-process/sumo-logic-metrics-handlers/
 [10]: #supported-resource-types
 [11]: ../../web-ui/webconfig-reference/
 [12]: ../../plugins/assets/
@@ -679,3 +681,4 @@ Sensuctl supports the following formats:
 [36]: #sensuctl-create-flags
 [37]: ../../operations/control-access/oidc-auth/
 [38]: ../../operations/control-access/rbac/#namespaced-resource-types
+[39]: ../../observability-pipeline/observe-process/tcp-stream-handlers/

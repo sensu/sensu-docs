@@ -4,7 +4,7 @@ linkTitle: "TCP Stream Handlers Reference"
 reference_title: "TCP stream handlers"
 type: "reference"
 description: "TCP stream handlers are actions the Sensu backend executes on events, allowing you to create automated monitoring workflows. Read the reference doc to learn about TCP stream handlers."
-weight: 10
+weight: 17
 version: "6.5"
 product: "Sensu Go"
 platformContent: false
@@ -76,6 +76,73 @@ spec:
     "min_connections": 5,
     "min_reconnect_delay": "10ms",
     "max_reconnect_delay": "10s"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Use TCP stream handlers
+
+TCP stream handlers are commercial resources and are available for use **only** in [pipelines][2].
+
+{{% notice note %}}
+**NOTE**: TCP stream handlers **are not** used by listing the handler name in the check [handlers attribute](../../observe-schedule/checks/#handlers-array).
+{{% /notice %}}
+
+To use a TCP stream handler, list it as the [handler][11] in a [pipeline][2] definition.
+For example, this pipeline definition uses the [logstash example][12] along with the built-in [is_incident][13] event filter:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Pipeline
+api_version: core/v2
+metadata:
+  name: tcp_logging_workflows
+  namespace: default
+  created_by: admin
+spec:
+  workflows:
+  - name: log_all_incidents
+    filters:
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    handler:
+      name: logstash
+      type: TCPStreamHandler
+      api_version: ???/v1
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Pipeline",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "tcp_logging_workflows",
+    "namespace": "default",
+    "created_by": "admin"
+  },
+  "spec": {
+    "workflows": [
+      {
+        "name": "log_all_incidents",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "handler": {
+          "name": "logstash",
+          "type": "TCPStreamHandler",
+          "api_version": "???/v1"
+        }
+      }
+    ]
   }
 }
 {{< /code >}}
@@ -362,6 +429,8 @@ min_reconnect_delay: 10ms
 [5]: #spec-attributes
 [8]: #metadata-attributes
 [9]: ../../../operations/control-access/namespaces/
+[12]: #tcp-stream-handler-example
+[13]: ../../observe-filter/filters/#built-in-filter-is_incident
 [18]: https://regex101.com/r/zo9mQU/2
 [22]: ../
 [24]: ../../observe-filter/filters/

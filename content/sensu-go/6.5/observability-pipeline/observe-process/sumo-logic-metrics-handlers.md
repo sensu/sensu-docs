@@ -4,7 +4,7 @@ linkTitle: "Sumo Logic Metrics Handlers Reference"
 reference_title: "Sumo Logic metrics handlers"
 type: "reference"
 description: "Sumo Logic metrics handlers are actions the Sensu backend executes on events, allowing you to create automated monitoring workflows. Read the reference doc to learn about Sumo Logic metrics handlers."
-weight: 10
+weight: 16
 version: "6.5"
 product: "Sensu Go"
 platformContent: false
@@ -33,8 +33,6 @@ As each connection finishes transmitting an event, it becomes available again an
 
 Sumo Logic metrics will reuse the available connections as long as they can rather than requiring a new connection for every event, which increases event throughput.
 
-Sumo Logic metrics handlers are commercial resources available for use in [pipeline definitions][2].
-
 ## Sumo Logic metrics handler example
 
 This example shows a Sumo Logic metrics handler resource definition configured to **TODO**:
@@ -46,7 +44,7 @@ This example shows a Sumo Logic metrics handler resource definition configured t
 type: SumoLogicMetricsHandler
 api_version: ???/v1
 metadata:
-  name: sumologicmetrics
+  name: sumologic_http_log_metrics
   namespace: default
 spec:
   url: "https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx"
@@ -64,7 +62,7 @@ spec:
   "type": "SumoLogicMetricsHandler",
   "api_version": "???/v1",
   "metadata": {
-    "name": "sumologicmetrics",
+    "name": "sumologic_http_log_metrics",
     "namespace": "default"
   },
   "spec": {
@@ -79,6 +77,73 @@ spec:
     "min_connections": 5,
     "min_reconnect_delay": "10ms",
     "max_reconnect_delay": "10s"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Use Sumo Logic metrics handlers
+
+Sumo Logic metrics handlers are commercial resources and are available for use **only** in [pipelines][2].
+
+{{% notice note %}}
+**NOTE**: Sumo Logic metrics handlers **are not** used by listing the handler name in the check [handlers attribute](../../observe-schedule/checks/#handlers-array).
+{{% /notice %}}
+
+To use a Sumo Logic metrics handler, list it as the [handler][11] in a [pipeline][2] definition.
+For example, this pipeline definition uses the [sumologic_http_log_metrics example][12] along with the built-in [has_metrics][13] event filter:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Pipeline
+api_version: core/v2
+metadata:
+  name: metrics_workflows
+  namespace: default
+  created_by: admin
+spec:
+  workflows:
+  - name: metrics_to_sumologic
+    filters:
+    - name: has_metrics
+      type: EventFilter
+      api_version: core/v2
+    handler:
+      name: sumologic_http_log_metrics
+      type: SumoLogicMetricsHandler
+      api_version: ???/v1
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Pipeline",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "metrics_workflows",
+    "namespace": "default",
+    "created_by": "admin"
+  },
+  "spec": {
+    "workflows": [
+      {
+        "name": "metrics_to_sumologic",
+        "filters": [
+          {
+            "name": "has_metrics",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "handler": {
+          "name": "sumologic_http_log_metrics",
+          "type": "SumoLogicMetricsHandler",
+          "api_version": "???/v1"
+        }
+      }
+    ]
   }
 }
 {{< /code >}}
@@ -129,14 +194,14 @@ type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 metadata:
-  name: sumologicmetrics
+  name: sumologic_http_log_metrics
   namespace: default
   created_by: admin
 {{< /code >}}
 {{< code json >}}
 {
   "metadata": {
-    "name": "sumologicmetrics",
+    "name": "sumologic_http_log_metrics",
     "namespace": "default",
     "created_by": "admin"
   }
@@ -189,11 +254,11 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: sumologicmetrics
+name: sumologic_http_log_metrics
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "sumologicmetrics"
+  "name": "sumologic_http_log_metrics"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -299,7 +364,7 @@ max_reconnect_delay: 10s
 {{< /code >}}
 {{< code json >}}
 {
-  "max_reconnect_delay": 10s
+  "max_reconnect_delay": "10s"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -381,6 +446,9 @@ secret: sumologic_metrics_us2
 [8]: #metadata-attributes
 [9]: ../../../operations/control-access/namespaces/
 [10]: ../../../operations/manage-secrets/secrets/
+[11]: ../pipelines/handlers-pipeline
+[12]: #sumo-logic-metrics-handler-example
+[13]: ../../observe-filter/filters/#built-in-filter-has_metrics
 [18]: https://regex101.com/r/zo9mQU/2
 [22]: ../
 [24]: ../../observe-filter/filters/
