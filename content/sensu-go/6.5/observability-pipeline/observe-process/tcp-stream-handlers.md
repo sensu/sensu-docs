@@ -3,7 +3,7 @@ title: "TCP stream handlers reference"
 linkTitle: "TCP Stream Handlers Reference"
 reference_title: "TCP stream handlers"
 type: "reference"
-description: "TCP stream handlers are actions the Sensu backend executes on events, allowing you to created automated monitoring workflows. Read the reference doc to learn about handlers."
+description: "TCP stream handlers are actions the Sensu backend executes on events, allowing you to create automated monitoring workflows. Read the reference doc to learn about TCP stream handlers."
 weight: 10
 version: "6.5"
 product: "Sensu Go"
@@ -33,7 +33,7 @@ As each connection finishes transmitting an event, it becomes available again an
 TCP stream handlers will reuse the available connections as long as they can rather than requiring a new connection for every event, which increases event throughput.
 In addition to providing a persistent TCP connection to transmit Sensu observation events to a remote data storage service, TCP stream handlers allow you to use transport layer security (TLS) for secure data transmission.
 
-TCP stream handlers are commercial resources available to the [pipeline/v1 API][] **TODO**.
+TCP stream handlers are commercial resources available for use in [pipeline definitions][2].
 
 ## TCP stream handler example
 
@@ -243,8 +243,6 @@ address: 127.0.0.1:4242
 {{< /code >}}
 {{< /language-toggle >}}
 
-Path to the client server TLS trusted CA certificate file. Secures communication with the etcd client server.
-
 tls_ca_cert_file | 
 -------------|------
 description  | Path to the PEM-format CA certificate to use for TLS client authentication.
@@ -297,7 +295,7 @@ max_connections |
 -------------|------
 description  | Maximum number of connections to keep alive in the connection pool. If set to `0`, connection pooling is disabled.
 required     | true 
-type         | String
+type         | Integer
 example      | {{< language-toggle >}}
 {{< code yml >}}
 max_connections: 10
@@ -320,7 +318,7 @@ max_reconnect_delay: 10s
 {{< /code >}}
 {{< code json >}}
 {
-  "max_reconnect_delay": 10s
+  "max_reconnect_delay": "10s"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -329,7 +327,7 @@ min_connections |
 -------------|------
 description  | Minimum number of connections to keep alive in the connection pool.
 required     | true 
-type         | String
+type         | Integer
 example      | {{< language-toggle >}}
 {{< code yml >}}
 min_connections: 3
@@ -352,13 +350,14 @@ min_reconnect_delay: 10ms
 {{< /code >}}
 {{< code json >}}
 {
-  "min_reconnect_delay": 10ms
+  "min_reconnect_delay": "10ms"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
 
 [1]: ../handlers/#tcpudp-handlers
+[2]: ../pipelines/
 [4]: ../../../sensuctl/create-manage-resources/#create-resources
 [5]: #spec-attributes
 [8]: #metadata-attributes
