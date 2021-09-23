@@ -726,7 +726,7 @@ port: 4242
 
 name         | 
 -------------|------
-description  | Name of the [secret][20] defined in the executable command. Becomes the environment variable presented to the check. Read [Use secrets management in Sensu][26] for more information.
+description  | Name of the [secret][20] defined in the executable command. Becomes the environment variable presented to the handler. Read [Use secrets management in Sensu][26] for more information.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
