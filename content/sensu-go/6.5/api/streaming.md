@@ -1,8 +1,8 @@
 ---
-title: "TCP stream handlers API"
-linkTitle: "TCP Stream Handlers API"
-description: "The Sensu TCP stream handlers API provides HTTP access to TCP stream handler data. This reference includes examples for returning lists of TCP stream handlers, creating a TCP stream handler, and more. Read on for the full reference."
-api_title: "TCP stream handlers API"
+title: "Streaing API"
+linkTitle: "Streaming API"
+description: "The Sensu streaming API provides HTTP access to data for Sensu's streaming handlers. This reference includes examples for returning lists of streaming handlers, creating a streaming handler, and more. Read on for the full reference."
+api_title: "Streaming API"
 type: "api"
 version: "6.5"
 product: "Sensu Go"
@@ -12,16 +12,16 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access TCP stream handlers in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access streaming resources in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to the TCP stream handlers API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to the streaming API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
-## Get all TCP stream handlers
+## Get all streaming resources
 
 The `/tcpstreamhandlers` API endpoint provides HTTP GET access to [TCP stream handler][1] data.
 
