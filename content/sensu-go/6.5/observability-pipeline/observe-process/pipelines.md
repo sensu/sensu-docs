@@ -564,7 +564,7 @@ mutator:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a id="handlers-pipeline"></a>
+<a id="handler-pipeline"></a>
 
 handler      | 
 -------------|------
