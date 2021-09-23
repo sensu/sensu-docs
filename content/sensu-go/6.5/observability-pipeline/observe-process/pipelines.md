@@ -4,7 +4,7 @@ linkTitle: "Pipelines Reference"
 reference_title: "Pipelines"
 type: "reference"
 description: "Pipelines are observation event processing workflows made up of filters, mutators, and handlers. Read the reference doc to learn about pipelines."
-weight: 10
+weight: 15
 version: "6.5"
 product: "Sensu Go"
 platformContent: false
@@ -714,9 +714,10 @@ name: email
 
 type         | 
 -------------|------
-description  | The [`sensuctl create`][4] resource type for the handler. For [pipe handlers][15], [TCP/UDP handlers][16], and [handler sets][1], the type should always be `Handler`. For [TCP stream handlers][17], the type should always be `TCPStreamHandler`.
+description  | The [`sensuctl create`][4] resource type for the handler.
 required     | true
 type         | String
+allowed values | `Handler` for a [pipe handler][15], [TCP or UDP handler][16], or [handler set][1]<br><br>`TCPStreamHandler` for a [TCP stream handler][20]<br><br>`SumoLogicMetricsHandler` for a [Sumo Logic metrics handler][21]
 default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
@@ -731,9 +732,10 @@ type: Handler
 
 api_version  | 
 -------------|------
-description  | The Sensu API group and version for the handler. For [pipe handlers][15], [TCP/UDP handlers][16], and [handler sets][1], the api_version should always be `core/v2`. For [TCP stream handlers][17], the type should always be `pipeline/v1`.
+description  | The Sensu API group and version for the handler.
 required     | true
 type         | String
+allowed values | `core/v2` for a [pipe handler][15], [TCP or UDP handler][16], or [handler set][1]<br><br>`streaming/v1` for a [TCP stream handler][20] or [Sumo Logic metrics handler][21]
 default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
@@ -766,6 +768,8 @@ api_version: core/v2
 [17]: ../tcp-stream-handlers
 [18]: https://regex101.com/r/zo9mQU/2
 [19]: ../../observe-schedule/checks/#pipelines-attribute
+[20]: ../tcp-stream-handlers/
+[21]: ../sumo-logic-metrics-handlers/
 [22]: ../
 [24]: ../../observe-filter/filters/
 [25]: ../../../web-ui/search#search-for-labels
