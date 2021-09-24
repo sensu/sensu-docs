@@ -7,7 +7,7 @@ version: "6.5"
 product: "Sensu Go"
 menu:
   sensu-go-6.5:
-    parenta: corev2
+    parent: corev2
 ---
 
 {{% notice note %}}
