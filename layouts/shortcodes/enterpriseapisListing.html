@@ -1,0 +1,10 @@
+<ul class="grid-list">
+  {{ range (.Site.Pages.ByParam "enterpriseapi_title") }}
+    <!-- Only include pages from the specified version -->
+    <!-- Only include pages with specified frontmatter type "reference" -->
+    {{ if and (eq .Type "enterprise_api") (.IsDescendant $.Page.CurrentSection.Parent) }}
+      <li><a href="{{ .Permalink }}">{{ .Params.enterpriseapi_title }}</a></li>
+    {{ end }}
+  {{ end }}
+</ul>
+

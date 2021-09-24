@@ -19,12 +19,33 @@ The cluster protocol will replicate your changes to all cluster members.
 
 For information about the Sensu agent API, see the [agent reference][4].
 
-## Available APIs
+## Available APIs and endpoints
 
-Access all of the data and functionality of Sensu's first-class API clients, [sensuctl][25] and the [web UI][26], with Sensu's backend REST APIs.
-Use the Sensu APIs to customize your workflows and integrate your favorite Sensu features with other tools and products.
+Access all of the data and functionality of Sensu's first-class API clients, [sensuctl][25] and the [web UI][26], with Sensu's backend REST APIs and endpoints.
+Use the Sensu APIs and endpoints to customize your workflows and integrate your favorite Sensu features with other tools and products.
 
-{{< apitypeListing >}}
+### core/v2 API endpoints
+
+The core/v2 API includes endpoints for the following Sensu resources:
+
+{{< corev2apitypeListing >}}
+
+### Enterprise APIs
+
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access Sensu's enterprise APIs in the packaged Sensu Go distribution.
+For more information, read [Get started with commercial features](../../commercial/).
+{{% /notice %}}
+
+The enterprise APIs include:
+
+{{< enterpriseapisListing >}}
+
+### Other endpoints
+
+Sensu offers additional endpoints for basic authentication, health, metrics, and version:
+
+{{< otherendpointsListing >}}
 
 ## URL format
 
@@ -39,7 +60,7 @@ If the authenticated user has the correct cluster-wide permissions, you can leav
 See the [RBAC reference][3] for more information about configuring Sensu users and access controls.
 
 {{% notice note %}}
-**NOTE**: The [authentication API](auth/), [authentication providers API](authproviders/), and [health API](health/) do not follow this standard URL format.
+**NOTE**: The [endpoint-only](#other-endpoints) API URLs do not follow this standard URL format.
 {{% /notice %}}
 
 ## Data format

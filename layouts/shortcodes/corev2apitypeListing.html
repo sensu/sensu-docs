@@ -1,0 +1,10 @@
+<ul class="grid-list">
+  {{ range (.Site.Pages.ByParam "corev2api_title") }}
+    <!-- Only include pages from the specified version -->
+    <!-- Only include pages with specified frontmatter type "reference" -->
+    {{ if and (eq .Type "corev2_api") (.IsDescendant $.Page.CurrentSection.Parent) }}
+      <li><a href="{{ .Permalink }}">{{ .Params.corev2api_title }}</a></li>
+    {{ end }}
+  {{ end }}
+</ul>
+

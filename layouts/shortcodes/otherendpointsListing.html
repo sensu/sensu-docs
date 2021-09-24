@@ -1,0 +1,10 @@
+<ul class="grid-list">
+  {{ range (.Site.Pages.ByParam "otherendpoints_title") }}
+    <!-- Only include pages from the specified version -->
+    <!-- Only include pages with specified frontmatter type "reference" -->
+    {{ if and (eq .Type "other_endpoints") (.IsDescendant $.Page.CurrentSection.Parent) }}
+      <li><a href="{{ .Permalink }}">{{ .Params.otherendpoints_title }}</a></li>
+    {{ end }}
+  {{ end }}
+</ul>
+
