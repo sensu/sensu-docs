@@ -107,12 +107,14 @@ The workflow attribute is an array of event processing workflows that Sensu will
 
 Workflows do not have to include a filter or mutator, but they must specify at least one handler.
 
+Workflows can include more than one event filter.
+If a workflow has more than one filter, Sensu applies the filters in a series, starting with the filter that is listed first.
+
 ### Multiple workflows
 
 Pipelines can include more than one workflow.
 
-In this example, the pipeline includes `labeled_email_alerts` and `labeled_slack_alerts` workflows.
-All events from checks that specify this pipeline will be processed with both workflows:
+In this example, the pipeline includes `labeled_email_alerts` and `labeled_slack_alerts` workflows:
 
 {{< language-toggle >}}
 
@@ -218,6 +220,8 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+All events from checks that specify this pipeline will be processed with both workflows, in series, starting with the workflow that is listed first in the resource definition.
 
 ## Pipeline specification
 
@@ -508,7 +512,7 @@ workflows:
 
 filters      | 
 -------------|------
-description  | Reference for the Sensu event filters to use when filtering events for the pipeline. Each pipeline workflow can reference more than one event filter. Read [filters attributes][7] for details.
+description  | Reference for the Sensu event filters to use when filtering events for the pipeline. Each pipeline workflow can reference more than one event filter. If a workflow has more than one filter, Sensu applies the filters in a series, starting with the filter that is listed first. Read [filters attributes][7] for details.
 required     | false
 type         | Map of key-value pairs
 default      | `null`

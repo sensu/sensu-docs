@@ -1,7 +1,7 @@
 ---
-title: "Pipelines API"
+title: "Pipelines (resource) API"
 description: "The Sensu pipelines API provides HTTP access to pipeline data. This reference includes examples for returning lists of pipelines, creating a Sensu pipeline, and more. Read on for the full reference."
-api_title: "Pipelines API"
+api_title: "Pipelines (resource) API"
 type: "api"
 version: "6.5"
 product: "Sensu Go"
