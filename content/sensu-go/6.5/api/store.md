@@ -1,8 +1,8 @@
 ---
-title: "Datastore API"
-description: "The datastore API endpoint provides HTTP access to Sensu datastore providers. This reference includes examples for returning the provider definitions, creating a provider, and more."
-api_title: "Datastore API"
-type: "api"
+title: "enterprise/store/v1/provider"
+description: "The store API endpoint provides HTTP access to Sensu store providers. This reference includes examples for returning the provider definitions, creating a provider, and more."
+enterpriseapi_title: "enterprise/store/v1/provider"
+type: "enterprise_api"
 version: "6.5"
 product: "Sensu Go"
 menu:
@@ -11,17 +11,17 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to the datastore API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to the store API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
-## Get all datastore providers {#provider-get}
+## Get all store providers {#provider-get}
 
-The `/provider` API endpoint provides HTTP GET access to [Sensu datastore][1] data.
+The `/provider` API endpoint provides HTTP GET access to [Sensu store][1] data.
 
 ### Example {#provider-get-example}
 
-The following example demonstrates a request to the `/provider` API endpoint, resulting in a JSON map that contains a list of Sensu datastore providers.
+The following example demonstrates a request to the `/provider` API endpoint, resulting in a JSON map that contains a list of Sensu store providers.
 
 {{< code shell >}}
 curl -X GET \
@@ -72,7 +72,7 @@ HTTP/1.1 200 OK
 
 /provider (GET)  | 
 ---------------|------
-description    | Returns the list of datastore providers.
+description    | Returns the list of store providers.
 example url    | http://hostname:8080/api/enterprise/store/v1/provider
 response type  | Map
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -116,9 +116,9 @@ output         | {{< code json >}}
 ]
 {{< /code >}}
 
-## Get a specific datastore provider {#providerprovider-get}
+## Get a specific store provider {#providerprovider-get}
 
-The `/provider/:provider` API endpoint provides HTTP PUT access to retrieve a Sensu datastore provider.
+The `/provider/:provider` API endpoint provides HTTP PUT access to retrieve a Sensu store provider.
 
 ### Example {#providerprovider-get-example}
 
@@ -153,7 +153,7 @@ HTTP/1.1 200 OK
 
 /provider/:provider (GET) | 
 ----------------|------
-description     | Returns the specified datastore provider.
+description     | Returns the specified store provider.
 example url     | http://hostname:8080/api/enterprise/store/v1/provider/my-postgres
 url parameters  | Required: `my-postgres` (name of provider to retrieve).
 response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -179,9 +179,9 @@ output         | {{< code json >}}
 }
 {{< /code >}}
 
-## Create or update a datastore provider {#providerprovider-put}
+## Create or update a store provider {#providerprovider-put}
 
-The `/provider/:provider` API endpoint provides HTTP PUT access to create or update a Sensu datastore provider.
+The `/provider/:provider` API endpoint provides HTTP PUT access to create or update a Sensu store provider.
 
 ### Example {#providerprovider-put-example}
 
@@ -216,7 +216,7 @@ HTTP/1.1 200 OK
 
 /provider/:provider (PUT) | 
 ----------------|------
-description     | Creates a datastore provider.
+description     | Creates a store provider.
 example url     | http://hostname:8080/api/enterprise/store/v1/provider/my-postgres
 url parameters  | Required: `my-postgres` (name to use for provider).
 payload         | {{< code shell >}}
@@ -241,13 +241,13 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## Delete a datastore provider {#providerprovider-delete}
+## Delete a store provider {#providerprovider-delete}
 
-The `/provider/:provider` API endpoint provides HTTP DELETE access to remove a Sensu datastore provider.
+The `/provider/:provider` API endpoint provides HTTP DELETE access to remove a Sensu store provider.
 
 ### Example {#providerprovider-delete-example}
 
-The following example shows a request to the `/provider/:provider` API endpoint to remove the Sensu datastore provider with the ID `my-postgres`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/provider/:provider` API endpoint to remove the Sensu store provider with the ID `my-postgres`, resulting in a successful HTTP `204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
@@ -261,9 +261,9 @@ HTTP/1.1 204 No Content
 
 /provider/:provider (DELETE) | 
 --------------------------|------
-description               | Removes the specified datastore provider.
+description               | Removes the specified store provider.
 example url               | http://hostname:8080/api/enterprise/store/v1/provider/my-postgres
 url parameters            | Required: `my-postgres` (name of provider to delete).
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../operations/deploy-sensu/datastore/
+[1]: ../../operations/deploy-sensu/store/

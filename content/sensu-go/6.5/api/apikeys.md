@@ -1,8 +1,8 @@
 ---
-title: "APIKeys API"
+title: "core/v2/apikeys"
 description: "The Sensu APIkeys API provides HTTP access to API key data. This reference includes examples for returning lists of API keys, creating API keys, and more."
-api_title: "APIKeys API"
-type: "api"
+corev2api_title: "core/v2/apikeys"
+type: "corev2_api"
 version: "6.5"
 product: "Sensu Go"
 menu:

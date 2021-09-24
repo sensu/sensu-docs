@@ -1,8 +1,8 @@
 ---
-title: "Checks API"
+title: "core/v2/checks"
 description: "The Sensu checks API provides HTTP access to check data. This reference includes examples for returning the list of checks, creating a Sensu check, and more. Read on for the full reference."
-api_title: "Checks API"
-type: "api"
+corev2api_title: "core/v2/checks"
+type: "corev2_api"
 version: "6.5"
 product: "Sensu Go"
 menu:
@@ -11,7 +11,7 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to the checks API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to the core/v2 API checks endpoint require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

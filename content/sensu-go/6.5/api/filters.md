@@ -1,8 +1,8 @@
 ---
-title: "Filters API"
+title: "core/v2/filters"
 description: "The Sensu filters API provides HTTP access to event filter data. This reference includes examples for returning lists of filters, creating Sensu filters, and more. Read on for the full reference."
-api_title: "Filters API"
-type: "api"
+corev2api_title: "core/v2/filters"
+type: "corev2_api"
 version: "6.5"
 product: "Sensu Go"
 menu:
@@ -11,7 +11,7 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to the filters API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to the core/v2 API filters endpoint require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

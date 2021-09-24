@@ -1,10 +1,11 @@
 ---
-title: "Version API"
+title: "/version"
 description: "The Sensu version API provides HTTP access to the Sensu and etcd versions. This reference includes examples for returning version information about your Sensu instance. Read on for the full reference."
-api_title: "Version API"
-type: "api"
+otherendpoints_title: "/version"
+type: "other_endpoints"
 version: "6.5"
 product: "Sensu Go"
+weight: 70
 menu:
   sensu-go-6.5:
     parent: api

@@ -1,8 +1,8 @@
 ---
-title: "core/v2/handlers"
-description: "The Sensu handlers API provides HTTP access to handler data. This reference includes examples for returning lists of handlers, creating a Sensu handler, and more. Read on for the full reference."
-corev2api_title: "core/v2/handlers"
-type: "corev2_api"
+title: "enterprise/pipeline/v1/sumo-logic-metrics-handlers"
+description: "The Sensu pipeline API provides HTTP access to data for Sensu's streaming handlers. This reference includes examples for returning lists of streaming handlers, creating a streaming handler, and more. Read on for the full reference."
+enterpriseapi_title: "enterprise/pipeline/v1/sumo-logic-metrics-handlers"
+type: "enterprise_api"
 version: "6.5"
 product: "Sensu Go"
 menu:
@@ -10,22 +10,33 @@ menu:
     parent: api
 ---
 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access the pipeline API in the packaged Sensu Go distribution.
+For more information, read [Get started with commercial features](../../commercial/).
+{{% /notice %}}
+
 {{% notice note %}}
-**NOTE**: Requests to the core/v2 API handlers endpoint require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to the pipeline API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
-## Get all handlers
+{{% notice warning %}}
+**WARNING**: Pipeline API resources are available for use **only** in [pipelines](../../observability-pipeline/observe-process/pipelines/).
+Sumo Logic metrics handlers and TCP stream handlers **are not** used by listing the handler name in the check [handlers attribute](../../observe-schedule/checks/#handlers-array).
+To use a Pipeline API resource, list it as the [handler](../../observability-pipeline/observe-process/pipelines/#handlers-pipeline) in a [pipeline](../../observability-pipeline/observe-process/pipelines/) definition.
+{{% /notice %}}
 
-The `/handlers` API endpoint provides HTTP GET access to [handler][1] data.
+## Get all Sumo Logic metrics handler resources
+
+The `/sumo-logic-metrics-handlers` API endpoint provides HTTP GET access to [Sumo Logic metrics handler][1] data.
 
 ### Example {#handlers-get-example}
 
-The following example demonstrates a request to the `/handlers` API endpoint, resulting in a JSON array that contains [handler definitions][1].
+The following example demonstrates a request to the `/sumo-logic-metrics-handlers` API endpoint, resulting in a JSON array that contains [Sumo Logic metrics handler definitions][5].
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handler \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
@@ -72,10 +83,10 @@ HTTP/1.1 200 OK
 
 ### API Specification {#handlers-get-specification}
 
-/handlers (GET)  | 
+/sumo-logic-metrics-handlers (GET)  | 
 ---------------|------
-description    | Returns the list of handlers.
-example url    | http://hostname:8080/api/core/v2/namespaces/default/handlers
+description    | Returns the list of Sumo Logic metrics handlers.
+example url    | http://hostname:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers
 pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
@@ -121,13 +132,13 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-## Create a new handler
+## Create a new Sumo Logic metrics handler
 
-The `/handlers` API endpoint provides HTTP POST access to create a handler.
+The `/sumo-logic-metrics-handlers` API endpoint provides HTTP POST access to create a Sumo Logic metrics handler.
 
 ### Example {#handlers-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/handlers` API endpoint to create the event handler `influx-db`.
+In the following example, an HTTP POST request is submitted to the `/sumo-logic-metrics-handlers` API endpoint to create the Sumo Logic metrics handler `???`.
 The request returns a successful HTTP `201 Created` response.
 
 {{< code shell >}}
@@ -153,17 +164,17 @@ curl -X POST \
   "timeout": 0,
   "type": "pipe"
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers
 
 HTTP/1.1 201 Created
 {{< /code >}}
 
 ### API Specification {#handlers-post-specification}
 
-/handlers (POST) | 
+/sumo-logic-metrics-handlers (POST) | 
 ----------------|------
-description     | Creates a Sensu handler.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/handlers
+description     | Creates a Sensu Sumo Logic metrics handler.
+example URL     | http://hostname:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers
 payload         | {{< code shell >}}
 {
   "metadata": {
@@ -187,17 +198,17 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## Get a specific handler {#handlershandler-get}
+## Get a specific Sumo Logic metrics handler
 
-The `/handlers/:handler` API endpoint provides HTTP GET access to [handler data][1] for specific `:handler` definitions, by handler name.
+The `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint provides HTTP GET access to [Sumo Logic metrics handler data][5] for specific `:sumo-logic-metrics-handler` definitions, by handler `name`.
 
-### Example {#handlershandler-get-example}
+### Example
 
-In the following example, querying the `/handlers/:handler` API endpoint returns a JSON map that contains the requested [`:handler` definition][1] (in this example, for the `:handler` named `slack`).
+In the following example, querying the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint returns a JSON map that contains the requested [`:sumo-logic-metrics-handler` definition][1] (in this example, for the `:sumo-logic-metrics-handler` named `???`).
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/??? \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
@@ -224,12 +235,12 @@ HTTP/1.1 200 OK
 }
 {{< /code >}}
 
-### API Specification {#handlershandler-get-specification}
+### API Specification
 
-/handlers/:handler (GET) | 
+/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler (GET) | 
 ---------------------|------
-description          | Returns a handler.
-example url          | http://hostname:8080/api/core/v2/namespaces/default/handlers/slack
+description          | Returns a Sumo Logic metrics handler.
+example url          | http://hostname:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/???
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
@@ -256,13 +267,13 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 
-## Create or update a handler {#handlershandler-put}
+## Create or update a Sumo Logic metrics handler
 
-The `/handlers/:handler` API endpoint provides HTTP PUT access to create or update a specific `:handler` definition, by handler name.
+The `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint provides HTTP PUT access to create or update a specific `:sumo-logic-metrics-handler` definition, by handler name.
 
-### Example {#handlershandler-put-example}
+### Example
 
-In the following example, an HTTP PUT request is submitted to the `/handlers/:handler` API endpoint to create the handler `influx-db`.
+In the following example, an HTTP PUT request is submitted to the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint to create the handler `???`.
 The request returns a successful HTTP `201 Created` response.
 
 {{< code shell >}}
@@ -288,17 +299,17 @@ curl -X PUT \
   "timeout": 0,
   "type": "pipe"
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/influx-db
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/???
 
 HTTP/1.1 201 Created
 {{< /code >}}
 
-### API Specification {#handlershandler-put-specification}
+### API Specification
 
-/handlers/:handler (PUT) | 
+/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler (PUT) | 
 ----------------|------
-description     | Creates or updates the specified Sensu handler.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/handlers/influx-db
+description     | Creates or updates the specified Sensu Sumo Logic metrics handler.
+example URL     | http://hostname:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/???
 payload         | {{< code shell >}}
 {
   "metadata": {
@@ -322,19 +333,19 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## Update a handler with PATCH
+## Update a Sumo Logic metrics handler with PATCH
 
-The `/handlers/:handler` API endpoint provides HTTP PATCH access to update `:handler` definitions, specified by handler name.
+The `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint provides HTTP PATCH access to update `:sumo-logic-metrics-handler` definitions, specified by handler name.
 
 {{% notice note %}}
 **NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
-Use a [PUT request](#handlershandler-put) instead.<br><br>
+Use a [PUT request](#sumo-logic-metrics-handlers-sumo-logic-metrics-handler-put) instead.<br><br>
 Also, you cannot add elements to an array with a PATCH request &mdash; you must replace the entire array.
 {{% /notice %}}
 
 ### Example
 
-In the following example, an HTTP PATCH request is submitted to the `/handlers/:handler` API endpoint to update the filters array for the `influx-db` handler, resulting in an HTTP `200 OK` response and the updated handler definition.
+In the following example, an HTTP PATCH request is submitted to the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint to update the filters array for the `???` handler, resulting in an HTTP `200 OK` response and the updated handler definition.
 
 We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
 
@@ -348,17 +359,17 @@ curl -X PATCH \
     "is_incident"
   ]
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/influx-db
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/???
 
 HTTP/1.1 200 OK
 {{< /code >}}
 
 ### API Specification
 
-/handlers/:handler (PATCH) | 
+/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler (PATCH) | 
 ----------------|------
-description     | Updates the specified Sensu handler.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/handlers/influx-db
+description     | Updates the specified Sensu Sumo Logic metrics handler.
+example URL     | http://hostname:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/???
 payload         | {{< code shell >}}
 {
   "filters": [
@@ -369,31 +380,33 @@ payload         | {{< code shell >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## Delete a handler {#handlershandler-delete}
+## Delete a Sumo Logic metrics handler
 
-The `/handlers/:handler` API endpoint provides HTTP DELETE access to delete a handler from Sensu (specified by the handler name).
+The `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint provides HTTP DELETE access to delete a Sumo Logic metrics handler from Sensu (specified by the handler name).
 
-### Example {#handlershandler-delete-example}
+### Example
 
-The following example shows a request to the `/handlers/:handler` API endpoint to delete the handler `slack`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint to delete the Sumo Logic metrics handler `???`, resulting in a successful HTTP `204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/??? \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 204 No Content
 {{< /code >}}
 
-### API Specification {#handlershandler-delete-specification}
+### API Specification
 
-/handlers/:handler (DELETE) | 
+/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler (DELETE) | 
 --------------------------|------
-description               | Removes the specified handler from Sensu.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/handlers/slack
+description               | Removes the specified Sumo Logic metrics handler from Sensu.
+example url               | http://hostname:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/???
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../observability-pipeline/observe-process/handlers/
+
+
+[1]: ../../observability-pipeline/observe-process/tcpstreamhandlers/
 [2]: ../#pagination
 [3]: ../#response-filtering
 [4]: https://tools.ietf.org/html/rfc7396

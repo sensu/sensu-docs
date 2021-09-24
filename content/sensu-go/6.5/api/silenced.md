@@ -1,8 +1,8 @@
 ---
-title: "Silencing API"
+title: "core/v2/silenced"
 description: "The Sensu silencing API provides HTTP access to silences. This reference includes examples for creating and removing Sensu silences. Read on for the full reference."
-api_title: "Silencing API"
-type: "api"
+corev2api_title: "core/v2/silenced"
+type: "corev2_api"
 version: "6.5"
 product: "Sensu Go"
 menu:
@@ -11,7 +11,7 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to the silencing API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to the core/v2 API silenced endpoint require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

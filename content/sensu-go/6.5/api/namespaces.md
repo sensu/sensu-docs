@@ -1,8 +1,8 @@
 ---
-title: "Namespaces API"
+title: "core/v2/namespaces"
 description: "The Sensu namespace API provides HTTP access to namespace data. This reference includes examples for returning lists of namespaces, creating Sensu namespaces, and more. Read on for the full reference."
-api_title: "Namespaces API"
-type: "api"
+corev2api_title: "core/v2/namespaces"
+type: "corev2_api"
 version: "6.5"
 product: "Sensu Go"
 menu:
@@ -11,7 +11,7 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to the namespaces API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to the core/v2 API namespaces endpoint require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

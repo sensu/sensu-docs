@@ -1,9 +1,8 @@
 ---
-title: "Cluster role bindings API"
-linktitle: "Cluster Role Bindings API"
+title: "core/v2/clusterrolebindings"
 description: "The Sensu cluster role bindings API provides HTTP access to cluster role binding data. This reference includes examples for returning lists of cluster role bindings, creating Sensu cluster role bindings, and more. Read on for the full reference."
-api_title: "Cluster role bindings API"
-type: "api"
+corev2api_title: "core/v2/clusterrolebindings"
+type: "corev2_api"
 version: "6.5"
 product: "Sensu Go"
 menu:
@@ -12,7 +11,7 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to the cluster role bindings API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to the core/v2 API cluster role bindings endpoint require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

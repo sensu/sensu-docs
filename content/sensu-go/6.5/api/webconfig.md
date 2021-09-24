@@ -1,9 +1,8 @@
 ---
-title: "Web UI configuration API"
-linkTitle: "Web UI Configuration API"
+title: "enterprise/web/v1/config"
 description: "The Sensu web configuration API provides HTTP access to the global web UI configuration. This reference includes examples for returning the global web UI configuration and adding or updating the web UI configuration. Read on for the full reference."
-api_title: "Web UI configuration API"
-type: "api"
+enterpriseapi_title: "enterprise/web/v1/config"
+type: "enterprise_api"
 version: "6.5"
 product: "Sensu Go"
 menu:

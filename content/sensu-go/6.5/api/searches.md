@@ -1,8 +1,8 @@
 ---
-title: "Searches API"
+title: "enterprise/searches/v1/searches"
 description: "The Sensu searches API provides HTTP access to the saved searches feature in the Sensu web UI. This reference includes examples for returning lists of saved searches and creating, updating, and deleting saved searches. Read on for the full API documentation."
-api_title: "Searches API"
-type: "api"
+enterpriseapi_title: "enterprise/searches/v1/searches"
+type: "enterprise_api"
 version: "6.5"
 product: "Sensu Go"
 menu:

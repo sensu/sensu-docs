@@ -1,9 +1,8 @@
 ---
-title: "Authentication providers API"
-linkTitle: "Authentication Providers API"
-description: "The Sensu authentication providers API endpoint provides HTTP access to authentication provider configuration. This reference includes examples of how to return the list of active authentication providers and create or update an authentication provider for single sign-on (SSO)."
-api_title: "Authentication providers API"
-type: "api"
+title: "enterprise/authentication/v2/authproviders"
+description: "The Sensu authentication API provides HTTP access to authentication provider configuration. This reference includes examples of how to return the list of active authentication providers and create or update an authentication provider for single sign-on (SSO)."
+enterpriseapi_title: "enterprise/authentication/v2/authproviders"
+type: "enterprise_api"
 version: "6.5"
 product: "Sensu Go"
 menu:
@@ -12,12 +11,12 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access authentication providers for single sign-on (SSO) in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access authentication for single sign-on (SSO) in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to the authentication providers API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to the authentication API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

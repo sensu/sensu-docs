@@ -1,8 +1,8 @@
 ---
-title: "Assets API"
+title: "core/v2/assets"
 description: "The Sensu assets API provides HTTP access to dynamic runtime asset data. This reference includes examples for returning lists of dynamic runtime assets, creating dynamic runtime assets, and more."
-api_title: "Assets API"
-type: "api"
+corev2api_title: "core/v2/assets"
+type: "corev2_api"
 version: "6.5"
 product: "Sensu Go"
 menu:
@@ -11,7 +11,7 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to the assets API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to the core/v2 API assets endpoint require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

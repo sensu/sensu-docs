@@ -1,8 +1,8 @@
 ---
-title: "Prune API"
+title: "enterprise/prune/v1alpha"
 description: "The Sensu prune API provides HTTP access to create pruning commands to delete resources that do not appear in a given set of Sensu objects from a file, URL, or STDIN. This reference includes an example for creating a prune command for your Sensu instance. Read on for the full reference."
-api_title: "Prune API"
-type: "api"
+enterpriseapi_title: "enterprise/prune/v1alpha"
+type: "enterprise_api"
 version: "6.5"
 product: "Sensu Go"
 menu:

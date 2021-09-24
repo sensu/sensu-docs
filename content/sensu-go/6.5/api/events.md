@@ -1,8 +1,8 @@
 ---
-title: "Events API"
+title: "core/v2/events"
 description: "The Sensu events API provides HTTP access to event data. This reference includes examples for returning lists of events, creating Sensu events, and more. Read on for the full reference."
-api_title: "Events API"
-type: "api"
+corev2api_title: "core/v2/events"
+type: "corev2_api"
 version: "6.5"
 product: "Sensu Go"
 menu:
@@ -11,12 +11,12 @@ menu:
 ---
 
 {{% notice protip %}}
-**PRO TIP**: The events API is primarily designed to provide HTTP access to event data created by agent-executed checks.
+**PRO TIP**: The core/v2 API events endpoint is primarily designed to provide HTTP access to event data created by agent-executed checks.
 To test your Sensu observability pipeline, use the [agent API](../../observability-pipeline/observe-schedule/agent/#create-observability-events-using-the-agent-api) to create new ad hoc events or [sensuctl](../../sensuctl/create-manage-resources/#sensuctl-check) or the [web UI](../../web-ui/view-manage-resources/#manage-configuration-resources) to execute existing checks on demand.
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to the events API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to the core/v2 API events endpoint require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
