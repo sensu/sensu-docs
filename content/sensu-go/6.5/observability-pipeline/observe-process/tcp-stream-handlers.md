@@ -429,6 +429,7 @@ min_reconnect_delay: 10ms
 [5]: #spec-attributes
 [8]: #metadata-attributes
 [9]: ../../../operations/control-access/namespaces/
+[11]: ../pipelines/#handlers-pipeline
 [12]: #tcp-stream-handler-example
 [13]: ../../observe-filter/filters/#built-in-filter-is_incident
 [18]: https://regex101.com/r/zo9mQU/2
