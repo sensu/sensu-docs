@@ -11,6 +11,13 @@ menu:
     parent: api
 ---
 
+{{% notice warning %}}
+**IMPORTANT**: The pipeline API does not create [pipeline resources](../../observability-pipeline/observe-process/pipelines/) (which are composed of observation event processing workflows made up of filters, mutators, and handlers).
+Instead, the pipeline API allows you to create handlers that can **only** be used in pipeline resources.<br><br>
+Sumo Logic metrics handlers and TCP stream handlers **are not** used by listing the handler name in the check [handlers attribute](../../observe-schedule/checks/#handlers-array).
+To use a Pipeline API resource, list it as the [handler](../../observability-pipeline/observe-process/pipelines/#handlers-pipeline) in a [pipeline](../../observability-pipeline/observe-process/pipelines/) definition.
+{{% /notice %}}
+
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the pipeline API in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../commercial/).
@@ -21,15 +28,9 @@ For more information, read [Get started with commercial features](../../commerci
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
-{{% notice warning %}}
-**WARNING**: Pipeline API resources are available for use **only** in [pipelines](../../observability-pipeline/observe-process/pipelines/).
-Sumo Logic metrics handlers and TCP stream handlers **are not** used by listing the handler name in the check [handlers attribute](../../observe-schedule/checks/#handlers-array).
-To use a Pipeline API resource, list it as the [handler](../../observability-pipeline/observe-process/pipelines/#handlers-pipeline) in a [pipeline](../../observability-pipeline/observe-process/pipelines/) definition.
-{{% /notice %}}
-
 ## Get all Sumo Logic metrics handler resources
 
-The `/sumo-logic-metrics-handlers` API endpoint provides HTTP GET access to [Sumo Logic metrics handler][1] data.
+The `/sumo-logic-metrics-handlers` API endpoint provides HTTP GET access to [Sumo Logic metrics handler][5] data.
 
 ### Example {#handlers-get-example}
 
@@ -205,7 +206,7 @@ The `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint prov
 
 ### Example
 
-In the following example, querying the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint returns a JSON map that contains the requested [`:sumo-logic-metrics-handler` definition][1] (in this example, for the `:sumo-logic-metrics-handler` named `???`).
+In the following example, querying the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint returns a JSON map that contains the requested [`:sumo-logic-metrics-handler` definition][5] (in this example, for the `:sumo-logic-metrics-handler` named `???`).
 
 {{< code shell >}}
 curl -X GET \
