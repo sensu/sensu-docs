@@ -12,10 +12,9 @@ menu:
 ---
 
 {{% notice warning %}}
-**IMPORTANT**: The pipeline API does not create [pipeline resources](../../observability-pipeline/observe-process/pipelines/) (which are composed of observation event processing workflows made up of filters, mutators, and handlers).
-Instead, the pipeline API allows you to create handlers that can **only** be used in pipeline resources.<br><br>
-Sumo Logic metrics handlers and TCP stream handlers **are not** used by listing the handler name in the check [handlers attribute](../../observe-schedule/checks/#handlers-array).
-To use a Pipeline API resource, list it as the [handler](../../observability-pipeline/observe-process/pipelines/#handlers-pipeline) in a [pipeline](../../observability-pipeline/observe-process/pipelines/) definition.
+**IMPORTANT**: The pipeline API does not create [pipeline resources](../../observability-pipeline/observe-process/pipelines/), which are composed of observation event processing workflows.
+Instead, the pipeline API allows you to create resources that can **only** be used within pipelines.<br><br>
+Read the [Sumo Logic metrics handler reference](../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers reference](../../observability-pipeline/observe-process/tcp-stream-handlers) for more information about pipeline API resources.
 {{% /notice %}}
 
 {{% notice commercial %}}
