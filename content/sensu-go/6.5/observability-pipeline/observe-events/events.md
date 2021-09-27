@@ -17,7 +17,7 @@ An event is a generic container used by Sensu to provide context to checks and m
 The context, called observation data or event data, contains information about the originating entity and the corresponding check or metric result.
 An event must contain a [status][4] or [metrics][5].
 In certain cases, an event can contain [both a status and metrics][19].
-These generic containers allow Sensu to handle different types of events in the pipeline.
+These generic containers allow Sensu to handle different types of events in the observability pipeline.
 Because events are polymorphic in nature, it is important to never assume their contents (or lack of content).
 
 ## Event format
@@ -82,7 +82,9 @@ spec:
     output_metric_format: ""
     output_metric_handlers: null
     pipelines:
-    - incident_alerts
+    - api_version: core/v2
+      type: Pipeline
+      name: incident_alerts
     proxy_entity_name: ""
     publish: true
     round_robin: false
@@ -209,7 +211,11 @@ spec:
       "output_metric_format": "",
       "output_metric_handlers": null,
       "pipelines": [
-        "incident_alerts"
+        {
+          "api_version": "core/v2",
+          "type": "Pipeline",
+          "name": "incident_alerts"
+        }
       ],
       "proxy_entity_name": "",
       "publish": true,
@@ -329,7 +335,11 @@ This is the format that events are in when Sensu sends them to handlers:
       "system"
     ],
     "pipelines": [
-      "incident_alerts"
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
     ],
     "proxy_entity_name": "",
     "check_hooks": null,
@@ -657,7 +667,9 @@ spec:
     output_metric_handlers:
     - influx-db
     pipelines:
-    - incident_alerts
+    - api_version: core/v2
+      type: Pipeline
+      name: incident_alerts
     proxy_entity_name: ""
     publish: true
     round_robin: false
@@ -771,7 +783,11 @@ spec:
         "influx-db"
       ],
       "pipelines": [
-        "incident_alerts"
+        {
+          "api_version": "core/v2",
+          "type": "Pipeline",
+          "name": "incident_alerts"
+        }
       ],
       "proxy_entity_name": "",
       "publish": true,
@@ -883,7 +899,7 @@ Sensu agents can also act as a collector for metrics throughout your infrastruct
 
 ## Create events using the events API
 
-You can send events directly to the Sensu pipeline using the [events API][16].
+You can send events directly to the Sensu observability pipeline using the [events API][16].
 To create an event, send a JSON event definition to the [events API PUT endpoint][14].
 
 If you use the events API to create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity in the same namespace when the event is published.
@@ -1124,7 +1140,9 @@ spec:
     output_metric_handlers:
     - influx-db
     pipelines:
-    - incident_alerts
+    - api_version: core/v2
+      type: Pipeline
+      name: incident_alerts
     proxy_entity_name: ''
     publish: true
     round_robin: false
@@ -1235,7 +1253,11 @@ spec:
         "influx-db"
       ],
       "pipelines": [
-        "incident_alerts"
+        {
+          "api_version": "core/v2",
+          "type": "Pipeline",
+          "name": "incident_alerts"
+        }
       ],
       "proxy_entity_name": "",
       "publish": true,
@@ -1565,7 +1587,9 @@ check:
   output_metric_handlers:
   - influx-db
   pipelines:
-  - incident_alerts
+  - api_version: core/v2
+    type: Pipeline
+    name: incident_alerts
   proxy_entity_name: ''
   publish: true
   round_robin: false
@@ -1620,7 +1644,11 @@ check:
       "influx-db"
     ],
     "pipelines": [
-      "incident_alerts"
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
     ],
     "proxy_entity_name": "",
     "publish": true,

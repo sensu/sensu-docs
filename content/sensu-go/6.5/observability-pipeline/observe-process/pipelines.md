@@ -25,7 +25,7 @@ Sensu executes pipelines during the **[process][22]** stage of the [observabilit
 Pipelines are Sensu resources composed of observation event processing [workflows][3] made up of filters, mutators, and handlers.
 Instead of specifying filters and mutators in handler definitions, you can specify all three in a single pipeline workflow.
 
-To use a pipeline, list it in a check definition's [pipelines attribute][19].
+To use a pipeline, list it in a check definition's [pipelines array][19].
 All the observability events that the check produces will be processed according to the pipeline's workflows.
 
 Pipelines can replace [handler sets][1] and [handler stacks][2].
@@ -100,6 +100,58 @@ spec:
           "type": "Handler",
           "api_version": "core/v2"
         }
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+To use this pipeline in a check, list it in the check's [pipelines array][19].
+For example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: incident_pipelines
+  namespace: default
+spec:
+  command: collect.sh
+  interval: 10
+  publish: true
+  subscriptions:
+  - system
+  pipelines:
+  - type: Pipeline
+    api_version: core/v2
+    name: incident_alerts
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "incident_pipelines",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "collect.sh",
+    "interval": 10,
+    "publish": true,
+    "subscriptions": [
+      "system"
+    ],
+    "pipelines": [
+      {
+        "type": "Pipeline",
+        "api_version": "core/v2",
+        "name": "incident_alerts"
       }
     ]
   }

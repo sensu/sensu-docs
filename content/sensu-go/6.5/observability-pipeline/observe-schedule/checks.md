@@ -610,7 +610,9 @@ spec:
   subscriptions:
   - production
   pipelines:
-  - incident_alerts
+  - type: Pipeline
+    api_version: core/v2
+    name: incident_alerts
 {{< /code >}}
 {{< code json >}}
 {
@@ -622,7 +624,11 @@ spec:
       "production"
     ],
     "pipelines": [
-      "incident_alerts"
+      {
+        "type": "Pipeline",
+        "api_version": "core/v2",
+        "name": "incident_alerts"
+      }
     ]
   }
 }
@@ -993,18 +999,24 @@ check_hooks:
 
 | pipelines  |   |
 -------------|------
-description  | Names of the [pipelines][69] to use for event processing. All the observability events that the check produces will be processed according to the pipeline's workflows.
+description  | Name, type, and API version for the [pipelines][69] to use for event processing. All the observability events that the check produces will be processed according to the pipelines listed in the pipeline array. Read [pipelines attributes][70] for more information.
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 pipelines:
-- incident_alerts
+- type: Pipeline
+  api_version: core/v2
+  name: incident_alerts
 {{< /code >}}
 {{< code json >}}
 {
   "pipelines": [
-    "incident_alerts"
+    {
+      "type": "Pipeline",
+      "api_version": "core/v2",
+      "name": "incident_alerts"
+    }
   ]
 }
 {{< /code >}}
@@ -1033,7 +1045,7 @@ proxy_entity_name: switch-dc-01
 
 |proxy_requests|    |
 -------------|------
-description  | Assigns a check to run for multiple entities according to their `entity_attributes`. In the example below, the check executes for all entities with entity class `proxy` and the custom proxy type label `website`. Proxy requests are a great way to reuse check definitions for a group of entities. For more information, see the [proxy requests specification][10] and [Monitor external resources][28].
+description  | Assigns a check to run for multiple entities according to their `entity_attributes`. In the example below, the check executes for all entities with entity class `proxy` and the custom proxy type label `website`. Proxy requests are a great way to reuse check definitions for a group of entities. For more information, see the [proxy requests attributes][10] and [Monitor external resources][28].
 required     | false
 type         | Hash
 example      | {{< language-toggle >}}
@@ -1256,6 +1268,59 @@ secrets:
       "secret": "sensu-ansible-token"
     }
   ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+#### Pipelines attributes
+
+type         | 
+-------------|------
+description  | The [`sensuctl create`][41] resource type for the [pipeline][69]. Pipelines should always be type `Pipeline`.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Pipeline
+{{< /code >}}
+{{< code json >}}
+{
+ "type": "Pipeline"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+api_version  | 
+-------------|------
+description  | The Sensu API group and version for the [pipeline][69]. For pipelines in this version of Sensu, the api_version should always be `core/v2`.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "core/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+name         | 
+-------------|------
+description  | Name of the Sensu [pipeline][69] for the check to use.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: is_incident
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "is_incident"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1688,3 +1753,4 @@ The dynamic runtime asset reference includes an [example check definition that u
 [67]: #event-storage-for-round-robin-scheduling
 [68]: ../metrics/
 [69]: ../../observe-process/pipelines/
+[70]: #pipelines-attributes

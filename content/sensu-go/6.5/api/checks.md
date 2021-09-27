@@ -44,7 +44,11 @@ HTTP/1.1 200 OK
       "linux"
     ],
     "pipelines": [
-      "incident_alerts"
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
     ],
     "proxy_entity_name": "",
     "check_hooks": null,
@@ -93,7 +97,11 @@ output         | {{< code shell >}}
       "linux"
     ],
     "pipelines": [
-      "incident_alerts"
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
     ],
     "proxy_entity_name": "",
     "check_hooks": null,
@@ -203,7 +211,11 @@ HTTP/1.1 200 OK
     "linux"
   ],
   "pipelines": [
-    "incident_alerts"
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
   ],
   "proxy_entity_name": "",
   "check_hooks": null,
@@ -248,7 +260,11 @@ output               | {{< code json >}}
     "linux"
   ],
   "pipelines": [
-    "incident_alerts"
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
   ],
   "proxy_entity_name": "",
   "check_hooks": null,
