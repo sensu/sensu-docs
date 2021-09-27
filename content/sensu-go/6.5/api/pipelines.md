@@ -10,6 +10,14 @@ menu:
     parent: api
 ---
 
+{{% notice warning %}}
+**IMPORTANT**: [Pipelines resources](../../observability-pipeline/observe-process/pipelines/) are observation event processing [workflows](../../observability-pipeline/observe-process/pipelines/#workflows) made up of filters, mutators, and handlers.
+Pipelines resources are different from the handler resources you can create with the [pipeline API](../pipeline/).<br><br>
+The [pipeline API](../pipeline/) does not create pipelines resources.
+Instead, it allows you to create handlers that can **only** be used in pipelines resources.
+Read the [Sumo Logic metrics handler reference](../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers reference](../../observability-pipeline/observe-process/tcp-stream-handlers) for more information about pipeline API handlers.
+{{% /notice %}}
+
 {{% notice note %}}
 **NOTE**: Requests to the pipelines API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.

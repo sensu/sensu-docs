@@ -13,9 +13,16 @@ menu:
     parent: observe-process
 ---
 
+{{% notice warning %}}
+**IMPORTANT**: The pipelines resources described on this page are different from the handler resources you can create with the [pipeline API](../../../api/pipeline/).<br><br>
+The [pipeline API](../../../api/pipeline/) does not create pipelines resources.
+Instead, it allows you to create handlers that can **only** be used in pipelines resources.
+Read the [Sumo Logic metrics handlers reference](../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers reference](../../observability-pipeline/observe-process/tcp-stream-handlers) for more information.
+{{% /notice %}}
+
 Sensu executes pipelines during the **[process][22]** stage of the [observability pipeline][29].
 
-Pipelines are observation event processing [workflows][3] made up of filters, mutators, and handlers.
+Pipelines are Sensu resources composed of observation event processing [workflows][3] made up of filters, mutators, and handlers.
 Instead of specifying filters and mutators in handler definitions, you can specify all three in a single pipeline workflow.
 
 To use a pipeline, list it in a check definition's [pipelines attribute][19].
@@ -110,7 +117,7 @@ Workflows do not have to include a filter or mutator, but they must specify at l
 Workflows can include more than one event filter.
 If a workflow has more than one filter, Sensu applies the filters in a series, starting with the filter that is listed first.
 
-### Multiple workflows
+### Pipelines with multiple workflows
 
 Pipelines can include more than one workflow.
 
