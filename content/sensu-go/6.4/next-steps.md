@@ -36,8 +36,7 @@ Element | Description
 Event list | Events are observation data that represent the state of an entity at a point in time. Observation data in events include check status or metric results (or both), the executing agent, and a timestamp. The `sensuctl event list` command retrieves the most recent events for each check you’re running.
 
 {{% notice protip %}}
-**PRO TIP**: If you're not familiar with these concepts, try the [self-guided Sensu Go Workshop](https://github.com/sensu/sensu-go-workshop).
-To register for an interactive instructor-led session, visit the [Sensu Go Workshop registration page](https://sensu.io/sensu-go-workshop).
+**PRO TIP**: If you're not familiar with these concepts, try the [self-guided Sensu Go Workshop](https://sensu.io/resources?type=workshop).
 {{% /notice %}}
 
 ### Examine a resource definition
