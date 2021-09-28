@@ -113,7 +113,7 @@ spec:
     handler:
       name: logstash
       type: TCPStreamHandler
-      api_version: ???/v1
+      api_version: pipeline/v1
 {{< /code >}}
 
 {{< code json >}}
@@ -139,7 +139,7 @@ spec:
         "handler": {
           "name": "logstash",
           "type": "TCPStreamHandler",
-          "api_version": "???/v1"
+          "api_version": "pipeline/v1"
         }
       }
     ]

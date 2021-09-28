@@ -14,7 +14,7 @@ menu:
 {{% notice warning %}}
 **IMPORTANT**: The pipeline API does not create [pipeline resources](../../observability-pipeline/observe-process/pipelines/), which are composed of observation event processing workflows.
 Instead, the pipeline API allows you to create resources that can **only** be used within pipelines.<br><br>
-Read the [Sumo Logic metrics handler reference](../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers reference](../../observability-pipeline/observe-process/tcp-stream-handlers) for more information about pipeline API resources.
+Read the [Sumo Logic metrics handlers reference](../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers reference](../../observability-pipeline/observe-process/tcp-stream-handlers) for more information about pipeline API resources.
 {{% /notice %}}
 
 {{% notice commercial %}}
@@ -517,7 +517,7 @@ The `/tcp-stream-handlers` API endpoint provides HTTP POST access to create a TC
 
 ### Example {#handlers-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/tcp-stream-handlers` API endpoint to create the TCP stream handler `???`.
+In the following example, an HTTP POST request is submitted to the `/tcp-stream-handlers` API endpoint to create the TCP stream handler `logstash`.
 The request returns a successful HTTP `201 Created` response.
 
 {{< code shell >}}
@@ -526,22 +526,16 @@ curl -X POST \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
-    "name": "influx-db",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "logstash"
   },
-  "command": "sensu-influxdb-handler -d sensu",
-  "env_vars": [
-    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-    "INFLUXDB_USER=sensu",
-    "INFLUXDB_PASSWORD=password"
-  ],
-  "filters": [],
-  "handlers": [],
-  "runtime_assets": [],
-  "timeout": 0,
-  "type": "pipe"
+  "address": "127.0.0.1:4242",
+  "tls_ca_cert_file": "/path/to/tls/ca.pem",
+  "tls_cert_file": "/path/to/tls/cert.pem",
+  "tls_key_file": "/path/to/tls/key.pem",
+  "max_connections": 10,
+  "min_connections": 5,
+  "min_reconnect_delay": "10ms",
+  "max_reconnect_delay": "10s"
 }' \
 http://127.0.0.1:8080/api/enterprise/pipeline/v1/tcp-stream-handlers
 
@@ -557,22 +551,16 @@ example URL     | http://hostname:8080/api/enterprise/pipeline/v1/tcp-stream-han
 payload         | {{< code shell >}}
 {
   "metadata": {
-    "name": "influx-db",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "logstash"
   },
-  "command": "sensu-influxdb-handler -d sensu",
-  "env_vars": [
-    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-    "INFLUXDB_USER=sensu",
-    "INFLUXDB_PASSWORD=password"
-  ],
-  "filters": [],
-  "handlers": [],
-  "runtime_assets": [],
-  "timeout": 0,
-  "type": "pipe"
+  "address": "127.0.0.1:4242",
+  "tls_ca_cert_file": "/path/to/tls/ca.pem",
+  "tls_cert_file": "/path/to/tls/cert.pem",
+  "tls_key_file": "/path/to/tls/key.pem",
+  "max_connections": 10,
+  "min_connections": 5,
+  "min_reconnect_delay": "10ms",
+  "max_reconnect_delay": "10s"
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -583,34 +571,26 @@ The `/tcp-stream-handlers/:tcp-stream-handler` API endpoint provides HTTP GET ac
 
 ### Example
 
-In the following example, querying the `/tcp-stream-handlers/:tcp-stream-handler` API endpoint returns a JSON map that contains the requested [`:tcp-stream-handler` definition][1] (in this example, for the `:tcp-stream-handler` named `???`).
+In the following example, querying the `/tcp-stream-handlers/:tcp-stream-handler` API endpoint returns a JSON map that contains the requested [`:tcp-stream-handler` definition][1] (in this example, for the `:tcp-stream-handler` named `logstash`).
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/tcp-stream-handlers/??? \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/tcp-stream-handlers/logstash \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
   "metadata": {
-    "name": "slack",
-    "namespace": "default",
-    "created_by": "admin",
-    "labels": null,
-    "annotations": null
+    "name": "logstash"
   },
-  "command": "sensu-slack-handler --channel '#monitoring'",
-  "env_vars": [
-    "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-  ],
-  "filters": [
-    "is_incident",
-    "not_silenced"
-  ],
-  "handlers": [],
-  "runtime_assets": [],
-  "timeout": 0,
-  "type": "pipe"
+  "address": "127.0.0.1:4242",
+  "tls_ca_cert_file": "/path/to/tls/ca.pem",
+  "tls_cert_file": "/path/to/tls/cert.pem",
+  "tls_key_file": "/path/to/tls/key.pem",
+  "max_connections": 10,
+  "min_connections": 5,
+  "min_reconnect_delay": "10ms",
+  "max_reconnect_delay": "10s"
 }
 {{< /code >}}
 
@@ -619,30 +599,22 @@ HTTP/1.1 200 OK
 /tcp-stream-handlers/:tcp-stream-handler (GET) | 
 ---------------------|------
 description          | Returns a TCP stream handler.
-example url          | http://hostname:8080/api/enterprise/pipeline/v1/tcp-stream-handlers/???
+example url          | http://hostname:8080/api/enterprise/pipeline/v1/tcp-stream-handlers/logstash
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
 {
   "metadata": {
-    "name": "slack",
-    "namespace": "default",
-    "created_by": "admin",
-    "labels": null,
-    "annotations": null
+    "name": "logstash"
   },
-  "command": "sensu-slack-handler --channel '#monitoring'",
-  "env_vars": [
-    "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-  ],
-  "filters": [
-    "is_incident",
-    "not_silenced"
-  ],
-  "handlers": [],
-  "runtime_assets": [],
-  "timeout": 0,
-  "type": "pipe"
+  "address": "127.0.0.1:4242",
+  "tls_ca_cert_file": "/path/to/tls/ca.pem",
+  "tls_cert_file": "/path/to/tls/cert.pem",
+  "tls_key_file": "/path/to/tls/key.pem",
+  "max_connections": 10,
+  "min_connections": 5,
+  "min_reconnect_delay": "10ms",
+  "max_reconnect_delay": "10s"
 }
 {{< /code >}}
 

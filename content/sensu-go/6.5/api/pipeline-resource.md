@@ -15,7 +15,7 @@ menu:
 Pipeline resources are different from the handler resources you can create with the [pipeline API](../pipeline/).<br><br>
 The [pipeline API](../pipeline/) does not create pipeline resources.
 Instead, it allows you to create handlers that can **only** be used in pipelines resources.
-Read the [Sumo Logic metrics handler reference](../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers reference](../../observability-pipeline/observe-process/tcp-stream-handlers) for more information about pipeline API handlers.
+Read the [Sumo Logic metrics handlers reference](../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers reference](../../observability-pipeline/observe-process/tcp-stream-handlers) for more information about pipeline API handlers.
 {{% /notice %}}
 
 {{% notice note %}}

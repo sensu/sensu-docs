@@ -42,7 +42,7 @@ This example shows a Sumo Logic metrics handler resource definition configured t
 {{< code yml >}}
 ---
 type: SumoLogicMetricsHandler
-api_version: ???/v1
+api_version: pipeline/v1
 metadata:
   name: sumologic_http_log_metrics
   namespace: default
@@ -60,7 +60,7 @@ spec:
 {{< code json >}}
 {
   "type": "SumoLogicMetricsHandler",
-  "api_version": "???/v1",
+  "api_version": "pipeline/v1",
   "metadata": {
     "name": "sumologic_http_log_metrics",
     "namespace": "default"
@@ -114,7 +114,7 @@ spec:
     handler:
       name: sumologic_http_log_metrics
       type: SumoLogicMetricsHandler
-      api_version: ???/v1
+      api_version: pipeline/v1
 {{< /code >}}
 
 {{< code json >}}
@@ -140,7 +140,7 @@ spec:
         "handler": {
           "name": "sumologic_http_log_metrics",
           "type": "SumoLogicMetricsHandler",
-          "api_version": "???/v1"
+          "api_version": "pipeline/v1"
         }
       }
     ]
@@ -172,16 +172,16 @@ type: SumoLogicMetricsHandler
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For Sumo Logic metrics handlers in this version of Sensu, the `api_version` should always be `???`.
+description  | Top-level attribute that specifies the Sensu API group and version. For Sumo Logic metrics handlers in this version of Sensu, the `api_version` should always be `pipeline/v1`.
 required     | Required for Sumo Logic metrics handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-api_version: ???/v1
+api_version: pipeline/v1
 {{< /code >}}
 {{< code json >}}
 {
-  "api_version": "???/v1"
+  "api_version": "pipeline/v1"
 }
 {{< /code >}}
 {{< /language-toggle >}}
