@@ -1135,19 +1135,6 @@ labels:
   proxy_type: website
 {{< /code >}}
 
-<a id="name-attribute"></a>
-
-| name        |      |
---------------|------
-description   | Entity name assigned to the agent entity.
-type          | String
-default       | Defaults to hostname (for example, `sensu-centos`).
-environment variable | `SENSU_NAME`
-command line example   | {{< code shell >}}
-sensu-agent start --name agent-01{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
-name: "agent-01"{{< /code >}}
-
 <a id="log-level"></a>
 
 | log-level   |      |
@@ -1160,6 +1147,19 @@ command line example   | {{< code shell >}}
 sensu-agent start --log-level debug{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 log-level: debug{{< /code >}}
+
+<a id="name-attribute"></a>
+
+| name        |      |
+--------------|------
+description   | Entity name assigned to the agent entity.
+type          | String
+default       | Defaults to hostname (for example, `sensu-centos`).
+environment variable | `SENSU_NAME`
+command line example   | {{< code shell >}}
+sensu-agent start --name agent-01{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+name: "agent-01"{{< /code >}}
 
 <a id="subscriptions-flag"></a>
 
@@ -1328,6 +1328,41 @@ keepalive-warning-timeout: 300{{< /code >}}
 
 ### Security configuration flags
 
+| cert-file  |      |
+-------------|------
+description  | Path to the agent certificate file used in mTLS authentication. Sensu supports certificate bundles (or chains) as long as the agent (or leaf) certificate is the *first* certificate in the bundle.
+type         | String
+default      | `""`
+environment variable | `SENSU_CERT_FILE`
+command line example   | {{< code shell >}}
+sensu-agent start --cert-file /path/to/tls/agent.pem{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+cert-file: "/path/to/tls/agent.pem"{{< /code >}}
+
+| insecure-skip-tls-verify |      |
+---------------------------|------
+description                | Skip SSL verification. {{% notice warning %}}
+**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production.
+{{% /notice %}}
+type                       | Boolean
+default                    | `false`
+environment variable       | `SENSU_INSECURE_SKIP_TLS_VERIFY`
+command line example   | {{< code shell >}}
+sensu-agent start --insecure-skip-tls-verify{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+insecure-skip-tls-verify: true{{< /code >}}
+
+| key-file   |      |
+-------------|------
+description  | Path to the agent key file used in mTLS authentication.
+type         | String
+default      | `""`
+environment variable | `SENSU_KEY_FILE`
+command line example   | {{< code shell >}}
+sensu-agent start --key-file /path/to/tls/agent-key.pem{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+key-file: "/path/to/tls/agent-key.pem"{{< /code >}}
+
 | namespace |      |
 ---------------|------
 description    | Agent namespace. {{% notice note %}}
@@ -1341,17 +1376,6 @@ command line example   | {{< code shell >}}
 sensu-agent start --namespace ops{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 namespace: ops{{< /code >}}
-
-| user |      |
---------------|------
-description   | [Sensu RBAC username][39] used by the agent. Agents require get, list, create, update, and delete permissions for events across all namespaces.
-type          | String
-default       | `agent`
-environment variable   | `SENSU_USER`
-command line example   | {{< code shell >}}
-sensu-agent start --user agent-01{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
-user: "agent-01"{{< /code >}}
 
 | password    |      |
 --------------|------
@@ -1380,52 +1404,6 @@ redact:
   - secret
   - ec2_access_key
 {{< /code >}}
-
-| cert-file  |      |
--------------|------
-description  | Path to the agent certificate file used in mTLS authentication. Sensu supports certificate bundles (or chains) as long as the agent (or leaf) certificate is the *first* certificate in the bundle.
-type         | String
-default      | `""`
-environment variable | `SENSU_CERT_FILE`
-command line example   | {{< code shell >}}
-sensu-agent start --cert-file /path/to/tls/agent.pem{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
-cert-file: "/path/to/tls/agent.pem"{{< /code >}}
-
-| trusted-ca-file |      |
-------------------|------
-description       | SSL/TLS certificate authority.
-type              | String
-default           | `""`
-environment variable   | `SENSU_TRUSTED_CA_FILE`
-command line example   | {{< code shell >}}
-sensu-agent start --trusted-ca-file /path/to/tls/ca.pem{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
-trusted-ca-file: "/path/to/tls/ca.pem"{{< /code >}}
-
-| key-file   |      |
--------------|------
-description  | Path to the agent key file used in mTLS authentication.
-type         | String
-default      | `""`
-environment variable | `SENSU_KEY_FILE`
-command line example   | {{< code shell >}}
-sensu-agent start --key-file /path/to/tls/agent-key.pem{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
-key-file: "/path/to/tls/agent-key.pem"{{< /code >}}
-
-| insecure-skip-tls-verify |      |
----------------------------|------
-description                | Skip SSL verification. {{% notice warning %}}
-**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production.
-{{% /notice %}}
-type                       | Boolean
-default                    | `false`
-environment variable       | `SENSU_INSECURE_SKIP_TLS_VERIFY`
-command line example   | {{< code shell >}}
-sensu-agent start --insecure-skip-tls-verify{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
-insecure-skip-tls-verify: true{{< /code >}}
 
 <a id="fips-openssl"></a>
 
@@ -1457,7 +1435,40 @@ sensu-agent start --require-openssl{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 require-openssl: true{{< /code >}}
 
+| trusted-ca-file |      |
+------------------|------
+description       | SSL/TLS certificate authority.
+type              | String
+default           | `""`
+environment variable   | `SENSU_TRUSTED_CA_FILE`
+command line example   | {{< code shell >}}
+sensu-agent start --trusted-ca-file /path/to/tls/ca.pem{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+trusted-ca-file: "/path/to/tls/ca.pem"{{< /code >}}
+
+| user |      |
+--------------|------
+description   | [Sensu RBAC username][39] used by the agent. Agents require get, list, create, update, and delete permissions for events across all namespaces.
+type          | String
+default       | `agent`
+environment variable   | `SENSU_USER`
+command line example   | {{< code shell >}}
+sensu-agent start --user agent-01{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+user: "agent-01"{{< /code >}}
+
 ### Socket configuration flags
+
+| disable-sockets |      |
+------------------|------
+description       | `true` to disable the agent TCP and UDP event sockets. Othewise, `false`.
+type              | Boolean
+default           | `false`
+environment variable   | `SENSU_DISABLE_SOCKETS`
+command line example   | {{< code shell >}}
+sensu-agent start --disable-sockets{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+disable-sockets: true{{< /code >}}
 
 | socket-host |      |
 --------------|------
@@ -1480,17 +1491,6 @@ command line example   | {{< code shell >}}
 sensu-agent start --socket-port 3030{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 socket-port: 3030{{< /code >}}
-
-| disable-sockets |      |
-------------------|------
-description       | `true` to disable the agent TCP and UDP event sockets. Othewise, `false`.
-type              | Boolean
-default           | `false`
-environment variable   | `SENSU_DISABLE_SOCKETS`
-command line example   | {{< code shell >}}
-sensu-agent start --disable-sockets{{< /code >}}
-/etc/sensu/agent.yml example | {{< code shell >}}
-disable-sockets: true{{< /code >}}
 
 ### StatsD configuration flags
 
@@ -1560,38 +1560,6 @@ Use the [allow-list flag][56] to specify the path to the yaml or json file that 
 
 Use these commands to build your allow list configuration file.
 
-| exec |      |
-----------------------|------
-description           | Command to allow the Sensu agent to run as a check or a hook.
-required              | true
-type                  | String
-example               | {{< language-toggle >}}
-{{< code yml >}}
-exec: "/usr/local/bin/check_memory.sh"
-{{< /code >}}
-{{< code json >}}
-{
-  "exec": "/usr/local/bin/check_memory.sh"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-| sha512 |      |
-----------------------|------
-description           | Checksum of the check or hook executable.
-required              | false
-type                  | String
-example               | {{< language-toggle >}}
-{{< code yml >}}
-sha512: 4f926bf4328...
-{{< /code >}}
-{{< code json >}}
-{
-  "sha512": "4f926bf4328..."
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 | args |      |
 ----------------------|------
 description           | Arguments for the `exec` command.
@@ -1621,6 +1589,38 @@ enable_env: true
 {{< code json >}}
 {
   "enable_env": true
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| exec |      |
+----------------------|------
+description           | Command to allow the Sensu agent to run as a check or a hook.
+required              | true
+type                  | String
+example               | {{< language-toggle >}}
+{{< code yml >}}
+exec: "/usr/local/bin/check_memory.sh"
+{{< /code >}}
+{{< code json >}}
+{
+  "exec": "/usr/local/bin/check_memory.sh"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| sha512 |      |
+----------------------|------
+description           | Checksum of the check or hook executable.
+required              | false
+type                  | String
+example               | {{< language-toggle >}}
+{{< code yml >}}
+sha512: 4f926bf4328...
+{{< /code >}}
+{{< code json >}}
+{
+  "sha512": "4f926bf4328..."
 }
 {{< /code >}}
 {{< /language-toggle >}}
