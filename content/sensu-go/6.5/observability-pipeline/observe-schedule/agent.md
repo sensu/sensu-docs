@@ -1150,6 +1150,7 @@ command line example   | {{< code shell >}}
 sensu-agent start --log-level debug{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 log-level: debug{{< /code >}}
+
 <a id="name-attribute"></a>
 
 | name        |      |
