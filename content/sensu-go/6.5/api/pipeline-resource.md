@@ -1,5 +1,6 @@
 ---
 title: "Pipeline resource API"
+linkTitle: "Pipeline Resource API"
 description: "The Sensu pipeline resource API provides HTTP access to pipeline data. This reference includes examples for returning lists of pipelines, creating a Sensu pipeline, and more. Read on for the full reference."
 api_title: "Pipelines (resource) API"
 type: "api"
@@ -501,7 +502,7 @@ curl -X PATCH \
       "mutator": {
         "api_version": "core/v2",
         "type": "Mutator",
-        "name": "javascript_mutator"
+        "name": "javascript_mutator_2"
       }
     }
   ]
