@@ -3,7 +3,7 @@ title: "Handlers reference"
 linkTitle: "Handlers Reference"
 reference_title: "Handlers"
 type: "reference"
-description: "Handlers are actions the Sensu backend executes on events, allowing you to created automated monitoring workflows. Read the reference doc to learn about handlers."
+description: "Handlers are actions the Sensu backend executes on events, allowing you to create automated monitoring workflows. Read the reference doc to learn about handlers."
 weight: 10
 version: "6.4"
 product: "Sensu Go"
@@ -726,7 +726,7 @@ port: 4242
 
 name         | 
 -------------|------
-description  | Name of the [secret][20] defined in the executable command. Becomes the environment variable presented to the check. Read [Use secrets management in Sensu][26] for more information.
+description  | Name of the [secret][20] defined in the executable command. Becomes the environment variable presented to the handler. Read [Use secrets management in Sensu][26] for more information.
 required     | true
 type         | String
 example      | {{< language-toggle >}}

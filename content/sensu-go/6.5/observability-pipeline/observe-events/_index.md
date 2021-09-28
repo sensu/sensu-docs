@@ -68,6 +68,8 @@ spec:
     output_metric_format: graphite_plaintext
     output_metric_handlers:
     - influx-db
+    pipelines:
+    - incident_alerts
     proxy_entity_name: ""
     publish: true
     round_robin: false
@@ -179,6 +181,9 @@ spec:
       "output_metric_format": "graphite_plaintext",
       "output_metric_handlers": [
         "influx-db"
+      ],
+      "pipelines": [
+        "incident_alerts"
       ],
       "proxy_entity_name": "",
       "publish": true,

@@ -158,7 +158,7 @@ The following table describes the command-specific flags.
 `namespace` | `Role` | `role` | `RoleBinding`
 `role_binding` | [`Secret`][28] | `Silenced` | `silenced`
 [`User`][8] | `user` | [`VaultProvider`][24] | [`ldap`][26] | [`ad`][25]
-[`oidc`][37] | [`SumoLogicMetricsHandler`][9] | [`TCPStreamHandler`][39] | [`TessenConfig`][27]
+[`oidc`][37] | [`SumoLogicMetricsHandler`][40] | [`TCPStreamHandler`][39] | [`TessenConfig`][27]
 [`PostgresConfig`][32]
 
 ### Create resources across namespaces
@@ -315,11 +315,11 @@ Requests to update agent-managed entities via sensuctl will fail and return an e
 
 |sensuctl edit types |   |   |   |
 --------------------|---|---|---|
-`asset` | `check` | `cluster` | `cluster-role`
-`cluster-role-binding` | `entity` | `event` | `filter`
-`handler` | `hook` | `mutator` | `namespace`
-`role` | `role-binding` | `silenced` | `user`
-[`auth`][26] | | |
+[`auth`][26] | `asset` | `check` | `cluster`
+`cluster-role` | `cluster-role-binding` | `entity` | `event`
+`filter` | `handler` | `hook` | `mutator`
+`namespace` | `pipelines` | `role` | `role-binding`
+`silenced` | `user`
  
 ## Manage resources
 
@@ -339,6 +339,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl license`][34] (commercial feature)
 - [`sensuctl mutator`][19]
 - [`sensuctl namespace`][21]
+- [`sensuctl pipelines`][9]
 - [`sensuctl role`][1]
 - [`sensuctl role-binding`][1]
 - [`sensuctl secrets`][28]
@@ -537,6 +538,7 @@ The response will list all supported `sensuctl prune` resource types:
   core/v2.Handler                handlers              core/v2             Handler              true        
   core/v2.HookConfig             hooks                 core/v2             HookConfig           true        
   core/v2.Mutator                mutators              core/v2             Mutator              true        
+  core/v2.Pipelines              pipelines             core/v2             Pipelines            true        
   core/v2.Role                   roles                 core/v2             Role                 true        
   core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true        
   core/v2.Silenced               silenced              core/v2             Silenced             true        
@@ -651,7 +653,7 @@ Sensuctl supports the following formats:
 [6]: ../../reference/
 [7]: ../../operations/deploy-sensu/cluster-sensu/
 [8]: ../../operations/control-access/rbac/#user-specification
-[9]: ../../observability-pipeline/observe-process/sumo-logic-metrics-handlers/
+[9]: ../../observability-pipeline/observe-process/pipelines/
 [10]: #supported-resource-types
 [11]: ../../web-ui/webconfig-reference/
 [12]: ../../plugins/assets/
@@ -682,3 +684,4 @@ Sensuctl supports the following formats:
 [37]: ../../operations/control-access/oidc-auth/
 [38]: ../../operations/control-access/rbac/#namespaced-resource-types
 [39]: ../../observability-pipeline/observe-process/tcp-stream-handlers/
+[40]: ../../observability-pipeline/observe-process/sumo-logic-metrics-handlers/
