@@ -314,11 +314,11 @@ Requests to update agent-managed entities via sensuctl will fail and return an e
 
 |sensuctl edit types |   |   |   |
 --------------------|---|---|---|
-`asset` | `check` | `cluster` | `cluster-role`
-`cluster-role-binding` | `entity` | `event` | `filter`
-`handler` | `hook` | `mutator` | `namespace`
-`role` | `role-binding` | `silenced` | `user`
-[`auth`][26] | | |
+[`auth`][26] | `asset` | `check` | `cluster`
+`cluster-role` | `cluster-role-binding` | `entity` | `event`
+`filter` | `handler` | `hook` | `mutator`
+`namespace` | `pipelines` | `role` | `role-binding`
+`silenced` | `user`
  
 ## Manage resources
 
@@ -537,6 +537,7 @@ The response will list all supported `sensuctl prune` resource types:
   core/v2.Handler                handlers              core/v2             Handler              true        
   core/v2.HookConfig             hooks                 core/v2             HookConfig           true        
   core/v2.Mutator                mutators              core/v2             Mutator              true        
+  core/v2.Pipelines              pipelines             core/v2             Pipelines            true        
   core/v2.Role                   roles                 core/v2             Role                 true        
   core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true        
   core/v2.Silenced               silenced              core/v2             Silenced             true        

@@ -14,9 +14,9 @@ menu:
 ---
 
 {{% notice warning %}}
-**IMPORTANT**: The pipelines resources described on this page are different from the handler resources you can create with the [pipeline API](../../../api/pipeline/).<br><br>
-The [pipeline API](../../../api/pipeline/) does not create pipelines resources.
-Instead, it allows you to create handlers that can **only** be used in pipelines resources.
+**IMPORTANT**: The pipeline resources described on this page are different from the handler resources you can create with the [pipeline API](../../../api/pipeline/).<br><br>
+The [pipeline API](../../../api/pipeline/) does not create pipeline resources.
+Instead, it allows you to create handlers that can **only** be used in pipeline resources.
 Read the [Sumo Logic metrics handlers reference](../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers reference](../../observability-pipeline/observe-process/tcp-stream-handlers) for more information.
 {{% /notice %}}
 
@@ -164,7 +164,7 @@ spec:
 
 The workflow attribute is an array of event processing workflows that Sensu will apply for events produced by any check that references the pipeline.
 
-Workflows do not have to include a filter or mutator, but they must specify at least one handler.
+Workflows do not have to include an event filter or mutator, but they must specify at least one handler.
 
 Workflows can include more than one event filter.
 If a workflow has more than one filter, Sensu applies the filters in a series, starting with the filter that is listed first.
@@ -173,7 +173,7 @@ If a workflow has more than one filter, Sensu applies the filters in a series, s
 
 Pipelines can include more than one workflow.
 
-In this example, the pipeline includes `labeled_email_alerts` and `labeled_slack_alerts` workflows:
+In this example, the pipeline includes `labeled_email_alerts` and `slack_alerts` workflows:
 
 {{< language-toggle >}}
 
@@ -800,7 +800,7 @@ api_version  |
 description  | The Sensu API group and version for the handler.
 required     | true
 type         | String
-allowed values | `core/v2` for a [pipe handler][15], [TCP or UDP handler][16], or [handler set][1]<br><br>`streaming/v1` for a [TCP stream handler][20] or [Sumo Logic metrics handler][21]
+allowed values | `core/v2` for a [pipe handler][15], [TCP or UDP handler][16], or [handler set][1]<br><br>`pipeline/v1` for a [TCP stream handler][20] or [Sumo Logic metrics handler][21]
 default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
