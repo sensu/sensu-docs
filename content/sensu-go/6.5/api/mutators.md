@@ -41,7 +41,9 @@ HTTP/1.1 200 OK
     "command": "example_mutator.go",
     "timeout": 0,
     "env_vars": [],
-    "runtime_assets": []
+    "runtime_assets": [],
+    "secrets": null,
+    "type": "pipe"
   }
 ]
 {{< /code >}}
@@ -69,7 +71,9 @@ output         | {{< code shell >}}
     "command": "example_mutator.go",
     "timeout": 0,
     "env_vars": [],
-    "runtime_assets": []
+    "runtime_assets": [],
+    "secrets": null,
+    "type": "pipe"
   }
 ]
 {{< /code >}}
@@ -97,7 +101,9 @@ curl -X POST \
   "command": "example_mutator.go",
   "timeout": 0,
   "env_vars": [],
-  "runtime_assets": []
+  "runtime_assets": [],
+  "secrets": null,
+  "type": "pipe"
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators
 
@@ -121,7 +127,9 @@ payload         | {{< code shell >}}
   "command": "example_mutator.go",
   "timeout": 0,
   "env_vars": [],
-  "runtime_assets": []
+  "runtime_assets": [],
+  "secrets": null,
+  "type": "pipe"
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -151,7 +159,9 @@ HTTP/1.1 200 OK
   "command": "example_mutator.go",
   "timeout": 0,
   "env_vars": [],
-  "runtime_assets": []
+  "runtime_assets": [],
+  "secrets": null,
+  "type": "pipe"
 }
 {{< /code >}}
 
@@ -175,7 +185,9 @@ output               | {{< code json >}}
   "command": "example_mutator.go",
   "timeout": 0,
   "env_vars": [],
-  "runtime_assets": []
+  "runtime_assets": [],
+  "secrets": null,
+  "type": "pipe"
 }
 {{< /code >}}
 
@@ -202,7 +214,9 @@ curl -X PUT \
   "command": "example_mutator.go",
   "timeout": 0,
   "env_vars": [],
-  "runtime_assets": []
+  "runtime_assets": [],
+  "secrets": null,
+  "type": "pipe"
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator
 
@@ -226,7 +240,9 @@ payload         | {{< code shell >}}
   "command": "example_mutator.go",
   "timeout": 0,
   "env_vars": [],
-  "runtime_assets": []
+  "runtime_assets": [],
+  "secrets": null,
+  "type": "pipe"
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>

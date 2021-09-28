@@ -53,6 +53,7 @@ etcd-peer-trusted-ca-file: "/etc/sensu/tls/ca.pem"
 {{< code yml >}}
 etcd-listen-client-urls: "https://localhost:2379"
 etcd-listen-peer-urls: "https://localhost:2380"
+etcd-advertise-client-urls: "https://localhost:2379"
 etcd-initial-advertise-peer-urls: "https://localhost:2380"
 {{< /code >}}
 

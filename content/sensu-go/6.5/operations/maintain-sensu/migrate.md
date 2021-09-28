@@ -223,7 +223,7 @@ The next step is to translate your Sensu Core configuration to Sensu Go.
 
 ### Step 2: Translate your configuration
 
-Use t [Sensu Translator][18] command line tool to transfer your Sensu Core checks, handlers, and mutators to Sensu Go.
+Use the [Sensu Translator][18] command line tool to transfer your Sensu Core checks, handlers, and mutators to Sensu Go.
 
 #### 1. Run the translator
 
@@ -502,8 +502,9 @@ In addition to built-in RBAC, Sensu includes [license-activated][91] support for
 
 ### Step 5: Sunset your Sensu Core instance
 
-When you're ready to sunset your Sensu Core instance, see the [platform][74] documentation to stop the Sensu Core services.
-You may also want to re-install the `sensu-install` tool using the [`sensu-plugins-ruby` package][20].
+When you're ready to sunset your Sensu Core instance, stop the Sensu Core services according to the instructions for your [platform][74] &mdash; these instructions are listed under **Operating Sensu** on each platform's page.
+
+After you stop the Sensu Core services, follow package removal instructions for your platform to uninstall the Sensu Core package.
 
 
 [1]: ../../../learn/concepts-terminology/

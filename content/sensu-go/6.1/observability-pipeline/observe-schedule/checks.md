@@ -1231,6 +1231,8 @@ entity_attributes:
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="splay"></a>
+
 |splay       |      |
 -------------|------
 description  | `true` if proxy check requests should be splayed, published evenly over a window of time, determined by the check interval and a configurable splay coverage percentage. Otherwise, `false`. For example, if a check has an interval of `60` seconds and a configured splay coverage of `90`%, its proxy check requests would be splayed evenly over a time window of `60` seconds * `90`%, `54` seconds, leaving `6`seconds for the last proxy check execution before the the next round of proxy check requests for the same check.
@@ -1247,6 +1249,8 @@ splay: true
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+<a id="splay-coverage"></a>
 
 |splay_coverage  | |
 -------------|------
@@ -1610,7 +1614,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [45]: #cron-scheduling
 [46]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
 [47]: https://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
-[48]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
+[48]: https://docs.influxdata.com/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/
 [49]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [50]: ../../observe-events/events/#metrics-attribute
 [51]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler

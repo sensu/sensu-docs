@@ -50,6 +50,13 @@ HTTP/1.1 200 OK
       "subscriptions": [
         "system"
       ],
+      "pipelines": [
+        {
+          "api_version": "core/v2",
+          "type": "Pipeline",
+          "name": "incident_alerts"
+        }
+      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -193,6 +200,13 @@ output         | {{< code shell >}}
       "subscriptions": [
         "system"
       ],
+      "pipelines": [
+        {
+          "api_version": "core/v2",
+          "type": "Pipeline",
+          "name": "incident_alerts"
+        }
+      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -311,7 +325,7 @@ output         | {{< code shell >}}
 
 ## Create a new event
 
-The `/events` API endpoint provides HTTP POST access to create an event and send it to the Sensu pipeline.
+The `/events` API endpoint provides HTTP POST access to create an event and send it to the Sensu observability pipeline.
 
 ### Example {#events-post-example}
 
@@ -420,6 +434,13 @@ HTTP/1.1 200 OK
       ],
       "subscriptions": [
         "system"
+      ],
+      "pipelines": [
+        {
+          "api_version": "core/v2",
+          "type": "Pipeline",
+          "name": "incident_alerts"
+        }
       ],
       "proxy_entity_name": "",
       "check_hooks": null,
@@ -545,6 +566,13 @@ HTTP/1.1 200 OK
       "publish": false,
       "runtime_assets": null,
       "subscriptions": [],
+      "pipelines": [
+        {
+          "api_version": "core/v2",
+          "type": "Pipeline",
+          "name": "incident_alerts"
+        }
+      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -694,6 +722,13 @@ output               | {{< code json >}}
       "subscriptions": [
         "system"
       ],
+      "pipelines": [
+        {
+          "api_version": "core/v2",
+          "type": "Pipeline",
+          "name": "incident_alerts"
+        }
+      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -818,6 +853,13 @@ output               | {{< code json >}}
       "publish": false,
       "runtime_assets": null,
       "subscriptions": [],
+      "pipelines": [
+        {
+          "api_version": "core/v2",
+          "type": "Pipeline",
+          "name": "incident_alerts"
+        }
+      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -971,6 +1013,13 @@ HTTP/1.1 200 OK
     "subscriptions": [
       "system"
     ],
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "proxy_entity_name": "",
     "check_hooks": null,
     "stdin": false,
@@ -1103,6 +1152,13 @@ output               | {{< code json >}}
     "subscriptions": [
       "system"
     ],
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "proxy_entity_name": "",
     "check_hooks": null,
     "stdin": false,
@@ -1211,7 +1267,7 @@ output               | {{< code json >}}
 
 ## Create a new event for an entity and check {#eventsentitycheck-post}
 
-The `/events/:entity/:check` API endpoint provides HTTP POST access to create an event and send it to the Sensu pipeline.
+The `/events/:entity/:check` API endpoint provides HTTP POST access to create an event and send it to the Sensu observability pipeline.
 
 ### Example {#eventsentitycheck-post-example}
 
@@ -1305,7 +1361,7 @@ response codes   | <ul><li>**Success**: 201 (Created)</li><li> **Missing**: 404 
 
 ## Create or update an event for an entity and check {#eventsentitycheck-put}
 
-The `/events/:entity/:check` API endpoint provides HTTP PUT access to create or update an event and send it to the Sensu pipeline.
+The `/events/:entity/:check` API endpoint provides HTTP PUT access to create or update an event and send it to the Sensu observability pipeline.
 
 ### Example {#eventsentitycheck-put-example}
 

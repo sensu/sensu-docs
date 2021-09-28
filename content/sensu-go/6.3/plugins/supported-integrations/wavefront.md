@@ -19,7 +19,7 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 ## Features
 
 - Transform metrics to Wavefront format: extract and transform the metrics you collect from different sources in formats like Graphite, OpenTSDB, Nagios, and Influx and populate them into Wavefront.
-- Specify additional tags to include when processing metrics either using the Wavefront plugin's `--tags` flag or via [metric tags][7].
+- Specify additional tags to include when processing metrics with the Wavefront plugin's `tags` flag or [metric tags][7].
 - Keep your Graphite host and port secure with Sensu [environment variables and secrets management][6].
 
 ## Get the plugin
