@@ -314,11 +314,11 @@ Requests to update agent-managed entities via sensuctl will fail and return an e
 
 |sensuctl edit types |   |   |   |
 --------------------|---|---|---|
-`asset` | `check` | `cluster` | `cluster-role`
-`cluster-role-binding` | `entity` | `event` | `filter`
-`handler` | `hook` | `mutator` | `namespace`
-`role` | `role-binding` | `silenced` | `user`
-[`auth`][26] | | |
+[`auth`][26] | `asset` | `check` | `cluster`
+`cluster-role` | `cluster-role-binding` | `entity` | `event`
+`filter` | `handler` | `hook` | `mutator`
+`namespace` | `pipelines` | `role` | `role-binding`
+`silenced` | `user`
  
 ## Manage resources
 
@@ -338,6 +338,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl license`][34] (commercial feature)
 - [`sensuctl mutator`][19]
 - [`sensuctl namespace`][21]
+- [`sensuctl pipelines`][9]
 - [`sensuctl role`][1]
 - [`sensuctl role-binding`][1]
 - [`sensuctl secrets`][28]
@@ -536,6 +537,7 @@ The response will list all supported `sensuctl prune` resource types:
   core/v2.Handler                handlers              core/v2             Handler              true        
   core/v2.HookConfig             hooks                 core/v2             HookConfig           true        
   core/v2.Mutator                mutators              core/v2             Mutator              true        
+  core/v2.Pipelines              pipelines             core/v2             Pipelines            true        
   core/v2.Role                   roles                 core/v2             Role                 true        
   core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true        
   core/v2.Silenced               silenced              core/v2             Silenced             true        
@@ -650,6 +652,7 @@ Sensuctl supports the following formats:
 [6]: ../../reference/
 [7]: ../../operations/deploy-sensu/cluster-sensu/
 [8]: ../../operations/control-access/rbac/#user-specification
+[9]: ../../observability-pipeline/observe-process/pipelines/
 [10]: #supported-resource-types
 [11]: ../../web-ui/webconfig-reference/
 [12]: ../../plugins/assets/
