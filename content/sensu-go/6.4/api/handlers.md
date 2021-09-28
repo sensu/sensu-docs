@@ -189,7 +189,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ## Get a specific handler {#handlershandler-get}
 
-The `/handlers/:handler` API endpoint provides HTTP GET access to [handler data][1] for specific `:handler` definitions, by handler `name`.
+The `/handlers/:handler` API endpoint provides HTTP GET access to [handler data][1] for specific `:handler` definitions, by handler name.
 
 ### Example {#handlershandler-get-example}
 
@@ -258,11 +258,11 @@ output               | {{< code json >}}
 
 ## Create or update a handler {#handlershandler-put}
 
-The `/handlers/:handler` API endpoint provides HTTP GET access to create or update a specific `:handler` definition, by handler `name`.
+The `/handlers/:handler` API endpoint provides HTTP PUT access to create or update a specific `:handler` definition, by handler name.
 
 ### Example {#handlershandler-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/handlers/:handler` API endpoint to create the handler `influx-dbdevelopment_filter`.
+In the following example, an HTTP PUT request is submitted to the `/handlers/:handler` API endpoint to create the handler `influx-db`.
 The request returns a successful HTTP `201 Created` response.
 
 {{< code shell >}}

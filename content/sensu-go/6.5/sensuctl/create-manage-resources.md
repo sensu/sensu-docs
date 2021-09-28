@@ -314,18 +314,18 @@ Requests to update agent-managed entities via sensuctl will fail and return an e
 
 |sensuctl edit types |   |   |   |
 --------------------|---|---|---|
-`asset` | `check` | `cluster` | `cluster-role`
-`cluster-role-binding` | `entity` | `event` | `filter`
-`handler` | `hook` | `mutator` | `namespace`
-`role` | `role-binding` | `silenced` | `user`
-[`auth`][26] | | |
+[`auth`][39] | `asset` | `check` | `cluster`
+`cluster-role` | `cluster-role-binding` | `entity` | `event`
+`filter` | `handler` | `hook` | `mutator`
+`namespace` | `pipelines` | `role` | `role-binding`
+`silenced` | `user`
  
 ## Manage resources
 
 Sensuctl provides the following commands to manage Sensu resources.
 
 - [`sensuctl asset`][12]
-- [`sensuctl auth`][26] (commercial feature)
+- [`sensuctl auth`][39] (commercial feature)
 - [`sensuctl check`][13]
 - [`sensuctl cluster`][7]
 - [`sensuctl cluster-role`][1]
@@ -338,6 +338,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl license`][34] (commercial feature)
 - [`sensuctl mutator`][19]
 - [`sensuctl namespace`][21]
+- [`sensuctl pipelines`][9]
 - [`sensuctl role`][1]
 - [`sensuctl role-binding`][1]
 - [`sensuctl secrets`][28]
@@ -345,7 +346,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl tessen`][27]
 - [`sensuctl user`][1]
 
-## Subcommands
+### Subcommands
 
 Sensuctl provides a standard set of list, info, and delete operations for most resource types.
 
@@ -410,7 +411,7 @@ For example, the following command returns the same output as `sensuctl event li
 sensuctl event list --chunk-size 500
 {{< /code >}}
 
-#### sensuctl check
+### sensuctl check
 
 In addition to the [standard subcommands][23], the `sensuctl check execute` command executes a check on demand, given the check name:
 
@@ -430,7 +431,7 @@ You can also use the `--subscriptions` flag to override the subscriptions in the
 sensuctl check execute check-cpu --subscriptions demo,webserver
 {{< /code >}}
 
-#### sensuctl cluster
+### sensuctl cluster
 
 The `sensuctl cluster` command lets you manage a Sensu cluster using the following subcommands:
 
@@ -455,7 +456,7 @@ To see the health of your Sensu cluster:
 sensuctl cluster health
 {{< /code >}}
 
-#### sensuctl event
+### sensuctl event
 
 In addition to the [standard subcommands][23], you can use `sensuctl event resolve` to manually resolve events:
 
@@ -469,15 +470,15 @@ For example, the following command manually resolves an event created by the ent
 sensuctl event resolve webserver1 check-http
 {{< /code >}}
 
-#### sensuctl namespace
+### sensuctl namespace
 
 See the [namespaces reference][21] for information about using access control with namespaces.
 
-#### sensuctl user
+### sensuctl user
 
 See the [RBAC reference][22] for information about local user management with sensuctl.
 
-#### sensuctl prune
+### sensuctl prune
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access sensuctl pruning in the packaged Sensu Go distribution.
@@ -498,7 +499,7 @@ The pruning operation always follows the role-based access control (RBAC) permis
 For example, to prune resources in the `dev` namespace, the current user who sends the prune command must have delete access to the `dev` namespace.
 In addition, pruning requires [cluster-level privileges][35], even when all resources belong to the same namespace.
 
-##### Supported resource types
+#### Supported resource types
 
 To retrieve the supported `sensuctl prune` resource types, run:
 
@@ -536,6 +537,7 @@ The response will list all supported `sensuctl prune` resource types:
   core/v2.Handler                handlers              core/v2             Handler              true        
   core/v2.HookConfig             hooks                 core/v2             HookConfig           true        
   core/v2.Mutator                mutators              core/v2             Mutator              true        
+  core/v2.Pipelines              pipelines             core/v2             Pipelines            true        
   core/v2.Role                   roles                 core/v2             Role                 true        
   core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true        
   core/v2.Silenced               silenced              core/v2             Silenced             true        
@@ -545,7 +547,7 @@ The response will list all supported `sensuctl prune` resource types:
 **NOTE**: Short names are only supported for `core/v2` resources.
 {{% /notice %}}
 
-##### sensuctl prune flags
+#### sensuctl prune flags
 
 Run `sensuctl prune -h` to view command-specific and global flags.
 The following table describes the command-specific flags.
@@ -562,7 +564,7 @@ The following table describes the command-specific flags.
 `-r` or `--recursive` | Prune command will follow subdirectories.
 `-u` or `--users` | Prunes only resources that were created by the specified users (comma-separated strings). Defaults to the currently configured sensuctl user.
 
-##### sensuctl prune usage
+#### sensuctl prune usage
 
 {{< code shell >}}
 sensuctl prune <resource_type>,<resource_type>... -f <file_or_url> [-r] ... ] --<namespace> <flags>
@@ -650,6 +652,7 @@ Sensuctl supports the following formats:
 [6]: ../../reference/
 [7]: ../../operations/deploy-sensu/cluster-sensu/
 [8]: ../../operations/control-access/rbac/#user-specification
+[9]: ../../observability-pipeline/observe-process/pipelines/
 [10]: #supported-resource-types
 [11]: ../../web-ui/webconfig-reference/
 [12]: ../../plugins/assets/
@@ -679,3 +682,4 @@ Sensuctl supports the following formats:
 [36]: #sensuctl-create-flags
 [37]: ../../operations/control-access/oidc-auth/
 [38]: ../../operations/control-access/rbac/#namespaced-resource-types
+[39]: ../../operations/control-access/sso/
