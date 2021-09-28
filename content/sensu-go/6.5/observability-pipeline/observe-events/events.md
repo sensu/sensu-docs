@@ -17,7 +17,7 @@ An event is a generic container used by Sensu to provide context to checks and m
 The context, called observation data or event data, contains information about the originating entity and the corresponding check or metric result.
 An event must contain a [status][4] or [metrics][5].
 In certain cases, an event can contain [both a status and metrics][19].
-These generic containers allow Sensu to handle different types of events in the pipeline.
+These generic containers allow Sensu to handle different types of events in the observability pipeline.
 Because events are polymorphic in nature, it is important to never assume their contents (or lack of content).
 
 ## Event format
@@ -81,6 +81,10 @@ spec:
       CheckCPU TOTAL OK: total=0.41 user=0.2 nice=0.0 system=0.2 idle=99.59 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0
     output_metric_format: ""
     output_metric_handlers: null
+    pipelines:
+    - api_version: core/v2
+      type: Pipeline
+      name: incident_alerts
     proxy_entity_name: ""
     publish: true
     round_robin: false
@@ -206,6 +210,13 @@ spec:
       "output": "CheckCPU TOTAL OK: total=0.41 user=0.2 nice=0.0 system=0.2 idle=99.59 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0\n",
       "output_metric_format": "",
       "output_metric_handlers": null,
+      "pipelines": [
+        {
+          "api_version": "core/v2",
+          "type": "Pipeline",
+          "name": "incident_alerts"
+        }
+      ],
       "proxy_entity_name": "",
       "publish": true,
       "round_robin": false,
@@ -322,6 +333,13 @@ This is the format that events are in when Sensu sends them to handlers:
     ],
     "subscriptions": [
       "system"
+    ],
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
     ],
     "proxy_entity_name": "",
     "check_hooks": null,
@@ -648,6 +666,10 @@ spec:
     output_metric_format: graphite_plaintext
     output_metric_handlers:
     - influx-db
+    pipelines:
+    - api_version: core/v2
+      type: Pipeline
+      name: incident_alerts
     proxy_entity_name: ""
     publish: true
     round_robin: false
@@ -760,6 +782,13 @@ spec:
       "output_metric_handlers": [
         "influx-db"
       ],
+      "pipelines": [
+        {
+          "api_version": "core/v2",
+          "type": "Pipeline",
+          "name": "incident_alerts"
+        }
+      ],
       "proxy_entity_name": "",
       "publish": true,
       "round_robin": false,
@@ -870,7 +899,7 @@ Sensu agents can also act as a collector for metrics throughout your infrastruct
 
 ## Create events using the events API
 
-You can send events directly to the Sensu pipeline using the [events API][16].
+You can send events directly to the Sensu observability pipeline using the [events API][16].
 To create an event, send a JSON event definition to the [events API PUT endpoint][14].
 
 If you use the events API to create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity in the same namespace when the event is published.
@@ -1110,6 +1139,10 @@ spec:
     output_metric_format: graphite_plaintext
     output_metric_handlers:
     - influx-db
+    pipelines:
+    - api_version: core/v2
+      type: Pipeline
+      name: incident_alerts
     proxy_entity_name: ''
     publish: true
     round_robin: false
@@ -1218,6 +1251,13 @@ spec:
       "output_metric_format": "graphite_plaintext",
       "output_metric_handlers": [
         "influx-db"
+      ],
+      "pipelines": [
+        {
+          "api_version": "core/v2",
+          "type": "Pipeline",
+          "name": "incident_alerts"
+        }
       ],
       "proxy_entity_name": "",
       "publish": true,
@@ -1546,6 +1586,10 @@ check:
   output_metric_format: graphite_plaintext
   output_metric_handlers:
   - influx-db
+  pipelines:
+  - api_version: core/v2
+    type: Pipeline
+    name: incident_alerts
   proxy_entity_name: ''
   publish: true
   round_robin: false
@@ -1598,6 +1642,13 @@ check:
     "output_metric_format": "graphite_plaintext",
     "output_metric_handlers": [
       "influx-db"
+    ],
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
     ],
     "proxy_entity_name": "",
     "publish": true,
@@ -1703,7 +1754,7 @@ executed: 1522100915
 
 history      |      |
 -------------|------
-description  | Check status history for the last 21 check executions. Read [history attributes][32].<br><br>Sensu automatically populates the history attributes with check execution data.
+description  | Check status history for the last 21 check executions. Read [history attributes][32].<br><br>Sensu automatically populates the history attributes with check execution data.<br><br>To store more than the last 21 check executions, use one of our [long-term event storage integrations][41].
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -2117,3 +2168,4 @@ value: 0.005
 [38]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
 [39]: #flap-detection-algorithm
 [40]: ../../observe-filter/filters/#check-attributes-available-to-filters
+[41]: ../../../plugins/supported-integrations/#time-series-and-long-term-event-storage

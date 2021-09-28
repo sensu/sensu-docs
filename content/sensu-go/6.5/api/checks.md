@@ -43,6 +43,13 @@ HTTP/1.1 200 OK
     "subscriptions": [
       "linux"
     ],
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "proxy_entity_name": "",
     "check_hooks": null,
     "stdin": false,
@@ -88,6 +95,13 @@ output         | {{< code shell >}}
     "runtime_assets": null,
     "subscriptions": [
       "linux"
+    ],
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
     ],
     "proxy_entity_name": "",
     "check_hooks": null,
@@ -196,6 +210,13 @@ HTTP/1.1 200 OK
   "subscriptions": [
     "linux"
   ],
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
+  ],
   "proxy_entity_name": "",
   "check_hooks": null,
   "stdin": false,
@@ -237,6 +258,13 @@ output               | {{< code json >}}
   "runtime_assets": null,
   "subscriptions": [
     "linux"
+  ],
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
   ],
   "proxy_entity_name": "",
   "check_hooks": null,
