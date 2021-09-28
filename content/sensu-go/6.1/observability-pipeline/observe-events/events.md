@@ -1676,7 +1676,7 @@ executed: 1522100915
 
 history      |      |
 -------------|------
-description  | Check status history for the last 21 check executions. Read [history attributes][32].<br><br>Sensu automatically populates the history attributes with check execution data.
+description  | Check status history for the last 21 check executions. Read [history attributes][32].<br><br>Sensu automatically populates the history attributes with check execution data.<br><br>To store more than the last 21 check executions, use one of our [long-term event storage integrations][41].
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -2090,3 +2090,4 @@ value: 0.005
 [38]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
 [39]: #flap-detection-algorithm
 [40]: ../../observe-filter/filters/#check-attributes-available-to-filters
+[41]: ../../../plugins/supported-integrations/#time-series-and-long-term-event-storage
