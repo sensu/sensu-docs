@@ -314,7 +314,7 @@ Requests to update agent-managed entities via sensuctl will fail and return an e
 
 |sensuctl edit types |   |   |   |
 --------------------|---|---|---|
-[`auth`][26] | `asset` | `check` | `cluster`
+[`auth`][39] | `asset` | `check` | `cluster`
 `cluster-role` | `cluster-role-binding` | `entity` | `event`
 `filter` | `handler` | `hook` | `mutator`
 `namespace` | `pipelines` | `role` | `role-binding`
@@ -325,7 +325,7 @@ Requests to update agent-managed entities via sensuctl will fail and return an e
 Sensuctl provides the following commands to manage Sensu resources.
 
 - [`sensuctl asset`][12]
-- [`sensuctl auth`][26] (commercial feature)
+- [`sensuctl auth`][39] (commercial feature)
 - [`sensuctl check`][13]
 - [`sensuctl cluster`][7]
 - [`sensuctl cluster-role`][1]
@@ -682,3 +682,4 @@ Sensuctl supports the following formats:
 [36]: #sensuctl-create-flags
 [37]: ../../operations/control-access/oidc-auth/
 [38]: ../../operations/control-access/rbac/#namespaced-resource-types
+[39]: ../../operations/control-access/sso/
