@@ -424,12 +424,12 @@ min_reconnect_delay: 10ms
 
 
 [1]: ../handlers/#tcpudp-handlers
-[2]: ../pipelines/
+[2]: ../pipeline-resource/
 [4]: ../../../sensuctl/create-manage-resources/#create-resources
 [5]: #spec-attributes
 [8]: #metadata-attributes
 [9]: ../../../operations/control-access/namespaces/
-[11]: ../pipelines/#handlers-pipeline
+[11]: ../pipeline-resource/#handlers-pipeline
 [12]: #tcp-stream-handler-example
 [13]: ../../observe-filter/filters/#built-in-filter-is_incident
 [18]: https://regex101.com/r/zo9mQU/2

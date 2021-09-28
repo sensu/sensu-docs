@@ -437,7 +437,7 @@ secret: sumologic_metrics_us2
 
 
 [1]: ../handlers/
-[2]: ../pipelines/
+[2]: ../pipeline-resource/
 [3]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
 [4]: ../../../sensuctl/create-manage-resources/#create-resources
 [5]: #spec-attributes
@@ -446,7 +446,7 @@ secret: sumologic_metrics_us2
 [8]: #metadata-attributes
 [9]: ../../../operations/control-access/namespaces/
 [10]: ../../../operations/manage-secrets/secrets/
-[11]: ../pipelines/#handlers-pipeline
+[11]: ../pipeline-resource/#handlers-pipeline
 [12]: #sumo-logic-metrics-handler-example
 [13]: ../../observe-filter/filters/#built-in-filter-has_metrics
 [18]: https://regex101.com/r/zo9mQU/2
