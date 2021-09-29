@@ -1,0 +1,298 @@
+{
+  "type": "FolderSyncDefinition",
+  "name": "Sensu",
+  "description": "Sensu Go Dashboards",
+  "children": [
+    {
+      "type": "DashboardV2SyncDefinition",
+      "name": "Sensu Entity Details",
+      "description": "Sensu Entity host metrics and events overview.",
+      "title": "Sensu Entity Details",
+      "rootPanel": null,
+      "theme": "Light",
+      "topologyLabelMap": {
+        "data": {}
+      },
+      "refreshInterval": 0,
+      "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+          "type": "RelativeTimeRangeBoundary",
+          "relativeTime": "-3h"
+        },
+        "to": null
+      },
+      "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+          {
+            "key": "panel07C8C24D85246949",
+            "structure": "{\"height\":8,\"width\":12,\"x\":0,\"y\":0}"
+          },
+          {
+            "key": "panelPANE-679CCBDEA325EA46",
+            "structure": "{\"height\":8,\"width\":12,\"x\":12,\"y\":0}"
+          },
+          {
+            "key": "panelPANE-07A5D753A4759B4B",
+            "structure": "{\"height\":8,\"width\":24,\"x\":0,\"y\":8}"
+          }
+        ]
+      },
+      "panels": [
+        {
+          "id": null,
+          "key": "panel07C8C24D85246949",
+          "title": "CPU Used",
+          "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"default\",\"markerSize\":5, \"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1},\"title\":{\"fontSize\":14},\"axes\":{\"axisX\": {\"title\":\"\",\"titleFontSize\":11,\"labelFontSize\":10},\"axisY\":{\"title\":\"\",\"titleFontSize\":11,\"labelFontSize\":12, \"logarithmic\":false,\"unit\":{\"value\":\"%\",\"isCustom\":false}}},\"legend\":{\"enabled\":true,\"verticalAlign\":\"bottom\", \"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\":{\"family\":\"Categorical Default\"}, \"hiddenQueryKeys\":[\"B\"],\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"properties\":{\"name\":\"CPU Used ({{ entity }}/{ { cpu }})\"}}],\"series\":{}}",
+          "keepVisualSettingsConsistentWithParent": true,
+          "panelType": "SumoSearchPanel",
+          "queries": [
+            {
+              "queryString": "metric=system_cpu_used entity={{ entity }} namespace={{ namespace }} | eval _value * .01",
+              "queryType": "Metrics",
+              "queryKey": "A",
+              "metricsQueryMode": "Advanced",
+              "metricsQueryData": null,
+              "tracesQueryData": null,
+              "parseMode": "Auto",
+              "timeSource": "Message"
+            }
+          ],
+          "description": "",
+          "timeRange": {
+            "type": "BeginBoundedTimeRange",
+            "from": {
+              "type": "RelativeTimeRangeBoundary",
+              "relativeTime": "-3h"
+            },
+            "to": null
+          },
+          "coloringRules": null,
+          "linkedDashboards": []
+        },
+        {
+          "id": null,
+          "key": "panelPANE-679CCBDEA325EA46",
+          "title": "Memory Used",
+          "visualSettings": "{\"general\":{\"mode\":\"timeSeries\",\"type\":\"line\",\"displayType\":\"default\",\"markerSize\":5, \"lineDashType\":\"solid\",\"markerType\":\"none\",\"lineThickness\":1},\"title\":{\"fontSize\":14},\"axes\":{\"axisX\": {\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12},\"axisY\":{\"title\":\"\",\"titleFontSize\":12,\"labelFontSize\":12, \"logarithmic\":false,\"unit\":{\"value\":\"%\",\"isCustom\":false},\"unitDecimals\":0,\"hideLabels\":false}},\"legend\": {\"enabled\":true,\"verticalAlign\":\"bottom\",\"fontSize\":12,\"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"color\": {\"family\":\"Categorical Default\"},\"series\":{},\"overrides\":[{\"series\":[],\"queries\":[\"A\"],\"properties\": {\"name\":\"Memory used ({{ entity }})\"}}]}",
+          "keepVisualSettingsConsistentWithParent": true,
+          "panelType": "SumoSearchPanel",
+          "queries": [
+            {
+              "queryString": "metric=system_mem_used entity={{ entity }} namespace={{ namespace }} | eval _value * .01",
+              "queryType": "Metrics",
+              "queryKey": "A",
+              "metricsQueryMode": "Advanced",
+              "metricsQueryData": null,
+              "tracesQueryData": null,
+              "parseMode": "Auto",
+              "timeSource": "Message"
+            }
+          ],
+          "description": "",
+          "timeRange": {
+            "type": "BeginBoundedTimeRange",
+            "from": {
+              "type": "RelativeTimeRangeBoundary",
+              "relativeTime": "-3h"
+            },
+            "to": null
+          },
+          "coloringRules": null,
+          "linkedDashboards": []
+        },
+        {
+          "id": null,
+          "key": "panelPANE-07A5D753A4759B4B",
+          "title": "Sensu Events (per 5m interval)",
+          "visualSettings": "{\"title\":{\"fontSize\":14},\"axes\":{\"axisX\":{\"title\":\"Bucket (5m)\",\"titleFontSize\":12, \"labelFontSize\":12,\"hideLabels\":true},\"axisY\":{\"title\":\"Events\",\"titleFontSize\":12,\"labelFontSize\":12, \"logarithmic\":false,\"hideLabels\":false}},\"legend\":{\"enabled\":false,\"verticalAlign\":\"bottom\",\"fontSize\":12, \"maxHeight\":50,\"showAsTable\":false,\"wrap\":true},\"series\":{},\"general\":{\"type\":\"column\",\"displayType\":\"stacked\", \"fillOpacity\":0.75,\"mode\":\"timeSeries\"},\"color\":{\"family\":\"Categorical Light\"},\"overrides\":[{\"series\":[\"0\"], \"queries\":[],\"properties\":{\"color\":\"#6cae01\",\"name\":\"OK\"}},{\"series\":[\"1\"],\"queries\":[],\"properties\": {\"color\":\"#f2da73\",\"name\":\"WARNING\"}},{\"series\":[\"2\"],\"queries\":[],\"properties\":{\"color\":\"#bf2121\", \"name\":\"CRITICAL\"}}]}",
+          "keepVisualSettingsConsistentWithParent": true,
+          "panelType": "SumoSearchPanel",
+          "queries": [
+            {
+              "queryString": "_sourceCategory=sensu-event _sourceHost={{ entity }} | json \"$check.metadata.name\",\"$check.status\", \"$check.metadata.namespace\" as check_name, check_status, check_namespace | timeslice 5m | count by _timeslice, check_status | transpose row _timeslice column check_status",
+              "queryType": "Logs",
+              "queryKey": "A",
+              "metricsQueryMode": null,
+              "metricsQueryData": null,
+              "tracesQueryData": null,
+              "parseMode": "Auto",
+              "timeSource": "Message"
+            }
+          ],
+          "description": "",
+          "timeRange": {
+            "type": "BeginBoundedTimeRange",
+            "from": {
+              "type": "RelativeTimeRangeBoundary",
+              "relativeTime": "-3h"
+            },
+            "to": null
+          },
+          "coloringRules": null,
+          "linkedDashboards": []
+        }
+      ],
+      "variables": [
+        {
+          "id": null,
+          "name": "entity",
+          "displayName": "entity",
+          "defaultValue": "*",
+          "sourceDefinition": {
+            "variableSourceType": "MetadataVariableSourceDefinition",
+            "filter": "namespace={{namespace}}",
+            "key": "entity"
+          },
+          "allowMultiSelect": false,
+          "includeAllOption": true,
+          "hideFromUI": false
+        },
+        {
+          "id": null,
+          "name": "namespace",
+          "displayName": "namespace",
+          "defaultValue": "*",
+          "sourceDefinition": {
+            "variableSourceType": "MetadataVariableSourceDefinition",
+            "filter": "",
+            "key": "namespace"
+          },
+          "allowMultiSelect": false,
+          "includeAllOption": true,
+          "hideFromUI": false
+        }
+      ],
+      "coloringRules": []
+    },
+    {
+      "type": "DashboardV2SyncDefinition",
+      "name": "Sensu Overview",
+      "description": "Overview of systems under management by Sensu Go (grouped by namespace and host OS)",
+      "title": "Sensu Overview",
+      "rootPanel": null,
+      "theme": "Light",
+      "topologyLabelMap": {
+        "data": {}
+      },
+      "refreshInterval": 0,
+      "timeRange": {
+        "type": "BeginBoundedTimeRange",
+        "from": {
+          "type": "RelativeTimeRangeBoundary",
+          "relativeTime": "-1h"
+        },
+        "to": null
+      },
+      "layout": {
+        "layoutType": "Grid",
+        "layoutStructures": [
+          {
+            "key": "panelPANE-BBD3A0C69A056A4D",
+            "structure": "{\"height\":9,\"width\":24,\"x\":0,\"y\":9}"
+          },
+          {
+            "key": "panel4030198BAD7CA940",
+            "structure": "{\"height\":9,\"width\":24,\"x\":0,\"y\":0}"
+          }
+        ]
+      },
+      "panels": [
+        {
+          "id": null,
+          "key": "panelPANE-BBD3A0C69A056A4D",
+          "title": "Entity Hostmap (CPU used by OS)",
+          "visualSettings": "{\"general\":{\"mode\":\"honeyComb\",\"type\":\"honeyComb\",\"displayType\":\"default\"},\"title\": {\"fontSize\":14},\"honeyComb\":{\"thresholds\":[{\"from\":0,\"to\":7,\"color\":\"#98ECA9\"},{\"from\":7,\"to\":20, \"color\":\"#F2DA73\"},{\"from\":20,\"to\":1000,\"color\":\"#FFB5B5\"}],\"shape\":\"hexagon\",\"groupBy\":[{\"label\":\"os\", \"value\":\"os\"},{\"label\":\"platform\",\"value\":\"platform\"}],\"aggregationType\":\"latest\"},\"series\":{},\"overrides\":[ {\"series\":[],\"queries\":[\"A\"],\"properties\":{}}],\"legend\":{\"enabled\":false}}",
+          "keepVisualSettingsConsistentWithParent": true,
+          "panelType": "SumoSearchPanel",
+          "queries": [
+            {
+              "queryString": "metric=system_cpu_used cpu=cpu-total entity={{ entity }} namespace={{ namespace }} | avg by namespace, entity,os,platform",
+              "queryType": "Metrics",
+              "queryKey": "A",
+              "metricsQueryMode": "Advanced",
+              "metricsQueryData": null,
+              "tracesQueryData": null,
+              "parseMode": "Auto",
+              "timeSource": "Message"
+            }
+          ],
+          "description": "",
+          "timeRange": null,
+          "coloringRules": null,
+          "linkedDashboards": [
+            {
+              "id": "siiult0ek2agirapE1HP7MdK8QA9z1sSWoAvprF1po1W5JWCJVL65HLJtV5M",
+              "relativePath": "../Sensu Entity Details",
+              "includeTimeRange": true,
+              "includeVariables": true
+            }
+          ]
+        },
+        {
+          "id": null,
+          "key": "panel4030198BAD7CA940",
+          "title": "Entity Hostmap (CPU used by Sensu Namespace)",
+          "visualSettings": "{\"general\":{\"mode\":\"honeyComb\",\"type\":\"honeyComb\",\"displayType\":\"default\"},\"title\": {\"fontSize\":14},\"honeyComb\":{\"thresholds\":[{\"from\":0,\"to\":7,\"color\":\"#98ECA9\"},{\"from\":7,\"to\":20, \"color\":\"#F2DA73\"},{\"from\":20,\"to\":1000,\"color\":\"#FFB5B5\"}],\"shape\":\"hexagon\",\"groupBy\":[ {\"label\":\"namespace\",\"value\":\"namespace\"}],\"aggregationType\":\"latest\"},\"series\":{},\"overrides\":[{\"series\":[], \"queries\":[\"A\"],\"properties\":{}}],\"legend\":{\"enabled\":false}}",
+          "keepVisualSettingsConsistentWithParent": true,
+          "panelType": "SumoSearchPanel",
+          "queries": [
+            {
+              "queryString": "metric=system_cpu_used cpu=cpu-total entity={{ entity }} namespace={{ namespace }}  | avg by namespace, entity,os,platform",
+              "queryType": "Metrics",
+              "queryKey": "A",
+              "metricsQueryMode": "Advanced",
+              "metricsQueryData": null,
+              "tracesQueryData": null,
+              "parseMode": "Auto",
+              "timeSource": "Message"
+            }
+          ],
+          "description": "",
+          "timeRange": null,
+          "coloringRules": null,
+          "linkedDashboards": [
+            {
+              "id": "siiult0ek2agirapE1HP7MdK8QA9z1sSWoAvprF1po1W5JWCJVL65HLJtV5M",
+              "relativePath": "../Sensu Entity Details",
+              "includeTimeRange": true,
+              "includeVariables": true
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "id": null,
+          "name": "entity",
+          "displayName": "entity",
+          "defaultValue": "*",
+          "sourceDefinition": {
+            "variableSourceType": "MetadataVariableSourceDefinition",
+            "filter": "namespace={{namespace}}",
+            "key": "entity"
+          },
+          "allowMultiSelect": false,
+          "includeAllOption": true,
+          "hideFromUI": false
+        },
+        {
+          "id": null,
+          "name": "namespace",
+          "displayName": "namespace",
+          "defaultValue": "*",
+          "sourceDefinition": {
+            "variableSourceType": "MetadataVariableSourceDefinition",
+            "filter": "",
+            "key": "namespace"
+          },
+          "allowMultiSelect": false,
+          "includeAllOption": true,
+          "hideFromUI": false
+        }
+      ],
+      "coloringRules": []
+    }
+  ]
+}
