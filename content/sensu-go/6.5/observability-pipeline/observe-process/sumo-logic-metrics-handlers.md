@@ -20,8 +20,7 @@ For more information, read [Get started with commercial features](../../commerci
 
 Sensu executes Sumo Logic metrics handlers during the **[process][22]** stage of the [observability pipeline][29].
 
-Sumo Logic metrics handlers provide a persistent connection to transmit Sensu observability metrics to a [Sumo Logic HTTP Logs and Metrics Source][3].
-Sumo Logic metrics handlers can help prevent the data bottlenecks you may experience with traditional [handlers][1].
+Sumo Logic metrics handlers provide a persistent connection to transmit Sensu observability metrics to a [Sumo Logic HTTP Logs and Metrics Source][3], which helps prevent the data bottlenecks you may experience with traditional [handlers][1].
 
 Traditional handlers start a new UNIX process for every Sensu event they receive and require a new connection to send every event.
 As you scale up and process more events per second, the rate at which the handler can transmit observability event data decreases.
@@ -33,9 +32,14 @@ As each connection finishes transmitting an event, it becomes available again an
 
 Sumo Logic metrics will reuse the available connections as long as they can rather than requiring a new connection for every event, which increases event throughput.
 
+{{% notice note %}}
+**NOTE**: Sumo Logic metrics handlers only accept metrics events.
+To send status events, use the [Sensu Sumo Logic Handler integration](../../../plugins/supported-integrations/sumologic/) instead.
+{{% /notice %}}
+
 ## Sumo Logic metrics handler example
 
-This example shows a Sumo Logic metrics handler resource definition configured to **TODO**:
+This example shows a Sumo Logic metrics handler resource definition configured to send Sensu observability data to a Sumo Logic HTTP Logs and Metrics Source via the `url` attribute:
 
 {{< language-toggle >}}
 
@@ -48,9 +52,6 @@ metadata:
   namespace: default
 spec:
   url: "https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx"
-  secrets:
-  - name: SUMOLOGIC_METRICS_URL
-    secret: sumologic_metrics_us2
   max_connections: 10
   min_connections: 5
   min_reconnect_delay: 10ms
@@ -67,12 +68,6 @@ spec:
   },
   "spec": {
     "url": "https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx",
-    "secrets": [
-      {
-        "name": "SUMOLOGIC_METRICS_URL",
-        "secret": "sumologic_metrics_us2"
-      }
-    ],
     "max_connections": 10,
     "min_connections": 5,
     "min_reconnect_delay": "10ms",
@@ -301,7 +296,7 @@ created_by: admin
 url          | 
 -------------|------
 description  | The URL for the Sumo Logic HTTP Logs and Metrics Source where Sensu should transmit the observability metrics. You can also provide the URL as a [secret][6].
-required     | true
+required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
@@ -316,7 +311,7 @@ address: https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxx
 
 secrets      | 
 -------------|------
-description  | Array of the name/secret pairs to use with command execution. Read [secrets attributes][6] for details.
+description  | Array of the name/secret pairs to use with command execution. Read [secrets attributes][6] for details. You can also provide the Sumo Logic HTTP Logs and Metrics Source URL directly in the [url attribute][5] instead of configuring a secret.
 required     | false
 type         | String
 example      | {{< language-toggle >}}

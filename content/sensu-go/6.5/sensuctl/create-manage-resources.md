@@ -511,37 +511,39 @@ sensuctl describe-type all
 The response will list all supported `sensuctl prune` resource types:
 
 {{< code shell >}}
-      Fully Qualified Name           Short Name           API Version             Type          Namespaced  
- ────────────────────────────── ───────────────────── ─────────────────── ──────────────────── ──────────── 
-  authentication/v2.Provider                           authentication/v2   Provider             false       
-  licensing/v2.LicenseFile                             licensing/v2        LicenseFile          false       
-  store/v1.PostgresConfig                              store/v1            PostgresConfig       false       
-  federation/v1.EtcdReplicator                         federation/v1       EtcdReplicator       false       
-  federation/v1.Cluster                                federation/v1       Cluster              false       
-  secrets/v1.Secret                                    secrets/v1          Secret               true        
-  secrets/v1.Provider                                  secrets/v1          Provider             false       
-  searches/v1.Search                                   searches/v1         Search               true        
-  web/v1.GlobalConfig                                  web/v1              GlobalConfig         false       
-  bsm/v1.RuleTemplate                                  bsm/v1              RuleTemplate         true        
-  bsm/v1.ServiceComponent                              bsm/v1              ServiceComponent     true        
-  core/v2.Namespace              namespaces            core/v2             Namespace            false       
-  core/v2.ClusterRole            clusterroles          core/v2             ClusterRole          false       
-  core/v2.ClusterRoleBinding     clusterrolebindings   core/v2             ClusterRoleBinding   false       
-  core/v2.User                   users                 core/v2             User                 false       
-  core/v2.APIKey                 apikeys               core/v2             APIKey               false       
-  core/v2.TessenConfig           tessen                core/v2             TessenConfig         false       
-  core/v2.Asset                  assets                core/v2             Asset                true        
-  core/v2.CheckConfig            checks                core/v2             CheckConfig          true        
-  core/v2.Entity                 entities              core/v2             Entity               true        
-  core/v2.Event                  events                core/v2             Event                true        
-  core/v2.EventFilter            filters               core/v2             EventFilter          true        
-  core/v2.Handler                handlers              core/v2             Handler              true        
-  core/v2.HookConfig             hooks                 core/v2             HookConfig           true        
-  core/v2.Mutator                mutators              core/v2             Mutator              true        
-  core/v2.Pipelines              pipelines             core/v2             Pipelines            true        
-  core/v2.Role                   roles                 core/v2             Role                 true        
-  core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true        
-  core/v2.Silenced               silenced              core/v2             Silenced             true        
+      Fully Qualified Name           Short Name           API Version             Type             Namespaced  
+ ────────────────────────────── ───────────────────── ─────────────────── ─────────────────────── ──────────── 
+  authentication/v2.Provider                           authentication/v2   Provider                 false       
+  licensing/v2.LicenseFile                             licensing/v2        LicenseFile              false       
+  store/v1.PostgresConfig                              store/v1            PostgresConfig           false       
+  federation/v1.EtcdReplicator                         federation/v1       EtcdReplicator           false       
+  federation/v1.Cluster                                federation/v1       Cluster                  false       
+  secrets/v1.Secret                                    secrets/v1          Secret                   true        
+  secrets/v1.Provider                                  secrets/v1          Provider                 false       
+  searches/v1.Search                                   searches/v1         Search                   true        
+  web/v1.GlobalConfig                                  web/v1              GlobalConfig             false       
+  bsm/v1.RuleTemplate                                  bsm/v1              RuleTemplate             true        
+  bsm/v1.ServiceComponent                              bsm/v1              ServiceComponent         true        
+  pipeline/v1.SumoLogicMetricsHandler                  pipeline/v1         SumoLogicMetricsHandler  true        
+  pipeline/v1.TCPStreamHandler                         pipeline/v1         TCPStreamHandler         true        
+  core/v2.Namespace              namespaces            core/v2             Namespace                false       
+  core/v2.ClusterRole            clusterroles          core/v2             ClusterRole              false       
+  core/v2.ClusterRoleBinding     clusterrolebindings   core/v2             ClusterRoleBinding       false       
+  core/v2.User                   users                 core/v2             User                     false       
+  core/v2.APIKey                 apikeys               core/v2             APIKey                   false       
+  core/v2.TessenConfig           tessen                core/v2             TessenConfig             false       
+  core/v2.Asset                  assets                core/v2             Asset                    true        
+  core/v2.CheckConfig            checks                core/v2             CheckConfig              true        
+  core/v2.Entity                 entities              core/v2             Entity                   true        
+  core/v2.Event                  events                core/v2             Event                    true        
+  core/v2.EventFilter            filters               core/v2             EventFilter              true        
+  core/v2.Handler                handlers              core/v2             Handler                  true        
+  core/v2.HookConfig             hooks                 core/v2             HookConfig               true        
+  core/v2.Mutator                mutators              core/v2             Mutator                  true        
+  core/v2.Pipelines              pipelines             core/v2             Pipelines                true        
+  core/v2.Role                   roles                 core/v2             Role                     true        
+  core/v2.RoleBinding            rolebindings          core/v2             RoleBinding              true        
+  core/v2.Silenced               silenced              core/v2             Silenced                 true        
 {{< /code >}}
 
 {{% notice note %}}

@@ -44,7 +44,7 @@ This example shows a TCP stream handler resource definition configured to use TL
 {{< code yml >}}
 ---
 type: TCPStreamHandler
-api_version: TCPStreamHandler/v1
+api_version: pipeline/v1
 metadata:
   name: logstash
   namespace: default
@@ -62,7 +62,7 @@ spec:
 {{< code json >}}
 {
   "type": "TCPStreamHandler",
-  "api_version": "TCPStreamHandler/v1",
+  "api_version": "pipeline/v1",
   "metadata": {
     "name": "logstash",
     "namespace": "default"
@@ -171,16 +171,16 @@ type: TCPStreamHandler
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For TCP stream handlers in this version of Sensu, the `api_version` should always be `TCPStreamHandler/v1`.
+description  | Top-level attribute that specifies the Sensu API group and version. For TCP stream handlers in this version of Sensu, the `api_version` should always be `pipeline/v1`.
 required     | Required for TCP stream handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-api_version: TCPStreamHandler/v1
+api_version: pipeline/v1
 {{< /code >}}
 {{< code json >}}
 {
-  "api_version": "TCPStreamHandler/v1"
+  "api_version": "pipeline/v1"
 }
 {{< /code >}}
 {{< /language-toggle >}}

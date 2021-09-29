@@ -37,47 +37,40 @@ The following example demonstrates a request to the `/sumo-logic-metrics-handler
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handler \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
   {
+    "type": "SumoLogicMetricsHandler",
+    "api_version": "pipeline/v1",
     "metadata": {
-      "name": "influx-db",
-      "namespace": "default",
-      "created_by": "admin"
+      "name": "sumologic_http_log_metrics_us1",
+      "namespace": "default"
     },
-    "type": "pipe",
-    "command": "sensu-influxdb-handler -d sensu",
-    "timeout": 0,
-    "handlers": null,
-    "filters": null,
-    "env_vars": [
-      "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-      "INFLUXDB_USER=sensu",
-      "INFLUXDB_PASSWORD=password"
-    ],
-    "runtime_assets": ["sensu/sensu-influxdb-handler"]
+    "spec": {
+      "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+      "max_connections": 10,
+      "min_connections": 5,
+      "min_reconnect_delay": "10ms",
+      "max_reconnect_delay": "10s"
+    }
   },
   {
+    "type": "SumoLogicMetricsHandler",
+    "api_version": "pipeline/v1",
     "metadata": {
-      "name": "slack",
-      "namespace": "default",
-      "created_by": "admin"
+      "name": "sumologic_http_log_metrics_us2",
+      "namespace": "default"
     },
-    "type": "pipe",
-    "command": "sensu-slack-handler --channel '#monitoring'",
-    "timeout": 0,
-    "handlers": null,
-    "filters": [
-      "is_incident",
-      "not_silenced"
-    ],
-    "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-    ],
-    "runtime_assets": ["sensu/sensu-influxdb-handler"]
+    "spec": {
+      "url": "https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx",
+      "max_connections": 10,
+      "min_connections": 5,
+      "min_reconnect_delay": "10ms",
+      "max_reconnect_delay": "10s"
+    }
   }
 ]
 {{< /code >}}
@@ -87,7 +80,7 @@ HTTP/1.1 200 OK
 /sumo-logic-metrics-handlers (GET)  | 
 ---------------|------
 description    | Returns the list of Sumo Logic metrics handlers.
-example url    | http://hostname:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers
+example url    | http://hostname:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers
 pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
@@ -95,40 +88,34 @@ response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal 
 output         | {{< code shell >}}
 [
   {
+    "type": "SumoLogicMetricsHandler",
+    "api_version": "pipeline/v1",
     "metadata": {
-      "name": "influx-db",
-      "namespace": "default",
-      "created_by": "admin"
-    },
-    "type": "pipe",
-    "command": "sensu-influxdb-handler -d sensu",
-    "timeout": 0,
-    "handlers": null,
-    "filters": null,
-    "env_vars": [
-      "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-      "INFLUXDB_USER=sensu",
-      "INFLUXDB_PASSWORD=password"
-    ],
-    "runtime_assets": ["sensu/sensu-influxdb-handler"]
-  },
-  {
-    "metadata": {
-      "name": "slack",
+      "name": "sumologic_http_log_metrics_us1",
       "namespace": "default"
     },
-    "type": "pipe",
-    "command": "sensu-slack-handler --channel '#monitoring'",
-    "timeout": 0,
-    "handlers": null,
-    "filters": [
-      "is_incident",
-      "not_silenced"
-    ],
-    "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-    ],
-    "runtime_assets": ["sensu/sensu-slack-handler"]
+    "spec": {
+      "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+      "max_connections": 10,
+      "min_connections": 5,
+      "min_reconnect_delay": "10ms",
+      "max_reconnect_delay": "10s"
+    }
+  },
+  {
+    "type": "SumoLogicMetricsHandler",
+    "api_version": "pipeline/v1",
+    "metadata": {
+      "name": "sumologic_http_log_metrics_us2",
+      "namespace": "default"
+    },
+    "spec": {
+      "url": "https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx",
+      "max_connections": 10,
+      "min_connections": 5,
+      "min_reconnect_delay": "10ms",
+      "max_reconnect_delay": "10s"
+    }
   }
 ]
 {{< /code >}}
@@ -139,7 +126,7 @@ The `/sumo-logic-metrics-handlers` API endpoint provides HTTP POST access to cre
 
 ### Example {#handlers-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/sumo-logic-metrics-handlers` API endpoint to create the Sumo Logic metrics handler `???`.
+In the following example, an HTTP POST request is submitted to the `/sumo-logic-metrics-handlers` API endpoint to create the Sumo Logic metrics handler `sumologic_http_log_metrics_us1`.
 The request returns a successful HTTP `201 Created` response.
 
 {{< code shell >}}
@@ -147,25 +134,21 @@ curl -X POST \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
+  "type": "SumoLogicMetricsHandler",
+  "api_version": "pipeline/v1",
   "metadata": {
-    "name": "influx-db",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "sumologic_http_log_metrics_us1",
+    "namespace": "default"
   },
-  "command": "sensu-influxdb-handler -d sensu",
-  "env_vars": [
-    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-    "INFLUXDB_USER=sensu",
-    "INFLUXDB_PASSWORD=password"
-  ],
-  "filters": [],
-  "handlers": [],
-  "runtime_assets": [],
-  "timeout": 0,
-  "type": "pipe"
+  "spec": {
+    "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+    "max_connections": 10,
+    "min_connections": 5,
+    "min_reconnect_delay": "10ms",
+    "max_reconnect_delay": "10s"
+  }
 }' \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers
 
 HTTP/1.1 201 Created
 {{< /code >}}
@@ -175,26 +158,22 @@ HTTP/1.1 201 Created
 /sumo-logic-metrics-handlers (POST) | 
 ----------------|------
 description     | Creates a Sensu Sumo Logic metrics handler.
-example URL     | http://hostname:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers
+example URL     | http://hostname:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers
 payload         | {{< code shell >}}
 {
+  "type": "SumoLogicMetricsHandler",
+  "api_version": "pipeline/v1",
   "metadata": {
-    "name": "influx-db",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "sumologic_http_log_metrics_us1",
+    "namespace": "default"
   },
-  "command": "sensu-influxdb-handler -d sensu",
-  "env_vars": [
-    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-    "INFLUXDB_USER=sensu",
-    "INFLUXDB_PASSWORD=password"
-  ],
-  "filters": [],
-  "handlers": [],
-  "runtime_assets": [],
-  "timeout": 0,
-  "type": "pipe"
+  "spec": {
+    "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+    "max_connections": 10,
+    "min_connections": 5,
+    "min_reconnect_delay": "10ms",
+    "max_reconnect_delay": "10s"
+  }
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -205,34 +184,28 @@ The `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint prov
 
 ### Example
 
-In the following example, querying the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint returns a JSON map that contains the requested [`:sumo-logic-metrics-handler` definition][5] (in this example, for the `:sumo-logic-metrics-handler` named `???`).
+In the following example, querying the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint returns a JSON map that contains the requested [`:sumo-logic-metrics-handler` definition][5] (in this example, for the `:sumo-logic-metrics-handler` named `sumologic_http_log_metrics_us1`).
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/??? \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us1 \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
+  "type": "SumoLogicMetricsHandler",
+  "api_version": "pipeline/v1",
   "metadata": {
-    "name": "slack",
-    "namespace": "default",
-    "created_by": "admin",
-    "labels": null,
-    "annotations": null
+    "name": "sumologic_http_log_metrics_us1",
+    "namespace": "default"
   },
-  "command": "sensu-slack-handler --channel '#monitoring'",
-  "env_vars": [
-    "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-  ],
-  "filters": [
-    "is_incident",
-    "not_silenced"
-  ],
-  "handlers": [],
-  "runtime_assets": [],
-  "timeout": 0,
-  "type": "pipe"
+  "spec": {
+    "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+    "max_connections": 10,
+    "min_connections": 5,
+    "min_reconnect_delay": "10ms",
+    "max_reconnect_delay": "10s"
+  }
 }
 {{< /code >}}
 
@@ -241,30 +214,24 @@ HTTP/1.1 200 OK
 /sumo-logic-metrics-handlers/:sumo-logic-metrics-handler (GET) | 
 ---------------------|------
 description          | Returns a Sumo Logic metrics handler.
-example url          | http://hostname:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/???
+example url          | http://hostname:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us1
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
 {
+  "type": "SumoLogicMetricsHandler",
+  "api_version": "pipeline/v1",
   "metadata": {
-    "name": "slack",
-    "namespace": "default",
-    "created_by": "admin",
-    "labels": null,
-    "annotations": null
+    "name": "sumologic_http_log_metrics_us1",
+    "namespace": "default"
   },
-  "command": "sensu-slack-handler --channel '#monitoring'",
-  "env_vars": [
-    "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-  ],
-  "filters": [
-    "is_incident",
-    "not_silenced"
-  ],
-  "handlers": [],
-  "runtime_assets": [],
-  "timeout": 0,
-  "type": "pipe"
+  "spec": {
+    "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+    "max_connections": 10,
+    "min_connections": 5,
+    "min_reconnect_delay": "10ms",
+    "max_reconnect_delay": "10s"
+  }
 }
 {{< /code >}}
 
@@ -274,7 +241,7 @@ The `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint prov
 
 ### Example
 
-In the following example, an HTTP PUT request is submitted to the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint to create the handler `???`.
+In the following example, an HTTP PUT request is submitted to the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint to create the handler `sumologic_http_log_metrics_us2`.
 The request returns a successful HTTP `201 Created` response.
 
 {{< code shell >}}
@@ -282,25 +249,21 @@ curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
+  "type": "SumoLogicMetricsHandler",
+  "api_version": "pipeline/v1",
   "metadata": {
-    "name": "influx-db",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "sumologic_http_log_metrics_us2",
+    "namespace": "default"
   },
-  "command": "sensu-influxdb-handler -d sensu",
-  "env_vars": [
-    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-    "INFLUXDB_USER=sensu",
-    "INFLUXDB_PASSWORD=password"
-  ],
-  "filters": [],
-  "handlers": [],
-  "runtime_assets": ["sensu/sensu-influxdb-handler"],
-  "timeout": 0,
-  "type": "pipe"
+  "spec": {
+    "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+    "max_connections": 10,
+    "min_connections": 5,
+    "min_reconnect_delay": "10ms",
+    "max_reconnect_delay": "10s"
+  }
 }' \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/???
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us2
 
 HTTP/1.1 201 Created
 {{< /code >}}
@@ -310,76 +273,25 @@ HTTP/1.1 201 Created
 /sumo-logic-metrics-handlers/:sumo-logic-metrics-handler (PUT) | 
 ----------------|------
 description     | Creates or updates the specified Sensu Sumo Logic metrics handler.
-example URL     | http://hostname:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/???
+example URL     | http://hostname:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us2
 payload         | {{< code shell >}}
 {
+  "type": "SumoLogicMetricsHandler",
+  "api_version": "pipeline/v1",
   "metadata": {
-    "name": "influx-db",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "sumologic_http_log_metrics_us2",
+    "namespace": "default"
   },
-  "command": "sensu-influxdb-handler -d sensu",
-  "env_vars": [
-    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-    "INFLUXDB_USER=sensu",
-    "INFLUXDB_PASSWORD=password"
-  ],
-  "filters": [],
-  "handlers": [],
-  "runtime_assets": [],
-  "timeout": 0,
-  "type": "pipe"
+  "spec": {
+    "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+    "max_connections": 10,
+    "min_connections": 5,
+    "min_reconnect_delay": "10ms",
+    "max_reconnect_delay": "10s"
+  }
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
-## Update a Sumo Logic metrics handler with PATCH
-
-The `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint provides HTTP PATCH access to update `:sumo-logic-metrics-handler` definitions, specified by handler name.
-
-{{% notice note %}}
-**NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
-Use a [PUT request](#sumo-logic-metrics-handlers-sumo-logic-metrics-handler-put) instead.<br><br>
-Also, you cannot add elements to an array with a PATCH request &mdash; you must replace the entire array.
-{{% /notice %}}
-
-### Example
-
-In the following example, an HTTP PATCH request is submitted to the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint to update the filters array for the `???` handler, resulting in an HTTP `200 OK` response and the updated handler definition.
-
-We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
-
-{{< code shell >}}
-curl -X PATCH \
--H "Authorization: Key $SENSU_API_KEY" \
--H 'Content-Type: application/merge-patch+json' \
--d '{
-  "filters": [
-    "us-west",
-    "is_incident"
-  ]
-}' \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/???
-
-HTTP/1.1 200 OK
-{{< /code >}}
-
-### API Specification
-
-/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler (PATCH) | 
-----------------|------
-description     | Updates the specified Sensu Sumo Logic metrics handler.
-example URL     | http://hostname:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/???
-payload         | {{< code shell >}}
-{
-  "filters": [
-    "us-west",
-    "is_incident"
-  ]
-}
-{{< /code >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Delete a Sumo Logic metrics handler
 
@@ -387,11 +299,11 @@ The `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint prov
 
 ### Example
 
-The following example shows a request to the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint to delete the Sumo Logic metrics handler `???`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint to delete the Sumo Logic metrics handler `sumologic_http_log_metrics_us2`, resulting in a successful HTTP `204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/??? \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us2 \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 204 No Content
@@ -402,7 +314,7 @@ HTTP/1.1 204 No Content
 /sumo-logic-metrics-handlers/:sumo-logic-metrics-handler (DELETE) | 
 --------------------------|------
 description               | Removes the specified Sumo Logic metrics handler from Sensu.
-example url               | http://hostname:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/???
+example url               | http://hostname:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us2
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get all TCP stream handler resources
@@ -415,47 +327,46 @@ The following example demonstrates a request to the `/tcp-stream-handlers` API e
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/tcp-stream-handlers \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
   {
+    "type": "TCPStreamHandler",
+    "api_version": "pipeline/v1",
     "metadata": {
-      "name": "influx-db",
+      "name": "incident_log",
       "namespace": "default",
       "created_by": "admin"
     },
-    "type": "pipe",
-    "command": "sensu-influxdb-handler -d sensu",
-    "timeout": 0,
-    "handlers": null,
-    "filters": null,
-    "env_vars": [
-      "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-      "INFLUXDB_USER=sensu",
-      "INFLUXDB_PASSWORD=password"
-    ],
-    "runtime_assets": ["sensu/sensu-influxdb-handler"]
+    "spec": {
+      "address": "127.0.0.1:4242",
+      "max_connections": 10,
+      "max_reconnect_delay": "10s",
+      "min_reconnect_delay": "10ms",
+      "tls_ca_cert_file": "",
+      "tls_cert_file": "",
+      "tls_key_file": ""
+    }
   },
   {
+    "type": "TCPStreamHandler",
+    "api_version": "pipeline/v1",
     "metadata": {
-      "name": "slack",
+      "name": "logstash",
       "namespace": "default",
       "created_by": "admin"
     },
-    "type": "pipe",
-    "command": "sensu-slack-handler --channel '#monitoring'",
-    "timeout": 0,
-    "handlers": null,
-    "filters": [
-      "is_incident",
-      "not_silenced"
-    ],
-    "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-    ],
-    "runtime_assets": ["sensu/sensu-influxdb-handler"]
+    "spec": {
+      "address": "127.0.0.1:4242",
+      "max_connections": 10,
+      "max_reconnect_delay": "10s",
+      "min_reconnect_delay": "10ms",
+      "tls_ca_cert_file": "/path/to/tls/ca.pem",
+      "tls_cert_file": "/path/to/tls/cert.pem",
+      "tls_key_file": "/path/to/tls/key.pem"
+    }
   }
 ]
 {{< /code >}}
@@ -465,7 +376,7 @@ HTTP/1.1 200 OK
 /tcp-stream-handlers (GET)  | 
 ---------------|------
 description    | Returns the list of TCP stream handlers.
-example url    | http://hostname:8080/api/enterprise/pipeline/v1/tcp-stream-handler
+example url    | http://hostname:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers
 pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
@@ -473,40 +384,40 @@ response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal 
 output         | {{< code shell >}}
 [
   {
+    "type": "TCPStreamHandler",
+    "api_version": "pipeline/v1",
     "metadata": {
-      "name": "influx-db",
+      "name": "incident_log",
       "namespace": "default",
       "created_by": "admin"
     },
-    "type": "pipe",
-    "command": "sensu-influxdb-handler -d sensu",
-    "timeout": 0,
-    "handlers": null,
-    "filters": null,
-    "env_vars": [
-      "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-      "INFLUXDB_USER=sensu",
-      "INFLUXDB_PASSWORD=password"
-    ],
-    "runtime_assets": ["sensu/sensu-influxdb-handler"]
+    "spec": {
+      "address": "127.0.0.1:4242",
+      "max_connections": 10,
+      "max_reconnect_delay": "10s",
+      "min_reconnect_delay": "10ms",
+      "tls_ca_cert_file": "",
+      "tls_cert_file": "",
+      "tls_key_file": ""
+    }
   },
   {
+    "type": "TCPStreamHandler",
+    "api_version": "pipeline/v1",
     "metadata": {
-      "name": "slack",
-      "namespace": "default"
+      "name": "logstash",
+      "namespace": "default",
+      "created_by": "admin"
     },
-    "type": "pipe",
-    "command": "sensu-slack-handler --channel '#monitoring'",
-    "timeout": 0,
-    "handlers": null,
-    "filters": [
-      "is_incident",
-      "not_silenced"
-    ],
-    "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-    ],
-    "runtime_assets": ["sensu/sensu-slack-handler"]
+    "spec": {
+      "address": "127.0.0.1:4242",
+      "max_connections": 10,
+      "max_reconnect_delay": "10s",
+      "min_reconnect_delay": "10ms",
+      "tls_ca_cert_file": "/path/to/tls/ca.pem",
+      "tls_cert_file": "/path/to/tls/cert.pem",
+      "tls_key_file": "/path/to/tls/key.pem"
+    }
   }
 ]
 {{< /code >}}
@@ -525,19 +436,24 @@ curl -X POST \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
+  "api_version": "pipeline/v1",
+  "type": "TCPStreamHandler",
   "metadata": {
-    "name": "logstash"
+    "name": "logstash",
+    "namespace": "default"
   },
-  "address": "127.0.0.1:4242",
-  "tls_ca_cert_file": "/path/to/tls/ca.pem",
-  "tls_cert_file": "/path/to/tls/cert.pem",
-  "tls_key_file": "/path/to/tls/key.pem",
-  "max_connections": 10,
-  "min_connections": 5,
-  "min_reconnect_delay": "10ms",
-  "max_reconnect_delay": "10s"
+  "spec": {
+    "address": "127.0.0.1:4242",
+    "tls_ca_cert_file": "/path/to/tls/ca.pem",
+    "tls_cert_file": "/path/to/tls/cert.pem",
+    "tls_key_file": "/path/to/tls/key.pem",
+    "max_connections": 10,
+    "min_connections": 5,
+    "min_reconnect_delay": "10ms",
+    "max_reconnect_delay": "10s"
+  }
 }' \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/tcp-stream-handlers
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers
 
 HTTP/1.1 201 Created
 {{< /code >}}
@@ -547,20 +463,25 @@ HTTP/1.1 201 Created
 /tcp-stream-handlers (POST) | 
 ----------------|------
 description     | Creates a Sensu TCP stream handler.
-example URL     | http://hostname:8080/api/enterprise/pipeline/v1/tcp-stream-handler
+example URL     | http://hostname:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers
 payload         | {{< code shell >}}
 {
+  "api_version": "pipeline/v1",
+  "type": "TCPStreamHandler",
   "metadata": {
-    "name": "logstash"
+    "name": "logstash",
+    "namespace": "default"
   },
-  "address": "127.0.0.1:4242",
-  "tls_ca_cert_file": "/path/to/tls/ca.pem",
-  "tls_cert_file": "/path/to/tls/cert.pem",
-  "tls_key_file": "/path/to/tls/key.pem",
-  "max_connections": 10,
-  "min_connections": 5,
-  "min_reconnect_delay": "10ms",
-  "max_reconnect_delay": "10s"
+  "spec": {
+    "address": "127.0.0.1:4242",
+    "tls_ca_cert_file": "/path/to/tls/ca.pem",
+    "tls_cert_file": "/path/to/tls/cert.pem",
+    "tls_key_file": "/path/to/tls/key.pem",
+    "max_connections": 10,
+    "min_connections": 5,
+    "min_reconnect_delay": "10ms",
+    "max_reconnect_delay": "10s"
+  }
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -575,22 +496,27 @@ In the following example, querying the `/tcp-stream-handlers/:tcp-stream-handler
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/tcp-stream-handlers/logstash \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers/logstash \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
+  "type": "TCPStreamHandler",
+  "api_version": "pipeline/v1",
   "metadata": {
-    "name": "logstash"
+    "name": "logstash",
+    "namespace": "default",
+    "created_by": "admin"
   },
-  "address": "127.0.0.1:4242",
-  "tls_ca_cert_file": "/path/to/tls/ca.pem",
-  "tls_cert_file": "/path/to/tls/cert.pem",
-  "tls_key_file": "/path/to/tls/key.pem",
-  "max_connections": 10,
-  "min_connections": 5,
-  "min_reconnect_delay": "10ms",
-  "max_reconnect_delay": "10s"
+  "spec": {
+    "address": "127.0.0.1:4242",
+    "max_connections": 10,
+    "max_reconnect_delay": "10s",
+    "min_reconnect_delay": "10ms",
+    "tls_ca_cert_file": "/path/to/tls/ca.pem",
+    "tls_cert_file": "/path/to/tls/cert.pem",
+    "tls_key_file": "/path/to/tls/key.pem"
+  }
 }
 {{< /code >}}
 
@@ -599,22 +525,27 @@ HTTP/1.1 200 OK
 /tcp-stream-handlers/:tcp-stream-handler (GET) | 
 ---------------------|------
 description          | Returns a TCP stream handler.
-example url          | http://hostname:8080/api/enterprise/pipeline/v1/tcp-stream-handlers/logstash
+example url          | http://hostname:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers/logstash
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
 {
+  "type": "TCPStreamHandler",
+  "api_version": "pipeline/v1",
   "metadata": {
-    "name": "logstash"
+    "name": "logstash",
+    "namespace": "default",
+    "created_by": "admin"
   },
-  "address": "127.0.0.1:4242",
-  "tls_ca_cert_file": "/path/to/tls/ca.pem",
-  "tls_cert_file": "/path/to/tls/cert.pem",
-  "tls_key_file": "/path/to/tls/key.pem",
-  "max_connections": 10,
-  "min_connections": 5,
-  "min_reconnect_delay": "10ms",
-  "max_reconnect_delay": "10s"
+  "spec": {
+    "address": "127.0.0.1:4242",
+    "max_connections": 10,
+    "max_reconnect_delay": "10s",
+    "min_reconnect_delay": "10ms",
+    "tls_ca_cert_file": "/path/to/tls/ca.pem",
+    "tls_cert_file": "/path/to/tls/cert.pem",
+    "tls_key_file": "/path/to/tls/key.pem"
+  }
 }
 {{< /code >}}
 
@@ -624,7 +555,7 @@ The `/tcp-stream-handlers/:tcp-stream-handler` API endpoint provides HTTP PUT ac
 
 ### Example
 
-In the following example, an HTTP PUT request is submitted to the `/tcp-stream-handlers/:tcp-stream-handler` API endpoint to create the handler `???`.
+In the following example, an HTTP PUT request is submitted to the `/tcp-stream-handlers/:tcp-stream-handler` API endpoint to create the handler `incident_log`.
 The request returns a successful HTTP `201 Created` response.
 
 {{< code shell >}}
@@ -632,25 +563,21 @@ curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
+  "api_version": "pipeline/v1",
+  "type": "TCPStreamHandler",
   "metadata": {
-    "name": "influx-db",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "incident_log",
+    "namespace": "default"
   },
-  "command": "sensu-influxdb-handler -d sensu",
-  "env_vars": [
-    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-    "INFLUXDB_USER=sensu",
-    "INFLUXDB_PASSWORD=password"
-  ],
-  "filters": [],
-  "handlers": [],
-  "runtime_assets": ["sensu/sensu-influxdb-handler"],
-  "timeout": 0,
-  "type": "pipe"
+  "spec": {
+    "address": "127.0.0.1:4242",
+    "max_connections": 10,
+    "min_connections": 5,
+    "min_reconnect_delay": "10ms",
+    "max_reconnect_delay": "10s"
+  }
 }' \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/tcp-stream-handlers/???
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers/incident_log
 
 HTTP/1.1 201 Created
 {{< /code >}}
@@ -660,76 +587,25 @@ HTTP/1.1 201 Created
 /tcp-stream-handlers/:tcp-stream-handler (PUT) | 
 ----------------|------
 description     | Creates or updates the specified Sensu TCP stream handler.
-example URL     | http://hostname:8080/api/enterprise/pipeline/v1/tcp-stream-handlers/???
+example URL     | http://hostname:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers/incident_log
 payload         | {{< code shell >}}
 {
+  "api_version": "pipeline/v1",
+  "type": "TCPStreamHandler",
   "metadata": {
-    "name": "influx-db",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "incident_log",
+    "namespace": "default"
   },
-  "command": "sensu-influxdb-handler -d sensu",
-  "env_vars": [
-    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-    "INFLUXDB_USER=sensu",
-    "INFLUXDB_PASSWORD=password"
-  ],
-  "filters": [],
-  "handlers": [],
-  "runtime_assets": [],
-  "timeout": 0,
-  "type": "pipe"
+  "spec": {
+    "address": "127.0.0.1:4242",
+    "max_connections": 10,
+    "min_connections": 5,
+    "min_reconnect_delay": "10ms",
+    "max_reconnect_delay": "10s"
+  }
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
-## Update a TCP stream handler with PATCH
-
-The `/tcp-stream-handlers/:tcp-stream-handler` API endpoint provides HTTP PATCH access to update `:tcp-stream-handler` definitions, specified by handler name.
-
-{{% notice note %}}
-**NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
-Use a [PUT request](#tcp-stream-handlerstcp-stream-handler-put) instead.<br><br>
-Also, you cannot add elements to an array with a PATCH request &mdash; you must replace the entire array.
-{{% /notice %}}
-
-### Example
-
-In the following example, an HTTP PATCH request is submitted to the `/tcp-stream-handlers/:tcp-stream-handler` API endpoint to update the filters array for the `???` handler, resulting in an HTTP `200 OK` response and the updated handler definition.
-
-We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
-
-{{< code shell >}}
-curl -X PATCH \
--H "Authorization: Key $SENSU_API_KEY" \
--H 'Content-Type: application/merge-patch+json' \
--d '{
-  "filters": [
-    "us-west",
-    "is_incident"
-  ]
-}' \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/tcp-stream-handlers/???
-
-HTTP/1.1 200 OK
-{{< /code >}}
-
-### API Specification
-
-/tcp-stream-handlers/:tcp-stream-handler (PATCH) | 
-----------------|------
-description     | Updates the specified Sensu TCP stream handler.
-example URL     | http://hostname:8080/api/enterprise/pipeline/v1/tcp-stream-handlers/???
-payload         | {{< code shell >}}
-{
-  "filters": [
-    "us-west",
-    "is_incident"
-  ]
-}
-{{< /code >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Delete a TCP stream handler
 
@@ -737,11 +613,11 @@ The `/tcp-stream-handlers/:tcp-stream-handler` API endpoint provides HTTP DELETE
 
 ### Example
 
-The following example shows a request to the `/tcp-stream-handlers/:tcp-stream-handler` API endpoint to delete the TCP stream handler `???`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/tcp-stream-handlers/:tcp-stream-handler` API endpoint to delete the TCP stream handler `incident_log`, resulting in a successful HTTP `204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/??? \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers/incident_log \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 204 No Content
@@ -752,7 +628,7 @@ HTTP/1.1 204 No Content
 /tcp-stream-handlers/:tcp-stream-handler (DELETE) | 
 --------------------------|------
 description               | Removes the specified TCP stream handler from Sensu.
-example url               | http://hostname:8080/api/enterprise/pipeline/v1/sumo-logic-metrics-handlers/???
+example url               | http://hostname:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers/incident_log
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
