@@ -31,6 +31,10 @@ All the observability events that the check produces will be processed according
 Pipelines can replace [handler sets][1] and [handler stacks][2].
 We recommend migrating your existing handler sets and stacks to pipeline workflows.
 
+{{% notice note %}}
+**NOTE**: To use pipelines, [upgrade](../../../operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-650-from-any-previous-version) your agents to Sensu Go 6.5.0.
+{{% /notice %}}
+
 ## Pipeline example
 
 This example shows a pipeline resource definition that includes event filters, a mutator, and a handler:
@@ -836,6 +840,7 @@ api_version: core/v2
 [20]: ../tcp-stream-handlers/
 [21]: ../sumo-logic-metrics-handlers/
 [22]: ../
+[23]: ../../../operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-650-from-any-previous-version
 [24]: ../../observe-filter/filters/
 [25]: ../../../web-ui/search#search-for-labels
 [26]: ../../../operations/manage-secrets/secrets-management/
