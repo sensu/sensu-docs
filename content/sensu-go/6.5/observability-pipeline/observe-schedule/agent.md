@@ -897,6 +897,9 @@ Flags:
       --redact strings                      comma-delimited list of fields to redact, overwrites the default fields. This flag can also be invoked multiple times (default [password,passwd,pass,api_key,api_token,access_key,secret_key,private_key,secret])
       --require-fips                        indicates whether fips support should be required in openssl
       --require-openssl                     indicates whether openssl should be required instead of go's built-in crypto
+      --retry-max                           maximum amount of time to wait before retrying an agent connection to the backend
+      --retry-min                           minimum amount of time to wait before retrying an agent connection to the backend
+      --retry-multiplier                    value multiplied with the current retry delay to produce a longer retry delay (bounded by --retry-max)
       --socket-host string                  address to bind the Sensu client socket to (default "127.0.0.1")
       --socket-port int                     port the Sensu client socket listens on (default 3030)
       --statsd-disable                      disables the statsd listener and metrics server
@@ -1160,6 +1163,47 @@ command line example   | {{< code shell >}}
 sensu-agent start --name agent-01{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 name: "agent-01"{{< /code >}}
+
+<a id="retry-max"></a>
+
+| retry-max   |      |
+--------------|------
+description   | Maximum amount of time to wait before retrying an agent connection to the backend. In milliseconds (`ms`), seconds (`s`), minutes (`m`), or hours (`h`).
+type          | String
+default       | `120s`
+environment variable | `SENSU_RETRY_MAX`
+command line example   | {{< code shell >}}
+sensu-agent start --retry-max 120s{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+retry-max: 120s{{< /code >}}
+
+<a id="retry-min"></a>
+
+| retry-min   |      |
+--------------|------
+description   | Minimum amount of time to wait before retrying an agent connection to the backend. Multiplied with the [retry-multiplier][62] value at each retry. In milliseconds (`ms`), seconds (`s`), minutes (`m`), or hours (`h`).
+type          | String
+default       | `1s`
+environment variable | `SENSU_RETRY_MIN`
+command line example   | {{< code shell >}}
+sensu-agent start --retry-min 1s{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+retry-min: 1s{{< /code >}}
+
+<a id="retry-multiplier"></a>
+
+| retry-multiplier |      |
+--------------|------
+description   | Value to multiply with the current [retry-min][61] delay to produce longer delays at each retry for exponential backoff.{{% notice note %}}
+**NOTE**: The maximum retry delay cannot not exceed the [retry-max](#retry-max) value.
+{{% /notice %}}
+type          | Float
+default       | `2.0`
+environment variable | `SENSU_RETRY_MULTIPLIER`
+command line example   | {{< code shell >}}
+sensu-agent start --retry-multiplier 2.0{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+retry-multiplier: 2.0{{< /code >}}
 
 <a id="subscriptions-flag"></a>
 
@@ -1916,3 +1960,5 @@ log-level: debug
 [58]: ../../../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
 [59]: ../../../operations/control-access/#use-built-in-basic-authentication
 [60]: #log-level
+[61]: #retry-min
+[62]: #retry-multiplier

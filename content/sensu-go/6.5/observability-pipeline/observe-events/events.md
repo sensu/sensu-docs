@@ -81,10 +81,6 @@ spec:
       CheckCPU TOTAL OK: total=0.41 user=0.2 nice=0.0 system=0.2 idle=99.59 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0
     output_metric_format: ""
     output_metric_handlers: null
-    pipelines:
-    - api_version: core/v2
-      type: Pipeline
-      name: incident_alerts
     proxy_entity_name: ""
     publish: true
     round_robin: false
@@ -153,6 +149,10 @@ spec:
       vm_role: guest
       vm_system: vbox
     user: agent
+  pipelines:
+    - api_version: core/v2
+      type: Pipeline
+      name: incident_alerts
   id: 3c3e68f6-6db7-40d3-9b84-4d61817ae559
   sequence: 5
   timestamp: 1617050507
@@ -210,13 +210,6 @@ spec:
       "output": "CheckCPU TOTAL OK: total=0.41 user=0.2 nice=0.0 system=0.2 idle=99.59 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0\n",
       "output_metric_format": "",
       "output_metric_handlers": null,
-      "pipelines": [
-        {
-          "api_version": "core/v2",
-          "type": "Pipeline",
-          "name": "incident_alerts"
-        }
-      ],
       "proxy_entity_name": "",
       "publish": true,
       "round_robin": false,
@@ -304,6 +297,13 @@ spec:
       },
       "user": "agent"
     },
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "id": "3c3e68f6-6db7-40d3-9b84-4d61817ae559",
     "sequence": 5,
     "timestamp": 1617050507
@@ -333,13 +333,6 @@ This is the format that events are in when Sensu sends them to handlers:
     ],
     "subscriptions": [
       "system"
-    ],
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
     ],
     "proxy_entity_name": "",
     "check_hooks": null,
@@ -458,6 +451,13 @@ This is the format that events are in when Sensu sends them to handlers:
     },
     "sensu_agent_version": "6.2.6"
   },
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
+  ],
   "id": "3c3e68f6-6db7-40d3-9b84-4d61817ae559",
   "metadata": {
     "namespace": "default"
@@ -531,6 +531,10 @@ spec:
       tags: []
       timestamp: 1552506033
       value: 0.004
+  pipelines:
+    - api_version: core/v2
+      type: Pipeline
+      name: incident_alerts
   timestamp: 1552506033
   id: 47ea07cd-1e50-4897-9e6d-09cd39ec5180
   sequence: 1
@@ -616,6 +620,13 @@ spec:
         }
       ]
     },
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "timestamp": 1552506033,
     "id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180",
     "sequence": 1
@@ -666,10 +677,6 @@ spec:
     output_metric_format: graphite_plaintext
     output_metric_handlers:
     - influx-db
-    pipelines:
-    - api_version: core/v2
-      type: Pipeline
-      name: incident_alerts
     proxy_entity_name: ""
     publish: true
     round_robin: false
@@ -735,6 +742,10 @@ spec:
       tags: []
       timestamp: 1552506033
       value: 0.004
+  pipelines:
+    - api_version: core/v2
+      type: Pipeline
+      name: incident_alerts
   timestamp: 1552506033
   id: 431a0085-96da-4521-863f-c38b480701e9
   sequence: 1
@@ -781,13 +792,6 @@ spec:
       "output_metric_format": "graphite_plaintext",
       "output_metric_handlers": [
         "influx-db"
-      ],
-      "pipelines": [
-        {
-          "api_version": "core/v2",
-          "type": "Pipeline",
-          "name": "incident_alerts"
-        }
       ],
       "proxy_entity_name": "",
       "publish": true,
@@ -876,6 +880,13 @@ spec:
         }
       ]
     },
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "timestamp": 1552506033,
     "id": "431a0085-96da-4521-863f-c38b480701e9",
     "sequence": 1
@@ -1100,6 +1111,33 @@ metadata:
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="pipelines-attribute"></a>
+
+| pipelines  |   |
+-------------|------
+description  | Name, type, and API version for the [pipelines][44] used to process the observability event. Sensu automatically populates the pipelines attributes when the event is created or updated. Read [pipelines attributes][45] for more information.
+required     | false
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+pipelines:
+- type: Pipeline
+  api_version: core/v2
+  name: incident_alerts
+{{< /code >}}
+{{< code json >}}
+{
+  "pipelines": [
+    {
+      "type": "Pipeline",
+      "api_version": "core/v2",
+      "name": "incident_alerts"
+    }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 spec         | 
 -------------|------
 description  | Top-level map that includes the event [spec attributes][9].
@@ -1139,10 +1177,6 @@ spec:
     output_metric_format: graphite_plaintext
     output_metric_handlers:
     - influx-db
-    pipelines:
-    - api_version: core/v2
-      type: Pipeline
-      name: incident_alerts
     proxy_entity_name: ''
     publish: true
     round_robin: false
@@ -1251,13 +1285,6 @@ spec:
       "output_metric_format": "graphite_plaintext",
       "output_metric_handlers": [
         "influx-db"
-      ],
-      "pipelines": [
-        {
-          "api_version": "core/v2",
-          "type": "Pipeline",
-          "name": "incident_alerts"
-        }
       ],
       "proxy_entity_name": "",
       "publish": true,
@@ -1385,6 +1412,59 @@ created_by: "admin"
 {{< code json >}}
 {
   "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+#### Pipelines attributes
+
+type         | 
+-------------|------
+description  | The [`sensuctl create`][8] resource type for the [pipeline][44]. Sensu automatically populates the pipelines type field when the event is created or updated. Pipeline resources are always type `Pipeline`.
+required     | false
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Pipeline
+{{< /code >}}
+{{< code json >}}
+{
+ "type": "Pipeline"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+api_version  | 
+-------------|------
+description  | The Sensu API group and version for the [pipeline][44]. Sensu automatically populates the pipelines api_version field when the event is created or updated. For pipelines in this version of Sensu, the api_version is `core/v2`.
+required     | false
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "core/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+name         | 
+-------------|------
+description  | Name of the Sensu [pipeline][44] used to process the observability event. Sensu automatically populates the pipeline name field when the event is created or updated.
+required     | false
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: is_incident
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "is_incident"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1586,10 +1666,6 @@ check:
   output_metric_format: graphite_plaintext
   output_metric_handlers:
   - influx-db
-  pipelines:
-  - api_version: core/v2
-    type: Pipeline
-    name: incident_alerts
   proxy_entity_name: ''
   publish: true
   round_robin: false
@@ -1642,13 +1718,6 @@ check:
     "output_metric_format": "graphite_plaintext",
     "output_metric_handlers": [
       "influx-db"
-    ],
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
     ],
     "proxy_entity_name": "",
     "publish": true,
@@ -2169,3 +2238,5 @@ value: 0.005
 [39]: #flap-detection-algorithm
 [40]: ../../observe-filter/filters/#check-attributes-available-to-filters
 [41]: ../../../plugins/supported-integrations/#time-series-and-long-term-event-storage
+[44]: ../../observe-process/pipelines/
+[45]: #pipelines-attributes
