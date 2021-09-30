@@ -393,7 +393,9 @@ See the [etcd failure modes documentation][8] for information about cluster fail
 
 ### Disaster recovery
 
-See the [etcd recovery guide][9] for disaster recovery information.
+For external etcd, follow the [etcd recovery guide][9] for disaster recovery.
+
+For embedded etcd, follow [Back up and recover resources with sensuctl][28] for disaster recovery.
 
 ### Redeploy a cluster
 
@@ -427,3 +429,4 @@ To redeploy a cluster due to an issue like loss of quorum among cluster members,
 [25]: https://etcd.io/docs/v3.5/op-guide/recovery/#restoring-a-cluster
 [26]: ../../../sensuctl/back-up-recover/#restore-resources-from-backup
 [27]: #use-an-external-etcd-cluster
+[28]: ../../../sensuctl/back-up-recover/
