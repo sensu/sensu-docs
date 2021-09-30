@@ -72,6 +72,11 @@ sensuctl version
 For example, to debug an upgrade from 5.5.0 to 6.4.0, start with [Upgrade Sensu clusters from 5.7.0 or earlier to 5.8.0 or later](#upgrade-sensu-clusters-from-570-or-earlier-to-580-or-later).
 {{% /notice %}}
 
+## Upgrade to Sensu Go 6.5.0 from any previous version
+
+To use [pipelines][18], you must upgrade your Sensu agents to Sensu Go 6.5.0.
+Agents that are not upgraded to 6.5.0 will run checks, send observability events to the backend, and use the handlers that are defined in check [handlers arrays][17], but they will not run pipelines.
+
 ## Upgrade to Sensu Go 6.4.0 from any previous version
 
 In Sensu Go 6.4.0, we upgraded the embedded etcd version from 3.3.22 to 3.5.0.
@@ -244,3 +249,5 @@ sudo service sensu-backend restart
 [14]: #upgrade-sensu-clusters-from-570-or-earlier-to-580-or-later
 [15]: ../../../sensuctl/back-up-recover/
 [16]: ../../../release-notes/
+[17]: ../../../observability-pipeline/observe-schedule/checks#handlers-array
+[18]: ../../../observability-pipeline/observe-process/pipelines/
