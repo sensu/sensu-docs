@@ -540,10 +540,10 @@ The response will list all supported `sensuctl prune` resource types:
   core/v2.Handler                handlers              core/v2             Handler                  true        
   core/v2.HookConfig             hooks                 core/v2             HookConfig               true        
   core/v2.Mutator                mutators              core/v2             Mutator                  true        
-  core/v2.Pipelines              pipelines             core/v2             Pipelines                true        
   core/v2.Role                   roles                 core/v2             Role                     true        
   core/v2.RoleBinding            rolebindings          core/v2             RoleBinding              true        
   core/v2.Silenced               silenced              core/v2             Silenced                 true        
+  core/v2.Pipeline               pipelines             core/v2             Pipeline                 true 
 {{< /code >}}
 
 {{% notice note %}}

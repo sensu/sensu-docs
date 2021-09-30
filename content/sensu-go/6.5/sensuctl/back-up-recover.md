@@ -382,6 +382,7 @@ The response will list the names and other details for the supported resource ty
   core/v2.Role                   roles                 core/v2             Role                     true
   core/v2.RoleBinding            rolebindings          core/v2             RoleBinding              true
   core/v2.Silenced               silenced              core/v2             Silenced                 true  
+  core/v2.Pipeline               pipelines             core/v2             Pipeline                 true
 {{< /code >}}
 
 You can also list specific resource types by fully qualified name or short name:
