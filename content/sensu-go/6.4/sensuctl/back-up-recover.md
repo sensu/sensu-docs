@@ -361,6 +361,8 @@ The response will list the names and other details for the supported resource ty
   secrets/v1.Provider                                  secrets/v1          Provider             false
   searches/v1.Search                                   searches/v1         Search               true
   web/v1.GlobalConfig                                  web/v1              GlobalConfig         false
+  bsm/v1.RuleTemplate                                  bsm/v1              RuleTemplate         true        
+  bsm/v1.ServiceComponent                              bsm/v1              ServiceComponent     true  
   core/v2.Namespace              namespaces            core/v2             Namespace            false
   core/v2.ClusterRole            clusterroles          core/v2             ClusterRole          false
   core/v2.ClusterRoleBinding     clusterrolebindings   core/v2             ClusterRoleBinding   false
