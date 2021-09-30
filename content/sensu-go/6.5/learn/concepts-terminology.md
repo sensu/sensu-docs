@@ -79,6 +79,11 @@ Hooks create context-rich events by gathering relevant information based on chec
 An executable the backend runs prior to a handler to transform observation data (events).
 [Read more about mutators][11].
 
+## Pipeline
+Resources composed of observation event processing workflows made up of filters, mutators, and handlers.
+Instead of specifying filters and mutators in handler definitions, you can specify all three in a single pipeline workflow.
+[Read more about pipelines][23].
+
 ## Plugin
 Executables designed to work with Sensu observation data (events) either as a check, mutator, or handler plugin. 
 You can write your own check executables in Go, Ruby, Python, and more, or use one of more than 200 plugins shared by the Sensu community.
@@ -143,3 +148,4 @@ Tokens let you fine-tune check attributes (like thresholds) on a per-entity leve
 [20]: ../../observability-pipeline/observe-schedule/rule-templates/
 [21]: ../../observability-pipeline/observe-schedule/service-components/
 [22]: ../../observability-pipeline/observe-schedule/subscriptions/
+[23]: ../../observability-pipeline/observe-process/pipelines/
