@@ -62,10 +62,14 @@ You will use this URL as the value for the `url` attribute in your [Sumo Logic m
 
     {{< figure src="/images/sumo-plus/http-source-address_url.png" alt="Retrieve the HTTP Source Address URL" link="/images/sumo-plus/http-source-address_url.png" target="_blank" >}}
 
-## Create a Sumo Logic metrics handler in Sensu
+## Create a handler in Sensu
 
-To send your Sensu observability data to your new Sumo Logic HTTP Logs and Metrics Source, create a [Sumo Logic metrics handler][5] in Sensu.
-Your Sumo Logic metrics handler definition must use the URL you copied in the last step of [setting up your HTTP Logs and Metrics Source][4] as the value for the `url` attribute.
+To send your Sensu observability data to your new Sumo Logic HTTP Logs and Metrics Source, create a Sensu handler.
+
+We recommend creating a [Sumo Logic metrics handler][5] because they provide a persistent connection to transmit Sensu observability data, which helps prevent the data bottlenecks you may experience with traditional handlers.
+However, you can use a traditional handler instead if desired, and our [Sumo Logic handler integration][11] includes templates to get you started.
+
+For a Sumo Logic metrics handler, the resource definition must use the URL you copied in the last step of setting up your HTTP Logs and Metrics Source as the value for the `url` attribute.
 
 Here is an example Sumo Logic Metrics Handler definition:
 
@@ -189,10 +193,10 @@ Click a dashboard name to view your Sensu observability data.
 [1]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
 [2]: https://www.sumologic.com/sign-up/
 [3]: #create-a-sumo-logic-metrics-handler-in-sensu
-[4]: #set-up-an-http-logs-and-metrics-source
 [5]: ../observability-pipeline/observe-process/sumo-logic-metrics-handlers
 [6]: ../operations/manage-secrets/secrets/
 [7]: ../operations/manage-secrets/secrets-providers/#env-secrets-provider-example
 [8]: ../observability-pipeline/observe-process/pipelines/
 [9]: ../observability-pipeline/observe-schedule/checks/
 [10]: https://service.sumologic.com/ui/#/home
+[11]: ../plugins/supported-integrations/sumologic/
