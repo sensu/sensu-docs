@@ -121,9 +121,13 @@ In the Execute Check dialog window, you can execute the check according to its e
 
 {{< figure src="/images/execute-subscriptions.png" alt="Execute Check dialog window for executing a check on demand from the web UI" link="/images/execute-subscriptions.png" target="_blank" >}}
 
-## View resource data
+## View resource data in the web UI
 
-To view the JSON definition for any event, entity, or other configuration resource directly in the web UI:
+You can view the JSON definition for any event or entity and the JSON or YAML definition for any configuration resource directly in the web UI.
+
+### View resource data for an event or entity
+
+To view the JSON definition for any event or entity in the web UI:
 
 1. Open the individual resource page.
 2. Click the kebab icon in the top-right of the page: ![kebab icon](/images/web-ui-kebab-icon.png)
@@ -131,7 +135,18 @@ To view the JSON definition for any event, entity, or other configuration resour
 
 This example shows how to view the JSON definition for an event:
 
-{{< figure src="/images/view-data-web-ui.gif" alt="View an event's resource data in the web UI" link="/images/view-data-web-ui.gif" target="_blank" >}}
+{{< figure src="/images/view-event-data-web-ui.gif" alt="View an event's resource data in the web UI" link="/images/view-data-web-ui.gif" target="_blank" >}}
+
+### View resource data for a configuration resource
+
+To view and copy the JSON or YAML definition for any configuration resource in the web UI:
+
+1. Open the individual resource page.
+2. ...
+
+This example shows how to view the JSON and YAML definition for an event filter:
+
+{{< figure src="/images/view-filter-data-web-ui.gif" alt="View an event filter's resource data in the web UI" link="/images/view-data-web-ui.gif" target="_blank" >}}
 
 
 [1]: ../#webui-homepage
