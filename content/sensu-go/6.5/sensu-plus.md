@@ -58,7 +58,7 @@ Set up a Sumo Logic HTTP Logs and Metrics Source to collect your Sensu observabi
     {{< figure src="/images/sumo-plus/http-logs-and-metrics_source.gif" alt="Select options for HTTP Logs & Metrics source" link="/images/sumo-plus/http-logs-and-metrics_source.gif" target="_blank" >}}
 
 8. In the HTTP Source Address prompt, copy the listed URL and click OK.
-You will use this URL as the value for the `url` attribute in your [Sumo Logic metrics handler][3] definition.
+You will use this URL as the value for the `url` attribute in your [Sensu handler][3] definition.
 
     {{< figure src="/images/sumo-plus/http-source-address_url.png" alt="Retrieve the HTTP Source Address URL" link="/images/sumo-plus/http-source-address_url.png" target="_blank" >}}
 
@@ -192,7 +192,7 @@ Click a dashboard name to view your Sensu observability data.
 
 [1]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
 [2]: https://www.sumologic.com/sign-up/
-[3]: #create-a-sumo-logic-metrics-handler-in-sensu
+[3]: #create-a-handler-in-sensu
 [5]: ../observability-pipeline/observe-process/sumo-logic-metrics-handlers
 [6]: ../operations/manage-secrets/secrets/
 [7]: ../operations/manage-secrets/secrets-providers/#env-secrets-provider-example
