@@ -50,13 +50,6 @@ HTTP/1.1 200 OK
       "subscriptions": [
         "system"
       ],
-      "pipelines": [
-        {
-          "api_version": "core/v2",
-          "type": "Pipeline",
-          "name": "incident_alerts"
-        }
-      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -93,6 +86,7 @@ HTTP/1.1 200 OK
       },
       "secrets": null,
       "is_silenced": false,
+      "processed_by": "server1",
       "scheduler": "memory"
     },
     "entity": {
@@ -162,6 +156,13 @@ HTTP/1.1 200 OK
       },
       "sensu_agent_version": "6.2.7"
     },
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "id": "da53be74-be42-4862-a481-b7e3236e8e6d",
     "metadata": {
       "namespace": "default"
@@ -199,13 +200,6 @@ output         | {{< code shell >}}
       "subscriptions": [
         "system"
       ],
-      "pipelines": [
-        {
-          "api_version": "core/v2",
-          "type": "Pipeline",
-          "name": "incident_alerts"
-        }
-      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -242,6 +236,7 @@ output         | {{< code shell >}}
       },
       "secrets": null,
       "is_silenced": false,
+      "processed_by": "server1",
       "scheduler": "memory"
     },
     "entity": {
@@ -311,6 +306,13 @@ output         | {{< code shell >}}
       },
       "sensu_agent_version": "6.2.7"
     },
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "id": "da53be74-be42-4862-a481-b7e3236e8e6d",
     "metadata": {
       "namespace": "default"
@@ -433,13 +435,6 @@ HTTP/1.1 200 OK
       "subscriptions": [
         "system"
       ],
-      "pipelines": [
-        {
-          "api_version": "core/v2",
-          "type": "Pipeline",
-          "name": "incident_alerts"
-        }
-      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -476,6 +471,7 @@ HTTP/1.1 200 OK
       },
       "secrets": null,
       "is_silenced": false,
+      "processed_by": "server1",
       "scheduler": "memory"
     },
     "entity": {
@@ -545,6 +541,13 @@ HTTP/1.1 200 OK
       },
       "sensu_agent_version": "6.2.7"
     },
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "id": "da53be74-be42-4862-a481-b7e3236e8e6d",
     "metadata": {
       "namespace": "default"
@@ -563,13 +566,6 @@ HTTP/1.1 200 OK
       "publish": false,
       "runtime_assets": null,
       "subscriptions": [],
-      "pipelines": [
-        {
-          "api_version": "core/v2",
-          "type": "Pipeline",
-          "name": "incident_alerts"
-        }
-      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -613,6 +609,7 @@ HTTP/1.1 200 OK
       },
       "secrets": null,
       "is_silenced": false,
+      "processed_by": "server1",
       "scheduler": "etcd"
     },
     "entity": {
@@ -682,6 +679,13 @@ HTTP/1.1 200 OK
       },
       "sensu_agent_version": "6.2.7"
     },
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "id": "8717b1dc-47d2-4b73-a259-ee2645cadbf5",
     "metadata": {
       "namespace": "default"
@@ -718,13 +722,6 @@ output               | {{< code json >}}
       "subscriptions": [
         "system"
       ],
-      "pipelines": [
-        {
-          "api_version": "core/v2",
-          "type": "Pipeline",
-          "name": "incident_alerts"
-        }
-      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -761,6 +758,7 @@ output               | {{< code json >}}
       },
       "secrets": null,
       "is_silenced": false,
+      "processed_by": "server1",
       "scheduler": "memory"
     },
     "entity": {
@@ -830,6 +828,13 @@ output               | {{< code json >}}
       },
       "sensu_agent_version": "6.2.7"
     },
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "id": "da53be74-be42-4862-a481-b7e3236e8e6d",
     "metadata": {
       "namespace": "default"
@@ -848,13 +853,6 @@ output               | {{< code json >}}
       "publish": false,
       "runtime_assets": null,
       "subscriptions": [],
-      "pipelines": [
-        {
-          "api_version": "core/v2",
-          "type": "Pipeline",
-          "name": "incident_alerts"
-        }
-      ],
       "proxy_entity_name": "",
       "check_hooks": null,
       "stdin": false,
@@ -898,6 +896,7 @@ output               | {{< code json >}}
       },
       "secrets": null,
       "is_silenced": false,
+      "processed_by": "server1",
       "scheduler": "etcd"
     },
     "entity": {
@@ -967,6 +966,13 @@ output               | {{< code json >}}
       },
       "sensu_agent_version": "6.2.7"
     },
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "id": "8717b1dc-47d2-4b73-a259-ee2645cadbf5",
     "metadata": {
       "namespace": "default"
@@ -1007,13 +1013,6 @@ HTTP/1.1 200 OK
     "subscriptions": [
       "system"
     ],
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
-    ],
     "proxy_entity_name": "",
     "check_hooks": null,
     "stdin": false,
@@ -1041,6 +1040,7 @@ HTTP/1.1 200 OK
     },
     "secrets": null,
     "is_silenced": false,
+    "processed_by": "server1",
     "scheduler": ""
   },
   "entity": {
@@ -1110,6 +1110,13 @@ HTTP/1.1 200 OK
     },
     "sensu_agent_version": "6.2.7"
   },
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
+  ],
   "id": "9a9c7515-0a04-43f3-9351-d8da88942b1b",
   "metadata": {
     "namespace": "default"
@@ -1145,13 +1152,6 @@ output               | {{< code json >}}
     "subscriptions": [
       "system"
     ],
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
-    ],
     "proxy_entity_name": "",
     "check_hooks": null,
     "stdin": false,
@@ -1179,6 +1179,7 @@ output               | {{< code json >}}
     },
     "secrets": null,
     "is_silenced": false,
+    "processed_by": "server1",
     "scheduler": ""
   },
   "entity": {
@@ -1248,6 +1249,13 @@ output               | {{< code json >}}
     },
     "sensu_agent_version": "6.2.7"
   },
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
+  ],
   "id": "9a9c7515-0a04-43f3-9351-d8da88942b1b",
   "metadata": {
     "namespace": "default"
