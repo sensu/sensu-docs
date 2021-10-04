@@ -45,7 +45,7 @@ In the quick start guide, you used sensuctl for ad hoc configuration when you ad
 But Sensu resources like checks and events also have detailed definitions that you can store, maintain, and reuse just like you would store, maintain, and reuse code.
 Combining Sensu’s flexible APIs with this monitoring as code approach allows you to scale everything we’re describing on this page.
 
-Here’s how to use sensuctl retrieve the resource definition for your NTP check and copy it to a YAML or JSON file.
+Here’s how to use sensuctl to retrieve the resource definition for your NTP check and copy it to a YAML or JSON file.
 Run:
 
 {{< language-toggle >}}
