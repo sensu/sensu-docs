@@ -54,6 +54,7 @@ spec:
       status: 0
     interval: 10
     is_silenced: false
+    processed_by: sensu-go-sandbox
     issued: 1552506033
     last_ok: 1552506033
     low_flap_threshold: 0
@@ -168,6 +169,7 @@ spec:
       ],
       "interval": 10,
       "is_silenced": false,
+      "processed_by": "sensu-go-sandbox",
       "issued": 1552506033,
       "last_ok": 1552506033,
       "low_flap_threshold": 0,

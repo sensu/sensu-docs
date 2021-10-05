@@ -25,7 +25,7 @@ To visualize how Sensu concepts work together in the observability pipeline, [ta
 
 ## Live demo
 
-Explore a [live demo][3] of the Sensu web UI: view the Entities page to see what Sensu is monitoring, the Events page to see the latest observability events, and the Checks page to see active service and metric checks.
+Explore a [live demo][3] of the Sensu web UI: view the Entities page to learn what Sensu is monitoring, the Events page for the latest observability events, and the Checks page for active service and metric checks.
 The live demo also gives you a chance to try commands with [sensuctl][8], the Sensu command line tool.
 
 ## Sensu sandbox

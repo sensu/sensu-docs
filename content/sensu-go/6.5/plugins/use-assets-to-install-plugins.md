@@ -15,7 +15,7 @@ menu:
 
 Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
-See the [asset reference][1] for more information about dynamic runtime assets.
+Read the [asset reference][1] for more information about dynamic runtime assets.
 This guide uses the [Sensu PagerDuty Handler dynamic runtime asset][7] as an example.
 
 {{% notice note %}}

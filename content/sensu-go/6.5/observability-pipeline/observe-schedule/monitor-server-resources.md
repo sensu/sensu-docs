@@ -130,7 +130,7 @@ sensuctl check create check_cpu \
 --runtime-assets cpu-checks-plugins,sensu-ruby-runtime
 {{< /code >}}
 
-You should see a confirmation message:
+You should receive a confirmation message:
 
 {{< code shell >}}
 Created
@@ -232,6 +232,10 @@ spec:
 
 If you want to share, reuse, and maintain this check just like you would code, you can [save it to a file][11] and start building a [monitoring as code repository][12].
 
+{{% notice protip %}}
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data).
+{{% /notice %}}
+
 ### Validate the CPU check
 
 The Sensu agent uses WebSocket to communicate with the Sensu backend, sending event data as JSON messages.
@@ -314,7 +318,7 @@ sensuctl check create nginx_service \
 --runtime-assets nagiosfoundation
 {{< /code >}}
 
-You should see a confirmation message:
+You should receive a confirmation message:
 
 {{< code shell >}}
 Created

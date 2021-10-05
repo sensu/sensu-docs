@@ -119,7 +119,7 @@ The Sensu backend requires the `state-dir` flag at minimum, but other useful con
 
 {{% notice note %}}
 **NOTE**: If you are using Docker, intitialization is included in this step when you start the backend rather than in [3. Initialize](#3-initialize).
-For details about intialization in Docker, see the [backend reference](../../../observability-pipeline/observe-schedule/backend#docker-initialization).
+For details about intialization in Docker, Read the [backend reference](../../../observability-pipeline/observe-schedule/backend#docker-initialization).
 {{% /notice %}}
 
 {{< language-toggle >}}
@@ -318,7 +318,7 @@ sensuctl configure -n \
 Here, the `-n` flag triggers non-interactive mode.
 Run `sensuctl config view` to see your user profile.
 
-For more information about sensuctl, see the [sensuctl documentation][4].
+For more information about sensuctl, Read the [sensuctl documentation][4].
 
 ### Change default admin password
 
@@ -453,7 +453,7 @@ cd 'C:\Program Files\sensu\sensu-agent\bin'
 
 {{< /language-toggle >}}
 
-For a complete list of configuration options, see the [agent reference][7].
+For a complete list of configuration options, Read the [agent reference][7].
 
 ### 3. Verify keepalive events
 

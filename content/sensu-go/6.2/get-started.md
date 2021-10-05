@@ -32,7 +32,7 @@ Watch this video for an 8-minute Sensu Go overview and demo:
 We recommend these resources for learning more about Sensu:
 
 - [Download the sandbox][7] and create an [observability pipeline][22] in your local environment
-- See a [live demo of the Sensu web UI][1]
+- Try a [live demo of the Sensu web UI][1]
 - Sign up for our step-by-step [Learn Sensu email course][21]
 - Join the [Sensu Community Forum on Discourse][8]
 

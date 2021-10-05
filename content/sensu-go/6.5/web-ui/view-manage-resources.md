@@ -105,9 +105,50 @@ The top row of each page includes options for filtering and sorting the listed r
 Click a resource name to see detailed information and edit or delete it.
 
 On the Checks page, click the check boxes to select one or more checks to execute, silence, unpublish, or delete them.
-You can also execute individual checks on demand from their check detail pages to test your observability pipeline:
 
-{{< figure src="/images/execute-checks.png" alt="Execute a check on demand in the web UI" link="/images/execute-checks.png" target="_blank" >}}
+### Execute checks on demand
+
+You can execute individual checks on demand and on any agent from each check's detail page to test your observability pipeline.
+Click **EXECUTE** to open the Execute Check dialog window:
+
+{{< figure src="/images/execute-checks-subs.png" alt="Button for executing a check on demand in the web UI" link="/images/execute-checks-subs.png" target="_blank" >}}
+
+In the Execute Check dialog window, you can execute the check according to its existing subscriptions or add and remove subscriptions to execute it on specific agents.
+
+{{% notice note %}}
+**NOTE**: Changing the subscriptions for ad hoc execution in the Execute Check dialog window will not make any changes to the existing subscriptions in the check definition.
+{{% /notice %}}
+
+{{< figure src="/images/execute-subscriptions.png" alt="Execute Check dialog window for executing a check on demand from the web UI" link="/images/execute-subscriptions.png" target="_blank" >}}
+
+## View resource data in the web UI
+
+You can view the JSON definition for any event or entity and the JSON or YAML definition for any configuration resource directly in the web UI.
+
+### View resource data for an event or entity
+
+To view the JSON definition for any event or entity in the web UI:
+
+1. Open the individual resource page.
+2. Click the kebab icon in the top-right of the page: ![kebab icon](/images/web-ui-kebab-icon.png)
+3. Select **< > View Data** to open the Resource Data modal window and view the resource's definition in JSON format.
+
+This example shows how to view the JSON definition for an event:
+
+{{< figure src="/images/view-event-data-web-ui.gif" alt="View an event's resource data in the web UI" link="/images/view-data-web-ui.gif" target="_blank" >}}
+
+### View resource data for a configuration resource
+
+To view and copy the JSON or YAML definition for any configuration resource in the web UI:
+
+1. Open the individual resource page.
+2. Click **RAW**.
+3. In the Resource Data field, click **JSON** or **YAML** to select the format.
+4. Click the copy icon at the top-right of the resource data to copy the resource definition: ![copy icon](/images/web-ui-resource-data-copy-icon.png)
+
+This example shows how to view and copy the resource data for an event filter:
+
+{{< figure src="/images/view-filter-data-web-ui.gif" alt="View an event filter's resource data in the web UI" link="/images/view-data-web-ui.gif" target="_blank" >}}
 
 
 [1]: ../#webui-homepage

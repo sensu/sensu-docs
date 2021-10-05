@@ -596,7 +596,7 @@ To extract metrics from check output:
 When a check includes correctly configured `command` and `output_metric_format` attributes, Sensu will extract the specified metrics from the check output and add them to the event data in the [metrics attribute][5].
 
 You can also configure the check `output_metric_handlers` attribute to use a Sensu handler that is equipped to handle Sensu metrics.
-See the [check reference][3] or [InfluxDB handler guide][23] to learn more.
+Read the [checks reference][3] or [InfluxDB handler guide][23] to learn more.
 
 ### Supported output metric formats
 

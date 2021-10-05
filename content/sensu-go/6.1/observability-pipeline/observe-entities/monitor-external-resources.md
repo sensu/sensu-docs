@@ -230,7 +230,7 @@ Silenced:  false
 Timestamp: 2019-01-16 21:51:53 +0000 UTC
 {{< /code >}}
 
-You can also see the new proxy entity in your [Sensu web UI][10].
+You can also view the new proxy entity in your [Sensu web UI][10].
 
 ## Use proxy requests to monitor a group of websites
 
@@ -475,7 +475,7 @@ The response should include the `check-http` check:
 
 {{% notice protip %}}
 **PRO TIP**: To distribute check executions across multiple agents, set the `round-robin` check attribute to `true`.
-For more information about round robin checks, see the [check reference](../../observe-schedule/checks#round-robin-checks).
+For more information about round robin checks, Read the [checks reference](../../observe-schedule/checks#round-robin-checks).
 {{% /notice %}}
 
 ### Validate the check

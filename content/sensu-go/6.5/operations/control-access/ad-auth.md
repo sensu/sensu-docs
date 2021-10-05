@@ -246,7 +246,7 @@ api_version: authentication/v2
 
 metadata     | 
 -------------|------
-description  | Top-level map that contains the AD definition `name`. See the [metadata attributes reference][23] for details.
+description  | Top-level map that contains the AD definition `name`. Review the [metadata attributes reference][23] for details.
 required     | true
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -606,7 +606,7 @@ binding:
 
 | group_search |    |
 -------------|------
-description  | Search configuration for groups. See the [group search attributes][47] for more information. Remove the `group_search` object from your configuration to use the `memberOf` attribute instead.
+description  | Search configuration for groups. Review the [group search attributes][47] for more information. Remove the `group_search` object from your configuration to use the `memberOf` attribute instead.
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
@@ -631,7 +631,7 @@ group_search:
 
 | user_search |     |
 -------------|------
-description  | Search configuration for users. See the [user search attributes][48] for more information.
+description  | Search configuration for users. Review the [user search attributes][48] for more information.
 required     | true
 type         | Map
 example      | {{< language-toggle >}}
