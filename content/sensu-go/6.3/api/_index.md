@@ -17,7 +17,7 @@ The Sensu backend REST API provides a centrally managed control plane for automa
 If you have a healthy [clustered][24] backend, you only need to make Sensu API calls to any one of the cluster members.
 The cluster protocol will replicate your changes to all cluster members.
 
-For information about the Sensu agent API, see the [agent reference][4].
+For information about the Sensu agent API, read the [agent reference][4].
 
 ## Available APIs
 
@@ -36,7 +36,7 @@ Sensu API endpoints use the standard URL format `/api/<group>/<version>/namespac
 The examples in these API docs use the `default` namespace.
 The Sensu API requires the authenticated user to have the correct access permissions for the namespace specified in the URL.
 If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/<namespace>` portion of the URL to access Sensu resources across namespaces.
-See the [RBAC reference][3] for more information about configuring Sensu users and access controls.
+Read the [RBAC reference][3] for more information about configuring Sensu users and access controls.
 
 {{% notice note %}}
 **NOTE**: The [authentication API](auth/), [authentication providers API](authproviders/), and [health API](health/) do not follow this standard URL format.
@@ -128,7 +128,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 
 3. Refresh your access token every 15 minutes.
 Access tokens last for approximately 15 minutes.
-When your token expires, you should see a `401 Unauthorized` response from the API.
+When your token expires, you should receive a `401 Unauthorized` response from the API.
 To generate a new access token, use the [`/auth/token` API endpoint][11], including the expired access token in the authorization header and the refresh token in the request body:
 {{< code shell >}}
 curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
@@ -170,7 +170,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 
 4. Refresh your access token every 15 minutes.
 Access tokens last for approximately 15 minutes.
-When your token expires, you should see a `401 Unauthorized` response from the API.
+When your token expires, you should receive a `401 Unauthorized` response from the API.
 To regenerate a valid access token, run any sensuctl command (like `sensuctl event list`) and repeat step 2.
 
 ### Authenticate with an API key

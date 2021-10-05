@@ -96,7 +96,7 @@ See the [backend][3], [agent][4], and [sensuctl][5] reference docs for more info
 
 “Clients” are represented within Sensu Go as abstract “entities” that can describe a wider range of system components (for example, network gear, a web server, or a cloud resource).
 Entities include **agent entities**, which are entities running a Sensu agent, and the familiar **proxy entities**.
-See the [entity reference][6] and the guide to [monitoring external resources][7] for more information.
+read the [entity reference][6] and the guide to [monitoring external resources][7] for more information.
 
 ## Checks
 
@@ -148,7 +148,7 @@ See the [installing plugins guide][51] for more information.
 
 Role-based access control (RBAC) is a built-in feature of the open-source version of Sensu Go.
 RBAC allows you to manage and access users and resources based on namespaces, groups, roles, and bindings.
-To set up RBAC in Sensu Go, see the [RBAC reference][13] and [Create a read-only user][14].
+To set up RBAC in Sensu Go, read the [RBAC reference][13] and [Create a read-only user][14].
 
 ## Silencing
 
@@ -165,7 +165,7 @@ Check aggregates are supported through the [Sensu Go Aggregate Check Plugin][28]
 
 ## API
 
-In addition to the changes to resource definitions, Sensu Go includes a new, versioned API. See the [API overview][17] for more information.
+In addition to the changes to resource definitions, Sensu Go includes a new, versioned API. Read the [API overview][17] for more information.
 
 ## Step-by-step migration instructions
 
@@ -174,7 +174,7 @@ In addition to the changes to resource definitions, Sensu Go includes a new, ver
 #### 1. Install the Sensu Go backend 
 
 The Sensu backend is available for Ubuntu/Debian, RHEL/CentOS, and Docker.
-See the [installation guide][52] to install, configure, and start the Sensu backend according to your [deployment strategy][38].
+Read the [installation guide][52] to install, configure, and start the Sensu backend according to your [deployment strategy][38].
 
 #### 2. Log in to the Sensu web UI
 
@@ -189,13 +189,13 @@ To log in, enter your Sensu user credentials, or use Sensu's default admin crede
 Sensuctl is a command line tool for managing resources within Sensu.
 It works by calling Sensu’s HTTP API to create, read, update, and delete resources, events, and entities.
 Sensuctl is available for Linux, Windows, and macOS.
-See the [installation guide][53] to install and configure sensuctl.
+Read the [installation guide][53] to install and configure sensuctl.
 
 #### 4. Set up Sensu users
 
 Role-based access control (RBAC) is a built-in feature of the open-source version of Sensu Go.
 RBAC allows you to manage and access users and resources based on namespaces, groups, roles, and bindings.
-To set up RBAC in Sensu Go, see the [RBAC reference][13] and [Create a read-only user][14].
+To set up RBAC in Sensu Go, read the [RBAC reference][13] and [Create a read-only user][14].
 
 In Sensu Go, namespaces partition resources within a Sensu instance.
 Sensu Go entities, checks, handlers, and other [namespaced resources][54] belong to a single namespace.
@@ -206,7 +206,7 @@ In addition to built-in RBAC, Sensu Go's [commercial features][27] include suppo
 #### 5. Install agents
 
 The Sensu agent is available for Ubuntu/Debian, RHEL/CentOS, Windows, and Docker.
-See the [installation guide][55] to install, configure, and start Sensu agents.
+Read the [installation guide][55] to install, configure, and start Sensu agents.
 
 If you're doing a side-by-side migration, add `api-port` (default: `3031`) and `socket-port` (default: `3030`) to your [agent configuration][56] (`/etc/sensu/agent.yml`).
 This prevents the Sensu Go agent API and socket from conflicting with the Sensu Core client API and socket.
@@ -307,7 +307,7 @@ See the [guide to metric output][57] to update your metric checks with the `outp
 **Translate proxy requests and proxy entities**
 
 See the [guide to monitoring external resources][7] to re-configure `proxy_requests` attributes and update your proxy check configuration.
-See the [entity reference][6] to re-create your proxy client configurations as Sensu Go proxy entities.
+read the [entity reference][6] to re-create your proxy client configurations as Sensu Go proxy entities.
 
 <a id="translate-hooks"></a>
 
@@ -324,7 +324,7 @@ Instead, Sensu Go allows you to add custom labels and annotations to entities, c
 See the metadata attributes section in the reference documentation for more information about using labels and annotations (for example, [metadata attributes for entities][24]).
 
 The Sensu Translator stores all check extended attributes in the check metadata annotation named `sensu.io.json_attributes`.
-See the [check reference][58] for more information about using labels and annotations in check definitions.
+Read the [checks reference][58] for more information about using labels and annotations in check definitions.
 
 #### 3. Translate event filters
 
@@ -418,7 +418,7 @@ sensuctl create --file /path/to/config.json
 {{< /code >}}
 
 {{% notice protip %}}
-**PRO TIP**: `sensuctl create` (and `sensuctl delete`) are powerful tools to help you manage your Sensu configs across namespaces. See the [sensuctl reference][5] for more information.
+**PRO TIP**: `sensuctl create` (and `sensuctl delete`) are powerful tools to help you manage your Sensu configs across namespaces. Read the [sensuctl reference][5] for more information.
 {{% /notice %}}
 
 Access your Sensu Go config using the [Sensu API][17].
@@ -445,8 +445,8 @@ curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/n
 
 You can also access your Sensu Go configuration in JSON or YAML using sensuctl.
 For example, `sensuctl check list --format wrapped-json`.
-Run `sensuctl help` to see available commands.
-For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), see the [sensuctl reference][22].
+Run `sensuctl help` To view available commands.
+For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), read the [sensuctl reference][22].
 
 ### Step 3: Translate plugins and register dynamic runtime assets
 
@@ -470,7 +470,7 @@ See the [installing plugins guide][51] for more information.
 Sensu supports dynamic runtime assets for checks, filters, mutators, and handlers.
 Discover, download, and share dynamic runtime assets with [Bonsai][68], the Sensu asset hub.
 
-To create your own dynamic runtime assets, see the [asset reference][12] and [guide to sharing an asset on Bonsai][69].
+To create your own dynamic runtime assets, read the [asset reference][12] and [guide to sharing an asset on Bonsai][69].
 To contribute to converting a Sensu plugin to a dynamic runtime asset, read [the Discourse post][70].
 
 ### Step 4: Translate Sensu Enterprise-only features

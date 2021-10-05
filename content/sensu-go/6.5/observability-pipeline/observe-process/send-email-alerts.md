@@ -57,7 +57,7 @@ To confirm that the handler dynamic runtime asset was added correctly, run:
 sensuctl asset list
 {{< /code >}}
 
-You should see the `email-handler` dynamic runtime asset in the list.
+The list should include the `email-handler` dynamic runtime asset.
 For a detailed list of everything related to the asset that Sensu added automatically, run:
 
 {{< code shell >}}
@@ -257,7 +257,7 @@ http://localhost:8080/api/core/v2/namespaces/default/events
 {{< /code >}}
 
 As configured, the event status is `0` (OK).
-Now it's time to trigger an event and see the results!
+Now it's time to trigger an event and view the results!
 
 To generate a status change event, use the update event endpoint to create a `1` (warning) event.
 Run:
@@ -288,11 +288,11 @@ http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-heal
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: If you see an `invalid credentials` error, refresh your token.
+**NOTE**: If you receive an `invalid credentials` error, refresh your token.
 Run `eval $(sensuctl env)`.
 {{% /notice %}}
 
-Check your email &mdash; you should see a message from Sensu!
+Check your email &mdash; you should receive a message from Sensu!
 
 Create another event with status set to `0`. Run:
 

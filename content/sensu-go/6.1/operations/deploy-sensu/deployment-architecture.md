@@ -119,7 +119,7 @@ Five etcd nodes allow you to tolerate the loss of two nodes, but with a greater 
 #### Scaled cluster performance with PostgreSQL
 
 To achieve the high rate of event processing that many enterprises require, Sensu supports PostgreSQL event storage as a [commercial feature][9].
-See the [Datastore reference][8] for details on configuring the Sensu backend to use PostgreSQL for event storage.
+Read the [datastore reference][8] for details on configuring the Sensu backend to use PostgreSQL for event storage.
 
 {{< figure src="/images/clustered_architecture_postgres.png" alt="Clustered Sensu Go architecture with PostgreSQL" link="/images/clustered_architecture_postgres.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/475f950e-2770-4bf7-af73-57bc834cebdd/1 -->
