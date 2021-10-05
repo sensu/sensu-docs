@@ -24,7 +24,7 @@ The Sensu agent is available for Linux, macOS, and Windows.
 For Windows operating systems, the Sensu agent uses `cmd.exe` for the execution environment.
 For all other operating systems, the Sensu agent uses the Bourne shell (sh).
 
-See the [installation guide][1] to install the agent.
+Read the [installation guide][1] to install the agent.
 
 ## Agent authentication
 
@@ -102,7 +102,7 @@ Read the [subscriptions reference][28] for more information.
 Sensu proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed (such a network switch).
 The [Sensu backend][2] stores proxy entity definitions (unlike agent entities, which the agent stores).
 When the backend requests a check that includes a [`proxy_entity_name`][32], the agent includes the provided entity information in the observation data in events in place of the agent entity data.
-See the [entity reference][3] and [Monitor external resources][33] for more information about monitoring proxy entities.
+read the [entity reference][3] and [Monitor external resources][33] for more information about monitoring proxy entities.
 
 ## Create observability events using the agent API
 
@@ -163,7 +163,7 @@ This creates what's commonly referred to as a ["dead man's switch"][20].
 
 With check TTLs, Sensu can set an expectation that a Sensu agent will publish additional events for a check within the period of time specified by the TTL attribute.
 If a Sensu agent fails to publish an event before the check TTL expires, the Sensu backend creates an event with a status of `1` (warning) to indicate the expected event was not received.
-For more information about check TTLs, see the the [check reference][44].
+For more information about check TTLs, read the [checks reference][44].
 
 You can use the Sensu agent API to enable tasks that run outside of Sensu's check scheduling to emit events.
 Using the check TTL attribute, these events create a dead man's switch: if the task fails for any reason, the lack of an "all clear" event from the task will notify operators of a silent failure (which might otherwise be missed).
@@ -282,7 +282,7 @@ The Sensu StatsD listener accepts messages formatted according to the StatsD lin
 <metricname>:<value>|<type>
 {{< /code >}}
 
-For more information, see the [StatsD documentation][21].
+For more information, read the [StatsD documentation][21].
 
 ### Configure the StatsD listener
 
@@ -415,7 +415,7 @@ example      | {{< code json >}}{
 client       | 
 -------------|------
 description  | Name of the Sensu entity associated with the event. Use this attribute to tie the event to a proxy entity. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `client` attribute. {{% notice note %}}
-**NOTE**: The `client` attribute is deprecated in favor of the `source` attribute (see above).
+**NOTE**: The `client` attribute is deprecated in favor of the `source` attribute.
 {{% /notice %}}
 required     | false
 default      | The agent entity that receives the event data.
@@ -485,8 +485,8 @@ The value you specify for `keepalive-warning-timeout` must be lower than the val
 {{% notice note %}}
 **NOTE**: If you set the [deregister flag](#ephemeral-agent-configuration-flags) to `true`, when a Sensu agent process stops, the Sensu backend will deregister the corresponding entity.
 Deregistration prevents and clears alerts for failing keepalives &mdash; the backend does not distinguish between intentional shutdown and failure.
-As a result, if you set the deregister flag to `true` and an agent process stops for any reason, you will not see alerts for keepalive events in the web UI.
-If you want to see alerts for failing keepalives, set the [deregister flag](#ephemeral-agent-configuration-flags) to `false`.
+As a result, if you set the deregister flag to `true` and an agent process stops for any reason, you will not receive alerts for keepalive events in the web UI.
+If you want to receive alerts for failing keepalives, set the [deregister flag](#ephemeral-agent-configuration-flags) to `false`.
 {{% /notice %}}
 
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
@@ -580,7 +580,7 @@ To start the agent with [configuration flags][24]:
 sensu-agent start --subscriptions disk-checks --log-level debug
 {{< /code >}}
 
-To see available configuration flags and defaults:
+To view available configuration flags and defaults:
 
 {{< code shell >}}
 sensu-agent start --help
@@ -701,7 +701,7 @@ The service is configured to start automatically on boot by default.
 
 ### Get service status
 
-To see the status of the agent service using a service manager:
+To view the status of the agent service using a service manager:
 
 {{< platformBlock "Linux" >}}
 
@@ -755,13 +755,13 @@ sensu-agent service uninstall
 
 The `sensu-agent` tool provides general and command-specific help flags.
 
-To see sensu-agent commands, run:
+To view sensu-agent commands, run:
 
 {{< code shell >}}
 sensu-agent help
 {{< /code >}}
 
-To see options for a specific command (in this case, sensu-agent start), run: 
+To list options for a specific command (in this case, sensu-agent start), run: 
 
 {{< code shell >}}
 sensu-agent start --help
@@ -822,14 +822,14 @@ The agent loads configuration upon startup, so you must restart the agent for an
 
 Specify the agent configuration with either a `.yml` file or `sensu-agent start` command line flags.
 Configuration via command line flags overrides attributes specified in a configuration file.
-See the [Example Sensu agent configuration file][5] for flags and defaults.
+Review the [example Sensu agent configuration file][5] for flags and defaults.
 
 ### Certificate bundles or chains
 
 The Sensu agent supports all types of certificate bundles (or chains) as long as the agent (or leaf) certificate is the *first* certificate in the bundle.
 This is because the Go standard library assumes that the first certificate listed in the PEM file is the leaf certificate &mdash; the certificate that the program will use to show its own identity.
 
-If you send the leaf certificate alone instead of sending the whole bundle with the leaf certificate first, you will see a `certificate not signed by trusted authority` error.
+If you send the leaf certificate alone instead of sending the whole bundle with the leaf certificate first, you will receive a `certificate not signed by trusted authority` error.
 You must present the whole chain to the remote so it can determine whether it trusts the presented certificate through the chain.
 
 ### Configuration summary
@@ -909,7 +909,7 @@ Flags:
 ### Windows
 
 You can specify the agent configuration using a `.yml` file.
-See the [example agent configuration file][5] (also provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example`; default `C:\ProgramData\sensu\config\agent.yml.example`).
+Review the [example agent configuration file][5] (also provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example`; default `C:\ProgramData\sensu\config\agent.yml.example`).
 
 {{< platformBlockClose >}}
 
@@ -1219,7 +1219,7 @@ events-rate-limit: 20.0{{< /code >}}
 | deregister  |      |
 --------------|------
 description   | `true` if a deregistration event should be created upon Sensu agent process stop. Otherwise, `false`.<br>{{% notice note %}}
-**NOTE**: To see alerts for failing [keepalives](#keepalive-monitoring), set to `false`.
+**NOTE**: To receive alerts for failing [keepalives](#keepalive-monitoring), set to `false`.
 {{% /notice %}}
 type          | Boolean
 default       | `false`

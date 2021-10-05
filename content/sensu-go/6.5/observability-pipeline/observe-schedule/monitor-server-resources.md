@@ -130,7 +130,7 @@ sensuctl check create check_cpu \
 --runtime-assets cpu-checks-plugins,sensu-ruby-runtime
 {{< /code >}}
 
-You should see a confirmation message:
+You should receive a confirmation message:
 
 {{< code shell >}}
 Created
@@ -318,7 +318,7 @@ sensuctl check create nginx_service \
 --runtime-assets nagiosfoundation
 {{< /code >}}
 
-You should see a confirmation message:
+You should receive a confirmation message:
 
 {{< code shell >}}
 Created

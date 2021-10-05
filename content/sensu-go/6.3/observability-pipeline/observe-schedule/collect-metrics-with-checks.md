@@ -14,7 +14,7 @@ menu:
 ---
 
 Sensu checks are **commands** (or scripts) that the Sensu agent executes that output data and produce an exit code to indicate a state.
-If you are unfamiliar with checks or want to learn how to configure a check before reading this guide, read the [check reference][1] and [Monitor server resources][2].
+If you are unfamiliar with checks or want to learn how to configure a check before reading this guide, Read the [checks reference][1] and [Monitor server resources][2].
 
 This guide demonstrates how to collect disk usage metrics with a check named `collect-metrics` and configure the check to extract metrics output in Graphite Plaintext Protocol format.
 To use this guide, you'll need to install a Sensu backend and have at least one Sensu agent running on Linux.
@@ -53,7 +53,7 @@ Then, use the following sensuctl example to register the [Sensu Go Ruby Runtime 
 sensuctl asset add sensu/sensu-ruby-runtime:0.1.0
 {{< /code >}}
 
-Again, you will see an `added asset` response.
+Again, you will receive an `added asset` response.
 
 Use sensuctl to confirm that both the `disk-checks-plugins` and `sensu-ruby-runtime` dynamic runtime assets are ready to use:
 
@@ -103,7 +103,7 @@ The check definition also specifies that the output metric format for the collec
 
 You should receive a confirmation response: `Created`.
 
-To see the check resource you just created with sensuctl, run:
+To view the check resource you just created with sensuctl, run:
 
 {{< language-toggle >}}
 

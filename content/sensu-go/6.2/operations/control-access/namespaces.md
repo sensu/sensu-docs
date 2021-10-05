@@ -162,12 +162,12 @@ spec:
 
 {{< /language-toggle >}}
 
-See the [reference docs][4] for the corresponding [resource type][5] to create resource definitions.
+Read the [reference docs][4] for the corresponding [resource type][5] to create resource definitions.
 
 {{% notice protip %}}
 **PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation.
 This allows you to replicate resources across namespaces without manual editing.
-See the [sensuctl reference](../../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
+Read the [sensuctl reference](../../../sensuctl/create-manage-resources/#create-resources-across-namespaces) for more information.
 {{% /notice %}}
 
 ## Namespace specification

@@ -204,7 +204,7 @@ sensuctl user reinstate USERNAME
 
 #### View users
 
-You can use [sensuctl][2] to see a list of all users within Sensu.
+You can use [sensuctl][2] to list all users within Sensu.
 
 To return a list of users in `yaml` or `wrapped-json` format for use with `sensuctl create`:
 
@@ -608,13 +608,13 @@ sensuctl edit role [ROLE-NAME] <flags>
 
 ### View roles and cluster roles
 
-You can use [sensuctl][2] to see a list of roles within Sensu:
+You can use [sensuctl][2] to list all roles within Sensu:
 
 {{< code shell >}}
 sensuctl role list
 {{< /code >}}
 
-To see the permissions and scope for a specific role:
+To review the permissions and scope for a specific role:
 
 {{< code shell >}}
 sensuctl role info admin
@@ -1111,19 +1111,19 @@ sensuctl role-binding help
 
 #### View role bindings and cluster role bindings
 
-You can use [sensuctl][2] to see a list of role bindings within Sensu:
+You can use [sensuctl][2] to list all role bindings within Sensu:
 
 {{< code shell >}}
 sensuctl role-binding list
 {{< /code >}}
 
-To see the details for a specific role binding:
+To review the details for a specific role binding:
 
 {{< code shell >}}
 sensuctl role-binding info [BINDING-NAME]
 {{< /code >}}
 
-To see a list of cluster role bindings:
+To list cluster role bindings:
 
 {{< code shell >}}
 sensuctl cluster-role-binding list
@@ -1131,7 +1131,7 @@ sensuctl cluster-role-binding list
 
 #### Create role bindings and cluster role bindings
 
-You can use [sensuctl][2] to see a create a role binding that assigns a role:
+You can use [sensuctl][2] to create a role binding that assigns a role:
 
 {{< code shell >}}
 sensuctl role-binding create NAME --role=NAME --user=username --group=groupname
