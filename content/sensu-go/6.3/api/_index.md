@@ -17,7 +17,7 @@ The Sensu backend REST API provides a centrally managed control plane for automa
 If you have a healthy [clustered][24] backend, you only need to make Sensu API calls to any one of the cluster members.
 The cluster protocol will replicate your changes to all cluster members.
 
-For information about the Sensu agent API, Read the [agent reference][4].
+For information about the Sensu agent API, read the [agent reference][4].
 
 ## Available APIs
 
