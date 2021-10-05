@@ -123,7 +123,7 @@ To list all secrets:
 sensuctl secret list
 {{< /code >}}
 
-To see a secret's status:
+To review a secret's status:
 
 {{< code shell >}}
 sensuctl secret info SECRET_NAME

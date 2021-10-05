@@ -48,7 +48,7 @@ You can access event data stored in PostgreSQL using the same Sensu web UI, API,
 ## PostgreSQL requirements
 
 Sensu supports PostgreSQL 9.5 and later, including [Amazon Relational Database Service][3] (Amazon RDS) when configured with the PostgreSQL engine.
-See the [PostgreSQL docs][14] to install and configure PostgreSQL.
+Read the [PostgreSQL documentation][14] to install and configure PostgreSQL.
 
 For optimal performance, we recommend the following PostgreSQL configuration parameters and settings as a starting point for your `postgresql.conf` file:
 
@@ -100,7 +100,7 @@ Mar 10 17:44:45 sensu-centos sensu-backend[1365]: {"component":"store-providers"
 {{< /code >}}
 
 After you [install and configure PostgreSQL][14], configure Sensu by creating a `PostgresConfig` resource like the following example.
-See the [datastore specificationification][18] for more information.
+Review the [datastore specification][18] for more information.
 
 {{< language-toggle >}}
 
@@ -159,7 +159,7 @@ sensuctl create --file postgres.json
 {{< /language-toggle >}}
 
 To update your Sensu PostgreSQL configuration, repeat the `sensuctl create` process.
-You can expect to see PostgreSQL status updates in the [Sensu backend logs][2] at the `warn` log level and PostgreSQL error messages in the [Sensu backend logs][2] at the `error` log level.
+You can expect PostgreSQL status updates in the [Sensu backend logs][2] at the `warn` log level and PostgreSQL error messages in the [Sensu backend logs][2] at the `error` log level.
 
 ## Disable the PostgreSQL event store
 
