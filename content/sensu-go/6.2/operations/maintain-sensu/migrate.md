@@ -148,7 +148,7 @@ See the [installing plugins guide][51] for more information.
 
 Role-based access control (RBAC) is a built-in feature of the open-source version of Sensu Go.
 RBAC allows you to manage and access users and resources based on namespaces, groups, roles, and bindings.
-To set up RBAC in Sensu Go, Read the [RBAC reference][13] and [Create a read-only user][14].
+To set up RBAC in Sensu Go, read the [RBAC reference][13] and [Create a read-only user][14].
 
 ## Silencing
 
@@ -195,7 +195,7 @@ Read the [installation guide][53] to install and configure sensuctl.
 
 Role-based access control (RBAC) is a built-in feature of the open-source version of Sensu Go.
 RBAC allows you to manage and access users and resources based on namespaces, groups, roles, and bindings.
-To set up RBAC in Sensu Go, Read the [RBAC reference][13] and [Create a read-only user][14].
+To set up RBAC in Sensu Go, read the [RBAC reference][13] and [Create a read-only user][14].
 
 In Sensu Go, namespaces partition resources within a Sensu instance.
 Sensu Go entities, checks, handlers, and other [namespaced resources][54] belong to a single namespace.
@@ -446,7 +446,7 @@ curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/n
 You can also access your Sensu Go configuration in JSON or YAML using sensuctl.
 For example, `sensuctl check list --format wrapped-json`.
 Run `sensuctl help` To view available commands.
-For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), Read the [sensuctl reference][22].
+For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), read the [sensuctl reference][22].
 
 ### Step 3: Translate plugins and register dynamic runtime assets
 
@@ -470,7 +470,7 @@ See the [installing plugins guide][51] for more information.
 Sensu supports dynamic runtime assets for checks, filters, mutators, and handlers.
 Discover, download, and share dynamic runtime assets with [Bonsai][68], the Sensu asset hub.
 
-To create your own dynamic runtime assets, Read the [asset reference][12] and [guide to sharing an asset on Bonsai][69].
+To create your own dynamic runtime assets, read the [asset reference][12] and [guide to sharing an asset on Bonsai][69].
 To contribute to converting a Sensu plugin to a dynamic runtime asset, read [the Discourse post][70].
 
 ### Step 4: Translate Sensu Enterprise-only features

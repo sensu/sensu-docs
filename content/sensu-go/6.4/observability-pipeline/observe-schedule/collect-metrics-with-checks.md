@@ -14,7 +14,7 @@ menu:
 ---
 
 Sensu checks are **commands** (or scripts) that the Sensu agent executes that output data and produce an exit code to indicate a state.
-If you are unfamiliar with checks or want to learn how to configure a check before reading this guide, Read the [checks reference][1] and [Monitor server resources][2].
+If you are unfamiliar with checks or want to learn how to configure a check before reading this guide, read the [checks reference][1] and [Monitor server resources][2].
 
 This guide demonstrates how to collect disk usage metrics with a check named `collect-metrics` and configure the check to extract metrics output in Graphite Plaintext Protocol format.
 To use this guide, you'll need to install a Sensu backend and have at least one Sensu agent running on Linux.
