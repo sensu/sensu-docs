@@ -146,6 +146,10 @@ spec:
 
 You can share, reuse, and maintain this handler just like you would code: [save it to a file][6] and start building a [monitoring as code repository][7].
 
+{{% notice protip %}}
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data).
+{{% /notice %}}
+
 ## Assign the InfluxDB handler to a check
 
 With the `influx-db` handler created, you can assign it to a check for check output metric extraction. 
@@ -263,6 +267,10 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+{{% notice protip %}}
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data).
+{{% /notice %}}
 
 ## Assign the InfluxDB handler to the Sensu StatsD listener
 

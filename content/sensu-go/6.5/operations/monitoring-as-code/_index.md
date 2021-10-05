@@ -77,7 +77,7 @@ You must add a [`password_hash`](../../sensuctl/#generate-a-password-hash) or `p
 
 To build as you go, use sensuctl commands to retrieve your Sensu resource definitions as you create them and copy the definitions into your configuration files.
 
-For example, if you follow [Monitor server resources][8] and create a check named `check_cpu`, you can retrieve that check definition in YAML or JSON format:
+For example, if you follow [Monitor server resources][8] and create a check named `check_cpu`, you can retrieve that check definition in YAML or JSON format with sensuctl:
 
 {{< language-toggle >}}
 
@@ -170,6 +170,8 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+If you prefer, you can also [view JSON resource definitions in the Sensu web UI][14].
 
 You can copy these resource definitions and paste them into manually created configuration files located anywhere on your system.
 
@@ -337,3 +339,4 @@ Read the [SensuFlow GitHub Action marketplace page][1] and [Monitoring as code w
 [11]: #create-a-monitoring-as-code-repository
 [12]: https://sensu.io/blog/monitoring-as-code-with-sensu-flow
 [13]: #adopt-a-configuration-file-strategy
+[14]: ../../web-ui/view-manage-resources/#view-resource-data
