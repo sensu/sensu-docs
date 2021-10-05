@@ -21,7 +21,7 @@ Every Sensu backend includes an integrated structure for scheduling checks using
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
 For these operating systems, the Sensu backend uses the Bourne shell (sh) for the execution environment.
 
-See the [installation guide][1] to install the backend.
+Read the [installation guide][1] to install the backend.
 
 ## Backend transport
 
@@ -151,7 +151,7 @@ Your installation has already seeded the admin username and password you have se
 Running `sensu-backend init` on a previously initialized cluster has no effect &mdash; it will not change the admin credentials.
 {{% /notice %}}
 
-To see available initialization flags:
+To view available initialization flags:
 
 {{< code shell >}}
 sensu-backend init --help
@@ -173,7 +173,7 @@ To start the backend with [configuration flags][15]:
 sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 {{< /code >}}
 
-To see available configuration flags and defaults:
+To view available configuration flags and defaults:
 
 {{< code shell >}}
 sensu-backend start --help
@@ -225,7 +225,7 @@ systemctl disable sensu-backend
 
 ### Get service status
 
-To see the status of the backend service using a service manager:
+To view the status of the backend service using a service manager:
 
 {{< code shell >}}
 service sensu-backend status
@@ -243,13 +243,13 @@ sensu-backend version
 
 The `sensu-backend` tool provides general and command-specific help flags.
 
-To see sensu-backend commands, run:
+To view sensu-backend commands, run:
 
 {{< code shell >}}
 sensu-backend help
 {{< /code >}}
 
-To see options for a specific command (in this case, sensu-backend start), run: 
+To list options for a specific command (in this case, sensu-backend start), run: 
 
 {{< code shell >}}
 sensu-backend start --help
@@ -276,7 +276,7 @@ If system time is out-of-sync, it may cause issues with keepalive, metric, and c
 You can specify the backend configuration with either a `/etc/sensu/backend.yml` file or `sensu-backend start` [configuration flags][15].
 The backend requires that the `state-dir` flag is set before starting.
 All other required flags have default values.
-See the [example backend configuration file][17] for flags and defaults.
+Review the [example backend configuration file][17] for flags and defaults.
 The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take effect.
 
 ### Certificate bundles or chains
@@ -284,7 +284,7 @@ The backend loads configuration upon startup, so you must restart the backend fo
 The Sensu backend supports all types of certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 This is because the Go standard library assumes that the first certificate listed in the PEM file is the server certificate &mdash; the certificate that the program will use to show its own identity.
 
-If you send the server certificate alone instead of sending the whole bundle with the server certificate first, you will see a `certificate not signed by trusted authority` error.
+If you send the server certificate alone instead of sending the whole bundle with the server certificate first, you will receive a `certificate not signed by trusted authority` error.
 You must present the whole chain to the remote so it can determine whether it trusts the server certificate through the chain.
 
 ### Certificate revocation check

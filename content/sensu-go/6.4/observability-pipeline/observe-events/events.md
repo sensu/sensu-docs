@@ -932,7 +932,7 @@ You can use the `--skip-confirm` flag to skip the confirmation step:
 sensuctl event delete entity-name check-name --skip-confirm
 {{< /code >}}
 
-You should see a confirmation message upon success:
+You should receive a confirmation message upon success:
 
 {{< code shell >}}
 Deleted
@@ -947,7 +947,7 @@ Events resolved by sensuctl include the output message `Resolved manually by sen
 sensuctl event resolve entity-name check-name
 {{< /code >}}
 
-You should see a confirmation message upon success:
+You should receive a confirmation message upon success:
 
 {{< code shell >}}
 Resolved
@@ -1052,7 +1052,7 @@ api_version: core/v2
 
 metadata     | 
 -------------|------
-description  | Top-level scope that contains the event `namespace` and `created_by` field. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes][29] for details.
+description  | Top-level scope that contains the event `namespace` and `created_by` field. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  Review the [metadata attributes][29] for details.
 required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -1622,7 +1622,7 @@ check:
 
 |metrics     |      |
 -------------|------
-description  | Metrics collected by the entity in Sensu metric format. See the [metrics attributes][30].
+description  | Metrics collected by the entity in Sensu metric format. Review the [metrics attributes][30].
 type         | Map
 required     | false
 example      | {{< language-toggle >}}

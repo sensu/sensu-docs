@@ -67,13 +67,13 @@ sensuctl handler create influx-db \
 --runtime-assets influxdb-handler
 {{< /code >}}
 
-You should see a confirmation message:
+You should receive a confirmation message:
 
 {{< code shell >}}
 Created
 {{< /code >}}
 
-To see the complete resource definition for the handler resource you just created with sensuctl, run:
+To review the complete resource definition for the handler resource you just created with sensuctl, run:
 
 {{< language-toggle >}}
 
@@ -146,6 +146,10 @@ spec:
 
 You can share, reuse, and maintain this handler just like you would code: [save it to a file][6] and start building a [monitoring as code repository][7].
 
+{{% notice protip %}}
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data).
+{{% /notice %}}
+
 ## Assign the InfluxDB handler to a check
 
 With the `influx-db` handler created, you can assign it to a check for check output metric extraction. 
@@ -164,13 +168,13 @@ To update the output metric handlers, run:
 sensuctl check set-output-metric-handlers collect-metrics influx-db
 {{< /code >}}
 
-You should see a confirmation message:
+You should receive a confirmation message:
 
 {{< code shell >}}
 Updated
 {{< /code >}}
 
-To see the updated check resource definition, run:
+To review the updated check resource definition, run:
 
 {{< language-toggle >}}
 
@@ -264,6 +268,10 @@ spec:
 
 {{< /language-toggle >}}
 
+{{% notice protip %}}
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data).
+{{% /notice %}}
+
 ## Assign the InfluxDB handler to the Sensu StatsD listener
 
 To assign your `influx-db` handler to the [Sensu StatsD listener][3] at agent startup and pass all StatsD metrics into InfluxDB:
@@ -274,7 +282,7 @@ sensu-agent start --statsd-event-handlers influx-db
 
 ## Validate the InfluxDB handler
 
-It might take a few moments after you assign the handler to the check or StatsD server for Sensu to receive the metrics, but after an event is handled you should start to see metrics populating InfluxDB.
+It might take a few moments after you assign the handler to the check or StatsD server for Sensu to receive the metrics, but after an event is handled, metrics should start populating InfluxDB.
 You can verify proper handler behavior with `sensu-backend` logs.
 read [Troubleshoot Sensu][8] for log locations by platform.
 

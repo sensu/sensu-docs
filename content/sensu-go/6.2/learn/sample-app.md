@@ -198,7 +198,7 @@ kubectl apply -f go/deploy/dummy.sensu.yaml
 ## Monitor the app
 
 Let's take a look at what you're monitoring.
-You can see the Sensu agents installed on your two dummy app instances with their last-seen timestamps, as well as the Sensu agent monitoring your InfluxDB instance. 
+You can view the Sensu agents installed on your two dummy app instances with their last-seen timestamps, as well as the Sensu agent monitoring your InfluxDB instance. 
 
 {{< code shell >}}
 sensuctl entity list
@@ -225,7 +225,7 @@ sensuctl create --file go/config/assets/slack-handler.yaml
 
 If you're already an admin of a Slack, visit `https://YOUR_WORKSPACE_NAME_HERE.slack.com/services/new/incoming-webhook` and follow the steps to add the Incoming WebHooks integration and save the settings.
 If you're not yet a Slack admin, [start here][5] to create a new workspace.
-After saving, you'll see your webhook URL under Integration Settings.
+After saving, you can find your webhook URL under Integration Settings.
 
 Open `go/config/handlers/slack.yaml`.
 In the following line, replace `<secret>` with your Slack workspace webhook URL and `#demo` with the Slack channel of your choice:
@@ -262,7 +262,7 @@ sensuctl create --file go/config/assets/check-plugins.yaml
 sensuctl create --file go/config/checks/dummy-app-healthz.yaml
 {{< /code >}}
 
-With the automated alert workflow in place, you can see the resulting events in the Sensu web UI.
+With the automated alert workflow in place, you can view the resulting events in the Sensu web UI.
 
 **3. Sign in to the Sensu web UI.**
 
@@ -289,13 +289,13 @@ Invoke-WebRequest -Uri http://dummy.local/healthz -Method POST
 
 {{< platformBlockClose >}}
 
-You should now be able to see a critical alert in the [Sensu web UI][8] as well as by using sensuctl:
+You should now be able to view a critical alert in the [Sensu web UI][8] as well as by using sensuctl:
 
 {{< code shell >}}
 sensuctl event list
 {{< /code >}}
 
-You should also see an alert in Slack.
+You should also receive an alert in Slack.
 
 Continue to post to `/healthz` until all Sensu entities return to a healthy state.
 
@@ -353,7 +353,7 @@ Deploy Grafana with a Sensu agent sidecar:
 kubectl apply -f go/deploy/grafana.sensu.yaml
 {{< /code >}}
 
-After a few minutes, you can see the Sensu agents you installed on the dummy app, InfluxDB, and Grafana pods.
+After a few minutes, You can view the Sensu agents you installed on the dummy app, InfluxDB, and Grafana pods.
 
 {{< code shell >}}
 sensuctl entity list
@@ -367,11 +367,11 @@ influxdb-78d64bcfd9-8km56   agent   linux   influxdb,entity:influxdb-78d64bcfd9-
 
 **2. Log in to Grafana.**
 
-To see the metrics you're collecting from the dummy app, log into [Grafana](http://grafana.local/login) with the username `admin` and password `password`.
+To view the metrics you're collecting from the dummy app, log into [Grafana](http://grafana.local/login) with the username `admin` and password `password`.
 
 **3. Create a dashboard.**
 
-Create a new dashboard using the InfluxDB datasource to see live metrics from the dummy app.
+Create a new dashboard using the InfluxDB datasource to view live metrics from the dummy app.
 
 ## Collect Kubernetes metrics
 
@@ -389,7 +389,7 @@ Create a check to collect Prometheus metrics from Kubernetes using the `promethe
 sensuctl create --file go/config/checks/kube-state-prometheus.yaml
 {{< /code >}}
 
-You should now be able to access Kubernetes metrics data in [Grafana][10] and see metric events in the [Sensu web UI][8].
+You should now be able to access Kubernetes metrics data in [Grafana][10] and view metric events in the [Sensu web UI][8].
 
 ## Next steps
 

@@ -90,7 +90,7 @@ spec:
 
 {{< /language-toggle >}}
 
-See the [sensuctl documentation][8] for the supported time formats for the `begin` flag.
+Read the [sensuctl documentation][8] for the supported time formats for the `begin` flag.
 
 ## Validate the silenced entry
 

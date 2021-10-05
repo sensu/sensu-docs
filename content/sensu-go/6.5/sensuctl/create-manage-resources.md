@@ -18,8 +18,8 @@ Sensuctl works by calling Sensu’s underlying API to create, read, update, and 
 
 The `sensuctl create` command allows you to create or update resources by reading from STDIN or a [flag][36] configured file (`-f`).
 The `create` command accepts Sensu resource definitions in [`yaml` or `wrapped-json` formats][4], which wrap the contents of the resource in `spec` and identify the resource `type` and `api_version`.
-See the [list of supported resource types][3] `for sensuctl create`.
-See the [reference docs][6] for information about creating resource definitions.
+Review the [list of supported resource types][3] `for sensuctl create`.
+Read the [reference docs][6] for information about creating resource definitions.
 
 {{% notice note %}}
 **NOTE**: You cannot use sensuctl to update [agent-managed entities](../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
@@ -292,7 +292,7 @@ cat my-resources.json | sensuctl delete
 
 If you omit the `namespace` attribute from resource definitions, you can use the `senusctl delete --namespace` flag to specify the namespace for a group of resources at the time of deletion.
 This allows you to remove resources across namespaces without manual editing.
-See the [Create resources across namespaces][33] section for usage examples.
+Read the [Create resources across namespaces][33] section for usage examples.
 
 ## Update resources
 
@@ -382,7 +382,7 @@ sensuctl check list --format wrapped-json > my-resources.json
 
 {{< /language-toggle >}}
 
-To see the definition for a check named `check-cpu`:
+To view the definition for a check named `check-cpu`:
 
 {{< language-toggle >}}
 
@@ -450,7 +450,7 @@ To view cluster members:
 sensuctl cluster member-list
 {{< /code >}}
 
-To see the health of your Sensu cluster:
+To review the health of your Sensu cluster:
 
 {{< code shell >}}
 sensuctl cluster health
@@ -472,11 +472,11 @@ sensuctl event resolve webserver1 check-http
 
 ### sensuctl namespace
 
-See the [namespaces reference][21] for information about using access control with namespaces.
+Read the [namespaces reference][21] for information about using access control with namespaces.
 
 ### sensuctl user
 
-See the [RBAC reference][22] for information about local user management with sensuctl.
+Read the [RBAC reference][22] for information about local user management with sensuctl.
 
 ### sensuctl prune
 

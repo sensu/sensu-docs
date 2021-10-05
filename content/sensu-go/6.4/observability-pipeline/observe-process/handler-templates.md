@@ -223,7 +223,7 @@ Sensu<br>
 {{< /code >}}
 
 The Sensu Email Handler plugin also includes a UnixTime function that allows you to print timestamp values from events in human-readable format.
-See the [Sensu Email Handler Bonsai page][9] for details.
+Read the [Sensu Email Handler Bonsai page][9] for details.
 
 ## Sensu PagerDuty Handler example
 
@@ -239,7 +239,7 @@ With this template, the summary for every alert in PagerDuty will include:
 - The name of the check that produced the event.
 - The check output for the event.
 
-See the [Sensu PagerDuty Handler Bonsai page][10] for details.
+Read the [Sensu PagerDuty Handler Bonsai page][10] for details.
 
 
 [1]: https://pkg.go.dev/text/template
