@@ -142,9 +142,11 @@ This example shows how to view the JSON definition for an event:
 To view and copy the JSON or YAML definition for any configuration resource in the web UI:
 
 1. Open the individual resource page.
-2. ...
+2. Click **RAW**.
+3. In the Resource Data field, click **JSON** or **YAML** to select the format.
+4. Click the copy icon at the top-right of the resource data to copy the resource definition: ![copy icon](/images/web-ui-resource-data-copy-icon.png)
 
-This example shows how to view the JSON and YAML definition for an event filter:
+This example shows how to view and copy the resource data for an event filter:
 
 {{< figure src="/images/view-filter-data-web-ui.gif" alt="View an event filter's resource data in the web UI" link="/images/view-data-web-ui.gif" target="_blank" >}}
 
