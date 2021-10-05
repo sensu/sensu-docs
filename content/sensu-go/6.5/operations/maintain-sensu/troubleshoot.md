@@ -37,7 +37,7 @@ sensu-agent start --log-level debug
 {{< /code >}}
 
 You must restart the service after you change log levels via configuration files or command line arguments.
-For help with restarting a service, see the [agent reference][5] or [backend reference][9].
+For help with restarting a service, Read the [agent reference][5] or [backend reference][9].
 
 #### Increment log level verbosity
 
@@ -148,7 +148,7 @@ journalctl _COMM=sensu-backend.service --since yesterday
 #### Windows
 
 The Sensu agent stores service logs to the location specified by the `log-file` configuration flag (default `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log`, `C:\ProgramData\sensu\log\sensu-agent.log` on standard Windows installations).
-For more information about managing the Sensu agent for Windows, see the [agent reference][1].
+For more information about managing the Sensu agent for Windows, Read the [agent reference][1].
 You can also view agent events using the Windows Event Viewer, under Windows Logs, as events with source SensuAgent.
 
 If you're running a [binary-only distribution of the Sensu agent for Windows][2], you can follow the service log printed to standard output using this command:
@@ -236,7 +236,7 @@ http://127.0.0.1:3031/events
 
 ### Use a debug handler
 
-It may also be helpful to see the complete event object being passed to your workflows.
+It may also be helpful To review the complete event object being passed to your workflows.
 We recommend using a debug handler like this one to write an event to disk as JSON data:
 
 {{< language-toggle >}}

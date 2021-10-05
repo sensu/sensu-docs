@@ -67,13 +67,13 @@ sensuctl handler create influx-db \
 --runtime-assets influxdb-handler
 {{< /code >}}
 
-You should see a confirmation message:
+You should receive a confirmation message:
 
 {{< code shell >}}
 Created
 {{< /code >}}
 
-To see the complete resource definition for the handler resource you just created with sensuctl, run:
+To review the complete resource definition for the handler resource you just created with sensuctl, run:
 
 {{< language-toggle >}}
 
@@ -168,13 +168,13 @@ To update the output metric handlers, run:
 sensuctl check set-output-metric-handlers collect-metrics influx-db
 {{< /code >}}
 
-You should see a confirmation message:
+You should receive a confirmation message:
 
 {{< code shell >}}
 Updated
 {{< /code >}}
 
-To see the updated check resource definition, run:
+To review the updated check resource definition, run:
 
 {{< language-toggle >}}
 
@@ -282,7 +282,7 @@ sensu-agent start --statsd-event-handlers influx-db
 
 ## Validate the InfluxDB handler
 
-It might take a few moments after you assign the handler to the check or StatsD server for Sensu to receive the metrics, but after an event is handled you should start to see metrics populating InfluxDB.
+It might take a few moments after you assign the handler to the check or StatsD server for Sensu to receive the metrics, but after an event is handled, metrics should start populating InfluxDB.
 You can verify proper handler behavior with `sensu-backend` logs.
 read [Troubleshoot Sensu][8] for log locations by platform.
 

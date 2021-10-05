@@ -311,7 +311,7 @@ api_version: core/v2
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the mutator that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the mutator definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See the [metadata attributes reference][2] for details.
+description  | Top-level collection of metadata about the mutator that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the mutator definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. Review the [metadata attributes reference][2] for details.
 required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][5].
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}

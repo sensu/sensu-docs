@@ -58,7 +58,7 @@ Docker images that contain the Sensu backend and Sensu agent are available for L
 Sensu binary-only distributions are available in `.zip` and `.tar.gz` formats.
 
 The Sensu web UI is a standalone product &mdash; it is not distributed inside the Sensu backend binary.
-See the [Sensu Go Web GitHub repository][60] for more information.
+Visit the [Sensu Go Web GitHub repository][60] for more information.
 
 | Platform | Architectures |
 |----------|---------------|
@@ -347,8 +347,8 @@ You can also use cron to run Sensu checks locally on these systems and forward t
 
 Sensu Go's core is open source software, freely available under an MIT License.
 Sensu Go instances built from source do not include [commercial features][3] such as the web UI homepage.
-See the [feature comparison matrix][15] to learn more.
-To build Sensu Go from source, see the [contributing guide on GitHub][16].
+Review the [feature comparison matrix][15] to learn more.
+To build Sensu Go from source, read the [contributing guide on GitHub][16].
 
 
 [1]: #supported-packages

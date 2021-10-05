@@ -119,7 +119,7 @@ The Sensu backend requires the `state-dir` flag at minimum, but other useful con
 
 {{% notice note %}}
 **NOTE**: If you are using Docker, intitialization is included in this step when you start the backend rather than in [3. Initialize](#3-initialize).
-For details about intialization in Docker, see the [backend reference](../../../observability-pipeline/observe-schedule/backend#docker-initialization).
+For details about intialization in Docker, Read the [backend reference](../../../observability-pipeline/observe-schedule/backend#docker-initialization).
 {{% /notice %}}
 
 {{< language-toggle >}}
@@ -185,7 +185,7 @@ service sensu-backend status
 
 {{< /language-toggle >}}
 
-For a complete list of configuration options, see the [backend reference][6].
+For a complete list of configuration options, Read the [backend reference][6].
 
 {{% notice warning %}}
 **WARNING**: If you plan to [run a Sensu cluster](../cluster-sensu/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you continue the installation process.
@@ -220,7 +220,7 @@ sensu-backend init
 
 {{< /language-toggle >}}
 
-For details about `sensu-backend init`, see the [backend reference][30].
+For details about `sensu-backend init`, Read the [backend reference][30].
 
 {{% notice note %}}
 **NOTE**: You may need to allow access to the [ports Sensu requires](#ports) in your local server firewall.
@@ -318,7 +318,7 @@ sensuctl configure -n \
 Here, the `-n` flag triggers non-interactive mode.
 Run `sensuctl config view` to see your user profile.
 
-For more information about sensuctl, see the [sensuctl documentation][4].
+For more information about sensuctl, Read the [sensuctl documentation][4].
 
 ### Change default admin password
 
@@ -453,7 +453,7 @@ cd 'C:\Program Files\sensu\sensu-agent\bin'
 
 {{< /language-toggle >}}
 
-For a complete list of configuration options, see the [agent reference][7].
+For a complete list of configuration options, Read the [agent reference][7].
 
 ### 3. Verify keepalive events
 

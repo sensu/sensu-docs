@@ -3,7 +3,7 @@ title: "Send PagerDuty alerts with Sensu"
 linkTitle: "Send PagerDuty Alerts"
 guide_title: "Send PagerDuty alerts with Sensu"
 type: "guide"
-description: "See Sensu Go's observability pipeline in action. Follow this guide to configure a check that generates status events and a handler that sends Sensu alerts to PagerDuty for non-OK events."
+description: "Put Sensu Go's observability pipeline into action. Follow this guide to configure a check that generates status events and a handler that sends Sensu alerts to PagerDuty for non-OK events."
 weight: 25
 version: "6.5"
 product: "Sensu Go"
@@ -64,7 +64,7 @@ To confirm that the asset was added to your Sensu backend, run:
 sensuctl asset info ncr-devops-platform/nagiosfoundation
 {{< /code >}}
 
-You should see `=== ncr-devops-platform/nagiosfoundation` followed by a list of available builds for the asset.
+The list should include `=== ncr-devops-platform/nagiosfoundation` followed by a list of available builds for the asset.
 
 Now that you've added the Nagios Foundation dynamic runtime asset, you can add its `file_exists` check to your Sensu backend.
 Use sensuctl to add the check:
@@ -313,14 +313,14 @@ The response should show that the file removal resulted in a CRITICAL (2) event:
   host01         file_exists   CheckFileExists CRITICAL - 0 files matched pattern /tmp/my-file.txt           2   false      2021-03-15 19:28:21 +0000 UTC   1b4266ae-7200-4728-a0n4-2f50f7a56613
 {{< /code >}}
 
-Open the Sensu [web UI][11] to see the events the `file_exists` check is generating.
+Open the Sensu [web UI][11] to view the events the `file_exists` check is generating.
 Visit http://127.0.0.1:3000, and log in as the admin user (created during [initialization][10] when you installed the Sensu backend).
 The failing check's events will be listed on the Events page.
 
 ## Observe the alert in PagerDuty
 
 After Sensu detects the non-OK event, the handler you set up will send the alert to PagerDuty.
-Log in to your PagerDuty account to see an event similar to this one:
+Log in to your PagerDuty account to view an event similar to this one:
 
 {{< figure src="/images/pagerduty_alert_example.png" alt="Example alert in PagerDuty for failing Sensu check" link="/images/pagerduty_alert_example.png" target="_blank" >}}
 

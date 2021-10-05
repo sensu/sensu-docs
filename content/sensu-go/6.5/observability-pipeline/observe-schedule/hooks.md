@@ -75,7 +75,7 @@ Hooks are executed in order of precedence, based on their type:
 6. `non-zero`
 
 You can assign one or more hooks to a check in the check definition.
-See the [check specification][6] to configure the `check_hooks` attribute.
+review the [check specification][6] to configure the `check_hooks` attribute.
 
 ## Check hooks
 
