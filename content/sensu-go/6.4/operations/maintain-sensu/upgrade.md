@@ -204,7 +204,7 @@ Read [our blog announcement][5] for more information about our usage policy.
 {{% /notice %}}
 
 Due to updates to etcd serialization, you must shut down Sensu clusters with multiple backend nodes while upgrading from Sensu Go 5.7.0 or earlier to 5.8.0 or later.
-See the [backend reference][2] for more information about stopping and starting backends.
+Read the [backend reference][2] for more information about stopping and starting backends.
 
 ## Upgrade Sensu backend binaries to 5.1.0
 

@@ -69,6 +69,7 @@ spec:
       status: 0
     interval: 60
     is_silenced: false
+    processed_by: sensu-centos
     issued: 1617050501
     last_ok: 1617050501
     low_flap_threshold: 0
@@ -81,10 +82,6 @@ spec:
       CheckCPU TOTAL OK: total=0.41 user=0.2 nice=0.0 system=0.2 idle=99.59 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0
     output_metric_format: ""
     output_metric_handlers: null
-    pipelines:
-    - api_version: core/v2
-      type: Pipeline
-      name: incident_alerts
     proxy_entity_name: ""
     publish: true
     round_robin: false
@@ -153,6 +150,10 @@ spec:
       vm_role: guest
       vm_system: vbox
     user: agent
+  pipelines:
+    - api_version: core/v2
+      type: Pipeline
+      name: incident_alerts
   id: 3c3e68f6-6db7-40d3-9b84-4d61817ae559
   sequence: 5
   timestamp: 1617050507
@@ -198,6 +199,7 @@ spec:
       ],
       "interval": 60,
       "is_silenced": false,
+      "processed_by": "sensu-centos",
       "issued": 1617050501,
       "last_ok": 1617050501,
       "low_flap_threshold": 0,
@@ -210,13 +212,6 @@ spec:
       "output": "CheckCPU TOTAL OK: total=0.41 user=0.2 nice=0.0 system=0.2 idle=99.59 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0\n",
       "output_metric_format": "",
       "output_metric_handlers": null,
-      "pipelines": [
-        {
-          "api_version": "core/v2",
-          "type": "Pipeline",
-          "name": "incident_alerts"
-        }
-      ],
       "proxy_entity_name": "",
       "publish": true,
       "round_robin": false,
@@ -304,6 +299,13 @@ spec:
       },
       "user": "agent"
     },
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "id": "3c3e68f6-6db7-40d3-9b84-4d61817ae559",
     "sequence": 5,
     "timestamp": 1617050507
@@ -333,13 +335,6 @@ This is the format that events are in when Sensu sends them to handlers:
     ],
     "subscriptions": [
       "system"
-    ],
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
     ],
     "proxy_entity_name": "",
     "check_hooks": null,
@@ -389,6 +384,7 @@ This is the format that events are in when Sensu sends them to handlers:
     },
     "secrets": null,
     "is_silenced": false,
+    "processed_by": "sensu-centos",
     "scheduler": "memory"
   },
   "entity": {
@@ -458,6 +454,13 @@ This is the format that events are in when Sensu sends them to handlers:
     },
     "sensu_agent_version": "6.2.6"
   },
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
+  ],
   "id": "3c3e68f6-6db7-40d3-9b84-4d61817ae559",
   "metadata": {
     "namespace": "default"
@@ -531,6 +534,10 @@ spec:
       tags: []
       timestamp: 1552506033
       value: 0.004
+  pipelines:
+    - api_version: core/v2
+      type: Pipeline
+      name: incident_alerts
   timestamp: 1552506033
   id: 47ea07cd-1e50-4897-9e6d-09cd39ec5180
   sequence: 1
@@ -616,6 +623,13 @@ spec:
         }
       ]
     },
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "timestamp": 1552506033,
     "id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180",
     "sequence": 1
@@ -652,6 +666,7 @@ spec:
       status: 0
     interval: 10
     is_silenced: false
+    processed_by: sensu-go-sandbox
     issued: 1552506033
     last_ok: 1552506033
     low_flap_threshold: 0
@@ -666,10 +681,6 @@ spec:
     output_metric_format: graphite_plaintext
     output_metric_handlers:
     - influx-db
-    pipelines:
-    - api_version: core/v2
-      type: Pipeline
-      name: incident_alerts
     proxy_entity_name: ""
     publish: true
     round_robin: false
@@ -735,6 +746,10 @@ spec:
       tags: []
       timestamp: 1552506033
       value: 0.004
+  pipelines:
+    - api_version: core/v2
+      type: Pipeline
+      name: incident_alerts
   timestamp: 1552506033
   id: 431a0085-96da-4521-863f-c38b480701e9
   sequence: 1
@@ -768,6 +783,7 @@ spec:
       ],
       "interval": 10,
       "is_silenced": false,
+      "processed_by": "sensu-go-sandbox",
       "issued": 1552506033,
       "last_ok": 1552506033,
       "low_flap_threshold": 0,
@@ -781,13 +797,6 @@ spec:
       "output_metric_format": "graphite_plaintext",
       "output_metric_handlers": [
         "influx-db"
-      ],
-      "pipelines": [
-        {
-          "api_version": "core/v2",
-          "type": "Pipeline",
-          "name": "incident_alerts"
-        }
       ],
       "proxy_entity_name": "",
       "publish": true,
@@ -876,6 +885,13 @@ spec:
         }
       ]
     },
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "timestamp": 1552506033,
     "id": "431a0085-96da-4521-863f-c38b480701e9",
     "sequence": 1
@@ -947,6 +963,10 @@ sensuctl event info entity-name check-name --format json
 {{< /code >}}
 {{< /language-toggle >}}
 
+{{% notice protip %}}
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data).
+{{% /notice %}}
+
 ### Delete events
 
 To delete an event:
@@ -961,7 +981,7 @@ You can use the `--skip-confirm` flag to skip the confirmation step:
 sensuctl event delete entity-name check-name --skip-confirm
 {{< /code >}}
 
-You should see a confirmation message upon success:
+You should receive a confirmation message upon success:
 
 {{< code shell >}}
 Deleted
@@ -976,7 +996,7 @@ Events resolved by sensuctl include the output message `Resolved manually by sen
 sensuctl event resolve entity-name check-name
 {{< /code >}}
 
-You should see a confirmation message upon success:
+You should receive a confirmation message upon success:
 
 {{< code shell >}}
 Resolved
@@ -1081,7 +1101,7 @@ api_version: core/v2
 
 metadata     | 
 -------------|------
-description  | Top-level scope that contains the event `namespace` and `created_by` field. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes][29] for details.
+description  | Top-level scope that contains the event `namespace` and `created_by` field. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  Review the [metadata attributes][29] for details.
 required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -1096,6 +1116,33 @@ metadata:
     "namespace": "default",
     "created_by": "admin"
   }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="pipelines-attribute"></a>
+
+| pipelines  |   |
+-------------|------
+description  | Name, type, and API version for the [pipelines][44] used to process the observability event. Sensu automatically populates the pipelines attributes when the event is created or updated. Read [pipelines attributes][45] for more information.
+required     | false
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+pipelines:
+- type: Pipeline
+  api_version: core/v2
+  name: incident_alerts
+{{< /code >}}
+{{< code json >}}
+{
+  "pipelines": [
+    {
+      "type": "Pipeline",
+      "api_version": "core/v2",
+      "name": "incident_alerts"
+    }
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1123,6 +1170,7 @@ spec:
       status: 0
     interval: 10
     is_silenced: true
+    processed_by: sensu-go-sandbox
     issued: 1552506033
     last_ok: 1552506033
     low_flap_threshold: 0
@@ -1139,10 +1187,6 @@ spec:
     output_metric_format: graphite_plaintext
     output_metric_handlers:
     - influx-db
-    pipelines:
-    - api_version: core/v2
-      type: Pipeline
-      name: incident_alerts
     proxy_entity_name: ''
     publish: true
     round_robin: false
@@ -1235,6 +1279,7 @@ spec:
       ],
       "interval": 10,
       "is_silenced": true,
+      "processed_by": "sensu-go-sandbox",
       "issued": 1552506033,
       "last_ok": 1552506033,
       "low_flap_threshold": 0,
@@ -1251,13 +1296,6 @@ spec:
       "output_metric_format": "graphite_plaintext",
       "output_metric_handlers": [
         "influx-db"
-      ],
-      "pipelines": [
-        {
-          "api_version": "core/v2",
-          "type": "Pipeline",
-          "name": "incident_alerts"
-        }
       ],
       "proxy_entity_name": "",
       "publish": true,
@@ -1385,6 +1423,59 @@ created_by: "admin"
 {{< code json >}}
 {
   "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+#### Pipelines attributes
+
+type         | 
+-------------|------
+description  | The [`sensuctl create`][8] resource type for the [pipeline][44]. Sensu automatically populates the pipelines type field when the event is created or updated. Pipeline resources are always type `Pipeline`.
+required     | false
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Pipeline
+{{< /code >}}
+{{< code json >}}
+{
+ "type": "Pipeline"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+api_version  | 
+-------------|------
+description  | The Sensu API group and version for the [pipeline][44]. Sensu automatically populates the pipelines api_version field when the event is created or updated. For pipelines in this version of Sensu, the api_version is `core/v2`.
+required     | false
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "core/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+name         | 
+-------------|------
+description  | Name of the Sensu [pipeline][44] used to process the observability event. Sensu automatically populates the pipeline name field when the event is created or updated.
+required     | false
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: is_incident
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "is_incident"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1572,6 +1663,7 @@ check:
     status: 0
   interval: 10
   is_silenced: true
+  processed_by: sensu-go-sandbox
   issued: 1552506033
   last_ok: 1552506033
   low_flap_threshold: 0
@@ -1586,10 +1678,6 @@ check:
   output_metric_format: graphite_plaintext
   output_metric_handlers:
   - influx-db
-  pipelines:
-  - api_version: core/v2
-    type: Pipeline
-    name: incident_alerts
   proxy_entity_name: ''
   publish: true
   round_robin: false
@@ -1626,6 +1714,7 @@ check:
     ],
     "interval": 10,
     "is_silenced": true,
+    "processed_by": "sensu-go-sandbox",
     "issued": 1552506033,
     "last_ok": 1552506033,
     "low_flap_threshold": 0,
@@ -1642,13 +1731,6 @@ check:
     "output_metric_format": "graphite_plaintext",
     "output_metric_handlers": [
       "influx-db"
-    ],
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
     ],
     "proxy_entity_name": "",
     "publish": true,
@@ -1673,7 +1755,7 @@ check:
 
 |metrics     |      |
 -------------|------
-description  | Metrics collected by the entity in Sensu metric format. See the [metrics attributes][30].
+description  | Metrics collected by the entity in Sensu metric format. Review the [metrics attributes][30].
 type         | Map
 required     | false
 example      | {{< language-toggle >}}
@@ -1894,6 +1976,24 @@ output: "sensu-go-sandbox.curl_timings.time_total 0.005
 {{< code json >}}
 {
   "output": "sensu-go-sandbox.curl_timings.time_total 0.005"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="processedby-attribute"></a>
+
+processed_by | |
+-------------|------
+description  | The name of the agent that processed the event. Useful for determining which agent processed an event executed by a [proxy check request][42] or a [POST request to the events API][43].
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+processed_by: sensu-go-sandbox
+{{< /code >}}
+{{< code json >}}
+{
+  "processed_by": "sensu-go-sandbox"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -2169,3 +2269,7 @@ value: 0.005
 [39]: #flap-detection-algorithm
 [40]: ../../observe-filter/filters/#check-attributes-available-to-filters
 [41]: ../../../plugins/supported-integrations/#time-series-and-long-term-event-storage
+[42]: ../../observe-schedule/checks/#proxy-checks
+[43]: ../../observe-schedule/agent/#create-observability-events-using-the-agent-api
+[44]: ../../observe-process/pipelines/
+[45]: #pipelines-attributes

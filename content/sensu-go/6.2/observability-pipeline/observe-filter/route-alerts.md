@@ -462,8 +462,8 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /code >}}
 
-You should see a 202 response from the API.
-Since this event doesn't include a `contacts` label, you should also see an alert in the Slack channel specified by the `slack_fallback` handler.
+You should receive a 202 response from the API.
+Since this event doesn't include a `contacts` label, you should also receive an alert in the Slack channel specified by the `slack_fallback` handler.
 Behind the scenes, Sensu uses the`contact_fallback` filter to match the event to the `slack_fallback` handler.
 
 Now, create an event with a `contacts` label:
@@ -487,7 +487,7 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /code >}}
 
-Because this event contains the `contacts: dev` label, you should see an alert in the Slack channel specified by the `slack_dev` handler.
+Because this event contains the `contacts: dev` label, you should receive an alert in the Slack channel specified by the `slack_dev` handler.
 
 Resolve the events by sending the same API requests with `status` set to `0`.
 
@@ -539,7 +539,7 @@ Next, run this sensuctl command to add the `slack` handler:
 sensuctl check set-handlers check_cpu slack
 {{< /code >}}
 
-Again, you will see an `Updated` confirmation message.
+Again, you will receive an `Updated` confirmation message.
 
 To view the updated resource definition for `check_cpu` and confirm that it includes the `contacts` labels and `slack` handler, run:
 
@@ -648,7 +648,7 @@ Now when the `check_cpu` check generates an incident, Sensu will filter the even
 ### Entities
 
 You can also specify contacts using an entity label.
-For more information about managing entity labels, see the [entity reference][10].
+For more information about managing entity labels, read the [entity reference][10].
 
 If contact labels are present in both the check and entity, the check contacts override the entity contacts.
 In this example, the `dev` label in the check configuration overrides the `ops` label in the agent definition, resulting in an alert sent to #alert-dev but not to #alert-ops or #alert-all.
