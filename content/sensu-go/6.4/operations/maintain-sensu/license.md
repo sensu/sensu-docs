@@ -169,7 +169,7 @@ spec:
 
 {{< /language-toggle >}}
 
-You can also see your current entity count and limit in the response headers for any `/api/core` or `/api/enterprise` [API request][9].
+You can also find your current entity count and limit in the response headers for any `/api/core` or `/api/enterprise` [API request][9].
 For example:
 
 {{< code shell >}}
@@ -187,7 +187,7 @@ Sensu-Entity-Limit: 100
 
 ## License expiration
 
-To see your commercial license expiration date, [log in to your Sensu account][1].
+To view your commercial license expiration date, [log in to your Sensu account][1].
 
 If your license is within 30 days of expiration, Sensu issues regular warnings in the Sensu [backend logs][6].
 If your license expires, you will still have access to [commercial features][5], but your entity limit will drop back down to the free limit of 100.
