@@ -94,7 +94,7 @@ Event filters that return a `true` value will continue to be processed via addit
 When more complex conditional logic is needed than direct filter expression comparison, Sensu event filters provide support for expression evaluation using [Otto][31].
 Otto is an ECMAScript 5 (JavaScript) virtual machine that evaluates JavaScript expressions provided in an event filter.
 There are some caveats to using Otto: not all of the regular expressions (regex) specified in ECMAScript 5 will work.
-See the [Otto README][32] for more details.
+Review the [Otto README][32] for more details.
 
 Use [Go regex syntax][3] to create event filter expressions that combine any available [event][46], [check][47], or [entity][48] attributes with `match(<regex>)`.
 
@@ -372,7 +372,7 @@ When applied to a handler configuration, the has_metrics event filter allows onl
 ## Build event filter expressions with Sensu query expressions
 
 You can write custom event filter expressions as [Sensu query expressions][27] using the event data attributes described in this section.
-For more information about event attributes, see the [event reference][28].
+For more information about event attributes, read the [event reference][28].
 
 ### Syntax quick reference
 

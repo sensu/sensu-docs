@@ -41,7 +41,7 @@ The backend digitally signs these tokens, and the tokens can't be changed withou
 The access and refresh tokens are saved in your browser's local storage.
 
 The web UI complies with Sensu role-based access control (RBAC), so individual users see information according to their access configurations.
-See the [RBAC reference][3] for [default user credentials][4] and instructions for [creating new users][5].
+Read the [RBAC reference][3] for [default user credentials][4] and instructions for [creating new users][5].
 
 ## Use the implicit OR operator
 

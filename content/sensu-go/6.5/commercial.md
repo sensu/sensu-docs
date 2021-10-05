@@ -100,7 +100,7 @@ These resources will help you get started with commercial features in Sensu Go:
 [6]: ../web-ui/search/
 [7]: https://sensu.io/blog/one-year-of-sensu-go/
 [8]: ../web-ui/
-[9]: ../operations/control-access/
+[9]: ../operations/control-access/sso/
 [10]: ../observability-pipeline/observe-schedule/backend#event-logging
 [11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4/
 [12]: ../operations/deploy-sensu/datastore#scale-event-storage

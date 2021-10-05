@@ -47,7 +47,10 @@ You can access namespaced resources by [roles and cluster roles][13].
 | `mutators` | [Mutator][11] resources within a namespace |
 | `rolebindings` | Namespace-specific role assigners |
 | `roles` | Namespace-specific permission sets |
+| `rule-templates` | [Resources applied to service components][38] for business service monitoring |
 | `searches` | Saved [web UI][49] search queries |
+| `secrets` |[Secrets][48] (for example, username or password) |
+| `service-components` | Resources that represent [elements in a business service][36] |
 | `silenced` | [Silencing][14] resources within a namespace |
 
 ### Cluster-wide resource types
@@ -57,16 +60,17 @@ You can access cluster-wide resources only by cluster roles.
 
 | type | description |
 |---|---|
-| `authproviders` | [Authentication provider][32] configuration (commercial feature) |
-| `cluster` | Sensu clusters running multiple [Sensu backends][1] |
+| `apikeys` | [Persistent UUID][33] for authentication |
+| `authproviders` | [Authentication provider][32] configuration |
 | `clusterrolebindings` | Cluster-wide role assigners  |
 | `clusterroles` | Cluster-wide permission sets |
+| `clusters` | Sensu clusters running multiple [Sensu backends][1] |
+| `config` | Global configuration for [web UI display][21] |
 | `etcd-replicators` | [Mirror RBAC resource changes][40] to follower clusters |
 | `license` | Sensu [commercial license][37] |
 | `namespaces` | Resource partitions within a Sensu instance |
 | `provider` | [PostgreSQL event store][47] provider |
 | `providers` | [Secrets providers][46] |
-| `secrets` |[Secrets][48] (for example, username or password) |
 | `users` | People or agents that interact with Sensu |
 
 ### Special resource types
@@ -197,7 +201,7 @@ sensuctl user reinstate USERNAME
 
 #### View users
 
-You can use [sensuctl][2] to see a list of all users within Sensu.
+You can use [sensuctl][2] to list all users within Sensu.
 
 To return a list of users in `yaml` or `wrapped-json` format for use with `sensuctl create`:
 
@@ -601,13 +605,13 @@ sensuctl edit role [ROLE-NAME] <flags>
 
 ### View roles and cluster roles
 
-You can use [sensuctl][2] to see a list of roles within Sensu:
+You can use [sensuctl][2] to list all roles within Sensu:
 
 {{< code shell >}}
 sensuctl role list
 {{< /code >}}
 
-To see the permissions and scope for a specific role:
+To review the permissions and scope for a specific role:
 
 {{< code shell >}}
 sensuctl role info admin
@@ -1104,19 +1108,19 @@ sensuctl role-binding help
 
 #### View role bindings and cluster role bindings
 
-You can use [sensuctl][2] to see a list of role bindings within Sensu:
+You can use [sensuctl][2] to list all role bindings within Sensu:
 
 {{< code shell >}}
 sensuctl role-binding list
 {{< /code >}}
 
-To see the details for a specific role binding:
+To review the details for a specific role binding:
 
 {{< code shell >}}
 sensuctl role-binding info [BINDING-NAME]
 {{< /code >}}
 
-To see a list of cluster role bindings:
+To list cluster role bindings:
 
 {{< code shell >}}
 sensuctl cluster-role-binding list
@@ -1124,7 +1128,7 @@ sensuctl cluster-role-binding list
 
 #### Create role bindings and cluster role bindings
 
-You can use [sensuctl][2] to see a create a role binding that assigns a role:
+You can use [sensuctl][2] to create a role binding that assigns a role:
 
 {{< code shell >}}
 sensuctl role-binding create NAME --role=NAME --user=username --group=groupname
@@ -2230,6 +2234,7 @@ spec:
 [18]: #cluster-wide-resource-types
 [19]: ../../../api/
 [20]: #default-users
+[21]: ../../../web-ui/webconfig-reference/
 [22]: ../../../observability-pipeline/observe-filter/filters/
 [23]: #role-bindings-and-cluster-role-bindings
 [24]: #role-and-cluster-role-specification
@@ -2241,9 +2246,12 @@ spec:
 [30]: #role-binding-and-cluster-role-binding-specification
 [31]: ../../../sensuctl/create-manage-resources/#create-resources
 [32]: ../sso/
+[33]: ../../../api/#authenticate-with-an-api-key
 [34]: ../#use-built-in-basic-authentication
 [35]: https://en.wikipedia.org/wiki/Bcrypt
+[36]: ../../../observability-pipeline/observe-schedule/service-components/
 [37]: ../../maintain-sensu/license/
+[38]: ../../../observability-pipeline/observe-schedule/rule-templates/
 [39]: ../ad-auth/#ad-groups-prefix
 [40]: ../../deploy-sensu/etcdreplicators/
 [41]: ../../../observability-pipeline/observe-schedule/agent/#security-configuration-flags
