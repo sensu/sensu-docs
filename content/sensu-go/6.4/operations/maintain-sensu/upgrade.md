@@ -104,7 +104,7 @@ As a result, users whose configuration predates Sensu Go 6.0 may have lingering 
 
 Upgrading to Sensu Go 6.2.0 requires sensu-backend to upgrade check configurations.
 If you have check configurations that reference non-existent namespaces, the 6.2.0 upgrade operation will fail when it encounters one of these check configurations.
-You will see an error message like this:
+You will receive an error message like this:
 
 {{< code shell >}}
 {"component":"store-providers","error":"the namespace test does not exist","level":"error","msg":"error enabling round robin scheduling,backend restart required","time":"2020-12-27T08:41:59Z"}
