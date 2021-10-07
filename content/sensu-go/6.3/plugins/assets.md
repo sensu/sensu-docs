@@ -568,15 +568,14 @@ tree
     └── hello-world.sh
 {{< /code >}}
 
+   If you receive a `command not found` response, install `tree` and run the command again.
+
 6. Make sure that the script is marked as executable:
 {{< code shell >}}
-$ chmod +x bin/hello-world.sh 
+chmod +x bin/hello-world.sh 
 {{< /code >}}
 
-   The response will confirm the change:
-   {{< code shell >}}
-mode of 'hello-world.sh' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)
-{{< /code >}}
+   If you do not receive a response, the command was successful.
 
 Now that the script is in the directory, move on to the next step: packaging the `sensu-go-hello-world` directory as a dynamic runtime asset tarball.
 
