@@ -373,7 +373,7 @@ spec:
 
 Sensu expects a dynamic runtime asset to be a tar archive (optionally gzipped) that contains one or more executables within a bin folder.
 Any scripts or executables should be within a `bin/` folder in the archive.
-See the [Sensu Go Plugin template][28] for an example dynamic runtime asset and Bonsai configuration.
+Read the [Sensu Go Plugin template][28] for an example dynamic runtime asset and Bonsai configuration.
 
 The following are injected into the execution context:
 
@@ -1106,10 +1106,10 @@ Then, you can rely on dynamic runtime asset filters to ensure that you install o
 
 Share your open-source dynamic runtime assets on [Bonsai][16] and connect with the Sensu community.
 Bonsai supports dynamic runtime assets hosted on [GitHub][24] and released using [GitHub releases][25].
-For more information about creating Sensu plugins, see the [plugins reference][29].
+For more information about creating Sensu plugins, read the [plugins reference][29].
 
 Bonsai requires a [`bonsai.yml` configuration file][26] in the root directory of your repository that includes the project description, platforms, asset filenames, and SHA-512 checksums.
-For a Bonsai-compatible dynamic runtime asset template using Go and [GoReleaser][27], see the [Sensu Go plugin skeleton][28].
+For a Bonsai-compatible dynamic runtime asset template using Go and [GoReleaser][27], review the [Sensu Go plugin skeleton][28].
 
 To share your dynamic runtime asset on Bonsai, [log in to Bonsai][37] with your GitHub account and authorize Sensu.
 After you are logged in, you can [register your dynamic runtime asset on Bonsai][38] by adding the GitHub repository, a description, and tags.
