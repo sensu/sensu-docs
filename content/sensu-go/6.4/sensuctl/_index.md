@@ -250,19 +250,19 @@ sensuctl configure -n --url http://127.0.0.1:8080 --username YOUR_USERNAME --pas
 
 Sensuctl supports a `--help` flag for each command and subcommand.
 
-### See command and global flags
+### List command and global flags
 
 {{< code shell >}}
 sensuctl --help
 {{< /code >}}
 
-### See subcommands and flags
+### List subcommands and flags
 
 {{< code shell >}}
 sensuctl check --help
 {{< /code >}}
 
-### See usage and flags
+### List usage and flags
 
 {{< code shell >}}
 sensuctl check delete --help

@@ -332,7 +332,7 @@ If you are using the Vault [KV Secrets Engine v2](https://www.vaultproject.io/ap
 
 {{% /notice %}}
 
-Run `vault kv get secret/pagerduty` to see the secret you just set up.
+Run `vault kv get secret/pagerduty` to view the secret you just set up.
 
 Use `sensuctl create` to create your `vault` secret:
 

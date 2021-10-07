@@ -52,7 +52,7 @@ To install a [Sensu Community plugin][1] with Sensu Go:
 2. Run the `sensu-install` command to install plugins in the [Sensu Community Plugins GitHub organization][1] by repository name.
 Plugins are installed into `/opt/sensu-plugins-ruby/embedded/bin`.
 
-To see a list of all flags for the sensu-install command, run:
+To list all flags for the sensu-install command, run:
 
 {{< code shell >}}
 sensu-install --help

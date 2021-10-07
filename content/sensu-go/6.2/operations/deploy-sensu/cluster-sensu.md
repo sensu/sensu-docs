@@ -39,7 +39,7 @@ After you've secured Sensu, continue reading this document to [set up][2] and [u
 ## Configure a cluster
 
 The sensu-backend arguments for its store mirror the [etcd configuration flags][3], but the Sensu flags are prefixed with `etcd`.
-For more detailed descriptions of the different arguments, see the [etcd documentation][4] or the [Sensu backend reference][15].
+For more detailed descriptions of the different arguments, read the [etcd documentation][4] or [Sensu backend reference][15].
 
 You can configure a Sensu cluster in a couple different ways &mdash; we'll show you a few below &mdash; but you should adhere to some etcd cluster guidelines as well:
 
@@ -61,7 +61,7 @@ This configuration defines three sensu-backend containers and three sensu-agent 
 
 {{% notice note %}}
 **NOTE**: The remainder of this guide describes on-disk configuration.
-If you are using an ephemeral computer instance, you can use `sensu-backend start --help` to see examples of etcd command line flags.
+If you are using an ephemeral computer instance, you can use `sensu-backend start --help` to list etcd command line flags.
 The configuration file entries in the rest of this guide translate to `sensu-backend` flags.
 {{% /notice %}}
 
@@ -294,7 +294,7 @@ Removed member 2f7ae42c315f8c2d from cluster
 When updating the replacement member's backend configuration file, make sure the `etcd-initial-cluster-state` value is `existing`, **not** `new`.
 {{% /notice %}}
 
-If replacing the faulty cluster member does not resolve the problem, see the [etcd operations guide][12] for more information.
+If replacing the faulty cluster member does not resolve the problem, read the [etcd operations guide][12] for more information.
 
 ### Update a cluster member
 
@@ -389,11 +389,11 @@ After you create the backups you need, follow [Use an external etcd cluster][27]
 
 ### Failure modes
 
-See the [etcd failure modes documentation][8] for information about cluster failure modes.
+Read the [etcd failure modes documentation][8] for information about cluster failure modes.
 
 ### Disaster recovery
 
-See the [etcd recovery guide][9] for disaster recovery information.
+Read the [etcd recovery guide][9] for disaster recovery information.
 
 ### Redeploy a cluster
 
