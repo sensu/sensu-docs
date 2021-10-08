@@ -137,9 +137,11 @@ sensu-backend init
 
 ### Add API key for initialization
 
-Add an API key when you initialize the backend to make automated cluster setup and deployment more straightforward.
-For example, if you supply an API key via sensu-backend init, you do not need to configure sensuctl.
-Instead, you can execute sensuctl commands to manage resources immediately after initializing a cluster &mdash; just provide the [`--api-key` and `--api-url` flags][62] with their correct values in your sensuctl commands.
+Add an [API key][39] when you initialize the backend to make automated cluster setup and deployment more straightforward.
+An API key is a persistent UUID that maps to a stored Sensu username.
+
+If you supply an API key via sensu-backend init, you do not need to configure sensuctl.
+Instead, you can execute sensuctl commands to manage resources immediately after initializing a cluster by providing the [`--api-key` and `--api-url` flags][62] with their correct values in your sensuctl commands.
 
 To initialize with an API key in addition to username and password, set your administrator credentials as follows.
 Replace `<api_key>` with the API key you want to use:
@@ -1755,6 +1757,7 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [36]: #etcd-heartbeat-interval
 [37]: ../../../sensuctl/
 [38]: #configuration-via-environment-variables
+[39]: ../../../operations/control-access/use-apikeys/
 [60]: #backend-log-level
 [61]: #event-log-file
 [62]: ../../../sensuctl/#global-flags
