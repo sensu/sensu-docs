@@ -1651,7 +1651,7 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 
 ## Platform metrics logging
 
-Sensu automatically writes core platform metrics in [InfluxDB Line Protocol][62] to a file at `/var/lib/sensu/sensu-backend/stats.log`.
+Sensu automatically writes core platform metrics in [InfluxDB Line Protocol][62] to a file at `/var/log/sensu/backend-stats.log`.
 You can use this file as an input source for your favorite data lake solution.
 
 Metrics logging is enabled by default but can be disabled with the disable-platform-metrics configuration flag.
