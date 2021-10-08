@@ -661,7 +661,6 @@ sudo service sensu-agent restart
 **Windows**
 
 {{< code text >}}
-sc.exe stop SensuAgent
 sc.exe start SensuAgent
 {{< /code >}}
 
