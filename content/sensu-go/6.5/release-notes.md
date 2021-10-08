@@ -114,14 +114,14 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.5.0.
 **IMPROVEMENTS:**
 
 - Added [platform metrics logging](https://docs.sensu.io/sensu-go/6.5/observability-pipeline/observe-schedule/backend/#platform-metrics-logging) to log core Sensu metrics in InfluxDB Line Protocol format, along with the `disable-platform-metrics`, `platform-metrics-log-file`, and `platform-metrics-logging-interval` backend configuration flags for managing the platform metrics logging feature.
-- Open-sourced the previously enterprise-only event logger. The event logger can be used to send the events a backend processes to a rotatable log file.
+- [Event logging][] is no longer a commercial-only feature.
 - Added environment variables `SENSU_BACKEND_ETCD_CLIENT_USERNAME` and `SENSU_BACKEND_ETCD_CLIENT_PASSWORD` for connecting to external etcd via username and password authentication instead of certificate authentication. There are no corresponding configuration flags &mdash; these configuration options must be set via environment variables.
 - Upgraded Go version from 1.16.5 to 1.17.1.
 
 **FIXES:**
 
 - Sensuctl env now properly lists `SENSU_API_KEY` and `SENSU_TIMEOUT` as options for [exporting environment variables](https://docs.sensu.io/sensu-go/6.5/sensuctl/environment-variables/#export-environment-variables-with-sensuctl-env). In addition, sensuctl command exec now properly adds the `SENSU_API_KEY` and `SENSU_TIMEOUT` variables to the command's environment.
-- Fixed a crash when running the backend on darwin/arm64 when compressing a wrapped resource.
+- Fixed a bug that could cause a crash when running the backend on darwin/arm64 and compressing a wrapped resource.
 - Fixed a bug that could result in an etcd error if the number of silences in a given transaction exceeded etcd's default maximum number of operations per transaction.
 
 **SECURITY:**
