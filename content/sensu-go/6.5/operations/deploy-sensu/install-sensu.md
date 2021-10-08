@@ -202,7 +202,7 @@ If you did not use environment variables to override the default admin credentia
 **With the backend running**, run `sensu-backend init` to set up your Sensu administrator username and password.
 In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
 
-Replace `<username>` and `<password>` with the username and password you want to use.
+Replace `<username>` and `<password>` with the username and password you want to use:
 
 {{< language-toggle >}}
 
