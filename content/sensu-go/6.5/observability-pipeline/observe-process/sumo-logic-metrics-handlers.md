@@ -384,7 +384,7 @@ annotations:
 url          | 
 -------------|------
 description  | The URL for the Sumo Logic HTTP Logs and Metrics Source where Sensu should transmit the observability metrics. You can also provide the URL as a [secret][6].
-required     | false
+required     | true
 type         | String
 example without secrets | {{< language-toggle >}}
 {{< code yml >}}
@@ -432,8 +432,8 @@ secrets:
 
 max_connections | 
 -------------|------
-description  | Maximum number of connections to keep alive in the connection pool. If set to `0`, connection pooling is disabled.
-required     | true 
+description  | Maximum number of connections to keep alive in the connection pool. If set to `0`, there is no limit to the number of connections in the pool.
+required     | false 
 type         | Integer
 example      | {{< language-toggle >}}
 {{< code yml >}}
@@ -448,7 +448,7 @@ max_connections: 10
 
 timeout      | 
 -------------|------
-description  | Maximum time to wait to process a Sumo Logic call. In seconds (`s`).
+description  | Duration to allow for processing a Sumo Logic call. In seconds.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
