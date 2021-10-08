@@ -33,7 +33,7 @@ If you have a licensed instance and want to opt out of Tessen, contact your acco
 
 To manage Tessen configuration for your unlicensed instance with sensuctl, configure sensuctl as the default [`admin` user][6].
 
-To see Tessen status:
+To view Tessen status:
 
 {{< code shell >}}
 sensuctl tessen info

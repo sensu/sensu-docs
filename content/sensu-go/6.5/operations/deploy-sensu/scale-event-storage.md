@@ -289,7 +289,7 @@ To verify that the change was effective, look for messages similar to these in t
 {{< /code >}}
 
 Similar to enabling Postgres, switching back to the etcd datastore does not migrate current observability event data from one store to another.
-You may see old events in the web UI or sensuctl output until the etcd datastore catches up with the current state of your monitored infrastructure.
+The web UI or sensuctl output may list outdated events until the etcd datastore catches up with the current state of your monitored infrastructure.
 
 ## Configure Postgres streaming replication
 
