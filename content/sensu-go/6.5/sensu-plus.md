@@ -85,9 +85,7 @@ metadata:
 spec:
   url: "https://https://collectors.sumologic.com/receiver/v1/http/xxxxxxxx"
   max_connections: 10
-  min_connections: 5
-  min_reconnect_delay: 10ms
-  max_reconnect_delay: 10s
+  timeout: 10s
 {{< /code >}}
 
 {{< code json >}}
@@ -101,9 +99,7 @@ spec:
   "spec": {
     "url": "https://https://collectors.sumologic.com/receiver/v1/http/xxxxxxxx",
     "max_connections": 10,
-    "min_connections": 5,
-    "min_reconnect_delay": "10ms",
-    "max_reconnect_delay": "10s"
+    "timeout": "10s"
   }
 }
 {{< /code >}}
@@ -123,13 +119,12 @@ metadata:
   name: sumologic_http_log_metrics
   namespace: default
 spec:
+  url: $SUMO_LOGIC_SOURCE_URL
   secrets:
-  - name: SUMOLOGIC_HTTP_METRICS_URL
-    secret: sumologic_http_metrics_us1
+  - name: SUMO_LOGIC_SOURCE_URL
+    secret: sumologic_metrics_us1
   max_connections: 10
-  min_connections: 5
-  min_reconnect_delay: 10ms
-  max_reconnect_delay: 10s
+  timeout: 10s
 {{< /code >}}
 
 {{< code json >}}
@@ -141,16 +136,15 @@ spec:
     "namespace": "default"
   },
   "spec": {
+    "url": "$SUMO_LOGIC_SOURCE_URL",
     "secrets": [
       {
-        "name": "SUMOLOGIC_HTTP_METRICS_URL",
-        "secret": "sumologic_http_metrics_us1"
+        "name": "SUMO_LOGIC_SOURCE_URL",
+        "secret": "sumologic_metrics_us1"
       }
     ],
     "max_connections": 10,
-    "min_connections": 5,
-    "min_reconnect_delay": "10ms",
-    "max_reconnect_delay": "10s"
+    "timeout": "10s"
   }
 }
 {{< /code >}}
