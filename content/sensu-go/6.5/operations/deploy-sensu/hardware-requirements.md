@@ -22,7 +22,7 @@ This configuration is the minimum required to run the Sensu backend (although it
 - 4 GB free disk space
 - 10 mbps network link
 
-See the [Backend recommended configuration][2] for production recommendations.
+Review the [backend recommended configuration][2] for production recommendations.
 
 ### Backend recommended configuration
 
@@ -63,7 +63,7 @@ This configuration is the minimum required to run the Sensu agent (although it i
 - 128 MB RAM
 - 10 mbps network link
 
-See the [Agent recommended configuration][3] for production recommendations.
+Review the [agent recommended configuration][3] for production recommendations.
 
 ### Agent recommended configuration
 
@@ -84,7 +84,7 @@ Sensu uses WebSockets for communication between the agent and backend.
 All communication occurs over a single TCP socket.
 
 We recommend that you connect backends and agents via gigabit ethernet, but any reliable network link should work (for example, WiFi and 4G).
-If you see WebSocket timeouts in the backend logs, you may need to use a more reliable network link between the backend and agents.
+If the backend logs include WebSocket timeouts, you may need to use a more reliable network link between the backend and agents.
 
 ## Cloud recommendations
 

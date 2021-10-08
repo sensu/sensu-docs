@@ -90,7 +90,7 @@ The Sensu backend URL is the HTTP or HTTPS URL where sensuctl can connect to the
 The default URL is `http://127.0.0.1:8080`.
 
 To connect to a [Sensu cluster][4], connect sensuctl to any single backend in the cluster.
-For information about configuring the Sensu backend URL, Read the [backend reference][3].
+For information about configuring the Sensu backend URL, read the [backend reference][3].
 
 ### sensuctl configure flags
 
@@ -161,7 +161,7 @@ If you are using Docker and you do not include the environment variables to set 
 {{% /notice %}} 
 
 Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
-For more information about configuring Sensu access control, Read the [RBAC reference][1].
+For more information about configuring Sensu access control, read the [RBAC reference][1].
 
 ### Change admin user's password
 
@@ -250,19 +250,19 @@ sensuctl configure -n --url http://127.0.0.1:8080 --username YOUR_USERNAME --pas
 
 Sensuctl supports a `--help` flag for each command and subcommand.
 
-### See command and global flags
+### List command and global flags
 
 {{< code shell >}}
 sensuctl --help
 {{< /code >}}
 
-### See subcommands and flags
+### List subcommands and flags
 
 {{< code shell >}}
 sensuctl check --help
 {{< /code >}}
 
-### See usage and flags
+### List usage and flags
 
 {{< code shell >}}
 sensuctl check delete --help
@@ -303,7 +303,7 @@ sensuctl config set-format tabular
 ### Set namespace
 
 Use the `set-namespace` command to change the default [namespace][8] for the current user.
-For more information about configuring Sensu access control, Read the [RBAC reference][1].
+For more information about configuring Sensu access control, read the [RBAC reference][1].
 
 For example, to change the default namespace to `development`:
 

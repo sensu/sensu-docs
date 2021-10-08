@@ -476,7 +476,7 @@ The response should include the `check-http` check:
 
 {{% notice protip %}}
 **PRO TIP**: To distribute check executions across multiple agents, set the `round-robin` check attribute to `true`.
-For more information about round robin checks, Read the [checks reference](../../observe-schedule/checks#round-robin-checks).
+For more information about round robin checks, read the [checks reference](../../observe-schedule/checks#round-robin-checks).
 {{% /notice %}}
 
 ### Validate the check
