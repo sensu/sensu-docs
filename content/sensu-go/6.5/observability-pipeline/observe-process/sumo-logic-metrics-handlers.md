@@ -25,10 +25,8 @@ Sumo Logic metrics handlers provide a persistent connection to transmit Sensu ob
 Traditional handlers start a new UNIX process for every Sensu event they receive and require a new connection to send every event.
 As you scale up and process more events per second, the rate at which the handler can transmit observability event data decreases.
 
-Sumo Logic metrics handlers allow you to configure a connection pool with a minimum and maximum number of connections for the handler to use.
-For example, you can configure a TCP stream handler with a pool of 5 to 10 connections.
-Suppose 1000 events are queued for transmission.
-As each connection finishes transmitting an event, it becomes available again and returns to the pool so the handler can use it to send the next event in the queue.
+Sumo Logic metrics handlers allow you to configure a connection pool with a maximum number of connections for the handler to use and a time limit for request completion.
+For example, if 1000 events are queued for transmission, as each connection finishes transmitting an event, it becomes available again and returns to the pool so the handler can use it to send the next event in the queue.
 
 Sumo Logic metrics will reuse the available connections as long as they can rather than requiring a new connection for every event, which increases event throughput.
 
@@ -37,7 +35,7 @@ Sumo Logic metrics will reuse the available connections as long as they can rath
 To send status events, use the [Sensu Sumo Logic Handler integration](../../../plugins/supported-integrations/sumologic/) instead.
 {{% /notice %}}
 
-## Sumo Logic metrics handler example
+## Sumo Logic metrics handler examples
 
 This example shows a Sumo Logic metrics handler resource definition configured to send Sensu observability data to a Sumo Logic HTTP Logs and Metrics Source via the `url` attribute:
 
@@ -53,9 +51,7 @@ metadata:
 spec:
   url: "https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx"
   max_connections: 10
-  min_connections: 5
-  min_reconnect_delay: 10ms
-  max_reconnect_delay: 10s
+  timeout: 30s
 {{< /code >}}
 
 {{< code json >}}
@@ -69,9 +65,51 @@ spec:
   "spec": {
     "url": "https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx",
     "max_connections": 10,
-    "min_connections": 5,
-    "min_reconnect_delay": "10ms",
-    "max_reconnect_delay": "10s"
+    "timeout": "30s"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+You can also use [secrets management][14] to avoid exposing the URL in your Sumo Logic metrics handler configuration:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: SumoLogicMetricsHandler
+api_version: pipeline/v1
+metadata:
+  name: sumologic_http_log_metrics
+  namespace: default
+spec:
+  url: $SUMO_LOGIC_SOURCE_URL
+  secrets:
+  - name: SUMO_LOGIC_SOURCE_URL
+    secret: sumologic_metrics_us2
+  max_connections: 10
+  timeout: 30s
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "SumoLogicMetricsHandler",
+  "api_version": "pipeline/v1",
+  "metadata": {
+    "name": "sumologic_http_log_metrics",
+    "namespace": "default"
+  },
+  "spec": {
+    "url": "$SUMO_LOGIC_SOURCE_URL",
+    "secrets": [
+      {
+        "name": "SUMO_LOGIC_SOURCE_URL",
+        "secret": "sumologic_metrics_us2"
+      }
+    ],
+    "max_connections": 10,
+    "timeout": "30s"
   }
 }
 {{< /code >}}
@@ -192,13 +230,25 @@ metadata:
   name: sumologic_http_log_metrics
   namespace: default
   created_by: admin
+  labels:
+    environment: development
+    region: us-west-2
+  annotations:
+    managed-by: ops
 {{< /code >}}
 {{< code json >}}
 {
   "metadata": {
     "name": "sumologic_http_log_metrics",
     "namespace": "default",
-    "created_by": "admin"
+    "created_by": "admin",
+    "labels": {
+      "environment": "development",
+      "region": "us-west-2"
+    },
+    "annotations": {
+      "managed-by": "ops"
+    }
   }
 }
 {{< /code >}}
@@ -212,29 +262,25 @@ type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 spec:
-  url: https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx
+  url: $SUMO_LOGIC_SOURCE_URL
   secrets:
-  - name: SUMOLOGIC_METRICS_URL
+  - name: SUMO_LOGIC_SOURCE_URL
     secret: sumologic_metrics_us2
   max_connections: 10
-  min_connections: 5
-  min_reconnect_delay: 10ms
-  max_reconnect_delay: 10s
+  timeout: 30s
 {{< /code >}}
 {{< code json >}}
 {
   "spec": {
-    "url": "https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx",
+    "url": "$SUMO_LOGIC_SOURCE_URL",
     "secrets": [
       {
-        "name": "SUMOLOGIC_METRICS_URL",
+        "name": "SUMO_LOGIC_SOURCE_URL",
         "secret": "sumologic_metrics_us2"
       }
     ],
     "max_connections": 10,
-    "min_connections": 5,
-    "min_reconnect_delay": "10ms",
-    "max_reconnect_delay": "10s"
+    "timeout": "30s"
   }
 }
 {{< /code >}}
@@ -291,6 +337,48 @@ created_by: admin
 {{< /code >}}
 {{< /language-toggle >}}
 
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][10], [sensuctl responses][11], and [web UI views][25] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+required     | false
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+labels:
+  environment: development
+  region: us-west-2
+{{< /code >}}
+{{< code json >}}
+{
+  "labels": {
+    "environment": "development",
+    "region": "us-west-2"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| annotations |     |
+-------------|------
+description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][24]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10], [sensuctl response filtering][11], or [web UI views][28].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+annotations:
+  managed-by: ops
+{{< /code >}}
+{{< code json >}}
+{
+  "annotations": {
+    "managed-by": "ops"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 ### Spec attributes
 
 url          | 
@@ -298,13 +386,23 @@ url          |
 description  | The URL for the Sumo Logic HTTP Logs and Metrics Source where Sensu should transmit the observability metrics. You can also provide the URL as a [secret][6].
 required     | false
 type         | String
-example      | {{< language-toggle >}}
+example without secrets | {{< language-toggle >}}
 {{< code yml >}}
-address: https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx
+url: https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx
 {{< /code >}}
 {{< code json >}}
 {
-  "address": "https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx"
+  "url": "https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+example with secrets | {{< language-toggle >}}
+{{< code yml >}}
+url: $SUMO_LOGIC_SOURCE_URL
+{{< /code >}}
+{{< code json >}}
+{
+  "url": "$SUMO_LOGIC_SOURCE_URL"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -317,7 +415,7 @@ type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
 secrets:
-- name: SUMOLOGIC_METRICS_URL
+- name: SUMO_LOGIC_SOURCE_URL
   secret: sumologic_metrics_us2
 {{< /code >}}
 {{< code json >}}
@@ -348,50 +446,18 @@ max_connections: 10
 {{< /code >}}
 {{< /language-toggle >}}
 
-max_reconnect_delay | 
+timeout      | 
 -------------|------
-description  | Maximum time to wait while retrying a broken connection. In seconds (`s`) or milliseconds (`ms`).
+description  | Maximum time to wait to process a Sumo Logic call. In seconds (`s`).
 required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-max_reconnect_delay: 10s
+timeout: 10s
 {{< /code >}}
 {{< code json >}}
 {
-  "max_reconnect_delay": "10s"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-min_connections | 
--------------|------
-description  | Minimum number of connections to keep alive in the connection pool.
-required     | true 
-type         | Integer
-example      | {{< language-toggle >}}
-{{< code yml >}}
-min_connections: 3
-{{< /code >}}
-{{< code json >}}
-{
-  "min_connections": 3
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-min_reconnect_delay | 
--------------|------
-description  | Minimum time to wait while retrying a broken connection. In seconds (`s`) or milliseconds (`ms`).
-required     | true 
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-min_reconnect_delay: 10ms
-{{< /code >}}
-{{< code json >}}
-{
-  "min_reconnect_delay": "10ms"
+  "timeout": "10s"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -444,6 +510,7 @@ secret: sumologic_metrics_us2
 [11]: ../pipelines/#handlers-pipeline
 [12]: #sumo-logic-metrics-handler-example
 [13]: ../../observe-filter/filters/#built-in-filter-has_metrics
+[14]: ../../../operations/manage-secrets/secrets-management/
 [18]: https://regex101.com/r/zo9mQU/2
 [22]: ../
 [24]: ../../observe-filter/filters/

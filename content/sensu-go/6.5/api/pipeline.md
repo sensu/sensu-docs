@@ -50,11 +50,15 @@ HTTP/1.1 200 OK
       "namespace": "default"
     },
     "spec": {
-      "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+      "url": "$SUMO_LOGIC_SOURCE_URL",
+      "secrets": [
+        {
+          "name": "SUMO_LOGIC_SOURCE_URL",
+          "secret": "sumologic_metrics_us1"
+        }
+      ],
       "max_connections": 10,
-      "min_connections": 5,
-      "min_reconnect_delay": "10ms",
-      "max_reconnect_delay": "10s"
+      "timeout": "30s"
     }
   },
   {
@@ -65,11 +69,15 @@ HTTP/1.1 200 OK
       "namespace": "default"
     },
     "spec": {
-      "url": "https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx",
+      "url": "$SUMO_LOGIC_SOURCE_URL",
+      "secrets": [
+        {
+          "name": "SUMO_LOGIC_SOURCE_URL",
+          "secret": "sumologic_metrics_us2"
+        }
+      ],
       "max_connections": 10,
-      "min_connections": 5,
-      "min_reconnect_delay": "10ms",
-      "max_reconnect_delay": "10s"
+      "timeout": "30s"
     }
   }
 ]
@@ -95,11 +103,15 @@ output         | {{< code shell >}}
       "namespace": "default"
     },
     "spec": {
-      "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+      "url": "$SUMO_LOGIC_SOURCE_URL",
+      "secrets": [
+        {
+          "name": "SUMO_LOGIC_SOURCE_URL",
+          "secret": "sumologic_metrics_us1"
+        }
+      ],
       "max_connections": 10,
-      "min_connections": 5,
-      "min_reconnect_delay": "10ms",
-      "max_reconnect_delay": "10s"
+      "timeout": "30s"
     }
   },
   {
@@ -110,11 +122,15 @@ output         | {{< code shell >}}
       "namespace": "default"
     },
     "spec": {
-      "url": "https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx",
+      "url": "$SUMO_LOGIC_SOURCE_URL",
+      "secrets": [
+        {
+          "name": "SUMO_LOGIC_SOURCE_URL",
+          "secret": "sumologic_metrics_us2"
+        }
+      ],
       "max_connections": 10,
-      "min_connections": 5,
-      "min_reconnect_delay": "10ms",
-      "max_reconnect_delay": "10s"
+      "timeout": "30s"
     }
   }
 ]
@@ -141,11 +157,15 @@ curl -X POST \
     "namespace": "default"
   },
   "spec": {
-    "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+    "url": "$SUMO_LOGIC_SOURCE_URL",
+    "secrets": [
+      {
+        "name": "SUMO_LOGIC_SOURCE_URL",
+        "secret": "sumologic_metrics_us1"
+      }
+    ],
     "max_connections": 10,
-    "min_connections": 5,
-    "min_reconnect_delay": "10ms",
-    "max_reconnect_delay": "10s"
+    "timeout": "30s"
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers
@@ -168,11 +188,15 @@ payload         | {{< code shell >}}
     "namespace": "default"
   },
   "spec": {
-    "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+    "url": "$SUMO_LOGIC_SOURCE_URL",
+    "secrets": [
+      {
+        "name": "SUMO_LOGIC_SOURCE_URL",
+        "secret": "sumologic_metrics_us1"
+      }
+    ],
     "max_connections": 10,
-    "min_connections": 5,
-    "min_reconnect_delay": "10ms",
-    "max_reconnect_delay": "10s"
+    "timeout": "30s"
   }
 }
 {{< /code >}}
@@ -200,11 +224,15 @@ HTTP/1.1 200 OK
     "namespace": "default"
   },
   "spec": {
-    "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+    "url": "$SUMO_LOGIC_SOURCE_URL",
+    "secrets": [
+      {
+        "name": "SUMO_LOGIC_SOURCE_URL",
+        "secret": "sumologic_metrics_us1"
+      }
+    ],
     "max_connections": 10,
-    "min_connections": 5,
-    "min_reconnect_delay": "10ms",
-    "max_reconnect_delay": "10s"
+    "timeout": "30s"
   }
 }
 {{< /code >}}
@@ -226,11 +254,15 @@ output               | {{< code json >}}
     "namespace": "default"
   },
   "spec": {
-    "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+    "url": "$SUMO_LOGIC_SOURCE_URL",
+    "secrets": [
+      {
+        "name": "SUMO_LOGIC_SOURCE_URL",
+        "secret": "sumologic_metrics_us1"
+      }
+    ],
     "max_connections": 10,
-    "min_connections": 5,
-    "min_reconnect_delay": "10ms",
-    "max_reconnect_delay": "10s"
+    "timeout": "30s"
   }
 }
 {{< /code >}}
@@ -256,11 +288,15 @@ curl -X PUT \
     "namespace": "default"
   },
   "spec": {
-    "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+    "url": "$SUMO_LOGIC_SOURCE_URL",
+    "secrets": [
+      {
+        "name": "SUMO_LOGIC_SOURCE_URL",
+        "secret": "sumologic_metrics_us2"
+      }
+    ],
     "max_connections": 10,
-    "min_connections": 5,
-    "min_reconnect_delay": "10ms",
-    "max_reconnect_delay": "10s"
+    "timeout": "30s"
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us2
@@ -283,11 +319,15 @@ payload         | {{< code shell >}}
     "namespace": "default"
   },
   "spec": {
-    "url": "https://endpoint5.collection.us1.sumologic.com/receiver/v1/http/xxxxxxxx",
+    "url": "$SUMO_LOGIC_SOURCE_URL",
+    "secrets": [
+      {
+        "name": "SUMO_LOGIC_SOURCE_URL",
+        "secret": "sumologic_metrics_us2"
+      }
+    ],
     "max_connections": 10,
-    "min_connections": 5,
-    "min_reconnect_delay": "10ms",
-    "max_reconnect_delay": "10s"
+    "timeout": "30s"
   }
 }
 {{< /code >}}
