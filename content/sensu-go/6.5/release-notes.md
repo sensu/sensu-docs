@@ -9,6 +9,7 @@ version: "6.5"
 menu: "sensu-go-6.5"
 ---
 
+- [6.5.0 release notes](#650-release-notes)
 - [6.4.3 release notes](#643-release-notes)
 - [6.4.2 release notes](#642-release-notes)
 - [6.4.1 release notes](#641-release-notes)
@@ -88,6 +89,39 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+## 6.5.0 release notes
+
+**October 12, 2021** &mdash; The latest release of Sensu Go, version 6.5.0, is now available for download.
+
+Insert Release Synopsis.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.5.0.
+
+**NEW FEATURES:**
+
+- Added core/v2.Pipeline resource for configuring event pipelines.
+- Added sensuctl commands for pipeline list, info, and delete.
+- Added pipelines field to Check and CheckConfig
+
+**FIXES:**
+
+- Sensuctl env now properly displays the SENSU_API_KEY and SENSU_TIMEOUT environment variables.
+- Sensuctl command exec now properly adds the SENSU_API_KEY and SENSU_TIMEOUT variables to the command's environment.
+- Fixed a crash when running the backend on darwin/arm64 when compressing a wrapped resource.
+- Fixed a bug where large number of silences could cause etcd errors by not exceeding etcd'd default maximum number of transaction operations.
+
+**IMPROVEMENTS:**
+
+- Added the platform metrics log. This log contains a listing of core Sensu metrics in influx-line format. It is enabled by default but can be disabled with the --disable-platform-metrics flag. By default the log is appended to every 60s, and written to /var/lib/sensu/sensu-backend/stats.log.
+- Open-sourced the previously enterprise-only event logger. The event logger can be used to send the events a backend processes to a rotatable log file.
+- Added support for SENSU_BACKEND_ETCD_CLIENT_USERNAME and SENSU_BACKEND_ETCD_CLIENT_PASSWORD environment variables for connecting to external etcds that use user/password authentication instead of client certificate authentication. Typical with DBaaS etcd providers. These can only be set via these environment variables and intentionally cannot be set via flags.
+- Upgraded Go version from 1.16.5 to 1.17.1.
+- Added support for environment variable arguments in sensuctl.
+- ([Commercial feature][215]) Added support for pipelines from sensu-go.
+- ([Commercial feature][215]) Added the pipeline/v1.TCPStreamHandler type.
+- ([Commercial feature][215]) Added the SumoLogic metrics handler.
+- ([Commercial feature][215]) Added Prometheus metrics for TCPStreamHandler.
+
 
 ## 6.4.3 release notes
 
