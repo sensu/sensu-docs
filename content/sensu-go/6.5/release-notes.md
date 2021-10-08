@@ -103,13 +103,6 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.5.0.
 - Added sensuctl commands for pipeline list, info, and delete.
 - Added pipelines field to Check and CheckConfig
 
-**FIXES:**
-
-- Sensuctl env now properly displays the SENSU_API_KEY and SENSU_TIMEOUT environment variables.
-- Sensuctl command exec now properly adds the SENSU_API_KEY and SENSU_TIMEOUT variables to the command's environment.
-- Fixed a crash when running the backend on darwin/arm64 when compressing a wrapped resource.
-- Fixed a bug where large number of silences could cause etcd errors by not exceeding etcd'd default maximum number of transaction operations.
-
 **IMPROVEMENTS:**
 
 - Added the platform metrics log. This log contains a listing of core Sensu metrics in influx-line format. It is enabled by default but can be disabled with the --disable-platform-metrics flag. By default the log is appended to every 60s, and written to /var/lib/sensu/sensu-backend/stats.log.
@@ -121,6 +114,13 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.5.0.
 - ([Commercial feature][215]) Added the pipeline/v1.TCPStreamHandler type.
 - ([Commercial feature][215]) Added the SumoLogic metrics handler.
 - ([Commercial feature][215]) Added Prometheus metrics for TCPStreamHandler.
+
+**FIXES:**
+
+- Sensuctl env now properly displays the SENSU_API_KEY and SENSU_TIMEOUT environment variables.
+- Sensuctl command exec now properly adds the SENSU_API_KEY and SENSU_TIMEOUT variables to the command's environment.
+- Fixed a crash when running the backend on darwin/arm64 when compressing a wrapped resource.
+- Fixed a bug where large number of silences could cause etcd errors by not exceeding etcd'd default maximum number of transaction operations.
 
 
 ## 6.4.3 release notes
