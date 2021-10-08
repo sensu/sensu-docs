@@ -36,7 +36,6 @@ Avoid exposing usernames, passwords, and access keys in your Sensu configuration
 Federation affords visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI.
 - **Use powerful search capabilities** designed for large installations to search [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wide range of resource attributes.
 Build event filter expressions with [JavaScript execution functions][19].
-- **Log observation data** [to a file][10] you can use as an input to your favorite data lake solution.
 - **Achieve enterprise-scale event handling** for your Sensu instance with a [PostgreSQL event store][12].
 Access the PostgreSQL event datastore with the same Sensu web UI, API, and sensuctl processes as etcd-stored events.
 - **Get enterprise-class support**: Rest assured that with [Sensu support][13], help is available if you need it.
