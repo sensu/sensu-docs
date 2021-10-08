@@ -67,7 +67,7 @@ Although initialization is required for every new installation, the implementati
 
 - If you are using Docker, you can use environment variables to override the default admin username (`admin`) and password (`P@ssw0rd!`) during [step 2 of the backend installation process][24].
 - If you are using Ubuntu/Debian or RHEL/CentOS, you must specify admin credentials during [step 3 of the backend installation process][25].
-Sensu does not apply a default admin username or password for Ubuntu/Debian or RHEL/CentoOS installations.
+Sensu does not apply default admin credentials for Ubuntu/Debian or RHEL/CentoOS installations.
 
 This step bootstraps the first admin user account for your Sensu installation.
 This account will be granted the cluster admin role.
@@ -78,7 +78,8 @@ This account will be granted the cluster admin role.
 
 ### Docker initialization
 
-For Docker installations, set administrator credentials with environment variables when you [configure and start][24] the backend as shown below, replacing `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
+For Docker installations, set administrator credentials with environment variables when you [configure and start][24] the backend as shown below.
+Replace `<username>` and `<password>` with the username and password you want to use:
 
 {{< language-toggle >}}
 
@@ -86,8 +87,8 @@ For Docker installations, set administrator credentials with environment variabl
 docker run -v /var/lib/sensu:/var/lib/sensu \
 -d --name sensu-backend \
 -p 3000:3000 -p 8080:8080 -p 8081:8081 \
--e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME \
--e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD \
+-e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username> \
+-e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password> \
 sensu/sensu:latest \
 sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 {{< /code >}}
@@ -105,8 +106,8 @@ services:
     - "sensu-backend-data:/var/lib/sensu/sensu-backend/etcd"
     command: "sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug"
     environment:
-    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
-    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
+    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
     image: sensu/sensu:latest
 
 volumes:
@@ -120,11 +121,13 @@ If you did not use environment variables to override the default admin credentia
 
 ### Ubuntu/Debian or RHEL/CentOS initialization
 
-For Ubuntu/Debian or RHEL/CentOS, set administrator credentials with environment variables at [initialization][25] as shown below, replacing `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
+For Ubuntu/Debian or RHEL/CentOS, set administrator credentials with environment variables at [initialization][25] as shown below.
+
+To initialize with your username and password, replace `<username>` and `<password>` with the username and password you want to use:
 
 {{< code shell >}}
-export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
-export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
+export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
 sensu-backend init
 {{< /code >}}
 
@@ -132,17 +135,79 @@ sensu-backend init
 **NOTE**: Make sure the Sensu backend is running before you run `sensu-backend init`.
 {{% /notice %}}
 
+### Add API key for initialization
+
+Add an [API key][39] when you initialize the backend to make automated cluster setup and deployment more straightforward.
+An API key is a persistent UUID that maps to a stored Sensu username.
+
+If you supply an API key via sensu-backend init, you do not need to configure sensuctl.
+Instead, you can execute sensuctl commands to manage resources immediately after initializing a cluster by providing the [`--api-key` and `--api-url` flags][64] with their correct values in your sensuctl commands.
+
+To initialize with an API key in addition to username and password, set your administrator credentials as follows.
+Replace `<api_key>` with the API key you want to use:
+
+{{< language-toggle >}}
+
+{{< code Docker >}}
+docker run -v /var/lib/sensu:/var/lib/sensu \
+-d --name sensu-backend \
+-p 3000:3000 -p 8080:8080 -p 8081:8081 \
+-e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username> \
+-e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password> \
+-e SENSU_BACKEND_CLUSTER_ADMIN_API_KEY=<api_key> \
+sensu/sensu:latest \
+sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
+{{< /code >}}
+
+{{< code docker "Docker Compose" >}}
+---
+version: "3"
+services:
+  sensu-backend:
+    ports:
+    - 3000:3000
+    - 8080:8080
+    - 8081:8081
+    volumes:
+    - "sensu-backend-data:/var/lib/sensu/sensu-backend/etcd"
+    command: "sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug"
+    environment:
+    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
+    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
+    - SENSU_BACKEND_CLUSTER_ADMIN_API_KEY=<api_key>
+    image: sensu/sensu:latest
+
+volumes:
+  sensu-backend-data:
+    driver: local
+{{< /code >}}
+
+{{< code shell "Ubuntu/Debian and RHEL/CentOS" >}}
+export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=<username>
+export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=<password>
+export SENSU_BACKEND_CLUSTER_ADMIN_API_KEY=<api_key>
+sensu-backend init
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Initialize in interactive mode
+
 You can also run the `sensu-backend init` command in interactive mode:
 
 {{< code shell >}}
 sensu-backend init --interactive
 {{< /code >}}
 
-You will receive prompts for your username and password in interactive mode:
+You will receive prompts for username, password, and API key in interactive mode.
+Provide your username and password to complete initialization.
+The API key is optional &mdash; press `return` to skip it.
 
 {{< code shell >}}
-Admin Username: YOUR_USERNAME
-Admin Password: YOUR_PASSWORD
+Cluster Admin Username: <username>
+Cluster Admin Password: <password>
+Retype Cluster Admin Password: <password>
+Cluster Admin API Key: <api_key>
 {{< /code >}}
 
 {{% notice note %}}
@@ -151,7 +216,7 @@ Your installation has already seeded the admin username and password you have se
 Running `sensu-backend init` on a previously initialized cluster has no effect &mdash; it will not change the admin credentials.
 {{% /notice %}}
 
-#### Initialization flags
+### Initialization flags
 
 To view available initialization flags:
 
@@ -187,7 +252,7 @@ Store Flags:
       --etcd-trusted-ca-file string          path to the client server TLS trusted CA cert file
 {{< /code >}}
 
-##### Initialization ignore-already-initialized flag
+#### Initialization ignore-already-initialized flag
 
 If you run sensu-backend init on a cluster that has already been initialized, the command returns a non-zero exit status.
 Add the `ignore-already-initialized` flag to sensu-backend init to suppress the "already initialized" response and return an exit code 0 if the cluster has already been initialized:
@@ -196,7 +261,7 @@ Add the `ignore-already-initialized` flag to sensu-backend init to suppress the 
 sensu-backend init --ignore-already-initialized
 {{< /code >}}
 
-##### Initialization timeout and wait flags
+#### Initialization timeout and wait flags
 
 When you initialize the sensu-backend, you can specify how long the backend should wait to establish a connection to etcd.
 
@@ -1733,7 +1798,9 @@ platform-metrics-logging-interval: 60s{{< /code >}}
 [36]: #etcd-heartbeat-interval
 [37]: ../../../sensuctl/
 [38]: #configuration-via-environment-variables
+[39]: ../../../operations/control-access/use-apikeys/
 [60]: #backend-log-level
 [61]: #event-log-file
 [62]: https://docs.influxdata.com/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/
 [63]: #log-rotation
+[64]: ../../../sensuctl/#global-flags
