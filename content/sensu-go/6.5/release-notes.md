@@ -99,28 +99,34 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.5.0.
 
 **NEW FEATURES:**
 
-- Added core/v2.Pipeline resource for configuring event pipelines.
-- Added sensuctl commands for pipeline list, info, and delete.
-- Added pipelines field to Check and CheckConfig
+- [Commercial feature](https://docs.sensu.io/sensu-go/6.5/commercial/) Added support for [Sumo Logic metrics handlers](https://docs.sensu.io/sensu-go/6.5/observability-pipeline/observe-process/#handlers) and [TCP stream handlers]. The [pipeline API](https://docs.sensu.io/sensu-go/6.5/api/pipeline-resource/) provides HTTP access for retrieving and configuring Sumo Logic metrics handlers and TCP stream handlers.
+- [Commercial feature](https://docs.sensu.io/sensu-go/6.5/commercial/) Added Prometheus metrics for the TCP stream handlers:
+    - sensu_go_tcp_stream_handler_events: Total number of events handled by the TCP stream handler
+    - sensu_go_tcp_stream_handler_errors: The total number of errors produced by the TCP stream handler
+    - sensu_go_tcp_stream_handler_latency: Distribution of handler latencies, in milliseconds, for the TCP stream handler
+    - sensu_go_tcp_stream_handler_connection_acquisition_latency: Distribution of connection acquisition latencies (how long it takes to acquire a connection from the connection pool), in milliseconds, within the TCP stream handler
+- [Event logging](https://docs.sensu.io/sensu-go/6.5/observability-pipeline/observe-schedule/backend/#event-logging) is no longer a commercial-only feature.
+- Added core/v2.Pipeline resource for configuring event pipelines. Also added sensuctl commands for pipeline list, info, and delete.
+- New [pipelines](https://docs.sensu.io/sensu-go/6.5/observability-pipeline/observe-process/pipelines/) resource allows you to specify event filters, mutators, and handlers in a single workflow instead of listing filters and mutators in handler definitions. You can reference pipelines in your check definitions. The [/pipelines API endpoint](https://docs.sensu.io/sensu-go/6.5/api/pipeline-resource/) provides HTTP access for retrieving pipeline data and configuring pipelines, and you can use [sensuctl](https://docs.sensu.io/sensu-go/6.5/sensuctl/create-manage-resources/#manage-resources) to manage pipelines.
+- Check definitions now include the [pipelines attribute](https://docs.sensu.io/sensu-go/6.5/observability-pipeline/observe-schedule/checks/#pipelines-attribute) for specifying pipeline resources to use for the check's observability events.
+- [Link to Google](https://www.google.com)
 
 **IMPROVEMENTS:**
 
-- Added the platform metrics log. This log contains a listing of core Sensu metrics in influx-line format. It is enabled by default but can be disabled with the --disable-platform-metrics flag. By default the log is appended to every 60s, and written to /var/lib/sensu/sensu-backend/stats.log.
+- Added [platform metrics logging](https://docs.sensu.io/sensu-go/6.5/observability-pipeline/observe-schedule/backend/#platform-metrics-logging) to log core Sensu metrics in InfluxDB Line Protocol format, along with the `disable-platform-metrics`, `platform-metrics-log-file`, and `platform-metrics-logging-interval` backend configuration flags for managing the platform metrics logging feature.
 - Open-sourced the previously enterprise-only event logger. The event logger can be used to send the events a backend processes to a rotatable log file.
-- Added support for SENSU_BACKEND_ETCD_CLIENT_USERNAME and SENSU_BACKEND_ETCD_CLIENT_PASSWORD environment variables for connecting to external etcds that use user/password authentication instead of client certificate authentication. Typical with DBaaS etcd providers. These can only be set via these environment variables and intentionally cannot be set via flags.
+- Added environment variables `SENSU_BACKEND_ETCD_CLIENT_USERNAME` and `SENSU_BACKEND_ETCD_CLIENT_PASSWORD` for connecting to external etcd via username and password authentication instead of certificate authentication. There are no corresponding configuration flags &mdash; these configuration options must be set via environment variables.
 - Upgraded Go version from 1.16.5 to 1.17.1.
-- Added support for environment variable arguments in sensuctl.
-- ([Commercial feature][215]) Added support for pipelines from sensu-go.
-- ([Commercial feature][215]) Added the pipeline/v1.TCPStreamHandler type.
-- ([Commercial feature][215]) Added the SumoLogic metrics handler.
-- ([Commercial feature][215]) Added Prometheus metrics for TCPStreamHandler.
 
 **FIXES:**
 
-- Sensuctl env now properly displays the SENSU_API_KEY and SENSU_TIMEOUT environment variables.
-- Sensuctl command exec now properly adds the SENSU_API_KEY and SENSU_TIMEOUT variables to the command's environment.
+- Sensuctl env now properly lists `SENSU_API_KEY` and `SENSU_TIMEOUT` as options for [exporting environment variables](https://docs.sensu.io/sensu-go/6.5/sensuctl/environment-variables/#export-environment-variables-with-sensuctl-env). In addition, sensuctl command exec now properly adds the `SENSU_API_KEY` and `SENSU_TIMEOUT` variables to the command's environment.
 - Fixed a crash when running the backend on darwin/arm64 when compressing a wrapped resource.
-- Fixed a bug where large number of silences could cause etcd errors by not exceeding etcd'd default maximum number of transaction operations.
+- Fixed a bug that could result in an etcd error if the number of silences in a given transaction exceeded etcd's default maximum number of operations per transaction.
+
+**SECURITY:**
+
+- Migrated [dgrijalva/jwt-go](https://github.com/dgrijalva/jwt-go) to [golang-jwt/jwt](https://github.com/golang-jwt/jwt) to address a vulnerability that would allow attackers to bypass intended access restrictions in situations. Read [CVE-2020-26160](https://nvd.nist.gov/vuln/detail/CVE-2020-26160) for more information.
 
 
 ## 6.4.3 release notes
