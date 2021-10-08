@@ -116,6 +116,11 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.5.0.
 - Open-sourced the previously enterprise-only event logger. The event logger can be used to send the events a backend processes to a rotatable log file.
 - Added support for SENSU_BACKEND_ETCD_CLIENT_USERNAME and SENSU_BACKEND_ETCD_CLIENT_PASSWORD environment variables for connecting to external etcds that use user/password authentication instead of client certificate authentication. Typical with DBaaS etcd providers. These can only be set via these environment variables and intentionally cannot be set via flags.
 - Upgraded Go version from 1.16.5 to 1.17.1.
+- Added support for environment variable arguments in sensuctl.
+- ([Commercial feature][215]) Added support for pipelines from sensu-go.
+- ([Commercial feature][215]) Added the pipeline/v1.TCPStreamHandler type.
+- ([Commercial feature][215]) Added the SumoLogic metrics handler.
+- ([Commercial feature][215]) Added Prometheus metrics for TCPStreamHandler.
 
 
 ## 6.4.3 release notes
