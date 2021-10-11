@@ -175,7 +175,7 @@ To regenerate a valid access token, run any sensuctl command (like `sensuctl eve
 
 ### Authenticate with an API key
 
-Each Sensu API key (core/v2.APIKey) is a persistent UUID that maps to a stored Sensu username.
+Each Sensu API key (core/v2.APIKey) is a persistent universally unique identifier (UUID) that maps to a stored Sensu username.
 The advantages of authenticating with API keys rather than [access tokens][14] include:
 
 - **More efficient integration**: Check and handler plugins and other code can integrate with the Sensu API without implementing the logic required to authenticate via the `/auth` API endpoint to periodically refresh the access token
