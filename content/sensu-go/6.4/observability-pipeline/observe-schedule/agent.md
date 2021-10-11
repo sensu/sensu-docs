@@ -453,7 +453,7 @@ description  | Command executed to produce the event. Use the `command` attribut
 required     | false
 type         | String
 example      | {{< code json >}}{
-  "command": "check-http.rb -u https://sensuapp.org"
+  command": "http-check --url https://sensu.io"
 }{{< /code >}}
 
 interval     | 

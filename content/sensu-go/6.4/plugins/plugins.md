@@ -41,7 +41,7 @@ Plugins must be executable files that are discoverable on the Sensu system (that
 {{% notice note %}}
 **NOTE**: By default, Sensu installer packages will modify the system `$PATH` for the Sensu processes to include `/etc/sensu/plugins`.
 As a result, executable scripts (for example, plugins) located in `/etc/sensu/plugins` will be valid commands.
-This allows command attributes to use relative paths for Sensu plugin commands, such as `"command": "check-http.rb -u https://sensuapp.org"`.
+This allows command attributes to use relative paths for Sensu plugin commands, such as `command": "http-check --url https://sensu.io"`.
 {{% /notice %}}
 
 ## Go plugin example
