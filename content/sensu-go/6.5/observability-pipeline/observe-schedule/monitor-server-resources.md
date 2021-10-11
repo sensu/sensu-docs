@@ -63,7 +63,7 @@ To confirm that both dynamic runtime assets are ready to use, run:
 sensuctl asset list
 {{< /code >}}
 
-The response should list the `cpu-checks-plugins` and `nagiosfoundation` dynamic runtime assets:
+The response should list the `check-cpu-usage` and `nagiosfoundation` dynamic runtime assets:
 
 {{< code shell >}}
         Name                                           URL                                      Hash    

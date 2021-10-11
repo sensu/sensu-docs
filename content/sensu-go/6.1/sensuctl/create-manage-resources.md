@@ -37,7 +37,7 @@ metadata:
   name: marketing-site
   namespace: default
 spec:
-  command: check-http.rb -u https://sensu.io
+  command: http-check -u https://sensu.io
   subscriptions:
   - demo
   interval: 15
@@ -68,7 +68,7 @@ spec:
     "namespace": "default"
     },
   "spec": {
-    "command": "check-http.rb -u https://sensu.io",
+    "command": "http-check -u https://sensu.io",
     "subscriptions": ["demo"],
     "interval": 15,
     "handlers": ["slack"]
