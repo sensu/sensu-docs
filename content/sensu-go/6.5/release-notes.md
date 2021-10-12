@@ -762,7 +762,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.19.1.
 - Keepalives can now be published via the HTTP API.
 - `sensu-agent` no longer allows configuring keepalive timeouts that are shorter than the keepalive interval.
 - Eventd no longer mistakes keepalive events for checks with TTL.
-- Keepalives now generate a new event UUID for each keepalive failure event.
+- Keepalives now generate a new event universally unique identifier (UUID) for each keepalive failure event.
 - Agents now correctly reset keepalive switches on reconnect, which fixes a bug that allowed older keepalive timeout settings to persist.
 - Token substitution templates can now express escape-quoted strings.
 - The REST API now uses a default timeout of 3 seconds when querying etcd health.

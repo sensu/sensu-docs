@@ -37,15 +37,14 @@ HTTP/1.1 200 OK
 [
   {
     "check": {
-      "command": "check-cpu.rb -w 75 -c 90",
+      "command": "check-cpu-usage -w 75 -c 90",
       "handlers": [],
       "high_flap_threshold": 0,
       "interval": 60,
       "low_flap_threshold": 0,
       "publish": true,
       "runtime_assets": [
-        "cpu-checks-plugins",
-        "sensu-ruby-runtime"
+        "check-cpu-usage"
       ],
       "subscriptions": [
         "system"
@@ -178,15 +177,14 @@ output         | {{< code shell >}}
 [
   {
     "check": {
-      "command": "check-cpu.rb -w 75 -c 90",
+      "command": "check-cpu-usage -w 75 -c 90",
       "handlers": [],
       "high_flap_threshold": 0,
       "interval": 60,
       "low_flap_threshold": 0,
       "publish": true,
       "runtime_assets": [
-        "cpu-checks-plugins",
-        "sensu-ruby-runtime"
+        "check-cpu-usage"
       ],
       "subscriptions": [
         "system"
@@ -404,15 +402,14 @@ HTTP/1.1 200 OK
 [
   {
     "check": {
-      "command": "check-cpu.rb -w 75 -c 90",
+      "command": "check-cpu-usage -w 75 -c 90",
       "handlers": [],
       "high_flap_threshold": 0,
       "interval": 60,
       "low_flap_threshold": 0,
       "publish": true,
       "runtime_assets": [
-        "cpu-checks-plugins",
-        "sensu-ruby-runtime"
+        "check-cpu-usage"
       ],
       "subscriptions": [
         "system"
@@ -673,15 +670,14 @@ output               | {{< code json >}}
 [
   {
     "check": {
-      "command": "check-cpu.rb -w 75 -c 90",
+      "command": "check-cpu-usage -w 75 -c 90",
       "handlers": [],
       "high_flap_threshold": 0,
       "interval": 60,
       "low_flap_threshold": 0,
       "publish": true,
       "runtime_assets": [
-        "cpu-checks-plugins",
-        "sensu-ruby-runtime"
+        "check-cpu-usage"
       ],
       "subscriptions": [
         "system"
@@ -946,15 +942,14 @@ HTTP/1.1 200 OK
 
 {
   "check": {
-    "command": "check-cpu.rb -w 75 -c 90",
+    "command": "check-cpu-usage -w 75 -c 90",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
     "publish": true,
     "runtime_assets": [
-      "cpu-checks-plugins",
-      "sensu-ruby-runtime"
+      "check-cpu-usage"
     ],
     "subscriptions": [
       "system"
@@ -1076,15 +1071,14 @@ response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (
 output               | {{< code json >}}
 {
   "check": {
-    "command": "check-cpu.rb -w 75 -c 90",
+    "command": "check-cpu-usage -w 75 -c 90",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
     "publish": true,
     "runtime_assets": [
-      "cpu-checks-plugins",
-      "sensu-ruby-runtime"
+      "check-cpu-usage"
     ],
     "subscriptions": [
       "system"
