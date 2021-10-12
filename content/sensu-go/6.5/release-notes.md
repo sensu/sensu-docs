@@ -108,6 +108,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.5.0.
 - New [pipelines][233] resource allows you to specify event filters, mutators, and handlers in a single workflow instead of listing filters and mutators in handler definitions. You can reference pipelines in your check definitions. The [`/pipelines` API endpoint][234] provides HTTP access for retrieving pipeline data and configuring pipelines, and you can use [sensuctl][235] to manage pipelines.
 - Check definitions now include the [pipelines attribute][236] for specifying pipeline resources to use for the check's observability events.
 - [Event logging][237] is no longer a commercial-only feature.
+- You can now set sensuctl environment variables for a [single sensuctl command][243] or with [sensuctl configure][244].
 
 **IMPROVEMENTS:**
 
@@ -2014,3 +2015,5 @@ To get started with Sensu Go:
 [240]: https://github.com/golang-jwt/jwt
 [241]: https://nvd.nist.gov/vuln/detail/CVE-2020-26160
 [242]: /sensu-go/6.5/sensuctl/environment-variables/#export-environment-variables-with-sensuctl-env
+[243]: /sensu-go/6.5/sensuctl/environment-variables/#set-environment-variables-for-a-single-command
+[244]: /sensu-go/6.5/sensuctl/environment-variables/#set-environment-variables-with-sensuctl-configure
