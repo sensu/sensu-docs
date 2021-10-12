@@ -196,13 +196,25 @@ metadata:
   name: logstash
   namespace: default
   created_by: admin
+  labels:
+    environment: development
+    region: us-west-2
+  annotations:
+    managed-by: ops
 {{< /code >}}
 {{< code json >}}
 {
   "metadata": {
     "name": "logstash",
     "namespace": "default",
-    "created_by": "admin"
+    "created_by": "admin",
+    "labels": {
+      "environment": "development",
+      "region": "us-west-2"
+    },
+    "annotations": {
+      "managed-by": "ops"
+    }
   }
 }
 {{< /code >}}
@@ -288,6 +300,48 @@ created_by: admin
 {{< code json >}}
 {
   "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][15], [sensuctl responses][16], and [web UI views][25] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+required     | false
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+labels:
+  environment: development
+  region: us-west-2
+{{< /code >}}
+{{< code json >}}
+{
+  "labels": {
+    "environment": "development",
+    "region": "us-west-2"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| annotations |     |
+-------------|------
+description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][24]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][15], [sensuctl response filtering][16], or [web UI views][28].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+annotations:
+  managed-by: ops
+{{< /code >}}
+{{< code json >}}
+{
+  "annotations": {
+    "managed-by": "ops"
+  }
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -432,7 +486,11 @@ min_reconnect_delay: 10ms
 [11]: ../pipelines/#handlers-pipeline
 [12]: #tcp-stream-handler-example
 [13]: ../../observe-filter/filters/#built-in-filter-is_incident
+[15]: ../../../api#response-filtering
+[16]: ../../../sensuctl/filter-responses/
 [18]: https://regex101.com/r/zo9mQU/2
 [22]: ../
 [24]: ../../observe-filter/filters/
+[25]: ../../../web-ui/search#search-for-labels
+[28]: ../../../web-ui/search/
 [29]: ../../../observability-pipeline/
