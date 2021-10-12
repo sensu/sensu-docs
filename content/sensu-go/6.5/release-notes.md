@@ -113,7 +113,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.5.0.
 **IMPROVEMENTS:**
 
 - Added [platform metrics logging][238] to log core Sensu metrics in InfluxDB Line Protocol format, along with the `disable-platform-metrics`, `platform-metrics-log-file`, and `platform-metrics-logging-interval` backend configuration flags for managing the platform metrics logging feature.
-- Added environment variables `SENSU_BACKEND_ETCD_CLIENT_USERNAME` and `SENSU_BACKEND_ETCD_CLIENT_PASSWORD` for connecting to external etcd via username and password authentication instead of certificate authentication. There are no corresponding configuration flags &mdash; these configuration options must be set via environment variables.
+- Added environment variables `SENSU_BACKEND_ETCD_CLIENT_USERNAME` and `SENSU_BACKEND_ETCD_CLIENT_PASSWORD` for [connecting to external etcd via username and password authentication][245] instead of certificate authentication. There are no corresponding configuration flags &mdash; these configuration options must be set via environment variables.
 - Upgraded Go version from 1.16.5 to 1.17.1.
 
 **SECURITY:**
@@ -2016,4 +2016,4 @@ To get started with Sensu Go:
 [241]: https://nvd.nist.gov/vuln/detail/CVE-2020-26160
 [242]: /sensu-go/6.5/sensuctl/environment-variables/#export-environment-variables-with-sensuctl-env
 [243]: /sensu-go/6.5/sensuctl/environment-variables/#set-environment-variables-for-a-single-command
-[244]: /sensu-go/6.5/sensuctl/environment-variables/#set-environment-variables-with-sensuctl-configure
+[245]: /sensu-go/6.5/operations/deploy-sensu/cluster-sensu/#authenticate-with-username-and-password-for-external-etcd
