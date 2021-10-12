@@ -58,7 +58,7 @@ You can access cluster-wide resources only by cluster roles.
 
 | type | description |
 |---|---|
-| `apikeys` | [Persistent UUID][33] for authentication |
+| `apikeys` | [Persistent universally unique identifier (UUID)][33] for authentication |
 | `authproviders` | [Authentication provider][32] configuration |
 | `clusterrolebindings` | Cluster-wide role assigners  |
 | `clusterroles` | Cluster-wide permission sets |

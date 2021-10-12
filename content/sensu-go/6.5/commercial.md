@@ -22,7 +22,8 @@ For more information, read [Get started with commercial features](../commercial/
 
 ## Commercial features in Sensu Go
 
-- **Integrate your Sensu observability pipeline with industry-standard tools** like EC2, Jira, ServiceNow, and Sumo Logic with [supported integrations][24] and [enterprise-tier dynamic runtime assets][11].
+- **Integrate your Sensu observability pipeline with industry-standard tools** like EC2, Jira, and ServiceNow, and Sumo Logic with [supported integrations][24] and [enterprise-tier dynamic runtime assets][11].
+Use the built-in [Sensu Plus][30] integration to transmit your observability data to Sumo Logic via the [HTTP Logs and Metrics Source][29].
 - **Manage resources from your browser**: Use the Sensu [web UI][8] to manage events and entities and create, edit, and delete checks, handlers, mutators, silences, and event filters.
 Create customized [global default settings][26] for page size and theme, [page-specific settings][27] for page size, order, and selector, and [sign-in messages][28].
 - **Control permissions with Sensu role-based access control (RBAC)**, with the option of using [Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC)][9] for authentication.
@@ -119,3 +120,5 @@ These resources will help you get started with commercial features in Sensu Go:
 [26]: ../web-ui/webconfig-reference/#default-preferences-attributes
 [27]: ../web-ui/webconfig-reference/#page-preferences-attributes
 [28]: ../web-ui/webconfig-reference/#sign-in-message
+[29]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
+[30]: ../sensu-plus/
