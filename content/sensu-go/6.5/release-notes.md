@@ -2023,6 +2023,7 @@ To get started with Sensu Go:
 [241]: https://nvd.nist.gov/vuln/detail/CVE-2020-26160
 [242]: /sensu-go/6.5/sensuctl/environment-variables/#export-environment-variables-with-sensuctl-env
 [243]: /sensu-go/6.5/sensuctl/environment-variables/#set-environment-variables-for-a-single-command
+[244]: /sensu-go/6.5/sensuctl/environment-variables/#set-environment-variables-with-sensuctl-configure
 [245]: /sensu-go/6.5/operations/deploy-sensu/cluster-sensu/#authenticate-with-username-and-password-for-external-etcd
 [246]: /sensu-go/6.5/observability-pipeline/observe-transform/mutators/#javascript-mutators
 [247]: /sensu-go/6.5/sensu-plus/
