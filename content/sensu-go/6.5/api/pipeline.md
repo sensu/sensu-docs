@@ -488,7 +488,6 @@ curl -X POST \
     "tls_cert_file": "/path/to/tls/cert.pem",
     "tls_key_file": "/path/to/tls/key.pem",
     "max_connections": 10,
-    "min_connections": 5,
     "min_reconnect_delay": "10ms",
     "max_reconnect_delay": "10s"
   }
@@ -518,7 +517,6 @@ payload         | {{< code shell >}}
     "tls_cert_file": "/path/to/tls/cert.pem",
     "tls_key_file": "/path/to/tls/key.pem",
     "max_connections": 10,
-    "min_connections": 5,
     "min_reconnect_delay": "10ms",
     "max_reconnect_delay": "10s"
   }
@@ -612,7 +610,6 @@ curl -X PUT \
   "spec": {
     "address": "127.0.0.1:4242",
     "max_connections": 10,
-    "min_connections": 5,
     "min_reconnect_delay": "10ms",
     "max_reconnect_delay": "10s"
   }
@@ -639,7 +636,6 @@ payload         | {{< code shell >}}
   "spec": {
     "address": "127.0.0.1:4242",
     "max_connections": 10,
-    "min_connections": 5,
     "min_reconnect_delay": "10ms",
     "max_reconnect_delay": "10s"
   }

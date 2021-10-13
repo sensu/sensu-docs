@@ -26,8 +26,8 @@ However, TCP stream handlers can help prevent the data bottlenecks you may exper
 Traditional TCP handlers start a new UNIX process for every Sensu event they receive and require a new connection to send every event.
 As you scale up and process more events per second, the rate at which the TCP handler can transmit observability event data decreases.
 
-TCP stream handlers allow you to configure a connection pool with a minimum and maximum number of connections for the handler to use.
-For example, suppose you configure a TCP stream handler with a pool of 5 to 10 connections, and 1000 events are queued for transmission.
+TCP stream handlers allow you to configure a connection pool with a maximum number of connections for the handler to use.
+For example, suppose you configure a TCP stream handler with a pool of 10 connections, and 1000 events are queued for transmission.
 As each connection finishes transmitting an event, it becomes available again and returns to the pool so the handler can use it to send the next event in the queue.
 
 TCP stream handlers will reuse the available connections as long as they can rather than requiring a new connection for every event, which increases event throughput.
@@ -54,7 +54,6 @@ spec:
   tls_cert_file: "/path/to/tls/cert.pem"
   tls_key_file: "/path/to/tls/key.pem"
   max_connections: 10
-  min_connections: 5
   min_reconnect_delay: 10ms
   max_reconnect_delay: 10s
 {{< /code >}}
@@ -73,7 +72,6 @@ spec:
     "tls_cert_file": "/path/to/tls/cert.pem",
     "tls_key_file": "/path/to/tls/key.pem",
     "max_connections": 10,
-    "min_connections": 5,
     "min_reconnect_delay": "10ms",
     "max_reconnect_delay": "10s"
   }
@@ -233,7 +231,6 @@ spec:
   tls_cert_file: "/path/to/tls/cert.pem"
   tls_key_file: "/path/to/tls/key.pem"
   max_connections: 10
-  min_connections: 5
   min_reconnect_delay: 10ms
   max_reconnect_delay: 10s
 {{< /code >}}
@@ -245,7 +242,6 @@ spec:
     "tls_cert_file": "/path/to/tls/cert.pem",
     "tls_key_file": "/path/to/tls/key.pem",
     "max_connections": 10,
-    "min_connections": 5,
     "min_reconnect_delay": "10ms",
     "max_reconnect_delay": "10s"
   }
@@ -440,22 +436,6 @@ max_reconnect_delay: 10s
 {{< code json >}}
 {
   "max_reconnect_delay": "10s"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-min_connections | 
--------------|------
-description  | Minimum number of connections to keep alive in the connection pool.
-required     | true 
-type         | Integer
-example      | {{< language-toggle >}}
-{{< code yml >}}
-min_connections: 3
-{{< /code >}}
-{{< code json >}}
-{
-  "min_connections": 3
 }
 {{< /code >}}
 {{< /language-toggle >}}
