@@ -38,6 +38,7 @@ Federation affords visibility into the health of your infrastructure and service
 Build event filter expressions with [JavaScript execution functions][19].
 - **Achieve enterprise-scale event handling** for your Sensu instance with a [PostgreSQL event store][12].
 Access the PostgreSQL event datastore with the same Sensu web UI, API, and sensuctl processes as etcd-stored events.
+Use [Sumo Logic metrics handlers][31] and [TCP stream handlers][32] to provide a persistent connection for transmitting Sensu observability metrics.
 - **Get enterprise-class support**: Rest assured that with [Sensu support][13], help is available if you need it.
 Our expert in-house team offers best-in-class support to get you up and running smoothly.
 
@@ -121,3 +122,5 @@ These resources will help you get started with commercial features in Sensu Go:
 [28]: ../web-ui/webconfig-reference/#sign-in-message
 [29]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
 [30]: ../sensu-plus/
+[31]: ../observability-pipeline/observe-process/sumo-logic-metrics-handlers/
+[32]: ../observability-pipeline/observe-process/tcp-stream-handlers/
