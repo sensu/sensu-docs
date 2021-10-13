@@ -150,7 +150,7 @@ spec:
 
 | name       |      |
 -------------|------
-description  | Unique string used to identify the API key. Sensu randomly generates a UUID for the `name` value &mdash; users cannot provide a name for an API key.
+description  | Unique string used to identify the API key. Sensu randomly generates a universally unique identifier (UUID) for the `name` value &mdash; users cannot provide a name for an API key.
 required     | true
 type         | String
 example      | {{< language-toggle >}}

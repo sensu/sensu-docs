@@ -50,7 +50,7 @@ metadata:
 spec:
   check:
     check_hooks: null
-    command: check-cpu.rb -w 75 -c 90
+    command: check-cpu-usage -w 75 -c 90
     duration: 5.058211427
     env_vars: null
     executed: 1617050501
@@ -85,8 +85,7 @@ spec:
     publish: true
     round_robin: false
     runtime_assets:
-    - cpu-checks-plugins
-    - sensu-ruby-runtime
+    - check-cpu-usage
     scheduler: memory
     secrets: null
     state: passing
@@ -163,7 +162,7 @@ spec:
   "spec": {
     "check": {
       "check_hooks": null,
-      "command": "check-cpu.rb -w 75 -c 90",
+      "command": "check-cpu-usage -w 75 -c 90",
       "duration": 5.058211427,
       "env_vars": null,
       "executed": 1617050501,
@@ -209,8 +208,7 @@ spec:
       "publish": true,
       "round_robin": false,
       "runtime_assets": [
-        "cpu-checks-plugins",
-        "sensu-ruby-runtime"
+        "check-cpu-usage"
       ],
       "scheduler": "memory",
       "secrets": null,
@@ -308,15 +306,14 @@ This is the format that events are in when Sensu sends them to handlers:
 {{< code json >}}
 {
   "check": {
-    "command": "check-cpu.rb -w 75 -c 90",
+    "command": "check-cpu-usage -w 75 -c 90",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
     "publish": true,
     "runtime_assets": [
-      "cpu-checks-plugins",
-      "sensu-ruby-runtime"
+      "check-cpu-usage"
     ],
     "subscriptions": [
       "system"
