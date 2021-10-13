@@ -99,21 +99,28 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.5.0.
 
 **NEW FEATURES:**
 
+- ([Commercial feature][229]) Added [Sensu Plus][247], a built-in integration you can use to transmit your Sensu observability data to Sumo Logic via the Sumo Logic HTTP Logs and Metrics Source.
 - ([Commercial feature][229]) Added support for [Sumo Logic metrics handlers][230] and [TCP stream handlers][231]. The [pipeline API][232] provides HTTP access for retrieving and configuring Sumo Logic metrics handlers and TCP stream handlers.
+- ([Commercial feature][229]) You can now [view resource data][249] for events, entities, and configuration resources like checks and handlers directly in the web UI.
+- ([Commercial feature][229]) In the web UI, you can [execute individual checks on demand][250] either according to existing subscriptions or on specific agents by adding and removing subscriptions without making changes to the saved check subscriptions.
 - ([Commercial feature][229]) Added Prometheus metrics for TCP stream handlers:
     - sensu_go_tcp_stream_handler_events: Total number of events handled by the TCP stream handler
     - sensu_go_tcp_stream_handler_errors: The total number of errors produced by the TCP stream handler
     - sensu_go_tcp_stream_handler_latency: Distribution of handler latencies, in milliseconds, for the TCP stream handler
     - sensu_go_tcp_stream_handler_connection_acquisition_latency: Distribution of connection acquisition latencies (how long it takes to acquire a connection from the connection pool), in milliseconds, within the TCP stream handler
 - New [pipelines][233] resource allows you to specify event filters, mutators, and handlers in a single workflow instead of listing filters and mutators in handler definitions. You can reference pipelines in your check definitions. The [`/pipelines` API endpoint][234] provides HTTP access for retrieving pipeline data and configuring pipelines, and you can use [sensuctl][235] to manage pipelines.
+- [JavaScript mutators][246] are now available. JavaScript mutators are evaluated by the Otto JavaScript VM as JavaScript programs, which enables greater throughput at scale than pipe mutators.
 - Check definitions now include the [pipelines attribute][236] for specifying pipeline resources to use for the check's observability events.
+- Added [platform metrics logging][238] to log core Sensu metrics in InfluxDB Line Protocol format, along with the `disable-platform-metrics`, `platform-metrics-log-file`, and `platform-metrics-logging-interval` backend configuration flags for managing the platform metrics logging feature.
 - [Event logging][237] is no longer a commercial-only feature.
 - You can now set sensuctl environment variables for a [single sensuctl command][243] or with [sensuctl configure][244].
 
 **IMPROVEMENTS:**
 
-- Added [platform metrics logging][238] to log core Sensu metrics in InfluxDB Line Protocol format, along with the `disable-platform-metrics`, `platform-metrics-log-file`, and `platform-metrics-logging-interval` backend configuration flags for managing the platform metrics logging feature.
 - Added environment variables `SENSU_BACKEND_ETCD_CLIENT_USERNAME` and `SENSU_BACKEND_ETCD_CLIENT_PASSWORD` for [connecting to external etcd via username and password authentication][245] instead of certificate authentication. There are no corresponding configuration flags &mdash; these configuration options must be set via environment variables.
+- You can now add an [API key][248] when you initialize the backend to make automated cluster setup and deployment more straightforward.
+- Events now include the name of the agent that processed the event in the [`processed_by` attribute][251] to help you determine which agent processed an event executed by a proxy check request or a POST request to the events API.
+- Added the [`ignore-already-initialized` backend flag][253], which you can use to suppress the "already initialized" response and return an exit code 0 if a cluster has already been initialized.
 - Upgraded Go version from 1.16.5 to 1.17.1.
 
 **SECURITY:**
@@ -2017,3 +2024,11 @@ To get started with Sensu Go:
 [242]: /sensu-go/6.5/sensuctl/environment-variables/#export-environment-variables-with-sensuctl-env
 [243]: /sensu-go/6.5/sensuctl/environment-variables/#set-environment-variables-for-a-single-command
 [245]: /sensu-go/6.5/operations/deploy-sensu/cluster-sensu/#authenticate-with-username-and-password-for-external-etcd
+[246]: /sensu-go/6.5/observability-pipeline/observe-transform/mutators/#javascript-mutators
+[247]: /sensu-go/6.5/sensu-plus/
+[248]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#add-api-key-for-initialization
+[249]: /sensu-go/6.5/web-ui/view-manage-resources/#view-resource-data-in-the-web-ui
+[250]: /sensu-go/6.5/web-ui/view-manage-resources/#execute-checks-on-demand
+[251]: /sensu-go/6.5/observability-pipeline/observe-events/events/#processedby-attribute
+[252]: /sensu-go/6.5/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-650-from-any-previous-version
+[253]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#initialization-ignore-already-initialized-flag
