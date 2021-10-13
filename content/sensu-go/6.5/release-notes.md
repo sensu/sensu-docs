@@ -91,7 +91,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 ---
 ## 6.5.0 release notes
 
-**October 12, 2021** &mdash; The latest release of Sensu Go, version 6.5.0, is now available for download.
+**October 13, 2021** &mdash; The latest release of Sensu Go, version 6.5.0, is now available for download.
 
 Insert Release Synopsis.
 
