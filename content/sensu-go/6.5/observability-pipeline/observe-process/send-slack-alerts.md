@@ -270,7 +270,7 @@ After an event is handled, you should receive the following message in Slack:
 Verify the proper behavior of this handler with `sensu-backend` logs.
 Read [Troubleshoot Sensu][7] for log locations by platform.
 
-Whenever an event is being handled, a log entry is added with the message `"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by a second log entry with the message `"msg":"pipelined executed event pipe handler","output":"","status":0`.
+Whenever an event is being handled, a log entry is added with the message `"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by a second log entry with the message `"msg":"event pipe handler executed","output":"","status":0`.
 
 ## Next steps
 
