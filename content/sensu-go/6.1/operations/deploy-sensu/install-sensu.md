@@ -49,7 +49,7 @@ You can configure your instance so that when an agent (for example, a server) sh
 Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and several exposed ports.
 Agents that use Sensu [dynamic runtime assets][17] require some disk space for a local cache.
 
-For more information, see the [Secure Sensu guide][8].
+For more information, read [Secure Sensu][8].
 Read [deployment architecture][31] and [hardware requirements][25] for deployment recommendations.
 
 ## Ports
@@ -119,7 +119,7 @@ The Sensu backend requires the `state-dir` flag at minimum, but other useful con
 
 {{% notice note %}}
 **NOTE**: If you are using Docker, intitialization is included in this step when you start the backend rather than in [3. Initialize](#3-initialize).
-For details about intialization in Docker, see the [backend reference](../../../observability-pipeline/observe-schedule/backend#docker-initialization).
+For details about intialization in Docker, read the [backend reference](../../../observability-pipeline/observe-schedule/backend#docker-initialization).
 {{% /notice %}}
 
 {{< language-toggle >}}
@@ -185,7 +185,7 @@ service sensu-backend status
 
 {{< /language-toggle >}}
 
-For a complete list of configuration options, see the [backend reference][6].
+The backend reference includes a complete list of [configuration options][6] and [backend initialization details][6]
 
 {{% notice warning %}}
 **WARNING**: If you plan to [run a Sensu cluster](../cluster-sensu/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you continue the installation process.
@@ -220,7 +220,7 @@ sensu-backend init
 
 {{< /language-toggle >}}
 
-For details about `sensu-backend init`, see the [backend reference][30].
+For details about initializing the Sensu backend, read the [backend reference][30].
 
 {{% notice note %}}
 **NOTE**: You may need to allow access to the [ports Sensu requires](#ports) in your local server firewall.
@@ -242,7 +242,7 @@ Select the ☰ icon to explore the web UI.
 ### 5. Make a request to the health API
 
 To make sure the backend is up and running, use the Sensu [health API][35] to check the backend's health.
-You should see a response that includes `"Healthy": true`.
+You should receive a response that includes `"Healthy": true`.
 
 {{< code shell >}}
 curl http://127.0.0.1:8080/health
@@ -316,9 +316,9 @@ sensuctl configure -n \
 {{< /code >}}
 
 Here, the `-n` flag triggers non-interactive mode.
-Run `sensuctl config view` to see your user profile.
+Run `sensuctl config view` to view your user profile.
 
-For more information about sensuctl, see the [sensuctl documentation][4].
+For more information about sensuctl, read the [sensuctl documentation][4].
 
 ### Change default admin password
 
@@ -453,7 +453,7 @@ cd 'C:\Program Files\sensu\sensu-agent\bin'
 
 {{< /language-toggle >}}
 
-For a complete list of configuration options, see the [agent reference][7].
+The agent reference includes a complete list of [configuration options][7].
 
 ### 3. Verify keepalive events
 
@@ -482,7 +482,7 @@ http://127.0.0.1:3031/events
 This request creates a `warning` event that you can [view in your web UI Events page][32].
 
 To create an `OK` event, change the `status` to `0` and resend.
-You can change the `output` value to `connected to mysql` to see a different message for the `OK` event.
+You can change the `output` value to `connected to mysql` to use a different message for the `OK` event.
 
 ## Next steps
 
@@ -491,7 +491,7 @@ Here are some ideas for next steps.
 
 ### Get started with Sensu
 
-If you're ready to see what Sensu can do, one of these pathways can get you started:
+If you're ready to try Sensu, one of these pathways can get you started:
 
 - Manually trigger an event that [sends alerts to your email inbox][12].
 - [Create a check to monitor CPU usage][9] and [send Slack alerts based on your check][10].

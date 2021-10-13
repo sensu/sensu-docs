@@ -172,7 +172,7 @@ For more information, read [Get started with commercial features](../../../comme
 {{% /notice %}}
 
 By default, Sensu agents require username and password authentication to communicate with Sensu backends.
-For Sensu's [default user credentials][2] and details about configuring Sensu role-based access control (RBAC), see the [RBAC reference][3].
+For Sensu's [default user credentials][2] and details about configuring Sensu role-based access control (RBAC), read the [RBAC reference][3].
 
 Alternatively, Sensu agents can use mTLS for authenticating to the backend WebSocket transport.
 When agent mTLS authentication is enabled, agents do not need to send password credentials to backends when they connect.

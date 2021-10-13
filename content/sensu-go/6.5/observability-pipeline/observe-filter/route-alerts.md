@@ -462,8 +462,8 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /code >}}
 
-You should see a 202 response from the API.
-Since this event doesn't include a `contacts` label, you should also see an alert in the Slack channel specified by the `slack_fallback` handler.
+You should receive a 202 response from the API.
+Since this event doesn't include a `contacts` label, you should also receive an alert in the Slack channel specified by the `slack_fallback` handler.
 Behind the scenes, Sensu uses the`contact_fallback` filter to match the event to the `slack_fallback` handler.
 
 Now, create an event with a `contacts` label:
@@ -487,7 +487,7 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /code >}}
 
-Because this event contains the `contacts: dev` label, you should see an alert in the Slack channel specified by the `slack_dev` handler.
+Because this event contains the `contacts: dev` label, you should receive an alert in the Slack channel specified by the `slack_dev` handler.
 
 Resolve the events by sending the same API requests with `status` set to `0`.
 
@@ -539,7 +539,7 @@ Next, run this sensuctl command to add the `slack` handler:
 sensuctl check set-handlers check_cpu slack
 {{< /code >}}
 
-Again, you will see an `Updated` confirmation message.
+Again, you will receive an `Updated` confirmation message.
 
 To view the updated resource definition for `check_cpu` and confirm that it includes the `contacts` labels and `slack` handler, run:
 
@@ -571,7 +571,7 @@ metadata:
   namespace: default
 spec:
   check_hooks: null
-  command: check-cpu.rb -w 75 -c 90
+  command: check-cpu-usage -w 75 -c 90
   env_vars: null
   handlers:
   - slack
@@ -584,8 +584,7 @@ spec:
   publish: true
   round_robin: false
   runtime_assets:
-  - cpu-checks-plugins
-  - sensu-ruby-runtime
+  - check-cpu-usage
   secrets: null
   stdin: false
   subdue: null
@@ -609,7 +608,7 @@ spec:
   },
   "spec": {
     "check_hooks": null,
-    "command": "check-cpu.rb -w 75 -c 90",
+    "command": "check-cpu-usage -w 75 -c 90",
     "env_vars": null,
     "handlers": [
       "slack"
@@ -623,8 +622,7 @@ spec:
     "publish": true,
     "round_robin": false,
     "runtime_assets": [
-      "cpu-checks-plugins",
-      "sensu-ruby-runtime"
+      "check-cpu-usage"
     ],
     "secrets": null,
     "stdin": false,
@@ -640,6 +638,10 @@ spec:
 
 {{< /language-toggle >}}
 
+{{% notice protip %}}
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data).
+{{% /notice %}}
+
 Now when the `check_cpu` check generates an incident, Sensu will filter the event according to the `contact_ops` and `contact_dev` event filters and send alerts to #alert-ops and #alert-dev accordingly.
 
 {{< figure src="/images/contact-routing2.png" alt="Diagram that shows an event generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops" link="/images/contact-routing2.png" target="_blank" >}}
@@ -648,7 +650,7 @@ Now when the `check_cpu` check generates an incident, Sensu will filter the even
 ### Entities
 
 You can also specify contacts using an entity label.
-For more information about managing entity labels, see the [entity reference][10].
+For more information about managing entity labels, read the [entity reference][10].
 
 If contact labels are present in both the check and entity, the check contacts override the entity contacts.
 In this example, the `dev` label in the check configuration overrides the `ops` label in the agent definition, resulting in an alert sent to #alert-dev but not to #alert-ops or #alert-all.

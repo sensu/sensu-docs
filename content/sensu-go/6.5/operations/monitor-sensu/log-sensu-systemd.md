@@ -104,7 +104,7 @@ After rotation, `rsyslog` is restarted to ensure logging is written to a new fil
 }
 {{< /code>}}
 
-You can use the following command to see what logrotate would do if it were executed now based on the above schedule and size threshold.
+Use the following command to find out what logrotate would do if it were executed now based on the above schedule and size threshold.
 The `-d` flag will output details, but it will not take action on the logs or execute the postrotate script:
 
 {{< code shell>}}
@@ -114,7 +114,7 @@ logrotate -d /etc/logrotate.d/sensu.conf
 ## Next steps
 
 Sensu also offers logging of observability event data to a separate JSON log file as a [commercial feature][2].
-See the [Sensu backend reference][1] for more information about event logging.
+Read the [Sensu backend reference][1] for more information about event logging.
 
 
 [1]: ../../../observability-pipeline/observe-schedule/backend/#event-logging

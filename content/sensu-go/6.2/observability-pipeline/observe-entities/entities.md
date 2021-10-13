@@ -1486,7 +1486,7 @@ ppid: 0
 
 status       | 
 -------------|------ 
-description  | Status of the process. See the [Linux `top` manual page][28] for examples.
+description  | Status of the process. Read the [Linux `top` manual page][28] for examples.
 required     | false
 type         | String
 example      | {{< language-toggle >}}

@@ -85,7 +85,7 @@ HTTP/1.1 200 OK
 description    | Returns the list of active authentication providers.
 example url    | http://hostname:8080/api/enterprise/authentication/v2/authproviders
 query parameters | `types`: Defines which type of authentication provider to retrieve. Join with `&` to retrieve multiple types: `?types=AD&types=OIDC`.
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][3] for details.
+pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. Read the [API overview][3] for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< code json >}}
@@ -283,7 +283,7 @@ HTTP/1.1 200 OK
 
 /authproviders/:name (PUT) | 
 ----------------|------
-description     | Creates or updates the authentication provider configuration for the specified name. See the [authentication guide][1] for more information about supported providers.
+description     | Creates or updates the authentication provider configuration for the specified name. Read the [authentication guide][1] for more information about supported providers.
 example url     | http://hostname:8080/api/enterprise/authentication/v2/authproviders/openldap
 payload         | {{< code shell >}}
 {
@@ -311,7 +311,7 @@ payload         | {{< code shell >}}
   }
 }
 {{< /code >}}
-payload parameters | All attributes shown in the example payload are required. For more information about configuring authentication providers, see the [authentication guide][1].
+payload parameters | All attributes shown in the example payload are required. For more information about configuring authentication providers, read the [authentication guide][1].
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Delete the configuration for a specific authentication provider {#authprovidersname-delete}
@@ -338,5 +338,5 @@ description               | Deletes the authentication provider configuration fr
 example url               | http://hostname:8080/api/enterprise/authentication/v2/authproviders/openldap
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../operations/control-access/
+[1]: ../../operations/control-access/sso/
 [3]: ../#pagination

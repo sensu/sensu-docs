@@ -48,7 +48,7 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of API keys.
 example url    | http://hostname:8080/api/core/v2/apikeys
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][1] for details.
+pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. Read the [API overview][1] for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< code shell >}}
@@ -95,7 +95,7 @@ HTTP/1.1 201 Created
 
 /apikeys (POST) | 
 ----------------|------
-description     | Creates a new API key, a Sensu-generated UUID. The response will include HTTP 201 and a `Location` header that contains the relative path to the new API key.
+description     | Creates a new API key, a Sensu-generated universally unique identifier (UUID). The response will include HTTP 201 and a `Location` header that contains the relative path to the new API key.
 example URL     | http://hostname:8080/api/core/v2/apikeys
 request payload  | {{< code shell >}}
 {

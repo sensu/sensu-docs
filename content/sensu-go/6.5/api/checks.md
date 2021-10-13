@@ -180,7 +180,7 @@ example payload | {{< code shell >}}
   }
 }
 {{< /code >}}
-payload parameters | Required check attributes: `interval` (integer) or `cron` (string) and a `metadata` scope that contains `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1]. 
+payload parameters | Required check attributes: `interval` (integer) or `cron` (string) and a `metadata` scope that contains `name` (string) and `namespace` (string). For more information about creating checks, read the [checks reference][1]. 
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get a specific check {#checkscheck-get}
@@ -341,7 +341,7 @@ payload         | {{< code shell >}}
   }
 }
 {{< /code >}}
-payload parameters | Required check attributes: `interval` (integer) or `cron` (string) and a `metadata` scope that contains `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1].
+payload parameters | Required check attributes: `interval` (integer) or `cron` (string) and a `metadata` scope that contains `name` (string) and `namespace` (string). For more information about creating checks, read the [checks reference][1].
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Update a check with PATCH
@@ -520,7 +520,7 @@ HTTP/1.1 204 No Content
 
 /checks/:check/hooks/:type/hook/:hook (DELETE) | 
 --------------------------|------
-description               | Removes a single hook from a check (specified by the check name, check response type, and hook name). See the [checks reference][3] for available types.
+description               | Removes a single hook from a check (specified by the check name, check response type, and hook name). Read the [checks reference][3] for available types.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical/hook/process_tree
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 

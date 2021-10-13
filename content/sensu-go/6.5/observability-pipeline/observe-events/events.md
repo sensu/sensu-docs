@@ -50,7 +50,7 @@ metadata:
 spec:
   check:
     check_hooks: null
-    command: check-cpu.rb -w 75 -c 90
+    command: check-cpu-usage -w 75 -c 90
     duration: 5.058211427
     env_vars: null
     executed: 1617050501
@@ -69,6 +69,7 @@ spec:
       status: 0
     interval: 60
     is_silenced: false
+    processed_by: sensu-centos
     issued: 1617050501
     last_ok: 1617050501
     low_flap_threshold: 0
@@ -85,8 +86,7 @@ spec:
     publish: true
     round_robin: false
     runtime_assets:
-    - cpu-checks-plugins
-    - sensu-ruby-runtime
+    - check-cpu-usage
     scheduler: memory
     secrets: null
     state: passing
@@ -168,7 +168,7 @@ spec:
   "spec": {
     "check": {
       "check_hooks": null,
-      "command": "check-cpu.rb -w 75 -c 90",
+      "command": "check-cpu-usage -w 75 -c 90",
       "duration": 5.058211427,
       "env_vars": null,
       "executed": 1617050501,
@@ -198,6 +198,7 @@ spec:
       ],
       "interval": 60,
       "is_silenced": false,
+      "processed_by": "sensu-centos",
       "issued": 1617050501,
       "last_ok": 1617050501,
       "low_flap_threshold": 0,
@@ -214,8 +215,7 @@ spec:
       "publish": true,
       "round_robin": false,
       "runtime_assets": [
-        "cpu-checks-plugins",
-        "sensu-ruby-runtime"
+        "check-cpu-usage"
       ],
       "scheduler": "memory",
       "secrets": null,
@@ -321,15 +321,14 @@ This is the format that events are in when Sensu sends them to handlers:
 {{< code json >}}
 {
   "check": {
-    "command": "check-cpu.rb -w 75 -c 90",
+    "command": "check-cpu-usage -w 75 -c 90",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
     "publish": true,
     "runtime_assets": [
-      "cpu-checks-plugins",
-      "sensu-ruby-runtime"
+      "check-cpu-usage"
     ],
     "subscriptions": [
       "system"
@@ -382,6 +381,7 @@ This is the format that events are in when Sensu sends them to handlers:
     },
     "secrets": null,
     "is_silenced": false,
+    "processed_by": "sensu-centos",
     "scheduler": "memory"
   },
   "entity": {
@@ -663,6 +663,7 @@ spec:
       status: 0
     interval: 10
     is_silenced: false
+    processed_by: sensu-go-sandbox
     issued: 1552506033
     last_ok: 1552506033
     low_flap_threshold: 0
@@ -779,6 +780,7 @@ spec:
       ],
       "interval": 10,
       "is_silenced": false,
+      "processed_by": "sensu-go-sandbox",
       "issued": 1552506033,
       "last_ok": 1552506033,
       "low_flap_threshold": 0,
@@ -958,6 +960,10 @@ sensuctl event info entity-name check-name --format json
 {{< /code >}}
 {{< /language-toggle >}}
 
+{{% notice protip %}}
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data).
+{{% /notice %}}
+
 ### Delete events
 
 To delete an event:
@@ -972,7 +978,7 @@ You can use the `--skip-confirm` flag to skip the confirmation step:
 sensuctl event delete entity-name check-name --skip-confirm
 {{< /code >}}
 
-You should see a confirmation message upon success:
+You should receive a confirmation message upon success:
 
 {{< code shell >}}
 Deleted
@@ -987,7 +993,7 @@ Events resolved by sensuctl include the output message `Resolved manually by sen
 sensuctl event resolve entity-name check-name
 {{< /code >}}
 
-You should see a confirmation message upon success:
+You should receive a confirmation message upon success:
 
 {{< code shell >}}
 Resolved
@@ -1092,7 +1098,7 @@ api_version: core/v2
 
 metadata     | 
 -------------|------
-description  | Top-level scope that contains the event `namespace` and `created_by` field. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes][29] for details.
+description  | Top-level scope that contains the event `namespace` and `created_by` field. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  Review the [metadata attributes][29] for details.
 required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -1161,6 +1167,7 @@ spec:
       status: 0
     interval: 10
     is_silenced: true
+    processed_by: sensu-go-sandbox
     issued: 1552506033
     last_ok: 1552506033
     low_flap_threshold: 0
@@ -1269,6 +1276,7 @@ spec:
       ],
       "interval": 10,
       "is_silenced": true,
+      "processed_by": "sensu-go-sandbox",
       "issued": 1552506033,
       "last_ok": 1552506033,
       "low_flap_threshold": 0,
@@ -1652,6 +1660,7 @@ check:
     status: 0
   interval: 10
   is_silenced: true
+  processed_by: sensu-go-sandbox
   issued: 1552506033
   last_ok: 1552506033
   low_flap_threshold: 0
@@ -1702,6 +1711,7 @@ check:
     ],
     "interval": 10,
     "is_silenced": true,
+    "processed_by": "sensu-go-sandbox",
     "issued": 1552506033,
     "last_ok": 1552506033,
     "low_flap_threshold": 0,
@@ -1742,7 +1752,7 @@ check:
 
 |metrics     |      |
 -------------|------
-description  | Metrics collected by the entity in Sensu metric format. See the [metrics attributes][30].
+description  | Metrics collected by the entity in Sensu metric format. Review the [metrics attributes][30].
 type         | Map
 required     | false
 example      | {{< language-toggle >}}
@@ -1963,6 +1973,24 @@ output: "sensu-go-sandbox.curl_timings.time_total 0.005
 {{< code json >}}
 {
   "output": "sensu-go-sandbox.curl_timings.time_total 0.005"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="processedby-attribute"></a>
+
+processed_by | |
+-------------|------
+description  | The name of the agent that processed the event. Useful for determining which agent processed an event executed by a [proxy check request][42] or a [POST request to the events API][43].
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+processed_by: sensu-go-sandbox
+{{< /code >}}
+{{< code json >}}
+{
+  "processed_by": "sensu-go-sandbox"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -2238,5 +2266,7 @@ value: 0.005
 [39]: #flap-detection-algorithm
 [40]: ../../observe-filter/filters/#check-attributes-available-to-filters
 [41]: ../../../plugins/supported-integrations/#time-series-and-long-term-event-storage
+[42]: ../../observe-schedule/checks/#proxy-checks
+[43]: ../../observe-schedule/agent/#create-observability-events-using-the-agent-api
 [44]: ../../observe-process/pipelines/
 [45]: #pipelines-attributes

@@ -447,7 +447,7 @@ Because checks that include `proxy_requests` attributes need to be executed for 
 The following proxy check runs every 60 seconds, cycling through the agents with the `proxy` subscription alphabetically according to the agent name, for all existing proxy entities with the custom label `proxy_type` set to `website`.
 
 This check uses [token substitution][39] to import the value of the custom entity label `url` to complete the check command.
-See the [entity reference][40] for information about using custom labels.
+read the [entity reference][40] for information about using custom labels.
 
 {{< language-toggle >}}
 
@@ -501,7 +501,7 @@ spec:
 #### Fine-tune proxy check scheduling with splay
 
 Sensu supports distributing proxy check executions across an interval using the `splay` and `splay_coverage` attributes.
-For example, if you assume that the `proxy_check_proxy_requests` check in the example above matches three proxy entities, you'd expect to see a burst of three events every 60 seconds.
+For example, if you assume that the `proxy_check_proxy_requests` check in the example above matches three proxy entities, you'd expect a burst of three events every 60 seconds.
 If you add the `splay` attribute (set to `true`) and the `splay_coverage` attribute (set to `90`) to the `proxy_requests` scope, Sensu will distribute the three check executions over 90% of the 60-second interval, resulting in three events splayed evenly across a 54-second period.
 
 ## Check token substitution
@@ -1045,7 +1045,7 @@ proxy_entity_name: switch-dc-01
 
 |proxy_requests|    |
 -------------|------
-description  | Assigns a check to run for multiple entities according to their `entity_attributes`. In the example below, the check executes for all entities with entity class `proxy` and the custom proxy type label `website`. Proxy requests are a great way to reuse check definitions for a group of entities. For more information, see the [proxy requests attributes][10] and [Monitor external resources][28].
+description  | Assigns a check to run for multiple entities according to their `entity_attributes`. In the example below, the check executes for all entities with entity class `proxy` and the custom proxy type label `website`. Proxy requests are a great way to reuse check definitions for a group of entities. For more information, review the [proxy requests attributes][10] and read [Monitor external resources][28].
 required     | false
 type         | Hash
 example      | {{< language-toggle >}}
@@ -1156,7 +1156,7 @@ output_metric_format:
 
 |output_metric_handlers    |      |
 -------------|------
-description  | Array of Sensu handlers to use for events created by the check. Each array item must be a string. Use `output_metric_handlers` in place of the `handlers` attribute if `output_metric_format` is configured. Metric handlers must be able to process [Sensu metric format][50]. For an example, see the [Sensu InfluxDB handler][51].
+description  | Array of Sensu handlers to use for events created by the check. Each array item must be a string. Use `output_metric_handlers` in place of the `handlers` attribute if `output_metric_format` is configured. Metric handlers must be able to process [Sensu metric format][50]. The [Sensu InfluxDB handler][51] provides an example.
 required     | false
 type         | Array
 example      | {{< language-toggle >}}

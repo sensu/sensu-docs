@@ -42,7 +42,7 @@ Follow this example to set up a reusable check for disk usage:
 sensuctl asset add sensu/check-disk-usage:0.4.1
 {{< /code >}}
 
-   You will see a response to confirm that the asset was added:
+   You will receive a response to confirm that the asset was added:
 {{< code shell >}}
 fetching bonsai asset: sensu/check-disk-usage:0.4.1
 added asset: sensu/check-disk-usage:0.4.1
@@ -225,7 +225,7 @@ After you save your changes, for this entity, the hook will substitute the direc
 ## Manage entity labels
 
 You can use token substitution with any defined [entity attributes][4], including custom labels.
-See the [entity reference][6] for information about managing entity labels for proxy entities and agent entities.
+read the [entity reference][6] for information about managing entity labels for proxy entities and agent entities.
 
 ## Manage dynamic runtime assets
 
