@@ -12,18 +12,18 @@ menu:
 ---
 
 {{% notice warning %}}
-**IMPORTANT**: The pipeline API does not create [pipeline resources](../../observability-pipeline/observe-process/pipelines/), which are composed of observation event processing workflows.
-Instead, the pipeline API allows you to create resources that can **only** be used within pipelines.<br><br>
-Read the [Sumo Logic metrics handlers reference](../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers reference](../../observability-pipeline/observe-process/tcp-stream-handlers) for more information about pipeline API resources.
+**IMPORTANT**: The pipeline API group does not create [pipeline resources](../../observability-pipeline/observe-process/pipelines/), which are composed of observation event processing workflows.
+Instead, the pipeline API group allows you to create resources that can **only** be used within pipelines.<br><br>
+Read the [Sumo Logic metrics handlers reference](../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers reference](../../observability-pipeline/observe-process/tcp-stream-handlers) for more information about the pipeline API group resources.
 {{% /notice %}}
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the pipeline API in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access the pipeline API group in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to the pipeline API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to the pipeline API group require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
