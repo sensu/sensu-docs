@@ -2309,7 +2309,11 @@ spec:
 {{< /language-toggle >}}
 
 Create as many rules as you need in the role or cluster role.
-In this example, all users in the `ops` group would have different permissions for three sets of resource types, as well as no access at all for the two resources that are not listed: API keys and licences.
+For example, you can configure a role or cluster role that includes one rule for each verb, with each rule listing only the resources that verb should apply to.
+
+Here's another example that includes three rules.
+Each rule specifies different access permissions for the resource types listed in the rule.
+In addition, the user group would have no access at all for the two resources that are not listed: API keys and licences.
 
 {{< language-toggle >}}
 
