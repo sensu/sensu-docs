@@ -330,7 +330,7 @@ Subjects:
 ## Register clusters
 
 Clusters must be registered to become visible in the web UI.
-Each registered cluster must have a name and a list of one or more cluster member URLs corresponding to the backend REST API.
+Each registered cluster must have a name and a list of one or more cluster member URLs corresponding to the backend REST API.
 
 {{% notice note %}}
 **NOTE**: Individual cluster resources may list the API URLs for a single stand-alone backend or multiple backends that are members of the same etcd cluster.

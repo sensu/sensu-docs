@@ -805,7 +805,7 @@ agent-rate-limit: 10{{< /code >}}
 
 | cert-file  |      |
 -------------|------
-description  | Path to the primary backend certificate file. Specifies a fallback SSL/TLS certificate if the flag `dashboard-cert-file` is not used. This certificate secures communications between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
+description  | Path to the primary backend certificate file. Specifies a fallback SSL/TLS certificate if the flag `dashboard-cert-file` is not used. This certificate secures communications between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_CERT_FILE`
@@ -858,7 +858,7 @@ jwt-public-key-file: /path/to/key/public.pem{{< /code >}}
 
 | key-file   |      |
 -------------|------
-description  | Path to the primary backend key file. Specifies a fallback SSL/TLS key if the flag `dashboard-key-file` is not used. This key secures communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
+description  | Path to the primary backend key file. Specifies a fallback SSL/TLS key if the flag `dashboard-key-file` is not used. This key secures communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_KEY_FILE`
@@ -899,7 +899,7 @@ require-openssl: true{{< /code >}}
 
 | trusted-ca-file |      |
 ------------------|------
-description       | Path to the primary backend CA file. Specifies a fallback SSL/TLS certificate authority in PEM format used for etcd client (mutual TLS) communication if the `etcd-trusted-ca-file` is not used. This CA file is used in communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
+description       | Path to the primary backend CA file. Specifies a fallback SSL/TLS certificate authority in PEM format used for etcd client (mutual TLS) communication if the `etcd-trusted-ca-file` is not used. This CA file is used in communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type              | String
 default           | `""`
 environment variable | `SENSU_BACKEND_TRUSTED_CA_FILE`

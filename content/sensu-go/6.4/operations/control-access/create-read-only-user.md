@@ -16,7 +16,7 @@ menu:
 Role-based access control (RBAC) allows you to exercise fine-grained control over how Sensu users interact with Sensu resources.
 Use RBAC rules to achieve **multitenancy** so different projects and teams can share a Sensu instance. 
 
-Sensu RBAC helps different teams and projects share a Sensu instance.
+Sensu RBAC helps different teams and projects share a Sensu instance.
 RBAC allows you to manage users and their access to resources based on **namespaces**, **groups**, **roles**, and **bindings**.
 
 By default, Sensu includes a `default` namespace and an `admin` user with full permissions to create, modify, and delete resources within Sensu, including RBAC resources like users and roles.

@@ -12,7 +12,7 @@ menu:
     parent: control-access
 ---
 
-Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance.
+Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance.
 RBAC allows you to specify actions users are allowed to take against resources, within [namespaces][12] or across all namespaces, based on roles bound to the user or to one or more groups the user is a member of.
 
 - **Roles** create sets of permissions (for example, get and delete) tied to resource types.
@@ -108,7 +108,7 @@ spec:
   groups:
   - ops
   - dev
-  password: USER_PASSWORD
+  password: user_password
   password_hash: $5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm
   username: alice
 {{< /code >}}
@@ -120,7 +120,7 @@ spec:
   "metadata": {},
   "spec": {
     "username": "alice",
-    "password": "USER_PASSWORD",
+    "password": "user_password",
     "password_hash": "$5f$14$.brXRviMZpbaleSq9kjoUuwm67V/s4IziOLGHjEqxJbzPsreQAyNm",
     "disabled": false,
     "groups": ["ops", "dev"]
@@ -277,11 +277,11 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-password: USER_PASSWORD
+password: user_password
 {{< /code >}}
 {{< code json >}}
 {
-  "password": "USER_PASSWORD"
+  "password": "user_password"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -426,8 +426,7 @@ metadata:
   namespace: default
 spec:
   rules:
-  - resource_names: []
-    resources:
+  - resources:
     - assets
     - checks
     - entities
@@ -458,12 +457,26 @@ spec:
   "spec": {
     "rules": [
       {
-        "resource_names": [],
         "resources": [
-          "assets", "checks", "entities", "events", "filters", "handlers",
-          "hooks", "mutators", "rolebindings", "roles", "silenced"
+          "assets",
+          "checks",
+          "entities",
+          "events",
+          "filters",
+          "handlers",
+          "hooks",
+          "mutators",
+          "rolebindings",
+          "roles",
+          "silenced"
         ],
-        "verbs": ["get", "list", "create", "update", "delete"]
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update",
+          "delete"
+        ]
       }
     ]
   }
@@ -502,8 +515,7 @@ metadata:
   name: all-resources-all-verbs
 spec:
   rules:
-  - resource_names: []
-    resources:
+  - resources:
     - assets
     - checks
     - entities
@@ -540,14 +552,33 @@ spec:
   "spec": {
     "rules": [
       {
-        "resource_names": [],
         "resources": [
-          "assets", "checks", "entities", "events", "filters", "handlers",
-          "hooks", "mutators", "rolebindings", "roles", "silenced",
-          "cluster", "clusterrolebindings", "clusterroles",
-          "namespaces", "users", "authproviders", "license"
+          "assets",
+          "checks",
+          "entities",
+          "events",
+          "filters",
+          "handlers",
+          "hooks",
+          "mutators",
+          "rolebindings",
+          "roles",
+          "silenced",
+          "cluster",
+          "clusterrolebindings",
+          "clusterroles",
+          "namespaces",
+          "users",
+          "authproviders",
+          "license"
         ],
-        "verbs": ["get", "list", "create", "update", "delete"]
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update",
+          "delete"
+        ]
       }
     ]
   }
@@ -578,13 +609,13 @@ Every [Sensu backend][1] includes:
 
 | role name       | type          | description |
 | --------------- | ------------- | ----------- |
-| `system:pipeline`  | `Role` | Facility that allows the EventFilter engine to load events from Sensu's event store. `system:pipeline` is an implementation detail and should not be assigned to Sensu users. |
+| `system:pipeline` | `Role` | Facility that allows the EventFilter engine to load events from Sensu's event store. `system:pipeline` is an implementation detail and should not be assigned to Sensu users. |
 | `cluster-admin` | `ClusterRole` | Full access to all [resource types][4] across namespaces, including access to [cluster-wide resource types][18]. |
 | `admin`         | `ClusterRole` | Full access to all [resource types][4]. You can apply this cluster role within a namespace by using a role binding (not a cluster role binding). |
 | `edit`          | `ClusterRole` | Read and write access to most resources except roles and role bindings. You can apply this cluster role within a namespace by using a role binding (not a cluster role binding). |
 | `view`          | `ClusterRole` | Read-only permission to most [resource types][4] with the exception of roles and role bindings. You can apply this cluster role within a namespace by using a role binding (not a cluster role binding). |
 | `system:agent`  | `ClusterRole` | Used internally by Sensu agents. You can configure an agent's user credentials using the [`user` and `password` agent configuration flags][41]. |
-| `system:user`  | `ClusterRole` | Get and update permissions for local resources for the current user. |
+| `system:user`   | `ClusterRole` | Get and update permissions for local resources for the current user. |
 
 ### Manage roles and cluster roles
 
@@ -635,7 +666,7 @@ For example, the following command creates an admin role restricted to the produ
 sensuctl role create prod-admin --verb='get,list,create,update,delete' --resource='*' --namespace production
 {{< /code >}}
 
-This command creates the following role resource definition:
+This command creates the following role resource definition, which provides get, list, create, update, and delete permissions for all resources in the production namespace:
 
 {{< language-toggle >}}
 
@@ -649,8 +680,7 @@ metadata:
   namespace: production
 spec:
   rules:
-  - resource_names: null
-    resources:
+  - resources:
     - '*'
     verbs:
     - get
@@ -672,7 +702,6 @@ spec:
   "spec": {
     "rules": [
       {
-        "resource_names": null,
         "resources": [
           "*"
         ],
@@ -767,8 +796,7 @@ metadata:
   name: global-event-reader
 spec:
   rules:
-  - resource_names: null
-    resources:
+  - resources:
     - events
     verbs:
     - get
@@ -786,7 +814,6 @@ spec:
   "spec": {
     "rules": [
       {
-        "resource_names": null,
         "resources": [
           "events"
         ],
@@ -1090,7 +1117,7 @@ Every [Sensu backend][1] includes:
 
 | role name       | type          | description |
 | --------------- | ------------- | ----------- |
-| `system:pipeline`  | `RoleBinding` | Facility that allows the EventFilter engine to load events from Sensu's event store. `system:pipeline` is an implementation detail and should not be applied to Sensu users. |
+| `system:pipeline` | `RoleBinding` | Facility that allows the EventFilter engine to load events from Sensu's event store. `system:pipeline` is an implementation detail and should not be applied to Sensu users. |
 | `cluster-admin` | `ClusterRoleBinding` | Full access to all [resource types][4] across namespaces, including access to [cluster-wide resource types][18]. |
 | `system:agent` | `ClusterRoleBinding` | Full access to all events. Used internally by Sensu agents. |
 | `system:user` | `ClusterRoleBinding` | Get and update permissions for local resources for the current user. |
@@ -1453,21 +1480,20 @@ metadata:
   namespace: default
 spec:
   rules:
-  - resource_names: []
-    resources:
-    - checks
-    - hooks
-    - filters
-    - events
-    - filters
-    - mutators
-    - handlers
-    verbs:
-    - get
-    - list
-    - create
-    - update
-    - delete
+    - resources:
+      - checks
+      - hooks
+      - filters
+      - events
+      - filters
+      - mutators
+      - handlers
+      verbs:
+      - get
+      - list
+      - create
+      - update
+      - delete
 {{< /code >}}
 
 {{< code json >}}
@@ -1481,9 +1507,22 @@ spec:
   "spec": {
     "rules": [
       {
-        "resource_names": [],
-        "resources": ["checks", "hooks", "filters", "events", "filters", "mutators", "handlers"],
-        "verbs": ["get", "list", "create", "update", "delete"]
+        "resources": [
+          "checks",
+          "hooks",
+          "filters",
+          "events",
+          "filters",
+          "mutators",
+          "handlers"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update",
+          "delete"
+        ]
       }
     ]
   }
@@ -1550,8 +1589,7 @@ metadata:
   namespace: default
 spec:
   rules:
-  - resource_names: []
-    resources:
+  - resources:
     - checks
     - hooks
     - filters
@@ -1578,9 +1616,22 @@ spec:
   "spec": {
     "rules": [
       {
-        "resource_names": [],
-        "resources": ["checks", "hooks", "filters", "events", "filters", "mutators", "handlers"],
-        "verbs": ["get", "list", "create", "update", "delete"]
+        "resources": [
+          "checks",
+          "hooks",
+          "filters",
+          "events",
+          "filters",
+          "mutators",
+          "handlers"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update",
+          "delete"
+        ]
       }
     ]
   }
@@ -1653,6 +1704,7 @@ metadata: {}
 spec:
   disabled: false
   username: alice
+  password: user_password
 {{< /code >}}
 
 {{< code json >}}
@@ -1662,7 +1714,8 @@ spec:
   "metadata": {},
   "spec": {
     "disabled": false,
-    "username": "alice"
+    "username": "alice",
+    "password": "user_password"
   }
 }
 {{< /code >}}
@@ -1680,8 +1733,7 @@ metadata:
   namespace: default
 spec:
   rules:
-  - resource_names: []
-    resources:
+  - resources:
     - assets
     - checks
     - entities
@@ -1713,12 +1765,27 @@ spec:
   "spec": {
     "rules": [
       {
-        "resource_names": [],
         "resources": [
-          "assets", "checks", "entities", "events", "filters", "handlers",
-          "hooks", "mutators", "rolebindings", "roles", "searches", "silenced"
+          "assets",
+          "checks",
+          "entities",
+          "events",
+          "filters",
+          "handlers",
+          "hooks",
+          "mutators",
+          "rolebindings",
+          "roles",
+          "searches",
+          "silenced"
         ],
-        "verbs": ["get", "list", "create", "update", "delete"]
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update",
+          "delete"
+        ]
       }
     ]
   }
@@ -1791,6 +1858,9 @@ metadata: {}
 spec:
   disabled: false
   username: alice
+  password: user_password
+  groups:
+  - ops
 {{< /code >}}
 
 {{< code json >}}
@@ -1800,7 +1870,11 @@ spec:
   "metadata": {},
   "spec": {
     "disabled": false,
-    "username": "alice"
+    "username": "alice",
+    "password": "user_password",
+    "groups": [
+      "ops"
+    ]
   }
 }
 {{< /code >}}
@@ -1818,8 +1892,7 @@ metadata:
   namespace: default
 spec:
   rules:
-  - resource_names: []
-    resources:
+  - resources:
     - assets
     - checks
     - entities
@@ -1851,12 +1924,27 @@ spec:
   "spec": {
     "rules": [
       {
-        "resource_names": [],
         "resources": [
-          "assets", "checks", "entities", "events", "filters", "handlers",
-          "hooks", "mutators", "rolebindings", "roles", "searches", "silenced"
+          "assets",
+          "checks",
+          "entities",
+          "events",
+          "filters",
+          "handlers",
+          "hooks",
+          "mutators",
+          "rolebindings",
+          "roles",
+          "searches",
+          "silenced"
         ],
-        "verbs": ["get", "list", "create", "update", "delete"]
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update",
+          "delete"
+        ]
       }
     ]
   }
@@ -1933,9 +2021,9 @@ metadata: {}
 spec:
   disabled: false
   username: alice
+  password: user_password
   groups:
   - ops
-
 {{< /code >}}
 
 {{< code json >}}
@@ -1946,7 +2034,10 @@ spec:
   "spec": {
     "disabled": false,
     "username": "alice",
-    "groups": ["ops"]
+    "password": "user_password",
+    "groups": [
+      "ops"
+    ]
   }
 }
 {{< /code >}}
@@ -1963,8 +2054,7 @@ metadata:
   name: default-admin
 spec:
   rules:
-  - resource_names: []
-    resources:
+  - resources:
     - assets
     - checks
     - entities
@@ -2001,14 +2091,33 @@ spec:
   "spec": {
     "rules": [
       {
-        "resource_names": [],
         "resources": [
-          "assets", "checks", "entities", "events", "filters", "handlers",
-          "hooks", "mutators", "rolebindings", "roles", "silenced",
-          "cluster", "clusterrolebindings", "clusterroles",
-          "namespaces", "users", "authproviders", "license"
+          "assets",
+          "checks",
+          "entities",
+          "events",
+          "filters",
+          "handlers",
+          "hooks",
+          "mutators",
+          "rolebindings",
+          "roles",
+          "silenced",
+          "cluster",
+          "clusterrolebindings",
+          "clusterroles",
+          "namespaces",
+          "users",
+          "authproviders",
+          "license"
         ],
-        "verbs": ["get", "list", "create", "update", "delete"]
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update",
+          "delete"
+        ]
       }
     ]
   }
@@ -2044,6 +2153,354 @@ spec:
   "spec": {
     "role_ref": {
       "name": "default-admin",
+      "type": "ClusterRole"
+    },
+    "subjects": [
+      {
+        "name": "ops",
+        "type": "Group"
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Assign different permissions for different resource types
+
+You can assign different permissions for different resource types in a role or cluster role definition.
+To do this, you'll still create at least one user assigned to a group, a role or cluster role, and a role binding or cluster role binding.
+However, in this case, the role or cluster role will include more than one rule.
+
+For example, you may want users in a testing group to be able to get and list all resource types but create, update, and delete only silenced entries across all namespaces.
+Create a user `alice` assigned to the group `ops_testing`, a cluster role `manage_silences` with two rules (one for all resources and one just for silences), and a cluster role binding `ops_testing_manage_silences`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: User
+api_version: core/v2
+metadata: {}
+spec:
+  disabled: false
+  username: alice
+  password: user_password
+  groups:
+  - ops_testing
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "User",
+  "api_version": "core/v2",
+  "metadata": {},
+  "spec": {
+    "disabled": false,
+    "username": "alice",
+    "password": "user_password",
+    "groups": [
+      "ops_testing"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: ClusterRole
+api_version: core/v2
+metadata:
+  name: manage_silences
+spec:
+  rules:
+  - verbs:
+    - get
+    - list
+    resources:
+    - '*'
+  - verbs:
+    - create
+    - update
+    - delete
+    resources:
+    - silenced
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "ClusterRole",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "manage_silences"
+  },
+  "spec": {
+    "rules": [
+      {
+        "verbs": [
+          "get",
+          "list"
+        ],
+        "resources": [
+          "*"
+        ]
+      },
+      {
+        "verbs": [
+          "create",
+          "update",
+          "delete"
+        ],
+        "resources": [
+          "silenced"
+        ]
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: ClusterRoleBinding
+api_version: core/v2
+metadata:
+  name: ops_testing_manage_silences
+spec:
+  role_ref:
+    name: manage_silences
+    type: ClusterRole
+  subjects:
+  - name: ops_testing
+    type: Group
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "ClusterRoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "ops_testing_manage_silences"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "manage_silences",
+      "type": "ClusterRole"
+    },
+    "subjects": [
+      {
+        "name": "ops_testing",
+        "type": "Group"
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Create as many rules as you need in the role or cluster role.
+In this example, all users in the `ops` group would have different permissions for three sets of resource types, as well as no access at all for the two resources that are not listed: API keys and licences.
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: User
+api_version: core/v2
+metadata: {}
+spec:
+  disabled: false
+  username: alice
+  password: user_password
+  groups:
+  - ops
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "User",
+  "api_version": "core/v2",
+  "metadata": {},
+  "spec": {
+    "disabled": false,
+    "username": "alice",
+    "password": "user_password",
+    "groups": [
+      "ops"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: ClusterRole
+api_version: core/v2
+metadata:
+  name: ops_access
+spec:
+  rules:
+  - verbs:
+    - get
+    - list
+    resources:
+    - entities
+    - events
+    - rolebindings
+    - roles
+    - clusterrolebindings
+    - clusterroles
+    - config
+    - users
+  - verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+    resources:
+    - assets
+    - checks
+    - filters
+    - handlers
+    - hooks
+    - mutators
+    - pipelines
+    - rule-templates
+    - searches
+    - secrets
+    - service-components
+    - silenced
+    - sumo-logic-metrics-handlers
+    - tcp-stream-handlers
+    - clusters
+    - etcd-replicators
+    - providers
+  - verbs:
+    - get
+    - list
+    - create
+    - update
+    resources:
+    - authproviders
+    - namespaces
+    - provider
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "ClusterRole",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "ops_access"
+  },
+  "spec": {
+    "rules": [
+      {
+        "verbs": [
+          "get",
+          "list"
+        ],
+        "resources": [
+          "entities",
+          "events",
+          "rolebindings",
+          "roles",
+          "clusterrolebindings",
+          "clusterroles",
+          "config",
+          "users"
+        ]
+      },
+      {
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update",
+          "delete"
+        ],
+        "resources": [
+          "assets",
+          "checks",
+          "filters",
+          "handlers",
+          "hooks",
+          "mutators",
+          "pipelines",
+          "rule-templates",
+          "searches",
+          "secrets",
+          "service-components",
+          "silenced",
+          "sumo-logic-metrics-handlers",
+          "tcp-stream-handlers",
+          "clusters",
+          "etcd-replicators",
+          "providers"
+        ]
+      },
+      {
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update"
+        ],
+        "resources": [
+          "authproviders",
+          "namespaces",
+          "provider"
+        ]
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: ClusterRoleBinding
+api_version: core/v2
+metadata:
+  name: ops_access_assignment
+spec:
+  role_ref:
+    name: ops_access
+    type: ClusterRole
+  subjects:
+  - name: ops
+    type: Group
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "ClusterRoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "ops_access_assignment"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "ops_access",
       "type": "ClusterRole"
     },
     "subjects": [
@@ -2125,8 +2582,7 @@ metadata:
   name: silencing-script
 spec:
   rules:
-  - resource_names: null
-    resources:
+  - resources:
     - silenced
     verbs:
     - get
@@ -2146,7 +2602,6 @@ spec:
   "spec": {
     "rules": [
       {
-        "resource_names": null,
         "resources": [
           "silenced"
         ],
