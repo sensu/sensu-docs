@@ -95,7 +95,7 @@ HTTP/1.1 201 Created
 
 /apikeys (POST) | 
 ----------------|------
-description     | Creates a new API key, a Sensu-generated UUID. The response will include HTTP 201 and a `Location` header that contains the relative path to the new API key.
+description     | Creates a new API key, a Sensu-generated universally unique identifier (UUID). The response will include HTTP 201 and a `Location` header that contains the relative path to the new API key.
 example URL     | http://hostname:8080/api/core/v2/apikeys
 request payload  | {{< code shell >}}
 {

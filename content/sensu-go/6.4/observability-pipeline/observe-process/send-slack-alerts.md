@@ -192,7 +192,7 @@ metadata:
   namespace: default
 spec:
   check_hooks: null
-  command: check-cpu.rb -w 75 -c 90
+  command: check-cpu-usage -w 75 -c 90
   env_vars: null
   handlers:
   - slack
@@ -205,8 +205,7 @@ spec:
   publish: true
   round_robin: false
   runtime_assets:
-  - cpu-checks-plugins
-  - sensu-ruby-runtime
+  - check-cpu-usage
   secrets: null
   stdin: false
   subdue: null
@@ -227,7 +226,7 @@ spec:
   },
   "spec": {
     "check_hooks": null,
-    "command": "check-cpu.rb -w 75 -c 90",
+    "command": "check-cpu-usage -w 75 -c 90",
     "env_vars": null,
     "handlers": [
       "slack"
@@ -241,8 +240,7 @@ spec:
     "publish": true,
     "round_robin": false,
     "runtime_assets": [
-      "cpu-checks-plugins",
-      "sensu-ruby-runtime"
+      "check-cpu-usage"
     ],
     "secrets": null,
     "stdin": false,
@@ -268,7 +266,7 @@ After an event is handled, you should receive the following message in Slack:
 Verify the proper behavior of this handler with `sensu-backend` logs.
 Read [Troubleshoot Sensu][7] for log locations by platform.
 
-Whenever an event is being handled, a log entry is added with the message `"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by a second log entry with the message `"msg":"pipelined executed event pipe handler","output":"","status":0`.
+Whenever an event is being handled, a log entry is added with the message `"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by a second log entry with the message `"msg":"event pipe handler executed","output":"","status":0`.
 
 ## Next steps
 

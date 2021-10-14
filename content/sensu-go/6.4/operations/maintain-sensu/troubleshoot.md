@@ -693,9 +693,9 @@ https://backend03:2379, bc4e39432cbb36d, 3.5.0, 1.0 MB, false, 144, 18619245
 ### Remove and redeploy a cluster
 
 {{% notice protip %}}
-**PRO TIP**: Use [etcd snapshots](https://etcd.io/docs/latest/op-guide/recovery/) to keep a backup so that you can restore your Sensu resources if you have to redeploy your cluster.
-For extra reassurance, take regular etcd snapshots and make regular backups with [sensuctl dump](../../../sensuctl/back-up-recover/) in addition to etcd's running snapshots.
-
+**PRO TIP**: If you are using external etcd, use [etcd snapshots](https://etcd.io/docs/latest/op-guide/recovery/) to keep a backup so that you can restore your Sensu resources if you have to redeploy your cluster.
+For extra reassurance, take regular etcd snapshots and make regular backups with [sensuctl dump](../../../sensuctl/back-up-recover/) in addition to etcd's running snapshots.<br><br>
+If you are using embedded etcd, use [sensuctl dump](../../../sensuctl/back-up-recover/) to make regular backups.<br><br>
 If you wait until cluster nodes are failing, it may not be possible to make a backup.
 For example, in a three-node cluster, if one node fails, you will still be able to make a backup.
 If two nodes fail, the whole cluster will be down and you will not be able to create a snapshot or run sensuctl dump.
@@ -747,7 +747,9 @@ Admin Username: <YOUR_USERNAME>
 Admin Password: <YOUR_PASSWORD>
 {{< /code >}}
 
-7. Follow the [etcd restore process][26] or use [sensuctl create][24] to restore your cluster from a snapshot or backup.
+7. Restore your cluster from a snapshot or backup:
+   - Follow the [etcd restore process][26] (for external etcd).
+   - Use [sensuctl create][24] (for external or embedded etcd).
 
 ## Datastore performance
 
