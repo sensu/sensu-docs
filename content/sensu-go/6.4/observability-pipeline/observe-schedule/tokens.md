@@ -301,7 +301,7 @@ Access nested Sensu [entity attributes][3] with dot notation (for example, `syst
 
 If an attribute is not provided by the [entity][3], a token's default value will be substituted.
 Token default values are separated by a pipe character and the word "default" (`| default`).
-Use token default values to provide a fallback value for entities that are missing a specified token attribute.
+Use token default values to provide a fallback value for entities that are missing a specified token attribute.
 
 For example, `{{.labels.url | default "https://sensu.io"}}` would be replaced with a custom label called `url`.
 If no such attribute called `url` is included in the entity definition, the default (or fallback) value of `https://sensu.io` will be used to substitute the token.

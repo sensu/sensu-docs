@@ -447,7 +447,7 @@ name: status-threshold
 
 namespace    |      |
 -------------|------
-description  | [Sensu RBAC namespace][6] that the rule template belongs to.
+description  | [Sensu RBAC namespace][6] that the rule template belongs to.
 required     | true
 type         | String
 example      | {{< language-toggle >}}

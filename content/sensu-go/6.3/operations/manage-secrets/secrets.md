@@ -237,7 +237,7 @@ name: sensu-ansible-token
 
 namespace    |      |
 -------------|------
-description  | [Sensu RBAC namespace][9] that the secret belongs to.
+description  | [Sensu RBAC namespace][9] that the secret belongs to.
 required     | true
 type         | String
 example      | {{< language-toggle >}}

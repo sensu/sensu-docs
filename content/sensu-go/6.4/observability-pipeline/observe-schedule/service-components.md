@@ -255,7 +255,7 @@ name: postgresql-1
 
 namespace    |      |
 -------------|------
-description  | [Sensu RBAC namespace][7] that the service component belongs to.
+description  | [Sensu RBAC namespace][7] that the service component belongs to.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
