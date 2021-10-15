@@ -1690,11 +1690,11 @@ Here's how.
      {{< language-toggle >}}
      
 {{< code shell "Ubuntu/Debian" >}}
-$ sudo touch /etc/default/sensu-agent
+sudo touch /etc/default/sensu-agent
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ sudo touch /etc/sysconfig/sensu-agent
+sudo touch /etc/sysconfig/sensu-agent
 {{< /code >}}
      
      {{< /language-toggle >}}
@@ -1714,11 +1714,11 @@ All environment variables controlling Sensu configuration begin with `SENSU_`.
      {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/default/sensu-agent
+echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/default/sensu-agent
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/sysconfig/sensu-agent
+echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /code >}}
 
      {{< /language-toggle >}}
@@ -1728,11 +1728,11 @@ $ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/sysconfig/sensu-agent
      {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ sudo systemctl restart sensu-agent
+sudo systemctl restart sensu-agent
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ sudo systemctl restart sensu-agent
+sudo systemctl restart sensu-agent
 {{< /code >}}
 
      {{< /language-toggle >}}
@@ -1751,11 +1751,11 @@ For example, to create the labels `"region": "us-east-1"` and `"type": "website"
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-agent
+echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-agent
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-agent
+echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -1765,11 +1765,11 @@ To create the annotations `"maintainer": "Team A"` and `"webhook-url": "https://
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-agent
+echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-agent
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-agent
+echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /code >}}
 
 {{< /language-toggle >}}
