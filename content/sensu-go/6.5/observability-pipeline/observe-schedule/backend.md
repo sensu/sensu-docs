@@ -1553,7 +1553,60 @@ $ echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "http
 
 Any environment variables you create in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS) will be available to handlers executed by the Sensu backend.
 
-For example, if you create a `SENSU_BACKEND_TEST_VAR` variable in your sensu-backend file, it will be available to use in your handler configurations as `$SENSU_BACKEND_TEST_VAR`.
+For example, if you add a `SENSU_BACKEND_SLACK_WEBHOOK_URL` environment variable that is set to a Slack webhook URL in your sensu-backend configuration file, you can use it in your handler configurations as `$SENSU_BACKEND_SLACK_WEBHOOK_URL`.
+The following example handler definition uses the `$SENSU_BACKEND_SLACK_WEBHOOK_URL` environment variable with the [Sensu Slack Handler][65] dynamic runtime asset:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: slack
+  namespace: default
+spec:
+  command: sensu-slack-handler --channel '#monitoring'
+  env_vars:
+  - SLACK_WEBHOOK_URL=$SENSU_BACKEND_SLACK_WEBHOOK_URL
+  filters:
+  - is_incident
+  - not_silenced
+  handlers: []
+  runtime_assets:
+  - sensu/sensu-slack-handler
+  timeout: 0
+  type: pipe
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "slack",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "sensu-slack-handler --channel '#monitoring'",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=$SENSU_BACKEND_SLACK_WEBHOOK_URL"
+    ],
+    "filters": [
+      "is_incident",
+      "not_silenced"
+    ],
+    "handlers": [],
+    "runtime_assets": [
+      "sensu/sensu-slack-handler"
+    ],
+    "timeout": 0,
+    "type": "pipe"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Create overrides
 
@@ -1804,3 +1857,4 @@ platform-metrics-logging-interval: 60s{{< /code >}}
 [62]: https://docs.influxdata.com/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/
 [63]: #log-rotation
 [64]: ../../../sensuctl/#global-flags
+[65]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler

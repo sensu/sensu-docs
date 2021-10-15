@@ -1820,7 +1820,51 @@ $ echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hook
 Any environment variables you create in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS) will be available to check and hook commands executed by the Sensu agent.
 This includes your checks and plugins.
 
-For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
+For example, if you add a `SENSU_GITHUB_TOKEN` environment variable that is set to a valid GitHub personal access token in your sensu-agent configuration file, you can use it in your check configurations as `$SENSU_GITHUB_TOKEN`.
+The following example check definition uses the `$SENSU_GITHUB_TOKEN` environment variable in the check command to run a script that pings the GitHub API:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: ping-github-api
+  namespace: default
+spec:
+  command: ping-github-api.sh $SENSU_GITHUB_TOKEN
+  handlers:
+  - slack
+  interval: 10
+  publish: true
+  subscriptions:
+  - system
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default",
+    "name": "ping-github-api"
+  },
+  "spec": {
+    "command": "ping-github-api.sh $SENSU_GITHUB_TOKEN",
+    "subscriptions": [
+      "github"
+    ],
+    "handlers": [
+      "slack"
+    ],
+    "interval": 10,
+    "publish": true
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 #### Use environment variables to specify an HTTP proxy for agent use
 
