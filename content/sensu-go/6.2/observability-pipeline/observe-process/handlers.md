@@ -759,6 +759,8 @@ secret: sensu-ansible-host
 ## Send Slack alerts
 
 This handler will send alerts to a channel named `monitoring` with the configured webhook URL, using the `handler-slack` executable command.
+The handler uses the [Sensu Slack Handler][34] dynamic runtime asset.
+Read [Send Slack alerts with handlers][35] for detailed instructions for adding the required asset and configuring this handler.
 
 {{< language-toggle >}}
 
@@ -777,7 +779,8 @@ spec:
   - is_incident
   - not_silenced
   handlers: []
-  runtime_assets: []
+  runtime_assets:
+  - sensu/sensu-slack-handler
   timeout: 0
   type: pipe
 {{< /code >}}
@@ -800,7 +803,9 @@ spec:
       "not_silenced"
     ],
     "handlers": [],
-    "runtime_assets": [],
+    "runtime_assets": [
+      "sensu/sensu-slack-handler"
+    ],
     "timeout": 0,
     "type": "pipe"
   }
@@ -814,7 +819,7 @@ spec:
 If you configure a Sensu event handler named `registration`, the Sensu backend will create and process an event for the agent registration, apply any configured filters and mutators, and execute the registration handler.
 
 You can use registration events to execute one-time handlers for new Sensu agents to update an external configuration management database (CMDB).
-This example demonstrates how to configure a registration event handler to create or update a ServiceNow incident or event with the [Sensu Go ServiceNow Handler][17]:
+This example demonstrates how to configure a registration event handler to create or update a ServiceNow incident or event with the [Sensu Go ServiceNow Handler][17] &mdash; read about the [ServiceNow integration][36] for more information:
 
 {{< language-toggle >}}
 
@@ -978,3 +983,6 @@ spec:
 [31]: #handler-sets
 [32]: ../../observe-filter/filters/#filter-for-repeated-events
 [33]: ../../observe-schedule/checks/#handlers-array
+[34]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
+[35]: ../../observe-process/send-slack-alerts/
+[36]: ../../../plugins/supported-integrations/servicenow/
