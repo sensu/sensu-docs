@@ -1311,11 +1311,11 @@ Here's how.
      {{< language-toggle >}}
      
 {{< code shell "Ubuntu/Debian" >}}
-$ sudo touch /etc/default/sensu-backend
+sudo touch /etc/default/sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ sudo touch /etc/sysconfig/sensu-backend
+sudo touch /etc/sysconfig/sensu-backend
 {{< /code >}}
      
      {{< /language-toggle >}}
@@ -1335,11 +1335,11 @@ All environment variables controlling Sensu backend configuration begin with `SE
      {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/default/sensu-backend
+echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/sysconfig/sensu-backend
+echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
      {{< /language-toggle >}}
@@ -1349,11 +1349,11 @@ $ echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc
      {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ sudo systemctl restart sensu-backend
+sudo systemctl restart sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ sudo systemctl restart sensu-backend
+sudo systemctl restart sensu-backend
 {{< /code >}}
 
      {{< /language-toggle >}}
@@ -1372,11 +1372,11 @@ For example, to create the labels `"region": "us-east-1"` and `"type": "website"
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-backend
+echo 'SENSU_BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-backend
+echo 'SENSU_BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -1386,11 +1386,11 @@ To create the annotations `"maintainer": "Team A"` and `"webhook-url": "https://
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-backend
+echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-backend
+echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
 {{< /language-toggle >}}
