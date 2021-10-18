@@ -573,7 +573,7 @@ client_key_file: /path/to/ssl/key.pem
 
 | binding    |      |
 -------------|------
-description  | The LDAP account that performs user and group lookups. If your sever supports anonymous binding, you can omit the `user_dn` or `password` attributes to query the directory without credentials.
+description  | The LDAP account that performs user and group lookups. If your server supports anonymous binding, you can omit the `user_dn` or `password` attributes to query the directory without credentials.
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
@@ -646,7 +646,7 @@ user_search:
 
 | user_dn    |      |
 -------------|------
-description  | The LDAP account that performs user and group lookups. We recommend using a read-only account. Use the distinguished name (DN) format, such as `cn=binder,cn=users,dc=domain,dc=tld`. If your sever supports anonymous binding, you can omit this attribute to query the directory without credentials.
+description  | The LDAP account that performs user and group lookups. We recommend using a read-only account. Use the distinguished name (DN) format, such as `cn=binder,cn=users,dc=domain,dc=tld`. If your server supports anonymous binding, you can omit this attribute to query the directory without credentials.
 required     | false
 type         | String
 example      | {{< language-toggle >}}
@@ -662,7 +662,7 @@ user_dn: cn=binder,dc=acme,dc=org
 
 | password   |      |
 -------------|------
-description  | Password for the `user_dn` account. If your sever supports anonymous binding, you can omit this attribute to query the directory without credentials.
+description  | Password for the `user_dn` account. If your server supports anonymous binding, you can omit this attribute to query the directory without credentials.
 required     | false
 type         | String
 example      | {{< language-toggle >}}
