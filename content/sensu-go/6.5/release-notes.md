@@ -108,7 +108,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.5.0.
     - sensu_go_tcp_stream_handler_errors: The total number of errors produced by the TCP stream handler
     - sensu_go_tcp_stream_handler_latency: Distribution of handler latencies, in milliseconds, for the TCP stream handler
     - sensu_go_tcp_stream_handler_connection_acquisition_latency: Distribution of connection acquisition latencies (how long it takes to acquire a connection from the connection pool), in milliseconds, within the TCP stream handler
-- New [pipelines][233] resource allows you to specify event filters, mutators, and handlers in a single workflow instead of listing filters and mutators in handler definitions. You can reference pipelines in your check definitions. The [`/pipelines` API endpoint][234] provides HTTP access for retrieving pipeline data and configuring pipelines, and you can use [sensuctl][235] to manage pipelines. [Upgrade your Sensu agents][252] to Sensu Go 6.5.0 to use pipelines resources.
+- New [pipelines][233] resource allows you to specify event filters, mutators, and handlers in a single workflow instead of listing filters and mutators in handler definitions. You can reference pipelines in your check definitions. The [`/pipelines` API endpoint][234] provides HTTP access for retrieving pipeline data and configuring pipelines, and you can use [sensuctl][235] to manage pipelines. [Upgrade your Sensu agents][1] to Sensu Go 6.5.0 to use pipelines resources.
 - [JavaScript mutators][246] are now available. JavaScript mutators are evaluated by the Otto JavaScript VM as JavaScript programs, which enables greater throughput at scale than pipe mutators.
 - Check definitions now include the [pipelines attribute][236] for specifying pipeline resources to use for the check's observability events.
 - Added [platform metrics logging][238] to log core Sensu metrics in InfluxDB Line Protocol format, along with the `disable-platform-metrics`, `platform-metrics-log-file`, and `platform-metrics-logging-interval` backend configuration flags for managing the platform metrics logging feature.
@@ -2031,5 +2031,4 @@ To get started with Sensu Go:
 [249]: /sensu-go/6.5/web-ui/view-manage-resources/#view-resource-data-in-the-web-ui
 [250]: /sensu-go/6.5/web-ui/view-manage-resources/#execute-checks-on-demand
 [251]: /sensu-go/6.5/observability-pipeline/observe-events/events/#processedby-attribute
-[252]: /sensu-go/6.5/operations/maintain-sensu/upgrade/#upgrade-to-sensu-go-650-from-any-previous-version
 [253]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#initialization-ignore-already-initialized-flag
