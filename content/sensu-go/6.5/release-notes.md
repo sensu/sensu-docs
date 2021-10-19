@@ -93,7 +93,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 6.5.1 release notes
 
-**October 18, 2021** &mdash; The latest release of Sensu Go, version 6.5.1, is now available for download.
+**October 19, 2021** &mdash; The latest release of Sensu Go, version 6.5.1, is now available for download.
 
 This patch fixes several issues in the web UI and adds Prometheus metrics for tracking lease operations as well as Prometheus counters for pipeline workflow handler processing.
 
