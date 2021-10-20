@@ -1475,12 +1475,13 @@ sudo touch /etc/sysconfig/sensu-backend
      {{< /language-toggle >}}
 
 2. Make sure the environment variable is named correctly.
-All environment variables controlling Sensu backend configuration begin with `SENSU_BACKEND_`.
+All environment variables that control Sensu backend configuration begin with `SENSU_BACKEND_`.
 
      To rename a configuration flag you wish to specify as an environment variable, prepend `SENSU_BACKEND_`, convert dashes to underscores, and capitalize all letters.
-     For example, the environment variable for the flag `api-listen-address` is `SENSU_BACKEND_API_LISTEN_ADDRESS`.
+     For example, the environment variable for the configuration flag `api-listen-address` is `SENSU_BACKEND_API_LISTEN_ADDRESS`.
 
-     For a custom test variable, the environment variable name might be `SENSU_BACKEND_TEST_VAR`.
+     For a custom environment variable, you do not have to prepend `SENSU_BACKEND`.
+     For example, `TEST_VAR_1` is a valid custom environment variable name.
 
 3. Add the environment variable to the environment file (`/etc/default/sensu-backend` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-backend` for RHEL/CentOS systems).
 
@@ -1519,18 +1520,18 @@ They are listed in the [configuration flag description tables](#general-configur
 
 ### Format for label and annotation environment variables
 
-To use labels and annotations as environment variables in your handler configurations, you must use a specific format when you create the `SENSU_BACKEND_LABELS` and `SENSU_BACKEND_ANNOTATIONS` environment variables.
+To use labels and annotations as environment variables in your handler configurations, you must use a specific format when you create the label and annotation environment variables.
 
 For example, to create the labels `"region": "us-east-1"` and `"type": "website"` as an environment variable:
 
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-echo 'SENSU_BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-backend
+echo 'BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-echo 'SENSU_BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-backend
+echo 'BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -1540,11 +1541,11 @@ To create the annotations `"maintainer": "Team A"` and `"webhook-url": "https://
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-backend
+echo 'BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-backend
+echo 'BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -1553,7 +1554,48 @@ echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https:
 
 Any environment variables you create in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS) will be available to handlers executed by the Sensu backend.
 
-For example, if you create a `SENSU_BACKEND_TEST_VAR` variable in your sensu-backend file, it will be available to use in your handler configurations as `$SENSU_BACKEND_TEST_VAR`.
+For example, if you create a custom environment variable `TEST_VARIABLE` in your sensu-backend file, it will be available to use in your handler configurations as `$TEST_VARIABLE`.
+The following handler will print the `TEST_VARIABLE` value set in your sensu-backend file in `/tmp/test.txt`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Handler
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: print_test_var
+  namespace: default
+spec:
+  command: echo $TEST_VARIABLE >> ./tmp/test.txt
+  timeout: 0
+  type: pipe
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "print_test_var",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "echo $TEST_VARIABLE >> ./tmp/test.txt",
+    "timeout": 0,
+    "type": "pipe"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: We recommend using secrets with the `Env` provider to expose secrets from environment variables on your Sensu backend nodes rather than using environment variables directly in your handler commands.
+Read the [secrets reference](https://docs.sensu.io/sensu-go/latest/operations/manage-secrets/secrets/) and [Use Env for secrets management](../../../operations/manage-secrets/secrets-management/#use-env-for-secrets-management) for details.
+{{% /notice %}}
 
 ## Create overrides
 

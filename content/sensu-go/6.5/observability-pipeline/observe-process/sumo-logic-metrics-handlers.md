@@ -28,7 +28,7 @@ As you scale up and process more events per second, the rate at which the handle
 Sumo Logic metrics handlers allow you to configure a connection pool with a maximum number of connections for the handler to use and a time limit for request completion.
 For example, if 1000 events are queued for transmission, as each connection finishes transmitting an event, it becomes available again and returns to the pool so the handler can use it to send the next event in the queue.
 
-Sumo Logic metrics will reuse the available connections as long as they can rather than requiring a new connection for every event, which increases event throughput.
+Sumo Logic metrics handlers will reuse the available connections as long as they can rather than requiring a new connection for every event, which increases event throughput.
 
 {{% notice note %}}
 **NOTE**: Sumo Logic metrics handlers only accept metrics events.
