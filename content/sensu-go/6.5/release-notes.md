@@ -9,6 +9,7 @@ version: "6.5"
 menu: "sensu-go-6.5"
 ---
 
+- [6.5.1 release notes](#651-release-notes)
 - [6.5.0 release notes](#650-release-notes)
 - [6.4.3 release notes](#643-release-notes)
 - [6.4.2 release notes](#642-release-notes)
@@ -89,11 +90,34 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.5.1 release notes
+
+**October 20, 2021** &mdash; The latest release of Sensu Go, version 6.5.1, is now available for download.
+
+This patch fixes several issues in the web UI and adds Prometheus metrics for tracking lease operations as well as Prometheus counters for pipeline workflow handler processing.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.5.1.
+
+**IMPROVEMENTS**
+
+- Added Prometheus metric for tracking lease operations, sensu_go_lease_ops, with labels for operation type and status.
+- Added Prometheus counters for pipeline workflow handler processing:
+    - sensu_go_handler_requests: Number of processed handler requests
+    - sensu_go_handler_requests_total: Total number of handler requests invoked
+
+**FIXES**
+
+- ([Commercial feature][229]) Fixed a bug that could result in an error when listing entities with the PostgreSQL store enabled.
+- ([Commercial feature][229]) In the web UI, fixed an issue with the native date and time picker that could cause problems when creating silences.
+- ([Commercial feature][229]) In the web UI, fixed a bug that prevented users from editing service components.
+- ([Commercial feature][229]) In the web UI, fixed the redirect for deleting entities so that it returns users to the Entities page rather than loading a 404 page for the deleted entity's details.
+
 ## 6.5.0 release notes
 
 **October 13, 2021** &mdash; The latest release of Sensu Go, version 6.5.0, is now available for download.
 
-This release includes a number of improvements, specifically exciting new capabilities in the observability pipeline and a major simplification to how "pipelines" are configured. Sensu Go 6.5.0 introduces a new first-class `Pipeline` resource for defining logical pipeline workflows composed of filters + mutators + handlers. We’re also introducing new streaming handler types: a TCPStreamHandler with TLS support and a SumoLogicMetricsHandler for seamless integration with the Sumo Logic Continuous Intelligence platform. Enhancements in the web UI include a completely overhauled configuration management system (with new views for the Checks, Filters, Handlers, and Mutators pages) and behind-the-scenes improvements that pave the way for even more new configuration management capabilities in future releases. Read the full release notes below for all the details!.
+This release includes a number of improvements, specifically exciting new capabilities in the observability pipeline and a major simplification to how "pipelines" are configured. Sensu Go 6.5.0 introduces a new first-class `Pipeline` resource for defining logical pipeline workflows composed of filters + mutators + handlers. We’re also introducing new streaming handler types: a TCPStreamHandler with TLS support and a SumoLogicMetricsHandler for seamless integration with the Sumo Logic Continuous Intelligence platform. Enhancements in the web UI include a completely overhauled configuration management system (with new views for the Checks, Filters, Handlers, and Mutators pages) and behind-the-scenes improvements that pave the way for even more new configuration management capabilities in future releases. Read the full release notes below for all the details!
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.5.0.
 
@@ -105,7 +129,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.5.0.
 - ([Commercial feature][229]) In the web UI, you can [execute individual checks on demand][250] either according to existing subscriptions or on specific agents by adding and removing subscriptions without making changes to the saved check subscriptions.
 - ([Commercial feature][229]) Added Prometheus metrics for TCP stream handlers:
     - sensu_go_tcp_stream_handler_events: Total number of events handled by the TCP stream handler
-    - sensu_go_tcp_stream_handler_errors: The total number of errors produced by the TCP stream handler
+    - sensu_go_tcp_stream_handler_errors: Total number of errors produced by the TCP stream handler
     - sensu_go_tcp_stream_handler_latency: Distribution of handler latencies, in milliseconds, for the TCP stream handler
     - sensu_go_tcp_stream_handler_connection_acquisition_latency: Distribution of connection acquisition latencies (how long it takes to acquire a connection from the connection pool), in milliseconds, within the TCP stream handler
 - New [pipelines][233] resource allows you to specify event filters, mutators, and handlers in a single workflow instead of listing filters and mutators in handler definitions. You can reference pipelines in your check definitions. The [`/pipelines` API endpoint][234] provides HTTP access for retrieving pipeline data and configuring pipelines, and you can use [sensuctl][235] to manage pipelines. [Upgrade your Sensu agents][1] to Sensu Go 6.5.0 to use pipelines resources.

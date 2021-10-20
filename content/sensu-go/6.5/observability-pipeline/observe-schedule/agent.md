@@ -1741,12 +1741,13 @@ sudo touch /etc/sysconfig/sensu-agent
      {{< /language-toggle >}}
 
 2. Make sure the environment variable is named correctly.
-All environment variables controlling Sensu configuration begin with `SENSU_`.
+All environment variables that control Sensu agent configuration begin with `SENSU_`.
 
      To rename a configuration flag you wish to specify as an environment variable, prepend `SENSU_`, convert dashes to underscores, and capitalize all letters.
      For example, the environment variable for the flag `api-host` is `SENSU_API_HOST`.
 
-     For a custom test variable, the environment variable name might be `SENSU_TEST_VAR`.
+     For a custom environment variable, you do not have to prepend `SENSU`.
+     For example, `TEST_VAR_1` is a valid custom environment variable name.
 
 3. Add the environment variable to the environment file (`/etc/default/sensu-agent` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-agent` for RHEL/CentOS systems).
 
@@ -1785,7 +1786,7 @@ They are listed in the [configuration flag description tables](#general-configur
 
 #### Format for label and annotation environment variables
 
-To use labels and annotations as environment variables in your check and plugin configurations, you must use a specific format when you create the `SENSU_LABELS` and `SENSU_ANNOTATIONS` environment variables.
+To use labels and annotations as environment variables in your check and plugin configurations, you must use a specific format when you create the environment variables.
 
 For example, to create the labels `"region": "us-east-1"` and `"type": "website"` as an environment variable:
 
@@ -1820,7 +1821,56 @@ echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.
 Any environment variables you create in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS) will be available to check and hook commands executed by the Sensu agent.
 This includes your checks and plugins.
 
-For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
+For example, if you create a custom environment variable `TEST_VARIABLE` in your sensu-agent file, it will be available to use in your check configurations as `$TEST_VARIABLE`.
+The following check will print the `TEST_VARIABLE` value set in your sensu-agent file in `/tmp/test.txt` if the first command (`check-cpu-usage -w 75 -c 90`) is executed successfully:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: check_cpu
+  namespace: default
+spec:
+  command: check-cpu-usage -w 75 -c 90 && echo $TEST_VARIABLE >> ./tmp/test.txt
+  handlers:
+  - slack
+  interval: 10
+  publish: true
+  subscriptions:
+  - system
+  runtime_assets:
+  - check-cpu-usage
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check_cpu",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "check-cpu-usage -w 75 -c 90 && echo $TEST_VARIABLE >> ./tmp/test.txt",
+    "handlers": [
+      "slack"
+    ],
+    "interval": 10,
+    "publish": true,
+    "subscriptions": [
+      "system"
+    ],
+    "runtime_assets": [
+      "check-cpu-usage"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 #### Use environment variables to specify an HTTP proxy for agent use
 

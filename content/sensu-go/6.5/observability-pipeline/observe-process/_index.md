@@ -26,7 +26,7 @@ For example, your pipeline or handler might route incidents to a specific Slack 
 
 ## Pipelines
 
-Pipelines are Sensu resources composed of observation event processing workflows made up of filters, mutators, and handlers.
+[Pipelines][14] are Sensu resources composed of observation event processing workflows made up of filters, mutators, and handlers.
 Instead of specifying filters and mutators in handler definitions, you can specify all three in a single pipeline workflow.
 
 This example shows a pipeline resource definition that includes an event filter, a mutator, and a handler:
@@ -101,7 +101,7 @@ All the observability events that the check produces will be processed according
 
 ## Handlers
 
-Handlers are actions the Sensu backend executes on events.
+[Handlers][1] are actions the Sensu backend executes on events.
 Sensu also checks your handlers for the event filters and mutators to apply in the [filter][7] and [transform][8] stages.
 
 A few different types of handlers are available in Sensu.
