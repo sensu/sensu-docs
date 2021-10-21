@@ -25,22 +25,22 @@ When executing checks that include a `proxy_entity_name` or `proxy_requests` att
 
 In this section, you'll monitor the status of [sensu.io](https://sensu.io) by configuring a check with a **proxy entity name** so that Sensu creates an entity that represents the site and reports the status of the site under this entity.
 
-### Register dynamic runtime assets
+### Register dynamic runtime asset
 
 To power the check, you'll use the [http-checks][16] dynamic runtime asset.
 This community-tier asset includes `http-check`, the http status check command that [your check][15] will rely on.
 
-Use [`sensuctl asset add`][21] to register the http-checks dynamic runtime asset, `nixwiz/http-checks`:
+Use [`sensuctl asset add`][21] to register the http-checks dynamic runtime asset, `sensu/http-checks`:
 
 {{< code shell >}}
-sensuctl asset add nixwiz/http-checks:0.4.0 -r http-checks
+sensuctl asset add sensu/http-checks:0.4.0 -r http-checks
 {{< /code >}}
 
 The response will indicate that the asset was added:
 
 {{< code shell >}}
-fetching bonsai asset: nixwiz/http-checks:0.4.0
-added asset: nixwiz/http-checks:0.4.0
+fetching bonsai asset: sensu/http-checks:0.4.0
+added asset: sensu/http-checks:0.4.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
@@ -62,12 +62,12 @@ The response should list the `http-checks` dynamic runtime asset:
 {{< code shell >}}
      Name                                       URL                                    Hash    
 ────────────── ───────────────────────────────────────────────────────────────────── ──────────
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_windows_amd64.tar.gz   52ae075  
   http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_darwin_amd64.tar.gz    72d0f15  
   http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_armv7.tar.gz     ef18587  
   http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_arm64.tar.gz     3504ddf  
   http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_386.tar.gz       60b8883  
-  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_amd64.tar.gz     1db73a8  
-  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_windows_amd64.tar.gz   52ae075  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_amd64.tar.gz     1db73a8 
 {{< /code >}}
 
 {{% notice note %}}
@@ -155,7 +155,7 @@ The response should list `check-sensu-site`:
 {{< code shell >}}
         Name                      Command                Interval   Cron   Timeout   TTL   Subscriptions   Handlers     Assets      Hooks   Publish?   Stdin?   Metric Format   Metric Handlers  
 ─────────────────── ─────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ───────────── ─────── ────────── ──────── ─────────────── ──────────────────
-  check-sensu-site   http-check --url https://sensu.io         60                0     0   proxy                      http-checks           true       false                                     
+  check-sensu-site   http-check --url https://sensu.io         60                0     0   proxy                      http-checks           true       false                                      
 {{< /code >}}
 
 ### Add the subscription
@@ -187,8 +187,8 @@ The response should list the `sensu-site` proxy entity:
 {{< code shell >}}
        ID        Class    OS           Subscriptions                   Last Seen            
 ─────────────── ─────── ─────── ─────────────────────────── ────────────────────────────────
-  sensu-centos   agent   linux   proxy,entity:sensu-centos   2021-10-04 18:07:55 +0000 UTC  
-  sensu-site     proxy           entity:sensu-site           N/A                            
+  sensu-centos   agent   linux   proxy,entity:sensu-centos   2021-10-21 19:20:04 +0000 UTC  
+  sensu-site     proxy           entity:sensu-site           N/A                          
 {{< /code >}}
 
 Then, use sensuctl to confirm that Sensu is monitoring `sensu-site` with the `check-sensu-site` check:
@@ -207,7 +207,7 @@ Output:    http-check OK: HTTP Status 200 for https://sensu.io
 Status:    0
 History:   0
 Silenced:  false
-Timestamp: 2021-10-04 18:07:57 +0000 UTC
+Timestamp: 2021-10-21 19:20:06 +0000 UTC
 UUID:      xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 {{< /code >}}
 
@@ -217,7 +217,7 @@ You can also view the new proxy entity in your [Sensu web UI][10].
 
 Suppose that instead of monitoring just sensu.io, you want to monitor multiple sites, like docs.sensu.io, packagecloud.io, and github.com.
 In this section, you'll use the [`proxy_requests` check attribute][3] along with [entity labels][11] and [token substitution][12] to monitor three sites with the same check.
-Before you start, [register the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets][13] if you haven't already.
+Before you start, [register the `sensu/http-checks` dynamic runtime asset][13] if you haven't already.
 
 ### Create proxy entities
 
@@ -357,9 +357,9 @@ The response should list the new `sensu-docs`, `packagecloud-site`, and `github-
 ──────────────────── ─────── ─────── ─────────────────────────── ────────────────────────────────
   github-site         proxy                                       N/A                            
   packagecloud-site   proxy                                       N/A                            
-  sensu-centos        agent   linux   proxy,entity:sensu-centos   2021-10-04 18:10:15 +0000 UTC  
+  sensu-centos        agent   linux   proxy,entity:sensu-centos   2021-10-21 19:23:04 +0000 UTC  
   sensu-docs          proxy                                       N/A                            
-  sensu-site          proxy           entity:sensu-site           N/A                            
+  sensu-site          proxy           entity:sensu-site           N/A                             
 {{< /code >}}
 
 ### Create a reusable HTTP check
@@ -451,7 +451,7 @@ The response should include the `check-http` check:
         Name                      Command                 Interval   Cron   Timeout   TTL   Subscriptions   Handlers     Assets      Hooks   Publish?   Stdin?   Metric Format   Metric Handlers  
 ─────────────────── ──────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ───────────── ─────── ────────── ──────── ─────────────── ──────────────────
   check-http         http-check --url {{ .labels.url }}         60                0     0   proxy                      http-checks           true       false                                     
-  check-sensu-site   http-check --url https://sensu.io          60                0     0   proxy                      http-checks           true       false                                  
+  check-sensu-site   http-check --url https://sensu.io          60                0     0   proxy                      http-checks           true       false                                      
 {{< /code >}}
 
 {{% notice protip %}}
@@ -461,7 +461,7 @@ For more information about round robin checks, read the [checks reference](../..
 
 ### Validate the check
 
-Before you validate the check, make sure that you've [registered the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets][13] and [added the `proxy` subscription to a Sensu agent][14].
+Before you validate the check, make sure that you've [registered the `sensu/http-checks` dynamic runtime asset][13] and [added the `proxy` subscription to a Sensu agent][14].
 
 Use sensuctl to confirm that Sensu is monitoring docs.sensu.io, packagecloud.io, and github.com with the `check-http`, returning a status of `0` (OK):
 
@@ -474,11 +474,14 @@ The response should list check status data for the `sensu-docs`, `packagecloud-s
 {{< code shell >}}
        Entity              Check                                         Output                                   Status   Silenced             Timestamp                             UUID                  
 ──────────────────── ────────────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
-  github-site         check-http         http-check OK: HTTP Status 200 for https://github.com                         0   false      2021-10-04 18:16:04 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
-  packagecloud-site   check-http         http-check OK: HTTP Status 200 for https://packagecloud.io                    0   false      2021-10-04 18:16:04 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
-  sensu-centos        keepalive          Keepalive last sent from sensu-centos at 2021-10-04 18:16:35 +0000 UTC        0   false      2021-10-04 18:16:35 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
-  sensu-docs          check-http         http-check OK: HTTP Status 200 for https://docs.sensu.io                      0   false      2021-10-04 18:16:03 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
-  sensu-site          check-sensu-site   http-check OK: HTTP Status 200 for https://sensu.io                           0   false      2021-10-04 18:15:56 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
+  github-site         check-http         http-check OK: HTTP Status 200 for https://github.com                         0   false      2021-10-21 19:27:04 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
+                                                                                                                                                                                                            
+  packagecloud-site   check-http         http-check OK: HTTP Status 200 for https://packagecloud.io                    0   false      2021-10-21 19:27:04 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
+                                                                                                                                                                                                            
+  sensu-centos        keepalive          Keepalive last sent from sensu-centos at 2021-10-21 19:27:44 +0000 UTC        0   false      2021-10-21 19:27:44 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
+  sensu-docs          check-http         http-check OK: HTTP Status 200 for https://docs.sensu.io                      0   false      2021-10-21 19:27:03 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
+                                                                                                                                                                                                            
+  sensu-site          check-sensu-site   http-check OK: HTTP Status 200 for https://sensu.io                           0   false      2021-10-21 19:27:05 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
 {{< /code >}}
 
 ## Next steps
@@ -508,7 +511,7 @@ Now that you know how to run a proxy check to verify the status of a website and
 [13]: #register-dynamic-runtime-assets
 [14]: #add-the-subscription
 [15]: #create-the-check
-[16]: https://bonsai.sensu.io/assets/nixwiz/http-checks
+[16]: https://bonsai.sensu.io/assets/sensu/http-checks
 [18]: ../../observe-schedule/checks#round-robin-checks
 [19]: ../../../operations/deploy-sensu/install-sensu/
 [20]: ../../observe-schedule/agent#restart-the-service
