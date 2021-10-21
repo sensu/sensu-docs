@@ -246,7 +246,7 @@ api_version: authentication/v2
 
 metadata     | 
 -------------|------
-description  | Top-level map that contains the AD definition `name`. See the [metadata attributes reference][23] for details.
+description  | Top-level map that contains the AD definition `name`. Review the [metadata attributes reference][23] for details.
 required     | true
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -585,7 +585,7 @@ client_key_file: /path/to/ssl/key.pem
 
 | binding    |      |
 -------------|------
-description  | The AD account that performs user and group lookups. If your sever supports anonymous binding, you can omit the `user_dn` or `password` attributes to query the directory without credentials. To use anonymous binding with AD, the `ANONYMOUS LOGON` object requires read permissions for users and groups.
+description  | The AD account that performs user and group lookups. If your server supports anonymous binding, you can omit the `user_dn` or `password` attributes to query the directory without credentials. To use anonymous binding with AD, the `ANONYMOUS LOGON` object requires read permissions for users and groups.
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
@@ -606,7 +606,7 @@ binding:
 
 | group_search |    |
 -------------|------
-description  | Search configuration for groups. See the [group search attributes][47] for more information. Remove the `group_search` object from your configuration to use the `memberOf` attribute instead.
+description  | Search configuration for groups. Review the [group search attributes][47] for more information. Remove the `group_search` object from your configuration to use the `memberOf` attribute instead.
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
@@ -631,7 +631,7 @@ group_search:
 
 | user_search |     |
 -------------|------
-description  | Search configuration for users. See the [user search attributes][48] for more information.
+description  | Search configuration for users. Review the [user search attributes][48] for more information.
 required     | true
 type         | Map
 example      | {{< language-toggle >}}
@@ -692,7 +692,7 @@ include_nested_groups: true
 
 | user_dn    |      |
 -------------|------
-description  | The AD account that performs user and group lookups. We recommend using a read-only account. Use the distinguished name (DN) format, such as `cn=binder,cn=users,dc=domain,dc=tld`. If your sever supports anonymous binding, you can omit this attribute to query the directory without credentials.
+description  | The AD account that performs user and group lookups. We recommend using a read-only account. Use the distinguished name (DN) format, such as `cn=binder,cn=users,dc=domain,dc=tld`. If your server supports anonymous binding, you can omit this attribute to query the directory without credentials.
 required     | false
 type         | String
 example      | {{< language-toggle >}}
@@ -708,7 +708,7 @@ user_dn: cn=binder,cn=users,dc=acme,dc=org
 
 | password   |      |
 -------------|------
-description  | Password for the `user_dn` account. If your sever supports anonymous binding, you can omit this attribute to query the directory without credentials.
+description  | Password for the `user_dn` account. If your server supports anonymous binding, you can omit this attribute to query the directory without credentials.
 required     | false
 type         | String
 example      | {{< language-toggle >}}

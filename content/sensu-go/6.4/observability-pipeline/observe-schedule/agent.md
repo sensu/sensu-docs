@@ -24,7 +24,7 @@ The Sensu agent is available for Linux, macOS, and Windows.
 For Windows operating systems, the Sensu agent uses `cmd.exe` for the execution environment.
 For all other operating systems, the Sensu agent uses the Bourne shell (sh).
 
-See the [installation guide][1] to install the agent.
+Read the [installation guide][1] to install the agent.
 
 ## Agent authentication
 
@@ -106,7 +106,7 @@ Read the [subscriptions reference][28] for more information.
 Sensu proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed (such a network switch).
 The [Sensu backend][2] stores proxy entity definitions (unlike agent entities, which the agent stores).
 When the backend requests a check that includes a [`proxy_entity_name`][32], the agent includes the provided entity information in the observation data in events in place of the agent entity data.
-See the [entity reference][3] and [Monitor external resources][33] for more information about monitoring proxy entities.
+read the [entity reference][3] and [Monitor external resources][33] for more information about monitoring proxy entities.
 
 ## Create observability events using the agent API
 
@@ -167,7 +167,7 @@ This creates what's commonly referred to as a ["dead man's switch"][20].
 
 With check TTLs, Sensu can set an expectation that a Sensu agent will publish additional events for a check within the period of time specified by the TTL attribute.
 If a Sensu agent fails to publish an event before the check TTL expires, the Sensu backend creates an event with a status of `1` (warning) to indicate the expected event was not received.
-For more information about check TTLs, see the the [check reference][44].
+For more information about check TTLs, read the [checks reference][44].
 
 You can use the Sensu agent API to enable tasks that run outside of Sensu's check scheduling to emit events.
 Using the check TTL attribute, these events create a dead man's switch: if the task fails for any reason, the lack of an "all clear" event from the task will notify operators of a silent failure (which might otherwise be missed).
@@ -286,7 +286,7 @@ The Sensu StatsD listener accepts messages formatted according to the StatsD lin
 <metricname>:<value>|<type>
 {{< /code >}}
 
-For more information, see the [StatsD documentation][21].
+For more information, read the [StatsD documentation][21].
 
 ### Configure the StatsD listener
 
@@ -419,7 +419,7 @@ example      | {{< code json >}}{
 client       | 
 -------------|------
 description  | Name of the Sensu entity associated with the event. Use this attribute to tie the event to a proxy entity. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `client` attribute. {{% notice note %}}
-**NOTE**: The `client` attribute is deprecated in favor of the `source` attribute (see above).
+**NOTE**: The `client` attribute is deprecated in favor of the `source` attribute.
 {{% /notice %}}
 required     | false
 default      | The agent entity that receives the event data.
@@ -453,7 +453,7 @@ description  | Command executed to produce the event. Use the `command` attribut
 required     | false
 type         | String
 example      | {{< code json >}}{
-  "command": "check-http.rb -u https://sensuapp.org"
+  "command": "http-check --url https://sensu.io"
 }{{< /code >}}
 
 interval     | 
@@ -489,8 +489,8 @@ The value you specify for `keepalive-warning-timeout` must be lower than the val
 {{% notice note %}}
 **NOTE**: If you set the [deregister flag](#ephemeral-agent-configuration-flags) to `true`, when a Sensu agent process stops, the Sensu backend will deregister the corresponding entity.
 Deregistration prevents and clears alerts for failing keepalives &mdash; the backend does not distinguish between intentional shutdown and failure.
-As a result, if you set the deregister flag to `true` and an agent process stops for any reason, you will not see alerts for keepalive events in the web UI.
-If you want to see alerts for failing keepalives, set the [deregister flag](#ephemeral-agent-configuration-flags) to `false`.
+As a result, if you set the deregister flag to `true` and an agent process stops for any reason, you will not receive alerts for keepalive events in the web UI.
+If you want to receive alerts for failing keepalives, set the [deregister flag](#ephemeral-agent-configuration-flags) to `false`.
 {{% /notice %}}
 
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
@@ -584,7 +584,7 @@ To start the agent with [configuration flags][24]:
 sensu-agent start --subscriptions disk-checks --log-level debug
 {{< /code >}}
 
-To see available configuration flags and defaults:
+To view available configuration flags and defaults:
 
 {{< code shell >}}
 sensu-agent start --help
@@ -665,7 +665,6 @@ sudo service sensu-agent restart
 **Windows**
 
 {{< code text >}}
-sc.exe stop SensuAgent
 sc.exe start SensuAgent
 {{< /code >}}
 
@@ -705,7 +704,7 @@ The service is configured to start automatically on boot by default.
 
 ### Get service status
 
-To see the status of the agent service using a service manager:
+To view the status of the agent service using a service manager:
 
 {{< platformBlock "Linux" >}}
 
@@ -759,13 +758,13 @@ sensu-agent service uninstall
 
 The `sensu-agent` tool provides general and command-specific help flags.
 
-To see sensu-agent commands, run:
+To view sensu-agent commands, run:
 
 {{< code shell >}}
 sensu-agent help
 {{< /code >}}
 
-To see options for a specific command (in this case, sensu-agent start), run: 
+To list options for a specific command (in this case, sensu-agent start), run: 
 
 {{< code shell >}}
 sensu-agent start --help
@@ -826,14 +825,14 @@ The agent loads configuration upon startup, so you must restart the agent for an
 
 Specify the agent configuration with either a `.yml` file or `sensu-agent start` command line flags.
 Configuration via command line flags overrides attributes specified in a configuration file.
-See the [Example Sensu agent configuration file][5] for flags and defaults.
+Review the [example Sensu agent configuration file][5] for flags and defaults.
 
 ### Certificate bundles or chains
 
 The Sensu agent supports all types of certificate bundles (or chains) as long as the agent (or leaf) certificate is the *first* certificate in the bundle.
 This is because the Go standard library assumes that the first certificate listed in the PEM file is the leaf certificate &mdash; the certificate that the program will use to show its own identity.
 
-If you send the leaf certificate alone instead of sending the whole bundle with the leaf certificate first, you will see a `certificate not signed by trusted authority` error.
+If you send the leaf certificate alone instead of sending the whole bundle with the leaf certificate first, you will receive a `certificate not signed by trusted authority` error.
 You must present the whole chain to the remote so it can determine whether it trusts the presented certificate through the chain.
 
 ### Configuration summary
@@ -916,7 +915,7 @@ Flags:
 ### Windows
 
 You can specify the agent configuration using a `.yml` file.
-See the [example agent configuration file][5] (also provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example`; default `C:\ProgramData\sensu\config\agent.yml.example`).
+Review the [example agent configuration file][5] (also provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example`; default `C:\ProgramData\sensu\config\agent.yml.example`).
 
 {{< platformBlockClose >}}
 
@@ -1240,7 +1239,7 @@ events-rate-limit: 20.0{{< /code >}}
 | deregister  |      |
 --------------|------
 description   | `true` if a deregistration event should be created upon Sensu agent process stop. Otherwise, `false`.<br>{{% notice note %}}
-**NOTE**: To see alerts for failing [keepalives](#keepalive-monitoring), set to `false`.
+**NOTE**: To receive alerts for failing [keepalives](#keepalive-monitoring), set to `false`.
 {{% /notice %}}
 type          | Boolean
 default       | `false`
@@ -1688,22 +1687,23 @@ Here's how.
      {{< language-toggle >}}
      
 {{< code shell "Ubuntu/Debian" >}}
-$ sudo touch /etc/default/sensu-agent
+sudo touch /etc/default/sensu-agent
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ sudo touch /etc/sysconfig/sensu-agent
+sudo touch /etc/sysconfig/sensu-agent
 {{< /code >}}
      
      {{< /language-toggle >}}
 
 2. Make sure the environment variable is named correctly.
-All environment variables controlling Sensu configuration begin with `SENSU_`.
+All environment variables that control Sensu agent configuration begin with `SENSU_`.
 
      To rename a configuration flag you wish to specify as an environment variable, prepend `SENSU_`, convert dashes to underscores, and capitalize all letters.
      For example, the environment variable for the flag `api-host` is `SENSU_API_HOST`.
 
-     For a custom test variable, the environment variable name might be `SENSU_TEST_VAR`.
+     For a custom environment variable, you do not have to prepend `SENSU`.
+     For example, `TEST_VAR_1` is a valid custom environment variable name.
 
 3. Add the environment variable to the environment file (`/etc/default/sensu-agent` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-agent` for RHEL/CentOS systems).
 
@@ -1712,11 +1712,11 @@ All environment variables controlling Sensu configuration begin with `SENSU_`.
      {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/default/sensu-agent
+echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/default/sensu-agent
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/sysconfig/sensu-agent
+echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /code >}}
 
      {{< /language-toggle >}}
@@ -1726,11 +1726,11 @@ $ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/sysconfig/sensu-agent
      {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ sudo systemctl restart sensu-agent
+sudo systemctl restart sensu-agent
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ sudo systemctl restart sensu-agent
+sudo systemctl restart sensu-agent
 {{< /code >}}
 
      {{< /language-toggle >}}
@@ -1740,20 +1740,20 @@ $ sudo systemctl restart sensu-agent
 They are listed in the [configuration flag description tables](#general-configuration-flags).
 {{% /notice %}}
 
-#### Format for label and annotation environment variables
+### Format for label and annotation environment variables
 
-To use labels and annotations as environment variables in your check and plugin configurations, you must use a specific format when you create the `SENSU_LABELS` and `SENSU_ANNOTATIONS` environment variables.
+To use labels and annotations as environment variables in your check and plugin configurations, you must use a specific format when you create the environment variables.
 
 For example, to create the labels `"region": "us-east-1"` and `"type": "website"` as an environment variable:
 
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-agent
+echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-agent
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-agent
+echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -1763,23 +1763,68 @@ To create the annotations `"maintainer": "Team A"` and `"webhook-url": "https://
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-agent
+echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-agent
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-agent
+echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /code >}}
 
 {{< /language-toggle >}}
 
-#### Use environment variables with the Sensu agent
+### Use environment variables with the Sensu agent
 
 Any environment variables you create in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS) will be available to check and hook commands executed by the Sensu agent.
 This includes your checks and plugins.
 
-For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
+For example, if you create a custom environment variable `TEST_VARIABLE` in your sensu-agent file, it will be available to use in your check and hook configurations as `$TEST_VARIABLE`.
 
-#### Use environment variables to specify an HTTP proxy for agent use
+The following check example demonstrates how to use a `TEST_GITHUB_TOKEN` environment variable (set to the token value in the sensu-agent file) in the check command to run a script that pings the GitHub API:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: ping-github-api
+  namespace: default
+spec:
+  command: ping-github-api.sh $TEST_GITHUB_TOKEN
+  handlers:
+  - slack
+  interval: 10
+  publish: true
+  subscriptions:
+  - system
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "ping-github-api",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "ping-github-api.sh $TEST_GITHUB_TOKEN",
+    "handlers": [
+      "slack"
+    ],
+    "interval": 10,
+    "publish": true,
+    "subscriptions": [
+      "system"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Use environment variables to specify an HTTP proxy for agent use
 
 If an HTTP proxy is required to access the internet in your compute environment, you may need to configure the Sensu agent to successfully download dynamic runtime assets or execute commands that depend on internet access.
 
@@ -1840,11 +1885,11 @@ To configure an environment variable for the desired agent log level:
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_LOG_LEVEL=debug' | sudo tee -a /etc/default/sensu-agent
+echo 'SENSU_LOG_LEVEL=debug' | sudo tee -a /etc/default/sensu-agent
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_LOG_LEVEL=debug' | sudo tee -a /etc/sysconfig/sensu-agent
+echo 'SENSU_LOG_LEVEL=debug' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /code >}}
 
 {{< /language-toggle >}}

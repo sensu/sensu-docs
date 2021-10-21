@@ -123,7 +123,7 @@ To list all secrets:
 sensuctl secret list
 {{< /code >}}
 
-To see a secret's status:
+To review a secret's status:
 
 {{< code shell >}}
 sensuctl secret info SECRET_NAME
@@ -237,7 +237,7 @@ name: sensu-ansible-token
 
 namespace    |      |
 -------------|------
-description  | [Sensu RBAC namespace][9] that the secret belongs to.
+description  | [Sensu RBAC namespace][9] that the secret belongs to.
 required     | true
 type         | String
 example      | {{< language-toggle >}}

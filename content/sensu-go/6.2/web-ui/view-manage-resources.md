@@ -98,7 +98,7 @@ The top row of each page includes options for filtering and sorting the listed r
 
 {{< figure src="/images/configuration-pages.gif" alt="Configuration resource pages in the web UI" link="/images/configuration-pages.gif" target="_blank" >}}
 
-Click a resource name to see detailed information and edit or delete it.
+Click a resource name to view detailed information and edit or delete it.
 
 On the Checks page, click the check boxes to select one or more checks to execute, silence, unpublish, or delete them.
 You can also execute individual checks on demand from their check detail pages to test your observability pipeline:

@@ -51,7 +51,7 @@ Otherwise, skip this step.
 You may notice some inconsistencies in your entity list until the cluster finishes upgrading.
 Despite this, your cluster will continue to publish standard check requests and process events.
 
-   If you run the upgrade command more than once, it will not harm the cluster &mdash; you'll just see a response that the upgrade command has already been run.
+   If you run the upgrade command more than once, it will not harm the cluster &mdash; you'll just receive a response that the upgrade command has already been run.
 
    Some minor versions do not involve database-specific changes, and the `sensu-backend upgrade` tool will report that nothing was upgraded.
 Check the [release notes][16] to confirm whether a version has database-specific changes that require a backend upgrade.
@@ -80,7 +80,7 @@ As a result, users whose configuration predates Sensu Go 6.0 may have lingering 
 
 Upgrading to Sensu Go 6.2.0 requires sensu-backend to upgrade check configurations.
 If you have check configurations that reference non-existent namespaces, the 6.2.0 upgrade operation will fail when it encounters one of these check configurations.
-You will see an error message like this:
+You will receive an error message like this:
 
 {{< code shell >}}
 {"component":"store-providers","error":"the namespace test does not exist","level":"error","msg":"error enabling round robin scheduling,backend restart required","time":"2020-12-27T08:41:59Z"}
@@ -156,7 +156,7 @@ As of Sensu Go 5.16.0, Sensu's free entity limit is 100 entities.
 All [commercial features][6] are available for free in the packaged Sensu Go distribution for up to 100 entities.
 
 When you upgrade to 5.16.0, if your existing unlicensed instance has more than 100 entities, Sensu will continue to monitor those entities.
-However, if you try to create any new entities via the HTTP API or sensuctl, you will see the following message:
+However, if you try to create any new entities via the HTTP API or sensuctl, you will receive the following message:
 
 `This functionality requires a valid Sensu Go license with a sufficient entity limit. To get a valid license file, arrange a trial, or increase your entity limit, contact Sales.`
 
@@ -166,7 +166,7 @@ Connections from new agents will fail and result in a log message like this:
 {"component":"agent","error":"handshake failed with status 402","level":"error","msg":"reconnection attempt failed","time":"2019-11-20T05:49:24-07:00"}
 {{< /code >}}
 
-In the web UI, you will see the following message when you reach the 100-entity limit:
+In the web UI, you will receive the following message when you reach the 100-entity limit:
 
 ![Sensu web UI warning when the entity limit is reached][3]
 
@@ -180,7 +180,7 @@ Read [our blog announcement][5] for more information about our usage policy.
 {{% /notice %}}
 
 Due to updates to etcd serialization, you must shut down Sensu clusters with multiple backend nodes while upgrading from Sensu Go 5.7.0 or earlier to 5.8.0 or later.
-See the [backend reference][2] for more information about stopping and starting backends.
+Read the [backend reference][2] for more information about stopping and starting backends.
 
 ## Upgrade Sensu backend binaries to 5.1.0
 

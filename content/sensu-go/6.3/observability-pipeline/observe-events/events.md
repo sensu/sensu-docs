@@ -50,7 +50,7 @@ metadata:
 spec:
   check:
     check_hooks: null
-    command: check-cpu.rb -w 75 -c 90
+    command: check-cpu-usage -w 75 -c 90
     duration: 5.058211427
     env_vars: null
     executed: 1617050501
@@ -85,8 +85,7 @@ spec:
     publish: true
     round_robin: false
     runtime_assets:
-    - cpu-checks-plugins
-    - sensu-ruby-runtime
+    - check-cpu-usage
     scheduler: memory
     secrets: null
     state: passing
@@ -164,7 +163,7 @@ spec:
   "spec": {
     "check": {
       "check_hooks": null,
-      "command": "check-cpu.rb -w 75 -c 90",
+      "command": "check-cpu-usage -w 75 -c 90",
       "duration": 5.058211427,
       "env_vars": null,
       "executed": 1617050501,
@@ -210,8 +209,7 @@ spec:
       "publish": true,
       "round_robin": false,
       "runtime_assets": [
-        "cpu-checks-plugins",
-        "sensu-ruby-runtime"
+        "check-cpu-usage"
       ],
       "scheduler": "memory",
       "secrets": null,
@@ -310,15 +308,14 @@ This is the format that events are in when Sensu sends them to handlers:
 {{< code json >}}
 {
   "check": {
-    "command": "check-cpu.rb -w 75 -c 90",
+    "command": "check-cpu-usage -w 75 -c 90",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
     "publish": true,
     "runtime_assets": [
-      "cpu-checks-plugins",
-      "sensu-ruby-runtime"
+      "check-cpu-usage"
     ],
     "subscriptions": [
       "system"
@@ -932,7 +929,7 @@ You can use the `--skip-confirm` flag to skip the confirmation step:
 sensuctl event delete entity-name check-name --skip-confirm
 {{< /code >}}
 
-You should see a confirmation message upon success:
+You should receive a confirmation message upon success:
 
 {{< code shell >}}
 Deleted
@@ -947,7 +944,7 @@ Events resolved by sensuctl include the output message `Resolved manually by sen
 sensuctl event resolve entity-name check-name
 {{< /code >}}
 
-You should see a confirmation message upon success:
+You should receive a confirmation message upon success:
 
 {{< code shell >}}
 Resolved
@@ -1052,7 +1049,7 @@ api_version: core/v2
 
 metadata     | 
 -------------|------
-description  | Top-level scope that contains the event `namespace` and `created_by` field. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes][29] for details.
+description  | Top-level scope that contains the event `namespace` and `created_by` field. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  Review the [metadata attributes][29] for details.
 required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -1622,7 +1619,7 @@ check:
 
 |metrics     |      |
 -------------|------
-description  | Metrics collected by the entity in Sensu metric format. See the [metrics attributes][30].
+description  | Metrics collected by the entity in Sensu metric format. Review the [metrics attributes][30].
 type         | Map
 required     | false
 example      | {{< language-toggle >}}

@@ -37,15 +37,14 @@ HTTP/1.1 200 OK
 [
   {
     "check": {
-      "command": "check-cpu.rb -w 75 -c 90",
+      "command": "check-cpu-usage -w 75 -c 90",
       "handlers": [],
       "high_flap_threshold": 0,
       "interval": 60,
       "low_flap_threshold": 0,
       "publish": true,
       "runtime_assets": [
-        "cpu-checks-plugins",
-        "sensu-ruby-runtime"
+        "check-cpu-usage"
       ],
       "subscriptions": [
         "system"
@@ -179,15 +178,14 @@ output         | {{< code shell >}}
 [
   {
     "check": {
-      "command": "check-cpu.rb -w 75 -c 90",
+      "command": "check-cpu-usage -w 75 -c 90",
       "handlers": [],
       "high_flap_threshold": 0,
       "interval": 60,
       "low_flap_threshold": 0,
       "publish": true,
       "runtime_assets": [
-        "cpu-checks-plugins",
-        "sensu-ruby-runtime"
+        "check-cpu-usage"
       ],
       "subscriptions": [
         "system"
@@ -406,15 +404,14 @@ HTTP/1.1 200 OK
 [
   {
     "check": {
-      "command": "check-cpu.rb -w 75 -c 90",
+      "command": "check-cpu-usage -w 75 -c 90",
       "handlers": [],
       "high_flap_threshold": 0,
       "interval": 60,
       "low_flap_threshold": 0,
       "publish": true,
       "runtime_assets": [
-        "cpu-checks-plugins",
-        "sensu-ruby-runtime"
+        "check-cpu-usage"
       ],
       "subscriptions": [
         "system"
@@ -677,15 +674,14 @@ output               | {{< code json >}}
 [
   {
     "check": {
-      "command": "check-cpu.rb -w 75 -c 90",
+      "command": "check-cpu-usage -w 75 -c 90",
       "handlers": [],
       "high_flap_threshold": 0,
       "interval": 60,
       "low_flap_threshold": 0,
       "publish": true,
       "runtime_assets": [
-        "cpu-checks-plugins",
-        "sensu-ruby-runtime"
+        "check-cpu-usage"
       ],
       "subscriptions": [
         "system"
@@ -952,15 +948,14 @@ HTTP/1.1 200 OK
 
 {
   "check": {
-    "command": "check-cpu.rb -w 75 -c 90",
+    "command": "check-cpu-usage -w 75 -c 90",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
     "publish": true,
     "runtime_assets": [
-      "cpu-checks-plugins",
-      "sensu-ruby-runtime"
+      "check-cpu-usage"
     ],
     "subscriptions": [
       "system"
@@ -1083,15 +1078,14 @@ response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (
 output               | {{< code json >}}
 {
   "check": {
-    "command": "check-cpu.rb -w 75 -c 90",
+    "command": "check-cpu-usage -w 75 -c 90",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
     "publish": true,
     "runtime_assets": [
-      "cpu-checks-plugins",
-      "sensu-ruby-runtime"
+      "check-cpu-usage"
     ],
     "subscriptions": [
       "system"
@@ -1242,13 +1236,13 @@ HTTP/1.1 201 Created
 The event will use the namespace in the URL by default.
 {{% /notice %}}
 
-You can use sensuctl or the [Sensu web UI][4] to see the event:
+You can use sensuctl or the [Sensu web UI][4] to view the event:
 
 {{< code shell >}}
 sensuctl event list
 {{< /code >}}
 
-You should see the event with the status and output specified in the request:
+The response should list the event with the status and output specified in the request:
 
 {{< code shell >}}
     Entity        Check                   Output                 Status   Silenced             Timestamp            
@@ -1337,13 +1331,13 @@ HTTP/1.1 201 Created
 The event will use the namespace in the URL by default.
 {{% /notice %}}
 
-You can use sensuctl or the [Sensu web UI][4] to see the event:
+You can use sensuctl or the [Sensu web UI][4] to view the event:
 
 {{< code shell >}}
 sensuctl event list
 {{< /code >}}
 
-You should see the event with the status and output specified in the request:
+The response should list the event with the status and output specified in the request:
 
 {{< code shell >}}
     Entity        Check                   Output                 Status   Silenced             Timestamp            
@@ -1377,7 +1371,7 @@ payload         | {{< code shell >}}
   }
 }
 {{< /code >}}
-payload parameters | See the [payload parameters][5] section below.
+payload parameters | Review the [payload parameters][5] section below.
 response codes   | <ul><li>**Success**: 201 (Created)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 #### Payload parameters {#eventsentitycheck-put-parameters}
@@ -1386,10 +1380,10 @@ The `/events/:entity/:check` PUT endpoint requires a request payload that contai
 
 - The `entity` scope contains information about the component of your infrastructure represented by the event.
 At minimum, Sensu requires the `entity` scope to contain the `entity_class` (`agent` or `proxy`) and the entity `name` and `namespace` within a `metadata` scope.
-For more information about entity attributes, see the [entity specification][6].
+For more information about entity attributes, review the [entity specification][6].
 - The `check` scope contains information about the event status and how the event was created.
 At minimum, Sensu requires the `check` scope to contain a `name` within a `metadata` scope and either an `interval` or `cron` attribute.
-For more information about check attributes, see the [check specification][7].
+For more information about check attributes, review the [check specification][7].
 
 **Example request with minimum required event attributes**
 
@@ -1416,7 +1410,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-healt
 
 The minimum required attributes let you create an event using the `/events/:entity/:check` PUT endpoint, but the request can include any attributes defined in the [event specification][8].
 To create useful, actionable events, we recommend adding check attributes such as the event `status` (`0` for OK, `1` for warning, `2` for critical), an `output` message, and one or more event `handlers`.
-For more information about these attributes and their available values, see the [event specification][8].
+For more information about these attributes and their available values, review the [event specification][8].
 
 **Example request with minimum recommended event attributes**
 
@@ -1448,7 +1442,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-healt
 #### Create metrics events
 
 In addition to the `entity` and `check` scopes, Sensu events can include a `metrics` scope that contains metrics in Sensu metric format.
-See the [events reference][9] and for more information about Sensu metric format.
+Read the [events reference][9] and for more information about Sensu metric format.
 
 **Example request including metrics**
 

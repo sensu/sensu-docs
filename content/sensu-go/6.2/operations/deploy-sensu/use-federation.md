@@ -73,8 +73,8 @@ If you don't have existing infrastructure for issuing certificates, read [Genera
 
 This prerequisite extends to configuring the following Sensu backend etcd parameters:
 
-| Backend property             | Note |
-|------------------------------|------|
+| Backend property             | Description |
+|------------------------------|-------------|
 | `etcd-cert-file`             | Path to certificate used for TLS on etcd client/peer communications (for example, `/etc/sensu/tls/backend-1.pem`.  |
 | `etcd-key-file`              | Path to key corresponding with `etcd-cert-file` certificate (for example, `/etc/sensu/tls/backend-1-key.pem`. |
 | `etcd-trusted-ca-file`       | Path to CA certificate chain file (for example, `/etc/sensu/tls/ca.pem`. This CA certificate chain must be usable to validate certificates for all backends in the federation. |
@@ -330,7 +330,7 @@ Subjects:
 ## Register clusters
 
 Clusters must be registered to become visible in the web UI.
-Each registered cluster must have a name and a list of one or more cluster member URLs corresponding to the backend REST API.
+Each registered cluster must have a name and a list of one or more cluster member URLs corresponding to the backend REST API.
 
 {{% notice note %}}
 **NOTE**: Individual cluster resources may list the API URLs for a single stand-alone backend or multiple backends that are members of the same etcd cluster.

@@ -37,7 +37,7 @@ sensu-agent start --log-level debug
 {{< /code >}}
 
 You must restart the service after you change log levels via configuration files or command line arguments.
-For help with restarting a service, see the [agent reference][5] or [backend reference][9].
+For help with restarting a service, read the [agent reference][5] or [backend reference][9].
 
 #### Increment log level verbosity
 
@@ -148,7 +148,7 @@ journalctl _COMM=sensu-backend.service --since yesterday
 #### Windows
 
 The Sensu agent stores service logs to the location specified by the `log-file` configuration flag (default `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log`, `C:\ProgramData\sensu\log\sensu-agent.log` on standard Windows installations).
-For more information about managing the Sensu agent for Windows, see the [agent reference][1].
+For more information about managing the Sensu agent for Windows, read the [agent reference][1].
 You can also view agent events using the Windows Event Viewer, under Windows Logs, as events with source SensuAgent.
 
 If you're running a [binary-only distribution of the Sensu agent for Windows][2], you can follow the service log printed to standard output using this command:
@@ -189,7 +189,7 @@ To prevent connection errors after upgrading to Sensu Go 6.4.0, follow [Generate
 ## Permission issues
 
 The Sensu user and group must own files and folders within `/var/cache/sensu/` and `/var/lib/sensu/`.
-You will see a logged error like those listed here if there is a permission issue with either the sensu-backend or the sensu-agent:
+You will receive a logged error like those listed here if there is a permission issue with either the sensu-backend or the sensu-agent:
 
 {{< code shell >}}
 {"component":"agent","error":"open /var/cache/sensu/sensu-agent/assets.db: permission denied","level":"fatal","msg":"error executing sensu-agent","time":"2019-02-21T22:01:04Z"}
@@ -236,7 +236,7 @@ http://127.0.0.1:3031/events
 
 ### Use a debug handler
 
-It may also be helpful to see the complete event object being passed to your workflows.
+It may also be helpful To review the complete event object being passed to your workflows.
 We recommend using a debug handler like this one to write an event to disk as JSON data:
 
 {{< language-toggle >}}
@@ -351,7 +351,7 @@ Use the information in this section to troubleshoot error messages related to dy
 ### Incorrect asset filter
 
 Dynamic runtime asset filters allow you to scope an asset to a particular operating system or architecture.
-You can see an example in the [asset reference][10].
+For an example, read the [asset reference][10].
 An improperly applied asset filter can prevent the asset from being downloaded by the desired entity and result in error messages both on the agent and the backend illustrating that the command was not found:
 
 **Agent log entry**
@@ -475,7 +475,7 @@ metadata:
 
 {{< /language-toggle >}}
 
-If you see a message like this, review your asset definition &mdash; it means that the entity wasn't able to download the required asset due to asset filter restrictions.
+If you receive a message like this, review your asset definition &mdash; it means that the entity wasn't able to download the required asset due to asset filter restrictions.
 To review the filters for an asset, use the sensuctl `asset info` command with a `--format` flag:
 
 {{< language-toggle >}}
@@ -693,9 +693,9 @@ https://backend03:2379, bc4e39432cbb36d, 3.5.0, 1.0 MB, false, 144, 18619245
 ### Remove and redeploy a cluster
 
 {{% notice protip %}}
-**PRO TIP**: Use [etcd snapshots](https://etcd.io/docs/latest/op-guide/recovery/) to keep a backup so that you can restore your Sensu resources if you have to redeploy your cluster.
-For extra reassurance, take regular etcd snapshots and make regular backups with [sensuctl dump](../../../sensuctl/back-up-recover/) in addition to etcd's running snapshots.
-
+**PRO TIP**: If you are using external etcd, use [etcd snapshots](https://etcd.io/docs/latest/op-guide/recovery/) to keep a backup so that you can restore your Sensu resources if you have to redeploy your cluster.
+For extra reassurance, take regular etcd snapshots and make regular backups with [sensuctl dump](../../../sensuctl/back-up-recover/) in addition to etcd's running snapshots.<br><br>
+If you are using embedded etcd, use [sensuctl dump](../../../sensuctl/back-up-recover/) to make regular backups.<br><br>
 If you wait until cluster nodes are failing, it may not be possible to make a backup.
 For example, in a three-node cluster, if one node fails, you will still be able to make a backup.
 If two nodes fail, the whole cluster will be down and you will not be able to create a snapshot or run sensuctl dump.
@@ -747,7 +747,9 @@ Admin Username: <YOUR_USERNAME>
 Admin Password: <YOUR_PASSWORD>
 {{< /code >}}
 
-7. Follow the [etcd restore process][26] or use [sensuctl create][24] to restore your cluster from a snapshot or backup.
+7. Restore your cluster from a snapshot or backup:
+   - Follow the [etcd restore process][26] (for external etcd).
+   - Use [sensuctl create][24] (for external or embedded etcd).
 
 ## Datastore performance
 
@@ -768,7 +770,7 @@ To maximize Sensu Go performance, we recommend that you:
 
 ### Symptoms of poor performance
 
-At the Sensu backend's default "warn" log level, you may see messages like these from your backend:
+At the Sensu backend's default "warn" log level, you may receive messages like these from your backend:
 
 {{< code json >}}
 {"component":"etcd","level":"warning","msg":"read-only range request \"key:\\\"/sensu.io/handlers/default/keepalive\\\" limit:1 \" with result \"range_response_count:0 size:6\" took too long (169.767546ms) to execute","pkg":"etcdserver","time":"..."}
@@ -776,7 +778,7 @@ At the Sensu backend's default "warn" log level, you may see messages like these
 
 The above message indicates that a database query ("read-only range request") exceeded a 100-millisecond threshold hard-coded into etcd.
 Messages like these are helpful because they can alert you to a trend, but these occasional warnings don't necessarily indicate a problem with Sensu.
-For example, you may see this message if you provision attached storage but do not mount it to the etcd data directory.
+For example, you may receive this message if you provision attached storage but do not mount it to the etcd data directory.
 
 However, a trend of increasingly long-running database transactions will eventually lead to decreased reliability.
 You may experience symptoms of these conditions as inconsistent check execution behavior or configuration updates that are not applied as expected.
@@ -799,9 +801,9 @@ These subsequent "retrying of unary invoker failed" messages indicate failing re
 {"level":"warn","ts":"...","caller":"clientv3/retry_interceptor.go:62","msg":"retrying of unary invoker failed","target":"endpoint://client-6f6bfc7e-cf31-4498-a564-78d6b7b3a44e/localhost:2379","attempt":0,"error":"rpc error: code = Canceled desc = context canceled"}
 {{< /code >}}
 
-On busy systems you may also see output like "message repeated 5 times" indicating that failing requests were retried multiple times.
+On busy systems you may also receive output like "message repeated 5 times" indicating that failing requests were retried multiple times.
 
-In many cases, the backend service detects and attempts to recover from errors like these, so you may see a message like this:
+In many cases, the backend service detects and attempts to recover from errors like these, so you may receive a message like this:
 
 {{< code json >}}
 {"component":"backend","error":"error from keepalived: internal error: etcdserver: request timed out","level":"error","msg":"backend stopped working and is restarting","time":"..."}

@@ -23,7 +23,8 @@ Sensu silencing makes it possible to:
 
 * [Silence all checks on a specific entity][2]
 * [Silence a specific check on a specific entity][3]
-* [Silence all checks on entities with a specific subscription][4]
+* [Silence all checks with a specific subscription][4]
+* [Silence all checks for entities with a specific subscription][9]
 * [Silence a specific check on entities with a specific subscription][5]
 * [Silence a specific check on every entity][6]
 
@@ -90,7 +91,7 @@ spec:
 
 {{< /language-toggle >}}
 
-See the [sensuctl documentation][8] for the supported time formats for the `begin` flag.
+Read the [sensuctl documentation][8] for the supported time formats for the `begin` flag.
 
 ## Validate the silenced entry
 
@@ -129,10 +130,11 @@ Read the [silencing reference][7] for in-depth documentation about silenced entr
 
 
 [1]: ../handlers/
-[2]: ../silencing/#silence-all-checks-on-a-specific-entity
+[2]: ../silencing/#silencing-examples
 [3]: ../silencing/#silence-a-specific-check-on-a-specific-entity
-[4]: ../silencing/#silence-all-checks-on-entities-with-a-specific-subscription
+[4]: ../silencing/#silence-all-checks-with-a-specific-subscription
 [5]: ../silencing/#silence-a-specific-check-on-entities-with-a-specific-subscription
 [6]: ../silencing/#silence-a-specific-check-on-every-entity
 [7]: ../silencing/
 [8]: ../../../sensuctl/create-manage-resources/#time-formats
+[9]: ../silencing/#silence-all-checks-for-entities-with-a-specific-subscription
