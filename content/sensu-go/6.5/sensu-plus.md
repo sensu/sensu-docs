@@ -83,7 +83,7 @@ metadata:
   name: sumologic_http_log_metrics
   namespace: default
 spec:
-  url: "https://https://collectors.sumologic.com/receiver/v1/http/xxxxxxxx"
+  url: "https://collectors.sumologic.com/receiver/v1/http/xxxxxxxx"
   max_connections: 10
   timeout: 10s
 {{< /code >}}
@@ -97,7 +97,7 @@ spec:
     "namespace": "default"
   },
   "spec": {
-    "url": "https://https://collectors.sumologic.com/receiver/v1/http/xxxxxxxx",
+    "url": "https://collectors.sumologic.com/receiver/v1/http/xxxxxxxx",
     "max_connections": 10,
     "timeout": "10s"
   }
