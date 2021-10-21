@@ -1740,7 +1740,7 @@ sudo systemctl restart sensu-agent
 They are listed in the [configuration flag description tables](#general-configuration-flags).
 {{% /notice %}}
 
-#### Format for label and annotation environment variables
+### Format for label and annotation environment variables
 
 To use labels and annotations as environment variables in your check and plugin configurations, you must use a specific format when you create the environment variables.
 
@@ -1772,13 +1772,14 @@ echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.
 
 {{< /language-toggle >}}
 
-#### Use environment variables with the Sensu agent
+### Use environment variables with the Sensu agent
 
 Any environment variables you create in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS) will be available to check and hook commands executed by the Sensu agent.
 This includes your checks and plugins.
 
-For example, if you create a custom environment variable `TEST_VARIABLE` in your sensu-agent file, it will be available to use in your check configurations as `$TEST_VARIABLE`.
-The following check will print the `TEST_VARIABLE` value set in your sensu-agent file in `/tmp/test.txt` if the first command (`check-cpu-usage -w 75 -c 90`) is executed successfully:
+For example, if you create a custom environment variable `TEST_VARIABLE` in your sensu-agent file, it will be available to use in your check and hook configurations as `$TEST_VARIABLE`.
+
+The following check example demonstrates how to use a `TEST_GITHUB_TOKEN` environment variable (set to the token value in the sensu-agent file) in the check command to run a script that pings the GitHub API:
 
 {{< language-toggle >}}
 
@@ -1787,18 +1788,16 @@ The following check will print the `TEST_VARIABLE` value set in your sensu-agent
 type: CheckConfig
 api_version: core/v2
 metadata:
-  name: check_cpu
+  name: ping-github-api
   namespace: default
 spec:
-  command: check-cpu-usage -w 75 -c 90 && echo $TEST_VARIABLE >> ./tmp/test.txt
+  command: ping-github-api.sh $TEST_GITHUB_TOKEN
   handlers:
   - slack
   interval: 10
   publish: true
   subscriptions:
   - system
-  runtime_assets:
-  - check-cpu-usage
 {{< /code >}}
 
 {{< code json >}}
@@ -1806,11 +1805,11 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check_cpu",
+    "name": "ping-github-api",
     "namespace": "default"
   },
   "spec": {
-    "command": "check-cpu-usage -w 75 -c 90 && echo $TEST_VARIABLE >> ./tmp/test.txt",
+    "command": "ping-github-api.sh $TEST_GITHUB_TOKEN",
     "handlers": [
       "slack"
     ],
@@ -1818,9 +1817,6 @@ spec:
     "publish": true,
     "subscriptions": [
       "system"
-    ],
-    "runtime_assets": [
-      "check-cpu-usage"
     ]
   }
 }
@@ -1828,7 +1824,7 @@ spec:
 
 {{< /language-toggle >}}
 
-#### Use environment variables to specify an HTTP proxy for agent use
+### Use environment variables to specify an HTTP proxy for agent use
 
 If an HTTP proxy is required to access the internet in your compute environment, you may need to configure the Sensu agent to successfully download dynamic runtime assets or execute commands that depend on internet access.
 
