@@ -565,7 +565,8 @@ eval: 'return JSON.stringify({"some stuff": "is here"});'
 
 type         | 
 -------------|------ 
-description  | Mutator type. 
+description  | Mutator type.{{% notice note %}}**NOTE**: Make sure to specify the type is `javascript` when you create a JavaScript mutator. If you do not specify the type, Sensu uses `pipe` as the default, expects a command attribute in the mutator definition, and ignores any eval attribute you provide.
+{{% /notice %}}
 required     | false
 type         | String
 default      | `pipe`
