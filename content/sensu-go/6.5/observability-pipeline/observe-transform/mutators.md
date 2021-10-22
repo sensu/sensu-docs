@@ -25,7 +25,7 @@ There are two types of mutators: [pipe][21] and [JavaScript][18].
 
 ## Pipe mutator examples
 
-This example shows a pipe mutator resource definition with the minimum required attributes:
+This example shows a [pipe mutator][21] resource definition with the minimum required attributes:
 
 {{< language-toggle >}}
 
@@ -37,6 +37,7 @@ metadata:
   namespace: default
 spec:
   command: example_mutator.go
+  type: pipe
 {{< /code >}}
 
 {{< code json >}}
@@ -48,7 +49,8 @@ spec:
     "namespace": "default"
   },
   "spec": {
-    "command": "example_mutator.go"
+    "command": "example_mutator.go",
+    "type": "pipe"
   }
 }
 {{< /code >}}
@@ -64,18 +66,17 @@ The following mutator definition uses an imaginary Sensu plugin, `example_mutato
 type: Mutator
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: example-mutator
   namespace: default
 spec:
   command: example_mutator.go
   eval: ""
   env_vars: []
-  runtime_assets: []
+  runtime_assets:
+  - example-mutator-asset
   secrets: null
   timeout: 0
-  type: ""
+  type: pipe
 {{< /code >}}
 
 {{< code json >}}
@@ -84,17 +85,17 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "example-mutator",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "namespace": "default"
   },  
   "spec": {
     "command": "example_mutator.go",
     "timeout": 0,
     "env_vars": [],
-    "runtime_assets": [],
+    "runtime_assets": [
+      "example-mutator-asset"
+    ],
     "secrets": null,
-    "type": "",
+    "type": "pipe",
     "eval": ""
   }
 }
@@ -102,43 +103,12 @@ spec:
 
 {{< /language-toggle >}}
 
-## JavaScript mutator examples
+## JavaScript mutator example
 
-As shown in these examples, JavaScript mutators use the eval attribute instead of command.
+[JavaScript mutators][18] use the eval attribute instead of the command attribute.
 The eval value must be an ECMAScript 5 (JavaScript) expression.
 
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Mutator
-api_version: core/v2
-metadata:
-  created_by: admin
-  name: js_mutator_1
-  namespace: default
-spec:
-  eval: 'return JSON.stringify({"some info": "is here"});'
-  type: javascript
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Mutator",
-  "api_version": "core/v2",
-  "metadata": {
-    "created_by": "admin",
-    "name": "js_mutator_1",
-    "namespace": "default"
-  },
-  "spec": {
-    "eval": "return JSON.stringify({\"some info\": \"is here\"});",
-    "type": "javascript"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
+This example uses a JavaScript mutator to remove event attributes that are not required &mdash; in this case, the check name and entity `app_id` label:
 
 {{< language-toggle >}}
 
@@ -147,11 +117,12 @@ spec:
 type: Mutator
 api_version: core/v2
 metadata:
-  created_by: admin
-  name: js_mutator_2
+  name: remove_checkname_entitylabel
   namespace: default
 spec:
-  eval: event.check.labels["hello"] = "Sensu user";
+  eval: >-
+    data = JSON.parse(JSON.stringify(event)); delete data.check.metadata.name;
+    delete data.entity.metadata.labels.app_id; return JSON.stringify(data)
   type: javascript
 {{< /code >}}
 
@@ -160,18 +131,19 @@ spec:
   "type": "Mutator",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "js_mutator_2",
+    "name": "remove_checkname_entitylabel",
     "namespace": "default"
   },
   "spec": {
-    "eval": "event.check.labels[\"hello\"] = \"Sensu user\";",
+    "eval": "data = JSON.parse(JSON.stringify(event)); delete data.check.metadata.name; delete data.entity.metadata.labels.app_id; return JSON.stringify(data)",
     "type": "javascript"
   }
 }
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+You can also use JavaScript mutators to do things like [add new attributes][23] and [combine existing attributes into a single new attribute][24].
 
 ## Pipe mutators
 
@@ -643,7 +615,7 @@ secret: sensu-ansible-host
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Mutator that uses secrets management
+## Use secrets management in a mutator
 
 Learn more about [secrets management][14] for your Sensu configuration in the [secrets][10] and [secrets providers][11] references.
 
@@ -691,6 +663,86 @@ spec:
 
 {{< /language-toggle >}}
 
+## Add new event attributes with JavaScript mutators
+
+Use a JavaScript mutator to rewrite events with a new attribute added.
+
+This example adds a new "organization" attribute to events at the top level, with a value of `sec_ops`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Mutator
+api_version: core/v2
+metadata:
+  name: add_org_sec_ops
+  namespace: default
+spec:
+  eval: >-
+    data = JSON.parse(JSON.stringify(event)); data['organization'] = 'sec_ops';
+    return JSON.stringify(data)
+  type: javascript
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "add_org_sec_ops",
+    "namespace": "default"
+  },
+  "spec": {
+    "eval": "data = JSON.parse(JSON.stringify(event)); data['organization'] = 'sec_ops'; return JSON.stringify(data)",
+    "type": "javascript"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Combine existing attributes with JavaScript mutators
+
+Use a JavaScript mutator to create a new attribute from a combination of multiple existing attributes and add the new attribute to events.
+
+This example combines the event namespace and the name of the check that generated the event into a single new attribute, `origination`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Mutator
+api_version: core/v2
+metadata:
+  name: add_origination_attribute
+  namespace: default
+spec:
+  eval: >-
+    data = JSON.parse(JSON.stringify(event)); data.origination =
+    data.metadata.namespace + data.check.metadata.name; return
+    JSON.stringify(data)
+  type: javascript
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "add_origination_attribute",
+    "namespace": "default"
+  },
+  "spec": {
+    "eval": "data = JSON.parse(JSON.stringify(event)); data.origination = data.metadata.namespace + data.check.metadata.name; return JSON.stringify(data)",
+    "type": "javascript"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 
 [1]: ../../../plugins/assets/
 [2]: #metadata-attributes
@@ -714,3 +766,5 @@ spec:
 [20]: ../../observe-schedule/backend/#event-logging
 [21]: #pipe-mutators
 [22]: #eval-attribute
+[23]: #add-new-event-attributes-with-javascript-mutators
+[24]: #combine-existing-attributes-with-javascript-mutators
