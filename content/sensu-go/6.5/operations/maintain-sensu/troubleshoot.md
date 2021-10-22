@@ -236,7 +236,7 @@ http://127.0.0.1:3031/events
 
 ### Use a debug handler
 
-It may also be helpful To review the complete event object being passed to your workflows.
+It may also be helpful to review the complete event object being passed to your workflows.
 We recommend using a debug handler like this one to write an event to disk as JSON data:
 
 {{< language-toggle >}}
