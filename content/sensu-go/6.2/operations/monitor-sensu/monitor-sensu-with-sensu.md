@@ -133,7 +133,7 @@ metadata:
   namespace: default
   name: check_alpha_backend_health
 spec:
-  command: check-http.rb -u http://sensu-backend-beta:8080/health -n false
+  command: check-http.rb -u http://sensu-backend-alpha:8080/health -n false
   subscriptions:
     - backend_beta
   interval: 10
@@ -177,7 +177,7 @@ spec:
     "name": "check_alpha_backend_health"
   },
   "spec": {
-    "command": "check-http.rb -u http://sensu-backend-beta:8080/health -n false",
+    "command": "check-http.rb -u http://sensu-backend-alpha:8080/health -n false",
     "subscriptions": [
       "backend_beta"
     ],
