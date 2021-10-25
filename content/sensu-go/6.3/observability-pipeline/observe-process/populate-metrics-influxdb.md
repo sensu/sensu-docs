@@ -276,7 +276,7 @@ sensu-agent start --statsd-event-handlers influx-db
 
 It might take a few moments after you assign the handler to the check or StatsD server for Sensu to receive the metrics, but after an event is handled, metrics should start populating InfluxDB.
 You can verify proper handler behavior with `sensu-backend` logs.
-read [Troubleshoot Sensu][8] for log locations by platform.
+Read [Troubleshoot Sensu][8] for log locations by platform.
 
 Whenever an event is being handled, a log entry is added with the message `"handler":"influx-db","level":"debug","msg":"sending event to handler"`, followed by a second log entry with the message `"msg":"pipelined executed event pipe
 handler","output":"","status":0`.
