@@ -34,58 +34,45 @@ The checks in this guide monitoring the following ports and endpoints:
 | 2379 | `/health`  | Etcd health endpoint. Provides health status for etcd nodes. |
 | 8080 | `/health`  | Sensu Go health endpoint. Provides health status for Sensu backends, as well as for PostgreSQL (when enabled). |
 
-## Register dynamic runtime assets
+## Register dynamic runtime asset
 
-To power the checks to monitor your Sensu backend, external etcd, and PostgreSQL instances, add the [Sensu HTTP Plugin][5] dynamic runtime asset.
-This asset includes the `check-http.rb` plugin, which your checks will rely on.
+To power the checks to monitor your Sensu backend, external etcd, and PostgreSQL instances, add the [http-checks][5] dynamic runtime asset.
+This asset includes the `http-json` plugin, which your checks will rely on.
 
-The Sensu assets packaged from Sensu HTTP Plugin are built against the Sensu Ruby runtime environment, so you also need to add the [Sensu Go Ruby Runtime Assets][6] dynamic runtime asset.
-The Ruby runtime asset delivers the Ruby executable and supporting libraries the check will need to run the `check-http.rb` plugin.
-
-To do this, use the `check-http.rb` plugin from the [Sensu HTTP Plugin][5] dynamic runtime asset to query Sensu's [health API endpoint][2] with a check definition for your primary (Backend Alpha) and secondary (Backend Beta) backends:
-
-To register the Sensu HTTP Plugin dynamic runtime asset, `sensu-plugins/sensu-plugins-http:6.0.0`, run:
+To register the http-checks dynamic runtime asset, `sensu/http-checks`, run:
 
 {{< code shell >}}
-sensuctl asset add sensu-plugins/sensu-plugins-http:6.0.0 -r sensu-plugins-http
+sensuctl asset add sensu/http-checks:0.4.0 -r http-checks
 {{< /code >}}
 
 The response will confirm that the asset was added:
 
 {{< code shell >}}
-fetching bonsai asset: sensu-plugins/sensu-plugins-http:6.0.0
-added asset: sensu-plugins/sensu-plugins-http:6.0.0
+fetching bonsai asset: sensu/http-checks:0.4.0
+added asset: sensu/http-checks:0.4.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
-resource, populate the "runtime_assets" field with ["sensu-plugins-http"].
+resource, populate the "runtime_assets" field with ["http-checks"].
 {{< /code >}}
 
-This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `sensu-plugins-http`.
-
-Then, use the following sensuctl command to register the Sensu Ruby Runtime dynamic runtime asset, `sensu/sensu-ruby-runtime:0.1.0`:
-
-{{< code shell >}}
-sensuctl asset add sensu/sensu-ruby-runtime:0.1.0 -r sensu-ruby-runtime
-{{< /code >}}
-
-To confirm that all three dynamic runtime assets are ready to use, run:
+This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `http-checks`.
 
 {{< code shell >}}
 sensuctl asset list
 {{< /code >}}
 
-The response should list the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets:
+The response should list the `http-checks` dynamic runtime assets
 
 {{< code shell >}}
-         Name                                                      URL                                                Hash    
-───────────────────── ───────────────────────────────────────────────────────────────────────────────────────────── ──────────
-  sensu-plugins-http   //assets.bonsai.sensu.io/.../sensu-plugins-http_6.0.0_debian9_linux_amd64.tar.gz              ed9c3c8  
-  sensu-plugins-http   //assets.bonsai.sensu.io/.../sensu-plugins-http_6.0.0_debian_linux_amd64.tar.gz               bfa025f  
-  ...
-  sensu-ruby-runtime   //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.1.0_ruby-2.4.4_amzn2_linux_amd64.tar.gz     a83aaa5  
-  sensu-ruby-runtime   //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.1.0_ruby-2.4.4_amzn1_linux_amd64.tar.gz     7b504f0  
-  ...
+     Name                                       URL                                    Hash    
+────────────── ───────────────────────────────────────────────────────────────────── ──────────
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_windows_amd64.tar.gz   52ae075  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_darwin_amd64.tar.gz    72d0f15  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_armv7.tar.gz     ef18587  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_arm64.tar.gz     3504ddf  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_386.tar.gz       60b8883  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_amd64.tar.gz     1db73a8 
 {{< /code >}}
 
 Because plugins are published for multiple platforms, including Linux and Windows, the output will include multiple entries for each of the dynamic runtime assets.
@@ -102,7 +89,12 @@ Monitor the host running the `sensu-backend` *locally* by a `sensu-agent` proces
 For Sensu components that must be running for Sensu to create events, you should also monitor the `sensu-backend` remotely from an independent Sensu instance.
 This will allow you to monitor whether your Sensu event pipeline is working.
 
-To do this, add checks that use the `check-http.rb` plugin from the [Sensu HTTP Plugin][5] dynamic runtime asset to query Sensu's [health API endpoint][2] for your primary (Backend Alpha) and secondary (Backend Beta) backends:
+To do this, add checks that use the `http-json` plugin from the [http-checks][5] dynamic runtime asset to query Sensu's [health API endpoint][2] for your primary (Backend Alpha) and secondary (Backend Beta) backends.
+
+{{% notice note %}}
+**NOTE**: These examples use the [http-checks](https://bonsai.sensu.io/assets/sensu/http-checks) dynamic runtime asset.
+Follow [Register dynamic runtime asset](#register-dynamic-runtime-asset) if you did not previously add this asset.
+{{% /notice %}}
 
 {{< language-toggle >}}
 
@@ -114,15 +106,14 @@ metadata:
   namespace: default
   name: check_beta_backend_health
 spec:
-  command: check-http.rb -u http://sensu-backend-beta:8080/health -n false
+  command: http-json --url http://sensu-backend-beta:8080/health --query ".ClusterHealth.[0].Healthy" --expression "== true"
   subscriptions:
     - backend_alpha
   interval: 10
   publish: true
   timeout: 10
   runtime_assets:
-    - sensu-ruby-runtime
-    - sensu-plugins-http
+    - http-checks
 {{< /code >}}
 
 {{< code yml "YML - Backend Beta">}}
@@ -133,15 +124,14 @@ metadata:
   namespace: default
   name: check_alpha_backend_health
 spec:
-  command: check-http.rb -u http://sensu-backend-alpha:8080/health -n false
+  command: http-json --url http://sensu-backend-alpha:8080/health --query ".ClusterHealth.[0].Healthy" --expression "== true"
   subscriptions:
     - backend_beta
   interval: 10
   publish: true
   timeout: 10
   runtime_assets:
-    - sensu-ruby-runtime
-    - sensu-plugins-http
+    - http-checks
 {{< /code >}}
 
 {{< code json "JSON - Backend Alpha">}}
@@ -153,7 +143,7 @@ spec:
     "name": "check_beta_backend_health"
   },
   "spec": {
-    "command": "check-http.rb -u http://sensu-backend-beta:8080/health -n false",
+    "command": "http-json --url http://sensu-backend-beta:8080/health --query \".ClusterHealth.[0].Healthy\" --expression \"== true\"",
     "subscriptions": [
       "backend_alpha"
     ],
@@ -161,8 +151,7 @@ spec:
     "publish": true,
     "timeout": 10,
     "runtime_assets": [
-      "sensu-ruby-runtime",
-      "sensu-plugins-http"
+      "http-checks"
     ]
   }
 }
@@ -177,7 +166,7 @@ spec:
     "name": "check_alpha_backend_health"
   },
   "spec": {
-    "command": "check-http.rb -u http://sensu-backend-alpha:8080/health -n false",
+    "command": "http-json --url http://sensu-backend-alpha:8080/health --query \".ClusterHealth.[0].Healthy\" --expression \"== true\"",
     "subscriptions": [
       "backend_beta"
     ],
@@ -185,8 +174,7 @@ spec:
     "publish": true,
     "timeout": 10,
     "runtime_assets": [
-      "sensu-ruby-runtime",
-      "sensu-plugins-http"
+      "http-checks"
     ]
   }
 }
@@ -194,16 +182,20 @@ spec:
 
 {{< /language-toggle >}}
 
-{{% notice note %}}
-**NOTE**: This example uses the [Sensu HTTP Plugin](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http) and [Sensu Go Ruby Runtime](https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime) dynamic runtime assets.
-Follow [Register dynamic runtime assets](#register-dynamic-runtime-assets) if you have not previously added these assets.
-{{% /notice %}}
+A successful health check result will be similar to this example:
+
+{{< code shell >}}
+http-json OK:  The value true found at .ClusterHealth.[0].Healthy matched with expression "== true" and returned true
+{{< /code >}}
 
 ## Monitor external etcd
 
 If your Sensu Go deployment uses an external etcd cluster, you'll need to check the health of the respective etcd instances for your primary (Backend Alpha) and secondary (Backend Beta) backends.
 
-This example uses the `check-http.rb` plugin from the [Sensu HTTP Plugin][5] dynamic runtime asset:
+{{% notice note %}}
+**NOTE**: These examples use the [http-checks](https://bonsai.sensu.io/assets/sensu/http-checks) dynamic runtime asset.
+Follow [Register dynamic runtime asset](#register-dynamic-runtime-asset) if you did not previously add this asset.
+{{% /notice %}}
 
 {{< language-toggle >}}
 
@@ -215,15 +207,14 @@ metadata:
   namespace: default
   name: check_beta_etcd_health
 spec:
-  command: check-http.rb -u http://sensu-etcd-beta:2379/health -n false
+  command: http-json --url http://sensu-etcd-beta:2379/health --query ".ClusterHealth.[0].Healthy" --expression "== true"
   subscriptions:
   - backend_alpha
   interval: 10
   publish: true
   timeout: 10
   runtime_assets:
-  - sensu-plugins/sensu-plugins-http
-  - sensu/sensu-ruby-runtime
+  - http-checks
 {{< /code >}}
 
 {{< code yml "YML - Backend Beta">}}
@@ -234,15 +225,14 @@ metadata:
   namespace: default
   name: check_alpha_etcd_health
 spec:
-  command: check-http.rb -u http://sensu-etcd-alpha:2379/health -n false
+  command: http-json --url http://sensu-etcd-alpha:2379/health --query ".ClusterHealth.[0].Healthy" --expression "== true"
   subscriptions:
   - backend_beta
   interval: 10
   publish: true
   timeout: 10
   runtime_assets:
-  - sensu-plugins/sensu-plugins-http
-  - sensu/sensu-ruby-runtime
+  - http-checks
 {{< /code >}}
 
 {{< code json "JSON - Backend Alpha">}}
@@ -254,7 +244,7 @@ spec:
     "name": "check_beta_etcd_health"
   },
   "spec": {
-    "command": "check-http.rb -u http://sensu-etcd-beta:2379/health -n false",
+    "command": "http-json --url http://sensu-etcd-beta:2379/health --query \".ClusterHealth.[0].Healthy\" --expression \"== true\"",
     "subscriptions": [
       "backend_alpha"
     ],
@@ -262,8 +252,7 @@ spec:
     "publish": true,
     "timeout": 10,
     "runtime_assets": [
-      "sensu-plugins/sensu-plugins-http",
-      "sensu/sensu-ruby-runtime"
+      "http-checks"
     ]
   }
 }
@@ -278,7 +267,7 @@ spec:
     "name": "check_alpha_etcd_health"
   },
   "spec": {
-    "command": "check-http.rb -u http://sensu-etcd-alpha:2379/health -n false",
+    "command": "http-json --url http://sensu-etcd-alpha:2379/health --query \".ClusterHealth.[0].Healthy\" --expression \"== true\"",
     "subscriptions": [
       "backend_beta"
     ],
@@ -286,8 +275,7 @@ spec:
     "publish": true,
     "timeout": 10,
     "runtime_assets": [
-      "sensu-plugins/sensu-plugins-http",
-      "sensu/sensu-ruby-runtime"
+      "http-checks"
     ]
   }
 }
@@ -295,10 +283,11 @@ spec:
 
 {{< /language-toggle >}}
 
-{{% notice note %}}
-**NOTE**: This example uses the [Sensu HTTP Plugin](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http) and [Sensu Go Ruby Runtime](https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime) dynamic runtime assets.
-Follow [Register dynamic runtime assets](#register-dynamic-runtime-assets) if you have not previously added these assets.
-{{% /notice %}}
+A successful health check result will be similar to this example:
+
+{{< code shell >}}
+http-json OK:  The value true found at .ClusterHealth.[0].Healthy matched with expression "== true" and returned true
+{{< /code >}}
 
 ## Monitor PostgreSQL
 
@@ -312,40 +301,50 @@ The connection to PostgreSQL is exposed on Sensu's `/health` endpoint and will l
 
 {{< code json >}}
 {
-	"Alarms": null,
-	"ClusterHealth": [{
-		"MemberID": 3470366781180380542,
-		"MemberIDHex": "302938336092857e",
-		"Name": "sensu00",
-		"Err": "",
-		"Healthy": true
-	}, {
-		"MemberID": 15883454222313069303,
-		"MemberIDHex": "dc6d5d7607261af7",
-		"Name": "sensu01",
-		"Err": "",
-		"Healthy": true
-	}, {
-		"MemberID": 11377294497886211005,
-		"MemberIDHex": "9de44510fb838bbd",
-		"Name": "sensu02",
-		"Err": "",
-		"Healthy": true
-	}],
-	"Header": {
-		"cluster_id": 13239446193995634903,
-		"member_id": 3470366781180380542,
-		"raft_term": 1549
-	},
-	"PostgresHealth": [{
-		"Name": "sensu_postgres",
-		"Active": true,
-		"Healthy": true
-	}]
+  "Alarms": null,
+  "ClusterHealth": [
+    {
+      "MemberID": 3470366781180380700,
+      "MemberIDHex": "302938336092857e",
+      "Name": "sensu00",
+      "Err": "",
+      "Healthy": true
+    },
+    {
+      "MemberID": 15883454222313069000,
+      "MemberIDHex": "dc6d5d7607261af7",
+      "Name": "sensu01",
+      "Err": "",
+      "Healthy": true
+    },
+    {
+      "MemberID": 11377294497886210000,
+      "MemberIDHex": "9de44510fb838bbd",
+      "Name": "sensu02",
+      "Err": "",
+      "Healthy": true
+    }
+  ],
+  "Header": {
+    "cluster_id": 13239446193995635000,
+    "member_id": 3470366781180380700,
+    "raft_term": 1549
+  },
+  "PostgresHealth": [
+    {
+      "Name": "sensu_postgres",
+      "Active": true,
+      "Healthy": true
+    }
+  ]
 }
 {{< /code >}}
 
-To monitor PostgreSQL's health from Sensu's perspective, use a check like this example, which uses the `check-http.rb` plugin from the [Sensu HTTP Plugin][5] dynamic runtime asset:
+To monitor PostgreSQL's health from Sensu's perspective, use a check like this example, which uses the `http-json` plugin from the [http-checks][5] dynamic runtime asset.
+
+{{% notice note %}}
+**NOTE**: Follow [Register dynamic runtime asset](#register-dynamic-runtime-asset) if you did not previously add the http-checks dynamic runtime asset.
+{{% /notice %}}
 
 {{< language-toggle >}}
 
@@ -354,15 +353,11 @@ To monitor PostgreSQL's health from Sensu's perspective, use a check like this e
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
-  labels:
-    sensu.io/managed_by: sensuctl
   name: check-postgres-health
   namespace: default
 spec:
   check_hooks: null
-  command: check-http-json.rb -u https://sensu.example.com:8080/health --key PostgresHealth[0].Healthy
-    --value true
+  command: http-json --url https://sensu.example.com:8080/health --query ".PostgresHealth[0].Healthy" --expression "== true"
   env_vars: null
   handlers: []
   high_flap_threshold: 0
@@ -375,8 +370,7 @@ spec:
   publish: true
   round_robin: true
   runtime_assets:
-  - sensu-plugins/sensu-plugins-http
-  - sensu/sensu-ruby-runtime
+  - http-checks
   secrets: null
   stdin: false
   subdue: null
@@ -388,56 +382,51 @@ spec:
 
 {{< code json >}}
 {
-  "command": "check-http-json.rb -u https://sensu.example.com:8080/health --key PostgresHealth[0].Healthy --value true",
-  "handlers": [],
-  "high_flap_threshold": 0,
-  "interval": 10,
-  "low_flap_threshold": 0,
-  "publish": true,
-  "runtime_assets": [
-    "sensu-plugins/sensu-plugins-http",
-    "sensu/sensu-ruby-runtime"
-  ],
-  "subscriptions": [
-    "backends"
-  ],
-  "proxy_entity_name": "",
-  "check_hooks": null,
-  "stdin": false,
-  "subdue": null,
-  "ttl": 0,
-  "timeout": 0,
-  "round_robin": true,
-  "output_metric_format": "",
-  "output_metric_handlers": null,
-  "output_metric_tags": null,
-  "env_vars": null,
+  "type": "CheckConfig",
+  "api_version": "core/v2",
   "metadata": {
     "name": "check-postgres-health",
-    "namespace": "default",
-    "labels": {
-      "sensu.io/managed_by": "sensuctl"
-    },
-    "created_by": "admin"
+    "namespace": "default"
   },
-  "secrets": null
+  "spec": {
+    "check_hooks": null,
+    "command": "http-json --url https://sensu.example.com:8080/health --query \".PostgresHealth[0].Healthy\" --expression \"== true\"",
+    "env_vars": null,
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 10,
+    "low_flap_threshold": 0,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "output_metric_tags": null,
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": true,
+    "runtime_assets": [
+      "http-checks"
+    ],
+    "secrets": null,
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "backends"
+    ],
+    "timeout": 0,
+    "ttl": 0
+  }
 }
 {{< /code >}}
 
 {{< /language-toggle >}}
 
-{{% notice note %}}
-**NOTE**: This example uses the [Sensu HTTP Plugin](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http) and [Sensu Go Ruby Runtime](https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime) dynamic runtime assets.
-Follow [Register dynamic runtime assets](#register-dynamic-runtime-assets) if you have not previously added these assets.
-{{% /notice %}}
-
 A successful PostgreSQL health check result will be similar to this example:
 
-{{< figure src="/images/sensu-postgres-health.png" alt="Successful PostgreSQL health check in Sensu Go web UI" link="/images/sensu-postgres-health.png" target="_blank" >}}
+{{< code shell >}}
+http-json OK:  The value true found at .PostgresHealth.[0].Healthy matched with expression "== true" and returned true
+{{< /code >}}
 
 
 [1]: ../../../plugins/use-assets-to-install-plugins/
 [2]: ../../../api/health/
 [4]: ../../deploy-sensu/scale-event-storage/
-[5]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http
-[6]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
+[5]: https://bonsai.sensu.io/assets/sensu/http-checks
