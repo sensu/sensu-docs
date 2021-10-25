@@ -27,7 +27,7 @@ For more information about using Sensu plugins, read [Use dynamic runtime assets
 This guide does not describe Sensu agent [keepalive monitoring](../../../observability-pipeline/observe-schedule/agent/#keepalive-monitoring).
 {{% /notice %}}
 
-The checks in this guide monitoring the following ports and endpoints:
+The checks in this guide monitor the following ports and endpoints:
 
 | Port | Endpoint | Description |
 |------|----------|-------------|
