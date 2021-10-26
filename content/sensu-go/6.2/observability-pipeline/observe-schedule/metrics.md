@@ -30,7 +30,7 @@ For information about HTTP GET access to internal Sensu metrics, read our [metri
 
 ## Metric check example
 
-This check definition collects metrics in Graphite Plaintext Protocol [format][9] using the [Sensu System Check][] dynamic runtime asset and sends the collected metrics to a metrics handler configured with the [Sensu Go Graphite Handler][12] dynamic runtime asset:
+This check definition collects metrics in Graphite Plaintext Protocol [format][9] using the [Sensu System Check][26] dynamic runtime asset and sends the collected metrics to a metrics handler configured with the [Sensu Go Graphite Handler][12] dynamic runtime asset:
 
 {{< language-toggle >}}
 
@@ -979,3 +979,4 @@ The event specification describes [metrics attributes in events][5].
 [23]: ../../observe-process/populate-metrics-influxdb/
 [24]: ../../../operations/maintain-sensu/troubleshoot#use-a-debug-handler
 [25]: ../../observe-events/events/#metrics-points
+[26]: https://bonsai.sensu.io/assets/sensu/system-check
