@@ -58,11 +58,13 @@ resource, populate the "runtime_assets" field with ["http-checks"].
 
 This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `http-checks`.
 
+To confirm that the asset is ready to use, run:
+
 {{< code shell >}}
 sensuctl asset list
 {{< /code >}}
 
-The response should list the `http-checks` dynamic runtime assets
+The response should list the `http-checks` dynamic runtime asset:
 
 {{< code shell >}}
      Name                                       URL                                    Hash    

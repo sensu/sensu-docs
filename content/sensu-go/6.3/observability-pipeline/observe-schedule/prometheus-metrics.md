@@ -194,40 +194,41 @@ sudo systemctl start grafana-server
 
 To add the [Sensu InfluxDB Handler][18] [dynamic runtime asset][11] to Sensu, run the following command:
 
-{{< language-toggle >}}
-
-{{< code shell "YML" >}}
-cat << EOF | sensuctl create
----
-type: Asset
-api_version: core/v2
-metadata:
-  name: sensu-influxdb-handler
-  namespace: default
-spec:
-  sha512: 612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd
-  url: https://assets.bonsai.sensu.io/b28f8719a48aa8ea80c603f97e402975a98cea47/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz
-EOF
+{{< code shell >}}
+sensuctl asset add sensu/sensu-influxdb-handler:3.7.0 -r sensu-influxdb-handler
 {{< /code >}}
 
-{{< code shell "JSON" >}}
-cat << EOF | sensuctl create
-{
-  "type": "Asset",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "sensu-influxdb-handler",
-    "namespace": "default"
-  },
-  "spec": {
-    "sha512": "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd",
-    "url": "https://assets.bonsai.sensu.io/b28f8719a48aa8ea80c603f97e402975a98cea47/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz"
-  }
-}
-EOF
+The response will confirm that the asset was added:
+
+{{< code shell >}}
+fetching bonsai asset: sensu/sensu-influxdb-handler:3.7.0
+added asset: sensu/sensu-influxdb-handler:3.7.0
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["sensu-influxdb-handler"].
 {{< /code >}}
 
-{{< /language-toggle >}}
+This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `sensu-influxdb-handler`.
+
+To confirm that the `sensu-influxdb-handler` asset is ready to use, run:
+
+{{< code shell >}}
+sensuctl asset list
+{{< /code >}}
+
+The response should list the `sensu-influxdb-handler` dynamic runtime asset:
+
+{{< code shell >}}
+             Name                                                     URL                                            Hash    
+───────────────────────────── ──────────────────────────────────────────────────────────────────────────────────── ──────────
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_386.tar.gz           6719527  
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_amd64.tar.gz         d05650d  
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_armv7.tar.gz         38918c1  
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_arm64.tar.gz         944075f  
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_windows_amd64.tar.gz       8228cbc  
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_darwin_amd64.tar.gz        7c73e1d  
+{{< /code >}}
 
 ### Add the Sensu handler
 
@@ -286,40 +287,48 @@ You could save both the asset and handler definitions in a single file and use `
 
 To add the [Sensu Prometheus Collector][19] [dynamic runtime asset][11] to Sensu, run the following command:
 
-{{< language-toggle >}}
-
-{{< code shell "YML" >}}
-cat << EOF | sensuctl create
----
-type: Asset
-api_version: core/v2
-metadata:
-  name: sensu-prometheus-collector
-  namespace: default
-spec:
-  url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
-  sha512: a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808
-EOF
+{{< code shell >}}
+sensuctl asset add sensu/sensu-prometheus-collector:1.3.2 -r sensu-prometheus-collector
 {{< /code >}}
 
-{{< code shell "JSON" >}}
-cat << EOF | sensuctl create
-{
-  "type": "Asset",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "sensu-prometheus-collector",
-    "namespace": "default"
-  },
-  "spec": {
-    "url": "https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz",
-    "sha512": "a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808"
-  }
-}
-EOF
+The response will confirm that the asset was added:
+
+{{< code shell >}}
+fetching bonsai asset: sensu/sensu-prometheus-collector:1.3.2
+added asset: sensu/sensu-prometheus-collector:1.3.2
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["sensu-prometheus-collector"].
 {{< /code >}}
 
-{{< /language-toggle >}}
+This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `sensu-prometheus-collector`.
+
+To confirm that the `sensu-prometheus-collector` asset is ready to use, run:
+
+{{< code shell >}}
+sensuctl asset list
+{{< /code >}}
+
+The response should list the `sensu-prometheus-collector` dynamic runtime asset along with the previously added `sensu-influxdb-handler` asset:
+
+{{< code shell >}}
+             Name                                                     URL                                            Hash    
+───────────────────────────── ──────────────────────────────────────────────────────────────────────────────────── ──────────
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_386.tar.gz           6719527  
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_amd64.tar.gz         d05650d  
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_armv7.tar.gz         38918c1  
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_arm64.tar.gz         944075f  
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_windows_amd64.tar.gz       8228cbc  
+  sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_darwin_amd64.tar.gz        7c73e1d  
+  sensu-prometheus-collector   //assets.bonsai.sensu.io/.../sensu-prometheus-collector_1.3.2_windows_amd64.tar.gz   77f47c9  
+  sensu-prometheus-collector   //assets.bonsai.sensu.io/.../sensu-prometheus-collector_1.3.2_darwin_amd64.tar.gz    5e25a41  
+  sensu-prometheus-collector   //assets.bonsai.sensu.io/.../sensu-prometheus-collector_1.3.2_linux_armv7.tar.gz     2ae6727  
+  sensu-prometheus-collector   //assets.bonsai.sensu.io/.../sensu-prometheus-collector_1.3.2_linux_armv6.tar.gz     acad256  
+  sensu-prometheus-collector   //assets.bonsai.sensu.io/.../sensu-prometheus-collector_1.3.2_linux_arm64.tar.gz     6bfdbfc  
+  sensu-prometheus-collector   //assets.bonsai.sensu.io/.../sensu-prometheus-collector_1.3.2_linux_386.tar.gz       69e6d02  
+  sensu-prometheus-collector   //assets.bonsai.sensu.io/.../sensu-prometheus-collector_1.3.2_linux_amd64.tar.gz     aca56fa  
+{{< /code >}}
 
 ### Add a Sensu check to complete the pipeline
 
@@ -388,7 +397,7 @@ The Sensu backend will coordinate check execution for you by comparing the subsc
 Sensu automatically executes a check when the check definition includes a subscription that matches a subscription for a Sensu entity.
 
 Open the Sensu [web UI][14] to view the events generated by the `prometheus_metrics` check.
-Visit http://127.0.0.1:3000, and log in as the admin user (created during the [initialization step][8] when you installed the Sensu backend).
+Visit `http://127.0.0.1:3000`, and log in as the admin user (created during the [initialization step][8] when you installed the Sensu backend).
 
 You can also view the metric event data using sensuctl.
 Run:
@@ -424,13 +433,13 @@ curl  -XPOST -H 'Content-Type: application/json' -d@up_or_down_dashboard.json HT
 
 ### View metrics in Grafana
 
-Confirm metrics in Grafana: login at http://127.0.0.1:4000.
+Confirm metrics in Grafana: log in at `http://127.0.0.1:4000`.
 Use `admin` for both username and password.
 
 Click **Home** in the upper left corner, then click the **Up or Down Sample 2** dashboard.
-The page should include a graph with initial metrics, similar to:
+The page should include a graph with initial metrics, similar to this example:
 
-![up_or_down_detail](/images/prometheus-collector/up_or_down_detail.png)
+{{< figure src="/images/prometheus-collector/up_or_down_detail.png" alt="Example Grafana dashboard for visualizing Prometheus metrics from Sensu" link="/images/prometheus-collector/up_or_down_detail.png" target="_blank" >}}
 
 ## Next steps
 
