@@ -30,7 +30,7 @@ For information about HTTP GET access to internal Sensu metrics, read our [metri
 
 ## Metric check example
 
-This check definition collects metrics in Graphite Plaintext Protocol [format][9] and sends the collected metrics to a metrics handler configured with the [Sensu Go Graphite Handler][12] dynamic runtime asset:
+This check definition collects metrics in Graphite Plaintext Protocol [format][9] using the [Sensu System Check][26] dynamic runtime asset and sends the collected metrics to a metrics handler configured with the [Sensu Go Graphite Handler][12] dynamic runtime asset:
 
 {{< language-toggle >}}
 
@@ -39,32 +39,31 @@ This check definition collects metrics in Graphite Plaintext Protocol [format][9
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
-  name: collect-metrics
+  name: collect-system-metrics
   namespace: default
 spec:
   check_hooks: null
-  command: metrics-disk-usage.rb
+  command: system-check
   env_vars: null
   handlers:
   - debug
   high_flap_threshold: 0
-  interval: 30
+  interval: 10
   low_flap_threshold: 0
   output_metric_format: graphite_plaintext
   output_metric_handlers:
-  - sensu-go-graphite-handler
+  - graphite-handler
+  pipelines: []
   proxy_entity_name: ""
   publish: true
   round_robin: false
   runtime_assets:
-  - sensu-plugins/sensu-plugins-disk-checks
-  - sensu/sensu-ruby-runtime
+  - system-check
   secrets: null
   stdin: false
   subdue: null
   subscriptions:
-  - linux
+  - system
   timeout: 0
   ttl: 0
 {{< /code >}}
@@ -74,34 +73,35 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "collect-metrics",
+    "name": "collect-system-metrics",
     "namespace": "default"
   },
   "spec": {
     "check_hooks": null,
-    "command": "metrics-disk-usage.rb",
+    "command": "system-check",
     "env_vars": null,
-    "handlers": "debug",
+    "handlers": [
+      "debug"
+    ],
     "high_flap_threshold": 0,
-    "interval": 30,
+    "interval": 10,
     "low_flap_threshold": 0,
     "output_metric_format": "graphite_plaintext",
     "output_metric_handlers": [
-      "sensu-go-graphite-handler"
+      "graphite-handler"
     ],
+    "pipelines": [],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
     "runtime_assets": [
-      "sensu-plugins/sensu-plugins-disk-checks",
-      "sensu/sensu-ruby-runtime"
+      "system-check"
     ],
     "secrets": null,
     "stdin": false,
     "subdue": null,
     "subscriptions": [
-      "linux"
+      "system"
     ],
     "timeout": 0,
     "ttl": 0
@@ -119,6 +119,8 @@ The [example metric check][6] will produce events similar to this metric event:
 
 {{< code yml >}}
 ---
+pipelines:
+timestamp: 1635270402
 entity:
   entity_class: agent
   system:
@@ -137,12 +139,12 @@ entity:
         mac: '08:00:27:8b:c9:3f'
         addresses:
         - 10.0.2.15/24
-        - fe80::2a24:13f4:6b:c0b8/64
+        - fe80::7103:bbce:3543:cfcf/64
       - name: eth1
-        mac: '08:00:27:3d:ce:39'
+        mac: '08:00:27:36:bb:67'
         addresses:
-        - 172.28.128.63/24
-        - fe80::a00:27ff:fe3d:ce39/64
+        - 172.28.128.89/24
+        - fe80::a00:27ff:fe36:bb67/64
     arch: amd64
     libc_type: glibc
     vm_system: vbox
@@ -150,9 +152,9 @@ entity:
     cloud_provider: ''
     processes:
   subscriptions:
+  - system
   - entity:sensu-centos
-  - linux
-  last_seen: 1625000586
+  last_seen: 1635270399
   deregister: false
   deregistration: {}
   user: agent
@@ -169,20 +171,19 @@ entity:
   metadata:
     name: sensu-centos
     namespace: default
-  sensu_agent_version: 6.4.0
+  sensu_agent_version: 6.5.1
 check:
-  command: metrics-disk-usage.rb
+  command: system-check
   handlers:
   - debug
   high_flap_threshold: 0
-  interval: 60
+  interval: 10
   low_flap_threshold: 0
   publish: true
   runtime_assets:
-  - sensu-plugins/sensu-plugins-disk-checks
-  - sensu/sensu-ruby-runtime
+  - system-check
   subscriptions:
-  - linux
+  - system
   proxy_entity_name: ''
   check_hooks:
   stdin: false
@@ -190,138 +191,291 @@ check:
   ttl: 0
   timeout: 0
   round_robin: false
-  duration: 0.060007931
-  executed: 1625000586
+  duration: 3.00889206
+  executed: 1635270399
   history:
   - status: 0
-    executed: 1625000346
+    executed: 1635270359
   - status: 0
-    executed: 1625000406
+    executed: 1635270369
   - status: 0
-    executed: 1625000466
+    executed: 1635270379
   - status: 0
-    executed: 1625000526
+    executed: 1635270389
   - status: 0
-    executed: 1625000586
-  issued: 1625000586
-  output: |
-    sensu-centos.disk_usage.root.used 1515 1625000586
-    sensu-centos.disk_usage.root.avail 40433 1625000586
-    sensu-centos.disk_usage.root.used_percentage 4 1625000586
-    sensu-centos.disk_usage.root.dev.used 0 1625000586
-    sensu-centos.disk_usage.root.dev.avail 485 1625000586
-    sensu-centos.disk_usage.root.dev.used_percentage 0 1625000586
-    sensu-centos.disk_usage.root.run.used 51 1625000586
-    sensu-centos.disk_usage.root.run.avail 446 1625000586
-    sensu-centos.disk_usage.root.run.used_percentage 11 1625000586
-    sensu-centos.disk_usage.root.boot.used 130 1625000586
-    sensu-centos.disk_usage.root.boot.avail 885 1625000586
-    sensu-centos.disk_usage.root.boot.used_percentage 13 1625000586
-    sensu-centos.disk_usage.root.home.used 33 1625000586
-    sensu-centos.disk_usage.root.home.avail 20446 1625000586
-    sensu-centos.disk_usage.root.home.used_percentage 1 1625000586
-    sensu-centos.disk_usage.root.vagrant.used 79699 1625000586
-    sensu-centos.disk_usage.root.vagrant.avail 874206 1625000586
-    sensu-centos.disk_usage.root.vagrant.used_percentage 9 1625000586
+    executed: 1635270399
+  issued: 1635270399
+  output: |+
+    # HELP system_cpu_cores [GAUGE] Number of cpu cores on the system
+    # TYPE system_cpu_cores GAUGE
+    system_cpu_cores{} 1 1635270399219
+    # HELP system_cpu_idle [GAUGE] Percent of time all cpus were idle
+    # TYPE system_cpu_idle GAUGE
+    system_cpu_idle{cpu="cpu0"} 99.32885906040329 1635270399219
+    system_cpu_idle{cpu="cpu-total"} 99.32885906040329 1635270399219
+    # HELP system_cpu_used [GAUGE] Percent of time all cpus were used
+    # TYPE system_cpu_used GAUGE
+    system_cpu_used{cpu="cpu0"} 0.671140939596711 1635270399219
+    system_cpu_used{cpu="cpu-total"} 0.671140939596711 1635270399219
+    # HELP system_cpu_user [GAUGE] Percent of time total cpu was used by normal processes in user mode
+    # TYPE system_cpu_user GAUGE
+    system_cpu_user{cpu="cpu0"} 0.3355704697986485 1635270399219
+    system_cpu_user{cpu="cpu-total"} 0.3355704697986485 1635270399219
+    # HELP system_cpu_system [GAUGE] Percent of time all cpus used by processes executed in kernel mode
+    # TYPE system_cpu_system GAUGE
+    system_cpu_system{cpu="cpu0"} 0.33557046979867833 1635270399219
+    system_cpu_system{cpu="cpu-total"} 0.33557046979867833 1635270399219
+    # HELP system_cpu_nice [GAUGE] Percent of time all cpus used by niced processes in user mode
+    # TYPE system_cpu_nice GAUGE
+    system_cpu_nice{cpu="cpu0"} 0 1635270399219
+    system_cpu_nice{cpu="cpu-total"} 0 1635270399219
+    # HELP system_cpu_iowait [GAUGE] Percent of time all cpus waiting for I/O to complete
+    # TYPE system_cpu_iowait GAUGE
+    system_cpu_iowait{cpu="cpu0"} 0 1635270399219
+    system_cpu_iowait{cpu="cpu-total"} 0 1635270399219
+    # HELP system_cpu_irq [GAUGE] Percent of time all cpus servicing interrupts
+    # TYPE system_cpu_irq GAUGE
+    system_cpu_irq{cpu="cpu0"} 0 1635270399219
+    system_cpu_irq{cpu="cpu-total"} 0 1635270399219
+    # HELP system_cpu_sortirq [GAUGE] Percent of time all cpus servicing software interrupts
+    # TYPE system_cpu_sortirq GAUGE
+    system_cpu_sortirq{cpu="cpu0"} 0 1635270399219
+    system_cpu_sortirq{cpu="cpu-total"} 0 1635270399219
+    # HELP system_cpu_stolen [GAUGE] Percent of time all cpus serviced virtual hosts operating systems
+    # TYPE system_cpu_stolen GAUGE
+    system_cpu_stolen{cpu="cpu0"} 0 1635270399219
+    system_cpu_stolen{cpu="cpu-total"} 0 1635270399219
+    # HELP system_cpu_guest [GAUGE] Percent of time all cpus serviced guest operating system
+    # TYPE system_cpu_guest GAUGE
+    system_cpu_guest{cpu="cpu0"} 0 1635270399219
+    system_cpu_guest{cpu="cpu-total"} 0 1635270399219
+    # HELP system_cpu_guest_nice [GAUGE] Percent of time all cpus serviced niced guest operating system
+    # TYPE system_cpu_guest_nice GAUGE
+    system_cpu_guest_nice{cpu="cpu0"} 0 1635270399219
+    system_cpu_guest_nice{cpu="cpu-total"} 0 1635270399219
+    # HELP system_mem_used [GAUGE] Percent of memory used
+    # TYPE system_mem_used GAUGE
+    system_mem_used{} 21.21448463577672 1635270399219
+    # HELP system_mem_used_bytes [GAUGE] Used memory in bytes
+    # TYPE system_mem_used_bytes GAUGE
+    system_mem_used_bytes{} 2.20598272e+08 1635270399219
+    # HELP system_mem_total_bytes [GAUGE] Total memory in bytes
+    # TYPE system_mem_total_bytes GAUGE
+    system_mem_total_bytes{} 1.039847424e+09 1635270399219
+    # HELP system_swap_used [GAUGE] Percent of swap used
+    # TYPE system_swap_used GAUGE
+    system_swap_used{} 0 1635270399219
+    # HELP system_swap_used_bytes [GAUGE] Used swap in bytes
+    # TYPE system_swap_used_bytes GAUGE
+    system_swap_used_bytes{} 2.20598272e+08 1635270399219
+    # HELP system_swap_total_bytes [GAUGE] Total swap in bytes
+    # TYPE system_swap_total_bytes GAUGE
+    system_swap_total_bytes{} 2.147479552e+09 1635270399219
+    # HELP system_load_load1 [GAUGE] System load averaged over 1 minute, high load value dependant on number of cpus in system
+    # TYPE system_load_load1 GAUGE
+    system_load_load1{} 0 1635270399219
+    # HELP system_load_load5 [GAUGE] System load averaged over 5 minute, high load value dependent on number of cpus in system
+    # TYPE system_load_load5 GAUGE
+    system_load_load5{} 0.01 1635270399219
+    # HELP system_load_load15 [GAUGE] System load averaged over 15 minute, high load value dependent on number of cpus in system
+    # TYPE system_load_load15 GAUGE
+    system_load_load15{} 0.05 1635270399219
+    # HELP system_load_load1_per_cpu [GAUGE] System load averaged over 1 minute normalized by cpu count, values \u003e 1 means system may be overloaded
+    # TYPE system_load_load1_per_cpu GAUGE
+    system_load_load1_per_cpu{} 0 1635270399219
+    # HELP system_load_load5_per_cpu [GAUGE] System load averaged over 5 minute normalized by cpu count, values \u003e 1 means system may be overloaded
+    # TYPE system_load_load5_per_cpu GAUGE
+    system_load_load5_per_cpu{} 0.01 1635270399219
+    # HELP system_load_load15_per_cpu [GAUGE] System load averaged over 15 minute normalized by cpu count, values \u003e 1 means system may be overloaded
+    # TYPE system_load_load15_per_cpu GAUGE
+    system_load_load15_per_cpu{} 0.05 1635270399219
+    # HELP system_host_uptime [COUNTER] Host uptime in seconds
+    # TYPE system_host_uptime COUNTER
+    system_host_uptime{} 982 1635270399219
+    # HELP system_host_processes [GAUGE] Number of host processes
+    # TYPE system_host_processes GAUGE
+    system_host_processes{} 109 1635270399219
+
   state: passing
   status: 0
   total_state_change: 0
-  last_ok: 1625000586
+  last_ok: 1635270399
   occurrences: 5
   occurrences_watermark: 5
   output_metric_format: graphite_plaintext
-  output_metric_handlers: sensu-go-graphite-handler
+  output_metric_handlers:
+  - graphite-handler
   env_vars:
   metadata:
-    name: collect-metrics
+    name: collect-system-metrics
     namespace: default
   secrets:
   is_silenced: false
   scheduler: memory
+  processed_by: sensu-centos
+  pipelines: []
 metrics:
   handlers:
+  - graphite-handler
   points:
-  - name: sensu-centos.disk_usage.root.used
-    value: 1515
-    timestamp: 1625000586
-    tags:
-  - name: sensu-centos.disk_usage.root.avail
-    value: 40433
-    timestamp: 1625000586
-    tags:
-  - name: sensu-centos.disk_usage.root.used_percentage
-    value: 4
-    timestamp: 1625000586
-    tags:
-  - name: sensu-centos.disk_usage.root.dev.used
-    value: 0
-    timestamp: 1625000586
-    tags:
-  - name: sensu-centos.disk_usage.root.dev.avail
-    value: 485
-    timestamp: 1625000586
-    tags:
-  - name: sensu-centos.disk_usage.root.dev.used_percentage
-    value: 0
-    timestamp: 1625000586
-    tags:
-  - name: sensu-centos.disk_usage.root.run.used
-    value: 51
-    timestamp: 1625000586
-    tags:
-  - name: sensu-centos.disk_usage.root.run.avail
-    value: 446
-    timestamp: 1625000586
-    tags:
-  - name: sensu-centos.disk_usage.root.run.used_percentage
-    value: 11
-    timestamp: 1625000586
-    tags:
-  - name: sensu-centos.disk_usage.root.boot.used
-    value: 130
-    timestamp: 1625000586
-    tags:
-  - name: sensu-centos.disk_usage.root.boot.avail
-    value: 885
-    timestamp: 1625000586
-    tags:
-  - name: sensu-centos.disk_usage.root.boot.used_percentage
-    value: 13
-    timestamp: 1625000586
-    tags:
-  - name: sensu-centos.disk_usage.root.home.used
-    value: 33
-    timestamp: 1625000586
-    tags:
-  - name: sensu-centos.disk_usage.root.home.avail
-    value: 20446
-    timestamp: 1625000586
-    tags:
-  - name: sensu-centos.disk_usage.root.home.used_percentage
+  - name: system_cpu_cores{}
     value: 1
-    timestamp: 1625000586
+    timestamp: 1635270399219
     tags:
-  - name: sensu-centos.disk_usage.root.vagrant.used
-    value: 79699
-    timestamp: 1625000586
+  - name: system_cpu_idle{cpu="cpu0"}
+    value: 99.32885906040329
+    timestamp: 1635270399219
     tags:
-  - name: sensu-centos.disk_usage.root.vagrant.avail
-    value: 874206
-    timestamp: 1625000586
+  - name: system_cpu_idle{cpu="cpu-total"}
+    value: 99.32885906040329
+    timestamp: 1635270399219
     tags:
-  - name: sensu-centos.disk_usage.root.vagrant.used_percentage
-    value: 9
-    timestamp: 1625000586
+  - name: system_cpu_used{cpu="cpu0"}
+    value: 0.671140939596711
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_used{cpu="cpu-total"}
+    value: 0.671140939596711
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_user{cpu="cpu0"}
+    value: 0.3355704697986485
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_user{cpu="cpu-total"}
+    value: 0.3355704697986485
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_system{cpu="cpu0"}
+    value: 0.33557046979867833
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_system{cpu="cpu-total"}
+    value: 0.33557046979867833
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_nice{cpu="cpu0"}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_nice{cpu="cpu-total"}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_iowait{cpu="cpu0"}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_iowait{cpu="cpu-total"}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_irq{cpu="cpu0"}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_irq{cpu="cpu-total"}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_sortirq{cpu="cpu0"}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_sortirq{cpu="cpu-total"}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_stolen{cpu="cpu0"}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_stolen{cpu="cpu-total"}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_guest{cpu="cpu0"}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_guest{cpu="cpu-total"}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_guest_nice{cpu="cpu0"}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_cpu_guest_nice{cpu="cpu-total"}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_mem_used{}
+    value: 21.21448463577672
+    timestamp: 1635270399219
+    tags:
+  - name: system_mem_used_bytes{}
+    value: 220598272
+    timestamp: 1635270399219
+    tags:
+  - name: system_mem_total_bytes{}
+    value: 1039847424
+    timestamp: 1635270399219
+    tags:
+  - name: system_swap_used{}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_swap_used_bytes{}
+    value: 220598272
+    timestamp: 1635270399219
+    tags:
+  - name: system_swap_total_bytes{}
+    value: 2147479552
+    timestamp: 1635270399219
+    tags:
+  - name: system_load_load1{}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_load_load5{}
+    value: 0.01
+    timestamp: 1635270399219
+    tags:
+  - name: system_load_load15{}
+    value: 0.05
+    timestamp: 1635270399219
+    tags:
+  - name: system_load_load1_per_cpu{}
+    value: 0
+    timestamp: 1635270399219
+    tags:
+  - name: system_load_load5_per_cpu{}
+    value: 0.01
+    timestamp: 1635270399219
+    tags:
+  - name: system_load_load15_per_cpu{}
+    value: 0.05
+    timestamp: 1635270399219
+    tags:
+  - name: system_host_uptime{}
+    value: 982
+    timestamp: 1635270399219
+    tags:
+  - name: system_host_processes{}
+    value: 109
+    timestamp: 1635270399219
     tags:
 metadata:
   namespace: default
-id: 7468a597-bc3c-4ea7-899c-51c4d2992689
+id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 sequence: 5
-timestamp: 1625000586
 {{< /code >}}
 
 {{< code json >}}
 {
+  "pipelines": null,
+  "timestamp": 1635270402,
   "entity": {
     "entity_class": "agent",
     "system": {
@@ -344,15 +498,15 @@ timestamp: 1625000586
             "mac": "08:00:27:8b:c9:3f",
             "addresses": [
               "10.0.2.15/24",
-              "fe80::2a24:13f4:6b:c0b8/64"
+              "fe80::7103:bbce:3543:cfcf/64"
             ]
           },
           {
             "name": "eth1",
-            "mac": "08:00:27:3d:ce:39",
+            "mac": "08:00:27:36:bb:67",
             "addresses": [
-              "172.28.128.63/24",
-              "fe80::a00:27ff:fe3d:ce39/64"
+              "172.28.128.89/24",
+              "fe80::a00:27ff:fe36:bb67/64"
             ]
           }
         ]
@@ -365,10 +519,10 @@ timestamp: 1625000586
       "processes": null
     },
     "subscriptions": [
-      "entity:sensu-centos",
-      "linux"
+      "system",
+      "entity:sensu-centos"
     ],
-    "last_seen": 1625000586,
+    "last_seen": 1635270399,
     "deregister": false,
     "deregistration": {},
     "user": "agent",
@@ -387,23 +541,22 @@ timestamp: 1625000586
       "name": "sensu-centos",
       "namespace": "default"
     },
-    "sensu_agent_version": "6.4.0"
+    "sensu_agent_version": "6.5.1"
   },
   "check": {
-    "command": "metrics-disk-usage.rb",
+    "command": "system-check",
     "handlers": [
       "debug"
     ],
     "high_flap_threshold": 0,
-    "interval": 60,
+    "interval": 10,
     "low_flap_threshold": 0,
     "publish": true,
     "runtime_assets": [
-      "sensu-plugins/sensu-plugins-disk-checks",
-      "sensu/sensu-ruby-runtime"
+      "system-check"
     ],
     "subscriptions": [
-      "linux"
+      "system"
     ],
     "proxy_entity_name": "",
     "check_hooks": null,
@@ -412,158 +565,278 @@ timestamp: 1625000586
     "ttl": 0,
     "timeout": 0,
     "round_robin": false,
-    "duration": 0.060007931,
-    "executed": 1625000586,
+    "duration": 3.00889206,
+    "executed": 1635270399,
     "history": [
       {
         "status": 0,
-        "executed": 1625000346
+        "executed": 1635270359
       },
       {
         "status": 0,
-        "executed": 1625000406
+        "executed": 1635270369
       },
       {
         "status": 0,
-        "executed": 1625000466
+        "executed": 1635270379
       },
       {
         "status": 0,
-        "executed": 1625000526
+        "executed": 1635270389
       },
       {
         "status": 0,
-        "executed": 1625000586
+        "executed": 1635270399
       }
     ],
-    "issued": 1625000586,
-    "output": "sensu-centos.disk_usage.root.used 1515 1625000586\nsensu-centos.disk_usage.root.avail 40433 1625000586\nsensu-centos.disk_usage.root.used_percentage 4 1625000586\nsensu-centos.disk_usage.root.dev.used 0 1625000586\nsensu-centos.disk_usage.root.dev.avail 485 1625000586\nsensu-centos.disk_usage.root.dev.used_percentage 0 1625000586\nsensu-centos.disk_usage.root.run.used 51 1625000586\nsensu-centos.disk_usage.root.run.avail 446 1625000586\nsensu-centos.disk_usage.root.run.used_percentage 11 1625000586\nsensu-centos.disk_usage.root.boot.used 130 1625000586\nsensu-centos.disk_usage.root.boot.avail 885 1625000586\nsensu-centos.disk_usage.root.boot.used_percentage 13 1625000586\nsensu-centos.disk_usage.root.home.used 33 1625000586\nsensu-centos.disk_usage.root.home.avail 20446 1625000586\nsensu-centos.disk_usage.root.home.used_percentage 1 1625000586\nsensu-centos.disk_usage.root.vagrant.used 79699 1625000586\nsensu-centos.disk_usage.root.vagrant.avail 874206 1625000586\nsensu-centos.disk_usage.root.vagrant.used_percentage 9 1625000586\n",
+    "issued": 1635270399,
+    "output": "# HELP system_cpu_cores [GAUGE] Number of cpu cores on the system\n# TYPE system_cpu_cores GAUGE\nsystem_cpu_cores{} 1 1635270399219\n# HELP system_cpu_idle [GAUGE] Percent of time all cpus were idle\n# TYPE system_cpu_idle GAUGE\nsystem_cpu_idle{cpu=\"cpu0\"} 99.32885906040329 1635270399219\nsystem_cpu_idle{cpu=\"cpu-total\"} 99.32885906040329 1635270399219\n# HELP system_cpu_used [GAUGE] Percent of time all cpus were used\n# TYPE system_cpu_used GAUGE\nsystem_cpu_used{cpu=\"cpu0\"} 0.671140939596711 1635270399219\nsystem_cpu_used{cpu=\"cpu-total\"} 0.671140939596711 1635270399219\n# HELP system_cpu_user [GAUGE] Percent of time total cpu was used by normal processes in user mode\n# TYPE system_cpu_user GAUGE\nsystem_cpu_user{cpu=\"cpu0\"} 0.3355704697986485 1635270399219\nsystem_cpu_user{cpu=\"cpu-total\"} 0.3355704697986485 1635270399219\n# HELP system_cpu_system [GAUGE] Percent of time all cpus used by processes executed in kernel mode\n# TYPE system_cpu_system GAUGE\nsystem_cpu_system{cpu=\"cpu0\"} 0.33557046979867833 1635270399219\nsystem_cpu_system{cpu=\"cpu-total\"} 0.33557046979867833 1635270399219\n# HELP system_cpu_nice [GAUGE] Percent of time all cpus used by niced processes in user mode\n# TYPE system_cpu_nice GAUGE\nsystem_cpu_nice{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_nice{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_iowait [GAUGE] Percent of time all cpus waiting for I/O to complete\n# TYPE system_cpu_iowait GAUGE\nsystem_cpu_iowait{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_iowait{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_irq [GAUGE] Percent of time all cpus servicing interrupts\n# TYPE system_cpu_irq GAUGE\nsystem_cpu_irq{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_irq{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_sortirq [GAUGE] Percent of time all cpus servicing software interrupts\n# TYPE system_cpu_sortirq GAUGE\nsystem_cpu_sortirq{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_sortirq{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_stolen [GAUGE] Percent of time all cpus serviced virtual hosts operating systems\n# TYPE system_cpu_stolen GAUGE\nsystem_cpu_stolen{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_stolen{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_guest [GAUGE] Percent of time all cpus serviced guest operating system\n# TYPE system_cpu_guest GAUGE\nsystem_cpu_guest{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_guest{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_guest_nice [GAUGE] Percent of time all cpus serviced niced guest operating system\n# TYPE system_cpu_guest_nice GAUGE\nsystem_cpu_guest_nice{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_guest_nice{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_mem_used [GAUGE] Percent of memory used\n# TYPE system_mem_used GAUGE\nsystem_mem_used{} 21.21448463577672 1635270399219\n# HELP system_mem_used_bytes [GAUGE] Used memory in bytes\n# TYPE system_mem_used_bytes GAUGE\nsystem_mem_used_bytes{} 2.20598272e+08 1635270399219\n# HELP system_mem_total_bytes [GAUGE] Total memory in bytes\n# TYPE system_mem_total_bytes GAUGE\nsystem_mem_total_bytes{} 1.039847424e+09 1635270399219\n# HELP system_swap_used [GAUGE] Percent of swap used\n# TYPE system_swap_used GAUGE\nsystem_swap_used{} 0 1635270399219\n# HELP system_swap_used_bytes [GAUGE] Used swap in bytes\n# TYPE system_swap_used_bytes GAUGE\nsystem_swap_used_bytes{} 2.20598272e+08 1635270399219\n# HELP system_swap_total_bytes [GAUGE] Total swap in bytes\n# TYPE system_swap_total_bytes GAUGE\nsystem_swap_total_bytes{} 2.147479552e+09 1635270399219\n# HELP system_load_load1 [GAUGE] System load averaged over 1 minute, high load value dependant on number of cpus in system\n# TYPE system_load_load1 GAUGE\nsystem_load_load1{} 0 1635270399219\n# HELP system_load_load5 [GAUGE] System load averaged over 5 minute, high load value dependent on number of cpus in system\n# TYPE system_load_load5 GAUGE\nsystem_load_load5{} 0.01 1635270399219\n# HELP system_load_load15 [GAUGE] System load averaged over 15 minute, high load value dependent on number of cpus in system\n# TYPE system_load_load15 GAUGE\nsystem_load_load15{} 0.05 1635270399219\n# HELP system_load_load1_per_cpu [GAUGE] System load averaged over 1 minute normalized by cpu count, values \\u003e 1 means system may be overloaded\n# TYPE system_load_load1_per_cpu GAUGE\nsystem_load_load1_per_cpu{} 0 1635270399219\n# HELP system_load_load5_per_cpu [GAUGE] System load averaged over 5 minute normalized by cpu count, values \\u003e 1 means system may be overloaded\n# TYPE system_load_load5_per_cpu GAUGE\nsystem_load_load5_per_cpu{} 0.01 1635270399219\n# HELP system_load_load15_per_cpu [GAUGE] System load averaged over 15 minute normalized by cpu count, values \\u003e 1 means system may be overloaded\n# TYPE system_load_load15_per_cpu GAUGE\nsystem_load_load15_per_cpu{} 0.05 1635270399219\n# HELP system_host_uptime [COUNTER] Host uptime in seconds\n# TYPE system_host_uptime COUNTER\nsystem_host_uptime{} 982 1635270399219\n# HELP system_host_processes [GAUGE] Number of host processes\n# TYPE system_host_processes GAUGE\nsystem_host_processes{} 109 1635270399219\n\n",
     "state": "passing",
     "status": 0,
     "total_state_change": 0,
-    "last_ok": 1625000586,
+    "last_ok": 1635270399,
     "occurrences": 5,
     "occurrences_watermark": 5,
     "output_metric_format": "graphite_plaintext",
-    "output_metric_handlers": "sensu-go-graphite-handler",
+    "output_metric_handlers": [
+      "graphite-handler"
+    ],
     "env_vars": null,
     "metadata": {
-      "name": "collect-metrics",
+      "name": "collect-system-metrics",
       "namespace": "default"
     },
     "secrets": null,
     "is_silenced": false,
-    "scheduler": "memory"
+    "scheduler": "memory",
+    "processed_by": "sensu-centos",
+    "pipelines": []
   },
   "metrics": {
-    "handlers": null,
+    "handlers": [
+      "graphite-handler"
+    ],
     "points": [
       {
-        "name": "sensu-centos.disk_usage.root.used",
-        "value": 1515,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.avail",
-        "value": 40433,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.used_percentage",
-        "value": 4,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.dev.used",
-        "value": 0,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.dev.avail",
-        "value": 485,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.dev.used_percentage",
-        "value": 0,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.run.used",
-        "value": 51,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.run.avail",
-        "value": 446,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.run.used_percentage",
-        "value": 11,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.boot.used",
-        "value": 130,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.boot.avail",
-        "value": 885,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.boot.used_percentage",
-        "value": 13,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.home.used",
-        "value": 33,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.home.avail",
-        "value": 20446,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.home.used_percentage",
+        "name": "system_cpu_cores{}",
         "value": 1,
-        "timestamp": 1625000586,
+        "timestamp": 1635270399219,
         "tags": null
       },
       {
-        "name": "sensu-centos.disk_usage.root.vagrant.used",
-        "value": 79699,
-        "timestamp": 1625000586,
+        "name": "system_cpu_idle{cpu=\"cpu0\"}",
+        "value": 99.32885906040329,
+        "timestamp": 1635270399219,
         "tags": null
       },
       {
-        "name": "sensu-centos.disk_usage.root.vagrant.avail",
-        "value": 874206,
-        "timestamp": 1625000586,
+        "name": "system_cpu_idle{cpu=\"cpu-total\"}",
+        "value": 99.32885906040329,
+        "timestamp": 1635270399219,
         "tags": null
       },
       {
-        "name": "sensu-centos.disk_usage.root.vagrant.used_percentage",
-        "value": 9,
-        "timestamp": 1625000586,
+        "name": "system_cpu_used{cpu=\"cpu0\"}",
+        "value": 0.671140939596711,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_used{cpu=\"cpu-total\"}",
+        "value": 0.671140939596711,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_user{cpu=\"cpu0\"}",
+        "value": 0.3355704697986485,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_user{cpu=\"cpu-total\"}",
+        "value": 0.3355704697986485,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_system{cpu=\"cpu0\"}",
+        "value": 0.33557046979867833,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_system{cpu=\"cpu-total\"}",
+        "value": 0.33557046979867833,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_nice{cpu=\"cpu0\"}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_nice{cpu=\"cpu-total\"}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_iowait{cpu=\"cpu0\"}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_iowait{cpu=\"cpu-total\"}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_irq{cpu=\"cpu0\"}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_irq{cpu=\"cpu-total\"}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_sortirq{cpu=\"cpu0\"}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_sortirq{cpu=\"cpu-total\"}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_stolen{cpu=\"cpu0\"}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_stolen{cpu=\"cpu-total\"}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_guest{cpu=\"cpu0\"}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_guest{cpu=\"cpu-total\"}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_guest_nice{cpu=\"cpu0\"}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_cpu_guest_nice{cpu=\"cpu-total\"}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_mem_used{}",
+        "value": 21.21448463577672,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_mem_used_bytes{}",
+        "value": 220598272,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_mem_total_bytes{}",
+        "value": 1039847424,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_swap_used{}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_swap_used_bytes{}",
+        "value": 220598272,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_swap_total_bytes{}",
+        "value": 2147479552,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_load_load1{}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_load_load5{}",
+        "value": 0.01,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_load_load15{}",
+        "value": 0.05,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_load_load1_per_cpu{}",
+        "value": 0,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_load_load5_per_cpu{}",
+        "value": 0.01,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_load_load15_per_cpu{}",
+        "value": 0.05,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_host_uptime{}",
+        "value": 982,
+        "timestamp": 1635270399219,
+        "tags": null
+      },
+      {
+        "name": "system_host_processes{}",
+        "value": 109,
+        "timestamp": 1635270399219,
         "tags": null
       }
     ]
@@ -571,9 +844,8 @@ timestamp: 1625000586
   "metadata": {
     "namespace": "default"
   },
-  "id": "7468a597-bc3c-4ea7-899c-51c4d2992689",
-  "sequence": 5,
-  "timestamp": 1625000586
+  "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+  "sequence": 5
 }
 {{< /code >}}
 
@@ -707,3 +979,4 @@ The event specification describes [metrics attributes in events][5].
 [23]: ../../observe-process/populate-metrics-influxdb/
 [24]: ../../../operations/maintain-sensu/troubleshoot#use-a-debug-handler
 [25]: ../../observe-events/events/#metrics-points
+[26]: https://bonsai.sensu.io/assets/sensu/system-check
