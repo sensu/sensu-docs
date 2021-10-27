@@ -83,7 +83,11 @@ For example, if your license has an entity limit of 10,000 and an agent entity c
 At the same time, you cannot run more than 3,000 agents.
 If you use only 1,500 agent entities, you can have 8,500 proxy entities before you reach the overall entity limit of 10,000.
 
-If you have permission to create or update licenses, you will see messages in sensuctl and the web UI when you approach your licensed entity or entity class limit, as well as when you exceed these limits.
+If you have permission to create or update licenses, you will see messages in sensuctl and the web UI when you approach your licensed entity limit.
+The formula for calculating the threshold for this warning message is `0.03 * entity limit / 1000 + 0.9`.
+For example, if your entity limit is 1600, the warning threshold is 0.948.
+
+You will also see a warning when you exceed your entity or entity class limit.
 
 ### View entity count and entity limit
 
