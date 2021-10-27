@@ -19,6 +19,8 @@ Sensu uses [agent entities][31] and [proxy entities][32].
 Sensu's free entity limit is 100 entities.
 All [commercial features][9] are available for free in the packaged Sensu Go distribution for up to 100 entities.
 If your Sensu instance includes more than 100 entities, [contact us][10] to learn how to upgrade your installation and increase your limit.
+
+Learn more about entity limits in the [license reference][29].
 Read [the announcement on our blog][11] for more information about our usage policy.
 
 ## Create and manage agent entities
@@ -1614,7 +1616,7 @@ cpu_percent: 0.12639
 [25]: ../../observe-schedule/agent/#detect-cloud-provider-flag
 [26]: #processes-attributes
 [28]: https://man7.org/linux/man-pages/man1/top.1.html
-[29]: ../../../operations/maintain-sensu/license/#view-entity-count-and-entity-limit
+[29]: ../../../operations/maintain-sensu/license/#entity-limit
 [30]: ../../../web-ui/search/
 [31]: ../#agent-entities
 [32]: ../#proxy-entities
