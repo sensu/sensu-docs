@@ -82,6 +82,8 @@ Use sensuctl to view your license details at any time:
 sensuctl license info
 {{< /code >}}
 
+Users with permission to create or update licenses can also view license information in the Sensu [web UI][8] by pressing `CTRL .` to open the system information modal.
+
 These resources will help you get started with commercial features in Sensu Go:
 
 - [Set up and manage authentication providers][9]

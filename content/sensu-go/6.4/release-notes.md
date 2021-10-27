@@ -150,7 +150,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.4.0.
 
 **NEW FEATURES:**
 
-- ([Commercial feature][215]) In the web UI, the system information modal now includes license expiration information, accessed via the `CTRL + .` keyboard shortcut, for users with the appropriate permissions.
+- ([Commercial feature][215]) In the web UI, the system information modal now includes license expiration information, accessed via the `CTRL .` keyboard shortcut, for users with the appropriate permissions.
 - ([Commercial feature][215]) Added [page-specific configuration][221] options and a custom [sign-in message attribute][220] for the web UI.
 - Added binary-only distribution for [macOS arm64][216].
 
