@@ -49,14 +49,14 @@ Contact routing is powered by the [has-contact filter dynamic runtime asset][12]
 To add the has-contact dynamic runtime asset to Sensu, use [`sensuctl asset add`][14]:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-go-has-contact-filter:0.2.0 -r contact-filter
+sensuctl asset add sensu/sensu-go-has-contact-filter:0.3.0 -r contact-filter
 {{< /code >}}
 
 The response will indicate that the asset was added:
 
 {{< code shell >}}
-fetching bonsai asset: sensu/sensu-go-has-contact-filter:0.2.0
-added asset: sensu/sensu-go-has-contact-filter:0.2.0
+fetching bonsai asset: sensu/sensu-go-has-contact-filter:0.3.0
+added asset: sensu/sensu-go-has-contact-filter:0.3.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
@@ -102,7 +102,7 @@ metadata:
 spec:
   action: allow
   runtime_assets:
-    - sensu-go-has-contact-filter_any_noarch
+    - contact-filter
   expressions:
     - has_contact(event, "ops")
 ---
@@ -139,7 +139,7 @@ echo '{
   "spec": {
     "action": "allow",
     "runtime_assets": [
-      "sensu-go-has-contact-filter_any_noarch"
+      "contact-filter"
     ],
     "expressions": [
       "has_contact(event, \"ops\")"
@@ -207,14 +207,14 @@ With your contact filters in place, you can create a handler for each contact: o
 If you haven't already, add the [Slack handler dynamic runtime asset][8] to Sensu with sensuctl:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-slack-handler:1.0.3 -r sensu-slack-handler
+sensuctl asset add sensu/sensu-slack-handler:1.5.0 -r sensu-slack-handler
 {{< /code >}}
 
 The response will confirm that the asset was added:
 
 {{< code shell >}}
-fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
-added asset: sensu/sensu-slack-handler:1.0.3
+fetching bonsai asset: sensu/sensu-slack-handler:1.5.0
+added asset: sensu/sensu-slack-handler:1.5.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
@@ -250,7 +250,7 @@ metadata:
 spec:
   command: sensu-slack-handler --channel "#<alert-ops>"
   env_vars:
-  - SLACK_WEBHOOK_URL=<slack_webhook_url>"
+  - SLACK_WEBHOOK_URL=<slack_webhook_url>
   filters:
   - is_incident
   - not_silenced
@@ -266,7 +266,7 @@ metadata:
 spec:
   command: sensu-slack-handler --channel "#<alert-dev>"
   env_vars:
-  - SLACK_WEBHOOK_URL=<slack_webhook_url>"
+  - SLACK_WEBHOOK_URL=<slack_webhook_url>
   filters:
   - is_incident
   - not_silenced
@@ -282,7 +282,7 @@ metadata:
 spec:
   command: sensu-slack-handler --channel "#<alert-all>"
   env_vars:
-  - SLACK_WEBHOOK_URL=<slack_webhook_url>"
+  - SLACK_WEBHOOK_URL=<slack_webhook_url>
   filters:
   - is_incident
   - not_silenced
@@ -302,7 +302,7 @@ echo '{
   "spec": {
     "command": "sensu-slack-handler --channel "#<alert-ops>",
     "env_vars": [
-      "SLACK_WEBHOOK_URL=<slack_webhook_url>"
+      "SLACK_WEBHOOK_URL=<slack_webhook_url>
     ],
     "filters": [
       "is_incident",
@@ -324,7 +324,7 @@ echo '{
   "spec": {
     "command": "sensu-slack-handler --channel "#<alert-dev>",
     "env_vars": [
-      "SLACK_WEBHOOK_URL=<slack_webhook_url>"
+      "SLACK_WEBHOOK_URL=<slack_webhook_url>
     ],
     "filters": [
       "is_incident",
@@ -346,7 +346,7 @@ echo '{
   "spec": {
     "command": "sensu-slack-handler --channel "#<alert-all>",
     "env_vars": [
-      "SLACK_WEBHOOK_URL=<slack_webhook_url>"
+      "SLACK_WEBHOOK_URL=<slack_webhook_url>
     ],
     "filters": [
       "is_incident",
