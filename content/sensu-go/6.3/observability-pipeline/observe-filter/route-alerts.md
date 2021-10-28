@@ -85,9 +85,9 @@ You'll use these functions to create event filters that represent the three acti
 
 | event filter name | expression | description
 | --- | --- | --- |
-| `contact_ops` | `has_contact(event, "ops")` | Allow events with the entity<br> or check label `contacts: ops`
-| `contact_dev` | `has_contact(event, "dev")` | Allow events with the entity<br> or check label `contacts: dev`
-| `contact_fallback` | `no_contacts(event)` | Allow events without an entity<br> or check `contacts` label
+| `contact_ops` | `has_contact(event, "ops")` | Allow events with the entity or check label `contacts: ops`
+| `contact_dev` | `has_contact(event, "dev")` | Allow events with the entity or check label `contacts: dev`
+| `contact_fallback` | `no_contacts(event)` | Allow events without an entity or check `contacts` label
 
 Use sensuctl to create the three event filters:
 
