@@ -103,7 +103,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.5.2.
 
 **IMPROVEMENTS**
 
-- Operating system environment variables are now accessible with [JavaScript mutators][246].
+- For JavaScript mutators, you can now list the names of any environment variables that are available in your environment (in addition to defining environment variables) in the [env_vars attribute][254].
 This allows you to transform events with metatdata from the Sensu environment, which is useful for downstream processing and filtering when sending Sensu event data for further processing.
 - Added sensu_go_event_handler_duration_sum and sensu_go_event_handler_duration_count to the [metrics log][238] and added `status` and `event_type` labels to the sensu_go_event_handler_duration metric.
 These updates allow you to determine whether an event was handled successfully.
@@ -2094,3 +2094,4 @@ To get started with Sensu Go:
 [250]: /sensu-go/6.5/web-ui/view-manage-resources/#execute-checks-on-demand
 [251]: /sensu-go/6.5/observability-pipeline/observe-events/events/#processedby-attribute
 [253]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#initialization-ignore-already-initialized-flag
+[254]: /sensu-go/6.5/observability-pipeline/observe-transform/mutators/#env-vars-attribute

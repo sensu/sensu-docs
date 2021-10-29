@@ -181,9 +181,9 @@ JavaScript mutators do not require you to return any value &mdash; you can mutat
 However, if you do return a value with a JavaScript mutator, it must be a string.
 If a JavaScript mutator returns a non-string value (an array, object, integer, or Boolean), an error is recorded in the [Sensu backend log][20].
 
-JavaScript mutators can include environment variables, and the environment variables will be made available to the mutator's global environment.
-Secrets are not available to JavaScript mutators.
+JavaScript mutators can use dynamic runtime assets as long as they are valid JavaScript assets.
 
+Secrets are not available to JavaScript mutators.
 JavaScript mutators cannot look up events from the event store.
 
 ### JavaScript mutator eval attribute
@@ -193,7 +193,8 @@ JavaScript mutators do not use the command attribute.
 
 All mutator eval expressions are executed by a Sensu backend as the `sensu` user.
 
-JavaScript mutators can use dynamic runtime assets as long as they are valid JavaScript assets.
+JavaScript mutator eval expressions can use the environment variables listed in the [env_vars attribute][25].
+For JavaScript mutators, you can define environment variables and list the names of any environment variables that are available in your environment in the env_vars attribute.
 
 ## Built-in mutators
 
@@ -476,20 +477,36 @@ timeout: 30
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="env-vars-attribute"></a>
+
 env_vars      | 
 -------------|------
-description  | Array of environment variables to use with command execution.
+description  | Array of environment variables to use with command or eval expression execution.
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 env_vars:
-- RUBY_VERSION=2.5.0
+- APP_VERSION=2.5.0
 {{< /code >}}
 {{< code json >}}
 {
   "env_vars": [
-    "RUBY_VERSION=2.5.0"
+    "APP_VERSION=2.5.0"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}<br>As of [Sensu Go 6.5.2][26], for JavaScript mutators, you can list any environment variables that are available in your environment in addition to defining environment variables:<br><br>{{< language-toggle >}}
+{{< code yml >}}
+env_vars:
+- APP_VERSION=2.5.0
+- SHELL
+{{< /code >}}
+{{< code json >}}
+{
+  "env_vars": [
+    "APP_VERSION=2.5.0",
+    "SHELL"
   ]
 }
 {{< /code >}}
@@ -503,12 +520,12 @@ type           | Array
 example        | {{< language-toggle >}}
 {{< code yml >}}
 runtime_assets:
-- ruby-2.5.0
+- metric-mutator
 {{< /code >}}
 {{< code json >}}
 {
   "runtime_assets": [
-    "ruby-2.5.0"
+    "metric-mutator"
   ]
 }
 {{< /code >}}
@@ -769,3 +786,5 @@ spec:
 [22]: #eval-attribute
 [23]: #add-new-event-attributes-with-javascript-mutators
 [24]: #combine-existing-attributes-with-javascript-mutators
+[25]: #env-vars-attribute
+[26]: ../../../release-notes/#652-release-notes
