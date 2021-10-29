@@ -1,7 +1,7 @@
 ---
-title: "Pipelines reference"
-linkTitle: "Pipelines Reference"
-reference_title: "Pipelines"
+title: "Pipeline reference"
+linkTitle: "Pipeline Reference"
+reference_title: "Pipeline"
 type: "reference"
 description: "Pipelines are observation event processing workflows made up of filters, mutators, and handlers. Read the reference doc to learn about pipelines."
 weight: 15
