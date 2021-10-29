@@ -648,12 +648,12 @@ type           | Array
 example        | {{< language-toggle >}}
 {{< code yml >}}
 runtime_assets:
-- ruby-2.5.0
+- metric-handler
 {{< /code >}}
 {{< code json >}}
 {
   "runtime_assets": [
-    "ruby-2.5.0"
+    "metric-handler"
   ]
 }
 {{< /code >}}

@@ -934,12 +934,12 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 runtime_assets:
-- ruby-2.5.0
+- metric-check
 {{< /code >}}
 {{< code json >}}
 {
   "runtime_assets": [
-    "ruby-2.5.0"
+    "metric-check"
   ]
 }
 {{< /code >}}
@@ -1062,13 +1062,13 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 env_vars:
-- RUBY_VERSION=2.5.0
+- APP_VERSION=2.5.0
 - CHECK_HOST=my.host.internal
 {{< /code >}}
 {{< code json >}}
 {
   "env_vars": [
-    "RUBY_VERSION=2.5.0",
+    "APP_VERSION=2.5.0",
     "CHECK_HOST=my.host.internal"
   ]
 }
