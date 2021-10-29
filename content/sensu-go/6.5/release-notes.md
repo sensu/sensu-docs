@@ -96,7 +96,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **October 28, 2021** &mdash; The latest release of Sensu Go, version 6.5.2, is now available for download.
 
-The Sensu Go 6.5.2 patch release adds a number of metrics to the platform metrics log to provide more information about event handling and asset fetching and extraction.
+The Sensu Go 6.5.2 patch release adds a number of metrics to provide more information about event handling and asset fetching and extraction.
 In addition, this patch makes operating system environment variables accessible with JavaScript mutators and omits an extraneous attribute that appeared in web UI resource data.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.5.2.
@@ -105,23 +105,23 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.5.2.
 
 - For JavaScript mutators, you can now list the names of any environment variables that are available in your environment (in addition to defining environment variables) in the [env_vars attribute][254].
 This allows you to transform events with metatdata from the Sensu environment, which is useful for downstream processing and filtering when sending Sensu event data for further processing.
-- Added sensu_go_event_handler_duration_sum and sensu_go_event_handler_duration_count to the [metrics log][238] and added `status` and `event_type` labels to the sensu_go_event_handler_duration metric.
+- Added sensu_go_event_handler_duration_sum and sensu_go_event_handler_duration_count and added `status` and `event_type` labels to the sensu_go_event_handler_duration metric.
 These updates allow you to determine whether an event was handled successfully.
-- Added summary metrics for pipelined and pipeline operations to the [metrics log][238] to provide insight into how time is spent when pipelined and a pipeline resource handles an event:
+- Added summary metrics for pipelined and pipeline operations to provide insight into how time is spent when pipelined and a pipeline resource handles an event:
     - sensu_go_pipelined_message_handler_duration
     - sensu_go_pipeline_duration
     - sensu_go_pipeline_resolve_duration
     - sensu_go_pipeline_filter_duration
     - sensu_go_pipeline_mutator_duration
     - sensu_go_pipeline_handler_duration
-- Added summary metrics for eventd to the [metrics log][238] to provide insight into how time is spent when eventd handles an event:
+- Added summary metrics for eventd to provide insight into how time is spent when eventd handles an event:
     - sensu_go_eventd_create_proxy_entity_duration
     - sensu_go_eventd_update_event_duration
     - sensu_go_eventd_bus_publish_duration
     - sensu_go_eventd_liveness_factory_duration
     - sensu_go_eventd_switches_alive_duration
     - sensu_go_eventd_switches_bury_duration
-- Added two metrics to the [metrics log][238] to provide insight into how time is spent when an asset is fetched and extracted:
+- Added two metrics to provide insight into how time is spent when an asset is fetched and extracted:
     - sensu_go_asset_fetch_duration
     - sensu_go_asset_expand_duration
 
