@@ -9,6 +9,7 @@ version: "6.5"
 menu: "sensu-go-6.5"
 ---
 
+- [6.5.3 release notes](#653-release-notes)
 - [6.5.2 release notes](#652-release-notes)
 - [6.5.1 release notes](#651-release-notes)
 - [6.5.0 release notes](#650-release-notes)
@@ -91,6 +92,23 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.5.3 release notes
+
+**October 29, 2021** &mdash; The latest release of Sensu Go, version 6.5.3, is now available for download.
+
+This patch adds the 6.5.2 metrics to the metrics log, fixes bugs in validation for environment variables in JavaScript mutators and asset expansion error handling, and vendors the correct version of sensu-go.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.5.3.
+
+**IMPROVEMENTS**
+
+- Added the [Sensu Go 6.5.2][255] eventd, pipeline, and asset metrics to the [metrics log][238] to facilitate troubleshooting.
+
+**FIXES**
+- ([Commercial feature][229]) Vendored the correct version of sensu-go.
+- Fixed a bug in API validation that rejected JavaScript mutators that use environment variables available in the environment rather than defined in the mutator env_vars attribute.
+- Fixed a bug that prevented asset expansion errors from being handled.
 
 ## 6.5.2 release notes
 
@@ -2095,3 +2113,4 @@ To get started with Sensu Go:
 [251]: /sensu-go/6.5/observability-pipeline/observe-events/events/#processedby-attribute
 [253]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#initialization-ignore-already-initialized-flag
 [254]: /sensu-go/6.5/observability-pipeline/observe-transform/mutators/#env-vars-attribute
+[255]: #652-release-notes
