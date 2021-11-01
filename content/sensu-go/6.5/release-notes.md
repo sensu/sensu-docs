@@ -9,6 +9,7 @@ version: "6.5"
 menu: "sensu-go-6.5"
 ---
 
+- [6.5.4 release notes](#654-release-notes)
 - [6.5.3 release notes](#653-release-notes)
 - [6.5.2 release notes](#652-release-notes)
 - [6.5.1 release notes](#651-release-notes)
@@ -92,6 +93,17 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.5.4 release notes
+
+**October 30, 2021** &mdash; The latest release of Sensu Go, version 6.5.4, is now available for download.
+
+This patch releases and updates the sensu-go core/api module.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.5.4.
+
+**FIXES**
+- Released and updated the sensu-go core/api module.
 
 ## 6.5.3 release notes
 
