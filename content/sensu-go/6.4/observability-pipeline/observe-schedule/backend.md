@@ -416,6 +416,8 @@ Store Flags:
       --no-embed-etcd                              don't embed etcd, use external etcd instead
 {{< /code >}}
 
+For more information about log configuration flags, read [Event logging][65].
+
 ### General configuration flags
 
 {{% notice note %}}
@@ -1562,6 +1564,8 @@ The event logging functionality provides better performance and reliability than
 To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../../operations/monitor-sensu/log-sensu-systemd/).
 {{% /notice %}}
 
+Use these backend configuration flags to customize event logging:
+
 | event-log-buffer-size |      |
 -----------------------|------
 description            | Buffer size of the event logger. Corresponds to the maximum number of events kept in memory in case the log file is temporarily unavailable or more events have been received than can be written to the log file.
@@ -1699,3 +1703,4 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [38]: #configuration-via-environment-variables
 [60]: #backend-log-level
 [61]: #event-log-file
+[65]: #event-logging

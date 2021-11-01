@@ -521,6 +521,8 @@ Store Flags:
       --no-embed-etcd                             don't embed etcd, use external etcd instead
 {{< /code >}}
 
+For more information about log configuration flags, read [Event logging][65] and [Platform metrics logging][66].
+
 ### General configuration flags
 
 {{% notice note %}}
@@ -1662,6 +1664,8 @@ The event logging functionality provides better performance and reliability than
 To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../../operations/monitor-sensu/log-sensu-systemd/).
 {{% /notice %}}
 
+Use these backend configuration flags to customize event logging:
+
 | event-log-buffer-size |      |
 -----------------------|------
 description            | Buffer size of the event logger. Corresponds to the maximum number of events kept in memory in case the log file is temporarily unavailable or more events have been received than can be written to the log file.
@@ -1762,9 +1766,11 @@ Sensu automatically writes core platform metrics in [InfluxDB Line Protocol][62]
 You can use this file as an input source for your favorite data lake solution.
 
 Metrics logging is enabled by default but can be disabled with the disable-platform-metrics configuration flag.
-Sensu appends updated metrics at the interval you specify (default is every 60 seconds).
+Sensu appends updated metrics at the interval you specify with the platform-metrics-logging-interval configuration flag (default is every 60 seconds).
 
 To rotate the platform metrics log, use the same methods as for [event log rotation][63].
+
+Use these backend configuration flags to customize platform metrics logging:
 
 | disable-platform-metrics |      |
 -----------------------|------
@@ -1846,3 +1852,5 @@ platform-metrics-logging-interval: 60s{{< /code >}}
 [62]: https://docs.influxdata.com/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/
 [63]: #log-rotation
 [64]: ../../../sensuctl/#global-flags
+[65]: #event-logging
+[66]: #platform-metrics-logging
