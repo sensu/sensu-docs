@@ -337,4 +337,4 @@ Read the [SensuFlow GitHub Action marketplace page][1] and [Monitoring as code w
 [11]: #create-a-monitoring-as-code-repository
 [12]: https://sensu.io/blog/monitoring-as-code-with-sensu-flow
 [13]: #adopt-a-configuration-file-strategy
-[14]: ../../web-ui/view-manage-resources/#view-resource-data
+[14]: ../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui

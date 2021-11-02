@@ -152,7 +152,7 @@ spec:
 {{< /language-toggle >}}
 
 {{% notice protip %}}
-**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data).
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
 {{% /notice %}}
 
 You can share and reuse this handler like code &mdash; [save it to a file][15] and start building a [monitoring as code repository][16].

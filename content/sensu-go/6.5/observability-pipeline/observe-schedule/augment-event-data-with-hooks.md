@@ -162,7 +162,7 @@ check:
 {{< /language-toggle >}}
 
 {{% notice protip %}}
-**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data).
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
 {{% /notice %}}
 
 After you confirm that the hook is attached to your check, you can stop Nginx and observe the check hook in action on the next check execution.
