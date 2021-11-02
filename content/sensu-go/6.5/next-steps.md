@@ -186,4 +186,4 @@ You can also ask questions and join discussions in the Sensu Community [Discours
 [11]: https://sensu.io/contact
 [12]: https://discourse.sensu.io
 [13]: https://sensucommunity.slack.com
-[14]: ../web-ui/view-manage-resources/#view-resource-data
+[14]: ../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui
