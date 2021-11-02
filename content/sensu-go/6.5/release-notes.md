@@ -163,13 +163,12 @@ These updates allow you to determine whether an event was handled successfully.
 
 **October 20, 2021** &mdash; The latest release of Sensu Go, version 6.5.1, is now available for download.
 
-This patch fixes several issues in the web UI and adds Prometheus metrics for tracking lease operations as well as Prometheus counters for pipeline workflow handler processing.
+This patch fixes several issues in the web UI and adds Prometheus counters for pipeline workflow handler processing.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.5.1.
 
 **IMPROVEMENTS**
 
-- Added Prometheus metric for tracking lease operations, sensu_go_lease_ops, with labels for operation type and status.
 - Added Prometheus counters for pipeline workflow handler processing:
     - sensu_go_handler_requests: Number of processed handler requests
     - sensu_go_handler_requests_total: Total number of handler requests invoked
