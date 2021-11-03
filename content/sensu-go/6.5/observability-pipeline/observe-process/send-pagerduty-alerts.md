@@ -168,7 +168,7 @@ spec:
 {{< /language-toggle >}}
 
 {{% notice protip %}}
-**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data).
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
 {{% /notice %}}
 
 The check command includes the path for the file that the check will look for on your system, `/tmp/my-file.txt`.
