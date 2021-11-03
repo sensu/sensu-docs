@@ -469,434 +469,855 @@ This is the format that events are in when Sensu sends them to handlers:
 
 ## Example metrics-only event
 
-This example shows the complete resource definition for a [metrics-only event][5]:
+This example shows a complete [metrics-only event][5].
 
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: Event
-api_version: core/v2
-metadata:
-  namespace: default
-spec:
-  entity:
-    deregister: false
-    deregistration: {}
-    entity_class: agent
-    last_seen: 1552495139
-    metadata:
-      name: sensu-go-sandbox
-      namespace: default
-    redact:
-    - password
-    - passwd
-    - pass
-    - api_key
-    - api_token
-    - access_key
-    - secret_key
-    - private_key
-    - secret
-    subscriptions:
-    - entity:sensu-go-sandbox
-    system:
-      arch: amd64
-      hostname: sensu-go-sandbox
-      network:
-        interfaces:
-        - addresses:
-          - 127.0.0.1/8
-          - ::1/128
-          name: lo
-        - addresses:
-          - 10.0.2.15/24
-          - fe80::5a94:f67a:1bfc:a579/64
-          mac: 08:00:27:8b:c9:3f
-          name: eth0
-      os: linux
-      platform: centos
-      platform_family: rhel
-      platform_version: 7.5.1804
-      processes: null
-    user: agent
-  metrics:
-    handlers:
-    - influx-db
-    points:
-    - name: sensu-go-sandbox.curl_timings.time_total
-      tags: []
-      timestamp: 1552506033
-      value: 0.005
-    - name: sensu-go-sandbox.curl_timings.time_namelookup
-      tags: []
-      timestamp: 1552506033
-      value: 0.004
-  pipelines:
-    - api_version: core/v2
-      type: Pipeline
-      name: incident_alerts
-  timestamp: 1552506033
-  id: 47ea07cd-1e50-4897-9e6d-09cd39ec5180
-  sequence: 1
-{{< /code >}}
+{{% notice note %}}
+**NOTE**: Metrics data points are not included in events retrieved with sensuctl event info &mdash; these events include check output text rather than a set of metrics points. To view metrics points data as shown in this example, add a [debug handler](../../../operations/maintain-sensu/troubleshoot/#use-a-debug-handler) that prints events to a JSON file.
+{{% /notice %}}
 
 {{< code json >}}
 {
-  "type": "Event",
-  "api_version": "core/v2",
+  "metrics": {
+    "handlers": null,
+    "points": [
+      {
+        "name": "system_cpu_sortirq",
+        "value": 0,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu0"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_sortirq",
+        "value": 0,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu-total"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_guest",
+        "value": 0,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu0"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_guest",
+        "value": 0,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu-total"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_mem_used_bytes",
+        "value": 260579328,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_mem_total_bytes",
+        "value": 1039847424,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_swap_used",
+        "value": 0.0736237976528123,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_used",
+        "value": 0.6756756756291793,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu0"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_used",
+        "value": 0.6756756756291793,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu-total"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_nice",
+        "value": 0,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu0"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_nice",
+        "value": 0,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu-total"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_irq",
+        "value": 0,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu0"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_irq",
+        "value": 0,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu-total"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_load_load1",
+        "value": 0.01,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_host_uptime",
+        "value": 10642,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "counter"
+          }
+        ]
+      },
+      {
+        "name": "system_host_processes",
+        "value": 116,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_load_load5_per_cpu",
+        "value": 0.02,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_cores",
+        "value": 1,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_swap_used_bytes",
+        "value": 260579328,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_load_load5",
+        "value": 0.02,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_mem_used",
+        "value": 25.059381019344624,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_swap_total_bytes",
+        "value": 2147479552,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_load_load1_per_cpu",
+        "value": 0.01,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_load_load15_per_cpu",
+        "value": 0.05,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_idle",
+        "value": 99.32432432437082,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          },
+          {
+            "name": "cpu",
+            "value": "cpu0"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_idle",
+        "value": 99.32432432437082,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu-total"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_user",
+        "value": 0.3378378378376302,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu0"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_user",
+        "value": 0.3378378378376302,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu-total"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_iowait",
+        "value": 0,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu0"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_iowait",
+        "value": 0,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu-total"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_load_load15",
+        "value": 0.05,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_system",
+        "value": 0.3378378378376302,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          },
+          {
+            "name": "cpu",
+            "value": "cpu0"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_system",
+        "value": 0.3378378378376302,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu-total"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_stolen",
+        "value": 0,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu0"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_stolen",
+        "value": 0,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          },
+          {
+            "name": "cpu",
+            "value": "cpu-total"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_guest_nice",
+        "value": 0,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu0"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      },
+      {
+        "name": "system_cpu_guest_nice",
+        "value": 0,
+        "timestamp": 1635952533,
+        "tags": [
+          {
+            "name": "cpu",
+            "value": "cpu-total"
+          },
+          {
+            "name": "prom_type",
+            "value": "gauge"
+          }
+        ]
+      }
+    ]
+  },
   "metadata": {
     "namespace": "default"
   },
-  "spec": {
-    "entity": {
-      "deregister": false,
-      "deregistration": {},
-      "entity_class": "agent",
-      "last_seen": 1552495139,
-      "metadata": {
-        "name": "sensu-go-sandbox",
-        "namespace": "default"
+  "id": "afdeb823-74c2-4921-891a-465a2095cb5a",
+  "sequence": 6,
+  "pipelines": null,
+  "timestamp": 1635952536,
+  "entity": {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "sensu-centos",
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.9.2009",
+      "network": {
+        "interfaces": [
+          {
+            "name": "lo",
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ]
+          },
+          {
+            "name": "eth0",
+            "mac": "08:00:27:8b:c9:3f",
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::20b8:8cea:fa4:2e57/64"
+            ]
+          },
+          {
+            "name": "eth1",
+            "mac": "08:00:27:40:ab:31",
+            "addresses": [
+              "192.168.200.95/24",
+              "fe80::a00:27ff:fe40:ab31/64"
+            ]
+          }
+        ]
       },
-      "redact": [
-        "password",
-        "passwd",
-        "pass",
-        "api_key",
-        "api_token",
-        "access_key",
-        "secret_key",
-        "private_key",
-        "secret"
-      ],
-      "subscriptions": [
-        "entity:sensu-go-sandbox"
-      ],
-      "system": {
-        "arch": "amd64",
-        "hostname": "sensu-go-sandbox",
-        "network": {
-          "interfaces": [
-            {
-              "addresses": [
-                "127.0.0.1/8",
-                "::1/128"
-              ],
-              "name": "lo"
-            },
-            {
-              "addresses": [
-                "10.0.2.15/24",
-                "fe80::5a94:f67a:1bfc:a579/64"
-              ],
-              "mac": "08:00:27:8b:c9:3f",
-              "name": "eth0"
-            }
-          ]
-        },
-        "os": "linux",
-        "platform": "centos",
-        "platform_family": "rhel",
-        "platform_version": "7.5.1804",
-        "processes": null
-      },
-      "user": "agent"
+      "arch": "amd64",
+      "libc_type": "glibc",
+      "vm_system": "vbox",
+      "vm_role": "guest",
+      "cloud_provider": "",
+      "processes": null
     },
-    "metrics": {
-      "handlers": [
-        "influx-db"
-      ],
-      "points": [
-        {
-          "name": "sensu-go-sandbox.curl_timings.time_total",
-          "tags": [],
-          "timestamp": 1552506033,
-          "value": 0.005
-        },
-        {
-          "name": "sensu-go-sandbox.curl_timings.time_namelookup",
-          "tags": [],
-          "timestamp": 1552506033,
-          "value": 0.004
-        }
-      ]
+    "subscriptions": [
+      "system",
+      "entity:sensu-centos"
+    ],
+    "last_seen": 1635952533,
+    "deregister": false,
+    "deregistration": {},
+    "user": "agent",
+    "redact": [
+      "password",
+      "passwd",
+      "pass",
+      "api_key",
+      "api_token",
+      "access_key",
+      "secret_key",
+      "private_key",
+      "secret"
+    ],
+    "metadata": {
+      "name": "sensu-centos",
+      "namespace": "default"
     },
-    "pipelines": [
+    "sensu_agent_version": "6.5.4"
+  },
+  "check": {
+    "command": "system-check",
+    "handlers": [
+      "debug3"
+    ],
+    "high_flap_threshold": 0,
+    "interval": 10,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [
+      "system-check"
+    ],
+    "subscriptions": [
+      "system"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "duration": 3.01062768,
+    "executed": 1635952533,
+    "history": [
       {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
+        "status": 0,
+        "executed": 1635952283
+      },
+      {
+        "status": 0,
+        "executed": 1635952293
+      },
+      {
+        "status": 0,
+        "executed": 1635952303
+      },
+      {
+        "status": 0,
+        "executed": 1635952313
+      },
+      {
+        "status": 0,
+        "executed": 1635952421
+      },
+      {
+        "status": 0,
+        "executed": 1635952533
       }
     ],
-    "timestamp": 1552506033,
-    "id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180",
-    "sequence": 1
+    "issued": 1635952533,
+    "output": "# HELP system_cpu_cores [GAUGE] Number of cpu cores on the system\n# TYPE system_cpu_cores GAUGE\nsystem_cpu_cores{} 1 1635952533657\n# HELP system_cpu_idle [GAUGE] Percent of time all cpus were idle\n# TYPE system_cpu_idle GAUGE\nsystem_cpu_idle{cpu=\"cpu0\"} 99.32432432437082 1635952533657\nsystem_cpu_idle{cpu=\"cpu-total\"} 99.32432432437082 1635952533657\n# HELP system_cpu_used [GAUGE] Percent of time all cpus were used\n# TYPE system_cpu_used GAUGE\nsystem_cpu_used{cpu=\"cpu0\"} 0.6756756756291793 1635952533657\nsystem_cpu_used{cpu=\"cpu-total\"} 0.6756756756291793 1635952533657\n# HELP system_cpu_user [GAUGE] Percent of time total cpu was used by normal processes in user mode\n# TYPE system_cpu_user GAUGE\nsystem_cpu_user{cpu=\"cpu0\"} 0.3378378378376302 1635952533657\nsystem_cpu_user{cpu=\"cpu-total\"} 0.3378378378376302 1635952533657\n# HELP system_cpu_system [GAUGE] Percent of time all cpus used by processes executed in kernel mode\n# TYPE system_cpu_system GAUGE\nsystem_cpu_system{cpu=\"cpu0\"} 0.3378378378376302 1635952533657\nsystem_cpu_system{cpu=\"cpu-total\"} 0.3378378378376302 1635952533657\n# HELP system_cpu_nice [GAUGE] Percent of time all cpus used by niced processes in user mode\n# TYPE system_cpu_nice GAUGE\nsystem_cpu_nice{cpu=\"cpu0\"} 0 1635952533657\nsystem_cpu_nice{cpu=\"cpu-total\"} 0 1635952533657\n# HELP system_cpu_iowait [GAUGE] Percent of time all cpus waiting for I/O to complete\n# TYPE system_cpu_iowait GAUGE\nsystem_cpu_iowait{cpu=\"cpu0\"} 0 1635952533657\nsystem_cpu_iowait{cpu=\"cpu-total\"} 0 1635952533657\n# HELP system_cpu_irq [GAUGE] Percent of time all cpus servicing interrupts\n# TYPE system_cpu_irq GAUGE\nsystem_cpu_irq{cpu=\"cpu0\"} 0 1635952533657\nsystem_cpu_irq{cpu=\"cpu-total\"} 0 1635952533657\n# HELP system_cpu_sortirq [GAUGE] Percent of time all cpus servicing software interrupts\n# TYPE system_cpu_sortirq GAUGE\nsystem_cpu_sortirq{cpu=\"cpu0\"} 0 1635952533657\nsystem_cpu_sortirq{cpu=\"cpu-total\"} 0 1635952533657\n# HELP system_cpu_stolen [GAUGE] Percent of time all cpus serviced virtual hosts operating systems\n# TYPE system_cpu_stolen GAUGE\nsystem_cpu_stolen{cpu=\"cpu0\"} 0 1635952533657\nsystem_cpu_stolen{cpu=\"cpu-total\"} 0 1635952533657\n# HELP system_cpu_guest [GAUGE] Percent of time all cpus serviced guest operating system\n# TYPE system_cpu_guest GAUGE\nsystem_cpu_guest{cpu=\"cpu0\"} 0 1635952533657\nsystem_cpu_guest{cpu=\"cpu-total\"} 0 1635952533657\n# HELP system_cpu_guest_nice [GAUGE] Percent of time all cpus serviced niced guest operating system\n# TYPE system_cpu_guest_nice GAUGE\nsystem_cpu_guest_nice{cpu=\"cpu0\"} 0 1635952533657\nsystem_cpu_guest_nice{cpu=\"cpu-total\"} 0 1635952533657\n# HELP system_mem_used [GAUGE] Percent of memory used\n# TYPE system_mem_used GAUGE\nsystem_mem_used{} 25.059381019344624 1635952533657\n# HELP system_mem_used_bytes [GAUGE] Used memory in bytes\n# TYPE system_mem_used_bytes GAUGE\nsystem_mem_used_bytes{} 2.60579328e+08 1635952533657\n# HELP system_mem_total_bytes [GAUGE] Total memory in bytes\n# TYPE system_mem_total_bytes GAUGE\nsystem_mem_total_bytes{} 1.039847424e+09 1635952533657\n# HELP system_swap_used [GAUGE] Percent of swap used\n# TYPE system_swap_used GAUGE\nsystem_swap_used{} 0.0736237976528123 1635952533657\n# HELP system_swap_used_bytes [GAUGE] Used swap in bytes\n# TYPE system_swap_used_bytes GAUGE\nsystem_swap_used_bytes{} 2.60579328e+08 1635952533657\n# HELP system_swap_total_bytes [GAUGE] Total swap in bytes\n# TYPE system_swap_total_bytes GAUGE\nsystem_swap_total_bytes{} 2.147479552e+09 1635952533657\n# HELP system_load_load1 [GAUGE] System load averaged over 1 minute, high load value dependant on number of cpus in system\n# TYPE system_load_load1 GAUGE\nsystem_load_load1{} 0.01 1635952533657\n# HELP system_load_load5 [GAUGE] System load averaged over 5 minute, high load value dependent on number of cpus in system\n# TYPE system_load_load5 GAUGE\nsystem_load_load5{} 0.02 1635952533657\n# HELP system_load_load15 [GAUGE] System load averaged over 15 minute, high load value dependent on number of cpus in system\n# TYPE system_load_load15 GAUGE\nsystem_load_load15{} 0.05 1635952533657\n# HELP system_load_load1_per_cpu [GAUGE] System load averaged over 1 minute normalized by cpu count, values \\u003e 1 means system may be overloaded\n# TYPE system_load_load1_per_cpu GAUGE\nsystem_load_load1_per_cpu{} 0.01 1635952533657\n# HELP system_load_load5_per_cpu [GAUGE] System load averaged over 5 minute normalized by cpu count, values \\u003e 1 means system may be overloaded\n# TYPE system_load_load5_per_cpu GAUGE\nsystem_load_load5_per_cpu{} 0.02 1635952533657\n# HELP system_load_load15_per_cpu [GAUGE] System load averaged over 15 minute normalized by cpu count, values \\u003e 1 means system may be overloaded\n# TYPE system_load_load15_per_cpu GAUGE\nsystem_load_load15_per_cpu{} 0.05 1635952533657\n# HELP system_host_uptime [COUNTER] Host uptime in seconds\n# TYPE system_host_uptime COUNTER\nsystem_host_uptime{} 10642 1635952533657\n# HELP system_host_processes [GAUGE] Number of host processes\n# TYPE system_host_processes GAUGE\nsystem_host_processes{} 116 1635952533657\n\n",
+    "state": "passing",
+    "status": 0,
+    "total_state_change": 0,
+    "last_ok": 1635952533,
+    "occurrences": 6,
+    "occurrences_watermark": 6,
+    "output_metric_format": "prometheus_text",
+    "output_metric_handlers": null,
+    "env_vars": null,
+    "metadata": {
+      "name": "system-check",
+      "namespace": "default",
+      "labels": {
+        "sensu.io/managed_by": "sensuctl"
+      }
+    },
+    "secrets": null,
+    "is_silenced": false,
+    "scheduler": "memory",
+    "processed_by": "sensu-centos",
+    "pipelines": []
   }
 }
 {{< /code >}}
-
-{{< /language-toggle >}}
 
 ## Example status and metrics event
 
-The following example resource definition for a [status and metrics event][19] contains _both_ a check and metrics:
+The following example resource definition for a [status and metrics event][19] contains _both_ a check and metrics.
 
-{{< language-toggle >}}
-
-{{< code yml >}}
-type: Event
-api_version: core/v2
-metadata:
-  namespace: default
-spec:
-  check:
-    check_hooks: null
-    command: /opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u "http://localhost"
-    duration: 0.060790838
-    env_vars: null
-    executed: 1552506033
-    handlers: []
-    high_flap_threshold: 0
-    history:
-    - executed: 1552505833
-      status: 0
-    - executed: 1552505843
-      status: 0
-    interval: 10
-    is_silenced: false
-    processed_by: sensu-go-sandbox
-    issued: 1552506033
-    last_ok: 1552506033
-    low_flap_threshold: 0
-    metadata:
-      name: curl_timings
-      namespace: default
-    occurrences: 1
-    occurrences_watermark: 1
-    output: |-
-      sensu-go-sandbox.curl_timings.time_total 0.005 1552506033
-      sensu-go-sandbox.curl_timings.time_namelookup 0.004
-    output_metric_format: graphite_plaintext
-    output_metric_handlers:
-    - influx-db
-    proxy_entity_name: ""
-    publish: true
-    round_robin: false
-    runtime_assets: []
-    state: passing
-    status: 0
-    stdin: false
-    subdue: null
-    subscriptions:
-    - entity:sensu-go-sandbox
-    timeout: 0
-    total_state_change: 0
-    ttl: 0
-  entity:
-    deregister: false
-    deregistration: {}
-    entity_class: agent
-    last_seen: 1552495139
-    metadata:
-      name: sensu-go-sandbox
-      namespace: default
-    redact:
-    - password
-    - passwd
-    - pass
-    - api_key
-    - api_token
-    - access_key
-    - secret_key
-    - private_key
-    - secret
-    subscriptions:
-    - entity:sensu-go-sandbox
-    system:
-      arch: amd64
-      hostname: sensu-go-sandbox
-      network:
-        interfaces:
-        - addresses:
-          - 127.0.0.1/8
-          - ::1/128
-          name: lo
-        - addresses:
-          - 10.0.2.15/24
-          - fe80::5a94:f67a:1bfc:a579/64
-          mac: 08:00:27:8b:c9:3f
-          name: eth0
-      os: linux
-      platform: centos
-      platform_family: rhel
-      platform_version: 7.5.1804
-      processes: null
-    user: agent
-  metrics:
-    handlers:
-    - influx-db
-    points:
-    - name: sensu-go-sandbox.curl_timings.time_total
-      tags: []
-      timestamp: 1552506033
-      value: 0.005
-    - name: sensu-go-sandbox.curl_timings.time_namelookup
-      tags: []
-      timestamp: 1552506033
-      value: 0.004
-  pipelines:
-    - api_version: core/v2
-      type: Pipeline
-      name: incident_alerts
-  timestamp: 1552506033
-  id: 431a0085-96da-4521-863f-c38b480701e9
-  sequence: 1
-{{< /code >}}
+{{% notice note %}}
+**NOTE**: Metrics data points are not included in events retrieved with sensuctl event info &mdash; these events include check output text rather than a set of metrics points. To view metrics points data as shown in this example, add a [debug handler](../../../operations/maintain-sensu/troubleshoot/#use-a-debug-handler) that prints events to a JSON file.
+{{% /notice %}}
 
 {{< code json >}}
 {
-  "type": "Event",
-  "api_version": "core/v2",
+  "entity": {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "sensu-centos",
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.9.2009",
+      "network": {
+        "interfaces": [
+          {
+            "name": "lo",
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ]
+          },
+          {
+            "name": "eth0",
+            "mac": "08:00:27:8b:c9:3f",
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::20b8:8cea:fa4:2e57/64"
+            ]
+          },
+          {
+            "name": "eth1",
+            "mac": "08:00:27:40:ab:31",
+            "addresses": [
+              "192.168.200.95/24",
+              "fe80::a00:27ff:fe40:ab31/64"
+            ]
+          }
+        ]
+      },
+      "arch": "amd64",
+      "libc_type": "glibc",
+      "vm_system": "vbox",
+      "vm_role": "guest",
+      "cloud_provider": "",
+      "processes": null
+    },
+    "subscriptions": [
+      "system",
+      "entity:sensu-centos",
+      "webserver"
+    ],
+    "last_seen": 1635952880,
+    "deregister": false,
+    "deregistration": {},
+    "user": "agent",
+    "redact": [
+      "password",
+      "passwd",
+      "pass",
+      "api_key",
+      "api_token",
+      "access_key",
+      "secret_key",
+      "private_key",
+      "secret"
+    ],
+    "metadata": {
+      "name": "sensu-centos",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "sensu_agent_version": "6.5.4"
+  },
+  "check": {
+    "command": "http-check --url http://localhost \\u0026\\u0026 http-perf --url http://localhost --warning 1s --critical 2s",
+    "handlers": [
+      "debug"
+    ],
+    "high_flap_threshold": 0,
+    "interval": 15,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [
+      "http-checks"
+    ],
+    "subscriptions": [
+      "webserver"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "duration": 0.018747388,
+    "executed": 1635952880,
+    "history": [
+      {
+        "status": 0,
+        "executed": 1635952820
+      },
+      {
+        "status": 0,
+        "executed": 1635952835
+      },
+      {
+        "status": 0,
+        "executed": 1635952850
+      },
+      {
+        "status": 0,
+        "executed": 1635952865
+      },
+      {
+        "status": 0,
+        "executed": 1635952880
+      }
+    ],
+    "issued": 1635952880,
+    "output": "http-check OK: HTTP Status 200 for http://localhost\nhttp-perf OK: 0.001059s | dns_duration=0.000235, tls_handshake_duration=0.000000, connect_duration=0.000083, first_byte_duration=0.001040, total_request_duration=0.001059\n",
+    "state": "passing",
+    "status": 0,
+    "total_state_change": 0,
+    "last_ok": 1635952880,
+    "occurrences": 5,
+    "occurrences_watermark": 5,
+    "output_metric_format": "nagios_perfdata",
+    "output_metric_handlers": null,
+    "env_vars": null,
+    "metadata": {
+      "name": "collect-metrics",
+      "namespace": "default"
+    },
+    "secrets": null,
+    "is_silenced": false,
+    "scheduler": "memory",
+    "processed_by": "sensu-centos",
+    "pipelines": []
+  },
+  "metrics": {
+    "handlers": null,
+    "points": [
+      {
+        "name": "dns_duration",
+        "value": 0.000235,
+        "timestamp": 1635952880,
+        "tags": null
+      },
+      {
+        "name": "tls_handshake_duration",
+        "value": 0,
+        "timestamp": 1635952880,
+        "tags": null
+      },
+      {
+        "name": "connect_duration",
+        "value": 0.000083,
+        "timestamp": 1635952880,
+        "tags": null
+      },
+      {
+        "name": "first_byte_duration",
+        "value": 0.00104,
+        "timestamp": 1635952880,
+        "tags": null
+      },
+      {
+        "name": "total_request_duration",
+        "value": 0.001059,
+        "timestamp": 1635952880,
+        "tags": null
+      }
+    ]
+  },
   "metadata": {
     "namespace": "default"
   },
-  "spec": {
-    "check": {
-      "check_hooks": null,
-      "command": "/opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u \"http://localhost\"",
-      "duration": 0.060790838,
-      "env_vars": null,
-      "executed": 1552506033,
-      "handlers": [],
-      "high_flap_threshold": 0,
-      "history": [
-        {
-          "executed": 1552505833,
-          "status": 0
-        },
-        {
-          "executed": 1552505843,
-          "status": 0
-        }
-      ],
-      "interval": 10,
-      "is_silenced": false,
-      "processed_by": "sensu-go-sandbox",
-      "issued": 1552506033,
-      "last_ok": 1552506033,
-      "low_flap_threshold": 0,
-      "metadata": {
-        "name": "curl_timings",
-        "namespace": "default"
-      },
-      "occurrences": 1,
-      "occurrences_watermark": 1,
-      "output": "sensu-go-sandbox.curl_timings.time_total 0.005 1552506033\nsensu-go-sandbox.curl_timings.time_namelookup 0.004",
-      "output_metric_format": "graphite_plaintext",
-      "output_metric_handlers": [
-        "influx-db"
-      ],
-      "proxy_entity_name": "",
-      "publish": true,
-      "round_robin": false,
-      "runtime_assets": [],
-      "state": "passing",
-      "status": 0,
-      "stdin": false,
-      "subdue": null,
-      "subscriptions": [
-        "entity:sensu-go-sandbox"
-      ],
-      "timeout": 0,
-      "total_state_change": 0,
-      "ttl": 0
-    },
-    "entity": {
-      "deregister": false,
-      "deregistration": {},
-      "entity_class": "agent",
-      "last_seen": 1552495139,
-      "metadata": {
-        "name": "sensu-go-sandbox",
-        "namespace": "default"
-      },
-      "redact": [
-        "password",
-        "passwd",
-        "pass",
-        "api_key",
-        "api_token",
-        "access_key",
-        "secret_key",
-        "private_key",
-        "secret"
-      ],
-      "subscriptions": [
-        "entity:sensu-go-sandbox"
-      ],
-      "system": {
-        "arch": "amd64",
-        "hostname": "sensu-go-sandbox",
-        "network": {
-          "interfaces": [
-            {
-              "addresses": [
-                "127.0.0.1/8",
-                "::1/128"
-              ],
-              "name": "lo"
-            },
-            {
-              "addresses": [
-                "10.0.2.15/24",
-                "fe80::5a94:f67a:1bfc:a579/64"
-              ],
-              "mac": "08:00:27:8b:c9:3f",
-              "name": "eth0"
-            }
-          ]
-        },
-        "os": "linux",
-        "platform": "centos",
-        "platform_family": "rhel",
-        "platform_version": "7.5.1804",
-        "processes": null
-      },
-      "user": "agent"
-    },
-    "metrics": {
-      "handlers": [
-        "influx-db"
-      ],
-      "points": [
-        {
-          "name": "sensu-go-sandbox.curl_timings.time_total",
-          "tags": [],
-          "timestamp": 1552506033,
-          "value": 0.005
-        },
-        {
-          "name": "sensu-go-sandbox.curl_timings.time_namelookup",
-          "tags": [],
-          "timestamp": 1552506033,
-          "value": 0.004
-        }
-      ]
-    },
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
-    ],
-    "timestamp": 1552506033,
-    "id": "431a0085-96da-4521-863f-c38b480701e9",
-    "sequence": 1
-  }
+  "id": "7cde3e3f-beee-408f-b89a-1edccd0d3edb",
+  "sequence": 5,
+  "pipelines": null,
+  "timestamp": 1635952880
 }
 {{< /code >}}
-
-{{< /language-toggle >}}
 
 ## Create events using the Sensu agent
 
@@ -1154,7 +1575,7 @@ example      | {{< language-toggle >}}
 spec:
   check:
     check_hooks:
-    command: /opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u "http://localhost"
+    command: metrics-curl -u "http://localhost"
     duration: 0.060790838
     env_vars:
     executed: 1552506033
@@ -1258,7 +1679,7 @@ spec:
   "spec": {
     "check": {
       "check_hooks": null,
-      "command": "/opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u \"http://localhost\"",
+      "command": "metrics-curl -u \"http://localhost\"",
       "duration": 0.060790838,
       "env_vars": null,
       "executed": 1552506033,
@@ -1647,7 +2068,7 @@ example      | {{< language-toggle >}}
 {{< code yml >}}
 check:
   check_hooks:
-  command: /opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u "http://localhost"
+  command: metrics-curl -u "http://localhost"
   duration: 0.060790838
   env_vars:
   executed: 1552506033
@@ -1693,7 +2114,7 @@ check:
 {
   "check": {
     "check_hooks": null,
-    "command": "/opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u \"http://localhost\"",
+    "command": "metrics-curl -u \"http://localhost\"",
     "duration": 0.060790838,
     "env_vars": null,
     "executed": 1552506033,
