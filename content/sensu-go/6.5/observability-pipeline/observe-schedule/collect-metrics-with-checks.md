@@ -14,10 +14,11 @@ menu:
 ---
 
 Sensu checks are **commands** (or scripts) that the Sensu agent executes that output data and produce an exit code to indicate a state.
-If you are unfamiliar with checks or want to learn how to configure a check before reading this guide, read the [checks reference][1] and [Monitor server resources][2].
+If you are unfamiliar with checks, read the [checks reference][1] for details and examples.
+You can also learn how to configure monitoring checks in [Monitor server resources][2].
 
-This guide demonstrates how to collect disk usage metrics with a check named `collect-metrics` that extracts metrics for an NGINX webserver, with output in [Nagios Performance Data][3] format.
-To use this guide, install a Sensu backend and have at least one Sensu agent running on Linux.
+This guide demonstrates how to use a check to extract service metrics for an NGINX webserver, with output in [Nagios Performance Data][3] format.
+To use this guide, [install][13] a Sensu backend and have at least one Sensu agent running on Linux.
 In this guide, the Sensu agent is named `sensu-centos`.
 
 ## Register the dynamic runtime asset
@@ -40,6 +41,8 @@ it's invoked by another Sensu resource (ex. check). To add this runtime asset to
 resource, populate the "runtime_assets" field with ["http-checks"].
 {{< /code >}}
 
+This example uses the -r (rename) flag to specify a shorter name for the dynamic runtime asset: http-checks.
+
 You can also download the dynamic runtime asset definition from [Bonsai][7] and register the asset with `sensuctl create --file filename.yml`.
 
 Use sensuctl to confirm that both the http-checks dynamic runtime asset is ready to use:
@@ -48,7 +51,7 @@ Use sensuctl to confirm that both the http-checks dynamic runtime asset is ready
 sensuctl asset list
 {{< /code >}}
 
-The sensuctl response should list `sensu-plugins/disk-checks-plugins` and `sensu/sensu-ruby-runtime`: 
+The sensuctl response should list http-checks: 
 
 {{< code shell >}}
      Name                                       URL                                    Hash    
@@ -446,6 +449,8 @@ If you add the debug handler and configure the `collect-metrics` check to use it
 Now that you know how to extract metrics from check output, learn to use a metrics handler to [populate service and time-series metrics in InfluxDB][5].
 For a turnkey experience with the Sensu InfluxDB Handler plugin, use our curated, configurable [quick-start template][6] to integrate Sensu with your existing workflows and store Sensu metrics in InfluxDB.
 
+You can also learn to use Sensu to [collect Prometheus metrics][14].
+
 
 [1]: ../checks/
 [2]: ../monitor-server-resources/
@@ -459,3 +464,5 @@ For a turnkey experience with the Sensu InfluxDB Handler plugin, use our curated
 [10]: ../../../operations/maintain-sensu/troubleshoot/#use-a-debug-handler
 [11]: ../../observe-events/events/#metrics-attribute
 [12]: ../../observe-events/events/#metrics-points
+[13]: ../../../operations/deploy-sensu/install-sensu/
+[14]: ../prometheus-metrics/

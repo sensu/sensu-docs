@@ -14,69 +14,54 @@ menu:
 ---
 
 Sensu checks are **commands** (or scripts) that the Sensu agent executes that output data and produce an exit code to indicate a state.
-If you are unfamiliar with checks or want to learn how to configure a check before reading this guide, read the [checks reference][1] and [Monitor server resources][2].
+If you are unfamiliar with checks, read the [checks reference][1] for details and examples.
+You can also learn how to configure monitoring checks in [Monitor server resources][2].
 
-This guide demonstrates how to collect disk usage metrics with a check named `collect-metrics` and configure the check to extract metrics output in Graphite Plaintext Protocol format.
-To use this guide, you'll need to install a Sensu backend and have at least one Sensu agent running on Linux.
+This guide demonstrates how to use a check to extract service metrics for an NGINX webserver, with output in [Nagios Performance Data][3] format.
+To use this guide, [install][13] a Sensu backend and have at least one Sensu agent running on Linux.
 In this guide, the Sensu agent is named `sensu-centos`.
 
-## Register dynamic runtime assets
+## Register the dynamic runtime asset
 
-To power the check to collect disk usage metrics, add the [Sensu Disk Checks Plugin][7] dynamic runtime asset.
-The Sensu Disk Checks Plugin asset includes the `metrics-disk-usage.rb` plugin, which your check will rely on.
-
-The Sensu assets packaged from the Sensu Disk Checks Plugin asset are built against the Sensu Ruby runtime environment, so you also need to add the [Sensu Go Ruby Runtime Assets][8] dynamic runtime asset.
-The Sensu Ruby Runtime asset delivers the Ruby executable and supporting libraries the check will need to run the `metrics-disk-usage.rb` plugin.
-
-Use sensuctl to register the Sensu Disk Checks Plugin dynamic runtime asset, `sensu-plugins/sensu-plugins-disk-checks`:
+To power the check to collect service metrics, you will use a check in the [http-checks][7] dynamic runtime asset.
+Use sensuctl to register the http-checks dynamic runtime asset, `sensu/http-checks`:
 
 {{< code shell >}}
-sensuctl asset add sensu-plugins/sensu-plugins-disk-checks:5.1.4
+sensuctl asset add sensu/http-checks:0.4.0 -r http-checks
 {{< /code >}}
 
 The response will indicate that the asset was added:
 
 {{< code shell >}}
-fetching bonsai asset: sensu-plugins/sensu-plugins-disk-checks:5.1.4
-added asset: sensu-plugins/sensu-plugins-disk-checks:5.1.4
+fetching bonsai asset: sensu/http-checks:0.4.0
+added asset: sensu/http-checks:0.4.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
-resource, populate the "runtime_assets" field with ["sensu-plugins/sensu-plugins-disk-checks"].
+resource, populate the "runtime_assets" field with ["http-checks"].
 {{< /code >}}
+
+This example uses the -r (rename) flag to specify a shorter name for the dynamic runtime asset: http-checks.
 
 You can also download the dynamic runtime asset definition from [Bonsai][7] and register the asset with `sensuctl create --file filename.yml`.
 
-Then, use the following sensuctl example to register the [Sensu Go Ruby Runtime Assets][8] dynamic runtime asset, `sensu/sensu-ruby-runtime`:
-
-{{< code shell >}}
-sensuctl asset add sensu/sensu-ruby-runtime:0.1.0
-{{< /code >}}
-
-Again, you will receive an `added asset` response.
-
-Use sensuctl to confirm that both the `disk-checks-plugins` and `sensu-ruby-runtime` dynamic runtime assets are ready to use:
+Use sensuctl to confirm that both the http-checks dynamic runtime asset is ready to use:
 
 {{< code shell >}}
 sensuctl asset list
 {{< /code >}}
 
-The sensuctl response should list `sensu-plugins/disk-checks-plugins` and `sensu/sensu-ruby-runtime`: 
+The sensuctl response should list http-checks: 
 
 {{< code shell >}}
-                   Name                                                                 URL                                                Hash    
- ───────────────────────────────────────── ───────────────────────────────────────────────────────────────────────────────────────────── ───────── 
-  sensu-plugins/sensu-plugins-disk-checks   //assets.bonsai.sensu.io/.../sensu-plugins-disk-checks_5.1.4_centos8_linux_amd64.tar.gz       ac0c130  
-  sensu-plugins/sensu-plugins-disk-checks   //assets.bonsai.sensu.io/.../sensu-plugins-disk-checks_5.1.4_centos7_linux_amd64.tar.gz       81af33b  
-  sensu-plugins/sensu-plugins-disk-checks   //assets.bonsai.sensu.io/.../sensu-plugins-disk-checks_5.1.4_centos6_linux_amd64.tar.gz       e909a10  
-  sensu-plugins/sensu-plugins-disk-checks   //assets.bonsai.sensu.io/.../sensu-plugins-disk-checks_5.1.4_debian_linux_amd64.tar.gz        a10b824  
-  sensu-plugins/sensu-plugins-disk-checks   //assets.bonsai.sensu.io/.../sensu-plugins-disk-checks_5.1.4_alpine_linux_amd64.tar.gz        cb95031  
-  sensu/sensu-ruby-runtime                  //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.1.0_ruby-2.4.4_amzn2_linux_amd64.tar.gz     a83aaa5  
-  sensu/sensu-ruby-runtime                  //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.1.0_ruby-2.4.4_amzn1_linux_amd64.tar.gz     7b504f0  
-  sensu/sensu-ruby-runtime                  //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.1.0_ruby-2.4.4_centos8_linux_amd64.tar.gz   db4769f  
-  sensu/sensu-ruby-runtime                  //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.1.0_ruby-2.4.4_centos7_linux_amd64.tar.gz   2d78004  
-  sensu/sensu-ruby-runtime                  //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.1.0_ruby-2.4.4_debian_linux_amd64.tar.gz    956806a  
-  sensu/sensu-ruby-runtime                  //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.1.0_ruby-2.4.4_alpine_linux_amd64.tar.gz    15af366  
+     Name                                       URL                                    Hash    
+────────────── ───────────────────────────────────────────────────────────────────── ──────────
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_windows_amd64.tar.gz   52ae075  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_darwin_amd64.tar.gz    72d0f15  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_armv7.tar.gz     ef18587  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_arm64.tar.gz     3504ddf  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_386.tar.gz       60b8883  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_amd64.tar.gz     1db73a8  
 {{< /code >}}
 
 {{% notice note %}}
@@ -84,22 +69,91 @@ The sensuctl response should list `sensu-plugins/disk-checks-plugins` and `sensu
 Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
+## Configure entity subscriptions
+
+Every Sensu agent has a defined set of [subscriptions][8] that determine which checks the agent will execute.
+For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
+To run the NGINX webserver check, you'll need a Sensu agent with the subscription `webserver`.
+
+To add the `webserver` subscription to the entity the Sensu agent is observing, first find your agent entity name:
+
+{{< code shell >}}
+sensuctl entity list
+{{< /code >}}
+
+The `ID` is the name of your entity.
+
+Replace `<entity_name>` with the name of your agent entity in the following [sensuctl][17] command.
+Run:
+
+{{< code shell >}}
+sensuctl entity update <entity_name>
+{{< /code >}}
+
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `webserver` and press enter.
+
+## Install and configure NGINX
+
+The webserver check requires a running NGINX service, so you'll need to install and configure NGINX.
+
+{{% notice note %}}
+**NOTE**: You may need to install and update the EPEL repository with `sudo yum install epel-release` and `sudo yum update` before you can install NGINX.
+{{% /notice %}}
+
+Install NGINX:
+
+{{< code shell >}}
+sudo yum install nginx
+{{< /code >}}
+
+Enable and start the NGINX service:
+
+{{< code shell >}}
+systemctl enable nginx && systemctl start nginx
+{{< /code >}}
+
+Verify that Nginx is serving webpages:
+
+{{< code shell >}}
+curl -sI http://localhost
+{{< /code >}}
+
+The response should include `HTTP/1.1 200 OK` to indicates that NGINX processed your request as expected:
+
+{{< code shell >}}
+HTTP/1.1 200 OK
+Server: nginx/1.20.1
+Date: Tue, 02 Nov 2021 20:15:40 GMT
+Content-Type: text/html
+Content-Length: 4833
+Last-Modified: Fri, 16 May 2014 15:12:48 GMT
+Connection: keep-alive
+ETag: "xxxxxxxx-xxxx"
+Accept-Ranges: bytes
+{{< /code >}}
+
+With your NGINX service running, you can configure the check to collect service metrics.
+
+{{% notice note %}}
+**NOTE**: Read [Monitor server resources with checks](../monitor-server-resources/) to learn how to [monitor an NGINX webserver](../monitor-server-resources/#create-a-check-to-monitor-a-webserver) rather than collect metrics.
+{{% /notice %}}
+
 ## Create a check to collect metrics
 
-The Sensu Plugins Disk Checks dynamic runtime asset includes the [`metrics-disk-usage.rb`][4] plugin.
-To use this plugin, create the `collect-metrics` check with a `metrics-disk-usage.rb` command:
+The http-checks dynamic runtime asset includes the [`http-perf`][4] check.
+To use this check, create the `collect-metrics` check with a command that uses `http-perf`:
 
 {{< code shell >}}
 sensuctl check create collect-metrics \
---command 'metrics-disk-usage.rb' \
---interval 60 \
---subscriptions linux \
---runtime-assets sensu-plugins/sensu-plugins-disk-checks,sensu/sensu-ruby-runtime \
---output-metric-format graphite_plaintext
+--command 'http-perf --url http://localhost --warning 1s --critical 2s' \
+--interval 15 \
+--subscriptions webserver \
+--runtime-assets http-checks \
+--output-metric-format nagios_perfdata
 {{< /code >}}
 
-This example check specifies a 60-second interval for collecting metrics, a subscription to ensure the check will run on any entity that includes the `linux` subscription, and the names of the two dynamic runtime assets the check needs to work properly.
-The check definition also specifies that the output metric format for the collected metrics should be `graphite_plaintext` (although you can use any of the [supported output metric formats][3]).
+This example check specifies a 15-second interval for collecting metrics, a subscription to ensure the check will run on any entity that includes the `webserver` subscription, the name of the dynamic runtime asset the check needs to work properly, and the `nagios_perfdata` output metric format.
 
 You should receive a confirmation response: `Created`.
 
@@ -131,25 +185,25 @@ metadata:
   namespace: default
 spec:
   check_hooks: null
-  command: metrics-disk-usage.rb
+  command: http-perf --url http://localhost --warning 1s --critical 2s
   env_vars: null
   handlers: []
   high_flap_threshold: 0
-  interval: 60
+  interval: 15
   low_flap_threshold: 0
-  output_metric_format: graphite_plaintext
+  output_metric_format: nagios_perfdata
   output_metric_handlers: null
+  pipelines: []
   proxy_entity_name: ""
   publish: true
   round_robin: false
   runtime_assets:
-  - sensu-plugins/sensu-plugins-disk-checks
-  - sensu/sensu-ruby-runtime
+  - http-checks
   secrets: null
   stdin: false
   subdue: null
   subscriptions:
-  - linux
+  - webserver
   timeout: 0
   ttl: 0
 {{< /code >}}
@@ -165,26 +219,26 @@ spec:
   },
   "spec": {
     "check_hooks": null,
-    "command": "metrics-disk-usage.rb",
+    "command": "http-perf --url http://localhost --warning 1s --critical 2s",
     "env_vars": null,
     "handlers": [],
     "high_flap_threshold": 0,
-    "interval": 60,
+    "interval": 15,
     "low_flap_threshold": 0,
-    "output_metric_format": "graphite_plaintext",
+    "output_metric_format": "nagios_perfdata",
     "output_metric_handlers": null,
+    "pipelines": [],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
     "runtime_assets": [
-      "sensu-plugins/sensu-plugins-disk-checks",
-      "sensu/sensu-ruby-runtime"
+      "http-checks"
     ],
     "secrets": null,
     "stdin": false,
     "subdue": null,
     "subscriptions": [
-      "linux"
+      "webserver"
     ],
     "timeout": 0,
     "ttl": 0
@@ -194,9 +248,13 @@ spec:
 
 {{< /language-toggle >}}
 
+{{% notice protip %}}
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
+{{% /notice %}}
+
 ## Confirm that your check is collecting metrics
 
-If the check output is formatted correctly according to its `output_metric_format`, the metrics will be extracted in Sensu metric format and passed to the observability pipeline for handling.
+If the check is collecting metrics correctly according to its `output_metric_format`, the metrics will be extracted in Sensu metric format and passed to the observability pipeline for handling.
 The Sensu agent will log errors if it cannot parse the check output.
 
 Add a [debug handler][10] to write metric events to a file for inspection.
@@ -207,6 +265,115 @@ If you add the debug handler and configure the `collect-metrics` check to use it
 
 {{< code json >}}
 {
+  "check": {
+    "command": "http-perf --url http://localhost --warning 1s --critical 2s",
+    "handlers": [
+      "debug"
+    ],
+    "high_flap_threshold": 0,
+    "interval": 15,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [
+      "http-checks"
+    ],
+    "subscriptions": [
+      "webserver"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "duration": 0.011235081,
+    "executed": 1635886845,
+    "history": [
+      {
+        "status": 0,
+        "executed": 1635886785
+      },
+      {
+        "status": 0,
+        "executed": 1635886800
+      },
+      {
+        "status": 0,
+        "executed": 1635886815
+      },
+      {
+        "status": 0,
+        "executed": 1635886830
+      },
+      {
+        "status": 0,
+        "executed": 1635886845
+      }
+    ],
+    "issued": 1635886845,
+    "output": "http-perf OK: 0.001088s | dns_duration=0.000216, tls_handshake_duration=0.000000, connect_duration=0.000140, first_byte_duration=0.001071, total_request_duration=0.001088\n",
+    "state": "passing",
+    "status": 0,
+    "total_state_change": 0,
+    "last_ok": 1635886845,
+    "occurrences": 5,
+    "occurrences_watermark": 5,
+    "output_metric_format": "nagios_perfdata",
+    "output_metric_handlers": null,
+    "env_vars": null,
+    "metadata": {
+      "name": "collect-metrics",
+      "namespace": "default"
+    },
+    "secrets": null,
+    "is_silenced": false,
+    "scheduler": "memory",
+    "processed_by": "sensu-centos",
+    "pipelines": []
+  },
+  "metrics": {
+    "handlers": null,
+    "points": [
+      {
+        "name": "dns_duration",
+        "value": 0.000216,
+        "timestamp": 1635886845,
+        "tags": null
+      },
+      {
+        "name": "tls_handshake_duration",
+        "value": 0,
+        "timestamp": 1635886845,
+        "tags": null
+      },
+      {
+        "name": "connect_duration",
+        "value": 0.00014,
+        "timestamp": 1635886845,
+        "tags": null
+      },
+      {
+        "name": "first_byte_duration",
+        "value": 0.001071,
+        "timestamp": 1635886845,
+        "tags": null
+      },
+      {
+        "name": "total_request_duration",
+        "value": 0.001088,
+        "timestamp": 1635886845,
+        "tags": null
+      }
+    ]
+  },
+  "metadata": {
+    "namespace": "default"
+  },
+  "id": "d19ee7f9-8cc5-447b-9059-895e89e14667",
+  "sequence": 146,
+  "pipelines": null,
+  "timestamp": 1635886845,
   "entity": {
     "entity_class": "agent",
     "system": {
@@ -214,7 +381,7 @@ If you add the debug handler and configure the `collect-metrics` check to use it
       "os": "linux",
       "platform": "centos",
       "platform_family": "rhel",
-      "platform_version": "7.5.1804",
+      "platform_version": "7.9.2009",
       "network": {
         "interfaces": [
           {
@@ -229,15 +396,15 @@ If you add the debug handler and configure the `collect-metrics` check to use it
             "mac": "08:00:27:8b:c9:3f",
             "addresses": [
               "10.0.2.15/24",
-              "fe80::2a24:13f4:6b:c0b8/64"
+              "fe80::20b8:8cea:fa4:2e57/64"
             ]
           },
           {
             "name": "eth1",
-            "mac": "08:00:27:3d:ce:39",
+            "mac": "08:00:27:40:ab:31",
             "addresses": [
-              "172.28.128.63/24",
-              "fe80::a00:27ff:fe3d:ce39/64"
+              "192.168.200.95/24",
+              "fe80::a00:27ff:fe40:ab31/64"
             ]
           }
         ]
@@ -250,10 +417,10 @@ If you add the debug handler and configure the `collect-metrics` check to use it
       "processes": null
     },
     "subscriptions": [
-      "entity:sensu-centos",
-      "linux"
+      "webserver",
+      "entity:sensu-centos"
     ],
-    "last_seen": 1625000586,
+    "last_seen": 1635886845,
     "deregister": false,
     "deregistration": {},
     "user": "agent",
@@ -272,193 +439,8 @@ If you add the debug handler and configure the `collect-metrics` check to use it
       "name": "sensu-centos",
       "namespace": "default"
     },
-    "sensu_agent_version": "6.4.0"
-  },
-  "check": {
-    "command": "metrics-disk-usage.rb",
-    "handlers": [
-      "debug"
-    ],
-    "high_flap_threshold": 0,
-    "interval": 60,
-    "low_flap_threshold": 0,
-    "publish": true,
-    "runtime_assets": [
-      "sensu-plugins/sensu-plugins-disk-checks",
-      "sensu/sensu-ruby-runtime"
-    ],
-    "subscriptions": [
-      "linux"
-    ],
-    "proxy_entity_name": "",
-    "check_hooks": null,
-    "stdin": false,
-    "subdue": null,
-    "ttl": 0,
-    "timeout": 0,
-    "round_robin": false,
-    "duration": 0.060007931,
-    "executed": 1625000586,
-    "history": [
-      {
-        "status": 0,
-        "executed": 1625000346
-      },
-      {
-        "status": 0,
-        "executed": 1625000406
-      },
-      {
-        "status": 0,
-        "executed": 1625000466
-      },
-      {
-        "status": 0,
-        "executed": 1625000526
-      },
-      {
-        "status": 0,
-        "executed": 1625000586
-      }
-    ],
-    "issued": 1625000586,
-    "output": "sensu-centos.disk_usage.root.used 1515 1625000586\nsensu-centos.disk_usage.root.avail 40433 1625000586\nsensu-centos.disk_usage.root.used_percentage 4 1625000586\nsensu-centos.disk_usage.root.dev.used 0 1625000586\nsensu-centos.disk_usage.root.dev.avail 485 1625000586\nsensu-centos.disk_usage.root.dev.used_percentage 0 1625000586\nsensu-centos.disk_usage.root.run.used 51 1625000586\nsensu-centos.disk_usage.root.run.avail 446 1625000586\nsensu-centos.disk_usage.root.run.used_percentage 11 1625000586\nsensu-centos.disk_usage.root.boot.used 130 1625000586\nsensu-centos.disk_usage.root.boot.avail 885 1625000586\nsensu-centos.disk_usage.root.boot.used_percentage 13 1625000586\nsensu-centos.disk_usage.root.home.used 33 1625000586\nsensu-centos.disk_usage.root.home.avail 20446 1625000586\nsensu-centos.disk_usage.root.home.used_percentage 1 1625000586\nsensu-centos.disk_usage.root.vagrant.used 79699 1625000586\nsensu-centos.disk_usage.root.vagrant.avail 874206 1625000586\nsensu-centos.disk_usage.root.vagrant.used_percentage 9 1625000586\n",
-    "state": "passing",
-    "status": 0,
-    "total_state_change": 0,
-    "last_ok": 1625000586,
-    "occurrences": 5,
-    "occurrences_watermark": 5,
-    "output_metric_format": "graphite_plaintext",
-    "output_metric_handlers": null,
-    "env_vars": null,
-    "metadata": {
-      "name": "collect-metrics",
-      "namespace": "default"
-    },
-    "secrets": null,
-    "is_silenced": false,
-    "scheduler": "memory"
-  },
-  "metrics": {
-    "handlers": null,
-    "points": [
-      {
-        "name": "sensu-centos.disk_usage.root.used",
-        "value": 1515,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.avail",
-        "value": 40433,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.used_percentage",
-        "value": 4,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.dev.used",
-        "value": 0,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.dev.avail",
-        "value": 485,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.dev.used_percentage",
-        "value": 0,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.run.used",
-        "value": 51,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.run.avail",
-        "value": 446,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.run.used_percentage",
-        "value": 11,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.boot.used",
-        "value": 130,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.boot.avail",
-        "value": 885,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.boot.used_percentage",
-        "value": 13,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.home.used",
-        "value": 33,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.home.avail",
-        "value": 20446,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.home.used_percentage",
-        "value": 1,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.vagrant.used",
-        "value": 79699,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.vagrant.avail",
-        "value": 874206,
-        "timestamp": 1625000586,
-        "tags": null
-      },
-      {
-        "name": "sensu-centos.disk_usage.root.vagrant.used_percentage",
-        "value": 9,
-        "timestamp": 1625000586,
-        "tags": null
-      }
-    ]
-  },
-  "metadata": {
-    "namespace": "default"
-  },
-  "id": "7468a597-bc3c-4ea7-899c-51c4d2992689",
-  "sequence": 5,
-  "timestamp": 1625000586
+    "sensu_agent_version": "6.5.4"
+  }
 }
 {{< /code >}}
 
@@ -467,16 +449,20 @@ If you add the debug handler and configure the `collect-metrics` check to use it
 Now that you know how to extract metrics from check output, learn to use a metrics handler to [populate service and time-series metrics in InfluxDB][5].
 For a turnkey experience with the Sensu InfluxDB Handler plugin, use our curated, configurable [quick-start template][6] to integrate Sensu with your existing workflows and store Sensu metrics in InfluxDB.
 
+You can also learn to use Sensu to [collect Prometheus metrics][14].
+
 
 [1]: ../checks/
 [2]: ../monitor-server-resources/
-[3]: ../metrics/#supported-output-metric-formats
-[4]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/blob/master/bin/metrics-disk-usage.rb
+[3]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
+[4]: https://bonsai.sensu.io/assets/sensu/http-checks#http-perf
 [5]: ../../observe-process/populate-metrics-influxdb/
 [6]: https://github.com/sensu/catalog/blob/main/pipelines/metric-storage/influxdb.yaml
-[7]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-disk-checks
-[8]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
+[7]: https://bonsai.sensu.io/assets/sensu/http-checks
+[8]: ../subscriptions/
 [9]: ../../../operations/monitoring-as-code/
 [10]: ../../../operations/maintain-sensu/troubleshoot/#use-a-debug-handler
 [11]: ../../observe-events/events/#metrics-attribute
 [12]: ../../observe-events/events/#metrics-points
+[13]: ../../../operations/deploy-sensu/install-sensu/
+[14]: ../prometheus-metrics/
