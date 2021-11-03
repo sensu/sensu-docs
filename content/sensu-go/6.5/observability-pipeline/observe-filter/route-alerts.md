@@ -18,13 +18,18 @@ Sensu contact routing lets you alert the right people using their preferred cont
 
 In this guide, you'll set up alerts for two teams (ops and dev) with separate Slack channels.
 Assume each team wants to be alerted only for the things they care about, using their team's Slack channel.
-To achieve this, you'll create two types of Sensu resources:
+To achieve this, you can use a [pipeline][16] or a [handler set][17].
+This guide describes how to configure both options.
 
-- **Event handlers** to store contact preferences for the ops team, the dev team, and a fallback option
+Routing alerts requires two types of Sensu resources:
+
+- **Handlers** to store contact preferences for the ops team, the dev team, and a fallback option
 - **Event filters** to match contact labels to the right handler
 
 Here's a quick overview of the configuration to set up contact routing.
 The check definition includes the `contacts: dev` label, which will result in alerts to the dev team but not to the ops team or the fallback option.
+
+## TO-DO: Replace the diagram below
 
 {{< figure src="/images/contact-routing1.png" alt="Diagram that shows an event generated with a check label, matched to the dev team's handler using a contact filter, and routed to the dev team's Slack channel" link="/images/contact-routing1.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/f66c930f-295d-458c-bde3-4e55edd9b2e8/0 -->
@@ -39,14 +44,12 @@ To complete this guide, you'll need:
 - [cURL][5]
 - A [Slack webhook URL][6] and three different Slack channels to receive test alerts (one for each team)
 
-To set up a quick testing environment, download and start the [Sensu sandbox][7].
+## Configure contact routing with a pipeline
 
-## Configure contact routing
-
-### 1. Register the has-contact filter dynamic runtime asset
+### 1. Register dynamic runtime assets
 
 Contact routing is powered by the [has-contact filter dynamic runtime asset][12].
-To add the has-contact dynamic runtime asset to Sensu, use [`sensuctl asset add`][14]:
+To add the has-contact dynamic runtime asset to Sensu, use [sensuctl asset add][14]:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-go-has-contact-filter:0.3.0 -r contact-filter
@@ -65,9 +68,40 @@ resource, populate the "runtime_assets" field with ["contact-filter"].
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `contact-filter`.
 
-You can also download the latest dynamic runtime asset definition from [Bonsai][12].
+Next, add the [Slack handler dynamic runtime asset][8] to Sensu with sensuctl:
 
-Run `sensuctl asset list --format yaml` to confirm that the dynamic runtime asset is ready to use.
+{{< code shell >}}
+sensuctl asset add sensu/sensu-slack-handler:1.5.0 -r sensu-slack-handler
+{{< /code >}}
+
+The response will confirm that the asset was added:
+
+{{< code shell >}}
+fetching bonsai asset: sensu/sensu-slack-handler:1.5.0 -r sensu-slack-handler
+added asset: sensu/sensu-slack-handler:1.5.0
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["sensu-slack-handler"].
+{{< /code >}}
+
+This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `sensu-slack-handler`.
+
+Run `sensuctl asset list` to confirm that the dynamic runtime assets are ready to use.
+The response will confirm the available assets:
+
+{{< code shell >}}
+         Name                                               URL                                        Hash    
+────────────────────── ───────────────────────────────────────────────────────────────────────────── ──────────
+  contact-filter        //assets.bonsai.sensu.io/.../sensu-go-has-contact-filter_0.3.0.tar.gz         d35c6c4  
+  sensu-slack-handler   //assets.bonsai.sensu.io/.../sensu-slack-handler_1.0.3_windows_amd64.tar.gz   53359fa  
+  sensu-slack-handler   //assets.bonsai.sensu.io/.../sensu-slack-handler_1.0.3_darwin_386.tar.gz      e2d7d0d  
+  sensu-slack-handler   //assets.bonsai.sensu.io/.../sensu-slack-handler_1.0.3_linux_armv7.tar.gz     362fe51  
+  sensu-slack-handler   //assets.bonsai.sensu.io/.../sensu-slack-handler_1.0.3_linux_arm64.tar.gz     b492ae2  
+  sensu-slack-handler   //assets.bonsai.sensu.io/.../sensu-slack-handler_1.0.3_darwin_amd64.tar.gz    88bbdca  
+  sensu-slack-handler   //assets.bonsai.sensu.io/.../sensu-slack-handler_1.0.3_linux_386.tar.gz       d9040ae  
+  sensu-slack-handler   //assets.bonsai.sensu.io/.../sensu-slack-handler_1.0.3_linux_amd64.tar.gz     6872086  
+{{< /code >}}
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
@@ -204,31 +238,374 @@ The response should list the new `contact_ops`, `contact_dev`, and `contact_fall
 ### 3. Create a handler for each contact
 
 With your contact filters in place, you can create a handler for each contact: ops, dev, and fallback.
-If you haven't already, add the [Slack handler dynamic runtime asset][8] to Sensu with sensuctl:
-
-{{< code shell >}}
-sensuctl asset add sensu/sensu-slack-handler:1.5.0 -r sensu-slack-handler
-{{< /code >}}
-
-The response will confirm that the asset was added:
-
-{{< code shell >}}
-fetching bonsai asset: sensu/sensu-slack-handler:1.5.0
-added asset: sensu/sensu-slack-handler:1.5.0
-
-You have successfully added the Sensu asset resource, but the asset will not get downloaded until
-it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
-resource, populate the "runtime_assets" field with ["sensu-slack-handler"].
-{{< /code >}}
-
-This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `sensu-slack-handler`.
-
 In each handler definition, you will specify:
 
-- A unique name: `slack_ops`, `slack_dev`, or `slack_fallback`
+- A unique name: `ops_handler`, `dev_handler`, or `fallback_handler`
+- A customized command with the contact's preferred Slack channel
+- An environment variable that contains your Slack webhook URL
+- The `sensu-slack-handler` dynamic runtime asset
+
+Before you run the following code to create the handlers with sensuctl, make these changes:
+
+- Replace `<alert-ops>`, `<alert-dev>`, and `<alert-all>` with the names of the channels you want to use to receive alerts in your Slack instance.
+- Replace `<slack_webhook_url>` with your Slack webhook URL.
+
+After you update the code to use your preferred Slack channels and webhook URL, run:
+
+{{< language-toggle >}}
+
+{{< code text "YML" >}}
+echo '---
+type: Handler
+api_version: core/v2
+metadata:
+  name: ops_handler
+  namespace: default
+spec:
+  command: sensu-slack-handler --channel "#ops"
+  env_vars:
+    - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx
+  handlers: null
+  runtime_assets:
+    - sensu-slack-handler
+  secrets: null
+  timeout: 0
+  type: pipe
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: dev_handler
+  namespace: default
+spec:
+  command: sensu-slack-handler --channel "#dev"
+  env_vars:
+    - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx
+  handlers: null
+  runtime_assets:
+    - sensu-slack-handler
+  secrets: null
+  timeout: 0
+  type: pipe
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: fallback_handler
+  namespace: default
+spec:
+  command: sensu-slack-handler --channel "#fallback"
+  env_vars:
+    - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx
+  handlers: null
+  runtime_assets:
+    - sensu-slack-handler
+  secrets: null
+  timeout: 0
+  type: pipe' | sensuctl create
+{{< /code >}}
+
+{{< code text "JSON" >}}
+echo '{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "ops_handler",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "sensu-slack-handler --channel \"#ops\"",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx"
+    ],
+    "handlers": null,
+    "runtime_assets": [
+      "sensu-slack-handler"
+    ],
+    "secrets": null,
+    "timeout": 0,
+    "type": "pipe"
+  }
+}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "dev_handler",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "sensu-slack-handler --channel \"#dev\"",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx"
+    ],
+    "handlers": null,
+    "runtime_assets": [
+      "sensu-slack-handler"
+    ],
+    "secrets": null,
+    "timeout": 0,
+    "type": "pipe"
+  }
+}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "fallback_handler",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "sensu-slack-handler --channel \"#fallback\"",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx"
+    ],
+    "handlers": null,
+    "runtime_assets": [
+      "sensu-slack-handler"
+    ],
+    "secrets": null,
+    "timeout": 0,
+    "type": "pipe"
+  }
+}' | sensuctl create
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Just like the event filters, you can save these handlers to a YAML or JSON file to create a handlers configuration file if you're implementing [monitoring as code][15].
+
+Use sensuctl to confirm that the handlers were added:
+
+{{< code shell >}}
+sensuctl handler list
+{{< /code >}}
+
+The response should list the new `slack_ops`, `slack_dev`, and `slack_fallback` handlers:
+
+{{< code shell >}}
+        Name         Type   Timeout   Filters   Mutator                       Execute                                             Environment Variables                           Assets         
+─────────────────── ────── ───────── ───────── ───────── ────────────────────────────────────────────────── ───────────────────────────────────────────────────────────── ──────────────────────
+  dev_handler        pipe         0                       RUN:  sensu-slack-handler --channel "#dev"        SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx   sensu-slack-handler  
+  fallback_handler   pipe         0                       RUN:  sensu-slack-handler --channel "#fallback"   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx   sensu-slack-handler  
+  ops_handler        pipe         0                       RUN:  sensu-slack-handler --channel "#ops"        SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx   sensu-slack-handler  
+{{< /code >}}
+
+### 4. Create a pipeline
+
+Create a pipeline with a separate workflow for each contact group.
+
+Each workflow includes the contact event filter and the corresponding handler for one contact group.
+All of the workflows also include the built-in `is_incident` event filter to reduce noise.
+
+{{< language-toggle >}}
+
+{{< code text "YML" >}}
+echo '---
+type: Pipeline
+api_version: core/v2
+metadata:
+  name: slack_contact_routing
+  namespace: default
+spec:
+  workflows:
+  - name: dev
+    filters:
+    - name: contact_dev
+      type: EventFilter
+      api_version: core/v2
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    handler:
+      name: dev_handler
+      type: Handler
+      api_version: core/v2
+  - name: ops
+    filters:
+    - name: contact_ops
+      type: EventFilter
+      api_version: core/v2
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    handler:
+      name: ops_handler
+      type: Handler
+      api_version: core/v2
+  - name: fallback
+    filters:
+    - name: contact_fallback
+      type: EventFilter
+      api_version: core/v2
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    handler:
+      name: fallback_handler
+      type: Handler
+      api_version: core/v2' | sensuctl create
+{{< /code >}}
+
+{{< code text "JSON" >}}
+echo '{
+  "type": "Pipeline",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "pipeline_test",
+    "namespace": "default"
+  },
+  "spec": {
+    "workflows": [
+      {
+        "name": "dev",
+        "filters": [
+          {
+            "name": "contact_dev",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "handler": {
+          "name": "dev_handler",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      },
+      {
+        "name": "ops",
+        "filters": [
+          {
+            "name": "contact_ops",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "handler": {
+          "name": "ops_handler",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      },
+      {
+        "name": "fallback",
+        "filters": [
+          {
+            "name": "contact_fallback",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "handler": {
+          "name": "fallback_handler",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
+  }
+}' | sensuctl create
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+With your pipeline in place, you can send ad hoc events to test your configuration and make sure the right contact groups receive the right alerts in Slack.
+
+### 5. Send events to test your configuration
+
+Use the [agent API][13] to create ad hoc events and send them to your Slack pipeline.
+
+First, create an event without a `contacts` label.
+You may need to modify the URL with your Sensu agent address.
+
+{{< code shell "JSON" >}}
+curl -X POST \
+-H 'Content-Type: application/json' \
+-d '{
+  "check": {
+    "metadata": {
+      "name": "example-check-fallback"
+    },
+    "status": 1,
+    "output": "You should receive this example event in the Slack channel specified by your slack_fallback handler."
+  },
+  "pipelines": [
+    {
+      "type": "Pipeline",
+      "api_version": "core/v2",
+      "name": "pipeline_test"
+    }
+  ]
+}' \
+http://127.0.0.1:3031/events
+{{< /code >}}
+
+Since this event doesn't include a `contacts` label, you should also receive an alert in the Slack channel specified in your `slack_fallback` handler.
+Behind the scenes, Sensu uses the`contact_fallback` filter to match the event to the `slack_fallback` handler.
+
+Now, create an event with a `contacts` label:
+
+{{< code shell "JSON" >}}
+curl -X POST \
+-H 'Content-Type: application/json' \
+-d '{
+  "check": {
+    "metadata": {
+      "name": "example-check-dev",
+      "labels": {
+        "contacts": "dev"
+      }
+    },
+    "status": 1,
+    "output": "You should receive this example event in the Slack channel specified by your slack_dev handler."
+  },
+  "pipelines": [
+    {
+      "type": "Pipeline",
+      "api_version": "core/v2",
+      "name": "pipeline_test"
+    }
+  ]
+}' \
+http://127.0.0.1:3031/events
+{{< /code >}}
+
+Because this event contains the `contacts: dev` label, you should receive an alert in the Slack channel specified by the `slack_dev` handler.
+
+Resolve the events by sending the same API requests with `status` set to `0`.
+
+## Configure contact routing with a handler set
+
+If you prefer to configure contact routing with a handler set, the first two steps are the same as those for using a pipeline.
+You still need to create handlers, but they are slightly different from the handlers used with a pipeline because they will reference your event filters.
+
+Follow the instructions to [register dynamic runtime assets][18] and [create contact filters][19].
+Then, continue with the handler set process at step 3 below.
+
+### 3. Create a handler for each contact
+
+With your contact filters in place, create a handler for each contact: ops, dev, and fallback.
+In each handler definition, you will specify:
+
+- A unique name: `ops_handler`, `dev_handler`, or `fallback_handler`
 - A customized command with the contact's preferred Slack channel
 - The contact filter
-- The built-in `is_incident` and `not_silenced` filters to reduce noise and enable silences
+- The built-in `is_incident` filter to reduce noise
 - An environment variable that contains your Slack webhook URL
 - The `sensu-slack-handler` dynamic runtime asset
 
@@ -679,3 +1056,7 @@ Learn how to use Sensu to [Reduce alert fatigue][11].
 [13]: ../../observe-schedule/agent/#create-observability-events-using-the-agent-api
 [14]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [15]: ../../../operations/monitoring-as-code/
+[16]: #configure-contact-routing-with-a-pipeline
+[17]: #configure-contact-routing-with-a-handler-set
+[18]: #1-register-dynamic-runtime-assets
+[19]: #2-create-contact-filters
