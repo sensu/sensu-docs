@@ -469,11 +469,367 @@ This is the format that events are in when Sensu sends them to handlers:
 
 ## Example metrics-only event
 
-This example shows a complete [metrics-only event][5].
+This example shows a complete [metrics-only event][5], retrieved with sensuctl event info:
 
-{{% notice note %}}
-**NOTE**: Metrics data points are not included in events retrieved with sensuctl event info &mdash; these events include check output text rather than a set of metrics points. To view metrics points data as shown in this example, add a [debug handler](../../../operations/maintain-sensu/troubleshoot/#use-a-debug-handler) that prints events to a JSON file.
-{{% /notice %}}
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: Event
+api_version: core/v2
+metadata:
+  namespace: default
+spec:
+  check:
+    check_hooks: null
+    command: system-check
+    duration: 3.012411959
+    env_vars: null
+    executed: 1635959903
+    handlers: []
+    high_flap_threshold: 0
+    history:
+    - executed: 1635959873
+      status: 0
+    - executed: 1635959883
+      status: 0
+    - executed: 1635959893
+      status: 0
+    - executed: 1635959903
+      status: 0
+    interval: 10
+    is_silenced: false
+    issued: 1635959903
+    last_ok: 1635959903
+    low_flap_threshold: 0
+    metadata:
+      labels:
+        sensu.io/managed_by: sensuctl
+      name: system-check
+      namespace: default
+    occurrences: 4
+    occurrences_watermark: 4
+    output: |+
+      # HELP system_cpu_cores [GAUGE] Number of cpu cores on the system
+      # TYPE system_cpu_cores GAUGE
+      system_cpu_cores{} 1 1635959903645
+      # HELP system_cpu_idle [GAUGE] Percent of time all cpus were idle
+      # TYPE system_cpu_idle GAUGE
+      system_cpu_idle{cpu="cpu0"} 98.94366197187135 1635959903645
+      system_cpu_idle{cpu="cpu-total"} 98.94366197187135 1635959903645
+      # HELP system_cpu_used [GAUGE] Percent of time all cpus were used
+      # TYPE system_cpu_used GAUGE
+      system_cpu_used{cpu="cpu0"} 1.0563380281286499 1635959903645
+      system_cpu_used{cpu="cpu-total"} 1.0563380281286499 1635959903645
+      # HELP system_cpu_user [GAUGE] Percent of time total cpu was used by normal processes in user mode
+      # TYPE system_cpu_user GAUGE
+      system_cpu_user{cpu="cpu0"} 0.7042253521124505 1635959903645
+      system_cpu_user{cpu="cpu-total"} 0.7042253521124505 1635959903645
+      # HELP system_cpu_system [GAUGE] Percent of time all cpus used by processes executed in kernel mode
+      # TYPE system_cpu_system GAUGE
+      system_cpu_system{cpu="cpu0"} 0.35211267605672564 1635959903645
+      system_cpu_system{cpu="cpu-total"} 0.35211267605672564 1635959903645
+      # HELP system_cpu_nice [GAUGE] Percent of time all cpus used by niced processes in user mode
+      # TYPE system_cpu_nice GAUGE
+      system_cpu_nice{cpu="cpu0"} 0 1635959903645
+      system_cpu_nice{cpu="cpu-total"} 0 1635959903645
+      # HELP system_cpu_iowait [GAUGE] Percent of time all cpus waiting for I/O to complete
+      # TYPE system_cpu_iowait GAUGE
+      system_cpu_iowait{cpu="cpu0"} 0 1635959903645
+      system_cpu_iowait{cpu="cpu-total"} 0 1635959903645
+      # HELP system_cpu_irq [GAUGE] Percent of time all cpus servicing interrupts
+      # TYPE system_cpu_irq GAUGE
+      system_cpu_irq{cpu="cpu0"} 0 1635959903645
+      system_cpu_irq{cpu="cpu-total"} 0 1635959903645
+      # HELP system_cpu_sortirq [GAUGE] Percent of time all cpus servicing software interrupts
+      # TYPE system_cpu_sortirq GAUGE
+      system_cpu_sortirq{cpu="cpu0"} 0 1635959903645
+      system_cpu_sortirq{cpu="cpu-total"} 0 1635959903645
+      # HELP system_cpu_stolen [GAUGE] Percent of time all cpus serviced virtual hosts operating systems
+      # TYPE system_cpu_stolen GAUGE
+      system_cpu_stolen{cpu="cpu0"} 0 1635959903645
+      system_cpu_stolen{cpu="cpu-total"} 0 1635959903645
+      # HELP system_cpu_guest [GAUGE] Percent of time all cpus serviced guest operating system
+      # TYPE system_cpu_guest GAUGE
+      system_cpu_guest{cpu="cpu0"} 0 1635959903645
+      system_cpu_guest{cpu="cpu-total"} 0 1635959903645
+      # HELP system_cpu_guest_nice [GAUGE] Percent of time all cpus serviced niced guest operating system
+      # TYPE system_cpu_guest_nice GAUGE
+      system_cpu_guest_nice{cpu="cpu0"} 0 1635959903645
+      system_cpu_guest_nice{cpu="cpu-total"} 0 1635959903645
+      # HELP system_mem_used [GAUGE] Percent of memory used
+      # TYPE system_mem_used GAUGE
+      system_mem_used{} 24.63435866529588 1635959903645
+      # HELP system_mem_used_bytes [GAUGE] Used memory in bytes
+      # TYPE system_mem_used_bytes GAUGE
+      system_mem_used_bytes{} 2.56159744e+08 1635959903645
+      # HELP system_mem_total_bytes [GAUGE] Total memory in bytes
+      # TYPE system_mem_total_bytes GAUGE
+      system_mem_total_bytes{} 1.039847424e+09 1635959903645
+      # HELP system_swap_used [GAUGE] Percent of swap used
+      # TYPE system_swap_used GAUGE
+      system_swap_used{} 0.0976564362648702 1635959903645
+      # HELP system_swap_used_bytes [GAUGE] Used swap in bytes
+      # TYPE system_swap_used_bytes GAUGE
+      system_swap_used_bytes{} 2.56159744e+08 1635959903645
+      # HELP system_swap_total_bytes [GAUGE] Total swap in bytes
+      # TYPE system_swap_total_bytes GAUGE
+      system_swap_total_bytes{} 2.147479552e+09 1635959903645
+      # HELP system_load_load1 [GAUGE] System load averaged over 1 minute, high load value dependant on number of cpus in system
+      # TYPE system_load_load1 GAUGE
+      system_load_load1{} 0.09 1635959903645
+      # HELP system_load_load5 [GAUGE] System load averaged over 5 minute, high load value dependent on number of cpus in system
+      # TYPE system_load_load5 GAUGE
+      system_load_load5{} 0.04 1635959903645
+      # HELP system_load_load15 [GAUGE] System load averaged over 15 minute, high load value dependent on number of cpus in system
+      # TYPE system_load_load15 GAUGE
+      system_load_load15{} 0.05 1635959903645
+      # HELP system_load_load1_per_cpu [GAUGE] System load averaged over 1 minute normalized by cpu count, values > 1 means system may be overloaded
+      # TYPE system_load_load1_per_cpu GAUGE
+      system_load_load1_per_cpu{} 0.09 1635959903645
+      # HELP system_load_load5_per_cpu [GAUGE] System load averaged over 5 minute normalized by cpu count, values > 1 means system may be overloaded
+      # TYPE system_load_load5_per_cpu GAUGE
+      system_load_load5_per_cpu{} 0.04 1635959903645
+      # HELP system_load_load15_per_cpu [GAUGE] System load averaged over 15 minute normalized by cpu count, values > 1 means system may be overloaded
+      # TYPE system_load_load15_per_cpu GAUGE
+      system_load_load15_per_cpu{} 0.05 1635959903645
+      # HELP system_host_uptime [COUNTER] Host uptime in seconds
+      # TYPE system_host_uptime COUNTER
+      system_host_uptime{} 15488 1635959903645
+      # HELP system_host_processes [GAUGE] Number of host processes
+      # TYPE system_host_processes GAUGE
+      system_host_processes{} 112 1635959903645
+    output_metric_format: prometheus_text
+    output_metric_handlers: null
+    pipelines: []
+    processed_by: sensu-centos
+    proxy_entity_name: ""
+    publish: true
+    round_robin: false
+    runtime_assets:
+    - system-check
+    scheduler: memory
+    secrets: null
+    state: passing
+    status: 0
+    stdin: false
+    subdue: null
+    subscriptions:
+    - system
+    timeout: 0
+    total_state_change: 0
+    ttl: 0
+  entity:
+    deregister: false
+    deregistration: {}
+    entity_class: agent
+    last_seen: 1635959903
+    metadata:
+      created_by: admin
+      name: sensu-centos
+      namespace: default
+    redact:
+    - password
+    - passwd
+    - pass
+    - api_key
+    - api_token
+    - access_key
+    - secret_key
+    - private_key
+    - secret
+    sensu_agent_version: 6.5.4
+    subscriptions:
+    - system
+    - entity:sensu-centos
+    - webserver
+    system:
+      arch: amd64
+      cloud_provider: ""
+      hostname: sensu-centos
+      libc_type: glibc
+      network:
+        interfaces:
+        - addresses:
+          - 127.0.0.1/8
+          - ::1/128
+          name: lo
+        - addresses:
+          - 10.0.2.15/24
+          - fe80::20b8:8cea:fa4:2e57/64
+          mac: 08:00:27:8b:c9:3f
+          name: eth0
+        - addresses:
+          - 192.168.200.95/24
+          - fe80::a00:27ff:fe40:ab31/64
+          mac: 08:00:27:40:ab:31
+          name: eth1
+      os: linux
+      platform: centos
+      platform_family: rhel
+      platform_version: 7.9.2009
+      processes: null
+      vm_role: guest
+      vm_system: vbox
+    user: agent
+  id: 07425e48-e163-47d3-8bc8-17fbaa27e469
+  pipelines: null
+  sequence: 122
+  timestamp: 1635959906
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Event",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default"
+  },
+  "spec": {
+    "check": {
+      "check_hooks": null,
+      "command": "system-check",
+      "duration": 3.012411959,
+      "env_vars": null,
+      "executed": 1635959903,
+      "handlers": [],
+      "high_flap_threshold": 0,
+      "history": [
+        {
+          "executed": 1635959873,
+          "status": 0
+        },
+        {
+          "executed": 1635959883,
+          "status": 0
+        },
+        {
+          "executed": 1635959893,
+          "status": 0
+        },
+        {
+          "executed": 1635959903,
+          "status": 0
+        }
+      ],
+      "interval": 10,
+      "is_silenced": false,
+      "issued": 1635959903,
+      "last_ok": 1635959903,
+      "low_flap_threshold": 0,
+      "metadata": {
+        "labels": {
+          "sensu.io/managed_by": "sensuctl"
+        },
+        "name": "system-check",
+        "namespace": "default"
+      },
+      "occurrences": 4,
+      "occurrences_watermark": 4,
+      "output": "# HELP system_cpu_cores [GAUGE] Number of cpu cores on the system\n# TYPE system_cpu_cores GAUGE\nsystem_cpu_cores{} 1 1635959903645\n# HELP system_cpu_idle [GAUGE] Percent of time all cpus were idle\n# TYPE system_cpu_idle GAUGE\nsystem_cpu_idle{cpu=\"cpu0\"} 98.94366197187135 1635959903645\nsystem_cpu_idle{cpu=\"cpu-total\"} 98.94366197187135 1635959903645\n# HELP system_cpu_used [GAUGE] Percent of time all cpus were used\n# TYPE system_cpu_used GAUGE\nsystem_cpu_used{cpu=\"cpu0\"} 1.0563380281286499 1635959903645\nsystem_cpu_used{cpu=\"cpu-total\"} 1.0563380281286499 1635959903645\n# HELP system_cpu_user [GAUGE] Percent of time total cpu was used by normal processes in user mode\n# TYPE system_cpu_user GAUGE\nsystem_cpu_user{cpu=\"cpu0\"} 0.7042253521124505 1635959903645\nsystem_cpu_user{cpu=\"cpu-total\"} 0.7042253521124505 1635959903645\n# HELP system_cpu_system [GAUGE] Percent of time all cpus used by processes executed in kernel mode\n# TYPE system_cpu_system GAUGE\nsystem_cpu_system{cpu=\"cpu0\"} 0.35211267605672564 1635959903645\nsystem_cpu_system{cpu=\"cpu-total\"} 0.35211267605672564 1635959903645\n# HELP system_cpu_nice [GAUGE] Percent of time all cpus used by niced processes in user mode\n# TYPE system_cpu_nice GAUGE\nsystem_cpu_nice{cpu=\"cpu0\"} 0 1635959903645\nsystem_cpu_nice{cpu=\"cpu-total\"} 0 1635959903645\n# HELP system_cpu_iowait [GAUGE] Percent of time all cpus waiting for I/O to complete\n# TYPE system_cpu_iowait GAUGE\nsystem_cpu_iowait{cpu=\"cpu0\"} 0 1635959903645\nsystem_cpu_iowait{cpu=\"cpu-total\"} 0 1635959903645\n# HELP system_cpu_irq [GAUGE] Percent of time all cpus servicing interrupts\n# TYPE system_cpu_irq GAUGE\nsystem_cpu_irq{cpu=\"cpu0\"} 0 1635959903645\nsystem_cpu_irq{cpu=\"cpu-total\"} 0 1635959903645\n# HELP system_cpu_sortirq [GAUGE] Percent of time all cpus servicing software interrupts\n# TYPE system_cpu_sortirq GAUGE\nsystem_cpu_sortirq{cpu=\"cpu0\"} 0 1635959903645\nsystem_cpu_sortirq{cpu=\"cpu-total\"} 0 1635959903645\n# HELP system_cpu_stolen [GAUGE] Percent of time all cpus serviced virtual hosts operating systems\n# TYPE system_cpu_stolen GAUGE\nsystem_cpu_stolen{cpu=\"cpu0\"} 0 1635959903645\nsystem_cpu_stolen{cpu=\"cpu-total\"} 0 1635959903645\n# HELP system_cpu_guest [GAUGE] Percent of time all cpus serviced guest operating system\n# TYPE system_cpu_guest GAUGE\nsystem_cpu_guest{cpu=\"cpu0\"} 0 1635959903645\nsystem_cpu_guest{cpu=\"cpu-total\"} 0 1635959903645\n# HELP system_cpu_guest_nice [GAUGE] Percent of time all cpus serviced niced guest operating system\n# TYPE system_cpu_guest_nice GAUGE\nsystem_cpu_guest_nice{cpu=\"cpu0\"} 0 1635959903645\nsystem_cpu_guest_nice{cpu=\"cpu-total\"} 0 1635959903645\n# HELP system_mem_used [GAUGE] Percent of memory used\n# TYPE system_mem_used GAUGE\nsystem_mem_used{} 24.63435866529588 1635959903645\n# HELP system_mem_used_bytes [GAUGE] Used memory in bytes\n# TYPE system_mem_used_bytes GAUGE\nsystem_mem_used_bytes{} 2.56159744e+08 1635959903645\n# HELP system_mem_total_bytes [GAUGE] Total memory in bytes\n# TYPE system_mem_total_bytes GAUGE\nsystem_mem_total_bytes{} 1.039847424e+09 1635959903645\n# HELP system_swap_used [GAUGE] Percent of swap used\n# TYPE system_swap_used GAUGE\nsystem_swap_used{} 0.0976564362648702 1635959903645\n# HELP system_swap_used_bytes [GAUGE] Used swap in bytes\n# TYPE system_swap_used_bytes GAUGE\nsystem_swap_used_bytes{} 2.56159744e+08 1635959903645\n# HELP system_swap_total_bytes [GAUGE] Total swap in bytes\n# TYPE system_swap_total_bytes GAUGE\nsystem_swap_total_bytes{} 2.147479552e+09 1635959903645\n# HELP system_load_load1 [GAUGE] System load averaged over 1 minute, high load value dependant on number of cpus in system\n# TYPE system_load_load1 GAUGE\nsystem_load_load1{} 0.09 1635959903645\n# HELP system_load_load5 [GAUGE] System load averaged over 5 minute, high load value dependent on number of cpus in system\n# TYPE system_load_load5 GAUGE\nsystem_load_load5{} 0.04 1635959903645\n# HELP system_load_load15 [GAUGE] System load averaged over 15 minute, high load value dependent on number of cpus in system\n# TYPE system_load_load15 GAUGE\nsystem_load_load15{} 0.05 1635959903645\n# HELP system_load_load1_per_cpu [GAUGE] System load averaged over 1 minute normalized by cpu count, values > 1 means system may be overloaded\n# TYPE system_load_load1_per_cpu GAUGE\nsystem_load_load1_per_cpu{} 0.09 1635959903645\n# HELP system_load_load5_per_cpu [GAUGE] System load averaged over 5 minute normalized by cpu count, values > 1 means system may be overloaded\n# TYPE system_load_load5_per_cpu GAUGE\nsystem_load_load5_per_cpu{} 0.04 1635959903645\n# HELP system_load_load15_per_cpu [GAUGE] System load averaged over 15 minute normalized by cpu count, values > 1 means system may be overloaded\n# TYPE system_load_load15_per_cpu GAUGE\nsystem_load_load15_per_cpu{} 0.05 1635959903645\n# HELP system_host_uptime [COUNTER] Host uptime in seconds\n# TYPE system_host_uptime COUNTER\nsystem_host_uptime{} 15488 1635959903645\n# HELP system_host_processes [GAUGE] Number of host processes\n# TYPE system_host_processes GAUGE\nsystem_host_processes{} 112 1635959903645\n\n",
+      "output_metric_format": "prometheus_text",
+      "output_metric_handlers": null,
+      "pipelines": [],
+      "processed_by": "sensu-centos",
+      "proxy_entity_name": "",
+      "publish": true,
+      "round_robin": false,
+      "runtime_assets": [
+        "system-check"
+      ],
+      "scheduler": "memory",
+      "secrets": null,
+      "state": "passing",
+      "status": 0,
+      "stdin": false,
+      "subdue": null,
+      "subscriptions": [
+        "system"
+      ],
+      "timeout": 0,
+      "total_state_change": 0,
+      "ttl": 0
+    },
+    "entity": {
+      "deregister": false,
+      "deregistration": {},
+      "entity_class": "agent",
+      "last_seen": 1635959903,
+      "metadata": {
+        "created_by": "admin",
+        "name": "sensu-centos",
+        "namespace": "default"
+      },
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
+      "sensu_agent_version": "6.5.4",
+      "subscriptions": [
+        "system",
+        "entity:sensu-centos",
+        "webserver"
+      ],
+      "system": {
+        "arch": "amd64",
+        "cloud_provider": "",
+        "hostname": "sensu-centos",
+        "libc_type": "glibc",
+        "network": {
+          "interfaces": [
+            {
+              "addresses": [
+                "127.0.0.1/8",
+                ":1/128"
+              ],
+              "name": "lo"
+            },
+            {
+              "addresses": [
+                "10.0.2.15/24",
+                "fe80::20b8:8cea:fa4:2e57/64"
+              ],
+              "mac": "08:00:27:8b:c9:3f",
+              "name": "eth0"
+            },
+            {
+              "addresses": [
+                "192.168.200.95/24",
+                "fe80::a00:27ff:fe40:ab31/64"
+              ],
+              "mac": "08:00:27:40:ab:31",
+              "name": "eth1"
+            }
+          ]
+        },
+        "os": "linux",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.9.2009",
+        "processes": null,
+        "vm_role": "guest",
+        "vm_system": "vbox"
+      },
+      "user": "agent"
+    },
+    "id": "07425e48-e163-47d3-8bc8-17fbaa27e469",
+    "pipelines": null,
+    "sequence": 122,
+    "timestamp": 1635959906
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Metrics data points are not included in events retrieved with sensuctl event info &mdash; those events include check output text rather than a set of metrics points.
+To view metrics points data as shown in the following example, add a [debug handler][46] that prints events to a JSON file:
 
 {{< code json >}}
 {
@@ -1130,11 +1486,285 @@ This example shows a complete [metrics-only event][5].
 
 ## Example status and metrics event
 
-The following example resource definition for a [status and metrics event][19] contains _both_ a check and metrics.
+The following example resource definition for a [status and metrics event][19] contains _both_ a check and metrics, retrieved with sensuctl event info:
 
-{{% notice note %}}
-**NOTE**: Metrics data points are not included in events retrieved with sensuctl event info &mdash; these events include check output text rather than a set of metrics points. To view metrics points data as shown in this example, add a [debug handler](../../../operations/maintain-sensu/troubleshoot/#use-a-debug-handler) that prints events to a JSON file.
-{{% /notice %}}
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: Event
+api_version: core/v2
+metadata:
+  namespace: default
+spec:
+  check:
+    check_hooks: null
+    command: http-check --url http://localhost && http-perf --url http://localhost
+      --warning 1s --critical 2s
+    duration: 0.022274319
+    env_vars: null
+    executed: 1635959379
+    handlers:
+    - debug
+    high_flap_threshold: 0
+    history:
+    - executed: 1635952820
+      status: 0
+    - executed: 1635952835
+      status: 0
+    - executed: 1635952850
+      status: 0
+    - executed: 1635952865
+      status: 0
+    - executed: 1635952880
+      status: 0
+    interval: 5
+    is_silenced: false
+    issued: 1635952880
+    last_ok: 1635952880
+    low_flap_threshold: 0
+    metadata:
+      name: collect-metrics
+      namespace: default
+    occurrences: 5
+    occurrences_watermark: 5
+    output: |
+      http-check OK: HTTP Status 200 for http://localhost
+      http-perf OK: 0.001150s | dns_duration=0.000257, tls_handshake_duration=0.000000, connect_duration=0.000088, first_byte_duration=0.001131, total_request_duration=0.001150
+    output_metric_format: nagios_perfdata
+    output_metric_handlers: null
+    pipelines: []
+    processed_by: sensu-centos
+    proxy_entity_name: ""
+    publish: true
+    round_robin: false
+    runtime_assets:
+    - http-checks
+    scheduler: memory
+    secrets: null
+    state: passing
+    status: 0
+    stdin: false
+    subdue: null
+    subscriptions:
+    - webserver
+    timeout: 0
+    total_state_change: 0
+    ttl: 0
+  entity:
+    deregister: false
+    deregistration: {}
+    entity_class: agent
+    last_seen: 1635959379
+    metadata:
+      created_by: admin
+      name: sensu-centos
+      namespace: default
+    redact:
+    - password
+    - passwd
+    - pass
+    - api_key
+    - api_token
+    - access_key
+    - secret_key
+    - private_key
+    - secret
+    sensu_agent_version: 6.5.4
+    subscriptions:
+    - system
+    - entity:sensu-centos
+    - webserver
+    system:
+      arch: amd64
+      cloud_provider: ""
+      hostname: sensu-centos
+      libc_type: glibc
+      network:
+        interfaces:
+        - addresses:
+          - 127.0.0.1/8
+          - ::1/128
+          name: lo
+        - addresses:
+          - 10.0.2.15/24
+          - fe80::20b8:8cea:fa4:2e57/64
+          mac: 08:00:27:8b:c9:3f
+          name: eth0
+        - addresses:
+          - 192.168.200.95/24
+          - fe80::a00:27ff:fe40:ab31/64
+          mac: 08:00:27:40:ab:31
+          name: eth1
+      os: linux
+      platform: centos
+      platform_family: rhel
+      platform_version: 7.9.2009
+      processes: null
+      vm_role: guest
+      vm_system: vbox
+    user: agent
+  id: 12545deb-0e0f-480f-addf-34545d5a01c6
+  pipelines: null
+  sequence: 5
+  timestamp: 1635952880
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Event",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default"
+  },
+  "spec": {
+    "check": {
+      "check_hooks": null,
+      "command": "http-check --url http://localhost && http-perf --url http://localhost --warning 1s --critical 2s",
+      "duration": 0.022274319,
+      "env_vars": null,
+      "executed": 1635959379,
+      "handlers": [
+        "debug"
+      ],
+      "high_flap_threshold": 0,
+      "history": [
+        {
+          "executed": 1635952820,
+          "status": 0
+        },
+        {
+          "executed": 1635952835,
+          "status": 0
+        },
+        {
+          "executed": 1635952850,
+          "status": 0
+        },
+        {
+          "executed": 1635952865,
+          "status": 0
+        },
+        {
+          "executed": 1635952880,
+          "status": 0
+        }
+      ],
+      "interval": 5,
+      "is_silenced": false,
+      "issued": 1635952880,
+      "last_ok": 1635952880,
+      "low_flap_threshold": 0,
+      "metadata": {
+        "name": "collect-metrics",
+        "namespace": "default"
+      },
+      "occurrences": 5,
+      "occurrences_watermark": 5,
+      "output": "http-check OK: HTTP Status 200 for http://localhost\nhttp-perf OK: 0.001150s | dns_duration=0.000257, tls_handshake_duration=0.000000, connect_duration=0.000088, first_byte_duration=0.001131, total_request_duration=0.001150\n",
+      "output_metric_format": "nagios_perfdata",
+      "output_metric_handlers": null,
+      "pipelines": [],
+      "processed_by": "sensu-centos",
+      "proxy_entity_name": "",
+      "publish": true,
+      "round_robin": false,
+      "runtime_assets": [
+        "http-checks"
+      ],
+      "scheduler": "memory",
+      "secrets": null,
+      "state": "passing",
+      "status": 0,
+      "stdin": false,
+      "subdue": null,
+      "subscriptions": [
+        "webserver"
+      ],
+      "timeout": 0,
+      "total_state_change": 0,
+      "ttl": 0
+    },
+    "entity": {
+      "deregister": false,
+      "deregistration": {},
+      "entity_class": "agent",
+      "last_seen": 1635959379,
+      "metadata": {
+        "created_by": "admin",
+        "name": "sensu-centos",
+        "namespace": "default"
+      },
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
+      "sensu_agent_version": "6.5.4",
+      "subscriptions": [
+        "system",
+        "entity:sensu-centos",
+        "webserver"
+      ],
+      "system": {
+        "arch": "amd64",
+        "cloud_provider": "",
+        "hostname": "sensu-centos",
+        "libc_type": "glibc",
+        "network": {
+          "interfaces": [
+            {
+              "addresses": [
+                "127.0.0.1/8",
+                ":1/128"
+              ],
+              "name": "lo"
+            },
+            {
+              "addresses": [
+                "10.0.2.15/24",
+                "fe80::20b8:8cea:fa4:2e57/64"
+              ],
+              "mac": "08:00:27:8b:c9:3f",
+              "name": "eth0"
+            },
+            {
+              "addresses": [
+                "192.168.200.95/24",
+                "fe80::a00:27ff:fe40:ab31/64"
+              ],
+              "mac": "08:00:27:40:ab:31",
+              "name": "eth1"
+            }
+          ]
+        },
+        "os": "linux",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.9.2009",
+        "processes": null,
+        "vm_role": "guest",
+        "vm_system": "vbox"
+      },
+      "user": "agent"
+    },
+    "id": "12545deb-0e0f-480f-addf-34545d5a01c6",
+    "pipelines": null,
+    "sequence": 5,
+    "timestamp": 1635952880
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Metrics data points are not included in events retrieved with sensuctl event info &mdash; those events include check output text rather than a set of metrics points.
+To view metrics points data as shown in the following example, add a [debug handler][46] that prints events to a JSON file:
 
 {{< code json >}}
 {
@@ -2691,3 +3321,4 @@ value: 0.005
 [43]: ../../observe-schedule/agent/#create-observability-events-using-the-agent-api
 [44]: ../../observe-process/pipelines/
 [45]: #pipelines-attributes
+[46]: ../../../operations/maintain-sensu/troubleshoot/#use-a-debug-handler

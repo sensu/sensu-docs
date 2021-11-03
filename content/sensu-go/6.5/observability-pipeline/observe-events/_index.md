@@ -29,7 +29,282 @@ Each event must contain a check result, whether [status][3] or [metrics][7].
 In certain cases, an event can contain [both][8].
 Because events are polymorphic in nature, it is important to never assume their content (or lack of content).
 
-Here's an example event that includes both status and metrics data.
+Here's an example event that includes both status and metrics data, retrieved with sensuctl event info:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: Event
+api_version: core/v2
+metadata:
+  namespace: default
+spec:
+  check:
+    check_hooks: null
+    command: http-check --url http://localhost && http-perf --url http://localhost
+      --warning 1s --critical 2s
+    duration: 0.022274319
+    env_vars: null
+    executed: 1635959379
+    handlers:
+    - debug
+    high_flap_threshold: 0
+    history:
+    - executed: 1635952820
+      status: 0
+    - executed: 1635952835
+      status: 0
+    - executed: 1635952850
+      status: 0
+    - executed: 1635952865
+      status: 0
+    - executed: 1635952880
+      status: 0
+    interval: 5
+    is_silenced: false
+    issued: 1635952880
+    last_ok: 1635952880
+    low_flap_threshold: 0
+    metadata:
+      name: collect-metrics
+      namespace: default
+    occurrences: 5
+    occurrences_watermark: 5
+    output: |
+      http-check OK: HTTP Status 200 for http://localhost
+      http-perf OK: 0.001150s | dns_duration=0.000257, tls_handshake_duration=0.000000, connect_duration=0.000088, first_byte_duration=0.001131, total_request_duration=0.001150
+    output_metric_format: nagios_perfdata
+    output_metric_handlers: null
+    pipelines: []
+    processed_by: sensu-centos
+    proxy_entity_name: ""
+    publish: true
+    round_robin: false
+    runtime_assets:
+    - http-checks
+    scheduler: memory
+    secrets: null
+    state: passing
+    status: 0
+    stdin: false
+    subdue: null
+    subscriptions:
+    - webserver
+    timeout: 0
+    total_state_change: 0
+    ttl: 0
+  entity:
+    deregister: false
+    deregistration: {}
+    entity_class: agent
+    last_seen: 1635959379
+    metadata:
+      created_by: admin
+      name: sensu-centos
+      namespace: default
+    redact:
+    - password
+    - passwd
+    - pass
+    - api_key
+    - api_token
+    - access_key
+    - secret_key
+    - private_key
+    - secret
+    sensu_agent_version: 6.5.4
+    subscriptions:
+    - system
+    - entity:sensu-centos
+    - webserver
+    system:
+      arch: amd64
+      cloud_provider: ""
+      hostname: sensu-centos
+      libc_type: glibc
+      network:
+        interfaces:
+        - addresses:
+          - 127.0.0.1/8
+          - ::1/128
+          name: lo
+        - addresses:
+          - 10.0.2.15/24
+          - fe80::20b8:8cea:fa4:2e57/64
+          mac: 08:00:27:8b:c9:3f
+          name: eth0
+        - addresses:
+          - 192.168.200.95/24
+          - fe80::a00:27ff:fe40:ab31/64
+          mac: 08:00:27:40:ab:31
+          name: eth1
+      os: linux
+      platform: centos
+      platform_family: rhel
+      platform_version: 7.9.2009
+      processes: null
+      vm_role: guest
+      vm_system: vbox
+    user: agent
+  id: 12545deb-0e0f-480f-addf-34545d5a01c6
+  pipelines: null
+  sequence: 5
+  timestamp: 1635952880
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Event",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default"
+  },
+  "spec": {
+    "check": {
+      "check_hooks": null,
+      "command": "http-check --url http://localhost && http-perf --url http://localhost --warning 1s --critical 2s",
+      "duration": 0.022274319,
+      "env_vars": null,
+      "executed": 1635959379,
+      "handlers": [
+        "debug"
+      ],
+      "high_flap_threshold": 0,
+      "history": [
+        {
+          "executed": 1635952820,
+          "status": 0
+        },
+        {
+          "executed": 1635952835,
+          "status": 0
+        },
+        {
+          "executed": 1635952850,
+          "status": 0
+        },
+        {
+          "executed": 1635952865,
+          "status": 0
+        },
+        {
+          "executed": 1635952880,
+          "status": 0
+        }
+      ],
+      "interval": 5,
+      "is_silenced": false,
+      "issued": 1635952880,
+      "last_ok": 1635952880,
+      "low_flap_threshold": 0,
+      "metadata": {
+        "name": "collect-metrics",
+        "namespace": "default"
+      },
+      "occurrences": 5,
+      "occurrences_watermark": 5,
+      "output": "http-check OK: HTTP Status 200 for http://localhost\nhttp-perf OK: 0.001150s | dns_duration=0.000257, tls_handshake_duration=0.000000, connect_duration=0.000088, first_byte_duration=0.001131, total_request_duration=0.001150\n",
+      "output_metric_format": "nagios_perfdata",
+      "output_metric_handlers": null,
+      "pipelines": [],
+      "processed_by": "sensu-centos",
+      "proxy_entity_name": "",
+      "publish": true,
+      "round_robin": false,
+      "runtime_assets": [
+        "http-checks"
+      ],
+      "scheduler": "memory",
+      "secrets": null,
+      "state": "passing",
+      "status": 0,
+      "stdin": false,
+      "subdue": null,
+      "subscriptions": [
+        "webserver"
+      ],
+      "timeout": 0,
+      "total_state_change": 0,
+      "ttl": 0
+    },
+    "entity": {
+      "deregister": false,
+      "deregistration": {},
+      "entity_class": "agent",
+      "last_seen": 1635959379,
+      "metadata": {
+        "created_by": "admin",
+        "name": "sensu-centos",
+        "namespace": "default"
+      },
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
+      "sensu_agent_version": "6.5.4",
+      "subscriptions": [
+        "system",
+        "entity:sensu-centos",
+        "webserver"
+      ],
+      "system": {
+        "arch": "amd64",
+        "cloud_provider": "",
+        "hostname": "sensu-centos",
+        "libc_type": "glibc",
+        "network": {
+          "interfaces": [
+            {
+              "addresses": [
+                "127.0.0.1/8",
+                ":1/128"
+              ],
+              "name": "lo"
+            },
+            {
+              "addresses": [
+                "10.0.2.15/24",
+                "fe80::20b8:8cea:fa4:2e57/64"
+              ],
+              "mac": "08:00:27:8b:c9:3f",
+              "name": "eth0"
+            },
+            {
+              "addresses": [
+                "192.168.200.95/24",
+                "fe80::a00:27ff:fe40:ab31/64"
+              ],
+              "mac": "08:00:27:40:ab:31",
+              "name": "eth1"
+            }
+          ]
+        },
+        "os": "linux",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.9.2009",
+        "processes": null,
+        "vm_role": "guest",
+        "vm_system": "vbox"
+      },
+      "user": "agent"
+    },
+    "id": "12545deb-0e0f-480f-addf-34545d5a01c6",
+    "pipelines": null,
+    "sequence": 5,
+    "timestamp": 1635952880
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 {{% notice note %}}
 **NOTE**: Metrics data points are not included in events retrieved with sensuctl event info &mdash; these events include check output text rather than a set of metrics points. To view metrics points data as shown in the event below, add a [debug handler](../../operations/maintain-sensu/troubleshoot/#use-a-debug-handler) that prints events to a JSON file.
