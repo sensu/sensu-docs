@@ -1736,7 +1736,6 @@ This page will be the official home for the Sensu Go changelog and release notes
 
 To get started with Sensu Go:
 
-- [Download the sandbox][7].
 - [Install Sensu Go][8].
 - [Get started monitoring server resources][9].
 
@@ -1746,7 +1745,6 @@ To get started with Sensu Go:
 [4]: /sensu-go/5.1/reference/agent/
 [5]: https://www.github.com/sensu/sensu-go/blob/main/CHANGELOG.md#500---2018-11-30
 [6]: https://sensu.io/blog/sensu-go-is-here/
-[7]: https://www.github.com/sensu/sandbox/tree/main/sensu-go/core/
 [8]: /sensu-go/5.0/installation/install-sensu/
 [9]: /sensu-go/5.0/guides/monitor-server-resources/
 [10]: /sensu-go/5.1/reference/rbac#managing-users

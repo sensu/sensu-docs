@@ -39,8 +39,6 @@ To complete this guide, you'll need:
 - [cURL][5]
 - A [Slack webhook URL][6] and three different Slack channels to receive test alerts (one for each team)
 
-To set up a quick testing environment, download and start the [Sensu sandbox][7].
-
 ## Configure contact routing
 
 ### 1. Register the has-contact filter dynamic runtime asset
@@ -666,7 +664,6 @@ Learn how to use Sensu to [Reduce alert fatigue][11].
 [4]: ../../../sensuctl/#first-time-setup-and-authentication
 [5]: https://curl.haxx.se/
 [6]: https://api.slack.com/incoming-webhooks
-[7]: ../../../learn/learn-sensu-sandbox/
 [8]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [9]: ../../observe-schedule/monitor-server-resources/
 [10]: ../../observe-entities/entities/#manage-entity-labels

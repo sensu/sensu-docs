@@ -63,8 +63,8 @@ spec:
     occurrences: 1
     occurrences_watermark: 1
     output: |-
-      sensu-go-sandbox.curl_timings.time_total 0.005 1552506033
-      sensu-go-sandbox.curl_timings.time_namelookup 0.004
+      sensu-go.curl_timings.time_total 0.005 1552506033
+      sensu-go.curl_timings.time_namelookup 0.004
     output_metric_format: graphite_plaintext
     output_metric_handlers:
     - influx-db
@@ -77,7 +77,7 @@ spec:
     stdin: false
     subdue: null
     subscriptions:
-    - entity:sensu-go-sandbox
+    - entity:sensu-go-testing
     timeout: 0
     total_state_change: 0
     ttl: 0
@@ -87,7 +87,7 @@ spec:
     entity_class: agent
     last_seen: 1552495139
     metadata:
-      name: sensu-go-sandbox
+      name: sensu-go-testing
       namespace: default
     redact:
     - password
@@ -100,10 +100,10 @@ spec:
     - private_key
     - secret
     subscriptions:
-    - entity:sensu-go-sandbox
+    - entity:sensu-go-testing
     system:
       arch: amd64
-      hostname: sensu-go-sandbox
+      hostname: sensu-go-testing
       network:
         interfaces:
         - addresses:
@@ -125,11 +125,11 @@ spec:
     handlers:
     - influx-db
     points:
-    - name: sensu-go-sandbox.curl_timings.time_total
+    - name: sensu-go.curl_timings.time_total
       tags: []
       timestamp: 1552506033
       value: 0.005
-    - name: sensu-go-sandbox.curl_timings.time_namelookup
+    - name: sensu-go.curl_timings.time_namelookup
       tags: []
       timestamp: 1552506033
       value: 0.004
@@ -175,7 +175,7 @@ spec:
       },
       "occurrences": 1,
       "occurrences_watermark": 1,
-      "output": "sensu-go-sandbox.curl_timings.time_total 0.005 1552506033\nsensu-go-sandbox.curl_timings.time_namelookup 0.004",
+      "output": "sensu-go.curl_timings.time_total 0.005 1552506033\nsensu-go.curl_timings.time_namelookup 0.004",
       "output_metric_format": "graphite_plaintext",
       "output_metric_handlers": [
         "influx-db"
@@ -189,7 +189,7 @@ spec:
       "stdin": false,
       "subdue": null,
       "subscriptions": [
-        "entity:sensu-go-sandbox"
+        "entity:sensu-go-testing"
       ],
       "timeout": 0,
       "total_state_change": 0,
@@ -201,7 +201,7 @@ spec:
       "entity_class": "agent",
       "last_seen": 1552495139,
       "metadata": {
-        "name": "sensu-go-sandbox",
+        "name": "sensu-go-testing",
         "namespace": "default"
       },
       "redact": [
@@ -216,11 +216,11 @@ spec:
         "secret"
       ],
       "subscriptions": [
-        "entity:sensu-go-sandbox"
+        "entity:sensu-go-testing"
       ],
       "system": {
         "arch": "amd64",
-        "hostname": "sensu-go-sandbox",
+        "hostname": "sensu-go-testing",
         "network": {
           "interfaces": [
             {
@@ -254,13 +254,13 @@ spec:
       ],
       "points": [
         {
-          "name": "sensu-go-sandbox.curl_timings.time_total",
+          "name": "sensu-go.curl_timings.time_total",
           "tags": [],
           "timestamp": 1552506033,
           "value": 0.005
         },
         {
-          "name": "sensu-go-sandbox.curl_timings.time_namelookup",
+          "name": "sensu-go.curl_timings.time_namelookup",
           "tags": [],
           "timestamp": 1552506033,
           "value": 0.004

@@ -324,15 +324,15 @@
             "status": 301
         },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/learn/learn-in-15/?$": {
-            "url": "/sensu-go/latest/learn/learn-sensu-sandbox",
+            "url": "/sensu-go/latest/learn/",
             "status": 301
         },
         "~ ^/sensu-go/latest/learn/learn-in-15/?$": {
-            "url": "/sensu-go/latest/learn/learn-sensu-sandbox",
+            "url": "/sensu-go/latest/learn/",
             "status": 301
         },
         "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/learn-in-15/?$": {
-            "url": "/sensu-go/latest/learn/learn-sensu-sandbox",
+            "url": "/sensu-go/latest/learn/",
             "status": 301
         },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/learn/up-and-running/?$": {
@@ -688,7 +688,7 @@
             "status": 301
         },
         "~ ^/sensu-go/latest/getting-started/sandbox/?$": {
-            "url": "/sensu-go/latest/learn/learn-sensu-sandbox",
+            "url": "/sensu-go/latest/learn/",
             "status": 301
         },
         "~ ^/sensu-go/latest/getting-started/learn-sensu/?$": {
@@ -696,7 +696,7 @@
             "status": 301
         },
         "~ ^/sensu-go/latest/getting-started/tutorial/?$": {
-            "url": "/sensu-go/latest/learn/learn-sensu-sandbox",
+            "url": "/sensu-go/latest/learn/",
             "status": 301
         },
         "~ ^/sensu-go/latest/getting-started/installation-and-configuration/?$": {
@@ -705,6 +705,22 @@
         },
         "~ ^/sensu-go/latest/installation/verify/?$": {
             "url": "/sensu-go/latest/versions",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/learn/sandbox/?$": {
+            "url": "/sensu-go/latest/learn",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[0-9]/learn/sandbox/?$": {
+            "url": "/sensu-go/latest/learn",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/learn/sandbox/learn-sensu-sandbox/?$": {
+            "url": "/sensu-go/latest/learn",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[0-9]/learn/sandbox/learn-sensu-sandbox/?$": {
+            "url": "/sensu-go/latest/learn",
             "status": 301
         }
     }
