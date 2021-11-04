@@ -11,7 +11,7 @@ menu:
 ---
 
 This installation guide describes how to install the Sensu backend, Sensu agent, and sensuctl command line tool.
-If you’re trying Sensu for the first time, we recommend setting up a local environment using the [Sensu sandbox][14].
+If you’re trying Sensu for the first time, we recommend setting up a testing environment using the [Sensu Go workshop][14].
 
 {{% notice note %}}
 **NOTE**: The instructions in this guide explain how to install Sensu for proof-of-concept purposes or testing in a development environment.
@@ -557,7 +557,7 @@ sensuctl license info
 [11]: https://sensu.io/contact?subject=contact-sales/
 [12]: ../../../observability-pipeline/observe-process/send-email-alerts/
 [13]: https://sensu.io/licenses
-[14]: ../../../learn/learn-sensu-sandbox/
+[14]: https://github.com/sensu/sensu-go-workshop
 [15]: ../../../observability-pipeline/observe-schedule/agent/#events-post-example
 [16]: https://etcd.io/
 [17]: ../../../plugins/assets/

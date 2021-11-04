@@ -11,7 +11,7 @@ menu:
 ---
 
 This guide includes general information for migrating your Sensu instance from Sensu Core and Sensu Enterprise to Sensu Go.
-For instructions and tools to help you translate your Sensu configuration from Sensu Core and Enterprise to Sensu Go, review the [Sensu Translator project][18] and our [blog post about check configuration upgrades with the Sensu Go sandbox][25].
+For instructions and tools to help you translate your Sensu configuration from Sensu Core and Enterprise to Sensu Go, review the [Sensu Translator project][18].
 
 {{% notice note %}}
 **NOTE**: The information in this guide applies to Sensu Enterprise as well as Sensu Core, although we refer to "Sensu Core" for brevity.
@@ -33,7 +33,7 @@ Aside from this migration guide, these resources can help you migrate from Sensu
 
 - [**Sensu Community Slack**][46]: Join hundreds of other Sensu users in our Community Slack, where you can ask questions and benefit from tips others picked up during their own Sensu Go migrations.
 - [**Sensu Community Forum**][47]: Drop a question in our dedicated category for migrating to Go.
-- [**Sensu Go Sandbox**][48]: Download the sandbox and try out some monitoring workflows with Sensu Go.
+- [**Sensu Go workshop**][48]: Download the workshop environment and try out some monitoring workflows with Sensu Go.
 - [**Sensu Translator**][45]: Use this command-line tool to generate Sensu Go configurations from your Sensu Core config files.
 
 We also offer [**commercial support** and **professional services** packages][49] to help with your Sensu Go migration.
@@ -531,7 +531,6 @@ After you stop the Sensu Core services, follow package removal instructions for 
 [22]: ../../../sensuctl/#preferred-output-format
 [23]: https://bonsai.sensu.io/assets/sensu/sensu-dependencies-filter
 [24]: ../../../observability-pipeline/observe-entities/entities#metadata-attributes
-[25]: https://sensu.io/blog/check-configuration-upgrades-with-the-sensu-go-sandbox/
 [26]: https://sensu.io/blog/self-service-monitoring-checks-in-sensu-go/
 [27]: ../../../commercial/
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check/
@@ -550,7 +549,7 @@ After you stop the Sensu Core services, follow package removal instructions for 
 [45]: https://github.com/sensu/sensu-translator
 [46]: https://slack.sensu.io/
 [47]: https://discourse.sensu.io/c/sensu-go/migrating-to-go
-[48]: ../../../learn/sandbox/
+[48]: https://github.com/sensu/sensu-go-workshop
 [49]: https://sensu.io/support/
 [50]: ../../../plugins/use-assets-to-install-plugins/
 [51]: ../../../plugins/install-plugins/

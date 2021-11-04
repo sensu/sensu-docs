@@ -3,11 +3,7 @@ title: "Sensu sandbox"
 linkTitle: "Sandbox"
 description: "The Sensu sandbox helps you learn Sensu Go. Build your first monitoring workflow, set up container and application monitoring, and use Sensu and Prometheus in parallele to collect and route metrics. There’s also a lesson plan for upgrading from Sensu Core 1.x to Sensu Go!"
 version: "6.4"
-weight: 40
 product: "Sensu Go"
-menu:
-  sensu-go-6.4:
-    parent: learn-sensu
 ---
 
 Welcome to the Sensu sandbox! The sandbox is a great place to get started with Sensu and try out new features.

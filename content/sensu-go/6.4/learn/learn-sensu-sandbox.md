@@ -361,7 +361,7 @@ The response should end with this line:
 
 {{< code shell >}}
 ...
-sensu-go-sandbox.curl_timings.http_code 200 1535670975
+sensu-go.curl_timings.http_code 200 1535670975
 {{< /code >}}
 
 
@@ -451,7 +451,7 @@ The response should be similar to:
       "executed": 1556472457
     },
   ],
-  "output": "sensu-go-sandbox.curl_timings.time_total 0.005 1556472657\n...",
+  "output": "sensu-go.curl_timings.time_total 0.005 1556472657\n...",
   ...
   "output_metric_format": "graphite_plaintext",
   "output_metric_handlers": [
@@ -505,8 +505,8 @@ Test the plugin:
 The response should include a list similar to this example:
 
 {{< code shell >}}
-sensu-core-sandbox.disk_usage.root.used 2235 1534191189
-sensu-core-sandbox.disk_usage.root.avail 39714 1534191189
+sensu-core.disk_usage.root.used 2235 1534191189
+sensu-core.disk_usage.root.avail 39714 1534191189
 ...
 {{< /code >}}
 
