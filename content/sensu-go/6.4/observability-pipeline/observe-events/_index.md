@@ -41,7 +41,7 @@ metadata:
 spec:
   check:
     check_hooks: null
-    command: /opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u "http://localhost"
+    command: metrics-curl -u "http://localhost"
     duration: 0.060790838
     env_vars: null
     executed: 1552506033
@@ -148,7 +148,7 @@ spec:
   "spec": {
     "check": {
       "check_hooks": null,
-      "command": "/opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u \"http://localhost\"",
+      "command": "metrics-curl -u \"http://localhost\"",
       "duration": 0.060790838,
       "env_vars": null,
       "executed": 1552506033,
