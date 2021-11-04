@@ -722,6 +722,6 @@
         "~ ^/sensu-go/6.[0-9]/learn/sandbox/learn-sensu-sandbox/?$": {
             "url": "/sensu-go/latest/learn",
             "status": 301
-        },
+        }
     }
 }
