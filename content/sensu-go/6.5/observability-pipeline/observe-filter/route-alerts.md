@@ -30,7 +30,7 @@ Routing alerts requires three types of Sensu resources:
 Here's a quick overview of the configuration to set up contact routing with a pipeline.
 Two of the check definitions include a `contacts` label, which allows the pipeline to route alerts to the correct Slack channel based each workflow's event filter and handler.
 
-{{< figure src="/images/contact_routing_pipeline.png" alt="Diagram that shows events generated with and without labels, matched to the appropriate handler using a contact filter and routed to the appropriate Slack channel" link="/images/contact_routing_pipeline.png" target="_blank" >}}
+{{< figure src="/images/contact_routing_pipeline.svg" alt="Diagram that shows events generated with and without labels, matched to the appropriate handler using a contact filter and routed to the appropriate Slack channel" link="/images/contact_routing_pipeline.svg" target="_blank" >}}
 <!-- Diagram source: https://lucid.app/lucidchart/cd3a6110-aa74-48cc-8c74-64d542ba97bc/edit?viewport_loc=-139%2C52%2C2219%2C1041%2C0_0&invitationId=inv_de0cf345-dd7d-40dd-8724-2f9592cf45ec -->
 
 ## Prerequisites
@@ -761,7 +761,7 @@ spec:
 
 Now when the `check_cpu` check generates an event, Sensu will filter the event according to the `contact_dev` and `contact_ops` event filters and send alerts to the #dev and #ops Slack channels:
 
-{{< figure src="/images/contact_routing_pipeline_2.png" alt="Diagram that shows an event generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops" link="/images/contact_routing_pipeline_2.png" target="_blank" >}}
+{{< figure src="/images/contact_routing_pipeline_2.svg" alt="Diagram that shows an event generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops" link="/images/contact_routing_pipeline_2.svg" target="_blank" >}}
 <!-- Diagram source: https://lucid.app/lucidchart/fa215a7d-f77e-45e7-a3c3-b6803b15bcd8/edit?viewport_loc=-244%2C-47%2C2219%2C1041%2C0_0&invitationId=inv_b74be97a-17a5-4e4d-b688-d1b8387fc4c8 -->
 
 ### Entities
@@ -773,7 +773,7 @@ For more information about managing entity labels, read the [entity reference][1
 If contact labels are present in both the check and entity, the check contacts override the entity contacts.
 In this example, the `dev` label in the check configuration overrides the `ops` label in the agent definition, resulting in an alert sent to #dev but not to #ops or #fallback:
 
-{{< figure src="/images/contact_routing_pipeline_3.png" alt="Diagram that shows how check labels override entity labels when both are present in an event" link="/images/contact_routing_pipeline_3.png" target="_blank" >}}
+{{< figure src="/images/contact_routing_pipeline_3.svg" alt="Diagram that shows how check labels override entity labels when both are present in an event" link="/images/contact_routing_pipeline_3.svg" target="_blank" >}}
 <!-- Diagram source: https://lucid.app/lucidchart/f8fc33b7-f9b3-45cc-bae8-444822f7e8cb/edit?viewport_loc=-221%2C-49%2C2219%2C1041%2C0_0&invitationId=inv_e623f4c9-d485-4a59-a1d6-fa1e9575b905 -->
 
 ## Next steps
