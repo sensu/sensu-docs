@@ -587,11 +587,12 @@ Resolve the events by sending the same API requests with `status` set to `0`.
 
 ## Manage contact labels in checks and entities
 
-To assign an alert to a contact, add a `contacts` label to the check or entity.
-The `contacts` labels should be `ops` and `dev`.
-You'll also need to update the check to use your `slack` handler.
+To assign a check's alerts to a contact, you can add the `contacts` labels to checks or entities.
+You'll also need to update the checks to use your `slack_contact_routing` pipeline.
 
-For example, you can update the `check_cpu` check created in [Monitor server resources][9] to include the `ops` and `dev` contacts and the `slack` handler.
+### Route contacts with checks
+
+To test contact routing with check-generated events, update the `check_cpu` check created in [Monitor server resources][9] to include the `ops` and `dev` contacts and the `slack` handler.
 
 Use sensuctl to open the check in a text editor:
 
@@ -604,15 +605,37 @@ Edit the check metadata to add the following labels:
 {{< language-toggle >}}
 
 {{< code yml >}}
----
 labels:
-  contacts: ops, dev
+  contacts: dev, ops
 {{< /code >}}
 
 {{< code json >}}
 {
   "labels": {
-    "contacts": "ops, dev"
+    "contacts": "dev, ops"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Update the pipelines array to add `slack_contact_routing`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+pipelines:
+  - type: Pipeline
+    api_version: core/v2
+    name: slack_contact_routing
+{{< /code >}}
+
+{{< code json >}}
+{
+  "pipelines": {
+    "type": "Pipeline",
+    "api_version": "core/v2",
+    "name": "slack_contact_routing"
   }
 }
 {{< /code >}}
@@ -627,15 +650,7 @@ For example:
 Updated /api/core/v2/namespaces/default/checks/check_cpu
 {{< /code >}}
 
-Next, run this sensuctl command to add the `slack` handler:
-
-{{< code shell >}}
-sensuctl check set-handlers check_cpu slack
-{{< /code >}}
-
-Again, you will receive an `Updated` confirmation message.
-
-To view the updated resource definition for `check_cpu` and confirm that it includes the `contacts` labels and `slack` handler, run:
+To view the updated resource definition for `check_cpu` and confirm that it includes the `contacts` labels and `slack_contact_routing` pipeline, run:
 
 {{< language-toggle >}}
 
@@ -660,20 +675,23 @@ api_version: core/v2
 metadata:
   created_by: admin
   labels:
-    contacts: ops, dev
+    contacts: dev, ops
   name: check_cpu
   namespace: default
 spec:
   check_hooks: null
   command: check-cpu-usage -w 75 -c 90
   env_vars: null
-  handlers:
-  - slack
+  handlers: []
   high_flap_threshold: 0
   interval: 60
   low_flap_threshold: 0
   output_metric_format: ""
   output_metric_handlers: null
+  pipelines:
+  - api_version: core/v2
+    name: slack_contact_routing
+    type: Pipeline
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -693,25 +711,30 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "labels": {
-      "contacts": "ops, dev"
-    },
     "name": "check_cpu",
-    "namespace": "default"
+    "namespace": "default",
+    "labels": {
+      "contacts": "dev, ops"
+    },
+    "created_by": "admin"
   },
   "spec": {
     "check_hooks": null,
     "command": "check-cpu-usage -w 75 -c 90",
     "env_vars": null,
-    "handlers": [
-      "slack"
-    ],
+    "handlers": [],
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
     "output_metric_format": "",
     "output_metric_handlers": null,
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "name": "slack_contact_routing",
+        "type": "Pipeline"
+      }
+    ],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
@@ -736,21 +759,22 @@ spec:
 **PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
 {{% /notice %}}
 
-Now when the `check_cpu` check generates an incident, Sensu will filter the event according to the `contact_ops` and `contact_dev` event filters and send alerts to #alert-ops and #alert-dev accordingly.
+Now when the `check_cpu` check generates an event, Sensu will filter the event according to the `contact_dev` and `contact_ops` event filters and send alerts to the #devs and #ops Slack channels:
 
-{{< figure src="/images/contact-routing2.png" alt="Diagram that shows an event generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops" link="/images/contact-routing2.png" target="_blank" >}}
-<!-- Diagram source: https://www.lucidchart.com/documents/edit/3cbd2ad3-92ed-48cc-bbaa-a97f53dae1ba -->
+{{< figure src="/images/contact_routing_pipeline_2.png" alt="Diagram that shows an event generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops" link="/images/contact_routing_pipeline_2.png" target="_blank" >}}
+<!-- Diagram source: https://lucid.app/lucidchart/fa215a7d-f77e-45e7-a3c3-b6803b15bcd8/edit?viewport_loc=-244%2C-47%2C2219%2C1041%2C0_0&invitationId=inv_b74be97a-17a5-4e4d-b688-d1b8387fc4c8 -->
 
 ### Entities
 
-You can also specify contacts using an entity label.
+You can also specify contacts in entity labels instead of or in addition to check labels.
+The check definition should still include the pipeline.
 For more information about managing entity labels, read the [entity reference][10].
 
 If contact labels are present in both the check and entity, the check contacts override the entity contacts.
-In this example, the `dev` label in the check configuration overrides the `ops` label in the agent definition, resulting in an alert sent to #alert-dev but not to #alert-ops or #alert-all.
+In this example, the `dev` label in the check configuration overrides the `ops` label in the agent definition, resulting in an alert sent to #dev but not to #ops or #fallback:
 
-{{< figure src="/images/contact-routing3.png" alt="Diagram that shows that check labels override entity labels when both are present in an event" link="/images/contact-routing3.png" target="_blank" >}}
-<!-- Diagram source: https://www.lucidchart.com/documents/edit/da41741f-15c5-47f8-b2b4-9197593a67d8/0 -->
+{{< figure src="/images/contact_routing_pipeline_3.png" alt="Diagram that shows how check labels override entity labels when both are present in an event" link="/images/contact_routing_pipeline_3.png" target="_blank" >}}
+<!-- Diagram source: https://lucid.app/lucidchart/f8fc33b7-f9b3-45cc-bae8-444822f7e8cb/edit?viewport_loc=-221%2C-49%2C2219%2C1041%2C0_0&invitationId=inv_e623f4c9-d485-4a59-a1d6-fa1e9575b905 -->
 
 ## Next steps
 
