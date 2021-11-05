@@ -173,6 +173,9 @@ Workflows do not have to include an event filter or mutator, but they must speci
 Workflows can include more than one event filter.
 If a workflow has more than one filter, Sensu applies the filters in a series, starting with the filter that is listed first.
 
+You can use your existing event filters, mutators, and handlers in pipeline workflows.
+Pipelines ignore any filters and mutators specified in handler definitions, so you do not need to remove them to use your existing handlers &mdash; just make sure to define the event filters and mutators you want to use in the pipeline workflow.
+
 ### Pipelines with multiple workflows
 
 Pipelines can include more than one workflow.
@@ -637,7 +640,7 @@ mutator:
 
 handler      | 
 -------------|------
-description  | Reference for the Sensu handler to use for event processing in the workflow. Each pipeline workflow must reference one handler. Read [handler attributes][12] for details.
+description  | Reference for the Sensu handler to use for event processing in the workflow. Each pipeline workflow must reference one handler. Pipelines ignore any filters and mutators specified in handler definitions. Read [handler attributes][12] for details.
 required     | true
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -662,7 +665,7 @@ handler:
 
 name         | 
 -------------|------
-description  | Name of the Sensu [event filter][24] to use for the workflow.
+description  | Name of the Sensu [event filter][24] to use for the workflow. You can use the [built-in event filters][31], as well as your existing event filters, in pipeline workflows.
 required     | true
 type         | String
 default      | `null`
@@ -715,7 +718,7 @@ api_version: core/v2
 
 name         | 
 -------------|------
-description  | Name of the Sensu [mutator][14] to use for the workflow.
+description  | Name of the Sensu [mutator][14] to use for the workflow. You can use your existing mutators in pipeline workflows.
 required     | true
 type         | String
 default      | `null`
@@ -768,7 +771,7 @@ api_version: core/v2
 
 name         | 
 -------------|------
-description  | Name of the Sensu [handler][13] to use for the workflow.
+description  | Name of the Sensu [handler][13] to use for the workflow. You can use your existing handlers in pipeline workflows &mdash; pipelines ignore any filters and mutators specified in handler definitions.
 required     | true
 type         | String
 default      | `null`
@@ -850,3 +853,5 @@ api_version: core/v2
 [28]: ../../../web-ui/search/
 [29]: ../../../observability-pipeline/
 [30]: ../../observe-filter/route-alerts/#configure-contact-routing-with-a-pipeline
+[31]: ../../observe-filter/filters/#built-in-event-filters
+
