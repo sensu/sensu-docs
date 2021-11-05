@@ -14,17 +14,18 @@ menu:
 ---
 
 Every alert has an ideal first responder: a team or person who knows how to triage and address the issue.
-Sensu contact routing lets you alert the right people using their preferred contact methods, reducing mean time to response and recovery.
+Sensu contact routing lets you alert the right people using their preferred contact methods and reduce mean time to response and recovery.
 
 In this guide, you'll set up alerts for two teams (dev and ops) with separate Slack channels.
 Each team wants to be alerted only for the things they care about, using their team's Slack channel.
 There's also a fallback option for alerts that should not be routed to either the dev or ops team.
-To achieve this, you can use a [pipeline][16] resource with three workflows, one for each contact option.
+To achieve this, you'll use a [pipeline][16] resource with three workflows, one for each contact option.
 
-Routing alerts requires two types of Sensu resources:
+Routing alerts requires three types of Sensu resources:
 
-- **Handlers** to store contact preferences for the ops team, the dev team, and a fallback option
+- **Handlers** to store contact preferences for the dev and ops teams, plus a fallback option
 - **Event filters** to match contact labels to the right handler
+- A **pipeline** to organize the event filters and handlers into workflows that route alerts to the right contacts
 
 Here's a quick overview of the configuration to set up contact routing with a pipeline.
 Two of the check definitions include a `contacts` label, which allows the pipeline to route alerts to the correct Slack channel based each workflow's event filter and handler.
@@ -258,7 +259,7 @@ metadata:
   name: ops_handler
   namespace: default
 spec:
-  command: sensu-slack-handler --channel "#ops"
+  command: sensu-slack-handler --channel "#<alert-ops>"
   env_vars:
     - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx
   handlers: null
@@ -274,7 +275,7 @@ metadata:
   name: dev_handler
   namespace: default
 spec:
-  command: sensu-slack-handler --channel "#dev"
+  command: sensu-slack-handler --channel "#<alert-dev>"
   env_vars:
     - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx
   handlers: null
@@ -290,7 +291,7 @@ metadata:
   name: fallback_handler
   namespace: default
 spec:
-  command: sensu-slack-handler --channel "#fallback"
+  command: sensu-slack-handler --channel "#<alert-fallback>"
   env_vars:
     - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx
   handlers: null
@@ -310,7 +311,7 @@ echo '{
     "namespace": "default"
   },
   "spec": {
-    "command": "sensu-slack-handler --channel \"#ops\"",
+    "command": "sensu-slack-handler --channel \"#<alert-ops>\"",
     "env_vars": [
       "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx"
     ],
@@ -331,7 +332,7 @@ echo '{
     "namespace": "default"
   },
   "spec": {
-    "command": "sensu-slack-handler --channel \"#dev\"",
+    "command": "sensu-slack-handler --channel \"#<alert-dev>\"",
     "env_vars": [
       "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx"
     ],
@@ -352,7 +353,7 @@ echo '{
     "namespace": "default"
   },
   "spec": {
-    "command": "sensu-slack-handler --channel \"#fallback\"",
+    "command": "sensu-slack-handler --channel \"#<alert-fallback>\"",
     "env_vars": [
       "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx"
     ],
@@ -377,22 +378,22 @@ Use sensuctl to confirm that the handlers were added:
 sensuctl handler list
 {{< /code >}}
 
-The response should list the new `slack_ops`, `slack_dev`, and `slack_fallback` handlers:
+The response should list the new `dev_handler`, `ops_handler`, and `fallback_handler` handlers:
 
 {{< code shell >}}
-        Name         Type   Timeout   Filters   Mutator                       Execute                                             Environment Variables                           Assets         
-─────────────────── ────── ───────── ───────── ───────── ────────────────────────────────────────────────── ───────────────────────────────────────────────────────────── ──────────────────────
-  dev_handler        pipe         0                       RUN:  sensu-slack-handler --channel "#dev"        SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx   sensu-slack-handler  
-  fallback_handler   pipe         0                       RUN:  sensu-slack-handler --channel "#fallback"   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx   sensu-slack-handler  
-  ops_handler        pipe         0                       RUN:  sensu-slack-handler --channel "#ops"        SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx   sensu-slack-handler  
+        Name         Type   Timeout   Filters   Mutator                       Execute                                                   Environment Variables                            Assets         
+─────────────────── ────── ───────── ───────── ───────── ───────────────────────────────────────────────────────── ───────────────────────────────────────────────────────────── ──────────────────────
+  dev_handler        pipe         0                       RUN:  sensu-slack-handler --channel "#<alert_dev>"        SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx   sensu-slack-handler  
+  fallback_handler   pipe         0                       RUN:  sensu-slack-handler --channel "#<alert-fallback>"   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx   sensu-slack-handler  
+  ops_handler        pipe         0                       RUN:  sensu-slack-handler --channel "#<alert-ops>"        SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx   sensu-slack-handler  
 {{< /code >}}
 
 ## Create a pipeline
 
-Create a pipeline with a separate workflow for each contact group.
+Create a pipeline with a three workflows: one for each contact group.
 
 Each workflow includes the contact event filter and the corresponding handler for one contact group.
-All of the workflows also include the built-in `is_incident` event filter to reduce noise.
+All of the workflows also include the built-in [is_incident event filter][20] to reduce noise.
 
 {{< language-toggle >}}
 
@@ -538,7 +539,7 @@ curl -X POST \
       "name": "example-check-fallback"
     },
     "status": 1,
-    "output": "You should receive this example event in the Slack channel specified by your slack_fallback handler."
+    "output": "You should receive this example event in the Slack channel specified by your fallback handler."
   },
   "pipelines": [
     {
@@ -551,8 +552,8 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /code >}}
 
-Since this event doesn't include a `contacts` label, you should also receive an alert in the Slack channel specified in your `slack_fallback` handler.
-Behind the scenes, Sensu uses the`contact_fallback` filter to match the event to the `slack_fallback` handler.
+Since this event doesn't include a `contacts` label, you should also receive an alert in the Slack channel specified in your `fallback_handler` handler.
+Behind the scenes, Sensu uses the `contact_fallback` filter to match the event to the `fallback_handler` handler.
 
 Now, create an event with a `contacts` label:
 
@@ -568,7 +569,7 @@ curl -X POST \
       }
     },
     "status": 1,
-    "output": "You should receive this example event in the Slack channel specified by your slack_dev handler."
+    "output": "You should receive this example event in the Slack channel specified by your dev handler."
   },
   "pipelines": [
     {
@@ -581,18 +582,17 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /code >}}
 
-Because this event contains the `contacts: dev` label, you should receive an alert in the Slack channel specified by the `slack_dev` handler.
+Because this event contains the `contacts: dev` label, you should receive an alert in the Slack channel specified by the `dev_handler` handler.
 
 Resolve the events by sending the same API requests with `status` set to `0`.
 
 ## Manage contact labels in checks and entities
 
 To assign a check's alerts to a contact, you can add the `contacts` labels to checks or entities.
-You'll also need to update the checks to use your `slack_contact_routing` pipeline.
 
 ### Route contacts with checks
 
-To test contact routing with check-generated events, update the `check_cpu` check created in [Monitor server resources][9] to include the `ops` and `dev` contacts and the `slack` handler.
+To test contact routing with check-generated events, update the `check_cpu` check created in [Monitor server resources][9] to include the `ops` and `dev` contacts and the `slack_contact_routing` pipeline.
 
 Use sensuctl to open the check in a text editor:
 
@@ -759,14 +759,14 @@ spec:
 **PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
 {{% /notice %}}
 
-Now when the `check_cpu` check generates an event, Sensu will filter the event according to the `contact_dev` and `contact_ops` event filters and send alerts to the #devs and #ops Slack channels:
+Now when the `check_cpu` check generates an event, Sensu will filter the event according to the `contact_dev` and `contact_ops` event filters and send alerts to the #dev and #ops Slack channels:
 
 {{< figure src="/images/contact_routing_pipeline_2.png" alt="Diagram that shows an event generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops" link="/images/contact_routing_pipeline_2.png" target="_blank" >}}
 <!-- Diagram source: https://lucid.app/lucidchart/fa215a7d-f77e-45e7-a3c3-b6803b15bcd8/edit?viewport_loc=-244%2C-47%2C2219%2C1041%2C0_0&invitationId=inv_b74be97a-17a5-4e4d-b688-d1b8387fc4c8 -->
 
 ### Entities
 
-You can also specify contacts in entity labels instead of or in addition to check labels.
+You can specify contacts in entity labels instead of in check labels.
 The check definition should still include the pipeline.
 For more information about managing entity labels, read the [entity reference][10].
 
@@ -801,3 +801,4 @@ Learn how to use Sensu to [Reduce alert fatigue][11].
 [17]: #configure-contact-routing-with-a-handler-set
 [18]: #1-register-dynamic-runtime-assets
 [19]: #2-create-contact-filters
+[20]: ../filters/#built-in-filter-is_incident
