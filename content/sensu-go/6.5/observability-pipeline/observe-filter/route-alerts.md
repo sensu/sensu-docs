@@ -403,7 +403,6 @@ type: Pipeline
 api_version: core/v2
 metadata:
   name: slack_contact_routing
-  namespace: default
 spec:
   workflows:
   - name: dev
@@ -449,8 +448,7 @@ echo '{
   "type": "Pipeline",
   "api_version": "core/v2",
   "metadata": {
-    "name": "contact_routing",
-    "namespace": "default"
+    "name": "slack_contact_routing"
   },
   "spec": {
     "workflows": [

@@ -105,7 +105,6 @@ Follow [Register dynamic runtime asset](#register-dynamic-runtime-asset) if you 
 type: CheckConfig
 api_version: core/v2
 metadata:
-  namespace: default
   name: check_beta_backend_health
 spec:
   command: http-json --url http://sensu-backend-beta:8080/health --query ".ClusterHealth.[0].Healthy" --expression "== true"
@@ -123,7 +122,6 @@ spec:
 type: CheckConfig
 api_version: core/v2
 metadata:
-  namespace: default
   name: check_alpha_backend_health
 spec:
   command: http-json --url http://sensu-backend-alpha:8080/health --query ".ClusterHealth.[0].Healthy" --expression "== true"
@@ -141,7 +139,6 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "namespace": "default",
     "name": "check_beta_backend_health"
   },
   "spec": {
@@ -164,7 +161,6 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "namespace": "default",
     "name": "check_alpha_backend_health"
   },
   "spec": {
@@ -206,7 +202,6 @@ Follow [Register dynamic runtime asset](#register-dynamic-runtime-asset) if you 
 type: CheckConfig
 api_version: core/v2
 metadata:
-  namespace: default
   name: check_beta_etcd_health
 spec:
   command: http-json --url http://sensu-etcd-beta:2379/health --query ".ClusterHealth.[0].Healthy" --expression "== true"
@@ -224,7 +219,6 @@ spec:
 type: CheckConfig
 api_version: core/v2
 metadata:
-  namespace: default
   name: check_alpha_etcd_health
 spec:
   command: http-json --url http://sensu-etcd-alpha:2379/health --query ".ClusterHealth.[0].Healthy" --expression "== true"
@@ -242,7 +236,6 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "namespace": "default",
     "name": "check_beta_etcd_health"
   },
   "spec": {
@@ -265,7 +258,6 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "namespace": "default",
     "name": "check_alpha_etcd_health"
   },
   "spec": {
@@ -356,7 +348,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: check-postgres-health
-  namespace: default
 spec:
   check_hooks: null
   command: http-json --url https://sensu.example.com:8080/health --query ".PostgresHealth[0].Healthy" --expression "== true"
@@ -387,8 +378,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check-postgres-health",
-    "namespace": "default"
+    "name": "check-postgres-health"
   },
   "spec": {
     "check_hooks": null,
