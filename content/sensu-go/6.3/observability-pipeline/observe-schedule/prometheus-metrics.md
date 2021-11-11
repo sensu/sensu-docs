@@ -243,7 +243,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: influxdb
-  namespace: default
 spec:
   command: "sensu-influxdb-handler -a 'http://127.0.0.1:8086' -d sensu -u sensu -p sensu"
   timeout: 10
@@ -259,8 +258,7 @@ cat << EOF | sensuctl create
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "influxdb",
-    "namespace": "default"
+    "name": "influxdb"
   },
   "spec": {
     "command": "sensu-influxdb-handler -a 'http://127.0.0.1:8086' -d sensu -u sensu -p sensu",
@@ -343,7 +341,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: prometheus_metrics
-  namespace: default
 spec:
   command: "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up"
   handlers: []
@@ -366,8 +363,7 @@ cat << EOF | sensuctl create
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "prometheus_metrics",
-    "namespace": "default"
+    "name": "prometheus_metrics"
   },
   "spec": {
     "command": "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",

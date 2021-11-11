@@ -237,7 +237,7 @@ The response will list the complete handler resource definition:
 
 {{< language-toggle >}}
 
-{{< code yaml >}}
+{{< code yml >}}
 ---
 type: Handler
 api_version: core/v2

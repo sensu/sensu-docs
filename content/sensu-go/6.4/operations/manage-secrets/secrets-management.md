@@ -99,7 +99,6 @@ type: Secret
 api_version: secrets/v1
 metadata:
   name: pagerduty_key
-  namespace: default
 spec:
   id: SENSU_PAGERDUTY_KEY
   provider: env
@@ -112,8 +111,7 @@ cat << EOF | sensuctl create
   "type": "Secret",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "pagerduty_key",
-    "namespace": "default"
+    "name": "pagerduty_key"
   },
   "spec": {
     "id": "SENSU_PAGERDUTY_KEY",
@@ -345,7 +343,6 @@ type: Secret
 api_version: secrets/v1
 metadata:
   name: pagerduty_key
-  namespace: default
 spec:
   id: secret/pagerduty#key
   provider: vault
@@ -358,8 +355,7 @@ cat << EOF | sensuctl create
   "type": "Secret",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "pagerduty_key",
-    "namespace": "default"
+    "name": "pagerduty_key"
   },
   "spec": {
     "id": "secret/pagerduty#key",
@@ -407,7 +403,6 @@ cat << EOF | sensuctl create
 api_version: core/v2
 type: Handler
 metadata:
-  namespace: default
   name: pagerduty
 spec:
   type: pipe
@@ -429,7 +424,6 @@ cat << EOF | sensuctl create
   "api_version": "core/v2",
   "type": "Handler",
   "metadata": {
-    "namespace": "default",
     "name": "pagerduty"
   },
   "spec": {
