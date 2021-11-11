@@ -372,7 +372,7 @@ check:
   low_flap_threshold: 0
   publish: true
   runtime_assets:
-  - sensu-plugins-disk-checks
+  - sensu-disk-checks
   subscriptions:
   - caching_servers
   proxy_entity_name: ''
@@ -417,7 +417,7 @@ metadata:
     "low_flap_threshold": 0,
     "publish": true,
     "runtime_assets": [
-      "sensu-plugins-disk-checks"
+      "sensu-disk-checks"
     ],
     "subscriptions": [
       "caching_servers"
@@ -468,11 +468,11 @@ To review the filters for an asset, use the sensuctl `asset info` command with a
 {{< language-toggle >}}
 
 {{< code shell "YML" >}}
-sensuctl asset info sensu-plugins-disk-checks --format yaml
+sensuctl asset info sensu-disk-checks --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl asset info sensu-plugins-disk-checks --format wrapped-json
+sensuctl asset info sensu-disk-checks --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
