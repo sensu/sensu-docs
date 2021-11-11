@@ -96,7 +96,6 @@ metadata:
   annotations: null
   labels: null
   name: state_change_only
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -113,8 +112,7 @@ cat << EOF | sensuctl create
   "metadata": {
     "annotations": null,
     "labels": null,
-    "name": "state_change_only",
-    "namespace": "default"
+    "name": "state_change_only"
   },
   "spec": {
     "action": "allow",
@@ -158,7 +156,6 @@ cat << EOF | sensuctl create
 api_version: core/v2
 type: Handler
 metadata:
-  namespace: default
   name: email
 spec:
   type: pipe
@@ -179,7 +176,6 @@ cat << EOF | sensuctl create
   "api_version": "core/v2",
   "type": "Handler",
   "metadata": {
-    "namespace": "default",
     "name": "email"
   },
   "spec": {
@@ -231,6 +227,12 @@ efPxbRciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzkwMzY5NjQsImp0aSI6ImJiMmY0ODY
 {{< /code >}}
 
 With the environment variables set, you can use the Sensu API to create your ad hoc observability event.
+
+{{% notice note %}}
+**NOTE**: The example events use the default namespace.
+If you are using a different namespace, replace `default` in the event definitions and the API URLs with the name of the desired namespace.
+{{% notice note %}}
+
 This event outputs the message "Everything is OK.” when it occurs:
 
 {{< code shell >}}

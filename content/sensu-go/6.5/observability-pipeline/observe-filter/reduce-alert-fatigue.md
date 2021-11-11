@@ -246,7 +246,6 @@ type: EventFilter
 api_version: core/v2
 metadata:
   name: fatigue_check
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -260,8 +259,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "fatigue_check",
-    "namespace": "default"
+    "name": "fatigue_check"
   },
   "spec": {
     "action": "allow",
@@ -306,7 +304,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: linux-cpu-check
-  namespace: default
   annotations:
     fatigue_check/occurrences: '1'
     fatigue_check/interval: '3600'
@@ -340,7 +337,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "linux-cpu-check",
-    "namespace": "default",
     "annotations": {
       "fatigue_check/occurrences": "1",
       "fatigue_check/interval": "3600",

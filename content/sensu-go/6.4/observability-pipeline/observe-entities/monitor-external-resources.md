@@ -91,7 +91,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: check-sensu-site
-  namespace: default
 spec:
   command: http-check --url https://sensu.io
   interval: 60
@@ -109,8 +108,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check-sensu-site",
-    "namespace": "default"
+    "name": "check-sensu-site"
   },
   "spec": {
     "command": "http-check --url https://sensu.io",
@@ -233,7 +231,6 @@ type: Entity
 api_version: core/v2
 metadata:
   name: sensu-docs
-  namespace: default
   labels:
     proxy_type: website
     url: https://docs.sensu.io
@@ -246,7 +243,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "sensu-docs",
-    "namespace": "default",
     "labels": {
       "proxy_type": "website",
       "url": "https://docs.sensu.io"
@@ -266,7 +262,6 @@ type: Entity
 api_version: core/v2
 metadata:
   name: packagecloud-site
-  namespace: default
   labels:
     proxy_type: website
     url: https://packagecloud.io
@@ -279,7 +274,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "packagecloud-site",
-    "namespace": "default",
     "labels": {
       "proxy_type": "website",
       "url": "https://packagecloud.io"
@@ -299,7 +293,6 @@ type: Entity
 api_version: core/v2
 metadata:
   name: github-site
-  namespace: default
   labels:
     proxy_type: website
     url: https://github.com
@@ -312,7 +305,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "github-site",
-    "namespace": "default",
     "labels": {
       "proxy_type": "website",
       "url": "https://github.com"
@@ -376,7 +368,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: check-http
-  namespace: default
 spec:
   command: 'http-check --url {{ .labels.url }}'
   interval: 60
@@ -396,8 +387,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check-http",
-    "namespace": "default"
+    "name": "check-http"
   },
   "spec": {
     "command": "http-check --url {{ .labels.url }}",

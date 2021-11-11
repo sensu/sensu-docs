@@ -391,7 +391,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: slack
-  namespace: default
 spec:
   handlers:
   - slack_ops
@@ -405,8 +404,7 @@ echo '{
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "handlers": [
