@@ -13,10 +13,9 @@ menu:
     parent: observe-schedule
 ---
 
-Sensu checks are commands (or scripts) the Sensu agent executes that output data and produce an exit code to indicate a state.
-Sensu checks use the same specification as Nagios, so you can use Nagios check plugins with Sensu.
+Sensu [checks][3] are commands (or scripts) the Sensu agent executes that output data and produce an exit code to indicate a state.
 
-You can use checks to monitor server resources, services, and application health (for example, to check whether NGINX is running) and collect and analyze metrics (for example, to learn how much disk space you have left).
+You can use checks to monitor server resources (for example, to learn how much disk space you have left), services, and application health (for example, to check whether NGINX is running) and [collect and analyze metrics][7].
 This guide includes two check examples to help you monitor server resources (specifically, CPU usage and NGINX status).
 
 To use this guide, you'll need to install a Sensu backend and have at least one Sensu agent running.
@@ -51,10 +50,10 @@ This example uses the `-r` (rename) flag to specify a shorter name for the dynam
 
 You can also download dynamic runtime asset definitions from [Bonsai][14] and register the asset with `sensuctl create --file filename.yml`.
 
-Then, use this command to register the [nagiosfoundation check plugin collection][15], which you'll use later for your webserver check:
+Then, use this command to register the [Sensu Processes Check][15] dynamic runtime asset, which you'll use later for your webserver check:
 
 {{< code shell >}}
-sensuctl asset add ncr-devops-platform/nagiosfoundation:0.5.2 -r nagiosfoundation
+sensuctl asset add sensu/sensu-processes-check:0.2.0 -r sensu-processes-check
 {{< /code >}}
 
 To confirm that both dynamic runtime assets are ready to use, run:
@@ -63,21 +62,23 @@ To confirm that both dynamic runtime assets are ready to use, run:
 sensuctl asset list
 {{< /code >}}
 
-The response should list the `check-cpu-usage` and `nagiosfoundation` dynamic runtime assets:
+The response should list the `check-cpu-usage` and `sensu-processes-check` dynamic runtime assets:
 
 {{< code shell >}}
-        Name                                           URL                                      Hash    
-─────────────────── ───────────────────────────────────────────────────────────────────────── ──────────
-  check-cpu-usage    //assets.bonsai.sensu.io/.../check-cpu-usage_0.2.2_windows_amd64.tar.gz   900cfdf  
-  check-cpu-usage    //assets.bonsai.sensu.io/.../check-cpu-usage_0.2.2_darwin_amd64.tar.gz    db81ee7  
-  check-cpu-usage    //assets.bonsai.sensu.io/.../check-cpu-usage_0.2.2_linux_armv7.tar.gz     400aacc  
-  check-cpu-usage    //assets.bonsai.sensu.io/.../check-cpu-usage_0.2.2_linux_arm64.tar.gz     bef7802  
-  check-cpu-usage    //assets.bonsai.sensu.io/.../check-cpu-usage_0.2.2_linux_386.tar.gz       a2dcb53  
-  check-cpu-usage    //assets.bonsai.sensu.io/.../check-cpu-usage_0.2.2_linux_amd64.tar.gz     2453973  
-  nagiosfoundation   //assets.bonsai.sensu.io/.../nagiosfoundation-windows-386-0.5.2.tgz       52edd59  
-  nagiosfoundation   //assets.bonsai.sensu.io/.../nagiosfoundation-windows-amd64-0.5.2.tgz     dfe121a  
-  nagiosfoundation   //assets.bonsai.sensu.io/.../nagiosfoundation-linux-386-0.5.2.tgz         a1791d7  
-  nagiosfoundation   //assets.bonsai.sensu.io/.../nagiosfoundation-linux-amd64-0.5.2.tgz       6b4f91b  
+          Name                                                 URL                                         Hash    
+──────────────────────── ─────────────────────────────────────────────────────────────────────────────── ──────────
+  check-cpu-usage         //assets.bonsai.sensu.io/.../check-cpu-usage_0.2.2_windows_amd64.tar.gz         900cfdf  
+  check-cpu-usage         //assets.bonsai.sensu.io/.../check-cpu-usage_0.2.2_darwin_amd64.tar.gz          db81ee7  
+  check-cpu-usage         //assets.bonsai.sensu.io/.../check-cpu-usage_0.2.2_linux_armv7.tar.gz           400aacc  
+  check-cpu-usage         //assets.bonsai.sensu.io/.../check-cpu-usage_0.2.2_linux_arm64.tar.gz           bef7802  
+  check-cpu-usage         //assets.bonsai.sensu.io/.../check-cpu-usage_0.2.2_linux_386.tar.gz             a2dcb53  
+  check-cpu-usage         //assets.bonsai.sensu.io/.../check-cpu-usage_0.2.2_linux_amd64.tar.gz           2453973  
+  sensu-processes-check   //assets.bonsai.sensu.io/.../sensu-processes-check_0.2.0_windows_amd64.tar.gz   42e2d71  
+  sensu-processes-check   //assets.bonsai.sensu.io/.../sensu-processes-check_0.2.0_darwin_amd64.tar.gz    957c008  
+  sensu-processes-check   //assets.bonsai.sensu.io/.../sensu-processes-check_0.2.0_linux_armv7.tar.gz     20cc5b1  
+  sensu-processes-check   //assets.bonsai.sensu.io/.../sensu-processes-check_0.2.0_linux_arm64.tar.gz     c68b5f0  
+  sensu-processes-check   //assets.bonsai.sensu.io/.../sensu-processes-check_0.2.0_linux_386.tar.gz       4c47caa  
+  sensu-processes-check   //assets.bonsai.sensu.io/.../sensu-processes-check_0.2.0_linux_amd64.tar.gz     70e830f
 {{< /code >}}
 
 Because plugins are published for multiple platforms, including Linux and Windows, the output will include multiple entries for each of the dynamic runtime assets.
@@ -299,18 +300,58 @@ With your NGINX service running, you can configure the webserver check.
 
 ### Create the webserver check definition
 
-Create a check that uses the [`check_service`][16] plugin from the nagiosfoundation collection.
-The `nginx_service` check will run at an interval of 15 seconds and determine whether the `nginx` service is running for all entities subscribed to the `webserver` subscription.
+Create a check that uses `sensu-processes-check` in the command to search for the string `nginx`.
+The `nginx_service` check will run at an interval of 15 seconds and determine whether the `nginx` service is among the running processes for all entities subscribed to the `webserver` subscription.
 
-Run the following sensuctl command to create the `nginx_service` check:
+To create the `nginx_service` check, run the following command:
 
-{{< code shell >}}
-sensuctl check create nginx_service \
---command 'check_service --name nginx' \
---interval 15 \
---subscriptions webserver \
---runtime-assets nagiosfoundation
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: nginx_service
+spec:
+  command: >
+    sensu-processes-check
+    --search
+    '[{"search_string": "nginx"}]'
+  subscriptions:
+  - webserver
+  interval: 15
+  publish: true
+  runtime_assets:
+  - sensu-processes-check
+EOF
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "nginx_service"
+  },
+  "spec": {
+    "command": "sensu-processes-check --search '[{\"search_string\": \"nginx\"}]'\n",
+    "subscriptions": [
+      "webserver"
+    ],
+    "interval": 15,
+    "publish": true,
+    "runtime_assets": [
+      "sensu-processes-check"
+    ]
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 You should receive a confirmation message:
 
@@ -342,11 +383,14 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   created_by: admin
+  labels:
+    sensu.io/managed_by: sensuctl
   name: nginx_service
   namespace: default
 spec:
   check_hooks: null
-  command: check_service --name nginx
+  command: |
+    sensu-processes-check --search '[{"search_string": "nginx"}]'
   env_vars: null
   handlers: []
   high_flap_threshold: 0
@@ -354,11 +398,12 @@ spec:
   low_flap_threshold: 0
   output_metric_format: ""
   output_metric_handlers: null
+  pipelines: []
   proxy_entity_name: ""
   publish: true
   round_robin: false
   runtime_assets:
-  - nagiosfoundation
+  - sensu-processes-check
   secrets: null
   stdin: false
   subdue: null
@@ -373,13 +418,16 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
     "name": "nginx_service",
-    "namespace": "default"
+    "namespace": "default",
+    "labels": {
+      "sensu.io/managed_by": "sensuctl"
+    },
+    "created_by": "admin"
   },
   "spec": {
     "check_hooks": null,
-    "command": "check_service --name nginx",
+    "command": "sensu-processes-check --search '[{\"search_string\": \"nginx\"}]'\n",
     "env_vars": null,
     "handlers": [],
     "high_flap_threshold": 0,
@@ -387,11 +435,12 @@ spec:
     "low_flap_threshold": 0,
     "output_metric_format": "",
     "output_metric_handlers": null,
+    "pipelines": [],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
     "runtime_assets": [
-      "nagiosfoundation"
+      "sensu-processes-check"
     ],
     "secrets": null,
     "stdin": false,
@@ -421,9 +470,10 @@ sensuctl event list
 The response should list the `nginx_service` check, returning an OK status (`0`):
 
 {{< code shell >}}
-     Entity          Check                   Output                                   Status   Silenced             Timestamp                             UUID                  
-─────────────── ─────────────── ──────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
-  sensu-centos   nginx_service   CheckService OK - nginx in a running state                0   false      2021-10-06 19:41:34 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
+     Entity          Check                                       Output                                   Status   Silenced             Timestamp                             UUID                  
+─────────────── ─────────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
+  sensu-centos   nginx_service   OK       | 2 >= 1 (found >= required) evaluated true for "nginx"              0   false      2021-11-08 16:59:34 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
+                                 Status - OK     
 {{< /code >}}
 
 ### Simulate a critical event
@@ -445,10 +495,10 @@ sensuctl event list
 The response should list the `nginx_service` check, returning a CRITICAL status (`2`):
 
 {{< code shell >}}
-
      Entity          Check                                       Output                                   Status   Silenced             Timestamp                             UUID                  
 ─────────────── ─────────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
-  sensu-centos   nginx_service   CheckService CRITICAL - nginx not in a running state (State: inactive)        2   false      2021-10-06 19:43:34 +0000 UTC   5118e6c5-4f9f-4f0e-8ad6-d42fd5033819  
+  sensu-centos   nginx_service   CRITICAL | 0 >= 1 (found >= required) evaluated false for "nginx"             2   false      2021-11-08 17:02:04 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
+                                 Status - CRITICAL             
 {{< /code >}}
 
 Restart the NGINX service to clear the event:
@@ -479,6 +529,7 @@ You can also create a [handler][10] to send alerts to [email][13], [PagerDuty][9
 [4]: ../../../operations/deploy-sensu/install-sensu/
 [5]: ../../observe-entities/monitor-external-resources/
 [6]: ../../observe-process/send-slack-alerts/
+[7]: ../collect-metrics-with-checks/
 [8]: ../subscriptions/
 [9]: ../../observe-process/send-pagerduty-alerts/
 [10]: ../../observe-process/handlers/
@@ -486,6 +537,5 @@ You can also create a [handler][10] to send alerts to [email][13], [PagerDuty][9
 [12]: ../../../operations/monitoring-as-code/
 [13]: ../../observe-process/send-email-alerts/
 [14]: https://bonsai.sensu.io/
-[15]: https://bonsai.sensu.io/assets/ncr-devops-platform/nagiosfoundation
-[16]: https://github.com/ncr-devops-platform/nagiosfoundation/blob/master/cmd/check_service/README.md
+[15]: https://bonsai.sensu.io/assets/sensu/sensu-processes-check
 [17]: ../../../sensuctl/
