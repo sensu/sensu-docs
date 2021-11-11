@@ -314,7 +314,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: nginx_service
-  namespace: default
 spec:
   command: >
     sensu-processes-check
@@ -335,8 +334,7 @@ cat << EOF | sensuctl create
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "nginx_service",
-    "namespace": "default"
+    "name": "nginx_service"
   },
   "spec": {
     "command": "sensu-processes-check --search '[{\"search_string\": \"nginx\"}]'\n",
