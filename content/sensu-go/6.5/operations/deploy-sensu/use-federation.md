@@ -176,6 +176,7 @@ sensuctl cluster-role-binding create federation-viewer-readonly --cluster-role=v
     This command creates the following cluster role binding resource definition:
 {{< language-toggle >}}
 {{< code yml >}}
+---
 type: ClusterRoleBinding
 api_version: core/v2
 metadata:

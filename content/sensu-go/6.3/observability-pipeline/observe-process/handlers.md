@@ -176,6 +176,7 @@ You can list both of these handlers in a handler set to automate and streamline 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:

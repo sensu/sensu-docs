@@ -42,6 +42,7 @@ This example shows the minimum required attributes for an event filter resource:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -199,6 +200,7 @@ To use the is_incident event filter, include `is_incident` in the handler config
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:
@@ -261,6 +263,7 @@ To allow silencing for an event handler, add `not_silenced` to the handler confi
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:
@@ -320,6 +323,7 @@ To use the has_metrics event filter, include `has_metrics` in the handler config
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:
@@ -818,6 +822,7 @@ For instance, if you package underscore.js into a Sensu asset, you can use funct
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -863,6 +868,7 @@ The following event filter allows handling for only events with a custom entity 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -905,6 +911,7 @@ If evaluation returns false, the event is handled.
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -942,6 +949,7 @@ This example demonstrates how to use the `state_change_only` inclusive event fil
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -985,6 +993,7 @@ In this example, the `filter_interval_60_hourly` event filter will match event d
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -1028,6 +1037,7 @@ This example will apply the same logic as the previous example but for checks wi
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -1077,6 +1087,7 @@ If the annotation does not exist, the event filter uses 15 minutes for the alert
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
@@ -1124,6 +1135,7 @@ If evaluation returns false, the event will not be handled.
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:

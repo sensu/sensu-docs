@@ -138,6 +138,7 @@ In YAML and JSON formats, the entity count and limit are included as labels:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: LicenseFile
 api_version: licensing/v2
 metadata:

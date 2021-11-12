@@ -43,6 +43,7 @@ The following example shows the complete resource definition for a [status-only 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Event
 api_version: core/v2
 metadata:
@@ -474,6 +475,7 @@ This example shows a complete [metrics-only event][5], retrieved with sensuctl e
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Event
 api_version: core/v2
 metadata:
@@ -1491,6 +1493,7 @@ The following example resource definition for a [status and metrics event][19] c
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Event
 api_version: core/v2
 metadata:
