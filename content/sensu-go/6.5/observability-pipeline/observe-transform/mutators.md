@@ -30,6 +30,7 @@ This example shows a [pipe mutator][21] resource definition with the minimum req
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Mutator
 api_version: core/v2
 metadata:

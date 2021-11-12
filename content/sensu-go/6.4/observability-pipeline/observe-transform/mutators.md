@@ -35,6 +35,7 @@ This example shows a mutator resource definition with the minimum required attri
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Mutator
 api_version: core/v2
 metadata:

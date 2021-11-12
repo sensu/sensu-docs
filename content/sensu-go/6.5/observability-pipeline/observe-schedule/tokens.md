@@ -235,6 +235,7 @@ Token substitution allows you to host your dynamic runtime assets at different U
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Asset
 api_version: core/v2
 metadata:

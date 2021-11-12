@@ -354,6 +354,7 @@ Sensu Go hourly filter:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:

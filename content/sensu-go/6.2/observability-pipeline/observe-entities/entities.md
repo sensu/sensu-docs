@@ -35,6 +35,7 @@ This example shows the resource definition for an agent entity:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Entity
 api_version: core/v2
 metadata:
@@ -260,6 +261,7 @@ This example shows the resource definition for a proxy entity:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Entity
 api_version: core/v2
 metadata:
@@ -435,6 +437,7 @@ sensuctl edit entity sensu-docs
 And update the metadata scope to include the `proxy_type` label:
 
 {{< code yml >}}
+---
 type: Entity
 api_version: core/v2
 metadata:

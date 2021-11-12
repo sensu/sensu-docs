@@ -43,6 +43,7 @@ The following example shows the complete resource definition for a [status-only 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Event
 api_version: core/v2
 metadata:
@@ -453,6 +454,7 @@ This example shows the complete resource definition for a [metrics-only event][5
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Event
 api_version: core/v2
 metadata:
@@ -611,6 +613,7 @@ The following example resource definition for a [status and metrics event][19] c
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Event
 api_version: core/v2
 metadata:

@@ -50,6 +50,7 @@ For this agent to run a check, you must have at least one check with `linux` spe
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: CheckConfig
 api_version: core/v2
 metadata:

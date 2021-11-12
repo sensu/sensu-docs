@@ -34,6 +34,7 @@ Here's an example event that includes both status and metrics data, retrieved wi
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Event
 api_version: core/v2
 metadata:
