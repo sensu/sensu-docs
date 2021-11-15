@@ -28,17 +28,17 @@ If you do not specify a version to install, Sensu automatically installs the lat
 
 ![Bonsai page for InfluxDB handler showing namespace and name][2]
 
-For example, to install version 3.1.1 of the [Sensu InfluxDB Handler][4] dynamic runtime asset:
+For example, to install version 3.7.0 of the [Sensu InfluxDB Handler][4] dynamic runtime asset:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-influxdb-handler:3.1.1
+sensuctl asset add sensu/sensu-influxdb-handler:3.7.0
 {{< /code >}}
 
 The response should be similar to this example:
 
 {{< code shell >}}
-fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.1
-added asset: sensu/sensu-influxdb-handler:3.1.1
+fetching bonsai asset: sensu/sensu-influxdb-handler:3.7.0
+added asset: sensu/sensu-influxdb-handler:3.7.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
@@ -48,7 +48,7 @@ resource, populate the "runtime_assets" field with ["sensu/sensu-influxdb-handle
 You can also use the `--rename` flag to rename the dynamic runtime asset on install:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-influxdb-handler:3.1.1 --rename influxdb-handler
+sensuctl asset add sensu/sensu-influxdb-handler:3.7.0 --rename influxdb-handler
 {{< /code >}}
 
 {{% notice note %}}
@@ -65,12 +65,12 @@ This will print a list of dynamic runtime assets installed in the backend whose 
 sensuctl asset outdated
 {{< /code >}}
 
-The response should be similar to this example:
+If outdated assets are installed on the backend, the response will be similar to this example:
 
 {{< code shell >}}
           Asset Name                  Bonsai Asset          Current Version  Latest Version
 ----------------------------  ----------------------------  ---------------  --------------
-sensu/sensu-influxdb-handler  sensu/sensu-influxdb-handler       3.1.1            3.1.2
+sensu/sensu-influxdb-handler  sensu/sensu-influxdb-handler       3.6.1            3.7.0
 {{< /code >}}
 
 ## Extend sensuctl with commands

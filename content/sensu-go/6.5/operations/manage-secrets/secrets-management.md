@@ -377,7 +377,7 @@ In the [add a handler][19] section, you'll use your `pagerduty_key` secret in yo
 To begin, register the [Sensu PagerDuty Handler dynamic runtime asset][23] with [`sensuctl asset add`][22]:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
+sensuctl asset add sensu/sensu-pagerduty-handler:2.2.0 -r pagerduty-handler
 {{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `pagerduty-handler`.

@@ -32,15 +32,14 @@ In this guide, you'll use the [Sensu Go Email Handler][3] dynamic runtime asset 
 Use the following sensuctl example to register the [Sensu Go Email Handler][3] dynamic runtime asset:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-email-handler -r email-handler
+sensuctl asset add sensu/sensu-email-handler:1.2.2 -r email-handler
 {{< /code >}}
 
 The response will confirm that the asset was added:
 
 {{< code shell >}}
-no version specified, using latest: 0.6.0
-fetching bonsai asset: sensu/sensu-email-handler:0.6.0
-added asset: sensu/sensu-email-handler:0.6.0
+fetching bonsai asset: sensu/sensu-email-handler:1.2.2
+added asset: sensu/sensu-email-handler:1.2.2
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
