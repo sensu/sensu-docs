@@ -24,7 +24,7 @@ The filter stage of the Sensu observability pipeline applies the conditions, tri
 Event filters give you control over which events continue through your pipeline and become alerts.
 For example, use the [built-in is_incident event filter][7] to allow only high-priority events through your Sensu pipeline and reduce noise for operators.
 
-To tell Sensu which event filters you want to apply, you list them in your [handler][2] definition.
+To tell Sensu which event filters you want to apply, you list them in your [pipeline][2] definitions.
 Sensu compares your observation data in events against the [expressions][6] in your event filters to determine whether each event should continue through the pipeline or be removed.
 Event filters can be [inclusive or exclusive][4], so you can require events to match or not match your filter expressions.
 
@@ -64,7 +64,7 @@ spec:
 
 {{< /language-toggle >}}
 
-Sensu applies event filters in the order that they are listed in your handler definition.
+Sensu applies event filters in the order that they are listed in your pipeline definition.
 Any events that the filters do not remove from your pipeline will be [processed][3] according to your handler configuration.
 
 As soon as an event filter removes an event from your pipeline because it does not meet the conditions, triggers, or thresholds you specified, the Sensu observability pipeline ceases analysis for the event.
@@ -75,7 +75,7 @@ Read [Use assets to install plugins][9] to get started.
 
 
 [1]: filters/
-[2]: ../observe-process/handlers/
+[2]: ../observe-process/pipelines/
 [3]: ../observe-process/
 [4]: filters/#inclusive-and-exclusive-event-filters
 [5]: ../observe-transform/

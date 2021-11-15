@@ -19,16 +19,16 @@ menu:
 
 **In the transform stage, Sensu executes [mutators][1]**.
 
-The transform stage of the Sensu observability pipeline executes any [mutators][1] you have specified in your [handler][2] configuration to transform your observability data so other technologies can consume it.
+The transform stage of the Sensu observability pipeline executes any [mutators][1] you have specified in your [pipeline][2] configuration to transform your observability data so other technologies can consume it.
 For example, if you're sending metrics to Graphite using a TCP handler, Graphite expects data that follows the Graphite plaintext protocol.
-You can add Sensu's [built-in only_check_output mutator][4] to transform the data into the format Graphite can accept.
+You can use Sensu's [built-in only_check_output mutator][4] to transform the data into the format Graphite can accept.
 
 Here's how transform stage of the pipeline works: first, the Sensu backend receives an event and executes the [filter][3] stage of the observability pipeline.
-If the event data meets the conditions, triggers, or thresholds you specified in your event filters, Sensu checks the handler for a mutator.
-If the handler includes a mutator, the Sensu backend executes the mutator.
+If the event data meets the conditions, triggers, or thresholds you specified in your event filters, Sensu checks the pipeline for a mutator.
+If the pipeline includes a mutator, the Sensu backend executes the mutator.
 
-* If the mutator executes successfully (that is, returns an exit status code of `0`), Sensu applies the mutator to transform the event data, returns the transformed event data to the handler, and executes the handler.
-* If the mutator fails to execute (that is, returns a non-zero exit status code or fails to complete within its configured timeout), Sensu logs an error and does not execute the handler.
+* If the mutator executes successfully (that is, returns an exit status code of `0`), Sensu applies the mutator to transform the event data, returns the transformed event data to the handler specified in the pipeline, and executes the handler.
+* If the mutator fails to execute (that is, returns a non-zero exit status code or fails to complete within its configured timeout), Sensu logs an error and does not execute the handler specified in the pipeline.
 
 This example mutator resource definition uses the [Sensu Check Status Metric Mutator][7] dynamic runtime asset:
 
@@ -40,7 +40,6 @@ type: Mutator
 api_version: core/v2
 metadata:
   name: sensu-check-status-metric-mutator
-  namespace: default
 spec:
   command: sensu-check-status-metric-mutator
   runtime_assets:
@@ -52,8 +51,7 @@ spec:
   "type": "Mutator",
   "api_version": "core/v2",
   "metadata": {
-    "name": "sensu-check-status-metric-mutator",
-    "namespace": "default"
+    "name": "sensu-check-status-metric-mutator"
   },
   "spec": {
     "command": "sensu-check-status-metric-mutator",
@@ -71,7 +69,7 @@ Read [Use assets to install plugins][6] to get started.
 
 
 [1]: mutators/
-[2]: ../observe-process/handlers/
+[2]: ../observe-process/pipelines/
 [3]: ../observe-filter/
 [4]: mutators/#built-in-mutator-only_check_output
 [5]: https://bonsai.sensu.io/
