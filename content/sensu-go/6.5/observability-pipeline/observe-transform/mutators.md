@@ -15,8 +15,8 @@ menu:
 
 Sensu executes mutators during the **[transform][16]** stage of the [observability pipeline][17].
 
-Handlers can specify a mutator to execute and transform observability event data before any handlers are applied.
-When the Sensu backend processes an event, it checks the handler for the presence of a mutator and executes that mutator before executing the handler.
+[Pipelines][27] can specify a mutator to execute and transform observability event data before any handlers are applied.
+When the Sensu backend processes an event, it checks the pipeline for the presence of a mutator and executes that mutator before executing the handler.
 
 Mutators accept input/data via `STDIN` and can parse JSON event data.
 They output JSON data (modified event data) to `STDOUT` or `STDERR`.
@@ -35,7 +35,6 @@ type: Mutator
 api_version: core/v2
 metadata:
   name: mutator_minimum
-  namespace: default
 spec:
   command: example_mutator.go
   type: pipe
@@ -46,8 +45,7 @@ spec:
   "type": "Mutator",
   "api_version": "core/v2",
   "metadata": {
-    "name": "mutator_minimum",
-    "namespace": "default"
+    "name": "mutator_minimum"
   },
   "spec": {
     "command": "example_mutator.go",
@@ -68,7 +66,6 @@ type: Mutator
 api_version: core/v2
 metadata:
   name: example-mutator
-  namespace: default
 spec:
   command: example_mutator.go
   eval: ""
@@ -85,8 +82,7 @@ spec:
   "type": "Mutator",
   "api_version": "core/v2",
   "metadata": {
-    "name": "example-mutator",
-    "namespace": "default"
+    "name": "example-mutator"
   },  
   "spec": {
     "command": "example_mutator.go",
@@ -119,7 +115,6 @@ type: Mutator
 api_version: core/v2
 metadata:
   name: remove_checkname_entitylabel
-  namespace: default
 spec:
   eval: >-
     data = JSON.parse(JSON.stringify(event)); delete data.check.metadata.name;
@@ -132,8 +127,7 @@ spec:
   "type": "Mutator",
   "api_version": "core/v2",
   "metadata": {
-    "name": "remove_checkname_entitylabel",
-    "namespace": "default"
+    "name": "remove_checkname_entitylabel"
   },
   "spec": {
     "eval": "data = JSON.parse(JSON.stringify(event)); delete data.check.metadata.name; delete data.entity.metadata.labels.app_id; return JSON.stringify(data)",
@@ -150,7 +144,7 @@ You can also use JavaScript mutators to do things like [add new attributes][23] 
 
 **Pipe mutators** produce an exit status code to indicate state.
 A code of `0` indicates OK status.
-If the mutator executes successfully (returns an exit status code of `0`), the modified event data return to the handler and the handler is executed.
+If the mutator executes successfully (returns an exit status code of `0`), the modified event data return to the pipeline and the handler is executed.
 
 Exit codes other than `0` indicate failure.
 If the mutator fails to execute (returns a non-zero exit status code or fails to complete within its configured timeout), an error is logged and the handler will not execute.
@@ -207,40 +201,63 @@ To process an event, some handlers require only the check output, not the entire
 For example, when sending metrics to Graphite using a TCP handler, Graphite expects data that follows the Graphite plaintext protocol.
 By using the built-in `only_check_output` mutator, Sensu reduces the event to only the check output so Graphite can accept it.
 
-To use only check output, include the `only_check_output` mutator in the handler configuration `mutator` string:
+To use only check output, include the `only_check_output` mutator in the pipeline `mutator` array:
 
 {{< language-toggle >}}
 
 {{< code yml >}}
 ---
-type: Handler
+type: Pipeline
 api_version: core/v2
 metadata:
-  name: graphite
-  namespace: default
+  name: graphite_pipeline
 spec:
-  mutator: only_check_output
-  socket:
-    host: 10.0.1.99
-    port: 2003
-  type: tcp
+  workflows:
+  - name: graphite_check_output
+    filters:
+    - name: has_metrics
+      type: EventFilter
+      api_version: core/v2
+    mutator:
+      name: only_check_output
+      type: Mutator
+      api_version: core/v2
+    handler:
+      name: graphite
+      type: Handler
+      api_version: core/v2
 {{< /code >}}
 
 {{< code json >}}
 {
-  "type": "Handler",
+  "type": "Pipeline",
   "api_version": "core/v2",
   "metadata": {
-    "name": "graphite",
-    "namespace": "default"
+    "name": "graphite_pipeline"
   },
   "spec": {
-    "type": "tcp",
-    "socket": {
-      "host": "10.0.1.99",
-      "port": 2003
-    },
-    "mutator": "only_check_output"
+    "workflows": [
+      {
+        "name": "graphite_check_output",
+        "filters": [
+          {
+            "name": "has_metrics",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "mutator": {
+          "name": "only_check_output",
+          "type": "Mutator",
+          "api_version": "core/v2"
+        },
+        "handler": {
+          "name": "graphite",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
   }
 }
 {{< /code >}}
@@ -696,7 +713,6 @@ type: Mutator
 api_version: core/v2
 metadata:
   name: add_org_sec_ops
-  namespace: default
 spec:
   eval: >-
     data = JSON.parse(JSON.stringify(event)); data['organization'] = 'sec_ops';
@@ -710,8 +726,7 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "created_by": "admin",
-    "name": "add_org_sec_ops",
-    "namespace": "default"
+    "name": "add_org_sec_ops"
   },
   "spec": {
     "eval": "data = JSON.parse(JSON.stringify(event)); data['organization'] = 'sec_ops'; return JSON.stringify(data)",
@@ -736,7 +751,6 @@ type: Mutator
 api_version: core/v2
 metadata:
   name: add_origination_attribute
-  namespace: default
 spec:
   eval: >-
     data = JSON.parse(JSON.stringify(event)); data.origination =
@@ -750,8 +764,7 @@ spec:
   "type": "Mutator",
   "api_version": "core/v2",
   "metadata": {
-    "name": "add_origination_attribute",
-    "namespace": "default"
+    "name": "add_origination_attribute"
   },
   "spec": {
     "eval": "data = JSON.parse(JSON.stringify(event)); data.origination = data.metadata.namespace + data.check.metadata.name; return JSON.stringify(data)",
@@ -789,3 +802,4 @@ spec:
 [24]: #combine-existing-attributes-with-javascript-mutators
 [25]: #env-vars-attribute
 [26]: ../../../release-notes/#652-release-notes
+[27]: ../../observe-process/pipelines/
