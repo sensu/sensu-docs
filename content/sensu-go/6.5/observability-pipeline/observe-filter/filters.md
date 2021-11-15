@@ -15,25 +15,20 @@ menu:
 
 Sensu executes event filters during the **[filter][45]** stage of the [observability pipeline][44].
 
-Sensu event filters are applied when you configure event handlers to use one or more filters.
-Before executing a handler, the Sensu backend will apply any event filters configured for the handler to the observation data in events.
+Sensu event filters are applied when you configure a [pipeline][49] with a workflow that uses one or more filters.
+Before executing the handler in a pipeline workflow, the Sensu backend will apply any event filters listed in the same pipeline workflow to the observation data in events.
 If the filters do not remove the event, the handler will be executed.
 
-The filter analysis performs these steps:
+The event filter analysis performs these steps:
 
-* When the Sensu backend is processing an event, it checks for the definition of a `handler` (or `handlers`).
-Before executing each handler, the Sensu server first applies any configured `filters` for the handler.
-* If multiple `filters` are configured for a handler, they are executed sequentially.
+* When the Sensu backend is processing an event, it checks for filters in the pipeline (or pipelines) specified in the event's check definition.
+Before executing any handlers listed in the pipeline, Sensu applies any event filters and mutators listed in the pipeline.
+* If multiple filters are configured for a pipeline, they are executed sequentially.
 * Filter `expressions` are compared with event data.
 
 Event filters can be inclusive (only matching events are handled) or exclusive (matching events are not handled).
 
-As soon as a filter removes an event, no further analysis is performed and the event handler will not be executed.
-
-{{% notice note %}}
-**NOTE**: Filters specified in a **handler set** definition have no effect.
-Filters must be specified in individual handler definitions.
-{{% /notice %}}
+As soon as a filter removes an event, no further analysis is performed and the pipeline workflow's handler will not be executed.
 
 ## Event filter example (minimum required attributes)
 
@@ -47,7 +42,6 @@ type: EventFilter
 api_version: core/v2
 metadata:
   name: filter_minimum
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -59,8 +53,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "filter_minimum",
-    "namespace": "default"
+    "name": "filter_minimum"
   },
   "spec": {
     "action": "allow",
@@ -76,8 +69,8 @@ spec:
 ## Inclusive and exclusive event filters
 
 Event filters can be _inclusive_ (`"action": "allow"`; replaces `"negate": false` in Sensu Core) or _exclusive_ (`"action": "deny"`; replaces `"negate": true` in Sensu Core).
-Configuring a handler to use multiple _inclusive_ event filters is the equivalent of using an `AND` query operator (only handle events if they match the _inclusive_ filter: `x AND y AND z`).
-Configuring a handler to use multiple _exclusive_ event filters is the equivalent of using an `OR` operator (only handle events if they don’t match `x OR y OR z`).
+Configuring a pipeline to use multiple _inclusive_ event filters is the equivalent of using an `AND` query operator (only handle events if they match the _inclusive_ filter: `x AND y AND z`).
+Configuring a pipeline to use multiple _exclusive_ event filters is the equivalent of using an `OR` operator (only handle events if they don’t match `x OR y OR z`).
 
 In **inclusive filtering**, by setting the event filter definition attribute `"action": "allow"`, only events that match the defined filter expressions are handled.
 
@@ -88,7 +81,7 @@ In **exclusive filtering**, by setting the event filter definition attribute `"a
 Event filter expressions are compared directly with their event data counterparts.
 For inclusive event filter definitions (`"action": "allow"`), matching expressions will result in the filter returning a `true` value.
 For exclusive event filter definitions (`"action": "deny"`), matching expressions will result in the filter returning a `false` value, and the event will not pass through the filter.
-Event filters that return a `true` value will continue to be processed via additional filters (if defined), mutators (if defined), and handlers.
+If an event filter returns a `true` value, the event will continue to be processed via additional filters (if defined), mutators (if defined), and handlers.
 
 ### Filter expression evaluation
 
@@ -109,7 +102,6 @@ type: EventFilter
 api_version: core/v2
 metadata:
   name: metrics-checks-only
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -121,8 +113,7 @@ spec:
    "type": "EventFilter",
    "api_version": "core/v2",
    "metadata": {
-      "name": "metrics-checks-only",
-      "namespace": "default"
+      "name": "metrics-checks-only"
    },
    "spec": {
       "action": "allow",
@@ -146,7 +137,6 @@ type: EventFilter
 api_version: core/v2
 metadata:
   name: us-west-events
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -158,8 +148,7 @@ spec:
    "type": "EventFilter",
    "api_version": "core/v2",
    "metadata": {
-      "name": "us-west-events",
-      "namespace": "default"
+      "name": "us-west-events"
    },
    "spec": {
       "action": "allow",
@@ -193,51 +182,56 @@ To start using built-in event filters, read [Send Slack alerts][4] and [Plan mai
 The is_incident event filter is included in every installation of the [Sensu backend][8].
 You can use the is_incident filter to allow only high-priority events through a Sensu pipeline.
 For example, you can use the is_incident filter to reduce noise when sending notifications to Slack.
-When applied to a handler, the is_incident filter allows warning (`"status": 1`), critical (`"status": 2`), other (unknown or custom status), and resolution events to be processed.
+When applied to a pipeline workflow, the is_incident filter allows warning (`"status": 1`), critical (`"status": 2`), other (unknown or custom status), and resolution events to be processed.
 
-To use the is_incident event filter, include `is_incident` in the handler configuration `filters` array:
+To use the is_incident event filter, include `is_incident` in the pipeline [`filters` object][50]:
 
 {{< language-toggle >}}
 
 {{< code yml >}}
 ---
-type: Handler
+type: Pipeline
 api_version: core/v2
 metadata:
-  name: slack
-  namespace: default
+  name: incident_alerts
 spec:
-  command: sensu-slack-handler --channel '#monitoring'
-  env_vars:
-  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
-  filters:
-  - is_incident
-  handlers: []
-  runtime_assets: []
-  timeout: 0
-  type: pipe
+  workflows:
+  - name: slack_alerts
+    filters:
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    handler:
+      name: slack
+      type: Handler
+      api_version: core/v2
 {{< /code >}}
 
 {{< code json >}}
 {
-  "type": "Handler",
+  "type": "Pipeline",
   "api_version": "core/v2",
   "metadata": {
-    "name": "slack",
-    "namespace": "default"
+    "name": "incident_alerts"
   },
   "spec": {
-    "command": "sensu-slack-handler --channel '#monitoring'",
-    "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-    ],
-    "filters": [
-      "is_incident"
-    ],
-    "handlers": [],
-    "runtime_assets": [],
-    "timeout": 0,
-    "type": "pipe"
+    "workflows": [
+      {
+        "name": "slack_alerts",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "handler": {
+          "name": "slack",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
   }
 }
 {{< /code >}}
@@ -256,122 +250,134 @@ The is_incident event filter applies the following filtering logic:
 
 ### Built-in filter: not_silenced
 
-[Sensu silencing][6] lets you suppress execution of event handlers on an on-demand basis so you can quiet incoming alerts and [plan maintenance][5].
+[Sensu silencing][6] lets you suppress handler execution on an on-demand basis so you can quiet incoming alerts and [plan maintenance][5].
 
-To allow silencing for an event handler, add `not_silenced` to the handler configuration `filters` array:
+To allow silencing for a pipeline workflow, add `not_silenced` to the pipeline [`filters` object][50]:
 
 {{< language-toggle >}}
 
 {{< code yml >}}
 ---
-type: Handler
+type: Pipeline
 api_version: core/v2
 metadata:
-  name: slack
-  namespace: default
+  name: incident_alerts
 spec:
-  command: sensu-slack-handler --channel '#monitoring'
-  env_vars:
-  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
-  filters:
-  - is_incident
-  - not_silenced
-  handlers: []
-  runtime_assets: []
-  timeout: 0
-  type: pipe
+  workflows:
+  - name: slack_alerts
+    filters:
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    - name: not_silenced
+      type: EventFilter
+      api_version: core/v2
+    handler:
+      name: slack
+      type: Handler
+      api_version: core/v2
 {{< /code >}}
 
 {{< code json >}}
 {
-  "type": "Handler",
+  "type": "Pipeline",
   "api_version": "core/v2",
   "metadata": {
-    "name": "slack",
-    "namespace": "default"
+    "name": "incident_alerts"
   },
   "spec": {
-    "command": "sensu-slack-handler --channel '#monitoring'",
-    "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-    ],
-    "filters": [
-      "is_incident",
-      "not_silenced"
-    ],
-    "handlers": [],
-    "runtime_assets": [],
-    "timeout": 0,
-    "type": "pipe"
+    "workflows": [
+      {
+        "name": "slack_alerts",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "not_silenced",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "handler": {
+          "name": "slack",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
   }
 }
 {{< /code >}}
 
 {{< /language-toggle >}}
 
-When applied to a handler configuration, the not_silenced event filter silences events that include the `silenced` attribute.
-The handler in the example above uses both the not_silenced and [is_incident][7] event filters, preventing low-priority and silenced events from being sent to Slack.
+When applied in a pipeline configuration, the not_silenced event filter silences events that include the `silenced` attribute.
+The pipeline in the example above uses both the not_silenced and [is_incident][7] event filters, preventing low-priority and silenced events from being sent to Slack.
 
 ### Built-in filter: has_metrics
 
 The has_metrics event filter is included in every installation of the [Sensu backend][8].
-When applied to a handler, the has_metrics filter allows only events that contain [Sensu metrics][9] to be processed.
+When applied in a pipeline workflow, the has_metrics filter allows only events that contain [Sensu metrics][9] to be processed.
 You can use the has_metrics filter to prevent handlers that require metrics from failing in case of an error in metric collection.
 
-To use the has_metrics event filter, include `has_metrics` in the handler configuration `filters` array:
+To use the has_metrics event filter, include `has_metrics` in the pipeline `filters` array:
 
 {{< language-toggle >}}
 
 {{< code yml >}}
 ---
-type: Handler
+type: Pipeline
 api_version: core/v2
 metadata:
-  name: influx-db
-  namespace: default
+  name: metrics_pipeline
 spec:
-  command: sensu-influxdb-handler -d sensu
-  env_vars:
-  - INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086
-  - INFLUXDB_USER=sensu
-  - INFLUXDB_PASSWORD=password
-  filters:
-  - has_metrics
-  handlers: []
-  runtime_assets: []
-  timeout: 0
-  type: pipe
+  workflows:
+  - name: influxdb_metrics
+    filters:
+    - name: has_metrics
+      type: EventFilter
+      api_version: core/v2
+    handler:
+      name: influxdb
+      type: Handler
+      api_version: core/v2
 {{< /code >}}
 
 {{< code json >}}
 {
-  "type": "Handler",
+  "type": "Pipeline",
   "api_version": "core/v2",
   "metadata": {
-    "name": "influx-db",
-    "namespace": "default"
+    "name": "metrics_pipeline"
   },
   "spec": {
-    "command": "sensu-influxdb-handler -d sensu",
-    "env_vars": [
-      "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-      "INFLUXDB_USER=sensu",
-      "INFLUXDB_PASSWORD=password"
-    ],
-    "filters": [
-      "has_metrics"
-    ],
-    "handlers": [],
-    "runtime_assets": [],
-    "timeout": 0,
-    "type": "pipe"
+    "workflows": [
+      {
+        "name": "influxdb_metrics",
+        "filters": [
+          {
+            "name": "has_metrics",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "handler": {
+          "name": "influxdb",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
   }
 }
 {{< /code >}}
 
 {{< /language-toggle >}}
 
-When applied to a handler configuration, the has_metrics event filter allows only events that include a [`metrics` scope][9].
+When applied in a pipeline configuration, the has_metrics event filter allows only events that include a [`metrics` scope][9].
 
 ## Build event filter expressions with Sensu query expressions
 
@@ -1270,7 +1276,7 @@ spec:
 
 This filter allows you to disable alerts without creating silences.
 
-Add the filter name to the `filters` array for any handler you want to control.
+Add the filter name to the `filters` object for any pipeline whose handler you want to control.
 To disable alerts, change the filter's `action` attribute value from `allow` to `deny`.
 
 {{< language-toggle >}}
@@ -1354,3 +1360,5 @@ spec:
 [46]: #event-attributes-available-to-filters
 [47]: #check-attributes-available-to-filters
 [48]: #entity-attributes-available-to-filters
+[49]: ../../observe-process/pipelines/
+[50]: ../../observe-process/pipelines/#workflows-attributes
