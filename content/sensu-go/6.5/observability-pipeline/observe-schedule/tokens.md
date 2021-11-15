@@ -39,13 +39,13 @@ Follow this example to set up a reusable check for disk usage:
 
 1. Add the [Sensu disk usage check][13] dynamic runtime asset, which includes the command you will need for your check:
 {{< code shell >}}
-sensuctl asset add sensu/check-disk-usage:0.4.1
+sensuctl asset add sensu/check-disk-usage:0.6.0
 {{< /code >}}
 
    You will receive a response to confirm that the asset was added:
 {{< code shell >}}
-fetching bonsai asset: sensu/check-disk-usage:0.4.1
-added asset: sensu/check-disk-usage:0.4.1
+fetching bonsai asset: sensu/check-disk-usage:0.6.0
+added asset: sensu/check-disk-usage:0.6.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate

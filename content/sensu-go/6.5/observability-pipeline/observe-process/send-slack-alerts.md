@@ -27,14 +27,14 @@ In this guide, you'll use the [Sensu Slack Handler][14] dynamic runtime asset to
 Use [`sensuctl asset add`][10] to register the [Sensu Slack Handler][14] dynamic runtime asset:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-slack-handler:1.0.3 -r sensu-slack-handler
+sensuctl asset add sensu/sensu-slack-handler:1.5.0 -r sensu-slack-handler
 {{< /code >}}
 
 The response will indicate that the asset was added:
 
 {{< code shell >}}
-fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
-added asset: sensu/sensu-slack-handler:1.0.3
+fetching bonsai asset: sensu/sensu-slack-handler:1.5.0
+added asset: sensu/sensu-slack-handler:1.5.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
