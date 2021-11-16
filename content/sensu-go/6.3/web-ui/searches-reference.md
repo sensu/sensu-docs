@@ -35,7 +35,6 @@ type: Search
 api_version: searches/v1
 metadata:
   name: events-not-passing
-  namespace: default
 spec:
   parameters:
   - status:incident
@@ -50,8 +49,7 @@ spec:
   "type": "Search",
   "api_version": "searches/v1",
   "metadata": {
-    "name": "events-not-passing",
-    "namespace": "default"
+    "name": "events-not-passing"
   },
   "spec": {
     "parameters": [
@@ -79,7 +77,6 @@ type: Search
 api_version: searches/v1
 metadata:
   name: published-checks-linux-uswest
-  namespace: default
 spec:
   parameters:
   - published:true
@@ -93,8 +90,7 @@ spec:
   "type": "Search",
   "api_version": "searches/v1",
   "metadata": {
-    "name": "published-checks-linux-uswest",
-    "namespace": "default"
+    "name": "published-checks-linux-uswest"
   },
   "spec": {
     "parameters": [

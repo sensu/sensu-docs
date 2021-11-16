@@ -48,7 +48,6 @@ type: Secret
 api_version: secrets/v1
 metadata:
   name: sensu-ansible-token
-  namespace: default
 spec:
   id: ANSIBLE_TOKEN
   provider: env
@@ -59,8 +58,7 @@ spec:
   "type": "Secret",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "sensu-ansible-token",
-    "namespace": "default"
+    "name": "sensu-ansible-token"
   },
   "spec": {
     "id": "ANSIBLE_TOKEN",
@@ -81,7 +79,6 @@ type: Secret
 api_version: secrets/v1
 metadata:
   name: sensu-ansible
-  namespace: default
 spec:
   id: 'secret/database#password'
   provider: vault
@@ -92,8 +89,7 @@ spec:
   "type": "Secret",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "sensu-ansible",
-    "namespace": "default"
+    "name": "sensu-ansible"
   },
   "spec": {
     "id": "secret/database#password",

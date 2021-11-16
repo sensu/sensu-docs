@@ -47,8 +47,6 @@ type: Pipeline
 api_version: core/v2
 metadata:
   name: incident_alerts
-  namespace: default
-  created_by: admin
 spec:
   workflows:
   - name: labeled_email_alerts
@@ -74,9 +72,7 @@ spec:
   "type": "Pipeline",
   "api_version": "core/v2",
   "metadata": {
-    "name": "incident_alerts",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "incident_alerts"
   },
   "spec": {
     "workflows": [
@@ -123,7 +119,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: incident_pipelines
-  namespace: default
 spec:
   command: collect.sh
   interval: 10
@@ -141,8 +136,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "incident_pipelines",
-    "namespace": "default"
+    "name": "incident_pipelines"
   },
   "spec": {
     "command": "collect.sh",
@@ -190,8 +184,6 @@ type: Pipeline
 api_version: core/v2
 metadata:
   name: incident_alerts
-  namespace: default
-  created_by: admin
 spec:
   workflows:
   - name: labeled_email_alerts
@@ -229,9 +221,7 @@ spec:
   "type": "Pipeline",
   "api_version": "core/v2",
   "metadata": {
-    "name": "incident_alerts",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "incident_alerts"
   },
   "spec": {
     "workflows": [

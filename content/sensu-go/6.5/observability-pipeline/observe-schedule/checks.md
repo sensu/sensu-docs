@@ -35,7 +35,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: check_minimum
-  namespace: default
 spec:
   command: collect.sh
   handlers:
@@ -51,7 +50,6 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "namespace": "default",
     "name": "check_minimum"
   },
   "spec": {
@@ -167,7 +165,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: interval_check
-  namespace: default
 spec:
   command: check-cpu.sh -w 75 -c 90
   handlers:
@@ -183,8 +180,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "interval_check",
-    "namespace": "default"
+    "name": "interval_check"
   },
   "spec": {
     "command": "check-cpu.sh -w 75 -c 90",
@@ -224,7 +220,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: cron_check
-  namespace: default
 spec:
   command: check-cpu.sh -w 75 -c 90
   cron: '* * * * *'
@@ -240,8 +235,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "cron_check",
-    "namespace": "default"
+    "name": "cron_check"
   },
   "spec": {
     "command": "check-cpu.sh -w 75 -c 90",
@@ -255,7 +249,6 @@ spec:
 
 {{< /language-toggle >}}
 
-
 Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the `cron` attribute:
 
 {{< language-toggle >}}
@@ -266,7 +259,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: cron_check
-  namespace: default
 spec:
   check_hooks: null
   command: hi
@@ -296,8 +288,7 @@ spec:
    "type": "CheckConfig",
    "api_version": "core/v2",
    "metadata": {
-      "name": "cron_check",
-      "namespace": "default"
+      "name": "cron_check"
    },
    "spec": {
       "check_hooks": null,
@@ -343,7 +334,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: ad_hoc_check
-  namespace: default
 spec:
   command: check-cpu.sh -w 75 -c 90
   handlers:
@@ -359,8 +349,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "ad_hoc_check",
-    "namespace": "default"
+    "name": "ad_hoc_check"
   },
   "spec": {
     "command": "check-cpu.sh -w 75 -c 90",
@@ -398,7 +387,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: proxy_check
-  namespace: default
 spec:
   command: http_check.sh https://sensu.io
   handlers:
@@ -416,8 +404,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "proxy_check",
-    "namespace": "default"
+    "name": "proxy_check"
   },
   "spec": {
     "command": "http_check.sh https://sensu.io",
@@ -457,7 +444,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: proxy_check_proxy_requests
-  namespace: default
 spec:
   command: http_check.sh {{ .labels.url }}
   handlers:
@@ -477,8 +463,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "proxy_check_proxy_requests",
-    "namespace": "default"
+    "name": "proxy_check_proxy_requests"
   },
   "spec": {
     "command": "http_check.sh {{ .labels.url }}",
@@ -1503,7 +1488,6 @@ metadata:
   labels:
     region: us-west-1
   name: collect-metrics
-  namespace: default
 spec:
   check_hooks: null
   command: collect.sh
@@ -1540,7 +1524,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "collect-metrics",
-    "namespace": "default",
     "labels": {
       "region": "us-west-1"
     },
@@ -1604,7 +1587,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: ping-github-api
-  namespace: default
 spec:
   check_hooks: null
   command: ping-github-api.sh $GITHUB_TOKEN
@@ -1618,8 +1600,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "ping-github-api",
-    "namespace": "default"
+    "name": "ping-github-api"
   },
   "spec": {
     "check_hooks": null,
@@ -1650,7 +1631,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: interval_test
-  namespace: default
 spec:
   command: powershell.exe -f c:\\users\\tester\\test.ps1
   subscriptions:
@@ -1666,8 +1646,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "interval_test",
-    "namespace": "default"
+    "name": "interval_test"
   },
   "spec": {
     "command": "powershell.exe -f c:\\users\\tester\\test.ps1",

@@ -58,9 +58,7 @@ This check would run on any entities whose definitions also specify the `system`
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   name: check-cpu
-  namespace: default
 spec:
   check_hooks: null
   command: check-cpu-usage -w 75 -c 90
@@ -92,9 +90,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "check-cpu",
-    "namespace": "default"
+    "name": "check-cpu"
   },
   "spec": {
     "check_hooks": null,

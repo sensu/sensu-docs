@@ -327,7 +327,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: expired_certs
-  namespace: default
 spec:
   command: openssl x509 -noout -enddate -in <cert-name>.pem
   subscriptions:
@@ -340,8 +339,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "namespace": "default",
-    "name": "expired_certs"
+    "namespace": "default"
   },
   "spec": {
     "command": "openssl x509 -noout -enddate -in <cert-name>.pem",
