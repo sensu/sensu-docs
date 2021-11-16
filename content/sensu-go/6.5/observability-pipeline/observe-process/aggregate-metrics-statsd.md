@@ -61,9 +61,12 @@ Now that you know how to feed StatsD metrics into Sensu, check out these resourc
 
 * [Handlers reference][2]: in-depth documentation for Sensu handlers
 * [InfluxDB handler guide][3]: instructions on Sensu's built-in metric handler
+* [Pipeline reference][6]: information about the Sensu pipeline resource, which you can use to create event processing workflows with event filters, mutators, and handlers
+
 
 [1]: https://github.com/statsd/statsd
 [2]: ../handlers/
 [3]: ../populate-metrics-influxdb/
 [4]: #configure-the-statsd-listener
 [5]: https://github.com/statsd/statsd
+[6]: ../pipelines/
