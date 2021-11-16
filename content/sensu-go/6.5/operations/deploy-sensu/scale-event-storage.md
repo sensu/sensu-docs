@@ -129,7 +129,7 @@ With this configuration complete, Postgres will have a `sensu_events` database f
 
 By default, the Postgres user you've just added will not be able to authenticate via password, so you'll also need to make a change to the `pg_hba.conf` file.
 The required change will depend on how Sensu will connect to Postgres.
-In this case, you'll configure Postgres to allow the `sensu` user to connect to the `sensu_events` database from any host using an [md5][5]-encrypted password.
+In this case, you'll configure Postgres to allow the `sensu` user to connect to the `sensu_events` database from any host using an [md5][5]-encrypted password:
 
 1. Make a copy of the current `pg_hba.conf` file:
 
@@ -311,7 +311,9 @@ Follow the steps in this section to create and add the replication role, set str
 ### Create and add the replication role
 
 If you have administrative access to Postgres, you can create the replication role.
-Complete these steps to create and add the replication role on the **primary** Postgres host.
+{{% notice note %}}
+**NOTE**: Complete the steps to create and add the replication role on the **primary** Postgres host.
+{{% /notice %}}
 
 1. Change to the postgres user and open the Postgres prompt (`postgres=#`):
 {{< code shell >}}
@@ -350,7 +352,9 @@ sudo systemctl restart postgresql
 
 ### Set streaming replication configuration parameters
 
-Complete the following steps to set streaming replication configuration parameters on the **primary** Postgres host:
+{{% notice note %}}
+**NOTE**: Complete the steps to set streaming replication configuration parameters on the **primary** Postgres host.
+{{% /notice %}}
 
 1. Make a copy of the `postgresql.conf`:
 {{< code shell >}}
@@ -385,7 +389,9 @@ sudo systemctl restart postgresql
 
 ### Bootstrap the standby host
 
-Follow these steps to bootstrap the standby host on the **standby** Postgres host:
+{{% notice note %}}
+**NOTE**: Complete the steps to bootstrap the standby host on the **standby** Postgres host.
+{{% /notice %}}
 
 1. If the standby host has ever run Postgres, stop Postgres and empty the data directory:
 {{< code shell >}}
