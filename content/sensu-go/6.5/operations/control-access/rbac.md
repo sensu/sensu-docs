@@ -434,6 +434,7 @@ spec:
     - handlers
     - hooks
     - mutators
+    - pipelines
     - rolebindings
     - roles
     - silenced
@@ -464,6 +465,7 @@ spec:
           "handlers",
           "hooks",
           "mutators",
+          "pipelines",
           "rolebindings",
           "roles",
           "silenced"
@@ -522,6 +524,7 @@ spec:
     - handlers
     - hooks
     - mutators
+    - pipelines
     - rolebindings
     - roles
     - silenced
@@ -559,6 +562,7 @@ spec:
           "handlers",
           "hooks",
           "mutators",
+          "pipelines",
           "rolebindings",
           "roles",
           "silenced",
@@ -1473,6 +1477,7 @@ spec:
       - events
       - filters
       - mutators
+      - pipelines
       - handlers
       verbs:
       - get
@@ -1500,6 +1505,7 @@ spec:
           "events",
           "filters",
           "mutators",
+          "pipelines",
           "handlers"
         ],
         "verbs": [
@@ -1582,6 +1588,7 @@ spec:
     - events
     - filters
     - mutators
+    - pipelines
     - handlers
     verbs:
     - get
@@ -1609,6 +1616,7 @@ spec:
           "events",
           "filters",
           "mutators",
+          "pipelines",
           "handlers"
         ],
         "verbs": [
@@ -1728,6 +1736,7 @@ spec:
     - handlers
     - hooks
     - mutators
+    - pipelines
     - rolebindings
     - roles
     - searches
@@ -1760,6 +1769,7 @@ spec:
           "handlers",
           "hooks",
           "mutators",
+          "pipelines",
           "rolebindings",
           "roles",
           "searches",
@@ -1887,6 +1897,7 @@ spec:
     - handlers
     - hooks
     - mutators
+    - pipelines
     - rolebindings
     - roles
     - searches
@@ -1919,6 +1930,7 @@ spec:
           "handlers",
           "hooks",
           "mutators",
+          "pipelines",
           "rolebindings",
           "roles",
           "searches",
@@ -2049,6 +2061,7 @@ spec:
     - handlers
     - hooks
     - mutators
+    - pipelines
     - rolebindings
     - roles
     - silenced
@@ -2086,6 +2099,7 @@ spec:
           "handlers",
           "hooks",
           "mutators",
+          "pipelines",
           "rolebindings",
           "roles",
           "silenced",
