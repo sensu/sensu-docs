@@ -87,7 +87,7 @@ To create the event filter, run:
 
 {{< language-toggle >}}
 
-{{< code text "YML">}}
+{{< code text "YML" >}}
 cat << EOF | sensuctl create
 ---
 type: EventFilter
@@ -150,7 +150,7 @@ With your updates, create the handler using sensuctl:
 
 {{< language-toggle >}}
 
-{{< code text "YML">}}
+{{< code text "YML" >}}
 cat << EOF | sensuctl create
 ---
 api_version: core/v2
@@ -231,7 +231,7 @@ With the environment variables set, you can use the Sensu API to create your ad 
 {{% notice note %}}
 **NOTE**: The example events use the default namespace.
 If you are using a different namespace, replace `default` in the event definitions and the API URLs with the name of the desired namespace.
-{{% notice note %}}
+{{% /notice %}}
 
 This event outputs the message "Everything is OK.” when it occurs:
 
