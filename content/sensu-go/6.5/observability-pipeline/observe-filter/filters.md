@@ -832,10 +832,7 @@ For instance, if you package underscore.js into a Sensu asset, you can use funct
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: deny_if_failure_in_history
-  namespace: default
 spec:
   action: deny
   expressions:
@@ -850,10 +847,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "deny_if_failure_in_history",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "deny_if_failure_in_history"
   },
   "spec": {
     "action": "deny",
@@ -879,7 +873,6 @@ type: EventFilter
 api_version: core/v2
 metadata:
   name: production_filter
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -891,8 +884,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "production_filter",
-    "namespace": "default"
+    "name": "production_filter"
   },
   "spec": {
     "action": "allow",
@@ -922,7 +914,6 @@ type: EventFilter
 api_version: core/v2
 metadata:
   name: not_production
-  namespace: default
 spec:
   action: deny
   expressions:
@@ -934,8 +925,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "not_production",
-    "namespace": "default"
+    "name": "not_production"
   },
   "spec": {
     "action": "deny",
@@ -959,10 +949,7 @@ This example demonstrates how to use the `state_change_only` inclusive event fil
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: state_change_only
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -975,10 +962,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "state_change_only",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "state_change_only"
   },
   "spec": {
     "action": "allow",
@@ -1003,10 +987,7 @@ In this example, the `filter_interval_60_hourly` event filter will match event d
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: filter_interval_60_hourly
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -1020,10 +1001,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "filter_interval_60_hourly",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "filter_interval_60_hourly"
   },
   "spec": {
     "action": "allow",
@@ -1047,10 +1025,7 @@ This example will apply the same logic as the previous example but for checks wi
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: filter_interval_30_hourly
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -1064,10 +1039,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "filter_interval_30_hourly",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "filter_interval_30_hourly"
   },
   "spec": {
     "action": "allow",
@@ -1097,10 +1069,7 @@ If the annotation does not exist, the event filter uses 15 minutes for the alert
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: keepalive_timeouts
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -1114,10 +1083,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "keepalive_timeouts",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "keepalive_timeouts"
   },
   "spec": {
     "action": "allow",
@@ -1145,10 +1111,7 @@ If evaluation returns false, the event will not be handled.
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: nine_to_fiver
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -1162,10 +1125,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "nine_to_fiver",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "nine_to_fiver"
   },
   "spec": {
     "action": "allow",
@@ -1190,10 +1150,7 @@ For example, if office hours are 8:30 AM to 5:30 PM:
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: 830_to_530
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -1208,10 +1165,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "830_to_530",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "830_to_530"
   },
   "spec": {
     "action": "allow",
@@ -1239,10 +1193,7 @@ In other words, this filter sets a 30-second time budget for event processing so
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: budget_30
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -1255,10 +1206,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "budget_30",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "budget_30"
   },
   "spec": {
     "action": "allow",

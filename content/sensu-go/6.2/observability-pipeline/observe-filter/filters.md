@@ -47,7 +47,6 @@ type: EventFilter
 api_version: core/v2
 metadata:
   name: filter_minimum
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -59,8 +58,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "filter_minimum",
-    "namespace": "default"
+    "name": "filter_minimum"
   },
   "spec": {
     "action": "allow",
@@ -109,7 +107,6 @@ type: EventFilter
 api_version: core/v2
 metadata:
   name: metrics-checks-only
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -121,8 +118,7 @@ spec:
    "type": "EventFilter",
    "api_version": "core/v2",
    "metadata": {
-      "name": "metrics-checks-only",
-      "namespace": "default"
+      "name": "metrics-checks-only"
    },
    "spec": {
       "action": "allow",
@@ -146,7 +142,6 @@ type: EventFilter
 api_version: core/v2
 metadata:
   name: us-west-events
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -158,8 +153,7 @@ spec:
    "type": "EventFilter",
    "api_version": "core/v2",
    "metadata": {
-      "name": "us-west-events",
-      "namespace": "default"
+      "name": "us-west-events"
    },
    "spec": {
       "action": "allow",
@@ -205,7 +199,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
@@ -223,8 +216,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",
@@ -287,8 +279,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",
@@ -328,7 +319,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: influx-db
-  namespace: default
 spec:
   command: sensu-influxdb-handler -d sensu
   env_vars:
@@ -348,8 +338,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "influx-db",
-    "namespace": "default"
+    "name": "influx-db"
   },
   "spec": {
     "command": "sensu-influxdb-handler -d sensu",
@@ -826,10 +815,7 @@ For instance, if you package underscore.js into a Sensu asset, you can use funct
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: deny_if_failure_in_history
-  namespace: default
 spec:
   action: deny
   expressions:
@@ -844,10 +830,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "deny_if_failure_in_history",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "deny_if_failure_in_history"
   },
   "spec": {
     "action": "deny",
@@ -873,7 +856,6 @@ type: EventFilter
 api_version: core/v2
 metadata:
   name: production_filter
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -885,8 +867,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "production_filter",
-    "namespace": "default"
+    "name": "production_filter"
   },
   "spec": {
     "action": "allow",
@@ -916,7 +897,6 @@ type: EventFilter
 api_version: core/v2
 metadata:
   name: not_production
-  namespace: default
 spec:
   action: deny
   expressions:
@@ -928,8 +908,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "not_production",
-    "namespace": "default"
+    "name": "not_production"
   },
   "spec": {
     "action": "deny",
@@ -953,10 +932,7 @@ This example demonstrates how to use the `state_change_only` inclusive event fil
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: state_change_only
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -969,10 +945,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "state_change_only",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "state_change_only"
   },
   "spec": {
     "action": "allow",
@@ -997,10 +970,7 @@ In this example, the `filter_interval_60_hourly` event filter will match event d
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: filter_interval_60_hourly
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -1014,10 +984,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "filter_interval_60_hourly",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "filter_interval_60_hourly"
   },
   "spec": {
     "action": "allow",
@@ -1041,10 +1008,7 @@ This example will apply the same logic as the previous example but for checks wi
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: filter_interval_30_hourly
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -1058,10 +1022,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "filter_interval_30_hourly",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "filter_interval_30_hourly"
   },
   "spec": {
     "action": "allow",
@@ -1091,10 +1052,7 @@ If the annotation does not exist, the event filter uses 15 minutes for the alert
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: keepalive_timeouts
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -1108,10 +1066,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "keepalive_timeouts",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "keepalive_timeouts"
   },
   "spec": {
     "action": "allow",
@@ -1139,10 +1094,7 @@ If evaluation returns false, the event will not be handled.
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: nine_to_fiver
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -1156,10 +1108,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "nine_to_fiver",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "nine_to_fiver"
   },
   "spec": {
     "action": "allow",

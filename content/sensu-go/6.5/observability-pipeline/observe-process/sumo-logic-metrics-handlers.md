@@ -47,7 +47,6 @@ type: SumoLogicMetricsHandler
 api_version: pipeline/v1
 metadata:
   name: sumologic_http_log_metrics
-  namespace: default
 spec:
   url: "https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx"
   max_connections: 10
@@ -59,8 +58,7 @@ spec:
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
   "metadata": {
-    "name": "sumologic_http_log_metrics",
-    "namespace": "default"
+    "name": "sumologic_http_log_metrics"
   },
   "spec": {
     "url": "https://endpoint5.collection.us2.sumologic.com/receiver/v1/http/xxxxxxxx",
@@ -82,7 +80,6 @@ type: SumoLogicMetricsHandler
 api_version: pipeline/v1
 metadata:
   name: sumologic_http_log_metrics
-  namespace: default
 spec:
   url: $SUMO_LOGIC_SOURCE_URL
   secrets:
@@ -97,8 +94,7 @@ spec:
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
   "metadata": {
-    "name": "sumologic_http_log_metrics",
-    "namespace": "default"
+    "name": "sumologic_http_log_metrics"
   },
   "spec": {
     "url": "$SUMO_LOGIC_SOURCE_URL",
@@ -135,8 +131,6 @@ type: Pipeline
 api_version: core/v2
 metadata:
   name: metrics_workflows
-  namespace: default
-  created_by: admin
 spec:
   workflows:
   - name: metrics_to_sumologic
@@ -155,9 +149,7 @@ spec:
   "type": "Pipeline",
   "api_version": "core/v2",
   "metadata": {
-    "name": "metrics_workflows",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "metrics_workflows"
   },
   "spec": {
     "workflows": [

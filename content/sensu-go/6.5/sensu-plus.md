@@ -81,7 +81,6 @@ type: SumoLogicMetricsHandler
 api_version: pipeline/v1
 metadata:
   name: sumologic_http_log_metrics
-  namespace: default
 spec:
   url: "https://collectors.sumologic.com/receiver/v1/http/xxxxxxxx"
   max_connections: 10
@@ -93,8 +92,7 @@ spec:
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
   "metadata": {
-    "name": "sumologic_http_log_metrics",
-    "namespace": "default"
+    "name": "sumologic_http_log_metrics"
   },
   "spec": {
     "url": "https://collectors.sumologic.com/receiver/v1/http/xxxxxxxx",
@@ -117,7 +115,6 @@ type: SumoLogicMetricsHandler
 api_version: pipeline/v1
 metadata:
   name: sumologic_http_log_metrics
-  namespace: default
 spec:
   url: $SUMO_LOGIC_SOURCE_URL
   secrets:
@@ -132,8 +129,7 @@ spec:
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
   "metadata": {
-    "name": "sumologic_http_log_metrics",
-    "namespace": "default"
+    "name": "sumologic_http_log_metrics"
   },
   "spec": {
     "url": "$SUMO_LOGIC_SOURCE_URL",

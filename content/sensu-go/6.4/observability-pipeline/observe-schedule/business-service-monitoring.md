@@ -61,8 +61,6 @@ type: ServiceComponent
 api_version: bsm/v1
 metadata:
   name: postgresql-1
-  namespace: default
-  created_by: admin
 spec:
   cron: ''
   handlers:
@@ -89,9 +87,7 @@ spec:
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "postgresql-1",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "postgresql-1"
   },
   "spec": {
     "cron": "",
@@ -138,8 +134,6 @@ type: RuleTemplate
 api_version: bsm/v1
 metadata:
   name: status-threshold
-  namespace: default
-  created_by: admin
 spec:
   description: Creates an event when the percentage of events with the given status exceed the given threshold
   arguments:
@@ -181,9 +175,7 @@ spec:
   "type": "RuleTemplate",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "status-threshold",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "status-threshold"
   },
   "spec": {
     "description": "Creates an event when the percentage of events with the given status exceed the given threshold",

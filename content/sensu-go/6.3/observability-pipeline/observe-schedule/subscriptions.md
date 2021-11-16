@@ -55,7 +55,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: collect_info
-  namespace: default
 spec:
   command: collect.sh
   handlers:
@@ -71,7 +70,6 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "namespace": "default",
     "name": "collect_info"
   },
   "spec": {

@@ -46,10 +46,7 @@ This example shows a silencing resource definition that uses a per-entity subscr
 type: Silenced
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: entity:i-424242:*
-  namespace: default
 spec:
   begin: 1542671205
   check: null
@@ -65,10 +62,7 @@ spec:
   "type": "Silenced",
   "api_version": "core/v2",
   "metadata": {
-    "name": "entity:i-424242:*",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "entity:i-424242:*"
   },
   "spec": {
     "expire": -1,
@@ -96,9 +90,6 @@ type: Silenced
 api_version: core/v2
 metadata:
   name: entity:i-424242:check_ntp
-  namespace: default
-  labels: 
-  annotations: 
 spec:
   subscription: entity:i-424242
   check: check_ntp
@@ -110,10 +101,7 @@ spec:
   "type": "Silenced",
   "api_version": "core/v2",
   "metadata": {
-    "name": "entity:i-424242:check_ntp",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "entity:i-424242:check_ntp"
   },
   "spec": {
     "subscription": "entity:i-424242",
@@ -454,9 +442,6 @@ type: Silenced
 api_version: core/v2
 metadata:
   name: appserver
-  namespace: default
-  labels: 
-  annotations: 
 spec:
   subscription: appserver
 {{< /code >}}
@@ -466,10 +451,7 @@ spec:
   "type": "Silenced",
   "api_version": "core/v2",
   "metadata": {
-    "name": "appserver",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "appserver"
   },
   "spec": {
     "subscription": "appserver"
@@ -510,10 +492,7 @@ To silence a check `mysql_status` that is running on Sensu entities with the sub
 type: Silenced
 api_version: core/v2
 metadata:
-  name: appserver:mysql_status
-  namespace: default
-  labels: 
-  annotations: 
+  name: appserver:mysql_status 
 spec:
   subscription: appserver
   check: mysql_status
@@ -524,10 +503,7 @@ spec:
   "type": "Silenced",
   "api_version": "core/v2",
   "metadata": {
-    "name": "appserver:mysql_status",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "appserver:mysql_status"
   },
   "spec": {
     "subscription": "appserver",
@@ -550,9 +526,6 @@ type: Silenced
 api_version: core/v2
 metadata:
   name: mysql_status
-  namespace: default
-  labels: 
-  annotations: 
 spec:
   check: mysql_status
 {{< /code >}}
@@ -562,10 +535,7 @@ spec:
   "type": "Silenced",
   "api_version": "core/v2",
   "metadata": {
-    "name": "mysql_status",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "mysql_status"
   },
   "spec": {
     "check": "mysql_status"

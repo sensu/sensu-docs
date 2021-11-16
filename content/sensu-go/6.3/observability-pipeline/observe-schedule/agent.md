@@ -518,7 +518,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: keepalive
-  namespace: default
 spec:
   handlers:
   - slack
@@ -530,8 +529,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata" : {
-    "name": "keepalive",
-    "namespace": "default"
+    "name": "keepalive"
   },
   "spec": {
     "type": "set",
@@ -1789,7 +1787,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: ping-github-api
-  namespace: default
 spec:
   command: ping-github-api.sh $TEST_GITHUB_TOKEN
   handlers:
@@ -1805,8 +1802,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "ping-github-api",
-    "namespace": "default"
+    "name": "ping-github-api"
   },
   "spec": {
     "command": "ping-github-api.sh $TEST_GITHUB_TOKEN",

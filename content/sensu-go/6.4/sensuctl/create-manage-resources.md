@@ -40,7 +40,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: marketing-site
-  namespace: default
 spec:
   command: http-check -u https://sensu.io
   subscriptions:
@@ -53,7 +52,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
@@ -69,8 +67,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata" : {
-    "name": "marketing-site",
-    "namespace": "default"
+    "name": "marketing-site"
     },
   "spec": {
     "command": "http-check -u https://sensu.io",
@@ -83,8 +80,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",

@@ -40,7 +40,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: collect-system-metrics
-  namespace: default
 spec:
   check_hooks: null
   command: system-check
@@ -73,8 +72,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "collect-system-metrics",
-    "namespace": "default"
+    "name": "collect-system-metrics"
   },
   "spec": {
     "check_hooks": null,
@@ -295,7 +293,6 @@ check:
     # HELP system_host_processes [GAUGE] Number of host processes
     # TYPE system_host_processes GAUGE
     system_host_processes{} 109 1635270399219
-
   state: passing
   status: 0
   total_state_change: 0
