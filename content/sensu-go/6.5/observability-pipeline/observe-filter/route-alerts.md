@@ -257,7 +257,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: ops_handler
-  namespace: default
 spec:
   command: sensu-slack-handler --channel "#<alert-ops>"
   env_vars:
@@ -273,7 +272,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: dev_handler
-  namespace: default
 spec:
   command: sensu-slack-handler --channel "#<alert-dev>"
   env_vars:
@@ -289,7 +287,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: fallback_handler
-  namespace: default
 spec:
   command: sensu-slack-handler --channel "#<alert-fallback>"
   env_vars:
@@ -307,8 +304,7 @@ echo '{
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "ops_handler",
-    "namespace": "default"
+    "name": "ops_handler"
   },
   "spec": {
     "command": "sensu-slack-handler --channel \"#<alert-ops>\"",
@@ -328,8 +324,7 @@ echo '{
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "dev_handler",
-    "namespace": "default"
+    "name": "dev_handler"
   },
   "spec": {
     "command": "sensu-slack-handler --channel \"#<alert-dev>\"",
@@ -349,8 +344,7 @@ echo '{
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "fallback_handler",
-    "namespace": "default"
+    "name": "fallback_handler"
   },
   "spec": {
     "command": "sensu-slack-handler --channel \"#<alert-fallback>\"",
