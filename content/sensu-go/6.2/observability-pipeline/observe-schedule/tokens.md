@@ -4,7 +4,7 @@ linkTitle: "Tokens Reference"
 reference_title: "Tokens"
 type: "reference"
 description: "Tokens are placeholders in a check definition that the agent replaces with entity information before executing the check. You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while reusing check definitions. Read the reference doc to learn about tokens."
-weight: 80
+weight: 100
 version: "6.2"
 product: "Sensu Go"
 menu:
@@ -61,7 +61,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: check-disk-usage
-  namespace: default
 spec:
   check_hooks: []
   command: check-disk-usage -w {{index .labels "disk_warning" | default 80}} -c
@@ -93,8 +92,7 @@ cat << EOF | sensuctl create
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check-disk-usage",
-    "namespace": "default"
+    "name": "check-disk-usage"
   },
   "spec": {
     "check_hooks": [],
@@ -164,7 +162,6 @@ type: HookConfig
 api_version: core/v2
 metadata:
   name: disk_usage_details
-  namespace: default
 spec:
   command: du -h --max-depth=1 -c {{index .labels "disk_usage_root" | default "/"}}  2>/dev/null
   runtime_assets: null
@@ -178,8 +175,7 @@ cat << EOF | sensuctl create
   "type": "HookConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "disk_usage_details",
-    "namespace": "default"
+    "name": "disk_usage_details"
   },
   "spec": {
     "command": "du -h --max-depth=1 -c {{index .labels "disk_usage_root" | default \"/\"}}  2>/dev/null",
@@ -235,6 +231,7 @@ Token substitution allows you to host your dynamic runtime assets at different U
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Asset
 api_version: core/v2
 metadata:

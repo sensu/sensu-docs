@@ -39,13 +39,13 @@ Follow this example to set up a reusable check for disk usage:
 
 1. Add the [Sensu disk usage check][13] dynamic runtime asset, which includes the command you will need for your check:
 {{< code shell >}}
-sensuctl asset add sensu/check-disk-usage:0.4.1
+sensuctl asset add sensu/check-disk-usage:0.6.0
 {{< /code >}}
 
    You will receive a response to confirm that the asset was added:
 {{< code shell >}}
-fetching bonsai asset: sensu/check-disk-usage:0.4.1
-added asset: sensu/check-disk-usage:0.4.1
+fetching bonsai asset: sensu/check-disk-usage:0.6.0
+added asset: sensu/check-disk-usage:0.6.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
@@ -61,7 +61,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: check-disk-usage
-  namespace: default
 spec:
   check_hooks: []
   command: check-disk-usage -w {{index .labels "disk_warning" | default 80}} -c
@@ -93,8 +92,7 @@ cat << EOF | sensuctl create
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check-disk-usage",
-    "namespace": "default"
+    "name": "check-disk-usage"
   },
   "spec": {
     "check_hooks": [],
@@ -164,7 +162,6 @@ type: HookConfig
 api_version: core/v2
 metadata:
   name: disk_usage_details
-  namespace: default
 spec:
   command: du -h --max-depth=1 -c {{index .labels "disk_usage_root" | default "/"}}  2>/dev/null
   runtime_assets: null
@@ -178,8 +175,7 @@ cat << EOF | sensuctl create
   "type": "HookConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "disk_usage_details",
-    "namespace": "default"
+    "name": "disk_usage_details"
   },
   "spec": {
     "command": "du -h --max-depth=1 -c {{index .labels "disk_usage_root" | default \"/\"}}  2>/dev/null",
@@ -235,11 +231,11 @@ Token substitution allows you to host your dynamic runtime assets at different U
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Asset
 api_version: core/v2
 metadata:
   name: sensu-go-hello-world
-  namespace: default
 spec:
   builds:
   - sha512: 07665fda5b7c75e15e4322820aa7ddb791cc9338e38444e976e601bc7d7970592e806a7b88733690a238b7325437d31f85e98ae2fe47b008ca09c86530da9600
@@ -251,8 +247,7 @@ spec:
   "type": "Asset",
   "api_version": "core/v2",
   "metadata": {
-    "name": "sensu-go-hello-world",
-    "namespace": "default"
+    "name": "sensu-go-hello-world"
   },
   "spec": {
     "builds": [

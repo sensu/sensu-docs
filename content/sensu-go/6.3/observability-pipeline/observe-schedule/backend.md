@@ -1412,9 +1412,7 @@ The following handler will print the `TEST_VARIABLE` value set in your sensu-bac
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: print_test_var
-  namespace: default
 spec:
   command: echo $TEST_VARIABLE >> ./tmp/test.txt
   timeout: 0
@@ -1426,9 +1424,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "print_test_var",
-    "namespace": "default"
+    "name": "print_test_var"
   },
   "spec": {
     "command": "echo $TEST_VARIABLE >> ./tmp/test.txt",

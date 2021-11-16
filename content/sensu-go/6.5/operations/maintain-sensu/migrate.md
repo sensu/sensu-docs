@@ -354,12 +354,11 @@ Sensu Go hourly filter:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
-  created_by: admin
   name: hourly
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -372,9 +371,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "hourly",
-    "namespace": "default"
+    "name": "hourly"
   },
   "spec": {
     "action": "allow",

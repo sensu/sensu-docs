@@ -39,8 +39,6 @@ type: Pipeline
 api_version: core/v2
 metadata:
   name: incident_alerts
-  namespace: default
-  created_by: admin
 spec:
   workflows:
   - name: labeled_email_alerts
@@ -63,9 +61,7 @@ spec:
   "type": "Pipeline",
   "api_version": "core/v2",
   "metadata": {
-    "name": "incident_alerts",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "incident_alerts"
   },
   "spec": {
     "workflows": [
@@ -116,15 +112,11 @@ Here's an example resource definition for a pipe handler &mdash; read [Send Slac
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
   - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX
-  filters: null
-  handlers: null
   runtime_assets:
   - sensu-slack-handler
   secrets: null
@@ -137,17 +129,13 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",
     "env_vars": [
       "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX"
     ],
-    "filters": null,
-    "handlers": null,
     "runtime_assets": [
       "sensu-slack-handler"
     ],

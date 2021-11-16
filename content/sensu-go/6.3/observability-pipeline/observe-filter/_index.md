@@ -38,7 +38,6 @@ type: EventFilter
 api_version: core/v2
 metadata:
   name: production_filter
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -50,8 +49,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "production_filter",
-    "namespace": "default"
+    "name": "production_filter"
   },
   "spec": {
     "action": "allow",

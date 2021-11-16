@@ -47,7 +47,6 @@ type: TCPStreamHandler
 api_version: pipeline/v1
 metadata:
   name: logstash
-  namespace: default
 spec:
   address: 127.0.0.1:4242
   tls_ca_cert_file: "/path/to/tls/ca.pem"
@@ -63,8 +62,7 @@ spec:
   "type": "TCPStreamHandler",
   "api_version": "pipeline/v1",
   "metadata": {
-    "name": "logstash",
-    "namespace": "default"
+    "name": "logstash"
   },
   "spec": {
     "address": "127.0.0.1:4242",
@@ -99,8 +97,6 @@ type: Pipeline
 api_version: core/v2
 metadata:
   name: tcp_logging_workflows
-  namespace: default
-  created_by: admin
 spec:
   workflows:
   - name: log_all_incidents
@@ -119,9 +115,7 @@ spec:
   "type": "Pipeline",
   "api_version": "core/v2",
   "metadata": {
-    "name": "tcp_logging_workflows",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "tcp_logging_workflows"
   },
   "spec": {
     "workflows": [

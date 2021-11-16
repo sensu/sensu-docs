@@ -35,13 +35,11 @@ This example shows the resource definition for an agent entity:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Entity
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: webserver01
-  namespace: default
 spec:
   deregister: false
   deregistration: {}
@@ -114,10 +112,7 @@ spec:
   "type": "Entity",
   "api_version": "core/v2",
   "metadata": {
-    "name": "webserver01",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "webserver01"
   },
   "spec": {
     "entity_class": "agent",
@@ -260,12 +255,11 @@ This example shows the resource definition for a proxy entity:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Entity
 api_version: core/v2
 metadata:
   name: sensu-docs
-  namespace: default
-  labels: null
 spec:
   deregister: false
   deregistration: {}
@@ -284,9 +278,7 @@ spec:
   "type": "Entity",
   "api_version": "core/v2",
   "metadata": {
-    "name": "sensu-docs",
-    "namespace": "default",
-    "labels": null
+    "name": "sensu-docs"
   },
   "spec": {
     "deregister": false,
@@ -366,7 +358,6 @@ metadata:
   labels:
     url: docs.sensu.io
   name: sensu-docs
-  namespace: default
 spec:
   deregister: false
   deregistration: {}
@@ -386,7 +377,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "sensu-docs",
-    "namespace": "default",
     "labels": {
       "url": "docs.sensu.io"
     }
@@ -435,6 +425,7 @@ sensuctl edit entity sensu-docs
 And update the metadata scope to include the `proxy_type` label:
 
 {{< code yml >}}
+---
 type: Entity
 api_version: core/v2
 metadata:

@@ -41,7 +41,6 @@ type: Asset
 api_version: core/v2
 metadata:
   name: check_script
-  namespace: default
 spec:
   builds:
   - sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
@@ -53,8 +52,7 @@ spec:
   "type": "Asset",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check_script",
-    "namespace": "default"
+    "name": "check_script"
   },
   "spec": {
     "builds": [
@@ -91,7 +89,6 @@ type: Asset
 api_version: core/v2
 metadata:
   name: check_cpu
-  namespace: default
   labels:
     origin: bonsai
   annotations:
@@ -132,7 +129,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "check_cpu",
-    "namespace": "default",
     "labels": {
       "origin": "bonsai"
     },
@@ -199,7 +195,6 @@ type: Asset
 api_version: core/v2
 metadata:
   name: check_cpu_linux_amd64
-  namespace: default
   labels:
     origin: bonsai
   annotations:
@@ -222,7 +217,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "check_cpu_linux_amd64",
-    "namespace": "default",
     "labels": {
       "origin": "bonsai"
     },
@@ -294,7 +288,6 @@ type: Asset
 api_version: core/v2
 metadata:
   name: sensu-prometheus-collector
-  namespace: default
 spec:
   builds:
   - url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
@@ -307,7 +300,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: prometheus_collector
-  namespace: default
 spec:
   command: "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up"
   interval: 10
@@ -465,7 +457,6 @@ To correctly capture exit status codes from PowerShell plugins distributed as dy
 type: CheckConfig
 api_version: core/v2
 metadata:
-  namespace: default
   name: win-cpu-check
 spec:
   command: powershell.exe -ExecutionPolicy ByPass -f %{{assetPath "sensu-windows-powershell-checks"}}%\bin\check-windows-cpu-load.ps1 90 95
@@ -485,8 +476,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "win-cpu-check",
-    "namespace": "default"
+    "name": "win-cpu-check"
   },
   "spec": {
     "command": "powershell.exe -ExecutionPolicy ByPass -f %{{assetPath \"sensu-windows-powershell-checks\"}}%\\bin\\check-windows-cpu-load.ps1 90 95",

@@ -36,6 +36,7 @@ In this web UI configuration example:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: GlobalConfig
 api_version: web/v1
 metadata:

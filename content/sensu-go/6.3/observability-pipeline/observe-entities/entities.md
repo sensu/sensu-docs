@@ -39,10 +39,7 @@ This example shows the resource definition for an agent entity:
 type: Entity
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: webserver01
-  namespace: default
 spec:
   deregister: false
   deregistration: {}
@@ -115,10 +112,7 @@ spec:
   "type": "Entity",
   "api_version": "core/v2",
   "metadata": {
-    "name": "webserver01",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "webserver01"
   },
   "spec": {
     "entity_class": "agent",
@@ -261,8 +255,6 @@ type: Entity
 api_version: core/v2
 metadata:
   name: sensu-docs
-  namespace: default
-  labels: null
 spec:
   deregister: false
   deregistration: {}
@@ -281,9 +273,7 @@ spec:
   "type": "Entity",
   "api_version": "core/v2",
   "metadata": {
-    "name": "sensu-docs",
-    "namespace": "default",
-    "labels": null
+    "name": "sensu-docs"
   },
   "spec": {
     "deregister": false,
@@ -358,9 +348,7 @@ spec:
   "type": "Entity",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "postgresql",
-    "namespace": "default"
+    "name": "postgresql"
   },
   "spec": {
     "entity_class": "service"
@@ -414,7 +402,6 @@ metadata:
   labels:
     url: docs.sensu.io
   name: sensu-docs
-  namespace: default
 spec:
   deregister: false
   deregistration: {}
@@ -434,7 +421,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "sensu-docs",
-    "namespace": "default",
     "labels": {
       "url": "docs.sensu.io"
     }
@@ -517,9 +503,7 @@ To create a service entity with a `service_type` label using sensuctl `create`, 
 type: Entity
 api_version: core/v2
 metadata:
-  created_by: admin
   name: postgresql
-  namespace: default
   labels:
     service_type: datastore
 spec:
@@ -531,9 +515,7 @@ spec:
   "type": "Entity",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
     "name": "postgresql",
-    "namespace": "default",
     "labels": {
       "service_type": "datastore"
     }

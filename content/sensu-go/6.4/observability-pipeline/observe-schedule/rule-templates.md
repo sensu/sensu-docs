@@ -46,7 +46,6 @@ type: RuleTemplate
 api_version: bsm/v1
 metadata:
   name: status-threshold
-  namespace: default
 spec:
   description: Creates an event when the percentage of events with the given status exceed the given threshold
   arguments:
@@ -86,8 +85,7 @@ spec:
   "type": "RuleTemplate",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "status-threshold",
-    "namespace": "default"
+    "name": "status-threshold"
   },
   "spec": {
     "description": "Creates an event when the percentage of events with the given status exceed the given threshold",
@@ -170,8 +168,7 @@ The response will include the complete `aggregate` rule template resource defini
   "type": "RuleTemplate",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "aggregate",
-    "namespace": "default"
+    "name": "aggregate"
   },
   "spec": {
     "arguments": {
@@ -229,8 +226,6 @@ type: ServiceComponent
 api_version: bsm/v1
 metadata:
   name: web-app
-  namespace: default
-  created_by: admin
 spec:
   cron: ''
   handlers:
@@ -257,9 +252,7 @@ spec:
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "web-app",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "web-app"
   },
   "spec": {
     "cron": "",

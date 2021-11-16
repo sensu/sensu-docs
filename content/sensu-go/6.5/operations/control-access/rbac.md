@@ -423,7 +423,6 @@ type: Role
 api_version: core/v2
 metadata:
   name: namespaced-resources-all-verbs
-  namespace: default
 spec:
   rules:
   - resources:
@@ -451,8 +450,7 @@ spec:
   "type": "Role",
   "api_version": "core/v2",
   "metadata": {
-    "name": "namespaced-resources-all-verbs",
-    "namespace": "default"
+    "name": "namespaced-resources-all-verbs"
   },
   "spec": {
     "rules": [
@@ -999,7 +997,6 @@ type: RoleBinding
 api_version: core/v2
 metadata:
   name: event-reader-binding
-  namespace: default
 spec:
   role_ref:
     name: event-reader
@@ -1014,8 +1011,7 @@ spec:
   "type": "RoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "name": "event-reader-binding",
-    "namespace": "default"
+    "name": "event-reader-binding"
   },
   "spec": {
     "role_ref": {
@@ -1164,7 +1160,7 @@ You can use [sensuctl][2] to create a role binding that assigns a role:
 sensuctl role-binding create NAME --role=NAME --user=username --group=groupname
 {{< /code >}}
 
-This command creates the following role binding resource definition:
+This command creates a role binding resource definition similar to the following:
 
 {{< language-toggle >}}
 
@@ -1173,9 +1169,7 @@ This command creates the following role binding resource definition:
 type: RoleBinding
 api_version: core/v2
 metadata:
-  created_by: admin
   name: NAME
-  namespace: default
 spec:
   role_ref:
     name: NAME
@@ -1192,9 +1186,7 @@ spec:
   "type": "RoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "NAME",
-    "namespace": "default"
+    "name": "NAME"
   },
   "spec": {
     "role_ref": {
@@ -1223,7 +1215,7 @@ To create a role binding that assigns a cluster role:
 sensuctl role-binding create NAME --cluster-role=NAME --user=username --group=groupname
 {{< /code >}}
 
-This command creates the following role binding resource definition:
+This command creates a role binding resource definition similar to the following:
 
 {{< language-toggle >}}
 
@@ -1232,9 +1224,7 @@ This command creates the following role binding resource definition:
 type: RoleBinding
 api_version: core/v2
 metadata:
-  created_by: admin
   name: NAME
-  namespace: default
 spec:
   role_ref:
     name: NAME
@@ -1251,9 +1241,7 @@ spec:
   "type": "RoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "NAME",
-    "namespace": "default"
+    "name": "NAME"
   },
   "spec": {
     "role_ref": {
@@ -1282,7 +1270,7 @@ To create a cluster role binding:
 sensuctl cluster-role-binding create NAME --cluster-role=NAME --user=username --group=groupname
 {{< /code >}}
 
-This command creates the following cluster role binding resource definition:
+This command creates a cluster role binding resource definition similar to the following:
 
 {{< language-toggle >}}
 
@@ -1291,7 +1279,6 @@ This command creates the following cluster role binding resource definition:
 type: ClusterRoleBinding
 api_version: core/v2
 metadata:
-  created_by: admin
   name: NAME
 spec:
   role_ref:
@@ -1309,7 +1296,6 @@ spec:
   "type": "ClusterRoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
     "name": "NAME"
   },
   "spec": {
@@ -2582,7 +2568,6 @@ sensuctl cluster-role create silencing-script --verb get,list,create,update,dele
 type: ClusterRole
 api_version: core/v2
 metadata:
-  created_by: admin
   name: silencing-script
 spec:
   rules:
@@ -2600,7 +2585,6 @@ spec:
   "type": "ClusterRole",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
     "name": "silencing-script"
   },
   "spec": {
@@ -2637,7 +2621,6 @@ sensuctl role-binding create silencing-script-binding-team-1 --cluster-role sile
 type: RoleBinding
 api_version: core/v2
 metadata:
-  created_by: admin
   name: silencing-script-binding-team-1
   namespace: team1
 spec:
@@ -2653,7 +2636,6 @@ spec:
   "type": "RoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
     "name": "silencing-script-binding-team-1",
     "namespace": "team1"
   },

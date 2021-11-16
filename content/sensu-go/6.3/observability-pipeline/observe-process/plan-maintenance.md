@@ -50,6 +50,7 @@ This command creates the following silenced resource definition:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Silenced
 api_version: core/v2
 metadata:

@@ -44,7 +44,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: pipe_handler_minimum
-  namespace: default
 spec:
   command: command-example
   type: pipe
@@ -55,8 +54,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "pipe_handler_minimum",
-    "namespace": "default"
+    "name": "pipe_handler_minimum"
   },
   "spec": {
     "command": "command-example",
@@ -91,7 +89,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: tcp_handler
-  namespace: default
 spec:
   socket:
     host: 10.0.1.99
@@ -105,8 +102,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "tcp_handler",
-    "namespace": "default"
+    "name": "tcp_handler"
   },
   "spec": {
     "type": "tcp",
@@ -131,7 +127,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: udp_handler
-  namespace: default
 spec:
   socket:
     host: 10.0.1.99
@@ -145,8 +140,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "udp_handler",
-    "namespace": "default"
+    "name": "udp_handler"
   },
   "spec": {
     "type": "udp",
@@ -163,6 +157,10 @@ spec:
 
 ## Handler sets
 
+{{% notice note %}}
+**NOTE**: We recommend using [pipelines](../pipelines/) to configure multiple workflows for different handlers instead of handler sets.
+{{% /notice %}}
+
 Handler set definitions allow you to use a single named handler set to refer to groups of handlers.
 The handler set becomes a collection of individual actions to take (via each included handler) on event data.
 
@@ -176,11 +174,11 @@ You can list both of these handlers in a handler set to automate and streamline 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:
   name: send_events_notify_operator
-  namespace: default
 spec:
   handlers:
   - elasticsearch
@@ -193,8 +191,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "send_events_notify_operator",
-    "namespace": "default"
+    "name": "send_events_notify_operator"
   },
   "spec": {
     "type": "set",
@@ -213,10 +210,14 @@ Now you can route observation data to Elasticsearch and alerts to OpsGenie with 
 {{% notice note %}}
 **NOTE**: Attributes defined in handler sets do not apply to the handlers they include.
 For example, `filters` and `mutator` attributes defined in a handler set will have no effect on handlers.
-Define these attributes in individual handlers instead.
+Define these attributes in individual handlers instead, or use [pipelines](../pipelines/).
 {{% /notice %}}
 
 ## Handler stacks
+
+{{% notice note %}}
+**NOTE**: We recommend using [pipelines](../pipelines/) to configure multiple workflows for escalating events through a series of handlers instead of handler stacks.
+{{% /notice %}}
 
 The handler stack concept refers to a group of handlers or a handler set that escalates events through a series of different handlers.
 For example, suppose you want a handler stack with three levels of escalation:
@@ -259,7 +260,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: keepalive
-  namespace: default
 spec:
   handlers:
   - slack
@@ -271,8 +271,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "keepalive",
-    "namespace": "default"
+    "name": "keepalive"
   },
   "spec": {
     "type": "set",
@@ -506,7 +505,10 @@ type: pipe
 
 filters      | 
 -------------|------
-description  | Array of Sensu event filters (by names) to use when filtering events for the handler. Each array item must be a string.
+description  | Array of Sensu event filters (by names) to use when filtering events for the handler. Each array item must be a string.{{% notice note %}}
+**NOTE**: We recommend using [pipelines](../pipelines/), which allow you to list event filters directly in the pipeline resource definition instead of in handlers.<br><br>
+Pipelines ignore any event filters specified in handler definitions, so you do not need to remove them to use your existing handlers &mdash; just make sure to define the event filters you want to use in the pipeline workflow.
+{{% /notice %}}
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -527,7 +529,10 @@ filters:
 
 mutator      | 
 -------------|------
-description  | Name of the Sensu event mutator to use to mutate event data for the handler.
+description  | Name of the Sensu event mutator to use to mutate event data for the handler.{{% notice note %}}
+**NOTE**: We recommend using [pipelines](../pipelines/), which allow you to list mutators directly in the pipeline resource definition instead of in handlers.<br><br>
+Pipelines ignore any mutators specified in handler definitions, so you do not need to remove them to use your existing handlers &mdash; just make sure to define the mutator you want to use in the pipeline workflow.
+{{% /notice %}}
 required     | false
 type         | String
 example      | {{< language-toggle >}}
@@ -618,7 +623,8 @@ socket: {}
 handlers     | 
 -------------|------
 description  | Array of Sensu event handlers (by their names) to use for events using the handler set. Each array item must be a string. {{% notice note %}}
-**NOTE**: The `handlers` attribute is only supported for handler sets (that is, handlers configured with `"type": "set"`).
+**NOTE**: The `handlers` attribute is only supported for handler sets (that is, handlers configured with `"type": "set"`).<br><br>
+We recommend using [pipelines](../pipelines/) to configure multiple workflows instead of handler sets.
 {{% /notice %}}
 required     | true (if `type` equals `set`)
 type         | Array
@@ -770,14 +776,10 @@ type: Handler
 api_version: core/v2
 metadata:
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
   - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
-  filters:
-  - is_incident
-  - not_silenced
   handlers: []
   runtime_assets:
   - sensu/sensu-slack-handler
@@ -790,17 +792,12 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",
     "env_vars": [
       "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-    ],
-    "filters": [
-      "is_incident",
-      "not_silenced"
     ],
     "handlers": [],
     "runtime_assets": [
@@ -829,7 +826,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: registration
-  namespace: default
 spec:
   handlers:
   - servicenow-cmdb
@@ -841,8 +837,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "registration",
-    "namespace": "default"
+    "name": "registration"
   },
   "spec": {
     "handlers": [
@@ -859,6 +854,10 @@ The [agent reference][27] describes agent registration and registration events i
 
 ## Execute multiple handlers (handler set)
 
+{{% notice note %}}
+**NOTE**: We recommend using [pipelines](../pipelines/) to configure multiple workflows for different handlers instead of handler sets.
+{{% /notice %}}
+
 The following example creates a handler set, `notify_all_the_things`, that will execute three handlers: `slack`, `tcp_handler`, and `udp_handler`.
 
 {{< language-toggle >}}
@@ -869,7 +868,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: notify_all_the_things
-  namespace: default
 spec:
   handlers:
   - slack
@@ -883,8 +881,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "notify_all_the_things",
-    "namespace": "default"
+    "name": "notify_all_the_things"
   },
   "spec": {
     "type": "set",
@@ -911,7 +908,6 @@ type: Handler
 api_version: core/v2 
 metadata:
   name: ansible-tower
-  namespace: ops
 spec: 
   type: pipe
   command: sensu-ansible-handler -h $ANSIBLE_HOST -t $ANSIBLE_TOKEN
@@ -927,8 +923,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "ansible-tower",
-    "namespace": "ops"
+    "name": "ansible-tower"
   },
   "spec": {
     "type": "pipe",
