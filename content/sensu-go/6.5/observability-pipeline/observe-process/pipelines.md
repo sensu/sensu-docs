@@ -279,6 +279,8 @@ spec:
 
 All events from checks that specify this pipeline will be processed with both workflows, in series, starting with the workflow that is listed first in the resource definition.
 
+Read [Route alerts with event filters][30] for another pipeline example that includes multiple workflows for contact-based routing.
+
 ## Pipeline specification
 
 ### Top-level attributes
@@ -653,7 +655,7 @@ handler:
 
 name         | 
 -------------|------
-description  | Name of the Sensu [event filter][24] to use for the workflow. You can use the [built-in event filters][30], as well as your existing event filters, in pipeline workflows.
+description  | Name of the Sensu [event filter][24] to use for the workflow. You can use the [built-in event filters][31], as well as your existing event filters, in pipeline workflows.
 required     | true
 type         | String
 default      | `null`
@@ -840,4 +842,6 @@ api_version: core/v2
 [27]: ../../observe-schedule/agent/#registration-endpoint-management-and-service-discovery
 [28]: ../../../web-ui/search/
 [29]: ../../../observability-pipeline/
-[30]: ../../observe-filter/filters/#built-in-event-filters
+[30]: ../../observe-filter/route-alerts/#configure-contact-routing-with-a-pipeline
+[31]: ../../observe-filter/filters/#built-in-event-filters
+
