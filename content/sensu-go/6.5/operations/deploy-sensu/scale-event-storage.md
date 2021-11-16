@@ -36,6 +36,12 @@ In such a deployment cluster, communication happens over shared WAN links, which
 The Enterprise datastore can help operators achieve much higher rates of event processing and minimize the replication communication between etcd peers.
 The `sensu-perf` test environment comfortably handles 40,000 Sensu agent connections (and their keepalives) and processes more than 36,000 events per second under ideal conditions.
 
+{{% notice warning %}}
+**IMPORTANT**: PostgreSQL configuration file locations differ depending on platform.
+The steps in this guide use common paths for RHEL/CentOS, but the files may be stored elsewhere on your system.
+Learn more about [PostgreSQL configuration file locations](https://www.postgresql.org/docs/current/runtime-config-file-locations.html).
+{{% /notice %}}
+
 ## Prerequisites
 
 * Database server running Postgres 9.5 or later
@@ -123,7 +129,7 @@ With this configuration complete, Postgres will have a `sensu_events` database f
 
 By default, the Postgres user you've just added will not be able to authenticate via password, so you'll also need to make a change to the `pg_hba.conf` file.
 The required change will depend on how Sensu will connect to Postgres.
-In this case, you'll configure Postgres to allow the `sensu` user to connect to the `sensu_events` database from any host using an [md5][5]-encrypted password:
+In this case, you'll configure Postgres to allow the `sensu` user to connect to the `sensu_events` database from any host using an [md5][5]-encrypted password.
 
 1. Make a copy of the current `pg_hba.conf` file:
 
@@ -305,10 +311,7 @@ Follow the steps in this section to create and add the replication role, set str
 ### Create and add the replication role
 
 If you have administrative access to Postgres, you can create the replication role.
-
-{{% notice note %}}
-**NOTE**: Complete the steps to create and add the replication role on the **primary** Postgres host.
-{{% /notice %}}
+Complete these steps to create and add the replication role on the **primary** Postgres host.
 
 1. Change to the postgres user and open the Postgres prompt (`postgres=#`):
 {{< code shell >}}
@@ -347,9 +350,7 @@ sudo systemctl restart postgresql
 
 ### Set streaming replication configuration parameters
 
-{{% notice note %}}
-**NOTE**: Complete the steps to set streaming replication configuration parameters on the **primary** Postgres host.
-{{% /notice %}}
+Complete the following steps to set streaming replication configuration parameters on the **primary** Postgres host:
 
 1. Make a copy of the `postgresql.conf`:
 {{< code shell >}}
@@ -384,9 +385,7 @@ sudo systemctl restart postgresql
 
 ### Bootstrap the standby host
 
-{{% notice note %}}
-**NOTE**: Complete the steps to bootstrap the standby host on the **standby** Postgres host.
-{{% /notice %}}
+Follow these steps to bootstrap the standby host on the **standby** Postgres host:
 
 1. If the standby host has ever run Postgres, stop Postgres and empty the data directory:
 {{< code shell >}}
