@@ -222,7 +222,7 @@ spec:
     "timeout": 0,
     "ttl": 0
   }
-}}
+}
 {{< /code >}}
 
 {{< /language-toggle >}}
