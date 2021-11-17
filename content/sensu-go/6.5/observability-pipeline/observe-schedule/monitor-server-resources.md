@@ -107,7 +107,7 @@ sensuctl entity list
 
 The `ID` is the name of your entity.
 
-Replace `<entity_name>` with the name of your agent entity in the following [sensuctl][17] command.
+Replace `<entity_name>` with the name of your agent entity in the following [sensuctl][16] command.
 Run:
 
 {{< code shell >}}
@@ -172,6 +172,7 @@ spec:
   low_flap_threshold: 0
   output_metric_format: ""
   output_metric_handlers: null
+  pipelines: []
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -205,6 +206,7 @@ spec:
     "low_flap_threshold": 0,
     "output_metric_format": "",
     "output_metric_handlers": null,
+    "pipelines": [],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
@@ -520,9 +522,9 @@ The response should list the `nginx_service` check with an OK status (`0`).
 Now that you know how to create checks to monitor CPU usage and NGINX webserver status, read the [checks reference][3] and [assets reference][2] for more detailed information.
 Or, learn how to [monitor external resources with proxy checks and entities][5].
 
-You can also create a [handler][10] to send alerts to [email][13], [PagerDuty][9], or [Slack][6] based on the status events your checks are generating.
+You can also create [pipelines][10] to send alerts to [email][13], [PagerDuty][9], or [Slack][6] based on the status events your checks are generating.
 
-Read the [pipeline reference][16] for information about configuring observability event processing workflows with event filters, mutators, and handlers.
+Read the [pipeline reference][10] for information about configuring observability event processing workflows with event filters, mutators, and handlers.
 
 
 [1]: https://bonsai.sensu.io/assets/sensu/check-cpu-usage
@@ -534,11 +536,10 @@ Read the [pipeline reference][16] for information about configuring observabilit
 [7]: ../collect-metrics-with-checks/
 [8]: ../subscriptions/
 [9]: ../../observe-process/send-pagerduty-alerts/
-[10]: ../../observe-process/handlers/
+[10]: ../../observe-process/pipelines/
 [11]: ../../../operations/monitoring-as-code/#build-as-you-go
 [12]: ../../../operations/monitoring-as-code/
 [13]: ../../observe-process/send-email-alerts/
 [14]: https://bonsai.sensu.io/
 [15]: https://bonsai.sensu.io/assets/sensu/sensu-processes-check
-[16]: ../../observe-process/pipelines/
-[17]: ../../../sensuctl/
+[16]: ../../../sensuctl/

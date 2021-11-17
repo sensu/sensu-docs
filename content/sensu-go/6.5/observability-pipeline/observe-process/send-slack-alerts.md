@@ -1,9 +1,9 @@
 ---
-title: "Send Slack alerts with handlers"
+title: "Send Slack alerts with a pipeline"
 linkTitle: "Send Slack Alerts"
-guide_title: "Send Slack alerts with handlers"
+guide_title: "Send Slack alerts with a pipeline"
 type: "guide"
-description: "Here’s how to send alerts to Slack with Sensu handlers, which are actions the Sensu backend executes on events. Use handlers to send events to your technology of choice (in this case, Slack) to alert you of incidents and help you resolve them more quickly."
+description: "Here’s how to send alerts to Slack with Sensu pipelines, which allow you to send events to your technology of choice (in this case, Slack) to alert you of incidents and help you resolve them more quickly."
 weight: 30
 version: "6.5"
 product: "Sensu Go"
@@ -13,11 +13,11 @@ menu:
     parent: observe-process
 ---
 
-Sensu event handlers are actions the Sensu backend executes on [events][1].
-You can use handlers to send an email alert, create or resolve incidents (in PagerDuty, for example), or store metrics in a time-series database like InfluxDB.
+Pipelines are Sensu resources composed of [observation event][1] processing workflows made up of filters, mutators, and handlers.
+You can use pipelines to send email alerts, create or resolve incidents (in PagerDuty, for example), or store metrics in a time-series database like InfluxDB.
 
-This guide will help you send alerts to Slack in the channel `monitoring` by configuring a handler named `slack` to a check named `check_cpu`.
-If you don't already have this check in place, follow [Monitor server resources][2] to add it.
+This guide will help you send alerts to Slack in the channel `monitoring` by configuring a pipeline and adding it to a check named `check_cpu`.
+If you don't already have this check in place, as well as an entity with a `system` subscription, follow [Monitor server resources][2] to add the check and the correct entity subscription.
 
 ## Register the dynamic runtime asset
 
@@ -59,15 +59,14 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 ## Get a Slack webhook
 
 If you're already the admin of a Slack, visit `https://YOUR_WORKSPACE_NAME_HERE.slack.com/services/new/incoming-webhook` and follow the steps to add the Incoming WebHooks integration, choose a channel, and save the settings.
-If you're not yet a Slack admin, [create a new workspace][12] and then create your webhook.
+If you're not yet a Slack admin, [create a new workspace][12] and then create and save your webhook.
 
-After saving, you can find your webhook URL under Integration Settings.
+After you save your webhook, you can find the webhook URL under **Integration Settings**.
 
 ## Create a handler
 
 Use sensuctl to create a handler called `slack` that pipes observation data (events) to Slack using the `sensu-slack-handler` dynamic runtime asset.
-Edit the sensuctl command below to include your Slack webhook URL and the channel where you want to receive observation event data.
-For more information about customizing your Slack alerts, read the [Sensu Slack Handler page in Bonsai][14].
+Edit the sensuctl command below to include your Slack webhook URL and the channel where you want to receive events.
 
 {{< code shell >}}
 sensuctl handler create slack \
@@ -157,15 +156,78 @@ spec:
 
 You can share and reuse this handler like code &mdash; [save it to a file][15] and start building a [monitoring as code repository][16].
 
-## Assign the handler to a check
+## Create a pipeline that includes the handler
 
-With the `slack` handler created, you can assign it to a check.
-To continue this example, use the `check_cpu` check created in [Monitor server resources][2].
+With your handler configured, you can add it to a [pipeline][17] workflow.
+A single pipeline workflow can include one or more filters, one mutator, and one handler.
 
-Assign your `slack` handler to the `check_cpu` check to receive Slack alerts when the CPU usage of your systems reaches the specific thresholds set in the check command:
+For now, the pipeline includes only the `slack` handler so that you receive an alert for every event the check generates (including events with OK status):
+
+{{< language-toggle >}}
+
+{{< code shell "YML">}}
+cat << EOF | sensuctl create
+---
+type: Pipeline
+api_version: core/v2
+metadata:
+  name: cpu_check_alerts
+spec:
+  workflows:
+  - name: slack_alerts
+    handler:
+      name: slack
+      type: Handler
+      api_version: core/v2
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "Pipeline",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "cpu_check_alerts"
+  },
+  "spec": {
+    "workflows": [
+      {
+        "name": "slack_alerts",
+        "handler": {
+          "name": "slack",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Assign the pipeline to a check
+
+To use the `cpu_check_alerts` pipeline, list it in a check definition's [pipelines array][18] (in this case, the `check_cpu` check created in [Monitor server resources][2]).
+All the observability events that the check produces will be processed according to the pipeline's workflows.
+
+Assign your `cpu_check_alerts` pipeline to the `check_cpu` check to receive Slack alerts when the CPU usage of your system reaches the specific thresholds set in the check command.
+
+To open the check definition in your text editor, run: 
 
 {{< code shell >}}
-sensuctl check set-handlers check_cpu slack
+sensuctl edit check check_cpu
+{{< /code >}}
+
+Replace the `pipelines: []` line with the following array:
+
+{{< code yml >}}
+  pipelines:
+  - type: Pipeline
+    api_version: core/v2
+    name: cpu_check_alerts
 {{< /code >}}
 
 To view the updated `check_cpu` resource definition, run:
@@ -198,13 +260,16 @@ spec:
   check_hooks: null
   command: check-cpu-usage -w 75 -c 90
   env_vars: null
-  handlers:
-  - slack
+  handlers: []
   high_flap_threshold: 0
-  interval: 60
+  interval: 10
   low_flap_threshold: 0
   output_metric_format: ""
   output_metric_handlers: null
+  pipelines:
+  - api_version: core/v2
+    name: cpu_check_alerts
+    type: Pipeline
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -224,22 +289,27 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
     "name": "check_cpu",
-    "namespace": "default"
+    "namespace": "default",
+    "created_by": "admin"
   },
   "spec": {
     "check_hooks": null,
     "command": "check-cpu-usage -w 75 -c 90",
     "env_vars": null,
-    "handlers": [
-      "slack"
-    ],
+    "handlers": [],
     "high_flap_threshold": 0,
-    "interval": 60,
+    "interval": 10,
     "low_flap_threshold": 0,
     "output_metric_format": "",
     "output_metric_handlers": null,
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "name": "cpu_check_alerts",
+        "type": "Pipeline"
+      }
+    ],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
@@ -260,21 +330,87 @@ spec:
 
 {{< /language-toggle >}}
 
-## Validate the handler
+## Validate the pipeline
 
-It might take a few moments after you assign the handler to the check for the check to be scheduled on the entities and the result sent back to Sensu backend.
-After an event is handled, you should receive the following message in Slack:
+It might take a few moments after you add the pipeline to the check for the check to be scheduled on entities with the `system` subscription and the result sent back to Sensu backend.
+After an event is handled, you should receive a message like this in Slack:
 
-{{< figure src="/images/handler-slack.png" alt="Example Slack message" link="/images/handler-slack.png" target="_blank" >}}
+{{< figure src="/images/pipeline_cpu-check-alerts.png" alt="Example Slack message" link="/images/pipeline_cpu-check-alerts.png" target="_blank" >}}
 
-Verify the proper behavior of this handler with `sensu-backend` logs.
+Verify proper handler behavior with `sensu-backend` logs.
 Read [Troubleshoot Sensu][7] for log locations by platform.
 
 Whenever an event is being handled, a log entry is added with the message `"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by a second log entry with the message `"msg":"event pipe handler executed","output":"","status":0`.
 
+## Add an event filter to the pipeline
+
+At this point, the `cpu_check_alerts` pipeline has probably sent quite a few Slack messages for events with OK (`0`) status.
+To receive alerts for events with *only* warning (`1`) or critical (`2`) status, add the built-in [is_incident][19] event filter to the pipeline:
+
+{{< language-toggle >}}
+
+{{< code shell "YML">}}
+cat << EOF | sensuctl create
+---
+type: Pipeline
+api_version: core/v2
+metadata:
+  name: cpu_check_alerts
+spec:
+  workflows:
+  - name: slack_alerts
+    filters:
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    handler:
+      name: slack
+      type: Handler
+      api_version: core/v2
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "Pipeline",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "cpu_check_alerts"
+  },
+  "spec": {
+    "workflows": [
+      {
+        "name": "slack_alerts",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "handler": {
+          "name": "slack",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Adding the is_incident filter to your pipeline should quickly reduce the number of alerts you receive in Slack.
+
 ## Next steps
 
-Now that you know how to apply a handler to a check and take action on events, read the [handlers reference][8] for in-depth handler documentation and check out the [Reduce alert fatigue][9] guide.
+Now that you know how to apply a pipeline to a check and take action on events, read the [pipeline reference][8] for in-depth documentation.
+Read [Route alerts with event filters][9] for a more complex example with multiple filters and handlers organized into several pipeline workflows.
+
+For more information about customizing your Slack alerts, read the [Sensu Slack Handler page in Bonsai][14].
 
 Follow [Send PagerDuty alerts with Sensu][11] to configure a check that generates status events and a handler that sends Sensu alerts to PagerDuty for non-OK events.
 
@@ -286,8 +422,8 @@ Follow [Send PagerDuty alerts with Sensu][11] to configure a check that generate
 [5]: https://en.wikipedia.org/wiki/PATH_(variable)
 [6]: https://api.slack.com/incoming-webhooks
 [7]: ../../../operations/maintain-sensu/troubleshoot/
-[8]: ../handlers/
-[9]: ../../observe-filter/reduce-alert-fatigue/
+[8]: ../pipelines/
+[9]: ../../observe-filter/route-alerts/
 [10]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [11]: ../../../observability-pipeline/observe-process/send-pagerduty-alerts/
 [12]: https://slack.com/get-started#/create
@@ -295,3 +431,6 @@ Follow [Send PagerDuty alerts with Sensu][11] to configure a check that generate
 [14]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [15]: ../../../operations/monitoring-as-code/#build-as-you-go
 [16]: ../../../operations/monitoring-as-code/
+[17]: ../pipelines/
+[18]: ../../observe-schedule/checks/#pipelines-attribute
+[19]: ../../observe-filter/filters/#built-in-filter-is_incident
