@@ -14,8 +14,11 @@ menu:
 ---
 
 Sensu [checks][2] are commands the Sensu agent executes that generate observability data in a status or metric [event][19].
-Sensu [handlers][9] define the actions the Sensu backend executes on the events.
-Follow this guide to create a check that looks for a specific file and a handler that sends an alert to PagerDuty if the file is not found.
+Sensu [pipelines][20] define the event filters and actions the Sensu backend executes on the events.
+Follow this guide to create a pipeline that sends incident alerts to PagerDuty.
+
+This guide will help you send alerts to PagerDuty by configuring a pipeline and adding it to a check named `check_cpu`.
+If you don't already have this check in place, follow [Monitor server resources][3] to add it.
 
 One quick note before you begin: you'll need your [PagerDuty API integration key][1] to set up the handler in this guide.
 
@@ -47,162 +50,45 @@ Confirm both Sensu services are running:
 systemctl status sensu-backend && systemctl status sensu-agent
 {{< /code >}}
 
-## Add the file_exists check
-
-Before Sensu can send alerts to your PagerDuty account, you'll need a [check][2] to generate events.
-In this guide, you will use a `file_exists` check, which is included in Sensu's [Nagios Foundation][3] dynamic runtime [asset][5].
-
-Before you can add the check, you need to add the Nagios Foundation asset to your Sensu configuration:
-
-{{< code shell >}}
-sensuctl asset add ncr-devops-platform/nagiosfoundation
-{{< /code >}}
-
-To confirm that the asset was added to your Sensu backend, run:
-
-{{< code shell >}}
-sensuctl asset info ncr-devops-platform/nagiosfoundation
-{{< /code >}}
-
-The list should include `=== ncr-devops-platform/nagiosfoundation` followed by a list of available builds for the asset.
-
-Now that you've added the Nagios Foundation dynamic runtime asset, you can add its `file_exists` check to your Sensu backend.
-Use sensuctl to add the check:
-
-{{< code shell >}}
-sensuctl check create file_exists \
---command "check_file_exists --pattern /tmp/my-file.txt" \
---subscriptions system \
---handlers pagerduty \
---interval 10 \
---runtime-assets ncr-devops-platform/nagiosfoundation
-{{< /code >}}
-
-To confirm that the check was added to your Sensu backend and view the check definition in YAML or JSON format, run:
-
-{{< language-toggle >}}
-{{< code shell "YML" >}}
-sensuctl check info file_exists --format yaml
-{{< /code >}}
-{{< code shell "JSON" >}}
-sensuctl check info file_exists --format wrapped-json
-{{< /code >}}
-{{< /language-toggle >}}
-
-The response will list the complete check resource definition:
-
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: CheckConfig
-api_version: core/v2
-metadata:
-  created_by: admin
-  name: file_exists
-  namespace: default
-spec:
-  check_hooks: null
-  command: check_file_exists --pattern /tmp/my-file.txt
-  env_vars: null
-  handlers:
-  - pagerduty
-  high_flap_threshold: 0
-  interval: 10
-  low_flap_threshold: 0
-  output_metric_format: ""
-  output_metric_handlers: null
-  proxy_entity_name: ""
-  publish: true
-  round_robin: false
-  runtime_assets:
-  - ncr-devops-platform/nagiosfoundation
-  secrets: null
-  stdin: false
-  subdue: null
-  subscriptions:
-  - system
-  timeout: 0
-  ttl: 0
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "created_by": "admin",
-    "name": "file_exists",
-    "namespace": "default"
-  },
-  "spec": {
-    "check_hooks": null,
-    "command": "check_file_exists --pattern /tmp/my-file.txt",
-    "env_vars": null,
-    "handlers": [
-      "pagerduty"
-    ],
-    "high_flap_threshold": 0,
-    "interval": 10,
-    "low_flap_threshold": 0,
-    "output_metric_format": "",
-    "output_metric_handlers": null,
-    "proxy_entity_name": "",
-    "publish": true,
-    "round_robin": false,
-    "runtime_assets": [
-      "ncr-devops-platform/nagiosfoundation"
-    ],
-    "secrets": null,
-    "stdin": false,
-    "subdue": null,
-    "subscriptions": [
-      "system"
-    ],
-    "timeout": 0,
-    "ttl": 0
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-{{% notice protip %}}
-**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
-{{% /notice %}}
-
-The check command includes the path for the file that the check will look for on your system, `/tmp/my-file.txt`.
-For this guide, you'll add `/tmp/my-file.txt` as a temporary file:
-
-{{< code shell >}}
-touch /tmp/my-file.txt
-{{< /code >}}
-
-In production, you could replace `/tmp/my-file.txt` with the file path or globbing pattern for any existing file or files on your system.
-
-Well done!
-In the next step, you'll configure your workflow for sending Sensu alerts to your PagerDuty account.
-
-## Add the PagerDuty handler
+## Register the dynamic runtime asset
 
 The [Sensu PagerDuty Handler][8] dynamic runtime asset includes the scripts you will need to send events to PagerDuty.
 
 To add the PagerDuty handler asset, run:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-pagerduty-handler
+sensuctl asset add sensu/sensu-pagerduty-handler:2.2.0 -r pagerduty-handler
 {{< /code >}}
 
-Once again, it's a good idea to confirm that the asset was added to your Sensu backend. Run:
+This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `pagerduty-handler`.
+
+The response will indicate that the asset was added:
 
 {{< code shell >}}
-sensuctl asset info sensu/sensu-pagerduty-handler
+fetching bonsai asset: sensu/sensu-pagerduty-handler:2.2.0
+added asset: sensu/sensu-pagerduty-handler:2.2.0
+
+You have successfully added the Sensu asset resource, but the asset will not get downloaded until
+it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
+resource, populate the "runtime_assets" field with ["pagerduty-handler"].
 {{< /code >}}
 
-The response will list the available builds for the PagerDuty handler dynamic runtime asset.
+To confirm that the asset was added to your Sensu backend, run:
 
-Now that you've added the Sensu PagerDuty Handler dynamic runtime asset, you can create a [handler][9] that uses the asset to send non-OK events to PagerDuty.
-This requires you to update the handler command by adding your PagerDuty API key.
+{{< code shell >}}
+sensuctl asset info pagerduty-handler
+{{< /code >}}
+
+The response will list the available builds for the Sensu PagerDuty Handler dynamic runtime asset.
+
+{{% notice note %}}
+**NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
+Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+{{% /notice %}}
+
+## Add the PagerDuty handler
+
+Now that you've added the dynamic runtime asset, you can create a [handler][9] that uses the asset to send non-OK events to PagerDuty.
 
 In the following command, replace `<pagerduty_key>` with your [PagerDuty API integration key][1].
 Then run the updated command:
@@ -210,8 +96,7 @@ Then run the updated command:
 {{< code shell >}}
 sensuctl handler create pagerduty \
 --type pipe \
---filters is_incident \
---runtime-assets sensu/sensu-pagerduty-handler \
+--runtime-assets pagerduty-handler \
 --command "sensu-pagerduty-handler -t <pagerduty_key>"
 {{< /code >}}
 
@@ -225,12 +110,15 @@ Sensu will look up the key in the handler definition or backend configuration fi
 Make sure that your handler was added by retrieving the complete handler definition in YAML or JSON format:
 
 {{< language-toggle >}}
+
 {{< code shell "YML" >}}
 sensuctl handler info pagerduty --format yaml
 {{< /code >}}
+
 {{< code shell "JSON" >}}
 sensuctl handler info pagerduty --format wrapped-json
 {{< /code >}}
+
 {{< /language-toggle >}}
 
 The response will list the complete handler resource definition:
@@ -248,11 +136,9 @@ metadata:
 spec:
   command: sensu-pagerduty-handler -t <pagerduty_key>
   env_vars: null
-  filters:
-  - is_incident
   handlers: null
   runtime_assets:
-  - sensu/sensu-pagerduty-handler
+  - pagerduty-handler
   secrets: null
   timeout: 0
   type: pipe
@@ -270,12 +156,9 @@ spec:
   "spec": {
     "command": "sensu-pagerduty-handler -t <pagerduty_key>",
     "env_vars": null,
-    "filters": [
-      "is_incident"
-    ],
     "handlers": null,
     "runtime_assets": [
-      "sensu/sensu-pagerduty-handler"
+      "pagerduty-handler"
     ],
     "secrets": null,
     "timeout": 0,
@@ -286,50 +169,238 @@ spec:
 
 {{< /language-toggle >}}
 
-## Trigger an event
+{{% notice protip %}}
+**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
+{{% /notice %}}
 
-With your `file_exists` check and PagerDuty handler workflow in place, you can remove a file to cause Sensu to send a non-OK event.
+## Create a pipeline with an event filter and handler
 
-Remove the file `/tmp/my-file.txt`:
+With your handler configured, you can add it to a [pipeline][17] workflow.
+A single pipeline workflow can include one or more filters, one mutator, and one handler.
 
-{{< code shell >}}
-rm /tmp/my-file.txt
+In this case, the pipeline includes the built-in [is_incident][21] event filter and the PagerDuty handler you've already configured.
+To create the pipeline, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
+type: Pipeline
+api_version: core/v2
+metadata:
+  name: cpu_check_alerts
+spec:
+  workflows:
+  - name: pagerduty_alerts
+    filters:
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    handler:
+      name: pagerduty
+      type: Handler
+      api_version: core/v2
+EOF
 {{< /code >}}
 
-This will make sure the file is **not** there for Sensu to find the next time the `file_exists` check runs.
-After about 10 seconds, Sensu will detect that `my-file.txt` is missing and reflect that in an event.
-
-To view the event with sensuctl, run:
-
-{{< code shell >}}
-sensuctl event list
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "Pipeline",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "cpu_check_alerts"
+  },
+  "spec": {
+    "workflows": [
+      {
+        "name": "pagerduty_alerts",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "handler": {
+          "name": "pagerduty",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
+  }
+}
+EOF
 {{< /code >}}
 
-The response should show that the file removal resulted in a CRITICAL (2) event:
+{{< /language-toggle >}}
+
+## Assign the pipeline to a check
+
+To use the `cpu_check_alerts` pipeline, list it in a check definition's [pipelines array][18] (in this case, the `check_cpu` check created in [Monitor server resources][2]).
+All the observability events that the check produces will be processed according to the pipeline's workflows.
+
+Assign your `cpu_check_alerts` pipeline to the `check_cpu` check to receive Slack alerts when the CPU usage of your system reaches the specific thresholds set in the check command.
+
+To open the check definition in your text editor, run: 
 
 {{< code shell >}}
-     Entity         Check                                      Output                                   Status   Silenced             Timestamp                             UUID                  
- ────────────── ───────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ────────────────────────────────────── 
-  host01         file_exists   CheckFileExists CRITICAL - 0 files matched pattern /tmp/my-file.txt           2   false      2021-03-15 19:28:21 +0000 UTC   1b4266ae-7200-4728-a0n4-2f50f7a56613
+sensuctl edit check check_cpu
 {{< /code >}}
 
-Open the Sensu [web UI][11] to view the events the `file_exists` check is generating.
-Visit http://127.0.0.1:3000, and log in as the admin user (created during [initialization][10] when you installed the Sensu backend).
-The failing check's events will be listed on the Events page.
+Replace the `pipelines: []` line with the following array:
 
-## Observe the alert in PagerDuty
+{{< code yml >}}
+  pipelines:
+  - type: Pipeline
+    api_version: core/v2
+    name: cpu_check_alerts
+{{< /code >}}
 
-After Sensu detects the non-OK event, the handler you set up will send the alert to PagerDuty.
-Log in to your PagerDuty account to view an event similar to this one:
+To view the updated `check_cpu` resource definition, run:
 
-{{< figure src="/images/pagerduty_alert_example.png" alt="Example alert in PagerDuty for failing Sensu check" link="/images/pagerduty_alert_example.png" target="_blank" >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl check info check_cpu --format yaml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl check info check_cpu --format wrapped-json
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The updated check definition will be similar to this example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: check_cpu
+  namespace: default
+spec:
+  check_hooks: null
+  command: check-cpu-usage -w 75 -c 90
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
+  interval: 10
+  low_flap_threshold: 0
+  output_metric_format: ""
+  output_metric_handlers: null
+  pipelines:
+  - api_version: core/v2
+    name: cpu_check_alerts
+    type: Pipeline
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets:
+  - check-cpu-usage
+  secrets: null
+  stdin: false
+  subdue: null
+  subscriptions:
+  - system
+  timeout: 0
+  ttl: 0
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check_cpu",
+    "namespace": "default",
+    "created_by": "admin"
+  },
+  "spec": {
+    "check_hooks": null,
+    "command": "check-cpu-usage -w 75 -c 90",
+    "env_vars": null,
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 10,
+    "low_flap_threshold": 0,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "name": "cpu_check_alerts",
+        "type": "Pipeline"
+      }
+    ],
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": [
+      "check-cpu-usage"
+    ],
+    "secrets": null,
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "system"
+    ],
+    "timeout": 0,
+    "ttl": 0
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Observe an alert in PagerDuty
+
+It might take a few moments after you add the pipeline to the check for the check to be scheduled on entities with the `system` subscription and the result sent back to Sensu backend.
+
+As configured, the `cpu_check` command requires CPU usage to reach 75% capacity to send a non-OK event.
+To trigger an alert and confirm that the check and pipeline are working properly, adjust the check command to reduce the usage percentage required for a non-OK event.
+
+To open the check definition in your text editor, run:
+
+{{< code shell >}}
+sensuctl edit check check_cpu
+{{< /code >}}
+
+Replace the `-w` value in the `command` line with `1` and save the updated check definition:
+
+{{< code yml >}}
+  command: check-cpu-usage -w 1 -c 90
+{{< /code >}}
+
+You should see a response to confirm the update:
+
+{{< code shell >}}
+Updated /api/core/v2/namespaces/default/checks/check_cpu
+{{< /code >}}
+
+After Sensu detects a non-OK event, the handler in your pipeline will send the alert to your PagerDuty account, where you should see an event similar to this one:
+
+{{< figure src="/images/pipeline_pagerduty_alert_example.png" alt="Example alert in PagerDuty for failing Sensu check" link="/images/pipeline_pagerduty_alert_example.png" target="_blank" >}}
 
 ## Resolve the alert in PagerDuty
 
-To complete your workflow, restore the file that you removed so Sensu sends a resolution to PagerDuty:
+To complete your workflow, restore the CPU usage command to 75% so Sensu sends a resolution to PagerDuty.
+Open the check definition in your text editor:
 
 {{< code shell >}}
-touch /tmp/my-file.txt
+sensuctl edit check check_cpu
+{{< /code >}}
+
+Replace the `-w` value in the `command` line with `75` and save the updated check definition:
+
+{{< code yml >}}
+  command: check-cpu-usage -w 75 -c 90
 {{< /code >}}
 
 In your PagerDuty account, the alert should now be listed under the "Resolved" tab.
@@ -340,20 +411,20 @@ To view the resolved event with sensuctl, run:
 sensuctl event list
 {{< /code >}}
 
-The response should show that the file is restored, with an OK (0) status:
+The response should show that the `cpu_check` has an OK (0) status:
 
 {{< code shell >}}
-     Entity         Check                                      Output                                   Status   Silenced             Timestamp                             UUID                  
- ────────────── ───────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ────────────────────────────────────── 
-  host01         file_exists   CheckFileExists OK - 1 files matched pattern /tmp/my-file.txt                 0   false      2021-03-15 19:58:31 +0000 UTC   73f382fe-4290-48e8-955a-6efd54347b43
+     Entity        Check                                                                                                      Output                                                                                                    Status   Silenced             Timestamp                             UUID                  
+─────────────── ─────────── ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
+  sensu-centos   check_cpu   check-cpu-usage OK: 4.17% CPU usage | cpu_idle=95.83, cpu_system=1.04, cpu_user=3.13, cpu_nice=0.00, cpu_iowait=0.00, cpu_irq=0.00, cpu_softirq=0.00, cpu_steal=0.00, cpu_guest=0.00, cpu_guestnice=0.00        0   false      2021-11-17 21:09:07 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
 {{< /code >}}
 
-The [web UI][11] Events page will also show that the `file_check` check is passing.
+The [web UI][11] Events page will also show that the `cpu_check` check is passing.
 
 ## Next steps
 
-You should now have a working set-up with a `file_exists` check and a handler that sends alerts to your PagerDuty account.
-To share and reuse the check and handler like code, [save them to files][6] and start building a [monitoring as code repository][7].
+You should now have a working set-up with a check and a pipeline that sends alerts to your PagerDuty account.
+To share and reuse the check, handler, and pipeline like code, [save them to files][6] and start building a [monitoring as code repository][7].
 
 You can customize your PagerDuty handler with configuration options like [severity mapping][16], [PagerDuty team-based routing and authentication][17] via check and agent annotations, and [event-based templating][18].
 Learn more about the [Sensu PagerDuty integration][14] and our curated, configurable [quick-start template][15] for incident management to integrate Sensu with your existing PagerDuty workflows.
@@ -361,7 +432,7 @@ Learn more about the [Sensu PagerDuty integration][14] and our curated, configur
 
 [1]: https://support.pagerduty.com/docs/generating-api-keys#section-events-api-keys
 [2]: ../../observe-schedule/checks/
-[3]: https://bonsai.sensu.io/assets/ncr-devops-platform/nagiosfoundation
+[3]: ../../observe-schedule/monitor-server-resources/
 [4]: ../../../operations/deploy-sensu/install-sensu/
 [5]: ../../../plugins/assets/
 [6]: ../../../operations/monitoring-as-code/#build-as-you-go
@@ -378,3 +449,5 @@ Learn more about the [Sensu PagerDuty integration][14] and our curated, configur
 [17]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler#pager-teams
 [18]: ../handler-templates/
 [19]: ../../observe-events/
+[20]: ../pipelines/
+[21]: ../../observe-filter/filters/#built-in-filter-is_incident
