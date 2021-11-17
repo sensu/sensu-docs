@@ -302,18 +302,12 @@ The web UI or sensuctl output may list outdated events until the etcd datastore 
 Postgres supports an active standby with [streaming replication][6].
 Configure streaming replication to replicate all Sensu events written to the primary Postgres server to the standby server.
 
-{{% notice note %}}
-**NOTE**: Paths and service names may vary based on your operating system.
-{{% /notice %}}
-
 Follow the steps in this section to create and add the replication role, set streaming replication configuration parameters, bootstrap the standby host, and confirm successful Postgres streaming replication.
 
 ### Create and add the replication role
 
 If you have administrative access to Postgres, you can create the replication role.
-{{% notice note %}}
-**NOTE**: Complete the steps to create and add the replication role on the **primary** Postgres host.
-{{% /notice %}}
+Follow these steps to create and add the replication role on the **primary** Postgres host:
 
 1. Change to the postgres user and open the Postgres prompt (`postgres=#`):
 {{< code shell >}}
@@ -352,9 +346,7 @@ sudo systemctl restart postgresql
 
 ### Set streaming replication configuration parameters
 
-{{% notice note %}}
-**NOTE**: Complete the steps to set streaming replication configuration parameters on the **primary** Postgres host.
-{{% /notice %}}
+Follow these steps to set streaming replication configuration parameters on the **primary** Postgres host:
 
 1. Make a copy of the `postgresql.conf`:
 {{< code shell >}}
@@ -389,9 +381,7 @@ sudo systemctl restart postgresql
 
 ### Bootstrap the standby host
 
-{{% notice note %}}
-**NOTE**: Complete the steps to bootstrap the standby host on the **standby** Postgres host.
-{{% /notice %}}
+Follow these steps to bootstrap the standby host on the **standby** Postgres host:
 
 1. If the standby host has ever run Postgres, stop Postgres and empty the data directory:
 {{< code shell >}}
@@ -429,6 +419,8 @@ After you enter your password, Postgres will list database copy progress:
 {{< /code >}}
 
 ### Confirm replication
+
+Follow these steps to confirm replication:
 
 1. On the **primary** Postgres host, remove primary-only configurations:
 {{< code shell >}}
