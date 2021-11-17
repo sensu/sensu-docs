@@ -30,6 +30,8 @@ Use [`sensuctl asset add`][10] to register the [Sensu Slack Handler][14] dynamic
 sensuctl asset add sensu/sensu-slack-handler:1.5.0 -r sensu-slack-handler
 {{< /code >}}
 
+This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `sensu-slack-handler`.
+
 The response will indicate that the asset was added:
 
 {{< code shell >}}
@@ -41,15 +43,7 @@ it's invoked by another Sensu resource (ex. check). To add this runtime asset to
 resource, populate the "runtime_assets" field with ["sensu-slack-handler"].
 {{< /code >}}
 
-This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `sensu-slack-handler`.
-
 You can also download the latest dynamic runtime asset definition for your platform from [Bonsai][14] and register the asset with `sensuctl create --file filename.yml` or `sensuctl create --file filename.json`.
-
-You should receive a confirmation message from sensuctl:
-
-{{< code shell >}}
-Created
-{{< /code >}}
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
@@ -87,7 +81,7 @@ To view the `slack` handler definition, run:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl handler info slack --format yaml
 {{< /code >}}
 
@@ -161,11 +155,12 @@ You can share and reuse this handler like code &mdash; [save it to a file][15] a
 With your handler configured, you can add it to a [pipeline][17] workflow.
 A single pipeline workflow can include one or more filters, one mutator, and one handler.
 
-For now, the pipeline includes only the `slack` handler so that you receive an alert for every event the check generates (including events with OK status):
+For now, the pipeline includes only the `slack` handler so that you receive an alert for every event the check generates (including events with OK status).
+To create the pipeline, run:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 cat << EOF | sensuctl create
 ---
 type: Pipeline
@@ -221,7 +216,7 @@ To open the check definition in your text editor, run:
 sensuctl edit check check_cpu
 {{< /code >}}
 
-Replace the `pipelines: []` line with the following array:
+Replace the `pipelines: []` line with the following array and save the updated check definition:
 
 {{< code yml >}}
   pipelines:
@@ -230,11 +225,17 @@ Replace the `pipelines: []` line with the following array:
     name: cpu_check_alerts
 {{< /code >}}
 
+You should see a response to confirm the update:
+
+{{< code shell >}}
+Updated /api/core/v2/namespaces/default/checks/check_cpu
+{{< /code >}}
+
 To view the updated `check_cpu` resource definition, run:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl check info check_cpu --format yaml
 {{< /code >}}
 
@@ -349,7 +350,7 @@ To receive alerts for events with *only* warning (`1`) or critical (`2`) status,
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 cat << EOF | sensuctl create
 ---
 type: Pipeline
