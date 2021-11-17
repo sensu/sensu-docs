@@ -203,7 +203,7 @@ To create the pipeline, run:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 cat << EOF | sensuctl create
 ---
 type: Pipeline

@@ -88,7 +88,7 @@ To view the `slack` handler definition, run:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl handler info slack --format yaml
 {{< /code >}}
 
@@ -168,7 +168,7 @@ To view the updated `check_cpu` resource definition, run:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl check info check_cpu --format yaml
 {{< /code >}}
 

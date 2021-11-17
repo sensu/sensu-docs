@@ -79,7 +79,7 @@ You can use `sensuctl` to view hook command data:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl event info entity_name check_name --format yaml
 {{< /code >}}
 

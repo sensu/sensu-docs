@@ -54,14 +54,14 @@ if $programname == 'sensu-agent' then {
 3. **On Ubuntu systems**, run `chown -R syslog:adm /var/log/sensu` so syslog can write to that directory.
 
 4. Restart journald:
-{{< code shell>}}
+{{< code shell >}}
 systemctl restart systemd-journald
-{{< /code>}}
+{{< /code >}}
 
 5. Restart rsyslog to apply the new configuration:
-{{< code shell>}}
+{{< code shell >}}
 systemctl restart rsyslog
-{{< /code>}}
+{{< /code >}}
 
 {{% notice note %}}
 **NOTE**: Sensu log messages include the Sensu [log level](../../maintain-sensu/troubleshoot/#log-levels) as part of the log data.
@@ -77,7 +77,7 @@ The last seven rotated logs are kept and compressed, with the exception of the m
 After rotation, `rsyslog` is restarted to ensure logging is written to a new file and not the most recent rotated file.
 
 1. In /etc/logrotate.d/sensu-agent.conf, add:
-{{< code shell>}}
+{{< code shell >}}
 /var/log/sensu/sensu-agent.log {
     daily
     rotate 7
@@ -88,10 +88,10 @@ After rotation, `rsyslog` is restarted to ensure logging is written to a new fil
       /bin/systemctl restart rsyslog
     endscript
 }
-{{< /code>}}
+{{< /code >}}
 
 2. In /etc/logrotate.d/sensu-backend.conf, add:
-{{< code shell>}}
+{{< code shell >}}
 /var/log/sensu/sensu-backend.log {
     daily
     rotate 7
@@ -102,14 +102,14 @@ After rotation, `rsyslog` is restarted to ensure logging is written to a new fil
       /bin/systemctl restart rsyslog
     endscript
 }
-{{< /code>}}
+{{< /code >}}
 
 Use the following command to find out what logrotate would do if it were executed now based on the above schedule and size threshold.
 The `-d` flag will output details, but it will not take action on the logs or execute the postrotate script:
 
-{{< code shell>}}
+{{< code shell >}}
 logrotate -d /etc/logrotate.d/sensu.conf
-{{< /code>}}
+{{< /code >}}
 
 ## Next steps
 
