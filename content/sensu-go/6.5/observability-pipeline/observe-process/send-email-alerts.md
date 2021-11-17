@@ -1,9 +1,9 @@
 ---
-title: "Send email alerts with the Sensu Go Email Handler"
+title: "Send email alerts with a pipeline"
 linkTitle: "Send Email Alerts"
-guide_title: "Send email alerts with the Sensu Go Email Handler"
+guide_title: "Send email alerts with a pipeline"
 type: "guide"
-description: "Here’s how to send alerts to your email with the Sensu Go Email Handler. Use handlers to send events to your technology of choice (in this case, email) to alert you of incidents and help you resolve them more quickly."
+description: "This page describes how to send alerts to your email with a pipeline resource. Use pipelines to send events to your technology of choice (in this case, email) to alert you of incidents and help you resolve them more quickly."
 weight: 20
 version: "6.5"
 product: "Sensu Go"
@@ -13,16 +13,16 @@ menu:
     parent: observe-process
 ---
 
-Sensu event handlers are actions the Sensu backend executes on [events][1].
-This guide explains how to use the [Sensu Go Email Handler][3] dynamic runtime asset to send notification emails.
+Pipelines are Sensu resources composed of [observation event][1] processing workflows that include filters, mutators, and handlers.
+You can use pipelines to send email alerts, create or resolve incidents (in PagerDuty, for example), or store metrics in a time-series database like InfluxDB.
 
 When you are using Sensu in production, events will come from a check or metric you configure.
 For this guide, you will create an ad hoc event that you can trigger manually to test your email handler.
 
 To follow this guide, you’ll need to [install the Sensu backend][12], have at least one [Sensu agent][13] running on Linux, and [install and configure sensuctl][4].
 
-Your backend will execute an email handler that sends notifications to the email address you specify.
-You'll also add an [event filter][5] to make sure you only receive a notification when your event represents a status change.
+Your backend will execute a pipeline with a handler that sends notifications to the email address you specify.
+The pipeline will also include an [event filter][5] to make sure you only receive a notification when your event represents a status change.
 
 ## Add the email handler dynamic runtime asset
 
@@ -145,7 +145,7 @@ If you have enabled 2-step verification on your Google account, use an [app pass
 If you have not enabled 2-step verification, you may need to adjust your [app access settings](https://support.google.com/accounts/answer/6010255) to follow the example in this guide.
 {{% /notice %}}
 
-With your updates, create the handler using sensuctl:
+After you update the command with your email, server, username, and password values in the example below, run the updated code to create the email handler definition:
 
 {{< language-toggle >}}
 
@@ -160,10 +160,6 @@ spec:
   type: pipe
   command: sensu-email-handler -f <sender@example.com> -t <recipient@example.com> -s <smtp_server@example.com> -u username -p password
   timeout: 10
-  filters:
-  - is_incident
-  - not_silenced
-  - state_change_only
   runtime_assets:
   - email-handler
 EOF
@@ -181,11 +177,6 @@ cat << EOF | sensuctl create
     "type": "pipe",
     "command": "sensu-email-handler -f <sender@example.com> -t <recipient@example.com> -s <smtp_server@example.com> -u username -p password",
     "timeout": 10,
-    "filters": [
-      "is_incident",
-      "not_silenced",
-      "state_change_only"
-    ],
     "runtime_assets": [
       "email-handler"
     ]
@@ -196,17 +187,93 @@ EOF
 
 {{< /language-toggle >}}
 
-You probably noticed that the handler definition includes two other filters besides `state_change_only`: [`is_incident`][10] and [`not_silenced`][11].
-These two filters are included in every Sensu backend installation, so you don't have to create them.
-
-After you add your email, server, username, and password values, run your updated code to create the email handler definition.
-
-Now your handler and event filter are set up!
-
 The [Sensu Go Email Handler][3] dynamic runtime asset makes it possible to [add a template][14] that provides context for your email notifications.
 The email template functionality uses tokens to populate the values provided by the event, and you can use HTML to format the email.
 
-Before your handler can send alerts to your email, you need an [event][16] that generates the alerts.
+## Create a pipeline
+
+With your event filter and handler configured, you can build a [pipeline][6] workflow.
+A single pipeline workflow can include one or more filters, one mutator, and one handler.
+
+In this case, the pipeline includes your `state_change_only` event filter and `email` handler, as well as two built-in event filters, [is_incident][10] and [not_silenced][11].
+These two built-in filters are included in every Sensu backend installation, so you don't have to create them.
+The is_incident and not_silenced event filters ensure that you receive alerts for unsilenced events with *only* warning (`1`) or critical (`2`) status:
+
+To create the pipeline, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML">}}
+cat << EOF | sensuctl create
+---
+type: Pipeline
+api_version: core/v2
+metadata:
+  name: alerts_pipeline
+spec:
+  workflows:
+  - name: email_alerts
+    filters:
+    - name: state_change_only
+      type: EventFilter
+      api_version: core/v2
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    - name: not_silenced
+      type: EventFilter
+      api_version: core/v2
+    handler:
+      name: email
+      type: Handler
+      api_version: core/v2
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "Pipeline",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "alerts_pipeline"
+  },
+  "spec": {
+    "workflows": [
+      {
+        "name": "email_alerts",
+        "filters": [
+          {
+            "name": "state_change_only",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "not_silenced",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "handler": {
+          "name": "email",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Before your pipeline can send alerts to your email, you need an [event][16] that generates the alerts.
 In the final step, you will create an ad hoc event that you can trigger manually.
 
 ## Create and trigger an ad hoc event
@@ -250,8 +317,7 @@ curl -sS -H 'Content-Type: application/json' \
       "name": "server-health"
     },
     "output": "Everything is OK.",
-    "status": 0,
-    "interval": 60
+    "status": 0
   }
 }' \
 http://localhost:8080/api/core/v2/namespaces/default/events
@@ -280,10 +346,15 @@ curl -sS -X PUT \
       "name": "server-health"
     },
     "output": "This is a warning.",
-    "status": 1,
-    "interval": 60,
-    "handlers": ["email"]
-  }
+    "status": 1
+  },
+  "pipelines": [
+    {
+      "type": "Pipeline",
+      "api_version": "core/v2",
+      "name": "alerts_pipeline"
+    }
+  ]
 }' \
 http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-health
 {{< /code >}}
@@ -314,10 +385,15 @@ curl -sS -X PUT \
       "name": "server-health"
     },
     "output": "Everything is OK.",
-    "status": 0,
-    "interval": 60,
-    "handlers": ["email"]
-  }
+    "status": 0
+  },
+  "pipelines": [
+    {
+      "type": "Pipeline",
+      "api_version": "core/v2",
+      "name": "alerts_pipeline"
+    }
+  ]
 }' \
 http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-health
 {{< /code >}}
@@ -329,9 +405,9 @@ You should receive another email because the event status changed to `0` (OK).
 Now that you know how to apply a handler to a check and take action on events:
 
 - Reuse this email handler with the `check_cpu` check from our [Monitor server resources][2] guide.
-- Learn how to use the event filter and handler resources you created to start developing a [monitoring as code][15] repository.
-- Read the [handlers reference][6] for in-depth handler documentation.
-- Check out the [Reduce alert fatigue][7] guide.
+- Learn how to use the event filter, handler, and pipeline resources you created to start developing a [monitoring as code][15] repository.
+- Read the [pipeline reference][6] for in-depth pipeline documentation.
+- Check out [Route alerts with event filters][7] for a complex pipeline example that includes several workflows with different event filters and handlers.
 
 
 [1]: ../../observe-events/events/
@@ -339,8 +415,8 @@ Now that you know how to apply a handler to a check and take action on events:
 [3]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
 [4]: ../../../operations/deploy-sensu/install-sensu/#install-sensuctl
 [5]: ../../observe-filter/filters/
-[6]: ../handlers/
-[7]: ../../observe-filter/reduce-alert-fatigue/
+[6]: ../pipelines/
+[7]: ../../observe-filter/route-alerts/
 [8]: ../../../plugins/assets/
 [10]: ../../observe-filter/filters/#built-in-filter-is_incident
 [11]: ../../observe-filter/filters/#built-in-filter-not_silenced
