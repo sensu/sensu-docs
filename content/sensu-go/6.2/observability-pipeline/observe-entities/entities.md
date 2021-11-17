@@ -405,7 +405,7 @@ Then run sensuctl create to create the entity based on the definition:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl create --file proxy-example.yml
 {{< /code >}}
 

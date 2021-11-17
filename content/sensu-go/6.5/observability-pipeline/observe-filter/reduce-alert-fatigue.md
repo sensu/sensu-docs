@@ -125,7 +125,7 @@ To view the updated `slack` handler resource definition:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl handler info slack --format yaml
 {{< /code >}}
 
@@ -279,7 +279,7 @@ Then, use sensuctl to create a filter named `fatigue_check` from the file:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl create -f sensu-fatigue-check-filter.yml
 {{< /code >}}
 
@@ -413,7 +413,7 @@ To view the updated `slack` handler definition:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl handler info slack --format yaml
 {{< /code >}}
 
