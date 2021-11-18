@@ -99,13 +99,20 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **November 18, 2021** &mdash; The latest release of Sensu Go, version 6.5.5, is now available for download.
 
-This patch adds two backend configuration flags for configuring the API and web UI HTTP servers' write timeouts.
+The Sensu Go 6.5.5 patch release adds two backend configuration flags for configuring the API and web UI HTTP servers' write timeouts and three new GraphQL duration metrics for the metrics log. This release also delivers several bug fixes, including fixes for sensu-backend and sensu-agent panics and failed keepalive lease grant operations.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.5.5.
 
 **IMPROVEMENTS**
 - Added the [api-write-timeout][256] and [dashboard-write-timeout][257] backend configuration flags.
 These flags allow you to configure the timeout for the respective HTTP servers' response writes, which is helpful when requests might take more than a few seconds to complete.
+- Added graphql_duration_seconds, graphql_duration_seconds_sum, and graphql_duration_seconds_count to the [metrics log][238]. Also added objectives (0.5, 0.9, 0.99) to the graphql_duration_seconds metric.
+
+**FIXES**
+- Updated the assets, pipeline, and eventd duration metrics added in [Sensu Go 6.5.2][255] to use milliseconds for consistency with other duration metrics.
+- Updated the version API so that responses reflect the versions of external etcd clusters based on the first available etcd endpoint.
+- Fixed a bug that could cause sensu-backend and sensu-agent to panic due to concurrent websocket writes.
+- Sensu now retries keepalive lease grant operations that fail due to rate limiting.
 
 ## 6.5.4 release notes
 
