@@ -55,6 +55,7 @@ All resources of each type for each namespace are saved in a single configuratio
       handlers/
       handlersets/
       mutators/
+      pipelines/
 {{< /code >}}
 
 ## Adopt a configuration file strategy
@@ -107,13 +108,16 @@ spec:
   check_hooks: null
   command: check-cpu-usage -w 75 -c 90
   env_vars: null
-  handlers:
-  - slack
+  handlers: null
   high_flap_threshold: 0
   interval: 60
   low_flap_threshold: 0
   output_metric_format: ""
   output_metric_handlers: null
+  pipelines:
+  - api_version: core/v2
+    name: reduce_alerts
+    type: Pipeline
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -149,6 +153,13 @@ spec:
     "low_flap_threshold": 0,
     "output_metric_format": "",
     "output_metric_handlers": null,
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "name": "reduce_alerts",
+        "type": "Pipeline"
+      }
+    ],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
