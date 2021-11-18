@@ -218,12 +218,26 @@ sensuctl edit check check_cpu
 
 Replace the `pipelines: []` line with the following array and save the updated check definition:
 
-{{< code yml >}}
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
   pipelines:
   - type: Pipeline
     api_version: core/v2
     name: cpu_check_alerts
 {{< /code >}}
+
+{{< code shell "JSON" >}}
+  "pipelines": [
+    {
+      "type": "Pipeline",
+      "api_version": "core/v2",
+      "name": "cpu_check_alerts"
+    }
+  ]
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 You should see a response to confirm the update:
 

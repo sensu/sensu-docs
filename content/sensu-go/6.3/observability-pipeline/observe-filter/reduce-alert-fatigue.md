@@ -18,7 +18,7 @@ Sensu event filters evaluate their expressions against the observation data in e
 
 Use event filters to customize alert policies, improve contact routing, eliminate notification noise from recurring events, and filter events from systems in pre-production environments.
 
-In this guide, you learn how to reduce alert fatigue by configuring an event filter named `hourly` for a handler named `slack` to prevent alerts from being sent to Slack every minute.
+In this guide, you'll learn how to reduce alert fatigue by configuring an event filter named `hourly` for a handler named `slack` to prevent alerts from being sent to Slack every minute.
 If you don't already have a handler in place, follow [Send Slack alerts with handlers][3] before continuing with this guide.
 
 You can use either of two approaches to create the event filter to handle occurrences:
