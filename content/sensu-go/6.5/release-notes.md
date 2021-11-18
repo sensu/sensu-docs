@@ -9,6 +9,7 @@ version: "6.5"
 menu: "sensu-go-6.5"
 ---
 
+- [6.5.5 release notes](#655-release-notes)
 - [6.5.4 release notes](#654-release-notes)
 - [6.5.3 release notes](#653-release-notes)
 - [6.5.2 release notes](#652-release-notes)
@@ -93,6 +94,18 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.5.5 release notes
+
+**November 18, 2021** &mdash; The latest release of Sensu Go, version 6.5.5, is now available for download.
+
+This patch adds two backend configuration flags for configuring the API and web UI HTTP servers' write timeouts.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.5.5.
+
+**IMPROVEMENTS**
+- Added the [api-write-timeout][256] and [dashboard-write-timeout][257] backend configuration flags.
+These flags allow you to configure the timeout for the respective HTTP servers' response writes, which is helpful when requests might take more than a few seconds to complete.
 
 ## 6.5.4 release notes
 
@@ -2123,3 +2136,5 @@ To get started with Sensu Go:
 [253]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#initialization-ignore-already-initialized-flag
 [254]: /sensu-go/6.5/observability-pipeline/observe-transform/mutators/#env-vars-attribute
 [255]: #652-release-notes
+[256]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#api-write-timeout
+[257]: /sensu-go/6.5/observability-pipeline/observe-schedule/#dashboard-write-timeout
