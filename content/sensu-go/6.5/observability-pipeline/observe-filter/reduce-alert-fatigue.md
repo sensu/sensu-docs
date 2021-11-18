@@ -235,7 +235,7 @@ spec:
   check_hooks: null
   command: check-cpu-usage -w 75 -c 90
   env_vars: null
-  handlers: []
+  handlers: null
   high_flap_threshold: 0
   interval: 10
   low_flap_threshold: 0
@@ -489,7 +489,7 @@ metadata:
 spec:
   command: check-cpu -w 75 c 95
   env_vars: null
-  handlers: []
+  handlers: null
   high_flap_threshold: 0
   interval: 60
   low_flap_threshold: 0
