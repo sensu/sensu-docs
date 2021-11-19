@@ -113,6 +113,7 @@ These flags allow you to configure the timeout for the respective HTTP servers' 
 - Updated the assets, pipeline, and eventd duration metrics added in [Sensu Go 6.5.2][255] to use milliseconds for consistency with other duration metrics.
 - Updated the version API so that responses reflect the versions of external etcd clusters based on the first available etcd endpoint.
 - Fixed a bug that could cause sensu-backend and sensu-agent to panic due to concurrent websocket writes.
+- Sensu no longer logs an error when one side of a websocket tries to close a previously closed connection.
 - Sensu now retries keepalive lease grant operations that fail due to rate limiting.
 
 ## 6.5.4 release notes
