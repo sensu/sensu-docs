@@ -186,6 +186,8 @@ A successful health check result will be similar to this example:
 http-json OK:  The value true found at .ClusterHealth.[0].Healthy matched with expression "== true" and returned true
 {{< /code >}}
 
+To receive alerts based on your backend health checks, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definitions to reference the pipeline in the [pipeline attribute][8].
+
 ## Monitor external etcd
 
 If your Sensu Go deployment uses an external etcd cluster, you'll need to check the health of the respective etcd instances for your primary (Backend Alpha) and secondary (Backend Beta) backends.
@@ -282,6 +284,9 @@ A successful health check result will be similar to this example:
 {{< code shell >}}
 http-json OK:  The value true found at .ClusterHealth.[0].Healthy matched with expression "== true" and returned true
 {{< /code >}}
+
+To receive alerts based on your external etcd health checks, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definitions to reference the pipeline in the [pipeline attribute][8].
+
 
 ## Monitor PostgreSQL
 
@@ -417,8 +422,14 @@ A successful PostgreSQL health check result will be similar to this example:
 http-json OK:  The value true found at .PostgresHealth.[0].Healthy matched with expression "== true" and returned true
 {{< /code >}}
 
+To receive alerts based on your PostgreSQL health check, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definition to reference the pipeline in the [pipeline attribute][8].
+
 
 [1]: ../../../plugins/use-assets-to-install-plugins/
 [2]: ../../../api/health/
+[3]: ../../../observability-pipeline/observe-filter/filters/
 [4]: ../../deploy-sensu/scale-event-storage/
 [5]: https://bonsai.sensu.io/assets/sensu/http-checks
+[6]: ../../../observability-pipeline/observe-process/pipelines/
+[7]: ../../../observability-pipeline/observe-process/handlers/
+[8]: ../../../observability-pipeline/observe-schedule/checks/#pipelines-attribute
