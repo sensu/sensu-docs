@@ -20,8 +20,8 @@ For more information, read [Get started with commercial features](../../../comme
 
 Sensu's secrets management allows you to avoid exposing secrets like usernames, passwords, and access keys in your Sensu configuration.
 In this guide, you'll learn how to use Sensu's built-in secrets provider, `Env`, or [HashiCorp Vault][1] as your external [secrets provider][2] and authenticate without exposing your secrets.
-You'll set up your PagerDuty Integration Key as a secret and create a PagerDuty handler definition that requires the secret.
-Your Sensu backend can then execute the handler with any check.
+You'll set up your PagerDuty Integration Key as a secret, create a PagerDuty handler definition that requires the secret, and configure a pipeline that includes the PagerDuty handler.
+Your Sensu backend can then execute the pipeline with any check.
 
 To follow this guide, you’ll need to [install the Sensu backend][5], have at least one [Sensu agent][11] running, and [install and configure sensuctl][7].
 
@@ -413,8 +413,6 @@ spec:
   runtime_assets:
   - pagerduty-handler
   timeout: 10
-  filters:
-  - is_incident
 EOF
 {{< /code >}}
 
@@ -438,9 +436,72 @@ cat << EOF | sensuctl create
     "runtime_assets": [
       "pagerduty-handler"
     ],
-    "timeout": 10,
-    "filters": [
-      "is_incident"
+    "timeout": 10
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Configure a pipeline
+
+Now that your handler is set up and Sensu can create incidents in PagerDuty, you can configure a [pipeline][33].
+A single pipeline workflow can include one or more filters, one mutator, and one handler.
+
+In this case, the pipeline will include the built-in [is_incident][34] event filter and the `pagerduty` handler you created in the previous step.
+You can add this pipeline to any check to receive a PagerDuty alert for every warning (`1`) or critical (`2`) event the check generates, as well as for resolution events.
+
+To create the pipeline, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
+type: Pipeline
+api_version: core/v2
+metadata:
+  name: incident_alerts
+spec:
+  workflows:
+  - name: pagerduty_incidents
+    filters:
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    handler:
+      name: pagerduty
+      type: Handler
+      api_version: core/v2
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "Pipeline",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "incident_alerts"
+  },
+  "spec": {
+    "workflows": [
+      {
+        "name": "pagerduty_incidents",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "handler": {
+          "name": "pagerduty",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
     ]
   }
 }
@@ -449,8 +510,7 @@ EOF
 
 {{< /language-toggle >}}
 
-Now that your handler is set up and Sensu can create incidents in PagerDuty, you can automate this workflow by adding your `pagerduty` handler to your Sensu service check definitions.
-Read [Monitor server resources][24] to learn more.
+To automate this workflow, include the `incident_alerts` pipeline in any Sensu check definition in the check's [pipelines attribute][24].
 
 ## Next steps
 
@@ -476,10 +536,12 @@ Read the [secrets][9] or [secrets providers][2] reference for in-depth secrets m
 [21]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables
 [22]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [23]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
-[24]: ../../../observability-pipeline/observe-schedule/monitor-server-resources/
+[24]: ../../../observability-pipeline/observe-schedule/checks/#pipelines-attribute
 [25]: https://www.vaultproject.io/downloads/
 [28]: #create-your-backend-environment-variable
 [29]: #create-your-vault-secret
 [30]: #retrieve-your-pagerduty-integration-key
 [31]: https://www.pagerduty.com/
 [32]: https://www.vaultproject.io/docs/auth/cert/#configuration
+[33]: ../../../observability-pipeline/observe-process/pipelines/
+[34]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-is_incident
