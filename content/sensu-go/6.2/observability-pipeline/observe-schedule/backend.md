@@ -1531,7 +1531,7 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [28]: ../subscriptions/
 [29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly
 [30]: https://en.m.wikipedia.org/wiki/WebSocket
-[31]: ../../../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[31]: ../../../operations/deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [32]: ../../../operations/deploy-sensu/generate-certificates/
 [33]: ../../../operations/deploy-sensu/secure-sensu/
 [34]: ../agent/#username-and-password-authentication
