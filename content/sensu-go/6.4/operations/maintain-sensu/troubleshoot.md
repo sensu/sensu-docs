@@ -816,7 +816,7 @@ The backend will stop listening on those ports when the etcd database is unavail
 
 [1]: ../../../observability-pipeline/observe-schedule/agent#operation
 [2]: ../../../platforms/#windows
-[3]: ../../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[3]: ../../deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [4]: https://etcd.io/docs/latest/op-guide/security/
 [5]: ../../../observability-pipeline/observe-schedule/agent/#restart-the-service
 [6]: ../../../observability-pipeline/observe-schedule/agent#events-post

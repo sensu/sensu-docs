@@ -497,7 +497,7 @@ burst: 100
 [10]: https://www.vaultproject.io/docs/auth/token/
 [11]: https://www.vaultproject.io/api/auth/cert/index.html
 [12]: #client-attributes
-[13]: ../../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[13]: ../../deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [14]: https://www.vaultproject.io/docs/secrets/kv
 [15]: https://www.vaultproject.io/api/auth/cert/index.html#parameters-7
 [16]: ../secrets-management/

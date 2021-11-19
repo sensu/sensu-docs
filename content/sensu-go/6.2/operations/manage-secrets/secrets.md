@@ -319,4 +319,4 @@ provider: vault
 [10]: https://learn.hashicorp.com/vault/getting-started/dev-server
 [11]: ../secrets-management/
 [12]: #metadata-attributes
-[13]: ../../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[13]: ../../deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
