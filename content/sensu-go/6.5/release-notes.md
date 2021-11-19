@@ -107,7 +107,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.5.5.
 - Added the [api-write-timeout][256] and [dashboard-write-timeout][257] backend configuration flags.
 These flags allow you to configure the timeout for the respective HTTP servers' response writes, which is helpful when requests might take more than a few seconds to complete.
 - Added graphql_duration_seconds, graphql_duration_seconds_sum, and graphql_duration_seconds_count to the [metrics log][238]. Also added objectives (0.5, 0.9, 0.99) to the graphql_duration_seconds metric.
-- Added Prometheus metric for tracking lease operations, sensu_go_lease_ops, with labels for operation type and status.
+- Added Prometheus metrics for tracking lease operations, with labels for operation type and status, and added sensu_go_lease_ops to the [metrics log][238].
 
 **FIXES**
 - Updated the assets, pipeline, and eventd duration metrics added in [Sensu Go 6.5.2][255] to use milliseconds for consistency with other duration metrics.
