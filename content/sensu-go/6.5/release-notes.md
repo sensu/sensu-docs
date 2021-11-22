@@ -97,7 +97,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 6.5.5 release notes
 
-**November 19, 2021** &mdash; The latest release of Sensu Go, version 6.5.5, is now available for download.
+**November 22, 2021** &mdash; The latest release of Sensu Go, version 6.5.5, is now available for download.
 
 The Sensu Go 6.5.5 patch release adds two backend configuration flags for configuring the API and web UI HTTP servers' write timeouts and three new GraphQL duration metrics for the metrics log. This release also delivers several bug fixes, including fixes for sensu-backend and sensu-agent panics and failed keepalive lease grant operations.
 
