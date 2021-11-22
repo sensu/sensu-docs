@@ -597,7 +597,7 @@ environment variable | `SENSU_BACKEND_API_WRITE_TIMEOUT`
 command line example   | {{< code shell >}}
 sensu-backend start --api-write-timeout 15s{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-api-write timeout: 15s{{< /code >}}
+api-write-timeout: 15s{{< /code >}}
 
 | assets-burst-limit   |      |
 --------------|------
@@ -656,7 +656,7 @@ environment variable | `SENSU_BACKEND_DASHBOARD_WRITE_TIMEOUT`
 command line example   | {{< code shell >}}
 sensu-backend start --dashboard-write-timeout 15s{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-dashboard-write timeout: 15s{{< /code >}}
+dashboard-write-timeout: 15s{{< /code >}}
 
 <a id="debug-attribute"></a>
 
