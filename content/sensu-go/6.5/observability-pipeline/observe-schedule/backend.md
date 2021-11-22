@@ -457,6 +457,7 @@ General Flags:
       --api-listen-address string                 address to listen on for api traffic (default "[::]:8080")
       --api-request-limit int                     maximum API request body size, in bytes (default 512000)
       --api-url string                            url of the api to connect to (default "http://localhost:8080")
+      --api-write-timeout                         (available in Sensu Go 6.5.5) maximum duration before timing out writes of responses
       --assets-burst-limit int                    asset fetch burst limit (default 100)
       --assets-rate-limit float                   maximum number of assets fetched per second
       --cache-dir string                          path to store cached data (default "/var/cache/sensu/sensu-backend")
@@ -466,6 +467,7 @@ General Flags:
       --dashboard-host string                     dashboard listener host (default "[::]")
       --dashboard-key-file string                 dashboard TLS certificate key in PEM format
       --dashboard-port int                        dashboard listener port (default 3000)
+      --dashboard-write-timeout                   (available in Sensu Go 6.5.5) maximum duration before timing out writes of responses
       --debug                                     enable debugging and profiling features
       --deregistration-handler string             default deregistration handler
       --disable-platform-metrics                  disable platform metrics logging
@@ -582,6 +584,21 @@ sensu-backend start --api-url http://localhost:8080{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 api-url: "http://localhost:8080"{{< /code >}}
 
+<a id="api-write-timeout"></a>
+
+| api-write-timeout  |      |
+-------------|------
+description  | Maximum amount of time to wait before timing out on API HTTP server response writes. In milliseconds (`ms`), seconds (`s`), minutes (`m`), or hours (`h`).{{% notice note %}}
+**NOTE**: [Upgrade](../../../operations/maintain-sensu/upgrade/) to Sensu Go 6.5.5 to use the api-write-timeout configuration flag.
+{{% /notice %}}
+type         | String
+default      | `15s`
+environment variable | `SENSU_BACKEND_API_WRITE_TIMEOUT`
+command line example   | {{< code shell >}}
+sensu-backend start --api-write-timeout 15s{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+api-write timeout: 15s{{< /code >}}
+
 | assets-burst-limit   |      |
 --------------|------
 description   | Maximum amount of burst allowed in a rate interval when fetching dynamic runtime assets.
@@ -625,6 +642,21 @@ command line example   | {{< code shell >}}
 sensu-backend start --config-file /etc/sensu/backend.yml
 sensu-backend start -c /etc/sensu/backend.yml
 {{< /code >}}
+
+<a id="dashboard-write-timeout"></a>
+
+| dashboard-write-timeout  |      |
+-------------|------
+description  | Maximum amount of time to wait before timing out on web UI HTTP server response writes. In milliseconds (`ms`), seconds (`s`), minutes (`m`), or hours (`h`).{{% notice note %}}
+**NOTE**: [Upgrade](../../../operations/maintain-sensu/upgrade/) to Sensu Go 6.5.5 to use the dashboard-write-timeout configuration flag.
+{{% /notice %}}
+type         | String
+default      | `15s`
+environment variable | `SENSU_BACKEND_DASHBOARD_WRITE_TIMEOUT`
+command line example   | {{< code shell >}}
+sensu-backend start --dashboard-write-timeout 15s{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+dashboard-write timeout: 15s{{< /code >}}
 
 <a id="debug-attribute"></a>
 
