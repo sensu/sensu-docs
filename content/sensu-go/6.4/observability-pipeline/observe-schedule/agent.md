@@ -1954,6 +1954,6 @@ log-level: debug
 [55]: ../../../commercial/
 [56]: #allow-list
 [57]: ../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events
-[58]: ../../../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[58]: ../../../operations/deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [59]: ../../../operations/control-access/#use-built-in-basic-authentication
 [60]: #log-level

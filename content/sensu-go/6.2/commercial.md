@@ -108,7 +108,7 @@ These resources will help you get started with commercial features in Sensu Go:
 [18]: ../operations/maintain-sensu/license/
 [19]: ../observability-pipeline/observe-filter/filters#build-event-filter-expressions-with-javascript-execution-functions
 [20]: ../operations/deploy-sensu/use-federation/	
-[21]: ../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[21]: ../operations/deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [22]: ../operations/manage-secrets/secrets-management/
 [24]: ../plugins/supported-integrations/
 [25]: #commercial-features-in-sensu-go
