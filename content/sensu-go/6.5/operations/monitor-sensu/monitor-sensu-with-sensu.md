@@ -186,7 +186,7 @@ A successful health check result will be similar to this example:
 http-json OK:  The value true found at .ClusterHealth.[0].Healthy matched with expression "== true" and returned true
 {{< /code >}}
 
-To receive alerts based on your backend health checks, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definitions to reference the pipeline in the [pipeline attribute][8].
+To receive alerts based on your backend health checks, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definitions to reference the pipeline in the [pipelines attribute][8].
 
 ## Monitor external etcd
 
@@ -285,7 +285,7 @@ A successful health check result will be similar to this example:
 http-json OK:  The value true found at .ClusterHealth.[0].Healthy matched with expression "== true" and returned true
 {{< /code >}}
 
-To receive alerts based on your external etcd health checks, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definitions to reference the pipeline in the [pipeline attribute][8].
+To receive alerts based on your external etcd health checks, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definitions to reference the pipeline in the [pipelines attribute][8].
 
 
 ## Monitor PostgreSQL
@@ -422,7 +422,7 @@ A successful PostgreSQL health check result will be similar to this example:
 http-json OK:  The value true found at .PostgresHealth.[0].Healthy matched with expression "== true" and returned true
 {{< /code >}}
 
-To receive alerts based on your PostgreSQL health check, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definition to reference the pipeline in the [pipeline attribute][8].
+To receive alerts based on your PostgreSQL health check, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definition to reference the pipeline in the [pipelines attribute][8].
 
 
 [1]: ../../../plugins/use-assets-to-install-plugins/
