@@ -45,7 +45,7 @@ This example uses the `-r` (rename) flag to specify a shorter name for the dynam
 
 You can also download the latest dynamic runtime asset definition for your platform from [Bonsai][14] and register the asset with `sensuctl create --file filename.yml` or `sensuctl create --file filename.json`.
 
-You should see a confirmation message from sensuctl:
+You should receive a confirmation message from sensuctl:
 
 {{< code shell >}}
 Created
@@ -61,13 +61,13 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 If you're already the admin of a Slack, visit `https://YOUR_WORKSPACE_NAME_HERE.slack.com/services/new/incoming-webhook` and follow the steps to add the Incoming WebHooks integration, choose a channel, and save the settings.
 If you're not yet a Slack admin, [create a new workspace][12] and then create your webhook.
 
-After saving, you'll see your webhook URL under Integration Settings.
+After saving, you can find your webhook URL under Integration Settings.
 
 ## Create a handler
 
 Use sensuctl to create a handler called `slack` that pipes observation data (events) to Slack using the `sensu-slack-handler` dynamic runtime asset.
 Edit the sensuctl command below to include your Slack webhook URL and the channel where you want to receive observation event data.
-For more information about customizing your Slack alerts, see the [Sensu Slack Handler page in Bonsai][14].
+For more information about customizing your Slack alerts, read the [Sensu Slack Handler page in Bonsai][14].
 
 {{< code shell >}}
 sensuctl handler create slack \
@@ -77,7 +77,7 @@ sensuctl handler create slack \
 --runtime-assets sensu-slack-handler
 {{< /code >}}
 
-You should see a confirmation message:
+You should receive a confirmation message:
 
 {{< code shell >}}
 Created
@@ -88,7 +88,7 @@ To view the `slack` handler definition, run:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl handler info slack --format yaml
 {{< /code >}}
 
@@ -168,7 +168,7 @@ To view the updated `check_cpu` resource definition, run:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl check info check_cpu --format yaml
 {{< /code >}}
 
@@ -192,7 +192,7 @@ metadata:
   namespace: default
 spec:
   check_hooks: null
-  command: check-cpu.rb -w 75 -c 90
+  command: check-cpu-usage -w 75 -c 90
   env_vars: null
   handlers:
   - slack
@@ -205,8 +205,7 @@ spec:
   publish: true
   round_robin: false
   runtime_assets:
-  - cpu-checks-plugins
-  - sensu-ruby-runtime
+  - check-cpu-usage
   secrets: null
   stdin: false
   subdue: null
@@ -227,7 +226,7 @@ spec:
   },
   "spec": {
     "check_hooks": null,
-    "command": "check-cpu.rb -w 75 -c 90",
+    "command": "check-cpu-usage -w 75 -c 90",
     "env_vars": null,
     "handlers": [
       "slack"
@@ -241,8 +240,7 @@ spec:
     "publish": true,
     "round_robin": false,
     "runtime_assets": [
-      "cpu-checks-plugins",
-      "sensu-ruby-runtime"
+      "check-cpu-usage"
     ],
     "secrets": null,
     "stdin": false,
@@ -261,14 +259,14 @@ spec:
 ## Validate the handler
 
 It might take a few moments after you assign the handler to the check for the check to be scheduled on the entities and the result sent back to Sensu backend.
-After an event is handled, you should see the following message in Slack:
+After an event is handled, you should receive the following message in Slack:
 
 {{< figure src="/images/handler-slack.png" alt="Example Slack message" link="/images/handler-slack.png" target="_blank" >}}
 
 Verify the proper behavior of this handler with `sensu-backend` logs.
 Read [Troubleshoot Sensu][7] for log locations by platform.
 
-Whenever an event is being handled, a log entry is added with the message `"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by a second log entry with the message `"msg":"pipelined executed event pipe handler","output":"","status":0`.
+Whenever an event is being handled, a log entry is added with the message `"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by a second log entry with the message `"msg":"event pipe handler executed","output":"","status":0`.
 
 ## Next steps
 

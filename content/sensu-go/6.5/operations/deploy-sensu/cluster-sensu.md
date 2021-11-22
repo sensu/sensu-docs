@@ -39,7 +39,7 @@ After you've secured Sensu, continue reading this document to [set up][2] and [u
 ## Configure a cluster
 
 The sensu-backend arguments for its store mirror the [etcd configuration flags][3], but the Sensu flags are prefixed with `etcd`.
-For more detailed descriptions of the different arguments, see the [etcd documentation][4] or the [Sensu backend reference][15].
+For more detailed descriptions of the different arguments, read the [etcd documentation][4] or [Sensu backend reference][15].
 
 You can configure a Sensu cluster in a couple different ways &mdash; we'll show you a few below &mdash; but you should adhere to some etcd cluster guidelines as well:
 
@@ -61,7 +61,7 @@ This configuration defines three sensu-backend containers and three sensu-agent 
 
 {{% notice note %}}
 **NOTE**: The remainder of this guide describes on-disk configuration.
-If you are using an ephemeral computer instance, you can use `sensu-backend start --help` to see examples of etcd command line flags.
+If you are using an ephemeral computer instance, you can use `sensu-backend start --help` to list etcd command line flags.
 The configuration file entries in the rest of this guide translate to `sensu-backend` flags.
 {{% /notice %}}
 
@@ -294,7 +294,7 @@ Removed member 2f7ae42c315f8c2d from cluster
 When updating the replacement member's backend configuration file, make sure the `etcd-initial-cluster-state` value is `existing`, **not** `new`.
 {{% /notice %}}
 
-If replacing the faulty cluster member does not resolve the problem, see the [etcd operations guide][12] for more information.
+If replacing the faulty cluster member does not resolve the problem, read the [etcd operations guide][12] for more information.
 
 ### Update a cluster member
 
@@ -369,6 +369,23 @@ sensu-backend start \
 **NOTE**: The etcd and sensu-backend certificates must share a CA, and the `etcd-client-urls` value must be a space-delimited list or a YAML array.
 {{% /notice %}}
 
+### Authenticate with username and password for external etcd
+
+Managed database services (database-as-a-service, or DBaaS) often support external etcd authentication via username and password rather than client certificates.
+
+To use username and password authentication to connect to external etcd, add the `SENSU_BACKEND_ETCD_CLIENT_USERNAME` and `SENSU_BACKEND_ETCD_CLIENT_PASSWORD` [environment variables][28] to the environment file.
+Replace `<your_username>` and `<your_password>` with the username and password you use for your external etcd provider:
+
+{{< code shell >}}
+SENSU_BACKEND_ETCD_CLIENT_USERNAME=<your_username>
+SENSU_BACKEND_ETCD_CLIENT_PASSWORD=<your_password>
+{{< /code >}}
+
+Read [Configuration via environment variables][28] to learn how to create and save environment variables.
+
+The `SENSU_BACKEND_ETCD_CLIENT_USERNAME` and `SENSU_BACKEND_ETCD_CLIENT_PASSWORD` environment variables do not have corresponding configuration flags.
+To use username/passsword authentication for external etcd, you must configure these environment variables in the environment file.
+
 ## Migrate from embedded etcd to external etcd
 
 To migrate from embedded etcd to external etcd, first decide whether you need to migrate all of your etcd data or just your Sensu configurations.
@@ -389,11 +406,13 @@ After you create the backups you need, follow [Use an external etcd cluster][27]
 
 ### Failure modes
 
-See the [etcd failure modes documentation][8] for information about cluster failure modes.
+Read the [etcd failure modes documentation][8] for information about cluster failure modes.
 
 ### Disaster recovery
 
-See the [etcd recovery guide][9] for disaster recovery information.
+For external etcd, follow the [etcd recovery guide][9] for disaster recovery.
+
+For embedded etcd, follow [Back up and recover resources with sensuctl][29] for disaster recovery.
 
 ### Redeploy a cluster
 
@@ -427,3 +446,5 @@ To redeploy a cluster due to an issue like loss of quorum among cluster members,
 [25]: https://etcd.io/docs/v3.5/op-guide/recovery/#restoring-a-cluster
 [26]: ../../../sensuctl/back-up-recover/#restore-resources-from-backup
 [27]: #use-an-external-etcd-cluster
+[28]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables
+[29]: ../../../sensuctl/back-up-recover/

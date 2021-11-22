@@ -4,7 +4,7 @@ linkTitle: "Hooks Reference"
 reference_title: "Hooks"
 type: "reference"
 description: "Check hooks allow you to automate data collection that operators would typically perform by investigating observability alerts manually. Hooks help free up precious operator time. Read the reference doc to learn about hooks."
-weight: 60
+weight: 80
 version: "6.2"
 product: "Sensu Go"
 platformContent: false
@@ -30,10 +30,7 @@ This example demonstrates a check hook to capture the process tree when a proces
 type: HookConfig
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: process_tree
-  namespace: default
 spec:
   command: ps aux
   stdin: false
@@ -46,10 +43,7 @@ spec:
   "type": "HookConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "process_tree",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "process_tree"
   },
   "spec": {
     "command": "ps aux",
@@ -75,7 +69,7 @@ Hooks are executed in order of precedence, based on their type:
 6. `non-zero`
 
 You can assign one or more hooks to a check in the check definition.
-See the [check specification][6] to configure the `check_hooks` attribute.
+review the [check specification][6] to configure the `check_hooks` attribute.
 
 ## Check hooks
 
@@ -85,7 +79,7 @@ You can use `sensuctl` to view hook command data:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl event info entity_name check_name --format yaml
 {{< /code >}}
 
@@ -426,10 +420,7 @@ You can use hooks for rudimentary auto-remediation tasks, such as starting a pro
 type: HookConfig
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: restart_nginx
-  namespace: default
 spec:
   command: sudo systemctl start nginx
   stdin: false
@@ -441,10 +432,7 @@ spec:
   "type": "HookConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "restart_nginx",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "restart_nginx"
   },
   "spec": {
     "command": "sudo systemctl start nginx",
@@ -471,11 +459,9 @@ You can create check hooks that use [token substitution][7] so you can fine-tune
 type: HookConfig
 api_version: core/v2
 metadata:
-  annotations: null
   labels:
     foo: bar
   name: tokensub
-  namespace: default
 spec:
   command: tokensub {{ .labels.foo }}
   stdin: false
@@ -487,12 +473,10 @@ spec:
    "type": "HookConfig",
    "api_version": "core/v2",
    "metadata": {
-      "annotations": null,
       "labels": {
          "foo": "bar"
       },
-      "name": "tokensub",
-      "namespace": "default"
+      "name": "tokensub"
    },
    "spec": {
       "command": "tokensub {{ .labels.foo }}",

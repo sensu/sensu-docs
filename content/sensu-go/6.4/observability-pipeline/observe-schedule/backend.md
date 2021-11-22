@@ -21,7 +21,7 @@ Every Sensu backend includes an integrated structure for scheduling checks using
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
 For these operating systems, the Sensu backend uses the Bourne shell (sh) for the execution environment.
 
-See the [installation guide][1] to install the backend.
+Read the [installation guide][1] to install the backend.
 
 ## Backend transport
 
@@ -151,7 +151,7 @@ Your installation has already seeded the admin username and password you have se
 Running `sensu-backend init` on a previously initialized cluster has no effect &mdash; it will not change the admin credentials.
 {{% /notice %}}
 
-To see available initialization flags:
+To view available initialization flags:
 
 {{< code shell >}}
 sensu-backend init --help
@@ -205,7 +205,7 @@ To start the backend with [configuration flags][15]:
 sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 {{< /code >}}
 
-To see available configuration flags and defaults:
+To view available configuration flags and defaults:
 
 {{< code shell >}}
 sensu-backend start --help
@@ -257,7 +257,7 @@ systemctl disable sensu-backend
 
 ### Get service status
 
-To see the status of the backend service using a service manager:
+To view the status of the backend service using a service manager:
 
 {{< code shell >}}
 service sensu-backend status
@@ -275,13 +275,13 @@ sensu-backend version
 
 The `sensu-backend` tool provides general and command-specific help flags.
 
-To see sensu-backend commands, run:
+To view sensu-backend commands, run:
 
 {{< code shell >}}
 sensu-backend help
 {{< /code >}}
 
-To see options for a specific command (in this case, sensu-backend start), run: 
+To list options for a specific command (in this case, sensu-backend start), run: 
 
 {{< code shell >}}
 sensu-backend start --help
@@ -308,7 +308,7 @@ If system time is out-of-sync, it may cause issues with keepalive, metric, and c
 You can specify the backend configuration with either a `/etc/sensu/backend.yml` file or `sensu-backend start` [configuration flags][15].
 The backend requires that the `state-dir` flag is set before starting.
 All other required flags have default values.
-See the [example backend configuration file][17] for flags and defaults.
+Review the [example backend configuration file][17] for flags and defaults.
 The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take effect.
 
 ### Certificate bundles or chains
@@ -316,7 +316,7 @@ The backend loads configuration upon startup, so you must restart the backend fo
 The Sensu backend supports all types of certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 This is because the Go standard library assumes that the first certificate listed in the PEM file is the server certificate &mdash; the certificate that the program will use to show its own identity.
 
-If you send the server certificate alone instead of sending the whole bundle with the server certificate first, you will see a `certificate not signed by trusted authority` error.
+If you send the server certificate alone instead of sending the whole bundle with the server certificate first, you will receive a `certificate not signed by trusted authority` error.
 You must present the whole chain to the remote so it can determine whether it trusts the server certificate through the chain.
 
 ### Certificate revocation check
@@ -415,6 +415,8 @@ Store Flags:
       --etcd-trusted-ca-file string                path to the client server TLS trusted CA cert file
       --no-embed-etcd                              don't embed etcd, use external etcd instead
 {{< /code >}}
+
+For more information about log configuration flags, read [Event logging][65].
 
 ### General configuration flags
 
@@ -700,7 +702,7 @@ agent-rate-limit: 10{{< /code >}}
 
 | cert-file  |      |
 -------------|------
-description  | Path to the primary backend certificate file. Specifies a fallback SSL/TLS certificate if the flag `dashboard-cert-file` is not used. This certificate secures communications between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
+description  | Path to the primary backend certificate file. Specifies a fallback SSL/TLS certificate if the flag `dashboard-cert-file` is not used. This certificate secures communications between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API. Sensu supports certificate bundles (or chains) as long as the server (or leaf) certificate is the *first* certificate in the bundle.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_CERT_FILE`
@@ -753,7 +755,7 @@ jwt-public-key-file: /path/to/key/public.pem{{< /code >}}
 
 | key-file   |      |
 -------------|------
-description  | Path to the primary backend key file. Specifies a fallback SSL/TLS key if the flag `dashboard-key-file` is not used. This key secures communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
+description  | Path to the primary backend key file. Specifies a fallback SSL/TLS key if the flag `dashboard-key-file` is not used. This key secures communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_KEY_FILE`
@@ -794,7 +796,7 @@ require-openssl: true{{< /code >}}
 
 | trusted-ca-file |      |
 ------------------|------
-description       | Path to the primary backend CA file. Specifies a fallback SSL/TLS certificate authority in PEM format used for etcd client (mutual TLS) communication if the `etcd-trusted-ca-file` is not used. This CA file is used in communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
+description       | Path to the primary backend CA file. Specifies a fallback SSL/TLS certificate authority in PEM format used for etcd client (mutual TLS) communication if the `etcd-trusted-ca-file` is not used. This CA file is used in communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type              | String
 default           | `""`
 environment variable | `SENSU_BACKEND_TRUSTED_CA_FILE`
@@ -1206,6 +1208,71 @@ no-embed-etcd: true{{< /code >}}
 
 ### Advanced configuration options
 
+<a id="etcd-election-timeout"></a>
+
+| etcd-election-timeout |      |
+-----------------------|------
+description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). Set to at least 10 times the [etcd-heartbeat-interval][36]. Read the [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
+**WARNING**: Make sure to set the same election timeout value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.
+{{% /notice %}}{{% notice note %}}
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
+Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
+{{% /notice %}}
+type                   | Integer
+default                | `1000`
+environment variable   | `SENSU_BACKEND_ETCD_ELECTION_TIMEOUT`
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-election-timeout 1000{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+etcd-election-timeout: 1000{{< /code >}}
+
+<a id="etcd-heartbeat-interval"></a>
+
+| etcd-heartbeat-interval |      |
+-----------------------|------
+description            | Interval at which the etcd leader will notify followers that it is still the leader. In milliseconds (ms). Best practice is to set the interval based on round-trip time between members. Read the [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
+**WARNING**: Make sure to set the same heartbeat interval value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.{{% /notice %}}{{% notice note %}}
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
+Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
+{{% /notice %}}
+type                   | Integer
+default                | `100`
+environment variable   | `SENSU_BACKEND_ETCD_HEARTBEAT_INTERVAL`
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-heartbeat-interval 100{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+etcd-heartbeat-interval: 100{{< /code >}}
+
+| etcd-max-request-bytes |      |
+-----------------------|------
+description            | Maximum etcd request size in bytes that can be sent to an etcd server by a client. Increasing this value allows etcd to process events with large outputs at the cost of overall latency. {{% notice warning %}}
+**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.{{% /notice %}}{{% notice note %}}
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
+Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
+{{% /notice %}}
+type                   | Integer
+default                | `1572864`
+environment variable   | `SENSU_BACKEND_ETCD_MAX_REQUEST_BYTES`
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-max-request-bytes 1572864{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+etcd-max-request-bytes: 1572864{{< /code >}}
+
+| etcd-quota-backend-bytes |      |
+-----------------------|------
+description            | Maximum etcd database size in bytes. Increasing this value allows for a larger etcd database at the cost of performance. {{% notice warning %}}
+**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.{{% /notice %}}{{% notice note %}}
+**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
+Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
+{{% /notice %}}
+type                   | Integer
+default                | `4294967296`
+environment variable   | `SENSU_BACKEND_ETCD_QUOTA_BACKEND_BYTES`
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-quota-backend-bytes 4294967296{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+etcd-quota-backend-bytes: 4294967296{{< /code >}}
+
 | eventd-buffer-size   |      |
 -----------------------|------
 description            | Number of incoming events that can be buffered before being processed by an eventd worker. {{% notice warning %}}
@@ -1283,71 +1350,6 @@ sensu-backend start --pipelined-workers 100{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 pipelined-workers: 100{{< /code >}}
 
-<a id="etcd-election-timeout"></a>
-
-| etcd-election-timeout |      |
------------------------|------
-description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). Set to at least 10 times the [etcd-heartbeat-interval][36]. Read the [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
-**WARNING**: Make sure to set the same election timeout value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.
-{{% /notice %}}{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
-Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
-{{% /notice %}}
-type                   | Integer
-default                | `1000`
-environment variable   | `SENSU_BACKEND_ETCD_ELECTION_TIMEOUT`
-command line example   | {{< code shell >}}
-sensu-backend start --etcd-election-timeout 1000{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
-etcd-election-timeout: 1000{{< /code >}}
-
-<a id="etcd-heartbeat-interval"></a>
-
-| etcd-heartbeat-interval |      |
------------------------|------
-description            | Interval at which the etcd leader will notify followers that it is still the leader. In milliseconds (ms). Best practice is to set the interval based on round-trip time between members. Read the [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
-**WARNING**: Make sure to set the same heartbeat interval value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.{{% /notice %}}{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
-Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
-{{% /notice %}}
-type                   | Integer
-default                | `100`
-environment variable   | `SENSU_BACKEND_ETCD_HEARTBEAT_INTERVAL`
-command line example   | {{< code shell >}}
-sensu-backend start --etcd-heartbeat-interval 100{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
-etcd-heartbeat-interval: 100{{< /code >}}
-
-| etcd-max-request-bytes |      |
------------------------|------
-description            | Maximum etcd request size in bytes that can be sent to an etcd server by a client. Increasing this value allows etcd to process events with large outputs at the cost of overall latency. {{% notice warning %}}
-**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.{{% /notice %}}{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
-Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
-{{% /notice %}}
-type                   | Integer
-default                | `1572864`
-environment variable   | `SENSU_BACKEND_ETCD_MAX_REQUEST_BYTES`
-command line example   | {{< code shell >}}
-sensu-backend start --etcd-max-request-bytes 1572864{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
-etcd-max-request-bytes: 1572864{{< /code >}}
-
-| etcd-quota-backend-bytes |      |
------------------------|------
-description            | Maximum etcd database size in bytes. Increasing this value allows for a larger etcd database at the cost of performance. {{% notice warning %}}
-**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.{{% /notice %}}{{% notice note %}}
-**NOTE**: To use Sensu with an [external etcd cluster](../../../operations/deploy-sensu/cluster-sensu/#use-an-external-etcd-cluster), follow etcd's [clustering guide](https://etcd.io/docs/latest/op-guide/clustering/).
-Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
-{{% /notice %}}
-type                   | Integer
-default                | `4294967296`
-environment variable   | `SENSU_BACKEND_ETCD_QUOTA_BACKEND_BYTES`
-command line example   | {{< code shell >}}
-sensu-backend start --etcd-quota-backend-bytes 4294967296{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
-etcd-quota-backend-bytes: 4294967296{{< /code >}}
-
 ## Configuration via environment variables
 
 Instead of using configuration flags, you can use environment variables to configure your Sensu backend.
@@ -1360,22 +1362,23 @@ Here's how.
      {{< language-toggle >}}
      
 {{< code shell "Ubuntu/Debian" >}}
-$ sudo touch /etc/default/sensu-backend
+sudo touch /etc/default/sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ sudo touch /etc/sysconfig/sensu-backend
+sudo touch /etc/sysconfig/sensu-backend
 {{< /code >}}
      
      {{< /language-toggle >}}
 
 2. Make sure the environment variable is named correctly.
-All environment variables controlling Sensu backend configuration begin with `SENSU_BACKEND_`.
+All environment variables that control Sensu backend configuration begin with `SENSU_BACKEND_`.
 
      To rename a configuration flag you wish to specify as an environment variable, prepend `SENSU_BACKEND_`, convert dashes to underscores, and capitalize all letters.
-     For example, the environment variable for the flag `api-listen-address` is `SENSU_BACKEND_API_LISTEN_ADDRESS`.
+     For example, the environment variable for the configuration flag `api-listen-address` is `SENSU_BACKEND_API_LISTEN_ADDRESS`.
 
-     For a custom test variable, the environment variable name might be `SENSU_BACKEND_TEST_VAR`.
+     For a custom environment variable, you do not have to prepend `SENSU_BACKEND`.
+     For example, `TEST_VAR_1` is a valid custom environment variable name.
 
 3. Add the environment variable to the environment file (`/etc/default/sensu-backend` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-backend` for RHEL/CentOS systems).
 
@@ -1384,11 +1387,11 @@ All environment variables controlling Sensu backend configuration begin with `SE
      {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/default/sensu-backend
+echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/sysconfig/sensu-backend
+echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
      {{< /language-toggle >}}
@@ -1398,11 +1401,11 @@ $ echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc
      {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ sudo systemctl restart sensu-backend
+sudo systemctl restart sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ sudo systemctl restart sensu-backend
+sudo systemctl restart sensu-backend
 {{< /code >}}
 
      {{< /language-toggle >}}
@@ -1414,18 +1417,18 @@ They are listed in the [configuration flag description tables](#general-configur
 
 ### Format for label and annotation environment variables
 
-To use labels and annotations as environment variables in your handler configurations, you must use a specific format when you create the `SENSU_BACKEND_LABELS` and `SENSU_BACKEND_ANNOTATIONS` environment variables.
+To use labels and annotations as environment variables in your handler configurations, you must use a specific format when you create the label and annotation environment variables.
 
 For example, to create the labels `"region": "us-east-1"` and `"type": "website"` as an environment variable:
 
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-backend
+echo 'BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-backend
+echo 'BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -1435,11 +1438,11 @@ To create the annotations `"maintainer": "Team A"` and `"webhook-url": "https://
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-backend
+echo 'BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-backend
+echo 'BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -1448,7 +1451,44 @@ $ echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "http
 
 Any environment variables you create in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS) will be available to handlers executed by the Sensu backend.
 
-For example, if you create a `SENSU_BACKEND_TEST_VAR` variable in your sensu-backend file, it will be available to use in your handler configurations as `$SENSU_BACKEND_TEST_VAR`.
+For example, if you create a custom environment variable `TEST_VARIABLE` in your sensu-backend file, it will be available to use in your handler configurations as `$TEST_VARIABLE`.
+The following handler will print the `TEST_VARIABLE` value set in your sensu-backend file in `/tmp/test.txt`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: print_test_var
+spec:
+  command: echo $TEST_VARIABLE >> ./tmp/test.txt
+  timeout: 0
+  type: pipe
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "print_test_var"
+  },
+  "spec": {
+    "command": "echo $TEST_VARIABLE >> ./tmp/test.txt",
+    "timeout": 0,
+    "type": "pipe"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: We recommend using secrets with the `Env` provider to expose secrets from environment variables on your Sensu backend nodes rather than using environment variables directly in your handler commands.
+Read the [secrets reference](https://docs.sensu.io/sensu-go/latest/operations/manage-secrets/secrets/) and [Use Env for secrets management](../../../operations/manage-secrets/secrets-management/#use-env-for-secrets-management) for details.
+{{% /notice %}}
 
 ## Create overrides
 
@@ -1489,11 +1529,11 @@ To configure an environment variable for the desired backend log level:
 {{< language-toggle >}}
 
 {{< code shell "Ubuntu/Debian" >}}
-$ echo 'SENSU_BACKEND_LOG_LEVEL=debug' | sudo tee -a /etc/default/sensu-backend
+echo 'SENSU_BACKEND_LOG_LEVEL=debug' | sudo tee -a /etc/default/sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
-$ echo 'SENSU_BACKEND_LOG_LEVEL=debug' | sudo tee -a /etc/sysconfig/sensu-backend
+echo 'SENSU_BACKEND_LOG_LEVEL=debug' | sudo tee -a /etc/sysconfig/sensu-backend
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -1519,6 +1559,8 @@ The event logging functionality provides better performance and reliability than
 **NOTE**: Event logs do not include log messages produced by sensu-backend service.
 To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../../operations/monitor-sensu/log-sensu-systemd/).
 {{% /notice %}}
+
+Use these backend configuration flags to customize event logging:
 
 | event-log-buffer-size |      |
 -----------------------|------
@@ -1647,7 +1689,7 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [28]: ../subscriptions/
 [29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly
 [30]: https://en.m.wikipedia.org/wiki/WebSocket
-[31]: ../../../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[31]: ../../../operations/deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [32]: ../../../operations/deploy-sensu/generate-certificates/
 [33]: ../../../operations/deploy-sensu/secure-sensu/
 [34]: ../agent/#username-and-password-authentication
@@ -1657,3 +1699,4 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [38]: #configuration-via-environment-variables
 [60]: #backend-log-level
 [61]: #event-log-file
+[65]: #event-logging

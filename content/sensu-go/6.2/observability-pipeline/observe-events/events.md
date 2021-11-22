@@ -43,6 +43,7 @@ The following example shows the complete resource definition for a [status-only 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Event
 api_version: core/v2
 metadata:
@@ -50,7 +51,7 @@ metadata:
 spec:
   check:
     check_hooks: null
-    command: check-cpu.rb -w 75 -c 90
+    command: check-cpu-usage -w 75 -c 90
     duration: 5.058211427
     env_vars: null
     executed: 1617050501
@@ -85,8 +86,7 @@ spec:
     publish: true
     round_robin: false
     runtime_assets:
-    - cpu-checks-plugins
-    - sensu-ruby-runtime
+    - check-cpu-usage
     scheduler: memory
     secrets: null
     state: passing
@@ -164,7 +164,7 @@ spec:
   "spec": {
     "check": {
       "check_hooks": null,
-      "command": "check-cpu.rb -w 75 -c 90",
+      "command": "check-cpu-usage -w 75 -c 90",
       "duration": 5.058211427,
       "env_vars": null,
       "executed": 1617050501,
@@ -210,8 +210,7 @@ spec:
       "publish": true,
       "round_robin": false,
       "runtime_assets": [
-        "cpu-checks-plugins",
-        "sensu-ruby-runtime"
+        "check-cpu-usage"
       ],
       "scheduler": "memory",
       "secrets": null,
@@ -310,15 +309,14 @@ This is the format that events are in when Sensu sends them to handlers:
 {{< code json >}}
 {
   "check": {
-    "command": "check-cpu.rb -w 75 -c 90",
+    "command": "check-cpu-usage -w 75 -c 90",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
     "publish": true,
     "runtime_assets": [
-      "cpu-checks-plugins",
-      "sensu-ruby-runtime"
+      "check-cpu-usage"
     ],
     "subscriptions": [
       "system"
@@ -456,6 +454,7 @@ This example shows the complete resource definition for a [metrics-only event][5
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Event
 api_version: core/v2
 metadata:
@@ -467,7 +466,7 @@ spec:
     entity_class: agent
     last_seen: 1552495139
     metadata:
-      name: sensu-go-sandbox
+      name: sensu-go-testing
       namespace: default
     redact:
     - password
@@ -480,10 +479,10 @@ spec:
     - private_key
     - secret
     subscriptions:
-    - entity:sensu-go-sandbox
+    - entity:sensu-go-testing
     system:
       arch: amd64
-      hostname: sensu-go-sandbox
+      hostname: sensu-go-testing
       network:
         interfaces:
         - addresses:
@@ -505,11 +504,11 @@ spec:
     handlers:
     - influx-db
     points:
-    - name: sensu-go-sandbox.curl_timings.time_total
+    - name: sensu-go.curl_timings.time_total
       tags: []
       timestamp: 1552506033
       value: 0.005
-    - name: sensu-go-sandbox.curl_timings.time_namelookup
+    - name: sensu-go.curl_timings.time_namelookup
       tags: []
       timestamp: 1552506033
       value: 0.004
@@ -532,7 +531,7 @@ spec:
       "entity_class": "agent",
       "last_seen": 1552495139,
       "metadata": {
-        "name": "sensu-go-sandbox",
+        "name": "sensu-go-testing",
         "namespace": "default"
       },
       "redact": [
@@ -547,11 +546,11 @@ spec:
         "secret"
       ],
       "subscriptions": [
-        "entity:sensu-go-sandbox"
+        "entity:sensu-go-testing"
       ],
       "system": {
         "arch": "amd64",
-        "hostname": "sensu-go-sandbox",
+        "hostname": "sensu-go-testing",
         "network": {
           "interfaces": [
             {
@@ -585,13 +584,13 @@ spec:
       ],
       "points": [
         {
-          "name": "sensu-go-sandbox.curl_timings.time_total",
+          "name": "sensu-go.curl_timings.time_total",
           "tags": [],
           "timestamp": 1552506033,
           "value": 0.005
         },
         {
-          "name": "sensu-go-sandbox.curl_timings.time_namelookup",
+          "name": "sensu-go.curl_timings.time_namelookup",
           "tags": [],
           "timestamp": 1552506033,
           "value": 0.004
@@ -614,6 +613,7 @@ The following example resource definition for a [status and metrics event][19] c
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Event
 api_version: core/v2
 metadata:
@@ -621,7 +621,7 @@ metadata:
 spec:
   check:
     check_hooks: null
-    command: /opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u "http://localhost"
+    command: metrics-curl -u "http://localhost"
     duration: 0.060790838
     env_vars: null
     executed: 1552506033
@@ -643,8 +643,8 @@ spec:
     occurrences: 1
     occurrences_watermark: 1
     output: |-
-      sensu-go-sandbox.curl_timings.time_total 0.005 1552506033
-      sensu-go-sandbox.curl_timings.time_namelookup 0.004
+      sensu-go.curl_timings.time_total 0.005 1552506033
+      sensu-go.curl_timings.time_namelookup 0.004
     output_metric_format: graphite_plaintext
     output_metric_handlers:
     - influx-db
@@ -657,7 +657,7 @@ spec:
     stdin: false
     subdue: null
     subscriptions:
-    - entity:sensu-go-sandbox
+    - entity:sensu-go-testing
     timeout: 0
     total_state_change: 0
     ttl: 0
@@ -667,7 +667,7 @@ spec:
     entity_class: agent
     last_seen: 1552495139
     metadata:
-      name: sensu-go-sandbox
+      name: sensu-go-testing
       namespace: default
     redact:
     - password
@@ -680,10 +680,10 @@ spec:
     - private_key
     - secret
     subscriptions:
-    - entity:sensu-go-sandbox
+    - entity:sensu-go-testing
     system:
       arch: amd64
-      hostname: sensu-go-sandbox
+      hostname: sensu-go-testing
       network:
         interfaces:
         - addresses:
@@ -705,11 +705,11 @@ spec:
     handlers:
     - influx-db
     points:
-    - name: sensu-go-sandbox.curl_timings.time_total
+    - name: sensu-go.curl_timings.time_total
       tags: []
       timestamp: 1552506033
       value: 0.005
-    - name: sensu-go-sandbox.curl_timings.time_namelookup
+    - name: sensu-go.curl_timings.time_namelookup
       tags: []
       timestamp: 1552506033
       value: 0.004
@@ -728,7 +728,7 @@ spec:
   "spec": {
     "check": {
       "check_hooks": null,
-      "command": "/opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u \"http://localhost\"",
+      "command": "metrics-curl -u \"http://localhost\"",
       "duration": 0.060790838,
       "env_vars": null,
       "executed": 1552506033,
@@ -755,7 +755,7 @@ spec:
       },
       "occurrences": 1,
       "occurrences_watermark": 1,
-      "output": "sensu-go-sandbox.curl_timings.time_total 0.005 1552506033\nsensu-go-sandbox.curl_timings.time_namelookup 0.004",
+      "output": "sensu-go.curl_timings.time_total 0.005 1552506033\nsensu-go.curl_timings.time_namelookup 0.004",
       "output_metric_format": "graphite_plaintext",
       "output_metric_handlers": [
         "influx-db"
@@ -769,7 +769,7 @@ spec:
       "stdin": false,
       "subdue": null,
       "subscriptions": [
-        "entity:sensu-go-sandbox"
+        "entity:sensu-go-testing"
       ],
       "timeout": 0,
       "total_state_change": 0,
@@ -781,7 +781,7 @@ spec:
       "entity_class": "agent",
       "last_seen": 1552495139,
       "metadata": {
-        "name": "sensu-go-sandbox",
+        "name": "sensu-go-testing",
         "namespace": "default"
       },
       "redact": [
@@ -796,11 +796,11 @@ spec:
         "secret"
       ],
       "subscriptions": [
-        "entity:sensu-go-sandbox"
+        "entity:sensu-go-testing"
       ],
       "system": {
         "arch": "amd64",
-        "hostname": "sensu-go-sandbox",
+        "hostname": "sensu-go-testing",
         "network": {
           "interfaces": [
             {
@@ -834,13 +834,13 @@ spec:
       ],
       "points": [
         {
-          "name": "sensu-go-sandbox.curl_timings.time_total",
+          "name": "sensu-go.curl_timings.time_total",
           "tags": [],
           "timestamp": 1552506033,
           "value": 0.005
         },
         {
-          "name": "sensu-go-sandbox.curl_timings.time_namelookup",
+          "name": "sensu-go.curl_timings.time_namelookup",
           "tags": [],
           "timestamp": 1552506033,
           "value": 0.004
@@ -932,7 +932,7 @@ You can use the `--skip-confirm` flag to skip the confirmation step:
 sensuctl event delete entity-name check-name --skip-confirm
 {{< /code >}}
 
-You should see a confirmation message upon success:
+You should receive a confirmation message upon success:
 
 {{< code shell >}}
 Deleted
@@ -947,7 +947,7 @@ Events resolved by sensuctl include the output message `Resolved manually by sen
 sensuctl event resolve entity-name check-name
 {{< /code >}}
 
-You should see a confirmation message upon success:
+You should receive a confirmation message upon success:
 
 {{< code shell >}}
 Resolved
@@ -1052,7 +1052,7 @@ api_version: core/v2
 
 metadata     | 
 -------------|------
-description  | Top-level scope that contains the event `namespace` and `created_by` field. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes][29] for details.
+description  | Top-level scope that contains the event `namespace` and `created_by` field. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  Review the [metadata attributes][29] for details.
 required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -1081,7 +1081,7 @@ example      | {{< language-toggle >}}
 spec:
   check:
     check_hooks:
-    command: /opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u "http://localhost"
+    command: metrics-curl -u "http://localhost"
     duration: 0.060790838
     env_vars:
     executed: 1552506033
@@ -1105,8 +1105,8 @@ spec:
     silenced:
     - webserver:*
     output: |-
-      sensu-go-sandbox.curl_timings.time_total 0.005 1552506033
-      sensu-go-sandbox.curl_timings.time_namelookup 0.004
+      sensu-go.curl_timings.time_total 0.005 1552506033
+      sensu-go.curl_timings.time_namelookup 0.004
     output_metric_format: graphite_plaintext
     output_metric_handlers:
     - influx-db
@@ -1119,7 +1119,7 @@ spec:
     stdin: false
     subdue:
     subscriptions:
-    - entity:sensu-go-sandbox
+    - entity:sensu-go-testing
     timeout: 0
     total_state_change: 0
     ttl: 0
@@ -1129,7 +1129,7 @@ spec:
     entity_class: agent
     last_seen: 1552495139
     metadata:
-      name: sensu-go-sandbox
+      name: sensu-go-testing
       namespace: default
     redact:
     - password
@@ -1142,10 +1142,10 @@ spec:
     - private_key
     - secret
     subscriptions:
-    - entity:sensu-go-sandbox
+    - entity:sensu-go-testing
     system:
       arch: amd64
-      hostname: sensu-go-sandbox
+      hostname: sensu-go-testing
       network:
         interfaces:
         - addresses:
@@ -1167,11 +1167,11 @@ spec:
     handlers:
     - influx-db
     points:
-    - name: sensu-go-sandbox.curl_timings.time_total
+    - name: sensu-go.curl_timings.time_total
       tags: []
       timestamp: 1552506033
       value: 0.005
-    - name: sensu-go-sandbox.curl_timings.time_namelookup
+    - name: sensu-go.curl_timings.time_namelookup
       tags: []
       timestamp: 1552506033
       value: 0.004
@@ -1184,7 +1184,7 @@ spec:
   "spec": {
     "check": {
       "check_hooks": null,
-      "command": "/opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u \"http://localhost\"",
+      "command": "metrics-curl -u \"http://localhost\"",
       "duration": 0.060790838,
       "env_vars": null,
       "executed": 1552506033,
@@ -1214,7 +1214,7 @@ spec:
       "silenced": [
         "webserver:*"
       ],
-      "output": "sensu-go-sandbox.curl_timings.time_total 0.005 1552506033\nsensu-go-sandbox.curl_timings.time_namelookup 0.004",
+      "output": "sensu-go.curl_timings.time_total 0.005 1552506033\nsensu-go.curl_timings.time_namelookup 0.004",
       "output_metric_format": "graphite_plaintext",
       "output_metric_handlers": [
         "influx-db"
@@ -1228,7 +1228,7 @@ spec:
       "stdin": false,
       "subdue": null,
       "subscriptions": [
-        "entity:sensu-go-sandbox"
+        "entity:sensu-go-testing"
       ],
       "timeout": 0,
       "total_state_change": 0,
@@ -1240,7 +1240,7 @@ spec:
       "entity_class": "agent",
       "last_seen": 1552495139,
       "metadata": {
-        "name": "sensu-go-sandbox",
+        "name": "sensu-go-testing",
         "namespace": "default"
       },
       "redact": [
@@ -1255,11 +1255,11 @@ spec:
         "secret"
       ],
       "subscriptions": [
-        "entity:sensu-go-sandbox"
+        "entity:sensu-go-testing"
       ],
       "system": {
         "arch": "amd64",
-        "hostname": "sensu-go-sandbox",
+        "hostname": "sensu-go-testing",
         "network": {
           "interfaces": [
             {
@@ -1293,13 +1293,13 @@ spec:
       ],
       "points": [
         {
-          "name": "sensu-go-sandbox.curl_timings.time_total",
+          "name": "sensu-go.curl_timings.time_total",
           "tags": [],
           "timestamp": 1552506033,
           "value": 0.005
         },
         {
-          "name": "sensu-go-sandbox.curl_timings.time_namelookup",
+          "name": "sensu-go.curl_timings.time_namelookup",
           "tags": [],
           "timestamp": 1552506033,
           "value": 0.004
@@ -1415,7 +1415,7 @@ entity:
   entity_class: agent
   last_seen: 1552495139
   metadata:
-    name: sensu-go-sandbox
+    name: sensu-go-testing
     namespace: default
   redact:
   - password
@@ -1428,10 +1428,10 @@ entity:
   - private_key
   - secret
   subscriptions:
-  - entity:sensu-go-sandbox
+  - entity:sensu-go-testing
   system:
     arch: amd64
-    hostname: sensu-go-sandbox
+    hostname: sensu-go-testing
     network:
       interfaces:
       - addresses:
@@ -1458,7 +1458,7 @@ entity:
     "entity_class": "agent",
     "last_seen": 1552495139,
     "metadata": {
-      "name": "sensu-go-sandbox",
+      "name": "sensu-go-testing",
       "namespace": "default"
     },
     "redact": [
@@ -1473,11 +1473,11 @@ entity:
       "secret"
     ],
     "subscriptions": [
-      "entity:sensu-go-sandbox"
+      "entity:sensu-go-testing"
     ],
     "system": {
       "arch": "amd64",
-      "hostname": "sensu-go-sandbox",
+      "hostname": "sensu-go-testing",
       "network": {
         "interfaces": [
           {
@@ -1519,7 +1519,7 @@ example      | {{< language-toggle >}}
 {{< code yml >}}
 check:
   check_hooks:
-  command: /opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u "http://localhost"
+  command: metrics-curl -u "http://localhost"
   duration: 0.060790838
   env_vars:
   executed: 1552506033
@@ -1542,7 +1542,7 @@ check:
   occurrences_watermark: 1
   silenced:
   - webserver:*
-  output: sensu-go-sandbox.curl_timings.time_total 0.005
+  output: sensu-go.curl_timings.time_total 0.005
   output_metric_format: graphite_plaintext
   output_metric_handlers:
   - influx-db
@@ -1555,7 +1555,7 @@ check:
   stdin: false
   subdue:
   subscriptions:
-  - entity:sensu-go-sandbox
+  - entity:sensu-go-testing
   timeout: 0
   total_state_change: 0
   ttl: 0
@@ -1564,7 +1564,7 @@ check:
 {
   "check": {
     "check_hooks": null,
-    "command": "/opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u \"http://localhost\"",
+    "command": "metrics-curl -u \"http://localhost\"",
     "duration": 0.060790838,
     "env_vars": null,
     "executed": 1552506033,
@@ -1594,7 +1594,7 @@ check:
     "silenced": [
       "webserver:*"
     ],
-    "output": "sensu-go-sandbox.curl_timings.time_total 0.005",
+    "output": "sensu-go.curl_timings.time_total 0.005",
     "output_metric_format": "graphite_plaintext",
     "output_metric_handlers": [
       "influx-db"
@@ -1608,7 +1608,7 @@ check:
     "stdin": false,
     "subdue": null,
     "subscriptions": [
-      "entity:sensu-go-sandbox"
+      "entity:sensu-go-testing"
     ],
     "timeout": 0,
     "total_state_change": 0,
@@ -1622,7 +1622,7 @@ check:
 
 |metrics     |      |
 -------------|------
-description  | Metrics collected by the entity in Sensu metric format. See the [metrics attributes][30].
+description  | Metrics collected by the entity in Sensu metric format. Review the [metrics attributes][30].
 type         | Map
 required     | false
 example      | {{< language-toggle >}}
@@ -1631,11 +1631,11 @@ metrics:
   handlers:
   - influx-db
   points:
-  - name: sensu-go-sandbox.curl_timings.time_total
+  - name: sensu-go.curl_timings.time_total
     tags: []
     timestamp: 1552506033
     value: 0.005
-  - name: sensu-go-sandbox.curl_timings.time_namelookup
+  - name: sensu-go.curl_timings.time_namelookup
     tags: []
     timestamp: 1552506033
     value: 0.004
@@ -1648,13 +1648,13 @@ metrics:
     ],
     "points": [
       {
-        "name": "sensu-go-sandbox.curl_timings.time_total",
+        "name": "sensu-go.curl_timings.time_total",
         "tags": [],
         "timestamp": 1552506033,
         "value": 0.005
       },
       {
-        "name": "sensu-go-sandbox.curl_timings.time_namelookup",
+        "name": "sensu-go.curl_timings.time_namelookup",
         "tags": [],
         "timestamp": 1552506033,
         "value": 0.004
@@ -1838,11 +1838,11 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-output: "sensu-go-sandbox.curl_timings.time_total 0.005
+output: "sensu-go.curl_timings.time_total 0.005
 {{< /code >}}
 {{< code json >}}
 {
-  "output": "sensu-go-sandbox.curl_timings.time_total 0.005"
+  "output": "sensu-go.curl_timings.time_total 0.005"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1960,13 +1960,13 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 points:
-- name: sensu-go-sandbox.curl_timings.time_total
+- name: sensu-go.curl_timings.time_total
   tags:
   - name: response_time_in_ms
     value: '101'
   timestamp: 1552506033
   value: 0.005
-- name: sensu-go-sandbox.curl_timings.time_namelookup
+- name: sensu-go.curl_timings.time_namelookup
   tags:
   - name: namelookup_time_in_ms
     value: '57'
@@ -1977,7 +1977,7 @@ points:
 {
   "points": [
     {
-      "name": "sensu-go-sandbox.curl_timings.time_total",
+      "name": "sensu-go.curl_timings.time_total",
       "tags": [
         {
           "name": "response_time_in_ms",
@@ -1988,7 +1988,7 @@ points:
       "value": 0.005
     },
     {
-      "name": "sensu-go-sandbox.curl_timings.time_namelookup",
+      "name": "sensu-go.curl_timings.time_namelookup",
       "tags": [
         {
           "name": "namelookup_time_in_ms",
@@ -2012,11 +2012,11 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: sensu-go-sandbox.curl_timings.time_total
+name: sensu-go.curl_timings.time_total
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "sensu-go-sandbox.curl_timings.time_total"
+  "name": "sensu-go.curl_timings.time_total"
 }
 {{< /code >}}
 {{< /language-toggle >}}

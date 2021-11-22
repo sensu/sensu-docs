@@ -15,7 +15,7 @@ menu:
 
 Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
-See the [asset reference][1] for more information about dynamic runtime assets.
+Read the [asset reference][1] for more information about dynamic runtime assets.
 This guide uses the [Sensu PagerDuty Handler dynamic runtime asset][7] as an example.
 
 {{% notice note %}}
@@ -28,14 +28,14 @@ You can install Sensu plugins using the [sensu-install](../install-plugins#insta
 To add the [Sensu PagerDuty Handler dynamic runtime asset][7] to Sensu, use [`sensuctl asset add <namespace/name>:<version>`][6]:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
+sensuctl asset add sensu/sensu-pagerduty-handler:2.2.0 -r pagerduty-handler
 {{< /code >}}
 
 The response should be similar to this example:
 
 {{< code shell >}}
-fetching bonsai asset: sensu/sensu-pagerduty-handler:1.2.0
-added asset: sensu/sensu-pagerduty-handler:1.2.0
+fetching bonsai asset: sensu/sensu-pagerduty-handler:2.2.0
+added asset: sensu/sensu-pagerduty-handler:2.2.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
@@ -61,7 +61,7 @@ Read [the asset reference](../assets#dynamic-runtime-asset-builds) for more info
 Asset definitions tell Sensu how to download and verify the asset when required by a check, filter, mutator, or handler.
 
 After you add or download the asset definition, open the file and adjust the `namespace` and `filters` for your Sensu instance.
-Here's the asset definition for version 1.2.0 of the [Sensu PagerDuty Handler][7] asset for Linux AMD64:
+Here's the asset definition for version 2.2.0 of the [Sensu PagerDuty Handler][7] asset for Linux AMD64:
 
 {{< language-toggle >}}
 
@@ -70,16 +70,23 @@ Here's the asset definition for version 1.2.0 of the [Sensu PagerDuty Handler][7
 type: Asset
 api_version: core/v2
 metadata:
+  annotations:
+    io.sensu.bonsai.api_url: https://bonsai.sensu.io/api/v1/assets/sensu/sensu-pagerduty-handler
+    io.sensu.bonsai.name: sensu-pagerduty-handler
+    io.sensu.bonsai.namespace: sensu
+    io.sensu.bonsai.tags: handler
+    io.sensu.bonsai.tier: Supported
+    io.sensu.bonsai.url: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
+    io.sensu.bonsai.version: 2.2.0
   name: pagerduty-handler
-  namespace: default
-  labels: {}
-  annotations: {}
 spec:
-  url: https://assets.bonsai.sensu.io/02fc48fb7cbfd27f36915489af2725034a046772/sensu-pagerduty-handler_1.2.0_linux_amd64.tar.gz
-  sha512: 5be236b5b9ccceb10920d3a171ada4ac4f4caaf87f822475cd48bd7f2fab3235fa298f79ef6f97b0eb6498205740bb1af1120ca036fd3381edfebd9fb15aaa99
-  filters:
-  - entity.system.os == 'linux'
-  - entity.system.arch == 'amd64'
+  builds:
+  - filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
+    headers: null
+    sha512: adc6ee846b88a792cc0f384a942f8b7ff727c7d7cf6a3012a0bf97ae4bef770503f9d5c26f756047559c145ac01c62d4db9af8574d0cc451a176f1be29f52ffc
+    url: https://assets.bonsai.sensu.io/87f00332d6f36f59ee188e9e2a94a2b84172d134/sensu-pagerduty-handler_2.2.0_linux_amd64.tar.gz
 {{< /code >}}
 
 {{< code json >}}
@@ -87,19 +94,28 @@ spec:
   "type": "Asset",
   "api_version": "core/v2",
   "metadata": {
-    "name": "pagerduty-handler",
-    "namespace": "default",
-    "labels": {
-    },
     "annotations": {
-    }
+      "io.sensu.bonsai.api_url": "https://bonsai.sensu.io/api/v1/assets/sensu/sensu-pagerduty-handler",
+      "io.sensu.bonsai.name": "sensu-pagerduty-handler",
+      "io.sensu.bonsai.namespace": "sensu",
+      "io.sensu.bonsai.tags": "handler",
+      "io.sensu.bonsai.tier": "Supported",
+      "io.sensu.bonsai.url": "https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler",
+      "io.sensu.bonsai.version": "2.2.0"
+    },
+    "name": "pagerduty-handler"
   },
   "spec": {
-    "url": "https://assets.bonsai.sensu.io/02fc48fb7cbfd27f36915489af2725034a046772/sensu-pagerduty-handler_1.2.0_linux_amd64.tar.gz",
-    "sha512": "5be236b5b9ccceb10920d3a171ada4ac4f4caaf87f822475cd48bd7f2fab3235fa298f79ef6f97b0eb6498205740bb1af1120ca036fd3381edfebd9fb15aaa99",
-    "filters": [
-      "entity.system.os == 'linux'",
-      "entity.system.arch == 'amd64'"
+    "builds": [
+      {
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'amd64'"
+        ],
+        "headers": null,
+        "sha512": "adc6ee846b88a792cc0f384a942f8b7ff727c7d7cf6a3012a0bf97ae4bef770503f9d5c26f756047559c145ac01c62d4db9af8574d0cc451a176f1be29f52ffc",
+        "url": "https://assets.bonsai.sensu.io/87f00332d6f36f59ee188e9e2a94a2b84172d134/sensu-pagerduty-handler_2.2.0_linux_amd64.tar.gz"
+      }
     ]
   }
 }
@@ -145,7 +161,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: pagerduty
-  namespace: default
 spec:
   command: sensu-pagerduty-handler
   env_vars:
@@ -163,7 +178,6 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "namespace": "default",
     "name": "pagerduty"
   },
   "spec": {

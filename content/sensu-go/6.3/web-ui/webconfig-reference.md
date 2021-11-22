@@ -36,6 +36,7 @@ In this web UI configuration example:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: GlobalConfig
 api_version: web/v1
 metadata:
@@ -327,7 +328,7 @@ poll_interval: 120000
 
 page_size | 
 -------------|------ 
-description  | The number of items users will see on each page.
+description  | The number of items to list on each page.
 required     | false
 type         | Integer
 default      | `25`
@@ -344,9 +345,9 @@ page_size: 25
 
 theme | 
 ---------------|------ 
-description    | The theme users will see.<br>{{% notice note %}}
+description    | The theme used in the web UI.<br>{{% notice note %}}
 **NOTE**: If an individual user's settings conflict with the web UI configuration settings, Sensu will use the individual user's settings.
-For example, if a user's system is set to dark mode and their web UI settings are configured to use their system settings, the user will see dark mode in Sensu's web UI, even if you set the theme to `classic` in your web UI configuration.
+For example, if a user's system is set to dark mode and their web UI settings are configured to use their system settings, the web UI will use dark mode for that user, even if you set the theme to `classic` in your web UI configuration.
 {{% /notice %}}
 required       | false
 type           | String

@@ -49,14 +49,14 @@ Contact routing is powered by the [has-contact filter dynamic runtime asset][12]
 To add the has-contact dynamic runtime asset to Sensu, use [`sensuctl asset add`][14]:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-go-has-contact-filter:0.2.0 -r contact-filter
+sensuctl asset add sensu/sensu-go-has-contact-filter:0.3.0 -r contact-filter
 {{< /code >}}
 
 The response will indicate that the asset was added:
 
 {{< code shell >}}
-fetching bonsai asset: sensu/sensu-go-has-contact-filter:0.2.0
-added asset: sensu/sensu-go-has-contact-filter:0.2.0
+fetching bonsai asset: sensu/sensu-go-has-contact-filter:0.3.0
+added asset: sensu/sensu-go-has-contact-filter:0.3.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
@@ -85,9 +85,9 @@ You'll use these functions to create event filters that represent the three acti
 
 | event filter name | expression | description
 | --- | --- | --- |
-| `contact_ops` | `has_contact(event, "ops")` | Allow events with the entity<br> or check label `contacts: ops`
-| `contact_dev` | `has_contact(event, "dev")` | Allow events with the entity<br> or check label `contacts: dev`
-| `contact_fallback` | `no_contacts(event)` | Allow events without an entity<br> or check `contacts` label
+| `contact_ops` | `has_contact(event, "ops")` | Allow events with the entity or check label `contacts: ops`
+| `contact_dev` | `has_contact(event, "dev")` | Allow events with the entity or check label `contacts: dev`
+| `contact_fallback` | `no_contacts(event)` | Allow events without an entity or check `contacts` label
 
 Use sensuctl to create the three event filters:
 
@@ -102,7 +102,7 @@ metadata:
 spec:
   action: allow
   runtime_assets:
-    - sensu-go-has-contact-filter_any_noarch
+    - contact-filter
   expressions:
     - has_contact(event, "ops")
 ---
@@ -139,7 +139,7 @@ echo '{
   "spec": {
     "action": "allow",
     "runtime_assets": [
-      "sensu-go-has-contact-filter_any_noarch"
+      "contact-filter"
     ],
     "expressions": [
       "has_contact(event, \"ops\")"
@@ -207,14 +207,14 @@ With your contact filters in place, you can create a handler for each contact: o
 If you haven't already, add the [Slack handler dynamic runtime asset][8] to Sensu with sensuctl:
 
 {{< code shell >}}
-sensuctl asset add sensu/sensu-slack-handler:1.0.3 -r sensu-slack-handler
+sensuctl asset add sensu/sensu-slack-handler:1.5.0 -r sensu-slack-handler
 {{< /code >}}
 
 The response will confirm that the asset was added:
 
 {{< code shell >}}
-fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
-added asset: sensu/sensu-slack-handler:1.0.3
+fetching bonsai asset: sensu/sensu-slack-handler:1.5.0
+added asset: sensu/sensu-slack-handler:1.5.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
@@ -250,7 +250,7 @@ metadata:
 spec:
   command: sensu-slack-handler --channel "#<alert-ops>"
   env_vars:
-  - SLACK_WEBHOOK_URL=<slack_webhook_url>"
+  - SLACK_WEBHOOK_URL=<slack_webhook_url>
   filters:
   - is_incident
   - not_silenced
@@ -266,7 +266,7 @@ metadata:
 spec:
   command: sensu-slack-handler --channel "#<alert-dev>"
   env_vars:
-  - SLACK_WEBHOOK_URL=<slack_webhook_url>"
+  - SLACK_WEBHOOK_URL=<slack_webhook_url>
   filters:
   - is_incident
   - not_silenced
@@ -282,7 +282,7 @@ metadata:
 spec:
   command: sensu-slack-handler --channel "#<alert-all>"
   env_vars:
-  - SLACK_WEBHOOK_URL=<slack_webhook_url>"
+  - SLACK_WEBHOOK_URL=<slack_webhook_url>
   filters:
   - is_incident
   - not_silenced
@@ -302,7 +302,7 @@ echo '{
   "spec": {
     "command": "sensu-slack-handler --channel "#<alert-ops>",
     "env_vars": [
-      "SLACK_WEBHOOK_URL=<slack_webhook_url>"
+      "SLACK_WEBHOOK_URL=<slack_webhook_url>
     ],
     "filters": [
       "is_incident",
@@ -324,7 +324,7 @@ echo '{
   "spec": {
     "command": "sensu-slack-handler --channel "#<alert-dev>",
     "env_vars": [
-      "SLACK_WEBHOOK_URL=<slack_webhook_url>"
+      "SLACK_WEBHOOK_URL=<slack_webhook_url>
     ],
     "filters": [
       "is_incident",
@@ -346,7 +346,7 @@ echo '{
   "spec": {
     "command": "sensu-slack-handler --channel "#<alert-all>",
     "env_vars": [
-      "SLACK_WEBHOOK_URL=<slack_webhook_url>"
+      "SLACK_WEBHOOK_URL=<slack_webhook_url>
     ],
     "filters": [
       "is_incident",
@@ -393,7 +393,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: slack
-  namespace: default
 spec:
   handlers:
   - slack_ops
@@ -407,8 +406,7 @@ echo '{
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "handlers": [
@@ -462,8 +460,8 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /code >}}
 
-You should see a 202 response from the API.
-Since this event doesn't include a `contacts` label, you should also see an alert in the Slack channel specified by the `slack_fallback` handler.
+You should receive a 202 response from the API.
+Since this event doesn't include a `contacts` label, you should also receive an alert in the Slack channel specified by the `slack_fallback` handler.
 Behind the scenes, Sensu uses the`contact_fallback` filter to match the event to the `slack_fallback` handler.
 
 Now, create an event with a `contacts` label:
@@ -487,7 +485,7 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /code >}}
 
-Because this event contains the `contacts: dev` label, you should see an alert in the Slack channel specified by the `slack_dev` handler.
+Because this event contains the `contacts: dev` label, you should receive an alert in the Slack channel specified by the `slack_dev` handler.
 
 Resolve the events by sending the same API requests with `status` set to `0`.
 
@@ -539,7 +537,7 @@ Next, run this sensuctl command to add the `slack` handler:
 sensuctl check set-handlers check_cpu slack
 {{< /code >}}
 
-Again, you will see an `Updated` confirmation message.
+Again, you will receive an `Updated` confirmation message.
 
 To view the updated resource definition for `check_cpu` and confirm that it includes the `contacts` labels and `slack` handler, run:
 
@@ -571,7 +569,7 @@ metadata:
   namespace: default
 spec:
   check_hooks: null
-  command: check-cpu.rb -w 75 -c 90
+  command: check-cpu-usage -w 75 -c 90
   env_vars: null
   handlers:
   - slack
@@ -584,8 +582,7 @@ spec:
   publish: true
   round_robin: false
   runtime_assets:
-  - cpu-checks-plugins
-  - sensu-ruby-runtime
+  - check-cpu-usage
   secrets: null
   stdin: false
   subdue: null
@@ -609,7 +606,7 @@ spec:
   },
   "spec": {
     "check_hooks": null,
-    "command": "check-cpu.rb -w 75 -c 90",
+    "command": "check-cpu-usage -w 75 -c 90",
     "env_vars": null,
     "handlers": [
       "slack"
@@ -623,8 +620,7 @@ spec:
     "publish": true,
     "round_robin": false,
     "runtime_assets": [
-      "cpu-checks-plugins",
-      "sensu-ruby-runtime"
+      "check-cpu-usage"
     ],
     "secrets": null,
     "stdin": false,
@@ -648,7 +644,7 @@ Now when the `check_cpu` check generates an incident, Sensu will filter the even
 ### Entities
 
 You can also specify contacts using an entity label.
-For more information about managing entity labels, see the [entity reference][10].
+For more information about managing entity labels, read the [entity reference][10].
 
 If contact labels are present in both the check and entity, the check contacts override the entity contacts.
 In this example, the `dev` label in the check configuration overrides the `ops` label in the agent definition, resulting in an alert sent to #alert-dev but not to #alert-ops or #alert-all.

@@ -105,7 +105,7 @@ It might take a few moments after you assign the check hook for the check to be 
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl event info i-424242 nginx_process --format yaml
 {{< /code >}}
 

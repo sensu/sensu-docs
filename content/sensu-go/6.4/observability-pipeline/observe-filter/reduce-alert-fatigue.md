@@ -18,7 +18,7 @@ Sensu event filters evaluate their expressions against the observation data in e
 
 Use event filters to customize alert policies, improve contact routing, eliminate notification noise from recurring events, and filter events from systems in pre-production environments.
 
-In this guide, you learn how to reduce alert fatigue by configuring an event filter named `hourly` for a handler named `slack` to prevent alerts from being sent to Slack every minute.
+In this guide, you'll learn how to reduce alert fatigue by configuring an event filter named `hourly` for a handler named `slack` to prevent alerts from being sent to Slack every minute.
 If you don't already have a handler in place, follow [Send Slack alerts with handlers][3] before continuing with this guide.
 
 You can use either of two approaches to create the event filter to handle occurrences:
@@ -39,7 +39,7 @@ sensuctl filter create hourly \
 --expressions "event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0"
 {{< /code >}}
 
-You should see a confirmation message:
+You should receive a confirmation message:
 
 {{< code shell >}}
 Created
@@ -115,7 +115,7 @@ Follow the prompts to add the `hourly` and `is_incident` event filters to the `s
 ? Command: sensu-slack-handler --channel '#monitoring'
 {{< /code >}}
 
-You will see a confirmation message:
+You will receive a confirmation message:
 
 {{< code shell >}}
 Updated
@@ -125,7 +125,7 @@ To view the updated `slack` handler resource definition:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl handler info slack --format yaml
 {{< /code >}}
 
@@ -242,7 +242,6 @@ type: EventFilter
 api_version: core/v2
 metadata:
   name: fatigue_check
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -256,8 +255,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "fatigue_check",
-    "namespace": "default"
+    "name": "fatigue_check"
   },
   "spec": {
     "action": "allow",
@@ -277,7 +275,7 @@ Then, use sensuctl to create a filter named `fatigue_check` from the file:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl create -f sensu-fatigue-check-filter.yml
 {{< /code >}}
 
@@ -302,7 +300,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: linux-cpu-check
-  namespace: default
   annotations:
     fatigue_check/occurrences: '1'
     fatigue_check/interval: '3600'
@@ -336,7 +333,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "linux-cpu-check",
-    "namespace": "default",
     "annotations": {
       "fatigue_check/occurrences": "1",
       "fatigue_check/interval": "3600",
@@ -380,7 +376,7 @@ Specifically, the annotations in this check definition are doing several things:
 2. `fatigue_check/interval`: Tells the event filter the interval at which to allow additional events to be processed (in seconds)
 3. `fatigue_check/allow_resolution`: Determines whether to pass a `resolve` event through to the filter
 
-For more information about configuring these values, see the [Sensu Go Fatigue Check Filter][8] README.
+For more information about configuring these values, read the [Sensu Go Fatigue Check Filter][8] README.
 Next, you'll assign the newly minted event filter to a handler.
 
 ### Assign the event filter to a handler
@@ -403,7 +399,7 @@ Follow the prompts to add the `fatigue_check` and `is_incident` event filters to
 ? Command: sensu-slack-handler --channel '#monitoring'
 {{< /code >}}
 
-You will see a confirmation message:
+You will receive a confirmation message:
 
 {{< code shell >}}
 Updated
@@ -413,7 +409,7 @@ To view the updated `slack` handler definition:
 
 {{< language-toggle >}}
 
-{{< code shell "YML">}}
+{{< code shell "YML" >}}
 sensuctl handler info slack --format yaml
 {{< /code >}}
 

@@ -18,8 +18,8 @@ Sensuctl works by calling Sensu’s underlying API to create, read, update, and 
 
 The `sensuctl create` command allows you to create or update resources by reading from STDIN or a [flag][36] configured file (`-f`).
 The `create` command accepts Sensu resource definitions in [`yaml` or `wrapped-json` formats][4], which wrap the contents of the resource in `spec` and identify the resource `type` and `api_version`.
-See the [list of supported resource types][3] `for sensuctl create`.
-See the [reference docs][6] for information about creating resource definitions.
+Review the [list of supported resource types][3] `for sensuctl create`.
+Read the [reference docs][6] for information about creating resource definitions.
 
 {{% notice note %}}
 **NOTE**: You cannot use sensuctl to update [agent-managed entities](../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
@@ -40,9 +40,8 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: marketing-site
-  namespace: default
 spec:
-  command: check-http.rb -u https://sensu.io
+  command: http-check -u https://sensu.io
   subscriptions:
   - demo
   interval: 15
@@ -53,14 +52,10 @@ type: Handler
 api_version: core/v2
 metadata:
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
   - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
-  filters:
-  - is_incident
-  - not_silenced
   type: pipe
 {{< /code >}}
 
@@ -69,11 +64,10 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata" : {
-    "name": "marketing-site",
-    "namespace": "default"
+    "name": "marketing-site"
     },
   "spec": {
-    "command": "check-http.rb -u https://sensu.io",
+    "command": "http-check -u https://sensu.io",
     "subscriptions": ["demo"],
     "interval": 15,
     "handlers": ["slack"]
@@ -83,21 +77,13 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",
     "env_vars": [
       "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
     ],
-    "filters": [
-      "is_incident",
-      "not_silenced"
-    ],
-    "handlers": [],
-    "runtime_assets": [],
-    "timeout": 0,
     "type": "pipe"
   }
 }
@@ -158,7 +144,8 @@ The following table describes the command-specific flags.
 `namespace` | `Role` | `role` | `RoleBinding`
 `role_binding` | [`Secret`][28] | `Silenced` | `silenced`
 [`User`][8] | `user` | [`VaultProvider`][24] | [`ldap`][26] | [`ad`][25]
-[`oidc`][37] | [`TessenConfig`][27] | [`PostgresConfig`][32]
+[`oidc`][37] | [`SumoLogicMetricsHandler`][40] | [`TCPStreamHandler`][41] | [`TessenConfig`][27]
+[`PostgresConfig`][32]
 
 ### Create resources across namespaces
 
@@ -292,7 +279,7 @@ cat my-resources.json | sensuctl delete
 
 If you omit the `namespace` attribute from resource definitions, you can use the `senusctl delete --namespace` flag to specify the namespace for a group of resources at the time of deletion.
 This allows you to remove resources across namespaces without manual editing.
-See the [Create resources across namespaces][33] section for usage examples.
+Read the [Create resources across namespaces][33] section for usage examples.
 
 ## Update resources
 
@@ -314,18 +301,18 @@ Requests to update agent-managed entities via sensuctl will fail and return an e
 
 |sensuctl edit types |   |   |   |
 --------------------|---|---|---|
-`asset` | `check` | `cluster` | `cluster-role`
-`cluster-role-binding` | `entity` | `event` | `filter`
-`handler` | `hook` | `mutator` | `namespace`
-`role` | `role-binding` | `silenced` | `user`
-[`auth`][26] | | |
+[`auth`][39] | `asset` | `check` | `cluster`
+`cluster-role` | `cluster-role-binding` | `entity` | `event`
+`filter` | `handler` | `hook` | `mutator`
+`namespace` | `pipelines` | `role` | `role-binding`
+`silenced` | `user`
  
 ## Manage resources
 
 Sensuctl provides the following commands to manage Sensu resources.
 
 - [`sensuctl asset`][12]
-- [`sensuctl auth`][26] (commercial feature)
+- [`sensuctl auth`][39] (commercial feature)
 - [`sensuctl check`][13]
 - [`sensuctl cluster`][7]
 - [`sensuctl cluster-role`][1]
@@ -338,6 +325,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl license`][34] (commercial feature)
 - [`sensuctl mutator`][19]
 - [`sensuctl namespace`][21]
+- [`sensuctl pipelines`][9]
 - [`sensuctl role`][1]
 - [`sensuctl role-binding`][1]
 - [`sensuctl secrets`][28]
@@ -345,7 +333,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl tessen`][27]
 - [`sensuctl user`][1]
 
-## Subcommands
+### Subcommands
 
 Sensuctl provides a standard set of list, info, and delete operations for most resource types.
 
@@ -381,7 +369,7 @@ sensuctl check list --format wrapped-json > my-resources.json
 
 {{< /language-toggle >}}
 
-To see the definition for a check named `check-cpu`:
+To view the definition for a check named `check-cpu`:
 
 {{< language-toggle >}}
 
@@ -410,7 +398,7 @@ For example, the following command returns the same output as `sensuctl event li
 sensuctl event list --chunk-size 500
 {{< /code >}}
 
-#### sensuctl check
+### sensuctl check
 
 In addition to the [standard subcommands][23], the `sensuctl check execute` command executes a check on demand, given the check name:
 
@@ -430,7 +418,7 @@ You can also use the `--subscriptions` flag to override the subscriptions in the
 sensuctl check execute check-cpu --subscriptions demo,webserver
 {{< /code >}}
 
-#### sensuctl cluster
+### sensuctl cluster
 
 The `sensuctl cluster` command lets you manage a Sensu cluster using the following subcommands:
 
@@ -449,13 +437,13 @@ To view cluster members:
 sensuctl cluster member-list
 {{< /code >}}
 
-To see the health of your Sensu cluster:
+To review the health of your Sensu cluster:
 
 {{< code shell >}}
 sensuctl cluster health
 {{< /code >}}
 
-#### sensuctl event
+### sensuctl event
 
 In addition to the [standard subcommands][23], you can use `sensuctl event resolve` to manually resolve events:
 
@@ -469,15 +457,15 @@ For example, the following command manually resolves an event created by the ent
 sensuctl event resolve webserver1 check-http
 {{< /code >}}
 
-#### sensuctl namespace
+### sensuctl namespace
 
-See the [namespaces reference][21] for information about using access control with namespaces.
+Read the [namespaces reference][21] for information about using access control with namespaces.
 
-#### sensuctl user
+### sensuctl user
 
-See the [RBAC reference][22] for information about local user management with sensuctl.
+Read the [RBAC reference][22] for information about local user management with sensuctl.
 
-#### sensuctl prune
+### sensuctl prune
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access sensuctl pruning in the packaged Sensu Go distribution.
@@ -498,7 +486,7 @@ The pruning operation always follows the role-based access control (RBAC) permis
 For example, to prune resources in the `dev` namespace, the current user who sends the prune command must have delete access to the `dev` namespace.
 In addition, pruning requires [cluster-level privileges][35], even when all resources belong to the same namespace.
 
-##### Supported resource types
+#### Supported resource types
 
 To retrieve the supported `sensuctl prune` resource types, run:
 
@@ -509,43 +497,46 @@ sensuctl describe-type all
 The response will list all supported `sensuctl prune` resource types:
 
 {{< code shell >}}
-      Fully Qualified Name           Short Name           API Version             Type          Namespaced  
- ────────────────────────────── ───────────────────── ─────────────────── ──────────────────── ──────────── 
-  authentication/v2.Provider                           authentication/v2   Provider             false       
-  licensing/v2.LicenseFile                             licensing/v2        LicenseFile          false       
-  store/v1.PostgresConfig                              store/v1            PostgresConfig       false       
-  federation/v1.EtcdReplicator                         federation/v1       EtcdReplicator       false       
-  federation/v1.Cluster                                federation/v1       Cluster              false       
-  secrets/v1.Secret                                    secrets/v1          Secret               true        
-  secrets/v1.Provider                                  secrets/v1          Provider             false       
-  searches/v1.Search                                   searches/v1         Search               true        
-  web/v1.GlobalConfig                                  web/v1              GlobalConfig         false       
-  bsm/v1.RuleTemplate                                  bsm/v1              RuleTemplate         true        
-  bsm/v1.ServiceComponent                              bsm/v1              ServiceComponent     true        
-  core/v2.Namespace              namespaces            core/v2             Namespace            false       
-  core/v2.ClusterRole            clusterroles          core/v2             ClusterRole          false       
-  core/v2.ClusterRoleBinding     clusterrolebindings   core/v2             ClusterRoleBinding   false       
-  core/v2.User                   users                 core/v2             User                 false       
-  core/v2.APIKey                 apikeys               core/v2             APIKey               false       
-  core/v2.TessenConfig           tessen                core/v2             TessenConfig         false       
-  core/v2.Asset                  assets                core/v2             Asset                true        
-  core/v2.CheckConfig            checks                core/v2             CheckConfig          true        
-  core/v2.Entity                 entities              core/v2             Entity               true        
-  core/v2.Event                  events                core/v2             Event                true        
-  core/v2.EventFilter            filters               core/v2             EventFilter          true        
-  core/v2.Handler                handlers              core/v2             Handler              true        
-  core/v2.HookConfig             hooks                 core/v2             HookConfig           true        
-  core/v2.Mutator                mutators              core/v2             Mutator              true        
-  core/v2.Role                   roles                 core/v2             Role                 true        
-  core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true        
-  core/v2.Silenced               silenced              core/v2             Silenced             true        
+         Fully Qualified Name               Short Name           API Version               Type             Namespaced  
+────────────────────────────────────── ───────────────────── ─────────────────── ───────────────────────── ─────────────
+  authentication/v2.Provider                                  authentication/v2   Provider                  false
+  licensing/v2.LicenseFile                                    licensing/v2        LicenseFile               false
+  store/v1.PostgresConfig                                     store/v1            PostgresConfig            false
+  federation/v1.EtcdReplicator                                federation/v1       EtcdReplicator            false
+  federation/v1.Cluster                                       federation/v1       Cluster                   false
+  secrets/v1.Secret                                           secrets/v1          Secret                    true
+  secrets/v1.Provider                                         secrets/v1          Provider                  false
+  searches/v1.Search                                          searches/v1         Search                    true
+  web/v1.GlobalConfig                                         web/v1              GlobalConfig              false
+  bsm/v1.RuleTemplate                                         bsm/v1              RuleTemplate              true
+  bsm/v1.ServiceComponent                                     bsm/v1              ServiceComponent          true
+  pipeline/v1.SumoLogicMetricsHandler                         pipeline/v1         SumoLogicMetricsHandler   true
+  pipeline/v1.TCPStreamHandler                                pipeline/v1         TCPStreamHandler          true
+  core/v2.Namespace                     namespaces            core/v2             Namespace                 false
+  core/v2.ClusterRole                   clusterroles          core/v2             ClusterRole               false
+  core/v2.ClusterRoleBinding            clusterrolebindings   core/v2             ClusterRoleBinding        false
+  core/v2.User                          users                 core/v2             User                      false
+  core/v2.APIKey                        apikeys               core/v2             APIKey                    false
+  core/v2.TessenConfig                  tessen                core/v2             TessenConfig              false
+  core/v2.Asset                         assets                core/v2             Asset                     true
+  core/v2.CheckConfig                   checks                core/v2             CheckConfig               true
+  core/v2.Entity                        entities              core/v2             Entity                    true
+  core/v2.Event                         events                core/v2             Event                     true
+  core/v2.EventFilter                   filters               core/v2             EventFilter               true
+  core/v2.Handler                       handlers              core/v2             Handler                   true
+  core/v2.HookConfig                    hooks                 core/v2             HookConfig                true
+  core/v2.Mutator                       mutators              core/v2             Mutator                   true
+  core/v2.Pipeline                      pipelines             core/v2             Pipeline                  true
+  core/v2.Role                          roles                 core/v2             Role                      true
+  core/v2.RoleBinding                   rolebindings          core/v2             RoleBinding               true
+  core/v2.Silenced                      silenced              core/v2             Silenced                  true 
 {{< /code >}}
 
 {{% notice note %}}
 **NOTE**: Short names are only supported for `core/v2` resources.
 {{% /notice %}}
 
-##### sensuctl prune flags
+#### sensuctl prune flags
 
 Run `sensuctl prune -h` to view command-specific and global flags.
 The following table describes the command-specific flags.
@@ -562,7 +553,7 @@ The following table describes the command-specific flags.
 `-r` or `--recursive` | Prune command will follow subdirectories.
 `-u` or `--users` | Prunes only resources that were created by the specified users (comma-separated strings). Defaults to the currently configured sensuctl user.
 
-##### sensuctl prune usage
+#### sensuctl prune usage
 
 {{< code shell >}}
 sensuctl prune <resource_type>,<resource_type>... -f <file_or_url> [-r] ... ] --<namespace> <flags>
@@ -650,6 +641,7 @@ Sensuctl supports the following formats:
 [6]: ../../reference/
 [7]: ../../operations/deploy-sensu/cluster-sensu/
 [8]: ../../operations/control-access/rbac/#user-specification
+[9]: ../../observability-pipeline/observe-process/pipelines/
 [10]: #supported-resource-types
 [11]: ../../web-ui/webconfig-reference/
 [12]: ../../plugins/assets/
@@ -679,3 +671,6 @@ Sensuctl supports the following formats:
 [36]: #sensuctl-create-flags
 [37]: ../../operations/control-access/oidc-auth/
 [38]: ../../operations/control-access/rbac/#namespaced-resource-types
+[39]: ../../operations/control-access/sso/
+[40]: ../../observability-pipeline/observe-process/sumo-logic-metrics-handlers/
+[41]: ../../observability-pipeline/observe-process/tcp-stream-handlers/

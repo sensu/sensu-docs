@@ -83,6 +83,12 @@ For example, if your license has an entity limit of 10,000 and an agent entity c
 At the same time, you cannot run more than 3,000 agents.
 If you use only 1,500 agent entities, you can have 8,500 proxy entities before you reach the overall entity limit of 10,000.
 
+If you have permission to create or update licenses, you will see messages in sensuctl and the web UI when you approach your licensed entity limit.
+The formula for calculating the threshold for this warning message is `0.03 * entity limit / 1000 + 0.9`.
+For example, if your entity limit is 1600, the warning threshold is 0.948.
+
+You will also see a warning when you exceed your entity or entity class limit.
+
 ### View entity count and entity limit
 
 Your current entity count and entity limit are included in the `sensuctl license info` response.
@@ -132,6 +138,7 @@ In YAML and JSON formats, the entity count and limit are included as labels:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: LicenseFile
 api_version: licensing/v2
 metadata:
@@ -169,7 +176,7 @@ spec:
 
 {{< /language-toggle >}}
 
-You can also see your current entity count and limit in the response headers for any `/api/core` or `/api/enterprise` [API request][9].
+You can also find your current entity count and limit in the response headers for any `/api/core` or `/api/enterprise` [API request][9].
 For example:
 
 {{< code shell >}}
@@ -187,9 +194,11 @@ Sensu-Entity-Limit: 100
 
 ## License expiration
 
-To see your commercial license expiration date, [log in to your Sensu account][1].
+To view your commercial license expiration date, [log in to your Sensu account][1].
 
-If your license is within 30 days of expiration, Sensu issues regular warnings in the Sensu [backend logs][6].
+When your license is within 30 days of expiration, Sensu issues regular warnings in the Sensu [backend logs][6].
+Users with permission to create or update licenses can also view license expiration information in the web UI by pressing `CTRL .` to open the system information modal.
+
 If your license expires, you will still have access to [commercial features][5], but your entity limit will drop back down to the free limit of 100.
 
 ## Quick links

@@ -4,7 +4,7 @@ linkTitle: "Tokens Reference"
 reference_title: "Tokens"
 type: "reference"
 description: "Tokens are placeholders in a check definition that the agent replaces with entity information before executing the check. You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while reusing check definitions. Read the reference doc to learn about tokens."
-weight: 80
+weight: 100
 version: "6.2"
 product: "Sensu Go"
 menu:
@@ -42,7 +42,7 @@ Follow this example to set up a reusable check for disk usage:
 sensuctl asset add sensu/check-disk-usage:0.4.1
 {{< /code >}}
 
-   You will see a response to confirm that the asset was added:
+   You will receive a response to confirm that the asset was added:
 {{< code shell >}}
 fetching bonsai asset: sensu/check-disk-usage:0.4.1
 added asset: sensu/check-disk-usage:0.4.1
@@ -61,7 +61,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: check-disk-usage
-  namespace: default
 spec:
   check_hooks: []
   command: check-disk-usage -w {{index .labels "disk_warning" | default 80}} -c
@@ -93,8 +92,7 @@ cat << EOF | sensuctl create
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check-disk-usage",
-    "namespace": "default"
+    "name": "check-disk-usage"
   },
   "spec": {
     "check_hooks": [],
@@ -164,7 +162,6 @@ type: HookConfig
 api_version: core/v2
 metadata:
   name: disk_usage_details
-  namespace: default
 spec:
   command: du -h --max-depth=1 -c {{index .labels "disk_usage_root" | default "/"}}  2>/dev/null
   runtime_assets: null
@@ -178,8 +175,7 @@ cat << EOF | sensuctl create
   "type": "HookConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "disk_usage_details",
-    "namespace": "default"
+    "name": "disk_usage_details"
   },
   "spec": {
     "command": "du -h --max-depth=1 -c {{index .labels "disk_usage_root" | default \"/\"}}  2>/dev/null",
@@ -225,7 +221,7 @@ After you save your changes, for this entity, the hook will substitute the direc
 ## Manage entity labels
 
 You can use token substitution with any defined [entity attributes][4], including custom labels.
-See the [entity reference][6] for information about managing entity labels for proxy entities and agent entities.
+read the [entity reference][6] for information about managing entity labels for proxy entities and agent entities.
 
 ## Manage dynamic runtime assets
 
@@ -235,6 +231,7 @@ Token substitution allows you to host your dynamic runtime assets at different U
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Asset
 api_version: core/v2
 metadata:
@@ -301,7 +298,7 @@ Access nested Sensu [entity attributes][3] with dot notation (for example, `syst
 
 If an attribute is not provided by the [entity][3], a token's default value will be substituted.
 Token default values are separated by a pipe character and the word "default" (`| default`).
-Use token default values to provide a fallback value for entities that are missing a specified token attribute.
+Use token default values to provide a fallback value for entities that are missing a specified token attribute.
 
 For example, `{{.labels.url | default "https://sensu.io"}}` would be replaced with a custom label called `url`.
 If no such attribute called `url` is included in the entity definition, the default (or fallback) value of `https://sensu.io` will be used to substitute the token.

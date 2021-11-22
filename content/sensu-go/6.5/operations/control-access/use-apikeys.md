@@ -13,7 +13,7 @@ menu:
     parent: control-access
 ---
 
-The Sensu API key feature (core/v2.APIKey) is a persistent UUID that maps to a stored Sensu username.
+The Sensu API key feature (core/v2.APIKey) is a persistent universally unique identifier (UUID) that maps to a stored Sensu username.
 The advantages of authenticating with API keys rather than [access tokens][1] include:
 
 - **More efficient integration**: Check and handler plugins and other code can integrate with the Sensu API without implementing the logic required to authenticate via the `/auth` API endpoint to periodically refresh the access token
@@ -45,7 +45,7 @@ curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/na
 ### Example
 
 {{< code shell >}}
-$ curl -H "Authorization: Key 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
+curl -H "Authorization: Key 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
 
 HTTP/1.1 200 OK
 [

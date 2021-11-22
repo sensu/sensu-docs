@@ -76,19 +76,16 @@ configuration sources, please note the following example scenario:
 1. The Sensu runtime configuration is stored as an in-memory Hash object. For
    the purposes of providing a visual example, let's imagine that this Hash
    object is actually a JSON document, which begins life (as Sensu is started)
-   as an empty JSON document.
-   <h4 id="inital-sensu-configuration-hash">Initial Sensu configuration Hash (in memory)</h4>
-{{< code json >}}
-{}{{< /code >}}
+   as an empty JSON document (`{}`).
+
    When Sensu is started, it will begin to collect configuration from
-   environment variables, a configuration file, and one ore more configuration
+   environment variables, a configuration file, and one or more configuration
    directories, which configuration parameters will be used to build up this
    configuration Hash.
 
 2. For the purposes of this example, let's assume that the first configuration
-   snippet that Sensu encounters is a configuration file, located at
+   snippet that Sensu encounters is a configuration file, located on disk at
    `/etc/sensu/config.json` with the following contents:
-   <h6>New config file (on disk at `/etc/sensu/config.json`)</h6>
 {{< code json >}}
 {
  "rabbitmq": {
@@ -103,8 +100,7 @@ configuration sources, please note the following example scenario:
    "password": "secret"
  }
 }{{< /code >}}
-   At this time, the Sensu configuration Hash (in memory) will look like: 
-   <h6>Updated Sensu configuration Hash (in memory)</h6>
+   At this time, the updated Sensu configuration Hash (in memory) will look like the following example: 
 {{< code json >}}
 {
  "rabbitmq": {
@@ -121,9 +117,8 @@ configuration sources, please note the following example scenario:
 }{{< /code >}}
 
 3. Now let's see what happens when Sensu encounters another configuration
-   snippet (e.g. a file located in a Sensu configuration directory, such as
+   snippet (e.g. a file located on disk in a Sensu configuration directory, such as
    `/etc/sensu/conf.d/rabbitmq.json`): 
-  <h6>New config file contents (on disk at `/etc/sensu/conf.d/rabbitmq.json`)</h6>
 {{< code json >}}
 {
  "rabbitmq": {
@@ -138,7 +133,6 @@ configuration sources, please note the following example scenario:
    memory) - but also missing some attributes which already exist in the Sensu
    configuration Hash (i.e. `vhost`). The result of merging this configuration
    snippet into the Sensu configuration Hash (in memory) is as follows:
-  <h6>Updated Sensu configuration Hash (in memory)</h6>
 {{< code json >}}
 {
  "rabbitmq": {

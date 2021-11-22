@@ -57,7 +57,7 @@ To confirm that the handler dynamic runtime asset was added correctly, run:
 sensuctl asset list
 {{< /code >}}
 
-You should see the `email-handler` dynamic runtime asset in the list.
+The list should include the `email-handler` dynamic runtime asset.
 For a detailed list of everything related to the asset that Sensu added automatically, run:
 
 {{< code shell >}}
@@ -87,7 +87,7 @@ To create the event filter, run:
 
 {{< language-toggle >}}
 
-{{< code text "YML">}}
+{{< code text "YML" >}}
 cat << EOF | sensuctl create
 ---
 type: EventFilter
@@ -96,7 +96,6 @@ metadata:
   annotations: null
   labels: null
   name: state_change_only
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -113,8 +112,7 @@ cat << EOF | sensuctl create
   "metadata": {
     "annotations": null,
     "labels": null,
-    "name": "state_change_only",
-    "namespace": "default"
+    "name": "state_change_only"
   },
   "spec": {
     "action": "allow",
@@ -152,13 +150,12 @@ With your updates, create the handler using sensuctl:
 
 {{< language-toggle >}}
 
-{{< code text "YML">}}
+{{< code text "YML" >}}
 cat << EOF | sensuctl create
 ---
 api_version: core/v2
 type: Handler
 metadata:
-  namespace: default
   name: email
 spec:
   type: pipe
@@ -179,7 +176,6 @@ cat << EOF | sensuctl create
   "api_version": "core/v2",
   "type": "Handler",
   "metadata": {
-    "namespace": "default",
     "name": "email"
   },
   "spec": {
@@ -231,6 +227,12 @@ efPxbRciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzkwMzY5NjQsImp0aSI6ImJiMmY0ODY
 {{< /code >}}
 
 With the environment variables set, you can use the Sensu API to create your ad hoc observability event.
+
+{{% notice note %}}
+**NOTE**: The example events use the default namespace.
+If you are using a different namespace, replace `default` in the event definitions and the API URLs with the name of the desired namespace.
+{{% /notice %}}
+
 This event outputs the message "Everything is OK.” when it occurs:
 
 {{< code shell >}}
@@ -257,7 +259,7 @@ http://localhost:8080/api/core/v2/namespaces/default/events
 {{< /code >}}
 
 As configured, the event status is `0` (OK).
-Now it's time to trigger an event and see the results!
+Now it's time to trigger an event and view the results!
 
 To generate a status change event, use the update event endpoint to create a `1` (warning) event.
 Run:
@@ -288,11 +290,11 @@ http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-heal
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: If you see an `invalid credentials` error, refresh your token.
+**NOTE**: If you receive an `invalid credentials` error, refresh your token.
 Run `eval $(sensuctl env)`.
 {{% /notice %}}
 
-Check your email &mdash; you should see a message from Sensu!
+Check your email &mdash; you should receive a message from Sensu!
 
 Create another event with status set to `0`. Run:
 

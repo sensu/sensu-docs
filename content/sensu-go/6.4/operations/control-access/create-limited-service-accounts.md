@@ -87,7 +87,6 @@ sensuctl role create ec2-delete --verb get,list,delete --resource entities --nam
 type: Role
 api_version: core/v2
 metadata:
-  created_by: admin
   name: ec2-delete
   namespace: default
 spec:
@@ -105,7 +104,6 @@ spec:
   "type": "Role",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
     "name": "ec2-delete",
     "namespace": "default"
   },
@@ -141,7 +139,6 @@ sensuctl role-binding create ec2-service-delete --role ec2-delete --user ec2-ser
 type: RoleBinding
 api_version: core/v2
 metadata:
-  created_by: admin
   name: ec2-service-delete
   namespace: default
 spec:
@@ -157,7 +154,6 @@ spec:
   "type": "RoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
     "name": "ec2-service-delete",
     "namespace": "default"
   },
@@ -244,7 +240,6 @@ cat << EOF | sensuctl create
 type: Handler
 api_version: core/v2
 metadata:
-  namespace: default
   name: sensu-ec2-handler
 spec:
   type: pipe
@@ -275,7 +270,6 @@ cat << EOF | sensuctl create
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "namespace": "default",
     "name": "sensu-ec2-handler"
   },
   "spec": {

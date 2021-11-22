@@ -29,8 +29,7 @@ Secrets are configured via [secrets resources][8].
 A secret resource definition refers to the secrets provider (`Env` or `VaultProvider`) and an ID (the named secret to fetch from the secrets provider).
 
 This guide only covers the handler use case, but you can use secrets management in handler, mutator, and check execution.
-When a check configuration references a secret, the Sensu backend will only transmit the check's execution requests to agents that are connected via mutually authenticated transport layer security (mTLS)-encrypted WebSockets.
-Read more about [enabling mTLS][15].
+When a check configuration references a secret, the Sensu backend will only transmit the check's execution requests to agents that are connected via [mutually authenticated transport layer security (mTLS)-encrypted WebSockets][15].
 
 The secret included in your Sensu handler will be exposed to Sensu services at runtime as an environment variable.
 Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the web UI.
@@ -99,7 +98,6 @@ type: Secret
 api_version: secrets/v1
 metadata:
   name: pagerduty_key
-  namespace: default
 spec:
   id: SENSU_PAGERDUTY_KEY
   provider: env
@@ -112,8 +110,7 @@ cat << EOF | sensuctl create
   "type": "Secret",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "pagerduty_key",
-    "namespace": "default"
+    "name": "pagerduty_key"
   },
   "spec": {
     "id": "SENSU_PAGERDUTY_KEY",
@@ -332,7 +329,7 @@ If you are using the Vault [KV Secrets Engine v2](https://www.vaultproject.io/ap
 
 {{% /notice %}}
 
-Run `vault kv get secret/pagerduty` to see the secret you just set up.
+Run `vault kv get secret/pagerduty` to view the secret you just set up.
 
 Use `sensuctl create` to create your `vault` secret:
 
@@ -345,7 +342,6 @@ type: Secret
 api_version: secrets/v1
 metadata:
   name: pagerduty_key
-  namespace: default
 spec:
   id: secret/pagerduty#key
   provider: vault
@@ -358,8 +354,7 @@ cat << EOF | sensuctl create
   "type": "Secret",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "pagerduty_key",
-    "namespace": "default"
+    "name": "pagerduty_key"
   },
   "spec": {
     "id": "secret/pagerduty#key",
@@ -407,7 +402,6 @@ cat << EOF | sensuctl create
 api_version: core/v2
 type: Handler
 metadata:
-  namespace: default
   name: pagerduty
 spec:
   type: pipe
@@ -429,7 +423,6 @@ cat << EOF | sensuctl create
   "api_version": "core/v2",
   "type": "Handler",
   "metadata": {
-    "namespace": "default",
     "name": "pagerduty"
   },
   "spec": {
@@ -476,7 +469,7 @@ Read the [secrets][9] or [secrets providers][2] reference for in-depth secrets m
 [12]: https://www.vaultproject.io/docs/concepts/lease.html#lease-durations-and-renewal
 [13]: ../../../api/secrets#providers-provider-put
 [14]: ../../../api/secrets#secrets-secret-put
-[15]: ../../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[15]: ../../deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [17]: ../../../operations/manage-secrets/secrets-providers#tls-vault
 [19]: #add-a-handler
 [21]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables

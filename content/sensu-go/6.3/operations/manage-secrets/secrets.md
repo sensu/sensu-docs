@@ -48,7 +48,6 @@ type: Secret
 api_version: secrets/v1
 metadata:
   name: sensu-ansible-token
-  namespace: default
 spec:
   id: ANSIBLE_TOKEN
   provider: env
@@ -59,8 +58,7 @@ spec:
   "type": "Secret",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "sensu-ansible-token",
-    "namespace": "default"
+    "name": "sensu-ansible-token"
   },
   "spec": {
     "id": "ANSIBLE_TOKEN",
@@ -81,7 +79,6 @@ type: Secret
 api_version: secrets/v1
 metadata:
   name: sensu-ansible
-  namespace: default
 spec:
   id: 'secret/database#password'
   provider: vault
@@ -92,8 +89,7 @@ spec:
   "type": "Secret",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "sensu-ansible",
-    "namespace": "default"
+    "name": "sensu-ansible"
   },
   "spec": {
     "id": "secret/database#password",
@@ -123,7 +119,7 @@ To list all secrets:
 sensuctl secret list
 {{< /code >}}
 
-To see a secret's status:
+To review a secret's status:
 
 {{< code shell >}}
 sensuctl secret info SECRET_NAME
@@ -237,7 +233,7 @@ name: sensu-ansible-token
 
 namespace    |      |
 -------------|------
-description  | [Sensu RBAC namespace][9] that the secret belongs to.
+description  | [Sensu RBAC namespace][9] that the secret belongs to.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
@@ -323,4 +319,4 @@ provider: vault
 [10]: https://learn.hashicorp.com/vault/getting-started/dev-server
 [11]: ../secrets-management/
 [12]: #metadata-attributes
-[13]: ../../deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[13]: ../../deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication

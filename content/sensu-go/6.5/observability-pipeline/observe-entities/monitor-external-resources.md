@@ -25,67 +25,49 @@ When executing checks that include a `proxy_entity_name` or `proxy_requests` att
 
 In this section, you'll monitor the status of [sensu.io](https://sensu.io) by configuring a check with a **proxy entity name** so that Sensu creates an entity that represents the site and reports the status of the site under this entity.
 
-### Register dynamic runtime assets
+### Register dynamic runtime asset
 
-To power the check, you'll use the [Sensu Plugins HTTP][16] dynamic runtime asset.
-The Sensu Plugins HTTP asset includes `check-http.rb`, which [your check][15] will rely on.
+To power the check, you'll use the [http-checks][16] dynamic runtime asset.
+This community-tier asset includes `http-check`, the http status check command that [your check][15] will rely on.
 
-The Sensu assets packaged from Sensu Plugins HTTP are built against the Sensu Ruby runtime environment, so you also need to add the [Sensu Ruby Runtime][17] dynamic runtime asset.
-Sensu Ruby Runtime delivers the Ruby executable and supporting libraries the check will need to run the `check-http.rb` plugin.
-
-Use [`sensuctl asset add`][21] to register the Sensu Plugins HTTP dynamic runtime asset, `sensu-plugins/sensu-plugins-http`:
+Use [`sensuctl asset add`][21] to register the http-checks dynamic runtime asset, `sensu/http-checks`:
 
 {{< code shell >}}
-sensuctl asset add sensu-plugins/sensu-plugins-http:6.0.0 -r sensu-plugins-http
+sensuctl asset add sensu/http-checks:0.4.0 -r http-checks
 {{< /code >}}
 
 The response will indicate that the asset was added:
 
 {{< code shell >}}
-fetching bonsai asset: sensu-plugins/sensu-plugins-http:6.0.0
-added asset: sensu-plugins/sensu-plugins-http:6.0.0
+fetching bonsai asset: sensu/http-checks:0.4.0
+added asset: sensu/http-checks:0.4.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
-resource, populate the "runtime_assets" field with ["sensu-plugins-http"].
+resource, populate the "runtime_assets" field with ["http-checks"].
 {{< /code >}}
 
-This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `sensu-plugins-http`.
+This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `http-checks`.
 
 You can also download the dynamic runtime asset definition from [Bonsai][16] and register the asset with `sensuctl create --file filename.yml` or `sensuctl create --file filename.json`.
 
-Then, use the following sensuctl example to register the Sensu Ruby Runtime dynamic runtime asset, `sensu/sensu-ruby-runtime`:
-
-{{< code shell >}}
-sensuctl asset add sensu/sensu-ruby-runtime:0.1.0 -r sensu-ruby-runtime
-{{< /code >}}
-
-The response will indicate that the asset was added:
-
-{{< code shell >}}
-fetching bonsai asset: sensu/sensu-ruby-runtime:0.1.0
-added asset: sensu/sensu-ruby-runtime:0.1.0
-
-You have successfully added the Sensu asset resource, but the asset will not get downloaded until
-it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
-resource, populate the "runtime_assets" field with ["sensu-ruby-runtime"].
-{{< /code >}}
-
-You can also download the dynamic runtime asset definition from [Bonsai][17] and register the asset using `sensuctl create --file filename.yml` or `sensuctl create --file filename.json`.
-
-Use sensuctl to confirm that both dynamic runtime assets are ready to use:
+Use sensuctl to confirm that the dynamic runtime asset is ready to use:
 
 {{< code shell >}}
 sensuctl asset list
 {{< /code >}}
 
-The response should list the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets:
+The response should list the `http-checks` dynamic runtime asset:
 
 {{< code shell >}}
-          Name                                                URL                                       Hash    
-────────────────────────── ─────────────────────────────────────────────────────────────────────────── ───────── 
- sensu-plugins-http         //assets.bonsai.sensu.io/.../sensu-plugins-http_6.0.0_centos_linux_amd64.tar.gz         31023af  
- sensu-ruby-runtime         //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.1.0_ruby-2.4.4_centos_linux_amd64.tar.gz     338b88b 
+     Name                                       URL                                    Hash    
+────────────── ───────────────────────────────────────────────────────────────────── ──────────
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_windows_amd64.tar.gz   52ae075  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_darwin_amd64.tar.gz    72d0f15  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_armv7.tar.gz     ef18587  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_arm64.tar.gz     3504ddf  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_386.tar.gz       60b8883  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_amd64.tar.gz     1db73a8 
 {{< /code >}}
 
 {{% notice note %}}
@@ -95,7 +77,7 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 ### Create the check
 
-Now that the dynamic runtime assets are registered, you can create a check named `check-sensu-site` to run the command `check-http.rb -u https://sensu.io` with the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets, at an interval of 60 seconds, for all agents subscribed to the `proxy` subscription, using the `sensu-site` proxy entity name.
+Now that the dynamic runtime asset is registered, you can create a check named `check-sensu-site` to run the command `http-check --url https://sensu.io` with the `http-checks` dynamic runtime asset, at an interval of 60 seconds, for all agents subscribed to the `proxy` subscription, using the `sensu-site` proxy entity name.
 To avoid duplicate events, add the [`round_robin` attribute][18] to distribute the check execution across all agents subscribed to the `proxy` subscription.
 
 Create a file named `check.yml` or `check.json` in your Sensu installation to store the check definition.
@@ -109,16 +91,14 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: check-sensu-site
-  namespace: default
 spec:
-  command: check-http.rb -u https://sensu.io
+  command: http-check --url https://sensu.io
   interval: 60
   proxy_entity_name: sensu-site
   publish: true
   round_robin: true
   runtime_assets:
-  - sensu-plugins-http
-  - sensu-ruby-runtime
+  - http-checks
   subscriptions:
   - proxy
 {{< /code >}}
@@ -128,19 +108,17 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check-sensu-site",
-    "namespace": "default"
+    "name": "check-sensu-site"
   },
   "spec": {
-    "command": "check-http.rb -u https://sensu.io",
-    "runtime_assets": [
-      "sensu-plugins-http",
-      "sensu-ruby-runtime"
-    ],
+    "command": "http-check --url https://sensu.io",
     "interval": 60,
     "proxy_entity_name": "sensu-site",
     "publish": true,
     "round_robin": true,
+    "runtime_assets": [
+      "http-checks"
+    ],
     "subscriptions": [
       "proxy"
     ]
@@ -173,9 +151,9 @@ sensuctl check list
 The response should list `check-sensu-site`:
 
 {{< code shell >}}
-       Name                     Command               Interval   Cron   Timeout   TTL   Subscriptions   Handlers                     Assets                Hooks   Publish?   Stdin?  
-────────────────── ────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ─────────────────────────────────────── ─────── ────────── ────────
- check-sensu-site   check-http.rb -u https://sensu.io         60                0     0   proxy                      sensu-plugins-http,sensu-ruby-runtime             true     false
+        Name                      Command                Interval   Cron   Timeout   TTL   Subscriptions   Handlers     Assets      Hooks   Publish?   Stdin?   Metric Format   Metric Handlers  
+─────────────────── ─────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ───────────── ─────── ────────── ──────── ─────────────── ──────────────────
+  check-sensu-site   http-check --url https://sensu.io         60                0     0   proxy                      http-checks           true       false                                      
 {{< /code >}}
 
 ### Add the subscription
@@ -205,10 +183,10 @@ sensuctl entity list
 The response should list the `sensu-site` proxy entity:
 
 {{< code shell >}}
-      ID        Class    OS           Subscriptions                   Last Seen            
-────────────── ─────── ─────── ─────────────────────────── ─────────────────────────────── 
-sensu-centos   agent   linux   proxy,entity:sensu-centos   2019-01-16 21:50:03 +0000 UTC  
-sensu-site     proxy           entity:sensu-site           N/A  
+       ID        Class    OS           Subscriptions                   Last Seen            
+─────────────── ─────── ─────── ─────────────────────────── ────────────────────────────────
+  sensu-centos   agent   linux   proxy,entity:sensu-centos   2021-10-21 19:20:04 +0000 UTC  
+  sensu-site     proxy           entity:sensu-site           N/A                          
 {{< /code >}}
 
 Then, use sensuctl to confirm that Sensu is monitoring `sensu-site` with the `check-sensu-site` check:
@@ -223,21 +201,21 @@ The response should list `check-sensu-site` status and history data for the `sen
 === sensu-site - check-sensu-site
 Entity:    sensu-site
 Check:     check-sensu-site
-Output:    CheckHttp OK: 200, 72024 bytes
+Output:    http-check OK: HTTP Status 200 for https://sensu.io
 Status:    0
-History:   0,0,0
+History:   0
 Silenced:  false
-Timestamp: 2021-04-16 22:02:02 +0000 UTC
-UUID:      d34599cb-5596-9ad4-51ad-cc3d942690c6
+Timestamp: 2021-10-21 19:20:06 +0000 UTC
+UUID:      xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 {{< /code >}}
 
-You can also see the new proxy entity in your [Sensu web UI][10].
+You can also view the new proxy entity in your [Sensu web UI][10].
 
 ## Use proxy requests to monitor a group of websites
 
 Suppose that instead of monitoring just sensu.io, you want to monitor multiple sites, like docs.sensu.io, packagecloud.io, and github.com.
 In this section, you'll use the [`proxy_requests` check attribute][3] along with [entity labels][11] and [token substitution][12] to monitor three sites with the same check.
-Before you start, [register the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets][13] if you haven't already.
+Before you start, [register the `sensu/http-checks` dynamic runtime asset][13] if you haven't already.
 
 ### Create proxy entities
 
@@ -253,7 +231,6 @@ type: Entity
 api_version: core/v2
 metadata:
   name: sensu-docs
-  namespace: default
   labels:
     proxy_type: website
     url: https://docs.sensu.io
@@ -266,7 +243,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "sensu-docs",
-    "namespace": "default",
     "labels": {
       "proxy_type": "website",
       "url": "https://docs.sensu.io"
@@ -286,7 +262,6 @@ type: Entity
 api_version: core/v2
 metadata:
   name: packagecloud-site
-  namespace: default
   labels:
     proxy_type: website
     url: https://packagecloud.io
@@ -299,7 +274,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "packagecloud-site",
-    "namespace": "default",
     "labels": {
       "proxy_type": "website",
       "url": "https://packagecloud.io"
@@ -319,7 +293,6 @@ type: Entity
 api_version: core/v2
 metadata:
   name: github-site
-  namespace: default
   labels:
     proxy_type: website
     url: https://github.com
@@ -332,7 +305,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "github-site",
-    "namespace": "default",
     "labels": {
       "proxy_type": "website",
       "url": "https://github.com"
@@ -373,12 +345,13 @@ sensuctl entity list
 The response should list the new `sensu-docs`, `packagecloud-site`, and `github-site` proxy entities:
 
 {{< code shell >}}
-        ID           Class    OS           Subscriptions                   Last Seen            
-─────────────────── ─────── ─────── ─────────────────────────── ─────────────────────────────── 
- github-site         proxy                                       N/A                            
- packagecloud-site   proxy                                       N/A                            
- sensu-centos        agent   linux   proxy,entity:sensu-centos   2019-01-16 23:05:03 +0000 UTC  
- sensu-docs          proxy                                       N/A                            
+         ID           Class    OS           Subscriptions                   Last Seen            
+──────────────────── ─────── ─────── ─────────────────────────── ────────────────────────────────
+  github-site         proxy                                       N/A                            
+  packagecloud-site   proxy                                       N/A                            
+  sensu-centos        agent   linux   proxy,entity:sensu-centos   2021-10-21 19:23:04 +0000 UTC  
+  sensu-docs          proxy                                       N/A                            
+  sensu-site          proxy           entity:sensu-site           N/A                             
 {{< /code >}}
 
 ### Create a reusable HTTP check
@@ -395,20 +368,18 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: check-http
-  namespace: default
 spec:
-  command: check-http.rb -u {{ .labels.url }}
+  command: 'http-check --url {{ .labels.url }}'
   interval: 60
   proxy_requests:
     entity_attributes:
-    - entity.entity_class == 'proxy'
-    - entity.labels.proxy_type == 'website'
+      - entity.entity_class == 'proxy'
+      - entity.labels.proxy_type == 'website'
   publish: true
   runtime_assets:
-  - sensu-plugins-http
-  - sensu-ruby-runtime
+    - http-checks
   subscriptions:
-  - proxy
+    - proxy
 {{< /code >}}
 
 {{< code json >}}
@@ -416,26 +387,24 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check-http",
-    "namespace": "default"
+    "name": "check-http"
   },
   "spec": {
-    "command": "check-http.rb -u {{ .labels.url }}",
-    "runtime_assets": [
-      "sensu-plugins-http",
-      "sensu-ruby-runtime"
-    ],
+    "command": "http-check --url {{ .labels.url }}",
     "interval": 60,
-    "subscriptions": [
-      "proxy"
-    ],
-    "publish": true,
     "proxy_requests": {
       "entity_attributes": [
         "entity.entity_class == 'proxy'",
         "entity.labels.proxy_type == 'website'"
       ]
-    }
+    },
+    "publish": true,
+    "runtime_assets": [
+      "http-checks"
+    ],
+    "subscriptions": [
+      "proxy"
+    ]
   }
 }
 {{< /code >}}
@@ -469,19 +438,20 @@ sensuctl check list
 The response should include the `check-http` check:
 
 {{< code shell >}}
-       Name                      Command               Interval   Cron   Timeout   TTL   Subscriptions   Handlers                   Assets                  Hooks   Publish?   Stdin?
-───────────────── ─────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ─────────────────────────────────────── ─────── ────────── ────────
-  check-http        check-http.rb -u {{ .labels.url }}         60                0     0   proxy                     sensu-plugins-http,sensu-ruby-runtime           true       false                                     
+        Name                      Command                 Interval   Cron   Timeout   TTL   Subscriptions   Handlers     Assets      Hooks   Publish?   Stdin?   Metric Format   Metric Handlers  
+─────────────────── ──────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ───────────── ─────── ────────── ──────── ─────────────── ──────────────────
+  check-http         http-check --url {{ .labels.url }}         60                0     0   proxy                      http-checks           true       false                                     
+  check-sensu-site   http-check --url https://sensu.io          60                0     0   proxy                      http-checks           true       false                                      
 {{< /code >}}
 
 {{% notice protip %}}
 **PRO TIP**: To distribute check executions across multiple agents, set the `round-robin` check attribute to `true`.
-For more information about round robin checks, see the [check reference](../../observe-schedule/checks#round-robin-checks).
+For more information about round robin checks, read the [checks reference](../../observe-schedule/checks#round-robin-checks).
 {{% /notice %}}
 
 ### Validate the check
 
-Before you validate the check, make sure that you've [registered the `sensu-plugins-http` and `sensu-ruby-runtime` dynamic runtime assets][13] and [added the `proxy` subscription to a Sensu agent][14].
+Before you validate the check, make sure that you've [registered the `sensu/http-checks` dynamic runtime asset][13] and [added the `proxy` subscription to a Sensu agent][14].
 
 Use sensuctl to confirm that Sensu is monitoring docs.sensu.io, packagecloud.io, and github.com with the `check-http`, returning a status of `0` (OK):
 
@@ -492,12 +462,16 @@ sensuctl event list
 The response should list check status data for the `sensu-docs`, `packagecloud-site`, and `github-site` proxy entities:
 
 {{< code shell >}}
-      Entity                Check          Output   Status   Silenced             Timestamp            
-─────────────────── ───────────────────── ──────── ──────── ────────── ─────────────────────────────── 
-github-site         check-http                           0   false      2019-01-17 17:10:31 +0000 UTC  
-packagecloud-site   check-http                           0   false      2019-01-17 17:10:34 +0000 UTC  
-sensu-centos        keepalive               ...          0   false      2019-01-17 17:10:34 +0000 UTC  
-sensu-docs          check-http                           0   false      2019-01-17 17:06:59 +0000 UTC  
+       Entity              Check                                         Output                                   Status   Silenced             Timestamp                             UUID                  
+──────────────────── ────────────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
+  github-site         check-http         http-check OK: HTTP Status 200 for https://github.com                         0   false      2021-10-21 19:27:04 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
+                                                                                                                                                                                                            
+  packagecloud-site   check-http         http-check OK: HTTP Status 200 for https://packagecloud.io                    0   false      2021-10-21 19:27:04 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
+                                                                                                                                                                                                            
+  sensu-centos        keepalive          Keepalive last sent from sensu-centos at 2021-10-21 19:27:44 +0000 UTC        0   false      2021-10-21 19:27:44 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
+  sensu-docs          check-http         http-check OK: HTTP Status 200 for https://docs.sensu.io                      0   false      2021-10-21 19:27:03 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
+                                                                                                                                                                                                            
+  sensu-site          check-sensu-site   http-check OK: HTTP Status 200 for https://sensu.io                           0   false      2021-10-21 19:27:05 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
 {{< /code >}}
 
 ## Next steps
@@ -527,8 +501,7 @@ Now that you know how to run a proxy check to verify the status of a website and
 [13]: #register-dynamic-runtime-assets
 [14]: #add-the-subscription
 [15]: #create-the-check
-[16]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http
-[17]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
+[16]: https://bonsai.sensu.io/assets/sensu/http-checks
 [18]: ../../observe-schedule/checks#round-robin-checks
 [19]: ../../../operations/deploy-sensu/install-sensu/
 [20]: ../../observe-schedule/agent#restart-the-service

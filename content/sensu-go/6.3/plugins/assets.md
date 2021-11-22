@@ -41,7 +41,6 @@ type: Asset
 api_version: core/v2
 metadata:
   name: check_script
-  namespace: default
 spec:
   builds:
   - sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
@@ -53,8 +52,7 @@ spec:
   "type": "Asset",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check_script",
-    "namespace": "default"
+    "name": "check_script"
   },
   "spec": {
     "builds": [
@@ -91,7 +89,6 @@ type: Asset
 api_version: core/v2
 metadata:
   name: check_cpu
-  namespace: default
   labels:
     origin: bonsai
   annotations:
@@ -132,7 +129,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "check_cpu",
-    "namespace": "default",
     "labels": {
       "origin": "bonsai"
     },
@@ -199,7 +195,6 @@ type: Asset
 api_version: core/v2
 metadata:
   name: check_cpu_linux_amd64
-  namespace: default
   labels:
     origin: bonsai
   annotations:
@@ -222,7 +217,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "check_cpu_linux_amd64",
-    "namespace": "default",
     "labels": {
       "origin": "bonsai"
     },
@@ -294,7 +288,6 @@ type: Asset
 api_version: core/v2
 metadata:
   name: sensu-prometheus-collector
-  namespace: default
 spec:
   builds:
   - url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
@@ -307,7 +300,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: prometheus_collector
-  namespace: default
 spec:
   command: "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up"
   interval: 10
@@ -373,7 +365,7 @@ spec:
 
 Sensu expects a dynamic runtime asset to be a tar archive (optionally gzipped) that contains one or more executables within a bin folder.
 Any scripts or executables should be within a `bin/` folder in the archive.
-See the [Sensu Go Plugin template][28] for an example dynamic runtime asset and Bonsai configuration.
+Read the [Sensu Go Plugin template][28] for an example dynamic runtime asset and Bonsai configuration.
 
 The following are injected into the execution context:
 
@@ -430,9 +422,9 @@ For each dynamic runtime asset, a corresponding environment variable will be ava
 Sensu generates the environment variable name by capitalizing the dynamic runtime asset name, replacing any special characters with underscores, and appending the `_PATH` suffix.
 The value of the variable will be the path on disk where the dynamic runtime asset build has been unpacked.
 
-For example, for a Sensu Windows agent, the environment variable path for the dynamic runtime asset [`sensu-plugins-windows`][4] would be:
+For example, for a Sensu Windows agent, the environment variable path for the dynamic runtime asset [`sensu-windows-powershell-checks`][4] would be:
 
-`%SENSU_PLUGINS_WINDOWS_PATH%/include/config.yaml`
+`%SENSU_WINDOWS_POWERSHELL_CHECKS_PATH%/include/config.yaml`
 
 The Windows console environment interprets the content between the [paired `%` characters][44] as an environment variable name and will substitute the value of that [environment variable][45].
 
@@ -450,10 +442,10 @@ The `assetPath` token subsitution function allows you to substitute the dynamic 
 If you want to access a dynamic runtime asset path in a handler or mutator command, you must use the [environment variable](#environment-variables-for-dynamic-runtime-asset-paths).
 {{% /notice %}}
 
-For example, you can reference the dynamic runtime asset [`sensu-plugins-windows`][4] from your check or hook resources using either the environment variable or the `assetPath` function:
+For example, you can reference the dynamic runtime asset [`sensu-windows-powershell-checks`][4] from your check or hook resources using either the environment variable or the `assetPath` function:
 
-- `%SENSU_PLUGINS_WINDOWS_PATH%/include/config.yaml`
-- `${{assetPath "sensu-plugins-windows"}}/include/config.yaml`
+- `%SENSU_WINDOWS_POWERSHELL_CHECKS_PATH%/include/config.yaml`
+- `${{assetPath "sensu-windows-powershell-checks"}}/include/config.yaml`
 
 When running PowerShell plugins on Windows, the [exit status codes that Sensu captures may not match the expected values][13].
 To correctly capture exit status codes from PowerShell plugins distributed as dynamic runtime assets, use the asset path to construct the command:
@@ -465,17 +457,16 @@ To correctly capture exit status codes from PowerShell plugins distributed as dy
 type: CheckConfig
 api_version: core/v2
 metadata:
-  namespace: default
   name: win-cpu-check
 spec:
-  command: powershell.exe -ExecutionPolicy ByPass -f %{{assetPath "sensu-plugins-windows"}}%\bin\check-windows-cpu-load.ps1 90 95
+  command: powershell.exe -ExecutionPolicy ByPass -f %{{assetPath "sensu-windows-powershell-checks"}}%\bin\check-windows-cpu-load.ps1 90 95
   subscriptions:
   - windows
   handlers:
   - slack
   - email
   runtime_assets:
-  - sensu-plugins-windows
+  - sensu-windows-powershell-checks
   interval: 10
   publish: true
 {{< /code >}}
@@ -485,11 +476,10 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "win-cpu-check",
-    "namespace": "default"
+    "name": "win-cpu-check"
   },
   "spec": {
-    "command": "powershell.exe -ExecutionPolicy ByPass -f %{{assetPath \"sensu-plugins-windows\"}}%\\bin\\check-windows-cpu-load.ps1 90 95",
+    "command": "powershell.exe -ExecutionPolicy ByPass -f %{{assetPath \"sensu-windows-powershell-checks\"}}%\\bin\\check-windows-cpu-load.ps1 90 95",
     "subscriptions": [
       "windows"
     ],
@@ -498,7 +488,7 @@ spec:
       "email"
     ],
     "runtime_assets": [
-      "sensu-plugins-windows"
+      "sensu-windows-powershell-checks"
     ],
     "interval": 10,
     "publish": true
@@ -568,15 +558,14 @@ tree
     └── hello-world.sh
 {{< /code >}}
 
+   If you receive a `command not found` response, install `tree` and run the command again.
+
 6. Make sure that the script is marked as executable:
 {{< code shell >}}
-$ chmod +x bin/hello-world.sh 
+chmod +x bin/hello-world.sh 
 {{< /code >}}
 
-   The response will confirm the change:
-   {{< code shell >}}
-mode of 'hello-world.sh' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)
-{{< /code >}}
+   If you do not receive a response, the command was successful.
 
 Now that the script is in the directory, move on to the next step: packaging the `sensu-go-hello-world` directory as a dynamic runtime asset tarball.
 
@@ -1106,10 +1095,10 @@ Then, you can rely on dynamic runtime asset filters to ensure that you install o
 
 Share your open-source dynamic runtime assets on [Bonsai][16] and connect with the Sensu community.
 Bonsai supports dynamic runtime assets hosted on [GitHub][24] and released using [GitHub releases][25].
-For more information about creating Sensu plugins, see the [plugins reference][29].
+For more information about creating Sensu plugins, read the [plugins reference][29].
 
 Bonsai requires a [`bonsai.yml` configuration file][26] in the root directory of your repository that includes the project description, platforms, asset filenames, and SHA-512 checksums.
-For a Bonsai-compatible dynamic runtime asset template using Go and [GoReleaser][27], see the [Sensu Go plugin skeleton][28].
+For a Bonsai-compatible dynamic runtime asset template using Go and [GoReleaser][27], review the [Sensu Go plugin skeleton][28].
 
 To share your dynamic runtime asset on Bonsai, [log in to Bonsai][37] with your GitHub account and authorize Sensu.
 After you are logged in, you can [register your dynamic runtime asset on Bonsai][38] by adding the GitHub repository, a description, and tags.
@@ -1221,7 +1210,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [1]: ../../observability-pipeline/observe-filter/sensu-query-expressions/
 [2]: ../../operations/control-access/namespaces/
 [3]: ../../observability-pipeline/observe-schedule/tokens/#manage-dynamic-runtime-assets
-[4]: https://bonsai.sensu.io/assets/samroy92/sensu-plugins-windows
+[4]: https://bonsai.sensu.io/assets/sensu/sensu-windows-powershell-checks
 [5]: #metadata-attributes
 [6]: ../../observability-pipeline/observe-schedule/checks/
 [7]: ../../observability-pipeline/observe-filter/filters/

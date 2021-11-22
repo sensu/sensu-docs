@@ -40,8 +40,13 @@ The access and refresh tokens are [JSON Web Tokens (JWTs)][2] that Sensu issues 
 The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
 The access and refresh tokens are saved in your browser's local storage.
 
-The web UI complies with Sensu role-based access control (RBAC), so individual users see information according to their access configurations.
-See the [RBAC reference][3] for [default user credentials][4] and instructions for [creating new users][5].
+The web UI complies with Sensu role-based access control (RBAC), so individual users can view information according to their access configurations.
+Read the [RBAC reference][3] for [default user credentials][4] and instructions for [creating new users][5].
+
+## View system information
+
+Press `CTRL .` in the web UI to open the system information modal and view information about your Sensu backend and etcd or PostgreSQL datastore.
+For users with permission to create or update licenses, the system information modal includes license expiration information.
 
 ## Use the implicit OR operator
 

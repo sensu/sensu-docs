@@ -6,7 +6,7 @@ product: "Sensu Go"
 version: "6.5"
 weight: 70
 layout: "single"
-toc: false
+toc: true
 menu:
   sensu-go-6.5:
     parent: observability-pipeline
@@ -18,12 +18,86 @@ menu:
 
 **<button onclick="window.location.href='../';">Back to start</button> or click any element in the pipeline to jump to it.**
 
-**In the process stage, Sensu executes [handlers][1]**.
+**In the process stage, Sensu executes [pipelines][14] and [handlers][1]**.
 
-In the process stage of Sensu's observability pipeline, the Sensu backend executes [handlers][1] to take action on your observation data.
-Your handler configuration determines what happens to the events that comes through your pipeline.
-For example, your handler might route incidents to a specific Slack channel or PagerDuty notification workflow, or send metrics to InfluxDB or Prometheus.
+In the process stage of Sensu's observability pipeline, the Sensu backend executes [pipelines][14] and [handlers][1] to take action on your observation data.
+Your pipeline or handler configuration determines what happens to the events that comes through your observability pipeline.
+For example, your pipeline or handler might route incidents to a specific Slack channel or PagerDuty notification workflow, or send metrics to InfluxDB or Prometheus.
 
+## Pipelines
+
+[Pipelines][14] are Sensu resources composed of observation event processing workflows made up of filters, mutators, and handlers.
+Instead of specifying filters and mutators in handler definitions, you can specify all three in a single pipeline workflow.
+
+This example shows a pipeline resource definition that includes an event filter, a mutator, and a handler:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Pipeline
+api_version: core/v2
+metadata:
+  name: incident_alerts
+spec:
+  workflows:
+  - name: labeled_email_alerts
+    filters:
+    - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    mutator:
+      name: add_labels
+      type: Mutator
+      api_version: core/v2
+    handler:
+      name: email
+      type: Handler
+      api_version: core/v2
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Pipeline",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "incident_alerts"
+  },
+  "spec": {
+    "workflows": [
+      {
+        "name": "labeled_email_alerts",
+        "filters": [
+          {
+            "name": "state_change_only",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "mutator": {
+          "name": "add_labels",
+          "type": "Mutator",
+          "api_version": "core/v2"
+        },
+        "handler": {
+          "name": "email",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+To use pipelines, list them in check definitions in the [pipelines array][15].
+All the observability events that the check produces will be processed according to the pipeline's workflows.
+
+## Handlers
+
+[Handlers][1] are actions the Sensu backend executes on events.
 Sensu also checks your handlers for the event filters and mutators to apply in the [filter][7] and [transform][8] stages.
 
 A few different types of handlers are available in Sensu.
@@ -38,15 +112,11 @@ Here's an example resource definition for a pipe handler &mdash; read [Send Slac
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
   - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX
-  filters: null
-  handlers: null
   runtime_assets:
   - sensu-slack-handler
   secrets: null
@@ -59,17 +129,13 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",
     "env_vars": [
       "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX"
     ],
-    "filters": null,
-    "handlers": null,
     "runtime_assets": [
       "sensu-slack-handler"
     ],
@@ -82,7 +148,10 @@ spec:
 
 {{< /language-toggle >}}
 
-You can also use [TCP/UDP handlers][5] to send your observation data to remote sockets and [handler sets][6] to streamline groups of actions to execute for certain types of events.
+Other types of handlers include [Sumo Logic metrics handlers][12] and [TCP stream handlers][13], which provide persistent connections for transmitting Sensu observation data to remote data storage services to help prevent data bottlenecks.
+Sensu's Sumo Logic metrics handlers and TCP stream handlers are available for use **only** in [pipelines][14].
+
+You can also use [traditional TCP/UDP handlers][5] to send your observation data to remote sockets and [handler sets][6] to streamline groups of actions to execute for certain types of events.
 
 Discover, download, and share Sensu handler dynamic runtime assets in [Bonsai][9], the Sensu asset hub
 Read [Use assets to install plugins][10] to get started.
@@ -99,3 +168,7 @@ Read [Use assets to install plugins][10] to get started.
 [9]: https://bonsai.sensu.io/
 [10]: ../../plugins/use-assets-to-install-plugins/
 [11]: send-slack-alerts/
+[12]: sumo-logic-metrics-handlers/
+[13]: tcp-stream-handlers/
+[14]: pipelines/
+[15]: ../observe-schedule/checks/#pipelines-attribute

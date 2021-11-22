@@ -15,8 +15,8 @@ menu:
 
 Sensu executes mutators during the **[transform][16]** stage of the [observability pipeline][17].
 
-Handlers can specify a mutator to execute and transform observability event data before any handlers are applied.
-When the Sensu backend processes an event, it checks the handler for the presence of a mutator and executes that mutator before executing the handler.
+[Pipelines][27] can specify a mutator to execute and transform observability event data before any handlers are applied.
+When the Sensu backend processes an event, it checks the pipeline for the presence of a mutator and executes that mutator before executing the handler.
 
 Mutators accept input/data via `STDIN` and can parse JSON event data.
 They output JSON data (modified event data) to `STDOUT` or `STDERR`.
@@ -25,18 +25,19 @@ There are two types of mutators: [pipe][21] and [JavaScript][18].
 
 ## Pipe mutator examples
 
-This example shows a pipe mutator resource definition with the minimum required attributes:
+This example shows a [pipe mutator][21] resource definition with the minimum required attributes:
 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Mutator
 api_version: core/v2
 metadata:
   name: mutator_minimum
-  namespace: default
 spec:
   command: example_mutator.go
+  type: pipe
 {{< /code >}}
 
 {{< code json >}}
@@ -44,11 +45,11 @@ spec:
   "type": "Mutator",
   "api_version": "core/v2",
   "metadata": {
-    "name": "mutator_minimum",
-    "namespace": "default"
+    "name": "mutator_minimum"
   },
   "spec": {
-    "command": "example_mutator.go"
+    "command": "example_mutator.go",
+    "type": "pipe"
   }
 }
 {{< /code >}}
@@ -64,18 +65,16 @@ The following mutator definition uses an imaginary Sensu plugin, `example_mutato
 type: Mutator
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: example-mutator
-  namespace: default
 spec:
   command: example_mutator.go
   eval: ""
   env_vars: []
-  runtime_assets: []
+  runtime_assets:
+  - example-mutator-asset
   secrets: null
   timeout: 0
-  type: ""
+  type: pipe
 {{< /code >}}
 
 {{< code json >}}
@@ -83,18 +82,17 @@ spec:
   "type": "Mutator",
   "api_version": "core/v2",
   "metadata": {
-    "name": "example-mutator",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "example-mutator"
   },  
   "spec": {
     "command": "example_mutator.go",
     "timeout": 0,
     "env_vars": [],
-    "runtime_assets": [],
+    "runtime_assets": [
+      "example-mutator-asset"
+    ],
     "secrets": null,
-    "type": "",
+    "type": "pipe",
     "eval": ""
   }
 }
@@ -102,43 +100,12 @@ spec:
 
 {{< /language-toggle >}}
 
-## JavaScript mutator examples
+## JavaScript mutator example
 
-As shown in these examples, JavaScript mutators use the eval attribute instead of command.
+[JavaScript mutators][18] use the eval attribute instead of the command attribute.
 The eval value must be an ECMAScript 5 (JavaScript) expression.
 
-{{< language-toggle >}}
-
-{{< code yml >}}
----
-type: Mutator
-api_version: core/v2
-metadata:
-  created_by: admin
-  name: js_mutator_1
-  namespace: default
-spec:
-  eval: 'return JSON.stringify({"some info": "is here"});'
-  type: javascript
-{{< /code >}}
-
-{{< code json >}}
-{
-  "type": "Mutator",
-  "api_version": "core/v2",
-  "metadata": {
-    "created_by": "admin",
-    "name": "js_mutator_1",
-    "namespace": "default"
-  },
-  "spec": {
-    "eval": "return JSON.stringify({\"some info\": \"is here\"});",
-    "type": "javascript"
-  }
-}
-{{< /code >}}
-
-{{< /language-toggle >}}
+This example uses a JavaScript mutator to remove event attributes that are not required &mdash; in this case, the check name and entity `app_id` label:
 
 {{< language-toggle >}}
 
@@ -147,11 +114,11 @@ spec:
 type: Mutator
 api_version: core/v2
 metadata:
-  created_by: admin
-  name: js_mutator_2
-  namespace: default
+  name: remove_checkname_entitylabel
 spec:
-  eval: event.check.labels["hello"] = "Sensu user";
+  eval: >-
+    data = JSON.parse(JSON.stringify(event)); delete data.check.metadata.name;
+    delete data.entity.metadata.labels.app_id; return JSON.stringify(data)
   type: javascript
 {{< /code >}}
 
@@ -160,24 +127,24 @@ spec:
   "type": "Mutator",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "js_mutator_2",
-    "namespace": "default"
+    "name": "remove_checkname_entitylabel"
   },
   "spec": {
-    "eval": "event.check.labels[\"hello\"] = \"Sensu user\";",
+    "eval": "data = JSON.parse(JSON.stringify(event)); delete data.check.metadata.name; delete data.entity.metadata.labels.app_id; return JSON.stringify(data)",
     "type": "javascript"
   }
 }
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+You can also use JavaScript mutators to do things like [add new attributes][23] and [combine existing attributes into a single new attribute][24].
 
 ## Pipe mutators
 
 **Pipe mutators** produce an exit status code to indicate state.
 A code of `0` indicates OK status.
-If the mutator executes successfully (returns an exit status code of `0`), the modified event data return to the handler and the handler is executed.
+If the mutator executes successfully (returns an exit status code of `0`), the modified event data return to the pipeline and the handler is executed.
 
 Exit codes other than `0` indicate failure.
 If the mutator fails to execute (returns a non-zero exit status code or fails to complete within its configured timeout), an error is logged and the handler will not execute.
@@ -209,9 +176,9 @@ JavaScript mutators do not require you to return any value &mdash; you can mutat
 However, if you do return a value with a JavaScript mutator, it must be a string.
 If a JavaScript mutator returns a non-string value (an array, object, integer, or Boolean), an error is recorded in the [Sensu backend log][20].
 
-JavaScript mutators can include environment variables, and the environment variables will be made available to the mutator's global environment.
-Secrets are not available to JavaScript mutators.
+JavaScript mutators can use dynamic runtime assets as long as they are valid JavaScript assets.
 
+Secrets are not available to JavaScript mutators.
 JavaScript mutators cannot look up events from the event store.
 
 ### JavaScript mutator eval attribute
@@ -221,7 +188,8 @@ JavaScript mutators do not use the command attribute.
 
 All mutator eval expressions are executed by a Sensu backend as the `sensu` user.
 
-JavaScript mutators can use dynamic runtime assets as long as they are valid JavaScript assets.
+JavaScript mutator eval expressions can use the environment variables listed in the [env_vars attribute][25].
+For JavaScript mutators, you can define environment variables and list the names of any environment variables that are available in your environment in the env_vars attribute.
 
 ## Built-in mutators
 
@@ -233,40 +201,63 @@ To process an event, some handlers require only the check output, not the entire
 For example, when sending metrics to Graphite using a TCP handler, Graphite expects data that follows the Graphite plaintext protocol.
 By using the built-in `only_check_output` mutator, Sensu reduces the event to only the check output so Graphite can accept it.
 
-To use only check output, include the `only_check_output` mutator in the handler configuration `mutator` string:
+To use only check output, include the `only_check_output` mutator in the pipeline `mutator` array:
 
 {{< language-toggle >}}
 
 {{< code yml >}}
 ---
-type: Handler
+type: Pipeline
 api_version: core/v2
 metadata:
-  name: graphite
-  namespace: default
+  name: graphite_pipeline
 spec:
-  mutator: only_check_output
-  socket:
-    host: 10.0.1.99
-    port: 2003
-  type: tcp
+  workflows:
+  - name: graphite_check_output
+    filters:
+    - name: has_metrics
+      type: EventFilter
+      api_version: core/v2
+    mutator:
+      name: only_check_output
+      type: Mutator
+      api_version: core/v2
+    handler:
+      name: graphite
+      type: Handler
+      api_version: core/v2
 {{< /code >}}
 
 {{< code json >}}
 {
-  "type": "Handler",
+  "type": "Pipeline",
   "api_version": "core/v2",
   "metadata": {
-    "name": "graphite",
-    "namespace": "default"
+    "name": "graphite_pipeline"
   },
   "spec": {
-    "type": "tcp",
-    "socket": {
-      "host": "10.0.1.99",
-      "port": 2003
-    },
-    "mutator": "only_check_output"
+    "workflows": [
+      {
+        "name": "graphite_check_output",
+        "filters": [
+          {
+            "name": "has_metrics",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "mutator": {
+          "name": "only_check_output",
+          "type": "Mutator",
+          "api_version": "core/v2"
+        },
+        "handler": {
+          "name": "graphite",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
   }
 }
 {{< /code >}}
@@ -311,7 +302,7 @@ api_version: core/v2
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the mutator that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the mutator definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See the [metadata attributes reference][2] for details.
+description  | Top-level collection of metadata about the mutator that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the mutator definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. Review the [metadata attributes reference][2] for details.
 required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][5].
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -504,20 +495,36 @@ timeout: 30
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="env-vars-attribute"></a>
+
 env_vars      | 
 -------------|------
-description  | Array of environment variables to use with command execution.
+description  | Array of environment variables to use with command or eval expression execution.
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 env_vars:
-- RUBY_VERSION=2.5.0
+- APP_VERSION=2.5.0
 {{< /code >}}
 {{< code json >}}
 {
   "env_vars": [
-    "RUBY_VERSION=2.5.0"
+    "APP_VERSION=2.5.0"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}<br>As of [Sensu Go 6.5.2][26], for JavaScript mutators, you can list any environment variables that are available in your environment in addition to defining environment variables:<br><br>{{< language-toggle >}}
+{{< code yml >}}
+env_vars:
+- APP_VERSION=2.5.0
+- SHELL
+{{< /code >}}
+{{< code json >}}
+{
+  "env_vars": [
+    "APP_VERSION=2.5.0",
+    "SHELL"
   ]
 }
 {{< /code >}}
@@ -531,12 +538,12 @@ type           | Array
 example        | {{< language-toggle >}}
 {{< code yml >}}
 runtime_assets:
-- ruby-2.5.0
+- metric-mutator
 {{< /code >}}
 {{< code json >}}
 {
   "runtime_assets": [
-    "ruby-2.5.0"
+    "metric-mutator"
   ]
 }
 {{< /code >}}
@@ -593,7 +600,8 @@ eval: 'return JSON.stringify({"some stuff": "is here"});'
 
 type         | 
 -------------|------ 
-description  | Mutator type. 
+description  | Mutator type.{{% notice note %}}**NOTE**: Make sure to specify the type is `javascript` when you create a JavaScript mutator. If you do not specify the type, Sensu uses `pipe` as the default, expects a command attribute in the mutator definition, and ignores any eval attribute you provide.
+{{% /notice %}}
 required     | false
 type         | String
 default      | `pipe`
@@ -643,7 +651,7 @@ secret: sensu-ansible-host
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Mutator that uses secrets management
+## Use secrets management in a mutator
 
 Learn more about [secrets management][14] for your Sensu configuration in the [secrets][10] and [secrets providers][11] references.
 
@@ -691,6 +699,82 @@ spec:
 
 {{< /language-toggle >}}
 
+## Add new event attributes with JavaScript mutators
+
+Use a JavaScript mutator to rewrite events with a new attribute added.
+
+This example adds a new "organization" attribute to events at the top level, with a value of `sec_ops`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Mutator
+api_version: core/v2
+metadata:
+  name: add_org_sec_ops
+spec:
+  eval: >-
+    data = JSON.parse(JSON.stringify(event)); data['organization'] = 'sec_ops';
+    return JSON.stringify(data)
+  type: javascript
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "add_org_sec_ops"
+  },
+  "spec": {
+    "eval": "data = JSON.parse(JSON.stringify(event)); data['organization'] = 'sec_ops'; return JSON.stringify(data)",
+    "type": "javascript"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Combine existing attributes with JavaScript mutators
+
+Use a JavaScript mutator to create a new attribute from a combination of multiple existing attributes and add the new attribute to events.
+
+This example combines the event namespace and the name of the check that generated the event into a single new attribute, `origination`:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Mutator
+api_version: core/v2
+metadata:
+  name: add_origination_attribute
+spec:
+  eval: >-
+    data = JSON.parse(JSON.stringify(event)); data.origination =
+    data.metadata.namespace + data.check.metadata.name; return
+    JSON.stringify(data)
+  type: javascript
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "add_origination_attribute"
+  },
+  "spec": {
+    "eval": "data = JSON.parse(JSON.stringify(event)); data.origination = data.metadata.namespace + data.check.metadata.name; return JSON.stringify(data)",
+    "type": "javascript"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 
 [1]: ../../../plugins/assets/
 [2]: #metadata-attributes
@@ -714,3 +798,8 @@ spec:
 [20]: ../../observe-schedule/backend/#event-logging
 [21]: #pipe-mutators
 [22]: #eval-attribute
+[23]: #add-new-event-attributes-with-javascript-mutators
+[24]: #combine-existing-attributes-with-javascript-mutators
+[25]: #env-vars-attribute
+[26]: ../../../release-notes/#652-release-notes
+[27]: ../../observe-process/pipelines/

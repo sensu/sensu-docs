@@ -55,6 +55,7 @@ All resources of each type for each namespace are saved in a single configuratio
       handlers/
       handlersets/
       mutators/
+      pipelines/
 {{< /code >}}
 
 ## Adopt a configuration file strategy
@@ -77,7 +78,7 @@ You must add a [`password_hash`](../../sensuctl/#generate-a-password-hash) or `p
 
 To build as you go, use sensuctl commands to retrieve your Sensu resource definitions as you create them and copy the definitions into your configuration files.
 
-For example, if you follow [Monitor server resources][8] and create a check named `check_cpu`, you can retrieve that check definition in YAML or JSON format:
+For example, if you follow [Monitor server resources][8] and create a check named `check_cpu`, you can retrieve that check definition in YAML or JSON format with sensuctl:
 
 {{< language-toggle >}}
 
@@ -105,21 +106,23 @@ metadata:
   namespace: default
 spec:
   check_hooks: null
-  command: check-cpu.rb -w 75 -c 90
+  command: check-cpu-usage -w 75 -c 90
   env_vars: null
-  handlers:
-  - slack
+  handlers: null
   high_flap_threshold: 0
   interval: 60
   low_flap_threshold: 0
   output_metric_format: ""
   output_metric_handlers: null
+  pipelines:
+  - api_version: core/v2
+    name: reduce_alerts
+    type: Pipeline
   proxy_entity_name: ""
   publish: true
   round_robin: false
   runtime_assets:
-  - cpu-checks-plugins
-  - sensu-ruby-runtime
+  - check-cpu-usage
   secrets: null
   stdin: false
   subdue: null
@@ -140,7 +143,7 @@ spec:
   },
   "spec": {
     "check_hooks": null,
-    "command": "check-cpu.rb -w 75 -c 90",
+    "command": "check-cpu-usage -w 75 -c 90",
     "env_vars": null,
     "handlers": [
       "slack"
@@ -150,12 +153,18 @@ spec:
     "low_flap_threshold": 0,
     "output_metric_format": "",
     "output_metric_handlers": null,
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "name": "reduce_alerts",
+        "type": "Pipeline"
+      }
+    ],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
     "runtime_assets": [
-      "cpu-checks-plugins",
-      "sensu-ruby-runtime"
+      "check-cpu-usage"
     ],
     "secrets": null,
     "stdin": false,
@@ -170,6 +179,8 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+If you prefer, you can also [view JSON resource definitions in the Sensu web UI][14].
 
 You can copy these resource definitions and paste them into manually created configuration files located anywhere on your system.
 
@@ -337,3 +348,4 @@ Read the [SensuFlow GitHub Action marketplace page][1] and [Monitoring as code w
 [11]: #create-a-monitoring-as-code-repository
 [12]: https://sensu.io/blog/monitoring-as-code-with-sensu-flow
 [13]: #adopt-a-configuration-file-strategy
+[14]: ../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui

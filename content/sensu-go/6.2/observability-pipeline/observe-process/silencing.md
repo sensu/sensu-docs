@@ -46,10 +46,7 @@ This example shows a silencing resource definition that uses a per-entity subscr
 type: Silenced
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: entity:i-424242:*
-  namespace: default
 spec:
   begin: 1542671205
   check: null
@@ -65,10 +62,7 @@ spec:
   "type": "Silenced",
   "api_version": "core/v2",
   "metadata": {
-    "name": "entity:i-424242:*",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "entity:i-424242:*"
   },
   "spec": {
     "expire": -1,
@@ -84,6 +78,8 @@ spec:
 
 {{< /language-toggle >}}
 
+### Silence a specific check on a specific entity
+
 The following example shows how to silence a check named `check_ntp` on entity `i-424242`, ensuring the silencing entry is deleted after the underlying issue is resolved:
 
 {{< language-toggle >}}
@@ -94,9 +90,6 @@ type: Silenced
 api_version: core/v2
 metadata:
   name: entity:i-424242:check_ntp
-  namespace: default
-  labels: 
-  annotations: 
 spec:
   subscription: entity:i-424242
   check: check_ntp
@@ -108,10 +101,7 @@ spec:
   "type": "Silenced",
   "api_version": "core/v2",
   "metadata": {
-    "name": "entity:i-424242:check_ntp",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "entity:i-424242:check_ntp"
   },
   "spec": {
     "subscription": "entity:i-424242",
@@ -440,10 +430,9 @@ reason: rebooting the world
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Silence all checks on entities with a specific subscription
+## Silence all checks with a specific subscription
 
-In this example, you'll completely silence any entities subscribed to `appserver`.
-Just as in the example of silencing all checks on a specific entity, you’ll create a silencing entry that specifies only the `appserver` subscription:
+Use this example to create a silencing entry for all checks with the `appserver` subscription:
 
 {{< language-toggle >}}
 
@@ -453,9 +442,6 @@ type: Silenced
 api_version: core/v2
 metadata:
   name: appserver
-  namespace: default
-  labels: 
-  annotations: 
 spec:
   subscription: appserver
 {{< /code >}}
@@ -465,10 +451,7 @@ spec:
   "type": "Silenced",
   "api_version": "core/v2",
   "metadata": {
-    "name": "appserver",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "appserver"
   },
   "spec": {
     "subscription": "appserver"
@@ -477,6 +460,26 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: This example will not silence entities with the `appserver` subscription.
+Checks that do not include the `appserver` subscription will still run on entities that include the `appserver` subscription.<br><br>
+To silence all checks for entities with a particular subscription, [use the Sensu web UI](#silence-all-checks-for-entities-with-a-specific-subscription).
+{{% /notice %}}
+
+## Silence all checks for entities with a specific subscription
+
+To silence all checks for entities with a particular subscription:
+
+1. Open the [Entities page][16] in the Sensu web UI.
+2. Use the search field to search the entities by subscription.
+For example, to search for entities with the `system` subscription, enter `"system" in entity.subscriptions`.
+3. Click the box to select all.
+4. Click **SILENCE**.
+5. In the New Silencing Entry dialog window, add any desired silence configuration options.
+6. Click **CREATE**.
+
+{{< figure src="/images/silence-entities-by-subscription.gif" alt="Silence entities by subscription in the Sensu web UI" link="/images/silence-entities-by-subscription.gif" target="_blank" >}}
 
 ## Silence a specific check on entities with a specific subscription
 
@@ -490,9 +493,6 @@ type: Silenced
 api_version: core/v2
 metadata:
   name: appserver:mysql_status
-  namespace: default
-  labels: 
-  annotations: 
 spec:
   subscription: appserver
   check: mysql_status
@@ -503,10 +503,7 @@ spec:
   "type": "Silenced",
   "api_version": "core/v2",
   "metadata": {
-    "name": "appserver:mysql_status",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "appserver:mysql_status"
   },
   "spec": {
     "subscription": "appserver",
@@ -529,9 +526,6 @@ type: Silenced
 api_version: core/v2
 metadata:
   name: mysql_status
-  namespace: default
-  labels: 
-  annotations: 
 spec:
   check: mysql_status
 {{< /code >}}
@@ -541,10 +535,7 @@ spec:
   "type": "Silenced",
   "api_version": "core/v2",
   "metadata": {
-    "name": "mysql_status",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "mysql_status"
   },
   "spec": {
     "check": "mysql_status"
@@ -605,3 +596,5 @@ name: '*:mysql_status'
 [12]: #silence-a-specific-check-on-every-entity
 [13]: ../../observe-events/events/#silenced-attribute
 [14]: ../../observe-filter/filters/#built-in-filter-not_silenced
+[15]: #silencing-examples
+[16]: ../../../web-ui/view-manage-resources/#manage-entities

@@ -35,7 +35,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: check_minimum
-  namespace: default
 spec:
   command: collect.sh
   handlers:
@@ -51,7 +50,6 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "namespace": "default",
     "name": "check_minimum"
   },
   "spec": {
@@ -167,7 +165,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: interval_check
-  namespace: default
 spec:
   command: check-cpu.sh -w 75 -c 90
   handlers:
@@ -183,8 +180,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "interval_check",
-    "namespace": "default"
+    "name": "interval_check"
   },
   "spec": {
     "command": "check-cpu.sh -w 75 -c 90",
@@ -224,7 +220,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: cron_check
-  namespace: default
 spec:
   command: check-cpu.sh -w 75 -c 90
   cron: '* * * * *'
@@ -240,8 +235,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "cron_check",
-    "namespace": "default"
+    "name": "cron_check"
   },
   "spec": {
     "command": "check-cpu.sh -w 75 -c 90",
@@ -255,7 +249,6 @@ spec:
 
 {{< /language-toggle >}}
 
-
 Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the `cron` attribute:
 
 {{< language-toggle >}}
@@ -266,7 +259,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: cron_check
-  namespace: default
 spec:
   check_hooks: null
   command: hi
@@ -296,8 +288,7 @@ spec:
    "type": "CheckConfig",
    "api_version": "core/v2",
    "metadata": {
-      "name": "cron_check",
-      "namespace": "default"
+      "name": "cron_check"
    },
    "spec": {
       "check_hooks": null,
@@ -343,7 +334,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: ad_hoc_check
-  namespace: default
 spec:
   command: check-cpu.sh -w 75 -c 90
   handlers:
@@ -359,8 +349,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "ad_hoc_check",
-    "namespace": "default"
+    "name": "ad_hoc_check"
   },
   "spec": {
     "command": "check-cpu.sh -w 75 -c 90",
@@ -398,7 +387,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: proxy_check
-  namespace: default
 spec:
   command: http_check.sh https://sensu.io
   handlers:
@@ -416,8 +404,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "proxy_check",
-    "namespace": "default"
+    "name": "proxy_check"
   },
   "spec": {
     "command": "http_check.sh https://sensu.io",
@@ -447,7 +434,7 @@ Because checks that include `proxy_requests` attributes need to be executed for 
 The following proxy check runs every 60 seconds, cycling through the agents with the `proxy` subscription alphabetically according to the agent name, for all existing proxy entities with the custom label `proxy_type` set to `website`.
 
 This check uses [token substitution][39] to import the value of the custom entity label `url` to complete the check command.
-See the [entity reference][40] for information about using custom labels.
+read the [entity reference][40] for information about using custom labels.
 
 {{< language-toggle >}}
 
@@ -457,7 +444,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: proxy_check_proxy_requests
-  namespace: default
 spec:
   command: http_check.sh {{ .labels.url }}
   handlers:
@@ -477,8 +463,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "proxy_check_proxy_requests",
-    "namespace": "default"
+    "name": "proxy_check_proxy_requests"
   },
   "spec": {
     "command": "http_check.sh {{ .labels.url }}",
@@ -501,7 +486,7 @@ spec:
 #### Fine-tune proxy check scheduling with splay
 
 Sensu supports distributing proxy check executions across an interval using the `splay` and `splay_coverage` attributes.
-For example, if you assume that the `proxy_check_proxy_requests` check in the example above matches three proxy entities, you'd expect to see a burst of three events every 60 seconds.
+For example, if you assume that the `proxy_check_proxy_requests` check in the example above matches three proxy entities, you'd expect a burst of three events every 60 seconds.
 If you add the `splay` attribute (set to `true`) and the `splay_coverage` attribute (set to `90`) to the `proxy_requests` scope, Sensu will distribute the three check executions over 90% of the 60-second interval, resulting in three events splayed evenly across a 54-second period.
 
 ## Check token substitution
@@ -934,12 +919,12 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 runtime_assets:
-- ruby-2.5.0
+- metric-check
 {{< /code >}}
 {{< code json >}}
 {
   "runtime_assets": [
-    "ruby-2.5.0"
+    "metric-check"
   ]
 }
 {{< /code >}}
@@ -1007,7 +992,7 @@ proxy_entity_name: switch-dc-01
 
 |proxy_requests|    |
 -------------|------
-description  | Assigns a check to run for multiple entities according to their `entity_attributes`. In the example below, the check executes for all entities with entity class `proxy` and the custom proxy type label `website`. Proxy requests are a great way to reuse check definitions for a group of entities. For more information, see the [proxy requests specification][10] and [Monitor external resources][28].
+description  | Assigns a check to run for multiple entities according to their `entity_attributes`. In the example below, the check executes for all entities with entity class `proxy` and the custom proxy type label `website`. Proxy requests are a great way to reuse check definitions for a group of entities. For more information, review the [proxy requests specification][10] and [Monitor external resources][28].
 required     | false
 type         | Hash
 example      | {{< language-toggle >}}
@@ -1062,13 +1047,13 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 env_vars:
-- RUBY_VERSION=2.5.0
+- APP_VERSION=2.5.0
 - CHECK_HOST=my.host.internal
 {{< /code >}}
 {{< code json >}}
 {
   "env_vars": [
-    "RUBY_VERSION=2.5.0",
+    "APP_VERSION=2.5.0",
     "CHECK_HOST=my.host.internal"
   ]
 }
@@ -1118,7 +1103,7 @@ output_metric_format:
 
 |output_metric_handlers    |      |
 -------------|------
-description  | Array of Sensu handlers to use for events created by the check. Each array item must be a string. Use `output_metric_handlers` in place of the `handlers` attribute if `output_metric_format` is configured. Metric handlers must be able to process [Sensu metric format][50]. For an example, see the [Sensu InfluxDB handler][51].
+description  | Array of Sensu handlers to use for events created by the check. Each array item must be a string. Use `output_metric_handlers` in place of the `handlers` attribute if `output_metric_format` is configured. Metric handlers must be able to process [Sensu metric format][50]. The [Sensu InfluxDB handler][51] provides an example.
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -1412,7 +1397,6 @@ metadata:
   labels:
     region: us-west-1
   name: collect-metrics
-  namespace: default
 spec:
   check_hooks: null
   command: collect.sh
@@ -1449,7 +1433,6 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "collect-metrics",
-    "namespace": "default",
     "labels": {
       "region": "us-west-1"
     },
@@ -1513,7 +1496,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: ping-github-api
-  namespace: default
 spec:
   check_hooks: null
   command: ping-github-api.sh $GITHUB_TOKEN
@@ -1527,8 +1509,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "ping-github-api",
-    "namespace": "default"
+    "name": "ping-github-api"
   },
   "spec": {
     "check_hooks": null,
@@ -1559,7 +1540,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: interval_test
-  namespace: default
 spec:
   command: powershell.exe -f c:\\users\\tester\\test.ps1
   subscriptions:
@@ -1575,8 +1555,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "interval_test",
-    "namespace": "default"
+    "name": "interval_test"
   },
   "spec": {
     "command": "powershell.exe -f c:\\users\\tester\\test.ps1",

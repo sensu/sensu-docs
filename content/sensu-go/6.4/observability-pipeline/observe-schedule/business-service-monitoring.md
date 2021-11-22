@@ -1,5 +1,7 @@
 ---
 title: "Monitor Business Services"
+guide_title: "Monitor business services"
+type: "guide"
 description: "Sensu's business service monitoring (BSM) provides high-level visibility into the current health of any number of your business services. Read this guide to learn how BSM provides an overall view of your business services."
 product: "Sensu Go"
 version: "6.4"
@@ -59,8 +61,6 @@ type: ServiceComponent
 api_version: bsm/v1
 metadata:
   name: postgresql-1
-  namespace: default
-  created_by: admin
 spec:
   cron: ''
   handlers:
@@ -87,9 +87,7 @@ spec:
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "postgresql-1",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "postgresql-1"
   },
   "spec": {
     "cron": "",
@@ -136,8 +134,6 @@ type: RuleTemplate
 api_version: bsm/v1
 metadata:
   name: status-threshold
-  namespace: default
-  created_by: admin
 spec:
   description: Creates an event when the percentage of events with the given status exceed the given threshold
   arguments:
@@ -179,9 +175,7 @@ spec:
   "type": "RuleTemplate",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "status-threshold",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "status-threshold"
   },
   "spec": {
     "description": "Creates an event when the percentage of events with the given status exceed the given threshold",

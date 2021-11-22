@@ -37,7 +37,6 @@ Event list | Events are observation data that represent the state of an entity a
 
 {{% notice protip %}}
 **PRO TIP**: If you're not familiar with these concepts, try the [self-guided Sensu Go Workshop](https://github.com/sensu/sensu-go-workshop).
-To register for an interactive instructor-led session, visit the [Sensu Go Workshop registration page](https://sensu.io/sensu-go-workshop).
 {{% /notice %}}
 
 ### Examine a resource definition

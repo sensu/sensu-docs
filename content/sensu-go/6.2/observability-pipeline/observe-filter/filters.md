@@ -42,11 +42,11 @@ This example shows the minimum required attributes for an event filter resource:
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
   name: filter_minimum
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -58,8 +58,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "filter_minimum",
-    "namespace": "default"
+    "name": "filter_minimum"
   },
   "spec": {
     "action": "allow",
@@ -94,7 +93,7 @@ Event filters that return a `true` value will continue to be processed via addit
 When more complex conditional logic is needed than direct filter expression comparison, Sensu event filters provide support for expression evaluation using [Otto][31].
 Otto is an ECMAScript 5 (JavaScript) virtual machine that evaluates JavaScript expressions provided in an event filter.
 There are some caveats to using Otto: not all of the regular expressions (regex) specified in ECMAScript 5 will work.
-See the [Otto README][32] for more details.
+Review the [Otto README][32] for more details.
 
 Use [Go regex syntax][3] to create event filter expressions that combine any available [event][46], [check][47], or [entity][48] attributes with `match(<regex>)`.
 
@@ -108,7 +107,6 @@ type: EventFilter
 api_version: core/v2
 metadata:
   name: metrics-checks-only
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -120,8 +118,7 @@ spec:
    "type": "EventFilter",
    "api_version": "core/v2",
    "metadata": {
-      "name": "metrics-checks-only",
-      "namespace": "default"
+      "name": "metrics-checks-only"
    },
    "spec": {
       "action": "allow",
@@ -145,7 +142,6 @@ type: EventFilter
 api_version: core/v2
 metadata:
   name: us-west-events
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -157,8 +153,7 @@ spec:
    "type": "EventFilter",
    "api_version": "core/v2",
    "metadata": {
-      "name": "us-west-events",
-      "namespace": "default"
+      "name": "us-west-events"
    },
    "spec": {
       "action": "allow",
@@ -199,11 +194,11 @@ To use the is_incident event filter, include `is_incident` in the handler config
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
@@ -221,8 +216,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",
@@ -261,6 +255,7 @@ To allow silencing for an event handler, add `not_silenced` to the handler confi
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:
@@ -284,8 +279,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",
@@ -320,11 +314,11 @@ To use the has_metrics event filter, include `has_metrics` in the handler config
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: Handler
 api_version: core/v2
 metadata:
   name: influx-db
-  namespace: default
 spec:
   command: sensu-influxdb-handler -d sensu
   env_vars:
@@ -344,8 +338,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "influx-db",
-    "namespace": "default"
+    "name": "influx-db"
   },
   "spec": {
     "command": "sensu-influxdb-handler -d sensu",
@@ -372,7 +365,7 @@ When applied to a handler configuration, the has_metrics event filter allows onl
 ## Build event filter expressions with Sensu query expressions
 
 You can write custom event filter expressions as [Sensu query expressions][27] using the event data attributes described in this section.
-For more information about event attributes, see the [event reference][28].
+For more information about event attributes, read the [event reference][28].
 
 ### Syntax quick reference
 
@@ -818,13 +811,11 @@ For instance, if you package underscore.js into a Sensu asset, you can use funct
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: deny_if_failure_in_history
-  namespace: default
 spec:
   action: deny
   expressions:
@@ -839,10 +830,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "deny_if_failure_in_history",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "deny_if_failure_in_history"
   },
   "spec": {
     "action": "deny",
@@ -863,11 +851,11 @@ The following event filter allows handling for only events with a custom entity 
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
   name: production_filter
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -879,8 +867,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "production_filter",
-    "namespace": "default"
+    "name": "production_filter"
   },
   "spec": {
     "action": "allow",
@@ -905,11 +892,11 @@ If evaluation returns false, the event is handled.
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
   name: not_production
-  namespace: default
 spec:
   action: deny
   expressions:
@@ -921,8 +908,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "not_production",
-    "namespace": "default"
+    "name": "not_production"
   },
   "spec": {
     "action": "deny",
@@ -942,13 +928,11 @@ This example demonstrates how to use the `state_change_only` inclusive event fil
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: state_change_only
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -961,10 +945,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "state_change_only",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "state_change_only"
   },
   "spec": {
     "action": "allow",
@@ -985,13 +966,11 @@ In this example, the `filter_interval_60_hourly` event filter will match event d
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: filter_interval_60_hourly
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -1005,10 +984,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "filter_interval_60_hourly",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "filter_interval_60_hourly"
   },
   "spec": {
     "action": "allow",
@@ -1028,13 +1004,11 @@ This example will apply the same logic as the previous example but for checks wi
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: filter_interval_30_hourly
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -1048,10 +1022,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "filter_interval_30_hourly",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "filter_interval_30_hourly"
   },
   "spec": {
     "action": "allow",
@@ -1077,13 +1048,11 @@ If the annotation does not exist, the event filter uses 15 minutes for the alert
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: keepalive_timeouts
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -1097,10 +1066,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "keepalive_timeouts",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "keepalive_timeouts"
   },
   "spec": {
     "action": "allow",
@@ -1124,13 +1090,11 @@ If evaluation returns false, the event will not be handled.
 {{< language-toggle >}}
 
 {{< code yml >}}
+---
 type: EventFilter
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: nine_to_fiver
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -1144,10 +1108,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "nine_to_fiver",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "nine_to_fiver"
   },
   "spec": {
     "action": "allow",

@@ -106,6 +106,9 @@ echo '{"CN":"Sensu Test CA","key":{"algo":"rsa","size":2048}}' | cfssl gencert -
 {{< code shell >}}
 echo '{"signing":{"default":{"expiry":"17520h","usages":["signing","key encipherment","client auth"]},"profiles":{"backend":{"usages":["signing","key encipherment","server auth","client auth"],"expiry":"4320h"},"agent":{"usages":["signing","key encipherment","client auth"],"expiry":"4320h"}}}}' > ca-config.json
 {{< /code >}}
+{{% notice note %}}
+**NOTE**: We suggest a 6-month expiry duration for security, but you can use any duration you prefer when you define the `expiry` attribute value in the signing parameters.
+{{% /notice %}}
 
 <a id="copy-ca-pem"></a>
 
@@ -324,7 +327,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: expired_certs
-  namespace: default
 spec:
   command: openssl x509 -noout -enddate -in <cert-name>.pem
   subscriptions:
@@ -337,8 +339,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "namespace": "default",
-    "name": "expired_certs"
+    "namespace": "default"
   },
   "spec": {
     "command": "openssl x509 -noout -enddate -in <cert-name>.pem",

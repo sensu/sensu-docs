@@ -45,8 +45,6 @@ type: ServiceComponent
 api_version: bsm/v1
 metadata:
   name: postgresql-1
-  namespace: default
-  created_by: admin
 spec:
   cron: ''
   handlers:
@@ -73,9 +71,7 @@ spec:
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "postgresql-1",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "postgresql-1"
   },
   "spec": {
     "cron": "",
@@ -255,7 +251,7 @@ name: postgresql-1
 
 namespace    |      |
 -------------|------
-description  | [Sensu RBAC namespace][7] that the service component belongs to.
+description  | [Sensu RBAC namespace][7] that the service component belongs to.
 required     | true
 type         | String
 example      | {{< language-toggle >}}

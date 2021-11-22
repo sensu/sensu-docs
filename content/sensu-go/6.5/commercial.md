@@ -22,7 +22,8 @@ For more information, read [Get started with commercial features](../commercial/
 
 ## Commercial features in Sensu Go
 
-- **Integrate your Sensu observability pipeline with industry-standard tools** like EC2, Jira, ServiceNow, and Sumo Logic with [supported integrations][24] and [enterprise-tier dynamic runtime assets][11].
+- **Integrate your Sensu observability pipeline with industry-standard tools** like EC2, Jira, and ServiceNow, and Sumo Logic with [supported integrations][24] and [enterprise-tier dynamic runtime assets][11].
+Use the built-in [Sensu Plus][30] integration to transmit your observability data to Sumo Logic via the [HTTP Logs and Metrics Source][29].
 - **Manage resources from your browser**: Use the Sensu [web UI][8] to manage events and entities and create, edit, and delete checks, handlers, mutators, silences, and event filters.
 Create customized [global default settings][26] for page size and theme, [page-specific settings][27] for page size, order, and selector, and [sign-in messages][28].
 - **Control permissions with Sensu role-based access control (RBAC)**, with the option of using [Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC)][9] for authentication.
@@ -35,9 +36,9 @@ Avoid exposing usernames, passwords, and access keys in your Sensu configuration
 Federation affords visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI.
 - **Use powerful search capabilities** designed for large installations to search [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wide range of resource attributes.
 Build event filter expressions with [JavaScript execution functions][19].
-- **Log observation data** [to a file][10] you can use as an input to your favorite data lake solution.
 - **Achieve enterprise-scale event handling** for your Sensu instance with a [PostgreSQL event store][12].
 Access the PostgreSQL event datastore with the same Sensu web UI, API, and sensuctl processes as etcd-stored events.
+Use [Sumo Logic metrics handlers][31] and [TCP stream handlers][32] to provide a persistent connection for transmitting Sensu observability metrics.
 - **Get enterprise-class support**: Rest assured that with [Sensu support][13], help is available if you need it.
 Our expert in-house team offers best-in-class support to get you up and running smoothly.
 
@@ -82,6 +83,8 @@ Use sensuctl to view your license details at any time:
 sensuctl license info
 {{< /code >}}
 
+Users with permission to create or update licenses can also view license information in the Sensu [web UI][8] by pressing `CTRL .` to open the system information modal.
+
 These resources will help you get started with commercial features in Sensu Go:
 
 - [Set up and manage authentication providers][9]
@@ -99,7 +102,7 @@ These resources will help you get started with commercial features in Sensu Go:
 [6]: ../web-ui/search/
 [7]: https://sensu.io/blog/one-year-of-sensu-go/
 [8]: ../web-ui/
-[9]: ../operations/control-access/
+[9]: ../operations/control-access/sso/
 [10]: ../observability-pipeline/observe-schedule/backend#event-logging
 [11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4/
 [12]: ../operations/deploy-sensu/datastore#scale-event-storage
@@ -111,12 +114,15 @@ These resources will help you get started with commercial features in Sensu Go:
 [18]: ../operations/maintain-sensu/license/
 [19]: ../observability-pipeline/observe-filter/filters#build-event-filter-expressions-with-javascript-execution-functions
 [20]: ../operations/deploy-sensu/use-federation/	
-[21]: ../operations/deploy-sensu/secure-sensu/#sensu-agent-mtls-authentication
+[21]: ../operations/deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [22]: ../operations/manage-secrets/secrets-management/
 [23]: ../observability-pipeline/observe-schedule/business-service-monitoring/
 [24]: ../plugins/supported-integrations/
 [25]: #commercial-features-in-sensu-go
-[25]: #commercial-features-in-sensu-go
 [26]: ../web-ui/webconfig-reference/#default-preferences-attributes
 [27]: ../web-ui/webconfig-reference/#page-preferences-attributes
 [28]: ../web-ui/webconfig-reference/#sign-in-message
+[29]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
+[30]: ../sensu-plus/
+[31]: ../observability-pipeline/observe-process/sumo-logic-metrics-handlers/
+[32]: ../observability-pipeline/observe-process/tcp-stream-handlers/
