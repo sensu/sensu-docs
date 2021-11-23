@@ -1,7 +1,6 @@
 ---
 title: "Microsoft Windows"
-description: "User documentation for installing and operating Sensu on Microsoft
-  Windows."
+description: "Read this page for detailed information about installing and operating Sensu on Microsoft Windows via a native system installer package."
 weight: 4
 version: "1.9"
 product: "Sensu Core"

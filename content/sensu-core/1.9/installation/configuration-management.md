@@ -1,6 +1,6 @@
 ---
 title: "Configuration Management"
-description: "Configuration Management with Sensu"
+description: "The configuration management tools described on this page have well-defined modules to help you deploy Sensu in production and at scale."
 weight: 16
 product: "Sensu Core"
 version: "1.9"

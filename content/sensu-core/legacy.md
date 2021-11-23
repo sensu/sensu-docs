@@ -1,6 +1,6 @@
 ---
 product: "Sensu Core"
-title: "Legacy Documentation"
+title: "This page covers documentation for legacy versions of Sensu, which are no longer hosted on the Sensu documentation site."
 layout: "single"
 ---
 

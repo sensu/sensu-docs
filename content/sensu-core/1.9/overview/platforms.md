@@ -1,6 +1,6 @@
 ---
 title: "Supported Platforms"
-description: "Supported platforms"
+description: "This page lists and links to Sensu installer packages and package manager repositories, which are available for most modern operating systems."
 product: "Sensu Core"
 version: "1.9"
 weight: 4

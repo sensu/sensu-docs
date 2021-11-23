@@ -1,7 +1,6 @@
 ---
 title: "Mac OS X"
-description: "User documentation for installing and operating Sensu on Mac OS X
-  systems."
+description: "Read this page for detailed information about installing and operating Sensu on Mac OS X systems via a native system installer package."
 weight: 3
 version: "1.9"
 product: "Sensu Core"

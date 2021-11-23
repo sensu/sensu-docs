@@ -1,6 +1,6 @@
 ---
 title: "Filters"
-description: "Reference documentation for Sensu Filters."
+description: "Read this reference documentation to learn about Sensu filters, which allow you to filter Sensu events before they are sent to event handlers."
 product: "Sensu Core"
 version: "1.9"
 weight: 6

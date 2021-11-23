@@ -1,6 +1,6 @@
 ---
 title: "Securing RabbitMQ"
-description: "Strategies and best practices for securing RabbitMQ"
+description: "This guide describes important strategies and best practices for securing RabbitMQ, the supported transport mechanism for any Sensu deployment."
 product: "Sensu Core"
 version: "1.9"
 weight: 9

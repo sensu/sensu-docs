@@ -1,6 +1,6 @@
 ---
 title: "RabbitMQ Configuration"
-description: "Reference documentation for configuring RabbitMQ for use with Sensu."
+description: "Read this reference documentation for information about configuring the RabbitMQ message bus for use with Sensu."
 product: "Sensu Core"
 version: "1.9"
 weight: 15

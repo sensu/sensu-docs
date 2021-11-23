@@ -1,6 +1,6 @@
 ---
 title: "Install RabbitMQ"
-description: "The complete Sensu installation guide."
+description: "This page links to complete instructions for installing and configuring RabbitMQ on Ubuntu/Debian and RHEL/CentOS platforms."
 product: "Sensu Core"
 version: "1.9"
 weight: 7

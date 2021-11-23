@@ -1,6 +1,6 @@
 ---
 title: "Install Redis on RHEL/CentOS"
-description: "The complete Sensu installation guide."
+description: "Read this page for complete instructions for installing and configuring Redis on RHEL/CentOS for use with Sensu."
 weight: 6
 product: "Sensu Core"
 version: "1.9"

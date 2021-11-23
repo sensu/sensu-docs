@@ -1,6 +1,6 @@
 ---
 title: "Handlers"
-description: "Reference documentation for Sensu Handlers."
+description: "Read this reference documentation for information about Sensu handlers, which are actions the Sensu server executes on events."
 product: "Sensu Core"
 version: "1.9"
 weight: 8

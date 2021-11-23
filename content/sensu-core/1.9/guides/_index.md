@@ -1,6 +1,6 @@
 ---
 title: "Guides"
-description: "Guides documentation for Sensu."
+description: "This page lists and links to all of the guides documentation for Sensu. Guides explain how to configure and use Sensu resources and features."
 product: "Sensu Core"
 version: "1.9"
 weight: 40

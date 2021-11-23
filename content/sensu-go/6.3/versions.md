@@ -87,7 +87,7 @@ This table lists the supported versions of Sensu Go with links to active documen
 5.0.1 | [December 12, 2018][5]    | Not supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-0_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 5.0.0 | [December 5, 2018][4]     | Not supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-0_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 
-[1]: https://docs.sensu.io/sensu-go/latest/installation/upgrade/
+[1]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/upgrade/
 [2]: https://docs.sensu.io/sensu-go/latest/commercial/
 [3]: https://sensu.io/licenses/sensu-support-services#4.-software-releases.
 [4]: https://docs.sensu.io/sensu-go/latest/release-notes/#500-release-notes

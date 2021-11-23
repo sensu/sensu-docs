@@ -1,6 +1,6 @@
 ---
 title: "Sensu Dashboards"
-description: "The complete Sensu installation guide."
+description: "This page provides an overview and links to further information about the two Sensu dashboard solutions: Uchiwa and Sensu Enterprise Dashboard."
 weight: 4.5
 product: "Sensu Core"
 version: "1.9"

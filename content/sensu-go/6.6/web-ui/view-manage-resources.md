@@ -135,7 +135,7 @@ To view the JSON definition for any event or entity in the web UI:
 
 This example shows how to view the JSON definition for an event:
 
-{{< figure src="/images/view-event-data-web-ui.gif" alt="View an event's resource data in the web UI" link="/images/view-data-web-ui.gif" target="_blank" >}}
+{{< figure src="/images/view-event-data-web-ui.gif" alt="View an event's resource data in the web UI" link="/images/view-event-data-web-ui.gif" target="_blank" >}}
 
 ### View resource data for a configuration resource
 
@@ -148,7 +148,7 @@ To view and copy the JSON or YAML definition for any configuration resource in t
 
 This example shows how to view and copy the resource data for an event filter:
 
-{{< figure src="/images/view-filter-data-web-ui.gif" alt="View an event filter's resource data in the web UI" link="/images/view-data-web-ui.gif" target="_blank" >}}
+{{< figure src="/images/view-filter-data-web-ui.gif" alt="View an event filter's resource data in the web UI" link="/images/view-filter-data-web-ui.gif" target="_blank" >}}
 
 
 [1]: ../#webui-homepage

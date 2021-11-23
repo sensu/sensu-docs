@@ -1,6 +1,6 @@
 ---
 title: "Sensu Server and API"
-description: "The complete Sensu installation guide."
+description: "Read this page to learn about installing the Sensu Core (OSS) and Sensu Enterprise versions of the Sensu server and API."
 weight: 3.1
 product: "Sensu Core"
 version: "1.9"

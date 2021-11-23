@@ -1,6 +1,6 @@
 ---
 title: "Reference"
-description: "Reference documentation for Sensu."
+description: "Read this reference documentation for information about Sensu, including resources like aggregates, checks, events, filters, handlers, plugins, and more."
 product: "Sensu Core"
 version: "1.9"
 weight: 100

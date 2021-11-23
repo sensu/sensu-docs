@@ -1,7 +1,6 @@
 ---
 title: "RHEL/CentOS"
-description: "User documentation for installing and operating Sensu on Red Hat
-  Enterprise Linux and CentOS Linux systems."
+description: "Read this page for detailed information about installing and operating Sensu on Red Hat Enterprise Linux and CentOS Linux systems."
 weight: 6
 version: "1.9"
 product: "Sensu Core"

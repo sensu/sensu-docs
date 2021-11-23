@@ -1,6 +1,6 @@
 ---
 title: "Checks"
-description: "Reference documentation for Sensu Checks."
+description: "Read this reference documentation for information about Sensu checks, commands the Sensu client executes that monitor a condition or collect measurements."
 product: "Sensu Core"
 version: "1.9"
 weight: 3

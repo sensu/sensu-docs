@@ -1,6 +1,6 @@
 ---
 title: "FreeBSD"
-description: "User documentation for installing and operating Sensu on FreeBSD systems."
+description: "Read this page for detailed information about installing and operating Sensu on FreeBSD systems via a native system installer package."
 weight: 1
 version: "1.9"
 product: "Sensu Core"

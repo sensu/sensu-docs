@@ -1,6 +1,6 @@
 ---
 title: "Install Redis on Ubuntu/Debian"
-description: "The complete Sensu installation guide."
+description: "Read this page for complete instructions for installing and configuring Redis on Ubuntu/Debian for use with Sensu."
 weight: 5
 product: "Sensu Core"
 version: "1.9"

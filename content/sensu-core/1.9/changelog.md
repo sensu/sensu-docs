@@ -1,6 +1,6 @@
 ---
 title: "CHANGELOG"
-description: "Release notes for Sensu Core"
+description: "Read the Sensu Core changelog for release notes. Learn what's new in our latest release and get information about new features, improvements, and fixes."
 product: "Sensu Core"
 version: "1.9"
 menu: "sensu-core-1.9"

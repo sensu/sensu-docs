@@ -1,6 +1,6 @@
 ---
 title: "API"
-description: "Sensu API reference documentation"
+description: "This page lists and links to the documentation pages for the Sensu API. The Sensu API is RESTful and provides access to the monitoring data Sensu collects."
 product: "Sensu Core"
 version: "1.9"
 weight: 50

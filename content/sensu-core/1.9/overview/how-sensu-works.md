@@ -1,6 +1,6 @@
 ---
 title: "How Sensu Works"
-description: "The Sensu Monitoring Workflow"
+description: "Learn more about the Sensu monitoring workflow, from check requests to event handling. This page describes each stage in the workflow."
 product: "Sensu Core"
 version: "1.9"
 weight: 2

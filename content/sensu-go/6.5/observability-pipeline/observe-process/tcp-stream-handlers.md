@@ -15,7 +15,7 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access TCP stream handlers in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 Sensu executes TCP stream handlers during the **[process][22]** stage of the [observability pipeline][29].

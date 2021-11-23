@@ -1,6 +1,6 @@
 ---
 title: "Install Redis"
-description: "The complete Sensu installation guide."
+description: "Read this page to install Redis for use with Sensu. Two Sensu services, the server and API, require acces to the same instance of Redis to function."
 product: "Sensu Core"
 version: "1.9"
 weight: 6

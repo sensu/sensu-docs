@@ -1,7 +1,7 @@
 ---
 title: "Monitoring Devices With Sensu's SNMP Receiver Extension"
 linkTitle: "SNMP Receiver Extension"
-description: "Set up a Sensu client as a Simple Network Management Protocol trap receiver."
+description: "Learn how to set up a Sensu client as a simple network management protocol (SNMP) trap receiver. Hosts that send SNMP traps in Sensu function as proxy clients."
 product: "Sensu Core"
 version: "1.9"
 weight: 7

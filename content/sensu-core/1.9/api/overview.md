@@ -1,6 +1,6 @@
 ---
 title: "RESTful API Overview"
-description: "Overview of Sensu API endpoints"
+description: "Read this page for an overview of the Sensu API endpoints. The Sensu API is RESTful and provides access to the monitoring data Sensu collects."
 product: "Sensu Core"
 version: "1.9"
 weight: 1
