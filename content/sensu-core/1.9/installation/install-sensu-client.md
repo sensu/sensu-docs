@@ -1,6 +1,6 @@
 ---
 title: "Sensu Client"
-description: "The complete Sensu installation guide."
+description: "After you successfully install and configure a Sensu Core or Enterprise server and API, read this page to install and configure a Sensu client."
 weight: 4
 product: "Sensu Core"
 version: "1.9"

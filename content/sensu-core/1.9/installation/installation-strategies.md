@@ -1,6 +1,6 @@
 ---
 title: "Installation Strategies"
-description: "The complete Sensu installation guide."
+description: "Review these standalone, distributed, and high-availability installation strategies to select the one that is most appropriate for your installation."
 weight: 2
 product: "Sensu Core"
 version: "1.9"

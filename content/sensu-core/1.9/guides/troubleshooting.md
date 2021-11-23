@@ -1,7 +1,7 @@
 ---
 title: "Troubleshooting Sensu"
 linkTitle: "Troubleshooting"
-subtitle: "Common Problems and How to Solve Them"
+subtitle: "This page describes commonly observed issues when deploying Sensu, as well as possible solutions for each problem."
 product: "Sensu Core"
 version: "1.9"
 weight: 10

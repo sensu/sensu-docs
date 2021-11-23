@@ -1,6 +1,6 @@
 ---
 title: "Mutators"
-description: "Reference documentation for Sensu Mutators."
+description: "Read this reference documentation for information about Sensu mutators, which are executable scripts and programs that modify Sensu event data for handlers."
 product: "Sensu Core"
 version: "1.9"
 weight: 7

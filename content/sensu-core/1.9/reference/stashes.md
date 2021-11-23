@@ -1,6 +1,6 @@
 ---
 title: "Stashes"
-description: "Reference documentation for Sensu Stashes."
+description: "Read this reference documentation to learn more about Sensu stashes, which are JSON documents that contain arbitrary JSON hash data."
 product: "Sensu Core"
 version: "1.9"
 weight: 11

@@ -1,6 +1,6 @@
 ---
 title: "Monitoring Sensu with Sensu"
-description: "Strategies and best practices for monitoring Sensu with Sensu"
+description: "Learn important strategies and best practices for using Sensu itself to ensure that your Sensu components are properly monitored."
 product: "Sensu Core"
 version: "1.9"
 weight: 11

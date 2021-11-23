@@ -1,6 +1,6 @@
 ---
 title: "Upgrading Sensu"
-description: "The complete Sensu installation guide."
+description: "This page describes how to upgrade Sensu, which usually only requires upgrading to the latest package but may include additional steps for some versions."
 weight: 14
 product: "Sensu Core"
 version: "1.9"

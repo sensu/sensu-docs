@@ -1,7 +1,6 @@
 ---
 title: "Ubuntu/Debian"
-description: "User documentation for installing and operating Sensu on Ubuntu
-  and Debian Linux systems."
+description: "Read this page for detailed information about installing and operating Sensu on Ubuntu and Debian Linux systems."
 weight: 7
 version: "1.9"
 product: "Sensu Core"

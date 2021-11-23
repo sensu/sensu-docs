@@ -2,7 +2,7 @@
 title: "Scaling Sensu - Overview"
 linkTitle: "Scaling Overview"
 product: "Sensu Core"
-description: "Overview of strategies and best practices for scaling Sensu"
+description: "Read this page to learn about strategies and best practices for scaling your Sensu deployment, whether individual components or across regions."
 version: "1.9"
 weight: 11
 menu:

@@ -1,6 +1,6 @@
 ---
 title: "Intro to Mutators"
-description: "Sensu mutators transform event data for a Sensu event handler."
+description: "Learn how to use Sensu mutators to transform event data for Sensu event handlers. This guide explains how to create several Sensu mutators."
 product: "Sensu Core"
 version: "1.9"
 weight: 5

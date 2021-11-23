@@ -1,6 +1,6 @@
 ---
 title: "Intro to Filters"
-description: "Sensu filters allow you to filter out events destined for one or more event handlers. Filters are commonly used to filter event recurrences to eliminate notification noise."
+description: "Learn how Sensu filters allow you to filter out events destined for handlers. Filters are useful for removing event recurrences to eliminate alert noise."
 product: "Sensu Core"
 version: "1.9"
 weight: 4

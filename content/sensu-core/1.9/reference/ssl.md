@@ -1,6 +1,6 @@
 ---
 title: "SSL Configuration"
-description: "Reference documentation for using Sensu with SSL."
+description: "Read this reference documentation for information about how to use Sensu with secure sockets layer (SSL) encryption."
 product: "Sensu Core"
 version: "1.9"
 weight: 17

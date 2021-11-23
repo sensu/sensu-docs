@@ -1,6 +1,6 @@
 ---
 title: "Redis Configuration"
-description: "Reference documentation for configuring Redis for use with Sensu."
+description: "Read this reference documentation for information about configuring Redis, a key-value database, for use as a datastore for Sensu."
 product: "Sensu Core"
 version: "1.9"
 weight: 16

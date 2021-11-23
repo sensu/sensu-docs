@@ -1,6 +1,6 @@
 ---
 title: "Architecture"
-description: "Sensu Architecture"
+description: "Learn about each component in Sensu's architecture, including the transport, data store, check scheduler, monitoring agent, event processor, and RESTful API."
 product: "Sensu Core"
 version: "1.9"
 weight: 3

@@ -1,6 +1,6 @@
 ---
 title: "Events"
-description: "Reference documentation for Sensu Events, including the Event Data specification."
+description: "Read this reference documentation for information about Sensu events, including an example event and the event data specification."
 product: "Sensu Core"
 version: "1.9"
 weight: 5

@@ -1,6 +1,6 @@
 ---
 title: "Installation Overview"
-description: "The complete Sensu installation guide."
+description: "This guide provides new and experienced Sensu users with detailed information about installing and configuring Sensu in various operating environments."
 weight: 1
 product: "Sensu Core"
 version: "1.9"

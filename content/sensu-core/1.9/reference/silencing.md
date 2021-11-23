@@ -1,6 +1,6 @@
 ---
 title: "Silencing"
-description: "Reference documentation for Sensu Event Silencing."
+description: "Read this reference documentation for information about Sensu event silencing, which allows you to suppress handler execution on the fly."
 product: "Sensu Core"
 version: "1.9"
 weight: 6

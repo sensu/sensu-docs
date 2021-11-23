@@ -1,6 +1,6 @@
 ---
 title: "Client Installation"
-description: "The Sensu Core client installation guide."
+description: "Read this page for the complete Sensu Core client installation guide. The Sensu client runs on every system you need to monitor."
 weight: 3
 version: "1.9"
 product: "Sensu Core"

@@ -1,6 +1,6 @@
 ---
 title: "Testing Prereleases"
-description: "The complete Sensu installation guide."
+description: "Read these pre-release instructions for specific platforms. Use prereleases only if you already have experience installing and managing Sensu installations."
 weight: 15
 product: "Sensu Core"
 version: "1.9"
