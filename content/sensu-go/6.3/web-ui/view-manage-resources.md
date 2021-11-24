@@ -31,7 +31,7 @@ When you switch to a namespace, the left navigation menu loads so you can select
 
 {{< figure src="/images/webui-left-nav.png" alt="Sensu web UI left navigation menu" link="/images/webui-left-nav.png" target="_blank" >}}
 
-Click the triple-bar icon at the top of the left-navigation menu to expand the menu and display page labels:
+Click the ☰ icon at the top of the left-navigation menu to expand the menu and display page labels:
 
 {{< figure src="/images/expand-webui-left-nav.png" alt="Sensu web UI with expanded left navigation menu" link="/images/expand-webui-left-nav.png" target="_blank" >}}
 
