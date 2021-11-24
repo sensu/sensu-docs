@@ -31,7 +31,7 @@ For this reason, the web UI will display a PostgreSQL prompt instead of the BSM 
 
 To build a business service in the web UI module:
 
-1. Click the ![services icon](/images/web-ui-services-icon.png) icon in the left navigation menu to open the Services page.
+1. Click ![services icon](/images/web-ui-services-icon.png) in the left navigation menu to open the Services page.
 2. Click **ADD NEW SERVICE** to open the Create New Service dialog window.
 3. Enter a name for the service entity.
 4. Enter labels and annotations, if desired.
