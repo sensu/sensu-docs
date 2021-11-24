@@ -418,7 +418,7 @@ sensu-centos   prometheus_metrics   up,instance=localhost:9090,job=prometheus va
 Download the Grafana dashboard configuration file from the Sensu docs:
 
 {{< code shell >}}
-wget https://docs.sensu.io/sensu-go/latest/files/up_or_down_dashboard.json
+curl -O https://docs.sensu.io/sensu-go/latest/files/up_or_down_dashboard.json
 {{< /code >}}
 
 Using the downloaded file, add the dashboard to Grafana with an API call:
