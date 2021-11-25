@@ -2146,4 +2146,4 @@ To get started with Sensu Go:
 [254]: /sensu-go/6.5/observability-pipeline/observe-transform/mutators/#env-vars-attribute
 [255]: #652-release-notes
 [256]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#api-write-timeout
-[257]: /sensu-go/6.5/observability-pipeline/observe-schedule/#dashboard-write-timeout
+[257]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#dashboard-write-timeout
