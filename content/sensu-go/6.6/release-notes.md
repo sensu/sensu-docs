@@ -9,6 +9,7 @@ version: "6.6"
 menu: "sensu-go-6.6"
 ---
 
+- [6.6.0 release notes](#660-release-notes)
 - [6.5.5 release notes](#655-release-notes)
 - [6.5.4 release notes](#654-release-notes)
 - [6.5.3 release notes](#653-release-notes)
@@ -94,6 +95,25 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.6.0 release notes
+
+**November 25, 2021** &mdash; The latest release of Sensu Go, version 6.6.0, is now available for download.
+
+This release introduces PostgreSQL event store sorting as well as web UI improvements like support for ANSI color codes and a warning message when editing resources on a cluster with an older version than the gateway cluster. Sensu Go 6.6.0 also adds a label to logged metrics to help identify the backend that generated the metrics, logs connection errors along with context errors, and fixes a bug that could cause a backend crash in case of etcd client unavailability.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.6.0.
+
+**IMPROVEMENTS**
+- ([Commercial feature][259]) In the web UI, users now receive a warning message when they try to add or edit resources on an cluster that is running an older Sensu backend version than the gateway cluster.
+- ([Commercial feature][259]) The web UI now supports ANSI color codes, which improves check output readability when it includes color.
+- ([Commercial feature][259]) Added support for sorting for the PostgreSQL event store. In addition, GraphQL can now use the PostgreSQL event store to sort events and get the total event count.
+- Logged metrics now include a backend label. This makes it possible to associate metrics from the [metrics log][258] file with the backend they were generated on.
+- Sensu no longer applies zero values for [etcd configuration flags][260]. This prevents overwriting the etcd-provided default values with null, zero, slice, or empty values.
+
+**FIXES**
+- When sensu-go cannot connect to etcd, the connection error is now logged along with context errors.
+- Fixed a bug that could cause sensu-backend to crash if the BackendIDGetter encounters etcd client unavailability.
 
 ## 6.5.5 release notes
 
@@ -2147,3 +2167,6 @@ To get started with Sensu Go:
 [255]: #652-release-notes
 [256]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#api-write-timeout
 [257]: /sensu-go/6.5/observability-pipeline/observe-schedule/#dashboard-write-timeout
+[258]: /sensu-go/6.6/observability-pipeline/observe-schedule/backend/#platform-metrics-logging
+[259]: /sensu-go/6.6/commercial/
+[260]: /sensu-go/6.6/observability-pipeline/observe-schedule/backend/#datastore-and-cluster-configuration-flags
