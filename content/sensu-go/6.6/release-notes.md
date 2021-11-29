@@ -105,7 +105,7 @@ This patch release removes a debugging log entry; adds cron library error inform
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.6.1.
 
-**IMPROVEMENT**
+**IMPROVEMENTS**
 
 - To provide additional context, errors returned by the cron library are now included with the errors Sensu returns when validating Check and CheckConfig resources.
 - Removed a debugging log entry that could cause logs to grow too big, too quickly.
