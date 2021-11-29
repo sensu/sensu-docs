@@ -2478,7 +2478,7 @@ created_by: "admin"
 {{< /code >}}
 {{< /language-toggle >}}
 
-#### Pipelines attributes
+### Pipelines attributes
 
 type         | 
 -------------|------
