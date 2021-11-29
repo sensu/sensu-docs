@@ -9,6 +9,7 @@ version: "6.6"
 menu: "sensu-go-6.6"
 ---
 
+- [6.6.1 release notes](#661-release-notes)
 - [6.6.0 release notes](#660-release-notes)
 - [6.5.5 release notes](#655-release-notes)
 - [6.5.4 release notes](#654-release-notes)
@@ -95,6 +96,19 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.6.1 release notes
+
+**November 29, 2021** &mdash; The latest release of Sensu Go, version 6.6.1, is now available for download.
+
+This patch release removes a debugging log entry, fixes a web UI bug that expanded the clear silences dialog window to the entire frame. In addition, Sensu now sets event timestamps when events are resolved via sensuctl or the web UI.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.6.1.
+
+**FIXES**
+- ([Commercial feature][259]) In the web UI, the dialog window for clearing silences no longer expands to the entire frame.
+- Removed a debugging log entry that could cause logs to grow too big, too quickly.
+- Sensu now sets event timestamps when you resolve the event with sensuctl or in the web UI.
 
 ## 6.6.0 release notes
 
