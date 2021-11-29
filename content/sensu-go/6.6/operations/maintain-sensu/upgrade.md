@@ -13,7 +13,11 @@ menu:
 
 To upgrade to the latest version of Sensu Go:
 
-1. [Install][1] the latest packages or Docker image.
+1. [Install or upgrade to][1] the latest packages or Docker image.
+
+   {{% notice note %}}
+   **NOTE**: If you're upgrading a Sensu cluster, you'll need upgrade ***all*** Sensu backends before running the command in step 5.
+{{% /notice %}}
 
 2. For systems that use `systemd`, run:
 {{< code shell >}}
