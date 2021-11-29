@@ -15,6 +15,10 @@ To upgrade to the latest version of Sensu Go:
 
 1. [Install][1] the latest packages or Docker image.
 
+   {{% notice note %}}
+   **NOTE**: If you're upgrading a Sensu cluster, upgrade **all** of your Sensu backends before you run the `sensu-backend upgrade` command in step 5.
+{{% /notice %}}
+
 2. For systems that use `systemd`, run:
 {{< code shell >}}
 sudo systemctl daemon-reload
