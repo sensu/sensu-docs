@@ -24,6 +24,7 @@ This table lists the supported versions of Sensu Go with links to active documen
 
 | Version | Release date     | Status    |     |
 | ------- |   -------------- | --------- | --- |
+6.6.1 | [November 29, 2021][80] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-6_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 6.6.0 | [November 25, 2021][79] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-6_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 6.5.5 | [November 22, 2021][78] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-5_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 6.5.4 | [October 30, 2021][77] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-5_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
@@ -177,3 +178,4 @@ This table lists the supported versions of Sensu Go with links to active documen
 [77]: https://docs.sensu.io/sensu-go/latest/release-notes/#654-release-notes
 [78]: https://docs.sensu.io/sensu-go/latest/release-notes/#655-release-notes
 [79]: https://docs.sensu.io/sensu-go/latest/release-notes/#660-release-notes
+[80]: https://docs.sensu.io/sensu-go/latest/release-notes/#661-release-notes
