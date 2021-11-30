@@ -22,6 +22,12 @@ It also describes agent mutual transport layer security (mTLS) authentication, w
 Before you can secure Sensu, you must [generate the certificates][12] you will need.
 After you generate certificates, follow this reference to secure Sensu for production.
 
+{{% notice note %}}
+**NOTE**: Sensu Go 6.4.0 upgraded the Go version from 1.13.15 to 1.16.5.
+As of [Go 1.15](https://golang.google.cn/doc/go1.15#commonname), certificates must include their Common Name (CN) as a Subject Alternative Name (SAN) field.
+To prevent connection errors after upgrading to Sensu Go 6.4.0 or later versions, follow [Generate certificates](../generate-certificates/) to make sure your certificates' SAN fields include their CNs.
+{{% /notice %}}
+
 ## Secure etcd peer communication
 
 {{% notice warning %}}
