@@ -64,9 +64,9 @@ Click the check boxes to select one or more entities and silence or delete them 
 
 {{< figure src="/images/group-entities-6-6-0.png" alt="Select one or more entities on the Entities page" link="/images/group-entities-6-6-0.png" target="_blank" >}}
 
-Click an entity name to view details about associated events, system properties, and labels and annotations:
+Click an entity name to view details about the entity's creator, agent version (for agent entities), subscriptions, labels and annotations, associated events, properties, and related entities:
 
-{{< figure src="/images/single-entity-view.gif" alt="View details for a single entity" link="/images/single-entity-view.gif" target="_blank" >}}
+{{< figure src="/images/single-entity-view-6-6-0.gif" alt="View details for a single entity" link="/images/single-entity-view-6-6-0.gif" target="_blank" >}}
 
 ## Manage services
 
@@ -83,7 +83,7 @@ The top row of the silences list includes options for filtering and sorting sile
 
 Click `+ NEW` to open a modal window and create silences for individual events, by check or subscription name, or by entity:
 
-{{< figure src="/images/silences-modal.gif" alt="Create a new silence in the modal window" link="/images/silences-modal.gif" target="_blank" >}}
+{{< figure src="/images/silences-modal-6-6-0.gif" alt="Create a new silence in the modal window" link="/images/silences-modal6-6-0.gif" target="_blank" >}}
 
 You can also silence individual checks and entities from their detail pages in the web UI.
 
