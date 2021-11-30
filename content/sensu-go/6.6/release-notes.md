@@ -123,6 +123,7 @@ This release introduces PostgreSQL event store sorting as well as web UI improve
 Read the [upgrade guide][1] to upgrade Sensu to version 6.6.0.
 
 **IMPROVEMENTS**
+- ([Commercial feature][259]) The web UI color themes are updated, and the default theme now uses cyan for elements like the left navigaton menu and breadcrumb navigation text.
 - ([Commercial feature][259]) In the web UI, users now receive a warning message when they try to add or edit resources on an cluster that is running an older Sensu backend version than the gateway cluster.
 - ([Commercial feature][259]) The web UI now supports ANSI color codes, which improves check output readability when it includes color.
 - ([Commercial feature][259]) Added support for sorting for the PostgreSQL event store. In addition, GraphQL can now use the PostgreSQL event store to sort events and get the total event count.
