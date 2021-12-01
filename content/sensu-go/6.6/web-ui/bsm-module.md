@@ -67,7 +67,7 @@ After you create a business service by any means (web UI, API, or sensuctl), it 
 
 Click the business service name to view its events and other related details and edit, silence, or delete the service:
 
-{{< figure src="/images/business-service-detail-page.png" alt="View the business service detail page" link="/images/business-service-detail-page.png" target="_blank" >}}
+{{< figure src="/images/business-service-detail-page-6-6-0.png" alt="View the business service detail page" link="/images/business-service-detail-page-6-6-0.png" target="_blank" >}}
 
 To edit, add components to, or delete a business service, click ⋮ at the top-right corner of the service's tile.
 
@@ -76,7 +76,7 @@ To edit, add components to, or delete a business service, click ⋮ at the top-r
 After you add a service component to a business service, it will be listed on the business service tile in the web UI Services page until you delete it.
 To edit or delete a service component, click ⋮ at the right of the component's name:
 
-{{< figure src="/images/edit-service-component.png" alt="Edit a service component" link="/images/edit-service-component.png" target="_blank" >}}
+{{< figure src="/images/edit-service-component-6-6-0.png" alt="Edit a service component" link="/images/edit-service-component-6-6-0.png" target="_blank" >}}
 
 Click the service component name to view its events and other related details.
 You can also edit, silence, and delete the component from the detail page.

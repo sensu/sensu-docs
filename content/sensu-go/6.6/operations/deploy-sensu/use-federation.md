@@ -21,7 +21,7 @@ For more information, read [Get started with commercial features](../../../comme
 Sensu's [federation API][1] allows you to register external clusters, gain visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI, and mirror your changes in one cluster to follower clusters.
 This is useful when you want to provide a single entry point for Sensu users who need to manage monitoring across multiple distinct physical data centers, cloud regions, or providers.
 
-{{< figure src="/images/federation-switcher-clusters.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/federation-switcher-clusters.gif" target="_blank" >}}
+{{< figure src="/images/federation-switcher-clusters-6-6-0.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/federation-switcher-clusters-6-6-0.gif" target="_blank" >}}
 
 After you configure federation, you can also create, update, and delete clusters using sensuctl [create][5], [edit][6], and [delete][7] commands.
 
@@ -419,7 +419,7 @@ spec:
 After you create clusters using the federation API, you can log in to the `gateway` Sensu web UI to view them as the `federation-viewer` user.
 Use the namespace switcher to change between namespaces across federated clusters:
 
-{{< figure src="/images/federation-switcher-animated-650plus.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/federation-switcher-animated-650plus.gif" target="_blank" >}}
+{{< figure src="/images/federation-switcher-animated-6-6-0.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/federation-switcher-animated-6-6-0.gif" target="_blank" >}}
 
 Because the `federation-viewer` user is granted only permissions provided by the built-in `view` role, this user should be able to view all resources across all clusters but should not be able to make any changes.
 If you haven't changed the permissions of the default `admin` user, that user should be able to view, create, delete, and update resources across all clusters.
