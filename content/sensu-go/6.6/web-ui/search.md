@@ -197,7 +197,7 @@ For more information, read [Get started with commercial features](../../commerci
 To save a web UI search:
 
 1. [Create a web UI search][4].
-2. Click the save icon at the right side of the search bar: ![save icon](/images/save_icon.png)
+2. Click ![save icon](/images/save_icon-6-6-0.png) at the right side of the search bar.
 3. Click **Save this search**.
 4. Type the name you want to use for the saved search.
 5. Press **Return/Enter**.
@@ -209,7 +209,7 @@ The role-based access control (RBAC) reference includes [example workflows][13] 
 
 ### Recall a saved search
 
-To recall a saved search, click the save icon in the search bar and select the name of the search you want to recall.
+To recall a saved search, click ![save icon](/images/save_icon-6-6-0.png) at the right side of the search bar and select the name of the search you want to recall.
 
 You can combine an existing saved search with a new search to create a new saved search.
 To do this, recall a saved search, add the new search statement in the search bar, and [save the combination as a new saved search][8].
@@ -218,15 +218,15 @@ To do this, recall a saved search, add the new search statement in the search ba
 
 To delete a saved search:
 
-1. Click the save icon in the search bar: ![save icon](/images/save_icon.png)
-2. Click the delete icon next to the search you want to delete: ![delete icon](/images/delete_icon.png)
+1. Click ![save icon](/images/save_icon-6-6-0.png) at the right side of the search bar.
+2. Find the saved search you want to delete and click the ![delete icon](/images/delete_icon-6-6-0.png) next to it.
 
 ## Use the sort function
 
 Use the **SORT** dropdown menu to sort search results.
 You can sort all resources by name, but events and silences have additional sorting options:
 
-- **Events page**: sort by last OK, severity, newest, and oldest.
+- **Events page**: sort by last OK, severity, timestamp, and entity.
 - **Silences page**: sort by start date.
 
 
