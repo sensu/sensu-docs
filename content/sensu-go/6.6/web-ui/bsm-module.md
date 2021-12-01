@@ -39,14 +39,14 @@ To build a business service in the web UI module:
 
 The updated Services page will include a tile for the new service:
 
-{{< figure src="/images/create-service.gif" alt="Add a new business service with the web UI module" link="/images/create-service.gif" target="_blank" >}}
+{{< figure src="/images/create-service-6-6-0.gif" alt="Add a new business service with the web UI module" link="/images/create-service-6-6-0.gif" target="_blank" >}}
 
 The business service itself is an entity with the class `service`, so it will also be listed on the [Entities page][3].
 
 To add service components to a business service:
 
 1. Click ⋮ for the business service.
-2. Select **Add Component** from the drop-down menu to open the Configure New Service Component dialog window.
+2. Select **+ New** from the drop-down menu to open the Configure New Service Component dialog window.
 3. Enter a name for the service component.
 4. Enter labels and annotations, if desired.
 5. Enter query selectors to describe the events that each monitoring rule should process for the service component.
@@ -59,7 +59,7 @@ Available arguments will vary for different rule templates.
 
 The updated business service tile will include the service component:
 
-{{< figure src="/images/create-service-component.gif" alt="Add a new service component to a business service with the web UI module" link="/images/create-service-component.gif" target="_blank" >}}
+{{< figure src="/images/create-service-component-6-6-0.gif" alt="Add a new service component to a business service with the web UI module" link="/images/create-service-component-6-6-0.gif" target="_blank" >}}
 
 ## View and manage business services
 
