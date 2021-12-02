@@ -74,7 +74,7 @@ This builds the Hugo server so you can view the site in your local web browser a
 
 Here are some things to try if you encounter an issue working with the site:
 
-* Run `yarn hugo-version` to print the running version of Hugo. Version 0.56.1 or newer is required.
+* Run `yarn hugo-version` to print the running version of Hugo. Version 0.72.0 or newer is required.
 * If you're still having trouble viewing the site, [open an issue][issue], and we'll be happy to help!
 
 #### Internet Explorer Users
