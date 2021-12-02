@@ -14,7 +14,7 @@ menu: "sensu-go-6.5"
 For more information, read [Get started with commercial features](../commercial/).
 {{% /notice %}}
 
-Sensu Plus is a built-in integration you can use to transmit your Sensu observability data to Sumo Logic via the Sumo Logic [HTTP Logs and Metrics Source][1].
+Sensu Plus is a built-in integration for transmitting your Sensu observability data to Sumo Logic via the Sumo Logic [HTTP Logs and Metrics Source][1].
 You can use Sumo Logic's interactive dashboards and analytics tools to get better visibility into your Sensu data.
 
 To use Sensu Plus, you need a [Sumo Logic account][2].
