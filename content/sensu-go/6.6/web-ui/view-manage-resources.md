@@ -83,7 +83,7 @@ The top row of the silences list includes options for filtering and sorting sile
 
 Click `+ NEW` to open a modal window and create silences for individual events, by check or subscription name, or by entity:
 
-{{< figure src="/images/silences-modal-6-6-0.gif" alt="Create a new silence in the modal window" link="/images/silences-modal6-6-0.gif" target="_blank" >}}
+{{< figure src="/images/silences-modal-6-6-0.gif" alt="Create a new silence in the modal window" link="/images/silences-modal-6-6-0.gif" target="_blank" >}}
 
 You can also silence individual checks and entities from their detail pages in the web UI.
 
