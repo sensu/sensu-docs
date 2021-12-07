@@ -27,14 +27,14 @@ To power the check to collect service metrics, you will use a check in the [http
 Use sensuctl to register the http-checks dynamic runtime asset, `sensu/http-checks`:
 
 {{< code shell >}}
-sensuctl asset add sensu/http-checks:0.4.0 -r http-checks
+sensuctl asset add sensu/http-checks:0.5.0 -r http-checks
 {{< /code >}}
 
 The response will indicate that the asset was added:
 
 {{< code shell >}}
-fetching bonsai asset: sensu/http-checks:0.4.0
-added asset: sensu/http-checks:0.4.0
+fetching bonsai asset: sensu/http-checks:0.5.0
+added asset: sensu/http-checks:0.5.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
@@ -56,12 +56,12 @@ The sensuctl response should list http-checks:
 {{< code shell >}}
      Name                                       URL                                    Hash    
 ────────────── ───────────────────────────────────────────────────────────────────── ──────────
-  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_windows_amd64.tar.gz   52ae075  
-  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_darwin_amd64.tar.gz    72d0f15  
-  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_armv7.tar.gz     ef18587  
-  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_arm64.tar.gz     3504ddf  
-  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_386.tar.gz       60b8883  
-  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_amd64.tar.gz     1db73a8  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_windows_amd64.tar.gz   52ae075  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_darwin_amd64.tar.gz    72d0f15  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_linux_armv7.tar.gz     ef18587  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_linux_arm64.tar.gz     3504ddf  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_linux_386.tar.gz       60b8883  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_linux_amd64.tar.gz     1db73a8  
 {{< /code >}}
 
 {{% notice note %}}
