@@ -479,7 +479,9 @@ For example, to search for entities with the `system` subscription, enter `"syst
 5. In the New Silencing Entry dialog window, add any desired silence configuration options.
 6. Click **CREATE**.
 
-{{< figure src="/images/silence-entities-by-subscription.gif" alt="Silence entities by subscription in the Sensu web UI" link="/images/silence-entities-by-subscription.gif" target="_blank" >}}
+The silencing entries will be listed on the [Silences page][17] in the Sensu web UI.
+
+{{< figure src="/images/silence-entities-by-subscription-6-6-0.gif" alt="Silence entities by subscription in the Sensu web UI" link="/images/silence-entities-by-subscription-6-6-0.gif" target="_blank" >}}
 
 ## Silence a specific check on entities with a specific subscription
 
@@ -598,3 +600,4 @@ name: '*:mysql_status'
 [14]: ../../observe-filter/filters/#built-in-filter-not_silenced
 [15]: #silencing-examples
 [16]: ../../../web-ui/view-manage-resources/#manage-entities
+[17]: ../../../web-ui/view-manage-resources/#manage-silences
