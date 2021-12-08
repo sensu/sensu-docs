@@ -9,6 +9,7 @@ version: "6.6"
 menu: "sensu-go-6.6"
 ---
 
+- [6.6.2 release notes](#662-release-notes)
 - [6.6.1 release notes](#661-release-notes)
 - [6.6.0 release notes](#660-release-notes)
 - [6.5.5 release notes](#655-release-notes)
@@ -96,6 +97,23 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.6.2 release notes
+
+**December 8, 2021** &mdash; The latest release of Sensu Go, version 6.6.2, is now available for download.
+
+The Sensu Go 6.6.2 patch release includes improvements in PostgreSQL health check queries and memory consumption for events and entities pages in the web UI. This release also fixes a web UI issue that provided incorrect links for cluster-wide resources.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.6.2.
+
+**IMPROVEMENTS**
+
+- ([Commercial feature][259]) Changed the SQL operation for PostgreSQL health check queries to reduce query cost.
+- ([Commercial feature][259]) In the web UI, removed **Related Entities** from individual pages for events and entities to eliminate the substantial memory consumption required to construct the list.
+
+**FIXES**
+
+- ([Commercial feature][259]) In the web UI, fixed an issue that provided incorrect links for cluster-wide resources. No web UI pages can show events across all namespaces.
 
 ## 6.6.1 release notes
 
