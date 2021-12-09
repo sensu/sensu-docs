@@ -1,8 +1,8 @@
 ---
-title: "Prune API"
-description: "The Sensu prune API provides HTTP access to create pruning commands to delete resources that do not appear in a given set of Sensu objects from a file, URL, or STDIN. This reference includes an example for creating a prune command for your Sensu instance. Read on for the full reference."
-api_title: "Prune API"
-type: "api"
+title: "enterprise/prune/v1alpha"
+description: "Sensu enterprise/prune/v1alpha API endpoints provide HTTP access to create pruning commands to delete resources that do not appear in a given set of Sensu objects from a file, URL, or STDIN. This reference includes an example for creating a prune command for your Sensu instance."
+enterprise_api_title: "enterprise/prune/v1alpha"
+type: "enterprise_api"
 version: "6.6"
 product: "Sensu Go"
 menu:
@@ -11,15 +11,15 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the prune API in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access pruning via `enterprise/prune/v1alpha` API endpoints in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: The prune API is an alpha feature and may include breaking changes.
+**NOTE**: The `enterprise/prune/v1alpha` API endpoints are an alpha feature and may include breaking changes.
 The prune API requires [cluster-level privileges](../../operations/control-access/rbac/#roles-and-cluster-roles), even when all resources belong to the same namespace.
 
-Requests to the prune API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+Requests to `enterprise/prune/v1alpha` API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

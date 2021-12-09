@@ -1,7 +1,6 @@
 ---
-title: "Other endpoints"
-linkTitle: "Other Endpoints"
-description: "Set up access control for Sensu, the flexible observability pipeline. Read these documents to authenticate to Sensu and authorize access for Sensu users."
+title: "Other APIs"
+description: "Sensu offers several API endpoints for basic authentication, checking cluster health checks, and retrieving metrics, license information, and version information."
 product: "Sensu Go"
 version: "6.6"
 weight: 20
@@ -13,14 +12,6 @@ menu:
     identifier: other
 ---
 
-This would be the landing page for all endpoint-only resources.
+Sensu offers several endpoints for basic authentication, health, metrics, license, and version:
 
-These are the endpoints:
-
-[Automated list here]
-
-- /auth
-- /auth/test
-- /auth/token
-- /health
-...
+{{< otherapiListing >}}

@@ -1,9 +1,8 @@
 ---
-title: "Web UI configuration API"
-linkTitle: "Web UI Configuration API"
-description: "The Sensu web configuration API provides HTTP access to the global web UI configuration. This reference includes examples for returning the global web UI configuration and adding or updating the web UI configuration. Read on for the full reference."
-api_title: "Web UI configuration API"
-type: "api"
+title: "enterprise/web/v1"
+description: "Sensu enterprise/web/v1 API endpoints provide HTTP access to the global web UI configuration. This reference includes examples for retrieving, creating, updating, and deleting the global web UI configuration."
+enterprise_api_title: "enterprise/web/v1"
+type: "enterprise_api"
 version: "6.6"
 product: "Sensu Go"
 menu:
@@ -17,7 +16,7 @@ For more information, read [Get started with commercial features](../../commerci
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to the web UI configuration API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to `enterprise/web/v1` API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

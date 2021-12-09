@@ -1,9 +1,8 @@
 ---
-title: "Business service monitoring API"
-linkTitle: "Business Service Monitoring API"
-description: "The business service monitoring API controls the service components and rule templates you can configure for your business services. This reference describes the Sensu business service monitoring API, including examples. Read on for the full reference."
-api_title: "Business service monitoring API"
-type: "api"
+title: "enterprise/bsm/v1"
+description: "Sensu enterprise/bsm/v1 API endpoints control the service components and rule templates you can configure for your business services. This reference includes examples for configuring Sensu business service monitoring resources via the API."
+enterprise_api_title: "enterprise/bsm/v1"
+type: "enterprise_api"
 version: "6.6"
 product: "Sensu Go"
 menu:
@@ -19,7 +18,7 @@ For more information, read [Get started with commercial features](../../commerci
 {{% notice note %}}
 **NOTE**: Business service monitoring (BSM) is in public preview and is subject to change.
 
-Requests to the business service monitoring API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+Requests to `enterprise/bsm/v1` API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

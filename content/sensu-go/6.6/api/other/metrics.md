@@ -1,8 +1,8 @@
 ---
-title: "Metrics API"
-description: "The Sensu metrics API provides HTTP access to internal Sensu metrics, including embedded etcd, memory usage, garbage collection, and gRPC metrics. Read on for the full reference."
-api_title: "Metrics API"
-type: "api"
+title: "/metrics"
+description: "The Sensu /metrics API endpoint provides HTTP access to internal Sensu metrics, including embedded etcd, memory usage, garbage collection, and gRPC metrics. Read on for the full reference."
+other_api_title: "/metrics"
+type: "other_api"
 version: "6.6"
 product: "Sensu Go"
 menu:

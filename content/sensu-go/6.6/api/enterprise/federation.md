@@ -1,8 +1,8 @@
 ---
-title: "Federation API"
-description: "The federation API controls federation of Sensu clusters. This reference describes the Sensu federation API, including examples. Read on for the full reference."
-api_title: "Federation API"
-type: "api"
+title: "enterprise/federation/v1"
+description: "Sensu enterprise/federation/v1 API endpoints control federation of Sensu clusters. This reference includes examples for etcd replicators and clusters endpoints. Read on for the full reference."
+enterprise_api_title: "enterprise/federation/v1"
+type: "enterprise_api"
 version: "6.6"
 product: "Sensu Go"
 menu:
@@ -16,7 +16,7 @@ For more information, read [Get started with commercial features](../../commerci
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to the federation API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to `enterprise/federation/v1` API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

@@ -1,6 +1,6 @@
 ---
 title: "core/v2/hooks"
-description: "Sensu core/v2/hooks API endpoints provide HTTP access to hook data. This reference includes examples for returning lists of hooks, creating a Sensu hook, and more."
+description: "Sensu core/v2/hooks API endpoints provide HTTP access to hook data. This reference includes examples for retrieving lists of hooks, creating a Sensu hook, and more."
 core_api_title: "core/v2/hooks"
 type: "core_api"
 version: "6.6"

@@ -1,6 +1,6 @@
 ---
 title: "core/v2/checks"
-description: "Sensu core/v2/checks API endpoints provide HTTP access to check data. This reference includes examples for returning checks, creating checks, and more."
+description: "Sensu core/v2/checks API endpoints provide HTTP access to check data. This reference includes examples for retrieving checks, creating checks, and more."
 core_api_title: "core/v2/checks"
 type: "core_api"
 version: "6.6"

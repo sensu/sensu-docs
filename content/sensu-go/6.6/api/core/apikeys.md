@@ -1,6 +1,6 @@
 ---
 title: "core/v2/apikeys"
-description: "Sensu core/v2/apikeys API endpoints provide HTTP access to API key data. This reference includes examples for returning API keys, creating API keys, and more."
+description: "Sensu core/v2/apikeys API endpoints provide HTTP access to API key data. This reference includes examples for retrieving API keys, creating API keys, and more."
 core_api_title: "core/v2/apikeys"
 type: "core_api"
 version: "6.6"

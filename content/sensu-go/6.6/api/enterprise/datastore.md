@@ -1,8 +1,8 @@
 ---
-title: "Datastore API"
-description: "The datastore API endpoint provides HTTP access to Sensu datastore providers. This reference includes examples for returning the provider definitions, creating a provider, and more."
-api_title: "Datastore API"
-type: "api"
+title: "enterprise/store/v1"
+description: "Sensu enterprise/store/v1 API endpoints provide HTTP access to datastore providers. This reference includes examples for retrieving provider definitions, creating a provider, and more."
+enterprise_api_title: "enterprise/store/v1"
+type: "enterprise_api"
 version: "6.6"
 product: "Sensu Go"
 menu:
@@ -10,8 +10,13 @@ menu:
     parent: enterprise
 ---
 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access the datastore feature in the packaged Sensu Go distribution.
+For more information, read [Get started with commercial features](../../commercial/).
+{{% /notice %}}
+
 {{% notice note %}}
-**NOTE**: Requests to the datastore API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to `enterprise/store/v1` API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

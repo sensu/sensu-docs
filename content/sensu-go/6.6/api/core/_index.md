@@ -1,6 +1,6 @@
 ---
 title: "Core API"
-description: "Set up access control for Sensu, the flexible observability pipeline. Read these documents to authenticate to Sensu and authorize access for Sensu users."
+description: "The Sensu Core API gives you access all of your Sensu events and resources with a backend REST APIs. Use the Core API to customize your workflows and integrate your favorite Sensu features with other tools and products."
 product: "Sensu Go"
 version: "6.6"
 weight: 20
@@ -12,13 +12,6 @@ menu:
     identifier: core
 ---
 
-This would be the landing page for all resources in the core/v2 API.
+The Core API includes endpoints for the following Sensu resources:
 
-These are the core/v2 API resources:
-
-[Automated list here]
-
-- API keys
-- Assets
-- Checks
-...
+{{< coreapiListing >}}

@@ -1,6 +1,6 @@
 ---
 title: "core/v2/assets"
-description: "Sensu core/v2/assets API endpoints provide HTTP access to asset data. This reference includes examples for returning assets, creating assets, and more."
+description: "Sensu core/v2/assets API endpoints provide HTTP access to asset data. This reference includes examples for retrieving assets, creating assets, and more."
 core_api_title: "core/v2/assets"
 type: "core_api"
 version: "6.6"

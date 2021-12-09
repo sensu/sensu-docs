@@ -1,8 +1,8 @@
 ---
-title: "Searches API"
-description: "The Sensu searches API provides HTTP access to the saved searches feature in the Sensu web UI. This reference includes examples for returning lists of saved searches and creating, updating, and deleting saved searches. Read on for the full API documentation."
-api_title: "Searches API"
-type: "api"
+title: "enterprise/searches/v1"
+description: "Sensu enterprise/searches/v1 API endpoints provide HTTP access to the saved searches feature in the Sensu web UI. This reference includes examples for retrieving lists of saved searches and creating, updating, and deleting saved searches."
+enterprise_api_title: "enterprise/searches/v1"
+type: "enterprise_api"
 version: "6.6"
 product: "Sensu Go"
 menu:
@@ -11,12 +11,12 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the searches API in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access saved searches in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to the searches API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to `enterprise/searches/v1` API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

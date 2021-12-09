@@ -1,6 +1,6 @@
 ---
 title: "Enterprise APIs"
-description: "Set up access control for Sensu, the flexible observability pipeline. Read these documents to authenticate to Sensu and authorize access for Sensu users."
+description: "Sensu Enterprise APIs allow you to access all of the data and functionality of sensuctl and the web UI with Sensu’s backend REST APIs. The Enterprise APIs provide programmatic access to commercial features like federation, secrets management, single sign-on authentication providers, and more."
 product: "Sensu Go"
 version: "6.6"
 weight: 20
@@ -12,13 +12,11 @@ menu:
     identifier: enterprise
 ---
 
-This would be the landing page for APIs with `enterprise` in their URLs.
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access Sensu's enterprise APIs in the packaged Sensu Go distribution.
+For more information, read [Get started with commercial features](../../commercial/).
+{{% /notice %}}
 
-These are the enterprise APIs:
+The enterprise APIs include:
 
-[Automated list here]
-
-- Authentication API
-- Business service monitoring API
-- Federation API
-...
+{{< enterpriseapiListing >}}

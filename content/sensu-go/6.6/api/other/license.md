@@ -1,8 +1,8 @@
 ---
-title: "License API"
-description: "The Sensu license API provides HTTP access to the active commercial license configuration. This reference includes examples for returning the active commercial license configuration and activating or updating a commercial license. Read on for the full reference."
-api_title: "License API"
-type: "api"
+title: "/license"
+description: "Sensu /license API endpoints provide HTTP access to the active commercial license configuration. This reference includes examples for retrieving the active commercial license configuration and activating or updating a commercial license."
+other_api_title: "/license"
+type: "other_api"
 version: "6.6"
 product: "Sensu Go"
 menu:
@@ -11,7 +11,7 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to the license API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to `/license` API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

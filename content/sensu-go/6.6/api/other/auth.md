@@ -1,8 +1,8 @@
 ---
-title: "Authentication API"
-description: "The Sensu authentication API provides HTTP access to test whether user credentials are valid and use these credentials to obtain access tokens. Read on for the full reference."
-api_title: "Authentication API"
-type: "api"
+title: "/auth"
+description: "Sensu /auth API endpoints provide HTTP access to retrieve user authentication credentials, test whether user credentials are valid, and use these credentials to obtain access tokens. Read on for the full reference."
+other_api_title: "/auth"
+type: "other_api"
 version: "6.6"
 product: "Sensu Go"
 menu:

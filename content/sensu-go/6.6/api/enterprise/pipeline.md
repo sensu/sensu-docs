@@ -1,9 +1,8 @@
 ---
-title: "Pipeline API"
-linkTitle: "Pipeline API"
-description: "The Sensu pipeline API provides HTTP access to data for Sensu's Sumo Logic metrics and TCP stream handlers. This reference includes examples for returning lists of handlers, creating a handler, and more. Read on for the full reference."
-api_title: "Pipeline API"
-type: "api"
+title: "enterprise/pipeline/v1"
+description: "Sensu enterprise/pipeline/v1 API endpoints provide HTTP access to data for Sensu's Sumo Logic metrics and TCP stream handlers. This reference includes examples for retrieving handlers, creating handlers, and more."
+enterprise_api_title: "enterprise/pipeline/v1"
+type: "enterprise_api"
 version: "6.6"
 product: "Sensu Go"
 menu:
@@ -12,18 +11,17 @@ menu:
 ---
 
 {{% notice warning %}}
-**IMPORTANT**: The pipeline API group does not create [pipeline resources](../../observability-pipeline/observe-process/pipelines/), which are composed of observation event processing workflows.
-Instead, the pipeline API group allows you to create resources that can **only** be used within pipelines.<br><br>
-Read the [Sumo Logic metrics handlers reference](../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers reference](../../observability-pipeline/observe-process/tcp-stream-handlers) for more information about the pipeline API group resources.
+**IMPORTANT**: The `enterprise/pipeline/v1` API endpoints do not create [pipeline resources](../../observability-pipeline/observe-process/pipelines/), which are composed of observation event processing workflows.
+Instead, `enterprise/pipeline/v1` API endpoints allow you to create resources that can **only** be used within pipelines (the [Sumo Logic metrics handlers](../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers](../../observability-pipeline/observe-process/tcp-stream-handlers)).
 {{% /notice %}}
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the pipeline API group in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access `enterprise/pipeline/v1` API endpoints in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to the pipeline API group require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to `enterprise/pipeline/v1` endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

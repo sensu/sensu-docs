@@ -1,6 +1,6 @@
 ---
 title: "core/v2/rolebindings"
-description: "Sensu core/v2/rolebindings API endpoints provide HTTP access to role binding data. This reference includes examples for returning lists of role bindings, creating role bindings, and more."
+description: "Sensu core/v2/rolebindings API endpoints provide HTTP access to role binding data. This reference includes examples for retrieving lists of role bindings, creating role bindings, and more."
 core_api_title: "core/v2/rolebindings"
 type: "core_api"
 version: "6.6"

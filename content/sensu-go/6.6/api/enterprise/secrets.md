@@ -1,8 +1,8 @@
 ---
-title: "Secrets API"
-description: "The secrets API controls secrets management for Sensu. This reference describes the Sensu secrets API, including examples. Read on for the full reference."
-api_title: "Secrets API"
-type: "api"
+title: "enterprise/secrets/v1"
+description: "Sensu enterprise/secrets/v1 API endpoints control secrets management for Sensu. This reference includes examples for retrieving, creating, updating, and deleting secrets resources."
+enterprise_api_title: "enterprise/secrets/v1"
+type: "enterprise_api"
 version: "6.6"
 product: "Sensu Go"
 menu:
@@ -11,12 +11,12 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the secrets API in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access secrets management in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to the secrets API require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to `enterprise/secrets/v1` API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
