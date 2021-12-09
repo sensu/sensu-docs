@@ -49,7 +49,7 @@ Click the check boxes to select one or more events and resolve, silence, or dele
 
 {{< figure src="/images/group-events-6-6-0.png" alt="Select one or more events on the Events page" link="/images/group-events-6-6-0.png" target="_blank" >}}
 
-Click an event name to view details like status, output, number of occurrences, labels and annotations, related check configuration (if the event was produced by a service check), and associated entity, as well as a timeline that displays the event's last 20 statuses at a glance:
+Click an event name to view details like status, output, number of occurrences, labels and annotations, related check configuration (if the event was produced by a service check), and entity summary, as well as a timeline that displays the event's last 20 statuses at a glance:
 
 {{< figure src="/images/single-event-view-6-6-0.gif" alt="View details for a single event" link="/images/single-event-view-6-6-0.gif" target="_blank" >}}
 
@@ -64,7 +64,7 @@ Click the check boxes to select one or more entities and silence or delete them 
 
 {{< figure src="/images/group-entities-6-6-0.png" alt="Select one or more entities on the Entities page" link="/images/group-entities-6-6-0.png" target="_blank" >}}
 
-Click an entity name to view details about the entity's creator, agent version (for agent entities), subscriptions, labels and annotations, associated events, properties, and related entities:
+Click an entity name to view details about the entity's creator, agent version (for agent entities), subscriptions, labels and annotations, associated events, and properties:
 
 {{< figure src="/images/single-entity-view-6-6-0.gif" alt="View details for a single entity" link="/images/single-entity-view-6-6-0.gif" target="_blank" >}}
 
