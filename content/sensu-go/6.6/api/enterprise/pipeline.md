@@ -11,8 +11,8 @@ menu:
 ---
 
 {{% notice warning %}}
-**IMPORTANT**: The `enterprise/pipeline/v1` API endpoints do not create [pipeline resources](../../../observability-pipeline/observe-process/pipelines/), which are composed of observation event processing workflows.
-Instead, `enterprise/pipeline/v1` API endpoints allow you to create resources that can **only** be used within pipelines (the [Sumo Logic metrics handlers](../../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers](../../../observability-pipeline/observe-process/tcp-stream-handlers)).
+**IMPORTANT**: The `enterprise/pipeline/v1` API endpoints do not allow you to create and manage [pipelines](../../../observability-pipeline/observe-process/pipelines/), which are composed of observation event processing workflows.
+Instead, `enterprise/pipeline/v1` API endpoints allow you to create and manage resources that can **only** be used within pipelines (the [Sumo Logic metrics handlers](../../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers](../../../observability-pipeline/observe-process/tcp-stream-handlers)).
 {{% /notice %}}
 
 {{% notice commercial %}}

@@ -11,11 +11,11 @@ menu:
 ---
 
 {{% notice warning %}}
-**IMPORTANT**: [Pipeline resources](../../../observability-pipeline/observe-process/pipelines/) are observation event processing [workflows](../../../observability-pipeline/observe-process/pipelines/#workflows) made up of filters, mutators, and handlers.
-Pipeline resources are different from the handler resources you can create with the [Enterprise pipeline API](../../enterprise/pipeline/).<br><br>
-The [pipeline API](../../enterprise/pipeline/) does not create pipeline resources.
-Instead, it allows you to create handlers that can **only** be used in pipelines resources.
-Read the [Sumo Logic metrics handlers reference](../../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers reference](../../../observability-pipeline/observe-process/tcp-stream-handlers) for more information about pipeline API handlers.
+**IMPORTANT**: The [pipelines](../../../observability-pipeline/observe-process/pipelines/) you can create and manage with this `core/v2/pipelines` API are observation event processing workflows made up of filters, mutators, and handlers.
+Pipelines are different from the resources you can create and manage with the [`enterprise/pipeline/v1`](../../enterprise/pipeline/) API.<br><br>
+The [`enterprise/pipeline/v1`](../../enterprise/pipeline/) API does not allow you to create and manage pipelines.
+Instead, it allows you to create and manage resources that can **only** be used in pipelines.<br><br>
+Read the [Sumo Logic metrics handlers reference](../../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers reference](../../../observability-pipeline/observe-process/tcp-stream-handlers) for more information about `enterprise/pipeline/v1` API resources.
 {{% /notice %}}
 
 {{% notice note %}}
