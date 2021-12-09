@@ -11,8 +11,8 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to core/v2/apikeys endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
-The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
+**NOTE**: Requests to `core/v2/apikeys` endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 ## Get all API keys
@@ -74,9 +74,9 @@ In the following example, an HTTP POST request is submitted to the `/apikeys` AP
 The request returns a successful HTTP `201 Created` response, along with a `Location` header that contains the relative path to the new API key.
 
 {{% notice note %}}
-**NOTE**: For the `/apikeys` POST endpoint, authenticate with a Sensu access token, which you can generate with the [authentication API](../#authenticate-with-the-authentication-api) or [sensuctl](../#generate-an-api-access-token-with-sensuctl).
+**NOTE**: For the `/apikeys` POST endpoint, authenticate with a Sensu access token, which you can generate with the [authentication API](../../#authenticate-with-the-authentication-api) or [sensuctl](../../#generate-an-api-access-token-with-sensuctl).
 This example uses `$SENSU_ACCESS_TOKEN` to represent a valid Sensu access token.<br><br>
-If you prefer, you can [create a new API key with sensuctl](../../operations/control-access/use-apikeys/#sensuctl-management-commands) instead of using this endpoint.
+If you prefer, you can [create a new API key with sensuctl](../../../operations/control-access/use-apikeys/#sensuctl-management-commands) instead of using this endpoint.
 {{% /notice %}}
 
 {{< code shell >}}
@@ -212,5 +212,5 @@ example URL     | http://hostname:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91
 response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-[1]: ../#pagination
+[1]: ../../#pagination
 [2]: https://tools.ietf.org/html/rfc7396

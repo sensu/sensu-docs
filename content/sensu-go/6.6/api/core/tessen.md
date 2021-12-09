@@ -11,8 +11,8 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to core/v2/tessen API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
-The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
+**NOTE**: Requests to `core/v2/tessen` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 The Tessen API provides HTTP access to manage [Tessen][1] configuration.
@@ -57,7 +57,7 @@ example output | {{< code shell >}}
 The `/tessen` API endpoint provides HTTP PUT access to opt in to or opt out of Tessen for unlicensed Sensu instances.
 
 {{% notice note %}}
-**NOTE**: Tessen is enabled by default on Sensu backends and required for [licensed](../../operations/maintain-sensu/license) Sensu instances.
+**NOTE**: Tessen is enabled by default on Sensu backends and required for [licensed](../../../operations/maintain-sensu/license) Sensu instances.
 If you have a licensed instance and want to opt out of Tessen, contact your account manager.
 {{% /notice %}}
 
@@ -95,6 +95,6 @@ example output | {{< code shell >}}
 }
 {{< /code >}}
 
-[1]: ../../operations/monitor-sensu/tessen/
-[2]: ../../operations/control-access/rbac#default-users
-[3]: ../../operations/maintain-sensu/license
+[1]: ../../../operations/monitor-sensu/tessen/
+[2]: ../../../operations/control-access/rbac#default-users
+[3]: ../../../operations/maintain-sensu/license

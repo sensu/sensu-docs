@@ -12,15 +12,15 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access pruning via `enterprise/prune/v1alpha` API endpoints in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
 **NOTE**: The `enterprise/prune/v1alpha` API endpoints are an alpha feature and may include breaking changes.
-The prune API requires [cluster-level privileges](../../operations/control-access/rbac/#roles-and-cluster-roles), even when all resources belong to the same namespace.
+The prune API requires [cluster-level privileges](../../../operations/control-access/rbac/#roles-and-cluster-roles), even when all resources belong to the same namespace.
 
-Requests to `enterprise/prune/v1alpha` API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
-The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
+Requests to `enterprise/prune/v1alpha` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 ## Create a new pruning command
@@ -106,5 +106,5 @@ payload               | {{< code shell >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-[1]: ../../commercial/
-[2]: ../../sensuctl/create-manage-resources/#supported-resource-types
+[1]: ../../../commercial/
+[2]: ../../../sensuctl/create-manage-resources/#supported-resource-types

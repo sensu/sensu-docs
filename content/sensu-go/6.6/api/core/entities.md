@@ -11,8 +11,8 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to core/v2/entities API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
-The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
+**NOTE**: Requests to `core/v2/entities` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 ## Get all entities
@@ -504,7 +504,7 @@ output               | {{< code json >}}
 ## Create or update an entity {#entitiesentity-put}
 
 {{% notice note %}}
-**NOTE**: This endpoint will not update [agent-managed entities](../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
+**NOTE**: This endpoint will not update [agent-managed entities](../../../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
 Requests to update agent-managed entities via the Sensu backend REST API will fail and return `HTTP 409 Conflict`.
 {{% /notice %}}
 
@@ -571,7 +571,7 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 ## Update an entity with PATCH
 
 {{% notice note %}}
-**NOTE**: This endpoint will not update [agent-managed entities](../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
+**NOTE**: This endpoint will not update [agent-managed entities](../../../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
 Requests to update agent-managed entities via the Sensu backend REST API will fail and return `HTTP 409 Conflict`.
 {{% /notice %}}
 
@@ -658,7 +658,7 @@ example url               | http://hostname:8080/api/core/v2/namespaces/default/
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-[1]: ../../observability-pipeline/observe-entities/entities/
-[2]: ../#pagination
-[3]: ../#response-filtering
+[1]: ../../../observability-pipeline/observe-entities/entities/
+[2]: ../../#pagination
+[3]: ../../#response-filtering
 [4]: https://tools.ietf.org/html/rfc7396

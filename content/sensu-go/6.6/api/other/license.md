@@ -11,8 +11,8 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to `/license` API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
-The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
+**NOTE**: Requests to `/license` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 For more information about commercial features designed for enterprises, read [Get started with commercial features][1].
@@ -112,7 +112,7 @@ output         | {{< code shell >}}
 The `/license` API endpoint provides HTTP PUT access to activate a commercial license.
 
 {{% notice note %}}
-**NOTE**: For [clustered configurations](../../operations/deploy-sensu/cluster-sensu), you only need to activate your license for one of the backends within the cluster.
+**NOTE**: For [clustered configurations](../../../operations/deploy-sensu/cluster-sensu), you only need to activate your license for one of the backends within the cluster.
 {{% /notice %}}
 
 ### Example {#license-put-example}
@@ -225,6 +225,6 @@ description    | Removes the commercial license.
 example url    | http://hostname:8080/api/enterprise/licensing/v2/license
 response codes | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../commercial/
+[1]: ../../../commercial/
 [2]: https://account.sensu.io/
 [3]: https://sensu.io/contact?subject=contact-sales

@@ -12,12 +12,12 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access authentication providers for single sign-on (SSO) in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to `enterprise/authentication/v2` API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
-The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
+**NOTE**: Requests to `enterprise/authentication/v2` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 ## Get active authentication provider configurations {#authproviders-get}
@@ -337,5 +337,5 @@ description               | Deletes the authentication provider configuration fr
 example url               | http://hostname:8080/api/enterprise/authentication/v2/authproviders/openldap
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../operations/control-access/sso/
-[3]: ../#pagination
+[1]: ../../../operations/control-access/sso/
+[3]: ../../#pagination

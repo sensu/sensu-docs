@@ -11,8 +11,8 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to core/v2/checks API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
-The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
+**NOTE**: Requests to `core/v2/checks` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 ## Get all checks
@@ -525,9 +525,9 @@ example url               | http://hostname:8080/api/core/v2/namespaces/default/
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-[1]: ../../observability-pipeline/observe-schedule/checks/
-[2]: ../../observability-pipeline/observe-schedule/hooks/
-[3]: ../../observability-pipeline/observe-schedule/checks#check-hooks-attribute
-[4]: ../#pagination
-[5]: ../#response-filtering
+[1]: ../../../observability-pipeline/observe-schedule/checks/
+[2]: ../../../observability-pipeline/observe-schedule/hooks/
+[3]: ../../../observability-pipeline/observe-schedule/checks#check-hooks-attribute
+[4]: ../../#pagination
+[5]: ../../#response-filtering
 [6]: https://tools.ietf.org/html/rfc7396

@@ -11,10 +11,10 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: The core/v2/users API endpoints allow you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../operations/control-access#use-built-in-basic-authentication).
-To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../operations/control-access/ldap-auth/), [Active Directory (AD)](../../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../../operations/control-access/oidc-auth/), use Sensu's [authentication providers API](../authproviders/).<br><br>
-Requests to core/v2/users API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
-The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
+**NOTE**: The `core/v2/users` API endpoints allow you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../../operations/control-access#use-built-in-basic-authentication).
+To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../../operations/control-access/ldap-auth/), [Active Directory (AD)](../../../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../../../operations/control-access/oidc-auth/), use Sensu's [authentication providers API](../../enterprise/authproviders/).<br><br>
+Requests to `core/v2/users` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 ## Get all users
@@ -246,7 +246,7 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 The `/users/:user/reset_password` API endpoint provides HTTP PUT access to reset a user's password.
 
 {{% notice note %}}
-**NOTE**: The `/users/:user/reset_password` API endpoint requires explicit [`users` permissions](../../operations/control-access/rbac/#users).
+**NOTE**: The `/users/:user/reset_password` API endpoint requires explicit [`users` permissions](../../../operations/control-access/rbac/#users).
 With these permissions, you can use `/users/:user/reset_password` to reset a user's password.
 This differs from the `/users/:user/password` API endpoint, which allows users to change their own passwords without explicit permissions.
 {{% /notice %}}
@@ -292,7 +292,7 @@ The `/users/:user/password` API endpoint provides HTTP PUT access to change your
 
 {{% notice note %}}
 **NOTE**: The `/users/:user/password` API endpoint allows a user to update their own password, without any permissions.
-This differs from the `/users/:user/reset_password` API endpoint, which requires explicit [`users` permissions](../../operations/control-access/rbac/#users) to change the user password.
+This differs from the `/users/:user/reset_password` API endpoint, which requires explicit [`users` permissions](../../../operations/control-access/rbac/#users) to change the user password.
 {{% /notice %}}
 
 ### Example {#usersuserpassword-put-example}
@@ -430,8 +430,8 @@ description               | Removes the specified user from the specified group.
 example url               | http://hostname:8080/api/core/v2/users/alice/groups/ops
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../operations/control-access/rbac#user-specification
-[2]: ../#pagination
+[1]: ../../../operations/control-access/rbac#user-specification
+[2]: ../../#pagination
 [3]: https://en.wikipedia.org/wiki/Bcrypt
-[4]: ../../sensuctl/#generate-a-password-hash
-[8]: ../#response-filtering
+[4]: ../../../sensuctl/#generate-a-password-hash
+[8]: ../../#response-filtering

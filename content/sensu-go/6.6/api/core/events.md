@@ -11,13 +11,13 @@ menu:
 ---
 
 {{% notice protip %}}
-**PRO TIP**: The core/v2/events API endpoints are primarily designed to provide HTTP access to event data created by agent-executed checks.
-To test your Sensu observability pipeline, use the [agent API](../../observability-pipeline/observe-schedule/agent/#create-observability-events-using-the-agent-api) to create new ad hoc events or [sensuctl](../../sensuctl/create-manage-resources/#sensuctl-check) or the [web UI](../../web-ui/view-manage-resources/#manage-configuration-resources) to execute existing checks on demand.
+**PRO TIP**: The `core/v2/events` API endpoints are primarily designed to provide HTTP access to event data created by agent-executed checks.
+To test your Sensu observability pipeline, use the [agent API](../../../observability-pipeline/observe-schedule/agent/#create-observability-events-using-the-agent-api) to create new ad hoc events or [sensuctl](../../../sensuctl/create-manage-resources/#sensuctl-check) or the [web UI](../../../web-ui/view-manage-resources/#manage-configuration-resources) to execute existing checks on demand.
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to core/v2/events API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
-The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
+**NOTE**: Requests to `core/v2/events` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 ## Get all events
@@ -1576,14 +1576,14 @@ example url               | http://hostname:8080/api/core/v2/namespaces/default/
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-[1]: ../../observability-pipeline/observe-events/events/
-[2]: ../#pagination
+[1]: ../../../observability-pipeline/observe-events/events/
+[2]: ../../#pagination
 [3]: #eventsentitycheck-put
-[4]: ../../web-ui/
+[4]: ../../../web-ui/
 [5]: #eventsentitycheck-put-parameters
-[6]: ../../observability-pipeline/observe-entities/entities#entities-specification
-[7]: ../../observability-pipeline/observe-schedule/checks#check-specification
-[8]: ../../observability-pipeline/observe-events/events/#events-specification
-[9]: ../../observability-pipeline/observe-events/events#metrics-attribute
-[10]: ../#response-filtering
+[6]: ../../../observability-pipeline/observe-entities/entities#entities-specification
+[7]: ../../../observability-pipeline/observe-schedule/checks#check-specification
+[8]: ../../../observability-pipeline/observe-events/events/#events-specification
+[9]: ../../../observability-pipeline/observe-events/events#metrics-attribute
+[10]: ../../#response-filtering
 [11]: #eventsentitycheck-put

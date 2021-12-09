@@ -11,16 +11,16 @@ menu:
 ---
 
 {{% notice warning %}}
-**IMPORTANT**: [Pipeline resources](../../observability-pipeline/observe-process/pipelines/) are observation event processing [workflows](../../observability-pipeline/observe-process/pipelines/#workflows) made up of filters, mutators, and handlers.
-Pipeline resources are different from the handler resources you can create with the [pipeline API](../pipeline/).<br><br>
-The [pipeline API](../pipeline/) does not create pipeline resources.
+**IMPORTANT**: [Pipeline resources](../../../observability-pipeline/observe-process/pipelines/) are observation event processing [workflows](../../../observability-pipeline/observe-process/pipelines/#workflows) made up of filters, mutators, and handlers.
+Pipeline resources are different from the handler resources you can create with the [Enterprise pipeline API](../../enterprise/pipeline/).<br><br>
+The [pipeline API](../../enterprise/pipeline/) does not create pipeline resources.
 Instead, it allows you to create handlers that can **only** be used in pipelines resources.
-Read the [Sumo Logic metrics handlers reference](../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers reference](../../observability-pipeline/observe-process/tcp-stream-handlers) for more information about pipeline API handlers.
+Read the [Sumo Logic metrics handlers reference](../../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers reference](../../../observability-pipeline/observe-process/tcp-stream-handlers) for more information about pipeline API handlers.
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to core/v2/pipelines API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
-The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
+**NOTE**: Requests to `core/v2/pipelines` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 ## Get all pipelines
@@ -556,7 +556,7 @@ description               | Removes the specified pipeline from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/pipelines/slack_pipeline
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../observability-pipeline/observe-process/pipelines/
-[2]: ../#pagination
-[3]: ../#response-filtering
+[1]: ../../../observability-pipeline/observe-process/pipelines/
+[2]: ../../pagination
+[3]: ../../#response-filtering
 [4]: https://tools.ietf.org/html/rfc7396

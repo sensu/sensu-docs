@@ -11,8 +11,8 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to core/v2/silenced API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
-The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
+**NOTE**: Requests to `core/v2/silenced` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 ## Get all silences
@@ -447,6 +447,6 @@ output               | {{< code json >}}
 ]
 {{< /code >}}
 
-[1]: ../../observability-pipeline/observe-process/silencing/
-[2]: ../#pagination
-[3]: ../#response-filtering
+[1]: ../../../observability-pipeline/observe-process/silencing/
+[2]: ../../#pagination
+[3]: ../../#response-filtering

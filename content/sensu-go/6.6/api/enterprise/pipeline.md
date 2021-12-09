@@ -11,18 +11,18 @@ menu:
 ---
 
 {{% notice warning %}}
-**IMPORTANT**: The `enterprise/pipeline/v1` API endpoints do not create [pipeline resources](../../observability-pipeline/observe-process/pipelines/), which are composed of observation event processing workflows.
-Instead, `enterprise/pipeline/v1` API endpoints allow you to create resources that can **only** be used within pipelines (the [Sumo Logic metrics handlers](../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers](../../observability-pipeline/observe-process/tcp-stream-handlers)).
+**IMPORTANT**: The `enterprise/pipeline/v1` API endpoints do not create [pipeline resources](../../../observability-pipeline/observe-process/pipelines/), which are composed of observation event processing workflows.
+Instead, `enterprise/pipeline/v1` API endpoints allow you to create resources that can **only** be used within pipelines (the [Sumo Logic metrics handlers](../../../observability-pipeline/observe-process/sumo-logic-metrics-handlers) and [TCP stream handlers](../../../observability-pipeline/observe-process/tcp-stream-handlers)).
 {{% /notice %}}
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access `enterprise/pipeline/v1` API endpoints in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to `enterprise/pipeline/v1` endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
-The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
+**NOTE**: Requests to `enterprise/pipeline/v1` endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 ## Get all Sumo Logic metrics handler resources
@@ -666,8 +666,8 @@ example url               | http://hostname:8080/api/enterprise/pipeline/v1/name
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-[1]: ../../observability-pipeline/observe-process/tcp-stream-handlers/
-[2]: ../#pagination
-[3]: ../#response-filtering
+[1]: ../../../observability-pipeline/observe-process/tcp-stream-handlers/
+[2]: ../../#pagination
+[3]: ../../#response-filtering
 [4]: https://tools.ietf.org/html/rfc7396
-[5]: ../../observability-pipeline/observe-process/sumo-logic-metrics-handlers/
+[5]: ../../../observability-pipeline/observe-process/sumo-logic-metrics-handlers/

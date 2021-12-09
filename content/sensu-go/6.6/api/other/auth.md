@@ -54,8 +54,8 @@ response codes       | <ul><li>**Valid credentials**: 200 (OK)</li><li> **Invali
 The `/auth/test` API endpoint provides HTTP GET access to test basic authentication user credentials that were created with Sensu's built-in [basic authentication][1].
 
 {{% notice note %}}
-**NOTE**: The `/auth/test` endpoint only tests user credentials created with Sensu's built-in [basic authentication provider](../../operations/control-access#use-built-in-basic-authentication).
-It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../operations/control-access/ldap-auth), [Active Directory (AD)](../../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../../operations/control-access/oidc-auth/).
+**NOTE**: The `/auth/test` endpoint only tests user credentials created with Sensu's built-in [basic authentication provider](../../../operations/control-access#use-built-in-basic-authentication).
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../../operations/control-access/ldap-auth), [Active Directory (AD)](../../../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../../../operations/control-access/oidc-auth/).
 {{% /notice %}}
  
 ### Example {#authtest-get-example}
@@ -125,5 +125,5 @@ output               | {{< code json >}}
 {{< /code >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../operations/control-access#use-built-in-basic-authentication
+[1]: ../../../operations/control-access#use-built-in-basic-authentication
 [2]: https://tools.ietf.org/html/rfc7519

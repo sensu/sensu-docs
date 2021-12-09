@@ -12,12 +12,12 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access secrets management in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to `enterprise/secrets/v1` API endpoints require you to authenticate with a Sensu [API key](../#configure-an-environment-variable-for-api-key-authentication) or [access token](../#authenticate-with-the-authentication-api).
-The code examples in this document use the [environment variable](../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
+**NOTE**: Requests to `enterprise/secrets/v1` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
 ## Get all secrets providers
@@ -61,8 +61,8 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: In addition to the `VaultProvider` type, the secrets API also includes a built-in `Env` secrets provider type that can retrieve backend [environment variables](../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables) as secrets.
-Learn more in the [secrets providers reference](../../operations/manage-secrets/secrets-providers/).
+**NOTE**: In addition to the `VaultProvider` type, the secrets API also includes a built-in `Env` secrets provider type that can retrieve backend [environment variables](../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables) as secrets.
+Learn more in the [secrets providers reference](../../../operations/manage-secrets/secrets-providers/).
 {{% /notice %}}
 
 ### API Specification {#providers-get-specification}
@@ -461,4 +461,4 @@ example url               | http://hostname:8080/api/enterprise/secrets/v1/names
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-[4]: ../#response-filtering
+[4]: ../../#response-filtering
