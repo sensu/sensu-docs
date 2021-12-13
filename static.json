@@ -222,6 +222,10 @@
         "~ ^/sensu-go/6.[3-6]/api/apikeys/?$": {
             "url": "/sensu-go/latest/api/core/apikeys/$1",
             "status": 301
+        },
+        "~ ^/sensu-go/latest/api/apikeys/?$": {
+            "url": "/sensu-go/latest/api/core/apikeys/$1",
+            "status": 301
         }
     }
 }
