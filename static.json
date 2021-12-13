@@ -220,7 +220,7 @@
             "status": 301
         },
         "~ ^/sensu-go/6.[3-6]/api/apikeys/?$": {
-            "url": "/sensu-go/6.[3-6]/api/core/apikeys/$1",
+            "url": "/sensu-go/latest/api/core/apikeys/$1",
             "status": 301
         }
     }
