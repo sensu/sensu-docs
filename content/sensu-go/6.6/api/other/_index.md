@@ -12,6 +12,10 @@ menu:
     identifier: other
 ---
 
-Sensu offers several endpoints for basic authentication, health, metrics, license, and version:
+In addition to the [core API][1] and [enterprise APIs][2], Sensu offers endpoints for basic authentication, health, license, metrics, and version:
 
 {{< otherapiListing >}}
+
+
+[1]: ../core/
+[2]: ../enterprise/

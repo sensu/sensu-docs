@@ -548,7 +548,7 @@ replication_interval_seconds: 30
 {{< /language-toggle >}}
 
 
-[2]: ../../../api/federation/
+[2]: ../../../api/enterprise/federation/
 [3]: ../../control-access/rbac/
 [4]: ../../../sensuctl/create-manage-resources/#create-resources
 [5]: ../secure-sensu/#create-self-signed-certificates-for-securing-etcd-and-backend-agent-communication

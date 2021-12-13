@@ -71,4 +71,4 @@ Use the preferences menu to change the theme or switch to the dark theme.
 [3]: ../operations/control-access/rbac/
 [4]: ../operations/control-access/rbac#default-users
 [5]: ../operations/control-access/rbac#create-users
-[7]: ../api/auth/
+[7]: ../api/other/auth/

@@ -279,7 +279,7 @@ default      | `false`
 example      | {{< code shell >}}"Healthy": true{{< /code >}}
 
 
-[1]: ../../../api/health/
+[1]: ../../../api/other/health/
 [2]: ../../deploy-sensu/datastore/#scale-event-storage
 [3]: ../../deploy-sensu/datastore/#metadata-attributes
 [4]: https://etcd.io/docs/latest/learning/api/#response-header

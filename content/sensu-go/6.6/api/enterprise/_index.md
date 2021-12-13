@@ -17,6 +17,7 @@ menu:
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
+Sensu's enterprise APIs provide programmatic access to commercial features.
 The enterprise APIs include:
 
 {{< enterpriseapiListing >}}

@@ -22,7 +22,6 @@ For information about the Sensu agent API, read the [agent reference][4].
 ## Available APIs
 
 Access all of the data and functionality of Sensu's first-class API clients, [sensuctl][25] and the [web UI][26], with Sensu's backend REST APIs.
-Use the Sensu APIs to customize your workflows and integrate your favorite Sensu features with other tools and products.
 Use the Sensu APIs and endpoints to customize your workflows and integrate your favorite Sensu features with other tools and products.
 
 ### core/v2 API endpoints
@@ -44,7 +43,7 @@ The enterprise APIs include:
 
 ### Other endpoints
 
-Sensu offers additional endpoints for basic authentication, health, metrics, license, and version:
+Sensu offers additional endpoints for basic authentication, health, license, metrics, and version:
 
 {{< otherapiListing >}}
 

@@ -80,7 +80,7 @@ This communication is via clear text by default.
 Follow [Secure Sensu][46] to configure the backend and agent for WebSocket Secure (wss) encrypted communication.
 
 {{% notice note %}}
-**NOTE**: For information about your agent transport status, use the [health API](../../../api/health/#get-health-data-for-your-agent-transport).
+**NOTE**: For information about your agent transport status, use the [health API](../../../api/other/health/#get-health-data-for-your-agent-transport).
 {{% /notice %}}
 
 ## Create observability events using service checks

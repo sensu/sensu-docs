@@ -1,6 +1,6 @@
 ---
 title: "Core API"
-description: "The Sensu Core API gives you access all of your Sensu events and resources with a backend REST APIs. Use the Core API to customize your workflows and integrate your favorite Sensu features with other tools and products."
+description: "The Sensu Core API gives you access all of your Sensu events and resources with backend REST APIs. Use the Core API to customize your workflows and integrate your favorite Sensu features with other tools and products."
 product: "Sensu Go"
 version: "6.6"
 weight: 20
@@ -12,6 +12,7 @@ menu:
     identifier: core
 ---
 
-The Core API includes endpoints for the following Sensu resources:
+Sensu's core API provides GET, POST, PUT, and DELETE access to Sensu events and resources.
+The core API includes endpoints for the following Sensu resources:
 
 {{< coreapiListing >}}

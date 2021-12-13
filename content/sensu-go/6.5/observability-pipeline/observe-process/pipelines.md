@@ -14,8 +14,8 @@ menu:
 ---
 
 {{% notice warning %}}
-**IMPORTANT**: The pipeline resources described on this page are different from the handler resources you can create with the [pipeline API](../../../api/pipeline/).<br><br>
-The [pipeline API](../../../api/pipeline/) does not create pipeline resources.
+**IMPORTANT**: The pipeline resources described on this page are different from the handler resources you can create with the [pipeline API](../../../api/core/pipelines/).<br><br>
+The [pipeline API](../../../api/core/pipelines/) does not create pipeline resources.
 Instead, it allows you to create handlers that can **only** be used in pipeline resources.
 Read the [Sumo Logic metrics handlers reference](../sumo-logic-metrics-handlers) and [TCP stream handlers reference](../tcp-stream-handlers) for more information.
 {{% /notice %}}

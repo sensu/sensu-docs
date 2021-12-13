@@ -384,7 +384,7 @@ sensu-agent start --labels url=sensu.docs.io
 
 {{% notice note %}}
 **NOTE**: The entity attributes in `agent.yml` are used only for initial entity creation.
-Modify existing agent entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../../api/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
+Modify existing agent entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../../api/core/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
 {{% /notice %}}
 
 ### Proxy entity labels {#proxy-entities-managed}
@@ -1732,7 +1732,7 @@ cpu_percent: 0.12639
 [33]: ../../../web-ui/view-manage-resources/#manage-entities
 [34]: ../../observe-schedule/agent/#ephemeral-agent-configuration-flags
 [35]: ../../observe-schedule/agent/#config-file
-[36]: ../../../api/entities/
+[36]: ../../../api/core/entities/
 [37]: ../../../sensuctl/create-manage-resources/#update-resources
 [38]: ../../observe-schedule/business-service-monitoring/
 [39]: ../../observe-schedule/service-components/

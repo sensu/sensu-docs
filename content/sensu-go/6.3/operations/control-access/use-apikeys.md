@@ -181,5 +181,5 @@ Deleted
 {{< /code >}}
 
 
-[1]: ../../../api/auth/
+[1]: ../../../api/other/auth/
 [2]: ../../../sensuctl/#global-flags

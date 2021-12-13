@@ -22,9 +22,30 @@ For information about the Sensu agent API, read the [agent reference][4].
 ## Available APIs
 
 Access all of the data and functionality of Sensu's first-class API clients, [sensuctl][25] and the [web UI][26], with Sensu's backend REST APIs.
-Use the Sensu APIs to customize your workflows and integrate your favorite Sensu features with other tools and products.
+Use the Sensu APIs and endpoints to customize your workflows and integrate your favorite Sensu features with other tools and products.
 
-{{< apitypeListing >}}
+### core/v2 API endpoints
+
+The core/v2 API includes endpoints for the following Sensu resources:
+
+{{< coreapiListing >}}
+
+### Enterprise APIs
+
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access Sensu's enterprise APIs in the packaged Sensu Go distribution.
+For more information, read [Get started with commercial features](../commercial/).
+{{% /notice %}}
+
+The enterprise APIs include:
+
+{{< enterpriseapiListing >}}
+
+### Other endpoints
+
+Sensu offers additional endpoints for basic authentication, health, license, metrics, and version:
+
+{{< otherapiListing >}}
 
 ## URL format
 
@@ -39,7 +60,7 @@ If the authenticated user has the correct cluster-wide permissions, you can leav
 Read the [RBAC reference][3] for more information about configuring Sensu users and access controls.
 
 {{% notice note %}}
-**NOTE**: The [authentication API](auth/), [authentication providers API](authproviders/), and [health API](health/) do not follow this standard URL format.
+**NOTE**: The [endpoint-only APIs](other/) do not follow this standard URL format.
 {{% /notice %}}
 
 ## Data format

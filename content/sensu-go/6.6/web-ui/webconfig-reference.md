@@ -602,7 +602,7 @@ mutators | `NAME`: List mutators by name, in alphabetical order<br><br>`NAME_DES
 
 
 [1]: #default-preferences-attributes
-[2]: ../../api/webconfig/
+[2]: ../../api/enterprise/webconfig/
 [3]: ../
 [4]: #spec-attributes
 [5]: ../view-manage-resources/#use-the-namespace-switcher

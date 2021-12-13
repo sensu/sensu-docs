@@ -419,6 +419,6 @@ http-json OK:  The value true found at .PostgresHealth.[0].Healthy matched with 
 
 
 [1]: ../../../plugins/use-assets-to-install-plugins/
-[2]: ../../../api/health/
+[2]: ../../../api/other/health/
 [4]: ../../deploy-sensu/scale-event-storage/
 [5]: https://bonsai.sensu.io/assets/sensu/http-checks
