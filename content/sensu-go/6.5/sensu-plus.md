@@ -181,7 +181,7 @@ Click a dashboard name to view your Sensu observability data.
 
 
 [1]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
-[2]: https://www.sumologic.com/sign-up/
+[2]: https://www.sumologic.com/sign-up/?utm_source=sensudocs&utm_medium=sensuwebsite
 [3]: #create-a-handler-in-sensu
 [5]: ../observability-pipeline/observe-process/sumo-logic-metrics-handlers
 [6]: ../operations/manage-secrets/secrets/
