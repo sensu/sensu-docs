@@ -618,7 +618,9 @@ agent-auth-trusted-ca-file: /path/to/tls/ca.pem{{< /code >}}
 
 | agent-burst-limit   |      |
 --------------|------
-description   | Maximum amount of burst allowed in a rate interval for agent transport WebSocket connections. {{% notice commercial %}}
+description   | Maximum amount of burst allowed in a rate interval for agent transport WebSocket connections. {{% notice note %}}
+**NOTE**: The agent-burst-limit flag is deprecated.
+{{% /notice %}} {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the agent-burst-limit flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 type          | Integer
