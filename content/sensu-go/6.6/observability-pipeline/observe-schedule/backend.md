@@ -509,9 +509,10 @@ Store Flags:
       --etcd-initial-cluster-state string         initial cluster state ("new" or "existing") (default "new")
       --etcd-initial-cluster-token string         initial cluster token for the etcd cluster during bootstrap
       --etcd-key-file string                      path to the client server TLS key file
+      --etcd-client-log-level string              etcd client logging level [panic, fatal, error, warn, info, debug] (default "error")
       --etcd-listen-client-urls strings           list of etcd client URLs to listen on (default [http://127.0.0.1:2379])
       --etcd-listen-peer-urls strings             list of URLs to listen on for peer traffic (default [http://127.0.0.1:2380])
-      --etcd-log-level string                     etcd logging level [panic, fatal, error, warn, info, debug]
+      --etcd-log-level string                     etcd server logging level [panic, fatal, error, warn, info, debug]
       --etcd-max-request-bytes uint               maximum etcd request size in bytes (use with caution) (default 1572864)
       --etcd-name string                          name for this etcd node (default "default")
       --etcd-peer-cert-file string                path to the peer server TLS cert file
@@ -1073,6 +1074,21 @@ command line example   | {{< code shell >}}
 sensu-backend start --etcd-client-cert-auth{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 etcd-client-cert-auth: true{{< /code >}}
+
+<a id="etcd-log-level"></a>
+
+| etcd-client-log-level  |      |
+-------------|------
+description  | Logging level for the embedded etcd client: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`. {{% notice note %}}
+**NOTE**: [Upgrade](../../../operations/maintain-sensu/upgrade/) to Sensu Go 6.6.3 to use the etcd-client-log-level backend configuration flag.
+{{% /notice %}}
+type         | String
+default      | `error`
+environment variable | `SENSU_BACKEND_ETCD_CLIENT_LOG_LEVEL`
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-client-log-level error{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+etcd-client-log-level: "error"{{< /code >}}
 
 | etcd-client-urls      |      |
 ------------------------|------
