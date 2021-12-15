@@ -776,7 +776,7 @@ agent-auth-trusted-ca-file: /path/to/tls/ca.pem{{< /code >}}
 
 | agent-burst-limit   |      |
 --------------|------
-description   | Maximum burst allowed in a rate interval for agent transport WebSocket connections. The agent-burst-limit value defines the permitted number of connections beyond the [agent-rate-limit][67] value. If the value specified for the agent-burst-limit is less than the value specified for the [agent-rate-limit][67], Sensu sets the agent-burst-limit to the same value as the agent-rate-limit.{{% notice commercial %}}
+description   | Maximum amount of burst allowed in a rate interval for agent transport WebSocket connections. {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the agent-burst-limit flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 type          | Integer
@@ -814,7 +814,7 @@ agent-port: 8081{{< /code >}}
 | agent-rate-limit   |      |
 --------------|------
 description   | Maximum number of agent transport WebSocket connections per second, per backend.{{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the `agent-rate-limit` flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
+**COMMERCIAL FEATURE**: Access the agent-rate-limit flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 type          | Integer
 default       | `null`
