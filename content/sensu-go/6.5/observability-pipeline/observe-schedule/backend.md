@@ -813,7 +813,7 @@ agent-port: 8081{{< /code >}}
 
 | agent-rate-limit   |      |
 --------------|------
-description   | Maximum number of agent transport WebSocket connections per second.{{% notice commercial %}}
+description   | Maximum number of agent transport WebSocket connections per second, per backend.{{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the `agent-rate-limit` flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 type          | Integer
