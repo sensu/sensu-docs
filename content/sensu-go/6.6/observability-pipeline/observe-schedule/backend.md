@@ -1075,11 +1075,11 @@ sensu-backend start --etcd-client-cert-auth{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 etcd-client-cert-auth: true{{< /code >}}
 
-<a id="etcd-log-level"></a>
+<a id="etcd-client-log-level"></a>
 
 | etcd-client-log-level  |      |
 -------------|------
-description  | Logging level for the embedded etcd client: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`. {{% notice note %}}
+description  | Logging level for the internal etcd client: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`. {{% notice note %}}
 **NOTE**: [Upgrade](../../../operations/maintain-sensu/upgrade/) to Sensu Go 6.6.3 to use the etcd-client-log-level backend configuration flag.
 {{% /notice %}}
 type         | String
