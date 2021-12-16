@@ -14,9 +14,8 @@ menu:
 ---
 
 {{% notice warning %}}
-**IMPORTANT**: The pipelines described on this page are different from the handler resources you can create with the [`enterprise/pipeline/v1`](../../../api/enterprise/pipeline/) API.<br><br>
-The [`enterprise/pipeline/v1`](../../../api/enterprise/pipeline/) API does not create pipelines.
-Instead, it allows you to create resources that can **only** be used in pipelines.
+**IMPORTANT**: The pipelines described on this page are different from the resources you can create and manage with the [`enterprise/pipeline/v1`](../../../api/enterprise/pipeline/) API.
+The [`enterprise/pipeline/v1`](../../../api/enterprise/pipeline/) API allows you to create and manage resources that can **only** be used in pipelines rather than pipelines themselves.<br><br>
 Read the [Sumo Logic metrics handlers reference](../sumo-logic-metrics-handlers) and [TCP stream handlers reference](../tcp-stream-handlers) for more information about enterprise pipeline resources.
 {{% /notice %}}
 
