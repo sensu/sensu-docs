@@ -109,7 +109,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.6.3.
 
 **IMPROVEMENTS**
 
-- ([Commercial feature][259]) In the web UI, the default polling interval on the [entities page][261] is now 30 seconds to help reduce load on clusters.
+- ([Commercial feature][259]) In the web UI, the default polling interval on the [entities page][261] is now 30 seconds to help reduce load on clusters. Also, the web UI response time and memory usage is substantially improved when opening the entities page in the default state (loading the first page of results, with no search filter applied).
 - Added the [etcd-client-log-level][262] configuration flag for setting the log level of the etcd client used internally within sensu-backend.
 - The agentd daemon now starts up after all other daemons, which improves cluster recovery after the loss of a backend.
 - When using external etcd (the no-embed-etcd backend configuration flag is set to `true`), sensu-backend now crashes when its daemons do not stop within 30 seconds, which can happen due to an intentional shutdown or when database unavailability triggers an internal restart.
