@@ -101,7 +101,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 6.6.3 release notes
 
-**December 15, 2021** &mdash; The latest release of Sensu Go, version 6.6.3, is now available for download.
+**December 16, 2021** &mdash; The latest release of Sensu Go, version 6.6.3, is now available for download.
 
 Sensu Go 6.6.3 includes improvements to reduce load on clusters and support cluster recovery, as well as a backend configuration flag for specifying the internal etcd client log level. Fixes in this patch release will help prevent backend crashes when keepalive leases are revoked and when the backend cannot write to the event log file. In addition, this patch fixes issues that could result in a leaked etcd lease and keep the backend from terminating correctly.
 
