@@ -763,7 +763,11 @@ subscriptions:
 
 |handlers    |      |
 -------------|------
-description  | Array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string.
+description  | Array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string. {{% notice note %}}
+**NOTE**: The names of [Sumo Logic metrics handlers](../../observe-process/sumo-logic-metrics-handlers/) and [TCP stream handlers](../../observe-process/tcp-stream-handlers/) are not valid values for the handlers array.
+Only [traditional handlers](../../observe-process/handlers/) are valid for the handlers array.<br><br>
+To use Sumo Logic metrics or TCP stream handlers, include them in a [pipeline](../../observe-process/pipelines/) workflow and reference the pipeline name in the check [pipelines array](#pipelines-attribute).
+{{% /notice %}}
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
