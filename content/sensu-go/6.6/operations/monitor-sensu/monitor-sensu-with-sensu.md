@@ -426,7 +426,7 @@ To receive alerts based on your PostgreSQL health check, configure a [pipeline][
 
 
 [1]: ../../../plugins/use-assets-to-install-plugins/
-[2]: ../../../api/health/
+[2]: ../../../api/other/health/
 [3]: ../../../observability-pipeline/observe-filter/filters/
 [4]: ../../deploy-sensu/scale-event-storage/
 [5]: https://bonsai.sensu.io/assets/sensu/http-checks

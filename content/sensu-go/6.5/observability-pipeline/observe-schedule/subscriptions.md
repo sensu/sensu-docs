@@ -118,7 +118,7 @@ For example, an agent entity with `name: "i-424242"` subscribes to check request
 This makes it possible to generate ad hoc check requests that target specific entities via the API.
 
 {{% notice note %}}
-**NOTE**: You can directly add, update, and delete subscriptions for individual entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../../api/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
+**NOTE**: You can directly add, update, and delete subscriptions for individual entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../../api/core/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
 {{% /notice %}}
 
 ## Publish checks
@@ -171,7 +171,7 @@ Two of the six Windows servers *should* execute the SQL Server metrics check, so
 [12]: ../checks/#publish-attribute
 [13]: ../checks/#check-scheduling
 [15]: ../checks/#check-subscriptions
-[16]: ../../../api/checks/#checkscheckexecute-post
+[16]: ../../../api/core/checks/#checkscheckexecute-post
 [17]: ../../../sensuctl/create-manage-resources/#update-resources
-[18]: ../../../api/entities/
+[18]: ../../../api/core/entities/
 [19]: ../../../web-ui/view-manage-resources/#manage-entities

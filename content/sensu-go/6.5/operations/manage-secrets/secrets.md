@@ -308,7 +308,7 @@ provider: vault
 {{< /language-toggle >}}
 
 
-[2]: ../../../api/secrets/
+[2]: ../../../api/enterprise/secrets/
 [3]: ../../../sensuctl/
 [4]: ../../../sensuctl/create-manage-resources/#subcommands
 [5]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables

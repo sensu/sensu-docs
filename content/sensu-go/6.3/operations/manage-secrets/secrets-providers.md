@@ -486,7 +486,7 @@ burst: 100
 
 
 [1]: ../../../commercial/
-[2]: ../../../api/secrets/
+[2]: ../../../api/enterprise/secrets/
 [3]: ../../../sensuctl/
 [4]: ../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables
 [5]: https://www.vaultproject.io/docs/what-is-vault/
@@ -495,10 +495,10 @@ burst: 100
 [8]: #spec-attributes
 [9]: ../secrets/
 [10]: https://www.vaultproject.io/docs/auth/token/
-[11]: https://www.vaultproject.io/api/auth/cert/index.html
+[11]: https://www.vaultproject.io/api/other/auth/cert/index.html
 [12]: #client-attributes
 [13]: ../../deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [14]: https://www.vaultproject.io/docs/secrets/kv
-[15]: https://www.vaultproject.io/api/auth/cert/index.html#parameters-7
+[15]: https://www.vaultproject.io/api/other/auth/cert/index.html#parameters-7
 [16]: ../secrets-management/
 [17]: #rate-limiter-attributes
