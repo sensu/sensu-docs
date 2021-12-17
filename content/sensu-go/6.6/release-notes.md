@@ -1986,7 +1986,7 @@ To get started with Sensu Go:
 [6]: https://sensu.io/blog/sensu-go-is-here/
 [8]: /sensu-go/5.0/operations/deploy-sensu/install-sensu/
 [9]: /sensu-go/5.0/observability-pipeline/observe-schedule/monitor-server-resources/
-[10]: /sensu-go/5.1/operations/control-access/rbac/managing-users
+[10]: /sensu-go/5.1/operations/control-access/rbac/#manage-users
 [11]: /sensu-go/5.1/api/other/auth/
 [12]: /sensu-go/5.1/operations/deploy-sensu/install-sensu/
 [13]: https://nvd.nist.gov/vuln/detail/CVE-2019-6486/
@@ -2017,7 +2017,7 @@ To get started with Sensu Go:
 [38]: /sensu-go/5.6/operations/control-access/ldap-auth/#ldap-binding-attributes
 [39]: /sensu-go/5.6/operations/control-access/ad-auth/#ad-binding-attributes
 [40]: /sensu-go/5.6/observability-pipeline/observe-schedule/agent/#general-configuration-flags
-[41]: /sensu-go/5.7/installation/install-sensu#windows-agent
+[41]: /sensu-go/5.7/operations/deploy-sensu/install-sensu/#install-sensu-agents
 [42]: /sensu-go/5.7/observability-pipeline/observe-schedule/agent/#operation
 [43]: /sensu-go/5.7/api/#response-filtering
 [44]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156/
