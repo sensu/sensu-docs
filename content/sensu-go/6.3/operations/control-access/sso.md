@@ -94,7 +94,7 @@ sensuctl auth delete openldap
 [7]: ../oidc-auth/
 [8]: ../ldap-auth/
 [9]: ../oidc-auth/#oidc-configuration-examples
-[10]: ../../../api/authproviders/
+[10]: ../../../api/enterprise/authproviders/
 [11]: ../ldap-auth/#ldap-configuration-examples
 [12]: ../oidc-auth/#oidc-specification
 [13]: ../ldap-auth/#ldap-specification

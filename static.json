@@ -218,6 +218,270 @@
         "~ ^/sensu-go/6.[0-9]/learn/sandbox/?$": {
             "url": "/sensu-go/latest/learn",
             "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/apikeys/?$": {
+            "url": "/sensu-go/latest/api/core/apikeys/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/apikeys/?$": {
+            "url": "/sensu-go/latest/api/core/apikeys/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/assets/?$": {
+            "url": "/sensu-go/latest/api/core/assets/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/assets/?$": {
+            "url": "/sensu-go/latest/api/core/assets/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/checks/?$": {
+            "url": "/sensu-go/latest/api/core/checks/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/checks/?$": {
+            "url": "/sensu-go/latest/api/core/checks/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/cluster/?$": {
+            "url": "/sensu-go/latest/api/core/cluster/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/cluster/?$": {
+            "url": "/sensu-go/latest/api/core/cluster/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/clusterrolebindings/?$": {
+            "url": "/sensu-go/latest/api/core/clusterrolebindings/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/clusterrolebindings/?$": {
+            "url": "/sensu-go/latest/api/core/clusterrolebindings/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/clusterroles/?$": {
+            "url": "/sensu-go/latest/api/core/clusterroles/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/clusterroles/?$": {
+            "url": "/sensu-go/latest/api/core/clusterroles/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/entities/?$": {
+            "url": "/sensu-go/latest/api/core/entities/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/entities/?$": {
+            "url": "/sensu-go/latest/api/core/entities/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/events/?$": {
+            "url": "/sensu-go/latest/api/core/events/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/events/?$": {
+            "url": "/sensu-go/latest/api/core/events/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/filters/?$": {
+            "url": "/sensu-go/latest/api/core/filters/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/filters/?$": {
+            "url": "/sensu-go/latest/api/core/filters/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/handlers/?$": {
+            "url": "/sensu-go/latest/api/core/handlers/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/handlers/?$": {
+            "url": "/sensu-go/latest/api/core/handlers/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/hooks/?$": {
+            "url": "/sensu-go/latest/api/core/hooks/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/hooks/?$": {
+            "url": "/sensu-go/latest/api/core/hooks/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/mutators/?$": {
+            "url": "/sensu-go/latest/api/core/mutators/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/mutators/?$": {
+            "url": "/sensu-go/latest/api/core/mutators/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/namespaces/?$": {
+            "url": "/sensu-go/latest/api/core/namespaces/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/namespaces/?$": {
+            "url": "/sensu-go/latest/api/core/namespaces/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/pipeline-resource/?$": {
+            "url": "/sensu-go/latest/api/core/pipelines/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/pipeline-resource/?$": {
+            "url": "/sensu-go/latest/api/core/pipelines/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/rolebindings/?$": {
+            "url": "/sensu-go/latest/api/core/rolebindings/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/rolebindings/?$": {
+            "url": "/sensu-go/latest/api/core/rolebindings/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/roles/?$": {
+            "url": "/sensu-go/latest/api/core/roles/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/roles/?$": {
+            "url": "/sensu-go/latest/api/core/roles/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/silenced/?$": {
+            "url": "/sensu-go/latest/api/core/silenced/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/silenced/?$": {
+            "url": "/sensu-go/latest/api/core/silenced/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/tessen/?$": {
+            "url": "/sensu-go/latest/api/core/tessen/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/tessen/?$": {
+            "url": "/sensu-go/latest/api/core/tessen/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/users/?$": {
+            "url": "/sensu-go/latest/api/core/users/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/users/?$": {
+            "url": "/sensu-go/latest/api/core/users/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/authproviders/?$": {
+            "url": "/sensu-go/latest/api/enterprise/authproviders/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/authproviders/?$": {
+            "url": "/sensu-go/latest/api/enterprise/authproviders/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/business-service-monitoring/?$": {
+            "url": "/sensu-go/latest/api/enterprise/business-service-monitoring/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/business-service-monitoring/?$": {
+            "url": "/sensu-go/latest/api/enterprise/business-service-monitoring/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/federation/?$": {
+            "url": "/sensu-go/latest/api/enterprise/federation/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/federation/?$": {
+            "url": "/sensu-go/latest/api/enterprise/federation/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/pipeline/?$": {
+            "url": "/sensu-go/latest/api/enterprise/pipeline/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/pipeline/?$": {
+            "url": "/sensu-go/latest/api/enterprise/pipeline/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/prune/?$": {
+            "url": "/sensu-go/latest/api/enterprise/prune/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/prune/?$": {
+            "url": "/sensu-go/latest/api/enterprise/prune/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/searches/?$": {
+            "url": "/sensu-go/latest/api/enterprise/searches/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/searches/?$": {
+            "url": "/sensu-go/latest/api/enterprise/searches/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/secrets/?$": {
+            "url": "/sensu-go/latest/api/enterprise/secrets/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/secrets/?$": {
+            "url": "/sensu-go/latest/api/enterprise/secrets/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/datastore/?$": {
+            "url": "/sensu-go/latest/api/enterprise/datastore/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/datastore/?$": {
+            "url": "/sensu-go/latest/api/enterprise/datastore/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/webconfig/?$": {
+            "url": "/sensu-go/latest/api/enterprise/webconfig/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/webconfig/?$": {
+            "url": "/sensu-go/latest/api/enterprise/webconfig/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/auth/?$": {
+            "url": "/sensu-go/latest/api/other/auth/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/auth/?$": {
+            "url": "/sensu-go/latest/api/other/auth/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/health/?$": {
+            "url": "/sensu-go/latest/api/other/health/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/health/?$": {
+            "url": "/sensu-go/latest/api/other/health/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/license/?$": {
+            "url": "/sensu-go/latest/api/other/license/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/license/?$": {
+            "url": "/sensu-go/latest/api/other/license/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/metrics/?$": {
+            "url": "/sensu-go/latest/api/other/metrics/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/metrics/?$": {
+            "url": "/sensu-go/latest/api/other/metrics/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/6.[3-6]/api/version/?$": {
+            "url": "/sensu-go/latest/api/other/version/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/api/version/?$": {
+            "url": "/sensu-go/latest/api/other/version/$1",
+            "status": 301
         }
     }
 }

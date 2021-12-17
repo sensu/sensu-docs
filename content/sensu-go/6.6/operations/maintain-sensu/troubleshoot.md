@@ -831,7 +831,7 @@ The backend will stop listening on those ports when the etcd database is unavail
 [15]: https://www.ibm.com/cloud/blog/using-fio-to-tell-whether-your-storage-is-fast-enough-for-etcd
 [16]: ../../deploy-sensu/datastore/#scale-event-storage
 [17]: ../../deploy-sensu/datastore/#use-default-event-storage
-[18]: ../../../api/metrics/
+[18]: ../../../api/other/metrics/
 [19]: ../../deploy-sensu/hardware-requirements/#backend-recommended-configuration
 [20]: ../../deploy-sensu/datastore/#round-robin-postgresql
 [21]: https://www.computerhope.com/unix/sha512sum.htm

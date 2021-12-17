@@ -9,6 +9,7 @@ version: "6.6"
 menu: "sensu-go-6.6"
 ---
 
+- [6.6.3 release notes](#663-release-notes)
 - [6.6.2 release notes](#662-release-notes)
 - [6.6.1 release notes](#661-release-notes)
 - [6.6.0 release notes](#660-release-notes)
@@ -97,6 +98,30 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.6.3 release notes
+
+**December 16, 2021** &mdash; The latest release of Sensu Go, version 6.6.3, is now available for download.
+
+Sensu Go 6.6.3 includes improvements to reduce load on clusters and support cluster recovery, as well as a backend configuration flag for specifying the internal etcd client log level. Fixes in this patch release will help prevent backend crashes when keepalive leases are revoked and when the backend cannot write to the event log file. In addition, this patch fixes issues that could result in a leaked etcd lease and keep the backend from terminating correctly.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.6.3.
+
+**IMPROVEMENTS**
+
+- ([Commercial feature][259]) In the web UI, the default polling interval on the [entities page][261] is now 30 seconds to help reduce load on clusters. Also, the web UI response time and memory usage is substantially improved when opening the entities page in the default state (loading the first page of results, with no search filter applied).
+- Added the [etcd-client-log-level][262] configuration flag for setting the log level of the etcd client used internally within sensu-backend.
+- The agentd daemon now starts up after all other daemons, which improves cluster recovery after the loss of a backend.
+- When using external etcd (the no-embed-etcd backend configuration flag is set to `true`), sensu-backend now crashes when its daemons do not stop within 30 seconds, which can happen due to an intentional shutdown or when database unavailability triggers an internal restart.
+When using embedded etcd, sensu-backend will still try to avoid crashing to prevent member corruption.
+
+**FIXES**
+
+- New agent sessions no longer result in a leaked etcd lease.
+- sensu-backend now prints a warning and continues instead of crashing when it cannot write to the specified event-log-file.
+- Fixed a bug that could cause a crash when keepalive leases are revoked on another backend or by an etcd operator.
+- Fixed an issue that could prevent sensu-backend from terminating correctly.
+- Proxy entity state is now created when it is missing and a matching entity config already exists.
 
 ## 6.6.2 release notes
 
@@ -358,7 +383,7 @@ This change improves forward-compatibility with newer Sensu backends.
 
 **June 28, 2021** &mdash; The latest release of Sensu Go, version 6.4.0, is now available for download. 
 
-The latest release of Sensu Go, version 6.4.0, is now available for download. This release includes a number of feature improvements and important bug fixes. We upgraded the embedded etcd from version 3.3 to 3.5 for improved stability and security. The `sensu-backend init` command now supports a `--wait` flag, which indicates that the backend should repeatedly try to establish a connection to etcd until it is successful -- fantastic news for Kubernetes users who want to bootstrap new Sensu Go clusters with external etcd! Check timeout also now works properly on Windows hosts: the Sensu Go agent can terminate check sub-processes on check execution timeout. This release fixes a bug that prevented deregistration events from working. There’s something for everyone in this release!
+The latest release of Sensu Go, version 6.4.0, is now available for download. This release includes a number of feature improvements and important bug fixes. We upgraded the embedded etcd from version 3.3 to 3.5 for improved stability and security. The `sensu-backend init` command now supports a `wait` flag, which indicates that the backend should repeatedly try to establish a connection to etcd until it is successful -- fantastic news for Kubernetes users who want to bootstrap new Sensu Go clusters with external etcd! Check timeout also now works properly on Windows hosts: the Sensu Go agent can terminate check sub-processes on check execution timeout. This release fixes a bug that prevented deregistration events from working. There’s something for everyone in this release!
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.4.0.
 
@@ -1962,7 +1987,7 @@ To get started with Sensu Go:
 [8]: /sensu-go/5.0/operations/deploy-sensu/install-sensu/
 [9]: /sensu-go/5.0/observability-pipeline/observe-schedule/monitor-server-resources/
 [10]: /sensu-go/5.1/operations/control-access/rbac/managing-users
-[11]: /sensu-go/5.1/api/auth/
+[11]: /sensu-go/5.1/api/other/auth/
 [12]: /sensu-go/5.1/operations/deploy-sensu/install-sensu/
 [13]: https://nvd.nist.gov/vuln/detail/CVE-2019-6486/
 [14]: https://sensu.io/blog/enterprise-features-in-sensu-go/
@@ -1982,12 +2007,12 @@ To get started with Sensu Go:
 [28]: https://sensu.io/blog/announcing-tessen-the-sensu-call-home-service/
 [29]: /sensu-go/5.5/observability-pipeline/observe-schedule/agent/#general-configuration-flags
 [30]: /sensu-go/5.5/observability-pipeline/observe-schedule/agent/#creating-monitoring-events-using-the-agent-tcp-and-udp-sockets
-[31]: /sensu-go/5.4/api/metrics/
+[31]: /sensu-go/5.4/api/other/metrics/
 [32]: /sensu-go/5.6/web-ui/
 [33]: /sensu-go/5.6/commercial/
 [34]: /sensu-go/5.6/api/#response-filtering
 [35]: /sensu-go/5.6/sensuctl/#filter-responses
-[36]: /sensu-go/5.6/api/health/
+[36]: /sensu-go/5.6/api/other/health/
 [37]: /sensu-go/5.6/operations/control-access/
 [38]: /sensu-go/5.6/operations/control-access/ldap-auth/#ldap-binding-attributes
 [39]: /sensu-go/5.6/operations/control-access/ad-auth/#ad-binding-attributes
@@ -1997,7 +2022,7 @@ To get started with Sensu Go:
 [43]: /sensu-go/5.7/api/#response-filtering
 [44]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156/
 [45]: /sensu-go/5.8/sensuctl/create-manage-resources/#handle-large-datasets
-[46]: /sensu-go/5.8/api/version/
+[46]: /sensu-go/5.8/api/other/version/
 [47]: /sensu-go/5.8/observability-pipeline/observe-schedule/backend/#etcd-cipher-suites
 [48]: /sensu-go/5.8/operations/monitor-sensu/tessen/
 [49]: /sensu-go/5.8/operations/maintain-sensu/license/
@@ -2036,14 +2061,14 @@ To get started with Sensu Go:
 [82]: /sensu-go/5.13/observability-pipeline/observe-entities/entities/
 [83]: /sensu-go/5.14/observability-pipeline/observe-schedule/backend/#advanced-configuration-options
 [84]: /sensu-go/5.14/sensuctl/back-up-recover/
-[85]: /sensu-go/5.15/api/federation/
+[85]: /sensu-go/5.15/api/enterprise/federation/
 [86]: /sensu-go/5.15/operations/control-access/apikeys/
 [87]: /sensu-go/5.15/operations/control-access/use-apikeys/#sensuctl-management-commands
 [88]: /sensu-go/5.15/api/#authenticate-with-an-api-key
 [89]: /sensu-go/5.15/sensuctl/
 [90]: https://sensu.io/contact/
 [91]: https://sensu.io/blog/one-year-of-sensu-go/
-[92]: /sensu-go/5.15/api/license/
+[92]: /sensu-go/5.15/api/other/license/
 [93]: /sensu-go/5.15/sensuctl/sensuctl-bonsai#extend-sensuctl-with-commands
 [94]: /sensu-go/5.15/observability-pipeline/observe-schedule/checks
 [95]: /sensu-go/5.15/commercial/
@@ -2123,8 +2148,8 @@ To get started with Sensu Go:
 [173]: /sensu-go/6.1/observability-pipeline/observe-schedule/backend/#api-request-limit
 [174]: /sensu-go/6.1/api/
 [175]: /sensu-go/6.1/operations/manage-secrets/secrets-management/#use-hashicorp-vault-for-secrets-management
-[176]: /sensu-go/6.1/api/authproviders/#authproviders-get-specification
-[177]: /sensu-go/6.1/api/secrets/#providers-get-specification
+[176]: /sensu-go/6.1/api/enterprise/authproviders/#authproviders-get-specification
+[177]: /sensu-go/6.1/api/enterprise/secrets/#providers-get-specification
 [178]: /sensu-go/6.1/web-ui/search/
 [179]: /sensu-go/6.1/operations/deploy-sensu/datastore/#strict-attribute
 [180]: /sensu-go/6.1/operations/control-access/oidc-auth/#oidc-spec-attributes
@@ -2141,9 +2166,9 @@ To get started with Sensu Go:
 [191]: /sensu-go/6.1/sensuctl/back-up-recover/
 [192]: /sensu-go/6.1/sensuctl/create-manage-resources/#sensuctl-prune
 [193]: /sensu-go/6.2/commercial/
-[194]: /sensu-go/6.2/api/prune/
+[194]: /sensu-go/6.2/api/enterprise/prune/
 [195]: /sensu-go/6.2/sensuctl/create-manage-resources/#sensuctl-prune
-[196]: /sensu-go/6.2/api/metrics/
+[196]: /sensu-go/6.2/api/other/metrics/
 [197]: /sensu-go/6.2/observability-pipeline/observe-schedule/checks/#scheduler-attribute
 [198]: /sensu-go/6.2/observability-pipeline/observe-events/events/#sequence-attribute
 [199]: /sensu-go/6.2/operations/control-access/ldap-auth/
@@ -2159,7 +2184,7 @@ To get started with Sensu Go:
 [209]: /sensu-go/6.3/observability-pipeline/observe-schedule/backend/#agent-rate-limit
 [210]: /sensu-go/6.3/observability-pipeline/observe-schedule/business-service-monitoring/
 [211]: /sensu-go/6.3/observability-pipeline/observe-schedule/rule-templates/#built-in-rule-template-aggregate
-[212]: /sensu-go/6.3/api/health/#get-health-data-for-your-agent-transport
+[212]: /sensu-go/6.3/api/other/health/#get-health-data-for-your-agent-transport
 [213]: /sensu-go/6.3/observability-pipeline/observe-entities/#service-entities
 [214]: /sensu-go/6.3/sensuctl/#global-flags
 [215]: /sensu-go/6.4/commercial/
@@ -2174,14 +2199,14 @@ To get started with Sensu Go:
 [224]: /sensu-go/5.20/observability-pipeline/observe-schedule/backend/#metrics-refresh-interval
 [225]: /sensu-go/6.4/observability-pipeline/observe-schedule/agent/#log-level
 [226]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#event-log-parallel-encoders
-[227]: /sensu-go/6.4/api/metrics/
+[227]: /sensu-go/6.4/api/other/metrics/
 [228]: /sensu-go/6.4/observability-pipeline/observe-schedule/backend/#event-logging
 [229]: /sensu-go/6.5/commercial/
 [230]: /sensu-go/6.5/observability-pipeline/observe-process/sumo-logic-metrics-handlers/
 [231]: /sensu-go/6.5/observability-pipeline/observe-process/tcp-stream-handlers/
-[232]: /sensu-go/6.5/api/pipeline/
+[232]: /sensu-go/6.5/api/core/pipelines/
 [233]: /sensu-go/6.5/observability-pipeline/observe-process/pipelines/
-[234]: /sensu-go/6.5/api/pipeline-resource/
+[234]: /sensu-go/6.5/api/enterprise/pipeline/
 [235]: /sensu-go/6.5/sensuctl/create-manage-resources/#manage-resources
 [236]: /sensu-go/6.5/observability-pipeline/observe-schedule/checks/#pipelines-attribute
 [237]: /sensu-go/6.5/observability-pipeline/observe-schedule/backend/#event-logging
@@ -2207,3 +2232,5 @@ To get started with Sensu Go:
 [258]: /sensu-go/6.6/observability-pipeline/observe-schedule/backend/#platform-metrics-logging
 [259]: /sensu-go/6.6/commercial/
 [260]: /sensu-go/6.6/observability-pipeline/observe-schedule/backend/#datastore-and-cluster-configuration-flags
+[261]: /sensu-go/6.6/web-ui/view-manage-resources/#manage-entities
+[262]: /sensu-go/6.6/observability-pipeline/observe-schedule/backend/#etcd-client-log-level

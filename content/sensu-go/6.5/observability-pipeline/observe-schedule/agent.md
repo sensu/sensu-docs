@@ -80,7 +80,7 @@ This communication is via clear text by default.
 Follow [Secure Sensu][46] to configure the backend and agent for WebSocket Secure (wss) encrypted communication.
 
 {{% notice note %}}
-**NOTE**: For information about your agent transport status, use the [health API](../../../api/health/#get-health-data-for-your-agent-transport).
+**NOTE**: For information about your agent transport status, use the [health API](../../../api/other/health/#get-health-data-for-your-agent-transport).
 {{% /notice %}}
 
 ## Create observability events using service checks
@@ -1106,8 +1106,10 @@ disable-assets: true{{< /code >}}
 
 | discover-processes |      |
 --------------|------
-description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features][55].{{% notice note %}}
-**NOTE**: Process discovery is disabled in this version of Sensu. The `--discover-processes` flag is not available, and new events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
+description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access the discover-processes flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
+{{% /notice %}}{{% notice note %}}
+**NOTE**: Process discovery is disabled in this version of Sensu. The discover-processes flag is not available, and new events will not include data in the `processes` attributes. Instead, the field will be empty: `"processes": null`.
 {{% /notice %}}
 type          | Boolean
 default       | false

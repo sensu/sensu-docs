@@ -279,24 +279,24 @@ sudo yum install sensu-go-cli
 
 {{< code powershell "Windows" >}}
 # Download sensuctl for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.2/sensu-go_6.6.2_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.6.2_windows_amd64.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.3/sensu-go_6.6.3_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.6.3_windows_amd64.zip
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.2/sensu-go_6.6.2_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.6.2_windows_386.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.3/sensu-go_6.6.3_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.6.3_windows_386.zip
 
 # Unzip the file with PowerShell for Windows amd64
-Expand-Archive -LiteralPath 'C:\Users\Administrator\sensu-go_6.6.2_windows_amd64.zip' -DestinationPath 'C:\\Program Files\sensu\sensuctl\bin'
+Expand-Archive -LiteralPath 'C:\Users\Administrator\sensu-go_6.6.3_windows_amd64.zip' -DestinationPath 'C:\\Program Files\sensu\sensuctl\bin'
 
 # or for Windows 386
-Expand-Archive -LiteralPath 'C:\Users\Administrator\sensu-go_6.6.2_windows_386.zip' -DestinationPath 'C:\\Program Files\sensu\sensuctl\bin'
+Expand-Archive -LiteralPath 'C:\Users\Administrator\sensu-go_6.6.3_windows_386.zip' -DestinationPath 'C:\\Program Files\sensu\sensuctl\bin'
 {{< /code >}}
 
 {{< code shell "macOS" >}}
 # Download the latest release
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.2/sensu-go_6.6.2_darwin_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.3/sensu-go_6.6.3_darwin_amd64.tar.gz
 
 # Extract the archive
-tar -xvf sensu-go_6.6.2_darwin_amd64.tar.gz
+tar -xvf sensu-go_6.6.3_darwin_amd64.tar.gz
 
 # Copy the executable into your PATH
 sudo cp sensuctl /usr/local/bin/
@@ -366,16 +366,16 @@ sudo yum install sensu-go-agent
 
 {{< code powershell "Windows" >}}
 # Download the Sensu agent for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.2/sensu-go-agent_6.6.2.5538_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.6.2.5538_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.3/sensu-go-agent_6.6.3.5588_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.6.3.5588_en-US.x64.msi"
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.2/sensu-go-agent_6.6.2.5538_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.6.2.5538_en-US.x86.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.3/sensu-go-agent_6.6.3.5588_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.6.3.5588_en-US.x86.msi"
 
 # Install the Sensu agent for Windows amd64
-msiexec.exe /i $env:userprofile\sensu-go-agent_6.6.2.5538_en-US.x64.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_6.6.3.5588_en-US.x64.msi /qn
 
 # Or for Windows 386
-msiexec.exe /i $env:userprofile\sensu-go-agent_6.6.2.5538_en-US.x86.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_6.6.3.5588_en-US.x86.msi /qn
 
 # Or via Chocolatey
 choco install sensu-agent
@@ -577,7 +577,7 @@ sensuctl license info
 [32]: http://localhost:3000/
 [33]: ../../../observability-pipeline/observe-schedule/collect-metrics-with-checks/
 [34]: https://account.sensu.io/
-[35]: ../../../api/health/
+[35]: ../../../api/other/health/
 [36]: #4-open-the-web-ui
 [37]: ../../../observability-pipeline/observe-process/populate-metrics-influxdb/
 [38]: ../../../sensuctl/back-up-recover/
