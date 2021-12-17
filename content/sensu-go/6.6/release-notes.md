@@ -121,6 +121,7 @@ When using embedded etcd, sensu-backend will still try to avoid crashing to prev
 - sensu-backend now prints a warning and continues instead of crashing when it cannot write to the specified event-log-file.
 - Fixed a bug that could cause a crash when keepalive leases are revoked on another backend or by an etcd operator.
 - Fixed an issue that could prevent sensu-backend from terminating correctly.
+- Proxy entity state is now created when it is missing and a matching entity config already exists.
 
 ## 6.6.2 release notes
 
