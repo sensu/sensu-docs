@@ -9,6 +9,7 @@ version: "6.6"
 menu: "sensu-go-6.6"
 ---
 
+- [6.6.3 release notes](#663-release-notes)
 - [6.6.2 release notes](#662-release-notes)
 - [6.6.1 release notes](#661-release-notes)
 - [6.6.0 release notes](#660-release-notes)
@@ -97,6 +98,30 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.6.3 release notes
+
+**December 16, 2021** &mdash; The latest release of Sensu Go, version 6.6.3, is now available for download.
+
+Sensu Go 6.6.3 includes improvements to reduce load on clusters and support cluster recovery, as well as a backend configuration flag for specifying the internal etcd client log level. Fixes in this patch release will help prevent backend crashes when keepalive leases are revoked and when the backend cannot write to the event log file. In addition, this patch fixes issues that could result in a leaked etcd lease and keep the backend from terminating correctly.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.6.3.
+
+**IMPROVEMENTS**
+
+- ([Commercial feature][259]) In the web UI, the default polling interval on the [entities page][261] is now 30 seconds to help reduce load on clusters. Also, the web UI response time and memory usage is substantially improved when opening the entities page in the default state (loading the first page of results, with no search filter applied).
+- Added the [etcd-client-log-level][262] configuration flag for setting the log level of the etcd client used internally within sensu-backend.
+- The agentd daemon now starts up after all other daemons, which improves cluster recovery after the loss of a backend.
+- When using external etcd (the no-embed-etcd backend configuration flag is set to `true`), sensu-backend now crashes when its daemons do not stop within 30 seconds, which can happen due to an intentional shutdown or when database unavailability triggers an internal restart.
+When using embedded etcd, sensu-backend will still try to avoid crashing to prevent member corruption.
+
+**FIXES**
+
+- New agent sessions no longer result in a leaked etcd lease.
+- sensu-backend now prints a warning and continues instead of crashing when it cannot write to the specified event-log-file.
+- Fixed a bug that could cause a crash when keepalive leases are revoked on another backend or by an etcd operator.
+- Fixed an issue that could prevent sensu-backend from terminating correctly.
+- Proxy entity state is now created when it is missing and a matching entity config already exists.
 
 ## 6.6.2 release notes
 
@@ -2207,3 +2232,5 @@ To get started with Sensu Go:
 [258]: /sensu-go/6.6/observability-pipeline/observe-schedule/backend/#platform-metrics-logging
 [259]: /sensu-go/6.6/commercial/
 [260]: /sensu-go/6.6/observability-pipeline/observe-schedule/backend/#datastore-and-cluster-configuration-flags
+[261]: /sensu-go/6.6/web-ui/view-manage-resources/#manage-entities
+[262]: /sensu-go/6.6/observability-pipeline/observe-schedule/backend/#etcd-client-log-level
