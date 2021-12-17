@@ -215,6 +215,6 @@ created_at: 1234567890
 {{< /language-toggle >}}
 
 
-[1]: ../../../api/apikeys/
-[2]: ../../../api/auth/
+[1]: ../../../api/core/apikeys/
+[2]: ../../../api/other/auth/
 [4]: #spec-attributes

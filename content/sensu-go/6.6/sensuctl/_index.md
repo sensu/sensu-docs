@@ -427,7 +427,7 @@ create  delete  import  list
 [11]: ../operations/control-access/#use-built-in-basic-authentication
 [12]: #first-time-setup-and-authentication
 [13]: create-manage-resources/#update-resources
-[14]: ../api/auth/
+[14]: ../api/other/auth/
 [15]: https://en.wikipedia.org/wiki/Bcrypt
 [16]: https://tools.ietf.org/html/rfc7519
 [17]: ../operations/control-access/ldap-auth

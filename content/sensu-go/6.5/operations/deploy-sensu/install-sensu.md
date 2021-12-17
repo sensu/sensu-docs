@@ -577,7 +577,7 @@ sensuctl license info
 [32]: http://localhost:3000/
 [33]: ../../../observability-pipeline/observe-schedule/collect-metrics-with-checks/
 [34]: https://account.sensu.io/
-[35]: ../../../api/health/
+[35]: ../../../api/other/health/
 [36]: #4-open-the-web-ui
 [37]: ../../../observability-pipeline/observe-process/populate-metrics-influxdb/
 [38]: ../../../sensuctl/back-up-recover/

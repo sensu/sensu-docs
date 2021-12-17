@@ -429,7 +429,7 @@ If you haven't changed the permissions of the default `admin` user, that user sh
 Learn more about configuring RBAC policies in our [RBAC reference documentation][10].
 
 
-[1]: ../../../api/federation/
+[1]: ../../../api/enterprise/federation/
 [3]: ../../control-access/use-apikeys/
 [4]: ../../../observability-pipeline/observe-schedule/backend#jwt-attributes
 [5]: ../../../sensuctl/create-manage-resources/#create-resources
