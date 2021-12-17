@@ -92,7 +92,7 @@ In a single-cluster environment, the namespace switcher will only list a local-c
 {{% /notice %}}
 
 
-[2]: ../../api/webconfig/
+[2]: ../../api/enterprise/webconfig/
 [3]: ../
 [4]: ../webconfig-reference/
 [5]: ../../sensuctl/create-manage-resources/#create-resources

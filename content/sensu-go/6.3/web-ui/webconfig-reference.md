@@ -415,7 +415,7 @@ urls:
 
 
 [1]: #default-preferences-attributes
-[2]: ../../api/webconfig/
+[2]: ../../api/enterprise/webconfig/
 [3]: ../../web-ui/
 [4]: #spec-attributes
 [5]: ../../web-ui/view-manage-resources/#use-the-namespace-switcher

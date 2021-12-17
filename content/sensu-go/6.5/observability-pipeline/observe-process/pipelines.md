@@ -14,10 +14,9 @@ menu:
 ---
 
 {{% notice warning %}}
-**IMPORTANT**: The pipeline resources described on this page are different from the handler resources you can create with the [pipeline API](../../../api/pipeline/).<br><br>
-The [pipeline API](../../../api/pipeline/) does not create pipeline resources.
-Instead, it allows you to create handlers that can **only** be used in pipeline resources.
-Read the [Sumo Logic metrics handlers reference](../sumo-logic-metrics-handlers) and [TCP stream handlers reference](../tcp-stream-handlers) for more information.
+**IMPORTANT**: The pipelines described on this page are different from the resources you can create and manage with the [`enterprise/pipeline/v1`](../../../api/enterprise/pipeline/) API.
+The [`enterprise/pipeline/v1`](../../../api/enterprise/pipeline/) API allows you to create and manage resources that can **only** be used in pipelines rather than pipelines themselves.<br><br>
+Read the [Sumo Logic metrics handlers reference](../sumo-logic-metrics-handlers) and [TCP stream handlers reference](../tcp-stream-handlers) for more information about enterprise pipeline resources.
 {{% /notice %}}
 
 Sensu executes pipelines during the **[process][22]** stage of the [observability pipeline][29].
