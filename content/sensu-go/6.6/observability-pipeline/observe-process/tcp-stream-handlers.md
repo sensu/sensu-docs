@@ -460,7 +460,7 @@ min_reconnect_delay: 10ms
 [11]: ../pipelines/#handlers-pipeline
 [12]: #tcp-stream-handler-example
 [13]: ../../observe-filter/filters/#built-in-filter-is_incident
-[15]: ../../../api#response-filtering
+[15]: ../../../api/#response-filtering
 [16]: ../../../sensuctl/filter-responses/
 [18]: https://regex101.com/r/zo9mQU/2
 [22]: ../

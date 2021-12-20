@@ -488,7 +488,7 @@ enable_round_robin: true
 [8]: ../cluster-sensu/#use-an-external-etcd-cluster
 [9]: ../../../web-ui/
 [10]: ../../../sensuctl/create-manage-resources/#sensuctl-event
-[11]: ../../../api/events/
+[11]: ../../../api/core/events/
 [12]: ../../../observability-pipeline/observe-process/populate-metrics-influxdb/
 [14]: https://www.postgresql.org
 [15]: https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING

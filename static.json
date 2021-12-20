@@ -15,10 +15,6 @@
             "url": "/sensu-go/latest/$1",
             "status": 301
         },
-        "~ ^/sensu-core/latest/migration/?$": {
-            "url": "/sensu-go/latest/operations/maintain-sensu/migrate",
-            "status": 301
-        },
         "~ ^/uchiwa/1.0/?((?<=\/).*)?$": {
             "url": "/uchiwa/latest/$1",
             "status": 301
@@ -29,10 +25,6 @@
         },
         "~ ^/sensu-enterprise/2.[6-8]/?((?<=\/).*)?$": {
             "url": "/sensu-enterprise/latest/$1",
-            "status": 301
-        },
-        "~ ^/sensu-enterprise/latest/migration/?$": {
-            "url": "/sensu-go/latest/operations/maintain-sensu/migrate",
             "status": 301
         },
         "~ ^/sensu-enterprise-dashboard/2.1[0-6]/?((?<=\/).*)?$": {

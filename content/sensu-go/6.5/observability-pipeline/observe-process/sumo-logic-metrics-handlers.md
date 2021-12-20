@@ -503,7 +503,7 @@ secret: sumologic_metrics_us2
 [12]: #sumo-logic-metrics-handler-example
 [13]: ../../observe-filter/filters/#built-in-filter-has_metrics
 [14]: ../../../operations/manage-secrets/secrets-management/
-[15]: ../../../api#response-filtering
+[15]: ../../../api/#response-filtering
 [16]: ../../../sensuctl/filter-responses/
 [18]: https://regex101.com/r/zo9mQU/2
 [22]: ../

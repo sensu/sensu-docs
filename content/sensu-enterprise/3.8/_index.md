@@ -106,4 +106,4 @@ upgrading from Sensu Core to Sensu Enterprise and Sensu Enterprise Dashboard.
 [25]: /sensu-enterprise-dashboard/latest/rbac/overview
 [26]: built-in-mutators
 [27]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
-[28]: /sensu-go/latest/operations/maintain-sensu/migrate/
+[28]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/

@@ -1197,13 +1197,13 @@ spec:
 [33]: ../../../sensuctl/create-manage-resources/#create-resources
 [34]: #spec-attributes
 [35]: https://regex101.com/r/zo9mQU/2
-[36]: ../../../api#response-filtering
+[36]: ../../../api/#response-filtering
 [37]: ../../../sensuctl/filter-responses/
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
 [39]: ../
 [41]: ../../../web-ui/search#search-for-labels
 [42]: ../../../web-ui/search/
-[43]: ../../../api/events/
+[43]: ../../../api/core/events/
 [44]: ../../../observability-pipeline/
 [46]: #event-attributes-available-to-filters
 [47]: #check-attributes-available-to-filters

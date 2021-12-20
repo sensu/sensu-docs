@@ -9,7 +9,7 @@ layout: "single"
 
 [Learn about Sensu Go's built-in dashboard](/sensu-go/latest/web-ui/)
 
-_IMPORTANT: [Uchiwa reached end-of-life (EOL) on December 31, 2019][1], more than 8 years after Sensu Core's inception as an open source software project, and we [permanently removed][2] the Sensu EOL repository on February 1, 2021.<br><br>To migrate to Sensu Go, read the [Sensu Core migration guide][3]._
+_IMPORTANT: [Uchiwa reached end-of-life (EOL) on December 31, 2019][1], more than 8 years after Sensu Core's inception as an open source software project, and we [permanently removed][2] the Sensu EOL repository on February 1, 2021.<br><br>To migrate to Sensu Go, read [Migrate from Sensu Core and Sensu Enterprise to Sensu Go][3]._
 
 ## What is Uchiwa?
 

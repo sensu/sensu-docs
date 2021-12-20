@@ -8,7 +8,7 @@ product: "Sensu Go"
 layout: "single"
 ---
 
-<iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-go&type=star&count=true" frameborder="0" scrolling="0" width="87px" height="20px"></iframe> | <a href="https://docs.sensu.io/sensu-go/latest/commercial/">Learn about licensing</a>
+<iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-go&type=star&count=true" frameborder="0" scrolling="0" width="60px" height="20px"></iframe> <a href="https://docs.sensu.io/sensu-go/latest/commercial/">Learn about licensing</a>
 
 [Sensu][25] is a complete solution for monitoring and observability at scale.
 Sensu Go is designed to give you visibility into everything you care about: traditional server closets, containers, applications, the cloud, and more.

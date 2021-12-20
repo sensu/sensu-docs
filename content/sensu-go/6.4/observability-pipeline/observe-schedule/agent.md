@@ -498,7 +498,7 @@ In addition, the agent maps [`keepalive-critical-timeout` and `keepalive-warning
 
 {{% notice note %}}
 **NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../../observe-entities/#proxy-entities) because they cannot run a Sensu agent.
-Use the [events API](../../../api/events/#eventsentitycheck-put) to send manual keepalive events for proxy entities.
+Use the [events API](../../../api/core/events/#eventsentitycheck-put) to send manual keepalive events for proxy entities.
 {{% /notice %}}
 
 ### Handle keepalive events
@@ -1923,7 +1923,7 @@ log-level: debug
 [22]: #statsd-configuration-flags
 [23]: https://github.com/statsd/statsd#key-concepts
 [24]: #configuration-via-flags
-[25]: ../../../api#response-filtering
+[25]: ../../../api/#response-filtering
 [26]: ../../../sensuctl/filter-responses/
 [27]: ../tokens/
 [28]: ../subscriptions/

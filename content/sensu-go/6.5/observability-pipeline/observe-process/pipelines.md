@@ -821,7 +821,7 @@ api_version: core/v2
 [7]: #filters-attributes
 [8]: #metadata-attributes
 [9]: ../../../operations/control-access/namespaces/
-[10]: ../../../api#response-filtering
+[10]: ../../../api/#response-filtering
 [11]: ../../../sensuctl/filter-responses/
 [12]: #handler-attributes
 [13]: ../handlers/

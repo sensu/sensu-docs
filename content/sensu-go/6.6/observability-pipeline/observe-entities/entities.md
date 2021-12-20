@@ -1709,7 +1709,7 @@ cpu_percent: 0.12639
 [11]: https://sensu.io/blog/one-year-of-sensu-go
 [12]: ../../../sensuctl/create-manage-resources/#create-resources
 [13]: #spec-attributes
-[14]: ../../../api#response-filtering
+[14]: ../../../api/#response-filtering
 [15]: ../../../sensuctl/filter-responses/
 [16]: ../../observe-schedule/agent/#agent-managed-entity
 [17]: ../../observe-entities/monitor-external-resources/

@@ -504,7 +504,7 @@ output               | {{< code json >}}
 ## Create or update an entity {#entitiesentity-put}
 
 {{% notice note %}}
-**NOTE**: This endpoint will not update [agent-managed entities](../../../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
+**NOTE**: This endpoint will not update [agent-managed entities](../../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
 Requests to update agent-managed entities via the Sensu backend REST API will fail and return `HTTP 409 Conflict`.
 {{% /notice %}}
 
@@ -571,7 +571,7 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 ## Update an entity with PATCH
 
 {{% notice note %}}
-**NOTE**: This endpoint will not update [agent-managed entities](../../../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
+**NOTE**: This endpoint will not update [agent-managed entities](../../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
 Requests to update agent-managed entities via the Sensu backend REST API will fail and return `HTTP 409 Conflict`.
 {{% /notice %}}
 
