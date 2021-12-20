@@ -35,7 +35,7 @@ menu:
 
 ## Install Sensu Core {#sensu-core}
 
-_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][19], and we [permanently removed][20] the Sensu EOL repository on February 1, 2021.<br><br>This means the packages and https://eol-repositories.sensuapp.org URLs specified in the instructions and examples below are no longer available. To migrate to Sensu Go, read the [Sensu Core migration guide][21]._
+_IMPORTANT: [Sensu Core reached end-of-life (EOL) on December 31, 2019][19], and we [permanently removed][20] the Sensu EOL repository on February 1, 2021.<br><br>This means the packages and https://eol-repositories.sensuapp.org URLs specified in the instructions and examples below are no longer available. To migrate to Sensu Go, read [Migrate from Sensu Core and Sensu Enterprise to Sensu Go][21]._
 
 Sensu Core is installed on Ubuntu and Debian systems via a native system installer package (i.e. a .deb file).
 The Sensu Core package installs several processes including `sensu-server`, `sensu-api`, and `sensu-client`.
@@ -92,7 +92,7 @@ sudo apt-get install sensu{{< /code >}}
 
 ## Install Sensu Enterprise {#sensu-enterprise}
 
-_IMPORTANT: [Sensu Enterprise reached end-of-life (EOL) March 31, 2020][19], and we [permanently removed][20] the Sensu EOL repository on February 1, 2021.<br><br>This means the packages specified in the instructions below are no longer available. To migrate to Sensu Go, read the [Sensu Enterprise migration guide][22]._
+_IMPORTANT: [Sensu Enterprise reached end-of-life (EOL) March 31, 2020][19], and we [permanently removed][20] the Sensu EOL repository on February 1, 2021.<br><br>This means the packages specified in the instructions below are no longer available. To migrate to Sensu Go, read [Migrate from Sensu Core and Sensu Enterprise to Sensu Go][21]._
 
 [Sensu Enterprise][2] is installed on Ubuntu and Debian systems via a native
 system installer package (i.e. a .deb file). The Sensu Enterprise installer
@@ -475,4 +475,3 @@ sudo service sensu-enterprise-dashboard stop{{< /code >}}
 [19]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
 [20]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
 [21]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/
-[22]: https://docs.sensu.io/sensu-enterprise/3.8/migration/

@@ -1833,7 +1833,7 @@ available for immediate download. Please note the following improvements:
 <!-- 1.6.2 -->
 [68]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#162---2018-12-07
 [69]: https://github.com/sensu/sensu-translator
-[70]: /sensu-go/latest/operations/maintain-sensu/migrate/
+[70]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/
 
 <!-- 1.7.0 -->
 [71]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#170---2019-02-19

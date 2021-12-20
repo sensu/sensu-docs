@@ -960,7 +960,7 @@ spec:
 [7]: ../../../plugins/assets/
 [8]: #metadata-attributes
 [9]: ../../../operations/control-access/namespaces/
-[10]: ../../../api#response-filtering
+[10]: ../../../api/#response-filtering
 [11]: ../../../sensuctl/filter-responses/
 [12]: ../../observe-schedule/agent#keepalive-monitoring
 [13]: ../../observe-schedule/agent/

@@ -10,7 +10,7 @@ layout: "single"
 
 [Learn about Sensu Go's built-in dashboard](/sensu-go/latest/web-ui/)
 
-_IMPORTANT: [Sensu Enterprise Dashboard reached end-of-life (EOL) on March 31, 2020](https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise), more than 8 years after Sensu Core's inception as an open source software project, and we [permanently removed][20] the Sensu EOL repository on February 1, 2021.<br><br>To migrate to Sensu Go, see the [Sensu Enterprise migration guide][21]._
+_IMPORTANT: [Sensu Enterprise Dashboard reached end-of-life (EOL) on March 31, 2020](https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise), more than 8 years after Sensu Core's inception as an open source software project, and we [permanently removed][20] the Sensu EOL repository on February 1, 2021.<br><br>To migrate to Sensu Go, read [Migrate from Sensu Core and Sensu Enterprise to Sensu Go][21]._
 
 ## Reference Documentation
 
@@ -86,4 +86,4 @@ installation or cluster).
 [18]: #oidc-attributes
 [19]: api/overview
 [20]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
-[21]: https://docs.sensu.io/sensu-enterprise/latest/migration
+[21]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/

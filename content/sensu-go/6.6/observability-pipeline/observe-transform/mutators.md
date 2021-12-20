@@ -783,7 +783,7 @@ spec:
 [5]: ../../../sensuctl/create-manage-resources/#create-resources
 [6]: #spec-attributes
 [7]: https://regex101.com/r/zo9mQU/2
-[8]: ../../../api#response-filtering
+[8]: ../../../api/#response-filtering
 [9]: ../../../sensuctl/filter-responses/
 [10]: ../../../operations/manage-secrets/secrets/
 [11]: ../../../operations/manage-secrets/secrets-providers/

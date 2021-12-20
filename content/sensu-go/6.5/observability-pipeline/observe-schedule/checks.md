@@ -718,7 +718,7 @@ annotations:
 ### Spec attributes
 
 {{% notice note %}}
-**NOTE**: Spec attributes are not required when sending an HTTP `POST` request to the [agent](../agent/#events-post) or [backend](../../../api/events/#create-a-new-event) /events API.
+**NOTE**: Spec attributes are not required when sending an HTTP `POST` request to the [agent](../agent/#events-post) or [backend](../../../api/core/events/#create-a-new-event) /events API.
 When doing so, the spec attributes are listed as individual [top-level attributes](#top-level-attributes) in the check definition instead.
 {{% /notice %}}
 
@@ -1720,7 +1720,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [51]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 [52]: #round-robin-checks
 [53]: https://regex101.com/r/zo9mQU/2
-[54]: ../../../api#response-filtering
+[54]: ../../../api/#response-filtering
 [55]: ../../../sensuctl/filter-responses/
 [56]: ../../../operations/manage-secrets/secrets/
 [57]: ../../../operations/manage-secrets/secrets-providers/
