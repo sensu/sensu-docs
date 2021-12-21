@@ -35,7 +35,7 @@ The following example demonstrates a request to the `/sumo-logic-metrics-handler
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
@@ -86,7 +86,7 @@ HTTP/1.1 200 OK
 /sumo-logic-metrics-handlers (GET)  | 
 ---------------|------
 description    | Returns the list of Sumo Logic metrics handlers.
-example url    | http://hostname:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers
+example url    | http://hostname:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers
 pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
@@ -166,7 +166,7 @@ curl -X POST \
     "timeout": "30s"
   }
 }' \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers
 
 HTTP/1.1 201 Created
 {{< /code >}}
@@ -176,7 +176,7 @@ HTTP/1.1 201 Created
 /sumo-logic-metrics-handlers (POST) | 
 ----------------|------
 description     | Creates a Sensu Sumo Logic metrics handler.
-example URL     | http://hostname:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers
+example URL     | http://hostname:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers
 payload         | {{< code shell >}}
 {
   "type": "SumoLogicMetricsHandler",
@@ -210,7 +210,7 @@ In the following example, querying the `/sumo-logic-metrics-handlers/:sumo-logic
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us1 \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us1 \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
@@ -240,7 +240,7 @@ HTTP/1.1 200 OK
 /sumo-logic-metrics-handlers/:sumo-logic-metrics-handler (GET) | 
 ---------------------|------
 description          | Returns a Sumo Logic metrics handler.
-example url          | http://hostname:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us1
+example url          | http://hostname:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us1
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< code json >}}
@@ -297,7 +297,7 @@ curl -X PUT \
     "timeout": "30s"
   }
 }' \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us2
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us2
 
 HTTP/1.1 201 Created
 {{< /code >}}
@@ -307,7 +307,7 @@ HTTP/1.1 201 Created
 /sumo-logic-metrics-handlers/:sumo-logic-metrics-handler (PUT) | 
 ----------------|------
 description     | Creates or updates the specified Sensu Sumo Logic metrics handler.
-example URL     | http://hostname:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us2
+example URL     | http://hostname:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us2
 payload         | {{< code shell >}}
 {
   "type": "SumoLogicMetricsHandler",
@@ -341,7 +341,7 @@ The following example shows a request to the `/sumo-logic-metrics-handlers/:sumo
 
 {{< code shell >}}
 curl -X DELETE \
-http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespace/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us2 \
+http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us2 \
 -H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 204 No Content
