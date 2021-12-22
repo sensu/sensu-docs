@@ -71,11 +71,13 @@ However, you can use a traditional handler instead if desired, and our [Sumo Log
 
 For a Sumo Logic metrics handler, the resource definition must use the URL you copied in the last step of setting up your HTTP Logs and Metrics Source as the value for the `url` attribute.
 
-Here is an example Sumo Logic Metrics Handler definition:
+Here is an example Sumo Logic Metrics Handler definition.
+Before you run the command to add this handler, replace the `url` example value with the URL for your Sumo Logic HTTP Logs and Metrics Source:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code text "YML" >}}
+cat << EOF | sensuctl create
 ---
 type: SumoLogicMetricsHandler
 api_version: pipeline/v1
@@ -85,9 +87,11 @@ spec:
   url: "https://collectors.sumologic.com/receiver/v1/http/xxxxxxxx"
   max_connections: 10
   timeout: 10s
+EOF
 {{< /code >}}
 
-{{< code json >}}
+{{< code text "JSON" >}}
+cat << EOF | sensuctl create
 {
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
@@ -100,6 +104,7 @@ spec:
     "timeout": "10s"
   }
 }
+EOF
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -109,7 +114,8 @@ This example shows the same definition with the URL referenced as a secret inste
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code text "YML" >}}
+cat << EOF | sensuctl create
 ---
 type: SumoLogicMetricsHandler
 api_version: pipeline/v1
@@ -122,9 +128,11 @@ spec:
     secret: sumologic_metrics_us1
   max_connections: 10
   timeout: 10s
+EOF
 {{< /code >}}
 
-{{< code json >}}
+{{< code text "JSON" >}}
+cat << EOF | sensuctl create
 {
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
@@ -143,16 +151,203 @@ spec:
     "timeout": "10s"
   }
 }
+EOF
 {{< /code >}}
 
 {{< /language-toggle >}}
-
-Make sure to add your Sumo Logic metrics handler to a [pipeline][8], and reference the pipeline in the [check][9] you're using to collect your metrics data.
 
 {{% notice note %}}
 **NOTE**: [Sumo Logic metrics handlers](../observability-pipeline/observe-process/sumo-logic-metrics-handlers) only accept metrics events.
 To send status events, use the [Sensu Sumo Logic Handler integration](../plugins/supported-integrations/sumologic/).
 {{% /notice %}}
+
+## Configure a pipeline
+
+With your handler definition configured, you’re ready to create a [pipeline][8] with a workflow that references your sumo_logic_http_metrics handler.
+
+{{% notice protip %}}
+**PRO TIP**: Sensu pipelines use event filters, mutators, and handlers as the building blocks for event processing workflows.
+Read the [pipeline reference](../observability-pipeline/observe-process/pipelines/) for detailed information about pipelines.
+{{% /notice %}}
+
+To configure event processing via your sumo_logic_http_metrics handler, add this example pipeline definition.
+This pipeline includes a workflow with your sumo_logic_http_metrics handler, along with the built-in [has_metrics event filter][12] to ensure that the workflow only processes events that contain metrics:
+
+{{< language-toggle >}}
+
+{{< code text "YML" >}}
+cat << EOF | sensuctl create
+---
+type: Pipeline
+api_version: core/v2
+metadata:
+  name: sensu_to_sumo
+spec:
+  workflows:
+  - name: metrics_to_sumologic
+    filters:
+    - name: has_metrics
+      type: EventFilter
+      api_version: core/v2
+    handler:
+      name: sumo_logic_http_metrics
+      type: SumoLogicMetricsHandler
+      api_version: pipeline/v1
+EOF
+{{< /code >}}
+
+{{< code text "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "Pipeline",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu_to_sumo"
+  },
+  "spec": {
+    "workflows": [
+      {
+        "name": "metrics_to_sumologic",
+        "filters": [
+          {
+            "name": "has_metrics",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "handler": {
+          "name": "sumo_logic_http_metrics",
+          "type": "SumoLogicMetricsHandler",
+          "api_version": "pipeline/v1"
+        }
+      }
+    ]
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Configure a Sensu check
+
+Your pipeline resource is now properly configured, but it’s not processing any events because no Sensu [checks][9] are sending events to it.
+To get your Sensu observability data flowing through the new pipeline, add a reference to it in at least one check.
+
+This example check definition uses the [Sensu System Check][13] dynamic runtime asset.
+
+{{% notice note %}}
+**NOTE**: Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
+Read the [assets reference](../plugins/assets/) for more information about dynamic runtime assets.
+{{% /notice %}}
+
+Follow these steps to configure the required system check:
+
+1. Add the Sensu System Check dynamic runtime asset:
+{{< code shell >}}
+sensuctl asset add sensu/system-check:0.1.1 -r system-check
+{{< /code >}}
+
+2. Update at least one Sensu entity to use the `system` subscription.
+In the following command, replace `<entity_name>` with the name of the entity on your system.
+Then, run:
+{{< code shell >}}
+sensuctl entity update <entity_name>
+{{< /code >}}
+
+    - For `Entity Class`, press enter.
+    - For `Subscriptions`, type `system` and press enter.
+
+3. Add the following check definition:
+
+    {{< language-toggle >}}
+
+{{< code text "YML" >}}
+cat << EOF | sensuctl create
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: system-check
+spec:
+  command: system-check
+  runtime_assets:
+  - system-check
+  subscriptions:
+  - system
+  interval: 10
+  timeout: 5
+  publish: true
+  pipelines:
+  - type: Pipeline
+    api_version: core/v2
+    name: sensu_to_sumo
+  output_metric_format: prometheus_text
+  output_metric_tags:
+  - name: entity
+    value: "{{ .name }}"
+  - name: namespace
+    value: "{{ .namespace }}"
+  - name: os
+    value: "{{ .system.os }}"
+  - name: platform
+    value: "{{ .system.platform }}"
+EOF
+{{< /code >}}
+
+{{< code text "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "system-check"
+  },
+  "spec": {
+    "command": "system-check",
+    "runtime_assets": [
+      "system-check"
+    ],
+    "subscriptions": [
+      "system"
+    ],
+    "interval": 10,
+    "timeout": 5,
+    "publish": true,
+    "pipelines": [
+      {
+        "type": "Pipeline",
+        "api_version": "core/v2",
+        "name": "sensu_to_sumo"
+      }
+    ],
+    "output_metric_format": "prometheus_text",
+    "output_metric_tags": [
+      {
+        "name": "entity",
+        "value": "{{ .name }}"
+      },
+      {
+        "name": "namespace",
+        "value": "{{ .namespace }}"
+      },
+      {
+        "name": "os",
+        "value": "{{ .system.os }}"
+      },
+      {
+        "name": "platform",
+        "value": "{{ .system.platform }}"
+      }
+    ]
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+This check will collect baseline system metrics in Prometheus format for all entities that include the `system` subscription and send the events to Sumo Logic via your sensu_to_sumo pipeline resource.
 
 ## Configure Sumo Logic dashboards
 
@@ -190,3 +385,5 @@ Click a dashboard name to view your Sensu observability data.
 [9]: ../observability-pipeline/observe-schedule/checks/
 [10]: https://service.sumologic.com/ui/#/home
 [11]: ../plugins/supported-integrations/sumologic/
+[12]: ../observability-pipeline/observe-filter/filters/#built-in-filter-has_metrics
+[13]: https://bonsai.sensu.io/assets/sensu/system-check
