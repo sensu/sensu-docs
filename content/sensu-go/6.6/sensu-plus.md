@@ -24,7 +24,7 @@ Once you have an account, follow this guide to start sending your Sensu data to 
 
 Set up a Sumo Logic HTTP Logs and Metrics Source to collect your Sensu observability data:
 
-1. In the Sumo Logic left-navigation menu, click **Manage Data** and **Collections**.
+1. In the Sumo Logic left-navigation menu, click **Manage Data** and then **Collection**.
 
     {{< figure src="/images/sumo-plus/manage-data_collection.gif" alt="Open the Collections tab" link="/images/sumo-plus/manage-data_collection.gif" target="_blank" >}}
 
