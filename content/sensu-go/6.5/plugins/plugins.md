@@ -33,6 +33,10 @@ You can use any programming language that can satisfy the Sensu plugin specifica
 Using plugins written in programming languages other than Go requires you to install the corresponding runtime.
 For example, to use a Ruby plugin with Sensu Go, you must install the [Sensu Go Ruby Runtime asset][3].
 
+### Use Nagios plugins
+
+The Sensu plugin specification is compatible with the [Nagios plugin specification][9], so you can use the 50+ plugins in the official [Nagios Plugins project][10] and 4000+ plugins in the [Nagios Exchange][11] with Sensu without any modification.
+
 ## Plugin execution
 
 All plugins are executed by the Sensu backend.
@@ -145,3 +149,6 @@ It does not provide functionality.
 [6]: https://sensu.io/resources/webinar/intro-to-assets-with-the-sensu-go-sdk
 [7]: https://sensu.io/blog/how-to-publish-an-asset-with-the-sensu-go-sdk
 [8]: https://github.com/sensu-community/sensu-plugin-sdk
+[9]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/pluginapi.html
+[10]: https://www.nagios.org/downloads/nagios-plugins/
+[11]: https://exchange.nagios.org/
