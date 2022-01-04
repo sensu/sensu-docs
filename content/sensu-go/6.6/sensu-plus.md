@@ -165,13 +165,13 @@ To send status events, use the [Sensu Sumo Logic Handler integration](../plugins
 
 With your handler definition configured, you’re ready to create a [pipeline][8] with a workflow that references your sumo_logic_http_metrics handler.
 
-{{% notice protip %}}
-**PRO TIP**: Sensu pipelines use event filters, mutators, and handlers as the building blocks for event processing workflows.
+{{% notice note %}}
+**NOTE**: Sensu pipelines use event filters, mutators, and handlers as the building blocks for event processing workflows.
 Read the [pipeline reference](../observability-pipeline/observe-process/pipelines/) for detailed information about pipelines.
 {{% /notice %}}
 
 To configure event processing via your sumo_logic_http_metrics handler, add this example pipeline definition.
-This pipeline includes a workflow with your sumo_logic_http_metrics handler, along with the built-in [has_metrics event filter][12] to ensure that the workflow only processes events that contain metrics:
+This pipeline includes a workflow with your sumo_logic_http_metrics handler, along with Sensu's built-in [has_metrics event filter][12] to ensure that the workflow only processes events that contain metrics:
 
 {{< language-toggle >}}
 
@@ -232,7 +232,7 @@ EOF
 ## Configure a Sensu check
 
 Your pipeline resource is now properly configured, but it’s not processing any events because no Sensu [checks][9] are sending events to it.
-To get your Sensu observability data flowing through the new pipeline, add a reference to it in at least one check.
+To get your Sensu observability data flowing through the new pipeline, add the pipeline by reference in at least one check definition.
 
 This example check definition uses the [Sensu System Check][13] dynamic runtime asset.
 
@@ -243,7 +243,7 @@ Read the [assets reference](../plugins/assets/) for more information about dynam
 
 Follow these steps to configure the required system check:
 
-1. Add the Sensu System Check dynamic runtime asset:
+1. Add the [Sensu System Check][13] dynamic runtime asset:
 {{< code shell >}}
 sensuctl asset add sensu/system-check:0.1.1 -r system-check
 {{< /code >}}
@@ -351,7 +351,7 @@ This check will collect baseline system metrics in Prometheus format for all ent
 
 ## Configure Sumo Logic dashboards
 
-You can configure Sumo Logic dashboards to view your Sensu observability data in any way you wish.
+To view your Sensu observability data in Sumo Logic, you can configure Sumo Logic dashboards in any way you wish.
 As a starting point, follow these instructions to configure Sensu Overview and Sensu Entity Detail dashboards:
 
 1. On your [Sumo Logic home page][10], click the **Personal** tab in the left-navigation menu.
