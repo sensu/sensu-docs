@@ -1,6 +1,6 @@
 ---
 title: "Data Store"
-description: "Reference documentation for the Sensu Data Store."
+description: "Read this reference documentation for information about how Sensu uses a Redis data store to persist monitoring data."
 product: "Sensu Core"
 version: "1.9"
 weight: 12

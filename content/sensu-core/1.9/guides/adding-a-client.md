@@ -1,6 +1,6 @@
 ---
 title: "Adding a Client"
-description: "Configure and start a Sensu Client"
+description: "Learn how to configure and start a Sensu client, which is a piece of infrastructure that Sensu monitors for you."
 product: "Sensu Core"
 version: "1.9"
 next: ../intro-to-checks

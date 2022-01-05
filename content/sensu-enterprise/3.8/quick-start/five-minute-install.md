@@ -266,4 +266,4 @@ Now you're ready to start building monitoring event pipelines with Sensu!
 [16]: /sensu-enterprise-dashboard/latest/rbac/overview/
 [17]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
 [18]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
-[19]: /sensu-go/latest/operations/maintain-sensu/migrate/
+[19]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/

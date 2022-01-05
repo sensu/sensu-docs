@@ -1,6 +1,6 @@
 ---
 title: "Extensions"
-description: "Reference documentation for Sensu Extensions."
+description: "Read this reference documentation for information about Sensu extensions, which fulfill the same functions as Sensu plugins but with better efficiency."
 product: "Sensu Core"
 version: "1.9"
 weight: 10

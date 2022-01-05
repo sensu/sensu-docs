@@ -1,7 +1,6 @@
 ---
 title: "Solaris"
-description: "User documentation for installing and operating Sensu on Solaris
-  systems."
+description: "Read this page for detailed information about installing and operating Sensu on Solaris systems via native system installer packages."
 weight: 5
 version: "1.9"
 product: "Sensu Core"

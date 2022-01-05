@@ -1,7 +1,7 @@
 ---
 title: "Getting started with Sensu"
 linkTitle: "Get Started with Sensu"
-description: "Get started with Sensu."
+description: "Read this to get started with Sensu Core. Use the sandbox, read about installation, and try Sensu Enterprise features with a free trial."
 weight: 1
 version: "1.9"
 product: "Sensu Core"

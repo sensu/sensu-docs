@@ -15,7 +15,7 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access TCP stream handlers in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 Sensu executes TCP stream handlers during the **[process][22]** stage of the [observability pipeline][29].
@@ -460,7 +460,7 @@ min_reconnect_delay: 10ms
 [11]: ../pipelines/#handlers-pipeline
 [12]: #tcp-stream-handler-example
 [13]: ../../observe-filter/filters/#built-in-filter-is_incident
-[15]: ../../../api#response-filtering
+[15]: ../../../api/#response-filtering
 [16]: ../../../sensuctl/filter-responses/
 [18]: https://regex101.com/r/zo9mQU/2
 [22]: ../

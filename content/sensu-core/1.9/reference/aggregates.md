@@ -1,6 +1,6 @@
 ---
 title: "Aggregates"
-description: "Reference documentation for Sensu Named Aggregates."
+description: "Read this reference documentation for information about Sensu named aggregates, collections of multiple check results you can treat as a single result."
 product: "Sensu Core"
 version: "1.9"
 weight: 4

@@ -1,7 +1,7 @@
 ---
 title: "Silenced API"
 product: "Sensu Core"
-description: "Sensu Silenced API reference documentation."
+description: "Read this page for API documentation for the Sensu silenced API, including endpoints as well as request and response examples."
 version: "1.9"
 weight: 7
 menu:

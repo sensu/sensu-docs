@@ -1,6 +1,6 @@
 ---
 title: "Sensu Configuration"
-description: "Reference documentation for Sensu Configuration, including service init scripts, command line arguments, and environment variables."
+description: "Read this reference documentation to learn about Sensu configuration, including service init scripts, command line arguments, and environment variables."
 product: "Sensu Core"
 version: "1.9"
 weight: 14

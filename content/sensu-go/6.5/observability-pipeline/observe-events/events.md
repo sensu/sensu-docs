@@ -2478,7 +2478,7 @@ created_by: "admin"
 {{< /code >}}
 {{< /language-toggle >}}
 
-#### Pipelines attributes
+### Pipelines attributes
 
 type         | 
 -------------|------
@@ -3294,7 +3294,7 @@ value: 0.005
 [13]: ../../observe-schedule/agent#create-observability-events-using-the-statsd-listener
 [14]: ../../../api/events#eventsentitycheck-put
 [15]: ../../../web-ui/
-[16]: ../../../api/events/
+[16]: ../../../api/core/events/
 [17]: ../../../sensuctl/
 [18]: ../../../sensuctl/#preferred-output-format
 [19]: ../#status-and-metrics-events

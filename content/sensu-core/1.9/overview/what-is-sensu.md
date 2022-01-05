@@ -1,6 +1,6 @@
 ---
 title: "What is Sensu?"
-description: "What is Sensu"
+description: "Sensu is a comprehensive solution for traditional monitoring scenarios as well as complex monitoring problems at scale. Read this page for a Sensu overview."
 product: "Sensu Core"
 version: "1.9"
 weight: 1

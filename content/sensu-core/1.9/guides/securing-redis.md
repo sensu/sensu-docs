@@ -1,6 +1,6 @@
 ---
 title: "Securing Redis"
-description: "Strategies and best practices for securing Redis"
+description: "Read this page to learn about strategies and best practices for securing Redis, which Sensu uses for storing persistent data."
 product: "Sensu Core"
 version: "1.9"
 weight: 9

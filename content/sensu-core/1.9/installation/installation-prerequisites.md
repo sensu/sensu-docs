@@ -1,6 +1,6 @@
 ---
 title: "Prerequisites"
-description: "The complete Sensu installation guide."
+description: "Read this page to learn about installing Sensu's dependencies, the data store and transport, in a standalone configuration."
 weight: 3
 product: "Sensu Core"
 version: "1.9"

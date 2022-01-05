@@ -31,7 +31,7 @@ For this reason, the web UI will display a PostgreSQL prompt instead of the BSM 
 
 To build a business service in the web UI module:
 
-1. Click the services icon in the left navigation menu to open the Services page: ![services icon](/images/web-ui-services-icon.png)
+1. Click ![services icon](/images/web-ui-services-icon.png) in the left navigation menu to open the Services page.
 2. Click **ADD NEW SERVICE** to open the Create New Service dialog window.
 3. Enter a name for the service entity.
 4. Enter labels and annotations, if desired.
@@ -45,7 +45,7 @@ The business service itself is an entity with the class `service`, so it will al
 
 To add service components to a business service:
 
-1. Click the kebab icon for the business service: ![kebab icon](/images/web-ui-kebab-icon.png)
+1. Click ⋮ for the business service.
 2. Select **Add Component** from the drop-down menu to open the Configure New Service Component dialog window.
 3. Enter a name for the service component.
 4. Enter labels and annotations, if desired.
@@ -69,12 +69,12 @@ Click the business service name to view its events and other related details and
 
 {{< figure src="/images/business-service-detail-page.png" alt="View the business service detail page" link="/images/business-service-detail-page.png" target="_blank" >}}
 
-To edit, add components to, or delete a business service, click the kebab icon in the top-right corner of the service's tile.
+To edit, add components to, or delete a business service, click ⋮ at the top-right corner of the service's tile.
 
 ## View and manage service components
 
 After you add a service component to a business service, it will be listed on the business service tile in the web UI Services page until you delete it.
-To edit or delete a service component, click the kebab icon to the right of the component name in the list:
+To edit or delete a service component, click ⋮ at the right of the component's name:
 
 {{< figure src="/images/edit-service-component.png" alt="Edit a service component" link="/images/edit-service-component.png" target="_blank" >}}
 

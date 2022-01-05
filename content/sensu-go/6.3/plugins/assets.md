@@ -1226,7 +1226,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [17]: #token-substitution-for-dynamic-runtime-asset-paths
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
 [19]: https://regex101.com/r/zo9mQU/2
-[20]: ../../api#response-filtering
+[20]: ../../api/#response-filtering
 [21]: ../../sensuctl/filter-responses/
 [23]: ../use-assets-to-install-plugins/
 [24]: https://github.com

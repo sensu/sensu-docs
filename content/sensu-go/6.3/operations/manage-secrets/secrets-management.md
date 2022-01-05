@@ -463,12 +463,12 @@ Read the [secrets][9] or [secrets providers][2] reference for in-depth secrets m
 [5]: ../../deploy-sensu/install-sensu/#install-the-sensu-backend
 [6]: ../../deploy-sensu/install-sensu/#install-sensu-agents
 [7]: ../../deploy-sensu/install-sensu/#install-sensuctl
-[8]: ../../../api/secrets/
+[8]: ../../../api/enterprise/secrets/
 [9]: ../../../operations/manage-secrets/secrets/
 [11]: ../../deploy-sensu/install-sensu/#install-sensu-agents
 [12]: https://www.vaultproject.io/docs/concepts/lease.html#lease-durations-and-renewal
-[13]: ../../../api/secrets#providers-provider-put
-[14]: ../../../api/secrets#secrets-secret-put
+[13]: ../../../api/enterprise/secrets/#providers-provider-put
+[14]: ../../../api/enterprise/secrets/#secrets-secret-put
 [15]: ../../deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [17]: ../../../operations/manage-secrets/secrets-providers#tls-vault
 [19]: #add-a-handler

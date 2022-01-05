@@ -1,6 +1,6 @@
 ---
 title: "Pre-Compiling Plugins"
-description: "Pre-Compiling Sensu Plugins for Distribution"
+description: "This guide explains how to pre-compile Sensu plugins for distribution among clients so you can quickly install plugins on ephemeral instances."
 product: "Sensu Core"
 version: "1.9"
 weight: 12

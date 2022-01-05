@@ -1,6 +1,6 @@
 ---
 title: "Clients"
-description: "Reference documentation for Sensu Clients."
+description: "Read this reference documentation for information about Sensu clients, the monitoring agents that are installed and run on every system to be monitored."
 product: "Sensu Core"
 version: "1.9"
 weight: 2

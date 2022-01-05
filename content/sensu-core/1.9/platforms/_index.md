@@ -1,6 +1,6 @@
 ---
 title: "Platforms"
-description: "Platform documentation for Sensu."
+description: "This page lists and links to detailed platform-specific documentation for installing and operating Sensu on a number of different systems."
 product: "Sensu Core"
 version: "1.9"
 weight: 80

@@ -74,7 +74,7 @@
         <a href="./sensu-go/latest/plugins/supported-integrations/chef/">
           <img src="/images/integrations/chef_logo.png" alt="Chef" />
         </a>
-        <a href="./sensu-go/latest/plugins/supported-integrations/ec2/">
+        <a href="./sensu-go/latest/plugins/supported-integrations/aws-ec2/">
           <img src="/images/integrations/ec2_logo.png" alt="EC2" />
         </a>
         <a href="./sensu-go/latest/plugins/supported-integrations/elasticsearch/">
@@ -150,9 +150,6 @@
       <h2>Sensu at enterprise scale</h2>
       <p>Monitor tens of thousands of nodes and process 100M+ events per hour. Scale for complex and distributed infrastructures and high-volume event storage.</p>
       <div class="info-grid info-grid--comfy">
-        <a class="colored colored--purple colored--rounded" href="./sensu-go/latest/operations/deploy-sensu/deployment-architecture/">
-          <p>Deployment architecture</p>
-        </a>
         <a class="colored colored--purple colored--rounded" href="./sensu-go/latest/operations/deploy-sensu/generate-certificates/">
           <p>Certificates and security</p>
         </a>
@@ -161,6 +158,9 @@
         </a>
         <a class="colored colored--purple colored--rounded" href="./sensu-go/latest/operations/deploy-sensu/scale-event-storage/">
           <p>Enterprise datastore</p>
+        </a>
+        <a class="colored colored--purple colored--rounded" href="./sensu-go/latest/sensu-plus/">
+          <p>Sensu Plus built-in integration</p>
         </a>
         <a class="colored colored--purple colored--rounded" href="./sensu-go/latest/operations/manage-secrets/secrets-management/">
           <p>Secrets management</p>
@@ -195,19 +195,31 @@
           <p>Populate metrics in InfluxDB</p>
         </a>
         <a class="colored colored--blue colored--rounded" href="./sensu-go/latest/observability-pipeline/observe-process/handler-templates/">
-          <p>Include event data in alert messages</p>
+          <p>Include event data in alert messages with handler templates</p>
         </a>
         <a class="colored colored--blue colored--rounded" href="./sensu-go/latest/observability-pipeline/observe-entities/monitor-external-resources/">
           <p>Monitor external resources with proxy entities</p>
         </a>
         <a class="colored colored--blue colored--rounded" href="./sensu-go/latest/operations/monitor-sensu/log-sensu-systemd/">
-          <p>Log Sensu services</p>
+          <p>Log Sensu services with systemd</p>
         </a>
         <a class="colored colored--blue colored--rounded" href="./sensu-go/latest/operations/control-access/create-limited-service-accounts/">
-          <p>Create limited service accounts</p>
+          <p>Create limited service accounts with role-based access control</p>
         </a>
         <a class="colored colored--blue colored--rounded" href="./sensu-go/latest/observability-pipeline/observe-process/plan-maintenance/">
-          <p>Plan maintenance windows with silences</p>
+          <p>Plan maintenance windows with silencing</p>
+        </a>
+        <a class="colored colored--blue colored--rounded" href="./sensu-go/latest/operations/monitoring-as-code/">
+          <p>Create a monitoring as code repository</p>
+        </a>
+        <a class="colored colored--blue colored--rounded" href="./sensu-go/latest/observability-pipeline/observe-process/send-email-alerts/">
+          <p>Send email alerts with a pipeline</p>
+        </a>
+        <a class="colored colored--blue colored--rounded" href="./sensu-go/latest/observability-pipeline/observe-schedule/prometheus-metrics/">
+          <p>Collect Prometheus metrics and route them to time-series databases</p>
+        </a>
+        <a class="colored colored--blue colored--rounded" href="./sensu-go/latest/web-ui/bsm-module/">
+          <p>Build business service monitoring</p>
         </a>
       </div>
     </div>
@@ -215,7 +227,7 @@
       <h2>Learn Sensu</h2>
       <p>Start using Sensu and discover what you can do. Get hands-on and use our fully featured product for free up to 100 entities.</p>
       <div class="info-grid info-grid--comfy">
-        <a class="colored colored--white colored--rounded" href="https://sensu.io/resources?type=workshop">
+        <a class="colored colored--white colored--rounded" href="https://github.com/sensu/sensu-go-workshop#sensu-go-workshop">
           <p>Take the self-guided Sensu Go workshop</p>
         </a>
         <a class="colored colored--white colored--rounded" href="./sensu-go/latest/observability-pipeline/">
@@ -226,6 +238,18 @@
         </a>
         <a class="colored colored--white colored--rounded" href="./sensu-go/latest/platforms/">
           <p>Find your platform or build from source</p>
+        </a>
+        <a class="colored colored--white colored--rounded" href="./sensu-go/latest/get-started/">
+          <p>Read recommendations for getting started</p>
+        </a>
+        <a class="colored colored--white colored--rounded" href="./sensu-go/latest/operations/deploy-sensu/hardware-requirements/">
+          <p>Review hardware requirements</p>
+        </a>
+        <a class="colored colored--white colored--rounded" href="./sensu-go/latest/operations/deploy-sensu/deployment-architecture/">
+          <p>Evaluate deployment architectures</p>
+        </a>
+        <a class="colored colored--white colored--rounded" href="./sensu-go/latest/reference/">
+          <p>Get reference documentation</p>
         </a>
       </div>
     </div>

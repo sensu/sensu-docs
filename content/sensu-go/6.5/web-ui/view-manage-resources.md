@@ -31,7 +31,7 @@ When you switch to a namespace, the left navigation menu loads so you can select
 
 {{< figure src="/images/webui-left-nav.png" alt="Sensu web UI left navigation menu" link="/images/webui-left-nav.png" target="_blank" >}}
 
-Click the triple-bar icon at the top of the left-navigation menu to expand the menu and display page labels:
+Click the ☰ icon at the top of the left-navigation menu to expand the menu and display page labels:
 
 {{< figure src="/images/expand-webui-left-nav.png" alt="Sensu web UI with expanded left navigation menu" link="/images/expand-webui-left-nav.png" target="_blank" >}}
 
@@ -130,12 +130,12 @@ You can view the JSON definition for any event or entity and the JSON or YAML de
 To view the JSON definition for any event or entity in the web UI:
 
 1. Open the individual resource page.
-2. Click the kebab icon in the top-right of the page: ![kebab icon](/images/web-ui-kebab-icon.png)
+2. Click ⋮ at the top-right of the page.
 3. Select **< > View Data** to open the Resource Data modal window and view the resource's definition in JSON format.
 
 This example shows how to view the JSON definition for an event:
 
-{{< figure src="/images/view-event-data-web-ui.gif" alt="View an event's resource data in the web UI" link="/images/view-data-web-ui.gif" target="_blank" >}}
+{{< figure src="/images/view-event-data-web-ui.gif" alt="View an event's resource data in the web UI" link="/images/view-event-data-web-ui.gif" target="_blank" >}}
 
 ### View resource data for a configuration resource
 
@@ -144,11 +144,11 @@ To view and copy the JSON or YAML definition for any configuration resource in t
 1. Open the individual resource page.
 2. Click **RAW**.
 3. In the Resource Data field, click **JSON** or **YAML** to select the format.
-4. Click the copy icon at the top-right of the resource data to copy the resource definition: ![copy icon](/images/web-ui-resource-data-copy-icon.png)
+4. Click ![copy icon](/images/web-ui-resource-data-copy-icon.png) at the top-right of the resource data to copy the resource definition.
 
 This example shows how to view and copy the resource data for an event filter:
 
-{{< figure src="/images/view-filter-data-web-ui.gif" alt="View an event filter's resource data in the web UI" link="/images/view-data-web-ui.gif" target="_blank" >}}
+{{< figure src="/images/view-filter-data-web-ui.gif" alt="View an event filter's resource data in the web UI" link="/images/view-filter-data-web-ui.gif" target="_blank" >}}
 
 
 [1]: ../#webui-homepage

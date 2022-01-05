@@ -1,6 +1,6 @@
 ---
 title: "API Configuration"
-description: "Sensu API configuration reference documentation."
+description: "Read this page for API documentation for the Sensu configuration API, including endpoints as well as request and response examples."
 product: "Sensu Core"
 version: "1.9"
 weight: 10

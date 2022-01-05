@@ -1,6 +1,6 @@
 ---
 title: "Sensu Server"
-description: "Reference documentation for the Sensu Server."
+description: "Read this reference documentation for information about the Sensu server, which schedules and publishes check execution requests to client subscriptions."
 product: "Sensu Core"
 version: "1.9"
 weight: 1

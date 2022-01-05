@@ -1,6 +1,6 @@
 ---
 title: "Sensu Server and API"
-description: "The complete Sensu installation guide."
+description: "Read this page to learn about installing the Sensu Core (OSS) and Sensu Enterprise versions of the Sensu server and API."
 weight: 3.1
 product: "Sensu Core"
 version: "1.9"
@@ -63,5 +63,5 @@ functionality of Sensu server and API in a single process.
 
 [1]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
 [2]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
-[3]: /sensu-go/latest/operations/maintain-sensu/migrate/
+[3]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/
 [9]: #sensu-enterprise

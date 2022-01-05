@@ -1,7 +1,7 @@
 ---
 title: "Installation Guide Summary"
 linkTitle: "Summary"
-description: "The complete Sensu installation guide."
+description: "Read this page to learn what to do next after you successfully install and configure the Sensu services, one or more Sensu clients, and a Sensu dashboard."
 weight: 13
 product: "Sensu Core"
 version: "1.9"

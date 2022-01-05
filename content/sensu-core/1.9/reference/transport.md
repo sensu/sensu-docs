@@ -1,6 +1,6 @@
 ---
 title: "Transport"
-description: "Reference documentation for the Sensu Transport."
+description: "Read this reference documentation to learn more about the message bus communication provided by the Sensu Transport in Sensu Core."
 product: "Sensu Core"
 version: "1.9"
 weight: 13

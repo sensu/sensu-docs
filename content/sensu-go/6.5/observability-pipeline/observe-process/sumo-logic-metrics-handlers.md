@@ -15,7 +15,7 @@ menu:
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access Sumo Logic metrics handlers in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 Sensu executes Sumo Logic metrics handlers during the **[process][22]** stage of the [observability pipeline][29].
@@ -503,7 +503,7 @@ secret: sumologic_metrics_us2
 [12]: #sumo-logic-metrics-handler-example
 [13]: ../../observe-filter/filters/#built-in-filter-has_metrics
 [14]: ../../../operations/manage-secrets/secrets-management/
-[15]: ../../../api#response-filtering
+[15]: ../../../api/#response-filtering
 [16]: ../../../sensuctl/filter-responses/
 [18]: https://regex101.com/r/zo9mQU/2
 [22]: ../

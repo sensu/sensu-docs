@@ -1,6 +1,6 @@
 ---
 title: "Supported Platforms"
-description: "Supported platforms"
+description: "This page lists and links to Sensu installer packages and package manager repositories, which are available for most modern operating systems."
 product: "Sensu Core"
 version: "1.9"
 weight: 4
@@ -88,4 +88,4 @@ by Sensu**.
 [6]:  https://sensu.io/products/enterprise
 [7]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
 [8]: https://discourse.sensu.io/t/updated-eol-timeline-for-sensu-core-and-sensu-enterprise-repos/2396
-[9]: /sensu-go/latest/operations/maintain-sensu/migrate/
+[9]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/migrate/

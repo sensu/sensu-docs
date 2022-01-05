@@ -546,5 +546,5 @@ If you create a new event that references an entity that does not already exist,
 [12]: ../observe-schedule/
 [13]: #events-api
 [14]: ../observe-schedule/agent/#detect-silent-failures
-[15]: ../../api/events/
+[15]: ../../api/core/events/
 [16]: ../observe-schedule/agent/

@@ -443,7 +443,7 @@ pool_size: 20
 
 strict       |      |
 -------------|------
-description  | If `true`, when the PostgresConfig resource is created, configuration validation will include connecting to the PostgreSQL database and executing a query to confirm whetherthe connected user has permission to create database tables. Otherwise, `false`.<br><br>We recommend setting `strict: true` in most cases. If the connection fails or the user does not have permission to create database tables, resource configuration will fail and the configuration will not be persisted. This extended configuration is useful for debugging when you are not sure whether the configuration is correct or the database is working properly.
+description  | If `true`, when the PostgresConfig resource is created, configuration validation will include connecting to the PostgreSQL database and executing a query to confirm whether the connected user has permission to create database tables. Otherwise, `false`.<br><br>We recommend setting `strict: true` in most cases. If the connection fails or the user does not have permission to create database tables, resource configuration will fail and the configuration will not be persisted. This extended configuration is useful for debugging when you are not sure whether the configuration is correct or the database is working properly.
 required     | false
 default     | false
 type         | Boolean
@@ -488,7 +488,7 @@ enable_round_robin: true
 [8]: ../cluster-sensu/#use-an-external-etcd-cluster
 [9]: ../../../web-ui/
 [10]: ../../../sensuctl/create-manage-resources/#sensuctl-event
-[11]: ../../../api/events/
+[11]: ../../../api/core/events/
 [12]: ../../../observability-pipeline/observe-process/populate-metrics-influxdb/
 [14]: https://www.postgresql.org
 [15]: https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING

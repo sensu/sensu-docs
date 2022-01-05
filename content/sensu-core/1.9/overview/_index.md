@@ -1,6 +1,6 @@
 ---
 title: "Overview"
-description: "Overview documentation for Sensu."
+description: "Read this page for a list of overview documentation for Sensu, including links to architecture and platforms pages."
 product: "Sensu Core"
 version: "1.9"
 weight: 20

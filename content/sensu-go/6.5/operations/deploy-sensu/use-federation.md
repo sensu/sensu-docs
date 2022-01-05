@@ -64,6 +64,12 @@ Because federation depends on communication with multiple disparate clusters, wo
 To ensure that cluster members can validate each other, certificates for each cluster member should include the IP addresses or hostnames specified in the values of sensu-backend `etcd-advertise-client-urls`, `etcd-advertise-peer-urls`, and `etcd-initial-advertise-peer-urls` parameters.
 In addition to the certificate's [Common Name (CN)][15], [Subject Alternative Names (SANs)][16] are also honored for validation.
 
+{{% notice note %}}
+**NOTE**: Sensu Go 6.4.0 upgraded the Go version from 1.13.15 to 1.16.5.
+As of [Go 1.15](https://golang.google.cn/doc/go1.15#commonname), certificates must include their CN as an SAN field.
+To prevent connection errors after upgrading to Sensu Go 6.4.0 or later versions, follow [Generate certificates](../generate-certificates/) to make sure your certificates' SAN fields include their CNs.
+{{% /notice %}}
+
 To continue with this guide, make sure you have the required TLS credentials in place:
 
 * A PEM-formatted X.509 certificate and corresponding private key copied to each cluster member.
@@ -423,7 +429,7 @@ If you haven't changed the permissions of the default `admin` user, that user sh
 Learn more about configuring RBAC policies in our [RBAC reference documentation][10].
 
 
-[1]: ../../../api/federation/
+[1]: ../../../api/enterprise/federation/
 [3]: ../../control-access/use-apikeys/
 [4]: ../../../observability-pipeline/observe-schedule/backend#jwt-attributes
 [5]: ../../../sensuctl/create-manage-resources/#create-resources

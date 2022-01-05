@@ -1,7 +1,6 @@
 ---
 title: "IBM AIX"
-description: "User documentation for installing and operating Sensu on IBM AIX
-  systems."
+description: "Read this page for detailed information about installing and operating Sensu on IBM AIX systems via a native system installer package."
 weight: 2
 version: "1.9"
 product: "Sensu Core"

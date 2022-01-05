@@ -1,6 +1,6 @@
 ---
 title: "Clients API"
-description: "Sensu Clients API reference documentation."
+description: "Read this page for API documentation for the Sensu clients API, including endpoints as well as request and response examples."
 product: "Sensu Core"
 version: "1.9"
 weight: 2

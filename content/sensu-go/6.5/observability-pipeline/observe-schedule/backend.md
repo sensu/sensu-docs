@@ -597,7 +597,7 @@ environment variable | `SENSU_BACKEND_API_WRITE_TIMEOUT`
 command line example   | {{< code shell >}}
 sensu-backend start --api-write-timeout 15s{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-api-write timeout: 15s{{< /code >}}
+api-write-timeout: 15s{{< /code >}}
 
 | assets-burst-limit   |      |
 --------------|------
@@ -642,21 +642,6 @@ command line example   | {{< code shell >}}
 sensu-backend start --config-file /etc/sensu/backend.yml
 sensu-backend start -c /etc/sensu/backend.yml
 {{< /code >}}
-
-<a id="dashboard-write-timeout"></a>
-
-| dashboard-write-timeout  |      |
--------------|------
-description  | Maximum amount of time to wait before timing out on web UI HTTP server response writes. In milliseconds (`ms`), seconds (`s`), minutes (`m`), or hours (`h`).{{% notice note %}}
-**NOTE**: [Upgrade](../../../operations/maintain-sensu/upgrade/) to Sensu Go 6.5.5 to use the dashboard-write-timeout configuration flag.
-{{% /notice %}}
-type         | String
-default      | `15s`
-environment variable | `SENSU_BACKEND_DASHBOARD_WRITE_TIMEOUT`
-command line example   | {{< code shell >}}
-sensu-backend start --dashboard-write-timeout 15s{{< /code >}}
-/etc/sensu/backend.yml example | {{< code shell >}}
-dashboard-write timeout: 15s{{< /code >}}
 
 <a id="debug-attribute"></a>
 
@@ -791,7 +776,11 @@ agent-auth-trusted-ca-file: /path/to/tls/ca.pem{{< /code >}}
 
 | agent-burst-limit   |      |
 --------------|------
-description   | Maximum amount of burst allowed in a rate interval for agent transport WebSocket connections.
+description   | Maximum amount of burst allowed in a rate interval for agent transport WebSocket connections. {{% notice note %}}
+**NOTE**: The agent-burst-limit flag is deprecated.
+{{% /notice %}} {{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access the agent-burst-limit flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 type          | Integer
 default       | `null`
 environment variable | `SENSU_BACKEND_AGENT_BURST_LIMIT`
@@ -826,7 +815,9 @@ agent-port: 8081{{< /code >}}
 
 | agent-rate-limit   |      |
 --------------|------
-description   | Maximum number of agent transport WebSocket connections per second.
+description   | Maximum number of agent transport WebSocket connections per second, per backend.{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access the agent-rate-limit flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
 type          | Integer
 default       | `null`
 environment variable | `SENSU_BACKEND_AGENT_RATE_LIMIT`
@@ -987,6 +978,21 @@ command line example   | {{< code shell >}}
 sensu-backend start --dashboard-port 3000{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 dashboard-port: 3000{{< /code >}}
+
+<a id="dashboard-write-timeout"></a>
+
+| dashboard-write-timeout  |      |
+-------------|------
+description  | Maximum amount of time to wait before timing out on web UI HTTP server response writes. In milliseconds (`ms`), seconds (`s`), minutes (`m`), or hours (`h`).{{% notice note %}}
+**NOTE**: [Upgrade](../../../operations/maintain-sensu/upgrade/) to Sensu Go 6.5.5 to use the dashboard-write-timeout configuration flag.
+{{% /notice %}}
+type         | String
+default      | `15s`
+environment variable | `SENSU_BACKEND_DASHBOARD_WRITE_TIMEOUT`
+command line example   | {{< code shell >}}
+sensu-backend start --dashboard-write-timeout 15s{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+dashboard-write-timeout: 15s{{< /code >}}
 
 ### Datastore and cluster configuration flags
 

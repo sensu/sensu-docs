@@ -1,6 +1,6 @@
 ---
 title: "Health & Info APIs"
-description: "Sensu Health & Info API reference documentation."
+description: "Read this page for API documentation for the Sensu health and info API, including endpoints as well as request and response examples."
 product: "Sensu Core"
 version: "1.9"
 weight: 8

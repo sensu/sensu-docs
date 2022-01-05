@@ -502,7 +502,7 @@ spec:
 [7]: ../tokens/
 [8]: https://regex101.com/r/zo9mQU/2
 [9]: #spec-attributes
-[10]: ../../../api#response-filtering
+[10]: ../../../api/#response-filtering
 [11]: ../../../sensuctl/filter-responses/
 [12]: ../../../web-ui/search#search-for-labels
 [13]: ../../../web-ui/search

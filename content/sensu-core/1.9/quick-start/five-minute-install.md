@@ -1,6 +1,6 @@
 ---
 title: "The Five Minute Install"
-description: "The Sensu Core five minute installation guide"
+description: "Follow this five-minute installation guide for Sensu Core. This page helps you set up a development environment for testing purposes."
 weight: 2
 version: "1.9"
 product: "Sensu Core"

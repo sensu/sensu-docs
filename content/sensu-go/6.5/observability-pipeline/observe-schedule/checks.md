@@ -718,7 +718,7 @@ annotations:
 ### Spec attributes
 
 {{% notice note %}}
-**NOTE**: Spec attributes are not required when sending an HTTP `POST` request to the [agent](../agent/#events-post) or [backend](../../../api/events/#create-a-new-event) /events API.
+**NOTE**: Spec attributes are not required when sending an HTTP `POST` request to the [agent](../agent/#events-post) or [backend](../../../api/core/events/#create-a-new-event) /events API.
 When doing so, the spec attributes are listed as individual [top-level attributes](#top-level-attributes) in the check definition instead.
 {{% /notice %}}
 
@@ -763,7 +763,11 @@ subscriptions:
 
 |handlers    |      |
 -------------|------
-description  | Array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string.
+description  | Array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string. {{% notice note %}}
+**NOTE**: The names of [Sumo Logic metrics handlers](../../observe-process/sumo-logic-metrics-handlers/) and [TCP stream handlers](../../observe-process/tcp-stream-handlers/) are not valid values for the handlers array.
+Only [traditional handlers](../../observe-process/handlers/) are valid for the handlers array.<br><br>
+To use Sumo Logic metrics or TCP stream handlers, include them in a [pipeline](../../observe-process/pipelines/) workflow and reference the pipeline name in the check [pipelines array](#pipelines-attribute).
+{{% /notice %}}
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -1716,7 +1720,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [51]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 [52]: #round-robin-checks
 [53]: https://regex101.com/r/zo9mQU/2
-[54]: ../../../api#response-filtering
+[54]: ../../../api/#response-filtering
 [55]: ../../../sensuctl/filter-responses/
 [56]: ../../../operations/manage-secrets/secrets/
 [57]: ../../../operations/manage-secrets/secrets-providers/

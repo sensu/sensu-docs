@@ -1,7 +1,7 @@
 ---
 title: "Installing & Managing Plugins"
 linkTitle: "Installing Plugins"
-description: "Installing and Managing Plugins"
+description: "Extend Sensu's functionality with plugins, which are executables for checks, mutators, and handlers. Read this page to install and manage Sensu plugins."
 weight: 17
 product: "Sensu Core"
 version: "1.9"

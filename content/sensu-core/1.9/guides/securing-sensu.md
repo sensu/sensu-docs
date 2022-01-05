@@ -1,6 +1,6 @@
 ---
 title: "Securing Sensu"
-description: "Strategies and best practices for securing Sensu"
+description: "Read this guide to learn strategies and best practices for securing Sensu, which requires securing several different components for proper hardening."
 product: "Sensu Core"
 version: "1.9"
 weight: 8

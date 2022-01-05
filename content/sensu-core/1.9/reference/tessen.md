@@ -1,6 +1,6 @@
 ---
 title: "Tessen"
-description: "Reference documentation for Tessen (Sensu call-home)."
+description: "Read this reference documentation to learn more about the Tessen client, the hosted Sensu call-home service, which is included in every sensu-server."
 product: "Sensu Core"
 version: "1.9"
 weight: 18

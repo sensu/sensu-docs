@@ -1,6 +1,6 @@
 ---
 title: "Plugins"
-description: "Reference documentation for Sensu Plugins."
+description: "Read this reference documentation to learn about Sensu plugins: executable scripts and programs that you can use as Sensu checks, handlers, or mutators."
 product: "Sensu Core"
 version: "1.9"
 weight: 9
