@@ -5,11 +5,11 @@ guide_title: "Monitor Kubernetes with Sensu"
 type: "guide"
 description: "Monitor your Kubernetes containers with Sensu. Read this guide to learn how."
 weight: 53
-version: "6.4"
+version: "6.6"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-6.4:
+  sensu-go-6.6:
     parent: observe-schedule
 ---
 
