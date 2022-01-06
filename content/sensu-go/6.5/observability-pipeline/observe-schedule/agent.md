@@ -117,25 +117,25 @@ Any requests for unknown endpoints result in an HTTP `404 Not Found` response.
 
 ### `/events` (POST)
 
-The `/events` API provides HTTP POST access to publish [observability events][7] to the Sensu backend pipeline via the agent API.
-The agent places events created via the `/events` POST endpoint into a queue stored on disk.
+The agent API provides HTTP POST access to publish [observability events][7] to the Sensu backend pipeline via the `/events/` endpoint.
+The agent places events created via the agent API `/events` endpoint into a queue stored on disk.
 In case of a loss of connection with the backend or agent shutdown, the agent preserves queued event data.
 When the connection is reestablished, the agent sends the queued events to the backend.
 
-The `/events` API uses a configurable burst limit and rate limit for relaying events to the backend.
+The agent API `/events` endpoint uses a configurable burst limit and rate limit for relaying events to the backend.
 Read [API configuration flags](#api-configuration-flags) to configure the `events-burst-limit` and `events-rate-limit` flags.
 
-#### Example POST request to events API {#events-post-example}
+#### Example POST request to events endpoint {#events-post-example}
 
-The following example submits an HTTP POST request to the `/events` API.
+The following example submits an HTTP POST request to the agent API `/events` endpoint.
 The request creates event for a check named `check-mysql-status` with the output `could not connect to mysql` and a status of `1` (warning).
 The agent responds with an HTTP `202 Accepted` response to indicate that the event has been added to the queue to be sent to the backend.
 
 The event will be handled according to an `email` handler definition.
 
 {{% notice note %}}
-**NOTE**: For HTTP `POST` requests to the agent /events API, check [spec attributes](../checks/#spec-attributes) are not required.
-When doing so, the spec attributes (including `handlers`) are listed as individual [top-level attributes](../checks/#top-level-attributes) in the check definition instead.
+**NOTE**: For HTTP `POST` requests to the agent API `/events` endpoint, check [spec attributes](../checks/#spec-attributes) are not required.
+When doing so, the spec attributes are listed as individual [top-level attributes](../checks/#top-level-attributes) in the check definition instead.
 {{% /notice %}}
 
 {{< code shell >}}
@@ -252,7 +252,7 @@ The agent API `/healthz` endpoint provides HTTP GET access to the status of the 
 
 #### Example {#healthz-get-example}
 
-In the following example, an HTTP GET request is submitted to the `/healthz` API:
+In the following example, an HTTP GET request is submitted to the agent API `/healthz` endpoint:
 
 {{< code shell >}}
 curl http://127.0.0.1:3031/healthz
