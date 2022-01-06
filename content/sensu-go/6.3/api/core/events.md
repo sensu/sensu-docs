@@ -359,7 +359,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 HTTP/1.1 201 Created
 {{< /code >}}
 
-To create useful, actionable events, we recommend adding check attributes like `status` (`0` for OK, `1` for warning, `2` for critical), `output`, and `handlers` to the attributes included in this example.
+To create useful, actionable events, we recommend adding check attributes like `status` (`0` for OK, `1` for warning, `2` for critical), `output`, and `handlers` as shown in this example.
 For more information about event attributes and their available values, read the [event specification][8].
 
 For events created with this endpoint, the following attributes have the default value `0` unless you specify a different value for testing:

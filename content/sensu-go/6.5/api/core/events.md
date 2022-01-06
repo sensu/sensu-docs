@@ -346,7 +346,13 @@ curl -X POST \
     "output": "Server error",
     "state": "failing",
     "status": 2,
-    "handlers": ["slack"],
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "interval": 60,
     "metadata": {
       "name": "server-health"
@@ -359,7 +365,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 HTTP/1.1 201 Created
 {{< /code >}}
 
-To create useful, actionable events, we recommend adding check attributes like `status` (`0` for OK, `1` for warning, `2` for critical), `output`, and `handlers` to the attributes included in this example.
+To create useful, actionable events, we recommend using check attributes like `status` (`0` for OK, `1` for warning, `2` for critical), `output`, and `pipelines` as shown in this example.
 For more information about event attributes and their available values, read the [event specification][8].
 
 For events created with this endpoint, the following attributes have the default value `0` unless you specify a different value for testing:
@@ -393,7 +399,13 @@ payload         | {{< code shell >}}
     "output": "Server error",
     "state": "failing",
     "status": 2,
-    "handlers": ["slack"],
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "interval": 60,
     "metadata": {
       "name": "server-health"
@@ -554,9 +566,7 @@ HTTP/1.1 200 OK
   },
   {
     "check": {
-      "handlers": [
-        "keepalive"
-      ],
+      "handlers": [],
       "high_flap_threshold": 0,
       "interval": 20,
       "low_flap_threshold": 0,
@@ -840,9 +850,7 @@ output               | {{< code json >}}
   },
   {
     "check": {
-      "handlers": [
-        "keepalive"
-      ],
+      "handlers": [],
       "high_flap_threshold": 0,
       "interval": 20,
       "low_flap_threshold": 0,
@@ -1265,7 +1273,7 @@ The `/events/:entity/:check` API endpoint provides HTTP POST access to create an
 
 ### Example {#eventsentitycheck-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/events/:entity/:check` API endpoint to create an event for the `server1` entity and the `server-health` check and process it using the `slack` event handler.
+In the following example, an HTTP POST request is submitted to the `/events/:entity/:check` API endpoint to create an event for the `server1` entity and the `server-health` check and process it using the `incident_alerts` pipeline.
 The event includes a status code of `1`, indicating a warning, and an output message of `Server error`.
 
 {{< code shell >}}
@@ -1283,7 +1291,13 @@ curl -X POST \
   "check": {
     "output": "Server error",
     "status": 1,
-    "handlers": ["slack"],
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "interval": 60,
     "metadata": {
       "name": "server-health"
@@ -1343,7 +1357,13 @@ payload         | {{< code shell >}}
   "check": {
     "output": "Server error",
     "status": 1,
-    "handlers": ["slack"],
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "interval": 60,
     "metadata": {
       "name": "server-health"
@@ -1359,7 +1379,7 @@ The `/events/:entity/:check` API endpoint provides HTTP PUT access to create or 
 
 ### Example {#eventsentitycheck-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/events/:entity/:check` API endpoint to create an event for the `server1` entity and the `server-health` check and process it using the `slack` event handler.
+In the following example, an HTTP PUT request is submitted to the `/events/:entity/:check` API endpoint to create an event for the `server1` entity and the `server-health` check and process it using the `incident_alerts` pipeline.
 The event includes a status code of `1`, indicating a warning, and an output message of `Server error`.
 
 {{< code shell >}}
@@ -1377,7 +1397,13 @@ curl -X PUT \
   "check": {
     "output": "Server error",
     "status": 1,
-    "handlers": ["slack"],
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "interval": 60,
     "metadata": {
       "name": "server-health"
@@ -1427,7 +1453,13 @@ payload         | {{< code shell >}}
   "check": {
     "output": "Server error",
     "status": 1,
-    "handlers": ["slack"],
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "interval": 60,
     "metadata": {
       "name": "server-health"
@@ -1473,7 +1505,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-healt
 {{< /code >}}
 
 The minimum required attributes let you create an event using the `/events/:entity/:check` PUT endpoint, but the request can include any attributes defined in the [event specification][8].
-To create useful, actionable events, we recommend adding check attributes such as the event `status` (`0` for OK, `1` for warning, `2` for critical), an `output` message, and one or more event `handlers`.
+To create useful, actionable events, we recommend adding check attributes such as the event `status` (`0` for OK, `1` for warning, `2` for critical), an `output` message, and one or more `pipelines`.
 For more information about these attributes and their available values, review the [event specification][8].
 
 **Example request with minimum recommended event attributes**
@@ -1493,7 +1525,13 @@ curl -X PUT \
   "check": {
     "output": "Server error",
     "status": 1,
-    "handlers": ["slack"],
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ],
     "interval": 60,
     "metadata": {
       "name": "server-health"
