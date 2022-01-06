@@ -146,7 +146,13 @@ curl -X POST \
     "metadata": {
       "name": "check-mysql-status"
     },
-    "handlers": ["email"],
+    "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
+  ],
     "status": 1,
     "output": "could not connect to mysql"
   }
