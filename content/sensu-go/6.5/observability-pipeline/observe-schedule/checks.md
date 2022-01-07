@@ -1502,8 +1502,6 @@ spec:
   interval: 10
   low_flap_threshold: 0
   output_metric_format: nagios_perfdata
-  output_metric_handlers:
-  - prometheus_gateway
   output_metric_tags:
   - name: instance
     value: '{{ .name }}'
@@ -1511,6 +1509,10 @@ spec:
     value: gauge
   - name: service
     value: '{{ .labels.service }}'
+  pipelines:
+  - type: Pipeline
+    api_version: core/v2
+    name: prometheus_gateway_workflows
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -1527,35 +1529,24 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "collect-metrics",
+    "annotations": {
+      "slack-channel": "#monitoring"
+    },
     "labels": {
       "region": "us-west-1"
     },
-    "annotations": {
-      "slack-channel" : "#monitoring"
-    }
+    "name": "collect-metrics"
   },
   "spec": {
+    "check_hooks": null,
     "command": "collect.sh",
+    "discard_output": true,
+    "env_vars": null,
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 10,
     "low_flap_threshold": 0,
-    "publish": true,
-    "runtime_assets": null,
-    "subscriptions": [
-      "system"
-    ],
-    "proxy_entity_name": "",
-    "check_hooks": null,
-    "stdin": false,
-    "ttl": 0,
-    "timeout": 0,
-    "round_robin": false,
     "output_metric_format": "nagios_perfdata",
-    "output_metric_handlers": [
-      "prometheus_gateway"
-    ],
     "output_metric_tags": [
       {
         "name": "instance",
@@ -1570,8 +1561,23 @@ spec:
         "value": "{{ .labels.service }}"
       }
     ],
-    "env_vars": null,
-    "discard_output": true
+    "pipelines": [
+      {
+        "type": "Pipeline",
+        "api_version": "core/v2",
+        "name": "prometheus_gateway_workflows"
+      }
+    ],
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": null,
+    "stdin": false,
+    "subscriptions": [
+      "system"
+    ],
+    "timeout": 0,
+    "ttl": 0
   }
 }
 {{< /code >}}
@@ -1639,9 +1645,11 @@ spec:
   command: powershell.exe -f c:\\users\\tester\\test.ps1
   subscriptions:
   - system
-  handlers:
-  - slack
   interval: 60
+  pipelines:
+  - type: Pipeline
+    api_version: core/v2
+    name: interval_pipeline
   publish: true
 {{< /code >}}
 
@@ -1653,10 +1661,18 @@ spec:
     "name": "interval_test"
   },
   "spec": {
-    "command": "powershell.exe -f c:\\users\\tester\\test.ps1",
-    "subscriptions": ["system"],
-    "handlers": ["slack"],
+    "command": "powershell.exe -f c:\\\\users\\ ester\\ est.ps1",
+    "subscriptions": [
+      "system"
+    ],
     "interval": 60,
+    "pipelines": [
+      {
+        "type": "Pipeline",
+        "api_version": "core/v2",
+        "name": "interval_pipeline"
+      }
+    ],
     "publish": true
   }
 }
