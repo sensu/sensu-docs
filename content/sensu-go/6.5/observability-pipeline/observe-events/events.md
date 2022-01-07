@@ -317,7 +317,7 @@ spec:
 ### Example status-only event from the Sensu API
 
 Sensu sends events to the backend in `json` format, without the outer-level `spec` wrapper or `type` and `api_version` attributes that are included in the `wrapped-json` format.
-This is the format that events are in when Sensu sends them to handlers:
+This is the format that events are in when Sensu sends them to the observability pipeline for processing:
 
 {{< code json >}}
 {
@@ -831,12 +831,11 @@ spec:
 {{< /language-toggle >}}
 
 Metrics data points are not included in events retrieved with sensuctl event info &mdash; those events include check output text rather than a set of metrics points.
-To view metrics points data as shown in the following example, add a [debug handler][46] that prints events to a JSON file:
+To view metrics points data as shown in the following example, create a [pipeline][44] workflow that includes a [debug handler][46] that prints events to a JSON file:
 
 {{< code json >}}
 {
   "metrics": {
-    "handlers": null,
     "points": [
       {
         "name": "system_cpu_sortirq",
@@ -1340,7 +1339,13 @@ To view metrics points data as shown in the following example, add a [debug hand
   },
   "id": "afdeb823-74c2-4921-891a-465a2095cb5a",
   "sequence": 6,
-  "pipelines": null,
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "debug_pipeline"
+    }
+  ],
   "timestamp": 1635952536,
   "entity": {
     "entity_class": "agent",
@@ -1411,9 +1416,7 @@ To view metrics points data as shown in the following example, add a [debug hand
   },
   "check": {
     "command": "system-check",
-    "handlers": [
-      "debug3"
-    ],
+    "handlers": [],
     "high_flap_threshold": 0,
     "interval": 10,
     "low_flap_threshold": 0,
@@ -1506,8 +1509,7 @@ spec:
     duration: 0.022274319
     env_vars: null
     executed: 1635959379
-    handlers:
-    - debug
+    handlers: null
     high_flap_threshold: 0
     history:
     - executed: 1635952820
@@ -1607,7 +1609,10 @@ spec:
       vm_system: vbox
     user: agent
   id: 12545deb-0e0f-480f-addf-34545d5a01c6
-  pipelines: null
+  pipelines:
+  - type: Pipeline
+    api_version: core/v2
+    name: status_and_metrics_pipeline
   sequence: 5
   timestamp: 1635952880
 {{< /code >}}
@@ -1626,9 +1631,7 @@ spec:
       "duration": 0.022274319,
       "env_vars": null,
       "executed": 1635959379,
-      "handlers": [
-        "debug"
-      ],
+      "handlers": null,
       "high_flap_threshold": 0,
       "history": [
         {
@@ -1757,7 +1760,13 @@ spec:
       "user": "agent"
     },
     "id": "12545deb-0e0f-480f-addf-34545d5a01c6",
-    "pipelines": null,
+    "pipelines": [
+      {
+        "type": "Pipeline",
+        "api_version": "core/v2",
+        "name": "status_and_metrics_pipeline"
+      }
+    ],
     "sequence": 5,
     "timestamp": 1635952880
   }
@@ -1767,7 +1776,7 @@ spec:
 {{< /language-toggle >}}
 
 Metrics data points are not included in events retrieved with sensuctl event info &mdash; those events include check output text rather than a set of metrics points.
-To view metrics points data as shown in the following example, add a [debug handler][46] that prints events to a JSON file:
+To view metrics points data as shown in the following example, create a [pipeline][44] workflow that includes a [debug handler][46] that prints events to a JSON file:
 
 {{< code json >}}
 {
@@ -1842,9 +1851,7 @@ To view metrics points data as shown in the following example, add a [debug hand
   },
   "check": {
     "command": "http-check --url http://localhost \\u0026\\u0026 http-perf --url http://localhost --warning 1s --critical 2s",
-    "handlers": [
-      "debug"
-    ],
+    "handlers": [],
     "high_flap_threshold": 0,
     "interval": 15,
     "low_flap_threshold": 0,
@@ -1908,7 +1915,6 @@ To view metrics points data as shown in the following example, add a [debug hand
     "pipelines": []
   },
   "metrics": {
-    "handlers": null,
     "points": [
       {
         "name": "dns_duration",
@@ -1947,7 +1953,13 @@ To view metrics points data as shown in the following example, add a [debug hand
   },
   "id": "7cde3e3f-beee-408f-b89a-1edccd0d3edb",
   "sequence": 5,
-  "pipelines": null,
+  "pipelines": [
+    {
+      "type": "Pipeline",
+      "api_version": "core/v2",
+      "name": "debug_pipeline"
+    }
+  ],
   "timestamp": 1635952880
 }
 {{< /code >}}
@@ -1966,8 +1978,8 @@ Sensu agents can also act as a collector for metrics throughout your infrastruct
 
 ## Create events using the events API
 
-You can send events directly to the Sensu observability pipeline using the [events API][16].
-To create an event, send a JSON event definition to the [events API PUT endpoint][14].
+You can send events directly to the Sensu observability pipeline using the [core/v2 API events endpoint][16].
+To create an event, send a JSON event definition with a [PUT request to core/v2/events][14].
 
 If you use the events API to create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity in the same namespace when the event is published.
 
@@ -2236,8 +2248,6 @@ spec:
       sensu-go.curl_timings.time_total 0.005 1552506033
       sensu-go.curl_timings.time_namelookup 0.004
     output_metric_format: graphite_plaintext
-    output_metric_handlers:
-    - influx-db
     proxy_entity_name: ''
     publish: true
     round_robin: false
@@ -2292,8 +2302,6 @@ spec:
       processes:
     user: agent
   metrics:
-    handlers:
-    - influx-db
     points:
     - name: sensu-go.curl_timings.time_total
       tags: []
@@ -2303,6 +2311,10 @@ spec:
       tags: []
       timestamp: 1552506033
       value: 0.004
+  pipelines:
+  - type: Pipeline
+    api_version: core/v2
+    name: status_and_metrics_pipeline
   timestamp: 1552506033
   id: 431a0085-96da-4521-863f-c38b480701e9
   sequence: 1
@@ -2345,9 +2357,6 @@ spec:
       ],
       "output": "sensu-go.curl_timings.time_total 0.005 1552506033\nsensu-go.curl_timings.time_namelookup 0.004",
       "output_metric_format": "graphite_plaintext",
-      "output_metric_handlers": [
-        "influx-db"
-      ],
       "proxy_entity_name": "",
       "publish": true,
       "round_robin": false,
@@ -2417,9 +2426,6 @@ spec:
       "user": "agent"
     },
     "metrics": {
-      "handlers": [
-        "influx-db"
-      ],
       "points": [
         {
           "name": "sensu-go.curl_timings.time_total",
@@ -2435,6 +2441,13 @@ spec:
         }
       ]
     },
+    "pipelines": [
+      {
+        "type": "Pipeline",
+        "api_version": "core/v2",
+        "name": "status_and_metrics_pipeline"
+      }
+    ],
     "timestamp": 1552506033,
     "id": "431a0085-96da-4521-863f-c38b480701e9",
     "sequence": 1
@@ -2727,8 +2740,6 @@ check:
   - webserver:*
   output: sensu-go.curl_timings.time_total 0.005
   output_metric_format: graphite_plaintext
-  output_metric_handlers:
-  - influx-db
   proxy_entity_name: ''
   publish: true
   round_robin: false
@@ -2780,9 +2791,6 @@ check:
     ],
     "output": "sensu-go.curl_timings.time_total 0.005",
     "output_metric_format": "graphite_plaintext",
-    "output_metric_handlers": [
-      "influx-db"
-    ],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
@@ -2812,8 +2820,6 @@ required     | false
 example      | {{< language-toggle >}}
 {{< code yml >}}
 metrics:
-  handlers:
-  - influx-db
   points:
   - name: sensu-go.curl_timings.time_total
     tags: []
@@ -2827,9 +2833,6 @@ metrics:
 {{< code json >}}
 {
   "metrics": {
-    "handlers": [
-      "influx-db"
-    ],
     "points": [
       {
         "name": "sensu-go.curl_timings.time_total",
