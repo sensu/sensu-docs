@@ -346,18 +346,18 @@ curl -X POST \
     "output": "Server error",
     "state": "failing",
     "status": 2,
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
-    ],
     "interval": 60,
     "metadata": {
       "name": "server-health"
     }
-  }
+  },
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
+  ]
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 
@@ -365,7 +365,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 HTTP/1.1 201 Created
 {{< /code >}}
 
-To create useful, actionable events, we recommend using check attributes like `status` (`0` for OK, `1` for warning, `2` for critical), `output`, and `pipelines` as shown in this example.
+To create useful, actionable events, we recommend using check attributes like `status` (`0` for OK, `1` for warning, `2` for critical) and `output`, as well as adding `pipelines`, as shown in this example.
 For more information about event attributes and their available values, read the [event specification][8].
 
 For events created with this endpoint, the following attributes have the default value `0` unless you specify a different value for testing:
@@ -399,18 +399,18 @@ payload         | {{< code shell >}}
     "output": "Server error",
     "state": "failing",
     "status": 2,
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
-    ],
     "interval": 60,
     "metadata": {
       "name": "server-health"
     }
-  }
+  },
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
+  ]
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -1291,19 +1291,19 @@ curl -X POST \
   "check": {
     "output": "Server error",
     "status": 1,
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
-    ],
     "interval": 60,
     "metadata": {
       "name": "server-health"
     }
-  }
-}' \
+  },
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
+  ]
+} \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health
 
 HTTP/1.1 201 Created
@@ -1357,18 +1357,18 @@ payload         | {{< code shell >}}
   "check": {
     "output": "Server error",
     "status": 1,
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
-    ],
     "interval": 60,
     "metadata": {
       "name": "server-health"
     }
-  }
+  },
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
+  ]
 }
 {{< /code >}}
 response codes   | <ul><li>**Success**: 201 (Created)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -1397,18 +1397,18 @@ curl -X PUT \
   "check": {
     "output": "Server error",
     "status": 1,
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
-    ],
     "interval": 60,
     "metadata": {
       "name": "server-health"
     }
-  }
+  },
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
+  ]
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health
 
@@ -1453,18 +1453,18 @@ payload         | {{< code shell >}}
   "check": {
     "output": "Server error",
     "status": 1,
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
-    ],
     "interval": 60,
     "metadata": {
       "name": "server-health"
     }
-  }
+  },
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
+  ]
 }
 {{< /code >}}
 payload parameters | Review the [payload parameters][5] section below.
@@ -1525,18 +1525,18 @@ curl -X PUT \
   "check": {
     "output": "Server error",
     "status": 1,
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
-    ],
     "interval": 60,
     "metadata": {
       "name": "server-health"
     }
-  }
+  },
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
+  ]
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health
 {{< /code >}}
@@ -1586,7 +1586,14 @@ curl -X PUT \
         "value": 0.004
       }
     ]
-  }
+  },
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "metrics_workflows"
+    }
+  ]
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-metrics
 {{< /code >}}
