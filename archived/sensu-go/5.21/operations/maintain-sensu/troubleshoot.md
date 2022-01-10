@@ -555,7 +555,7 @@ etcdctl endpoint status
 # list alarms
 etcdctl alarm list
 # clear alarms
-etcdctl alarm dearm
+etcdctl alarm disarm
 {{< /code >}}
 
 ### Restore a cluster with an oversized database 
