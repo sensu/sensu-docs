@@ -14,7 +14,7 @@ menu:
 ---
 
 Sensu's silencing capability allows you to suppress event handler execution on an ad hoc basis so you can plan maintenance and reduce alert fatigue.
-Silences are created on an ad hoc basis using `sensuctl`.
+Silences are created on an ad hoc basis using [sensuctl][17], the [web UI][18], and the [core/v2/silenced][19] API endpoints.
 
 Successfully created silencing entries are assigned a `name` in the format `$SUBSCRIPTION:$CHECK`, where `$SUBSCRIPTION` is the name of a Sensu entity subscription and `$CHECK` is the name of a Sensu check.
 You can use silences to silence checks on specific entities by taking advantage of per-entity subscriptions (for example, `entity:$ENTITY_NAME`).
@@ -592,9 +592,12 @@ name: '*:mysql_status'
 [8]: ../../observe-filter/filters/
 [9]: ../../../web-ui/search#search-for-labels
 [10]: ../../../web-ui/search/
-[11]: #silence-all-checks-on-entities-with-a-specific-subscription
+[11]: #silence-all-checks-for-entities-with-a-specific-subscription
 [12]: #silence-a-specific-check-on-every-entity
 [13]: ../../observe-events/events/#silenced-attribute
 [14]: ../../observe-filter/filters/#built-in-filter-not_silenced
 [15]: #silencing-examples
 [16]: ../../../web-ui/view-manage-resources/#manage-entities
+[17]: ../../../sensuctl/create-manage-resources/
+[18]: ../../../web-ui/view-manage-resources/#manage-silences
+[19]: ../../../api/core/silenced/
