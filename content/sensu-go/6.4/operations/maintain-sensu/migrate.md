@@ -444,7 +444,7 @@ sensuctl create --file /path/to/config.json
 
 {{% notice protip %}}
 **PRO TIP**: `sensuctl create` (and `sensuctl delete`) are powerful tools to help you manage your Sensu configs across namespaces.
-Read the [sensuctl reference][5] for more information.
+Read the [sensuctl reference](../../../sensuctl/) for more information.
 {{% /notice %}}
 
 Access your Sensu Go config using the [Sensu API][17].
