@@ -397,11 +397,10 @@ etcd \
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: The `auto-compaction-mode` and `auto-compaction-retention` flags are important.
-Without these settings, your database may quickly reach etcd's maximum database size limit.
+**NOTE**: Without the `auto-compaction-mode` and `auto-compaction-retention` flags, your database may quickly reach etcd's maximum database size limit.
 {{% /notice %}}
 
-To tell Sensu to use this external etcd data source, add the `sensu-backend` flag `--no-embed-etcd` to the original configuration, along with the paths to certificates created using your Certificate Authority (CA) and a list of etcd client URLs:
+Tell Sensu to use this external etcd data source by adding the `sensu-backend` flag `--no-embed-etcd` to the original configuration and the path to a client certificate created using your CA:
 
 {{< code shell >}}
 sensu-backend start \
