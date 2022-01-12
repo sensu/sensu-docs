@@ -910,15 +910,15 @@ For example, this tag will list the `event.time` attribute:
 
 ## Process extracted and tagged metrics
 
-Specify the event handlers you want to process your Sensu metrics in a [pipeline][23], then reference the pipeline in the check [`pipelines`][3] array.
-With these event handlers, you can route metrics to one or more databases for storing and visualizing metrics, like Elasticsearch, InfluxDB, Grafana, and Graphite.
+Specify the handlers you want to process your Sensu metrics in a [pipeline][23], then reference the pipeline in the check [`pipelines`][3] array.
+With handlers, you can route metrics to one or more databases for storing and visualizing metrics, like Elasticsearch, InfluxDB, Grafana, and Graphite.
 
 Many of our most popular metrics integrations for [time-series and long-term event storage][18] include curated, configurable quick-start templates to integrate Sensu with your existing workflows.
-You can also use [Bonsai][8], the Sensu asset hub, to discover, download, and share dynamic runtime assets for processing metrics.
+Use [Bonsai][8], the Sensu asset hub, to discover, download, and share dynamic runtime assets for processing metrics.
 
-In check definitions, the `output_metric_handlers` list for metrics event handlers is distinct and separate from the `handlers` list for status event handlers.
-Having separate handlers attributes allows you to use different workflows for metrics and status without applying conditional filter logic.
+To handle both metrics and status events without applying conditional filter logic, configure a pipeline with different workflows for metrics and status.
 The events reference includes an [example event with check and metric data][20].
+Read the [pipeline reference][27] for more information about configuring a pipeline with multiple workflows.
 
 You do not need to add a mutator to your check definition to process metrics with an event handler.
 The [metrics attribute][5] format automatically reduces metrics data complexity so event handlers can process metrics effectively.
@@ -965,3 +965,4 @@ The event specification describes [metrics attributes in events][5].
 [24]: ../../../operations/maintain-sensu/troubleshoot#use-a-debug-handler
 [25]: ../../observe-events/events/#metrics-points
 [26]: https://bonsai.sensu.io/assets/sensu/system-check
+[27]: ../../observe-process/pipelines/#workflows
