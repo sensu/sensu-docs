@@ -120,7 +120,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.6.4.
 - ([Commercial feature][259]) Fixed bugs in BSM and round robin scheduling. When postgres round robin scheduling is enabled, users will no longer see missed check executions.
 - ([Commercial feature][259]) Fixed a bug where sensu-backend would crash if postgresql was taken offline and started up again.
 - ([Commercial feature][259]) Fixed a bug where ephemeral backend entity rows would fill up the entities table in postgresql.
-- ([Commercial feature][259]) BSM event selectors can no longer select events outside the ServiceComponent namespace.
+- ([Commercial feature][259]) BSM event selectors can no longer select events outside the service component namespace.
 - Fixed a bug that could cause the backend to crash if a pipeline references a non-existent handler.
 
 ## 6.6.3 release notes
