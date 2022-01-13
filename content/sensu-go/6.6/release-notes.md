@@ -123,7 +123,6 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.6.4.
 - ([Commercial feature][259]) BSM event selectors can no longer select events outside the ServiceComponent namespace.
 - Referencing a non-existent handler in a pipeline no longer results in a crash.
 
-
 ## 6.6.3 release notes
 
 **December 16, 2021** &mdash; The latest release of Sensu Go, version 6.6.3, is now available for download.
