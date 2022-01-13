@@ -117,7 +117,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.6.4.
 - Add sensu_go_event_metric_points_processed counter metric and included it in tessen reporting.
 
 **FIXES**
-- ([Commercial feature][259]) Fixed bugs in BSM and round robin scheduling. When postgres round robin scheduling is enabled, users will no longer see missed check executions.
+- ([Commercial feature][259]) Fixed bugs in business service monitoring (BSM) and round robin scheduling to prevent missed check executions when PostgreSQL round robin scheduling is enabled.
 - ([Commercial feature][259]) Fixed a bug that could cause sensu-backend to crash if PostgreSQL was taken offline and restarted.
 - ([Commercial feature][259]) Fixed a bug that could cause ephemeral backend entity rows to fill up the entities table in PostgreSQL.
 - ([Commercial feature][259]) BSM event selectors can no longer select events outside the service component namespace.
