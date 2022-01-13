@@ -114,7 +114,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.6.4.
 - ([Commercial feature][259]) In the web UI, added the [X-Frame-Options][263] header to tell browsers the web application cannot be loaded within an iframe to prevent tailored click-jacking attacks. 
 - ([Commercial feature][259]) In the web UI, added the [HSTS header][264] if TLS has been configured to ensure that the browser loads the application and its requisite assets with a secure connection.
 - ([Commercial feature][259]) In the web UI, added the [X-Content-Type-Options][265] nosniff header so that browsers respect the given Content-Type header when loading content referenced by a script tag. 
-- Add sensu_go_event_metric_points_processed counter metric and included it in tessen reporting.
+- Added the `sensu_go_event_metric_points_processed` counter metric and included it in Tessen reporting.
 
 **FIXES**
 - ([Commercial feature][259]) Fixed bugs in business service monitoring (BSM) and round robin scheduling to prevent missed check executions when PostgreSQL round robin scheduling is enabled.
