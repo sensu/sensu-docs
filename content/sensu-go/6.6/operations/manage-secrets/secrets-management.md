@@ -41,12 +41,14 @@ The example in this guide uses the [PagerDuty][31] Integration Key as a secret a
 Here's how to find your Integration Key in PagerDuty so you can set it up as your secret:
 
 1. Log in to your PagerDuty account.
-2. In the **Configuration** drop-down menu, select **Services**.
-3. Click your Sensu service.
-4. Click the **Integrations** tab.
-The Integration Key is listed in the second column.
+2. In the **Services** drop-down menu, select **Service Directory**.
+3. Enter the name of your Sensu service in the search field.
+4. Click to select your Sensu service from the list of search results.
+5. Click the **Integrations** tab.
+6. Click the drop-down arrow for the **Events API**.
+The Integration Key is listed in the second field.
 
-{{< figure src="/images/sensu-pagerduty-integration-key.png" alt="PagerDuty Integration Key location" link="/images/sensu-pagerduty-integration-key.png" target="_blank" >}}
+{{< figure src="/images/sensu-service-pagerduty-integration-key.png" alt="PagerDuty Integration Key location" link="/images/sensu-service-pagerduty-integration-key.png" target="_blank" >}}
 
 Make a note of your Integration Key &mdash; you'll need it to create your [backend environment variable][28] or [HashiCorp Vault secret][29].
 
