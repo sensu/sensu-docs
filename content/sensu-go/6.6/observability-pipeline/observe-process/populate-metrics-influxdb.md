@@ -148,22 +148,116 @@ You can share, reuse, and maintain this handler just like you would code: [save 
 **PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
 {{% /notice %}}
 
-## Assign the InfluxDB handler to a check
+## Create a pipeline that includes the InfluxDB handler
 
-With the `influxdb-handler` resource created, you can assign it to a check for check output metric extraction. 
-For example, if you followed [Collect Prometheus metrics with Sensu][10], you [created the `prometheus_metrics` check][14].
-The `prometheus_metrics` check already uses the `influxdb_line` output metric format, but you will need to update the output metric handlers to extract the metrics with the `influxdb-handler`.
+With your handler configured, you can add it to a [pipeline][16] workflow.
+A single pipeline workflow can include one or more filters, one mutator, and one handler.
 
-To update the output metric handlers, run:
+In this case, the pipeline includes the built-in [has_metrics][17] event filter and the InfluxDB handler you've already configured.
+To create the pipeline, run:
 
-{{< code shell >}}
-sensuctl check set-output-metric-handlers prometheus_metrics influxdb-handler
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
+type: Pipeline
+api_version: core/v2
+metadata:
+  name: metrics_pipeline
+spec:
+  workflows:
+  - name: influxdb_metrics
+    filters:
+    - name: has_metrics
+      type: EventFilter
+      api_version: core/v2
+    handler:
+      name: influxdb-handler
+      type: Handler
+      api_version: core/v2
+EOF
 {{< /code >}}
 
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "Pipeline",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "metrics_pipeline"
+  },
+  "spec": {
+    "workflows": [
+      {
+        "name": "influxdb_metrics",
+        "filters": [
+          {
+            "name": "has_metrics",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "handler": {
+          "name": "influxdb-handler",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+With the `metrics_pipeline` pipeline created, you can add it to a check for check output metric extraction.
+
+## Add the pipeline to a check
+
+Add the `metrics_pipeline` pipeline to a check to use it for check output metric extraction. 
+For example, if you followed [Collect Prometheus metrics with Sensu][10], you created the `prometheus_metrics` check.
+
+The `prometheus_metrics` check already uses the `influxdb_line` output metric format, but you will need to add the pipeline to extract the metrics and process them according to the pipeline's workflows.
+
+To open the check definition in your text editor, run: 
+
+{{< code shell >}}
+sensuctl edit check prometheus_metrics
+{{< /code >}}
+
+Make two changes in the `prometheus_metrics` check definition:
+
+1. Delete the `output_metrics_handlers` attribute and value.
+
+2. Replace the `pipelines: []` line with the following array to reference your `metrics_pipeline` pipeline:
+
+    {{< language-toggle >}}
+{{< code yml >}}
+pipelines:
+- type: Pipeline
+  api_version: core/v2
+  name: metrics_pipeline
+{{< /code >}}
+{{< code json >}}
+{
+  "pipelines": [
+    {
+      "type": "Pipeline",
+      "api_version": "core/v2",
+      "name": "metrics_pipeline"
+    }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+Save the two changes and exit the text editor.
 You should receive a confirmation message:
 
 {{< code shell >}}
-Updated
+Updated /api/core/v2/namespaces/default/checks/prometheus_metrics
 {{< /code >}}
 
 To review the updated check resource definition, run:
@@ -189,6 +283,7 @@ The updated `prometheus_metrics` check definition will be similar to this exampl
 type: CheckConfig
 api_version: core/v2
 metadata:
+  created_by: admin
   name: prometheus_metrics
   namespace: default
 spec:
@@ -200,9 +295,11 @@ spec:
   interval: 10
   low_flap_threshold: 0
   output_metric_format: influxdb_line
-  output_metric_handlers:
-  - influxdb-handler
-  pipelines: []
+  output_metric_handlers: null
+  pipelines:
+  - api_version: core/v2
+    name: metrics_pipeline
+    type: Pipeline
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -223,7 +320,8 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "prometheus_metrics",
-    "namespace": "default"
+    "namespace": "default",
+    "created_by": "admin"
   },
   "spec": {
     "check_hooks": null,
@@ -234,10 +332,14 @@ spec:
     "interval": 10,
     "low_flap_threshold": 0,
     "output_metric_format": "influxdb_line",
-    "output_metric_handlers": [
-      "influxdb-handler"
+    "output_metric_handlers": null,
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "name": "metrics_pipeline",
+        "type": "Pipeline"
+      }
     ],
-    "pipelines": [],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
@@ -272,7 +374,8 @@ sensu-agent start --statsd-event-handlers influxdb-handler
 
 ## Validate the InfluxDB handler
 
-It might take a few moments after you assign the handler to the check or StatsD server for Sensu to receive the metrics, but after an event is handled, metrics should start populating InfluxDB.
+It might take a few moments for Sensu to receive metrics after you assign the pipeline to the check or assign the handler to the StatsD server.
+After an event is handled, metrics should start populating InfluxDB.
 You can verify proper handler behavior with `sensu-backend` logs.
 Read [Troubleshoot Sensu][8] for log locations by platform.
 
@@ -297,5 +400,6 @@ Now that you know how to apply an InfluxDB handler to metrics, read [Aggregate m
 [11]: https://github.com/sensu/sensu-influxdb-handler/releases
 [12]: ../../../plugins/assets/
 [13]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
-[14]: ../../observe-schedule/prometheus-metrics/#add-a-sensu-check-to-complete-the-pipeline
 [15]: ../aggregate-metrics-statsd/
+[16]: ../pipelines/
+[17]: ../../observe-filter/filters/#built-in-filter-has_metrics
