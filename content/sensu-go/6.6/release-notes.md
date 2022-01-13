@@ -112,8 +112,8 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.6.4.
 
 **IMPROVEMENTS**
 - ([Commercial feature][259]) In the web UI, added the [X-Frame-Options][263] header to tell browsers the web application cannot be loaded within an iframe to prevent tailored click-jacking attacks. 
-- ([Commercial feature][259]) In the web UI, added [HSTS header][264] if TLS has been configured; ensures the browser loads the application and its requisite assets with a secure connection.
-- ([Commercial feature][259]) In the web UI, added [X-Content-Type-Options][265]: nosniff header to have browsers respect the given Content-Type header when loading content referenced by a script tag. 
+- ([Commercial feature][259]) In the web UI, added the [HSTS header][264] if TLS has been configured to ensure that the browser loads the application and its requisite assets with a secure connection.
+- ([Commercial feature][259]) In the web UI, added the [X-Content-Type-Options][265] nosniff header so that browsers respect the given Content-Type header when loading content referenced by a script tag. 
 - Add sensu_go_event_metric_points_processed counter metric and included it in tessen reporting.
 
 **FIXES**
