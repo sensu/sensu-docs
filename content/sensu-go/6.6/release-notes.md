@@ -101,6 +101,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 ---
 
 ## 6.6.4 release notes
+
 **January 13, 2022** &mdash; The latest release of Sensu Go, version 6.6.3, is now available for download.
 
 Sensu Go 6.6.4 includes a number of bug fixes, security improvements and the addition of the new metric `sensu_go_event_metric_points_processed`. Fixes in this patch release will help prevent the backend from crashing when PostgreSQL is taken offline and will prevent backend entity rows from filling up the entities table. In addition, fixes will further secure the web interface.
