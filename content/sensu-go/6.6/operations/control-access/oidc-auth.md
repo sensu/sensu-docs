@@ -395,6 +395,8 @@ Use the instructions listed in this section to register an OIDC application for 
 
 #### Create an Okta application
 
+##### Classic UI
+
 {{% notice note %}}
 **NOTE**: These instructions are based on the Okta Classic UI.
 The steps may be different if you are using the Okta Developer Console.
@@ -406,7 +408,7 @@ The steps may be different if you are using the Okta Developer Console.
 4. Click **Create**.
 5. In the *Create OpenID Connect Integration* window:
    - *GENERAL SETTINGS* section: in the *Application name* field, enter the app name.
-You can also upload a logo in the  if desired.
+You can also upload a logo if desired.
    - *CONFIGURE OPENID CONNECT* section: in the *Login redirect URIs* field, enter `<api_url>/api/enterprise/authentication/v2/oidc/callback`.
     Replace `<api_url>` with your API URL, including the API [port][5] 8080.
 6. Click **Save**.
@@ -421,6 +423,33 @@ You can also upload a logo in the  if desired.
     - In the second field, enter `.*`
 13. Click **Save**.
 14. (Optional) Select the *Assignments* tab to assign people and groups to your app.
+
+##### Okta Developer Console
+
+**TO DO**: Need to confirm that these steps are accurate and will work properly to create a new Okta web app.
+I think these instructions should replace the Okta Classic UI instructions above -- seems like Okta default is now the Dev Console with no direct user control over which UI to use.
+
+1. In the Okta Admin Console, navigate to *Applications*: click `Applications` > `Applications`.
+2. Click **Create App Integration**.
+3. In the *Create a new app integration* modal window:
+    - Select the sign-in method `OIDC - OpenID Connect`.
+    - Select the application type `Web Application`.
+4. Click **Next**.
+5. In the *New Web App Integration* wizard:
+    - In the *App integration name* field, enter the app name.
+You can also upload a logo if desired.
+    - Under *Grant type*, click to select `Refresh Token` in the *Client acting on behalf of a user* list.
+    - In the *Sign-in redirect URIs* field, enter `<api_url>/api/enterprise/authentication/v2/oidc/callback`.
+    Replace `<api_url>` with your API URL, including the API [port][5] 8080.
+    - Under *Assignments*, click to select `Skip group assignment for now`.
+6. Click **Save**.
+7. Select the *Sign On* tab, scroll to the *OpenID Connect ID Token* section, and click **Edit**.
+8. In the *Groups claim filter* section:
+    - In the first field, enter `groups`
+    - In the dropdown menu, select `Matches regex`
+    - In the second field, enter `.*`
+9. Click **Save**.
+10. (Optional) Select the *Assignments* tab to assign people and groups to your app.
 
 #### OIDC provider configuration
 
