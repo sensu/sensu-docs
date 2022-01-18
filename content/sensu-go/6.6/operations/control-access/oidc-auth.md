@@ -406,7 +406,7 @@ The steps may be different if you are using the Okta Developer Console.
 4. Click **Create**.
 5. In the *Create OpenID Connect Integration* window:
    - *GENERAL SETTINGS* section: in the *Application name* field, enter the app name.
-You can also upload a logo in the  if desired.
+You can also upload a logo if desired.
    - *CONFIGURE OPENID CONNECT* section: in the *Login redirect URIs* field, enter `<api_url>/api/enterprise/authentication/v2/oidc/callback`.
     Replace `<api_url>` with your API URL, including the API [port][5] 8080.
 6. Click **Save**.
