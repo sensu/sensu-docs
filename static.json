@@ -3,10 +3,6 @@
     "https_only": true,
     "error_page": "/404.html",
     "pattern_redirects": {
-        "https://docs.uchiwa.io/": {
-            "url": "https://docs.sensu.io/uchiwa/latest/",
-            "status": 301
-        },
         "~ ^/sensu-core/1.[0-9]/?((?<=\/).*)?$": {
             "url": "/sensu-core/latest/$1",
             "status": 301
