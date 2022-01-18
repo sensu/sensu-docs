@@ -478,7 +478,7 @@ The `/pipelines/:pipeline` API endpoint provides HTTP PATCH access to update `:p
 
 {{% notice note %}}
 **NOTE**: You cannot change a resource's `name` or `namespace` with a PATCH request.
-Use a [PUT request](#pipelinespipeline-put) instead.<br><br>
+Use a [PUT request](#create-or-update-a-pipeline) instead.<br><br>
 Also, you cannot add elements to an array with a PATCH request &mdash; you must replace the entire array.
 {{% /notice %}}
 
