@@ -136,8 +136,6 @@ Use Sensu Go's built-in [is_incident filter][63] to recreate the Sensu Core beha
 Sensu Go includes pipe and TCP/UDP handlers, but not transport handlers.
 To create similar functionality to transport handlers in Sensu Go, create a pipe handler that connects to a message bus and injects event data into a queue.
 
-Sensu Go also includes streaming handlers, such as the [Sumo Logic metrics handler][104], to provide persistent connections for transmitting Sensu observation data to remote data storage services to help prevent data bottlenecks.
-
 ## Filters
 
 In Sensu Go, JavaScript expressions replace the Ruby eval logic in Sensu Core, opening up powerful ways to filter events based on occurrences and other event attributes.
@@ -630,7 +628,6 @@ After you stop the Sensu Core services, follow package removal instructions for 
 [101]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-has_metrics
 [102]: ../../../observability-pipeline/observe-transform/mutators/
 [103]: ../../../observability-pipeline/observe-process/handlers/
-[104]: ../../../observability-pipeline/observe-process/sumo-logic-metrics-handlers/
 [105]: ../../../observability-pipeline/observe-process/silencing/
 [106]: ../../../observability-pipeline/observe-filter/sensu-query-expressions/#custom-functions
 [107]: ../../control-access/namespaces/
