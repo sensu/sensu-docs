@@ -492,7 +492,6 @@ This means you can only use `sensuctl prune` to delete resources that were creat
 
 The pruning operation always follows the role-based access control (RBAC) permissions of the current user.
 For example, to prune resources in the `dev` namespace, the current user who sends the prune command must have delete access to the `dev` namespace.
-In addition, pruning requires [cluster-level privileges][35], even when all resources belong to the same namespace.
 
 #### Supported resource types
 
@@ -671,7 +670,6 @@ Sensuctl supports the following formats:
 [32]: ../../operations/deploy-sensu/datastore/
 [33]: #create-resources-across-namespaces
 [34]: ../../operations/maintain-sensu/license/
-[35]: ../../operations/control-access/rbac/#roles-and-cluster-roles
 [36]: #sensuctl-create-flags
 [37]: ../../operations/control-access/oidc-auth/
 [38]: ../../operations/control-access/rbac/#namespaced-resource-types
