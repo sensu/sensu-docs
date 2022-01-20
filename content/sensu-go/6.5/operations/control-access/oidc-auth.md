@@ -350,7 +350,7 @@ groups_prefix: okta
 | username_claim |   |
 -------------|------
 description  | The claim to use to form the final RBAC user name.
-required     | false
+required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
