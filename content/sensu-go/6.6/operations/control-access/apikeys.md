@@ -17,7 +17,7 @@ Unlike [authentication tokens][2], API keys are persistent and do not need to be
 
 The Sensu backend generates API keys, and you can provide them to applications that want to interact with the Sensu API.
 
-Use the [APIKey API][1] to create, retrieve, and delete API keys.
+Use the [core/v2/apikeys API endpoints][1] to create, retrieve, and delete API keys.
 
 ## API key example
 

@@ -24,8 +24,8 @@ Use Sensu handlers to [process extracted metrics][11] and route them to database
 You can also use Sensu's [time-series and long-term event storage integrations][18] to process service and time-series metrics.
 
 {{% notice note %}}
-**NOTE**: This reference describes the metrics component of observation data included in Sensu events, which is distinct from the Sensu metrics API.
-For information about HTTP GET access to internal Sensu metrics, read our [metrics API](../../../api/other/metrics/) documentation.
+**NOTE**: This reference describes the metrics component of observation data included in Sensu events, which is distinct from the Sensu /metrics API.
+For information about HTTP GET access to internal Sensu metrics, read our [/metrics API](../../../api/other/metrics/) documentation.
 {{% /notice %}}
 
 ## Metric check example
