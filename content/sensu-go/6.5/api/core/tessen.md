@@ -15,8 +15,8 @@ menu:
 The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
-The Tessen API provides HTTP access to manage [Tessen][1] configuration.
-Access to the Tessen API is restricted to the default [`admin` user][2].
+The core/v2/tessen API endpoints provide HTTP access to manage [Tessen][1] configuration.
+Access to core/v2/tessen is restricted to the default [`admin` user][2].
 
 ## Get the active Tessen configuration {#tessen-get}
 

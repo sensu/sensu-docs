@@ -18,7 +18,7 @@ menu:
 For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
-Sensu's [federation API][1] allows you to register external clusters, gain visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI, and mirror your changes in one cluster to follower clusters.
+Sensu's [enterprise/federation/v1 API endpoints][1] allow you to register external clusters, gain visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI, and mirror your changes in one cluster to follower clusters.
 This is useful when you want to provide a single entry point for Sensu users who need to manage monitoring across multiple distinct physical data centers, cloud regions, or providers.
 
 {{< figure src="/images/federation-switcher-clusters.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/federation-switcher-clusters.gif" target="_blank" >}}
@@ -416,7 +416,7 @@ spec:
 
 ## Get a unified view of all your clusters in the web UI
 
-After you create clusters using the federation API, you can log in to the `gateway` Sensu web UI to view them as the `federation-viewer` user.
+After you create clusters using enterprise/federation/v1 API endpoints, you can log in to the `gateway` Sensu web UI to view them as the `federation-viewer` user.
 Use the namespace switcher to change between namespaces across federated clusters:
 
 {{< figure src="/images/federation-switcher-animated.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/federation-switcher-animated.gif" target="_blank" >}}

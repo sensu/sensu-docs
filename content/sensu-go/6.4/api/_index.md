@@ -120,7 +120,7 @@ export SENSU_ACCESS_TOKEN=`curl -X GET -u "$SENSU_USER:$SENSU_PASS" -s http://lo
 
 The [sensuctl reference][7] demonstrates how to use the `sensuctl env` command to export your access token, token expiry time, and refresh token as environment variables.
 
-### Authenticate with the authentication API
+### Authenticate with /auth API endpoints
 
 Use the [authentication API][12] and your Sensu username and password to generate access tokens and refresh tokens.
 The [`/auth` API endpoint][12] lets you generate short-lived API tokens using your Sensu username and password.
@@ -196,7 +196,7 @@ To regenerate a valid access token, run any sensuctl command (like `sensuctl eve
 
 ### Authenticate with an API key
 
-Each Sensu API key (core/v2.APIKey) is a persistent universally unique identifier (UUID) that maps to a stored Sensu username.
+Each Sensu API key ([core/v2/apikey][19]) is a persistent universally unique identifier (UUID) that maps to a stored Sensu username.
 The advantages of authenticating with API keys rather than [access tokens][14] include:
 
 - **More efficient integration**: Check and handler plugins and other code can integrate with the Sensu API without implementing the logic required to authenticate via the `/auth` API endpoint to periodically refresh the access token
@@ -226,7 +226,7 @@ Created: /api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
 {{< /code >}}
 
    {{% notice protip %}}
-**PRO TIP**: Sensuctl is the most direct way to generate an API key, but you can also use the [APIkeys API](apikeys/#create-a-new-api-key).
+**PRO TIP**: Sensuctl is the most direct way to generate an API key, but you can also use the [POST core/v2/apikeys endpoint](core/apikeys/#create-a-new-api-key).
 {{% /notice %}}
 
 2. Export your API key to the `SENSU_API_KEY` environment variable:
@@ -264,7 +264,7 @@ curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/na
 
 ### Example
 
-This example uses the API key directly (rather than the `$SENSU_API_KEY` environment variable) to authenticate to the checks API:
+This example uses the API key directly (rather than the `$SENSU_API_KEY` environment variable) to authenticate to core/v2/checks:
 
 {{< code shell >}}
 curl -H "Authorization: Key 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
@@ -274,7 +274,7 @@ A successful request will return the HTTP response code `HTTP/1.1 200 OK` and th
 
 ## Pagination
 
-The Sensu API supports response pagination for most `core/v2` GET endpoints that return an array.
+The Sensu API supports response pagination for most core/v2 GET endpoints that return an array.
 You can request a paginated response with the `limit` and `continue` query parameters.
 
 ### Limit query parameter
@@ -777,19 +777,20 @@ curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/si
 [2]: ../operations/deploy-sensu/install-sensu#install-sensuctl
 [3]: ../operations/control-access/rbac/
 [4]: ../observability-pipeline/observe-schedule/agent/
-[5]: health/
-[6]: metrics/
+[5]: other/health/
+[6]: other/metrics/
 [7]: ../sensuctl/environment-variables/
 [9]: ../observability-pipeline/observe-entities/entities#metadata-attributes
 [10]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag
-[11]: auth/#authtoken-post
-[12]: auth/
+[11]: other/auth/#authtoken-post
+[12]: other/auth/
 [13]: #operators
 [14]: #authentication-quickstart
 [15]: #examples
 [16]: #limit-query-parameter
 [17]: #authenticate-with-an-api-key
 [18]: ../operations/control-access/use-apikeys/#sensuctl-management-commands
+[19]: core/apikeys/
 [20]: #authenticate-with-the-authentication-api
 [21]: ../observability-pipeline/observe-schedule/backend/#api-request-limit
 [22]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match

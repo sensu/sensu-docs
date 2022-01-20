@@ -239,9 +239,9 @@ Otherwise, your user credentials are the username and password you provided with
 
 Select the ☰ icon to explore the web UI.
 
-### 5. Make a request to the health API
+### 5. Make a request to the /health API
 
-To make sure the backend is up and running, use the Sensu [health API][35] to check the backend's health.
+To make sure the backend is up and running, use the Sensu [/health API][35] to check the backend's health.
 You should receive a response that includes `"Healthy": true`.
 
 {{< code shell >}}
@@ -462,7 +462,7 @@ To confirm that the agent is registered with Sensu and is sending keepalive even
 
 ### 4. Verify an example event
 
-With your backend and agent still running, send this request to the Sensu events API:
+With your backend and agent still running, send this request to the Sensu core/v2/events API:
 
 {{< code shell >}}
 curl -X POST \

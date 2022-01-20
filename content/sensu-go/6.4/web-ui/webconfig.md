@@ -21,7 +21,7 @@ You can define a single custom web UI configuration to federate to all, some, or
 
 ## Create a web UI configuration
 
-Use the [web UI configuration API][2] or [sensuctl create][5] to create a `GlobalConfig` resource.
+Use the [enterprise/web/v1 API POST endpoint][2] or [sensuctl create][5] to create a `GlobalConfig` resource.
 The [web UI configuration reference][4] describes each attribute you can configure in the `GlobalConfig` resource.
 
 {{% notice note %}}
