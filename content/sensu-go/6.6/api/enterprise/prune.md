@@ -17,7 +17,7 @@ For more information, read [Get started with commercial features](../../../comme
 
 {{% notice note %}}
 **NOTE**: The `enterprise/prune/v1alpha` API endpoints are an alpha feature and may include breaking changes.
-The prune API requires [cluster-level privileges](../../../operations/control-access/rbac/#roles-and-cluster-roles), even when all resources belong to the same namespace.
+The enterprise/prune/v1alpha API endpoints require [cluster-level privileges](../../../operations/control-access/rbac/#roles-and-cluster-roles), even when all resources belong to the same namespace.
 
 Requests to `enterprise/prune/v1alpha` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.

@@ -30,7 +30,7 @@ sensuctl configure
 This starts the prompts for interactive sensuctl setup.
 When prompted, choose the authentication method you wish to use: username/password or OIDC.
 
-Sensuctl uses your username and password or OIDC credentials to obtain access and refresh tokens via the [Sensu authentication API][14].
+Sensuctl uses your username and password or OIDC credentials to obtain access and refresh tokens via the Sensu [/auth API][14].
 The access and refresh tokens are HMAC-SHA256 [JSON Web Tokens (JWTs)][16] that Sensu issues to record the details of users' authenticated Sensu sessions.
 The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
 

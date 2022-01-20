@@ -108,7 +108,7 @@ The database secret contains a key called `password,` and its value is the passw
 
 ## Secret configuration
 
-You can use the [Secrets API][2] and [sensuctl][3] to create, view, and manage your secrets configuration.
+You can use the [enterprise/secrets/v1 API endpoints][2] and [sensuctl][3] to create, view, and manage your secrets configuration.
 To manage secrets configuration with sensuctl, configure sensuctl as the default [`admin` user][6].
 
 The [standard sensuctl subcommands][4] are available for secrets (list, info, and delete).

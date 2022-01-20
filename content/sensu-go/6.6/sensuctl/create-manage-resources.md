@@ -533,7 +533,7 @@ The response will list all supported `sensuctl prune` resource types:
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: Short names are only supported for `core/v2` resources.
+**NOTE**: Short names are only supported for core/v2 resources.
 {{% /notice %}}
 
 #### sensuctl prune flags
