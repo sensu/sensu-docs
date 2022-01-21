@@ -488,7 +488,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Configure authorization for OIDC users
+## Configure authorization for OIDC users
 
 Configure [authorization][3] via role-based access control (RBAC) for your OIDC users and groups by creating [roles (or cluster roles)][4] and [role bindings (or cluster role bindings)][13] that map to the user and group names.
 
