@@ -384,7 +384,7 @@ username_prefix: 'okta:'
 To use Okta for authentication, register Sensu Go as an OIDC web application.
 Before you start, install Sensu Go with a valid commercial license and make sure you have access to the Okta Administrator Dashboard.
 
-Follow the steps below to create an Okta application, configure an Okta OIDC provider in Sensu, 
+Follow the steps below to create an Okta application and configure an Okta OIDC provider in Sensu.
 
 ### Create an Okta application
 
