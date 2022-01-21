@@ -226,8 +226,8 @@ additional_scopes:
 
 | client_id  |      |
 -------------|------
-description  | The OIDC provider application `Client ID`. {{% notice note %}}
-**NOTE**: Requires [registering an application in the OIDC provider](#register-an-oidc-application).
+description  | The OIDC provider application client ID. {{% notice note %}}
+**NOTE**: Register an application in the OIDC provider to generate a client ID. Read [register an Okta application](#register-an-okta-application) for an example.
 {{% /notice %}}
 required     | true
 type         | String
@@ -244,8 +244,8 @@ client_id: 1c9ae3e6f3cc79c9f1786fcb22692d1f
 
 | client_secret  |      |
 -------------|------
-description  | The OIDC provider application `Client Secret`. {{% notice note %}}
-**NOTE**: Requires [registering an application in the OIDC provider](#register-an-oidc-application).
+description  | The OIDC provider application client secret. {{% notice note %}}
+**NOTE**: Register an application in the OIDC provider to generate a client ID. Read [register an Okta application](#register-an-okta-application) for an example.
 {{% /notice %}}
 required     | true
 type         | String
@@ -379,21 +379,14 @@ username_prefix: 'okta:'
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Register an OIDC application
+## Register an Okta application
 
-To use OIDC for authentication, register Sensu Go as an OIDC application.
-Use the instructions listed in this section to register an OIDC application for Sensu Go based on your OIDC provider.
+To use Okta for authentication, register Sensu Go as an OIDC web application.
+Before you start, install Sensu Go with a valid commercial license and make sure you have access to the Okta Administrator Dashboard.
 
-- [Okta](#okta)
+Follow the steps below to create an Okta application, configure an Okta OIDC provider in Sensu, 
 
-### Okta
-
-#### Requirements
-
-- Access to the Okta Administrator Dashboard
-- Sensu Go with a valid commercial license
-
-#### Create an Okta application
+### Create an Okta application
 
 {{% notice note %}}
 **NOTE**: These instructions are based on the Okta Developer Console.
@@ -422,7 +415,7 @@ You can also upload a logo if desired.
 9. Click **Save**.
 10. Select the *Assignments* tab and assign people and groups to your app.
 
-#### Configure an Okta OIDC provider
+### Configure an Okta OIDC provider
 
 To create your `okta` OIDC provider in Sensu:
 
@@ -458,7 +451,7 @@ spec:
   - groups
   - email
   client_id: 4sd5jxiwxfvg82PoZ5d7
-  client_secret: r78316494besnNCmtmEBnSV_47ee792f31bf6216
+  client_secret: r78316494besnNCmtmEBnS47ee792f31bf6216
   redirect_uri: http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback
   server: https://dev-459543913.okta.com
   disable_offline_access: false
@@ -481,7 +474,7 @@ spec:
       "email"
     ],
     "client_id": "4sd5jxiwxfvg82PoZ5d7",
-    "client_secret": "r78316494besnNCmtmEBnSV_47ee792f31bf6216",
+    "client_secret": "r78316494besnNCmtmEBnS47ee792f31bf6216",
     "redirect_uri": "http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback",
     "server": "https://dev-459543913.okta.com",
     "disable_offline_access": false,
@@ -495,7 +488,7 @@ spec:
 
 {{< /language-toggle >}}
 
-#### Configure authorization for OIDC users
+### Configure authorization for OIDC users
 
 Configure [authorization][3] via role-based access control (RBAC) for your OIDC users and groups by creating [roles (or cluster roles)][4] and [role bindings (or cluster role bindings)][13] that map to the user and group names.
 
@@ -503,7 +496,7 @@ Configure [authorization][3] via role-based access control (RBAC) for your OIDC 
 **NOTE**: If you do not configure authorization, users will be able to log in with OIDC but will have no permissions by default.
 {{% /notice %}}
 
-#### Use sensuctl to login with OIDC
+## Use sensuctl to login with OIDC
 
 1. Run `sensuctl login oidc`.
 
@@ -511,7 +504,7 @@ Configure [authorization][3] via role-based access control (RBAC) for your OIDC 
 **NOTE**: You can also use [`sensuctl configure`](../../../sensuctl/#first-time-setup-and-authentication) and choose the OIDC authentication method to log in to sensuctl with OIDC.
 {{% /notice %}}
 
-2. If you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.
+2. If you are using a desktop, a browser will open to allow you to authenticate and log in.
 If a browser does not open, launch a browser to complete the login via your OIDC provider at:
 
     - https://<api_url>:8080/api/enterprise/authentication/v2/oidc/authorize

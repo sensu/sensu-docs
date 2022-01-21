@@ -338,11 +338,11 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-groups_prefix: okta
+groups_prefix: 'okta:'
 {{< /code >}}
 {{< code json >}}
 {
-  "groups_prefix": "okta"
+  "groups_prefix": "okta:"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -370,11 +370,11 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-username_prefix: okta
+username_prefix: 'okta:'
 {{< /code >}}
 {{< code json >}}
 {
-  "username_prefix": "okta"
+  "username_prefix": "okta:"
 }
 {{< /code >}}
 {{< /language-toggle >}}
