@@ -384,7 +384,7 @@ username_prefix: 'okta:'
 To use Okta for authentication, register Sensu Go as an OIDC web application.
 Before you start, install Sensu Go with a valid commercial license and make sure you have access to the Okta Administrator Dashboard.
 
-Follow the steps below to create an Okta application, configure an Okta OIDC provider in Sensu, 
+Follow the steps in this section to create an Okta application and configure an Okta OIDC provider in Sensu.
 
 ### Create an Okta application
 
@@ -488,7 +488,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Configure authorization for OIDC users
+## Configure authorization for OIDC users
 
 Configure [authorization][3] via role-based access control (RBAC) for your OIDC users and groups by creating [roles (or cluster roles)][4] and [role bindings (or cluster role bindings)][13] that map to the user and group names.
 
