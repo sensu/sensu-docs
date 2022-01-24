@@ -909,7 +909,7 @@ Use output metric tags for the output metric formats that do not natively suppor
 
 Values for output metric tags are passed through to the metric points produced by check output metric extraction for formats that natively support tags (InfluxDB Line Protocol, OpenTSDB Data Specification, and Prometheus Exposition Text).
 
-You can use [check token substitution][22] for the [output_metric_tags value attribute][21] to include any event attribute in an output metric tag.
+You can use [check token substitution][22] for the output_metric_tags [value][21] attribute to include any event attribute in an output metric tag.
 For example, these tags will list the `event.timestamp` and `event.entity.name` attributes:
 
 {{< language-toggle >}}
