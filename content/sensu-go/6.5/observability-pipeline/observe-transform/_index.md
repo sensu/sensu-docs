@@ -6,7 +6,7 @@ product: "Sensu Go"
 version: "6.5"
 weight: 60
 layout: "single"
-toc: false
+toc: true
 menu:
   sensu-go-6.5:
     parent: observability-pipeline
@@ -27,10 +27,17 @@ Here's how transform stage of the pipeline works: first, the Sensu backend recei
 If the event data meets the conditions, triggers, or thresholds you specified in your event filters, Sensu checks the pipeline for a mutator.
 If the pipeline includes a mutator, the Sensu backend executes the mutator.
 
+There are two types of mutators: [pipe][8] and [JavaScript][9].
+
+## Pipe mutators
+
+[Pipe mutator][10] definitions include executable commands that will be executed on a Sensu backend.
+Pipe mutators produce an exit status code to indicate state.
+
 * If the mutator executes successfully (that is, returns an exit status code of `0`), Sensu applies the mutator to transform the event data, returns the transformed event data to the handler specified in the pipeline, and executes the handler.
 * If the mutator fails to execute (that is, returns a non-zero exit status code or fails to complete within its configured timeout), Sensu logs an error and does not execute the handler specified in the pipeline.
 
-This example mutator resource definition uses the [Sensu Check Status Metric Mutator][7] dynamic runtime asset:
+This example pipe mutator resource definition uses the [Sensu Check Status Metric Mutator][7] dynamic runtime asset:
 
 {{< language-toggle >}}
 
@@ -64,8 +71,47 @@ spec:
 
 {{< /language-toggle >}}
 
-Use [Bonsai][5], the Sensu asset hub, to discover, download, and share Sensu mutator dynamic runtime assets.
+Most pipe mutator commands are provided by Sensu plugins, which you can deploy with dynamic runtime assets.
+Use [Bonsai][5], the Sensu asset hub, to discover, download, and share dynamic runtime assets for Sensu pipe mutators.
 Read [Use assets to install plugins][6] to get started.
+
+## JavaScript mutators
+
+[JavaScript mutators][11] allow you to write your own evaluation expressions and do not require an executable command attribute.
+Each Sensu JavaScript mutator definition includes the eval attribute, whose value must be an ECMAScript 5 expression.
+
+This example uses a JavaScript mutator to remove event attributes (in this case, the check name and entity `app_id` label):
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Mutator
+api_version: core/v2
+metadata:
+  name: remove_checkname_entitylabel
+spec:
+  eval: >-
+    data = JSON.parse(JSON.stringify(event)); delete data.check.metadata.name;
+    delete data.entity.metadata.labels.app_id; return JSON.stringify(data)
+  type: javascript
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "remove_checkname_entitylabel"
+  },
+  "spec": {
+    "eval": "data = JSON.parse(JSON.stringify(event)); delete data.check.metadata.name; delete data.entity.metadata.labels.app_id; return JSON.stringify(data)",
+    "type": "javascript"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 
 [1]: mutators/
@@ -75,3 +121,7 @@ Read [Use assets to install plugins][6] to get started.
 [5]: https://bonsai.sensu.io/
 [6]: ../../plugins/use-assets-to-install-plugins/
 [7]: https://bonsai.sensu.io/assets/nixwiz/sensu-check-status-metric-mutator
+[8]: #pipe-mutators
+[9]: #javascript-mutators
+[10]: mutators/#pipe-mutators
+[11]: mutators/#javascript-mutators
