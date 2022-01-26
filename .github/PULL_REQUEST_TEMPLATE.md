@@ -1,6 +1,6 @@
 <!--- Thanks for submitting a pull request! -->
 <!--- If you haven't yet, please read the contributing guide at: -->
-<!--- https://github.com/sensu/sensu-docs/blob/master/CONTRIBUTING.md -->
+<!--- https://github.com/sensu/sensu-docs/blob/main/CONTRIBUTING.md -->
 <!--- Provide a general summary of your changes in the Title above. -->
 
 ## Description
