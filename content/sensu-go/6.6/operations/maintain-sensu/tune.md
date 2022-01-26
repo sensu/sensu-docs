@@ -50,7 +50,7 @@ Read the [PostgreSQL parameters documentation][5] for information about setting 
 ## Agent reconnection rate
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the agent-rate-limit flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
+**COMMERCIAL FEATURE**: Access the agent-rate-limit backend configuration flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 It may take several minutes for all agents to reconnect after a sensu-backend restart, especially if you have a large number of agents.
