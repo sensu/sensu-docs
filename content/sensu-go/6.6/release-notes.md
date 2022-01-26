@@ -9,6 +9,7 @@ version: "6.6"
 menu: "sensu-go-6.6"
 ---
 
+- [6.6.4 release notes](#664-release-notes)
 - [6.6.3 release notes](#663-release-notes)
 - [6.6.2 release notes](#662-release-notes)
 - [6.6.1 release notes](#661-release-notes)
@@ -98,6 +99,29 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.6.4 release notes
+
+**January 26, 2022** &mdash; The latest release of Sensu Go, version 6.6.4, is now available for download.
+
+Sensu Go 6.6.4 includes a number of bug fixes, security improvements, and a new metric, `sensu_go_event_metric_points_processed`.
+Fixes in this patch release will help prevent backend crashes when PostgreSQL is taken offline and keep backend entity rows from filling up the entities table.
+The 6.6.4 patch release also includes several improvements to further secure the web UI.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.6.4.
+
+**IMPROVEMENTS**
+- ([Commercial feature][259]) In the web UI, added the [X-Frame-Options][263] header to tell browsers the web application cannot be loaded within an iframe to prevent tailored click-jacking attacks. 
+- ([Commercial feature][259]) In the web UI, added the [HSTS header][264] if TLS has been configured to ensure that the browser loads the application and its requisite assets with a secure connection.
+- ([Commercial feature][259]) In the web UI, added the [X-Content-Type-Options][265] nosniff header so that browsers respect the given Content-Type header when loading content referenced by a script tag. 
+- Added the `sensu_go_event_metric_points_processed` counter metric and included it in Tessen reporting.
+
+**FIXES**
+- ([Commercial feature][259]) Fixed bugs in business service monitoring (BSM) and round robin scheduling to prevent missed check executions when PostgreSQL round robin scheduling is enabled.
+- ([Commercial feature][259]) Fixed a bug that could cause sensu-backend to crash if PostgreSQL was taken offline and restarted.
+- ([Commercial feature][259]) Fixed a bug that could cause ephemeral backend entity rows to fill up the entities table in PostgreSQL.
+- ([Commercial feature][259]) BSM event selectors can no longer select events outside the service component namespace.
+- Fixed a bug that could cause the backend to crash if a pipeline references a non-existent handler.
 
 ## 6.6.3 release notes
 
@@ -2234,3 +2258,6 @@ To get started with Sensu Go:
 [260]: /sensu-go/6.6/observability-pipeline/observe-schedule/backend/#datastore-and-cluster-configuration-flags
 [261]: /sensu-go/6.6/web-ui/view-manage-resources/#manage-entities
 [262]: /sensu-go/6.6/observability-pipeline/observe-schedule/backend/#etcd-client-log-level
+[263]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
+[264]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
+[265]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
