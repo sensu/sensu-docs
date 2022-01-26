@@ -64,7 +64,7 @@ The response will list your authentication provider types and names:
 
 ## Manage authentication providers
 
-View and delete authentication providers with the [authentication providers API][10] or these sensuctl commands.
+View and delete authentication providers with [enterprise/authentication/v2 API endpoints][10] or these sensuctl commands.
 
 To view active authentication providers:
 
@@ -93,7 +93,7 @@ sensuctl auth delete openldap
 [6]: ../ad-auth/
 [7]: ../oidc-auth/
 [8]: ../ldap-auth/
-[9]: ../oidc-auth/#oidc-configuration-examples
+[9]: ../oidc-auth/#oidc-configuration-example
 [10]: ../../../api/enterprise/authproviders/
 [11]: ../ldap-auth/#ldap-configuration-examples
 [12]: ../oidc-auth/#oidc-specification

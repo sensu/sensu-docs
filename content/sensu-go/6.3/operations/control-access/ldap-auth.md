@@ -834,7 +834,7 @@ name: openldap
 
 ## LDAP troubleshooting
 
-To troubleshoot any issue with LDAP authentication, start by [increasing the log verbosity][19] of sensu-backend to the debug log level.
+To troubleshoot any issue with LDAP authentication, start by [increasing the log verbosity][3] of sensu-backend to the [debug log level][5].
 Most authentication and authorization errors are only displayed on the debug log level to avoid flooding the log files.
 
 {{% notice note %}}
@@ -915,7 +915,9 @@ For example:
 
 [1]: ../../../web-ui/
 [2]: ../../../sensuctl/
+[3]: ../../maintain-sensu/troubleshoot/#increment-log-level-verbosity
 [4]: ../#use-built-in-basic-authentication
+[5]: ../../maintain-sensu/troubleshoot/#log-levels
 [6]: ../../../commercial/
 [7]: https://www.openldap.org/
 [8]: ../../../api/

@@ -111,7 +111,7 @@ These flags allow you to configure the timeout for the respective HTTP servers' 
 
 **FIXES**
 - Updated the assets, pipeline, and eventd duration metrics added in [Sensu Go 6.5.2][255] to use milliseconds for consistency with other duration metrics.
-- Updated the version API so that responses reflect the versions of external etcd clusters based on the first available etcd endpoint.
+- Updated the /version API so that responses reflect the versions of external etcd clusters based on the first available etcd endpoint.
 - Fixed a bug that could cause sensu-backend and sensu-agent to panic due to concurrent websocket writes.
 - Sensu no longer logs an error when one side of a websocket tries to close a previously closed connection.
 - Sensu now retries keepalive lease grant operations that fail due to rate limiting.
@@ -213,7 +213,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.5.0.
 **NEW FEATURES:**
 
 - ([Commercial feature][229]) Added [Sensu Plus][247], a built-in integration you can use to transmit your Sensu observability data to Sumo Logic via the Sumo Logic HTTP Logs and Metrics Source.
-- ([Commercial feature][229]) Added support for [Sumo Logic metrics handlers][230] and [TCP stream handlers][231]. The [pipeline API][232] provides HTTP access for retrieving and configuring Sumo Logic metrics handlers and TCP stream handlers.
+- ([Commercial feature][229]) Added support for [Sumo Logic metrics handlers][230] and [TCP stream handlers][231]. The [enterprise/pipeline/v1 API endpoints][232] provide HTTP access for retrieving and configuring Sumo Logic metrics handlers and TCP stream handlers.
 - ([Commercial feature][229]) You can now [view resource data][249] for events, entities, and configuration resources like checks and handlers directly in the web UI.
 - ([Commercial feature][229]) In the web UI, you can [execute individual checks on demand][250] either according to existing subscriptions or on specific agents by adding and removing subscriptions without making changes to the saved check subscriptions.
 - ([Commercial feature][229]) Added Prometheus metrics for TCP stream handlers:
@@ -262,7 +262,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.4.3.
 
 **August 31, 2021** &mdash; The latest release of Sensu Go, version 6.4.2, is now available for download.
 
-This patch adds a backend configuration attribute that allows parallel event log encoding, as well as two summary metrics for the metrics API endpoint.
+This patch adds a backend configuration attribute that allows parallel event log encoding, as well as two summary metrics for the /metrics API endpoint.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.4.2.
 
@@ -272,7 +272,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.4.2.
 
 **IMPROVEMENTS:**
 
-- Added sensu_go_agentd_event_bytes and sensu_go_store_event_bytes summary metrics to the [metrics API endpoint][227]. sensu_go_agentd_event_bytes tracks the sizes of events, in bytes, received by agentd on the backend. sensu_go_store_event_bytes tracks event sizes, in bytes, received by the etcd store on the backend.
+- Added sensu_go_agentd_event_bytes and sensu_go_store_event_bytes summary metrics to the [/metrics API endpoint][227]. sensu_go_agentd_event_bytes tracks the sizes of events, in bytes, received by agentd on the backend. sensu_go_store_event_bytes tracks event sizes, in bytes, received by the etcd store on the backend.
 
 ## 6.4.1 release notes
 
@@ -475,7 +475,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.2.1.
 
 The latest release of Sensu Go, version 6.2.0, is now available for download! Sensu Go 5.x and configuration management users rejoice: this release adds support for agent local configuration (that is, agent.yml) managed entities! Agent entities may now be managed exclusively by their agents when `sensu-agent` is started with the new `agent-managed-entity` configuration option. This makes it more straightforward to migrate from Sensu Go 5.x to 6.x, as existing agent entity management workflows like Puppet will just work with the new option enabled! Note that you will not be able to edit agent-managed entities via the backend REST API or web UI.
 
-Sensu Go 6.2.0 includes significant feature enhancements such as PostgreSQL backend round robin check scheduling for increased reliability and consistency, an updated format for silenced entry dates and durations in sensuctl tabular-format output, and a /health API endpoint for agent WebSocket transport status. This release delivers important bug fixes like consistently using `event_id` in logs and eliminating the sensuctl error when Vault provider SSL certificates do not exist on the local system. Also, the prune API no longer requires cluster-wide permissions; users with limited permissions can put it to use in their namespaces!
+Sensu Go 6.2.0 includes significant feature enhancements such as PostgreSQL backend round robin check scheduling for increased reliability and consistency, an updated format for silenced entry dates and durations in sensuctl tabular-format output, and a /health API endpoint for agent WebSocket transport status. This release delivers important bug fixes like consistently using `event_id` in logs and eliminating the sensuctl error when Vault provider SSL certificates do not exist on the local system. Also, enterprise/prune/v1alpha no longer requires cluster-wide permissions; users with limited permissions can put it to use in their namespaces!
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.2.0.
 
@@ -495,7 +495,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.2.0.
 **IMPROVEMENTS:**
 
 - ([Commercial feature][193]) Refactored entity limiter to ensure that warning messages about approaching a license's entity or entity class limit are now only displayed for users with `create` or `update` permissions for the license.
-- ([Commercial feature][193]) The [prune API][194] and its [sensuctl interface][195] now require less-broad permissions.
+- ([Commercial feature][193]) The [enterprise/prune/v1alpha API] endpoints[194] and the [sensuctl interface][195] now require less-broad permissions.
 - Adjusted the format for silenced entry dates and durations in sensuctl tabular-format output. For all silenced entries, the begin date is now listed in RFC 3339 format. For silenced entries that have not begun, the list displays the expiration date in RFC 3339 format. For silenced entires with no expiration date, the list displays `-1`. For silenced entries that have begun, the list displays the duration (for example, 1m30s).
 - Sensuctl and sensu-backend now ask users to retype their passwords when creating a new password in interactive mode.
 
@@ -518,7 +518,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.1.4.
 
 **FIXES:**
 
-- Fixed a bug that could cause a panic in the backend entity API.
+- Fixed a bug that could cause a panic in the backend core/v2/entities API.
 - The agent asset fetching mechanism now respects HTTP proxy environment variables when `trusted-ca-file` is configured.
 - When an asset artifact retrieved by the agent does not match the expected checksum, the logged error now includes the size of the retrieved artifact and more clearly identifies the expected and actual checksums.
 
@@ -602,7 +602,7 @@ SaltStack Enterprise Jobs for automated remediation.
 - Added the [`output_metric_tags` attribute][182] for checks so you can apply custom tags to enrich metric points produced by check output metric extraction.
 - A warning is now logged when you request a dynamic runtime asset that does not exist.
 - The trusted CA file is now used for agent, backend, and sensuctl asset retrieval.
-- Per-entity subscriptions (such as `entity:entityName`) are always available for agent entities, even you remove subscriptions via the entities API.
+- Per-entity subscriptions (such as `entity:entityName`) are always available for agent entities, even you remove subscriptions via the core/v2/entities API endpoints.
 - Updated the [Sensu TimescaleDB Handler][187] to write tags as a JSON object instead of an array of objects, which facilitates tags queries.
 - Updated the [Sensu Go Data Source for Grafana][188] plugin to support using API keys, fetching resources from all namespaces, using Sensu's built-in resposne filtering, grouping aggregation results by attribute, and number of [other improvements][189].
 
@@ -845,7 +845,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 
 **FIXES:**
 
-- ([Commercial feature][141]) Database connections no longer leak after queries to the cluster health API.
+- ([Commercial feature][141]) Database connections no longer leak after queries to the cluster /health API.
 - In the [web UI][153], any leading and trailing whitespace is now trimmed from the username when authenticating.
 - The [web UI][153] preferences dialog now displays only the first five groups a user belongs to, which makes the sign-out button more accessible.
 - In the [web UI][153], the deregistration handler no longer appears as `undefined` on the entity details page.
@@ -933,7 +933,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.19.1.
 This release is packed with new features, improvements, and fixes, including our first alpha feature: declarative configuration pruning to help keep your Sensu instance in sync with Infrastructure as Code workflows.
 Other exciting additions include the ability to save and share your filtered searches in the web UI, plus a new `matches` substring match operator that you can use to refine your filtering results!
 Improvements include a new `created_by` field in resource metadata and a `float_type` field that stores whether your system uses hard float or soft float.
-We've also added agent and sensuctl builds for MIPS architectures, moved Bonsai logs to the `debug` level, and added PostgreSQL health information to the health API payload.
+We've also added agent and sensuctl builds for MIPS architectures, moved Bonsai logs to the `debug` level, and added PostgreSQL health information to the /health API payload.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 5.19.0.
 
@@ -992,9 +992,9 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.18.0.
 **IMPROVEMENTS:**
 
 - The `event.entity.entity_class` value now defaults to `proxy` for [`POST /events`][114] requests.
-- If you use the [events API][118] to create a new event with an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
+- If you use the [core/v2/events API][118] to create a new event with an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
 - Sensuctl now accepts Bonsai asset versions that include a prefix with the letter `v` (for example, `v1.2.0`).
-- The version API now retrieves the Sensu agent version for the Sensu instance.
+- The /version API now retrieves the Sensu agent version for the Sensu instance.
 - Log messages now indicate which filter dropped an event.
 - Sensu now reads and writes `initializationKey` to and from EtcdRoot, with legacy support (read-only) as a fallback.
 - Sensu will now check for an HTTP response other than `200 OK` response when fetching assets.
@@ -1004,8 +1004,8 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.18.0.
 
 - ([Commercial feature][115]) [Label selectors][116] and [field selectors][117] now accept single and double quotes to identify strings.
 - Fixed a bug that prevented wrapped resources from having their namespaces set by the default sensuctl configuration.
-- Fixed a bug that prevented [API response filtering][119] from working properly for the silenced API.
-- Improved event payload validation for the [events API][118] so that events that do not match the URL parameters on the `/events/:entity/:check` endpoint are rejected.
+- Fixed a bug that prevented [API response filtering][119] from working properly for core/v2/silenced API endpoints.
+- Improved event payload validation for the [core/v2/events API][118] so that events that do not match the URL parameters on the `/events/:entity/:check` endpoint are rejected.
 - Sensuctl now supports the `http_proxy`, `https_proxy`, and `no_proxy` environment variables.
 - The [`auth/test` endpoint][120] now returns the correct error messages.
 
@@ -1424,7 +1424,7 @@ For a complete list of supported platforms, visit the [platforms page][73].
 - Silenced entries are now retrieved from the cache when determining whether an event is silenced.
 - The Sensu API now returns an error when trying to delete an entity that does not exist.
 - The agent WebSocket connection now performs basic authorization.
-- The events API now correctly applies the current timestamp by default, fixing a regression in 5.10.0.
+- The core/v2/events API now correctly applies the current timestamp by default, fixing a regression in 5.10.0.
 - Multiple nested set handlers are now flagged correctly, fixing an issue in which they were flagged as deeply nested.
 - Round robin proxy checks now execute as expected in the event of updated entities.
 - The Sensu backend now avoids situations of high CPU usage in the event that watchers enter a tight loop.
@@ -1473,7 +1473,7 @@ Read the [web UI docs][65] to get started using the Sensu web UI.
 PostgreSQL can handle significantly higher volumes of Sensu events, letting you scale Sensu beyond etcd's storage limits.
 Read the [datastore reference][61] for more information.
 - Sensu now includes a cluster ID API endpoint and `sensuctl cluster id` command to return the unique Sensu cluster ID.
-Read the [cluster API docs][62] for more information.
+Read the [core/v2/cluster API endpoint docs][62] for more information.
 
 **IMPROVEMENTS:**
 
@@ -1545,7 +1545,7 @@ Read the [upgrade guide][51] for more information.
 Read the [sensuctl reference][45] for more information.
 - Sensu backends now support the `etcd-cipher-suites` configuration option, letting you specify the cipher suites that can be used with etcd TLS configuration.
 Read the [backend reference][47] for more information.
-- The Sensu API now includes the version API, returning version information for your Sensu instance.
+- The Sensu API now includes the /version API, returning version information for your Sensu instance.
 Review the [API docs][46] for more information.
 - Tessen now collects the numbers of events processed and resources created, giving us better insight into how we can improve Sensu.
 As always, all Tessen transmissions are logged for complete transparency.
@@ -1562,7 +1562,7 @@ Read the [backend reference][50] for more information.
 **FIXES:**
 
 - Events produced by checks now execute the correct number of write operations to etcd.
-- API pagination tokens for the users and namespaces APIs now work as expected.
+- API pagination tokens for the core/v2/users and core/v2/namespaces API endpoints now work as expected.
 - Keepalive events for deleted and deregistered entities are now cleaned up as expected.
 
 **KNOWN ISSUES:**
@@ -1610,7 +1610,7 @@ Review the [API docs][34] and [sensuctl reference][35] for usage examples.
 Read the [guide to configuring an authentication provider][37] for more information.
 - ([Commercial feature][33]) Sensu's LDAP and Active Directory integrations now support connecting to an authentication provider using anonymous binding.
 Read the [LDAP][38] and [Active Directory][39] binding configuration docs to learn more.
-- The [health API][36] response now includes the cluster ID.
+- the [/health API][36] response now includes the cluster ID.
 - The `sensuctl cluster health` and `sensuctl cluster member-list` commands now include the cluster ID in tabular format.
 
 **FIXES:**
@@ -1675,8 +1675,8 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.4.0.
 read the [web UI docs][23] for a preview.
 - The Sensu API now supports pagination using the `limit` and `continue` query parameters, letting you limit your API responses to a maximum number of objects and making it easier to handle large datasets.
 Read the [API overview][22] for more information.
-- Sensu now surfaces internal metrics using the metrics API.
-Read the [metrics API reference][31] for more information.
+- Sensu now surfaces internal metrics using the /metrics API.
+Read the [/metrics API documentation][31] for more information.
 
 **IMPROVEMENTS:**
 
@@ -1688,8 +1688,8 @@ Read the [agent reference][26] for more information.
 **FIXES:**
 
 - The backend now processes events without persisting metrics to etcd.
-- The events API POST and PUT endpoints now add the current timestamp to new events by default.
-- The users API now returns a 404 response code if a username cannot be found.
+- The core/v2/events API POST and PUT endpoints now add the current timestamp to new events by default.
+- The core/v2/users API endpoints now return a 404 response code if a username cannot be found.
 - The sensuctl command line tool now correctly accepts global flags when passed after a subcommand flag (for example, `--format yaml --namespace development`).
 - The `sensuctl handler delete` and `sensuctl filter delete` commands now correctly delete resources from the currently configured namespace.
 - The agent now terminates consistently on SIGTERM and SIGINT.

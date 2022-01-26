@@ -36,7 +36,7 @@ To deploy Sensu for use outside of a local development environment, [install Sen
 3. [Run a Sensu cluster][6], a group of three or more sensu-backend nodes connected to a shared database, to improve Sensu's availability, reliability, and durability.
 4. [Reach multi-cluster visibility][7] with federation so you can gain visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI and mirror your changes in one cluster to follower clusters.
 
-Read the [etcd replicators reference][9] to learn how the etcd-replicators datatype in the federation API allows you to manage role-based access control (RBAC) resources in one place and mirror your changes to follower clusters.
+Read the [etcd replicators reference][9] to learn how the etcd-replicators datatype in the enterprise/federation/v1 API allows you to manage role-based access control (RBAC) resources in one place and mirror your changes to follower clusters.
 
 ## Scale your Sensu implementation
 

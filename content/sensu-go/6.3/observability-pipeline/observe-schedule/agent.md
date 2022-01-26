@@ -80,7 +80,7 @@ This communication is via clear text by default.
 Follow [Secure Sensu][46] to configure the backend and agent for WebSocket Secure (wss) encrypted communication.
 
 {{% notice note %}}
-**NOTE**: For information about your agent transport status, use the [health API](../../../api/other/health/#get-health-data-for-your-agent-transport).
+**NOTE**: For information about your agent transport status, use the [/health API](../../../api/other/health/#get-health-data-for-your-agent-transport).
 {{% /notice %}}
 
 ## Create observability events using service checks
@@ -498,7 +498,7 @@ In addition, the agent maps [`keepalive-critical-timeout` and `keepalive-warning
 
 {{% notice note %}}
 **NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../../observe-entities/#proxy-entities) because they cannot run a Sensu agent.
-Use the [events API](../../../api/core/events/#eventsentitycheck-put) to send manual keepalive events for proxy entities.
+Use the [core/v2/events API](../../../api/core/events/#eventsentitycheck-put) to send manual keepalive events for proxy entities.
 {{% /notice %}}
 
 ### Handle keepalive events

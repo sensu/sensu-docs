@@ -416,9 +416,11 @@ link_policy:
 
 poll_interval | 
 -------------|------ 
-description  | The frequency at which web UI pages will poll for new data from the Sensu backend, in milliseconds. Useful for increasing the polling interval duration if web UI sessions are causing heavy load. If you set the poll interval, all web UI views will use the poll interval value instead of their individual polling defaults.
-required     | false
+description  | The frequency at which web UI pages will poll for new data from the Sensu backend. In milliseconds.<br><br>Useful for increasing the polling interval duration if web UI sessions are causing heavy load. If you set the poll interval, all web UI views will use the poll interval value instead of their individual polling defaults.{{% notice note %}}
+**NOTE**: If an individual user's settings conflict with the web UI configuration settings, Sensu will use the individual user's settings.
+{{% /notice %}}
 type         | Integer
+default      | `10000` when page is visible. `300000` when page is not visible.
 example      | {{< language-toggle >}}
 {{< code yml >}}
 poll_interval: 120000
