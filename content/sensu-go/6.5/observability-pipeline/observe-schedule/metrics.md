@@ -24,8 +24,8 @@ Use Sensu handlers to [process extracted metrics][11] and route them to database
 You can also use Sensu's [time-series and long-term event storage integrations][18] to process service and time-series metrics.
 
 {{% notice note %}}
-**NOTE**: This reference describes the metrics component of observation data included in Sensu events, which is distinct from the Sensu metrics API.
-For information about HTTP GET access to internal Sensu metrics, read our [metrics API](../../../api/other/metrics/) documentation.
+**NOTE**: This reference describes the metrics component of observation data included in Sensu events, which is distinct from the Sensu /metrics API.
+For information about HTTP GET access to internal Sensu metrics, read our [/metrics API](../../../api/other/metrics/) documentation.
 {{% /notice %}}
 
 ## Metric check example
@@ -897,16 +897,36 @@ Use output metric tags for the output metric formats that do not natively suppor
 
 Values for output metric tags are passed through to the metric points produced by check output metric extraction for formats that natively support tags (InfluxDB Line Protocol, OpenTSDB Data Specification, and Prometheus Exposition Text).
 
-You can use [check token substitution][22] for the [value attribute][21] to include any event attribute in an output metric tag.
-For example, this tag will list the `event.time` attribute:
+You can use [check token substitution][22] for the output_metric_tags [value][21] attribute to include any event attribute in an output metric tag.
+For example, these tags will list the `event.timestamp` and `event.entity.name` attributes:
 
-{{< code shell >}}
-"output_metric_tags": [
-  {
-    "name": "instance",
-    "value": "{{ .entity.system.hostname }}"
-  }
-]{{< /code >}}
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+output_metric_tags:
+- name: time
+  value: "{{ .timestamp }}"
+- name: entity_name
+  value: "{{ .entity.name }}"
+{{< /code >}}
+
+{{< code json >}}
+{
+  "output_metric_tags": [
+    {
+      "name": "time",
+      "value": "{{ .timestamp }}"
+    },
+    {
+      "name": "entity_name",
+      "value": "{{ .entity.name }}"
+    }
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Process extracted and tagged metrics
 

@@ -74,7 +74,7 @@ HTTP/1.1 200 OK
 
 /auth/test (GET)     |     |
 ---------------------|------
-description          | Tests basic authentication credentials (username and password) that were created with Sensu's [users API][1].
+description          | Tests basic authentication credentials (username and password) that were created with Sensu's [core/v2/users API][1].
 example url          | http://hostname:8080/auth/test
 response codes       | <ul><li>**Valid credentials**: 200 (OK)</li><li> **Invalid credentials**: 401 (Unauthorized)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 

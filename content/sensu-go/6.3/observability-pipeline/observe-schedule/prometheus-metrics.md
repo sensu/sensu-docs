@@ -244,7 +244,7 @@ api_version: core/v2
 metadata:
   name: influxdb
 spec:
-  command: "sensu-influxdb-handler -a 'http://127.0.0.1:8086' -d sensu -u sensu -p sensu"
+  command: sensu-influxdb-handler -a 'http://127.0.0.1:8086' -d sensu -u sensu -p sensu
   timeout: 10
   type: pipe
   runtime_assets:
@@ -342,7 +342,7 @@ api_version: core/v2
 metadata:
   name: prometheus_metrics
 spec:
-  command: "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up"
+  command: sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up
   handlers: []
   interval: 10
   publish: true

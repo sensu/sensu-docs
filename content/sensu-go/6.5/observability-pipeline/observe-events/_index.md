@@ -527,9 +527,9 @@ You can create events with proxy entities, which are dynamically created entitie
 Proxy entities allow Sensu to monitor external resources on systems where you cannot install a Sensu agent, like a network switch or website.
 Read [Monitor external resources][1] to learn how to use a proxy entity to monitor a website.
 
-## Events API
+## core/v2/events API endpoints
 
-Sensu's [events API][15] provides HTTP access to create, retrieve, update, and delete events.
+Sensu's [core/v2/events API endpoints][15] provide HTTP access to create, retrieve, update, and delete events.
 If you create a new event that references an entity that does not already exist, the Sensu [backend][16] will automatically create a proxy entity when the event is published.
 
 
@@ -544,7 +544,7 @@ If you create a new event that references an entity that does not already exist,
 [9]: checks/#subscriptions
 [11]: ../observe-schedule/agent/
 [12]: ../observe-schedule/
-[13]: #events-api
+[13]: #corev2events-api-endpoints
 [14]: ../observe-schedule/agent/#detect-silent-failures
 [15]: ../../api/core/events/
 [16]: ../observe-schedule/agent/

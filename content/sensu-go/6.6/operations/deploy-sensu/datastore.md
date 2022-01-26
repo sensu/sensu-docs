@@ -16,7 +16,7 @@ Sensu stores the most recent event for each entity and check pair using either a
 Using Sensu with an external etcd cluster requires etcd 3.3.2.
 Follow etcd's [clustering guide][21] using the same store configuration to stand up an external etcd cluster.
 
-You can access observability event data with the [Sensu web UI][9] Events page, [`sensuctl event` commands][10], and the [events API][11].
+You can access observability event data with the [Sensu web UI][9] Events page, [`sensuctl event` commands][10], and [core/v2/events API endpoints][11].
 For longer retention of observability event data, integrate Sensu with a time-series database like [InfluxDB][12] or a searchable index like ElasticSearch or Splunk.
 
 ## Use default event storage

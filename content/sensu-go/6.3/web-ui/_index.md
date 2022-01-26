@@ -36,7 +36,7 @@ After you [start the Sensu backend][1], you can access the web UI in your browse
 
 Sign in to the web UI with the username and password you used to configure [sensuctl][2].
 
-The web UI uses your username and password to obtain access and refresh tokens via the [Sensu authentication API][7].
+The web UI uses your username and password to obtain access and refresh tokens via the Sensu [/auth API][7].
 The access and refresh tokens are [JSON Web Tokens (JWTs)][2] that Sensu issues to record the details of users' authenticated Sensu sessions.
 The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
 The access and refresh tokens are saved in your browser's local storage.

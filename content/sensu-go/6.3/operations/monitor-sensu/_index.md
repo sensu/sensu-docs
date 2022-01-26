@@ -22,8 +22,8 @@ Read [Monitor Sensu with Sensu][2] to monitor the Sensu backend with another Sen
 
 ## Retrieve cluster health data
 
-The [health reference][3] explains how to use Sensu’s health API to ensure your backend is up and running and check the health of your etcd cluster members and PostgreSQL datastore resources.
-Learn how to read the JSON response for health API requests by reviewing examples of responses for clusters with healthy and unhealthy members and the response specification.
+The [health reference][3] explains how to use Sensu’s /health API to ensure your backend is up and running and check the health of your etcd cluster members and PostgreSQL datastore resources.
+Learn how to read the JSON response for /health API requests by reviewing examples of responses for clusters with healthy and unhealthy members and the response specification.
 
 ## Learn about Tessen
 
