@@ -21,7 +21,7 @@ For more information, read [Get started with commercial features](../../commerci
 With the saved searches feature, you can apply search parameters to your entities, events, and resources and save them to etcd in a [namespaced resource][2] named `searches`.
 
 The saved searches feature is designed to be used directly in the [web UI][3].
-However, you can create, retrieve, update, and delete saved searches with the [searches API][4].
+However, you can create, retrieve, update, and delete saved searches with [enterprise/searches/v1 API endpoints][4].
 
 ## Search for events with any status except passing
 

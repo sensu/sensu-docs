@@ -23,8 +23,8 @@ Read [Troubleshoot Sensu][5] to set the Sensu backend log level and view logs.
 
 ## Configure Tessen
 
-You can use the [Tessen API][2] and [sensuctl][3] to view your Tessen configuration.
-If you are using an unlicensed Sensu instances, you can also use the [Tessen API][2] and [sensuctl][3] to opt in or opt out of Tessen.
+You can use [core/v2/tessen][2] and [sensuctl][3] to view your Tessen configuration.
+If you are using an unlicensed Sensu instances, you can also use [core/v2/tessen][2] and [sensuctl][3] to opt in or opt out of Tessen.
 
 {{% notice note %}}
 **NOTE**: Tessen is enabled by default on Sensu backends and required for [licensed](../../maintain-sensu/license/) Sensu instances.

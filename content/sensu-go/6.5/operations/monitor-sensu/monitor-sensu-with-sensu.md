@@ -91,7 +91,7 @@ Monitor the host running the `sensu-backend` *locally* by a `sensu-agent` proces
 For Sensu components that must be running for Sensu to create events, you should also monitor the `sensu-backend` remotely from an independent Sensu instance.
 This will allow you to monitor whether your Sensu event pipeline is working.
 
-To do this, add checks that use the `http-json` plugin from the [http-checks][5] dynamic runtime asset to query Sensu's [health API endpoint][2] for your primary (Backend Alpha) and secondary (Backend Beta) backends.
+To do this, add checks that use the `http-json` plugin from the [http-checks][5] dynamic runtime asset to query Sensu's [/health API][2] for your primary (Backend Alpha) and secondary (Backend Beta) backends.
 
 {{% notice note %}}
 **NOTE**: These examples use the [http-checks](https://bonsai.sensu.io/assets/sensu/http-checks) dynamic runtime asset.

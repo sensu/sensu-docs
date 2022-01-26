@@ -126,7 +126,7 @@ spec: {}
 
 ## Secrets providers configuration
 
-You can use the [Secrets API][2] to create, view, and manage your secrets providers configuration.
+You can use the [enterprise/secrets/v1 API endpoints][2] to create, view, and manage your secrets providers configuration.
 
 For example, to retrieve the list of secrets providers:
 
@@ -454,7 +454,7 @@ version: v1
 
 limit        | 
 -------------|------ 
-description  | Maximum number of secrets requests per second that can be transmitted to the backend with the secrets API.
+description  | Maximum number of secrets requests per second that can be transmitted to the backend with enterprise/secrets/v1.
 required     | false
 type         | Float
 example      | {{< language-toggle >}}
@@ -470,7 +470,7 @@ limit: 10.0
 
 burst        | 
 -------------|------ 
-description  | Maximum amount of burst allowed in a rate interval for the secrets API.
+description  | Maximum amount of burst allowed in a rate interval for enterprise/secrets/v1.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}

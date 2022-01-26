@@ -416,9 +416,11 @@ link_policy:
 
 poll_interval | 
 -------------|------ 
-description  | The frequency at which web UI pages will poll for new data from the Sensu backend, in milliseconds. Useful for increasing the polling interval duration if web UI sessions are causing heavy load. If you set the poll interval, all web UI views will use the poll interval value instead of their individual polling defaults.
-required     | false
+description  | The frequency at which web UI pages will poll for new data from the Sensu backend. In milliseconds.<br><br>Useful for increasing the polling interval duration if web UI sessions are causing heavy load. If you set the poll interval, all web UI views will use the poll interval value instead of their individual polling defaults.{{% notice note %}}
+**NOTE**: If an individual user's settings conflict with the web UI configuration settings, Sensu will use the individual user's settings.
+{{% /notice %}}
 type         | Integer
+default      | `10000` when page is visible. `300000` when page is not visible.
 example      | {{< language-toggle >}}
 {{< code yml >}}
 poll_interval: 120000
@@ -449,7 +451,7 @@ page_size: 25
 
 theme | 
 ---------------|------ 
-description    | The theme used in the web UI.<br>{{% notice note %}}
+description    | The theme used in the web UI.{{% notice note %}}
 **NOTE**: If an individual user's settings conflict with the web UI configuration settings, Sensu will use the individual user's settings.
 For example, if a user's system is set to dark mode and their web UI settings are configured to use their system settings, the web UI will use dark mode for that user, even if you set the theme to `classic` in your web UI configuration.
 {{% /notice %}}

@@ -177,7 +177,7 @@ To set up RBAC in Sensu Go, read the [RBAC reference][13] and [Create a read-onl
 ## Silencing
 
 Silencing is disabled by default in Sensu Go.
-You must explicitly enable silencing by creating silencing resource definitions with sensuctl, the Sensu web UI, or the core/v2/silenced API endpoint.
+You must explicitly enable silencing by creating silencing resource definitions with sensuctl, the Sensu web UI, or core/v2/silenced API endpoints.
 Read the Sensu Go [silencing reference][105] for more information.
 
 ## Token substitution
@@ -431,7 +431,7 @@ Review your Sensu Core check configuration for the following attributes and make
 `type: transport` | Achieve similar functionailty to transport handlers in Sensu Core with a Sensu Go pipe handler that connects to a message bus and injects event data into a queue.
 `filters: check_dependencies` | Use the [Core Dependencies Filter][23] dynamic runtime asset.
 `severities` | Sensu Go does not support severities.
-`handle_silenced` | Silencing is disabled by default in Sensu Go and must be explicitly enabled using sensuctl, the web UI, or the core/v2/silenced API endpoint.
+`handle_silenced` | Silencing is disabled by default in Sensu Go and must be explicitly enabled using sensuctl, the web UI, or core/v2/silenced API endpoints.
 `handle_flapping` | All check results are considered events in Sensu Go and are processed by [pipelines][100].
 
 #### 5. Upload your config to your Sensu Go instance
