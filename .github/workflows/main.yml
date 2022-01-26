@@ -19,7 +19,7 @@ jobs:
 
       - name: Lint YAML files
         working-directory: ./tests
-        run: yamllint -c yamllint_sensudocs.yml content  
+        run: yamllint -c yamllint_sensudocs.yml ../content  
   validate-json:
     runs-on: ubuntu-latest
     steps:
@@ -28,7 +28,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 2.7
 
       - name: Lint JSON files
         working-directory: ./tests

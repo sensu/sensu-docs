@@ -1,0 +1,8 @@
+extends: default
+
+rules:
+  #Suppress warnings for line length
+  line-length: disable
+
+  #Suppress warnings for comments
+  comments: disable
