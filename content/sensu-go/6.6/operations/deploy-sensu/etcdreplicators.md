@@ -18,7 +18,7 @@ For more information, read [Get started with commercial features](../../../comme
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: EtcdReplicator is a datatype in the federation API, which is only accessible for users who have a cluster role that permits access to replication resources.
+**NOTE**: EtcdReplicator is a datatype in the enterprise/federation/v1 API, which is only accessible for users who have a cluster role that permits access to replication resources.
 {{% /notice %}}
 
 Etcd replicators allow you to manage [RBAC][3] resources in one place and mirror the changes to follower clusters.
@@ -243,7 +243,7 @@ If your configuration is incorrect, replication will not work.
 
 ## Create a replicator
 
-You can use the the [federation API][2] directly or [`sensuctl create`][4] to create replicators.
+You can use [enterprise/federation/v1 API endpoints][2] directly or [`sensuctl create`][4] to create replicators.
 
 When you create or update a replicator, an entry is added to the store and a new replicator process will spin up.
 The replicator process watches the keyspace of the resource to be replicated and replicates all keys to the specified cluster in a last-write-wins fashion.

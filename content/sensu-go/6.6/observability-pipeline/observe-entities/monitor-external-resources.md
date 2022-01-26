@@ -480,29 +480,40 @@ The files you created with check and entity definitions can become part of your 
 Storing your Sensu configurations the same way you would store code means they are portable and repeatable.
 Monitoring as code makes it possible to move to a more robust deployment without losing what you’ve started here and reproduce one environment’s configuration in another.
 
-Now that you know how to run a proxy check to verify the status of a website and use proxy requests to run a check on two different proxy entities based on label evaluation, read these recommended resources:
+Now that you know how to run a proxy check to verify website status and use proxy requests to run a check on two different proxy entities based on label evaluation, you can receive alerts based on the events your checks create.
+Configure three more Sensu resources to start receiving alerts:
 
-* [Proxy checks][2]
-* [Assets reference][5]
-* [Send Slack alerts with handlers][7]
+- [Event filters][17], which the Sensu backend will apply to the observation data in events. Sensu then sends any events the filters do not remove for processing.
+- [Handlers][22], which process the events that filters do not remove.
+- [Pipelines][23], which are Sensu resources composed of observation event processing workflows made up of filters, mutators, and handlers. When you list a pipeline in a check definition, all the observability events that the check produces will be processed according to the pipeline’s workflows.
+
+Follow any of these guides to learn how to configure event filters, handlers, and pipelines and start sending alerts based on event data:
+
+* [Send email alerts with a pipeline][5]
+* [Send PagerDuty alerts with Sensu][6]
+* [Send Slack alerts with a pipeline][7]
 
 
 [1]: ../../observe-entities/#proxy-entities
 [2]: ../../observe-schedule/checks/#proxy-entity-name-attribute
 [3]: ../../observe-schedule/checks/#proxy-checks
 [4]: ../../../operations/monitoring-as-code/
-[5]: ../../../plugins/assets/
+[5]: ../../observe-process/send-email-alerts/
+[6]: ../../observe-process/send-pagerduty-alerts/
 [7]: ../../observe-process/send-slack-alerts/
 [8]: ../../../sensuctl/
 [9]: ../../../api/core/entities/
 [10]: ../../../web-ui/
 [11]: ../../observe-entities/entities#manage-entity-labels
 [12]: ../../observe-schedule/tokens/
-[13]: #register-dynamic-runtime-assets
+[13]: #register-dynamic-runtime-asset
 [14]: #add-the-subscription
 [15]: #create-the-check
 [16]: https://bonsai.sensu.io/assets/sensu/http-checks
+[17]: ../../observe-filter/filters/
 [18]: ../../observe-schedule/checks#round-robin-checks
 [19]: ../../../operations/deploy-sensu/install-sensu/
 [20]: ../../observe-schedule/agent#restart-the-service
 [21]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
+[22]: ../../observe-process/handlers/
+[23]: ../../observe-process/pipelines/

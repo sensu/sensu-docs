@@ -340,7 +340,7 @@ API keys must be reissued, but you can use your backup as a reference for granti
 Use `sensuctl describe-type all` to retrieve the list of supported sensuctl dump resource types.
 
 {{% notice note %}}
-**NOTE**: Short names are only supported for `core/v2` resources.
+**NOTE**: Short names are only supported for core/v2 resources.
 {{% /notice %}}
 
 {{< code shell >}}

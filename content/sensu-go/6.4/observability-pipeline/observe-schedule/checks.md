@@ -321,7 +321,7 @@ spec:
 
 ### Ad hoc scheduling
 
-In addition to automatic execution, you can create checks to be scheduled manually using the [checks API][34].
+In addition to automatic execution, you can create checks to be scheduled manually using [core/v2/checks API endpoints][34].
 To create a check with ad-hoc scheduling, set the `publish` attribute to `false` in addition to an `interval` or `cron` schedule.
 
 #### Example ad hoc check
@@ -707,7 +707,7 @@ annotations:
 ### Spec attributes
 
 {{% notice note %}}
-**NOTE**: Spec attributes are not required when sending an HTTP `POST` request to the [agent](../agent/#events-post) or [backend](../../../api/core/events/#create-a-new-event) /events API.
+**NOTE**: Spec attributes are not required when sending an HTTP `POST` request to the [agent events API](../agent/#events-post) or the [backend core/v2/events API](../../../api/core/events/#create-a-new-event).
 When doing so, the spec attributes are listed as individual [top-level attributes](#top-level-attributes) in the check definition instead.
 {{% /notice %}}
 

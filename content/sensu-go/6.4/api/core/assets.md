@@ -386,4 +386,4 @@ response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404
 [1]: ../../../plugins/assets/
 [2]: ../../#pagination
 [3]: ../../#response-filtering
-[6]: https://tools.ietf.org/html/rfc7396
+[4]: https://tools.ietf.org/html/rfc7396

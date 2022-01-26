@@ -212,7 +212,7 @@ EOF
 
 {{< /language-toggle >}}
 
-With the `metrics_pipeline` pipeline created, you can add it to a check for check output metric extraction.
+Now you can add the `metrics_pipeline` pipeline to a check for check output metric extraction.
 
 ## Add the pipeline to a check
 

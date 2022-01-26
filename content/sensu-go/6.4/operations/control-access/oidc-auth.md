@@ -19,7 +19,7 @@ For more information, read [Get started with commercial features](../../../comme
 
 Sensu requires username and password authentication to access the [web UI][1], [API][8], and [sensuctl][2] command line tool.
 
-In addition to the [built-in basic authentication provider][4], Sensu offers [commercial support][6] for single sign-on (SSO) authentication using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol.
+In addition to the [built-in basic authentication provider][7], Sensu offers [commercial support][6] for single sign-on (SSO) authentication using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol.
 The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52].
 
 For general information about configuring authentication providers, read [Configure single sign-on (SSO) authentication][12].
@@ -338,11 +338,11 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-groups_prefix: okta
+groups_prefix: 'okta:'
 {{< /code >}}
 {{< code json >}}
 {
-  "groups_prefix": "okta"
+  "groups_prefix": "okta:"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -350,7 +350,7 @@ groups_prefix: okta
 | username_claim |   |
 -------------|------
 description  | The claim to use to form the final RBAC user name.
-required     | false
+required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
@@ -370,11 +370,11 @@ required     | false
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-username_prefix: okta
+username_prefix: 'okta:'
 {{< /code >}}
 {{< code json >}}
 {
-  "username_prefix": "okta"
+  "username_prefix": "okta:"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -406,7 +406,7 @@ The steps may be different if you are using the Okta Developer Console.
 4. Click **Create**.
 5. In the *Create OpenID Connect Integration* window:
    - *GENERAL SETTINGS* section: in the *Application name* field, enter the app name.
-You can also upload a logo in the  if desired.
+You can also upload a logo if desired.
    - *CONFIGURE OPENID CONNECT* section: in the *Login redirect URIs* field, enter `<api_url>/api/enterprise/authentication/v2/oidc/callback`.
     Replace `<api_url>` with your API URL, including the API [port][5] 8080.
 6. Click **Save**.
@@ -456,11 +456,11 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 
 [1]: ../../../web-ui/
 [2]: ../../../sensuctl/
-[4]: ../#use-built-in-basic-authentication
 [3]: ../#authorization
 [4]: ../rbac/#roles-and-cluster-roles
 [5]: ../../deploy-sensu/install-sensu/#ports
 [6]: ../../../commercial/
+[7]: ../#use-built-in-basic-authentication
 [8]: ../../../api/
 [12]: ../sso/
 [13]: ../rbac#role-bindings-and-cluster-role-bindings
