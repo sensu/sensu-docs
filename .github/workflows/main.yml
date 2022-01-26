@@ -33,3 +33,4 @@ jobs:
       - name: Lint JSON files
         working-directory: ./tests
         run: python json-validator.py --directory ../content --extension .md
+        

@@ -6,3 +6,4 @@ rules:
 
   #Suppress warnings for comments
   comments: disable
+  
