@@ -4,7 +4,7 @@ Welcome to the Sensu Docs project! This repository is the home of [docs.sensu.io
 
 [Read the docs][site] | [Contributing guide](CONTRIBUTING.md) | [Style guide][wiki] | [Code of conduct][coc] | [Contact admins][email] | [Open an issue][issue]
 
-[![Travis build status](https://travis-ci.com/sensu/sensu-docs.svg?branch=master)](https://travis-ci.com/sensu/sensu-docs)
+[![Travis build status](https://travis-ci.com/sensu/sensu-docs.svg?branch=main)](https://travis-ci.com/sensu/sensu-docs)
 
 ---
 
@@ -48,7 +48,7 @@ Clone using SSH:
 git clone git@github.com:sensu/sensu-docs.git && cd sensu-docs
 ```
 
-If you prefer, [download the repo from GitHub](https://github.com/sensu/sensu-docs/archive/master.zip).
+If you prefer, [download the repo from GitHub](https://github.com/sensu/sensu-docs/archive/main.zip).
 
 #### 3. Run `yarn`
 
@@ -102,7 +102,7 @@ offline: false
 
 ### Deploying the site
 
-Whenever changes are merged to the `master` branch, this project is automatically deployed to [docs.sensu.io][site]. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
+Whenever changes are merged to the `main` branch, this project is automatically deployed to [docs.sensu.io][site]. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
 
 [slack]: https://slack.sensu.io
 [wiki]: https://github.com/sensu/sensu-docs/wiki/Sensu-docs-style-guide

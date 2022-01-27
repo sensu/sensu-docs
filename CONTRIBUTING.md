@@ -40,8 +40,8 @@ Begin by updating your local fork:
 
 ```
 $ git fetch upstream
-$ git checkout master
-$ git rebase upstream/master
+$ git checkout main
+$ git rebase upstream/main
 ```
 
 Create a new branch with a descriptive name to contain your change:
