@@ -241,7 +241,7 @@ api_version: authentication/v2
 
 metadata     | 
 -------------|------
-description  | Top-level map that contains the LDAP definition `name`. Review the [metadata attributes reference][24] for details.
+description  | Top-level map that contains the LDAP definition `name`. Review the [metadata attributes][24] for details.
 required     | true
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -326,6 +326,24 @@ spec:
     "groups_prefix": "ldap",
     "username_prefix": "ldap"
   }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+### LDAP metadata attributes
+
+| name       |      |
+-------------|------
+description  | A unique string used to identify the LDAP configuration. Names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][42]).
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: openldap
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "openldap"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -457,7 +475,7 @@ username_prefix: ldap
 
 | host       |      |
 -------------|------
-description  | LDAP server IP address or [FQDN][41].
+description  | LDAP server IP address or [fully qualified domain name (FQDN)][41].
 required     | true
 type         | String
 example      | {{< language-toggle >}}
@@ -488,6 +506,8 @@ port: 636
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="insecure-attribute"></a>
+
 | insecure   |      |
 -------------|------
 description  | Skips SSL certificate verification when set to `true`. {{% notice warning %}}
@@ -507,11 +527,13 @@ insecure: false
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="security-attribute"></a>
+
 | security   |      |
 -------------|------
 description  | Determines the encryption type to be used for the connection to the LDAP server: `insecure` (unencrypted connection; not recommended for production), `tls` (secure encrypted connection), or `starttls` (unencrypted connection upgrades to a secure connection).
 type         | String
-default      | `"tls"`
+default      | `tls`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 security: tls
@@ -571,9 +593,11 @@ client_key_file: /path/to/ssl/key.pem
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="binding-attribute"></a>
+
 | binding    |      |
 -------------|------
-description  | The LDAP account that performs user and group lookups. If your server supports anonymous binding, you can omit the `user_dn` or `password` attributes to query the directory without credentials.
+description  | The LDAP account that performs user and group lookups. If your server supports anonymous binding, you can omit the `user_dn` or `password` attributes to query the directory without credentials. Review the [binding attributes][43] for details.
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
@@ -616,6 +640,8 @@ group_search:
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+<a id="user-search-attribute"></a>
 
 | user_search |     |
 -------------|------
@@ -699,7 +725,7 @@ base_dn: dc=acme,dc=org
 description  | Used for comparing result entries. Combined with other filters as <br> `"(<Attribute>=<value>)"`.
 required     | false
 type         | String
-default      | `"member"`
+default      | `member`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 attribute: member
@@ -711,12 +737,14 @@ attribute: member
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="name-attribute-attribute"></a>
+
 | name_attribute |  |
 -------------|------
 description  | Represents the attribute to use as the entry name.
 required     | false
 type         | String
-default      | `"cn"`
+default      | `cn`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 name_attribute: cn
@@ -733,7 +761,7 @@ name_attribute: cn
 description  | Identifies the class of objects returned in the search result. Combined with other filters as `"(objectClass=<ObjectClass>)"`.
 required     | false
 type         | String
-default      | `"groupOfNames"`
+default      | `groupOfNames`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 object_class: groupOfNames
@@ -768,7 +796,7 @@ base_dn: dc=acme,dc=org
 description  | Used for comparing result entries. Combined with other filters as <br> `"(<Attribute>=<value>)"`.
 required     | false
 type         | String
-default      | `"uid"`
+default      | `uid`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 attribute: uid
@@ -785,7 +813,7 @@ attribute: uid
 description  | Represents the attribute to use as the entry name
 required     | false
 type         | String
-default      | `"cn"`
+default      | `cn`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 name_attribute: cn
@@ -802,7 +830,7 @@ name_attribute: cn
 description  | Identifies the class of objects returned in the search result. Combined with other filters as `"(objectClass=<ObjectClass>)"`.
 required     | false
 type         | String
-default      | `"person"`
+default      | `person`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 object_class: person
@@ -814,93 +842,75 @@ object_class: person
 {{< /code >}}
 {{< /language-toggle >}}
 
-### LDAP metadata attributes
-
-| name       |      |
--------------|------
-description  | A unique string used to identify the LDAP configuration. Names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][42]).
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-name: openldap
-{{< /code >}}
-{{< code json >}}
-{
-  "name": "openldap"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 ## LDAP troubleshooting
 
 To troubleshoot any issue with LDAP authentication, start by [increasing the log verbosity][3] of sensu-backend to the [debug log level][5].
 Most authentication and authorization errors are only displayed on the debug log level to avoid flooding the log files.
 
 {{% notice note %}}
-**NOTE**: If you can't locate any log entries referencing LDAP authentication, make sure the LDAP provider was successfully installed using [sensuctl](../#manage-authentication-providers).
+**NOTE**: If you can't locate any log entries referencing LDAP authentication, make sure that you successfully installed the LDAP provider with [sensuctl](../sso/#manage-authentication-providers).
 {{% /notice %}}
 
-### Authentication errors
+### Authentication
 
-This section lists common error messages and possible solutions.
+This section lists common authentication error messages and describes possible solutions for each of them.
 
-**Error message**: `failed to connect: LDAP Result Code 200 "Network Error"`
+#### `failed to connect: LDAP Result Code 200 "Network Error"`
 
 The LDAP provider couldn't establish a TCP connection to the LDAP server.
 Verify the `host` and `port` attributes.
-If you are not using LDAP over TLS/SSL, make sure to set the value of the `security` attribute to `"insecure"` for plaintext communication.
+If you are not using LDAP over TLS/SSL, make sure to set the value of the [`security` attribute][10] to `insecure` for plaintext communication.
 
-**Error message**: `certificate signed by unknown authority`
+#### `certificate signed by unknown authority`
 
-If you are using a self-signed certificate, make sure to set the `insecure` attribute to `true`.
+If you are using a self-signed certificate, make sure to set the [`insecure` attribute][11] to `true`.
 This will bypass verification of the certificate's signing authority.
 
-**Error message**: `failed to bind: ...`
+#### `failed to bind: ...`
 
-The first step for authenticating a user with the LDAP provider is to bind to the LDAP server using the service account specified in the [`binding` object][43].
-Make sure the `user_dn` specifies a valid **DN** and that its password is correct.
+The first step for authenticating a user with the LDAP provider is to bind to the LDAP server using the service account specified in the [`binding` object][14].
+Make sure the [`user_dn` attribute][43] specifies a valid **DN** and that its password is correct.
 
-**Error message**: `user <username> was not found`
+#### `user <username> was not found`
 
 The user search failed.
 No user account could be found with the given username.
-Check the [`user_search` object][22] and make sure that:
+Check the [`user_search` object][15] and make sure that:
 
 - The specified `base_dn` contains the requested user entry DN
 - The specified `attribute` contains the _username_ as its value in the user entry
 - The `object_class` attribute corresponds to the user entry object class
 
-**Error message**: `ldap search for user <username> returned x results, expected only 1`
+#### `ldap search for user <username> returned x results, expected only 1`
 
 The user search returned more than one user entry, so the provider could not determine which of these entries to use.
-Change the [`user_search` object][22] so the provided `username` can be used to uniquely identify a user entry.
+Change the [`user_search` object][15] so the provided `username` can be used to uniquely identify a user entry.
 Here are two methods to try:
 
 - Adjust the `attribute` so its value (which corresponds to the `username`) is unique among the user entries
 - Adjust the `base_dn` so it only includes one of the user entries
 
-**Error message**: `ldap entry <DN> missing required attribute <name_attribute>`
+#### `ldap entry <DN> missing required attribute <name_attribute>`
 
-The user entry returned (identified by `<DN>`) doesn't include the attribute specified by [`name_attribute` object][22], so the LDAP provider could not determine which attribute to use as the username in the user entry.
+The user entry returned (identified by `<DN>`) doesn't include the attribute specified by [`name_attribute` object][9], so the LDAP provider could not determine which attribute to use as the username in the user entry.
 Adjust the `name_attribute` so it specifies a human-readable name for the user. 
 
-**Error message**: `ldap group entry <DN> missing <name_attribute> and cn attributes`
+#### `ldap group entry <DN> missing <name_attribute> and cn attributes`
 
-The group search returned a group entry (identified by `<DN>`) that doesn't have the [`name_attribute` attribute][21] or a `cn` attribute, so the LDAP provider could not determine which attribute to use as the group name in the group entry.
+The group search returned a group entry (identified by `<DN>`) that doesn't have the [`name_attribute` object][9] or a `cn` attribute, so the LDAP provider could not determine which attribute to use as the group name in the group entry.
 Adjust the `name_attribute` so it specifies a human-readable name for the group.
 
-### Authorization issues
+### Authorization
 
 Once authenticated, each user needs to be granted permissions via either a `ClusterRoleBinding` or a `RoleBinding`.
 
-The way LDAP users and LDAP groups can be referred as subjects of a cluster role or role binding depends on the `groups_prefix` and `username_prefix` configuration attributes values of the [LDAP provider][39].
+The way LDAP users and LDAP groups can be referred as subjects of a cluster role or role binding depends on the [`groups_prefix`][16] and [`username_prefix`][17] configuration attributes values of the LDAP provider.
 For example, for the groups_prefix `ldap` and the group `dev`, the resulting group name in Sensu is `ldap:dev`.
 
-**Issue**: Permissions are not granted via the LDAP group(s)
+#### Permissions are not granted via the LDAP group(s)
 
-During authentication, the LDAP provider will print in the logs all groups found in LDAP (for example, `found 1 group(s): [dev]`.
-Keep in mind that this group name does not contain the `groups_prefix` at this point.
+During authentication, the LDAP provider will print all groups found in LDAP (for example, `found 1 group(s): [dev]`) in the logs.
+Keep in mind that this group name does not contain the [`groups_prefix`][16] at this point.
 
 The Sensu backend logs each attempt made to authorize an RBAC request.
 This is useful for determining why a specific binding didn't grant the request.
@@ -921,8 +931,15 @@ For example:
 [6]: ../../../commercial/
 [7]: https://www.openldap.org/
 [8]: ../../../api/
+[9]: #name-attribute-attribute
+[10]: #security-attribute
+[11]: #insecure-attribute
 [12]: ../sso/
 [13]: ../rbac#role-bindings-and-cluster-role-bindings
+[14]: #binding-attribute
+[15]: #user-search-attribute
+[16]: #groups-prefix
+[17]: #username-prefix
 [21]: #ldap-group-search-attributes
 [22]: #ldap-user-search-attributes
 [24]: #ldap-metadata-attributes
