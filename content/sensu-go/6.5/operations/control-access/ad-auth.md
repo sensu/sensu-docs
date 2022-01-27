@@ -894,7 +894,7 @@ To troubleshoot any issue with AD authentication, start by [increasing the log v
 Most authentication and authorization errors are only displayed on the debug log level to avoid flooding the log files.
 
 {{% notice note %}}
-**NOTE**: If you can't locate any log entries referencing AD authentication, make sure that you successfully installed the AD provider with [sensuctl](../sso/#manage-authentication-providers).
+**NOTE**: If you can't locate any log entries referencing AD authentication, run [sensuctl auth list](../sso/#manage-authentication-providers) to make sure that you successfully installed the AD provider.
 {{% /notice %}}
 
 ### Authentication

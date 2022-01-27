@@ -848,7 +848,7 @@ To troubleshoot any issue with LDAP authentication, start by [increasing the log
 Most authentication and authorization errors are only displayed on the debug log level to avoid flooding the log files.
 
 {{% notice note %}}
-**NOTE**: If you can't locate any log entries referencing LDAP authentication, make sure that you successfully installed the LDAP provider with [sensuctl](../sso/#manage-authentication-providers).
+**NOTE**: If you can't locate any log entries referencing LDAP authentication, run [sensuctl auth list](../sso/#manage-authentication-providers) to make sure that you successfully installed the LDAP provider.
 {{% /notice %}}
 
 ### Authentication

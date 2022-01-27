@@ -30,7 +30,7 @@ Use `sensuctl auth list` to verify that only one authentication provider of type
 If more than one OIDC auth provider configuration is listed, use `sensuctl auth delete $NAME` to remove the extra OIDC configurations by name.
 {{% /notice %}}
 
-## OIDC configuration examples
+## OIDC configuration example
 
 {{< language-toggle >}}
 
@@ -57,26 +57,26 @@ spec:
 
 {{< code json >}}
 {
-   "type": "oidc",
-   "api_version": "authentication/v2",
-   "metadata": {
-      "name": "oidc_name"
-   },
-   "spec": {
-      "additional_scopes": [
-         "groups",
-         "email"
-      ],
-      "client_id": "a8e43af034e7f2608780",
-      "client_secret": "b63968394be6ed2edb61c93847ee792f31bf6216",
-      "disable_offline_access": false,
-      "redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback",
-      "server": "https://oidc.example.com:9031",
-      "groups_claim": "groups",
-      "groups_prefix": "oidc:",
-      "username_claim": "email",
-      "username_prefix": "oidc:"
-   }
+  "type": "oidc",
+  "api_version": "authentication/v2",
+  "metadata": {
+    "name": "oidc_name"
+  },
+  "spec": {
+    "additional_scopes": [
+      "groups",
+      "email"
+    ],
+    "client_id": "a8e43af034e7f2608780",
+    "client_secret": "b63968394be6ed2edb61c93847ee792f31bf6216",
+    "disable_offline_access": false,
+    "redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback",
+    "server": "https://oidc.example.com:9031",
+    "groups_claim": "groups",
+    "groups_prefix": "oidc:",
+    "username_claim": "email",
+    "username_prefix": "oidc:"
+  }
 }
 {{< /code >}}
 
@@ -183,16 +183,16 @@ spec:
 
 | name       |      |
 -------------|------
-description  | A unique string used to identify the OIDC configuration. The `metadata.name` cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][42]).
+description  | A unique string used to identify the OIDC configuration. The name cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][42]).<br><br>The name you choose will be used in the web UI message for OIDC sign-in: `SIGN-IN WITH <name>`.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: oidc_name
+name: oidc_provider
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "oidc_name"
+  "name": "oidc_provider"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -226,8 +226,8 @@ additional_scopes:
 
 | client_id  |      |
 -------------|------
-description  | The OIDC provider application `Client ID`. {{% notice note %}}
-**NOTE**: Requires [registering an application in the OIDC provider](#register-an-oidc-application).
+description  | The OIDC provider application client ID. {{% notice note %}}
+**NOTE**: Register an application in the OIDC provider to generate a client ID. Read [register an Okta application](#register-an-okta-application) for an example.
 {{% /notice %}}
 required     | true
 type         | String
@@ -244,8 +244,8 @@ client_id: 1c9ae3e6f3cc79c9f1786fcb22692d1f
 
 | client_secret  |      |
 -------------|------
-description  | The OIDC provider application `Client Secret`. {{% notice note %}}
-**NOTE**: Requires [registering an application in the OIDC provider](#register-an-oidc-application).
+description  | The OIDC provider application client secret. {{% notice note %}}
+**NOTE**: Register an application in the OIDC provider to generate a client ID. Read [register an Okta application](#register-an-okta-application) for an example.
 {{% /notice %}}
 required     | true
 type         | String
@@ -276,6 +276,8 @@ disable_offline_access: false
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+<a id="redirect-uri-attribute"></a>
 
 | redirect_uri |   |
 -------------|------
@@ -312,6 +314,8 @@ server: https://sensu.oidc.provider.example.com
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+<a id="groups-claim-attribute"></a>
 
 | groups_claim |   |
 -------------|------
@@ -354,11 +358,11 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-username_claim: person
+username_claim: email
 {{< /code >}}
 {{< code json >}}
 {
-  "username_claim": "person"
+  "username_claim": "email"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -379,68 +383,124 @@ username_prefix: 'okta:'
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Register an OIDC application
+## Register an Okta application
 
-To use OIDC for authentication, register Sensu Go as an OIDC application.
-Use the instructions listed in this section to register an OIDC application for Sensu Go based on your OIDC provider.
+To use Okta for authentication, register Sensu Go as an OIDC web application.
+Before you start, install Sensu Go with a valid commercial license and make sure you have access to the Okta Administrator Dashboard.
 
-- [Okta](#okta)
+Follow the steps in this section to create an Okta application and configure an Okta OIDC provider in Sensu.
 
-### Okta
-
-#### Requirements
-
-- Access to the Okta Administrator Dashboard
-- Sensu Go with a valid commercial license
-
-#### Create an Okta application
+### Create an Okta application
 
 {{% notice note %}}
-**NOTE**: These instructions are based on the Okta Classic UI.
-The steps may be different if you are using the Okta Developer Console.
+**NOTE**: These instructions are based on the Okta Developer Console.
+The steps may be different if you are using the Okta Classic UI.
 {{% /notice %}}
 
-1. In the Okta Administrator Dashboard, start the wizard:<br>select `Applications` > `Add Application` > `Create New App`.
-2. In the *Platform* dropdown, select `Web`.
-3. In the *Sign on method* section, select `OpenID Connect`.
-4. Click **Create**.
-5. In the *Create OpenID Connect Integration* window:
-   - *GENERAL SETTINGS* section: in the *Application name* field, enter the app name.
+1. In the Okta Admin Console, navigate to *Applications*: click `Applications` > `Applications`.
+2. Click **Create App Integration**.
+3. In the *Create a new app integration* modal window:
+    - Select the sign-in method `OIDC - OpenID Connect`.
+    - Select the application type `Web Application`.
+4. Click **Next**.
+5. In the *New Web App Integration* wizard:
+    - In the *App integration name* field, enter the app name.
 You can also upload a logo if desired.
-   - *CONFIGURE OPENID CONNECT* section: in the *Login redirect URIs* field, enter `<api_url>/api/enterprise/authentication/v2/oidc/callback`.
+    - Under *Grant type*, click to select `Refresh Token` in the *Client acting on behalf of a user* list.
+    - In the *Sign-in redirect URIs* field, enter `<api_url>/api/enterprise/authentication/v2/oidc/callback`.
     Replace `<api_url>` with your API URL, including the API [port][5] 8080.
+    - Under *Assignments*, click to select `Skip group assignment for now`.
 6. Click **Save**.
-7. Select the *General* tab and click **Edit**.
-8. In the *Allowed grant types* section, click to select the box next to **Refresh Token**.
-9. Click **Save**.
-10. Select the *Sign On* tab.
-11. In the *OpenID Connect ID Token* section, click **Edit**.
-12. In the *Groups claim filter* section:
+7. Select the *Sign On* tab, scroll to the *OpenID Connect ID Token* section, and click **Edit**.
+8. In the *Groups claim filter* section:
     - In the first field, enter `groups`
-    - In the dropdown menu, select `matches regex`
+    - In the dropdown menu, select `Matches regex`
     - In the second field, enter `.*`
-13. Click **Save**.
-14. (Optional) Select the *Assignments* tab to assign people and groups to your app.
+9. Click **Save**.
+10. Select the *Assignments* tab and assign people and groups to your app.
 
-#### OIDC provider configuration
+### Configure an Okta OIDC provider
 
-1. Add the `additional_scopes` configuration attribute in the [OIDC scope][25] and set the value to `[ "groups" ]`:
-   - `"additional_scopes": [ "groups" ]`
+To create your `okta` OIDC provider in Sensu:
 
-2. Add the `groups` to the `groups_claim` string.
-For example, if you have an Okta group `groups` and you set the `groups_prefix` to `okta:`, you can set up RBAC objects to mention group `okta:groups` as needed:
-   - `"groups_claim": "okta:groups" `
+1. For the `additional_scopes` configuration attribute, include `groups` and `email`.
 
-3. Add the `redirect_uri` configuration attribute in the [OIDC scope][25] and set the value to the Redirect URI configured at step 3 of [Create an Okta application][50]:
-   - `"redirect_uri": "<api_url>/api/enterprise/authentication/v2/oidc/callback"`
+2. For the `client_id` and `client_secret` values, use the *Client ID* and *Client secret*, respectively, listed under *General > Client Credentials* for your Okta application.
 
-4. Configure [authorization][3] for your OIDC users and groups by creating [roles (or cluster roles)][4] and [role bindings (or cluster role bindings)][13] that map to the user and group names.
+3. For the `redirect_uri` attribute, use the *Sign-in redirect URIs* value you entered in step 5 of [Create an Okta application][50].
+
+4. For the `server` value, use the *Okta domain* listed under *General > General Settings* in your Okta application.
+
+5. Set the `disable_offline_access` attribute to your desired value (we recommend `false`).
+
+6. Add your Okta groups to the `groups_claim` string.
+For example, if you have an Okta group `groups` and you set the `groups_prefix` to `okta:`, you can set up RBAC objects to mention group `okta:groups` as needed.
+
+7. Set the `username_claim` value to `email`. 
+
+8. Specify `groups_prefix` and `username_prefix` values if desired.
+
+Your Okta OIDC provider configuration should be similar to this example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: oidc
+api_version: authentication/v2
+metadata:
+  name: okta
+spec:
+  additional_scopes:
+  - groups
+  - email
+  client_id: 4sd5jxiwxfvg82PoZ5d7
+  client_secret: r78316494besnNCmtmEBnS47ee792f31bf6216
+  redirect_uri: http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback
+  server: https://dev-459543913.okta.com
+  disable_offline_access: false
+  groups_claim: groups
+  username_claim: email
+  groups_prefix: 'oidc:'
+  username_prefix: 'oidc:'
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "oidc",
+  "api_version": "authentication/v2",
+  "metadata": {
+    "name": "okta"
+  },
+  "spec": {
+    "additional_scopes": [
+      "groups",
+      "email"
+    ],
+    "client_id": "4sd5jxiwxfvg82PoZ5d7",
+    "client_secret": "r78316494besnNCmtmEBnS47ee792f31bf6216",
+    "redirect_uri": "http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback",
+    "server": "https://dev-459543913.okta.com",
+    "disable_offline_access": false,
+    "groups_claim": "groups",
+    "username_claim": "email",
+    "groups_prefix": "oidc:",
+    "username_prefix": "oidc:"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Configure authorization for OIDC users
+
+Configure [authorization][3] via role-based access control (RBAC) for your OIDC users and groups by creating [roles (or cluster roles)][4] and [role bindings (or cluster role bindings)][13] that map to the user and group names.
 
    {{% notice note %}}
 **NOTE**: If you do not configure authorization, users will be able to log in with OIDC but will have no permissions by default.
 {{% /notice %}}
 
-#### Sensuctl login with OIDC
+## Use sensuctl to login with OIDC
 
 1. Run `sensuctl login oidc`.
 
@@ -448,10 +508,54 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
 **NOTE**: You can also use [`sensuctl configure`](../../../sensuctl/#first-time-setup-and-authentication) and choose the OIDC authentication method to log in to sensuctl with OIDC.
 {{% /notice %}}
 
-2. If you are using a desktop, a browser will open to `OIDC provider` and allow you to authenticate and log in.
+2. If you are using a desktop, a browser will open to allow you to authenticate and log in.
 If a browser does not open, launch a browser to complete the login via your OIDC provider at:
 
-    - https://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/authorize
+    - https://<api_url>:8080/api/enterprise/authentication/v2/oidc/authorize
+
+## OIDC troubleshooting
+
+This section lists common OIDC errors and describes possible solutions for each of them.
+
+To troubleshoot any issue with OIDC authentication, start by [increasing the log verbosity][3] of sensu-backend to the [debug log level][5].
+Most authentication and authorization errors are only displayed on the debug log level to avoid flooding the log files.
+
+{{% notice note %}}
+**NOTE**: If you can't locate any log entries referencing OIDC authentication, run [sensuctl auth list](../sso/#manage-authentication-providers) to make sure that you successfully installed the OIDC provider.
+{{% /notice %}}
+
+For provider-specific troubleshooting, read the [Okta][14] or [PingFederate][15] documentation.
+
+### `bad request`
+
+After configuring OIDC access, if you receive a `bad request` error when you open the web UI, you may be using an incorrect port in the redirect URI.
+
+Make sure the redirect URI uses the API port, `8080`.
+Confirm that the redirect URI specified in your OIDC provider as well as in the [`redirect_uri` attribute][9] in your Sensu OIDC definition both use port `8080`.
+For example, the URL `http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback` uses the correct port.
+
+### `could not find the groups claim in the user's claims`
+
+If you see the following error when you open the web UI, the [`groups_claim`][10] value in your Sensu OIDC definition is incorrect:
+
+{{< code shell >}}
+{"message":"could not find the groups claim \"okta:groups\" in the user's claims: [\"sub\" \"email\" \"email_verified\"]","code":0}
+{{< /code >}}
+
+Update your OIDC definition to specify `groups` as the value for the [`groups_claim` attribute][10].
+
+### No namespaces or resources in the web UI after OIDC sign-in
+
+You must configure [RBAC authorization][3] for your OIDC users and groups by creating [roles (or cluster roles)][4] and [role bindings (or cluster role bindings)][13] that map to the user and group names.
+
+If you do not configure authorization, users will be able to log in with OIDC but will have no permissions, so they will not see any namespaces or resources in the web UI.
+
+### Inconsistent authentication
+
+If you experience inconsistent authentication with OIDC sign-in, such as being unable to sign in after previously signing in successfully, you may have configured more than one OIDC authentication provider.
+
+Run [sensuctl auth list](../sso/#manage-authentication-providers) to make sure that you have only one authentication provider listed for type `OIDC`.
+If more than one OIDC authentication provider is listed, use `sensuctl auth delete $NAME` to remove the extra OIDC configuration by name.
 
 
 [1]: ../../../web-ui/
@@ -462,8 +566,12 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [6]: ../../../commercial/
 [7]: ../#use-built-in-basic-authentication
 [8]: ../../../api/
+[9]: #redirect-uri-attribute
+[10]: #groups-claim-attribute
 [12]: ../sso/
 [13]: ../rbac#role-bindings-and-cluster-role-bindings
+[14]: https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/trouble-shooting-guide.htm
+[15]: https://docs.pingidentity.com/bundle/pingfederate-110/page/age1564003028292.html
 [17]: ../rbac#namespaced-resource-types
 [18]: ../rbac#cluster-wide-resource-types
 [19]: ../../maintain-sensu/troubleshoot#log-levels
