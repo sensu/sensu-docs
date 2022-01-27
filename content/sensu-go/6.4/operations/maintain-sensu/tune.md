@@ -47,6 +47,21 @@ Adjust the parameters and settings as needed based on your hardware and performa
 
 Read the [PostgreSQL parameters documentation][5] for information about setting parameters.
 
+## Agent reconnection rate
+
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access the agent-rate-limit backend configuration flag in the packaged Sensu Go distribution. For more information, read [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
+
+It may take several minutes for all agents to reconnect after a sensu-backend restart, especially if you have a large number of agents.
+The agent reconnection rate depends on deployment variables like the number of CPUs, disk space, network speeds, whether you're using a load balancer, and even physical distance between agents and backends.
+
+Although many variables affect the agent reconnection rate, a reasonable estimate is approximately 100 agents per backend per second.
+If you observe slower agent reconnection rates in your Sensu deployment, consider using the [agent-rate-limit][14] backend configuration flag.
+
+The [agent-rate-limit][14] backend configuration flag allows you to set the maximum number of agent transport WebSocket connections per second, per backend.
+Set the agent-rate-limit to 100 to improve agent reconnection rate and reduce the time required for all of your agents to reconnect after a backend restart.
+
 ## Splay and proxy check scheduling
 
 Adjust the [`splay`][7] and [`splay_coverage`][8] check attributes to tune proxy check executions across an interval.
@@ -77,3 +92,4 @@ Use the [`occurrences` and `occurrences_watermark` event attributes][6] in event
 [11]: ../../../observability-pipeline/observe-schedule/backend/#advanced-configuration-options
 [12]: ../../deploy-sensu/hardware-requirements/#backend-recommended-configuration 
 [13]: ../../deploy-sensu/deployment-architecture/#hardware-sizing
+[14]: ../../../observability-pipeline/observe-schedule/backend/#agent-rate-limit
