@@ -82,7 +82,7 @@ cat << EOF | sensuctl create
 type: SumoLogicMetricsHandler
 api_version: pipeline/v1
 metadata:
-  name: sumologic_http_log_metrics
+  name: sumo_logic_http_metrics
 spec:
   url: "https://collectors.sumologic.com/receiver/v1/http/xxxxxxxx"
   max_connections: 10
@@ -96,7 +96,7 @@ cat << EOF | sensuctl create
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
   "metadata": {
-    "name": "sumologic_http_log_metrics"
+    "name": "sumo_logic_http_metrics"
   },
   "spec": {
     "url": "https://collectors.sumologic.com/receiver/v1/http/xxxxxxxx",
@@ -120,7 +120,7 @@ cat << EOF | sensuctl create
 type: SumoLogicMetricsHandler
 api_version: pipeline/v1
 metadata:
-  name: sumologic_http_log_metrics
+  name: sumo_logic_http_metrics
 spec:
   url: $SUMO_LOGIC_SOURCE_URL
   secrets:
@@ -137,7 +137,7 @@ cat << EOF | sensuctl create
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
   "metadata": {
-    "name": "sumologic_http_log_metrics"
+    "name": "sumo_logic_http_metrics"
   },
   "spec": {
     "url": "$SUMO_LOGIC_SOURCE_URL",
