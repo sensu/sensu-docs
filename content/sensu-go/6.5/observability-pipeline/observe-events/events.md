@@ -317,7 +317,7 @@ spec:
 ### Example status-only event from the Sensu API
 
 Sensu sends events to the backend in `json` format, without the outer-level `spec` wrapper or `type` and `api_version` attributes that are included in the `wrapped-json` format.
-This is the format that events are in when Sensu sends them to handlers:
+This is the format that events are in when Sensu sends them to the observability pipeline for processing:
 
 {{< code json >}}
 {
@@ -831,12 +831,11 @@ spec:
 {{< /language-toggle >}}
 
 Metrics data points are not included in events retrieved with sensuctl event info &mdash; those events include check output text rather than a set of metrics points.
-To view metrics points data as shown in the following example, add a [debug handler][46] that prints events to a JSON file:
+To view metrics points data as shown in the following example, create a [pipeline][44] workflow that includes a [debug handler][46] that prints events to a JSON file:
 
 {{< code json >}}
 {
   "metrics": {
-    "handlers": null,
     "points": [
       {
         "name": "system_cpu_sortirq",
@@ -1340,7 +1339,13 @@ To view metrics points data as shown in the following example, add a [debug hand
   },
   "id": "afdeb823-74c2-4921-891a-465a2095cb5a",
   "sequence": 6,
-  "pipelines": null,
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "debug_pipeline"
+    }
+  ],
   "timestamp": 1635952536,
   "entity": {
     "entity_class": "agent",
@@ -1411,9 +1416,7 @@ To view metrics points data as shown in the following example, add a [debug hand
   },
   "check": {
     "command": "system-check",
-    "handlers": [
-      "debug3"
-    ],
+    "handlers": [],
     "high_flap_threshold": 0,
     "interval": 10,
     "low_flap_threshold": 0,
@@ -1506,8 +1509,7 @@ spec:
     duration: 0.022274319
     env_vars: null
     executed: 1635959379
-    handlers:
-    - debug
+    handlers: null
     high_flap_threshold: 0
     history:
     - executed: 1635952820
@@ -1607,7 +1609,10 @@ spec:
       vm_system: vbox
     user: agent
   id: 12545deb-0e0f-480f-addf-34545d5a01c6
-  pipelines: null
+  pipelines:
+  - type: Pipeline
+    api_version: core/v2
+    name: status_and_metrics_pipeline
   sequence: 5
   timestamp: 1635952880
 {{< /code >}}
@@ -1626,9 +1631,7 @@ spec:
       "duration": 0.022274319,
       "env_vars": null,
       "executed": 1635959379,
-      "handlers": [
-        "debug"
-      ],
+      "handlers": null,
       "high_flap_threshold": 0,
       "history": [
         {
@@ -1757,7 +1760,13 @@ spec:
       "user": "agent"
     },
     "id": "12545deb-0e0f-480f-addf-34545d5a01c6",
-    "pipelines": null,
+    "pipelines": [
+      {
+        "type": "Pipeline",
+        "api_version": "core/v2",
+        "name": "status_and_metrics_pipeline"
+      }
+    ],
     "sequence": 5,
     "timestamp": 1635952880
   }
@@ -1767,7 +1776,7 @@ spec:
 {{< /language-toggle >}}
 
 Metrics data points are not included in events retrieved with sensuctl event info &mdash; those events include check output text rather than a set of metrics points.
-To view metrics points data as shown in the following example, add a [debug handler][46] that prints events to a JSON file:
+To view metrics points data as shown in the following example, create a [pipeline][44] workflow that includes a [debug handler][46] that prints events to a JSON file:
 
 {{< code json >}}
 {
@@ -1842,9 +1851,7 @@ To view metrics points data as shown in the following example, add a [debug hand
   },
   "check": {
     "command": "http-check --url http://localhost \\u0026\\u0026 http-perf --url http://localhost --warning 1s --critical 2s",
-    "handlers": [
-      "debug"
-    ],
+    "handlers": [],
     "high_flap_threshold": 0,
     "interval": 15,
     "low_flap_threshold": 0,
@@ -1908,7 +1915,6 @@ To view metrics points data as shown in the following example, add a [debug hand
     "pipelines": []
   },
   "metrics": {
-    "handlers": null,
     "points": [
       {
         "name": "dns_duration",
@@ -1947,7 +1953,13 @@ To view metrics points data as shown in the following example, add a [debug hand
   },
   "id": "7cde3e3f-beee-408f-b89a-1edccd0d3edb",
   "sequence": 5,
-  "pipelines": null,
+  "pipelines": [
+    {
+      "type": "Pipeline",
+      "api_version": "core/v2",
+      "name": "debug_pipeline"
+    }
+  ],
   "timestamp": 1635952880
 }
 {{< /code >}}
@@ -1964,12 +1976,12 @@ Sensu agents can also act as a collector for metrics throughout your infrastruct
 - [Create events using the agent TCP and UDP sockets][12]
 - [Create events using the StatsD listener][13]
 
-## Create events using the events API
+## Create events with the core/v2/events API endpoints
 
-You can send events directly to the Sensu observability pipeline using the [events API][16].
-To create an event, send a JSON event definition to the [events API PUT endpoint][14].
+You can send events directly to the Sensu observability pipeline using the [core/v2 API events endpoint][16].
+To create an event, send a JSON event definition with a [PUT request to core/v2/events][14].
 
-If you use the events API to create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity in the same namespace when the event is published.
+If you use the core/v2/events API to create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity in the same namespace when the event is published.
 
 {{% notice note %}}
 **NOTE**: An agent cannot belong to, execute checks in, or create events in more than one namespace. 
@@ -1977,7 +1989,7 @@ If you use the events API to create a new event referencing an entity that does 
 
 ## Manage events
 
-You can manage events using the [Sensu web UI][15], [events API][16], and [sensuctl][17] command line tool.
+You can manage events using the [Sensu web UI][15], [core/v2/events API endpoints][16], and [sensuctl][17] command line tool.
 
 ### View events
 
@@ -2000,7 +2012,7 @@ sensuctl event info <entity-name> <check-name>
 With both the `list` and `info` commands, you can specify an [output format][18] using the `--format` flag:
 
 - `yaml` or `wrapped-json` formats for use with [`sensuctl create`][8]
-- `json` format for use with the [events API][16]
+- `json` format for use with [core/v2/events API endpoints][16]
 
 {{< language-toggle >}}
 {{< code shell "YML" >}}
@@ -2236,8 +2248,6 @@ spec:
       sensu-go.curl_timings.time_total 0.005 1552506033
       sensu-go.curl_timings.time_namelookup 0.004
     output_metric_format: graphite_plaintext
-    output_metric_handlers:
-    - influx-db
     proxy_entity_name: ''
     publish: true
     round_robin: false
@@ -2292,8 +2302,6 @@ spec:
       processes:
     user: agent
   metrics:
-    handlers:
-    - influx-db
     points:
     - name: sensu-go.curl_timings.time_total
       tags: []
@@ -2303,6 +2311,10 @@ spec:
       tags: []
       timestamp: 1552506033
       value: 0.004
+  pipelines:
+  - type: Pipeline
+    api_version: core/v2
+    name: status_and_metrics_pipeline
   timestamp: 1552506033
   id: 431a0085-96da-4521-863f-c38b480701e9
   sequence: 1
@@ -2345,9 +2357,6 @@ spec:
       ],
       "output": "sensu-go.curl_timings.time_total 0.005 1552506033\nsensu-go.curl_timings.time_namelookup 0.004",
       "output_metric_format": "graphite_plaintext",
-      "output_metric_handlers": [
-        "influx-db"
-      ],
       "proxy_entity_name": "",
       "publish": true,
       "round_robin": false,
@@ -2417,9 +2426,6 @@ spec:
       "user": "agent"
     },
     "metrics": {
-      "handlers": [
-        "influx-db"
-      ],
       "points": [
         {
           "name": "sensu-go.curl_timings.time_total",
@@ -2435,6 +2441,13 @@ spec:
         }
       ]
     },
+    "pipelines": [
+      {
+        "type": "Pipeline",
+        "api_version": "core/v2",
+        "name": "status_and_metrics_pipeline"
+      }
+    ],
     "timestamp": 1552506033,
     "id": "431a0085-96da-4521-863f-c38b480701e9",
     "sequence": 1
@@ -2535,7 +2548,7 @@ name: is_incident
 
 |timestamp   |      |
 -------------|------
-description  | Time that the event occurred. In seconds since the Unix epoch.<br><br>Sensu automatically populates the timestamp value for the event. For events created via the [events API][35], you can specify a `timestamp` value in the request body.
+description  | Time that the event occurred. In seconds since the Unix epoch.<br><br>Sensu automatically populates the timestamp value for the event. For events created with the [core/v2/events API][35], you can specify a `timestamp` value in the request body.
 required     | false
 type         | Integer
 default      | Time that the event occurred
@@ -2570,7 +2583,7 @@ id: 431a0085-96da-4521-863f-c38b480701e9
 
 sequence     |      |
 -------------|------
-description  | Event sequence number. The Sensu agent sets the sequence to 1 at startup, then increments the sequence by 1 for every successive check execution or keepalive event. If the agent restarts or reconnects to another backend, the sequence value resets to 1.<br><br>A sequence value of 0 indicates that an outdated or non-conforming agent generated the event.<br><br>Sensu only increments the sequence for agent-executed events. Sensu does not update the sequence for events created with the [events API][35].
+description  | Event sequence number. The Sensu agent sets the sequence to 1 at startup, then increments the sequence by 1 for every successive check execution or keepalive event. If the agent restarts or reconnects to another backend, the sequence value resets to 1.<br><br>A sequence value of 0 indicates that an outdated or non-conforming agent generated the event.<br><br>Sensu only increments the sequence for agent-executed events. Sensu does not update the sequence for events created with the [core/v2/events API][35].
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -2586,7 +2599,7 @@ sequence: 1
 
 |entity      |      |
 -------------|------
-description  | [Entity attributes][2] from the originating entity (agent or proxy).<br><br>For events created with the [events API][35], if the event's entity does not already exist, the sensu-backend automatically creates a proxy entity when the event is published.
+description  | [Entity attributes][2] from the originating entity (agent or proxy).<br><br>For events created with the [core/v2/events API][35], if the event's entity does not already exist, the sensu-backend automatically creates a proxy entity when the event is published.
 type         | Map
 required     | true
 example      | {{< language-toggle >}}
@@ -2727,8 +2740,6 @@ check:
   - webserver:*
   output: sensu-go.curl_timings.time_total 0.005
   output_metric_format: graphite_plaintext
-  output_metric_handlers:
-  - influx-db
   proxy_entity_name: ''
   publish: true
   round_robin: false
@@ -2780,9 +2791,6 @@ check:
     ],
     "output": "sensu-go.curl_timings.time_total 0.005",
     "output_metric_format": "graphite_plaintext",
-    "output_metric_handlers": [
-      "influx-db"
-    ],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
@@ -2812,8 +2820,6 @@ required     | false
 example      | {{< language-toggle >}}
 {{< code yml >}}
 metrics:
-  handlers:
-  - influx-db
   points:
   - name: sensu-go.curl_timings.time_total
     tags: []
@@ -2827,9 +2833,6 @@ metrics:
 {{< code json >}}
 {
   "metrics": {
-    "handlers": [
-      "influx-db"
-    ],
     "points": [
       {
         "name": "sensu-go.curl_timings.time_total",
@@ -2871,7 +2874,7 @@ duration: 1.903135228
 
 executed     |      |
 -------------|------
-description  | Time at which the check request was executed. In seconds since the Unix epoch.<br><br>The difference between a request's `issued` and `executed` values is the request latency.<br><br>For agent-executed checks, Sensu automatically populates the `executed` value. For events created with the [events API][35], the default `executed` value is `0` unless you specify a value in the request body.
+description  | Time at which the check request was executed. In seconds since the Unix epoch.<br><br>The difference between a request's `issued` and `executed` values is the request latency.<br><br>For agent-executed checks, Sensu automatically populates the `executed` value. For events created with the [core/v2/events API][35], the default `executed` value is `0` unless you specify a value in the request body.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -2916,7 +2919,7 @@ history:
 
 issued       |      |
 -------------|------
-description  | Time that the check request was issued. In seconds since the Unix epoch.<br><br>The difference between a request's `issued` and `executed` values is the request latency.<br><br>For agent-executed checks, Sensu automatically populates the `issued` value. For events created with the [events API][35], the default `issued` value is `0` unless you specify a value in the request body.
+description  | Time that the check request was issued. In seconds since the Unix epoch.<br><br>The difference between a request's `issued` and `executed` values is the request latency.<br><br>For agent-executed checks, Sensu automatically populates the `issued` value. For events created with the [core/v2/events API][35], the default `issued` value is `0` unless you specify a value in the request body.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -2932,7 +2935,7 @@ issued: 1552506033
 
 last_ok      |      |
 -------------|------
-description  | Last time that the check returned an OK status (`0`). In seconds since the Unix epoch.<br><br>For agent-executed checks, Sensu automatically populates the `last_ok` value. For events created with the [events API][35], the `last_ok` attribute will default to `0` even if you specify OK status in the request body.
+description  | Last time that the check returned an OK status (`0`). In seconds since the Unix epoch.<br><br>For agent-executed checks, Sensu automatically populates the `last_ok` value. For events created with the [core/v2/events API][35], the `last_ok` attribute will default to `0` even if you specify OK status in the request body.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -2948,7 +2951,7 @@ last_ok: 1552506033
 
 occurrences  |      |
 -------------|------
-description  | Number of preceding events with the same status as the current event (OK, WARNING, CRITICAL, or UNKNOWN). Starting at `1`, the `occurrences` attribute increments for events with the same status as the preceding event and resets whenever the status changes. Read [Use event data][31] for more information.<br><br>Sensu automatically populates the `occurrences` value. For events created with the [events API][35], Sensu overwrites any `occurences` value you specify in the request body with the correct value.
+description  | Number of preceding events with the same status as the current event (OK, WARNING, CRITICAL, or UNKNOWN). Starting at `1`, the `occurrences` attribute increments for events with the same status as the preceding event and resets whenever the status changes. Read [Use event data][31] for more information.<br><br>Sensu automatically populates the `occurrences` value. For events created with the [core/v2/events API][35], Sensu overwrites any `occurences` value you specify in the request body with the correct value.
 required     | false
 type         | Integer greater than 0
 example      | {{< language-toggle >}}
@@ -2964,7 +2967,7 @@ occurrences: 1
 
 occurrences_watermark | |
 -------------|------
-description  | For incident and resolution events, the number of preceding events with an OK status (for incident events) or non-OK status (for resolution events). The `occurrences_watermark` attribute gives you useful information when looking at events that change status between OK (`0`)and non-OK (`1`-WARNING, `2`-CRITICAL, or UNKNOWN).<br><br>Sensu resets `occurrences_watermark` to `1` whenever an event for a given entity and check transitions between OK and non-OK. Within a sequence of only OK or only non-OK events, Sensu increments `occurrences_watermark` only when the `occurrences` attribute is greater than the preceding `occurrences_watermark`. Read [Use event data][31] for more information.<br><br>Sensu automatically populates the `occurrences_watermark` value. In events created with the [events API][35], Sensu overwrites any `occurences_watermark` value you specify in the request body with the correct value.
+description  | For incident and resolution events, the number of preceding events with an OK status (for incident events) or non-OK status (for resolution events). The `occurrences_watermark` attribute gives you useful information when looking at events that change status between OK (`0`)and non-OK (`1`-WARNING, `2`-CRITICAL, or UNKNOWN).<br><br>Sensu resets `occurrences_watermark` to `1` whenever an event for a given entity and check transitions between OK and non-OK. Within a sequence of only OK or only non-OK events, Sensu increments `occurrences_watermark` only when the `occurrences` attribute is greater than the preceding `occurrences_watermark`. Read [Use event data][31] for more information.<br><br>Sensu automatically populates the `occurrences_watermark` value. For events created with the [core/v2/events API][35], Sensu overwrites any `occurences_watermark` value you specify in the request body with the correct value.
 required     | false
 type         | Integer greater than 0
 example      | {{< language-toggle >}}
@@ -3067,7 +3070,7 @@ state: passing
 
 status       |      |
 -------------|------
-description  | Exit status code produced by the check.<ul><li>`0` indicates OK</li><li>`1` indicates WARNING</li><li>`2` indicates CRITICAL</li></ul>Exit status codes other than `0`, `1`, or `2` indicate an UNKNOWN or custom status..<br><br>For agent-executed checks, Sensu automatically populates the `status` value based on the check result. For events created with the [events API][35], Sensu assumes the status is `0` (OK) unless you specify a non-zero value in the request body.
+description  | Exit status code produced by the check.<ul><li>`0` indicates OK</li><li>`1` indicates WARNING</li><li>`2` indicates CRITICAL</li></ul>Exit status codes other than `0`, `1`, or `2` indicate an UNKNOWN or custom status..<br><br>For agent-executed checks, Sensu automatically populates the `status` value based on the check result. For events created with the [core/v2/events API][35], Sensu assumes the status is `0` (OK) unless you specify a non-zero value in the request body.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -3083,7 +3086,7 @@ status: 0
 
 total_state_change | |
 -------------|------
-description  | Total state change percentage for the check's history.<br><br>For agent-executed checks, Sensu automatically populates the `total_state_change` value. For events created with the [events API][35], the `total_state_change` attribute will default to `0` even if you specify a different value or change the `status` value in the request body.
+description  | Total state change percentage for the check's history.<br><br>For agent-executed checks, Sensu automatically populates the `total_state_change` value. For events created with the [core/v2/events API][35], the `total_state_change` attribute will default to `0` even if you specify a different value or change the `status` value in the request body.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
@@ -3101,7 +3104,7 @@ total_state_change: 0
 
 executed     |      |
 -------------|------
-description  | Time at which the check request was executed. In seconds since the Unix epoch.<br><br>Sensu automatically populates the `executed` value with check execution data. For events created with the [events API][35], the `executed` default value is `0`.
+description  | Time at which the check request was executed. In seconds since the Unix epoch.<br><br>Sensu automatically populates the `executed` value with check execution data. For events created with the [core/v2/events API][35], the `executed` default value is `0`.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}

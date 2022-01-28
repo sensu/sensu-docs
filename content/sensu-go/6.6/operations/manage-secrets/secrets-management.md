@@ -41,12 +41,14 @@ The example in this guide uses the [PagerDuty][31] Integration Key as a secret a
 Here's how to find your Integration Key in PagerDuty so you can set it up as your secret:
 
 1. Log in to your PagerDuty account.
-2. In the **Configuration** drop-down menu, select **Services**.
-3. Click your Sensu service.
-4. Click the **Integrations** tab.
-The Integration Key is listed in the second column.
+2. In the **Services** drop-down menu, select **Service Directory**.
+3. Enter the name of your Sensu service in the search field.
+4. Click to select your Sensu service from the list of search results.
+5. Click the **Integrations** tab.
+6. Click the drop-down arrow for the **Events API**.
+The Integration Key is listed in the second field.
 
-{{< figure src="/images/sensu-pagerduty-integration-key.png" alt="PagerDuty Integration Key location" link="/images/sensu-pagerduty-integration-key.png" target="_blank" >}}
+{{< figure src="/images/sensu-service-pagerduty-integration-key.png" alt="PagerDuty Integration Key location" link="/images/sensu-service-pagerduty-integration-key.png" target="_blank" >}}
 
 Make a note of your Integration Key &mdash; you'll need it to create your [backend environment variable][28] or [HashiCorp Vault secret][29].
 
@@ -445,7 +447,7 @@ EOF
 
 ## Configure a pipeline
 
-Now that your handler is set up and Sensu can create incidents in PagerDuty, you can configure a [pipeline][33].
+Now that your handler is set up and Sensu can create incidents in PagerDuty, you can configure a [pipeline][33] to start receiving alerts based on the events your checks create.
 A single pipeline workflow can include one or more filters, one mutator, and one handler.
 
 In this case, the pipeline will include the built-in [is_incident][34] event filter and the `pagerduty` handler you created in the previous step.
@@ -510,8 +512,12 @@ EOF
 {{< /language-toggle >}}
 
 To automate this workflow, include the `incident_alerts` pipeline in any Sensu check definition in the check's [pipelines attribute][24].
+When you list a pipeline in a check definition, all the observability events that the check produces will be processed according to the pipeline’s [workflows][35].
 
 ## Next steps
+
+Add your pipeline to any check to start receiving PagerDuty alerts based on observability event data.
+Read [Send PagerDuty alerts with Sensu][36] for an example that shows how to edit a check definition to add a pipeline.
 
 Read the [secrets][9] or [secrets providers][2] reference for in-depth secrets management documentation.
 
@@ -544,3 +550,5 @@ Read the [secrets][9] or [secrets providers][2] reference for in-depth secrets m
 [32]: https://www.vaultproject.io/docs/auth/cert/#configuration
 [33]: ../../../observability-pipeline/observe-process/pipelines/
 [34]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-is_incident
+[35]: ../../../observability-pipeline/observe-process/pipelines/#workflows
+[36]: ../../../observability-pipeline/observe-process/send-pagerduty-alerts/#assign-the-pipeline-to-a-check

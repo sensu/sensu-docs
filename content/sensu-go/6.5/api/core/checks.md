@@ -32,9 +32,7 @@ HTTP/1.1 200 OK
 [
   {
     "command": "check-email.sh -w 75 -c 90",
-    "handlers": [
-      "slack"
-    ],
+    "handlers": [],
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
@@ -85,9 +83,7 @@ output         | {{< code shell >}}
 [
   {
     "command": "check-email.sh -w 75 -c 90",
-    "handlers": [
-      "slack"
-    ],
+    "handlers": [],
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
@@ -144,8 +140,12 @@ curl -X POST \
   ],
   "interval": 60,
   "publish": true,
-  "handlers": [
-    "slack"
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
   ],
   "metadata": {
     "name": "check-cpu",
@@ -171,8 +171,12 @@ example payload | {{< code shell >}}
   ],
   "interval": 60,
   "publish": true,
-  "handlers": [
-    "slack"
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
   ],
   "metadata": {
     "name": "check-cpu",
@@ -199,9 +203,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu \
 HTTP/1.1 200 OK
 {
   "command": "check-cpu.sh -w 75 -c 90",
-  "handlers": [
-    "slack"
-  ],
+  "handlers": [],
   "high_flap_threshold": 0,
   "interval": 60,
   "low_flap_threshold": 0,
@@ -248,9 +250,7 @@ response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (
 output               | {{< code json >}}
 {
   "command": "check-cpu.sh -w 75 -c 90",
-  "handlers": [
-    "slack"
-  ],
+  "handlers": [],
   "high_flap_threshold": 0,
   "interval": 60,
   "low_flap_threshold": 0,
@@ -300,8 +300,12 @@ curl -X PUT \
 -H 'Content-Type: application/json' \
 -d '{
   "command": "check-cpu.sh -w 75 -c 90",
-  "handlers": [
-    "slack"
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
   ],
   "interval": 60,
   "publish": true,
@@ -327,8 +331,12 @@ example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/che
 payload         | {{< code shell >}}
 {
   "command": "check-cpu.sh -w 75 -c 90",
-  "handlers": [
-    "slack"
+  "pipelines": [
+    {
+      "api_version": "core/v2",
+      "type": "Pipeline",
+      "name": "incident_alerts"
+    }
   ],
   "interval": 60,
   "publish": true,

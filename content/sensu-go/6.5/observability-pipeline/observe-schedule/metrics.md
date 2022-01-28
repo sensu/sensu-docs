@@ -24,13 +24,13 @@ Use Sensu handlers to [process extracted metrics][11] and route them to database
 You can also use Sensu's [time-series and long-term event storage integrations][18] to process service and time-series metrics.
 
 {{% notice note %}}
-**NOTE**: This reference describes the metrics component of observation data included in Sensu events, which is distinct from the Sensu metrics API.
-For information about HTTP GET access to internal Sensu metrics, read our [metrics API](../../../api/other/metrics/) documentation.
+**NOTE**: This reference describes the metrics component of observation data included in Sensu events, which is distinct from the Sensu /metrics API.
+For information about HTTP GET access to internal Sensu metrics, read our [/metrics API](../../../api/other/metrics/) documentation.
 {{% /notice %}}
 
 ## Metric check example
 
-This check definition collects metrics in Graphite Plaintext Protocol [format][9] using the [Sensu System Check][26] dynamic runtime asset and sends the collected metrics to a metrics handler configured with the [Sensu Go Graphite Handler][12] dynamic runtime asset:
+This check definition collects metrics in Graphite Plaintext Protocol [format][9] using the [Sensu System Check][26] dynamic runtime asset and sends the collected metrics to a pipeline configured with handlers that use the [Sensu Go Graphite Handler][12] dynamic runtime asset:
 
 {{< language-toggle >}}
 
@@ -44,15 +44,14 @@ spec:
   check_hooks: null
   command: system-check
   env_vars: null
-  handlers:
-  - debug
   high_flap_threshold: 0
   interval: 10
   low_flap_threshold: 0
   output_metric_format: graphite_plaintext
-  output_metric_handlers:
-  - graphite-handler
-  pipelines: []
+  pipelines:
+  - type: Pipeline
+    api_version: core/v2
+    name: graphite_workflows
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -78,17 +77,17 @@ spec:
     "check_hooks": null,
     "command": "system-check",
     "env_vars": null,
-    "handlers": [
-      "debug"
-    ],
     "high_flap_threshold": 0,
     "interval": 10,
     "low_flap_threshold": 0,
     "output_metric_format": "graphite_plaintext",
-    "output_metric_handlers": [
-      "graphite-handler"
+    "pipelines": [
+      {
+        "type": "Pipeline",
+        "api_version": "core/v2",
+        "name": "graphite_workflows"
+      }
     ],
-    "pipelines": [],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
@@ -118,6 +117,9 @@ The [example metric check][6] will produce events similar to this metric event:
 {{< code yml >}}
 ---
 pipelines:
+- type: Pipeline
+  api_version: core/v2
+  name: graphite_workflows
 timestamp: 1635270402
 entity:
   entity_class: agent
@@ -172,8 +174,6 @@ entity:
   sensu_agent_version: 6.5.1
 check:
   command: system-check
-  handlers:
-  - debug
   high_flap_threshold: 0
   interval: 10
   low_flap_threshold: 0
@@ -300,8 +300,6 @@ check:
   occurrences: 5
   occurrences_watermark: 5
   output_metric_format: graphite_plaintext
-  output_metric_handlers:
-  - graphite-handler
   env_vars:
   metadata:
     name: collect-system-metrics
@@ -310,10 +308,7 @@ check:
   is_silenced: false
   scheduler: memory
   processed_by: sensu-centos
-  pipelines: []
 metrics:
-  handlers:
-  - graphite-handler
   points:
   - name: system_cpu_cores{}
     value: 1
@@ -471,7 +466,13 @@ sequence: 5
 
 {{< code json >}}
 {
-  "pipelines": null,
+  "pipelines": [
+    {
+      "type": "Pipeline",
+      "api_version": "core/v2",
+      "name": "graphite_workflows"
+    }
+  ],
   "timestamp": 1635270402,
   "entity": {
     "entity_class": "agent",
@@ -542,9 +543,6 @@ sequence: 5
   },
   "check": {
     "command": "system-check",
-    "handlers": [
-      "debug"
-    ],
     "high_flap_threshold": 0,
     "interval": 10,
     "low_flap_threshold": 0,
@@ -587,7 +585,7 @@ sequence: 5
       }
     ],
     "issued": 1635270399,
-    "output": "# HELP system_cpu_cores [GAUGE] Number of cpu cores on the system\n# TYPE system_cpu_cores GAUGE\nsystem_cpu_cores{} 1 1635270399219\n# HELP system_cpu_idle [GAUGE] Percent of time all cpus were idle\n# TYPE system_cpu_idle GAUGE\nsystem_cpu_idle{cpu=\"cpu0\"} 99.32885906040329 1635270399219\nsystem_cpu_idle{cpu=\"cpu-total\"} 99.32885906040329 1635270399219\n# HELP system_cpu_used [GAUGE] Percent of time all cpus were used\n# TYPE system_cpu_used GAUGE\nsystem_cpu_used{cpu=\"cpu0\"} 0.671140939596711 1635270399219\nsystem_cpu_used{cpu=\"cpu-total\"} 0.671140939596711 1635270399219\n# HELP system_cpu_user [GAUGE] Percent of time total cpu was used by normal processes in user mode\n# TYPE system_cpu_user GAUGE\nsystem_cpu_user{cpu=\"cpu0\"} 0.3355704697986485 1635270399219\nsystem_cpu_user{cpu=\"cpu-total\"} 0.3355704697986485 1635270399219\n# HELP system_cpu_system [GAUGE] Percent of time all cpus used by processes executed in kernel mode\n# TYPE system_cpu_system GAUGE\nsystem_cpu_system{cpu=\"cpu0\"} 0.33557046979867833 1635270399219\nsystem_cpu_system{cpu=\"cpu-total\"} 0.33557046979867833 1635270399219\n# HELP system_cpu_nice [GAUGE] Percent of time all cpus used by niced processes in user mode\n# TYPE system_cpu_nice GAUGE\nsystem_cpu_nice{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_nice{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_iowait [GAUGE] Percent of time all cpus waiting for I/O to complete\n# TYPE system_cpu_iowait GAUGE\nsystem_cpu_iowait{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_iowait{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_irq [GAUGE] Percent of time all cpus servicing interrupts\n# TYPE system_cpu_irq GAUGE\nsystem_cpu_irq{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_irq{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_sortirq [GAUGE] Percent of time all cpus servicing software interrupts\n# TYPE system_cpu_sortirq GAUGE\nsystem_cpu_sortirq{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_sortirq{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_stolen [GAUGE] Percent of time all cpus serviced virtual hosts operating systems\n# TYPE system_cpu_stolen GAUGE\nsystem_cpu_stolen{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_stolen{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_guest [GAUGE] Percent of time all cpus serviced guest operating system\n# TYPE system_cpu_guest GAUGE\nsystem_cpu_guest{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_guest{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_guest_nice [GAUGE] Percent of time all cpus serviced niced guest operating system\n# TYPE system_cpu_guest_nice GAUGE\nsystem_cpu_guest_nice{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_guest_nice{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_mem_used [GAUGE] Percent of memory used\n# TYPE system_mem_used GAUGE\nsystem_mem_used{} 21.21448463577672 1635270399219\n# HELP system_mem_used_bytes [GAUGE] Used memory in bytes\n# TYPE system_mem_used_bytes GAUGE\nsystem_mem_used_bytes{} 2.20598272e+08 1635270399219\n# HELP system_mem_total_bytes [GAUGE] Total memory in bytes\n# TYPE system_mem_total_bytes GAUGE\nsystem_mem_total_bytes{} 1.039847424e+09 1635270399219\n# HELP system_swap_used [GAUGE] Percent of swap used\n# TYPE system_swap_used GAUGE\nsystem_swap_used{} 0 1635270399219\n# HELP system_swap_used_bytes [GAUGE] Used swap in bytes\n# TYPE system_swap_used_bytes GAUGE\nsystem_swap_used_bytes{} 2.20598272e+08 1635270399219\n# HELP system_swap_total_bytes [GAUGE] Total swap in bytes\n# TYPE system_swap_total_bytes GAUGE\nsystem_swap_total_bytes{} 2.147479552e+09 1635270399219\n# HELP system_load_load1 [GAUGE] System load averaged over 1 minute, high load value dependant on number of cpus in system\n# TYPE system_load_load1 GAUGE\nsystem_load_load1{} 0 1635270399219\n# HELP system_load_load5 [GAUGE] System load averaged over 5 minute, high load value dependent on number of cpus in system\n# TYPE system_load_load5 GAUGE\nsystem_load_load5{} 0.01 1635270399219\n# HELP system_load_load15 [GAUGE] System load averaged over 15 minute, high load value dependent on number of cpus in system\n# TYPE system_load_load15 GAUGE\nsystem_load_load15{} 0.05 1635270399219\n# HELP system_load_load1_per_cpu [GAUGE] System load averaged over 1 minute normalized by cpu count, values \\u003e 1 means system may be overloaded\n# TYPE system_load_load1_per_cpu GAUGE\nsystem_load_load1_per_cpu{} 0 1635270399219\n# HELP system_load_load5_per_cpu [GAUGE] System load averaged over 5 minute normalized by cpu count, values \\u003e 1 means system may be overloaded\n# TYPE system_load_load5_per_cpu GAUGE\nsystem_load_load5_per_cpu{} 0.01 1635270399219\n# HELP system_load_load15_per_cpu [GAUGE] System load averaged over 15 minute normalized by cpu count, values \\u003e 1 means system may be overloaded\n# TYPE system_load_load15_per_cpu GAUGE\nsystem_load_load15_per_cpu{} 0.05 1635270399219\n# HELP system_host_uptime [COUNTER] Host uptime in seconds\n# TYPE system_host_uptime COUNTER\nsystem_host_uptime{} 982 1635270399219\n# HELP system_host_processes [GAUGE] Number of host processes\n# TYPE system_host_processes GAUGE\nsystem_host_processes{} 109 1635270399219\n\n",
+    "output": "# HELP system_cpu_cores [GAUGE] Number of cpu cores on the system\n# TYPE system_cpu_cores GAUGE\nsystem_cpu_cores{} 1 1635270399219\n# HELP system_cpu_idle [GAUGE] Percent of time all cpus were idle\n# TYPE system_cpu_idle GAUGE\nsystem_cpu_idle{cpu=\"cpu0\"} 99.32885906040329 1635270399219\nsystem_cpu_idle{cpu=\"cpu-total\"} 99.32885906040329 1635270399219\n# HELP system_cpu_used [GAUGE] Percent of time all cpus were used\n# TYPE system_cpu_used GAUGE\nsystem_cpu_used{cpu=\"cpu0\"} 0.671140939596711 1635270399219\nsystem_cpu_used{cpu=\"cpu-total\"} 0.671140939596711 1635270399219\n# HELP system_cpu_user [GAUGE] Percent of time total cpu was used by normal processes in user mode\n# TYPE system_cpu_user GAUGE\nsystem_cpu_user{cpu=\"cpu0\"} 0.3355704697986485 1635270399219\nsystem_cpu_user{cpu=\"cpu-total\"} 0.3355704697986485 1635270399219\n# HELP system_cpu_system [GAUGE] Percent of time all cpus used by processes executed in kernel mode\n# TYPE system_cpu_system GAUGE\nsystem_cpu_system{cpu=\"cpu0\"} 0.33557046979867833 1635270399219\nsystem_cpu_system{cpu=\"cpu-total\"} 0.33557046979867833 1635270399219\n# HELP system_cpu_nice [GAUGE] Percent of time all cpus used by niced processes in user mode\n# TYPE system_cpu_nice GAUGE\nsystem_cpu_nice{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_nice{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_iowait [GAUGE] Percent of time all cpus waiting for I/O to complete\n# TYPE system_cpu_iowait GAUGE\nsystem_cpu_iowait{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_iowait{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_irq [GAUGE] Percent of time all cpus servicing interrupts\n# TYPE system_cpu_irq GAUGE\nsystem_cpu_irq{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_irq{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_sortirq [GAUGE] Percent of time all cpus servicing software interrupts\n# TYPE system_cpu_sortirq GAUGE\nsystem_cpu_sortirq{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_sortirq{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_stolen [GAUGE] Percent of time all cpus serviced virtual hosts operating systems\n# TYPE system_cpu_stolen GAUGE\nsystem_cpu_stolen{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_stolen{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_guest [GAUGE] Percent of time all cpus serviced guest operating system\n# TYPE system_cpu_guest GAUGE\nsystem_cpu_guest{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_guest{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_cpu_guest_nice [GAUGE] Percent of time all cpus serviced niced guest operating system\n# TYPE system_cpu_guest_nice GAUGE\nsystem_cpu_guest_nice{cpu=\"cpu0\"} 0 1635270399219\nsystem_cpu_guest_nice{cpu=\"cpu-total\"} 0 1635270399219\n# HELP system_mem_used [GAUGE] Percent of memory used\n# TYPE system_mem_used GAUGE\nsystem_mem_used{} 21.21448463577672 1635270399219\n# HELP system_mem_used_bytes [GAUGE] Used memory in bytes\n# TYPE system_mem_used_bytes GAUGE\nsystem_mem_used_bytes{} 2.20598272e+08 1635270399219\n# HELP system_mem_total_bytes [GAUGE] Total memory in bytes\n# TYPE system_mem_total_bytes GAUGE\nsystem_mem_total_bytes{} 1.039847424e+09 1635270399219\n# HELP system_swap_used [GAUGE] Percent of swap used\n# TYPE system_swap_used GAUGE\nsystem_swap_used{} 0 1635270399219\n# HELP system_swap_used_bytes [GAUGE] Used swap in bytes\n# TYPE system_swap_used_bytes GAUGE\nsystem_swap_used_bytes{} 2.20598272e+08 1635270399219\n# HELP system_swap_total_bytes [GAUGE] Total swap in bytes\n# TYPE system_swap_total_bytes GAUGE\nsystem_swap_total_bytes{} 2.147479552e+09 1635270399219\n# HELP system_load_load1 [GAUGE] System load averaged over 1 minute, high load value dependant on number of cpus in system\n# TYPE system_load_load1 GAUGE\nsystem_load_load1{} 0 1635270399219\n# HELP system_load_load5 [GAUGE] System load averaged over 5 minute, high load value dependent on number of cpus in system\n# TYPE system_load_load5 GAUGE\nsystem_load_load5{} 0.01 1635270399219\n# HELP system_load_load15 [GAUGE] System load averaged over 15 minute, high load value dependent on number of cpus in system\n# TYPE system_load_load15 GAUGE\nsystem_load_load15{} 0.05 1635270399219\n# HELP system_load_load1_per_cpu [GAUGE] System load averaged over 1 minute normalized by cpu count, values \\u003e 1 means system may be overloaded\n# TYPE system_load_load1_per_cpu GAUGE\nsystem_load_load1_per_cpu{} 0 1635270399219\n# HELP system_load_load5_per_cpu [GAUGE] System load averaged over 5 minute normalized by cpu count, values \\u003e 1 means system may be overloaded\n# TYPE system_load_load5_per_cpu GAUGE\nsystem_load_load5_per_cpu{} 0.01 1635270399219\n# HELP system_load_load15_per_cpu [GAUGE] System load averaged over 15 minute normalized by cpu count, values \\u003e 1 means system may be overloaded\n# TYPE system_load_load15_per_cpu GAUGE\nsystem_load_load15_per_cpu{} 0.05 1635270399219\n# HELP system_host_uptime [COUNTER] Host uptime in seconds\n# TYPE system_host_uptime COUNTER\nsystem_host_uptime{} 982 1635270399219\n# HELP system_host_processes [GAUGE] Number of host processes\n# TYPE system_host_processes GAUGE\nsystem_host_processes{} 109 1635270399219\n",
     "state": "passing",
     "status": 0,
     "total_state_change": 0,
@@ -595,9 +593,6 @@ sequence: 5
     "occurrences": 5,
     "occurrences_watermark": 5,
     "output_metric_format": "graphite_plaintext",
-    "output_metric_handlers": [
-      "graphite-handler"
-    ],
     "env_vars": null,
     "metadata": {
       "name": "collect-system-metrics",
@@ -606,13 +601,9 @@ sequence: 5
     "secrets": null,
     "is_silenced": false,
     "scheduler": "memory",
-    "processed_by": "sensu-centos",
-    "pipelines": []
+    "processed_by": "sensu-centos"
   },
   "metrics": {
-    "handlers": [
-      "graphite-handler"
-    ],
     "points": [
       {
         "name": "system_cpu_cores{}",
@@ -864,9 +855,6 @@ To extract metrics from check output:
 
 When a check includes correctly configured `command` and `output_metric_format` attributes, Sensu will extract the specified metrics from the check output and add them to the event data in the [metrics attribute][5].
 
-You can also configure the check `output_metric_handlers` attribute to use a Sensu handler that is equipped to handle Sensu metrics.
-Read the [checks reference][3] or [InfluxDB handler guide][23] to learn more.
-
 ### Supported output metric formats
 
 Sensu supports the following formats for check output metric extraction.
@@ -909,28 +897,48 @@ Use output metric tags for the output metric formats that do not natively suppor
 
 Values for output metric tags are passed through to the metric points produced by check output metric extraction for formats that natively support tags (InfluxDB Line Protocol, OpenTSDB Data Specification, and Prometheus Exposition Text).
 
-You can use [check token substitution][22] for the [value attribute][21] to include any event attribute in an output metric tag.
-For example, this tag will list the `event.time` attribute:
+You can use [check token substitution][22] for the output_metric_tags [value][21] attribute to include any event attribute in an output metric tag.
+For example, these tags will list the `event.timestamp` and `event.entity.name` attributes:
 
-{{< code shell >}}
-"output_metric_tags": [
-  {
-    "name": "instance",
-    "value": "{{ .entity.system.hostname }}"
-  }
-]{{< /code >}}
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+output_metric_tags:
+- name: time
+  value: "{{ .timestamp }}"
+- name: entity_name
+  value: "{{ .entity.name }}"
+{{< /code >}}
+
+{{< code json >}}
+{
+  "output_metric_tags": [
+    {
+      "name": "time",
+      "value": "{{ .timestamp }}"
+    },
+    {
+      "name": "entity_name",
+      "value": "{{ .entity.name }}"
+    }
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Process extracted and tagged metrics
 
-Specify the event handlers you want to process your Sensu metrics in the check [`output_metric_handlers`][3] attribute.
-With these event handlers, you can route metrics to one or more databases for storing and visualizing metrics, like Elasticsearch, InfluxDB, Grafana, and Graphite.
+Specify the handlers you want to process your Sensu metrics in a [pipeline][23], then reference the pipeline in the check [`pipelines`][3] array.
+With handlers, you can route metrics to one or more databases for storing and visualizing metrics, like Elasticsearch, InfluxDB, Grafana, and Graphite.
 
 Many of our most popular metrics integrations for [time-series and long-term event storage][18] include curated, configurable quick-start templates to integrate Sensu with your existing workflows.
-You can also use [Bonsai][8], the Sensu asset hub, to discover, download, and share dynamic runtime assets for processing metrics.
+Use [Bonsai][8], the Sensu asset hub, to discover, download, and share dynamic runtime assets for processing metrics.
 
-In check definitions, the `output_metric_handlers` list for metrics event handlers is distinct and separate from the `handlers` list for status event handlers.
-Having separate handlers attributes allows you to use different workflows for metrics and status without applying conditional filter logic.
+To handle both metrics and status events without applying conditional filter logic, configure a pipeline with different workflows for metrics and status.
 The events reference includes an [example event with check and metric data][20].
+Read the [pipeline reference][27] for more information about configuring a pipeline with multiple workflows.
 
 You do not need to add a mutator to your check definition to process metrics with an event handler.
 The [metrics attribute][5] format automatically reduces metrics data complexity so event handlers can process metrics effectively.
@@ -953,7 +961,7 @@ The event specification describes [metrics attributes in events][5].
 
 [1]: ../checks/#output-metric-tags
 [2]: ../../observe-process/aggregate-metrics-statsd/
-[3]: ../checks/#output-metric-handlers
+[3]: ../checks/#pipelines-attribute
 [4]: #extract-metrics-from-check-output
 [5]: ../../observe-events/events/#metrics-attribute
 [6]: #metric-check-example
@@ -973,7 +981,8 @@ The event specification describes [metrics attributes in events][5].
 [20]: ../../observe-events/events/#example-status-and-metrics-event
 [21]: ../checks/#output_metric_tags-attributes
 [22]: ../checks/#check-token-substitution
-[23]: ../../observe-process/populate-metrics-influxdb/
+[23]: ../../observe-process/pipelines/
 [24]: ../../../operations/maintain-sensu/troubleshoot#use-a-debug-handler
 [25]: ../../observe-events/events/#metrics-points
 [26]: https://bonsai.sensu.io/assets/sensu/system-check
+[27]: ../../observe-process/pipelines/#workflows

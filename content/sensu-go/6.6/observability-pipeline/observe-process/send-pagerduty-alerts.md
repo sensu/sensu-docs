@@ -239,7 +239,7 @@ EOF
 
 ## Assign the pipeline to a check
 
-To use the `cpu_check_alerts` pipeline, list it in a check definition's [pipelines array][18] (in this case, the `check_cpu` check created in [Monitor server resources][2]).
+To use the `cpu_check_alerts` pipeline, list it in a check definition's [pipelines array][18] (in this case, the `check_cpu` check created in [Monitor server resources][3]).
 All the observability events that the check produces will be processed according to the pipeline's workflows.
 
 Assign your `cpu_check_alerts` pipeline to the `check_cpu` check to receive Slack alerts when the CPU usage of your system reaches the specific thresholds set in the check command.

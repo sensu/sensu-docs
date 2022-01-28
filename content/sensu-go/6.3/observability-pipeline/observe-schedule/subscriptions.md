@@ -100,7 +100,7 @@ sensu-agent start --subscriptions linux,webserver --log-level debug
 
 Now your agent entity will execute checks with the `linux` or `webserver` subscriptions.
 
-To directly add, update, and delete subscriptions for individual entities, use [sensuctl][17], the [entities API][18], or the [web UI][19].
+To directly add, update, and delete subscriptions for individual entities, use [sensuctl][17], the [core/v2/entities API endpoints][18], or the [web UI][19].
 
 ## Configure subscriptions
 
@@ -118,14 +118,14 @@ For example, an agent entity with `name: "i-424242"` subscribes to check request
 This makes it possible to generate ad hoc check requests that target specific entities via the API.
 
 {{% notice note %}}
-**NOTE**: You can directly add, update, and delete subscriptions for individual entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../../api/core/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
+**NOTE**: You can directly add, update, and delete subscriptions for individual entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [core/v2/entities API endpoints](../../../api/core/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
 {{% /notice %}}
 
 ## Publish checks
 
 If you want Sensu to automatically schedule and execute a check according to its subscriptions, set the [`publish` attribute][12] to `true` in the check definition.
 
-You can also manually schedule [ad hoc check execution][11] with the [check API][16], whether the `publish` attribute is set to `true` or `false`.
+You can also manually schedule [ad hoc check execution][11] with the [core/v2/checks API endpoints][16], whether the `publish` attribute is set to `true` or `false`.
 To target the subscriptions defined in the check, include only the check name in the request body (for example, `"check": "check_cpu"`).
 To override the check's subscriptions and target an alternate entity or group of entities, add the subscriptions attribute to the request body:
 

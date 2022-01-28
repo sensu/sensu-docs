@@ -64,7 +64,7 @@ The response will list your authentication provider types and names:
 
 ## Manage authentication providers
 
-View and delete authentication providers with the [authentication providers API][10] or these sensuctl commands.
+View and delete authentication providers with [enterprise/authentication/v2 API endpoints][10] or these sensuctl commands.
 
 To view active authentication providers:
 

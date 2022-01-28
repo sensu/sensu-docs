@@ -641,7 +641,7 @@ etcdctl alarm list
 To clear etcd alarms:
 
 {{< code shell >}}
-etcdctl alarm dearm
+etcdctl alarm disarm
 {{< /code >}}
 
 ### Restore a cluster with an oversized database 

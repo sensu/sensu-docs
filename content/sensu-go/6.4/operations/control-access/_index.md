@@ -33,7 +33,7 @@ Sensu agents authenticate to the Sensu backend using either [basic][14] or [mutu
 
 ### Use built-in basic authentication
 
-Sensu's built-in basic authentication provider allows you to create and manage user credentials (usernames and passwords) with the [users API][53], either directly or using [sensuctl][2].
+Sensu's built-in basic authentication provider allows you to create and manage user credentials (usernames and passwords) with [core/v2/users API endpoints][53], either directly or using [sensuctl][2].
 The basic authentication provider does not depend on external services and is not configurable.
 
 Sensu hashes user passwords using the [bcrypt][26] algorithm and records the basic authentication credentials in [etcd][54].

@@ -14,8 +14,8 @@ This guide includes general information for migrating your Sensu instance from S
 For instructions and tools to help you translate your Sensu configuration from Sensu Core and Enterprise to Sensu Go, review the [Sensu Translator project][18].
 
 {{% notice note %}}
-**NOTE**: The information in this guide applies to Sensu Enterprise as well as Sensu Core, although we refer to "Sensu Core" for brevity.
-One step applies to Sensu Enterprise (and not Sensu Core) &mdash; it is designated as Sensu Enterprise-only.
+**NOTE**: The information in this guide applies to Sensu Enterprise as well as Sensu Core, although we refer to "Sensu Core" for brevity.<br><br>
+The step for [translating integrations, contact routing, and LDAP authentication](#step-4-translate-sensu-enterprise-only-features) applies to Sensu Enterprise (but **not** Sensu Core), and it is designated as Sensu Enterprise-only.
 {{% /notice %}}
 
 Sensu Go includes important changes to all parts of Sensu: architecture, installation, resource definitions, the observation data (event) model, check dependencies, filter evaluation, and more.
@@ -49,16 +49,15 @@ We also offer [**commercial support** and **professional services** packages][49
 ## Packaging
 
 Sensu Go is provided as three packages: sensu-go-backend, sensu-go-agent, and sensu-go-cli (sensuctl).
-This is a fundamental change in Sensu terminology from Sensu Core: the server is now the backend.
+This is a fundamental change in Sensu terminology from Sensu Core: in Sensu Go, the server is now the backend.
 
-Clients are represented within Sensu Go as abstract entities that can describe a wider range of system components such as network gear, a web server, or a cloud resource.
-Entities include agent entities that run a Sensu agent and the familiar proxy entities.
+Clients are represented within Sensu Go as abstract [entities][96] that can describe a wider range of system components such as network gear, a web server, or a cloud resource.
 
 Read [Sensu concepts and terminology][1] to learn more about new terms in Sensu Go.
 
 ## Architecture
 
-The external RabbitMQ transport and Redis datastore in Sensu Core are replaced with an embedded transport and [etcd datastore][2] in Sensu Go.
+In Sensu Go, an embedded transport and [etcd datastore][2] replace the external RabbitMQ transport and Redis datastore in Sensu Core.
 
 {{< figure src="/images/standalone_architecture.png" alt="Single Sensu Go backend or standalone architecture" link="/images/standalone_architecture.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/d239f2db-15db-41c4-a191-b9b46990d156/0 -->
@@ -94,51 +93,76 @@ Read the [backend][3], [agent][4], and [sensuctl][5] reference docs for more inf
 
 ## Entities
 
-“Clients” are represented within Sensu Go as abstract “entities” that can describe a wider range of system components (for example, network gear, a web server, or a cloud resource).
-Entities include **agent entities**, which are entities running a Sensu agent, and the familiar **proxy entities**.
-read the [entity reference][6] and the guide to [monitoring external resources][7] for more information.
+Clients are represented within Sensu Go as abstract [entities][96] that can describe a wide range of system components such as network gear, a web server, or a cloud resource.
+
+Sensu Go includes [agent entities][92] that run a Sensu agent and the familiar [proxy entities][93].
+Sensu Go also includes [service entities][94], which represent business services in the [business service monitoring (BSM)][95] feature.
+
+Read the [entity reference][6] and the guide to [monitoring external resources][7] for more information about Sensu Go entities.
 
 ## Checks
 
-Standalone checks are not supported in Sensu Go, although [you can achieve similar functionality with role-based access control (RBAC), dynamic runtime assets, and entity subscriptions][26].
-There are also a few changes to check definitions in Sensu Go.
-The `stdin` check attribute is not supported in Sensu Go, and Sensu Go does not try to run a "default" handler when executing a check without a specified handler.
-In addition, check subdues are not available in Sensu Go.
+In Sensu Go, [checks][97] work with Sensu agents to produce observability events automatically.
+The Sensu backend coordinates check execution by comparing the [subscriptions][98] specified in check and entity definitions to determine which entities should receive execution requests for a given check.
 
-[Check hooks][8] are a resource type in Sensu Go: you can create, manage, and reuse hooks independently of check definitions.
+### Subdue
+
+Sensu Go checks do not include the `subdue` attribute.
+Instead, use [cron scheduling][99] in Sensu Go checks to specify when checks should be executed.
+
+### Standalone checks
+
+Sensu Go does not include standalone checks.
+Read [Self-service monitoring checks in Sensu Go][26] to learn more about using role-based access control (RBAC), dynamic runtime assets, and entity subscriptions to achieve similar functionality to Sensu Core's standalone checks in Sensu Go.
+
+### Check hooks
+
+[Check hooks][8] are a distinct resource type in Sensu Go, which allows you to create, manage, and reuse hooks independently of check definitions.
 You can also execute multiple hooks for any given response code.
+
+### Default handler
+
+Sensu Go does not try to run a default handler when executing checks whose definitions do not specify a handler name.
+In Sensu Go, you explicitly add the name of a handler in a [pipeline][100] and reference the pipeline in your check definition.
 
 ## Events
 
-In Sensu Go, all check results are considered events and are processed by event handlers.
-You can use the built-in [incidents filter][9] to recreate the Sensu Core behavior in which only check results with a non-zero status are considered events.
+In Sensu Go, all check results are considered events and are processed by [pipelines][100], which include event [filters][9], [mutators][102], and [handlers][103].
+
+Use Sensu Go's built-in [is_incident filter][63] to recreate the Sensu Core behavior in which only check results with a non-zero status are considered events.
 
 ## Handlers
 
-Transport handlers are not supported by Sensu Go, but you can create similar functionality with a pipe handler that connects to a message bus and injects event data into a queue.
+Sensu Go includes pipe and TCP/UDP handlers, but not transport handlers.
+To create similar functionality to transport handlers in Sensu Go, create a pipe handler that connects to a message bus and injects event data into a queue.
+
+Sensu Go also includes streaming handlers, such as the [Sumo Logic metrics handler][104], to provide persistent connections for transmitting Sensu observation data to remote data storage services to help prevent data bottlenecks.
 
 ## Filters
 
-Sensu Go includes three new built-in [event filters][9]: only-incidents, only-metrics, and allow-silencing.
-Sensu Go does not include a built-in check dependencies filter or a filter-when feature.
+In Sensu Go, JavaScript expressions replace the Ruby eval logic in Sensu Core, opening up powerful ways to filter events based on occurrences and other event attributes.
+As a result, Sensu Go does not include the built-in occurrence-based event filter in Sensu Core.
+To replicate the Sensu Core occurrence-based filter's functionality, use Sensu Go's [repeated events filter definition][10].
 
-Ruby eval logic from Sensu Core is replaced with JavaScript expressions in Sensu Go, opening up powerful ways to filter events based on occurrences and other event attributes.
-As a result, **Sensu Go does not include the built-in occurrence-based event filter in Sensu Core**, which allowed you to control the number of duplicate events that reached the handler.
-You can replicate the occurrence-based filter's functionality with Sensu Go's [repeated events filter definition][10].
+Sensu Go includes three built-in [event filters][9]: [is_incident][63], [not_silenced][61], and [has_metrics][101].
+Sensu Go does not include a built-in check dependencies filter, but you can use the [Core Dependencies Filter][23] dynamic runtime asset to replicate the built-in check dependencies filter functionality from Sensu Core.
+
+Sensu Go event filters do not include the `when` event filter attribute.
+Use Sensu query expressions to build [custom functions][106] that provide granular control of time-based filter expressions.
 
 ### Fatigue check filter
 
-For Sensu Go users, we recommend the [fatigue check filter][11], a JavaScript implementation of the `occurrences` filter from Sensu Core.
+The [Sensu Go Fatigue Check Filter][11] dynamic runtime asset is a JavaScript implementation of the `occurrences` filter from Sensu Core.
 This filter looks for [check and entity annotations][33] in each event it receives and uses the values of those annotations to configure the filter's behavior on a per-event basis.
 
 The [Sensu Translator version 1.1.0][18] retrieves occurrence and refresh values from a Sensu Core check definition and outputs them as annotations in a Sensu Go check definition, compatible with the fatigue check filter.
 
-However, the Sensu Translator doesn't automatically add the fatigue check filter dynamic runtime asset or the filter configuration you need to run it.
-To use the fatigue check filter dynamic runtime asset, you must [register it][15], create a correctly configured [event filter definition][19], and [add the event filter][34] to the list of filters on applicable handlers.
+However, the Sensu Translator doesn't automatically add the [Sensu Go Fatigue Check Filter][11] dynamic runtime asset or the filter configuration you need to run it.
+To use the Sensu Go Fatigue Check Filter dynamic runtime asset, you must [register it][15], create a correctly configured [event filter definition][19], and [add the event filter][34] to the list of filters on applicable handlers.
 
 ## Dynamic runtime assets
 
-The `sensu-install` tool in Sensu Core is replaced by [assets][12] in Sensu Go.
+The `sensu-install` tool in Sensu Core is replaced by [dynamic runtime assets][12] in Sensu Go.
 Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 You can still install [Sensu Community plugins][21] in Ruby via `sensu-install` by installing [sensu-plugins-ruby][20].
@@ -153,7 +177,8 @@ To set up RBAC in Sensu Go, read the [RBAC reference][13] and [Create a read-onl
 ## Silencing
 
 Silencing is disabled by default in Sensu Go.
-You must explicitly enable silencing with the built-in `not_silenced` [event filter][9].
+You must explicitly enable silencing by creating silencing resource definitions with sensuctl, the Sensu web UI, or core/v2/silenced API endpoints.
+Read the Sensu Go [silencing reference][105] for more information.
 
 ## Token substitution
 
@@ -161,11 +186,12 @@ The syntax for token substitution changed to [double curly braces][16] in Sensu 
 
 ## Aggregates
 
-Check aggregates are supported through the [Sensu Go Aggregate Check Plugin][28] (a [commercial][27] resource).
+Sensu Go supports check aggregates with the [Sensu Go Aggregate Check Plugin][28], which is a [commercial][27] resource.
 
 ## API
 
-In addition to the changes to resource definitions, Sensu Go includes a new, versioned API. Read the [API overview][17] for more information.
+In addition to the changes to resource definitions, Sensu Go includes new versioned APIs.
+Read the [API overview][17] for more information.
 
 ## Step-by-step migration instructions
 
@@ -182,11 +208,11 @@ The [Sensu Go web UI][39] provides a unified view of your observability events w
 After starting the Sensu backend, open the web UI by visiting http://localhost:3000.
 You may need to replace `localhost` with the hostname or IP address where the Sensu backend is running.
 
-To log in, enter your Sensu user credentials, or use Sensu's default admin credentials (username: `admin` and password: `P@ssw0rd!`).
+To log in, enter your Sensu user credentials or use Sensu's default admin credentials (username: `admin` and password: `P@ssw0rd!`).
 
 #### 3. Install sensuctl on your workstation
 
-Sensuctl is a command line tool for managing resources within Sensu.
+[Sensuctl][5] is a command line tool for managing resources within Sensu.
 It works by calling Sensu’s HTTP API to create, read, update, and delete resources, events, and entities.
 Sensuctl is available for Linux, Windows, and macOS.
 Read the [installation guide][53] to install and configure sensuctl.
@@ -197,7 +223,7 @@ Role-based access control (RBAC) is a built-in feature of the open-source versio
 RBAC allows you to manage and access users and resources based on namespaces, groups, roles, and bindings.
 To set up RBAC in Sensu Go, read the [RBAC reference][13] and [Create a read-only user][14].
 
-In Sensu Go, namespaces partition resources within a Sensu instance.
+In Sensu Go, [namespaces][107] partition resources within a Sensu instance.
 Sensu Go entities, checks, handlers, and other [namespaced resources][54] belong to a single namespace.
 The Sensu translator places all translated resources into the `default` namespace &mdash; we'll use the translater in a moment.
 
@@ -257,7 +283,9 @@ DONE!
 
 Combine your config into a sensuctl-readable format.
 
-_**NOTE**: for use with `sensuctl create`, do _not_ use a comma between resource objects in Sensu Go resource definitions in JSON format._
+{{% notice note %}}
+**NOTE**: for use with `sensuctl create`, do _not_ use a comma between resource objects in Sensu Go resource definitions in JSON format.
+{{% /notice %}}
 
 {{< code shell >}}
 find sensu_config_translated/ -name '*.json' -exec cat {} \; > sensu_config_translated_singlefile.json
@@ -279,7 +307,7 @@ Review your Sensu Core check configuration for the following attributes, and mak
 `stdin: true`  | No updates required. Sensu Go checks accept data on stdin by default.
 `handlers: default` | Sensu Go does not have a default handler. Create a handler named `default` to continue using this pattern.
 `subdues` | Check subdues are not available in Sensu Go.
-`standalone: true` | Standalone checks are not supported in Sensu Go, although you can achieve similar functionality using [role-based access control, dynamic runtime assets, and entity subscriptions][26]. The translator assigns all Core standalone checks to a `standalone` subscription in Sensu Go. Configure one or more Sensu Go agents with the `standalone` subscription to execute formerly standalone checks.
+`standalone: true` | Standalone checks are not supported in Sensu Go, although you can achieve similar functionality using [role-based access control, dynamic runtime assets, and entity subscriptions][26]. The translator assigns all Core standalone checks to a `standalone` subscription in Sensu Go. Configure one or more Sensu Go agents with the `standalone` subscription to execute Sensu Core standalone checks.
 `metrics: true` | Review the [translate metric checks][71] section.
 `proxy_requests` | Review the [translate proxy requests][72] section.
 `subscribers: roundrobin...` | Remove `roundrobin` from the subscription name, and add the `round_robin` check attribute set to `true`.
@@ -288,7 +316,8 @@ Review your Sensu Core check configuration for the following attributes, and mak
 `dependencies`| Use the [Core Dependencies Filter][23] dynamic runtime asset.
 
 {{% notice protip %}}
-**PRO TIP**: When using token substitution in Sensu Go and accessing labels or annotations that include `.` (for example: `sensu.io.json_attributes`), use the `index` function. For example, `{{index .annotations "web_url"}}` substitutes the value of the `web_url` annotation; `{{index .annotations "production.ID"}}` substitutes the value of the `production.ID` annotation.
+**PRO TIP**: When using token substitution in Sensu Go and accessing labels or annotations that include `.` (for example: `sensu.io.json_attributes`), use the `index` function.
+For example, `{{index .annotations "web_url"}}` substitutes the value of the `web_url` annotation; `{{index .annotations "production.ID"}}` substitutes the value of the `production.ID` annotation.
 {{% /notice %}}
 
 <a id="translate-metric-checks"></a>
@@ -319,8 +348,7 @@ Read the [guide][55] and [hooks reference docs][8] to re-create your Sensu Core 
 
 **Custom attributes**
 
-Custom check attributes are not supported in Sensu Go.
-Instead, Sensu Go allows you to add custom labels and annotations to entities, checks, dynamic runtime assets, hooks, filters, mutators, handlers, and silences.
+Instead of custom check attributes, Sensu Go allows you to add custom labels and annotations to entities, checks, dynamic runtime assets, hooks, filters, mutators, handlers, and silences.
 Review the metadata attributes section in the reference documentation for more information about using labels and annotations (for example, [metadata attributes for entities][24]).
 
 The Sensu Translator stores all check extended attributes in the check metadata annotation named `sensu.io.json_attributes`.
@@ -388,23 +416,23 @@ spec:
 #### 4. Translate handlers
 
 In Sensu Go, all check results are considered events and are processed by event handlers.
-Use the built-in [`is_incident` filter][63] to recreate the Sensu Core behavior, in which only check results with a non-zero status are considered events.
+Use the built-in [is_incident filter][63] to recreate the Sensu Core behavior, in which only check results with a non-zero status are considered events.
 
 {{% notice note %}}
-**NOTE**: Silencing is disabled by default in Sensu Go and must be explicitly enabled using the built-in [`not_silenced` filter](../../../observability-pipeline/observe-filter/filters/#built-in-filter-not_silenced).
-Add the `not_silenced` filter to any handlers for which you want to enable Sensu's silencing feature.
+**NOTE**: Silencing is disabled by default in Sensu Go and must be explicitly enabled.
+Read the [silencing reference](../../../observability-pipeline/observe-process/silencing/) to create silences in Sensu Go.
 {{% /notice %}}
 
-Review your Sensu Core check configuration for the following attributes, and make the corresponding updates to your Sensu Go configuration.
+Review your Sensu Core check configuration for the following attributes and make the corresponding updates to your Sensu Go configuration.
 
 | Core attribute | Manual updates required in Sensu Go config |
 | -------------- | ------------- |
-`filters: occurrences` | The built-in occurrences filter in Sensu Core is not available in Sensu Go, but you can replicate its functionality with the [sensu-go-fatigue-check-filter asset][65].
-`type: transport` | Transport handlers are not supported in Sensu Go, but you can create similar functionality with a pipe handler that connects to a message bus and injects event data into a queue.
-`filters: check_dependencies` | Sensu Go does not include a built-in check dependencies filter.
-`severities` | Severities are not available in Sensu Go.
-`handle_silenced` | Silencing is disabled by default in Sensu Go and must be explicitly enabled using the built-in [`not_silenced` filter][64].
-`handle_flapping` | All check results are considered events in Sensu Go and are processed by event handlers.
+`filters: occurrences` | Replicate the built-in occurrences filter in Sensu Core with the [Sensu Go Fatigue Check Filter][65].
+`type: transport` | Achieve similar functionailty to transport handlers in Sensu Core with a Sensu Go pipe handler that connects to a message bus and injects event data into a queue.
+`filters: check_dependencies` | Use the [Core Dependencies Filter][23] dynamic runtime asset.
+`severities` | Sensu Go does not support severities.
+`handle_silenced` | Silencing is disabled by default in Sensu Go and must be explicitly enabled using sensuctl, the web UI, or core/v2/silenced API endpoints.
+`handle_flapping` | All check results are considered events in Sensu Go and are processed by [pipelines][100].
 
 #### 5. Upload your config to your Sensu Go instance
 
@@ -415,7 +443,8 @@ sensuctl create --file /path/to/config.json
 {{< /code >}}
 
 {{% notice protip %}}
-**PRO TIP**: `sensuctl create` (and `sensuctl delete`) are powerful tools to help you manage your Sensu configs across namespaces. Read the [sensuctl reference][5] for more information.
+**PRO TIP**: `sensuctl create` (and `sensuctl delete`) are powerful tools to help you manage your Sensu configs across namespaces.
+Read the [sensuctl reference](../../../sensuctl/) for more information.
 {{% /notice %}}
 
 Access your Sensu Go config using the [Sensu API][17].
@@ -533,7 +562,7 @@ After you stop the Sensu Core services, follow package removal instructions for 
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check/
 [29]: ../../../observability-pipeline/observe-schedule/backend#operation
 [33]: https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter/#configuration
-[34]: ../../../observability-pipeline/observe-filter/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler-1
+[34]: ../../../observability-pipeline/observe-filter/reduce-alert-fatigue/#add-the-event-filter-to-a-pipeline
 [36]: https://etcd.io/
 [37]: ../../deploy-sensu/cluster-sensu/
 [38]: ../../deploy-sensu/deployment-architecture/
@@ -590,3 +619,19 @@ After you stop the Sensu Core services, follow package removal instructions for 
 [89]: https://bonsai.sensu.io/assets/asachs01/sensu-plugins-victorops
 [90]: ../../../observability-pipeline/observe-filter/route-alerts/
 [91]: ../../../commercial
+[92]: ../../../observability-pipeline/observe-entities/#agent-entities
+[93]: ../../../observability-pipeline/observe-entities/#proxy-entities
+[94]: ../../../observability-pipeline/observe-entities/#service-entities
+[95]: ../../../observability-pipeline/observe-schedule/business-service-monitoring/
+[96]: ../../../observability-pipeline/observe-entities/
+[97]: ../../../observability-pipeline/observe-schedule/checks/
+[98]: ../../../observability-pipeline/observe-schedule/subscriptions/
+[99]: ../../../observability-pipeline/observe-schedule/checks/#cron-scheduling
+[100]: ../../../observability-pipeline/observe-process/pipelines/
+[101]: ../../../observability-pipeline/observe-filter/filters/#built-in-filter-has_metrics
+[102]: ../../../observability-pipeline/observe-transform/mutators/
+[103]: ../../../observability-pipeline/observe-process/handlers/
+[104]: ../../../observability-pipeline/observe-process/sumo-logic-metrics-handlers/
+[105]: ../../../observability-pipeline/observe-process/silencing/
+[106]: ../../../observability-pipeline/observe-filter/sensu-query-expressions/#custom-functions
+[107]: ../../control-access/namespaces/

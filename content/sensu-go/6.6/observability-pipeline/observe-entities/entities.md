@@ -206,7 +206,7 @@ spec:
 
 ### Manage agent entities via the backend
 
-You can manage agent entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33], just like any other Sensu resource.
+You can manage agent entities via the backend with [sensuctl][37], the [core/v2/entities API endpoints][36], and the [web UI][33], just like any other Sensu resource.
 This means you do not need to update the `agent.yml` configuration file to add, update, or delete agent entity attributes like subscriptions and labels.
 
 Management via the backend is the default configuration for agent entities.
@@ -216,7 +216,7 @@ Management via the backend is the default configuration for agent entities.
 In this case, the entity attributes in `agent.yml` are used only for initial entity creation unless you delete the entity.
 {{% /notice %}}
 
-If you delete an agent entity that you modified with sensuctl, the entities API, or the web UI, it will revert to the original configuration from `agent.yml`.
+If you delete an agent entity that you modified with sensuctl, the core/v2/entities API endpoints, or the web UI, it will revert to the original configuration from `agent.yml`.
 If you change an agent entity's class to `proxy`, the backend will revert the change to `agent`.
 
 ### Manage agent entities via the agent
@@ -239,7 +239,7 @@ You must set `deregister: true` in `agent.yml` before the agent entity is create
 Proxy entities are dynamically created entities that Sensu adds to the entity store if an entity does not already exist for a check result.
 Proxy entities allow Sensu to monitor external resources on systems where you cannot install a Sensu agent, like a network switch or website.
 
-You can modify proxy entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33].
+You can modify proxy entities via the backend with [sensuctl][37], the [core/v2/entities API endpoints][36], and the [web UI][33].
 
 If you start an agent with the same name as an existing proxy entity, Sensu will change the proxy entity's class to `agent` and update its `system` field with information from the agent configuration.
 
@@ -323,7 +323,7 @@ For more information, read [Get started with commercial features](../../../comme
 Service entities are dynamically created entities that Sensu adds to the entity store when a [service component][39] generates an event.
 Service entities allow Sensu to monitor [business services][38].
 
-Create and modify service entities via the backend with [sensuctl][37], the [entities API][36], and the [web UI][33].
+Create and modify service entities via the backend with [sensuctl][37], the [core/v2/entities API endpoints][36], and the [web UI][33].
 
 ### Service entity example
 
@@ -382,7 +382,7 @@ sensu-agent start --labels url=sensu.docs.io
 
 {{% notice note %}}
 **NOTE**: The entity attributes in `agent.yml` are used only for initial entity creation.
-Modify existing agent entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [entities API](../../../api/core/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
+Modify existing agent entities via the backend with [sensuctl](../../../sensuctl/create-manage-resources/#update-resources), the [core/v2/entities API endpoints](../../../api/core/entities/), and the [web UI](../../../web-ui/view-manage-resources/#manage-entities).
 {{% /notice %}}
 
 ### Proxy entity labels {#proxy-entities-managed}

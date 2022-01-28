@@ -88,11 +88,35 @@ If the backend logs include WebSocket timeouts, you may need to use a more relia
 
 ## Cloud recommendations
 
-### AWS
+### Amazon EC2
 
-The recommended EC2 instance type and size for Sensu backends running embedded etcd is **M5d.xlarge**.
-The [M5d instance][1] provides four vCPU, 16 GB of RAM, up to 10 gbps network connectivity, and a 150-NVMe SSD directly attached to the instance host (optimal for sustained disk IOPS).
+The recommended Amazon EC2 instance type and size for Sensu backends running embedded etcd is **M5d.xlarge**.
+The [M5d.xlarge instance][1] provides four vCPU, 16 GB of RAM, up to 10 gbps network connectivity, and a 150-GB NVMe SSD directly attached to the instance host, which is optimal for sustained disk IOPS.
+
+### Microsoft Azure
+
+Use the **D4ds v4** Microsoft Azure virtual machine for Sensu backends running embedded etcd.
+The [D4ds v4 virtual machine][6] provides four vCPU, 16 GB of RAM, and a 150-GB SSD directly attached to the instance host (optimal for sustained disk IOPS).
+
+### Digital Ocean
+
+Use Digital Ocean [Storage-Optimized Droplets][5] for Sensu backends running embedded etcd.
+The minimum [Storage-Optimized Droplet plan][4] provides two vCPU, 16 GB of RAM, and a 300-GB NVMe SSD.
+Storage is directly attached to the hypervisor rather than connected via network.
+
+### Google Cloud
+
+The recommended Google Cloud Compute Engine type and size for Sensu backends running embedded etcd is **n2-standard-4**, with SSD provisioned space.
+The [n2-standard-4][7] compute engine provides four vCPU, 16 GB of RAM, and up to 10 gbps network connectivity.
+
+Google Cloud offers disk space separately, and we recommend at least 150 GB of [SSD provisioned space][8] for Sensu backends running embedded etcd.
+
 
 [1]: https://aws.amazon.com/ec2/instance-types/m5/
 [2]: #backend-recommended-configuration
 [3]: #agent-recommended-configuration
+[4]: https://www.digitalocean.com/pricing
+[5]: https://docs.digitalocean.com/products/droplets/resources/choose-plan/#dedicated-cpu-storage-optimized-droplet
+[6]: https://docs.microsoft.com/en-us/azure/virtual-machines/ddv4-ddsv4-series
+[7]: https://cloud.google.com/compute/docs/general-purpose-machines#n2_machines
+[8]: https://cloud.google.com/compute/disks-image-pricing#disk

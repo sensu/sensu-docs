@@ -552,7 +552,7 @@ sensu.FetchEvent("server01", "disk")
 {{< /code >}}
 
 You can only load events from the same namespace as the event being filtered.
-The returned object uses the same format as responses for the [events API][43].
+The returned object uses the same format as responses for the [core/v2/events API]][43].
 
 If an event does not exist for the specified entity and check names, Sensu will raise an error.
 
@@ -570,7 +570,7 @@ For example:
 sensu.ListEvents()
 {{< /code >}}
 
-The events in the returned array use the same format as responses for the [events API][43].
+The events in the returned array use the same format as responses for the [core/v2/events API]][43].
 
 ## Event filter specification
 
