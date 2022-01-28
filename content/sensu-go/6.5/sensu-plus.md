@@ -376,7 +376,7 @@ The two new dashboards will be listed in the Sensu sub-folder in the left-naviga
 {{< figure src="/images/sumo-plus/sensu-dashboards.png" alt="Sensu Overview and Sensu Entity Detail dashboards listed in the Sumo Logic left-navigation menu" link="/images/sumo-plus/sensu-dashboards.png" target="_blank" >}}
 
 Click a dashboard name to view your Sensu observability data.
-It may take a moment or two for your data to appear in Sumo Logic.
+It may take a few moments for your data to appear in Sumo Logic.
 
 
 [1]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
