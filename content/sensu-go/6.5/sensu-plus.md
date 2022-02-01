@@ -26,48 +26,51 @@ Set up a Sumo Logic HTTP Logs and Metrics Source to collect your Sensu observabi
 
 1. In the Sumo Logic left-navigation menu, click **Manage Data** and then **Collection**.
 
-    {{< figure src="/images/sumo-plus/manage-data_collection.gif" alt="Open the Collections tab" link="/images/sumo-plus/manage-data_collection.gif" target="_blank" >}}
+    {{< figure src="/images/manage-data_collection.png" alt="Open the Collections tab" link="/images/manage-data_collection.png" target="_blank" >}}
 
 2. At the top-right of the Collection tab, click **Add Collector**.
 
-    {{< figure src="/images/sumo-plus/add-collector.png" alt="Add a Sumo Logic collector" link="/images/sumo-plus/add-collector.png" target="_blank" >}}
+    {{< figure src="/images/add-collector.png" alt="Add a Sumo Logic collector" link="/images/add-collector.png" target="_blank" >}}
 
 3. In the Click Selector Type modal window, click **Hosted Collector**.
 
-    {{< figure src="/images/sumo-plus/hosted-collector.png" alt="Select the hosted collector option" link="/images/sumo-plus/hosted-collector.png" target="_blank" >}}
+    {{< figure src="/images/hosted-collector.png" alt="Select the hosted collector option" link="/images/hosted-collector.png" target="_blank" >}}
 
 4. In the Add Hosted Collector modal window:
     - Type **sensu** in the Name field.
     - Click **Save**.
 
-    {{< figure src="/images/sumo-plus/add-hosted-collector.png" alt="Name the hosted collector" link="/images/sumo-plus/add-hosted-collector.png" target="_blank" >}}
+    {{< figure src="/images/add-hosted-collector.png" alt="Name the hosted collector" link="/images/add-hosted-collector.png" target="_blank" >}}
 
 5. In the Confirm prompt, click **OK**.
 
-    {{< figure src="/images/sumo-plus/confirm-prompt.png" alt="Confirm your hosted collector configuration" link="/images/sumo-plus/confirm-prompt.png" target="_blank" >}}
+    {{< figure src="/images/confirm-prompt.png" alt="Confirm your hosted collector configuration" link="/images/confirm-prompt.png" target="_blank" >}}
 
 6. Under Cloud APIs, click **HTTP Logs & Metrics**.
 
-    {{< figure src="/images/sumo-plus/cloud-apis_http-logs-and-metrics.png" alt="Select the HTTP Logs & Metrics source" link="/images/sumo-plus/cloud-apis_http-logs-and-metrics.png" target="_blank" >}}
+    {{< figure src="/images/cloud-apis_http-logs-and-metrics.png" alt="Select the HTTP Logs & Metrics source" link="/images/cloud-apis_http-logs-and-metrics.png" target="_blank" >}}
 
 7. In the HTTP Logs & Metrics form:
     - Type **sensu-http** in the Name field.
     - Type **sensu-events** in the Source Category field.
     - Click **Save**.
 
-    {{< figure src="/images/sumo-plus/http-logs-and-metrics_source.gif" alt="Select options for HTTP Logs & Metrics source" link="/images/sumo-plus/http-logs-and-metrics_source.gif" target="_blank" >}}
+    {{< figure src="/images/http-logs-and-metrics_source.png" alt="Select options for HTTP Logs & Metrics source" link="/images/http-logs-and-metrics_source.png" target="_blank" >}}
 
 8. In the HTTP Source Address prompt, copy the listed URL and click OK.
 You will use this URL as the value for the `url` attribute in your [Sensu handler][3] definition.
 
-    {{< figure src="/images/sumo-plus/http-source-address_url.png" alt="Retrieve the HTTP Source Address URL" link="/images/sumo-plus/http-source-address_url.png" target="_blank" >}}
+    {{< figure src="/images/http-source-address_url.png" alt="Retrieve the HTTP Source Address URL" link="/images/http-source-address_url.png" target="_blank" >}}
 
 ## Create a handler in Sensu
 
-To send your Sensu observability data to your new Sumo Logic HTTP Logs and Metrics Source, create a Sensu handler.
+To send your Sensu observability data to your new Sumo Logic HTTP Logs and Metrics Source, create a Sumo Logic metrics handler.
+[Sumo Logic metrics handlers][5] provide a persistent connection to transmit Sensu observability data, which helps prevent the data bottlenecks you may experience with traditional handlers.
 
-We recommend creating a [Sumo Logic metrics handler][5] because they provide a persistent connection to transmit Sensu observability data, which helps prevent the data bottlenecks you may experience with traditional handlers.
-However, you can use a traditional handler instead if desired, and our [Sumo Logic handler integration][11] includes templates to get you started.
+{{% notice note %}}
+**NOTE**: Sumo Logic metrics handlers only accept metrics events.
+To send status events, use the [Sensu Sumo Logic Handler integration](../../../plugins/supported-integrations/sumologic/) instead.
+{{% /notice %}}
 
 For a Sumo Logic metrics handler, the resource definition must use the URL you copied in the last step of setting up your HTTP Logs and Metrics Source as the value for the `url` attribute.
 
@@ -82,7 +85,7 @@ cat << EOF | sensuctl create
 type: SumoLogicMetricsHandler
 api_version: pipeline/v1
 metadata:
-  name: sumologic_http_log_metrics
+  name: sumo_logic_http_metrics
 spec:
   url: "https://collectors.sumologic.com/receiver/v1/http/xxxxxxxx"
   max_connections: 10
@@ -96,7 +99,7 @@ cat << EOF | sensuctl create
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
   "metadata": {
-    "name": "sumologic_http_log_metrics"
+    "name": "sumo_logic_http_metrics"
   },
   "spec": {
     "url": "https://collectors.sumologic.com/receiver/v1/http/xxxxxxxx",
@@ -120,7 +123,7 @@ cat << EOF | sensuctl create
 type: SumoLogicMetricsHandler
 api_version: pipeline/v1
 metadata:
-  name: sumologic_http_log_metrics
+  name: sumo_logic_http_metrics
 spec:
   url: $SUMO_LOGIC_SOURCE_URL
   secrets:
@@ -137,7 +140,7 @@ cat << EOF | sensuctl create
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
   "metadata": {
-    "name": "sumologic_http_log_metrics"
+    "name": "sumo_logic_http_metrics"
   },
   "spec": {
     "url": "$SUMO_LOGIC_SOURCE_URL",
@@ -155,11 +158,6 @@ EOF
 {{< /code >}}
 
 {{< /language-toggle >}}
-
-{{% notice note %}}
-**NOTE**: [Sumo Logic metrics handlers](../observability-pipeline/observe-process/sumo-logic-metrics-handlers) only accept metrics events.
-To send status events, use the [Sensu Sumo Logic Handler integration](../plugins/supported-integrations/sumologic/).
-{{% /notice %}}
 
 ## Configure a pipeline
 
@@ -349,30 +347,36 @@ EOF
 
 This check will collect baseline system metrics in Prometheus format for all entities that include the `system` subscription and send the events to Sumo Logic via your sensu_to_sumo pipeline resource.
 
+{{% notice note %}}
+**NOTE**: Sumo Logic metrics handlers only accept metrics events, so you must use a check that produces metrics.
+If your check produces status events, use the [Sensu Sumo Logic Handler integration](../../../plugins/supported-integrations/sumologic/) to create a traditional Sensu handler rather than the Sumo Logic metrics handler.
+{{% /notice %}}
+
 ## Configure Sumo Logic dashboards
 
 To view your Sensu observability data in Sumo Logic, you can configure Sumo Logic dashboards in any way you wish.
 As a starting point, follow these instructions to configure Sensu Overview and Sensu Entity Detail dashboards:
 
 1. On your [Sumo Logic home page][10], click the **Personal** tab in the left-navigation menu.
-Click the options icon for the folder where you want to import your Sensu data and select **Import**.
+Click the options icon (three vertical dots) and select **Import**.
 
-    {{< figure src="/images/sumo-plus/personal_folder_import.png" alt="Navigate to the folder where you want to import Sensu data" link="/images/sumo-plus/personal_folder_import.png" target="_blank" >}}
+    {{< figure src="/images/personal_folder_import.png" alt="Import Sensu data in the Personal tab" link="/images/personal_folder_import.png" target="_blank" >}}
 
 2. In the Import Content modal window:
     - Type "Sensu" in the **Name** field.
     - Copy the [dashboard configuration JSON](../files/sensu-plus-dashboard-config.json) (download) and paste it into the **JSON** field:
 
-    {{< figure src="/images/sumo-plus/import-content.png" alt="Import Content modal window for dashboards" link="/images/sumo-plus/import-content.png" target="_blank" >}}
+    {{< figure src="/images/import-content.png" alt="Import Content modal window for dashboards" link="/images/import-content.png" target="_blank" >}}
 
 
-5. Scroll to the end of the Import Content modal window and click **Import**.
+5. Scroll to the bottom of the Import Content modal window and click **Import**.
 
-The two new dashboards will be listed in the Sensu sub-folder in the left-navigation menu:
+The two new dashboards will be listed in the Sensu folder in the left-navigation menu:
 
-{{< figure src="/images/sumo-plus/sensu-dashboards.png" alt="Sensu Overview and Sensu Entity Detail dashboards listed in the Sumo Logic left-navigation menu" link="/images/sumo-plus/sensu-dashboards.png" target="_blank" >}}
+{{< figure src="/images/sensu-dashboards.png" alt="Sensu Overview and Sensu Entity Detail dashboards listed in the Sumo Logic left-navigation menu" link="/images/sensu-dashboards.png" target="_blank" >}}
 
 Click a dashboard name to view your Sensu observability data.
+It may take a few moments for your data to appear in Sumo Logic.
 
 
 [1]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
