@@ -18,21 +18,26 @@ Sensu [pipelines][20] define the event filters and actions the Sensu backend exe
 Follow this guide to create a pipeline that sends data from Sensu events to Sumo Logic for long-term log and metrics storage.
 
 This guide will help you send data to Sumo Logic by configuring a pipeline and adding it to a check named `TODO`.
-If you don't already have this check in place, follow [Monitor server resources][3] to add it.
+If you don't already have this check in place, follow **TODO** to add it.
 
-## Install and configure Sensu Go
+Before you start, make sure you have a running Sensu instance with a backend, agent, and sensuctl.
+If you do not have an existing Sensu installation, follow the RHEL/CentOS [install instructions][4] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
 
-Follow the RHEL/CentOS [install instructions][4] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
+## Update entity subscriptions
 
-Find your entity name:
+**TODO** Explain subscriptions
+
+First, select an entity whose data you want to send to Sumo Logic.
+To list all of your entities in the current namespace, run:
 
 {{< code shell >}}
 sensuctl entity list
 {{< /code >}}
 
-The `ID` in the response is the name of your entity.
+The `ID` in the response is the entity name.
+Select at least one of your listed entities.
 
-Replace `<entity_name>` with the name of your entity in the [sensuctl][12] command below.
+Before you run the following [sensuctl][12] command, replace `<entity_name>` with the name of your entity.
 Then run the command to add the `system` [subscription][13] to your entity:
 
 {{< code shell >}}
@@ -50,7 +55,7 @@ systemctl status sensu-backend && systemctl status sensu-agent
 
 ## Register the dynamic runtime asset
 
-The [Sensu Sumo Logic Handler][8] dynamic runtime asset includes the scripts you will need to send events to PagerDuty.
+The [Sensu Sumo Logic Handler][8] dynamic runtime asset includes the scripts you will need to send observability event data to Sumo Logic.
 
 To add the Sumo Logic handler asset, run:
 
@@ -86,7 +91,7 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 ## Set up an HTTP Logs and Metrics Source
 
-Set up a Sumo Logic HTTP Logs and Metrics Source to collect your Sensu observability data:
+Set up a Sumo Logic [HTTP Logs and Metrics Source][] to collect your Sensu observability data:
 
 1. In the Sumo Logic left-navigation menu, click **Manage Data** and then **Collection** to open the Collection tab.
 
@@ -122,21 +127,157 @@ Set up a Sumo Logic HTTP Logs and Metrics Source to collect your Sensu observabi
     {{< figure src="/images/http-logs-and-metrics_source.png" alt="Select options for HTTP Logs & Metrics source" link="/images/http-logs-and-metrics_source.png" target="_blank" >}}
 
 8. In the HTTP Source Address prompt, copy the listed URL and click OK.
-You will use this URL as the value for the `url` attribute in your [Sensu handler][3] definition.
+You will use this URL in the next step as the `SUMOLOGIC_URL` value for the secret in your [Sensu handler][3] definition.
 
     {{< figure src="/images/http-source-address_url.png" alt="Retrieve the HTTP Source Address URL" link="/images/http-source-address_url.png" target="_blank" >}}
 
 ## Add the Sumo Logic handler
 
-Now that you've added the dynamic runtime asset, you can create a [handler][9] that uses the asset to send non-OK events to Sumo Logic.
+Now that you've added the Sensu Sumo Logic Handler dynamic runtime asset and set up a Sumo Logic HTTP Logs and Metrics Source, you can create a [handler][9] that sends event data to Sumo Logic.
 
-In the following code, replace `<SUMOLOGIC_URL>` with your [Sumo Logic HTTP Logs and Metrics Source URL][1].
-Then run the command to create the handler:
+The asset requires a `SUMOLOGIC_URL` variable whose value is the URL for the Sumo Logic HTTP Logs and Metrics Source where you want to send Sensu data.
+You retrieved this URL in the last step of [setting up an HTTP Logs and Metrics Source][14].
 
-{{< code shell >}}
+{{% notice note %}}
+**NOTE**: This example shows how to set your Sumo Logic HTTP Source Address URL as an environment variable and use it as a secret with Sensu's built-in `Env` secrets provider.
+Read [Use secrets management in Sensu](../../../operations/manage-secrets/secrets-management/) for more information about [using Env for secrets management](../../../operations/manage-secrets/secrets-management/#use-env-for-secrets-management).
+{{% /notice %}}
 
+### Configure the SUMOLOGIC_URL secret
 
+Follow these steps to save your Sumo Logic HTTP Source Address URL as a secret.
+
+1. Create the files from which the `sensu-backend` service will read environment variables: `/etc/default/sensu-backend` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-backend` for RHEL/CentOS systems.
+If you have already created this file on your system, skip to step 2.
+
+     {{< language-toggle >}}
+     
+{{< code shell "Ubuntu/Debian" >}}
+sudo touch /etc/default/sensu-backend
 {{< /code >}}
+
+{{< code shell "RHEL/CentOS" >}}
+sudo touch /etc/sysconfig/sensu-backend
+{{< /code >}}
+     
+     {{< /language-toggle >}}
+
+2. In the following code, replace `<SumoLogic_HTTPSourceAddress_URL>` with your Sumo Logic HTTP Source Address URL:
+
+     {{< language-toggle >}}
+
+{{< code shell "Ubuntu/Debian" >}}
+echo 'SUMOLOGIC_URL=<SumoLogic_HTTPSourceAddress_URL>' | sudo tee -a /etc/default/sensu-backend
+{{< /code >}}
+
+{{< code shell "RHEL/CentOS" >}}
+echo 'SUMOLOGIC_URL=<SumoLogic_HTTPSourceAddress_URL>' | sudo tee -a /etc/sysconfig/sensu-backend
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+3. Restart the sensu-backend:
+
+     {{< code shell >}}
+sudo systemctl restart sensu-backend
+{{< /code >}}
+
+This configures the `SUMOLOGIC_URL` environment variable to your Sumo Logic HTTP Source Address URL in the context of the sensu-backend process.
+
+### Create your Env secret
+
+Now you'll use `sensuctl create` to create your secret.
+This code creates a secret named `sumologic_url` that refers to the environment variable ID `SUMOLOGIC_URL`.
+Run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
+type: Secret
+api_version: secrets/v1
+metadata:
+  name: sumologic_url
+spec:
+  id: SUMOLOGIC_URL
+  provider: env
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "Secret",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "sumologic_url"
+  },
+  "spec": {
+    "id": "SUMOLOGIC_URL",
+    "provider": "env"
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Now you can securely pass your Sumo Logic HTTP Source Address URL in your Sumo Logic handler by referring to the `sumologic_url` secret.
+
+### Create a Sumo Logic handler
+
+Run the following command to create a handler that will send Sensu observability data to your Sumo Logic HTTP Logs and Metrics Source:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: sumologic
+spec:
+  command: >-
+    sensu-sumologic-handler --send-log --send-metrics
+    --source-host "{{ .Entity.Name }}"
+    --source-name "{{ .Check.Name }}"
+  type: pipe
+  runtime_assets:
+  - sumologic-handler
+  secrets:
+  - name: SUMOLOGIC_URL
+    secret: sumologic_url
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sumologic"
+  },
+  "spec": {
+    "command": "sensu-sumologic-handler --send-log --send-metrics --source-host \"{{ .Entity.Name }}\" --source-name \"{{ .Check.Name }}\"",
+    "type": "pipe",
+    "runtime_assets": [
+      "sumologic-handler"
+    ],
+    "secrets": [
+      {
+        "name": "SUMOLOGIC_URL",
+        "secret": "sumologic_url"
+      }
+    ]
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 Make sure that your handler was added by retrieving the complete handler definition in YAML or JSON format:
 
@@ -158,11 +299,56 @@ The response will list the complete handler resource definition:
 
 {{< code yml >}}
 ---
-
+type: Handler
+api_version: core/v2
+metadata:
+  created_by: admin
+  labels:
+    sensu.io/managed_by: sensuctl
+  name: sumologic
+spec:
+  command: sensu-sumologic-handler --send-log --send-metrics --source-host "{{ .Entity.Name }}" --source-name "{{ .Check.Name }}"
+  env_vars: null
+  filters: null
+  handlers: null
+  runtime_assets:
+  - sumologic-handler
+  secrets:
+  - name: SUMOLOGIC_URL
+    secret: sumologic_url
+  timeout: 0
+  type: pipe
 {{< /code >}}
 
 {{< code json >}}
-
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "labels": {
+      "sensu.io/managed_by": "sensuctl"
+    },
+    "name": "sumologic"
+  },
+  "spec": {
+    "command": "sensu-sumologic-handler --send-log --send-metrics --source-host \"{{ .Entity.Name }}\" --source-name \"{{ .Check.Name }}\"",
+    "env_vars": null,
+    "filters": null,
+    "handlers": null,
+    "runtime_assets": [
+      "sumologic-handler"
+    ],
+    "secrets": [
+      {
+        "name": "SUMOLOGIC_URL",
+        "secret": "sumologic_url"
+      }
+    ],
+    "timeout": 0,
+    "type": "pipe"
+  }
+}
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -184,13 +370,41 @@ To create the pipeline, run:
 {{< code shell "YML" >}}
 cat << EOF | sensuctl create
 ---
-
+type: Pipeline
+api_version: core/v2
+metadata:
+  name: sensu_to_sumo
+spec:
+  workflows:
+  - name: logs_to_sumologic
+    handler:
+      name: sumologic
+      type: Handler
+      api_version: core/v2
 EOF
 {{< /code >}}
 
 {{< code shell "JSON" >}}
 cat << EOF | sensuctl create
-
+{
+  "type": "Pipeline",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu_to_sumo"
+  },
+  "spec": {
+    "workflows": [
+      {
+        "name": "logs_to_sumologic",
+        "handler": {
+          "name": "sumologic",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
+  }
+}
 EOF
 {{< /code >}}
 
@@ -255,10 +469,6 @@ It will take a few moments after you add the pipeline to the check for your Sens
 
 ...
 
-After Sensu detects a non-OK event, the handler in your pipeline will send the alert to your PagerDuty account, where you should see an event similar to this one:
-
-{{< figure src="/images/pipeline_pagerduty_alert_example.png" alt="Example alert in PagerDuty for failing Sensu check" link="/images/pipeline_pagerduty_alert_example.png" target="_blank" >}}
-
 
 ## Next steps
 
@@ -278,13 +488,13 @@ To share and reuse the check, handler, and pipeline like code, [save them to fil
 [5]: ../../../plugins/assets/
 [6]: ../../../operations/monitoring-as-code/#build-as-you-go
 [7]: ../../../operations/monitoring-as-code/
-[8]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
+[8]: https://bonsai.sensu.io/assets/sensu/sensu-sumologic-handler
 [9]: ../handlers/
 [10]: ../../../operations/deploy-sensu/install-sensu/#3-initialize
 [11]: ../../../web-ui/
 [12]: ../../../sensuctl/
 [13]: ../../observe-schedule/subscriptions/
-[14]: ../../../plugins/supported-integrations/pagerduty/
+[14]: #set-up-an-http-logs-and-metrics-source
 [15]: ../../../plugins/supported-integrations/pagerduty/#get-the-plugin
 [16]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler#pagerduty-severity-mapping
 [17]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler#pager-teams
