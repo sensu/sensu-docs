@@ -277,6 +277,8 @@ disable_offline_access: false
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="redirect-uri-attribute"></a>
+
 | redirect_uri |   |
 -------------|------
 description  | Redirect URL to provide to the OIDC provider. Requires `/api/enterprise/authentication/v2/oidc/callback` {{% notice note %}}
@@ -312,6 +314,8 @@ server: https://sensu.oidc.provider.example.com
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+<a id="groups-claim-attribute"></a>
 
 | groups_claim |   |
 -------------|------
@@ -509,6 +513,50 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 
     - https://<api_url>:8080/api/enterprise/authentication/v2/oidc/authorize
 
+## OIDC troubleshooting
+
+This section lists common OIDC errors and describes possible solutions for each of them.
+
+To troubleshoot any issue with OIDC authentication, start by [increasing the log verbosity][3] of sensu-backend to the [debug log level][5].
+Most authentication and authorization errors are only displayed on the debug log level to avoid flooding the log files.
+
+{{% notice note %}}
+**NOTE**: If you can't locate any log entries referencing OIDC authentication, run [sensuctl auth list](../sso/#manage-authentication-providers) to make sure that you successfully installed the OIDC provider.
+{{% /notice %}}
+
+For provider-specific troubleshooting, read the [Okta][14] or [PingFederate][15] documentation.
+
+### `bad request`
+
+After configuring OIDC access, if you receive a `bad request` error when you open the web UI, you may be using an incorrect port in the redirect URI.
+
+Make sure the redirect URI uses the API port, `8080`.
+Confirm that the redirect URI specified in your OIDC provider as well as in the [`redirect_uri` attribute][9] in your Sensu OIDC definition both use port `8080`.
+For example, the URL `http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback` uses the correct port.
+
+### `could not find the groups claim in the user's claims`
+
+If you see the following error when you open the web UI, the [`groups_claim`][10] value in your Sensu OIDC definition is incorrect:
+
+{{< code shell >}}
+{"message":"could not find the groups claim \"okta:groups\" in the user's claims: [\"sub\" \"email\" \"email_verified\"]","code":0}
+{{< /code >}}
+
+Update your OIDC definition to specify `groups` as the value for the [`groups_claim` attribute][10].
+
+### No namespaces or resources in the web UI after OIDC sign-in
+
+You must configure [RBAC authorization][3] for your OIDC users and groups by creating [roles (or cluster roles)][4] and [role bindings (or cluster role bindings)][13] that map to the user and group names.
+
+If you do not configure authorization, users will be able to log in with OIDC but will have no permissions, so they will not see any namespaces or resources in the web UI.
+
+### Inconsistent authentication
+
+If you experience inconsistent authentication with OIDC sign-in, such as being unable to sign in after previously signing in successfully, you may have configured more than one OIDC authentication provider.
+
+Run [sensuctl auth list](../sso/#manage-authentication-providers) to make sure that you have only one authentication provider listed for type `OIDC`.
+If more than one OIDC authentication provider is listed, use `sensuctl auth delete $NAME` to remove the extra OIDC configuration by name.
+
 
 [1]: ../../../web-ui/
 [2]: ../../../sensuctl/
@@ -518,8 +566,12 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [6]: ../../../commercial/
 [7]: ../#use-built-in-basic-authentication
 [8]: ../../../api/
+[9]: #redirect-uri-attribute
+[10]: #groups-claim-attribute
 [12]: ../sso/
 [13]: ../rbac#role-bindings-and-cluster-role-bindings
+[14]: https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/trouble-shooting-guide.htm
+[15]: https://docs.pingidentity.com/bundle/pingfederate-110/page/age1564003028292.html
 [17]: ../rbac#namespaced-resource-types
 [18]: ../rbac#cluster-wide-resource-types
 [19]: ../../maintain-sensu/troubleshoot#log-levels
