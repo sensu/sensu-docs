@@ -13,21 +13,23 @@ menu:
     parent: observe-process
 ---
 
-Sensu [checks][2] are commands the Sensu agent executes that generate observability data in a status or metric [event][19].
-Sensu [pipelines][20] define the event filters and actions the Sensu backend executes on the events.
-Follow this guide to create a pipeline that sends data from Sensu events to Sumo Logic for long-term log and metrics storage.
+Follow this guide to create a pipeline that sends data from a Sensu check to Sumo Logic for long-term log and metrics storage.
+Sensu [checks][2] are commands the Sensu agent executes that generate observability data in a status or metric [event][16].
+Sensu [pipelines][14] define the event filters and actions the Sensu backend executes on the events.
 
-This guide will help you send data to Sumo Logic by configuring a pipeline and adding it to a check named `TODO`.
-If you don't already have this check in place, follow **TODO** to add it.
+This guide uses a check named `check_cpu` as an example.
+If you don't already have this check in place, follow [Monitor server resources][2] to add it.
 
 Before you start, make sure you have a running Sensu instance with a backend, agent, and sensuctl.
-If you do not have an existing Sensu installation, follow the RHEL/CentOS [install instructions][4] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
+If you do not have an existing Sensu installation, follow the Ubuntu/Debian or RHEL/CentOS [installation instructions][4] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
 
 ## Update entity subscriptions
 
-**TODO** Explain subscriptions
+Sensu checks have a [subscriptions][11] attribute, where you specify strings to indicate which subscribers will execute the checks.
+For Sensu to execute a check, at least one of your entities must include a subscription that matches a subscription in the check definition.
+In this example, the `check_cpu` check definition includes the `system` subscription, so you'll need to make sure that you have an entity that is also subscribed to `system`.
 
-First, select an entity whose data you want to send to Sumo Logic.
+First, select the entity whose data you want to send to Sumo Logic.
 To list all of your entities in the current namespace, run:
 
 {{< code shell >}}
@@ -35,10 +37,10 @@ sensuctl entity list
 {{< /code >}}
 
 The `ID` in the response is the entity name.
-Select at least one of your listed entities.
+Select one of your listed entities to use.
 
-Before you run the following [sensuctl][12] command, replace `<entity_name>` with the name of your entity.
-Then run the command to add the `system` [subscription][13] to your entity:
+Before you run the following sensuctl command, replace `<entity_name>` with the name of your entity.
+Then run the command to add the `system` subscription to your entity:
 
 {{< code shell >}}
 sensuctl entity update <entity_name>
@@ -47,15 +49,17 @@ sensuctl entity update <entity_name>
 - For `Entity Class`, press enter.
 - For `Subscriptions`, type `system` and press enter.
 
-Confirm both Sensu services are running:
+Finally, confirm that both Sensu services are running:
 
 {{< code shell >}}
 systemctl status sensu-backend && systemctl status sensu-agent
 {{< /code >}}
 
+The response should indicate `active (running)` for both the Sensu backend and agent.
+
 ## Register the dynamic runtime asset
 
-The [Sensu Sumo Logic Handler][8] dynamic runtime asset includes the scripts you will need to send observability event data to Sumo Logic.
+The [Sensu Sumo Logic Handler][8] [dynamic runtime asset][5] includes the scripts your [handler][9] will need to send observability data to Sumo Logic.
 
 To add the Sumo Logic handler asset, run:
 
@@ -91,7 +95,7 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 ## Set up an HTTP Logs and Metrics Source
 
-Set up a Sumo Logic [HTTP Logs and Metrics Source][] to collect your Sensu observability data:
+Set up a Sumo Logic [HTTP Logs and Metrics Source][1] to collect your Sensu observability data:
 
 1. In the Sumo Logic left-navigation menu, click **Manage Data** and then **Collection** to open the Collection tab.
 
@@ -133,10 +137,10 @@ You will use this URL in the next step as the `SUMOLOGIC_URL` value for the secr
 
 ## Add the Sumo Logic handler
 
-Now that you've added the Sensu Sumo Logic Handler dynamic runtime asset and set up a Sumo Logic HTTP Logs and Metrics Source, you can create a [handler][9] that sends event data to Sumo Logic.
+Now that you've added the Sensu Sumo Logic Handler dynamic runtime asset and set up a Sumo Logic HTTP Logs and Metrics Source, you can create a [handler][9] that sends observability data to Sumo Logic.
 
 The asset requires a `SUMOLOGIC_URL` variable whose value is the URL for the Sumo Logic HTTP Logs and Metrics Source where you want to send Sensu data.
-You retrieved this URL in the last step of [setting up an HTTP Logs and Metrics Source][14].
+You retrieved this URL in the last step of [setting up an HTTP Logs and Metrics Source][12].
 
 {{% notice note %}}
 **NOTE**: This example shows how to set your Sumo Logic HTTP Source Address URL as an environment variable and use it as a secret with Sensu's built-in `Env` secrets provider.
@@ -145,7 +149,7 @@ Read [Use secrets management in Sensu](../../../operations/manage-secrets/secret
 
 ### Configure the SUMOLOGIC_URL secret
 
-Follow these steps to save your Sumo Logic HTTP Source Address URL as a secret.
+Follow these steps to save your Sumo Logic HTTP Source Address URL as a secret:
 
 1. Create the files from which the `sensu-backend` service will read environment variables: `/etc/default/sensu-backend` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-backend` for RHEL/CentOS systems.
 If you have already created this file on your system, skip to step 2.
@@ -184,10 +188,9 @@ sudo systemctl restart sensu-backend
 
 This configures the `SUMOLOGIC_URL` environment variable to your Sumo Logic HTTP Source Address URL in the context of the sensu-backend process.
 
-### Create your Env secret
+### Create the Env secret
 
-Now you'll use `sensuctl create` to create your secret.
-This code creates a secret named `sumologic_url` that refers to the environment variable ID `SUMOLOGIC_URL`.
+Next, create a secret named `sumologic_url` that refers to the environment variable ID `SUMOLOGIC_URL`.
 Run:
 
 {{< language-toggle >}}
@@ -227,7 +230,7 @@ Now you can securely pass your Sumo Logic HTTP Source Address URL in your Sumo L
 
 ### Create a Sumo Logic handler
 
-Run the following command to create a handler that will send Sensu observability data to your Sumo Logic HTTP Logs and Metrics Source:
+Run the following command to create a handler to send Sensu observability data to your Sumo Logic HTTP Logs and Metrics Source:
 
 {{< language-toggle >}}
 
@@ -357,13 +360,13 @@ spec:
 **PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
 {{% /notice %}}
 
-## Create a pipeline with the handler
+## Create a pipeline with the Sumo Logic handler
 
-With your Sumo Logic handler configured, you can add it to a [pipeline][17] workflow.
-A single pipeline workflow can include one or more filters, one mutator, and one handler.
+With your Sumo Logic handler configured, you can add it to a [pipeline][14] workflow.
+A single pipeline workflow can include one or more event filters, one mutator, and one handler.
 
-In this case, the pipeline includes the Sumo Logic handler you've already configured.
-To create the pipeline, run:
+To send data for all events (as opposed to only incidents), you'll create a pipeline that includes only the Sumo Logic handler you've already configured &mdash; no event filters or mutators.
+To add the pipeline, run:
 
 {{< language-toggle >}}
 
@@ -412,12 +415,11 @@ EOF
 
 ## Assign the pipeline to a check
 
-**TODO** find a good check to use here
-
-To use the `cpu_check_alerts` pipeline, list it in a check definition's [pipelines array][18] (in this case, the `check_cpu` check created in [Monitor server resources][3]).
+To use the `sensu_to_sumo` pipeline, list it in a check definition's [pipelines array][15].
+This example uses the `check_cpu` check created in [Monitor server resources][3]), but you can add the pipeline to any Sensu check you wish.
 All the observability events that the check produces will be processed according to the pipeline's workflows.
 
-Assign your `cpu_check_alerts` pipeline to the `check_cpu` check to receive Slack alerts when the CPU usage of your system reaches the specific thresholds set in the check command.
+Assign your `sensu_to_sumo` pipeline to the `check_cpu` check to start sending Sensu data to Sumo Logic.
 
 To open the check definition in your text editor, run: 
 
@@ -431,7 +433,7 @@ Replace the `pipelines: []` line with the following array:
   pipelines:
   - type: Pipeline
     api_version: core/v2
-    name: cpu_check_alerts
+    name: sensu_to_sumo
 {{< /code >}}
 
 To view the updated `check_cpu` resource definition, run:
@@ -454,11 +456,82 @@ The updated check definition will be similar to this example:
 
 {{< code yml >}}
 ---
-
+type: CheckConfig
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: check_cpu
+  namespace: default
+spec:
+  check_hooks: null
+  command: check-cpu-usage -w 75 -c 90
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
+  interval: 15
+  low_flap_threshold: 0
+  output_metric_format: prometheus_text
+  output_metric_handlers: null
+  pipelines:
+  - api_version: core/v2
+    name: sensu_to_sumo
+    type: Pipeline
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets:
+  - check-cpu-usage
+  secrets: null
+  stdin: false
+  subdue: null
+  subscriptions:
+  - system
+  timeout: 0
+  ttl: 0
 {{< /code >}}
 
 {{< code json >}}
-
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check_cpu",
+    "namespace": "default",
+    "created_by": "admin"
+  },
+  "spec": {
+    "check_hooks": null,
+    "command": "check-cpu-usage -w 75 -c 90",
+    "env_vars": null,
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 15,
+    "low_flap_threshold": 0,
+    "output_metric_format": "prometheus_text",
+    "output_metric_handlers": null,
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "name": "sensu_to_sumo",
+        "type": "Pipeline"
+      }
+    ],
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": [
+      "check-cpu-usage"
+    ],
+    "secrets": null,
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "system"
+    ],
+    "timeout": 0,
+    "ttl": 0
+  }
+}
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -466,22 +539,37 @@ The updated check definition will be similar to this example:
 ## View your Sensu data in Sumo Logic
 
 It will take a few moments after you add the pipeline to the check for your Sensu observability data to appear in Sumo Logic.
+Use the [Live Tail][13] feature to confirm that your data is reaching Sumo Logic.
 
-...
+1. Click the **+ New** button and select **Live Tail** from the drop-down menu.
 
+    {{< figure src="/images/new-button-live-tail.png" alt="Click the + New button and select Live Tail" link="/images/new-button-live-tail.png" target="_blank" >}}
+
+2. In the Live Tail search field, enter `_collector=sensu`.
+
+    {{< figure src="/images/live-tail-search-collector.png" alt="Live Tail search expression" link="/images/live-tail-search-collector.png" target="_blank" >}}
+
+3. Click **Run**.
+
+    {{< figure src="/images/live-tail-run-button.png" alt="Location of Live Tail Run button" link="/images/live-tail-run-button.png" target="_blank" >}}
+
+Within a few seconds, the Live Tail page should begin to display your Sensu observability data.
+
+{{< figure src="/images/live-tail-running.png" alt="Live Tail results for the 'sensu' collector" link="/images/live-tail-running.png" target="_blank" >}}
+
+
+If you're seeing data on the Live Tail page, you have a successful workflow that sends Sensu observability data to your Sumo Logic account.
 
 ## Next steps
 
-You should now have a working set-up with a check and a pipeline that sends Sensu data to your Sumo Logic account.
 To share and reuse the check, handler, and pipeline like code, [save them to files][6] and start building a [monitoring as code repository][7].
 
-**TODO**
+Configure a [Sumo Logic dashboard][10] to search, view, and analyze the Sensu data you're sending to your Sumo Logic HTTP Logs and Metrics Source.
 
-- Configure dashboards
-- Sensu Plus
+In addition to the traditional handler we used in this example, you can use [Sensu Plus][17], our built-in integration, to send metrics to Sumo Logic with a streaming [Sumo Logic metrics handler][18].
 
 
-[1]: https://support.pagerduty.com/docs/generating-api-keys#section-events-api-keys
+[1]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
 [2]: ../../observe-schedule/checks/
 [3]: ../../observe-schedule/monitor-server-resources/
 [4]: ../../../operations/deploy-sensu/install-sensu/
@@ -490,15 +578,12 @@ To share and reuse the check, handler, and pipeline like code, [save them to fil
 [7]: ../../../operations/monitoring-as-code/
 [8]: https://bonsai.sensu.io/assets/sensu/sensu-sumologic-handler
 [9]: ../handlers/
-[10]: ../../../operations/deploy-sensu/install-sensu/#3-initialize
-[11]: ../../../web-ui/
-[12]: ../../../sensuctl/
-[13]: ../../observe-schedule/subscriptions/
-[14]: #set-up-an-http-logs-and-metrics-source
-[15]: ../../../plugins/supported-integrations/pagerduty/#get-the-plugin
-[16]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler#pagerduty-severity-mapping
-[17]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler#pager-teams
-[18]: ../handler-templates/
-[19]: ../../observe-events/
-[20]: ../pipelines/
-[21]: ../../observe-filter/filters/#built-in-filter-is_incident
+[10]: https://help.sumologic.com/Visualizations-and-Alerts/Dashboards
+[11]: ../../observe-schedule/subscriptions/
+[12]: #set-up-an-http-logs-and-metrics-source
+[13]: https://help.sumologic.com/05Search/Live-Tail
+[14]: ../pipelines/
+[15]: ../../observe-schedule/checks/#pipelines-attribute
+[16]: ../../observe-events/
+[17]: ../../../sensu-plus/
+[18]: ../sumo-logic-metrics-handlers/
