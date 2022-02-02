@@ -246,7 +246,7 @@ api_version: authentication/v2
 
 metadata     | 
 -------------|------
-description  | Top-level map that contains the AD definition `name`. Review the [metadata attributes reference][23] for details.
+description  | Top-level map that contains the AD definition `name`. Review the [metadata attributes][23] for details.
 required     | true
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -334,6 +334,24 @@ spec:
     "groups_prefix": "ad",
     "username_prefix": "ad"
   }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+### AD metadata attributes
+
+| name       |      |
+-------------|------
+description  | A unique string used to identify the AD configuration. Names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][42]).
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: activedirectory
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "activedirectory"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -469,7 +487,7 @@ username_prefix: ad
 
 | host       |      |
 -------------|------
-description  | AD server IP address or [FQDN][41].
+description  | AD server IP address or [fully qualified domain name (FQDN)][41].
 required     | true
 type         | String
 example      | {{< language-toggle >}}
@@ -500,6 +518,8 @@ port: 636
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="insecure-attribute"></a>
+
 | insecure   |      |
 -------------|------
 description  | Skips SSL certificate verification when set to `true`. {{% notice warning %}}
@@ -519,11 +539,13 @@ insecure: false
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="security-attribute"></a>
+
 | security   |      |
 -------------|------
 description  | Determines the encryption type to be used for the connection to the AD server: `insecure` (unencrypted connection; not recommended for production), `tls` (secure encrypted connection), or `starttls` (unencrypted connection upgrades to a secure connection).
 type         | String
-default      | `"tls"`
+default      | `tls`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 security: tls
@@ -583,9 +605,11 @@ client_key_file: /path/to/ssl/key.pem
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="binding-object"></a>
+
 | binding    |      |
 -------------|------
-description  | The AD account that performs user and group lookups. If your server supports anonymous binding, you can omit the `user_dn` or `password` attributes to query the directory without credentials. To use anonymous binding with AD, the `ANONYMOUS LOGON` object requires read permissions for users and groups.
+description  | The AD account that performs user and group lookups. If your server supports anonymous binding, you can omit the `user_dn` or `password` attributes to query the directory without credentials. To use anonymous binding with AD, the `ANONYMOUS LOGON` object requires read permissions for users and groups. Review the [binding attributes][43] for details.
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
@@ -628,6 +652,8 @@ group_search:
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+<a id="user-search-object"></a>
 
 | user_search |     |
 -------------|------
@@ -745,7 +771,7 @@ base_dn: dc=acme,dc=org
 description  | Used for comparing result entries. Combined with other filters as <br> `"(<Attribute>=<value>)"`.
 required     | false
 type         | String
-default      | `"member"`
+default      | `member`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 attribute: member
@@ -757,12 +783,14 @@ attribute: member
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="name-attribute-attribute"></a>
+
 | name_attribute |  |
 -------------|------
 description  | Represents the attribute to use as the entry name.
 required     | false
 type         | String
-default      | `"cn"`
+default      | `cn`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 name_attribute: cn
@@ -779,7 +807,7 @@ name_attribute: cn
 description  | Identifies the class of objects returned in the search result. Combined with other filters as `"(objectClass=<ObjectClass>)"`.
 required     | false
 type         | String
-default      | `"group"`
+default      | `group`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 object_class: group
@@ -814,7 +842,7 @@ base_dn: dc=acme,dc=org
 description  | Used for comparing result entries. Combined with other filters as <br> `"(<Attribute>=<value>)"`.
 required     | false
 type         | String
-default      | `"sAMAccountName"`
+default      | `sAMAccountName`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 attribute: sAMAccountName
@@ -831,7 +859,7 @@ attribute: sAMAccountName
 description  | Represents the attribute to use as the entry name.
 required     | false
 type         | String
-default      | `"displayName"`
+default      | `displayName`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 name_attribute: displayName
@@ -848,7 +876,7 @@ name_attribute: displayName
 description  | Identifies the class of objects returned in the search result. Combined with other filters as `"(objectClass=<ObjectClass>)"`.
 required     | false
 type         | String
-default      | `"person"`
+default      | `person`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 object_class: person
@@ -860,44 +888,111 @@ object_class: person
 {{< /code >}}
 {{< /language-toggle >}}
 
-### AD metadata attributes
-
-| name       |      |
--------------|------
-description  | A unique string used to identify the AD configuration. Names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][42]).
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-name: activedirectory
-{{< /code >}}
-{{< code json >}}
-{
-  "name": "activedirectory"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 ## AD troubleshooting
 
-The troubleshooting steps in the [LDAP troubleshooting][49] section also apply for AD troubleshooting.
+To troubleshoot any issue with AD authentication, start by [increasing the log verbosity][3] of sensu-backend to the [debug log level][5].
+Most authentication and authorization errors are only displayed on the debug log level to avoid flooding the log files.
+
+{{% notice note %}}
+**NOTE**: If you can't locate any log entries referencing AD authentication, run [sensuctl auth list](../sso/#manage-authentication-providers) to make sure that you successfully installed the AD provider.
+{{% /notice %}}
+
+### Authentication
+
+This section lists common authentication error messages and describes possible solutions for each of them.
+
+#### `failed to connect: AD Result Code 200 "Network Error"`
+
+The AD provider couldn't establish a TCP connection to the AD server.
+Verify the `host` and `port` attributes.
+If you are not using AD over TLS/SSL, make sure to set the value of the [`security` attribute][11] to `insecure` for plaintext communication.
+
+#### `certificate signed by unknown authority`
+
+If you are using a self-signed certificate, make sure to set the [`insecure` attribute][18] to `true`.
+This will bypass verification of the certificate's signing authority.
+
+#### `failed to bind: ...`
+
+The first step for authenticating a user with the AD provider is to bind to the AD server using the service account specified in the [`binding` object][14].
+Make sure the [`user_dn` attribute][43] specifies a valid **DN** and that its password is correct.
+
+#### `user <username> was not found`
+
+The user search failed.
+No user account could be found with the given username.
+Check the [`user_search` object][15] and make sure that:
+
+- The specified `base_dn` contains the requested user entry DN
+- The specified `attribute` contains the _username_ as its value in the user entry
+- The `object_class` attribute corresponds to the user entry object class
+
+#### `ad search for user <username> returned x results, expected only 1`
+
+The user search returned more than one user entry, so the provider could not determine which of these entries to use.
+Change the [`user_search` object][15] so the provided `username` can be used to uniquely identify a user entry.
+Here are two methods to try:
+
+- Adjust the `attribute` so its value (which corresponds to the `username`) is unique among the user entries
+- Adjust the `base_dn` so it only includes one of the user entries
+
+#### `ad entry <DN> missing required attribute <name_attribute>`
+
+The user entry returned (identified by `<DN>`) doesn't include the attribute specified by [`name_attribute` object][9], so the AD provider could not determine which attribute to use as the username in the user entry.
+Adjust the `name_attribute` so it specifies a human-readable name for the user. 
+
+#### `ad group entry <DN> missing <name_attribute> and cn attributes`
+
+The group search returned a group entry (identified by `<DN>`) that doesn't have the [`name_attribute` object][9] or a `cn` attribute, so the AD provider could not determine which attribute to use as the group name in the group entry.
+Adjust the `name_attribute` so it specifies a human-readable name for the group.
+
+### Authorization
+
+Once authenticated, each user needs to be granted permissions via either a `ClusterRoleBinding` or a `RoleBinding`.
+
+The way AD users and AD groups can be referred as subjects of a cluster role or role binding depends on the [`groups_prefix`][16] and [`username_prefix`][17] configuration attributes values of the AD provider.
+For example, for the groups_prefix `ad` and the group `dev`, the resulting group name in Sensu is `ad:dev`.
+
+#### Permissions are not granted via the AD group(s)
+
+During authentication, the AD provider will print all groups found in AD (for example, `found 1 group(s): [dev]`) in the logs.
+Keep in mind that this group name does not contain the [`groups_prefix`][16] at this point.
+
+The Sensu backend logs each attempt made to authorize an RBAC request.
+This is useful for determining why a specific binding didn't grant the request.
+For example:
+
+{{< code shell >}}
+[...] the user is not a subject of the ClusterRoleBinding cluster-admin [...]
+[...] could not authorize the request with the ClusterRoleBinding system:user [...]
+[...] could not authorize the request with any ClusterRoleBindings [...]
+{{< /code >}}
 
 
 [1]: ../../../web-ui/
 [2]: ../../../sensuctl/
+[3]: ../../maintain-sensu/troubleshoot/#increment-log-level-verbosity
 [4]: ../#use-built-in-basic-authentication
+[5]: ../../maintain-sensu/troubleshoot/#log-levels
 [6]: ../../../commercial/
 [8]: ../../../api/
+[9]: #name-attribute-attribute
 [10]: https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-configure-ldaps
+[11]: #security-attribute
 [12]: ../sso/
 [13]: ../rbac#role-bindings-and-cluster-role-bindings
+[14]: #binding-object
+[15]: #user-search-object
+[16]: #ad-groups-prefix
+[17]: #ad-username-prefix
+[18]: #insecure-attribute
 [23]: #ad-metadata-attributes
 [38]: ../../../sensuctl/create-manage-resources/#create-resources
 [41]: https://en.wikipedia.org/wiki/Fully_qualified_domain_name
 [42]: https://regex101.com/r/zo9mQU/2
+[43]: #ad-binding-attributes
 [44]: ../ldap-auth/
 [45]: #ad-spec-attributes
 [46]: #ad-server-attributes
 [47]: #ad-group-search-attributes
 [48]: #ad-user-search-attributes
-[49]: ../ldap-auth/#ldap-troubleshooting
