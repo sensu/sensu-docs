@@ -18,6 +18,29 @@ When you apply a search to a web UI page, it creates a unique link for the page 
 You can bookmark these links and share your favorite search combinations.
 You can also [save your favorite searches][8].
 
+## Events and entities search limits
+
+In Sensu Go 6.6.3 and subsequent versions, web UI search queries on the events and entities pages will stop after returning a certain number of matches.
+Without these limits, the search operation can diminish cluster health.
+
+{{% notice note %}}
+**NOTE**: The search limits on events and entities do not apply to Sensu Go versions prior to 6.6.3.
+{{% /notice %}}
+
+### Events search limit
+
+On the events page, if you use etcd for event storage, search queries will stop after returning a certain number of events:
+
+- In Sensu Go 6.6.3 and 6.6.4, search queries will return a maximum of 25,000 events.
+- In Sensu Go 6.6.5, seach queries will return a maximum of 50,000 events.
+
+For example, in Sensu Go 6.6.5, if you use etcd for event storage and you search in a namespace that has more than 50,000 matching events, the search results will not include matching events beyond the first 50,000.
+
+### Entities search limit
+
+Starting with Sensu Go 6.6.3, search queries on the entities page will stop after retrieving approximately 500 matches.
+As a result, if your search matches more than 500 entities, the total results count at the bottom-right corner of the entities page will not accurately reflect the number of matching entities.
+
 ## Search operators
 
 Web UI search supports two equality-based operators, two set-based operators, one substring matching operator, and one logical operator.
