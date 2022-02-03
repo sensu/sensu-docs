@@ -23,6 +23,8 @@ You can also [save your favorite searches][8].
 In Sensu Go 6.6.3 and subsequent versions, if you use etcd for event storage, web UI search queries on the events and entities pages will stop after returning a certain number of matches.
 Without these limits, the search operation can diminish cluster health.
 
+If a web UI search reaches the limit for the events or entities page, the results count at the bottom-right corner of the page will indicate that the total number of matches exceeds the number of results listed.
+
 {{% notice note %}}
 **NOTE**: The search limits on events and entities do not apply to Sensu Go versions prior to 6.6.3.
 {{% /notice %}}
