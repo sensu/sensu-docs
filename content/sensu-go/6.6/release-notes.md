@@ -141,7 +141,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.6.4.
 - ([Commercial feature][259]) Fixed a bug that could cause sensu-backend to crash if PostgreSQL was taken offline and restarted.
 - ([Commercial feature][259]) Fixed a bug that could cause ephemeral backend entity rows to fill up the entities table in PostgreSQL.
 - ([Commercial feature][259]) BSM event selectors can no longer select events outside the service component namespace.
-- ([Commercial feature][259]) Fixed a bug the prevented HTTP requests from being properly cancelled after a context deadline (timeout) was exceeded.
+- ([Commercial feature][259]) In the web UI, fixed a bug the prevented HTTP requests from being properly cancelled after a context deadline (timeout) was exceeded.
 - Fixed a bug that could cause the backend to crash if a pipeline references a non-existent handler.
 
 ## 6.6.3 release notes
