@@ -191,6 +191,68 @@ Mar 10 17:35:04 sensu-centos sensu-backend[1365]: {"component":"store-providers"
 When you disable the PostgreSQL event store, event data cuts over from PostgreSQL to etcd, which results in a loss of recent event history.
 No restarts or Sensu backend configuration changes are required to disable the PostgreSQL event store.
 
+## Monitor the PostgreSQL event store
+As a best practice, we recommend monitoring the PostgreSQL event store's health. Sensu's `/health` endpoint provides information on the event store's health that you can monitor using the [http check asset][22].
+
+To start monitoring the event store from within Sensu, the first step is to add the `http-checks` asset using `sensuctl`:
+
+{{< code shell >}}
+
+sensuctl asset add sensu/http-checks
+
+{{< /code >}}
+
+After adding the asset, you'll want to copy the check definitions below and save them locally to `postgres_http_health_checks.yml`:
+
+{{< code yml >}}
+
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: postgres_health_http_check
+  namespace: default
+spec:
+  command: http-json --url http://backend:8080/health --query ".PostgresHealth.[0].Healthy" --expression "== true"
+  round_robin: true
+  publish: true
+  interval: 60
+  subscriptions:
+  - system
+  runtime_assets:
+  - sensu/http-checks
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: postgres_active_http_check
+  namespace: default
+spec:
+  command: http-json --url http://backend:8080/health --query ".PostgresHealth.[0].Active" --expression "== true"
+  round_robin: true
+  publish: true
+  interval: 60
+  subscriptions:
+  - system
+  runtime_assets:
+  - sensu/http-checks
+
+{{< /code >}}
+
+Once you've saved the check definitions, make sure that you edit the `--url` parameter to reflect your backend(s) address. You can then apply the check definitions with the following `sensuctl` command:
+
+{{< code shell >}}
+
+sensuctl create -f postgres_http_health_checks.yml
+
+{{< /code >}}
+
+Once you've created the checks, you should see check results similar to the following in the Sensu UI:
+
+{{< figure src="/images/postgres_health.png" alt="Screenshot of Sensu Web UI showing PostgreSQL health check passing" link="/images/postgres_health.png" target="_blank" >}}
+
+{{< figure src="/images/postgres_active.png" alt="Screenshot of Sensu Web UI showing PostgreSQL active check passing" link="/images/postgres_active.png" target="_blank" >}}
+
 ## Datastore specification
 
 ### Top-level attributes
@@ -501,4 +563,5 @@ enable_round_robin: true
 [19]: ../install-sensu/#ports
 [20]: https://www.postgresql.org/docs/current/config-setting.html
 [21]: https://etcd.io/docs/latest/op-guide/clustering/
+[22]: https://bonsai.sensu.io/assets/sensu/http-checks#http-check
 
