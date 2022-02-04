@@ -229,6 +229,11 @@ Refer to the documentation for your operating system to configure port access as
 
 ### 4. Open the web UI
 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access the Sensu web UI in the packaged Sensu Go distribution.
+For more information, read [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
+
 The web UI provides a unified view of your observability events and user-friendly tools to reduce alert fatigue.
 After starting the Sensu backend, open the web UI by visiting http://localhost:3000.
 You may need to replace `localhost` with the hostname or IP address where the Sensu backend is running.

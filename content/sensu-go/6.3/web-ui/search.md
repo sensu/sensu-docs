@@ -11,6 +11,11 @@ menu:
     parent: web-ui
 ---
 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access the web UI in the packaged Sensu Go distribution.
+For more information, read [Get started with commercial features](../../commercial/).
+{{% /notice %}}
+
 The Sensu web UI includes basic search and filtering functions you can use to build customized views of your Sensu resources.
 Sensu also supports advanced web UI searches based on a wider range of resource attributes and custom labels as a [commercial feature][1].
 

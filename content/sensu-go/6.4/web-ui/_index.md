@@ -10,14 +10,14 @@ menu:
     identifier: web-ui
 ---
 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access the Sensu web UI in the packaged Sensu Go distribution.
+For more information, read [Get started with commercial features](../commercial/).
+{{% /notice %}}
+
 The Sensu backend includes the **Sensu web UI**: a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue.
 
 <a id="webui-homepage"></a>
-
-{{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the Sensu web UI homepage (shown below) in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../commercial/).
-{{% /notice %}}
 
 The web UI homepage provides a high-level overview of the overall health of the systems under Sensu's management, with a summary of active incidents, the number of incidents by severity, the types of entities under management, and the numbers of entities and incidents per namespace.
 
@@ -49,11 +49,6 @@ Press `CTRL .` in the web UI to open the system information modal and view infor
 For users with permission to create or update licenses, the system information modal includes license expiration information.
 
 ## Use the implicit OR operator
-
-{{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the Sensu web UI homepage in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../commercial/).
-{{% /notice %}}
 
 On the Sensu web UI homepage, you can use the search function to limit the display by cluster and namespace.
 If you specify the same attribute twice with different values, Sensu automatically applies a logical OR operator to your search.
