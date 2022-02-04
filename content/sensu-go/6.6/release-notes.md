@@ -9,6 +9,7 @@ version: "6.6"
 menu: "sensu-go-6.6"
 ---
 
+- [6.6.5 release notes](#665-release-notes)
 - [6.6.4 release notes](#664-release-notes)
 - [6.6.3 release notes](#663-release-notes)
 - [6.6.2 release notes](#662-release-notes)
@@ -100,6 +101,25 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ---
 
+## 6.6.5 release notes
+
+**February 3, 2022** &mdash; The latest release of Sensu Go, version 6.6.5, is now available for download.
+
+Sensu Go 6.6.5 includes several web UI improvements to reduce cluster load and adds a message to clarify web UI search results for the events and entities pages. This patch release also fixes bugs in round robin scheduling and the PostgreSQL configuration watcher and removes outdated language in an interactive-mode prompt for sensu-backend upgrade.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.6.5.
+
+**IMPROVEMENTS**
+- ([Commercial feature][259]) When using PostgreSQL, queries for multiple entity states are now more efficient.
+- ([Commercial feature][259]) In the web UI, if a search reaches the [limit for the events or entities][266] page, the results count at the bottom-right corner of the page now indicates that the total number of matches exceeds the number of results listed.
+- ([Commercial feature][259]) In the web UI, several changes help reduce cluster load: federated clusters now query remote clusters in parallel; GraphQL resolvers are no longer invoked if the query deadline has already been reached; and we improved the performance of GraphQL queries to the local cluster.
+
+**FIXES**
+- ([Commercial feature][259]) Fixed a bug in round robin scheduling that could delay notification routing after creating or updating business service monitoring (BSM) service components.
+- ([Commercial feature][259]) Fixed a bug in the PostgreSQL configuration watcher that could prevent bsmd from being reenabled after an update.
+- Removed Sensu Go 5.x-specific language in the confirmation prompt for sensu-backend upgrade in interactive mode.
+- Resolved unpredictable ringv2 behavior when identical subscriptions are created from different contexts.
+
 ## 6.6.4 release notes
 
 **January 26, 2022** &mdash; The latest release of Sensu Go, version 6.6.4, is now available for download.
@@ -121,6 +141,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.6.4.
 - ([Commercial feature][259]) Fixed a bug that could cause sensu-backend to crash if PostgreSQL was taken offline and restarted.
 - ([Commercial feature][259]) Fixed a bug that could cause ephemeral backend entity rows to fill up the entities table in PostgreSQL.
 - ([Commercial feature][259]) BSM event selectors can no longer select events outside the service component namespace.
+- ([Commercial feature][259]) In the web UI, fixed a bug the prevented HTTP requests from being properly cancelled after a context deadline (timeout) was exceeded.
 - Fixed a bug that could cause the backend to crash if a pipeline references a non-existent handler.
 
 ## 6.6.3 release notes
@@ -134,7 +155,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.6.3.
 **IMPROVEMENTS**
 
 - ([Commercial feature][259]) In the web UI, the default polling interval on the [entities page][261] is now 30 seconds to help reduce load on clusters. Search results for entities are limited to the first 500 matching entities. Also, the web UI response time and memory usage is substantially improved when opening the entities page in the default state (loading the first page of results, with no search filter applied).
-- ([Commercial feature][259]) In the web UI, for instances that use etcd for event storage, search results for events are limited to 25,000 matching events. 
+- ([Commercial feature][259]) In the web UI, for instances that use etcd for event storage, search results for events are limited to 25,000 matching events.
 - Added the [etcd-client-log-level][262] configuration flag for setting the log level of the etcd client used internally within sensu-backend.
 - The agentd daemon now starts up after all other daemons, which improves cluster recovery after the loss of a backend.
 - When using external etcd (the no-embed-etcd backend configuration flag is set to `true`), sensu-backend now crashes when its daemons do not stop within 30 seconds, which can happen due to an intentional shutdown or when database unavailability triggers an internal restart.
@@ -2262,3 +2283,4 @@ To get started with Sensu Go:
 [263]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
 [264]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
 [265]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
+[266]: /sensu-go/6.6/web-ui/search/#events-and-entities-search-limits
