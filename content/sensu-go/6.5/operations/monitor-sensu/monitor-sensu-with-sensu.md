@@ -42,21 +42,21 @@ This asset includes the `http-json` plugin, which your checks will rely on.
 To register the http-checks dynamic runtime asset, `sensu/http-checks`, run:
 
 {{< code shell >}}
-sensuctl asset add sensu/http-checks:0.4.0 -r http-checks
+sensuctl asset add sensu/http-checks:0.5.0 -r http-checks
 {{< /code >}}
 
 The response will confirm that the asset was added:
 
 {{< code shell >}}
-fetching bonsai asset: sensu/http-checks:0.4.0
-added asset: sensu/http-checks:0.4.0
+fetching bonsai asset: sensu/http-checks:0.5.0
+added asset: sensu/http-checks:0.5.0
 
 You have successfully added the Sensu asset resource, but the asset will not get downloaded until
 it's invoked by another Sensu resource (ex. check). To add this runtime asset to the appropriate
 resource, populate the "runtime_assets" field with ["http-checks"].
 {{< /code >}}
 
-This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `http-checks`.
+This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: http-checks.
 
 To confirm that the asset is ready to use, run:
 
@@ -64,17 +64,17 @@ To confirm that the asset is ready to use, run:
 sensuctl asset list
 {{< /code >}}
 
-The response should list the `http-checks` dynamic runtime asset:
+The response should list the http-checks dynamic runtime asset:
 
 {{< code shell >}}
      Name                                       URL                                    Hash    
 ────────────── ───────────────────────────────────────────────────────────────────── ──────────
-  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_windows_amd64.tar.gz   52ae075  
-  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_darwin_amd64.tar.gz    72d0f15  
-  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_armv7.tar.gz     ef18587  
-  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_arm64.tar.gz     3504ddf  
-  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_386.tar.gz       60b8883  
-  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.4.0_linux_amd64.tar.gz     1db73a8 
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_linux_armv7.tar.gz     b28f8c3  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_linux_arm64.tar.gz     7308f9c  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_linux_386.tar.gz       6457583  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_windows_amd64.tar.gz   b936ca0  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_darwin_amd64.tar.gz    38e6cb8  
+  http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_linux_amd64.tar.gz     bc5fc3b 
 {{< /code >}}
 
 Because plugins are published for multiple platforms, including Linux and Windows, the output will include multiple entries for each of the dynamic runtime assets.
@@ -95,12 +95,13 @@ To do this, add checks that use the `http-json` plugin from the [http-checks][5]
 
 {{% notice note %}}
 **NOTE**: These examples use the [http-checks](https://bonsai.sensu.io/assets/sensu/http-checks) dynamic runtime asset.
-Follow [Register dynamic runtime asset](#register-dynamic-runtime-asset) if you did not previously add this asset.
+Follow the instructions above to [register the http-checks dynamic runtime asset](#register-dynamic-runtime-asset) if you did not previously register it.
 {{% /notice %}}
 
 {{< language-toggle >}}
 
 {{< code yml "YML - Backend Alpha">}}
+cat << EOF | sensuctl create
 ---
 type: CheckConfig
 api_version: core/v2
@@ -115,9 +116,11 @@ spec:
   timeout: 10
   runtime_assets:
     - http-checks
+EOF
 {{< /code >}}
 
 {{< code yml "YML - Backend Beta">}}
+cat << EOF | sensuctl create
 ---
 type: CheckConfig
 api_version: core/v2
@@ -132,9 +135,11 @@ spec:
   timeout: 10
   runtime_assets:
     - http-checks
+EOF
 {{< /code >}}
 
 {{< code json "JSON - Backend Alpha">}}
+cat << EOF | sensuctl create
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -154,9 +159,11 @@ spec:
     ]
   }
 }
+EOF
 {{< /code >}}
 
 {{< code json "JSON - Backend Beta">}}
+cat << EOF | sensuctl create
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -176,6 +183,7 @@ spec:
     ]
   }
 }
+EOF
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -194,12 +202,13 @@ If your Sensu Go deployment uses an external etcd cluster, you'll need to check 
 
 {{% notice note %}}
 **NOTE**: These examples use the [http-checks](https://bonsai.sensu.io/assets/sensu/http-checks) dynamic runtime asset.
-Follow [Register dynamic runtime asset](#register-dynamic-runtime-asset) if you did not previously add this asset.
+Follow the instructions above to [register the http-checks dynamic runtime asset](#register-dynamic-runtime-asset) if you did not previously register it.
 {{% /notice %}}
 
 {{< language-toggle >}}
 
 {{< code yml "YML - Backend Alpha">}}
+cat << EOF | sensuctl create
 ---
 type: CheckConfig
 api_version: core/v2
@@ -214,9 +223,11 @@ spec:
   timeout: 10
   runtime_assets:
   - http-checks
+EOF
 {{< /code >}}
 
 {{< code yml "YML - Backend Beta">}}
+cat << EOF | sensuctl create
 ---
 type: CheckConfig
 api_version: core/v2
@@ -231,9 +242,11 @@ spec:
   timeout: 10
   runtime_assets:
   - http-checks
+EOF
 {{< /code >}}
 
 {{< code json "JSON - Backend Alpha">}}
+cat << EOF | sensuctl create
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -253,9 +266,11 @@ spec:
     ]
   }
 }
+EOF
 {{< /code >}}
 
 {{< code json "JSON - Backend Beta">}}
+cat << EOF | sensuctl create
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -275,6 +290,7 @@ spec:
     ]
   }
 }
+EOF
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -287,7 +303,6 @@ http-json OK:  The value true found at .ClusterHealth.[0].Healthy matched with e
 
 To receive alerts based on your external etcd health checks, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definitions to reference the pipeline in the [pipelines attribute][8].
 
-
 ## Monitor PostgreSQL
 
 {{% notice commercial %}}
@@ -296,7 +311,10 @@ For more information, read [Get started with commercial features](../../../comme
 {{% /notice %}}
 
 Larger Sensu deployments may use [PostgreSQL as an alternative datastore][4] to process larger numbers of events.
-The connection to PostgreSQL is exposed on Sensu's `/health` endpoint and will look like this example:
+If you're using PostgreSQL for event storage, we recommend monitoring your PostgreSQL event store's health.
+
+The connection to PostgreSQL is exposed on Sensu's `/health` endpoint, which provides information about the event store's health.
+PostgreSQL data from the `/health` endpoint will look like this example:
 
 {{< code json >}}
 {
@@ -339,88 +357,126 @@ The connection to PostgreSQL is exposed on Sensu's `/health` endpoint and will l
 }
 {{< /code >}}
 
-To monitor PostgreSQL's health from Sensu's perspective, use a check like this example, which uses the `http-json` plugin from the [http-checks][5] dynamic runtime asset.
+To monitor PostgreSQL's health from Sensu, create checks that use the `http-json` plugin from the [http-checks][5] dynamic runtime asset.
 
 {{% notice note %}}
-**NOTE**: Follow [Register dynamic runtime asset](#register-dynamic-runtime-asset) if you did not previously add the http-checks dynamic runtime asset.
+**NOTE**: These examples use the [http-checks](https://bonsai.sensu.io/assets/sensu/http-checks) dynamic runtime asset.
+Follow the instructions above to [register the http-checks dynamic runtime asset](#register-dynamic-runtime-asset) if you did not previously register it.
 {{% /notice %}}
+
+After you register the http-checks dynamic runtime asset, create two checks ("healthy" and "active") to monitor PostgreSQL's health from Sensu.
+Make sure to update the `--url` value with your backend address before running the commands to create the checks.
+
+Run the following command to add the "healthy" check:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
 ---
 type: CheckConfig
 api_version: core/v2
 metadata:
-  name: check-postgres-health
+  name: postgres_healthy_http_check
 spec:
-  check_hooks: null
-  command: http-json --url https://sensu.example.com:8080/health --query ".PostgresHealth[0].Healthy" --expression "== true"
-  env_vars: null
-  handlers: []
-  high_flap_threshold: 0
-  interval: 10
-  low_flap_threshold: 0
-  output_metric_format: ""
-  output_metric_handlers: null
-  output_metric_tags: null
-  proxy_entity_name: ""
-  publish: true
+  command: http-json --url https://sensu.example.com:8080/health --query ".PostgresHealth.[0].Healthy" --expression "== true"
   round_robin: true
-  runtime_assets:
-  - http-checks
-  secrets: null
-  stdin: false
-  subdue: null
+  publish: true
+  interval: 60
   subscriptions:
-  - backends
-  timeout: 0
-  ttl: 0
+  - system
+  runtime_assets:
+  - sensu/http-checks
+EOF
 {{< /code >}}
 
-{{< code json >}}
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check-postgres-health"
+    "name": "postgres_healthy_http_check"
   },
   "spec": {
-    "check_hooks": null,
-    "command": "http-json --url https://sensu.example.com:8080/health --query \".PostgresHealth[0].Healthy\" --expression \"== true\"",
-    "env_vars": null,
-    "handlers": [],
-    "high_flap_threshold": 0,
-    "interval": 10,
-    "low_flap_threshold": 0,
-    "output_metric_format": "",
-    "output_metric_handlers": null,
-    "output_metric_tags": null,
-    "proxy_entity_name": "",
-    "publish": true,
+    "command": "http-json --url https://sensu.example.com:8080/health --query \".PostgresHealth.[0].Healthy\" --expression \"== true\"",
     "round_robin": true,
-    "runtime_assets": [
-      "http-checks"
-    ],
-    "secrets": null,
-    "stdin": false,
-    "subdue": null,
+    "publish": true,
+    "interval": 60,
     "subscriptions": [
-      "backends"
+      "system"
     ],
-    "timeout": 0,
-    "ttl": 0
+    "runtime_assets": [
+      "sensu/http-checks"
+    ]
   }
 }
+EOF
 {{< /code >}}
 
 {{< /language-toggle >}}
 
-A successful PostgreSQL health check result will be similar to this example:
+Run the following command to add the "active" check:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: postgres_active_http_check
+spec:
+  command: http-json --url https://sensu.example.com:8080/health --query ".PostgresHealth.[0].Active" --expression "== true"
+  round_robin: true
+  publish: true
+  interval: 60
+  subscriptions:
+  - system
+  runtime_assets:
+  - sensu/http-checks
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "postgres_active_http_check"
+  },
+  "spec": {
+    "command": "http-json --url https://sensu.example.com:8080/health --query \".PostgresHealth.[0].Active\" --expression \"== true\"",
+    "round_robin": true,
+    "publish": true,
+    "interval": 60,
+    "subscriptions": [
+      "system"
+    ],
+    "runtime_assets": [
+      "sensu/http-checks"
+    ]
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Successful PostgreSQL health check results will be similar to this example:
 
 {{< code shell >}}
 http-json OK:  The value true found at .PostgresHealth.[0].Healthy matched with expression "== true" and returned true
+http-json OK:  The value true found at .PostgresHealth.[0].Active matched with expression "== true" and returned true
 {{< /code >}}
+
+In the Sensu [web UI][9], you should see check results similar to these examples:
+
+{{< figure src="/images/postgres_health.png" alt="Screenshot of Sensu Web UI shows a passing PostgreSQL health check" link="/images/postgres_health.png" target="_blank" >}}
+
+{{< figure src="/images/postgres_active.png" alt="Screenshot of Sensu Web UI shows a passing PostgreSQL active check" link="/images/postgres_active.png" target="_blank" >}}
 
 To receive alerts based on your PostgreSQL health check, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definition to reference the pipeline in the [pipelines attribute][8].
 
@@ -433,3 +489,4 @@ To receive alerts based on your PostgreSQL health check, configure a [pipeline][
 [6]: ../../../observability-pipeline/observe-process/pipelines/
 [7]: ../../../observability-pipeline/observe-process/handlers/
 [8]: ../../../observability-pipeline/observe-schedule/checks/#pipelines-attribute
+[9]: ../../../web-ui/
