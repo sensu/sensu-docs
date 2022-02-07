@@ -11,17 +11,22 @@ menu:
 ---
 
 This installation guide describes how to install the Sensu backend, Sensu agent, and sensuctl command line tool.
-If you’re trying Sensu for the first time, we recommend setting up a testing environment using the [Sensu Go workshop][14].
+
+These instructions explain how to install Sensu for proof-of-concept purposes or testing in a development environment.
+We recommend using a [supported package][14] to follow this guide.
+
+To build from source and install Sensu from a [binary distribution][23], follow the [Sensu Go installation instructions on GitHub][44].
 
 {{% notice note %}}
-**NOTE**: The instructions in this guide explain how to install Sensu for proof-of-concept purposes or testing in a development environment.
-If you will deploy Sensu to your infrastructure, we recommend one of our supported packages, Docker images, or [configuration management integrations](../configuration-management/), as well as securing your installation with transport layer security (TLS).
+**NOTE**: If you’re trying Sensu for the first time, consider following the the [Sensu Go workshop](https://github.com/sensu/sensu-go-workshop) instead.
+The workshop includes a local sandbox environment and a collection of resources designed to help new users learn and test Sensu.<br><br>
+If you will deploy Sensu to your infrastructure, we recommend securing your installation with transport layer security (TLS) in addition to using one of our supported packages, Docker images, or [configuration management integrations](../configuration-management/).
 Read [Generate certificates](../generate-certificates) next to get the certificates you will need for TLS.
 {{% /notice %}}
 
 Sensu downloads are provided under the [Sensu commercial license][13].
 
-Sensu Go is packaged for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
+Sensu Go is packaged for Linux, Windows (agent and sensuctl only), macOS (sensuctl only), and Docker.
 Review [supported platforms][5] for more information.
 
 ## Architecture overview
@@ -562,7 +567,7 @@ sensuctl license info
 [11]: https://sensu.io/contact?subject=contact-sales/
 [12]: ../../../observability-pipeline/observe-process/send-email-alerts/
 [13]: https://sensu.io/licenses
-[14]: https://github.com/sensu/sensu-go-workshop
+[14]: ../../../platforms/#supported-packages
 [15]: ../../../observability-pipeline/observe-schedule/agent/#events-post-example
 [16]: https://etcd.io/
 [17]: ../../../plugins/assets/
@@ -571,6 +576,7 @@ sensuctl license info
 [20]: ../../../commercial/
 [21]: #install-the-sensu-backend
 [22]: ../cluster-sensu/
+[23]: ../../../platforms/#binary-only-distributions
 [24]: #4-open-the-web-ui
 [25]: ../hardware-requirements/
 [26]: ../../../api/
@@ -588,7 +594,7 @@ sensuctl license info
 [38]: ../../../sensuctl/back-up-recover/
 [39]: ../../../sensuctl/create-manage-resources/#create-resources
 [40]: https://etcd.io/docs/latest/op-guide/runtime-configuration/
-[41]: ../../../observability-pipeline/observe-schedule/checks/#subscriptions
+[41]: ../../../observability-pipeline/observe-schedule/subscriptions
 [42]: https://bonsai.sensu.io/
 [43]: ../../../observability-pipeline/observe-schedule/backend/#debug-attribute
-
+[44]: https://github.com/sensu/sensu-go#installation

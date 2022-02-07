@@ -12,8 +12,8 @@ menu:
 
 This installation guide describes how to install the Sensu backend, Sensu agent, and sensuctl command line tool.
 
-The instructions in this guide explain how to install Sensu for proof-of-concept purposes or testing in a development environment using one of our [supported packages][14].
-Use a supported package to follow this guide.
+These instructions explain how to install Sensu for proof-of-concept purposes or testing in a development environment.
+We recommend using a [supported package][14] to follow this guide.
 
 To build from source and install Sensu from a [binary distribution][23], follow the [Sensu Go installation instructions on GitHub][44].
 
@@ -594,8 +594,7 @@ sensuctl license info
 [38]: ../../../sensuctl/back-up-recover/
 [39]: ../../../sensuctl/create-manage-resources/#create-resources
 [40]: https://etcd.io/docs/latest/op-guide/runtime-configuration/
-[41]: ../../../observability-pipeline/observe-schedule/checks/#subscriptions
+[41]: ../../../observability-pipeline/observe-schedule/subscriptions
 [42]: https://bonsai.sensu.io/
 [43]: ../../../observability-pipeline/observe-schedule/backend/#debug-attribute
 [44]: https://github.com/sensu/sensu-go#installation
-
