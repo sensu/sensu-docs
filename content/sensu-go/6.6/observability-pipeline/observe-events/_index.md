@@ -541,7 +541,6 @@ If you create a new event that references an entity that does not already exist,
 [6]: ../observe-schedule/collect-metrics-with-checks/
 [7]: #metrics-only-events
 [8]: #status-and-metrics-events
-[9]: checks/#subscriptions
 [11]: ../observe-schedule/agent/
 [12]: ../observe-schedule/
 [13]: #corev2events-api-endpoints
