@@ -11,6 +11,11 @@ menu:
     parent: web-ui
 ---
 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access the web UI in the packaged Sensu Go distribution.
+For more information, read [Get started with commercial features](../../commercial/).
+{{% /notice %}}
+
 You can view and manage Sensu resources in the web UI, including events, entities, silences, checks, handlers, event filters, and mutators.
 
 ## Use the namespace switcher
@@ -90,11 +95,6 @@ You can also silence individual checks and entities from their detail pages in t
 After you create a silence, it will be listed in the web UI Silences page until you clear the silence or the silence expires.
 
 ## Manage configuration resources
-
-{{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access check, handler, event filter, and mutator management in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../../commercial/).
-{{% /notice %}}
 
 Under the Configuration menu option, you can access check, handler, event filter, and mutator resources.
 Each resource page lists the namespace's resources.

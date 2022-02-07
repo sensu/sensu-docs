@@ -11,12 +11,42 @@ menu:
     parent: web-ui
 ---
 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access the web UI in the packaged Sensu Go distribution.
+For more information, read [Get started with commercial features](../../commercial/).
+{{% /notice %}}
+
 The Sensu web UI includes basic search and filtering functions you can use to build customized views of your Sensu resources.
 Sensu also supports advanced web UI searches based on a wider range of resource attributes and custom labels as a [commercial feature][1].
 
 When you apply a search to a web UI page, it creates a unique link for the page of search results.
 You can bookmark these links and share your favorite search combinations.
 You can also [save your favorite searches][8].
+
+## Events and entities search limits
+
+In Sensu Go 6.6.3 and subsequent versions, if you use etcd for event storage, web UI search queries on the events and entities pages will stop after returning a certain number of matches.
+Without these limits, the search operation can diminish cluster health.
+
+In Sensu Go 6.6.5, if a web UI search reaches the limit for the events or entities page, the results count at the bottom-right corner of the page will indicate that the total number of matches exceeds the number of results listed.
+
+{{% notice note %}}
+**NOTE**: The search limits on events and entities do not apply to Sensu Go versions prior to 6.6.3.
+{{% /notice %}}
+
+### Events search limit
+
+On the events page, if you use etcd for event storage, search queries will stop after returning a certain number of events:
+
+- In Sensu Go 6.6.3 and 6.6.4, search queries will return a maximum of 25,000 events.
+- In Sensu Go 6.6.5, seach queries will return a maximum of 50,000 events.
+
+For example, in Sensu Go 6.6.5, if you use etcd for event storage and you search in a namespace that has more than 50,000 matching events, the search results will not include matching events beyond the first 50,000.
+
+### Entities search limit
+
+Starting with Sensu Go 6.6.3, if you use etcd for event storage, search queries on the entities page will stop after retrieving approximately 500 matches.
+As a result, if your search matches more than 500 entities, the total results count at the bottom-right corner of the entities page will not accurately reflect the number of matching entities.
 
 ## Search operators
 

@@ -349,7 +349,7 @@ You can also use cron to run Sensu checks locally on these systems and forward t
 Sensu Go's core is open source software, freely available under an MIT License.
 Sensu Go instances built from source do not include [commercial features][3] such as the web UI homepage.
 Review the [feature comparison matrix][15] to learn more.
-To build Sensu Go from source, read the [contributing guide on GitHub][16].
+To build Sensu Go from source, read the [Sensu Go installation instructions on GitHub][16].
 
 
 [1]: #supported-packages
@@ -366,8 +366,8 @@ To build Sensu Go from source, read the [contributing guide on GitHub][16].
 [12]: https://github.com/sensu/grafana-sensu-go-datasource/
 [13]: https://github.com/sensu/sensu-go-chef/
 [14]: https://github.com/sensu/sensu-puppet/
-[15]: https://sensu.io/enterprise/
-[16]: https://www.github.com/sensu/sensu-go/blob/main/CONTRIBUTING.md
+[15]: https://sensu.io/features/compare
+[16]: https://github.com/sensu/sensu-go#installation
 [17]: https://github.com/jaredledvina/sensu-go-ansible/
 [18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.5.5/sensu-go_6.5.5_linux_armv7.tar.gz
 [20]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.5.5/sensu-go_6.5.5_linux_amd64.zip

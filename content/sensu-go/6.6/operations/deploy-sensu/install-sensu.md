@@ -11,17 +11,22 @@ menu:
 ---
 
 This installation guide describes how to install the Sensu backend, Sensu agent, and sensuctl command line tool.
-If you’re trying Sensu for the first time, we recommend setting up a testing environment using the [Sensu Go workshop][14].
+
+These instructions explain how to install Sensu for proof-of-concept purposes or testing in a development environment.
+We recommend using a [supported package][14] to follow this guide.
+
+To build from source and install Sensu from a [binary distribution][23], follow the [Sensu Go installation instructions on GitHub][44].
 
 {{% notice note %}}
-**NOTE**: The instructions in this guide explain how to install Sensu for proof-of-concept purposes or testing in a development environment.
-If you will deploy Sensu to your infrastructure, we recommend one of our supported packages, Docker images, or [configuration management integrations](../configuration-management/), as well as securing your installation with transport layer security (TLS).
+**NOTE**: If you’re trying Sensu for the first time, consider following the the [Sensu Go workshop](https://github.com/sensu/sensu-go-workshop) instead.
+The workshop includes a local sandbox environment and a collection of resources designed to help new users learn and test Sensu.<br><br>
+If you will deploy Sensu to your infrastructure, we recommend securing your installation with transport layer security (TLS) in addition to using one of our supported packages, Docker images, or [configuration management integrations](../configuration-management/).
 Read [Generate certificates](../generate-certificates) next to get the certificates you will need for TLS.
 {{% /notice %}}
 
 Sensu downloads are provided under the [Sensu commercial license][13].
 
-Sensu Go is packaged for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
+Sensu Go is packaged for Linux, Windows (agent and sensuctl only), macOS (sensuctl only), and Docker.
 Review [supported platforms][5] for more information.
 
 ## Architecture overview
@@ -229,6 +234,11 @@ Refer to the documentation for your operating system to configure port access as
 
 ### 4. Open the web UI
 
+{{% notice commercial %}}
+**COMMERCIAL FEATURE**: Access the Sensu web UI in the packaged Sensu Go distribution.
+For more information, read [Get started with commercial features](../../../commercial/).
+{{% /notice %}}
+
 The web UI provides a unified view of your observability events and user-friendly tools to reduce alert fatigue.
 After starting the Sensu backend, open the web UI by visiting http://localhost:3000.
 You may need to replace `localhost` with the hostname or IP address where the Sensu backend is running.
@@ -279,24 +289,24 @@ sudo yum install sensu-go-cli
 
 {{< code powershell "Windows" >}}
 # Download sensuctl for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.4/sensu-go_6.6.4_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.6.4_windows_amd64.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.5/sensu-go_6.6.5_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_6.6.5_windows_amd64.zip
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.4/sensu-go_6.6.4_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.6.4_windows_386.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.5/sensu-go_6.6.5_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_6.6.5_windows_386.zip
 
 # Unzip the file with PowerShell for Windows amd64
-Expand-Archive -LiteralPath 'C:\Users\Administrator\sensu-go_6.6.4_windows_amd64.zip' -DestinationPath 'C:\\Program Files\sensu\sensuctl\bin'
+Expand-Archive -LiteralPath 'C:\Users\Administrator\sensu-go_6.6.5_windows_amd64.zip' -DestinationPath 'C:\\Program Files\sensu\sensuctl\bin'
 
 # or for Windows 386
-Expand-Archive -LiteralPath 'C:\Users\Administrator\sensu-go_6.6.4_windows_386.zip' -DestinationPath 'C:\\Program Files\sensu\sensuctl\bin'
+Expand-Archive -LiteralPath 'C:\Users\Administrator\sensu-go_6.6.5_windows_386.zip' -DestinationPath 'C:\\Program Files\sensu\sensuctl\bin'
 {{< /code >}}
 
 {{< code shell "macOS" >}}
 # Download the latest release
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.4/sensu-go_6.6.4_darwin_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.5/sensu-go_6.6.5_darwin_amd64.tar.gz
 
 # Extract the archive
-tar -xvf sensu-go_6.6.4_darwin_amd64.tar.gz
+tar -xvf sensu-go_6.6.5_darwin_amd64.tar.gz
 
 # Copy the executable into your PATH
 sudo cp sensuctl /usr/local/bin/
@@ -366,16 +376,16 @@ sudo yum install sensu-go-agent
 
 {{< code powershell "Windows" >}}
 # Download the Sensu agent for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.4/sensu-go-agent_6.6.4.5671_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.6.4.5671_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.5/sensu-go-agent_6.6.5.5744_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_6.6.5.5744_en-US.x64.msi"
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.4/sensu-go-agent_6.6.4.5671_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.6.4.5671_en-US.x86.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.6.5/sensu-go-agent_6.6.5.5744_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_6.6.5.5744_en-US.x86.msi"
 
 # Install the Sensu agent for Windows amd64
-msiexec.exe /i $env:userprofile\sensu-go-agent_6.6.4.5671_en-US.x64.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_6.6.5.5744_en-US.x64.msi /qn
 
 # Or for Windows 386
-msiexec.exe /i $env:userprofile\sensu-go-agent_6.6.4.5671_en-US.x86.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_6.6.5.5744_en-US.x86.msi /qn
 
 # Or via Chocolatey
 choco install sensu-agent
@@ -557,7 +567,7 @@ sensuctl license info
 [11]: https://sensu.io/contact?subject=contact-sales/
 [12]: ../../../observability-pipeline/observe-process/send-email-alerts/
 [13]: https://sensu.io/licenses
-[14]: https://github.com/sensu/sensu-go-workshop
+[14]: ../../../platforms/#supported-packages
 [15]: ../../../observability-pipeline/observe-schedule/agent/#events-post-example
 [16]: https://etcd.io/
 [17]: ../../../plugins/assets/
@@ -566,6 +576,7 @@ sensuctl license info
 [20]: ../../../commercial/
 [21]: #install-the-sensu-backend
 [22]: ../cluster-sensu/
+[23]: ../../../platforms/#binary-only-distributions
 [24]: #4-open-the-web-ui
 [25]: ../hardware-requirements/
 [26]: ../../../api/
@@ -583,7 +594,7 @@ sensuctl license info
 [38]: ../../../sensuctl/back-up-recover/
 [39]: ../../../sensuctl/create-manage-resources/#create-resources
 [40]: https://etcd.io/docs/latest/op-guide/runtime-configuration/
-[41]: ../../../observability-pipeline/observe-schedule/checks/#subscriptions
+[41]: ../../../observability-pipeline/observe-schedule/subscriptions
 [42]: https://bonsai.sensu.io/
 [43]: ../../../observability-pipeline/observe-schedule/backend/#debug-attribute
-
+[44]: https://github.com/sensu/sensu-go#installation
