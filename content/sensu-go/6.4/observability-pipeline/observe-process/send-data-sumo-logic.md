@@ -5,17 +5,17 @@ guide_title: "Send data to Sumo Logic with Sensu"
 type: "guide"
 description: "Put Sensu Go's observability pipeline into action. Follow this guide to configure a check and a handler that sends Sensu data to Sumo Logic for long-term log and metrics storage."
 weight: 19
-version: "6.6"
+version: "6.4"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-6.6:
+  sensu-go-6.4:
     parent: observe-process
 ---
 
-Follow this guide to create a pipeline that sends data from a Sensu check to Sumo Logic for long-term log and metrics storage.
+Follow this guide to create an observability pipeline that sends data from a Sensu check to Sumo Logic for long-term log and metrics storage.
 Sensu [checks][2] are commands the Sensu agent executes that generate observability data in a status or metric [event][16].
-Sensu [pipelines][14] define the event filters and actions the Sensu backend executes on the events.
+[Event filters][15] and [handlers][9] define the actions the Sensu backend executes on the events.
 
 This guide uses a check named `check_cpu` as an example.
 If you don't already have this check in place, follow [Monitor server resources][2] to add it.
@@ -230,7 +230,10 @@ Now you can securely pass your Sumo Logic HTTP Source Address URL in your Sumo L
 
 ### Create a Sumo Logic handler
 
-Run the following command to create a handler to send Sensu observability data to your Sumo Logic HTTP Logs and Metrics Source:
+With your Sumo Logic HTTP Source Address URL configured as a secret, you can create a handler to send Sensu observability data to your Sumo Logic HTTP Logs and Metrics Source.
+
+To send data for all events (as opposed to only incidents), do not include an event filter in the handler definition should not contain any event filters.
+Run the following command to create the  `sumologic` handler:
 
 {{< language-toggle >}}
 
@@ -360,66 +363,13 @@ spec:
 **PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
 {{% /notice %}}
 
-## Create a pipeline with the Sumo Logic handler
+## Assign the handler to a check
 
-With your Sumo Logic handler configured, you can add it to a [pipeline][14] workflow.
-A single pipeline workflow can include one or more event filters, one mutator, and one handler.
+To use the `sumologic` handler, list it in a check definition's handlers array.
+This example uses the `check_cpu` check created in [Monitor server resources][3]), but you can add the handler to any Sensu check you wish.
+All the observability events that the check produces will be processed according to the handler command.
 
-To send data for all events (as opposed to only incidents), create a pipeline that includes only the Sumo Logic handler you've already configured &mdash; no event filters or mutators.
-To add the pipeline, run:
-
-{{< language-toggle >}}
-
-{{< code shell "YML" >}}
-cat << EOF | sensuctl create
----
-type: Pipeline
-api_version: core/v2
-metadata:
-  name: sensu_to_sumo
-spec:
-  workflows:
-  - name: logs_to_sumologic
-    handler:
-      name: sumologic
-      type: Handler
-      api_version: core/v2
-EOF
-{{< /code >}}
-
-{{< code shell "JSON" >}}
-cat << EOF | sensuctl create
-{
-  "type": "Pipeline",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "sensu_to_sumo"
-  },
-  "spec": {
-    "workflows": [
-      {
-        "name": "logs_to_sumologic",
-        "handler": {
-          "name": "sumologic",
-          "type": "Handler",
-          "api_version": "core/v2"
-        }
-      }
-    ]
-  }
-}
-EOF
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-## Assign the pipeline to a check
-
-To use the `sensu_to_sumo` pipeline, list it in a check definition's [pipelines array][15].
-This example uses the `check_cpu` check created in [Monitor server resources][3]), but you can add the pipeline to any Sensu check you wish.
-All the observability events that the check produces will be processed according to the pipeline's workflows.
-
-Assign your `sensu_to_sumo` pipeline to the `check_cpu` check to start sending Sensu data to Sumo Logic.
+Assign your `sumologic` handler to the `check_cpu` check to start sending Sensu data to Sumo Logic.
 
 To open the check definition in your text editor, run: 
 
@@ -427,16 +377,14 @@ To open the check definition in your text editor, run:
 sensuctl edit check check_cpu
 {{< /code >}}
 
-Replace the `pipelines: []` line with the following array:
+Replace the `handlers: []` line with the following array:
 
 {{< code yml >}}
-  pipelines:
-  - type: Pipeline
-    api_version: core/v2
-    name: sensu_to_sumo
+  handlers:
+  - sumologic
 {{< /code >}}
 
-To confirm that the updated `check_cpu` resource definition includes the pipeline reference, run:
+To confirm that the updated `check_cpu` resource definition includes the handler, run:
 
 {{< language-toggle >}}
 
@@ -465,16 +413,14 @@ spec:
   check_hooks: null
   command: check-cpu-usage -w 75 -c 90
   env_vars: null
-  handlers: []
+  handlers:
+  - sumologic
   high_flap_threshold: 0
-  interval: 15
+  interval: 60
   low_flap_threshold: 0
-  output_metric_format: prometheus_text
+  output_metric_format: ""
   output_metric_handlers: null
-  pipelines:
-  - api_version: core/v2
-    name: sensu_to_sumo
-    type: Pipeline
+  pipelines: []
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -495,25 +441,22 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "check_cpu",
+    "namespace": "default",
     "created_by": "admin"
   },
   "spec": {
     "check_hooks": null,
     "command": "check-cpu-usage -w 75 -c 90",
     "env_vars": null,
-    "handlers": [],
-    "high_flap_threshold": 0,
-    "interval": 15,
-    "low_flap_threshold": 0,
-    "output_metric_format": "prometheus_text",
-    "output_metric_handlers": null,
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "name": "sensu_to_sumo",
-        "type": "Pipeline"
-      }
+    "handlers": [
+      "sumologic"
     ],
+    "high_flap_threshold": 0,
+    "interval": 60,
+    "low_flap_threshold": 0,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "pipelines": [],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
@@ -536,7 +479,7 @@ spec:
 
 ## View your Sensu data in Sumo Logic
 
-It will take a few moments after you add the pipeline to the check for your Sensu observability data to appear in Sumo Logic.
+It will take a few moments after you add the handler to the check for your Sensu observability data to appear in Sumo Logic.
 Use the [Live Tail][13] feature to confirm that your data is reaching Sumo Logic.
 
 1. Click the **+ New** button and select **Live Tail** from the drop-down menu.
@@ -557,11 +500,9 @@ You have a successful workflow that sends Sensu observability data to your Sumo 
 
 ## Next steps
 
-To share and reuse the check, handler, and pipeline like code, [save them to files][6] and start building a [monitoring as code repository][7].
+To share and reuse the check and handler like code, [save them to files][6] and start building a [monitoring as code repository][7].
 
 Configure a [Sumo Logic dashboard][10] to search, view, and analyze the Sensu data you're sending to your Sumo Logic HTTP Logs and Metrics Source.
-
-In addition to the traditional handler we used in this example, you can use [Sensu Plus][17], our built-in integration, to send metrics to Sumo Logic with a streaming [Sumo Logic metrics handler][18].
 
 
 [1]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
@@ -577,8 +518,7 @@ In addition to the traditional handler we used in this example, you can use [Sen
 [11]: ../../observe-schedule/subscriptions/
 [12]: #set-up-an-http-logs-and-metrics-source
 [13]: https://help.sumologic.com/05Search/Live-Tail
-[14]: ../pipelines/
-[15]: ../../observe-schedule/checks/#pipelines-attribute
+[15]: ../../observe-filter/filters/
 [16]: ../../observe-events/
 [17]: ../../../sensu-plus/
 [18]: ../sumo-logic-metrics-handlers/
