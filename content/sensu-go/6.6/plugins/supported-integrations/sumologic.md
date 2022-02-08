@@ -31,9 +31,14 @@ For a turnkey experience with the Sensu Sumo Logic Handler plugin, use our curat
 To build your own workflow or integrate Sensu with existing workflows, add the [Sensu Sumo Logic Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing Sumo Logic workflows.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
+## More resources
+
+Read [Send data to Sumo Logic with Sensu][3] to learn how to add and configure a handler that uses the Sensu Sumo Logic Handler plugin.
+
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
+[3]: ../../../observability-pipeline/observe-process/send-data-sumo-logic/
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-sumologic-handler
 [5]: ../../assets/
 [6]: https://github.com/sensu/catalog/blob/main/pipelines/event-storage/sumologic.yaml
