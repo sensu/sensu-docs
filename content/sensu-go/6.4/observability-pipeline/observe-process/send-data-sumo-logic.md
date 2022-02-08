@@ -13,9 +13,9 @@ menu:
     parent: observe-process
 ---
 
-Follow this guide to create an observability pipeline that sends data from a Sensu check to Sumo Logic for long-term log and metrics storage.
+Follow this guide to create an observability pipeline that sends data from a Sensu check to Sumo Logic for long-term logs and metrics storage.
 Sensu [checks][2] are commands the Sensu agent executes that generate observability data in a status or metric [event][16].
-[Event filters][15] and [handlers][9] define the actions the Sensu backend executes on the events.
+[Handlers][9] define the actions the Sensu backend executes on the events.
 
 This guide uses a check named `check_cpu` as an example.
 If you don't already have this check in place, follow [Monitor server resources][2] to add it.
@@ -27,7 +27,7 @@ If you do not have an existing Sensu installation, follow the Ubuntu/Debian or R
 
 Sensu checks have a [subscriptions][11] attribute, where you specify strings to indicate which subscribers will execute the checks.
 For Sensu to execute a check, at least one entity must include a subscription that matches a subscription in the check definition.
-In this example, the `check_cpu` check definition includes the `system` subscription, so you'll need to make sure at least one entity is also subscribed to `system`.
+In this example, the `check_cpu` check includes the `system` subscription, so at least one entity must subscribe to `system` to run the check.
 
 First, select the entity whose data you want to send to Sumo Logic.
 To list all of your entities in the current namespace, run:
@@ -37,7 +37,7 @@ sensuctl entity list
 {{< /code >}}
 
 The `ID` in the response is the entity name.
-Select one of your listed entities to use.
+Select one of the listed entities.
 
 Before you run the following sensuctl command, replace `<entity_name>` with the name of your entity.
 Then run the command to add the `system` subscription to your entity:
@@ -95,7 +95,14 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 ## Set up an HTTP Logs and Metrics Source
 
-Set up a Sumo Logic [HTTP Logs and Metrics Source][1] to collect your Sensu observability data:
+Set up a Sumo Logic [HTTP Logs and Metrics Source][1] to collect your Sensu observability data.
+
+{{% notice note %}}
+**NOTE**: If you have an existing Sumo Logic HTTP Logs and Metrics Source, you can send Sensu data there instead of creating a new source if you wish.
+Copy the HTTP Source Address URL for your existing source and skip to [Add the Sumo Logic handler](#add-the-sumo-logic-handler).
+{{% /notice %}}
+
+Log in to your Sumo Logic account and follow these instructions:
 
 1. In the Sumo Logic left-navigation menu, click **Manage Data** and then **Collection** to open the Collection tab.
 
@@ -131,16 +138,16 @@ Set up a Sumo Logic [HTTP Logs and Metrics Source][1] to collect your Sensu obse
     {{< figure src="/images/http-logs-and-metrics_source.png" alt="Select options for HTTP Logs & Metrics source" link="/images/http-logs-and-metrics_source.png" target="_blank" >}}
 
 8. In the HTTP Source Address prompt, copy the listed URL and click OK.
-You will use this URL in the next step as the `SUMOLOGIC_URL` value for the secret in your [Sensu handler][3] definition.
+You will use this URL in the next step as the `SUMOLOGIC_URL` value for the secret in your Sensu [handler][9] definition.
 
     {{< figure src="/images/http-source-address_url.png" alt="Retrieve the HTTP Source Address URL" link="/images/http-source-address_url.png" target="_blank" >}}
 
 ## Add the Sumo Logic handler
 
-Now that you've set up a Sumo Logic HTTP Logs and Metrics Source, you can create a [handler][9] that sends observability data to Sumo Logic.
+Now that you've set up a Sumo Logic HTTP Logs and Metrics Source, you can create a [handler][9] that uses the [Sensu Sumo Logic Handler asset][8] to send observability data to Sumo Logic.
 
-The [Sensu Sumo Logic Handler][8] asset requires a `SUMOLOGIC_URL` variable.
-The `SUMOLOGIC_URL` value is the Sumo Logic HTTP Source Address URL, which you retrieved in the last step of [setting up an HTTP Logs and Metrics Source][12].
+The Sensu Sumo Logic Handler asset requires a `SUMOLOGIC_URL` variable.
+The value for the `SUMOLOGIC_URL` variable is the Sumo Logic HTTP Source Address URL, which you retrieved in the last step of [setting up an HTTP Logs and Metrics Source][12].
 
 {{% notice note %}}
 **NOTE**: This example shows how to set your Sumo Logic HTTP Source Address URL as an environment variable and use it as a secret with Sensu's built-in `Env` secrets provider.
@@ -149,9 +156,9 @@ Read [Use secrets management in Sensu](../../../operations/manage-secrets/secret
 
 ### Configure the SUMOLOGIC_URL environment variable
 
-Follow these steps to save your Sumo Logic HTTP Source Address URL as an environment variable:
+To save your Sumo Logic HTTP Source Address URL as an environment variable:
 
-1. Create the files from which the `sensu-backend` service will read environment variables: `/etc/default/sensu-backend` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-backend` for RHEL/CentOS systems.
+1. Create the files from which the `sensu-backend` service will read environment variables.
 If you have already created this file on your system, skip to step 2.
 
      {{< language-toggle >}}
@@ -166,7 +173,8 @@ sudo touch /etc/sysconfig/sensu-backend
      
      {{< /language-toggle >}}
 
-2. In the following code, replace `<SumoLogic_HTTPSourceAddress_URL>` with your Sumo Logic HTTP Source Address URL:
+2. In the following code, replace `<SumoLogic_HTTPSourceAddress_URL>` with your Sumo Logic HTTP Source Address URL.
+Run:
 
      {{< language-toggle >}}
 
@@ -190,7 +198,7 @@ This configures the `SUMOLOGIC_URL` environment variable to your Sumo Logic HTTP
 
 ### Create the Env secret
 
-Next, create a secret named `sumologic_url` that refers to the environment variable ID `SUMOLOGIC_URL`.
+Create a secret named `sumologic_url` that refers to the environment variable ID `SUMOLOGIC_URL`.
 Run:
 
 {{< language-toggle >}}
@@ -226,13 +234,13 @@ EOF
 
 {{< /language-toggle >}}
 
-Now you can securely pass your Sumo Logic HTTP Source Address URL in your Sumo Logic handler by referring to the `sumologic_url` secret.
+Now you can refer to the `sumologic_url` secret in your handler to securely pass your Sumo Logic HTTP Source Address URL.
 
 ### Create a Sumo Logic handler
 
 With your Sumo Logic HTTP Source Address URL configured as a secret, you can create a handler to send Sensu observability data to your Sumo Logic HTTP Logs and Metrics Source.
 
-To send data for all events (as opposed to only incidents), do not include an event filter in the handler definition should not contain any event filters.
+To send data for all events (as opposed to only incidents), do not include an event filter in the handler definition.
 Run the following command to create the  `sumologic` handler:
 
 {{< language-toggle >}}
@@ -366,7 +374,7 @@ spec:
 ## Assign the handler to a check
 
 To use the `sumologic` handler, list it in a check definition's handlers array.
-This example uses the `check_cpu` check created in [Monitor server resources][3]), but you can add the handler to any Sensu check you wish.
+This example uses the `check_cpu` check created in [Monitor server resources][3], but you can add the handler to any Sensu check you wish.
 All the observability events that the check produces will be processed according to the handler command.
 
 Assign your `sumologic` handler to the `check_cpu` check to start sending Sensu data to Sumo Logic.
@@ -482,7 +490,7 @@ spec:
 It will take a few moments after you add the handler to the check for your Sensu observability data to appear in Sumo Logic.
 Use the [Live Tail][13] feature to confirm that your data is reaching Sumo Logic.
 
-1. Click the **+ New** button and select **Live Tail** from the drop-down menu.
+1. In Sumo Logic, click the **+ New** button and select **Live Tail** from the drop-down menu.
 
     {{< figure src="/images/new-button-live-tail.png" alt="Click the + New button and select Live Tail" link="/images/new-button-live-tail.png" target="_blank" >}}
 
@@ -502,7 +510,8 @@ You have a successful workflow that sends Sensu observability data to your Sumo 
 
 To share and reuse the check and handler like code, [save them to files][6] and start building a [monitoring as code repository][7].
 
-Configure a [Sumo Logic dashboard][10] to search, view, and analyze the Sensu data you're sending to your Sumo Logic HTTP Logs and Metrics Source.
+Learn more about the [Sensu Sumo Logic Handler][19] dynamic runtime asset.
+You can also configure a [Sumo Logic dashboard][10] to search, view, and analyze the Sensu data you're sending to your Sumo Logic HTTP Logs and Metrics Source.
 
 
 [1]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
@@ -518,7 +527,7 @@ Configure a [Sumo Logic dashboard][10] to search, view, and analyze the Sensu da
 [11]: ../../observe-schedule/subscriptions/
 [12]: #set-up-an-http-logs-and-metrics-source
 [13]: https://help.sumologic.com/05Search/Live-Tail
-[15]: ../../observe-filter/filters/
 [16]: ../../observe-events/
 [17]: ../../../sensu-plus/
 [18]: ../sumo-logic-metrics-handlers/
+[19]: ../../../plugins/supported-integrations/sumologic/
