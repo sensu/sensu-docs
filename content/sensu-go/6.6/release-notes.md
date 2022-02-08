@@ -117,7 +117,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.6.5.
 **FIXES**
 - ([Commercial feature][259]) Fixed a bug in round robin scheduling that could delay notification routing after creating or updating business service monitoring (BSM) service components.
 - ([Commercial feature][259]) Fixed a bug in the PostgreSQL configuration watcher that could prevent bsmd from being reenabled after an update.
-- ([Commercial feature][259]) In the web UI, fixed a bug that could result in graphql-go nullification of values greater than math.MaxInt32.
+- ([Commercial feature][259]) In the web UI, fixed a bug that could result in graphql-go nullification of entity.status values greater than math.MaxInt32.
 - Removed Sensu Go 5.x-specific language in the confirmation prompt for sensu-backend upgrade in interactive mode.
 - Resolved unpredictable ringv2 behavior when identical subscriptions are created from different contexts.
 
