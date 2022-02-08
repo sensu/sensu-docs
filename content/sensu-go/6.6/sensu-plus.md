@@ -18,7 +18,8 @@ Sensu Plus is a built-in integration for transmitting your Sensu observability d
 You can use Sumo Logic's interactive dashboards and analytics tools to get better visibility into your Sensu data.
 
 To use Sensu Plus, you need a [Sumo Logic account][2].
-Once you have an account, follow this guide to start sending your Sensu data to Sumo Logic.
+First, create a new Sumo Logic account or log in to your existing account.
+Then, follow this guide to start sending your Sensu data to Sumo Logic.
 
 ## Set up an HTTP Logs and Metrics Source
 
@@ -58,7 +59,7 @@ Set up a Sumo Logic HTTP Logs and Metrics Source to collect your Sensu observabi
     {{< figure src="/images/http-logs-and-metrics_source.png" alt="Select options for HTTP Logs & Metrics source" link="/images/http-logs-and-metrics_source.png" target="_blank" >}}
 
 8. In the HTTP Source Address prompt, copy the listed URL and click OK.
-You will use this URL as the value for the `url` attribute in your [Sensu handler][3] definition.
+You will use this URL as the value for the `url` attribute in your Sensu [handler][3] definition.
 
     {{< figure src="/images/http-source-address_url.png" alt="Retrieve the HTTP Source Address URL" link="/images/http-source-address_url.png" target="_blank" >}}
 
