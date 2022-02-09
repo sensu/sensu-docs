@@ -18,6 +18,36 @@ In this guide, you'll use a [handler][9] to populate the time-series database [I
 
 Metrics can be collected from [check output][10] (in this guide, a check that generates Prometheus metrics) or the [Sensu StatsD Server][3].
 
+## Install and configure Sensu Go
+
+Follow the RHEL/CentOS [install instructions][16] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
+
+Find your entity name:
+
+{{< code shell >}}
+sensuctl entity list
+{{< /code >}}
+
+The `ID` in the response is the name of your entity.
+
+Replace `<entity_name>` with the name of your entity in the [sensuctl][18] command below.
+Then run the command to add the `system` [subscription][19] to your entity:
+
+{{< code shell >}}
+sensuctl entity update <entity_name>
+{{< /code >}}
+
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `system` and press enter.
+
+Confirm both Sensu services are running:
+
+{{< code shell >}}
+systemctl status sensu-backend && systemctl status sensu-agent
+{{< /code >}}
+
+The response should indicate `active (running)` for both the Sensu backend and agent.
+
 ## Register the dynamic runtime asset
 
 [Dynamic runtime assets][12] are shareable, reusable packages that make it easier to deploy Sensu plugins.
@@ -400,6 +430,9 @@ Now that you know how to apply an InfluxDB handler to metrics, read [Aggregate m
 [11]: https://github.com/sensu/sensu-influxdb-handler/releases
 [12]: ../../../plugins/assets/
 [13]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
+[14]: ../../../operations/deploy-sensu/install-sensu/
 [15]: ../aggregate-metrics-statsd/
 [16]: ../pipelines/
 [17]: ../../observe-filter/filters/#built-in-filter-has_metrics
+[18]: ../../../sensuctl/
+[19]: ../../observe-schedule/subscriptions/

@@ -50,6 +50,8 @@ Confirm both Sensu services are running:
 systemctl status sensu-backend && systemctl status sensu-agent
 {{< /code >}}
 
+The response should indicate `active (running)` for both the Sensu backend and agent.
+
 ## Register the dynamic runtime asset
 
 The [Sensu PagerDuty Handler][8] dynamic runtime asset includes the scripts you will need to send events to PagerDuty.

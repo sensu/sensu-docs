@@ -101,6 +101,8 @@ Run this command to confirm both Sensu services are running:
 systemctl status sensu-backend && systemctl status sensu-agent
 {{< /code >}}
 
+The response should indicate `active (running)` for both the Sensu backend and agent.
+
 ## Install and configure InfluxDB
 
 Add an InfluxDB repo:

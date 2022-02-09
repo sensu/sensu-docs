@@ -117,6 +117,14 @@ sensuctl entity update <entity_name>
 - For `Entity Class`, press enter.
 - For `Subscriptions`, type `system,webserver` and press enter.
 
+Confirm both Sensu services are running:
+
+{{< code shell >}}
+systemctl status sensu-backend && systemctl status sensu-agent
+{{< /code >}}
+
+The response should indicate `active (running)` for both the Sensu backend and agent.
+
 ## Create a check to monitor a server
 
 Now that the dynamic runtime assets are registered, create a check named `check_cpu` that runs the command `check-cpu-usage -w 75 -c 90` with the `check-cpu-usage` dynamic runtime asset at an interval of 60 seconds for all entities subscribed to the `system` subscription.

@@ -93,6 +93,14 @@ sensuctl entity update <entity_name>
 - For `Entity Class`, press enter.
 - For `Subscriptions`, type `webserver` and press enter.
 
+Confirm both Sensu services are running:
+
+{{< code shell >}}
+systemctl status sensu-backend && systemctl status sensu-agent
+{{< /code >}}
+
+The response should indicate `active (running)` for both the Sensu backend and agent.
+
 ## Install and configure NGINX
 
 The webserver check requires a running NGINX service, so you'll need to install and configure NGINX.

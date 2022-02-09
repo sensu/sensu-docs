@@ -19,6 +19,36 @@ You can use handlers to send an email alert, create or resolve incidents (in Pag
 This guide will help you send alerts to Slack in the channel `monitoring` by configuring a handler named `slack` to a check named `check_cpu`.
 If you don't already have this check in place, follow [Monitor server resources][2] to add it.
 
+## Install and configure Sensu Go
+
+Follow the RHEL/CentOS [install instructions][17] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
+
+Find your entity name:
+
+{{< code shell >}}
+sensuctl entity list
+{{< /code >}}
+
+The `ID` in the response is the name of your entity.
+
+Replace `<entity_name>` with the name of your entity in the [sensuctl][20] command below.
+Then run the command to add the `system` [subscription][21] to your entity:
+
+{{< code shell >}}
+sensuctl entity update <entity_name>
+{{< /code >}}
+
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `system` and press enter.
+
+Confirm both Sensu services are running:
+
+{{< code shell >}}
+systemctl status sensu-backend && systemctl status sensu-agent
+{{< /code >}}
+
+The response should indicate `active (running)` for both the Sensu backend and agent.
+
 ## Register the dynamic runtime asset
 
 [Dynamic runtime assets][13] are shareable, reusable packages that help you deploy Sensu plugins.
@@ -291,3 +321,6 @@ Follow [Send PagerDuty alerts with Sensu][11] to configure a check that generate
 [14]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [15]: ../../../operations/monitoring-as-code/#build-as-you-go
 [16]: ../../../operations/monitoring-as-code/
+[17]: ../../../operations/deploy-sensu/install-sensu/
+[20]: ../../../sensuctl/
+[21]: ../../observe-schedule/subscriptions/

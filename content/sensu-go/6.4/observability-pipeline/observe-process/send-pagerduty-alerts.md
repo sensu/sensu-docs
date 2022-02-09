@@ -47,6 +47,8 @@ Confirm both Sensu services are running:
 systemctl status sensu-backend && systemctl status sensu-agent
 {{< /code >}}
 
+The response should indicate `active (running)` for both the Sensu backend and agent.
+
 ## Add the file_exists check
 
 Before Sensu can send alerts to your PagerDuty account, you'll need a [check][2] to generate events.
