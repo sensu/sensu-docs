@@ -511,7 +511,7 @@ Configure [authorization][3] via role-based access control (RBAC) for your OIDC 
 2. If you are using a desktop, a browser will open to allow you to authenticate and log in.
 If a browser does not open, launch a browser to complete the login via your OIDC provider at:
 
-    - https://<api_url>:8080/api/enterprise/authentication/v2/oidc/authorize
+    `https://<api_url>:8080/api/enterprise/authentication/v2/oidc/authorize`
 
 ## OIDC troubleshooting
 
