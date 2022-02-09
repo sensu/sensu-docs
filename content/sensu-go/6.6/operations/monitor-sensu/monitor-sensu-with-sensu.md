@@ -22,8 +22,7 @@ This guide requires Sensu plugins using dynamic runtime assets.
 For more information about using Sensu plugins, read [Use dynamic runtime assets to install plugins][1].
 
 {{% notice note %}}
-**NOTE**: Although this guide describes approaches for monitoring a single backend, these strategies are also useful for monitoring individual members of a backend cluster.
-
+**NOTE**: Although this guide describes approaches for monitoring a single backend, these strategies are also useful for monitoring individual members of a backend cluster.<br><br>
 This guide does not describe Sensu agent [keepalive monitoring](../../../observability-pipeline/observe-schedule/agent/#keepalive-monitoring).
 {{% /notice %}}
 

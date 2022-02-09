@@ -90,8 +90,7 @@ This prerequisite extends to configuring the following Sensu backend etcd parame
 
 {{% notice warning %}}
 **WARNING**: You *must* provide an explicit, non-default etcd configuration to secure etcd communication in transit.
-If you do not properly configure secure etcd communication, your Sensu configuration will be vulnerable to unauthorized manipulation via etcd client connections.
-
+If you do not properly configure secure etcd communication, your Sensu configuration will be vulnerable to unauthorized manipulation via etcd client connections.<br><br>
 This includes providing non-default values for the `etcd-advertise-client-urls` and `etcd-listen-client-urls` backend parameters and creating a [certificate and key](../generate-certificates/) for the `etcd-cert-file` and `etcd-key-file` values.
 The default values are not suitable for use under federation.
 {{% /notice %}}
@@ -228,8 +227,7 @@ This allows you to centrally define RBAC policy on the `gateway` cluster and rep
 1. Configure one etcd replicator per cluster for each RBAC policy resource, across all namespaces, for each backend in the federation.
 {{% notice note %}}
 **NOTE**: Create a replicator for each resource type you want to replicate.
-Replicating `namespace` resources will **not** replicate the Sensu resources that belong to those namespaces.
-
+Replicating `namespace` resources will **not** replicate the Sensu resources that belong to those namespaces.<br><br>
 The [etcd replicators reference](../etcdreplicators/) includes [examples](../etcdreplicators#etcd-replicator-examples) you can follow for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources.
 {{% /notice %}}
 
