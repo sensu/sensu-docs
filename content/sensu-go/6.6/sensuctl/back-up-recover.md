@@ -331,10 +331,6 @@ API keys must be reissued, but you can use your backup as a reference for granti
 
 ## Supported resource types
 
-{{% notice note %}}
-**NOTE**: The `sensuctl describe-type` command deprecates `sensuctl dump --types`.
-{{% /notice %}}
-
 Use `sensuctl describe-type all` to retrieve the list of supported sensuctl dump resource types.
 
 {{% notice note %}}
