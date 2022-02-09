@@ -828,6 +828,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 - ([Commercial feature][141]) Added [entity class limits][151] to the license.
 - Added check hook output to event details page in the [web UI][153].
 - Added the [sensuctl describe-type command][144] to list all resource types.
+The `sensuctl describe-type` command deprecates `sensuctl dump --types`.
 - Added `annotations` and `labels` as [backend configuration][145] options.
 - Added [token substitution for assets][146].
 - Added `event.is_silenced` and `event.check.is_silenced` [field selectors][138].
