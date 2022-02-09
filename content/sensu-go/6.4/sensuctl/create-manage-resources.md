@@ -484,8 +484,7 @@ The `sensuctl prune` subcommand allows you to delete resources that do not appea
 For example, you can use `sensuctl create` to to apply a new configuration, then use `sensuctl prune` to prune unneeded resources, resources that were created by a specific user or that include a specific label selector, and more.
 
 {{% notice note %}}
-**NOTE**: `sensuctl prune` is an alpha feature and may include breaking changes.
-
+**NOTE**: `sensuctl prune` is an alpha feature and may include breaking changes.<br><br>
 `sensuctl prune` can only delete resources that have the label `sensu.io/managed_by: sensuctl`, which Sensu automatically adds to all resources created with sensuctl.
 This means you can only use `sensuctl prune` to delete resources that were created with sensuctl.
 {{% /notice %}}

@@ -16,8 +16,7 @@ For more information, read [Get started with commercial features](../../../comme
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change.
-
+**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change.<br><br>
 Requests to `enterprise/bsm/v1` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
 The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}

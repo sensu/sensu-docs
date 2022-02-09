@@ -36,9 +36,8 @@ sensuctl dump all --format json --file my-resources.json
 After you use sensuctl dump to back up your Sensu resources, you can [restore][3] them later with [sensuctl create][1].
 
 {{% notice note %}}
-**NOTE**: The sensuctl dump command does not export user passwords &mdash; you must add the [`password_hash`](../#generate-a-password-hash) or `password` attribute to any exported users resources before restoring them with sensuctl create.
-In addition, sensuctl create does not restore API keys from a sensuctl dump backup, although you can use your backup as a reference for granting new API keys.
-
+**NOTE**: The sensuctl dump command does not export user passwords &mdash; you must add the [`password_hash`](../#generate-a-password-hash) or `password` attribute to any exported users resources before restoring them with sensuctl create.<br><br>
+In addition, sensuctl create does not restore API keys from a sensuctl dump backup, although you can use your backup as a reference for granting new API keys.<br><br>
 Because users and API keys require these additional steps to restore with sensuctl create, you might prefer to use the [etcd snapshot and restore process](https://etcd.io/docs/latest/op-guide/recovery/) as your primary backup and restore method.
 Take regular etcd snapshots and make regular sensuctl dump backups for extra reassurance.
 {{% /notice %}}
@@ -325,8 +324,7 @@ sensuctl create -f backup/rbac.json
 
 {{% notice note %}}
 **NOTE**: When you export users, required password attributes are not included.
-You must add a [`password_hash`](../#generate-a-password-hash) or `password` to `users` resources before restoring them with the `sensuctl create` command.
-
+You must add a [`password_hash`](../#generate-a-password-hash) or `password` to `users` resources before restoring them with the `sensuctl create` command.<br><br>
 You can't restore API keys or users from a sensuctl dump backup.
 API keys must be reissued, but you can use your backup as a reference for granting new API keys to replace the exported keys.
 {{% /notice %}}
