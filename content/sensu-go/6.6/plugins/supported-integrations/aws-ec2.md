@@ -31,7 +31,7 @@ You can also add the [Sensu EC2 Handler plugin][4] with a dynamic runtime asset 
 
 ## More resources
 
-- Set up a [limited service account][9] with the access and permissions required to automatically remove AWS EC2 instances using the Sensu EC2 Handler integration.
+Set up a [limited service account][9] with the access and permissions required to automatically remove AWS EC2 instances using the Sensu EC2 Handler integration.
 
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
