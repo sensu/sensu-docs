@@ -369,6 +369,105 @@ description               | Removes a cluster role binding from Sensu (specified
 example url               | http://hostname:8080/api/core/v2/clusterrolebindings/ops-binding
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Get a subset of cluster role bindings with response filtering
+
+The `/clusterrolebindings` API endpoint supports [response filtering][3] for a subset of cluster role binding data based on labels and the following fields:
+
+- `clusterrolebinding.name`
+- `clusterrolebinding.role_ref.name`
+- `clusterrolebinding.role_ref.type`
+
+### Example
+
+The following example demonstrates a request to the `/clusterrolebindings` API endpoint with [response filtering][3], resulting in a JSON array that contains only [cluster role binding definitions][1] whose `role_ref.name` includes `cluster-user`.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/clusterrolebindings -G \
+--data-urlencode 'fieldSelector="cluster-user" in clusterrolebinding.role_ref.name'
+
+HTTP/1.1 200 OK
+[
+  {
+    "subjects": [
+      {
+        "type": "User",
+        "name": "ann"
+      }
+    ],
+    "role_ref": {
+      "type": "ClusterRole",
+      "name": "cluster-user"
+    },
+    "metadata": {
+      "name": "ann-binder",
+      "created_by": "admin"
+    }
+  },
+  {
+    "subjects": [
+      {
+        "type": "User",
+        "name": "bonita"
+      }
+    ],
+    "role_ref": {
+      "type": "ClusterRole",
+      "name": "cluster-user"
+    },
+    "metadata": {
+      "name": "bonita-binder",
+      "created_by": "admin"
+    }
+  }
+]
+{{< /code >}}
+
+### API Specification
+
+/clusterrolebindings (GET) with response filters | 
+---------------|------
+description    | Returns the list of cluster role bindings that match the [response filters][3] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/clusterrolebindings
+pagination     | This endpoint supports [pagination][4] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "subjects": [
+      {
+        "type": "User",
+        "name": "ann"
+      }
+    ],
+    "role_ref": {
+      "type": "ClusterRole",
+      "name": "cluster-user"
+    },
+    "metadata": {
+      "name": "ann-binder",
+      "created_by": "admin"
+    }
+  },
+  {
+    "subjects": [
+      {
+        "type": "User",
+        "name": "bonita"
+      }
+    ],
+    "role_ref": {
+      "type": "ClusterRole",
+      "name": "cluster-user"
+    },
+    "metadata": {
+      "name": "bonita-binder",
+      "created_by": "admin"
+    }
+  }
+]
+{{< /code >}}
+
 
 [1]: ../../../operations/control-access/rbac/
 [2]: ../../#pagination
