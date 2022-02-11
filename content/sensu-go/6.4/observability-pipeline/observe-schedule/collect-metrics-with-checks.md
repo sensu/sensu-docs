@@ -32,7 +32,7 @@ sensuctl asset add sensu/http-checks:0.4.0 -r http-checks
 
 The response will indicate that the asset was added:
 
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/http-checks:0.4.0
 added asset: sensu/http-checks:0.4.0
 

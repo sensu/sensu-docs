@@ -193,7 +193,7 @@ sensuctl asset add sensu/sensu-ec2-handler:0.4.0
 
 The response will indicate that the asset was added:
 
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/sensu-ec2-handler:0.4.0
 added asset: sensu/sensu-ec2-handler:0.4.0
 

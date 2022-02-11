@@ -211,7 +211,7 @@ sensuctl asset add sensu/sensu-go-fatigue-check-filter:0.8.1 -r fatigue-filter
 
 The response will indicate that the asset was added:
 
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/sensu-go-fatigue-check-filter:0.8.1
 added asset: sensu/sensu-go-fatigue-check-filter:0.8.1
 

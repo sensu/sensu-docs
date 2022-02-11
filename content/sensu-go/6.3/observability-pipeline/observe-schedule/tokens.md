@@ -43,7 +43,7 @@ sensuctl asset add sensu/check-disk-usage:0.4.1
 {{< /code >}}
 
    You will receive a response to confirm that the asset was added:
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/check-disk-usage:0.4.1
 added asset: sensu/check-disk-usage:0.4.1
 

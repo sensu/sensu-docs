@@ -64,7 +64,7 @@ This example uses the `-r` (rename) flag to specify a shorter name for the dynam
 
 The response will indicate that the asset was added:
 
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/sensu-pagerduty-handler:2.2.0
 added asset: sensu/sensu-pagerduty-handler:2.2.0
 
