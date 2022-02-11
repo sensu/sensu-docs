@@ -13,7 +13,7 @@ menu:
 {{% notice note %}}
 **NOTE**: The `core/v2/users` API endpoints allow you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../../operations/control-access#use-built-in-basic-authentication).
 To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../../operations/control-access/ldap-auth/), [Active Directory (AD)](../../../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../../../operations/control-access/oidc-auth/), use Sensu's [enterprise/authentication/v2 API endpoints](../../enterprise/authproviders/).<br><br>
-Requests to `core/v2/users` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+Requests to `core/v2/users` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-auth-api-endpoints).
 The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

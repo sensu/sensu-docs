@@ -11,7 +11,7 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to `core/v2/apikeys` endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to `core/v2/apikeys` endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-auth-api-endpoints).
 The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
@@ -74,7 +74,7 @@ In the following example, an HTTP POST request is submitted to the `/apikeys` AP
 The request returns a successful HTTP `201 Created` response, along with a `Location` header that contains the relative path to the new API key.
 
 {{% notice note %}}
-**NOTE**: For the `/apikeys` POST endpoint, authenticate with a Sensu access token, which you can generate with [/auth API endpoints](../../#authenticate-with-the-authentication-api) or [sensuctl](../../#generate-an-api-access-token-with-sensuctl).
+**NOTE**: For the `/apikeys` POST endpoint, authenticate with a Sensu access token, which you can generate with [/auth API endpoints](../../#authenticate-with-auth-api-endpoints) or [sensuctl](../../#generate-an-api-access-token-with-sensuctl).
 This example uses `$SENSU_ACCESS_TOKEN` to represent a valid Sensu access token.<br><br>
 If you prefer, you can [create a new API key with sensuctl](../../../operations/control-access/use-apikeys/#sensuctl-management-commands) instead of using this endpoint.
 {{% /notice %}}
