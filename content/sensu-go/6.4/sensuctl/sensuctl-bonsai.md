@@ -36,7 +36,7 @@ sensuctl asset add sensu/sensu-influxdb-handler:3.1.1
 
 The response should be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.1
 added asset: sensu/sensu-influxdb-handler:3.1.1
 

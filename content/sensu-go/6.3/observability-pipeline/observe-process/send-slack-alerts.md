@@ -32,7 +32,7 @@ sensuctl asset add sensu/sensu-slack-handler:1.0.3 -r sensu-slack-handler
 
 The response will indicate that the asset was added:
 
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
 added asset: sensu/sensu-slack-handler:1.0.3
 

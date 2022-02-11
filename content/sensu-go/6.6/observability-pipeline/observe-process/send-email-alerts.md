@@ -37,7 +37,7 @@ sensuctl asset add sensu/sensu-email-handler:1.2.2 -r email-handler
 
 The response will confirm that the asset was added:
 
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/sensu-email-handler:1.2.2
 added asset: sensu/sensu-email-handler:1.2.2
 
