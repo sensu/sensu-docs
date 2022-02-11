@@ -19,7 +19,7 @@ For more information, read [Get started with commercial features](../../../comme
 **NOTE**: The `enterprise/prune/v1alpha` API endpoints are an alpha feature and may include breaking changes.<br><br>
 The pruning operation follows the role-based access control (RBAC) permissions of the current user.
 For example, to prune resources in the `dev` namespace, the current user who sends the prune command must have delete access to the `dev` namespace.<br><br>
-Requests to `enterprise/prune/v1alpha` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+Requests to `enterprise/prune/v1alpha` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-auth-api-endpoints).
 The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 

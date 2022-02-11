@@ -241,7 +241,7 @@ You can sort all resources by name, but events and silences have additional sort
 [4]: #search-for-numbers-or-special-characters
 [5]: #create-basic-searches
 [6]: ../../api/#label-selector
-[7]: ../../api/#operators
+[7]: ../../api/#filter-operators
 [8]: #save-a-search
 [9]: #search-operators
 [11]: ../../operations/control-access/rbac/#namespaced-resource-types

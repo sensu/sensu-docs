@@ -784,14 +784,14 @@ curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/si
 [10]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag
 [11]: other/auth/#authtoken-post
 [12]: other/auth/
-[13]: #operators
+[13]: #filter-operators
 [14]: #authentication-quickstart
 [15]: #examples
 [16]: #limit-query-parameter
 [17]: #authenticate-with-an-api-key
 [18]: ../operations/control-access/use-apikeys/#sensuctl-management-commands
 [19]: core/apikeys/
-[20]: #authenticate-with-the-authentication-api
+[20]: #authenticate-with-auth-api-endpoints
 [21]: ../observability-pipeline/observe-schedule/backend/#api-request-limit
 [22]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match
 [23]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match
