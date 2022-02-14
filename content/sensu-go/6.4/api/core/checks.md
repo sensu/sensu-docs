@@ -520,7 +520,7 @@ HTTP/1.1 200 OK
 [
   {
     "command": "check-cpu-usage -w 75 -c 90",
-    "handlers": [],
+    "handlers": ["slack"],
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
@@ -546,8 +546,7 @@ HTTP/1.1 200 OK
       "namespace": "default",
       "created_by": "admin"
     },
-    "secrets": null,
-    "pipelines": []
+    "secrets": null
   }
 ]
 {{< /code >}}
@@ -565,7 +564,7 @@ output         | {{< code shell >}}
 [
   {
     "command": "check-cpu-usage -w 75 -c 90",
-    "handlers": [],
+    "handlers": ["slack"],
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
@@ -591,8 +590,7 @@ output         | {{< code shell >}}
       "namespace": "default",
       "created_by": "admin"
     },
-    "secrets": null,
-    "pipelines": []
+    "secrets": null
   }
 ]
 {{< /code >}}

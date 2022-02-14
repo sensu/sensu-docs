@@ -1620,6 +1620,479 @@ description               | Deletes the event created by the specified entity us
 example url               | http://hostname:8080/api/core/v2/namespaces/default/events/server1/check-cpu 
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Get a subset of events with response filtering
+
+The `/events` API endpoint supports [response filtering][10] for a subset of event data based on labels and the following fields:
+
+- `event.name`
+- `event.namespace`
+- `event.is_silenced`
+- `event.check.handlers`
+- `event.check.is_silenced`
+- `event.check.name`
+- `event.check.publish`
+- `event.check.round_robin`
+- `event.check.runtime_assets`
+- `event.check.status`
+- `event.check.subscriptions`
+- `event.entity.deregister`
+- `event.entity.entity_class`
+- `event.entity.name` 
+- `event.entity.subscriptions`
+
+### Example
+
+The following example demonstrates a request to the `/events` API endpoint with [response filtering][10], resulting in a JSON array that contains only [event definitions][1] for entities whose subscriptions include `linux`.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/events -G \
+--data-urlencode 'fieldSelector="linux" in event.entity.subscriptions'
+
+HTTP/1.1 200 OK
+[
+  {
+    "timestamp": 1644848031,
+    "entity": {
+      "entity_class": "agent",
+      "system": {
+        "hostname": "sensu-centos",
+        "os": "linux",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.5.1804",
+        "network": {
+          "interfaces": [
+            {
+              "name": "lo",
+              "addresses": [
+                "127.0.0.1/8",
+                "::1/128"
+              ]
+            },
+            {
+              "name": "eth0",
+              "mac": "08:00:27:8b:c9:3f",
+              "addresses": [
+                "10.0.2.15/24",
+                "fe80::c68e:8fd8:32f0:7c5d/64"
+              ]
+            },
+            {
+              "name": "eth1",
+              "mac": "08:00:27:3b:a9:9f",
+              "addresses": [
+                "192.168.56.23/24",
+                "fe80::a00:27ff:fe3b:a99f/64"
+              ]
+            }
+          ]
+        },
+        "arch": "amd64",
+        "libc_type": "glibc",
+        "vm_system": "vbox",
+        "vm_role": "guest",
+        "cloud_provider": "",
+        "processes": null
+      },
+      "subscriptions": [
+        "linux",
+        "entity:sensu-centos",
+        "system"
+      ],
+      "last_seen": 1644848029,
+      "deregister": false,
+      "deregistration": {},
+      "user": "agent",
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
+      "metadata": {
+        "name": "sensu-centos",
+        "namespace": "default",
+        "created_by": "admin"
+      },
+      "sensu_agent_version": "6.6.5"
+    },
+    "check": {
+      "command": "check-cpu-usage -w 1 -c 2",
+      "handlers": [],
+      "high_flap_threshold": 0,
+      "interval": 15,
+      "low_flap_threshold": 0,
+      "publish": true,
+      "runtime_assets": [
+        "check-cpu-usage"
+      ],
+      "subscriptions": [
+        "system"
+      ],
+      "proxy_entity_name": "",
+      "check_hooks": null,
+      "stdin": false,
+      "subdue": null,
+      "ttl": 0,
+      "timeout": 0,
+      "round_robin": false,
+      "duration": 2.010462294,
+      "executed": 1644848029,
+      "history": [
+        {
+          "status": 2,
+          "executed": 1644847740
+        },
+        {
+          "status": 1,
+          "executed": 1644847755
+        },
+        {
+          "status": 1,
+          "executed": 1644847770
+        },
+        {
+          "status": 2,
+          "executed": 1644847785
+        },
+        {
+          "status": 2,
+          "executed": 1644847800
+        },
+        {
+          "status": 1,
+          "executed": 1644847815
+        },
+        {
+          "status": 2,
+          "executed": 1644847830
+        },
+        {
+          "status": 1,
+          "executed": 1644847845
+        },
+        {
+          "status": 1,
+          "executed": 1644847860
+        },
+        {
+          "status": 1,
+          "executed": 1644847875
+        },
+        {
+          "status": 1,
+          "executed": 1644847890
+        },
+        {
+          "status": 0,
+          "executed": 1644847905
+        },
+        {
+          "status": 2,
+          "executed": 1644847920
+        },
+        {
+          "status": 1,
+          "executed": 1644847935
+        },
+        {
+          "status": 0,
+          "executed": 1644847950
+        },
+        {
+          "status": 0,
+          "executed": 1644847965
+        },
+        {
+          "status": 2,
+          "executed": 1644847980
+        },
+        {
+          "status": 2,
+          "executed": 1644847995
+        },
+        {
+          "status": 1,
+          "executed": 1644848010
+        },
+        {
+          "status": 1,
+          "executed": 1644848014
+        },
+        {
+          "status": 0,
+          "executed": 1644848029
+        }
+      ],
+      "issued": 1644848029,
+      "output": "check-cpu-usage OK: 0.51% CPU usage | cpu_idle=99.49, cpu_system=0.51, cpu_user=0.00, cpu_nice=0.00, cpu_iowait=0.00, cpu_irq=0.00, cpu_softirq=0.00, cpu_steal=0.00, cpu_guest=0.00, cpu_guestnice=0.00\n",
+      "state": "passing",
+      "status": 0,
+      "total_state_change": 59,
+      "last_ok": 1644848029,
+      "occurrences": 1,
+      "occurrences_watermark": 2,
+      "output_metric_format": "",
+      "output_metric_handlers": null,
+      "env_vars": null,
+      "metadata": {
+        "name": "check_cpu",
+        "namespace": "default"
+      },
+      "secrets": null,
+      "is_silenced": false,
+      "scheduler": "memory",
+      "processed_by": "sensu-centos",
+      "pipelines": []
+    },
+    "metadata": {
+      "namespace": "default"
+    },
+    "id": "f5ef6190-a8e2-4660-9ad1-02ae0a2e89f4",
+    "sequence": 2,
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "metrics_workflows"
+      }
+    ]
+  }
+]
+{{< /code >}}
+
+### API Specification
+
+/events (GET) with response filters | 
+---------------|------
+description    | Returns the list of events that match the [response filters][10] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/events
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "timestamp": 1644848031,
+    "entity": {
+      "entity_class": "agent",
+      "system": {
+        "hostname": "sensu-centos",
+        "os": "linux",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.5.1804",
+        "network": {
+          "interfaces": [
+            {
+              "name": "lo",
+              "addresses": [
+                "127.0.0.1/8",
+                "::1/128"
+              ]
+            },
+            {
+              "name": "eth0",
+              "mac": "08:00:27:8b:c9:3f",
+              "addresses": [
+                "10.0.2.15/24",
+                "fe80::c68e:8fd8:32f0:7c5d/64"
+              ]
+            },
+            {
+              "name": "eth1",
+              "mac": "08:00:27:3b:a9:9f",
+              "addresses": [
+                "192.168.56.23/24",
+                "fe80::a00:27ff:fe3b:a99f/64"
+              ]
+            }
+          ]
+        },
+        "arch": "amd64",
+        "libc_type": "glibc",
+        "vm_system": "vbox",
+        "vm_role": "guest",
+        "cloud_provider": "",
+        "processes": null
+      },
+      "subscriptions": [
+        "linux",
+        "entity:sensu-centos",
+        "system"
+      ],
+      "last_seen": 1644848029,
+      "deregister": false,
+      "deregistration": {},
+      "user": "agent",
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
+      "metadata": {
+        "name": "sensu-centos",
+        "namespace": "default",
+        "created_by": "admin"
+      },
+      "sensu_agent_version": "6.6.5"
+    },
+    "check": {
+      "command": "check-cpu-usage -w 1 -c 2",
+      "handlers": [],
+      "high_flap_threshold": 0,
+      "interval": 15,
+      "low_flap_threshold": 0,
+      "publish": true,
+      "runtime_assets": [
+        "check-cpu-usage"
+      ],
+      "subscriptions": [
+        "system"
+      ],
+      "proxy_entity_name": "",
+      "check_hooks": null,
+      "stdin": false,
+      "subdue": null,
+      "ttl": 0,
+      "timeout": 0,
+      "round_robin": false,
+      "duration": 2.010462294,
+      "executed": 1644848029,
+      "history": [
+        {
+          "status": 2,
+          "executed": 1644847740
+        },
+        {
+          "status": 1,
+          "executed": 1644847755
+        },
+        {
+          "status": 1,
+          "executed": 1644847770
+        },
+        {
+          "status": 2,
+          "executed": 1644847785
+        },
+        {
+          "status": 2,
+          "executed": 1644847800
+        },
+        {
+          "status": 1,
+          "executed": 1644847815
+        },
+        {
+          "status": 2,
+          "executed": 1644847830
+        },
+        {
+          "status": 1,
+          "executed": 1644847845
+        },
+        {
+          "status": 1,
+          "executed": 1644847860
+        },
+        {
+          "status": 1,
+          "executed": 1644847875
+        },
+        {
+          "status": 1,
+          "executed": 1644847890
+        },
+        {
+          "status": 0,
+          "executed": 1644847905
+        },
+        {
+          "status": 2,
+          "executed": 1644847920
+        },
+        {
+          "status": 1,
+          "executed": 1644847935
+        },
+        {
+          "status": 0,
+          "executed": 1644847950
+        },
+        {
+          "status": 0,
+          "executed": 1644847965
+        },
+        {
+          "status": 2,
+          "executed": 1644847980
+        },
+        {
+          "status": 2,
+          "executed": 1644847995
+        },
+        {
+          "status": 1,
+          "executed": 1644848010
+        },
+        {
+          "status": 1,
+          "executed": 1644848014
+        },
+        {
+          "status": 0,
+          "executed": 1644848029
+        }
+      ],
+      "issued": 1644848029,
+      "output": "check-cpu-usage OK: 0.51% CPU usage | cpu_idle=99.49, cpu_system=0.51, cpu_user=0.00, cpu_nice=0.00, cpu_iowait=0.00, cpu_irq=0.00, cpu_softirq=0.00, cpu_steal=0.00, cpu_guest=0.00, cpu_guestnice=0.00\n",
+      "state": "passing",
+      "status": 0,
+      "total_state_change": 59,
+      "last_ok": 1644848029,
+      "occurrences": 1,
+      "occurrences_watermark": 2,
+      "output_metric_format": "",
+      "output_metric_handlers": null,
+      "env_vars": null,
+      "metadata": {
+        "name": "check_cpu",
+        "namespace": "default"
+      },
+      "secrets": null,
+      "is_silenced": false,
+      "scheduler": "memory",
+      "processed_by": "sensu-centos",
+      "pipelines": []
+    },
+    "metadata": {
+      "namespace": "default"
+    },
+    "id": "f5ef6190-a8e2-4660-9ad1-02ae0a2e89f4",
+    "sequence": 2,
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "metrics_workflows"
+      }
+    ]
+  }
+]
+{{< /code >}}
+
 
 [1]: ../../../observability-pipeline/observe-events/events/
 [2]: ../../#pagination
