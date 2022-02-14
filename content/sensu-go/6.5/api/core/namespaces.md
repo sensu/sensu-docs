@@ -203,6 +203,44 @@ output         | {{< code shell >}}
 ]
 {{< /code >}}
 
-[1]: ../../../operations/control-access/rbac/
-[2]: ../../#limit-query-parameter
+## Get a subset of namespaces with response filtering
+
+The `/namespaces` API endpoint supports [response filtering][3] for a subset of namespace data based on labels and the field `namespace.name`.
+
+### Example
+
+The following example demonstrates a request to the `/namespaces` API endpoint with [response filtering][3], resulting in a JSON array that contains only the [namespace definitions][1] for the `production` namespace.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/namespaces -G \
+--data-urlencode 'fieldSelector=namespace.name == production'
+
+HTTP/1.1 200 OK
+[
+  {
+    "name": "production"
+  }
+]
+{{< /code >}}
+
+### API Specification
+
+/namespaces (GET) with response filters | 
+---------------|------
+description    | Returns the list of namespaces that match the [response filters][3] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/namespaces
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "name": "production"
+  }
+]
+{{< /code >}}
+
+
+[1]: ../../../operations/control-access/namespaces/
+[2]: ../../#pagination
 [3]: ../../#response-filtering

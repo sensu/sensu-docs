@@ -447,6 +447,71 @@ output               | {{< code json >}}
 ]
 {{< /code >}}
 
+## Get a subset of silences with response filtering
+
+The `/silenced` API endpoint supports [response filtering][3] for a subset of silences data based on labels and the following fields:
+
+- `silenced.name`
+- `silenced.namespace`
+- `silenced.check`
+- `silenced.creator`
+- `silenced.expire_on_resolve`
+- `silenced.subscription`
+
+### Example
+
+The following example demonstrates a request to the `/silenced` API endpoint with [response filtering][3], resulting in a JSON array that contains only [silence definitions][1] with the `linux` subscription.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/silenced -G \
+--data-urlencode 'fieldSelector="linux" in silenced.subscription'
+
+HTTP/1.1 200 OK
+[
+  {
+    "metadata": {
+      "name": "linux:*",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "expire": -1,
+    "expire_on_resolve": false,
+    "creator": "admin",
+    "subscription": "linux",
+    "begin": 1644868317,
+    "expire_at": 0
+  }
+]
+{{< /code >}}
+
+### API Specification
+
+/silenced (GET) with response filters | 
+---------------|------
+description    | Returns the list of silences that match the [response filters][3] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/silenced
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "metadata": {
+      "name": "linux:*",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "expire": -1,
+    "expire_on_resolve": false,
+    "creator": "admin",
+    "subscription": "linux",
+    "begin": 1644868317,
+    "expire_at": 0
+  }
+]
+{{< /code >}}
+
+
 [1]: ../../../observability-pipeline/observe-process/silencing/
 [2]: ../../#pagination
 [3]: ../../#response-filtering

@@ -430,7 +430,75 @@ description               | Removes the specified user from the specified group.
 example url               | http://hostname:8080/api/core/v2/users/alice/groups/ops
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../../operations/control-access/rbac#user-specification
+## Get a subset of users with response filtering
+
+The `/users` API endpoint supports [response filtering][3] for a subset of user data based on labels and the following fields:
+
+- `user.username`
+- `user.disabled`
+- `user.groups`
+
+### Example
+
+The following example demonstrates a request to the `/users` API endpoint with [response filtering][3], resulting in a JSON array that contains only [user definitions][1] that are in the `default` namespace.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/users -G \
+--data-urlencode 'fieldSelector="dev" in user.groups'
+
+HTTP/1.1 200 OK
+[
+  {
+    "username": "alice",
+    "groups": [
+      "ops",
+      "dev"
+    ],
+    "disabled": false
+  },
+  {
+    "username": "balan",
+    "groups": [
+      "testing",
+      "dev"
+    ],
+    "disabled": false
+  }
+]
+{{< /code >}}
+
+### API Specification
+
+/users (GET) with response filters | 
+---------------|------
+description    | Returns the list of users that match the [response filters][8] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/users
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "username": "alice",
+    "groups": [
+      "ops",
+      "dev"
+    ],
+    "disabled": false
+  },
+  {
+    "username": "balan",
+    "groups": [
+      "testing",
+      "dev"
+    ],
+    "disabled": false
+  }
+]
+{{< /code >}}
+
+
+[1]: ../../../operations/control-access/rbac#users
 [2]: ../../#pagination
 [3]: https://en.wikipedia.org/wiki/Bcrypt
 [4]: ../../../sensuctl/#generate-a-password-hash
