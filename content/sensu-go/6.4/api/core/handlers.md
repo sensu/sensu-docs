@@ -393,6 +393,93 @@ description               | Removes the specified handler from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/handlers/slack
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Get a subset of handlers with response filtering
+
+The `/handlers` API endpoint supports [response filtering][3] for a subset of handler data based on labels and the following fields:
+
+- `handler.name`
+- `handler.namespace`
+- `handler.filters`
+- `handler.handlers`
+- `handler.mutator`
+- `handler.type`
+
+### Example
+
+The following example demonstrates a request to the `/handlers` API endpoint with [response filtering][3], resulting in a JSON array that contains only [handler definitions][1] in the `default` namespace **and** whose filters include `state_change_only`.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/handlers -G \
+--data-urlencode 'fieldSelector=state_change_only in handler.filters && handler.namespace == default'
+
+HTTP/1.1 200 OK
+[
+  {
+    "metadata": {
+      "name": "slack",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "type": "pipe",
+    "command": "sensu-slack-handler --channel '#monitoring'",
+    "timeout": 0,
+    "handlers": null,
+    "filters": [
+      "state_change_only"
+    ],
+    "env_vars": null,
+    "runtime_assets": [
+      "sensu-slack-handler"
+    ],
+    "secrets": [
+      {
+        "name": "SLACK_WEBHOOK_URL",
+        "secret": "slack_webhook_url"
+      }
+    ]
+  }
+]
+{{< /code >}}
+
+### API Specification
+
+/handlers (GET) with response filters | 
+---------------|------
+description    | Returns the list of handlers that match the [response filters][3] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/handlers
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "metadata": {
+      "name": "slack",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "type": "pipe",
+    "command": "sensu-slack-handler --channel '#monitoring'",
+    "timeout": 0,
+    "handlers": null,
+    "filters": [
+      "state_change_only"
+    ],
+    "env_vars": null,
+    "runtime_assets": [
+      "sensu-slack-handler"
+    ],
+    "secrets": [
+      {
+        "name": "SLACK_WEBHOOK_URL",
+        "secret": "slack_webhook_url"
+      }
+    ]
+  }
+]
+{{< /code >}}
+
+
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../#pagination
 [3]: ../../#response-filtering
