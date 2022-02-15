@@ -657,6 +657,241 @@ description               | Removes a entity from Sensu (specified by the entity
 example url               | http://hostname:8080/api/core/v2/namespaces/default/entities/server1
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Get a subset of entities with response filtering
+
+The `/entities` API endpoint supports [response filtering][5] for a subset of entity data based on labels and the following fields:
+
+- `entity.name`
+- `entity.namespace`
+- `entity.deregister`
+- `entity.entity_class`
+- `entity.subscriptions`
+
+### Example
+
+The following example demonstrates a request to the `/entities` API endpoint with [response filtering][5], resulting in a JSON array that contains only [entity definitions][1] whose subscriptions include `linux`.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/entities -G \
+--data-urlencode 'fieldSelector="linux" in entity.subscriptions'
+
+HTTP/1.1 200 OK
+[
+  {
+    "entity_class": "agent",
+    "system": {
+      "network": {
+        "interfaces": null
+      },
+      "libc_type": "",
+      "vm_system": "",
+      "vm_role": "",
+      "cloud_provider": "",
+      "processes": null
+    },
+    "subscriptions": [
+      "linux",
+      "entity:datastore01"
+    ],
+    "last_seen": 0,
+    "deregister": false,
+    "deregistration": {},
+    "metadata": {
+      "name": "datastore01",
+      "namespace": "default",
+      "labels": {
+        "region": "us-west-1",
+        "service_type": "datastore",
+        "sensu.io/managed_by": "sensuctl"
+      }
+    },
+    "sensu_agent_version": ""
+  },
+  {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "sensu-centos",
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.5.1804",
+      "network": {
+        "interfaces": [
+          {
+            "name": "lo",
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ]
+          },
+          {
+            "name": "eth0",
+            "mac": "08:00:27:8b:c9:3f",
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::c68e:8fd8:32f0:7c5d/64"
+            ]
+          },
+          {
+            "name": "eth1",
+            "mac": "08:00:27:3b:a9:9f",
+            "addresses": [
+              "192.168.56.23/24",
+              "fe80::a00:27ff:fe3b:a99f/64"
+            ]
+          }
+        ]
+      },
+      "arch": "amd64",
+      "libc_type": "glibc",
+      "vm_system": "vbox",
+      "vm_role": "guest",
+      "cloud_provider": "",
+      "processes": null
+    },
+    "subscriptions": [
+      "linux",
+      "entity:sensu-centos"
+    ],
+    "last_seen": 1644615964,
+    "deregister": false,
+    "deregistration": {},
+    "user": "agent",
+    "redact": [
+      "password",
+      "passwd",
+      "pass",
+      "api_key",
+      "api_token",
+      "access_key",
+      "secret_key",
+      "private_key",
+      "secret"
+    ],
+    "metadata": {
+      "name": "sensu-centos",
+      "namespace": "default"
+    },
+    "sensu_agent_version": "6.6.5"
+  }
+]
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
+{{% /notice %}}
+
+### API Specification
+
+/entities (GET) with response filters | 
+---------------|------
+description    | Returns the list of entities that match the [response filters][5] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/entities
+pagination     | This endpoint supports [pagination][4] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "entity_class": "agent",
+    "system": {
+      "network": {
+        "interfaces": null
+      },
+      "libc_type": "",
+      "vm_system": "",
+      "vm_role": "",
+      "cloud_provider": "",
+      "processes": null
+    },
+    "subscriptions": [
+      "linux",
+      "entity:datastore01"
+    ],
+    "last_seen": 0,
+    "deregister": false,
+    "deregistration": {},
+    "metadata": {
+      "name": "datastore01",
+      "namespace": "default",
+      "labels": {
+        "region": "us-west-1",
+        "service_type": "datastore",
+        "sensu.io/managed_by": "sensuctl"
+      }
+    },
+    "sensu_agent_version": ""
+  },
+  {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "sensu-centos",
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.5.1804",
+      "network": {
+        "interfaces": [
+          {
+            "name": "lo",
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ]
+          },
+          {
+            "name": "eth0",
+            "mac": "08:00:27:8b:c9:3f",
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::c68e:8fd8:32f0:7c5d/64"
+            ]
+          },
+          {
+            "name": "eth1",
+            "mac": "08:00:27:3b:a9:9f",
+            "addresses": [
+              "192.168.56.23/24",
+              "fe80::a00:27ff:fe3b:a99f/64"
+            ]
+          }
+        ]
+      },
+      "arch": "amd64",
+      "libc_type": "glibc",
+      "vm_system": "vbox",
+      "vm_role": "guest",
+      "cloud_provider": "",
+      "processes": null
+    },
+    "subscriptions": [
+      "linux",
+      "entity:sensu-centos"
+    ],
+    "last_seen": 1644615964,
+    "deregister": false,
+    "deregistration": {},
+    "user": "agent",
+    "redact": [
+      "password",
+      "passwd",
+      "pass",
+      "api_key",
+      "api_token",
+      "access_key",
+      "secret_key",
+      "private_key",
+      "secret"
+    ],
+    "metadata": {
+      "name": "sensu-centos",
+      "namespace": "default"
+    },
+    "sensu_agent_version": "6.6.5"
+  }
+]
+{{< /code >}}
+
 
 [1]: ../../../observability-pipeline/observe-entities/entities/
 [2]: ../../#pagination

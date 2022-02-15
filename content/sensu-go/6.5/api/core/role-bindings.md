@@ -346,6 +346,110 @@ description               | Removes the specified role binding from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Get a subset of role bindings with response filtering
+
+The `/rolebindings` API endpoint supports [response filtering][3] for a subset of role binding data based on labels and the following fields:
+
+- `rolebinding.name`
+- `rolebinding.namespace`
+- `rolebinding.role_ref.name`
+- `rolebinding.role_ref.type`
+
+### Example
+
+The following example demonstrates a request to the `/rolebindings` API endpoint with [response filtering][3], resulting in a JSON array that contains only [role binding definitions][1] that are in the `default` namespace.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/rolebindings -G \
+--data-urlencode 'fieldSelector="event-reader" in rolebinding.role_ref.name'
+
+HTTP/1.1 200 OK
+[
+  {
+    "subjects": [
+      {
+        "type": "User",
+        "name": "ann"
+      },
+      {
+        "type": "User",
+        "name": "bonita"
+      },
+      {
+        "type": "Group",
+        "name": "admins"
+      },
+      {
+        "type": "Group",
+        "name": "read-events"
+      }
+    ],
+    "role_ref": {
+      "type": "Role",
+      "name": "event-reader"
+    },
+    "metadata": {
+      "name": "event-reader-binding",
+      "namespace": "default",
+      "labels": {
+        "sensu.io/managed_by": "sensuctl"
+      },
+      "created_by": "admin"
+    }
+  }
+]
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
+{{% /notice %}}
+
+### API Specification
+
+/rolebindings (GET) with response filters | 
+---------------|------
+description    | Returns the list of role bindings that match the [response filters][3] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/rolebindings
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "subjects": [
+      {
+        "type": "User",
+        "name": "ann"
+      },
+      {
+        "type": "User",
+        "name": "bonita"
+      },
+      {
+        "type": "Group",
+        "name": "admins"
+      },
+      {
+        "type": "Group",
+        "name": "read-events"
+      }
+    ],
+    "role_ref": {
+      "type": "Role",
+      "name": "event-reader"
+    },
+    "metadata": {
+      "name": "event-reader-binding",
+      "namespace": "default",
+      "labels": {
+        "sensu.io/managed_by": "sensuctl"
+      },
+      "created_by": "admin"
+    }
+  }
+]
+{{< /code >}}
+
 
 [1]: ../../../operations/control-access/rbac/
 [2]: ../../#pagination

@@ -392,6 +392,145 @@ description               | Removes a cluster role from Sensu (specified by the 
 example url               | http://hostname:8080/api/core/v2/clusterroles/global-event-reader
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Get a subset of cluster roles with response filtering
+
+The `/clusterroles` API endpoint supports [response filtering][3] for a subset of cluster role data based on labels and the `clusterrole.name` field.
+
+### Example
+
+The following example demonstrates a request to the `/clusterroles` API endpoint with [response filtering][3], resulting in a JSON array that contains only [cluster role definitions][1] whose `clusterrole.name` includes `admin`.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/clusterroles -G \
+--data-urlencode 'fieldSelector=clusterrole.name matches "admin"'
+
+HTTP/1.1 200 OK
+[
+  {
+    "rules": [
+      {
+        "verbs": [
+          "*"
+        ],
+        "resources": [
+          "assets",
+          "checks",
+          "entities",
+          "events",
+          "filters",
+          "handlers",
+          "hooks",
+          "mutators",
+          "silenced",
+          "roles",
+          "rolebindings"
+        ],
+        "resource_names": null
+      },
+      {
+        "verbs": [
+          "get",
+          "list"
+        ],
+        "resources": [
+          "namespaces"
+        ],
+        "resource_names": null
+      }
+    ],
+    "metadata": {
+      "name": "admin"
+    }
+  },
+  {
+    "rules": [
+      {
+        "verbs": [
+          "*"
+        ],
+        "resources": [
+          "*"
+        ],
+        "resource_names": null
+      }
+    ],
+    "metadata": {
+      "name": "cluster-admin"
+    }
+  }
+]
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
+{{% /notice %}}
+
+### API Specification
+
+/clusterroles (GET) with response filters | 
+---------------|------
+description    | Returns the list of cluster roles that match the [response filters][3] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/clusterroles
+pagination     | This endpoint supports [pagination][4] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "rules": [
+      {
+        "verbs": [
+          "*"
+        ],
+        "resources": [
+          "assets",
+          "checks",
+          "entities",
+          "events",
+          "filters",
+          "handlers",
+          "hooks",
+          "mutators",
+          "silenced",
+          "roles",
+          "rolebindings"
+        ],
+        "resource_names": null
+      },
+      {
+        "verbs": [
+          "get",
+          "list"
+        ],
+        "resources": [
+          "namespaces"
+        ],
+        "resource_names": null
+      }
+    ],
+    "metadata": {
+      "name": "admin"
+    }
+  },
+  {
+    "rules": [
+      {
+        "verbs": [
+          "*"
+        ],
+        "resources": [
+          "*"
+        ],
+        "resource_names": null
+      }
+    ],
+    "metadata": {
+      "name": "cluster-admin"
+    }
+  }
+]
+{{< /code >}}
+
 
 [1]: ../../../operations/control-access/rbac/
 [2]: ../../#pagination

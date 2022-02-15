@@ -382,6 +382,120 @@ description     | Deletes the specified Sensu dynamic runtime asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
 response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Get a subset of assets with response filtering
+
+The `/assets` API endpoint supports [response filtering][3] for a subset of asset data based on labels and the following fields:
+
+- `asset.name`
+- `asset.namespace`
+- `asset.filters`
+
+### Example TODO
+
+The following example demonstrates a request to the `/assets` API endpoint with response filtering, resulting in a JSON array that contains only [dynamic runtime asset definitions][1] with a `windows` filter value.
+
+{{< code shell >}}
+curl -H "Authorization: Key X" http://127.0.0.1:8080/api/core/v2/assets -G \
+--data-urlencode 'fieldSelector="entity.system.os == 'windows'" in asset.filters'
+
+curl -H "Authorization: Key X" http://127.0.0.1:8080/api/core/v2/assets -G \
+--data-urlencode 'fieldSelector="entity.system.os == 'linux'" in asset.filters'
+
+curl -H "Authorization: Key X" http://127.0.0.1:8080/api/core/v2/assets -G \
+--data-urlencode 'fieldSelector=check in asset.name'
+
+HTTP/1.1 200 OK
+[
+  {
+    "url": "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz",
+    "sha512": "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd",
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ],
+    "builds": null,
+    "metadata": {
+      "name": "sensu-influxdb-handler",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "headers": {
+      "Authorization": "Bearer $TOKEN",
+      "X-Forwarded-For": "client1, proxy1, proxy2"
+    }
+  },
+  {
+    "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
+    "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ],
+    "builds": null,
+    "metadata": {
+      "name": "sensu-slack-handler",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "headers": {
+      "Authorization": "Bearer $TOKEN",
+      "X-Forwarded-For": "client1, proxy1, proxy2"
+    }
+  }
+]
+{{< /code >}}
+
+### API Specification {#assets-get-specification}
+
+/assets (GET)  | 
+---------------|------
+description    | Returns the list of dynamic runtime assets.
+example url    | http://hostname:8080/api/core/v2/namespaces/default/assets
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response filtering | This endpoint supports [API response filtering][3].
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "url": "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz",
+    "sha512": "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd",
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ],
+    "builds": null,
+    "metadata": {
+      "name": "sensu-influxdb-handler",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "headers": {
+      "Authorization": "Bearer $TOKEN",
+      "X-Forwarded-For": "client1, proxy1, proxy2"
+    }
+  },
+  {
+    "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
+    "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ],
+    "builds": null,
+    "metadata": {
+      "name": "sensu-slack-handler",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "headers": {
+      "Authorization": "Bearer $TOKEN",
+      "X-Forwarded-For": "client1, proxy1, proxy2"
+    }
+  }
+]
+{{< /code >}}
+
 
 [1]: ../../../plugins/assets/
 [2]: ../../#pagination

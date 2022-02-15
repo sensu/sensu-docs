@@ -308,6 +308,94 @@ description               | Removes the specified hook from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/hooks/process-tree
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Get a subset of hooks with response filtering
+
+The `/hooks` API endpoint supports [response filtering][3] for a subset of hook data based on labels and the following fields:
+
+- `hook.name`
+- `hook.namespace`
+
+### Example
+
+The following example demonstrates a request to the `/hooks` API endpoint with [response filtering][3], resulting in a JSON array that contains only [hook definitions][1] in the `production` namespace.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/hooks -G \
+--data-urlencode 'fieldSelector=hook.namespace == production'
+
+HTTP/1.1 200 OK
+[
+  {
+    "metadata": {
+      "name": "process_tree",
+      "namespace": "production",
+      "created_by": "admin"
+    },
+    "command": "ps aux",
+    "timeout": 10,
+    "stdin": false,
+    "runtime_assets": null
+  },
+  {
+    "metadata": {
+      "name": "restart_nginx",
+      "namespace": "production",
+      "labels": {
+        "sensu.io/managed_by": "sensuctl"
+      },
+      "created_by": "admin"
+    },
+    "command": "sudo systemctl start nginx",
+    "timeout": 60,
+    "stdin": false,
+    "runtime_assets": null
+  }
+]
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
+{{% /notice %}}
+
+### API Specification
+
+/hooks (GET) with response filters | 
+---------------|------
+description    | Returns the list of hooks that match the [response filters][3] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/hooks
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "metadata": {
+      "name": "process_tree",
+      "namespace": "production",
+      "created_by": "admin"
+    },
+    "command": "ps aux",
+    "timeout": 10,
+    "stdin": false,
+    "runtime_assets": null
+  },
+  {
+    "metadata": {
+      "name": "restart_nginx",
+      "namespace": "production",
+      "labels": {
+        "sensu.io/managed_by": "sensuctl"
+      },
+      "created_by": "admin"
+    },
+    "command": "sudo systemctl start nginx",
+    "timeout": 60,
+    "stdin": false,
+    "runtime_assets": null
+  }
+]
+{{< /code >}}
+
 
 [1]: ../../../observability-pipeline/observe-schedule/hooks/
 [2]: ../../#pagination
