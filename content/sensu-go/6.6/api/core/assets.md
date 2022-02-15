@@ -481,7 +481,7 @@ HTTP/1.1 200 OK
 **NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
 {{% /notice %}}
 
-### API Specification {#assets-get-specification}
+### API Specification
 
 /assets (GET) with response filters | 
 ---------------|------
