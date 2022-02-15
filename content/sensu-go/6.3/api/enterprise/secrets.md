@@ -314,6 +314,10 @@ HTTP/1.1 200 OK
 ]
 {{< /code >}}
 
+{{% notice note %}}
+**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
+{{% /notice %}}
+
 ### API Specification
 
 /providers (GET) with response filters | 
@@ -596,6 +600,10 @@ HTTP/1.1 200 OK
   }
 ]
 {{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
+{{% /notice %}}
 
 ### API Specification
 
