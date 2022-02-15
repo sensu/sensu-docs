@@ -382,6 +382,193 @@ description     | Deletes the specified Sensu dynamic runtime asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
 response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Get a subset of assets with response filtering
+
+The `/assets` API endpoint supports [response filtering][3] for a subset of asset data based on labels and the following fields:
+
+- `asset.name`
+- `asset.namespace`
+- `asset.filters`
+
+### Example
+
+The following example demonstrates a request to the `/assets` API endpoint with response filtering, resulting in a JSON array that contains only [dynamic runtime asset definitions][1] that are **not** in the `production` namespace.
+
+{{< code shell >}}
+curl -H "Authorization: Key X" http://127.0.0.1:8080/api/core/v2/assets -G \
+--data-urlencode 'fieldSelector=asset.namespace != "production"'
+
+HTTP/1.1 200 OK
+[
+  {
+    "filters": null,
+    "builds": [
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_windows_amd64.tar.gz",
+        "sha512": "900cfdf28d6088b929c4bf9a121b628971edee5fa5cbc91a6bc1df3bd9a7f8adb1fcfb7b1ad70589ed5b4f5ec87d9a9a3ba95bcf2acda56b0901406f14f69fe7",
+        "filters": [
+          "entity.system.os == 'windows'",
+          "entity.system.arch == 'amd64'"
+        ],
+        "headers": null
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_darwin_amd64.tar.gz",
+        "sha512": "db81ee70426114e4cd4b3f180f2b0b1e15b4bffc09d7f2b41a571be2422f4399af3fbd2fa2918b8831909ab4bc2d3f58d0aa0d7b197d3a218b2391bb5c1f6913",
+        "filters": [
+          "entity.system.os == 'darwin'",
+          "entity.system.arch == 'amd64'"
+        ],
+        "headers": null
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_armv7.tar.gz",
+        "sha512": "400aacce297176e69f3a88b0aab0ddfdbe9dd6a37a673cb1774c8d4750a91cf7713a881eef26ea21d200f74cb20818161c773490139e6a6acb92cbd06dee994c",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'armv7'"
+        ],
+        "headers": null
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_arm64.tar.gz",
+        "sha512": "bef7802b121ac2a2a5c5ad169d6003f57d8b4f5e83eae998a0e0dd1e7b89678d4a62e678d153edacdd65fd1d0123b5f51308622690455e77cec6deccfa183397",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'arm64'"
+        ],
+        "headers": null
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_386.tar.gz",
+        "sha512": "a2dcb5324952567a61d76a2e331c1c16df69ef0e0b9899515dad8d1531b204076ad0c008f59fc2f4735a5a779afb0c1baa132268c41942b203444e377fe8c8e5",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == '386'"
+        ],
+        "headers": null
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_amd64.tar.gz",
+        "sha512": "24539739b5eb19bbab6eda151d0bcc63a0825afdfef3bc1ec3670c7b0a00fbbb2fd006d605a7a038b32269a22026d8947324f2bc0acdf35e8563cf4cb8660d7f",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'amd64'"
+        ],
+        "headers": null
+      }
+    ],
+    "metadata": {
+      "name": "check-cpu-usage",
+      "namespace": "default",
+      "annotations": {
+        "io.sensu.bonsai.api_url": "https://bonsai.sensu.io/api/v1/assets/sensu/check-cpu-usage",
+        "io.sensu.bonsai.name": "check-cpu-usage",
+        "io.sensu.bonsai.namespace": "sensu",
+        "io.sensu.bonsai.tags": "",
+        "io.sensu.bonsai.tier": "Community",
+        "io.sensu.bonsai.url": "https://bonsai.sensu.io/assets/sensu/check-cpu-usage",
+        "io.sensu.bonsai.version": "0.2.2"
+      },
+      "created_by": "admin"
+    },
+    "headers": null
+  }
+]
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
+{{% /notice %}}
+
+### API Specification {#assets-get-specification}
+
+/assets (GET) with response filters | 
+---------------|------
+description    | Returns the list of assets that match the [response filters][3] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/assets
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "filters": null,
+    "builds": [
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_windows_amd64.tar.gz",
+        "sha512": "900cfdf28d6088b929c4bf9a121b628971edee5fa5cbc91a6bc1df3bd9a7f8adb1fcfb7b1ad70589ed5b4f5ec87d9a9a3ba95bcf2acda56b0901406f14f69fe7",
+        "filters": [
+          "entity.system.os == 'windows'",
+          "entity.system.arch == 'amd64'"
+        ],
+        "headers": null
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_darwin_amd64.tar.gz",
+        "sha512": "db81ee70426114e4cd4b3f180f2b0b1e15b4bffc09d7f2b41a571be2422f4399af3fbd2fa2918b8831909ab4bc2d3f58d0aa0d7b197d3a218b2391bb5c1f6913",
+        "filters": [
+          "entity.system.os == 'darwin'",
+          "entity.system.arch == 'amd64'"
+        ],
+        "headers": null
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_armv7.tar.gz",
+        "sha512": "400aacce297176e69f3a88b0aab0ddfdbe9dd6a37a673cb1774c8d4750a91cf7713a881eef26ea21d200f74cb20818161c773490139e6a6acb92cbd06dee994c",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'armv7'"
+        ],
+        "headers": null
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_arm64.tar.gz",
+        "sha512": "bef7802b121ac2a2a5c5ad169d6003f57d8b4f5e83eae998a0e0dd1e7b89678d4a62e678d153edacdd65fd1d0123b5f51308622690455e77cec6deccfa183397",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'arm64'"
+        ],
+        "headers": null
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_386.tar.gz",
+        "sha512": "a2dcb5324952567a61d76a2e331c1c16df69ef0e0b9899515dad8d1531b204076ad0c008f59fc2f4735a5a779afb0c1baa132268c41942b203444e377fe8c8e5",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == '386'"
+        ],
+        "headers": null
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_amd64.tar.gz",
+        "sha512": "24539739b5eb19bbab6eda151d0bcc63a0825afdfef3bc1ec3670c7b0a00fbbb2fd006d605a7a038b32269a22026d8947324f2bc0acdf35e8563cf4cb8660d7f",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'amd64'"
+        ],
+        "headers": null
+      }
+    ],
+    "metadata": {
+      "name": "check-cpu-usage",
+      "namespace": "default",
+      "annotations": {
+        "io.sensu.bonsai.api_url": "https://bonsai.sensu.io/api/v1/assets/sensu/check-cpu-usage",
+        "io.sensu.bonsai.name": "check-cpu-usage",
+        "io.sensu.bonsai.namespace": "sensu",
+        "io.sensu.bonsai.tags": "",
+        "io.sensu.bonsai.tier": "Community",
+        "io.sensu.bonsai.url": "https://bonsai.sensu.io/assets/sensu/check-cpu-usage",
+        "io.sensu.bonsai.version": "0.2.2"
+      },
+      "created_by": "admin"
+    },
+    "headers": null
+  }
+]
+{{< /code >}}
+
 
 [1]: ../../../plugins/assets/
 [2]: ../../#pagination
