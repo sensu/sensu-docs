@@ -367,10 +367,6 @@ spec:
 
 {{< /language-toggle >}}
 
-{{% notice protip %}}
-**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
-{{% /notice %}}
-
 ## Assign the handler to a check
 
 To use the `sumologic` handler, list it in a check definition's handlers array.
