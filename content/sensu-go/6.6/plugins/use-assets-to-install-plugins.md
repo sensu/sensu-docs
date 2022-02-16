@@ -33,7 +33,7 @@ sensuctl asset add sensu/sensu-pagerduty-handler:2.2.0 -r pagerduty-handler
 
 The response should be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/sensu-pagerduty-handler:2.2.0
 added asset: sensu/sensu-pagerduty-handler:2.2.0
 

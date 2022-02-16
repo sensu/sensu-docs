@@ -37,7 +37,7 @@ sensuctl asset add sensu/check-cpu-usage:0.2.2 -r check-cpu-usage
 
 The response will confirm that the asset was added:
 
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/check-cpu-usage:0.2.2
 added asset: sensu/check-cpu-usage:0.2.2
 

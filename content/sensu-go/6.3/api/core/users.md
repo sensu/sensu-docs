@@ -13,7 +13,7 @@ menu:
 {{% notice note %}}
 **NOTE**: The `core/v2/users` API endpoints allow you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../../operations/control-access#use-built-in-basic-authentication).
 To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../../operations/control-access/ldap-auth/), [Active Directory (AD)](../../../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../../../operations/control-access/oidc-auth/), use Sensu's [enterprise/authentication/v2 API endpoints](../../enterprise/authproviders/).<br><br>
-Requests to `core/v2/users` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+Requests to `core/v2/users` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-auth-api-endpoints).
 The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
@@ -430,7 +430,79 @@ description               | Removes the specified user from the specified group.
 example url               | http://hostname:8080/api/core/v2/users/alice/groups/ops
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../../operations/control-access/rbac#user-specification
+## Get a subset of users with response filtering
+
+The `/users` API endpoint supports [response filtering][3] for a subset of user data based on labels and the following fields:
+
+- `user.username`
+- `user.disabled`
+- `user.groups`
+
+### Example
+
+The following example demonstrates a request to the `/users` API endpoint with [response filtering][3], resulting in a JSON array that contains only [user definitions][1] that are in the `default` namespace.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/users -G \
+--data-urlencode 'fieldSelector="dev" in user.groups'
+
+HTTP/1.1 200 OK
+[
+  {
+    "username": "alice",
+    "groups": [
+      "ops",
+      "dev"
+    ],
+    "disabled": false
+  },
+  {
+    "username": "balan",
+    "groups": [
+      "testing",
+      "dev"
+    ],
+    "disabled": false
+  }
+]
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
+{{% /notice %}}
+
+### API Specification
+
+/users (GET) with response filters | 
+---------------|------
+description    | Returns the list of users that match the [response filters][8] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/users
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "username": "alice",
+    "groups": [
+      "ops",
+      "dev"
+    ],
+    "disabled": false
+  },
+  {
+    "username": "balan",
+    "groups": [
+      "testing",
+      "dev"
+    ],
+    "disabled": false
+  }
+]
+{{< /code >}}
+
+
+[1]: ../../../operations/control-access/rbac#users
 [2]: ../../#pagination
 [3]: https://en.wikipedia.org/wiki/Bcrypt
 [4]: ../../../sensuctl/#generate-a-password-hash

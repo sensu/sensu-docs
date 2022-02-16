@@ -425,17 +425,18 @@ Here's the list of available fields:
 | ClusterRole | `clusterrole.name` |
 | ClusterRoleBinding | `clusterrolebinding.name` `clusterrolebinding.role_ref.name` `clusterrolebinding.role_ref.type`|
 | Entity | `entity.name` `entity.namespace` `entity.deregister` `entity.entity_class` `entity.subscriptions` |
-| Event | `event.is_silenced` `event.name` `event.namespace` `event.check.handlers` `event.check.is_silenced` `event.check.name` `event.check.publish` `event.check.round_robin` `event.check.runtime_assets` `event.check.status` `event.check.subscriptions` `event.entity.deregister` `event.entity.entity_class` `event.entity.name` `event.entity.subscriptions` |
+| Event | `event.name` `event.namespace` `event.is_silenced` `event.check.handlers` `event.check.is_silenced` `event.check.name` `event.check.publish` `event.check.round_robin` `event.check.runtime_assets` `event.check.state` `event.check.status` `event.check.subscriptions` `event.entity.deregister` `event.entity.entity_class` `event.entity.name` `event.entity.subscriptions` |
 | Extension | `extension.name` `extension.namespace` |
 | Filter | `filter.name` `filter.namespace` `filter.action` `filter.runtime_assets` |
 | Handler | `handler.name` `handler.namespace` `handler.filters` `handler.handlers` `handler.mutator` `handler.type`| 
 | Hook | `hook.name` `hook.namespace` |
 | Mutator | `mutator.name` `mutator.namespace` `mutator.runtime_assets` |
 | Namespace | `namespace.name` |
+| Pipeline | `pipeline.name` `pipeline.namespace`
 | Role | `role.name` `role.namespace` |
 | RoleBinding | `rolebinding.name` `rolebinding.namespace` `rolebinding.role_ref.name` `rolebinding.role_ref.type`|
 | Secrets | `secret.name` `secret.namespace` `secret.provider` `secret.id` |
-| SecretsProviders | `provider.name` `provider.namespace` |
+| SecretsProviders | `provider.name` |
 | Silenced | `silenced.name` `silenced.namespace` `silenced.check` `silenced.creator` `silenced.expire_on_resolve` `silenced.subscription` |
 | User | `user.username` `user.disabled` `user.groups` |
 
@@ -784,14 +785,14 @@ curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/si
 [10]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag
 [11]: other/auth/#authtoken-post
 [12]: other/auth/
-[13]: #operators
+[13]: #filter-operators
 [14]: #authentication-quickstart
 [15]: #examples
 [16]: #limit-query-parameter
 [17]: #authenticate-with-an-api-key
 [18]: ../operations/control-access/use-apikeys/#sensuctl-management-commands
 [19]: core/apikeys/
-[20]: #authenticate-with-the-authentication-api
+[20]: #authenticate-with-auth-api-endpoints
 [21]: ../observability-pipeline/observe-schedule/backend/#api-request-limit
 [22]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match
 [23]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match

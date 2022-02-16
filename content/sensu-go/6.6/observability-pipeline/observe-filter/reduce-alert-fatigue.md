@@ -325,7 +325,7 @@ This example uses the `-r` (rename) flag to specify a shorter name for the asset
 
 The response will indicate that the asset was added:
 
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/sensu-go-fatigue-check-filter:0.8.1
 added asset: sensu/sensu-go-fatigue-check-filter:0.8.1
 

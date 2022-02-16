@@ -11,7 +11,7 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to `core/v2/mutators` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to `core/v2/mutators` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-auth-api-endpoints).
 The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
@@ -310,6 +310,81 @@ HTTP/1.1 204 No Content
 description               | Removes the specified mutator from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/mutators/example-mutator
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+## Get a subset of mutators with response filtering
+
+The `/mutators` API endpoint supports [response filtering][3] for a subset of mutator data based on labels and the following fields:
+
+- `mutator.name`
+- `mutator.namespace`
+- `mutator.runtime_assets`
+
+### Example
+
+The following example demonstrates a request to the `/mutators` API endpoint with [response filtering][3], resulting in a JSON array that contains only [mutator definitions][1] that are in the `production` namespace.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/mutators -G \
+--data-urlencode 'fieldSelector=mutator.namespace == production'
+
+HTTP/1.1 200 OK
+[
+  {
+    "metadata": {
+      "name": "example-mutator",
+      "namespace": "production",
+      "labels": {
+        "sensu.io/managed_by": "sensuctl"
+      },
+      "created_by": "admin"
+    },
+    "command": "example_mutator.go",
+    "timeout": 0,
+    "env_vars": null,
+    "runtime_assets": [
+      "example-mutator-asset"
+    ],
+    "secrets": null,
+    "type": "pipe"
+  }
+]
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
+{{% /notice %}}
+
+### API Specification
+
+/mutators (GET) with response filters | 
+---------------|------
+description    | Returns the list of mutators that match the [response filters][3] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/mutators
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "metadata": {
+      "name": "example-mutator",
+      "namespace": "production",
+      "labels": {
+        "sensu.io/managed_by": "sensuctl"
+      },
+      "created_by": "admin"
+    },
+    "command": "example_mutator.go",
+    "timeout": 0,
+    "env_vars": null,
+    "runtime_assets": [
+      "example-mutator-asset"
+    ],
+    "secrets": null,
+    "type": "pipe"
+  }
+]
+{{< /code >}}
 
 
 [1]: ../../../observability-pipeline/observe-transform/mutators/

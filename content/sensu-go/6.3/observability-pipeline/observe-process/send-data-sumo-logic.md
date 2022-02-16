@@ -71,7 +71,7 @@ This example uses the `-r` (rename) flag to specify a shorter name for the dynam
 
 The response will indicate that the asset was added:
 
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/sensu-sumologic-handler:0.3.0
 added asset: sensu/sensu-sumologic-handler:0.3.0
 

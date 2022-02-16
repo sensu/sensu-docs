@@ -16,7 +16,7 @@ For more information, read [Get started with commercial features](../../../comme
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to `enterprise/secrets/v1` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to `enterprise/secrets/v1` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-auth-api-endpoints).
 The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
@@ -26,7 +26,7 @@ The `/providers` API endpoint provides HTTP GET access to a list of secrets prov
 
 ### Example {#providers-get-example}
 
-The following example demonstrates a request to the `/providers` API endpoint, resulting in a list of secrets providers.
+The following example demonstrates a request to the `/providers` API endpoint, resulting in a list of [secrets provider definitions][1].
 
 {{< code shell >}}
 curl -X GET \
@@ -72,7 +72,7 @@ Learn more in the [secrets providers reference](../../../operations/manage-secre
 description    | Returns the list of secrets providers.
 example url    | http://hostname:8080/api/enterprise/secrets/v1/providers
 query parameters | `types`: Defines which type of secrets provider to retrieve. Join with `&` to retrieve multiple types: `?types=Env&types=VaultProvider`.
-response filtering | This endpoint supports [API response filtering][4].
+response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< code shell >}}
@@ -274,13 +274,93 @@ description               | Deletes the specified provider from Sensu.
 example url               | http://hostname:8080/api/enterprise/secrets/v1/providers/my_vault
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Get a subset of secrets providers with response filtering
+
+The `/providers` API endpoint supports [response filtering][3] for a subset of secrets providers data based on labels and the `provider.name` field.
+
+### Example
+
+The following example demonstrates a request to the `/providers` API endpoint with [response filtering][3], resulting in a JSON array that contains only [secrets provider definitions][1] that are in the `default` namespace.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/enterprise/secrets/v1/providers -G \
+--data-urlencode 'fieldSelector=provider.name == vault'
+
+HTTP/1.1 200 OK
+[
+  {
+    "type": "VaultProvider",
+    "api_version": "secrets/v1",
+    "metadata": {
+      "name": "vault",
+      "created_by": "admin"
+    },
+    "spec": {
+      "client": {
+        "address": "http://localhost:8200",
+        "agent_address": "",
+        "max_retries": 2,
+        "rate_limiter": {
+          "burst": 100,
+          "limit": 10
+        },
+        "timeout": "20s",
+        "tls": null,
+        "token": "\\u003croot_token\\u003e",
+        "version": "v2"
+      }
+    }
+  }
+]
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
+{{% /notice %}}
+
+### API Specification
+
+/providers (GET) with response filters | 
+---------------|------
+description    | Returns the list of secrets providers that match the [response filters][3] applied in the API request.
+example url    | http://hostname:8080/api/enterprise/secrets/v1/providers
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "type": "VaultProvider",
+    "api_version": "secrets/v1",
+    "metadata": {
+      "name": "vault",
+      "created_by": "admin"
+    },
+    "spec": {
+      "client": {
+        "address": "http://localhost:8200",
+        "agent_address": "",
+        "max_retries": 2,
+        "rate_limiter": {
+          "burst": 100,
+          "limit": 10
+        },
+        "timeout": "20s",
+        "tls": null,
+        "token": "\\u003croot_token\\u003e",
+        "version": "v2"
+      }
+    }
+  }
+]
+{{< /code >}}
+
 ## Get all secrets
 
 The `/secrets` API endpoint provides HTTP GET access to a list of secrets.
 
 ### Example {#secrets-get-example}
 
-The following example demonstrates a request to the `/secrets` API endpoint, resulting in a list of secrets for the specified namespace.
+The following example demonstrates a request to the `/secrets` API endpoint, resulting in a list of [secrets definitions][5] for the specified namespace.
 
 {{< code shell >}}
 curl -X GET \
@@ -311,7 +391,7 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of secrets for the specified namespace.
 example url    | http://hostname:8080/api/enterprise/secrets/v1/namespaces/default/secrets
-response filtering | This endpoint supports [API response filtering][4].
+response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< code shell >}}
@@ -460,5 +540,124 @@ description               | Deletes the specified secret from Sensu.
 example url               | http://hostname:8080/api/enterprise/secrets/v1/namespaces/default/secrets/sensu-ansible-token
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## Get a subset of secrets with response filtering
 
-[4]: ../../#response-filtering
+The `/secrets` API endpoint supports [response filtering][3] for a subset of secrets data based on labels and the following fields:
+
+- `secret.name`
+- `secret.namespace`
+- `secret.provider`
+- `secret.id`
+
+### Example
+
+The following example demonstrates a request to the `/secrets` API endpoint with [response filtering][3], resulting in a JSON array that contains only [secrets definitions][2] for the `vault` provider.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/enterprise/secrets/v1/secrets -G \
+--data-urlencode 'fieldSelector=secret.provider == vault'
+
+HTTP/1.1 200 OK
+[
+  {
+    "type": "Secret",
+    "api_version": "secrets/v1",
+    "metadata": {
+      "name": "pagerduty_key",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "spec": {
+      "id": "secret/pagerduty#key",
+      "provider": "vault"
+    }
+  },
+  {
+    "type": "Secret",
+    "api_version": "secrets/v1",
+    "metadata": {
+      "name": "sensu-ansible",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "spec": {
+      "id": "secret/database#password",
+      "provider": "vault"
+    }
+  },
+  {
+    "type": "Secret",
+    "api_version": "secrets/v1",
+    "metadata": {
+      "name": "sumologic_url",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "spec": {
+      "id": "secret/sumologic#key",
+      "provider": "vault"
+    }
+  }
+]
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
+{{% /notice %}}
+
+### API Specification
+
+/secrets (GET) with response filters | 
+---------------|------
+description    | Returns the list of secrets that match the [response filters][3] applied in the API request.
+example url    | http://hostname:8080/api/enterprise/secrets/v1/secrets
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "type": "Secret",
+    "api_version": "secrets/v1",
+    "metadata": {
+      "name": "pagerduty_key",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "spec": {
+      "id": "secret/pagerduty#key",
+      "provider": "vault"
+    }
+  },
+  {
+    "type": "Secret",
+    "api_version": "secrets/v1",
+    "metadata": {
+      "name": "sensu-ansible",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "spec": {
+      "id": "secret/database#password",
+      "provider": "vault"
+    }
+  },
+  {
+    "type": "Secret",
+    "api_version": "secrets/v1",
+    "metadata": {
+      "name": "sumologic_url",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "spec": {
+      "id": "secret/sumologic#key",
+      "provider": "vault"
+    }
+  }
+]
+{{< /code >}}
+
+
+[1]: ../../../operations/manage-secrets/secrets-providers/
+[2]: ../../../operations/manage-secrets/secrets/
+[3]: ../../#response-filtering

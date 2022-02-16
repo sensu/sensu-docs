@@ -11,7 +11,7 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to `core/v2/roles` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to `core/v2/roles` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-auth-api-endpoints).
 The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
@@ -397,6 +397,190 @@ HTTP/1.1 204 No Content
 description               | Removes the specified role from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/roles/read-only
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+## Get a subset of roles with response filtering
+
+The `/roles` API endpoint supports [response filtering][3] for a subset of role data based on labels and the following fields:
+
+- `role.name`
+- `role.namespace`
+
+### Example
+
+The following example demonstrates a request to the `/roles` API endpoint with [response filtering][3], resulting in a JSON array that contains only [role definitions][1] that are in the `default` namespace.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/roles -G \
+--data-urlencode 'fieldSelector=role.namespace == default'
+
+HTTP/1.1 200 OK
+[
+  {
+    "rules": [
+      {
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update",
+          "delete"
+        ],
+        "resources": [
+          "*"
+        ],
+        "resource_names": null
+      }
+    ],
+    "metadata": {
+      "name": "admin_role",
+      "namespace": "default",
+      "created_by": "admin"
+    }
+  },
+  {
+    "rules": [
+      {
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update",
+          "delete"
+        ],
+        "resources": [
+          "assets",
+          "checks",
+          "entities",
+          "events",
+          "filters",
+          "handlers",
+          "hooks",
+          "mutators",
+          "pipelines",
+          "rolebindings",
+          "roles",
+          "silenced"
+        ],
+        "resource_names": null
+      }
+    ],
+    "metadata": {
+      "name": "namespaced-resources-all-verbs",
+      "namespace": "default",
+      "created_by": "admin"
+    }
+  },
+  {
+    "rules": [
+      {
+        "verbs": [
+          "get",
+          "list"
+        ],
+        "resources": [
+          "events"
+        ],
+        "resource_names": null
+      }
+    ],
+    "metadata": {
+      "name": "system:pipeline",
+      "namespace": "default"
+    }
+  }
+]
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
+{{% /notice %}}
+
+### API Specification
+
+/roles (GET) with response filters | 
+---------------|------
+description    | Returns the list of roles that match the [response filters][3] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/roles
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "rules": [
+      {
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update",
+          "delete"
+        ],
+        "resources": [
+          "*"
+        ],
+        "resource_names": null
+      }
+    ],
+    "metadata": {
+      "name": "admin_role",
+      "namespace": "default",
+      "created_by": "admin"
+    }
+  },
+  {
+    "rules": [
+      {
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update",
+          "delete"
+        ],
+        "resources": [
+          "assets",
+          "checks",
+          "entities",
+          "events",
+          "filters",
+          "handlers",
+          "hooks",
+          "mutators",
+          "pipelines",
+          "rolebindings",
+          "roles",
+          "silenced"
+        ],
+        "resource_names": null
+      }
+    ],
+    "metadata": {
+      "name": "namespaced-resources-all-verbs",
+      "namespace": "default",
+      "created_by": "admin"
+    }
+  },
+  {
+    "rules": [
+      {
+        "verbs": [
+          "get",
+          "list"
+        ],
+        "resources": [
+          "events"
+        ],
+        "resource_names": null
+      }
+    ],
+    "metadata": {
+      "name": "system:pipeline",
+      "namespace": "default"
+    }
+  }
+]
+{{< /code >}}
 
 
 [1]: ../../../operations/control-access/rbac/

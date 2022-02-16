@@ -202,7 +202,7 @@ sensuctl asset add sensu/sensu-influxdb-handler:3.7.0 -r sensu-influxdb-handler
 
 The response will confirm that the asset was added:
 
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/sensu-influxdb-handler:3.7.0
 added asset: sensu/sensu-influxdb-handler:3.7.0
 
@@ -348,7 +348,7 @@ sensuctl asset add sensu/sensu-prometheus-collector:1.3.2 -r sensu-prometheus-co
 
 The response will confirm that the asset was added:
 
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/sensu-prometheus-collector:1.3.2
 added asset: sensu/sensu-prometheus-collector:1.3.2
 

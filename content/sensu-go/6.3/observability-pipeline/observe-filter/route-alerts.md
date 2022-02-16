@@ -52,7 +52,7 @@ sensuctl asset add sensu/sensu-go-has-contact-filter:0.3.0 -r contact-filter
 
 The response will indicate that the asset was added:
 
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/sensu-go-has-contact-filter:0.3.0
 added asset: sensu/sensu-go-has-contact-filter:0.3.0
 
@@ -210,7 +210,7 @@ sensuctl asset add sensu/sensu-slack-handler:1.5.0 -r sensu-slack-handler
 
 The response will confirm that the asset was added:
 
-{{< code shell >}}
+{{< code text >}}
 fetching bonsai asset: sensu/sensu-slack-handler:1.5.0
 added asset: sensu/sensu-slack-handler:1.5.0
 

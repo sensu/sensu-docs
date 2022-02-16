@@ -16,7 +16,7 @@ Pipelines are different from the resources you can create and manage with the [`
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Requests to `core/v2/pipelines` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to `core/v2/pipelines` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-auth-api-endpoints).
 The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
@@ -552,6 +552,147 @@ HTTP/1.1 204 No Content
 description               | Removes the specified pipeline from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/pipelines/slack_pipeline
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+## Get a subset of pipelines with response filtering
+
+The `/pipelines` API endpoint supports [response filtering][3] for a subset of pipeline data based on labels and the following fields:
+
+- `pipeline.name`
+- `pipeline.namespace`
+
+### Example
+
+The following example demonstrates a request to the `/pipelines` API endpoint with [response filtering][3], resulting in a JSON array that contains only [pipeline definitions][1] in the `production` namespace.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/pipelines -G \
+--data-urlencode 'fieldSelector=pipeline.namespace == production'
+
+HTTP/1.1 200 OK
+[
+  {
+    "metadata": {
+      "name": "sensu_email_alerts",
+      "namespace": "production",
+      "created_by": "admin"
+    },
+    "workflows": [
+      {
+        "name": "labeled_email_alerts",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "state_change_only",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "mutator": {
+          "name": "add_labels",
+          "type": "Mutator",
+          "api_version": "core/v2"
+        },
+        "handler": {
+          "name": "email",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
+  },
+  {
+    "metadata": {
+      "name": "sensu_to_sumo",
+      "namespace": "production",
+      "created_by": "admin"
+    },
+    "workflows": [
+      {
+        "name": "logs_to_sumologic",
+        "handler": {
+          "name": "sumologic",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
+  }
+]
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
+{{% /notice %}}
+
+### API Specification
+
+/pipelines (GET) with response filters | 
+---------------|------
+description    | Returns the list of pipelines that match the [response filters][3] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/pipelines
+pagination     | This endpoint supports [pagination][4] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "metadata": {
+      "name": "sensu_email_alerts",
+      "namespace": "production",
+      "created_by": "admin"
+    },
+    "workflows": [
+      {
+        "name": "labeled_email_alerts",
+        "filters": [
+          {
+            "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "state_change_only",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
+        "mutator": {
+          "name": "add_labels",
+          "type": "Mutator",
+          "api_version": "core/v2"
+        },
+        "handler": {
+          "name": "email",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
+  },
+  {
+    "metadata": {
+      "name": "sensu_to_sumo",
+      "namespace": "production",
+      "created_by": "admin"
+    },
+    "workflows": [
+      {
+        "name": "logs_to_sumologic",
+        "handler": {
+          "name": "sumologic",
+          "type": "Handler",
+          "api_version": "core/v2"
+        }
+      }
+    ]
+  }
+]
+{{< /code >}}
+
 
 [1]: ../../../observability-pipeline/observe-process/pipelines/
 [2]: ../../#pagination

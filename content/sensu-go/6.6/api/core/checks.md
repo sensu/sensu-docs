@@ -11,7 +11,7 @@ menu:
 ---
 
 {{% notice note %}}
-**NOTE**: Requests to `core/v2/checks` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-the-authentication-api).
+**NOTE**: Requests to `core/v2/checks` API endpoints require you to authenticate with a Sensu [API key](../../#configure-an-environment-variable-for-api-key-authentication) or [access token](../../#authenticate-with-auth-api-endpoints).
 The code examples in this document use the [environment variable](../../#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests.
 {{% /notice %}}
 
@@ -531,6 +531,111 @@ HTTP/1.1 204 No Content
 description               | Removes a single hook from a check (specified by the check name, check response type, and hook name). Read the [checks reference][3] for available types.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical/hook/process_tree
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+## Get a subset of checks with response filtering
+
+The `/checks` API endpoint supports [response filtering][5] for a subset of check data based on labels and the following fields:
+
+- `check.name`
+- `check.namespace`
+- `check.handlers`
+- `check.publish`
+- `check.round_robin`
+- `check.runtime_assets`
+- `check.subscriptions`
+
+### Example
+
+The following example demonstrates a request to the `/checks` API endpoint with [response filtering][5], resulting in a JSON array that contains only [check definitions][1] whose subscriptions include `linux`.
+
+{{< code shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector="linux" in check.subscriptions'
+
+HTTP/1.1 200 OK
+[
+  {
+    "command": "check-cpu-usage -w 75 -c 90",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 60,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [
+      "check-cpu-usage"
+    ],
+    "subscriptions": [
+      "system"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "env_vars": null,
+    "metadata": {
+      "name": "check_cpu",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "secrets": null,
+    "pipelines": []
+  }
+]
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: Read [API response filtering](../../#response-filtering) for more filter statement examples that demonstrate how to filter responses using different operators with label and field selectors.
+{{% /notice %}}
+
+### API Specification
+
+/checks (GET) with response filters | 
+---------------|------
+description    | Returns the list of checks that match the [response filters][5] applied in the API request.
+example url    | http://hostname:8080/api/core/v2/checks
+pagination     | This endpoint supports [pagination][4] using the `limit` and `continue` query parameters.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< code shell >}}
+[
+  {
+    "command": "check-cpu-usage -w 75 -c 90",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 60,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [
+      "check-cpu-usage"
+    ],
+    "subscriptions": [
+      "system"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "env_vars": null,
+    "metadata": {
+      "name": "check_cpu",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "secrets": null,
+    "pipelines": []
+  }
+]
+{{< /code >}}
 
 
 [1]: ../../../observability-pipeline/observe-schedule/checks/

@@ -49,7 +49,7 @@ sensuctl event list --field-selector='linux notin event.entity.subscriptions'
 
 The [examples][6] demonstrate how to construct sensuctl filter statements for different selectors and operators.
 
-## Operators quick reference
+## Filter operators
 
 Sensuctl response filtering supports two equality-based operators, two set-based operators, one substring matching operator, and one logical operator.
 
@@ -120,5 +120,5 @@ sensuctl check list --label-selector 'region == "us-west-1"' --field-selector 's
 [1]: ../create-manage-resources/#subcommands
 [2]: ../../api/#response-filtering
 [3]: ../../api#field-selector
-[5]: ../../api/#operators
+[5]: ../../api/#filter-operators
 [6]: #examples

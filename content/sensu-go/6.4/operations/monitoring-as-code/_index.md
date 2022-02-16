@@ -16,7 +16,7 @@ menu:
 Sensu's end-to-end monitoring as code approach allows you to manage your observability configuration the same way you build, test, and deploy your applications and infrastructure, like Kubernetes and Terraform.
 Monitoring as code combines composable building blocks with robust APIs so you can define your entire observability configuration as declarative YAML or JSON code and improve visibility, reliability, portability, and repeatability.
 
-When a new endpoint starts up, like a cloud compute instance or Kubernetes Pod, Sensu automatically registers itself with the platform and starts collecting observability data according to the code in your configuration files.
+When a new endpoint starts up, like a cloud compute instance or Kubernetes Pod, the endpoint's agent automatically registers it with the platform and starts collecting observability data according to the code in your configuration files.
 Teams can share and remix observability configurations for collecting events and metrics, diagnosing issues, sending alerts, and automatically remediating problems.
 
 - Share, edit, review, and version your observability configuration files just like you would with other "as code" solutions, within one team or among teams across your organization.
