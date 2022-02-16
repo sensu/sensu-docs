@@ -29,15 +29,38 @@ The check definition includes the `contacts: dev` label, which will result in al
 {{< figure src="/images/contact-routing1.png" alt="Diagram that shows an event generated with a check label, matched to the dev team's handler using a contact filter, and routed to the dev team's Slack channel" link="/images/contact-routing1.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/f66c930f-295d-458c-bde3-4e55edd9b2e8/0 -->
 
-## Prerequisites
+To complete this guide, you'll need a running [Sensu backend][1], at least one [Sensu agent][2], and [sensuctl][3] ([configured][4] to talk to the Sensu backend).
+You will also need [cURL][5] and a [Slack webhook URL][6] and three different Slack channels to receive test alerts (one for each team).
 
-To complete this guide, you'll need:
+## Configure a Sensu entity
 
-- A [Sensu backend][1]
-- At least one [Sensu agent][2]
-- [Sensuctl][3] ([configured][4] to talk to the Sensu backend)
-- [cURL][5]
-- A [Slack webhook URL][6] and three different Slack channels to receive test alerts (one for each team)
+Every Sensu agent has a defined set of [subscriptions][21] that determine which checks the agent will execute.
+For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
+
+This guide uses an example check that includes the subscription `system`.
+Use [sensuctl][7] to add a `system` subscription to one of your entities.
+
+Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
+
+{{% notice note %}}
+**NOTE**: To find an entity's name, run `sensuctl entity list`.
+The `ID` is the name of the entity.
+{{% /notice %}}
+
+{{< code shell >}}
+sensuctl entity update <entity_name>
+{{< /code >}}
+
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `system` and press enter.
+
+Run this command to confirm both Sensu services are running:
+
+{{< code shell >}}
+systemctl status sensu-backend && systemctl status sensu-agent
+{{< /code >}}
+
+The response should indicate `active (running)` for both the Sensu backend and agent.
 
 ## Configure contact routing
 
@@ -662,6 +685,7 @@ Learn how to use Sensu to [Reduce alert fatigue][11].
 [4]: ../../../sensuctl/#first-time-setup-and-authentication
 [5]: https://curl.haxx.se/
 [6]: https://api.slack.com/incoming-webhooks
+[7]: ../../../sensuctl/
 [8]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [9]: ../../observe-schedule/monitor-server-resources/
 [10]: ../../observe-entities/entities/#manage-entity-labels
@@ -670,3 +694,4 @@ Learn how to use Sensu to [Reduce alert fatigue][11].
 [13]: ../../observe-schedule/agent/#create-observability-events-using-the-agent-api
 [14]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [15]: ../../../operations/monitoring-as-code/
+[21]: ../../observe-schedule/subscriptions/

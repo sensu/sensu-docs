@@ -27,7 +27,7 @@ Every Sensu agent has a defined set of [subscriptions][16] that determine which 
 For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
 
 The example in this guide uses the `prometheus_metrics` check from [Collect Prometheus metrics with Sensu][10], which includes the subscription `app_tier`.
-Use [sensuctl][15] to add an `app_tier` subscription to an entity the Sensu agent is observing.
+Use [sensuctl][15] to add an `app_tier` subscription to one of your entities.
 
 Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
 

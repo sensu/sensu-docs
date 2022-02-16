@@ -34,7 +34,7 @@ Every Sensu agent has a defined set of [subscriptions][16] that determine which 
 For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
 
 The examples for both approaches in this guide use the `check_cpu` check from [Monitor server resources with checks][13], which includes the subscription `system`.
-Use [sensuctl][18] to add an `system` subscription to an entity the Sensu agent is observing.
+Use [sensuctl][18] to add a `system` subscription to one of your entities.
 
 Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
 
