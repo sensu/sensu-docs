@@ -31,7 +31,7 @@ Finally, Grafana will query InfluxDB to display the collected metrics.
 ## Configure a Sensu entity
 
 Use [sensuctl][15] to add an `app_tier` [subscription][16] to an entity the Sensu agent is observing.
-Before you run the following code, Replace `<entity_name>` with the name of the entity on your system.
+Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
 
 {{% notice note %}}
 **NOTE**: To find your entity name, run `sensuctl entity list`.

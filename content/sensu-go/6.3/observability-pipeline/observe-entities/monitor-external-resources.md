@@ -33,7 +33,7 @@ Use sensuctl to add the `proxy` subscription to the entity the Sensu agent is ob
 The `ID` is the name of your entity.
 {{% /notice %}}
 
-Before you run the following code, Replace `<entity_name>` with the name of the entity on your system.
+Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
 
 {{< code shell >}}
 sensuctl entity update <entity_name>

@@ -18,29 +18,32 @@ In this guide, you'll use a [handler][9] to populate the time-series database [I
 
 Metrics can be collected from [check output][10] (in this guide, a check that generates Prometheus metrics) or the [Sensu StatsD Server][3].
 
-## Install and configure Sensu Go
+To use this guide, you'll need to install a Sensu backend and have at least one Sensu agent running.
+Follow the RHEL/CentOS [install instructions][4] for the Sensu backend, the Sensu agent, and sensuctl.
 
-Follow the RHEL/CentOS [install instructions][16] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
+## Configure a Sensu entity
 
-Find your entity name:
+Every Sensu agent has a defined set of [subscriptions][16] that determine which checks the agent will execute.
+For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
 
-{{< code shell >}}
-sensuctl entity list
-{{< /code >}}
+The example in this guide uses the `prometheus_metrics` check from [Collect Prometheus metrics with Sensu][10], which includes the subscription `app_tier`.
+Use [sensuctl][15] to add an `app_tier` subscription to an entity the Sensu agent is observing.
 
-The `ID` in the response is the name of your entity.
+Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
 
-Replace `<entity_name>` with the name of your entity in the [sensuctl][18] command below.
-Then run the command to add the `system` [subscription][19] to your entity:
+{{% notice note %}}
+**NOTE**: To find your entity name, run `sensuctl entity list`.
+The `ID` is the name of your entity.
+{{% /notice %}}
 
 {{< code shell >}}
 sensuctl entity update <entity_name>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
-- For `Subscriptions`, type `system` and press enter.
+- For `Subscriptions`, type `app_tier` and press enter.
 
-Confirm both Sensu services are running:
+Run this command to confirm both Sensu services are running:
 
 {{< code shell >}}
 systemctl status sensu-backend && systemctl status sensu-agent
