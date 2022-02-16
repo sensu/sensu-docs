@@ -235,10 +235,6 @@ spec:
 
 If you want to share, reuse, and maintain this check just like you would code, you can [save it to a file][11] and start building a [monitoring as code repository][12].
 
-{{% notice protip %}}
-**PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
-{{% /notice %}}
-
 ### Validate the CPU check
 
 The Sensu agent uses WebSocket to communicate with the Sensu backend, sending event data as JSON messages.
