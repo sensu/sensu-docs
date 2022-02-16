@@ -21,6 +21,43 @@ This guide includes two check examples to help you monitor server resources (spe
 To use this guide, you'll need to install a Sensu backend and have at least one Sensu agent running.
 Follow the RHEL/CentOS [install instructions][4] for the Sensu backend, the Sensu agent, and sensuctl.
 
+## Configure a Sensu entity
+
+Every Sensu agent has a defined set of [subscriptions][8] that determine which checks the agent will execute.
+For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
+To run the CPU and NGINX webserver checks, you'll need a Sensu entity with the subscriptions `system` and `webserver`.
+
+{{% notice note %}}
+**NOTE**: In production, your CPU and NGINX servers would be different entities, with the `system` subscription specified for the CPU entity and the `webserver` subscription specified for the NGINX entity.
+To keep things streamlined, this guide uses one entity to represent both.
+{{% /notice %}}
+
+To add the `system` and `webserver` subscriptions to the entity the Sensu agent is observing, first find your agent entity name:
+
+{{< code shell >}}
+sensuctl entity list
+{{< /code >}}
+
+The `ID` is the name of your entity.
+
+Replace `<entity_name>` with the name of your agent entity in the following [sensuctl][16] command.
+Run:
+
+{{< code shell >}}
+sensuctl entity update <entity_name>
+{{< /code >}}
+
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `system,webserver` and press enter.
+
+Confirm both Sensu services are running:
+
+{{< code shell >}}
+systemctl status sensu-backend && systemctl status sensu-agent
+{{< /code >}}
+
+The response should indicate `active (running)` for both the Sensu backend and agent.
+
 ## Register dynamic runtime assets
 
 You can write shell scripts in the `command` field of your check definitions, but we recommend using existing check plugins instead.
@@ -87,43 +124,6 @@ Because plugins are published for multiple platforms, including Linux and Window
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
 Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
-
-## Configure entity subscriptions
-
-Every Sensu agent has a defined set of [subscriptions][8] that determine which checks the agent will execute.
-For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
-To run the CPU and NGINX webserver checks, you'll need a Sensu agent with the subscriptions `system` and `webserver`.
-
-{{% notice note %}}
-**NOTE**: In production, your CPU and NGINX servers would be different entities, with the `system` subscription specified for the CPU entity and the `webserver` subscription specified for the NGINX entity.
-To keep things streamlined, this guide uses one entity to represent both.
-{{% /notice %}}
-
-To add the `system` and `webserver` subscriptions to the entity the Sensu agent is observing, first find your agent entity name:
-
-{{< code shell >}}
-sensuctl entity list
-{{< /code >}}
-
-The `ID` is the name of your entity.
-
-Replace `<entity_name>` with the name of your agent entity in the following [sensuctl][17] command.
-Run:
-
-{{< code shell >}}
-sensuctl entity update <entity_name>
-{{< /code >}}
-
-- For `Entity Class`, press enter.
-- For `Subscriptions`, type `system,webserver` and press enter.
-
-Confirm both Sensu services are running:
-
-{{< code shell >}}
-systemctl status sensu-backend && systemctl status sensu-agent
-{{< /code >}}
-
-The response should indicate `active (running)` for both the Sensu backend and agent.
 
 ## Create a check to monitor a server
 
