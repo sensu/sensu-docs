@@ -15,7 +15,7 @@ For more information, read [Get started with commercial features](../commercial/
 {{% /notice %}}
 
 Sensu Plus is a built-in integration for transmitting your Sensu observability data to the Sumo Logic Continuous Intelligence Platform™ via a Sumo Logic [HTTP Logs and Metrics Source][1].
-In Sumo Logic, you can configure customized interactive dashboards and analytics tools to gain better visibility into your Sensu data.
+In Sumo Logic, you can configure customized interactive dashboards and analytics tools to gain better visibility into your Sensu data &mdash; read [Introducing Sensu Plus][14] for more information.
 
 To use Sensu Plus, you need a [Sumo Logic account][2].
 First, create a new Sumo Logic account or log in to your existing account.
@@ -396,3 +396,4 @@ The Sensu Overview and Sensu Entity Details dashboards will begin to display you
 [11]: ../plugins/supported-integrations/sumologic/
 [12]: ../observability-pipeline/observe-filter/filters/#built-in-filter-has_metrics
 [13]: https://bonsai.sensu.io/assets/sensu/system-check
+[14]: https://www.sumologic.com/blog/introducing-sensu-plus/
