@@ -14,12 +14,12 @@ menu: "sensu-go-6.6"
 For more information, read [Get started with commercial features](../commercial/).
 {{% /notice %}}
 
-Sensu Plus is a built-in integration for transmitting your Sensu observability data to Sumo Logic via the Sumo Logic [HTTP Logs and Metrics Source][1].
-You can use Sumo Logic's interactive dashboards and analytics tools to get better visibility into your Sensu data.
+Sensu Plus is a built-in integration for transmitting your Sensu observability data to the Sumo Logic Continuous Intelligence Platform™ via a Sumo Logic [HTTP Logs and Metrics Source][1].
+In Sumo Logic, you can configure customized interactive dashboards and analytics tools to gain better visibility into your Sensu data &mdash; read [Introducing Sensu Plus][14] for more information.
 
 To use Sensu Plus, you need a [Sumo Logic account][2].
 First, create a new Sumo Logic account or log in to your existing account.
-Then, follow this guide to start sending your Sensu data to Sumo Logic.
+Then, follow this guide to set up an HTTP Logs and Metrics Source; configure a Sensu handler, pipeline, and check; and import two dashboards as a starting point for visualizing your Sensu data in Sumo Logic.
 
 ## Set up an HTTP Logs and Metrics Source
 
@@ -228,7 +228,7 @@ EOF
 
 {{< /language-toggle >}}
 
-## Configure a Sensu check
+## Add a Sensu check
 
 Your pipeline resource is now properly configured, but it’s not processing any events because no Sensu [checks][9] are sending events to it.
 To get your Sensu observability data flowing through the new pipeline, add the pipeline by reference in at least one check definition.
@@ -353,10 +353,10 @@ This check will collect baseline system metrics in Prometheus format for all ent
 If your check produces status events, use the [Sensu Sumo Logic Handler integration](../../../plugins/supported-integrations/sumologic/) to create a traditional Sensu handler rather than the Sumo Logic metrics handler.
 {{% /notice %}}
 
-## Configure Sumo Logic dashboards
+## Import Sumo Logic dashboards
 
-To view your Sensu observability data in Sumo Logic, you can configure Sumo Logic dashboards in any way you wish.
-As a starting point, follow these instructions to configure Sensu Overview and Sensu Entity Detail dashboards:
+To view your Sensu observability data in Sumo Logic, you can configure [Sumo Logic dashboards][4] in any way you wish.
+As a starting point, follow these instructions to import two dashboards, Sensu Overview and Sensu Entity Details:
 
 1. On your [Sumo Logic home page][10], click the **Personal** tab in the left-navigation menu.
 Click the options icon for the folder where you want to import your Sensu data and select **Import**.
@@ -370,19 +370,23 @@ Click the options icon for the folder where you want to import your Sensu data a
     {{< figure src="/images/import-content.png" alt="Import Content modal window for dashboards" link="/images/import-content.png" target="_blank" >}}
 
 
-5. Scroll to the bottom of the Import Content modal window and click **Import**.
-
+3. Scroll to the bottom of the Import Content modal window and click **Import**.
 The two new dashboards will be listed in the Sensu folder in the left-navigation menu:
 
-{{< figure src="/images/sensu-dashboards.png" alt="Sensu Overview and Sensu Entity Detail dashboards listed in the Sumo Logic left-navigation menu" link="/images/sensu-dashboards.png" target="_blank" >}}
+    {{< figure src="/images/sensu-dashboards.png" alt="Sensu Overview and Sensu Entity Details dashboards listed in the Sumo Logic left-navigation menu" link="/images/sensu-dashboards.png" target="_blank" >}}
 
-Click a dashboard name to view your Sensu observability data.
+    Click a dashboard name to view your Sensu observability data.
+
 It may take a few moments for your data to appear in Sumo Logic.
+The Sensu Overview and Sensu Entity Details dashboards will begin to display your data:
+
+{{< figure src="/images/sensu_entity_details_dashboard.png" alt="Data beginning to populate in the Sensu Entity Details dashboard in Sumo Logic" link="/images/sensu_entity_details_dashboard.png" target="_blank" >}}
 
 
 [1]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
 [2]: https://www.sumologic.com/sign-up/?utm_source=sensudocs&utm_medium=sensuwebsite
 [3]: #create-a-handler-in-sensu
+[4]: https://sumologic.slack.com/archives/C0254420A1Y/p1641840579004000
 [5]: ../observability-pipeline/observe-process/sumo-logic-metrics-handlers
 [6]: ../operations/manage-secrets/secrets/
 [7]: ../operations/manage-secrets/secrets-providers/#env-secrets-provider-example
@@ -392,3 +396,4 @@ It may take a few moments for your data to appear in Sumo Logic.
 [11]: ../plugins/supported-integrations/sumologic/
 [12]: ../observability-pipeline/observe-filter/filters/#built-in-filter-has_metrics
 [13]: https://bonsai.sensu.io/assets/sensu/system-check
+[14]: https://www.sumologic.com/blog/introducing-sensu-plus/
