@@ -33,8 +33,6 @@ Two of the check definitions include a `contacts` label, which allows the pipeli
 {{< figure src="/images/contact_routing_pipeline.svg" alt="Diagram that shows events generated with and without labels, matched to the appropriate handler using a contact filter and routed to the appropriate Slack channel" link="/images/contact_routing_pipeline.svg" target="_blank" >}}
 <!-- Diagram source: https://lucid.app/lucidchart/cd3a6110-aa74-48cc-8c74-64d542ba97bc/edit?viewport_loc=-139%2C52%2C2219%2C1041%2C0_0&invitationId=inv_de0cf345-dd7d-40dd-8724-2f9592cf45ec -->
 
-## Prerequisites
-
 To complete this guide, you'll need:
 
 - A [Sensu backend][1]

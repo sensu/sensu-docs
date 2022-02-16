@@ -14,17 +14,49 @@ menu:
 ---
 
 Sensu event filters allow you to filter events destined for one or more event handlers.
-Sensu event filters evaluate their expressions against the observation data in events to determine whether the event should be passed to an event handler.
+Filters evaluate their expressions against the observation data in events to determine whether the event should be passed to an event handler.
 
 Use event filters to customize alert policies, improve contact routing, eliminate notification noise from recurring events, and filter events from systems in pre-production environments.
 
-In this guide, you'll learn how to reduce alert fatigue by configuring an event filter named `hourly` for a handler named `slack` to prevent alerts from being sent to Slack every minute.
-If you don't already have a handler in place, follow [Send Slack alerts with handlers][3] before continuing with this guide.
+In this guide, you'll learn how to reduce alert fatigue by configuring an event filter named `hourly`.
+You'll then add the filter to a handler named `slack` to prevent alerts from being sent to Slack every minute.
 
-You can use either of two approaches to create the event filter to handle occurrences:
+If you don't already have a Slack handler in place, follow [Send Slack alerts with handlers][3] to create one before continuing with this guide.
 
-- [Use sensuctl][4]
-- [Use a filter dynamic runtime asset][5]
+You can use either of two approaches to create the event filter to handle occurrences: use sensuctl or use a filter dynamic runtime asset.
+
+To use this guide, you'll need to install a Sensu backend and have at least one Sensu agent running.
+Follow the RHEL/CentOS [install instructions][17] for the Sensu backend, the Sensu agent, and sensuctl.
+
+## Configure a Sensu entity
+
+Every Sensu agent has a defined set of [subscriptions][16] that determine which checks the agent will execute.
+For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
+
+The examples in this guide use a check that includes the subscription `system`.
+Use [sensuctl][12] to add an `system` subscription to an entity the Sensu agent is observing.
+
+Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
+
+{{% notice note %}}
+**NOTE**: To find your entity name, run `sensuctl entity list`.
+The `ID` is the name of your entity.
+{{% /notice %}}
+
+{{< code shell >}}
+sensuctl entity update <entity_name>
+{{< /code >}}
+
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `system` and press enter.
+
+Run this command to confirm both Sensu services are running:
+
+{{< code shell >}}
+systemctl status sensu-backend && systemctl status sensu-agent
+{{< /code >}}
+
+The response should indicate `active (running)` for both the Sensu backend and agent.
 
 ## Approach 1: Use sensuctl to create an event filter
 
@@ -198,12 +230,12 @@ Read on to learn how.
 
 ## Approach 2: Use an event filter dynamic runtime asset
 
-If you're not already familiar with [dynamic runtime assets][6], please take a moment to read [Use assets to install plugins][7].
+If you're not already familiar with [dynamic runtime assets][6], read [Use assets to install plugins][7].
 This will help you understand what dynamic runtime assets are and how they are used in Sensu. 
 
 In this approach, the first step is to obtain an event filter dynamic runtime asset that will allow you to replicate the behavior of the `hourly` event filter created in [Approach 1 via `sensuctl`][4].
 
-Use [`sensuctl asset add`][5] to register the [fatigue check filter][8] dynamic runtime asset:
+Use `sensuctl asset add` to register the [fatigue check filter][8] dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-go-fatigue-check-filter:0.8.1 -r fatigue-filter
@@ -299,7 +331,7 @@ Here's an example CPU check:
 type: CheckConfig
 api_version: core/v2
 metadata:
-  name: linux-cpu-check
+  name: cpu-check
   annotations:
     fatigue_check/occurrences: '1'
     fatigue_check/interval: '3600'
@@ -322,7 +354,7 @@ spec:
   stdin: false
   subdue: 
   subscriptions:
-  - linux
+  - system
   timeout: 0
   ttl: 0
 {{< /code >}}
@@ -332,7 +364,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "linux-cpu-check",
+    "name": "cpu-check",
     "annotations": {
       "fatigue_check/occurrences": "1",
       "fatigue_check/interval": "3600",
@@ -358,7 +390,7 @@ spec:
     "stdin": false,
     "subdue": null,
     "subscriptions": [
-      "linux"
+      "system"
     ],
     "timeout": 0,
     "ttl": 0
@@ -503,3 +535,6 @@ Now that you know how to apply an event filter to a handler and use a dynamic ru
 [9]: https://bonsai.sensu.io/
 [10]: ../../../operations/monitoring-as-code/#build-as-you-go
 [11]: ../../../operations/monitoring-as-code/
+[12]: ../../../sensuctl/
+[16]: ../../observe-schedule/subscriptions/
+[17]: ../../../operations/deploy-sensu/install-sensu/
