@@ -18,8 +18,40 @@ If you are unfamiliar with checks, read the [checks reference][1] for details an
 You can also learn how to configure monitoring checks in [Monitor server resources][2].
 
 This guide demonstrates how to use a check to extract service metrics for an NGINX webserver, with output in [Nagios Performance Data][3] format.
+
 To use this guide, [install][13] a Sensu backend and have at least one Sensu agent running on Linux.
-In this guide, the Sensu agent is named `sensu-centos`.
+
+## Configure a Sensu entity
+
+Every Sensu agent has a defined set of [subscriptions][8] that determine which checks the agent will execute.
+For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
+To run the NGINX webserver check, you'll need a Sensu agent with the subscription `webserver`.
+
+To add the `webserver` subscription to the entity the Sensu agent is observing, first find your agent entity name:
+
+{{< code shell >}}
+sensuctl entity list
+{{< /code >}}
+
+The `ID` is the name of your entity.
+
+Replace `<entity_name>` with the name of your agent entity in the following [sensuctl][17] command.
+Run:
+
+{{< code shell >}}
+sensuctl entity update <entity_name>
+{{< /code >}}
+
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `webserver` and press enter.
+
+Confirm both Sensu services are running:
+
+{{< code shell >}}
+systemctl status sensu-backend && systemctl status sensu-agent
+{{< /code >}}
+
+The response should indicate `active (running)` for both the Sensu backend and agent.
 
 ## Register the dynamic runtime asset
 
@@ -68,38 +100,6 @@ The sensuctl response should list http-checks:
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
 Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
-
-## Configure entity subscriptions
-
-Every Sensu agent has a defined set of [subscriptions][8] that determine which checks the agent will execute.
-For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
-To run the NGINX webserver check, you'll need a Sensu agent with the subscription `webserver`.
-
-To add the `webserver` subscription to the entity the Sensu agent is observing, first find your agent entity name:
-
-{{< code shell >}}
-sensuctl entity list
-{{< /code >}}
-
-The `ID` is the name of your entity.
-
-Replace `<entity_name>` with the name of your agent entity in the following [sensuctl][17] command.
-Run:
-
-{{< code shell >}}
-sensuctl entity update <entity_name>
-{{< /code >}}
-
-- For `Entity Class`, press enter.
-- For `Subscriptions`, type `webserver` and press enter.
-
-Confirm both Sensu services are running:
-
-{{< code shell >}}
-systemctl status sensu-backend && systemctl status sensu-agent
-{{< /code >}}
-
-The response should indicate `active (running)` for both the Sensu backend and agent.
 
 ## Install and configure NGINX
 
