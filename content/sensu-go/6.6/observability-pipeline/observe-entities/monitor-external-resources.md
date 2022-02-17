@@ -25,7 +25,7 @@ In this section, you'll monitor the status of [sensu.io](https://sensu.io) by co
 
 ### Configure a Sensu entity
 
-To run the check, you'll need a Sensu agent with the subscription `proxy`.
+To run the check, you'll need a Sensu entity with the subscription `proxy`.
 Use sensuctl to add the `proxy` subscription to the entity the Sensu agent is observing.
 
 {{% notice note %}}

@@ -25,7 +25,7 @@ To use this guide, [install][13] a Sensu backend and have at least one Sensu age
 
 Every Sensu agent has a defined set of [subscriptions][8] that determine which checks the agent will execute.
 For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
-To run the NGINX webserver check, you'll need a Sensu agent with the subscription `webserver`.
+To run the NGINX webserver check, you'll need a Sensu entity with the subscription `webserver`.
 
 To add the `webserver` subscription to the entity the Sensu agent is observing, first find your agent entity name:
 
