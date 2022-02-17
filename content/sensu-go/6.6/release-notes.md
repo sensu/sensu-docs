@@ -106,19 +106,19 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **February 16, 2022** &mdash; The latest release of Sensu Go, version 6.6.6, is now available for download.
 
-Sensu Go 6.6.6 includes several web UI fixes for GraphQL queries. This patch release also contains fixes for the PostgreSQL event store, including improving retry logic when the event store is unavailable, as well as not reverting to Etcd as a fallback event store.
+Sensu Go 6.6.6 includes several web UI fixes for GraphQL queries. This patch release also contains fixes for the PostgreSQL event store, including improving retry logic when the event store is unavailable, as well as not reverting to etcd as a fallback event store.
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.6.6.
 
 **IMPROVEMENTS**
-- ([Commercial feature][259]) In the web UI, metrics now have an error type aimed at tracking down slow queries.
+- ([Commercial feature][259]) In the web UI, added error type to GraphQL metrics to help track down slow queries.
 
 **FIXES**
-- ([Commercial feature][259]) When the PostgreSQL provider is configured with "strict: true", the provider will attempt to connect to an unavailable PostgreSQL server forever instead of reverting to Etcd as an event store after 3 failed connection attempts.
-- ([Commercial feature][259]) When the PostgreSQL provider is configured to use strict mode, it checks to see if the current user has the `CREATE` privilege within the current schema, not the current database.
-- ([Commercial feature][259]) The PostgreSQL provider now respects context cancellation and will fail immediately when a user issues a termination signal.
+- ([Commercial feature][259]) When the PostgreSQL provider is configured with ["strict: true"][267], the provider will attempt to connect to an unavailable PostgreSQL server indefinitely instead of reverting to etcd as an event store after three failed connection attempts.
+- ([Commercial feature][259]) When the PostgreSQL provider is configured to use strict mode, the provider confirms whether the current user has `CREATE` privileges within the current schema, not the current database.
+- ([Commercial feature][259]) The PostgreSQL provider now respects context cancellation and will fail immediately when users issue a termination signal.
 - ([Commercial feature][259]) Fixed an issue where metrics would not be recorded when an error occurred.
-- Fixed an issue with GraphQL queries where an offset of >= 500 couldn't be used when paging through entities
+- ([Commercial feature][259]) In the web UI, fixed an issue with GraphQL queries where an offset of >= 500 couldn't be used when paging through entities
 
 ## 6.6.5 release notes
 
@@ -2305,3 +2305,4 @@ To get started with Sensu Go:
 [264]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
 [265]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
 [266]: /sensu-go/6.6/web-ui/search/#events-and-entities-search-limits
+[267]: /sensu-go/latest/operations/deploy-sensu/datastore/#strict-attribute
