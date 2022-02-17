@@ -44,7 +44,7 @@ On the events page, if you use etcd for event storage, search queries will stop 
 For example, in Sensu Go 6.6.5, if you use etcd for event storage and you search in a namespace that has more than 50,000 matching events, the search results will not include matching events beyond the first 50,000.
 
 {{% notice note %}}
-**NOTE**: [Upgrade](../../../operations/maintain-sensu/upgrade/) to Sensu Go 6.6.5 to retrieve up to 50,000 results in web UI events searches.
+**NOTE**: [Upgrade](../../operations/maintain-sensu/upgrade/) to Sensu Go 6.6.5 to retrieve up to 50,000 results in web UI events searches.
 {{% /notice %}}
 
 ### Entities search limit
