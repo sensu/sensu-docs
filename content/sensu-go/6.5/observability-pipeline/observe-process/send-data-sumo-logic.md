@@ -23,7 +23,7 @@ If you don't already have this check in place, follow [Monitor server resources]
 Before you start, make sure you have a running Sensu instance with a backend, agent, and sensuctl.
 If you do not have an existing Sensu installation, follow the Ubuntu/Debian or RHEL/CentOS [installation instructions][4] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
 
-## Update entity subscriptions
+## Configure a Sensu entity
 
 Sensu checks have a [subscriptions][11] attribute, where you specify strings to indicate which subscribers will execute the checks.
 For Sensu to execute a check, at least one entity must include a subscription that matches a subscription in the check definition.
