@@ -19,11 +19,15 @@ You can use handlers to send an email alert, create or resolve incidents (in Pag
 This guide will help you send alerts to Slack in the channel `monitoring` by configuring a handler named `slack` to a check named `check_cpu`.
 If you don't already have this check in place, follow [Monitor server resources][2] to add it.
 
-## Install and configure Sensu Go
+Before you start, follow the RHEL/CentOS [install instructions][17] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
 
-Follow the RHEL/CentOS [install instructions][17] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
+## Configure a Sensu entity
 
-Find your entity name:
+Every Sensu agent has a defined set of [subscriptions][21] that determine which checks the agent will execute.
+For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
+To run the `check_cpu` check, you'll need a Sensu entity with the subscription `system`.
+
+First, find your entity name:
 
 {{< code shell >}}
 sensuctl entity list
