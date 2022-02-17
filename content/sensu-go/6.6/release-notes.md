@@ -114,7 +114,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.6.6.
 - ([Commercial feature][259]) In the web UI, added error type to GraphQL metrics to help track down slow queries.
 
 **FIXES**
-- ([Commercial feature][259]) When the PostgreSQL provider is configured with "strict: true", the provider will attempt to connect to an unavailable PostgreSQL server indefinitely instead of reverting to etcd as an event store after three failed connection attempts.
+- ([Commercial feature][259]) When the PostgreSQL provider is configured with ["strict: true"][267], the provider will attempt to connect to an unavailable PostgreSQL server indefinitely instead of reverting to etcd as an event store after three failed connection attempts.
 - ([Commercial feature][259]) When the PostgreSQL provider is configured to use strict mode, the provider confirms whether the current user has `CREATE` privileges within the current schema, not the current database.
 - ([Commercial feature][259]) The PostgreSQL provider now respects context cancellation and will fail immediately when users issue a termination signal.
 - ([Commercial feature][259]) Fixed an issue where metrics would not be recorded when an error occurred.
