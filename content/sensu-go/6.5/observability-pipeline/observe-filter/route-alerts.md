@@ -21,6 +21,9 @@ Each team wants to be alerted only for the things they care about, using their t
 There's also a fallback option for alerts that should not be routed to either the dev or ops team.
 To achieve this, you'll use a [pipeline][16] resource with three workflows, one for each contact option.
 
+To follow this guide, you’ll need to [install][1] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+You will also need [cURL][5] and a [Slack webhook URL][6] and three different Slack channels to receive test alerts (one for each team).
+
 Routing alerts requires three types of Sensu resources:
 
 - **Handlers** to store contact preferences for the dev and ops teams, plus a fallback option
@@ -32,9 +35,6 @@ Two of the check definitions include a `contacts` label, which allows the pipeli
 
 {{< figure src="/images/contact_routing_pipeline.svg" alt="Diagram that shows events generated with and without labels, matched to the appropriate handler using a contact filter and routed to the appropriate Slack channel" link="/images/contact_routing_pipeline.svg" target="_blank" >}}
 <!-- Diagram source: https://lucid.app/lucidchart/cd3a6110-aa74-48cc-8c74-64d542ba97bc/edit?viewport_loc=-139%2C52%2C2219%2C1041%2C0_0&invitationId=inv_de0cf345-dd7d-40dd-8724-2f9592cf45ec -->
-
-To complete this guide, you'll need a running [Sensu backend][1], at least one [Sensu agent][2], and [sensuctl][3] ([configured][4] to talk to the Sensu backend).
-You will also need [cURL][5] and a [Slack webhook URL][6] and three different Slack channels to receive test alerts (one for each team).
 
 ## Configure a Sensu entity
 
@@ -130,7 +130,7 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 ## Create contact filters
 
-The [Bonsai][1] documentation for the asset explains that the has-contact dynamic runtime asset supports two functions:
+The [Bonsai][12] documentation for the asset explains that the has-contact dynamic runtime asset supports two functions:
 
 - `has_contact`, which takes the Sensu event and the contact name as arguments
 - `no_contact`, which is available as a fallback in the absence of contact labels and takes only the event as an argument
@@ -797,10 +797,7 @@ Now that you've set up contact routing for two example teams, you can create add
 Learn how to use Sensu to [Reduce alert fatigue][11].
 
 
-[1]: ../../../operations/deploy-sensu/install-sensu#install-the-sensu-backend
-[2]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
-[3]: ../../../operations/deploy-sensu/install-sensu#install-sensuctl
-[4]: ../../../sensuctl/#first-time-setup-and-authentication
+[1]: ../../../operations/deploy-sensu/install-sensu/
 [5]: https://curl.haxx.se/
 [6]: https://api.slack.com/incoming-webhooks
 [7]: ../../../sensuctl/

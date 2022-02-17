@@ -20,8 +20,9 @@ The Prometheus ecosystem contains a number of actively maintained exporters, suc
 These exporters expose metrics that Sensu can collect and route to one or more time-series databases.
 Sensu and Prometheus can run in parallel, complementing each other and making use of environments where Prometheus is already deployed.
 
-This guide uses CentOS 7 as the operating system with all components running on the same compute resource.
-Follow the RHEL/CentOS [install instructions][4] for the Sensu backend, the Sensu agent, and sensuctl.
+To follow this guide, you’ll need to [install][4] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+
+The examples in this guide use CentOS 7 as the operating system, with all components running on the same compute resource.
 Commands and steps may change for different distributions or if components are running on different compute resources.
 
 At the end of this guide, Prometheus will be scraping metrics.

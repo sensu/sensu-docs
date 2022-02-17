@@ -21,12 +21,10 @@ Use event filters to customize alert policies, improve contact routing, eliminat
 In this guide, you'll learn how to reduce alert fatigue by configuring an event filter named `hourly`.
 You'll then add the filter to a [pipeline workflow][12] that includes a handler named `slack` to prevent alerts from being sent to Slack every minute.
 
-If you don't already have a Slack handler in place, follow [Send Slack alerts with handlers][3] to create one before continuing with this guide.
+You can take either of two approaches to create the event filter to handle occurrences: use sensuctl or use a filter dynamic runtime asset.
 
-You can use either of two approaches to create the event filter to handle occurrences: use sensuctl or use a filter dynamic runtime asset.
-
-To use this guide, you'll need to install a Sensu backend and have at least one Sensu agent running.
-Follow the RHEL/CentOS [install instructions][17] for the Sensu backend, the Sensu agent, and sensuctl.
+To follow this guide, you’ll need to [install][17] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+In addition, if you don't already have a Slack handler in place, follow [Send Slack alerts with handlers][3] to create one before continuing with this guide.
 
 ## Configure a Sensu entity
 

@@ -29,7 +29,7 @@ The check definition includes the `contacts: dev` label, which will result in al
 {{< figure src="/images/contact-routing1.png" alt="Diagram that shows an event generated with a check label, matched to the dev team's handler using a contact filter, and routed to the dev team's Slack channel" link="/images/contact-routing1.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/f66c930f-295d-458c-bde3-4e55edd9b2e8/0 -->
 
-To complete this guide, you'll need a running [Sensu backend][1], at least one [Sensu agent][2], and [sensuctl][3] ([configured][4] to talk to the Sensu backend).
+To follow this guide, you’ll need to [install][1] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
 You will also need [cURL][5] and a [Slack webhook URL][6] and three different Slack channels to receive test alerts (one for each team).
 
 ## Configure a Sensu entity
@@ -97,7 +97,7 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 ### 2. Create contact filters
 
-The [Bonsai][1] documentation for the asset explains that the has-contact dynamic runtime asset supports two functions:
+The [Bonsai][12] documentation for the asset explains that the has-contact dynamic runtime asset supports two functions:
 
 - `has_contact`, which takes the Sensu event and the contact name as arguments
 - `no_contact`, which is available as a fallback in the absence of contact labels and takes only the event as an argument
@@ -679,10 +679,7 @@ Now that you've set up contact routing for two example teams, you can create add
 Learn how to use Sensu to [Reduce alert fatigue][11].
 
 
-[1]: ../../../operations/deploy-sensu/install-sensu#install-the-sensu-backend
-[2]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
-[3]: ../../../operations/deploy-sensu/install-sensu#install-sensuctl
-[4]: ../../../sensuctl/#first-time-setup-and-authentication
+[1]: ../../../operations/deploy-sensu/install-sensu/
 [5]: https://curl.haxx.se/
 [6]: https://api.slack.com/incoming-webhooks
 [7]: ../../../sensuctl/

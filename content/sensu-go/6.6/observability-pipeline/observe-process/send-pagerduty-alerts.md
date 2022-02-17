@@ -20,8 +20,8 @@ Follow this guide to create a pipeline that sends incident alerts to PagerDuty.
 This guide will help you send alerts to PagerDuty by configuring a pipeline and adding it to a check named `check_cpu`.
 If you don't already have this check in place, follow [Monitor server resources][3] to add it.
 
-One quick note before you begin: you'll need your [PagerDuty API integration key][1] to set up the handler in this guide.
-Follow the RHEL/CentOS [install instructions][4] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
+To follow this guide, you’ll need to [install][4] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+You'll also need your [PagerDuty API integration key][1] to set up the handler in this guide.
 
 ## Configure a Sensu entity
 

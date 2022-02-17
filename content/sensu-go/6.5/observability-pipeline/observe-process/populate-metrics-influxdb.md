@@ -18,8 +18,7 @@ In this guide, you'll use a [handler][9] to populate the time-series database [I
 
 Metrics can be collected from [check output][10] (in this guide, a check that generates Prometheus metrics) or the [Sensu StatsD Server][3].
 
-To use this guide, you'll need to install a Sensu backend and have at least one Sensu agent running.
-Follow the RHEL/CentOS [install instructions][4] for the Sensu backend, the Sensu agent, and sensuctl.
+To follow this guide, you’ll need to [install][4] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
 
 ## Configure a Sensu entity
 

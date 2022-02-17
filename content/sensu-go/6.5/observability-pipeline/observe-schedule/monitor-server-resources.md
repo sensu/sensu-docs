@@ -18,8 +18,7 @@ Sensu [checks][3] are commands (or scripts) the Sensu agent executes that output
 You can use checks to monitor server resources (for example, to learn how much disk space you have left), services, and application health (for example, to check whether NGINX is running) and [collect and analyze metrics][7].
 This guide includes two check examples to help you monitor server resources (specifically, CPU usage and NGINX status).
 
-To use this guide, you'll need to install a Sensu backend and have at least one Sensu agent running.
-Follow the RHEL/CentOS [install instructions][4] for the Sensu backend, the Sensu agent, and sensuctl.
+To follow this guide, you’ll need to [install][4] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
 
 ## Configure a Sensu entity
 

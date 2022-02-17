@@ -17,17 +17,16 @@ Follow this guide to create a pipeline that sends data from a Sensu check to Sum
 Sensu [checks][2] are commands the Sensu agent executes that generate observability data in a status or metric [event][16].
 Sensu [pipelines][14] define the event filters and actions the Sensu backend executes on the events.
 
-This guide uses a check named `check_cpu` as an example.
-If you don't already have this check in place, follow [Monitor server resources][2] to add it.
+To follow this guide, you’ll need to [install][4] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
 
-Before you start, make sure you have a running Sensu instance with a backend, agent, and sensuctl.
-If you do not have an existing Sensu installation, follow the Ubuntu/Debian or RHEL/CentOS [installation instructions][4] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
+In addition, this guide uses an example check named `check_cpu`.
+If you don't already have this check in place, follow [Monitor server resources][2] to add it.
 
 ## Configure a Sensu entity
 
 Sensu checks have a [subscriptions][11] attribute, where you specify strings to indicate which subscribers will execute the checks.
 For Sensu to execute a check, at least one entity must include a subscription that matches a subscription in the check definition.
-In this example, the `check_cpu` check includes the `system` subscription, so at least one entity must subscribe to `system` to run the check.
+In the example in this guide, the `check_cpu` check includes the `system` subscription, so at least one entity must subscribe to `system` to run the check.
 
 First, select the entity whose data you want to send to Sumo Logic.
 To list all of your entities in the current namespace, run:

@@ -19,7 +19,7 @@ You can also learn how to configure monitoring checks in [Monitor server resourc
 
 This guide demonstrates how to use a check to extract service metrics for an NGINX webserver, with output in [Nagios Performance Data][3] format.
 
-To use this guide, [install][13] a Sensu backend and have at least one Sensu agent running on Linux.
+To follow this guide, you’ll need to [install][13] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
 
 ## Configure a Sensu entity
 
