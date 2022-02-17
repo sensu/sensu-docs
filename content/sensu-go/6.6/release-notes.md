@@ -102,7 +102,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ---
 
-## 6.6.6release notes
+## 6.6.6 release notes
 
 **February 16, 2022** &mdash; The latest release of Sensu Go, version 6.6.6, is now available for download.
 
