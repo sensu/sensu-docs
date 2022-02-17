@@ -21,6 +21,9 @@ Each team wants to be alerted only for the things they care about, using their t
 There's also a fallback option for alerts that should not be routed to either the dev or ops team.
 To achieve this, you'll use a [pipeline][16] resource with three workflows, one for each contact option.
 
+To follow this guide, you’ll need to [install][1] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+You will also need [cURL][5] and a [Slack webhook URL][6] and three different Slack channels to receive test alerts (one for each team).
+
 Routing alerts requires three types of Sensu resources:
 
 - **Handlers** to store contact preferences for the dev and ops teams, plus a fallback option
@@ -33,15 +36,35 @@ Two of the check definitions include a `contacts` label, which allows the pipeli
 {{< figure src="/images/contact_routing_pipeline.svg" alt="Diagram that shows events generated with and without labels, matched to the appropriate handler using a contact filter and routed to the appropriate Slack channel" link="/images/contact_routing_pipeline.svg" target="_blank" >}}
 <!-- Diagram source: https://lucid.app/lucidchart/cd3a6110-aa74-48cc-8c74-64d542ba97bc/edit?viewport_loc=-139%2C52%2C2219%2C1041%2C0_0&invitationId=inv_de0cf345-dd7d-40dd-8724-2f9592cf45ec -->
 
-## Prerequisites
+## Configure a Sensu entity
 
-To complete this guide, you'll need:
+Every Sensu agent has a defined set of [subscriptions][21] that determine which checks the agent will execute.
+For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
 
-- A [Sensu backend][1]
-- At least one [Sensu agent][2]
-- [Sensuctl][3] ([configured][4] to talk to the Sensu backend)
-- [cURL][5]
-- A [Slack webhook URL][6] and three different Slack channels to receive test alerts (one for each team)
+This guide uses an example check that includes the subscription `system`.
+Use [sensuctl][7] to add a `system` subscription to one of your entities.
+
+Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
+
+{{% notice note %}}
+**NOTE**: To find an entity's name, run `sensuctl entity list`.
+The `ID` is the name of the entity.
+{{% /notice %}}
+
+{{< code shell >}}
+sensuctl entity update <entity_name>
+{{< /code >}}
+
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `system` and press enter.
+
+Run this command to confirm both Sensu services are running:
+
+{{< code shell >}}
+systemctl status sensu-backend && systemctl status sensu-agent
+{{< /code >}}
+
+The response should indicate `active (running)` for both the Sensu backend and agent.
 
 ## Register dynamic runtime assets
 
@@ -107,7 +130,7 @@ Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 ## Create contact filters
 
-The [Bonsai][1] documentation for the asset explains that the has-contact dynamic runtime asset supports two functions:
+The [Bonsai][12] documentation for the asset explains that the has-contact dynamic runtime asset supports two functions:
 
 - `has_contact`, which takes the Sensu event and the contact name as arguments
 - `no_contact`, which is available as a fallback in the absence of contact labels and takes only the event as an argument
@@ -774,12 +797,10 @@ Now that you've set up contact routing for two example teams, you can create add
 Learn how to use Sensu to [Reduce alert fatigue][11].
 
 
-[1]: ../../../operations/deploy-sensu/install-sensu#install-the-sensu-backend
-[2]: ../../../operations/deploy-sensu/install-sensu#install-sensu-agents
-[3]: ../../../operations/deploy-sensu/install-sensu#install-sensuctl
-[4]: ../../../sensuctl/#first-time-setup-and-authentication
+[1]: ../../../operations/deploy-sensu/install-sensu/
 [5]: https://curl.haxx.se/
 [6]: https://api.slack.com/incoming-webhooks
+[7]: ../../../sensuctl/
 [8]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [9]: ../../observe-schedule/monitor-server-resources/
 [10]: ../../observe-entities/entities/#manage-entity-labels
@@ -793,3 +814,4 @@ Learn how to use Sensu to [Reduce alert fatigue][11].
 [18]: #1-register-dynamic-runtime-assets
 [19]: #2-create-contact-filters
 [20]: ../filters/#built-in-filter-is_incident
+[21]: ../../observe-schedule/subscriptions/

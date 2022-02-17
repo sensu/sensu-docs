@@ -17,13 +17,38 @@ Proxy entities allow Sensu to monitor external resources on systems and devices 
 You can create [proxy entities][1] with [sensuctl][8], the [Sensu API][9], and the [`proxy_entity_name` check attribute][2].
 When executing checks that include a `proxy_entity_name` or `proxy_requests` attribute, Sensu agents report the resulting event under the proxy entity instead of the agent entity.
 
-{{% notice note %}}
-**NOTE**: This guide requires a running Sensu backend, a running Sensu agent, and a sensuctl instance configured to connect to the backend as a user with get, list, and create permissions for entities, checks, and events.
-{{% /notice %}}
+To follow this guide, you’ll need to [install][19] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
 
 ## Use a proxy entity to monitor a website
 
 In this section, you'll monitor the status of [sensu.io](https://sensu.io) by configuring a check with a **proxy entity name** so that Sensu creates an entity that represents the site and reports the status of the site under this entity.
+
+### Configure a Sensu entity
+
+To run the check, you'll need a Sensu entity with the subscription `proxy`.
+Use sensuctl to add the `proxy` subscription to the entity the Sensu agent is observing.
+
+{{% notice note %}}
+**NOTE**: To find your entity name, run `sensuctl entity list`.
+The `ID` is the name of your entity.
+{{% /notice %}}
+
+Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
+
+{{< code shell >}}
+sensuctl entity update <entity_name>
+{{< /code >}}
+
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `proxy` and press enter.
+
+Before you continue, confirm both Sensu services are running:
+
+{{< code shell >}}
+systemctl status sensu-backend && systemctl status sensu-agent
+{{< /code >}}
+
+The response should indicate `active (running)` for both the Sensu backend and agent.
 
 ### Register dynamic runtime asset
 
@@ -156,21 +181,6 @@ The response should list `check-sensu-site`:
   check-sensu-site   http-check --url https://sensu.io         60                0     0   proxy                      http-checks           true       false                                      
 {{< /code >}}
 
-### Add the subscription
-
-To run the check, you'll need a Sensu agent with the subscription `proxy`.
-After you [install an agent][19], use sensuctl to add the `proxy` subscription to the entity the Sensu agent is observing.
-
-In the following command, Replace `<entity_name>` with the name of the entity on your system.
-Then, run:
-
-{{< code shell >}}
-sensuctl entity update <entity_name>
-{{< /code >}}
-
-- For `Entity Class`, press enter.
-- For `Subscriptions`, type `proxy` and press enter.
-
 ### Validate the check
 
 Use sensuctl to confirm that Sensu created `sensu-site`.
@@ -215,7 +225,8 @@ You can also view the new proxy entity in your [Sensu web UI][10].
 
 Suppose that instead of monitoring just sensu.io, you want to monitor multiple sites, like docs.sensu.io, packagecloud.io, and github.com.
 In this section, you'll use the [`proxy_requests` check attribute][3] along with [entity labels][11] and [token substitution][12] to monitor three sites with the same check.
-Before you start, [register the `sensu/http-checks` dynamic runtime asset][13] if you haven't already.
+
+Before you start, [register the sensu/http-checks dynamic runtime asset][13] if you haven't already.
 
 ### Create proxy entities
 
@@ -499,7 +510,7 @@ Now that you know how to run a proxy check to verify the status of a website and
 [11]: ../../observe-entities/entities#manage-entity-labels
 [12]: ../../observe-schedule/tokens/
 [13]: #register-dynamic-runtime-asset
-[14]: #add-the-subscription
+[14]: #configure-a-sensu-entity
 [15]: #create-the-check
 [16]: https://bonsai.sensu.io/assets/sensu/http-checks
 [18]: ../../observe-schedule/checks#round-robin-checks

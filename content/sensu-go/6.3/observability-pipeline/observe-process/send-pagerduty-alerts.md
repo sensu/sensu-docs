@@ -17,13 +17,16 @@ Sensu [checks][2] are commands the Sensu agent executes that generate observabil
 Sensu [handlers][9] define the actions the Sensu backend executes on the events.
 Follow this guide to create a check that looks for a specific file and a handler that sends an alert to PagerDuty if the file is not found.
 
-One quick note before you begin: you'll need your [PagerDuty API integration key][1] to set up the handler in this guide.
+To follow this guide, you’ll need to [install][4] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+You'll also need your [PagerDuty API integration key][1] to set up the handler in this guide.
 
-## Install and configure Sensu Go
+## Configure a Sensu entity
 
-Follow the RHEL/CentOS [install instructions][4] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
+Every Sensu agent has a defined set of [subscriptions][13] that determine which checks the agent will execute.
+For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
+To run the `check_cpu` check, you'll need a Sensu entity with the subscription `system`.
 
-Find your entity name:
+First, find your entity name:
 
 {{< code shell >}}
 sensuctl entity list
@@ -46,6 +49,8 @@ Confirm both Sensu services are running:
 {{< code shell >}}
 systemctl status sensu-backend && systemctl status sensu-agent
 {{< /code >}}
+
+The response should indicate `active (running)` for both the Sensu backend and agent.
 
 ## Add the file_exists check
 

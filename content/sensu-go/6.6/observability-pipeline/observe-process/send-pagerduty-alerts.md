@@ -20,13 +20,16 @@ Follow this guide to create a pipeline that sends incident alerts to PagerDuty.
 This guide will help you send alerts to PagerDuty by configuring a pipeline and adding it to a check named `check_cpu`.
 If you don't already have this check in place, follow [Monitor server resources][3] to add it.
 
-One quick note before you begin: you'll need your [PagerDuty API integration key][1] to set up the handler in this guide.
+To follow this guide, you’ll need to [install][4] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+You'll also need your [PagerDuty API integration key][1] to set up the handler in this guide.
 
-## Install and configure Sensu Go
+## Configure a Sensu entity
 
-Follow the RHEL/CentOS [install instructions][4] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
+Every Sensu agent has a defined set of [subscriptions][13] that determine which checks the agent will execute.
+For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
+To run the `check_cpu` check, you'll need a Sensu entity with the subscription `system`.
 
-Find your entity name:
+First, find your entity name:
 
 {{< code shell >}}
 sensuctl entity list
@@ -49,6 +52,8 @@ Confirm both Sensu services are running:
 {{< code shell >}}
 systemctl status sensu-backend && systemctl status sensu-agent
 {{< /code >}}
+
+The response should indicate `active (running)` for both the Sensu backend and agent.
 
 ## Register the dynamic runtime asset
 

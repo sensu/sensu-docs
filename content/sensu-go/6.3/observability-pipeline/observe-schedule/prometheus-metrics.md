@@ -20,12 +20,39 @@ The Prometheus ecosystem contains a number of actively maintained exporters, suc
 These exporters expose metrics that Sensu can collect and route to one or more time-series databases.
 Sensu and Prometheus can run in parallel, complementing each other and making use of environments where Prometheus is already deployed.
 
-This guide uses CentOS 7 as the operating system with all components running on the same compute resource.
+To follow this guide, you’ll need to [install][4] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+
+The examples in this guide use CentOS 7 as the operating system, with all components running on the same compute resource.
 Commands and steps may change for different distributions or if components are running on different compute resources.
 
 At the end of this guide, Prometheus will be scraping metrics.
 The Sensu Prometheus Collector will then query the Prometheus API as a Sensu check and send the metrics to an InfluxDB Sensu handler, which will send metrics to an InfluxDB instance.
 Finally, Grafana will query InfluxDB to display the collected metrics.
+
+## Configure a Sensu entity
+
+Use [sensuctl][15] to add an `app_tier` [subscription][16] to one of your entities.
+Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
+
+{{% notice note %}}
+**NOTE**: To find your entity name, run `sensuctl entity list`.
+The `ID` is the name of your entity.
+{{% /notice %}}
+
+{{< code shell >}}
+sensuctl entity update <entity_name>
+{{< /code >}}
+
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `app_tier` and press enter.
+
+Run this command to confirm both Sensu services are running:
+
+{{< code shell >}}
+systemctl status sensu-backend && systemctl status sensu-agent
+{{< /code >}}
+
+The response should indicate `active (running)` for both the Sensu backend and agent.
 
 ## Install and configure Prometheus
 
@@ -74,31 +101,6 @@ The response should be similar to this example:
 
 {{< code shell >}}
 vagrant   7647  3937  2 22:23 pts/0    00:00:00 ./prometheus --config.file=prometheus.yml
-{{< /code >}}
-
-## Install and configure Sensu
-
-Follow the RHEL/CentOS [install instructions][4] for the Sensu backend, the Sensu agent, and sensuctl.
-
-Use [sensuctl][15] to add an `app_tier` [subscription][16] to the entity the Sensu agent is observing.
-Before you run the following code, Replace `<entity_name>` with the name of the entity on your system.
-
-{{% notice note %}}
-**NOTE**: To find your entity name, run `sensuctl entity list`.
-The `ID` is the name of your entity.
-{{% /notice %}}
-
-{{< code shell >}}
-sensuctl entity update <entity_name>
-{{< /code >}}
-
-- For `Entity Class`, press enter.
-- For `Subscriptions`, type `app_tier` and press enter.
-
-Run this command to confirm both Sensu services are running:
-
-{{< code shell >}}
-systemctl status sensu-backend && systemctl status sensu-agent
 {{< /code >}}
 
 ## Install and configure InfluxDB
@@ -464,6 +466,6 @@ Prometheus has a [comprehensive list][7] of additional exporters to pull in metr
 [14]: ../../../web-ui/
 [15]: ../../../sensuctl/
 [16]: ../subscriptions/
-[17]: #install-and-configure-sensu
+[17]: #configure-a-sensu-entity
 [18]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 [19]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector

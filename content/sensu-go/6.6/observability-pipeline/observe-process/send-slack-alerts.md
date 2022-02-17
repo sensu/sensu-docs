@@ -17,7 +17,41 @@ Pipelines are Sensu resources composed of [observation event][1] processing work
 You can use pipelines to send email alerts, create or resolve incidents (in PagerDuty, for example), or store metrics in a time-series database like InfluxDB.
 
 This guide will help you send alerts to Slack in the channel `monitoring` by configuring a pipeline and adding it to a check named `check_cpu`.
-If you don't already have this check in place, as well as an entity with a `system` subscription, follow [Monitor server resources][2] to add the check and the correct entity subscription.
+If you don't already have this check in place, follow [Monitor server resources][2] to add the check.
+
+Before you start, follow the RHEL/CentOS [install instructions][17] to install and configure the Sensu backend, the Sensu agent, and sensuctl.
+
+## Configure a Sensu entity
+
+Every Sensu agent has a defined set of [subscriptions][21] that determine which checks the agent will execute.
+For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
+To run the `check_cpu` check, you'll need a Sensu entity with the subscription `system`.
+
+First, find your entity name:
+
+{{< code shell >}}
+sensuctl entity list
+{{< /code >}}
+
+The `ID` in the response is the name of your entity.
+
+Replace `<entity_name>` with the name of your entity in the [sensuctl][20] command below.
+Then run the command to add the `system` [subscription][21] to your entity:
+
+{{< code shell >}}
+sensuctl entity update <entity_name>
+{{< /code >}}
+
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `system` and press enter.
+
+Confirm both Sensu services are running:
+
+{{< code shell >}}
+systemctl status sensu-backend && systemctl status sensu-agent
+{{< /code >}}
+
+The response should indicate `active (running)` for both the Sensu backend and agent.
 
 ## Register the dynamic runtime asset
 
@@ -152,7 +186,7 @@ You can share and reuse this handler like code &mdash; [save it to a file][15] a
 
 ## Create a pipeline that includes the handler
 
-With your handler configured, you can add it to a [pipeline][17] workflow.
+With your handler configured, you can add it to a [pipeline][8] workflow.
 A single pipeline workflow can include one or more filters, one mutator, and one handler.
 
 For now, the pipeline includes only the `slack` handler so that you receive an alert for every event the check generates (including events with OK status).
@@ -446,6 +480,8 @@ Follow [Send PagerDuty alerts with Sensu][11] to configure a check that generate
 [14]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [15]: ../../../operations/monitoring-as-code/#build-as-you-go
 [16]: ../../../operations/monitoring-as-code/
-[17]: ../pipelines/
+[17]: ../../../operations/deploy-sensu/install-sensu/
 [18]: ../../observe-schedule/checks/#pipelines-attribute
 [19]: ../../observe-filter/filters/#built-in-filter-is_incident
+[20]: ../../../sensuctl/
+[21]: ../../observe-schedule/subscriptions/

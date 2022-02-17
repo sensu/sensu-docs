@@ -18,6 +18,38 @@ In this guide, you'll use a [handler][9] to populate the time-series database [I
 
 Metrics can be collected from [check output][10] (in this guide, a check that generates Prometheus metrics) or the [Sensu StatsD Server][3].
 
+To follow this guide, you’ll need to [install][4] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
+
+## Configure a Sensu entity
+
+Every Sensu agent has a defined set of [subscriptions][16] that determine which checks the agent will execute.
+For an agent to execute a specific check, you must specify the same subscription in the agent configuration and the check definition.
+
+The example in this guide uses the `prometheus_metrics` check from [Collect Prometheus metrics with Sensu][10], which includes the subscription `app_tier`.
+Use [sensuctl][15] to add an `app_tier` subscription to one of your entities.
+
+Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
+
+{{% notice note %}}
+**NOTE**: To find your entity name, run `sensuctl entity list`.
+The `ID` is the name of your entity.
+{{% /notice %}}
+
+{{< code shell >}}
+sensuctl entity update <entity_name>
+{{< /code >}}
+
+- For `Entity Class`, press enter.
+- For `Subscriptions`, type `app_tier` and press enter.
+
+Run this command to confirm both Sensu services are running:
+
+{{< code shell >}}
+systemctl status sensu-backend && systemctl status sensu-agent
+{{< /code >}}
+
+The response should indicate `active (running)` for both the Sensu backend and agent.
+
 ## Register the dynamic runtime asset
 
 [Dynamic runtime assets][12] are shareable, reusable packages that make it easier to deploy Sensu plugins.
@@ -291,3 +323,6 @@ Now that you know how to apply an InfluxDB handler to metrics, read [Aggregate m
 [13]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 [14]: ../../observe-schedule/prometheus-metrics/#add-a-sensu-check-to-complete-the-pipeline
 [15]: ../aggregate-metrics-statsd/
+[16]: ../../../operations/deploy-sensu/install-sensu/
+[18]: ../../../sensuctl/
+[19]: ../../observe-schedule/subscriptions/
