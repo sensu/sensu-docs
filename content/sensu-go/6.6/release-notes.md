@@ -2305,3 +2305,4 @@ To get started with Sensu Go:
 [264]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
 [265]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
 [266]: /sensu-go/6.6/web-ui/search/#events-and-entities-search-limits
+[267]: /sensu-go/latest/operations/deploy-sensu/datastore/#strict-attribute
