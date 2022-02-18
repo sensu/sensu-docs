@@ -1,6 +1,6 @@
 ---
 title: "core/v2/users"
-description: "This reference describes Sensu core/v2/users API endpoints, including creating users and retrieving, updating, and deleting user data so you can customize Sensu Go to match your workflows."
+description: "Read this API documentation for details about Sensu core/v2/users API endpoints, with examples for creating and managing Sensu user data to match your workflow."
 core_api_title: "core/v2/users"
 type: "core_api"
 version: "6.5"

@@ -1,6 +1,6 @@
 ---
 title: "core/v2/tessen"
-description: "Sensu core/v2/tessen API endpoints provide HTTP access to manage Tessen configuration. Read on for the full reference."
+description: "Read this API documentation for information about Sensu core/v2/tessen API endpoints, which provide HTTP access to manage Tessen configuration."
 core_api_title: "core/v2/tessen"
 type: "core_api"
 version: "6.6"

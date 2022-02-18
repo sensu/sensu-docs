@@ -1,6 +1,6 @@
 ---
 title: "core/v2/clusterroles"
-description: "Sensu core/v2/clusterroles API endpoints provide HTTP access to cluster role data. This reference includes examples for retrieving cluster roles, creating cluster roles, and more."
+description: "Read this API documentation for information about Sensu core/v2/clusterroles API endpoints, with examples for retrieving and managing cluster roles."
 core_api_title: "core/v2/clusterroles"
 type: "core_api"
 version: "6.4"

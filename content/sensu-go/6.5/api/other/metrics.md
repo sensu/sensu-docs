@@ -1,6 +1,6 @@
 ---
 title: "/metrics"
-description: "The Sensu /metrics API endpoint provides HTTP access to internal Sensu metrics, including embedded etcd, memory usage, garbage collection, and gRPC metrics. Read on for the full reference."
+description: "The Read this API documentation to use the Sensu /metrics API endpoint, which provides HTTP access to internal Sensu metrics in Prometheus format."
 other_api_title: "/metrics"
 type: "other_api"
 version: "6.5"

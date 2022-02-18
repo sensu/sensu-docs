@@ -3,7 +3,7 @@ title: "Entity reference"
 linkTitle: "Entity Reference"
 reference_title: "Entities"
 type: "reference"
-description: "Read this reference to learn about Sensu entities, which represent anything that needs to be monitored, including servers, containers, and applications."
+description: "Sensu entities represent anything that needs to be monitored, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment. This reference doc includes the specification and examples for Sensu entities."
 weight: 10
 version: "6.3"
 product: "Sensu Go"

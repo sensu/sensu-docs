@@ -3,7 +3,7 @@ title: "Active Directory (AD) reference"
 linktitle: "AD Reference"
 reference_title: "Active Directory (AD)"
 type: "reference"
-description: "Read this guide to learn about Sensu's support for single sign-on (SSO) authentication using Active Directory (AD) and configure an AD authentication provider."
+description: "In addition to built-in basic authentication, Sensu includes commercial support for single sign-on (SSO) authentication using Active Directory (AD). Read this guide to configure an AD authentication provider."
 weight: 50
 version: "6.5"
 product: "Sensu Go"

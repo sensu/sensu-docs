@@ -1,6 +1,6 @@
 ---
 title: "enterprise/federation/v1"
-description: "Sensu enterprise/federation/v1 API endpoints control federation of Sensu clusters. This reference includes examples for etcd replicators and clusters endpoints. Read on for the full reference."
+description: "Read this API documentation for information about Sensu enterprise/federation/v1 API endpoints, wich allow you to control federation of Sensu clusters."
 enterprise_api_title: "enterprise/federation/v1"
 type: "enterprise_api"
 version: "6.4"

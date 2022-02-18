@@ -1,6 +1,6 @@
 ---
 title: "enterprise/prune/v1alpha"
-description: "Sensu enterprise/prune/v1alpha API endpoints provide HTTP access to create pruning commands to delete resources that do not appear in a given set of Sensu objects from a file, URL, or STDIN. This reference includes an example for creating a prune command for your Sensu instance."
+description: "Read this API documentation for Sensu enterprise/prune/v1alpha API endpoints, which provide HTTP access to create pruning commands for specific Sensu resources."
 enterprise_api_title: "enterprise/prune/v1alpha"
 type: "enterprise_api"
 version: "6.3"

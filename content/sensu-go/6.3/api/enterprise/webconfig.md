@@ -1,6 +1,6 @@
 ---
 title: "enterprise/web/v1"
-description: "Sensu enterprise/web/v1 API endpoints provide HTTP access to the global web UI configuration. This reference includes examples for retrieving, creating, updating, and deleting the global web UI configuration."
+description: "Read this API documentation for information about Sensu enterprise/web/v1 API endpoints, which provide HTTP access to the global Sensu web UI configuration."
 enterprise_api_title: "enterprise/web/v1"
 type: "enterprise_api"
 version: "6.3"

@@ -3,7 +3,7 @@ title: "Checks reference"
 linkTitle: "Checks Reference"
 reference_title: "Checks"
 type: "reference"
-description: "Read this page to learn how checks work with Sensu agents to automatically monitor your infrastructure and send observability events to the Sensu pipeline."
+description: "Checks work with Sensu agents to let you monitor your infrastructure automatically and send observability events to the Sensu pipeline. Read this reference doc to learn how to run service and metric checks."
 weight: 30
 version: "6.5"
 product: "Sensu Go"

@@ -1,6 +1,6 @@
 ---
 title: "core/v2/roles"
-description: "Sensu core/v2/roles API endpoints provide HTTP access to user role data. This reference includes examples for retrieving lists of roles, creating Sensu roles, and more. Read on for the full reference."
+description: "Read this API documentation for information about Sensu core/v2/roles API endpoints, with examples for retrieving and managing Sensu roles."
 core_api_title: "core/v2/roles"
 type: "core_api"
 version: "6.5"

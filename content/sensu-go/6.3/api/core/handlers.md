@@ -1,6 +1,6 @@
 ---
 title: "core/v2/handlers"
-description: "Sensu core/v2/handlers API endpoints provide HTTP access to handler data. This reference includes examples for retrieving handlers, creating a Sensu handler, and more."
+description: "Read this API documentation for information about Sensu core/v2/handlers API endpoints, with examples for retrieving and managing handlers."
 core_api_title: "core/v2/handlers"
 type: "core_api"
 version: "6.3"

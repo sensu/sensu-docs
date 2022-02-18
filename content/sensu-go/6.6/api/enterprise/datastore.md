@@ -1,6 +1,6 @@
 ---
 title: "enterprise/store/v1"
-description: "Sensu enterprise/store/v1 API endpoints provide HTTP access to datastore providers. This reference includes examples for retrieving provider definitions, creating a provider, and more."
+description: "Read this API documentation for information about Sensu enterprise/store/v1 API endpoints, with examples for retrieving and managing provider definitions."
 enterprise_api_title: "enterprise/store/v1"
 type: "enterprise_api"
 version: "6.6"

@@ -1,6 +1,6 @@
 ---
 title: "core/v2/events"
-description: "Sensu core/v2/events API endpoints provide HTTP access to event data. Read this reference for examples of returning events, creating Sensu events, and more."
+description: "Read this API documentation for information about Sensu core/v2/events API endpoints, with examples for retrieving and managing events."
 core_api_title: "core/v2/events"
 type: "core_api"
 version: "6.4"

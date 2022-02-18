@@ -1,7 +1,7 @@
 ---
 title: "Troubleshoot Sensu"
 linkTitle: "Troubleshoot"
-description: "Here’s how to troubleshoot Sensu, including looking into errors and using sensu-backend and sensu-agent service logs as a source of truth when troubleshooting."
+description: "Here’s how to troubleshoot Sensu, including how to look into errors, service logging, log levels. Sensu service logs produced by sensu-backend and sensu-agent are often the best source of truth when troubleshooting issues, so start there."
 weight: 30
 version: "6.4"
 product: "Sensu Go"

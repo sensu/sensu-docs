@@ -3,7 +3,7 @@ title: "Lightweight Directory Access Protocol (LDAP) reference"
 linktitle: "LDAP Reference"
 reference_title: "Lightweight Directory Access Protocol (LDAP)"
 type: "reference"
-description: "Read this guide to learn about Sensu's single sign-on (SSO) authentication with Lightweight Directory Access Protocol (LDAP) and configure an authentication provider."
+description: "In addition to built-in basic authentication, Sensu includes commercial support for single sign-on (SSO) authentication using Lightweight Directory Access Protocol (LDAP). Read this guide to configure an LDAP authentication provider."
 weight: 55
 version: "6.3"
 product: "Sensu Go"

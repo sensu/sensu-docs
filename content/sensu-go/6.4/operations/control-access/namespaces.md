@@ -3,7 +3,7 @@ title: "Namespaces reference"
 linkTitle: "Namespaces Reference"
 reference_title: "Namespaces"
 type: "reference"
-description: "Read this reference to use namespaces with Sensu's role-based access control (RBAC) to partition resources within Sensu and authorize user access."
+description: "Namespaces partition resources within Sensu so that teams and projects can use Sensu's role-based access control (RBAC) to share a Sensu instance. Use namespaces with RBAC to authorize user access to Sensu resources. Read the reference doc to learn about namespaces."
 weight: 75
 version: "6.4"
 product: "Sensu Go"

@@ -3,7 +3,7 @@ title: "Assets reference"
 linkTitle: "Assets Reference"
 reference_title: "Assets"
 type: "reference"
-description: "Read the assets reference and start using Sensu's shareable, reusable packages to deploy plugins, libraries, and runtimes for automated monitoring workflows."
+description: "Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins. You can use dynamic runtime assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows. Read this reference doc to learn about assets."
 weight: 60
 version: "6.5"
 product: "Sensu Go"
