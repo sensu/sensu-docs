@@ -3,7 +3,7 @@ title: "Send data to Sumo Logic with Sensu"
 linkTitle: "Send Data to Sumo Logic"
 guide_title: "Send data to Sumo Logic with Sensu"
 type: "guide"
-description: "Put Sensu Go's observability pipeline into action. Follow this guide to configure a check and a handler that sends Sensu data to Sumo Logic for long-term log and metrics storage."
+description: "Put Sensu's observability pipeline into action. Follow this guide to configure a handler to send Sensu data to Sumo Logic for long-term log and metrics storage."
 weight: 19
 version: "6.3"
 product: "Sensu Go"
@@ -423,7 +423,6 @@ spec:
   low_flap_threshold: 0
   output_metric_format: ""
   output_metric_handlers: null
-  pipelines: []
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -459,7 +458,6 @@ spec:
     "low_flap_threshold": 0,
     "output_metric_format": "",
     "output_metric_handlers": null,
-    "pipelines": [],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
