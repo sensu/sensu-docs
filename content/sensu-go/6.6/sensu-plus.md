@@ -386,7 +386,7 @@ The Sensu Overview and Sensu Entity Details dashboards will begin to display you
 [1]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
 [2]: https://www.sumologic.com/sign-up/?utm_source=sensudocs&utm_medium=sensuwebsite
 [3]: #create-a-handler-in-sensu
-[4]: https://sumologic.slack.com/archives/C0254420A1Y/p1641840579004000
+[4]: https://help.sumologic.com/Visualizations-and-Alerts/Dashboards
 [5]: ../observability-pipeline/observe-process/sumo-logic-metrics-handlers
 [6]: ../operations/manage-secrets/secrets/
 [7]: ../operations/manage-secrets/secrets-providers/#env-secrets-provider-example
