@@ -3,7 +3,7 @@ title: "Sumo Logic metrics handlers reference"
 linkTitle: "Sumo Logic Metrics Handlers Reference"
 reference_title: "Sumo Logic metrics handlers"
 type: "reference"
-description: "Sumo Logic metrics handlers are actions the Sensu backend executes on events, allowing you to create automated monitoring workflows. Read the reference doc to learn about Sumo Logic metrics handlers."
+description: "Read this reference to learn about Sumo Logic metrics handlers, which provide a persistent connection for sending Sensu data to Sumo Logic."
 weight: 16
 version: "6.5"
 product: "Sensu Go"

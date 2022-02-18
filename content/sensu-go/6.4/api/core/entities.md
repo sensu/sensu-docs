@@ -1,6 +1,6 @@
 ---
 title: "core/v2/entities"
-description: "Sensu core/v2/entities API endpoints provide HTTP access to entity data. This reference includes examples for retrieving entity definitions, creating entities, and more."
+description: "Read this API documentation for information about Sensu core/v2/entities API endpoints, with examples for retrieving and managing entities."
 core_api_title: "core/v2/entities"
 type: "core_api"
 version: "6.4"

@@ -1,6 +1,6 @@
 ---
 title: "Enterprise APIs"
-description: "Sensu Enterprise APIs allow you to access all of the data and functionality of sensuctl and the web UI with Sensu’s backend REST APIs. The Enterprise APIs provide programmatic access to commercial features like federation, secrets management, single sign-on authentication providers, and more."
+description: "Use Sensu's enterprise APIs for programmatic access to commercial features like federation, secrets management, single sign-on (SSO) authentication, and more."
 product: "Sensu Go"
 version: "6.3"
 weight: 20

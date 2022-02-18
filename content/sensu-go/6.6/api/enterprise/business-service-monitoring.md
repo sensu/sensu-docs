@@ -1,6 +1,6 @@
 ---
 title: "enterprise/bsm/v1"
-description: "Sensu enterprise/bsm/v1 API endpoints control the service components and rule templates you can configure for your business services. This reference includes examples for configuring Sensu business service monitoring resources via the API."
+description: "Read this API documentation for information about Sensu enterprise/bsm/v1 API endpoints, with examples for configuring business service monitoring resources."
 enterprise_api_title: "enterprise/bsm/v1"
 type: "enterprise_api"
 version: "6.6"

@@ -1,6 +1,6 @@
 ---
 title: "enterprise/searches/v1"
-description: "Sensu enterprise/searches/v1 API endpoints provide HTTP access to the saved searches feature in the Sensu web UI. This reference includes examples for retrieving lists of saved searches and creating, updating, and deleting saved searches."
+description: "Read this API documentation for information about Sensu enterprise/searches/v1 API endpoints, including examples for retrieving and managing saved searches."
 enterprise_api_title: "enterprise/searches/v1"
 type: "enterprise_api"
 version: "6.3"

@@ -1,6 +1,6 @@
 ---
 title: "core/v2/pipelines"
-description: "Sensu core/v2/pipelines API endpoints provide HTTP access to pipeline data. This reference includes examples for retrieving lists of pipelines, creating pipelines, and more."
+description: "Read this API documentation for information about Sensu core/v2/pipelines API endpoints, with examples for retrieving and managing pipelines."
 core_api_title: "core/v2/pipelines"
 type: "core_api"
 version: "6.5"

@@ -3,7 +3,7 @@ title: "Etcd replicators reference"
 linkTitle: "Etcd Replicators Reference"
 reference_title: "Etcd replicators"
 type: "reference"
-description: "Etcd replicators allow you to manage RBAC resources in one place and mirror the changes to follower clusters. Read the reference to set up RBAC policy replication between Sensu clusters."
+description: "Read this reference to learn to use Sensu's etcd replicators to manage role-based access control resources in one place and mirror changes to follower clusters."
 weight: 170
 version: "6.6"
 product: "Sensu Go"
@@ -21,7 +21,7 @@ For more information, read [Get started with commercial features](../../../comme
 **NOTE**: EtcdReplicator is a datatype in the enterprise/federation/v1 API, which is only accessible for users who have a cluster role that permits access to replication resources.
 {{% /notice %}}
 
-Etcd replicators allow you to manage [RBAC][3] resources in one place and mirror the changes to follower clusters.
+Etcd replicators allow you to manage [role-based access control (RBAC)][3] resources in one place and mirror the changes to follower clusters.
 The API sets up etcd mirrors for one-way key replication.
 
 The EtcdReplicator datatype will not use a namespace because it applies cluster-wide.

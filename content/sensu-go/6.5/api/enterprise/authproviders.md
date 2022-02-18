@@ -1,6 +1,6 @@
 ---
 title: "enterprise/authentication/v2"
-description: "Sensu enterprise/authentication/v2 API endpoints provide HTTP access to authentication provider configuration. This reference includes examples of how to return the list of active authentication providers and create or update an authentication provider for single sign-on (SSO)."
+description: "Read this API documentation to use Sensu enterprise/authentication/v2 endpoints for HTTP access to single sign-on (SSO) authentication provider configurations."
 enterprise_api_title: "enterprise/authentication/v2"
 type: "enterprise_api"
 version: "6.5"

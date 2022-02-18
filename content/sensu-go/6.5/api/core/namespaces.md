@@ -1,6 +1,6 @@
 ---
 title: "core/v2/namespaces"
-description: "Sensu core/v2/namespaces API endpoints provide HTTP access to namespace data. This reference includes examples for retrieving namespaces, creating namespaces, and more."
+description: "Read this API documentation for information about Sensu core/v2/namespaces API endpoints, with examples for retrieving and managing namespaces."
 core_api_title: "core/v2/namespaces"
 type: "core_api"
 version: "6.5"

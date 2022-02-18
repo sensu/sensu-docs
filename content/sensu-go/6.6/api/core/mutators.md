@@ -1,6 +1,6 @@
 ---
 title: "core/v2/mutators"
-description: "Sensu core/v2/mutators API endpoints provide HTTP access to mutator data. This reference includes examples for retrieving lists of mutators, creating a Sensu mutator, and more. Read on for the full reference."
+description: "Read this API documentation for information about Sensu core/v2/mutators API endpoints, with examples for retrieving and managing mutators."
 core_api_title: "core/v2/mutators"
 type: "core_api"
 version: "6.6"

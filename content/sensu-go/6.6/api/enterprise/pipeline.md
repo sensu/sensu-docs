@@ -1,6 +1,6 @@
 ---
 title: "enterprise/pipeline/v1"
-description: "Sensu enterprise/pipeline/v1 API endpoints provide HTTP access to data for Sensu's Sumo Logic metrics and TCP stream handlers. This reference includes examples for retrieving handlers, creating handlers, and more."
+description: "Read this API documentation for information about Sensu enterprise/pipeline/v1 API endpoints, with examples for retrieving and managing pipeline resources."
 enterprise_api_title: "enterprise/pipeline/v1"
 type: "enterprise_api"
 version: "6.6"

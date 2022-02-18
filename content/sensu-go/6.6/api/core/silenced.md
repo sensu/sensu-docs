@@ -1,6 +1,6 @@
 ---
 title: "core/v2/silenced"
-description: "Sensu core/v2/silenced API endpoints provide HTTP access to silences. This reference includes examples for retrieving, creating, updating, and removing Sensu silences."
+description: "Read this API documentation for information about Sensu core/v2/silenced API endpoints, with examples for retrieving and managing silences."
 core_api_title: "core/v2/silenced"
 type: "core_api"
 version: "6.6"

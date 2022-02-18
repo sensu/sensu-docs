@@ -1,6 +1,6 @@
 ---
 title: "enterprise/secrets/v1"
-description: "Sensu enterprise/secrets/v1 API endpoints control secrets management for Sensu. This reference includes examples for retrieving, creating, updating, and deleting secrets resources."
+description: "Read this API documentation for information about Sensu enterprise/secrets/v1 API endpoints, with examples for managing secrets and secrets providers."
 enterprise_api_title: "enterprise/secrets/v1"
 type: "enterprise_api"
 version: "6.5"

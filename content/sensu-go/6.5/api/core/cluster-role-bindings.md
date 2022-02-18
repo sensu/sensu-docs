@@ -1,6 +1,6 @@
 ---
 title: "core/v2/clusterrolebindings"
-description: "Sensu core/v2/clusterrolebindings API endpoints provide HTTP access to cluster role binding data. This page provides examples for retrieving, creating, updating, and deleting cluster role bindings."
+description: "Read this API documentation to learn about Sensu core/v2/clusterrolebindings API endpoints, with examples for retrieving and managing cluster role bindings."
 core_api_title: "core/v2/clusterrolebindings"
 type: "core_api"
 version: "6.5"

@@ -1,6 +1,6 @@
 ---
 title: "core/v2/cluster"
-description: "Sensu core/v2/cluster API endpoints provide HTTP access to Sensu cluster data. This reference includes examples for retrieving cluster definitions, creating cluster members, and more."
+description: "Read this API documentation for information about Sensu core/v2/cluster API endpoints, with examples for retrieving and managing clusters and cluster members."
 core_api_title: "core/v2/cluster"
 type: "core_api"
 version: "6.4"

@@ -1,6 +1,6 @@
 ---
 title: "/version"
-description: "The Sensu /version API endpoint provides HTTP access to the Sensu and etcd versions. This reference includes examples for retrieving version information about your Sensu instance. Read on for the full reference."
+description: "The Read this API documentation for information about the Sensu /version API endpoint, which provides HTTP access to Sensu and etcd versions."
 other_api_title: "/version"
 type: "other_api"
 version: "6.3"

@@ -1,6 +1,6 @@
 ---
 title: "/health"
-description: "Sensu /health API endpoints provide HTTP access to health data for your Sensu instance. This reference includes examples for retrieving health information about your Sensu instance. Read on for the full reference."
+description: "Read this API documentation for information about Sensu /health API endpoints, including examples for retrieving health details about your Sensu instance."
 other_api_title: "/health"
 type: "other_api"
 version: "6.5"

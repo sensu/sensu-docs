@@ -1,6 +1,6 @@
 ---
 title: "Other APIs"
-description: "Sensu offers several API endpoints for basic authentication, checking cluster health checks, and retrieving metrics, license information, and version information."
+description: "Sensu offers API endpoints for basic authentication, checking cluster health checks, and retrieving metrics, license information, and version information."
 product: "Sensu Go"
 version: "6.6"
 weight: 20
@@ -12,7 +12,7 @@ menu:
     identifier: other
 ---
 
-In addition to the [core API][1] and [enterprise APIs][2], Sensu offers endpoints for basic authentication, health, license, metrics, and version:
+In addition to the [core/v2 API][1] and [enterprise APIs][2], Sensu offers endpoints for basic authentication, health, license, metrics, and version:
 
 {{< otherapiListing >}}
 
