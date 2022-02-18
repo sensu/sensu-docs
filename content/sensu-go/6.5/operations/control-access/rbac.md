@@ -3,7 +3,7 @@ title: "Role-based access control (RBAC) reference"
 linkTitle: "RBAC Reference"
 reference_title: "Role-based access control (RBAC)"
 type: "reference"
-description: "Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance. RBAC allows you to authorize user access and specify the actions users are allowed to take against resources based on roles bound to users or groups. Read the reference doc to learn about RBAC."
+description: "Read this reference to learn how Sensu's role-based access control helps teams share a Sensu instance, authorize user access, and specify permissions."
 weight: 80
 version: "6.5"
 product: "Sensu Go"

@@ -3,7 +3,7 @@ title: "Events reference"
 linkTitle: "Events Reference"
 reference_title: "Events"
 type: "reference"
-description: "An event is a generic container that Sensu uses to provide context for checks and metrics. You can use events to represent the state of your infrastructure and create automated monitoring workflows. Read the reference doc to learn about events."
+description: "Read this reference to learn about Sensu events, the containers that provide context for checks and metrics and represent the state of your infrastructure."
 weight: 20
 version: "6.5"
 product: "Sensu Go"

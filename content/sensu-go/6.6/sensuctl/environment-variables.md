@@ -1,7 +1,7 @@
 ---
 title: "Set environment variables with sensuctl"
 linkTitle: "Set Environment Variables"
-description: "Sensuctl includes a command to help export and set environment variables on your systems. Read this reference doc for sensuctl environment variable usage examples."
+description: "Read this page to learn how to use sensuctl, Sensu's command line tool, to set and export environment variables."
 weight: 40
 version: "6.6"
 product: "Sensu Go"
