@@ -779,7 +779,7 @@ curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/si
 [4]: ../observability-pipeline/observe-schedule/agent/
 [5]: other/health/
 [6]: other/metrics/
-[7]: ../sensuctl/environment-variables/
+[7]: ../sensuctl/environment-variables/#export-environment-variables-with-sensuctl-env
 [9]: ../observability-pipeline/observe-entities/entities#metadata-attributes
 [10]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag
 [11]: other/auth/#authtoken-post
