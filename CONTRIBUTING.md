@@ -73,26 +73,26 @@ git checkout -b fix-code-samples
 
     **NOTE**: Include a [DCO Signed-off-by statement][13] (`git commit --signoff`) with your commit.
 ```
-$ git commit -am "fix invalid JSON"
+git commit -am "fix invalid JSON"
 ```
 
 7. Repeat the commit process as often as you need and edit/test/repeat.
 To add minor edits to your last commit:
 ```
-$ git add -u
-$ git commit --amend
+git add -u
+git commit --amend
 ```
 
     This project uses commit hooks to test the build whenever making a commit.
 
 8. When you're ready to commit for review (or if you just want to establish an offsite backup or your work), push your branch to your fork on GitHub:
 ```
-$ git push origin feature/myfeature
+git push origin feature/myfeature
 ```
 
     If you recently used `commit --amend`, you may need to force push:
 ```
-$ git push -f origin feature/myfeature
+git push -f origin feature/myfeature
 ```
 
 9. Create a pull request by visiting [sensu/sensu-docs on GitHub][9] and following the prompts.
