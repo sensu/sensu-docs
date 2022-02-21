@@ -39,29 +39,26 @@ If you have any questions, please [open an issue][6].
 1. From the main page of the [sensu/sensu-docs][9] repository, click the `Fork` button at the top-right of the page.
 
 2. From the directory where you want to save the sensu-docs code, clone this repository and set up the upstream remote:
-
 ```
-$ git clone https://github.com/REPLACEME/sensu-docs/
+git clone https://github.com/REPLACEME/sensu-docs/
 # or: git clone git@github.com:REPLACEME/sensu-docs.git
 
-$ cd sensu-docs
+cd sensu-docs
 
-$ git remote add upstream https://github.com/sensu/sensu-docs.git
+git remote add upstream https://github.com/sensu/sensu-docs.git
 # or: git remote add upstream git@github.com:sensu/sensu-docs.git
 ```
 
 3. Update your local fork:
-
 ```
-$ git fetch upstream
-$ git checkout main
-$ git rebase upstream/main
+git fetch upstream
+git checkout main
+git rebase upstream/main
 ```
 
 4. Create a new branch with a descriptive name to contain your change:
-
 ```
-$ git checkout -b fix-code-samples
+git checkout -b fix-code-samples
 ```
 
 5. Build the Sensu docs site locally and test your changes.
@@ -75,30 +72,26 @@ $ git checkout -b fix-code-samples
 6. Commit your changes with a descriptive commit message.
 
     **NOTE**: Include a [DCO Signed-off-by statement][13] (`git commit --signoff`) with your commit.
-
-    ```
+```
 $ git commit -am "fix invalid JSON"
 ```
 
 7. Repeat the commit process as often as you need and edit/test/repeat.
 To add minor edits to your last commit:
-
-    ```
+```
 $ git add -u
 $ git commit --amend
 ```
 
-This project uses commit hooks to test the build whenever making a commit.
+    This project uses commit hooks to test the build whenever making a commit.
 
 8. When you're ready to commit for review (or if you just want to establish an offsite backup or your work), push your branch to your fork on GitHub:
-
-    ```
+```
 $ git push origin feature/myfeature
 ```
 
     If you recently used `commit --amend`, you may need to force push:
-
-    ```
+```
 $ git push -f origin feature/myfeature
 ```
 
@@ -113,7 +106,6 @@ To make a good-faith effort to ensure that contributions meet the criteria of th
 
 The DCO is an attestation attached to every contribution you make.
 In the commit message of your contribution, add a [Signed-off-by statement][13] and thereby agree to the DCO, which is listed below and at https://developercertificate.org/:
-
 
 ```
 Developer Certificate of Origin
