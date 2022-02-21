@@ -4,7 +4,7 @@
 
 Thank you for wanting to contribute to the Sensu Community!
 Please read and follow our [code of conduct][4].
-Reach out to administrators at [docs@sensu.io][5] if needed.
+Contact [sensu/sensu-docs][9] administrators at [docs@sensu.io][5] if needed.
 
 ## About the Sensu docs
 
