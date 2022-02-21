@@ -12,20 +12,14 @@ menu:
     parent: sensuctl
 ---
 
-Sensuctl includes the `sensuctl env` command to help export and set environment variables on your systems.
+Export your shell environment with sensuctl env to use the exported environment variables with cURL and other scripts.
 
-{{< code text >}}
-SENSU_API_URL                    URL of the Sensu backend API in sensuctl
-SENSU_NAMESPACE                  Name of the current namespace in sensuctl
-SENSU_FORMAT                     Set output format in sensuctl (for example, JSON, YAML, etc.)
-SENSU_ACCESS_TOKEN               Current API access token in sensuctl
-SENSU_ACCESS_TOKEN_EXPIRES_AT    Timestamp specifying when the current API access token expires
-SENSU_REFRESH_TOKEN              Refresh token used to obtain a new access token
-SENSU_TRUSTED_CA_FILE            Path to a trusted CA file if set in sensuctl
-SENSU_INSECURE_SKIP_TLS_VERIFY   Boolean value that can be set to skip TLS verification
-{{< /code >}}
+These environment variables are alternatives to configuration flags like the [sensuctl global flags][4].
 
-These examples demonstrate how to use sensuctl to export and set environment variables and configure your shell:
+Use environment variables to avoid exposing sensitive information like your access token and other security credentials.
+You can also inject exported environment variables for sensuctl commands in an automation script, such as a container creation script.
+
+This example shows how to use sensuctl env to export environment variables and configure your shell:
 
 {{< language-toggle >}}
 
@@ -66,3 +60,24 @@ $Env:SENSU_INSECURE_SKIP_TLS_VERIFY = "true"
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: If you receive an `invalid credentials` error while using sensuctl env, run `eval $(sensuctl env)` to refresh your token.
+{{% /notice %}}
+
+The `sensuctl env` command allows you to export the following environment variables:
+
+{{< code text >}}
+SENSU_API_URL                     URL of the Sensu backend API in sensuctl
+SENSU_NAMESPACE                   Name of the current namespace in sensuctl
+SENSU_FORMAT                      Set output format in sensuctl (for example, JSON, YAML, etc.)
+SENSU_ACCESS_TOKEN                Current API access token in sensuctl
+SENSU_ACCESS_TOKEN_EXPIRES_AT     Timestamp specifying when the current API access token expires
+SENSU_REFRESH_TOKEN               Refresh token used to obtain a new access token
+SENSU_TRUSTED_CA_FILE             Path to a trusted CA file if set in sensuctl
+SENSU_INSECURE_SKIP_TLS_VERIFY    Boolean value that can be set to skip TLS verification
+{{< /code >}}
+
+
+[4]: ../#global-flags
+[5]: ../#sensuctl-configure-flags
