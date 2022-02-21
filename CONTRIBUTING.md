@@ -149,18 +149,9 @@ By making a contribution to this project, I certify that:
 The DCO Signed-off-by statement attests that you agree to the DCO.
 DCO sign-off is required for every commit to the sensu/sensu-docs repo.
 
-Here is an example DCO Signed-off-by statement:
+You can sign off in your commit messages in your browser or on the command line.
 
-```
- Author: Sean Porter <sean@sensu.io>
- Committer: Greg Poirier <greg@sensu.io>
-   Let's name it WizardFormat.
-   Calling it the Sensu Metric Format was a mistake.
-   Signed-off-by: Sean Porter <sean@sensu.io>
-   Signed-off-by: Grep Poirier <greg@sensu.io>
-```
-
-##### Browser workflow for DCO sign-off
+**Browser workflow for DCO sign-off**
 
 If you are creating your PR directly in your browser, add your DCO Signed-off-by statement as the **last line in your commit message**.
 
@@ -170,7 +161,7 @@ Follow this example, but before you click `Propose changes` to create your PR, r
 
 GitHub will include your Signed-off-by statement in your commit, so your contributions will be DCO-compliant.
 
-##### Command line workflow for DCO sign-off
+**Command line workflow for DCO sign-off**
 
 You can configure your local git instance to add your DCO Signed-off-by statement to every commit.
 Before you run the following code, replace `Miles Dyson` and `mdyson@cyberdyne.com` with the first and last name and email address associated with your GitHub user account.
