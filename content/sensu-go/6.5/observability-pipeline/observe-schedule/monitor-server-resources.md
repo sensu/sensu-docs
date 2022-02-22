@@ -63,6 +63,8 @@ You can write shell scripts in the `command` field of your check definitions, bu
 Check plugins must be available on the host where the agent is running for the agent to execute the check.
 This guide uses [dynamic runtime assets][2] to manage plugin installation.
 
+### Register the Sensu CPU usage check asset
+
 The [Sensu CPU usage check][1] dynamic runtime asset includes the `check-cpu-usage` command, which your CPU check will rely on.
 
 To register the Sensu CPU usage check dynamic runtime asset, `sensu/check-cpu-usage:0.2.2`, run:
@@ -85,6 +87,8 @@ resource, populate the "runtime_assets" field with ["check-cpu-usage"].
 This example uses the `-r` (rename) flag to specify a shorter name for the dynamic runtime asset: `check-cpu-usage`.
 
 You can also download dynamic runtime asset definitions from [Bonsai][14] and register the asset with `sensuctl create --file filename.yml`.
+
+### Register the Sensu Processes Check asset
 
 Then, use this command to register the [Sensu Processes Check][15] dynamic runtime asset, which you'll use later for your webserver check:
 
@@ -285,7 +289,7 @@ Enable and start the NGINX service:
 systemctl enable nginx && systemctl start nginx
 {{< /code >}}
 
-Verify that Nginx is serving webpages:
+Verify that NGINX is serving webpages:
 
 {{< code shell >}}
 curl -sI http://localhost

@@ -165,7 +165,7 @@ check:
 **PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
 {{% /notice %}}
 
-After you confirm that the hook is attached to your check, you can stop Nginx and observe the check hook in action on the next check execution.
+After you confirm that the hook is attached to your check, you can stop NGINX and observe the check hook in action on the next check execution.
 This example uses sensuctl to query event info and send the response to `jq` so you can isolate the check hook output:
 
 {{< code shell >}}
@@ -184,7 +184,7 @@ root         8  0.0  0.0      0     0 ?        S    Nov17   0:00 [rcu_bh]
 root         9  0.0  0.0      0     0 ?        S    Nov17   0:34 [rcu_sched]
 {{< /code >}}
 
-Now when you are alerted that Nginx is not running, you can review the check hook output to confirm this is true with no need to start up an SSH session to investigate.
+Now when you are alerted that NGINX is not running, you can review the check hook output to confirm this is true with no need to start up an SSH session to investigate.
 
 ## Next steps
 

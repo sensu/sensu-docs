@@ -121,7 +121,7 @@ Enable and start the NGINX service:
 systemctl enable nginx && systemctl start nginx
 {{< /code >}}
 
-Verify that Nginx is serving webpages:
+Verify that NGINX is serving webpages:
 
 {{< code shell >}}
 curl -sI http://localhost
