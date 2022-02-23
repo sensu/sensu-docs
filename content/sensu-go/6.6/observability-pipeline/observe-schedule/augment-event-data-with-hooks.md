@@ -13,11 +13,11 @@ menu:
     parent: observe-schedule
 ---
 
-Check hooks are **commands** the Sensu agent runs in response to the result of **check** command execution. 
-The Sensu agent executes the appropriate configured hook command based on the exit status code of the check command (for example, `1`).
+Check hooks are **commands** the Sensu agent runs in response to the result of check execution. 
+The Sensu agent executes the appropriate configured hook command based on the exit status code of the check (for example, `1`).
 
-Check hooks allow Sensu users to automate data collection that operators would routinely perform to investigate observability alerts, which frees up precious operator time.
-Although you can use check hooks for rudimentary auto-remediation tasks, they are intended to enrich observability data.
+Check hooks allow you to automate data collection that operators would routinely perform to investigate observability alerts, which frees up precious operator time.
+Although you can use check hooks for rudimentary auto-remediation tasks, they are intended to enrich observability event data.
 
 Follow this guide to create a check hook that captures the process tree if a check returns a status of `2` (critical, not running).
 You’ll need to [install][2] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
@@ -98,8 +98,7 @@ With your NGINX service running, you can configure the webserver check.
 
 ## Create a hook
 
-Create a new hook that runs a specific command to capture the process tree.
-Set an execution **timeout** of 10 seconds for this command:
+Create a new hook that runs a specific command to capture the process tree:
 
 {{< code shell >}}
 sensuctl hook create process_tree  \
@@ -281,10 +280,9 @@ spec:
 
 ## Simulate a critical event
 
-After you confirm that the hook is attached to your check, you can stop NGINX and observe the check hook in action on the next check execution.
+After you confirm that the hook is attached to your check, stop the NGINX service to observe the check hook in action on the next check execution.
 
-To manually generate a critical event for your `nginx_service` check, stop the NGINX service.
-Run:
+To manually generate a critical event for your `nginx_service` check, run:
 
 {{< code shell >}}
 systemctl stop nginx
