@@ -312,7 +312,7 @@ When you're ready, you can expand your monitoring as code practices to include m
 CI/CD takes the manual work out of maintaining and updating your monitoring as code repository so that any updates to the Sensu resources in your monitoring as code repository are reflected in your Sensu configuration in a timely manner.
 
 If you’re already using CI/CD, you already have workflows for versioning, building, testing, and deploying your code.
-Integrating monitoring as code means your monitoring and observability can go through the same CI/CD workflows as your code.
+Integrating monitoring as code means your monitoring and observability can go through those same CI/CD workflows.
 
 There's no one "correct" way to implement CI/CD with monitoring as code, but the [SensuFlow GitHub Action][5] offers a turnkey reference implementation that helps you create your own monitoring as code workflow and start managing Sensu resources via repository commits.
 
