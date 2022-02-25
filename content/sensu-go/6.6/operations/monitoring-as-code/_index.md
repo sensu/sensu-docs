@@ -101,9 +101,7 @@ The sensuctl response will include the complete `check_cpu` resource definition 
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   name: check_cpu
-  namespace: default
 spec:
   check_hooks: null
   command: check-cpu-usage -w 75 -c 90
@@ -137,17 +135,13 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "check_cpu",
-    "namespace": "default"
+    "name": "check_cpu"
   },
   "spec": {
     "check_hooks": null,
     "command": "check-cpu-usage -w 75 -c 90",
     "env_vars": null,
-    "handlers": [
-      "slack"
-    ],
+    "handlers": null,
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
@@ -308,7 +302,7 @@ Following the same method for applying labels helps keep unmanaged Sensu resourc
 
 ## Implement CI/CD with monitoring as code
 
-When you're ready, you can expand your monitoring as code practices to include managing your Sensu configuration files with a CI/CD workflow.
+When you're ready, expand your monitoring as code practices to include managing your Sensu configuration files with a CI/CD workflow.
 CI/CD takes the manual work out of maintaining and updating your monitoring as code repository so that any updates to the Sensu resources in your monitoring as code repository are reflected in your Sensu configuration in a timely manner.
 
 If you’re already using CI/CD, you already have workflows for versioning, building, testing, and deploying your code.
