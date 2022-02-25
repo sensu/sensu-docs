@@ -1,7 +1,7 @@
 ---
 title: "InfluxDB integration"
 linkTitle: "InfluxDB"
-description: "Use the Sensu InfluxDB Handler plugin to integrate Sensu with your existing InfluxDB workflows. Read about the features of Sensu's InfluxDB integration and learn how to get the plugin."
+description: "Integrate Sensu with your existing InfluxDB workflows and send Sensu metrics to InfluxDB for storage, instrumentation, and visualization."
 version: "6.5"
 product: "Sensu Go"
 menu: 

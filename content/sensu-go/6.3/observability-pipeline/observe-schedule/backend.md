@@ -3,7 +3,7 @@ title: "Backend reference"
 linkTitle: "Backend Reference"
 reference_title: "Backend"
 type: "reference"
-description: "The Sensu backend manages check requests and event data. Every Sensu backend includes an event processing pipeline that applies filters, mutators, handlers, the Sensu API, and the Sensu web UI. Read the reference doc to run the Sensu backend."
+description: "Read this reference to learn how Sensu's backend manages check requests and event data by applying filters, mutators, handlers, and the Sensu API and web UI."
 weight: 20
 version: "6.3"
 product: "Sensu Go"

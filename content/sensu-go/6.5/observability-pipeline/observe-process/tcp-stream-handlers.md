@@ -3,7 +3,7 @@ title: "TCP stream handlers reference"
 linkTitle: "TCP Stream Handlers Reference"
 reference_title: "TCP stream handlers"
 type: "reference"
-description: "TCP stream handlers are actions the Sensu backend executes on events, allowing you to create automated monitoring workflows. Read the reference doc to learn about TCP stream handlers."
+description: "Read this reference to use TCP stream handlers to send observability data to TCP sockets without the data bottlenecks of traditional TCP handlers."
 weight: 17
 version: "6.5"
 product: "Sensu Go"

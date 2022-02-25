@@ -3,7 +3,7 @@ title: "OpenID Connect 1.0 protocol (OIDC) reference"
 linktitle: "OIDC Reference"
 reference_title: "OpenID Connect 1.0 protocol (OIDC)"
 type: "reference"
-description: "In addition to built-in basic authentication, Sensu includes commercial support for single sign-on (SSO) authentication using OpenID Connect 1.0 protocol (OIDC). Read this guide to configure an authentication provider."
+description: "Read this reference to configure single sign-on (SSO) authentication for Sensu using OpenID Connect 1.0 protocol (OIDC)."
 weight: 60
 version: "6.3"
 product: "Sensu Go"

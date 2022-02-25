@@ -1,7 +1,7 @@
 ---
 title: "Migrate from Sensu Core and Sensu Enterprise to Sensu Go"
 linkTitle: "Migrate from Sensu Core and Sensu Enterprise"
-description: "Sensu Go includes important changes to all parts of Sensu as well as many powerful commercial features to make monitoring easier to build, scale to Sensu Go from Sensu Core and Sensu Enterprise. Follow this guide to migrate from Sensu Core or Sensu Enterprise to Sensu Go."
+description: "Migrate to Sensu Go, which includes important changes to all parts of Sensu and powerful commercial features to make monitoring easier to build and scale."
 weight: 20
 version: "6.5"
 product: "Sensu Go"

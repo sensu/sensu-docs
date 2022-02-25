@@ -1,7 +1,7 @@
 ---
 title: "Search in the web UI"
 linkTitle: "Search in the Web UI"
-description: "The Sensu web UI supports searching and filtering the Events, Entities, Silences, Checks, Handlers, Filters, and Mutators pages. Learn more about searches in the Sensu web UI."
+description: "Search and filter in the Sensu web UI and build customized views of your events, entities, silences, checks, handlers, filters, and mutators pages."
 weight: 30
 version: "6.5"
 product: "Sensu Go"

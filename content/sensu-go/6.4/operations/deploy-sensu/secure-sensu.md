@@ -3,7 +3,7 @@ title: "Secure Sensu"
 linkTitle: "Secure Sensu"
 guide_title: "Secure Sensu"
 type: "guide"
-description: "As with all software, it’s important to minimize any attack surface exposed by the software. Sensu is no different. Learn about the components that need to be secured and how to secure them."
+description: "Secure components like the Sensu API and web UI and agent-to-server communication and configure agent mTLS authentication to make Sensu production-ready."
 weight: 60
 version: "6.4"
 product: "Sensu Go"

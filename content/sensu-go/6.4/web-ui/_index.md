@@ -1,6 +1,6 @@
 ---
 title: "Web UI"
-description: "The Sensu backend includes the Sensu web UI: a unified view of your Sensu resources with user-friendly tools to reduce alert fatigue. Read this guide to start using the Sensu web UI."
+description: "Use the Sensu web UI to get an overview of the health of systems under observability, with detail pages for Sensu resources and user-friendly management tools."
 weight: 50
 product: "Sensu Go"
 version: "6.4"

@@ -3,7 +3,7 @@ title: "Tessen reference"
 linkTitle: "Tessen Reference"
 reference_title: "Tessen"
 type: "reference"
-description: "Tessen sends anonymized data about Sensu instances to Sensu Inc. You can use sensuctl to view and manage Tessen configuration. Read this document to configure Tessen."
+description: "Use sensuctl to view and manage your configuration for Tessen, the Sensu call-home service that sends anonymized data about Sensu instances to the Sensu team."
 weight: 40
 version: "6.3"
 product: "Sensu Go"

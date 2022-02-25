@@ -3,7 +3,7 @@ title: "Run a Sensu cluster"
 linkTitle: "Run a Sensu Cluster"
 guide_title: "Run a Sensu cluster"
 type: "guide"
-description: "Clustering improves Sensu's availability, reliability, and durability. It can help you cope with the loss of a backend node, prevent data loss, and distribute the network load of agents. Read the guide to configure a Sensu cluster."
+description: "Use clustering to improve Sensu's availability, reliability, and durability and manage lost backend nodes, prevent data loss, and distribute agent network load."
 weight: 70
 version: "6.5"
 product: "Sensu Go"
