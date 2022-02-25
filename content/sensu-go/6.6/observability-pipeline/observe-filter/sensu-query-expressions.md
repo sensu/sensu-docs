@@ -3,7 +3,7 @@ title: "Sensu query expressions reference"
 linkTitle: "Sensu Query Expressions Reference"
 reference_title: "Sensu query expressions"
 type: "reference"
-description: "Based on JavaScript expressions, Sensu query expressions (or SQEs) provide additional functionality for Sensu usage, like nested parameters and custom functions, so Sensu resources can be evaluated directly. Read the reference doc to learn about SQEs."
+description: "Use JavaScript-based Sensu query expressions to provide additional event filter functionality so you can directly evaluate Sensu resources."
 weight: 40
 version: "6.6"
 product: "Sensu Go"

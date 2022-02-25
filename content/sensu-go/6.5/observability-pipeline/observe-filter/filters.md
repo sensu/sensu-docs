@@ -3,7 +3,7 @@ title: "Event filter reference"
 linkTitle: "Event Filter Reference"
 reference_title: "Event filters"
 type: "reference"
-description: "Event filters help you reduce alert fatigue by controlling which events are acted on by Sensu handlers. Read the reference doc to learn about event filters, use Sensu's built-in event filters, and create your own event filters."
+description: "Read this reference to use Sensu's built-in event filters (or create your own) to control which events Sensu handlers will take action on."
 weight: 10
 version: "6.5"
 product: "Sensu Go"

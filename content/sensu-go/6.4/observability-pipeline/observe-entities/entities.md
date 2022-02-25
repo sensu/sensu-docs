@@ -3,7 +3,7 @@ title: "Entity reference"
 linkTitle: "Entity Reference"
 reference_title: "Entities"
 type: "reference"
-description: "Sensu entities represent anything that needs to be monitored, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment. This reference doc includes the specification and examples for Sensu entities."
+description: "Read this reference to learn about Sensu entities, which represent anything that needs to be monitored, including a full range of apps and infrastructure."
 weight: 10
 version: "6.4"
 product: "Sensu Go"

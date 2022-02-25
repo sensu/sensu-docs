@@ -3,7 +3,7 @@ title: "Agent reference"
 linkTitle: "Agent Reference"
 reference_title: "Agent"
 type: "reference"
-description: "The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor. Read the reference doc to use the Sensu agent to create observability events."
+description: "Read this reference to learn how Sensu's agent runs as a lightweight client on infrastructure components you want to monitor and creates observability events."
 weight: 10
 version: "6.6"
 product: "Sensu Go"

@@ -1,6 +1,6 @@
 ---
 title: "/license"
-description: "Read this API documentation for information about Sensu /license API endpoints, with examples for retrieving and managing your commercial license."
+description: "Read this API documentation for information about Sensu /license API endpoints, with examples for retrieving, activating, and deleting your commercial license."
 other_api_title: "/license"
 type: "other_api"
 version: "6.5"

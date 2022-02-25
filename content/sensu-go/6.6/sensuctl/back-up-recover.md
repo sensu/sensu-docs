@@ -1,7 +1,7 @@
 ---
 title: "Back up and recover resources with sensuctl"
 linkTitle: "Back Up and Recover Resources"
-description: "Use the sensuctl command line tool to back up and recover your Sensu resources. Read this page to learn how to use sensuctl dump commands for backup and recovery."
+description: "Use sensuctl dump commands to export, back up, and recover some or all of your Sensu resources in YAML and JSON formats."
 weight: 20
 version: "6.6"
 product: "Sensu Go"

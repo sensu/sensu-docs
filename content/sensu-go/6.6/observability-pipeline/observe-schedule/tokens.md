@@ -3,7 +3,7 @@ title: "Tokens reference"
 linkTitle: "Tokens Reference"
 reference_title: "Tokens"
 type: "reference"
-description: "Tokens are placeholders in a check definition that the agent replaces with entity information before executing the check. You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while reusing check definitions. Read the reference doc to learn about tokens."
+description: "Use tokens in Sensu checks as placeholders that agents replace with entity data to fine-tune check attributes while reusing check definitions."
 weight: 100
 version: "6.6"
 product: "Sensu Go"

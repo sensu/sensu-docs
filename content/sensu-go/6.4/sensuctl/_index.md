@@ -1,6 +1,6 @@
 ---
 title: "Sensuctl CLI"
-description: "Sensuctl is a command line tool for managing resources within Sensu. It works by calling Sensu’s underlying API to create, read, update, and delete resources, events, and entities. Read this page to start using sensuctl."
+description: "Use the sensuctl command line tool to create, read, update, and delete Sensu events, entities, and resources by calling Sensu’s underlying API."
 weight: 40
 product: "Sensu Go"
 version: "6.4"
