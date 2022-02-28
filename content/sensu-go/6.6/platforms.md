@@ -347,7 +347,7 @@ You can also use cron to run Sensu checks locally on these systems and forward t
 ## Build from source
 
 Sensu Go's core is open source software, freely available under an MIT License.
-Sensu Go instances built from source do not include [commercial features][3] such as the web UI homepage.
+Sensu Go instances built from source do not include [commercial features][3] such as the web UI, single sign-on (SSO) authentication, and secrets management.
 Review the [feature comparison matrix][15] to learn more.
 To build Sensu Go from source, read the [Sensu Go installation instructions on GitHub][16].
 

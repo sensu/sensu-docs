@@ -8,7 +8,7 @@ menu: "sensu-go-6.6"
 product: "Sensu Go"
 ---
 
-Sensu Go offers commercial features designed for monitoring at scale.
+Sensu Go offers commercial features designed for monitoring and observability at scale.
 All commercial features are available in the official Sensu Go distribution, and you can use them for free [up to an entity limit of 100][7].
 If you have more than 100 entities, [contact the Sensu sales team][1] for a free trial.
 
