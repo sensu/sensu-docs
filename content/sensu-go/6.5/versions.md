@@ -13,8 +13,8 @@ menu: "sensu-go-6.5"
 Update Sensu frequently to stay in sync with the latest features and fixes.
 Read [Upgrade Sensu][1] to upgrade to the latest version.
 
-Sensu supports the latest versions of official distributions, including [packages][66], [binary-only distributions][67], and [Docker images][68].
-Learn more about Sensu [support and licensing][2].
+Sensu supports the latest versions of official distributions, including [packages][66], [Docker images][68], and [binary-only distributions][67].
+Learn more about Sensu [licensing and support][2].
 
 This table lists the supported versions of Sensu Go with links to active documentation (for supported versions) and offline documentation artifacts (for versions that are not supported).
 
@@ -98,7 +98,7 @@ This table lists the supported versions of Sensu Go with links to active documen
 5.0.0 | [December 5, 2018][4]     | Not supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-0_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 
 [1]: https://docs.sensu.io/sensu-go/latest/operations/maintain-sensu/upgrade/
-[2]: https://docs.sensu.io/sensu-go/latest/commercial/
+[2]: https://sensu.io/features/compare
 [3]: https://sensu.io/licenses/sensu-support-services#4.-software-releases.
 [4]: https://docs.sensu.io/sensu-go/latest/release-notes/#500-release-notes
 [5]: https://docs.sensu.io/sensu-go/latest/release-notes/#501-release-notes
