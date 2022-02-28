@@ -24,7 +24,7 @@ This table lists the supported versions of Sensu Go with links to active documen
 
 | Version | Release date     | Status    |     |
 | ------- |   -------------- | --------- | --- |
-6.6.4 | [February 16, 2022][85] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-6_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
+6.6.6 | [February 16, 2022][85] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-6_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 6.6.5 | [February 3, 2022][84] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-6_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 6.6.4 | [January 26, 2022][83] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-6_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 6.6.3 | [December 16, 2021][82] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-6-6_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
