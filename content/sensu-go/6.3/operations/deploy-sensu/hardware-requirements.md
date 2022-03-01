@@ -15,7 +15,7 @@ menu:
 
 ### Backend minimum requirements
 
-This configuration is the minimum required to run the Sensu backend (although it is insufficient for production use):
+This configuration is the minimum required to run the Sensu [backend][9] (although it is insufficient for production use):
 
 - 64-bit Intel or AMD CPU
 - 4 GB RAM
@@ -26,7 +26,7 @@ Review the [backend recommended configuration][2] for production recommendations
 
 ### Backend recommended configuration
 
-This configuration is recommended as a baseline for production use to ensure a good user and operator
+This backend configuration is recommended as a baseline for production use to ensure a good user and operator
 experience:
 
 - 64 bit four-core Intel or AMD CPU
@@ -40,26 +40,27 @@ The Sensu backend is typically CPU- and storage-intensive.
 In general, the backend's use of these resources scales linearly with the total number of checks executed by all Sensu agents connecting to the backend.
 
 The Sensu backend is a massively parallel application that can scale to any number of CPU cores.
-Provision roughly one CPU core for every 50 checks per second (including agent keepalives).
-Most installations are fine with four CPU cores, but larger installations may find that more CPU cores (8+) are necessary.
+Provision approximately one CPU core for every 50 checks per second (including agent keepalives).
+For most installations, four CPU cores are sufficient.
+Larger installations may find that more CPU cores (8+) are necessary.
 
 Every executed Sensu check results in storage writes.
 When provisioning storage, a good guideline is to have twice as many **sustained disk input/output operations per second (IOPS)** as you expect to have events per second.
 
-Don't forget to include agent keepalives in this calculation.
+Don't forget to include agent keepalives in your calculation.
 Each agent publishes a keepalive every 20 seconds.
 For example, in a cluster of 100 agents, you can expect the agents to consume 10 write IOPS for keepalives.
 
-The Sensu backend uses a relatively modest amount of RAM under most circumstances.
+The Sensu backend uses a relatively modest amount of RAM in most circumstances.
 Larger production deployments use more RAM (8+ GB).
 
 ## Sensu agent requirements
 
 ### Agent minimum requirements
 
-This configuration is the minimum required to run the Sensu agent (although it is insufficient for production use:
+This configuration is the minimum required to run the Sensu [agent][10] (although it is insufficient for production use):
 
-- 386, amd64, ARM (ARMv5 minimum), or MIPS CPU
+- 386, amd64, ARMv5, or MIPS CPU
 - 128 MB RAM
 - 10 mbps network link
 
@@ -67,7 +68,7 @@ Review the [agent recommended configuration][3] for production recommendations.
 
 ### Agent recommended configuration
 
-This configuration is recommended as a baseline for production use to ensure a good user and operator experience:
+This agent configuration is recommended as a baseline for production use to ensure a good user and operator experience:
 
 - 64 bit four-core Intel or AMD CPU
 - 512 MB RAM
@@ -77,8 +78,6 @@ The Sensu agent itself is lightweight and should be able to run on all but the m
 However, because the agent is responsible for executing checks, you should factor the agent's responsibilities into your hardware provisioning.
 
 ## Networking recommendations
-
-### Agent connections
 
 Sensu uses WebSockets for communication between the agent and backend.
 All communication occurs over a single TCP socket.
@@ -120,3 +119,5 @@ Google Cloud offers disk space separately, and we recommend at least 150 GB of [
 [6]: https://docs.microsoft.com/en-us/azure/virtual-machines/ddv4-ddsv4-series
 [7]: https://cloud.google.com/compute/docs/general-purpose-machines#n2_machines
 [8]: https://cloud.google.com/compute/disks-image-pricing#disk
+[9]: ../../../observability-pipeline/observe-schedule/backend/
+[10]: ../../../observability-pipeline/observe-schedule/agent/
