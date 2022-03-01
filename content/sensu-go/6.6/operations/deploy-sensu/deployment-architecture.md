@@ -31,7 +31,7 @@ Read [Run a Sensu cluster][7] and the [etcd documentation][4] for more informati
 ## Hardware sizing
 
 Because etcd's design prioritizes consistency across a cluster, the speed with which write operations can be completed is very important to the Sensu cluster's performance and health.
-This means that you should provision Sensu backend infrastructure to provide sustained IO operations per second (IOPS) appropriate for the rate of observability events the system will be required to process.
+This means that you should provision Sensu backend infrastructure to provide sustained input/output operations per second (IOPS) appropriate for the rate of observability events the system will be required to process.
 
 To maximize Sensu Go performance, we recommend that you:
  * Follow our [recommended backend hardware configuration][1].
@@ -79,9 +79,9 @@ The single backend (standalone) with embedded etcd architecture requires minimal
 
 *<p style="text-align:center">Single Sensu Go backend or standalone architecture</p>*
 
-You can reconfigure a single backend as a member of a cluster, but this operation is destructive: it requires destroying the existing database.
+You can reconfigure a single backend as a member of a cluster, but this operation requires destroying the existing database.
 
-The single backend (standalone) architecture may be a good fit for small- to medium-sized deployments (such as monitoring a remote office or datacenter), deploying alongside individual auto-scaling groups, or in various segments of a logical environment spanning multiple cloud providers.
+The single backend (standalone) architecture may be a good fit for small- to medium-sized deployments (such as monitoring a remote office or datacenter), deploying alongside individual auto-scaling groups, or deploying in various segments of a logical environment spanning multiple cloud providers.
 
 For example, in environments with unreliable WAN connectivity, having agents connect to a local backend may be more reliable than having agents connect over WAN or VPN tunnel to a backend running in a central location.
 
@@ -125,7 +125,7 @@ Five etcd nodes allow you to tolerate the loss of two nodes, but with a greater 
 #### Scaled cluster performance with PostgreSQL
 
 To achieve the high rate of event processing that many enterprises require, Sensu supports PostgreSQL event storage as a [commercial feature][9].
-Read the [datastore reference][8] for details on configuring the Sensu backend to use PostgreSQL for event storage.
+Read the [datastore reference][8] to configure the Sensu backend to use PostgreSQL for event storage.
 
 {{< figure src="/images/clustered_architecture_postgres.png" alt="Clustered Sensu Go architecture with PostgreSQL" link="/images/clustered_architecture_postgres.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/475f950e-2770-4bf7-af73-57bc834cebdd/1 -->
@@ -143,7 +143,7 @@ Clustered deployments benefit from a fast and reliable network.
 Ideally, they should be co-located in the same network segment with as little latency as possible between all the nodes.
 We do not recommend clustering backends across disparate subnets or WAN connections.
 
-Although 1GbE is sufficient for common deployments, larger deployments will benefit from 10GbE, which allows a shorder mean time to recovery.
+Although 1GbE is sufficient for common deployments, larger deployments will benefit from 10GbE, which allows a shorter mean time to recovery.
 
 As the number of agents connected to a backend cluster grows, so will the amount of communication between members of the cluster required for data replication.
 With this in mind, clusters with a thousand or more agents should use a discrete network interface for peer communication.
