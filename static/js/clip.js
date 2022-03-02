@@ -9,6 +9,9 @@
 
     function addCopy(element) {
         var copy = document.createElement("button");
+        if (code.className = "language-text") {
+            .style.visibility="hidden";
+        }
         copy.className = "copy";
         copy.innerText = "Copy";
         element.append(copy);
