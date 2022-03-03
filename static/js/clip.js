@@ -6,15 +6,16 @@
 (function(document, Clipboard) {
 
     var $codes = document.querySelectorAll('pre');
+    const codelangtext = document.querySelectorAll('.language-text');
 
     function addCopy(element) {
         var copy = document.createElement("button");
-        if (code.className = "language-text") {
-            .style.visibility="hidden";
-        }
         copy.className = "copy";
         copy.innerText = "Copy";
         element.append(copy);
+        if (codelangtext = true) {
+            button.style.visibility="hidden";
+        }
     }
 
     for (var i = 0, len = $codes.length; i < len; i++) {
