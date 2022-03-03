@@ -88,28 +88,3 @@ div.notices.commercial p {
   color: #425a18;
   border-radius: 6px;
 }
-
-div.responses {
-  margin: 2rem 0;
-  position: relative;
-  background-color: #f1f2f6;
-  color: #2C3458;
-  font-family: "Source Code Pro", Consolas, monospace;
-}
-div.responses p {
-  padding: 15px;
-  display: block;
-  font-size: 1.4rem;
-  margin-top: 0rem;
-  margin-bottom: 0rem;
-}
-div.responses p:first-child:before {
-  position: absolute;
-  top: 2px;
-  left: 10px;
-}
-div.responses p:first-child:after {
-  position: absolute;
-  top: 2px;
-  left: 2rem;
-}
