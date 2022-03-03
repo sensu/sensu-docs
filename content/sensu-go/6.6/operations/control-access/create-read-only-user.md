@@ -8,13 +8,13 @@ weight: 30
 version: "6.6"
 product: "Sensu Go"
 platformContent: false
-menu: 
+menu:
   sensu-go-6.6:
     parent: control-access
 ---
 
 Role-based access control (RBAC) allows you to exercise fine-grained control over how Sensu users interact with Sensu resources.
-Use RBAC rules to achieve **multitenancy** so different projects and teams can share a Sensu instance. 
+Use RBAC rules to achieve **multitenancy** so different projects and teams can share a Sensu instance.
 
 Sensu RBAC helps different teams and projects share a Sensu instance.
 RBAC allows you to manage users and their access to resources based on **namespaces**, **groups**, **roles**, and **bindings**.
@@ -185,7 +185,7 @@ disabled: false
 
 2. Create a `global-event-reader` cluster role with `get` and `list` permissions for `events` across all namespaces:
 {{< code shell >}}
-sensuctl cluster-role create global-event-reader --verb=get,list --resource=events
+sensuctl cluster-role create global-event-reader --verbs=get,list --resources=events
 {{< /code >}}
 
    This command creates the following cluster role resource definition:

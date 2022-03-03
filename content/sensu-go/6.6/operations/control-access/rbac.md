@@ -16,7 +16,7 @@ Sensu's role-based access control (RBAC) helps different teams and projects shar
 RBAC allows you to specify actions users are allowed to take against resources, within [namespaces][12] or across all namespaces, based on roles bound to the user or to one or more groups the user is a member of.
 
 - **Roles** create sets of permissions (for example, get and delete) tied to resource types.
-**Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
+**Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces.
 - **Users** represent a person or agent that interacts with Sensu.
 Users can belong to one or more **groups**.
 - **Role bindings** assign a role to a set of users and groups within a namespace.
@@ -27,7 +27,7 @@ RBAC configuration applies to [sensuctl][2], the [API][19], and the [web UI][3].
 ## Resources
 
 Permissions within Sensu are scoped to resource types, like checks, handlers, and users.
-You can use resource types to configure permissions in Sensu roles and cluster roles. 
+You can use resource types to configure permissions in Sensu roles and cluster roles.
 
 ### Namespaced resource types
 
@@ -179,7 +179,7 @@ A `request-unauthorized` response indicates invalid credentials.
 
 {{% notice note %}}
 **NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../#use-built-in-basic-authentication).
-It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../ldap-auth/), [Active Directory (AD)](../ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../oidc-auth/). 
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../ldap-auth/), [Active Directory (AD)](../ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../oidc-auth/).
 {{% /notice %}}
 
 To change the password for a user:
@@ -250,8 +250,8 @@ To assign permissions to a user:
 
 #### Attributes
 
-username     | 
--------------|------ 
+username     |
+-------------|------
 description  | Name of the user. Cannot contain special characters.
 required     | true
 type         | String
@@ -268,8 +268,8 @@ username: alice
 
 <a id="password-attribute"></a>
 
-password     | 
--------------|------ 
+password     |
+-------------|------
 description  | User's password. Passwords must have at least eight characters.{{% notice note %}}
 **NOTE**: You only need to set either the `password` or the [`password_hash`](#password-hash-attribute) (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
 {{% /notice %}}
@@ -286,8 +286,8 @@ password: user_password
 {{< /code >}}
 {{< /language-toggle >}}
 
-groups       | 
--------------|------ 
+groups       |
+-------------|------
 description  | Groups to which the user belongs.
 required     | false
 type         | Array
@@ -307,8 +307,8 @@ groups:
 {{< /code >}}
 {{< /language-toggle >}}
 
-disabled     | 
--------------|------ 
+disabled     |
+-------------|------
 description  | If `true`, the user's account is disabled. Otherwise, `false`.
 required     | false
 type         | Boolean
@@ -326,8 +326,8 @@ disabled: false
 
 <a id="password-hash-attribute"></a>
 
-password_hash | 
---------------|------ 
+password_hash |
+--------------|------
 description   | [Bcrypt][35] password hash. You can use the `password_hash` in your user definitions instead of storing cleartext passwords. {{% notice note %}}
 **NOTE**: You only need to set either the [`password`](#password-attribute) or the `password_hash` (not both). We recommend using the `password_hash` because it eliminates the need to store cleartext passwords.
 {{% /notice %}}
@@ -782,7 +782,7 @@ You can use [sensuctl][2] to create a cluster role.
 For example, the following command creates a global event reader role that can read only events across all namespaces within Sensu.
 
 {{< code shell >}}
-sensuctl cluster-role create global-event-reader --verb='get,list' --resource='events'
+sensuctl cluster-role create global-event-reader --verbs='get,list' --resources='events'
 {{< /code >}}
 
 This command creates the following cluster-wide role resource definition:
@@ -843,8 +843,8 @@ sensuctl role delete [ROLE-NAME]
 
 #### Role and cluster role attributes
 
-name         | 
--------------|------ 
+name         |
+-------------|------
 description  | Name of the role.
 required     | true
 type         | String
@@ -859,8 +859,8 @@ name: admin
 {{< /code >}}
 {{< /language-toggle >}}
 
-namespace    | 
--------------|------ 
+namespace    |
+-------------|------
 description  | Namespace the role is restricted to. This attribute is not available for cluster roles.
 required     | false
 type         | String
@@ -875,8 +875,8 @@ namespace: production
 {{< /code >}}
 {{< /language-toggle >}}
 
-rules        | 
--------------|------ 
+rules        |
+-------------|------
 description  | Rulesets that the role applies.
 required     | true
 type         | Array
@@ -915,9 +915,9 @@ rules:
 
 A rule is an explicit statement that grants a particular permission to a resource.
 
-verbs  | 
--------------|------ 
-description  | Permissions to be applied by the rule: `get`, `list`, `create`, `update`, or `delete`. 
+verbs  |
+-------------|------
+description  | Permissions to be applied by the rule: `get`, `list`, `create`, `update`, or `delete`.
 required     | true
 type         | Array
 example      | {{< language-toggle >}}
@@ -936,8 +936,8 @@ verbs:
 {{< /code >}}
 {{< /language-toggle >}}
 
-resources         | 
--------------|------ 
+resources         |
+-------------|------
 description  | Type of resource that the rule has permission to access. Roles can only access [namespaced resource types][17]. Cluster roles can access namespaced and [cluster-wide resource types][18]. Read [resource types][4] to learn about available types.
 required     | true
 type         | Array
@@ -955,8 +955,8 @@ resources:
 {{< /code >}}
 {{< /language-toggle >}}
 
-resource_names    | 
--------------|------ 
+resource_names    |
+-------------|------
 description  | Specific resource names that the rule has permission to access. Resource name permissions are only taken into account for requests using `get`, `update`, and `delete` verbs.
 required     | false
 type         | Array
@@ -1333,8 +1333,8 @@ sensuctl role-binding delete [ROLE-NAME]
 
 ### Role binding and cluster role binding specification
 
-roleRef      | 
--------------|------ 
+roleRef      |
+-------------|------
 description  | Reference a role in the current namespace or a cluster role.
 required     | true
 type         | Hash
@@ -1354,8 +1354,8 @@ roleRef:
 {{< /code >}}
 {{< /language-toggle >}}
 
-subjects     | 
--------------|------ 
+subjects     |
+-------------|------
 description  | Users or groups being assigned.
 required     | true
 type         | Array
@@ -1379,8 +1379,8 @@ subjects:
 
 #### `roleRef` specification
 
-type         | 
--------------|------ 
+type         |
+-------------|------
 description  | `Role` for a role binding or `ClusterRole` for a cluster role binding.
 required     | true
 type         | String
@@ -1395,8 +1395,8 @@ type: Role
 {{< /code >}}
 {{< /language-toggle >}}
 
-name         | 
--------------|------ 
+name         |
+-------------|------
 description  | Name of the role or cluster role being assigned.
 required     | true
 type         | String
@@ -1413,8 +1413,8 @@ name: event-reader
 
 #### `subjects` specification
 
-type         | 
--------------|------ 
+type         |
+-------------|------
 description  | `User` for assigning a user or `Group` for assigning a group.
 required     | true
 type         | String
@@ -1429,8 +1429,8 @@ type: User
 {{< /code >}}
 {{< /language-toggle >}}
 
-name         | 
--------------|------ 
+name         |
+-------------|------
 description  | Username or group name.
 required     | true
 type         | String
@@ -2571,7 +2571,7 @@ spec:
 2. Create a [cluster role][28] with get, list, create, update, and delete permissions for silences:
 
    {{< code shell >}}
-sensuctl cluster-role create silencing-script --verb get,list,create,update,delete --resource silenced
+sensuctl cluster-role create silencing-script --verbs get,list,create,update,delete --resources silenced
 {{< /code >}}
 
    This command creates the cluster role that has the permissions the silencing service accounts will need:
