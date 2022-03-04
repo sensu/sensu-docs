@@ -1,7 +1,7 @@
 ---
 title: "Supported versions"
 linkTitle: "Supported Versions"
-description: "Sensu supports the latest versions of official distributions, including packages, binary-only distributions, and Docker images. Read this article to learn about supported versions of Sensu."
+description: "Get details about Sensu's supported versions of official distributions, including packages, Docker images, and binary-only distributions."
 version: "6.5"
 weight: -30
 offline: false

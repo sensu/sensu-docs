@@ -1,7 +1,7 @@
 ---
 title: "SaltStack integration"
 linkTitle: "SaltStack"
-description: "Use the Sensu SaltStack Handler plugin to integrate Sensu with your existing SaltStack workflows. Read about the features of Sensu's SaltStack integration and learn how to get the plugin."
+description: "Use the Sensu SaltStack Handler integration to launch SaltStack functions for automated remediation based on Sensu observability event data."
 version: "6.6"
 product: "Sensu Go"
 menu: 

@@ -1,7 +1,7 @@
 ---
 title: "Graphite integration"
 linkTitle: "Graphite"
-description: "Use the Sensu Graphite Handler plugin to integrate Sensu with your existing Graphite workflows. Read about the features of Sensu's Graphite integration and learn how to get the plugin."
+description: "Use the Sensu Graphite Handler integration to send Sensu metrics to the time-series database Graphite so you can store, instrument, and visualize Sensu data."
 version: "6.4"
 product: "Sensu Go"
 menu: 

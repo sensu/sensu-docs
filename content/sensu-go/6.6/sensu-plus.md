@@ -1,6 +1,6 @@
 ---
 title: "Sensu Plus"
-description: "The Sensu Plus turnkey integration allows you to use Sumo Logic to extract insights from your Sensu observability data. Read this article to get set up and start using Sensu Plus."
+description: "Deploy the Sensu Plus turnkey integration to send metrics to Sumo Logic and extract insights from your Sensu observability data."
 version: "6.6"
 weight: -20
 offline: false

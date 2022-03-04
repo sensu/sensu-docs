@@ -1,7 +1,7 @@
 ---
 title: "PagerDuty integration"
 linkTitle: "PagerDuty"
-description: "Use the Sensu PagerDuty Handler plugin to integrate Sensu with your existing PagerDuty workflows and automate incident management and operator alerts."
+description: "Use the Sensu PagerDuty Handler integration to automate incident management and operator alerts and integrate Sensu with your existing PagerDuty workflows."
 version: "6.6"
 product: "Sensu Go"
 menu: 

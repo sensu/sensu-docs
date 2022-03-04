@@ -1,7 +1,7 @@
 ---
 title: "Elasticsearch integration"
 linkTitle: "Elasticsearch"
-description: "Use the Sensu Elasticsearch Handler plugin to integrate Sensu with your existing Elasticsearch workflows. Read about the features of Sensu's Elasticsearch integration and learn how to get the plugin."
+description: "Use the Sensu Elasticsearch Handler integration to send observation data from Sensu events to Elasticsearch for indexing and visualization in Kibana."
 version: "6.5"
 product: "Sensu Go"
 menu: 

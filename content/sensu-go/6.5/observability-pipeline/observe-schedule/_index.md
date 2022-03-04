@@ -1,7 +1,7 @@
 ---
 title: "Schedule observability data collection"
 linkTitle: "Schedule"
-description: "Sensu uses the publish/subscribe pattern of communication. The Sensu backend schedules checks for agents with matching subscriptions and publishes check execution requests to entities. Read this page to learn about scheduling in Sensu."
+description: "Learn how Sensu uses the publish/subscribe pattern of communication to schedule checks for agents and publish check execution requests to entities."
 product: "Sensu Go"
 version: "6.5"
 weight: 30

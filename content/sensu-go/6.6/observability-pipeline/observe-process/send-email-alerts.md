@@ -3,7 +3,7 @@ title: "Send email alerts with a pipeline"
 linkTitle: "Send Email Alerts"
 guide_title: "Send email alerts with a pipeline"
 type: "guide"
-description: "This page describes how to send alerts to your email with a pipeline resource. Use pipelines to send events to your technology of choice (in this case, email) to alert you of incidents and help you resolve them more quickly."
+description: "Send notifications based on Sensu Go observability event data to an email address to alert you of incidents and help you resolve them more quickly."
 weight: 20
 version: "6.6"
 product: "Sensu Go"

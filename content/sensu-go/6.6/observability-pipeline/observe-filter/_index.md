@@ -1,7 +1,7 @@
 ---
 title: "Filter your observation data"
 linkTitle: "Filter"
-description: "The filter stage of the Sensu observability pipeline applies your specified conditions, triggers, and thresholds to your observability data in events. Learn how Sensu manages this element of the observability pipeline."
+description: "Learn how Sensu event filters apply your specified conditions, triggers, and thresholds to give you control over which observability events are processed."
 product: "Sensu Go"
 version: "6.6"
 weight: 50

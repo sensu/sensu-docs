@@ -3,7 +3,7 @@ title: "Route alerts with event filters"
 linkTitle: "Route Alerts"
 guide_title: "Route alerts with event filters"
 type: "guide"
-description: "Every alert has an ideal first responder: a team or person who knows how to triage and address the issue. Sensu contact routing lets you alert the right people using their preferred contact method, reducing mean time to response and recovery."
+description: "Alert the right people using their preferred contact method with Sensu's contact routing and reduce mean time to response and recovery."
 weight: 30
 version: "6.4"
 product: "Sensu Go"

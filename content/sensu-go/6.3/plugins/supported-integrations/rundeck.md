@@ -1,7 +1,7 @@
 ---
 title: "Rundeck integration"
 linkTitle: "Rundeck"
-description: "Use the Sensu Rundeck Handler plugin to integrate Sensu with your existing Rundeck workflows. Read about the features of Sensu's Rundeck integration and learn how to get the plugin."
+description: "Use the Sensu Rundeck Handler integrate to initiate Rundeck jobs for automated remediation based on Sensu observability event data."
 version: "6.3"
 product: "Sensu Go"
 menu: 

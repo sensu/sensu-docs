@@ -1,7 +1,7 @@
 ---
 title: "Business service monitoring SDK"
 linkTitle: "Business Service Monitoring SDK"
-description: "Based on JavaScript expressions, Sensu's business service monitoring SDK provides additional functionality for Sensu rule templates that evaluate service components. Read the reference doc to learn about the business service monitoring SDK."
+description: "Use Sensu's business service monitoring SDK of JavaScript-based expressions to add functionality for Sensu rule templates that evaluate service components."
 weight: 75
 version: "6.6"
 product: "Sensu Go"

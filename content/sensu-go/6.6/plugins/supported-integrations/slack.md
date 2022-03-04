@@ -1,7 +1,7 @@
 ---
 title: "Slack integration"
 linkTitle: "Slack"
-description: "Use the Sensu Slack Handler plugin to integrate Sensu with your alerting workflows. Read about the features of Sensu's Slack integration and learn how to get the plugin."
+description: "Use the Sensu Slack Handler integration to send alerts to the Slack channels you specify based on Sensu Go observability event data."
 version: "6.6"
 product: "Sensu Go"
 menu: 

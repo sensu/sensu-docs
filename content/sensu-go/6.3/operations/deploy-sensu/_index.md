@@ -1,6 +1,6 @@
 ---
 title: "Deploy Sensu"
-description: "Deploy Sensu, the flexible observability pipeline built to reduce operator burden and meet the challenges of monitoring multi-cloud and ephemeral infrastructures. Install and deploy Sensu with our guided walkthroughs."
+description: "Deploy Sensu, the flexible observability pipeline built to ease operator burden and meet the challenges of monitoring multi-cloud and ephemeral infrastructure."
 product: "Sensu Go"
 version: "6.3"
 weight: 10

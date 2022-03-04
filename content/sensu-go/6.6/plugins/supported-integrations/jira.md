@@ -1,7 +1,7 @@
 ---
 title: "Jira integration"
 linkTitle: "Jira"
-description: "Use the Sensu Jira Handler plugin to integrate Sensu with your existing Jira and Jira Service Desk workflows. Read about the features of Sensu's Jira integration and learn how to get the plugin."
+description: "Use the Sensu Jira Handler integration to create and update Jira issues based on data from Sensu observability events."
 version: "6.6"
 product: "Sensu Go"
 menu: 

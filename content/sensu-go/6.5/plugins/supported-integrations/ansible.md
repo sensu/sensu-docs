@@ -1,7 +1,7 @@
 ---
 title: "Ansible integration"
 linkTitle: "Ansible"
-description: "Use the Sensu Ansible Handler plugin to integrate Sensu with your existing Ansible workflows. Read about the features of Sensu's Ansible integration and learn how to get the plugin."
+description: "Use the Sensu Ansible Handler integration to launch Ansible Tower job templates for automated remediation based on Sensu observability event data."
 version: "6.5"
 product: "Sensu Go"
 menu: 
@@ -14,7 +14,7 @@ menu:
 For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
-The Sensu Ansible Handler plugin is a Sensu [handler][1] that launches Ansible Tower job templates for automated remediation based on Sensu event data.
+The Sensu Ansible Handler plugin is a Sensu [handler][1] that launches Ansible Tower job templates for automated remediation based on Sensu observability event data.
 
 {{% notice note %}}
 **NOTE**: The Sensu Ansible Handler plugin is an example of Sensu's auto-remediation integrations.

@@ -1,7 +1,7 @@
 ---
 title: "Puppet integration"
 linkTitle: "Puppet"
-description: "Use the Sensu Puppet Keepalive Handler plugin to integrate Sensu with your existing Puppet workflows. Read about the features of Sensu's Puppet integration and learn how to get the plugin."
+description: "Use the Sensu Puppet Keepalive Handler integration to delete Sensu entities with failing keepalives when matching Puppet nodes don't exist or are deregistered."
 version: "6.3"
 product: "Sensu Go"
 menu: 
