@@ -3,7 +3,7 @@ title: "Hooks reference"
 linkTitle: "Hooks Reference"
 reference_title: "Hooks"
 type: "reference"
-description: "Check hooks allow you to automate data collection that operators would typically perform by investigating observability alerts manually. Hooks help free up precious operator time. Read the reference doc to learn about hooks."
+description: "Read this reference to free up precious operator time with hooks, which allow you to automate data collection that operators would typically perform manually."
 weight: 80
 version: "6.6"
 product: "Sensu Go"

@@ -1,7 +1,7 @@
 ---
 title: "Prometheus integrations"
 linkTitle: "Prometheus"
-description: "Use the Sensu Prometheus Handler plugin to integrate Sensu with your existing Prometheus workflows. Read about the features of Sensu's Prometheus integration and learn how to get the plugin."
+description: "Use Sensu's Prometheus Collector and Prometheus Pushgateway Handler to send data to Prometheus and integrate Sensu with your existing Prometheus workflows."
 version: "6.3"
 product: "Sensu Go"
 menu: 

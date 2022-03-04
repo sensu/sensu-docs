@@ -1,7 +1,7 @@
 ---
 title: "TimescaleDB integration"
 linkTitle: "TimescaleDB"
-description: "Use the Sensu TimescaleDB Handler plugin to integrate Sensu with your existing TimescaleDB workflows. Read about the features of Sensu's TimescaleDB integration and learn how to get the plugin."
+description: "Use the Sensu TimescaleDB Handler integration to send Sensu metrics to time-series database TimescaleDB so you can store, instrument, and visualize Sensu data."
 version: "6.4"
 product: "Sensu Go"
 menu: 

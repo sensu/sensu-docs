@@ -1,7 +1,7 @@
 ---
 title: "Get started with Sensu"
 linkTitle: "Get Started with Sensu"
-description: "Sensu is the industry-leading solution for multi-cloud monitoring at scale. The Sensu observability pipeline helps businesses automate their monitoring workflows and gain deep visibility into their multi-cloud environments. Get started now and feel the #monitoringlove."
+description: "Automate observability workflows and gain deep visibility into cloud environments with Sensu, the industry-leading solution for multi-cloud monitoring at scale."
 version: "6.4"
 weight: -70
 product: "Sensu Go"

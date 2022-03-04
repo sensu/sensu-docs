@@ -3,7 +3,7 @@ title: "Plan maintenance windows with silencing"
 linkTitle: "Plan Maintenance Windows"
 guide_title: "Plan maintenance windows with silencing"
 type: "guide"
-description: "Perform system maintenance without getting overloaded with alerts. Sensu silencing bypasses event handlers during maintenance periods, giving operators the ability to quiet incoming alerts while coordinating their response. Read this guide to use Sensu silencing."
+description: "Use Sensu's silencing feature to bypass event handling during system maintenance so you can coordinate and perform maintenance without getting alerts."
 weight: 70
 version: "6.5"
 product: "Sensu Go"

@@ -1,7 +1,7 @@
 ---
 title: "Chef integration"
 linkTitle: "Chef"
-description: "Use the Sensu Chef Handler plugin to integrate Sensu with your existing Chef workflows. Read about the features of Sensu's Chef integration and learn how to get the plugin."
+description: "Use the Sensu Chef Handler integration to delete a Sensu entity with a failing keepalive check when the entity's corresponding Chef node no longer exists."
 version: "6.6"
 product: "Sensu Go"
 menu: 

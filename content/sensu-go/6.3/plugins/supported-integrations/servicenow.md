@@ -1,7 +1,7 @@
 ---
 title: "ServiceNow integration"
 linkTitle: "ServiceNow"
-description: "Use the Sensu ServiceNow Handler plugin to integrate Sensu with your existing ServiceNow workflows. Read about the features of Sensu's ServiceNow integration and learn how to get the plugin."
+description: "Use the Sensu ServiceNow Handler integration to create and update ServiceNow incidents and events based on observation data from Sensu Go events."
 version: "6.3"
 product: "Sensu Go"
 menu: 

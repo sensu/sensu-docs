@@ -3,7 +3,7 @@ title: "Collect Prometheus metrics with Sensu"
 linkTitle: "Collect Prometheus Metrics"
 guide_title: "Collect Prometheus metrics with Sensu"
 type: "guide"
-description: "The Sensu Prometheus Collector is a check plugin that collects metrics from a Prometheus exporter or the Prometheus query API. This allows Sensu to route the collected metrics to a time-series database, like InfluxDB. Follow this guide to start collecting Prometheus metrics with Sensu."
+description: "Use the Sensu Prometheus Collector integration to collect Prometheus metrics so Sensu can route the collected metrics to a time-series database like InfluxDB."
 weight: 55
 version: "6.3"
 product: "Sensu Go"

@@ -1,7 +1,7 @@
 ---
 title: "OpenTSDB integration"
 linkTitle: "OpenTSDB"
-description: "Use the Sensu OpenTSDB Handler plugin to integrate Sensu with your existing OpenTSDB workflows. Read about the features of Sensu's OpenTSDB integration and learn how to get the plugin."
+description: "Use the Sensu OpenTSDB Handler integration to send Sensu metrics to an OpenTSDB server so you can extract, tag, and store Sensu data in an OpenTSDB database."
 version: "6.6"
 product: "Sensu Go"
 menu: 

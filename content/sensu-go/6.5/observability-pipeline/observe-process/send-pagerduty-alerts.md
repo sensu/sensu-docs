@@ -3,7 +3,7 @@ title: "Send PagerDuty alerts with Sensu"
 linkTitle: "Send PagerDuty Alerts"
 guide_title: "Send PagerDuty alerts with Sensu"
 type: "guide"
-description: "Put Sensu Go's observability pipeline into action. Follow this guide to configure a check that generates status events and a handler that sends Sensu alerts to PagerDuty for non-OK events."
+description: "Follow this guide to configure a check that generates status events and a handler that sends Sensu alerts to PagerDuty for non-OK events."
 weight: 25
 version: "6.5"
 product: "Sensu Go"

@@ -3,7 +3,7 @@ title: "Metrics reference"
 linkTitle: "Metrics Reference"
 reference_title: "Metrics"
 type: "reference"
-description: "Use checks to collect service and time-series metrics for your infrastructure and process extracted metrics with the Sensu observability pipeline. Read this reference doc to learn about Sensu Go's first-class support for collecting and processing service and time-series metrics."
+description: "Read this reference to collect service and time-series metrics for your infrastructure and process extracted metrics with the Sensu observability pipeline."
 weight: 33
 version: "6.4"
 product: "Sensu Go"

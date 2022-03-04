@@ -2,7 +2,7 @@
 title: "Monitor Business Services"
 guide_title: "Monitor business services"
 type: "guide"
-description: "Sensu's business service monitoring (BSM) provides high-level visibility into the current health of any number of your business services. Read this guide to learn how BSM provides an overall view of your business services."
+description: "Use Sensu's business service monitoring (BSM) to monitor every component in your system with a top-down approach that produces meaningful information."
 product: "Sensu Go"
 version: "6.6"
 weight: 55

@@ -1,7 +1,7 @@
 ---
 title: "EC2 integration"
 linkTitle: "EC2"
-description: "Use the Sensu EC2 Handler plugin to integrate Sensu with your existing EC2 workflows. Read about the features of Sensu's EC2 integration and learn how to get the plugin."
+description: "Use the Sensu EC2 Handler integration to set custom values in EC2 based on Sensu Go observability event data and protect your EC2 authentication details."
 version: "6.5"
 product: "Sensu Go"
 menu: 

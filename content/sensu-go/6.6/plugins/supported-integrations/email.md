@@ -1,7 +1,7 @@
 ---
 title: "Email integration"
 linkTitle: "Email"
-description: "Use the Sensu Email Handler plugin to integrate Sensu with your existing alerting workflows. Read about the features of Sensu's Email integration and learn how to get the plugin."
+description: "Use the Sensu Email Handler integration to send messages to the email addresses you specify based on Sensu observability event data."
 version: "6.6"
 product: "Sensu Go"
 menu: 

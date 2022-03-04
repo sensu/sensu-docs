@@ -1,7 +1,7 @@
 ---
 title: "Live demonstration of Sensu"
 linkTitle: "Live Demo"
-description: "Explore the Sensu web UI and sensuctl command line tool with a live demo that monitors the Sensu docs site. View entities, observability events, and active service and metric checks."
+description: "Explore the Sensu web UI and sensuctl command line tool with a live demo. View entities, observability events, and active service and metric checks."
 version: "6.4"
 weight: 30
 toc: false

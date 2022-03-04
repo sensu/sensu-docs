@@ -1,7 +1,7 @@
 ---
 title: "Process your observation data"
 linkTitle: "Process"
-description: "In the process stage of Sensu's observability pipeline, the Sensu backend executes handlers to take specific actions on your observation data, like sending incidents to a Slack channel or sending metrics to InfluxDB. Read this page to learn more about the process stage in the Sensu pipeline."
+description: "Learn how the process stage of Sensu's observability pipeline works to take actions on your data, like sending incidents to Slack or metrics to InfluxDB."
 product: "Sensu Go"
 version: "6.4"
 weight: 70

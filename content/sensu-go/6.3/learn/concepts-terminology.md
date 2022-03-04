@@ -1,7 +1,7 @@
 ---
 title: "Sensu concepts and terminology"
 linkTitle: "Concepts and Terminology"
-description: "Get familiar with Sensu concepts terminology. Learn the definitions of common Sensu terms, including agent, asset, backend, check, event, and many more. Bonus: each term links to a corresponding guide!"
+description: "Get familiar with Sensu concepts and terminology, including agents, assets, backends, events, and more. Each term includes a link to more in-depth information."
 weight: 10
 version: "6.3"
 product: "Sensu Go"

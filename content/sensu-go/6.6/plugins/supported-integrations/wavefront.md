@@ -1,7 +1,7 @@
 ---
 title: "Wavefront integration"
 linkTitle: "Wavefront"
-description: "Use the Sensu Wavefront Handler plugin to integrate Sensu with your existing Wavefront workflows. Read about the features of Sensu's Wavefront integration and learn how to get the plugin."
+description: "Use the Sensu Wavefront Handler integration to send Sensu metrics to Wavefront so you can store, instrument, and visualize Sensu data in an Wavefront database."
 version: "6.6"
 product: "Sensu Go"
 menu: 
