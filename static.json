@@ -43,6 +43,14 @@
             "url": "/sensu-go/latest/$1",
             "status": 302
         },
+        "~ ^/sensu-go/6.5/?((?<=\/).*)?$": {
+            "url": "/sensu-go/lts/$1",
+            "status": 302
+        },
+        "~ ^/sensu-go/6.4/?((?<=\/).*)?$": {
+            "url": "/sensu-go/legacy/$1",
+            "status": 302
+        },
         "~ ^/sensu-go/6.[0-2]/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 301
