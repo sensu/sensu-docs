@@ -13,6 +13,7 @@
         {{ $.Scratch.Set "url" "" }}
           {{ $.Scratch.Set "url" (printf "/%s/%s/" .identifier .latest) }}
           {{ $.Scratch.Set "url" (printf "/%s/%s/" .identifier .lts) }}
+          {{ $.Scratch.Set "url" (printf "/%s/%s/" .identifier .legacy) }}
         {{ $url := $.Scratch.Get "url" }}
         <a href="{{ $url }}">{{ .name }}</a>
       {{ end }}
@@ -31,6 +32,7 @@
       {{ cond (isset .Params "version") $pageversion "Version" }}
       {{ if (eq $pageversion $product_info.latest) }}(latest)&nbsp;{{ end }}
       {{ if (eq $pageversion $product_info.lts) }}(lts)&nbsp;{{ end }}
+      {{ if (eq $pageversion $product_info.legacy) }}(legacy)&nbsp;{{ end }}
       <i class="fa fa-chevron-down" aria-hidden="true"></i>
     </a>
     <div class="options">
@@ -49,7 +51,7 @@
           {{ else }}
             <a href="/{{ $.Section }}/{{ $version }}">
           {{ end }}
-            {{ $version }} {{ if eq $version $product_info.latest }}(latest){{ end }} {{ if eq $version $product_info.lts }}(lts){{ end }}
+            {{ $version }} {{ if eq $version $product_info.latest }}(latest){{ end }} {{ if eq $version $product_info.lts }}(lts){{ end }} {{ if eq $version $product_info.legacy }}(legacy){{ end }}
           </a>
         {{ end }}
       {{ end }}

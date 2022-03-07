@@ -58,6 +58,7 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     weight = 1
     latest = "6.6"
     lts = "6.5"
+    legacy = "6.4"
 
     [[params.products.sensu_go.versions]]
     version = "6.6"
