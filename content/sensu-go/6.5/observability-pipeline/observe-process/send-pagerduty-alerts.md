@@ -135,9 +135,7 @@ The response will list the complete handler resource definition:
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: pagerduty
-  namespace: default
 spec:
   command: sensu-pagerduty-handler -t <pagerduty_key>
   env_vars: null
@@ -154,9 +152,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "pagerduty",
-    "namespace": "default"
+    "name": "pagerduty"
   },
   "spec": {
     "command": "sensu-pagerduty-handler -t <pagerduty_key>",
@@ -178,12 +174,12 @@ spec:
 **PRO TIP**: You can also [view complete resource definitions in the Sensu web UI](../../../web-ui/view-manage-resources/#view-resource-data-in-the-web-ui).
 {{% /notice %}}
 
-## Create a pipeline with an event filter and handler
+## Create a pipeline with event filters and a handler
 
 With your handler configured, you can add it to a [pipeline][17] workflow.
 A single pipeline workflow can include one or more filters, one mutator, and one handler.
 
-In this case, the pipeline includes the built-in [is_incident][21] event filter and the PagerDuty handler you've already configured.
+In this case, the pipeline includes the built-in [is_incident][21] and [not_silenced][22] event filters, as well as the PagerDuty handler you've already configured.
 To create the pipeline, run:
 
 {{< language-toggle >}}
@@ -200,6 +196,9 @@ spec:
   - name: pagerduty_alerts
     filters:
     - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    - name: not_silenced
       type: EventFilter
       api_version: core/v2
     handler:
@@ -224,6 +223,11 @@ cat << EOF | sensuctl create
         "filters": [
           {
             "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "not_silenced",
             "type": "EventFilter",
             "api_version": "core/v2"
           }
@@ -456,3 +460,4 @@ Learn more about the [Sensu PagerDuty integration][14] and our curated, configur
 [19]: ../../observe-events/
 [20]: ../pipelines/
 [21]: ../../observe-filter/filters/#built-in-filter-is_incident
+[22]: ../../observe-filter/filters/#built-in-filter-not_silenced

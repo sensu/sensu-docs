@@ -211,7 +211,7 @@ Then run the updated command:
 {{< code shell >}}
 sensuctl handler create pagerduty \
 --type pipe \
---filters is_incident \
+--filters is_incident,not_silenced \
 --runtime-assets sensu/sensu-pagerduty-handler \
 --command "sensu-pagerduty-handler -t <pagerduty_key>"
 {{< /code >}}
@@ -243,14 +243,13 @@ The response will list the complete handler resource definition:
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: pagerduty
-  namespace: default
 spec:
   command: sensu-pagerduty-handler -t <pagerduty_key>
   env_vars: null
   filters:
   - is_incident
+  - not_silenced
   handlers: null
   runtime_assets:
   - sensu/sensu-pagerduty-handler
@@ -264,15 +263,14 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "pagerduty",
-    "namespace": "default"
+    "name": "pagerduty"
   },
   "spec": {
     "command": "sensu-pagerduty-handler -t <pagerduty_key>",
     "env_vars": null,
     "filters": [
-      "is_incident"
+      "is_incident",
+      "not_silenced"
     ],
     "handlers": null,
     "runtime_assets": [

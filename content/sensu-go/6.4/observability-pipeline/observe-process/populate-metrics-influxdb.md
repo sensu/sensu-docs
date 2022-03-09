@@ -94,6 +94,7 @@ sensuctl handler create influxdb-handler \
 --type pipe \
 --command "sensu-influxdb-handler -d sensu" \
 --env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUXDB_USER=sensu, INFLUXDB_PASS=password" \
+--filters not_silenced \
 --runtime-assets sensu-influxdb-handler
 {{< /code >}}
 
@@ -126,16 +127,15 @@ The `influxdb-handler` resource definition will be similar to this example:
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: influxdb-handler
-  namespace: default
 spec:
   command: sensu-influxdb-handler -d sensu
   env_vars:
   - INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086
   - INFLUXDB_USER=sensu
   - INFLUXDB_PASS=password
-  filters: null
+  filters:
+  - not_silenced
   handlers: null
   runtime_assets:
   - sensu-influxdb-handler
@@ -149,9 +149,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "influxdb-handler",
-    "namespace": "default"
+    "name": "influxdb-handler"
   },
   "spec": {
     "command": "sensu-influxdb-handler -d sensu",
@@ -160,7 +158,9 @@ spec:
       "INFLUXDB_USER=sensu",
       "INFLUXDB_PASS=password"
     ],
-    "filters": null,
+    "filters": [
+      "not_silenced"
+    ],
     "handlers": null,
     "runtime_assets": [
       "sensu-influxdb-handler"
@@ -218,7 +218,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: prometheus_metrics
-  namespace: default
 spec:
   check_hooks: null
   command: sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up
@@ -250,8 +249,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "prometheus_metrics",
-    "namespace": "default"
+    "name": "prometheus_metrics"
   },
   "spec": {
     "check_hooks": null,

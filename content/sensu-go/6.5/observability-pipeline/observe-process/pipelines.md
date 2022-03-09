@@ -53,6 +53,9 @@ spec:
     - name: is_incident
       type: EventFilter
       api_version: core/v2
+    - name: not_silenced
+      type: EventFilter
+      api_version: core/v2
     - name: state_change_only
       type: EventFilter
       api_version: core/v2
@@ -80,6 +83,11 @@ spec:
         "filters": [
           {
             "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "not_silenced",
             "type": "EventFilter",
             "api_version": "core/v2"
           },
@@ -190,6 +198,9 @@ spec:
     - name: is_incident
       type: EventFilter
       api_version: core/v2
+    - name: not_silenced
+      type: EventFilter
+      api_version: core/v2
     - name: state_change_only
       type: EventFilter
       api_version: core/v2
@@ -204,6 +215,9 @@ spec:
   - name: slack_alerts
     filters:
     - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    - name: not_silenced
       type: EventFilter
       api_version: core/v2
     - name: state_change_only
@@ -233,6 +247,11 @@ spec:
             "api_version": "core/v2"
           },
           {
+            "name": "not_silenced",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
             "name": "state_change_only",
             "type": "EventFilter",
             "api_version": "core/v2"
@@ -254,6 +273,11 @@ spec:
         "filters": [
           {
             "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "not_silenced",
             "type": "EventFilter",
             "api_version": "core/v2"
           },
@@ -363,6 +387,9 @@ spec:
     - name: is_incident
       type: EventFilter
       api_version: core/v2
+    - name: not_silenced
+      type: EventFilter
+      api_version: core/v2
     - name: state_change_only
       type: EventFilter
       api_version: core/v2
@@ -384,6 +411,11 @@ spec:
         "filters": [
           {
             "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "not_silenced",
             "type": "EventFilter",
             "api_version": "core/v2"
           },
@@ -520,6 +552,9 @@ workflows:
     - name: is_incident
       type: EventFilter
       api_version: core/v2
+    - name: not_silenced
+      type: EventFilter
+      api_version: core/v2
     - name: state_change_only
       type: EventFilter
       api_version: core/v2
@@ -540,6 +575,11 @@ workflows:
       "filters": [
         {
           "name": "is_incident",
+          "type": "EventFilter",
+          "api_version": "core/v2"
+        },
+        {
+          "name": "not_silenced",
           "type": "EventFilter",
           "api_version": "core/v2"
         },
@@ -579,6 +619,9 @@ filters:
 - name: is_incident
   type: EventFilter
   api_version: core/v2
+- name: not_silenced
+  type: EventFilter
+  api_version: core/v2
 - name: state_change_only
   type: EventFilter
   api_version: core/v2
@@ -588,6 +631,11 @@ filters:
   "filters": [
     {
       "name": "is_incident",
+      "type": "EventFilter",
+      "api_version": "core/v2"
+    },
+    {
+      "name": "not_silenced",
       "type": "EventFilter",
       "api_version": "core/v2"
     },
@@ -843,4 +891,3 @@ api_version: core/v2
 [29]: ../../../observability-pipeline/
 [30]: ../../observe-filter/route-alerts/#configure-contact-routing-with-a-pipeline
 [31]: ../../observe-filter/filters/#built-in-event-filters
-
