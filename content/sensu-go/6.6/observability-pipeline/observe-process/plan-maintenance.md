@@ -3,7 +3,7 @@ title: "Plan maintenance windows with silencing"
 linkTitle: "Plan Maintenance Windows"
 guide_title: "Plan maintenance windows with silencing"
 type: "guide"
-description: "Use Sensu's silencing feature to bypass event handling during system maintenance so you can coordinate and perform maintenance without getting alerts."
+description: "Use Sensu's silencing feature to suppress event handling during system maintenance so you can coordinate and perform maintenance without getting alerts."
 weight: 70
 version: "6.6"
 product: "Sensu Go"
@@ -88,7 +88,7 @@ The response should list the `http-checks` dynamic runtime asset:
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Create the check
@@ -205,7 +205,6 @@ The response will list the silenced resource definition, similar to the followin
 type: Silenced
 api_version: core/v2
 metadata:
-  created_by: admin
   name: entity:sensu-site:check-http
 spec:
   begin: 1647230400
@@ -223,9 +222,7 @@ spec:
   "type": "Silenced",
   "api_version": "core/v2",
   "metadata": {
-    "name": "entity:sensu-site:check-http",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "entity:sensu-site:check-http"
   },
   "spec": {
     "begin": 1647230400,
@@ -249,20 +246,27 @@ This is because **silences do not stop events from being produced &mdash; they s
 
 If you followed this guide to create the `check-http` check on the `sensu-site` entity, you might have noticed that the check does not include a [pipeline][14].
 To observe the silenced entry's effect, add a pipeline to the `check-http` check definition (or recreate the [silenced entry][15] with your own entity and a check that includes a pipeline).
-The pipeline must include a workflow with the built-in [`not_silenced` event filter][13] and a handler.
+The pipeline must include a workflow with the built-in [`not_silenced`][13] event filter and a handler.
 
 {{% notice warning %}}
-**WARNING**: By default, silenced events will be handled unless the pipeline workflow includes the built-in [`not_silenced` event filter](../../observe-filter/filters/#built-in-filter-not_silenced) to discard silenced events.
+**WARNING**: By default, silenced events will be handled unless the pipeline workflow includes the built-in [`not_silenced`](../../observe-filter/filters/#built-in-filter-not_silenced) event filter to discard silenced events.
 {{% /notice %}}
 
-Read the [silencing reference][7] for in-depth documentation about silenced entries and examples:
+Follow one of these guides to add a pipeline to your check:
 
-* [Silence all checks on a specific entity][2]
-* [Silence a specific check on a specific entity][3]
-* [Silence all checks with a specific subscription][4]
-* [Silence all checks for entities with a specific subscription][9]
-* [Silence a specific check on entities with a specific subscription][5]
-* [Silence a specific check on every entity][6]
+- [Send data to Sumo Logic with Sensu][16]
+- [Send email alerts with a pipeline][17]
+- [Send PagerDuty alerts with Sensu][18]
+- [Send Slack alerts with a pipeline][19]
+
+Read the [silencing reference][7] for in-depth documentation about silenced entries and more examples:
+
+- [Silence all checks on a specific entity][2]
+- [Silence a specific check on a specific entity][3]
+- [Silence all checks with a specific subscription][4]
+- [Silence all checks for entities with a specific subscription][9]
+- [Silence a specific check on entities with a specific subscription][5]
+- [Silence a specific check on every entity][6]
 
 
 [1]: ../handlers/
@@ -280,3 +284,7 @@ Read the [silencing reference][7] for in-depth documentation about silenced entr
 [13]: ../../observe-filter/filters/#built-in-filter-not_silenced)
 [14]: ../pipelines/
 [15]: #create-the-silenced-entry
+[16]: ../send-data-sumo-logic/
+[17]: ../send-email-alerts/
+[18]: ../send-pagerduty-alerts/
+[19]: ../send-slack-alerts/
