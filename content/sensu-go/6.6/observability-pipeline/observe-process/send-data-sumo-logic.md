@@ -312,9 +312,6 @@ The response will list the complete handler resource definition:
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
-  labels:
-    sensu.io/managed_by: sensuctl
   name: sumologic
 spec:
   command: sensu-sumologic-handler --send-log --send-metrics --source-host "{{ .Entity.Name }}" --source-name "{{ .Check.Name }}"
@@ -335,10 +332,6 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "labels": {
-      "sensu.io/managed_by": "sensuctl"
-    },
     "name": "sumologic"
   },
   "spec": {
@@ -372,7 +365,7 @@ spec:
 With your Sumo Logic handler configured, you can add it to a [pipeline][14] workflow.
 A single pipeline workflow can include one or more event filters, one mutator, and one handler.
 
-To send data for all events (as opposed to only incidents), create a pipeline that includes only the Sumo Logic handler you've already configured &mdash; no event filters or mutators.
+To send data for all events (as opposed to only incidents), create a pipeline that includes only the Sumo Logic handler you've already configured and the built-in [not_silenced event filter][20] &mdash; no mutators.
 To add the pipeline, run:
 
 {{< language-toggle >}}
@@ -387,6 +380,10 @@ metadata:
 spec:
   workflows:
   - name: logs_to_sumologic
+    filters:
+    - name: not_silenced
+      type: EventFilter
+      api_version: core/v2
     handler:
       name: sumologic
       type: Handler
@@ -406,6 +403,13 @@ cat << EOF | sensuctl create
     "workflows": [
       {
         "name": "logs_to_sumologic",
+        "filters": [
+          {
+            "name": "not_silenced",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
         "handler": {
           "name": "sumologic",
           "type": "Handler",
@@ -591,3 +595,4 @@ In addition to the traditional handler we used in this example, you can use [Sen
 [17]: ../../../sensu-plus/
 [18]: ../sumo-logic-metrics-handlers/
 [19]: ../../../plugins/supported-integrations/sumologic/
+[20]: ../../observe-filter/filters/#built-in-filter-not_silenced

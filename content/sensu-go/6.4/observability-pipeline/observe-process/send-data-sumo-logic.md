@@ -239,7 +239,7 @@ Now you can refer to the `sumologic_url` secret in your handler to securely pass
 
 With your Sumo Logic HTTP Source Address URL configured as a secret, you can create a handler to send Sensu observability data to your Sumo Logic HTTP Logs and Metrics Source.
 
-To send data for all events (as opposed to only incidents), do not include an event filter in the handler definition.
+To send data for all events (as opposed to only incidents), create a handler that includes only the built-in [not_silenced event filter][20].
 Run the following command to create the  `sumologic` handler:
 
 {{< language-toggle >}}
@@ -256,6 +256,8 @@ spec:
     sensu-sumologic-handler --send-log --send-metrics
     --source-host "{{ .Entity.Name }}"
     --source-name "{{ .Check.Name }}"
+  filters:
+  - not_silenced
   type: pipe
   runtime_assets:
   - sumologic-handler
@@ -275,6 +277,9 @@ cat << EOF | sensuctl create
   },
   "spec": {
     "command": "sensu-sumologic-handler --send-log --send-metrics --source-host \"{{ .Entity.Name }}\" --source-name \"{{ .Check.Name }}\"",
+    "filters": [
+      "not_silenced"
+    ],
     "type": "pipe",
     "runtime_assets": [
       "sumologic-handler"
@@ -315,14 +320,12 @@ The response will list the complete handler resource definition:
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
-  labels:
-    sensu.io/managed_by: sensuctl
   name: sumologic
 spec:
   command: sensu-sumologic-handler --send-log --send-metrics --source-host "{{ .Entity.Name }}" --source-name "{{ .Check.Name }}"
   env_vars: null
-  filters: null
+  filters:
+  - not_silenced
   handlers: null
   runtime_assets:
   - sumologic-handler
@@ -338,16 +341,14 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "labels": {
-      "sensu.io/managed_by": "sensuctl"
-    },
     "name": "sumologic"
   },
   "spec": {
     "command": "sensu-sumologic-handler --send-log --send-metrics --source-host \"{{ .Entity.Name }}\" --source-name \"{{ .Check.Name }}\"",
     "env_vars": null,
-    "filters": null,
+    "filters": [
+      "not_silenced"
+    ],
     "handlers": null,
     "runtime_assets": [
       "sumologic-handler"
@@ -524,3 +525,4 @@ You can also configure a [Sumo Logic dashboard][10] to search, view, and analyze
 [17]: ../../../sensu-plus/
 [18]: ../sumo-logic-metrics-handlers/
 [19]: ../../../plugins/supported-integrations/sumologic/
+[20]: ../../observe-filter/filters/#built-in-filter-not_silenced

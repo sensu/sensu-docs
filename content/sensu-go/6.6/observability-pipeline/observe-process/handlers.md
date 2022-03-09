@@ -514,14 +514,16 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 filters:
-- occurrences
-- production
+- is_incident
+- not_silenced
+- state_change_only
 {{< /code >}}
 {{< code json >}}
 {
   "filters": [
-    "occurrences",
-    "production"
+    "is_incident",
+    "not_silenced",
+    "state_change_only"
   ]
 }
 {{< /code >}}
