@@ -53,7 +53,7 @@ You can also open the **Release Assets** tab on asset pages in [Bonsai][3] to do
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../assets#dynamic-runtime-asset-builds) for more information about asset builds.
+Read the [asset reference](../assets#dynamic-runtime-asset-builds) for more information about asset builds.
 {{% /notice %}}
 
 ## Adjust the asset definition

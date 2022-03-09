@@ -495,7 +495,7 @@ Sensu supports dynamic runtime assets for checks, filters, mutators, and handler
 Discover, download, and share dynamic runtime assets with [Bonsai][68], the Sensu asset hub.
 
 To create your own dynamic runtime assets, read the [asset reference][12] and [guide to sharing an asset on Bonsai][69].
-To contribute to converting a Sensu plugin to a dynamic runtime asset, read [the Discourse post][70].
+To contribute to converting a Sensu plugin to a dynamic runtime asset, read [Contributing Assets for Existing Ruby Sensu Plugins][70] at the Sensu Community Forum on Discourse.
 
 ### Step 4: Translate Sensu Enterprise-only features
 

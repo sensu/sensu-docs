@@ -588,7 +588,7 @@ dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff
 
 From here, you can host your dynamic runtime asset wherever you’d like.
 To make the asset available via [Bonsai][16], you’ll need to host it on GitHub.
-Learn more in [The “Hello World” of Sensu Assets][18] on Discourse.
+Learn more in [The “Hello World” of Sensu Assets][18] at the Sensu Community Forum on Discourse.
 
 To host your dynamic runtime asset on a different platform like Gitlab or Bitbucket, upload your asset there.
 You can also use Artifactory or even Apache or NGINX to serve your asset.

@@ -53,7 +53,7 @@ sensuctl asset add sensu/sensu-influxdb-handler:3.7.0 --rename influxdb-handler
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read the [asset reference](../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Check your Sensu backend for outdated dynamic runtime assets

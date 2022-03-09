@@ -80,14 +80,14 @@ Run `sensuctl asset list` to confirm that the dynamic runtime asset is ready to 
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Create the handler
 
 Now that you have registered the dynamic runtime asset, use sensuctl to create a handler called `influxdb-handler` that pipes observation data (events) to InfluxDB with the `sensu-influxdb-handler` dynamic runtime asset.
 Edit the command below to replace the placeholders for database name, address, username, and password with the information for your own InfluxDB database.
-For more information about the Sensu InfluxDB handler, read [the asset page in Bonsai][13].
+For more information about the Sensu InfluxDB handler, read the [asset page in Bonsai][13].
 
 {{< code shell >}}
 sensuctl handler create influxdb-handler \
