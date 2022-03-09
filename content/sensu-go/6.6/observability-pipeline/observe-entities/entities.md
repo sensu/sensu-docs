@@ -21,7 +21,7 @@ All [commercial features][9] are available for free in the packaged Sensu Go dis
 If your Sensu instance includes more than 100 entities, [contact us][10] to learn how to upgrade your installation and increase your limit.
 
 Learn more about entity limits in the [license reference][29].
-Read [the announcement on our blog][11] for more information about our usage policy.
+Read the [announcement on our blog][11] for more information about our usage policy.
 
 ## Create and manage agent entities
 
