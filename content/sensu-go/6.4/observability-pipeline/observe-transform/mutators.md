@@ -40,7 +40,6 @@ type: Mutator
 api_version: core/v2
 metadata:
   name: mutator_minimum
-  namespace: default
 spec:
   command: example_mutator.go
 {{< /code >}}
@@ -50,8 +49,7 @@ spec:
   "type": "Mutator",
   "api_version": "core/v2",
   "metadata": {
-    "name": "mutator_minimum",
-    "namespace": "default"
+    "name": "mutator_minimum"
   },
   "spec": {
     "command": "example_mutator.go"
@@ -70,10 +68,7 @@ The following mutator definition uses an imaginary Sensu plugin, `example_mutato
 type: Mutator
 api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: example-mutator
-  namespace: default
 spec:
   command: example_mutator.go
   env_vars: []
@@ -140,7 +135,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: graphite
-  namespace: default
 spec:
   mutator: only_check_output
   socket:
@@ -154,8 +148,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "graphite",
-    "namespace": "default"
+    "name": "graphite"
   },
   "spec": {
     "type": "tcp",

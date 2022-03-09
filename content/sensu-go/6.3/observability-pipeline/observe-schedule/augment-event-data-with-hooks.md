@@ -129,9 +129,7 @@ The response will include the complete hook resource definition in the specified
 type: HookConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   name: process_tree
-  namespace: default
 spec:
   command: ps aux
   runtime_assets: null
@@ -144,9 +142,7 @@ spec:
   "type": "HookConfig",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "process_tree",
-    "namespace": "default"
+    "name": "process_tree"
   },
   "spec": {
     "command": "ps aux",

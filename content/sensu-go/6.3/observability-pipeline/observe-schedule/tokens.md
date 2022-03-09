@@ -236,7 +236,6 @@ type: Asset
 api_version: core/v2
 metadata:
   name: sensu-go-hello-world
-  namespace: default
 spec:
   builds:
   - sha512: 07665fda5b7c75e15e4322820aa7ddb791cc9338e38444e976e601bc7d7970592e806a7b88733690a238b7325437d31f85e98ae2fe47b008ca09c86530da9600
@@ -248,8 +247,7 @@ spec:
   "type": "Asset",
   "api_version": "core/v2",
   "metadata": {
-    "name": "sensu-go-hello-world",
-    "namespace": "default"
+    "name": "sensu-go-hello-world"
   },
   "spec": {
     "builds": [

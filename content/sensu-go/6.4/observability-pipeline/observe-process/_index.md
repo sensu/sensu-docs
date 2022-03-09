@@ -38,9 +38,7 @@ Here's an example resource definition for a pipe handler &mdash; read [Send Slac
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
@@ -59,9 +57,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",

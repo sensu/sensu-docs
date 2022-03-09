@@ -88,7 +88,6 @@ type: Role
 api_version: core/v2
 metadata:
   name: ec2-delete
-  namespace: default
 spec:
   rules:
   - resource_names: null
@@ -104,8 +103,7 @@ spec:
   "type": "Role",
   "api_version": "core/v2",
   "metadata": {
-    "name": "ec2-delete",
-    "namespace": "default"
+    "name": "ec2-delete"
   },
   "spec": {
     "rules": [
@@ -140,7 +138,6 @@ type: RoleBinding
 api_version: core/v2
 metadata:
   name: ec2-service-delete
-  namespace: default
 spec:
   role_ref:
     name: ec2-delete
@@ -154,8 +151,7 @@ spec:
   "type": "RoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "name": "ec2-service-delete",
-    "namespace": "default"
+    "name": "ec2-service-delete"
   },
   "spec": {
     "role_ref": {

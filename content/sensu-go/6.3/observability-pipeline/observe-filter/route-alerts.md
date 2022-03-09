@@ -583,11 +583,9 @@ The sensuctl response will include the updated `check_cpu` resource definition i
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   labels:
     contacts: ops, dev
   name: check_cpu
-  namespace: default
 spec:
   check_hooks: null
   command: check-cpu-usage -w 75 -c 90
@@ -618,12 +616,10 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
     "labels": {
       "contacts": "ops, dev"
     },
-    "name": "check_cpu",
-    "namespace": "default"
+    "name": "check_cpu"
   },
   "spec": {
     "check_hooks": null,

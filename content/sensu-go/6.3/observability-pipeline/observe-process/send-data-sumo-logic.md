@@ -443,9 +443,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check_cpu",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "check_cpu"
   },
   "spec": {
     "check_hooks": null,

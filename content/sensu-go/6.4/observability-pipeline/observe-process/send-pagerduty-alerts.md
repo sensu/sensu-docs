@@ -103,9 +103,7 @@ The response will list the complete check resource definition:
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   name: file_exists
-  namespace: default
 spec:
   check_hooks: null
   command: check_file_exists --pattern /tmp/my-file.txt
@@ -136,9 +134,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "file_exists",
-    "namespace": "default"
+    "name": "file_exists"
   },
   "spec": {
     "check_hooks": null,
