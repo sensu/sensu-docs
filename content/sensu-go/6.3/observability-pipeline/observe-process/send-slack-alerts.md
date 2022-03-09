@@ -221,9 +221,7 @@ The updated check definition will be similar to this example:
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   name: check_cpu
-  namespace: default
 spec:
   check_hooks: null
   command: check-cpu-usage -w 75 -c 90
@@ -254,9 +252,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "check_cpu",
-    "namespace": "default"
+    "name": "check_cpu"
   },
   "spec": {
     "check_hooks": null,

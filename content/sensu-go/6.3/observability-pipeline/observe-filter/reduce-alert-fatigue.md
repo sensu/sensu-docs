@@ -84,9 +84,7 @@ This sensuctl command creates an event filter resource with the following defini
 type: EventFilter
 api_version: core/v2
 metadata:
-  created_by: admin
   name: hourly
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -99,9 +97,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "hourly",
-    "namespace": "default"
+    "name": "hourly"
   },
   "spec": {
     "action": "allow",
@@ -174,9 +170,7 @@ The updated handler definition will be similar to this example:
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
@@ -197,9 +191,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",
@@ -458,9 +450,7 @@ The updated handler definition will be similar to this example:
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
@@ -481,9 +471,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",

@@ -45,7 +45,6 @@ type: Entity
 api_version: core/v2
 metadata:
   name: i-424242
-  namespace: default
 spec:
   deregister: false
   deregistration: {}
@@ -69,8 +68,7 @@ spec:
   "type": "Entity",
   "api_version": "core/v2",
   "metadata": {
-    "name": "i-424242",
-    "namespace": "default"
+    "name": "i-424242"
   },
   "spec": {
     "deregister": false,
@@ -115,10 +113,8 @@ api_version: core/v2
 metadata:
   labels:
     proxy_type: website
-    sensu.io/managed_by: sensuctl
     url: https://docs.sensu.io
   name: sensu-docs
-  namespace: default
 spec:
   deregister: false
   deregistration: {}
@@ -143,11 +139,9 @@ spec:
   "metadata": {
     "labels": {
       "proxy_type": "website",
-      "sensu.io/managed_by": "sensuctl",
       "url": "https://docs.sensu.io"
     },
-    "name": "sensu-docs",
-    "namespace": "default"
+    "name": "sensu-docs"
   },
   "spec": {
     "deregister": false,
@@ -201,9 +195,7 @@ This example shows a service entity resource definition:
 type: Entity
 api_version: core/v2
 metadata:
-  created_by: admin
   name: postgresql
-  namespace: default
 spec:
   entity_class: service
 {{< /code >}}
@@ -213,9 +205,7 @@ spec:
   "type": "Entity",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "postgresql",
-    "namespace": "default"
+    "name": "postgresql"
   },
   "spec": {
     "entity_class": "service"

@@ -44,7 +44,6 @@ type: GlobalConfig
 api_version: web/v1
 metadata:
   name: custom-web-ui
-  created_by: admin
 spec:
   signin_message: with your LDAP or system credentials
   always_show_local_cluster: false
@@ -76,8 +75,7 @@ spec:
   "type": "GlobalConfig",
   "api_version": "web/v1",
   "metadata": {
-    "name": "custom-web-ui",
-    "created_by": "admin"
+    "name": "custom-web-ui"
   },
   "spec": {
     "signin_message": "with your LDAP or system credentials",
@@ -162,7 +160,6 @@ example      | {{< language-toggle >}}
 {{< code yml >}}
 metadata:
   name: custom-web-ui
-  created_by: admin
 {{< /code >}}
 {{< code json >}}
 {
