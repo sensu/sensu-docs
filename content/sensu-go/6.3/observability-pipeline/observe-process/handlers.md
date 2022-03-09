@@ -44,7 +44,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: pipe_handler_minimum
-  namespace: default
 spec:
   command: command-example
   type: pipe
@@ -55,8 +54,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "pipe_handler_minimum",
-    "namespace": "default"
+    "name": "pipe_handler_minimum"
   },
   "spec": {
     "command": "command-example",
@@ -91,7 +89,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: tcp_handler
-  namespace: default
 spec:
   socket:
     host: 10.0.1.99
@@ -105,8 +102,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "tcp_handler",
-    "namespace": "default"
+    "name": "tcp_handler"
   },
   "spec": {
     "type": "tcp",
@@ -131,7 +127,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: udp_handler
-  namespace: default
 spec:
   socket:
     host: 10.0.1.99
@@ -145,8 +140,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "udp_handler",
-    "namespace": "default"
+    "name": "udp_handler"
   },
   "spec": {
     "type": "udp",
@@ -181,7 +175,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: send_events_notify_operator
-  namespace: default
 spec:
   handlers:
   - elasticsearch
@@ -194,8 +187,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "send_events_notify_operator",
-    "namespace": "default"
+    "name": "send_events_notify_operator"
   },
   "spec": {
     "type": "set",
@@ -214,7 +206,6 @@ Now you can route observation data to Elasticsearch and alerts to OpsGenie with 
 {{% notice note %}}
 **NOTE**: Attributes defined in handler sets do not apply to the handlers they include.
 For example, `filters` and `mutator` attributes defined in a handler set will have no effect on handlers.
-Define these attributes in individual handlers instead.
 {{% /notice %}}
 
 ## Handler stacks
@@ -260,7 +251,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: keepalive
-  namespace: default
 spec:
   handlers:
   - slack
@@ -272,8 +262,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "keepalive",
-    "namespace": "default"
+    "name": "keepalive"
   },
   "spec": {
     "type": "set",
@@ -513,14 +502,16 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 filters:
-- occurrences
-- production
+- is_incident
+- not_silenced
+- state_change_only
 {{< /code >}}
 {{< code json >}}
 {
   "filters": [
-    "occurrences",
-    "production"
+    "is_incident",
+    "not_silenced",
+    "state_change_only"
   ]
 }
 {{< /code >}}
@@ -771,13 +762,12 @@ type: Handler
 api_version: core/v2
 metadata:
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
   - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
-  filters:
-  - is_incident
+  filters:  
+  - is_incident 
   - not_silenced
   handlers: []
   runtime_assets:
@@ -791,17 +781,16 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",
     "env_vars": [
       "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
     ],
-    "filters": [
-      "is_incident",
-      "not_silenced"
+    "filters": [  
+      "is_incident",  
+      "not_silenced"  
     ],
     "handlers": [],
     "runtime_assets": [
@@ -830,7 +819,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: registration
-  namespace: default
 spec:
   handlers:
   - servicenow-cmdb
@@ -842,8 +830,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "registration",
-    "namespace": "default"
+    "name": "registration"
   },
   "spec": {
     "handlers": [
@@ -870,7 +857,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: notify_all_the_things
-  namespace: default
 spec:
   handlers:
   - slack
@@ -884,8 +870,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "notify_all_the_things",
-    "namespace": "default"
+    "name": "notify_all_the_things"
   },
   "spec": {
     "type": "set",
@@ -912,7 +897,6 @@ type: Handler
 api_version: core/v2 
 metadata:
   name: ansible-tower
-  namespace: ops
 spec: 
   type: pipe
   command: sensu-ansible-handler -h $ANSIBLE_HOST -t $ANSIBLE_TOKEN
@@ -928,8 +912,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "ansible-tower",
-    "namespace": "ops"
+    "name": "ansible-tower"
   },
   "spec": {
     "type": "pipe",

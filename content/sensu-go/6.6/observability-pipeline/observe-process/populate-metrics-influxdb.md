@@ -126,9 +126,7 @@ The `influxdb-handler` resource definition will be similar to this example:
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: influxdb-handler
-  namespace: default
 spec:
   command: sensu-influxdb-handler -d sensu
   env_vars:
@@ -149,9 +147,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "influxdb-handler",
-    "namespace": "default"
+    "name": "influxdb-handler"
   },
   "spec": {
     "command": "sensu-influxdb-handler -d sensu",
@@ -185,7 +181,7 @@ You can share, reuse, and maintain this handler just like you would code: [save 
 With your handler configured, you can add it to a [pipeline][16] workflow.
 A single pipeline workflow can include one or more filters, one mutator, and one handler.
 
-In this case, the pipeline includes the built-in [has_metrics][17] event filter and the InfluxDB handler you've already configured.
+In this case, the pipeline includes the built-in [has_metrics][17] and [not_silenced][20] event filters and the InfluxDB handler you've already configured.
 To create the pipeline, run:
 
 {{< language-toggle >}}
@@ -202,6 +198,9 @@ spec:
   - name: influxdb_metrics
     filters:
     - name: has_metrics
+      type: EventFilter
+      api_version: core/v2
+    - name: not_silenced
       type: EventFilter
       api_version: core/v2
     handler:
@@ -226,6 +225,11 @@ cat << EOF | sensuctl create
         "filters": [
           {
             "name": "has_metrics",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "not_silenced",
             "type": "EventFilter",
             "api_version": "core/v2"
           }
@@ -315,9 +319,7 @@ The updated `prometheus_metrics` check definition will be similar to this exampl
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   name: prometheus_metrics
-  namespace: default
 spec:
   check_hooks: null
   command: sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up
@@ -351,9 +353,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "prometheus_metrics",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "prometheus_metrics"
   },
   "spec": {
     "check_hooks": null,
@@ -438,3 +438,4 @@ Now that you know how to apply an InfluxDB handler to metrics, read [Aggregate m
 [17]: ../../observe-filter/filters/#built-in-filter-has_metrics
 [18]: ../../../sensuctl/
 [19]: ../../observe-schedule/subscriptions/
+[20]: ../../observe-filter/filters/#built-in-filter-not_silenced

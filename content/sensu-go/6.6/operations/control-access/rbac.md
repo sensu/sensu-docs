@@ -677,9 +677,7 @@ This command creates the following role resource definition, which provides get,
 type: Role
 api_version: core/v2
 metadata:
-  created_by: admin
   name: prod-admin
-  namespace: production
 spec:
   rules:
   - resources:
@@ -697,9 +695,7 @@ spec:
   "type": "Role",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "prod-admin",
-    "namespace": "production"
+    "name": "prod-admin"
   },
   "spec": {
     "rules": [
@@ -738,9 +734,7 @@ This command creates the following role binding resource definition:
 type: RoleBinding
 api_version: core/v2
 metadata:
-  created_by: admin
   name: prod-admin-oncall
-  namespace: production
 spec:
   role_ref:
     name: prod-admin
@@ -755,9 +749,7 @@ spec:
   "type": "RoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "prod-admin-oncall",
-    "namespace": "production"
+    "name": "prod-admin-oncall"
   },
   "spec": {
     "role_ref": {
@@ -794,7 +786,6 @@ This command creates the following cluster-wide role resource definition:
 type: ClusterRole
 api_version: core/v2
 metadata:
-  created_by: admin
   name: global-event-reader
 spec:
   rules:
@@ -810,7 +801,6 @@ spec:
   "type": "ClusterRole",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
     "name": "global-event-reader"
   },
   "spec": {
@@ -1467,7 +1457,6 @@ type: Role
 api_version: core/v2
 metadata:
   name: workflow-creator
-  namespace: default
 spec:
   rules:
     - resources:
@@ -1492,8 +1481,7 @@ spec:
   "type": "Role",
   "api_version": "core/v2",
   "metadata": {
-    "name": "workflow-creator",
-    "namespace": "default"
+    "name": "workflow-creator"
   },
   "spec": {
     "rules": [
@@ -1531,7 +1519,6 @@ type: RoleBinding
 api_version: core/v2
 metadata:
   name: dev-binding
-  namespace: default
 spec:
   role_ref:
     name: workflow-creator
@@ -1546,8 +1533,7 @@ spec:
   "type": "RoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "name": "dev-binding",
-    "namespace": "default"
+    "name": "dev-binding"
   },
   "spec": {
     "role_ref": {
@@ -1578,7 +1564,6 @@ type: Role
 api_version: core/v2
 metadata:
   name: workflow-creator
-  namespace: default
 spec:
   rules:
   - resources:
@@ -1603,8 +1588,7 @@ spec:
   "type": "Role",
   "api_version": "core/v2",
   "metadata": {
-    "name": "workflow-creator",
-    "namespace": "default"
+    "name": "workflow-creator"
   },
   "spec": {
     "rules": [
@@ -1642,7 +1626,6 @@ type: RoleBinding
 api_version: core/v2
 metadata:
   name: dev-binding-with-groups-prefix
-  namespace: default
 spec:
   role_ref:
     name: workflow-creator
@@ -1657,8 +1640,7 @@ spec:
   "type": "RoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "name": "dev-binding-with-groups-prefix",
-    "namespace": "default"
+    "name": "dev-binding-with-groups-prefix"
   },
   "spec": {
     "role_ref": {
@@ -1724,7 +1706,6 @@ type: Role
 api_version: core/v2
 metadata:
   name: default-admin
-  namespace: default
 spec:
   rules:
   - resources:
@@ -1754,8 +1735,7 @@ spec:
   "type": "Role",
   "api_version": "core/v2",
   "metadata": {
-    "name": "default-admin",
-    "namespace": "default"
+    "name": "default-admin"
   },
   "spec": {
     "rules": [
@@ -1798,7 +1778,6 @@ type: RoleBinding
 api_version: core/v2
 metadata:
   name: alice-default-admin
-  namespace: default
 spec:
   role_ref:
     name: default-admin
@@ -1813,8 +1792,7 @@ spec:
   "type": "RoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "name": "alice-default-admin",
-    "namespace": "default"
+    "name": "alice-default-admin"
   },
   "spec": {
     "role_ref": {
@@ -1885,7 +1863,6 @@ type: Role
 api_version: core/v2
 metadata:
   name: default-admin
-  namespace: default
 spec:
   rules:
   - resources:
@@ -1915,8 +1892,7 @@ spec:
   "type": "Role",
   "api_version": "core/v2",
   "metadata": {
-    "name": "default-admin",
-    "namespace": "default"
+    "name": "default-admin"
   },
   "spec": {
     "rules": [
@@ -1959,7 +1935,6 @@ type: RoleBinding
 api_version: core/v2
 metadata:
   name: ops-default-admin
-  namespace: default
 spec:
   role_ref:
     name: default-admin
@@ -1974,8 +1949,7 @@ spec:
   "type": "RoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "name": "ops-default-admin",
-    "namespace": "default"
+    "name": "ops-default-admin"
   },
   "spec": {
     "role_ref": {
@@ -2636,7 +2610,6 @@ type: RoleBinding
 api_version: core/v2
 metadata:
   name: silencing-script-binding-team-1
-  namespace: team1
 spec:
   role_ref:
     name: silencing-script
@@ -2650,8 +2623,7 @@ spec:
   "type": "RoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "name": "silencing-script-binding-team-1",
-    "namespace": "team1"
+    "name": "silencing-script-binding-team-1"
   },
   "spec": {
     "role_ref": {

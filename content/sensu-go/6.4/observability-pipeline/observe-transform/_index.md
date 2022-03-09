@@ -40,7 +40,6 @@ type: Mutator
 api_version: core/v2
 metadata:
   name: sensu-check-status-metric-mutator
-  namespace: default
 spec:
   command: sensu-check-status-metric-mutator
   runtime_assets:
@@ -52,8 +51,7 @@ spec:
   "type": "Mutator",
   "api_version": "core/v2",
   "metadata": {
-    "name": "sensu-check-status-metric-mutator",
-    "namespace": "default"
+    "name": "sensu-check-status-metric-mutator"
   },
   "spec": {
     "command": "sensu-check-status-metric-mutator",

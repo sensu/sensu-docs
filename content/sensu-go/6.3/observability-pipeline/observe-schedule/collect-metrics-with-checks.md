@@ -188,9 +188,7 @@ The sensuctl response will list the complete check resource definition &mdash; y
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   name: collect-metrics
-  namespace: default
 spec:
   check_hooks: null
   command: http-perf --url http://localhost --warning 1s --critical 2s
@@ -221,9 +219,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "collect-metrics",
-    "namespace": "default"
+    "name": "collect-metrics"
   },
   "spec": {
     "check_hooks": null,

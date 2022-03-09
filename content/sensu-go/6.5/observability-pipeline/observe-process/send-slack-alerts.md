@@ -94,7 +94,7 @@ After you save your webhook, you can find the webhook URL under **Integration Se
 ## Create a handler
 
 Use sensuctl to create a handler called `slack` that pipes observation data (events) to Slack using the `sensu-slack-handler` dynamic runtime asset.
-Edit the sensuctl command below to include your Slack webhook URL and the channel where you want to receive events.
+Before you run the sensuctl command below, edit it to include your Slack webhook URL and the channel where you want to receive events:
 
 {{< code shell >}}
 sensuctl handler create slack \
@@ -134,9 +134,7 @@ The `slack` handler resource definition will be similar to this example:
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
@@ -155,9 +153,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",
@@ -186,10 +182,10 @@ You can share and reuse this handler like code &mdash; [save it to a file][15] a
 
 ## Create a pipeline that includes the handler
 
-With your handler configured, you can add it to a [pipeline][17] workflow.
+With your handler configured, you can add it to a [pipeline][8] workflow.
 A single pipeline workflow can include one or more filters, one mutator, and one handler.
 
-For now, the pipeline includes only the `slack` handler so that you receive an alert for every event the check generates (including events with OK status).
+For now, the pipeline includes only the `slack` handler and the built-in [not_silenced][22] event filter so that you receive an alert for every event the check generates (including events with OK status).
 To create the pipeline, run:
 
 {{< language-toggle >}}
@@ -204,6 +200,10 @@ metadata:
 spec:
   workflows:
   - name: slack_alerts
+    filters:
+    - name: not_silenced
+      type: EventFilter
+      api_version: core/v2
     handler:
       name: slack
       type: Handler
@@ -223,6 +223,13 @@ cat << EOF | sensuctl create
     "workflows": [
       {
         "name": "slack_alerts",
+        "filters": [
+          {
+            "name": "not_silenced",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
         "handler": {
           "name": "slack",
           "type": "Handler",
@@ -302,9 +309,7 @@ The updated check definition will be similar to this example:
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   name: check_cpu
-  namespace: default
 spec:
   check_hooks: null
   command: check-cpu-usage -w 75 -c 90
@@ -338,9 +343,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check_cpu",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "check_cpu"
   },
   "spec": {
     "check_hooks": null,
@@ -391,7 +394,7 @@ Read [Troubleshoot Sensu][7] for log locations by platform.
 
 Whenever an event is being handled, a log entry is added with the message `"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by a second log entry with the message `"msg":"event pipe handler executed","output":"","status":0`.
 
-## Add an event filter to the pipeline
+## Add another event filter to the pipeline
 
 At this point, the `cpu_check_alerts` pipeline has probably sent quite a few Slack messages for events with OK (`0`) status.
 To receive alerts for events with *only* warning (`1`) or critical (`2`) status, add the built-in [is_incident][19] event filter to the pipeline:
@@ -409,6 +412,9 @@ spec:
   workflows:
   - name: slack_alerts
     filters:
+    - name: not_silenced
+      type: EventFilter
+      api_version: core/v2
     - name: is_incident
       type: EventFilter
       api_version: core/v2
@@ -432,6 +438,11 @@ cat << EOF | sensuctl create
       {
         "name": "slack_alerts",
         "filters": [
+          {
+            "name": "not_silenced",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
           {
             "name": "is_incident",
             "type": "EventFilter",
@@ -485,3 +496,4 @@ Follow [Send PagerDuty alerts with Sensu][11] to configure a check that generate
 [19]: ../../observe-filter/filters/#built-in-filter-is_incident
 [20]: ../../../sensuctl/
 [21]: ../../observe-schedule/subscriptions/
+[22]: ../../observe-filter/filters/#built-in-filter-not_silenced

@@ -466,6 +466,8 @@ sensuctl edit entity sensu-docs
 
 And update the metadata scope to include the `proxy_type` label:
 
+{{< language-toggle >}}
+
 {{< code yml >}}
 ---
 type: Entity
@@ -475,10 +477,28 @@ metadata:
     url: docs.sensu.io
     proxy_type: website
   name: sensu-docs
-  namespace: default
 spec:
   '...': '...'
 {{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "labels": {
+      "url": "docs.sensu.io",
+      "proxy_type": "website"
+    },
+    "name": "sensu-docs"
+  },
+  "spec": {
+    "...": "..."
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 #### Proxy entity checks
 
@@ -549,6 +569,8 @@ sensuctl edit entity postgresql
 
 And update the metadata scope to include the `region` label:
 
+{{< language-toggle >}}
+
 {{< code yml >}}
 ---
 type: Entity
@@ -558,10 +580,28 @@ metadata:
     service_type: datastore
     region: us-west-1
   name: postgresql
-  namespace: default
 spec:
   '...': '...'
 {{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "labels": {
+      "service_type": "datastore",
+      "region": "us-west-1"
+    },
+    "name": "postgresql"
+  },
+  "spec": {
+    "...": "..."
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Entities specification
 
