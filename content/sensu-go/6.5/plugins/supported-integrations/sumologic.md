@@ -41,7 +41,7 @@ Read [Send data to Sumo Logic with Sensu][3] to learn how to add and configure a
 [3]: ../../../observability-pipeline/observe-process/send-data-sumo-logic/
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-sumologic-handler
 [5]: ../../assets/
-[6]: https://github.com/sensu/catalog/blob/main/pipelines/event-storage/sumologic.yaml
+[6]: https://github.com/sensu/catalog/blob/docs-archive/integrations/sumologic/sumologic-events.yaml
 [7]: ../../../operations/manage-secrets/
-[8]: https://github.com/sensu/catalog/blob/main/pipelines/metric-storage/sumologic.yaml
+[8]: https://github.com/sensu/catalog/blob/docs-archive/integrations/sumologic/sumologic-metrics-handler.yaml
 [9]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source

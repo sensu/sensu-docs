@@ -30,5 +30,5 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
 [3]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags
-[4]: https://bonsai.sensu.io/assets/sensu/sensu-timescaledb-handler
+[4]: https://github.com/sensu/catalog/blob/docs-archive/integrations/timescaledb/timescaledb.yaml
 [5]: ../../assets/

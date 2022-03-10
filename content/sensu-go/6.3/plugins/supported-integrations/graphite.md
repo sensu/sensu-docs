@@ -34,5 +34,5 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 [2]: https://bonsai.sensu.io/assets/sensu/sensu-go-graphite-handler
 [3]: ../../assets/
 [4]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags
-[5]: https://github.com/sensu/catalog/blob/main/pipelines/metric-storage/graphite.yaml
+[5]: https://github.com/sensu/catalog/blob/docs-archive/integrations/graphite/graphite.yaml
 [6]: ../../../operations/manage-secrets/
