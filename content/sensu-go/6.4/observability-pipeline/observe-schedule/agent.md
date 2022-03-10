@@ -498,7 +498,7 @@ In addition, the agent maps [`keepalive-critical-timeout` and `keepalive-warning
 
 {{% notice note %}}
 **NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../../observe-entities/#proxy-entities) because they cannot run a Sensu agent.
-Use the [core/v2/events API](../../../api/core/events/#eventsentitycheck-put) to send manual keepalive events for proxy entities.
+Use the [core/v2/events API](../../../api/core/events/) to send manual keepalive events for proxy entities.
 {{% /notice %}}
 
 ### Handle keepalive events
