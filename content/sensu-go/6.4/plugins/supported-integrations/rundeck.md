@@ -42,8 +42,8 @@ You can also add the [Sensu Rundeck Handler plugin][4] with a dynamic runtime as
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
-[3]: https://github.com/sensu/catalog/blob/main/pipelines/remediation/rundeck-webhook.yaml
+[3]: https://github.com/sensu/catalog/blob/docs-archive/integrations/rundeck/rundeck-webhook.yaml
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-rundeck-handler
 [5]: ../../assets/
-[7]: https://github.com/sensu/catalog/blob/main/pipelines/remediation/rundeck.yaml
+[7]: https://github.com/sensu/catalog/blob/docs-archive/integrations/rundeck/rundeck.yaml
 [8]: ../../../operations/manage-secrets/

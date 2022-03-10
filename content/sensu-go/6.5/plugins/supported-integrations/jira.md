@@ -37,7 +37,7 @@ Add the [Sensu Jira Handler plugin][4] with a dynamic runtime asset from Bonsai,
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
-[3]: https://github.com/sensu/catalog/blob/main/pipelines/incident-management/jira-servicedesk.yaml
+[3]: https://github.com/sensu/catalog/blob/docs-archive/integrations/jira/jira-servicedesk.yaml
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-jira-handler
 [5]: ../../assets/
 [7]: ../../../operations/manage-secrets/

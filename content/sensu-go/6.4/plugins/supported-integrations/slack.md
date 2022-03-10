@@ -40,4 +40,4 @@ Read [Send Slack alerts with handlers][3] to learn how to add and configure the 
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [5]: ../../assets/
 [7]: ../../../operations/manage-secrets/
-[8]: https://github.com/sensu/catalog/blob/main/pipelines/alert/slack.yaml
+[8]: https://github.com/sensu/catalog/blob/docs-archive/integrations/slack/slack.yaml

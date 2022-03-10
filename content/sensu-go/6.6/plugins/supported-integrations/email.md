@@ -42,4 +42,4 @@ Walk through adding and configuring the Sensu Email Handler asset in the [Send e
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
 [5]: ../../assets/
 [7]: ../../../operations/manage-secrets/
-[8]: https://github.com/sensu/catalog/blob/main/pipelines/alert/email.yaml
+[8]: https://github.com/sensu/catalog/blob/docs-archive/integrations/email/email.yaml

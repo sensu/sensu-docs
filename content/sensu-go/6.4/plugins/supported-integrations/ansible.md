@@ -45,7 +45,7 @@ The [documentation site][8] includes installation instructions, example playbook
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
-[3]: https://github.com/sensu/catalog/blob/main/pipelines/remediation/ansible-tower.yaml
+[3]: https://github.com/sensu/catalog/blob/docs-archive/integrations/ansible/ansible-tower-handler.yaml
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-ansible-handler
 [5]: ../../assets/
 [7]: https://galaxy.ansible.com/sensu/sensu_go

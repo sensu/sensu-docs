@@ -457,7 +457,7 @@ You can also learn to use Sensu to [collect Prometheus metrics][14].
 [3]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
 [4]: https://bonsai.sensu.io/assets/sensu/http-checks#http-perf
 [5]: ../../observe-process/populate-metrics-influxdb/
-[6]: https://github.com/sensu/catalog/blob/main/pipelines/metric-storage/influxdb.yaml
+[6]: https://github.com/sensu/catalog/blob/docs-archive/integrations/influxdb/influxdb.yaml
 [7]: https://bonsai.sensu.io/assets/sensu/http-checks
 [8]: ../subscriptions/
 [9]: ../../../operations/monitoring-as-code/

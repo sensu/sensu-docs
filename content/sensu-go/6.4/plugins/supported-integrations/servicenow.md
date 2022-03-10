@@ -42,9 +42,9 @@ You can also add the [Sensu ServiceNow Handler plugin][4] with a dynamic runtime
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
-[3]: https://github.com/sensu/catalog/blob/main/pipelines/event-storage/servicenow-events.yaml
+[3]: https://github.com/sensu/catalog/blob/docs-archive/integrations/servicenow/servicenow-events.yaml
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler
 [5]: ../../assets/
-[7]: https://github.com/sensu/catalog/blob/main/pipelines/incident-management/servicenow-incident.yaml
-[8]: https://github.com/sensu/catalog/blob/main/pipelines/entity-registration/servicenow-cmdb.yaml
+[7]: https://github.com/sensu/catalog/blob/docs-archive/integrations/servicenow/servicenow-incident.yaml
+[8]: https://github.com/sensu/catalog/blob/docs-archive/integrations/servicenow/servicenow-cmdb.yaml
 [9]: ../../../operations/manage-secrets/

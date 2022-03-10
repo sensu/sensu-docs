@@ -34,7 +34,7 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 
 [1]: ../../../observability-pipeline/observe-process/handlers/
 [2]: ../../../observability-pipeline/observe-process/handler-templates/
-[3]: https://github.com/sensu/catalog/blob/main/pipelines/metric-storage/influxdb.yaml
+[3]: https://github.com/sensu/catalog/blob/docs-archive/integrations/influxdb/influxdb.yaml
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 [5]: ../../assets/
 [6]: ../../../operations/manage-secrets/

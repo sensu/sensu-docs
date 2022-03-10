@@ -41,5 +41,5 @@ Set up a [limited service account][9] with the access and permissions required t
 [5]: ../../assets
 [6]: ../../../commercial/
 [7]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags
-[8]: https://github.com/sensu/catalog/blob/main/pipelines/deregistration/aws-ec2.yaml
+[8]: https://github.com/sensu/catalog/blob/docs-archive/integrations/aws/aws-ec2-deregistration.yaml
 [9]: ../../../operations/control-access/create-limited-service-accounts/
