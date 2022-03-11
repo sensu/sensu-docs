@@ -730,15 +730,19 @@ curl http://127.0.0.1:3031/version
 
 ### Uninstall the service
 
-{{< platformBlock "Windows" >}}
+To uninstall the sensu-agent service, run:
 
-**Windows**
+{{< language-toggle >}}
 
-{{< code text >}}
+{{< code shell "Linux" >}}
+sudo service sensu-agent stop
+{{< /code >}}
+
+{{< code shell "Windows" >}}
 sensu-agent service uninstall
 {{< /code >}}
 
-{{< platformBlockClose >}}
+{{< /language-toggle >}}
 
 ### Get help
 
