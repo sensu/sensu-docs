@@ -729,7 +729,7 @@ To uninstall the sensu-agent service, run:
 {{< language-toggle >}}
 
 {{< code shell "Linux" >}}
-sudo service sensu-agent stop
+systemctl sensu-agent stop
 {{< /code >}}
 
 {{< code shell "Windows" >}}
