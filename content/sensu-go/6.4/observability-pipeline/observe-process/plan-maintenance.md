@@ -281,7 +281,7 @@ Read the [silencing reference][7] for in-depth documentation about silenced entr
 [10]: ../../../operations/deploy-sensu/install-sensu/
 [11]: #create-the-check
 [12]: https://bonsai.sensu.io/assets/sensu/http-checks
-[13]: ../../observe-filter/filters/#built-in-filter-not_silenced)
+[13]: ../../observe-filter/filters/#built-in-filter-not_silenced
 [14]: ../handlers/
 [15]: #create-the-silenced-entry
 [16]: ../send-data-sumo-logic/
