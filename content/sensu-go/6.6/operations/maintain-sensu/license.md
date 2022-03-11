@@ -3,7 +3,7 @@ title: "License reference"
 linkTitle: "License Reference"
 reference_title: "License"
 type: "reference"
-description: "Activate and manage your Sensu commercial license with sensuctl and within your Sensu account."
+description: "Activate and manage your Sensu commercial license, entity counts, and entity limits with sensuctl or by logging into your Sensu account."
 weight: 40
 version: "6.6"
 product: "Sensu Go"
