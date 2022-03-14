@@ -1079,9 +1079,7 @@ etcd-client-cert-auth: true{{< /code >}}
 
 | etcd-client-log-level  |      |
 -------------|------
-description  | Logging level for the internal etcd client: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`. {{% notice note %}}
-**NOTE**: [Upgrade](../../../operations/maintain-sensu/upgrade/) to Sensu Go 6.6.3 to use the etcd-client-log-level backend configuration flag.
-{{% /notice %}}
+description  | Logging level for the internal etcd client: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`.
 type         | String
 default      | `error`
 environment variable | `SENSU_BACKEND_ETCD_CLIENT_LOG_LEVEL`
