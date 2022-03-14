@@ -572,7 +572,7 @@ Keepalive monitoring is more fluid &mdash; it permits agents to reconnect any nu
 As long as the agent can successfully send one event to any backend within the timeout, the keepalive logic is satisfied.
 {{% /notice %}}
 
-## Service management {#operation}
+## Service management
 
 ### Start the service
 
@@ -580,7 +580,7 @@ Use the `sensu-agent` tool to start the agent and apply configuration flags.
 
 {{< platformBlock "Linux" >}}
 
-#### Linux
+**Linux**
 
 To start the agent with [configuration flags][24]:
 
@@ -606,7 +606,7 @@ If you do not provide any configuration flags, the agent loads configuration fro
 
 {{< platformBlock "Windows" >}}
 
-#### Windows
+**Windows**
 
 Run the following command as an admin to install and start the agent:
 
@@ -628,25 +628,17 @@ sensu-agent service install --config-file 'C:\\monitoring\\sensu\\config\\agent.
 
 To stop the agent service using a service manager:
 
-{{< platformBlock "Linux" >}}
+{{< language-toggle >}}
 
-**Linux**
-
-{{< code shell >}}
+{{< code shell "Linux" >}}
 sudo service sensu-agent stop
 {{< /code >}}
 
-{{< platformBlockClose >}}
-
-{{< platformBlock "Windows" >}}
-
-**Windows**
-
-{{< code text >}}
+{{< code shell "Windows" >}}
 sc.exe stop SensuAgent
 {{< /code >}}
 
-{{< platformBlockClose >}}
+{{< /language-toggle >}}
 
 ### Restart the service
 
@@ -654,81 +646,71 @@ You must restart the agent to implement any configuration updates.
 
 To restart the agent using a service manager:
 
-{{< platformBlock "Linux" >}}
+{{< language-toggle >}}
 
-**Linux**
-
-{{< code shell >}}
+{{< code shell "Linux" >}}
 sudo service sensu-agent restart
 {{< /code >}}
 
-{{< platformBlockClose >}}
-
-{{< platformBlock "Windows" >}}
-
-**Windows**
-
-{{< code text >}}
+{{< code shell "Windows" >}}
 sc.exe start SensuAgent
 {{< /code >}}
 
-{{< platformBlockClose >}}
+{{< /language-toggle >}}
 
 ### Enable on boot
 
 To enable the agent to start on system boot:
 
-{{< platformBlock "Linux" >}}
+{{< language-toggle >}}
 
-**Linux**
-
-{{< code shell >}}
+{{< code shell "Linux" >}}
 sudo systemctl enable sensu-agent
 {{< /code >}}
 
+{{< code shell "Windows" >}}
+The service is configured to start automatically on boot by default.
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-agent on` to enable the agent.
+{{% /notice %}}
+
 To disable the agent from starting on system boot:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "Linux" >}}
 sudo systemctl disable sensu-agent
 {{< /code >}}
 
-{{% notice note %}}
-**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-agent on` to enable the agent and `sudo chkconfig sensu-agent off` to disable the agent.
-{{% /notice %}}
-
-{{< platformBlockClose >}}
-
-{{< platformBlock "Windows" >}}
-
-**Windows**
-
+{{< code shell "Windows" >}}
 The service is configured to start automatically on boot by default.
+{{< /code >}}
 
-{{< platformBlockClose >}}
+{{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-agent off` to disable the agent.
+{{% /notice %}}
 
 ### Get service status
 
 To view the status of the agent service using a service manager:
 
-{{< platformBlock "Linux" >}}
+{{< language-toggle >}}
 
-**Linux**
-
-{{< code shell >}}
+{{< code shell "Linux" >}}
 service sensu-agent status
 {{< /code >}}
 
-{{< platformBlockClose >}}
-
-{{< platformBlock "Windows" >}}
-
-**Windows**
-
-{{< code text >}}
+{{< code shell "Windows" >}}
 sc.exe query SensuAgent
 {{< /code >}}
 
-{{< platformBlockClose >}}
+{{< /language-toggle >}}
 
 ### Get service version
 
@@ -748,15 +730,19 @@ curl http://127.0.0.1:3031/version
 
 ### Uninstall the service
 
-{{< platformBlock "Windows" >}}
+To uninstall the sensu-agent service, run:
 
-**Windows**
+{{< language-toggle >}}
 
-{{< code text >}}
+{{< code shell "Linux" >}}
+systemctl sensu-agent stop
+{{< /code >}}
+
+{{< code shell "Windows" >}}
 sensu-agent service uninstall
 {{< /code >}}
 
-{{< platformBlockClose >}}
+{{< /language-toggle >}}
 
 ### Get help
 
@@ -921,7 +907,7 @@ Flags:
 
 ### Windows
 
-You can specify the agent configuration using a `.yml` file.
+Specify the agent configuration using a `.yml` file.
 Review the [example agent configuration file][5] (also provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example`; default `C:\ProgramData\sensu\config\agent.yml.example`).
 
 {{< platformBlockClose >}}

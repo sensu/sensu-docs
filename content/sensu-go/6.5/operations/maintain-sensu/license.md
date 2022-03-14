@@ -3,7 +3,7 @@ title: "License reference"
 linkTitle: "License Reference"
 reference_title: "License"
 type: "reference"
-description: "Sensu Go includes commercial features designed for monitoring at scale. Activate and manage your Sensu commercial license with sensuctl and within your Sensu account.."
+description: "Sensu Go includes commercial features designed for monitoring at scale. Activate and manage your Sensu commercial license, entity counts, and entity limits with sensuctl or by logging into your Sensu account.."
 weight: 40
 version: "6.5"
 product: "Sensu Go"
