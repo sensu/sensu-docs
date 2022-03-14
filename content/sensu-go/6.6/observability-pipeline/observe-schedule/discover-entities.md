@@ -181,6 +181,8 @@ Deregistration prevents and clears alerts for failing keepalives.
 If you want to receive alerts for failing keepalives, set the deregister attribute to `false`.
 {{% /notice %}}
 
+Deregistration is only for entities that have had at least one keepalive sent. It is actually possible to sent keepalive events to proxy entities manually, and in such cases, they would be subject to deletion when deregister is set true. However, in this configuration, no keepalive has been sent for the proxy entity, as evidenced by the fact that last_seen is not set. It is not possible to send a keepalive to a proxy entity with sensu-agent.
+
 Another example: deregistration can go to another handler (ask AWS if compute instance still exists and if not, automatically deregister). Link to EC2 integration and guide page.
 
 
