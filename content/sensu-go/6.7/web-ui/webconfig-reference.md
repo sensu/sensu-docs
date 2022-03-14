@@ -480,7 +480,7 @@ For example, if a user's system is set to dark mode and their web UI settings ar
 required       | false
 type           | String
 default        | `sensu`
-
+allowed values | `sensu`, `classic`, `uchiwa`, `tritanopia`, `deuteranopia`
 example        | {{< language-toggle >}}
 {{< code yml >}}
 theme: classic
