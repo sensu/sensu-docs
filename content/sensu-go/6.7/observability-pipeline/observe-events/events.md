@@ -2077,7 +2077,7 @@ The `state` event attribute adds meaning to the check status:
 
 - `passing` means the check status is `0` (OK).
 - `failing` means the check status is non-zero (WARNING or CRITICAL).
-- `flapping` indicates an unsteady state in which the check result status (determined based on per-check [low and high flap thresholds][37] attributes) is not settling on `passing` or `failing` according to the [flap detection algorithm][39].
+- `flapping` indicates an unsteady state in which the check result status (determined based on per-check [high flap threshold][37] and [low flap threshold][47] attributes is not settling on `passing` or `failing` according to the [flap detection algorithm][39].
 
 Flapping typically indicates intermittent problems with an entity, provided your low and high flap threshold settings are properly configured.
 Although some teams choose to filter out flapping events to reduce unactionable alerts, we suggest sending flapping events to a designated handler for later review.
@@ -2090,7 +2090,7 @@ Every time you run a check, Sensu records whether the `status` value changed sin
 Sensu stores the last 21 `status` values and uses them to calculate the percent state change for the entity/check pair.
 Then, Sensu's algorithm applies a weight to these status changes: more recent changes have more value than older changes.
 
-After calculating the weighted total percent state change, Sensu compares it with the [low and high flap thresholds][37] set in the check attributes.
+After calculating the weighted total percent state change, Sensu compares it with the [high flap threshold][37] and [low flap threshold][47] set in the check attributes.
 
 - If the entity was **not** already flapping and the weighted total percent state change for the entity/check pair is greater than or equal to the `high_flap_threshold` setting, the entity has started flapping.
 - If the entity **was** already flapping and the weighted total percent state change for the entity/check pair is less than the `low_flap_threshold` setting, the entity has stopped flapping.
@@ -3318,7 +3318,7 @@ value: 0.005
 [34]: #points-attributes
 [35]: ../../../api/events#create-a-new-event
 [36]: #state-attribute
-[37]: ../../observe-schedule/checks/#flap-thresholds
+[37]: ../../observe-schedule/checks/#high-flap-threshold
 [38]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
 [39]: #flap-detection-algorithm
 [40]: ../../observe-filter/filters/#check-attributes-available-to-filters
@@ -3328,3 +3328,4 @@ value: 0.005
 [44]: ../../observe-process/pipelines/
 [45]: #pipelines-attributes
 [46]: ../../../operations/maintain-sensu/troubleshoot/#use-a-debug-handler
+[47]: ../../observe-schedule/checks/#low-flap-threshold

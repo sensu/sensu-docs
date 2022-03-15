@@ -612,35 +612,24 @@ spec:
 
 ### Metadata attributes
 
-| name       |      |
+| annotations |     |
 -------------|------
-description  | Unique string used to identify the check. Check names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][53]). Each check must have a unique name within its namespace.
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-name: check-cpu
-{{< /code >}}
-{{< code json >}}
-{
-  "name": "check-cpu"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-| namespace  |      |
--------------|------
-description  | [Sensu RBAC namespace][26] that the check belongs to.
+description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][27]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][54], [sensuctl response filtering][55], or [web UI views][61].
 required     | false
-type         | String
-default      | `default`
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-namespace: production
+annotations:
+  managed-by: ops
+  playbook: www.example.url
 {{< /code >}}
 {{< code json >}}
 {
-  "namespace": "production"
+  "annotations": {
+    "managed-by": "ops",
+    "playbook": "www.example.url"
+  }
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -683,24 +672,35 @@ labels:
 {{< /code >}}
 {{< /language-toggle >}}
 
-| annotations |     |
+| name       |      |
 -------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][27]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][54], [sensuctl response filtering][55], or [web UI views][61].
-required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
-default      | `null`
+description  | Unique string used to identify the check. Check names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][53]). Each check must have a unique name within its namespace.
+required     | true
+type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-annotations:
-  managed-by: ops
-  playbook: www.example.url
+name: check-cpu
 {{< /code >}}
 {{< code json >}}
 {
-  "annotations": {
-    "managed-by": "ops",
-    "playbook": "www.example.url"
-  }
+  "name": "check-cpu"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| namespace  |      |
+-------------|------
+description  | [Sensu RBAC namespace][26] that the check belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+namespace: production
+{{< /code >}}
+{{< code json >}}
+{
+  "namespace": "production"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -711,225 +711,6 @@ annotations:
 **NOTE**: Spec attributes are not required when sending an HTTP `POST` request to the [agent events API](../agent/#events-post) or the [backend core/v2/events API](../../../api/core/events/#create-a-new-event).
 When doing so, the spec attributes are listed as individual [top-level attributes](#top-level-attributes) in the check definition instead.
 {{% /notice %}}
-
-|command     |      |
--------------|------
-description  | Check command to be executed.
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-command: /etc/sensu/plugins/check-chef-client.go
-{{< /code >}}
-{{< code json >}}
-{
-  "command": "/etc/sensu/plugins/check-chef-client.go"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-<a id="check-subscriptions"></a>
-
-|subscriptions|     |
--------------|------
-description  | Array of Sensu entity subscriptions that check requests will be sent to. The array cannot be empty and its items must each be a string.
-required     | true
-type         | Array
-example      | {{< language-toggle >}}
-{{< code yml >}}
-subscriptions:
-- production
-{{< /code >}}
-{{< code json >}}
-{
-  "subscriptions": [
-    "production"
-  ]
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-<a id="handlers-array"></a>
-
-|handlers    |      |
--------------|------
-description  | Array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string.
-required     | false
-type         | Array
-example      | {{< language-toggle >}}
-{{< code yml >}}
-handlers:
-- pagerduty
-- email
-{{< /code >}}
-{{< code json >}}
-{
-  "handlers": [
-    "pagerduty",
-    "email"
-  ]
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-|interval    |      |
--------------|------
-description  | How often the check is executed. In seconds.
-required     | true (unless `cron` is configured)
-type         | Integer
-example      | {{< language-toggle >}}
-{{< code yml >}}
-interval: 60
-{{< /code >}}
-{{< code json >}}
-{
-  "interval": 60
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-|cron        |      |
--------------|------
-description  | When the check should be executed, using [cron syntax][14] or a [predefined schedule][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute. {{% notice note %}}
-**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (for example, `cron: '* * * * *'`).
-{{% /notice %}}
-required     | true (unless `interval` is configured)
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-cron: 0 0 * * *
-{{< /code >}}
-{{< code json >}}
-{
-  "cron": "0 0 * * *"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-<a id="publish-attribute"></a>
-
-|publish     |      |
--------------|------
-description  | `true` if check requests are published for the check. Otherwise, `false`.
-required     | false
-type         | Boolean
-default      | `false`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-publish: false
-{{< /code >}}
-{{< code json >}}
-{
-  "publish": false
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-|timeout     |      |
--------------|------
-description  | Check execution duration timeout (hard stop). In seconds.
-required     | false
-type         | Integer
-example      | {{< language-toggle >}}
-{{< code yml >}}
-timeout: 30
-{{< /code >}}
-{{< code json >}}
-{
-  "timeout": 30
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-<a id="ttl-attribute"></a>
-
-|ttl         |      |
--------------|------
-description  | The time-to-live (TTL) until check results are considered stale. In seconds. If an agent stops publishing results for the check and the TTL expires, an event will be created for the agent's entity.<br><br>The check `ttl` must be greater than the check `interval` and should allow enough time for the check execution and result processing to complete. For example, for a check that has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), the appropriate `ttl` is at least `90` (seconds).<br><br>To use check `ttl` and [`round_robin`][43] together, your check configuration must also specify a [`proxy_entity_name`][44]. If you do not specify a `proxy_entity_name` when using check `ttl` and `round_robin` together, your check will stop executing. {{% notice note %}}
-**NOTE**: Adding TTLs to checks adds overhead, so use the `ttl` attribute sparingly.
-{{% /notice %}}
-required     | false
-type         | Integer
-example      | {{< language-toggle >}}
-{{< code yml >}}
-ttl: 100
-{{< /code >}}
-{{< code json >}}
-{
-  "ttl": 100
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-|stdin       |      |
--------------|------
-description  | `true` if the Sensu agent writes JSON serialized Sensu entity and check data to the command process’ STDIN. The command must expect the JSON data via STDIN, read it, and close STDIN. Otherwise, `false`. This attribute cannot be used with existing Sensu check plugins or Nagios plugins because the Sensu agent will wait indefinitely for the check process to read and close STDIN.
-required     | false
-type         | Boolean
-default      | `false`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-stdin: true
-{{< /code >}}
-{{< code json >}}
-{
-  "stdin": true
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-<a id="flap-thresholds"></a>
-
-|low_flap_threshold ||
--------------|------
-description  | Flap detection low threshold (% state change) for the check. Sensu uses the same flap detection algorithm as [Nagios][16]. Read the [event reference][62] to learn more about how Sensu uses the `low_flap_threshold` value.
-required     | false
-type         | Integer
-example      | {{< language-toggle >}}
-{{< code yml >}}
-low_flap_threshold: 20
-{{< /code >}}
-{{< code json >}}
-{
-  "low_flap_threshold": 20
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-|high_flap_threshold ||
--------------|------
-description  | Flap detection high threshold (% state change) for the check. Sensu uses the same flap detection algorithm as [Nagios][16]. Read the [event reference][62] to learn more about how Sensu uses the `high_flap_threshold` value.
-required     | true (if `low_flap_threshold` is configured)
-type         | Integer
-example      | {{< language-toggle >}}
-{{< code yml >}}
-high_flap_threshold: 60
-{{< /code >}}
-{{< code json >}}
-{
-  "high_flap_threshold": 60
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-|runtime_assets |   |
--------------|------
-description  | Array of [Sensu dynamic runtime assets][9] (names). Required at runtime for the execution of the `command`.
-required     | false
-type         | Array
-example      | {{< language-toggle >}}
-{{< code yml >}}
-runtime_assets:
-- metric-check
-{{< /code >}}
-{{< code json >}}
-{
-  "runtime_assets": [
-    "metric-check"
-  ]
-}
-{{< /code >}}
-{{< /language-toggle >}}
 
 <a id="check-hooks-attribute"></a>
 
@@ -970,70 +751,36 @@ check_hooks:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a id="proxy-entity-name-attribute"></a>
-
-|proxy_entity_name|   |
+|command     |      |
 -------------|------
-description  | Entity name. Used to create a [proxy entity][20] for an external resource (for example, a network switch).
-required     | false
+description  | Check command to be executed.
+required     | true
 type         | String
-validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
 example      | {{< language-toggle >}}
 {{< code yml >}}
-proxy_entity_name: switch-dc-01
+command: /etc/sensu/plugins/check-chef-client.go
 {{< /code >}}
 {{< code json >}}
 {
-  "proxy_entity_name": "switch-dc-01"
+  "command": "/etc/sensu/plugins/check-chef-client.go"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a id="proxy-requests-top-level"></a>
-
-|proxy_requests|    |
+|cron        |      |
 -------------|------
-description  | Assigns a check to run for multiple entities according to their `entity_attributes`. In the example below, the check executes for all entities with entity class `proxy` and the custom proxy type label `website`. Proxy requests are a great way to reuse check definitions for a group of entities. For more information, review the [proxy requests specification][10] and [Monitor external resources][28].
-required     | false
-type         | Hash
+description  | When the check should be executed, using [cron syntax][14] or a [predefined schedule][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute. {{% notice note %}}
+**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (for example, `cron: '* * * * *'`).
+{{% /notice %}}
+required     | true (unless `interval` is configured)
+type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-proxy_requests:
-  entity_attributes:
-  - entity.entity_class == 'proxy'
-  - entity.labels.proxy_type == 'website'
-  splay: true
-  splay_coverage: 90
-
+cron: 0 0 * * *
 {{< /code >}}
 {{< code json >}}
 {
-  "proxy_requests": {
-    "entity_attributes": [
-      "entity.entity_class == 'proxy'",
-      "entity.labels.proxy_type == 'website'"
-    ],
-    "splay": true,
-    "splay_coverage": 90
-  }
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-|silenced    |      |
--------------|------
-description  | Silences that apply to the check.
-type         | Array
-example      | {{< language-toggle >}}
-{{< code yml >}}
-silenced:
-- "*:routers"
-{{< /code >}}
-{{< code json >}}
-{
-  "silenced": [
-    "*:routers"
-  ]
+  "cron": "0 0 * * *"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1061,20 +808,77 @@ env_vars:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a id="scheduler-attribute"></a>
+<a id="handlers-array"></a>
 
-|scheduler  |     |
-------------|-----
-description | Type of scheduler that schedules the check. Sensu automatically sets the `scheduler` value and overrides any user-entered values. Value may be:<ul><li>`memory` for checks scheduled in-memory</li><li>`etcd` for checks scheduled with etcd leases and watchers (check attribute `round_robin: true` and [etcd used for event storage][67])</li><li>`postgres` for checks scheduled with PostgreSQL using transactions and asynchronous notification (check attribute `round_robin: true` and [PostgreSQL used for event storage][67] with datastore attribute `enable_round_robin: true`)</li></ul>
+|handlers    |      |
+-------------|------
+description  | Array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string.
 required     | false
-type         | String
+type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
-scheduler: postgres
+handlers:
+- pagerduty
+- email
 {{< /code >}}
 {{< code json >}}
 {
-  "scheduler": "postgres"
+  "handlers": [
+    "pagerduty",
+    "email"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="high-flap-threshold"></a>
+
+|high_flap_threshold ||
+-------------|------
+description  | Flap detection high threshold (% state change) for the check. Sensu uses the same flap detection algorithm as [Nagios][16]. Read the [event reference][62] to learn more about how Sensu uses the `high_flap_threshold` value.
+required     | true (if `low_flap_threshold` is configured)
+type         | Integer
+example      | {{< language-toggle >}}
+{{< code yml >}}
+high_flap_threshold: 60
+{{< /code >}}
+{{< code json >}}
+{
+  "high_flap_threshold": 60
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+|interval    |      |
+-------------|------
+description  | How often the check is executed. In seconds.
+required     | true (unless `cron` is configured)
+type         | Integer
+example      | {{< language-toggle >}}
+{{< code yml >}}
+interval: 60
+{{< /code >}}
+{{< code json >}}
+{
+  "interval": 60
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="low-flap-threshold"></a>
+
+|low_flap_threshold ||
+-------------|------
+description  | Flap detection low threshold (% state change) for the check. Sensu uses the same flap detection algorithm as [Nagios][16]. Read the [event reference][62] to learn more about how Sensu uses the `low_flap_threshold` value.
+required     | false
+type         | Integer
+example      | {{< language-toggle >}}
+{{< code yml >}}
+low_flap_threshold: 20
+{{< /code >}}
+{{< code json >}}
+{
+  "low_flap_threshold": 20
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1158,6 +962,75 @@ output_metric_tags:
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="proxy-entity-name-attribute"></a>
+
+|proxy_entity_name|   |
+-------------|------
+description  | Entity name. Used to create a [proxy entity][20] for an external resource (for example, a network switch).
+required     | false
+type         | String
+validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
+example      | {{< language-toggle >}}
+{{< code yml >}}
+proxy_entity_name: switch-dc-01
+{{< /code >}}
+{{< code json >}}
+{
+  "proxy_entity_name": "switch-dc-01"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="proxy-requests-top-level"></a>
+
+|proxy_requests|    |
+-------------|------
+description  | Assigns a check to run for multiple entities according to their `entity_attributes`. In the example below, the check executes for all entities with entity class `proxy` and the custom proxy type label `website`. Proxy requests are a great way to reuse check definitions for a group of entities. For more information, review the [proxy requests specification][10] and [Monitor external resources][28].
+required     | false
+type         | Hash
+example      | {{< language-toggle >}}
+{{< code yml >}}
+proxy_requests:
+  entity_attributes:
+  - entity.entity_class == 'proxy'
+  - entity.labels.proxy_type == 'website'
+  splay: true
+  splay_coverage: 90
+
+{{< /code >}}
+{{< code json >}}
+{
+  "proxy_requests": {
+    "entity_attributes": [
+      "entity.entity_class == 'proxy'",
+      "entity.labels.proxy_type == 'website'"
+    ],
+    "splay": true,
+    "splay_coverage": 90
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="publish-attribute"></a>
+
+|publish     |      |
+-------------|------
+description  | `true` if check requests are published for the check. Otherwise, `false`.
+required     | false
+type         | Boolean
+default      | `false`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+publish: false
+{{< /code >}}
+{{< code json >}}
+{
+  "publish": false
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 <a id="round-robin-attribute"></a>
 
 |round_robin |      |
@@ -1177,16 +1050,39 @@ round_robin: true
 {{< /code >}}
 {{< /language-toggle >}}
 
-|subdue      |      |
+|runtime_assets |   |
 -------------|------
-description  | Check subdues are not yet implemented in Sensu Go. Although the `subdue` attribute appears in check definitions by default, it is a placeholder and should not be modified.
+description  | Array of [Sensu dynamic runtime assets][9] (names). Required at runtime for the execution of the `command`.
+required     | false
+type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
-subdue: null
+runtime_assets:
+- metric-check
 {{< /code >}}
 {{< code json >}}
 {
-  "subdue": null
+  "runtime_assets": [
+    "metric-check"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="scheduler-attribute"></a>
+
+|scheduler  |     |
+------------|-----
+description | Type of scheduler that schedules the check. Sensu automatically sets the `scheduler` value and overrides any user-entered values. Value may be:<ul><li>`memory` for checks scheduled in-memory</li><li>`etcd` for checks scheduled with etcd leases and watchers (check attribute `round_robin: true` and [etcd used for event storage][67])</li><li>`postgres` for checks scheduled with PostgreSQL using transactions and asynchronous notification (check attribute `round_robin: true` and [PostgreSQL used for event storage][67] with datastore attribute `enable_round_robin: true`)</li></ul>
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+scheduler: postgres
+{{< /code >}}
+{{< code json >}}
+{
+  "scheduler": "postgres"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1216,6 +1112,112 @@ secrets:
       "secret": "sensu-ansible-token"
     }
   ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+|silenced    |      |
+-------------|------
+description  | Silences that apply to the check.
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+silenced:
+- "*:routers"
+{{< /code >}}
+{{< code json >}}
+{
+  "silenced": [
+    "*:routers"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+|stdin       |      |
+-------------|------
+description  | `true` if the Sensu agent writes JSON serialized Sensu entity and check data to the command process’ STDIN. The command must expect the JSON data via STDIN, read it, and close STDIN. Otherwise, `false`. This attribute cannot be used with existing Sensu check plugins or Nagios plugins because the Sensu agent will wait indefinitely for the check process to read and close STDIN.
+required     | false
+type         | Boolean
+default      | `false`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+stdin: true
+{{< /code >}}
+{{< code json >}}
+{
+  "stdin": true
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+|subdue      |      |
+-------------|------
+description  | Check subdues are not implemented in Sensu Go. Although the `subdue` attribute appears in check definitions by default, it is a placeholder and should not be modified.
+example      | {{< language-toggle >}}
+{{< code yml >}}
+subdue: null
+{{< /code >}}
+{{< code json >}}
+{
+  "subdue": null
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="check-subscriptions"></a>
+
+|subscriptions|     |
+-------------|------
+description  | Array of Sensu entity subscriptions that check requests will be sent to. The array cannot be empty and its items must each be a string.
+required     | true
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+subscriptions:
+- production
+{{< /code >}}
+{{< code json >}}
+{
+  "subscriptions": [
+    "production"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+|timeout     |      |
+-------------|------
+description  | Check execution duration timeout (hard stop). In seconds.
+required     | false
+type         | Integer
+example      | {{< language-toggle >}}
+{{< code yml >}}
+timeout: 30
+{{< /code >}}
+{{< code json >}}
+{
+  "timeout": 30
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="ttl-attribute"></a>
+
+|ttl         |      |
+-------------|------
+description  | The time-to-live (TTL) until check results are considered stale. In seconds. If an agent stops publishing results for the check and the TTL expires, an event will be created for the agent's entity.<br><br>The check `ttl` must be greater than the check `interval` and should allow enough time for the check execution and result processing to complete. For example, for a check that has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), the appropriate `ttl` is at least `90` (seconds).<br><br>To use check `ttl` and [`round_robin`][43] together, your check configuration must also specify a [`proxy_entity_name`][44]. If you do not specify a `proxy_entity_name` when using check `ttl` and `round_robin` together, your check will stop executing. {{% notice note %}}
+**NOTE**: Adding TTLs to checks adds overhead, so use the `ttl` attribute sparingly.
+{{% /notice %}}
+required     | false
+type         | Integer
+example      | {{< language-toggle >}}
+{{< code yml >}}
+ttl: 100
+{{< /code >}}
+{{< code json >}}
+{
+  "ttl": 100
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1282,22 +1284,6 @@ splay_coverage: 90
 
 #### Check output truncation attributes
 
-|max_output_size  | |
--------------|-------
-description  | Maximum size of stored check outputs. In bytes. When set to a non-zero value, the Sensu backend truncates check outputs larger than this value before storing to etcd. `max_output_size` does not affect data sent to Sensu filters, mutators, and handlers.
-required     | false
-type         | Integer
-example      | {{< language-toggle >}}
-{{< code yml >}}
-max_output_size: 1024
-{{< /code >}}
-{{< code json >}}
-{
-  "max_output_size": 1024
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 |discard_output  | |
 -------------|------
 description  | If `true`, discard check output after extracting metrics. No check output will be sent to the Sensu backend. Otherwise, `false`.
@@ -1310,6 +1296,22 @@ discard_output: true
 {{< code json >}}
 {
   "discard_output": true
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+|max_output_size  | |
+-------------|-------
+description  | Maximum size of stored check outputs. In bytes. When set to a non-zero value, the Sensu backend truncates check outputs larger than this value before storing to etcd. `max_output_size` does not affect data sent to Sensu filters, mutators, and handlers.
+required     | false
+type         | Integer
+example      | {{< language-toggle >}}
+{{< code yml >}}
+max_output_size: 1024
+{{< /code >}}
+{{< code json >}}
+{
+  "max_output_size": 1024
 }
 {{< /code >}}
 {{< /language-toggle >}}
