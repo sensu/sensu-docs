@@ -928,6 +928,255 @@ output_metric_tags:
 
 {{< /language-toggle >}}
 
+## Metric threshold evaluation
+
+Metric threshold evaluation extends Sensu's service check and metrics processing capabilities so you can get real-time alerts based on the metrics your Sensu checks collect.
+The Sensu agent analyzes output metrics against the thresholds you specify and overrides the event [check status][31] if the metrics values exceed the threshold values.
+ 
+For example, the [check][29] from the Sensu Plus guide uses the [Sensu System Check][30] dynamic runtime asset to collect baseline system metrics.
+Add the [`output_metric_thresholds`][28] array to get alerts based on the Sensu System Check metrics `system_mem_used` (percent of memory used) and `system_host_processes` (number of host processes):
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: system-check
+spec:
+  command: system-check
+  runtime_assets:
+  - system-check
+  subscriptions:
+  - system
+  interval: 10
+  timeout: 5
+  publish: true
+  pipelines:
+  - type: Pipeline
+    api_version: core/v2
+    name: sensu_to_sumo
+  output_metric_format: prometheus_text
+  output_metric_tags:
+  - name: entity
+    value: "{{ .name }}"
+  - name: namespace
+    value: "{{ .namespace }}"
+  - name: os
+    value: "{{ .system.os }}"
+  - name: platform
+    value: "{{ .system.platform }}"
+  output_metric_thresholds:
+  - name: system_mem_used
+    tags:
+    null_status: 1
+    thresholds:
+    - max: '75.0'
+      min: ''
+      status: 1
+    - max: '90.0'
+      min: ''
+      status: 2
+  - name: system_host_processes
+    tags:
+    - name: namespace
+      value: production
+    null_status: 1
+    thresholds:
+    - max: '50'
+      min: '5'
+      status: 1
+    - max: '75'
+      min: '2'
+      status: 2
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "system-check"
+  },
+  "spec": {
+    "command": "system-check",
+    "runtime_assets": [
+      "system-check"
+    ],
+    "subscriptions": [
+      "system"
+    ],
+    "interval": 10,
+    "timeout": 5,
+    "publish": true,
+    "pipelines": [
+      {
+        "type": "Pipeline",
+        "api_version": "core/v2",
+        "name": "sensu_to_sumo"
+      }
+    ],
+    "output_metric_format": "prometheus_text",
+    "output_metric_tags": [
+      {
+        "name": "entity",
+        "value": "{{ .name }}"
+      },
+      {
+        "name": "namespace",
+        "value": "{{ .namespace }}"
+      },
+      {
+        "name": "os",
+        "value": "{{ .system.os }}"
+      },
+      {
+        "name": "platform",
+        "value": "{{ .system.platform }}"
+      }
+    ],
+    "output_metric_thresholds": [
+      {
+        "name": "system_mem_used",
+        "tags": null,
+        "null_status": 1,
+        "thresholds": [
+          {
+            "max": "75.0",
+            "min": "",
+            "status": 1
+          },
+          {
+            "max": "90.0",
+            "min": "",
+            "status": 2
+          }
+        ]
+      },
+      {
+        "name": "system_host_processes",
+        "tags": [
+          {
+            "name": "namespace",
+            "value": "production"
+          }
+        ],
+        "null_status": 1,
+        "thresholds": [
+          {
+            "max": "50",
+            "min": "5",
+            "status": 1
+          },
+          {
+            "max": "75",
+            "min": "2",
+            "status": 2
+          }
+        ]
+      }
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+In this example, for both `system_mem_used` and `system_host_processes`, Sensu will compare the output metrics in each event with the thresholds set for each metric.
+If the output metrics match or exceed the thresholds, Sensu will override the check status.
+
+For `system_mem_used`:
+- Set event status to `1` (warning) if the output metrics do not include `system_mem_used`.
+- Set event status to `1` (warning) when 75% of memory is used.
+- Set event status to `2` (critical) when 90% of memory is used.
+
+For `system_host_processes`:
+- Evaluate only output metrics for entities whose tags include `name: namespace` and `value: production`.
+- Set event status to `1` (warning) if the output metrics do not include `system_host_processes`.
+- Set event status to `1` (warning) when the number of host processes reaches 50 or more or 5 or fewer.
+- Set event status to `2` (critical) when the number of host processes reaches 75 or more or 2 or fewer.
+
+{{% notice note %}}
+**NOTE**: The Sensu Plus [example handler](../../../sensu-plus/#create-a-handler-in-sensu) processes and transmits metrics data but cannot send alerts.
+Read [Send data to Sumo Logic with Sensu](../../observe-process/send-data-sumo-logic) to create a handler that sends alerts to Sumo Logic, which you can add to the Sensu Plus [example pipeline](../../../sensu-plus/#configure-a-pipeline).
+{{% /notice %}}
+
+Metric threshold evaluation takes place *after* Sensu extracts metrics and *before* Sensu processes any check hooks.
+If you specify a metric name and tags that match more than one check output metric point, Sensu evaluates all matching metric points against the thresholds.
+
+### Check configuration requirements for metric threshold evaluation
+
+To apply metric threshold evaluation, check definitions must include:
+- The [`output_metric_format`][10] attribute with a value that specifies one of Sensu's [supported output metric formats][9].
+- The [`output_metric_thresholds`][28] array, with values specified for `name` and `thresholds`.
+
+In addition, check status must be 0 (OK), indicating that Sensu successfully collected metrics, for the Sensu agent to evaluate the collected metrics against the specified thresholds.
+
+### Annotations based on metric threshold evaluation
+
+If a check definition includes the `output_metric_thresholds` attribute, the check's metric events with non-zero status will include an annotation that lists the reason for the status.
+Sensu adds one annotation per matched threshold rule, one annotation per missing metric (`null_status`), and one annotation that lists the global status for the check.
+
+Annotations based on specified threshold values are similar to this example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+annotations:
+  sensu.io/output_metric_thresholds/system_mem_used/min/critical: 'The value of "system_mem_used" exceeded the configured threshold (max: 90, actual: 95)'
+{{< /code >}}
+
+{{< code json >}}
+{
+  "annotations": {
+    "sensu.io/output_metric_thresholds/system_mem_used/min/critical": "The value of \"system_mem_used\" exceeded the configured threshold (max: 90, actual: 95)"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Annotations based on `null_status` are similar to this example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+annotations:
+  sensu.io/output_metric_thresholds/system_host_processes/null: 'WARNING: no metric matching "system_host_processes" (namespace="production") was found; expected min: 5 - max: 50 (status: warning) min:2 - max: 75 (status: critical)'
+{{< /code >}}
+
+{{< code json >}}
+{
+  "annotations": {
+    "sensu.io/output_metric_thresholds/system_host_processes/null": "WARNING: no metric matching \"system_host_processes\" (namespace=\"production\") was found; expected min: 5 - max: 50 (status: warning) min:2 - max: 75 (status: critical)"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Annotations based on global status for the check are similar to this example:
+
+**TO-DO: NEED AN EXAMPLE**
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+annotations:
+  NEEDED: NEEDED
+{{< /code >}}
+
+{{< code json >}}
+{
+  "annotations": {
+    "NEEDED": "NEEDED"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 ## Process extracted and tagged metrics
 
 Specify the handlers you want to process your Sensu metrics in a [pipeline][23], then reference the pipeline in the check [`pipelines`][3] array.
@@ -986,3 +1235,7 @@ The event specification describes [metrics attributes in events][5].
 [25]: ../../observe-events/events/#metrics-points
 [26]: https://bonsai.sensu.io/assets/sensu/system-check
 [27]: ../../observe-process/pipelines/#workflows
+[28]: ../checks/#output-metric-thresholds
+[29]: ../../../sensu-plus/#add-a-sensu-check
+[30]: https://bonsai.sensu.io/assets/sensu/system-check
+[31]: ../../observe-events/events/#check-status-attribute

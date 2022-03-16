@@ -1484,7 +1484,48 @@ To view metrics points data as shown in the following example, create a [pipelin
     "is_silenced": false,
     "scheduler": "memory",
     "processed_by": "sensu-centos",
-    "pipelines": []
+    "pipelines": [],
+    "output_metric_thresholds": [
+      {
+        "name": "system_mem_used",
+        "tags": null,
+        "null_status": 1,
+        "thresholds": [
+          {
+            "min": "",
+            "max": "75.0",
+            "status": 1
+          },
+          {
+            "min": "",
+            "max": "90.0",
+            "status": 2
+          }
+        ]
+      },
+      {
+        "name": "system_host_processes",
+        "tags": [
+          {
+            "name": "namespace",
+            "value": "production"
+          }
+        ],
+        "null_status": 1,
+        "thresholds": [
+          {
+            "min": "5",
+            "max": "50",
+            "status": 1
+          },
+          {
+            "min": "2",
+            "max": "75",
+            "status": 2
+          }
+        ]
+      }
+    ]
   }
 }
 {{< /code >}}
@@ -3067,6 +3108,8 @@ state: passing
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+<a id="check-status-attribute"></a>
 
 status       |      |
 -------------|------

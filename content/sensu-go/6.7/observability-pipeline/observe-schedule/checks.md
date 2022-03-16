@@ -573,32 +573,149 @@ type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 spec:
-  command: "/etc/sensu/plugins/check-chef-client.go"
+  check_hooks: null
+  command: collect.sh
+  discard_output: true
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
   interval: 10
-  publish: true
-  subscriptions:
-  - production
+  low_flap_threshold: 0
+  output_metric_format: prometheus_text
+  output_metric_tags:
+  - name: instance
+    value: '{{ .name }}'
+  - name: namespace
+    value: "{{ .namespace }}"
+  - name: service
+    value: '{{ .labels.service }}'
+  output_metric_thresholds:
+    - name: system_mem_used
+      tags: null
+      thresholds:
+      - max: "75.0"
+        min: ""
+        null_status: 0
+        status: 1
+      - max: "90.0"
+        min: ""
+        null_status: 0
+        status: 2
+    - name: system_host_processes
+      tags:
+      - name: namespace
+        value: production
+      thresholds:
+      - max: "50"
+        min: "5"
+        null_status: 0
+        status: 1
+      - max: "75"
+        min: "2"
+        null_status: 2
+        status: 2
   pipelines:
   - type: Pipeline
     api_version: core/v2
-    name: incident_alerts
+    name: prometheus_gateway_workflows
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets: null
+  stdin: false
+  subscriptions:
+  - system
+  timeout: 0
+  ttl: 0
 {{< /code >}}
 {{< code json >}}
 {
   "spec": {
-    "command": "/etc/sensu/plugins/check-chef-client.go",
+    "check_hooks": null,
+    "command": "collect.sh",
+    "discard_output": true,
+    "env_vars": null,
+    "handlers": [
+
+    ],
+    "high_flap_threshold": 0,
     "interval": 10,
-    "publish": true,
-    "subscriptions": [
-      "production"
+    "low_flap_threshold": 0,
+    "output_metric_format": "prometheus_text",
+    "output_metric_tags": [
+      {
+        "name": "instance",
+        "value": "{{ .name }}"
+      },
+      {
+        "name": "namespace",
+        "value": "{{ .namespace }}"
+      },
+      {
+        "name": "service",
+        "value": "{{ .labels.service }}"
+      }
+    ],
+    "output_metric_thresholds": [
+      {
+        "name": "system_mem_used",
+        "tags": null,
+        "thresholds": [
+          {
+            "max": "75.0",
+            "min": "",
+            "null_status": 0,
+            "status": 1
+          },
+          {
+            "max": "90.0",
+            "min": "",
+            "null_status": 0,
+            "status": 2
+          }
+        ]
+      },
+      {
+        "name": "system_host_processes",
+        "tags": [
+          {
+            "name": "namespace",
+            "value": "production"
+          }
+        ],
+        "thresholds": [
+          {
+            "max": "50",
+            "min": "5",
+            "null_status": 0,
+            "status": 1
+          },
+          {
+            "max": "75",
+            "min": "2",
+            "null_status": 2,
+            "status": 2
+          }
+        ]
+      }
     ],
     "pipelines": [
       {
         "type": "Pipeline",
         "api_version": "core/v2",
-        "name": "incident_alerts"
+        "name": "prometheus_gateway_workflows"
       }
-    ]
+    ],
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": null,
+    "stdin": false,
+    "subscriptions": [
+      "system"
+    ],
+    "timeout": 0,
+    "ttl": 0
   }
 }
 {{< /code >}}
@@ -976,6 +1093,90 @@ output_metric_tags:
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="output-metric-thresholds"></a>
+
+|output_metric_thresholds    |      |
+-------------|------
+description  | Array of metric names and threshold values to compare to check output metrics for [metric threshold evaluation][71].
+required     | false
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+output_metric_thresholds:
+- name: system_mem_used
+  tags: ''
+  thresholds:
+  - max: '75.0'
+    min: ''
+    null_status: 0
+    status: 1
+  - max: '90.0'
+    min: ''
+    null_status: 0
+    status: 2
+- name: system_host_processes
+  tags:
+  - name: namespace
+    value: production
+  thresholds:
+  - max: '50'
+    min: '5'
+    null_status: 0
+    status: 1
+  - max: '75'
+    min: '2'
+    null_status: 2
+    status: 2
+{{< /code >}}
+{{< code json >}}
+{
+  "output_metric_thresholds": [
+    {
+      "name": "system_mem_used",
+      "tags": null,
+      "thresholds": [
+        {
+          "max": "75.0",
+          "min": "",
+          "null_status": 0,
+          "status": 1
+        },
+        {
+          "max": "90.0",
+          "min": "",
+          "null_status": 0,
+          "status": 2
+        }
+      ]
+    },
+    {
+      "name": "system_host_processes",
+      "tags": [
+        {
+          "name": "namespace",
+          "value": "production"
+        }
+      ],
+      "thresholds": [
+        {
+          "max": "50",
+          "min": "5",
+          "null_status": 0,
+          "status": 1
+        },
+        {
+          "max": "75",
+          "min": "2",
+          "null_status": 2,
+          "status": 2
+        }
+      ]
+    }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 <a id="pipelines-attribute"></a>
 
 | pipelines  |   |
@@ -1130,7 +1331,7 @@ scheduler: postgres
 
 secrets        | 
 ---------------|------
-description    | Array of the name/secret pairs to use with command execution.
+description    | Array of the [name/secret pairs][72] to use with command execution.
 required       | false
 type           | Array
 example        | {{< language-toggle >}}
@@ -1263,6 +1464,167 @@ ttl: 100
 {{< /code >}}
 {{< /language-toggle >}}
 
+#### Check output truncation attributes
+
+|max_output_size  | |
+-------------|-------
+description  | Maximum size of stored check outputs. In bytes. When set to a non-zero value, the Sensu backend truncates check outputs larger than this value before storing to etcd. `max_output_size` does not affect data sent to Sensu filters, mutators, and handlers.
+required     | false
+type         | Integer
+example      | {{< language-toggle >}}
+{{< code yml >}}
+max_output_size: 1024
+{{< /code >}}
+{{< code json >}}
+{
+  "max_output_size": 1024
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+|discard_output  | |
+-------------|------
+description  | If `true`, discard check output after extracting metrics. No check output will be sent to the Sensu backend. Otherwise, `false`.
+required     | false
+type         | Boolean
+example      | {{< language-toggle >}}
+{{< code yml >}}
+discard_output: true
+{{< /code >}}
+{{< code json >}}
+{
+  "discard_output": true
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+#### `output_metric_tags` attributes
+
+name         | 
+-------------|------
+description  | Name for the [output metric tag][19].
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: instance
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "instance"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+value        | 
+-------------|------
+description  | Value for the [output metric tag][19]. Use [check token substitution][39] syntax for the `value` attribute, with dot-notation access to any event attribute.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+value: {{ .name }}
+{{< /code >}}
+{{< code json >}}
+{
+  "value": "{{ .name }}"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+#### output_metric_thresholds attributes
+
+name         | 
+-------------|------
+description  | Name of the metric to use for [metric threshold evaluation][71]. Must match the [event.metrics.points[].name][74] value for a metric point in the check results.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: system_host_processes
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "system_host_processes"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+null_status  | 
+-------------|------
+description  | Event [check status][77] to use if a metric specified for [metric threshold evaluation][71] is missing from the event data.{{% notice note %}}
+**NOTE**: Sensu only overrides the event check status if it is less than the specified `null_status` value.
+{{% /notice %}}
+required     | false
+type         | Integer
+default      | `0`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+null_status: 2
+{{< /code >}}
+{{< code json >}}
+{
+  "null_status": 2
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+tags         | 
+-------------|------
+description  | Tags of the metric to use for [metric threshold evaluation][71]. If provided, must match the [event.metrics.points[].tags][74] name and value for a metric point in the check results. Read [tags attributes][76] for more information.
+required     | false
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+tags:
+- name: namespace
+  value: production
+{{< /code >}}
+{{< code json >}}
+{
+  "tags": [
+    {
+      "name": "namespace",
+      "value": "production"
+    }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+thresholds   | 
+-------------|------
+description  | Rules to apply for [metric threshold evaluation][71]. Read [thresholds attributes][75] for more information.
+required     | true
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+thresholds:
+- max: '50'
+  min: '5'
+  status: 1
+- max: '75'
+  min: '2'
+  status: 2
+{{< /code >}}
+{{< code json >}}
+{
+  "thresholds": [
+    {
+      "max": "50",
+      "min": "5",
+      "status": 1
+    },
+    {
+      "max": "75",
+      "min": "2",
+      "status": 2
+    }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 #### Pipelines attributes
 
 type         | 
@@ -1376,74 +1738,6 @@ splay_coverage: 90
 {{< /code >}}
 {{< /language-toggle >}}
 
-#### Check output truncation attributes
-
-|max_output_size  | |
--------------|-------
-description  | Maximum size of stored check outputs. In bytes. When set to a non-zero value, the Sensu backend truncates check outputs larger than this value before storing to etcd. `max_output_size` does not affect data sent to Sensu filters, mutators, and handlers.
-required     | false
-type         | Integer
-example      | {{< language-toggle >}}
-{{< code yml >}}
-max_output_size: 1024
-{{< /code >}}
-{{< code json >}}
-{
-  "max_output_size": 1024
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-|discard_output  | |
--------------|------
-description  | If `true`, discard check output after extracting metrics. No check output will be sent to the Sensu backend. Otherwise, `false`.
-required     | false
-type         | Boolean
-example      | {{< language-toggle >}}
-{{< code yml >}}
-discard_output: true
-{{< /code >}}
-{{< code json >}}
-{
-  "discard_output": true
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-#### `output_metric_tags` attributes
-
-name         | 
--------------|------
-description  | Name for the [output metric tag][19].
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-name: instance
-{{< /code >}}
-{{< code json >}}
-{
-  "name": "instance"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-value        | 
--------------|------
-description  | Value for the [output metric tag][19]. Use [check token substitution][39] syntax for the `value` attribute, with dot-notation access to any event attribute.
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-value: {{ .name }}
-{{< /code >}}
-{{< code json >}}
-{
-  "value": "{{ .name }}"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 #### `secrets` attributes
 
 name         | 
@@ -1478,6 +1772,97 @@ secret: sensu-ansible-host
 {{< /code >}}
 {{< /language-toggle >}}
 
+#### Tags attributes
+
+name         | 
+-------------|------
+description  | Tag name for the metric to use for [metric threshold evaluation][71]. If provided, must match the [event.metrics.points[].tags.name][74] value for a metric point in the check results.{{% notice note %}}
+**NOTE**: If provided, you must also provide the value for the same metric point tag.
+{{% /notice %}}
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: namespace
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "namespace"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+value        | 
+-------------|------
+description  | Tag value of the metric to use for [metric threshold evaluation][71]. If provided, must match the [event.metrics.points[].tags.value][74] value for a metric point in the check results.{{% notice note %}}
+**NOTE**: If provided, you must also provide the name for the same metric point tag.
+{{% /notice %}}
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+value: production
+{{< /code >}}
+{{< code json >}}
+{
+  "value": "production"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+#### Thresholds attributes
+
+max          | 
+-------------|------
+description  | Maximum threshold for the metric for [metric threshold evaluation][71]. You must provide a thresholds `max` value if you do not provide a `min` value.
+required     | false (if a thresholds `min` value is provided)
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+max: '75'
+{{< /code >}}
+{{< code json >}}
+{
+  "max": "75"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+min          | 
+-------------|------
+description  | Minimum threshold for the metric for [metric threshold evaluation][71]. You must provide a thresholds `min` value if you do not provide a `max` value.
+required     | false (if a thresholds `max` value is provided)
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+min: '2'
+{{< /code >}}
+{{< code json >}}
+{
+  "min": "2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+status       | 
+-------------|------
+description  | Event [check status][77] to use if the check's output metric value matches a `max` or `min` threshold in [metric threshold evaluation][71].{{% notice note %}}
+**NOTE**: Sensu only overrides the event check status if it is less than the specified threshold `status` value.
+{{% /notice %}}
+required     | true
+type         | Integer
+allowed values | `0`, `1`, `2`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+status: 2
+{{< /code >}}
+{{< code json >}}
+{
+  "status": 2
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 ## Metric check example
 
 The following example shows the resource definition for a check that collects [metrics][68] in Nagios Performance Data format:
@@ -1503,14 +1888,37 @@ spec:
   high_flap_threshold: 0
   interval: 10
   low_flap_threshold: 0
-  output_metric_format: nagios_perfdata
+  output_metric_format: prometheus_text
   output_metric_tags:
   - name: instance
     value: '{{ .name }}'
-  - name: prometheus_type
-    value: gauge
+  - name: namespace
+    value: '{{ .namespace }}'
   - name: service
     value: '{{ .labels.service }}'
+  output_metric_thresholds:
+    - name: system_mem_used
+      tags: null
+      null_status: 1
+      thresholds:
+      - max: "75.0"
+        min: ""
+        status: 1
+      - max: "90.0"
+        min: ""
+        status: 2
+    - name: system_host_processes
+      tags:
+      - name: namespace
+        value: production
+      null_status: 1
+      thresholds:
+      - max: "50"
+        min: "5"
+        status: 1
+      - max: "75"
+        min: "2"
+        status: 2
   pipelines:
   - type: Pipeline
     api_version: core/v2
@@ -1548,19 +1956,60 @@ spec:
     "high_flap_threshold": 0,
     "interval": 10,
     "low_flap_threshold": 0,
-    "output_metric_format": "nagios_perfdata",
+    "output_metric_format": "prometheus_text",
     "output_metric_tags": [
       {
         "name": "instance",
         "value": "{{ .name }}"
       },
       {
-        "name": "prometheus_type",
-        "value": "gauge"
+        "name": "namespace",
+        "value": "{{ .namespace }}"
       },
       {
         "name": "service",
         "value": "{{ .labels.service }}"
+      }
+    ],
+    "output_metric_thresholds": [
+      {
+        "name": "system_mem_used",
+        "tags": null,
+        "null_status": 1,
+        "thresholds": [
+          {
+            "max": "75.0",
+            "min": "",
+            "status": 1
+          },
+          {
+            "max": "90.0",
+            "min": "",
+            "status": 2
+          }
+        ]
+      },
+      {
+        "name": "system_host_processes",
+        "tags": [
+          {
+            "name": "namespace",
+            "value": "production"
+          }
+        ],
+        "null_status": 1,
+        "thresholds": [
+          {
+            "max": "50",
+            "min": "5",
+            "status": 1
+          },
+          {
+            "max": "75",
+            "min": "2",
+            "status": 2
+          }
+        ]
       }
     ],
     "pipelines": [
@@ -1755,3 +2204,10 @@ The dynamic runtime asset reference includes an [example check definition that u
 [68]: ../metrics/
 [69]: ../../observe-process/pipelines/
 [70]: #pipelines-attributes
+[71]: ../metrics/#metric-threshold-evaluation
+[72]: #secrets-attributes
+[73]: #output-metric-thresholds
+[74]: ../../observe-events/events/#points-attributes
+[75]: #thresholds-attributes
+[76]: #tags-attributes
+[77]: ../../observe-events/events/#check-status-attribute
