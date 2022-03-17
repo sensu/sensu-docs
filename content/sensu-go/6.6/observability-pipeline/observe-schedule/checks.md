@@ -367,7 +367,7 @@ spec:
 
 Sensu supports running proxy checks where the results are considered to be for an entity that isn’t actually the one executing the check, regardless of whether that entity is a Sensu agent entity or a proxy entity.
 Proxy entities allow Sensu to monitor external resources on systems and devices where a Sensu agent cannot be installed, like a network switch or a website.
-You can create a proxy check using the [`proxy_entity_name` attribute][35] or the [`proxy_requests` attributes][36].
+You can create a proxy check using [`proxy_entity_name`][35] or [`proxy_requests`][36].
 
 ### Use a proxy check to monitor a proxy entity
 
@@ -375,7 +375,7 @@ When executing checks that include a `proxy_entity_name`, Sensu agents report th
 If the proxy entity doesn't exist, Sensu creates the proxy entity when the event is received by the backend.
 To avoid duplicate events, we recommend using the `round_robin` attribute with proxy checks.
 
-#### Example proxy check using a `proxy_entity_name`
+#### Example proxy check using `proxy_entity_name`
 
 The following proxy check runs every 60 seconds, cycling through the agents with the `proxy` subscription alphabetically according to the agent name, for the proxy entity `sensu-site`.
 
@@ -568,10 +568,6 @@ The Sensu agent will execute the appropriate configured hook command, depending 
 Learn how to use check hooks with the [Sensu hooks reference documentation][6].
 
 ## Check specification
-
-{{% notice note %}}
-**NOTE**: In Sensu Go, the `occurrences` attribute is not part of the check definition like it was in Sensu Core.
-{{% /notice %}}
 
 ### Top-level attributes
 
@@ -1777,7 +1773,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [31]: #ttl-attribute
 [32]: #proxy-entity-name-attribute
 [33]: #proxy-checks
-[34]: ../../../api/checks#checkscheckexecute-post
+[34]: ../../../api/core/checks#checkscheckexecute-post
 [35]: #use-a-proxy-check-to-monitor-a-proxy-entity
 [36]: #use-a-proxy-check-to-monitor-multiple-proxy-entities
 [37]: #proxy-requests-top-level
