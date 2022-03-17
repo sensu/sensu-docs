@@ -376,7 +376,7 @@ When executing checks that include a `proxy_entity_name`, Sensu agents report th
 If the proxy entity doesn't exist, Sensu creates the proxy entity when the event is received by the backend.
 To avoid duplicate events, we recommend using the `round_robin` attribute with proxy checks.
 
-**Example proxy check using a `proxy_entity_name`**
+#### Example proxy check using `proxy_requests`
 
 The following proxy check runs every 60 seconds, cycling through the agents with the `proxy` subscription alphabetically according to the agent name, for the proxy entity `sensu-site`.
 
@@ -486,9 +486,69 @@ spec:
 
 #### Fine-tune proxy check scheduling with splay
 
-Sensu supports distributing proxy check executions across an interval using the `splay` and `splay_coverage` attributes.
-For example, if you assume that the `proxy_check_proxy_requests` check in the example above matches three proxy entities, you'd expect a burst of three events every 60 seconds.
-If you add the `splay` attribute (set to `true`) and the `splay_coverage` attribute (set to `90`) to the `proxy_requests` scope, Sensu will distribute the three check executions over 90% of the 60-second interval, resulting in three events splayed evenly across a 54-second period.
+Use the [`splay`][72] and [`splay_coverage`][73] attributes to distribute proxy check executions across the check interval.
+
+To continue the [example `proxy_requests` check][71], if the check matches three proxy entities, you will get a single burst of three check executions (with the resulting events) every 60 seconds.
+Use the `splay` and `splay_coverage` attributes to distribute the three check executions over the specified check interval instead of all at the same time.
+
+The following example adds `splay` set to `true` and `splay_coverage` set to `90` within the `proxy_requests` scope.
+With this change, Sensu will distribute check executions for the three proxy entities over 90% of the 60-second interval.
+Instead of three check executions in a single burst every 60 seconds, the `splay` and `splay_coverage` settings will distribute the three check executions evenly across a 54-second period (90% of the 60-second interval):
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: proxy_check_proxy_requests
+spec:
+  command: http_check.sh {{ .labels.url }}
+  handlers:
+  - slack
+  interval: 60
+  proxy_requests:
+    entity_attributes:
+    - entity.labels.proxy_type == 'website'
+    splay: true
+    splay_coverage: 90
+  publish: true
+  round_robin: true
+  subscriptions:
+  - proxy
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "proxy_check_proxy_requests"
+  },
+  "spec": {
+    "command": "http_check.sh {{ .labels.url }}",
+    "handlers": [
+      "slack"
+    ],
+    "interval": 60,
+    "proxy_requests": {
+      "entity_attributes": [
+        "entity.labels.proxy_type == 'website'"
+      ],
+      "splay": true,
+      "splay_coverage": 90
+    },
+    "publish": true,
+    "round_robin": true,
+    "subscriptions": [
+      "proxy"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Check token substitution
 
@@ -1249,7 +1309,7 @@ entity_attributes:
 
 |splay       |      |
 -------------|------
-description  | `true` if proxy check requests should be splayed, published evenly over a window of time, determined by the check interval and a configurable splay coverage percentage. Otherwise, `false`. For example, if a check has an interval of `60` seconds and a configured splay coverage of `90`%, its proxy check requests would be splayed evenly over a time window of `60` seconds * `90`%, `54` seconds, leaving `6`seconds for the last proxy check execution before the the next round of proxy check requests for the same check.
+description  | `true` if proxy check requests should be splayed, published evenly over a window of time, determined by the check interval and a configurable [`splay_coverage`][73] percentage. Otherwise, `false`.
 required     | false
 type         | Boolean
 default      | `false`
@@ -1268,8 +1328,8 @@ splay: true
 
 |splay_coverage  | |
 -------------|------
-description  | **Percentage** of the check interval over which Sensu can execute the check for all applicable entities, as defined in the entity attributes. Sensu uses the splay coverage attribute to determine the amount of time check requests can be published over (before the next check interval).
-required     | Required if `splay` attribute is set to `true`
+description  | **Percentage** of the check interval over which Sensu can execute the check for all applicable entities, as defined in the entity attributes. Sensu uses the splay_coverage attribute to determine the period of time to publish check requests over, before the next check interval begins.<br><br>For example, if a check's interval is 60 seconds and `splay_coverage` is 90, Sensu will distribute its proxy check requests evenly over a time window of 54 seconds (60 seconds * 90%). This leaves 6 seconds after the last proxy check execution before the the next round of proxy check requests for the same check.
+required     | `true` if [`splay`][72] attribute is set to `true` (otherwise, `false`)
 type         | Integer
 example      | {{< language-toggle >}}
 {{< code yml >}}
