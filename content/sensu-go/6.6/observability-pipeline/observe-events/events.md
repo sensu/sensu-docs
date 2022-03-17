@@ -3228,7 +3228,7 @@ name: sensu-go.curl_timings.time_total
 
 tags         |      |
 -------------|------
-description  | Optional tags to include with the metric. Each element of the array must be a hash that contains two key value pairs: the `name` of the tag and the `value`. Both values of the pairs must be strings.
+description  | Optional tags to include with the metric. Each element of the array must be a hash that contains two key-value pairs: the `name` of the tag and the `value`. Both values of the pairs must be strings.
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
