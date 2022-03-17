@@ -375,7 +375,7 @@ When executing checks that include a `proxy_entity_name`, Sensu agents report th
 If the proxy entity doesn't exist, Sensu creates the proxy entity when the event is received by the backend.
 To avoid duplicate events, we recommend using the `round_robin` attribute with proxy checks.
 
-**Example proxy check using a `proxy_entity_name`**
+#### Example proxy check using a `proxy_entity_name`
 
 The following proxy check runs every 60 seconds, cycling through the agents with the `proxy` subscription alphabetically according to the agent name, for the proxy entity `sensu-site`.
 

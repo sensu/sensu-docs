@@ -375,7 +375,7 @@ When executing checks that include a `proxy_entity_name`, Sensu agents report th
 If the proxy entity doesn't exist, Sensu creates the proxy entity when the event is received by the backend.
 To avoid duplicate events, we recommend using the `round_robin` attribute with proxy checks.
 
-#### Example proxy check using `proxy_requests`
+#### Example proxy check using a `proxy_entity_name`
 
 The following proxy check runs every 60 seconds, cycling through the agents with the `proxy` subscription alphabetically according to the agent name, for the proxy entity `sensu-site`.
 
@@ -429,7 +429,7 @@ No variables or directives have any special meaning, but you can still use [Sens
 The `proxy_requests` attributes are a great way to monitor multiple entities using a single check definition when combined with [token substitution][39].
 Because checks that include `proxy_requests` attributes need to be executed for each matching entity, we recommend using the `round_robin` attribute to distribute the check execution workload evenly across your Sensu agents.
 
-**Example proxy check using `proxy_requests`**
+#### Example proxy check using `proxy_requests`
 
 The following proxy check runs every 60 seconds, cycling through the agents with the `proxy` subscription alphabetically according to the agent name, for all existing proxy entities with the custom label `proxy_type` set to `website`.
 
@@ -1815,3 +1815,6 @@ The dynamic runtime asset reference includes an [example check definition that u
 [68]: ../metrics/
 [69]: ../../observe-process/pipelines/
 [70]: #pipelines-attributes
+[71]: #example-proxy-check-using-proxy_requests
+[72]: #splay
+[73]: #splay-coverage
