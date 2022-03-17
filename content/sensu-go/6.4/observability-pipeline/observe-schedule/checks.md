@@ -492,8 +492,7 @@ To continue the [example `proxy_requests` check][71], if the check matches three
 Use the `splay` and `splay_coverage` attributes to distribute the three check executions over the specified check interval instead of all at the same time.
 
 The following example adds `splay` set to `true` and `splay_coverage` set to `90` within the `proxy_requests` scope.
-With this change, Sensu will distribute check executions for the three proxy entities over 90% of the 60-second interval.
-Instead of three check executions in a single burst every 60 seconds, the `splay` and `splay_coverage` settings will distribute the three check executions evenly across a 54-second period (90% of the 60-second interval):
+With this addition, instead of three check executions in a single burst every 60 seconds, Sensu will distribute the three check executions evenly across a 54-second period (90% of the 60-second interval):
 
 {{< language-toggle >}}
 
