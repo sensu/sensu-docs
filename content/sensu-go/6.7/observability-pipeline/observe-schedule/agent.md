@@ -763,7 +763,7 @@ sensu-agent start --help
 ### Registration, endpoint management, and service discovery
 
 Sensu agents automatically discover and register infrastructure components and the services running on them.
-When an agent process stops, the Sensu backend can automatically create and process a deregistration event.
+When an agent process stops, the Sensu backend can automatically create and process a deregistration event for the agent entities.
 
 In practice, agent registration happens when a Sensu backend processes an agent keepalive event for an agent that is not already registered in the Sensu agent registry (based on the configured agent `name`).
 The [Sensu backend][2] stores this agent registry, and it is accessible via [`sensuctl entity list`][6].
