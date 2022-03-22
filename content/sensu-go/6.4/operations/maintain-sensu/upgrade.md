@@ -26,12 +26,12 @@ sudo systemctl daemon-reload
 
 3. Restart the Sensu agent:
 {{< code shell >}}
-sudo service sensu-agent restart
+sudo systemctl sensu-agent restart
 {{< /code >}}
 
 4. Restart the Sensu backend:
 {{< code shell >}}
-sudo service sensu-backend restart
+sudo systemctl sensu-backend restart
 {{< /code >}}
 
 5. Run a single upgrade command on one your Sensu backends to migrate the cluster:
@@ -228,7 +228,7 @@ state-dir: "/var/lib/sensu"
 Then restart the backend:
 
 {{< code shell >}}
-sudo service sensu-backend restart
+sudo systemctl sensu-backend restart
 {{< /code >}}
 
 
