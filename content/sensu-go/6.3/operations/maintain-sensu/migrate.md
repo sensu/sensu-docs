@@ -217,8 +217,7 @@ Read the [installation guide][53] to install and configure sensuctl.
 
 #### 4. Set up Sensu users
 
-Role-based access control (RBAC) is a built-in feature of the open-source version of Sensu Go.
-RBAC allows you to manage and access users and resources based on namespaces, groups, roles, and bindings.
+Use Sensu's built-in [RBAC][13] to manage and access users and resources based on namespaces, groups, roles, and bindings.
 To set up RBAC in Sensu Go, read the [RBAC reference][13] and [Create a read-only user][14].
 
 In Sensu Go, [namespaces][107] partition resources within a Sensu instance.
