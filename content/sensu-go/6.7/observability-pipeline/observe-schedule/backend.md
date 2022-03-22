@@ -320,7 +320,7 @@ If you do not provide any configuration flags, the backend loads configuration f
 To start the backend using a service manager:
 
 {{< code shell >}}
-service sensu-backend start
+sudo systemctl sensu-backend start
 {{< /code >}}
 
 ### Stop the service
@@ -328,7 +328,7 @@ service sensu-backend start
 To stop the backend service using a service manager:
 
 {{< code shell >}}
-service sensu-backend stop
+sudo systemctl sensu-backend stop
 {{< /code >}}
 
 ### Restart the service
@@ -338,7 +338,7 @@ You must restart the backend to implement any configuration updates.
 To restart the backend using a service manager:
 
 {{< code shell >}}
-service sensu-backend restart
+sudo systemctl sensu-backend restart
 {{< /code >}}
 
 ### Enable on boot
@@ -346,13 +346,13 @@ service sensu-backend restart
 To enable the backend to start on system boot:
 
 {{< code shell >}}
-systemctl enable sensu-backend
+sudo systemctl enable sensu-backend
 {{< /code >}}
 
 To disable the backend from starting on system boot:
 
 {{< code shell >}}
-systemctl disable sensu-backend
+sudo systemctl disable sensu-backend
 {{< /code >}}
 
 {{% notice note %}}
@@ -364,7 +364,7 @@ systemctl disable sensu-backend
 To view the status of the backend service using a service manager:
 
 {{< code shell >}}
-service sensu-backend status
+sudo systemctl sensu-backend status
 {{< /code >}}
 
 ### Get service version
