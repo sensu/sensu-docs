@@ -54,7 +54,7 @@ spec:
 
 ## Authorization header format
 
-Use the following header format to authenticate with API keys, replacing `API_KEY` with your API key value:
+Use the following header format to authenticate with API keys, replacing `API_KEY` with your API key:
 
 {{< code shell "curl" >}}
 Authorization: Key API_KEY
