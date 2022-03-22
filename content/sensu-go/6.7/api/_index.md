@@ -102,7 +102,7 @@ For information about using Sensu's built-in basic authentication or external au
 
 To set up a local API testing environment, save your Sensu credentials and access token as environment variables.
 
-Save your Sensu credentials as environmnet variables:
+Save your Sensu credentials as environment variables:
 
 {{< code shell >}}
 export SENSU_USER=YOUR_USERNAME && SENSU_PASS=YOUR_PASSWORD
