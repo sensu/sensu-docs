@@ -591,7 +591,7 @@ sensu-agent start --help
 To start the agent using a service manager:
 
 {{< code shell >}}
-sudo service sensu-agent start
+sudo systemctl sensu-agent start
 {{< /code >}}
 
 If you do not provide any configuration flags, the agent loads configuration from the location specified by the `config-file` attribute (default is `/etc/sensu/agent.yml`).
@@ -625,7 +625,7 @@ To stop the agent service using a service manager:
 {{< language-toggle >}}
 
 {{< code shell "Linux" >}}
-sudo service sensu-agent stop
+sudo systemctl sensu-agent stop
 {{< /code >}}
 
 {{< code shell "Windows" >}}
@@ -643,7 +643,7 @@ To restart the agent using a service manager:
 {{< language-toggle >}}
 
 {{< code shell "Linux" >}}
-sudo service sensu-agent restart
+sudo systemctl sensu-agent restart
 {{< /code >}}
 
 {{< code shell "Windows" >}}
@@ -697,7 +697,7 @@ To view the status of the agent service using a service manager:
 {{< language-toggle >}}
 
 {{< code shell "Linux" >}}
-service sensu-agent status
+sudo systemctl sensu-agent status
 {{< /code >}}
 
 {{< code shell "Windows" >}}
@@ -729,7 +729,7 @@ To uninstall the sensu-agent service, run:
 {{< language-toggle >}}
 
 {{< code shell "Linux" >}}
-systemctl sensu-agent stop
+sudo systemctl sensu-agent stop
 {{< /code >}}
 
 {{< code shell "Windows" >}}
