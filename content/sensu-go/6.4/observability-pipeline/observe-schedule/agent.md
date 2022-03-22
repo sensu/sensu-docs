@@ -488,7 +488,7 @@ The value you specify for `keepalive-warning-timeout` must be lower than the val
 
 {{% notice note %}}
 **NOTE**: If you set the [deregister flag](#ephemeral-agent-configuration-flags) to `true`, when a Sensu agent process stops, the Sensu backend will deregister the corresponding entity.<br><br>
-Deregistration prevents and clears alerts for failing keepalives &mdash; the backend does not distinguish between intentional shutdown and failure.
+Deregistration prevents and clears alerts for failing keepalives for agent entities &mdash; the backend does not distinguish between intentional shutdown and failure.
 As a result, if you set the deregister flag to `true` and an agent process stops for any reason, you will not receive alerts for keepalive events in the web UI.<br><br>
 If you want to receive alerts for failing keepalives, set the [deregister flag](#ephemeral-agent-configuration-flags) to `false`.
 {{% /notice %}}
@@ -591,7 +591,7 @@ sensu-agent start --help
 To start the agent using a service manager:
 
 {{< code shell >}}
-sudo service sensu-agent start
+sudo systemctl sensu-agent start
 {{< /code >}}
 
 If you do not provide any configuration flags, the agent loads configuration from the location specified by the `config-file` attribute (default is `/etc/sensu/agent.yml`).
@@ -625,7 +625,7 @@ To stop the agent service using a service manager:
 {{< language-toggle >}}
 
 {{< code shell "Linux" >}}
-sudo service sensu-agent stop
+sudo systemctl sensu-agent stop
 {{< /code >}}
 
 {{< code shell "Windows" >}}
@@ -643,7 +643,7 @@ To restart the agent using a service manager:
 {{< language-toggle >}}
 
 {{< code shell "Linux" >}}
-sudo service sensu-agent restart
+sudo systemctl sensu-agent restart
 {{< /code >}}
 
 {{< code shell "Windows" >}}
@@ -697,7 +697,7 @@ To view the status of the agent service using a service manager:
 {{< language-toggle >}}
 
 {{< code shell "Linux" >}}
-service sensu-agent status
+sudo systemctl sensu-agent status
 {{< /code >}}
 
 {{< code shell "Windows" >}}
@@ -729,7 +729,7 @@ To uninstall the sensu-agent service, run:
 {{< language-toggle >}}
 
 {{< code shell "Linux" >}}
-systemctl sensu-agent stop
+sudo systemctl sensu-agent stop
 {{< /code >}}
 
 {{< code shell "Windows" >}}
@@ -757,7 +757,7 @@ sensu-agent start --help
 ### Registration, endpoint management, and service discovery
 
 Sensu agents automatically discover and register infrastructure components and the services running on them.
-When an agent process stops, the Sensu backend can automatically create and process a deregistration event.
+When an agent process stops, the Sensu backend can automatically create and process a deregistration event for the agent entities.
 
 In practice, agent registration happens when a Sensu backend processes an agent keepalive event for an agent that is not already registered in the Sensu agent registry (based on the configured agent `name`).
 The [Sensu backend][2] stores this agent registry, and it is accessible via [`sensuctl entity list`][6].
@@ -788,6 +788,11 @@ As with registration events, the Sensu backend can create and process a deregist
 You can use deregistration events to trigger a handler that updates external CMDBs or performs an action to update ephemeral infrastructures.
 To enable deregistration events, use the [`deregister` flag][13], and specify the event handler using the [`deregistration-handler` flag][13].
 You can specify a deregistration handler per agent using the [`deregistration-handler` agent flag][13] or by setting a default for all agents using the [`deregistration-handler` backend configuration flag][37].
+
+{{% notice note %}}
+**NOTE**: Deregistration is supported for [agent entities](../../observe-entities/#agent-entities) that have sent at least one keepalive.
+Deregistration is **not** supported for [proxy entities](../../observe-entities/#proxy-entities), which do not send keepalives, and the backend does not automatically create and process deregistration events for proxy entities.
+{{% /notice %}}
 
 ### Cluster
 

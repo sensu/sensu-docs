@@ -1141,7 +1141,7 @@ deregister: false
 
 deregistration  | 
 -------------|------ 
-description  | Map that contains a handler name to use when an entity is deregistered. Read [deregistration attributes][2] for more information.
+description  | Map that contains a handler name to use when an agent entity is deregistered. Read [deregistration attributes][2] for more information.
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
@@ -1558,7 +1558,7 @@ addresses:
 
 handler      | 
 -------------|------ 
-description  | Name of the handler to call when an entity is deregistered.
+description  | Name of the handler to call when an agent entity is deregistered.
 required     | false 
 type         | String 
 example      | {{< language-toggle >}}
