@@ -28,7 +28,7 @@ Read the [installation guide][1] to install the agent.
 
 ## Agent authentication
 
-The Sensu agent authenticates to the Sensu backend via [WebSocket][45] transport by either built-in basic (username and password) or mutual transport layer security (mTLS) authentication.
+The Sensu agent authenticates to the Sensu backend via [WebSocket][45] transport by either built-in basic authentication (username and password) or mutual transport layer security (mTLS) authentication.
 
 ### Username and password authentication
 

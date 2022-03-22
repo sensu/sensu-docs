@@ -30,7 +30,7 @@ By default, this transport operates on port 8081.
 The agent subscriptions are used to determine which check execution requests the backend publishes via the transport.
 Sensu agents locally execute checks as requested by the backend and publish check results back to the transport to be processed.
 
-Sensu agents authenticate to the Sensu backend via transport by either [built-in username and password][34] or [mutual transport layer security (mTLS)][31] authentication.
+Sensu agents authenticate to the Sensu backend via transport by either [built-in username and password authentication][34] or [mutual transport layer security (mTLS) authentication][31].
 
 To secure the WebSocket transport, first [generate the certificates][32] you will need to set up transport layer security (TLS).
 Then, [secure Sensu][33] by configuring either TLS or mTLS to make Sensu production-ready.
