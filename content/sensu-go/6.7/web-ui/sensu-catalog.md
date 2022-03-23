@@ -132,6 +132,12 @@ The resources are listed on the configuration page for the resource type (checks
 
 View and manage integration resources just like all of your other Sensu resources: in the [web UI][9], with [sensuctl][10], or with the Sensu [API][11].
 
+## TODO: Portability
+
+Need to explain that integration definitions are portable and are part of Sensu's monitoring as code solution.
+
+- No namespaces in SENSU RESOURCE definitions
+
 ## Use secrets in integrations
 
 The Sensu Catalog integrations are preconfigured to use Sensu's `Env` secrets provider for sensitive information the integrations might require, like passwords and API tokens.
@@ -139,6 +145,7 @@ The Sensu Catalog integrations are preconfigured to use Sensu's `Env` secrets pr
 ## TODO: Other questions
 
 - If I recreate the same integration, does it overwrite the existing resources? Create a second set of resources? Ignore the new integration and resources?
+- What is the purpose of the commit code next to the INSTALL button? Is this for pinning the integration to a specific asset version? Or maybe a specific version of the integration itself?
 
 
 [1]: ../../plugins/plugins/
