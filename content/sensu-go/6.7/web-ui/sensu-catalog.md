@@ -89,7 +89,7 @@ Click the `yaml` or `json` buttons to select the format for each definition.
 
 {{% notice note %}}
 **NOTE**: The SENSU RESOURCES tab lists example resource definitions that you must configure and install.
-Use the **INSTALL** button to [configure and install the integration](#configure-and-install-an-integration) directly from your browser or copy the example definitions to configure and create with [sensuctl](../sensuctl/create-manage-resources/) or the [Sensu API](../api/).
+Use the **INSTALL** button to [configure and install the integration](#configure-and-install-an-integration) directly from your browser or copy the example definitions to configure and create with [sensuctl](../../sensuctl/create-manage-resources/) or the Sensu [API](../../api/).
 {{% /notice %}}
 
 The RAW tab contains the resource definition for the integration itself.
@@ -150,6 +150,6 @@ The Sensu Catalog integrations are preconfigured to use Sensu's `Env` secrets pr
 [7]: ../../commercial/
 [8]: ../../operations/maintain-sensu/license/
 [9]: ../view-manage-resources/
-[10]: ../sensuctl/create-manage-resources/
-[11]: ../api/
-[12]: ../sensu-plus/
+[10]: ../../sensuctl/create-manage-resources/
+[11]: ../../api/
+[12]: ../../sensu-plus/
