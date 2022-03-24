@@ -19,7 +19,7 @@ For more information, read [Get started with commercial features](../../../comme
 
 Sensu requires username and password authentication to access the [web UI][1], [API][8], and [sensuctl][2] command line tool.
 
-In addition to the [built-in basic authentication provider][7], Sensu offers [commercial support][6] for single sign-on (SSO) authentication using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol.
+In addition to the [built-in basic authentication][7], Sensu offers [commercial support][6] for single sign-on (SSO) authentication using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol.
 The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52].
 
 For general information about configuring authentication providers, read [Configure single sign-on (SSO) authentication][12].

@@ -33,7 +33,7 @@ You'll also find guides for scaling your implementation with Sensu's [Enterprise
 [Control Access][2] explains how Sensu administrators control access by authentication (verifying user identities) and authorization (establishing and managing user permissions for Sensu resources).
 
 Sensu requires username and password authentication to access the web UI, API, and sensuctl command line tool.
-Use Sensu’s [built-in basic authentication provider][15] or configure external authentication providers via [Lightweight Directory Access Protocol (LDAP)][16], [Active Directory (AD)][17], or [OpenID Connect 1.0 protocol (OIDC)][18] to authenticate your Sensu users.
+Use Sensu’s [built-in basic authentication][15] or configure external authentication providers via [Lightweight Directory Access Protocol (LDAP)][16], [Active Directory (AD)][17], or [OpenID Connect 1.0 protocol (OIDC)][18] to authenticate your Sensu users.
 
 Next, learn to configure authorization for your authenticated Sensu users with [role-based access control (RBAC)][19] and set up user permissions for interacting with Sensu resources.
 
