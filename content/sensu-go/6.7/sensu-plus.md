@@ -113,7 +113,7 @@ EOF
 
 {{< /language-toggle >}}
 
-If you prefer, you can configure your Sumo Logic HTTP Logs and Metrics Source URL as a [secret][6] with Sensu's built-in [`env` secrets provider][7] to avoid exposing the URL in your handler definition.
+If you prefer, you can configure your Sumo Logic HTTP Logs and Metrics Source URL as a [secret][6] with Sensu's [`Env` secrets provider][7] to avoid exposing the URL in your handler definition.
 This example shows the same definition with the URL referenced as a secret instead:
 
 {{< language-toggle >}}
