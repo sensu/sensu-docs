@@ -1,7 +1,7 @@
 ---
 title: "Sensu Catalog"
 linkTitle: "Sensu Catalog"
-description: "Find, install, configure, and enable monitoring and observability integrations in Sensu's online marketplace, the Sensu Catalog."
+description: "Find, configure, and install powerful monitoring and observability integrations in the Sensu Catalog, Sensu's online marketplace."
 weight: 25
 version: "6.7"
 product: "Sensu Go"
@@ -20,28 +20,35 @@ For more information, read [Get started with commercial features](../../commerci
 **NOTE**: The Sensu Catalog is in public preview and is subject to change.
 {{% /notice %}}
 
-The Sensu Catalog is an online marketplace for monitoring and observability integrations.
-It contains a collection of commercial and community-supported integrations that Sensu curates and maintains.
+The Sensu Catalog is an online marketplace for monitoring and observability integrations, from standard system checks and metrics collection to pipelines for sending Sensu data to third-party logging, remediation, and incident management services.
 
-The Sensu Catalog is part of the Sensu web UI, so you can use it to find, configure, and install integrations directly from your browser.
+Sensu Catalog integrations allow you to configure powerful real-time monitoring and observability for the systems you rely on.
+All integrations are self-service to facilitate higher-velocity scaling with fewer onboarding barriers.
+
+Sensu curates, tests, and maintains the Catalog integrations, and installation follows a standardized process.
 
 An integration combines a Sensu [plugin][1] with the Sensu resource definitions required to use the plugin, like a [check][2] or [handler][3].
-Integrations include everything from standard system checks and metrics collection to third-party logging, remediation, and incident management services.
+The Sensu Catalog is part of the Sensu web UI, so you can find, configure, and install integrations directly from your browser.
+
+**TODO: update screenshot to clarify which is the Catalog icon**
 
 {{< figure src="/images/catalog_alphabetical.png" alt="The Sensu Catalog page in the Sensu web UI" link="/images/catalog_alphabetical.png" target="_blank" >}}
 
 ## Find integrations
 
-Find integrations in the Sensu Catalog by browsing alphabetized, categorized, or metadata-based lists.
-You can also search the Sensu Catalog by integration name.
+Find integrations in the Sensu Catalog by browsing [alphabetized][15], [categorized][16], and [metadata-based][17] lists.
+You can also [search][19] the Sensu Catalog by display_name, class, provider, and tags.
 
 ### Browse the alphabetized list
 
-By default, all integrations are alphabetically listed on the Catalog page in the Sensu web UI.
+When the Catalog page loads in the Sensu web UI, all integrations are alphabetically listed by default.
+To return to the alphabetized list at any time, click the **All** category in the Catalog page sidebar navigation menu:
+
+**TODO: Add screenshot with All callout**
 
 ### Browse the categorized list
 
-The Catalog page has a sidebar navigation menu that lists the integrations in categories based on support status and function.
+The Catalog page sidebar navigation menu lists integrations in categories based on class and function.
 Click a category to retrieve the associated integrations.
 
 {{< figure src="/images/catalog_menu.png" alt="Category-based menu for the Sensu Catalog page in the Sensu web UI" link="/images/catalog_menu.png" target="_blank" >}}
@@ -51,9 +58,9 @@ Three categories describe the integration class:
 - **Supported**: Integrations that Sensu developed. Supported integrations may be [commercial features][7] that require a valid Sensu [license][8].
 - **Community**: Integrations contributed by members of the Sensu community. Community integrations are free and open-source.
 
-The **Sensu Plus** category includes our [Sensu Plus][12]-enabled integrations.
+The **Sensu Plus** category includes our [Sensu Plus][12]-enabled integrations, which provide turnkey analytics via Sumo Logic applications and dashboards.
 
-The rest of the categories are based on the integration's purpose, like cloud monitoring or automated remediation.
+The rest of the categories are based on the integration's function, like cloud monitoring or automated remediation.
 
 ### Browse a metadata-based list
 
@@ -65,15 +72,28 @@ You can search the Sensu Catalog for integrations with particular `provider` or 
 
 {{< figure src="/images/catalog_metadata_search.gif" alt="Sensu Catalog search for integrations with 'aws' in tags" link="/images/catalog_metadata_search.gif" target="_blank" >}}
 
-### Search for a specific integration
+### Search for integrations
 
-If you know which integration you want to use, you can search for it by name from the Catalog main page:
+The Sensu Catalog includes basic search using substring matching, as well as advanced searches based on integration display_name, class, provider, and tags.
+
+Sensu Catalog search supports two set-based operators:
+
+| operator  | description        | example                |
+| --------- | ------------------ | ---------------------- |
+| `in`      | Included in        | `ansible in tags`
+| `matches` | Substring matching | `display_name ansible matches`
+
+#### Quick search for integrations
+
+The Sensu Catalog quick search allows you to search without using any particular syntax.
+Type your search term into the search field on the Catalog page of the web UI and press `Enter`.
+Sensu will auto-complete a simple search statement for the resources on that page using substring matching:
 
 {{< figure src="/images/catalog_name_search.gif" alt="Sensu Catalog search for integrations by name" link="/images/catalog_name_search.gif" target="_blank" >}}
 
 ## Get information about an integration
 
-In the Catalog, integrations are represented by tiles.
+In the Sensu Catalog, integrations are represented by tiles.
 When you click an integration tile, the integration's detail page opens.
 The detail page includes tabs for README, CHANGELOG, SENSU RESOURCES, and RAW.
 
@@ -125,6 +145,8 @@ Click the dropdown arrows to review the resource definitions:
 
 {{< figure src="/images/catalog_integration_summary_definitions.gif" alt="Summary page of configuration wizard for a Sensu Catalog integration" link="/images/catalog_integration_summary_definitions.gif" target="_blank" >}}
 
+The resulting resource definitions represent Sensu's recommended configuration (i.e. how to use plugins) to make it easier to evaluate and deploy Sensu solutions
+
 ## View and manage your integrations
 
 After you install an integration, Sensu creates and publishes the integration resources within your current namespace.
@@ -132,20 +154,28 @@ The resources are listed on the configuration page for the resource type (checks
 
 View and manage integration resources just like all of your other Sensu resources: in the [web UI][9], with [sensuctl][10], or with the Sensu [API][11].
 
-## TODO: Portability
+## Reuse integration resources
 
-Need to explain that integration definitions are portable and are part of Sensu's monitoring as code solution.
-
-- No namespaces in SENSU RESOURCE definitions
+The integration definitions listed in the [SENSU RESOURCES tab][13] are usable, portable definitions for all of the resources you need to use the integration.
+These definitions are universal [monitoring as code][15] templates: they do not include a namespace or the specific values you provide while [configuring and installing][14] the integration.
 
 ## Use secrets in integrations
 
 The Sensu Catalog integrations are preconfigured to use Sensu's `Env` secrets provider for sensitive information the integrations might require, like passwords and API tokens.
 
-## TODO: Other questions
+## Contribute an integration
+
+The Sensu Catalog is an open marketplace, and you can contribute by sharing Sensu configurations.
+
+**TODO: expand on contribution -- how?**
+
+## TODO: Questions
 
 - If I recreate the same integration, does it overwrite the existing resources? Create a second set of resources? Ignore the new integration and resources?
 - What is the purpose of the commit code next to the INSTALL button? Is this for pinning the integration to a specific asset version? Or maybe a specific version of the integration itself?
+- Will the catalog API exist at launch?
+- What is supposed to be at https://catalog.sensu.io/?
+- What does it mean for an integration to have the provider tag? The provider values sound like functions the integration serves. How are we thinking of provider in this case?
 
 
 [1]: ../../plugins/plugins/
@@ -160,3 +190,10 @@ The Sensu Catalog integrations are preconfigured to use Sensu's `Env` secrets pr
 [10]: ../../sensuctl/create-manage-resources/
 [11]: ../../api/
 [12]: ../../sensu-plus/
+[13]: #get-information-about-an-integration
+[14]: #configure-and-install-an-integration
+[15]: ../../operations/monitoring-as-code/
+[16]: #browse-the-alphabetized-list
+[17]: #browse-the-categorized-list
+[18]: #browse-a-metadata-based-list
+[19]: #search-for-integrations
