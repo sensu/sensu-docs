@@ -149,8 +149,8 @@ The Sensu Sumo Logic Handler asset requires a `SUMOLOGIC_URL` variable.
 The value for the `SUMOLOGIC_URL` variable is the Sumo Logic HTTP Source Address URL, which you retrieved in the last step of [setting up an HTTP Logs and Metrics Source][12].
 
 {{% notice note %}}
-**NOTE**: This example shows how to set your Sumo Logic HTTP Source Address URL as an environment variable and use it as a secret with Sensu's built-in `Env` secrets provider.
-Read [Use secrets management in Sensu](../../../operations/manage-secrets/secrets-management/) for more information about [using the Env secrets provider](../../../operations/manage-secrets/secrets-management/#use-env-for-secrets-management).
+**NOTE**: This example shows how to set your Sumo Logic HTTP Source Address URL as an environment variable and use it as a secret with Sensu's `Env` secrets provider.
+Read [Use secrets management in Sensu](../../../operations/manage-secrets/secrets-management/) for more information about using the `Env` secrets provider.
 {{% /notice %}}
 
 ### Configure the SUMOLOGIC_URL environment variable

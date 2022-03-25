@@ -29,7 +29,7 @@ For more information, read [Get started with commercial features](../commercial/
 Use [business service monitoring (BSM)][23] to monitor your system with a top-down approach that produces meaningful alerts, prevents alert fatigue, and helps you focus on your core business services.
 - **Use mutual transport layer security (mTLS) authentication** to [provide two-way verification of your Sensu agents and backend connections][21].
 - **Protect your sensitive information** with [secrets management][22].
-Avoid exposing usernames, passwords, and access keys in your Sensu configuration by integrating with HashiCorp Vault or using Sensu's built-in environment variable secrets provider.
+Avoid exposing usernames, passwords, and access keys in your Sensu configuration by integrating with HashiCorp Vault or using Sensu's `Env` secrets provider.
 - **Manage your monitoring resources across multiple data centers, cloud regions, or providers** and mirror changes to follower clusters with [federation][20].
 Federation affords visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI.
 - **Use powerful search capabilities** designed for large installations to search [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wide range of resource attributes.
