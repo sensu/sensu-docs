@@ -997,7 +997,7 @@ points:
 
 Sensu adds any output metric tag values to the `tags` array along with any natively supported tags produced by check output metric extraction.
 
-#### Use token substitution with output metric tags
+### Use token substitution with output metric tags
 
 Use [token substitution][22] to include any [event attribute][30] in an output metric tag.
 Add token substitution in the output metric tag `value` attribute.
@@ -1024,6 +1024,54 @@ output_metric_tags:
     {
       "name": "entity_name",
       "value": "{{ .entity.name }}"
+    }
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Collect metrics in formats that do not support tags
+
+Output metric tags are useful when you want to collect metrics in a format that does not natively support tags, like Graphite Plaintext Protocol or Nagios Performance Data.
+
+For example, you might want to collect and transmit metrics in Nagios Performance Data format, which does not support tags, and store the metrics in Prometheus, which does support tags.
+In this case, you can specify the tags to include with metrics with output metric tags.
+The `output_metric_format`, `output_metric_handlers`, and `output_metric_tags` attributes in your check definition might look similar to this example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+output_metric_format: nagios_perfdata
+output_metric_handlers:
+  - prometheus_gateway
+output_metric_tags:
+  - name: instance
+    value: '{{ .name }}'
+  - name: prometheus_type
+    value: gauge
+  - name: service
+    value: '{{ .labels.service }}'
+{{< /code >}}
+
+{{< code json >}}
+{
+  "output_metric_format": "nagios_perfdata",
+  "output_metric_handlers": [
+    "prometheus_gateway"
+  ],
+  "output_metric_tags": [
+    {
+      "name": "instance",
+      "value": "{{ .name }}"
+    },
+    {
+      "name": "prometheus_type",
+      "value": "gauge"
+    },
+    {
+      "name": "service",
+      "value": "{{ .labels.service }}"
     }
   ]
 }
