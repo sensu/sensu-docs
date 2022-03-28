@@ -4,7 +4,7 @@ linkTitle: "TCP Stream Handlers Reference"
 reference_title: "TCP stream handlers"
 type: "reference"
 description: "Read this reference to use TCP stream handlers to send observability data to TCP sockets without the data bottlenecks of traditional TCP handlers."
-weight: 17
+weight: 90
 version: "6.5"
 product: "Sensu Go"
 platformContent: false

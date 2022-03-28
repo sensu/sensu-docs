@@ -4,7 +4,7 @@ linkTitle: "Send Data to Sumo Logic"
 guide_title: "Send data to Sumo Logic with Sensu"
 type: "guide"
 description: "Put Sensu's observability pipeline into action. Follow this guide to configure a handler to send Sensu data to Sumo Logic for long-term log and metrics storage."
-weight: 19
+weight: 180
 version: "6.4"
 product: "Sensu Go"
 platformContent: false

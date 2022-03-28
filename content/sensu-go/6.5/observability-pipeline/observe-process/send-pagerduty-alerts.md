@@ -4,7 +4,7 @@ linkTitle: "Send PagerDuty Alerts"
 guide_title: "Send PagerDuty alerts with Sensu"
 type: "guide"
 description: "Follow this guide to configure a check that generates status events and a handler that sends Sensu alerts to PagerDuty for non-OK events."
-weight: 25
+weight: 220
 version: "6.5"
 product: "Sensu Go"
 platformContent: false

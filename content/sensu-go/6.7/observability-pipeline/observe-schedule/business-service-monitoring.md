@@ -5,7 +5,7 @@ type: "guide"
 description: "Use Sensu's business service monitoring (BSM) to monitor every component in your system with a top-down approach that produces meaningful information."
 product: "Sensu Go"
 version: "6.7"
-weight: 55
+weight: 200
 layout: "single"
 toc: true
 menu:
