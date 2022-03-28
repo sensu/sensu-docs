@@ -4,7 +4,7 @@ linkTitle: "Route Alerts"
 guide_title: "Route alerts with event filters"
 type: "guide"
 description: "Alert the right people using their preferred contact method with Sensu's contact routing and reduce mean time to response and recovery."
-weight: 30
+weight: 80
 version: "6.3"
 product: "Sensu Go"
 platformContent: false

@@ -4,7 +4,7 @@ linkTitle: "Assets Reference"
 reference_title: "Assets"
 type: "reference"
 description: "Use Sensu's dynamic runtime assets to provide the plugins, libraries, and runtimes you need to create automated monitoring and observability workflows."
-weight: 60
+weight: 20
 version: "6.5"
 product: "Sensu Go"
 platformContent: false 
