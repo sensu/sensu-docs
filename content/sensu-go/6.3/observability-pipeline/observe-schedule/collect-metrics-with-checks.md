@@ -4,7 +4,7 @@ linkTitle: "Collect Service Metrics"
 guide_title: "Collect service metrics with Sensu checks"
 type: "guide"
 description: "Collect service metrics for an NGINX webserver with a Sensu check and output the metrics data in Nagios Performance Data format."
-weight: 50
+weight: 180
 version: "6.3"
 product: "Sensu Go"
 platformContent: false

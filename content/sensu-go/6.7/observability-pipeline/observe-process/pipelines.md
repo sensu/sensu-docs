@@ -4,7 +4,7 @@ linkTitle: "Pipeline Reference"
 reference_title: "Pipeline"
 type: "reference"
 description: "Pipelines are observation event processing workflows made up of filters, mutators, and handlers. Read the reference doc to learn about pipelines."
-weight: 15
+weight: 40
 version: "6.7"
 product: "Sensu Go"
 platformContent: false

@@ -4,7 +4,7 @@ linkTitle: "Populate Metrics in InfluxDB"
 guide_title: "Populate metrics in InfluxDB with handlers"
 type: "guide"
 description: "Follow this guide to populate Sensu metrics into the time-series database InfluxDB with a handler, an action the Sensu backend executes when an event occurs."
-weight: 50
+weight: 160
 version: "6.6"
 product: "Sensu Go"
 platformContent: false
