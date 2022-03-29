@@ -161,7 +161,7 @@ http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/ag
 -H "Authorization: Key $SENSU_API_KEY"
 {{< /code >}}
 
-The response will include the complete `aggregate` rule template resource definition:
+The response will include the complete `aggregate` rule template resource definition in JSON format:
 
 {{< code json >}}
 {
@@ -225,26 +225,22 @@ The configuration for a service component that references the `aggregate` rule t
 type: ServiceComponent
 api_version: bsm/v1
 metadata:
-  name: web-app
+  name: webservers
 spec:
-  cron: ''
-  handlers:
-  - slack
-  interval: 30
-  query:
-  - type: fieldSelector
-    value: event.check.labels.service == applications
-  rules:
-  - arguments:
-      critical_threshold: 50
-      metric_handler: influxdb
-      produce_metrics: true
-      set_metric_annotations: true
-      warning_threshold: 70
-    name: crit50-warn70
-    template: aggregate
   services:
-  - applications
+    - website-services
+  interval: 60
+  query:
+    - type: fieldSelector
+      value: webserver in event.check.subscriptions
+  rules:
+    - template: aggregate
+      name: webservers_50-70
+      arguments:
+        critical_threshold: 70
+        warning_threshold: 50
+  handlers:
+    - slack
 {{< /code >}}
 
 {{< code json >}}
@@ -252,35 +248,31 @@ spec:
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "web-app"
+    "name": "webservers"
   },
   "spec": {
-    "cron": "",
-    "handlers": [
-      "slack"
+    "services": [
+      "website-services"
     ],
-    "interval": 30,
+    "interval": 60,
     "query": [
       {
         "type": "fieldSelector",
-        "value": "event.check.labels.service == applications"
+        "value": "webserver in event.check.subscriptions"
       }
     ],
     "rules": [
       {
+        "template": "aggregate",
+        "name": "webservers_50-70",
         "arguments": {
-          "critical_threshold": 50,
-          "metric_handler": "influxdb",
-          "produce_metrics": true,
-          "set_metric_annotations": true,
-          "warning_threshold": 70
-        },
-        "name": "crit50-warn70",
-        "template": "aggregate"
+          "critical_threshold": 70,
+          "warning_threshold": 50
+        }
       }
     ],
-    "services": [
-      "applications"
+    "handlers": [
+      "slack"
     ]
   }
 }
@@ -326,7 +318,7 @@ api_version: bsm/v1
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the rule template's `name` and `namespace` as well as the `created_by` field.
+description  | Top-level collection of information about the rule template, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`.
 required     | true
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
@@ -335,13 +327,23 @@ metadata:
   name: status-threshold
   namespace: default
   created_by: admin
+  labels:
+    region: us-west-1
+  annotations:
+    managed_by: ops
 {{< /code >}}
 {{< code json >}}
 {
   "metadata": {
     "name": "status-threshold",
     "namespace": "default",
-    "created_by": "admin"
+    "created_by": "admin",
+    "labels": {
+      "region": "us-west-1"
+    },
+    "annotations": {
+      "managed_by": "ops"
+    }
   }
 }
 {{< /code >}}

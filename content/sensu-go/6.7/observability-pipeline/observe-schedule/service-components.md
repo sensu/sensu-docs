@@ -150,7 +150,7 @@ api_version: bsm/v1
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the service component's `name` and `namespace` as well as the `created_by` field.
+description  | Top-level collection of information about the service component, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`.
 required     | true
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
