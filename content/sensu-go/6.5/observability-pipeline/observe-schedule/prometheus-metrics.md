@@ -4,7 +4,7 @@ linkTitle: "Collect Prometheus Metrics"
 guide_title: "Collect Prometheus metrics with Sensu"
 type: "guide"
 description: "Use the Sensu Prometheus Collector integration to collect Prometheus metrics so Sensu can route the collected metrics to a time-series database like InfluxDB."
-weight: 55
+weight: 160
 version: "6.5"
 product: "Sensu Go"
 platformContent: false

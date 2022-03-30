@@ -196,7 +196,7 @@ An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
 {{% notice note %}}
-**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../operations/control-access/#use-built-in-basic-authentication).
+**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication](../operations/control-access/#use-built-in-basic-authentication).
 It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../operations/control-access/ldap-auth/), [Active Directory (AD)](../operations/control-access/ad-auth/), or [OpenID Connect 1.0 protocol (OIDC)](../operations/control-access/oidc-auth/).
 {{% /notice %}}
 

@@ -4,7 +4,7 @@ linkTitle: "Sumo Logic Metrics Handlers Reference"
 reference_title: "Sumo Logic metrics handlers"
 type: "reference"
 description: "Read this reference to learn about Sumo Logic metrics handlers, which provide a persistent connection for sending Sensu data to Sumo Logic."
-weight: 16
+weight: 80
 version: "6.7"
 product: "Sensu Go"
 platformContent: false

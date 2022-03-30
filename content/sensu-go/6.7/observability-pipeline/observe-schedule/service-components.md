@@ -4,7 +4,7 @@ linkTitle: "Service Components Reference"
 reference_title: "Service components"
 type: "reference"
 description: "Service components are meaningful selections of Sensu events, like database monitoring events, that allow you to define and manage business service elements."
-weight: 70
+weight: 80
 version: "6.7"
 product: "Sensu Go"
 menu: 

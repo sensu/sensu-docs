@@ -4,7 +4,7 @@ linkTitle: "Send Slack Alerts"
 guide_title: "Send Slack alerts with a pipeline"
 type: "guide"
 description: "Send alerts to Slack with Sensu pipelines, which allow you to send events to alert you of incidents and help you resolve them more quickly."
-weight: 30
+weight: 240
 version: "6.5"
 product: "Sensu Go"
 platformContent: false

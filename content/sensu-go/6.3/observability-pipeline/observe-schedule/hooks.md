@@ -4,7 +4,7 @@ linkTitle: "Hooks Reference"
 reference_title: "Hooks"
 type: "reference"
 description: "Read this reference to free up precious operator time with hooks, which allow you to automate data collection that operators would typically perform manually."
-weight: 80
+weight: 40
 version: "6.3"
 product: "Sensu Go"
 platformContent: false

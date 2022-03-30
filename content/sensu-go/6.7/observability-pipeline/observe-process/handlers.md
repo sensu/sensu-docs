@@ -4,7 +4,7 @@ linkTitle: "Handlers Reference"
 reference_title: "Handlers"
 type: "reference"
 description: "Read this reference to learn to use handlers, the actions the Sensu backend executes on events, in your automated monitoring and observability workflows."
-weight: 10
+weight: 20
 version: "6.7"
 product: "Sensu Go"
 platformContent: false

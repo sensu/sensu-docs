@@ -4,7 +4,7 @@ linkTitle: "Tokens Reference"
 reference_title: "Tokens"
 type: "reference"
 description: "Use tokens in Sensu checks as placeholders that agents replace with entity data to fine-tune check attributes while reusing check definitions."
-weight: 100
+weight: 120
 version: "6.5"
 product: "Sensu Go"
 menu:
