@@ -897,7 +897,7 @@ Use output metric tags for the output metric formats that do not natively suppor
 
 Values for output metric tags are passed through to the metric points produced by check output metric extraction for formats that natively support tags (InfluxDB Line Protocol, OpenTSDB Data Specification, and Prometheus Exposition Text).
 
-You can use [check token substitution][22] for the output_metric_tags [value][21] attribute to include any event attribute in an output metric tag.
+You can use check [token substitution][22] for the output_metric_tags [value][21] attribute to include any event attribute in an output metric tag.
 For example, these tags will list the `event.timestamp` and `event.entity.name` attributes:
 
 {{< language-toggle >}}
@@ -1113,7 +1113,48 @@ To apply metric threshold evaluation, check definitions must include:
 
 In addition, check status must be 0 (OK), indicating that Sensu successfully collected metrics, for the Sensu agent to evaluate the collected metrics against the specified thresholds.
 
-### Annotations based on metric threshold evaluation
+### Use token substitution in thresholds values
+
+You can use check [token substitution][22] in values for [`thresholds`][32] `max` and `min` attributes instead of specifying a single constant value.
+Check tokens are placeholders that the Sensu agent will replace with the corresponding entity definition attribute values.
+
+This example shows the `thresholds` array configured to use token substitution for the `max` and `min` attribute values:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+thresholds:
+- max: '{{ .annotations.system_cpu_used_warning_threshold | default "70.0" }}'
+  min: '{{ .annotations.system_cpu_used_warning_threshold | default "50.0" }}'
+  status: 1
+- max: '{{ .annotations.system_cpu_used_warning_threshold | default "80.0" }}'
+  min: '{{ .annotations.system_cpu_used_warning_threshold | default "40.0" }}'
+  status: 2
+{{< /code >}}
+
+{{< code json >}}
+{
+  "thresholds": [
+    {
+      "max": "{{ .annotations.system_cpu_used_warning_threshold | default \"70.0\" }}",
+      "min": "{{ .annotations.system_cpu_used_warning_threshold | default \"50.0\" }}",
+      "status": 1
+    },
+    {
+      "max": "{{ .annotations.system_cpu_used_warning_threshold | default \"80.0\" }}",
+      "min": "{{ .annotations.system_cpu_used_warning_threshold | default \"40.0\" }}",
+      "status": 2
+    }
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+If an entity has an annotation that matches `system_cpu_used_warning_threshold`, the check will substitute the annotation value when executing the check.
+If an entity does not have a matching annotation, the check will use the specified default values instead.
+
+### Add event annotations based on metric threshold evaluation
 
 If a check definition includes the `output_metric_thresholds` attribute, the check's metric events with non-zero status will include an annotation that lists the reason for the status.
 Sensu adds one annotation per matched threshold rule, one annotation per missing metric (`null_status`), and one annotation that lists the global status for the check.
@@ -1158,19 +1199,36 @@ annotations:
 
 Annotations based on global status for the check are similar to this example:
 
-**TO-DO: NEED AN EXAMPLE**
-
 {{< language-toggle >}}
 
 {{< code yml >}}
 annotations:
-  NEEDED: NEEDED
+  sensu.io/notifications/critical: 'The value of node_load1 exceeded the configured threshold (max: 4.0, actual: 5.263671875).'
 {{< /code >}}
 
 {{< code json >}}
 {
   "annotations": {
-    "NEEDED": "NEEDED"
+    "sensu.io/notifications/critical": "The value of node_load1 exceeded the configured threshold (max: 4.0, actual: 5.263671875)."
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Annotations based on global `null_status` for the check are similar to this example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+annotations:
+  sensu.io/notifications/unknown: 'WARNING: no metric matching "node_load1" (namespace="production") was found; expected min: 4.0 (status: warning); expected max: 6 (status: critical)'
+{{< /code >}}
+
+{{< code json >}}
+{
+  "annotations": {
+    "sensu.io/notifications/unknown": "WARNING: no metric matching \"node_load1\" (namespace=\"production\") was found; expected min: 4.0 (status: warning); expected max: 6 (status: critical)"
   }
 }
 {{< /code >}}
@@ -1229,7 +1287,7 @@ The event specification describes [metrics attributes in events][5].
 [19]: ../checks/#output-metric-format
 [20]: ../../observe-events/events/#example-status-and-metrics-event
 [21]: ../checks/#output_metric_tags-attributes
-[22]: ../checks/#check-token-substitution
+[22]: ../tokens/
 [23]: ../../observe-process/pipelines/
 [24]: ../../../operations/maintain-sensu/troubleshoot#use-a-debug-handler
 [25]: ../../observe-events/events/#metrics-points
@@ -1239,3 +1297,4 @@ The event specification describes [metrics attributes in events][5].
 [29]: ../../../sensu-plus/#add-a-sensu-check
 [30]: https://bonsai.sensu.io/assets/sensu/system-check
 [31]: ../../observe-events/events/#check-status-attribute
+[32]: ../checks/#thresholds-attributes

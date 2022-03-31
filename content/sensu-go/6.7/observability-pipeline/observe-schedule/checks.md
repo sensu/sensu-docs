@@ -1532,7 +1532,7 @@ value: {{ .name }}
 {{< /code >}}
 {{< /language-toggle >}}
 
-#### output_metric_thresholds attributes
+#### `output_metric_thresholds` attributes
 
 name         | 
 -------------|------
@@ -1848,10 +1848,9 @@ status       |
 -------------|------
 description  | Event [check status][77] to use if the check's output metric value matches a `max` or `min` threshold in [metric threshold evaluation][71].{{% notice note %}}
 **NOTE**: Sensu only overrides the event check status if it is less than the specified threshold `status` value.
-{{% /notice %}}
+{{% /notice %}} You can specify any status value, but [event annotations based on threshold status][78] will display `unknown` if the status does not equal `0`, `1`, or `2`.
 required     | true
 type         | Integer
-allowed values | `0`, `1`, `2`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 status: 2
@@ -2211,3 +2210,4 @@ The dynamic runtime asset reference includes an [example check definition that u
 [75]: #thresholds-attributes
 [76]: #tags-attributes
 [77]: ../../observe-events/events/#check-status-attribute
+[78]: ../metrics/#add-event-annotations-based-on-metric-threshold-evaluation
