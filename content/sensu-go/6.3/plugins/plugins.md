@@ -4,7 +4,7 @@ linkTitle: "Plugins Reference"
 reference_title: "Plugins"
 type: "reference"
 description: "Read this reference for information about Sensu plugins, which provide executables that you can use as a Sensu check, handler, or mutator command."
-weight: 80
+weight: 40
 version: "6.3"
 product: "Sensu Go"
 menu:

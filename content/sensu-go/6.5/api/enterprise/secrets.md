@@ -61,7 +61,7 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: In addition to the `VaultProvider` type, enterprise/secrets/v1 API also includes a built-in `Env` secrets provider type that can retrieve backend [environment variables](../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables) as secrets.
+**NOTE**: In addition to the `VaultProvider` type, enterprise/secrets/v1 API also includes the `Env` secrets provider type that can retrieve backend [environment variables](../../../observability-pipeline/observe-schedule/backend/#configuration-via-environment-variables) as secrets.
 Learn more in the [secrets providers reference](../../../operations/manage-secrets/secrets-providers/).
 {{% /notice %}}
 

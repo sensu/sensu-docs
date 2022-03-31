@@ -3,7 +3,7 @@ title: "Use secrets management in Sensu"
 linkTitle: "Use Secrets Management"
 guide_title: "Use secrets management in Sensu"
 type: "guide"
-description: "Follow this guide to use Sensu's built-in secrets provider or HashiCorp Vault to avoid exposing sensitive information in your Sensu configuration."
+description: "Follow this guide to use Sensu's Env secrets provider or HashiCorp Vault to avoid exposing sensitive information in your Sensu configuration."
 weight: 10
 version: "6.6"
 product: "Sensu Go"
@@ -19,7 +19,7 @@ For more information, read [Get started with commercial features](../../../comme
 {{% /notice %}}
 
 Sensu's secrets management allows you to avoid exposing secrets like usernames, passwords, and access keys in your Sensu configuration.
-In this guide, you'll learn how to use Sensu's built-in secrets provider, `Env`, or [HashiCorp Vault][1] as your external [secrets provider][2] and authenticate without exposing your secrets.
+In this guide, you'll learn how to use Sensu's `Env` secrets provider or [HashiCorp Vault][1] as your external [secrets provider][2] and authenticate without exposing your secrets.
 You'll set up your PagerDuty Integration Key as a secret, create a PagerDuty handler definition that requires the secret, and configure a pipeline that includes the PagerDuty handler.
 Your Sensu backend can then execute the pipeline with any check.
 
@@ -54,12 +54,12 @@ Make a note of your Integration Key &mdash; you'll need it to create your [backe
 
 ## Use Env for secrets management
 
-The [Sensu Go commercial distribution][1] includes a built-in secrets provider, `Env`, that exposes secrets from [environment variables][21] on your Sensu backend nodes.
+The [Sensu Go commercial distribution][1] includes a secrets provider, `Env`, that exposes secrets from [environment variables][21] on your Sensu backend nodes.
 The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
 
 ### Create your backend environment variable
 
-To use the built-in `Env` secrets provider, you will add your secret as a backend environment variable.
+To use the `Env` secrets provider, add your secret as a backend environment variable.
 
 First, make sure you have created the files you need to store [backend environment variables][21]. 
 

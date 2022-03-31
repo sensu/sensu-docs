@@ -19,7 +19,7 @@ For more information, read [Get started with commercial features](../../../comme
 
 Sensu requires username and password authentication to access the [web UI][1], [API][8], and [sensuctl][2] command line tool.
 
-In addition to the [built-in basic authentication provider][4], Sensu offers [commercial support][6] for using Microsoft Active Directory (AD) for single sign-on (SSO) authentication.
+In addition to the [built-in basic authentication][4], Sensu offers [commercial support][6] for using Microsoft Active Directory (AD) for single sign-on (SSO) authentication.
 The AD authentication provider is based on the [LDAP authentication provider][44].
 
 To use AD authentication for Azure, follow Microsoft's tutorial to [set up secure LDAP in your Azure account][10] and create the host and certificates you need.

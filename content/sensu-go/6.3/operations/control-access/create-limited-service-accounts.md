@@ -213,7 +213,7 @@ You will also need the API key for the `ec2-service` user.
 {{% notice note %}}
 **NOTE**: Use [secrets management](../../manage-secrets/secrets-management/) to configure environment variables for your AWS access and secret keys and the `ec2-service` user's API key.
 Do not expose this sensitive information by listing it directly in the handler definition.<br><br>
-The [Sensu Go EC2 Handler's Bonsai page](https://bonsai.sensu.io/assets/sensu/sensu-ec2-handler#environment-variables) includes an example for configuring secrets definitions with Sensu's built-in [`env` secrets provider](../../manage-secrets/secrets-providers/#env-secrets-provider-example).
+The [Sensu Go EC2 Handler's Bonsai page](https://bonsai.sensu.io/assets/sensu/sensu-ec2-handler#environment-variables) includes an example for configuring secrets definitions with Sensu's [`Env` secrets provider](../../manage-secrets/secrets-providers/#env-secrets-provider-example).
 {{% /notice %}}
 
 In the following code, replace these bracketed placeholders with valid values:

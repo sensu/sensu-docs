@@ -3,7 +3,7 @@ title: "Supported Integrations"
 description: "Use Sensu plugins to integrate Sensu with your existing workflows for Sumo Logic, PagerDuty, Ansible, Chef, Jira, Elasticsearch, InfluxDB, and more."
 product: "Sensu Go"
 version: "6.5"
-weight: 80
+weight: 100
 layout: "single"
 toc: true
 menu:

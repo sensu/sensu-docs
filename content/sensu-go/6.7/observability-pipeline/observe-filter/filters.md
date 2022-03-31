@@ -4,7 +4,7 @@ linkTitle: "Event Filter Reference"
 reference_title: "Event filters"
 type: "reference"
 description: "Read this reference to use Sensu's built-in event filters (or create your own) to control which events Sensu handlers will take action on."
-weight: 10
+weight: 20
 version: "6.7"
 product: "Sensu Go"
 platformContent: false

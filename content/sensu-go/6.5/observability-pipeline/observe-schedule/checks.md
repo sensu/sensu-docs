@@ -367,7 +367,7 @@ spec:
 
 Sensu supports running proxy checks where the results are considered to be for an entity that isn’t actually the one executing the check, regardless of whether that entity is a Sensu agent entity or a proxy entity.
 Proxy entities allow Sensu to monitor external resources on systems and devices where a Sensu agent cannot be installed, like a network switch or a website.
-You can create a proxy check using the [`proxy_entity_name` attribute][35] or the [`proxy_requests` attributes][36].
+You can create a proxy check using [`proxy_entity_name`][35] or [`proxy_requests`][36].
 
 ### Use a proxy check to monitor a proxy entity
 
@@ -375,7 +375,7 @@ When executing checks that include a `proxy_entity_name`, Sensu agents report th
 If the proxy entity doesn't exist, Sensu creates the proxy entity when the event is received by the backend.
 To avoid duplicate events, we recommend using the `round_robin` attribute with proxy checks.
 
-**Example proxy check using a `proxy_entity_name`**
+#### Example proxy check using `proxy_entity_name`
 
 The following proxy check runs every 60 seconds, cycling through the agents with the `proxy` subscription alphabetically according to the agent name, for the proxy entity `sensu-site`.
 
@@ -429,7 +429,7 @@ No variables or directives have any special meaning, but you can still use [Sens
 The `proxy_requests` attributes are a great way to monitor multiple entities using a single check definition when combined with [token substitution][39].
 Because checks that include `proxy_requests` attributes need to be executed for each matching entity, we recommend using the `round_robin` attribute to distribute the check execution workload evenly across your Sensu agents.
 
-**Example proxy check using `proxy_requests`**
+#### Example proxy check using `proxy_requests`
 
 The following proxy check runs every 60 seconds, cycling through the agents with the `proxy` subscription alphabetically according to the agent name, for all existing proxy entities with the custom label `proxy_type` set to `website`.
 
@@ -485,9 +485,68 @@ spec:
 
 #### Fine-tune proxy check scheduling with splay
 
-Sensu supports distributing proxy check executions across an interval using the `splay` and `splay_coverage` attributes.
-For example, if you assume that the `proxy_check_proxy_requests` check in the example above matches three proxy entities, you'd expect a burst of three events every 60 seconds.
-If you add the `splay` attribute (set to `true`) and the `splay_coverage` attribute (set to `90`) to the `proxy_requests` scope, Sensu will distribute the three check executions over 90% of the 60-second interval, resulting in three events splayed evenly across a 54-second period.
+Use the [`splay`][72] and [`splay_coverage`][73] attributes to distribute proxy check executions across the check interval.
+
+To continue the [example proxy_check_proxy_requests check][71], if the check matches three proxy entities, you will get a single burst of three check executions (with the resulting events) every 60 seconds.
+Use the `splay` and `splay_coverage` attributes to distribute the three check executions over the specified check interval instead of all at the same time.
+
+The following example adds `splay` set to `true` and `splay_coverage` set to `90` within the [`proxy_requests` object][74].
+With this addition, instead of three check executions in a single burst every 60 seconds, Sensu will distribute the three check executions evenly across a 54-second period (90% of the 60-second interval):
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: proxy_check_proxy_requests
+spec:
+  command: http_check.sh {{ .labels.url }}
+  handlers:
+  - slack
+  interval: 60
+  proxy_requests:
+    entity_attributes:
+    - entity.labels.proxy_type == 'website'
+    splay: true
+    splay_coverage: 90
+  publish: true
+  round_robin: true
+  subscriptions:
+  - proxy
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "proxy_check_proxy_requests"
+  },
+  "spec": {
+    "command": "http_check.sh {{ .labels.url }}",
+    "handlers": [
+      "slack"
+    ],
+    "interval": 60,
+    "proxy_requests": {
+      "entity_attributes": [
+        "entity.labels.proxy_type == 'website'"
+      ],
+      "splay": true,
+      "splay_coverage": 90
+    },
+    "publish": true,
+    "round_robin": true,
+    "subscriptions": [
+      "proxy"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Check token substitution
 
@@ -509,10 +568,6 @@ The Sensu agent will execute the appropriate configured hook command, depending 
 Learn how to use check hooks with the [Sensu hooks reference documentation][6].
 
 ## Check specification
-
-{{% notice note %}}
-**NOTE**: In Sensu Go, the `occurrences` attribute is not part of the check definition like it was in Sensu Core.
-{{% /notice %}}
 
 ### Top-level attributes
 
@@ -624,7 +679,7 @@ type: CheckConfig
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][27]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][54], [sensuctl response filtering][55], or [web UI views][61].
+description  | Non-identifying metadata to include with observation event data that you can access with [event filters][27]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][54], [sensuctl response filtering][55], or [web UI views][61].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -662,7 +717,7 @@ created_by: admin
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][54], [sensuctl responses][55], and [web UI views][58] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with observation event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][54], [sensuctl responses][55], and [web UI views][58] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -1343,7 +1398,7 @@ entity_attributes:
 
 |splay       |      |
 -------------|------
-description  | `true` if proxy check requests should be splayed, published evenly over a window of time, determined by the check interval and a configurable splay coverage percentage. Otherwise, `false`. For example, if a check has an interval of `60` seconds and a configured splay coverage of `90`%, its proxy check requests would be splayed evenly over a time window of `60` seconds * `90`%, `54` seconds, leaving `6`seconds for the last proxy check execution before the the next round of proxy check requests for the same check.
+description  | `true` if proxy check requests should be splayed, published evenly over a window of time, determined by the check interval and a configurable [`splay_coverage`][73] percentage. Otherwise, `false`.
 required     | false
 type         | Boolean
 default      | `false`
@@ -1362,8 +1417,8 @@ splay: true
 
 |splay_coverage  | |
 -------------|------
-description  | **Percentage** of the check interval over which Sensu can execute the check for all applicable entities, as defined in the entity attributes. Sensu uses the splay coverage attribute to determine the amount of time check requests can be published over (before the next check interval).
-required     | Required if `splay` attribute is set to `true`
+description  | **Percentage** of the check interval over which Sensu can execute the check for all applicable entities, as defined in the entity attributes. Sensu uses the splay_coverage attribute to determine the period of time to publish check requests over, before the next check interval begins.<br><br>For example, if a check's interval is 60 seconds and `splay_coverage` is 90, Sensu will distribute its proxy check requests evenly over a time window of 54 seconds (60 seconds * 90%). This leaves 6 seconds after the last proxy check execution before the the next round of proxy check requests for the same check.
+required     | `true` if [`splay`][72] attribute is set to `true` (otherwise, `false`)
 type         | Integer
 example      | {{< language-toggle >}}
 {{< code yml >}}
@@ -1718,7 +1773,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [31]: #ttl-attribute
 [32]: #proxy-entity-name-attribute
 [33]: #proxy-checks
-[34]: ../../../api/checks#checkscheckexecute-post
+[34]: ../../../api/core/checks#checkscheckexecute-post
 [35]: #use-a-proxy-check-to-monitor-a-proxy-entity
 [36]: #use-a-proxy-check-to-monitor-multiple-proxy-entities
 [37]: #proxy-requests-top-level
@@ -1755,3 +1810,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [68]: ../metrics/
 [69]: ../../observe-process/pipelines/
 [70]: #pipelines-attributes
+[71]: #example-proxy-check-using-proxy_requests
+[72]: #splay
+[73]: #splay-coverage
+[74]: #proxy-requests-top-level
