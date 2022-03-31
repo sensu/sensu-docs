@@ -1097,7 +1097,7 @@ output_metric_tags:
 
 |output_metric_thresholds    |      |
 -------------|------
-description  | Array of metric names and threshold values to compare to check output metrics for [metric threshold evaluation][71].
+description  | Array of metric names and threshold values to compare to check output metrics for [metric threshold evaluation][79].
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -1331,7 +1331,7 @@ scheduler: postgres
 
 secrets        | 
 ---------------|------
-description    | Array of the [name/secret pairs][72] to use with command execution.
+description    | Array of the [name/secret pairs][80] to use with command execution.
 required       | false
 type           | Array
 example        | {{< language-toggle >}}
@@ -1536,7 +1536,7 @@ value: {{ .name }}
 
 name         | 
 -------------|------
-description  | Name of the metric to use for [metric threshold evaluation][71]. Must match the [event.metrics.points[].name][74] value for a metric point in the check results.
+description  | Name of the metric to use for [metric threshold evaluation][79]. Must match the [event.metrics.points[].name][81] value for a metric point in the check results.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
@@ -1552,7 +1552,7 @@ name: system_host_processes
 
 null_status  | 
 -------------|------
-description  | Event [check status][77] to use if a metric specified for [metric threshold evaluation][71] is missing from the event data.{{% notice note %}}
+description  | Event [check status][77] to use if a metric specified for [metric threshold evaluation][79] is missing from the event data.{{% notice note %}}
 **NOTE**: Sensu only overrides the event check status if it is less than the specified `null_status` value.
 {{% /notice %}}
 required     | false
@@ -1571,7 +1571,7 @@ null_status: 2
 
 tags         | 
 -------------|------
-description  | Tags of the metric to use for [metric threshold evaluation][71]. If provided, must match the [event.metrics.points[].tags][74] name and value for a metric point in the check results. Read [tags attributes][76] for more information.
+description  | Tags of the metric to use for [metric threshold evaluation][79]. If provided, must match the [event.metrics.points[].tags][81] name and value for a metric point in the check results. Read [tags attributes][76] for more information.
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -1594,7 +1594,7 @@ tags:
 
 thresholds   | 
 -------------|------
-description  | Rules to apply for [metric threshold evaluation][71]. Read [thresholds attributes][75] for more information.
+description  | Rules to apply for [metric threshold evaluation][79]. Read [thresholds attributes][75] for more information.
 required     | true
 type         | Array
 example      | {{< language-toggle >}}
@@ -1776,7 +1776,7 @@ secret: sensu-ansible-host
 
 name         | 
 -------------|------
-description  | Tag name for the metric to use for [metric threshold evaluation][71]. If provided, must match the [event.metrics.points[].tags.name][74] value for a metric point in the check results.{{% notice note %}}
+description  | Tag name for the metric to use for [metric threshold evaluation][79]. If provided, must match the [event.metrics.points[].tags.name][81] value for a metric point in the check results.{{% notice note %}}
 **NOTE**: If provided, you must also provide the value for the same metric point tag.
 {{% /notice %}}
 required     | false
@@ -1794,7 +1794,7 @@ name: namespace
 
 value        | 
 -------------|------
-description  | Tag value of the metric to use for [metric threshold evaluation][71]. If provided, must match the [event.metrics.points[].tags.value][74] value for a metric point in the check results.{{% notice note %}}
+description  | Tag value of the metric to use for [metric threshold evaluation][79]. If provided, must match the [event.metrics.points[].tags.value][81] value for a metric point in the check results.{{% notice note %}}
 **NOTE**: If provided, you must also provide the name for the same metric point tag.
 {{% /notice %}}
 required     | false
@@ -1814,7 +1814,7 @@ value: production
 
 max          | 
 -------------|------
-description  | Maximum threshold for the metric for [metric threshold evaluation][71]. You must provide a thresholds `max` value if you do not provide a `min` value.
+description  | Maximum threshold for the metric for [metric threshold evaluation][79]. You must provide a thresholds `max` value if you do not provide a `min` value.
 required     | false (if a thresholds `min` value is provided)
 type         | String
 example      | {{< language-toggle >}}
@@ -1830,7 +1830,7 @@ max: '75'
 
 min          | 
 -------------|------
-description  | Minimum threshold for the metric for [metric threshold evaluation][71]. You must provide a thresholds `min` value if you do not provide a `max` value.
+description  | Minimum threshold for the metric for [metric threshold evaluation][79]. You must provide a thresholds `min` value if you do not provide a `max` value.
 required     | false (if a thresholds `max` value is provided)
 type         | String
 example      | {{< language-toggle >}}
@@ -1846,7 +1846,7 @@ min: '2'
 
 status       | 
 -------------|------
-description  | Event [check status][77] to use if the check's output metric value matches a `max` or `min` threshold in [metric threshold evaluation][71].{{% notice note %}}
+description  | Event [check status][77] to use if the check's output metric value matches a `max` or `min` threshold in [metric threshold evaluation][79].{{% notice note %}}
 **NOTE**: Sensu only overrides the event check status if it is less than the specified threshold `status` value.
 {{% /notice %}} You can specify any status value, but [event annotations based on threshold status][78] will display `unknown` if the status does not equal `0`, `1`, or `2`.
 required     | true
@@ -2166,7 +2166,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [31]: #ttl-attribute
 [32]: #proxy-entity-name-attribute
 [33]: #proxy-checks
-[34]: ../../../api/checks#checkscheckexecute-post
+[34]: ../../../api/core/checks/#checkscheckexecute-post
 [35]: #use-a-proxy-check-to-monitor-a-proxy-entity
 [36]: #use-a-proxy-check-to-monitor-multiple-proxy-entities
 [37]: #proxy-requests-top-level
@@ -2203,11 +2203,14 @@ The dynamic runtime asset reference includes an [example check definition that u
 [68]: ../metrics/
 [69]: ../../observe-process/pipelines/
 [70]: #pipelines-attributes
-[71]: ../metrics/#metric-threshold-evaluation
-[72]: #secrets-attributes
-[73]: #output-metric-thresholds
-[74]: ../../observe-events/events/#points-attributes
+[71]: #example-proxy-check-using-proxy_requests
+[72]: #splay
+[73]: #splay-coverage
+[74]: #proxy-requests-top-level
 [75]: #thresholds-attributes
 [76]: #tags-attributes
 [77]: ../../observe-events/events/#check-status-attribute
 [78]: ../metrics/#add-event-annotations-based-on-metric-threshold-evaluation
+[79]: ../metrics/#metric-threshold-evaluation
+[80]: #secrets-attributes
+[81]: ../../observe-events/events/#points-attributes
