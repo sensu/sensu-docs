@@ -4,7 +4,7 @@ linkTitle: "Service Components Reference"
 reference_title: "Service components"
 type: "reference"
 description: "Service components are meaningful selections of Sensu events, like database monitoring events, that allow you to define and manage business service elements."
-weight: 70
+weight: 80
 version: "6.7"
 product: "Sensu Go"
 menu: 
@@ -18,7 +18,7 @@ For more information, read [Get started with commercial features](../../../comme
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
+**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change.
 {{% /notice %}}
 
 Service components are resources for defining and managing elements of a business service in business service monitoring.
@@ -33,9 +33,9 @@ If you delete a resource (for example, an entity, check, or event) that is part 
 
 ## Service component example
 
-The example service component below is a dependency of the business service entities `account-manager` and `tessen`.
-Sensu will execute the component at 60-second intervals for `account-manager` and `tessen` service entities that include labels `region` with the value `us-west-2` **and** `cmpt` with the value `psql`.
-The monitoring rule template for the service component is `status-threshold`.
+The example service component below is a dependency of the business service entity `website-services`.
+Sensu will execute the component at 60-second intervals for `website-services` service entities whose events include the `webserver` subscription.
+The monitoring rule template for the service component is `aggregate`.
 
 {{< language-toggle >}}
 
@@ -44,26 +44,22 @@ The monitoring rule template for the service component is `status-threshold`.
 type: ServiceComponent
 api_version: bsm/v1
 metadata:
-  name: postgresql-1
+  name: webservers
 spec:
-  cron: ''
   handlers:
-  - pagerduty
   - slack
   interval: 60
   query:
-  - type: labelSelector
-    value: region == 'us-west-1' && cmpt == psql
+  - type: fieldSelector
+    value: webserver in event.check.subscriptions
   rules:
   - arguments:
-      status: non-zero
-      threshold: 25
-    name: nonzero-25
-    template: status-threshold
+      critical_threshold: 70
+      warning_threshold: 50
+    name: webservers_50-70
+    template: aggregate
   services:
-  - account-manager
-  - tessen
-
+  - website-services
 {{< /code >}}
 
 {{< code json >}}
@@ -71,34 +67,31 @@ spec:
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "postgresql-1"
+    "name": "webservers"
   },
   "spec": {
-    "cron": "",
     "handlers": [
-      "pagerduty",
       "slack"
     ],
     "interval": 60,
     "query": [
       {
-        "type": "labelSelector",
-        "value": "region == 'us-west-1' && cmpt == psql"
+        "type": "fieldSelector",
+        "value": "webserver in event.check.subscriptions"
       }
     ],
     "rules": [
       {
         "arguments": {
-          "status": "non-zero",
-          "threshold": 25
+          "critical_threshold": 70,
+          "warning_threshold": 50
         },
-        "name": "nonzero-25",
-        "template": "status-threshold"
+        "name": "webservers_50-70",
+        "template": "aggregate"
       }
     ],
     "services": [
-      "account-manager",
-      "tessen"
+      "website-services"
     ]
   }
 }
@@ -150,22 +143,32 @@ api_version: bsm/v1
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the service component's `name` and `namespace` as well as the `created_by` field.
+description  | Top-level collection of information about the service component, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`.
 required     | true
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 metadata:
-  name: postgresql-1
+  name: webservers
   namespace: default
   created_by: admin
+  labels:
+    region: us-west-1
+  annotations:
+    managed_by: ops
 {{< /code >}}
 {{< code json >}}
 {
   "metadata": {
-    "name": "postgresql-1",
+    "name": "webservers",
     "namespace": "default",
-    "created_by": "admin"
+    "created_by": "admin",
+    "labels": {
+      "region": "us-west-1"
+    },
+    "annotations": {
+      "managed_by": "ops"
+    }
   }
 }
 {{< /code >}}
@@ -179,52 +182,46 @@ type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 spec:
-  cron: ''
   handlers:
-  - pagerduty
   - slack
   interval: 60
   query:
-  - type: labelSelector
-    value: region == 'us-west-1' && cmpt == psql
+  - type: fieldSelector
+    value: webserver in event.check.subscriptions
   rules:
   - arguments:
-      status: non-zero
-      threshold: 25
-    name: nonzero-25
-    template: status-threshold
+      critical_threshold: 70
+      warning_threshold: 50
+    name: webservers_50-70
+    template: aggregate
   services:
-  - account-manager
-  - tessen
+  - website-services
 {{< /code >}}
 {{< code json >}}
 {
   "spec": {
-    "cron": "",
     "handlers": [
-      "pagerduty",
       "slack"
     ],
     "interval": 60,
     "query": [
       {
-        "type": "labelSelector",
-        "value": "region == 'us-west-1' && cmpt == psql"
+        "type": "fieldSelector",
+        "value": "webserver in event.check.subscriptions"
       }
     ],
     "rules": [
       {
         "arguments": {
-          "status": "non-zero",
-          "threshold": 25
+          "critical_threshold": 70,
+          "warning_threshold": 50
         },
-        "name": "nonzero-25",
-        "template": "status-threshold"
+        "name": "webservers_50-70",
+        "template": "aggregate"
       }
     ],
     "services": [
-      "account-manager",
-      "tessen"
+      "website-services"
     ]
   }
 }
@@ -240,11 +237,11 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: postgresql-1
+name: webservers
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "postgresql-1"
+  "name": "webservers"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -265,6 +262,26 @@ namespace: default
 {{< /code >}}
 {{< /language-toggle >}}
 
+| annotations |     |
+-------------|------
+description  | Non-identifying metadata to include with observation event data that you can access with [event filters][11]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][14], [sensuctl response filtering][15], or [web UI views][13].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+annotations:
+  managed-by: ops
+{{< /code >}}
+{{< code json >}}
+{
+  "annotations": {
+    "managed-by": "ops"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created or last updated the service component. Sensu automatically populates the `created_by` field when the service component is created or updated.
@@ -277,6 +294,26 @@ created_by: admin
 {{< code json >}}
 {
   "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with observation event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][14], [sensuctl responses][15], and [web UI views][12] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+required     | false
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+labels:
+  region: us-west-1
+{{< /code >}}
+{{< code json >}}
+{
+  "labels": {
+    "region": "us-west-1"
+  }
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -309,13 +346,11 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 handlers:
-  - pagerduty
   - slack
 {{< /code >}}
 {{< code json >}}
 {
   "handlers": [
-    "pagerduty",
     "slack"
   ]
 }
@@ -340,21 +375,21 @@ interval: 60
 
 query        | 
 -------------|------ 
-description  | Query expression that describes the events that each monitoring rule should process for the service component.
+description  | Query expression that describes the events that each monitoring rule should process for the service component. Read [query attributes][16] for details.
 required     | true
 type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 query:
-  - type: labelSelector
-    value: region == us-west-2 && cmpt == psql
+  - type: fieldSelector
+    value: webserver in event.check.subscriptions
 {{< /code >}}
 {{< code json >}}
 {
   "query": [
     {
-      "type": "labelSelector",
-      "value": "region == us-west-2 && cmpt == psql"
+      "type": "fieldSelector",
+      "value": "webserver in event.check.subscriptions"
     }
   ]
 }
@@ -363,28 +398,28 @@ query:
 
 rules        | 
 -------------|------ 
-description  | List of the [rule templates and arguments][4] that Sensu should apply for the service component. Sensu evaluates each rule separately, and each rule produces its own event as output.
+description  | List of the rule templates and arguments that Sensu should apply for the service component. Sensu evaluates each rule separately, and each rule produces its own event as output. Read [rules attributes][4] for details.
 required     | true
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 rules:
 - arguments:
-    status: non-zero
-    threshold: 25
-  name: nonzero-25
-  template: status-threshold
+    critical_threshold: 70
+    warning_threshold: 50
+  name: webservers_50-70
+  template: aggregate
 {{< /code >}}
 {{< code json >}}
 {
   "rules": [
     {
       "arguments": {
-        "status": "non-zero",
-        "threshold": 25
+        "critical_threshold": 70,
+        "warning_threshold": 50
       },
-      "name": "nonzero-25",
-      "template": "status-threshold"
+      "name": "webservers_50-70",
+      "template": "aggregate"
     }
   ]
 }
@@ -399,17 +434,13 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 services:
-  - account-manager
-  - tessen
+  - website-services
 {{< /code >}}
 {{< code json >}}
 {
-  "spec": {
-    "services": [
-      "account-manager",
-      "tessen"
-    ]
-  }
+  "services": [
+    "website-services"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -423,11 +454,11 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-type: labelSelector
+type: fieldSelector
 {{< /code >}}
 {{< code json >}}
 {
-  "type": "labelSelector"
+  "type": "fieldSelector"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -439,11 +470,11 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-value: region == us-west-2 && cmpt == psql
+value: webserver in event.check.subscriptions
 {{< /code >}}
 {{< code json >}}
 {
-  "value": "region == us-west-2 && cmpt == psql"
+  "value": "webserver in event.check.subscriptions"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -457,15 +488,15 @@ required     | false
 type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
-arguments:
-  status: non-zero
-  threshold: 25
+- arguments:
+    critical_threshold: 70
+    warning_threshold: 50
 {{< /code >}}
 {{< code json >}}
 {
   "arguments": {
-    "status": "non-zero",
-    "threshold": 25
+    "critical_threshold": 70,
+    "warning_threshold": 50
   }
 }
 {{< /code >}}
@@ -478,11 +509,11 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: nonzero-25
+name: webservers_50-70
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "nonzero-25"
+  "name": "webservers_50-70"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -494,11 +525,11 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-template: status-threshold
+template: aggregate
 {{< /code >}}
 {{< code json >}}
 {
-  "template": "status-threshold"
+  "template": "aggregate"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -513,3 +544,9 @@ template: status-threshold
 [8]: ../rule-templates/
 [9]: ../../../commercial/
 [10]: ../../observe-entities/#service-entities
+[11]: ../../observe-filter/filters/
+[12]: ../../../web-ui/search#search-for-labels
+[13]: ../../../web-ui/search/
+[14]: ../../../api/#response-filtering
+[15]: ../../../sensuctl/filter-responses/
+[16]: #query-attributes

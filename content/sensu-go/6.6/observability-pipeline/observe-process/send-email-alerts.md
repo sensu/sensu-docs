@@ -4,7 +4,7 @@ linkTitle: "Send Email Alerts"
 guide_title: "Send email alerts with a pipeline"
 type: "guide"
 description: "Send notifications based on Sensu Go observability event data to an email address to alert you of incidents and help you resolve them more quickly."
-weight: 20
+weight: 200
 version: "6.6"
 product: "Sensu Go"
 platformContent: false

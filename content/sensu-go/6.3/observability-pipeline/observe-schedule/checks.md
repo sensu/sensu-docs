@@ -488,10 +488,10 @@ spec:
 
 Use the [`splay`][72] and [`splay_coverage`][73] attributes to distribute proxy check executions across the check interval.
 
-To continue the [example `proxy_requests` check][71], if the check matches three proxy entities, you will get a single burst of three check executions (with the resulting events) every 60 seconds.
+To continue the [example proxy_check_proxy_requests check][71], if the check matches three proxy entities, you will get a single burst of three check executions (with the resulting events) every 60 seconds.
 Use the `splay` and `splay_coverage` attributes to distribute the three check executions over the specified check interval instead of all at the same time.
 
-The following example adds `splay` set to `true` and `splay_coverage` set to `90` within the `proxy_requests` scope.
+The following example adds `splay` set to `true` and `splay_coverage` set to `90` within the [`proxy_requests` object][74].
 With this addition, instead of three check executions in a single burst every 60 seconds, Sensu will distribute the three check executions evenly across a 54-second period (90% of the 60-second interval):
 
 {{< language-toggle >}}
@@ -669,7 +669,7 @@ spec:
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][27]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][54], [sensuctl response filtering][55], or [web UI views][61].
+description  | Non-identifying metadata to include with observation event data that you can access with [event filters][27]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][54], [sensuctl response filtering][55], or [web UI views][61].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -707,7 +707,7 @@ created_by: admin
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][54], [sensuctl responses][55], and [web UI views][58] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with observation event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][54], [sensuctl responses][55], and [web UI views][58] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -1701,3 +1701,4 @@ The dynamic runtime asset reference includes an [example check definition that u
 [71]: #example-proxy-check-using-proxy_requests
 [72]: #splay
 [73]: #splay-coverage
+[74]: #proxy-requests-top-level

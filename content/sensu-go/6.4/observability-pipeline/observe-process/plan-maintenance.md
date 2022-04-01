@@ -4,7 +4,7 @@ linkTitle: "Plan Maintenance Windows"
 guide_title: "Plan maintenance windows with silencing"
 type: "guide"
 description: "Use Sensu's silencing feature to suppress event handling during system maintenance so you can coordinate and perform maintenance without getting alerts."
-weight: 70
+weight: 140
 version: "6.4"
 product: "Sensu Go"
 platformContent: false

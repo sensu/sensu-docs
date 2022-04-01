@@ -4,7 +4,7 @@ linkTitle: "Use Assets to Install Plugins"
 guide_title: "Use dynamic runtime assets to install plugins"
 type: "guide"
 description: "Use Sensu's shareable, reusable dynamic runtime assets to deploy the plugins, libraries, and runtimes you need for your monitoring and observability workflows."
-weight: 40
+weight: 80
 version: "6.4"
 product: "Sensu Go"
 platformContent: false

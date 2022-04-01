@@ -183,7 +183,7 @@ For more information, read [Get started with commercial features](../../commerci
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
+**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change.
 {{% /notice %}}
 
 A service entity represents a business service in [business service monitoring (BSM)][8].
