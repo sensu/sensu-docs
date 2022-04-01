@@ -1157,7 +1157,7 @@ type          | String
 default       | Defaults to no maximum.
 environment variable | `SENSU_MAX_SESSION_LENGTH`
 command line example   | {{< code shell >}}
-sensu-agent start --max-session-length 15m{< /code >}}
+sensu-agent start --max-session-length 15m{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 max-session-length: 15m{{< /code >}}
 
