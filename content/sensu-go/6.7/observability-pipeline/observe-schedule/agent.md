@@ -885,6 +885,7 @@ Flags:
       --key-file string                     key for TLS authentication
       --labels stringToString               entity labels map (default [])
       --log-level string                    logging level [panic, fatal, error, warn, info, debug] (default "info")
+      --max-session-length                  maximum amount of time after which the agent will reconnect to one of the configured backends (no maximum by default)
       --name string                         agent name (defaults to hostname) (default "my_hostname")
       --namespace string                    agent namespace (default "default")
       --password string                     agent password (default "P@ssw0rd!")
@@ -1146,6 +1147,19 @@ command line example   | {{< code shell >}}
 sensu-agent start --log-level debug{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 log-level: debug{{< /code >}}
+
+<a id="max-session-length-attribute"></a>
+
+| max-session-length |      |
+--------------|------
+description   | Maximum duration for any one agent connection. In milliseconds (`ms`), seconds (`s`), minutes (`m`), or hours (`h`). Use max-session-length to prevent agent connection distribution from becoming skewed over time.<br><br>The max-session-length algorithm includes random jitter so that agents will not disconnect and reconnect all at once. Based on the random jitter calculation, at some time before a connection reaches the specified maximum duration, Sensu will force the agent to disconnect and reconnect to an available configured backend.
+type          | String
+default       | Defaults to no maximum.
+environment variable | `SENSU_MAX_SESSION_LENGTH`
+command line example   | {{< code shell >}}
+sensu-agent start --max-session-length 15m{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+max-session-length: 15m{{< /code >}}
 
 <a id="name-attribute"></a>
 
