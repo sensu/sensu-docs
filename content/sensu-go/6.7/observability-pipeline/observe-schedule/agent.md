@@ -1152,7 +1152,7 @@ log-level: debug{{< /code >}}
 
 | max-session-length |      |
 --------------|------
-description   | Maximum duration for any one agent connection. In milliseconds (`ms`), seconds (`s`), minutes (`m`), or hours (`h`). When a connection reaches the specified amount of time, Sensu will force the agent to disconnect and reconnect to an available configured backend to prevent agent connection distribution from becoming skewed over time. The max-session-length algorithm includes random jitter so that agents will not disconnect and reconnect all at once.
+description   | Maximum duration for any one agent connection. In milliseconds (`ms`), seconds (`s`), minutes (`m`), or hours (`h`). Use max-session-length to prevent agent connection distribution from becoming skewed over time.<br><br>The max-session-length algorithm includes random jitter so that agents will not disconnect and reconnect all at once. Based on the random jitter calculation, at some time before a connection reaches the specified maximum duration, Sensu will force the agent to disconnect and reconnect to an available configured backend.
 type          | String
 default       | Defaults to no maximum.
 environment variable | `SENSU_MAX_SESSION_LENGTH`
