@@ -647,27 +647,25 @@ spec:
   output_metric_thresholds:
     - name: system_mem_used
       tags: null
+      null_status: 0
       thresholds:
       - max: "75.0"
         min: ""
-        null_status: 0
         status: 1
       - max: "90.0"
         min: ""
-        null_status: 0
         status: 2
     - name: system_host_processes
       tags:
       - name: namespace
         value: production
+      null_status: 0
       thresholds:
       - max: "50"
         min: "5"
-        null_status: 0
         status: 1
       - max: "75"
         min: "2"
-        null_status: 2
         status: 2
   pipelines:
   - type: Pipeline
@@ -715,17 +713,16 @@ spec:
       {
         "name": "system_mem_used",
         "tags": null,
+        "null_status": 0,
         "thresholds": [
           {
             "max": "75.0",
             "min": "",
-            "null_status": 0,
             "status": 1
           },
           {
             "max": "90.0",
             "min": "",
-            "null_status": 0,
             "status": 2
           }
         ]
@@ -738,17 +735,16 @@ spec:
             "value": "production"
           }
         ],
+        "null_status": 0,
         "thresholds": [
           {
             "max": "50",
             "min": "5",
-            "null_status": 0,
             "status": 1
           },
           {
             "max": "75",
             "min": "2",
-            "null_status": 2,
             "status": 2
           }
         ]
@@ -1150,9 +1146,11 @@ output_metric_tags:
 
 <a id="output-metric-thresholds"></a>
 
-|output_metric_thresholds    |      |
+|output_metric_thresholds |   |
 -------------|------
-description  | Array of metric names and threshold values to compare to check output metrics for [metric threshold evaluation][79].
+description  | Array of metric names and threshold values to compare to check output metrics for [metric threshold evaluation][79].{{% notice note %}}
+**NOTE**: To apply metric threshold evaluation, check definitions must include the [`output_metric_format`](#output-metric-format) attribute with a value that specifies one of Sensu's [supported output metric formats](../metrics/#supported-output-metric-formats).
+{{% /notice %}}
 required     | false
 type         | Array
 example      | {{< language-toggle >}}
@@ -1160,27 +1158,25 @@ example      | {{< language-toggle >}}
 output_metric_thresholds:
 - name: system_mem_used
   tags: ''
+  null_status: 0
   thresholds:
   - max: '75.0'
     min: ''
-    null_status: 0
     status: 1
   - max: '90.0'
     min: ''
-    null_status: 0
     status: 2
 - name: system_host_processes
   tags:
   - name: namespace
     value: production
+  null_status: 0
   thresholds:
   - max: '50'
     min: '5'
-    null_status: 0
     status: 1
   - max: '75'
     min: '2'
-    null_status: 2
     status: 2
 {{< /code >}}
 {{< code json >}}
@@ -1189,17 +1185,16 @@ output_metric_thresholds:
     {
       "name": "system_mem_used",
       "tags": null,
+      "null_status": 0,
       "thresholds": [
         {
           "max": "75.0",
           "min": "",
-          "null_status": 0,
           "status": 1
         },
         {
           "max": "90.0",
           "min": "",
-          "null_status": 0,
           "status": 2
         }
       ]
@@ -1212,17 +1207,16 @@ output_metric_thresholds:
           "value": "production"
         }
       ],
+      "null_status": 0,
       "thresholds": [
         {
           "max": "50",
           "min": "5",
-          "null_status": 0,
           "status": 1
         },
         {
           "max": "75",
           "min": "2",
-          "null_status": 2,
           "status": 2
         }
       ]
@@ -1591,7 +1585,9 @@ value: {{ .name }}
 
 name         | 
 -------------|------
-description  | Name of the metric to use for [metric threshold evaluation][79]. Must match the [event.metrics.points[].name][81] value for a metric point in the check results.
+description  | Name of the metric to use for [metric threshold evaluation][79]. Must match the [event.metrics.points[].name][81] value for a metric point in the check results.{{% notice note %}}
+**NOTE**: To produce values for the output metrics you specify, the check definition must include a valid [`output_metric_format`](#output-metric-format).
+{{% /notice %}}
 required     | true
 type         | String
 example      | {{< language-toggle >}}
@@ -1615,11 +1611,11 @@ type         | Integer
 default      | `0`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-null_status: 2
+null_status: 0
 {{< /code >}}
 {{< code json >}}
 {
-  "null_status": 2
+  "null_status": 0
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1901,7 +1897,7 @@ min: '2'
 
 status       | 
 -------------|------
-description  | Event [check status][77] to use if the check's output metric value matches a `max` or `min` threshold in [metric threshold evaluation][79].{{% notice note %}}
+description  | Event [check status][77] to use if the check's output metric value is equal to or greater than the specified `max` threshold or equal to or less than the specified `min` threshold in [metric threshold evaluation][79].{{% notice note %}}
 **NOTE**: Sensu only overrides the event check status if it is less than the specified threshold `status` value.
 {{% /notice %}} You can specify any status value, but [event annotations based on threshold status][78] will display `unknown` if the status does not equal `0`, `1`, or `2`.
 required     | true
