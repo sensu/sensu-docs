@@ -107,7 +107,7 @@ The Sensu backend coordinates check execution by comparing the [subscriptions][9
 
 ### Subdue
 
-Check subdues are not yet implemented in Sensu Go.
+check subdues are not implemented in Sensu Go.
 Instead, use [cron scheduling][99] in Sensu Go checks to specify when checks should be executed.
 
 ### Standalone checks
