@@ -107,8 +107,10 @@ The Sensu backend coordinates check execution by comparing the [subscriptions][9
 
 ### Subdue
 
-Check subdues are not yet implemented in Sensu Go.
-Instead, use [cron scheduling][99] in Sensu Go checks to specify when checks should be executed.
+Sensu Go checks include a `subdues` attribute that allows you to set specific periods of time when Sensu will not send alerts based on the events the check produces.
+Read [Subdues][108] in the check reference for more information and examples.
+
+You can also use [cron scheduling][99] in Sensu Go checks to specify when checks **should** be executed.
 
 ### Standalone checks
 
@@ -634,3 +636,4 @@ After you stop the Sensu Core services, follow package removal instructions for 
 [105]: ../../../observability-pipeline/observe-process/silencing/
 [106]: ../../../observability-pipeline/observe-filter/sensu-query-expressions/#custom-functions
 [107]: ../../control-access/namespaces/
+[108]: ../../../observability-pipeline/observe-schedule/checks/#subdues
