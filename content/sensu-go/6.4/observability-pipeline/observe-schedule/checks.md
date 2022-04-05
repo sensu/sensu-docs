@@ -690,9 +690,7 @@ spec:
     ],
     "command": "http-perf --url https://sensu.io --warning 1s --critical 2s",
     "env_vars": null,
-    "handlers":
-    - pagerduty
-    - slack
+    "handlers": null,
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
