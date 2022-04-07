@@ -17,9 +17,9 @@ For more information, read [Get started with commercial features](../commercial/
 Sensu Plus is a built-in integration for transmitting your Sensu observability data to the Sumo Logic Continuous Intelligence Platform™ via a Sumo Logic [HTTP Logs and Metrics Source][1] (an endpoint for receiving data).
 In Sumo Logic, you can configure customized interactive dashboards and analytics tools to gain better visibility into your Sensu data &mdash; read [Introducing Sensu Plus][14] for more information.
 
-**If you completed Sumo Logic setup in the Sensu web UI**, [finish the configuration process][14] to create the Sensu resources you need to start sending observability event data to Sumo Logic.
+**If you completed Sumo Logic setup in the Sensu web UI**, [finish the configuration process][15] to create the Sensu resources you need to start sending observability event data to Sumo Logic.
 
-If you did not use the Sensu web UI to set up a Sumo Logic account, follow the [manual setup for Sensu Plus][15].
+If you did not use the Sensu web UI to set up a Sumo Logic account, follow the [manual setup for Sensu Plus][19].
 
 ## Finish configuration after web UI setup
 
@@ -313,7 +313,7 @@ This check will collect baseline system metrics in Prometheus format for all ent
 
 {{% notice note %}}
 **NOTE**: Sumo Logic metrics handlers only accept metrics events, so you must use a check that produces metrics.
-If your check produces status events, use the [Sensu Sumo Logic Handler integration](../../../plugins/supported-integrations/sumologic/) to create a traditional Sensu handler rather than the Sumo Logic metrics handler.
+If your check produces status events, use the [Sensu Sumo Logic Handler integration](../plugins/supported-integrations/sumologic/) to create a traditional Sensu handler rather than the Sumo Logic metrics handler.
 {{% /notice %}}
 
 ### View your Sensu data in Sumo Logic
@@ -440,3 +440,4 @@ The Sensu Overview and Sensu Entity Details dashboards will begin to display you
 [16]: #configure-a-pipeline
 [17]: #add-a-sensu-check
 [18]: #import-sumo-logic-dashboards
+[19]: #manual-setup-for-sensu-plus
