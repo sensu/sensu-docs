@@ -492,17 +492,19 @@ The backend should update backend entities to use information from the backend i
 
 ### Backend entity keepalives
 
-Backend entities generate a keepalive event every  there is no guarantee a sensu-agent will be running alongside the backend I believe the backend should generate periodic keep-alive events.
+Backend entities generate a keepalive event every ...
 
-Question: What should the behaviour be when there are both a backend and an agent generating keep-alive events?
+**TODO**: Need more information about keepalives from backend entities. Also, this question from the original issue: "Question: What should the behaviour be when there are both a backend and an agent generating keep-alive events?"
 
 ### Delete a backend entity
 
-There are two ways of disposing of old backend entities. The first one is to support deregistration for those entities. The backend entity would then be deleted when it has not been seen for a period of time.
+**TODO**: Need more information about how to delete a backend entity. It's not clear whether either of the two ways described in the original issue (see below) were implemented.
+
+"There are two ways of disposing of old backend entities. The first one is to support deregistration for those entities. The backend entity would then be deleted when it has not been seen for a period of time.
 
 Question: What should be that period of time?
 
-The second way of deleting a backend entity is to allow properly privileged users to do it manually. In this case however safeguards should be in place to prevent a user from deleting a backend entity if it is still being used actively.
+The second way of deleting a backend entity is to allow properly privileged users to do it manually. In this case however safeguards should be in place to prevent a user from deleting a backend entity if it is still being used actively."
 
 ## Manage entity labels
 
