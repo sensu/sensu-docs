@@ -70,7 +70,7 @@ To send your Sensu observability data to your new Sumo Logic HTTP Logs and Metri
 
 {{% notice note %}}
 **NOTE**: Sumo Logic metrics handlers only accept metrics events.
-To send status events, use the [Sensu Sumo Logic Handler integration](../../../plugins/supported-integrations/sumologic/) instead.
+To send status events, use the [Sensu Sumo Logic Handler integration](../plugins/supported-integrations/sumologic/) instead.
 {{% /notice %}}
 
 For a Sumo Logic metrics handler, the resource definition must use the URL you copied in the last step of setting up your HTTP Logs and Metrics Source as the value for the `url` attribute.
@@ -350,7 +350,7 @@ This check will collect baseline system metrics in Prometheus format for all ent
 
 {{% notice note %}}
 **NOTE**: Sumo Logic metrics handlers only accept metrics events, so you must use a check that produces metrics.
-If your check produces status events, use the [Sensu Sumo Logic Handler integration](../../../plugins/supported-integrations/sumologic/) to create a traditional Sensu handler rather than the Sumo Logic metrics handler.
+If your check produces status events, use the [Sensu Sumo Logic Handler integration](../plugins/supported-integrations/sumologic/) to create a traditional Sensu handler rather than the Sumo Logic metrics handler.
 {{% /notice %}}
 
 ## Import Sumo Logic dashboards
