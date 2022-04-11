@@ -22,17 +22,20 @@ For more information, read [Get started with commercial features](../../commerci
 
 The Sensu Catalog is an online marketplace for monitoring and observability integrations, from standard system checks and metrics collection to pipelines for sending Sensu data to third-party logging, remediation, and incident management services.
 
-Sensu Catalog integrations allow you to configure powerful real-time monitoring and observability for the systems you rely on.
-All integrations are self-service to facilitate higher-velocity scaling with fewer onboarding barriers.
-
-Sensu curates, tests, and maintains the Catalog integrations, and installation follows a standardized process.
-
-An integration combines a Sensu [plugin][1] with the Sensu resource definitions required to use the plugin, like a [check][2] or [handler][3].
 The Sensu Catalog is part of the Sensu web UI, so you can find, configure, and install integrations directly from your browser.
 
-**TODO: update screenshot to clarify which is the Catalog icon**
-
 {{< figure src="/images/catalog_alphabetical.png" alt="The Sensu Catalog page in the Sensu web UI" link="/images/catalog_alphabetical.png" target="_blank" >}}
+
+An integration combines a Sensu plugin with a dynamic runtime asset and the Sensu resource definitions that use the plugin.
+
+- The [plugin][1] provides the executable script or other program to power a Sensu check, handler, or mutator.
+- The [dynamic runtime asset][20] is a shareable, reusable package that installs and deploys the plugin.
+
+Integrations provide the plugin and asset along with the recommended or minimum viable configuration and Sensu resources, integrating Sensu with different systems and services for collecting and processing observability data with a few clicks.
+
+Sensu Catalog integrations allow you to configure powerful real-time monitoring and observability for the systems you rely on.
+All integrations are self-service to facilitate higher-velocity scaling with fewer onboarding barriers.
+Sensu curates, tests, and maintains the Catalog integrations, and installation follows a standardized process.
 
 ## Find integrations
 
@@ -44,7 +47,7 @@ You can also [search][19] the Sensu Catalog by display_name, class, provider, an
 When the Catalog page loads in the Sensu web UI, all integrations are alphabetically listed by default.
 To return to the alphabetized list at any time, click the **All** category in the Catalog page sidebar navigation menu:
 
-**TODO: Add screenshot with All callout**
+{{< figure src="/images/catalog_all.png" alt="All category for integrations on the Sensu Catalog page in the Sensu web UI" link="/images/catalog_all.png" target="_blank" >}}
 
 ### Browse the categorized list
 
@@ -95,16 +98,16 @@ Sensu will auto-complete a simple search statement for the resources on that pag
 
 In the Sensu Catalog, integrations are represented by tiles.
 When you click an integration tile, the integration's detail page opens.
-The detail page includes tabs for README, CHANGELOG, SENSU RESOURCES, and RAW.
+The detail page includes tabs for **README**, **CHANGELOG**, **SENSU RESOURCES**, and **RAW**.
 
 {{< figure src="/images/catalog_integration_info_tabs.png" alt="Location of README, CHANGELOG, SENSU RESOURCES, and RAW tabs for an integration in the Sensu Catalog" link="/images/catalog_integration_info_tabs.png" target="_blank" >}}
 
-The README tab contains detailed information about the integration, including an overview, supported dashboards, setup instructions, the plugins the integration requires, the metrics and alerts the integration generates, and links to reference information.
-The README also describes any additional configuration needed to use the integration, like subscriptions to add to agent entities or secrets to create for sensitive information.
+The **README** tab contains detailed information about the integration, including an overview, supported dashboards, setup instructions, the plugins the integration requires, the metrics and alerts the integration generates, and links to reference information.
+The **README** also describes any additional configuration needed to use the integration, like subscriptions to add to agent entities or secrets to create for sensitive information.
 
-The CHANGELOG tab lists the notable changes, improvements, and fixes for all versions of the integration. 
+The **CHANGELOG** tab lists the notable changes, improvements, and fixes for all versions of the integration. 
 
-The SENSU RESOURCES tab contains usable examples of all of the resource definitions you need to use the integration, including the plugin [asset][4], [secrets][5], [checks][2], [handlers][3], and [pipelines][6].
+The **SENSU RESOURCES** tab contains usable examples of all of the resource definitions you need to use the integration, including the plugin [asset][4], [secrets][5], [checks][2], [handlers][3], and [pipelines][6].
 Click the `yaml` or `json` buttons to select the format for each definition.
 
 {{% notice note %}}
@@ -112,7 +115,7 @@ Click the `yaml` or `json` buttons to select the format for each definition.
 Use the **INSTALL** button to [configure and install the integration](#configure-and-install-an-integration) directly from your browser or copy the example definitions to configure and create with [sensuctl](../../sensuctl/create-manage-resources/) or the Sensu [API](../../api/).
 {{% /notice %}}
 
-The RAW tab contains the resource definition for the integration itself.
+The **RAW** tab contains the resource definition for the integration itself.
 The raw resource definition allows you to customize the integration if needed.
 Click the `yaml` or `json` buttons to select the format for the integration definition.
 
@@ -124,7 +127,7 @@ To configure and install an integration:
 1. Click **INSTALL** to open the configuration wizard.
 The configuration wizard is a multi-page form with fields and prompts for collecting additional configuration attributes for the integration.
 2. Type values in each attribute field in the wizard to configure the integration for your instance.
-Click the NEXT and BACK buttons to navigate through wizard pages as needed.
+Use the **NEXT** and **BACK** buttons to navigate through wizard pages as needed.
 3. Review the resource definitions on the Summary page.
 4. Click **APPLY** to save your configuration and create the integration resources.
 5. Click **FINISH** on the confirmation page to close the configuration wizard.
@@ -145,7 +148,21 @@ Click the dropdown arrows to review the resource definitions:
 
 {{< figure src="/images/catalog_integration_summary_definitions.gif" alt="Summary page of configuration wizard for a Sensu Catalog integration" link="/images/catalog_integration_summary_definitions.gif" target="_blank" >}}
 
-The resulting resource definitions represent Sensu's recommended configuration (i.e. how to use plugins) to make it easier to evaluate and deploy Sensu solutions
+The resulting resource definitions represent Sensu's recommended configuration for the integration.
+
+### Duplicate integrations and existing resources
+
+You can reuse the same integration as long as all resource definitions have unique names.
+
+When you install an integration, Sensu checks your existing resources before creating the new resources.
+If Sensu finds an existing resource with the same name, the configuration wizard will prompt you to either:
+
+- Provide a unique name for the new resources.
+- Acknowledge that the new resources should overwrite the existing resources.
+
+**TODO: Replace with updated GIF**
+
+{{< figure src="/images/rename_overwrite_prompt.gif" alt="Summary page of configuration wizard for a Sensu Catalog integration" link="/images/rename_overwrite_prompt.gif" target="_blank" >}}
 
 ## View and manage your integrations
 
@@ -156,7 +173,7 @@ View and manage integration resources just like all of your other Sensu resource
 
 ## Reuse integration resources
 
-The integration definitions listed in the [SENSU RESOURCES tab][13] are usable, portable definitions for all of the resources you need to use the integration.
+The integration definitions listed in the [**SENSU RESOURCES** tab][13] are usable, portable definitions for all of the resources you need to use the integration.
 These definitions are universal [monitoring as code][15] templates: they do not include a namespace or the specific values you provide while [configuring and installing][14] the integration.
 
 ## Use secrets in integrations
@@ -171,7 +188,6 @@ The Sensu Catalog is an open marketplace, and you can contribute by sharing Sens
 
 ## TODO: Questions
 
-- If I recreate the same integration, does it overwrite the existing resources? Create a second set of resources? Ignore the new integration and resources?
 - What is the purpose of the commit code next to the INSTALL button? Is this for pinning the integration to a specific asset version? Or maybe a specific version of the integration itself?
 - Will the catalog API exist at launch?
 - What is supposed to be at https://catalog.sensu.io/?
@@ -197,3 +213,4 @@ The Sensu Catalog is an open marketplace, and you can contribute by sharing Sens
 [17]: #browse-the-categorized-list
 [18]: #browse-a-metadata-based-list
 [19]: #search-for-integrations
+[20]: ../../plugins/assets/
