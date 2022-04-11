@@ -597,7 +597,7 @@ sensu-agent start --help
 To start the agent using a service manager:
 
 {{< code shell >}}
-sudo systemctl sensu-agent start
+sudo systemctl start sensu-agent
 {{< /code >}}
 
 If you do not provide any configuration flags, the agent loads configuration from the location specified by the `config-file` attribute (default is `/etc/sensu/agent.yml`).
@@ -631,7 +631,7 @@ To stop the agent service using a service manager:
 {{< language-toggle >}}
 
 {{< code shell "Linux" >}}
-sudo systemctl sensu-agent stop
+sudo systemctl stop sensu-agent
 {{< /code >}}
 
 {{< code shell "Windows" >}}
@@ -649,7 +649,7 @@ To restart the agent using a service manager:
 {{< language-toggle >}}
 
 {{< code shell "Linux" >}}
-sudo systemctl sensu-agent restart
+sudo systemctl restart sensu-agent
 {{< /code >}}
 
 {{< code shell "Windows" >}}
@@ -703,7 +703,7 @@ To view the status of the agent service using a service manager:
 {{< language-toggle >}}
 
 {{< code shell "Linux" >}}
-sudo systemctl sensu-agent status
+sudo systemctl status sensu-agent
 {{< /code >}}
 
 {{< code shell "Windows" >}}
@@ -735,7 +735,7 @@ To uninstall the sensu-agent service, run:
 {{< language-toggle >}}
 
 {{< code shell "Linux" >}}
-sudo systemctl sensu-agent stop
+sudo systemctl stop sensu-agent
 {{< /code >}}
 
 {{< code shell "Windows" >}}
@@ -808,7 +808,7 @@ For more information about clustering, read [Backend datastore configuration fla
 ### Synchronize time
 
 System clocks between agents and the backend should be synchronized to a central NTP server.
-If system time is out-of-sync, it may cause issues with keepalive, metric, and check alerts.
+If system time is out of sync, it may cause issues with keepalive, metric, and check alerts.
 
 ## Configuration via flags
 
@@ -885,6 +885,7 @@ Flags:
       --key-file string                     key for TLS authentication
       --labels stringToString               entity labels map (default [])
       --log-level string                    logging level [panic, fatal, error, warn, info, debug] (default "info")
+      --max-session-length                  maximum amount of time after which the agent will reconnect to one of the configured backends (no maximum by default)
       --name string                         agent name (defaults to hostname) (default "my_hostname")
       --namespace string                    agent namespace (default "default")
       --password string                     agent password (default "P@ssw0rd!")
@@ -1146,6 +1147,19 @@ command line example   | {{< code shell >}}
 sensu-agent start --log-level debug{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 log-level: debug{{< /code >}}
+
+<a id="max-session-length-attribute"></a>
+
+| max-session-length |      |
+--------------|------
+description   | Maximum duration for any one agent connection. In milliseconds (`ms`), seconds (`s`), minutes (`m`), or hours (`h`). Use max-session-length to prevent agent connection distribution from becoming skewed over time.<br><br>The max-session-length algorithm includes random jitter so that agents will not disconnect and reconnect all at once. Based on the random jitter calculation, at some time before a connection reaches the specified maximum duration, Sensu will force the agent to disconnect and reconnect to an available configured backend.
+type          | String
+default       | Defaults to no maximum.
+environment variable | `SENSU_MAX_SESSION_LENGTH`
+command line example   | {{< code shell >}}
+sensu-agent start --max-session-length 15m{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+max-session-length: 15m{{< /code >}}
 
 <a id="name-attribute"></a>
 

@@ -16,7 +16,7 @@ You'll also need to [install Git][18] to contribute from your command line.
 
 ## Contributing instructions
 
-These instructions will help you fork this repository, create a branch, and submit a pull request (PR) either in your browser or from your command line.
+These instructions will help you fork this repository, create a branch, add your DCO sign-off, and submit a pull request (PR) either in your browser or from your command line.
 
 After your PR is submitted, project maintainers will review it.
 If you'd like to mark your PR as work in progress, add `[WIP]` to the PR title.
@@ -31,6 +31,8 @@ The corresponding Markdown file for the page will open in GitHub, create a fork 
 2. Make your changes to the Markdown content.
 
 3. Select "Propose changes" and follow the prompts to submit a pull request.
+
+**NOTE**: Include a [DCO Signed-off-by statement][13] as the **last line in your commit message**.
 
 If you have any questions, please [open an issue][6].
 
