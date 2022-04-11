@@ -474,6 +474,14 @@
         "~ ^/sensu-go/latest/api/version/?$": {
             "url": "/sensu-go/latest/api/other/version/$1",
             "status": 301
+        },
+        "~ ^/sensu-go/6.[3-7]/plugins/supported-integrations/?((?<=\/).*)?$": {
+            "url": "/sensu-go/latest/plugins/featured-integrations/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/plugins/supported-integrations/?((?<=\/).*)?$": {
+            "url": "/sensu-go/latest/plugins/featured-integrations/$1",
+            "status": 301
         }
     }
 }
