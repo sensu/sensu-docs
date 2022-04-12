@@ -54,7 +54,7 @@ These tools only need to be installed on one system to generate your CA and issu
 
 You may install the toolkit on your laptop or workstation and store the files there for safekeeping or install the toolkit on one of the systems where you'll run the Sensu backend.
 
-In this example you'll walk through installing cfssl on a Linux system, which requires copying certain certificates to each of the backend and agent systems you are securing.
+In this example you'll walk through installing cfssl on a Linux system, which requires copying certain certificates and keys to each of the backend and agent systems you are securing.
 
 This guide assumes that you'll install these certificates in the `/etc/sensu/tls` directory on each backend and agent system.
 
@@ -125,7 +125,7 @@ The Sensu agent and Sensu backend use the CA root certificate to validate server
 
 ### Generate backend cluster certificates
 
-Now that you've generated a CA, you will use it to generate certificates for each backend server (etcd peer).
+Now that you've generated a CA, you will use it to generate certificates and keys for each backend server (etcd peer).
 
 For each backend server you'll need to document the IP addresses and hostnames to use in backend and agent communications.
 
