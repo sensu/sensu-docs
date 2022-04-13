@@ -68,7 +68,7 @@ sudo curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl_
 sudo curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssljson_1.4.1_linux_amd64 -o /usr/local/bin/cfssljson
 {{< /code >}}
 
-3. Install the cfssl and cfssljson executables in /usr/local/bin::
+3. Install the cfssl and cfssljson executables in /usr/local/bin:
 {{< code shell >}}
 sudo chmod +x /usr/local/bin/cfssl*
 {{< /code >}}
