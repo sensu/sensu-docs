@@ -16,7 +16,6 @@ menu:
 This guide explains how to generate the certificates you need to secure a Sensu cluster and its agents.
 
 When deploying Sensu for use outside of a local development environment, you should secure it using transport layer security (TLS).
-
 TLS uses encryption to provide security for communication between Sensu backends and agents as well as communication between human operators and the Sensu backend, such as web UI or sensuctl access.
 
 Because reconfiguring an existing Sensu deployment from cleartext to TLS can be time-consuming, we recommend that you configure TLS for your backend from the very beginning.
@@ -37,26 +36,23 @@ To use TLS, you must either possess existing [public key infrastructure (PKI)][8
 This guide describes how to set up a minimal CA and generate the certificates you need to secure Sensu communications for a clustered backend and agents.
 
 If your organization has existing PKI for certificate issuance, you can adapt the suggestions in this guide to your organization's PKI.
-
 Recommended practices for deploying and maintaining production PKI can be complex and case-specific, so they are not included in the scope of this guide.
 
 ## Issue certificates
 
 Use a CA certificate and key to generate certificates and keys to use with Sensu backends and agents.
 
-This example uses the [CloudFlare cfssl][6] toolkit to generate a CA and self-signed certificates from that CA.
+This guide uses the [CloudFlare cfssl][6] toolkit to generate a CA and self-signed certificates from that CA.
+The examples assume that you'll install the certificates and keys in the `/etc/sensu/tls` directory.
 
 ### Install TLS
 
-The [cfssl][6] toolkit is released as a collection of command-line tools.
+The [CloudFlare cfssl][6] toolkit is released as a collection of command-line tools.
 
 These tools only need to be installed on one system to generate your CA and issue certificates.
 
 You may install the toolkit on your laptop or workstation and store the files there for safekeeping or install the toolkit on one of the systems where you'll run the Sensu backend.
-
-In this example you'll walk through installing cfssl on a Linux system, which requires copying certain certificates and keys to each of the backend and agent systems you are securing.
-
-This guide assumes that you'll install these certificates in the `/etc/sensu/tls` directory on each backend and agent system.
+The example in this guide installs cfssl on a Linux system.
 
 1. Download the cfssl executable:
 {{< code shell >}}
@@ -87,7 +83,7 @@ cfssljson -version
 
 Follow these steps to create a CA with cfssl and cfssljson for each backend and agent system:
 
-1. Create /etc/sensu/tls (which does not exist by default):
+1. Create `/etc/sensu/tls` (which does not exist by default):
 {{< code shell >}}
 mkdir -p /etc/sensu/tls
 {{< /code >}}
@@ -112,23 +108,22 @@ echo '{"signing":{"default":{"expiry":"17520h","usages":["signing","key encipher
 
 <a id="copy-ca-pem"></a>
 
-You should now have a directory for each backend and agent at `/etc/sensu/tls` that contains the following files:
+You should now have a directory at `/etc/sensu/tls` that contains the following files:
 
  filename        | description |
 -----------------|-------------|
-`ca.pem`         | CA root certificate. Must be copied to all systems running Sensu backend or agent. |
+`ca.pem`         | CA root certificate. Required for all systems running the Sensu backend or agent. |
 `ca-key.pem`     | CA root certificate private key. |
 `ca-config.json` | CA signing parameters and profiles. Not used by Sensu. |
 `ca.csr`         | Certificate signing request for the CA root certificate. Not used by Sensu. |
 
-The Sensu agent and Sensu backend use the CA root certificate to validate server certificates at connection time.
+The Sensu agent and backend use the CA root certificate to validate server certificates at connection time.
 
 ### Generate backend cluster certificates
 
 Now that you've generated a CA, you will use it to generate certificates and keys for each backend server (etcd peer).
 
-For each backend server you'll need to document the IP addresses and hostnames to use in backend and agent communications.
-
+For each backend server, document the IP addresses and hostnames to use in backend and agent communications.
 During initial configuration of a cluster of Sensu backends, you must describe every member of the cluster with a URL passed as the value of the `etcd-initial-cluster` parameter.
 
 In issuing certificates for cluster members, the IP address or hostname used in these URLs must be represented in either the Common Name (CN) or Subject Alternative Name (SAN) records in the certificate.
@@ -136,8 +131,10 @@ In issuing certificates for cluster members, the IP address or hostname used in 
 {{% notice note %}}
 **NOTE**: Sensu Go 6.4.0 upgraded the Go version from 1.13.15 to 1.16.5.
 As of [Go 1.15](https://golang.google.cn/doc/go1.15#commonname), certificates must include their CN as an SAN field.
-To prevent connection errors after upgrading to Sensu Go 6.4.0 or later versions, follow [Generate certificates](../generate-certificates/) to make sure your certificates' SAN fields include their CNs.
+Follow the instructions in this guide to make sure your certificates' SAN fields include their CNs.
 {{% /notice %}}
+
+<a id="example-backends"></a>
 
 This guide assumes a scenario with three backend members that are reachable via a `10.0.0.x` IP address, a fully qualified name (for example, `backend-1.example.com`), and an unqualified name (for example, `backend-1`):
 
@@ -147,13 +144,16 @@ backend-1        | 10.0.0.1   | backend-1.example.com              | localhost, 
 backend-2        | 10.0.0.2   | backend-2.example.com              | localhost, 127.0.0.1 |
 backend-3        | 10.0.0.3   | backend-3.example.com              | localhost, 127.0.0.1 |
 
-Note that the additional names for localhost and 127.0.0.1 are added here for convenience and are not strictly required.
+The additional names for localhost and 127.0.0.1 are added here for convenience and are not strictly required.
 
 Use these name and address details to create two `*.pem` files and one `*.csr` file for each backend.
 
 - The values provided for the ADDRESS variable will be used to populate the certificate's SAN records.
 For systems with multiple hostnames and IP addresses, add each to the comma-delimited value of the ADDRESS variable.
 - The value provided for the NAME variable will be used to populate the certificate's CN record.
+It will also be used in the names for the `*.pem` and `*.csr` files.
+
+For example, to create certificate and key files for the [three backends][18]:
 
 **backend-1**
 
@@ -181,7 +181,7 @@ echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl ge
 
 <a id="copy-backend-pem"></a>
 
-You should now have this set of files for each backend:
+The `/etc/sensu/tls` directory should now include three files for each backend, in addition to the [four original CA files][11]:
 
 filename               | description                  | required on backend?|
 -----------------------|------------------------------|---------------------|
@@ -189,24 +189,31 @@ filename               | description                  | required on backend?|
 `backend-*-key.pem`    | Backend server private key   | {{< check >}}       |
 `backend-*.csr`        | Certificate signing request  |                     |
 
-Make sure to copy all backend PEM files to the corresponding backend system.
-For example, the directory listing of /etc/sensu/tls on backend-1 should include:
+In our example with [three backends][18], the directory listing for `/etc/sensu/tls` would include 13 files:
 
 {{< code shell >}}
 /etc/sensu/tls/
-├── backend-1-key.pem
-├── backend-1.pem
-├── backend-1.csr
+├── backend-1.example.com-key.pem
+├── backend-1.example.com.pem
+├── backend-1.example.com.csr
+├── backend-2-key.example.com.pem
+├── backend-2.example.com.pem
+├── backend-2.example.com.csr
+├── backend-3-key.example.com.pem
+├── backend-3.example.com.pem
+├── backend-3.example.com.csr
+├── ca.pem
 ├── ca-key.pem
-└── ca.pem
+├── ca-config.json
+└── ca.csr
 {{< /code >}}
 
 {{% notice warning %}}
-**WARNING**: Before you continue, delete the `ca-key.pem` file from the /etc/sensu/tls directory for each backend system.
-This file is no longer needed, and it is sensitive and should be kept private.
+**WARNING**: If you are **not** setting up [agent mTLS authentication](../secure-sensu/#optional-configure-sensu-agent-mtls-authentication), delete the `ca-key.pem` file from the `/etc/sensu/tls` directory.
+The `ca-key.pem` file is sensitive information and is no longer needed unless you are setting up agent mTLS authentication.
 {{% /notice %}}
 
-To make sure the remaining backend /etc/sensu/tls files are accessible only by the `sensu` user, run:
+To make sure the backend files in `/etc/sensu/tls` are accessible only by the `sensu` user, run:
 
 {{< code shell >}}
 chown sensu /etc/sensu/tls/*.pem
@@ -221,7 +228,7 @@ chmod 400 /etc/sensu/tls/*.pem
 ### Generate agent certificate
 
 {{% notice note %}}
-**NOTE**: Agent certificates are only required for [agent mutual transport layer security (mTLS) authentication](../secure-sensu/#optional-configure-sensu-agent-mtls-authentication).
+**NOTE**: Agent certificates are only required for [agent mTLS authentication](../secure-sensu/#optional-configure-sensu-agent-mtls-authentication).
 If you are not configuring mTLS for Sensu agents, you do not need to generate agent certificates.
 {{% /notice %}}
 
@@ -238,7 +245,7 @@ echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl ge
 
 <a id="copy-agent-pem"></a>
 
-You should now have a set of files for use by Sensu agents:
+The `/etc/sensu/tls` directory should now include a set of files for use by Sensu agents:
 
 filename           | description                  | required on agent?  |
 -------------------|------------------------------|---------------------|
@@ -246,24 +253,33 @@ filename           | description                  | required on agent?  |
 `agent-key.pem`    | Agent private key            | {{< check >}}       |
 `agent.csr`        | Certificate signing request  |                     |
 
-Make sure to copy all agent PEM files to all agent systems.
-To continue the example, the directory listing of /etc/sensu/tls on each agent should now include:
+{{% notice warning %}}
+**WARNING**: Before you continue, delete the `ca-key.pem` file from the `/etc/sensu/tls` directory.
+This file is sensitive information and is no longer needed.
+{{% /notice %}}
+
+To continue the example with [three backends][18], after deleting the `ca-key.pem` file, the directory listing for `/etc/sensu/tls` will include 15 files:
 
 {{< code shell >}}
 /etc/sensu/tls/
 ├── agent-key.pem
 ├── agent.pem
 ├── agent.csr
-├── ca-key.pem
-└── ca.pem
+├── backend-1.example.com-key.pem
+├── backend-1.example.com.pem
+├── backend-1.example.com.csr
+├── backend-2-key.example.com.pem
+├── backend-2.example.com.pem
+├── backend-2.example.com.csr
+├── backend-3-key.example.com.pem
+├── backend-3.example.com.pem
+├── backend-3.example.com.csr
+├── ca.pem
+├── ca-config.json
+└── ca.csr
 {{< /code >}}
 
-{{% notice warning %}}
-**WARNING**: Before you continue, delete the `ca-key.pem` file from the /etc/sensu/tls directory for each agent.
-This file is no longer needed, and it is sensitive and should be kept private.
-{{% /notice %}}
-
-To make sure the remaining agent /etc/sensu/tls files are accessible only by the `sensu` user, run:
+To make sure the agent `/etc/sensu/tls` files are accessible only by the `sensu` user, run:
 
 {{< code shell >}}
 chown sensu /etc/sensu/tls/*.pem
@@ -277,16 +293,10 @@ chmod 400 /etc/sensu/tls/*.pem
 
 ## Install CA certificates
 
-Before you install the CA certificates, make sure that you have copied the certificate and key to the /etc/sensu/tls directory for each of the backend and agent systems you are securing:
+Before you install the CA certificates, **make sure that the `/etc/sensu/tls` directory does not contain the `ca-key.pem` file**.
+The `ca-key.pem` file is sensitive information that is no longer needed, so you should delete it.
 
-- [Copy the Certificate Authority (CA) root certificate file][11], `ca.pem`, to each agent and backend.
-- [Copy all backend PEM files][12] to their corresponding backend systems.
-- [Copy all agent PEM files][13] to each agent system.
-
-{{% notice warning %}}
-**WARNING**: Make sure that you have deleted the `ca-key.pem` file from the /etc/sensu/tls directory **for every backend and agent**.
-This file is no longer needed, and it is sensitive and should be kept private.
-{{% /notice %}}
+Also, make sure that `/etc/sensu/tls` includes the [CA root certificate and key][11], as well as a certificate and key for each [backend][12] and [agent][13] you are securing.
 
 We recommend installing the CA root certificate in the trust store of both your Sensu systems and those systems used by operators to manage Sensu. 
 Installing the CA certificate in the trust store for these systems makes it easier to connect via web UI or sensuctl without being prompted to accept certificates signed by your self-generated CA.
@@ -343,7 +353,7 @@ This section explains how to find certificate expiration dates, confirm whether 
 
 Use this check to find certificate expiration dates so you can renew certificates before they expire and avoid observability interruptions.
 
-Before you run the check, replace `<cert-name>.pem` in the command with the name of the certificate you want to check (for example, `backend-1.pem`).
+Before you run the check, replace `<cert-name>.pem` in the command with the name of the certificate you want to check (for example, `backend-1.example.com.pem`).
 
 {{< language-toggle >}}
 
@@ -399,8 +409,8 @@ Error: GET "/health": Get https://localhost:8080/health?timeout=3: x509: certifi
 The log for the expired backend will be similar to this example:
 
 {{< code shell >}}
-backend-1      | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
-backend-1      | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
+backend-1.example.com | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
+backend-1.example.com | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
 {{< /code >}}
 
 If you restart the cluster with one expired backend certificate, the `sensuctl cluster health` response will include an error:
@@ -412,9 +422,9 @@ Error: GET "/health": failed to request new refresh token; client returned 'Post
 When all three backend certificates are expired, the log will be similar to this example:
 
 {{< code shell >}}
-backend-1      | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:53Z"}
-backend-2      | {"component":"etcd","level":"warning","msg":"health check for peer 4cc36e198efb22e8 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
-backend-3      | {"component":"etcd","level":"warning","msg":"health check for peer 8425a7b2d2ee8597 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
+backend-1.example.com | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:53Z"}
+backend-2.example.com | {"component":"etcd","level":"warning","msg":"health check for peer 4cc36e198efb22e8 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
+backend-3.example.com | {"component":"etcd","level":"warning","msg":"health check for peer 8425a7b2d2ee8597 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
 {{< /code >}}
 
 If you restart the cluster with three expired backend certificates, the `sensuctl cluster health` response will include an error:
@@ -427,11 +437,11 @@ The following `sensuctl cluster health` response helps confirm that all three ba
 
 {{< code shell >}}
 === Etcd Cluster ID: 45c04eab9efc0d11
-         ID             Name                Error             Healthy  
- ────────────────── ──────────── ─────────────────────────── ───────── 
-  a95ca1cdb0b1fcc3   backend-1    context deadline exceeded   false    
-  8425a7b2d2ee8597   backend-2    context deadline exceeded   false    
-  4cc36e198efb22e8   backend-3    context deadline exceeded   false
+         ID             Name                            Error             Healthy  
+ ────────────────── ──────────────────────── ─────────────────────────── ───────── 
+  a95ca1cdb0b1fcc3   backend-1.example.com    context deadline exceeded   false    
+  8425a7b2d2ee8597   backend-2.example.com    context deadline exceeded   false    
+  4cc36e198efb22e8   backend-3.example.com    context deadline exceeded   false
 {{< /code >}}
 
 An expired agent certificate does not cause any errors or log messages to indicate the expiration.
@@ -470,3 +480,4 @@ Now that you have generated the required certificates and copied them to the app
 [15]: #generate-agent-certificate
 [16]: #find-certificate-expiration-dates
 [17]: ../../../observability-pipeline/observe-process/handlers/
+[18]: #example-backends
