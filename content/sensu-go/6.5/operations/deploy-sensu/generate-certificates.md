@@ -32,7 +32,7 @@ To use this guide, you must have already [installed Sensu][10] on:
 
 ## Public key infrastructure (PKI)
 
-To use TLS, you must either posses existing [public key infrastructure (PKI)][8] or generate your own Certificate Authority (CA) for issuing certificates.
+To use TLS, you must either possess existing [public key infrastructure (PKI)][8] or generate your own Certificate Authority (CA) for issuing certificates.
 
 This guide describes how to set up a minimal CA and generate the certificates you need to secure Sensu communications for a clustered backend and agents.
 
