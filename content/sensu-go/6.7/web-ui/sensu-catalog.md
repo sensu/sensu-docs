@@ -22,7 +22,7 @@ For more information, read [Get started with commercial features](../../commerci
 
 The Sensu Catalog is an online marketplace for monitoring and observability integrations, from standard system checks and metrics collection to pipelines for sending Sensu data to third-party logging, remediation, and incident management services.
 
-The Sensu Catalog is part of the Sensu web UI, so you can find, configure, and install integrations directly from your browser.
+The Sensu Catalog is part of the Sensu [web UI][21], so you can find, configure, and install integrations directly from your browser.
 
 {{< figure src="/images/catalog_alphabetical.png" alt="The Sensu Catalog page in the Sensu web UI" link="/images/catalog_alphabetical.png" target="_blank" >}}
 
@@ -34,7 +34,7 @@ An integration combines a Sensu plugin with a dynamic runtime asset and the Sens
 Integrations provide the plugin and asset along with the recommended or minimum viable configuration and Sensu resources, integrating Sensu with different systems and services for collecting and processing observability data with a few clicks.
 
 Sensu Catalog integrations allow you to configure powerful real-time monitoring and observability for the systems you rely on.
-All integrations are self-service to facilitate higher-velocity scaling with fewer onboarding barriers.
+All integrations are self-service and designed to help you scale up with fewer barriers.
 Sensu curates, tests, and maintains the Catalog integrations, and installation follows a standardized process.
 
 ## Find integrations
@@ -160,8 +160,6 @@ If Sensu finds an existing resource with the same name, the configuration wizard
 - Provide a unique name for the new resources.
 - Acknowledge that the new resources should overwrite the existing resources.
 
-**TODO: Replace with updated GIF**
-
 {{< figure src="/images/rename_overwrite_prompt.gif" alt="Summary page of configuration wizard for a Sensu Catalog integration" link="/images/rename_overwrite_prompt.gif" target="_blank" >}}
 
 ## View and manage your integrations
@@ -184,15 +182,6 @@ The Sensu Catalog integrations are preconfigured to use Sensu's `Env` secrets pr
 
 The Sensu Catalog is an open marketplace, and you can contribute by sharing Sensu configurations.
 
-**TODO: expand on contribution -- how?**
-
-## TODO: Questions
-
-- What is the purpose of the commit code next to the INSTALL button? Is this for pinning the integration to a specific asset version? Or maybe a specific version of the integration itself?
-- Will the catalog API exist at launch?
-- What is supposed to be at https://catalog.sensu.io/?
-- What does it mean for an integration to have the provider tag? The provider values sound like functions the integration serves. How are we thinking of provider in this case?
-
 
 [1]: ../../plugins/plugins/
 [2]: ../../observability-pipeline/observe-schedule/checks/
@@ -214,3 +203,4 @@ The Sensu Catalog is an open marketplace, and you can contribute by sharing Sens
 [18]: #browse-a-metadata-based-list
 [19]: #search-for-integrations
 [20]: ../../plugins/assets/
+[21]: ../
