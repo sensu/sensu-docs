@@ -81,7 +81,7 @@ cfssljson -version
 
 ### Create a Certificate Authority (CA)
 
-Follow these steps to create a CA with cfssl and cfssljson for each backend and agent system:
+Follow these steps to create a CA with cfssl and cfssljson:
 
 1. Create `/etc/sensu/tls` (which does not exist by default):
 {{< code shell >}}
@@ -112,12 +112,11 @@ You should now have a directory at `/etc/sensu/tls` that contains the following 
 
  filename        | description |
 -----------------|-------------|
-`ca.pem`         | CA root certificate. Required for all systems running the Sensu backend or agent. |
+`ca.pem`         | CA root certificate. Required for all systems running the Sensu backend or agent. The agent and backend use `ca.pem` to validate server certificates at connection time. |
 `ca-key.pem`     | CA root certificate private key. |
 `ca-config.json` | CA signing parameters and profiles. Not used by Sensu. |
 `ca.csr`         | Certificate signing request for the CA root certificate. Not used by Sensu. |
 
-The Sensu agent and backend use the CA root certificate to validate server certificates at connection time.
 
 ### Generate backend cluster certificates
 
