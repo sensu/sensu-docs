@@ -460,7 +460,7 @@ sudo systemctl start sensu-backend
 
 ## Next step: Secure Sensu
 
-Now that you have generated the required certificates and copied them to the applicable hosts, follow [Secure Sensu][1] to make your Sensu installation production-ready.
+Now that you have generated the required certificates, follow [Secure Sensu][1] to make your Sensu installation production-ready.
 
 
 [1]: ../secure-sensu/
