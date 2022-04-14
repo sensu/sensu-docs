@@ -3,7 +3,7 @@ title: "Secrets providers reference"
 linkTitle: "Secrets Providers Reference"
 reference_title: "Secrets providers"
 type: "reference"
-description: "Sensu's secrets management capability allows you to avoid exposing secrets like usernames, passwords, and access keys in your Sensu configuration. Read the reference to obtain secrets from one or more external secrets providers and support references to external secrets in your Sensu configuration."
+description: "Avoid exposing sensitive information like usernames, passwords, and access keys in your Sensu configuration with Sensu's secrets management feature."
 weight: 30
 version: "6.5"
 product: "Sensu Go"
@@ -30,7 +30,7 @@ Unencrypted connections must not transmit privileged information.
 For checks, hooks, and dynamic runtime assets, you must [enable mutual TLS (mTLS)][13].
 Sensu will not transmit secrets to agents that do not use mTLS.
 
-The [Sensu Go commercial distribution][1] includes a built-in secrets provider, `Env`, that exposes secrets from [environment variables][4] on your Sensu backend nodes.
+The [Sensu Go commercial distribution][1] includes a secrets provider, `Env`, that exposes secrets from [environment variables][4] on your Sensu backend nodes.
 You can also use the secrets provider `VaultProvider` to authenticate via the HashiCorp Vault integration's [token auth method][10] or [TLS certificate auth method][11].
 
 You can configure any number of `VaultProvider` secrets providers.
@@ -94,7 +94,7 @@ spec:
 
 ## Env secrets provider example
 
-Sensu's built-in `Env` secrets provider exposes secrets from [backend environment variables][4].
+Sensu's `Env` secrets provider exposes secrets from [backend environment variables][4].
 The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
 
 Using the `Env` secrets provider may require you to synchronize environment variables in Sensu backend clusters.
@@ -147,7 +147,7 @@ The [secrets providers examples](#env-example) section includes an example for t
 
 type         | 
 -------------|------
-description  | Top-level attribute that specifies the resource type. May be either `Env` (if you are using Sensu's built-in secrets provider) or `VaultProvider` (if you are using HashiCorp Vault as the secrets provider).
+description  | Top-level attribute that specifies the resource type. May be either `Env` (if you are using Sensu's secrets provider) or `VaultProvider` (if you are using HashiCorp Vault as the secrets provider).
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | String
 example      | {{< language-toggle >}}

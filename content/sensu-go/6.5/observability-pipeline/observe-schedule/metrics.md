@@ -3,8 +3,8 @@ title: "Metrics reference"
 linkTitle: "Metrics Reference"
 reference_title: "Metrics"
 type: "reference"
-description: "Use checks to collect service and time-series metrics for your infrastructure and process extracted metrics with the Sensu observability pipeline. Read this reference doc to learn about Sensu Go's first-class support for collecting and processing service and time-series metrics."
-weight: 33
+description: "Read this reference to collect service and time-series metrics for your infrastructure and process extracted metrics with the Sensu observability pipeline."
+weight: 50
 version: "6.5"
 product: "Sensu Go"
 platformContent: false
@@ -891,13 +891,116 @@ example              | {{< code plain >}}http_requests_total{method="post",code=
 
 ## Enrich metrics with tags
 
-[Output metric tags][1] are custom tags you can apply to enrich the metric points produced by check output metric extraction.
+In metric check output, metrics data [points][25] include the [`tags`][29] array.
+Tags add information for the metrics points in [events][28].
+For example, a tag can specify the name of the check or entity associated with a specific metrics point.
 
-Use output metric tags for the output metric formats that do not natively support tags: Graphite Plaintext Protocol and Nagios Performance Data.
+Tags can be generated in various ways, like [plugin][31] code or a third-party exporter.
+You can also add specific tags to metrics points with output metric tags.
 
-Values for output metric tags are passed through to the metric points produced by check output metric extraction for formats that natively support tags (InfluxDB Line Protocol, OpenTSDB Data Specification, and Prometheus Exposition Text).
+### Add output metric tags
 
-You can use [check token substitution][22] for the output_metric_tags [value][21] attribute to include any event attribute in an output metric tag.
+[Output metric tags][1] are custom tags you can add to your check definition to enrich the metrics data points produced by check output metric extraction with additional context.
+
+The key-value pairs you add to a check's `output_metric_tags` array will be included in the `tags` array after check output metric extraction.
+For example, suppose you include this `output_metric_tags` array in your check:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+output_metric_tags:
+- name: instance
+  value: sensu-centos-1
+- name: prometheus_type
+  value: gauge
+{{< /code >}}
+
+{{< code json >}}
+{
+  "output_metric_tags": [
+    {
+      "name": "instance",
+      "value": "sensu-centos-1"
+    },
+    {
+      "name": "prometheus_type",
+      "value": "gauge"
+    }
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+In check output, the metrics points would include the output metric tags in the `tags` array, similar to this example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+points:
+- name: dns_duration
+  value: 0.000251
+  timestamp: 1648220984
+  tags:
+  - name: instance
+    value: sensu-centos-1
+  - name: prometheus_type
+    value: gauge
+- name: tls_handshake_duration
+  value: 0
+  timestamp: 1648220984
+  tags:
+  - name: instance
+    value: sensu-centos-1
+  - name: prometheus_type
+    value: gauge
+{{< /code >}}
+
+{{< code json >}}
+{
+  "points": [
+    {
+      "name": "dns_duration",
+      "value": 0.000251,
+      "timestamp": 1648220984,
+      "tags": [
+        {
+          "name": "instance",
+          "value": "sensu-centos-1"
+        },
+        {
+          "name": "prometheus_type",
+          "value": "gauge"
+        }
+      ]
+    },
+    {
+      "name": "tls_handshake_duration",
+      "value": 0,
+      "timestamp": 1648220984,
+      "tags": [
+        {
+          "name": "instance",
+          "value": "sensu-centos-1"
+        },
+        {
+          "name": "prometheus_type",
+          "value": "gauge"
+        }
+      ]
+    }
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+Sensu adds any output metric tag values to the `tags` array along with any natively supported tags produced by check output metric extraction.
+
+### Use token substitution with output metric tags
+
+Use [token substitution][22] to include any [event attribute][30] in an output metric tag.
+Add token substitution in the output metric tag `value` attribute.
 For example, these tags will list the `event.timestamp` and `event.entity.name` attributes:
 
 {{< language-toggle >}}
@@ -921,6 +1024,54 @@ output_metric_tags:
     {
       "name": "entity_name",
       "value": "{{ .entity.name }}"
+    }
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Collect metrics in formats that do not support tags
+
+Output metric tags are useful when you want to collect metrics in a format that does not natively support tags, like Graphite Plaintext Protocol or Nagios Performance Data.
+
+For example, you might want to collect and transmit metrics in Nagios Performance Data format, which does not support tags, and store the metrics in Prometheus, which does support tags.
+In this case, you can specify the tags to include with metrics with output metric tags.
+The `output_metric_format`, `output_metric_handlers`, and `output_metric_tags` attributes in your check definition might look similar to this example:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+output_metric_format: nagios_perfdata
+output_metric_handlers:
+  - prometheus_gateway
+output_metric_tags:
+  - name: instance
+    value: '{{ .name }}'
+  - name: prometheus_type
+    value: gauge
+  - name: service
+    value: '{{ .labels.service }}'
+{{< /code >}}
+
+{{< code json >}}
+{
+  "output_metric_format": "nagios_perfdata",
+  "output_metric_handlers": [
+    "prometheus_gateway"
+  ],
+  "output_metric_tags": [
+    {
+      "name": "instance",
+      "value": "{{ .name }}"
+    },
+    {
+      "name": "prometheus_type",
+      "value": "gauge"
+    },
+    {
+      "name": "service",
+      "value": "{{ .labels.service }}"
     }
   ]
 }
@@ -980,9 +1131,13 @@ The event specification describes [metrics attributes in events][5].
 [19]: ../checks/#output-metric-format
 [20]: ../../observe-events/events/#example-status-and-metrics-event
 [21]: ../checks/#output_metric_tags-attributes
-[22]: ../checks/#check-token-substitution
+[22]: ../tokens/
 [23]: ../../observe-process/pipelines/
 [24]: ../../../operations/maintain-sensu/troubleshoot#use-a-debug-handler
 [25]: ../../observe-events/events/#metrics-points
 [26]: https://bonsai.sensu.io/assets/sensu/system-check
 [27]: ../../observe-process/pipelines/#workflows
+[28]: ../../observe-events/events/
+[29]: ../../observe-events/events/#points-attributes
+[30]: ../../observe-process/handler-templates/#available-event-attributes
+[31]: ../../../plugins/plugins/

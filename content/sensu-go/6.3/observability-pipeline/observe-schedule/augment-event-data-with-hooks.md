@@ -4,7 +4,7 @@ linkTitle: "Augment Event Data"
 guide_title: "Augment event data with check hooks"
 type: "guide"
 description: "Free up precious operator time: use Sensu check hooks to automate data collection that operators would otherwise perform manually to investigate alerts."
-weight: 90
+weight: 140
 version: "6.3"
 product: "Sensu Go"
 platformContent: false
@@ -129,9 +129,7 @@ The response will include the complete hook resource definition in the specified
 type: HookConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   name: process_tree
-  namespace: default
 spec:
   command: ps aux
   runtime_assets: null
@@ -144,9 +142,7 @@ spec:
   "type": "HookConfig",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "process_tree",
-    "namespace": "default"
+    "name": "process_tree"
   },
   "spec": {
     "command": "ps aux",

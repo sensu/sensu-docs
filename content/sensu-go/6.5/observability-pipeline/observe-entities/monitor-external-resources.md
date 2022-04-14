@@ -3,7 +3,7 @@ title: "Monitor external resources with proxy entities"
 linkTitle: "Monitor External Resources"
 guide_title: "Monitor external resources with proxy entities"
 type: "guide"
-description: "Proxy entities allow Sensu to monitor external resources on systems and devices where a Sensu agent cannot be installed, like a network switch or a website. Read this guide to monitor a website with proxy entities."
+description: "Use Sensu's proxy entities to monitor external resources on systems and devices where you cannot install a Sensu agent, like a network switch or a website."
 weight: 20
 version: "6.5"
 product: "Sensu Go"
@@ -16,6 +16,8 @@ menu:
 Proxy entities allow Sensu to monitor external resources on systems and devices where a Sensu agent cannot be installed, like a network switch or a website.
 You can create [proxy entities][1] with [sensuctl][8], the [Sensu API][9], and the [`proxy_entity_name` check attribute][2].
 When executing checks that include a `proxy_entity_name` or `proxy_requests` attribute, Sensu agents report the resulting event under the proxy entity instead of the agent entity.
+
+This guide explains how to use a proxy entity to monitor website status, as well as how to use the [proxy checks][3] to monitor a group of websites.
 
 To follow this guide, you’ll need to [install][19] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
 
@@ -97,7 +99,7 @@ The response should list the `http-checks` dynamic runtime asset:
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ### Create the check

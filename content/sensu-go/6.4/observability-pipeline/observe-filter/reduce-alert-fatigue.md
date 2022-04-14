@@ -4,7 +4,7 @@ linkTitle: "Reduce Alert Fatigue"
 guide_title: "Reduce alert fatigue with event filters"
 type: "guide"
 description: "Here’s how to reduce alert fatigue with Sensu. Learn about Sensu filters, how they reduce alert fatigue, and how to put them into action."
-weight: 20
+weight: 60
 version: "6.4"
 product: "Sensu Go"
 platformContent: false
@@ -84,9 +84,7 @@ This sensuctl command creates an event filter resource with the following defini
 type: EventFilter
 api_version: core/v2
 metadata:
-  created_by: admin
   name: hourly
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -99,9 +97,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "hourly",
-    "namespace": "default"
+    "name": "hourly"
   },
   "spec": {
     "action": "allow",
@@ -174,9 +170,7 @@ The updated handler definition will be similar to this example:
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
@@ -197,9 +191,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",
@@ -256,7 +248,7 @@ You can also download the asset directly from [Bonsai, the Sensu asset hub][9].
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 You've registered the dynamic runtime asset, but you still need to create the filter.
@@ -458,9 +450,7 @@ The updated handler definition will be similar to this example:
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
@@ -481,9 +471,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",

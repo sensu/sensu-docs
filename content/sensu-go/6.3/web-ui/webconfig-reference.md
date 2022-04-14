@@ -63,8 +63,7 @@ spec:
   "type": "GlobalConfig",
   "api_version": "web/v1",
   "metadata": {
-    "name": "custom-web-ui",
-    "created_by": "admin"
+    "name": "custom-web-ui"
   },
   "spec": {
     "always_show_local_cluster": false,
@@ -135,7 +134,6 @@ example      | {{< language-toggle >}}
 {{< code yml >}}
 metadata:
   name: custom-web-ui
-  created_by: admin
 {{< /code >}}
 {{< code json >}}
 {

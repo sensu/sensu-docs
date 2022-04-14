@@ -1,7 +1,7 @@
 ---
 title: "Transform your observation data"
 linkTitle: "Transform"
-description: "The transform stage of the Sensu observability pipeline executes mutators to transform your observation data into a format that other technologies can consume. Learn how Sensu manages data transformation in the observability pipeline."
+description: "Learn how the transform stage of the Sensu observability pipeline works to mutate your observation data into a format that other technologies can consume."
 product: "Sensu Go"
 version: "6.4"
 weight: 60
@@ -40,7 +40,6 @@ type: Mutator
 api_version: core/v2
 metadata:
   name: sensu-check-status-metric-mutator
-  namespace: default
 spec:
   command: sensu-check-status-metric-mutator
   runtime_assets:
@@ -52,8 +51,7 @@ spec:
   "type": "Mutator",
   "api_version": "core/v2",
   "metadata": {
-    "name": "sensu-check-status-metric-mutator",
-    "namespace": "default"
+    "name": "sensu-check-status-metric-mutator"
   },
   "spec": {
     "command": "sensu-check-status-metric-mutator",

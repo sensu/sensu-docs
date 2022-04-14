@@ -4,7 +4,7 @@ linkTitle: "Send Data to Sumo Logic"
 guide_title: "Send data to Sumo Logic with Sensu"
 type: "guide"
 description: "Put Sensu's observability pipeline into action. Follow this guide to configure a handler to send Sensu data to Sumo Logic for long-term log and metrics storage."
-weight: 19
+weight: 180
 version: "6.5"
 product: "Sensu Go"
 platformContent: false
@@ -89,7 +89,7 @@ The response will list the available builds for the Sensu Sumo Logic Handler dyn
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Set up an HTTP Logs and Metrics Source
@@ -149,8 +149,8 @@ The Sensu Sumo Logic Handler asset requires a `SUMOLOGIC_URL` variable.
 The value for the `SUMOLOGIC_URL` variable is the Sumo Logic HTTP Source Address URL, which you retrieved in the last step of [setting up an HTTP Logs and Metrics Source][12].
 
 {{% notice note %}}
-**NOTE**: This example shows how to set your Sumo Logic HTTP Source Address URL as an environment variable and use it as a secret with Sensu's built-in `Env` secrets provider.
-Read [Use secrets management in Sensu](../../../operations/manage-secrets/secrets-management/) for more information about [using the Env secrets provider](../../../operations/manage-secrets/secrets-management/#use-env-for-secrets-management).
+**NOTE**: This example shows how to set your Sumo Logic HTTP Source Address URL as an environment variable and use it as a secret with Sensu's `Env` secrets provider.
+Read [Use secrets management in Sensu](../../../operations/manage-secrets/secrets-management/) for more information about using the `Env` secrets provider.
 {{% /notice %}}
 
 ### Configure the SUMOLOGIC_URL environment variable
@@ -312,9 +312,6 @@ The response will list the complete handler resource definition:
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
-  labels:
-    sensu.io/managed_by: sensuctl
   name: sumologic
 spec:
   command: sensu-sumologic-handler --send-log --send-metrics --source-host "{{ .Entity.Name }}" --source-name "{{ .Check.Name }}"
@@ -335,10 +332,6 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "labels": {
-      "sensu.io/managed_by": "sensuctl"
-    },
     "name": "sumologic"
   },
   "spec": {
@@ -372,7 +365,7 @@ spec:
 With your Sumo Logic handler configured, you can add it to a [pipeline][14] workflow.
 A single pipeline workflow can include one or more event filters, one mutator, and one handler.
 
-To send data for all events (as opposed to only incidents), create a pipeline that includes only the Sumo Logic handler you've already configured &mdash; no event filters or mutators.
+To send data for all events (as opposed to only incidents), create a pipeline that includes only the Sumo Logic handler you've already configured and the built-in [not_silenced event filter][20] &mdash; no mutators.
 To add the pipeline, run:
 
 {{< language-toggle >}}
@@ -387,6 +380,10 @@ metadata:
 spec:
   workflows:
   - name: logs_to_sumologic
+    filters:
+    - name: not_silenced
+      type: EventFilter
+      api_version: core/v2
     handler:
       name: sumologic
       type: Handler
@@ -406,6 +403,13 @@ cat << EOF | sensuctl create
     "workflows": [
       {
         "name": "logs_to_sumologic",
+        "filters": [
+          {
+            "name": "not_silenced",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          }
+        ],
         "handler": {
           "name": "sumologic",
           "type": "Handler",
@@ -591,3 +595,4 @@ In addition to the traditional handler we used in this example, you can use [Sen
 [17]: ../../../sensu-plus/
 [18]: ../sumo-logic-metrics-handlers/
 [19]: ../../../plugins/supported-integrations/sumologic/
+[20]: ../../observe-filter/filters/#built-in-filter-not_silenced

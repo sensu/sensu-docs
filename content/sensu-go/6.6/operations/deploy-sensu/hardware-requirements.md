@@ -1,7 +1,7 @@
 ---
 title: "Hardware requirements"
 linkTitle: "Hardware Requirements"
-description: "If you're planning a Sensu deployment, read this guide to learn about the hardware and networking requirements for running Sensu backends and agents on your organization's infrastructure."
+description: "Plan your Sensu deployment with information about hardware and networking requirements for running Sensu backends and agents on your infrastructure."
 weight: 10
 version: "6.6"
 product: "Sensu Go"

@@ -4,7 +4,7 @@ linkTitle: "Assets Reference"
 reference_title: "Assets"
 type: "reference"
 description: "Use Sensu's dynamic runtime assets to provide the plugins, libraries, and runtimes you need to create automated monitoring and observability workflows."
-weight: 60
+weight: 20
 version: "6.4"
 product: "Sensu Go"
 platformContent: false 
@@ -586,7 +586,7 @@ dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff
 
 From here, you can host your dynamic runtime asset wherever you’d like.
 To make the asset available via [Bonsai][16], you’ll need to host it on GitHub.
-Learn more in [The “Hello World” of Sensu Assets][18] on Discourse.
+Learn more in [The “Hello World” of Sensu Assets][18] at the Sensu Community Forum on Discourse.
 
 To host your dynamic runtime asset on a different platform like Gitlab or Bitbucket, upload your asset there.
 You can also use Artifactory or even Apache or NGINX to serve your asset.
@@ -805,7 +805,7 @@ created_by: admin
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][20], [sensuctl responses][21], and [web UI views][39] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with observation event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][20], [sensuctl responses][21], and [web UI views][39] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -827,7 +827,7 @@ labels:
 
 | annotations | |
 -------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][7]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][20], [sensuctl response filtering][21], or [web UI views][39].
+description  | Non-identifying metadata to include with observation event data that you can access with [event filters][7]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][20], [sensuctl response filtering][21], or [web UI views][39].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`

@@ -1,7 +1,7 @@
 ---
 title: "Supported platforms and distributions"
 linkTitle: "Platforms and Distributions"
-description: "Sensu Go is available on a wide range of platforms, including Linux, Windows, and macOS. Learn which platforms you can use with the Sensu backend, Sensu agent, and sensuctl command line tool."
+description: "Get Sensu Go for your platform: Linux, Windows, macOS, FreeBSD, and Solaris. Sensu Go is available as a package, Docker image, or binary-only distribution."
 weight: -60
 version: "6.3"
 product: "Sensu Go"

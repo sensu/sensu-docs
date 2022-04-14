@@ -3,7 +3,7 @@ title: "Create a read-only user with role-based access control"
 linkTitle: "Create a Read-only User"
 guide_title: "Create a read-only user with role-based access control"
 type: "guide"
-description: "Role-based access control (RBAC) allows you to exercise fine-grained control over how Sensu users interact with Sensu resources. Use RBAC rules to achieve multitenancy so different projects and teams can share a Sensu instance. Read this guide to create users with Sensu RBAC."
+description: "Use Sensu's role-based access control (RBAC) to assign read-only access to users and achieve multitenancy so projects and teams can share a Sensu instance."
 weight: 30
 version: "6.3"
 product: "Sensu Go"
@@ -62,9 +62,7 @@ sensuctl role create read-only --verb=get,list --resource=* --namespace=default
 type: Role
 api_version: core/v2
 metadata:
-  created_by: admin
   name: read-only
-  namespace: default
 spec:
   rules:
   - resource_names: null
@@ -79,9 +77,7 @@ spec:
   "type": "Role",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "read-only",
-    "namespace": "default"
+    "name": "read-only"
   },
   "spec": {
     "rules": [
@@ -113,9 +109,7 @@ sensuctl role-binding create ops-read-only --role=read-only --group=ops
 type: RoleBinding
 api_version: core/v2
 metadata:
-  created_by: admin
   name: ops-read-only
-  namespace: default
 spec:
   role_ref:
     name: read-only
@@ -129,9 +123,7 @@ spec:
   "type": "RoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "ops-read-only",
-    "namespace": "default"
+    "name": "ops-read-only"
   },
   "spec": {
     "role_ref": {
@@ -195,7 +187,6 @@ sensuctl cluster-role create global-event-reader --verb=get,list --resource=even
 type: ClusterRole
 api_version: core/v2
 metadata:
-  created_by: admin
   name: global-event-reader
 spec:
   rules:
@@ -211,7 +202,6 @@ spec:
   "type": "ClusterRole",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
     "name": "global-event-reader"
   },
   "spec": {
@@ -244,7 +234,6 @@ sensuctl cluster-role-binding create ops-event-reader --cluster-role=global-even
 type: ClusterRoleBinding
 api_version: core/v2
 metadata:
-  created_by: admin
   name: ops-event-reader
 spec:
   role_ref:
@@ -259,7 +248,6 @@ spec:
   "type": "ClusterRoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
     "name": "ops-event-reader"
   },
   "spec": {

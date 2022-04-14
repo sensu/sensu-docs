@@ -3,7 +3,7 @@ title: "Silencing reference"
 linkTitle: "Silencing Reference"
 reference_title: "Silencing"
 type: "reference"
-description: "Sensu’s built-in silencing capability provides a way to suppress event handler execution on an ad hoc basis so you can plan maintenance and reduce alert fatigue. Read the reference doc to learn about silencing in Sensu."
+description: "Use Sensu’s built-in silencing capability to suppress event handler execution on an ad hoc basis to plan maintenance and reduce alert fatigue."
 weight: 60
 version: "6.5"
 product: "Sensu Go"
@@ -270,7 +270,7 @@ created_by: admin
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][6], [sensuctl responses][7], and [web UI views][9] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with observation event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][6], [sensuctl responses][7], and [web UI views][9] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -292,7 +292,7 @@ labels:
 
 | annotations | |
 -------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][8]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][6], [sensuctl response filtering][7], or [web UI views][10].
+description  | Non-identifying metadata to include with observation event data that you can access with [event filters][8]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][6], [sensuctl response filtering][7], or [web UI views][10].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`

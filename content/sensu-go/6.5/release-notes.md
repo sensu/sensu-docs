@@ -1054,7 +1054,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.17.0.
 
 **NEW FEATURES:**
 
-- ([Commercial feature][106]) Added [HTTP API for secrets management][108], with a built-in `Env` secrets provider and support for HashiCorp Vault secrets management. The secrets provider resource is implemented for checks, mutators, and handlers.
+- ([Commercial feature][106]) Added [HTTP API for secrets management][108], with Sensu's `Env` secrets provider and support for HashiCorp Vault secrets management. The secrets provider resource is implemented for checks, mutators, and handlers.
 - Added the `keepalive-handlers` agent configuration flag to specify the keepalive handlers to use for an entity's events.
 
 **IMPROVEMENTS:**
@@ -1158,7 +1158,7 @@ All [commercial features][95] are available for free in the packaged Sensu Go di
 You will receive a warning when you approach the 100-entity limit (at 75%).
 
 If your Sensu instance includes more than 100 entities, [contact us][90] to learn how to upgrade your installation and increase your limit.
-Read [the blog announcement][91] for more information about our usage policy.
+Read the [blog announcement][91] for more information about our usage policy.
 
 **NEW FEATURES:**
 
@@ -1937,7 +1937,7 @@ To get started with Sensu Go:
 [39]: /sensu-go/5.6/operations/control-access/ad-auth/#ad-binding-attributes
 [40]: /sensu-go/5.6/observability-pipeline/observe-schedule/agent/#general-configuration-flags
 [41]: /sensu-go/5.7/operations/deploy-sensu/install-sensu/#install-sensu-agents
-[42]: /sensu-go/5.7/observability-pipeline/observe-schedule/agent/#operation
+[42]: /sensu-go/5.7/observability-pipeline/observe-schedule/agent/#service-management
 [43]: /sensu-go/5.7/api/#response-filtering
 [44]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156/
 [45]: /sensu-go/5.8/sensuctl/create-manage-resources/#handle-large-datasets

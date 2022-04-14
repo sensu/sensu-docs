@@ -30,7 +30,7 @@ By default, this transport operates on port 8081.
 The agent subscriptions are used to determine which check execution requests the backend publishes via the transport.
 Sensu agents locally execute checks as requested by the backend and publish check results back to the transport to be processed.
 
-Sensu agents authenticate to the Sensu backend via transport by either [built-in username and password][34] or [mutual transport layer security (mTLS)][31] authentication.
+Sensu agents authenticate to the Sensu backend via transport by either [built-in username and password authentication][34] or [mutual transport layer security (mTLS) authentication][31].
 
 To secure the WebSocket transport, first [generate the certificates][32] you will need to set up transport layer security (TLS).
 Then, [secure Sensu][33] by configuring either TLS or mTLS to make Sensu production-ready.
@@ -184,7 +184,7 @@ If you do not provide any configuration flags, the backend loads configuration f
 To start the backend using a service manager:
 
 {{< code shell >}}
-service sensu-backend start
+sudo systemctl start sensu-backend
 {{< /code >}}
 
 ### Stop the service
@@ -192,7 +192,7 @@ service sensu-backend start
 To stop the backend service using a service manager:
 
 {{< code shell >}}
-service sensu-backend stop
+sudo systemctl stop sensu-backend
 {{< /code >}}
 
 ### Restart the service
@@ -202,7 +202,7 @@ You must restart the backend to implement any configuration updates.
 To restart the backend using a service manager:
 
 {{< code shell >}}
-service sensu-backend restart
+sudo systemctl restart sensu-backend
 {{< /code >}}
 
 ### Enable on boot
@@ -210,13 +210,13 @@ service sensu-backend restart
 To enable the backend to start on system boot:
 
 {{< code shell >}}
-systemctl enable sensu-backend
+sudo systemctl enable sensu-backend
 {{< /code >}}
 
 To disable the backend from starting on system boot:
 
 {{< code shell >}}
-systemctl disable sensu-backend
+sudo systemctl disable sensu-backend
 {{< /code >}}
 
 {{% notice note %}}
@@ -228,7 +228,7 @@ systemctl disable sensu-backend
 To view the status of the backend service using a service manager:
 
 {{< code shell >}}
-service sensu-backend status
+sudo systemctl status sensu-backend
 {{< /code >}}
 
 ### Get service version
@@ -269,7 +269,7 @@ To configure a cluster, see:
 ### Synchronize time
 
 System clocks between agents and the backend should be synchronized to a central NTP server.
-If system time is out-of-sync, it may cause issues with keepalive, metric, and check alerts.
+If system time is out of sync, it may cause issues with keepalive, metric, and check alerts.
 
 ## Configuration via flags
 

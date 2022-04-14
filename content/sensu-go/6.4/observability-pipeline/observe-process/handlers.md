@@ -4,7 +4,7 @@ linkTitle: "Handlers Reference"
 reference_title: "Handlers"
 type: "reference"
 description: "Read this reference to learn to use handlers, the actions the Sensu backend executes on events, in your automated monitoring and observability workflows."
-weight: 10
+weight: 20
 version: "6.4"
 product: "Sensu Go"
 platformContent: false
@@ -44,7 +44,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: pipe_handler_minimum
-  namespace: default
 spec:
   command: command-example
   type: pipe
@@ -55,8 +54,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "pipe_handler_minimum",
-    "namespace": "default"
+    "name": "pipe_handler_minimum"
   },
   "spec": {
     "command": "command-example",
@@ -91,7 +89,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: tcp_handler
-  namespace: default
 spec:
   socket:
     host: 10.0.1.99
@@ -105,8 +102,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "tcp_handler",
-    "namespace": "default"
+    "name": "tcp_handler"
   },
   "spec": {
     "type": "tcp",
@@ -131,7 +127,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: udp_handler
-  namespace: default
 spec:
   socket:
     host: 10.0.1.99
@@ -145,8 +140,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "udp_handler",
-    "namespace": "default"
+    "name": "udp_handler"
   },
   "spec": {
     "type": "udp",
@@ -181,7 +175,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: send_events_notify_operator
-  namespace: default
 spec:
   handlers:
   - elasticsearch
@@ -194,8 +187,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "send_events_notify_operator",
-    "namespace": "default"
+    "name": "send_events_notify_operator"
   },
   "spec": {
     "type": "set",
@@ -214,7 +206,6 @@ Now you can route observation data to Elasticsearch and alerts to OpsGenie with 
 {{% notice note %}}
 **NOTE**: Attributes defined in handler sets do not apply to the handlers they include.
 For example, `filters` and `mutator` attributes defined in a handler set will have no effect on handlers.
-Define these attributes in individual handlers instead.
 {{% /notice %}}
 
 ## Handler stacks
@@ -260,7 +251,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: keepalive
-  namespace: default
 spec:
   handlers:
   - slack
@@ -272,8 +262,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "keepalive",
-    "namespace": "default"
+    "name": "keepalive"
   },
   "spec": {
     "type": "set",
@@ -444,7 +433,7 @@ created_by: admin
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][10], [sensuctl responses][11], and [web UI views][25] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with observation event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][10], [sensuctl responses][11], and [web UI views][25] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -466,7 +455,7 @@ labels:
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][24]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10], [sensuctl response filtering][11], or [web UI views][28].
+description  | Non-identifying metadata to include with observation event data that you can access with [event filters][24]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10], [sensuctl response filtering][11], or [web UI views][28].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -513,14 +502,16 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 filters:
-- occurrences
-- production
+- is_incident
+- not_silenced
+- state_change_only
 {{< /code >}}
 {{< code json >}}
 {
   "filters": [
-    "occurrences",
-    "production"
+    "is_incident",
+    "not_silenced",
+    "state_change_only"
   ]
 }
 {{< /code >}}
@@ -771,13 +762,12 @@ type: Handler
 api_version: core/v2
 metadata:
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
   - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
-  filters:
-  - is_incident
+  filters:  
+  - is_incident 
   - not_silenced
   handlers: []
   runtime_assets:
@@ -791,17 +781,16 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",
     "env_vars": [
       "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
     ],
-    "filters": [
-      "is_incident",
-      "not_silenced"
+    "filters": [  
+      "is_incident",  
+      "not_silenced"  
     ],
     "handlers": [],
     "runtime_assets": [
@@ -830,7 +819,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: registration
-  namespace: default
 spec:
   handlers:
   - servicenow-cmdb
@@ -842,8 +830,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "registration",
-    "namespace": "default"
+    "name": "registration"
   },
   "spec": {
     "handlers": [
@@ -870,7 +857,6 @@ type: Handler
 api_version: core/v2
 metadata:
   name: notify_all_the_things
-  namespace: default
 spec:
   handlers:
   - slack
@@ -884,8 +870,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "notify_all_the_things",
-    "namespace": "default"
+    "name": "notify_all_the_things"
   },
   "spec": {
     "type": "set",
@@ -912,7 +897,6 @@ type: Handler
 api_version: core/v2 
 metadata:
   name: ansible-tower
-  namespace: ops
 spec: 
   type: pipe
   command: sensu-ansible-handler -h $ANSIBLE_HOST -t $ANSIBLE_TOKEN
@@ -928,8 +912,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "ansible-tower",
-    "namespace": "ops"
+    "name": "ansible-tower"
   },
   "spec": {
     "type": "pipe",

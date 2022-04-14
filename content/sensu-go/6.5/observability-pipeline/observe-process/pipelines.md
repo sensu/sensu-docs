@@ -4,7 +4,7 @@ linkTitle: "Pipeline Reference"
 reference_title: "Pipeline"
 type: "reference"
 description: "Pipelines are observation event processing workflows made up of filters, mutators, and handlers. Read the reference doc to learn about pipelines."
-weight: 15
+weight: 40
 version: "6.5"
 product: "Sensu Go"
 platformContent: false
@@ -53,6 +53,9 @@ spec:
     - name: is_incident
       type: EventFilter
       api_version: core/v2
+    - name: not_silenced
+      type: EventFilter
+      api_version: core/v2
     - name: state_change_only
       type: EventFilter
       api_version: core/v2
@@ -80,6 +83,11 @@ spec:
         "filters": [
           {
             "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "not_silenced",
             "type": "EventFilter",
             "api_version": "core/v2"
           },
@@ -190,6 +198,9 @@ spec:
     - name: is_incident
       type: EventFilter
       api_version: core/v2
+    - name: not_silenced
+      type: EventFilter
+      api_version: core/v2
     - name: state_change_only
       type: EventFilter
       api_version: core/v2
@@ -204,6 +215,9 @@ spec:
   - name: slack_alerts
     filters:
     - name: is_incident
+      type: EventFilter
+      api_version: core/v2
+    - name: not_silenced
       type: EventFilter
       api_version: core/v2
     - name: state_change_only
@@ -233,6 +247,11 @@ spec:
             "api_version": "core/v2"
           },
           {
+            "name": "not_silenced",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
             "name": "state_change_only",
             "type": "EventFilter",
             "api_version": "core/v2"
@@ -254,6 +273,11 @@ spec:
         "filters": [
           {
             "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "not_silenced",
             "type": "EventFilter",
             "api_version": "core/v2"
           },
@@ -363,6 +387,9 @@ spec:
     - name: is_incident
       type: EventFilter
       api_version: core/v2
+    - name: not_silenced
+      type: EventFilter
+      api_version: core/v2
     - name: state_change_only
       type: EventFilter
       api_version: core/v2
@@ -384,6 +411,11 @@ spec:
         "filters": [
           {
             "name": "is_incident",
+            "type": "EventFilter",
+            "api_version": "core/v2"
+          },
+          {
+            "name": "not_silenced",
             "type": "EventFilter",
             "api_version": "core/v2"
           },
@@ -463,7 +495,7 @@ created_by: admin
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][10], [sensuctl responses][11], and [web UI views][25] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with observation event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][10], [sensuctl responses][11], and [web UI views][25] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -485,7 +517,7 @@ labels:
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][24]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10], [sensuctl response filtering][11], or [web UI views][28].
+description  | Non-identifying metadata to include with observation event data that you can access with [event filters][24]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10], [sensuctl response filtering][11], or [web UI views][28].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -520,6 +552,9 @@ workflows:
     - name: is_incident
       type: EventFilter
       api_version: core/v2
+    - name: not_silenced
+      type: EventFilter
+      api_version: core/v2
     - name: state_change_only
       type: EventFilter
       api_version: core/v2
@@ -540,6 +575,11 @@ workflows:
       "filters": [
         {
           "name": "is_incident",
+          "type": "EventFilter",
+          "api_version": "core/v2"
+        },
+        {
+          "name": "not_silenced",
           "type": "EventFilter",
           "api_version": "core/v2"
         },
@@ -579,6 +619,9 @@ filters:
 - name: is_incident
   type: EventFilter
   api_version: core/v2
+- name: not_silenced
+  type: EventFilter
+  api_version: core/v2
 - name: state_change_only
   type: EventFilter
   api_version: core/v2
@@ -588,6 +631,11 @@ filters:
   "filters": [
     {
       "name": "is_incident",
+      "type": "EventFilter",
+      "api_version": "core/v2"
+    },
+    {
+      "name": "not_silenced",
       "type": "EventFilter",
       "api_version": "core/v2"
     },
@@ -843,4 +891,3 @@ api_version: core/v2
 [29]: ../../../observability-pipeline/
 [30]: ../../observe-filter/route-alerts/#configure-contact-routing-with-a-pipeline
 [31]: ../../observe-filter/filters/#built-in-event-filters
-

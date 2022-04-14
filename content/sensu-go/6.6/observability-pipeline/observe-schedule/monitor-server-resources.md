@@ -4,7 +4,7 @@ linkTitle: "Monitor Server Resources"
 guide_title: "Monitor server resources with checks"
 type: "guide"
 description: "Sensu lets you monitor server resources with checks. Read this guide to learn about Sensu checks and how to use checks to monitor servers."
-weight: 40
+weight: 220
 version: "6.6"
 product: "Sensu Go"
 platformContent: false
@@ -125,7 +125,7 @@ Because plugins are published for multiple platforms, including Linux and Window
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Create a check to monitor a server
@@ -170,9 +170,7 @@ The sensuctl response will include the complete `check_cpu` resource definition 
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   name: check_cpu
-  namespace: default
 spec:
   check_hooks: null
   command: check-cpu-usage -w 75 -c 90
@@ -203,9 +201,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check_cpu",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "check_cpu"
   },
   "spec": {
     "check_hooks": null,
@@ -395,11 +391,7 @@ The sensuctl response will include the complete `nginx_service` resource definit
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
-  labels:
-    sensu.io/managed_by: sensuctl
   name: nginx_service
-  namespace: default
 spec:
   check_hooks: null
   command: |
@@ -431,12 +423,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "nginx_service",
-    "namespace": "default",
-    "labels": {
-      "sensu.io/managed_by": "sensuctl"
-    },
-    "created_by": "admin"
+    "name": "nginx_service"
   },
   "spec": {
     "check_hooks": null,

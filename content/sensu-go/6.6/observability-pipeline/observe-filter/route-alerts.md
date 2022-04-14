@@ -3,8 +3,8 @@ title: "Route alerts with event filters"
 linkTitle: "Route Alerts"
 guide_title: "Route alerts with event filters"
 type: "guide"
-description: "Every alert has an ideal first responder: a team or person who knows how to triage and address the issue. Sensu contact routing lets you alert the right people using their preferred contact method, reducing mean time to response and recovery."
-weight: 30
+description: "Alert the right people using their preferred contact method with Sensu's contact routing and reduce mean time to response and recovery."
+weight: 80
 version: "6.6"
 product: "Sensu Go"
 platformContent: false
@@ -125,7 +125,7 @@ The response will confirm the available assets:
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Create contact filters

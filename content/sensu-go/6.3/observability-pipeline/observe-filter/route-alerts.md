@@ -3,8 +3,8 @@ title: "Route alerts with event filters"
 linkTitle: "Route Alerts"
 guide_title: "Route alerts with event filters"
 type: "guide"
-description: "Every alert has an ideal first responder: a team or person who knows how to triage and address the issue. Sensu contact routing lets you alert the right people using their preferred contact method, reducing mean time to response and recovery."
-weight: 30
+description: "Alert the right people using their preferred contact method with Sensu's contact routing and reduce mean time to response and recovery."
+weight: 80
 version: "6.3"
 product: "Sensu Go"
 platformContent: false
@@ -92,7 +92,7 @@ Run `sensuctl asset list --format yaml` to confirm that the dynamic runtime asse
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ### 2. Create contact filters
@@ -583,11 +583,9 @@ The sensuctl response will include the updated `check_cpu` resource definition i
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   labels:
     contacts: ops, dev
   name: check_cpu
-  namespace: default
 spec:
   check_hooks: null
   command: check-cpu-usage -w 75 -c 90
@@ -618,12 +616,10 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
     "labels": {
       "contacts": "ops, dev"
     },
-    "name": "check_cpu",
-    "namespace": "default"
+    "name": "check_cpu"
   },
   "spec": {
     "check_hooks": null,

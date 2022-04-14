@@ -1,7 +1,7 @@
 ---
 title: "Process your observation data"
 linkTitle: "Process"
-description: "In the process stage of Sensu's observability pipeline, the Sensu backend executes handlers to take specific actions on your observation data, like sending incidents to a Slack channel or sending metrics to InfluxDB. Read this page to learn more about the process stage in the Sensu pipeline."
+description: "Learn how the process stage of Sensu's observability pipeline works to take actions on your data, like sending incidents to Slack or metrics to InfluxDB."
 product: "Sensu Go"
 version: "6.3"
 weight: 70
@@ -38,9 +38,7 @@ Here's an example resource definition for a pipe handler &mdash; read [Send Slac
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
@@ -59,9 +57,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",

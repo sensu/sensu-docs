@@ -3,8 +3,8 @@ title: "Send email alerts with the Sensu Go Email Handler"
 linkTitle: "Send Email Alerts"
 guide_title: "Send email alerts with the Sensu Go Email Handler"
 type: "guide"
-description: "Here’s how to send alerts to your email with the Sensu Go Email Handler. Use handlers to send events to your technology of choice (in this case, email) to alert you of incidents and help you resolve them more quickly."
-weight: 20
+description: "Send notifications based on Sensu Go observability event data to an email address to alert you of incidents and help you resolve them more quickly."
+weight: 200
 version: "6.3"
 product: "Sensu Go"
 platformContent: false
@@ -68,7 +68,7 @@ The dynamic runtime asset includes the `sensu-email-handler` command, which you 
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Add an event filter

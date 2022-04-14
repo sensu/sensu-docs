@@ -3,7 +3,7 @@ title: "Send Slack alerts with handlers"
 linkTitle: "Send Slack Alerts"
 guide_title: "Send Slack alerts with handlers"
 type: "guide"
-description: "Here’s how to send alerts to Slack with Sensu handlers, which are actions the Sensu backend executes on events. Use handlers to send events to your technology of choice (in this case, Slack) to alert you of incidents and help you resolve them more quickly."
+description: "Send alerts to Slack with Sensu handlers, which allow you to send events to alert you of incidents and help you resolve them more quickly."
 weight: 30
 version: "6.4"
 product: "Sensu Go"
@@ -87,7 +87,7 @@ Created
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Get a Slack webhook
@@ -108,6 +108,7 @@ sensuctl handler create slack \
 --type pipe \
 --env-vars "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX" \
 --command "sensu-slack-handler --channel '#monitoring'" \
+--filters not_silenced \
 --runtime-assets sensu-slack-handler
 {{< /code >}}
 
@@ -141,14 +142,13 @@ The `slack` handler resource definition will be similar to this example:
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: slack
-  namespace: default
 spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
   - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX
-  filters: null
+  filters:
+  - not_silenced
   handlers: null
   runtime_assets:
   - sensu-slack-handler
@@ -162,16 +162,16 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "slack",
-    "namespace": "default"
+    "name": "slack"
   },
   "spec": {
     "command": "sensu-slack-handler --channel '#monitoring'",
     "env_vars": [
       "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX"
     ],
-    "filters": null,
+    "filters": [
+      "not_silenced"
+    ],
     "handlers": null,
     "runtime_assets": [
       "sensu-slack-handler"
@@ -221,9 +221,7 @@ The updated check definition will be similar to this example:
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   name: check_cpu
-  namespace: default
 spec:
   check_hooks: null
   command: check-cpu-usage -w 75 -c 90

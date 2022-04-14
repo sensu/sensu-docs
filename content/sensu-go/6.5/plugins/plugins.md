@@ -3,8 +3,8 @@ title: "Plugins reference"
 linkTitle: "Plugins Reference"
 reference_title: "Plugins"
 type: "reference"
-description: "Sensu plugins provide executable scripts or other programs that can be used as a Sensu check command, pipe handler command, or mutator command. Read the plugin reference to learn about the Sensu plugin specification."
-weight: 80
+description: "Read this reference for information about Sensu plugins, which provide executables that you can use as a Sensu check, handler, or mutator command."
+weight: 40
 version: "6.5"
 product: "Sensu Go"
 menu:

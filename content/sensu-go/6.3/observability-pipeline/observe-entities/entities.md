@@ -21,7 +21,7 @@ All [commercial features][9] are available for free in the packaged Sensu Go dis
 If your Sensu instance includes more than 100 entities, [contact us][10] to learn how to upgrade your installation and increase your limit.
 
 Learn more about entity limits in the [license reference][29].
-Read [the announcement on our blog][11] for more information about our usage policy.
+Read the [announcement on our blog][11] for more information about our usage policy.
 
 ## Create and manage agent entities
 
@@ -317,7 +317,7 @@ For more information, read [Get started with commercial features](../../../comme
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
+**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change.
 {{% /notice %}}
 
 Service entities are dynamically created entities that Sensu adds to the entity store when a [service component][39] generates an event.
@@ -336,9 +336,7 @@ This example shows the resource definition for a service entity:
 type: Entity
 api_version: core/v2
 metadata:
-  created_by: admin
   name: postgresql
-  namespace: default
 spec:
   entity_class: service
 {{< /code >}}
@@ -360,7 +358,7 @@ spec:
 
 ## Manage entity labels
 
-Labels are custom attributes that Sensu includes with observation data in events that you can use for response and web UI view searches.
+Labels are custom attributes that Sensu includes with observation event data that you can use for response and web UI view searches.
 In contrast to annotations, you can use labels to filter [API responses][14], [sensuctl responses][15], and [web UI search views][23].
 
 Limit labels to metadata you need to use for response filtering and searches.
@@ -468,6 +466,8 @@ sensuctl edit entity sensu-docs
 
 And update the metadata scope to include the `proxy_type` label:
 
+{{< language-toggle >}}
+
 {{< code yml >}}
 ---
 type: Entity
@@ -477,10 +477,28 @@ metadata:
     url: docs.sensu.io
     proxy_type: website
   name: sensu-docs
-  namespace: default
 spec:
   '...': '...'
 {{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "labels": {
+      "url": "docs.sensu.io",
+      "proxy_type": "website"
+    },
+    "name": "sensu-docs"
+  },
+  "spec": {
+    "...": "..."
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 #### Proxy entity checks
 
@@ -551,6 +569,8 @@ sensuctl edit entity postgresql
 
 And update the metadata scope to include the `region` label:
 
+{{< language-toggle >}}
+
 {{< code yml >}}
 ---
 type: Entity
@@ -560,10 +580,28 @@ metadata:
     service_type: datastore
     region: us-west-1
   name: postgresql
-  namespace: default
 spec:
   '...': '...'
 {{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "labels": {
+      "service_type": "datastore",
+      "region": "us-west-1"
+    },
+    "name": "postgresql"
+  },
+  "spec": {
+    "...": "..."
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Entities specification
 
@@ -851,7 +889,7 @@ created_by: admin
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][14], [sensuctl responses][15], and [web UI views][23] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.{{% notice note %}}
+description  | Custom attributes to include with observation event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][14], [sensuctl responses][15], and [web UI views][23] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.{{% notice note %}}
 **NOTE**: For labels that you define in agent.yml or backend.yml, the keys are automatically modified to use all lower-case letters. For example, if you define the label `proxyType: "website"` in agent.yml or backend.yml, it will be listed as `proxytype: "website"` in entity definitions.<br><br>Key cases are **not** modified for labels you define with a command line flag or an environment variable.
 {{% /notice %}}
 required     | false
@@ -877,7 +915,7 @@ labels:
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][6]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][14], [sensuctl response filtering][15], or [web UI views][30].{{% notice note %}}
+description  | Non-identifying metadata to include with observation event data that you can access with [event filters][6]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][14], [sensuctl response filtering][15], or [web UI views][30].{{% notice note %}}
 **NOTE**: For annotations defined in agent.yml or backend.yml, the keys are automatically modified to use all lower-case letters. For example, if you define the annotation `webhookURL: "https://my-webhook.com"` in agent.yml or backend.yml, it will be listed as `webhookurl: "https://my-webhook.com"` in entity definitions.<br><br>Key cases are **not** modified for annotations you define with a command line flag or an environment variable.
 {{% /notice %}}
 required     | false
@@ -1103,7 +1141,7 @@ deregister: false
 
 deregistration  | 
 -------------|------ 
-description  | Map that contains a handler name to use when an entity is deregistered. Read [deregistration attributes][2] for more information.
+description  | Map that contains a handler name to use when an agent entity is deregistered. Read [deregistration attributes][2] for more information.
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
@@ -1520,7 +1558,7 @@ addresses:
 
 handler      | 
 -------------|------ 
-description  | Name of the handler to call when an entity is deregistered.
+description  | Name of the handler to call when an agent entity is deregistered.
 required     | false 
 type         | String 
 example      | {{< language-toggle >}}

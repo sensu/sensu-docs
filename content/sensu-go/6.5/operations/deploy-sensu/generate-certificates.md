@@ -32,7 +32,7 @@ To use this guide, you must have already [installed Sensu][10] on:
 
 ## Public key infrastructure (PKI)
 
-To use TLS, you must either posses existing [public key infrastructure (PKI)][8] or generate your own Certificate Authority (CA) for issuing certificates.
+To use TLS, you must either possess existing [public key infrastructure (PKI)][8] or generate your own Certificate Authority (CA) for issuing certificates.
 
 This guide describes how to set up a minimal CA and generate the certificates you need to secure Sensu communications for a clustered backend and agents.
 
@@ -68,7 +68,7 @@ sudo curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl_
 sudo curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssljson_1.4.1_linux_amd64 -o /usr/local/bin/cfssljson
 {{< /code >}}
 
-3. Install the cfssl and cfssljson executables in /usr/local/bin::
+3. Install the cfssl and cfssljson executables in /usr/local/bin:
 {{< code shell >}}
 sudo chmod +x /usr/local/bin/cfssl*
 {{< /code >}}

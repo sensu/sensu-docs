@@ -28,7 +28,7 @@ Read the [installation guide][1] to install the agent.
 
 ## Agent authentication
 
-The Sensu agent authenticates to the Sensu backend via [WebSocket][45] transport by either built-in basic (username and password) or mutual transport layer security (mTLS) authentication.
+The Sensu agent authenticates to the Sensu backend via [WebSocket][45] transport by either built-in basic authentication (username and password) or mutual transport layer security (mTLS) authentication.
 
 ### Username and password authentication
 
@@ -494,7 +494,7 @@ The value you specify for `keepalive-warning-timeout` must be lower than the val
 
 {{% notice note %}}
 **NOTE**: If you set the [deregister flag](#ephemeral-agent-configuration-flags) to `true`, when a Sensu agent process stops, the Sensu backend will deregister the corresponding entity.<br><br>
-Deregistration prevents and clears alerts for failing keepalives &mdash; the backend does not distinguish between intentional shutdown and failure.
+Deregistration prevents and clears alerts for failing keepalives for agent entities &mdash; the backend does not distinguish between intentional shutdown and failure.
 As a result, if you set the deregister flag to `true` and an agent process stops for any reason, you will not receive alerts for keepalive events in the web UI.<br><br>
 If you want to receive alerts for failing keepalives, set the [deregister flag](#ephemeral-agent-configuration-flags) to `false`.
 {{% /notice %}}
@@ -504,7 +504,7 @@ In addition, the agent maps [`keepalive-critical-timeout` and `keepalive-warning
 
 {{% notice note %}}
 **NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../../observe-entities/#proxy-entities) because they cannot run a Sensu agent.
-Use the [core/v2/events API](../../../api/core/events/#eventsentitycheck-put) to send manual keepalive events for proxy entities.
+Use the [core/v2/events API](../../../api/core/events/) to send manual keepalive events for proxy entities.
 {{% /notice %}}
 
 ### Handle keepalive events
@@ -572,7 +572,7 @@ Keepalive monitoring is more fluid &mdash; it permits agents to reconnect any nu
 As long as the agent can successfully send one event to any backend within the timeout, the keepalive logic is satisfied.
 {{% /notice %}}
 
-## Service management {#operation}
+## Service management
 
 ### Start the service
 
@@ -580,7 +580,7 @@ Use the `sensu-agent` tool to start the agent and apply configuration flags.
 
 {{< platformBlock "Linux" >}}
 
-#### Linux
+**Linux**
 
 To start the agent with [configuration flags][24]:
 
@@ -597,7 +597,7 @@ sensu-agent start --help
 To start the agent using a service manager:
 
 {{< code shell >}}
-sudo service sensu-agent start
+sudo systemctl start sensu-agent
 {{< /code >}}
 
 If you do not provide any configuration flags, the agent loads configuration from the location specified by the `config-file` attribute (default is `/etc/sensu/agent.yml`).
@@ -606,7 +606,7 @@ If you do not provide any configuration flags, the agent loads configuration fro
 
 {{< platformBlock "Windows" >}}
 
-#### Windows
+**Windows**
 
 Run the following command as an admin to install and start the agent:
 
@@ -628,25 +628,17 @@ sensu-agent service install --config-file 'C:\\monitoring\\sensu\\config\\agent.
 
 To stop the agent service using a service manager:
 
-{{< platformBlock "Linux" >}}
+{{< language-toggle >}}
 
-**Linux**
-
-{{< code shell >}}
-sudo service sensu-agent stop
+{{< code shell "Linux" >}}
+sudo systemctl stop sensu-agent
 {{< /code >}}
 
-{{< platformBlockClose >}}
-
-{{< platformBlock "Windows" >}}
-
-**Windows**
-
-{{< code text >}}
+{{< code shell "Windows" >}}
 sc.exe stop SensuAgent
 {{< /code >}}
 
-{{< platformBlockClose >}}
+{{< /language-toggle >}}
 
 ### Restart the service
 
@@ -654,81 +646,71 @@ You must restart the agent to implement any configuration updates.
 
 To restart the agent using a service manager:
 
-{{< platformBlock "Linux" >}}
+{{< language-toggle >}}
 
-**Linux**
-
-{{< code shell >}}
-sudo service sensu-agent restart
+{{< code shell "Linux" >}}
+sudo systemctl restart sensu-agent
 {{< /code >}}
 
-{{< platformBlockClose >}}
-
-{{< platformBlock "Windows" >}}
-
-**Windows**
-
-{{< code text >}}
+{{< code shell "Windows" >}}
 sc.exe start SensuAgent
 {{< /code >}}
 
-{{< platformBlockClose >}}
+{{< /language-toggle >}}
 
 ### Enable on boot
 
 To enable the agent to start on system boot:
 
-{{< platformBlock "Linux" >}}
+{{< language-toggle >}}
 
-**Linux**
-
-{{< code shell >}}
+{{< code shell "Linux" >}}
 sudo systemctl enable sensu-agent
 {{< /code >}}
 
+{{< code shell "Windows" >}}
+The service is configured to start automatically on boot by default.
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-agent on` to enable the agent.
+{{% /notice %}}
+
 To disable the agent from starting on system boot:
 
-{{< code shell >}}
+{{< language-toggle >}}
+
+{{< code shell "Linux" >}}
 sudo systemctl disable sensu-agent
 {{< /code >}}
 
-{{% notice note %}}
-**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-agent on` to enable the agent and `sudo chkconfig sensu-agent off` to disable the agent.
-{{% /notice %}}
-
-{{< platformBlockClose >}}
-
-{{< platformBlock "Windows" >}}
-
-**Windows**
-
+{{< code shell "Windows" >}}
 The service is configured to start automatically on boot by default.
+{{< /code >}}
 
-{{< platformBlockClose >}}
+{{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-agent off` to disable the agent.
+{{% /notice %}}
 
 ### Get service status
 
 To view the status of the agent service using a service manager:
 
-{{< platformBlock "Linux" >}}
+{{< language-toggle >}}
 
-**Linux**
-
-{{< code shell >}}
-service sensu-agent status
+{{< code shell "Linux" >}}
+sudo systemctl status sensu-agent
 {{< /code >}}
 
-{{< platformBlockClose >}}
-
-{{< platformBlock "Windows" >}}
-
-**Windows**
-
-{{< code text >}}
+{{< code shell "Windows" >}}
 sc.exe query SensuAgent
 {{< /code >}}
 
-{{< platformBlockClose >}}
+{{< /language-toggle >}}
 
 ### Get service version
 
@@ -748,15 +730,19 @@ curl http://127.0.0.1:3031/version
 
 ### Uninstall the service
 
-{{< platformBlock "Windows" >}}
+To uninstall the sensu-agent service, run:
 
-**Windows**
+{{< language-toggle >}}
 
-{{< code text >}}
+{{< code shell "Linux" >}}
+sudo systemctl stop sensu-agent
+{{< /code >}}
+
+{{< code shell "Windows" >}}
 sensu-agent service uninstall
 {{< /code >}}
 
-{{< platformBlockClose >}}
+{{< /language-toggle >}}
 
 ### Get help
 
@@ -777,7 +763,7 @@ sensu-agent start --help
 ### Registration, endpoint management, and service discovery
 
 Sensu agents automatically discover and register infrastructure components and the services running on them.
-When an agent process stops, the Sensu backend can automatically create and process a deregistration event.
+When an agent process stops, the Sensu backend can automatically create and process a deregistration event for the agent entities.
 
 In practice, agent registration happens when a Sensu backend processes an agent keepalive event for an agent that is not already registered in the Sensu agent registry (based on the configured agent `name`).
 The [Sensu backend][2] stores this agent registry, and it is accessible via [`sensuctl entity list`][6].
@@ -809,6 +795,11 @@ You can use deregistration events to trigger a handler that updates external CMD
 To enable deregistration events, use the [`deregister` flag][13], and specify the event handler using the [`deregistration-handler` flag][13].
 You can specify a deregistration handler per agent using the [`deregistration-handler` agent flag][13] or by setting a default for all agents using the [`deregistration-handler` backend configuration flag][37].
 
+{{% notice note %}}
+**NOTE**: Deregistration is supported for [agent entities](../../observe-entities/#agent-entities) that have sent at least one keepalive.
+Deregistration is **not** supported for [proxy entities](../../observe-entities/#proxy-entities), which do not send keepalives, and the backend does not automatically create and process deregistration events for proxy entities.
+{{% /notice %}}
+
 ### Cluster
 
 Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16].
@@ -817,7 +808,7 @@ For more information about clustering, read [Backend datastore configuration fla
 ### Synchronize time
 
 System clocks between agents and the backend should be synchronized to a central NTP server.
-If system time is out-of-sync, it may cause issues with keepalive, metric, and check alerts.
+If system time is out of sync, it may cause issues with keepalive, metric, and check alerts.
 
 ## Configuration via flags
 
@@ -921,7 +912,7 @@ Flags:
 
 ### Windows
 
-You can specify the agent configuration using a `.yml` file.
+Specify the agent configuration using a `.yml` file.
 Review the [example agent configuration file][5] (also provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example`; default `C:\ProgramData\sensu\config\agent.yml.example`).
 
 {{< platformBlockClose >}}

@@ -1,7 +1,7 @@
 ---
 title: "Entities"
 linkTitle: "Entities"
-description: "An entity represents anything that needs to be monitored, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment, from server hardware to serverless functions. Read this doc to learn about entities."
+description: "Learn about Sensu entities, which represent anything that needs to be monitored in your environment, from server hardware to serverless functions."
 product: "Sensu Go"
 version: "6.6"
 weight: 10
@@ -45,7 +45,6 @@ type: Entity
 api_version: core/v2
 metadata:
   name: i-424242
-  namespace: default
 spec:
   deregister: false
   deregistration: {}
@@ -69,8 +68,7 @@ spec:
   "type": "Entity",
   "api_version": "core/v2",
   "metadata": {
-    "name": "i-424242",
-    "namespace": "default"
+    "name": "i-424242"
   },
   "spec": {
     "deregister": false,
@@ -185,7 +183,7 @@ For more information, read [Get started with commercial features](../../commerci
 {{% /notice %}}
 
 {{% notice note %}}
-**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change. 
+**NOTE**: Business service monitoring (BSM) is in public preview and is subject to change.
 {{% /notice %}}
 
 A service entity represents a business service in [business service monitoring (BSM)][8].
@@ -201,9 +199,7 @@ This example shows a service entity resource definition:
 type: Entity
 api_version: core/v2
 metadata:
-  created_by: admin
   name: postgresql
-  namespace: default
 spec:
   entity_class: service
 {{< /code >}}
@@ -213,9 +209,7 @@ spec:
   "type": "Entity",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "postgresql",
-    "namespace": "default"
+    "name": "postgresql"
   },
   "spec": {
     "entity_class": "service"
@@ -231,7 +225,7 @@ Sensu's usage limits are based on entities.
 
 The free limit is 100 entities.
 All [commercial features][2] are available for free in the packaged Sensu Go distribution for up to 100 entities.
-If your Sensu instance includes more than 100 entities, [contact us][3] to learn how to upgrade your installation and increase your limit. Read [the announcement on our blog][4] for more information about our usage policy.
+If your Sensu instance includes more than 100 entities, [contact us][3] to learn how to upgrade your installation and increase your limit. Read the [announcement on our blog][4] for more information about our usage policy.
 
 Commercial licenses may include an entity limit and entity class limits:
 

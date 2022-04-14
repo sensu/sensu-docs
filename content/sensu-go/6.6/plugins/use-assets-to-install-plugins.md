@@ -4,7 +4,7 @@ linkTitle: "Use Assets to Install Plugins"
 guide_title: "Use dynamic runtime assets to install plugins"
 type: "guide"
 description: "Use Sensu's shareable, reusable dynamic runtime assets to deploy the plugins, libraries, and runtimes you need for your monitoring and observability workflows."
-weight: 40
+weight: 80
 version: "6.6"
 product: "Sensu Go"
 platformContent: false
@@ -53,7 +53,7 @@ You can also open the **Release Assets** tab on asset pages in [Bonsai][3] to do
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../assets#dynamic-runtime-asset-builds) for more information about asset builds.
+Read the [asset reference](../assets#dynamic-runtime-asset-builds) for more information about asset builds.
 {{% /notice %}}
 
 ## Adjust the asset definition

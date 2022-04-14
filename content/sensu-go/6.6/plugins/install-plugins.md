@@ -2,7 +2,7 @@
 title: "Install Sensu plugins"
 linkTitle: "Install Plugins"
 description: "Learn how to install plugins to extend Sensu's functionality with executables for performing checks, mutators, and handlers."
-weight: 20
+weight: 60
 version: "6.6"
 product: "Sensu Go"
 menu:

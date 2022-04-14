@@ -171,10 +171,10 @@ volumes:
 sudo curl -L https://docs.sensu.io/sensu-go/latest/files/backend.yml -o /etc/sensu/backend.yml
 
 # Start sensu-backend using a service manager
-sudo service sensu-backend start
+sudo systemctl start sensu-backend
 
 # Verify that the backend is running
-service sensu-backend status
+sudo systemctl status sensu-backend
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
@@ -182,10 +182,10 @@ service sensu-backend status
 sudo curl -L https://docs.sensu.io/sensu-go/latest/files/backend.yml -o /etc/sensu/backend.yml
 
 # Start sensu-backend using a service manager
-sudo service sensu-backend start
+sudo systemctl start sensu-backend
 
 # Verify that the backend is running
-service sensu-backend status
+sudo systemctl status sensu-backend
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -434,7 +434,7 @@ volumes:
 sudo curl -L https://docs.sensu.io/sensu-go/latest/files/agent.yml -o /etc/sensu/agent.yml
 
 # Start sensu-agent using a service manager
-service sensu-agent start
+sudo systemctl start sensu-agent
 {{< /code >}}
 
 {{< code shell "RHEL/CentOS" >}}
@@ -442,7 +442,7 @@ service sensu-agent start
 sudo curl -L https://docs.sensu.io/sensu-go/latest/files/agent.yml -o /etc/sensu/agent.yml
 
 # Start sensu-agent using a service manager
-service sensu-agent start
+sudo systemctl start sensu-agent
 {{< /code >}}
 
 {{< code powershell "Windows" >}}

@@ -3,8 +3,8 @@ title: "Populate metrics in InfluxDB with handlers"
 linkTitle: "Populate Metrics in InfluxDB"
 guide_title: "Populate metrics in InfluxDB with handlers"
 type: "guide"
-description: "A Sensu event handler is an action the Sensu backend executes when a specific event occurs. This guide helps you use an event handler to populate Sensu metrics into the time-series database InfluxDB."
-weight: 50
+description: "Follow this guide to populate Sensu metrics into the time-series database InfluxDB with a handler, an action the Sensu backend executes when an event occurs."
+weight: 160
 version: "6.3"
 product: "Sensu Go"
 platformContent: false
@@ -80,20 +80,21 @@ Run `sensuctl asset list` to confirm that the dynamic runtime asset is ready to 
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Create the handler
 
 Now that you have registered the dynamic runtime asset, use sensuctl to create a handler called `influxdb-handler` that pipes observation data (events) to InfluxDB with the `sensu-influxdb-handler` dynamic runtime asset.
 Edit the command below to replace the placeholders for database name, address, username, and password with the information for your own InfluxDB database.
-For more information about the Sensu InfluxDB handler, read [the asset page in Bonsai][13].
+For more information about the Sensu InfluxDB handler, read the [asset page in Bonsai][13].
 
 {{< code shell >}}
 sensuctl handler create influxdb-handler \
 --type pipe \
 --command "sensu-influxdb-handler -d sensu" \
 --env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUXDB_USER=sensu, INFLUXDB_PASS=password" \
+--filters not_silenced \
 --runtime-assets sensu-influxdb-handler
 {{< /code >}}
 
@@ -126,16 +127,15 @@ The `influxdb-handler` resource definition will be similar to this example:
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: influxdb-handler
-  namespace: default
 spec:
   command: sensu-influxdb-handler -d sensu
   env_vars:
   - INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086
   - INFLUXDB_USER=sensu
   - INFLUXDB_PASS=password
-  filters: null
+  filters:
+  - not_silenced
   handlers: null
   runtime_assets:
   - sensu-influxdb-handler
@@ -149,9 +149,7 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "influxdb-handler",
-    "namespace": "default"
+    "name": "influxdb-handler"
   },
   "spec": {
     "command": "sensu-influxdb-handler -d sensu",
@@ -160,7 +158,9 @@ spec:
       "INFLUXDB_USER=sensu",
       "INFLUXDB_PASS=password"
     ],
-    "filters": null,
+    "filters": [
+      "not_silenced"
+    ],
     "handlers": null,
     "runtime_assets": [
       "sensu-influxdb-handler"
@@ -218,7 +218,6 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: prometheus_metrics
-  namespace: default
 spec:
   check_hooks: null
   command: sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up
@@ -250,8 +249,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "prometheus_metrics",
-    "namespace": "default"
+    "name": "prometheus_metrics"
   },
   "spec": {
     "check_hooks": null,

@@ -1,7 +1,7 @@
 ---
 title: "Sensu Observability Pipeline"
 linkTitle: "Observability Pipeline"
-description: "Sensu's observability pipeline is a flexible, automated tool that gives you visibility into every part of your organization's infrastructure. Read this overview to learn how the observability pipeline works."
+description: "Learn how Sensu's observability pipeline works as a flexible, automated tool to give you visibility into every part of your organization's infrastructure."
 product: "Sensu Go"
 version: "6.3"
 weight: 10

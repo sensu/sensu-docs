@@ -3,7 +3,7 @@ title: "Log Sensu services with systemd"
 linkTitle: "Log Sensu Services"
 guide_title: "Log Sensu services with systemd"
 type: "guide"
-description: "By default, systems where systemd is the service manager do not write logs to /var/log/sensu/. This guide explains how to add log forwarding from journald to syslog, have rsyslog write logging data to disk, and set up log rotation of the newly created log files."
+description: "Add Sensu log forwarding from journald to syslog, have rsyslog write logging data to disk, and set up log rotation of the newly created log files."
 weight: 10
 version: "6.4"
 product: "Sensu Go"

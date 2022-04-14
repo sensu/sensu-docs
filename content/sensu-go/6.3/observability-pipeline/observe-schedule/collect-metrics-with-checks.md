@@ -3,8 +3,8 @@ title: "Collect service metrics with Sensu checks"
 linkTitle: "Collect Service Metrics"
 guide_title: "Collect service metrics with Sensu checks"
 type: "guide"
-description: "Sensu supports industry-standard metric formats like Nagios Performance Data, Graphite Plaintext Protocol, InfluxDB Line Protocol, and OpenTSDB Data Specification. Read this guide to collect metrics with Sensu."
-weight: 50
+description: "Collect service metrics for an NGINX webserver with a Sensu check and output the metrics data in Nagios Performance Data format."
+weight: 180
 version: "6.3"
 product: "Sensu Go"
 platformContent: false
@@ -98,7 +98,7 @@ The sensuctl response should list http-checks:
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Install and configure NGINX
@@ -188,9 +188,7 @@ The sensuctl response will list the complete check resource definition &mdash; y
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   name: collect-metrics
-  namespace: default
 spec:
   check_hooks: null
   command: http-perf --url http://localhost --warning 1s --critical 2s
@@ -221,9 +219,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "collect-metrics",
-    "namespace": "default"
+    "name": "collect-metrics"
   },
   "spec": {
     "check_hooks": null,
@@ -461,7 +457,7 @@ You can also learn to use Sensu to [collect Prometheus metrics][14].
 [3]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
 [4]: https://bonsai.sensu.io/assets/sensu/http-checks#http-perf
 [5]: ../../observe-process/populate-metrics-influxdb/
-[6]: https://github.com/sensu/catalog/blob/main/pipelines/metric-storage/influxdb.yaml
+[6]: https://github.com/sensu/catalog/blob/docs-archive/integrations/influxdb/influxdb.yaml
 [7]: https://bonsai.sensu.io/assets/sensu/http-checks
 [8]: ../subscriptions/
 [9]: ../../../operations/monitoring-as-code/

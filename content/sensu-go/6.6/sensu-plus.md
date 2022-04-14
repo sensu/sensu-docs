@@ -1,6 +1,6 @@
 ---
 title: "Sensu Plus"
-description: "The Sensu Plus turnkey integration allows you to use Sumo Logic to extract insights from your Sensu observability data. Read this article to get set up and start using Sensu Plus."
+description: "Deploy the Sensu Plus turnkey integration to send metrics to Sumo Logic and extract insights from your Sensu observability data."
 version: "6.6"
 weight: -20
 offline: false
@@ -70,7 +70,7 @@ To send your Sensu observability data to your new Sumo Logic HTTP Logs and Metri
 
 {{% notice note %}}
 **NOTE**: Sumo Logic metrics handlers only accept metrics events.
-To send status events, use the [Sensu Sumo Logic Handler integration](../../../plugins/supported-integrations/sumologic/) instead.
+To send status events, use the [Sensu Sumo Logic Handler integration](../plugins/supported-integrations/sumologic/) instead.
 {{% /notice %}}
 
 For a Sumo Logic metrics handler, the resource definition must use the URL you copied in the last step of setting up your HTTP Logs and Metrics Source as the value for the `url` attribute.
@@ -113,7 +113,7 @@ EOF
 
 {{< /language-toggle >}}
 
-If you prefer, you can configure your Sumo Logic HTTP Logs and Metrics Source URL as a [secret][6] with Sensu's built-in [`env` secrets provider][7] to avoid exposing the URL in your handler definition.
+If you prefer, you can configure your Sumo Logic HTTP Logs and Metrics Source URL as a [secret][6] with Sensu's [`env` secrets provider][7] to avoid exposing the URL in your handler definition.
 This example shows the same definition with the URL referenced as a secret instead:
 
 {{< language-toggle >}}
@@ -350,7 +350,7 @@ This check will collect baseline system metrics in Prometheus format for all ent
 
 {{% notice note %}}
 **NOTE**: Sumo Logic metrics handlers only accept metrics events, so you must use a check that produces metrics.
-If your check produces status events, use the [Sensu Sumo Logic Handler integration](../../../plugins/supported-integrations/sumologic/) to create a traditional Sensu handler rather than the Sumo Logic metrics handler.
+If your check produces status events, use the [Sensu Sumo Logic Handler integration](../plugins/supported-integrations/sumologic/) to create a traditional Sensu handler rather than the Sumo Logic metrics handler.
 {{% /notice %}}
 
 ## Import Sumo Logic dashboards

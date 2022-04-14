@@ -4,7 +4,7 @@ linkTitle: "Reduce Alert Fatigue"
 guide_title: "Reduce alert fatigue with event filters"
 type: "guide"
 description: "Here’s how to reduce alert fatigue with Sensu. Learn about Sensu filters, how they reduce alert fatigue, and how to put them into action."
-weight: 20
+weight: 60
 version: "6.6"
 product: "Sensu Go"
 platformContent: false
@@ -98,9 +98,7 @@ The event filter definition will be similar to this example:
 type: EventFilter
 api_version: core/v2
 metadata:
-  created_by: admin
   name: hourly
-  namespace: default
 spec:
   action: allow
   expressions:
@@ -113,9 +111,7 @@ spec:
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "hourly",
-    "namespace": "default"
+    "name": "hourly"
   },
   "spec": {
     "action": "allow",
@@ -256,9 +252,7 @@ The updated check definition will be similar to this example:
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   name: check_cpu
-  namespace: default
 spec:
   check_hooks: null
   command: check-cpu-usage -w 75 -c 90
@@ -292,9 +286,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check_cpu",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "check_cpu"
   },
   "spec": {
     "check_hooks": null,
@@ -366,7 +358,7 @@ You can also download the asset directly from [Bonsai, the Sensu asset hub][9].
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 You've registered the dynamic runtime asset, but you still need to create the filter.

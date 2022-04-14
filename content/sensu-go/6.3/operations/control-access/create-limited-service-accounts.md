@@ -1,9 +1,9 @@
 ---
-title: "Create limited service accounts with role-based access control"
+title: "Create limited service accounts"
 linkTitle: "Create Limited Service Accounts"
-guide_title: "Create limited service accounts with role-based access control"
+guide_title: "Create limited service accounts"
 type: "guide"
-description: "Role-based access control (RBAC) allows you to create limited service accounts so that applications can access and interact with Sensu resources. Read this guide to create limited service accounts with Sensu RBAC."
+description: "Use Sensu's role-based access control (RBAC) to create limited service accounts so that applications can access and interact with Sensu resources."
 weight: 40
 version: "6.3"
 product: "Sensu Go"
@@ -88,7 +88,6 @@ type: Role
 api_version: core/v2
 metadata:
   name: ec2-delete
-  namespace: default
 spec:
   rules:
   - resource_names: null
@@ -104,8 +103,7 @@ spec:
   "type": "Role",
   "api_version": "core/v2",
   "metadata": {
-    "name": "ec2-delete",
-    "namespace": "default"
+    "name": "ec2-delete"
   },
   "spec": {
     "rules": [
@@ -140,7 +138,6 @@ type: RoleBinding
 api_version: core/v2
 metadata:
   name: ec2-service-delete
-  namespace: default
 spec:
   role_ref:
     name: ec2-delete
@@ -154,8 +151,7 @@ spec:
   "type": "RoleBinding",
   "api_version": "core/v2",
   "metadata": {
-    "name": "ec2-service-delete",
-    "namespace": "default"
+    "name": "ec2-service-delete"
   },
   "spec": {
     "role_ref": {
@@ -206,7 +202,7 @@ You can also download the dynamic runtime asset definition from [Bonsai][13] and
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
-Read [the asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
+Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds) for more information about dynamic runtime asset builds.
 {{% /notice %}}
 
 ## Configure an EC2 handler for the service account
@@ -217,7 +213,7 @@ You will also need the API key for the `ec2-service` user.
 {{% notice note %}}
 **NOTE**: Use [secrets management](../../manage-secrets/secrets-management/) to configure environment variables for your AWS access and secret keys and the `ec2-service` user's API key.
 Do not expose this sensitive information by listing it directly in the handler definition.<br><br>
-The [Sensu Go EC2 Handler's Bonsai page](https://bonsai.sensu.io/assets/sensu/sensu-ec2-handler#environment-variables) includes an example for configuring secrets definitions with Sensu's built-in [`env` secrets provider](../../manage-secrets/secrets-providers/#env-secrets-provider-example).
+The [Sensu Go EC2 Handler's Bonsai page](https://bonsai.sensu.io/assets/sensu/sensu-ec2-handler#environment-variables) includes an example for configuring secrets definitions with Sensu's [`Env` secrets provider](../../manage-secrets/secrets-providers/#env-secrets-provider-example).
 {{% /notice %}}
 
 In the following code, replace these bracketed placeholders with valid values:

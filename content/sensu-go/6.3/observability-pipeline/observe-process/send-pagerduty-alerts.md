@@ -3,8 +3,8 @@ title: "Send PagerDuty alerts with Sensu"
 linkTitle: "Send PagerDuty Alerts"
 guide_title: "Send PagerDuty alerts with Sensu"
 type: "guide"
-description: "Put Sensu Go's observability pipeline into action. Follow this guide to configure a check that generates status events and a handler that sends Sensu alerts to PagerDuty for non-OK events."
-weight: 25
+description: "Follow this guide to configure a check that generates status events and a handler that sends Sensu alerts to PagerDuty for non-OK events."
+weight: 220
 version: "6.3"
 product: "Sensu Go"
 platformContent: false
@@ -103,9 +103,7 @@ The response will list the complete check resource definition:
 type: CheckConfig
 api_version: core/v2
 metadata:
-  created_by: admin
   name: file_exists
-  namespace: default
 spec:
   check_hooks: null
   command: check_file_exists --pattern /tmp/my-file.txt
@@ -136,9 +134,7 @@ spec:
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "file_exists",
-    "namespace": "default"
+    "name": "file_exists"
   },
   "spec": {
     "check_hooks": null,
@@ -211,7 +207,7 @@ Then run the updated command:
 {{< code shell >}}
 sensuctl handler create pagerduty \
 --type pipe \
---filters is_incident \
+--filters is_incident,not_silenced \
 --runtime-assets sensu/sensu-pagerduty-handler \
 --command "sensu-pagerduty-handler -t <pagerduty_key>"
 {{< /code >}}
@@ -243,14 +239,13 @@ The response will list the complete handler resource definition:
 type: Handler
 api_version: core/v2
 metadata:
-  created_by: admin
   name: pagerduty
-  namespace: default
 spec:
   command: sensu-pagerduty-handler -t <pagerduty_key>
   env_vars: null
   filters:
   - is_incident
+  - not_silenced
   handlers: null
   runtime_assets:
   - sensu/sensu-pagerduty-handler
@@ -264,15 +259,14 @@ spec:
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "created_by": "admin",
-    "name": "pagerduty",
-    "namespace": "default"
+    "name": "pagerduty"
   },
   "spec": {
     "command": "sensu-pagerduty-handler -t <pagerduty_key>",
     "env_vars": null,
     "filters": [
-      "is_incident"
+      "is_incident",
+      "not_silenced"
     ],
     "handlers": null,
     "runtime_assets": [

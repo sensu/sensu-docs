@@ -3,7 +3,7 @@ title: "License reference"
 linkTitle: "License Reference"
 reference_title: "License"
 type: "reference"
-description: "Sensu Go includes commercial features designed for monitoring at scale. Activate and manage your Sensu commercial license with sensuctl and within your Sensu account.."
+description: "Sensu Go includes commercial features designed for monitoring at scale. Activate and manage your Sensu commercial license, entity counts, and entity limits with sensuctl or by logging into your Sensu account.."
 weight: 40
 version: "6.4"
 product: "Sensu Go"
@@ -204,10 +204,7 @@ If your license expires, you will still have access to [commercial features][5],
 ## Quick links
 
 - [Log in to your Sensu account][1]
-- [Configure authentication providers][10]
 - [Use the license management API][4]
-- [Discover enterprise-tier dynamic runtime assets][11]
-- [Use dynamic runtime assets to install plugins][12]
 - [Contact Sensu support][8]
 - [Contact Sensu sales][7]
 
@@ -221,6 +218,3 @@ If your license expires, you will still have access to [commercial features][5],
 [7]: https://sensu.io/contact?subject=contact-sales
 [8]: https://account.sensu.io/support
 [9]: ../../../api/
-[10]: ../../control-access/
-[11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4
-[12]: ../../../plugins/use-assets-to-install-plugins/
