@@ -32,7 +32,7 @@ To use this guide, you must have already [installed Sensu][10] on:
 
 ## Public key infrastructure (PKI)
 
-To use TLS, you must either posses existing [public key infrastructure (PKI)][8] or generate your own Certificate Authority (CA) for issuing certificates.
+To use TLS, you must either possess existing [public key infrastructure (PKI)][8] or generate your own Certificate Authority (CA) for issuing certificates.
 
 This guide describes how to set up a minimal CA and generate the certificates you need to secure Sensu communications for a clustered backend and agents.
 
@@ -68,7 +68,7 @@ sudo curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl_
 sudo curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssljson_1.4.1_linux_amd64 -o /usr/local/bin/cfssljson
 {{< /code >}}
 
-3. Install the cfssl and cfssljson executables in /usr/local/bin::
+3. Install the cfssl and cfssljson executables in /usr/local/bin:
 {{< code shell >}}
 sudo chmod +x /usr/local/bin/cfssl*
 {{< /code >}}
@@ -196,11 +196,17 @@ For example, the directory listing of /etc/sensu/tls on backend-1 should include
 /etc/sensu/tls/
 ├── backend-1-key.pem
 ├── backend-1.pem
-├── ca.pem
-└── ca-key.pem
+├── backend-1.csr
+├── ca-key.pem
+└── ca.pem
 {{< /code >}}
 
-To make sure these files are accessible only by the `sensu` user, run:
+{{% notice warning %}}
+**WARNING**: Before you continue, delete the `ca-key.pem` file from the /etc/sensu/tls directory for each backend system.
+This file is no longer needed, and it is sensitive and should be kept private.
+{{% /notice %}}
+
+To make sure the remaining backend /etc/sensu/tls files are accessible only by the `sensu` user, run:
 
 {{< code shell >}}
 chown sensu /etc/sensu/tls/*.pem
@@ -214,8 +220,12 @@ chmod 400 /etc/sensu/tls/*.pem
 
 ### Generate agent certificate
 
-Now you will generate a certificate that agents can use to connect to the Sensu backend.
+{{% notice note %}}
+**NOTE**: Agent certificates are only required for [agent mutual transport layer security (mTLS) authentication](../secure-sensu/#optional-configure-sensu-agent-mtls-authentication).
+If you are not configuring mTLS for Sensu agents, you do not need to generate agent certificates.
+{{% /notice %}}
 
+Now you will generate a certificate that agents can use to connect to the Sensu backend.
 Sensu's commercial distribution offers support for authenticating agents via TLS certificates instead of a username and password.
 
 For this certificate, you only need to specify a CN (here, `agent`) &mdash; you don't need to specify an address.
@@ -243,11 +253,17 @@ To continue the example, the directory listing of /etc/sensu/tls on each agent s
 /etc/sensu/tls/
 ├── agent-key.pem
 ├── agent.pem
+├── agent.csr
 ├── ca-key.pem
 └── ca.pem
 {{< /code >}}
 
-To make sure these files are accessible only by the `sensu` user, run:
+{{% notice warning %}}
+**WARNING**: Before you continue, delete the `ca-key.pem` file from the /etc/sensu/tls directory for each agent.
+This file is no longer needed, and it is sensitive and should be kept private.
+{{% /notice %}}
+
+To make sure the remaining agent /etc/sensu/tls files are accessible only by the `sensu` user, run:
 
 {{< code shell >}}
 chown sensu /etc/sensu/tls/*.pem
@@ -261,14 +277,18 @@ chmod 400 /etc/sensu/tls/*.pem
 
 ## Install CA certificates
 
-Before you move on, make sure you have copied the certificates and keys to each of the backend and agent systems you are securing:
+Before you install the CA certificates, make sure that you have copied the certificate and key to the /etc/sensu/tls directory for each of the backend and agent systems you are securing:
 
 - [Copy the Certificate Authority (CA) root certificate file][11], `ca.pem`, to each agent and backend.
 - [Copy all backend PEM files][12] to their corresponding backend systems.
 - [Copy all agent PEM files][13] to each agent system.
 
-We also recommend installing the CA root certificate in the trust store of both your Sensu systems and those systems used by operators to manage Sensu. 
+{{% notice warning %}}
+**WARNING**: Make sure that you have deleted the `ca-key.pem` file from the /etc/sensu/tls directory **for every backend and agent**.
+This file is no longer needed, and it is sensitive and should be kept private.
+{{% /notice %}}
 
+We recommend installing the CA root certificate in the trust store of both your Sensu systems and those systems used by operators to manage Sensu. 
 Installing the CA certificate in the trust store for these systems makes it easier to connect via web UI or sensuctl without being prompted to accept certificates signed by your self-generated CA.
 
 {{< language-toggle >}}
