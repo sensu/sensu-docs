@@ -19,16 +19,18 @@ In Sumo Logic, you can configure customized interactive dashboards and analytics
 
 **If you completed Sumo Logic setup in the Sensu web UI**, [finish the configuration process][15] to create the Sensu resources you need to start sending observability event data to Sumo Logic.
 
-If you did not use the Sensu web UI to set up a Sumo Logic account, follow the [manual setup for Sensu Plus][19].
+If you did **not** use the Sensu web UI to set up a Sumo Logic account, follow the [manual setup process for Sensu Plus][19].
 
 ## Finish configuration after web UI setup
 
 In the Sensu web UI, you already set up a Sumo Logic account and HTTP Logs and Metrics Source endpoint for receiving data.
-Copy the URL for your endpoint from the web UI dialog and follow the steps in this section to create the Sensu handler, pipeline, and check you need to transmit your Sensu data in Sumo Logic.
+To finish your configuration, you need the **SOURCE URL** for your endpoint, which you can copy from the last page in the web UI dialog.
+
+Follow the steps in this section to create a Sensu handler, pipeline, and check to transmit your Sensu data in Sumo Logic.
 
 ### Create a handler in Sensu
 
-To send your Sensu observability data to your new Sumo Logic HTTP Logs and Metrics Source, create a Sumo Logic metrics handler.
+Create a Sumo Logic metrics handler to send your Sensu observability data to your new Sumo Logic HTTP Logs and Metrics Source.
 [Sumo Logic metrics handlers][5] provide a persistent connection to transmit Sensu observability data, which helps prevent the data bottlenecks you may experience with traditional handlers.
 
 {{% notice note %}}
@@ -125,12 +127,8 @@ EOF
 
 ### Configure a pipeline
 
-With your handler definition configured, you’re ready to create a [pipeline][8] with a workflow that references your sumo_logic_http_metrics handler.
-
-{{% notice note %}}
-**NOTE**: Sensu pipelines use event filters, mutators, and handlers as the building blocks for event processing workflows.
-Read the [pipeline reference](../observability-pipeline/observe-process/pipelines/) for detailed information about pipelines.
-{{% /notice %}}
+Sensu [pipelines][8] use event filters, mutators, and handlers as the building blocks for event processing workflows.
+With your handler definition configured, you’re ready to create a pipeline with a workflow that references your sumo_logic_http_metrics handler.
 
 To configure event processing via your sumo_logic_http_metrics handler, add this example pipeline definition.
 This pipeline includes a workflow with your sumo_logic_http_metrics handler, along with Sensu's built-in [has_metrics event filter][12] to ensure that the workflow only processes events that contain metrics:
@@ -197,11 +195,7 @@ Your pipeline resource is now properly configured, but it’s not processing any
 To get your Sensu observability data flowing through the new pipeline, add the pipeline by reference in at least one check definition.
 
 This example check definition uses the [Sensu System Check][13] dynamic runtime asset.
-
-{{% notice note %}}
-**NOTE**: Dynamic runtime assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
-Read the [assets reference](../plugins/assets/) for more information about dynamic runtime assets.
-{{% /notice %}}
+[Dynamic runtime assets][20] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 Follow these steps to configure the required system check:
 
@@ -330,7 +324,7 @@ The Sensu Overview and Sensu Entity Details dashboards will begin to display you
 
 {{< figure src="/images/sensu_entity_details_dashboard.png" alt="Data beginning to populate in the Sensu Entity Details dashboard in Sumo Logic" link="/images/sensu_entity_details_dashboard.png" target="_blank" >}}
 
-## Manual setup for Sensu Plus
+## Manually set up Sensu Plus
 
 This section explains how to set up Sensu Plus manually, without using the Sensu web UI.
 
@@ -381,17 +375,6 @@ You will use this URL as the value for the `url` attribute in your Sensu [handle
     {{< figure src="/images/http-source-address_url.png" alt="Retrieve the HTTP Source Address URL" link="/images/http-source-address_url.png" target="_blank" >}}
 
 
-### Create Sensu resources
-
-With your Sumo Logic HTTP Logs and Metrics Source set up, you're ready to configure a Sensu handler, pipeline, and check.
-Follow these instructions to create the Sensu resources:
-
-- [Create a handler in Sensu][3]
-- [Configure a pipeline][16]
-- [Add a Sensu check][17]
-
-After you add the check, don't forget to [import Sumo Logic dashboards][18] to view your Sensu data in Sumo Logic.
-
 ### Import Sumo Logic dashboards
 
 To view your Sensu observability data in Sumo Logic, you can configure [Sumo Logic dashboards][4] in any way you wish.
@@ -414,9 +397,18 @@ The two new dashboards will be listed in the Sensu folder in the left-navigation
 
     {{< figure src="/images/sensu-dashboards.png" alt="Sensu Overview and Sensu Entity Details dashboards listed in the Sumo Logic left-navigation menu" link="/images/sensu-dashboards.png" target="_blank" >}}
 
-    Click a dashboard name to view your Sensu observability data.
+After you create a Sensu handler, pipeline, and check in the next section, you will be able to click a dashboard name to view your Sensu observability data.
 
-It may take a few moments for your data to appear in Sumo Logic.
+### Create Sensu resources
+
+With your dashboards set up, you're ready to configure a Sensu handler, pipeline, and check.
+To create the Sensu resources, follow the same instructions as users who started in the web UI:
+
+- [Create a handler in Sensu][3]
+- [Configure a pipeline][16]
+- [Add a Sensu check][17]
+
+After you add the check, it may take a few moments for your data to appear in Sumo Logic.
 The Sensu Overview and Sensu Entity Details dashboards will begin to display your data:
 
 {{< figure src="/images/sensu_entity_details_dashboard.png" alt="Data beginning to populate in the Sensu Entity Details dashboard in Sumo Logic" link="/images/sensu_entity_details_dashboard.png" target="_blank" >}}
@@ -440,4 +432,5 @@ The Sensu Overview and Sensu Entity Details dashboards will begin to display you
 [16]: #configure-a-pipeline
 [17]: #add-a-sensu-check
 [18]: #import-sumo-logic-dashboards
-[19]: #manual-setup-for-sensu-plus
+[19]: #manually-set-up-sensu-plus
+[20]: ../plugins/assets/
