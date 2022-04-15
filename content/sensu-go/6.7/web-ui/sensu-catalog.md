@@ -1,8 +1,8 @@
 ---
-title: "Sensu Catalog"
-linkTitle: "Sensu Catalog"
+title: "Configure integrations in the Sensu Catalog"
+linkTitle: "Configure Integrations in the Sensu Catalog"
 description: "Find, configure, and install powerful monitoring and observability integrations in the Sensu Catalog, Sensu's online marketplace."
-weight: 25
+weight: 10
 version: "6.7"
 product: "Sensu Go"
 platformContent: false
@@ -40,7 +40,7 @@ Sensu curates, tests, and maintains the Catalog integrations, and installation f
 ## Find integrations
 
 Find integrations in the Sensu Catalog by browsing [alphabetized][15], [categorized][16], and [metadata-based][17] lists.
-You can also [search][19] the Sensu Catalog by display_name, class, provider, and tags.
+You can also [search][19] the Sensu Catalog based on integration metadata.
 
 ### Browse the alphabetized list
 
@@ -77,14 +77,27 @@ You can search the Sensu Catalog for integrations with particular `provider` or 
 
 ### Search for integrations
 
-The Sensu Catalog includes basic search using substring matching, as well as advanced searches based on integration display_name, class, provider, and tags.
+The Sensu Catalog includes basic search using substring matching, as well as advanced searches based on integration metadata like display name and class.
+
+#### Catalog search operators
 
 Sensu Catalog search supports two set-based operators:
 
-| operator  | description        | example                |
+| Operator  | Description        | Example                |
 | --------- | ------------------ | ---------------------- |
 | `in`      | Included in        | `ansible in tags`
 | `matches` | Substring matching | `display_name ansible matches`
+
+#### Catalog search metadata
+
+Search the Sensu Catalog integrations based on the following metadata:
+
+| Metadata type | Description       
+| ------------- | ------------------
+| `class`       | Integration support category.<br><br>Available values:<br>- `community`: Supported by a Sensu community member<br>- `enterprise`: Supported by Sensu; requires a [commercial license][7]<br>- `partner`: Supported by a third-party company or service<br>- `supported`: Supported by Sensu; no license required
+| `display_name` | Integration name.
+| `provider` | General function of the integration.<br><br>Available values: `alerts`, `deregistration`, `discovery`, `events`, `incidents`, `metrics`, `monitoring`, `remediation`.
+| `tags` | Descriptors added by the integration's creator.
 
 #### Quick search for integrations
 
@@ -150,15 +163,19 @@ Click the dropdown arrows to review the resource definitions:
 
 The resulting resource definitions represent Sensu's recommended configuration for the integration.
 
+## Use secrets in integrations
+
+The Sensu Catalog integrations are preconfigured to use Sensu's `Env` secrets provider for sensitive information the integrations might require, like passwords and API tokens.
+
 ### Duplicate integrations and existing resources
 
 You can reuse the same integration as long as all resource definitions have unique names.
 
-When you install an integration, Sensu checks your existing resources before creating the new resources.
-If Sensu finds an existing resource with the same name, the configuration wizard will prompt you to either:
+When you install an integration, Sensu checks your existing resources before creating new resources.
+If Sensu finds an existing resource with the same name, the configuration wizard will prompt you to either change the names of the existing resources or acknowledge that the new resources should overwrite the existing resources.
 
-- Provide a unique name for the new resources.
-- Acknowledge that the new resources should overwrite the existing resources.
+If you want to keep the existing resources, use the [Sensu API][11] to change their names with PUT requests.
+Otherwise, click **OVERWRITE** to replace the existing resources with the new resources.
 
 {{< figure src="/images/rename_overwrite_prompt.gif" alt="Summary page of configuration wizard for a Sensu Catalog integration" link="/images/rename_overwrite_prompt.gif" target="_blank" >}}
 
@@ -174,13 +191,10 @@ View and manage integration resources just like all of your other Sensu resource
 The integration definitions listed in the [**SENSU RESOURCES** tab][13] are usable, portable definitions for all of the resources you need to use the integration.
 These definitions are universal [monitoring as code][15] templates: they do not include a namespace or the specific values you provide while [configuring and installing][14] the integration.
 
-## Use secrets in integrations
-
-The Sensu Catalog integrations are preconfigured to use Sensu's `Env` secrets provider for sensitive information the integrations might require, like passwords and API tokens.
-
 ## Contribute an integration
 
 The Sensu Catalog is an open marketplace, and you can contribute by sharing Sensu configurations.
+For contributing guidelines and more information, visit the [Sensu Catalog GitHub repository][22].
 
 
 [1]: ../../plugins/plugins/
@@ -204,3 +218,4 @@ The Sensu Catalog is an open marketplace, and you can contribute by sharing Sens
 [19]: #search-for-integrations
 [20]: ../../plugins/assets/
 [21]: ../
+[22]: https://github.com/sensu/catalog
