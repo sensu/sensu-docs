@@ -120,5 +120,5 @@ These resources will help you use commercial features in Sensu Go:
 [21]: ../operations/deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [22]: ../operations/manage-secrets/secrets-management/
 [23]: ../observability-pipeline/observe-schedule/business-service-monitoring/
-[24]: ../plugins/supported-integrations/
+[24]: ../plugins/featured-integrations/
 [25]: #commercial-features-in-sensu-go
