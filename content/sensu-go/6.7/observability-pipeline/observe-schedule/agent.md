@@ -1373,6 +1373,8 @@ sensu-agent start --keepalive-interval 30{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 keepalive-interval: 30{{< /code >}}
 
+<a id="keepalive-warning-timeout-flag"></a>
+
 | keepalive-warning-timeout |      |
 --------------------|------
 description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-warning-timeout` value to the [`event.check.timeout` attribute](../../observe-events/events/#checks-attribute) when keepalive events are generated for the Sensu backend to process. The `event.check.timeout` attribute is useful for [creating time-based event filters](../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
