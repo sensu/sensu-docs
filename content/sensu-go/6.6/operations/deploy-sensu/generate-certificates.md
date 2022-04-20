@@ -254,10 +254,10 @@ filename           | description                  | required on agent?  |
 
 {{% notice warning %}}
 **WARNING**: Before you continue, delete the `ca-key.pem` file from the `/etc/sensu/tls` directory.
-This file is sensitive information and is no longer needed.
+This file contains information and is no longer needed.
 {{% /notice %}}
 
-To continue the example with [three backends][18], after deleting the `ca-key.pem` file, the directory listing for `/etc/sensu/tls` will include 15 files:
+To continue the example with [three backends][18], the directory listing for `/etc/sensu/tls` will include 15 files  after deleting the `ca-key.pem` file:
 
 {{< code shell >}}
 /etc/sensu/tls/
