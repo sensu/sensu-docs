@@ -75,7 +75,7 @@ HTTP/1.1 200 OK
           "page_size": 100
         }
       ],
-      "signin_message": "with your LDAP or system credentials"
+      "signin_message": "with your **LDAP or system credentials**"
     }
   }
 ]
@@ -130,7 +130,7 @@ output         | {{< code shell >}}
           "page_size": 100
         }
       ],
-      "signin_message": "with your LDAP or system credentials"
+      "signin_message": "with your **LDAP or system credentials**"
     }
   }
 ]
@@ -189,7 +189,7 @@ HTTP/1.1 200 OK
         "page_size": 100
       }
     ],
-    "signin_message": "with your LDAP or system credentials"
+    "signin_message": "with your **LDAP or system credentials**"
   }
 }
 {{< /code >}}
@@ -242,7 +242,7 @@ output               | {{< code json >}}
         "page_size": 100
       }
     ],
-    "signin_message": "with your LDAP or system credentials"
+    "signin_message": "with your **LDAP or system credentials**"
   }
 }
 {{< /code >}}
@@ -297,7 +297,7 @@ curl -X PUT \
         "page_size": 100
       }
     ],
-    "signin_message": "with your LDAP or system credentials"
+    "signin_message": "with your **LDAP or system credentials**"
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/web/v1/config/custom-web-ui
@@ -350,7 +350,7 @@ payload         | {{< code shell >}}
         "page_size": 100
       }
     ],
-    "signin_message": "with your LDAP or system credentials"
+    "signin_message": "with your **LDAP or system credentials**"
   }
 }
 {{< /code >}}
