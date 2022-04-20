@@ -4,7 +4,7 @@ linkTitle: "Monitor Server Resources"
 guide_title: "Monitor server resources with checks"
 type: "guide"
 description: "Sensu lets you monitor server resources with checks. Read this guide to learn about Sensu checks and how to use checks to monitor servers."
-weight: 40
+weight: 220
 version: "6.4"
 product: "Sensu Go"
 platformContent: false

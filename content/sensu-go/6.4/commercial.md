@@ -23,19 +23,19 @@ For more information, read [Get started with commercial features](../commercial/
 ## Commercial features in Sensu Go
 
 - **Integrate your Sensu observability pipeline with industry-standard tools** like EC2, Jira, ServiceNow, and Sumo Logic with [supported integrations][24] and [enterprise-tier dynamic runtime assets][11].
-- **Manage resources from your browser**: Use the Sensu [web UI][8] to manage events and entities and create, edit, and delete checks, handlers, mutators, silences, and event filters.
+- **Manage resources from your browser**: Use the Sensu [web UI][8] to manage events and entities and create, edit, and delete checks, handlers, mutators, silences, and event filters, with a single pane of glass view.
 Create customized [global default settings][26] for page size and theme, [page-specific settings][27] for page size, order, and selector, and [sign-in messages][28].
-- **Control permissions with Sensu role-based access control (RBAC)**, with the option of using [Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC)][9] for single sign-on (SSO) authentication.
+- **Control access with single sign-on (SSO) authentication** using [Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC)][9].
 - **Maintain high-level visibility into the current health of your business services**.
 Use [business service monitoring (BSM)][23] to monitor your system with a top-down approach that produces meaningful alerts, prevents alert fatigue, and helps you focus on your core business services.
 - **Use mutual transport layer security (mTLS) authentication** to [provide two-way verification of your Sensu agents and backend connections][21].
 - **Protect your sensitive information** with [secrets management][22].
-Avoid exposing usernames, passwords, and access keys in your Sensu configuration by integrating with HashiCorp Vault or using Sensu's built-in environment variable secrets provider.
+Avoid exposing usernames, passwords, and access keys in your Sensu configuration by integrating with HashiCorp Vault or using Sensu's `Env` secrets provider.
 - **Manage your monitoring resources across multiple data centers, cloud regions, or providers** and mirror changes to follower clusters with [federation][20].
 Federation affords visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI.
 - **Use powerful search capabilities** designed for large installations to search [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wide range of resource attributes.
 Build event filter expressions with [JavaScript execution functions][19].
-- **Log observation data** [to a file][10] you can use as an input to your favorite data lake solution.
+**Log observation data** [to a file][10] you can use as an input to your favorite data lake solution.
 - **Achieve enterprise-scale event handling** for your Sensu instance with a [PostgreSQL event store][12].
 Access the PostgreSQL event datastore with the same Sensu web UI, API, and sensuctl processes as etcd-stored events.
 - **Get enterprise-class support**: Rest assured that with [Sensu support][13], help is available if you need it.
@@ -84,10 +84,17 @@ sensuctl license info
 
 Users with permission to create or update licenses can also view license information in the Sensu [web UI][8] by pressing `CTRL .` to open the system information modal.
 
-These resources will help you get started with commercial features in Sensu Go:
+These resources will help you use commercial features in Sensu Go:
 
-- [Set up and manage authentication providers][9]
-- [Use dynamic runtime assets to install plugins][17]
+- [Configure mTLS authentication][21] for the Sensu agent.
+- [Federate multiple Sensu instances][20] to gain single-pane-of-glass visibility into your infrastructure and services.
+- [Install plugins with dynamic runtime assets][17] and use our complete catalog of [integrations][24].
+- Keep sensitive information like passwords and access tokens private with [secrets management][22].
+- [Set up and manage single sign-on (SSO) authentication providers][9]: Active Directory (AD), Lightweight Directory Access Protocol (LDAP), and OpenID Connect 1.0 protocol (OIDC).
+- [Use the web UI][8] for a unified view of your events, entities, and configuration resources along with user-friendly tools, and create [customized page views][33].
+- [Monitor business services][23] and get high-level visibility into every component in your system.
+- [Search in the web UI][6] or use powerful response filtering in [API][4] requests and [sensuctl][5] commands.
+- Scale your monitoring and observability with Sensu's [enterprise datastore][12].
 - [Manage your Sensu commercial license][18]
 - [Log in to your Sensu account][2]
 - [Contact Sensu support][14]
@@ -104,7 +111,7 @@ These resources will help you get started with commercial features in Sensu Go:
 [9]: ../operations/control-access/sso/
 [10]: ../observability-pipeline/observe-schedule/backend#event-logging
 [11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4/
-[12]: ../operations/deploy-sensu/datastore#scale-event-storage
+[12]: ../operations/deploy-sensu/scale-event-storage/
 [13]: https://sensu.io/support/
 [14]: https://account.sensu.io/support/
 [15]: ../operations/deploy-sensu/install-sensu/
@@ -116,8 +123,9 @@ These resources will help you get started with commercial features in Sensu Go:
 [21]: ../operations/deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [22]: ../operations/manage-secrets/secrets-management/
 [23]: ../observability-pipeline/observe-schedule/business-service-monitoring/
-[24]: ../plugins/supported-integrations/
+[24]: ../plugins/featured-integrations/
 [25]: #commercial-features-in-sensu-go
 [26]: ../web-ui/webconfig-reference/#default-preferences-attributes
 [27]: ../web-ui/webconfig-reference/#page-preferences-attributes
 [28]: ../web-ui/webconfig-reference/#sign-in-message
+[33]: ../web-ui/webconfig/

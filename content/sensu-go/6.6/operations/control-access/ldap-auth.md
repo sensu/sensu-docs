@@ -19,7 +19,7 @@ For more information, read [Get started with commercial features](../../../comme
 
 Sensu requires username and password authentication to access the [web UI][1], [API][8], and [sensuctl][2] command line tool.
 
-In addition to the [built-in basic authentication provider][4], Sensu offers [commercial support][6] for a standards-compliant Lightweight Directory Access Protocol (LDAP) tool for single sign-on (SSO) authentication.
+In addition to the [built-in basic authentication][4], Sensu offers [commercial support][6] for a standards-compliant Lightweight Directory Access Protocol (LDAP) tool for single sign-on (SSO) authentication.
 The Sensu LDAP authentication provider is tested with [OpenLDAP][7].
 If you're using AD, head to the [AD section][37].
 

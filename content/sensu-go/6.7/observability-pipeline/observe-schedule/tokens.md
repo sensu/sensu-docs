@@ -4,7 +4,7 @@ linkTitle: "Tokens Reference"
 reference_title: "Tokens"
 type: "reference"
 description: "Use tokens in Sensu checks as placeholders that agents replace with entity data to fine-tune check attributes while reusing check definitions."
-weight: 100
+weight: 120
 version: "6.7"
 product: "Sensu Go"
 menu:
@@ -32,7 +32,7 @@ This example demonstrates a reusable disk usage check.
 The [check command][5] includes `-w` (warning) and `-c` (critical) arguments with default values for the thresholds (as percentages) for generating warning or critical events.
 The check will compare every subscribed entity's disk space against the default threshold values to determine whether to generate a warning or critical event.
 
-However, the check command also includes token substitution, which means you can add entity labels that correspond to the check commnand tokens to specify different warning and critical values for individual entities.
+However, the check command also includes token substitution, which means you can add entity labels that correspond to the check command tokens to specify different warning and critical values for individual entities.
 Instead of creating a different check for every set of thresholds, you can use the same check to apply the defaults in most cases and the token-substituted values for specific entities.
 
 Follow this example to set up a reusable check for disk usage:

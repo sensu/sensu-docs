@@ -4,7 +4,7 @@ linkTitle: "Send PagerDuty Alerts"
 guide_title: "Send PagerDuty alerts with Sensu"
 type: "guide"
 description: "Follow this guide to configure a check that generates status events and a handler that sends Sensu alerts to PagerDuty for non-OK events."
-weight: 25
+weight: 220
 version: "6.4"
 product: "Sensu Go"
 platformContent: false
@@ -367,8 +367,8 @@ Learn more about the [Sensu PagerDuty integration][14] and our curated, configur
 [11]: ../../../web-ui/
 [12]: ../../../sensuctl/
 [13]: ../../observe-schedule/subscriptions/
-[14]: ../../../plugins/supported-integrations/pagerduty/
-[15]: ../../../plugins/supported-integrations/pagerduty/#get-the-plugin
+[14]: ../../../plugins/featured-integrations/pagerduty/
+[15]: ../../../plugins/featured-integrations/pagerduty/#get-the-plugin
 [16]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler#pagerduty-severity-mapping
 [17]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler#pager-teams
 [18]: ../handler-templates/

@@ -4,7 +4,7 @@ linkTitle: "Subscriptions Reference"
 reference_title: "Subscriptions"
 type: "reference"
 description: "Use Sensu subscriptions to configure checks in a one-to-many model and write checks even if you don't know the names of the entities that should run the checks."
-weight: 35
+weight: 100
 version: "6.3"
 product: "Sensu Go"
 platformContent: false

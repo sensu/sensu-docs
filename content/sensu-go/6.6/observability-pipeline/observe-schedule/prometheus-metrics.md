@@ -4,7 +4,7 @@ linkTitle: "Collect Prometheus Metrics"
 guide_title: "Collect Prometheus metrics with Sensu"
 type: "guide"
 description: "Use the Sensu Prometheus Collector integration to collect Prometheus metrics so Sensu can route the collected metrics to a time-series database like InfluxDB."
-weight: 55
+weight: 160
 version: "6.6"
 product: "Sensu Go"
 platformContent: false
@@ -513,7 +513,7 @@ Use Prometheus to gather metrics and use Sensu to send them to the proper final 
 Prometheus has a [comprehensive list][7] of additional exporters to pull in metrics.
 
 
-[1]: ../../../plugins/supported-integrations/prometheus/#sensu-prometheus-collector
+[1]: ../../../plugins/featured-integrations/prometheus/#sensu-prometheus-collector
 [2]: https://prometheus.io/docs/instrumenting/exporters/
 [3]: https://prometheus.io/docs/prometheus/latest/querying/api/
 [4]: ../../../operations/deploy-sensu/install-sensu/

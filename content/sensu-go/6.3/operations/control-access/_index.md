@@ -16,7 +16,7 @@ Sensu administrators control access by authentication and authorization.
 
 Authentication verifies user identities to confirm that users are who they say they are.
 Sensu requires username and password authentication to access the web UI, API, and sensuctl command line tool.
-You can use Sensu's [built-in basic authentication provider][14] or configure [external authentication providers][15].
+You can use Sensu's [built-in basic authentication][14] or configure [external authentication providers][15].
 
 {{% notice note %}}
 **NOTE**: For API-specific authentication, read the [API overview](../../api/#access-control) and [Use API keys to authenticate to Sensu](use-apikeys/).
@@ -27,13 +27,13 @@ Configure authorization with [role-based access control (RBAC)][4] to exercise f
 
 ## Authentication
 
-Sensu web UI and sensuctl command line tool users can authenticate via [built-in basic authentication provider][14] or Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC) when the administrator configures [external single sign-on (SSO) authentication providers][15].
+Sensu web UI and sensuctl command line tool users can authenticate via [built-in basic authentication][14] or Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC) when the administrator configures [external single sign-on (SSO) authentication providers][15].
 
 Sensu agents authenticate to the Sensu backend using either [basic][14] or [mutual transport layer security (TLS)][20] authentication.
 
 ### Use built-in basic authentication
 
-Sensu's built-in basic authentication provider allows you to create and manage user credentials (usernames and passwords) with [core/v2/users API endpoints][53], either directly or using [sensuctl][2].
+Sensu's built-in basic authentication allows you to create and manage user credentials (usernames and passwords) with [core/v2/users API endpoints][53], either directly or using [sensuctl][2].
 The basic authentication provider does not depend on external services and is not configurable.
 
 Sensu hashes user passwords using the [bcrypt][26] algorithm and records the basic authentication credentials in [etcd][54].
