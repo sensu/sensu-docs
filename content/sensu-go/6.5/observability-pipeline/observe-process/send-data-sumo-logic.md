@@ -4,7 +4,7 @@ linkTitle: "Send Data to Sumo Logic"
 guide_title: "Send data to Sumo Logic with Sensu"
 type: "guide"
 description: "Put Sensu's observability pipeline into action. Follow this guide to configure a handler to send Sensu data to Sumo Logic for long-term log and metrics storage."
-weight: 19
+weight: 180
 version: "6.5"
 product: "Sensu Go"
 platformContent: false
@@ -149,8 +149,8 @@ The Sensu Sumo Logic Handler asset requires a `SUMOLOGIC_URL` variable.
 The value for the `SUMOLOGIC_URL` variable is the Sumo Logic HTTP Source Address URL, which you retrieved in the last step of [setting up an HTTP Logs and Metrics Source][12].
 
 {{% notice note %}}
-**NOTE**: This example shows how to set your Sumo Logic HTTP Source Address URL as an environment variable and use it as a secret with Sensu's built-in `Env` secrets provider.
-Read [Use secrets management in Sensu](../../../operations/manage-secrets/secrets-management/) for more information about [using the Env secrets provider](../../../operations/manage-secrets/secrets-management/#use-env-for-secrets-management).
+**NOTE**: This example shows how to set your Sumo Logic HTTP Source Address URL as an environment variable and use it as a secret with Sensu's `Env` secrets provider.
+Read [Use secrets management in Sensu](../../../operations/manage-secrets/secrets-management/) for more information about using the `Env` secrets provider.
 {{% /notice %}}
 
 ### Configure the SUMOLOGIC_URL environment variable
@@ -594,5 +594,5 @@ In addition to the traditional handler we used in this example, you can use [Sen
 [16]: ../../observe-events/
 [17]: ../../../sensu-plus/
 [18]: ../sumo-logic-metrics-handlers/
-[19]: ../../../plugins/supported-integrations/sumologic/
+[19]: ../../../plugins/featured-integrations/sumologic/
 [20]: ../../observe-filter/filters/#built-in-filter-not_silenced

@@ -628,9 +628,9 @@ This is useful for setting silences, for example.
 
 Sensuctl supports the following formats:
 
-* RFC3339 with numeric zone offset: `2018-05-10T07:04:00-08:00` or
+* [RFC 3339][42] with numeric zone offset: `2018-05-10T07:04:00-08:00` or
   `2018-05-10T15:04:00Z`
-* RFC3339 with space delimiters and numeric zone offset: `2018-05-10 07:04:00
+* [RFC 3339][42] with space delimiters and numeric zone offset: `2018-05-10 07:04:00
   -08:00`
 * Sensu alpha legacy format with canonical zone ID: `May 10 2018 7:04AM
   America/Vancouver`
@@ -673,3 +673,4 @@ Sensuctl supports the following formats:
 [37]: ../../operations/control-access/oidc-auth/
 [38]: ../../operations/control-access/rbac/#namespaced-resource-types
 [39]: ../../operations/control-access/sso/
+[42]: https://www.ietf.org/rfc/rfc3339.txt

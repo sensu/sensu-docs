@@ -15,7 +15,7 @@ menu:
 For more information, read [Get started with commercial features](../commercial/).
 {{% /notice %}}
 
-The Sensu backend includes the **Sensu web UI**: a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue.
+The Sensu backend includes the **Sensu web UI**: a unified view of your events, entities, and checks with user-friendly tools that provide single-pane-of-glass visibility and reduce alert fatigue.
 
 <a id="webui-homepage"></a>
 

@@ -4,7 +4,7 @@ linkTitle: "Augment Event Data"
 guide_title: "Augment event data with check hooks"
 type: "guide"
 description: "Free up precious operator time: use Sensu check hooks to automate data collection that operators would otherwise perform manually to investigate alerts."
-weight: 90
+weight: 140
 version: "6.4"
 product: "Sensu Go"
 platformContent: false

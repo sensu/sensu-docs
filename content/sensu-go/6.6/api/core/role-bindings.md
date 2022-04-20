@@ -295,7 +295,7 @@ curl -X PATCH \
     }
   ]
 }' \
-http://127.0.0.1:8080/api/core/v2/rolebindings/dev-binding
+http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
 
 HTTP/1.1 200 OK
 {{< /code >}}
@@ -305,7 +305,7 @@ HTTP/1.1 200 OK
 /rolebindings/:rolebinding (PATCH) | 
 ----------------|------
 description     | Updates the specified Sensu role binding.
-example URL     | http://hostname:8080/api/core/v2/rolebindings/dev-binding
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
 payload         | {{< code shell >}}
 {
   "subjects": [

@@ -611,7 +611,7 @@ curl -X PATCH \
     }
   }
 }' \
-http://127.0.0.1:8080/api/core/v2/entities/sensu-centos
+http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos
 
 HTTP/1.1 200 OK
 {{< /code >}}
@@ -621,7 +621,7 @@ HTTP/1.1 200 OK
 /entities/:entity (PATCH) | 
 ----------------|------
 description     | Updates the specified Sensu entity.
-example URL     | http://hostname:8080/api/core/v2/entities/sensu-centos
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/entities/sensu-centos
 payload         | {{< code shell >}}
 {
   "metadata": {
@@ -659,7 +659,7 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 ## Get a subset of entities with response filtering
 
-The `/entities` API endpoint supports [response filtering][5] for a subset of entity data based on labels and the following fields:
+The `/entities` API endpoint supports [response filtering][3] for a subset of entity data based on labels and the following fields:
 
 - `entity.name`
 - `entity.namespace`
@@ -669,7 +669,7 @@ The `/entities` API endpoint supports [response filtering][5] for a subset of en
 
 ### Example
 
-The following example demonstrates a request to the `/entities` API endpoint with [response filtering][5], resulting in a JSON array that contains only [entity definitions][1] whose subscriptions include `linux`.
+The following example demonstrates a request to the `/entities` API endpoint with [response filtering][3], resulting in a JSON array that contains only [entity definitions][1] whose subscriptions include `linux`.
 
 {{< code shell >}}
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/entities -G \
@@ -785,7 +785,7 @@ HTTP/1.1 200 OK
 
 /entities (GET) with response filters | 
 ---------------|------
-description    | Returns the list of entities that match the [response filters][5] applied in the API request.
+description    | Returns the list of entities that match the [response filters][3] applied in the API request.
 example url    | http://hostname:8080/api/core/v2/entities
 pagination     | This endpoint supports [pagination][4] using the `limit` and `continue` query parameters.
 response type  | Array
