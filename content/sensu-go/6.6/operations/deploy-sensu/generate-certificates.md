@@ -209,7 +209,7 @@ In our example with [three backends][18], the directory listing for `/etc/sensu/
 
 {{% notice warning %}}
 **WARNING**: If you are **not** setting up [agent mTLS authentication](../secure-sensu/#optional-configure-sensu-agent-mtls-authentication), delete the `ca-key.pem` file from the `/etc/sensu/tls` directory.
-The `ca-key.pem` file is sensitive information and is no longer needed unless you are setting up agent mTLS authentication.
+The `ca-key.pem` file contains sensitive information and is no longer needed unless you are setting up agent mTLS authentication.
 {{% /notice %}}
 
 To make sure the backend files in `/etc/sensu/tls` are accessible only by the `sensu` user, run:
@@ -254,7 +254,7 @@ filename           | description                  | required on agent?  |
 
 {{% notice warning %}}
 **WARNING**: Before you continue, delete the `ca-key.pem` file from the `/etc/sensu/tls` directory.
-This file contains information and is no longer needed.
+This file contains sensitive information and is no longer needed.
 {{% /notice %}}
 
 To continue the example with [three backends][18], the directory listing for `/etc/sensu/tls` will include 15 files  after deleting the `ca-key.pem` file:
@@ -293,7 +293,7 @@ chmod 400 /etc/sensu/tls/*.pem
 ## Install CA certificates
 
 Before you install the CA certificates, **make sure that the `/etc/sensu/tls` directory does not contain the `ca-key.pem` file**.
-The `ca-key.pem` file is sensitive information that is no longer needed, so you should delete it.
+The `ca-key.pem` file contains sensitive information that is no longer needed, so you should delete it.
 
 Also, make sure that `/etc/sensu/tls` includes the [CA root certificate and key][11], as well as a certificate and key for each [backend][12] and [agent][13] you are securing.
 
