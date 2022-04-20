@@ -2,7 +2,7 @@
 title: "Search in the web UI"
 linkTitle: "Search in the Web UI"
 description: "Search and filter in the Sensu web UI and build customized views of your events, entities, silences, checks, handlers, filters, and mutators pages."
-weight: 30
+weight: 35
 version: "6.3"
 product: "Sensu Go"
 platformContent: false
