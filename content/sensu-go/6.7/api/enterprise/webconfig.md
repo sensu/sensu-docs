@@ -48,6 +48,7 @@ HTTP/1.1 200 OK
       "default_preferences": {
         "poll_interval": 120000,
         "page_size": 500,
+        "serialization_format": "YAML",
         "theme": "sensu"
       },
       "link_policy": {
@@ -102,6 +103,7 @@ output         | {{< code shell >}}
       "default_preferences": {
         "poll_interval": 120000,
         "page_size": 500,
+        "serialization_format": "YAML",
         "theme": "sensu"
       },
       "link_policy": {
@@ -160,6 +162,7 @@ HTTP/1.1 200 OK
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 500,
+      "serialization_format": "YAML",
       "theme": "sensu"
     },
     "link_policy": {
@@ -212,6 +215,7 @@ output               | {{< code json >}}
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 500,
+      "serialization_format": "YAML",
       "theme": "sensu"
     },
     "link_policy": {
@@ -266,6 +270,7 @@ curl -X PUT \
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 500,
+      "serialization_format": "YAML",
       "theme": "sensu"
     },
     "link_policy": {
@@ -318,6 +323,7 @@ payload         | {{< code shell >}}
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 500,
+      "serialization_format": "YAML",
       "theme": "sensu"
     },
     "link_policy": {
