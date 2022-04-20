@@ -39,11 +39,11 @@
             "url": "/sensu-go/latest/operations/control-access/create-read-only-user",
             "status": 301
         },
-        "~ ^/sensu-go/6.6/?((?<=\/).*)?$": {
+        "~ ^/sensu-go/6.7/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 302
         },
-        "~ ^/sensu-go/6.[0-2]/?((?<=\/).*)?$": {
+        "~ ^/sensu-go/6.[0-3]/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 301
         },
