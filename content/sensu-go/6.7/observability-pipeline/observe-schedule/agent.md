@@ -518,6 +518,23 @@ Use the [core/v2/events API](../../../api/core/events/) to send manual keepalive
 
 Use the [`keepalive-pipelines`][64] configuration flag to send keepalive events to any [pipeline][63] you have configured.
 
+To specify pipelines for the `keepalive-pipelines` flag, use the [fully qualified name][65] for pipeline resources (`core/v2.Pipeline`) plus the pipeline name (e.g. `slack` or `store-keepalives`).
+For example:
+
+{{< language-toggle >}}
+
+{{< code shell "Command Line" >}}
+sensu-agent start --keepalive-pipelines core/v2.Pipeline.slack,core/v2.Pipeline.store-keepalives
+{{< /code >}}
+
+{{< code yml "/etc/sensu/agent.yml" >}}
+keepalive-pipelines:
+- core/v2.Pipeline.slack
+- core/v2.Pipeline.store-keepalives
+{{< /code >}}
+
+{{< /language-toggle >}}
+
 If you do not specify a pipeline with the `keepalive-pipelines` flag, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI for keepalives.
 
 #### Keepalive handlers
@@ -1386,16 +1403,16 @@ keepalive-interval: 30{{< /code >}}
 
 | keepalive-pipelines |      |
 --------------------|------
-description         | [Pipelines][63] to use for processing keepalive events, specified in a comma-delimited list. If keepalive pipelines are not specified, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.
+description         | [Pipelines][63] to use for processing keepalive events, specified in a comma-delimited list. If keepalive pipelines are not specified, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.<br><br>To specify pipelines for the `keepalive-pipelines` flag, use the [fully qualified name][65] for pipeline resources (`core/v2.Pipeline`) plus the pipeline name.
 type                | List
 default             | `keepalive`
 environment variable   | `SENSU_KEEPALIVE_PIPELINES`
 command line example   | {{< code shell >}}
-sensu-agent start --keepalive-pipelines slack,email{{< /code >}}
+sensu-agent start --keepalive-pipelines core/v2.Pipeline.slack,core/v2.Pipeline.store-keepalives{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 keepalive-pipelines:
-- slack
-- email
+- core/v2.Pipeline.slack
+- core/v2.Pipeline.store-keepalives
 {{< /code >}}
 
 <a id="keepalive-warning-timeout-flag"></a>
@@ -2049,3 +2066,4 @@ log-level: debug
 [62]: #retry-multiplier
 [63]: ../../observe-process/pipelines/
 [64]: #keepalive-pipelines-flag
+[65]: ../../../sensuctl/create-manage-resources/#supported-resource-types
