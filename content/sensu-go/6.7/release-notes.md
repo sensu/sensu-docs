@@ -136,6 +136,9 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.7.0.
 **FIXES:**
 
 - ([Commercial feature][268]) Fixed a bug that could cause pipeline resources to hang when using a [TCP stream handler][283] whose `max_connections` attribute is set to greater than zero.
+- In events, event.check objects now include any pipelines specified in the check configuration.
+- Socket handlers that are interrupted by an error mid-write will no longer cause a sensu-backend panic.
+Also, socket handlers will now respect their timeout settings after the initial connection is established.
 - Fixed a bug that prevented accurate ARM version detection for sensu-agent.
 
 
