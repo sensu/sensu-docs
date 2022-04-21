@@ -22,7 +22,7 @@ Each plugin has self-contained documentation with in-depth information about how
 Search [Bonsai, the Sensu asset hub][2], to find Sensu plugins.
 Bonsai lists hundreds of Sensu plugins with installation instructions and usage examples.
 
-We also list popular Sensu-supported plugins in the [supported integrations][3] section.
+We also list popular Sensu plugins in the [featured integrations][3] section.
 
 ## Write your own custom plugins
 
@@ -39,7 +39,7 @@ Sensu allows you to bring new life to the 50+ plugins in the official [Nagios Pl
 
 [1]: developer-guidelines/
 [2]: https://bonsai.sensu.io/
-[3]: supported-integrations/
+[3]: featured-integrations/
 [4]: plugins/
 [5]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/pluginapi.html
 [6]: https://www.nagios.org/downloads/nagios-plugins/

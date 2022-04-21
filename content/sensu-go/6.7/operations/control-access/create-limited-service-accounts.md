@@ -319,7 +319,7 @@ Adjust namespaces and permissions if needed by updating the role or cluster role
 
 [1]: ../rbac/
 [2]: ../rbac#default-users
-[3]: ../../../plugins/supported-integrations/aws-ec2/
+[3]: ../../../plugins/featured-integrations/aws-ec2/
 [4]: ../rbac/#roles-and-cluster-roles
 [5]: ../rbac/#role-bindings-and-cluster-role-bindings
 [6]: ../rbac/#rule-attributes

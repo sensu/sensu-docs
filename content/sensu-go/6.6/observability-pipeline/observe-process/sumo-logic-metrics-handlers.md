@@ -32,7 +32,7 @@ Sumo Logic metrics handlers will reuse the available connections as long as they
 
 {{% notice note %}}
 **NOTE**: Sumo Logic metrics handlers only accept metrics events.
-To send status events, use the [Sensu Sumo Logic Handler integration](../../../plugins/supported-integrations/sumologic/) instead.
+To send status events, use the [Sensu Sumo Logic Handler integration](../../../plugins/featured-integrations/sumologic/) instead.
 {{% /notice %}}
 
 ## Sumo Logic metrics handler examples
