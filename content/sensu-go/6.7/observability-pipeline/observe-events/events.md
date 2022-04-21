@@ -3365,7 +3365,7 @@ value: 0.005
 [38]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
 [39]: #flap-detection-algorithm
 [40]: ../../observe-filter/filters/#check-attributes-available-to-filters
-[41]: ../../../plugins/supported-integrations/#time-series-and-long-term-event-storage
+[41]: ../../../plugins/featured-integrations/#time-series-and-long-term-event-storage
 [42]: ../../observe-schedule/checks/#proxy-checks
 [43]: ../../observe-schedule/agent/#create-observability-events-using-the-agent-api
 [44]: ../../observe-process/pipelines/
