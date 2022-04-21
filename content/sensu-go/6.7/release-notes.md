@@ -129,7 +129,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.7.0.
 - ([Commercial feature][268]) Added logging for [TCP stream handler][283] events.
 - The [sensu.CheckDependencies][284] Sensu query expression now supports arrays of strings and arrays of objects.
 - On backend startup, Sensu now creates the [`sensu-system` namespace][279] and a [backend entity][278] to log secrets provider errors and help prevent spamming the event bus with backend events.
-- Connection and TLS error log entries now include a `source` property that lists the corresponding agent's IP address and port to identify which agent generated each log entry for troubleshooting.
+- For connections with faulty TLS configurations, error log entries now include a `source` property that lists the corresponding agent's IP address and port to identify which agent generated each log entry for troubleshooting.
 - Increased the default values for the backend configuration flags [etcd-election-timeout][272] (from 1000 to 3000) and [etcd-heartbeat-interval][273] (from 100 to 300).
 - Upgraded etcd version from `3.5.0` to `3.5.2`.
 
