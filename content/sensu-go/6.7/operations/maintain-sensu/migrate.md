@@ -148,7 +148,7 @@ Sensu Go includes three built-in [event filters][9]: [is_incident][63], [not_sil
 Sensu Go does not include a built-in check dependencies filter, but you can use the [Core Dependencies Filter][23] dynamic runtime asset to replicate the built-in check dependencies filter functionality from Sensu Core.
 
 Sensu Go event filters do not include the `when` event filter attribute.
-Use Sensu query expressions to build [custom functions][106] that provide granular control of time-based filter expressions.
+Use [Sensu query expressions][108] to build [custom functions][106] that provide granular control of time-based filter expressions.
 
 ### Fatigue check filter
 
@@ -632,5 +632,6 @@ After you stop the Sensu Core services, follow package removal instructions for 
 [103]: ../../../observability-pipeline/observe-process/handlers/
 [104]: ../../../observability-pipeline/observe-process/sumo-logic-metrics-handlers/
 [105]: ../../../observability-pipeline/observe-process/silencing/
-[106]: ../../../observability-pipeline/observe-filter/sensu-query-expressions/#custom-functions
+[106]: ../../../observability-pipeline/observe-filter/sensu-query-expressions/#custom-functions-for-weekday-hour-minute-and-second
 [107]: ../../control-access/namespaces/
+[108]: ../../../observability-pipeline/observe-filter/sensu-query-expressions/
