@@ -594,5 +594,5 @@ In addition to the traditional handler we used in this example, you can use [Sen
 [16]: ../../observe-events/
 [17]: ../../../sensu-plus/
 [18]: ../sumo-logic-metrics-handlers/
-[19]: ../../../plugins/supported-integrations/sumologic/
+[19]: ../../../plugins/featured-integrations/sumologic/
 [20]: ../../observe-filter/filters/#built-in-filter-not_silenced

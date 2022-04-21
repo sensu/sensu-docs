@@ -48,6 +48,7 @@ HTTP/1.1 200 OK
       "default_preferences": {
         "poll_interval": 120000,
         "page_size": 500,
+        "serialization_format": "YAML",
         "theme": "sensu"
       },
       "link_policy": {
@@ -74,7 +75,7 @@ HTTP/1.1 200 OK
           "page_size": 100
         }
       ],
-      "signin_message": "with your LDAP or system credentials"
+      "signin_message": "with your **LDAP or system credentials**"
     }
   }
 ]
@@ -102,6 +103,7 @@ output         | {{< code shell >}}
       "default_preferences": {
         "poll_interval": 120000,
         "page_size": 500,
+        "serialization_format": "YAML",
         "theme": "sensu"
       },
       "link_policy": {
@@ -128,7 +130,7 @@ output         | {{< code shell >}}
           "page_size": 100
         }
       ],
-      "signin_message": "with your LDAP or system credentials"
+      "signin_message": "with your **LDAP or system credentials**"
     }
   }
 ]
@@ -160,6 +162,7 @@ HTTP/1.1 200 OK
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 500,
+      "serialization_format": "YAML",
       "theme": "sensu"
     },
     "link_policy": {
@@ -186,7 +189,7 @@ HTTP/1.1 200 OK
         "page_size": 100
       }
     ],
-    "signin_message": "with your LDAP or system credentials"
+    "signin_message": "with your **LDAP or system credentials**"
   }
 }
 {{< /code >}}
@@ -212,6 +215,7 @@ output               | {{< code json >}}
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 500,
+      "serialization_format": "YAML",
       "theme": "sensu"
     },
     "link_policy": {
@@ -238,7 +242,7 @@ output               | {{< code json >}}
         "page_size": 100
       }
     ],
-    "signin_message": "with your LDAP or system credentials"
+    "signin_message": "with your **LDAP or system credentials**"
   }
 }
 {{< /code >}}
@@ -266,6 +270,7 @@ curl -X PUT \
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 500,
+      "serialization_format": "YAML",
       "theme": "sensu"
     },
     "link_policy": {
@@ -292,7 +297,7 @@ curl -X PUT \
         "page_size": 100
       }
     ],
-    "signin_message": "with your LDAP or system credentials"
+    "signin_message": "with your **LDAP or system credentials**"
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/web/v1/config/custom-web-ui
@@ -318,6 +323,7 @@ payload         | {{< code shell >}}
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 500,
+      "serialization_format": "YAML",
       "theme": "sensu"
     },
     "link_policy": {
@@ -344,7 +350,7 @@ payload         | {{< code shell >}}
         "page_size": 100
       }
     ],
-    "signin_message": "with your LDAP or system credentials"
+    "signin_message": "with your **LDAP or system credentials**"
   }
 }
 {{< /code >}}
