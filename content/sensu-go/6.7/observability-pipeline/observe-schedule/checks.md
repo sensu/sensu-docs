@@ -709,25 +709,31 @@ type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 metadata:
-  name: collect-metrics
-  namespace: default
+  name: sensu-site-perf
+  namespace: development
   created_by: admin
   labels:
     region: us-west-1
+    environment: dev
   annotations:
     slack-channel: "#monitoring"
+    managed-by: ops
+    playbooks: www.playbooks-example.url
 {{< /code >}}
 {{< code json >}}
 {
   "metadata": {
-    "name": "collect-metrics",
-    "namespace": "default",
+    "name": "sensu-site-perf",
+    "namespace": "development",
     "created_by": "admin",
     "labels": {
-      "region": "us-west-1"
+      "region": "us-west-1",
+      "environment": "dev"
     },
     "annotations": {
-      "slack-channel": "#monitoring"
+      "slack-channel": "#monitoring",
+      "managed-by": "ops",
+      "playbooks": "www.playbooks-example.url"
     }
   }
 }
@@ -742,32 +748,145 @@ type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 spec:
-  command: "/etc/sensu/plugins/check-chef-client.go"
+  check_hooks: null
+  command: collect.sh
+  discard_output: true
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
   interval: 10
-  publish: true
-  subscriptions:
-  - production
+  low_flap_threshold: 0
+  output_metric_format: prometheus_text
+  output_metric_tags:
+  - name: instance
+    value: '{{ .name }}'
+  - name: namespace
+    value: "{{ .namespace }}"
+  - name: service
+    value: '{{ .labels.service }}'
+  output_metric_thresholds:
+    - name: system_mem_used
+      tags: null
+      null_status: 0
+      thresholds:
+      - max: "75.0"
+        min: ""
+        status: 1
+      - max: "90.0"
+        min: ""
+        status: 2
+    - name: system_host_processes
+      tags:
+      - name: namespace
+        value: production
+      null_status: 0
+      thresholds:
+      - max: "50"
+        min: "5"
+        status: 1
+      - max: "75"
+        min: "2"
+        status: 2
   pipelines:
   - type: Pipeline
     api_version: core/v2
-    name: incident_alerts
+    name: prometheus_gateway_workflows
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets: null
+  stdin: false
+  subscriptions:
+  - system
+  timeout: 0
+  ttl: 0
 {{< /code >}}
 {{< code json >}}
 {
   "spec": {
-    "command": "/etc/sensu/plugins/check-chef-client.go",
+    "check_hooks": null,
+    "command": "collect.sh",
+    "discard_output": true,
+    "env_vars": null,
+    "handlers": [
+
+    ],
+    "high_flap_threshold": 0,
     "interval": 10,
-    "publish": true,
-    "subscriptions": [
-      "production"
+    "low_flap_threshold": 0,
+    "output_metric_format": "prometheus_text",
+    "output_metric_tags": [
+      {
+        "name": "instance",
+        "value": "{{ .name }}"
+      },
+      {
+        "name": "namespace",
+        "value": "{{ .namespace }}"
+      },
+      {
+        "name": "service",
+        "value": "{{ .labels.service }}"
+      }
+    ],
+    "output_metric_thresholds": [
+      {
+        "name": "system_mem_used",
+        "tags": null,
+        "null_status": 0,
+        "thresholds": [
+          {
+            "max": "75.0",
+            "min": "",
+            "status": 1
+          },
+          {
+            "max": "90.0",
+            "min": "",
+            "status": 2
+          }
+        ]
+      },
+      {
+        "name": "system_host_processes",
+        "tags": [
+          {
+            "name": "namespace",
+            "value": "production"
+          }
+        ],
+        "null_status": 0,
+        "thresholds": [
+          {
+            "max": "50",
+            "min": "5",
+            "status": 1
+          },
+          {
+            "max": "75",
+            "min": "2",
+            "status": 2
+          }
+        ]
+      }
     ],
     "pipelines": [
       {
         "type": "Pipeline",
         "api_version": "core/v2",
-        "name": "incident_alerts"
+        "name": "prometheus_gateway_workflows"
       }
-    ]
+    ],
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": null,
+    "stdin": false,
+    "subscriptions": [
+      "system"
+    ],
+    "timeout": 0,
+    "ttl": 0
   }
 }
 {{< /code >}}
@@ -800,14 +919,16 @@ default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 annotations:
+  slack-channel: "#monitoring"
   managed-by: ops
-  playbook: www.example.url
+  playbooks: www.playbooks-example.url
 {{< /code >}}
 {{< code json >}}
 {
   "annotations": {
+    "slack-channel": "#monitoring",
     "managed-by": "ops",
-    "playbook": "www.example.url"
+    "playbooks": "www.playbooks-example.url"
   }
 }
 {{< /code >}}
@@ -838,14 +959,14 @@ default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 labels:
-  environment: development
-  region: us-west-2
+  region: us-west-1
+  environment: dev
 {{< /code >}}
 {{< code json >}}
 {
   "labels": {
-    "environment": "development",
-    "region": "us-west-2"
+    "region": "us-west-1",
+    "environment": "dev"
   }
 }
 {{< /code >}}
@@ -858,11 +979,11 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: check-cpu
+name: sensu-site-perf
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "check-cpu"
+  "name": "sensu-site-perf"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -875,11 +996,11 @@ type         | String
 default      | `default`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-namespace: production
+namespace: development
 {{< /code >}}
 {{< code json >}}
 {
-  "namespace": "production"
+  "namespace": "development"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -891,22 +1012,6 @@ namespace: production
 When doing so, the spec attributes are listed as individual [top-level attributes](#top-level-attributes) in the check definition instead.
 {{% /notice %}}
 
-|command     |      |
--------------|------
-description  | Check command to be executed.
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-command: /etc/sensu/plugins/check-chef-client.go
-{{< /code >}}
-{{< code json >}}
-{
-  "command": "/etc/sensu/plugins/check-chef-client.go"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 <a id="check-hooks-attribute"></a>
 
 |check_hooks |      |
@@ -917,31 +1022,47 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 check_hooks:
-- '0':
-  - passing-hook
-  - always-run-this-hook
-- critical:
-  - failing-hook
+- '1':
+  - playbook-warning
   - collect-diagnostics
-  - always-run-this-hook
+- critical:
+  - playbook-critical
+  - collect-diagnostics
+  - process-tree
 {{< /code >}}
 {{< code json >}}
 {
   "check_hooks": [
     {
-      "0": [
-        "passing-hook",
-        "always-run-this-hook"
+      "1": [
+        "playbook-warning",
+        "collect-diagnostics"
       ]
     },
     {
       "critical": [
-        "failing-hook",
+        "playbook-critical",
         "collect-diagnostics",
-        "always-run-this-hook"
+        "process-tree"
       ]
     }
   ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+|command     |      |
+-------------|------
+description  | Check command to be executed.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+command: http-perf --url https://sensu.io --warning 1s --critical 2s
+{{< /code >}}
+{{< code json >}}
+{
+  "command": "http-perf --url https://sensu.io --warning 1s --critical 2s"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1002,13 +1123,13 @@ example      | {{< language-toggle >}}
 {{< code yml >}}
 handlers:
 - pagerduty
-- email
+- slack
 {{< /code >}}
 {{< code json >}}
 {
   "handlers": [
     "pagerduty",
-    "email"
+    "slack"
   ]
 }
 {{< /code >}}
@@ -1076,12 +1197,12 @@ type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
 output_metric_format:
-- graphite_plaintext
+- nagios_perfdata
 {{< /code >}}
 {{< code json >}}
 {
   "output_metric_format": [
-    "graphite_plaintext"
+    "nagios_perfdata"
   ]
 }
 {{< /code >}}
@@ -1120,10 +1241,8 @@ example      | {{< language-toggle >}}
 output_metric_tags:
 - name: instance
   value: "{{ .name }}"
-- name: prometheus_type
-  value: gauge
-- name: service
-  value: "{{ .labels.service }}"
+- name: region
+  value: "{{ .labels.region }}"
 {{< /code >}}
 {{< code json >}}
 {
@@ -1133,12 +1252,90 @@ output_metric_tags:
       "value": "{{ .name }}"
     },
     {
-      "name": "prometheus_type",
-      "value": "gauge"
+      "name": "region",
+      "value": "{{ .labels.region }}"
+    }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="output-metric-thresholds"></a>
+
+|output_metric_thresholds |   |
+-------------|------
+description  | Array of metric names and threshold values to compare to check output metrics for [metric threshold evaluation][79].{{% notice note %}}
+**NOTE**: To apply metric threshold evaluation, check definitions must include the [`output_metric_format`](#output-metric-format) attribute with a value that specifies one of Sensu's [supported output metric formats](../metrics/#supported-output-metric-formats).
+{{% /notice %}}
+required     | false
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+output_metric_thresholds:
+- name: system_mem_used
+  tags: ''
+  null_status: 0
+  thresholds:
+  - max: '75.0'
+    min: ''
+    status: 1
+  - max: '90.0'
+    min: ''
+    status: 2
+- name: system_host_processes
+  tags:
+  - name: namespace
+    value: production
+  null_status: 0
+  thresholds:
+  - max: '50'
+    min: '5'
+    status: 1
+  - max: '75'
+    min: '2'
+    status: 2
+{{< /code >}}
+{{< code json >}}
+{
+  "output_metric_thresholds": [
+    {
+      "name": "system_mem_used",
+      "tags": null,
+      "null_status": 0,
+      "thresholds": [
+        {
+          "max": "75.0",
+          "min": "",
+          "status": 1
+        },
+        {
+          "max": "90.0",
+          "min": "",
+          "status": 2
+        }
+      ]
     },
     {
-      "name": "service",
-      "value": "{{ .labels.service }}"
+      "name": "system_host_processes",
+      "tags": [
+        {
+          "name": "namespace",
+          "value": "production"
+        }
+      ],
+      "null_status": 0,
+      "thresholds": [
+        {
+          "max": "50",
+          "min": "5",
+          "status": 1
+        },
+        {
+          "max": "75",
+          "min": "2",
+          "status": 2
+        }
+      ]
     }
   ]
 }
@@ -1206,7 +1403,6 @@ proxy_requests:
   - entity.labels.proxy_type == 'website'
   splay: true
   splay_coverage: 90
-
 {{< /code >}}
 {{< code json >}}
 {
@@ -1232,11 +1428,11 @@ type         | Boolean
 default      | `false`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-publish: false
+publish: true
 {{< /code >}}
 {{< code json >}}
 {
-  "publish": false
+  "publish": true
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1268,12 +1464,12 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 runtime_assets:
-- metric-check
+- http-checks
 {{< /code >}}
 {{< code json >}}
 {
   "runtime_assets": [
-    "metric-check"
+    "http-checks"
   ]
 }
 {{< /code >}}
@@ -1299,27 +1495,21 @@ scheduler: postgres
 
 secrets        | 
 ---------------|------
-description    | Array of the name/secret pairs to use with command execution.
+description    | Array of the [name/secret pairs][80] to use with command execution.
 required       | false
 type           | Array
 example        | {{< language-toggle >}}
 {{< code yml >}}
 secrets:
-- name: ANSIBLE_HOST
-  secret: sensu-ansible-host
-- name: ANSIBLE_TOKEN
-  secret: sensu-ansible-token
+- name: PAGERDUTY_TOKEN
+  secret: sensu-pagerduty-token
 {{< /code >}}
 {{< code json >}}
 {
   "secrets": [
     {
-      "name": "ANSIBLE_HOST",
-      "secret": "sensu-ansible-host"
-    },
-    {
-      "name": "ANSIBLE_TOKEN",
-      "secret": "sensu-ansible-token"
+      "name": "PAGERDUTY_TOKEN",
+      "secret": "sensu-pagerduty-token"
     }
   ]
 }
@@ -1435,12 +1625,12 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 subscriptions:
-- production
+- system
 {{< /code >}}
 {{< code json >}}
 {
   "subscriptions": [
-    "production"
+    "system"
   ]
 }
 {{< /code >}}
@@ -1478,119 +1668,6 @@ ttl: 100
 {{< code json >}}
 {
   "ttl": 100
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-#### Pipelines attributes
-
-type         | 
--------------|------
-description  | The [`sensuctl create`][41] resource type for the [pipeline][69]. Pipelines should always be type `Pipeline`.
-required     | true
-type         | String
-default      | `null`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: Pipeline
-{{< /code >}}
-{{< code json >}}
-{
- "type": "Pipeline"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-api_version  | 
--------------|------
-description  | The Sensu API group and version for the [pipeline][69]. For pipelines in this version of Sensu, the api_version should always be `core/v2`.
-required     | true
-type         | String
-default      | `null`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-api_version: core/v2
-{{< /code >}}
-{{< code json >}}
-{
-  "api_version": "core/v2"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-name         | 
--------------|------
-description  | Name of the Sensu [pipeline][69] for the check to use.
-required     | true
-type         | String
-default      | `null`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-name: is_incident
-{{< /code >}}
-{{< code json >}}
-{
-  "name": "is_incident"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-#### Proxy requests attributes
-
-|entity_attributes| |
--------------|------
-description  | Sensu entity attributes to match entities in the registry using [Sensu query expressions][11].
-required     | false
-type         | Array
-example      | {{< language-toggle >}}
-{{< code yml >}}
-entity_attributes:
-- entity.entity_class == 'proxy'
-- entity.labels.proxy_type == 'website'
-{{< /code >}}
-{{< code json >}}
-{
-  "entity_attributes": [
-    "entity.entity_class == 'proxy'",
-    "entity.labels.proxy_type == 'website'"
-  ]
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-<a id="splay"></a>
-
-|splay       |      |
--------------|------
-description  | `true` if proxy check requests should be splayed, published evenly over a window of time, determined by the check interval and a configurable [`splay_coverage`][73] percentage. Otherwise, `false`.
-required     | false
-type         | Boolean
-default      | `false`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-splay: true
-{{< /code >}}
-{{< code json >}}
-{
-  "splay": true
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-<a id="splay-coverage"></a>
-
-|splay_coverage  | |
--------------|------
-description  | **Percentage** of the check interval over which Sensu can execute the check for all applicable entities, as defined in the entity attributes. Sensu uses the splay_coverage attribute to determine the period of time to publish check requests over, before the next check interval begins.<br><br>For example, if a check's interval is 60 seconds and `splay_coverage` is 90, Sensu will distribute its proxy check requests evenly over a time window of 54 seconds (60 seconds * 90%). This leaves 6 seconds after the last proxy check execution before the the next round of proxy check requests for the same check.
-required     | `true` if [`splay`][72] attribute is set to `true` (otherwise, `false`)
-type         | Integer
-example      | {{< language-toggle >}}
-{{< code yml >}}
-splay_coverage: 90
-{{< /code >}}
-{{< code json >}}
-{
-  "splay_coverage": 90
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1663,6 +1740,214 @@ value: {{ .name }}
 {{< /code >}}
 {{< /language-toggle >}}
 
+#### `output_metric_thresholds` attributes
+
+name         | 
+-------------|------
+description  | Name of the metric to use for [metric threshold evaluation][79]. Must match the [event.metrics.points[].name][81] value for a metric point in the check results.{{% notice note %}}
+**NOTE**: To produce values for the output metrics you specify, the check definition must include a valid [`output_metric_format`](#output-metric-format).
+{{% /notice %}}
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: system_host_processes
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "system_host_processes"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+null_status  | 
+-------------|------
+description  | Event [check status][77] to use if a metric specified for [metric threshold evaluation][79] is missing from the event data.{{% notice note %}}
+**NOTE**: Sensu only overrides the event check status if it is less than the specified `null_status` value.
+{{% /notice %}}
+required     | false
+type         | Integer
+default      | `0`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+null_status: 0
+{{< /code >}}
+{{< code json >}}
+{
+  "null_status": 0
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+tags         | 
+-------------|------
+description  | Tags of the metric to use for [metric threshold evaluation][79]. If provided, must match the [event.metrics.points[].tags][81] name and value for a metric point in the check results. Read [tags attributes][76] for more information.
+required     | false
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+tags:
+- name: namespace
+  value: production
+{{< /code >}}
+{{< code json >}}
+{
+  "tags": [
+    {
+      "name": "namespace",
+      "value": "production"
+    }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+thresholds   | 
+-------------|------
+description  | Rules to apply for [metric threshold evaluation][79]. Read [thresholds attributes][75] for more information.
+required     | true
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+thresholds:
+- max: '50'
+  min: '5'
+  status: 1
+- max: '75'
+  min: '2'
+  status: 2
+{{< /code >}}
+{{< code json >}}
+{
+  "thresholds": [
+    {
+      "max": "50",
+      "min": "5",
+      "status": 1
+    },
+    {
+      "max": "75",
+      "min": "2",
+      "status": 2
+    }
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+#### Pipelines attributes
+
+api_version  | 
+-------------|------
+description  | The Sensu API group and version for the [pipeline][69]. For pipelines in this version of Sensu, the api_version should always be `core/v2`.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "core/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+name         | 
+-------------|------
+description  | Name of the Sensu [pipeline][69] for the check to use.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: incident_alerts
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "incident_alerts"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+type         | 
+-------------|------
+description  | The [`sensuctl create`][41] resource type for the [pipeline][69]. Pipelines should always be type `Pipeline`.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Pipeline
+{{< /code >}}
+{{< code json >}}
+{
+ "type": "Pipeline"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+#### Proxy requests attributes
+
+|entity_attributes| |
+-------------|------
+description  | Sensu entity attributes to match entities in the registry using [Sensu query expressions][11].
+required     | false
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+entity_attributes:
+- entity.entity_class == 'proxy'
+- entity.labels.proxy_type == 'website'
+{{< /code >}}
+{{< code json >}}
+{
+  "entity_attributes": [
+    "entity.entity_class == 'proxy'",
+    "entity.labels.proxy_type == 'website'"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="splay"></a>
+
+|splay       |      |
+-------------|------
+description  | `true` if proxy check requests should be splayed, published evenly over a window of time, determined by the check interval and a configurable [`splay_coverage`][73] percentage. Otherwise, `false`.
+required     | false
+type         | Boolean
+default      | `false`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+splay: true
+{{< /code >}}
+{{< code json >}}
+{
+  "splay": true
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="splay-coverage"></a>
+
+|splay_coverage  | |
+-------------|------
+description  | **Percentage** of the check interval over which Sensu can execute the check for all applicable entities, as defined in the entity attributes. Sensu uses the splay_coverage attribute to determine the period of time to publish check requests over, before the next check interval begins.<br><br>For example, if a check's interval is 60 seconds and `splay_coverage` is 90, Sensu will distribute its proxy check requests evenly over a time window of 54 seconds (60 seconds * 90%). This leaves 6 seconds after the last proxy check execution before the the next round of proxy check requests for the same check.
+required     | `true` if [`splay`][72] attribute is set to `true` (otherwise, `false`)
+type         | Integer
+example      | {{< language-toggle >}}
+{{< code yml >}}
+splay_coverage: 90
+{{< /code >}}
+{{< code json >}}
+{
+  "splay_coverage": 90
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 #### `secrets` attributes
 
 name         | 
@@ -1693,6 +1978,96 @@ secret: sensu-ansible-host
 {{< code json >}}
 {
   "secret": "sensu-ansible-host"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+#### Tags attributes
+
+name         | 
+-------------|------
+description  | Tag name for the metric to use for [metric threshold evaluation][79]. If provided, must match the [event.metrics.points[].tags.name][81] value for a metric point in the check results.{{% notice note %}}
+**NOTE**: If provided, you must also provide the value for the same metric point tag.
+{{% /notice %}}
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: namespace
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "namespace"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+value        | 
+-------------|------
+description  | Tag value of the metric to use for [metric threshold evaluation][79]. If provided, must match the [event.metrics.points[].tags.value][81] value for a metric point in the check results.{{% notice note %}}
+**NOTE**: If provided, you must also provide the name for the same metric point tag.
+{{% /notice %}}
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+value: production
+{{< /code >}}
+{{< code json >}}
+{
+  "value": "production"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+#### Thresholds attributes
+
+max          | 
+-------------|------
+description  | Maximum threshold for the metric for [metric threshold evaluation][79]. You must provide a thresholds `max` value if you do not provide a `min` value.
+required     | false (if a thresholds `min` value is provided)
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+max: '75'
+{{< /code >}}
+{{< code json >}}
+{
+  "max": "75"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+min          | 
+-------------|------
+description  | Minimum threshold for the metric for [metric threshold evaluation][79]. You must provide a thresholds `min` value if you do not provide a `max` value.
+required     | false (if a thresholds `max` value is provided)
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+min: '2'
+{{< /code >}}
+{{< code json >}}
+{
+  "min": "2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+status       | 
+-------------|------
+description  | Event [check status][77] to use if the check's output metric value is equal to or greater than the specified `max` threshold or equal to or less than the specified `min` threshold in [metric threshold evaluation][79].{{% notice note %}}
+**NOTE**: Sensu only overrides the event check status if it is less than the specified threshold `status` value.
+{{% /notice %}} You can specify any status value, but [event annotations based on threshold status][78] will display `unknown` if the status does not equal `0`, `1`, or `2`.
+required     | true
+type         | Integer
+example      | {{< language-toggle >}}
+{{< code yml >}}
+status: 2
+{{< /code >}}
+{{< code json >}}
+{
+  "status": 2
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1776,14 +2151,37 @@ spec:
   high_flap_threshold: 0
   interval: 10
   low_flap_threshold: 0
-  output_metric_format: nagios_perfdata
+  output_metric_format: prometheus_text
   output_metric_tags:
   - name: instance
     value: '{{ .name }}'
-  - name: prometheus_type
-    value: gauge
+  - name: namespace
+    value: '{{ .namespace }}'
   - name: service
     value: '{{ .labels.service }}'
+  output_metric_thresholds:
+    - name: system_mem_used
+      tags: null
+      null_status: 1
+      thresholds:
+      - max: "75.0"
+        min: ""
+        status: 1
+      - max: "90.0"
+        min: ""
+        status: 2
+    - name: system_host_processes
+      tags:
+      - name: namespace
+        value: production
+      null_status: 1
+      thresholds:
+      - max: "50"
+        min: "5"
+        status: 1
+      - max: "75"
+        min: "2"
+        status: 2
   pipelines:
   - type: Pipeline
     api_version: core/v2
@@ -1821,19 +2219,60 @@ spec:
     "high_flap_threshold": 0,
     "interval": 10,
     "low_flap_threshold": 0,
-    "output_metric_format": "nagios_perfdata",
+    "output_metric_format": "prometheus_text",
     "output_metric_tags": [
       {
         "name": "instance",
         "value": "{{ .name }}"
       },
       {
-        "name": "prometheus_type",
-        "value": "gauge"
+        "name": "namespace",
+        "value": "{{ .namespace }}"
       },
       {
         "name": "service",
         "value": "{{ .labels.service }}"
+      }
+    ],
+    "output_metric_thresholds": [
+      {
+        "name": "system_mem_used",
+        "tags": null,
+        "null_status": 1,
+        "thresholds": [
+          {
+            "max": "75.0",
+            "min": "",
+            "status": 1
+          },
+          {
+            "max": "90.0",
+            "min": "",
+            "status": 2
+          }
+        ]
+      },
+      {
+        "name": "system_host_processes",
+        "tags": [
+          {
+            "name": "namespace",
+            "value": "production"
+          }
+        ],
+        "null_status": 1,
+        "thresholds": [
+          {
+            "max": "50",
+            "min": "5",
+            "status": 1
+          },
+          {
+            "max": "75",
+            "min": "2",
+            "status": 2
+          }
+        ]
       }
     ],
     "pipelines": [
@@ -1991,7 +2430,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [31]: #ttl-attribute
 [32]: #proxy-entity-name-attribute
 [33]: #proxy-checks
-[34]: ../../../api/core/checks#checkscheckexecute-post
+[34]: ../../../api/core/checks/#checkscheckexecute-post
 [35]: #use-a-proxy-check-to-monitor-a-proxy-entity
 [36]: #use-a-proxy-check-to-monitor-multiple-proxy-entities
 [37]: #proxy-requests-top-level
@@ -2032,6 +2471,13 @@ The dynamic runtime asset reference includes an [example check definition that u
 [72]: #splay
 [73]: #splay-coverage
 [74]: #proxy-requests-top-level
+[75]: #thresholds-attributes
+[76]: #tags-attributes
+[77]: ../../observe-events/events/#check-status-attribute
+[78]: ../metrics/#add-event-annotations-based-on-metric-threshold-evaluation
+[79]: ../metrics/#metric-threshold-evaluation
+[80]: #secrets-attributes
+[81]: ../../observe-events/events/#points-attributes
 [82]: #check-subdues-attribute
 [83]: #subdues-attributes
 [84]: https://www.ietf.org/rfc/rfc3339.txt

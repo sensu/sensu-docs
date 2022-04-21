@@ -2,7 +2,7 @@
 title: "Search in the web UI"
 linkTitle: "Search in the Web UI"
 description: "Search and filter in the Sensu web UI and build customized views of your events, entities, silences, checks, handlers, filters, and mutators pages."
-weight: 30
+weight: 35
 version: "6.3"
 product: "Sensu Go"
 platformContent: false
@@ -12,7 +12,7 @@ menu:
 ---
 
 {{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access the web UI in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access the web UI, basic and advanced web UI searching, and saved searches in the packaged Sensu Go distribution.
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
@@ -71,11 +71,6 @@ If you are using the [basic web UI search functions][5], you can create a search
 
 ## Create advanced searches
 
-{{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access advanced web UI searches in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../../commercial/).
-{{% /notice %}}
-
 Sensu supports advanced web UI searches using a wider range of attributes, including custom labels.
 You can use the same methods, fields, and examples for web UI searches as for [API response filtering][3], with some [syntax differences][4].
 
@@ -83,13 +78,13 @@ To search resources based on fields and labels, you'll write a brief search stat
 Depending on the [operator][9] you're using, the web UI search syntax is either:
 
 {{< code text >}}
-SEARCH_TERM OPERATOR FIELD
+<SEARCH_TERM> <OPERATOR> <FIELD>
 {{< /code >}}
 
 or
 
 {{< code text >}}
-FIELD OPERATOR SEARCH_TERM
+<FIELD> <OPERATOR> <SEARCH_TERM>
 {{< /code >}}
 
 Fields are specific [resource attributes][2] in dot notation.
@@ -193,11 +188,6 @@ To return events that include a `windows` check subscription and any email handl
 {{< /code >}}
 
 ## Save a search
-
-{{% notice commercial %}}
-**COMMERCIAL FEATURE**: Access saved web UI searches in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../../commercial/).
-{{% /notice %}}
 
 To save a web UI search:
 
