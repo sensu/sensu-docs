@@ -560,6 +560,120 @@ Learn how to use check tokens with the [Sensu tokens reference documentation][5]
 **NOTE**: Check tokens are processed before check execution, so token substitutions will not apply to check data delivered via the local agent socket input.
 {{% /notice %}}
 
+## Subdues
+
+Use the [`subdues` attribute][82] in check definitions to set specific periods of time when Sensu should not execute the check.
+Subdues allow you to schedule alert-free periods of time, such as during sleeping hours, weekends, or special maintenance periods.
+
+You can set more than one subdue at a time.
+Each subdue includes a begin and end time as well as how often to repeat the subdue, if desired.
+
+For example, this check will be subdued (in other words, will not be executed) from 5:00 p.m. until 8:00 a.m. PDT on every weekday, and for the entire day on weekends, as well as every Friday from 10:00 until 11:00 a.m. PDT:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: check_cpu
+spec:
+  command: check-cpu-usage -w 75 -c 90
+  interval: 60
+  handlers:
+  - slack
+  publish: true
+  round_robin: false
+  runtime_assets:
+  - check-cpu-usage
+  subdues:
+  - begin: "2022-04-18T17:00:00-07:00"
+    end: "2022-04-19T08:00:00-07:00"
+    repeat:
+    - weekdays
+  - begin: "2022-04-23T00:00:00-07:00"
+    end: "2022-04-23T23:59:59-07:00"
+    repeat:
+    - weekends
+  - begin: "2022-04-22T10:00:00-07:00"
+    end: "2022-04-22T11:00:00-07:00"
+    repeat:
+    - fridays
+  subscriptions:
+  - system
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check_cpu"
+  },
+  "spec": {
+    "command": "check-cpu-usage -w 75 -c 90",
+    "interval": 60,
+    "handlers": [
+      "slack"
+    ],
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": [
+      "check-cpu-usage"
+    ],
+    "subdues": [
+      {
+        "begin": "2022-04-18T17:00:00-07:00",
+        "end": "2022-04-19T08:00:00-07:00",
+        "repeat": [
+          "weekdays"
+        ]
+      },
+      {
+        "begin": "2022-04-23T00:00:00-07:00",
+        "end": "2022-04-23T23:59:59-07:00",
+        "repeat": [
+          "weekends"
+        ]
+      },
+      {
+        "begin": "2022-04-22T10:00:00-07:00",
+        "end": "2022-04-22T11:00:00-07:00",
+        "repeat": [
+          "fridays"
+        ]
+      }
+    ],
+    "subscriptions": [
+      "system"
+    ]
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Subdues and repeat
+
+If you include a `repeat` array in a `subdues` object, Sensu will start the subdue period on the date you specify.
+After the first subdue period, Sensu uses the `begin` and `end` values only to determine the time of day to start and stop the subdue.
+
+In the above example, on April 19, 2022, Sensu will apply the `weekdays` subdue at 5:00 p.m. PDT and end it on April 20 at 8:00 a.m. PDT.
+On April 20, Sensu will apply the `weekdays` subdue again at 5:00 p.m. PDT and end it on April 21 at 8:00 a.m. PDT, and so on.
+
+This table lists and describes valid values for the `repeat` array:
+
+Value | Description |
+----- | ----------- |
+`mondays` `tuesdays` `wednesdays` `thursdays` `fridays` `saturdays` `sundays` | Subdue on the specified day, at the same time of day
+`weekdays` | Subdue on all Mondays, Tuesdays, Wednesdays, Thursdays, and Fridays, at the same time of day
+`weekends` | Subdue on all Saturdays and Sundays, at the same time of day
+`daily` | Subdue once every day, at the same time of day
+`weekly` | Subdue once per week on the same day, at the same time of day
+`monthly` | Subdue once per month on the same day, at the same time of day
+`annually` | Subdue once per year on the same day, at the same time of day
+
 ## Check hooks
 
 Check hooks are commands run by the Sensu agent in response to the result of check command execution.
@@ -1437,9 +1551,9 @@ stdin: true
 {{< /code >}}
 {{< /language-toggle >}}
 
-|subdue      |      |
+|subdue (placeholder)     |      |
 -------------|------
-description  | check subdues are not implemented in Sensu Go. Although the `subdue` attribute appears in check definitions by default, it is a placeholder and should not be modified.
+description  | Use the [`subdues`][82] attribute to stop check execution during specific periods. This `subdue` attribute appears in check definitions by default, but it is a placeholder and should not be modified.
 example      | {{< language-toggle >}}
 {{< code yml >}}
 subdue: null
@@ -1447,6 +1561,56 @@ subdue: null
 {{< code json >}}
 {
   "subdue": null
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="check-subdues-attribute"></a>
+
+|subdues     |      |
+-------------|------
+description  | Specific periods of time when Sensu should not send alerts based on the events the check produces. Use to schedule alert-free periods of time, such as during sleeping hours, weekends, or special maintenance periods. Read [subdues attributes][83] for more information.
+example      | {{< language-toggle >}}
+{{< code yml >}}
+subdues:
+  - begin: "2022-04-18T17:00:00-07:00"
+    end: "2022-04-19T08:00:00-07:00"
+    repeat:
+    - weekdays
+  - begin: "2022-04-23T00:00:00-07:00"
+    end: "2022-04-23T23:59:59-07:00"
+    repeat:
+    - weekends
+  - begin: "2022-04-22T10:00:00-07:00"
+    end: "2022-04-22T11:00:00-07:00"
+    repeat:
+    - fridays
+{{< /code >}}
+{{< code json >}}
+{
+  "subdues": [
+    {
+      "begin": "2022-04-18T17:00:00-07:00",
+      "end": "2022-04-19T08:00:00-07:00",
+      "repeat": [
+        "weekdays"
+      ]
+    },
+    {
+      "begin": "2022-04-23T00:00:00-07:00",
+      "end": "2022-04-23T23:59:59-07:00",
+      "repeat": [
+        "weekends"
+      ]
+    },
+    {
+      "begin": "2022-04-22T10:00:00-07:00",
+      "end": "2022-04-22T11:00:00-07:00",
+      "repeat": [
+        "fridays"
+      ]
+    }
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1908,6 +2072,60 @@ status: 2
 {{< /code >}}
 {{< /language-toggle >}}
 
+#### `subdues` attributes
+
+begin        | 
+-------------|------
+description  | Date and time at which the subdue should begin. In [RFC 3339][84] format with numeric zone offset (`2022-01-01T07:30:00-07:00` or `2022-01-01T14:30:00Z`). 
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+begin: "2022-04-18T17:00:00-07:00"
+{{< /code >}}
+{{< code json >}}
+{
+  "begin": "2022-04-18T17:00:00-07:00"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+end          | 
+-------------|------
+description  | Date and time at which the subdue should end. In [RFC 3339][84] format with numeric zone offset (`2022-01-01T07:30:00-07:00` or `2022-01-01T14:30:00Z`).
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+end: "2022-04-19T08:00:00-07:00"
+{{< /code >}}
+{{< code json >}}
+{
+  "end": "2022-04-19T08:00:00-07:00"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+repeat       | 
+-------------|------
+description  | Interval at which the subdue should repeat. `weekdays` includes Mondays, Tuesdays, Wednesdays, Thursdays, and Fridays. `weekends` includes Saturdays and Sundays. Read [Subdues and repeat][85] for more information.
+required     | false
+type         | Array
+allowed values | `mondays`, `tuesdays`, `wednesdays`, `thursdays`, `fridays`, `saturdays`, `sundays`, `weekdays`, `weekends`, `daily`, `weekly`, `monthly`, `annually`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+repeat:
+- weekdays
+{{< /code >}}
+{{< code json >}}
+{
+  "repeat": [
+    "weekdays"
+  ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 ## Metric check example
 
 The following example shows the resource definition for a check that collects [metrics][68] in Nagios Performance Data format:
@@ -2260,3 +2478,7 @@ The dynamic runtime asset reference includes an [example check definition that u
 [79]: ../metrics/#metric-threshold-evaluation
 [80]: #secrets-attributes
 [81]: ../../observe-events/events/#points-attributes
+[82]: #check-subdues-attribute
+[83]: #subdues-attributes
+[84]: https://www.ietf.org/rfc/rfc3339.txt
+[85]: #subdues-and-repeat
