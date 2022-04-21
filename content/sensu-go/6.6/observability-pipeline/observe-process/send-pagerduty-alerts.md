@@ -448,8 +448,8 @@ Learn more about the [Sensu PagerDuty integration][14] and our curated, configur
 [11]: ../../../web-ui/
 [12]: ../../../sensuctl/
 [13]: ../../observe-schedule/subscriptions/
-[14]: ../../../plugins/supported-integrations/pagerduty/
-[15]: ../../../plugins/supported-integrations/pagerduty/#get-the-plugin
+[14]: ../../../plugins/featured-integrations/pagerduty/
+[15]: ../../../plugins/featured-integrations/pagerduty/#get-the-plugin
 [16]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler#pagerduty-severity-mapping
 [17]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler#pager-teams
 [18]: ../handler-templates/
