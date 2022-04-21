@@ -35,7 +35,7 @@ Create a Sumo Logic metrics handler to send your Sensu observability data to you
 
 {{% notice note %}}
 **NOTE**: Sumo Logic metrics handlers only accept metrics events.
-To send status events, use the [Sensu Sumo Logic Handler integration](../plugins/supported-integrations/sumologic/) instead.
+To send status events, use the [Sensu Sumo Logic Handler integration](../plugins/featured-integrations/sumologic/) instead.
 {{% /notice %}}
 
 For a Sumo Logic metrics handler, the resource definition must use the URL for your HTTP Logs and Metrics Source as the value for the `url` attribute.
@@ -307,7 +307,7 @@ This check will collect baseline system metrics in Prometheus format for all ent
 
 {{% notice note %}}
 **NOTE**: Sumo Logic metrics handlers only accept metrics events, so you must use a check that produces metrics.
-If your check produces status events, use the [Sensu Sumo Logic Handler integration](../plugins/supported-integrations/sumologic/) to create a traditional Sensu handler rather than the Sumo Logic metrics handler.
+If your check produces status events, use the [Sensu Sumo Logic Handler integration](../plugins/featured-integrations/sumologic/) to create a traditional Sensu handler rather than the Sumo Logic metrics handler.
 {{% /notice %}}
 
 ### View your Sensu data in Sumo Logic
@@ -424,7 +424,7 @@ The Sensu Overview and Sensu Entity Details dashboards will begin to display you
 [8]: ../observability-pipeline/observe-process/pipelines/
 [9]: ../observability-pipeline/observe-schedule/checks/
 [10]: https://service.sumologic.com/ui/#/home
-[11]: ../plugins/supported-integrations/sumologic/
+[11]: ../plugins/featured-integrations/sumologic/
 [12]: ../observability-pipeline/observe-filter/filters/#built-in-filter-has_metrics
 [13]: https://bonsai.sensu.io/assets/sensu/system-check
 [14]: https://www.sumologic.com/blog/introducing-sensu-plus/

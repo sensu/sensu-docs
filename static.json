@@ -63,52 +63,12 @@
             "url": "/sensu-go/latest/plugins",
             "status": 301
         },
-        "~ ^/sensu-go/latest/getting-started/get-started/?$": {
-            "url": "/sensu-go/latest/get-started",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/getting-started/get-started/?$": {
-            "url": "/sensu-go/latest/get-started",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/enterprise/?$": {
-            "url": "/sensu-go/latest/commercial",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/dashboard/overview/?$": {
-            "url": "/sensu-go/latest/web-ui",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.[0-9]/?((?<=\/).*)?/dashboard/overview/?$": {
-            "url": "/sensu-go/latest/commercial",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/dashboard/overview/?$": {
-            "url": "/sensu-go/latest/web-ui",
-            "status": 301
-        },
         "~ ^/sensu-go/latest/guides/securing-sensu/?$": {
             "url": "/sensu-go/latest/operations/deploy-sensu/secure-sensu",
             "status": 301
         },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/guides/securing-sensu/?$": {
             "url": "/sensu-go/latest/operations/deploy-sensu/secure-sensu",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/operations/deploy-sensu/assets/?$": {
-            "url": "/sensu-go/latest/plugins/assets",
-            "status": 301
-        },
-        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/operations/deploy-sensu/assets/?$": {
-            "url": "/sensu-go/latest/plugins/assets",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/operations/deploy-sensu/use-assets-to-install-plugins/?$": {
-            "url": "/sensu-go/latest/plugins/use-assets-to-install-plugins",
-            "status": 301
-        },
-        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/operations/deploy-sensu/use-assets-to-install-plugins/?$": {
-            "url": "/sensu-go/latest/plugins/use-assets-to-install-plugins",
             "status": 301
         },
         "~ ^/sensu-go/latest/guides/troubleshooting/?$": {
@@ -119,88 +79,8 @@
             "url": "/sensu-go/latest/operations/maintain-sensu/troubleshoot",
             "status": 301
         },
-        "~ ^/sensu-go/latest/learn/glossary/?$": {
-            "url": "/sensu-go/latest/learn/concepts-terminology",
-            "status": 301
-        },
-        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/glossary/?$": {
-            "url": "/sensu-go/latest/learn/concepts-terminology",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/?$": {
-            "url": "/sensu-go/latest/learn",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/learn/interactive-tutorials/?$": {
-            "url": "/sensu-go/latest/learn",
-            "status": 301
-        },
-        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/interactive-tutorials/?$": {
-            "url": "/sensu-go/latest/learn",
-            "status": 301
-        },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/learn/learn-in-15/?$": {
-            "url": "/sensu-go/latest/learn/",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/learn/learn-in-15/?$": {
-            "url": "/sensu-go/latest/learn/",
-            "status": 301
-        },
-        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/learn/learn-in-15/?$": {
-            "url": "/sensu-go/latest/learn/",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/reference/checks/?$": {
-            "url": "/sensu-go/latest/observability-pipeline/observe-schedule/checks",
-            "status": 301
-        },
-        "~ ^/sensu-go/6.[0-9]/?((?<=\/).*)?/reference/checks/?$": {
-            "url": "/sensu-go/latest/observability-pipeline/observe-schedule/checks",
-            "status": 301
-        },
         "~ ^/sensu-go/latest/reference/events/?$": {
             "url": "/sensu-go/latest/observability-pipeline/observe-events/events",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/prometheus-metrics/?$": {
-            "url": "/sensu-go/latest/observability-pipeline/observe-schedule/prometheus-metrics",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/operations/control-access/auth/?$": {
-            "url": "/sensu-go/latest/operations/control-access",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/sensuctl/reference/?$": {
-            "url": "/sensu-go/latest/sensuctl",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/sensuctl/quickstart/?$": {
-            "url": "/sensu-go/latest/sensuctl",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/configuring-sensuctl/?$": {
-            "url": "/sensu-go/latest/sensuctl",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/sandbox/?$": {
-            "url": "/sensu-go/latest/learn/",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/learn-sensu/?$": {
-            "url": "/sensu-go/latest/learn",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/tutorial/?$": {
-            "url": "/sensu-go/latest/learn/",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/getting-started/installation-and-configuration/?$": {
-            "url": "/sensu-go/latest/operations/deploy-sensu/install-sensu",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/installation/verify/?$": {
-            "url": "/sensu-go/latest/versions",
             "status": 301
         },
         "~ ^/sensu-go/latest/learn/sandbox/?$": {
@@ -241,22 +121,6 @@
         },
         "~ ^/sensu-go/latest/api/cluster/?$": {
             "url": "/sensu-go/latest/api/core/cluster/$1",
-            "status": 301
-        },
-        "~ ^/sensu-go/6.[3-6]/api/clusterrolebindings/?$": {
-            "url": "/sensu-go/latest/api/core/clusterrolebindings/$1",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/api/clusterrolebindings/?$": {
-            "url": "/sensu-go/latest/api/core/clusterrolebindings/$1",
-            "status": 301
-        },
-        "~ ^/sensu-go/6.[3-6]/api/clusterroles/?$": {
-            "url": "/sensu-go/latest/api/core/clusterroles/$1",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/api/clusterroles/?$": {
-            "url": "/sensu-go/latest/api/core/clusterroles/$1",
             "status": 301
         },
         "~ ^/sensu-go/6.[3-6]/api/entities/?$": {
@@ -323,11 +187,11 @@
             "url": "/sensu-go/latest/api/core/pipelines/$1",
             "status": 301
         },
-        "~ ^/sensu-go/6.[3-6]/api/rolebindings/?$": {
+        "~ ^/sensu-go/6.[3-6]/api/role-bindings/?$": {
             "url": "/sensu-go/latest/api/core/rolebindings/$1",
             "status": 301
         },
-        "~ ^/sensu-go/latest/api/rolebindings/?$": {
+        "~ ^/sensu-go/latest/api/role-bindings/?$": {
             "url": "/sensu-go/latest/api/core/rolebindings/$1",
             "status": 301
         },
@@ -481,6 +345,14 @@
         },
         "~ ^/sensu-go/latest/plugins/supported-integrations/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/plugins/featured-integrations/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/guides/install-check-executables-with-assets/?((?<=\/).*)?$": {
+            "url": "/sensu-go/latest/plugins/use-assets-to-install-plugins/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/reference/assets/?((?<=\/).*)?$": {
+            "url": "/sensu-go/latest/plugins/assets/$1",
             "status": 301
         }
     }

@@ -22,8 +22,9 @@ For more information, read [Get started with commercial features](../commercial/
 
 ## Commercial features in Sensu Go
 
-- **Integrate your Sensu observability pipeline with industry-standard tools** like EC2, Jira, ServiceNow, and Sumo Logic with [supported integrations][24] and [enterprise-tier dynamic runtime assets][11].
+- **Integrate your Sensu observability pipeline with industry-standard tools** like EC2, Jira, ServiceNow, and Sumo Logic with [featured integrations][24] and [enterprise-tier dynamic runtime assets][11].
 Use the built-in [Sensu Plus][30] integration to transmit your observability data to Sumo Logic via the [HTTP Logs and Metrics Source][29].
+- **Find, configure, and install integrations directly in your browser** with the [Sensu Catalog][34], our online marketplace for monitoring and observability integrations.
 - **Manage resources from your browser**: Use the Sensu [web UI][8] to manage events and entities and create, edit, and delete checks, handlers, mutators, silences, and event filters, with a single pane of glass view.
 Create customized [global default settings][26] for page size and theme, [page-specific settings][27] for page size, order, and selector, and [sign-in messages][28].
 - **Control access with single sign-on (SSO) authentication** using [Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect 1.0 protocol (OIDC)][9].
@@ -123,7 +124,7 @@ These resources will help you use commercial features in Sensu Go:
 [21]: ../operations/deploy-sensu/secure-sensu/#optional-configure-sensu-agent-mtls-authentication
 [22]: ../operations/manage-secrets/secrets-management/
 [23]: ../observability-pipeline/observe-schedule/business-service-monitoring/
-[24]: ../plugins/supported-integrations/
+[24]: ../plugins/featured-integrations/
 [25]: #commercial-features-in-sensu-go
 [26]: ../web-ui/webconfig-reference/#default-preferences-attributes
 [27]: ../web-ui/webconfig-reference/#page-preferences-attributes
@@ -133,3 +134,4 @@ These resources will help you use commercial features in Sensu Go:
 [31]: ../observability-pipeline/observe-process/sumo-logic-metrics-handlers/
 [32]: ../observability-pipeline/observe-process/tcp-stream-handlers/
 [33]: ../web-ui/webconfig/
+[34]: ../web-ui/sensu-catalog/

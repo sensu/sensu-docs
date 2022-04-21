@@ -1484,7 +1484,48 @@ To view metrics points data as shown in the following example, create a [pipelin
     "is_silenced": false,
     "scheduler": "memory",
     "processed_by": "sensu-centos",
-    "pipelines": []
+    "pipelines": [],
+    "output_metric_thresholds": [
+      {
+        "name": "system_mem_used",
+        "tags": null,
+        "null_status": 1,
+        "thresholds": [
+          {
+            "min": "",
+            "max": "75.0",
+            "status": 1
+          },
+          {
+            "min": "",
+            "max": "90.0",
+            "status": 2
+          }
+        ]
+      },
+      {
+        "name": "system_host_processes",
+        "tags": [
+          {
+            "name": "namespace",
+            "value": "production"
+          }
+        ],
+        "null_status": 1,
+        "thresholds": [
+          {
+            "min": "5",
+            "max": "50",
+            "status": 1
+          },
+          {
+            "min": "2",
+            "max": "75",
+            "status": 2
+          }
+        ]
+      }
+    ]
   }
 }
 {{< /code >}}
@@ -3068,6 +3109,8 @@ state: passing
 {{< /code >}}
 {{< /language-toggle >}}
 
+<a id="check-status-attribute"></a>
+
 status       |      |
 -------------|------
 description  | Exit status code produced by the check.<ul><li>`0` indicates OK</li><li>`1` indicates WARNING</li><li>`2` indicates CRITICAL</li></ul>Exit status codes other than `0`, `1`, or `2` indicate an UNKNOWN or custom status..<br><br>For agent-executed checks, Sensu automatically populates the `status` value based on the check result. For events created with the [core/v2/events API][35], Sensu assumes the status is `0` (OK) unless you specify a non-zero value in the request body.
@@ -3322,7 +3365,7 @@ value: 0.005
 [38]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
 [39]: #flap-detection-algorithm
 [40]: ../../observe-filter/filters/#check-attributes-available-to-filters
-[41]: ../../../plugins/supported-integrations/#time-series-and-long-term-event-storage
+[41]: ../../../plugins/featured-integrations/#time-series-and-long-term-event-storage
 [42]: ../../observe-schedule/checks/#proxy-checks
 [43]: ../../observe-schedule/agent/#create-observability-events-using-the-agent-api
 [44]: ../../observe-process/pipelines/

@@ -25,7 +25,7 @@ An entity provides the context for observation data in events &mdash; what and w
 The check and entity names associated with an event determine the event's uniqueness.
 Entities can also contain system information like the hostname, operating system, platform, and version.
 
-There are three types of Sensu entities: agent, proxy, and service entities.
+There are four types of Sensu entities: agent, proxy, service, and backend entities.
 
 ## Agent entities
 
@@ -213,6 +213,119 @@ spec:
   },
   "spec": {
     "entity_class": "service"
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+## Backend entities
+
+A backend entity represents a Sensu backend.
+Sensu automatically creates a backend entity for each backend when it is started and populates the entity with the backend's system information.
+Users cannot manually create backend entities.
+
+Backends use their own entities to generate events due to error conditions like unavailable components and services.
+
+This example shows a backend entity resource definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+---
+type: Entity
+api_version: core/v2
+metadata:
+  name: 6b6264feda40
+  namespace: sensu-system
+spec:
+  deregister: false
+  deregistration: {}
+  entity_class: backend
+  last_seen: 0
+  sensu_agent_version: ''
+  subscriptions: null
+  system:
+    arch: amd64
+    cloud_provider: ''
+    hostname: 6b6264feda40
+    libc_type: glibc
+    network:
+      interfaces:
+        - addresses:
+            - 127.0.0.1/8
+          name: lo
+        - addresses: null
+          name: tunl0
+        - addresses: null
+          name: ip6tnl0
+        - addresses:
+            - 172.18.0.4/16
+          mac: 02:42:ac:12:00:04
+          name: eth0
+    os: linux
+    platform: redhat
+    platform_family: rhel
+    platform_version: '7.9'
+    processes: null
+    vm_role: guest
+    vm_system: ''
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "6b6264feda40",
+    "namespace": "sensu-system"
+  },
+  "spec": {
+    "deregister": false,
+    "deregistration": {
+    },
+    "entity_class": "backend",
+    "last_seen": 0,
+    "sensu_agent_version": "",
+    "subscriptions": null,
+    "system": {
+      "arch": "amd64",
+      "cloud_provider": "",
+      "hostname": "6b6264feda40",
+      "libc_type": "glibc",
+      "network": {
+        "interfaces": [
+          {
+            "addresses": [
+              "127.0.0.1/8"
+            ],
+            "name": "lo"
+          },
+          {
+            "addresses": null,
+            "name": "tunl0"
+          },
+          {
+            "addresses": null,
+            "name": "ip6tnl0"
+          },
+          {
+            "addresses": [
+              "172.18.0.4/16"
+            ],
+            "mac": "02:42:ac:12:00:04",
+            "name": "eth0"
+          }
+        ]
+      },
+      "os": "linux",
+      "platform": "redhat",
+      "platform_family": "rhel",
+      "platform_version": "7.9",
+      "processes": null,
+      "vm_role": "guest",
+      "vm_system": ""
+    }
   }
 }
 {{< /code >}}
