@@ -60,6 +60,17 @@ For information about creating and managing checks, see:
 - [Collect metrics with checks][4]
 - [Checks reference documentation][5]
 
+## Startup and backend entities
+
+When a backend starts up, Sensu automatically checks for a [`sensu-system` namespace][68] (and creates the namespace if it doesn't exist).
+Then, Sensu checks the `sensu-system` namespace for an existing entity named after the backend's local hostname.
+
+- If there is no corresponding entity, Sensu creates a new entity with `entity_class: backend` and populates the entity's system information.
+- If there is a corresponding entity, Sensu does nothing further to the existing entity.
+
+Once the backend entity is created, the backend uses its own entity to report cluster state errors.
+Read [backend entities][69] in the entities reference for more information and an example backend entity definition.
+
 ## Initialization
 
 For a **new** installation, the backend database must be initialized by providing a username and password for the user to be granted administrative privileges.
@@ -320,7 +331,7 @@ If you do not provide any configuration flags, the backend loads configuration f
 To start the backend using a service manager:
 
 {{< code shell >}}
-sudo systemctl sensu-backend start
+sudo systemctl start sensu-backend
 {{< /code >}}
 
 ### Stop the service
@@ -328,7 +339,7 @@ sudo systemctl sensu-backend start
 To stop the backend service using a service manager:
 
 {{< code shell >}}
-sudo systemctl sensu-backend stop
+sudo systemctl stop sensu-backend
 {{< /code >}}
 
 ### Restart the service
@@ -338,7 +349,7 @@ You must restart the backend to implement any configuration updates.
 To restart the backend using a service manager:
 
 {{< code shell >}}
-sudo systemctl sensu-backend restart
+sudo systemctl restart sensu-backend
 {{< /code >}}
 
 ### Enable on boot
@@ -364,7 +375,7 @@ sudo systemctl disable sensu-backend
 To view the status of the backend service using a service manager:
 
 {{< code shell >}}
-sudo systemctl sensu-backend status
+sudo systemctl status sensu-backend
 {{< /code >}}
 
 ### Get service version
@@ -405,7 +416,7 @@ To configure a cluster, see:
 ### Synchronize time
 
 System clocks between agents and the backend should be synchronized to a central NTP server.
-If system time is out-of-sync, it may cause issues with keepalive, metric, and check alerts.
+If system time is out of sync, it may cause issues with keepalive, metric, and check alerts.
 
 ## Configuration via flags
 
@@ -1901,3 +1912,5 @@ platform-metrics-logging-interval: 60s{{< /code >}}
 [65]: #event-logging
 [66]: #platform-metrics-logging
 [67]: #agent-rate-limit
+[68]: ../../../operations/control-access/namespaces/#default-namespaces
+[69]: ../../observe-entities/entities/#backend-entities

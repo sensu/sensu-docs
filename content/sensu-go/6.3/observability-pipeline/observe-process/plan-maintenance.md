@@ -180,7 +180,7 @@ sensuctl silenced create \
 
 {{% notice note %}}
 **NOTE**: Sensuctl supports several [time formats](../../../sensuctl/create-manage-resources/#time-formats) for the `begin` flag.
-This example uses RFC3339 with space delimiters and numeric zone offset.
+This example uses [RFC 3339 format][20] with space delimiters and numeric zone offset.
 {{% /notice %}}
 
 Use sensuctl to verify that the silenced entry against the entity `sensu-site` was created properly:
@@ -288,3 +288,4 @@ Read the [silencing reference][7] for in-depth documentation about silenced entr
 [17]: ../send-email-alerts/
 [18]: ../send-pagerduty-alerts/
 [19]: ../send-slack-alerts/
+[20]: https://www.ietf.org/rfc/rfc3339.txt

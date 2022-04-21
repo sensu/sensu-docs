@@ -1139,7 +1139,7 @@ The event specification describes [metrics attributes in events][5].
 [15]: https://docs.influxdata.com/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/
 [16]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [17]: https://prometheus.io/docs/instrumenting/exposition_formats/#text-based-format
-[18]: ../../../plugins/supported-integrations/#time-series-and-long-term-event-storage
+[18]: ../../../plugins/featured-integrations/#time-series-and-long-term-event-storage
 [19]: ../checks/#output-metric-format
 [20]: ../../observe-events/events/#example-status-and-metrics-event
 [21]: ../checks/#output_metric_tags-attributes

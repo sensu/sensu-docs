@@ -18,7 +18,7 @@ menu:
 For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
-Sensu's [enterprise/federation/v1 API endpoints][1] allow you to register external clusters, gain visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI, and mirror your changes in one cluster to follower clusters.
+Sensu's [enterprise/federation/v1 API endpoints][1] allow you to register external clusters, gain single-pane-of-glass visibility into the health of your infrastructure and services across multiple distinct Sensu instances within the web UI, and mirror your changes in one cluster to follower clusters.
 This is useful when you want to provide a single entry point for Sensu users who need to manage monitoring across multiple distinct physical data centers, cloud regions, or providers.
 
 {{< figure src="/images/federation-switcher-clusters.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/federation-switcher-clusters.gif" target="_blank" >}}
@@ -67,7 +67,7 @@ In addition to the certificate's [Common Name (CN)][15], [Subject Alternative Na
 {{% notice note %}}
 **NOTE**: Sensu Go 6.4.0 upgraded the Go version from 1.13.15 to 1.16.5.
 As of [Go 1.15](https://golang.google.cn/doc/go1.15#commonname), certificates must include their CN as an SAN field.
-To prevent connection errors after upgrading to Sensu Go 6.4.0, follow [Generate certificates](../generate-certificates/) to make sure your certificates' SAN fields include their CNs.
+To prevent connection errors after upgrading to Sensu Go 6.4.0 or later versions, follow [Generate certificates](../generate-certificates/) to make sure your certificates' SAN fields include their CNs.
 {{% /notice %}}
 
 To continue with this guide, make sure you have the required TLS credentials in place:
@@ -81,8 +81,8 @@ This prerequisite extends to configuring the following Sensu backend etcd parame
 
 | Backend property             | Description |
 |------------------------------|-------------|
-| `etcd-cert-file`             | Path to certificate used for TLS on etcd client/peer communications (for example, `/etc/sensu/tls/backend-1.pem`.  |
-| `etcd-key-file`              | Path to key corresponding with `etcd-cert-file` certificate (for example, `/etc/sensu/tls/backend-1-key.pem`. |
+| `etcd-cert-file`             | Path to certificate used for TLS on etcd client/peer communications (for example, `/etc/sensu/tls/backend-1.example.com.pem`.  |
+| `etcd-key-file`              | Path to key corresponding with `etcd-cert-file` certificate (for example, `/etc/sensu/tls/backend-1-key.example.com.pem`. |
 | `etcd-trusted-ca-file`       | Path to CA certificate chain file (for example, `/etc/sensu/tls/ca.pem`. This CA certificate chain must be usable to validate certificates for all backends in the federation. |
 | `etcd-client-cert-auth`      | Enforces certificate validation to authenticate etcd replicator connections. Set to `true` to secure etcd communication. |
 | `etcd-advertise-client-urls` | List of https URLs to advertise for etcd replicators, accessible by other backends in the federation (for example, `https://sensu.beta.example.com:2379`). |
@@ -128,7 +128,7 @@ jwt-public-key-file: /etc/sensu/certs/jwt_public.pem
 
 5. Restart the Sensu backend so that your settings take effect:
 {{< code shell >}}
-sensu-backend start
+sudo systemctl restart sensu-backend
 {{< /code >}}
 
 ## Add a user and a cluster role binding

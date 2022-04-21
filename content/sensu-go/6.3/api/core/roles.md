@@ -345,7 +345,7 @@ curl -X PATCH \
     }
   ]
 }' \
-http://127.0.0.1:8080/api/core/v2/roles/event-reader
+http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/event-reader
 
 HTTP/1.1 200 OK
 {{< /code >}}
@@ -355,7 +355,7 @@ HTTP/1.1 200 OK
 /roles/:role (PATCH) | 
 ----------------|------
 description     | Updates the specified Sensu role.
-example URL     | http://hostname:8080/api/core/v2/roles/event-reader
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/roles/event-reader
 payload         | {{< code shell >}}
 {
   "rules": [

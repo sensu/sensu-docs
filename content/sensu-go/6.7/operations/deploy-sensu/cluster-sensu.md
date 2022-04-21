@@ -73,50 +73,50 @@ If you do not properly configure secure etcd communication, your Sensu configura
 {{% /notice %}}
 
 The examples in this section are configuration snippets from `/etc/sensu/backend.yml` using a three-node cluster.
-The nodes are named `backend-1`, `backend-2` and `backend-3` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3`, respectively.
+The nodes are named `backend-1.example.com`, `backend-2.example.com` and `backend-3.example.com` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3`, respectively.
 
 {{% notice note %}}
 **NOTE**: This backend configuration assumes you have set up and installed the sensu-backend on all the nodes used in your cluster.
 Follow the [Install Sensu](../install-sensu/) guide if you have not already done this.
 {{% /notice %}}
 
-**Store configuration for backend-1/10.0.0.1**
+**Store configuration for backend-1.example.com/10.0.0.1**
 
 {{< code yml >}}
 etcd-advertise-client-urls: "http://10.0.0.1:2379"
 etcd-listen-client-urls: "http://10.0.0.1:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
-etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
+etcd-initial-cluster: "backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380"
 etcd-initial-advertise-peer-urls: "http://10.0.0.1:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: "unique_token_for_this_cluster"
-etcd-name: "backend-1"
+etcd-name: "backend-1.example.com"
 {{< /code >}}
 
-**Store configuration for backend-2/10.0.0.2**
+**Store configuration for backend-2.example.com/10.0.0.2**
 
 {{< code yml >}}
 etcd-advertise-client-urls: "http://10.0.0.2:2379"
 etcd-listen-client-urls: "http://10.0.0.2:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
-etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
+etcd-initial-cluster: "backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380"
 etcd-initial-advertise-peer-urls: "http://10.0.0.2:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: "unique_token_for_this_cluster"
-etcd-name: "backend-2"
+etcd-name: "backend-2.example.com"
 {{< /code >}}
 
-**Store configuration for backend-3/10.0.0.3**
+**Store configuration for backend-3.example.com/10.0.0.3**
 
 {{< code yml >}}
 etcd-advertise-client-urls: "http://10.0.0.3:2379"
 etcd-listen-client-urls: "http://10.0.0.3:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
-etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
+etcd-initial-cluster: "backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380"
 etcd-initial-advertise-peer-urls: "http://10.0.0.3:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: "unique_token_for_this_cluster"
-etcd-name: "backend-3"
+etcd-name: "backend-3.example.com"
 {{< /code >}}
 
 {{% notice warning %}}
@@ -164,11 +164,11 @@ sensuctl cluster health
 The cluster health response will list the health status for each cluster member, similar to this example:
 
 {{< code shell >}}
-       ID            Name                          Error                           Healthy  
-────────────────── ─────────── ─────────────────────────────────────────────────── ─────────
-a32e8f613b529ad4   backend-1                                                        true
-c3d9f4b8d0dd1ac9   backend-2  dial tcp 10.0.0.2:2379: connect: connection refused   false
-c8f63ae435a5e6bf   backend-3                                                        true
+       ID            Name                                      Error                           Healthy  
+────────────────── ────────────────────── ─────────────────────────────────────────────────── ─────────
+a32e8f613b529ad4   backend-1.example.com                                                        true
+c3d9f4b8d0dd1ac9   backend-2.example.com  dial tcp 10.0.0.2:2379: connect: connection refused   false
+c8f63ae435a5e6bf   backend-3.example.com                                                        true
 {{< /code >}}
 
 ### Add a cluster member
@@ -176,17 +176,17 @@ c8f63ae435a5e6bf   backend-3                                                    
 To add a new member node to an existing cluster:
 
 1. Configure the new node's store in its `/etc/sensu/backend.yml` configuration file.
-For the new node `backend-4` with IP address `10.0.0.4`:
+For the new node `backend-4.example.com` with IP address `10.0.0.4`:
 
    {{< code yml >}}
 etcd-advertise-client-urls: "http://10.0.0.4:2379"
 etcd-listen-client-urls: "http://10.0.0.4:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
-etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380,backend-4=http://10.0.0.4:2380"
+etcd-initial-cluster: "backend-1.example.com=http://10.0.0.1:2380,backend-2.example.com=http://10.0.0.2:2380,backend-3.example.com=http://10.0.0.3:2380,backend-4.example.com=http://10.0.0.4:2380"
 etcd-initial-advertise-peer-urls: "http://10.0.0.4:2380"
 etcd-initial-cluster-state: "existing"
 etcd-initial-cluster-token: "unique_token_for_this_cluster"
-etcd-name: "backend-4"
+etcd-name: "backend-4.example.com"
 {{< /code >}}
 
    {{% notice note %}}
@@ -198,7 +198,7 @@ Also, when you are adding a cluster member, make sure the `etcd-initial-cluster-
 2. Run the sensuctl command to add the new cluster member:
 
    {{< code shell >}}
-sensuctl cluster member-add backend-4 http://10.0.0.4:2380
+sensuctl cluster member-add backend-4.example.com http://10.0.0.4:2380
 {{< /code >}}
 
    You will receive a sensuctl response to confirm that the new member was added:
@@ -234,12 +234,12 @@ sensuctl cluster member-list
 You will receive a sensuctl response that lists all cluster members:
 
 {{< code shell >}}
-       ID            Name             Peer URLs                Client URLs
-────────────────── ─────────── ───────────────────────── ─────────────────────────
-a32e8f613b529ad4   backend-1    http://10.0.0.1:2380      http://10.0.0.1:2379  
-c3d9f4b8d0dd1ac9   backend-2    http://10.0.0.2:2380      http://10.0.0.2:2379
-c8f63ae435a5e6bf   backend-3    http://10.0.0.3:2380      http://10.0.0.3:2379
-2f7ae42c315f8c2d   backend-4    http://10.0.0.4:2380      http://10.0.0.4:2379
+       ID            Name                        Peer URLs                Client URLs
+────────────────── ─────────────────────── ───────────────────────── ─────────────────────────
+a32e8f613b529ad4   backend-1.example.com    http://10.0.0.1:2380      http://10.0.0.1:2379  
+c3d9f4b8d0dd1ac9   backend-2.example.com    http://10.0.0.2:2380      http://10.0.0.2:2379
+c8f63ae435a5e6bf   backend-3.example.com    http://10.0.0.3:2380      http://10.0.0.3:2379
+2f7ae42c315f8c2d   backend-4.example.com    http://10.0.0.4:2380      http://10.0.0.4:2379
 {{< /code >}}
 
 ### Remove a cluster member
@@ -268,12 +268,12 @@ sensuctl cluster health
     In the response, for a faulty cluster member, the Error column will include an error message and the Healthy column will list `false`.
     In this example, the response indicates that cluster member `backend-4` is faulty:
 {{< code shell >}}
-       ID            Name                          Error                           Healthy  
-────────────────── ─────────── ─────────────────────────────────────────────────── ─────────
-a32e8f613b529ad4   backend-1                                                        true
-c3d9f4b8d0dd1ac9   backend-2                                                        true
-c8f63ae435a5e6bf   backend-3                                                        true
-2f7ae42c315f8c2d   backend-4  dial tcp 10.0.0.4:2379: connect: connection refused   false
+       ID            Name                                       Error                           Healthy  
+────────────────── ─────────────────────── ─────────────────────────────────────────────────── ─────────
+a32e8f613b529ad4   backend-1.example.com                                                        true
+c3d9f4b8d0dd1ac9   backend-2.example.com                                                        true
+c8f63ae435a5e6bf   backend-3.example.com                                                        true
+2f7ae42c315f8c2d   backend-4.example.com  dial tcp 10.0.0.4:2379: connect: connection refused   false
 
 {{< /code >}}
 
@@ -373,24 +373,24 @@ See the [etcd operators documentation][12] for details.
 ### Start etcd
 
 In this example, you will enable client-to-server and peer communication authentication [using self-signed TLS certificates][13].
-To start etcd for `backend-1` based on the [three-node configuration example][19]:
+To start etcd for `backend-1.example.com` based on the [three-node configuration example][19]:
 
 {{< code shell >}}
 etcd \
 --listen-client-urls "https://10.0.0.1:2379" \
 --advertise-client-urls "https://10.0.0.1:2379" \
 --listen-peer-urls "https://10.0.0.1:2380" \
---initial-cluster "backend-1=https://10.0.0.1:2380,backend-2=https://10.0.0.2:2380,backend-3=https://10.0.0.3:2380" \
+--initial-cluster "backend-1.example.com=https://10.0.0.1:2380,backend-2.example.com=https://10.0.0.2:2380,backend-3.example.com=https://10.0.0.3:2380" \
 --initial-advertise-peer-urls "https://10.0.0.1:2380" \
 --initial-cluster-state "new" \
---name "backend-1" \
+--name "backend-1.example.com" \
 --trusted-ca-file=./ca.pem \
---cert-file=./backend-1.pem \
---key-file=./backend-1-key.pem \
+--cert-file=./backend-1.example.com.pem \
+--key-file=./backend-1.example.com-key.pem \
 --client-cert-auth \
 --peer-trusted-ca-file=./ca.pem \
---peer-cert-file=./backend-1.pem \
---peer-key-file=./backend-1-key.pem \
+--peer-cert-file=./backend-1.example.com.pem \
+--peer-key-file=./backend-1.example.com-key.pem \
 --peer-client-cert-auth \
 --auto-compaction-mode revision \
 --auto-compaction-retention 2
@@ -405,8 +405,8 @@ Tell Sensu to use this external etcd data source by adding the `sensu-backend` f
 {{< code shell >}}
 sensu-backend start \
 --etcd-trusted-ca-file=./ca.pem \
---etcd-cert-file=./backend-1.pem \
---etcd-key-file=./backend-1-key.pem \
+--etcd-cert-file=./backend-1.example.com.pem \
+--etcd-key-file=./backend-1.example.com-key.pem \
 --etcd-client-urls='https://10.0.0.1:2379 https://10.0.0.2:2379 https://10.0.0.3:2379' \
 --no-embed-etcd
 {{< /code >}}

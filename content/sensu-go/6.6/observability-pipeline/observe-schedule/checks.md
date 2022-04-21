@@ -595,25 +595,31 @@ type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 metadata:
-  name: collect-metrics
-  namespace: default
+  name: sensu-site-perf
+  namespace: development
   created_by: admin
   labels:
     region: us-west-1
+    environment: dev
   annotations:
     slack-channel: "#monitoring"
+    managed-by: ops
+    playbooks: www.playbooks-example.url
 {{< /code >}}
 {{< code json >}}
 {
   "metadata": {
-    "name": "collect-metrics",
-    "namespace": "default",
+    "name": "sensu-site-perf",
+    "namespace": "development",
     "created_by": "admin",
     "labels": {
-      "region": "us-west-1"
+      "region": "us-west-1",
+      "environment": "dev"
     },
     "annotations": {
-      "slack-channel": "#monitoring"
+      "slack-channel": "#monitoring",
+      "managed-by": "ops",
+      "playbooks": "www.playbooks-example.url"
     }
   }
 }
@@ -628,24 +634,81 @@ type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 spec:
-  command: "/etc/sensu/plugins/check-chef-client.go"
-  interval: 10
-  publish: true
-  subscriptions:
-  - production
+  check_hooks:
+  - '1':
+    - playbook-warning
+    - collect-diagnostics
+  - critical:
+    - playbook-critical
+    - collect-diagnostics
+    - process-tree
+  command: http-perf --url https://sensu.io --warning 1s --critical 2s
+  env_vars: null
+  handlers: null
+  high_flap_threshold: 0
+  interval: 60
+  low_flap_threshold: 0
+  output_metric_format: "nagios_perfdata"
+  output_metric_handlers: null
+  output_metric_tags:
+  - name: instance
+    value: "{{ .name }}"
+  - name: region
+    value: "{{ .labels.region }}"
   pipelines:
   - type: Pipeline
     api_version: core/v2
     name: incident_alerts
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets:
+  - http-checks
+  secrets:
+  - name: PAGERDUTY_TOKEN
+    secret: sensu-pagerduty-token
+  stdin: false
+  subdue: null
+  subscriptions:
+  - system
+  timeout: 30
+  ttl: 0
 {{< /code >}}
 {{< code json >}}
 {
   "spec": {
-    "command": "/etc/sensu/plugins/check-chef-client.go",
-    "interval": 10,
-    "publish": true,
-    "subscriptions": [
-      "production"
+    "check_hooks": [
+      {
+        "1": [
+          "playbook-warning",
+          "collect-diagnostics"
+        ]
+      },
+      {
+        "critical": [
+          "playbook-critical",
+          "collect-diagnostics",
+          "process-tree"
+        ]
+      }
+    ],
+    "command": "http-perf --url https://sensu.io --warning 1s --critical 2s",
+    "env_vars": null,
+    "handlers": null,
+    "high_flap_threshold": 0,
+    "interval": 60,
+    "low_flap_threshold": 0,
+    "output_metric_format": "nagios_perfdata",
+    "output_metric_handlers": null,
+    "output_metric_tags": [
+      {
+        "name": "instance",
+        "value": "{{ .name }}"
+      },
+      {
+        "name": "region",
+        "value": "{{ .labels.region }}"
+      }
     ],
     "pipelines": [
       {
@@ -653,7 +716,26 @@ spec:
         "api_version": "core/v2",
         "name": "incident_alerts"
       }
-    ]
+    ],
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": [
+      "http-checks"
+    ],
+    "secrets": [
+      {
+        "name": "PAGERDUTY_TOKEN",
+        "secret": "sensu-pagerduty-token"
+      }
+    ],
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "system"
+    ],
+    "timeout": 30,
+    "ttl": 0
   }
 }
 {{< /code >}}
@@ -679,21 +761,23 @@ type: CheckConfig
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with observation data in events that you can access with [event filters][27]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][54], [sensuctl response filtering][55], or [web UI views][61].
+description  | Non-identifying metadata to include with observation event data that you can access with [event filters][27]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][54], [sensuctl response filtering][55], or [web UI views][61].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 annotations:
+  slack-channel: "#monitoring"
   managed-by: ops
-  playbook: www.example.url
+  playbooks: www.playbooks-example.url
 {{< /code >}}
 {{< code json >}}
 {
   "annotations": {
+    "slack-channel": "#monitoring",
     "managed-by": "ops",
-    "playbook": "www.example.url"
+    "playbooks": "www.playbooks-example.url"
   }
 }
 {{< /code >}}
@@ -717,21 +801,21 @@ created_by: admin
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with observation data in events that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][54], [sensuctl responses][55], and [web UI views][58] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with observation event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][54], [sensuctl responses][55], and [web UI views][58] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
 labels:
-  environment: development
-  region: us-west-2
+  region: us-west-1
+  environment: dev
 {{< /code >}}
 {{< code json >}}
 {
   "labels": {
-    "environment": "development",
-    "region": "us-west-2"
+    "region": "us-west-1",
+    "environment": "dev"
   }
 }
 {{< /code >}}
@@ -744,11 +828,11 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: check-cpu
+name: sensu-site-perf
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "check-cpu"
+  "name": "sensu-site-perf"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -761,11 +845,11 @@ type         | String
 default      | `default`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-namespace: production
+namespace: development
 {{< /code >}}
 {{< code json >}}
 {
-  "namespace": "production"
+  "namespace": "development"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -777,22 +861,6 @@ namespace: production
 When doing so, the spec attributes are listed as individual [top-level attributes](#top-level-attributes) in the check definition instead.
 {{% /notice %}}
 
-|command     |      |
--------------|------
-description  | Check command to be executed.
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-command: /etc/sensu/plugins/check-chef-client.go
-{{< /code >}}
-{{< code json >}}
-{
-  "command": "/etc/sensu/plugins/check-chef-client.go"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 <a id="check-hooks-attribute"></a>
 
 |check_hooks |      |
@@ -803,31 +871,47 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 check_hooks:
-- '0':
-  - passing-hook
-  - always-run-this-hook
-- critical:
-  - failing-hook
+- '1':
+  - playbook-warning
   - collect-diagnostics
-  - always-run-this-hook
+- critical:
+  - playbook-critical
+  - collect-diagnostics
+  - process-tree
 {{< /code >}}
 {{< code json >}}
 {
   "check_hooks": [
     {
-      "0": [
-        "passing-hook",
-        "always-run-this-hook"
+      "1": [
+        "playbook-warning",
+        "collect-diagnostics"
       ]
     },
     {
       "critical": [
-        "failing-hook",
+        "playbook-critical",
         "collect-diagnostics",
-        "always-run-this-hook"
+        "process-tree"
       ]
     }
   ]
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+|command     |      |
+-------------|------
+description  | Check command to be executed.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+command: http-perf --url https://sensu.io --warning 1s --critical 2s
+{{< /code >}}
+{{< code json >}}
+{
+  "command": "http-perf --url https://sensu.io --warning 1s --critical 2s"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -888,13 +972,13 @@ example      | {{< language-toggle >}}
 {{< code yml >}}
 handlers:
 - pagerduty
-- email
+- slack
 {{< /code >}}
 {{< code json >}}
 {
   "handlers": [
     "pagerduty",
-    "email"
+    "slack"
   ]
 }
 {{< /code >}}
@@ -962,12 +1046,12 @@ type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
 output_metric_format:
-- graphite_plaintext
+- nagios_perfdata
 {{< /code >}}
 {{< code json >}}
 {
   "output_metric_format": [
-    "graphite_plaintext"
+    "nagios_perfdata"
   ]
 }
 {{< /code >}}
@@ -1006,10 +1090,8 @@ example      | {{< language-toggle >}}
 output_metric_tags:
 - name: instance
   value: "{{ .name }}"
-- name: prometheus_type
-  value: gauge
-- name: service
-  value: "{{ .labels.service }}"
+- name: region
+  value: "{{ .labels.region }}"
 {{< /code >}}
 {{< code json >}}
 {
@@ -1019,12 +1101,8 @@ output_metric_tags:
       "value": "{{ .name }}"
     },
     {
-      "name": "prometheus_type",
-      "value": "gauge"
-    },
-    {
-      "name": "service",
-      "value": "{{ .labels.service }}"
+      "name": "region",
+      "value": "{{ .labels.region }}"
     }
   ]
 }
@@ -1092,7 +1170,6 @@ proxy_requests:
   - entity.labels.proxy_type == 'website'
   splay: true
   splay_coverage: 90
-
 {{< /code >}}
 {{< code json >}}
 {
@@ -1118,11 +1195,11 @@ type         | Boolean
 default      | `false`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-publish: false
+publish: true
 {{< /code >}}
 {{< code json >}}
 {
-  "publish": false
+  "publish": true
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1154,12 +1231,12 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 runtime_assets:
-- metric-check
+- http-checks
 {{< /code >}}
 {{< code json >}}
 {
   "runtime_assets": [
-    "metric-check"
+    "http-checks"
   ]
 }
 {{< /code >}}
@@ -1191,21 +1268,15 @@ type           | Array
 example        | {{< language-toggle >}}
 {{< code yml >}}
 secrets:
-- name: ANSIBLE_HOST
-  secret: sensu-ansible-host
-- name: ANSIBLE_TOKEN
-  secret: sensu-ansible-token
+- name: PAGERDUTY_TOKEN
+  secret: sensu-pagerduty-token
 {{< /code >}}
 {{< code json >}}
 {
   "secrets": [
     {
-      "name": "ANSIBLE_HOST",
-      "secret": "sensu-ansible-host"
-    },
-    {
-      "name": "ANSIBLE_TOKEN",
-      "secret": "sensu-ansible-token"
+      "name": "PAGERDUTY_TOKEN",
+      "secret": "sensu-pagerduty-token"
     }
   ]
 }
@@ -1249,7 +1320,7 @@ stdin: true
 
 |subdue      |      |
 -------------|------
-description  | Check subdues are not yet implemented in Sensu Go. Although the `subdue` attribute appears in check definitions by default, it is a placeholder and should not be modified.
+description  | check subdues are not implemented in Sensu Go. Although the `subdue` attribute appears in check definitions by default, it is a placeholder and should not be modified.
 example      | {{< language-toggle >}}
 {{< code yml >}}
 subdue: null
@@ -1271,12 +1342,12 @@ type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
 subscriptions:
-- production
+- system
 {{< /code >}}
 {{< code json >}}
 {
   "subscriptions": [
-    "production"
+    "system"
   ]
 }
 {{< /code >}}
@@ -1320,23 +1391,6 @@ ttl: 100
 
 #### Pipelines attributes
 
-type         | 
--------------|------
-description  | The [`sensuctl create`][41] resource type for the [pipeline][69]. Pipelines should always be type `Pipeline`.
-required     | true
-type         | String
-default      | `null`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: Pipeline
-{{< /code >}}
-{{< code json >}}
-{
- "type": "Pipeline"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 api_version  | 
 -------------|------
 description  | The Sensu API group and version for the [pipeline][69]. For pipelines in this version of Sensu, the api_version should always be `core/v2`.
@@ -1362,11 +1416,28 @@ type         | String
 default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: is_incident
+name: incident_alerts
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "is_incident"
+  "name": "incident_alerts"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+type         | 
+-------------|------
+description  | The [`sensuctl create`][41] resource type for the [pipeline][69]. Pipelines should always be type `Pipeline`.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Pipeline
+{{< /code >}}
+{{< code json >}}
+{
+ "type": "Pipeline"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1433,22 +1504,6 @@ splay_coverage: 90
 
 #### Check output truncation attributes
 
-|max_output_size  | |
--------------|-------
-description  | Maximum size of stored check outputs. In bytes. When set to a non-zero value, the Sensu backend truncates check outputs larger than this value before storing to etcd. `max_output_size` does not affect data sent to Sensu filters, mutators, and handlers.
-required     | false
-type         | Integer
-example      | {{< language-toggle >}}
-{{< code yml >}}
-max_output_size: 1024
-{{< /code >}}
-{{< code json >}}
-{
-  "max_output_size": 1024
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 |discard_output  | |
 -------------|------
 description  | If `true`, discard check output after extracting metrics. No check output will be sent to the Sensu backend. Otherwise, `false`.
@@ -1461,6 +1516,22 @@ discard_output: true
 {{< code json >}}
 {
   "discard_output": true
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+|max_output_size  | |
+-------------|-------
+description  | Maximum size of stored check outputs. In bytes. When set to a non-zero value, the Sensu backend truncates check outputs larger than this value before storing to etcd. `max_output_size` does not affect data sent to Sensu filters, mutators, and handlers.
+required     | false
+type         | Integer
+example      | {{< language-toggle >}}
+{{< code yml >}}
+max_output_size: 1024
+{{< /code >}}
+{{< code json >}}
+{
+  "max_output_size": 1024
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1508,11 +1579,11 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: ANSIBLE_HOST
+name: PAGERDUTY_TOKEN
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "ANSIBLE_HOST"
+  "name": "PAGERDUTY_TOKEN"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1524,11 +1595,11 @@ required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-secret: sensu-ansible-host
+secret: sensu-pagerduty-token
 {{< /code >}}
 {{< code json >}}
 {
-  "secret": "sensu-ansible-host"
+  "secret": "sensu-pagerduty-token"
 }
 {{< /code >}}
 {{< /language-toggle >}}
