@@ -28,7 +28,7 @@ The [Sensu Email Handler plugin][4] supports the login authentication mechanisms
 
 For a turnkey experience with the Sensu Email Handler plugin, use our curated, configurable [quick-start template][8] to integrate Sensu with your existing workflows and send email alerts.
 
-To build your own workflow or integrate Sensu with existing workflows, add the [Sensu Email Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing email workflows.
+To build your own workflow or integrate Sensu with existing workflows, add the [Sensu Email Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 ## More resources
