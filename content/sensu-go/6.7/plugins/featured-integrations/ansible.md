@@ -32,7 +32,7 @@ The [Sensu Ansible Handler plugin][4] supports both Ansible Tower and Ansible AW
 
 ## Get the plugin
 
-For a turnkey experience with the Sensu Ansible Handler plugin, use the Sensu web UI [Catalog][10] to configure and install it.
+For a turnkey experience with the Sensu Ansible Handler plugin, use the [Sensu Catalog][10] in the web UI to configure and install it.
 Or, use our curated, configurable [quick-start template][3] to integrate Sensu with your existing Ansible Tower workflows.
 
 You can also add the [Sensu Ansible Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing Ansible workflows.

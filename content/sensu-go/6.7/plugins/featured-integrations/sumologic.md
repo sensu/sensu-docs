@@ -12,9 +12,9 @@ menu:
 The [Sensu Sumo Logic Handler plugin][4] is a Sensu [handler][1] that sends Sensu observability events and metrics to a Sumo Logic [HTTP Logs and Metrics Source][9].
 This handler sends Sensu events as log entries, a set of metrics, or both, depending on the mode of operation you specify.
 
-{{% notice note %}}
-**NOTE**: The Sensu Sumo Logic Handler plugin is an example of Sensu's time-series and long-term event storage integrations.
-To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
+{{% notice protip %}}
+**PRO TIP**: Use the [Sensu Catalog](../../../web-ui/sensu-catalog/) to enable this integration directly from your browser.
+Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
 {{% /notice %}}
 
 ## Features
@@ -26,9 +26,10 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 
 ## Get the plugin
 
-For a turnkey experience with the Sensu Sumo Logic Handler plugin, use our curated, configurable quick-start templates for [event storage][6] and [metric storage][8] to integrate Sensu with your existing workflows and send observation data to an HTTP Logs and Metrics Source.
+For a turnkey experience with the Sensu Sumo Logic Handler plugin, use the [Sensu Catalog][10] in the web UI to configure and install it.
+Or, use our curated, configurable quick-start templates for [event storage][6] and [metric storage][8] to integrate Sensu with your existing workflows and send observation data to an HTTP Logs and Metrics Source.
 
-To build your own workflow or integrate Sensu with existing workflows, add the [Sensu Sumo Logic Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing Sumo Logic workflows.
+To build your own workflow or integrate Sensu with existing workflows, add the [Sensu Sumo Logic Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 ## More resources
@@ -45,3 +46,4 @@ Read [Send data to Sumo Logic with Sensu][3] to learn how to add and configure a
 [7]: ../../../operations/manage-secrets/
 [8]: https://github.com/sensu/catalog/blob/docs-archive/integrations/sumologic/sumologic-metrics-handler.yaml
 [9]: https://help.sumologic.com/03Send-Data/Sources/02Sources-for-Hosted-Collectors/HTTP-Source
+[10]: ../../../web-ui/sensu-catalog/

@@ -118,7 +118,7 @@ The detail page includes tabs for **README**, **CHANGELOG**, **SENSU RESOURCES**
 The **README** tab contains detailed information about the integration, including an overview, supported dashboards, setup instructions, the plugins the integration requires, the metrics and alerts the integration generates, and links to reference information.
 The **README** also describes any additional configuration needed to use the integration, like subscriptions to add to agent entities or secrets to create for sensitive information.
 
-The **CHANGELOG** tab lists the notable changes, improvements, and fixes for all versions of the integration. 
+The **CHANGELOG** tab lists the notable changes, improvements, and fixes for each version of the integration. 
 
 The **SENSU RESOURCES** tab contains usable examples of all of the resource definitions you need to use the integration, including the plugin [asset][4], [secrets][5], [checks][2], [handlers][3], and [pipelines][6].
 Click the `yaml` or `json` buttons to select the format for each definition.
@@ -162,6 +162,18 @@ Click the dropdown arrows to review the resource definitions:
 {{< figure src="/images/catalog_integration_summary_definitions.gif" alt="Summary page of configuration wizard for a Sensu Catalog integration" link="/images/catalog_integration_summary_definitions.gif" target="_blank" >}}
 
 The resulting resource definitions represent Sensu's recommended configuration for the integration.
+
+### Integration versions
+
+When you click the **INSTALL** button, Sensu automatically installs the newest version of the integration.
+
+If an integration has multiple versions, you can click the dropdown arrow next to the **INSTALL** button to select them.
+
+If you previously installed the integration, the first version number listed represents the integration's current file on disk.
+The version number for your current file will start with `9999`.
+
+After the number for your current file on disk, other versions of the integration are listed from oldest to newest.
+Select a version number to review version-specific information like the README and changelog.
 
 ## Use secrets in integrations
 
