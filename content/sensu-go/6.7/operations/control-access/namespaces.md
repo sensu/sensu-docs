@@ -64,6 +64,12 @@ To organize resources, use labels rather than multiple namespaces.
 Every [Sensu backend][1] includes a `default` namespace.
 All resources created without a specified namespace are created within the `default` namespace.
 
+At startup, Sensu also creates the `sensu-system` namespace to contain [backend entities][12].
+The `sensu-system` namespace and backend entities facilitate backend error reporting and make Sensu deployments more observable by enabling backend-generated status and metrics events.
+
+Only cluster admins have access to the `sensu-system` namespace.
+If you have cluster admin permissions, you can use [sensuctl][2] and the [web UI][3] to access backend entities like other entities.
+
 ## Manage namespaces
 
 You can use [sensuctl][2] to view, create, and delete namespaces.
@@ -271,3 +277,4 @@ name: production
 [9]: ../../deploy-sensu/install-sensu/#install-sensuctl
 [10]: ../../../sensuctl/create-manage-resources/#create-resources
 [11]: #spec-attributes
+[12]: ../../../observability-pipeline/observe-entities/entities/#backend-entities

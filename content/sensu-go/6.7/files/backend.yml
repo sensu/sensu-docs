@@ -101,7 +101,7 @@ log-level: "debug" #available log levels: panic, fatal, error, warn, info, debug
 #etcd-peer-trusted-ca-file: "./ca.pem"
 #etcd-trusted-ca-file: "./ca.pem"
 #no-embed-etcd: false
-#etcd-election-timeout: 1000
-#etcd-heartbeat-interval: 100
+#etcd-election-timeout: 3000
+#etcd-heartbeat-interval: 300
 #etcd-max-request-bytes: 1572864
 #etcd-quota-backend-bytes: 4294967296
