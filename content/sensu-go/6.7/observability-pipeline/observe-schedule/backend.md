@@ -513,8 +513,8 @@ Store Flags:
       --etcd-client-urls string                   client URLs to use when operating as an etcd client
       --etcd-discovery string                     discovery URL used to bootstrap the cluster
       --etcd-discovery-srv string                 DNS SRV record used to bootstrap the cluster
-      --etcd-election-timeout uint                time in ms a follower node will go without hearing a heartbeat before attempting to become leader itself (default 1000)
-      --etcd-heartbeat-interval uint              interval in ms with which the etcd leader will notify followers that it is still the leader (default 100)
+      --etcd-election-timeout uint                time in ms a follower node will go without hearing a heartbeat before attempting to become leader itself (default 3000)
+      --etcd-heartbeat-interval uint              interval in ms with which the etcd leader will notify followers that it is still the leader (default 300)
       --etcd-initial-advertise-peer-urls strings  list of this member's peer URLs to advertise to the rest of the cluster (default [http://127.0.0.1:2380])
       --etcd-initial-cluster string               initial cluster configuration for bootstrapping
       --etcd-initial-cluster-state string         initial cluster state ("new" or "existing") (default "new")
@@ -1385,12 +1385,12 @@ description            | Time that a follower node will go without hearing a hea
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                   | Integer
-default                | `1000`
+default                | `3000`
 environment variable   | `SENSU_BACKEND_ETCD_ELECTION_TIMEOUT`
 command line example   | {{< code shell >}}
-sensu-backend start --etcd-election-timeout 1000{{< /code >}}
+sensu-backend start --etcd-election-timeout 3000{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-etcd-election-timeout: 1000{{< /code >}}
+etcd-election-timeout: 3000{{< /code >}}
 
 <a id="etcd-heartbeat-interval"></a>
 
@@ -1402,12 +1402,12 @@ description            | Interval at which the etcd leader will notify followers
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                   | Integer
-default                | `100`
+default                | `300`
 environment variable   | `SENSU_BACKEND_ETCD_HEARTBEAT_INTERVAL`
 command line example   | {{< code shell >}}
-sensu-backend start --etcd-heartbeat-interval 100{{< /code >}}
+sensu-backend start --etcd-heartbeat-interval 300{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-etcd-heartbeat-interval: 100{{< /code >}}
+etcd-heartbeat-interval: 300{{< /code >}}
 
 | etcd-max-request-bytes |      |
 -----------------------|------
