@@ -61,8 +61,6 @@ Three categories describe the integration class:
 - **Supported**: Integrations that Sensu developed. Supported integrations may be [commercial features][7] that require a valid Sensu [license][8].
 - **Community**: Integrations contributed by members of the Sensu community. Community integrations are free and open-source.
 
-The **Sensu Plus** category includes our [Sensu Plus][12]-enabled integrations, which provide turnkey analytics via Sumo Logic applications and dashboards.
-
 The rest of the categories are based on the integration's function, like cloud monitoring or automated remediation.
 
 ### Browse a metadata-based list
@@ -113,7 +111,7 @@ In the Sensu Catalog, integrations are represented by tiles.
 When you click an integration tile, the integration's detail page opens.
 The detail page includes tabs for **README**, **CHANGELOG**, **SENSU RESOURCES**, and **RAW**.
 
-{{< figure src="/images/catalog_integration_info_tabs.png" alt="Location of README, CHANGELOG, SENSU RESOURCES, and RAW tabs for an integration in the Sensu Catalog" link="/images/catalog_integration_info_tabs.png" target="_blank" >}}
+{{< figure src="/images/catalog_integration_info_tabs.png" alt="Location of README, CHANGELOG, and SENSU RESOURCES tabs for an integration in the Sensu Catalog" link="/images/catalog_integration_info_tabs.png" target="_blank" >}}
 
 The **README** tab contains detailed information about the integration, including an overview, supported dashboards, setup instructions, the plugins the integration requires, the metrics and alerts the integration generates, and links to reference information.
 The **README** also describes any additional configuration needed to use the integration, like subscriptions to add to agent entities or secrets to create for sensitive information.
@@ -127,10 +125,6 @@ Click the `yaml` or `json` buttons to select the format for each definition.
 **NOTE**: The SENSU RESOURCES tab lists example resource definitions that you must configure and install.
 Use the **INSTALL** button to [configure and install the integration](#configure-and-install-an-integration) directly from your browser or copy the example definitions to configure and create with [sensuctl](../../sensuctl/create-manage-resources/) or the Sensu [API](../../api/).
 {{% /notice %}}
-
-The **RAW** tab contains the resource definition for the integration itself.
-The raw resource definition allows you to customize the integration if needed.
-Click the `yaml` or `json` buttons to select the format for the integration definition.
 
 ## Configure and install an integration
 
@@ -163,18 +157,6 @@ Click the dropdown arrows to review the resource definitions:
 
 The resulting resource definitions represent Sensu's recommended configuration for the integration.
 
-### Integration versions
-
-When you click the **INSTALL** button, Sensu automatically installs the newest version of the integration.
-
-If an integration has multiple versions, you can click the dropdown arrow next to the **INSTALL** button to select them.
-
-If you previously installed the integration, the first version number listed represents the integration's current file on disk.
-The version number for your current file will start with `9999`.
-
-After the number for your current file on disk, other versions of the integration are listed from oldest to newest.
-Select a version number to review version-specific information like the README and changelog.
-
 ## Use secrets in integrations
 
 The Sensu Catalog integrations are preconfigured to use Sensu's `Env` secrets provider for sensitive information the integrations might require, like passwords and API tokens.
@@ -186,10 +168,10 @@ You can reuse the same integration as long as all resource definitions have uniq
 When you install an integration, Sensu checks your existing resources before creating new resources.
 If Sensu finds an existing resource with the same name, the configuration wizard will prompt you to either change the names of the existing resources or acknowledge that the new resources should overwrite the existing resources.
 
-If you want to keep the existing resources, use the [Sensu API][11] to change their names with PUT requests.
+If you want to keep the existing resources, use the [Sensu API][11] to change their names with PUT requests before you continue and create the new resources.
 Otherwise, click **OVERWRITE** to replace the existing resources with the new resources.
 
-{{< figure src="/images/rename_overwrite_prompt.gif" alt="Summary page of configuration wizard for a Sensu Catalog integration" link="/images/rename_overwrite_prompt.gif" target="_blank" >}}
+{{< figure src="/images/rename_overwrite_prompt.gif" alt="Summary page of configuration wizard with overwrite warning for a duplicate Sensu Catalog integration" link="/images/rename_overwrite_prompt.gif" target="_blank" >}}
 
 ## View and manage your integrations
 
@@ -220,7 +202,6 @@ For contributing guidelines and more information, visit the [Sensu Catalog GitHu
 [9]: ../view-manage-resources/
 [10]: ../../sensuctl/create-manage-resources/
 [11]: ../../api/
-[12]: ../../sensu-plus/
 [13]: #get-information-about-an-integration
 [14]: #configure-and-install-an-integration
 [15]: ../../operations/monitoring-as-code/
