@@ -12,9 +12,9 @@ menu:
 The [Sensu InfluxDB Handler plugin][4] is a Sensu [handler][1] that sends Sensu metrics to the time-series database InfluxDB so you can store, instrument, and visualize Sensu metrics data.
 You can also use the Sensu InfluxDB Handler integration to create metrics from Sensu status check results for long-term storage in InfluxDB.
 
-{{% notice note %}}
-**NOTE**: The Sensu InfluxDB Handler plugin is an example of Sensu's time-series and long-term event storage integrations.
-To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
+{{% notice protip %}}
+**PRO TIP**: Use the [Sensu Catalog](../../../web-ui/sensu-catalog/) to enable this integration directly from your browser.
+Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
 {{% /notice %}}
 
 ## Features
@@ -26,7 +26,8 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 
 ## Get the plugin
 
-For a turnkey experience with the Sensu InfluxDB Handler plugin, use our curated, configurable [quick-start template][3] to integrate Sensu with your existing workflows and store Sensu metrics in InfluxDB.
+For a turnkey experience with the Sensu InfluxDB Handler plugin, use the [Sensu Catalog][10] in the web UI to configure and install it.
+Or, use our curated, configurable [quick-start template][3] to integrate Sensu with your existing workflows and store Sensu metrics in InfluxDB.
 
 To build your own workflow or integrate Sensu with existing workflows, add the [Sensu InfluxDB Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
@@ -39,3 +40,4 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 [5]: ../../assets/
 [6]: ../../../operations/manage-secrets/
 [7]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags
+[10]: ../../../web-ui/sensu-catalog/

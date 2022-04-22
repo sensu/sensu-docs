@@ -28,13 +28,14 @@ You can define a single custom web UI configuration to federate to all, some, or
 
 In this web UI configuration example:
 
-- Users will receive a customized sign-in message
+- Users will receive a customized sign-in message that is formatted with [Markdown][10]
 - Details for the local cluster will not be displayed
 - Each page will list 50 items (except the checks page, which will list 100 items)
 - The web UI will use the classic theme
 - The entities page will list only entities with the `proxy` subscription, in ascending order based on `last_seen` value
 - The checks page will list checks alphabetically by name
 - Expanded links and images will be allowed for the listed URLs
+- YAML will be the default format for [resource definitions in the web UI][9]
 
 {{< language-toggle >}}
 
@@ -45,11 +46,12 @@ api_version: web/v1
 metadata:
   name: custom-web-ui
 spec:
-  signin_message: with your LDAP or system credentials
+  signin_message: with your *LDAP or system credentials*
   always_show_local_cluster: false
   default_preferences:
     poll_interval: 120000
     page_size: 50
+    serialization_format: YAML
     theme: classic
   page_preferences:
     - page: entities
@@ -78,11 +80,12 @@ spec:
     "name": "custom-web-ui"
   },
   "spec": {
-    "signin_message": "with your LDAP or system credentials",
+    "signin_message": "with your *LDAP or system credentials*",
     "always_show_local_cluster": false,
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 50,
+      "serialization_format": "YAML",
       "theme": "classic"
     },
     "page_preferences": [
@@ -180,11 +183,12 @@ type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 spec:
-  signin_message: with your LDAP or system credentials
+  signin_message: with your *LDAP or system credentials*
   always_show_local_cluster: false
   default_preferences:
     poll_interval: 120000
     page_size: 50
+    serialization_format: YAML
     theme: classic
   page_preferences:
     - page: entities
@@ -207,11 +211,12 @@ spec:
 {{< code json >}}
 {
   "spec": {
-    "signin_message": "with your LDAP or system credentials",
+    "signin_message": "with your *LDAP or system credentials*",
     "always_show_local_cluster": false,
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 50,
+      "serialization_format": "YAML",
       "theme": "classic"
     },
     "page_preferences": [
@@ -283,17 +288,17 @@ created_by: admin
 
 signin_message | 
 -------------|------ 
-description  | Custom message to display on the web UI sign-in modal.
+description  | Custom message to display on the web UI sign-in modal. Accepts [Markdown][10] formatting.
 required     | false
 type         | String
 default      | `with your credentials`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-signin_message: with your LDAP or system credentials
+signin_message: with your *LDAP or system credentials*
 {{< /code >}}
 {{< code json >}}
 {
-  "signin_message": "with your LDAP or system credentials"
+  "signin_message": "with your *LDAP or system credentials*"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -442,6 +447,26 @@ page_size: 25
 {{< code json >}}
 {
   "page_size": 25
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="serialization_format"></a>
+
+serialization_format | 
+-------------|------ 
+description  | Default format for [resource definitions in the web UI][9].
+required     | false
+type         | String
+default      | `YAML`
+allowed values | `JSON`, `YAML`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+serialization_format: YAML
+{{< /code >}}
+{{< code json >}}
+{
+  "serialization_format": "YAML"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -608,3 +633,6 @@ mutators | `NAME`: List mutators by name, in alphabetical order<br><br>`NAME_DES
 [6]: #page-preferences-attributes
 [7]: ../search/
 [8]: #page-preferences-order-values
+[9]: ../view-manage-resources/#view-resource-data-in-the-web-ui
+[10]: https://www.markdownguide.org/
+

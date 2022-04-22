@@ -346,6 +346,14 @@
         "~ ^/sensu-go/latest/plugins/supported-integrations/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/plugins/featured-integrations/$1",
             "status": 301
+        },
+        "~ ^/sensu-go/latest/guides/install-check-executables-with-assets/?((?<=\/).*)?$": {
+            "url": "/sensu-go/latest/plugins/use-assets-to-install-plugins/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/reference/assets/?((?<=\/).*)?$": {
+            "url": "/sensu-go/latest/plugins/assets/$1",
+            "status": 301
         }
     }
 }
