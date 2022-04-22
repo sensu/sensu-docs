@@ -35,7 +35,7 @@ Sensu gives you full control over your alerts with flexible [event filters][8], 
 
 Sensu's open architecture integrates with the tools and services you already use, like [Ansible][33], [EC2][35], [InfluxDB][32], [PagerDuty][19], [Puppet][23], [Rundeck][36], [Saltstack][37], [Slack][17], and [Sumo Logic][34].
 
-Check out our [supported integrations][38], search for more plugins in [Bonsai, the Sensu asset hub][18], or write your own [Sensu plugins][3] in any language.
+Check out our [featured integrations][38], search for more plugins in [Bonsai, the Sensu asset hub][18], or write your own [Sensu plugins][3] in any language.
 
 ## Automate with agent registration-deregistration and check subscriptions
 

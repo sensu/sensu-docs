@@ -80,13 +80,11 @@ SQEs are valid ECMAScript 5 (JavaScript) expressions that return either `true` o
 Other values are not allowed.
 If an SQE returns a value besides `true` or `false`, an error is recorded in the [Sensu backend log][2] and the filter evaluates to `false`.
 
-## Custom functions
-
-### weekday, hour, minute, and second
+## Custom functions for weekday, hour, minute, and second
 
 Together, the `weekday`, `hour`, `minute`, and `second` custom functions provide granular control of time-based filter expressions, comparable to cron scheduling.
 
-#### weekday
+### weekday
 
 The custom function `weekday` returns a number that represents the day of the week of a UNIX epoch time.
 Sunday is `0`.
@@ -97,7 +95,7 @@ For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5
 weekday(event.timestamp) == 0
 {{< /code >}}
 
-#### hour
+### hour
 
 The custom function `hour` returns the hour of a UNIX epoch time (in UTC and 24-hour time notation).
 
@@ -107,7 +105,7 @@ For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5
 hour(event.timestamp) >= 17
 {{< /code >}}
 
-#### minute
+### minute
 
 The custom function `minute` returns the minute of the hour (0 through 59) of a UNIX epoch time in UTC and 24-hour time notation.
 
@@ -117,7 +115,7 @@ For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5
 minute(event.timestamp) <= 30
 {{< /code >}}
 
-#### second
+### second
 
 The custom function `second` returns the second of the minute (0 through 59) of a UNIX epoch time in UTC and 24-hour time notation.
 
@@ -127,7 +125,7 @@ For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5
 second(event.timestamp) >= 30
 {{< /code >}}
 
-### seconds_since
+## seconds_since custom function
 
 The custom function `seconds_since` returns the number of seconds (using float64) between the current time and an event's timestamp.
 
@@ -138,30 +136,61 @@ For example, the following SQE represents a 30-second time budget for event proc
 seconds_since(event.timestamp) > 30
 {{< /code >}}
 
-### sensu.CheckDependencies
+## sensu.CheckDependencies custom function
 
-The `sensu.CheckDependencies` SQE takes zero or more checks as arguments.
+Use the `sensu.CheckDependencies` SQE to filter events based on the results of a different check.
+
+The `sensu.CheckDependencies` SQE takes zero or more checks as arguments against the event being filtered.
 It returns `true` if all the specified checks are passing or `false` if any of the specified checks are failing.
 
 If you do not specify any checks, the `sensu.CheckDependencies` SQE always returns `true`.
+If no event matches the specified checks, Sensu will raise an error.
 
-You can refer to the checks as strings.
-In this example, if all checks named `database` or `disk` are passing, the following SQE returns `true`:
+You can refer to checks as strings, objects, arrays of strings, and arrays of objects in the `sensu.CheckDependencies` SQE.
+If you pass the check names as strings, Sensu assumes that the entities are the same as those in the events being filtered.
+You can also pass entity names and check names in objects to reference checks on specific entities.
+
+### String example
+
+In this example, if all checks named `database` or `disk` are passing, the SQE returns `true`:
 
 {{< code javascript >}}
 sensu.CheckDependencies("database", "disk")
 {{< /code >}}
 
-If you pass the check names as strings, Sensu assumes that the entities are the same as those in the events being filtered.
+### Object example
 
-You can also refer to the checks in objects that include both the entity and check name.
+You can refer to the checks in objects that include both the entity and check name.
 For example:
 
 {{< code javascript >}}
 sensu.CheckDependencies({entity: "server01", check: "disk"}, {entity: "server01", check: "database"})
 {{< /code >}}
 
-In both cases, if no event matches the specified entities and checks, Sensu will raise an error.
+### String and object example
+
+This example mixes string and object references in the same expression.
+It passes a check name (`disk`) as well as an object that includes entity and check names:
+
+{{< code javascript >}}
+sensu.CheckDependencies("disk", {entity: "server01", check: "database"})
+{{< /code >}}
+
+### Array examples
+
+You can use `sensu.CheckDependencies` to evaluate a check that contains an array of elements, which is useful for evaluating arrays parsed from event annotations.
+
+This example references an array of three check names:
+
+{{< code javascript >}}
+sensu.CheckDependencies(["port1", "port2", "port3"])
+{{< /code >}}
+
+This example references an array of objects that each include both an entity and a check name:
+
+{{< code javascript >}}
+sensu.CheckDependencies([{entity: "router", check: "port1"}, {entity: "router", check: "port2"}])
+{{< /code >}}
 
 ## Examples
 

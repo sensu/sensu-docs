@@ -17,9 +17,9 @@ For more information, read [Get started with commercial features](../../../comme
 The [Sensu Elasticsearch Handler plugin][4] is a Sensu [handler][1] that sends observation data from Sensu events and metrics to Elasticsearch.
 With this handler, the Sensu observation data you send to Elasticsearch is available for indexing and visualization in Kibana.
 
-{{% notice note %}}
-**NOTE**: The Sensu Elasticsearch Handler plugin is an example of Sensu's time-series and long-term event storage integrations.
-To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
+{{% notice protip %}}
+**PRO TIP**: Use the [Sensu Catalog](../../../web-ui/sensu-catalog/) to enable this integration directly from your browser.
+Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
 {{% /notice %}}
 
 ## Features
@@ -34,9 +34,10 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 
 ## Get the plugin
 
-For a turnkey experience with the Sensu Elasticsearch Handler plugin, use our curated, configurable [quick-start template][3] for events and metrics data storage.
+For a turnkey experience with the Sensu Elasticsearch Handler plugin, use the [Sensu Catalog][10] in the web UI to configure and install it.
+Or, use our curated, configurable [quick-start template][3] for events and metrics data storage.
 
-Add the [Sensu Elasticsearch Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing Elasticsearch workflows.
+You can also add the [Sensu Elasticsearch Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing Elasticsearch workflows.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 
@@ -47,3 +48,4 @@ Add the [Sensu Elasticsearch Handler plugin][4] with a dynamic runtime asset fro
 [5]: ../../assets/
 [7]: ../../../operations/manage-secrets/
 [8]: ../../../observability-pipeline/observe-schedule/checks/#output-metric-tags
+[10]: ../../../web-ui/sensu-catalog/

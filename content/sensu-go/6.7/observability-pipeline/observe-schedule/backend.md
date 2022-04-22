@@ -60,6 +60,17 @@ For information about creating and managing checks, see:
 - [Collect metrics with checks][4]
 - [Checks reference documentation][5]
 
+## Startup and backend entities
+
+When a backend starts up, Sensu automatically checks for a [`sensu-system` namespace][68] (and creates the namespace if it doesn't exist).
+Then, Sensu checks the `sensu-system` namespace for an existing entity named after the backend's local hostname.
+
+- If there is no corresponding entity, Sensu creates a new entity with `entity_class: backend` and populates the entity's system information.
+- If there is a corresponding entity, Sensu does nothing further to the existing entity.
+
+Once the backend entity is created, the backend uses its own entity to report cluster state errors.
+Read [backend entities][69] in the entities reference for more information and an example backend entity definition.
+
 ## Initialization
 
 For a **new** installation, the backend database must be initialized by providing a username and password for the user to be granted administrative privileges.
@@ -502,8 +513,8 @@ Store Flags:
       --etcd-client-urls string                   client URLs to use when operating as an etcd client
       --etcd-discovery string                     discovery URL used to bootstrap the cluster
       --etcd-discovery-srv string                 DNS SRV record used to bootstrap the cluster
-      --etcd-election-timeout uint                time in ms a follower node will go without hearing a heartbeat before attempting to become leader itself (default 1000)
-      --etcd-heartbeat-interval uint              interval in ms with which the etcd leader will notify followers that it is still the leader (default 100)
+      --etcd-election-timeout uint                time in ms a follower node will go without hearing a heartbeat before attempting to become leader itself (default 3000)
+      --etcd-heartbeat-interval uint              interval in ms with which the etcd leader will notify followers that it is still the leader (default 300)
       --etcd-initial-advertise-peer-urls strings  list of this member's peer URLs to advertise to the rest of the cluster (default [http://127.0.0.1:2380])
       --etcd-initial-cluster string               initial cluster configuration for bootstrapping
       --etcd-initial-cluster-state string         initial cluster state ("new" or "existing") (default "new")
@@ -1374,12 +1385,12 @@ description            | Time that a follower node will go without hearing a hea
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                   | Integer
-default                | `1000`
+default                | `3000`
 environment variable   | `SENSU_BACKEND_ETCD_ELECTION_TIMEOUT`
 command line example   | {{< code shell >}}
-sensu-backend start --etcd-election-timeout 1000{{< /code >}}
+sensu-backend start --etcd-election-timeout 3000{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-etcd-election-timeout: 1000{{< /code >}}
+etcd-election-timeout: 3000{{< /code >}}
 
 <a id="etcd-heartbeat-interval"></a>
 
@@ -1391,12 +1402,12 @@ description            | Interval at which the etcd leader will notify followers
 Do not configure external etcd in Sensu via backend command line flags or the backend configuration file (`/etc/sensu/backend.yml`).
 {{% /notice %}}
 type                   | Integer
-default                | `100`
+default                | `300`
 environment variable   | `SENSU_BACKEND_ETCD_HEARTBEAT_INTERVAL`
 command line example   | {{< code shell >}}
-sensu-backend start --etcd-heartbeat-interval 100{{< /code >}}
+sensu-backend start --etcd-heartbeat-interval 300{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
-etcd-heartbeat-interval: 100{{< /code >}}
+etcd-heartbeat-interval: 300{{< /code >}}
 
 | etcd-max-request-bytes |      |
 -----------------------|------
@@ -1901,3 +1912,5 @@ platform-metrics-logging-interval: 60s{{< /code >}}
 [65]: #event-logging
 [66]: #platform-metrics-logging
 [67]: #agent-rate-limit
+[68]: ../../../operations/control-access/namespaces/#default-namespaces
+[69]: ../../observe-entities/entities/#backend-entities

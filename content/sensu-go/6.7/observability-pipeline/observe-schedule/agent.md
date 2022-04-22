@@ -512,7 +512,32 @@ In addition, the agent maps [`keepalive-critical-timeout`][4] and [`keepalive-wa
 Use the [core/v2/events API](../../../api/core/events/) to send manual keepalive events for proxy entities.
 {{% /notice %}}
 
-### Handle keepalive events
+### Process keepalive events
+
+#### Keepalive pipelines
+
+Use the [`keepalive-pipelines`][64] configuration flag to send keepalive events to any [pipeline][63] you have configured.
+
+To specify pipelines for the `keepalive-pipelines` flag, use the [fully qualified name][65] for pipeline resources (`core/v2.Pipeline`) plus the pipeline name (e.g. `slack` or `store-keepalives`).
+For example:
+
+{{< language-toggle >}}
+
+{{< code shell "Command Line" >}}
+sensu-agent start --keepalive-pipelines core/v2.Pipeline.slack,core/v2.Pipeline.store-keepalives
+{{< /code >}}
+
+{{< code yml "/etc/sensu/agent.yml" >}}
+keepalive-pipelines:
+- core/v2.Pipeline.slack
+- core/v2.Pipeline.store-keepalives
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+If you do not specify a pipeline with the `keepalive-pipelines` flag, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI for keepalives.
+
+#### Keepalive handlers
 
 You can use a keepalive handler to connect keepalive events to your monitoring workflows.
 Sensu looks for an [event handler][8] named `keepalive` and automatically uses it to process keepalive events.
@@ -886,6 +911,7 @@ Flags:
       --keepalive-critical-timeout uint32   number of seconds until agent is considered dead by backend to create a critical event
       --keepalive-handlers strings          comma-delimited list of keepalive handlers for this entity. This flag can also be invoked multiple times
       --keepalive-interval int              number of seconds to send between keepalive events (default 20)
+      --keepalive-pipelines strings         comma-delimited list of pipeline references for keepalive event
       --keepalive-warning-timeout uint32    number of seconds until agent is considered dead by backend to create a warning event (default 120)
       --key-file string                     key for TLS authentication
       --labels stringToString               entity labels map (default [])
@@ -1372,6 +1398,22 @@ command line example   | {{< code shell >}}
 sensu-agent start --keepalive-interval 30{{< /code >}}
 /etc/sensu/agent.yml example | {{< code shell >}}
 keepalive-interval: 30{{< /code >}}
+
+<a id="keepalive-pipelines-flag"></a>
+
+| keepalive-pipelines |      |
+--------------------|------
+description         | [Pipelines][63] to use for processing keepalive events, specified in a comma-delimited list. If keepalive pipelines are not specified, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.<br><br>To specify pipelines for the `keepalive-pipelines` flag, use the [fully qualified name][65] for pipeline resources (`core/v2.Pipeline`) plus the pipeline name.
+type                | List
+default             | `keepalive`
+environment variable   | `SENSU_KEEPALIVE_PIPELINES`
+command line example   | {{< code shell >}}
+sensu-agent start --keepalive-pipelines core/v2.Pipeline.slack,core/v2.Pipeline.store-keepalives{{< /code >}}
+/etc/sensu/agent.yml example | {{< code shell >}}
+keepalive-pipelines:
+- core/v2.Pipeline.slack
+- core/v2.Pipeline.store-keepalives
+{{< /code >}}
 
 <a id="keepalive-warning-timeout-flag"></a>
 
@@ -2022,3 +2064,6 @@ log-level: debug
 [60]: #log-level
 [61]: #retry-min
 [62]: #retry-multiplier
+[63]: ../../observe-process/pipelines/
+[64]: #keepalive-pipelines-flag
+[65]: ../../../sensuctl/create-manage-resources/#supported-resource-types

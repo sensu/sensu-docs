@@ -12,7 +12,7 @@ menu:
 
 **API version: v2**
 
-The Sensu backend REST API provides a centrally managed control plane for automated, repeatable observability workflow configuration and observation data (event) access.
+The Sensu backend REST API provides a centrally managed control plane for automated, repeatable monitoring and observability workflow configuration and observation event data access.
 
 If you have a healthy [clustered][24] backend, you only need to make Sensu API calls to any one of the cluster members.
 The cluster protocol will replicate your changes to all cluster members.
