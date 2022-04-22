@@ -107,7 +107,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **April 21, 2022** &mdash; The latest release of Sensu Go, version 6.7.0, is now available for download.
 
-**TODO: Add release synopsis here**
+Sensu Go 6.7.0 includes a number of new features, improvements and fixes, including Sensu Go's newest feature, catalogs. Catalogs provide a marketplace within the Sensu UI for or simplifying new user onboarding, and deploying production-ready monitoring in a matter of minutes. In addition to adding catalogs, metric threshold evaluation, keepalive pipelines and the ability to subdue checks have also been added. Sensu Go 6.7.0 improves the onboarding workflow for Sensu Plus, allowing users to seamlessly transmit Sensu observability data to the Sumo Logic platform. Improvements also include support for arrays of strings and objects in the `sensu.CheckDependencies` Sensu query expression, improvements to the GlobalConfig specification, the addition of a sensu-system namespace, and more. Fixes included in Sensu Go 6.7.0 include fixes to the TCP stream handler `max_connections` behavior, the inclusion of pipelines wihin the event.check object, socket handler behavior and ARM platform detection.  
 
 Read the [upgrade guide][1] to upgrade Sensu to version 6.7.0.
 
