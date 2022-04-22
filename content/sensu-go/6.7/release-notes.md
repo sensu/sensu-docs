@@ -9,6 +9,7 @@ version: "6.7"
 menu: "sensu-go-6.7"
 ---
 
+- [6.7.0 release notes](#670-release-notes)
 - [6.6.6 release notes](#666-release-notes)
 - [6.6.5 release notes](#665-release-notes)
 - [6.6.4 release notes](#664-release-notes)
@@ -101,6 +102,45 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.7.0 release notes
+
+**April 21, 2022** &mdash; The latest release of Sensu Go, version 6.7.0, is now available for download.
+
+**TODO: Add release synopsis here**
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.7.0.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][268]) Added the [Sensu Catalog][269], an online marketplace for monitoring and observability integrations that allows you to find, configure, and install integrations directly from the Sensu [web UI][270].
+- Added [metric threshold evaluation][285] to provide real-time alerts based on the metrics your Sensu checks collect.
+- Added the [keepalive-pipelines][276] agent configuration flag, which allows you to specify [pipelines][275] for processing keepalive events. 
+- Added the check [`subdues` attribute][277], which you can use to schedule alert-free periods of time directly in check definitions.
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][268]) For [Sensu Plus][271] setup, Sensu now automatically creates a Sumo Logic account and configures an HTTP Logs & Metrics Source for customers who start the process from the Sensu [web UI][270].
+- ([Commercial feature][268]) The Sensu query expression [`sensu.CheckDependencies`][274] now supports arrays of strings and objects.
+- ([Commercial feature][268]) Markdown formatting is now supported for the [signin_message][288] attribute value in the GlobalConfig specification.
+- ([Commercial feature][268]) Added the [serialization_format][287] attribute to the GlobalConfig specification, which you can use to specify the default format for [resource definitions in the web UI][286] (YAML or JSON).
+- ([Commercial feature][268]) [Business service monitoring (BSM)][281] now uses the PostgreSQL round robin Ring V2 implementation, even if the [`enable_round_robin`][280] attribute is set to `false` in the PostgresConfig definition.
+- ([Commercial feature][268]) Added the `sensu_go_etcd_cluster_leases` metric to the backend [metrics log][282] to track the count of current etcd leases for debugging.
+- ([Commercial feature][268]) Added logging for [TCP stream handler][283] events.
+- The [sensu.CheckDependencies][284] Sensu query expression now supports arrays of strings and arrays of objects.
+- On backend startup, Sensu now creates the [`sensu-system` namespace][279] and a [backend entity][278] to log secrets provider errors and help prevent spamming the event bus with backend events.
+- For connections with faulty TLS configurations, error log entries now include a `source` property that lists the corresponding agent's IP address and port to identify which agent generated each log entry for troubleshooting.
+- Increased the default values for the backend configuration flags [etcd-election-timeout][272] (from 1000 to 3000) and [etcd-heartbeat-interval][273] (from 100 to 300).
+- Upgraded etcd version from `3.5.0` to `3.5.2`.
+
+**FIXES:**
+
+- ([Commercial feature][268]) Fixed a bug that could cause pipeline resources to hang when using a [TCP stream handler][283] whose `max_connections` attribute is set to greater than zero.
+- In events, event.check objects now include any pipelines specified in the check configuration.
+- Socket handlers that are interrupted by an error mid-write will no longer cause a sensu-backend panic.
+Also, socket handlers will now respect their timeout settings after the initial connection is established.
+- Fixed a bug that prevented accurate ARM version detection for sensu-agent.
+
 
 ## 6.6.6 release notes
 
@@ -2306,3 +2346,24 @@ To get started with Sensu Go:
 [265]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
 [266]: /sensu-go/6.6/web-ui/search/#events-and-entities-search-limits
 [267]: /sensu-go/latest/operations/deploy-sensu/datastore/#strict-attribute
+[268]: /sensu-go/6.7/commercial/
+[269]: /sensu-go/6.7/web-ui/sensu-catalog/
+[270]: /sensu-go/6.7/web-ui/
+[271]: /sensu-go/6.7/sensu-plus/
+[272]: /sensu-go/6.7/observability-pipeline/observe-schedule/backend/#etcd-election-timeout
+[273]: /sensu-go/6.7/observability-pipeline/observe-schedule/backend/#etcd-heartbeat-interval
+[274]: /sensu-go/6.7/observability-pipeline/observe-filter/sensu-query-expressions/#sensucheckdependencies
+[275]: /sensu-go/6.7/observability-pipeline/observe-process/#keepalive-pipelines
+[276]: /sensu-go/6.7/observability-pipeline/observe-schedule/agent/#keepalive-pipelines
+[277]: /sensu-go/6.7/observability-pipeline/observe-schedule/checks/#subdues
+[278]: /sensu-go/6.7/observability-pipeline/observe-entities/entities/#backend-entities
+[279]: /sensu-go/6.7/operations/control-access/namespaces/#default-namespaces
+[280]: /sensu-go/6.7/operations/deploy-sensu/datastore/#round-robin-postgresql
+[281]: /sensu-go/6.7/observability-pipeline/observe-schedule/business-service-monitoring/
+[282]: /sensu-go/6.7/observability-pipeline/observe-schedule/backend/#platform-metrics-logging
+[283]: /sensu-go/6.7/observability-pipeline/observe-process/tcp-stream-handlers/
+[284]: /sensu-go/6.7/observability-pipeline/observe-filter/sensu-query-expressions/#sensucheckdependencies-custom-function
+[285]: /sensu-go/6.7/observability-pipeline/observe-schedule/metrics/#metric-threshold-evaluation
+[286]: /sensu-go/6.7/web-ui/view-manage-resources/#view-resource-data-in-the-web-ui
+[287]: /sensu-go/6.7/web-ui/view-manage-resources/webconfig-reference/#serialization_format
+[288]: /sensu-go/6.7/web-ui/view-manage-resources/webconfig-reference/#sign-in-message
