@@ -1014,25 +1014,9 @@ The following table shows the occurrences attributes for a series of example eve
 |10. OK event       | `occurrences: 1`| `occurrences_watermark: 4`
 |11. CRITICAL event | `occurrences: 1`| `occurrences_watermark: 1`
 
-## Events specification
+## Event specification
 
 ### Top-level attributes
-
-type         | 
--------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][8] resource type. Events should always be type `Event`.
-required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: Event
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "Event"
-}
-{{< /code >}}
-{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
@@ -1314,7 +1298,39 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
+type         | 
+-------------|------
+description  | Top-level attribute that specifies the [`sensuctl create`][8] resource type. Events should always be type `Event`.
+required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Event
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "Event"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 ### Metadata attributes
+
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created the event or last updated the event. Sensu automatically populates the `created_by` field when the event is created or updated.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+created_by: "admin"
+{{< /code >}}
+{{< code json >}}
+{
+  "created_by": "admin"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 | namespace  |      |
 -------------|------
@@ -1333,71 +1349,114 @@ namespace: production
 {{< /code >}}
 {{< /language-toggle >}}
 
-| created_by |      |
--------------|------
-description  | Username of the Sensu user who created the event or last updated the event. Sensu automatically populates the `created_by` field when the event is created or updated.
-required     | false
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-created_by: "admin"
-{{< /code >}}
-{{< code json >}}
-{
-  "created_by": "admin"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 ### Spec attributes
 
-|timestamp   |      |
+<a id="check-attribute"></a>
+
+|check       |      |
 -------------|------
-description  | Time that the event occurred. In seconds since the Unix epoch.<br><br>Sensu automatically populates the timestamp value for the event. For events created with the [core/v2/events API][35], you can specify a `timestamp` value in the request body.
-required     | false
-type         | Integer
-default      | Time that the event occurred
+description  | [Check definition][1] used to create the event and information about the status and history of the event. The check scope includes attributes described in the [event specification][21] and the [check specification][20].
+type         | Map
+required     | true
 example      | {{< language-toggle >}}
 {{< code yml >}}
-timestamp: 1522099512
+check:
+  check_hooks:
+  command: metrics-curl -u "http://localhost"
+  duration: 0.060790838
+  env_vars:
+  executed: 1552506033
+  handlers: []
+  high_flap_threshold: 0
+  history:
+  - executed: 1552505833
+    status: 0
+  - executed: 1552505843
+    status: 0
+  interval: 10
+  is_silenced: true
+  issued: 1552506033
+  last_ok: 1552506033
+  low_flap_threshold: 0
+  metadata:
+    name: curl_timings
+    namespace: default
+  occurrences: 1
+  occurrences_watermark: 1
+  silenced:
+  - webserver:*
+  output: sensu-go.curl_timings.time_total 0.005
+  output_metric_format: graphite_plaintext
+  output_metric_handlers:
+  - influx-db
+  proxy_entity_name: ''
+  publish: true
+  round_robin: false
+  runtime_assets: []
+  state: passing
+  status: 0
+  stdin: false
+  subdue:
+  subscriptions:
+  - entity:sensu-go-testing
+  timeout: 0
+  total_state_change: 0
+  ttl: 0
 {{< /code >}}
 {{< code json >}}
 {
-  "timestamp": 1522099512
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-id           |      |
--------------|------
-description  | Universally unique identifier (UUID) for the event. Logged as `event_id`.<br><br>Sensu automatically populates the `id` value for the event.
-required     | false
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-id: 431a0085-96da-4521-863f-c38b480701e9
-{{< /code >}}
-{{< code json >}}
-{
-  "id": "431a0085-96da-4521-863f-c38b480701e9"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-<a id="sequence-attribute"></a>
-
-sequence     |      |
--------------|------
-description  | Event sequence number. The Sensu agent sets the sequence to 1 at startup, then increments the sequence by 1 for every successive check execution or keepalive event. If the agent restarts or reconnects to another backend, the sequence value resets to 1.<br><br>A sequence value of 0 indicates that an outdated or non-conforming agent generated the event.<br><br>Sensu only increments the sequence for agent-executed events. Sensu does not update the sequence for events created with the [core/v2/events API][35].
-required     | false
-type         | Integer
-example      | {{< language-toggle >}}
-{{< code yml >}}
-sequence: 1
-{{< /code >}}
-{{< code json >}}
-{
-  "sequence": 1
+  "check": {
+    "check_hooks": null,
+    "command": "metrics-curl -u \"http://localhost\"",
+    "duration": 0.060790838,
+    "env_vars": null,
+    "executed": 1552506033,
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "history": [
+      {
+        "executed": 1552505833,
+        "status": 0
+      },
+      {
+        "executed": 1552505843,
+        "status": 0
+      }
+    ],
+    "interval": 10,
+    "is_silenced": true,
+    "issued": 1552506033,
+    "last_ok": 1552506033,
+    "low_flap_threshold": 0,
+    "metadata": {
+      "name": "curl_timings",
+      "namespace": "default"
+    },
+    "occurrences": 1,
+    "occurrences_watermark": 1,
+    "silenced": [
+      "webserver:*"
+    ],
+    "output": "sensu-go.curl_timings.time_total 0.005",
+    "output_metric_format": "graphite_plaintext",
+    "output_metric_handlers": [
+      "influx-db"
+    ],
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": [],
+    "state": "passing",
+    "status": 0,
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "entity:sensu-go-testing"
+    ],
+    "timeout": 0,
+    "total_state_change": 0,
+    "ttl": 0
+  }
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1508,112 +1567,18 @@ entity:
 {{< /code >}}
 {{< /language-toggle >}}
 
-<a id="checks-attribute"></a>
-
-|check       |      |
+id           |      |
 -------------|------
-description  | [Check definition][1] used to create the event and information about the status and history of the event. The check scope includes attributes described in the [event specification][21] and the [check specification][20].
-type         | Map
-required     | true
+description  | Universally unique identifier (UUID) for the event. Logged as `event_id`.<br><br>Sensu automatically populates the `id` value for the event.
+required     | false
+type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-check:
-  check_hooks:
-  command: metrics-curl -u "http://localhost"
-  duration: 0.060790838
-  env_vars:
-  executed: 1552506033
-  handlers: []
-  high_flap_threshold: 0
-  history:
-  - executed: 1552505833
-    status: 0
-  - executed: 1552505843
-    status: 0
-  interval: 10
-  is_silenced: true
-  issued: 1552506033
-  last_ok: 1552506033
-  low_flap_threshold: 0
-  metadata:
-    name: curl_timings
-    namespace: default
-  occurrences: 1
-  occurrences_watermark: 1
-  silenced:
-  - webserver:*
-  output: sensu-go.curl_timings.time_total 0.005
-  output_metric_format: graphite_plaintext
-  output_metric_handlers:
-  - influx-db
-  proxy_entity_name: ''
-  publish: true
-  round_robin: false
-  runtime_assets: []
-  state: passing
-  status: 0
-  stdin: false
-  subdue:
-  subscriptions:
-  - entity:sensu-go-testing
-  timeout: 0
-  total_state_change: 0
-  ttl: 0
+id: 431a0085-96da-4521-863f-c38b480701e9
 {{< /code >}}
 {{< code json >}}
 {
-  "check": {
-    "check_hooks": null,
-    "command": "metrics-curl -u \"http://localhost\"",
-    "duration": 0.060790838,
-    "env_vars": null,
-    "executed": 1552506033,
-    "handlers": [],
-    "high_flap_threshold": 0,
-    "history": [
-      {
-        "executed": 1552505833,
-        "status": 0
-      },
-      {
-        "executed": 1552505843,
-        "status": 0
-      }
-    ],
-    "interval": 10,
-    "is_silenced": true,
-    "issued": 1552506033,
-    "last_ok": 1552506033,
-    "low_flap_threshold": 0,
-    "metadata": {
-      "name": "curl_timings",
-      "namespace": "default"
-    },
-    "occurrences": 1,
-    "occurrences_watermark": 1,
-    "silenced": [
-      "webserver:*"
-    ],
-    "output": "sensu-go.curl_timings.time_total 0.005",
-    "output_metric_format": "graphite_plaintext",
-    "output_metric_handlers": [
-      "influx-db"
-    ],
-    "proxy_entity_name": "",
-    "publish": true,
-    "round_robin": false,
-    "runtime_assets": [],
-    "state": "passing",
-    "status": 0,
-    "stdin": false,
-    "subdue": null,
-    "subscriptions": [
-      "entity:sensu-go-testing"
-    ],
-    "timeout": 0,
-    "total_state_change": 0,
-    "ttl": 0
-  }
+  "id": "431a0085-96da-4521-863f-c38b480701e9"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1661,6 +1626,41 @@ metrics:
       }
     ]
   }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="sequence-attribute"></a>
+
+sequence     |      |
+-------------|------
+description  | Event sequence number. The Sensu agent sets the sequence to 1 at startup, then increments the sequence by 1 for every successive check execution or keepalive event. If the agent restarts or reconnects to another backend, the sequence value resets to 1.<br><br>A sequence value of 0 indicates that an outdated or non-conforming agent generated the event.<br><br>Sensu only increments the sequence for agent-executed events. Sensu does not update the sequence for events created with the [core/v2/events API][35].
+required     | false
+type         | Integer
+example      | {{< language-toggle >}}
+{{< code yml >}}
+sequence: 1
+{{< /code >}}
+{{< code json >}}
+{
+  "sequence": 1
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+|timestamp   |      |
+-------------|------
+description  | Time that the event occurred. In seconds since the Unix epoch.<br><br>Sensu automatically populates the timestamp value for the event. For events created with the [core/v2/events API][35], you can specify a `timestamp` value in the request body.
+required     | false
+type         | Integer
+default      | Time that the event occurred
+example      | {{< language-toggle >}}
+{{< code yml >}}
+timestamp: 1522099512
+{{< /code >}}
+{{< code json >}}
+{
+  "timestamp": 1522099512
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1730,6 +1730,22 @@ history:
 {{< /code >}}
 {{< /language-toggle >}}
 
+is_silenced  | |
+-------------|------
+description  | If `true`, the event was silenced at the time of processing. Otherwise, `false`. If `true`, the event. Check definitions also list the silenced entries that match the event in the `silenced` array.
+required     | false
+type         | Boolean
+example      | {{< language-toggle >}}
+{{< code yml >}}
+is_silenced: true
+{{< /code >}}
+{{< code json >}}
+{
+  "is_silenced": "true"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 issued       |      |
 -------------|------
 description  | Time that the check request was issued. In seconds since the Unix epoch.<br><br>The difference between a request's `issued` and `executed` values is the request latency.<br><br>For agent-executed checks, Sensu automatically populates the `issued` value. For events created with the [core/v2/events API][35], the default `issued` value is `0` unless you specify a value in the request body.
@@ -1794,18 +1810,18 @@ occurrences_watermark: 1
 {{< /code >}}
 {{< /language-toggle >}}
 
-is_silenced  | |
+output       |      |
 -------------|------
-description  | If `true`, the event was silenced at the time of processing. Otherwise, `false`. If `true`, the event. Check definitions also list the silenced entries that match the event in the `silenced` array.
+description  | Output from the execution of the check command.
 required     | false
-type         | Boolean
+type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-is_silenced: true
+output: "sensu-go.curl_timings.time_total 0.005
 {{< /code >}}
 {{< code json >}}
 {
-  "is_silenced": "true"
+  "output": "sensu-go.curl_timings.time_total 0.005"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1827,22 +1843,6 @@ silenced:
   "silenced": [
     "webserver:*"
   ]
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-output       |      |
--------------|------
-description  | Output from the execution of the check command.
-required     | false
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-output: "sensu-go.curl_timings.time_total 0.005
-{{< /code >}}
-{{< code json >}}
-{
-  "output": "sensu-go.curl_timings.time_total 0.005"
 }
 {{< /code >}}
 {{< /language-toggle >}}

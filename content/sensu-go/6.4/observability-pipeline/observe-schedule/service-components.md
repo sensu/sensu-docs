@@ -109,22 +109,6 @@ The rules can emit new events based on the component input.
 
 ### Top-level attributes
 
-type         | 
--------------|------
-description  | Top-level attribute that specifies the resource type. For service component configuration, the type should always be `ServiceComponent`.
-required     | Required for service component configuration in `wrapped-json` or `yaml` format.
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: ServiceComponent
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "ServiceComponent"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For service component configuration in this version of Sensu, the api_version should always be `bsm/v1`.
@@ -228,39 +212,23 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
+type         | 
+-------------|------
+description  | Top-level attribute that specifies the resource type. For service component configuration, the type should always be `ServiceComponent`.
+required     | Required for service component configuration in `wrapped-json` or `yaml` format.
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: ServiceComponent
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "ServiceComponent"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 ### Metadata attributes
-
-name         |      |
--------------|------
-description  | Name for the service component that is used internally by Sensu.
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-name: webservers
-{{< /code >}}
-{{< code json >}}
-{
-  "name": "webservers"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-namespace    |      |
--------------|------
-description  | [Sensu RBAC namespace][7] that the service component belongs to.
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-namespace: default
-{{< /code >}}
-{{< code json >}}
-{
-  "namespace": "default"
-}
-{{< /code >}}
-{{< /language-toggle >}}
 
 | annotations |     |
 -------------|------
@@ -314,6 +282,38 @@ labels:
   "labels": {
     "region": "us-west-1"
   }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+name         |      |
+-------------|------
+description  | Name for the service component that is used internally by Sensu.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: webservers
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "webservers"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+namespace    |      |
+-------------|------
+description  | [Sensu RBAC namespace][7] that the service component belongs to.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+namespace: default
+{{< /code >}}
+{{< code json >}}
+{
+  "namespace": "default"
 }
 {{< /code >}}
 {{< /language-toggle >}}
