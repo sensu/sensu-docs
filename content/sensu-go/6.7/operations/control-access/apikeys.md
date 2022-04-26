@@ -72,22 +72,6 @@ When you specify an API key in a request, the system resolves it to an authentic
 
 ### Top-level attributes
 
-type         | 
--------------|------
-description  | Top-level attribute that specifies the resource type. API keys should always be type `APIKey`.
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: APIKey
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "APIKey"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. The `api_version` should always be `core/v2`.
@@ -146,23 +130,23 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Metadata attributes
-
-| name       |      |
+type         | 
 -------------|------
-description  | Unique string used to identify the API key. Sensu randomly generates a universally unique identifier (UUID) for the `name` value &mdash; users cannot provide a name for an API key.
+description  | Top-level attribute that specifies the resource type. API keys should always be type `APIKey`.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: 19803eb8-36a6-4203-a225-28ec4e9f4444
+type: APIKey
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "19803eb8-36a6-4203-a225-28ec4e9f4444"
+  "type": "APIKey"
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+### Metadata attributes
 
 | created_by |      |
 -------------|------
@@ -180,23 +164,23 @@ created_by: admin
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Spec attributes
-
-| username   |     |
+| name       |      |
 -------------|------
-description  | User associated with the API key.
+description  | Unique string used to identify the API key. Sensu randomly generates a universally unique identifier (UUID) for the `name` value &mdash; users cannot provide a name for an API key.
 required     | true
-type         | Array
+type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-username: admin
+name: 19803eb8-36a6-4203-a225-28ec4e9f4444
 {{< /code >}}
 {{< code json >}}
 {
-  "username": "admin"
+  "name": "19803eb8-36a6-4203-a225-28ec4e9f4444"
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+### Spec attributes
 
 | created_at |      |
 -------------|------
@@ -210,6 +194,22 @@ created_at: 1234567890
 {{< code json >}}
 {
   "created_at": 1234567890
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| username   |     |
+-------------|------
+description  | User associated with the API key.
+required     | true
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+username: admin
+{{< /code >}}
+{{< code json >}}
+{
+  "username": "admin"
 }
 {{< /code >}}
 {{< /language-toggle >}}
