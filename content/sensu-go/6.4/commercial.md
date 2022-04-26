@@ -125,7 +125,7 @@ These resources will help you use commercial features in Sensu Go:
 [23]: ../observability-pipeline/observe-schedule/business-service-monitoring/
 [24]: ../plugins/featured-integrations/
 [25]: #commercial-features-in-sensu-go
-[26]: ../web-ui/webconfig-reference/#default-preferences-attributes
+[26]: ../web-ui/webconfig-reference/#default_preferences-attributes
 [27]: ../web-ui/webconfig-reference/#page-preferences-attributes
 [28]: ../web-ui/webconfig-reference/#sign-in-message
 [33]: ../web-ui/webconfig/

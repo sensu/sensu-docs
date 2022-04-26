@@ -192,9 +192,24 @@ example        | {{< code shell >}}
   ]
 {{< /code >}}
 
-### ClusterHealth attributes
+#### ClusterHealth attributes
 
-Member ID    | 
+Err          | 
+-------------|------ 
+description  | Any errors Sensu encountered while checking the etcd cluster member's health.
+required     | true
+type         | String
+example      | {{< code shell >}}"Err": ""{{< /code >}}
+
+Healthy      | 
+-------------|------ 
+description  | `true` if the etcd cluster member is connected. Otherwise, `false`.
+required     | true
+type         | Boolean
+default      | `false`
+example      | {{< code shell >}}"Healthy": true{{< /code >}}
+
+MemberID     | 
 -------------|------ 
 description  | The etcd cluster member's ID.
 required     | true
@@ -215,22 +230,7 @@ required     | true
 type         | String
 example      | {{< code shell >}}Name": "default"{{< /code >}}
 
-Err          | 
--------------|------ 
-description  | Any errors Sensu encountered while checking the etcd cluster member's health.
-required     | true
-type         | String
-example      | {{< code shell >}}"Err": ""{{< /code >}}
-
-Healthy      | 
--------------|------ 
-description  | `true` if the etcd cluster member is connected. Otherwise, `false`.
-required     | true
-type         | Boolean
-default      | `false`
-example      | {{< code shell >}}"Healthy": true{{< /code >}}
-
-### Header attributes
+#### Header attributes
 
 cluster_id   | 
 -------------|------ 
@@ -253,14 +253,7 @@ required     | true
 type         | Integer
 example      | {{< code shell >}}"raft_term": 26{{< /code >}}
 
-### PostgresHealth attributes
-
-Name         | 
--------------|------ 
-description  | The PostgreSQL configuration resource. Sensu retrieves the `Name` from [datastore metadata][3].
-required     | true
-type         | String
-example      | {{< code shell >}}"Name": "postgres"{{< /code >}}
+#### PostgresHealth attributes
 
 Active       | 
 -------------|------ 
@@ -277,6 +270,13 @@ required     | true
 type         | Boolean
 default      | `false`
 example      | {{< code shell >}}"Healthy": true{{< /code >}}
+
+Name         | 
+-------------|------ 
+description  | The PostgreSQL configuration resource. Sensu retrieves the `Name` from [datastore metadata][3].
+required     | true
+type         | String
+example      | {{< code shell >}}"Name": "postgres"{{< /code >}}
 
 
 [1]: ../../../api/other/health/
