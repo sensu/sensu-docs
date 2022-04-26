@@ -84,7 +84,7 @@ Sensu Catalog search supports two set-based operators:
 | Operator  | Description        | Example                |
 | --------- | ------------------ | ---------------------- |
 | `in`      | Included in        | `ansible in tags`
-| `matches` | Substring matching | `display_name ansible matches`
+| `matches` | Substring matching | `display_name matches ansible`
 
 #### Catalog search metadata
 
