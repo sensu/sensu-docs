@@ -522,5 +522,5 @@ You can also configure a [Sumo Logic dashboard][10] to search, view, and analyze
 [16]: ../../observe-events/
 [17]: ../../../sensu-plus/
 [18]: ../sumo-logic-metrics-handlers/
-[19]: ../../../plugins/supported-integrations/sumologic/
+[19]: ../../../plugins/featured-integrations/sumologic/
 [20]: ../../observe-filter/filters/#built-in-filter-not_silenced

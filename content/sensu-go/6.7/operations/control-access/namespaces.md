@@ -64,6 +64,12 @@ To organize resources, use labels rather than multiple namespaces.
 Every [Sensu backend][1] includes a `default` namespace.
 All resources created without a specified namespace are created within the `default` namespace.
 
+At startup, Sensu also creates the `sensu-system` namespace to contain [backend entities][12].
+The `sensu-system` namespace and backend entities facilitate backend error reporting and make Sensu deployments more observable by enabling backend-generated status and metrics events.
+
+Only cluster admins have access to the `sensu-system` namespace.
+If you have cluster admin permissions, you can use [sensuctl][2] and the [web UI][3] to access backend entities like other entities.
+
 ## Manage namespaces
 
 You can use [sensuctl][2] to view, create, and delete namespaces.
@@ -174,22 +180,6 @@ Read the [sensuctl reference](../../../sensuctl/create-manage-resources/#create-
 
 ### Top-level attributes
 
-type         | 
--------------|------
-description  | Top-level attribute that specifies the resource type. Namespaces should always be type `Namespace`.
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: Namespace
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "Namespace"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. The `api_version` should always be `core/v2`.
@@ -241,6 +231,22 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
+type         | 
+-------------|------
+description  | Top-level attribute that specifies the resource type. Namespaces should always be type `Namespace`.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Namespace
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "Namespace"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 ### Spec attributes
 
 name         | 
@@ -271,3 +277,4 @@ name: production
 [9]: ../../deploy-sensu/install-sensu/#install-sensuctl
 [10]: ../../../sensuctl/create-manage-resources/#create-resources
 [11]: #spec-attributes
+[12]: ../../../observability-pipeline/observe-entities/entities/#backend-entities

@@ -197,26 +197,9 @@ Both service components can make use of the same rule template at the threshold 
 Service components can reference more than one rule template.
 Sensu evaluates each rule separately, and each rule produces its own event as output.
 
-
 ## Rule template specification
 
 ### Top-level attributes
-
-type         | 
--------------|------
-description  | Top-level attribute that specifies the resource type. For rule template configuration, the type should always be `RuleTemplate`.
-required     | Required for rule template configuration in `wrapped-json` or `yaml` format.
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: RuleTemplate
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "RuleTemplate"
-}
-{{< /code >}}
-{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
@@ -500,39 +483,23 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
+type         | 
+-------------|------
+description  | Top-level attribute that specifies the resource type. For rule template configuration, the type should always be `RuleTemplate`.
+required     | Required for rule template configuration in `wrapped-json` or `yaml` format.
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: RuleTemplate
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "RuleTemplate"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 ### Metadata attributes
-
-name         |      |
--------------|------
-description  | Name for the rule template that is used internally by Sensu.
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-name: aggregate
-{{< /code >}}
-{{< code json >}}
-{
-  "name": "aggregate"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-namespace    |      |
--------------|------
-description  | [Sensu RBAC namespace][6] that the rule template belongs to.
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-namespace: default
-{{< /code >}}
-{{< code json >}}
-{
-  "namespace": "default"
-}
-{{< /code >}}
-{{< /language-toggle >}}
 
 | annotations |     |
 -------------|------
@@ -590,23 +557,39 @@ labels:
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Spec attributes
-
-description  | 
--------------|------ 
-description  | Plain text description of the rule template's behavior.
+name         |      |
+-------------|------
+description  | Name for the rule template that is used internally by Sensu.
 required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-description: Monitor a distributed service - aggregate one or more events into a single event. This BSM rule template allows you to treat the results of multiple disparate check executions – executed across multiple disparate systems – as a single event. This template is extremely useful in dynamic environments and/or environments that have a reasonable tolerance for failure. Use this template when a service can be considered healthy as long as a minimum threshold is satisfied (e.g. at least 5 healthy web servers? at least 70% of N processes healthy?).
+name: aggregate
 {{< /code >}}
 {{< code json >}}
 {
-  "description": "Monitor a distributed service - aggregate one or more events into a single event. This BSM rule template allows you to treat the results of multiple disparate check executions – executed across multiple disparate systems – as a single event. This template is extremely useful in dynamic environments and/or environments that have a reasonable tolerance for failure. Use this template when a service can be considered healthy as long as a minimum threshold is satisfied (e.g. at least 5 healthy web servers? at least 70% of N processes healthy?)."
+  "name": "aggregate"
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+namespace    |      |
+-------------|------
+description  | [Sensu RBAC namespace][6] that the rule template belongs to.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+namespace: default
+{{< /code >}}
+{{< code json >}}
+{
+  "namespace": "default"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+### Spec attributes
 
 arguments    | 
 -------------|------ 
@@ -694,6 +677,22 @@ arguments:
     },
     "required": null
   }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+description  | 
+-------------|------ 
+description  | Plain text description of the rule template's behavior.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+description: Monitor a distributed service - aggregate one or more events into a single event. This BSM rule template allows you to treat the results of multiple disparate check executions – executed across multiple disparate systems – as a single event. This template is extremely useful in dynamic environments and/or environments that have a reasonable tolerance for failure. Use this template when a service can be considered healthy as long as a minimum threshold is satisfied (e.g. at least 5 healthy web servers? at least 70% of N processes healthy?).
+{{< /code >}}
+{{< code json >}}
+{
+  "description": "Monitor a distributed service - aggregate one or more events into a single event. This BSM rule template allows you to treat the results of multiple disparate check executions – executed across multiple disparate systems – as a single event. This template is extremely useful in dynamic environments and/or environments that have a reasonable tolerance for failure. Use this template when a service can be considered healthy as long as a minimum threshold is satisfied (e.g. at least 5 healthy web servers? at least 70% of N processes healthy?)."
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -849,22 +848,6 @@ eval: |2
 
 #### Arguments attributes
 
-required     | 
--------------|------ 
-description  | List of attributes the rule template argument requires. The listed attributes must be configured in the [properties][2] object.
-required     | false
-type         | Array
-example      | {{< language-toggle >}}
-{{< code yml >}}
-required: null
-{{< /code >}}
-{{< code json >}}
-{
-  "required": null
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 <a id="rule-properties"></a>
 
 properties   | 
@@ -945,6 +928,22 @@ properties:
       "type": "number"
     }
   },
+  "required": null
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+required     | 
+-------------|------ 
+description  | List of attributes the rule template argument requires. The listed attributes must be configured in the [properties][2] object.
+required     | false
+type         | Array
+example      | {{< language-toggle >}}
+{{< code yml >}}
+required: null
+{{< /code >}}
+{{< code json >}}
+{
   "required": null
 }
 {{< /code >}}

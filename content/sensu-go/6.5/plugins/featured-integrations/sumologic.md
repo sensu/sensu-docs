@@ -28,7 +28,7 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 
 For a turnkey experience with the Sensu Sumo Logic Handler plugin, use our curated, configurable quick-start templates for [event storage][6] and [metric storage][8] to integrate Sensu with your existing workflows and send observation data to an HTTP Logs and Metrics Source.
 
-To build your own workflow or integrate Sensu with existing workflows, add the [Sensu Sumo Logic Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub, to build your own workflow or integrate Sensu with your existing Sumo Logic workflows.
+To build your own workflow or integrate Sensu with existing workflows, add the [Sensu Sumo Logic Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 ## More resources

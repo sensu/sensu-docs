@@ -570,27 +570,11 @@ For example:
 sensu.ListEvents()
 {{< /code >}}
 
-The events in the returned array use the same format as responses for the [core/v2/events API]][43].
+The events in the returned array use the same format as responses for the [core/v2/events API][43].
 
 ## Event filter specification
 
 ### Top-level attributes
-
-type         | 
--------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][33] resource type. Event filters should always be type `EventFilter`.
-required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: EventFilter
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "EventFilter"
-}
-{{< /code >}}
-{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
@@ -667,37 +651,42 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Metadata attributes
-
-| name       |      |
+type         | 
 -------------|------
-description  | Unique string used to identify the event filter. Filter names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][35]). Each filter must have a unique name within its namespace.
-required     | true
+description  | Top-level attribute that specifies the [`sensuctl create`][33] resource type. Event filters should always be type `EventFilter`.
+required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: filter-weekdays-only
+type: EventFilter
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "filter-weekdays-only"
+  "type": "EventFilter"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
-| namespace  |      |
+### Metadata attributes
+
+| annotations | |
 -------------|------
-description  | Sensu [RBAC namespace][10] that the event filter belongs to.
+description  | Non-identifying metadata to include with event data that you can access with event filters. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][36], [sensuctl response filtering][37], or [web UI views][42].
 required     | false
-type         | String
-default      | `default`
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-namespace: production
+annotations:
+  managed-by: ops
+  playbook: www.example.url
 {{< /code >}}
 {{< code json >}}
 {
-  "namespace": "production"
+  "annotations": {
+    "managed-by": "ops",
+    "playbook": "www.example.url"
+  }
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -740,24 +729,35 @@ labels:
 {{< /code >}}
 {{< /language-toggle >}}
 
-| annotations | |
+| name       |      |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with event filters. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][36], [sensuctl response filtering][37], or [web UI views][42].
-required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
-default      | `null`
+description  | Unique string used to identify the event filter. Filter names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][35]). Each filter must have a unique name within its namespace.
+required     | true
+type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-annotations:
-  managed-by: ops
-  playbook: www.example.url
+name: filter-weekdays-only
 {{< /code >}}
 {{< code json >}}
 {
-  "annotations": {
-    "managed-by": "ops",
-    "playbook": "www.example.url"
-  }
+  "name": "filter-weekdays-only"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| namespace  |      |
+-------------|------
+description  | Sensu [RBAC namespace][10] that the event filter belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+namespace: production
+{{< /code >}}
+{{< code json >}}
+{
+  "namespace": "production"
 }
 {{< /code >}}
 {{< /language-toggle >}}

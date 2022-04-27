@@ -308,22 +308,6 @@ Read [Route alerts with event filters][30] for another pipeline example that inc
 
 ### Top-level attributes
 
-type         | 
--------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][4] resource type. Pipelines should always be type `Pipeline`.
-required     | Required for pipeline definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: Pipeline
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "Pipeline"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For pipelines in this version of Sensu, the api_version should always be `core/v2`.
@@ -442,37 +426,42 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Metadata attributes
-
-| name       |      |
+type         | 
 -------------|------
-description  | Unique string used to identify the pipeline. Pipeline names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][18]). Each pipeline must have a unique name within its namespace.
-required     | true
+description  | Top-level attribute that specifies the [`sensuctl create`][4] resource type. Pipelines should always be type `Pipeline`.
+required     | Required for pipeline definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: incident_alerts
+type: Pipeline
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "incident_alerts"
+  "type": "Pipeline"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
-| namespace  |      |
+### Metadata attributes
+
+| annotations |     |
 -------------|------
-description  | Sensu [RBAC namespace][9] that the pipeline belongs to.
+description  | Non-identifying metadata to include with observation event data that you can access with [event filters][24]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10], [sensuctl response filtering][11], or [web UI views][28].
 required     | false
-type         | String
-default      | `default`
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-namespace: default
+annotations:
+  managed-by: ops
+  slack-channel: "#incidents"
 {{< /code >}}
 {{< code json >}}
 {
-  "namespace": "default"
+  "annotations": {
+    "managed-by": "ops",
+    "slack-channel": "#incidents"
+  }
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -515,24 +504,35 @@ labels:
 {{< /code >}}
 {{< /language-toggle >}}
 
-| annotations |     |
+| name       |      |
 -------------|------
-description  | Non-identifying metadata to include with observation event data that you can access with [event filters][24]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10], [sensuctl response filtering][11], or [web UI views][28].
-required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
-default      | `null`
+description  | Unique string used to identify the pipeline. Pipeline names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][18]). Each pipeline must have a unique name within its namespace.
+required     | true
+type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-annotations:
-  managed-by: ops
-  slack-channel: "#incidents"
+name: incident_alerts
 {{< /code >}}
 {{< code json >}}
 {
-  "annotations": {
-    "managed-by": "ops",
-    "slack-channel": "#incidents"
-  }
+  "name": "incident_alerts"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| namespace  |      |
+-------------|------
+description  | Sensu [RBAC namespace][9] that the pipeline belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+namespace: default
+{{< /code >}}
+{{< code json >}}
+{
+  "namespace": "default"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -649,30 +649,6 @@ filters:
 {{< /code >}}
 {{< /language-toggle >}}
 
-mutator      | 
--------------|------
-description  | Reference for the Sensu mutator to use to mutate event data for the workflow. Each pipeline workflow can reference only one mutator. Read [mutator attributes][9] for details.
-required     | false
-type         | Map of key-value pairs
-default      | `null`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-mutator:
-  name: add_labels
-  type: Mutator
-  api_version: core/v2
-{{< /code >}}
-{{< code json >}}
-{
-  "mutator": {
-    "name": "add_labels",
-    "type": "Mutator",
-    "api_version": "core/v2"
-  }
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 <a id="handler-pipeline"></a>
 
 handler      | 
@@ -698,7 +674,48 @@ handler:
 {{< /code >}}
 {{< /language-toggle >}}
 
+mutator      | 
+-------------|------
+description  | Reference for the Sensu mutator to use to mutate event data for the workflow. Each pipeline workflow can reference only one mutator. Read [mutator attributes][9] for details.
+required     | false
+type         | Map of key-value pairs
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+mutator:
+  name: add_labels
+  type: Mutator
+  api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "mutator": {
+    "name": "add_labels",
+    "type": "Mutator",
+    "api_version": "core/v2"
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 #### Filters attributes
+
+api_version  | 
+-------------|------
+description  | The Sensu API group and version for the event filter. For event filters in this version of Sensu, the api_version should always be `core/v2`.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "core/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 name         | 
 -------------|------
@@ -734,77 +751,25 @@ type: EventFilter
 {{< /code >}}
 {{< /language-toggle >}}
 
-api_version  | 
--------------|------
-description  | The Sensu API group and version for the event filter. For event filters in this version of Sensu, the api_version should always be `core/v2`.
-required     | true
-type         | String
-default      | `null`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-api_version: core/v2
-{{< /code >}}
-{{< code json >}}
-{
-  "api_version": "core/v2"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-#### Mutator attributes
-
-name         | 
--------------|------
-description  | Name of the Sensu [mutator][14] to use for the workflow. You can use your existing mutators in pipeline workflows.
-required     | true
-type         | String
-default      | `null`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-name: add_labels
-{{< /code >}}
-{{< code json >}}
-{
-  "name": "add_labels"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-type         | 
--------------|------
-description  | The [`sensuctl create`][4] resource type for the mutator. Mutators should always be type `Mutator`.
-required     | true
-type         | String
-default      | `null`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: Mutator
-{{< /code >}}
-{{< code json >}}
-{
- "type": "Mutator"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-api_version  | 
--------------|------
-description  | The Sensu API group and version for the mutator. For mutators in this version of Sensu, the api_version should always be `core/v2`.
-required     | true
-type         | String
-default      | `null`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-api_version: core/v2
-{{< /code >}}
-{{< code json >}}
-{
-  "api_version": "core/v2"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 #### Handler attributes
+
+api_version  | 
+-------------|------
+description  | The Sensu API group and version for the handler.
+required     | true
+type         | String
+allowed values | `core/v2` for a [pipe handler][15], [TCP or UDP handler][16], or [handler set][1]<br><br>`pipeline/v1` for a [TCP stream handler][20] or [Sumo Logic metrics handler][21]
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "core/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 name         | 
 -------------|------
@@ -841,12 +806,13 @@ type: Handler
 {{< /code >}}
 {{< /language-toggle >}}
 
+#### Mutator attributes
+
 api_version  | 
 -------------|------
-description  | The Sensu API group and version for the handler.
+description  | The Sensu API group and version for the mutator. For mutators in this version of Sensu, the api_version should always be `core/v2`.
 required     | true
 type         | String
-allowed values | `core/v2` for a [pipe handler][15], [TCP or UDP handler][16], or [handler set][1]<br><br>`pipeline/v1` for a [TCP stream handler][20] or [Sumo Logic metrics handler][21]
 default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
@@ -855,6 +821,40 @@ api_version: core/v2
 {{< code json >}}
 {
   "api_version": "core/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+name         | 
+-------------|------
+description  | Name of the Sensu [mutator][14] to use for the workflow. You can use your existing mutators in pipeline workflows.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: add_labels
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "add_labels"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+type         | 
+-------------|------
+description  | The [`sensuctl create`][4] resource type for the mutator. Mutators should always be type `Mutator`.
+required     | true
+type         | String
+default      | `null`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Mutator
+{{< /code >}}
+{{< code json >}}
+{
+ "type": "Mutator"
 }
 {{< /code >}}
 {{< /language-toggle >}}

@@ -105,25 +105,9 @@ spec:
 
 {{< /language-toggle >}}
 
-## Searches specification
+## Search specification
 
 ### Top-level attributes
-
-type         | 
--------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][6] resource type. Searches should always be type `Search`.
-required     | Required for search entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][6].
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: Search
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "Search"
-}
-{{< /code >}}
-{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
@@ -188,6 +172,22 @@ spec:
     ],
     "resource": "core.v2/Event"
   }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+type         | 
+-------------|------
+description  | Top-level attribute that specifies the [`sensuctl create`][6] resource type. Searches should always be type `Search`.
+required     | Required for search entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][6].
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Search
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "Search"
 }
 {{< /code >}}
 {{< /language-toggle >}}

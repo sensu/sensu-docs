@@ -28,13 +28,14 @@ You can define a single custom web UI configuration to federate to all, some, or
 
 In this web UI configuration example:
 
-- Users will receive a customized sign-in message
+- Users will receive a customized sign-in message that is formatted with [Markdown][10]
 - Details for the local cluster will not be displayed
 - Each page will list 50 items (except the checks page, which will list 100 items)
 - The web UI will use the classic theme
 - The entities page will list only entities with the `proxy` subscription, in ascending order based on `last_seen` value
 - The checks page will list checks alphabetically by name
 - Expanded links and images will be allowed for the listed URLs
+- YAML will be the default format for [resource definitions in the web UI][9]
 
 {{< language-toggle >}}
 
@@ -45,11 +46,12 @@ api_version: web/v1
 metadata:
   name: custom-web-ui
 spec:
-  signin_message: with your LDAP or system credentials
+  signin_message: with your *LDAP or system credentials*
   always_show_local_cluster: false
   default_preferences:
     poll_interval: 120000
     page_size: 50
+    serialization_format: YAML
     theme: classic
   page_preferences:
     - page: entities
@@ -78,11 +80,12 @@ spec:
     "name": "custom-web-ui"
   },
   "spec": {
-    "signin_message": "with your LDAP or system credentials",
+    "signin_message": "with your *LDAP or system credentials*",
     "always_show_local_cluster": false,
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 50,
+      "serialization_format": "YAML",
       "theme": "classic"
     },
     "page_preferences": [
@@ -114,26 +117,24 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+## Page preferences order values
+
+Available values for the `order` attribute in [page_preferences][11] vary depending on the page.
+
+Page | Order value and description
+---- | ---------------------------
+events | `ENTITY`: List events by the entities that created them, in ascending order by entity name<br><br>`ENTITY_DESC`: List events by the entities that created them, in descending order by entity name<br><br>`LASTOK`: List events by their last OK status, starting with the most recent<br><br>`NEWEST`: List events by their timestamps, starting with the most recent<br><br>`OLDEST`: List events by their timestamps, starting with the oldest<br><br>`SEVERITY`: List events by their status, starting with the most severe
+entities | `ID`: List entities by their IDs, in ascending order<br><br>`ID_DESC`: List entities by their IDs, in descending order<br><br>`LASTSEEN`: List entities by their `last_seen` timestamp, starting with the most recent
+silences | `ID`: List silences by their IDs, in ascending order<br><br>`ID_DESC`: List silences by their IDs, in descending order<br><br>`BEGIN`: List silences by the time they begin, starting with the silence that begins soonest<br><br>`BEGIN_DESC`: List silences by the time they begin, ending with the silence that begins first
+checks | `NAME`: List checks by name, in alphabetical order<br><br>`NAME_DESC`: List checks by name, in reverse alphabetical order
+event-filters | `NAME`: List event filters by name, in alphabetical order<br><br>`NAME_DESC`: List event filters by name, in reverse alphabetical order
+handlers | `NAME`: List handlers by name, in alphabetical order<br><br>`NAME_DESC`: List handlers by name, in reverse alphabetical order
+mutators | `NAME`: List mutators by name, in alphabetical order<br><br>`NAME_DESC`: List mutators by name, in reverse alphabetical order
  
 ## Web UI configuration specification
 
 ### Top-level attributes
-
-type         | 
--------------|------
-description  | Top-level attribute that specifies the resource type. For web UI configuration, the type should always be `GlobalConfig`.
-required     | Required for web UI configuration in `wrapped-json` or `yaml` format.
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: GlobalConfig
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "GlobalConfig"
-}
-{{< /code >}}
-{{< /language-toggle >}}
 
 api_version  | 
 -------------|------
@@ -180,11 +181,12 @@ type         | Map of key-value pairs
 example      | {{< language-toggle >}}
 {{< code yml >}}
 spec:
-  signin_message: with your LDAP or system credentials
+  signin_message: with your *LDAP or system credentials*
   always_show_local_cluster: false
   default_preferences:
     poll_interval: 120000
     page_size: 50
+    serialization_format: YAML
     theme: classic
   page_preferences:
     - page: entities
@@ -207,11 +209,12 @@ spec:
 {{< code json >}}
 {
   "spec": {
-    "signin_message": "with your LDAP or system credentials",
+    "signin_message": "with your *LDAP or system credentials*",
     "always_show_local_cluster": false,
     "default_preferences": {
       "poll_interval": 120000,
       "page_size": 50,
+      "serialization_format": "YAML",
       "theme": "classic"
     },
     "page_preferences": [
@@ -243,23 +246,23 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Metadata attributes
-
-name         |      |
+type         | 
 -------------|------
-description  | Name for the web UI configuration that is used internally by Sensu.
-required     | true
+description  | Top-level attribute that specifies the resource type. For web UI configuration, the type should always be `GlobalConfig`.
+required     | Required for web UI configuration in `wrapped-json` or `yaml` format.
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: custom-web-ui
+type: GlobalConfig
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "custom-web-ui"
+  "type": "GlobalConfig"
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+### Metadata attributes
 
 | created_by |      |
 -------------|------
@@ -277,26 +280,23 @@ created_by: admin
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Spec attributes
-
-<a id="sign-in-message"></a>
-
-signin_message | 
--------------|------ 
-description  | Custom message to display on the web UI sign-in modal.
-required     | false
+name         |      |
+-------------|------
+description  | Name for the web UI configuration that is used internally by Sensu.
+required     | true
 type         | String
-default      | `with your credentials`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-signin_message: with your LDAP or system credentials
+name: custom-web-ui
 {{< /code >}}
 {{< code json >}}
 {
-  "signin_message": "with your LDAP or system credentials"
+  "name": "custom-web-ui"
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+### Spec attributes
 
 <a id="show-local-cluster"></a>
 
@@ -340,6 +340,42 @@ default_preferences:
 {{< /code >}}
 {{< /language-toggle >}}
 
+link_policy | 
+-------------|------ 
+description  | For labels or annotations that contain a URL, the policy for which domains are valid and invalid targets for conversion to a link or an image.
+required     | false
+type         | Map of key-value pairs
+example      | {{< language-toggle >}}
+{{< code yml >}}
+link_policy:
+  allow_list: true
+  urls:
+  - https://example.com
+  - steamapp://34234234
+  - "//google.com"
+  - "//*.google.com"
+  - "//bob.local"
+  - https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic
+{{< /code >}}
+{{< code json >}}
+{
+  "link_policy": {
+    "allow_list": true,
+    "urls": [
+      "https://example.com",
+      "steamapp://34234234",
+      "//google.com",
+      "//*.google.com",
+      "//bob.local",
+      "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
+    ]
+  }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+<a id="page-preferences-attribute"></a>
+
 page_preferences | 
 -------------|------ 
 description  | [Page-specific preferences][6] for page size, order, and selector for all users. Any page preferences will override default preferences for the specified page.
@@ -375,41 +411,43 @@ page_preferences:
 {{< /code >}}
 {{< /language-toggle >}}
 
-link_policy | 
+<a id="sign-in-message"></a>
+
+signin_message | 
 -------------|------ 
-description  | For labels or annotations that contain a URL, the policy for which domains are valid and invalid targets for conversion to a link or an image.
+description  | Custom message to display on the web UI sign-in modal. Accepts [Markdown][10] formatting.
 required     | false
-type         | Map of key-value pairs
+type         | String
+default      | `with your credentials`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-link_policy:
-  allow_list: true
-  urls:
-  - https://example.com
-  - steamapp://34234234
-  - "//google.com"
-  - "//*.google.com"
-  - "//bob.local"
-  - https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic
+signin_message: with your *LDAP or system credentials*
 {{< /code >}}
 {{< code json >}}
 {
-  "link_policy": {
-    "allow_list": true,
-    "urls": [
-      "https://example.com",
-      "steamapp://34234234",
-      "//google.com",
-      "//*.google.com",
-      "//bob.local",
-      "https://grafana-host/render/metrics?width=500&height=250#sensu.io.graphic"
-    ]
-  }
+  "signin_message": "with your *LDAP or system credentials*"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
-#### Default preferences attributes
+#### default_preferences attributes
+
+page_size | 
+-------------|------ 
+description  | The number of items to list on each page.
+required     | false
+type         | Integer
+default      | `25`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+page_size: 25
+{{< /code >}}
+{{< code json >}}
+{
+  "page_size": 25
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 poll_interval | 
 -------------|------ 
@@ -429,19 +467,22 @@ poll_interval: 120000
 {{< /code >}}
 {{< /language-toggle >}}
 
-page_size | 
+<a id="serialization_format"></a>
+
+serialization_format | 
 -------------|------ 
-description  | The number of items to list on each page.
+description  | Default format for [resource definitions in the web UI][9].
 required     | false
-type         | Integer
-default      | `25`
+type         | String
+default      | `YAML`
+allowed values | `JSON`, `YAML`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-page_size: 25
+serialization_format: YAML
 {{< /code >}}
 {{< code json >}}
 {
-  "page_size": 25
+  "serialization_format": "YAML"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -468,6 +509,22 @@ theme: classic
 {{< /language-toggle >}}
 
 #### Page preferences attributes
+
+order | 
+-------------|------ 
+description  | The order in which to list items on the specified page. Read [Page preferences order values][8] to learn more.
+required     | false
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+order: LASTSEEN
+{{< /code >}}
+{{< code json >}}
+{
+  "order": "LASTSEEN"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 page | 
 -------------|------ 
@@ -498,22 +555,6 @@ page_size: 100
 {{< code json >}}
 {
   "page_size": 100
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-order | 
--------------|------ 
-description  | The order in which to list items on the specified page. Read [Page preferences order values][8] to learn more.
-required     | false
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-order: LASTSEEN
-{{< /code >}}
-{{< code json >}}
-{
-  "order": "LASTSEEN"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -585,22 +626,8 @@ urls:
 {{< /code >}}
 {{< /language-toggle >}}
 
-## Page preferences order values
 
-Available values for the `order` attribute in page preferences vary depending on the page.
-
-Page | Order value and description
----- | ---------------------------
-events | `ENTITY`: List events by the entities that created them, in ascending order by entity name<br><br>`ENTITY_DESC`: List events by the entities that created them, in descending order by entity name<br><br>`LASTOK`: List events by their last OK status, starting with the most recent<br><br>`NEWEST`: List events by their timestamps, starting with the most recent<br><br>`OLDEST`: List events by their timestamps, starting with the oldest<br><br>`SEVERITY`: List events by their status, starting with the most severe
-entities | `ID`: List entities by their IDs, in ascending order<br><br>`ID_DESC`: List entities by their IDs, in descending order<br><br>`LASTSEEN`: List entities by their `last_seen` timestamp, starting with the most recent
-silences | `ID`: List silences by their IDs, in ascending order<br><br>`ID_DESC`: List silences by their IDs, in descending order<br><br>`BEGIN`: List silences by the time they begin, starting with the silence that begins soonest<br><br>`BEGIN_DESC`: List silences by the time they begin, ending with the silence that begins first
-checks | `NAME`: List checks by name, in alphabetical order<br><br>`NAME_DESC`: List checks by name, in reverse alphabetical order
-event-filters | `NAME`: List event filters by name, in alphabetical order<br><br>`NAME_DESC`: List event filters by name, in reverse alphabetical order
-handlers | `NAME`: List handlers by name, in alphabetical order<br><br>`NAME_DESC`: List handlers by name, in reverse alphabetical order
-mutators | `NAME`: List mutators by name, in alphabetical order<br><br>`NAME_DESC`: List mutators by name, in reverse alphabetical order
-
-
-[1]: #default-preferences-attributes
+[1]: #default_preferences-attributes
 [2]: ../../api/enterprise/webconfig/
 [3]: ../
 [4]: #spec-attributes
@@ -608,3 +635,6 @@ mutators | `NAME`: List mutators by name, in alphabetical order<br><br>`NAME_DES
 [6]: #page-preferences-attributes
 [7]: ../search/
 [8]: #page-preferences-order-values
+[9]: ../view-manage-resources/#view-resource-data-in-the-web-ui
+[10]: https://www.markdownguide.org/
+[11]: #page-preferences-attribute

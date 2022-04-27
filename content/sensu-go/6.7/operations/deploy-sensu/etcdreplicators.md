@@ -272,23 +272,7 @@ Replicators are configured by specifying the TLS details of the remote cluster, 
 
 ## Etcd replicator specification
 
-#### Top-level attributes
-
-type         |      |
--------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][4] resource type. Always `EtcdReplicator.`
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: EtcdReplicator
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "EtcdReplicator"
-}
-{{< /code >}}
-{{< /language-toggle >}}
+### Top-level attributes
 
 api_version  |      |
 -------------|------
@@ -360,23 +344,23 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
-#### Metadata attributes
-
-name         |      |
+type         |      |
 -------------|------
-description  | Replicator name used internally by Sensu.
+description  | Top-level attribute that specifies the [`sensuctl create`][4] resource type. Always `EtcdReplicator.`
 required     | true
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: my_replicator
+type: EtcdReplicator
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "my_replicator"
+  "type": "EtcdReplicator"
 }
 {{< /code >}}
 {{< /language-toggle >}}
+
+### Metadata attributes
 
 | created_by |      |
 -------------|------
@@ -394,7 +378,40 @@ created_by: admin
 {{< /code >}}
 {{< /language-toggle >}}
 
-#### Spec attributes
+name         |      |
+-------------|------
+description  | Replicator name used internally by Sensu.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+name: my_replicator
+{{< /code >}}
+{{< code json >}}
+{
+  "name": "my_replicator"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+### Spec attributes
+
+api_version  |      |
+-------------|-------
+description  | Sensu API version of the resource to replicate.
+required     | false
+type         | String
+default      | `core/v2`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+api_version: core/v2
+{{< /code >}}
+{{< code json >}}
+{
+  "api_version": "core/v2"
+}
+{{< /code >}}
+{{< /language-toggle >}}
 
 ca_cert      |      |
 -------------|------
@@ -428,22 +445,6 @@ cert: /path/to/ssl/cert.pem
 {{< /code >}}
 {{< /language-toggle >}}
 
-key          |      |
--------------|------
-description  | Path to the PEM-format key file associated with the `cert` to use for TLS client authentication. This key and its corresponding certificate are required for secure client communication.
-required     | true if `insecure: false` (the default configuration). If `insecure: true`, `key` is not required.
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-key: /path/to/ssl/key.pem
-{{< /code >}}
-{{< code json >}}
-{
-  "key": "/path/to/ssl/key.pem"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 insecure     |      |
 -------------|-------
 description  | `true` to disable transport security. Otherwise, `false`. {{% notice warning %}}
@@ -463,51 +464,18 @@ insecure: false
 {{< /code >}}
 {{< /language-toggle >}}
 
-url          |      |
--------------|-------
-description  | Destination cluster URL. If specifying more than one, use a comma to separate. Replace with a non-default value for secure client communication.
-required     | true
+key          |      |
+-------------|------
+description  | Path to the PEM-format key file associated with the `cert` to use for TLS client authentication. This key and its corresponding certificate are required for secure client communication.
+required     | true if `insecure: false` (the default configuration). If `insecure: true`, `key` is not required.
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-url: http://127.0.0.1:2379
+key: /path/to/ssl/key.pem
 {{< /code >}}
 {{< code json >}}
 {
-  "url": "http://127.0.0.1:2379"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-api_version  |      |
--------------|-------
-description  | Sensu API version of the resource to replicate.
-required     | false
-type         | String
-default      | `core/v2`
-example      | {{< language-toggle >}}
-{{< code yml >}}
-api_version: core/v2
-{{< /code >}}
-{{< code json >}}
-{
-  "api_version": "core/v2"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
-resource     |      |
--------------|-------
-description  | Name of the resource to replicate.
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-resource: Role
-{{< /code >}}
-{{< code json >}}
-{
-  "resource": "Role"
+  "key": "/path/to/ssl/key.pem"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -543,6 +511,38 @@ replication_interval_seconds: 30
 {{< code json >}}
 {
   "replication_interval_seconds": 30
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+resource     |      |
+-------------|-------
+description  | Name of the resource to replicate.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+resource: Role
+{{< /code >}}
+{{< code json >}}
+{
+  "resource": "Role"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+url          |      |
+-------------|-------
+description  | Destination cluster URL. If specifying more than one, use a comma to separate. Replace with a non-default value for secure client communication.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+url: http://127.0.0.1:2379
+{{< /code >}}
+{{< code json >}}
+{
+  "url": "http://127.0.0.1:2379"
 }
 {{< /code >}}
 {{< /language-toggle >}}

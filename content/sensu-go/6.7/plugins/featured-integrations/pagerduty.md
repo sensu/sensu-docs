@@ -12,9 +12,9 @@ menu:
 The [Sensu PagerDuty Handler plugin][4] is a Sensu [handler][1] that manages PagerDuty incidents and operator alerts.
 With this handler, Sensu can trigger and resolve PagerDuty incidents according to the PagerDuty schedules, notifications, and escalation, response, and orchestration workflows you already have configured.
 
-{{% notice note %}}
-**NOTE**: The Sensu PagerDuty Handler plugin is an example of Sensu's alerting and incident management integrations.
-To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.sensu.io/).
+{{% notice protip %}}
+**PRO TIP**: Use the [Sensu Catalog](../../../web-ui/sensu-catalog/) to enable this integration directly from your browser.
+Follow the Catalog prompts to configure the Sensu resources you need and start processing your observability data with a few clicks.
 {{% /notice %}}
 
 ## Features
@@ -26,7 +26,8 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 
 ## Get the plugin
 
-For a turnkey experience with the Sensu PagerDuty Handler plugin, use our curated, configurable [quick-start template][3] for incident management to integrate Sensu with your existing PagerDuty workflows.
+For a turnkey experience with the Sensu PagerDuty Handler plugin, use the [Sensu Catalog][10] in the web UI to configure and install it.
+Or, use our curated, configurable [quick-start template][3] for incident management to integrate Sensu with your existing PagerDuty workflows.
 
 To build your own workflow or integrate Sensu with existing workflows, add the [Sensu PagerDuty Handler plugin][4] with a dynamic runtime asset from Bonsai, the Sensu asset hub.
 [Dynamic runtime assets][5] are shareable, reusable packages that make it easier to deploy Sensu plugins.
@@ -45,3 +46,4 @@ To build your own workflow or integrate Sensu with existing workflows, add the [
 [6]: ../../use-assets-to-install-plugins/
 [7]: ../../../observability-pipeline/observe-process/send-pagerduty-alerts/
 [8]: ../../../operations/manage-secrets/
+[10]: ../../../web-ui/sensu-catalog/

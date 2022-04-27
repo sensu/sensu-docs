@@ -174,22 +174,6 @@ Read the [sensuctl reference](../../../sensuctl/create-manage-resources/#create-
 
 ### Top-level attributes
 
-type         | 
--------------|------
-description  | Top-level attribute that specifies the resource type. Namespaces should always be type `Namespace`.
-required     | true
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: Namespace
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "Namespace"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. The `api_version` should always be `core/v2`.
@@ -237,6 +221,22 @@ spec:
   "spec": {
     "name": "production"
   }
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+type         | 
+-------------|------
+description  | Top-level attribute that specifies the resource type. Namespaces should always be type `Namespace`.
+required     | true
+type         | String
+example      | {{< language-toggle >}}
+{{< code yml >}}
+type: Namespace
+{{< /code >}}
+{{< code json >}}
+{
+  "type": "Namespace"
 }
 {{< /code >}}
 {{< /language-toggle >}}

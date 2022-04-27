@@ -2004,7 +2004,7 @@ output         | {{< code shell >}}
 [5]: #eventsentitycheck-put-parameters
 [6]: ../../../observability-pipeline/observe-entities/entities#entities-specification
 [7]: ../../../observability-pipeline/observe-schedule/checks#check-specification
-[8]: ../../../observability-pipeline/observe-events/events/#events-specification
+[8]: ../../../observability-pipeline/observe-events/events/#event-specification
 [9]: ../../../observability-pipeline/observe-events/events#metrics-attribute
 [10]: ../../#response-filtering
 [11]: #eventsentitycheck-put

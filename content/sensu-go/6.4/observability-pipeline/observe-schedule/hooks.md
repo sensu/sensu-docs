@@ -151,22 +151,6 @@ spec:
 
 ### Top-level attributes
 
-type         | 
--------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][1] resource type. Hooks should always be type `HookConfig`.
-required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][1].
-type         | String
-example      | {{< language-toggle >}}
-{{< code yml >}}
-type: HookConfig
-{{< /code >}}
-{{< code json >}}
-{
-  "type": "HookConfig"
-}
-{{< /code >}}
-{{< /language-toggle >}}
-
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For hooks in this version of Sensu, the `api_version` should always be `core/v2`.
@@ -239,37 +223,42 @@ spec:
 {{< /code >}}
 {{< /language-toggle >}}
 
-### Metadata attributes
-
-| name       |      |
+type         | 
 -------------|------
-description  | Unique string used to identify the hook. Hook names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][8]). Each hook must have a unique name within its namespace.
-required     | true
+description  | Top-level attribute that specifies the [`sensuctl create`][1] resource type. Hooks should always be type `HookConfig`.
+required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][1].
 type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-name: process_tree
+type: HookConfig
 {{< /code >}}
 {{< code json >}}
 {
-  "name": "process_tree"
+  "type": "HookConfig"
 }
 {{< /code >}}
 {{< /language-toggle >}}
 
-| namespace  |      |
+### Metadata attributes
+
+| annotations |     |
 -------------|------
-description  | The Sensu [RBAC namespace][3] that this hook belongs to.
+description  | Non-identifying metadata to include with observation event data that you can access with [event filters][4]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10], [sensuctl response filtering][11], or [web UI views][13].
 required     | false
-type         | String
-default      | `default`
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
 example      | {{< language-toggle >}}
 {{< code yml >}}
-namespace: production
+annotations:
+  managed-by: ops
+  playbook: www.example.url
 {{< /code >}}
 {{< code json >}}
 {
-  "namespace": "production"
+  "annotations": {
+    "managed-by": "ops",
+    "playbook": "www.example.url"
+  }
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -312,24 +301,35 @@ labels:
 {{< /code >}}
 {{< /language-toggle >}}
 
-| annotations |     |
+| name       |      |
 -------------|------
-description  | Non-identifying metadata to include with observation event data that you can access with [event filters][4]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10], [sensuctl response filtering][11], or [web UI views][13].
-required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
-default      | `null`
+description  | Unique string used to identify the hook. Hook names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][8]). Each hook must have a unique name within its namespace.
+required     | true
+type         | String
 example      | {{< language-toggle >}}
 {{< code yml >}}
-annotations:
-  managed-by: ops
-  playbook: www.example.url
+name: process_tree
 {{< /code >}}
 {{< code json >}}
 {
-  "annotations": {
-    "managed-by": "ops",
-    "playbook": "www.example.url"
-  }
+  "name": "process_tree"
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+| namespace  |      |
+-------------|------
+description  | The Sensu [RBAC namespace][3] that this hook belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< language-toggle >}}
+{{< code yml >}}
+namespace: production
+{{< /code >}}
+{{< code json >}}
+{
+  "namespace": "production"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -352,19 +352,21 @@ command: sudo /etc/init.d/nginx start
 {{< /code >}}
 {{< /language-toggle >}}
 
-timeout      | 
+|runtime_assets |   |
 -------------|------
-description  | Hook execution duration timeout (hard stop). In seconds.
+description  | Array of [Sensu dynamic runtime assets][5] (by their names) required at runtime for execution of the `command`.
 required     | false
-type         | Integer
-default      | 60
+type         | Array
 example      | {{< language-toggle >}}
 {{< code yml >}}
-timeout: 30
+runtime_assets:
+- log-context
 {{< /code >}}
 {{< code json >}}
 {
-  "timeout": 30
+  "runtime_assets": [
+    "log-context"
+  ]
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -386,21 +388,19 @@ stdin: true
 {{< /code >}}
 {{< /language-toggle >}}
 
-|runtime_assets |   |
+timeout      | 
 -------------|------
-description  | Array of [Sensu dynamic runtime assets][5] (by their names) required at runtime for execution of the `command`.
+description  | Hook execution duration timeout (hard stop). In seconds.
 required     | false
-type         | Array
+type         | Integer
+default      | 60
 example      | {{< language-toggle >}}
 {{< code yml >}}
-runtime_assets:
-- log-context
+timeout: 30
 {{< /code >}}
 {{< code json >}}
 {
-  "runtime_assets": [
-    "log-context"
-  ]
+  "timeout": 30
 }
 {{< /code >}}
 {{< /language-toggle >}}

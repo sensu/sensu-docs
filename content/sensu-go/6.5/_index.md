@@ -35,7 +35,7 @@ Sensu gives you full control over your alerts with flexible [event filters][8], 
 
 Sensu's open architecture integrates with the tools and services you already use, like [Ansible][33], [EC2][35], [InfluxDB][32], [PagerDuty][19], [Puppet][23], [Rundeck][36], [Saltstack][37], [Slack][17], and [Sumo Logic][34].
 
-Check out our [supported integrations][38], search for more plugins in [Bonsai, the Sensu asset hub][18], or write your own [Sensu plugins][3] in any language.
+Check out our [featured integrations][38], search for more plugins in [Bonsai, the Sensu asset hub][18], or write your own [Sensu plugins][3] in any language.
 
 ## Automate with agent registration-deregistration and check subscriptions
 
@@ -81,13 +81,13 @@ Sensu is a comprehensive monitoring and observability solution for enterprises, 
 [14]: observability-pipeline/observe-process/aggregate-metrics-statsd/
 [15]: web-ui/
 [16]: sensuctl/
-[17]: plugins/supported-integrations/slack/
+[17]: plugins/featured-integrations/slack/
 [18]: https://bonsai.sensu.io/
-[19]: plugins/supported-integrations/pagerduty/
+[19]: plugins/featured-integrations/pagerduty/
 [20]: #filtered-context-rich-alerts-that-improve-incident-response
 [21]: observability-pipeline/observe-schedule/agent/#registration-events
 [22]: https://sensu.io/support
-[23]: plugins/supported-integrations/puppet/
+[23]: plugins/featured-integrations/puppet/
 [24]: observability-pipeline/observe-process/handlers/
 [25]: operations/deploy-sensu/install-sensu/
 [26]: observability-pipeline/observe-schedule/agent/
@@ -96,12 +96,12 @@ Sensu is a comprehensive monitoring and observability solution for enterprises, 
 [29]: observability-pipeline/observe-filter/route-alerts/
 [30]: operations/deploy-sensu/
 [31]: web-ui/view-manage-resources/
-[32]: plugins/supported-integrations/influxdb/
-[33]: plugins/supported-integrations/ansible/
-[34]: plugins/supported-integrations/sumologic/
-[35]: plugins/supported-integrations/aws-ec2/
-[36]: plugins/supported-integrations/rundeck/
-[37]: plugins/supported-integrations/saltstack/
-[38]: plugins/supported-integrations/
+[32]: plugins/featured-integrations/influxdb/
+[33]: plugins/featured-integrations/ansible/
+[34]: plugins/featured-integrations/sumologic/
+[35]: plugins/featured-integrations/aws-ec2/
+[36]: plugins/featured-integrations/rundeck/
+[37]: plugins/featured-integrations/saltstack/
+[38]: plugins/featured-integrations/
 [39]: observability-pipeline/observe-schedule/subscriptions/
 [40]: observability-pipeline/observe-schedule/collect-metrics-with-checks/
