@@ -56,7 +56,7 @@ http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/ag
 
 The response will include the complete `aggregate` rule template resource definition in JSON format:
 
-{{< code json >}}
+{{< code text >}}
 {
   "type": "RuleTemplate",
   "api_version": "bsm/v1",

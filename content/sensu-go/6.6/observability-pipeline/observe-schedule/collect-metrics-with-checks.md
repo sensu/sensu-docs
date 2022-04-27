@@ -85,7 +85,7 @@ sensuctl asset list
 
 The sensuctl response should list http-checks: 
 
-{{< code shell >}}
+{{< code text >}}
      Name                                       URL                                    Hash    
 ────────────── ───────────────────────────────────────────────────────────────────── ──────────
   http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_windows_amd64.tar.gz   52ae075  
@@ -127,9 +127,9 @@ Verify that NGINX is serving webpages:
 curl -sI http://localhost
 {{< /code >}}
 
-The response should include `HTTP/1.1 200 OK` to indicates that NGINX processed your request as expected:
+The response should include `HTTP/1.1 200 OK` to indicate that NGINX processed your request as expected:
 
-{{< code shell >}}
+{{< code text >}}
 HTTP/1.1 200 OK
 Server: nginx/1.20.1
 Date: Tue, 02 Nov 2021 20:15:40 GMT
@@ -267,7 +267,7 @@ The event will include a top-level [metrics section][11] populated with [metrics
 
 If you add the debug handler and configure the `collect-metrics` check to use it, the metrics event printed to the debug-event.json file will be similar to this example:
 
-{{< code json >}}
+{{< code text >}}
 {
   "check": {
     "command": "http-perf --url http://localhost --warning 1s --critical 2s",

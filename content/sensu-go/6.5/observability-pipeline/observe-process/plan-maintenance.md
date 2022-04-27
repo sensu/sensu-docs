@@ -75,7 +75,7 @@ sensuctl asset list
 
 The response should list the `http-checks` dynamic runtime asset:
 
-{{< code shell >}}
+{{< code text >}}
      Name                                       URL                                    Hash    
 ────────────── ───────────────────────────────────────────────────────────────────── ──────────
   http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_windows_amd64.tar.gz   52ae075  
@@ -154,7 +154,7 @@ sensuctl check list
 
 The response should list `check-sensu-site`:
 
-{{< code shell >}}
+{{< code text >}}
       Name                     Command                Interval   Cron   Timeout   TTL   Subscriptions   Handlers     Assets      Hooks   Publish?   Stdin?   Metric Format   Metric Handlers  
 ──────────────── ─────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ───────────── ─────── ────────── ──────── ─────────────── ──────────────────
   check-website   http-check --url https://sensu.io         15                0     0   website                    http-checks           true       false                                     
@@ -180,7 +180,7 @@ sensuctl silenced create \
 
 {{% notice note %}}
 **NOTE**: Sensuctl supports several [time formats](../../../sensuctl/create-manage-resources/#time-formats) for the `begin` flag.
-This example uses [RFC 3339 format][20] with space delimiters and numeric zone offset.
+This example uses [RFC 3339 format](https://www.ietf.org/rfc/rfc3339.txt) with space delimiters and numeric zone offset.
 {{% /notice %}}
 
 Use sensuctl to verify that the silenced entry against the entity `sensu-site` was created properly:

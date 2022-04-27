@@ -71,7 +71,7 @@ sensuctl filter create hourly \
 
 You should receive a confirmation message:
 
-{{< code shell >}}
+{{< code text >}}
 Created
 {{< /code >}}
 
@@ -225,7 +225,7 @@ Replace the `pipelines: []` line with the following array and save the updated c
 
 You should see a response to confirm the update:
 
-{{< code shell >}}
+{{< code text >}}
 Updated /api/core/v2/namespaces/default/checks/check_cpu
 {{< /code >}}
 

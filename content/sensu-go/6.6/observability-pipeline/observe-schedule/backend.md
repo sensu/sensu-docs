@@ -203,7 +203,7 @@ You will receive prompts for username, password, and API key in interactive mode
 Provide your username and password to complete initialization.
 The API key is optional &mdash; press `return` to skip it.
 
-{{< code shell >}}
+{{< code text >}}
 Cluster Admin Username: <username>
 Cluster Admin Password: <password>
 Retype Cluster Admin Password: <password>
@@ -226,7 +226,7 @@ sensu-backend init --help
 
 The response will list command information and configuration flags for `sensu-backend init`:
 
-{{< code shell >}}
+{{< code text >}}
 Usage:
   sensu-backend init [flags]
 

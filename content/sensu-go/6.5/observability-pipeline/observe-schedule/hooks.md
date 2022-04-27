@@ -80,14 +80,16 @@ You can use `sensuctl` to view hook command data:
 {{< language-toggle >}}
 
 {{< code shell "YML" >}}
-sensuctl event info entity_name check_name --format yaml
+sensuctl event info <entity_name> <check_name> --format yaml
 {{< /code >}}
 
 {{< code shell "JSON" >}}
-sensuctl event info entity_name check_name --format wrapped-json
+sensuctl event info <entity_name> <check_name> --format wrapped-json
 {{< /code >}}
 
 {{< /language-toggle >}}
+
+The response lists the specified event, which includes the hook command data:
 
 {{< language-toggle >}}
 

@@ -104,7 +104,7 @@ sensuctl asset list
 
 The response should list the `check-cpu-usage` and `sensu-processes-check` dynamic runtime assets:
 
-{{< code shell >}}
+{{< code text >}}
           Name                                                 URL                                         Hash    
 ──────────────────────── ─────────────────────────────────────────────────────────────────────────────── ──────────
   check-cpu-usage         //assets.bonsai.sensu.io/.../check-cpu-usage_0.2.2_windows_amd64.tar.gz         900cfdf  
@@ -143,7 +143,7 @@ sensuctl check create check_cpu \
 
 You should receive a confirmation message:
 
-{{< code shell >}}
+{{< code text >}}
 Created
 {{< /code >}}
 
@@ -249,7 +249,7 @@ sensuctl event list
 
 The response should list the `check_cpu` check, returning an OK status (`0`)
 
-{{< code shell >}}
+{{< code text >}}
      Entity        Check                                                                                                      Output                                                                                                    Status   Silenced             Timestamp                             UUID                  
 ─────────────── ─────────── ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
   sensu-centos   check_cpu   check-cpu-usage OK: 1.02% CPU usage | cpu_idle=98.98, cpu_system=0.51, cpu_user=0.51, cpu_nice=0.00, cpu_iowait=0.00, cpu_irq=0.00, cpu_softirq=0.00, cpu_steal=0.00, cpu_guest=0.00, cpu_guestnice=0.00        0   false      2021-10-06 19:25:43 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
@@ -285,9 +285,9 @@ Verify that NGINX is serving webpages:
 curl -sI http://localhost
 {{< /code >}}
 
-The response should include `HTTP/1.1 200 OK` to indicates that NGINX processed your request as expected:
+The response should include `HTTP/1.1 200 OK` to indicate that NGINX processed your request as expected:
 
-{{< code shell >}}
+{{< code text >}}
 HTTP/1.1 200 OK
 Server: nginx/1.20.1
 Date: Wed, 06 Oct 2021 19:35:14 GMT
@@ -358,7 +358,7 @@ EOF
 
 You should receive a confirmation message:
 
-{{< code shell >}}
+{{< code text >}}
 Created
 {{< /code >}}
 
@@ -463,7 +463,7 @@ sensuctl event list
 
 The response should list the `nginx_service` check, returning an OK status (`0`):
 
-{{< code shell >}}
+{{< code text >}}
      Entity          Check                                       Output                                   Status   Silenced             Timestamp                             UUID                  
 ─────────────── ─────────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
   sensu-centos   nginx_service   OK       | 2 >= 1 (found >= required) evaluated true for "nginx"              0   false      2021-11-08 16:59:34 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
@@ -488,7 +488,7 @@ sensuctl event list
 
 The response should list the `nginx_service` check, returning a CRITICAL status (`2`):
 
-{{< code shell >}}
+{{< code text >}}
      Entity          Check                                       Output                                   Status   Silenced             Timestamp                             UUID                  
 ─────────────── ─────────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
   sensu-centos   nginx_service   CRITICAL | 0 >= 1 (found >= required) evaluated false for "nginx"             2   false      2021-11-08 17:02:04 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  

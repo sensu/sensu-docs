@@ -80,9 +80,9 @@ Verify that NGINX is serving webpages:
 curl -sI http://localhost
 {{< /code >}}
 
-The response should include `HTTP/1.1 200 OK` to indicates that NGINX processed your request as expected:
+The response should include `HTTP/1.1 200 OK` to indicate that NGINX processed your request as expected:
 
-{{< code shell >}}
+{{< code text >}}
 HTTP/1.1 200 OK
 Server: nginx/1.20.1
 Date: Wed, 06 Oct 2021 19:35:14 GMT
@@ -293,7 +293,7 @@ sensuctl event list
 
 The response should list the `nginx_service` check, returning a CRITICAL status (`2`):
 
-{{< code shell >}}
+{{< code text >}}
      Entity          Check                                       Output                                   Status   Silenced             Timestamp                             UUID                  
 ─────────────── ─────────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
   sensu-centos   nginx_service   CRITICAL | 0 >= 1 (found >= required) evaluated false for "nginx"             2   false      2021-11-08 17:02:04 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  

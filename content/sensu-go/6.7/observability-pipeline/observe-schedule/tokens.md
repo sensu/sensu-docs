@@ -315,7 +315,7 @@ For example, to provide `"substitution"` as a default value for entities that ar
 If a token is unmatched during check preparation, the agent check handler will return an error, and the check will not be executed.
 Unmatched token errors are similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 error: unmatched token: template: :1:22: executing "" at <.system.hostname>: map has no entry for key "System"
 {{< /code >}}
 

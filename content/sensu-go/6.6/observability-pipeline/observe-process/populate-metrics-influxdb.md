@@ -99,7 +99,7 @@ sensuctl handler create influxdb-handler \
 
 You should receive a confirmation message:
 
-{{< code shell >}}
+{{< code text >}}
 Created
 {{< /code >}}
 
@@ -292,7 +292,7 @@ pipelines:
 Save the two changes and exit the text editor.
 You should receive a confirmation message:
 
-{{< code shell >}}
+{{< code text >}}
 Updated /api/core/v2/namespaces/default/checks/prometheus_metrics
 {{< /code >}}
 

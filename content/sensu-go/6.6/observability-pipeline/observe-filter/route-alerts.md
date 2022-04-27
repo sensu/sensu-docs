@@ -110,7 +110,7 @@ This example uses the `-r` (rename) flag to specify a shorter name for the dynam
 Run `sensuctl asset list` to confirm that the dynamic runtime assets are ready to use.
 The response will confirm the available assets:
 
-{{< code shell >}}
+{{< code text >}}
          Name                                               URL                                        Hash    
 ────────────────────── ───────────────────────────────────────────────────────────────────────────── ──────────
   contact-filter        //assets.bonsai.sensu.io/.../sensu-go-has-contact-filter_0.3.0.tar.gz         d35c6c4  
@@ -247,7 +247,7 @@ sensuctl filter list
 
 The response should list the new `contact_ops`, `contact_dev`, and `contact_fallback` event filters:
 
-{{< code shell >}}
+{{< code text >}}
         Name         Action           Expressions          
  ────────────────── ──────── ───────────────────────────── 
   contact_dev        allow    (has_contact(event, "dev"))  
@@ -397,7 +397,7 @@ sensuctl handler list
 
 The response should list the new `dev_handler`, `ops_handler`, and `fallback_handler` handlers:
 
-{{< code shell >}}
+{{< code text >}}
         Name         Type   Timeout   Filters   Mutator                       Execute                                                   Environment Variables                            Assets         
 ─────────────────── ────── ───────── ───────── ───────── ───────────────────────────────────────────────────────── ───────────────────────────────────────────────────────────── ──────────────────────
   dev_handler        pipe         0                       RUN:  sensu-slack-handler --channel "#<alert_dev>"        SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxxxxxx   sensu-slack-handler  
@@ -661,7 +661,7 @@ Save and close the updated check definition.
 A response will confirm the check was updated.
 For example:
 
-{{< code shell >}}
+{{< code text >}}
 Updated /api/core/v2/namespaces/default/checks/check_cpu
 {{< /code >}}
 

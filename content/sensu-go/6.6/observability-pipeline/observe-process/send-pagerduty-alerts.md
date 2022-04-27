@@ -385,7 +385,7 @@ Replace the `-w` value in the `command` line with `1` and save the updated check
 
 You should see a response to confirm the update:
 
-{{< code shell >}}
+{{< code text >}}
 Updated /api/core/v2/namespaces/default/checks/check_cpu
 {{< /code >}}
 
@@ -416,9 +416,9 @@ To view the resolved event with sensuctl, run:
 sensuctl event list
 {{< /code >}}
 
-The response should show that the `cpu_check` has an OK (0) status:
+The response should show that `cpu_check` has an OK (0) status:
 
-{{< code shell >}}
+{{< code text >}}
      Entity        Check                                                                                                      Output                                                                                                    Status   Silenced             Timestamp                             UUID                  
 ─────────────── ─────────── ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
   sensu-centos   check_cpu   check-cpu-usage OK: 4.17% CPU usage | cpu_idle=95.83, cpu_system=1.04, cpu_user=3.13, cpu_nice=0.00, cpu_iowait=0.00, cpu_irq=0.00, cpu_softirq=0.00, cpu_steal=0.00, cpu_guest=0.00, cpu_guestnice=0.00        0   false      2021-11-17 21:09:07 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  

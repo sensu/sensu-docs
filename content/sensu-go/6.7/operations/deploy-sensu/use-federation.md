@@ -141,7 +141,7 @@ sensuctl config view
 {{< /code >}}
 
     The response will list the active configuration:
-{{< code shell >}}
+{{< code text >}}
 === Active Configuration
 API URL:   https://sensu.gateway.example.com:8080
 Namespace: default
@@ -161,11 +161,11 @@ Make a note of the password you entered &mdash; you'll use it to log in to the w
 
     This creates the following user:
 {{< language-toggle >}}
-{{< code yml >}}
+{{< code text "YML" >}}
 username: federation-viewer
 disabled: false
 {{< /code >}}
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "username": "federation-viewer",
   "disabled": false
@@ -324,7 +324,7 @@ sensuctl cluster-role-binding info federation-viewer-readonly
 {{< /code >}}
 
     The `federation-viewer-readonly` binding you created in the previous section should be listed in the output from each cluster:
-{{< code shell >}}
+{{< code text >}}
 === federation-viewer-readonly
 Name:         federation-viewer-readonly
 Cluster Role: view

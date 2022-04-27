@@ -2046,7 +2046,7 @@ sensuctl event delete entity-name check-name --skip-confirm
 
 You should receive a confirmation message upon success:
 
-{{< code shell >}}
+{{< code text >}}
 Deleted
 {{< /code >}}
 
@@ -2061,7 +2061,7 @@ sensuctl event resolve entity-name check-name
 
 You should receive a confirmation message upon success:
 
-{{< code shell >}}
+{{< code text >}}
 Resolved
 {{< /code >}}
 

@@ -163,7 +163,7 @@ sensuctl cluster health
 
 The cluster health response will list the health status for each cluster member, similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
        ID            Name                                      Error                           Healthy  
 ────────────────── ────────────────────── ─────────────────────────────────────────────────── ─────────
 a32e8f613b529ad4   backend-1.example.com                                                        true
@@ -190,8 +190,7 @@ etcd-name: "backend-4.example.com"
 {{< /code >}}
 
    {{% notice note %}}
-**NOTE**: To make sure the new member is added to the correct cluster, specify the same `etcd-initial-cluster-token` value that you used for the other members in the cluster.
-
+**NOTE**: To make sure the new member is added to the correct cluster, specify the same `etcd-initial-cluster-token` value that you used for the other members in the cluster.<br><br>
 Also, when you are adding a cluster member, make sure the `etcd-initial-cluster-state` value is `existing`, **not** `new`.
 {{% /notice %}}
 
@@ -203,7 +202,7 @@ sensuctl cluster member-add backend-4.example.com http://10.0.0.4:2380
 
    You will receive a sensuctl response to confirm that the new member was added:
 
-   {{< code shell >}}
+   {{< code text >}}
 added member 2f7ae42c315f8c2d to cluster
 {{< /code >}}
 
@@ -233,7 +232,7 @@ sensuctl cluster member-list
 
 You will receive a sensuctl response that lists all cluster members:
 
-{{< code shell >}}
+{{< code text >}}
        ID            Name                        Peer URLs                Client URLs
 ────────────────── ─────────────────────── ───────────────────────── ─────────────────────────
 a32e8f613b529ad4   backend-1.example.com    http://10.0.0.1:2380      http://10.0.0.1:2379  
@@ -252,7 +251,7 @@ sensuctl cluster member-remove 2f7ae42c315f8c2d
 
 You will receive a sensuctl response to confirm that the cluster member was removed:
 
-{{< code shell >}}
+{{< code text >}}
 Removed member 2f7ae42c315f8c2d from cluster
 {{< /code >}}
 
@@ -267,7 +266,7 @@ sensuctl cluster health
 
     In the response, for a faulty cluster member, the Error column will include an error message and the Healthy column will list `false`.
     In this example, the response indicates that cluster member `backend-4` is faulty:
-{{< code shell >}}
+{{< code text >}}
        ID            Name                                       Error                           Healthy  
 ────────────────── ─────────────────────── ─────────────────────────────────────────────────── ─────────
 a32e8f613b529ad4   backend-1.example.com                                                        true
@@ -284,7 +283,7 @@ sensuctl cluster member-remove 2f7ae42c315f8c2d
 {{< /code >}}
 
     The response should indicate that the cluster member was removed:
-{{< code shell >}}
+{{< code text >}}
 Removed member 2f7ae42c315f8c2d from cluster
 {{< /code >}}
 
@@ -306,7 +305,7 @@ sensuctl cluster member-update c8f63ae435a5e6bf http://10.0.0.4:2380
 
 You will receive a sensuctl response to confirm that the cluster member was updated:
 
-{{< code shell >}}
+{{< code text >}}
 Updated member with ID c8f63ae435a5e6bf in cluster
 {{< /code >}}
 
@@ -357,7 +356,7 @@ etcdctl user grant-role sensu sensu_readwrite
 {{< /highlight >}}
 
     You should see the following output:
-{{< highlight shell >}}
+{{< highlight text >}}
 User: USERNAME
 
 Role sensu_readwrite

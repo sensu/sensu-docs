@@ -936,7 +936,7 @@ In check output, the metrics points would include the output metric tags in the 
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code text "YML" >}}
 points:
 - name: dns_duration
   value: 0.000251
@@ -956,7 +956,7 @@ points:
     value: gauge
 {{< /code >}}
 
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "points": [
     {
@@ -1314,12 +1314,12 @@ Annotations based on specified threshold values are similar to this example:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code text "YML" >}}
 annotations:
   sensu.io/output_metric_thresholds/system_mem_used/min/critical: 'The value of "system_mem_used" exceeded the configured threshold (max: 90, actual: 95)'
 {{< /code >}}
 
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "annotations": {
     "sensu.io/output_metric_thresholds/system_mem_used/min/critical": "The value of \"system_mem_used\" exceeded the configured threshold (max: 90, actual: 95)"
@@ -1333,12 +1333,12 @@ Annotations based on `null_status` are similar to this example:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code text "YML" >}}
 annotations:
   sensu.io/output_metric_thresholds/system_host_processes/null: 'WARNING: no metric matching "system_host_processes" (namespace="production") was found; expected min: 5 - max: 50 (status: warning) min:2 - max: 75 (status: critical)'
 {{< /code >}}
 
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "annotations": {
     "sensu.io/output_metric_thresholds/system_host_processes/null": "WARNING: no metric matching \"system_host_processes\" (namespace=\"production\") was found; expected min: 5 - max: 50 (status: warning) min:2 - max: 75 (status: critical)"
@@ -1352,12 +1352,12 @@ Annotations based on global status for the check are similar to this example:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code text "YML" >}}
 annotations:
   sensu.io/notifications/critical: 'The value of node_load1 exceeded the configured threshold (max: 4.0, actual: 5.263671875).'
 {{< /code >}}
 
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "annotations": {
     "sensu.io/notifications/critical": "The value of node_load1 exceeded the configured threshold (max: 4.0, actual: 5.263671875)."
@@ -1371,12 +1371,12 @@ Annotations based on global `null_status` for the check are similar to this exam
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code text "YML" >}}
 annotations:
   sensu.io/notifications/unknown: 'WARNING: no metric matching "node_load1" (namespace="production") was found; expected min: 4.0 (status: warning); expected max: 6 (status: critical)'
 {{< /code >}}
 
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "annotations": {
     "sensu.io/notifications/unknown": "WARNING: no metric matching \"node_load1\" (namespace=\"production\") was found; expected min: 4.0 (status: warning); expected max: 6 (status: critical)"

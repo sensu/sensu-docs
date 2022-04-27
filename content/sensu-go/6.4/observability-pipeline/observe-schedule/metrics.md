@@ -948,7 +948,7 @@ In check output, the metrics points would include the output metric tags in the 
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code text "YAML" >}}
 points:
 - name: dns_duration
   value: 0.000251
@@ -968,7 +968,7 @@ points:
     value: gauge
 {{< /code >}}
 
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "points": [
     {

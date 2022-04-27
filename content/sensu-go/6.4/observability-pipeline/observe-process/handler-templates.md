@@ -96,7 +96,7 @@ You can also download the latest asset definition from [Bonsai][8].
 
 Run `sensuctl asset list` to confirm that the asset is ready to use:
 
-{{< code shell >}}
+{{< code text >}}
             Name                                                         URL                                                Hash    
  ────────────────────────── ───────────────────────────────────────────────────────────────────────────────────────────── ───────── 
   template-toolkit-command   //assets.bonsai.sensu.io/.../template-toolkit-command_0.4.0_windows_amd64.tar.gz              019ccf3  
@@ -117,7 +117,7 @@ cat event.json | sensuctl command exec template-toolkit-command -- --dump-names
 
 The response lists the available attributes for the event:
 
-{{< code shell >}}
+{{< code text >}}
 INFO[0000] asset includes builds, using builds instead of asset  asset=template-toolkit-command component=asset-manager entity=sensuctl
 .Event{
     .Timestamp: 1580310179,
@@ -142,7 +142,7 @@ sensuctl event info server01 server-health --format json | sensuctl command exec
 
 The response lists the available attributes for the event:
 
-{{< code shell >}}
+{{< code text >}}
 INFO[0000] asset includes builds, using builds instead of asset  asset=template-toolkit-command component=asset-manager entity=sensuctl
 .Event{
     .Timestamp: 1580310179,
@@ -169,7 +169,7 @@ cat event.json | sensuctl command exec template-toolkit-command -- --template "{
 
 The response will list the template output:
 
-{{< code shell >}}
+{{< code text >}}
 INFO[0000] asset includes builds, using builds instead of asset  asset=template-toolkit-command component=asset-manager entity=sensuctl
 executing command with --template {{.Check.Name}}
 Template String Output: keepalive
@@ -185,7 +185,7 @@ sensuctl event info webserver01 check-http --format json | sensuctl command exec
 
 The response will list the template output:
 
-{{< code shell >}}
+{{< code text >}}
 Executing command with --template Server: {{.Entity.Name}} Check: {{.Check.Name}} Status: {{.Check.State}}
 Template String Output: Server: "webserver01 Check: check-http Status: passing"
 {{< /code >}}

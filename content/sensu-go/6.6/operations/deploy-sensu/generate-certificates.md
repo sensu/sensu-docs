@@ -190,7 +190,7 @@ filename               | description                  | required on backend?|
 
 In our example with [three backends][18], the directory listing for `/etc/sensu/tls` would include 13 files:
 
-{{< code shell >}}
+{{< code text >}}
 /etc/sensu/tls/
 ├── backend-1.example.com-key.pem
 ├── backend-1.example.com.pem
@@ -257,9 +257,9 @@ filename           | description                  | required on agent?  |
 This file contains sensitive information and is no longer needed.
 {{% /notice %}}
 
-To continue the example with [three backends][18], the directory listing for `/etc/sensu/tls` will include 15 files  after deleting the `ca-key.pem` file:
+To continue the example with [three backends][18], the directory listing for `/etc/sensu/tls` will include 15 files after deleting the `ca-key.pem` file:
 
-{{< code shell >}}
+{{< code text >}}
 /etc/sensu/tls/
 ├── agent-key.pem
 ├── agent.pem
@@ -391,7 +391,7 @@ spec:
 The check output will be in the format `notAfter=Month  Day HH:MM:SS Year Timezone`.
 For example:
 
-{{< code shell >}}
+{{< code text >}}
 notAfter=Jul  3 22:23:50 2021 GMT
 {{< /code >}}
 
@@ -401,26 +401,26 @@ Add a [handler][17] to send the check output as a notification or to a log file.
 
 The following `sensuctl cluster health` response indicates that one backend certificate is expired:
 
-{{< code shell >}}
+{{< code text >}}
 Error: GET "/health": Get https://localhost:8080/health?timeout=3: x509: certificate has expired or is not yet valid
 {{< /code >}}
 
 The log for the expired backend will be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 backend-1.example.com | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
 backend-1.example.com | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: remote error: tls: bad certificate (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-22T20:40:54Z"}
 {{< /code >}}
 
 If you restart the cluster with one expired backend certificate, the `sensuctl cluster health` response will include an error:
 
-{{< code shell >}}
+{{< code text >}}
 Error: GET "/health": failed to request new refresh token; client returned 'Post https://localhost:8080/auth/token: EOF'
 {{< /code >}}
 
 When all three backend certificates are expired, the log will be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 backend-1.example.com | {"component":"etcd","level":"warning","msg":"health check for peer a95ca1cdb0b1fcc3 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:53Z"}
 backend-2.example.com | {"component":"etcd","level":"warning","msg":"health check for peer 4cc36e198efb22e8 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
 backend-3.example.com | {"component":"etcd","level":"warning","msg":"health check for peer 8425a7b2d2ee8597 could not connect: x509: certificate has expired or is not yet valid (prober \"ROUND_TRIPPER_RAFT_MESSAGE\")","pkg":"rafthttp","time":"2021-06-25T17:49:16Z"}
@@ -428,13 +428,13 @@ backend-3.example.com | {"component":"etcd","level":"warning","msg":"health chec
 
 If you restart the cluster with three expired backend certificates, the `sensuctl cluster health` response will include an error:
 
-{{< code shell >}}
+{{< code text >}}
 Error: GET "/health": Get https://127.0.0.1:8080/health?timeout=3: EOF
 {{< /code >}}
 
 The following `sensuctl cluster health` response helps confirm that all three backend certificates are expired, together with the log warning and restart error examples:
 
-{{< code shell >}}
+{{< code text >}}
 === Etcd Cluster ID: 45c04eab9efc0d11
          ID             Name                            Error             Healthy  
  ────────────────── ──────────────────────── ─────────────────────────── ───────── 

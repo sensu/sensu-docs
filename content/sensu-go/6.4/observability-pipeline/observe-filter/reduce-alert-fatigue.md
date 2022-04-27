@@ -71,7 +71,7 @@ sensuctl filter create hourly \
 
 You should receive a confirmation message:
 
-{{< code shell >}}
+{{< code text >}}
 Created
 {{< /code >}}
 
