@@ -15,9 +15,6 @@
         copy.className = "copy";
         copy.innerText = "Copy";
         element.append(copy);
-        if (codelangtext = true) {
-            button.style.visibility="hidden";
-        }
     }
 
     for (var i = 0, len = $codes.length; i < len; i++) {
