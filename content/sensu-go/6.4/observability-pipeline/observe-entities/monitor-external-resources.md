@@ -194,7 +194,7 @@ sensuctl entity list
 
 The response should list the `sensu-site` proxy entity:
 
-{{< code shell >}}
+{{< code text >}}
        ID        Class    OS           Subscriptions                   Last Seen            
 ─────────────── ─────── ─────── ─────────────────────────── ────────────────────────────────
   sensu-centos   agent   linux   proxy,entity:sensu-centos   2021-10-21 19:20:04 +0000 UTC  

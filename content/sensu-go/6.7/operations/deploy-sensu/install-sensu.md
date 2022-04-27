@@ -317,7 +317,7 @@ sudo cp sensuctl /usr/local/bin/
 To start using sensuctl, run `sensuctl configure` and log in with your user credentials, namespace, and [Sensu backend][21] URL.
 To configure sensuctl using default values:
 
-{{< code shell >}}
+{{< code text >}}
 sensuctl configure -n \
 --username 'YOUR_USERNAME' \
 --password 'YOUR_PASSWORD' \
@@ -491,8 +491,8 @@ http://127.0.0.1:3031/events
 
 This request creates a `warning` event that you can [view in your web UI Events page][32].
 
-To create an `OK` event, change the `status` to `0` and resend.
-You can change the `output` value to `connected to mysql` to use a different message for the `OK` event.
+To create an OK event, change the `status` to `0` and resend.
+You can change the `output` value to `connected to mysql` to use a different message for the OK event.
 
 ## Next steps
 

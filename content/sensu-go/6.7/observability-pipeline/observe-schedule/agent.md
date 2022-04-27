@@ -163,8 +163,6 @@ curl -X POST \
   ]
 }' \
 http://127.0.0.1:3031/events
-
-HTTP/1.1 202 Accepted
 {{< /code >}}
 
 {{% notice protip %}}
@@ -265,7 +263,7 @@ curl http://127.0.0.1:3031/healthz
 
 The request results in a healthy response:
 
-{{< code shell >}}
+{{< code text >}}
 ok
 {{< /code >}}
 
@@ -293,7 +291,7 @@ Sensu does not store metrics received through the StatsD listener, so it's impor
 
 The Sensu StatsD listener accepts messages formatted according to the StatsD line protocol:
 
-{{< code text >}}
+{{< code shell >}}
 <metricname>:<value>|<type>
 {{< /code >}}
 
@@ -518,7 +516,7 @@ Use the [core/v2/events API](../../../api/core/events/) to send manual keepalive
 
 Use the [`keepalive-pipelines`][64] configuration flag to send keepalive events to any [pipeline][63] you have configured.
 
-To specify pipelines for the `keepalive-pipelines` flag, use the [fully qualified name][65] for pipeline resources (`core/v2.Pipeline`) plus the pipeline name (e.g. `slack` or `store-keepalives`).
+To specify pipelines for the `keepalive-pipelines` flag, use the [fully qualified name][65] for pipelines (`core/v2.Pipeline`) plus the pipeline name (e.g. `slack` or `store-keepalives`).
 For example:
 
 {{< language-toggle >}}
@@ -640,7 +638,7 @@ If you do not provide any configuration flags, the agent loads configuration fro
 
 Run the following command as an admin to install and start the agent:
 
-{{< code text >}}
+{{< code shell >}}
 sensu-agent service install
 {{< /code >}}
 
@@ -648,7 +646,7 @@ By default, the agent loads configuration from `%ALLUSERSPROFILE%\sensu\config\a
 
 Configure the configuration file and log file locations using the `config-file` and `log-file` flags:
 
-{{< code text >}}
+{{< code shell >}}
 sensu-agent service install --config-file 'C:\\monitoring\\sensu\\config\\agent.yml' --log-file 'C:\\monitoring\\sensu\\log\\sensu-agent.log'
 {{< /code >}}
 
@@ -973,7 +971,7 @@ agent-managed-entity: true{{< /code >}}
 
 | allow-list |      |
 ------------------|------
-description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. Read [allow list configuration commands][49] and the [example allow list configuration file][48] for information about building a configuration file.
+description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. Read [allow list configuration commands][49] and the [example allow list configuration][48] for information about building a configuration file.
 type              | String
 default           | `""`
 environment variable | `SENSU_ALLOW_LIST`
@@ -1728,7 +1726,7 @@ sha512: 4f926bf4328...
 {{< /code >}}
 {{< /language-toggle >}}
 
-#### Example allow list configuration file
+#### example allow list configuration
 
 {{< language-toggle >}}
 

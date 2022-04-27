@@ -41,7 +41,7 @@ Use flags to configure the Sensu StatsD Server when you start up a `sensu-agent`
 
 The following flags allow you to configure event handlers, flush interval, address, and port:
 
-{{< code shell >}}
+{{< code text >}}
 --statsd-disable                      disables the statsd listener and metrics server
 --statsd-event-handlers stringSlice   comma-delimited list of event handlers for statsd metrics
 --statsd-flush-interval int           number of seconds between statsd flush (default 10)

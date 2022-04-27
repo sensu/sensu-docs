@@ -214,7 +214,7 @@ sensuctl filter list
 
 The response should list the new `contact_ops`, `contact_dev`, and `contact_fallback` event filters:
 
-{{< code shell >}}
+{{< code text >}}
         Name         Action           Expressions          
  ────────────────── ──────── ───────────────────────────── 
   contact_dev        allow    (has_contact(event, "dev"))  
@@ -548,7 +548,7 @@ Save and close the updated check definition.
 A response will confirm the check was updated.
 For example:
 
-{{< code shell >}}
+{{< code text >}}
 Updated /api/core/v2/namespaces/default/checks/check_cpu
 {{< /code >}}
 

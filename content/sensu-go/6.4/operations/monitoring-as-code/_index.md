@@ -43,7 +43,7 @@ However, a single configuration file that includes every resource type isn't the
 [SensuFlow][5], our GitHub Action for managing Sensu resources via repository commits, requires a repository structure organized by clusters and namespaces.
 All resources of each type for each namespace are saved in a single configuration file:
 
-{{< code shell >}}
+{{< code text >}}
 .sensu/
   cluster/
     namespaces.yml

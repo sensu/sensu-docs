@@ -100,7 +100,7 @@ sensuctl handler create influxdb-handler \
 
 You should receive a confirmation message:
 
-{{< code shell >}}
+{{< code text >}}
 Created
 {{< /code >}}
 
@@ -190,7 +190,7 @@ sensuctl check set-output-metric-handlers prometheus_metrics influxdb-handler
 
 You should receive a confirmation message:
 
-{{< code shell >}}
+{{< code text >}}
 Updated
 {{< /code >}}
 

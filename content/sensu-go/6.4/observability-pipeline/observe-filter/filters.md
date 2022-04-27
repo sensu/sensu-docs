@@ -884,7 +884,7 @@ spec:
 The following event filter discards events with a custom entity label `"environment": "production"`, allowing handling only for events without an `environment` label or events with `environment` set to something other than `production`.
 
 {{% notice note %}}
-**NOTE**: `action` is `deny`, so this is an exclusive event filter.
+**NOTE**: The value for the `action` attribute is `deny`, so this is an exclusive event filter.
 If evaluation returns false, the event is handled.
 {{% /notice %}}
 

@@ -140,7 +140,7 @@ sensu-backend init --interactive
 
 You will receive prompts for your username and password in interactive mode:
 
-{{< code shell >}}
+{{< code text >}}
 Admin Username: YOUR_USERNAME
 Admin Password: YOUR_PASSWORD
 {{< /code >}}

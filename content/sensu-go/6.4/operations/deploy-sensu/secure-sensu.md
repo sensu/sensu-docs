@@ -208,7 +208,7 @@ openssl x509 -in client.pem -text -noout
 
 The response should be similar to this example:
 
-{{< code bash >}}
+{{< code text >}}
 Certificate:
     Data:
         Version: 3 (0x2)

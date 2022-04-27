@@ -99,7 +99,7 @@ ps -ef | grep "[p]rometheus"
 
 The response should be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 vagrant   7647  3937  2 22:23 pts/0    00:00:00 ./prometheus --config.file=prometheus.yml
 {{< /code >}}
 
@@ -221,7 +221,7 @@ sensuctl asset list
 
 The response should list the `sensu-influxdb-handler` dynamic runtime asset:
 
-{{< code shell >}}
+{{< code text >}}
              Name                                                     URL                                            Hash    
 ───────────────────────────── ──────────────────────────────────────────────────────────────────────────────────── ──────────
   sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_386.tar.gz           6719527  
@@ -312,7 +312,7 @@ sensuctl asset list
 
 The response should list the `sensu-prometheus-collector` dynamic runtime asset along with the previously added `sensu-influxdb-handler` asset:
 
-{{< code shell >}}
+{{< code text >}}
              Name                                                     URL                                            Hash    
 ───────────────────────────── ──────────────────────────────────────────────────────────────────────────────────── ──────────
   sensu-influxdb-handler       //assets.bonsai.sensu.io/.../sensu-influxdb-handler_3.7.0_linux_386.tar.gz           6719527  
@@ -406,7 +406,7 @@ sensuctl event list
 
 The response should be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
     Entity            Check                                          Output                                   Status   Silenced             Timestamp            
 ────────────── ──────────────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── 
 sensu-centos   keepalive            Keepalive last sent from sensu-centos at 2019-02-12 01:01:37 +0000 UTC        0   false      2019-02-12 01:01:37 +0000 UTC  
