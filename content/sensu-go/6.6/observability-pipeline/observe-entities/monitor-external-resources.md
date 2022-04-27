@@ -86,7 +86,7 @@ sensuctl asset list
 
 The response should list the `http-checks` dynamic runtime asset:
 
-{{< code shell >}}
+{{< code text >}}
      Name                                       URL                                    Hash    
 ────────────── ───────────────────────────────────────────────────────────────────── ──────────
   http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_windows_amd64.tar.gz   52ae075  
@@ -177,7 +177,7 @@ sensuctl check list
 
 The response should list `check-sensu-site`:
 
-{{< code shell >}}
+{{< code text >}}
         Name                      Command                Interval   Cron   Timeout   TTL   Subscriptions   Handlers     Assets      Hooks   Publish?   Stdin?   Metric Format   Metric Handlers  
 ─────────────────── ─────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ───────────── ─────── ────────── ──────── ─────────────── ──────────────────
   check-sensu-site   http-check --url https://sensu.io         60                0     0   proxy                      http-checks           true       false                                      
@@ -194,7 +194,7 @@ sensuctl entity list
 
 The response should list the `sensu-site` proxy entity:
 
-{{< code shell >}}
+{{< code text >}}
        ID        Class    OS           Subscriptions                   Last Seen            
 ─────────────── ─────── ─────── ─────────────────────────── ────────────────────────────────
   sensu-centos   agent   linux   proxy,entity:sensu-centos   2021-10-21 19:20:04 +0000 UTC  
@@ -209,7 +209,7 @@ sensuctl event info sensu-site check-sensu-site
 
 The response should list `check-sensu-site` status and history data for the `sensu-site` proxy entity:
 
-{{< code shell >}}
+{{< code text >}}
 === sensu-site - check-sensu-site
 Entity:    sensu-site
 Check:     check-sensu-site
@@ -357,7 +357,7 @@ sensuctl entity list
 
 The response should list the new `sensu-docs`, `packagecloud-site`, and `github-site` proxy entities:
 
-{{< code shell >}}
+{{< code text >}}
          ID           Class    OS           Subscriptions                   Last Seen            
 ──────────────────── ─────── ─────── ─────────────────────────── ────────────────────────────────
   github-site         proxy                                       N/A                            
@@ -450,7 +450,7 @@ sensuctl check list
 
 The response should include the `check-http` check:
 
-{{< code shell >}}
+{{< code text >}}
         Name                      Command                 Interval   Cron   Timeout   TTL   Subscriptions   Handlers     Assets      Hooks   Publish?   Stdin?   Metric Format   Metric Handlers  
 ─────────────────── ──────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ───────────── ─────── ────────── ──────── ─────────────── ──────────────────
   check-http         http-check --url {{ .labels.url }}         60                0     0   proxy                      http-checks           true       false                                     
@@ -474,7 +474,7 @@ sensuctl event list
 
 The response should list check status data for the `sensu-docs`, `packagecloud-site`, and `github-site` proxy entities:
 
-{{< code shell >}}
+{{< code text >}}
        Entity              Check                                         Output                                   Status   Silenced             Timestamp                             UUID                  
 ──────────────────── ────────────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── ───────────────────────────────────────
   github-site         check-http         http-check OK: HTTP Status 200 for https://github.com                         0   false      2021-10-21 19:27:04 +0000 UTC   xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  
