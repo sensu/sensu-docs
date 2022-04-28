@@ -9,6 +9,7 @@ version: "6.7"
 menu: "sensu-go-6.7"
 ---
 
+- [6.7.1 release notes](#671-release-notes)
 - [6.7.0 release notes](#670-release-notes)
 - [6.6.6 release notes](#666-release-notes)
 - [6.6.5 release notes](#665-release-notes)
@@ -102,6 +103,24 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 6.7.1 release notes
+
+**April 28, 2022** &mdash; The latest release of Sensu Go, version 6.7.1, is now available for download.
+
+Sensu Go 6.7.1 delivers several improvements and fixes in the Sensu Catalog, along with an update to cron scheduler logging. We've also included fixes for data races in schedulerd and agentd.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.7.1.
+
+**IMPROVEMENTS**
+- ([Commercial feature][268]) Updated install button styling and improved text padding and margins for integration details and configuration wizard icons in the [Sensu Catalog][290].
+- ([Commercial feature][268]) In the [Sensu Catalog][290], the integrations list is now sorted alphabetically.
+- The cron scheduler now logs that it is stopping before it begins the process of stopping.
+
+**FIXES**
+- ([Commercial feature][268]) In the [Sensu Catalog][289], fixed an issue that prevented the overwrite function from properly overwriting existing resources.
+- Fixed several data races in schedulerd.
+- Mitigated a data race in agentd sessions.
 
 ## 6.7.0 release notes
 
@@ -2367,3 +2386,5 @@ To get started with Sensu Go:
 [286]: /sensu-go/6.7/web-ui/view-manage-resources/#view-resource-data-in-the-web-ui
 [287]: /sensu-go/6.7/web-ui/view-manage-resources/webconfig-reference/#serialization_format
 [288]: /sensu-go/6.7/web-ui/view-manage-resources/webconfig-reference/#sign-in-message
+[289]: /sensu-go/6.7/web-ui/sensu-catalog/#duplicate-integrations-and-existing-resources
+[290]: /sensu-go/6.7/web-ui/sensu-catalog/
