@@ -163,7 +163,7 @@ Get-Content -  Path "C:\scripts\test.txt" -Wait
 
 The following errors are expected when starting up a Sensu backend with the default configuration:
 
-{{< code shell >}}
+{{< code text >}}
 {"component":"etcd","level":"warning","msg":"simple token is not cryptographically signed","pkg":"auth","time":"2019-11-04T10:26:31-05:00"}
 {"component":"etcd","level":"warning","msg":"set the initial cluster version to 3.5","pkg":"etcdserver/membership","time":"2019-11-04T10:26:31-05:00"}
 {"component":"etcd","level":"warning","msg":"serving insecure client requests on 127.0.0.1:2379, this is strongly discouraged!","pkg":"embed","time":"2019-11-04T10:26:33-05:00"}
@@ -180,7 +180,7 @@ As of [Go 1.15][27], certificates must include their CommonName (CN) as a Subjec
 
 The following logged error indicates that a certificate used to secure Sensu does not include the CN as a SAN field:
 
-{{< code shell >}}
+{{< code text >}}
 {"component":"agent","error":"x509: certificate relies on legacy Common Name field, use SANs or temporarily enable Common Name matching with GODEBUG=x509ignoreCN=0","level":"error","msg":"reconnection attempt failed","time":"2021-06-29T11:07:51+02:00"}
 {{< /code >}}
 
@@ -191,7 +191,7 @@ To prevent connection errors after upgrading to Sensu Go 6.4.0, follow [Generate
 The Sensu user and group must own files and folders within `/var/cache/sensu/` and `/var/lib/sensu/`.
 You will receive a logged error like those listed here if there is a permission issue with either the sensu-backend or the sensu-agent:
 
-{{< code shell >}}
+{{< code text >}}
 {"component":"agent","error":"open /var/cache/sensu/sensu-agent/assets.db: permission denied","level":"fatal","msg":"error executing sensu-agent","time":"2019-02-21T22:01:04Z"}
 {"component":"backend","level":"fatal","msg":"error starting etcd: mkdir /var/lib/sensu: permission denied","time":"2019-03-05T20:24:01Z"}
 {{< /code >}}
@@ -655,7 +655,7 @@ etcdctl endpoint status
 
 The response will list the current cluster status and database size:
 
-{{< code shell >}}
+{{< code text >}}
 https://backend01:2379, 88db026f7feb72b4, 3.5.0, 2.1GB, false, 144, 18619245
 https://backend02:2379, e98ad7a888d16bd6, 3.5.0, 2.1GB, true, 144, 18619245
 https://backend03:2379, bc4e39432cbb36d, 3.5.0, 2.1GB, false, 144, 18619245
@@ -684,7 +684,7 @@ etcdctl endpoint status
 {{< /code >}}
 
    The response should list the current cluster status and database size:
-{{< code shell >}}
+{{< code text >}}
 https://backend01:2379, 88db026f7feb72b4, 3.5.0, 1.0 MB, false, 144, 18619245
 https://backend02:2379, e98ad7a888d16bd6, 3.5.0, 1.0 MB, true, 144, 18619245
 https://backend03:2379, bc4e39432cbb36d, 3.5.0, 1.0 MB, false, 144, 18619245
@@ -723,7 +723,7 @@ systemctl status sensu-backend
 {{< /code >}}
 
     For each backend, the response should begin with the following lines:
-    {{< code shell >}}
+    {{< code text >}}
 ● sensu-backend.service - The Sensu Backend service.
 Loaded: loaded (/usr/lib/systemd/system/sensu-backend.service; disabled; vendor preset: disabled)
 Active: inactive (dead)
@@ -742,7 +742,7 @@ sensu-backend init --interactive
 {{< /code >}}
     
     When you receive prompts for your username and password, replace `<YOUR_USERNAME>` and `<YOUR_PASSWORD>` with the administrator username and password you want to use for the cluster members:
-{{< code shell >}}
+{{< code text >}}
 Admin Username: <YOUR_USERNAME>
 Admin Password: <YOUR_PASSWORD>
 {{< /code >}}
@@ -772,7 +772,7 @@ To maximize Sensu Go performance, we recommend that you:
 
 At the Sensu backend's default "warn" log level, you may receive messages like these from your backend:
 
-{{< code json >}}
+{{< code text >}}
 {"component":"etcd","level":"warning","msg":"read-only range request \"key:\\\"/sensu.io/handlers/default/keepalive\\\" limit:1 \" with result \"range_response_count:0 size:6\" took too long (169.767546ms) to execute","pkg":"etcdserver","time":"..."}
 {{< /code >}}
 
@@ -791,13 +791,13 @@ When Sensu's etcd component doesn't recieve sufficient CPU cycles or its file sy
 
 A message like this indicates that syncing the etcd database to disk exceeded another threshold:
 
-{{< code json >}}
+{{< code text >}}
 {"component":"etcd","level":"warning","msg":"sync duration of 1.031759056s, expected less than 1s","pkg":"wal","time":"..."}
 {{< /code >}}
 
 These subsequent "retrying of unary invoker failed" messages indicate failing requests to etcd:
 
-{{< code json >}}
+{{< code text >}}
 {"level":"warn","ts":"...","caller":"clientv3/retry_interceptor.go:62","msg":"retrying of unary invoker failed","target":"endpoint://client-6f6bfc7e-cf31-4498-a564-78d6b7b3a44e/localhost:2379","attempt":0,"error":"rpc error: code = Canceled desc = context canceled"}
 {{< /code >}}
 
@@ -805,7 +805,7 @@ On busy systems you may also receive output like "message repeated 5 times" indi
 
 In many cases, the backend service detects and attempts to recover from errors like these, so you may receive a message like this:
 
-{{< code json >}}
+{{< code text >}}
 {"component":"backend","error":"error from keepalived: internal error: etcdserver: request timed out","level":"error","msg":"backend stopped working and is restarting","time":"..."}
 {{< /code >}}
 

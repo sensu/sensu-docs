@@ -22,13 +22,13 @@ Then, configure sensuctl to connect to the demo.
 
 Run `sensuctl configure` and enter the following information:
 
-{{< code shell >}}
-? Authentication method: username/password
-? Sensu Backend API URL: https://caviar.tf.sensu.io:8080
-? Namespace: default
-? Preferred output format: tabular
-? Username: guest
-? Password: i<3sensu
+{{< code text >}}
+Authentication method: username/password
+Sensu Backend API URL: https://caviar.tf.sensu.io:8080
+Namespace: default
+Preferred output format: tabular
+Username: guest
+Password: i<3sensu
 {{< /code >}}
 
 With sensuctl configured, to view the latest observability events, run:

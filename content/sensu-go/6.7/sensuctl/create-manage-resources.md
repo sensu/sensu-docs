@@ -337,7 +337,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 
 Sensuctl provides a standard set of list, info, and delete operations for most resource types.
 
-{{< code shell >}}
+{{< code text >}}
 list                       list resources
 info NAME                  show detailed resource information given resource name
 delete NAME                delete resource given resource name
@@ -422,7 +422,7 @@ sensuctl check execute check-cpu --subscriptions demo,webserver
 
 The `sensuctl cluster` command lets you manage a Sensu cluster using the following subcommands:
 
-{{< code shell >}}
+{{< code text >}}
 health           get Sensu health status
 id               get unique Sensu cluster ID
 member-add       add cluster member to an existing cluster, with comma-separated peer addresses
@@ -494,7 +494,7 @@ sensuctl describe-type all
 
 The response will list all supported `sensuctl prune` resource types:
 
-{{< code shell >}}
+{{< code text >}}
          Fully Qualified Name               Short Name           API Version               Type             Namespaced  
 ────────────────────────────────────── ───────────────────── ─────────────────── ───────────────────────── ─────────────
   authentication/v2.Provider                                  authentication/v2   Provider                  false

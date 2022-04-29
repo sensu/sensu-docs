@@ -343,7 +343,7 @@ sensuctl describe-type all
 
 The response will list the names and other details for the supported resource types:
 
-{{< code shell >}}
+{{< code text >}}
       Fully Qualified Name           Short Name           API Version             Type          Namespaced  
  ────────────────────────────── ───────────────────── ─────────────────── ──────────────────── ──────────── 
   authentication/v2.Provider                           authentication/v2   Provider             false

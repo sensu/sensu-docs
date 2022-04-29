@@ -60,7 +60,7 @@ sensu-install --help
 
 The response will be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 Usage: sensu-install [options]
     -h, --help                       Display this message
     -v, --verbose                    Enable verbose logging

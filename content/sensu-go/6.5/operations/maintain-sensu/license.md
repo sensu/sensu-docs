@@ -49,7 +49,7 @@ sensuctl license info
 
 For an active license, the response should be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 === You are currently using 10/100 total entities, 5/50 agent entities, and 5/50 proxy entities
 Account Name: Training Team - Sensu
 Account ID:   123
@@ -64,7 +64,7 @@ Valid Until:  2021-02-15 00:00:00 -0800 -0800
 
 This response means you do not have an active license:
 
-{{< code shell >}}
+{{< code text >}}
 Error: not found
 {{< /code >}}
 
@@ -102,7 +102,7 @@ sensuctl license info --format tabular
 
 The response in tabular format should be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 === You are currently using 10/100 total entities, 5/50 agent entities, and 5/50 proxy entities
 Account Name: Training Team - Sensu
 Account ID:   123
@@ -118,7 +118,7 @@ Valid Until:  2021-02-15 00:00:00 -0800 -0800
 If you have an unlimited entity count, the `sensuctl license info` response title will still include a current count for each type of entity you are using.
 For example:
 
-{{< code shell >}}
+{{< code text >}}
 === You are currently using 10/unlimited total entities, 5/unlimited agent entities, and 5/unlimited proxy entities
 {{< /code >}}
 
@@ -137,7 +137,7 @@ In YAML and JSON formats, the entity count and limit are included as labels:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code text "YML" >}}
 ---
 type: LicenseFile
 api_version: licensing/v2
@@ -153,7 +153,7 @@ spec:
 [...]
 {{< /code >}}
 
-{{< code json >}}
+{{< code text "JSON" >}}
 {
   "type": "LicenseFile",
   "api_version": "licensing/v2",
@@ -185,7 +185,7 @@ curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Author
 
 The response headers will include your current entity count and limit:
 
-{{< code shell >}}
+{{< code text >}}
 HTTP/1.1 200 OK
 Content-Type: application/json
 Sensu-Entity-Count: 10

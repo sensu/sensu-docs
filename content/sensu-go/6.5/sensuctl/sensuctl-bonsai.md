@@ -67,7 +67,7 @@ sensuctl asset outdated
 
 If outdated assets are installed on the backend, the response will be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
           Asset Name                  Bonsai Asset          Current Version  Latest Version
 ----------------------------  ----------------------------  ---------------  --------------
 sensu/sensu-influxdb-handler  sensu/sensu-influxdb-handler       3.6.1            3.7.0

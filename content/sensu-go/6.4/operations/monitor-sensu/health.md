@@ -14,16 +14,19 @@ menu:
 
 Use Sensu's [/health API][1] to make sure your backend is up and running and check the health of your etcd cluster members and [PostgreSQL datastore resources][2].
 
-A request to the health endpoint retrieves a JSON map with health data for your Sensu instance.
+A request to the /health API endpoint retrieves a JSON map with health data for your Sensu instance.
+Here's an example request to the health endpoint:
+
+{{< code shell >}}
+curl -X GET \
+http://127.0.0.1:8080/health
+{{< /code >}}
 
 ## Healthy cluster example
 
 In this example, all cluster members are healthy. 
 
-{{< code shell >}}
-curl -X GET \
-http://127.0.0.1:8080/health
-
+{{< code text >}}
 HTTP/1.1 200 OK
 {
   "Alarms": null,
@@ -75,10 +78,7 @@ HTTP/1.1 200 OK
 
 In this example, one cluster member is unhealthy: it cannot communicate with the other cluster members.
 
-{{< code shell >}}
-curl -X GET \
-http://127.0.0.1:8080/health
-
+{{< code text >}}
 HTTP/1.1 200 OK
 {
   "Alarms": null,
@@ -228,7 +228,7 @@ Name         |
 description  | The etcd cluster member's name.
 required     | true
 type         | String
-example      | {{< code shell >}}Name": "default"{{< /code >}}
+example      | {{< code shell >}}"Name": "default"{{< /code >}}
 
 #### Header attributes
 

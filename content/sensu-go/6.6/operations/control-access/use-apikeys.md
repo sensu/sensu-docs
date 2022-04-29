@@ -42,30 +42,13 @@ If you're using `Key [api-key]` to authenticate instead, the Authorization heade
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
 {{< /code >}}
 
-### Example
+Here's an example request that uses API key authentication:
 
 {{< code shell >}}
 curl -H "Authorization: Key 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
-
-HTTP/1.1 200 OK
-[
-  {
-    "command": "check-cpu.sh -w 75 -c 90",
-    "handlers": [
-      "slack"
-    ],
-    "interval": 60,
-    "publish": true,
-    "subscriptions": [
-      "linux"
-    ],
-    "metadata": {
-      "name": "check-cpu",
-      "namespace": "default"
-    }
-  }
-]
 {{< /code >}}
+
+A successful request will return the HTTP response code `HTTP/1.1 200 OK` and the definitions for the checks in the default namespace.
 
 ## Sensuctl management commands
 
@@ -81,7 +64,7 @@ sensuctl api-key grant admin
 
 The response will include the new API key:
 
-{{< code shell >}}
+{{< code text >}}
 Created: /api/core/v2/apikeys/7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2
 {{< /code >}}
 
@@ -162,7 +145,7 @@ sensuctl api-key list
 
 The response lists all API keys along with the name of the user who created each key and the date and time each key was created:
 
-{{< code shell >}}
+{{< code text >}}
                   Name                   Username            Created At            
  ────────────────────────────────────── ────────── ─────────────────────────────── 
   7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2   admin      2019-10-10 14:48:37 -0700 PDT
@@ -176,7 +159,7 @@ sensuctl api-key revoke 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --skip-confirm
 
 The response will confirm that the API key is deleted:
 
-{{< code shell >}}
+{{< code text >}}
 Deleted
 {{< /code >}}
 

@@ -230,7 +230,7 @@ Then, run this command with your valid values in place to create the handler def
 
 {{< language-toggle >}}
 
-{{< code text "YML" >}}
+{{< code shell "YML" >}}
 cat << EOF | sensuctl create
 ---
 type: Handler
@@ -260,7 +260,7 @@ spec:
 EOF
 {{< /code >}}
 
-{{< code text "JSON" >}}
+{{< code shell "JSON" >}}
 cat << EOF | sensuctl create
 {
   "type": "Handler",

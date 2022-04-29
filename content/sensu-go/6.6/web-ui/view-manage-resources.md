@@ -25,9 +25,8 @@ By default, the web UI displays the `default` namespace.
 
 To switch namespaces, select the menu icon in the upper-left corner or press the `Ctrl+K` keyboard shortcut and choose a namespace from the dropdown.
 
-{{% notice commercial %}}
-**COMMERCIAL FEATURE**: In the packaged Sensu Go distribution, the namespace switcher will list only the namespaces to which the current user has access.
-For more information, read [Get started with commercial features](../../commercial/).
+{{% notice note %}}
+**NOTE**: The namespace switcher will list only the namespaces to which the current user has access.
 {{% /notice %}}
 
 {{< figure src="/images/namespace-switcher-6-6-0.png" alt="Sensu web UI namespace switcher" link="/images/namespace-switcher-6-6-0.png" target="_blank" >}}
