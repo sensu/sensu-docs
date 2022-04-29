@@ -276,7 +276,7 @@ As an option, you can also translate your configuration in sections according to
 
 If translation is successful, you should receive a few callouts followed by `DONE!`, similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 Sensu 1.x filter translation is not yet supported
 Unable to translate Sensu 1.x filter: only_production {:attributes=>{:check=>{:environment=>"production"}}}
 DONE!
@@ -317,7 +317,7 @@ Review your Sensu Core check configuration for the following attributes, and mak
 `dependencies`| Use the [Core Dependencies Filter][23] dynamic runtime asset.
 
 {{% notice protip %}}
-**PRO TIP**: When using token substitution in Sensu Go and accessing labels or annotations that include `.` (for example: `sensu.io.json_attributes`), use the `index` function.
+**PRO TIP**: When using token substitution in Sensu Go and accessing labels or annotations that include `.`, like `sensu.io.json_attributes`, use the `index` function.
 For example, `{{index .annotations "web_url"}}` substitutes the value of the `web_url` annotation; `{{index .annotations "production.ID"}}` substitutes the value of the `production.ID` annotation.
 {{% /notice %}}
 

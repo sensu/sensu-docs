@@ -56,7 +56,7 @@ sensuctl auth list
 
 The response will list your authentication provider types and names:
 
-{{< code shell >}}
+{{< code text >}}
  Type     Name    
 ────── ────────── 
  ldap   openldap  

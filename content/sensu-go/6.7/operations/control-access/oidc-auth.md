@@ -538,7 +538,7 @@ For example, the URL `http://127.0.0.1:8080/api/enterprise/authentication/v2/oid
 
 If you see the following error when you open the web UI, the [`groups_claim`][10] value in your Sensu OIDC definition is incorrect:
 
-{{< code shell >}}
+{{< code text >}}
 {"message":"could not find the groups claim \"okta:groups\" in the user's claims: [\"sub\" \"email\" \"email_verified\"]","code":0}
 {{< /code >}}
 

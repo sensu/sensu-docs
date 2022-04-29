@@ -119,25 +119,25 @@ or
 Fields are specific [resource attributes][2] in dot notation.
 For example, this search will retrieve all events for entities with the `linux` subscription:
 
-{{< code text >}}
+{{< code shell >}}
 "linux" in event.entity.subscriptions
 {{< /code >}}
 
 This search will retrieve all events that whose status is *not* equal to `passing`:
 
-{{< code text >}}
+{{< code shell >}}
 event.check.state != "passing"
 {{< /code >}}
 
 To display only events for checks with the subscription `webserver`, enter this search statement on the **Events page**:
 
-{{< code text >}}
+{{< code shell >}}
 "webserver" in event.check.subscriptions
 {{< /code >}}
 
 To display only checks that use the `slack` handler, enter this search statement on the **Checks page**:
 
-{{< code text >}}
+{{< code shell >}}
 "slack" in check.handlers
 {{< /code >}}
 
@@ -145,21 +145,21 @@ To display only checks that use the `slack` handler, enter this search statement
 
 If you are searching for a value that begins with a number, place the value in single or double quotes:
 
-{{< code text >}}
+{{< code shell >}}
 entity.name == '1b04994n'
 entity.name == "1b04994n"
 {{< /code >}}
 
 Likewise, to search string values that include special characters like hyphens and underscores, place the value in single or double quotes:
 
-{{< code text >}}
+{{< code shell >}}
 entity.labels.region == 'us-west-1'
 entity.labels.region == "us-west-1"
 {{< /code >}}
 
 To display only events at `2` (CRITICAL) status:
 
-{{< code text >}}
+{{< code shell >}}
 event.check.status == "2"
 {{< /code >}}
 
@@ -169,13 +169,13 @@ Labels are treated like any other field in web UI searches.
 
 For example, to search based on a check label `version`, use:
 
-{{< code text >}}
+{{< code shell >}}
 check.labels.version matches "7"
 {{< /code >}}
 
 To display only checks with the `type` label set to `server`, enter this search statement on the **Checks page**:
 
-{{< code text >}}
+{{< code shell >}}
 check.labels.type == "server"
 {{< /code >}}
 
@@ -196,7 +196,7 @@ For label-based event searches, the web UI merges check and entity labels into a
 
 For example, to display events with the `type` label set to `server`, enter this search statement on the **Events** page:
 
-{{< code text >}}
+{{< code shell >}}
 event.labels.type == "server"
 {{< /code >}}
 
@@ -206,13 +206,13 @@ This search will retrieve events with the `type` label set to `server`, no matte
 
 To use the logical AND operator (`&&`) to return checks that include a `linux` subscription and the `slack` handler:
 
-{{< code text >}}
+{{< code shell >}}
 "linux" in check.subscriptions && "slack" in check.handlers
 {{< /code >}}
 
 To return events that include a `windows` check subscription and any email handler:
 
-{{< code text >}}
+{{< code shell >}}
 "windows" in event.check.subscriptions && event.check.handlers matches "email"
 {{< /code >}}
 

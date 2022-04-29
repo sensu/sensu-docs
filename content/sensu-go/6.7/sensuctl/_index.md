@@ -50,13 +50,13 @@ Username/password authentication applies to the following authentication provide
 
 This example shows the username/password authentication method:
 
-{{< code shell >}}
-? Authentication method: username/password
-? Sensu Backend API URL: http://127.0.0.1:8080
-? Namespace: default
-? Preferred output format: tabular
-? Username: YOUR_USERNAME
-? Password: YOUR_PASSWORD
+{{< code text >}}
+Authentication method: username/password
+Sensu Backend API URL: http://127.0.0.1:8080
+Namespace: default
+Preferred output format: tabular
+Username: YOUR_USERNAME
+Password: YOUR_PASSWORD
 {{< /code >}}
 
 ### OIDC authentication
@@ -66,11 +66,11 @@ Then, if you are using a desktop, a browser will open to allow you to authentica
 
 This example shows the OIDC authentication method:
 
-{{< code shell >}}
-? Authentication method: OIDC
-? Sensu Backend API URL: http://127.0.0.1:8080
-? Namespace: default
-? Preferred output format: tabular
+{{< code text >}}
+Authentication method: OIDC
+Sensu Backend API URL: http://127.0.0.1:8080
+Namespace: default
+Preferred output format: tabular
 Launching browser to complete the login via your OIDC provider at following URL:
 
   http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/authorize?callback=http%3A%2F%2Flocalhost%3A8000%2Fcallback
@@ -122,7 +122,7 @@ cat .config/sensu/sensuctl/profile
 
 The response should be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 {
   "format": "tabular",
   "namespace": "default",
@@ -138,7 +138,7 @@ cat .config/sensu/sensuctl/cluster
 
 The response should be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 {
   "api-url": "http://localhost:8080",
   "trusted-ca-file": "",
@@ -202,7 +202,7 @@ It does not test user credentials defined via an authentication provider like [L
 
 For example, if you test LDAP credentials with the `sensuctl user test-creds` command, the backend will log an error, even if you know the LDAP credentials are correct:
 
-{{< code shell >}}
+{{< code text >}}
 {"component":"apid.routers","error":"basic provider is disabled","level":"info","msg":"invalid username and/or password","time":"2020-02-07T20:42:14Z","user":"dev"}
 {{< /code >}}
 
@@ -282,7 +282,7 @@ sensuctl config view
 
 The `sensuctl config view` response includes the [Sensu backend URL][6], default [namespace][8] for the current user, default [output format][7] for the current user, and currently configured username:
 
-{{< code shell >}}
+{{< code text >}}
 === Active Configuration
 API URL:   http://127.0.0.1:8080
 Namespace: default
@@ -338,7 +338,7 @@ sensuctl version
 Global flags modify settings specific to sensuctl, such as the Sensu backend URL and [namespace][8].
 You can use global flags with most sensuctl commands.
 
-{{< code shell >}}
+{{< code text >}}
 --api-key string             API key to use for authentication
 --api-url string             host URL of Sensu installation
 --cache-dir string           path to directory containing cache & temporary files
@@ -402,14 +402,14 @@ source ~/.zshrc
 
 `sensuctl` <kbd>Tab</kbd>
 
-{{< code shell >}}
+{{< code text >}}
 check       configure   event       user
 asset       completion  entity      handler
 {{< /code >}}
 
 `sensuctl check` <kbd>Tab</kbd>
 
-{{< code shell >}}
+{{< code text >}}
 create  delete  import  list
 {{< /code >}}
 

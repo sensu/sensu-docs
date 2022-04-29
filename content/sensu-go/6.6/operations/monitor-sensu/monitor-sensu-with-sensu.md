@@ -65,7 +65,7 @@ sensuctl asset list
 
 The response should list the http-checks dynamic runtime asset:
 
-{{< code shell >}}
+{{< code text >}}
      Name                                       URL                                    Hash    
 ────────────── ───────────────────────────────────────────────────────────────────── ──────────
   http-checks   //assets.bonsai.sensu.io/.../http-checks_0.5.0_linux_armv7.tar.gz     b28f8c3  
@@ -189,7 +189,7 @@ EOF
 
 A successful health check result will be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 http-json OK:  The value true found at .ClusterHealth.[0].Healthy matched with expression "== true" and returned true
 {{< /code >}}
 
@@ -296,7 +296,7 @@ EOF
 
 A successful health check result will be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 http-json OK:  The value true found at .ClusterHealth.[0].Healthy matched with expression "== true" and returned true
 {{< /code >}}
 
@@ -315,7 +315,7 @@ If you're using PostgreSQL for event storage, we recommend monitoring your Postg
 The connection to PostgreSQL is exposed on Sensu's `/health` endpoint, which provides information about the event store's health.
 PostgreSQL data from the `/health` endpoint will look like this example:
 
-{{< code json >}}
+{{< code text >}}
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -466,7 +466,7 @@ EOF
 
 Successful PostgreSQL health check results will be similar to this example:
 
-{{< code shell >}}
+{{< code text >}}
 http-json OK:  The value true found at .PostgresHealth.[0].Healthy matched with expression "== true" and returned true
 http-json OK:  The value true found at .PostgresHealth.[0].Active matched with expression "== true" and returned true
 {{< /code >}}

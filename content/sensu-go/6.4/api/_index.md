@@ -221,7 +221,7 @@ sensuctl api-key grant admin
 {{< /code >}}
 
    The response will include the new API key:
-{{< code shell >}}
+{{< code text >}}
 Created: /api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
 {{< /code >}}
 

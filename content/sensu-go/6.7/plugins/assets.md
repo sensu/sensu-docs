@@ -390,7 +390,7 @@ Sensu expects dynamic runtime assets to be retrieved over HTTP or HTTPS.
 
 ### Example dynamic runtime asset structure
 
-{{< code shell >}}
+{{< code text >}}
 sensu-example-handler_1.0.0_linux_amd64
 ├── CHANGELOG.md
 ├── LICENSE
@@ -550,7 +550,7 @@ tree
 {{< /code >}}
 
    The response should list the `hello-world.sh` script in the `/bin` directory:
-   {{< code shell >}}
+   {{< code text >}}
 .
 └── bin
     └── hello-world.sh
@@ -581,7 +581,6 @@ tar -C sensu-go-hello-world -cvzf sensu-go-hello-world-0.0.1.tar.gz .
 3. Generate a SHA512 sum for the tar.gz archive (this is required for the dynamic runtime asset to work):
 {{< code shell >}}
 sha512sum sensu-go-hello-world-0.0.1.tar.gz | tee sha512sum.txt
-dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff1ef4b154c198b9c7cdfe1e8867788c820db7bb5bcad83827 sensu-go-hello-world-0.0.1.tar.gz
 {{< /code >}}
 
 From here, you can host your dynamic runtime asset wherever you’d like.
