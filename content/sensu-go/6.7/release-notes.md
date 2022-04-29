@@ -140,13 +140,12 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.7.0.
 **IMPROVEMENTS:**
 
 - ([Commercial feature][268]) For [Sensu Plus][271] setup, Sensu now automatically creates a Sumo Logic account and configures an HTTP Logs & Metrics Source for customers who start the process from the Sensu [web UI][270].
-- ([Commercial feature][268]) The Sensu query expression [`sensu.CheckDependencies`][274] now supports arrays of strings and objects.
 - ([Commercial feature][268]) Markdown formatting is now supported for the [signin_message][288] attribute value in the GlobalConfig specification.
 - ([Commercial feature][268]) Added the [serialization_format][287] attribute to the GlobalConfig specification, which you can use to specify the default format for [resource definitions in the web UI][286] (YAML or JSON).
 - ([Commercial feature][268]) [Business service monitoring (BSM)][281] now uses the PostgreSQL round robin Ring V2 implementation, even if the [`enable_round_robin`][280] attribute is set to `false` in the PostgresConfig definition.
 - ([Commercial feature][268]) Added the `sensu_go_etcd_cluster_leases` metric to the backend [metrics log][282] to track the count of current etcd leases for debugging.
 - ([Commercial feature][268]) Added logging for [TCP stream handler][283] events.
-- The [sensu.CheckDependencies][284] Sensu query expression now supports arrays of strings and arrays of objects.
+- The [`sensu.CheckDependencies`][284] Sensu query expression now supports arrays of strings and arrays of objects.
 - On backend startup, Sensu now creates the [`sensu-system` namespace][279] and a [backend entity][278] to log secrets provider errors and help prevent spamming the event bus with backend events.
 - For connections with faulty TLS configurations, error log entries now include a `source` property that lists the corresponding agent's IP address and port to identify which agent generated each log entry for troubleshooting.
 - Increased the default values for the backend configuration flags [etcd-election-timeout][272] (from 1000 to 3000) and [etcd-heartbeat-interval][273] (from 100 to 300).
