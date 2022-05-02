@@ -21,32 +21,30 @@ The `/checks` API endpoint provides HTTP GET access to [check][1] data.
 
 ### Example {#checks-get-example}
 
-The following example demonstrates a request to the `/checks` API endpoint, resulting in a JSON array that contains [check definitions][1].
+The following example demonstrates a GET request to the `/checks` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [check definitions][1] in the `default` namespace:
+
+{{< code text >}}
 [
   {
-    "command": "check-email.sh -w 75 -c 90",
+    "command": "check-cpu-usage -w 75 -c 90",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
     "publish": true,
-    "runtime_assets": null,
-    "subscriptions": [
-      "linux"
+    "runtime_assets": [
+      "check-cpu-usage"
     ],
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
+    "subscriptions": [
+      "system"
     ],
     "proxy_entity_name": "",
     "check_hooks": null,
@@ -55,16 +53,93 @@ HTTP/1.1 200 OK
     "ttl": 0,
     "timeout": 0,
     "round_robin": false,
-    "scheduler": "postgres",
     "output_metric_format": "",
     "output_metric_handlers": null,
-    "output_metric_tags": null,
     "env_vars": null,
     "metadata": {
-      "name": "check-email",
+      "name": "check_cpu",
       "namespace": "default",
       "created_by": "admin"
-    }
+    },
+    "secrets": null,
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ]
+  },
+  {
+    "command": "http-perf --url http://localhost --warning 1s --critical 2s",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 15,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [
+      "http-checks"
+    ],
+    "subscriptions": [
+      "webserver"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "output_metric_format": "nagios_perfdata",
+    "output_metric_handlers": "sensu_to_sumo",
+    "env_vars": null,
+    "metadata": {
+      "name": "collect-metrics",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "secrets": null,
+    "pipelines": []
+  },
+  {
+    "command": "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 10,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [
+      "sensu-prometheus-collector"
+    ],
+    "subscriptions": [
+      "app_tier"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "output_metric_format": "influxdb_line",
+    "output_metric_handlers": null,
+    "env_vars": null,
+    "metadata": {
+      "name": "prometheus_metrics",
+      "namespace": "default",
+      "labels": {
+        "sensu.io/managed_by": "sensuctl"
+      },
+      "created_by": "admin"
+    },
+    "secrets": null,
+    "pipelines": [
+      {
+        "name": "prometheus_metrics_workflows",
+        "type": "Pipeline",
+        "api_version": "core/v2"
+      }
+    ]
   }
 ]
 {{< /code >}}
@@ -79,25 +154,20 @@ pagination     | This endpoint supports [pagination][4] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][5].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
-    "command": "check-email.sh -w 75 -c 90",
+    "command": "check-cpu-usage -w 75 -c 90",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 60,
     "low_flap_threshold": 0,
     "publish": true,
-    "runtime_assets": null,
-    "subscriptions": [
-      "linux"
+    "runtime_assets": [
+      "check-cpu-usage"
     ],
-    "pipelines": [
-      {
-        "api_version": "core/v2",
-        "type": "Pipeline",
-        "name": "incident_alerts"
-      }
+    "subscriptions": [
+      "system"
     ],
     "proxy_entity_name": "",
     "check_hooks": null,
@@ -106,16 +176,93 @@ output         | {{< code shell >}}
     "ttl": 0,
     "timeout": 0,
     "round_robin": false,
-    "scheduler": "postgres",
     "output_metric_format": "",
     "output_metric_handlers": null,
-    "output_metric_tags": null,
     "env_vars": null,
     "metadata": {
-      "name": "check-email",
+      "name": "check_cpu",
       "namespace": "default",
       "created_by": "admin"
-    }
+    },
+    "secrets": null,
+    "pipelines": [
+      {
+        "api_version": "core/v2",
+        "type": "Pipeline",
+        "name": "incident_alerts"
+      }
+    ]
+  },
+  {
+    "command": "http-perf --url http://localhost --warning 1s --critical 2s",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 15,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [
+      "http-checks"
+    ],
+    "subscriptions": [
+      "webserver"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "output_metric_format": "nagios_perfdata",
+    "output_metric_handlers": "sensu_to_sumo",
+    "env_vars": null,
+    "metadata": {
+      "name": "collect-metrics",
+      "namespace": "default",
+      "created_by": "admin"
+    },
+    "secrets": null,
+    "pipelines": []
+  },
+  {
+    "command": "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 10,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [
+      "sensu-prometheus-collector"
+    ],
+    "subscriptions": [
+      "app_tier"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "output_metric_format": "influxdb_line",
+    "output_metric_handlers": null,
+    "env_vars": null,
+    "metadata": {
+      "name": "prometheus_metrics",
+      "namespace": "default",
+      "labels": {
+        "sensu.io/managed_by": "sensuctl"
+      },
+      "created_by": "admin"
+    },
+    "secrets": null,
+    "pipelines": [
+      {
+        "name": "prometheus_metrics_workflows",
+        "type": "Pipeline",
+        "api_version": "core/v2"
+      }
+    ]
   }
 ]
 {{< /code >}}
@@ -126,17 +273,17 @@ The `/checks` API endpoint provides HTTP POST access to create checks.
 
 ### Example {#checks-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/checks` API endpoint to create a `check-cpu` check.
-The request includes the check definition in the request body and returns a successful HTTP `200 OK` response and the created check definition.
+In the following example, an HTTP POST request is submitted to the `/checks` API endpoint to create a `check_cpu` check.
+The request includes the check definition in the request body.
 
 {{< code shell >}}
 curl -X POST \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
-  "command": "check-cpu.sh -w 75 -c 90",
+  "command": "check-cpu-usage.sh -w 75 -c 90",
   "subscriptions": [
-    "linux"
+    "system"
   ],
   "interval": 60,
   "publish": true,
@@ -147,15 +294,18 @@ curl -X POST \
       "name": "incident_alerts"
     }
   ],
+  "runtime_assets": [
+    "check-cpu-usage"
+  ],
   "metadata": {
-    "name": "check-cpu",
+    "name": "check_cpu",
     "namespace": "default"
   }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#checks-post-specification}
 
@@ -165,9 +315,9 @@ description     | Creates a Sensu check.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks
 example payload | {{< code shell >}}
 {
-  "command": "check-cpu.sh -w 75 -c 90",
+  "command": "check-cpu-usage.sh -w 75 -c 90",
   "subscriptions": [
-    "linux"
+    "system"
   ],
   "interval": 60,
   "publish": true,
@@ -178,8 +328,11 @@ example payload | {{< code shell >}}
       "name": "incident_alerts"
     }
   ],
+  "runtime_assets": [
+    "check-cpu-usage"
+  ],
   "metadata": {
-    "name": "check-cpu",
+    "name": "check_cpu",
     "namespace": "default"
   }
 }
@@ -189,35 +342,33 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ## Get a specific check {#checkscheck-get}
 
-The `/checks/:check` API endpoint provides HTTP GET access to [check data][1] for `:check` definitions, specified by check name.
+The `/checks/:check` API endpoint provides HTTP GET access to `:check` definitions, specified by check name.
 
 ### Example {#checkscheck-get-example}
 
-In the following example, querying the `/checks/:check` API endpoint returns a JSON map that contains the requested [`:check` definition][1] (in this example, for the `:check` named `check-cpu`).
+The following example queries the `/checks/:check` API endpoint for the `:check` named `check_cpu`:
 
 {{< code shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check_cpu \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:check` definition][1] (in this example, `check_cpu`):
+
+{{< code shell >}}
 {
-  "command": "check-cpu.sh -w 75 -c 90",
+  "command": "check-cpu-usage.sh -w 75 -c 90",
   "handlers": [],
   "high_flap_threshold": 0,
   "interval": 60,
   "low_flap_threshold": 0,
   "publish": true,
-  "runtime_assets": null,
-  "subscriptions": [
-    "linux"
+  "runtime_assets": [
+    "check-cpu-usage"
   ],
-  "pipelines": [
-    {
-      "api_version": "core/v2",
-      "type": "Pipeline",
-      "name": "incident_alerts"
-    }
+  "subscriptions": [
+    "system"
   ],
   "proxy_entity_name": "",
   "check_hooks": null,
@@ -226,16 +377,22 @@ HTTP/1.1 200 OK
   "ttl": 0,
   "timeout": 0,
   "round_robin": false,
-  "scheduler": "postgres",
   "output_metric_format": "",
   "output_metric_handlers": null,
-  "output_metric_tags": null,
   "env_vars": null,
   "metadata": {
-    "name": "check-cpu",
+    "name": "check_cpu",
     "namespace": "default",
     "created_by": "admin"
-  }
+  },
+  "secrets": null,
+  "pipelines": [
+    {
+      "name": "incident_alerts",
+      "type": "Pipeline",
+      "api_version": "core/v2"
+    }
+  ]
 }
 {{< /code >}}
 
@@ -244,27 +401,22 @@ HTTP/1.1 200 OK
 /checks/:check (GET) | 
 ---------------------|------
 description          | Returns the specified check.
-example url          | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu
+example url          | http://hostname:8080/api/core/v2/namespaces/default/checks/check_cpu
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
-  "command": "check-cpu.sh -w 75 -c 90",
+  "command": "check-cpu-usage.sh -w 75 -c 90",
   "handlers": [],
   "high_flap_threshold": 0,
   "interval": 60,
   "low_flap_threshold": 0,
   "publish": true,
-  "runtime_assets": null,
-  "subscriptions": [
-    "linux"
+  "runtime_assets": [
+    "check-cpu-usage"
   ],
-  "pipelines": [
-    {
-      "api_version": "core/v2",
-      "type": "Pipeline",
-      "name": "incident_alerts"
-    }
+  "subscriptions": [
+    "system"
   ],
   "proxy_entity_name": "",
   "check_hooks": null,
@@ -273,16 +425,22 @@ output               | {{< code json >}}
   "ttl": 0,
   "timeout": 0,
   "round_robin": false,
-  "scheduler": "postgres",
   "output_metric_format": "",
   "output_metric_handlers": null,
-  "output_metric_tags": null,
   "env_vars": null,
   "metadata": {
-    "name": "check-cpu",
+    "name": "check_cpu",
     "namespace": "default",
     "created_by": "admin"
-  }
+  },
+  "secrets": null,
+  "pipelines": [
+    {
+      "name": "incident_alerts",
+      "type": "Pipeline",
+      "api_version": "core/v2"
+    }
+  ]
 }
 {{< /code >}}
 
@@ -292,14 +450,14 @@ The `/checks/:check` API endpoint provides HTTP PUT access to create and update 
 
 ### Example {#checkscheck-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/checks/:check` API endpoint to update the `check-cpu` check, resulting in an HTTP `200 OK` response and the updated check definition.
+In the following example, an HTTP PUT request is submitted to the `/checks/:check` API endpoint to update the `check_cpu` check:
 
 {{< code shell >}}
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
-  "command": "check-cpu.sh -w 75 -c 90",
+  "command": "check-cpu-usage.sh -w 75 -c 90",
   "pipelines": [
     {
       "api_version": "core/v2",
@@ -310,27 +468,27 @@ curl -X PUT \
   "interval": 60,
   "publish": true,
   "subscriptions": [
-    "linux"
+    "system"
   ],
   "metadata": {
-    "name": "check-cpu",
+    "name": "check_cpu",
     "namespace": "default"
   }
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu
-
-HTTP/1.1 201 Created
+http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check_cpu
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#checkscheck-put-specification}
 
 /checks/:check (PUT) | 
 ----------------|------
 description     | Creates or updates the specified Sensu check.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check_cpu
 payload         | {{< code shell >}}
 {
-  "command": "check-cpu.sh -w 75 -c 90",
+  "command": "check-cpu-usage.sh -w 75 -c 90",
   "pipelines": [
     {
       "api_version": "core/v2",
@@ -341,10 +499,10 @@ payload         | {{< code shell >}}
   "interval": 60,
   "publish": true,
   "subscriptions": [
-    "linux"
+    "system"
   ],
   "metadata": {
-    "name": "check-cpu",
+    "name": "check_cpu",
     "namespace": "default"
   }
 }
@@ -364,7 +522,7 @@ Also, you cannot add elements to an array with a PATCH request &mdash; you must 
 
 ### Example
 
-In the following example, an HTTP PATCH request is submitted to the `/checks/:check` API endpoint to update the subscriptions array for the `check-cpu` check, resulting in an HTTP `200 OK` response and the updated check definition.
+In the following example, an HTTP PATCH request is submitted to the `/checks/:check` API endpoint to update the subscriptions array for the `check_cpu` check, resulting in a `HTTP/1.1 200 OK` response and the updated check definition.
 
 We support [JSON merge patches][6], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
 
@@ -374,13 +532,11 @@ curl -X PATCH \
 -H 'Content-Type: application/merge-patch+json' \
 -d '{
   "subscriptions": [
-    "linux",
+    "system",
     "health"
   ]
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu
-
-HTTP/1.1 200 OK
+http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check_cpu
 {{< /code >}}
 
 ### API Specification
@@ -388,11 +544,11 @@ HTTP/1.1 200 OK
 /checks/:check (PATCH) | 
 ----------------|------
 description     | Updates the specified Sensu check.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check_cpu
 payload         | {{< code shell >}}
 {
   "subscriptions": [
-    "linux",
+    "system",
     "health"
   ]
 }
@@ -405,14 +561,12 @@ The `/checks/:check` API endpoint provides HTTP DELETE access to delete a check 
 
 ### Example {#checkscheck-delete-example}
 
-The following example shows a request to the `/checks/:check` API endpoint to delete the check named `check-cpu`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/checks/:check` API endpoint to delete the check named `check_cpu`, which will result in a successful `HTTP/1.1 204 No Content` response:
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu
-
-HTTP/1.1 204 No Content
+http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check_cpu
 {{< /code >}}
 
 ### API Specification {#checkscheck-delete-specification}
@@ -420,7 +574,7 @@ HTTP/1.1 204 No Content
 /checks/:check (DELETE) | 
 --------------------------|------
 description               | Removes the specified check from Sensu.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu
+example url               | http://hostname:8080/api/core/v2/namespaces/default/checks/check_cpu
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Create an ad hoc check execution request {#checkscheckexecute-post}
@@ -429,22 +583,25 @@ The `/checks/:check/execute` API endpoint provides HTTP POST access to create an
 
 ### Example {#checkscheckexecute-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/checks/:check/execute` API endpoint to execute the `check-cpu` check.
-The request includes the check name in the request body and returns a successful HTTP `202 Accepted` response and an `issued` timestamp.
+In the following example, an HTTP POST request is submitted to the `/checks/:check/execute` API endpoint to execute the `check_cpu` check.
+The request includes the check name in the request body. 
 
 {{< code shell >}}
 curl -X POST \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
-  "check": "check-cpu",
+  "check": "check_cpu",
   "subscriptions": [
     "entity:i-424242"
   ]
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu/execute
+http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check_cpu/execute
+{{< /code >}}
 
-HTTP/1.1 202 Accepted
+The request will return a successful `HTTP/1.1 202 Accepted` response and an `issued` timestamp:
+
+{{< code text >}}
 {"issued":1543861798}
 {{< /code >}}
 
@@ -458,10 +615,10 @@ This gives you the flexibility to execute a check on any Sensu entity or group o
 /checks/:check/execute (POST) | 
 ----------------|------
 description     | Creates an ad hoc request to execute the specified check.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu/execute
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check_cpu/execute
 payload         | {{< code shell >}}
 {
-  "check": "check-cpu",
+  "check": "check_cpu",
   "subscriptions": [
     "entity:i-424242"
   ]
@@ -476,7 +633,7 @@ The `/checks/:check/hooks/:type` API endpoint provides HTTP PUT access to assign
 
 ### Example {#checkscheckhooks-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/checks/:check/hooks/:type` API endpoint, assigning the `process_tree` hook to the `check-cpu` check in the event of a `critical` type check result, resulting in a successful HTTP `204 No Content` response.
+In the following example, an HTTP PUT request is submitted to the `/checks/:check/hooks/:type` API endpoint, assigning the `process_tree` hook to the `check_cpu` check in the event of a `critical` type check result:
 
 {{< code shell >}}
 curl -X PUT \
@@ -487,17 +644,17 @@ curl -X PUT \
     "process_tree"
   ]
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical
-
-HTTP/1.1 201 Created
+http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check_cpu/hooks/critical
 {{< /code >}}
+
+The request returns a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#checkscheckhooks-put-specification}
 
 checks/:check/hooks/:type (PUT) | 
 ----------------|------
 description     | Assigns a hook to a check (specified by the check name and [check response type][3]).
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check_cpu/hooks/critical
 example payload | {{< code shell >}}
 {
   "critical": [
@@ -514,14 +671,12 @@ The `/checks/:check/hooks/:type/hook/:hook` API endpoint provides HTTP DELETE ac
 
 ### Example {#checkscheckhookshook-delete-example}
 
-The following example shows a request to the `/checks/:check/hooks/:type/hook/:hook` API endpoint to remove the `process_tree` hook from the `check-cpu` check, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/checks/:check/hooks/:type/hook/:hook` API endpoint to remove the `process_tree` hook from the `check_cpu` check, resulting in a successful `HTTP/1.1 204 No Content` response:
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical/hook/process_tree 
-
-HTTP/1.1 204 No Content
+http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check_cpu/hooks/critical/hook/process_tree 
 {{< /code >}}
 
 ### API Specification {#checkscheckhookshook-delete-specification}
@@ -529,7 +684,7 @@ HTTP/1.1 204 No Content
 /checks/:check/hooks/:type/hook/:hook (DELETE) | 
 --------------------------|------
 description               | Removes a single hook from a check (specified by the check name, check response type, and hook name). Read the [checks reference][3] for available types.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical/hook/process_tree
+example url               | http://hostname:8080/api/core/v2/namespaces/default/checks/check_cpu/hooks/critical/hook/process_tree
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## Get a subset of checks with response filtering
@@ -546,16 +701,19 @@ The `/checks` API endpoint supports [response filtering][5] for a subset of chec
 
 ### Example
 
-The following example demonstrates a request to the `/checks` API endpoint with [response filtering][5], resulting in a JSON array that contains only [check definitions][1] whose subscriptions include `linux`.
+The following example demonstrates a request to the `/checks` API endpoint with [response filtering][5] for only [check definitions][1] whose subscriptions include `system`:
 
 {{< code shell >}}
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'fieldSelector="linux" in check.subscriptions'
+--data-urlencode 'fieldSelector="system" in check.subscriptions'
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The example request will result in a successful `HTTP/1.1 200 OK` response and a JSON array that contains only [check definitions][1] whose subscriptions include `system`:
+
+{{< code text >}}
 [
   {
-    "command": "check-cpu-usage -w 75 -c 90",
+    "command": "check-cpu-usage.sh -w 75 -c 90",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 60,
@@ -565,10 +723,17 @@ HTTP/1.1 200 OK
       "check-cpu-usage"
     ],
     "subscriptions": [
-      "system"
+      "system",
+      "health"
     ],
     "proxy_entity_name": "",
-    "check_hooks": null,
+    "check_hooks": [
+      {
+        "critical": [
+          "process_tree"
+        ]
+      }
+    ],
     "stdin": false,
     "subdue": null,
     "ttl": 0,
@@ -583,7 +748,13 @@ HTTP/1.1 200 OK
       "created_by": "admin"
     },
     "secrets": null,
-    "pipelines": []
+    "pipelines": [
+      {
+        "name": "incident_alerts",
+        "type": "Pipeline",
+        "api_version": "core/v2"
+      }
+    ]
   }
 ]
 {{< /code >}}
@@ -601,10 +772,10 @@ example url    | http://hostname:8080/api/core/v2/checks
 pagination     | This endpoint supports [pagination][4] using the `limit` and `continue` query parameters.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
-    "command": "check-cpu-usage -w 75 -c 90",
+    "command": "check-cpu-usage.sh -w 75 -c 90",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 60,
@@ -614,10 +785,17 @@ output         | {{< code shell >}}
       "check-cpu-usage"
     ],
     "subscriptions": [
-      "system"
+      "system",
+      "health"
     ],
     "proxy_entity_name": "",
-    "check_hooks": null,
+    "check_hooks": [
+      {
+        "critical": [
+          "process_tree"
+        ]
+      }
+    ],
     "stdin": false,
     "subdue": null,
     "ttl": 0,
@@ -632,7 +810,13 @@ output         | {{< code shell >}}
       "created_by": "admin"
     },
     "secrets": null,
-    "pipelines": []
+    "pipelines": [
+      {
+        "name": "incident_alerts",
+        "type": "Pipeline",
+        "api_version": "core/v2"
+      }
+    ]
   }
 ]
 {{< /code >}}

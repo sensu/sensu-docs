@@ -21,7 +21,7 @@ The `/assets` API endpoint provides HTTP GET access to [dynamic runtime asset][1
 
 ### Example {#assets-get-example}
 
-The following example demonstrates a request to the `/assets` API endpoint:
+The following example demonstrates a GET request to the `/assets` API endpoint:
 
 {{< code shell >}}
 curl -X GET \

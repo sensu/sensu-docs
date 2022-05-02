@@ -21,7 +21,7 @@ The `/apikeys` GET endpoint retrieves all API keys.
 
 ### Example {#apikeys-get-example}
 
-The following example demonstrates a request to the `/apikeys` API endpoint:
+The following example demonstrates a GET request to the `/apikeys` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
