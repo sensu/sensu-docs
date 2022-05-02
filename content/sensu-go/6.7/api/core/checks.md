@@ -21,7 +21,7 @@ The `/checks` API endpoint provides HTTP GET access to [check][1] data.
 
 ### Example {#checks-get-example}
 
-The following example demonstrates a request to the `/checks` API endpoint:
+The following example demonstrates a GET request to the `/checks` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
