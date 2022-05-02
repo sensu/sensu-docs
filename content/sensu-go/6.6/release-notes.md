@@ -118,7 +118,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 6.6.6.
 - ([Commercial feature][259]) When the PostgreSQL provider is configured to use strict mode, the provider confirms whether the current user has `CREATE` privileges within the current schema, not the current database.
 - ([Commercial feature][259]) The PostgreSQL provider now respects context cancellation and will fail immediately when users issue a termination signal.
 - ([Commercial feature][259]) Fixed an issue where metrics would not be recorded when an error occurred.
-- ([Commercial feature][259]) In the web UI, fixed an issue with GraphQL queries where an offset of >= 500 couldn't be used when paging through entities
+- ([Commercial feature][259]) In the web UI, fixed an issue with GraphQL queries where an offset of >= 500 couldn't be used when paging through entities.
 
 ## 6.6.5 release notes
 
