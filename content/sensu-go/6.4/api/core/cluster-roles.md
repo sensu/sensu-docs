@@ -573,7 +573,7 @@ output         | {{< code text >}}
 {{< /code >}}
 
 
-[1]: ../../../operations/control-access/rbac/
+[1]: ../../../operations/control-access/rbac/#roles-and-cluster-roles
 [2]: ../../#pagination
 [3]: ../../#response-filtering
 [4]: https://tools.ietf.org/html/rfc7396

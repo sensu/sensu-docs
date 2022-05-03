@@ -21,14 +21,17 @@ The `/roles` API endpoint provides HTTP GET access to [role][1] data.
 
 ### Example {#roles-get-example}
 
-The following example demonstrates a request to the `/roles` API endpoint, resulting in a JSON array that contains [role definitions][1].
+The following example demonstrates a GET request to the `/roles` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/roles \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [role definitions][1] in the `default` namespace:
+
+{{< code text >}}
 [
   {
     "rules": [
@@ -80,7 +83,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "rules": [
@@ -128,8 +131,7 @@ The `/roles` API endpoint provides HTTP POST access to create Sensu roles.
 
 ### Example {#roles-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/roles` API endpoint to create a role named `event-reader`.
-The request returns a successful HTTP `201 Created` response.
+In the following example, an HTTP POST request is submitted to the `/roles` API endpoint to create a role named `event-reader`:
 
 {{< code shell >}}
 curl -X POST \
@@ -154,9 +156,9 @@ curl -X POST \
   }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/roles
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#roles-post-specification}
 
@@ -192,14 +194,17 @@ The `/roles/:role` API endpoint provides HTTP GET access to [role data][1] for s
 
 ### Example {#rolesrole-get-example}
 
-In the following example, querying the `/roles/:role` API endpoint returns a JSON map that contains the requested [`:role` definition][1] (in this example, for the `:role` named `read-only`).
+The following example queries the `/roles/:role` API endpoint for the `:role` named `read-only`:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:role` definition][1] (in this example, `read-only`):
+
+{{< code text >}}
 {
   "rules": [
     {
@@ -228,7 +233,7 @@ description          | Returns the specified Sensu role.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/roles/read-only
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "rules": [
     {
@@ -255,8 +260,7 @@ The `/roles/:role` API endpoint provides HTTP PUT access to create or update spe
 
 ### Example {#rolesrole-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/roles/:role` API endpoint to create the role `read-only`.
-The request returns a successful HTTP `201 Created` response.
+In the following example, an HTTP PUT request is submitted to the `/roles/:role` API endpoint to create the role `read-only`:
 
 {{< code shell >}}
 curl -X PUT \
@@ -280,9 +284,9 @@ curl -X PUT \
   }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#rolesrole-put-specification}
 
@@ -323,7 +327,7 @@ Also, you cannot add elements to an array with a PATCH request &mdash; you must 
 
 ### Example
 
-In the following example, an HTTP PATCH request is submitted to the `/roles/:role` API endpoint to update the verbs array within the rules array for the `global-event-admin` role, resulting in an HTTP `200 OK` response and the updated role definition.
+In the following example, an HTTP PATCH request is submitted to the `/roles/:role` API endpoint to update the verbs array within the rules array for the `global-event-admin` role, resulting in an `HTTP/1.1 200 OK` response and the updated role definition.
 
 We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
 
@@ -346,8 +350,6 @@ curl -X PATCH \
   ]
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/event-reader
-
-HTTP/1.1 200 OK
 {{< /code >}}
 
 ### API Specification
@@ -380,14 +382,12 @@ The `/roles/:role` API endpoint provides HTTP DELETE access to delete a role fro
 
 ### Example {#rolesrole-delete-example}
 
-The following example shows a request to the `/roles/:role` API endpoint to delete the role `read-only`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/roles/:role` API endpoint to delete the role `read-only`, resulting in a successful `HTTP/1.1 204 No Content` response:
 
 {{< code shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only \
 -H "Authorization: Key $SENSU_API_KEY"
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#rolesrole-delete-specification}
@@ -407,13 +407,16 @@ The `/roles` API endpoint supports [response filtering][3] for a subset of role 
 
 ### Example
 
-The following example demonstrates a request to the `/roles` API endpoint with [response filtering][3], resulting in a JSON array that contains only [role definitions][1] that are in the `default` namespace.
+The following example demonstrates a request to the `/roles` API endpoint with [response filtering][3] for only [role definitions][1] that are in the `development` namespace:
 
 {{< code shell >}}
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/roles -G \
---data-urlencode 'fieldSelector=role.namespace == default'
+--data-urlencode 'fieldSelector=role.namespace == development'
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The example request will result in a successful `HTTP/1.1 200 OK` response and a JSON array that contains only [role definitions][1] in the `development` namespace:
+
+{{< code text >}}
 [
   {
     "rules": [
@@ -433,7 +436,7 @@ HTTP/1.1 200 OK
     ],
     "metadata": {
       "name": "admin_role",
-      "namespace": "default",
+      "namespace": "development",
       "created_by": "admin"
     }
   },
@@ -466,7 +469,7 @@ HTTP/1.1 200 OK
     ],
     "metadata": {
       "name": "namespaced-resources-all-verbs",
-      "namespace": "default",
+      "namespace": "development",
       "created_by": "admin"
     }
   },
@@ -485,7 +488,7 @@ HTTP/1.1 200 OK
     ],
     "metadata": {
       "name": "system:pipeline",
-      "namespace": "default"
+      "namespace": "development"
     }
   }
 ]
@@ -504,7 +507,7 @@ example url    | http://hostname:8080/api/core/v2/roles
 pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "rules": [
@@ -524,7 +527,7 @@ output         | {{< code shell >}}
     ],
     "metadata": {
       "name": "admin_role",
-      "namespace": "default",
+      "namespace": "development",
       "created_by": "admin"
     }
   },
@@ -557,7 +560,7 @@ output         | {{< code shell >}}
     ],
     "metadata": {
       "name": "namespaced-resources-all-verbs",
-      "namespace": "default",
+      "namespace": "development",
       "created_by": "admin"
     }
   },
@@ -576,14 +579,14 @@ output         | {{< code shell >}}
     ],
     "metadata": {
       "name": "system:pipeline",
-      "namespace": "default"
+      "namespace": "development"
     }
   }
 ]
 {{< /code >}}
 
 
-[1]: ../../../operations/control-access/rbac/
+[1]: ../../../operations/control-access/rbac/#roles-and-cluster-roles
 [2]: ../../#pagination
 [3]: ../../#response-filtering
 [4]: https://tools.ietf.org/html/rfc7396

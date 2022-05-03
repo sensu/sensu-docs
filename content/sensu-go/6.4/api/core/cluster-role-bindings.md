@@ -478,7 +478,7 @@ output         | {{< code text >}}
 {{< /code >}}
 
 
-[1]: ../../../operations/control-access/rbac/
+[1]: ../../../operations/control-access/rbac/#role-bindings-and-cluster-role-bindings
 [2]: ../../#pagination
 [3]: ../../#response-filtering
 [4]: https://tools.ietf.org/html/rfc7396
