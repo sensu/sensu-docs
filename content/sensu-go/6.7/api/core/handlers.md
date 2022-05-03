@@ -21,14 +21,17 @@ The `/handlers` API endpoint provides HTTP GET access to [handler][1] data.
 
 ### Example {#handlers-get-example}
 
-The following example demonstrates a request to the `/handlers` API endpoint, resulting in a JSON array that contains [handler definitions][1].
+The following example demonstrates a GET request to the `/handlers` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [handler definitions][1] in the `default` namespace:
+
+{{< code text >}}
 [
   {
     "metadata": {
@@ -80,7 +83,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "metadata": {
@@ -127,8 +130,7 @@ The `/handlers` API endpoint provides HTTP POST access to create a handler.
 
 ### Example {#handlers-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/handlers` API endpoint to create the event handler `influx-db`.
-The request returns a successful HTTP `201 Created` response.
+In the following example, an HTTP POST request is submitted to the `/handlers` API endpoint to create the event handler `influx-db`:
 
 {{< code shell >}}
 curl -X POST \
@@ -154,9 +156,9 @@ curl -X POST \
   "type": "pipe"
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#handlers-post-specification}
 
@@ -193,14 +195,17 @@ The `/handlers/:handler` API endpoint provides HTTP GET access to [handler data]
 
 ### Example {#handlershandler-get-example}
 
-In the following example, querying the `/handlers/:handler` API endpoint returns a JSON map that contains the requested [`:handler` definition][1] (in this example, for the `:handler` named `slack`).
+The following example queries the `/handlers/:handler` API endpoint for the `:handler` named `slack`:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:handler` definition][1] (in this example, `slack`):
+
+{{< code text >}}
 {
   "metadata": {
     "name": "slack",
@@ -232,7 +237,7 @@ description          | Returns a handler.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/handlers/slack
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "metadata": {
     "name": "slack",
@@ -262,8 +267,7 @@ The `/handlers/:handler` API endpoint provides HTTP PUT access to create or upda
 
 ### Example {#handlershandler-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/handlers/:handler` API endpoint to create the handler `influx-db`.
-The request returns a successful HTTP `201 Created` response.
+In the following example, an HTTP PUT request is submitted to the `/handlers/:handler` API endpoint to create the handler `influx-db`:
 
 {{< code shell >}}
 curl -X PUT \
@@ -289,9 +293,9 @@ curl -X PUT \
   "type": "pipe"
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/influx-db
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#handlershandler-put-specification}
 
@@ -334,7 +338,7 @@ Also, you cannot add elements to an array with a PATCH request &mdash; you must 
 
 ### Example
 
-In the following example, an HTTP PATCH request is submitted to the `/handlers/:handler` API endpoint to update the filters array for the `influx-db` handler, resulting in an HTTP `200 OK` response and the updated handler definition.
+In the following example, an HTTP PATCH request is submitted to the `/handlers/:handler` API endpoint to update the filters array for the `influx-db` handler, resulting in an `HTTP/1.1 200 OK` response and the updated handler definition.
 
 We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
 
@@ -349,8 +353,6 @@ curl -X PATCH \
   ]
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/influx-db
-
-HTTP/1.1 200 OK
 {{< /code >}}
 
 ### API Specification
@@ -375,14 +377,12 @@ The `/handlers/:handler` API endpoint provides HTTP DELETE access to delete a ha
 
 ### Example {#handlershandler-delete-example}
 
-The following example shows a request to the `/handlers/:handler` API endpoint to delete the handler `slack`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/handlers/:handler` API endpoint to delete the handler `slack`, which will result in a successful `HTTP/1.1 204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack \
 -H "Authorization: Key $SENSU_API_KEY"
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#handlershandler-delete-specification}
@@ -406,13 +406,16 @@ The `/handlers` API endpoint supports [response filtering][3] for a subset of ha
 
 ### Example
 
-The following example demonstrates a request to the `/handlers` API endpoint with [response filtering][3], resulting in a JSON array that contains only [handler definitions][1] in the `default` namespace **and** whose filters include `state_change_only`.
+The following example demonstrates a request to the `/handlers` API endpoint with [response filtering][3] for only [handler definitions][1] in the `default` namespace **and** whose filters include `state_change_only`:
 
 {{< code shell >}}
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/handlers -G \
 --data-urlencode 'fieldSelector=state_change_only in handler.filters && handler.namespace == default'
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The example request will result in a successful `HTTP/1.1 200 OK` response and a JSON array that contains only [handler definitions][1] in the `default` namespace **and** whose filters include `state_change_only`:
+
+{{< code text >}}
 [
   {
     "metadata": {
@@ -454,7 +457,7 @@ example url    | http://hostname:8080/api/core/v2/handlers
 pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "metadata": {
