@@ -21,14 +21,17 @@ The `/filters` API endpoint provides HTTP GET access to [event filter][1] data.
 
 ### Example {#filters-get-example}
 
-The following example demonstrates a request to the `/filters` API endpoint, resulting in a JSON array that contains [event filter definitions][1].
+The following example demonstrates a GET request to the `/filters` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filters \
 -H "Authorization: Bearer $TOKEN"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [event filter definitions][1] in the `default` namespace:
+
+{{< code text >}}
 [
   {
     "metadata": {
@@ -66,7 +69,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "metadata": {
@@ -101,7 +104,6 @@ The `/filters` API endpoint provides HTTP POST access to create an event filter.
 ### Example {#filters-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/filters` API endpoint to create the event filter `development_filter`.
-The request returns a successful HTTP `201 Created` response.
 
 {{< code shell >}}
 curl -X POST \
@@ -121,9 +123,9 @@ curl -X POST \
   "runtime_assets": []
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filters
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#filters-post-specification}
 
@@ -154,14 +156,17 @@ The `/filters/:filter` API endpoint provides HTTP GET access to [event filter da
 
 ### Example {#filtersfilter-get-example}
 
-In the following example, querying the `/filters/:filter` API endpoint returns a JSON map that contains the requested [`:filter` definition][1] (in this example, for the `:filter` named `state_change_only`).
+The following example queries the `/filters/:filter` API endpoint for the `:filter` named `state_change_only`:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/state_change_only \
 -H "Authorization: Bearer $TOKEN"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:filter` definition][1] (in this example, `state_change_only`):
+
+{{< code text >}}
 {
   "metadata": {
     "name": "state_change_only",
@@ -184,7 +189,7 @@ description          | Returns the specified event filter.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/filters/state_change_only
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "metadata": {
     "name": "state_change_only",
@@ -205,8 +210,7 @@ The `/filters/:filter` API endpoint provides HTTP PUT access to create or update
 
 ### Example {#filters-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/filters` API endpoint to create the event filter `development_filter`.
-The request returns a successful HTTP `200 OK` response.
+In the following example, an HTTP PUT request is submitted to the `/filters` API endpoint to create the event filter `development_filter`:
 
 {{< code shell >}}
 curl -X PUT \
@@ -226,9 +230,9 @@ curl -X PUT \
   "runtime_assets": []
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/development_filter
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#filtersfilter-put-specification}
 
@@ -265,7 +269,7 @@ Also, you cannot add elements to an array with a PATCH request &mdash; you must 
 
 ### Example
 
-In the following example, an HTTP PATCH request is submitted to the `/filters/:filter` API endpoint to update the expressions array for the `us-west` filter, resulting in an HTTP `200 OK` response and the updated filter definition.
+In the following example, an HTTP PATCH request is submitted to the `/filters/:filter` API endpoint to update the expressions array for the `us-west` filter, resulting in a `HTTP/1.1 200 OK` response and the updated event filter definition.
 
 We support [JSON merge patches][4], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
 
@@ -279,8 +283,6 @@ curl -X PATCH \
   ]
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filter/us-west
-
-HTTP/1.1 200 OK
 {{< /code >}}
 
 ### API Specification
@@ -304,14 +306,12 @@ The `/filters/:filter` API endpoint provides HTTP DELETE access to delete an eve
 
 ### Example {#filtersfilter-delete-example}
 
-The following example shows a request to the `/filters/:filter` API endpoint to delete the event filter `development_filter`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/filters/:filter` API endpoint to delete the event filter `development_filter`, which will result in a successful `HTTP/1.1 204 No Content` response:
 
 {{< code shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/development_filter \
 -H "Authorization: Key $SENSU_API_KEY"
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#filtersfilter-delete-specification}
@@ -333,13 +333,16 @@ The `/filters` API endpoint supports [response filtering][3] for a subset of fil
 
 ### Example
 
-The following example demonstrates a request to the `/filters` API endpoint with [response filtering][3], resulting in a JSON array that contains only [filter definitions][1] whose action is `allow`.
+The following example demonstrates a request to the `/filters` API endpoint with [response filtering][3] for only [filter definitions][1] whose action is `allow`:
 
 {{< code shell >}}
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/filters -G \
 --data-urlencode 'fieldSelector=filter.action == allow'
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The example request will result in a successful `HTTP/1.1 200 OK` response and a JSON array that contains only [event filter definitions][1] whose action is `allow`:
+
+{{< code text >}}
 [
   {
     "metadata": {
@@ -382,7 +385,7 @@ example url    | http://hostname:8080/api/core/v2/filters
 pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "metadata": {
