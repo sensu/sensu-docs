@@ -351,66 +351,83 @@ You can use global flags with most sensuctl commands.
 
 To permanently set these flags, edit `.config/sensu/sensuctl/{cluster, profile}`.
 
-## Shell auto-completion
+## Use shell autocompletion with sensuctl
 
-### Installation (Bash shell)
+Use shell autocompletion to create and run valid sensuctl commands.
+After you [install and configure autocompletion][25], you can use the **tab** key to view and select from available options for each part of a sensuctl command directly from the command line.
 
-Make sure bash-completion is installed.
-If you use a current Linux in a non-minimal installation, bash-completion should be available.
+Type `sensuctl` and press **tab** to view the list of available variables:
 
-On macOS, install with:
+{{< code text >}}
+api-key               cluster-role          configure             edit                  handler               logout                role                  user
+asset                 cluster-role-binding  create                entity                help                  mutator               role-binding          version
+auth                  command               delete                env                   hook                  namespace             secret                
+check                 completion            describe-type         event                 license               pipeline              silenced              
+cluster               config                dump                  filter                login                 prune                 tessen 
+{{< /code >}}
 
+Type your selected variable and press **tab** again to view the list of available variables to complete the command:
+
+{{< code text >}}
+create  delete  info    list 
+{{< /code >}}
+
+Type your selected variable to complete the command and press **enter** to run it.
+
+### Install and configure autocompletion for sensuctl
+
+Follow the instructions in this section to install and configure Bash or zsh autocompletion for sensuctl.
+
+#### Install and configure for Bash
+
+To install and configure Bash autocompletion for sensuctl:
+
+1. Install [bash-completion][24].
+
+   {{% notice note %}}
+   **NOTE**: If you use a current version of Linux in a non-minimal installation, bash-completion may already be installed.
+   {{% /notice %}}
+
+   To install bash-completion on macOS, run:
 {{< code shell >}}
 brew install bash-completion
 {{< /code >}}
 
-Then add this to your `~/.bash_profile`:
-
+   Open `~/.bash_profile`, add the following lines, and save:
 {{< code shell >}}
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
 . $(brew --prefix)/etc/bash_completion
 fi
 {{< /code >}}
 
-After bash-completion is installed, add this to your `~/.bash_profile`:
+2. Open `~/.bash_profile`, add the following line, and save:
 
-{{< code shell >}}
+     {{< code shell >}}
 source <(sensuctl completion bash)
 {{< /code >}}
 
-Now you can source your `~/.bash_profile` or launch a new terminal to use shell auto-completion.
+3. Run the following command to source your `~/.bash_profile` file so that its resources are available:
 
-{{< code shell >}}
+     {{< code shell >}}
 source ~/.bash_profile
 {{< /code >}}
 
-### Installation (ZSH)
+Shell autocompletion should now be available for sensuctl.
 
-Add this to your `~/.zshrc`:
+#### Install and configure for zsh
 
-{{< code shell >}}
+To install and configure zsh autocompletion for sensuctl:
+
+1. Open `~/.zshrc`, add the following line, and save:
+
+     {{< code shell >}}
 source <(sensuctl completion zsh)
 {{< /code >}}
 
-Now you can source your `~/.zshrc` or launch a new terminal to use shell auto-completion.
+2. Run the following command to source your `~/.zshrc` file so that its resources are available:
 
-{{< code shell >}}
+     {{< code shell >}}
 source ~/.zshrc
-{{< /code >}}
-
-### Usage
-
-`sensuctl` <kbd>Tab</kbd>
-
-{{< code text >}}
-check       configure   event       user
-asset       completion  entity      handler
-{{< /code >}}
-
-`sensuctl check` <kbd>Tab</kbd>
-
-{{< code text >}}
-create  delete  import  list
 {{< /code >}}
 
 
@@ -437,3 +454,5 @@ create  delete  import  list
 [21]: https://www.json.org/
 [22]: ../api/#url-format
 [23]: ../observability-pipeline/observe-events/events/#example-status-only-event-from-the-sensu-api
+[24]: https://github.com/scop/bash-completion
+[25]: #install-and-configure-autocompletion-for-sensuctl
