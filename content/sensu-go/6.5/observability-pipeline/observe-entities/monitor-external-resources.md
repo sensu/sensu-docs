@@ -27,8 +27,8 @@ In this section, you'll monitor the status of [sensu.io](https://sensu.io) by co
 
 ### Configure a Sensu entity
 
-To run the check, you'll need a Sensu entity with the subscription `proxy`.
-Use sensuctl to add the `proxy` subscription to the entity the Sensu agent is observing.
+To run the check, you'll need a Sensu agent entity with the subscription `run_proxies`.
+Use sensuctl to add the `run_proxies` subscription to the entity the Sensu agent is observing.
 
 {{% notice note %}}
 **NOTE**: To find your entity name, run `sensuctl entity list`.
@@ -42,7 +42,7 @@ sensuctl entity update <entity_name>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
-- For `Subscriptions`, type `proxy` and press enter.
+- For `Subscriptions`, type `run_proxies` and press enter.
 
 Before you continue, confirm both Sensu services are running:
 
@@ -104,15 +104,16 @@ Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 ### Create the check
 
-Now that the dynamic runtime asset is registered, you can create a check named `check-sensu-site` to run the command `http-check --url https://sensu.io` with the `http-checks` dynamic runtime asset, at an interval of 60 seconds, for all agents subscribed to the `proxy` subscription, using the `sensu-site` proxy entity name.
-To avoid duplicate events, add the [`round_robin` attribute][18] to distribute the check execution across all agents subscribed to the `proxy` subscription.
+Now that the dynamic runtime asset is registered, you can create a check named `check-sensu-site` to run the command `http-check --url https://sensu.io` with the `http-checks` dynamic runtime asset, at an interval of 15 seconds, for all agents subscribed to the `run_proxies` subscription, using the `sensu-site` proxy entity name.
 
-Create a file named `check.yml` or `check.json` in your Sensu installation to store the check definition.
-Copy this this check definition into the `check.yml` or `check.json` file and save it:
+The check includes the [`round_robin` attribute][18] set to `true` to distribute the check execution across all agents subscribed to the `run_proxies` subscription and avoid duplicate events.
+
+To create the `check-sensu-site` check, run:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
 ---
 type: CheckConfig
 api_version: core/v2
@@ -120,17 +121,19 @@ metadata:
   name: check-sensu-site
 spec:
   command: http-check --url https://sensu.io
-  interval: 60
+  interval: 15
   proxy_entity_name: sensu-site
   publish: true
   round_robin: true
   runtime_assets:
   - http-checks
   subscriptions:
-  - proxy
+  - run_proxies
+EOF
 {{< /code >}}
 
-{{< code json >}}
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -139,7 +142,7 @@ spec:
   },
   "spec": {
     "command": "http-check --url https://sensu.io",
-    "interval": 60,
+    "interval": 15,
     "proxy_entity_name": "sensu-site",
     "publish": true,
     "round_robin": true,
@@ -147,24 +150,11 @@ spec:
       "http-checks"
     ],
     "subscriptions": [
-      "proxy"
+      "run_proxies"
     ]
   }
 }
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-Use sensuctl to add `check-sensu-site` to Sensu directly from the `check.yml` or `check.json` file:
-
-{{< language-toggle >}}
-
-{{< code shell "YML" >}}
-sensuctl create --file check.yml
-{{< /code >}}
-
-{{< code shell "JSON" >}}
-sensuctl create --file check.json
+EOF
 {{< /code >}}
 
 {{< /language-toggle >}}
@@ -180,7 +170,7 @@ The response should list `check-sensu-site`:
 {{< code text >}}
         Name                      Command                Interval   Cron   Timeout   TTL   Subscriptions   Handlers     Assets      Hooks   Publish?   Stdin?   Metric Format   Metric Handlers  
 ─────────────────── ─────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ───────────── ─────── ────────── ──────── ─────────────── ──────────────────
-  check-sensu-site   http-check --url https://sensu.io         60                0     0   proxy                      http-checks           true       false                                      
+  check-sensu-site   http-check --url https://sensu.io         15                0     0   proxy                      http-checks           true       false                                      
 {{< /code >}}
 
 ### Validate the check
@@ -228,17 +218,19 @@ You can also view the new proxy entity in your [Sensu web UI][10].
 Suppose that instead of monitoring just sensu.io, you want to monitor multiple sites, like docs.sensu.io, packagecloud.io, and github.com.
 In this section, you'll use the [`proxy_requests` check attribute][3] along with [entity labels][11] and [token substitution][12] to monitor three sites with the same check.
 
-Before you start, [register the sensu/http-checks dynamic runtime asset][13] if you haven't already.
+Before you start, [register the http-checks dynamic runtime asset][13] if you haven't already.
 
 ### Create proxy entities
 
 Instead of creating a proxy entity using the `proxy_entity_name` check attribute, use sensuctl to create proxy entities to represent the three sites you want to monitor.
 Your proxy entities need the `entity_class` attribute set to `proxy` to mark them as proxy entities as well as a few custom `labels` to identify them as a group and pass in individual URLs.
 
-Create a file named `entities.yml` or `entities.json` in your Sensu installation and add the following entity definitions:
+To add the proxy entity definitions, run:
 
 {{< language-toggle >}}
-{{< code yml >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
 ---
 type: Entity
 api_version: core/v2
@@ -249,8 +241,31 @@ metadata:
     url: https://docs.sensu.io
 spec:
   entity_class: proxy
+---
+type: Entity
+api_version: core/v2
+metadata:
+  name: packagecloud-site
+  labels:
+    proxy_type: website
+    url: https://packagecloud.io
+spec:
+  entity_class: proxy
+---
+type: Entity
+api_version: core/v2
+metadata:
+  name: github-site
+  labels:
+    proxy_type: website
+    url: https://github.com
+spec:
+  entity_class: proxy
+EOF
 {{< /code >}}
-{{< code json >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
 {
   "type": "Entity",
   "api_version": "core/v2",
@@ -265,23 +280,6 @@ spec:
     "entity_class": "proxy"
   }
 }
-{{< /code >}}
-{{< /language-toggle >}}
-
-{{< language-toggle >}}
-{{< code yml >}}
----
-type: Entity
-api_version: core/v2
-metadata:
-  name: packagecloud-site
-  labels:
-    proxy_type: website
-    url: https://packagecloud.io
-spec:
-  entity_class: proxy
-{{< /code >}}
-{{< code json >}}
 {
   "type": "Entity",
   "api_version": "core/v2",
@@ -296,23 +294,6 @@ spec:
     "entity_class": "proxy"
   }
 }
-{{< /code >}}
-{{< /language-toggle >}}
-
-{{< language-toggle >}}
-{{< code yml >}}
----
-type: Entity
-api_version: core/v2
-metadata:
-  name: github-site
-  labels:
-    proxy_type: website
-    url: https://github.com
-spec:
-  entity_class: proxy
-{{< /code >}}
-{{< code json >}}
 {
   "type": "Entity",
   "api_version": "core/v2",
@@ -327,27 +308,15 @@ spec:
     "entity_class": "proxy"
   }
 }
+EOF
 {{< /code >}}
+
 {{< /language-toggle >}}
 
 {{% notice protip %}}
 **PRO TIP**: When you create proxy entities, you can add any custom labels that make sense for your environment.
 For example, when monitoring a group of routers, you may want to add `ip_address` labels.
 {{% /notice %}}
-
-Now you can use sensuctl to add these proxy entities to Sensu directly from the `entities.yml` or `entities.json` file:
-
-{{< language-toggle >}}
-
-{{< code shell "YML" >}}
-sensuctl create --file entities.yml
-{{< /code >}}
-
-{{< code shell "JSON" >}}
-sensuctl create --file entities.json
-{{< /code >}}
-
-{{< /language-toggle >}}
 
 Use sensuctl to confirm that the entities were added:
 
@@ -371,11 +340,14 @@ The response should list the new `sensu-docs`, `packagecloud-site`, and `github-
 
 Now that you have three proxy entities set up, each with a `proxy_type` and `url` label, you can use proxy requests and [token substitution][12] to create a single check that monitors all three sites.
 
-Create a file called `check-http.yml` or `check-http.json` in your Sensu installation and add the following check definition:
+The check includes the [`round_robin` attribute][18] set to `true` to distribute the check execution across all agents subscribed to the `run_proxies` subscription and avoid duplicate events.
+
+To create the following check definition, run:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
 ---
 type: CheckConfig
 api_version: core/v2
@@ -383,19 +355,22 @@ metadata:
   name: check-http
 spec:
   command: 'http-check --url {{ .labels.url }}'
-  interval: 60
+  interval: 15
   proxy_requests:
     entity_attributes:
       - entity.entity_class == 'proxy'
       - entity.labels.proxy_type == 'website'
   publish: true
+  round_robin: true
   runtime_assets:
     - http-checks
   subscriptions:
-    - proxy
+    - run_proxies
+EOF
 {{< /code >}}
 
-{{< code json >}}
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -404,7 +379,7 @@ spec:
   },
   "spec": {
     "command": "http-check --url {{ .labels.url }}",
-    "interval": 60,
+    "interval": 15,
     "proxy_requests": {
       "entity_attributes": [
         "entity.entity_class == 'proxy'",
@@ -415,32 +390,20 @@ spec:
     "runtime_assets": [
       "http-checks"
     ],
+    "round_robin": true,
     "subscriptions": [
-      "proxy"
+      "run_proxies"
     ]
   }
 }
+EOF
 {{< /code >}}
 
 {{< /language-toggle >}}
 
 Your `check-http` check uses the `proxy_requests` attribute to specify the applicable entities.
 In this case, you want to run the `check-http` check on all entities of entity class `proxy` and proxy type `website`.
-Because you're using this check to monitor multiple sites, you can use token substitution to apply the correct `url` in the check `command`.
-
-Use sensuctl to add the `check-http` check to Sensu directly from the `check-http.yml` or `check-http.json` file:
-
-{{< language-toggle >}}
-
-{{< code shell "YML" >}}
-sensuctl create --file check-http.yml
-{{< /code >}}
-
-{{< code shell "JSON" >}}
-sensuctl create --file check-http.json
-{{< /code >}}
-
-{{< /language-toggle >}}
+Because you're using this check to monitor multiple sites, the check command uses token substitution to apply the correct `url`.
 
 Use sensuctl to confirm that Sensu created the check:
 
@@ -453,18 +416,13 @@ The response should include the `check-http` check:
 {{< code text >}}
         Name                      Command                 Interval   Cron   Timeout   TTL   Subscriptions   Handlers     Assets      Hooks   Publish?   Stdin?   Metric Format   Metric Handlers  
 ─────────────────── ──────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ───────────── ─────── ────────── ──────── ─────────────── ──────────────────
-  check-http         http-check --url {{ .labels.url }}         60                0     0   proxy                      http-checks           true       false                                     
-  check-sensu-site   http-check --url https://sensu.io          60                0     0   proxy                      http-checks           true       false                                      
+  check-http         http-check --url {{ .labels.url }}         15                0     0   proxy                      http-checks           true       false                                     
+  check-sensu-site   http-check --url https://sensu.io          15                0     0   proxy                      http-checks           true       false                                      
 {{< /code >}}
-
-{{% notice protip %}}
-**PRO TIP**: To distribute check executions across multiple agents, set the `round-robin` check attribute to `true`.
-For more information about round robin checks, read the [checks reference](../../observe-schedule/checks#round-robin-checks).
-{{% /notice %}}
 
 ### Validate the check
 
-Before you validate the check, make sure that you've [registered the `sensu/http-checks` dynamic runtime asset][13] and [added the `proxy` subscription to a Sensu agent][14].
+Before you validate the check, make sure that you've [registered the `http-checks` dynamic runtime asset][13] and [added the `run_proxies` subscription to a Sensu agent][14].
 
 Use sensuctl to confirm that Sensu is monitoring docs.sensu.io, packagecloud.io, and github.com with the `check-http`, returning a status of `0` (OK):
 
