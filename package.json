@@ -30,7 +30,7 @@
     "hugo-cli": "^0.11.0"
   },
   "engines": {
-    "node": ">= 12 < 15"
+    "node": ">= 12 <= 18"
   },
   "browserslist": [
     "defaults"
