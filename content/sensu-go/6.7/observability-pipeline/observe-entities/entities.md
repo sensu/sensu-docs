@@ -236,12 +236,18 @@ You must set `deregister: true` in `agent.yml` before the agent entity is create
 
 ## Create and manage proxy entities
 
-Proxy entities are dynamically created entities that Sensu adds to the entity store if an entity does not already exist for a check result.
 Proxy entities allow Sensu to monitor external resources on systems where you cannot install a Sensu agent, like a network switch or website.
 
-You can modify proxy entities via the backend with [sensuctl][37], the [core/v2/entities API endpoints][36], and the [web UI][33].
+You can create proxy entities the same way you would create agent entities, but Sensu can also dynamically create them when an entity does not already exist for a check result and add them to the entity store.
+In this case, Sensu will use the [`proxy_entity_name`][45] defined in the check to register proxy entities for your external resources.
 
-If you start an agent with the same name as an existing proxy entity, Sensu will change the proxy entity's class to `agent` and update its `system` field with information from the agent configuration.
+Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result instead of a keepalive message.
+
+Modify proxy entities as needed via the backend with [sensuctl][37], the [core/v2/entities API endpoints][36], and the [web UI][33].
+
+{{% notice note %}}
+**NOTE**: If you start an agent with the same name as an existing proxy entity, Sensu will change the proxy entity's class to `agent` and update its `system` field with information from the agent configuration.
+{{% /notice %}}
 
 ### Proxy entity example
 
@@ -260,12 +266,16 @@ spec:
   deregistration: {}
   entity_class: proxy
   last_seen: 0
-  subscriptions:
-  - proxy
+  sensu_agent_version: 1.0.0
+  subscriptions: null
   system:
+    cloud_provider: ""
+    libc_type: ""
     network:
       interfaces: null
-  sensu_agent_version: 1.0.0
+    processes: null
+    vm_role: ""
+    vm_system: ""
 {{< /code >}}
 
 {{< code json >}}
@@ -277,35 +287,50 @@ spec:
   },
   "spec": {
     "deregister": false,
-    "deregistration": {},
+    "deregistration": {
+    },
     "entity_class": "proxy",
     "last_seen": 0,
-    "subscriptions": [
-      "proxy"
-    ],
+    "sensu_agent_version": "1.0.0",
+    "subscriptions": null,
     "system": {
+      "cloud_provider": "",
+      "libc_type": "",
       "network": {
         "interfaces": null
-      }
-    },
-    "sensu_agent_version": "1.0.0"
+      },
+      "processes": null,
+      "vm_role": "",
+      "vm_system": ""
+    }
   }
 }
 {{< /code >}}
 
 {{< /language-toggle >}}
 
+### Checks for proxy entities
+
+Proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed, like a network switch, website, or API endpoint.
+
+You can configure a [proxy check][46] that includes a [`proxy_entity_name`][45] to associate the check results with a specific proxy entity.
+On the first check result, if the named proxy entity does not exist, Sensu will create it.
+You can also use proxy checks to monitor multiple proxy entities based on entity attributes specified in the check definition's [`proxy_requests`][47] attribute. 
+
+When you create a proxy check, make sure the check definition includes a subscription that matches the subscription of at least one agent entity to define which agents will run the check.
+Proxy entities do not use subscriptions.
+
+Read [Monitor external resources with proxy entities][17] for details about creating proxy checks for one or more proxy entities.
+
 ### Proxy entities and round robin scheduling
 
-Proxy entities make [round robin scheduling][18] more useful because they allow you to combine all round robin events into a single event.
+Proxy entities make [round robin check scheduling][18] more useful because they allow you to combine all round robin events into a single event.
 Instead of having a separate event for each agent entity, you have a single event for the entire round robin.
 
 If you don't use a proxy entity for round robin scheduling, you could have several failures in a row, but each event will only be aware of one of the failures.
 
-If you use a proxy entity without round robin scheduling, and several agents share the subscription, they will all execute the check for the proxy entity and you'll get duplicate results.
+If you use a proxy entity without round robin scheduling, and several agents share the same subscription, they will all execute the check for the proxy entity and you'll get duplicate results.
 When you enable round robin, you'll get one agent per interval executing the proxy check, but the event will always be listed under the proxy entity.
-If you don't create a proxy entity, it is created when the check is executed.
-You can modify the proxy entity later if needed.
 
 Use [proxy entity filters][19] to establish a many-to-many relationship between agent entities and proxy entities if you want even more power over the grouping.
 
@@ -527,7 +552,8 @@ Modify existing agent entities via the backend with [sensuctl](../../../sensuctl
 ### Proxy entity labels {#proxy-entities-managed}
 
 For entities with class `proxy`, you can create and manage labels with sensuctl.
-For example, to create a proxy entity with a `url` label using sensuctl create, first create a file named `proxy-example.yml` or `proxy-example.json` with an entity definition that includes labels:
+
+For example, suppose you have a proxy entity like this one:
 
 {{< language-toggle >}}
 
@@ -541,14 +567,7 @@ metadata:
   name: sensu-docs
 spec:
   deregister: false
-  deregistration: {}
   entity_class: proxy
-  last_seen: 0
-  subscriptions:
-  - proxy
-  system:
-    network:
-      interfaces: null
   sensu_agent_version: 1.0.0
 {{< /code >}}
 
@@ -557,24 +576,14 @@ spec:
   "type": "Entity",
   "api_version": "core/v2",
   "metadata": {
-    "name": "sensu-docs",
     "labels": {
       "url": "docs.sensu.io"
-    }
+    },
+    "name": "sensu-docs"
   },
   "spec": {
     "deregister": false,
-    "deregistration": {},
     "entity_class": "proxy",
-    "last_seen": 0,
-    "subscriptions": [
-      "proxy"
-    ],
-    "system": {
-      "network": {
-        "interfaces": null
-      }
-    },
     "sensu_agent_version": "1.0.0"
   }
 }
@@ -582,28 +591,13 @@ spec:
 
 {{< /language-toggle >}}
 
-Then run sensuctl create to create the entity based on the definition:
-
-{{< language-toggle >}}
-
-{{< code shell "YML" >}}
-sensuctl create --file proxy-example.yml
-{{< /code >}}
-
-{{< code shell "JSON" >}}
-sensuctl create --file proxy-example.json
-{{< /code >}}
-
-{{< /language-toggle >}}
-
-To add a label to an existing entity, use sensuctl edit.
-For example, to add a `proxy_type` label to the `sensu-docs` entity you just created:
+To add a `proxy_type` label to this existing entity, run the following command to open the entity definition:
 
 {{< code shell >}}
 sensuctl edit entity sensu-docs
 {{< /code >}}
 
-And update the metadata scope to include the `proxy_type` label:
+Then, update the metadata scope in the entity definition to add the `proxy_type` label as shown below:
 
 {{< language-toggle >}}
 
@@ -639,14 +633,7 @@ spec:
 
 {{< /language-toggle >}}
 
-#### Proxy entity checks
-
-Proxy entities allow Sensu to [monitor external resources][17] on systems or devices where a Sensu agent cannot be installed, like a network switch, website, or API endpoint.
-You can configure a check with a proxy entity name to associate the check results with that proxy entity.
-On the first check result, if the proxy entity does not exist, Sensu will create the entity as a proxy entity.
-
-After you create a proxy entity check, define which agents will run the check by configuring a subscription.
-Read [Monitor external resources with proxy entities][17] for details about creating a proxy check for a proxy entity.
+Save your changes to update the proxy entity definition with the `proxy_type` label.
 
 ### Service entity labels
 
@@ -1918,3 +1905,6 @@ status: Ss
 [42]: ../../../sensuctl/create-manage-resources/
 [43]: ../../../web-ui/view-manage-resources/
 [44]: ../../../operations/control-access/namespaces/#default-namespaces
+[45]: ../../observe-schedule/checks/#proxy-entity-name-attribute
+[46]: ../../observe-schedule/checks/#proxy-checks
+[47]: ../../observe-schedule/checks/#proxy-requests-top-level

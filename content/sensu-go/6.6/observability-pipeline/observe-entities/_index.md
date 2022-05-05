@@ -98,9 +98,10 @@ spec:
 
 ## Proxy entities
 
-Proxy entities [formerly known as proxy clients or just-in-time (JIT) clients] are dynamically created entities that Sensu adds to the entity store if an entity does not already exist for a check result.
-Proxy entities allow Sensu to monitor external resources on systems where you cannot install a Sensu agent, like a network switch or website.
-Sensu uses the [defined check `proxy_entity_name`][7] to create a proxy entity for the external resource.
+Proxy entities [formerly known as proxy clients or just-in-time (JIT) clients] allow Sensu to monitor external resources on systems where you cannot install a Sensu agent, like a network switch or website.
+
+Proxy entities are dynamically created when an entity does not already exist for a check result.
+In this case, Sensu uses the [`proxy_entity_name`][7] defined in the check to create proxy entities for external resources.
 
 This example shows a proxy entity resource definition:
 
@@ -170,10 +171,6 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
-
-Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message).
-
-Read [Monitor external resources][1] to learn how to use a proxy entity to monitor a website.
 
 ## Service entities
 

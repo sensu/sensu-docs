@@ -34,6 +34,11 @@ Sensu entities become subscribers to these topics via the strings you specify wi
 Sensu checks have a `subscriptions` attribute, where you specify strings to indicate which subscribers will execute the checks.
 For Sensu to execute a check, the check definition must include a subscription that matches the subscription of at least one Sensu entity.
 
+{{% notice note %}}
+**NOTE**: [Proxy entities](../../observe-entities/entities/#create-and-manage-proxy-entities) do not use subscriptions.
+Instead, use [proxy checks](../checks/#proxy-checks) to generate events for proxy entities.
+{{% /notice %}}
+
 As loosely coupled references, subscriptions avoid the fragility of traditional host-based monitoring systems.
 Subscriptions allow you to configure check requests in a one-to-many model for entire groups or subgroups of entities rather than a traditional one-to-one mapping of configured hosts or observability checks.
 
