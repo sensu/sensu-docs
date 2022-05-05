@@ -346,7 +346,7 @@ To create the following check definition, run:
 
 {{< language-toggle >}}
 
-{{< code yml >}}
+{{< code shell "YML" >}}
 cat << EOF | sensuctl create
 ---
 type: CheckConfig
@@ -369,7 +369,7 @@ spec:
 EOF
 {{< /code >}}
 
-{{< code json >}}
+{{< code shell "JSON" >}}
 cat << EOF | sensuctl create
 {
   "type": "CheckConfig",
