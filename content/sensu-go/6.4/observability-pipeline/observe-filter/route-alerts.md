@@ -460,7 +460,7 @@ Next, test your contact filters to make sure they work.
 
 ## Test contact routing
 
-To make sure your contact filters work the way you expect, use the [agent API][13] to create ad hoc events and send them to your Slack pipeline.
+To make sure your contact filters work the way you expect, use the [agent API][13] to create ad hoc events and send them to your Slack handler.
 
 First, create an event without a `contacts` label.
 You may need to modify the URL with your Sensu agent address.
