@@ -307,7 +307,7 @@ The `/silenced/:silenced` API endpoint provides HTTP DELETE access to delete a s
 
 ### Example {#silencedsilenced-delete-example}
 
-In the following example, querying the `/silenced/:silenced` API endpoint to delete the the silencing entry named `linux:check_cpu` results in a successful `HTTP/1.1 204 No Content` response.
+In the following example, querying the `/silenced/:silenced` API endpoint to delete the the silencing entry named `linux:check_cpu` results in a successful `HTTP/1.1 204 No Content` response:
 
 {{< code shell >}}
 curl -X DELETE \

@@ -26,12 +26,17 @@ The `/providers` API endpoint provides HTTP GET access to a list of secrets prov
 
 ### Example {#providers-get-example}
 
-The following example demonstrates a request to the `/providers` API endpoint, resulting in a list of [secrets provider definitions][1].
+The following example demonstrates a GET request to the `/providers` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
+
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [secrets provider definitions][1]:
+
+{{< code text >}}
 [
   {
     "type": "VaultProvider",
@@ -75,7 +80,7 @@ query parameters | `types`: Defines which type of secrets provider to retrieve. 
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "type": "VaultProvider",
@@ -110,12 +115,17 @@ The `/providers/:provider` API endpoint provides HTTP GET access to data for a s
 
 ### Example {#providers-provider-get-example}
 
-In the following example, querying the `/providers/:provider` API endpoint returns a JSON map that contains the requested `:provider`, `my_vault`.
+The following example queries the `/providers/:provider` API endpoint for the requested `:provider`, `my_vault`:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/my_vault \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
+
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:provider` definition][1] (in this example, `my_vault`):
+
+{{< code text >}}
 {
   "type": "VaultProvider",
   "api_version": "secrets/v1",
@@ -150,7 +160,7 @@ description          | Returns the specified secrets provider.
 example url          | http://hostname:8080/api/enterprise/secrets/v1/providers/my_vault
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "type": "VaultProvider",
   "api_version": "secrets/v1",
@@ -183,7 +193,7 @@ The `/providers/:provider` API endpoint provides HTTP PUT access to create or up
 
 ### Example {#providers-provider-put-example}
 
-The following example demonstrates a request to the `/providers/:provider` API endpoint to update the provider `my_vault`.
+The following example demonstrates a request to the `/providers/:provider` API endpoint to update the provider `my_vault`:
 
 {{< code shell >}}
 curl -X PUT \
@@ -213,9 +223,9 @@ curl -X PUT \
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/my_vault
-
-HTTP/1.1 200 OK
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response and the complete definition for the provider you created or updated.
 
 ### API Specification {#providers-provider-put-specification}
 
@@ -223,7 +233,7 @@ HTTP/1.1 200 OK
 ----------------|------
 description     | Creates or updates the specified secrets provider. The provider resource and API version cannot be altered.
 example URL     | http://hostname:8080/api/enterprise/secrets/v1/providers/my_vault
-payload         | {{< code shell >}}
+payload         | {{< code json >}}
 {
   "type": "VaultProvider",
   "api_version": "secrets/v1",
@@ -256,14 +266,12 @@ The `/providers/:provider` API endpoint provides HTTP DELETE access to delete th
 
 ### Example {#providers-provider-delete-example}
 
-The following example shows a request to the `/providers/:provider` API endpoint to delete the provider `my_vault`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/providers/:provider` API endpoint to delete the provider `my_vault`, resulting in a successful `HTTP/1.1 204 No Content` response:
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/my_vault
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#providers-provider-delete-specification}
@@ -280,19 +288,22 @@ The `/providers` API endpoint supports [response filtering][3] for a subset of s
 
 ### Example
 
-The following example demonstrates a request to the `/providers` API endpoint with [response filtering][3], resulting in a JSON array that contains only [secrets provider definitions][1] that are in the `default` namespace.
+The following example demonstrates a request to the `/providers` API endpoint with [response filtering][3] for only [secrets provider definitions][1] whose name includes `vault`:
 
 {{< code shell >}}
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/enterprise/secrets/v1/providers -G \
---data-urlencode 'fieldSelector=provider.name == vault'
+--data-urlencode 'fieldSelector=provider.name matches vault'
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The example request will result in a successful `HTTP/1.1 200 OK` response and a JSON array that contains only [provider definitions][1] whose names include `vault`:
+
+{{< code text >}}
 [
   {
     "type": "VaultProvider",
     "api_version": "secrets/v1",
     "metadata": {
-      "name": "vault",
+      "name": "vault_dev",
       "created_by": "admin"
     },
     "spec": {
@@ -308,6 +319,30 @@ HTTP/1.1 200 OK
         "tls": null,
         "token": "\\u003croot_token\\u003e",
         "version": "v2"
+      }
+    }
+  },
+  {
+    "type": "VaultProvider",
+    "api_version": "secrets/v1",
+    "metadata": {
+      "name": "my_vault",
+      "created_by": "admin"
+    },
+    "spec": {
+      "client": {
+        "address": "https://vaultserver.example.com:8200",
+        "token": "VAULT_TOKEN",
+        "version": "v1",
+        "tls": {
+          "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
+        },
+        "max_retries": 2,
+        "timeout": "20s",
+        "rate_limiter": {
+          "limit": 10.0,
+          "burst": 100
+        }
       }
     }
   }
@@ -326,13 +361,13 @@ description    | Returns the list of secrets providers that match the [response 
 example url    | http://hostname:8080/api/enterprise/secrets/v1/providers
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "type": "VaultProvider",
     "api_version": "secrets/v1",
     "metadata": {
-      "name": "vault",
+      "name": "vault_dev",
       "created_by": "admin"
     },
     "spec": {
@@ -350,6 +385,30 @@ output         | {{< code shell >}}
         "version": "v2"
       }
     }
+  },
+  {
+    "type": "VaultProvider",
+    "api_version": "secrets/v1",
+    "metadata": {
+      "name": "my_vault",
+      "created_by": "admin"
+    },
+    "spec": {
+      "client": {
+        "address": "https://vaultserver.example.com:8200",
+        "token": "VAULT_TOKEN",
+        "version": "v1",
+        "tls": {
+          "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
+        },
+        "max_retries": 2,
+        "timeout": "20s",
+        "rate_limiter": {
+          "limit": 10.0,
+          "burst": 100
+        }
+      }
+    }
   }
 ]
 {{< /code >}}
@@ -360,14 +419,17 @@ The `/secrets` API endpoint provides HTTP GET access to a list of secrets.
 
 ### Example {#secrets-get-example}
 
-The following example demonstrates a request to the `/secrets` API endpoint, resulting in a list of [secrets definitions][5] for the specified namespace.
+The following example demonstrates a GET request to the `/secrets` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/secrets/v1/namespaces/default/secrets \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [secret definitions][2] in the `default` namespace:
+
+{{< code text >}}
 [
   {
     "type": "Secret",
@@ -394,7 +456,7 @@ example url    | http://hostname:8080/api/enterprise/secrets/v1/namespaces/defau
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "type": "Secret",
@@ -418,14 +480,17 @@ The `/secrets/:secret` API endpoint provides HTTP GET access to data for a speci
 
 ### Example {#secrets-secret-get-example}
 
-In the following example, querying the `/secrets/:secret` API endpoint returns a JSON map that contains the requested `:secret`.
+The following example queries the `/secrets/:secret` API endpoint for the requested `:secret`:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/secrets/v1/namespaces/default/secrets/sensu-ansible-token \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:secret` definition][2] (in this example, `sensu-ansible-token`):
+
+{{< code text >}}
 {
   "type": "Secret",
   "api_version": "secrets/v1",
@@ -449,7 +514,7 @@ description          | Returns the specified secret.
 example url          | http://hostname:8080/api/enterprise/secrets/v1/namespaces/default/secrets/sensu-ansible-token
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "type": "Secret",
   "api_version": "secrets/v1",
@@ -490,9 +555,9 @@ curl -X PUT \
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/secrets/v1/namespaces/default/secrets/sensu-ansible-token
-
-HTTP/1.1 200 OK
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#secrets-secret-put-specification}
 
@@ -500,7 +565,7 @@ HTTP/1.1 200 OK
 ----------------|------
 description     | Creates or updates the specified secret.
 example URL     | http://hostname:8080/api/enterprise/secrets/v1/namespaces/default/secrets/sensu-ansible-token
-payload         | {{< code shell >}}
+payload         | {{< code json >}}
 {
   "type": "Secret",
   "api_version": "secrets/v1",
@@ -522,14 +587,12 @@ The `/secrets/:secret` API endpoint provides HTTP DELETE access to delete the sp
 
 ### Example {#secrets-secret-delete-example}
 
-The following example shows a request to the `/secrets/:secret` API endpoint to delete the secret `sensu-ansible-token`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/secrets/:secret` API endpoint to delete the secret `sensu-ansible-token`, resulting in a successful `HTTP/1.1 204 No Content` response:
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/enterprise/secrets/v1/namespaces/default/secrets/sensu-ansible-token
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#secrets-secret-delete-specification}
@@ -556,8 +619,11 @@ The following example demonstrates a request to the `/secrets` API endpoint with
 {{< code shell >}}
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/enterprise/secrets/v1/secrets -G \
 --data-urlencode 'fieldSelector=secret.provider == vault'
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The example request will result in a successful `HTTP/1.1 200 OK` response and a JSON array that contains only [secret definitions][1] for the `vault` provider:
+
+{{< code text >}}
 [
   {
     "type": "Secret",
@@ -613,7 +679,7 @@ description    | Returns the list of secrets that match the [response filters][3
 example url    | http://hostname:8080/api/enterprise/secrets/v1/secrets
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "type": "Secret",

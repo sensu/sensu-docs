@@ -31,14 +31,17 @@ The `/sumo-logic-metrics-handlers` API endpoint provides HTTP GET access to [Sum
 
 ### Example {#handlers-get-example}
 
-The following example demonstrates a request to the `/sumo-logic-metrics-handlers` API endpoint, resulting in a JSON array that contains [Sumo Logic metrics handler definitions][5].
+The following example demonstrates a GET request to the `/sumo-logic-metrics-handlers` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [Sumo Logic metrics handler definitions][5] in the `default` namespace:
+
+{{< code text >}}
 [
   {
     "type": "SumoLogicMetricsHandler",
@@ -91,7 +94,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "type": "SumoLogicMetricsHandler",
@@ -140,8 +143,7 @@ The `/sumo-logic-metrics-handlers` API endpoint provides HTTP POST access to cre
 
 ### Example {#handlers-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/sumo-logic-metrics-handlers` API endpoint to create the Sumo Logic metrics handler `sumologic_http_log_metrics_us1`.
-The request returns a successful HTTP `201 Created` response.
+In the following example, an HTTP POST request is submitted to the `/sumo-logic-metrics-handlers` API endpoint to create the Sumo Logic metrics handler `sumologic_http_log_metrics_us1`:
 
 {{< code shell >}}
 curl -X POST \
@@ -151,8 +153,7 @@ curl -X POST \
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
   "metadata": {
-    "name": "sumologic_http_log_metrics_us1",
-    "namespace": "default"
+    "name": "sumologic_http_log_metrics_us1"
   },
   "spec": {
     "url": "$SUMO_LOGIC_SOURCE_URL",
@@ -167,9 +168,9 @@ curl -X POST \
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#handlers-post-specification}
 
@@ -182,8 +183,7 @@ payload         | {{< code shell >}}
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
   "metadata": {
-    "name": "sumologic_http_log_metrics_us1",
-    "namespace": "default"
+    "name": "sumologic_http_log_metrics_us1"
   },
   "spec": {
     "url": "$SUMO_LOGIC_SOURCE_URL",
@@ -206,14 +206,17 @@ The `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint prov
 
 ### Example
 
-In the following example, querying the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint returns a JSON map that contains the requested [`:sumo-logic-metrics-handler` definition][5] (in this example, for the `:sumo-logic-metrics-handler` named `sumologic_http_log_metrics_us1`).
+The following example queries the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint for the `:sumo-logic-metrics-handler` named `sumologic_http_log_metrics_us1`:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us1 \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:sumo-logic-metrics-handler` definition][5] (in this example, `sumologic_http_log_metrics_us1`):
+
+{{< code text >}}
 {
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
@@ -243,7 +246,7 @@ description          | Returns a Sumo Logic metrics handler.
 example url          | http://hostname:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us1
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
@@ -271,8 +274,7 @@ The `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint prov
 
 ### Example
 
-In the following example, an HTTP PUT request is submitted to the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint to create the handler `sumologic_http_log_metrics_us2`.
-The request returns a successful HTTP `201 Created` response.
+In the following example, an HTTP PUT request is submitted to the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint to create `sumologic_http_log_metrics_us2`:
 
 {{< code shell >}}
 curl -X PUT \
@@ -282,8 +284,7 @@ curl -X PUT \
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
   "metadata": {
-    "name": "sumologic_http_log_metrics_us2",
-    "namespace": "default"
+    "name": "sumologic_http_log_metrics_us2"
   },
   "spec": {
     "url": "$SUMO_LOGIC_SOURCE_URL",
@@ -298,9 +299,9 @@ curl -X PUT \
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us2
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification
 
@@ -313,8 +314,7 @@ payload         | {{< code shell >}}
   "type": "SumoLogicMetricsHandler",
   "api_version": "pipeline/v1",
   "metadata": {
-    "name": "sumologic_http_log_metrics_us2",
-    "namespace": "default"
+    "name": "sumologic_http_log_metrics_us2"
   },
   "spec": {
     "url": "$SUMO_LOGIC_SOURCE_URL",
@@ -337,14 +337,12 @@ The `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint prov
 
 ### Example
 
-The following example shows a request to the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint to delete the Sumo Logic metrics handler `sumologic_http_log_metrics_us2`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/sumo-logic-metrics-handlers/:sumo-logic-metrics-handler` API endpoint to delete the Sumo Logic metrics handler `sumologic_http_log_metrics_us2`, resulting in a successful `HTTP/1.1 204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/sumo-logic-metrics-handlers/sumologic_http_log_metrics_us2 \
 -H "Authorization: Key $SENSU_API_KEY"
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification
@@ -361,14 +359,17 @@ The `/tcp-stream-handlers` API endpoint provides HTTP GET access to [TCP stream 
 
 ### Example {#handlers-get-example}
 
-The following example demonstrates a request to the `/tcp-stream-handlers` API endpoint, resulting in a JSON array that contains [TCP stream handler definitions][1].
+The following example demonstrates a GET request to the `/tcp-stream-handlers` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [TCP stream handler definitions][1] in the `default` namespace:
+
+{{< code text >}}
 [
   {
     "type": "TCPStreamHandler",
@@ -419,7 +420,7 @@ pagination     | This endpoint supports [pagination][2] using the `limit` and `c
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "type": "TCPStreamHandler",
@@ -466,8 +467,7 @@ The `/tcp-stream-handlers` API endpoint provides HTTP POST access to create a TC
 
 ### Example {#handlers-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/tcp-stream-handlers` API endpoint to create the TCP stream handler `logstash`.
-The request returns a successful HTTP `201 Created` response.
+In the following example, an HTTP POST request is submitted to the `/tcp-stream-handlers` API endpoint to create the TCP stream handler `logstash`:
 
 {{< code shell >}}
 curl -X POST \
@@ -477,8 +477,7 @@ curl -X POST \
   "api_version": "pipeline/v1",
   "type": "TCPStreamHandler",
   "metadata": {
-    "name": "logstash",
-    "namespace": "default"
+    "name": "logstash"
   },
   "spec": {
     "address": "127.0.0.1:4242",
@@ -491,9 +490,9 @@ curl -X POST \
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#handlers-post-specification}
 
@@ -506,8 +505,7 @@ payload         | {{< code shell >}}
   "api_version": "pipeline/v1",
   "type": "TCPStreamHandler",
   "metadata": {
-    "name": "logstash",
-    "namespace": "default"
+    "name": "logstash"
   },
   "spec": {
     "address": "127.0.0.1:4242",
@@ -528,14 +526,17 @@ The `/tcp-stream-handlers/:tcp-stream-handler` API endpoint provides HTTP GET ac
 
 ### Example
 
-In the following example, querying the `/tcp-stream-handlers/:tcp-stream-handler` API endpoint returns a JSON map that contains the requested [`:tcp-stream-handler` definition][1] (in this example, for the `:tcp-stream-handler` named `logstash`).
+The following example queries the `/tcp-stream-handlers/:tcp-stream-handler` API endpoint for the `:tcp-stream-handler` named `logstash`:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers/logstash \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:tcp-stream-handler` definition][1] (in this example, `logstash`):
+
+{{< code text >}}
 {
   "type": "TCPStreamHandler",
   "api_version": "pipeline/v1",
@@ -564,7 +565,7 @@ description          | Returns a TCP stream handler.
 example url          | http://hostname:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers/logstash
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "type": "TCPStreamHandler",
   "api_version": "pipeline/v1",
@@ -591,8 +592,7 @@ The `/tcp-stream-handlers/:tcp-stream-handler` API endpoint provides HTTP PUT ac
 
 ### Example
 
-In the following example, an HTTP PUT request is submitted to the `/tcp-stream-handlers/:tcp-stream-handler` API endpoint to create the handler `incident_log`.
-The request returns a successful HTTP `201 Created` response.
+In the following example, an HTTP PUT request is submitted to the `/tcp-stream-handlers/:tcp-stream-handler` API endpoint to create the handler `incident_log`:
 
 {{< code shell >}}
 curl -X PUT \
@@ -602,8 +602,7 @@ curl -X PUT \
   "api_version": "pipeline/v1",
   "type": "TCPStreamHandler",
   "metadata": {
-    "name": "incident_log",
-    "namespace": "default"
+    "name": "incident_log"
   },
   "spec": {
     "address": "127.0.0.1:4242",
@@ -613,9 +612,9 @@ curl -X PUT \
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers/incident_log
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification
 
@@ -628,8 +627,7 @@ payload         | {{< code shell >}}
   "api_version": "pipeline/v1",
   "type": "TCPStreamHandler",
   "metadata": {
-    "name": "incident_log",
-    "namespace": "default"
+    "name": "incident_log"
   },
   "spec": {
     "address": "127.0.0.1:4242",
@@ -647,14 +645,12 @@ The `/tcp-stream-handlers/:tcp-stream-handler` API endpoint provides HTTP DELETE
 
 ### Example
 
-The following example shows a request to the `/tcp-stream-handlers/:tcp-stream-handler` API endpoint to delete the TCP stream handler `incident_log`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/tcp-stream-handlers/:tcp-stream-handler` API endpoint to delete the TCP stream handler `incident_log`, resulting in a successful `HTTP/1.1 204 No Content` response:
 
 {{< code shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/enterprise/pipeline/v1/namespaces/default/tcp-stream-handlers/incident_log \
 -H "Authorization: Key $SENSU_API_KEY"
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification

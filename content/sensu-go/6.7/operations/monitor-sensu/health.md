@@ -27,7 +27,6 @@ http://127.0.0.1:8080/health
 In this example, all cluster members are healthy. 
 
 {{< code text >}}
-HTTP/1.1 200 OK
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -79,7 +78,6 @@ HTTP/1.1 200 OK
 In this example, one cluster member is unhealthy: it cannot communicate with the other cluster members.
 
 {{< code text >}}
-HTTP/1.1 200 OK
 {
   "Alarms": null,
   "ClusterHealth": [

@@ -16,13 +16,16 @@ The `/health` API endpoint provides HTTP GET access to health data for your Sens
 
 ### Example {#health-get-example}
 
-The following example demonstrates a request to the `/health` API endpoint, resulting in a JSON map that contains Sensu health data.
+The following example demonstrates a GET request to the `/health` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/health
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON map that contains Sensu [health][1] data:
+
+{{< code text >}}
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -66,7 +69,7 @@ response codes   | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 400 (Bad Req
 To determine the health of your Sensu instance, you must process the JSON response body for your request.
 The [health specification](../../../operations/monitor-sensu/health/#health-specification) describes each attribute in the response body.
 {{% /notice %}}
-output           | {{< code shell >}}
+output           | {{< code text >}}
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -100,13 +103,16 @@ Sensu backend `/health` API information is duplicated by this agent transport AP
 
 #### Example
 
-The following example demonstrates a request to the backend WebSocket `/health` API endpoint using the default WebSocket port 8081, resulting in a JSON map that contains Sensu agent transport status.
+The following example demonstrates a GET request to the backend WebSocket `/health` API endpoint using the default WebSocket port 8081:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8081/health
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON map that contains Sensu agent transport status:
+
+{{< code text >}}
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -150,7 +156,7 @@ response codes   | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 400 (Bad Req
 To determine the health of your Sensu instance, you must process the JSON response body for your request.
 The [health specification](../../../operations/monitor-sensu/health/#health-specification) describes each attribute in the response body.
 {{% /notice %}}
-output           | {{< code shell >}}
+output           | {{< code text >}}
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -176,3 +182,6 @@ output           | {{< code shell >}}
   ]
 }
 {{< /code >}}
+
+
+[1]: ../../../operations/monitor-sensu/health/

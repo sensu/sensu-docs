@@ -27,12 +27,17 @@ The `/service-components` API endpoint provides HTTP GET access to a list of ser
 
 ### Example
 
-The following example demonstrates a request to the `/service-components` API endpoint, resulting in a list of service components.
+The following example demonstrates a GET request to the `/service-components` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
+
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [service component definitions][1] in the `default` namespace:
+
+{{< code text >}}
 [
   {
     "type": "ServiceComponent",
@@ -80,7 +85,7 @@ description    | Returns the list of service components.
 example url    | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code json >}}
+output         | {{< code text >}}
 [
   {
     "type": "ServiceComponent",
@@ -126,7 +131,7 @@ The `/service-components` API endpoint provides HTTP POST access to create servi
 
 ### Example
 
-The following example demonstrates a request to the `/service-components` API endpoint to create the service component `webservers`.
+The following example demonstrates a request to the `/service-components` API endpoint to create the service component `webservers`:
 
 {{< code shell >}}
 curl -X POST \
@@ -136,8 +141,7 @@ curl -X POST \
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "webservers",
-    "namespace": "default"
+    "name": "webservers"
   },
   "spec": {
     "cron": "",
@@ -167,9 +171,9 @@ curl -X POST \
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components
-
-HTTP/1.1 200 OK
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification
 
@@ -182,8 +186,7 @@ payload         | {{< code json >}}
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "webservers",
-    "namespace": "default"
+    "name": "webservers"
   },
   "spec": {
     "cron": "",
@@ -221,12 +224,17 @@ The `/service-components/:service-component` API endpoint provides HTTP GET acce
 
 ### Example
 
-In the following example, querying the `/service-components/:service-component` API endpoint returns a JSON map that contains the requested `:service-component`.
+The following example queries the `/service-components/:service-component` API endpoint for a specific `:service-component`:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components/webservers \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
+
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:service-component` definition][1] (in this example, `webservers`):
+
+{{< code text >}}
 {
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
@@ -272,7 +280,7 @@ description          | Returns the specified business service component.
 example url          | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/service-components/webservers
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
@@ -316,7 +324,7 @@ The `/service-components/:service-component` API endpoint provides HTTP PUT acce
 
 ### Example
 
-The following example demonstrates a request to the `/service-components/:service-component` API endpoint to update the service component `webservers`.
+The following example demonstrates a request to the `/service-components/:service-component` API endpoint to update the service component `webservers`:
 
 {{< code shell >}}
 curl -X PUT \
@@ -326,8 +334,7 @@ curl -X PUT \
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "webservers",
-    "namespace": "default"
+    "name": "webservers"
   },
   "spec": {
     "cron": "",
@@ -357,9 +364,9 @@ curl -X PUT \
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components/webservers
-
-HTTP/1.1 200 OK
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification
 
@@ -372,8 +379,7 @@ payload         | {{< code json >}}
   "type": "ServiceComponent",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "webservers",
-    "namespace": "default"
+    "name": "webservers"
   },
   "spec": {
     "cron": "",
@@ -411,14 +417,12 @@ The `/service-components/:service-component` API endpoint provides HTTP DELETE a
 
 ### Example
 
-The following example shows a request to the `/service-components/:service-component` API endpoint to delete the service component `webservers`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/service-components/:service-component` API endpoint to delete the service component `webservers`, resulting in a successful `HTTP/1.1 204 No Content` response:
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/service-components/webservers
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification
@@ -435,12 +439,17 @@ The `/rule-templates` API endpoint provides HTTP GET access to a list of rule te
 
 ### Example
 
-The following example demonstrates a request to the `/rule-templates` API endpoint, resulting in a list of rule templates.
+The following example demonstrates a GET request to the `/rule-templates` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
+
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [rule template definitions][2] in the `default` namespace:
+
+{{< code text >}}
 [
   {
     "type": "RuleTemplate",
@@ -495,8 +504,6 @@ http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates \
     }
   }
 ]
-HTTP/1.1 200 OK
-
 {{< /code >}}
 
 ### API Specification
@@ -507,7 +514,7 @@ description    | Returns the list of rule templates.
 example url    | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code json >}}
+output         | {{< code text >}}
 [
   {
     "type": "RuleTemplate",
@@ -570,7 +577,7 @@ The `/rule-templates` API endpoint provides HTTP POST access to create rule temp
 
 ### Example
 
-The following example demonstrates a request to the `/rule-templates` API endpoint to create the rule template `aggregate`.
+The following example demonstrates a request to the `/rule-templates` API endpoint to create the rule template `aggregate`:
 
 {{< code shell >}}
 curl -X POST \
@@ -580,9 +587,7 @@ curl -X POST \
   "type": "RuleTemplate",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "aggregate",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "aggregate"
   },
   "spec": {
     "arguments": {
@@ -629,9 +634,9 @@ curl -X POST \
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates
-
-HTTP/1.1 200 OK
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification
 
@@ -644,9 +649,7 @@ payload         | {{< code json >}}
   "type": "RuleTemplate",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "aggregate",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "aggregate"
   },
   "spec": {
     "arguments": {
@@ -701,12 +704,17 @@ The `/rule-templates/:rule-template` API endpoint provides HTTP GET access to da
 
 ### Example
 
-In the following example, querying the `/rule-templates/:rule-template` API endpoint returns a JSON map that contains the requested `:rule-template`.
+The following example queries the `/rule-templates/:rule-template` API endpoint for a specific `:rule-template`:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/aggregate \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
+
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:rule-template` definition][2] (in this example, `aggregate`):
+
+{{< code text >}}
 {
   "type": "RuleTemplate",
   "api_version": "bsm/v1",
@@ -759,8 +767,6 @@ http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/ag
     "eval": "\nif (events && events.length == 0) {\n    event.check.output = \"WARNING: No events selected for aggregate\n\";\n    event.check.status = 1;\n    return event;\n}\n\nevent.annotations[\"io.sensu.bsm.selected_event_count\"] = events.length;\n\npercentOK = sensu.PercentageBySeverity(\"ok\");\n\nif (!!args[\"produce_metrics\"]) {\n    var handlers = [];\n\n    if (!!args[\"metric_handlers\"]) {\n        handlers = args[\"metric_handlers\"].slice();\n    }\n\n    var ts = Math.floor(new Date().getTime() / 1000);\n\n    event.timestamp = ts;\n\n    var tags = [\n        {\n            name: \"service\",\n            value: event.entity.name\n        },\n        {\n            name: \"entity\",\n            value: event.entity.name\n        },\n        {\n            name: \"check\",\n            value: event.check.name\n        }\n    ];\n\n    event.metrics = sensu.NewMetrics({\n        handlers: handlers,\n        points: [\n            {\n                name: \"percent_non_zero\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"non-zero\"),\n                tags: tags\n            },\n            {\n                name: \"percent_ok\",\n                timestamp: ts,\n                value: percentOK,\n                tags: tags\n            },\n            {\n                name: \"percent_warning\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"warning\"),\n                tags: tags\n            },\n            {\n                name: \"percent_critical\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"critical\"),\n                tags: tags\n            },\n            {\n                name: \"percent_unknown\",\n                timestamp: ts,\n                value: sensu.PercentageBySeverity(\"unknown\"),\n                tags: tags\n            },\n            {\n                name: \"count_non_zero\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"non-zero\"),\n                tags: tags\n            },\n            {\n                name: \"count_ok\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"ok\"),\n                tags: tags\n            },\n            {\n                name: \"count_warning\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"warning\"),\n                tags: tags\n            },\n            {\n                name: \"count_critical\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"critical\"),\n                tags: tags\n            },\n            {\n                name: \"count_unknown\",\n                timestamp: ts,\n                value: sensu.CountBySeverity(\"unknown\"),\n                tags: tags\n            }\n        ]\n    });\n\n    if (!!args[\"set_metric_annotations\"]) {\n        var i = 0;\n\n        while(i < event.metrics.points.length) {\n            event.annotations[\"io.sensu.bsm.selected_event_\" + event.metrics.points[i].name] = event.metrics.points[i].value.toString();\n            i++;\n        }\n    }\n}\n\nif (!!args[\"critical_threshold\"] && percentOK <= args[\"critical_threshold\"]) {\n    event.check.output = \"CRITICAL: Less than \" + args[\"critical_threshold\"].toString() + \"% of selected events are OK (\" + percentOK.toString() + \"%)\n\";\n    event.check.status = 2;\n    return event;\n}\n\nif (!!args[\"warning_threshold\"] && percentOK <= args[\"warning_threshold\"]) {\n    event.check.output = \"WARNING: Less than \" + args[\"warning_threshold\"].toString() + \"% of selected events are OK (\" + percentOK.toString() + \"%)\n\";\n    event.check.status = 1;\n    return event;\n}\n\nif (!!args[\"critical_count\"]) {\n    crit = sensu.CountBySeverity(\"critical\");\n\n    if (crit >= args[\"critical_count\"]) {\n        event.check.output = \"CRITICAL: \" + args[\"critical_count\"].toString() + \" or more selected events are in a critical state (\" + crit.toString() + \")\n\";\n        event.check.status = 2;\n        return event;\n    }\n}\n\nif (!!args[\"warning_count\"]) {\n    warn = sensu.CountBySeverity(\"warning\");\n\n    if (warn >= args[\"warning_count\"]) {\n        event.check.output = \"WARNING: \" + args[\"warning_count\"].toString() + \" or more selected events are in a warning state (\" + warn.toString() + \")\n\";\n        event.check.status = 1;\n        return event;\n    }\n}\n\nevent.check.output = \"Everything looks good (\" + percentOK.toString() + \"% OK)\";\nevent.check.status = 0;\n\nreturn event;\n"
   }
 }
-HTTP/1.1 200 OK
-
 {{< /code >}}
 
 ### API Specification
@@ -771,7 +777,7 @@ description          | Returns the specified rule template.
 example url          | http://hostname:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/aggregate
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "type": "RuleTemplate",
   "api_version": "bsm/v1",
@@ -832,7 +838,7 @@ The `/rule-templates/:rule-template` API endpoint provides HTTP PUT access to cr
 
 ### Example
 
-The following example demonstrates a request to the `/rule-templates/:rule-template` API endpoint to update the rule template `aggregate`.
+The following example demonstrates a request to the `/rule-templates/:rule-template` API endpoint to update the rule template `aggregate`:
 
 {{< code shell >}}
 curl -X PUT \
@@ -842,9 +848,7 @@ curl -X PUT \
   "type": "RuleTemplate",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "aggregate",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "aggregate"
   },
   "spec": {
     "arguments": {
@@ -891,9 +895,9 @@ curl -X PUT \
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/aggregate
-
-HTTP/1.1 200 OK
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification
 
@@ -906,9 +910,7 @@ payload         | {{< code json >}}
   "type": "RuleTemplate",
   "api_version": "bsm/v1",
   "metadata": {
-    "name": "aggregate",
-    "namespace": "default",
-    "created_by": "admin"
+    "name": "aggregate"
   },
   "spec": {
     "arguments": {
@@ -963,14 +965,12 @@ The `/rule-templates/:rule-template` API endpoint provides HTTP DELETE access to
 
 ### Example
 
-The following example shows a request to the `/rule-templates/:rule-template` API endpoint to delete the rule template `aggregate`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/rule-templates/:rule-template` API endpoint to delete the rule template `aggregate`, resulting in a successful `HTTP/1.1 204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/enterprise/bsm/v1/namespaces/default/rule-templates/aggregate
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification
@@ -981,3 +981,6 @@ description               | Deletes the specified rule template from Sensu.
 example url               | http://hostname:8080/api/enterprise/bsm/v1/rule-templates/aggregate
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+
+[1]: ../../../observability-pipeline/observe-schedule/service-components/
+[2]: ../../../observability-pipeline/observe-schedule/rule-templates/

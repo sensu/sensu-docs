@@ -23,15 +23,18 @@ The `/license` API endpoint provides HTTP GET access to the active license confi
 
 ### Example {#license-get-example}
 
-The following example demonstrates a request to the `/license` API endpoint, resulting in a JSON array that contains the license definition.
+The following example demonstrates a GET request to the `/license` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/licensing/v2/license \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json'
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON map that contains the [license definition][4]:
+
+{{< code text >}}
 {
   "type": "LicenseFile",
   "api_version": "licensing/v2",
@@ -73,7 +76,7 @@ description    | Returns the active commercial license configuration. To downloa
 example url    | http://hostname:8080/api/enterprise/licensing/v2/license
 response type  | Map
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 {
   "type": "LicenseFile",
   "api_version": "licensing/v2",
@@ -117,8 +120,7 @@ The `/license` API endpoint provides HTTP PUT access to activate a commercial li
 
 ### Example {#license-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/license` API endpoint to create the license definition.
-The request returns a successful HTTP `201 Created` response.
+In the following example, an HTTP PUT request is submitted to the `/license` API endpoint to create the license definition:
 
 {{< code shell >}}
 curl -X PUT \
@@ -156,9 +158,9 @@ curl -X PUT \
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/licensing/v2/license
-
-HTTP/1.1 201 Created
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#license-put-specification}
 
@@ -166,7 +168,7 @@ HTTP/1.1 201 Created
 ---------------|------
 description    | Activates a commercial license or updates an existing license configuration. To download your license, [log in to your Sensu account][2] or [contact the Sensu sales team for a free trial][3].
 example url    | http://hostname:8080/api/enterprise/licensing/v2/license
-payload        | {{< code shell >}}
+payload        | {{< code json >}}
 {
   "type": "LicenseFile",
   "api_version": "licensing/v2",
@@ -207,14 +209,12 @@ The `/license` API endpoint provides HTTP DELETE access to remove a commercial l
 
 ### Example {#license-delete-example}
 
-The following example shows a request to the `/license` API endpoint to delete the commercial license, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/license` API endpoint to delete the commercial license, resulting in a successful `HTTP/1.1 204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/enterprise/licensing/v2/license \
 -H "Authorization: Key $SENSU_API_KEY"
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#license-delete-specification}
@@ -225,6 +225,8 @@ description    | Removes the commercial license.
 example url    | http://hostname:8080/api/enterprise/licensing/v2/license
 response codes | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+
 [1]: ../../../commercial/
 [2]: https://account.sensu.io/
 [3]: https://sensu.io/contact?subject=contact-sales
+[4]: ../../../operations/maintain-sensu/license/

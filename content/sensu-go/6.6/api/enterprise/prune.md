@@ -29,9 +29,7 @@ The `/prune/v1alpha` API endpoint provides HTTP POST access to create a pruning 
 
 ### Example {#prune-v1alpha-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/prune/v1alpha` API endpoint to create a pruning command for the checks specified in the request body in the `dev` namespace created by any user.
-
-The request returns a successful HTTP `201 Created` response and a list of the resources that were pruned.
+In the following example, an HTTP POST request is submitted to the `/prune/v1alpha` API endpoint to create a pruning command for the checks specified in the request body in the `dev` namespace created by any user:
 
 {{< code shell >}}
 curl -X POST \
@@ -49,10 +47,11 @@ http://127.0.0.1:8080/api/enterprise/prune/v1alpha\?types\=core/v2.CheckConfig\&
   },
   "created_by": "admin"
 }'
+{{< /code >}}
 
+The request returns a successful `HTTP/1.1 201 Created` response and a list of the resources that were pruned:
 
-HTTP/1.1 201 Created
-
+{{< code text >}}
 [
   {
     "type": "CheckConfig",
@@ -73,8 +72,8 @@ HTTP/1.1 201 Created
 /prune/v1alpha (POST) | 
 ----------------------|------
 description           | Creates a pruning command to delete the specified resources.
-example URL           | http://hostname:8080/api/enterprise/prune/v1alpha
-example payload       | {{< code shell >}}
+example URL           | http://hostname:8080/api/enterprise/prune/v1alpha?types=core/v2.CheckConfig&allUsers=true&namespaces=dev
+example payload       | {{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -88,7 +87,7 @@ example payload       | {{< code shell >}}
 }
 {{< /code >}}
 query parameters      | <ul><li>`type`: The [fully-qualified name][2] of the resource you want to prune. Example: `?type=core/v2.CheckConfig`.</li><li>`allUsers`: Prune resources created by all users. Mutually exclusive with the `users` parameter. Defaults to false. Example: `?allUsers=true`.</li><li>`clusterWide`: Prune any cluster-wide (non-namespaced) resources that are not defined in the configuration. Defaults to false. Example: `?clusterWide=true`.</li><li>`dryRun`: Print the resources that will be pruned but does not actually delete them. Defaults to false. Example: `?dryRun=true`.</li><li>`labelSelector`: Prune only resources that match the specified labels (accepts multiple values). Labels are a [commercial feature][1]. Example: `?labelSelector=[...]`.</li><li>`namespaces`: The namespace where you want to apply pruning. Example: `?namespaces=dev`.</li><li>`users`: Prune only resources that were created by the specified users (accepts multiple values). Defaults to the currently configured sensuctl user. Example: `?users=admin`.</li></ul> To use multiple values for the parameters that allow them, you must specify the parameter multiple times (for example, `?users=admin&users=dev`) rather than using a comma-separated list.
-payload               | {{< code shell >}}
+output               | {{< code text >}}
 [
   {
     "type": "CheckConfig",
