@@ -177,7 +177,7 @@ The `/apikeys/:apikey` PATCH endpoint updates the specified API key.
 
 ### Example
 
-In the following example, querying the `/apikeys/:apikey` API updates the username for the specified `:apikey` definition and returns a successful `HTTP/1.1 200 OK` response.
+The following example queries the `/apikeys/:apikey` API updates the username for the specified `:apikey` definition and returns a successful `HTTP/1.1 200 OK` response.
 
 We support [JSON merge patches][2], so you must set the `Content-Type` header to `application/merge-patch+json` for PATCH requests.
 

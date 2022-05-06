@@ -19,14 +19,17 @@ The backend digitally signs these tokens, and the tokens can't be changed withou
 
 ### Example {#auth-get-example}
 
-In the following example, querying the `/auth` API endpoint with a given username and password returns an HTTP `200 OK` response to indicate that the credentials are valid, along with an access token and a refresh token.
+The following example queries the `/auth` API endpoint with a given username and password to determine whether the credentials are valid and retrieve an access token and a refresh token:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/auth \
 -u myusername:mypassword
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response to indicate that the credentials are valid, along with an access token and a refresh token:
+
+{{< code text >}}
 {
   "access_token": "eyJhbGciOiJIUzI1NiIs...",
   "expires_at": 1544582187,
@@ -40,7 +43,7 @@ HTTP/1.1 200 OK
 ---------------------|------
 description          | Generates an access and a refresh token used for accessing the API using Sensu's basic authentication. Access tokens last for approximately 15 minutes. When your token expires, you should receive a `401 Unauthorized` response from the API. To generate a new access token, use the [`/auth/token` API endpoint](#authtoken-post).
 example url          | http://hostname:8080/auth
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "access_token": "eyJhbGciOiJIUzI1NiIs...",
   "expires_at": 1544582187,
@@ -60,14 +63,12 @@ It does not test user credentials defined via an authentication provider like [L
  
 ### Example {#authtest-get-example}
 
-In the following example, querying the `/auth/test` API endpoint with a given username and password returns an HTTP `200 OK` response, indicating that the credentials are valid.
+In the following example, querying the `/auth/test` API endpoint with a given username and password should return an `HTTP/1.1 200 OK` response, indicating that the credentials are valid:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/auth/test \
 -u myusername:mypassword
-
-HTTP/1.1 200 OK
 {{< /code >}}
 
 ### API Specification {#authtest-get-specification}
@@ -85,10 +86,7 @@ The `/auth/token` API endpoint provides HTTP POST access to renew an access toke
 ### Example {#authtoken-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/auth/token` API endpoint to generate a valid access token.
-The request includes the refresh token in the request body and returns a successful HTTP `200 OK` response along with the new access token.
-
-The access and refresh tokens are [JSON Web Tokens (JWTs)][2] that Sensu issues to record the details of users' authenticated Sensu sessions.
-The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
+The request includes the refresh token in the request body.
 
 {{< code shell >}}
 curl -X POST \
@@ -96,14 +94,20 @@ http://127.0.0.1:8080/auth/token \
 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
 -H 'Content-Type: application/json' \
 -d '{"refresh_token": "eyJhbGciOiJIUzI1NiIs..."}'
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response, along with the new access token:
+
+{{< code text >}}
 {
   "access_token": "eyJhbGciOiJIUzI1NiIs...",
   "expires_at": 1544582187,
   "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
 }
 {{< /code >}}
+
+The access and refresh tokens are [JSON Web Tokens (JWTs)][2] that Sensu issues to record the details of users' authenticated Sensu sessions.
+The backend digitally signs these tokens, and the tokens can't be changed without invalidating the signature.
 
 ### API Specification {#authtoken-post-specification}
 
@@ -116,7 +120,7 @@ example payload | {{< code shell >}}
   "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
 }
 {{< /code >}}
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "access_token": "eyJhbGciOiJIUzI1NiIs...",
   "expires_at": 1544582187,
@@ -124,6 +128,7 @@ output               | {{< code json >}}
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 
 [1]: ../../../operations/control-access#use-built-in-basic-authentication
 [2]: https://tools.ietf.org/html/rfc7519

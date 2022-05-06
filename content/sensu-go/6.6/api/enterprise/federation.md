@@ -30,12 +30,17 @@ The `/etcd-replicators` API endpoint provides HTTP GET access to a list of repli
 
 ### Example {#etcd-replicators-get-example}
 
-The following example demonstrates a request to the `/etcd-replicators` API endpoint, resulting in a list of replicators.
+The following example demonstrates a GET request to the `/etcd-replicators` API endpoint:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
+
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [etcd replicator definitions][1]:
+
+{{< code text >}}
 [
   {
     "api_version": "federation/v1",
@@ -66,7 +71,7 @@ description    | Returns the list of replicators.
 example url    | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
   {
     "api_version": "federation/v1",
@@ -100,7 +105,7 @@ Replicating `namespace` resources will **not** replicate the resources that belo
 
 ### Example {#etcd-replicators-post-example}
 
-The following example demonstrates a request to the `/etcd-replicators` API endpoint to create the replicator `my_replicator`.
+The following example demonstrates a request to the `/etcd-replicators` API endpoint to create the replicator `my_replicator`:
 
 {{< code shell >}}
 curl -X POST \
@@ -124,9 +129,9 @@ curl -X POST \
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators
-
-HTTP/1.1 200 OK
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#etcd-replicators-post-specification}
 
@@ -165,12 +170,17 @@ The `/etcd-replicators/:etcd-replicator` API endpoint provides HTTP GET access t
 
 ### Example {#etcd-replicatorsetcd-replicator-get-example}
 
-In the following example, querying the `/etcd-replicators/:etcd-replicator` API endpoint returns a JSON map that contains the requested `:etcd-replicator`.
+The following example queries the `/etcd-replicators/:etcd-replicator` API endpoint for a specific `:etcd-replicator`.
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
+
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested [`:etcd-replicator` definition][1] (in this example, `my_replicator`):
+
+{{< code text >}}
 {
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
@@ -199,7 +209,7 @@ description          | Returns the specified replicator.
 example url          | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
@@ -226,7 +236,7 @@ The `/etcd-replicators/:etcd-replicator` API endpoint provides HTTP PUT access t
 
 ### Example {#etcd-replicatorsetcd-replicator-put-example}
 
-The following example demonstrates a request to the `/etcd-replicators/:etcd-replicator` API endpoint to update the replicator `my_replicator`.
+The following example demonstrates a request to the `/etcd-replicators/:etcd-replicator` API endpoint to update the replicator `my_replicator`:
 
 {{< code shell >}}
 curl -X PUT \
@@ -250,9 +260,9 @@ curl -X PUT \
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my-replicator
-
-HTTP/1.1 200 OK
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#etcd-replicatorsetcd-replicator-put-specification}
 
@@ -260,7 +270,7 @@ HTTP/1.1 200 OK
 ----------------|------
 description     | Creates or updates the specified replicator. The replicator resource and API version cannot be altered.
 example URL     | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
-payload         | {{< code shell >}}
+payload         | {{< code json >}}
 {
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
@@ -287,14 +297,12 @@ The `/etcd-replicators/:etcd-replicator` API endpoint provides HTTP DELETE acces
 
 ### Example {#etcd-replicatorsetcd-replicator-delete-example}
 
-The following example shows a request to the `/etcd-replicators/:etcd-replicator` API endpoint to delete the replicator `my_replicator`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/etcd-replicators/:etcd-replicator` API endpoint to delete the replicator `my_replicator`, resulting in a successful `HTTP/1.1 204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#etcd-replicatorsetcd-replicator-delete-specification}
@@ -317,25 +325,27 @@ The following example demonstrates a request to the `/clusters` API endpoint, re
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/clusters \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the cluster definitions:
 
+{{< code text >}}
 [
-    {
-        "type": "Cluster",
-        "api_version": "federation/v1",
-        "metadata": {
-            "name": "us-west-2a",
-            "created_by": "admin"
-        },
-        "spec": {
-            "api_urls": [
-                "http://10.0.0.1:8080",
-                "http://10.0.0.2:8080",
-                "http://10.0.0.3:8080"
-            ]
-        }
+  {
+    "type": "Cluster",
+    "api_version": "federation/v1",
+    "metadata": {
+      "name": "us-west-2a",
+      "created_by": "admin"
+    },
+    "spec": {
+      "api_urls": [
+        "http://10.0.0.1:8080",
+        "http://10.0.0.2:8080",
+        "http://10.0.0.3:8080"
+      ]
     }
+  }
 ]
 {{< /code >}}
 
@@ -347,23 +357,23 @@ description    | Returns the list of clusters.
 example url    | http://hostname:8080/api/enterprise/federation/v1/clusters
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code shell >}}
+output         | {{< code text >}}
 [
-    {
-        "type": "Cluster",
-        "api_version": "federation/v1",
-        "metadata": {
-            "name": "us-west-2a",
-            "created_by": "admin"
-        },
-        "spec": {
-            "api_urls": [
-                "http://10.0.0.1:8080",
-                "http://10.0.0.2:8080",
-                "http://10.0.0.3:8080"
-            ]
-        }
+  {
+    "type": "Cluster",
+    "api_version": "federation/v1",
+    "metadata": {
+      "name": "us-west-2a",
+      "created_by": "admin"
+    },
+    "spec": {
+      "api_urls": [
+        "http://10.0.0.1:8080",
+        "http://10.0.0.2:8080",
+        "http://10.0.0.3:8080"
+      ]
     }
+  }
 ]
 {{< /code >}}
 
@@ -373,28 +383,30 @@ The `/clusters/:cluster` API endpoint provides HTTP GET access to data for a spe
 
 ### Example {#clusterscluster-get-example}
 
-In the following example, querying the `/clusters/:cluster` API endpoint returns a JSON map that contains the requested `:cluster`.
+The following example queries the `/clusters/:cluster` API endpoint for a specific `:cluster`.
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested `:cluster` definition (in this example, `us-west-2a`):
 
+{{< code text >}}
 {
   "type": "Cluster",
   "api_version": "federation/v1",
   "metadata": {
-      "name": "us-west-2a",
-      "created_by": "admin"
+    "name": "us-west-2a",
+    "created_by": "admin"
   },
   "spec": {
-      "api_urls": [
-          "http://10.0.0.1:8080",
-          "http://10.0.0.2:8080",
-          "http://10.0.0.3:8080"
-      ]
+    "api_urls": [
+      "http://10.0.0.1:8080",
+      "http://10.0.0.2:8080",
+      "http://10.0.0.3:8080"
+    ]
   }
 }
 {{< /code >}}
@@ -407,21 +419,21 @@ description          | Returns the specified cluster.
 example url          | http://hostname:8080/api/enterprise/federation/v1/clusters/us-west-2a
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
-    "type": "Cluster",
-    "api_version": "federation/v1",
-    "metadata": {
-        "name": "us-west-2a",
-        "created_by": "admin"
-    },
-    "spec": {
-        "api_urls": [
-            "http://10.0.0.1:8080",
-            "http://10.0.0.2:8080",
-            "http://10.0.0.3:8080"
-        ]
-    }
+  "type": "Cluster",
+  "api_version": "federation/v1",
+  "metadata": {
+    "name": "us-west-2a",
+    "created_by": "admin"
+  },
+  "spec": {
+    "api_urls": [
+      "http://10.0.0.1:8080",
+      "http://10.0.0.2:8080",
+      "http://10.0.0.3:8080"
+    ]
+  }
 }
 {{< /code >}}
 
@@ -435,30 +447,30 @@ The `/clusters/:cluster` API endpoint provides HTTP PUT access to create or upda
 
 ### Example {#clusterscluster-put-example}
 
-The following example demonstrates a request to the `/clusters/:cluster` API endpoint to update the cluster `us-west-2a`.
+The following example demonstrates a request to the `/clusters/:cluster` API endpoint to update the cluster `us-west-2a`:
 
 {{< code shell >}}
 curl -X PUT \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
-    "type": "Cluster",
-    "api_version": "federation/v1",
-    "metadata": {
-        "name": "us-west-2a"
-    },
-    "spec": {
-        "api_urls": [
-            "http://10.0.0.1:8080",
-            "http://10.0.0.2:8080",
-            "http://10.0.0.3:8080"
-        ]
-    }
+  "type": "Cluster",
+  "api_version": "federation/v1",
+  "metadata": {
+    "name": "us-west-2a"
+  },
+  "spec": {
+    "api_urls": [
+      "http://10.0.0.1:8080",
+      "http://10.0.0.2:8080",
+      "http://10.0.0.3:8080"
+    ]
+  }
 }' \
 http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a
-
-HTTP/1.1 200 OK
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#clusterscluster-put-specification}
 
@@ -468,18 +480,18 @@ description     | Creates or updates the specified cluster.
 example URL     | http://hostname:8080/api/enterprise/federation/v1/clusters/us-west-2a
 payload         | {{< code shell >}}
 {
-    "type": "Cluster",
-    "api_version": "federation/v1",
-    "metadata": {
-            "name": "us-west-2a"
-    },
-    "spec": {
-        "api_urls": [
-            "http://10.0.0.1:8080",
-            "http://10.0.0.2:8080",
-            "http://10.0.0.3:8080"
-        ]
-    }
+  "type": "Cluster",
+  "api_version": "federation/v1",
+  "metadata": {
+    "name": "us-west-2a"
+  },
+  "spec": {
+    "api_urls": [
+      "http://10.0.0.1:8080",
+      "http://10.0.0.2:8080",
+      "http://10.0.0.3:8080"
+    ]
+  }
 }
 {{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -494,14 +506,12 @@ The `/clusters/:cluster` API endpoint provides HTTP DELETE access to delete the 
 
 ### Example {#clusterscluster-delete-example}
 
-The following example shows a request to the `/clusters/:cluster` API endpoint to delete the cluster `us-west-2a`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/clusters/:cluster` API endpoint to delete the cluster `us-west-2a`, resulting in a successful `HTTP/1.1 204 No Content` response.
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#clusterscluster-delete-specification}
@@ -512,3 +522,5 @@ description               | Deletes the specified cluster from Sensu.
 example url               | http://hostname:8080/api/enterprise/federation/v1/clusters/us-west-2a
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+
+[1]: ../../../operations/deploy-sensu/etcdreplicators/

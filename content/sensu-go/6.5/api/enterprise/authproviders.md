@@ -26,20 +26,47 @@ The `/authproviders` API endpoint provides HTTP GET access to authentication pro
 
 ### Example {#authproviders-get-example}
 
-In the following example, querying the `/authproviders` API endpoint returns the authentication provider configuration in Sensu, with an HTTP `200 OK` response.
+The following example queries the `/authproviders` API endpoint for the authentication provider configurations in Sensu:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders \
 -H "Authorization: Key $SENSU_API_KEY"
+{{< /code >}}
 
-HTTP/1.1 200 OK
+The request results in a successful `HTTP/1.1 200 OK` response and a JSON array that contains the [authentication provider configurations][1]:
+
+{{< code text >}}
 [
+  {
+    "type": "oidc",
+    "api_version": "authentication/v2",
+    "metadata": {
+      "name": "oidc_auth",
+      "created_by": "admin"
+    },
+    "spec": {
+      "additional_scopes": [
+        "groups",
+        "email"
+      ],
+      "client_id": "xxxxxxxxxxxxxxxxxxxx",
+      "client_secret": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "disable_offline_access": false,
+      "groups_claim": "groups",
+      "groups_prefix": "oidc:",
+      "redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback",
+      "server": "https://oidc.example.com:9031",
+      "username_claim": "email",
+      "username_prefix": "oidc:"
+    }
+  },
   {
     "type": "ldap",
     "api_version": "authentication/v2",
     "metadata": {
-      "name": "openldap"
+      "name": "openldap",
+      "created_by": "admin"
     },
     "spec": {
       "groups_prefix": "",
@@ -87,13 +114,37 @@ query parameters | `types`: Defines which type of authentication provider to ret
 pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. Read the [API overview][3] for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< code json >}}
+output         | {{< code text >}}
 [
+  {
+    "type": "oidc",
+    "api_version": "authentication/v2",
+    "metadata": {
+      "name": "oidc_auth",
+      "created_by": "admin"
+    },
+    "spec": {
+      "additional_scopes": [
+        "groups",
+        "email"
+      ],
+      "client_id": "xxxxxxxxxxxxxxxxxxxx",
+      "client_secret": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "disable_offline_access": false,
+      "groups_claim": "groups",
+      "groups_prefix": "oidc:",
+      "redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback",
+      "server": "https://oidc.example.com:9031",
+      "username_claim": "email",
+      "username_prefix": "oidc:"
+    }
+  },
   {
     "type": "ldap",
     "api_version": "authentication/v2",
     "metadata": {
-      "name": "openldap"
+      "name": "openldap",
+      "created_by": "admin"
     },
     "spec": {
       "groups_prefix": "",
@@ -137,20 +188,24 @@ The `/authproviders/:name` API endpoint provides HTTP GET access to the authenti
 
 ### Example {#authprovidersname-get-example}
 
-In the following example, an HTTP GET request is submitted to the `/authproviders/:name` API endpoint to retrieve the `openldap` authenthication provider configuration, resulting in an HTTP `200 OK` response.
+In the following example, an HTTP GET request is submitted to the `/authproviders/:name` API endpoint to retrieve the `openldap` authenthication provider configuration:
 
 {{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders/openldap \
 -H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json'
+{{< /code >}}
 
-HTTP/1.1 200 OK
--d '{
+The request will return a successful `HTTP/1.1 200 OK` response and a JSON map that contains the requested authentication provider [`:name` definition][1] (in this example, `openldap`):
+
+{{< code shell >}}
+{
   "type": "ldap",
   "api_version": "authentication/v2",
   "metadata": {
-    "name": "openldap"
+    "name": "openldap",
+    "created_by": "admin"
   },
   "spec": {
     "groups_prefix": "",
@@ -182,9 +237,9 @@ HTTP/1.1 200 OK
         }
       }
     ],
-  "username_prefix": ""
+    "username_prefix": ""
   }
-}'
+}
 {{< /code >}}
 
 ### API Specification {#authprovidersname-get-specification}
@@ -195,12 +250,13 @@ description          | Returns the configuration for an authentication provider 
 example url          | http://hostname:8080/api/enterprise/authentication/v2/authproviders/openldap
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< code json >}}
+output               | {{< code text >}}
 {
   "type": "ldap",
   "api_version": "authentication/v2",
   "metadata": {
-    "name": "openldap"
+    "name": "openldap",
+    "created_by": "admin"
   },
   "spec": {
     "groups_prefix": "",
@@ -232,7 +288,7 @@ output               | {{< code json >}}
         }
       }
     ],
-  "username_prefix": ""
+    "username_prefix": ""
   }
 }
 {{< /code >}}
@@ -243,7 +299,7 @@ The `/authproviders/:name` API endpoint provides HTTP PUT access to create or up
 
 ### Example {#authprovidersname-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/authproviders/:name` API endpoint to create the `openldap` authenthication provider, resulting in an HTTP `200 OK` response.
+In the following example, an HTTP PUT request is submitted to the `/authproviders/:name` API endpoint to create the `openldap` authenthication provider:
 
 {{< code shell >}}
 curl -X PUT \
@@ -274,9 +330,9 @@ curl -X PUT \
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders/openldap
-
-HTTP/1.1 200 OK
 {{< /code >}}
+
+The request will return a successful `HTTP/1.1 201 Created` response.
 
 ### API Specification {#authprovidersname-put-specification}
 
@@ -319,14 +375,12 @@ The `/authproviders/:name` API endpoint provides HTTP DELETE access to delete th
 
 ### Example {#authprovidersname-delete-example}
 
-The following example shows a request to the `/authproviders/:name` API endpoint to delete the configuration for the authentication provider `openldap`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/authproviders/:name` API endpoint to delete the configuration for the authentication provider `openldap`, resulting in a successful `HTTP/1.1 204 No Content` response:
 
 {{< code shell >}}
 curl -X DELETE \
 -H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/authproviders/openldap
-
-HTTP/1.1 204 No Content
 {{< /code >}}
 
 ### API Specification {#authprovidersname-delete-specification}
@@ -336,6 +390,7 @@ HTTP/1.1 204 No Content
 description               | Deletes the authentication provider configuration from Sensu for the specified name.
 example url               | http://hostname:8080/api/enterprise/authentication/v2/authproviders/openldap
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 
 [1]: ../../../operations/control-access/sso/
 [3]: ../../#pagination
