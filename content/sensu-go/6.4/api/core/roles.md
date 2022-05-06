@@ -459,7 +459,6 @@ The example request will result in a successful `HTTP/1.1 200 OK` response and a
           "handlers",
           "hooks",
           "mutators",
-          "pipelines",
           "rolebindings",
           "roles",
           "silenced"
@@ -550,7 +549,6 @@ output         | {{< code text >}}
           "handlers",
           "hooks",
           "mutators",
-          "pipelines",
           "rolebindings",
           "roles",
           "silenced"

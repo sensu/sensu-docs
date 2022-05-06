@@ -199,7 +199,6 @@ spec:
   low_flap_threshold: 0
   output_metric_format: nagios_perfdata
   output_metric_handlers: null
-  pipelines: []
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -231,7 +230,6 @@ spec:
     "low_flap_threshold": 0,
     "output_metric_format": "nagios_perfdata",
     "output_metric_handlers": null,
-    "pipelines": [],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
@@ -329,8 +327,7 @@ If you add the debug handler and configure the `collect-metrics` check to use it
     "secrets": null,
     "is_silenced": false,
     "scheduler": "memory",
-    "processed_by": "sensu-centos",
-    "pipelines": []
+    "processed_by": "sensu-centos"
   },
   "metrics": {
     "handlers": null,
@@ -372,7 +369,6 @@ If you add the debug handler and configure the `collect-metrics` check to use it
   },
   "id": "d19ee7f9-8cc5-447b-9059-895e89e14667",
   "sequence": 146,
-  "pipelines": null,
   "timestamp": 1635886845,
   "entity": {
     "entity_class": "agent",

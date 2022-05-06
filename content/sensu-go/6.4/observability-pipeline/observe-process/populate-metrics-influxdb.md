@@ -229,7 +229,6 @@ spec:
   output_metric_format: influxdb_line
   output_metric_handlers:
   - influxdb-handler
-  pipelines: []
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -263,7 +262,6 @@ spec:
     "output_metric_handlers": [
       "influxdb-handler"
     ],
-    "pipelines": [],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,

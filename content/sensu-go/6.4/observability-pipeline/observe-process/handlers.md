@@ -240,7 +240,7 @@ You can connect keepalive events to your monitoring workflows using a keepalive 
 Sensu looks for an event handler named `keepalive` and automatically uses it to process keepalive events.
 
 Suppose you want to receive Slack notifications for keepalive alerts, and you already have a [Slack handler set up to process events][15].
-To process keepalive events using the Slack pipeline, create a handler set named `keepalive` and add the `slack` handler to the `handlers` array.
+To process keepalive events using the Slack handler, create a handler set named `keepalive` and add the `slack` handler to the `handlers` array.
 The resulting `keepalive` handler set configuration will look like this example:
 
 {{< language-toggle >}}

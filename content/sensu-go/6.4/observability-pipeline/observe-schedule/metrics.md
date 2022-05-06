@@ -52,7 +52,6 @@ spec:
   output_metric_format: graphite_plaintext
   output_metric_handlers:
   - graphite-handler
-  pipelines: []
   proxy_entity_name: ""
   publish: true
   round_robin: false
@@ -88,7 +87,6 @@ spec:
     "output_metric_handlers": [
       "graphite-handler"
     ],
-    "pipelines": [],
     "proxy_entity_name": "",
     "publish": true,
     "round_robin": false,
@@ -117,7 +115,6 @@ The [example metric check][6] will produce events similar to this metric event:
 
 {{< code yml >}}
 ---
-pipelines:
 timestamp: 1635270402
 entity:
   entity_class: agent
@@ -310,7 +307,6 @@ check:
   is_silenced: false
   scheduler: memory
   processed_by: sensu-centos
-  pipelines: []
 metrics:
   handlers:
   - graphite-handler
@@ -471,7 +467,6 @@ sequence: 5
 
 {{< code json >}}
 {
-  "pipelines": null,
   "timestamp": 1635270402,
   "entity": {
     "entity_class": "agent",
@@ -606,8 +601,7 @@ sequence: 5
     "secrets": null,
     "is_silenced": false,
     "scheduler": "memory",
-    "processed_by": "sensu-centos",
-    "pipelines": []
+    "processed_by": "sensu-centos"
   },
   "metrics": {
     "handlers": [

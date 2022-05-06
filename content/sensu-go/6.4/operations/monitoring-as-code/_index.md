@@ -55,7 +55,6 @@ All resources of each type for each namespace are saved in a single configuratio
       handlers/
       handlersets/
       mutators/
-      pipelines/
 {{< /code >}}
 
 ## Adopt a configuration file strategy
