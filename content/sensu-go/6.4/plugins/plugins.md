@@ -48,6 +48,13 @@ As a result, executable scripts (for example, plugins) located in `/etc/sensu/pl
 This allows command attributes to use relative paths for Sensu plugin commands, such as `"command": "http-check --url https://sensu.io"`.
 {{% /notice %}}
 
+## Plugin configuration overrides
+
+Many plugins support configuration overrides on a per-entity or per-check basis.
+For example, some plugins allow you to use annotations in individual entities and checks to set arguments that will override any arguments set in a resource command or in backend runtime environment variables for only that entity or check.
+
+Read the [Bonsai][12] documentation for a plugin to learn about any configuration overrides the plugin supports.
+
 ## Go plugin example
 
 The following example shows the structure for a very basic Sensu Go plugin.
