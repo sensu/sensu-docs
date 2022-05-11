@@ -9,6 +9,7 @@ version: "6.7"
 menu: "sensu-go-6.7"
 ---
 
+- [6.7.2 release notes](#672-release-notes)
 - [6.7.1 release notes](#671-release-notes)
 - [6.7.0 release notes](#670-release-notes)
 - [6.6.6 release notes](#666-release-notes)
@@ -103,6 +104,25 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+
+## 6.7.2 release notes
+
+**May 11, 2022** &mdash; The latest release of Sensu Go, version 6.7.2, is now available for download.
+
+Sensu Go 6.7.2 delivers several improvements and fixes to the sensu-backend stability and the postgres datastore.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.7.2.
+
+**IMPROVEMENTS**
+- Added the etcd-unsafe-no-fsync backend configuration option, making it possible to run a sensu-backend with an embedded etcd node for testing and development without placing lots of load on the file system.
+- Upgraded etcd version from 3.5.2 to 3.5.4.
+
+**FIXES**
+- ([Commercial feature][268]) Fixed a backend crash when pruning core/v3 resources
+- ([Commercial feature][268]) Implemented an active poller for Postgres configuration changes.
+- Print the correct round robin scheduler source (etcd or postgres).
+
 
 ## 6.7.1 release notes
 
