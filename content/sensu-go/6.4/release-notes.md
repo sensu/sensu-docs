@@ -1748,7 +1748,7 @@ To get started with Sensu Go:
 [6]: https://sensu.io/blog/sensu-go-is-here/
 [8]: /sensu-go/5.0/operations/deploy-sensu/install-sensu/
 [9]: /sensu-go/5.0/observability-pipeline/observe-schedule/monitor-server-resources/
-[10]: /sensu-go/5.1/operations/control-access/rbac/#manage-users
+[10]: /sensu-go/5.1/operations/control-access/rbac/#test-and-change-user-passwords
 [11]: /sensu-go/5.1/api/other/auth/
 [12]: /sensu-go/5.1/operations/deploy-sensu/install-sensu/
 [13]: https://nvd.nist.gov/vuln/detail/CVE-2019-6486/
