@@ -115,6 +115,8 @@ Sensu Go 6.7.2 delivers several improvements and fixes to the sensu-backend stab
 Read the [upgrade guide][1] to upgrade Sensu to version 6.7.2.
 
 **IMPROVEMENTS**
+- ([Commercial feature][268]) In the web UI, we updated the Sensu Plus dialog copy to warn users not to use the form when they have an existing Sumo Logic account.
+- ([Commercial feature][268]) In the web UI, Sensu Plus post setup dialog Source URL copy button now uses a toast notification.
 - Added the etcd-unsafe-no-fsync backend configuration option, which makes it possible to run sensu-backend with an embedded etcd node for testing and development without placing too much load on the file system.
 - Upgraded etcd version from 3.5.2 to 3.5.4.
 
