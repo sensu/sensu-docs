@@ -115,13 +115,13 @@ Sensu Go 6.7.2 delivers several improvements and fixes to the sensu-backend stab
 Read the [upgrade guide][1] to upgrade Sensu to version 6.7.2.
 
 **IMPROVEMENTS**
-- Added the etcd-unsafe-no-fsync backend configuration option, making it possible to run a sensu-backend with an embedded etcd node for testing and development without placing lots of load on the file system.
+- Added the etcd-unsafe-no-fsync backend configuration option, which makes it possible to run sensu-backend with an embedded etcd node for testing and development without placing too much load on the file system.
 - Upgraded etcd version from 3.5.2 to 3.5.4.
 
 **FIXES**
 - ([Commercial feature][268]) Fixed a backend crash when pruning core/v3 resources
-- ([Commercial feature][268]) Implemented an active poller for Postgres configuration changes.
-- Print the correct round robin scheduler source (etcd or postgres).
+- ([Commercial feature][268]) Implemented an active poller for PostgreSQL configuration changes.
+- The correct round robin scheduler source ("etcd" or "postgres") is now printed in events and logs.
 
 
 ## 6.7.1 release notes
