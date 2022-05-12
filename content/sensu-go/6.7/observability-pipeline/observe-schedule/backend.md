@@ -532,6 +532,7 @@ Store Flags:
       --etcd-peer-trusted-ca-file string          path to the peer server TLS trusted CA file
       --etcd-quota-backend-bytes int              maximum etcd database size in bytes (use with caution) (default 4294967296)
       --etcd-trusted-ca-file string               path to the client server TLS trusted CA cert file
+      --etcd-unsafe-no-fsync                      disables fsync, unsafe, may cause data loss
       --no-embed-etcd                             don't embed etcd, use external etcd instead
 {{< /code >}}
 
@@ -1357,6 +1358,22 @@ command line example   | {{< code shell >}}
 sensu-backend start --etcd-trusted-ca-file ./ca.pem{{< /code >}}
 /etc/sensu/backend.yml example | {{< code shell >}}
 etcd-trusted-ca-file: "./ca.pem"{{< /code >}}
+
+<a id="etcd-unsafe-no-fsync"></a>
+
+| etcd-unsafe-no-fsync |      |
+-----------------------|------
+description            | The `etcd-unsafe-no-fsync` configuration option allows you to run sensu-backend with an embedded etcd node for testing and development with less load on the file system. If `true`, disable fsync. Otherwise, `false`.{{% notice note %}}
+**NOTE**: The `etcd-unsafe-no-fsync` configuration option is available in Sensu Go 6.7.2, but it is not available in 6.7.0 or 6.7.1.
+Upgrade to Sensu Go 6.7.2 to use `etcd-unsafe-no-fsync`. 
+{{% /notice %}}
+type                   | Boolean
+default                | `false`
+environment variable   | `SENSU_BACKEND_ETCD_UNSAFE_NO_FSYNC`
+command line example   | {{< code shell >}}
+sensu-backend start --etcd-unsafe-no-fsync{{< /code >}}
+/etc/sensu/backend.yml example | {{< code shell >}}
+etcd-unsafe-no-fsync: true{{< /code >}}
 
 | no-embed-etcd  |      |
 -----------------|------
