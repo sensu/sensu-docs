@@ -9,6 +9,7 @@ version: "6.7"
 menu: "sensu-go-6.7"
 ---
 
+- [6.7.2 release notes](#672-release-notes)
 - [6.7.1 release notes](#671-release-notes)
 - [6.7.0 release notes](#670-release-notes)
 - [6.6.6 release notes](#666-release-notes)
@@ -103,6 +104,29 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+
+## 6.7.2 release notes
+
+**May 12, 2022** &mdash; The latest release of Sensu Go, version 6.7.2, is now available for download.
+
+Sensu Go 6.7.2 includes a fix for sensu-backend stability and adds an active poller for PostgreSQL config changes.
+We've also improved the Sensu Plus modal in the web UI.
+
+Read the [upgrade guide][1] to upgrade Sensu to version 6.7.2.
+
+**IMPROVEMENTS**
+- ([Commercial feature][268]) In the web UI, the Sensu Plus modal dialog now directs users who already have a Sumo Logic account to follow the instructions to manually set up Sensu Plus.
+- ([Commercial feature][268]) In the web UI, the Sensu Plus post-setup modal dialog now indicates success when you use the Copy button to copy the Source URL.
+- ([Commercial feature][268]) Added supported packages for the Sensu backend, Sensu agent, and sensuctl for Ubuntu 22.04.
+- Added the etcd-unsafe-no-fsync backend configuration option, which makes it possible to run sensu-backend with an embedded etcd node for testing and development without placing too much load on the file system.
+- Upgraded etcd version from 3.5.2 to 3.5.4.
+
+**FIXES**
+- ([Commercial feature][268]) Fixed a bug that could cause a backend crash when pruning SumoLogicMetricsHandler and TCPStreamHandler resource types.
+- ([Commercial feature][268]) Implemented an active poller for PostgreSQL configuration changes.
+- The correct round robin scheduler source ("etcd" or "postgres") is now printed in events and logs.
+
 
 ## 6.7.1 release notes
 
