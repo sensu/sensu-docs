@@ -690,7 +690,7 @@ Value | Description |
 
 #### Repeat and multi-day subdues
 
-Because repeat schedules for subdues are based only on the specified time of day, you may need to configure more than one repeat for multi-day subdues (like weekends).
+Because repeat schedules for subdues are based only on the specified time of day, you may need to configure more than one repeat for multi-day subdues.
 
 For example, suppose that you want to subdue a check on the weekends.
 You might set a repeat that starts on Fridays at 5:00 p.m. PDT and ends on Mondays at 8:00 a.m. PDT:
