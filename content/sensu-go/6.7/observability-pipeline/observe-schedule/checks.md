@@ -664,10 +664,17 @@ spec:
 ### Subdues and repeat
 
 If you include a `repeat` array in a `subdues` object, Sensu will start the subdue period on the date you specify.
-After the first subdue period, Sensu uses the `begin` and `end` values only to determine the time of day to start and stop the subdue.
+After the first subdue, Sensu uses the `begin` and `end` values only to determine the *time* of day to start and stop the subdue.
 
-In the above example, on April 19, 2022, Sensu will apply the `weekdays` subdue at 5:00 p.m. PDT and end it on April 20 at 8:00 a.m. PDT.
-On April 20, Sensu will apply the `weekdays` subdue again at 5:00 p.m. PDT and end it on April 21 at 8:00 a.m. PDT, and so on.
+{{% notice note %}}
+**NOTE**: Check subdue repeats are based on the specified `begin` and `end` times and not duration or the difference between the `begin` and `end` times.
+Read [Repeat and multi-day subdues](#repeat-and-multi-day-subdues) for more information.
+{{% /notice %}}
+
+In the above example, on April 18, 2022, Sensu will apply the `weekdays` subdue at 5:00 p.m. PDT and end it on April 19 at 8:00 a.m. PDT.
+On April 19, Sensu will apply the `weekdays` subdue again at 5:00 p.m. PDT and end it on April 20 at 8:00 a.m. PDT, and so on.
+
+#### Valid values for repeat arrays
 
 This table lists and describes valid values for the `repeat` array:
 
@@ -680,6 +687,97 @@ Value | Description |
 `weekly` | Subdue once per week on the same day, at the same time of day
 `monthly` | Subdue once per month on the same day, at the same time of day
 `annually` | Subdue once per year on the same day, at the same time of day
+
+#### Repeat and multi-day subdues
+
+Because repeat schedules for subdues are based only on the specified time of day, you may need to configure more than one repeat for multi-day subdues.
+
+For example, suppose that you want to subdue a check on the weekends.
+You might set a repeat that starts on a Friday at 5:00 p.m. PDT and ends on Monday at 8:00 a.m. PDT:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+subdues:
+- begin: "2022-05-06T17:00:00-07:00"
+  end: "2022-05-09T08:00:00-07:00"
+  repeat:
+  - fridays
+{{< /code >}}
+
+{{< code json >}}
+{
+  "subdues": [
+    {
+      "begin": "2022-05-06T17:00:00-07:00",
+      "end": "2022-05-09T08:00:00-07:00",
+      "repeat": [
+        "fridays"
+      ]
+    }
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+The first weekend, your repeat will work as expected to subdue the check from 5:00 p.m. PDT on Friday until 8:00 a.m. PDT on Monday.
+
+After the first weekend, the subdue will start as expected at 5:00 p.m. PDT on Friday, but it will expire at 8:00 a.m. PDT on *Saturday* instead of Monday.
+This is because after the first instance, repeats are based only on the specified `begin` and `end` times.
+Sensu uses the dates to schedule only the first subdue.
+
+Instead, use the following three-part configuration to achieve the desired repeat schedule (every Friday at 5:00 p.m. PDT until Monday at 8:00 a.m. PDT):
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+subdues:
+- begin: "2022-05-06T17:00:00-07:00"
+  end: "2022-05-06T23:59:59-07:00"
+  repeat:
+  - fridays
+- begin: "2022-05-07T00:00:00-07:00"
+  end: "2022-05-07T23:59:59-07:00"
+  repeat:
+  - weekends
+- begin: "2022-05-09T00:00:00-07:00"
+  end: "2022-05-09T08:00:00-07:00"
+  repeat:
+  - mondays
+{{< /code >}}
+
+{{< code json >}}
+{
+  "subdues": [
+    {
+      "begin": "2022-05-06T17:00:00-07:00",
+      "end": "2022-05-06T23:59:59-07:00",
+      "repeat": [
+        "fridays"
+      ]
+    },
+    {
+      "begin": "2022-05-07T00:00:00-07:00",
+      "end": "2022-05-07T23:59:59-07:00",
+      "repeat": [
+        "weekends"
+      ]
+    },
+    {
+      "begin": "2022-05-09T00:00:00-07:00",
+      "end": "2022-05-09T08:00:00-07:00",
+      "repeat": [
+        "mondays"
+      ]
+    }
+  ]
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+With this configuration, the repeat schedule will subdue the check every Friday from 5:00 p.m. PDT until midnight, the entire 24 hours on every Saturday and Sunday, and every Monday from midnight until 8:00 a.m. PDT.
 
 ## Check hooks
 
@@ -2115,7 +2213,9 @@ end: "2022-04-19T08:00:00-07:00"
 
 repeat       | 
 -------------|------
-description  | Interval at which the subdue should repeat. `weekdays` includes Mondays, Tuesdays, Wednesdays, Thursdays, and Fridays. `weekends` includes Saturdays and Sundays. Read [Subdues and repeat][85] for more information.
+description  | Interval at which the subdue should repeat. `weekdays` includes Mondays, Tuesdays, Wednesdays, Thursdays, and Fridays. `weekends` includes Saturdays and Sundays. Read [Subdues and repeat][85] for more information.{{% notice note %}}
+**NOTE**: Check subdue repeats are based on the specified `begin` and `end` times and not duration or the difference between the `begin` and `end` times.
+{{% /notice %}}
 required     | false
 type         | Array
 allowed values | `mondays`, `tuesdays`, `wednesdays`, `thursdays`, `fridays`, `saturdays`, `sundays`, `weekdays`, `weekends`, `daily`, `weekly`, `monthly`, `annually`
