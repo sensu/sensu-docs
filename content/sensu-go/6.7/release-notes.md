@@ -108,7 +108,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 6.7.2 release notes
 
-**May 11, 2022** &mdash; The latest release of Sensu Go, version 6.7.2, is now available for download.
+**May 12, 2022** &mdash; The latest release of Sensu Go, version 6.7.2, is now available for download.
 
 Sensu Go 6.7.2 includes a fix for sensu-backend stability and adds an active poller for PostgreSQL config changes.
 We've also improved the Sensu Plus modal in the web UI.
