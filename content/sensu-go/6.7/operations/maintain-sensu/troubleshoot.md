@@ -813,6 +813,50 @@ This may result in a crash loop that is difficult to recover from.
 You may observe that the Sensu backend process continues running but is not listening for connections on the agent WebSocket, API, or web UI ports.
 The backend will stop listening on those ports when the etcd database is unavailable.
 
+## Web UI errors
+
+If the web UI experiences an error, you may see the following message in the web UI:
+
+{{< figure src="/images/webui_error.png" alt="Web UI error message with options for clearing state and reloading." link="/images/webui_error.png" target="_blank" >}}
+
+The error message indicates something unexpected happened, such as the server failing to return the correct response.
+Clicking **RELOAD** can resolve most common problems.
+
+More rarely, the error can result from issues like a corrupt cache or a bad persistent state.
+In these cases, clicking **CLEAR STATE & RELOAD** usually resolves the issue.
+
+### Investigate a web UI error
+
+To get more information about a web UI error, open your web browser's developer console to view the error messages your browser logged.
+
+Use these keyboard shortcuts to open the developer console on different operating systems:
+
+Operating system | Keyboard shortcut
+------- | ------------
+Linux | Press `Control` + `Shift` + `J`
+macOS | Press `Command` + `Option` + `J`
+Windows | Press `Control` + `Shift` + `J`
+
+You can also open the developer console from the browser's menu:
+
+Browser | Menu path
+------- | ------------
+Chrome | Click the ⋮ menu icon, then `More Tools` > `Developer Tools`
+Edge | `Tools` > `Developer` > `JavaScript Console`
+Firefox | Click the ☰ menu icon, then `More Tools` > `Developer Console`
+Safari | `Develop` > `Show JavaScript Console`<br><br>If you do not see the `Develop` option, open `Safari` > `Preferences` > `Advanced` and select the checkbox for `Show Develop menu in menu bar`
+
+Depending on your browser, the developer console may open in a separate browser window or within the current browser window as shown in this example:
+
+{{< figure src="/images/webui_devconsole.png" alt="Developer console open in a Chrome browswer window displaying the web UI error message with options for clearing state and reloading." link="/images/webui_devconsole.png" target="_blank" >}}
+
+The developer console lists all errors for the current page.
+Click an error for more information about it.
+
+The developer console is part of web developer tools that are included in all modern browsers.
+These tools may have different names in different browsers (for example, DevTools in Chrome and Developer Tools in Firefox), but they offer similar features.
+Read the documentation for your browser to learn more about the web developer tools your browser provides.
+
 
 [1]: ../../../observability-pipeline/observe-schedule/agent#operation
 [2]: ../../../platforms/#windows
