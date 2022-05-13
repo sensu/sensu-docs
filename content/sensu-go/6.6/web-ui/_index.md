@@ -60,6 +60,10 @@ In this case, the web UI homepage will display all data for both namespaces: `de
 
 Use the preferences menu to change the theme or switch to the dark theme.
 
+## Troubleshoot web UI errors
+
+Read [Troubleshoot Sensu][8] to resolve and investigate web UI errors.
+
 
 [1]: ../observability-pipeline/observe-schedule/backend#start-the-service
 [2]: ../sensuctl/#first-time-setup-and-authentication
