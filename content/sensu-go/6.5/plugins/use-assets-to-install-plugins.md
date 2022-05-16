@@ -43,7 +43,7 @@ resource, populate the "runtime_assets" field with ["pagerduty-handler"].
 {{< /code >}}
 
 {{% notice note %}}
-**NOTE**: We recommend specifying the asset version you want to install to maintain the stability of your observability infrastructure.
+**NOTE**: Specify the asset version you want to install to maintain the stability of your observability infrastructure.
 If you do not specify a version to install, Sensu automatically installs the latest version, which may include breaking changes.
 {{% /notice %}}
 
