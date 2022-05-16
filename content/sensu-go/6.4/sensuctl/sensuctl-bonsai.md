@@ -22,11 +22,11 @@ Replace `<namespace/name>` with the namespace and name of the dynamic runtime as
 To automatically install the latest version of the plugin, you do not need to specify the version: `sensuctl asset add <namespace/name>`.
 
 {{% notice note %}}
-**NOTE**: We recommend specifying the asset version you want to install to maintain the stability of your observability infrastructure.
+**NOTE**: Specify the asset version you want to install to maintain the stability of your observability infrastructure.
 If you do not specify a version to install, Sensu automatically installs the latest version, which may include breaking changes.
 {{% /notice %}}
 
-![Bonsai page for InfluxDB handler showing namespace and name][2]
+{{< figure src="/images/sensu-influxdb-handler-namespace.png" alt="Bonsai page for InfluxDB handler showing namespace and name" link="/images/sensu-influxdb-handler-namespace.png" target="_blank" >}}
 
 For example, to install version 3.1.1 of the [Sensu InfluxDB Handler][4] dynamic runtime asset:
 
