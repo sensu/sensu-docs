@@ -123,11 +123,11 @@ In the Execute Check dialog window, you can execute the check according to its e
 
 ## View resource data in the web UI
 
-You can view the JSON definition for any event or entity and the JSON or YAML definition for any configuration resource directly in the web UI.
+You can view and copy the YAML or JSON definition for any event, entity, or configuration resource directly in the web UI.
 
 ### View resource data for an event or entity
 
-To view and copy the JSON and YAML definitions for any event or entity in the web UI:
+To view and copy the YAML and JSON definitions for any event or entity in the web UI:
 
 1. Open the individual resource page for the event or entity.
 2. Click ⋮ at the top-right of the page.
@@ -141,7 +141,7 @@ This example shows how to view and copy the resource data for an event:
 
 ### View resource data for a configuration resource
 
-To view and copy the JSON and YAML definitions for any configuration resource in the web UI:
+To view and copy the YAML and JSON definitions for any configuration resource in the web UI:
 
 1. Open the individual resource page.
 2. Click **RAW**.
