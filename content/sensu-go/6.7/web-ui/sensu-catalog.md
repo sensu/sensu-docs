@@ -109,7 +109,7 @@ Sensu will auto-complete a simple search statement for the resources on that pag
 
 In the Sensu Catalog, integrations are represented by tiles.
 When you click an integration tile, the integration's detail page opens.
-The detail page includes tabs for **README**, **CHANGELOG**, **SENSU RESOURCES**, and **RAW**.
+The detail page includes tabs for **README**, **CHANGELOG**, and **SENSU RESOURCES**.
 
 {{< figure src="/images/catalog_integration_info_tabs.png" alt="Location of README, CHANGELOG, and SENSU RESOURCES tabs for an integration in the Sensu Catalog" link="/images/catalog_integration_info_tabs.png" target="_blank" >}}
 
@@ -161,7 +161,7 @@ The resulting resource definitions represent Sensu's recommended configuration f
 
 The Sensu Catalog integrations are preconfigured to use Sensu's `Env` secrets provider for sensitive information the integrations might require, like passwords and API tokens.
 
-### Duplicate integrations and existing resources
+## Duplicate integrations and existing resources
 
 You can reuse the same integration as long as all resource definitions have unique names.
 
