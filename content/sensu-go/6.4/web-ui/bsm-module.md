@@ -59,7 +59,7 @@ Available arguments will vary for different rule templates.
 
 The updated business service tile will include the service component:
 
-{{< figure src="/images/create-service-component.gif" alt="Add a new service component to a business service with the web UI module" link="/images/create-service-component.gif" target="_blank" >}}
+{{< figure src="https://sensu-docs.s3.amazonaws.com/images/create-service-component.gif" alt="Add a new service component to a business service with the web UI module" link="https://sensu-docs.s3.amazonaws.com/images/create-service-component.gif" target="_blank" >}}
 
 ## View and manage business services
 
