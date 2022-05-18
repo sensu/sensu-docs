@@ -1,1 +1,8 @@
-/node_modules
+# Files, folders, and directories that Heroku should ignore when compiling the slug
+
+# Directories
+/archived
+
+# Extras
+node_modules/
+
