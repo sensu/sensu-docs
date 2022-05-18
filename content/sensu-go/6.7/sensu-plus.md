@@ -3,7 +3,7 @@ title: "Sensu Plus"
 description: "Deploy the Sensu Plus turnkey integration to send metrics to Sumo Logic and extract insights from your Sensu observability data."
 version: "6.7"
 weight: -20
-offline: false
+offline: true
 toc: true
 product: "Sensu Go"
 menu: "sensu-go-6.7"
