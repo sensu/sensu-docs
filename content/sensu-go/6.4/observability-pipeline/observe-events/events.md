@@ -1865,7 +1865,7 @@ state: passing
 
 status       |      |
 -------------|------
-description  | Exit status code produced by the check.<ul><li>`0` indicates OK</li><li>`1` indicates WARNING</li><li>`2` indicates CRITICAL</li></ul>Exit status codes other than `0`, `1`, or `2` indicate an UNKNOWN or custom status..<br><br>For agent-executed checks, Sensu automatically populates the `status` value based on the check result. For events created with the [core/v2/events API][35], Sensu assumes the status is `0` (OK) unless you specify a non-zero value in the request body.
+description  | Exit status code produced by the check.<ul><li>`0` indicates OK</li><li>`1` indicates WARNING</li><li>`2` indicates CRITICAL</li></ul>Exit status codes other than `0`, `1`, or `2` indicate an UNKNOWN or custom status.<br><br>For agent-executed checks, Sensu automatically populates the `status` value based on the check result. For events created with the [core/v2/events API][35], Sensu assumes the status is `0` (OK) unless you specify a non-zero value in the request body.
 required     | false
 type         | Integer
 example      | {{< language-toggle >}}
