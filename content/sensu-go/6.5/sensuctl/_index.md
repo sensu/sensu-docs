@@ -21,7 +21,7 @@ Read [Install Sensu][2] to install and configure sensuctl.
 
 ## First-time setup and authentication
 
-To log in to sensuctl and connect to the Sensu backend, run:
+To log in to sensuctl and connect to the Sensu backend by following interactive prompts, run:
 
 {{< code shell >}}
 sensuctl configure
@@ -290,7 +290,42 @@ sensuctl check delete --help
 
 ## Manage sensuctl
 
-The `sencutl config` command lets you view the current sensuctl configuration and set the namespace and output format.
+Use the `sencutl config` command to view and modify the current sensuctl configuration.
+
+To view flags and command options, run:
+
+{{< code shell >}}
+sensuctl config --help
+{{< /code >}}
+
+The response lists the global flags and commands available to use with `sensuctl config`:
+
+{{< code text >}}
+Modify sensuctl configuration
+
+Usage:  sensuctl config COMMAND
+
+Flags:
+  -h, --help   help for config
+
+Global Flags:
+      --api-key string             API key to use for authentication
+      --api-url string             host URL of Sensu installation
+      --cache-dir string           path to directory containing cache & temporary files (default "/home/vagrant/.cache/sensu/sensuctl")
+      --config-dir string          path to directory containing configuration files (default "/home/vagrant/.config/sensu/sensuctl")
+      --insecure-skip-tls-verify   skip TLS certificate verification (not recommended!)
+      --namespace string           namespace in which we perform actions (default "default")
+      --timeout duration           timeout when communicating with sensu backend (default 15s)
+      --trusted-ca-file string     TLS CA certificate bundle in PEM format
+
+Commands:
+  set-format    Set format for active profile
+  set-namespace Set namespace for active profile
+  set-timeout   Set timeout for active profile in duration format (ex: 15s)
+  view          Display active configuration
+{{< /code >}}
+
+There are also commands for [logging out of sensuctl][29] and [viewing the current sensuctl version][30].
 
 ### View sensuctl config
 
@@ -483,3 +518,8 @@ source ~/.zshrc
 [23]: ../observability-pipeline/observe-events/events/#example-status-only-event-from-the-sensu-api
 [24]: https://github.com/scop/bash-completion
 [25]: #install-and-configure-autocompletion-for-sensuctl
+[26]: #usernamepassword-authentication
+[27]: ../operations/control-access/namespaces/
+[28]: #set-preferred-output-format
+[29]: #log-out-of-sensuctl
+[30]: #view-the-sensuctl-version-number
