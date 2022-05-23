@@ -90,7 +90,7 @@ Commands must be executable files that are discoverable on the Sensu agent syste
 
 Although Sensu agents attempt to execute any command defined for a check, successful check result processing requires adherence to a simple specification.
 
-- Result data is output to [STDOUT or STDERR][3].
+- Result data is output to [stdout or stderr][3].
     - For service checks, this output is typically a human-readable message.
     - For metric checks, this output contains the measurements gathered by the
       check.
@@ -1268,7 +1268,7 @@ silenced:
 
 |stdin       |      |
 -------------|------
-description  | `true` if the Sensu agent writes JSON serialized Sensu entity and check data to the command process’ STDIN. The command must expect the JSON data via STDIN, read it, and close STDIN. Otherwise, `false`. This attribute cannot be used with existing Sensu check plugins or Nagios plugins because the Sensu agent will wait indefinitely for the check process to read and close STDIN.
+description  | `true` if the Sensu agent writes JSON serialized Sensu entity and check data to the command process’ stdin. The command must expect the JSON data via stdin, read it, and close stdin. Otherwise, `false`. This attribute cannot be used with existing Sensu check plugins or Nagios plugins because the Sensu agent will wait indefinitely for the check process to read and close stdin.
 required     | false
 type         | Boolean
 default      | `false`

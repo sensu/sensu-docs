@@ -184,7 +184,7 @@ sensuctl <resource> info <resource_name> --format wrapped-json > resource.json
 
 {{< /language-toggle >}}
 
-- Copy the resource defintion to a new file (or overwrite an existing file with the same name) and show the resource definition in STDOUT:
+- Copy the resource defintion to a new file (or overwrite an existing file with the same name) and show the resource definition in stdout:
 
   {{< language-toggle >}}
 
@@ -212,7 +212,7 @@ sensuctl <resource> info <resource_name> --format wrapped-json >> resource.json
 
 {{< /language-toggle >}}
 
-- Append the resource defintion to an existing file and show the resource definition in STDOUT:
+- Append the resource defintion to an existing file and show the resource definition in stdout:
 
   {{< language-toggle >}}
 

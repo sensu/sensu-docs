@@ -82,7 +82,7 @@ You can also use the [template toolkit command][11] to print available event att
 
 The [Sensu template toolkit command][8] is a sensuctl command plugin you can use to print a list of available event attributes in handler template dot notation syntax and validate your handler template output.
 
-The template toolkit command uses event data you supply via STDIN in JSON format.
+The template toolkit command uses event data you supply via stdin in JSON format.
 
 Add the Sensu template toolkit command asset to Sensu:
 
