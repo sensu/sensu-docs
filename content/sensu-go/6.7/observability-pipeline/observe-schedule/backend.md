@@ -1540,7 +1540,7 @@ Each backend configuration flag has an associated environment variable.
 You can also create your own environment variables, as long as you name them correctly and save them in the correct place.
 Here's how.
 
-1. Create the files from which the `sensu-backend` service configured by our supported packages will read environment variables: `/etc/default/sensu-backend` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-backend` for RHEL/CentOS systems.
+1. Create the files from which the `sensu-backend` service configured by our supported packages will read environment variables:
 
      {{< language-toggle >}}
      
@@ -1563,7 +1563,7 @@ All environment variables that control Sensu backend configuration begin with `S
      For a custom environment variable, you do not have to prepend `SENSU_BACKEND`.
      For example, `TEST_VAR_1` is a valid custom environment variable name.
 
-3. Add the environment variable to the environment file (`/etc/default/sensu-backend` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-backend` for RHEL/CentOS systems).
+3. Add the environment variable to the environment file.
 
      For example, to create `api-listen-address` as an environment variable and set it to `192.168.100.20:8080`:
      
@@ -1579,7 +1579,7 @@ echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/s
 
      {{< /language-toggle >}}
 
-4. Restart the sensu-backend service so these settings can take effect.
+4. Restart the sensu-backend service so these settings can take effect:
 
      {{< language-toggle >}}
 
