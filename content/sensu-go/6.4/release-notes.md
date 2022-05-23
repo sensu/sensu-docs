@@ -457,7 +457,7 @@ SaltStack Enterprise Jobs for automated remediation.
 - ([Commercial feature][172]) Fixed a bug where PostgreSQL errors could cause the backend to panic.
 - ([Commercial feature][172]) Fixed a bug where PostgreSQL would refuse to store event with a negative check status.
 - The backend will no longer start if the web UI TLS configuration is not fully specified.
-- The agent entity is now included in data passed to the STDIN for the command process.
+- The agent entity is now included in data passed to the stdin for the command process.
 - Improved check scheduling to prevent stale proxy entity data when using cron or round robin schedulers.
 - Fixed a bug that resulted in incorrect entity listings for agent entities created via the API instead of sensu-agent.
 - When downloading assets, Sensu now closes the response body after reading from it.
@@ -1065,7 +1065,7 @@ Read the [upgrade guide][1] to upgrade Sensu to version 5.14.1.
 - ([Commercial feature][79]) Sensuctl will not incorrectly warn of entity limits for unlimited licenses.
 - ([Commercial feature][79]) `oidc` authentication providers will now properly load on start-up.
 - When opening a Bolt database that is already open, `sensu-agent` will not hang indefinitely.
-- Running [`sensuctl dump`][84] for multiple resource types with the output format as YAML will not result in separators being printed to `STDOUT` instead of the specified file.
+- Running [`sensuctl dump`][84] for multiple resource types with the output format as YAML will not result in separators being printed to stdout instead of the specified file.
 - Fixed a crash in sensu-backend (panic: send on closed channel).
 
 ## 5.14.0 release notes
@@ -1099,7 +1099,7 @@ This can help in the rare case that something in the persisted state is leading 
 - ([Commercial feature][79]) `sensuctl` on Windows can now create Postgres resources.
 - ([Commercial feature][79]) Fixed a bug that resulted in event metrics being ignored when using the Postgres store.
 - Fixed a bug that caused checks to stop executing after a network error.
-- Fixed a bug that prevented `sensuctl create` with `stdin` from working.
+- Fixed a bug that prevented `sensuctl create` with stdin from working.
 - Splayed proxy checks are executed every interval (instead of every interval + interval * splay_coverage).
 - Proxy entity labels and annotations are now redacted in the web UI as expected.
 - Fixed a bug in the ring that prevented round robin schedules from recovering after quorum loss.
@@ -1177,7 +1177,7 @@ Read the [installation guide][16] for the latest download links.
 - Operators can now authenticate to Sensu via OpenID Direct Connect (OIDC) using sensuctl.
 Read the [authentication documentation][17] for details.
 - Added sensu-agent and sensuctl binary builds for FreeBSD.
-- Added sensuctl dump command to output resources to a file or STDOUT, making it easier to back up your Sensu backends.
+- Added sensuctl dump command to output resources to a file or stdout, making it easier to back up your Sensu backends.
 - Agents can now be configured with a list of executables that are allowed to run as check and hook commands.
 Read the [agent reference][78] for more information.
 
@@ -1205,7 +1205,7 @@ The system will refer to the namespace in the request URL.
 - Requesting events from the `GET /events/:entity` API endpoint now returns events only for the specified entity.
 - Running sensuctl config view without configuration no longer causes a crash.
 - Creating an entity via sensuctl with the `--interactive` flag now prompts for the entity name when it is not provided on the command line.
-- Check hooks with `stdin: true` now receive actual event data on STDIN instead of an empty event.
+- Check hooks with `stdin: true` now receive actual event data on stdin instead of an empty event.
 - Some issues with check scheduling and updating have been fixed by refactoring the backend's watcher implementation.
 
 **KNOWN ISSUES:**

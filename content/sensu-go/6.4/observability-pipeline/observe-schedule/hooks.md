@@ -16,7 +16,7 @@ menu:
 Hooks are reusable commands the agent executes in response to a check result before creating an observability event.
 You can create, manage, and reuse hooks independently of checks.
 Hooks enrich observability event context by gathering relevant information based on the exit status code of a check (ex: `1`).
-Hook commands can also receive JSON serialized Sensu client data via `STDIN`.
+Hook commands can also receive JSON serialized Sensu client data via stdin.
 
 ## Hook example
 
@@ -375,7 +375,7 @@ runtime_assets:
 
 stdin        | 
 -------------|------
-description  | If `true`, the Sensu agent writes JSON serialized Sensu entity and check data to the command process `STDIN`. Otherwise, `false`. The command must expect the JSON data via STDIN, read it, and close STDIN. This attribute cannot be used with existing Sensu check plugins or Nagios plugins because the Sensu agent will wait indefinitely for the hook process to read and close STDIN.
+description  | If `true`, the Sensu agent writes JSON serialized Sensu entity and check data to the command process stdin. Otherwise, `false`. The command must expect the JSON data via stdin, read it, and close stdin. This attribute cannot be used with existing Sensu check plugins or Nagios plugins because the Sensu agent will wait indefinitely for the hook process to read and close stdin.
 required     | false
 type         | Boolean
 default      | `false`

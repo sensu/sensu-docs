@@ -16,7 +16,7 @@ Sensuctl works by calling Sensu’s underlying API to create, read, update, and 
 
 ## Create resources
 
-The `sensuctl create` command allows you to create or update resources by reading from STDIN or a [flag][36] configured file (`-f`).
+The `sensuctl create` command allows you to create or update resources by reading from stdin or a [flag][36] configured file (`-f`).
 The `create` command accepts Sensu resource definitions in [`yaml` or `wrapped-json` formats][4], which wrap the contents of the resource in `spec` and identify the resource `type` and `api_version`.
 Review the [list of supported resource types][3] `for sensuctl create`.
 Read the [reference docs][6] for information about creating resource definitions.
@@ -252,7 +252,7 @@ sensuctl create --file pagerduty.json
 
 ## Delete resources
 
-The `sensuctl delete` command allows you to delete resources by reading from STDIN or a flag configured file (`-f`).
+The `sensuctl delete` command allows you to delete resources by reading from stdin or a flag configured file (`-f`).
 The `delete` command accepts Sensu resource definitions in `wrapped-json` and `yaml` formats and uses the same [resource types][3] as `sensuctl create`.
 To be deleted successfully, resources provided to the `delete` command must match the name and namespace of an existing resource.
 
@@ -480,7 +480,7 @@ Read the [RBAC reference][22] for information about local user management with s
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
-The `sensuctl prune` subcommand allows you to delete resources that do not appear in a given set of Sensu objects (called a "configuration") from a from a file, URL, or STDIN.
+The `sensuctl prune` subcommand allows you to delete resources that do not appear in a given set of Sensu objects (called a "configuration") from a from a file, URL, or stdin.
 For example, you can use `sensuctl create` to to apply a new configuration, then use `sensuctl prune` to prune unneeded resources, resources that were created by a specific user or that include a specific label selector, and more.
 
 {{% notice note %}}

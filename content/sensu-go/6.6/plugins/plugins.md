@@ -15,9 +15,9 @@ menu:
 Sensu plugins provide executable scripts or other programs that you can use as Sensu checks, handlers, and mutators.
 Sensu plugins must comply with the following specification:
 
-- Accept input/data via `STDIN` (handler and mutator plugins only)
+- Accept input/data via stdin (handler and mutator plugins only)
   - Optionally able to parse a JSON data payload (that is, observation data in an event)
-- Output data to `STDOUT` or `STDERR`
+- Output data to stdout or stderr
 - Produce an exit status code to indicate state:
   - `0` indicates `OK`
   - `1` indicates `WARNING`
@@ -132,13 +132,13 @@ The following example demonstrates a very basic Sensu plugin in the Ruby program
 #
 require 'json'
 
-# Read the incoming JSON data from STDIN
-event = JSON.parse(STDIN.read, :symbolize_names => true)
+# Read the incoming JSON data from stdin
+event = JSON.parse(stdin.read, :symbolize_names => true)
 
 # Create an output object using Ruby string interpolation
 output = "The check named #{event[:check][:name]} generated the following output: #{event[:output]}"
 
-# Convert the mutated event data back to JSON and output it to STDOUT
+# Convert the mutated event data back to JSON and output it to stdout
 puts output
 {{< /code >}}
 

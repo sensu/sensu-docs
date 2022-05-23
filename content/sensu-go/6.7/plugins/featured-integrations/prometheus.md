@@ -19,7 +19,7 @@ To find more integrations, search [Bonsai, the Sensu asset hub](https://bonsai.s
 
 ## Sensu Prometheus Collector
 
-The [Sensu Prometheus Collector plugin][6] is a Sensu [check][8] that collects metrics from a Prometheus exporter or the Prometheus query API and outputs the metrics to STDOUT in Influx, Graphite, or JSON format.
+The [Sensu Prometheus Collector plugin][6] is a Sensu [check][8] that collects metrics from a Prometheus exporter or the Prometheus query API and outputs the metrics to stdout in Influx, Graphite, or JSON format.
 
 ### Features
 

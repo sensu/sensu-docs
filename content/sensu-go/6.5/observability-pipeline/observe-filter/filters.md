@@ -462,7 +462,7 @@ For more information about event attributes, read the [event reference][28].
 `event.check.runtime_assets`         | array   | Sensu [dynamic runtime assets][17] used by the check
 `event.check.state`                  | string  | The state of the check: `passing` (status `0`), `failing` (status other than `0`), or `flapping`
 `event.check.status`                 | integer | Exit status code produced by the check: `0` (OK), `1` (warning), `2` (critical), or other status (unknown or custom status)
-`event.check.stdin`                  | Boolean | Whether the Sensu agent writes JSON-serialized entity and check data to the command process’ STDIN
+`event.check.stdin`                  | Boolean | Whether the Sensu agent writes JSON-serialized entity and check data to the command process’ stdin
 `event.check.subscriptions`          | array   | Subscriptions that the check belongs to
 `event.check.timeout`                | integer | The check execution duration timeout in seconds
 `event.check.total_state_change`     | integer | The total state change percentage for the check’s history
