@@ -16,7 +16,8 @@ Sensuctl works by calling Sensu’s underlying API to create, read, update, and 
 
 ## Create resources
 
-The `sensuctl create` command allows you to create or update resources by reading from STDIN or a [flag][36] configured file (`-f`).
+The `sensuctl create` command allows you to create or update resources by reading from STDIN or a file.
+
 The `create` command accepts Sensu resource definitions in [`yaml` or `wrapped-json` formats][4], which wrap the contents of the resource in `spec` and identify the resource `type` and `api_version`.
 Review the [list of supported resource types][3] `for sensuctl create`.
 Read the [reference docs][6] for information about creating resource definitions.
@@ -26,11 +27,82 @@ Read the [reference docs][6] for information about creating resource definitions
 Requests to update agent-managed entities via sensuctl will fail and return an error.
 {{% /notice %}}
 
-These examples specify two resources: a `marketing-site` check and a `slack` handler.
-In the YAML example, the resources are separated by a line with three hyphens: `---`.
-In the wrapped JSON example, the resources are separated *without* a comma.
+You can create more than one resource at a time with `sensuctl create`.
+If you use YAML, separate the resource definitions by a line with three hyphens: `---`.
+If you use wrapped JSON, separate the resources *without* a comma.
 
-Save these resource definitions to a file named `my-resources.yml` or `my-resources.json`:
+### Create resources from STDIN
+
+The following example demonstrates how to use the EOF function with `sensuctl create` to create two resources by reading from STDIN: a `marketing-site` check and a `slack` handler.
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: marketing-site
+spec:
+  command: http-check -u https://sensu.io
+  subscriptions:
+  - demo
+  interval: 15
+  handlers:
+  - slack
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: slack
+spec:
+  command: sensu-slack-handler --channel '#monitoring'
+  env_vars:
+  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+  type: pipe
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "marketing-site"
+    },
+  "spec": {
+    "command": "http-check -u https://sensu.io",
+    "subscriptions": ["demo"],
+    "interval": 15,
+    "handlers": ["slack"]
+  }
+}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "slack"
+  },
+  "spec": {
+    "command": "sensu-slack-handler --channel '#monitoring'",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    ],
+    "type": "pipe"
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Create resources from a file
+
+The following example demonstrates how to use the `--file` flag with `sensuctl create` to create a `marketing-site` check and a `slack` handler.
+
+First, copy these resource definitions and save them in a file named `my-resources.yml` or `my-resources.json`:
 
 {{< language-toggle >}}
 
@@ -91,7 +163,7 @@ spec:
 
 {{< /language-toggle >}}
 
-To create these resources from `my-resources.yml` or `my-resources.json` with `sensuctl create`:
+Run the following command to create the resources from `my-resources.yml` or `my-resources.json`:
 
 {{< language-toggle >}}
 
@@ -121,14 +193,15 @@ cat my-resources.json | sensuctl create
 
 ### sensuctl create flags
 
-Run `sensuctl create -h` to view command-specific and global flags.
-The following table describes the command-specific flags.
+The following table describes command-specific flags for `sensuctl create`.
 
 | Flag | Function and important notes
 | ---- | ----------------------------
 `-f` or `--file` | Files, URLs, or directories to create resources from. Strings.
 `-h` or `--help` | Help for the create command.
 `-r` or `--recursive` | Create command will follow subdirectories.
+
+Run `sensuctl create -h` to view a usage example with command-specific and global flags.
 
 ### sensuctl create resource types
 
@@ -157,13 +230,13 @@ The RBAC reference includes a list of [namespaced resource types][38].
 
 The `sensuctl create` command applies namespaces to resources in the following order, from highest precedence to lowest:
 
-1. **Namespaces specified within resource definitions**: You can specify a resource's namespace within individual resource definitions using the `namespace` attribute.
+1. **Namespace specified within resource definitions**: You can specify a resource's namespace within individual resource definitions using the `namespace` attribute.
 Namespaces specified in resource definitions take precedence over all other methods.
 2. **`--namespace` flag**: If resource definitions do not specify a namespace, Sensu applies the namespace provided by the `sensuctl create --namespace` flag.
 3. **Current sensuctl namespace configuration**: If you do not specify an embedded `namespace` attribute or use the `--namespace` flag, Sensu applies the namespace configured in the current sensuctl session.
 Read [Manage sensuctl][31] to view your current session config and set the session namespace.
 
-This example defines a handler _without_ a `namespace` attribute:
+For example, this handler does not include a `namespace` attribute:
 
 {{< language-toggle >}}
 
@@ -199,7 +272,9 @@ spec:
 
 {{< /language-toggle >}}
 
-If this resource definition is saved in a file named `pagerduty.yml` or `pagerduty.json`, create the `pagerduty` handler in the `default` namespace with this command:
+If you save this resource definition in a file named `pagerduty.yml` or `pagerduty.json`, you can create the `pagerduty` handler in any namespace with specific sensuctl commands.
+
+To create the handler in the `default` namespace:
 
 {{< language-toggle >}}
 
@@ -243,11 +318,57 @@ sensuctl create --file pagerduty.json
 
 ## Delete resources
 
-The `sensuctl delete` command allows you to delete resources by reading from STDIN or a flag configured file (`-f`).
-The `delete` command accepts Sensu resource definitions in `wrapped-json` and `yaml` formats and uses the same [resource types][3] as `sensuctl create`.
-To be deleted successfully, resources provided to the `delete` command must match the name and namespace of an existing resource.
+The `sensuctl delete` command allows you to delete resources by reading from STDIN or a file.
 
-To delete all resources from `my-resources.yml` or `my-resources.json` with `sensuctl delete`:
+The `delete` command accepts Sensu resource definitions in `wrapped-json` and `yaml` formats and uses the same [resource types][3] as `sensuctl create`.
+To be deleted successfully, the name and namespace of a resource provided to the `delete` command must match the name and namespace of an existing resource.
+
+### Delete resources with STDIN
+
+To delete the `marketing-site` check from the current namespace with STDIN, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl delete
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: marketing-site
+spec:
+  command: http-check -u https://sensu.io
+  subscriptions:
+  - demo
+  interval: 15
+  handlers:
+  - slack
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl delete
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "marketing-site"
+    },
+  "spec": {
+    "command": "http-check -u https://sensu.io",
+    "subscriptions": ["demo"],
+    "interval": 15,
+    "handlers": ["slack"]
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Delete resources using a file
+
+To delete all resources listed in a specific file from Sensu (in this example, a file named `my-resources.yml` or `my-resources.json`):
 
 {{< language-toggle >}}
 
@@ -279,7 +400,91 @@ cat my-resources.json | sensuctl delete
 
 If you omit the `namespace` attribute from resource definitions, you can use the `senusctl delete --namespace` flag to specify the namespace for a group of resources at the time of deletion.
 This allows you to remove resources across namespaces without manual editing.
-Read the [Create resources across namespaces][33] section for usage examples.
+
+For example, suppose you added the `pagerduty` handler from [Create resources across namespaces][33] in every namespace.
+To delete the `pagerduty` handler from only the `production` namespace using STDIN, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl delete --namespace production
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: pagerduty
+spec:
+  command: sensu-pagerduty-handler
+  env_vars:
+  - PAGERDUTY_TOKEN=SECRET
+  type: pipe
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl delete --namespace production
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "pagerduty"
+  },
+  "spec": {
+    "command": "sensu-pagerduty-handler",
+    "env_vars": [
+      "PAGERDUTY_TOKEN=SECRET"
+    ],
+    "type": "pipe"
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+You can also use the `sensuctl delete` command with a file that includes the `pagerduty` handler definition (in these examples, the file name is `pagerduty.yml` or `pagerduty.json`).
+
+Delete the `pagerduty` handler from the `default` namespace with this command:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl delete --file pagerduty.yml --namespace default
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl delete --file pagerduty.json --namespace default
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+To delete the `pagerduty` handler from the `production` namespace:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl delete --file pagerduty.yml --namespace production
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl delete --file pagerduty.json --namespace production
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+To delete the `pagerduty` handler in the current session namespace:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl delete --file pagerduty.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl delete --file pagerduty.json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Update resources
 
