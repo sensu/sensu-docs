@@ -62,7 +62,7 @@ To organize resources, use labels rather than multiple namespaces.
 ## Default namespaces
 
 Every [Sensu backend][1] includes a `default` namespace.
-All resources created without a specified namespace are created within the `default` namespace. 
+All resources created without a specified namespace are created within the `default` namespace.
 
 ## Assign a resource to a namespace
 
