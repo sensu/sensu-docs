@@ -12,7 +12,7 @@ menu:
 
 {{% notice protip %}}
 **PRO TIP**: The `core/v2/events` API endpoints are primarily designed to provide HTTP access to event data created by agent-executed checks.
-To test your Sensu observability pipeline, use the [agent API](../../../observability-pipeline/observe-schedule/agent/#create-observability-events-using-the-agent-api) to create new ad hoc events or [sensuctl](../../../sensuctl/create-manage-resources/#sensuctl-check) or the [web UI](../../../web-ui/view-manage-resources/#manage-configuration-resources) to execute existing checks on demand.
+To test your Sensu observability pipeline, use the [agent API](../../../observability-pipeline/observe-schedule/agent/#create-observability-events-using-the-agent-api) to create new ad hoc events or [sensuctl](../../../sensuctl/create-manage-resources/#execute-a-check-on-demand) or the [web UI](../../../web-ui/view-manage-resources/#manage-configuration-resources) to execute existing checks on demand.
 {{% /notice %}}
 
 {{% notice note %}}

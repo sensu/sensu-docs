@@ -80,7 +80,7 @@ If you are using a desktop, a browser should open to allow you to authenticate a
 If a browser does not open, launch a browser and go to the OIDC URL listed at the end of the `sensuctl configure` interactive dialog to complete authentication and log in via your OIDC provider.
 
 {{% notice note %}}
-**NOTE**: You can also use [`sensuctl login oidc`](../operations/control-access/oidc-auth/#sensuctl-login-with-oidc) to log in to sensuctl with OIDC.
+**NOTE**: You can also use [`sensuctl login oidc`](../operations/control-access/oidc-auth/#use-sensuctl-to-login-with-oidc) to log in to sensuctl with OIDC.
 {{% /notice %}}
 
 ## Use flags to configure sensuctl in non-interactive mode

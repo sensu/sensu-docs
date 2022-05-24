@@ -490,7 +490,7 @@ strict: true
 [7]: https://etcd.io/docs/latest/op-guide/clustering/
 [8]: ../cluster-sensu/#use-an-external-etcd-cluster
 [9]: ../../../web-ui/
-[10]: ../../../sensuctl/create-manage-resources/#sensuctl-event
+[10]: ../../../sensuctl/create-manage-resources/#manually-resolve-events
 [11]: ../../../api/core/events/
 [12]: ../../../observability-pipeline/observe-process/populate-metrics-influxdb/
 [14]: https://www.postgresql.org
