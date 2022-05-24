@@ -16,7 +16,8 @@ Sensuctl works by calling Sensu’s underlying API to create, read, update, and 
 
 ## Create resources
 
-The `sensuctl create` command allows you to create or update resources by reading from stdin or a [flag][36] configured file (`-f`).
+The `sensuctl create` command allows you to create or update resources by reading from STDIN or a file.
+
 The `create` command accepts Sensu resource definitions in [`yaml` or `wrapped-json` formats][4], which wrap the contents of the resource in `spec` and identify the resource `type` and `api_version`.
 Review the [list of supported resource types][3] `for sensuctl create`.
 Read the [reference docs][6] for information about creating resource definitions.
@@ -26,11 +27,82 @@ Read the [reference docs][6] for information about creating resource definitions
 Requests to update agent-managed entities via sensuctl will fail and return an error.
 {{% /notice %}}
 
-These examples specify two resources: a `marketing-site` check and a `slack` handler.
-In the YAML example, the resources are separated by a line with three hyphens: `---`.
-In the wrapped JSON example, the resources are separated *without* a comma.
+You can create more than one resource at a time with `sensuctl create`.
+If you use YAML, separate the resource definitions by a line with three hyphens: `---`.
+If you use wrapped JSON, separate the resources *without* a comma.
 
-Save these resource definitions to a file named `my-resources.yml` or `my-resources.json`:
+### Create resources from STDIN
+
+The following example demonstrates how to use the EOF function with `sensuctl create` to create two resources by reading from STDIN: a `marketing-site` check and a `slack` handler.
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl create
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: marketing-site
+spec:
+  command: http-check -u https://sensu.io
+  subscriptions:
+  - demo
+  interval: 15
+  handlers:
+  - slack
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: slack
+spec:
+  command: sensu-slack-handler --channel '#monitoring'
+  env_vars:
+  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+  type: pipe
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl create
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "marketing-site"
+    },
+  "spec": {
+    "command": "http-check -u https://sensu.io",
+    "subscriptions": ["demo"],
+    "interval": 15,
+    "handlers": ["slack"]
+  }
+}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "slack"
+  },
+  "spec": {
+    "command": "sensu-slack-handler --channel '#monitoring'",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    ],
+    "type": "pipe"
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Create resources from a file
+
+The following example demonstrates how to use the `--file` flag with `sensuctl create` to create a `marketing-site` check and a `slack` handler.
+
+First, copy these resource definitions and save them in a file named `my-resources.yml` or `my-resources.json`:
 
 {{< language-toggle >}}
 
@@ -56,9 +128,6 @@ spec:
   command: sensu-slack-handler --channel '#monitoring'
   env_vars:
   - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
-  filters:
-  - is_incident
-  - not_silenced
   type: pipe
 {{< /code >}}
 
@@ -87,13 +156,6 @@ spec:
     "env_vars": [
       "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
     ],
-    "filters": [
-      "is_incident",
-      "not_silenced"
-    ],
-    "handlers": [],
-    "runtime_assets": [],
-    "timeout": 0,
     "type": "pipe"
   }
 }
@@ -101,7 +163,7 @@ spec:
 
 {{< /language-toggle >}}
 
-To create these resources from `my-resources.yml` or `my-resources.json` with `sensuctl create`:
+Run the following command to create the resources from `my-resources.yml` or `my-resources.json`:
 
 {{< language-toggle >}}
 
@@ -131,30 +193,42 @@ cat my-resources.json | sensuctl create
 
 ### sensuctl create flags
 
-Run `sensuctl create -h` to view command-specific and global flags.
-The following table describes the command-specific flags.
+Run `sensuctl create -h` to view a usage example with command-specific and global flags:
 
-| Flag | Function and important notes
-| ---- | ----------------------------
-`-f` or `--file` | Files, URLs, or directories to create resources from. Strings.
-`-h` or `--help` | Help for the create command.
-`-r` or `--recursive` | Create command will follow subdirectories.
+{{< code text >}}
+Create or replace resources from file or URL (path, file://, http[s]://), or STDIN otherwise.
+
+Usage:  sensuctl create [-r] [[-f URL] ... ] [flags]
+
+Flags:
+  -f, --file strings   Files, directories, or URLs to create resources from
+  -h, --help           help for create
+  -r, --recursive      Follow subdirectories
+
+Global Flags:
+      --api-key string             API key to use for authentication
+      --api-url string             host URL of Sensu installation
+      --cache-dir string           path to directory containing cache & temporary files (default "/home/vagrant/.cache/sensu/sensuctl")
+      --config-dir string          path to directory containing configuration files (default "/home/vagrant/.config/sensu/sensuctl")
+      --insecure-skip-tls-verify   skip TLS certificate verification (not recommended!)
+      --namespace string           namespace in which we perform actions (default "default")
+      --timeout duration           timeout when communicating with sensu backend (default 15s)
+      --trusted-ca-file string     TLS CA certificate bundle in PEM format
+{{< /code >}}
 
 ### sensuctl create resource types
 
-|sensuctl create types |   |   |   |
---------------------|---|---|---|
-`AdhocRequest` | `adhoc_request` | `Asset` | `asset`
-`CheckConfig` | `check_config` | `ClusterRole`  | `cluster_role`
-`ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | [`Env`][24]
-`entity` | [`EtcdReplicators`][29] | `Event` | `event`
-`EventFilter` | `event_filter` | [`GlobalConfig`][11] | `Handler`
-`handler` | `Hook` | `hook` | `HookConfig`
-`hook_config` | `Mutator` | `mutator` | `Namespace`
-`namespace` | `Role` | `role` | `RoleBinding`
-`role_binding` | [`Secret`][28] | `Silenced` | `silenced`
-[`User`][8] | `user` | [`VaultProvider`][24] | [`ldap`][26] | [`ad`][25]
-[`oidc`][37] | [`TessenConfig`][27] | [`PostgresConfig`][32]
+Use sensuctl create with any of the following resource types:
+
+| sensuctl create types |   | |
+--------------------|---|---|---
+[`ad`][25] | `AdhocRequest` | [`Asset`][12] | [`CheckConfig`][13]
+[`ClusterRole`][43] | [`ClusterRoleBinding`][45] | [`Entity`][14] | [`Env`][24]
+[`EtcdReplicators`][29] | [`Event`][15] | [`EventFilter`][16] | [`GlobalConfig`][11]
+[`Handler`][17] | [`HookConfig`][18] | [`ldap`][26] | [`Mutator`][19]
+[`Namespace`][21] | [`oidc`][37] | [`PostgresConfig`][32] | [`Role`][35]
+[`RoleBinding`][44] | [`Secret`][28] | [`Silenced`][20] | [`TessenConfig`][27]
+[`User`][22] | [`VaultProvider`][24]
 
 ### Create resources across namespaces
 
@@ -166,13 +240,13 @@ The RBAC reference includes a list of [namespaced resource types][38].
 
 The `sensuctl create` command applies namespaces to resources in the following order, from highest precedence to lowest:
 
-1. **Namespaces specified within resource definitions**: You can specify a resource's namespace within individual resource definitions using the `namespace` attribute.
+1. **Namespace specified within resource definitions**: You can specify a resource's namespace within individual resource definitions using the `namespace` attribute.
 Namespaces specified in resource definitions take precedence over all other methods.
 2. **`--namespace` flag**: If resource definitions do not specify a namespace, Sensu applies the namespace provided by the `sensuctl create --namespace` flag.
 3. **Current sensuctl namespace configuration**: If you do not specify an embedded `namespace` attribute or use the `--namespace` flag, Sensu applies the namespace configured in the current sensuctl session.
 Read [Manage sensuctl][31] to view your current session config and set the session namespace.
 
-This example defines a handler _without_ a `namespace` attribute:
+For example, this handler does not include a `namespace` attribute:
 
 {{< language-toggle >}}
 
@@ -208,7 +282,9 @@ spec:
 
 {{< /language-toggle >}}
 
-If this resource definition is saved in a file named `pagerduty.yml` or `pagerduty.json`, create the `pagerduty` handler in the `default` namespace with this command:
+If you save this resource definition in a file named `pagerduty.yml` or `pagerduty.json`, you can create the `pagerduty` handler in any namespace with specific sensuctl commands.
+
+To create the handler in the `default` namespace:
 
 {{< language-toggle >}}
 
@@ -252,11 +328,57 @@ sensuctl create --file pagerduty.json
 
 ## Delete resources
 
-The `sensuctl delete` command allows you to delete resources by reading from stdin or a flag configured file (`-f`).
-The `delete` command accepts Sensu resource definitions in `wrapped-json` and `yaml` formats and uses the same [resource types][3] as `sensuctl create`.
-To be deleted successfully, resources provided to the `delete` command must match the name and namespace of an existing resource.
+The `sensuctl delete` command allows you to delete resources by reading from STDIN or a file.
 
-To delete all resources from `my-resources.yml` or `my-resources.json` with `sensuctl delete`:
+The `delete` command accepts Sensu resource definitions in `wrapped-json` and `yaml` formats and uses the same [resource types][3] as `sensuctl create`.
+To be deleted successfully, the name and namespace of a resource provided to the `delete` command must match the name and namespace of an existing resource.
+
+### Delete resources with STDIN
+
+To delete the `marketing-site` check from the current namespace with STDIN, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl delete
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: marketing-site
+spec:
+  command: http-check -u https://sensu.io
+  subscriptions:
+  - demo
+  interval: 15
+  handlers:
+  - slack
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl delete
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "marketing-site"
+    },
+  "spec": {
+    "command": "http-check -u https://sensu.io",
+    "subscriptions": ["demo"],
+    "interval": 15,
+    "handlers": ["slack"]
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+### Delete resources using a file
+
+To delete all resources listed in a specific file from Sensu (in this example, a file named `my-resources.yml` or `my-resources.json`):
 
 {{< language-toggle >}}
 
@@ -284,11 +406,119 @@ cat my-resources.json | sensuctl delete
 
 {{< /language-toggle >}}
 
+### sensuctl delete flags
+
+Run `sensuctl delete -h` to view a usage example with command-specific and global flags:
+
+{{< code text >}}
+Delete resources from file or STDIN
+
+Usage:  sensuctl delete [-f FILE] [flags]
+
+Flags:
+  -f, --file string   File to delete resources from
+  -h, --help          help for delete
+
+Global Flags:
+      --api-key string             API key to use for authentication
+      --api-url string             host URL of Sensu installation
+      --cache-dir string           path to directory containing cache & temporary files (default "/home/vagrant/.cache/sensu/sensuctl")
+      --config-dir string          path to directory containing configuration files (default "/home/vagrant/.config/sensu/sensuctl")
+      --insecure-skip-tls-verify   skip TLS certificate verification (not recommended!)
+      --namespace string           namespace in which we perform actions (default "default")
+      --timeout duration           timeout when communicating with sensu backend (default 15s)
+      --trusted-ca-file string     TLS CA certificate bundle in PEM format
+{{< /code >}}
+
 ### Delete resources across namespaces
 
 If you omit the `namespace` attribute from resource definitions, you can use the `senusctl delete --namespace` flag to specify the namespace for a group of resources at the time of deletion.
 This allows you to remove resources across namespaces without manual editing.
-Read the [Create resources across namespaces][33] section for usage examples.
+
+For example, suppose you added the `pagerduty` handler from [Create resources across namespaces][33] in every namespace.
+To delete the `pagerduty` handler from only the `production` namespace using STDIN, run:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+cat << EOF | sensuctl delete --namespace production
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: pagerduty
+spec:
+  command: sensu-pagerduty-handler
+  env_vars:
+  - PAGERDUTY_TOKEN=SECRET
+  type: pipe
+EOF
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+cat << EOF | sensuctl delete --namespace production
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "pagerduty"
+  },
+  "spec": {
+    "command": "sensu-pagerduty-handler",
+    "env_vars": [
+      "PAGERDUTY_TOKEN=SECRET"
+    ],
+    "type": "pipe"
+  }
+}
+EOF
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+You can also use the `sensuctl delete` command with a file that includes the `pagerduty` handler definition (in these examples, the file name is `pagerduty.yml` or `pagerduty.json`).
+
+Delete the `pagerduty` handler from the `default` namespace with this command:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl delete --file pagerduty.yml --namespace default
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl delete --file pagerduty.json --namespace default
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+To delete the `pagerduty` handler from the `production` namespace:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl delete --file pagerduty.yml --namespace production
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl delete --file pagerduty.json --namespace production
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+To delete the `pagerduty` handler in the current session namespace:
+
+{{< language-toggle >}}
+
+{{< code shell "YML" >}}
+sensuctl delete --file pagerduty.yml
+{{< /code >}}
+
+{{< code shell "JSON" >}}
+sensuctl delete --file pagerduty.json
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 ## Update resources
 
@@ -306,26 +536,54 @@ sensuctl edit handler slack
 Requests to update agent-managed entities via sensuctl will fail and return an error.
 {{% /notice %}}
 
+### sensuctl edit flags
+
+Run `sensuctl edit -h` to view a usage example with command-specific and global flags:
+
+{{< code text >}}
+Edit resources interactively
+
+Usage:  sensuctl edit [RESOURCE TYPE] [KEY]... [flags]
+
+Flags:
+  -b, --blank           edit a blank resource, and create it on save
+      --format string   format of data returned ("json"|"wrapped-json"|"tabular"|"yaml") (default "tabular")
+  -h, --help            help for edit
+
+Global Flags:
+      --api-key string             API key to use for authentication
+      --api-url string             host URL of Sensu installation
+      --cache-dir string           path to directory containing cache & temporary files (default "/home/vagrant/.cache/sensu/sensuctl")
+      --config-dir string          path to directory containing configuration files (default "/home/vagrant/.config/sensu/sensuctl")
+      --insecure-skip-tls-verify   skip TLS certificate verification (not recommended!)
+      --namespace string           namespace in which we perform actions (default "default")
+      --timeout duration           timeout when communicating with sensu backend (default 15s)
+      --trusted-ca-file string     TLS CA certificate bundle in PEM format
+{{< /code >}}
+
 ### sensuctl edit resource types
 
-|sensuctl edit types |   |   |   |
---------------------|---|---|---|
-[`auth`][39] | `asset` | `check` | `cluster`
-`cluster-role` | `cluster-role-binding` | `entity` | `event`
-`filter` | `handler` | `hook` | `mutator`
-`namespace` | `role` | `role-binding` | `silenced`
-`user`
+Use the `sensuctl edit` command with any of the following resource types:
+
+| sensuctl edit types |   | |
+--------------------|---|---|---
+[`asset`][12] | [`auth`][39] | [`check`][13] | [`cluster`][7]
+[`cluster-role`][43] | [`cluster-role-binding`][45] | [`entity`][14] | [`event`][15]
+[`filter`][16] | [`handler`][17] | [`hook`][18] | [`mutator`][19]
+[`namespace`][21] | [`role`][35] | [`role-binding`][44] | [`silenced`][20]
+[`user`][22]
  
 ## Manage resources
 
-Sensuctl provides the following commands to manage Sensu resources.
+Sensuctl provides the commands listed below for managing individual Sensu resources.
+Combine the resource command with a [subcommand][23] to complete operations like listing all checks or deleting a specific silence.
 
 - [`sensuctl asset`][12]
 - [`sensuctl auth`][39] (commercial feature)
 - [`sensuctl check`][13]
 - [`sensuctl cluster`][7]
-- [`sensuctl cluster-role`][1]
-- [`sensuctl cluster-role-binding`][1]
+- [`sensuctl cluster-role`][43]
+- [`sensuctl cluster-role-binding`][45]
 - [`sensuctl entity`][14]
 - [`sensuctl event`][15]
 - [`sensuctl filter`][16]
@@ -334,23 +592,41 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl license`][34] (commercial feature)
 - [`sensuctl mutator`][19]
 - [`sensuctl namespace`][21]
-- [`sensuctl role`][1]
-- [`sensuctl role-binding`][1]
+- [`sensuctl role`][35]
+- [`sensuctl role-binding`][44]
 - [`sensuctl secrets`][28]
 - [`sensuctl silenced`][20]
 - [`sensuctl tessen`][27]
-- [`sensuctl user`][1]
+- [`sensuctl user`][22]
 
 ### Subcommands
 
-Sensuctl provides a standard set of list, info, and delete operations for most resource types.
+Sensuctl provides a set of operation subcommands for each resource type.
 
-{{< code text >}}
-list                       list resources
-info NAME                  show detailed resource information given resource name
-delete NAME                delete resource given resource name
+To view the supported subcommands for a resource type, run the resource command followed by the help flag, `-h`.
+For example, to view the subcommands for `sensuctl check`, run:
+
+{{< code shell >}}
+sensuctl check -h
 {{< /code >}}
 
+The response includes a usage example, the supported command-specific and global flags, and a list of supported subcommands.
+
+Many resource types include a standard set of list, info, and delete operation subcommands:
+
+{{< code text >}}
+delete                     delete resource given resource name
+info                       show detailed resource information given resource name
+list                       list resources
+{{< /code >}}
+
+{{% notice note %}}
+**NOTE**: The delete, info, and list subcommands are not supported for all resource types.
+Run `sensuctl <TYPE> -h` to confirm which subcommands are supported for a specific resource type.
+You can also configure [shell completion for sensuctl](../#shell-auto-completion) to view available variables for sensuctl commands.
+{{% /notice %}}
+
+Use the commands with their flags and subcommands to get more information about your resources.
 For example, to list all monitoring checks:
 
 {{< code shell >}}
@@ -391,10 +667,17 @@ sensuctl check info check-cpu --format wrapped-json
 
 {{< /language-toggle >}}
 
-In addition to the standard operations, commands may support subcommands or flags that allow you to take special action based on the resource type.
-The sections below describe these resource-specific operations.
+To delete the definition for a check named `check-cpu`:
 
-For a list of subcommands specific to a resource, run `sensuctl TYPE --help`.
+{{< code shell >}}
+sensuctl check delete check-cpu
+{{< /code >}}
+
+In addition to the delete, info, and list operations, many commands support flags and subcommands that allow you to take special action based on the resource type.
+The sections below describe some of the resource-specific operations.
+
+Run `sensuctl <TYPE> -h` to retrieve a complete list of the supported flags and subcommands for a specific resource command.
+You can also configure [shell completion for sensuctl][46] to view available variables for sensuctl commands.
 
 #### Handle large datasets
 
@@ -406,12 +689,12 @@ For example, the following command returns the same output as `sensuctl event li
 sensuctl event list --chunk-size 500
 {{< /code >}}
 
-### sensuctl check
+#### Execute a check on demand
 
-In addition to the [standard subcommands][23], the `sensuctl check execute` command executes a check on demand, given the check name:
+The `sensuctl check execute` command executes the specified check on demand:
 
 {{< code shell >}}
-sensuctl check execute NAME
+sensuctl check execute <CHECK_NAME>
 {{< /code >}}
 
 For example, the following command executes the `check-cpu` check with an attached message:
@@ -426,17 +709,17 @@ You can also use the `--subscriptions` flag to override the subscriptions in the
 sensuctl check execute check-cpu --subscriptions demo,webserver
 {{< /code >}}
 
-### sensuctl cluster
+#### Manage a Sensu cluster
 
-The `sensuctl cluster` command lets you manage a Sensu cluster using the following subcommands:
+The `sensuctl cluster` command lets you manage a Sensu cluster with the following subcommands:
 
 {{< code text >}}
-health           get Sensu health status
-id               get unique Sensu cluster ID
-member-add       add cluster member to an existing cluster, with comma-separated peer addresses
-member-list      list cluster members
-member-remove    remove cluster member by ID
-member-update    update cluster member by ID with comma-separated peer addresses
+health         get sensu health status
+id             show sensu cluster id
+member-add     add cluster member to an existing cluster, with comma-separated peer addresses
+member-list    list cluster members
+member-remove  remove cluster member by ID
+member-update  update cluster member by ID with comma-separated peer addresses
 {{< /code >}}
 
 To view cluster members:
@@ -451,12 +734,12 @@ To review the health of your Sensu cluster:
 sensuctl cluster health
 {{< /code >}}
 
-### sensuctl event
+#### Manually resolve events
 
-In addition to the [standard subcommands][23], you can use `sensuctl event resolve` to manually resolve events:
+Use `sensuctl event resolve` to manually resolve events:
 
 {{< code shell >}}
-sensuctl event resolve ENTITY CHECK
+sensuctl event resolve <ENTITY_NAME> <CHECK_NAME>
 {{< /code >}}
 
 For example, the following command manually resolves an event created by the entity `webserver1` and the check `check-http`:
@@ -465,15 +748,30 @@ For example, the following command manually resolves an event created by the ent
 sensuctl event resolve webserver1 check-http
 {{< /code >}}
 
-### sensuctl namespace
+#### Use the sensuctl namespace command
 
-Read the [namespaces reference][21] for information about using access control with namespaces.
+The sensuctl namespace commands have a few special characteristics that you should be aware of.
 
-### sensuctl user
+**sensuctl namespace create**
 
-Read the [RBAC reference][22] for information about local user management with sensuctl.
+Namespace names can contain alphanumeric characters and hyphens and must begin and end with an alphanumeric character.
 
-### sensuctl prune
+**senscutl namespace list**
+
+In the packaged Sensu Go distribution, `sensuctl namespace list` lists only the namespaces for which the current user has access.
+
+**sensuctl namespace delete**
+
+Namespaces must be empty before you can delete them.
+If the response to `sensuctl namespace delete` is `Error: resource is invalid: namespace is not empty`, the namespace may still contain events or other resources.
+
+To remove all resources and events so that you can delete a namespace, run this command (replace `<NAMESPACE_NAME>` with the namespace you want to empty):
+
+{{< code shell >}}
+sensuctl dump entities,events,assets,checks,filters,handlers,secrets/v1.Secret --namespace <NAMESPACE_NAME> | sensuctl delete
+{{< /code >}}
+
+## Prune resources with sensuctl
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access sensuctl pruning in the packaged Sensu Go distribution.
@@ -492,7 +790,7 @@ This means you can only use `sensuctl prune` to delete resources that were creat
 The pruning operation always follows the role-based access control (RBAC) permissions of the current user.
 For example, to prune resources in the `dev` namespace, the current user who sends the prune command must have delete access to the `dev` namespace.
 
-#### Supported resource types
+### Supported resource types
 
 To retrieve the supported `sensuctl prune` resource types, run:
 
@@ -503,43 +801,43 @@ sensuctl describe-type all
 The response will list all supported `sensuctl prune` resource types:
 
 {{< code text >}}
-      Fully Qualified Name           Short Name           API Version             Type          Namespaced  
- ────────────────────────────── ───────────────────── ─────────────────── ──────────────────── ──────────── 
-  authentication/v2.Provider                           authentication/v2   Provider             false       
-  licensing/v2.LicenseFile                             licensing/v2        LicenseFile          false       
-  store/v1.PostgresConfig                              store/v1            PostgresConfig       false       
-  federation/v1.EtcdReplicator                         federation/v1       EtcdReplicator       false       
-  federation/v1.Cluster                                federation/v1       Cluster              false       
-  secrets/v1.Secret                                    secrets/v1          Secret               true        
-  secrets/v1.Provider                                  secrets/v1          Provider             false       
-  searches/v1.Search                                   searches/v1         Search               true        
-  web/v1.GlobalConfig                                  web/v1              GlobalConfig         false       
-  bsm/v1.RuleTemplate                                  bsm/v1              RuleTemplate         true        
-  bsm/v1.ServiceComponent                              bsm/v1              ServiceComponent     true        
-  core/v2.Namespace              namespaces            core/v2             Namespace            false       
-  core/v2.ClusterRole            clusterroles          core/v2             ClusterRole          false       
-  core/v2.ClusterRoleBinding     clusterrolebindings   core/v2             ClusterRoleBinding   false       
-  core/v2.User                   users                 core/v2             User                 false       
-  core/v2.APIKey                 apikeys               core/v2             APIKey               false       
-  core/v2.TessenConfig           tessen                core/v2             TessenConfig         false       
-  core/v2.Asset                  assets                core/v2             Asset                true        
-  core/v2.CheckConfig            checks                core/v2             CheckConfig          true        
-  core/v2.Entity                 entities              core/v2             Entity               true        
-  core/v2.Event                  events                core/v2             Event                true        
-  core/v2.EventFilter            filters               core/v2             EventFilter          true        
-  core/v2.Handler                handlers              core/v2             Handler              true        
-  core/v2.HookConfig             hooks                 core/v2             HookConfig           true        
-  core/v2.Mutator                mutators              core/v2             Mutator              true        
-  core/v2.Role                   roles                 core/v2             Role                 true        
-  core/v2.RoleBinding            rolebindings          core/v2             RoleBinding          true        
-  core/v2.Silenced               silenced              core/v2             Silenced             true        
+         Fully Qualified Name               Short Name           API Version               Type             Namespaced  
+────────────────────────────────────── ───────────────────── ─────────────────── ───────────────────────── ─────────────
+  authentication/v2.Provider                                  authentication/v2   Provider                  false
+  licensing/v2.LicenseFile                                    licensing/v2        LicenseFile               false
+  store/v1.PostgresConfig                                     store/v1            PostgresConfig            false
+  federation/v1.EtcdReplicator                                federation/v1       EtcdReplicator            false
+  federation/v1.Cluster                                       federation/v1       Cluster                   false
+  secrets/v1.Secret                                           secrets/v1          Secret                    true
+  secrets/v1.Provider                                         secrets/v1          Provider                  false
+  searches/v1.Search                                          searches/v1         Search                    true
+  web/v1.GlobalConfig                                         web/v1              GlobalConfig              false
+  bsm/v1.RuleTemplate                                         bsm/v1              RuleTemplate              true
+  bsm/v1.ServiceComponent                                     bsm/v1              ServiceComponent          true
+  core/v2.Namespace                     namespaces            core/v2             Namespace                 false
+  core/v2.ClusterRole                   clusterroles          core/v2             ClusterRole               false
+  core/v2.ClusterRoleBinding            clusterrolebindings   core/v2             ClusterRoleBinding        false
+  core/v2.User                          users                 core/v2             User                      false
+  core/v2.APIKey                        apikeys               core/v2             APIKey                    false
+  core/v2.TessenConfig                  tessen                core/v2             TessenConfig              false
+  core/v2.Asset                         assets                core/v2             Asset                     true
+  core/v2.CheckConfig                   checks                core/v2             CheckConfig               true
+  core/v2.Entity                        entities              core/v2             Entity                    true
+  core/v2.Event                         events                core/v2             Event                     true
+  core/v2.EventFilter                   filters               core/v2             EventFilter               true
+  core/v2.Handler                       handlers              core/v2             Handler                   true
+  core/v2.HookConfig                    hooks                 core/v2             HookConfig                true
+  core/v2.Mutator                       mutators              core/v2             Mutator                   true
+  core/v2.Role                          roles                 core/v2             Role                      true
+  core/v2.RoleBinding                   rolebindings          core/v2             RoleBinding               true
+  core/v2.Silenced                      silenced              core/v2             Silenced                  true 
 {{< /code >}}
 
 {{% notice note %}}
 **NOTE**: Short names are only supported for core/v2 resources.
 {{% /notice %}}
 
-#### sensuctl prune flags
+### sensuctl prune flags
 
 Run `sensuctl prune -h` to view command-specific and global flags.
 The following table describes the command-specific flags.
@@ -556,20 +854,20 @@ The following table describes the command-specific flags.
 `-r` or `--recursive` | Prune command will follow subdirectories.
 `-u` or `--users` | Prunes only resources that were created by the specified users (comma-separated strings). Defaults to the currently configured sensuctl user.
 
-#### sensuctl prune usage
+### sensuctl prune usage
 
 {{< code shell >}}
-sensuctl prune <resource_type>,<resource_type>... -f <file_or_url> [-r] ... ] --<namespace> <flags>
+sensuctl prune <RESOURCE_TYPE>,<RESOURCE_TYPE>... -f <FILE_OR_URL> [-r] ... ] --namespace <NAMESPACE> <FLAGS>
 {{< /code >}}
 
 In this example `sensuctl prune` command:
 
-- Replace `<resource_type>` with the [fully qualified name or short name][10] of the resource you want to prune.
+- Replace `<RESOURCE_TYPE>` with the [fully qualified name or short name][10] of the resource you want to prune.
 You must specify at least one resource type or the `all` qualifier (to prune all resource types).
-- Replace `<file_or_url>` with the name of the file or the URL that contains the set of Sensu objects you want to keep (the configuration).
-- Replace `<namespace>` with the namespace where you want to apply pruning.
+- Replace `<FILE_OR_URL>` with the name of the file or the URL that contains the set of Sensu objects you want to keep (the configuration).
+- Replace `<NAMESPACE>` with the namespace where you want to apply pruning.
   If you omit the namespace qualifier, the command defaults to the current configured namespace.
-- Replace `<flags>` with the flags you want to use, if any.
+- Replace `<FLAGS>` with the other flags you want to use, if any.
 
 Use a comma separator to prune more than one resource in a single command.
 For example, to prune checks and dynamic runtime assets from the file `checks.yaml` or `checks.json` for the `dev` namespace and the `admin` and `ops` users:
@@ -669,8 +967,13 @@ Sensuctl supports the following formats:
 [32]: ../../operations/deploy-sensu/datastore/
 [33]: #create-resources-across-namespaces
 [34]: ../../operations/maintain-sensu/license/
+[35]: ../../operations/control-access/rbac/#roles
 [36]: #sensuctl-create-flags
 [37]: ../../operations/control-access/oidc-auth/
 [38]: ../../operations/control-access/rbac/#namespaced-resource-types
 [39]: ../../operations/control-access/sso/
 [42]: https://www.ietf.org/rfc/rfc3339.txt
+[43]: ../../operations/control-access/rbac/#cluster-roles
+[44]: ../../operations/control-access/rbac/#role-bindings
+[45]: ../../operations/control-access/rbac/#cluster-role-bindings
+[46]: ../#shell-auto-completion

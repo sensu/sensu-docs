@@ -1881,7 +1881,7 @@ platform-metrics-logging-interval: 60s{{< /code >}}
 [23]: #etcd-listen-client-urls
 [24]: ../../../operations/deploy-sensu/install-sensu#2-configure-and-start
 [25]: ../../../operations/deploy-sensu/install-sensu#3-initialize
-[26]: ../../../sensuctl/#change-admin-users-password
+[26]: ../../../sensuctl/#change-the-admin-users-password
 [27]: https://golang.org/pkg/net/http/pprof/
 [28]: ../subscriptions/
 [29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly

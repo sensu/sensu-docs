@@ -3284,7 +3284,7 @@ type: Group
 [42]: ../../deploy-sensu/install-sensu/#install-the-sensu-backend
 [43]: ../../../observability-pipeline/observe-process/sumo-logic-metrics-handlers/
 [44]: ../../../observability-pipeline/observe-process/tcp-stream-handlers/
-[45]: ../../../sensuctl/#change-admin-users-password
+[45]: ../../../sensuctl/#change-the-admin-users-password
 [46]: ../../manage-secrets/secrets-providers/
 [47]: ../../deploy-sensu/datastore/
 [48]: ../../manage-secrets/secrets/
