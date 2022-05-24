@@ -779,7 +779,7 @@ sensuctl dump entities,events,assets,checks,filters,handlers,secrets/v1.Secret -
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
-The `sensuctl prune` subcommand allows you to delete resources that do not appear in a given set of Sensu objects (called a "configuration") from a from a file, URL, or STDIN.
+The `sensuctl prune` subcommand allows you to delete resources that do not appear in a given set of Sensu objects (called a "configuration") from a from a file, URL, or stdin.
 For example, you can use `sensuctl create` to to apply a new configuration, then use `sensuctl prune` to prune unneeded resources, resources that were created by a specific user or that include a specific label selector, and more.
 
 {{% notice note %}}

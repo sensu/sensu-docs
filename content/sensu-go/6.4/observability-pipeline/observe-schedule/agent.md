@@ -1678,7 +1678,7 @@ Each agent configuration flag has an associated environment variable.
 You can also create your own environment variables, as long as you name them correctly and save them in the correct place.
 Here's how.
 
-1. Create the files from which the `sensu-agent` service configured by our supported packages will read environment variables: `/etc/default/sensu-agent` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-agent` for RHEL/CentOS systems.
+1. Create the files from which the `sensu-agent` service configured by our supported packages will read environment variables:
 
      {{< language-toggle >}}
      
@@ -1701,7 +1701,7 @@ All environment variables that control Sensu agent configuration begin with `SEN
      For a custom environment variable, you do not have to prepend `SENSU`.
      For example, `TEST_VAR_1` is a valid custom environment variable name.
 
-3. Add the environment variable to the environment file (`/etc/default/sensu-agent` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-agent` for RHEL/CentOS systems).
+3. Add the environment variable to the environment file.
 
      In this example, the `api-host` flag is configured as an environment variable and set to `"0.0.0.0"`:
      
@@ -1717,7 +1717,7 @@ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/sysconfig/sensu-agent
 
      {{< /language-toggle >}}
 
-4. Restart the sensu-agent service so these settings can take effect.
+4. Restart the sensu-agent service so these settings can take effect:
 
      {{< language-toggle >}}
 

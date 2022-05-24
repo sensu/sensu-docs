@@ -18,8 +18,8 @@ Sensu executes mutators during the **[transform][16]** stage of the [observabili
 [Pipelines][27] can specify a mutator to execute and transform observability event data before any handlers are applied.
 When the Sensu backend processes an event, it checks the pipeline for the presence of a mutator and executes that mutator before executing the handler.
 
-Mutators accept input/data via `STDIN` and can parse JSON event data.
-They output JSON data (modified event data) to `STDOUT` or `STDERR`.
+Mutators accept input/data via stdin and can parse JSON event data.
+They output JSON data (modified event data) to stdout or stderr.
 
 There are two types of mutators: [pipe][21] and [JavaScript][18].
 

@@ -25,8 +25,8 @@ If the mutator executes successfully (returns an exit status code of `0`), the m
 Exit codes other than `0` indicate failure.
 If the mutator fails to execute (returns a non-zero exit status code or fails to complete within its configured timeout), an error is logged and the handler will not execute.
 
-Mutators accept input/data via `STDIN` and can parse JSON event data.
-They output JSON data (modified event data) to `STDOUT` or `STDERR`.
+Mutators accept input/data via stdin and can parse JSON event data.
+They output JSON data (modified event data) to stdout or stderr.
 
 ## Mutator examples
 

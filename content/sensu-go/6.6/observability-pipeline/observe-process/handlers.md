@@ -19,7 +19,7 @@ Handlers are actions the Sensu backend executes on events.
 Several types of handlers are available.
 The most common are `pipe` handlers, which work similarly to [checks][1] and enable Sensu to interact with almost any computer program via [standard streams][2].
 
-- **Pipe handlers** send observation data (events) into arbitrary commands via `STDIN`
+- **Pipe handlers** send observation data (events) into arbitrary commands via stdin
 - **TCP/UDP handlers** send observation data (events) to a remote socket
 - **Handler sets** group event handlers and streamline groups of actions to execute for certain types of events (also called "set handlers")
 
@@ -30,7 +30,7 @@ Read [Use dynamic runtime assets to install plugins][23] to get started.
 
 ## Pipe handlers
 
-Pipe handlers are external commands that can consume [event][3] data via STDIN.
+Pipe handlers are external commands that can consume [event][3] data via stdin.
 
 ### Pipe handler example
 
@@ -488,7 +488,7 @@ namespace: production
 
 command      | 
 -------------|------
-description  | Handler command to be executed. The event data is passed to the process via `STDIN`. {{% notice note %}}
+description  | Handler command to be executed. The event data is passed to the process via stdin. {{% notice note %}}
 **NOTE**: The `command` attribute is only supported for pipe handlers (that is, handlers configured with `"type": "pipe"`).
 {{% /notice %}}
 required     | true (if `type` equals `pipe`)

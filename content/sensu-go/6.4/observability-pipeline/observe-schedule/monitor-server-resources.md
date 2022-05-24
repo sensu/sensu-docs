@@ -237,7 +237,7 @@ If you want to share, reuse, and maintain this check just like you would code, y
 ### Validate the CPU check
 
 The Sensu agent uses WebSocket to communicate with the Sensu backend, sending event data as JSON messages.
-As your checks run, the Sensu agent captures check standard output (`STDOUT`) or standard error (`STDERR`).
+As your checks run, the Sensu agent captures check standard output (stdout) or standard error (stderr).
 This data will be included in the JSON payload the agent sends to your Sensu backend as the event data.
 
 It might take a few moments after you create the check for the check to be scheduled on the entity and the event to return to Sensu backend.
