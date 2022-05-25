@@ -772,7 +772,7 @@ To remove all resources and events so that you can delete a namespace, run this 
 sensuctl dump entities,events,assets,checks,filters,handlers,secrets/v1.Secret --namespace <NAMESPACE_NAME> | sensuctl delete
 {{< /code >}}
 
-## Prune resources with sensuctl
+## Prune resources
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access sensuctl pruning in the packaged Sensu Go distribution.
