@@ -1798,7 +1798,7 @@ sudo touch /etc/sysconfig/sensu-agent
 
 {{< code shell "Windows" >}}
 # By default, the agent loads configuration from %ALLUSERSPROFILE%\sensu\config\agent.yml.
-# If you did not change the location for the configuration #file during installation,
+# If you did not change the location for the configuration file during installation,
 # the sensu-agent configuration file path is:
 
 C:\ProgramData\sensu\config\agent.yml
