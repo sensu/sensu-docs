@@ -2023,7 +2023,7 @@ To get started with Sensu Go:
 [126]: /sensu-go/5.19/api/#response-filtering
 [127]: /sensu-go/5.19/sensuctl/filter-responses
 [128]: /sensu-go/5.19/web-ui/search/
-[129]: /sensu-go/5.19/sensuctl/create-manage-resources#prune-resources-with-sensuctl
+[129]: /sensu-go/5.19/sensuctl/create-manage-resources#prune-resources
 [130]: /sensu-go/5.19/operations/monitor-sensu/tessen/
 [131]: /sensu-go/5.19/observability-pipeline/observe-process/handlers/#pipe-handler-command
 [133]: /sensu-go/5.19/platforms/
@@ -2083,10 +2083,10 @@ To get started with Sensu Go:
 [189]: https://github.com/sensu/grafana-sensu-go-datasource/releases/tag/1.1.0
 [190]: /sensu-go/6.1/operations/control-access/rbac/#rule-attributes
 [191]: /sensu-go/6.1/sensuctl/back-up-recover/
-[192]: /sensu-go/6.1/sensuctl/create-manage-resources/#prune-resources-with-sensuctl
+[192]: /sensu-go/6.1/sensuctl/create-manage-resources/#prune-resources
 [193]: /sensu-go/6.2/commercial/
 [194]: /sensu-go/6.2/api/enterprise/prune/
-[195]: /sensu-go/6.2/sensuctl/create-manage-resources/#prune-resources-with-sensuctl
+[195]: /sensu-go/6.2/sensuctl/create-manage-resources/#prune-resources
 [196]: /sensu-go/6.2/api/other/metrics/
 [197]: /sensu-go/6.2/observability-pipeline/observe-schedule/checks/#scheduler-attribute
 [198]: /sensu-go/6.2/observability-pipeline/observe-events/events/#sequence-attribute

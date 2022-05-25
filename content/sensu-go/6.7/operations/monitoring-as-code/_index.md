@@ -331,7 +331,7 @@ Read the [SensuFlow GitHub Action marketplace page][1] and [Monitoring as code w
 
 [1]: https://github.com/marketplace/actions/sensuflow
 [2]: ../../sensuctl/
-[3]: ../../sensuctl/create-manage-resources/#prune-resources-with-sensuctl
+[3]: ../../sensuctl/create-manage-resources/#prune-resources
 [4]: ../control-access/rbac/
 [5]: #use-sensuflow-for-cicd-monitoring-as-code
 [6]: #build-as-you-go
