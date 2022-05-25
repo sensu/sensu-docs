@@ -647,7 +647,7 @@ By default, the agent loads configuration from `%ALLUSERSPROFILE%\sensu\config\a
 Configure the configuration file and log file locations using the `config-file` and `log-file` flags:
 
 {{< code shell >}}
-sensu-agent service install --config-file 'C:\\monitoring\\sensu\\config\\agent.yml' --log-file 'C:\\monitoring\\sensu\\log\\sensu-agent.log'
+sensu-agent service install --config-file 'C:\\ProgramData\\sensu\\config\\agent.yml' --log-file 'C:\\ProgramData\\sensu\\log\\sensu-agent.log'
 {{< /code >}}
 
 {{< platformBlockClose >}}
@@ -1795,6 +1795,14 @@ sudo touch /etc/default/sensu-agent
 {{< code shell "RHEL/CentOS" >}}
 sudo touch /etc/sysconfig/sensu-agent
 {{< /code >}}
+
+{{< code shell "Windows" >}}
+# By default, the agent loads configuration from %ALLUSERSPROFILE%\sensu\config\agent.yml.
+# If you did not change the location for the configuration #file during installation,
+# the sensu-agent configuration file path is:
+
+C:\ProgramData\sensu\config\agent.yml
+{{< /code >}}
      
      {{< /language-toggle >}}
 
@@ -1821,6 +1829,13 @@ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/default/sensu-agent
 echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /code >}}
 
+{{< code shell "Windows" >}}
+# Save the following environment variable in the configuration file
+# at C:\ProgramData\sensu\config\agent.yml:
+
+SENSU_API_HOST="0.0.0.0"
+{{< /code >}}
+
      {{< /language-toggle >}}
 
 4. Restart the sensu-agent service so these settings can take effect:
@@ -1833,6 +1848,10 @@ sudo systemctl restart sensu-agent
 
 {{< code shell "RHEL/CentOS" >}}
 sudo systemctl restart sensu-agent
+{{< /code >}}
+
+{{< code shell "Windows" >}}
+sc.exe start SensuAgent
 {{< /code >}}
 
      {{< /language-toggle >}}
