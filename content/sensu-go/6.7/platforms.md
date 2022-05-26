@@ -16,7 +16,12 @@ Sensu downloads are provided under the [Sensu commercial license][7].
 
 ## Supported packages
 
-Supported packages are available through [sensu/stable][8] on packagecloud and the [downloads page][9].
+This page lists supported packages for the most common platforms.
+Supported packages for common platforms are available from [sensu/stable][8] on packagecloud and the [Sensu downloads page][9].
+
+{{% notice note %}}
+**NOTE**: The [sensu/stable](https://packagecloud.io/sensu/stable/) repository on packagecloud includes packages for every platform Sensu supports, in addition to packages for the common platforms listed on this page.
+{{% /notice %}}
 
 ### Sensu backend
 
