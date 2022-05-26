@@ -681,9 +681,11 @@ You can also configure [shell completion for sensuctl][46] to view available var
 
 #### Handle large datasets
 
-When querying sensuctl for large datasets, use the `--chunk-size` flag with any `list` command to avoid timeouts and improve performance.
+When using sensuctl to retrieve large datasets with the `list` command, add the `--chunk-size` flag to prevent query timeouts and improve performance.
+The `--chunk-size` flag allows you to specify how many events Sensu should retrieve with each query.
+Sensu will make a series of queries to retrieve all resources instead of a single query.
 
-For example, the following command returns the same output as `sensuctl event list` but makes multiple API queries (each for the number of objects specified by `--chunk-size`) instead of one API query for the complete dataset:
+For example, the following command returns the same output as `sensuctl event list` but makes multiple API queries, each for the number of resources specified with `--chunk-size`, instead of one query for the complete dataset:
 
 {{< code shell >}}
 sensuctl event list --chunk-size 500
