@@ -22,14 +22,30 @@ The `create` command accepts Sensu resource definitions in [`yaml` or `wrapped-j
 Review the [list of supported resource types][3] `for sensuctl create`.
 Read the [reference docs][6] for information about creating resource definitions.
 
-{{% notice note %}}
-**NOTE**: You cannot use sensuctl to update [agent-managed entities](../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
-Requests to update agent-managed entities via sensuctl will fail and return an error.
-{{% /notice %}}
+Resources that you create with `sensuctl create` will include the following label in the metadata:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+sensu.io/managed_by: sensuctl
+{{< /code >}}
+
+{{< code json >}}
+{
+  "sensu.io/managed_by": "sensuctl"
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
 
 You can create more than one resource at a time with `sensuctl create`.
 If you use YAML, separate the resource definitions by a line with three hyphens: `---`.
 If you use wrapped JSON, separate the resources *without* a comma.
+
+{{% notice note %}}
+**NOTE**: You can also use the `sensuctl <RESORUCE_TYPE> create` command to create resources with sensuctl.
+Read [Use the create subcommand](#use-the-create-subcommand) for more information and an example.
+{{% /notice %}}
 
 ### Create resources from STDIN
 
@@ -525,6 +541,11 @@ sensuctl delete --file pagerduty.json
 Sensuctl allows you to update resource definitions with a text editor.
 To use `sensuctl edit`, specify the resource [type][5] and resource name.
 
+{{% notice note %}}
+**NOTE**: You cannot use sensuctl to update [agent-managed entities](../../observability-pipeline/observe-entities/entities/#manage-agent-entities-via-the-agent).
+Requests to update agent-managed entities via sensuctl will fail and return an error.
+{{% /notice %}}
+
 For example, to edit a handler named `slack` with `sensuctl edit`:
 
 {{< code shell >}}
@@ -623,7 +644,7 @@ list                       list resources
 
 {{% notice note %}}
 **NOTE**: The delete, info, and list subcommands are not supported for all resource types.
-Run `sensuctl <TYPE> -h` to confirm which subcommands are supported for a specific resource type.
+Run `sensuctl <RESOURCE_TYPE> -h` to confirm which subcommands are supported for a specific resource type.
 You can also configure [shell completion for sensuctl](../#use-shell-autocompletion-with-sensuctl) to view available variables for sensuctl commands.
 {{% /notice %}}
 
@@ -677,8 +698,103 @@ sensuctl check delete check-cpu
 In addition to the delete, info, and list operations, many commands support flags and subcommands that allow you to take special action based on the resource type.
 The sections below describe some of the resource-specific operations.
 
-Run `sensuctl <TYPE> -h` to retrieve a complete list of the supported flags and subcommands for a specific resource command.
+Run `sensuctl <RESOURCE_TYPE> -h` to retrieve a complete list of the supported flags and subcommands for a specific resource command.
 You can also configure [shell completion for sensuctl][46] to view available variables for sensuctl commands.
+
+#### Use the create subcommand
+
+Many resource types include a `create` subcommand that you can use to create resources using flags.
+Run `sensuctl <RESOURCE_TYPE> create -h` to get a list of the supported flags for the resource type.
+
+For example, run this command to create a check, using flags to specify the check's command, interval, subscriptions, and runtime assets:
+
+{{< code shell >}}
+sensuctl check create check_cpu \
+--command 'check-cpu-usage -w 75 -c 90' \
+--interval 60 \
+--subscriptions system \
+--runtime-assets sensu/check-cpu-usage
+{{< /code >}}
+
+The command creates a check with the following definition:
+
+{{< language-toggle >}}
+
+{{< code yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  created_by: admin
+  name: check_cpu
+  namespace: default
+spec:
+  check_hooks: null
+  command: check-cpu-usage -w 75 -c 90
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
+  interval: 60
+  low_flap_threshold: 0
+  output_metric_format: ""
+  output_metric_handlers: null
+  pipelines: []
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets:
+  - sensu/check-cpu-usage
+  secrets: null
+  stdin: false
+  subdue: null
+  subscriptions:
+  - system
+  timeout: 0
+  ttl: 0
+{{< /code >}}
+
+{{< code json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "created_by": "admin",
+    "name": "check_cpu",
+    "namespace": "default"
+  },
+  "spec": {
+    "check_hooks": null,
+    "command": "check-cpu-usage -w 75 -c 90",
+    "env_vars": null,
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 60,
+    "low_flap_threshold": 0,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "pipelines": [],
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": [
+      "sensu/check-cpu-usage"
+    ],
+    "secrets": null,
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "system"
+    ],
+    "timeout": 0,
+    "ttl": 0
+  }
+}
+{{< /code >}}
+
+{{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: Resources created with the `sensuctl <RESOURCE_TYPE> create` subcommand **do not** include the label `sensu.io/managed_by: sensuctl`.
+{{% /notice %}}
 
 #### Handle large datasets
 
@@ -786,8 +902,8 @@ For example, you can use `sensuctl create` to to apply a new configuration, then
 
 {{% notice note %}}
 **NOTE**: `sensuctl prune` is an alpha feature and may include breaking changes.<br><br>
-`sensuctl prune` can only delete resources that have the label `sensu.io/managed_by: sensuctl`, which Sensu automatically adds to all resources created with sensuctl.
-This means you can only use `sensuctl prune` to delete resources that were created with sensuctl.
+`sensuctl prune` can only delete resources that have the label `sensu.io/managed_by: sensuctl`, which Sensu automatically adds to resources created with the `sensuctl create` command.
+This means you can only use `sensuctl prune` to delete resources that were created with `sensuctl create`.
 {{% /notice %}}
 
 The pruning operation always follows the role-based access control (RBAC) permissions of the current user.
