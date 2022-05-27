@@ -1023,19 +1023,10 @@ sensuctl prune all --omit core/v2.Role,core/v2.RoleBinding,core/v2.ClusterRole,c
 
 ## Time formats
 
-Sensuctl supports multiple time formats depending on the manipulated resource.
-Supported canonical time zone IDs are defined in the [tz database][2].
+Sensuctl supports multiple formats for resource attributes that require a time.
+To specify an exact point in time (for example, when setting a silence), use full dates with times.
 
-{{% notice warning %}}
-**WARNING**: Windows does not support canonical zone IDs (for example, `America/Vancouver`).
-{{% /notice %}}
-
-### Dates with time
-
-Use full dates with time to specify an exact point in time.
-This is useful for setting silences, for example.
-
-Sensuctl supports the following formats:
+Although supported formats depend on the resource type, sensuctl generally supports the following formats for dates with time:
 
 * [RFC 3339][42] with numeric zone offset: `2018-05-10T07:04:00-08:00` or
   `2018-05-10T15:04:00Z`
@@ -1043,6 +1034,14 @@ Sensuctl supports the following formats:
   -08:00`
 * Sensu alpha legacy format with canonical zone ID: `May 10 2018 7:04AM
   America/Vancouver`
+
+Use the `--help` (`-h`) flag for specific sensuctl commands and resources to learn which time format to use.
+
+Supported canonical time zone IDs are defined in the [tz database][2].
+
+{{% notice warning %}}
+**WARNING**: Windows does not support canonical zone IDs (for example, `America/Vancouver`).
+{{% /notice %}}
 
 
 [1]: ../../operations/control-access/rbac/
