@@ -356,6 +356,11 @@ Sensu Go instances built from source do not include [commercial features][3] suc
 Review the [feature comparison matrix][15] to learn more.
 To build Sensu Go from source, read the [Sensu Go installation instructions on GitHub][16].
 
+## Mirror packages
+
+To mirror Sensu Go, follow the packagecloud instructions for [YUM][63] and [APT][64] repository mirroring.
+The [sensu/stable][8] packagecloud repository hosts packages for every Sensu Go version.
+
 
 [1]: #supported-packages
 [2]: #docker-images
@@ -416,3 +421,5 @@ To build Sensu Go from source, read the [Sensu Go installation instructions on G
 [60]: https://github.com/sensu/web
 [61]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.4.3/sensu-go_6.4.3_darwin_arm64.tar.gz
 [62]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/6.4.3/sensu-go_6.4.3_darwin_arm64.zip
+[63]: https://packagecloud.io/sensu/stable/mirror#yum
+[64]: https://packagecloud.io/sensu/stable/mirror#apt
