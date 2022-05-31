@@ -207,7 +207,7 @@ output         | {{< code text >}}
 
 {{% notice commercial %}}
 **COMMERCIAL FEATURE**: Access the `/user-namespaces` API endpoint in the packaged Sensu Go distribution.
-For more information, read [Get started with commercial features](../commercial/).
+For more information, read [Get started with commercial features](../../../commercial/).
 {{% /notice %}}
 
 The `/user-namespaces` API endpoint provides HTTP GET access to the namespaces the current user can access.
