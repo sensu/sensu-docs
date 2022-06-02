@@ -21,9 +21,99 @@ This guide explains how to use a proxy entity to monitor website status, as well
 
 To follow this guide, you’ll need to [install][19] the Sensu backend, have at least one Sensu agent running, and install and configure sensuctl.
 
-## Use a proxy entity to monitor a website
+## Use a proxy entity to monitor a website (Sensu Catalog configuration)
 
-In this section, you'll monitor the status of [sensu.io](https://sensu.io) by configuring a check with a **proxy entity name** so that Sensu creates an entity that represents the site and reports the status of the site under this entity.
+Follow the steps in this section to use the [Sensu Catalog][25] to configure status monitoring for [sensu.io][24].
+You'll configure a check with a proxy entity name and Sensu will create an entity to represent sensu.io and report the status of the site under this entity.
+
+The Sensu Catalog is part of the Sensu web UI, so you can complete all the necessary configuration directly from your browser.
+
+### Configure a Sensu entity
+
+To run the proxy entity check, you'll need a Sensu agent entity with the subscription `run_proxies`.
+Here's how to add the subscription:
+
+1. In the web UI, navigate to the [Entities page][26].
+
+2. Click the agent entity you want to use to run your check.
+
+3. At the top right corner of the individual entity's page, click **EDIT** to open the Edit Entity dialog.
+
+4. Under **Schedule**, type `run_proxies` in the **Subscriptions** and press **Return**.
+
+5. Click **SUBMIT** to save your changes.
+
+    {{< figure src="/images/mon_ext_res_entity_subs.gif" alt="Add the run_proxies subscription to an agent entity" link="/images/mon_ext_res_entity_subs.gif" target="_blank" >}}
+
+On the individual entity's page, the **subscriptions** should now include `run_proxies`.
+
+{{< figure src="/images/mon_ext_res_confirm_subscription.png" alt="Confirm the agent entity includes the run_proxies subscription" link="/images/mon_ext_res_confirm_subscription.png" target="_blank" >}}
+
+### Create the check with a Sensu Catalog integration
+
+With your entity subscription configured, you can use the Sensu Catalog to create the check you need to monitor sensu.io.
+
+1. In the web UI, navigate to the [Sensu Catalog page][25].
+
+2. In the catalog menu on the left, click **Service monitoring** and click the **HTTP Endpoint Monitoring (Remote)** integration.
+
+    {{< figure src="/images/mon_ext_res_nav_to_integration.gif" alt="Navigate to the HTTP Endpoint Monitoring (Remote) integration in the Sensu Catalog" link="/images/mon_ext_res_nav_to_integration.gif" target="_blank" >}}
+
+3. At the top right corner of the page, click **INSTALL...** to open the HTTP Endpoint Configuration dialog page.
+
+    Installing the HTTP Endpoint Monitoring (Remote) integration will add the following resources to your Sensu instance:
+
+    - The [`sensu/http-checks` asset][16]
+    - Two checks: one to produce endpoint status events and one to collect endpoint metrics
+    - A new proxy entity to represent [sensu.io][24]
+
+4. In the HTTP Endpoint Configuration dialog page, update the values in the `HTTP Endpoint Host` and `Interval` fields:
+
+    - HTTP Endpoint Host: type `sensu.io`
+    - Interval: type `15`
+
+    After you update the values, click **NEXT**.
+
+    {{< figure src="/images/mon_ext_res_endpoint_interval.png" alt="Update the HTTP Endpoint Host and Interval values for the check" link="/images/mon_ext_res_endpoint_interval.png" target="_blank" >}}
+
+5. In the Configure Sensu Subscriptions dialog page, type `run_proxies` in the Subscriptions field and press **Return**.
+After you add the subscription, click **NEXT**.
+
+    {{< figure src="/images/mon_ext_res_check_subscription.png" alt="Add the run_proxies subscription for the check" link="/images/mon_ext_res_check_subscription.png" target="_blank" >}}
+
+8. The HTTP Endpoint Monitoring (Remote) integration in the Sensu Catalog includes a dialog page for adding [pipelines][23] to filter and handle your check's events.
+If you already have a pipeline to use, you can add it now.
+Otherwise, click **NEXT** to skip this step.
+
+9. The Summary dialog page lists definitions for the resources that the integration will add.
+Click the down-arrow next to any resource to view its complete definition in YAML or JSON format.
+
+    {{< figure src="/images/mon_ext_res_resources_summary.gif" alt="View the asset and check definitions in the Summary dialog page" link="/images/mon_ext_res_resources_summary.gif" target="_blank" >}}
+
+10. Click **APPLY** to save the asset and check definitions for the integration.
+
+11. Click **FINISH** to return to the integration page.
+
+### Validate the check
+
+To make sure that the monitoring check is working properly, confirm that Sensu created an entity to represent sensu.io and the `http-endpoint-healthcheck` check is producing events.
+
+1. In the web UI, navigate to the [Entities page][26].
+
+2. Confirm that the Entities page lists a proxy entity named `sensu.io`.
+
+    {{< figure src="/images/mon_ext_res_confirm_entity.png" alt="Confirm the sensu.io proxy entity is listed on the Entities page" link="/images/mon_ext_res_confirm_entity.png" target="_blank" >}}
+
+3. Click the `sensu.io` entity to open the individual entity page.
+
+4. Confirm that the individual entity page for `sensu.io` lists an event for the `sensu.io-https-endpoint-healthcheck` check.
+Click the event for details and history.
+
+    {{< figure src="/images/mon_ext_res_confirm_event.png" alt="Confirm that the sensu.io-https-endpoint-healthcheck check is producing events" link="/images/mon_ext_res_confirm_event.png" target="_blank" >}}
+
+## Use a proxy entity to monitor a website (command line configuration)
+
+In this section, you'll use [sensuctl][8] to configure a check with a **proxy entity name** to monitor the status of [sensu.io][24] so that Sensu creates an entity that represents the site and reports the status of the site under this entity.
 
 ### Configure a Sensu entity
 
@@ -213,10 +303,10 @@ UUID:      xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 You can also view the new proxy entity in your [Sensu web UI][10].
 
-## Use proxy requests to monitor a group of websites
+## Use proxy requests to monitor a group of websites (command line configuration)
 
 Suppose that instead of monitoring just sensu.io, you want to monitor multiple sites, like docs.sensu.io, packagecloud.io, and github.com.
-In this section, you'll use the [`proxy_requests` check attribute][3] along with [entity labels][11] and [token substitution][12] to monitor three sites with the same check.
+In this section, you'll use [sensuctl][8] to configure the [`proxy_requests` check attribute][3], [entity labels][11], and [token substitution][12] required to monitor three sites with the same check.
 
 Before you start, [register the http-checks dynamic runtime asset][13] if you haven't already.
 
@@ -488,3 +578,6 @@ Follow any of these guides to learn how to configure event filters, handlers, an
 [21]: ../../../sensuctl/sensuctl-bonsai/#install-dynamic-runtime-asset-definitions
 [22]: ../../observe-process/handlers/
 [23]: ../../observe-process/pipelines/
+[24]: https://sensu.io
+[25]: ../../../web-ui/sensu-catalog/
+[26]: ../../../web-ui/view-manage-resources/#manage-entities
