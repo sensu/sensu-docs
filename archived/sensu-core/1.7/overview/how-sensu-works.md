@@ -33,4 +33,4 @@ menu:
 - The **Sensu Server** executes the **Event Handler** (assuming the event was
   not filtered out)
 
-![Sensu Architecture Gif](/images/sensu-diagram.gif)
+{{< figure src="/images/core/how_sensu_works/sensu_monitoring_flow_diagram.gif" alt="Sensu Core monitoring flow diagram" link="/images/core/how_sensu_works/sensu_monitoring_flow_diagram.gif" target="_blank" >}}

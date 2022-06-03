@@ -72,7 +72,7 @@ While fine for an example, we recommend that you have the permissions locked dow
 
 For a visual representation of the queues that clients have access to, let's take a quick look at a graphical representation of AMQP entities in Sensu:
 
-![sensu-amqp-entities](/images/sensu-amqp-entities.png)
+{{< figure src="/images/core/securing_rabbitmq/amqp_entities_sensu.png" alt="Diagram or AMQP entities in Sensu" link="/images/core/securing_rabbitmq/amqp_entities_sensu.png" target="_blank" >}}
 
 So how do we lock down permissions for our clients?
 
