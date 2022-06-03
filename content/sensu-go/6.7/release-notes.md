@@ -137,7 +137,7 @@ Sensu Go 6.7.1 delivers several improvements and fixes in the Sensu Catalog, alo
 Read the [upgrade guide][1] to upgrade Sensu to version 6.7.1.
 
 **IMPROVEMENTS**
-- ([Commercial feature][268]) Updated install button styling and improved text padding and margins for integration details and configuration wizard icons in the [Sensu Catalog][290].
+- ([Commercial feature][268]) Updated install button styling and improved text padding and margins for integration details and configuration dialog icons in the [Sensu Catalog][290].
 - ([Commercial feature][268]) In the [Sensu Catalog][290], the integrations list is now sorted alphabetically.
 - The cron scheduler now logs that it is stopping before it begins the process of stopping.
 
