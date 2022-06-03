@@ -332,8 +332,8 @@ Delete the root CA certificate from login.
 Press Windows+R to open the Run dialog.
 Type "MMC" (without quotation marks) in the Run dialog and press Enter to open the MMC console.
 In the MMC console, expand the Certificates (Local Computer) node and navigate to Trusted Root Certification Authorities > Certificates.
-Right-click the Trusted Root Certification Authorities > Certificates folder and select All Tasks > Import to open the Certificate Import wizard.
-In the Certificate Import wizard, click Next and browse to the location where the root CA certificate is stored.
+Right-click the Trusted Root Certification Authorities > Certificates folder and select All Tasks > Import to open the Certificate Import dialog.
+In the Certificate Import dialog, click Next and browse to the location where the root CA certificate is stored.
 Select the root CA certificate file and click Open.
 Click Next, click Next, and click Finish.
 {{< /code >}}

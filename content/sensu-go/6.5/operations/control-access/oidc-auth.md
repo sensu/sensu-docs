@@ -403,7 +403,7 @@ The steps may be different if you are using the Okta Classic UI.
     - Select the sign-in method `OIDC - OpenID Connect`.
     - Select the application type `Web Application`.
 4. Click **Next**.
-5. In the *New Web App Integration* wizard:
+5. In the *New Web App Integration* dialog:
     - In the *App integration name* field, enter the app name.
 You can also upload a logo if desired.
     - Under *Grant type*, click to select `Refresh Token` in the *Client acting on behalf of a user* list.

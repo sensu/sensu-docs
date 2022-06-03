@@ -131,29 +131,29 @@ Use the **INSTALL** button to [configure and install the integration](#configure
 When you find an integration you want to use, click the integration tile to open the detail page.
 To configure and install an integration:
 
-1. Click **INSTALL** to open the configuration wizard.
-The configuration wizard is a multi-page form with fields and prompts for collecting additional configuration attributes for the integration.
-2. Type values in each attribute field in the wizard to configure the integration for your instance.
-Use the **NEXT** and **BACK** buttons to navigate through wizard pages as needed.
+1. Click **INSTALL** to open the configuration dialog.
+The configuration dialog is a multi-page form with fields and prompts for collecting additional configuration attributes for the integration.
+2. Type values in each attribute field in the dialog to configure the integration for your instance.
+Use the **NEXT** and **BACK** buttons to navigate through configuration dialog pages as needed.
 3. Review the resource definitions on the Summary page.
 4. Click **APPLY** to save your configuration and create the integration resources.
-5. Click **FINISH** on the confirmation page to close the configuration wizard.
+5. Click **FINISH** on the confirmation page to close the configuration dialog.
 
 {{% notice note %}}
 **NOTE**: When you click **APPLY** in step 4, Sensu creates all of the resources the integration requires.
 Check resources are automatically published and will execute immediately.
 {{% /notice %}}
 
-The configuration wizard suggests values for each attribute field.
+The configuration dialog suggests values for each attribute field.
 These suggestions are collected from your existing resources and refined based on the specific requirements of the integration.
-For example, if you are setting up a metrics collection integration that requires a pipeline, the wizard will only suggest existing metrics-compatible pipelines for that integration.
-If you do not have any metrics-compatible pipelines, the wizard will not make suggestions for that attribute.
+For example, if you are setting up a metrics collection integration that requires a pipeline, the dialog will only suggest existing metrics-compatible pipelines for that integration.
+If you do not have any metrics-compatible pipelines, the dialog will not make suggestions for that attribute.
 
-The Summary page of the configuration wizard lists the definition for each resource that Sensu will create when you click **APPLY**.
-These resource definitions include the attribute values you provided in the configuration wizard.
+The Summary page of the configuration dialog lists the definition for each resource that Sensu will create when you click **APPLY**.
+These resource definitions include the attribute values you provided in the configuration dialog.
 Click the dropdown arrows to review the resource definitions:
 
-{{< figure src="/images/catalog_integration_summary_definitions.gif" alt="Summary page of configuration wizard for a Sensu Catalog integration" link="/images/catalog_integration_summary_definitions.gif" target="_blank" >}}
+{{< figure src="/images/catalog_integration_summary_definitions.gif" alt="Summary page of configuration dialog for a Sensu Catalog integration" link="/images/catalog_integration_summary_definitions.gif" target="_blank" >}}
 
 The resulting resource definitions represent Sensu's recommended configuration for the integration.
 
@@ -166,12 +166,12 @@ The Sensu Catalog integrations are preconfigured to use Sensu's `Env` secrets pr
 You can reuse the same integration as long as all resource definitions have unique names.
 
 When you install an integration, Sensu checks your existing resources before creating new resources.
-If Sensu finds an existing resource with the same name, the configuration wizard will prompt you to either change the names of the existing resources or acknowledge that the new resources should overwrite the existing resources.
+If Sensu finds an existing resource with the same name, the configuration dialog will prompt you to either change the names of the existing resources or acknowledge that the new resources should overwrite the existing resources.
 
 If you want to keep the existing resources, use the [Sensu API][11] to change their names with PUT requests before you continue and create the new resources.
 Otherwise, click **OVERWRITE** to replace the existing resources with the new resources.
 
-{{< figure src="/images/rename_overwrite_prompt.gif" alt="Summary page of configuration wizard with overwrite warning for a duplicate Sensu Catalog integration" link="/images/rename_overwrite_prompt.gif" target="_blank" >}}
+{{< figure src="/images/rename_overwrite_prompt.gif" alt="Summary page of configuration dialog with overwrite warning for a duplicate Sensu Catalog integration" link="/images/rename_overwrite_prompt.gif" target="_blank" >}}
 
 ## View and manage your integrations
 
