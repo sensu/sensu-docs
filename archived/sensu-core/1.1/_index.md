@@ -44,7 +44,7 @@ Started in 2011, Sensu’s flexible approach solves the challenges of monitoring
 
 > Monitoring is the action of observing and checking the behaviors and outputs of a system and its components over time. - [Greg Poirier, Monitorama 2016](https://vimeo.com/173610062)
 
-{{< figure src="/images/core/homepage/monitoring_infrastructure_diagram.png" alt="Sensu Core event pipeline diagram" link="/images/core/homepage/monitoring_infrastructure_diagram.png" target="_blank" >}}
+{{< figure src="/images/core/homepage/monitoring_infrastructure_diagram.png" alt="Sensu Core monitoring infrastructure diagram" link="/images/core/homepage/monitoring_infrastructure_diagram.png" target="_blank" >}}
 
 Sensu is an agent-based monitoring tool that you install on your organization's infrastructure.
 The Sensu client gives you visibility into everything you care about; the Sensu server gives you flexible, automated workflows to route metrics and alerts.
