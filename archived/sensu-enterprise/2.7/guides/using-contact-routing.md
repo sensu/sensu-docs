@@ -203,7 +203,7 @@ For our first configuration we have a single handler `email` and a contact `supp
 
 Because the `support` contact's configuration provides overrides matching the handler being used, any event generated for this check will use this contact's configuration.
 
-![Single Handler with Single Matching Contact](/images/contact-routing/single-handler/single-matching-contact.png)
+{{< figure src="/images/enterprise/using_contact_routing/single_handler_single_matching_contact.png" alt="Contact routing example of a single handler with a single matching contact" link="/images/enterprise/using_contact_routing/single_handler_single_matching_contact.png" target="_blank" >}}
 
 #### Single Handler with a Single Non-Matching Contact
 
@@ -243,7 +243,7 @@ This configuration has a single handler `email` and a contact `support` configur
 
 Although the contact `support` is defined under `contacts` and specified correctly in the check definition, the contact does not provide configuration for the `email` integration. This means no change will be made to the default `email` configuration. In this case, an email will be sent to "default@example.com".
 
-![Single Handler with Single Non-Matching Contact](/images/contact-routing/single-handler/single-non-matching-contact.png)
+{{< figure src="/images/enterprise/using_contact_routing/single_handler_single_nonmatching_contact.png" alt="Contact routing example of a single handler with a single non-matching contact" link="/images/enterprise/using_contact_routing/single_handler_single_nonmatching_contact.png" target="_blank" >}}
 
 #### Single Handler with Multiple Matching Contacts
 
@@ -289,7 +289,7 @@ In this configuration we have a single handler, `email`, and multiple contacts, 
 
 In this instance, although we are using only one handler `email`, Sensu runs the handler multiple times to send an email to "support@sensuapp.io" and to "dev@sensuapp.io".
 
-![Single Handler with Multiple Matching Contacts](/images/contact-routing/single-handler/multiple-matching-contacts.png)
+{{< figure src="/images/enterprise/using_contact_routing/single_handler_multiple_matching_contacts.png" alt="Contact routing example of a single handler with multiple matching contacts" link="/images/enterprise/using_contact_routing/single_handler_multiple_matching_contacts.png" target="_blank" >}}
 
 #### Single Handler with Multiple Non-Matching Contacts
 
@@ -335,7 +335,7 @@ For this configuration we have a single handler, `email`, and multiple contacts,
 
 In this instance, since the contacts defined do not have an override configuration for `email`, the default configuration for `email` will be used. In our example an email will be sent to "default@example.com"
 
-![Single Handler with Multiple Non-Matching Contacts](/images/contact-routing/single-handler/multiple-non-matching-contacts.png)
+{{< figure src="/images/enterprise/using_contact_routing/single_handler_multiple_nonmatching_contacts.png" alt="Contact routing example of a single handler with multiple non-matching contacts" link="/images/enterprise/using_contact_routing/single_handler_multiple_nonmatching_contacts.png" target="_blank" >}}
 
 #### Single Handler with Some Matching Contacts
 
@@ -388,7 +388,7 @@ In this instance, Sensu generates two emails: one email to the `support` contact
 
 The reason for this is that since we have one or more contacts that do not have a configuration override for `email`, Sensu uses the default configuration.
 
-![Single Handler with Some Matching Contacts](/images/contact-routing/single-handler/some-matching-contacts.png)
+{{< figure src="/images/enterprise/using_contact_routing/single_handler_some_matching_contacts.png" alt="Contact routing example of a single handler with some matching contacts" link="/images/enterprise/using_contact_routing/single_handler_some_matching_contacts.png" target="_blank" >}}
 
 ### Multiple Handlers
 
@@ -434,7 +434,7 @@ In this configuration we have two handlers, `email` and `slack`,  and a contact,
 
 Because the contact configuration matches both handlers being used, any event generated for this check uses this contact's configuration.
 
-![Multiple Handlers with Matching Contact](/images/contact-routing/multiple-handlers/matching-contact.png)
+{{< figure src="/images/enterprise/using_contact_routing/multiple_handlers_matching_contact.png" alt="Contact routing example of multiple handlers with a matching contact" link="/images/enterprise/using_contact_routing/multiple_handlers_matching_contact.png" target="_blank" >}}
 
 #### Multiple Handlers with a Single Matching Contact
 
@@ -475,7 +475,7 @@ In this configuration we have two handlers,`email` and `slack`, and a contact, `
 
 Because the contact configuration only has a configuration override for the `email` handler, Sensu overrides only the `email` handler and uses the default configuration for `slack`.
 
-![Multiple Handlers with Single Matching Contact](/images/contact-routing/multiple-handlers/single-matching-contact.png)
+{{< figure src="/images/enterprise/using_contact_routing/multiple_handlers_one_matching_contact.png" alt="Contact routing example of multiple handlers with one matching contact" link="/images/enterprise/using_contact_routing/multiple_handlers_one_matching_contact.png" target="_blank" >}}
 
 #### Multiple Handlers with a Single Non-Matching Contact
 
@@ -516,7 +516,7 @@ Similar to the previous configuration, we have two handlers, `email` and `slack`
 
 Since the contact does not have a configuration override for `email` or `slack`, Sensu uses the default configuration for those handlers instead.
 
-![Multiple Handlers with Single Non-Matching Contact](/images/contact-routing/multiple-handlers/single-non-matching-contact.png)
+{{< figure src="/images/enterprise/using_contact_routing/multiple_handlers_one_nonmatching_contact.png" alt="Contact routing example of multiple handlers with a single non-matching contact" link="/images/enterprise/using_contact_routing/multiple_handlers_one_nonmatching_contact.png" target="_blank" >}}
 
 #### Multiple Handlers with Multiple Matching Contacts
 
@@ -569,7 +569,7 @@ In this example we have two handlers configured for our check, `email` and `slac
 
 Since both contacts match and both contacts have configuration overrides for both handlers, four handler events are generated. Two emails will be sent, one for the `support` contact `to` "support@sensuapp.io" and one to the `dev` contact `to` "dev@sensuapp.io". The same is true for the `slack` handler with the `support` contact creating a message in the "#support" `channel` and the `dev` contact creating a message in the "#dev" `channel`.
 
-![Multiple Handlers with Multiple Matching Contacts](/images/contact-routing/multiple-handlers/multiple-matching-contacts.png)
+{{< figure src="/images/enterprise/using_contact_routing/multiple_handlers_multiple_matching_contacts.png" alt="Contact routing example of multiple handlers with multiple matching contacts" link="/images/enterprise/using_contact_routing/multiple_handlers_multiple_matching_contacts.png" target="_blank" >}}
 
 #### Multiple Handlers with Multiple Non-Matching Contacts
 
@@ -616,7 +616,7 @@ In this example we have two handlers configured for our check, `email` and `slac
 
 Since both contacts match and neither contact provides configuration overrides for either handler, Sensu generates two handler events and uses the default configuration for both.
 
-![Multiple Handlers with Multiple Non-Matching Contact](/images/contact-routing/multiple-handlers/multiple-non-matching-contacts.png)
+{{< figure src="/images/enterprise/using_contact_routing/multiple_handlers_multiple_nonmatching_contacts.png" alt="Contact routing example of multiple handlers with multiple non-matching contacts" link="/images/enterprise/using_contact_routing/multiple_handlers_multiple_nonmatching_contacts.png" target="_blank" >}}
 
 #### Multiple Handlers with Some Matching Contacts
 
@@ -674,7 +674,7 @@ For the `email` handler, Sensu sends an email to the `support` contact override,
 For the `slack` handler, similar to our email handler, Sensu creates a message in the `#dev` channel for our `dev` contact. Because neither the `support` or `eng` contacts provide an override for `slack`, Sensu sends a single additional notification to our default `slack` channel, "#alerts".
 
 
-![Multiple Handlers with Some Matching Contact](/images/contact-routing/multiple-handlers/some-matching-contacts.png)
+{{< figure src="/images/enterprise/using_contact_routing/multiple_handlers_some_matching_contacts.png" alt="Contact routing example of multiple handlers with some matching contacts" link="/images/enterprise/using_contact_routing/multiple_handlers_some_matching_contacts.png" target="_blank" >}}
 
 ## Wrapping Up
 
@@ -684,7 +684,7 @@ When a check is executed and an event is generated, Sensu sends a copy of
 of the event to each defined handler, allowing the workflow for each handler to be managed
 independently.
 
-![Contact Routing and Monitoring Event Pipeline](/images/contact-routing/contact-routing-MEP.png)
+{{< figure src="/images/enterprise/using_contact_routing/contact_routing_monitoring_event_pipeline.png" alt="Contact routing and the Sensu monitoring event pipeline" link="/images/enterprise/using_contact_routing/contact_routing_monitoring_event_pipeline.png" target="_blank" >}}
 
 Each handler evaluates the event to determine which contacts should be notified. For each contact defined in the event, the handler generates a notification using either the contact's override configuration or the default handler configuration. For events which define multiple contacts without applicable overrides, only a single notification is generated using the default handler configuration.
 

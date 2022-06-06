@@ -130,11 +130,11 @@ aws iam attach-role-policy --role-name sensu-enterprise-integration --policy-arn
 
 Now that we've created a policy and a role for the integration, we'll need to attach it to our Sensu Enterprise instance. You can do this during step 3 of creating any instance via the EC2 console:
 
-![ec2_role_create][10]
+{{< figure src="/images/enterprise/using_ec2/attach_policy_role.png" alt="Attach the policy and role for the Sensu Enterprise EC2 integration" link="/images/enterprise/using_ec2/attach_policy_role.png" target="_blank" >}}
 
 Now that we have the policy and role created, and the role attached to an instance, let's see this in action on a test instance:
 
-![ec2_test_gif][11]
+{{< figure src="/images/enterprise/using_ec2/iam_role_sensu_enterprise_servers.gif" alt="Use the IAM role with Sensu Enterprise servers" link="/images/enterprise/using_ec2/iam_role_sensu_enterprise_servers.gif" target="_blank" >}}
 
 ## Cross-Account IAM Roles
 
@@ -278,8 +278,6 @@ We hope you've found this useful. For additional resources about the EC2 integra
 [7]: https://aws.amazon.com/cli/
 [8]: ../../files/sensu-ec2-iam-policy.json
 [9]: ../../files/sensu-ec2-iam-role.json
-[10]: /images/ec2_10.png
-[11]: /images/ec2_test.gif
 [12]: ../../files/cross-account-readonly-policy.json
 [13]: ../../files/cross-account-readonly-role.json
 [14]: ../../files/cross-account-assumerole-policy.json

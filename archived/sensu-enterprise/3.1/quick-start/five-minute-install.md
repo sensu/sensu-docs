@@ -239,8 +239,9 @@ curl -s http://127.0.0.1:4567/settings | jq .{{< /code >}}
 
 You now be able to view the Sensu Enterprise Dashboard in your browser by visiting [http://hostname:3000](http://hostname:3000) (replacing `hostname` with the hostname or IP address of the system where the dashboard is installed).
 
-![five-minute-dashboard-1](/images/five-minute-dashboard-1.png)
-![five-minute-dashboard-2](/images/five-minute-dashboard-2.png)
+{{< figure src="/images/enterprise/five_minute_install/clients_ent_dashboard.png" alt="Sensu Enterprise Dashboard page listing clients" link="/images/enterprise/five_minute_install/clients_ent_dashboard.png" target="_blank" >}}
+
+{{< figure src="/images/enterprise/five_minute_install/first_client_detail_page.png" alt="Detail page for first Sensu client in Enterprise Dashboard" link="/images/enterprise/five_minute_install/first_client_detail_page.png" target="_blank" >}}
 
 Now you're ready to start building monitoring event pipelines with Sensu!
 
