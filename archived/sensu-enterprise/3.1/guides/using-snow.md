@@ -88,7 +88,7 @@ Let's walk through some of the key items in the configuration:
 
 After restarting our client to pick up the configuration, we can then see it in our dashboard:
 
-![snow_inventory][3]
+{{< figure src="/images/enterprise/using_snow/snow_inventory.png" alt="View the Sensu client in the ServiceNow dashboard" link="/images/enterprise/using_snow/snow_inventory.png" target="_blank" >}}
 
 _NOTE: The key/value pairs under the `"configuration_item"` scope are exposed by our SNOW instance. These are all custom attriutes. I.e., they are not Sensu-reserved key words. One method of finding the full list of the attributes available in your SNOW instance is to go to "Inventory", right click on one of the column names, and then click "Show XML"._
 
@@ -112,9 +112,9 @@ Like any check, we can add the `"servicenow"` integration to our array of handle
 
 In the example above, we're using the [Sensu community disk check plugin][4] to check the disk space for any `"dev"` subscribers. If we receive a warning or critical event for the disk space, an incident will appear in our Incident table inside of SNOW:
 
-![snow_incident][5]
+{{< figure src="/images/enterprise/using_snow/snow_incident.png" alt="View a warning or critical event for disk space in the Incident table in the ServiceNow dashboard" link="/images/enterprise/using_snow/snow_incident.png" target="_blank" >}}
 
-![snow_incident_detail][6]
+{{< figure src="/images/enterprise/using_snow/snow_incident_detail.png" alt="View details for the disk space event in the ServiceNow dashboard" link="/images/enterprise/using_snow/snow_incident_detail.png" target="_blank" >}}
 
 ## Testing the Configuration
 
@@ -128,7 +128,7 @@ This is a quick way to send JSON data to the local Sensu client socket to genera
 
 {"timestamp":"2018-07-31T01:44:49.187061+0000","level":"info","message":"servicenow incident created successfully","short_description":"sensu-client-01/sensu-client-01 : THIS IS AN INCIDENT","event_id":"b971c1ca-79a6-44fc-a5b5-0bc2b202c4a0","contact_name":"default"}{"timestamp":"2018-07-31T01:44:51.021406+0000","level":"info","message":"servicenow incident resolved successfully","short_description":"sensu-client-01/sensu-client-01 : THIS IS AN INCIDENT","event_id":"b971c1ca-79a6-44fc-a5b5-0bc2b202c4a0","contact_name":"default"}{{< /code >}}
 
-![snow_incident_fake][5]
+{{< figure src="/images/enterprise/using_snow/snow_incident.png" alt="View a warning or critical event for disk space in the Incident table in the ServiceNow dashboard" link="/images/enterprise/using_snow/snow_incident.png" target="_blank" >}}
 
 ## Wrapping It Up
 
@@ -148,9 +148,6 @@ We hope you've found this useful. For additional resources about the SNOW integr
 <!-- LINKS -->
 [1]: https://developer.servicenow.com
 [2]: https://slack.sensu.io
-[3]: /images/snow_inventory.png
 [4]: https://github.com/sensu-plugins/sensu-plugins-disk-checks
-[5]: /images/snow_incident.png
-[6]: /images/snow_incident_detail.png
 [7]: ../../integrations/servicenow/
 [8]: /sensu-core/1.3/reference/clients/#servicenow-attributes
