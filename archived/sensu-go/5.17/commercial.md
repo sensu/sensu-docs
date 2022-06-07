@@ -41,7 +41,7 @@ If you haven't already, [install the Sensu Go backend, agent, and sensuctl tool]
 Log in to your Sensu account at [account.sensu.io][2] and download your commercial license file.
 Click **Download license**.
 
-<img alt="Screenshot of Sensu account license download" src="/images/go-license-download.png" width="350px">
+{{< figure src="/images/go/commercial/license_download.png" alt="Screenshot of Sensu account license download" link="/images/go/commercial/license_download.png" target="_blank" >}}
 
 With the license file downloaded, you can use sensuctl to activate your commercial license:
 
