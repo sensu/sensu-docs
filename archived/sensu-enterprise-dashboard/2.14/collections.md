@@ -11,7 +11,7 @@ Collections are a grouping of items returned by a collection query. This query
 acts like a global search and it **persists** between the different views.
 Collections can be easily **shared** and **saved**.
 
-![collections](/images/enterprise-dashboard-collections.png)
+{{< figure src="/images/enterprise_dashboard/collections/enterprise_dashboard_collections.png" alt="Collections returned by a collection query in the Sensu Enterprise Dashboard" link="/images/enterprise_dashboard/collections/enterprise_dashboard_collections.png" target="_blank" >}}
 
 ## Collection Query
 
