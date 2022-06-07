@@ -53,7 +53,7 @@ To download your commercial license file:
 **NOTE**: In some cases, you may need to click **Generate license** before you can download your license.
 {{% /notice %}}
 
-<img alt="Screenshot of Sensu account license download" src="/images/go-license-download.png" width="350px">
+{{< figure src="/images/go/commercial/license_download.png" alt="Screenshot of Sensu account license download" link="/images/go/commercial/license_download.png" target="_blank" >}}
 
 With the license file downloaded, you can use sensuctl to activate your commercial license:
 

@@ -18,7 +18,7 @@ If you haven't already, [install the backend, agent, and sensuctl][2] and [confi
 
 Log in to your Sensu account at [account.sensu.io][1] and click **Download license** to download your license file.
 
-{{< figure src="/images/go-license-download.png" alt="Screenshot of Sensu account license download" link="/images/go-license-download.png" target="_blank" >}}
+{{< figure src="/images/go/commercial/license_download.png" alt="Screenshot of Sensu account license download" link="/images/go/commercial/license_download.png" target="_blank" >}}
 
 Save your license to a file such as `sensu_license.yml` or `sensu_license.json`.
 With the license file downloaded and saved to a file, you can activate your license with sensuctl or the [/license API][4].

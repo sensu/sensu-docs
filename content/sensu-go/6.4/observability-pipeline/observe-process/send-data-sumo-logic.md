@@ -105,41 +105,41 @@ Log in to your Sumo Logic account and follow these instructions:
 
 1. In the Sumo Logic left-navigation menu, click **Manage Data** and then **Collection** to open the Collection tab.
 
-    {{< figure src="/images/manage-data_collection.png" alt="Open the Collections tab" link="/images/manage-data_collection.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/manage_data_collection.png" alt="Open the Collections tab" link="/images/go/sensu_plus/manage_data_collection.png" target="_blank" >}}
 
 2. At the top-right of the Collection tab, click **Add Collector**.
 
-    {{< figure src="/images/add-collector.png" alt="Add a Sumo Logic collector" link="/images/add-collector.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/add_collector.png" alt="Add a Sumo Logic collector" link="/images/go/sensu_plus/add_collector.png" target="_blank" >}}
 
 3. In the Click Selector Type modal window, click **Hosted Collector**.
 
-    {{< figure src="/images/hosted-collector.png" alt="Select the hosted collector option" link="/images/hosted-collector.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/hosted_collector_option.png" alt="Select the hosted collector option" link="/images/go/sensu_plus/hosted_collector_option.png" target="_blank" >}}
 
 4. In the Add Hosted Collector modal window:
     - Type **sensu** in the Name field.
     - Click **Save**.
 
-    {{< figure src="/images/add-hosted-collector.png" alt="Name the hosted collector" link="/images/add-hosted-collector.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/add_hosted_collector.png" alt="Name the hosted collector" link="/images/go/sensu_plus/add_hosted_collector.png" target="_blank" >}}
 
 5. In the Confirm prompt, click **OK**.
 
-    {{< figure src="/images/confirm-prompt.png" alt="Confirm your hosted collector configuration" link="/images/confirm-prompt.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/confirm_prompt.png" alt="Confirm your hosted collector configuration" link="/images/go/sensu_plus/confirm_prompt.png" target="_blank" >}}
 
 6. Under Cloud APIs, click **HTTP Logs & Metrics**.
 
-    {{< figure src="/images/cloud-apis_http-logs-and-metrics.png" alt="Select the HTTP Logs & Metrics source" link="/images/cloud-apis_http-logs-and-metrics.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/cloud_apis_http_logs_and_metrics.png" alt="Select the HTTP Logs & Metrics source" link="/images/go/sensu_plus/cloud_apis_http_logs_and_metrics.png" target="_blank" >}}
 
 7. In the HTTP Logs & Metrics form:
     - Type **sensu-http** in the Name field.
     - Type **sensu-events** in the Source Category field.
     - Click **Save**.
 
-    {{< figure src="/images/http-logs-and-metrics_source.png" alt="Select options for HTTP Logs & Metrics source" link="/images/http-logs-and-metrics_source.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/http_logs_and_metrics_source.png" alt="Select options for HTTP Logs & Metrics source" link="/images/go/sensu_plus/http_logs_and_metrics_source.png" target="_blank" >}}
 
 8. In the HTTP Source Address prompt, copy the listed URL and click OK.
 You will use this URL in the next step as the `SUMOLOGIC_URL` value for the secret in your Sensu [handler][9] definition.
 
-    {{< figure src="/images/http-source-address_url.png" alt="Retrieve the HTTP Source Address URL" link="/images/http-source-address_url.png" target="_blank" >}}
+    {{< figure src="/images/go/sensu_plus/http_source_address_url.png" alt="Retrieve the HTTP Source Address URL" link="/images/go/sensu_plus/http_source_address_url.png" target="_blank" >}}
 
 ## Add the Sumo Logic handler
 
