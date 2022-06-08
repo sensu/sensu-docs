@@ -437,7 +437,7 @@ Use `admin` for both username and password.
 Click **Home** in the upper left corner, then click the **Up or Down Sample 2** dashboard.
 The page should include a graph with initial metrics, similar to this example:
 
-{{< figure src="/images/prometheus-collector/up_or_down_detail.png" alt="Example Grafana dashboard for visualizing Prometheus metrics from Sensu" link="/images/prometheus-collector/up_or_down_detail.png" target="_blank" >}}
+{{< figure src="/images/go/prometheus_metrics/grafana_up_or_down_detail.png" alt="Example Grafana dashboard for visualizing Prometheus metrics from Sensu" link="/images/go/prometheus_metrics/grafana_up_or_down_detail.png" target="_blank" >}}
 
 ## Next steps
 
