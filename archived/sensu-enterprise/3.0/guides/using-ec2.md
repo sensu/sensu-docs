@@ -111,16 +111,19 @@ You're seeing that correctly--in order to use the EC2 integration, all you need 
 
 2. Click "Policies".
 
-![ec2_policies][8]
+    {{< figure src="/images/enterprise/using_ec2/policies_left_menu_aws_iam.png" alt="Click Policies in the left menu in the AWS IAM Console" link="/images/enterprise/using_ec2/policies_left_menu_aws_iam.png" target="_blank" >}}
+
 3. Next, click "Create policy".
 
-![ec2_policies_create][9]
+    {{< figure src="/images/enterprise/using_ec2/create_policy_aws_iam.png" alt="Click Create policy button in the AWS IAM Console" link="/images/enterprise/using_ec2/create_policy_aws_iam.png" target="_blank" >}}
+
 4. Click the "JSON" tab
 
-![ec2_policies_json][10]
+    {{< figure src="/images/enterprise/using_ec2/json_tab_aws_iam.png" alt="Click the JSON tab in the AWS IAM Console" link="/images/enterprise/using_ec2/json_tab_aws_iam.png" target="_blank" >}}
+
 5. Paste in the text below:
 
-{{< code json >}}
+    {{< code json >}}
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -135,32 +138,38 @@ You're seeing that correctly--in order to use the EC2 integration, all you need 
         }
     ]
 }{{< /code >}}
+
 6. Click "Review policy"
 
-![ec2_policies_review][11]
-7. Give the poicy a recognizable name and description, then click "Create policy".
+    {{< figure src="/images/enterprise/using_ec2/review_policy_aws_iam.png" alt="Click the Review policy button in the AWS IAM Console" link="/images/enterprise/using_ec2/review_policy_aws_iam.png" target="_blank" >}}
 
-![ec2_policies_create][12]
+7. Give the policy a recognizable name and description, then click "Create policy".
+
+    {{< figure src="/images/enterprise/using_ec2/name_description_create_policy_aws_iam.png" alt="Add name and description and click Create policy button in the AWS IAM Console" link="/images/enterprise/using_ec2/name_description_create_policy_aws_iam.png" target="_blank" >}}
+
 8. Next, we'll create the role that you'll attach to any Sensu Enterprise Instances you create. Click on "Roles" and "Create role"
 
-![ec2_role][13]
+    {{< figure src="/images/enterprise/using_ec2/roles_create_role_aws_iam.png" alt="Click Roles and Create role in the AWS IAM Console" link="/images/enterprise/using_ec2/roles_create_role_aws_iam.png" target="_blank" >}}
+
 9. Select "EC2" as the service that will use the role, and click "Next: Permissions"
 
-![ec2_role_permissions][14]
-10. In the search box, search for the policy you created step 7 and click the check box next to in, then proceed to "Next: Review"
+    {{< figure src="/images/enterprise/using_ec2/permissions_aws_iam.png" alt="Select the EC2 service and click Next: Permissions in the AWS IAM Console" link="/images/enterprise/using_ec2/permissions_aws_iam.png" target="_blank" >}}
 
-![ec2_role_policy_attach][15]
+10. In the search box, search for the policy you created in step 7 and click the check box next to it, then proceed to "Next: Review"
+
+    {{< figure src="/images/enterprise/using_ec2/check_policy_review_aws_iam.png" alt="Select the policy to review and click Next: Review in the AWS IAM Console" link="/images/enterprise/using_ec2/check_policy_review_aws_iam.png" target="_blank" >}}
+
 11. Give the role a recognizable name and description, then click "Create role".
 
-![ec2_role_create][16]
+    {{< figure src="/images/enterprise/using_ec2/role_name_description_create_aws_iam.png" alt="Add name and description for role and click Create role in the AWS IAM Console" link="/images/enterprise/using_ec2/role_name_description_create_aws_iam.png" target="_blank" >}}
 
 Now that we've created a policy and a role for the integration, we'll need to attach it to our Sensu Enterprise instance. You can do this during step 3 of creating any instance via the EC2 console:
 
-![ec2_role_create][17]
+{{< figure src="/images/enterprise/using_ec2/attach_policy_role.png" alt="Attach the policy and role for the Sensu Enterprise EC2 integration" link="/images/enterprise/using_ec2/attach_policy_role.png" target="_blank" >}}
 
 Now that we have the policy and role created, and the role attached to an instance, let's see this in action on a test instance:
 
-![ec2_test_gif][18]
+{{< figure src="/images/enterprise/using_ec2/iam_role_sensu_enterprise_servers.gif" alt="Use the IAM role with Sensu Enterprise servers" link="/images/enterprise/using_ec2/iam_role_sensu_enterprise_servers.gif" target="_blank" >}}
 
 ## Wrapping Up
 
@@ -187,14 +196,3 @@ We hope you've found this useful. For additional resources about the EC2 integra
 [5]: /sensu-core/latest/reference/clients/#ec2-attributes
 [6]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html
 [7]: https://console.aws.amazon.com/iam/home#/home
-[8]: /images/ec2_01.PNG
-[9]: /images/ec2_02.png
-[10]: /images/ec2_03.png
-[11]: /images/ec2_04.png
-[12]: /images/ec2_05.png
-[13]: /images/ec2_06.png
-[14]: /images/ec2_07.png
-[15]: /images/ec2_08.png
-[16]: /images/ec2_09.png
-[17]: /images/ec2_10.png
-[18]: /images/ec2_test.gif
