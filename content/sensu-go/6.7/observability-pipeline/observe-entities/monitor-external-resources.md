@@ -43,11 +43,11 @@ Here's how to add the subscription:
 
 5. Click **SUBMIT** to save your changes.
 
-    {{< figure src="/images/mon_ext_res_entity_subs.gif" alt="Add the run_proxies subscription to an agent entity" link="/images/mon_ext_res_entity_subs.gif" target="_blank" >}}
+    {{< figure src="/images/go/monitor_external_resources/add_entity_subscription.gif" alt="Add the run_proxies subscription to an agent entity" link="/images/go/monitor_external_resources/add_entity_subscription.gif" target="_blank" >}}
 
 On the individual entity's page, the **subscriptions** should now include `run_proxies`.
 
-{{< figure src="/images/mon_ext_res_confirm_subscription.png" alt="Confirm the agent entity includes the run_proxies subscription" link="/images/mon_ext_res_confirm_subscription.png" target="_blank" >}}
+{{< figure src="/images/go/monitor_external_resources/confirm_entity_subscription.png" alt="Confirm the agent entity includes the run_proxies subscription" link="/images/go/monitor_external_resources/confirm_entity_subscription.png" target="_blank" >}}
 
 ### Create the check with a Sensu Catalog integration
 
@@ -57,7 +57,7 @@ With your entity subscription configured, you can use the Sensu Catalog to creat
 
 2. In the catalog menu on the left, click **Service monitoring** and click the **HTTP Endpoint Monitoring (Remote)** integration.
 
-    {{< figure src="/images/mon_ext_res_nav_to_integration.gif" alt="Navigate to the HTTP Endpoint Monitoring (Remote) integration in the Sensu Catalog" link="/images/mon_ext_res_nav_to_integration.gif" target="_blank" >}}
+    {{< figure src="/images/go/monitor_external_resources/navigate_to_integration.gif" alt="Navigate to the HTTP Endpoint Monitoring (Remote) integration in the Sensu Catalog" link="/images/go/monitor_external_resources/navigate_to_integration.gif" target="_blank" >}}
 
 3. At the top right corner of the page, click **INSTALL...** to open the HTTP Endpoint Configuration dialog page.
 
@@ -74,12 +74,12 @@ With your entity subscription configured, you can use the Sensu Catalog to creat
 
     After you update the values, click **NEXT**.
 
-    {{< figure src="/images/mon_ext_res_endpoint_interval.png" alt="Update the HTTP Endpoint Host and Interval values for the check" link="/images/mon_ext_res_endpoint_interval.png" target="_blank" >}}
+    {{< figure src="/images/go/monitor_external_resources/endpoint_interval.png" alt="Update the HTTP Endpoint Host and Interval values for the check" link="/images/go/monitor_external_resources/endpoint_interval.png" target="_blank" >}}
 
 5. In the Configure Sensu Subscriptions dialog page, type `run_proxies` in the Subscriptions field and press **Return**.
 After you add the subscription, click **NEXT**.
 
-    {{< figure src="/images/mon_ext_res_check_subscription.png" alt="Add the run_proxies subscription for the check" link="/images/mon_ext_res_check_subscription.png" target="_blank" >}}
+    {{< figure src="/images/go/monitor_external_resources/add_check_subscription.png" alt="Add the run_proxies subscription for the check" link="/images/go/monitor_external_resources/add_check_subscription.png" target="_blank" >}}
 
 8. The HTTP Endpoint Monitoring (Remote) integration in the Sensu Catalog includes a dialog page for adding [pipelines][23] to filter and handle your check's events.
 If you already have a pipeline to use, you can add it now.
@@ -88,7 +88,7 @@ Otherwise, click **NEXT** to skip this step.
 9. The Summary dialog page lists definitions for the resources that the integration will add.
 Click the down-arrow next to any resource to view its complete definition in YAML or JSON format.
 
-    {{< figure src="/images/mon_ext_res_resources_summary.gif" alt="View the asset and check definitions in the Summary dialog page" link="/images/mon_ext_res_resources_summary.gif" target="_blank" >}}
+    {{< figure src="/images/go/monitor_external_resources/resources_summary.gif" alt="View the asset and check definitions in the Summary dialog page" link="/images/go/monitor_external_resources/resources_summary.gif" target="_blank" >}}
 
 10. Click **APPLY** to save the asset and check definitions for the integration.
 
@@ -102,14 +102,14 @@ To make sure that the monitoring check is working properly, confirm that Sensu c
 
 2. Confirm that the Entities page lists a proxy entity named `sensu.io`.
 
-    {{< figure src="/images/mon_ext_res_confirm_entity.png" alt="Confirm the sensu.io proxy entity is listed on the Entities page" link="/images/mon_ext_res_confirm_entity.png" target="_blank" >}}
+    {{< figure src="/images/go/monitor_external_resources/confirm_proxy_entity.png" alt="Confirm the sensu.io proxy entity is listed on the Entities page" link="/images/go/monitor_external_resources/confirm_proxy_entity.png" target="_blank" >}}
 
 3. Click the `sensu.io` entity to open the individual entity page.
 
 4. Confirm that the individual entity page for `sensu.io` lists an event for the `sensu.io-https-endpoint-healthcheck` check.
 Click the event for details and history.
 
-    {{< figure src="/images/mon_ext_res_confirm_event.png" alt="Confirm that the sensu.io-https-endpoint-healthcheck check is producing events" link="/images/mon_ext_res_confirm_event.png" target="_blank" >}}
+    {{< figure src="/images/go/monitor_external_resources/confirm_event.png" alt="Confirm that the sensu.io-https-endpoint-healthcheck check is producing events" link="/images/go/monitor_external_resources/confirm_event.png" target="_blank" >}}
 
 ## Use a proxy entity to monitor a website (command line configuration)
 

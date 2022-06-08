@@ -481,7 +481,7 @@ For example, to search for entities with the `system` subscription, enter `"syst
 
 The silencing entries will be listed on the [Silences page][18] in the Sensu web UI.
 
-{{< figure src="/images/silence-entities-by-subscription-6-6-0.gif" alt="Silence entities by subscription in the Sensu web UI" link="/images/silence-entities-by-subscription-6-6-0.gif" target="_blank" >}}
+{{< figure src="/images/go/silencing_reference/silence_entities_by_subscription_660.gif" alt="Silence entities by subscription in the Sensu web UI" link="/images/go/silencing_reference/silence_entities_by_subscription_660.gif" target="_blank" >}}
 
 ## Silence a specific check on entities with a specific subscription
 

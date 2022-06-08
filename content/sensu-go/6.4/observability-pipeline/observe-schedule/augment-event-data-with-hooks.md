@@ -391,7 +391,7 @@ You can also view check hook command results in the web UI.
 On the Events page, click the `nginx_service` event for your entity.
 Scroll down to the `HOOK` section and click it to expand and review hook command results.
 
-{{< figure src="/images/hook_command_webui.gif" alt="Hook command results displayed in the Sensu web UI" link="/images/hook_command_webui.gif" target="_blank" >}}
+{{< figure src="/images/go/augment_event_data/hook_command_results_webui.gif" alt="Hook command results displayed in the Sensu web UI" link="/images/go/augment_event_data/hook_command_results_webui.gif" target="_blank" >}}
 
 Restart the NGINX service to clear the event:
 

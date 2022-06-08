@@ -484,15 +484,15 @@ Use the [Live Tail][13] feature to confirm that your data is reaching Sumo Logic
 
 1. In Sumo Logic, click the **+ New** button and select **Live Tail** from the drop-down menu.
 
-    {{< figure src="/images/new-button-live-tail.png" alt="Click the + New button and select Live Tail" link="/images/new-button-live-tail.png" target="_blank" >}}
+    {{< figure src="/images/go/send_data_to_sumo_logic/new_button_live_tail.png" alt="Click the + New button and select Live Tail" link="/images/go/send_data_to_sumo_logic/new_button_live_tail.png" target="_blank" >}}
 
 2. In the Live Tail search field, enter `_collector=sensu` and click **Run**.
 
-    {{< figure src="/images/live-tail-run-button.png" alt="Location of Live Tail Run button" link="/images/live-tail-run-button.png" target="_blank" >}}
+    {{< figure src="/images/go/send_data_to_sumo_logic/live_tail_run_button.png" alt="Location of Live Tail Run button" link="/images/go/send_data_to_sumo_logic/live_tail_run_button.png" target="_blank" >}}
 
 Within a few seconds, the Live Tail page should begin to display your Sensu observability data.
 
-{{< figure src="/images/live-tail-running.png" alt="Live Tail results for the 'sensu' collector" link="/images/live-tail-running.png" target="_blank" >}}
+{{< figure src="/images/go/send_data_to_sumo_logic/live_tail_running.png" alt="Live Tail results for the 'sensu' collector" link="/images/go/send_data_to_sumo_logic/live_tail_running.png" target="_blank" >}}
 
 
 If you see Sensu data on the Live Tail page, well done!

@@ -25,7 +25,7 @@ For example, the `check_cpu` check includes the `system` subscription.
 All three entities include the `system` subscription, so all three entities will execute the `check_cpu` check.
 However, only the `server01` and `database01` entities will execute `check_sshd_process` &mdash; the `webserver01` entity does not include the `linux` subscription required to execute `check_sshd_process`.
 
-{{< figure src="/images/subscriptions_line.png" alt="Example of Sensu check execution based on subscriptions" link="/images/subscriptions_line.png" target="_blank" >}}
+{{< figure src="/images/go/subscriptions_reference/subscriptions_diagram.png" alt="Diagram showing example of Sensu check execution based on subscriptions" link="/images/go/subscriptions_reference/subscriptions_diagram.png" target="_blank" >}}
 
 Sensu subscriptions are equivalent to topics in a traditional publish/subscribe system.
 Sensu entities become subscribers to these topics via the strings you specify with the agent `subscriptions` flag.
@@ -155,7 +155,7 @@ For example, suppose you want to set up monitoring for these servers:
 
 This diagram shows the subscriptions to list for each of the 12 servers (the entities) and for each check to achieve the example monitoring configuration:
 
-{{< figure src="/images/subscriptions_multiple_servers.png" alt="Example of Sensu check execution for multiple server entities based on subscriptions" link="/images/subscriptions_multiple_servers.png" target="_blank" >}}
+{{< figure src="/images/go/subscriptions_reference/subscriptions_multiple_servers.png" alt="Diagram showing an example of Sensu check execution for multiple server entities based on subscriptions" link="/images/go/subscriptions_reference/subscriptions_multiple_servers.png" target="_blank" >}}
 
 In this scenario, none of the Windows servers should execute the NGINX metrics check, so the `check_nginx` subscriptions do not match any subscriptions listed for any of the Windows servers.
 Two of the six Windows servers *should* execute the SQL Server metrics check, so the subscription listed in the `check_sqlsrv` definition matches a subscription listed for those two Windows server entities.
