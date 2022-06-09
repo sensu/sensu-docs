@@ -817,7 +817,7 @@ The backend will stop listening on those ports when the etcd database is unavail
 
 If the web UI experiences an error, you may see the following message in the web UI:
 
-{{< figure src="/images/webui_error.png" alt="Web UI error message with options for clearing state and reloading." link="/images/webui_error.png" target="_blank" >}}
+{{< figure src="/images/go/troubleshoot/web_ui_error.png" alt="Web UI error message with options for clearing state and reloading" link="/images/go/troubleshoot/web_ui_error.png" target="_blank" >}}
 
 The error message indicates something unexpected happened, such as the server failing to return the correct response.
 Clicking **RELOAD** can resolve most common problems.
@@ -848,7 +848,7 @@ Safari | `Develop` > `Show JavaScript Console`<br><br>If you do not see the `Dev
 
 Depending on your browser, the developer console may open in a separate browser window or within the current browser window as shown in this example:
 
-{{< figure src="/images/webui_devconsole.png" alt="Developer console open in a Chrome browswer window displaying the web UI error message with options for clearing state and reloading." link="/images/webui_devconsole.png" target="_blank" >}}
+{{< figure src="/images/go/troubleshoot/web_ui_developer_console.png" alt="Developer console open in a Chrome browswer window displaying the web UI error message with options for clearing state and reloading." link="/images/webui_devconsole.png" target="_blank" >}}
 
 The developer console lists all errors for the current page.
 Click an error for more information about it.

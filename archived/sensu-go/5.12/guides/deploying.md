@@ -56,7 +56,7 @@ Depending on your infrastructure and the type of environments you'll be monitori
 
 This architecture requires minimal resources, but provides no redundancy in the event of failure.
 
-<img alt="Sensu Standalone Architecture" title="Single Sensu Go Backend with Embedded etcd." src="/images/standalone_architecture.png">
+{{< figure src="/images/go/deployment_architecture/single_backend_standalone_architecture.png" alt="Single Sensu Go backend or standalone architecture" link="/images/go/deployment_architecture/single_backend_standalone_architecture.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/d239f2db-15db-41c4-a191-b9b46990d156/0 -->
 
 <p style="text-align:center"><i>Sensu standalone architecture with embedded etcd</i></p>
@@ -75,9 +75,7 @@ _NOTE: Multiple Sensu backends can relay their events to a central backend using
 
 The embedded etcd databases of multiple Sensu backend instances can be joined together in a cluster, providing increased availability and replication of both configuration and data. Please see our [clustering guide][7] for more information.
 
-<div style="text-align:center">
-<img alt="Sensu Clustered Architecture" title="Clustered Sensu Go Backend with Embedded etcd." src="/images/clustered_architecture.png" width="800 px">
-</div>
+{{< figure src="/images/go/deployment_architecture/clustered_embedded_etcd.png" alt="Clustered Sensu Go Backend with Embedded etcd" link="/images/go/deployment_architecture/clustered_embedded_etcd.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/475f950e-2770-4bf7-af73-57bc834cebdd -->
 
 <p style="text-align:center"><i>Sensu clustered architecture with embedded etcd</i></p>
@@ -88,9 +86,7 @@ Clustering requires an odd number of backend instances. While larger clusters pr
 
 To achieve the high rate of event processing required by many enterprises, Sensu offers support for Postgres event storage as a licensed feature. See the [Datastore reference documentation][8] for details on configuring the Sensu backend to use Postgres for event storage.
 
-<div style="text-align:center">
-<img alt="Sensu Clustered Architecture" title="Clustered Sensu Go Backend with Embedded etcd and Postgres event storage." src="/images/clustered_architecture_postgres.png" width="800 px">
-</div>
+{{< figure src="/images/go/deployment_architecture/clustered_postgresql.png" alt="Clustered Sensu Go architecture with PostgreSQL" link="/images/go/deployment_architecture/clustered_postgresql.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/475f950e-2770-4bf7-af73-57bc834cebdd/1 -->
 
 <p style="text-align:center"><i>Sensu clustered architecture with embedded etcd and Postgres event storage</i></p>

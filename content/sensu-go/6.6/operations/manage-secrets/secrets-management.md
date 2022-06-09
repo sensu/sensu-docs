@@ -48,7 +48,7 @@ Here's how to find your Integration Key in PagerDuty so you can set it up as you
 6. Click the drop-down arrow for the **Events API**.
 The Integration Key is listed in the second field.
 
-{{< figure src="/images/sensu-service-pagerduty-integration-key.png" alt="PagerDuty Integration Key location" link="/images/sensu-service-pagerduty-integration-key.png" target="_blank" >}}
+{{< figure src="/images/go/secrets_management/location_pagerduty_integration_key.png" alt="PagerDuty Integration Key location" link="/images/go/secrets_management/location_pagerduty_integration_key.png" target="_blank" >}}
 
 Make a note of your Integration Key &mdash; you'll need it to create your [backend environment variable][28] or [HashiCorp Vault secret][29].
 
@@ -165,7 +165,7 @@ The command output includes a `Root Token` line.
 Find this line in your command output and copy the `Root Token` value.
 You will use it next to create your Vault secrets provider.
 
-{{< figure src="/images/vault-dev-root-token.png" alt="HashiCorp Vault Root Token location" link="/images/vault-dev-root-token.png" target="_blank" >}}
+{{< figure src="/images/go/secrets_management/location_vault_dev_root_token.png" alt="HashiCorp Vault Root Token location" link="/images/go/secrets_management/location_vault_dev_root_token.png" target="_blank" >}}
 
 Leave the Vault dev server running.
 Because you aren't using TLS, you will need to set `VAULT_ADDR=http://127.0.0.1:8200` in your shell environment.
