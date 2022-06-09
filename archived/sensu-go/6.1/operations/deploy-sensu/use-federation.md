@@ -21,7 +21,7 @@ For more information, read [Get started with commercial features](../../../comme
 Sensu's [federation API][1] allows you to register external clusters, gain visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI, and mirror your changes in one cluster to follower clusters.
 This is useful when you want to provide a single entry point for Sensu users who need to manage monitoring across multiple distinct physical data centers, cloud regions, or providers.
 
-{{< figure src="/images/federation-switcher-clusters.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/federation-switcher-clusters.gif" target="_blank" >}}
+{{< figure src="/images/go/use_federation/federation_switcher.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/go/use_federation/federation_switcher.gif" target="_blank" >}}
 
 After you configure federation, you can also create, update, and delete clusters using sensuctl [create][5], [edit][6], and [delete][7] commands.
 
@@ -52,7 +52,7 @@ This guide assumes a single sensu-backend in each cluster, but named clusters co
 
 This diagram depicts the federation relationship documented in this guide:
 
-{{< figure src="/images/federation-guide-diagram.png" alt="Diagram depicting this guide's example federation architecture" link="/images/federation-guide-diagram.png" target="_blank" >}}
+{{< figure src="/images/go/use_federation/example_federation.png" alt="Diagram depicting this guide's example federation architecture" link="/images/go/use_federation/example_federation.png" target="_blank" >}}
 <!-- Federation diagram source: https://www.lucidchart.com/documents/edit/1b676df9-534e-40e4-9881-6313013ecd28/n~8S.VTyl5JQ -->
 
 Complete the steps in this guide to browse events, entities, checks, and other resources in the `gateway`, `alpha`, and `beta` clusters from the `gateway` cluster web UI.
@@ -412,7 +412,7 @@ spec:
 After you create clusters using the federation API, you can log in to the `gateway` Sensu web UI to view them as the `federation-viewer` user.
 Use the namespace switcher to change between namespaces across federated clusters:
 
-{{< figure src="/images/federation-switcher-animated.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/federation-switcher-animated.gif" target="_blank" >}}
+{{< figure src="/images/go/use_federation/federation_namespace_switcher.gif" alt="Animated demonstration of federated views in Sensu Web UI" link="/images/go/use_federation/federation_namespace_switcher.gif" target="_blank" >}}
 
 Because the `federation-viewer` user is granted only permissions provided by the built-in `view` role, this user should be able to view all resources across all clusters but should not be able to make any changes.
 If you haven't changed the permissions of the default `admin` user, that user should be able to view, create, delete, and update resources across all clusters.

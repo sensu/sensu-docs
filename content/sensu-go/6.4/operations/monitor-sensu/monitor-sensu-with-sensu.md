@@ -473,9 +473,9 @@ http-json OK:  The value true found at .PostgresHealth.[0].Active matched with e
 
 In the Sensu [web UI][9], you should see check results similar to these examples:
 
-{{< figure src="/images/postgres_health.png" alt="Screenshot of Sensu Web UI shows a passing PostgreSQL health check" link="/images/postgres_health.png" target="_blank" >}}
+{{< figure src="/images/go/monitor_sensu_with_sensu/postgres_health_http_check.png" alt="Screenshot of Sensu Web UI shows a passing PostgreSQL health check" link="/images/go/monitor_sensu_with_sensu/postgres_health_http_check.png" target="_blank" >}}
 
-{{< figure src="/images/postgres_active.png" alt="Screenshot of Sensu Web UI shows a passing PostgreSQL active check" link="/images/postgres_active.png" target="_blank" >}}
+{{< figure src="/images/go/monitor_sensu_with_sensu/postgres_active_http_check.png" alt="Screenshot of Sensu Web UI shows a passing PostgreSQL active check" link="/images/go/monitor_sensu_with_sensu/postgres_active_http_check.png" target="_blank" >}}
 
 To receive alerts based on your PostgreSQL health check, configure a [pipeline][6] with [event filters][3] and a [handler][7] and update your check definition to reference the pipeline in the [pipelines attribute][8].
 

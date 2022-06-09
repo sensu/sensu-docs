@@ -104,7 +104,7 @@ Connections from new agents will fail and result in a log message like this:
 
 In the web UI, you will receive the following message when you reach the 100-entity limit:
 
-![Sensu web UI warning when the entity limit is reached][3]
+{{< figure src="/images/go/upgrade/web_ui_entity_warning.png" alt="Example web UI warning message when you reach the 100-entity limit" link="/images/go/upgrade/web_ui_entity_warning.png" target="_blank" >}}
 
 If your Sensu instance includes more than 100 entities, [contact Sales][4] to learn how to upgrade your installation and increase your limit.
 Read [our blog announcement][5] for more information about our usage policy.
@@ -142,7 +142,6 @@ sudo service sensu-backend restart
 
 [1]: ../../deploy-sensu/install-sensu/
 [2]: ../../../observability-pipeline/observe-schedule/backend#operation
-[3]: /images/web-ui-entity-warning.png
 [4]: https://sensu.io/contact?subject=contact-sales/
 [5]: https://sensu.io/blog/one-year-of-sensu-go
 [6]: ../../../commercial/

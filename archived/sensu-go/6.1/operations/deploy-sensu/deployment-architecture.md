@@ -68,7 +68,7 @@ Depending on your infrastructure and the type of environments you'll be monitori
 
 The single backend (standalone) with embedded etcd architecture requires minimal resources but provides no redundancy in the event of failure.
 
-{{< figure src="/images/standalone_architecture.png" alt="Single Sensu Go backend or standalone architecture" link="/images/standalone_architecture.png" target="_blank" >}}
+{{< figure src="/images/go/deployment_architecture/single_backend_standalone_architecture.png" alt="Single Sensu Go backend or standalone architecture" link="/images/go/deployment_architecture/single_backend_standalone_architecture.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/d239f2db-15db-41c4-a191-b9b46990d156/0 -->
 
 *<p style="text-align:center">Single Sensu Go backend or standalone architecture</p>*
@@ -84,7 +84,7 @@ For example, in environments with unreliable WAN connectivity, having agents con
 To increase availability and replicate both configuration and data, join the embedded etcd databases of multiple Sensu backend instances together in a cluster.
 Read [Run a Sensu cluster][7] for more information.
 
-{{< figure src="/images/single-AZ-sensu-deployment.png" alt="Clustered Sensu Go architecture for a single availability zone" link="https://sensu-docs.s3.amazonaws.com/images/labeled-single-AZ-sensu-deployment.png" target="_blank" >}}
+{{< figure src="/images/go/deployment_architecture/clustered_single_availability_zone.png" alt="Clustered Sensu Go architecture for a single availability zone" link="/images/go/deployment_architecture/clustered_single_availability_zone.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/5375377c-4dfd-4a12-8770-c2b47c2ef0e3/Ix6mP9JlVdGc -->
 
 *<p style="text-align:center">Clustered Sensu Go architecture for a single availability zone</p>*
@@ -99,7 +99,7 @@ Read the [etcd documentation][4] for more information.
 Distributing infrastructure across multiple availability zones in a given region helps ensure continuous availability of customer infrastructure in the region if any one availability zone becomes unavailable.
 With this in mind, you can deploy a Sensu cluster across multiple availability zones in a given region, configured to tolerate reasonable latency between those availability zones.
 
-{{< figure src="/images/cross-AZ-sensu-deployment.png" alt="Clustered Sensu Go architecture for multiple availability zones" link="https://sensu-docs.s3.amazonaws.com/images/labeled-cross-AZ-sensu-deployment.png" target="_blank" >}}
+{{< figure src="/images/go/deployment_architecture/clustered_multiple_availability_zones.png" alt="Clustered Sensu Go architecture for multiple availability zones" link="/images/go/deployment_architecture/clustered_multiple_availability_zones.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/5375377c-4dfd-4a12-8770-c2b47c2ef0e3/n~8S.VTyl5JQ -->
 
 *<p style="text-align:center">Clustered Sensu Go architecture for multiple availability zones</p>*
@@ -111,7 +111,7 @@ Use one etcd node per availiability zone, with a minimum of three etcd nodes and
 Three etcd nodes allow you to tolerate the loss of a single node with minimal effect on performance. 
 Five etcd nodes allow you to tolerate the loss of two nodes, but with a greater effect on performance.
 
-{{< figure src="/images/large-scale-cross-AZ-sensu-deployment.png" alt="Large-scale clustered Sensu Go architecture for multiple availability zones" link="https://sensu-docs.s3.amazonaws.com/images/labeled-large-scale-cross-AZ-sensu-deployment.png" target="_blank" >}}
+{{< figure src="/images/go/deployment_architecture/large_scale_clustered_multiple_availability_zones.png" alt="Large-scale clustered Sensu Go architecture for multiple availability zones" link="/images/go/deployment_architecture/large_scale_clustered_multiple_availability_zones.png" target="_blank" >}}
 <!-- https://www.lucidchart.com/documents/edit/5375377c-4dfd-4a12-8770-c2b47c2ef0e3/Wr7mzxLPcUmO -->
 
 *<p style="text-align:center">Large-scale clustered Sensu Go architecture for multiple availability zones</p>*
@@ -121,7 +121,7 @@ Five etcd nodes allow you to tolerate the loss of two nodes, but with a greater 
 To achieve the high rate of event processing that many enterprises require, Sensu supports PostgreSQL event storage as a [commercial feature][9].
 Read the [datastore reference][8] for details on configuring the Sensu backend to use PostgreSQL for event storage.
 
-{{< figure src="/images/clustered_architecture_postgres.png" alt="Clustered Sensu Go architecture with PostgreSQL" link="/images/clustered_architecture_postgres.png" target="_blank" >}}
+{{< figure src="/images/go/deployment_architecture/clustered_postgresql.png" alt="Clustered Sensu Go architecture with PostgreSQL" link="/images/go/deployment_architecture/clustered_postgresql.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/475f950e-2770-4bf7-af73-57bc834cebdd/1 -->
 
 *<p style="text-align:center">Clustered Sensu Go architecture with PostgreSQL event storage</p>*
