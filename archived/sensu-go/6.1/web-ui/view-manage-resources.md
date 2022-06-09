@@ -25,15 +25,15 @@ To switch namespaces, select the menu icon in the upper-left corner or press the
 For more information, read [Get started with commercial features](../../commercial/).
 {{% /notice %}}
 
-{{< figure src="/images/namespace-switcher-1.png" alt="Sensu web UI namespace switcher" link="/images/namespace-switcher-1.png" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_namespace_switcher.png" alt="Sensu web UI namespace switcher" link="/images/go/view_manage_resources/old_namespace_switcher.png" target="_blank" >}}
 
 When you switch to a namespace, the left navigation menu loads so you can select specific pages for events, entities, silences, and configuration, which includes checks, handlers, event filters, and mutators:
 
-{{< figure src="/images/webui-left-nav.png" alt="Sensu web UI left navigation menu" link="/images/webui-left-nav.png" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_web_ui_left_nav.png" alt="Sensu web UI left navigation menu" link="/images/go/view_manage_resources/old_web_ui_left_nav.png" target="_blank" >}}
 
 Click the triple-bar icon at the top of the left-navigation menu to expand the menu and display page labels:
 
-{{< figure src="/images/expand-webui-left-nav.png" alt="Sensu web UI with expanded left navigation menu" link="/images/expand-webui-left-nav.png" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_expand_web_ui_left_nav.png" alt="Sensu web UI with expanded left navigation menu" link="/images/go/view_manage_resources/old_expand_web_ui_left_nav.png" target="_blank" >}}
 
 ## Manage events
 

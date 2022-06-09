@@ -21,7 +21,7 @@ The Sensu backend includes the **Sensu web UI**: a unified view of your events, 
 
 The web UI homepage provides a high-level overview of the overall health of the systems under Sensu's management, with a summary of active incidents, the number of incidents by severity, the types of entities under management, and the numbers of entities and incidents per namespace.
 
-{{< figure src="/images/web-ui-6-6-0.png" alt="Sensu web UI homepage" link="/images/web-ui-6-6-0.png" target="_blank" >}}
+{{< figure src="/images/go/web_ui_index/web_ui_660.png" alt="Sensu web UI homepage" link="/images/go/web_ui_index/web_ui_660.png" target="_blank" >}}
 
 ## Access the web UI
 

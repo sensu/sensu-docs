@@ -21,7 +21,7 @@ For more information, read [Get started with commercial features](../commercial/
 
 The web UI homepage provides a high-level overview of the overall health of the systems under Sensu's management, with a summary of active incidents, the number of incidents by severity, the types of entities under management, and the numbers of entities and incidents per namespace.
 
-{{< figure src="/images/web-ui.png" alt="Sensu web UI homepage" link="/images/web-ui.png" target="_blank" >}}
+{{< figure src="/images/go/web_ui_index/old_web_ui.png" alt="Sensu web UI homepage" link="/images/go/web_ui_index/old_web_ui.png" target="_blank" >}}
 
 ## Access the web UI
 

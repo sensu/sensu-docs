@@ -24,7 +24,7 @@ The Sensu Catalog is an online marketplace for monitoring and observability inte
 
 The Sensu Catalog is part of the Sensu [web UI][21], so you can find, configure, and install integrations directly from your browser.
 
-{{< figure src="/images/catalog_alphabetical.png" alt="The Sensu Catalog page in the Sensu web UI" link="/images/catalog_alphabetical.png" target="_blank" >}}
+{{< figure src="/images/go/sensu_catalog/catalog_homepage.png" alt="The Sensu Catalog page in the Sensu web UI" link="/images/go/sensu_catalog/catalog_homepage.png" target="_blank" >}}
 
 An integration combines a Sensu plugin with a dynamic runtime asset and the Sensu resource definitions that use the plugin.
 
@@ -47,14 +47,14 @@ You can also [search][19] the Sensu Catalog based on integration metadata.
 When the Catalog page loads in the Sensu web UI, all integrations are alphabetically listed by default.
 To return to the alphabetized list at any time, click the **All** category in the Catalog page sidebar navigation menu:
 
-{{< figure src="/images/catalog_all.png" alt="All category for integrations on the Sensu Catalog page in the Sensu web UI" link="/images/catalog_all.png" target="_blank" >}}
+{{< figure src="/images/go/sensu_catalog/catalog_all_category.png" alt="All category for integrations on the Sensu Catalog page in the Sensu web UI" link="/images/go/sensu_catalog/catalog_all_category.png" target="_blank" >}}
 
 ### Browse the categorized list
 
 The Catalog page sidebar navigation menu lists integrations in categories based on class and function.
 Click a category to retrieve the associated integrations.
 
-{{< figure src="/images/catalog_menu.png" alt="Category-based menu for the Sensu Catalog page in the Sensu web UI" link="/images/catalog_menu.png" target="_blank" >}}
+{{< figure src="/images/go/sensu_catalog/catalog_menu.png" alt="Category-based menu for the Sensu Catalog page in the Sensu web UI" link="/images/go/sensu_catalog/catalog_menu.png" target="_blank" >}}
 
 Three categories describe the integration class:
 - **Enterprise**: Integrations contributed by one of Sensu's third-party partners.
@@ -67,11 +67,11 @@ The rest of the categories are based on the integration's function, like cloud m
 
 Each integration has associated metadata listed on the integration detail page:
 
-{{< figure src="/images/catalog_integration_metadata.png" alt="Example metadata for an integration in the Sensu web UI" link="/images/catalog_integration_metadata.png" target="_blank" >}}
+{{< figure src="/images/go/sensu_catalog/catalog_integration_metadata.png" alt="Example metadata for an integration in the Sensu web UI" link="/images/go/sensu_catalog/catalog_integration_metadata.png" target="_blank" >}}
 
 You can search the Sensu Catalog for integrations with particular `provider` or `tags` metadata from the Catalog main page:
 
-{{< figure src="/images/catalog_metadata_search.gif" alt="Sensu Catalog search for integrations with 'aws' in tags" link="/images/catalog_metadata_search.gif" target="_blank" >}}
+{{< figure src="/images/go/sensu_catalog/catalog_metadata_search.gif" alt="Sensu Catalog search for integrations with 'aws' in tags" link="/images/go/sensu_catalog/catalog_metadata_search.gif" target="_blank" >}}
 
 ### Search for integrations
 
@@ -103,7 +103,7 @@ The Sensu Catalog quick search allows you to search without using any particular
 Type your search term into the search field on the Catalog page of the web UI and press `Enter`.
 Sensu will auto-complete a simple search statement for the resources on that page using substring matching:
 
-{{< figure src="/images/catalog_name_search.gif" alt="Sensu Catalog search for integrations by name" link="/images/catalog_name_search.gif" target="_blank" >}}
+{{< figure src="/images/go/sensu_catalog/catalog_name_search.gif" alt="Sensu Catalog search for integrations by name" link="/images/go/sensu_catalog/catalog_name_search.gif" target="_blank" >}}
 
 ## Get information about an integration
 
@@ -111,7 +111,7 @@ In the Sensu Catalog, integrations are represented by tiles.
 When you click an integration tile, the integration's detail page opens.
 The detail page includes tabs for **README**, **CHANGELOG**, and **SENSU RESOURCES**.
 
-{{< figure src="/images/catalog_integration_info_tabs.png" alt="Location of README, CHANGELOG, and SENSU RESOURCES tabs for an integration in the Sensu Catalog" link="/images/catalog_integration_info_tabs.png" target="_blank" >}}
+{{< figure src="/images/go/sensu_catalog/location_catalog_integration_info_tabs.png" alt="Location of README, CHANGELOG, and SENSU RESOURCES tabs for an integration in the Sensu Catalog" link="/images/go/sensu_catalog/location_catalog_integration_info_tabs.png" target="_blank" >}}
 
 The **README** tab contains detailed information about the integration, including an overview, supported dashboards, setup instructions, the plugins the integration requires, the metrics and alerts the integration generates, and links to reference information.
 The **README** also describes any additional configuration needed to use the integration, like subscriptions to add to agent entities or secrets to create for sensitive information.
@@ -153,7 +153,7 @@ The Summary page of the configuration dialog lists the definition for each resou
 These resource definitions include the attribute values you provided in the configuration dialog.
 Click the dropdown arrows to review the resource definitions:
 
-{{< figure src="/images/catalog_integration_summary_definitions.gif" alt="Summary page of configuration dialog for a Sensu Catalog integration" link="/images/catalog_integration_summary_definitions.gif" target="_blank" >}}
+{{< figure src="/images/go/sensu_catalog/catalog_integration_summary_definitions.gif" alt="Summary page of configuration dialog for a Sensu Catalog integration" link="/images/go/sensu_catalog/catalog_integration_summary_definitions.gif" target="_blank" >}}
 
 The resulting resource definitions represent Sensu's recommended configuration for the integration.
 
@@ -171,7 +171,7 @@ If Sensu finds an existing resource with the same name, the configuration dialog
 If you want to keep the existing resources, use the [Sensu API][11] to change their names with PUT requests before you continue and create the new resources.
 Otherwise, click **OVERWRITE** to replace the existing resources with the new resources.
 
-{{< figure src="/images/rename_overwrite_prompt.gif" alt="Summary page of configuration dialog with overwrite warning for a duplicate Sensu Catalog integration" link="/images/rename_overwrite_prompt.gif" target="_blank" >}}
+{{< figure src="/images/go/sensu_catalog/catalog_rename_overwrite_prompt.gif" alt="Summary page of configuration dialog with overwrite warning for a duplicate Sensu Catalog integration" link="/images/go/sensu_catalog/catalog_rename_overwrite_prompt.gif" target="_blank" >}}
 
 ## View and manage your integrations
 
