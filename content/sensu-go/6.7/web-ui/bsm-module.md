@@ -31,7 +31,7 @@ For this reason, the web UI will display a PostgreSQL prompt instead of the BSM 
 
 To build a business service in the web UI module:
 
-1. Click ![services icon](/images/web-ui-services-icon-6-6-0.png) in the left navigation menu to open the Services page.
+1. Click ![services icon](/images/go/bsm_module/web_ui_services_icon_660.png) in the left navigation menu to open the Services page.
 2. Click **ADD NEW SERVICE** to open the Create New Service dialog window.
 3. Enter a name for the service entity.
 4. Enter labels and annotations, if desired.
@@ -39,7 +39,7 @@ To build a business service in the web UI module:
 
 The updated Services page will include a tile for the new service:
 
-{{< figure src="/images/create-service-6-7-0.gif" alt="Add a new business service with the web UI module" link="/images/create-service-6-7-0.gif" target="_blank" >}}
+{{< figure src="/images/go/bsm_module/create_service_670.gif" alt="Add a new business service with the web UI module" link="/images/go/bsm_module/create_service_670.gif" target="_blank" >}}
 
 The business service itself is an entity with the class `service`, so it will also be listed on the [Entities page][3].
 
@@ -59,7 +59,7 @@ Available arguments will vary for different rule templates.
 
 The updated business service tile will include the service component:
 
-{{< figure src="/images/create-service-component-6-7-0.gif" alt="Add a new service component to a business service with the web UI module" link="/images/create-service-component-6-7-0.gif" target="_blank" >}}
+{{< figure src="/images/go/bsm_module/create_service_component_670.gif" alt="Add a new service component to a business service with the web UI module" link="/images/go/bsm_module/create_service_component_670.gif" target="_blank" >}}
 
 ## View and manage business services
 
@@ -67,7 +67,7 @@ After you create a business service by any means (web UI, API, or sensuctl), it 
 
 Click the business service name to view its events and other related details and edit, silence, or delete the service:
 
-{{< figure src="/images/business-service-detail-page-6-7-0.png" alt="View the business service detail page" link="/images/business-service-detail-page-6-7-0.png" target="_blank" >}}
+{{< figure src="/images/go/bsm_module/business_service_detail_page_670.png" alt="View the business service detail page" link="/images/go/bsm_module/business_service_detail_page_670.png" target="_blank" >}}
 
 To edit, add components to, or delete a business service, click ⋮ at the top-right corner of the service's tile.
 
@@ -76,7 +76,7 @@ To edit, add components to, or delete a business service, click ⋮ at the top-r
 After you add a service component to a business service, it will be listed on the business service tile in the web UI Services page until you delete it.
 To edit or delete a service component, click ⋮ at the right of the component's name:
 
-{{< figure src="/images/edit-service-component-6-7-0.png" alt="Edit a service component" link="/images/edit-service-component-6-7-0.png" target="_blank" >}}
+{{< figure src="/images/go/bsm_module/edit_service_component_670.png" alt="Edit a service component" link="/images/go/bsm_module/edit_service_component_670.png" target="_blank" >}}
 
 Click the service component name to view its events and other related details.
 You can also edit, silence, and delete the component from the detail page.
