@@ -44,30 +44,30 @@ Click the ☰ icon at the top of the left-navigation menu to expand the menu and
 The Events page opens by default when you navigate to a namespace, with an automatic filter to show only events with a non-passing status (i.e. `event.check.state != passing`).
 The top row of the events list includes several other options for filtering and sorting events:
 
-{{< figure src="/images/events-page-filter-sort.png" alt="Filter and sort events" link="/images/events-page-filter-sort.png" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_events_page_filter_sort.png" alt="Filter and sort events" link="/images/go/view_manage_resources/old_events_page_filter_sort.png" target="_blank" >}}
 
 Click the check boxes to select one or more events and resolve, silence, or delete them directly from the Events page:
 
-{{< figure src="/images/group-events.png" alt="Select one or more events on the Events page" link="/images/group-events.png" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_group_events.png" alt="Select one or more events on the Events page" link="/images/go/view_manage_resources/old_group_events.png" target="_blank" >}}
 
 Click an event name to view details like status, output, number of occurrences, labels and annotations, related check configuration (if the event was produced by a service check), and associated entity, as well as a timeline that displays the event's last 20 statuses at a glance:
 
-{{< figure src="/images/single-event-view.gif" alt="View details for a single event" link="/images/single-event-view.gif" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_single_event_view.gif" alt="View details for a single event" link="/images/go/view_manage_resources/old_single_event_view.gif" target="_blank" >}}
 
 ## Manage entities
 
 The Entities page provides real-time inventory information for the namespace's endpoints under Sensu management.
 The top row of the entities list includes options for filtering and sorting entities on the page:
 
-{{< figure src="/images/entities-page-filter-sort.png" alt="Filter and sort entities" link="/images/entities-page-filter-sort.png" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_entities_page_filter_sort.png" alt="Filter and sort entities" link="/images/go/view_manage_resources/old_entities_page_filter_sort.png" target="_blank" >}}
 
 Click the check boxes to select one or more entities and silence or delete them directly from the Entities page:
 
-{{< figure src="/images/group-entities.png" alt="Select one or more entities on the Entities page" link="/images/group-entities.png" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_group_entities.png" alt="Select one or more entities on the Entities page" link="/images/go/view_manage_resources/old_group_entities.png" target="_blank" >}}
 
 Click an entity name to view details about associated events, system properties, and labels and annotations:
 
-{{< figure src="/images/single-entity-view.gif" alt="View details for a single entity" link="/images/single-entity-view.gif" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_single_entity_view.gif" alt="View details for a single entity" link="/images/go/view_manage_resources/old_single_entity_view.gif" target="_blank" >}}
 
 ## Manage services
 
@@ -80,11 +80,11 @@ Create silences by check or subscription name and clear silences in the web UI S
 The Silences page lists all active silences for the namespace.
 The top row of the silences list includes options for filtering and sorting silences on the page:
 
-{{< figure src="/images/silences-filter-sort.png" alt="Filter and sort silences" link="/images/silences-filter-sort.png" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_silences_filter_sort.png" alt="Filter and sort silences" link="/images/go/view_manage_resources/old_silences_filter_sort.png" target="_blank" >}}
 
-Click `+ NEW` to open a modal window and create silences for individual events, by check or subscription name, or by entity:
+Click `+ NEW` to open a dialog window and create silences for individual events, by check or subscription name, or by entity:
 
-{{< figure src="/images/silences-modal.gif" alt="Create a new silence in the modal window" link="/images/silences-modal.gif" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_silences_dialog.gif" alt="Create a new silence in the dialog window" link="/images/go/view_manage_resources/old_silences_dialog.gif" target="_blank" >}}
 
 You can also silence individual checks and entities from their detail pages in the web UI.
 
@@ -96,7 +96,7 @@ Under the Configuration menu option, you can access check, handler, event filter
 Each resource page lists the namespace's resources.
 The top row of each page includes options for filtering and sorting the listed resources.
 
-{{< figure src="/images/configuration-pages.gif" alt="Configuration resource pages in the web UI" link="/images/configuration-pages.gif" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_configuration_pages.gif" alt="Configuration resource pages in the web UI" link="/images/go/view_manage_resources/old_configuration_pages.gif" target="_blank" >}}
 
 Click a resource name to view detailed information and edit or delete it.
 
@@ -107,7 +107,7 @@ On the Checks page, click the check boxes to select one or more checks to execut
 You can execute individual checks on demand and on any agent from each check's detail page to test your observability pipeline.
 Click **EXECUTE** to open the Execute Check dialog window:
 
-{{< figure src="/images/execute-checks-subs.png" alt="Button for executing a check on demand in the web UI" link="/images/execute-checks-subs.png" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_execute_check_button.png" alt="Button for executing a check on demand in the web UI" link="/images/go/view_manage_resources/old_execute_check_button.png" target="_blank" >}}
 
 In the Execute Check dialog window, you can execute the check according to its existing subscriptions or add and remove subscriptions to execute it on specific agents.
 
@@ -115,7 +115,7 @@ In the Execute Check dialog window, you can execute the check according to its e
 **NOTE**: Changing the subscriptions for ad hoc execution in the Execute Check dialog window will not make any changes to the existing subscriptions in the check definition.
 {{% /notice %}}
 
-{{< figure src="/images/execute-subscriptions.png" alt="Execute Check dialog window for executing a check on demand from the web UI" link="/images/execute-subscriptions.png" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_execute_check_dialog.png" alt="Execute Check dialog window for executing a check on demand from the web UI" link="/images/go/view_manage_resources/old_execute_check_dialog.png" target="_blank" >}}
 
 ## View resource data in the web UI
 
@@ -131,7 +131,7 @@ To view the JSON definition for any event or entity in the web UI:
 
 This example shows how to view the JSON definition for an event:
 
-{{< figure src="/images/view-event-data-web-ui.gif" alt="View an event's resource data in the web UI" link="/images/view-event-data-web-ui.gif" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_view_event_data_web_ui.gif" alt="View an event's resource data in the web UI" link="/images/go/view_manage_resources/old_view_event_data_web_ui.gif" target="_blank" >}}
 
 ### View resource data for a configuration resource
 
@@ -144,7 +144,7 @@ To view and copy the JSON or YAML definition for any configuration resource in t
 
 This example shows how to view and copy the resource data for an event filter:
 
-{{< figure src="/images/view-filter-data-web-ui.gif" alt="View an event filter's resource data in the web UI" link="/images/view-filter-data-web-ui.gif" target="_blank" >}}
+{{< figure src="/images/go/view_manage_resources/old_view_filter_data_web_ui.gif" alt="View an event filter's resource data in the web UI" link="/images/go/view_manage_resources/old_view_filter_data_web_ui.gif" target="_blank" >}}
 
 
 [1]: ../#webui-homepage
