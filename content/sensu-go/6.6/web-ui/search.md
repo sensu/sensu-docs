@@ -221,7 +221,7 @@ To return events that include a `windows` check subscription and any email handl
 To save a web UI search:
 
 1. [Create a web UI search][4].
-2. Click ![save icon](/images/save_icon-6-6-0.png) at the right side of the search bar.
+2. Click ![save icon](/images/go/bsm_module/save_icon_660.png) at the right side of the search bar.
 3. Click **Save this search**.
 4. Type the name you want to use for the saved search.
 5. Press **Return/Enter**.
@@ -233,7 +233,7 @@ The role-based access control (RBAC) reference includes [example workflows][13] 
 
 ### Recall a saved search
 
-To recall a saved search, click ![save icon](/images/save_icon-6-6-0.png) at the right side of the search bar and select the name of the search you want to recall.
+To recall a saved search, click ![save icon](/images/go/bsm_module/save_icon_660.png) at the right side of the search bar and select the name of the search you want to recall.
 
 You can combine an existing saved search with a new search to create a new saved search.
 To do this, recall a saved search, add the new search statement in the search bar, and [save the combination as a new saved search][8].
@@ -242,8 +242,8 @@ To do this, recall a saved search, add the new search statement in the search ba
 
 To delete a saved search:
 
-1. Click ![save icon](/images/save_icon-6-6-0.png) at the right side of the search bar.
-2. Find the saved search you want to delete and click the ![delete icon](/images/delete_icon-6-6-0.png) next to it.
+1. Click ![save icon](/images/go/bsm_module/save_icon_660.png) at the right side of the search bar.
+2. Find the saved search you want to delete and click the ![delete icon](/images/go/bsm_module/delete_icon_660.png) next to it.
 
 ## Use the sort function
 
