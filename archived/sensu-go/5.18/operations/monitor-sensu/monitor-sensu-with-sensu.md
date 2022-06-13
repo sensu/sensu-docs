@@ -248,7 +248,7 @@ spec:
 A successful check result will look like this:
 
 <div style="text-align:center">
-<img alt="Screenshot of a successful Postgres health check in Sensu Go web UI" title="Successful Postgres health check in Sensu Go web UI" src="/images/sensu-postgres-health.png">
+<img alt="Screenshot of a successful Postgres health check in Sensu Go web UI" title="Successful Postgres health check in Sensu Go web UI" src="/images/archived_version_images/sensu_postgres_health.png">
 </div>
 <p style="text-align:center"><i>Successful Postgres health check in Sensu Go web UI</i></p>
 

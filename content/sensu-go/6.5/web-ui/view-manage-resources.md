@@ -140,7 +140,7 @@ To view and copy the JSON or YAML definition for any configuration resource in t
 1. Open the individual resource page.
 2. Click **RAW**.
 3. In the Resource Data field, click **JSON** or **YAML** to select the format.
-4. Click ![copy icon](/images/web-ui-resource-data-copy-icon.png) at the top-right of the resource data to copy the resource definition.
+4. Click ![copy icon](/images/go/view_manage_resources/web_ui_resource_data_copy_icon.png) at the top-right of the resource data to copy the resource definition.
 
 This example shows how to view and copy the resource data for an event filter:
 
