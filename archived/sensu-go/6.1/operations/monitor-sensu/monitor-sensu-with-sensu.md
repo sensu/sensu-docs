@@ -433,7 +433,7 @@ Follow [Register dynamic runtime assets](#register-dynamic-runtime-assets) if yo
 
 A successful PostgreSQL health check result will be similar to this example:
 
-{{< figure src="/images/sensu-postgres-health.png" alt="Successful PostgreSQL health check in Sensu Go web UI" link="/images/sensu-postgres-health.png" target="_blank" >}}
+{{< figure src="/images/archived_version_images/sensu_postgres_health.png" alt="Successful PostgreSQL health check in Sensu Go web UI" link="/images/archived_version_images/sensu_postgres_health.png" target="_blank" >}}
 
 
 [1]: ../../../plugins/use-assets-to-install-plugins/

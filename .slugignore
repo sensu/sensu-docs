@@ -2,6 +2,7 @@
 
 # Directories
 /archived
+/static/images/archived_version_images
 
 # Extras
 node_modules/

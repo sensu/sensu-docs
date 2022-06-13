@@ -387,7 +387,7 @@ spec:
 It might take a few moments after you add the pipeline to the check for the check to be scheduled on entities with the `system` subscription and the result sent back to Sensu backend.
 After an event is handled, you should receive a message like this in Slack:
 
-{{< figure src="/images/pipeline_cpu-check-alerts.png" alt="Example Slack message" link="/images/pipeline_cpu-check-alerts.png" target="_blank" >}}
+{{< figure src="/images/go/send_slack_alerts/check_cpu_usage_example_alert.png" alt="Example Slack message" link="/images/go/send_slack_alerts/check_cpu_usage_example_alert.png" target="_blank" >}}
 
 Verify proper handler behavior with `sensu-backend` logs.
 Read [Troubleshoot Sensu][7] for log locations by platform.

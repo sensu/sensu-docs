@@ -27,7 +27,7 @@ a unified view of your events, entities, and checks with user-friendly tools to 
 **LICENSED TIER**: Unlock the Sensu dashboard homepage (shown below) in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
 
 <div style="text-align:center">
-<img src="/images/homepage.png" alt="Sensu dashboard homepage" width="750">
+<img src="/images/archived_version_images/homepage.png" alt="Sensu dashboard homepage" width="750">
 </div>
 
 <p style="text-align:center"><i>Sensu dashboard homepage</i></p>
@@ -47,7 +47,7 @@ By default, the dashboard displays the `default` namespace.
 To switch namespaces, select the menu icon in the upper-left corner, and choose a namespace from the dropdown.
 **COMMERCIAL FEATURE**: The namespaces listed will be limited to those that the current user has access to.
 
-<img src="/images/dashboard-namespace-switcher.png" alt="Screenshot of the Sensu dashboard namespace switcher">
+<img src="/images/archived_version_images/dashboard_namespace_switcher.png" alt="Screenshot of the Sensu dashboard namespace switcher">
 
 <p style="text-align:center"><i>Sensu dashboard namespace switcher</i></p>
 
