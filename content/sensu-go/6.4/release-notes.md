@@ -1780,7 +1780,7 @@ To get started with Sensu Go:
 [39]: /sensu-go/5.6/operations/control-access/ad-auth/#ad-binding-attributes
 [40]: /sensu-go/5.6/observability-pipeline/observe-schedule/agent/#general-configuration-flags
 [41]: /sensu-go/5.7/operations/deploy-sensu/install-sensu/#install-sensu-agents
-[42]: /sensu-go/5.7/observability-pipeline/observe-schedule/agent/#service-management
+[42]: /sensu-go/5.7/observability-pipeline/observe-schedule/agent/
 [43]: /sensu-go/5.7/api/#response-filtering
 [44]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156/
 [45]: /sensu-go/5.8/sensuctl/create-manage-resources/#handle-large-datasets

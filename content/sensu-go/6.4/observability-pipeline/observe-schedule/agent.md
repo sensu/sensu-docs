@@ -133,7 +133,7 @@ Read [API configuration flags](#api-configuration-flags) to configure the `event
 #### Example POST request to events endpoint {#events-post-example}
 
 The following example submits an HTTP POST request to the agent API `/events` endpoint.
-The request creates event for a check named `check-mysql-status` with the output `could not connect to mysql` and a status of `1` (warning).
+The request creates an event for a check named `check-mysql-status` with the output `could not connect to mysql` and a status of `1` (warning).
 The agent responds with an HTTP `202 Accepted` response to indicate that the event has been added to the queue to be sent to the backend.
 
 The event will be handled according to an `email` handler definition.
@@ -497,7 +497,7 @@ If you want to receive alerts for failing keepalives, set the [deregister](#ephe
 {{% /notice %}}
 
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
-In addition, the agent maps [`keepalive-critical-timeout`][4] and [`keepalive-warning-timeout`][58] values to certain event check attributes, so you can [create time-based event filters][57] to reduce alert fatigue for agent keepliave events.
+In addition, the agent maps [`keepalive-critical-timeout`][4] and [`keepalive-warning-timeout`][58] values to certain event check attributes, so you can [create time-based event filters][57] to reduce alert fatigue for agent keepalive events.
 
 {{% notice note %}}
 **NOTE**: Automatic keepalive monitoring is not supported for [proxy entities](../../observe-entities/#proxy-entities) because they cannot run a Sensu agent.
@@ -1270,7 +1270,7 @@ detect-cloud-provider: false{{< /code >}}
 
 | keepalive-critical-timeout |      |
 --------------------|------
-description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. Set to disabled (`0`) by default. If the value is not `0`, it must be greater than or equal to `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-critical-timeout` value to the [`event.check.ttl` attribute](../../observe-events/events/#check-attribute) when keepalive events are generated for the Sensu backend to process. The `event.check.ttl` attribute is useful for [creating time-based event filters](../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. Set to disabled (`0`) by default. If the value is not `0`, it must be greater than or equal to `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-critical-timeout` value to the [`event.check.ttl` attribute](../../observe-events/events/#check-attribute) when keepalive events are generated for the Sensu backend to process. The `event.check.ttl` attribute is useful for [creating time-based event filters](../../observe-filter/filters#filter-to-reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
 {{% /notice %}}
 type                | Integer
 default             | `0`
@@ -1311,7 +1311,7 @@ keepalive-interval: 30{{< /code >}}
 
 | keepalive-warning-timeout |      |
 --------------------|------
-description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-warning-timeout` value to the [`event.check.timeout` attribute](../../observe-events/events/#check-attribute) when keepalive events are generated for the Sensu backend to process. The `event.check.timeout` attribute is useful for [creating time-based event filters](../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.<br>{{% notice note %}}**NOTE**: The agent maps the `keepalive-warning-timeout` value to the [`event.check.timeout` attribute](../../observe-events/events/#check-attribute) when keepalive events are generated for the Sensu backend to process. The `event.check.timeout` attribute is useful for [creating time-based event filters](../../observe-filter/filters#filter-to-reduce-alert-fatigue-for-keepalive-events) to reduce alert fatigue for agent keepalive events.
 {{% /notice %}}
 type                | Integer
 default             | `120`
@@ -1620,7 +1620,7 @@ sha512: 4f926bf4328...
 {{< /code >}}
 {{< /language-toggle >}}
 
-#### example allow list configuration
+#### Example allow list configuration
 
 {{< language-toggle >}}
 
@@ -1961,7 +1961,7 @@ log-level: debug
 [45]: https://en.m.wikipedia.org/wiki/WebSocket
 [46]: ../../../operations/deploy-sensu/secure-sensu/
 [47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
-[48]: #example-allow-list-configuration-file
+[48]: #example-allow-list-configuration
 [49]: #allow-list-configuration-commands
 [50]: #configuration-via-environment-variables
 [51]: #events-post-specification
@@ -1970,7 +1970,7 @@ log-level: debug
 [54]: ../../../web-ui/search#search-for-labels
 [55]: ../../../commercial/
 [56]: #allow-list
-[57]: ../../observe-filter/filters#reduce-alert-fatigue-for-keepalive-events
+[57]: ../../observe-filter/filters#filter-to-reduce-alert-fatigue-for-keepalive-events
 [58]: #keepalive-warning-timeout-flag
 [59]: ../../../operations/control-access/#use-built-in-basic-authentication
 [60]: #log-level
