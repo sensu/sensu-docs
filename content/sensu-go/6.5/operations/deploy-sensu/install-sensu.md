@@ -568,7 +568,7 @@ sensuctl license info
 [12]: ../../../observability-pipeline/observe-process/send-email-alerts/
 [13]: https://sensu.io/licenses
 [14]: ../../../platforms/#supported-packages
-[15]: ../../../observability-pipeline/observe-schedule/agent/#events-post-example
+[15]: ../../../observability-pipeline/observe-schedule/agent/#example-post-request-to-events-endpoint
 [16]: https://etcd.io/
 [17]: ../../../plugins/assets/
 [18]: #install-sensu-agents
