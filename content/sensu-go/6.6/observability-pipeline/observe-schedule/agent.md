@@ -2003,7 +2003,7 @@ sensu-agent start --help
 [36]: ../../../operations/deploy-sensu/cluster-sensu/
 [37]: ../backend#general-configuration-flags
 [38]: #name
-[39]: ../../../operations/control-access/rbac/
+[39]: ../../../operations/control-access/rbac/#agent-user
 [40]: ../../observe-process/send-slack-alerts/
 [41]: ../../observe-process/handlers/#send-registration-events
 [42]: #backend-heartbeat-timeout
