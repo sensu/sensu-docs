@@ -27,6 +27,7 @@ Before executing any handlers listed in the pipeline, Sensu applies any event fi
 * Filter `expressions` are compared with event data.
 
 Event filters can be inclusive (only matching events are handled) or exclusive (matching events are not handled).
+Read [Inclusive and exclusive event filters][1] for details.
 
 As soon as a filter removes an event, no further analysis is performed and the pipeline workflow's handler will not be executed.
 
@@ -68,22 +69,30 @@ spec:
 
 ## Inclusive and exclusive event filters
 
-Event filters can be _inclusive_ (`"action": "allow"`; replaces `"negate": false` in Sensu Core) or _exclusive_ (`"action": "deny"`; replaces `"negate": true` in Sensu Core).
-Configuring a pipeline to use multiple _inclusive_ event filters is the equivalent of using an `AND` query operator (only handle events if they match the _inclusive_ filter: `x AND y AND z`).
-Configuring a pipeline to use multiple _exclusive_ event filters is the equivalent of using an `OR` operator (only handle events if they don’t match `x OR y OR z`).
+Event filters can be *inclusive* or *exclusive*:
 
-In **inclusive filtering**, by setting the event filter definition attribute `"action": "allow"`, only events that match the defined filter expressions are handled.
+- In *inclusive* filtering, only events that match the defined filter expressions will be handled.
+- In *exclusive* filtering, events will be handled only if they do not match the defined filter expressions. 
 
-In **exclusive filtering**, by setting the event filter definition attribute `"action": "deny"`, events are only handled if they do not match the defined filter expressions.
+Use the [`action` attribute][34] in the event filter definition to control whether the filter is inclusive or exclusive:
 
-### Filter expression comparison
+- To use inclusive filtering, set the `action` attribute to `allow` in the event filter definition (`"action": "allow"`).
+- To use exclusive filtering, set the `action` attribute to `deny` in the event filter definition (`"action": "deny"`).
+
+### Multiple inclusive or exclusive event filters
+
+Multiple *inclusive* event filters are equivalent to using an `AND` query operator: Sensu will only handle events if they match *all* of the inclusive filters (`x AND y AND z`).
+
+Multiple *exclusive* event filters are equivalent to using an `OR` operator: Sensu will only handle events if they *don’t* match *any* of the exclusive filters (`x OR y OR z`).
+
+## Filter expression comparison
 
 Event filter expressions are compared directly with their event data counterparts.
-For inclusive event filter definitions (`"action": "allow"`), matching expressions will result in the filter returning a `true` value.
-For exclusive event filter definitions (`"action": "deny"`), matching expressions will result in the filter returning a `false` value, and the event will not pass through the filter.
-If an event filter returns a `true` value, the event will continue to be processed via additional filters (if defined), mutators (if defined), and handlers.
 
-### Filter expression evaluation
+- For *inclusive* event filter definitions (`"action": "allow"`), matching expressions will result in the filter returning a `true` value. The event will pass through the filter and continue to be processed with additional filters (if defined), mutators (if defined), and handlers.
+- For *exclusive* event filter definitions (`"action": "deny"`), matching expressions will result in the filter returning a `false` value, and the event will not pass through the filter.
+
+## Filter expression evaluation
 
 When more complex conditional logic is needed than direct filter expression comparison, Sensu event filters provide support for expression evaluation using [Otto][31].
 Otto is an ECMAScript 5 (JavaScript) virtual machine that evaluates JavaScript expressions provided in an event filter.
@@ -1284,7 +1293,7 @@ spec:
 [22]: ../../observe-process/handlers/
 [23]: ../../observe-events/events#metrics-attributes
 [24]: ../../observe-entities/entities#metadata-attributes
-[25]: ../../../operations/control-access/rbac/#default-roles-and-cluster-roles
+[25]: ../../../operations/control-access/rbac/#agent-user
 [26]: ../../observe-schedule/agent#keepalive-monitoring
 [27]: ../../observe-filter/sensu-query-expressions/
 [28]: ../../observe-events/events#event-format
