@@ -1883,7 +1883,7 @@ status: Ss
 [19]: #proxy-entities-managed
 [20]: #annotations-attribute
 [21]: https://regex101.com/r/zo9mQU/2
-[22]: ../../../operations/control-access/rbac/
+[22]: ../../../operations/control-access/rbac/#agent-user
 [23]: ../../../web-ui/search#search-for-labels
 [24]: ../../observe-schedule/checks#proxy-requests-attributes
 [25]: ../../observe-schedule/agent/#detect-cloud-provider-flag
