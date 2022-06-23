@@ -254,7 +254,7 @@ Sensu downloads the dynamic runtime asset build on the host system where the ass
 For example, if a check definition references a dynamic runtime asset, the Sensu agent that executes the check will download the asset the first time it executes the check.
 The dynamic runtime asset build the agent downloads will depend on the filter rules associated with each build defined for the asset.
 
-Sensu backends follow a similar process when pipeline elements (filters, mutators, and handlers) request dynamic runtime asset installation as part of operation.
+Sensu backends follow a similar process when event filters, mutators, and handlers request dynamic runtime asset installation as part of operation.
 
 {{% notice note %}}
 **NOTE**: Dynamic runtime asset builds are not downloaded until they are needed for command execution.
