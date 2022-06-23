@@ -408,7 +408,7 @@ Most of the time, you won't need to know this path &mdash; except in cases where
 
 The dynamic runtime asset directory path includes the asset's checksum, which changes every time underlying asset artifacts are updated.
 This would normally require you to manually update the commands for any of your checks, handlers, hooks, or mutators that consume the dynamic runtime asset.
-However, because the dynamic runtime asset directory path is exposed to asset consumers via [environment variables][14] and the [`assetPath` custom function for token substitution][17], you can avoid these manual updates.
+However, because the dynamic runtime asset directory path is exposed to asset consumers via [environment variables][14] and the [`assetPath` custom function][17], you can avoid these manual updates.
 
 You can retrieve the dynamic runtime asset's path as an environment variable in the `command` context for checks, handlers, hooks, and mutators.
 Token substitution with the `assetPath` custom function is only available for check and hook commands.
@@ -420,68 +420,74 @@ For all other operating systems, the Sensu agent uses the Bourne shell (sh).
 
 For each dynamic runtime asset, a corresponding environment variable will be available in the `command` context.
 
-Sensu generates the environment variable name by capitalizing the dynamic runtime asset's Bonsai namespace and name, replacing any special characters with underscores, and appending the `_PATH` suffix.
+Sensu generates the environment variable name by capitalizing the dynamic runtime asset's complete name, replacing any special characters with underscores, and appending the `_PATH` suffix.
 The value of the variable will be the path on disk where the dynamic runtime asset build has been unpacked.
 
-Each asset page in Bonsai lists the asset's namespace and name.
-This example shows where the namespace and name for the [http-checks][22] dynamic runtime asset are located in Bonsai:
+Each asset page in Bonsai lists the asset's complete name.
+This example shows where the complete name for the [sensu/http-checks][22] dynamic runtime asset is located in Bonsai:
 
-{{< figure src="/images/go/assets_reference/name_namespace_location_bonsai_asset_paths.png" alt="Bonsai page for the Sensu http-checks dynamic runtime asset showing the location of the asset namespace and name" link="/images/go/assets_reference/name_namespace_location_bonsai_asset_paths.png" target="_blank" >}}
+{{< figure src="/images/go/assets_reference/complete_name_location_bonsai_asset_paths.png" alt="Bonsai page for the Sensu http-checks dynamic runtime asset showing the location of the asset namespace and name" link="/images/go/assets_reference/complete_name_location_bonsai_asset_paths.png" target="_blank" >}}
 
-In this example, the Bonsai namespace is `sensu` and the asset name is `http-checks`.
-The environment variable for the [http-checks][4] asset path is:
+An asset's complete name includes both the part before the forward slash (sometimes called the Bonsai namespace) and the part after the forward slash.
+
+Consequently, the environment variable for the [sensu/http-checks][22] asset path is:
 
 {{< code shell >}}
 SENSU_HTTP_CHECKS_PATH
 {{< /code >}}
 
-### Token substitution for dynamic runtime asset paths
+#### Linux environment variable example
 
-The `assetPath` token subsitution function allows you to substitute the dynamic runtime asset's local path on disk, so you will not need to manually update your check or hook commands every time the asset is updated.
+The Linux environment interprets the content between the `${` and `}` characters as an environment variable name and will substitute the value of that environment variable.
+
+For example, to reference the path for the [sensu/http-checks][22] asset in your checks, handlers, hooks, and mutators:
+
+{{< code shell >}}
+${SENSU_HTTP_CHECKS_PATH}
+{{< /code >}}
+
+#### Windows environment variable example
+
+The Windows console environment interprets the content between [paired `%` characters][44] as an environment variable name and will substitute the value of that [environment variable][45].
+
+For example, to reference the path for the [sensu/sensu-windows-powershell-checks][4] asset in your checks, handlers, hooks, and mutators:
+
+{{< code shell "Environment variable" >}}
+%SENSU_SENSU_WINDOWS_POWERSHELL_CHECKS_PATH%
+{{< /code >}}
+
+### assetPath function for dynamic runtime asset paths
+
+The `assetPath` token subsitution function allows you to substitute a dynamic runtime asset's local path on disk so that you will not need to manually update your check or hook commands every time the asset is updated.
 
 {{% notice note %}}
 **NOTE**: The `assetPath` function is only available where token substitution is available: the `command` attribute of a check or hook resource.
 To access a dynamic runtime asset path in a handler or mutator command, you must use the [environment variable](#environment-variables-for-dynamic-runtime-asset-paths).
 {{% /notice %}}
 
-#### Linux environments
+#### Linux assetPath example
 
-The Linux environment interprets the content between the `${` and `}` characters as an environment variable name and will substitute the value of that environment variable.
+To use the `assetPath` token substitution function in a Linux environment, place it immediately after the `$` character.
 
-For example, you can use either the environment variable or the `assetPath` function to reference the dynamic runtime asset [`http-checks`][22] in your check or hook resources:
+For example, to use the `assetPath` function to reference the path for the [sensu/http-checks][22] asset in your check or hook resources:
 
-{{< language-toggle >}}
-
-{{< code shell "Environment variable" >}}
-${SENSU_HTTP_CHECKS_PATH}/include/config.yaml
+{{< code shell >}}
+${{assetPath "sensu/http-checks"}}
 {{< /code >}}
+
+#### Windows assetPath example
+
+To use the `assetPath` token substitution function in a Linux environment, place it between [paired `%` characters][44].
+
+For example, to use the `assetPath` function to reference the path for the [sensu/sensu-windows-powershell-checks][4] asset in your check or hook resources:
 
 {{< code shell "assetPath" >}}
-${{assetPath "sensu/http-checks"}}/include/config.yaml
+%{{assetPath "sensu/sensu-windows-powershell-checks"}}%
 {{< /code >}}
-
-{{< /language-toggle >}}
-
-#### Windows environments
-
-The Windows console environment interprets the content between [paired `%` characters][44] as an environment variable name and will substitute the value of that [environment variable][45].
-
-For example, you can use either the environment variable or the `assetPath` function to reference the dynamic runtime asset [`sensu-windows-powershell-checks`][4] in your check or hook resources:
-
-{{< language-toggle >}}
-
-{{< code shell "Environment variable" >}}
-%SENSU_SENSU_WINDOWS_POWERSHELL_CHECKS_PATH%/include/config.yaml
-{{< /code >}}
-
-{{< code shell "assetPath" >}}
-${{assetPath "sensu/sensu-windows-powershell-checks"}}/include/config.yaml
-{{< /code >}}
-
-{{< /language-toggle >}}
 
 When running PowerShell plugins on Windows, the [exit status codes that Sensu captures may not match the expected values][13].
-To correctly capture exit status codes from PowerShell plugins distributed as dynamic runtime assets, use the asset path to construct the command:
+To correctly capture exit status codes from PowerShell plugins distributed as dynamic runtime assets, use the asset path to construct the command.
+The following example uses the `assetPath` function for this purpose:
 
 {{< language-toggle >}}
 
@@ -492,14 +498,14 @@ api_version: core/v2
 metadata:
   name: win-cpu-check
 spec:
-  command: powershell.exe -ExecutionPolicy ByPass -f %{{assetPath "sensu-windows-powershell-checks"}}%\bin\check-windows-cpu-load.ps1 90 95
+  command: powershell.exe -ExecutionPolicy ByPass -f %{{assetPath "sensu/sensu-windows-powershell-checks"}}%\bin\check-windows-cpu-load.ps1 90 95
   subscriptions:
   - windows
   handlers:
   - slack
   - email
   runtime_assets:
-  - sensu-windows-powershell-checks
+  - sensu/sensu-windows-powershell-checks
   interval: 10
   publish: true
 {{< /code >}}
@@ -512,7 +518,7 @@ spec:
     "name": "win-cpu-check"
   },
   "spec": {
-    "command": "powershell.exe -ExecutionPolicy ByPass -f %{{assetPath \"sensu-windows-powershell-checks\"}}%\\bin\\check-windows-cpu-load.ps1 90 95",
+    "command": "powershell.exe -ExecutionPolicy ByPass -f %{{assetPath \"sensu/sensu-windows-powershell-checks\"}}%\\bin\\check-windows-cpu-load.ps1 90 95",
     "subscriptions": [
       "windows"
     ],
@@ -521,7 +527,7 @@ spec:
       "email"
     ],
     "runtime_assets": [
-      "sensu-windows-powershell-checks"
+      "sensu/sensu-windows-powershell-checks"
     ],
     "interval": 10,
     "publish": true
@@ -530,10 +536,6 @@ spec:
 {{< /code >}}
 
 {{< /language-toggle >}}
-
-{{% notice note %}}
-**NOTE**: In this example, the check command uses the Windows console syntax for accessing the environment variables used to configure the PowerShell command line arguments. 
-{{% /notice %}}
 
 ## Asset hello world Bourne shell example
 
@@ -1255,12 +1257,12 @@ You must remove the archive and downloaded files from the asset cache manually.
 [14]: #environment-variables-for-dynamic-runtime-asset-paths
 [15]: #example-dynamic-runtime-asset-structure
 [16]: https://bonsai.sensu.io/
-[17]: #token-substitution-for-dynamic-runtime-asset-paths
+[17]: #assetpath-function-for-dynamic-runtime-asset-paths
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
 [19]: https://regex101.com/r/zo9mQU/2
 [20]: ../../api/#response-filtering
 [21]: ../../sensuctl/filter-responses/
-[22]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
+[22]: https://bonsai.sensu.io/assets/sensu/http-checks
 [23]: ../use-assets-to-install-plugins/
 [24]: https://github.com
 [25]: https://help.github.com/articles/about-releases/
