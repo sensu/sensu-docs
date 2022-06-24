@@ -171,7 +171,7 @@ spec:
     a service can be considered healthy as long as a minimum threshold is satisfied
     (e.g. at least 5 healthy web servers? at least 70% of N processes healthy?).
   eval: |2
-    if (events \u0026\u0026 events.length == 0) {
+    if (events && events.length == 0) {
         event.check.output = "WARNING: No events selected for aggregate
     ";
         event.check.status = 1;
@@ -271,13 +271,13 @@ spec:
             }
         }
     }
-    if (!!args["critical_threshold"] \u0026\u0026 percentOK \u003c= args["critical_threshold"]) {
+    if (!!args["critical_threshold"] && percentOK \u003c= args["critical_threshold"]) {
         event.check.output = "CRITICAL: Less than " + args["critical_threshold"].toString() + "% of selected events are OK (" + percentOK.toString() + "%)
     ";
         event.check.status = 2;
         return event;
     }
-    if (!!args["warning_threshold"] \u0026\u0026 percentOK \u003c= args["warning_threshold"]) {
+    if (!!args["warning_threshold"] && percentOK \u003c= args["warning_threshold"]) {
         event.check.output = "WARNING: Less than " + args["warning_threshold"].toString() + "% of selected events are OK (" + percentOK.toString() + "%)
     ";
         event.check.status = 1;
