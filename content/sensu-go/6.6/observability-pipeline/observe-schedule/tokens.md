@@ -266,6 +266,7 @@ With this asset definition, which includes the `.labels.asset_url` token substit
 Handlers and mutators can also include `sensu-go-hello-world` as a dynamic runtime asset, but Sensu Go will use the token subtitution for the backend's entity instead of the agent's entity.
 
 You can also use token substitution to customize dynamic runtime asset headers (for example, to include secure information for authentication).
+Sensu also provides an [`assetPath` function][14] that allows you to substitute a dynamic runtime asset’s local path on disk.
 
 {{% notice note %}}
 **NOTE**: To maintain security, you cannot use token substitution for a dynamic runtime asset's SHA512 value.
@@ -343,3 +344,4 @@ Token substitution **can** be used for alerting thresholds because those values 
 [11]: ../../observe-transform/mutators/
 [12]: ../../../plugins/assets/
 [13]: https://bonsai.sensu.io/assets/sensu/check-disk-usage
+[14]: ../../../plugins/assets/#assetpath-function-for-dynamic-runtime-asset-paths
