@@ -79,7 +79,7 @@ We recommend using [multiple-build asset defintions](#asset-example-multiple-bui
 
 ### Asset example: Multiple builds
 
-This example shows the resource definition for a dynamic runtime asset with multiple builds:
+This example shows the resource definition for the [sensu/check-cpu-usage][46] dynamic runtime asset, which has multiple builds:
 
 {{< language-toggle >}}
 
@@ -88,39 +88,48 @@ This example shows the resource definition for a dynamic runtime asset with mult
 type: Asset
 api_version: core/v2
 metadata:
-  name: check_cpu
-  labels:
-    origin: bonsai
+  name: check-cpu-usage
+  labels: 
   annotations:
-    project_url: https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check
-    version: 0.0.3
+    io.sensu.bonsai.url: https://bonsai.sensu.io/assets/sensu/check-cpu-usage
+    io.sensu.bonsai.api_url: https://bonsai.sensu.io/api/v1/assets/sensu/check-cpu-usage
+    io.sensu.bonsai.tier: Community
+    io.sensu.bonsai.version: 0.2.2
+    io.sensu.bonsai.namespace: sensu
+    io.sensu.bonsai.name: check-cpu-usage
+    io.sensu.bonsai.tags: ''
 spec:
   builds:
-  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz
-    sha512: 487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3
-    filters:
-    - entity.system.os == 'linux'
-    - entity.system.arch == 'amd64'
-    headers:
-      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
-      X-Forwarded-For: client1, proxy1, proxy2
-  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz
-    sha512: 70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b
-    filters:
-    - entity.system.os == 'linux'
-    - entity.system.arch == 'arm'
-    - entity.system.arm_version == 7
-    headers:
-      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
-      X-Forwarded-For: client1, proxy1, proxy2
-  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz
-    sha512: 10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f
+  - url: https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_windows_amd64.tar.gz
+    sha512: 900cfdf28d6088b929c4bf9a121b628971edee5fa5cbc91a6bc1df3bd9a7f8adb1fcfb7b1ad70589ed5b4f5ec87d9a9a3ba95bcf2acda56b0901406f14f69fe7
     filters:
     - entity.system.os == 'windows'
     - entity.system.arch == 'amd64'
-    headers:
-      Authorization: 'Bearer {{ .annotations.asset_token | default "N/A" }}'
-      X-Forwarded-For: client1, proxy1, proxy2
+  - url: https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_darwin_amd64.tar.gz
+    sha512: db81ee70426114e4cd4b3f180f2b0b1e15b4bffc09d7f2b41a571be2422f4399af3fbd2fa2918b8831909ab4bc2d3f58d0aa0d7b197d3a218b2391bb5c1f6913
+    filters:
+    - entity.system.os == 'darwin'
+    - entity.system.arch == 'amd64'
+  - url: https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_armv7.tar.gz
+    sha512: 400aacce297176e69f3a88b0aab0ddfdbe9dd6a37a673cb1774c8d4750a91cf7713a881eef26ea21d200f74cb20818161c773490139e6a6acb92cbd06dee994c
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'armv7'
+  - url: https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_arm64.tar.gz
+    sha512: bef7802b121ac2a2a5c5ad169d6003f57d8b4f5e83eae998a0e0dd1e7b89678d4a62e678d153edacdd65fd1d0123b5f51308622690455e77cec6deccfa183397
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'arm64'
+  - url: https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_386.tar.gz
+    sha512: a2dcb5324952567a61d76a2e331c1c16df69ef0e0b9899515dad8d1531b204076ad0c008f59fc2f4735a5a779afb0c1baa132268c41942b203444e377fe8c8e5
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == '386'
+  - url: https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_amd64.tar.gz
+    sha512: 24539739b5eb19bbab6eda151d0bcc63a0825afdfef3bc1ec3670c7b0a00fbbb2fd006d605a7a038b32269a22026d8947324f2bc0acdf35e8563cf4cb8660d7f
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
 {{< /code >}}
 
 {{< code json >}}
@@ -128,53 +137,67 @@ spec:
   "type": "Asset",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check_cpu",
-    "labels": {
-      "origin": "bonsai"
-    },
+    "name": "check-cpu-usage",
+    "labels": null,
     "annotations": {
-      "project_url": "https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check",
-      "version": "0.0.3"
+      "io.sensu.bonsai.url": "https://bonsai.sensu.io/assets/sensu/check-cpu-usage",
+      "io.sensu.bonsai.api_url": "https://bonsai.sensu.io/api/v1/assets/sensu/check-cpu-usage",
+      "io.sensu.bonsai.tier": "Community",
+      "io.sensu.bonsai.version": "0.2.2",
+      "io.sensu.bonsai.namespace": "sensu",
+      "io.sensu.bonsai.name": "check-cpu-usage",
+      "io.sensu.bonsai.tags": ""
     }
   },
   "spec": {
     "builds": [
       {
-        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz",
-        "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
-        "filters": [
-          "entity.system.os == 'linux'",
-          "entity.system.arch == 'amd64'"
-        ],
-        "headers": {
-          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-          "X-Forwarded-For": "client1, proxy1, proxy2"
-        }
-      },
-      {
-        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz",
-        "sha512": "70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b",
-        "filters": [
-          "entity.system.os == 'linux'",
-          "entity.system.arch == 'arm'",
-          "entity.system.arm_version == 7"
-        ],
-        "headers": {
-          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-          "X-Forwarded-For": "client1, proxy1, proxy2"
-        }
-      },
-      {
-        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz",
-        "sha512": "10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f",
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_windows_amd64.tar.gz",
+        "sha512": "900cfdf28d6088b929c4bf9a121b628971edee5fa5cbc91a6bc1df3bd9a7f8adb1fcfb7b1ad70589ed5b4f5ec87d9a9a3ba95bcf2acda56b0901406f14f69fe7",
         "filters": [
           "entity.system.os == 'windows'",
           "entity.system.arch == 'amd64'"
-        ],
-        "headers": {
-          "Authorization": "Bearer {{ .annotations.asset_token | default \"N/A\" }}",
-          "X-Forwarded-For": "client1, proxy1, proxy2"
-        }
+        ]
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_darwin_amd64.tar.gz",
+        "sha512": "db81ee70426114e4cd4b3f180f2b0b1e15b4bffc09d7f2b41a571be2422f4399af3fbd2fa2918b8831909ab4bc2d3f58d0aa0d7b197d3a218b2391bb5c1f6913",
+        "filters": [
+          "entity.system.os == 'darwin'",
+          "entity.system.arch == 'amd64'"
+        ]
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_armv7.tar.gz",
+        "sha512": "400aacce297176e69f3a88b0aab0ddfdbe9dd6a37a673cb1774c8d4750a91cf7713a881eef26ea21d200f74cb20818161c773490139e6a6acb92cbd06dee994c",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'armv7'"
+        ]
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_arm64.tar.gz",
+        "sha512": "bef7802b121ac2a2a5c5ad169d6003f57d8b4f5e83eae998a0e0dd1e7b89678d4a62e678d153edacdd65fd1d0123b5f51308622690455e77cec6deccfa183397",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'arm64'"
+        ]
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_386.tar.gz",
+        "sha512": "a2dcb5324952567a61d76a2e331c1c16df69ef0e0b9899515dad8d1531b204076ad0c008f59fc2f4735a5a779afb0c1baa132268c41942b203444e377fe8c8e5",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == '386'"
+        ]
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/a7ced27e881989c44522112aa05dd3f25c8f1e49/check-cpu-usage_0.2.2_linux_amd64.tar.gz",
+        "sha512": "24539739b5eb19bbab6eda151d0bcc63a0825afdfef3bc1ec3670c7b0a00fbbb2fd006d605a7a038b32269a22026d8947324f2bc0acdf35e8563cf4cb8660d7f",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'amd64'"
+        ]
       }
     ]
   }
@@ -1280,3 +1303,4 @@ You must remove the archive and downloaded files from the asset cache manually.
 [43]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
 [44]: https://devblogs.microsoft.com/oldnewthing/20060823-00/?p=29993
 [45]: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.1
+[46]: https://bonsai.sensu.io/assets/sensu/check-cpu-usage
