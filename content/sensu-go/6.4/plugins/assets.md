@@ -67,6 +67,12 @@ spec:
 
 {{< /language-toggle >}}
 
+## Install location for dynamic runtime assets
+
+If you use a Sensu [package][32], dynamic runtime assets are installed at `/var/cache`.
+
+If you use a Sensu [Docker image][31], dynamic runtime assets are installed at `/var/lib`.
+
 ## Dynamic runtime asset builds
 
 A dynamic runtime asset build is the combination of an artifact URL, SHA512 checksum, and optional [Sensu query expression][1] filters.
@@ -1294,6 +1300,8 @@ You must remove the archive and downloaded files from the asset cache manually.
 [28]: https://github.com/sensu/sensu-go-plugin/
 [29]: ../plugins/
 [30]: ../../observability-pipeline/observe-schedule/agent#disable-assets
+[31]: ../../platforms/#docker-images
+[32]: ../../platforms/#supported-packages
 [37]: https://bonsai.sensu.io/sign-in
 [38]: https://bonsai.sensu.io/new
 [39]: ../../web-ui/search#search-for-labels
