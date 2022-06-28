@@ -38,11 +38,11 @@ sensuctl entity list
 The `ID` in the response is the entity name.
 Select one of the listed entities.
 
-Before you run the following sensuctl command, replace `<entity_name>` with the name of your entity.
+Before you run the following sensuctl command, replace `<ENTITY_NAME>` with the name of your entity.
 Then run the command to add the `system` subscription to your entity:
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -58,9 +58,9 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 ## Register the dynamic runtime asset
 
-The [Sensu Sumo Logic Handler][8] [dynamic runtime asset][5] includes the scripts your [handler][9] will need to send observability data to Sumo Logic.
+The [sensu/sensu-sumologic-handler][8] [dynamic runtime asset][5] includes the scripts your [handler][9] will need to send observability data to Sumo Logic.
 
-To add the Sumo Logic handler asset, run:
+To add the sensu/sensu-sumologic-handler asset, run:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-sumologic-handler:0.3.0 -r sumologic-handler
@@ -85,7 +85,7 @@ To confirm that the asset was added to your Sensu backend, run:
 sensuctl asset info sumologic-handler
 {{< /code >}}
 
-The response will list the available builds for the Sensu Sumo Logic Handler dynamic runtime asset.
+The response will list the available builds for the sensu/sensu-sumologic-handler dynamic runtime asset.
 
 {{% notice note %}}
 **NOTE**: Sensu does not download and install dynamic runtime asset builds onto the system until they are needed for command execution.
@@ -143,7 +143,7 @@ You will use this URL in the next step as the `SUMOLOGIC_URL` value for the secr
 
 ## Add the Sumo Logic handler
 
-Now that you've set up a Sumo Logic HTTP Logs and Metrics Source, you can create a [handler][9] that uses the [Sensu Sumo Logic Handler asset][8] to send observability data to Sumo Logic.
+Now that you've set up a Sumo Logic HTTP Logs and Metrics Source, you can create a [handler][9] that uses the [sensu/sensu-sumologic-handler][8] dynamic runtime asset to send observability data to Sumo Logic.
 
 The Sensu Sumo Logic Handler asset requires a `SUMOLOGIC_URL` variable.
 The value for the `SUMOLOGIC_URL` variable is the Sumo Logic HTTP Source Address URL, which you retrieved in the last step of [setting up an HTTP Logs and Metrics Source][12].
@@ -570,7 +570,7 @@ You have a successful workflow that sends Sensu observability data to your Sumo 
 
 To share and reuse the check, handler, and pipeline like code, [save them to files][6] and start building a [monitoring as code repository][7].
 
-Learn more about the [Sensu Sumo Logic Handler][19] dynamic runtime asset.
+Learn more about the [sensu/sensu-sumologic-handler][19] dynamic runtime asset.
 You can also configure a [Sumo Logic dashboard][10] to search, view, and analyze the Sensu data you're sending to your Sumo Logic HTTP Logs and Metrics Source.
 
 In addition to the traditional handler we used in this example, you can use [Sensu Plus][17], our built-in integration, to send metrics to Sumo Logic with a streaming [Sumo Logic metrics handler][18].

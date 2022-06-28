@@ -16,19 +16,21 @@ You can also use `sensuctl command` to install, execute, list, and delete comman
 
 ## Install dynamic runtime asset definitions
 
-To install a dynamic runtime asset definition directly from Bonsai, use `sensuctl asset add <namespace/name>:<version>`.
-Replace `<namespace/name>` with the namespace and name of the dynamic runtime asset from Bonsai and `<version>` with the asset version you want to install.
+To install a dynamic runtime asset definition directly from Bonsai, use `sensuctl asset add <ASSET_NAME>:<ASSET_VERSION>`.
+Replace `<ASSET_NAME>` with the complete name of the dynamic runtime asset from Bonsai.
+An asset's complete name includes both the part before the forward slash (sometimes called the Bonsai namespace) and the part after the forward slash.
 
-To automatically install the latest version of the plugin, you do not need to specify the version: `sensuctl asset add <namespace/name>`.
+{{< figure src="/images/go/sensuctl_bonsai/name_namespace_location_bonsai_asset.png" alt="Bonsai page for the Sensu InfluxDB handler showing the location of the asset namespace and name" link="/images/go/sensuctl_bonsai/name_namespace_location_bonsai_asset.png" target="_blank" >}}
+
+Replace `<ASSET_VERSION>` with the asset version you want to install.
+To automatically install the latest version of the plugin, you do not need to specify the version: `sensuctl asset add <ASSET_NAME>`.
 
 {{% notice note %}}
 **NOTE**: Specify the asset version you want to install to maintain the stability of your observability infrastructure.
 If you do not specify a version to install, Sensu automatically installs the latest version, which may include breaking changes.
 {{% /notice %}}
 
-{{< figure src="/images/go/sensuctl_bonsai/name_namespace_location_bonsai_asset.png" alt="Bonsai page for the Sensu InfluxDB handler showing the location of the asset namespace and name" link="/images/go/sensuctl_bonsai/name_namespace_location_bonsai_asset.png" target="_blank" >}}
-
-For example, to install version 3.7.0 of the [Sensu InfluxDB Handler][4] dynamic runtime asset:
+For example, to install version 3.7.0 of the [sensu/sensu-influxdb-handler][4] dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.7.0
@@ -82,20 +84,20 @@ Use `sensuctl command` to install, execute, list, and delete commands from Bonsa
 To install a sensuctl command from Bonsai or a URL:
 
 {{< code shell >}}
-sensuctl command install <alias> (<namespace/name>:<version> | --url <archive_url> --checksum <archive_checksum>) <flags>
+sensuctl command install <ALIAS> (<ASSET_NAME>:<ASSET_VERSION> | --url <ARCHIVE_URL> --checksum <ARCHIVE_CHECKSUM>) <FLAGS>
 {{< /code >}}
 
 To install a command plugin, use the Bonsai asset name or specify a URL and SHA512 checksum.
 
-**To install a command using the Bonsai asset name**, replace `<namespace/name>` with the name of the asset from Bonsai.
-`:<version>` is only required if you require a specific version or are pinning to a specific version.
+**To install a command using the Bonsai asset name**, replace `<ASSET_NAME>` with the complete name of the asset from Bonsai.
+`:<ASSET_VERSION>` is only required if you require a specific version or are pinning to a specific version.
 If you do not specify a version, sensuctl will fetch the latest version from Bonsai.
 
-Replace `<alias>` with a unique name for the command.
+Replace `<ALIAS>` with a unique name for the command.
 For example, for the [Sensu EC2 Discovery Plugin][3], you might use the alias `sensu-ec2-discovery`. 
-`<alias>` is required.
+`<ALIAS>` is required.
 
-Replace `<flags>` with the flags you want to use.
+Replace `<FLAGS>` with the flags you want to use.
 Run `sensuctl command install -h` to view flags.
 Flags are optional and apply only to the `install` command &mdash; they are not saved as part of the command you are installing.
 
@@ -105,11 +107,11 @@ To install a command from the [Sensu EC2 Discovery Plugin][3] with no flags:
 sensuctl command install sensu-ec2-discovery portertech/sensu-ec2-discovery:0.3.0
 {{< /code >}}
 
-**To install a command from a URL**, replace `<archive_url>` with a command URL that points to a tarball (for example, https://path/to/asset.tar.gz).
-Replace `<archive_checksum>` with the checksum you want to use.
-Replace `<alias>` with a unique name for the command.
+**To install a command from a URL**, replace `<ARCHIVE_URL>` with a command URL that points to a tarball (for example, https://path/to/asset.tar.gz).
+Replace `<ARCHIVE_CHECKSUM>` with the checksum you want to use.
+Replace `<ALIAS>` with a unique name for the command.
 
-Replace `<flags>` with the flags you want to use.
+Replace `<FLAGS>` with the flags you want to use.
 Run `sensuctl command install -h` to view flags.
 Flags are optional and apply only to the `install` command &mdash; they are not saved as part of the command you are installing.
 
@@ -128,20 +130,20 @@ sensuctl command install command-test --url https://github.com/amdprophet/comman
 To execute a sensuctl command plugin via its dynamic runtime asset's bin/entrypoint executable:
 
 {{< code shell >}}
-sensuctl command exec <alias> <args> <flags>
+sensuctl command exec <ALIAS> <GLOBAL_FLAGS> <FLAGS>
 {{< /code >}}
 
-Replace `<alias>` with a unique name for the command.
+Replace `<ALIAS>` with a unique name for the command.
 For example, for the [Sensu EC2 Discovery Plugin][3], you might use the alias `sensu-ec2-discovery`. 
-`<alias>` is required.
+`<ALIAS>` is required.
 
-Replace `<flags>` with the flags you want to use.
+Replace `<GLOBAL_FLAGS>` with the globlal flags you want to use.
+Run `sensuctl command exec -h` to view global flags.
+To pass `<GLOBAL_FLAGS>` flags to the bin/entrypoint executable, make sure to specify them after a double dash surrounded by spaces.
+
+Replace `<FLAGS>` with the flags you want to use.
 Run `sensuctl command exec -h` to view flags.
 Flags are optional and apply only to the `exec` command &mdash; they are not saved as part of the command you are executing.
-
-Replace `<args>` with the globlal flags you want to use.
-Run `sensuctl command exec -h` to view global flags.
-To pass `<args>` flags to the bin/entrypoint executable, make sure to specify them after a double dash surrounded by spaces.
 
 {{% notice note %}}
 **NOTE**: When you use `sensuctl command exec`, the [environment variables](../environment-variables) are passed to the command.
@@ -150,7 +152,7 @@ To pass `<args>` flags to the bin/entrypoint executable, make sure to specify th
 For example:
 
 {{< code shell >}}
-sensuctl command exec <command> <arg1> <arg2> --cache-dir /tmp -- --<flag1> --<flag2>=<value>
+sensuctl command exec <COMMAND> <GLOBAL_FLAG_1> <GLOBAL_FLAG_2> --cache-dir /tmp -- --<FLAG_1> --<FLAG_2>=<value>
 {{< /code >}}
 
 Sensuctl will parse the --cache-dir flag, but bin/entrypoint will parse all flags after the ` -- `.
@@ -158,7 +160,7 @@ Sensuctl will parse the --cache-dir flag, but bin/entrypoint will parse all flag
 In this example, the full command run by sensuctl exec would be:
 
 {{< code shell >}}
-bin/entrypoint <arg1> <arg2> --<flag1> --<flag2>=<value>
+bin/entrypoint <GLOBAL_FLAG_1> <GLOBAL_FLAG_2> --<FLAG_1> --<FLAG_2>=<value>
 {{< /code >}}
 
 ### List commands
@@ -166,10 +168,10 @@ bin/entrypoint <arg1> <arg2> --<flag1> --<flag2>=<value>
 To list installed sensuctl commands: 
 
 {{< code shell >}}
-sensuctl command list <flags>
+sensuctl command list <FLAGS>
 {{< /code >}}
 
-Replace `<flags>` with the flags you want to use.
+Replace `<FLAGS>` with the flags you want to use.
 Run `sensuctl command list -h` to view flags.
 Flags are optional and apply only to the `list` command.
 
@@ -178,19 +180,18 @@ Flags are optional and apply only to the `list` command.
 To delete sensuctl commands:
 
 {{< code shell >}}
-sensuctl command delete <alias> <flags>
+sensuctl command delete <ALIAS> <FLAGS>
 {{< /code >}}
 
-Replace `<alias>` with a unique name for the command.
-For example, for the [Sensu EC2 Discovery Plugin][3], you might use the alias `sensu-ec2-discovery`. 
-`<alias>` is required.
+Replace `<ALIAS>` with a unique name for the command.
+For example, for the [sensu/sensu-ec2-handler][3], you might use the alias `sensu-ec2-handler`. 
+`<ALIAS>` is required.
 
-Replace `<flags>` with the flags you want to use.
+Replace `<FLAGS>` with the flags you want to use.
 Run `sensuctl command delete -h` to view flags.
 Flags are optional and apply only to the `delete` command.
 
 
 [1]: https://bonsai.sensu.io/
-[2]: /images/sensu-influxdb-handler-namespace.png
-[3]: https://bonsai.sensu.io/assets/portertech/sensu-ec2-discovery
+[3]: https://bonsai.sensu.io/assets/sensu/sensu-ec2-handler
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler

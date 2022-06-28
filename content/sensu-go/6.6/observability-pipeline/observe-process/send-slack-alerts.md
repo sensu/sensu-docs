@@ -35,11 +35,11 @@ sensuctl entity list
 
 The `ID` in the response is the name of your entity.
 
-Replace `<entity_name>` with the name of your entity in the [sensuctl][20] command below.
+Replace `<ENTITY_NAME>` with the name of your entity in the [sensuctl][20] command below.
 Then run the command to add the `system` [subscription][21] to your entity:
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -56,9 +56,9 @@ The response should indicate `active (running)` for both the Sensu backend and a
 ## Register the dynamic runtime asset
 
 [Dynamic runtime assets][13] are shareable, reusable packages that help you deploy Sensu plugins.
-In this guide, you'll use the [Sensu Slack Handler][14] dynamic runtime asset to power a `slack` handler.
+In this guide, you'll use the [sensu/sensu-slack-handler][14] dynamic runtime asset to power a `slack` handler.
 
-Use [`sensuctl asset add`][10] to register the [Sensu Slack Handler][14] dynamic runtime asset:
+Use [`sensuctl asset add`][10] to register the [sensu/sensu-slack-handler][14] dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-slack-handler:1.5.0 -r sensu-slack-handler
@@ -93,7 +93,7 @@ After you save your webhook, you can find the webhook URL under **Integration Se
 
 ## Create a handler
 
-Use sensuctl to create a handler called `slack` that pipes observation data (events) to Slack using the `sensu-slack-handler` dynamic runtime asset.
+Use sensuctl to create a handler called `slack` that pipes observation data (events) to Slack using the sensu/sensu-slack-handler dynamic runtime asset.
 Before you run the sensuctl command below, edit it to include your Slack webhook URL and the channel where you want to receive events:
 
 {{< code shell >}}

@@ -80,7 +80,7 @@ You can also use the [template toolkit command][11] to print available event att
 
 ## Template toolkit command
 
-The [Sensu template toolkit command][8] is a sensuctl command plugin you can use to print a list of available event attributes in handler template dot notation syntax and validate your handler template output.
+The [sensu/template-toolkit-command][8] dynamic runtime asset provides a sensuctl command plugin you can use to print a list of available event attributes in handler template dot notation syntax and validate your handler template output.
 
 The template toolkit command uses event data you supply via stdin in JSON format.
 
@@ -222,12 +222,12 @@ Sensu<br>
 
 {{< /code >}}
 
-The Sensu Email Handler plugin also includes a UnixTime function that allows you to print timestamp values from events in human-readable format.
-Read the [Sensu Email Handler Bonsai page][9] for details.
+The sensu/sensu-email-handler dynamic runtime asset also includes a UnixTime function that allows you to print timestamp values from events in human-readable format.
+Read the [sensu/sensu-email-handler Bonsai page][9] for details.
 
 ## Sensu PagerDuty Handler example
 
-The [Sensu PagerDuty Handler plugin][10] includes a basic template for the PagerDuty alert summary:
+The [sensu/sensu-pagerduty-handler][10] dynamic runtime asset includes a basic template for the PagerDuty alert summary:
 
 {{< code shell >}}
 "{{.Entity.Name}}/{{.Check.Name}} : {{.Check.Output}}"

@@ -30,7 +30,7 @@ For information about HTTP GET access to internal Sensu metrics, read our [/metr
 
 ## Metric check example
 
-This check definition collects metrics in Graphite Plaintext Protocol [format][9] using the [Sensu System Check][26] dynamic runtime asset and sends the collected metrics to a pipeline configured with handlers that use the [Sensu Go Graphite Handler][12] dynamic runtime asset:
+This check definition collects metrics in Graphite Plaintext Protocol [format][9] using the [sensu/system-check][26] dynamic runtime asset and sends the collected metrics to a pipeline configured with handlers that use the [sensu/sensu-go-graphite-handler][12] dynamic runtime asset:
 
 {{< language-toggle >}}
 
@@ -1084,7 +1084,7 @@ output_metric_tags:
 Metric threshold evaluation extends Sensu's service check and metrics processing capabilities so you can get real-time alerts based on the metrics your Sensu checks collect.
 The Sensu agent analyzes output metrics against the thresholds you specify and overrides the event [check status][36] if the metrics values exceed the threshold values.
  
-For example, the [check][34] from the Sensu Plus guide uses the [Sensu System Check][35] dynamic runtime asset to collect baseline system metrics.
+For example, the [check][34] from the Sensu Plus guide uses the [sensu/system-check][35] dynamic runtime asset to collect baseline system metrics.
 Add the [`output_metric_thresholds`][33] array to get alerts based on the Sensu System Check metrics `system_mem_used` (percent of memory used) and `system_host_processes` (number of host processes):
 
 {{< language-toggle >}}

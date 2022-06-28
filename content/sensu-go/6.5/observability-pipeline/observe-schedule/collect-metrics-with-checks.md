@@ -35,11 +35,11 @@ sensuctl entity list
 
 The `ID` is the name of your entity.
 
-Replace `<entity_name>` with the name of your agent entity in the following [sensuctl][17] command.
+Replace `<ENTITY_NAME>` with the name of your agent entity in the following [sensuctl][17] command.
 Run:
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -55,8 +55,8 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 ## Register the dynamic runtime asset
 
-To power the check to collect service metrics, you will use a check in the [http-checks][7] dynamic runtime asset.
-Use sensuctl to register the http-checks dynamic runtime asset, `sensu/http-checks`:
+To power the check to collect service metrics, you will use a check in the [sensu/http-checks][7] dynamic runtime asset.
+Use sensuctl to register the sensu/http-checks dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/http-checks:0.4.0 -r http-checks

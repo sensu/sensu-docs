@@ -39,11 +39,11 @@ sensuctl entity list
 
 The `ID` is the name of your entity.
 
-Replace `<entity_name>` with the name of your agent entity in the following [sensuctl][16] command.
+Replace `<ENTITY_NAME>` with the name of your agent entity in the following [sensuctl][16] command.
 Run:
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -63,11 +63,11 @@ You can write shell scripts in the `command` field of your check definitions, bu
 Check plugins must be available on the host where the agent is running for the agent to execute the check.
 This guide uses [dynamic runtime assets][2] to manage plugin installation.
 
-### Register the Sensu CPU usage check asset
+### Register the sensu/check-cpu-usage asset
 
-The [Sensu CPU usage check][1] dynamic runtime asset includes the `check-cpu-usage` command, which your CPU check will rely on.
+The [sensu/check-cpu-usage][1] dynamic runtime asset includes the `check-cpu-usage` command, which your CPU check will rely on.
 
-To register the Sensu CPU usage check dynamic runtime asset, `sensu/check-cpu-usage:0.2.2`, run:
+To register the sensu/check-cpu-usage dynamic runtime asset, run:
 
 {{< code shell >}}
 sensuctl asset add sensu/check-cpu-usage:0.2.2 -r check-cpu-usage
@@ -102,7 +102,7 @@ To confirm that both dynamic runtime assets are ready to use, run:
 sensuctl asset list
 {{< /code >}}
 
-The response should list the `check-cpu-usage` and `sensu-processes-check` dynamic runtime assets:
+The response should list the renamed check-cpu-usage and sensu-processes-check dynamic runtime assets:
 
 {{< code text >}}
           Name                                                 URL                                         Hash    
@@ -130,7 +130,7 @@ Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 ## Create a check to monitor a server
 
-Now that the dynamic runtime assets are registered, create a check named `check_cpu` that runs the command `check-cpu-usage -w 75 -c 90` with the `check-cpu-usage` dynamic runtime asset at an interval of 60 seconds for all entities subscribed to the `system` subscription.
+Now that the dynamic runtime assets are registered, create a check named `check_cpu` that runs the command `check-cpu-usage -w 75 -c 90` with the check-cpu-usage dynamic runtime asset at an interval of 60 seconds for all entities subscribed to the `system` subscription.
 This check generates a warning event (`-w`) when CPU usage reaches 75% and a critical alert (`-c`) at 90%.
 
 {{< code shell >}}

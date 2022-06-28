@@ -158,7 +158,7 @@ spec:
 ## Assign the hook to a check
 
 {{% notice note %}}
-**NOTE**: Before you proceed, make sure you have added the [sensu-processes-check](../monitor-server-resources/#register-the-sensu-processes-check-asset) dynamic runtime asset and [`nginx_service` check](../monitor-server-resources/#create-a-check-to-monitor-a-webserver) from the [Monitor server resources](../monitor-server-resources/) guide.
+**NOTE**: Before you proceed, make sure you have added the [sensu/sensu-processes-check](../monitor-server-resources/#register-the-sensu-processes-check-asset) dynamic runtime asset and the [`nginx_service` check](../monitor-server-resources/#create-a-check-to-monitor-a-webserver) from the [Monitor server resources](../monitor-server-resources/) guide.
 The hook you create in this step relies on the `nginx_service` check.
 {{% /notice %}}
 
