@@ -1354,6 +1354,22 @@ arch: amd64
 {{< /code >}}
 {{< /language-toggle >}}
 
+arm_version  | 
+-------------|------ 
+description  | Entity's ARM version. Automatically populated upon agent startup for entities with ARM system architecture. For entities that do not use ARM system architecture, the `arm_version` attribute is omitted from the entity definition.
+required     | false 
+type         | Integer 
+example      | {{< language-toggle >}}
+{{< code yml >}}
+arm_version: 7
+{{< /code >}}
+{{< code json >}}
+{
+  "arm_version": 7
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
 cloud_provider | 
 ---------------|------ 
 description    | Entity's cloud provider environment. Automatically populated upon agent startup if the [`--detect-cloud-provider` flag][25] is set. Returned empty unless the agent runs on Amazon Elastic Compute Cloud (EC2), Google Cloud Platform (GCP), or Microsoft Azure. {{% notice note %}}
@@ -1368,6 +1384,22 @@ example        | {{< language-toggle >}}
 {{< code json >}}
 {
   "cloud_provider": ""
+}
+{{< /code >}}
+{{< /language-toggle >}}
+
+float_type   | 
+-------------|------ 
+description  | Type of float the entity's system architecture uses: `hardfloat` or `softfloat`. Automatically populated upon agent startup for entities with MIPS, MIPS LE, MIPS 64, or MIPS 64 LE system architecture. For entities that do not use a MIPS system architecture, the `float_type` attribute is omitted from the entity definition.
+required     | false 
+type         | String 
+example      | {{< language-toggle >}}
+{{< code yml >}}
+float_type: hardfloat
+{{< /code >}}
+{{< code json >}}
+{
+  "float_type": "hardfloat"
 }
 {{< /code >}}
 {{< /language-toggle >}}
@@ -1390,7 +1422,7 @@ hostname: example-hostname
 
 libc_type    | 
 -------------|------ 
-description  | Entity's libc type. Automatically populated upon agent startup.
+description  | Entity's libc type.
 required     | false 
 type         | String 
 example      | {{< language-toggle >}}
