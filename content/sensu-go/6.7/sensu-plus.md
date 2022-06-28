@@ -194,21 +194,21 @@ EOF
 Your pipeline resource is now properly configured, but it’s not processing any events because no Sensu [checks][9] are sending events to it.
 To get your Sensu observability data flowing through the new pipeline, add the pipeline by reference in at least one check definition.
 
-This example check definition uses the [Sensu System Check][13] dynamic runtime asset.
+This example check definition uses the [sensu/system-check][13] dynamic runtime asset.
 [Dynamic runtime assets][20] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 Follow these steps to configure the required system check:
 
-1. Add the [Sensu System Check][13] dynamic runtime asset:
+1. Add the [sensu/system-check][13] dynamic runtime asset:
 {{< code shell >}}
 sensuctl asset add sensu/system-check:0.1.1 -r system-check
 {{< /code >}}
 
 2. Update at least one Sensu entity to use the `system` subscription.
-In the following command, replace `<entity_name>` with the name of the entity on your system.
+In the following command, replace `<ENTITY_NAME>` with the name of the entity on your system.
 Then, run:
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
     - For `Entity Class`, press enter.

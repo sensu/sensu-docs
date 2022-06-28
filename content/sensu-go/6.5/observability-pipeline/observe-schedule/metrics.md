@@ -30,7 +30,7 @@ For information about HTTP GET access to internal Sensu metrics, read our [/metr
 
 ## Metric check example
 
-This check definition collects metrics in Graphite Plaintext Protocol [format][9] using the [Sensu System Check][26] dynamic runtime asset and sends the collected metrics to a pipeline configured with handlers that use the [Sensu Go Graphite Handler][12] dynamic runtime asset:
+This check definition collects metrics in Graphite Plaintext Protocol [format][9] using the [sensu/system-check][26] dynamic runtime asset and sends the collected metrics to a pipeline configured with handlers that use the [sensu/sensu-go-graphite-handler][12] dynamic runtime asset:
 
 {{< language-toggle >}}
 

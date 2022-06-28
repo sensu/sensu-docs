@@ -37,7 +37,7 @@ Instead of creating a different check for every set of thresholds, you can use t
 
 Follow this example to set up a reusable check for disk usage:
 
-1. Add the [Sensu disk usage check][13] dynamic runtime asset, which includes the command you will need for your check:
+1. Add the [sensu/check-disk-usage][13] dynamic runtime asset, which includes the command you will need for your check:
 {{< code shell >}}
 sensuctl asset add sensu/check-disk-usage:0.6.0
 {{< /code >}}

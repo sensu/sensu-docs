@@ -229,8 +229,8 @@ You can also list the three handlers in the [handlers array][33] in your check d
 
 {{% notice protip %}}
 **PRO TIP**: This scenario relies on six different resources, three event filters and three handlers, to describe the handler stack concept, but you can use Sensu dynamic runtime assets and integrations to achieve the same escalating alert levels in other ways.<br><br>
-For example, you can use the `is_incident` event filter in conjunction with the [Sensu Go Fatigue Check Filter](https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter) asset to control event escalation.
-Sensu's [Ansible](../../../plugins/featured-integrations/ansible/), [Rundeck](../../../plugins/featured-integrations/rundeck/), and [Saltstack](../../../plugins/featured-integrations/saltstack/) auto-remediation integrations and the [Sensu Remediation Handler](https://bonsai.sensu.io/assets/sensu/sensu-remediation-handler) asset also include built-in occurrence- and severity-based event filtering.
+For example, you can use the `is_incident` event filter in conjunction with the [sensu/sensu-go-fatigue-check-filter](https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter) asset to control event escalation.
+The [sensu/sensu-ansible-handler](https://bonsai.sensu.io/assets/sensu/sensu-ansible-handler), [sensu/sensu-rundeck-handler](https://bonsai.sensu.io/assets/sensu/sensu-rundeck-handler), and [sensu/sensu-saltstack-handler](https://bonsai.sensu.io/assets/sensu/sensu-saltstack-handler) auto-remediation integrations and the [sensu/sensu-remediation-handler](https://bonsai.sensu.io/assets/sensu/sensu-remediation-handler) asset also include built-in occurrence- and severity-based event filtering.
 {{% /notice %}}
 
 ## Keepalive event handlers
@@ -751,7 +751,7 @@ secret: sensu-ansible-host
 ## Send Slack alerts
 
 This handler will send alerts to a channel named `monitoring` with the configured webhook URL, using the `handler-slack` executable command.
-The handler uses the [Sensu Slack Handler][34] dynamic runtime asset.
+The handler uses the [sensu/sensu-slack-handler][34] dynamic runtime asset.
 Read [Send Slack alerts with handlers][35] for detailed instructions for adding the required asset and configuring this handler.
 
 {{< language-toggle >}}

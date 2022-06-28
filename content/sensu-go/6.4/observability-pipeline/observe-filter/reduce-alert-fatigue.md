@@ -34,7 +34,7 @@ For an agent to execute a specific check, you must specify the same subscription
 The examples in this guide use a check that includes the subscription `system`.
 Use [sensuctl][12] to add a `system` subscription to one of your entities.
 
-Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
+Before you run the following code, replace `<ENTITY_NAME>` with the name of the entity on your system.
 
 {{% notice note %}}
 **NOTE**: To find your entity name, run `sensuctl entity list`.
@@ -42,7 +42,7 @@ The `ID` is the name of your entity.
 {{% /notice %}}
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -225,7 +225,7 @@ This will help you understand what dynamic runtime assets are and how they are u
 
 In this approach, the first step is to obtain an event filter dynamic runtime asset that will allow you to replicate the behavior of the `hourly` event filter created in [Approach 1 via `sensuctl`][4].
 
-Use `sensuctl asset add` to register the [fatigue check filter][8] dynamic runtime asset:
+Use `sensuctl asset add` to register the [sensu/sensu-go-fatigue-check-filter][8] dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-go-fatigue-check-filter:0.8.1 -r fatigue-filter

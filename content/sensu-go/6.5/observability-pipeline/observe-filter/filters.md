@@ -172,7 +172,7 @@ spec:
 
 ### Filter dynamic runtime assets
 
-Sensu event filters can have dynamic runtime assets that are included in their execution context.
+Sensu event filters can include dynamic runtime assets in their execution context.
 When valid dynamic runtime assets are associated with an event filter, Sensu evaluates any files it finds that have a `.js` extension before executing the filter.
 The result of evaluating the scripts is cached for a given asset set for the sake of performance.
 For an example of how to implement an event filter as an asset, read [Reduce alert fatigue][30].

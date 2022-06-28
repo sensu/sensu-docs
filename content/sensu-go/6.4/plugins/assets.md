@@ -304,8 +304,8 @@ Use the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][4
 
 ### Dynamic runtime asset build execution
 
-The directory path of each dynamic runtime asset defined in `runtime_assets` is appended to the `PATH` before the handler, filter, mutator, or check `command` is executed.
-Subsequent handler, filter, mutator, or check executions look for the dynamic runtime asset in the local cache and ensure that the contents match the configured checksum.
+The directory path of each dynamic runtime asset listed in a check, event filter, handler, or mutator resource's `runtime_assets` array is appended to the `PATH` before the resource's `command` is executed.
+Subsequent check, event filter, handler, or mutator executions look for the dynamic runtime asset in the local cache and ensure that the contents match the configured checksum.
 
 The following example demonstrates a use case with a Sensu check resource and an asset:
 
@@ -1041,7 +1041,7 @@ headers:
 
 Use the [entity.system attributes][10] in dynamic runtime asset [filters][42] to specify which systems and configurations an asset or asset builds can be used with.
 
-For example, the [Sensu Go Ruby Runtime][43] dynamic runtime asset definition includes several builds, each with filters for several `entity.system` attributes:
+For example, the [sensu/sensu-ruby-runtime][43] dynamic runtime asset definition includes several builds, each with filters for several `entity.system` attributes:
 
 {{< language-toggle >}}
 
@@ -1258,8 +1258,9 @@ example      | {{< code yml >}}
 
 ## Delete dynamic runtime assets
 
-Delete dynamic runtime assets with the `/assets (DELETE)` endpoint or via `sensuctl` (`sensuctl asset delete`).
-When you remove a dynamic runtime asset from Sensu, this _*does not*_ remove references to the deleted asset in any other resource (including checks, filters, mutators, handlers, and hooks).
+Delete dynamic runtime assets with a DELETE request to the `/assets` API endpoint or with the `sensuctl asset delete` command.
+
+Removing a dynamic runtime asset from Sensu *does not* remove references to the deleted asset in any other resource (including checks, filters, mutators, handlers, and hooks).
 You must also update resources and remove any reference to the deleted dynamic runtime asset.
 Failure to do so will result in errors like `sh: asset.sh: command not found`. 
 

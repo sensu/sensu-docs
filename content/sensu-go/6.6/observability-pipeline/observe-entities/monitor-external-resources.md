@@ -35,10 +35,10 @@ Use sensuctl to add the `run_proxies` subscription to the entity the Sensu agent
 The `ID` is the name of your entity.
 {{% /notice %}}
 
-Before you run the following code, replace `<entity_name>` with the name of the entity on your system.
+Before you run the following code, replace `<ENTITY_NAME>` with the name of the entity on your system.
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -54,10 +54,10 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 ### Register dynamic runtime asset
 
-To power the check, you'll use the [http-checks][16] dynamic runtime asset.
-This community-tier asset includes `http-check`, the http status check command that [your check][15] will rely on.
+To power the check, you'll use the [sensu/http-checks][16] dynamic runtime asset.
+This community-tier asset includes the http status check command that [your check][15] will rely on.
 
-Use [`sensuctl asset add`][21] to register the http-checks dynamic runtime asset, `sensu/http-checks`:
+Use [`sensuctl asset add`][21] to register the dynamic runtime asset:
 
 {{< code shell >}}
 sensuctl asset add sensu/http-checks:0.5.0 -r http-checks
@@ -84,7 +84,7 @@ Use sensuctl to confirm that the dynamic runtime asset is ready to use:
 sensuctl asset list
 {{< /code >}}
 
-The response should list the `http-checks` dynamic runtime asset:
+The response should list the sensu/http-checks dynamic runtime asset (renamed to `http-checks`):
 
 {{< code text >}}
      Name                                       URL                                    Hash    
@@ -104,7 +104,7 @@ Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 ### Create the check
 
-Now that the dynamic runtime asset is registered, you can create a check named `check-sensu-site` to run the command `http-check --url https://sensu.io` with the `http-checks` dynamic runtime asset, at an interval of 15 seconds, for all agents subscribed to the `run_proxies` subscription, using the `sensu-site` proxy entity name.
+Now that the dynamic runtime asset is registered, you can create a check named `check-sensu-site` to run the command `http-check --url https://sensu.io` with the [sensu/http-checks][16] dynamic runtime asset, at an interval of 15 seconds, for all agents subscribed to the `run_proxies` subscription, using the `sensu-site` proxy entity name.
 
 The check includes the [`round_robin` attribute][18] set to `true` to distribute the check execution across all agents subscribed to the `run_proxies` subscription and avoid duplicate events.
 
@@ -422,9 +422,9 @@ The response should include the `check-http` check:
 
 ### Validate the check
 
-Before you validate the check, make sure that you've [registered the `http-checks` dynamic runtime asset][13] and [added the `run_proxies` subscription to a Sensu agent][14].
+Before you validate the check, make sure that you've [registered the sensu/http-checks dynamic runtime asset][13] and [added the `run_proxies` subscription to a Sensu agent][14].
 
-Use sensuctl to confirm that Sensu is monitoring docs.sensu.io, packagecloud.io, and github.com with the `check-http`, returning a status of `0` (OK):
+Use sensuctl to confirm that Sensu is monitoring docs.sensu.io, packagecloud.io, and github.com with the `check-http` check, returning a status of `0` (OK):
 
 {{< code shell >}}
 sensuctl event list

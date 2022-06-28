@@ -37,11 +37,11 @@ sensuctl entity list
 
 The `ID` in the response is the name of your entity.
 
-Replace `<entity_name>` with the name of your entity in the [sensuctl][12] command below.
+Replace `<ENTITY_NAME>` with the name of your entity in the [sensuctl][12] command below.
 Then run the command to add the `system` [subscription][13] to your entity:
 
 {{< code shell >}}
-sensuctl entity update <entity_name>
+sensuctl entity update <ENTITY_NAME>
 {{< /code >}}
 
 - For `Entity Class`, press enter.
@@ -57,9 +57,9 @@ The response should indicate `active (running)` for both the Sensu backend and a
 
 ## Register the dynamic runtime asset
 
-The [Sensu PagerDuty Handler][8] dynamic runtime asset includes the scripts you will need to send events to PagerDuty.
+The [sensu/sensu-pagerduty-handler][8] dynamic runtime asset includes the scripts you will need to send events to PagerDuty.
 
-To add the PagerDuty handler asset, run:
+To add the sensu/sensu-pagerduty-handler asset, run:
 
 {{< code shell >}}
 sensuctl asset add sensu/sensu-pagerduty-handler:2.2.0 -r pagerduty-handler
@@ -95,14 +95,14 @@ Read the [asset reference](../../../plugins/assets#dynamic-runtime-asset-builds)
 
 Now that you've added the dynamic runtime asset, you can create a [handler][9] that uses the asset to send non-OK events to PagerDuty.
 
-In the following command, replace `<pagerduty_key>` with your [PagerDuty API integration key][1].
+In the following command, replace `<PAGERDUTY_KEY>` with your [PagerDuty API integration key][1].
 Then run the updated command:
 
 {{< code shell >}}
 sensuctl handler create pagerduty \
 --type pipe \
 --runtime-assets pagerduty-handler \
---command "sensu-pagerduty-handler -t <pagerduty_key>"
+--command "sensu-pagerduty-handler -t <PAGERDUTY_KEY>"
 {{< /code >}}
 
 {{% notice note %}}
@@ -137,7 +137,7 @@ api_version: core/v2
 metadata:
   name: pagerduty
 spec:
-  command: sensu-pagerduty-handler -t <pagerduty_key>
+  command: sensu-pagerduty-handler -t <PAGERDUTY_KEY>
   env_vars: null
   handlers: null
   runtime_assets:
@@ -155,7 +155,7 @@ spec:
     "name": "pagerduty"
   },
   "spec": {
-    "command": "sensu-pagerduty-handler -t <pagerduty_key>",
+    "command": "sensu-pagerduty-handler -t <PAGERDUTY_KEY>",
     "env_vars": null,
     "handlers": null,
     "runtime_assets": [
@@ -179,7 +179,7 @@ spec:
 With your handler configured, you can add it to a [pipeline][17] workflow.
 A single pipeline workflow can include one or more filters, one mutator, and one handler.
 
-In this case, the pipeline includes the built-in [is_incident][21] and [not_silenced][22] event filters, as well as the PagerDuty handler you've already configured.
+In this case, the pipeline includes the built-in [is_incident][21] and [not_silenced][22] event filters, as well as the `pagerduty` handler you've already configured.
 To create the pipeline, run:
 
 {{< language-toggle >}}
