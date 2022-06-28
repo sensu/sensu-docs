@@ -228,11 +228,9 @@ With these event filters and handlers configured, you can create a [handler set]
 You can also list the three handlers in the [handlers array][33] in your check definition instead.
 
 {{% notice protip %}}
-{{% notice protip %}}
 **PRO TIP**: This scenario relies on six different resources, three event filters and three handlers, to describe the handler stack concept, but you can use Sensu dynamic runtime assets and integrations to achieve the same escalating alert levels in other ways.<br><br>
 For example, you can use the `is_incident` event filter in conjunction with the [sensu/sensu-go-fatigue-check-filter](https://bonsai.sensu.io/assets/sensu/sensu-go-fatigue-check-filter) asset to control event escalation.
 The [sensu/sensu-ansible-handler](https://bonsai.sensu.io/assets/sensu/sensu-ansible-handler), [sensu/sensu-rundeck-handler](https://bonsai.sensu.io/assets/sensu/sensu-rundeck-handler), and [sensu/sensu-saltstack-handler](https://bonsai.sensu.io/assets/sensu/sensu-saltstack-handler) auto-remediation integrations and the [sensu/sensu-remediation-handler](https://bonsai.sensu.io/assets/sensu/sensu-remediation-handler) asset also include built-in occurrence- and severity-based event filtering.
-{{% /notice %}}
 {{% /notice %}}
 
 ## Keepalive event handlers
