@@ -644,10 +644,10 @@ To clear etcd alarms:
 etcdctl alarm disarm
 {{< /code >}}
 
-### Restore a cluster with an oversized database 
+### Restore a cluster with an oversized database
 
-The etcd default maximum database size is 2 GB.
-If you suspect your etcd database exceeds the maximum size, run this command to confirm cluster size:
+The default Sensu backend configuration sets the maximum etcd database size to 4 GB.
+If you suspect your etcd database exceeds 4 GB, run this command to confirm cluster size:
 
 {{< code shell >}}
 etcdctl endpoint status
@@ -656,12 +656,12 @@ etcdctl endpoint status
 The response will list the current cluster status and database size:
 
 {{< code text >}}
-https://backend01:2379, 88db026f7feb72b4, 3.5.0, 2.1GB, false, 144, 18619245
-https://backend02:2379, e98ad7a888d16bd6, 3.5.0, 2.1GB, true, 144, 18619245
-https://backend03:2379, bc4e39432cbb36d, 3.5.0, 2.1GB, false, 144, 18619245
+https://backend01:2379, 88db026f7feb72b4, 3.5.0, 4.1GB, false, 144, 18619245
+https://backend02:2379, e98ad7a888d16bd6, 3.5.0, 4.1GB, true, 144, 18619245
+https://backend03:2379, bc4e39432cbb36d, 3.5.0, 4.1GB, false, 144, 18619245
 {{< /code >}}
 
-To restore an etcd cluster with a database size that exceeds 2 GB:
+To restore an etcd cluster with a database size that exceeds 4 GB:
 
 1. Get the current revision number:
 {{< code shell >}}
@@ -887,3 +887,4 @@ Read the documentation for your browser to learn more about the web developer to
 [27]: https://golang.google.cn/doc/go1.15#commonname
 [28]: ../../deploy-sensu/generate-certificates/
 [29]: https://etcd.io/docs/latest/dev-guide/interacting_v3/
+[30]: ../../../observability-pipeline/observe-schedule/backend/
